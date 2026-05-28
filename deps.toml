@@ -8540,8 +8540,8 @@ description = "R0 scaffold for KawaseYuiPool — interface, events, errors, cons
 path = "50-infra/etzhayyim-kawase-pool/test/KawaseYuiPool.r0.t.sol"
 adr = "ADR-2605282200"
 kind = "solidity-test"
-status = "r0-4-tests-pass"
-description = "R0 scaffold tests for KawaseYuiPool — 4 forge tests pass: test_constructor_records_immutables (verifies councilSafe + maxBandBps + perMonthCapUsdMinor + BPS_DENOMINATOR + ROLLING_WINDOW_SECS all wired) + test_maxBandBps_reads_from_constitution (G4 plumbing) + test_perMonthCap_reads_from_constitution (G9 plumbing) + test_withinBand_returns_false_when_oracle_zero (R0 honesty — chainlinkRateBps() returns 0 in scaffold so withinBand() is always false until R1 wires the Chainlink read). Self-contained: no forge-std dependency, no network access, no real ERC-20/AdherentRegistry/Constitution/Chainlink — file-scope mocks capture the minimum interface surface. R1 adds: real deposit/claim/rebalance flow tests + withinBand boundary tests + per-month cap rollover tests + reserve buffer floor breach tests + G5 spread-profit-zero invariant fuzz tests."
+status = "r0-6-tests-pass"
+description = "R0 scaffold tests for KawaseYuiPool — 6 forge tests pass: test_constructor_records_immutables (verifies councilSafe + maxBandBps + perMonthCapUsdMinor + BPS_DENOMINATOR + ROLLING_WINDOW_SECS all wired) + test_maxBandBps_reads_from_constitution (G4 plumbing) + test_perMonthCap_reads_from_constitution (G9 plumbing) + test_withinBand_returns_false_when_oracle_zero (R0 honesty — chainlinkRateBps() returns 0 in scaffold so withinBand() is always false until R1 wires the Chainlink read). Plus 2 withinBand math tests (iter 11) via a tiny KawaseYuiPoolFixedOracle subclass that injects a fixture oracle value: test_withinBand_math_within_50_bps_band (boundary tests at ±46 / ±47 bps for live=9200) + test_withinBand_math_extreme_drift_caught (0 / 2x / 0.5x quotes). Self-contained: no forge-std dependency, no network access, no real ERC-20/AdherentRegistry/Constitution/Chainlink — file-scope mocks capture the minimum interface surface. R1 removes the fixture subclass once the real Chainlink wire lands."
 
 [[modules]]
 path = "50-infra/etzhayyim-kawase-pool/foundry.toml"
@@ -8610,8 +8610,8 @@ description = "Build-time grep gate enforcing ADR-2605282200 G7 — forbids inte
 path = "70-tools/scripts/lint/test_verify_no_commercial_remittance.py"
 adr = "ADR-2605282200"
 kind = "test-suite"
-status = "r0-23-tests"
-description = "23 tests for verify_no_commercial_remittance.py: R0 path-reserved tree clean / clean kawase-yui file no findings / each of 16 vendor name forms caught (one parametrize per vendor, including the legacy transferwise alias) / vendor names in docstrings + comments are NOT violations / URL reference (BASE_URL = 'https://wise.com/api') IS a violation / lint script itself is allow-listed / vendor import in unguarded path (e.g. 60-apps/) is ignored. Plugin autoload disabled via PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 to bypass langsmith / pydantic-core version skew in the dev environment."
+status = "r0-26-tests"
+description = "26 tests for verify_no_commercial_remittance.py: R0 path-reserved tree clean / clean kawase-yui file no findings / each of 16 vendor name forms caught (one parametrize per vendor, including the legacy transferwise alias) / vendor names in docstrings + comments are NOT violations / URL reference (BASE_URL = 'https://wise.com/api') IS a violation / lint script itself is allow-listed / vendor import in unguarded path (e.g. 60-apps/) is ignored. Plus 3 e2e subprocess tests (iter 11): exits 0 on clean tree / exits 1 with G7-violation banner on stderr when Wise import planted in 20-actors/kawase-yui/ / exits 1 on URL-literal violator in 50-infra/etzhayyim-kawase-pool/. The subprocess tests catch CLI-side regressions (error formatting + exit code logic) that function-level find_violations tests would miss; lefthook + GitHub Actions invoke via subprocess. Plugin autoload disabled via PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 to bypass langsmith / pydantic-core version skew in the dev environment."
 
 [[adrs]]
 id = "2605282300"

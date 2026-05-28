@@ -165,3 +165,102 @@ def test_unguarded_path_is_ignored(verifier, tmp_path):
     )
     findings = verifier.find_violations(tmp_path)
     assert findings == []
+
+
+# ---------------------------------------------------------------------
+#  End-to-end subprocess tests — exercise the hook the way lefthook +
+#  GitHub Actions invoke it (not via library import) so a regression
+#  in the CLI entry point can't sneak past the function-level tests.
+# ---------------------------------------------------------------------
+
+
+def test_e2e_subprocess_exits_zero_when_clean(tmp_path):
+    """Run the script as a subprocess with --root pointed at a clean
+    tmpfs tree. Must exit 0 with the clean banner on stdout.
+    """
+    import subprocess
+    import sys
+
+    # Create the guarded directory so the script has something to walk
+    # but with no violator content.
+    pkg = tmp_path / "20-actors" / "kawase-yui"
+    pkg.mkdir(parents=True)
+    (pkg / "clean.py").write_text("def noop(): return None\n", encoding="utf-8")
+
+    result = subprocess.run(
+        [sys.executable, str(_SCRIPT), "--root", str(tmp_path)],
+        capture_output=True,
+        text=True,
+        timeout=10,
+    )
+    assert result.returncode == 0, (
+        f"Expected exit 0 on clean tree. stdout={result.stdout!r} "
+        f"stderr={result.stderr!r}"
+    )
+    assert "gate: clean" in result.stdout
+
+
+def test_e2e_subprocess_exits_one_when_violator_present(tmp_path):
+    """Run the script as a subprocess with --root pointed at a tmpfs
+    tree containing a synthetic Wise import in a guarded path. Must
+    exit 1 with the G7-violation banner on stderr.
+
+    This catches regressions in the CLI-side error-formatting + exit
+    code logic that the function-level find_violations tests would
+    miss. lefthook + GitHub Actions invoke the script via subprocess,
+    not via library import, so this is the higher-fidelity test.
+    """
+    import subprocess
+    import sys
+
+    # Plant the synthetic violator in the actor root (one of the
+    # canonical guarded paths declared in _GUARDED_ROOTS).
+    pkg = tmp_path / "20-actors" / "kawase-yui"
+    pkg.mkdir(parents=True)
+    (pkg / "evil.py").write_text(
+        "from wise import api\n# G7 violator for the e2e test\n",
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [sys.executable, str(_SCRIPT), "--root", str(tmp_path)],
+        capture_output=True,
+        text=True,
+        timeout=10,
+    )
+    assert result.returncode == 1, (
+        f"Expected exit 1 on violator. stdout={result.stdout!r} "
+        f"stderr={result.stderr!r}"
+    )
+    assert "ADR-2605282200 G7 violation" in result.stderr, (
+        f"Expected G7 violation banner in stderr; got {result.stderr!r}"
+    )
+    # Violation message should name the file + the matched vendor token.
+    assert "evil.py" in result.stderr
+    assert "wise" in result.stderr.lower()
+
+
+def test_e2e_subprocess_exits_one_on_url_in_guarded_path(tmp_path):
+    """URL-literal violator (string-assignment style) also exits 1 via
+    subprocess. Complements test_url_reference_is_violation by
+    covering the CLI entry point.
+    """
+    import subprocess
+    import sys
+
+    pkg = tmp_path / "50-infra" / "etzhayyim-kawase-pool"
+    pkg.mkdir(parents=True)
+    (pkg / "url_violator.py").write_text(
+        "BASE_URL = 'https://moneygram.com/api/v1/send'\n",
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [sys.executable, str(_SCRIPT), "--root", str(tmp_path)],
+        capture_output=True,
+        text=True,
+        timeout=10,
+    )
+    assert result.returncode == 1
+    assert "G7 violation" in result.stderr
+    assert "moneygram" in result.stderr.lower()

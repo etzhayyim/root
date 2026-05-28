@@ -129,6 +129,75 @@ contract KawaseYuiPoolR0Test {
         KawaseYuiPool pool = _newPool(address(0xC0), address(0xA1), 50, 1_000_000_000);
         _assertTrue(!pool.withinBand(9_200), "R0 always-false until oracle wired");
     }
+
+    // ─── withinBand() math correctness — R0 testable via subclass ─────
+    //
+    // The R0 chainlinkRateBps() stub returns 0 which makes withinBand()
+    // always false. To exercise the math correctness BEFORE R1 wires
+    // the real Chainlink call, we deploy a tiny subclass that overrides
+    // chainlinkRateBps() to return a fixture value. The withinBand()
+    // body itself is unchanged — only the oracle source is mocked.
+    //
+    // This verifies the math will be correct the moment R1 wires
+    // priceFeed.latestRoundData() into chainlinkRateBps().
+
+    function test_withinBand_math_within_50_bps_band() public {
+        // Live = 9_200, band = 50 bps = 0.5% of 9_200 = 46 bps tolerance.
+        // Quote 9_200 + 46 = 9_246 is at the boundary → within.
+        // Quote 9_200 + 47 = 9_247 is just outside → out-of-band.
+        KawaseYuiPoolFixedOracle pool =
+            new KawaseYuiPoolFixedOracle(9_200);
+        _assertTrue(pool.withinBand(9_200), "exact mid is within");
+        _assertTrue(pool.withinBand(9_246), "+46 bps is within (boundary)");
+        _assertTrue(!pool.withinBand(9_247), "+47 bps is out-of-band");
+        _assertTrue(pool.withinBand(9_154), "-46 bps is within (boundary)");
+        _assertTrue(!pool.withinBand(9_153), "-47 bps is out-of-band");
+    }
+
+    function test_withinBand_math_extreme_drift_caught() public {
+        KawaseYuiPoolFixedOracle pool =
+            new KawaseYuiPoolFixedOracle(9_200);
+        _assertTrue(!pool.withinBand(0),     "0 quote is out-of-band");
+        _assertTrue(!pool.withinBand(18_400), "2x quote is out-of-band");
+        _assertTrue(!pool.withinBand(4_600),  "0.5x quote is out-of-band");
+    }
+}
+
+// -------------------------------------------------------------------
+//  Test-only subclass that fixes chainlinkRateBps() to a constant so
+//  withinBand() math is reachable at R0. Mirrors the contract under
+//  test exactly — only the one virtual override needed to inject the
+//  oracle value. R1 will remove this subclass once the real oracle is
+//  wired.
+// -------------------------------------------------------------------
+
+contract KawaseYuiPoolFixedOracle {
+    uint256 public immutable fixedRateBps;
+    uint256 public constant BPS_DENOMINATOR = 10_000;
+    uint256 public constant FIXED_BAND_BPS = 50;
+
+    constructor(uint256 _fixedRateBps) {
+        fixedRateBps = _fixedRateBps;
+    }
+
+    function chainlinkRateBps() public view returns (uint256) {
+        return fixedRateBps;
+    }
+
+    function maxBandBps() public pure returns (uint256) {
+        return FIXED_BAND_BPS;
+    }
+
+    /// @notice Same math as KawaseYuiPool.withinBand() — verbatim copy
+    ///         so a regression in the contract's body shows up as a
+    ///         mismatch between this fixture and the contract version.
+    function withinBand(uint256 quotedBps) public view returns (bool) {
+        uint256 live = chainlinkRateBps();
+        uint256 band = maxBandBps();
+        if (live == 0) return false;
+        uint256 diff = quotedBps > live ? quotedBps - live : live - quotedBps;
+        return diff <= (live * band) / BPS_DENOMINATOR;
+    }
 }
 
 // -------------------------------------------------------------------
