@@ -10569,6 +10569,28 @@
       "lastVerified": "2026-05-27"
     },
     {
+      "id": "doc:adr-2605280800-moemoekyun-r15-empirical-findings-and-expert-scaling-analysis",
+      "type": "TechArticle",
+      "title": "moemoekyun R1.5 — 66-cycle empirical findings + expert-count scaling analysis (cycle 17-82)",
+      "status": "active",
+      "topic": "moemoekyun-r15-empirical-findings",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Empirical results across 66 cycles of moemoekyun R1.4 / NC-free / R1.5 train + bench",
+        "8 canonical bench Δ measurements + 5-plateau ceiling finding",
+        "Expert-count scaling analysis (16 / 32 / 64 experts → identical bench scores)",
+        "Path forward beyond frozen-backbone ceiling = R2 architectural unfreeze"
+      ],
+      "related": [
+        "doc:90-docs/baien/bench-snapshot-260526-bitnet2b-canonical.jsonl",
+        "doc:90-docs/baien/bench-datasets-cid-manifest.jsonl",
+        "doc:90-docs/baien/runpod-5090-runlog-260526.jsonl",
+        "doc:90-docs/baien/mxfp4-hardware-availability-finding-260526.md",
+        "doc:70-tools/baien-moemoekyun-train/scripts/*"
+      ],
+      "lastVerified": "2026-05-28"
+    },
+    {
       "id": "doc:adr-2605281000-loop-arc-session-close",
       "type": "TechArticle",
       "title": "ADR-2605281000: /loop arc session close (cycles 27-75; 8-axis registry enforcement matrix complete; Pattern F saturated)",
@@ -10585,6 +10607,24 @@
         "doc:doc-registry-matrix-cycles-58-69-retrospective-260527",
         "doc:doc-axis-9-saturation-survey-260527",
         "doc:doc-lexicon-deep-dive-260528"
+      ],
+      "lastVerified": "2026-05-28"
+    },
+    {
+      "id": "doc:adr-2605281700-kotoba-content-addressed-monorepo-projection",
+      "type": "TechArticle",
+      "title": "ADR-2605281700: kotoba content-addressed monorepo projection — files SoT, IPFS+DataLad sync, kotoba quad index",
+      "status": "proposed",
+      "topic": "kotoba-monorepo-projection",
+      "authoritative": true,
+      "authoritativeFor": [
+        "quad schema for monorepo data projection into kotoba",
+        "direction-of-truth between filesystem, IPFS, DataLad, and kotoba",
+        "phasing of monorepo-into-kotoba ingestion work"
+      ],
+      "related": [
+        "doc:adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "doc:adr-2605231902-feed-post-membrane-and-feed-discover-projection"
       ],
       "lastVerified": "2026-05-28"
     },
