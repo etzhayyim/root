@@ -26,7 +26,10 @@ def test_none_routes_to_litellm_gateway(fleet) -> None:
     assert r.backend == "litellm-gateway"
     assert r.url == "http://192.168.1.17:4000"
     assert r.kind == "openai-compatible"
-    assert r.auth_bearer_env is None
+    # The judah-hosted LiteLLM gateway requires bearer auth per
+    # ADR-2605282400 §"Routing fix" (empirically verified 2026-05-28 —
+    # without this the gateway returns 401 Unauthorized).
+    assert r.auth_bearer_env == "LITELLM_MASTER_KEY"
 
 
 def test_any_str_routes_to_litellm_gateway(fleet) -> None:

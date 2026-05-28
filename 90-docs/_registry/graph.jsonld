@@ -10746,6 +10746,19 @@
       "lastVerified": "2026-05-28"
     },
     {
+      "id": "doc:adr-2605282400-kotoba-murakumo-live-fleet-verification-and-judah-gateway-fix",
+      "type": "TechArticle",
+      "title": "ADR-2605282400: kotoba_murakumo live-verified on Murakumo fleet 2026-05-28 + judah gateway LITELLM_MASTER_KEY routing fix",
+      "status": "proposed",
+      "topic": "kotoba-murakumo-live-verification",
+      "authoritative": true,
+      "authoritativeFor": [
+        "live-verification record of kotoba_murakumo end-to-end on the Murakumo fleet",
+        "judah gateway bearer-auth env-var convention (LITELLM_MASTER_KEY)"
+      ],
+      "lastVerified": "2026-05-28"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

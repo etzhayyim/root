@@ -16496,6 +16496,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605282400-kotoba-murakumo-live-fleet-verification-and-judah-gateway-fix.md",
+      "id": "adr-2605282400-kotoba-murakumo-live-fleet-verification-and-judah-gateway-fix",
+      "title": "ADR-2605282400: kotoba_murakumo live-verified on Murakumo fleet 2026-05-28 + judah gateway LITELLM_MASTER_KEY routing fix",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-murakumo-live-verification",
+      "authoritative": true,
+      "authoritative_for": [
+        "live-verification record of kotoba_murakumo end-to-end on the Murakumo fleet",
+        "judah gateway bearer-auth env-var convention (LITELLM_MASTER_KEY)"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605282000",
+        "2605282100",
+        "2605282300",
+        "2605215000"
+      ],
+      "last_verified": "2026-05-28",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

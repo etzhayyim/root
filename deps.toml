@@ -8301,8 +8301,9 @@ description = "stdlib tomllib-backed loader for 50-infra/murakumo/fleet.toml. Ty
 path = "40-engine/kotoba_murakumo/kotoba_murakumo/_internal/routing.py"
 adr = "ADR-2605282000"
 kind = "python-module"
-status = "r0-active"
-description = "Pure-function selector→endpoint resolver. Inputs: (GpuSpec | str | None, model, FleetView). Output: ResolvedRoute(url, model, backend, kind, auth_bearer_env). Rules: gpu=None|Any → LiteLLM gateway judah:4000; gpu=MacMini(node=) → that node's own-node Ollama :11434; gpu=EvoX2(prefer=) → EVO-X2 LiteLLM/Ollama/ComfyUI; gpu=WebGPU → R2 not-implemented; gpu='A100'/'H100'/'A10G'/'T4'/'L4' string → EvoX2 with N5 honest warning logged. No HTTP traffic in this module."
+status = "r1.3-active-with-LITELLM_MASTER_KEY-fix"
+amends = ["ADR-2605282400"]
+description = "Pure-function selector→endpoint resolver. Inputs: (GpuSpec | str | None, model, FleetView). Output: ResolvedRoute(url, model, backend, kind, auth_bearer_env). Rules: gpu=None|Any → LiteLLM gateway judah:4000 (auth_bearer_env='LITELLM_MASTER_KEY' since ADR-2605282400 live-verification fix; gateway returns 401 without it per 60-apps/ai-gftd-project-murakumo/litellm/config.yaml master_key line 78); gpu=MacMini(node=) → that node's own-node Ollama :11434 (no auth); gpu=EvoX2(prefer=) → EVO-X2 LiteLLM/Ollama/ComfyUI (LiteLLM uses EVO_X2_LITELLM_KEY); gpu=WebGPU → R2 not-implemented; gpu='A100'/'H100'/'A10G'/'T4'/'L4' string → EvoX2 with N5 honest warning logged. No HTTP traffic in this module."
 
 [[modules]]
 path = "40-engine/kotoba_murakumo/kotoba_murakumo/modal_compat.py"
@@ -8597,3 +8598,11 @@ adr = "ADR-2605282300"
 kind = "test-runner"
 status = "r1.3b-active"
 description = "Monorepo-side test runner for 40-engine/kotoba_murakumo/. Replaces the deleted 40-engine/kotoba/scripts/test-py.sh that was inside the kotoba subrepo. Resolves PKG_DIR to $REPO_ROOT/40-engine/kotoba_murakumo (post-relocation path per ADR-2605282300). Sets PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 default to avoid the global-site-packages langsmith / pydantic-core version-mismatch issue on the dev box. Passes through positional args to pytest. Exit 0 on green; non-zero on first failure."
+
+[[adrs]]
+id = "2605282400"
+title = "kotoba_murakumo live-verified on Murakumo fleet 2026-05-28 + judah gateway LITELLM_MASTER_KEY routing fix"
+status = "proposed"
+status_note = "Live verification closure for R1.3b. 4 end-to-end demos against naphtali (192.168.1.18:11434, gemma3:1b) all green: (1) sync .remote() via Modal-shape `gpu=modal.gpu.A10G()` ('Positive\\n', 358ms) → switched to gpu.MacMini(node='naphtali') for working path; (2) .map() batch concurrency=3 ('H2O / Burning / Quiet', 324ms); (3) async .stream() SSE token-by-token (123 chars, 568ms); (4) BudgetExceeded raises BEFORE HTTP (cap=1 mKOTO < estimated=323; HTTP never fires, donation-prompt-UI surface ready). NDJSON cost arithmetic verified: 228ms × 30 mKOTO/s = 6.84 → ceil 8 mKOTO, matches the written record byte-for-byte. Routing fix shipped in same commit: routing.py litellm-gateway backend now sets auth_bearer_env='LITELLM_MASTER_KEY' (empirically required — judah :4000 returns 401 without it; env var convention matches 60-apps/ai-gftd-project-murakumo/litellm/config.yaml master_key line 78 + ansible default sk-gftd-litellm-local). Honest fleet state captured: judah :11434 wedged (port open, /api/tags fast, but /api/generate + /v1/chat/completions hang past 180s — separate fleet-ops issue); judah :4000 gateway has dead-node routing (model→.49 / model→.64 unreachable — separate fleet-ops issue); EVO-X2 off (known WoL pending). Probe found 11/16 candidate :11434 endpoints reachable across the 11-tribe layout. test_routing.py asserts the new auth_bearer_env value; 62 tests still pass. R1.3c deferred: gateway dead-node re-wire, gpu.MacMini(node='auto') health-check selector, live smoke test re-target to naphtali, kotoba-server R1.3d-wiring."
+path = "90-docs/adr/2605282400-kotoba-murakumo-live-fleet-verification-and-judah-gateway-fix.md"
+
