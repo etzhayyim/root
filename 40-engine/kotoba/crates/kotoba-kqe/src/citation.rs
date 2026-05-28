@@ -166,19 +166,21 @@ impl CitationLedger {
 
         for entry in entries {
             let subject_cid = KotobaCid::from_bytes(&entry.datom_key.0);
+            let count_i64   = i64::try_from(entry.citation_count).unwrap_or(i64::MAX);
+            let royalty_i64 = i64::try_from(entry.royalty_mkoto).unwrap_or(i64::MAX);
 
             quads.push(Quad {
                 graph: graph_cid.clone(),
                 subject: subject_cid.clone(),
                 predicate: "citation/count".to_string(),
-                object: QuadObject::Integer(entry.citation_count as i64),
+                object: QuadObject::Integer(count_i64),
             });
 
             quads.push(Quad {
                 graph: graph_cid.clone(),
                 subject: subject_cid,
                 predicate: "citation/royalty_mkoto".to_string(),
-                object: QuadObject::Integer(entry.royalty_mkoto as i64),
+                object: QuadObject::Integer(royalty_i64),
             });
         }
 
@@ -256,5 +258,206 @@ mod tests {
         let quads = CitationLedger::royalty_quads(&entries, epoch);
         // 2 entries × 2 quads each
         assert_eq!(quads.len(), 4);
+    }
+
+    #[test]
+    fn royalty_sum_never_exceeds_pool() {
+        // Float truncation means individual royalties may round down.
+        // The sum of all royalties must always be ≤ total_pool_mkoto.
+        let mut ledger = CitationLedger::new();
+        // 7 citations across 3 datoms — creates uneven fractional splits.
+        for i in 0..4 { ledger.cite_quad(&make_quad(&format!("a{i}"))); }
+        for i in 0..2 { ledger.cite_quad(&make_quad(&format!("b{i}"))); }
+        ledger.cite_quad(&make_quad("c0"));
+
+        let pool = 1_000_000_u64;
+        let entries = ledger.flush_epoch(pool);
+        let sum: u64 = entries.iter().map(|e| e.royalty_mkoto).sum();
+        assert!(
+            sum <= pool,
+            "royalty sum {sum} must not exceed pool {pool} (float truncation invariant)"
+        );
+    }
+
+    #[test]
+    fn sole_citation_gets_full_pool() {
+        let mut ledger = CitationLedger::new();
+        ledger.cite_quad(&make_quad("only"));
+        let pool = 5_000_000_u64;
+        let entries = ledger.flush_epoch(pool);
+        assert_eq!(entries.len(), 1);
+        // 1/1 of citations → full pool (float: (5_000_000.0 * 1.0) as u64 = 5_000_000)
+        assert_eq!(entries[0].royalty_mkoto, pool);
+    }
+
+    #[test]
+    fn equal_citations_split_approximately_equal() {
+        let mut ledger = CitationLedger::new();
+        let q_a = make_quad("eq-a");
+        let q_b = make_quad("eq-b");
+        ledger.cite_quad(&q_a);
+        ledger.cite_quad(&q_b);
+        let pool = 1_000_000_u64;
+        let entries = ledger.flush_epoch(pool);
+        assert_eq!(entries.len(), 2);
+        let sum: u64 = entries.iter().map(|e| e.royalty_mkoto).sum();
+        assert!(sum <= pool, "sum must not exceed pool");
+        // Each should be ~500_000; allow ±1 for integer truncation.
+        for e in &entries {
+            assert!(
+                e.royalty_mkoto >= 499_999 && e.royalty_mkoto <= 500_001,
+                "equal split expected ~500_000, got {}", e.royalty_mkoto
+            );
+        }
+    }
+
+    #[test]
+    fn multi_epoch_counter_resets() {
+        let mut ledger = CitationLedger::new();
+        ledger.cite_quad(&make_quad("e1"));
+        ledger.flush_epoch(1_000_000);
+        assert_eq!(ledger.total_citations(), 0, "citations should reset after flush");
+        assert_eq!(ledger.epoch(), 1);
+
+        ledger.cite_quad(&make_quad("e2"));
+        ledger.cite_quad(&make_quad("e2"));
+        ledger.flush_epoch(1_000_000);
+        assert_eq!(ledger.total_citations(), 0);
+        assert_eq!(ledger.epoch(), 2, "epoch should increment on each flush");
+    }
+
+    // ── DatomKey pure-function tests ──────────────────────────────────────────
+
+    #[test]
+    fn datom_key_from_quad_is_deterministic() {
+        let q = make_quad("entity-x");
+        let k1 = DatomKey::from_quad(&q);
+        let k2 = DatomKey::from_quad(&q);
+        assert_eq!(k1, k2, "DatomKey::from_quad must be deterministic for equal inputs");
+    }
+
+    #[test]
+    fn datom_key_from_quad_differs_by_predicate() {
+        // Same graph + subject, different predicate → different key
+        let mut q1 = make_quad("entity-y");
+        let mut q2 = make_quad("entity-y");
+        q2.predicate = "other/predicate".to_string();
+        let k1 = DatomKey::from_quad(&q1);
+        let k2 = DatomKey::from_quad(&q2);
+        assert_ne!(k1, k2, "different predicate must produce different DatomKey");
+
+        // And also differs by subject
+        q1.subject = KotobaCid::from_bytes(b"sub-a");
+        q2.subject = KotobaCid::from_bytes(b"sub-b");
+        q2.predicate = q1.predicate.clone();
+        let k3 = DatomKey::from_quad(&q1);
+        let k4 = DatomKey::from_quad(&q2);
+        assert_ne!(k3, k4, "different subject must produce different DatomKey");
+    }
+
+    #[test]
+    fn datom_key_from_cid_preserves_bytes() {
+        let cid = KotobaCid::from_bytes(b"some-block");
+        let key = DatomKey::from_cid(&cid);
+        assert_eq!(key.0, cid.0, "DatomKey::from_cid must preserve the CID bytes exactly");
+    }
+
+    // ── citation_weight edge cases ────────────────────────────────────────────
+
+    #[test]
+    fn citation_weight_unseen_key_returns_zero() {
+        let mut ledger = CitationLedger::new();
+        ledger.cite_quad(&make_quad("known"));
+        let unknown_key = DatomKey::from_quad(&make_quad("unknown-entity"));
+        let w = ledger.citation_weight(&unknown_key);
+        assert_eq!(w, 0.0, "unseen key must have weight 0.0");
+    }
+
+    #[test]
+    fn citation_weight_empty_ledger_returns_zero() {
+        let ledger = CitationLedger::new();
+        let key = DatomKey::from_quad(&make_quad("any"));
+        assert_eq!(ledger.citation_weight(&key), 0.0, "empty ledger total=0 → weight 0.0");
+    }
+
+    // ── Default ↔ new equivalence ─────────────────────────────────────────────
+
+    #[test]
+    fn ledger_default_is_equivalent_to_new() {
+        let l1 = CitationLedger::new();
+        let l2 = CitationLedger::default();
+        // Both should start at epoch 0 with no citations
+        assert_eq!(l1.epoch(), l2.epoch());
+        assert_eq!(l1.total_citations(), l2.total_citations());
+    }
+
+    // ── royalty_quads edge cases ──────────────────────────────────────────────
+
+    #[test]
+    fn royalty_quads_empty_entries_returns_empty_vec() {
+        let quads = CitationLedger::royalty_quads(&[], 0);
+        assert!(quads.is_empty(), "royalty_quads([]) must return an empty vec");
+    }
+
+    #[test]
+    fn royalty_quads_graph_cid_stable_per_epoch() {
+        // The graph CID for a given epoch must be identical across two calls
+        let entry = {
+            let q = make_quad("e");
+            let mut ledger = CitationLedger::new();
+            ledger.cite_quad(&q);
+            let epoch = ledger.epoch();
+            let entries = ledger.flush_epoch(1_000_000);
+            (entries, epoch)
+        };
+        let (entries, epoch) = entry;
+        let quads1 = CitationLedger::royalty_quads(&entries, epoch);
+        let quads2 = CitationLedger::royalty_quads(&entries, epoch);
+        // All graph CIDs should be identical
+        for (q1, q2) in quads1.iter().zip(quads2.iter()) {
+            assert_eq!(q1.graph, q2.graph, "graph CID must be stable for the same epoch");
+        }
+    }
+
+    // ── u64→i64 saturation guards ─────────────────────────────────────────────
+
+    #[test]
+    fn royalty_quads_u64_to_i64_cast_is_safe_for_realistic_values() {
+        // Realistic max: 5000 KOTO × 1_000_000 mKOTO/KOTO = 5_000_000_000
+        let realistic_pool: Mkoto = 5_000 * MKOTO_PER_KOTO;
+        assert!(realistic_pool <= i64::MAX as u64,
+            "realistic royalty pool must fit in i64");
+        assert_eq!(i64::try_from(realistic_pool).unwrap(), realistic_pool as i64);
+    }
+
+    #[test]
+    fn royalty_quads_saturation_on_overflow() {
+        // Verify that i64::try_from(u64::MAX).unwrap_or(i64::MAX) == i64::MAX
+        // (the pattern used in royalty_quads).
+        assert_eq!(i64::try_from(u64::MAX).unwrap_or(i64::MAX), i64::MAX);
+        // Also verify that values at i64::MAX boundary are lossless.
+        assert_eq!(i64::try_from(i64::MAX as u64).unwrap(), i64::MAX);
+    }
+
+    #[test]
+    fn royalty_quads_produces_integer_objects_for_count_and_royalty() {
+        let mut ledger = CitationLedger::new();
+        let q = make_quad("subject-a");
+        ledger.cite_quad(&q);
+        ledger.cite_quad(&q);
+        let entries = ledger.flush_epoch(1_000_000);
+        let quads = CitationLedger::royalty_quads(&entries, 1);
+        // Expect 2 quads per entry: citation/count and citation/royalty_mkoto
+        assert_eq!(quads.len(), 2);
+        let count_quad   = quads.iter().find(|q| q.predicate == "citation/count").unwrap();
+        let royalty_quad = quads.iter().find(|q| q.predicate == "citation/royalty_mkoto").unwrap();
+        match count_quad.object {
+            QuadObject::Integer(n) => assert!(n > 0, "citation count must be positive"),
+            ref other => panic!("expected Integer for count, got {other:?}"),
+        }
+        match royalty_quad.object {
+            QuadObject::Integer(n) => assert!(n >= 0, "royalty must be non-negative"),
+            ref other => panic!("expected Integer for royalty, got {other:?}"),
+        }
     }
 }

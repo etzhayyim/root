@@ -152,19 +152,35 @@ impl WasmPregelRunner {
             let invoke: InvokeResult = match result {
                 Ok(r)  => r,
                 Err(e) => {
-                    // On error: store an error status and vote halt
-                    state.final_output_cbor = format!("{{\"status\":\"error\",\"msg\":\"{e:?}\"}}").into_bytes();
+                    // On error: encode {"err": "..."} as CBOR (matches Python handle_invoke format)
+                    let err_cbor = ciborium::Value::Map(vec![(
+                        ciborium::Value::Text("err".into()),
+                        ciborium::Value::Text(format!("{e:?}")),
+                    )]);
+                    let mut err_buf = Vec::new();
+                    let _ = ciborium::into_writer(&err_cbor, &mut err_buf);
+                    state.final_output_cbor = err_buf;
                     let mut buf = Vec::new();
                     let _ = ciborium::into_writer(&state, &mut buf);
                     return ComputeOutput { new_state: buf, messages: vec![], vote_halt: true };
                 }
             };
 
-            // Accumulate side effects
+            // Accumulate side effects — cap asserts to avoid unbounded memory across supersteps.
+            // The post-run MCP/XRPC layer enforces the hard limit; we stop accumulating
+            // one over that limit so the caller can detect the overflow and reject.
+            const MAX_ACCUMULATED_QUADS: usize = 10_001;
             state.total_gas_used += invoke.gas_used;
             state.accumulated_quads.extend(invoke.assert_quads.into_iter().map(Into::into));
             state.accumulated_retracts.extend(invoke.retract_quads.into_iter().map(Into::into));
             state.accumulated_publishes.extend(invoke.pending_publishes);
+            // Vote halt immediately if quad budget is exceeded (no point continuing).
+            if state.accumulated_quads.len() >= MAX_ACCUMULATED_QUADS {
+                state.final_output_cbor = br#"{"status":"quota_exceeded"}"#.to_vec();
+                let mut buf = Vec::new();
+                let _ = ciborium::into_writer(&state, &mut buf);
+                return ComputeOutput { new_state: buf, messages: vec![], vote_halt: true };
+            }
 
             // Decide continuation: check for "status": "continue" in output CBOR
             let should_continue = decode_status_continue(&invoke.output_cbor);
@@ -189,10 +205,10 @@ impl WasmPregelRunner {
 
         // Build graph: one vertex, seeded with initial_ctx_cbor
         let mut graph  = PregelGraph::new();
-        let vertex_id  = VertexId::from_str("wasm::program");
+        let vertex_id  = VertexId::from("wasm::program");
         graph.add_vertex(vertex_id.clone(), Vec::new());
         graph.inject_message(Message {
-            src:     VertexId::from_str("__init__"),
+            src:     VertexId::from("__init__"),
             dst:     vertex_id.clone(),
             payload: initial_ctx_cbor,
         });
@@ -403,5 +419,121 @@ mod tests {
         let mut buf = Vec::new();
         ciborium::into_writer(&map, &mut buf).expect("cbor encode");
         buf
+    }
+
+    // ── Additional pure-logic tests ────────────────────────────────────────
+
+    #[test]
+    fn decode_status_continue_no_status_key_is_false() {
+        let mut buf = Vec::new();
+        let mut map = std::collections::BTreeMap::new();
+        map.insert("other", ciborium::Value::Text("continue".into()));
+        ciborium::into_writer(&map, &mut buf).unwrap();
+        assert!(!decode_status_continue(&buf));
+    }
+
+    #[test]
+    fn decode_status_continue_non_text_value_is_false() {
+        let val = ciborium::Value::Map(vec![(
+            ciborium::Value::Text("status".into()),
+            ciborium::Value::Integer(0u8.into()),
+        )]);
+        let mut buf = Vec::new();
+        ciborium::into_writer(&val, &mut buf).unwrap();
+        assert!(!decode_status_continue(&buf));
+    }
+
+    #[test]
+    fn decode_status_continue_empty_string_is_false() {
+        let mut buf = Vec::new();
+        let mut map = std::collections::BTreeMap::new();
+        map.insert("status", ciborium::Value::Text(String::new()));
+        ciborium::into_writer(&map, &mut buf).unwrap();
+        assert!(!decode_status_continue(&buf));
+    }
+
+    #[test]
+    fn decode_status_continue_uppercase_continue_is_false() {
+        let mut buf = Vec::new();
+        let mut map = std::collections::BTreeMap::new();
+        map.insert("status", ciborium::Value::Text("CONTINUE".into()));
+        ciborium::into_writer(&map, &mut buf).unwrap();
+        assert!(!decode_status_continue(&buf));
+    }
+
+    #[test]
+    fn decode_status_continue_cbor_array_is_false() {
+        let val = ciborium::Value::Array(vec![
+            ciborium::Value::Text("status".into()),
+            ciborium::Value::Text("continue".into()),
+        ]);
+        let mut buf = Vec::new();
+        ciborium::into_writer(&val, &mut buf).unwrap();
+        assert!(!decode_status_continue(&buf));
+    }
+
+    #[test]
+    fn serialized_quad_owned_from_serialized_quad_roundtrip() {
+        use kotoba_runtime::executor::SerializedQuad;
+        let sq = SerializedQuad {
+            graph:       "g".to_string(),
+            subject:     "s".to_string(),
+            predicate:   "p".to_string(),
+            object_cbor: vec![1, 2, 3],
+        };
+        let owned: SerializedQuadOwned = sq.into();
+        assert_eq!(owned.graph,       "g");
+        assert_eq!(owned.subject,     "s");
+        assert_eq!(owned.predicate,   "p");
+        assert_eq!(owned.object_cbor, vec![1, 2, 3]);
+
+        let back: SerializedQuad = owned.into();
+        assert_eq!(back.graph,       "g");
+        assert_eq!(back.subject,     "s");
+        assert_eq!(back.predicate,   "p");
+        assert_eq!(back.object_cbor, vec![1, 2, 3]);
+    }
+
+    #[test]
+    fn wasm_run_result_fields_accessible() {
+        use kotoba_runtime::executor::SerializedQuad;
+        let result = WasmRunResult {
+            superstep_results: vec![],
+            assert_quads: vec![SerializedQuad {
+                graph: "g".into(), subject: "s".into(), predicate: "p".into(), object_cbor: vec![],
+            }],
+            retract_quads:     vec![],
+            pending_publishes: vec![("topic".into(), vec![0x42])],
+            final_output_cbor: vec![0xF6],
+            total_gas_used:    1234,
+            supersteps_run:    3,
+        };
+        assert_eq!(result.supersteps_run, 3);
+        assert_eq!(result.total_gas_used, 1234);
+        assert_eq!(result.assert_quads.len(), 1);
+        assert_eq!(result.pending_publishes.len(), 1);
+        assert_eq!(result.pending_publishes[0].0, "topic");
+    }
+
+    #[test]
+    fn wasm_vertex_state_default_is_empty() {
+        let state = WasmVertexState::default();
+        assert!(state.accumulated_quads.is_empty());
+        assert!(state.accumulated_retracts.is_empty());
+        assert!(state.accumulated_publishes.is_empty());
+        assert_eq!(state.total_gas_used, 0);
+        assert!(state.final_output_cbor.is_empty());
+    }
+
+    #[test]
+    fn wasm_vertex_state_cbor_roundtrip() {
+        let mut state = WasmVertexState::default();
+        state.total_gas_used = 42;
+        state.final_output_cbor = b"hello".to_vec();
+        let mut buf = Vec::new();
+        ciborium::into_writer(&state, &mut buf).unwrap();
+        let back: WasmVertexState = ciborium::from_reader(buf.as_slice()).unwrap();
+        assert_eq!(back.total_gas_used, 42);
+        assert_eq!(back.final_output_cbor, b"hello");
     }
 }

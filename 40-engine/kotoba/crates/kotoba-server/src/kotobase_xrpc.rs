@@ -1,15 +1,15 @@
-/// kotobase XRPC handlers — multi-tenant pinning service (ADR-2605260001)
-///
-/// NSIDs: ai.gftd.apps.kotobase.*
-///
-/// Tenant data lives in kotoba's own QuadStore under namespaced graphs:
-///   kotobase/accounts/{tenant_did}  — tier + metadata
-///   kotobase/pins/{tenant_did}      — per-pin records
-///
-/// Quota tiers:
-///   free:    3 pins,  100 MB
-///   starter: 50 pins,   5 GB  ($9/mo — Stripe stub)
-///   pro:    500 pins,  50 GB  ($49/mo — Stripe stub)
+//! kotobase XRPC handlers — multi-tenant pinning service (ADR-2605260001)
+//!
+//! NSIDs: ai.gftd.apps.kotobase.*
+//!
+//! Tenant data lives in kotoba's own QuadStore under namespaced graphs:
+//!   kotobase/accounts/{tenant_did}  — tier + metadata
+//!   kotobase/pins/{tenant_did}      — per-pin records
+//!
+//! Quota tiers:
+//!   free:    3 pins,  100 MB
+//!   starter: 50 pins,   5 GB  ($9/mo — Stripe stub)
+//!   pro:    500 pins,  50 GB  ($49/mo — Stripe stub)
 
 pub const NSID_ACCOUNT_CREATE: &str = "ai.gftd.apps.kotobase.accountCreate";
 pub const NSID_ACCOUNT_STATUS: &str = "ai.gftd.apps.kotobase.accountStatus";
@@ -35,6 +35,7 @@ fn bearer_token(headers: &HeaderMap) -> Option<&str> {
 ///
 /// Returns `Err(401)` when:
 /// - No `Authorization: Bearer <token>` header is present.
+/// - The token `exp` claim is in the past.
 /// - The token has no `sub` claim.
 /// - `sub` is neither `tenant_did` nor `operator_did`.
 ///
@@ -45,14 +46,23 @@ fn require_did_ownership(
     operator_did: &str,
 ) -> Result<(), (StatusCode, String)> {
     let token = bearer_token(headers)
-        .ok_or_else(|| (StatusCode::UNAUTHORIZED,
-            "Authorization: Bearer <token> required".to_string()))?;
+        .ok_or_else(|| {
+            tracing::warn!("kotobase auth: missing Bearer token");
+            (StatusCode::UNAUTHORIZED, "Authorization: Bearer <token> required".to_string())
+        })?;
+    if crate::graph_auth::jwt_exp_elapsed(token) {
+        tracing::warn!("kotobase auth: expired JWT");
+        return Err((StatusCode::UNAUTHORIZED, "Bearer token has expired".to_string()));
+    }
     let sub = crate::graph_auth::jwt_sub(token)
-        .ok_or_else(|| (StatusCode::UNAUTHORIZED,
-            "Bearer token missing sub claim".to_string()))?;
+        .ok_or_else(|| {
+            tracing::warn!("kotobase auth: JWT missing sub claim");
+            (StatusCode::UNAUTHORIZED, "Bearer token missing sub claim".to_string())
+        })?;
     if sub == tenant_did || sub == operator_did {
         Ok(())
     } else {
+        tracing::warn!(sub = %sub, tenant_did = %tenant_did, "kotobase auth: sub mismatch");
         Err((StatusCode::UNAUTHORIZED,
             format!("Bearer sub {sub:?} does not match tenant_did {tenant_did:?}")))
     }
@@ -70,16 +80,7 @@ const MAX_OBJECT_LEN:    usize = 65_536; // 64 KiB per triple value
 const MAX_TRIPLES_PER_PIN: usize = 1_024; // prevent DoS via unbounded triple arrays
 
 fn validate_did(did: &str) -> Result<(), (StatusCode, String)> {
-    if did.is_empty() {
-        return Err((StatusCode::BAD_REQUEST, "tenant_did must not be empty".into()));
-    }
-    if !did.starts_with("did:") {
-        return Err((StatusCode::BAD_REQUEST, format!("tenant_did is not a valid DID: {did:?}")));
-    }
-    if did.len() > MAX_DID_LEN {
-        return Err((StatusCode::BAD_REQUEST, format!("tenant_did exceeds {MAX_DID_LEN} bytes")));
-    }
-    Ok(())
+    crate::graph_auth::validate_did(did, "tenant_did", MAX_DID_LEN)
 }
 
 fn validate_name(name: &str) -> Result<(), (StatusCode, String)> {
@@ -513,7 +514,16 @@ pub async fn handle_pin_create(
     let resolved_cid = if let Some(c) = req.cid.as_deref() {
         c.to_string()
     } else {
-        let qi      = req.quads.as_ref().expect("quads present: validated above by cid.is_none() == quads.is_none()");
+        // Invariant: exactly one of cid/quads is Some (enforced by the check above).
+        // Use a graceful 500 instead of panic so a refactor cannot silently break this.
+        let qi = match req.quads.as_ref() {
+            Some(q) => q,
+            None => return (StatusCode::INTERNAL_SERVER_ERROR, Json(PinCreateResp {
+                ok: false, pin_id: String::new(), cid: String::new(),
+                status: "failed".into(), size_bytes: 0,
+                error: Some("internal: quads field unexpectedly absent".into()),
+            })),
+        };
         let graph   = format!("{}/{}", req.tenant_did, qi.graph);
         let mut quads = Vec::new();
         for t in qi.triples.as_deref().unwrap_or(&[]) {
@@ -538,12 +548,12 @@ pub async fn handle_pin_create(
     state.quad_store.assert_batch_silent(pin_quads).await;
 
     // Fire-and-forget IPFS pin
-    if let Some(ipfs) = &state.ipfs_pin {
-        let ipfs_c    = Arc::clone(ipfs);
-        let cid_c     = resolved_cid.clone();
-        let state_c   = Arc::clone(&state);
-        let pin_id_c  = pin_id.clone();
-        let pin_g_c   = pin_g.clone();
+    {
+        let ipfs_c   = Arc::clone(&state.ipfs_pin);
+        let cid_c    = resolved_cid.clone();
+        let state_c  = Arc::clone(&state);
+        let pin_id_c = pin_id.clone();
+        let pin_g_c  = pin_g.clone();
         tokio::spawn(async move {
             ipfs_c.pin(&cid_c).await;
             let done = vec![
@@ -552,17 +562,13 @@ pub async fn handle_pin_create(
             ];
             state_c.quad_store.assert_batch_silent(done).await;
         });
-    } else {
-        // No IPFS — mark pinned immediately (Sled-only local storage)
-        let done = vec![text_quad(&pin_g, &pin_id, "kotobase/pin/status", "pinned")];
-        state.quad_store.assert_batch_silent(done).await;
     }
 
     (StatusCode::OK, Json(PinCreateResp {
         ok:     true,
         pin_id,
         cid:    resolved_cid,
-        status: if state.ipfs_pin.is_some() { "pinning" } else { "pinned" }.into(),
+        status: "pinning".into(),
         size_bytes: size,
         error:  None,
     }))
@@ -700,3 +706,233 @@ pub const ALL_NSIDS: &[&str] = &[
     NSID_PIN_DELETE,
     NSID_USAGE_GET,
 ];
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // ── quota_for_tier ────────────────────────────────────────────────────────
+
+    #[test]
+    fn quota_free_tier() {
+        let (pins, bytes) = quota_for_tier("free");
+        assert_eq!(pins,  QUOTA_FREE_PINS);
+        assert_eq!(bytes, QUOTA_FREE_BYTES);
+    }
+
+    #[test]
+    fn quota_starter_tier() {
+        let (pins, bytes) = quota_for_tier("starter");
+        assert_eq!(pins,  QUOTA_STARTER_PINS);
+        assert_eq!(bytes, QUOTA_STARTER_BYTES);
+    }
+
+    #[test]
+    fn quota_pro_tier() {
+        let (pins, bytes) = quota_for_tier("pro");
+        assert_eq!(pins,  QUOTA_PRO_PINS);
+        assert_eq!(bytes, QUOTA_PRO_BYTES);
+    }
+
+    #[test]
+    fn quota_unknown_tier_falls_back_to_free() {
+        let (pins, bytes) = quota_for_tier("enterprise");
+        assert_eq!(pins,  QUOTA_FREE_PINS);
+        assert_eq!(bytes, QUOTA_FREE_BYTES);
+    }
+
+    // ── validate_name ─────────────────────────────────────────────────────────
+
+    #[test]
+    fn validate_name_accepts_empty_string() {
+        assert!(validate_name("").is_ok());
+    }
+
+    #[test]
+    fn validate_name_accepts_max_len() {
+        let name = "a".repeat(MAX_NAME_LEN);
+        assert!(validate_name(&name).is_ok());
+    }
+
+    #[test]
+    fn validate_name_rejects_over_max() {
+        let name = "a".repeat(MAX_NAME_LEN + 1);
+        assert!(validate_name(&name).is_err());
+    }
+
+    // ── validate_triple ───────────────────────────────────────────────────────
+
+    fn triple(s: &str, p: &str, o: &str) -> TripleInput {
+        TripleInput { subject: s.to_string(), predicate: p.to_string(), object: o.to_string() }
+    }
+
+    #[test]
+    fn validate_triple_accepts_valid_input() {
+        assert!(validate_triple(&triple("subj", "pred/foo", "value")).is_ok());
+    }
+
+    #[test]
+    fn validate_triple_rejects_empty_subject() {
+        assert!(validate_triple(&triple("", "pred", "val")).is_err());
+    }
+
+    #[test]
+    fn validate_triple_rejects_empty_predicate() {
+        assert!(validate_triple(&triple("subj", "", "val")).is_err());
+    }
+
+    #[test]
+    fn validate_triple_rejects_oversized_subject() {
+        let long = "s".repeat(MAX_SUBJECT_LEN + 1);
+        assert!(validate_triple(&triple(&long, "pred", "val")).is_err());
+    }
+
+    #[test]
+    fn validate_triple_rejects_oversized_object() {
+        let long = "o".repeat(MAX_OBJECT_LEN + 1);
+        assert!(validate_triple(&triple("subj", "pred", &long)).is_err());
+    }
+
+    // ── new_pin_id ────────────────────────────────────────────────────────────
+
+    #[test]
+    fn new_pin_id_has_pin_prefix() {
+        let id = new_pin_id();
+        assert!(id.starts_with("pin_"), "expected pin_ prefix, got {id}");
+    }
+
+    #[test]
+    fn new_pin_id_is_unique() {
+        let a = new_pin_id();
+        let b = new_pin_id();
+        assert_ne!(a, b);
+    }
+
+    // ── now_unix_str ──────────────────────────────────────────────────────────
+
+    #[test]
+    fn now_unix_str_is_numeric() {
+        let s = now_unix_str();
+        assert!(s.parse::<u64>().is_ok(), "expected numeric unix timestamp, got {s}");
+    }
+
+    #[test]
+    fn now_unix_str_is_reasonable_epoch() {
+        let secs: u64 = now_unix_str().parse().unwrap();
+        // After 2026-01-01 epoch
+        assert!(secs > 1_750_000_000, "unix time looks too old: {secs}");
+    }
+
+    // ── ALL_NSIDS ─────────────────────────────────────────────────────────────
+
+    #[test]
+    fn all_nsids_have_correct_prefix() {
+        for nsid in ALL_NSIDS {
+            assert!(nsid.starts_with("ai.gftd.apps.kotobase."), "bad nsid: {nsid}");
+        }
+    }
+
+    // ── Additional constant / quota tests ─────────────────────────────────────
+
+    #[test]
+    fn nsid_account_create_exact_value() {
+        assert_eq!(NSID_ACCOUNT_CREATE, "ai.gftd.apps.kotobase.accountCreate");
+    }
+
+    #[test]
+    fn nsid_account_status_exact_value() {
+        assert_eq!(NSID_ACCOUNT_STATUS, "ai.gftd.apps.kotobase.accountStatus");
+    }
+
+    #[test]
+    fn nsid_pin_create_exact_value() {
+        assert_eq!(NSID_PIN_CREATE, "ai.gftd.apps.kotobase.pinCreate");
+    }
+
+    #[test]
+    fn nsid_pin_list_exact_value() {
+        assert_eq!(NSID_PIN_LIST, "ai.gftd.apps.kotobase.pinList");
+    }
+
+    #[test]
+    fn nsid_pin_delete_exact_value() {
+        assert_eq!(NSID_PIN_DELETE, "ai.gftd.apps.kotobase.pinDelete");
+    }
+
+    #[test]
+    fn nsid_usage_get_exact_value() {
+        assert_eq!(NSID_USAGE_GET, "ai.gftd.apps.kotobase.usageGet");
+    }
+
+    #[test]
+    fn all_nsids_count_is_six() {
+        assert_eq!(ALL_NSIDS.len(), 6, "expected 6 NSID constants in ALL_NSIDS");
+    }
+
+    #[test]
+    fn all_nsids_unique() {
+        let mut set = std::collections::HashSet::new();
+        for nsid in ALL_NSIDS {
+            assert!(set.insert(*nsid), "duplicate NSID: {nsid}");
+        }
+    }
+
+    #[test]
+    fn quota_free_pins_is_three() {
+        let (pins, _bytes) = quota_for_tier("free");
+        assert_eq!(pins, QUOTA_FREE_PINS);
+    }
+
+    #[test]
+    fn quota_free_bytes_is_100_mib() {
+        let (_pins, bytes) = quota_for_tier("free");
+        assert_eq!(bytes, 100 * 1024 * 1024);
+    }
+
+    #[test]
+    fn quota_starter_pins_and_bytes() {
+        let (pins, bytes) = quota_for_tier("starter");
+        assert_eq!(pins, QUOTA_STARTER_PINS);
+        assert_eq!(bytes, QUOTA_STARTER_BYTES);
+    }
+
+    #[test]
+    fn quota_pro_pins_and_bytes() {
+        let (pins, bytes) = quota_for_tier("pro");
+        assert_eq!(pins, QUOTA_PRO_PINS);
+        assert_eq!(bytes, QUOTA_PRO_BYTES);
+    }
+
+    #[test]
+    fn quota_tiers_ordered_ascending() {
+        let (free_pins, _) = quota_for_tier("free");
+        let (starter_pins, _) = quota_for_tier("starter");
+        let (pro_pins, _) = quota_for_tier("pro");
+        assert!(free_pins < starter_pins, "free should have fewer pins than starter");
+        assert!(starter_pins < pro_pins, "starter should have fewer pins than pro");
+    }
+
+    #[test]
+    fn max_object_len_is_64_kib() {
+        assert_eq!(MAX_OBJECT_LEN, 65_536);
+    }
+
+    #[test]
+    fn max_triples_per_pin_is_1024() {
+        assert_eq!(MAX_TRIPLES_PER_PIN, 1_024);
+    }
+
+    #[test]
+    fn validate_triple_accepts_max_object_len() {
+        let long_object = "x".repeat(MAX_OBJECT_LEN);
+        let t = triple("did:key:zSub", "pred/path", &long_object);
+        assert!(validate_triple(&t).is_ok());
+    }
+
+    #[test]
+    fn validate_triple_rejects_over_max_object_len() {
+        let too_long = "x".repeat(MAX_OBJECT_LEN + 1);
+        let t = triple("did:key:zSub", "pred/path", &too_long);
+        assert!(validate_triple(&t).is_err());
+    }
+}

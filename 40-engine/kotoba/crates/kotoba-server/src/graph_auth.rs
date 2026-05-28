@@ -1,11 +1,11 @@
-/// Graph read-access control.
-///
-/// Three visibility tiers (see `kotoba_core::named_graph::GraphVisibility`):
-///   - `Public`         — no auth required
-///   - `Authenticated`  — `Authorization: Bearer <any-non-empty-token>` required
-///   - `Private`        — CACAO delegation chain (DAG-CBOR, base64-standard encoded)
-///                        in the `cacao_b64` query param, verified with `quad:read`
-///                        capability and issuer == owner_did
+//! Graph read-access control.
+//!
+//! Three visibility tiers (see `kotoba_core::named_graph::GraphVisibility`):
+//! - `Public`         — no auth required
+//! - `Authenticated`  — `Authorization: Bearer <any-non-empty-token>` required
+//! - `Private`        — CACAO delegation chain (DAG-CBOR, base64-standard encoded)
+//!   in the `cacao_b64` query param, verified with `quad:read`
+//!   capability and issuer == owner_did
 
 use axum::http::{HeaderMap, StatusCode};
 use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
@@ -91,7 +91,7 @@ impl AccessDenied {
 /// The signature is NOT verified — the edge BFF is the trust boundary.
 pub(crate) fn jwt_sub(token: &str) -> Option<String> {
     use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
-    let payload_b64 = token.splitn(3, '.').nth(1)?;
+    let payload_b64 = token.split('.').nth(1)?;
     let bytes = URL_SAFE_NO_PAD.decode(payload_b64).ok()?;
     let json: serde_json::Value = serde_json::from_slice(&bytes).ok()?;
     json.get("sub").and_then(|v| v.as_str()).map(str::to_owned)
@@ -100,11 +100,11 @@ pub(crate) fn jwt_sub(token: &str) -> Option<String> {
 /// This is a defense-in-depth check only — the JWT signature is NOT verified here.
 /// The edge BFF (AT Protocol PDS / CF Worker) is the trust boundary for signatures.
 /// Returns `false` for any token that cannot be decoded or has no `exp` claim.
-fn jwt_exp_elapsed(token: &str) -> bool {
+pub(crate) fn jwt_exp_elapsed(token: &str) -> bool {
     use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
 
     // A JWT has three dot-separated segments: header.payload.signature
-    let payload_b64 = match token.splitn(3, '.').nth(1) {
+    let payload_b64 = match token.split('.').nth(1) {
         Some(p) => p,
         None => return false,
     };
@@ -126,6 +126,98 @@ fn jwt_exp_elapsed(token: &str) -> bool {
         .unwrap_or_default()
         .as_secs();
     now > exp
+}
+
+/// Require that the request carries a Bearer JWT whose `sub` matches `operator_did`.
+///
+/// Used by unauthenticated-write endpoints (`kg_ingest`, `kg_delete`, `kg_embed`,
+/// `embed_create`, `agent_run`, `block_put`, `vault_put`) to prevent storage/compute abuse.
+/// JWT signature is NOT re-verified — the edge BFF is the trust boundary; we only check
+/// that the token is not expired and that the `sub` claim names the operator.
+pub fn require_operator_auth(
+    headers: &HeaderMap,
+    operator_did: &str,
+) -> Result<(), (StatusCode, String)> {
+    let token = headers
+        .get(axum::http::header::AUTHORIZATION)
+        .and_then(|v| v.to_str().ok())
+        .and_then(|v| v.strip_prefix("Bearer "))
+        .ok_or_else(|| {
+            tracing::warn!("operator auth: missing Bearer token");
+            (StatusCode::UNAUTHORIZED, "Authorization: Bearer <token> required".to_string())
+        })?;
+    if jwt_exp_elapsed(token) {
+        tracing::warn!("operator auth: expired JWT");
+        return Err((StatusCode::UNAUTHORIZED, "Bearer token has expired".to_string()));
+    }
+    let sub = jwt_sub(token)
+        .ok_or_else(|| {
+            tracing::warn!("operator auth: JWT missing sub claim");
+            (StatusCode::UNAUTHORIZED, "Bearer token missing sub claim".to_string())
+        })?;
+    if sub == operator_did {
+        Ok(())
+    } else {
+        tracing::warn!(sub = %sub, "operator auth: sub mismatch");
+        Err((StatusCode::UNAUTHORIZED,
+            format!("Bearer sub {sub:?} is not the operator DID")))
+    }
+}
+
+/// Require any valid, non-expired Bearer JWT that carries a `sub` claim.
+///
+/// Used when the specific caller DID is not known at the HTTP layer
+/// (e.g. `distributeSenderKey`, `agent.syncopen/advance/close`).
+pub(crate) fn require_any_bearer_auth(
+    headers: &HeaderMap,
+    context: &str,
+) -> Result<(), (StatusCode, String)> {
+    let token = headers
+        .get(axum::http::header::AUTHORIZATION)
+        .and_then(|v| v.to_str().ok())
+        .and_then(|v| v.strip_prefix("Bearer "))
+        .ok_or_else(|| {
+            tracing::warn!("{context}: missing Bearer token");
+            (StatusCode::UNAUTHORIZED, "Authorization: Bearer <token> required".to_string())
+        })?;
+    if jwt_exp_elapsed(token) {
+        tracing::warn!("{context}: expired JWT");
+        return Err((StatusCode::UNAUTHORIZED, "Bearer token has expired".to_string()));
+    }
+    jwt_sub(token)
+        .map(|_| ())
+        .ok_or_else(|| {
+            tracing::warn!("{context}: JWT missing sub claim");
+            (StatusCode::UNAUTHORIZED, "Bearer token missing sub claim".to_string())
+        })
+}
+
+/// Validate a DID string: non-empty, `did:` prefix, within `max_len` bytes.
+///
+/// Returns a `(StatusCode::BAD_REQUEST, message)` error tuple on failure.
+pub(crate) fn validate_did(did: &str, field: &str, max_len: usize) -> Result<(), (StatusCode, String)> {
+    if did.is_empty() {
+        return Err((StatusCode::BAD_REQUEST, format!("{field} must not be empty")));
+    }
+    if did.contains(char::is_whitespace) {
+        return Err((StatusCode::BAD_REQUEST, format!("{field} must not contain whitespace")));
+    }
+    // DID spec requires did:{method}:{identifier} — at minimum two colons and
+    // non-empty method + identifier segments.
+    let after_did = did.strip_prefix("did:").ok_or_else(|| {
+        (StatusCode::BAD_REQUEST, format!("{field} is not a valid DID (must start with 'did:')"))
+    })?;
+    let colon = after_did.find(':').ok_or_else(|| {
+        (StatusCode::BAD_REQUEST, format!("{field} is not a valid DID (missing method:identifier segments)"))
+    })?;
+    if colon == 0 || colon + 1 >= after_did.len() {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("{field} is not a valid DID (method or identifier segment is empty)")));
+    }
+    if did.len() > max_len {
+        return Err((StatusCode::BAD_REQUEST, format!("{field} exceeds {max_len} bytes")));
+    }
+    Ok(())
 }
 
 /// Check read access for a named graph.
@@ -368,11 +460,183 @@ mod tests {
     }
 
     #[test]
+    fn require_operator_auth_accepts_matching_sub() {
+        use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+        let far_future: u64 = 4_102_444_800;
+        let header  = URL_SAFE_NO_PAD.encode(r#"{"alg":"EdDSA","typ":"JWT"}"#);
+        let payload = URL_SAFE_NO_PAD.encode(
+            format!(r#"{{"sub":"did:key:zOperator","exp":{far_future}}}"#));
+        let token = format!("{header}.{payload}.fakesig");
+        let h = bearer_headers(&token);
+        assert!(require_operator_auth(&h, "did:key:zOperator").is_ok());
+    }
+
+    #[test]
+    fn require_operator_auth_rejects_wrong_sub() {
+        use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+        let far_future: u64 = 4_102_444_800;
+        let header  = URL_SAFE_NO_PAD.encode(r#"{"alg":"EdDSA","typ":"JWT"}"#);
+        let payload = URL_SAFE_NO_PAD.encode(
+            format!(r#"{{"sub":"did:key:zOther","exp":{far_future}}}"#));
+        let token = format!("{header}.{payload}.fakesig");
+        let h = bearer_headers(&token);
+        let err = require_operator_auth(&h, "did:key:zOperator");
+        assert!(err.is_err());
+        let (code, _) = err.unwrap_err();
+        assert_eq!(code, StatusCode::UNAUTHORIZED);
+    }
+
+    #[test]
+    fn require_operator_auth_rejects_missing_bearer() {
+        let err = require_operator_auth(&HeaderMap::new(), "did:key:zOperator");
+        assert!(err.is_err());
+    }
+
+    #[test]
+    fn require_operator_auth_rejects_expired_token() {
+        let token = jwt_with_exp(1); // expired in 1970
+        let h = bearer_headers(&token);
+        let err = require_operator_auth(&h, "did:key:zOperator");
+        assert!(err.is_err());
+        let (code, msg) = err.unwrap_err();
+        assert_eq!(code, StatusCode::UNAUTHORIZED);
+        assert!(msg.contains("expired"), "expected 'expired' in: {msg}");
+    }
+
+    #[test]
     fn jwt_sub_returns_none_when_sub_absent() {
         use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
         let header  = URL_SAFE_NO_PAD.encode(r#"{"alg":"HS256"}"#);
         let payload = URL_SAFE_NO_PAD.encode(r#"{"exp":9999999999}"#);
         let token   = format!("{header}.{payload}.sig");
         assert!(jwt_sub(&token).is_none());
+    }
+
+    // ── validate_did ──────────────────────────────────────────────────────────
+
+    #[test]
+    fn validate_did_rejects_empty_string() {
+        let err = validate_did("", "tenant_did", 512).unwrap_err();
+        assert_eq!(err.0, StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("must not be empty"), "got: {}", err.1);
+    }
+
+    #[test]
+    fn validate_did_rejects_no_did_prefix() {
+        let err = validate_did("not-a-did", "entity_did", 512).unwrap_err();
+        assert_eq!(err.0, StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("did:"), "got: {}", err.1);
+    }
+
+    #[test]
+    fn validate_did_accepts_exactly_max_len() {
+        // Build a DID that is exactly max_len bytes.
+        let max_len: usize = 32;
+        let did = format!("did:key:{}", "z".repeat(max_len - "did:key:".len()));
+        assert_eq!(did.len(), max_len);
+        assert!(validate_did(&did, "f", max_len).is_ok());
+    }
+
+    #[test]
+    fn validate_did_rejects_over_max_len() {
+        let max_len: usize = 32;
+        let did = format!("did:key:{}", "z".repeat(max_len - "did:key:".len() + 1));
+        assert_eq!(did.len(), max_len + 1);
+        let err = validate_did(&did, "f", max_len).unwrap_err();
+        assert_eq!(err.0, StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("exceeds"), "got: {}", err.1);
+    }
+
+    #[test]
+    fn validate_did_accepts_valid_did_key() {
+        assert!(validate_did("did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuias8sitwN1s", "did", 512).is_ok());
+    }
+
+    #[test]
+    fn validate_did_accepts_valid_did_plc() {
+        assert!(validate_did("did:plc:abcdefghijklmnopqrstuvwxy", "did", 512).is_ok());
+    }
+
+    #[test]
+    fn validate_did_rejects_missing_method_segment() {
+        // "did:" has no method or identifier
+        let err = validate_did("did:", "entity_did", 512).unwrap_err();
+        assert_eq!(err.0, StatusCode::BAD_REQUEST);
+    }
+
+    #[test]
+    fn validate_did_rejects_missing_identifier_segment() {
+        // "did:plc" has method but no identifier
+        let err = validate_did("did:plc", "entity_did", 512).unwrap_err();
+        assert_eq!(err.0, StatusCode::BAD_REQUEST);
+    }
+
+    #[test]
+    fn validate_did_rejects_empty_identifier_segment() {
+        // "did:plc:" has empty identifier
+        let err = validate_did("did:plc:", "entity_did", 512).unwrap_err();
+        assert_eq!(err.0, StatusCode::BAD_REQUEST);
+    }
+
+    #[test]
+    fn validate_did_rejects_whitespace() {
+        // Whitespace in DID would bypass equality checks
+        let err = validate_did("did:plc: abc", "entity_did", 512).unwrap_err();
+        assert_eq!(err.0, StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("whitespace"), "got: {}", err.1);
+    }
+
+    #[test]
+    fn validate_did_rejects_tab_whitespace() {
+        let err = validate_did("did:plc:\tabc", "entity_did", 512).unwrap_err();
+        assert_eq!(err.0, StatusCode::BAD_REQUEST);
+    }
+
+    // ── require_any_bearer_auth ───────────────────────────────────────────────
+
+    #[test]
+    fn require_any_bearer_auth_rejects_no_header() {
+        let err = require_any_bearer_auth(&HeaderMap::new(), "test").unwrap_err();
+        assert_eq!(err.0, StatusCode::UNAUTHORIZED);
+    }
+
+    #[test]
+    fn require_any_bearer_auth_rejects_basic_auth() {
+        let mut h = HeaderMap::new();
+        h.insert(
+            axum::http::header::AUTHORIZATION,
+            "Basic dXNlcjpwYXNz".parse().unwrap(),
+        );
+        let err = require_any_bearer_auth(&h, "test").unwrap_err();
+        assert_eq!(err.0, StatusCode::UNAUTHORIZED);
+    }
+
+    #[test]
+    fn require_any_bearer_auth_rejects_expired_jwt() {
+        let token = jwt_with_exp(1);
+        let h = bearer_headers(&token);
+        let err = require_any_bearer_auth(&h, "test").unwrap_err();
+        assert_eq!(err.0, StatusCode::UNAUTHORIZED);
+        assert!(err.1.contains("expired"), "expected 'expired' in: {}", err.1);
+    }
+
+    #[test]
+    fn require_any_bearer_auth_rejects_missing_sub() {
+        use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+        let far_future: u64 = 4_102_444_800;
+        let header  = URL_SAFE_NO_PAD.encode(r#"{"alg":"HS256"}"#);
+        let payload = URL_SAFE_NO_PAD.encode(format!(r#"{{"exp":{far_future}}}"#));
+        let token   = format!("{header}.{payload}.sig");
+        let h = bearer_headers(&token);
+        let err = require_any_bearer_auth(&h, "test").unwrap_err();
+        assert_eq!(err.0, StatusCode::UNAUTHORIZED);
+        assert!(err.1.to_lowercase().contains("sub"), "expected 'sub' in: {}", err.1);
+    }
+
+    #[test]
+    fn require_any_bearer_auth_accepts_valid_jwt_any_sub() {
+        let far_future: u64 = 4_102_444_800;
+        let h = bearer_headers(&jwt_with_exp(far_future));
+        assert!(require_any_bearer_auth(&h, "test").is_ok());
     }
 }

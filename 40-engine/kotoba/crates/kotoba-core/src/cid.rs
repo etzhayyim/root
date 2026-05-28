@@ -34,8 +34,8 @@ impl<'de> Deserialize<'de> for KotobaCid {
             }
             fn visit_seq<A: serde::de::SeqAccess<'de>>(self, mut seq: A) -> Result<KotobaCid, A::Error> {
                 let mut arr = [0u8; 36];
-                for i in 0..36 {
-                    arr[i] = seq.next_element()?.ok_or_else(|| serde::de::Error::invalid_length(i, &self))?;
+                for (i, slot) in arr.iter_mut().enumerate() {
+                    *slot = seq.next_element()?.ok_or_else(|| serde::de::Error::invalid_length(i, &self))?;
                 }
                 Ok(KotobaCid(arr))
             }
@@ -98,5 +98,110 @@ impl KotobaCid {
 impl std::fmt::Display for KotobaCid {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.to_multibase())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn from_bytes_header_is_cidv1_dag_cbor_blake3() {
+        let cid = KotobaCid::from_bytes(b"hello");
+        assert_eq!(cid.0[0], 1,                            "CIDv1 version byte");
+        assert_eq!(cid.0[1], KotobaCid::CODEC_DAG_CBOR,   "dag-cbor codec");
+        assert_eq!(cid.0[2], KotobaCid::MH_BLAKE3,        "blake3 multicodec");
+        assert_eq!(cid.0[3], 32,                           "hash length varint");
+    }
+
+    #[test]
+    fn from_bytes_is_deterministic() {
+        let a = KotobaCid::from_bytes(b"kotoba");
+        let b = KotobaCid::from_bytes(b"kotoba");
+        assert_eq!(a, b);
+    }
+
+    #[test]
+    fn from_bytes_differs_for_different_inputs() {
+        let a = KotobaCid::from_bytes(b"foo");
+        let b = KotobaCid::from_bytes(b"bar");
+        assert_ne!(a, b);
+    }
+
+    #[test]
+    fn multibase_roundtrip() {
+        let cid = KotobaCid::from_bytes(b"roundtrip test");
+        let encoded = cid.to_multibase();
+        assert!(encoded.starts_with('b'), "multibase prefix must be 'b' (base32lower)");
+        let decoded = KotobaCid::from_multibase(&encoded).expect("must roundtrip");
+        assert_eq!(cid, decoded);
+    }
+
+    #[test]
+    fn display_matches_to_multibase() {
+        let cid = KotobaCid::from_bytes(b"display test");
+        assert_eq!(format!("{cid}"), cid.to_multibase());
+    }
+
+    #[test]
+    fn from_multibase_rejects_wrong_prefix() {
+        let cid = KotobaCid::from_bytes(b"prefix test");
+        let encoded = cid.to_multibase();
+        // Replace 'b' prefix with 'z' (base58btc)
+        let bad = format!("z{}", &encoded[1..]);
+        assert!(KotobaCid::from_multibase(&bad).is_none());
+    }
+
+    #[test]
+    fn from_multibase_rejects_truncated() {
+        let cid = KotobaCid::from_bytes(b"truncated");
+        let encoded = cid.to_multibase();
+        // Drop last 4 chars → shorter byte sequence
+        let short = &encoded[..encoded.len() - 4];
+        assert!(KotobaCid::from_multibase(short).is_none());
+    }
+
+    #[test]
+    fn from_cbor_is_consistent_with_from_bytes() {
+        let value = "kotoba-cbor-test";
+        let mut buf = Vec::new();
+        ciborium::into_writer(&value, &mut buf).unwrap();
+        let expected = KotobaCid::from_bytes(&buf);
+        let actual   = KotobaCid::from_cbor(&value).unwrap();
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn default_is_all_zeros() {
+        let cid = KotobaCid::default();
+        assert_eq!(cid.0, [0u8; 36]);
+    }
+
+    #[test]
+    fn hash_trait_in_hashset() {
+        use std::collections::HashSet;
+        let mut set = HashSet::new();
+        let a = KotobaCid::from_bytes(b"a");
+        let b = KotobaCid::from_bytes(b"b");
+        set.insert(a.clone());
+        set.insert(a.clone()); // duplicate → no growth
+        set.insert(b.clone());
+        assert_eq!(set.len(), 2);
+        assert!(set.contains(&a));
+        assert!(set.contains(&b));
+    }
+
+    #[test]
+    fn from_cbor_error_on_non_serializable_would_fail_gracefully() {
+        // A valid serializable value must always succeed.
+        let n: u64 = 12345678;
+        let cid = KotobaCid::from_cbor(&n);
+        assert!(cid.is_ok());
+    }
+
+    #[test]
+    fn cid_is_exactly_36_bytes() {
+        let cid = KotobaCid::from_bytes(b"size-check");
+        assert_eq!(cid.0.len(), 36);
     }
 }

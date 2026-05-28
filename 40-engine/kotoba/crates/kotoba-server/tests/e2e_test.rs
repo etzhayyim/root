@@ -27,15 +27,17 @@ fn stub_engine() -> kotoba_runtime::host::InferenceFn {
 // ── Server fixture ────────────────────────────────────────────────────────────
 
 struct TestServer {
-    base_url: String,
-    handle:   tokio::task::JoinHandle<()>,
-    client:   reqwest::Client,
+    base_url:     String,
+    operator_did: String,
+    handle:       tokio::task::JoinHandle<()>,
+    client:       reqwest::Client,
 }
 
 impl TestServer {
     async fn start(with_inference: bool) -> Self {
         let engine = if with_inference { Some(stub_engine()) } else { None };
         let state  = KotobaState::new(engine).expect("KotobaState::new");
+        let operator_did = state.operator_did.clone();
         let app    = build_router(Arc::new(state));
 
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0")
@@ -53,6 +55,7 @@ impl TestServer {
 
         Self {
             base_url,
+            operator_did,
             handle,
             client: reqwest::Client::new(),
         }
@@ -107,6 +110,18 @@ impl TestServer {
         (status, body)
     }
 
+    async fn get_with_auth(&self, path: &str, token: &str) -> (u16, Value) {
+        let r = self.client
+            .get(format!("{}{}", self.base_url, path))
+            .header("Authorization", format!("Bearer {token}"))
+            .send()
+            .await
+            .expect("GET with auth");
+        let status = r.status().as_u16();
+        let body: Value = r.json().await.unwrap_or(Value::Null);
+        (status, body)
+    }
+
     /// POST quad.create with a freshly-signed Ed25519 CACAO for the given graph.
     async fn post_quad(&self, graph: &str, subject: &str, predicate: &str, object: &str) -> (u16, Value) {
         let (_, cacao_b64) = build_ed25519_cacao(graph);
@@ -150,10 +165,26 @@ async fn app_meta_returns_ok() {
 
 #[tokio::test]
 async fn node_status_returns_node_id() {
-    let s = TestServer::start(false).await;
-    let (status, body) = s.get("/xrpc/ai.gftd.apps.kotoba.node.status").await;
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.node.status", &tok).await;
     assert_eq!(status, 200);
     assert!(body["node_id"].as_str().is_some(), "node_id missing: {body}");
+}
+
+#[tokio::test]
+async fn node_status_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, _) = s.get("/xrpc/ai.gftd.apps.kotoba.node.status").await;
+    assert_eq!(status, 401);
+}
+
+#[tokio::test]
+async fn node_status_non_operator_returns_401() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zNonOperator");
+    let (status, body) = s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.node.status", &tok).await;
+    assert_eq!(status, 401, "{body}");
 }
 
 #[tokio::test]
@@ -241,14 +272,48 @@ async fn quad_retract_cacao_graph_mismatch_returns_401() {
 }
 
 #[tokio::test]
+async fn block_get_invalid_cid_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.get("/xrpc/ai.gftd.apps.kotoba.block.get?cid=not-a-valid-cid").await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn block_get_unknown_cid_returns_404() {
+    use kotoba_core::cid::KotobaCid;
+    let s = TestServer::start(false).await;
+    let cid = KotobaCid::from_bytes(b"block-does-not-exist-xyz").to_multibase();
+    let (status, body) = s.get(&format!("/xrpc/ai.gftd.apps.kotoba.block.get?cid={cid}")).await;
+    assert_eq!(status, 404, "{body}");
+}
+
+#[tokio::test]
+async fn commit_get_invalid_cid_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.get("/xrpc/ai.gftd.apps.kotoba.commit.get?graph=not-a-cid").await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn commit_get_unknown_graph_returns_404() {
+    use kotoba_core::cid::KotobaCid;
+    let s = TestServer::start(false).await;
+    let cid = KotobaCid::from_bytes(b"graph-commit-does-not-exist").to_multibase();
+    let (status, body) = s.get(&format!("/xrpc/ai.gftd.apps.kotoba.commit.get?graph={cid}")).await;
+    assert_eq!(status, 404, "{body}");
+}
+
+#[tokio::test]
 async fn block_put_and_get_roundtrip() {
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
     let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
 
     let payload = b"kotoba e2e block";
-    let (status, put) = s.post(
+    let (status, put) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.block.put",
         json!({ "data_b64": B64.encode(payload) }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{put}");
     let cid = put["cid"].as_str().expect("cid");
@@ -303,8 +368,9 @@ async fn commit_store_without_cacao_returns_401() {
 async fn embed_create_returns_quad_cid() {
     use kotoba_core::cid::KotobaCid;
     let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
     let graph_cid = KotobaCid::from_bytes(b"embed-e2e").to_multibase();
-    let (status, body) = s.post(
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.embed.create",
         json!({
             "text": "hello kotoba",
@@ -312,6 +378,7 @@ async fn embed_create_returns_quad_cid() {
             "model_cid": "model1",
             "graph": graph_cid
         }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert_eq!(body["status"], "ok");
@@ -319,11 +386,27 @@ async fn embed_create_returns_quad_cid() {
 }
 
 #[tokio::test]
+async fn embed_create_empty_text_returns_400() {
+    use kotoba_core::cid::KotobaCid;
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
+    let graph_cid = KotobaCid::from_bytes(b"embed-empty").to_multibase();
+    let (status, body) = s.post_auth(
+        "/xrpc/ai.gftd.apps.kotoba.embed.create",
+        json!({ "text": "", "doc_cid": "doc-empty", "model_cid": "model1", "graph": graph_cid }),
+        &tok,
+    ).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
 async fn infer_run_with_stub_engine() {
     let s = TestServer::start(true).await;
-    let (status, body) = s.post(
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.infer.run",
         json!({ "prompt": "what is kotoba?", "max_new_tokens": 32 }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert_eq!(body["status"], "ok");
@@ -331,11 +414,23 @@ async fn infer_run_with_stub_engine() {
 }
 
 #[tokio::test]
-async fn infer_run_without_engine_returns_503() {
-    let s = TestServer::start(false).await;
-    let (status, _) = s.post(
+async fn infer_run_without_auth_returns_401() {
+    let s = TestServer::start(true).await;
+    let (status, body) = s.post(
         "/xrpc/ai.gftd.apps.kotoba.infer.run",
         json!({ "prompt": "hello" }),
+    ).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn infer_run_without_engine_returns_503() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, _) = s.post_auth(
+        "/xrpc/ai.gftd.apps.kotoba.infer.run",
+        json!({ "prompt": "hello" }),
+        &tok,
     ).await;
     assert_eq!(status, 503);
 }
@@ -343,9 +438,11 @@ async fn infer_run_without_engine_returns_503() {
 #[tokio::test]
 async fn agent_run_with_stub_engine_completes() {
     let s = TestServer::start(true).await;
-    let (status, body) = s.post(
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.run",
         json!({ "task": "test: 2+2?", "max_steps": 3, "max_tokens": 64 }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert_eq!(body["status"], "ok");
@@ -356,9 +453,11 @@ async fn agent_run_with_stub_engine_completes() {
 #[tokio::test]
 async fn agent_run_without_engine_returns_503() {
     let s = TestServer::start(false).await;
-    let (status, _) = s.post(
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, _) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.run",
         json!({ "task": "x" }),
+        &tok,
     ).await;
     assert_eq!(status, 503);
 }
@@ -426,13 +525,14 @@ async fn mcp_node_info_returns_did_and_roles() {
 #[tokio::test]
 async fn mcp_node_register_returns_ok() {
     let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
     let (status, body) = s.post_auth(
         "/mcp",
         json!({
             "jsonrpc": "2.0", "id": 11, "method": "tools/call",
             "params": { "name": "kotoba_node_register", "arguments": {} }
         }),
-        "test-token",
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert!(body.get("error").is_none(), "unexpected error: {body}");
@@ -440,6 +540,22 @@ async fn mcp_node_register_returns_ok() {
     let content: serde_json::Value = serde_json::from_str(content_str).expect("json");
     assert_eq!(content["status"], "ok");
     assert!(content["operator_did"].as_str().unwrap_or("").starts_with("did:"));
+}
+
+#[tokio::test]
+async fn mcp_node_register_non_operator_returns_auth_error() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zNotTheOperator");
+    let (status, body) = s.post_auth(
+        "/mcp",
+        json!({
+            "jsonrpc": "2.0", "id": 11, "method": "tools/call",
+            "params": { "name": "kotoba_node_register", "arguments": {} }
+        }),
+        &tok,
+    ).await;
+    assert_eq!(status, 200, "MCP always returns 200");
+    assert!(body.get("error").is_some(), "expected JSON-RPC error: {body}");
 }
 
 #[tokio::test]
@@ -548,6 +664,118 @@ async fn mcp_wasm_run_writes_gas_attribution() {
         "missing output_cbor_b64: {content}");
 }
 
+// ── MCP kotoba_wasm_run — Python componentize-py guest ───────────────────────
+
+#[tokio::test]
+async fn mcp_wasm_run_python_langgraph_agent() {
+    // Load the pre-built Python LangGraph agent WASM.
+    // Skip if the file is absent (developer hasn't built it yet or CI excludes it).
+    let manifest = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let workspace = manifest.parent().unwrap().parent().unwrap();
+    let wasm_path = workspace.join("examples/kotoba-langgraph-hello/agent.wasm");
+    let wasm_bytes = match std::fs::read(&wasm_path) {
+        Ok(b) => b,
+        Err(_) => {
+            eprintln!("kotoba-langgraph-hello/agent.wasm not found — skipping mcp_wasm_run_python_langgraph_agent");
+            return;
+        }
+    };
+
+    use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+
+    // Build CBOR InvokeContext expected by handle_invoke() in _entry.py:
+    //   { "graph": str, "session_cid": str, "args": { "input": {...}, "thread_id": str } }
+    let mut ctx_cbor = Vec::new();
+    {
+        use std::collections::BTreeMap;
+        let mut input_msg: BTreeMap<&str, ciborium::Value> = BTreeMap::new();
+        input_msg.insert("type",    ciborium::Value::Text("human".into()));
+        input_msg.insert("content", ciborium::Value::Text("hello".into()));
+
+        let mut input_state: BTreeMap<&str, ciborium::Value> = BTreeMap::new();
+        input_state.insert("messages", ciborium::Value::Array(vec![
+            ciborium::Value::Map(
+                input_msg.into_iter().map(|(k, v)| (ciborium::Value::Text(k.into()), v)).collect()
+            ),
+        ]));
+
+        let mut args: BTreeMap<&str, ciborium::Value> = BTreeMap::new();
+        args.insert("input",     ciborium::Value::Map(
+            input_state.into_iter().map(|(k, v)| (ciborium::Value::Text(k.into()), v)).collect()
+        ));
+        args.insert("thread_id", ciborium::Value::Text("py-test-thread".into()));
+
+        let mut ctx: BTreeMap<&str, ciborium::Value> = BTreeMap::new();
+        ctx.insert("graph",       ciborium::Value::Text("py-hello-graph".into()));
+        ctx.insert("session_cid", ciborium::Value::Text("py-test-session".into()));
+        ctx.insert("args",        ciborium::Value::Map(
+            args.into_iter().map(|(k, v)| (ciborium::Value::Text(k.into()), v)).collect()
+        ));
+
+        ciborium::into_writer(&ctx, &mut ctx_cbor).unwrap();
+    }
+
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post_auth(
+        "/mcp",
+        json!({
+            "jsonrpc": "2.0", "id": 30, "method": "tools/call",
+            "params": {
+                "name": "kotoba_wasm_run",
+                "arguments": {
+                    "wasm_b64":     B64.encode(&wasm_bytes),
+                    "agent_did":    "did:plc:e2e_py_langgraph",
+                    "ctx_cbor_b64": B64.encode(&ctx_cbor),
+                }
+            }
+        }),
+        "test-token",
+    ).await;
+    assert_eq!(status, 200, "{body}");
+    assert!(body.get("error").is_none(), "unexpected json-rpc error: {body}");
+
+    let content_str = body["result"]["content"][0]["text"].as_str().expect("text");
+    let content: serde_json::Value = serde_json::from_str(content_str).expect("json");
+    // WasmPregelRunner must complete without a Rust panic (HTTP 200 + status=ok)
+    assert_eq!(content["status"], "ok",
+        "expected WasmPregelRunner status=ok, got: {content}");
+
+    // Decode the output CBOR — must always be valid CBOR with "ok" or "err" key
+    let out_b64 = content["output_cbor_b64"].as_str().expect("output_cbor_b64");
+    let out_cbor = B64.decode(out_b64).expect("valid base64");
+    let out: ciborium::Value = ciborium::from_reader(std::io::Cursor::new(&out_cbor))
+        .expect("output_cbor_b64 must be valid CBOR (WasmPregelRunner encodes errors as CBOR)");
+    let out_map: std::collections::HashMap<String, ciborium::Value> = match out {
+        ciborium::Value::Map(ref m) => m.iter()
+            .filter_map(|(k, v)| k.as_text().map(|s| (s.to_string(), v.clone())))
+            .collect(),
+        _ => panic!("expected CBOR map from Python agent output, got: {out:?}"),
+    };
+    assert!(
+        out_map.contains_key("ok") || out_map.contains_key("err"),
+        "Python handle_invoke must return {{ok/err}}, got keys: {:?}",
+        out_map.keys().collect::<Vec<_>>()
+    );
+
+    let gas = content["total_gas_used"].as_u64().unwrap_or(0);
+    if gas > 0 {
+        // Python WASM executed — LLM may have failed but graph code ran
+        eprintln!("Python LangGraph WASM executed successfully: gas_used={gas}");
+    } else {
+        // gas=0 means WASM compilation failed before execution.
+        // Expected with wasmtime 22 which disables the extended-const proposal
+        // required by componentize-py 0.23 output. Upgrade wasmtime to fix.
+        let err_text = out_map.get("err")
+            .and_then(|v| v.as_text())
+            .unwrap_or("");
+        assert!(
+            err_text.contains("CompileFailed") || err_text.contains("compile"),
+            "gas=0 but error is unexpected (not a compile error): {err_text}"
+        );
+        eprintln!("NOTE: Python WASM compile failed (extended-const / wasmtime 22 limitation): {err_text}");
+    }
+}
+
 // ── MCP kotoba_datalog_run ────────────────────────────────────────────────────
 
 #[tokio::test]
@@ -605,6 +833,72 @@ async fn mcp_datalog_run_derives_and_flushes_royalty() {
     assert!(content.get("epoch").is_some(), "missing epoch field: {content}");
 }
 
+// ── MCP datalog_run rules-count cap ───────────────────────────────────────────
+
+#[tokio::test]
+async fn mcp_datalog_run_too_many_rules_returns_error() {
+    let s = TestServer::start(false).await;
+    // Build 257 rules (MAX_DATALOG_RULES = 256).
+    let rule = json!({
+        "head": { "relation": "reachable", "args": [{"Variable": "x"}, {"Variable": "y"}] },
+        "body": [{ "Positive": { "relation": "edge", "args": [{"Variable": "x"}, {"Variable": "y"}] } }]
+    });
+    let rules: Vec<_> = (0..257).map(|_| rule.clone()).collect();
+
+    let (status, body) = s.post_auth(
+        "/mcp",
+        json!({
+            "jsonrpc": "2.0", "id": 99, "method": "tools/call",
+            "params": {
+                "name": "kotoba_datalog_run",
+                "arguments": { "graph": "cap-test-graph", "rules": rules }
+            }
+        }),
+        "test-token",
+    ).await;
+    assert_eq!(status, 200, "{body}");
+    // kotoba MCP returns JSON-RPC top-level error for invalid params
+    let err_node = if body["error"].is_object() { &body["error"] } else { &body["result"]["error"] };
+    let err_code = err_node["code"].as_i64();
+    assert!(err_code.is_some(), "expected MCP error, got: {body}");
+    assert_eq!(err_code.unwrap(), -32602, "expected ERR_INVALID_PARAMS: {body}");
+    let err_msg = err_node["message"].as_str().unwrap_or("");
+    assert!(err_msg.contains("257") || err_msg.contains("256"),
+        "error should mention count/limit: {body}");
+}
+
+#[tokio::test]
+async fn mcp_datalog_run_too_many_body_literals_returns_error() {
+    let s = TestServer::start(false).await;
+    // Build a rule with 17 body literals (MAX_BODY_LITERALS = 16).
+    let body_lit = json!({ "Positive": { "relation": "edge", "args": [{"Variable": "x"}, {"Variable": "y"}] } });
+    let body: Vec<_> = (0..17).map(|_| body_lit.clone()).collect();
+    let rule = json!({
+        "head": { "relation": "reachable", "args": [{"Variable": "x"}, {"Variable": "y"}] },
+        "body": body
+    });
+
+    let (status, body_resp) = s.post_auth(
+        "/mcp",
+        json!({
+            "jsonrpc": "2.0", "id": 100, "method": "tools/call",
+            "params": {
+                "name": "kotoba_datalog_run",
+                "arguments": { "graph": "lit-test-graph", "rules": [rule] }
+            }
+        }),
+        "test-token",
+    ).await;
+    assert_eq!(status, 200, "{body_resp}");
+    let err_node = if body_resp["error"].is_object() { &body_resp["error"] } else { &body_resp["result"]["error"] };
+    let err_code = err_node["code"].as_i64();
+    assert!(err_code.is_some(), "expected MCP error, got: {body_resp}");
+    assert_eq!(err_code.unwrap(), -32602, "expected ERR_INVALID_PARAMS: {body_resp}");
+    let err_msg = err_node["message"].as_str().unwrap_or("");
+    assert!(err_msg.contains("17") || err_msg.contains("16"),
+        "error should mention literal count/limit: {body_resp}");
+}
+
 // ── WASM invoke.run (skips if cargo-component unavailable) ────────────────────
 
 #[tokio::test]
@@ -626,7 +920,8 @@ async fn invoke_run_wasm_guest_via_xrpc() {
     }
 
     let s = TestServer::start(false).await;
-    let (status, body) = s.post(
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.invoke.run",
         json!({
             "program_cid":  "be2e_wasm_invoke",
@@ -635,6 +930,7 @@ async fn invoke_run_wasm_guest_via_xrpc() {
             "wasm_b64":     B64.encode(&wasm_bytes),
             "ctx_b64":      B64.encode(&ctx),
         }),
+        &tok,
     ).await;
 
     assert_eq!(status, 200, "{body}");
@@ -654,6 +950,16 @@ async fn invoke_run_wasm_guest_via_xrpc() {
     }
 }
 
+#[tokio::test]
+async fn invoke_run_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, _) = s.post(
+        "/xrpc/ai.gftd.apps.kotoba.invoke.run",
+        json!({ "program_cid": "x", "program_type": "datalog", "agent_did": "did:plc:x" }),
+    ).await;
+    assert_eq!(status, 401);
+}
+
 // ── SyncWindow session lifecycle ──────────────────────────────────────────────
 
 #[tokio::test]
@@ -661,8 +967,9 @@ async fn agent_sync_open_creates_session() {
     let s = TestServer::start(false).await;
     use kotoba_core::cid::KotobaCid;
     let graph_cid = KotobaCid::from_bytes(b"sync-graph").to_multibase();
+    let tok = tenant_jwt(&s.operator_did);
 
-    let (status, body) = s.post(
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncopen",
         json!({
             "session_id": "sess-1",
@@ -670,6 +977,7 @@ async fn agent_sync_open_creates_session() {
             "since_seq":  0,
             "head_cid":   null,
         }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert_eq!(body["status"], "ok");
@@ -678,20 +986,35 @@ async fn agent_sync_open_creates_session() {
 }
 
 #[tokio::test]
+async fn agent_sync_open_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    use kotoba_core::cid::KotobaCid;
+    let graph_cid = KotobaCid::from_bytes(b"sync-graph-noauth").to_multibase();
+    let (status, body) = s.post(
+        "/xrpc/ai.gftd.apps.kotoba.agent.syncopen",
+        json!({ "session_id": "sess-noauth", "graph_cid": graph_cid, "since_seq": 0, "head_cid": null }),
+    ).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
 async fn agent_sync_advance_updates_watermark() {
     let s = TestServer::start(false).await;
     use kotoba_core::cid::KotobaCid;
     let graph_cid = KotobaCid::from_bytes(b"sync-graph-adv").to_multibase();
     let head_cid  = KotobaCid::from_bytes(b"head-v1").to_multibase();
+    let tok = tenant_jwt(&s.operator_did);
 
-    s.post(
+    s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncopen",
         json!({ "session_id": "sess-adv", "graph_cid": graph_cid, "since_seq": 0, "head_cid": null }),
+        &tok,
     ).await;
 
-    let (status, body) = s.post(
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncadvance",
         json!({ "session_id": "sess-adv", "new_head_cid": head_cid, "new_seq": 42 }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert_eq!(body["status"], "ok");
@@ -699,41 +1022,32 @@ async fn agent_sync_advance_updates_watermark() {
 }
 
 #[tokio::test]
-async fn agent_sync_advance_unknown_session_returns_404() {
-    let s = TestServer::start(false).await;
-    use kotoba_core::cid::KotobaCid;
-    let head_cid = KotobaCid::from_bytes(b"h").to_multibase();
-
-    let (status, _) = s.post(
-        "/xrpc/ai.gftd.apps.kotoba.agent.syncadvance",
-        json!({ "session_id": "no-such", "new_head_cid": head_cid, "new_seq": 1 }),
-    ).await;
-    assert_eq!(status, 404);
-}
-
-#[tokio::test]
 async fn agent_sync_close_removes_session() {
     let s = TestServer::start(false).await;
     use kotoba_core::cid::KotobaCid;
     let graph_cid = KotobaCid::from_bytes(b"sync-graph-close").to_multibase();
+    let tok = tenant_jwt(&s.operator_did);
 
-    s.post(
+    s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncopen",
         json!({ "session_id": "sess-close", "graph_cid": graph_cid, "since_seq": 0, "head_cid": null }),
+        &tok,
     ).await;
 
-    let (status, body) = s.post(
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncclose",
         json!({ "session_id": "sess-close" }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert_eq!(body["status"], "ok");
     assert_eq!(body["session_id"], "sess-close");
 
     // Second close → 404 (session removed)
-    let (status2, _) = s.post(
+    let (status2, _) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncclose",
         json!({ "session_id": "sess-close" }),
+        &tok,
     ).await;
     assert_eq!(status2, 404);
 }
@@ -745,33 +1059,38 @@ async fn agent_sync_full_lifecycle() {
     let graph_cid = KotobaCid::from_bytes(b"lifecycle-graph").to_multibase();
     let head1     = KotobaCid::from_bytes(b"lifecycle-head-1").to_multibase();
     let head2     = KotobaCid::from_bytes(b"lifecycle-head-2").to_multibase();
+    let tok = tenant_jwt(&s.operator_did);
 
     // open
-    let (st, _) = s.post(
+    let (st, _) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncopen",
         json!({ "session_id": "lc", "graph_cid": graph_cid, "since_seq": 0, "head_cid": null }),
+        &tok,
     ).await;
     assert_eq!(st, 200);
 
     // advance × 2
-    let (st, b) = s.post(
+    let (st, b) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncadvance",
         json!({ "session_id": "lc", "new_head_cid": head1, "new_seq": 10 }),
+        &tok,
     ).await;
     assert_eq!(st, 200);
     assert_eq!(b["since_seq"], 10);
 
-    let (st, b) = s.post(
+    let (st, b) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncadvance",
         json!({ "session_id": "lc", "new_head_cid": head2, "new_seq": 20 }),
+        &tok,
     ).await;
     assert_eq!(st, 200);
     assert_eq!(b["since_seq"], 20);
 
     // close
-    let (st, _) = s.post(
+    let (st, _) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.agent.syncclose",
         json!({ "session_id": "lc" }),
+        &tok,
     ).await;
     assert_eq!(st, 200);
 }
@@ -813,10 +1132,12 @@ fn build_guest_component() -> Option<Vec<u8>> {
 async fn vault_put_returns_cid_and_size() {
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
     let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
     let data = b"hello vault";
-    let (status, body) = s.post(
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.vault.put",
         json!({ "data_b64": B64.encode(data) }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert!(body["cid"].as_str().is_some(), "cid missing: {body}");
@@ -827,18 +1148,21 @@ async fn vault_put_returns_cid_and_size() {
 async fn vault_put_then_get_roundtrip() {
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
     let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
     let data = b"roundtrip blob content";
     let data_b64 = B64.encode(data);
 
-    let (status, put_body) = s.post(
+    let (status, put_body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.vault.put",
         json!({ "data_b64": data_b64 }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{put_body}");
     let cid = put_body["cid"].as_str().expect("cid");
 
-    let (status, get_body) = s.get(
+    let (status, get_body) = s.get_with_auth(
         &format!("/xrpc/ai.gftd.apps.kotoba.vault.get?cid={cid}"),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{get_body}");
     assert_eq!(get_body["cid"].as_str(), Some(cid), "cid mismatch");
@@ -846,14 +1170,28 @@ async fn vault_put_then_get_roundtrip() {
 }
 
 #[tokio::test]
+async fn vault_get_without_auth_returns_401() {
+    // Regression guard: vault_get must require operator auth — unauthenticated
+    // reads would expose private encrypted blobs to any caller.
+    let s = TestServer::start(false).await;
+    let zero_cid = format!("b{}", "a".repeat(58));
+    let (status, _body) = s.get(
+        &format!("/xrpc/ai.gftd.apps.kotoba.vault.get?cid={zero_cid}"),
+    ).await;
+    assert_eq!(status, 401, "vault_get must reject unauthenticated requests");
+}
+
+#[tokio::test]
 async fn vault_get_unknown_cid_returns_404() {
     let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
     // KotobaCid multibase = 'b' + base32-nopad of 36 bytes (lowercase).
     // 36 zero-bytes → 58 'a' chars. blake3 of any real content won't produce all-zeros,
     // so this CID is valid format but never stored.
     let zero_cid = format!("b{}", "a".repeat(58));
-    let (status, _body) = s.get(
+    let (status, _body) = s.get_with_auth(
         &format!("/xrpc/ai.gftd.apps.kotoba.vault.get?cid={zero_cid}"),
+        &tok,
     ).await;
     assert_eq!(status, 404);
 }
@@ -861,7 +1199,8 @@ async fn vault_get_unknown_cid_returns_404() {
 #[tokio::test]
 async fn vault_get_missing_cid_param_returns_400() {
     let s = TestServer::start(false).await;
-    let (status, _body) = s.get("/xrpc/ai.gftd.apps.kotoba.vault.get").await;
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, _body) = s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.vault.get", &tok).await;
     assert_eq!(status, 400);
 }
 
@@ -951,9 +1290,10 @@ async fn kg_entity_missing_param_returns_400() {
 
 #[tokio::test]
 async fn kg_ingest_and_entity_roundtrip() {
-    let s = TestServer::start(false).await;
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgRoundtrip1");
 
-    let (status, put) = s.post(
+    let (status, put) = s.post_auth(
         "/xrpc/ai.gftd.apps.yata.kg.ingest",
         json!({
             "id":        "ingest-e2e-001",
@@ -970,6 +1310,7 @@ async fn kg_ingest_and_entity_roundtrip() {
             ],
             "relations": []
         }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{put}");
     assert!(put["ok"].as_bool().unwrap_or(false), "ingest failed: {put}");
@@ -999,16 +1340,18 @@ async fn kg_ingest_and_entity_roundtrip() {
 
 #[tokio::test]
 async fn kg_ingest_with_relations() {
-    let s = TestServer::start(false).await;
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgRelations1");
 
     // Ingest target entity first (needed for relation dst)
-    s.post(
+    s.post_auth(
         "/xrpc/ai.gftd.apps.yata.kg.ingest",
         json!({ "id": "rel-dst-001", "type": "City", "labelEn": "Tokyo" }),
+        &tok,
     ).await;
 
     // Ingest source entity with relation to target
-    let (status, put) = s.post(
+    let (status, put) = s.post_auth(
         "/xrpc/ai.gftd.apps.yata.kg.ingest",
         json!({
             "id":      "rel-src-001",
@@ -1018,6 +1361,7 @@ async fn kg_ingest_with_relations() {
                 { "pred": "locatedIn", "dstId": "rel-dst-001" }
             ]
         }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{put}");
     assert!(put["ok"].as_bool().unwrap_or(false));
@@ -1034,13 +1378,15 @@ async fn kg_ingest_with_relations() {
 
 #[tokio::test]
 async fn kg_catalog_reflects_ingested_entities() {
-    let s = TestServer::start(false).await;
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgCatalog1");
 
     // Ingest two entities
     for (id, label) in &[("cat-e1", "EntityOne"), ("cat-e2", "EntityTwo")] {
-        let (st, _) = s.post(
+        let (st, _) = s.post_auth(
             "/xrpc/ai.gftd.apps.yata.kg.ingest",
             json!({ "id": id, "type": "Thing", "labelEn": label, "sourceId": "cat-test-src" }),
+            &tok,
         ).await;
         assert_eq!(st, 200);
     }
@@ -1265,6 +1611,16 @@ fn tenant_jwt(did: &str) -> String {
     let header  = URL_SAFE_NO_PAD.encode(br#"{"alg":"HS256","typ":"JWT"}"#);
     let payload = URL_SAFE_NO_PAD.encode(
         format!(r#"{{"sub":"{did}","exp":9999999999}}"#).as_bytes()
+    );
+    format!("{header}.{payload}.fakesig")
+}
+
+/// Build an expired JWT (exp = 1 = past Unix epoch).
+fn expired_jwt(did: &str) -> String {
+    use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+    let header  = URL_SAFE_NO_PAD.encode(br#"{"alg":"HS256","typ":"JWT"}"#);
+    let payload = URL_SAFE_NO_PAD.encode(
+        format!(r#"{{"sub":"{did}","exp":1}}"#).as_bytes()
     );
     format!("{header}.{payload}.fakesig")
 }
@@ -1517,16 +1873,31 @@ async fn mcp_infer_run_without_engine_returns_error() {
 #[tokio::test]
 async fn mcp_graph_gc_returns_deleted_count() {
     let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
     let (status, body) = s.post_auth("/mcp", json!({
         "jsonrpc": "2.0", "id": 99, "method": "tools/call",
         "params": { "name": "kotoba_graph_gc", "arguments": {} }
-    }), "test-token").await;
+    }), &tok).await;
     assert_eq!(status, 200, "{body}");
     assert!(body.get("error").is_none(), "unexpected error: {body}");
     let content_str = body["result"]["content"][0]["text"].as_str().expect("text");
     let content: serde_json::Value = serde_json::from_str(content_str).expect("json");
     assert_eq!(content["status"], "ok", "{content}");
     assert!(content["deleted_blocks"].is_number(), "missing deleted_blocks: {content}");
+}
+
+#[tokio::test]
+async fn mcp_graph_gc_non_operator_returns_auth_error() {
+    // Regression guard: kotoba_graph_gc and kotoba_commit_prune are destructive
+    // admin tools — non-operators must receive a JSON-RPC auth error.
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zNotTheOperator");
+    let (status, body) = s.post_auth("/mcp", json!({
+        "jsonrpc": "2.0", "id": 99, "method": "tools/call",
+        "params": { "name": "kotoba_graph_gc", "arguments": {} }
+    }), &tok).await;
+    assert_eq!(status, 200, "MCP always returns 200");
+    assert!(body.get("error").is_some(), "expected JSON-RPC error for non-operator: {body}");
 }
 
 // ── XRPC route smoke tests (KG / CC / email) ──────────────────────────────────
@@ -1547,9 +1918,17 @@ async fn kg_catalog_empty_returns_zero_stats() {
 }
 
 #[tokio::test]
+async fn cc_status_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, _body) = s.get("/xrpc/ai.gftd.apps.kotoba.cc.status").await;
+    assert_eq!(status, 401, "cc_status must reject unauthenticated requests");
+}
+
+#[tokio::test]
 async fn cc_status_returns_index_counts() {
     let s = TestServer::start(false).await;
-    let (status, body) = s.get("/xrpc/ai.gftd.apps.kotoba.cc.status").await;
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.cc.status", &tok).await;
     assert_eq!(status, 200, "{body}");
     assert!(body["chunks_indexed"].is_number(), "{body}");
     assert!(body["pages_indexed"].is_number(), "{body}");
@@ -1557,10 +1936,24 @@ async fn cc_status_returns_index_counts() {
 }
 
 #[tokio::test]
-async fn email_list_xrpc_unknown_owner_returns_empty() {
+async fn email_list_xrpc_without_auth_returns_401() {
     let s = TestServer::start(false).await;
     let (status, body) = s
         .get("/xrpc/ai.gftd.apps.kotoba.email.list?owner_did=did:key:zEmailXrpc1")
+        .await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn email_list_xrpc_unknown_owner_returns_empty() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zEmailXrpc1";
+    let tok = tenant_jwt(did);
+    let (status, body) = s
+        .get_with_auth(
+            &format!("/xrpc/ai.gftd.apps.kotoba.email.list?owner_did={did}"),
+            &tok,
+        )
         .await;
     assert_eq!(status, 200, "{body}");
     assert_eq!(body["total"], 0, "{body}");
@@ -1568,6 +1961,27 @@ async fn email_list_xrpc_unknown_owner_returns_empty() {
         body["emails"].as_array().map(|a| a.is_empty()).unwrap_or(false),
         "{body}"
     );
+}
+
+#[tokio::test]
+async fn email_ingest_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.apps.kotoba.email.ingest", json!({
+        "owner_did": "did:key:zEmailIngest1",
+        "raw_b64": "aGVsbG8=",
+    })).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn email_ingest_empty_owner_did_returns_400() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zEmailOwner1");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.email.ingest", json!({
+        "owner_did": "",
+        "raw_b64": "aGVsbG8=",
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
 }
 
 // ── weight.put CACAO auth tests ───────────────────────────────────────────────
@@ -1829,7 +2243,8 @@ async fn kg_search_empty_returns_empty_results() {
 
 #[tokio::test]
 async fn kg_search_after_ingest_returns_entity() {
-    let s = TestServer::start(false).await;
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgSearch1");
 
     // Ingest an entity with a label so the search index has data
     let (status, _) = s.post_auth(
@@ -1840,7 +2255,7 @@ async fn kg_search_after_ingest_returns_entity() {
             "labelEn": "Tokyo",
             "type":    "Place",
         }),
-        "test-token",
+        &tok,
     ).await;
     assert_eq!(status, 200, "ingest failed");
 
@@ -1883,11 +2298,12 @@ async fn kg_query_unknown_lang_returns_400() {
 
 #[tokio::test]
 async fn kg_delete_nonexistent_entity_returns_ok_zero_retracted() {
-    let s = TestServer::start(false).await;
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
     let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.yata.kg.delete",
         json!({ "id": "ent-does-not-exist" }),
-        "test-token",
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert!(body["ok"].as_bool().unwrap_or(false), "{body}");
@@ -1896,13 +2312,15 @@ async fn kg_delete_nonexistent_entity_returns_ok_zero_retracted() {
 
 #[tokio::test]
 async fn kg_ingest_then_delete_removes_entity() {
-    let s = TestServer::start(false).await;
+    let s        = TestServer::start(false).await;
+    let write_tok = tenant_jwt("did:key:zKgDel2");
+    let op_tok   = tenant_jwt(&s.operator_did);
 
-    // Ingest an entity
+    // Ingest an entity (any bearer allowed)
     let (status, _) = s.post_auth(
         "/xrpc/ai.gftd.apps.yata.kg.ingest",
         json!({ "id": "ent-delete-me", "type": "Thing", "labelEn": "Delete Target" }),
-        "test-token",
+        &write_tok,
     ).await;
     assert_eq!(status, 200);
 
@@ -1913,11 +2331,11 @@ async fn kg_ingest_then_delete_removes_entity() {
     assert_eq!(status, 200, "{body}");
     assert!(body["ok"].as_bool().unwrap_or(false), "entity not found before delete: {body}");
 
-    // Delete it
+    // Delete requires operator auth
     let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.yata.kg.delete",
         json!({ "id": "ent-delete-me" }),
-        "test-token",
+        &op_tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert!(body["ok"].as_bool().unwrap_or(false), "{body}");
@@ -2003,11 +2421,33 @@ async fn kotobase_pin_list_offset_pagination() {
 // ── cc.search / cc.rag / cc.ingest smoke tests ───────────────────────────────
 
 #[tokio::test]
+async fn cc_search_without_auth_returns_401() {
+    // Regression guard: cc_search calls the embed service per request — exposing
+    // it without auth enables resource-exhaustion attacks on the embed backend.
+    let s = TestServer::start(false).await;
+    let (status, _body) = s.get("/xrpc/ai.gftd.apps.kotoba.cc.search?q=test").await;
+    assert_eq!(status, 401, "cc_search must reject unauthenticated requests");
+}
+
+#[tokio::test]
+async fn cc_rag_without_auth_returns_401() {
+    // Regression guard: cc_rag calls embed service + LLM inference — highest-cost
+    // endpoint; must be operator-gated to prevent resource exhaustion.
+    let s = TestServer::start(false).await;
+    let (status, _body) = s.post(
+        "/xrpc/ai.gftd.apps.kotoba.cc.rag",
+        json!({ "query": "what is Rust?" }),
+    ).await;
+    assert_eq!(status, 401, "cc_rag must reject unauthenticated requests");
+}
+
+#[tokio::test]
 async fn cc_search_without_real_embed_endpoint_returns_error() {
     let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
     // The embed client initializes with default localhost:11434 but no server is running.
     // The request should return an error response (500 or 503) — not 200 with data.
-    let (status, body) = s.get("/xrpc/ai.gftd.apps.kotoba.cc.search?q=test").await;
+    let (status, body) = s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.cc.search?q=test", &tok).await;
     assert!(status == 500 || status == 503, "expected 500 or 503, got {status}: {body}");
     assert!(body["error"].as_str().is_some(), "expected error field: {body}");
 }
@@ -2015,9 +2455,11 @@ async fn cc_search_without_real_embed_endpoint_returns_error() {
 #[tokio::test]
 async fn cc_rag_without_real_embed_endpoint_returns_error() {
     let s = TestServer::start(false).await;
-    let (status, body) = s.post(
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.cc.rag",
         json!({ "query": "what is Rust?" }),
+        &tok,
     ).await;
     assert!(status == 500 || status == 503, "expected 500 or 503, got {status}: {body}");
     assert!(body["error"].as_str().is_some(), "expected error field: {body}");
@@ -2026,11 +2468,13 @@ async fn cc_rag_without_real_embed_endpoint_returns_error() {
 #[tokio::test]
 async fn cc_ingest_trigger_returns_started_job_id() {
     let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
     // Even with a non-existent parquet_dir, the ingest endpoint accepts the request
     // and spawns the job asynchronously; the response must include job_id + status=started
-    let (status, body) = s.post(
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.cc.ingest",
         json!({ "parquetDir": "/tmp/no-such-dir", "mode": "chunks" }),
+        &tok,
     ).await;
     assert_eq!(status, 200, "{body}");
     assert!(body["job_id"].as_str().is_some(), "job_id missing: {body}");
@@ -2038,9 +2482,34 @@ async fn cc_ingest_trigger_returns_started_job_id() {
 }
 
 #[tokio::test]
+async fn cc_ingest_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post(
+        "/xrpc/ai.gftd.apps.kotoba.cc.ingest",
+        json!({ "parquetDir": "/tmp/test", "mode": "chunks" }),
+    ).await;
+    assert_eq!(status, 401, "{body}");
+    assert!(body["error"].as_str().is_some(), "{body}");
+}
+
+#[tokio::test]
+async fn cc_ingest_with_non_operator_did_returns_401() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zNotTheOperator");
+    let (status, body) = s.post_auth(
+        "/xrpc/ai.gftd.apps.kotoba.cc.ingest",
+        json!({ "parquetDir": "/tmp/test", "mode": "chunks" }),
+        &tok,
+    ).await;
+    assert_eq!(status, 401, "{body}");
+    assert!(body["error"].as_str().is_some(), "{body}");
+}
+
+#[tokio::test]
 async fn cc_search_empty_query_returns_400() {
     let s = TestServer::start(false).await;
-    let (status, body) = s.get("/xrpc/ai.gftd.apps.kotoba.cc.search?q=").await;
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.cc.search?q=", &tok).await;
     assert_eq!(status, 400, "{body}");
     assert!(body["error"].as_str().is_some(), "{body}");
 }
@@ -2048,9 +2517,11 @@ async fn cc_search_empty_query_returns_400() {
 #[tokio::test]
 async fn cc_ingest_invalid_mode_returns_400() {
     let s = TestServer::start(false).await;
-    let (status, body) = s.post(
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.cc.ingest",
         json!({ "parquetDir": "/tmp/test", "mode": "invalid" }),
+        &tok,
     ).await;
     assert_eq!(status, 400, "{body}");
     assert!(body["error"].as_str().is_some(), "{body}");
@@ -2059,10 +2530,993 @@ async fn cc_ingest_invalid_mode_returns_400() {
 #[tokio::test]
 async fn cc_rag_empty_query_returns_400() {
     let s = TestServer::start(false).await;
-    let (status, body) = s.post(
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth(
         "/xrpc/ai.gftd.apps.kotoba.cc.rag",
         json!({ "query": "" }),
+        &tok,
     ).await;
     assert_eq!(status, 400, "{body}");
     assert!(body["error"].as_str().is_some(), "{body}");
+}
+
+// ── agent.sync security tests ─────────────────────────────────────────────────
+
+#[tokio::test]
+async fn agent_sync_open_empty_session_id_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.apps.kotoba.agent.syncopen", json!({
+        "session_id": "",
+        "graph_cid":  "bafybeisync000000000000000000000000000000000000000",
+        "since_seq":  0u64,
+    })).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn agent_sync_open_oversized_session_id_returns_400() {
+    let s = TestServer::start(false).await;
+    let long_id = "x".repeat(257); // > 256 bytes
+    let (status, body) = s.post("/xrpc/ai.gftd.apps.kotoba.agent.syncopen", json!({
+        "session_id": long_id,
+        "graph_cid":  "bafybeisync000000000000000000000000000000000000000",
+        "since_seq":  0u64,
+    })).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+// ── kg input-validation tests ─────────────────────────────────────────────────
+
+#[tokio::test]
+async fn kg_ingest_empty_id_returns_400() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgVal1");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.ingest", json!({
+        "id": "",
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn kg_embed_empty_text_returns_400() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgVal2");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.embed", json!({
+        "entityId": "ent-1",
+        "text": "",
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn kg_search_empty_query_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.get("/xrpc/ai.gftd.apps.yata.kg.search?q=").await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn kg_delete_empty_id_returns_400() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.delete", json!({
+        "id": "",
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn kg_query_empty_query_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.query", json!({
+        "lang": "sparql", "query": "",
+    }), "test-token").await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn kg_ingest_too_many_claims_returns_400() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgVal4");
+    let claims: Vec<_> = (0..1025).map(|i| json!({"pred": format!("p{i}"), "value": "v"})).collect();
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.ingest", json!({
+        "id": "ent-overflow",
+        "claims": claims,
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn agent_sync_open_non_ascii_session_id_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.apps.kotoba.agent.syncopen", json!({
+        "session_id": "セッション",  // non-ASCII
+        "graph_cid":  "bafybeisync000000000000000000000000000000000000000",
+        "since_seq":  0u64,
+    })).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn agent_sync_advance_unknown_session_returns_404() {
+    let s = TestServer::start(false).await;
+    use kotoba_core::cid::KotobaCid;
+    let head_cid = KotobaCid::from_bytes(b"head-adv").to_multibase();
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.agent.syncadvance", json!({
+        "session_id":   "no-such-session",
+        "new_head_cid": head_cid,
+        "new_seq":      0u64,
+    }), &tok).await;
+    assert_eq!(status, 404, "{body}");
+}
+
+// ── signal endpoint security tests ───────────────────────────────────────────
+
+#[tokio::test]
+async fn signal_register_prekeys_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.register.prekeys", json!({
+        "did": "did:plc:test123",
+        "deviceId": "device-1",
+        "identityKey": {},
+        "prekeyBundle": {},
+    })).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn signal_register_prekeys_empty_did_returns_400() {
+    let s = TestServer::start(false).await;
+    // Use a token whose sub matches the empty DID (won't reach the check — empty DID is caught first)
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.signal.register.prekeys", json!({
+        "did": "",
+        "deviceId": "device-1",
+        "identityKey": {},
+        "prekeyBundle": {},
+    }), "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6cGxjOnRlc3QxMjMifQ.dummysig").await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn signal_send_message_oversized_payload_returns_413() {
+    let s = TestServer::start(false).await;
+    // Build a payload exceeding 256 KiB
+    let large_ciphertext = "x".repeat(300 * 1024);
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.send.message", json!({
+        "signalMessage": {
+            "recipientDid": "did:plc:recipient",
+            "deviceId": "device-1",
+            "ciphertext": large_ciphertext,
+            "messageType": 1u32,
+        },
+    })).await;
+    assert_eq!(status, 413, "{body}");
+}
+
+#[tokio::test]
+async fn signal_get_prekey_bundle_empty_did_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.get("/xrpc/ai.gftd.signal.get.prekey.bundle?did=").await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn signal_send_group_message_empty_group_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.send.group.message", json!({
+        "groupId": "",
+        "senderDid": "did:plc:sender",
+        "senderKeyMessage": {},
+    })).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+// ── attestation endpoint security tests ──────────────────────────────────────
+
+#[tokio::test]
+async fn attest_claim_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   "did:key:zEntity1",
+        "attester_did": "did:key:zAttester1",
+        "claim_type":   "self",
+        "stake_mkoto":  1_000_000_000u64,
+    })).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn attest_claim_invalid_claim_type_returns_400() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zAttester2";
+    let tok = tenant_jwt(did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   "did:key:zEntity2",
+        "attester_did": did,
+        "claim_type":   "unknown_type",
+        "stake_mkoto":  1_000_000_000u64,
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn attest_claim_roundtrip() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zAttester3";
+    let tok = tenant_jwt(did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   "did:key:zEntity3",
+        "attester_did": did,
+        "claim_type":   "self",
+        "stake_mkoto":  1_000_000_000u64,
+    }), &tok).await;
+    assert_eq!(status, 201, "{body}");
+    assert_eq!(body["status"], "attested", "{body}");
+    assert!(body["claim_cid"].as_str().is_some(), "{body}");
+}
+
+#[tokio::test]
+async fn attest_challenge_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.apps.kotoba.attest.challenge", json!({
+        "claim_cid":      "bafybeifake000000000000000000000000000",
+        "challenger_did": "did:key:zChallenger1",
+        "reason":         "fabricated evidence",
+    })).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn attest_challenge_empty_reason_returns_400() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zChallenger2";
+    let tok = tenant_jwt(did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.challenge", json!({
+        "claim_cid":      "bafybeifake000000000000000000000000000",
+        "challenger_did": did,
+        "reason":         "",
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+// ── kg write-endpoint auth tests ──────────────────────────────────────────────
+
+#[tokio::test]
+async fn kg_ingest_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.apps.yata.kg.ingest", json!({
+        "id": "ent-noauth",
+        "labelEn": "Test Entity",
+    })).await;
+    assert_eq!(status, 401, "{body}");
+    assert_eq!(body["ok"], false, "{body}");
+}
+
+#[tokio::test]
+async fn kg_delete_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.apps.yata.kg.delete", json!({
+        "id": "ent-noauth-del",
+    })).await;
+    assert_eq!(status, 401, "{body}");
+    assert_eq!(body["ok"], false, "{body}");
+}
+
+#[tokio::test]
+async fn kg_embed_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.apps.yata.kg.embed", json!({
+        "entityId": "ent-embed-noauth",
+        "text": "some text",
+    })).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn kg_ingest_with_auth_succeeds() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgWriter1");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.ingest", json!({
+        "id":      "ent-auth-ok",
+        "labelEn": "Authenticated Entity",
+        "labelJa": "認証済みエンティティ",
+    }), &tok).await;
+    assert_eq!(status, 200, "{body}");
+    assert_eq!(body["ok"], true, "{body}");
+    assert!(body["subjectCid"].as_str().is_some(), "{body}");
+    assert!(body["quadCount"].as_u64().unwrap_or(0) > 0, "{body}");
+}
+
+#[tokio::test]
+async fn kg_delete_with_auth_on_missing_entity_returns_ok_zero() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.delete", json!({
+        "id": "ent-does-not-exist-auth",
+    }), &tok).await;
+    assert_eq!(status, 200, "{body}");
+    assert_eq!(body["ok"], true, "{body}");
+    assert_eq!(body["retractedCount"], 0, "{body}");
+}
+
+#[tokio::test]
+async fn kg_delete_non_operator_returns_401() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zNonOperatorDeleter");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.delete", json!({
+        "id": "ent-non-op-del",
+    }), &tok).await;
+    assert_eq!(status, 401, "{body}");
+    assert_eq!(body["ok"], false, "{body}");
+}
+
+#[tokio::test]
+async fn kg_ingest_claim_pred_too_long_returns_400() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgClaimLen");
+    let long_pred = "x".repeat(300); // exceeds MAX_KG_ID_LEN=256
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.ingest", json!({
+        "id":     "ent-claim-pred-len",
+        "claims": [{ "pred": long_pred, "value": "v" }],
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+    assert_eq!(body["ok"], false, "{body}");
+}
+
+#[tokio::test]
+async fn kg_ingest_relation_pred_too_long_returns_400() {
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgRelLen");
+    let long_pred = "r".repeat(300);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.ingest", json!({
+        "id":        "ent-rel-pred-len",
+        "relations": [{ "pred": long_pred, "dstId": "dst-ok" }],
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+    assert_eq!(body["ok"], false, "{body}");
+}
+
+#[tokio::test]
+async fn kg_ingest_label_vec_inf_returns_400() {
+    // 1e40 as f64 is valid JSON but overflows to f32::INFINITY when serde deserializes it
+    // as Vec<f32>.  The is_finite() guard should reject it with 400.
+    let s   = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zKgVecInf");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.yata.kg.ingest", json!({
+        "id":       "ent-vec-inf",
+        "labelVec": [1.0_f64, 1e40_f64],
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+    assert_eq!(body["ok"], false, "{body}");
+}
+
+// ── attest_challenge happy path ───────────────────────────────────────────────
+
+#[tokio::test]
+async fn attest_challenge_roundtrip() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zChallenger3";
+    let tok = tenant_jwt(did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.challenge", json!({
+        "claim_cid":      "bafybeifake000000000000000000000000000",
+        "challenger_did": did,
+        "reason":         "counter-evidence",
+    }), &tok).await;
+    assert_eq!(status, 201, "{body}");
+    assert_eq!(body["status"], "challenged", "{body}");
+    assert!(body["challenge_cid"].as_str().is_some(), "{body}");
+}
+
+#[tokio::test]
+async fn attest_challenge_empty_claim_cid_returns_400() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zChallenger4";
+    let tok = tenant_jwt(did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.challenge", json!({
+        "claim_cid":      "",
+        "challenger_did": did,
+        "reason":         "some reason",
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+// ── attest_query ─────────────────────────────────────────────────────────────
+
+#[tokio::test]
+async fn attest_query_returns_empty_list() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.get(
+        "/xrpc/ai.gftd.apps.kotoba.attest.query?entity_did=did:key:zNobody"
+    ).await;
+    assert_eq!(status, 200, "{body}");
+    assert!(body["claims"].as_array().is_some(), "claims must be array: {body}");
+    assert_eq!(body["total"].as_u64().unwrap_or(1), 0, "{body}");
+}
+
+#[tokio::test]
+async fn attest_query_oversized_entity_did_returns_400() {
+    let s = TestServer::start(false).await;
+    let big_did = "x".repeat(600);
+    let (status, body) = s.get(
+        &format!("/xrpc/ai.gftd.apps.kotoba.attest.query?entity_did={big_did}")
+    ).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+// ── attest_claim stake enforcement ────────────────────────────────────────────
+
+#[tokio::test]
+async fn attest_claim_insufficient_stake_self_returns_422() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zStaker1";
+    let tok = tenant_jwt(did);
+    // MIN_STAKE_SELF_ATTESTED = 1_000_000_000 mKOTO; send one less
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   did,
+        "attester_did": did,
+        "claim_type":   "self",
+        "stake_mkoto":  999_999_999u64,
+    }), &tok).await;
+    assert_eq!(status, 422, "{body}");
+    assert_eq!(body["error"], "insufficient_stake", "{body}");
+    assert_eq!(body["required_mkoto"].as_u64().unwrap(), 1_000_000_000u64, "{body}");
+}
+
+#[tokio::test]
+async fn attest_claim_insufficient_stake_verified_entity_returns_422() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zStaker2";
+    let tok = tenant_jwt(did);
+    // MIN_STAKE_VERIFIED_ENTITY = 5_000_000_000 mKOTO; send exactly MIN_STAKE_SELF_ATTESTED
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   "did:key:zEntity1",
+        "attester_did": did,
+        "claim_type":   "verified_entity",
+        "stake_mkoto":  1_000_000_000u64,
+    }), &tok).await;
+    assert_eq!(status, 422, "{body}");
+    assert_eq!(body["error"], "insufficient_stake", "{body}");
+    assert_eq!(body["required_mkoto"].as_u64().unwrap(), 5_000_000_000u64, "{body}");
+}
+
+#[tokio::test]
+async fn attest_claim_sufficient_stake_self_succeeds() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zStaker3";
+    let tok = tenant_jwt(did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   did,
+        "attester_did": did,
+        "claim_type":   "self",
+        "stake_mkoto":  1_000_000_000u64,
+    }), &tok).await;
+    assert_eq!(status, 201, "{body}");
+    assert_eq!(body["status"], "attested", "{body}");
+}
+
+// ── attest_query live scan ─────────────────────────────────────────────────────
+
+#[tokio::test]
+async fn attest_query_returns_claim_after_submit() {
+    let s   = TestServer::start(false).await;
+    let attester = "did:key:zQueryAttester1";
+    let entity   = "did:key:zQueryEntity1";
+    let tok = tenant_jwt(attester);
+
+    // Submit a claim
+    let (status, _) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   entity,
+        "attester_did": attester,
+        "claim_type":   "self",
+        "stake_mkoto":  1_000_000_000u64,
+    }), &tok).await;
+    assert_eq!(status, 201);
+
+    // Query by entity_did — should find the claim
+    let (status, body) = s.get(
+        &format!("/xrpc/ai.gftd.apps.kotoba.attest.query?entity_did={entity}")
+    ).await;
+    assert_eq!(status, 200, "{body}");
+    let claims = body["claims"].as_array().expect("claims array");
+    assert_eq!(claims.len(), 1, "expected 1 claim: {body}");
+    assert_eq!(claims[0]["entity_did"], entity, "{body}");
+    assert_eq!(claims[0]["attester_did"], attester, "{body}");
+    assert_eq!(claims[0]["claim_type"], "self", "{body}");
+    assert_eq!(claims[0]["stake_mkoto"].as_u64().unwrap(), 1_000_000_000u64, "{body}");
+
+    // Query by attester_did — same claim
+    let (status, body) = s.get(
+        &format!("/xrpc/ai.gftd.apps.kotoba.attest.query?attester_did={attester}")
+    ).await;
+    assert_eq!(status, 200, "{body}");
+    let claims = body["claims"].as_array().expect("claims array");
+    assert_eq!(claims.len(), 1, "expected 1 claim by attester: {body}");
+    assert_eq!(claims[0]["entity_did"], entity, "{body}");
+}
+
+#[tokio::test]
+async fn attest_query_no_filter_returns_empty() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.get("/xrpc/ai.gftd.apps.kotoba.attest.query").await;
+    assert_eq!(status, 200, "{body}");
+    let claims = body["claims"].as_array().expect("claims array");
+    assert_eq!(claims.len(), 0, "no-filter must return empty: {body}");
+}
+
+// ── request_log_query ────────────────────────────────────────────────────────
+
+#[tokio::test]
+async fn request_log_query_without_auth_returns_401() {
+    // Regression guard: audit log must be operator-only — leaking it reveals
+    // internal API usage patterns and DID activity timings to any caller.
+    let s = TestServer::start(false).await;
+    let (status, _body) = s.get("/xrpc/ai.gftd.apps.kotoba.request.log").await;
+    assert_eq!(status, 401, "request_log_query must reject unauthenticated requests");
+}
+
+#[tokio::test]
+async fn request_log_query_returns_empty_list() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.request.log", &tok).await;
+    assert_eq!(status, 200, "{body}");
+    assert!(body["entries"].as_array().is_some(), "entries must be array: {body}");
+}
+
+#[tokio::test]
+async fn request_log_query_returns_entries_after_requests() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
+    // Make a few requests so the fingerprint middleware writes audit quads.
+    s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.request.log", &tok).await;
+    s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.request.log", &tok).await;
+    // Allow the fire-and-forget tokio tasks to complete (in-memory, µs).
+    tokio::time::sleep(std::time::Duration::from_millis(50)).await;
+    let (status, body) = s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.request.log", &tok).await;
+    assert_eq!(status, 200, "{body}");
+    let entries = body["entries"].as_array().expect("entries must be array");
+    assert!(!entries.is_empty(), "expected audit entries after requests, got: {body}");
+    let entry = &entries[0];
+    assert!(entry["request_cid"].as_str().is_some(), "request_cid missing: {entry}");
+    assert!(entry["method"].as_str().is_some(), "method missing: {entry}");
+    assert!(entry["path"].as_str().is_some(), "path missing: {entry}");
+}
+
+#[tokio::test]
+async fn request_log_query_path_prefix_filter() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
+    // Make distinct requests to two different endpoint families.
+    s.get_with_auth("/xrpc/ai.gftd.apps.kotoba.request.log", &tok).await;
+    s.get("/xrpc/ai.gftd.apps.kotoba.attest.query?entity_did=did:key:zTest1").await;
+    tokio::time::sleep(std::time::Duration::from_millis(50)).await;
+    // Filter by exact prefix — should return only audit entries matching it.
+    let (status, body) = s
+        .get_with_auth(
+            "/xrpc/ai.gftd.apps.kotoba.request.log?path_prefix=/xrpc/ai.gftd.apps.kotoba.request.log",
+            &tok,
+        )
+        .await;
+    assert_eq!(status, 200, "{body}");
+    let entries = body["entries"].as_array().expect("entries must be array");
+    for e in entries {
+        let path = e["path"].as_str().unwrap_or("");
+        assert!(
+            path.starts_with("/xrpc/ai.gftd.apps.kotoba.request.log"),
+            "entry path {path:?} does not match filter"
+        );
+    }
+}
+
+// ── signal.distribute.sender.key ─────────────────────────────────────────────
+
+#[tokio::test]
+async fn signal_distribute_sender_key_ok() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt(&s.operator_did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.signal.distribute.sender.key", json!({
+        "recipientDid":    "did:key:zRecipient1",
+        "recipientDevice": "device-1",
+        "signalMessage":   { "ciphertext": "AAAA", "messageType": 3 },
+    }), &tok).await;
+    assert_eq!(status, 200, "{body}");
+    assert_eq!(body["status"], "ok", "{body}");
+    assert!(body["messageId"].as_str().is_some(), "{body}");
+}
+
+#[tokio::test]
+async fn signal_distribute_sender_key_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.distribute.sender.key", json!({
+        "recipientDid":    "did:key:zRecipient1",
+        "recipientDevice": "device-1",
+        "signalMessage":   { "ciphertext": "AAAA", "messageType": 3 },
+    })).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn signal_send_message_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.send.message", json!({
+        "signalMessage": {
+            "messageType":       "directMessage",
+            "senderDid":         "did:key:zSender",
+            "recipientDid":      "did:key:zRecipient",
+            "deviceId":          "dev-1",
+            "ciphertextEnvelope": "AAAA",
+            "timestamp":         "2026-05-26T00:00:00Z",
+        },
+    })).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn signal_send_group_message_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.send.group.message", json!({
+        "groupId":          "grp-1",
+        "senderDid":        "did:key:zSender",
+        "senderKeyMessage": {},
+    })).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn signal_distribute_sender_key_empty_recipient_did_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.distribute.sender.key", json!({
+        "recipientDid":    "",
+        "recipientDevice": "device-1",
+        "signalMessage":   {},
+    })).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn signal_distribute_sender_key_empty_device_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.distribute.sender.key", json!({
+        "recipientDid":    "did:key:zRecipient2",
+        "recipientDevice": "",
+        "signalMessage":   {},
+    })).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn signal_distribute_sender_key_oversized_payload_returns_413() {
+    let s = TestServer::start(false).await;
+    let large = "x".repeat(300 * 1024);
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.distribute.sender.key", json!({
+        "recipientDid":    "did:key:zRecipient3",
+        "recipientDevice": "device-1",
+        "signalMessage":   { "ciphertext": large },
+    })).await;
+    assert_eq!(status, 413, "{body}");
+}
+
+// ── expired JWT rejection tests ───────────────────────────────────────────────
+
+#[tokio::test]
+async fn attest_claim_expired_token_returns_401() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zExpired1";
+    let tok = expired_jwt(did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   "did:key:zEntity99",
+        "attester_did": did,
+        "claim_type":   "self",
+        "stake_mkoto":  1_000_000_000u64,
+    }), &tok).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn attest_challenge_expired_token_returns_401() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zExpired2";
+    let tok = expired_jwt(did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.challenge", json!({
+        "claim_cid":      "bafybeifake000000000000000000000000000",
+        "challenger_did": did,
+        "reason":         "bad actor",
+    }), &tok).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn signal_register_prekeys_expired_token_returns_401() {
+    let s   = TestServer::start(false).await;
+    let did = "did:key:zExpired3";
+    let tok = expired_jwt(did);
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.signal.register.prekeys", json!({
+        "did":          did,
+        "deviceId":     "device-x",
+        "identityKey":  {},
+        "prekeyBundle": {},
+    }), &tok).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn operator_auth_expired_token_returns_401() {
+    let s   = TestServer::start(false).await;
+    let tok = expired_jwt(&s.operator_did);
+    use kotoba_core::cid::KotobaCid;
+    let graph_cid = KotobaCid::from_bytes(b"expired-test").to_multibase();
+    let (status, body) = s.post_auth(
+        "/xrpc/ai.gftd.apps.kotoba.embed.create",
+        json!({ "text": "hello", "doc_cid": "d1", "model_cid": "m1", "graph": graph_cid }),
+        &tok,
+    ).await;
+    assert_eq!(status, 401, "{body}");
+}
+
+// ── signal DID prefix validation tests ───────────────────────────────────────
+
+#[tokio::test]
+async fn signal_register_prekeys_invalid_did_prefix_returns_400() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt("not-a-did");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.signal.register.prekeys", json!({
+        "did":          "not-a-did",
+        "deviceId":     "device-1",
+        "identityKey":  {},
+        "prekeyBundle": {},
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn signal_get_prekey_bundle_invalid_did_prefix_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.get("/xrpc/ai.gftd.signal.get.prekey.bundle?did=not-a-did").await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn signal_send_group_message_invalid_sender_did_prefix_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.send.group.message", json!({
+        "groupId":          "grp-1",
+        "senderDid":        "not-a-did",
+        "senderKeyMessage": {},
+    })).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn signal_distribute_sender_key_invalid_recipient_did_prefix_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.post("/xrpc/ai.gftd.signal.distribute.sender.key", json!({
+        "recipientDid":    "not-a-did",
+        "recipientDevice": "device-1",
+        "signalMessage":   {},
+    })).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+// ── DID prefix validation tests (email / attest / invoke_run) ────────────────
+
+#[tokio::test]
+async fn email_list_invalid_did_prefix_returns_400() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s.get("/xrpc/ai.gftd.apps.kotoba.email.list?owner_did=not-a-did").await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn email_ingest_invalid_did_prefix_returns_400() {
+    use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zOperator");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.email.ingest", json!({
+        "owner_did": "not-a-did",
+        "raw_b64":   B64.encode(b"From: test@example.com\r\n\r\nBody"),
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn attest_claim_invalid_entity_did_prefix_returns_400() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zAttester");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   "not-a-did",
+        "attester_did": "did:key:zAttester",
+        "claim_type":   "self",
+        "stake_mkoto":  1_000_000_000u64,
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn attest_claim_invalid_attester_did_prefix_returns_400() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zSelf");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.claim", json!({
+        "entity_did":   "did:key:zSelf",
+        "attester_did": "not-a-did",
+        "claim_type":   "self",
+        "stake_mkoto":  1_000_000_000u64,
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn attest_challenge_invalid_challenger_did_prefix_returns_400() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt("not-a-did");
+    let (status, body) = s.post_auth("/xrpc/ai.gftd.apps.kotoba.attest.challenge", json!({
+        "claim_cid":      "bafybeifake000000000000000000000000000",
+        "challenger_did": "not-a-did",
+        "reason":         "bad actor",
+    }), &tok).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+// ── commit.store / weight.put field-bound tests ───────────────────────────────
+
+#[tokio::test]
+async fn commit_store_oversized_author_returns_400() {
+    let s = TestServer::start(false).await;
+    let graph = "commit-author-bound-graph";
+    let (_, cacao_b64) = build_ed25519_cacao(graph);
+    // 513-byte author (limit is 512)
+    let long_author = "a".repeat(513);
+    let (status, body) = s.post(
+        "/xrpc/ai.gftd.apps.kotoba.commit.store",
+        json!({
+            "graph":     graph,
+            "author":    long_author,
+            "seq":       1u64,
+            "cacao_b64": cacao_b64,
+        }),
+    ).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn weight_put_oversized_shape_returns_400() {
+    use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+    let s = TestServer::start(false).await;
+    let graph = "weight-shape-bound-graph";
+    let (_, cacao_b64) = build_ed25519_cacao(graph);
+    let data = vec![0x3cu8];
+    // 9-element shape (limit is 8)
+    let bad_shape: Vec<u32> = vec![1; 9];
+    let (status, body) = s.post(
+        "/xrpc/ai.gftd.apps.kotoba.weight.put",
+        json!({
+            "model_cid": "bafkreiabcdef",
+            "layer":     0,
+            "data_b64":  B64.encode(&data),
+            "shape":     bad_shape,
+            "dtype":     "fp8e4m3",
+            "graph":     graph,
+            "cacao_b64": cacao_b64,
+        }),
+    ).await;
+    assert_eq!(status, 400, "{body}");
+}
+
+// ── email.read tests ──────────────────────────────────────────────────────────
+
+#[tokio::test]
+async fn email_read_without_auth_returns_401() {
+    let s = TestServer::start(false).await;
+    let (status, body) = s
+        .get("/xrpc/ai.gftd.apps.kotoba.email.read?owner_did=did:key:zReader&email_cid=fakecid")
+        .await;
+    assert_eq!(status, 401, "{body}");
+}
+
+#[tokio::test]
+async fn email_read_invalid_did_returns_400() {
+    let s = TestServer::start(false).await;
+    let tok = tenant_jwt("did:key:zReader");
+    let (status, body) = s
+        .get_with_auth(
+            "/xrpc/ai.gftd.apps.kotoba.email.read?owner_did=not-a-did&email_cid=fakecid",
+            &tok,
+        )
+        .await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn email_read_empty_cid_returns_400() {
+    let s = TestServer::start(false).await;
+    let did = "did:key:zReader2";
+    let tok = tenant_jwt(did);
+    let (status, body) = s
+        .get_with_auth(
+            &format!("/xrpc/ai.gftd.apps.kotoba.email.read?owner_did={did}&email_cid="),
+            &tok,
+        )
+        .await;
+    assert_eq!(status, 400, "{body}");
+}
+
+#[tokio::test]
+async fn email_read_without_crypto_returns_503() {
+    // The test server does not call init_crypto(), so crypto = None.
+    let s = TestServer::start(false).await;
+    let did = "did:key:zReader3";
+    let tok = tenant_jwt(did);
+    let (status, body) = s
+        .get_with_auth(
+            &format!(
+                "/xrpc/ai.gftd.apps.kotoba.email.read?owner_did={did}&email_cid=fakecid"
+            ),
+            &tok,
+        )
+        .await;
+    assert_eq!(status, 503, "{body}");
+    assert!(body["error"].as_str().is_some(), "expected error field: {body}");
+}
+
+// ── New input-guard e2e tests (guards added 2026-05-27) ──────────────────────
+
+#[tokio::test]
+async fn block_get_oversized_cid_returns_400() {
+    let s = TestServer::start(false).await;
+    let oversized_cid = "b".repeat(513); // exceeds MAX_CID_LEN=512
+    let (status, body) = s
+        .get(&format!("/xrpc/ai.gftd.apps.kotoba.block.get?cid={oversized_cid}"))
+        .await;
+    assert_eq!(status, 400, "oversized cid must be rejected: {body}");
+}
+
+#[tokio::test]
+async fn weight_get_oversized_cid_returns_400() {
+    let s = TestServer::start(false).await;
+    let oversized_cid = "w".repeat(513);
+    let (status, body) = s
+        .get(&format!("/xrpc/ai.gftd.apps.kotoba.weight.get?cid={oversized_cid}"))
+        .await;
+    assert_eq!(status, 400, "oversized cid must be rejected: {body}");
+}
+
+#[tokio::test]
+async fn commit_get_oversized_graph_returns_400() {
+    let s = TestServer::start(false).await;
+    let oversized_graph = "g".repeat(513);
+    let (status, body) = s
+        .get(&format!("/xrpc/ai.gftd.apps.kotoba.commit.get?graph={oversized_graph}"))
+        .await;
+    assert_eq!(status, 400, "oversized graph must be rejected: {body}");
+}
+
+#[tokio::test]
+async fn kg_query_oversized_lang_returns_400() {
+    let s = TestServer::start(false).await;
+    let oversized_lang = "x".repeat(17); // exceeds MAX_KG_LANG_LEN=16
+    let (status, body) = s
+        .post_auth(
+            "/xrpc/ai.gftd.apps.yata.kg.query",
+            json!({ "lang": oversized_lang, "query": "SELECT ?s ?o WHERE {}" }),
+            "test-token",
+        )
+        .await;
+    assert_eq!(status, 400, "oversized lang must be rejected: {body}");
+}
+
+#[tokio::test]
+async fn commit_store_oversized_graph_returns_400() {
+    let s = TestServer::start(false).await;
+    let oversized_graph = "g".repeat(513); // exceeds MAX_GRAPH_LEN=512
+    let (_, cacao_b64) = build_ed25519_cacao("irrelevant-graph");
+    let (status, body) = s.post(
+        "/xrpc/ai.gftd.apps.kotoba.commit.store",
+        json!({
+            "graph":     oversized_graph,
+            "author":    "did:key:zAuthor",
+            "seq":       0u64,
+            "cacao_b64": cacao_b64,
+        }),
+    ).await;
+    assert_eq!(status, 400, "oversized graph must be rejected before CACAO: {body}");
 }

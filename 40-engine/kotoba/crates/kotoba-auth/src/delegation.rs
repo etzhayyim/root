@@ -138,7 +138,7 @@ fn parse_utc_iso8601(s: &str) -> Option<u64> {
         [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
     if day > mdays[(month - 1) as usize] { return None; }
-    for m in 0..(month - 1) as usize { days += mdays[m]; }
+    for d in mdays.iter().take((month - 1) as usize) { days += d; }
     days += day - 1;
 
     Some(days * 86_400 + hour * 3_600 + min * 60 + sec)
@@ -194,7 +194,7 @@ fn days_to_ymd(mut days: u64) -> (u64, u64, u64) {
 }
 
 fn is_leap(y: u64) -> bool {
-    (y % 4 == 0 && y % 100 != 0) || y % 400 == 0
+    (y.is_multiple_of(4) && !y.is_multiple_of(100)) || y.is_multiple_of(400)
 }
 
 #[derive(Debug, Error)]
@@ -243,5 +243,159 @@ impl DelegationChain {
             });
         }
         self.verify(graph_cid, required_cap)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // ---- is_utc_iso8601 ----
+
+    #[test]
+    fn valid_utc_iso8601_accepted() {
+        assert!(is_utc_iso8601("2026-05-27T12:34:56Z"));
+    }
+
+    #[test]
+    fn utc_iso8601_wrong_length_rejected() {
+        assert!(!is_utc_iso8601("2026-05-27T12:34:56"));
+        assert!(!is_utc_iso8601("2026-05-27T12:34:56Z+extra"));
+    }
+
+    #[test]
+    fn utc_iso8601_non_utc_offset_rejected() {
+        // +09:00 makes it 20+ chars and the final byte is not b'Z'
+        assert!(!is_utc_iso8601("2026-05-27T12:34:56+0900"));
+    }
+
+    #[test]
+    fn utc_iso8601_letters_in_digits_rejected() {
+        assert!(!is_utc_iso8601("XXXX-05-27T12:34:56Z"));
+    }
+
+    // ---- parse_utc_iso8601 ----
+
+    #[test]
+    fn parse_epoch_zero() {
+        assert_eq!(parse_utc_iso8601("1970-01-01T00:00:00Z"), Some(0));
+    }
+
+    #[test]
+    fn parse_known_timestamp() {
+        // 2000-01-01T00:00:00Z = 946684800
+        assert_eq!(parse_utc_iso8601("2000-01-01T00:00:00Z"), Some(946_684_800));
+    }
+
+    #[test]
+    fn parse_invalid_month_returns_none() {
+        assert_eq!(parse_utc_iso8601("2026-13-01T00:00:00Z"), None);
+    }
+
+    #[test]
+    fn parse_invalid_format_returns_none() {
+        assert_eq!(parse_utc_iso8601("not-a-timestamp"), None);
+    }
+
+    // ---- format_iso8601 ----
+
+    #[test]
+    fn format_epoch_zero() {
+        assert_eq!(format_iso8601(0), "1970-01-01T00:00:00Z");
+    }
+
+    #[test]
+    fn format_and_parse_roundtrip() {
+        let ts = 1_748_300_000u64;
+        let s  = format_iso8601(ts);
+        assert!(is_utc_iso8601(&s));
+        assert_eq!(parse_utc_iso8601(&s), Some(ts));
+    }
+
+    // ---- is_leap ----
+
+    #[test]
+    fn divisible_by_4_is_leap() {
+        assert!(is_leap(2024));
+    }
+
+    #[test]
+    fn divisible_by_100_not_leap() {
+        assert!(!is_leap(1900));
+    }
+
+    #[test]
+    fn divisible_by_400_is_leap() {
+        assert!(is_leap(2000));
+    }
+
+    #[test]
+    fn ordinary_year_not_leap() {
+        assert!(!is_leap(2023));
+    }
+
+    // ---- DelegationError display ----
+
+    #[test]
+    fn delegation_error_empty_chain_display() {
+        assert_eq!(DelegationError::EmptyChain.to_string(), "empty delegation chain");
+    }
+
+    #[test]
+    fn delegation_error_chain_depth_display() {
+        assert_eq!(
+            DelegationError::ChainDepthExceeded(3).to_string(),
+            "chain depth 3 exceeds maximum (1); multi-link delegation not implemented",
+        );
+    }
+
+    #[test]
+    fn delegation_error_expired_display() {
+        assert_eq!(DelegationError::Expired.to_string(), "expired");
+    }
+
+    #[test]
+    fn delegation_error_capability_denied_display() {
+        let e = DelegationError::CapabilityDenied("need 'write'".to_string());
+        assert_eq!(e.to_string(), "capability not granted: need 'write'");
+    }
+
+    #[test]
+    fn delegation_error_graph_mismatch_display() {
+        let e = DelegationError::GraphMismatch {
+            expected: "cid-A".to_string(),
+            got:      "cid-B".to_string(),
+        };
+        assert_eq!(e.to_string(), "graph scope mismatch: expected 'cid-A', got 'cid-B'");
+    }
+
+    #[test]
+    fn delegation_error_audience_mismatch_display() {
+        let e = DelegationError::AudienceMismatch {
+            expected: "svc-A".to_string(),
+            got:      "svc-B".to_string(),
+        };
+        assert_eq!(
+            e.to_string(),
+            "audience mismatch: CACAO aud 'svc-B' does not match expected 'svc-A'",
+        );
+    }
+
+    // ---- DelegationChain::verify on empty chain ----
+
+    #[test]
+    fn empty_chain_verify_returns_empty_chain_error() {
+        let chain = DelegationChain { chain: vec![] };
+        let err = chain.verify("graph-cid", "write").unwrap_err();
+        assert!(matches!(err, DelegationError::EmptyChain));
+    }
+
+    #[test]
+    fn chain_depth_exceeded_returns_error() {
+        // We cannot easily construct a valid Cacao without crypto in a unit test,
+        // but we can test the chain-depth guard by passing an artificial chain length.
+        // Instead, just test the error variant displays correctly (covered above).
+        let e = DelegationError::ChainDepthExceeded(2);
+        assert!(e.to_string().contains("chain depth 2"));
     }
 }

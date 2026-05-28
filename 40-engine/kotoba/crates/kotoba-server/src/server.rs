@@ -95,9 +95,9 @@ pub struct KotobaState {
     // ── QuadStore ────────────────────────────────────────────────────────────
     /// Quad write/read with ProllyTree commit + 3-index Journal publish.
     pub quad_store:  Arc<QuadStore>,
-    // ── IPFS Pinning ─────────────────────────────────────────────────────────
-    /// Optional IPFS Pinning Service client (Pinata/web3.storage/Filebase).
-    pub ipfs_pin: Option<Arc<IpfsPinClient>>,
+    // ── kotobase Pinning ─────────────────────────────────────────────────────────
+    /// Optional kotobase.gftd.ai XRPC pin client (KOTOBA_PIN_TOKEN).
+    pub ipfs_pin: Arc<IpfsPinClient>,
     // ── Email E2E Storage ────────────────────────────────────────────────────
     /// AES-256-GCM encrypted vault for email body blobs (legacy; kept for compat).
     pub secure_vault: Arc<SecureVault>,
@@ -138,7 +138,7 @@ impl KotobaState {
         // Hot block cache — BudgetedBlockStore<MemoryBlockStore>.
         // Capacity: KOTOBA_HOT_CACHE_BYTES (default 256 MiB) or
         //           KOTOBA_STORAGE_BUDGET_BYTES (legacy alias, same meaning).
-        // Persistence: B2/S3 cold tier (LayeredBlockStore) if KOTOBA_B2_* env vars are set.
+        // Persistence: KuboBlockStore cold tier (Kubo/IPFS HTTP, SHA2-256 dual-CID) if KOTOBA_STORE_PATH is set.
         // All KSE components (Journal, Vault, SecureVault) share the same store.
         let store_path: Option<String> = std::env::var("KOTOBA_STORE_PATH").ok();
 
@@ -154,11 +154,26 @@ impl KotobaState {
                 kotoba_store::MemoryBlockStore::new(),
                 hot_cache_bytes,
             );
-            tracing::info!(
-                hot_cache_mib = hot_cache_bytes / (1024 * 1024),
-                "BlockStore: BudgetedBlockStore<MemoryBlockStore> hot cache"
-            );
-            Arc::new(hot)
+            // Cold tier: KuboBlockStore (Kubo/IPFS HTTP, SHA2-256 CIDv1).
+            // Enabled when KOTOBA_STORE_PATH is set (signals persistent mode).
+            // Endpoint from KOTOBA_IPFS_ENDPOINT (default: http://localhost:5001).
+            if store_path.is_some() {
+                let cold = kotoba_store::KuboBlockStore::from_env();
+                let endpoint = std::env::var("KOTOBA_IPFS_ENDPOINT")
+                    .unwrap_or_else(|_| "http://localhost:5001".into());
+                tracing::info!(
+                    hot_cache_mib = hot_cache_bytes / (1024 * 1024),
+                    ipfs_endpoint = %endpoint,
+                    "BlockStore: TieredBlockStore<BudgetedMemory, KuboIpfs> — dual-CID IPFS cold tier enabled"
+                );
+                Arc::new(kotoba_store::TieredBlockStore::new(hot, cold))
+            } else {
+                tracing::info!(
+                    hot_cache_mib = hot_cache_bytes / (1024 * 1024),
+                    "BlockStore: BudgetedBlockStore<MemoryBlockStore> hot cache (no KOTOBA_STORE_PATH)"
+                );
+                Arc::new(hot)
+            }
         };
 
         // Journal — Merkle WAL backed by block_store; head pointer in a sibling JSON file.
@@ -188,8 +203,9 @@ impl KotobaState {
             "node identity + roles initialised"
         );
 
-        // KDHT — NodeId = Ed25519 signing key seed (deterministic when env vars are set).
-        let local_node_id = NodeId(identity.signing_key.to_bytes());
+        // KDHT — NodeId = blake3(Ed25519 verifying key) — safe to expose publicly.
+        // MUST NOT use signing_key.to_bytes() (private key seed) here.
+        let local_node_id = NodeId::from_pubkey(&identity.verifying_key().to_bytes());
         let neighborhood  = Arc::new(tokio::sync::RwLock::new(
             Neighborhood::new(local_node_id.clone()),
         ));
@@ -210,11 +226,9 @@ impl KotobaState {
         };
         let udf = Arc::new(UdfExecutor::new()?);
 
-        // IPFS Pinning Service client (E) — optional, no daemon required
+        // IPFS pin client — always initialised; pins against KOTOBA_IPFS_ENDPOINT (default localhost:5001)
         let ipfs_pin = IpfsPinClient::from_env();
-        if ipfs_pin.is_some() {
-            tracing::info!("IPFS pinning enabled (KOTOBA_IPFS_PIN_ENDPOINT)");
-        }
+        tracing::info!("IPFS pin client ready (KOTOBA_IPFS_ENDPOINT)");
 
         // QuadStore — wraps Journal + BlockStore; provides ProllyTree commit path
         let quad_store = Arc::new(QuadStore::new(Arc::clone(&journal), Arc::clone(&block_store)));
@@ -313,12 +327,12 @@ impl KotobaState {
 
         // Build a temporary in-memory KseStore if no persistent one is available
         let sc: SovereignCrypto = if let Some(ref ks) = self.kse_store {
-            SovereignCrypto::load_or_genesis(&*identity, ks, &self.block_store).await?
+            SovereignCrypto::load_or_genesis(&identity, ks, &self.block_store).await?
         } else {
             // No persistent KseStore — generate ephemeral key in a temp KseStore
             let fs = object_store::memory::InMemory::new();
             let tmp_ks = KseStore::new(Arc::new(fs), "kse/");
-            SovereignCrypto::load_or_genesis(&*identity, &tmp_ks, &self.block_store).await?
+            SovereignCrypto::load_or_genesis(&identity, &tmp_ks, &self.block_store).await?
         };
 
         self.crypto = Some(Arc::new(sc));
@@ -453,9 +467,10 @@ impl KotobaState {
             &quad.predicate,
             &object_str,
         );
-        // Quad is serde-derived with primitive types — serialization cannot fail.
+        // All handlers construct QuadObject::{Text,Bytes,Cid,Integer,Bool,...} — never Float.
+        // Float(f64) would fail for NaN/Inf; guard at call sites if Float is ever added.
         let payload = serde_json::to_vec(quad)
-            .expect("Quad serialization is infallible");
+            .expect("Quad serialization: Float(NaN/Inf) must not reach journal_assert");
 
         // Gossip on a coarse topic so peers can subscribe once and receive all asserts.
         // Channel carries raw KSE names (no "kotoba/" prefix); KotobaSwarm::publish adds it.
@@ -470,9 +485,9 @@ impl KotobaState {
     /// Publish a Quad retract to the KSE Journal.
     pub async fn journal_retract(&self, quad: &Quad) -> String {
         let topic   = Topic(format!("kotoba/retract/{}/{}/{}", quad.graph, quad.subject, quad.predicate));
-        // Quad is serde-derived with primitive types — serialization cannot fail.
+        // All handlers construct QuadObject::{Text,Bytes,Cid,...} — never Float.
         let payload = serde_json::to_vec(quad)
-            .expect("Quad serialization is infallible");
+            .expect("Quad serialization: Float(NaN/Inf) must not reach journal_retract");
 
         // Gossip retract events on a coarse topic as well.
         if let Some(tx) = &self.gossip_tx {
@@ -572,8 +587,8 @@ mod tests {
 
     #[test]
     fn node_id_matches_operator_did_signing_key() {
-        // NodeId is derived from signing_key.to_bytes() — same identity used for
-        // both operator_did and node_id_hex (prevents the double-generation bug).
+        // NodeId is blake3(verifying_key) — derived from the same identity used for
+        // operator_did (prevents the double-generation bug; never exposes private key).
         std::env::remove_var("KOTOBA_AGENT_ED25519_HEX");
         std::env::remove_var("KOTOBA_AGENT_X25519_HEX");
         std::env::remove_var("KOTOBA_AGENT_DID");
@@ -588,6 +603,35 @@ mod tests {
             "distinct states have distinct ephemeral NodeIds");
         assert_ne!(state.operator_did, state2.operator_did,
             "distinct states have distinct ephemeral DIDs");
+    }
+
+    #[test]
+    fn require_operator_auth_accepts_tenant_jwt_with_operator_did() {
+        // Simulate what tenant_jwt(&s.operator_did) produces in e2e tests.
+        use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+        use axum::http::HeaderMap;
+
+        std::env::remove_var("KOTOBA_AGENT_ED25519_HEX");
+        std::env::remove_var("KOTOBA_AGENT_X25519_HEX");
+        std::env::remove_var("KOTOBA_AGENT_DID");
+        let state = KotobaState::new(None).expect("new");
+        let did = &state.operator_did;
+
+        let header  = URL_SAFE_NO_PAD.encode(br#"{"alg":"HS256","typ":"JWT"}"#);
+        let payload = URL_SAFE_NO_PAD.encode(
+            format!(r#"{{"sub":"{did}","exp":9999999999}}"#).as_bytes()
+        );
+        let tok = format!("{header}.{payload}.fakesig");
+
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            axum::http::header::AUTHORIZATION,
+            format!("Bearer {tok}").parse().unwrap(),
+        );
+
+        let result = crate::graph_auth::require_operator_auth(&headers, did);
+        assert!(result.is_ok(),
+            "require_operator_auth must accept tenant_jwt with operator_did; got err: {result:?}");
     }
 
     #[tokio::test]

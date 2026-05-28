@@ -27,6 +27,12 @@ pub enum RouterError {
     #[error("program bytes not provided for wasm program_type")]
     MissingWasmBytes,
 
+    #[error("datalog program not provided for datalog program_type")]
+    MissingDatalogProgram,
+
+    #[error("arrangement not provided for datalog program_type")]
+    MissingArrangement,
+
     #[error("datalog execution exceeded step limit")]
     StepsExceeded,
 
@@ -71,6 +77,7 @@ impl InvokeRouter {
     ///
     /// `program_bytes` must be supplied for WasmNode / WasmUdf program types.
     /// For Datalog, pass `None`; `program` and `arrangement` must be Some.
+    #[allow(clippy::too_many_arguments)]
     pub fn dispatch(
         &self,
         program_cid:    &str,
@@ -96,6 +103,7 @@ impl InvokeRouter {
     }
 
     /// Like `dispatch` but supplies a quad snapshot for `kqe.query` in WASM guests.
+    #[allow(clippy::too_many_arguments)]
     pub fn dispatch_with_snapshot(
         &self,
         program_cid:    &str,
@@ -135,8 +143,8 @@ impl InvokeRouter {
             }
 
             ProgramType::Datalog => {
-                let prog = program.expect("Datalog dispatch requires program");
-                let arr  = arrangement.expect("Datalog dispatch requires arrangement");
+                let prog = program.ok_or(RouterError::MissingDatalogProgram)?;
+                let arr  = arrangement.ok_or(RouterError::MissingArrangement)?;
                 use kotoba_core::cid::KotobaCid;
                 let cid = KotobaCid::from_bytes(program_cid.as_bytes());
                 let result = KotobaVm::execute(&cid, prog, arr, input_deltas, max_steps, call_id, None);
@@ -147,5 +155,117 @@ impl InvokeRouter {
                 }
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use kotoba_kqe::{arrangement::Arrangement, datalog::DatalogProgram};
+
+    fn router() -> InvokeRouter {
+        InvokeRouter::new(10_000, "http://localhost:9999").unwrap()
+    }
+
+    #[test]
+    fn error_display_missing_wasm_bytes() {
+        let msg = RouterError::MissingWasmBytes.to_string();
+        assert!(msg.contains("wasm"));
+    }
+
+    #[test]
+    fn error_display_steps_exceeded() {
+        let msg = RouterError::StepsExceeded.to_string();
+        assert!(msg.contains("step"));
+    }
+
+    #[test]
+    fn datalog_empty_program_returns_dispatch_result() {
+        let r   = router();
+        let prog = DatalogProgram::new();
+        let arr  = Arrangement::default();
+        let result = r.dispatch(
+            "prog-cid", ProgramType::Datalog, "did:test:agent",
+            1, None, vec![], Some(&prog), Some(&arr), &[], 100,
+        );
+        assert!(result.is_ok(), "empty datalog program should succeed: {result:?}");
+        assert!(matches!(result.unwrap(), DispatchResult::Datalog(_)));
+    }
+
+    #[test]
+    fn wasm_node_without_bytes_returns_missing_bytes_error() {
+        let r = router();
+        let result = r.dispatch(
+            "prog-cid", ProgramType::WasmNode, "did:test:agent",
+            1, None, vec![], None, None, &[], 0,
+        );
+        assert!(matches!(result, Err(RouterError::MissingWasmBytes)));
+    }
+
+    #[test]
+    fn wasm_udf_without_bytes_returns_missing_bytes_error() {
+        let r = router();
+        let result = r.dispatch(
+            "prog-cid", ProgramType::WasmUdf, "did:test:agent",
+            1, None, vec![], None, None, &[], 0,
+        );
+        assert!(matches!(result, Err(RouterError::MissingWasmBytes)));
+    }
+
+    #[test]
+    fn error_display_datalog_error() {
+        let msg = RouterError::DatalogError.to_string();
+        assert!(msg.contains("datalog"), "got: {msg}");
+    }
+
+    #[test]
+    fn error_display_wasm_from_runtime_error() {
+        let re = kotoba_runtime::RuntimeError::GasExceeded { limit: 42 };
+        let re_msg = re.to_string();
+        let router_err = RouterError::Wasm(kotoba_runtime::RuntimeError::GasExceeded { limit: 42 });
+        let msg = router_err.to_string();
+        assert!(msg.contains("wasm") || msg.contains(&re_msg), "got: {msg}");
+    }
+
+    #[test]
+    fn dispatch_result_datalog_debug() {
+        let r    = router();
+        let prog = DatalogProgram::new();
+        let arr  = Arrangement::default();
+        let result = r.dispatch(
+            "prog-cid", ProgramType::Datalog, "did:test:agent",
+            1, None, vec![], Some(&prog), Some(&arr), &[], 10,
+        ).unwrap();
+        let dbg = format!("{result:?}");
+        assert!(dbg.contains("Datalog"), "debug output should contain 'Datalog': {dbg}");
+    }
+
+    #[test]
+    fn router_new_with_zero_gas_fails() {
+        // WasmExecutor::new requires gas_limit > 0; passing 0 should fail
+        let result = InvokeRouter::new(0, "http://localhost:9999");
+        assert!(result.is_err(), "gas_limit=0 should fail InvokeRouter::new");
+    }
+
+    #[test]
+    fn datalog_without_program_returns_missing_program_error() {
+        let r   = router();
+        let arr = Arrangement::default();
+        let result = r.dispatch(
+            "prog-cid", ProgramType::Datalog, "did:test:agent",
+            1, None, vec![], None, Some(&arr), &[], 100,
+        );
+        assert!(matches!(result, Err(RouterError::MissingDatalogProgram)));
+    }
+
+    #[test]
+    fn datalog_without_arrangement_returns_missing_arrangement_error() {
+        let r    = router();
+        let prog = DatalogProgram::new();
+        let result = r.dispatch(
+            "prog-cid", ProgramType::Datalog, "did:test:agent",
+            1, None, vec![], Some(&prog), None, &[], 100,
+        );
+        assert!(matches!(result, Err(RouterError::MissingArrangement)));
     }
 }

@@ -80,7 +80,7 @@ impl Cacao {
     pub fn siwe_message(&self) -> String {
         let p = &self.p;
         // Extract address from iss (last colon-separated segment)
-        let address = p.iss.split(':').last().unwrap_or(&p.iss);
+        let address = p.iss.split(':').next_back().unwrap_or(&p.iss);
         // Extract chain id: did:pkh:eip155:N:0x... → "N"; did:key → "1" (CAIP-122 default)
         let chain_id = if p.iss.starts_with("did:key:") {
             "1"
@@ -253,7 +253,7 @@ fn parse_strict_utc_iso8601(s: &str) -> Option<u64> {
         [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
     if day > mdays[(month - 1) as usize] { return None; }
-    for m in 0..(month - 1) as usize { days += mdays[m]; }
+    for d in mdays.iter().take((month - 1) as usize) { days += d; }
     days += day - 1;
     Some(days * 86_400 + hour * 3_600 + min * 60 + sec)
 }
@@ -304,7 +304,7 @@ fn unix_days_to_ymd(mut days: u64) -> (u64, u64, u64) {
 }
 
 fn unix_is_leap(y: u64) -> bool {
-    (y % 4 == 0 && y % 100 != 0) || y % 400 == 0
+    (y.is_multiple_of(4) && !y.is_multiple_of(100)) || y.is_multiple_of(400)
 }
 
 /// Decode a signature string — tries base64url (no-pad) first, then hex.
@@ -337,5 +337,246 @@ impl CacaoPayload {
         self.resources.iter()
             .find(|r| r.starts_with("kotoba://prf/"))
             .map(|r| &r["kotoba://prf/".len()..])
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn base_payload(iss: &str) -> CacaoPayload {
+        CacaoPayload {
+            iss:        iss.to_string(),
+            aud:        "https://kotoba.example.com".to_string(),
+            issued_at:  "2024-01-01T00:00:00Z".to_string(),
+            expiry:     None,
+            nonce:      "abc123".to_string(),
+            domain:     "kotoba.example.com".to_string(),
+            statement:  None,
+            version:    "1".to_string(),
+            resources:  vec![],
+        }
+    }
+
+    fn base_cacao(iss: &str) -> Cacao {
+        Cacao {
+            h: CacaoHeader { t: "eip4361".to_string() },
+            p: base_payload(iss),
+            s: CacaoSig { t: "eip191".to_string(), s: "00".repeat(65) },
+        }
+    }
+
+    // ── unix_is_leap ──────────────────────────────────────────────────────────
+
+    #[test]
+    fn leap_year_divisible_by_4_not_100() {
+        assert!(unix_is_leap(2024));
+        assert!(unix_is_leap(1972));
+    }
+
+    #[test]
+    fn leap_year_divisible_by_400() {
+        assert!(unix_is_leap(2000));
+    }
+
+    #[test]
+    fn not_leap_divisible_by_100_not_400() {
+        assert!(!unix_is_leap(1900));
+        assert!(!unix_is_leap(2100));
+    }
+
+    #[test]
+    fn not_leap_odd_year() {
+        assert!(!unix_is_leap(2023));
+        assert!(!unix_is_leap(1971));
+    }
+
+    // ── is_strict_utc_iso8601 ─────────────────────────────────────────────────
+
+    #[test]
+    fn strict_utc_valid() {
+        assert!(is_strict_utc_iso8601("2024-01-01T00:00:00Z"));
+        assert!(is_strict_utc_iso8601("1970-01-01T00:00:00Z"));
+        assert!(is_strict_utc_iso8601("2099-12-31T23:59:59Z"));
+    }
+
+    #[test]
+    fn strict_utc_rejects_non_utc_offset() {
+        assert!(!is_strict_utc_iso8601("2024-01-01T09:00:00+09:00"));
+    }
+
+    #[test]
+    fn strict_utc_rejects_wrong_length() {
+        assert!(!is_strict_utc_iso8601("2024-01-01T00:00:00"));
+        assert!(!is_strict_utc_iso8601("2024-01-01"));
+    }
+
+    #[test]
+    fn strict_utc_rejects_non_digit_fields() {
+        assert!(!is_strict_utc_iso8601("XXXX-01-01T00:00:00Z"));
+    }
+
+    // ── parse_strict_utc_iso8601 ──────────────────────────────────────────────
+
+    #[test]
+    fn parse_unix_epoch() {
+        assert_eq!(parse_strict_utc_iso8601("1970-01-01T00:00:00Z"), Some(0));
+    }
+
+    #[test]
+    fn parse_known_timestamp() {
+        // 2024-01-01T00:00:00Z = 1704067200
+        assert_eq!(parse_strict_utc_iso8601("2024-01-01T00:00:00Z"), Some(1_704_067_200));
+    }
+
+    #[test]
+    fn parse_returns_none_for_malformed() {
+        assert!(parse_strict_utc_iso8601("not-a-date").is_none());
+        assert!(parse_strict_utc_iso8601("2024-13-01T00:00:00Z").is_none()); // month 13
+    }
+
+    // ── format_unix_to_iso8601 ────────────────────────────────────────────────
+
+    #[test]
+    fn format_epoch_zero() {
+        assert_eq!(format_unix_to_iso8601(0), "1970-01-01T00:00:00Z");
+    }
+
+    #[test]
+    fn format_one_day() {
+        assert_eq!(format_unix_to_iso8601(86_400), "1970-01-02T00:00:00Z");
+    }
+
+    #[test]
+    fn format_roundtrips_with_parse() {
+        let ts = 1_704_067_200u64;
+        let s  = format_unix_to_iso8601(ts);
+        assert_eq!(parse_strict_utc_iso8601(&s), Some(ts));
+    }
+
+    // ── Cacao::is_expired ─────────────────────────────────────────────────────
+
+    #[test]
+    fn not_expired_when_no_expiry() {
+        let c = base_cacao("did:key:z6Mk");
+        assert!(!c.is_expired());
+    }
+
+    #[test]
+    fn expired_when_past_date() {
+        let mut c = base_cacao("did:key:z6Mk");
+        c.p.expiry = Some("2020-01-01T00:00:00Z".to_string());
+        assert!(c.is_expired());
+    }
+
+    #[test]
+    fn not_expired_when_far_future() {
+        let mut c = base_cacao("did:key:z6Mk");
+        c.p.expiry = Some("2099-12-31T23:59:59Z".to_string());
+        assert!(!c.is_expired());
+    }
+
+    #[test]
+    fn expired_when_malformed_expiry() {
+        // fail-safe: malformed → treat as expired
+        let mut c = base_cacao("did:key:z6Mk");
+        c.p.expiry = Some("2024-01-01T00:00:00+09:00".to_string());
+        assert!(c.is_expired());
+    }
+
+    // ── Cacao::siwe_message ───────────────────────────────────────────────────
+
+    #[test]
+    fn siwe_message_contains_required_fields() {
+        let c = base_cacao("did:pkh:eip155:1:0xABCDEF");
+        let msg = c.siwe_message();
+        assert!(msg.contains("kotoba.example.com wants you to sign in"));
+        assert!(msg.contains("0xABCDEF"));
+        assert!(msg.contains("URI: https://kotoba.example.com"));
+        assert!(msg.contains("Chain ID: 1"));
+        assert!(msg.contains("Nonce: abc123"));
+        assert!(msg.contains("Issued At: 2024-01-01T00:00:00Z"));
+    }
+
+    #[test]
+    fn siwe_message_includes_statement_when_present() {
+        let mut c = base_cacao("did:pkh:eip155:1:0xABCDEF");
+        c.p.statement = Some("Access granted".to_string());
+        let msg = c.siwe_message();
+        assert!(msg.contains("Access granted"));
+    }
+
+    #[test]
+    fn siwe_message_did_key_uses_chain_id_1() {
+        let c = base_cacao("did:key:z6MkTestKey");
+        let msg = c.siwe_message();
+        assert!(msg.contains("Chain ID: 1"));
+    }
+
+    #[test]
+    fn siwe_message_includes_resources() {
+        let mut c = base_cacao("did:pkh:eip155:1:0xABCD");
+        c.p.resources = vec!["kotoba://graph/cid123".to_string()];
+        let msg = c.siwe_message();
+        assert!(msg.contains("Resources:"));
+        assert!(msg.contains("- kotoba://graph/cid123"));
+    }
+
+    // ── CacaoPayload resource extractors ─────────────────────────────────────
+
+    #[test]
+    fn graph_cid_extracted() {
+        let mut p = base_payload("did:key:z");
+        p.resources = vec!["kotoba://graph/abc123".to_string()];
+        assert_eq!(p.graph_cid(), Some("abc123"));
+    }
+
+    #[test]
+    fn graph_cid_absent() {
+        let p = base_payload("did:key:z");
+        assert!(p.graph_cid().is_none());
+    }
+
+    #[test]
+    fn capability_extracted() {
+        let mut p = base_payload("did:key:z");
+        p.resources = vec!["kotoba://can/read".to_string()];
+        assert_eq!(p.capability(), Some("read"));
+    }
+
+    #[test]
+    fn proof_cid_extracted() {
+        let mut p = base_payload("did:key:z");
+        p.resources = vec!["kotoba://prf/proofcid".to_string()];
+        assert_eq!(p.proof_cid(), Some("proofcid"));
+    }
+
+    // ── CacaoError display ────────────────────────────────────────────────────
+
+    #[test]
+    fn cacao_error_unsupported_display() {
+        let e = CacaoError::UnsupportedSigType("secp256r1".to_string());
+        assert!(e.to_string().contains("secp256r1"));
+    }
+
+    #[test]
+    fn cacao_error_address_mismatch_display() {
+        let e = CacaoError::AddressMismatch {
+            expected: "aabb".to_string(),
+            got:      "ccdd".to_string(),
+        };
+        let s = e.to_string();
+        assert!(s.contains("aabb") && s.contains("ccdd"));
+    }
+
+    // ── JSON roundtrip ────────────────────────────────────────────────────────
+
+    #[test]
+    fn cacao_json_roundtrip() {
+        let c    = base_cacao("did:pkh:eip155:1:0xDEADBEEF");
+        let json = serde_json::to_string(&c).unwrap();
+        let back: Cacao = serde_json::from_str(&json).unwrap();
+        assert_eq!(back.p.iss, c.p.iss);
+        assert_eq!(back.s.t,   c.s.t);
     }
 }

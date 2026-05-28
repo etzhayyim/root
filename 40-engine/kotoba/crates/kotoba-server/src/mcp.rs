@@ -1,25 +1,25 @@
-/// MCP JSON-RPC 2.0 handler — kotoba MCP facade (ADR-2605091400)
-///
-/// Wire:  POST /mcp  (JSON-RPC 2.0)
-/// Auth:  initialize / tools/list / ping → public
-///        tools/call → requires `Authorization: Bearer <AT-session-JWT>`
-///
-/// Tools exposed (14):
-///   kotoba_quad_create      — assert a quad into the graph
-///   kotoba_graph_query      — SPO pattern query
-///   kotoba_infer_run        — run inference via inference engine
-///   kotoba_embed_create     — create and store a text embedding
-///   kotoba_weight_put       — store an FP8 tensor weight blob
-///   kotoba_lora_apply       — register a LoRA adapter delta
-///   kotoba_email_list       — list encrypted emails for an owner DID
-///   kotoba_email_read       — decrypt and return one email body + metadata
-///   kotoba_wasm_run         — run a WASM Component Model program via Pregel BSP
-///   kotoba_datalog_run      — evaluate Datalog with citation tracking + royalty flush
-///   kotoba_node_info        — return this node's DID, roles, NodeId, peer count
-///   kotoba_node_register    — write/refresh node registration Quads
-///   kotoba_network_peers    — list KDHT neighborhood peers
-///   kotoba_graph_gc         — mark-sweep GC: delete unreachable blocks from the block store
-///   kotoba_commit_prune     — prune historical non-HEAD commit entries from CommitDag (15)
+//! MCP JSON-RPC 2.0 handler — kotoba MCP facade (ADR-2605091400)
+//!
+//! Wire:  POST /mcp  (JSON-RPC 2.0)
+//! Auth:  initialize / tools/list / ping → public
+//!        tools/call → requires `Authorization: Bearer <AT-session-JWT>`
+//!
+//! Tools exposed (14):
+//!   kotoba_quad_create      — assert a quad into the graph
+//!   kotoba_graph_query      — SPO pattern query
+//!   kotoba_infer_run        — run inference via inference engine
+//!   kotoba_embed_create     — create and store a text embedding
+//!   kotoba_weight_put       — store an FP8 tensor weight blob
+//!   kotoba_lora_apply       — register a LoRA adapter delta
+//!   kotoba_email_list       — list encrypted emails for an owner DID
+//!   kotoba_email_read       — decrypt and return one email body + metadata
+//!   kotoba_wasm_run         — run a WASM Component Model program via Pregel BSP
+//!   kotoba_datalog_run      — evaluate Datalog with citation tracking + royalty flush
+//!   kotoba_node_info        — return this node's DID, roles, NodeId, peer count
+//!   kotoba_node_register    — write/refresh node registration Quads
+//!   kotoba_network_peers    — list KDHT neighborhood peers
+//!   kotoba_graph_gc         — mark-sweep GC: delete unreachable blocks from the block store
+//!   kotoba_commit_prune     — prune historical non-HEAD commit entries from CommitDag (15)
 
 pub const MCP_TOOL_QUAD_CREATE:   &str = "kotoba_quad_create";
 pub const MCP_TOOL_GRAPH_QUERY:   &str = "kotoba_graph_query";
@@ -308,11 +308,31 @@ fn is_mutating(method: &str, _tool: Option<&str>) -> bool {
 }
 
 fn check_auth(headers: &HeaderMap) -> bool {
-    headers.get("authorization")
+    let Some(token) = headers
+        .get("authorization")
         .and_then(|v| v.to_str().ok())
-        .map(|v| v.starts_with("Bearer "))
-        .unwrap_or(false)
+        .and_then(|v| v.strip_prefix("Bearer "))
+    else {
+        return false;
+    };
+    !crate::graph_auth::jwt_exp_elapsed(token)
 }
+
+/// Extract the `sub` claim from the Bearer JWT, if present and non-expired.
+fn caller_sub(headers: &HeaderMap) -> Option<String> {
+    let token = headers
+        .get("authorization")
+        .and_then(|v| v.to_str().ok())
+        .and_then(|v| v.strip_prefix("Bearer "))?;
+    if crate::graph_auth::jwt_exp_elapsed(token) {
+        return None;
+    }
+    crate::graph_auth::jwt_sub(token)
+}
+
+/// Administrative tools that modify storage structure (not data content) must
+/// be restricted to the operator to prevent accidental or malicious data loss.
+const ADMIN_ONLY_TOOLS: &[&str] = &[MCP_TOOL_GRAPH_GC, MCP_TOOL_COMMIT_PRUNE, MCP_TOOL_NODE_REGISTER];
 
 // ── Dispatch to state methods ────────────────────────────────────────────────
 
@@ -320,7 +340,20 @@ async fn call_tool(
     tool: &str,
     args: &Value,
     state: &Arc<KotobaState>,
+    caller: Option<&str>,
 ) -> Result<Value, (i32, String)> {
+    if ADMIN_ONLY_TOOLS.contains(&tool) {
+        match caller {
+            Some(sub) if sub == state.operator_did => {}
+            Some(sub) => {
+                tracing::warn!(tool, sub, "mcp: admin-only tool called by non-operator");
+                return Err((ERR_AUTH, format!("tool {tool:?} requires operator credentials")));
+            }
+            None => {
+                return Err((ERR_AUTH, format!("tool {tool:?} requires operator credentials")));
+            }
+        }
+    }
     let get_str = |key: &str| -> Result<String, (i32, String)> {
         args.get(key)
             .and_then(Value::as_str)
@@ -369,6 +402,7 @@ async fn call_tool(
             let graph_cid = KotobaCid::from_bytes(graph.as_bytes());
 
             const MAX_QUERY_RESULTS: usize = 1_000;
+            const MAX_QUERY_FIELD_LEN: usize = 4096;
             let limit = args.get("limit")
                 .and_then(Value::as_u64)
                 .unwrap_or(MAX_QUERY_RESULTS as u64)
@@ -378,6 +412,22 @@ async fn call_tool(
             let predicate        = args.get("predicate").and_then(Value::as_str);
             let object_key       = args.get("object").and_then(Value::as_str);
             let subject_str      = args.get("subject").and_then(Value::as_str);
+
+            // Bound optional filter fields to prevent oversized BTree prefix scans.
+            for (name, val) in [
+                ("graph", Some(graph.as_str())),
+                ("predicate_prefix", predicate_prefix),
+                ("predicate", predicate),
+                ("object", object_key),
+                ("subject", subject_str),
+            ] {
+                if let Some(v) = val {
+                    if v.len() > MAX_QUERY_FIELD_LEN {
+                        return Err((ERR_INVALID_PARAMS,
+                            format!("field '{name}' too large ({} bytes, limit {MAX_QUERY_FIELD_LEN})", v.len())));
+                    }
+                }
+            }
 
             let quads: Vec<_> = if let Some(prefix) = predicate_prefix {
                 // AVET BTree prefix range scan — O(k) where k = matching quads
@@ -461,6 +511,9 @@ async fn call_tool(
             let model_cid = get_str("model_cid")?;
             let graph     = get_str("graph")?;
 
+            if text.is_empty() {
+                return Err((ERR_INVALID_PARAMS, "text must not be empty".into()));
+            }
             const MAX_EMBED_TEXT_LEN: usize = 64 * 1024;
             if text.len() > MAX_EMBED_TEXT_LEN {
                 return Err((ERR_INVALID_PARAMS,
@@ -505,12 +558,16 @@ async fn call_tool(
             let model_str = get_str("model_cid")?;
             let graph_str = get_str("graph")?;
             let dtype_str = get_str("dtype")?;
-            let layer = args.get("layer")
+            let layer_u64 = args.get("layer")
                 .and_then(Value::as_u64)
-                .ok_or_else(|| (ERR_INVALID_PARAMS, "missing required field: layer".into()))? as u32;
+                .ok_or_else(|| (ERR_INVALID_PARAMS, "missing required field: layer".into()))?;
+            let layer = u32::try_from(layer_u64)
+                .map_err(|_| (ERR_INVALID_PARAMS, format!("layer {layer_u64} exceeds u32::MAX")))?;
             let shape: Vec<u32> = args.get("shape")
                 .and_then(Value::as_array)
-                .map(|a| a.iter().filter_map(|v| v.as_u64().map(|n| n as u32)).collect())
+                .map(|a| a.iter().filter_map(|v| {
+                    v.as_u64().and_then(|n| u32::try_from(n).ok())
+                }).collect())
                 .unwrap_or_default();
 
             const MAX_WEIGHT_B64_LEN: usize = 512 * 1024 * 1024;
@@ -562,9 +619,11 @@ async fn call_tool(
             let adapter_b64 = get_str("adapter_b64")?;
             let model_str   = get_str("model_cid")?;
             let graph_str   = get_str("graph")?;
-            let rank = args.get("rank")
+            let rank_u64 = args.get("rank")
                 .and_then(Value::as_u64)
-                .ok_or_else(|| (ERR_INVALID_PARAMS, "missing required field: rank".into()))? as u32;
+                .ok_or_else(|| (ERR_INVALID_PARAMS, "missing required field: rank".into()))?;
+            let rank = u32::try_from(rank_u64)
+                .map_err(|_| (ERR_INVALID_PARAMS, format!("rank {rank_u64} exceeds u32::MAX")))?;
 
             const MAX_ADAPTER_B64_LEN: usize = 128 * 1024 * 1024;
             if adapter_b64.len() > MAX_ADAPTER_B64_LEN {
@@ -607,6 +666,8 @@ async fn call_tool(
             use kotoba_kqe::quad::QuadObject;
 
             let owner_did = get_str("owner_did")?;
+            crate::graph_auth::validate_did(&owner_did, "owner_did", 512)
+                .map_err(|(_, msg)| (ERR_INVALID_PARAMS, msg))?;
             let limit  = args.get("limit").and_then(Value::as_u64).unwrap_or(50).min(200) as usize;
             let offset = args.get("offset").and_then(Value::as_u64).unwrap_or(0) as usize;
 
@@ -666,6 +727,8 @@ async fn call_tool(
 
             let email_cid_str = get_str("email_cid")?;
             let owner_did     = get_str("owner_did")?;
+            crate::graph_auth::validate_did(&owner_did, "owner_did", 512)
+                .map_err(|(_, msg)| (ERR_INVALID_PARAMS, msg))?;
 
             let crypto = state.crypto.as_ref().ok_or_else(|| {
                 (ERR_INTERNAL, "crypto not initialised".to_string())
@@ -726,10 +789,12 @@ async fn call_tool(
 
             let wasm_b64     = get_str("wasm_b64")?;
             let agent_did    = get_str("agent_did")?;
+            crate::graph_auth::validate_did(&agent_did, "agent_did", 512)
+                .map_err(|(_, msg)| (ERR_INVALID_PARAMS, msg))?;
             let ctx_b64      = get_str("ctx_cbor_b64")?;
             const MAX_SUPERSTEPS: u64 = 256;
             const MAX_WASM_B64_LEN: usize = 50 * 1024 * 1024;
-            const MAX_CTX_B64_LEN:  usize = 1 * 1024 * 1024;
+            const MAX_CTX_B64_LEN:  usize = 1024 * 1024;
             let max_ss       = args.get("max_supersteps")
                 .and_then(Value::as_u64)
                 .unwrap_or(32)
@@ -771,11 +836,15 @@ async fn call_tool(
                 use kotoba_kqe::quad::{Quad, QuadObject};
                 let gas_graph = KotobaCid::from_bytes(b"kotoba/gas/ledger");
                 let agent_cid = KotobaCid::from_bytes(agent_did.as_bytes());
+                // Safe cast: gas_limit is 10M per superstep and MAX_SUPERSTEPS is 256, so
+                // total_gas_used can reach at most ~2.56B — well below i64::MAX (9.2e18).
+                // Use try_from guard to prevent silent data corruption if limits ever change.
+                let gas_i64 = i64::try_from(result.total_gas_used).unwrap_or(i64::MAX);
                 let gas_quad  = Quad {
                     graph:     gas_graph.clone(),
                     subject:   agent_cid.clone(),
                     predicate: "gas/consumed_mkoto".to_string(),
-                    object:    QuadObject::Integer(result.total_gas_used as i64),
+                    object:    QuadObject::Integer(gas_i64),
                 };
                 state.journal_assert(&gas_quad).await;
                 state.quad_store.assert(gas_quad).await;
@@ -791,10 +860,16 @@ async fn call_tool(
                 state.quad_store.assert(provider_quad).await;
             }
 
-            // Write WASM-asserted quads into the store
+            // Write WASM-asserted quads into the store (capped to prevent runaway writes).
             {
                 use kotoba_core::cid::KotobaCid;
                 use kotoba_kqe::quad::{Quad, QuadObject};
+                const MAX_ASSERT_QUADS: usize = 10_000;
+                if result.assert_quads.len() > MAX_ASSERT_QUADS {
+                    return Err((ERR_INVALID_PARAMS,
+                        format!("WASM produced {} assert quads (MCP limit {MAX_ASSERT_QUADS})",
+                            result.assert_quads.len())));
+                }
                 for sq in &result.assert_quads {
                     let quad = Quad {
                         graph:     KotobaCid::from_bytes(sq.graph.as_bytes()),
@@ -828,12 +903,27 @@ async fn call_tool(
                 .and_then(Value::as_u64)
                 .unwrap_or(1_000_000); // default 1 KOTO
 
-            // Deserialize rules array
+            // Deserialize rules array (cap prevents combinatorial-explosion DoS).
+            const MAX_DATALOG_RULES: usize = 256;
             let rules: Vec<DatalogRule> = match args.get("rules") {
                 Some(r) => serde_json::from_value(r.clone())
                     .map_err(|e| (ERR_INVALID_PARAMS, format!("invalid rules: {e}")))?,
                 None => return Err((ERR_INVALID_PARAMS, "missing required field: rules".into())),
             };
+            if rules.len() > MAX_DATALOG_RULES {
+                return Err((ERR_INVALID_PARAMS,
+                    format!("rules array has {} items (limit {MAX_DATALOG_RULES})", rules.len())));
+            }
+            // Limit body depth per rule — match_body recurses once per literal;
+            // a 64-literal body can already cause exponential join fan-out.
+            const MAX_BODY_LITERALS: usize = 16;
+            for (i, rule) in rules.iter().enumerate() {
+                if rule.body.len() > MAX_BODY_LITERALS {
+                    return Err((ERR_INVALID_PARAMS,
+                        format!("rule[{i}] body has {} literals (limit {MAX_BODY_LITERALS})",
+                            rule.body.len())));
+                }
+            }
 
             let graph_cid = KotobaCid::from_bytes(graph_str.as_bytes());
 
@@ -1046,8 +1136,9 @@ pub async fn mcp_handler(
                 )),
             };
             let args = params.get("arguments").cloned().unwrap_or(json!({}));
+            let caller = caller_sub(&headers);
 
-            match call_tool(&tool_name, &args, &state).await {
+            match call_tool(&tool_name, &args, &state, caller.as_deref()).await {
                 Ok(content) => json!({
                     "content": [{ "type": "text", "text": content.to_string() }],
                     "isError": false,
@@ -1131,6 +1222,7 @@ mod tests {
     fn check_auth_requires_bearer() {
         let mut h = HeaderMap::new();
         assert!(!check_auth(&h));
+        // Opaque (non-JWT) token — no exp to check, passes
         h.insert(
             axum::http::header::AUTHORIZATION,
             "Bearer tok123".parse().unwrap(),
@@ -1142,6 +1234,34 @@ mod tests {
             "Basic abc".parse().unwrap(),
         );
         assert!(!check_auth(&h2));
+    }
+
+    #[test]
+    fn check_auth_rejects_expired_jwt() {
+        use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+        let header  = URL_SAFE_NO_PAD.encode(r#"{"alg":"HS256","typ":"JWT"}"#);
+        let payload = URL_SAFE_NO_PAD.encode(r#"{"sub":"did:key:z6Mk","exp":1}"#); // exp=1 → 1970
+        let expired_tok = format!("{header}.{payload}.fakesig");
+        let mut h = HeaderMap::new();
+        h.insert(
+            axum::http::header::AUTHORIZATION,
+            format!("Bearer {expired_tok}").parse().unwrap(),
+        );
+        assert!(!check_auth(&h), "expired JWT must be rejected by check_auth");
+    }
+
+    #[test]
+    fn check_auth_accepts_future_jwt() {
+        use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+        let header  = URL_SAFE_NO_PAD.encode(r#"{"alg":"HS256","typ":"JWT"}"#);
+        let payload = URL_SAFE_NO_PAD.encode(r#"{"sub":"did:key:z6Mk","exp":9999999999}"#);
+        let tok = format!("{header}.{payload}.fakesig");
+        let mut h = HeaderMap::new();
+        h.insert(
+            axum::http::header::AUTHORIZATION,
+            format!("Bearer {tok}").parse().unwrap(),
+        );
+        assert!(check_auth(&h), "future JWT must be accepted by check_auth");
     }
 
     #[test]
@@ -1157,7 +1277,7 @@ mod tests {
         let state = Arc::new(
             crate::server::KotobaState::new(None).expect("state")
         );
-        let result = call_tool("nonexistent_tool", &json!({}), &state).await;
+        let result = call_tool("nonexistent_tool", &json!({}), &state, None).await;
         let (code, _) = result.unwrap_err();
         assert_eq!(code, ERR_NOT_FOUND);
     }
@@ -1172,7 +1292,7 @@ mod tests {
             "subject":   "alice",
             "predicate": "knows",
             "object":    "bob"
-        }), &state).await;
+        }), &state, None).await;
         assert!(result.is_ok(), "{result:?}");
         assert_eq!(result.unwrap()["status"], "ok");
     }
@@ -1186,7 +1306,7 @@ mod tests {
             "graph": "g",
             "subject": "s"
             // predicate and object missing
-        }), &state).await;
+        }), &state, None).await;
         let (code, _) = result.unwrap_err();
         assert_eq!(code, ERR_INVALID_PARAMS);
     }
@@ -1202,7 +1322,7 @@ mod tests {
             "subject":   big,
             "predicate": "p",
             "object":    "o"
-        }), &state).await;
+        }), &state, None).await;
         let (code, msg) = result.unwrap_err();
         assert_eq!(code, ERR_INVALID_PARAMS);
         assert!(msg.contains("too large"), "expected 'too large' in: {msg}");
@@ -1215,7 +1335,7 @@ mod tests {
         );
         let result = call_tool(MCP_TOOL_GRAPH_QUERY, &json!({
             "graph": "nonexistent_graph_xyz"
-        }), &state).await;
+        }), &state, None).await;
         assert!(result.is_ok());
         let v = result.unwrap();
         assert_eq!(v["count"], 0);
@@ -1230,13 +1350,13 @@ mod tests {
         for (pred, obj) in [("weight/layer/0", "val0"), ("weight/layer/1", "val1"), ("other", "x")] {
             call_tool(MCP_TOOL_QUAD_CREATE, &json!({
                 "graph": "g", "subject": "model", "predicate": pred, "object": obj
-            }), &state).await.unwrap();
+            }), &state, None).await.unwrap();
         }
         // AVET prefix scan should return only the two weight quads
         let v = call_tool(MCP_TOOL_GRAPH_QUERY, &json!({
             "graph": "g",
             "predicate_prefix": "weight/"
-        }), &state).await.unwrap();
+        }), &state, None).await.unwrap();
         assert_eq!(v["count"], 2, "prefix scan should return 2 weight quads, got {v}");
     }
 
@@ -1249,15 +1369,35 @@ mod tests {
         for (s, o) in [("alice", "bob"), ("carol", "bob"), ("dave", "eve")] {
             call_tool(MCP_TOOL_QUAD_CREATE, &json!({
                 "graph": "g2", "subject": s, "predicate": "knows", "object": o
-            }), &state).await.unwrap();
+            }), &state, None).await.unwrap();
         }
         // AVET P+O→S: who knows bob?
         let v = call_tool(MCP_TOOL_GRAPH_QUERY, &json!({
             "graph": "g2",
             "predicate": "knows",
             "object": "bob"
-        }), &state).await.unwrap();
+        }), &state, None).await.unwrap();
         assert_eq!(v["count"], 2, "should find alice and carol, got {v}");
+    }
+
+    #[tokio::test]
+    async fn admin_tools_reject_non_operator() {
+        let state = Arc::new(crate::server::KotobaState::new(None).expect("state"));
+        // Any DID other than operator_did must be rejected with ERR_AUTH.
+        for tool in ADMIN_ONLY_TOOLS {
+            let args = if *tool == MCP_TOOL_COMMIT_PRUNE {
+                json!({ "before_seq": 0 })
+            } else {
+                json!({})
+            };
+            let err = call_tool(tool, &args, &state, Some("did:key:zNotTheOperator")).await
+                .expect_err(&format!("{tool} should reject non-operator"));
+            assert_eq!(err.0, ERR_AUTH, "{tool}: expected ERR_AUTH, got {err:?}");
+
+            let err_none = call_tool(tool, &args, &state, None).await
+                .expect_err(&format!("{tool} should reject missing caller"));
+            assert_eq!(err_none.0, ERR_AUTH, "{tool}: no-caller should give ERR_AUTH");
+        }
     }
 
     #[tokio::test]
@@ -1266,7 +1406,7 @@ mod tests {
             crate::server::KotobaState::new(None).expect("state")
         );
         // Fresh store has no committed blocks — GC should delete 0 and succeed.
-        let v = call_tool(MCP_TOOL_GRAPH_GC, &json!({}), &state).await.unwrap();
+        let v = call_tool(MCP_TOOL_GRAPH_GC, &json!({}), &state, Some(state.operator_did.as_str())).await.unwrap();
         assert_eq!(v["status"], "ok");
         assert!(v["deleted_blocks"].as_u64().is_some(), "deleted_blocks must be a number");
     }
@@ -1277,7 +1417,8 @@ mod tests {
             crate::server::KotobaState::new(None).expect("state")
         );
         // Fresh store — no commits yet; prune with before_seq=0 removes nothing.
-        let v = call_tool(MCP_TOOL_COMMIT_PRUNE, &json!({ "before_seq": 0 }), &state)
+        let v = call_tool(MCP_TOOL_COMMIT_PRUNE, &json!({ "before_seq": 0 }), &state,
+            Some(state.operator_did.as_str()))
             .await
             .unwrap();
         assert_eq!(v["status"], "ok");
@@ -1290,8 +1431,340 @@ mod tests {
         let state = Arc::new(
             crate::server::KotobaState::new(None).expect("state")
         );
-        let result = call_tool(MCP_TOOL_COMMIT_PRUNE, &json!({}), &state).await;
+        let result = call_tool(MCP_TOOL_COMMIT_PRUNE, &json!({}), &state, Some(state.operator_did.as_str())).await;
         let (code, _) = result.unwrap_err();
         assert_eq!(code, ERR_INVALID_PARAMS);
+    }
+
+    // ── kotoba_embed_create ──────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn call_tool_embed_create_ok_blake3_fallback() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_EMBED_CREATE, &json!({
+            "text":      "hello kotoba",
+            "doc_cid":   "doc1",
+            "model_cid": "model1",
+            "graph":     "graph1"
+        }), &state, None).await;
+        assert!(result.is_ok(), "{result:?}");
+        let v = result.unwrap();
+        assert_eq!(v["status"], "ok");
+        assert!(v["dims"].as_u64().unwrap_or(0) > 0, "dims must be > 0");
+        assert!(v["quad_cid"].is_string(), "quad_cid must be a string");
+    }
+
+    #[tokio::test]
+    async fn call_tool_embed_create_empty_text_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_EMBED_CREATE, &json!({
+            "text":      "",
+            "doc_cid":   "doc1",
+            "model_cid": "model1",
+            "graph":     "graph1"
+        }), &state, None).await;
+        let (code, msg) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS);
+        assert!(msg.contains("empty"), "expected 'empty' in: {msg}");
+    }
+
+    #[tokio::test]
+    async fn call_tool_embed_create_missing_text_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_EMBED_CREATE, &json!({
+            "doc_cid":   "doc1",
+            "model_cid": "model1",
+            "graph":     "graph1"
+        }), &state, None).await;
+        let (code, _) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS);
+    }
+
+    // ── kotoba_infer_run ─────────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn call_tool_infer_run_without_engine_returns_error() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        // No inference engine loaded → must fail
+        let result = call_tool(MCP_TOOL_INFER_RUN, &json!({
+            "prompt": "hello"
+        }), &state, None).await;
+        assert!(result.is_err(), "expected error when no engine");
+        let (code, msg) = result.unwrap_err();
+        assert_eq!(code, ERR_INTERNAL);
+        assert!(msg.contains("inference engine"), "expected 'inference engine' in: {msg}");
+    }
+
+    #[tokio::test]
+    async fn call_tool_infer_run_missing_prompt_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        // Engine check precedes prompt validation — either ERR_INTERNAL (no engine)
+        // or ERR_INVALID_PARAMS (missing prompt) are both acceptable errors.
+        let result = call_tool(MCP_TOOL_INFER_RUN, &json!({}), &state, None).await;
+        assert!(result.is_err(), "expected error for missing prompt");
+    }
+
+    // ── kotoba_node_info ─────────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn call_tool_node_info_returns_node_fields() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_NODE_INFO, &json!({}), &state, None).await;
+        assert!(result.is_ok(), "{result:?}");
+        let v = result.unwrap();
+        assert!(v["did"].is_string(),        "did must be a string");
+        assert!(v["node_id_hex"].is_string(), "node_id_hex must be a string");
+        assert!(v["version"].is_string(),     "version must be a string");
+        assert!(v["roles"].is_array(),        "roles must be an array");
+        assert!(v["peer_count"].as_u64().is_some(), "peer_count must be a number");
+    }
+
+    // ── kotoba_node_register ─────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn call_tool_node_register_returns_ok() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_NODE_REGISTER, &json!({}), &state, Some(state.operator_did.as_str())).await;
+        assert!(result.is_ok(), "{result:?}");
+        let v = result.unwrap();
+        assert_eq!(v["status"], "ok");
+        assert!(v["operator_did"].is_string(), "operator_did must be a string");
+    }
+
+    // ── kotoba_network_peers ─────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn call_tool_network_peers_returns_peer_list() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_NETWORK_PEERS, &json!({}), &state, None).await;
+        assert!(result.is_ok(), "{result:?}");
+        let v = result.unwrap();
+        assert!(v["local_node_id_hex"].is_string(), "local_node_id_hex must be a string");
+        assert!(v["peer_count"].as_u64().is_some(),  "peer_count must be a number");
+        assert!(v["peers"].is_array(),               "peers must be an array");
+        // Fresh state has no peers
+        assert_eq!(v["peer_count"].as_u64().unwrap(), 0);
+    }
+
+    // ── kotoba_wasm_run ──────────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn call_tool_wasm_run_missing_wasm_b64_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_WASM_RUN, &json!({
+            "agent_did":    "did:plc:test",
+            "ctx_cbor_b64": ""
+        }), &state, None).await;
+        let (code, _) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS);
+    }
+
+    #[tokio::test]
+    async fn call_tool_wasm_run_invalid_base64_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_WASM_RUN, &json!({
+            "wasm_b64":     "not-valid-base64!!!",
+            "agent_did":    "did:plc:test",
+            "ctx_cbor_b64": "AA=="
+        }), &state, None).await;
+        let (code, msg) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS);
+        assert!(msg.contains("wasm_b64"), "expected 'wasm_b64' in: {msg}");
+    }
+
+    #[test]
+    fn total_gas_used_u64_to_i64_cast_is_safe_within_limits() {
+        // gas_limit = 10_000_000 per WasmExecutor, MAX_SUPERSTEPS = 256
+        let max_possible: u64 = 10_000_000 * 256;
+        assert!(max_possible <= i64::MAX as u64,
+            "total_gas_used cannot exceed i64::MAX at current limits");
+        // The try_from guard preserves correctness if limits ever change.
+        assert_eq!(i64::try_from(max_possible).unwrap(), max_possible as i64);
+        // Saturate to i64::MAX for absurdly large values (defense-in-depth).
+        assert_eq!(i64::try_from(u64::MAX).unwrap_or(i64::MAX), i64::MAX);
+    }
+
+    // ── kotoba_datalog_run ───────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn call_tool_datalog_run_missing_rules_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_DATALOG_RUN, &json!({
+            "graph": "test_graph"
+        }), &state, None).await;
+        let (code, msg) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS);
+        assert!(msg.contains("rules"), "expected 'rules' in: {msg}");
+    }
+
+    #[tokio::test]
+    async fn call_tool_datalog_run_empty_graph_returns_empty_derived() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        // Empty graph with no rules — should succeed with 0 derived facts
+        let result = call_tool(MCP_TOOL_DATALOG_RUN, &json!({
+            "graph": "nonexistent_graph_for_datalog_test",
+            "rules": []
+        }), &state, None).await;
+        assert!(result.is_ok(), "{result:?}");
+        let v = result.unwrap();
+        // Empty graph returns early with derived=[], citations=0, royalty_quads=0
+        assert_eq!(v["derived"], json!([]));
+        assert_eq!(v["citations"].as_u64().unwrap_or(1), 0);
+    }
+
+    // ── kotoba_weight_put ────────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn call_tool_weight_put_missing_layer_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+        let data = B64.encode(b"fake-weight-data");
+        let result = call_tool(MCP_TOOL_WEIGHT_PUT, &json!({
+            "data_b64":  data,
+            "model_cid": "model1",
+            "graph":     "graph1",
+            "dtype":     "fp16"
+            // layer missing
+        }), &state, None).await;
+        let (code, msg) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS);
+        assert!(msg.contains("layer"), "expected 'layer' in: {msg}");
+    }
+
+    #[tokio::test]
+    async fn call_tool_weight_put_ok() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+        let data = B64.encode(b"fake-weight-bytes");
+        let result = call_tool(MCP_TOOL_WEIGHT_PUT, &json!({
+            "data_b64":  data,
+            "model_cid": "model1",
+            "graph":     "graph1",
+            "dtype":     "bf16",
+            "layer":     0
+        }), &state, None).await;
+        assert!(result.is_ok(), "{result:?}");
+        let v = result.unwrap();
+        assert_eq!(v["status"], "ok");
+        assert_eq!(v["layer"].as_u64().unwrap(), 0);
+        assert!(v["blob_cid"].is_string());
+        assert!(v["quad_cid"].is_string());
+    }
+
+    // ── kotoba_lora_apply ────────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn call_tool_lora_apply_missing_rank_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+        let adapter = B64.encode(b"fake-lora-adapter");
+        let result = call_tool(MCP_TOOL_LORA_APPLY, &json!({
+            "adapter_b64": adapter,
+            "model_cid":   "model1",
+            "graph":       "graph1"
+            // rank missing
+        }), &state, None).await;
+        let (code, msg) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS);
+        assert!(msg.contains("rank"), "expected 'rank' in: {msg}");
+    }
+
+    #[tokio::test]
+    async fn call_tool_lora_apply_ok() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+        let adapter = B64.encode(b"fake-lora-adapter-bytes");
+        let result = call_tool(MCP_TOOL_LORA_APPLY, &json!({
+            "adapter_b64": adapter,
+            "model_cid":   "model1",
+            "graph":       "graph1",
+            "rank":        8
+        }), &state, None).await;
+        assert!(result.is_ok(), "{result:?}");
+        let v = result.unwrap();
+        assert_eq!(v["status"], "ok");
+        assert!(v["adapter_cid"].is_string());
+        assert!(v["quad_cid"].is_string());
+    }
+
+    // ── u64→u32 truncation guards ────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn weight_store_layer_overflow_u32_is_rejected() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+        let data = B64.encode(b"fake-weight-bytes");
+        let overflow_layer: u64 = u32::MAX as u64 + 1;
+        let result = call_tool(MCP_TOOL_WEIGHT_PUT, &json!({
+            "data_b64":  data,
+            "model_cid": "model1",
+            "graph":     "graph1",
+            "dtype":     "f32",
+            "layer":     overflow_layer,
+            "shape":     [4, 4]
+        }), &state, None).await;
+        let (code, msg) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS, "overflow layer must return INVALID_PARAMS");
+        assert!(msg.contains("u32"), "error must mention u32 boundary, got: {msg}");
+    }
+
+    #[tokio::test]
+    async fn lora_apply_rank_overflow_u32_is_rejected() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+        let adapter = B64.encode(b"fake-lora");
+        let overflow_rank: u64 = u32::MAX as u64 + 1;
+        let result = call_tool(MCP_TOOL_LORA_APPLY, &json!({
+            "adapter_b64": adapter,
+            "model_cid":   "model1",
+            "graph":       "graph1",
+            "rank":        overflow_rank
+        }), &state, None).await;
+        let (code, msg) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS, "overflow rank must return INVALID_PARAMS");
+        assert!(msg.contains("u32"), "error must mention u32 boundary, got: {msg}");
+    }
+
+    #[test]
+    fn u32_max_is_safe_layer_boundary() {
+        // u32::MAX is accepted by try_from; u32::MAX + 1 is not
+        assert!(u32::try_from(u32::MAX as u64).is_ok());
+        assert!(u32::try_from(u32::MAX as u64 + 1).is_err());
     }
 }

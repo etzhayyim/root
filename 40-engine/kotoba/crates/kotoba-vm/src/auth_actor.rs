@@ -100,3 +100,150 @@ pub struct ActorOutput {
 /// and `AuthQuad` values after return.
 pub type ActorComputeFn =
     Arc<dyn Fn(&Actor, &[AuthMessage]) -> ActorOutput + Send + Sync>;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use kotoba_core::cid::KotobaCid;
+    use kotoba_core::policy::DataPolicy;
+
+    fn cid(seed: &[u8]) -> KotobaCid { KotobaCid::from_bytes(seed) }
+
+    #[test]
+    fn actor_fields_accessible() {
+        let actor = Actor {
+            vertex_cid: cid(b"vertex"),
+            did:        "did:key:zAlice".to_string(),
+            public_key: [0u8; 32],
+            state:      vec![1, 2, 3],
+            caps:       vec![],
+        };
+        assert_eq!(actor.did, "did:key:zAlice");
+        assert_eq!(actor.state, vec![1, 2, 3]);
+        assert!(actor.caps.is_empty());
+    }
+
+    #[test]
+    fn auth_message_fields_accessible() {
+        let msg = AuthMessage {
+            src_did: "did:key:zSender".to_string(),
+            payload: vec![0x42],
+            cap:     None,
+        };
+        assert_eq!(msg.src_did, "did:key:zSender");
+        assert_eq!(msg.payload, vec![0x42]);
+        assert!(msg.cap.is_none());
+    }
+
+    #[test]
+    fn auth_out_message_fields_accessible() {
+        let out = AuthOutMessage {
+            dst_did: "did:key:zDst".to_string(),
+            payload: vec![0xFF],
+            policy:  DataPolicy::Open,
+            cap:     None,
+        };
+        assert_eq!(out.dst_did, "did:key:zDst");
+        assert!(out.policy.is_open());
+    }
+
+    #[test]
+    fn actor_output_vote_halt_default_construction() {
+        let output = ActorOutput {
+            new_state:  vec![],
+            messages:   vec![],
+            assertions: vec![],
+            vote_halt:  false,
+        };
+        assert!(!output.vote_halt);
+        assert!(output.messages.is_empty());
+        assert!(output.assertions.is_empty());
+    }
+
+    #[test]
+    fn actor_output_vote_halt_true() {
+        let output = ActorOutput {
+            new_state:  b"updated".to_vec(),
+            messages:   vec![],
+            assertions: vec![],
+            vote_halt:  true,
+        };
+        assert!(output.vote_halt);
+        assert_eq!(output.new_state, b"updated");
+    }
+
+    #[test]
+    fn auth_out_message_encrypted_policy() {
+        let ct  = cid(b"ct");
+        let pol = cid(b"pol");
+        let out = AuthOutMessage {
+            dst_did: "did:key:zDst".to_string(),
+            payload: vec![0xAB],
+            policy:  DataPolicy::Encrypted { ct_cid: ct, policy_cid: pol },
+            cap:     None,
+        };
+        assert!(out.policy.is_encrypted());
+    }
+
+    #[test]
+    fn actor_compute_fn_invocable() {
+        let compute_fn: ActorComputeFn = Arc::new(|actor: &Actor, _msgs: &[AuthMessage]| {
+            ActorOutput {
+                new_state:  actor.state.clone(),
+                messages:   vec![],
+                assertions: vec![],
+                vote_halt:  false,
+            }
+        });
+        let actor = Actor {
+            vertex_cid: cid(b"v"),
+            did:        "did:key:z1".to_string(),
+            public_key: [1u8; 32],
+            state:      vec![10, 20],
+            caps:       vec![],
+        };
+        let output = compute_fn(&actor, &[]);
+        assert_eq!(output.new_state, vec![10, 20]);
+        assert!(!output.vote_halt);
+    }
+
+    #[test]
+    fn actor_output_with_messages_count() {
+        let msg = AuthOutMessage {
+            dst_did: "did:key:zB".to_string(),
+            payload: vec![1],
+            policy:  DataPolicy::Open,
+            cap:     None,
+        };
+        let output = ActorOutput {
+            new_state:  vec![],
+            messages:   vec![msg],
+            assertions: vec![],
+            vote_halt:  false,
+        };
+        assert_eq!(output.messages.len(), 1);
+    }
+
+    #[test]
+    fn actor_public_key_all_zeros_accessible() {
+        let actor = Actor {
+            vertex_cid: cid(b"v2"),
+            did:        "did:key:zZero".to_string(),
+            public_key: [0u8; 32],
+            state:      vec![],
+            caps:       vec![],
+        };
+        assert_eq!(actor.public_key, [0u8; 32]);
+    }
+
+    #[test]
+    fn auth_message_with_payload() {
+        let payload = b"hello world".to_vec();
+        let msg = AuthMessage {
+            src_did: "did:key:zSrc".to_string(),
+            payload: payload.clone(),
+            cap:     None,
+        };
+        assert_eq!(msg.payload, payload);
+    }
+}

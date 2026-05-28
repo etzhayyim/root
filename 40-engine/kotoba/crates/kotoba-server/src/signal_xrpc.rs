@@ -1,8 +1,8 @@
-/// Signal Protocol XRPC endpoints.
-/// NSIDs: ai.gftd.signal.{register.prekeys, get.prekey.bundle, send.message, send.group.message}
-///
-/// These endpoints make kotoba-server the SSoT for Signal Protocol E2E,
-/// superseding `@gftd/signal` (`10-protocol/signal/`).
+//! Signal Protocol XRPC endpoints.
+//! NSIDs: ai.gftd.signal.{register.prekeys, get.prekey.bundle, send.message, send.group.message}
+//!
+//! These endpoints make kotoba-server the SSoT for Signal Protocol E2E,
+//! superseding `@gftd/signal` (`10-protocol/signal/`).
 
 pub const NSID_SIGNAL_REGISTER_PREKEYS:      &str = "ai.gftd.signal.register.prekeys";
 pub const NSID_SIGNAL_GET_PREKEY_BUNDLE:     &str = "ai.gftd.signal.get.prekey.bundle";
@@ -14,13 +14,71 @@ use std::sync::Arc;
 use axum::{
     Json,
     extract::{State, Query},
-    http::StatusCode,
+    http::{HeaderMap, StatusCode},
     response::IntoResponse,
 };
 use serde::{Deserialize, Serialize};
 
 use kotoba_signal::message::SignalMessage;
 use crate::server::KotobaState;
+
+// Soft caps — prevent shelf key exhaustion and oversized payloads.
+const MAX_DID_LEN:       usize = 512;
+const MAX_DEVICE_ID_LEN: usize = 128;
+const MAX_GROUP_ID_LEN:  usize = 128;
+const MAX_PAYLOAD_BYTES: usize = 256 * 1024; // 256 KiB per encrypted message
+const MAX_BUNDLE_BYTES:  usize = 64 * 1024;  // 64 KiB per prekey bundle / identity key
+
+/// Thin wrapper — delegates to the shared validator in `graph_auth`.
+fn validate_signal_did(did: &str, field: &str) -> Result<(), (StatusCode, String)> {
+    crate::graph_auth::validate_did(did, field, MAX_DID_LEN)
+}
+
+/// Validates a value used as a path component in storage keys or topic names.
+/// Allows only `[A-Za-z0-9._-]` to prevent path-traversal / key-namespace pollution.
+fn validate_path_component(value: &str, field: &str, max_len: usize) -> Result<(), (StatusCode, String)> {
+    if value.is_empty() || value.len() > max_len {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("{field} must be 1–{max_len} bytes")));
+    }
+    if !value.chars().all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '_' | '-')) {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("{field} must contain only [A-Za-z0-9._-]")));
+    }
+    Ok(())
+}
+
+/// Verify caller owns `did` via Bearer JWT `sub` claim.
+fn require_signal_auth(
+    headers: &HeaderMap,
+    did: &str,
+    operator_did: &str,
+) -> Result<(), (StatusCode, String)> {
+    let token = headers
+        .get(axum::http::header::AUTHORIZATION)
+        .and_then(|v| v.to_str().ok())
+        .and_then(|v| v.strip_prefix("Bearer "))
+        .ok_or_else(|| {
+            tracing::warn!("signal auth: missing Bearer token");
+            (StatusCode::UNAUTHORIZED, "Authorization: Bearer <token> required".to_string())
+        })?;
+    if crate::graph_auth::jwt_exp_elapsed(token) {
+        tracing::warn!("signal auth: expired JWT");
+        return Err((StatusCode::UNAUTHORIZED, "Bearer token has expired".to_string()));
+    }
+    let sub = crate::graph_auth::jwt_sub(token)
+        .ok_or_else(|| {
+            tracing::warn!("signal auth: JWT missing sub claim");
+            (StatusCode::UNAUTHORIZED, "Bearer token missing sub claim".to_string())
+        })?;
+    if sub == did || sub == operator_did {
+        Ok(())
+    } else {
+        tracing::warn!(sub = %sub, did = %did, "signal auth: sub mismatch");
+        Err((StatusCode::UNAUTHORIZED,
+            format!("Bearer sub does not match did {did:?}")))
+    }
+}
 
 // ── registerPrekeys ───────────────────────────────────────────────────────────
 
@@ -44,22 +102,31 @@ pub struct RegisterPrekeysResp {
 
 pub async fn register_prekeys(
     State(state): State<Arc<KotobaState>>,
+    headers: HeaderMap,
     Json(req): Json<RegisterPrekeysReq>,
-) -> impl IntoResponse {
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    validate_signal_did(&req.did, "did")?;
+    validate_path_component(&req.device_id, "device_id", MAX_DEVICE_ID_LEN)?;
+    require_signal_auth(&headers, &req.did, &state.operator_did)?;
+
+    let bundle_bytes = serde_json::to_vec(&req.prekey_bundle)
+        .map_err(|e| (StatusCode::BAD_REQUEST, format!("prekey_bundle serialize: {e}")))?;
+    if bundle_bytes.len() > MAX_BUNDLE_BYTES {
+        return Err((StatusCode::PAYLOAD_TOO_LARGE,
+            format!("prekey_bundle exceeds {MAX_BUNDLE_BYTES} bytes")));
+    }
+    let ik_bytes = serde_json::to_vec(&req.identity_key)
+        .map_err(|e| (StatusCode::BAD_REQUEST, format!("identity_key serialize: {e}")))?;
+    if ik_bytes.len() > MAX_BUNDLE_BYTES {
+        return Err((StatusCode::PAYLOAD_TOO_LARGE,
+            format!("identity_key exceeds {MAX_BUNDLE_BYTES} bytes")));
+    }
+
     let key = format!("signal/bundle/{}/{}", req.did, req.device_id);
-    state.shelf.put(
-        "KOTOBA_SIGNAL",
-        key,
-        bytes::Bytes::from(serde_json::to_vec(&req.prekey_bundle).unwrap_or_default()),
-    ).await;
-    // Store identity key separately for lookup
+    state.shelf.put("KOTOBA_SIGNAL", key, bytes::Bytes::from(bundle_bytes)).await;
     let ik_key = format!("signal/identity/{}/{}", req.did, req.device_id);
-    state.shelf.put(
-        "KOTOBA_SIGNAL",
-        ik_key,
-        bytes::Bytes::from(serde_json::to_vec(&req.identity_key).unwrap_or_default()),
-    ).await;
-    Json(RegisterPrekeysResp { status: "ok", did: req.did })
+    state.shelf.put("KOTOBA_SIGNAL", ik_key, bytes::Bytes::from(ik_bytes)).await;
+    Ok(Json(RegisterPrekeysResp { status: "ok", did: req.did }))
 }
 
 // ── getPrekeyBundle ───────────────────────────────────────────────────────────
@@ -74,18 +141,24 @@ pub struct GetPreKeyBundleQuery {
 pub async fn get_prekey_bundle(
     State(state): State<Arc<KotobaState>>,
     Query(q): Query<GetPreKeyBundleQuery>,
-) -> impl IntoResponse {
+) -> Result<impl IntoResponse, (StatusCode, String)> {
+    validate_signal_did(&q.did, "did")?;
     let device_id = q.device_id.as_deref().unwrap_or("default");
+    validate_path_component(device_id, "device_id", MAX_DEVICE_ID_LEN)?;
     let bundle_key = format!("signal/bundle/{}/{}", q.did, device_id);
     let ik_key     = format!("signal/identity/{}/{}", q.did, device_id);
 
     let bundle_bytes = state.shelf.get("KOTOBA_SIGNAL", &bundle_key).await;
     let ik_bytes     = state.shelf.get("KOTOBA_SIGNAL", &ik_key).await;
 
-    match (bundle_bytes, ik_bytes) {
+    Ok(match (bundle_bytes, ik_bytes) {
         (Some(b), Some(ik)) => {
-            let bundle: serde_json::Value = serde_json::from_slice(&b).unwrap_or_default();
-            let identity_key: serde_json::Value = serde_json::from_slice(&ik).unwrap_or_default();
+            let bundle: serde_json::Value = serde_json::from_slice(&b)
+                .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR,
+                    format!("stored prekey bundle is malformed: {e}")))?;
+            let identity_key: serde_json::Value = serde_json::from_slice(&ik)
+                .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR,
+                    format!("stored identity key is malformed: {e}")))?;
             Json(serde_json::json!({
                 "did": q.did,
                 "deviceId": device_id,
@@ -97,7 +170,7 @@ pub async fn get_prekey_bundle(
             "error": "prekey bundle not found",
             "did": q.did,
         }))).into_response(),
-    }
+    })
 }
 
 // ── sendMessage ───────────────────────────────────────────────────────────────
@@ -117,9 +190,18 @@ pub struct SendMessageResp {
 
 pub async fn send_message(
     State(state): State<Arc<KotobaState>>,
+    headers: HeaderMap,
     Json(req): Json<SendMessageReq>,
 ) -> impl IntoResponse {
-    // Route the encrypted message envelope to the recipient's inbox on the KSE Journal.
+    let raw_len = serde_json::to_vec(&req.signal_message)
+        .map(|v| v.len())
+        .unwrap_or(usize::MAX);
+    if raw_len > MAX_PAYLOAD_BYTES {
+        return (StatusCode::PAYLOAD_TOO_LARGE,
+            Json(serde_json::json!({ "error": format!("signal_message exceeds {MAX_PAYLOAD_BYTES} bytes") })),
+        ).into_response();
+    }
+
     let msg: SignalMessage = match serde_json::from_value(req.signal_message.clone()) {
         Ok(m) => m,
         Err(e) => return (
@@ -128,10 +210,19 @@ pub async fn send_message(
         ).into_response(),
     };
 
+    // Require the caller to prove ownership of signal_message.sender_did.
+    if let Err((code, err_msg)) = require_signal_auth(&headers, &msg.sender_did, &state.operator_did) {
+        return (code, Json(serde_json::json!({ "error": err_msg }))).into_response();
+    }
+
     let topic_name = format!("signal/inbox/{}/{}", msg.recipient_did, msg.device_id);
     let topic = kotoba_kse::topic::Topic(format!("kotoba/{topic_name}"));
-    let payload = bytes::Bytes::from(serde_json::to_vec(&req.signal_message).unwrap_or_default());
-    let entry = state.journal.publish(topic, payload).await;
+    let payload_vec = match serde_json::to_vec(&req.signal_message) {
+        Ok(v) => v,
+        Err(e) => return (StatusCode::INTERNAL_SERVER_ERROR,
+            Json(serde_json::json!({ "error": format!("signal_message serialize: {e}") }))).into_response(),
+    };
+    let entry = state.journal.publish(topic, bytes::Bytes::from(payload_vec)).await;
 
     Json(SendMessageResp {
         status: "ok",
@@ -151,15 +242,36 @@ pub struct SendGroupMessageReq {
 
 pub async fn send_group_message(
     State(state): State<Arc<KotobaState>>,
+    headers: HeaderMap,
     Json(req): Json<SendGroupMessageReq>,
 ) -> impl IntoResponse {
+    if let Err((code, msg)) = validate_path_component(&req.group_id, "group_id", MAX_GROUP_ID_LEN) {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
+    if let Err((code, msg)) = validate_signal_did(&req.sender_did, "sender_did") {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
+    if let Err((code, err_msg)) = require_signal_auth(&headers, &req.sender_did, &state.operator_did) {
+        return (code, Json(serde_json::json!({ "error": err_msg }))).into_response();
+    }
+    let raw_len = serde_json::to_vec(&req.sender_key_message)
+        .map(|v| v.len())
+        .unwrap_or(usize::MAX);
+    if raw_len > MAX_PAYLOAD_BYTES {
+        return (StatusCode::PAYLOAD_TOO_LARGE,
+            Json(serde_json::json!({ "error": format!("sender_key_message exceeds {MAX_PAYLOAD_BYTES} bytes") })),
+        ).into_response();
+    }
+
     let topic = kotoba_kse::topic::Topic(
         format!("kotoba/signal/group/{}", req.group_id),
     );
-    let payload = bytes::Bytes::from(
-        serde_json::to_vec(&req.sender_key_message).unwrap_or_default(),
-    );
-    let entry = state.journal.publish(topic, payload).await;
+    let payload_vec = match serde_json::to_vec(&req.sender_key_message) {
+        Ok(v) => v,
+        Err(e) => return (StatusCode::INTERNAL_SERVER_ERROR,
+            Json(serde_json::json!({ "error": format!("sender_key_message serialize: {e}") }))).into_response(),
+    };
+    let entry = state.journal.publish(topic, bytes::Bytes::from(payload_vec)).await;
 
     Json(serde_json::json!({
         "status": "ok",
@@ -182,15 +294,38 @@ pub struct DistributeSenderKeyReq {
 
 pub async fn distribute_sender_key(
     State(state): State<Arc<KotobaState>>,
+    headers: HeaderMap,
     Json(req): Json<DistributeSenderKeyReq>,
 ) -> impl IntoResponse {
+    if let Err((code, msg)) = validate_signal_did(&req.recipient_did, "recipient_did") {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
+    if let Err((code, msg)) = validate_path_component(&req.recipient_device, "recipient_device", MAX_DEVICE_ID_LEN) {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
+    let raw_len = serde_json::to_vec(&req.signal_message)
+        .map(|v| v.len())
+        .unwrap_or(usize::MAX);
+    if raw_len > MAX_PAYLOAD_BYTES {
+        return (StatusCode::PAYLOAD_TOO_LARGE,
+            Json(serde_json::json!({ "error": format!("signal_message exceeds {MAX_PAYLOAD_BYTES} bytes") })),
+        ).into_response();
+    }
+    // Require any authenticated caller (the sender distributing their key).
+    // We verify: Bearer present + non-expired + has sub claim.
+    if let Err((code, err_msg)) = crate::graph_auth::require_any_bearer_auth(&headers, "distribute_sender_key") {
+        return (code, Json(serde_json::json!({ "error": err_msg }))).into_response();
+    }
+
     let topic = kotoba_kse::topic::Topic(
         format!("kotoba/signal/inbox/{}/{}", req.recipient_did, req.recipient_device),
     );
-    let payload = bytes::Bytes::from(
-        serde_json::to_vec(&req.signal_message).unwrap_or_default(),
-    );
-    let entry = state.journal.publish(topic, payload).await;
+    let payload_vec = match serde_json::to_vec(&req.signal_message) {
+        Ok(v) => v,
+        Err(e) => return (StatusCode::INTERNAL_SERVER_ERROR,
+            Json(serde_json::json!({ "error": format!("signal_message serialize: {e}") }))).into_response(),
+    };
+    let entry = state.journal.publish(topic, bytes::Bytes::from(payload_vec)).await;
 
     Json(serde_json::json!({
         "status": "ok",
@@ -238,5 +373,130 @@ mod tests {
         for nsid in SIGNAL_NSIDS {
             assert!(seen.insert(*nsid), "duplicate NSID: {nsid}");
         }
+    }
+
+    // ── validate_path_component ───────────────────────────────────────────────
+
+    #[test]
+    fn path_component_accepts_valid_ids() {
+        assert!(validate_path_component("device-1", "device_id", 128).is_ok());
+        assert!(validate_path_component("abc.def_GHI-123", "device_id", 128).is_ok());
+        assert!(validate_path_component("default", "device_id", 128).is_ok());
+        assert!(validate_path_component("group-ABC_01.v2", "group_id", 128).is_ok());
+    }
+
+    #[test]
+    fn path_component_rejects_empty() {
+        let err = validate_path_component("", "device_id", 128).unwrap_err();
+        assert_eq!(err.0, axum::http::StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("1–128"));
+    }
+
+    #[test]
+    fn path_component_rejects_too_long() {
+        let long = "a".repeat(129);
+        let err = validate_path_component(&long, "device_id", 128).unwrap_err();
+        assert_eq!(err.0, axum::http::StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("1–128"));
+    }
+
+    #[test]
+    fn path_component_rejects_slash() {
+        let err = validate_path_component("foo/bar", "device_id", 128).unwrap_err();
+        assert_eq!(err.0, axum::http::StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("[A-Za-z0-9._-]"));
+    }
+
+    #[test]
+    fn path_component_rejects_dotdot_traversal() {
+        // `..` contains only dots and would pass a naive charset check; verify combined path
+        // injection like `../../other` is caught at the slash.
+        let err = validate_path_component("../../etc/passwd", "device_id", 128).unwrap_err();
+        assert_eq!(err.0, axum::http::StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("[A-Za-z0-9._-]"));
+    }
+
+    #[test]
+    fn path_component_rejects_space_and_special_chars() {
+        for bad in &["hello world", "id@host", "id#1", "id\x00null"] {
+            let err = validate_path_component(bad, "device_id", 128).unwrap_err();
+            assert_eq!(err.0, axum::http::StatusCode::BAD_REQUEST);
+        }
+    }
+
+    #[test]
+    fn bundle_bytes_cap_constant_is_smaller_than_payload_cap() {
+        assert!(MAX_BUNDLE_BYTES < MAX_PAYLOAD_BYTES,
+            "bundle cap should be tighter than general payload cap");
+    }
+
+    // ── additional constant / boundary tests ─────────────────────────────────
+
+    #[test]
+    fn nsid_register_prekeys_exact_value() {
+        assert_eq!(NSID_SIGNAL_REGISTER_PREKEYS, "ai.gftd.signal.register.prekeys");
+    }
+
+    #[test]
+    fn nsid_get_prekey_bundle_exact_value() {
+        assert_eq!(NSID_SIGNAL_GET_PREKEY_BUNDLE, "ai.gftd.signal.get.prekey.bundle");
+    }
+
+    #[test]
+    fn nsid_send_message_exact_value() {
+        assert_eq!(NSID_SIGNAL_SEND_MESSAGE, "ai.gftd.signal.send.message");
+    }
+
+    #[test]
+    fn nsid_send_group_message_exact_value() {
+        assert_eq!(NSID_SIGNAL_SEND_GROUP_MESSAGE, "ai.gftd.signal.send.group.message");
+    }
+
+    #[test]
+    fn nsid_distribute_sender_key_exact_value() {
+        assert_eq!(NSID_SIGNAL_DISTRIBUTE_SENDER_KEY, "ai.gftd.signal.distribute.sender.key");
+    }
+
+    #[test]
+    fn max_did_len_is_512() {
+        assert_eq!(MAX_DID_LEN, 512);
+    }
+
+    #[test]
+    fn max_device_id_len_is_128() {
+        assert_eq!(MAX_DEVICE_ID_LEN, 128);
+    }
+
+    #[test]
+    fn max_group_id_len_is_128() {
+        assert_eq!(MAX_GROUP_ID_LEN, 128);
+    }
+
+    #[test]
+    fn max_payload_bytes_is_256_kib() {
+        assert_eq!(MAX_PAYLOAD_BYTES, 256 * 1024);
+    }
+
+    #[test]
+    fn max_bundle_bytes_is_64_kib() {
+        assert_eq!(MAX_BUNDLE_BYTES, 64 * 1024);
+    }
+
+    #[test]
+    fn path_component_accepts_exactly_max_len() {
+        let exactly_max = "a".repeat(MAX_DEVICE_ID_LEN);
+        assert!(validate_path_component(&exactly_max, "device_id", MAX_DEVICE_ID_LEN).is_ok());
+    }
+
+    #[test]
+    fn path_component_accepts_single_char() {
+        assert!(validate_path_component("x", "device_id", MAX_DEVICE_ID_LEN).is_ok());
+    }
+
+    #[test]
+    fn path_component_rejects_tilde() {
+        let err = validate_path_component("foo~bar", "device_id", MAX_DEVICE_ID_LEN).unwrap_err();
+        assert_eq!(err.0, axum::http::StatusCode::BAD_REQUEST);
+        assert!(err.1.contains("[A-Za-z0-9._-]"));
     }
 }

@@ -19,9 +19,9 @@
 //! // server: forward swarm GossipMessages → inbound_tx
 //! // server: forward outbound_rx → swarm.send_pregel_message()
 //!
-//! let vid = VertexId::from_str("vertex-a");
+//! let vid = VertexId::from("vertex-a");
 //! runner.add_local_vertex(vid.clone(), Vec::new());
-//! runner.graph.inject_message(Message { src: VertexId::from_str("seed"), dst: vid, payload: b"go".to_vec() });
+//! runner.graph.inject_message(Message { src: VertexId::from("seed"), dst: vid, payload: b"go".to_vec() });
 //!
 //! let compute: SharedComputeFn = Arc::new(|v, inbox| ComputeOutput {
 //!     new_state:  format!("step:{}", inbox.len()).into_bytes(),
@@ -114,8 +114,8 @@ impl DistributedPregelRunner {
     /// is currently available.
     pub fn drain_inbound(&mut self) {
         while let Ok(dmsg) = self.inbound_rx.try_recv() {
-            let dst = VertexId::from_str(&dmsg.dst);
-            let src = VertexId::from_str(&dmsg.src);
+            let dst = VertexId::from(dmsg.dst.as_str());
+            let src = VertexId::from(dmsg.src.as_str());
             self.graph.inject_message(Message {
                 src,
                 dst,
@@ -260,10 +260,10 @@ mod tests {
     async fn test_distributed_runner_local_compute() {
         let (_, _, mut runner) = DistributedPregelRunner::channel_pair(64);
 
-        let vid = VertexId::from_str("vertex-a");
+        let vid = VertexId::from("vertex-a");
         runner.add_local_vertex(vid.clone(), Vec::new());
         runner.graph.inject_message(Message {
-            src:     VertexId::from_str("seed"),
+            src:     VertexId::from("seed"),
             dst:     vid.clone(),
             payload: b"hello".to_vec(),
         });
@@ -295,7 +295,7 @@ mod tests {
     async fn test_inbound_messages_injected_before_superstep() {
         let (inbound_tx, _, mut runner) = DistributedPregelRunner::channel_pair(16);
 
-        let vid = VertexId::from_str("vertex-b");
+        let vid = VertexId::from("vertex-b");
         runner.add_local_vertex(vid.clone(), Vec::new());
 
         // Send a message via the inbound channel (simulates a peer gossip message)
@@ -322,23 +322,23 @@ mod tests {
         let (_, mut outbound_rx, mut runner) = DistributedPregelRunner::channel_pair(16);
 
         // Add vertex-local; it will send a message to "remote-vertex" (not local)
-        let local_vid = VertexId::from_str("local-vertex");
+        let local_vid = VertexId::from("local-vertex");
         runner.add_local_vertex(local_vid.clone(), Vec::new());
         runner.graph.inject_message(Message {
-            src:     VertexId::from_str("seed"),
+            src:     VertexId::from("seed"),
             dst:     local_vid.clone(),
             payload: b"go".to_vec(),
         });
 
         // Compute: send one message to a non-local vertex
-        let remote_key = VertexId::from_str("remote-vertex").cid().to_multibase();
+        let remote_key = VertexId::from("remote-vertex").cid().to_multibase();
         let remote_key_clone = remote_key.clone();
         let compute: SharedComputeFn = Arc::new(move |v: &Vertex, _inbox: &[Message]| {
             ComputeOutput {
                 new_state: v.state.clone(),
                 messages:  vec![Message {
                     src:     v.id.clone(),
-                    dst:     VertexId::from_str("remote-vertex"),
+                    dst:     VertexId::from("remote-vertex"),
                     payload: b"hello-remote".to_vec(),
                 }],
                 vote_halt: true,
@@ -359,12 +359,12 @@ mod tests {
     async fn test_local_messages_stay_in_graph() {
         let (_, mut outbound_rx, mut runner) = DistributedPregelRunner::channel_pair(16);
 
-        let va = VertexId::from_str("va");
-        let vb = VertexId::from_str("vb");
+        let va = VertexId::from("va");
+        let vb = VertexId::from("vb");
         runner.add_local_vertex(va.clone(), Vec::new());
         runner.add_local_vertex(vb.clone(), Vec::new());
         runner.graph.inject_message(Message {
-            src:     VertexId::from_str("seed"),
+            src:     VertexId::from("seed"),
             dst:     va.clone(),
             payload: b"start".to_vec(),
         });
@@ -372,7 +372,7 @@ mod tests {
         // va sends to vb (both local) — should NOT appear on outbound_rx
         let vb_clone = vb.clone();
         let compute: SharedComputeFn = Arc::new(move |v: &Vertex, _inbox: &[Message]| {
-            if v.id == VertexId::from_str("va") {
+            if v.id == VertexId::from("va") {
                 ComputeOutput {
                     new_state: b"done".to_vec(),
                     messages:  vec![Message {
@@ -394,5 +394,91 @@ mod tests {
             outbound_rx.try_recv().is_err(),
             "no outbound messages expected for local destinations"
         );
+    }
+
+    #[test]
+    fn distributed_message_fields_accessible() {
+        let dm = DistributedMessage {
+            src:     "src-vertex".to_string(),
+            dst:     "dst-vertex".to_string(),
+            payload: b"payload".to_vec(),
+        };
+        assert_eq!(dm.src, "src-vertex");
+        assert_eq!(dm.dst, "dst-vertex");
+        assert_eq!(dm.payload, b"payload");
+    }
+
+    #[test]
+    fn distributed_message_clone() {
+        let dm = DistributedMessage {
+            src:     "a".to_string(),
+            dst:     "b".to_string(),
+            payload: vec![1, 2, 3],
+        };
+        let c = dm.clone();
+        assert_eq!(c.src, dm.src);
+        assert_eq!(c.payload, dm.payload);
+    }
+
+    #[tokio::test]
+    async fn empty_graph_no_superstep_runs() {
+        let (_, _, mut runner) = DistributedPregelRunner::channel_pair(16);
+        // No vertices, no messages → run returns empty (all_halted immediately)
+        let results = runner.run(halt_compute(), 10).await;
+        // An empty graph with no pending messages halts immediately
+        assert!(results.is_empty() || results.iter().all(|r| r.all_halted));
+    }
+
+    #[tokio::test]
+    async fn drain_inbound_with_no_messages_is_noop() {
+        let (_, _, mut runner) = DistributedPregelRunner::channel_pair(16);
+        let v = VertexId::from("v1");
+        runner.add_local_vertex(v, Vec::new());
+        // No messages on channel — drain should not panic
+        runner.drain_inbound();
+        assert_eq!(runner.graph.vertex_count(), 1);
+    }
+
+    #[tokio::test]
+    async fn add_local_vertex_registers_in_local_ids() {
+        let (_, _, mut runner) = DistributedPregelRunner::channel_pair(16);
+        assert_eq!(runner.graph.vertex_count(), 0);
+        let v1 = VertexId::from("v1");
+        let v2 = VertexId::from("v2");
+        runner.add_local_vertex(v1.clone(), b"state1".to_vec());
+        runner.add_local_vertex(v2.clone(), b"state2".to_vec());
+        assert_eq!(runner.graph.vertex_count(), 2);
+        // Verify that both vertices are considered local (their messages stay in graph)
+        let key1 = v1.cid().to_multibase();
+        let key2 = v2.cid().to_multibase();
+        assert!(runner.local_vertex_ids.contains(&key1));
+        assert!(runner.local_vertex_ids.contains(&key2));
+    }
+
+    #[tokio::test]
+    async fn run_max_supersteps_respected() {
+        let (_, _, mut runner) = DistributedPregelRunner::channel_pair(16);
+        let v = VertexId::from("never-halts");
+        runner.add_local_vertex(v.clone(), Vec::new());
+        runner.graph.inject_message(Message {
+            src: VertexId::from("seed"), dst: v.clone(), payload: b"go".to_vec(),
+        });
+
+        // Compute never votes halt and always sends a message to itself
+        let v_clone = v.clone();
+        let no_halt: SharedComputeFn = Arc::new(move |vertex: &Vertex, _: &[Message]| {
+            ComputeOutput {
+                new_state: vertex.state.clone(),
+                messages:  vec![Message {
+                    src:     vertex.id.clone(),
+                    dst:     v_clone.clone(),
+                    payload: b"again".to_vec(),
+                }],
+                vote_halt: false,
+            }
+        });
+
+        let results = runner.run(no_halt, 5).await;
+        assert_eq!(results.len(), 5, "run should stop after max_supersteps");
     }
 }

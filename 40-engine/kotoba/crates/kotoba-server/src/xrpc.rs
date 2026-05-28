@@ -1,5 +1,5 @@
-/// XRPC endpoint declarations and handlers for Kotoba
-/// NSIDs follow ai.gftd.apps.kotoba.* namespace
+//! XRPC endpoint declarations and handlers for Kotoba
+//! NSIDs follow ai.gftd.apps.kotoba.* namespace
 
 pub const NSID_QUAD_CREATE:  &str = "ai.gftd.apps.kotoba.quad.create";
 pub const NSID_QUAD_RETRACT: &str = "ai.gftd.apps.kotoba.quad.retract";
@@ -30,6 +30,9 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use crate::server::KotobaState;
+
+/// Maximum size of a base64-encoded CACAO delegation token (8 KiB decoded ≈ 6 KiB base64).
+const MAX_CACAO_B64_LEN: usize = 8 * 1024;
 
 // ── Request / Response types ───────────────────────────────────────────────
 
@@ -252,14 +255,35 @@ async fn resolve_and_verify_did_web(
             format!("did:web fetch {url}: HTTP {}", resp.status()),
         ));
     }
-    let body_bytes = resp.bytes().await
-        .map_err(|e| (StatusCode::UNAUTHORIZED, format!("did:web read body: {e}")))?;
-    if body_bytes.len() > MAX_DID_DOC_BYTES {
-        return Err((
-            StatusCode::UNAUTHORIZED,
-            format!("did:web document exceeds {MAX_DID_DOC_BYTES} byte limit"),
-        ));
+    // Pre-check Content-Length to reject obviously oversized documents before buffering.
+    if let Some(cl) = resp.content_length() {
+        if cl > MAX_DID_DOC_BYTES as u64 {
+            return Err((
+                StatusCode::UNAUTHORIZED,
+                format!("did:web document Content-Length {cl} exceeds {MAX_DID_DOC_BYTES} byte limit"),
+            ));
+        }
     }
+    // Stream chunks with a running budget check to prevent slow-loris inflate attacks.
+    let mut body_bytes = bytes::BytesMut::new();
+    let mut resp = resp;
+    loop {
+        match resp.chunk().await
+            .map_err(|e| (StatusCode::UNAUTHORIZED, format!("did:web read body: {e}")))?
+        {
+            None => break,
+            Some(chunk) => {
+                body_bytes.extend_from_slice(&chunk);
+                if body_bytes.len() > MAX_DID_DOC_BYTES {
+                    return Err((
+                        StatusCode::UNAUTHORIZED,
+                        format!("did:web document exceeds {MAX_DID_DOC_BYTES} byte limit"),
+                    ));
+                }
+            }
+        }
+    }
+    let body_bytes = body_bytes.freeze();
     let doc: DidDocument = serde_json::from_slice(&body_bytes)
         .map_err(|e| (StatusCode::UNAUTHORIZED, format!("did:web document parse: {e}")))?;
 
@@ -292,7 +316,6 @@ pub async fn quad_create(
     let b64 = req.cacao_b64.as_deref()
         .ok_or_else(|| (StatusCode::UNAUTHORIZED, "cacao_b64 is required for quad.create".to_string()))?;
 
-    const MAX_CACAO_B64_LEN: usize = 8 * 1024;
     if b64.len() > MAX_CACAO_B64_LEN {
         return Err((StatusCode::BAD_REQUEST,
             format!("cacao_b64 too large ({} bytes, limit {MAX_CACAO_B64_LEN})", b64.len())));
@@ -382,8 +405,10 @@ pub async fn quad_create(
 /// No GossipSub propagation — vault blobs stay local (or in B2 when configured).
 pub async fn vault_put(
     State(state): State<Arc<KotobaState>>,
+    headers:      axum::http::HeaderMap,
     Json(req):    Json<VaultPutReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    crate::graph_auth::require_operator_auth(&headers, &state.operator_did)?;
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
     use bytes::Bytes;
 
@@ -411,8 +436,10 @@ pub async fn vault_put(
 /// Retrieve a blob from the Vault by CID.  Returns 404 if not found.
 pub async fn vault_get(
     State(state): State<Arc<KotobaState>>,
+    headers: axum::http::HeaderMap,
     axum::extract::Query(params): axum::extract::Query<std::collections::HashMap<String, String>>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    crate::graph_auth::require_operator_auth(&headers, &state.operator_did)?;
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
     use kotoba_core::cid::KotobaCid;
 
@@ -432,22 +459,51 @@ pub async fn vault_get(
 }
 
 /// GET /xrpc/ai.gftd.apps.kotoba.node.status
-pub async fn node_status(State(state): State<Arc<KotobaState>>) -> impl IntoResponse {
+/// Operator-only: exposes peer topology that aids targeted DHT attacks.
+pub async fn node_status(
+    State(state): State<Arc<KotobaState>>,
+    headers: axum::http::HeaderMap,
+) -> impl IntoResponse {
+    if let Err((code, msg)) = crate::graph_auth::require_operator_auth(&headers, &state.operator_did) {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
     let nb = state.neighborhood.read().await;
     Json(serde_json::json!({
         "node_id":    hex::encode(state.local_node_id.0),
         "peer_count": nb.peers.len(),
         "peers":      nb.peers.iter().map(|p| hex::encode(p.0)).collect::<Vec<_>>(),
         "k":          kotoba_dht::neighborhood::K,
-    }))
+    })).into_response()
 }
 
 /// POST /xrpc/ai.gftd.apps.kotoba.invoke.run
 /// Execute a WASM component or Datalog program, then publish resulting quads to Journal.
 pub async fn invoke_run(
     State(state): State<Arc<KotobaState>>,
+    headers:      axum::http::HeaderMap,
     Json(req):    Json<InvokeRunReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    crate::graph_auth::require_operator_auth(&headers, &state.operator_did)?;
+    const MAX_AGENT_DID_LEN:    usize = 512;
+    const MAX_PROGRAM_CID_LEN:  usize = 512;
+    const MAX_GRAPH_CID_LEN:    usize = 512;
+    const MAX_PROGRAM_TYPE_LEN: usize = 16;
+    crate::graph_auth::validate_did(&req.agent_did, "agent_did", MAX_AGENT_DID_LEN)?;
+    if req.program_cid.len() > MAX_PROGRAM_CID_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("program_cid too long ({} bytes, limit {MAX_PROGRAM_CID_LEN})", req.program_cid.len())));
+    }
+    if req.program_type.len() > MAX_PROGRAM_TYPE_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("program_type too long ({} bytes, limit {MAX_PROGRAM_TYPE_LEN})", req.program_type.len())));
+    }
+    if let Some(gcid) = &req.graph_cid {
+        if gcid.len() > MAX_GRAPH_CID_LEN {
+            return Err((StatusCode::BAD_REQUEST,
+                format!("graph_cid too long ({} bytes, limit {MAX_GRAPH_CID_LEN})", gcid.len())));
+        }
+    }
+
     use kotoba_dht::source_chain::ProgramType;
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
 
@@ -461,7 +517,7 @@ pub async fn invoke_run(
     // 50 MiB wasm cap (a full WASM module rarely exceeds a few MiB; 50 MiB is generous).
     const MAX_WASM_B64_LEN: usize = 50 * 1024 * 1024;
     // 1 MiB ctx cap — context CBOR should be small structured data, not a data dump.
-    const MAX_CTX_B64_LEN:  usize = 1 * 1024 * 1024;
+    const MAX_CTX_B64_LEN:  usize = 1024 * 1024;
 
     let wasm_bytes: Vec<u8> = match &req.wasm_b64 {
         Some(b64) => {
@@ -542,8 +598,17 @@ pub async fn invoke_run(
 
     match result {
         DispatchResult::Wasm(r) => {
+            // Reject if WASM produced an unreasonably large assert batch.
+            // At 10 gas/assert and 10M gas limit the theoretical max is 1M quads;
+            // storing and returning 1M CIDs would be a multi-MB response DoS.
+            const MAX_ASSERT_QUADS: usize = 10_000;
+            if r.assert_quads.len() > MAX_ASSERT_QUADS {
+                return Err((StatusCode::PAYLOAD_TOO_LARGE,
+                    format!("WASM produced {} assert quads (limit {MAX_ASSERT_QUADS})", r.assert_quads.len())));
+            }
+
             // Publish each asserted quad to KSE Journal
-            let mut journal_cids = Vec::with_capacity(r.assert_quads.len());
+            let mut journal_cids = Vec::with_capacity(r.assert_quads.len().min(MAX_ASSERT_QUADS));
             for sq in &r.assert_quads {
                 let quad = Quad {
                     graph:     KotobaCid::from_bytes(sq.graph.as_bytes()),
@@ -634,8 +699,10 @@ pub struct BlockGetResp {
 /// Write raw bytes into the block store, returning the CID.
 pub async fn block_put(
     State(state): State<Arc<KotobaState>>,
+    headers:      axum::http::HeaderMap,
     Json(req):    Json<BlockPutReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    crate::graph_auth::require_operator_auth(&headers, &state.operator_did)?;
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
     use kotoba_core::cid::KotobaCid;
 
@@ -653,9 +720,9 @@ pub async fn block_put(
     state.block_store.put(&cid, &bytes)
         .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
 
-    // Fire-and-forget IPFS pin (E) — no-op if KOTOBA_IPFS_PIN_ENDPOINT not set
-    if let Some(pin) = &state.ipfs_pin {
-        let pin  = std::sync::Arc::clone(pin);
+    // Fire-and-forget IPFS pin
+    {
+        let pin = std::sync::Arc::clone(&state.ipfs_pin);
         let cid_str = cid.to_multibase();
         tokio::spawn(async move { pin.pin(&cid_str).await });
     }
@@ -671,6 +738,11 @@ pub async fn block_get(
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
     use kotoba_core::cid::KotobaCid;
 
+    const MAX_CID_LEN: usize = 512;
+    if req.cid.len() > MAX_CID_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("cid too long ({} bytes, limit {MAX_CID_LEN})", req.cid.len())));
+    }
     let cid = KotobaCid::from_multibase(&req.cid)
         .ok_or_else(|| (StatusCode::BAD_REQUEST, "invalid CID".into()))?;
     match state.block_store.get(&cid)
@@ -709,6 +781,11 @@ pub async fn commit_get(
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     use kotoba_core::cid::KotobaCid;
 
+    const MAX_GRAPH_LEN: usize = 512;
+    if req.graph.len() > MAX_GRAPH_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("graph too long ({} bytes, limit {MAX_GRAPH_LEN})", req.graph.len())));
+    }
     let graph_cid = KotobaCid::from_multibase(&req.graph)
         .ok_or_else(|| (StatusCode::BAD_REQUEST, "invalid graph CID".into()))?;
     match state.quad_store.head_commit(&graph_cid).await {
@@ -743,10 +820,16 @@ pub async fn commit_store(
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
     use kotoba_core::cid::KotobaCid;
 
+    // ── Input length guards ───────────────────────────────────────────────
+    const MAX_GRAPH_LEN: usize = 512;
+    if req.graph.len() > MAX_GRAPH_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("graph field too long ({} bytes, limit {MAX_GRAPH_LEN})", req.graph.len())));
+    }
+
     // ── CACAO auth ─────────────────────────────────────────────────────────
     let b64 = req.cacao_b64.as_deref()
         .ok_or_else(|| (StatusCode::UNAUTHORIZED, "cacao_b64 is required for commit.store".to_string()))?;
-    const MAX_CACAO_B64_LEN: usize = 8 * 1024;
     if b64.len() > MAX_CACAO_B64_LEN {
         return Err((StatusCode::BAD_REQUEST,
             format!("cacao_b64 too large ({} bytes, limit {MAX_CACAO_B64_LEN})", b64.len())));
@@ -764,6 +847,13 @@ pub async fn commit_store(
     };
     tracing::info!(issuer = %issuer_did, graph = %req.graph, "commit.store: CACAO verified");
 
+    // author is stored verbatim in commit metadata — bound it to prevent oversized records.
+    const MAX_AUTHOR_LEN: usize = 512;
+    if req.author.len() > MAX_AUTHOR_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("author too long ({} bytes, limit {MAX_AUTHOR_LEN})", req.author.len())));
+    }
+
     let graph_cid = KotobaCid::from_multibase(&req.graph)
         .ok_or_else(|| (StatusCode::BAD_REQUEST, "invalid graph CID".into()))?;
     let cid = state.quad_store
@@ -771,7 +861,8 @@ pub async fn commit_store(
         .await
         .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
 
-    if let Some(pin) = state.ipfs_pin.clone() {
+    {
+        let pin = state.ipfs_pin.clone();
         let cid_str = cid.to_multibase();
         tokio::spawn(async move { pin.pin(&cid_str).await });
     }
@@ -793,6 +884,8 @@ pub struct GraphQueryReq {
     pub rules:     Option<String>,
     /// CACAO delegation chain for private graphs (DAG-CBOR, base64-standard encoded).
     pub cacao_b64: Option<String>,
+    /// Maximum number of quads to return (1–1000; default 100).
+    pub limit:     Option<u64>,
 }
 
 /// GET /xrpc/ai.gftd.apps.kotoba.graph.query
@@ -809,6 +902,22 @@ pub async fn graph_query(
     let graph_cid = KotobaCid::from_multibase(&req.graph)
         .ok_or_else(|| (StatusCode::BAD_REQUEST, "invalid graph CID".into()))?;
 
+    // Bound filter fields — large strings would be hashed to a CID and never match anything,
+    // but we reject early to avoid allocating and scanning unnecessarily.
+    const MAX_FILTER_LEN: usize = 4096;
+    if let Some(s) = &req.subject {
+        if s.len() > MAX_FILTER_LEN {
+            return Err((StatusCode::BAD_REQUEST,
+                format!("subject too long ({} bytes, limit {MAX_FILTER_LEN})", s.len())));
+        }
+    }
+    if let Some(p) = &req.predicate {
+        if p.len() > MAX_FILTER_LEN {
+            return Err((StatusCode::BAD_REQUEST,
+                format!("predicate too long ({} bytes, limit {MAX_FILTER_LEN})", p.len())));
+        }
+    }
+
     // ── Read-access gate ─────────────────────────────────────────────────────
     let visibility = state.graph_visibility(&graph_cid).await;
     check_read_access(&visibility, &headers, req.cacao_b64.as_deref(), Some(state.operator_did.as_str()), None)
@@ -820,6 +929,9 @@ pub async fn graph_query(
         }
         Some(a) => a,
     };
+
+    const MAX_QUERY_RESULTS: u64 = 1_000;
+    let limit = req.limit.unwrap_or(100).min(MAX_QUERY_RESULTS) as usize;
 
     let mut quads = arrangement.quads(&graph_cid);
 
@@ -835,10 +947,15 @@ pub async fn graph_query(
         quads.retain(|q| &q.predicate == p);
     }
 
+    let truncated = quads.len() > limit;
+    quads.truncate(limit);
+
     Ok(Json(serde_json::json!({
-        "graph": req.graph,
-        "count": quads.len(),
-        "quads": quads,
+        "graph":     req.graph,
+        "count":     quads.len(),
+        "quads":     quads,
+        "limit":     limit,
+        "truncated": truncated,
         "note":  if req.rules.is_some() { "use invoke.run for Datalog evaluation" } else { "" },
     })))
 }
@@ -885,10 +1002,26 @@ pub async fn weight_put(
     use kotoba_core::cid::KotobaCid;
     use kotoba_kqe::quad::{Quad, QuadObject, TensorDtype};
 
+    // ── Input length guards ───────────────────────────────────────────────
+    const MAX_GRAPH_LEN:     usize = 512;
+    const MAX_MODEL_CID_LEN: usize = 512;
+    const MAX_DTYPE_LEN:     usize = 16;
+    if req.graph.len() > MAX_GRAPH_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("graph field too long ({} bytes, limit {MAX_GRAPH_LEN})", req.graph.len())));
+    }
+    if req.model_cid.len() > MAX_MODEL_CID_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("model_cid field too long ({} bytes, limit {MAX_MODEL_CID_LEN})", req.model_cid.len())));
+    }
+    if req.dtype.len() > MAX_DTYPE_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("dtype field too long ({} bytes, limit {MAX_DTYPE_LEN})", req.dtype.len())));
+    }
+
     // ── CACAO auth ────────────────────────────────────────────────────────
     let b64 = req.cacao_b64.as_deref()
         .ok_or_else(|| (StatusCode::UNAUTHORIZED, "cacao_b64 is required for weight.put".to_string()))?;
-    const MAX_CACAO_B64_LEN: usize = 8 * 1024;
     if b64.len() > MAX_CACAO_B64_LEN {
         return Err((StatusCode::BAD_REQUEST,
             format!("cacao_b64 too large ({} bytes, limit {MAX_CACAO_B64_LEN})", b64.len())));
@@ -913,6 +1046,12 @@ pub async fn weight_put(
         return Err((StatusCode::PAYLOAD_TOO_LARGE,
             format!("data_b64 too large ({} bytes, limit {MAX_WEIGHT_B64_LEN})", req.data_b64.len())));
     }
+    // Shape has at most 8 dimensions (tensors beyond rank-8 are not supported).
+    const MAX_SHAPE_DIMS: usize = 8;
+    if req.shape.len() > MAX_SHAPE_DIMS {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("shape has {} dimensions; limit is {MAX_SHAPE_DIMS}", req.shape.len())));
+    }
 
     let bytes = B64.decode(&req.data_b64)
         .map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))?;
@@ -923,9 +1062,9 @@ pub async fn weight_put(
         .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?;
 
     // 2. IPFS pin the tensor blob
-    if let Some(pin) = &state.ipfs_pin {
-        let pin  = std::sync::Arc::clone(pin);
-        let cs   = blob_cid.to_multibase();
+    {
+        let pin = std::sync::Arc::clone(&state.ipfs_pin);
+        let cs  = blob_cid.to_multibase();
         tokio::spawn(async move { pin.pin(&cs).await });
     }
 
@@ -1006,7 +1145,6 @@ pub async fn quad_retract(
     let b64 = req.cacao_b64.as_deref()
         .ok_or_else(|| (StatusCode::UNAUTHORIZED, "cacao_b64 is required for quad.retract".to_string()))?;
 
-    const MAX_CACAO_B64_LEN: usize = 8 * 1024;
     if b64.len() > MAX_CACAO_B64_LEN {
         return Err((StatusCode::BAD_REQUEST,
             format!("cacao_b64 too large ({} bytes, limit {MAX_CACAO_B64_LEN})", b64.len())));
@@ -1091,6 +1229,11 @@ pub async fn weight_get(
     use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
     use kotoba_core::cid::KotobaCid;
 
+    const MAX_CID_LEN: usize = 512;
+    if req.cid.len() > MAX_CID_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("cid too long ({} bytes, limit {MAX_CID_LEN})", req.cid.len())));
+    }
     let cid = KotobaCid::from_multibase(&req.cid)
         .ok_or_else(|| (StatusCode::BAD_REQUEST, "invalid CID".into()))?;
     match state.block_store.get(&cid)
@@ -1139,10 +1282,21 @@ pub async fn lora_apply(
     use kotoba_core::cid::KotobaCid;
     use kotoba_kqe::quad::{Quad, QuadObject, TensorDtype};
 
+    // ── Input length guards ───────────────────────────────────────────────
+    const MAX_GRAPH_LEN:     usize = 512;
+    const MAX_MODEL_CID_LEN: usize = 512;
+    if req.graph.len() > MAX_GRAPH_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("graph field too long ({} bytes, limit {MAX_GRAPH_LEN})", req.graph.len())));
+    }
+    if req.model_cid.len() > MAX_MODEL_CID_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("model_cid field too long ({} bytes, limit {MAX_MODEL_CID_LEN})", req.model_cid.len())));
+    }
+
     // ── CACAO auth ────────────────────────────────────────────────────────
     let b64 = req.cacao_b64.as_deref()
         .ok_or_else(|| (StatusCode::UNAUTHORIZED, "cacao_b64 is required for lora.apply".to_string()))?;
-    const MAX_CACAO_B64_LEN: usize = 8 * 1024;
     if b64.len() > MAX_CACAO_B64_LEN {
         return Err((StatusCode::BAD_REQUEST,
             format!("cacao_b64 too large ({} bytes, limit {MAX_CACAO_B64_LEN})", b64.len())));
@@ -1232,14 +1386,19 @@ pub struct EmbedCreateResp {
 /// POST /xrpc/ai.gftd.apps.kotoba.embed.create
 pub async fn embed_create(
     State(state): State<Arc<KotobaState>>,
+    headers:      axum::http::HeaderMap,
     Json(req):    Json<EmbedCreateReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    crate::graph_auth::require_operator_auth(&headers, &state.operator_did)?;
     use kotoba_core::cid::KotobaCid;
     use kotoba_llm::embed::{Embedding, embed_to_quad};
 
     // 64 KiB covers any realistic embedding unit (paragraph / document chunk).
     // Larger inputs must be split by the caller's chunker before calling embed.create.
     const MAX_EMBED_TEXT_LEN: usize = 64 * 1024;
+    if req.text.is_empty() {
+        return Err((StatusCode::BAD_REQUEST, "text must not be empty".into()));
+    }
     if req.text.len() > MAX_EMBED_TEXT_LEN {
         return Err((StatusCode::PAYLOAD_TOO_LARGE,
             format!("text too large ({} bytes, limit {MAX_EMBED_TEXT_LEN})", req.text.len())));
@@ -1317,8 +1476,10 @@ pub struct InferRunResp {
 /// POST /xrpc/ai.gftd.apps.kotoba.infer.run
 pub async fn infer_run(
     State(state): State<Arc<KotobaState>>,
+    headers:      axum::http::HeaderMap,
     Json(req):    Json<InferRunReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    crate::graph_auth::require_operator_auth(&headers, &state.operator_did)?;
     let engine = state.inference_engine.clone()
         .ok_or_else(|| (StatusCode::SERVICE_UNAVAILABLE, "no inference engine loaded".into()))?;
 
@@ -1374,8 +1535,10 @@ pub struct AgentRunResp {
 /// Requires `KOTOBA_LOAD_GEMMA` (or another inference engine) to be loaded.
 pub async fn agent_run(
     State(state): State<Arc<KotobaState>>,
+    headers:      axum::http::HeaderMap,
     Json(req):    Json<AgentRunReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    crate::graph_auth::require_operator_auth(&headers, &state.operator_did)?;
     use kotoba_core::cid::KotobaCid;
     use kotoba_vm::{AgentSession, PregelReActRunner, ReActStep, session_to_quads};
 
@@ -1462,8 +1625,9 @@ pub async fn agent_run(
         .ok()
         .map(|c| c.to_multibase());
 
-    // If IPFS pinning is enabled, pin the commit block in the background
-    if let (Some(cid_str), Some(pin)) = (commit_cid.clone(), state.ipfs_pin.clone()) {
+    // Pin the commit block in the background
+    if let Some(cid_str) = commit_cid.clone() {
+        let pin = state.ipfs_pin.clone();
         tokio::spawn(async move { pin.pin(&cid_str).await });
     }
 
@@ -1507,10 +1671,22 @@ pub struct AgentSyncOpenResp {
 /// BudgetedBlockStore so they survive eviction for the duration of the session.
 pub async fn agent_sync_open(
     State(state): State<Arc<KotobaState>>,
+    headers: axum::http::HeaderMap,
     Json(req):    Json<AgentSyncOpenReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     use kotoba_core::cid::KotobaCid;
     use kotoba_kse::sync_window::SyncWindow;
+
+    // Validate session_id: non-empty, ≤256 bytes, printable ASCII.
+    const MAX_SESSION_ID_LEN: usize = 256;
+    if req.session_id.is_empty() || req.session_id.len() > MAX_SESSION_ID_LEN
+        || !req.session_id.bytes().all(|b| b.is_ascii_graphic())
+    {
+        return Err((StatusCode::BAD_REQUEST,
+            "session_id must be 1–256 printable ASCII characters".into()));
+    }
+
+    crate::graph_auth::require_any_bearer_auth(&headers, "agent.syncopen")?;
 
     let graph_cid = KotobaCid::from_multibase(&req.graph_cid)
         .ok_or_else(|| (StatusCode::BAD_REQUEST, "invalid graph_cid".into()))?;
@@ -1527,8 +1703,22 @@ pub async fn agent_sync_open(
         state.block_store.pin(h);
     }
 
-    let since_seq = window.since_seq;
-    state.agent_sessions.write().await.insert(req.session_id.clone(), window);
+    // Cap total concurrent sessions under a single write lock to close the
+    // TOCTOU window between capacity check and insert.
+    const MAX_CONCURRENT_SESSIONS: usize = 1_000;
+    let since_seq = {
+        let mut sessions = state.agent_sessions.write().await;
+        if sessions.len() >= MAX_CONCURRENT_SESSIONS {
+            // Unpin the anchors we just pinned since we're rejecting the request.
+            state.block_store.unpin(&graph_cid);
+            if let Some(h) = &head_cid { state.block_store.unpin(h); }
+            return Err((StatusCode::TOO_MANY_REQUESTS,
+                format!("too many open sessions (limit {MAX_CONCURRENT_SESSIONS})")));
+        }
+        let seq = window.since_seq;
+        sessions.insert(req.session_id.clone(), window);
+        seq
+    };
 
     tracing::info!(session_id = %req.session_id, since_seq, "agent.syncopen");
 
@@ -1556,9 +1746,20 @@ pub struct AgentSyncAdvResp {
 /// Advance the SyncWindow: unpin the old head, pin the new head.
 pub async fn agent_sync_advance(
     State(state): State<Arc<KotobaState>>,
+    headers: axum::http::HeaderMap,
     Json(req):    Json<AgentSyncAdvReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     use kotoba_core::cid::KotobaCid;
+
+    const MAX_SESSION_ID_LEN: usize = 256;
+    if req.session_id.is_empty() || req.session_id.len() > MAX_SESSION_ID_LEN
+        || !req.session_id.bytes().all(|b| b.is_ascii_graphic())
+    {
+        return Err((StatusCode::BAD_REQUEST,
+            "session_id must be 1–256 printable ASCII characters".into()));
+    }
+
+    crate::graph_auth::require_any_bearer_auth(&headers, "agent.syncadvance")?;
 
     let new_head = KotobaCid::from_multibase(&req.new_head_cid)
         .ok_or_else(|| (StatusCode::BAD_REQUEST, "invalid new_head_cid".into()))?;
@@ -1597,8 +1798,19 @@ pub struct AgentSyncCloseResp {
 /// Close the SyncWindow session, unpinning all anchors.
 pub async fn agent_sync_close(
     State(state): State<Arc<KotobaState>>,
+    headers: axum::http::HeaderMap,
     Json(req):    Json<AgentSyncCloseReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    const MAX_SESSION_ID_LEN: usize = 256;
+    if req.session_id.is_empty() || req.session_id.len() > MAX_SESSION_ID_LEN
+        || !req.session_id.bytes().all(|b| b.is_ascii_graphic())
+    {
+        return Err((StatusCode::BAD_REQUEST,
+            "session_id must be 1–256 printable ASCII characters".into()));
+    }
+
+    crate::graph_auth::require_any_bearer_auth(&headers, "agent.syncclose")?;
+
     let mut sessions = state.agent_sessions.write().await;
     let window = sessions.remove(&req.session_id)
         .ok_or_else(|| (StatusCode::NOT_FOUND, format!("session not found: {}", req.session_id)))?;
@@ -1681,5 +1893,102 @@ mod tests {
         assert_eq!(u32::MAX.min(MAX_STEPS_LIMIT), MAX_STEPS_LIMIT);
         // Default of 10 passes through unchanged.
         assert_eq!(10_u32.min(MAX_STEPS_LIMIT), 10);
+    }
+
+    // ── NSID constants ───────────────────────────────────────────────────────
+
+    const NSID_PREFIX: &str = "ai.gftd.apps.kotoba.";
+
+    #[test]
+    fn all_nsid_constants_have_kotoba_prefix() {
+        let nsids = [
+            super::NSID_QUAD_CREATE,
+            super::NSID_QUAD_RETRACT,
+            super::NSID_GRAPH_QUERY,
+            super::NSID_COMMIT_GET,
+            super::NSID_INVOKE_RUN,
+            super::NSID_INFER_RUN,
+            super::NSID_WEIGHT_PUT,
+            super::NSID_LORA_APPLY,
+            super::NSID_EMBED_CREATE,
+            super::NSID_NODE_STATUS,
+            super::NSID_BLOCK_PUT,
+            super::NSID_BLOCK_GET,
+            super::NSID_COMMIT_STORE,
+            super::NSID_AGENT_RUN,
+            super::NSID_AGENT_SYNC_OPEN,
+            super::NSID_AGENT_SYNC_ADV,
+            super::NSID_AGENT_SYNC_CLOSE,
+            super::NSID_VAULT_PUT,
+            super::NSID_VAULT_GET,
+        ];
+        for nsid in nsids {
+            assert!(
+                nsid.starts_with(NSID_PREFIX),
+                "NSID {nsid:?} does not start with {NSID_PREFIX:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn all_nsid_constants_are_unique() {
+        let mut nsids = vec![
+            super::NSID_QUAD_CREATE,
+            super::NSID_QUAD_RETRACT,
+            super::NSID_GRAPH_QUERY,
+            super::NSID_COMMIT_GET,
+            super::NSID_INVOKE_RUN,
+            super::NSID_INFER_RUN,
+            super::NSID_WEIGHT_PUT,
+            super::NSID_LORA_APPLY,
+            super::NSID_EMBED_CREATE,
+            super::NSID_NODE_STATUS,
+            super::NSID_BLOCK_PUT,
+            super::NSID_BLOCK_GET,
+            super::NSID_COMMIT_STORE,
+            super::NSID_AGENT_RUN,
+            super::NSID_AGENT_SYNC_OPEN,
+            super::NSID_AGENT_SYNC_ADV,
+            super::NSID_AGENT_SYNC_CLOSE,
+            super::NSID_VAULT_PUT,
+            super::NSID_VAULT_GET,
+        ];
+        let original_len = nsids.len();
+        nsids.sort_unstable();
+        nsids.dedup();
+        assert_eq!(nsids.len(), original_len, "NSID constants are not all unique");
+    }
+
+    #[test]
+    fn nsid_quad_create_exact_value() {
+        assert_eq!(super::NSID_QUAD_CREATE, "ai.gftd.apps.kotoba.quad.create");
+    }
+
+    #[test]
+    fn nsid_graph_query_exact_value() {
+        assert_eq!(super::NSID_GRAPH_QUERY, "ai.gftd.apps.kotoba.graph.query");
+    }
+
+    #[test]
+    fn nsid_invoke_run_exact_value() {
+        assert_eq!(super::NSID_INVOKE_RUN, "ai.gftd.apps.kotoba.invoke.run");
+    }
+
+    #[test]
+    fn nsid_vault_put_and_get_exact_values() {
+        assert_eq!(super::NSID_VAULT_PUT, "ai.gftd.apps.kotoba.vault.put");
+        assert_eq!(super::NSID_VAULT_GET, "ai.gftd.apps.kotoba.vault.get");
+    }
+
+    #[test]
+    fn nsid_agent_sync_variants_exact_values() {
+        assert_eq!(super::NSID_AGENT_SYNC_OPEN,  "ai.gftd.apps.kotoba.agent.syncopen");
+        assert_eq!(super::NSID_AGENT_SYNC_ADV,   "ai.gftd.apps.kotoba.agent.syncadvance");
+        assert_eq!(super::NSID_AGENT_SYNC_CLOSE, "ai.gftd.apps.kotoba.agent.syncclose");
+    }
+
+    #[test]
+    fn max_cacao_b64_len_is_8kib() {
+        assert_eq!(super::MAX_CACAO_B64_LEN, 8 * 1024);
     }
 }

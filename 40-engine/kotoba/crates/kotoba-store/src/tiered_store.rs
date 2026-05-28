@@ -4,11 +4,12 @@
 /// Hot misses fall through to cold and promote the block back to hot.
 ///
 /// Design:
-///   hot: small + fast (e.g., BudgetedBlockStore<SledBlockStore>)
-///   cold: large + slow (e.g., IrohBlockStore)
+///   hot: small + fast (BudgetedBlockStore<MemoryBlockStore>)
+///   cold: large + persistent (KuboBlockStore — Kubo/IPFS HTTP, SHA2-256 dual-CID)
 ///
-/// The split ensures each node only keeps its working set in hot memory/disk while
-/// the full dataset is addressed and replicated in cold (iroh/IPFS-pin style).
+/// Each node keeps its working set in hot memory while the full dataset is
+/// stored persistently in the Kubo cold tier.  Remote durability is handled by
+/// IpfsPinClient (fire-and-forget pin to the local IPFS node after put).
 use std::sync::Arc;
 use bytes::Bytes;
 use anyhow::Result;
@@ -152,5 +153,115 @@ mod tests {
         assert!(store.has(&cc));
         assert!(store.has(&ch));
         assert!(!store.has(&cid(b"missing")));
+    }
+
+    #[test]
+    fn delete_removes_from_hot() {
+        let store = tiered();
+        let data  = b"to be deleted";
+        let c     = cid(data);
+        store.hot.put(&c, data).unwrap();
+        assert!(store.hot.has(&c));
+        store.delete(&c).unwrap();
+        assert!(!store.hot.has(&c));
+    }
+
+    #[test]
+    fn pin_and_is_pinned_delegates_to_hot() {
+        let store = tiered();
+        let data  = b"pin test";
+        let c     = cid(data);
+        store.hot.put(&c, data).unwrap();
+        assert!(!store.is_pinned(&c));
+        store.pin(&c);
+        assert!(store.is_pinned(&c));
+        store.unpin(&c);
+        assert!(!store.is_pinned(&c));
+    }
+
+    #[test]
+    fn get_missing_from_both_tiers_returns_none() {
+        let store = tiered();
+        let c     = cid(b"definitely not stored");
+        assert!(store.get(&c).unwrap().is_none());
+    }
+
+    // ── New tests ─────────────────────────────────────────────────────────────
+
+    #[test]
+    fn hot_accessor_returns_hot_tier() {
+        let store = tiered();
+        let data  = b"accessor-test";
+        let c     = cid(data);
+        store.hot().put(&c, data).unwrap();
+        assert!(store.hot().has(&c));
+        // Cold should not have it.
+        assert!(!store.cold().has(&c));
+    }
+
+    #[test]
+    fn cold_accessor_returns_cold_tier() {
+        let store = tiered();
+        let data  = b"cold-accessor";
+        let c     = cid(data);
+        store.cold().put(&c, data).unwrap();
+        assert!(store.cold().has(&c));
+        assert!(!store.hot().has(&c));
+    }
+
+    #[test]
+    fn delete_also_removes_from_cold() {
+        let store = tiered();
+        let data  = b"delete-cold";
+        let c     = cid(data);
+        // Put directly in both tiers.
+        store.hot().put(&c, data).unwrap();
+        store.cold().put(&c, data).unwrap();
+        assert!(store.has(&c));
+        store.delete(&c).unwrap();
+        // After delete, neither tier should have the block.
+        assert!(!store.hot().has(&c));
+        assert!(!store.cold().has(&c));
+    }
+
+    #[test]
+    fn has_returns_false_when_both_tiers_empty() {
+        let store = tiered();
+        assert!(!store.has(&cid(b"nothing-here")));
+    }
+
+    #[test]
+    fn unpin_after_pin_clears_is_pinned() {
+        let store = tiered();
+        let c     = cid(b"unpin-test");
+        store.hot().put(&c, b"data").unwrap();
+        store.pin(&c);
+        assert!(store.is_pinned(&c));
+        store.unpin(&c);
+        assert!(!store.is_pinned(&c));
+    }
+
+    #[test]
+    fn put_empty_data_stored_in_hot() {
+        let store = tiered();
+        let c     = cid(b"empty-block-key");
+        store.put(&c, b"").unwrap();
+        assert!(store.hot().has(&c));
+        let got = store.get(&c).unwrap().expect("should exist");
+        assert_eq!(got.len(), 0);
+    }
+
+    #[test]
+    fn get_returns_data_from_hot_without_going_to_cold() {
+        let store = tiered();
+        let data  = b"only in hot";
+        let c     = cid(data);
+        store.hot().put(&c, data).unwrap();
+        // Cold is still empty.
+        assert!(!store.cold().has(&c));
+        let got = store.get(&c).unwrap().unwrap();
+        assert_eq!(got.as_ref(), data);
+        // Cold must still be empty after a hot-hit read.
+        assert!(!store.cold().has(&c));
     }
 }

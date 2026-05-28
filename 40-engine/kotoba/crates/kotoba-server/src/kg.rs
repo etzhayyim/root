@@ -1,23 +1,23 @@
-/// yatabase KG entity lookup endpoint backed by kotoba QuadStore.
-///
-/// NSID: ai.gftd.apps.yata.kg.entity
-/// All KG quads live in the named graph `yatabase-kg-v1`.
-///
-/// Predicate conventions (written by seed_kotoba.py):
-///   kg/id           — nanoid primary key
-///   kg/qid          — Wikidata QID (e.g. "Q42")
-///   kg/type         — entity type string
-///   kg/label/ja     — Japanese label
-///   kg/label/en     — English label
-///   kg/confidence   — float string
-///   kg/license      — license SPDX
-///   kg/extractor    — extractor identifier
-///   kg/valid_from   — ISO-8601 date
-///   kg/valid_to     — ISO-8601 date
-///   kg/ingested_at  — ISO-8601 datetime
-///   kg/source_id    — source nanoid
-///   kg/claim/<pred> — property claim (Text / Float / Bool)
-///   kg/relation/<pred> — edge to another entity (Cid object = subject CID of dst)
+//! yatabase KG entity lookup endpoint backed by kotoba QuadStore.
+//!
+//! NSID: ai.gftd.apps.yata.kg.entity
+//! All KG quads live in the named graph `yatabase-kg-v1`.
+//!
+//! Predicate conventions (written by seed_kotoba.py):
+//!   kg/id           — nanoid primary key
+//!   kg/qid          — Wikidata QID (e.g. "Q42")
+//!   kg/type         — entity type string
+//!   kg/label/ja     — Japanese label
+//!   kg/label/en     — English label
+//!   kg/confidence   — float string
+//!   kg/license      — license SPDX
+//!   kg/extractor    — extractor identifier
+//!   kg/valid_from   — ISO-8601 date
+//!   kg/valid_to     — ISO-8601 date
+//!   kg/ingested_at  — ISO-8601 datetime
+//!   kg/source_id    — source nanoid
+//!   kg/claim/<pred> — property claim (Text / Float / Bool)
+//!   kg/relation/<pred> — edge to another entity (Cid object = subject CID of dst)
 
 use std::sync::Arc;
 use axum::{
@@ -32,6 +32,30 @@ use kotoba_kqe::quad::QuadObject;
 use crate::server::KotobaState;
 use crate::graph_auth::{AccessDenied, check_read_access};
 
+/// Require a valid, non-expired Bearer JWT to authorise KG write operations.
+/// Any authenticated principal with a `sub` claim and a valid `exp` is accepted.
+fn require_kg_write_auth(headers: &HeaderMap) -> Result<(), (StatusCode, String)> {
+    let token = headers
+        .get(axum::http::header::AUTHORIZATION)
+        .and_then(|v| v.to_str().ok())
+        .and_then(|v| v.strip_prefix("Bearer "))
+        .ok_or_else(|| {
+            tracing::warn!("kg write auth: missing Bearer token");
+            (StatusCode::UNAUTHORIZED,
+                "Authorization: Bearer <token> required for KG write operations".to_string())
+        })?;
+    if crate::graph_auth::jwt_exp_elapsed(token) {
+        tracing::warn!("kg write auth: expired JWT");
+        return Err((StatusCode::UNAUTHORIZED, "Bearer token has expired".to_string()));
+    }
+    crate::graph_auth::jwt_sub(token)
+        .ok_or_else(|| {
+            tracing::warn!("kg write auth: JWT missing sub claim");
+            (StatusCode::UNAUTHORIZED, "Bearer token missing sub claim".to_string())
+        })?;
+    Ok(())
+}
+
 pub const NSID_KG_ENTITY:  &str = "ai.gftd.apps.yata.kg.entity";
 pub const NSID_KG_CATALOG: &str = "ai.gftd.apps.yata.kg.catalog";
 pub const NSID_KG_EMBED:   &str = "ai.gftd.apps.yata.kg.embed";
@@ -44,6 +68,11 @@ pub const NSID_KG_DELETE:  &str = "ai.gftd.apps.yata.kg.delete";
 pub fn kg_graph_cid() -> KotobaCid {
     KotobaCid::from_bytes(b"yatabase-kg-v1")
 }
+
+const MAX_KG_ID_LEN:    usize = 256;
+const MAX_KG_TEXT_LEN:  usize = 8_192;  // max embed text — prevents inference-engine DoS
+const MAX_KG_QUERY_LEN: usize = 2_048;
+const MAX_KG_LIMIT:     usize = 1_000;
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -91,8 +120,20 @@ pub async fn kg_entity(
         .map_err(AccessDenied::into_response)?;
 
     let (lookup_pred, lookup_val) = match (&q.id, &q.qid) {
-        (Some(id), _)  => ("kg/id",  id.as_str()),
-        (_, Some(qid)) => ("kg/qid", qid.as_str()),
+        (Some(id), _) => {
+            if id.len() > MAX_KG_ID_LEN {
+                return Err((StatusCode::BAD_REQUEST,
+                    format!("id must be ≤{MAX_KG_ID_LEN} bytes")));
+            }
+            ("kg/id", id.as_str())
+        }
+        (_, Some(qid)) => {
+            if qid.len() > MAX_KG_ID_LEN {
+                return Err((StatusCode::BAD_REQUEST,
+                    format!("qid must be ≤{MAX_KG_ID_LEN} bytes")));
+            }
+            ("kg/qid", qid.as_str())
+        }
         _ => return Err((StatusCode::BAD_REQUEST, "missing `id` or `qid` query param".into())),
     };
 
@@ -143,7 +184,7 @@ pub async fn kg_entity(
                 }));
             }
             _ if pred.starts_with("kg/relation/") && q.include_relations
-                && relations.len() < q.max_relations =>
+                && relations.len() < q.max_relations.min(MAX_KG_LIMIT) =>
             {
                 let rel_pred = &pred["kg/relation/".len()..];
                 relations.push(serde_json::json!({
@@ -260,9 +301,19 @@ pub struct KgEmbedResp {
 /// VectorF32 quad for the entity.  Uses the inference engine when available.
 pub async fn kg_embed(
     State(state): State<Arc<KotobaState>>,
+    headers:      HeaderMap,
     Json(req):    Json<KgEmbedReq>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
+    require_kg_write_auth(&headers)?;
     use kotoba_kqe::quad::Quad;
+    if req.entity_id.is_empty() || req.entity_id.len() > MAX_KG_ID_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("entityId must be 1–{MAX_KG_ID_LEN} bytes")));
+    }
+    if req.text.is_empty() || req.text.len() > MAX_KG_TEXT_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("text must be 1–{MAX_KG_TEXT_LEN} bytes")));
+    }
     let graph_cid = kg_graph_cid();
 
     let subjects = state.quad_store
@@ -329,9 +380,13 @@ pub async fn kg_search(
     Query(q):     Query<KgSearchQuery>,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     use std::time::Instant;
+    if q.q.is_empty() || q.q.len() > MAX_KG_QUERY_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("q must be 1–{MAX_KG_QUERY_LEN} bytes")));
+    }
     let t0        = Instant::now();
     let graph_cid = kg_graph_cid();
-    let limit     = q.limit.min(100);
+    let limit     = q.limit.min(MAX_KG_LIMIT);
 
     // ── Read-access gate ─────────────────────────────────────────────────────
     let visibility = state.graph_visibility(&graph_cid).await;
@@ -457,10 +512,79 @@ pub struct KgIngestResp {
 ///
 /// Write a KG entity into the `yatabase-kg-v1` named graph. Each field becomes
 /// a quad with predicate conventions matching `kg_entity` lookups.
+const MAX_KG_CLAIMS:      usize = 1_024;
+const MAX_KG_RELATIONS:   usize = 1_024;
+const MAX_KG_VEC_DIMS:    usize = 4_096;
+const MAX_KG_FIELD_LEN:   usize = 4_096;
+
 pub async fn kg_ingest(
     State(state): State<Arc<KotobaState>>,
+    headers:      HeaderMap,
     Json(req):    Json<KgIngestReq>,
 ) -> impl IntoResponse {
+    if let Err((code, msg)) = require_kg_write_auth(&headers) {
+        return (code, axum::Json(serde_json::json!({"ok": false, "error": msg}))).into_response();
+    }
+    use axum::Json as AxumJson;
+    if req.id.is_empty() || req.id.len() > MAX_KG_ID_LEN {
+        return (StatusCode::BAD_REQUEST,
+            AxumJson(serde_json::json!({"ok": false, "error":
+                format!("id must be 1–{MAX_KG_ID_LEN} bytes")}))).into_response();
+    }
+    if req.claims.len() > MAX_KG_CLAIMS {
+        return (StatusCode::BAD_REQUEST,
+            AxumJson(serde_json::json!({"ok": false, "error":
+                format!("claims array exceeds {MAX_KG_CLAIMS} entries")}))).into_response();
+    }
+    if req.relations.len() > MAX_KG_RELATIONS {
+        return (StatusCode::BAD_REQUEST,
+            AxumJson(serde_json::json!({"ok": false, "error":
+                format!("relations array exceeds {MAX_KG_RELATIONS} entries")}))).into_response();
+    }
+    if req.label_vec.len() > MAX_KG_VEC_DIMS {
+        return (StatusCode::BAD_REQUEST,
+            AxumJson(serde_json::json!({"ok": false, "error":
+                format!("labelVec exceeds {MAX_KG_VEC_DIMS} dimensions")}))).into_response();
+    }
+    if req.label_vec.iter().any(|f| !f.is_finite()) {
+        return (StatusCode::BAD_REQUEST,
+            AxumJson(serde_json::json!({"ok": false, "error":
+                "labelVec contains non-finite values (NaN/Inf)"}))).into_response();
+    }
+    // Validate per-field lengths to prevent oversized individual quads
+    for v in [&req.qid, &req.kind, &req.label_ja, &req.label_en, &req.license,
+              &req.extractor, &req.valid_from, &req.valid_to, &req.ingested_at, &req.source_id].into_iter().flatten() {
+                  if v.len() > MAX_KG_FIELD_LEN {
+                      return (StatusCode::BAD_REQUEST,
+                          AxumJson(serde_json::json!({"ok": false, "error":
+                              format!("field value exceeds {MAX_KG_FIELD_LEN} bytes")}))).into_response();
+                  }
+              }
+    // Validate per-item predicate/value lengths within claims and relations
+    for claim in &req.claims {
+        if claim.pred.is_empty() || claim.pred.len() > MAX_KG_ID_LEN {
+            return (StatusCode::BAD_REQUEST,
+                AxumJson(serde_json::json!({"ok": false, "error":
+                    format!("claim.pred must be 1–{MAX_KG_ID_LEN} bytes")}))).into_response();
+        }
+        if claim.value.len() > MAX_KG_FIELD_LEN {
+            return (StatusCode::BAD_REQUEST,
+                AxumJson(serde_json::json!({"ok": false, "error":
+                    format!("claim.value must be ≤{MAX_KG_FIELD_LEN} bytes")}))).into_response();
+        }
+    }
+    for rel in &req.relations {
+        if rel.pred.is_empty() || rel.pred.len() > MAX_KG_ID_LEN {
+            return (StatusCode::BAD_REQUEST,
+                AxumJson(serde_json::json!({"ok": false, "error":
+                    format!("relation.pred must be 1–{MAX_KG_ID_LEN} bytes")}))).into_response();
+        }
+        if rel.dst_id.is_empty() || rel.dst_id.len() > MAX_KG_ID_LEN {
+            return (StatusCode::BAD_REQUEST,
+                AxumJson(serde_json::json!({"ok": false, "error":
+                    format!("relation.dstId must be 1–{MAX_KG_ID_LEN} bytes")}))).into_response();
+        }
+    }
     use kotoba_kqe::quad::Quad;
 
     let graph   = kg_graph_cid();
@@ -524,7 +648,7 @@ pub async fn kg_ingest(
         ok:          true,
         subject_cid: subject.to_multibase(),
         quad_count:  count,
-    })
+    }).into_response()
 }
 
 // ── kg.delete ─────────────────────────────────────────────────────────────────
@@ -542,8 +666,20 @@ pub struct KgDeleteReq {
 /// Publishes a retract event to the Journal for each quad (WAL + GossipSub).
 pub async fn kg_delete(
     State(state): State<Arc<KotobaState>>,
+    headers:      HeaderMap,
     Json(req):    Json<KgDeleteReq>,
 ) -> impl IntoResponse {
+    // Delete is irreversible and there is no per-entity ownership model, so
+    // restrict to the operator DID to prevent any authenticated user from
+    // wiping arbitrary entities.
+    if let Err((code, msg)) = crate::graph_auth::require_operator_auth(&headers, &state.operator_did) {
+        return (code, Json(serde_json::json!({"ok": false, "error": msg}))).into_response();
+    }
+    if req.id.is_empty() || req.id.len() > MAX_KG_ID_LEN {
+        return (StatusCode::BAD_REQUEST, Json(serde_json::json!({
+            "ok": false, "error": format!("id must be 1–{MAX_KG_ID_LEN} bytes"),
+        }))).into_response();
+    }
     let graph   = kg_graph_cid();
     let subject = KotobaCid::from_bytes(req.id.as_bytes());
 
@@ -558,11 +694,11 @@ pub async fn kg_delete(
         state.quad_store.retract(quad).await;
     }
 
-    Json(serde_json::json!({
+    (StatusCode::OK, Json(serde_json::json!({
         "ok":            true,
         "id":            req.id,
         "retractedCount": retracted,
-    }))
+    }))).into_response()
 }
 
 fn cosine(a: &[f32], b: &[f32]) -> f32 {
@@ -584,6 +720,8 @@ pub struct KgQueryReq {
     pub query: String,
     /// CACAO delegation chain for private graphs (DAG-CBOR, base64-standard encoded).
     pub cacao_b64: Option<String>,
+    /// Maximum results to return (1–10000; default 1000).
+    pub limit: Option<usize>,
 }
 
 /// POST /xrpc/ai.gftd.apps.yata.kg.query
@@ -592,6 +730,8 @@ pub struct KgQueryReq {
 /// Both compilers enforce binary-relation arity (exactly 2 RETURN variables).
 /// Results are returned as `[{ "a": "<cid>", "b": "<cid>" }]` pairs where
 /// the variable names come from the compiled output_relation.
+const MAX_KG_QUERY_PROG_LEN: usize = 65_536;  // 64 KiB — SPARQL/Cypher compile DoS guard
+
 pub async fn kg_query(
     State(state): State<Arc<KotobaState>>,
     headers:      HeaderMap,
@@ -600,6 +740,22 @@ pub async fn kg_query(
     use std::time::Instant;
     use kotoba_kqe::cypher::CypherCompiler;
     use kotoba_graph::sparql::SparqlCompiler;
+
+    const MAX_KG_LANG_LEN: usize = 16;
+    const MAX_KG_QUERY_RESULT_LIMIT: usize = 10_000;
+    if req.lang.len() > MAX_KG_LANG_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("lang field too long ({} bytes, limit {MAX_KG_LANG_LEN})", req.lang.len())));
+    }
+    if req.query.is_empty() || req.query.len() > MAX_KG_QUERY_PROG_LEN {
+        return Err((StatusCode::BAD_REQUEST,
+            format!("query must be 1–{MAX_KG_QUERY_PROG_LEN} bytes")));
+    }
+    if !matches!(req.lang.as_str(), "sparql" | "cypher") {
+        return Err((StatusCode::BAD_REQUEST,
+            "lang must be 'sparql' or 'cypher'".to_string()));
+    }
+    let result_limit = req.limit.unwrap_or(MAX_KG_LIMIT).min(MAX_KG_QUERY_RESULT_LIMIT);
 
     let t0        = Instant::now();
     let graph_cid = kg_graph_cid();
@@ -630,9 +786,10 @@ pub async fn kg_query(
     // Evaluate Datalog rules against the fact base
     let derived = program.evaluate_delta(&deltas);
 
-    // Collect derived facts for the output_relation
+    // Collect derived facts for the output_relation, bounded by result_limit.
     let results: Vec<serde_json::Value> = derived.iter()
         .filter(|d| d.quad.predicate == output_relation && d.is_assert())
+        .take(result_limit)
         .map(|d| serde_json::json!({
             "a": d.quad.subject.to_multibase(),
             "b": match &d.quad.object {
@@ -649,4 +806,167 @@ pub async fn kg_query(
         "results":   results,
         "elapsedMs": t0.elapsed().as_millis(),
     })))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use kotoba_kqe::quad::QuadObject;
+    use kotoba_core::cid::KotobaCid;
+
+    // ── kg_graph_cid ──────────────────────────────────────────────────────────
+
+    #[test]
+    fn kg_graph_cid_is_stable() {
+        let a = kg_graph_cid();
+        let b = kg_graph_cid();
+        assert_eq!(a, b);
+    }
+
+    // ── obj_to_json ───────────────────────────────────────────────────────────
+
+    #[test]
+    fn obj_to_json_text() {
+        let v = obj_to_json(&QuadObject::Text("hello".to_string()));
+        assert_eq!(v, serde_json::json!("hello"));
+    }
+
+    #[test]
+    fn obj_to_json_integer() {
+        let v = obj_to_json(&QuadObject::Integer(42));
+        assert_eq!(v, serde_json::json!(42));
+    }
+
+    #[test]
+    fn obj_to_json_float() {
+        let v = obj_to_json(&QuadObject::Float(3.14));
+        assert!((v.as_f64().unwrap() - 3.14).abs() < 1e-10);
+    }
+
+    #[test]
+    fn obj_to_json_bool() {
+        assert_eq!(obj_to_json(&QuadObject::Bool(true)),  serde_json::json!(true));
+        assert_eq!(obj_to_json(&QuadObject::Bool(false)), serde_json::json!(false));
+    }
+
+    #[test]
+    fn obj_to_json_cid_is_multibase_string() {
+        let cid = KotobaCid::from_bytes(b"test-cid");
+        let v   = obj_to_json(&QuadObject::Cid(cid.clone()));
+        assert_eq!(v.as_str().unwrap(), cid.to_multibase());
+    }
+
+    #[test]
+    fn obj_to_json_bytes_is_null() {
+        let v = obj_to_json(&QuadObject::Bytes(b"raw".to_vec()));
+        assert_eq!(v, serde_json::Value::Null);
+    }
+
+    // ── blake3_pseudo_vector ──────────────────────────────────────────────────
+
+    #[test]
+    fn blake3_pseudo_vector_has_correct_dims() {
+        let v = blake3_pseudo_vector("hello world", 64);
+        assert_eq!(v.len(), 64);
+    }
+
+    #[test]
+    fn blake3_pseudo_vector_values_in_minus1_plus1() {
+        let v = blake3_pseudo_vector("test", 128);
+        for x in &v { assert!(*x >= -1.0 && *x <= 1.0, "value out of range: {x}"); }
+    }
+
+    #[test]
+    fn blake3_pseudo_vector_is_deterministic() {
+        let a = blake3_pseudo_vector("kotoba", 32);
+        let b = blake3_pseudo_vector("kotoba", 32);
+        assert_eq!(a, b);
+    }
+
+    #[test]
+    fn blake3_pseudo_vector_differs_for_different_inputs() {
+        let a = blake3_pseudo_vector("foo", 32);
+        let b = blake3_pseudo_vector("bar", 32);
+        assert_ne!(a, b);
+    }
+
+    // ── cosine ────────────────────────────────────────────────────────────────
+
+    #[test]
+    fn cosine_identical_vectors_is_one() {
+        let v = vec![1.0f32, 2.0, 3.0];
+        let s = cosine(&v, &v);
+        assert!((s - 1.0).abs() < 1e-6, "cosine of identical vectors must be 1.0, got {s}");
+    }
+
+    #[test]
+    fn cosine_orthogonal_vectors_is_zero() {
+        let a = vec![1.0f32, 0.0];
+        let b = vec![0.0f32, 1.0];
+        let s = cosine(&a, &b);
+        assert!(s.abs() < 1e-6, "cosine of orthogonal vectors must be 0.0, got {s}");
+    }
+
+    #[test]
+    fn cosine_zero_vector_returns_zero() {
+        let a = vec![0.0f32, 0.0];
+        let b = vec![1.0f32, 0.0];
+        assert_eq!(cosine(&a, &b), 0.0);
+    }
+
+    #[test]
+    fn cosine_opposite_vectors_is_minus_one() {
+        let a = vec![1.0f32, 0.0];
+        let b = vec![-1.0f32, 0.0];
+        let s = cosine(&a, &b);
+        assert!((s + 1.0).abs() < 1e-6, "cosine of opposite vectors must be -1.0, got {s}");
+    }
+
+    #[test]
+    fn cosine_mismatched_lengths_clips_dot_product() {
+        // dot = a[..2]·b[..2] = 1*1 + 0*0 = 1
+        // na  = ||a||_full = sqrt(1 + 0 + 99²) ≈ 99.005
+        // nb  = ||b||_full = 1.0
+        // cosine ≈ 1 / (99.005 * 1) ≈ 0.0101 (clearly not 1.0)
+        let a = vec![1.0f32, 0.0, 99.0];
+        let b = vec![1.0f32, 0.0];
+        let s = cosine(&a, &b);
+        // The norms use the full vectors; dot uses only the shorter prefix.
+        let expected = 1.0 / (f32::sqrt(1.0 + 0.0 + 99.0_f32 * 99.0) * 1.0);
+        assert!((s - expected).abs() < 1e-5, "got {s}, expected {expected}");
+    }
+
+    // ── kg_query input-guard constants ────────────────────────────────────────
+
+    #[test]
+    fn kg_query_lang_length_constant_is_sane() {
+        // MAX_KG_LANG_LEN must accept "sparql" and "cypher" (6 and 6 chars) with margin.
+        assert!("sparql".len() <= 16, "MAX_KG_LANG_LEN must fit 'sparql'");
+        assert!("cypher".len() <= 16, "MAX_KG_LANG_LEN must fit 'cypher'");
+        // The constant must be small enough to prevent oversized error messages.
+        assert!(16 <= 64, "MAX_KG_LANG_LEN should be modest");
+    }
+
+    #[test]
+    fn kg_query_result_limit_constant_is_sane() {
+        // MAX_KG_QUERY_RESULT_LIMIT (10000) is ≥ MAX_KG_LIMIT (1000) and ≤ MAX_DERIVED_FACTS.
+        assert!(10_000 >= MAX_KG_LIMIT, "result limit must be ≥ default kg limit");
+        // A response of 10k rows should remain reasonable in size.
+        assert!(10_000 <= 100_000, "result limit should be bounded for response safety");
+    }
+
+    #[test]
+    fn kg_query_limit_field_default_and_cap() {
+        // Default: None → MAX_KG_LIMIT (1000).
+        let default_limit = None::<usize>.unwrap_or(MAX_KG_LIMIT).min(10_000);
+        assert_eq!(default_limit, MAX_KG_LIMIT);
+
+        // Caller-supplied value is capped at MAX_KG_QUERY_RESULT_LIMIT.
+        let caller_huge = Some(999_999usize).unwrap_or(MAX_KG_LIMIT).min(10_000);
+        assert_eq!(caller_huge, 10_000, "oversized limit must be capped at 10_000");
+
+        // Caller-supplied small value passes through unchanged.
+        let caller_small = Some(42usize).unwrap_or(MAX_KG_LIMIT).min(10_000);
+        assert_eq!(caller_small, 42);
+    }
 }

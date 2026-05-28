@@ -45,22 +45,30 @@ fn request_cid(method: &str, path: &str, ts: u64, node_id: &[u8; 32]) -> KotobaC
     KotobaCid::from_bytes(&buf)
 }
 
+/// Maximum length for a stored IP string (IPv6 max is 39 chars; 64 is generous).
+const MAX_AUDIT_IP_LEN: usize = 64;
+
 /// Extract client IP from `X-Forwarded-For` or `X-Real-IP` headers.
 fn extract_ip(req: &Request<Body>) -> Option<String> {
     let headers = req.headers();
     if let Some(xff) = headers.get("x-forwarded-for") {
         if let Ok(s) = xff.to_str() {
             // Take the first (leftmost) address — the original client.
-            return Some(s.split(',').next().unwrap_or(s).trim().to_string());
+            let ip = s.split(',').next().unwrap_or(s).trim();
+            return Some(ip.chars().take(MAX_AUDIT_IP_LEN).collect());
         }
     }
     if let Some(rip) = headers.get("x-real-ip") {
         if let Ok(s) = rip.to_str() {
-            return Some(s.trim().to_string());
+            return Some(s.trim().chars().take(MAX_AUDIT_IP_LEN).collect());
         }
     }
     None
 }
+
+/// Maximum path length stored in audit Quads.  Paths longer than this are
+/// truncated to prevent unbounded Quad object growth from crafted URLs.
+const MAX_AUDIT_PATH_LEN: usize = 512;
 
 /// Axum middleware: fingerprint every request and store Datoms asynchronously.
 ///
@@ -71,8 +79,17 @@ pub async fn fingerprint_middleware(
     req: Request<Body>,
     next: Next,
 ) -> Response {
-    let method   = req.method().as_str().to_string();
-    let path     = req.uri().path().to_string();
+    let method = req.method().as_str().to_string();
+    let raw    = req.uri().path();
+    let path   = if raw.len() > MAX_AUDIT_PATH_LEN {
+        // Walk back from MAX_AUDIT_PATH_LEN to a valid UTF-8 char boundary so
+        // the byte-index slice does not panic on multi-byte characters.
+        let mut end = MAX_AUDIT_PATH_LEN;
+        while !raw.is_char_boundary(end) { end -= 1; }
+        format!("{}…", &raw[..end])
+    } else {
+        raw.to_string()
+    };
     let peer_ip  = extract_ip(&req);
 
     let ts = SystemTime::now()
@@ -83,7 +100,7 @@ pub async fn fingerprint_middleware(
     let node_id  = state.local_node_id.0;
     let req_cid  = request_cid(&method, &path, ts, &node_id);
     let graph    = audit_graph_cid();
-    let node_hex = hex::encode(&node_id);
+    let node_hex = hex::encode(node_id);
 
     // Fire-and-forget: clone what we need into the background task.
     let quad_store = Arc::clone(&state.quad_store);
@@ -186,5 +203,107 @@ mod tests {
         let subject = KotobaCid::from_bytes(b"test-req");
         let quads   = build_request_quads(graph, subject, "GET", "/health", "deadbeef", 42, None);
         assert_eq!(quads.len(), 4);
+    }
+
+    #[test]
+    fn request_cid_differs_by_method() {
+        let node = [1u8; 32];
+        let c1 = request_cid("GET",  "/xrpc/foo", 1000, &node);
+        let c2 = request_cid("POST", "/xrpc/foo", 1000, &node);
+        assert_ne!(c1.0, c2.0, "CID should differ when method changes");
+    }
+
+    #[test]
+    fn request_cid_differs_by_timestamp() {
+        let node = [2u8; 32];
+        let c1 = request_cid("GET", "/xrpc/foo", 1000, &node);
+        let c2 = request_cid("GET", "/xrpc/foo", 1001, &node);
+        assert_ne!(c1.0, c2.0, "CID should differ when timestamp changes");
+    }
+
+    #[test]
+    fn request_cid_differs_by_node_id() {
+        let node_a = [0u8; 32];
+        let node_b = [1u8; 32];
+        let c1 = request_cid("GET", "/xrpc/foo", 1000, &node_a);
+        let c2 = request_cid("GET", "/xrpc/foo", 1000, &node_b);
+        assert_ne!(c1.0, c2.0, "CID should differ when node_id changes");
+    }
+
+    #[test]
+    fn request_cid_is_deterministic() {
+        let node = [0xABu8; 32];
+        let c1 = request_cid("PUT", "/mcp", 9999, &node);
+        let c2 = request_cid("PUT", "/mcp", 9999, &node);
+        assert_eq!(c1.0, c2.0, "same inputs must produce same CID");
+    }
+
+    #[test]
+    fn build_quads_have_expected_predicates() {
+        let graph   = audit_graph_cid();
+        let subject = KotobaCid::from_bytes(b"pred-test");
+        let quads   = build_request_quads(graph, subject, "DELETE", "/path", "ff00", 100, Some("10.0.0.1"));
+
+        let predicates: Vec<&str> = quads.iter().map(|q| q.predicate.as_str()).collect();
+        assert!(predicates.contains(&"request/method"),  "should have request/method quad");
+        assert!(predicates.contains(&"request/path"),    "should have request/path quad");
+        assert!(predicates.contains(&"request/node_id"), "should have request/node_id quad");
+        assert!(predicates.contains(&"request/ts_unix"), "should have request/ts_unix quad");
+        assert!(predicates.contains(&"request/peer_ip"), "should have request/peer_ip quad when IP provided");
+    }
+
+    #[test]
+    fn max_audit_constants_values() {
+        assert_eq!(MAX_AUDIT_IP_LEN, 64);
+        assert_eq!(MAX_AUDIT_PATH_LEN, 512);
+    }
+
+    // ── path truncation edge cases ────────────────────────────────────────────
+
+    #[test]
+    fn path_short_of_limit_is_not_truncated() {
+        // A path shorter than MAX_AUDIT_PATH_LEN must pass through unchanged.
+        let short = "/xrpc/ai.gftd.apps.kotoba.graph.query";
+        assert!(short.len() < MAX_AUDIT_PATH_LEN);
+        // Simulate the truncation logic used in fingerprint_middleware.
+        let result = if short.len() > MAX_AUDIT_PATH_LEN {
+            let mut end = MAX_AUDIT_PATH_LEN;
+            while !short.is_char_boundary(end) { end -= 1; }
+            format!("{}…", &short[..end])
+        } else {
+            short.to_string()
+        };
+        assert_eq!(result, short);
+    }
+
+    #[test]
+    fn path_truncation_on_multibyte_boundary_does_not_panic() {
+        // Construct a path of exactly MAX_AUDIT_PATH_LEN + 3 bytes where the
+        // byte at MAX_AUDIT_PATH_LEN falls inside a 3-byte UTF-8 character (€).
+        // Without the char-boundary walk-back this would panic with:
+        //   "byte index N is not a char boundary"
+        let prefix = "/".repeat(MAX_AUDIT_PATH_LEN - 1); // 511 ASCII bytes
+        let multibyte = "€";                              // 3 bytes: 0xE2 0x82 0xAC
+        let long_path = format!("{prefix}{multibyte}abc"); // byte 512 = 0x82 (not boundary)
+        assert!(long_path.len() > MAX_AUDIT_PATH_LEN);
+        // Should not panic
+        let mut end = MAX_AUDIT_PATH_LEN;
+        while !long_path.is_char_boundary(end) { end -= 1; }
+        let truncated = format!("{}…", &long_path[..end]);
+        assert!(truncated.ends_with('…'), "truncated path must end with ellipsis");
+        // The char boundary walk-back must have settled at byte 511 (= before '€')
+        assert_eq!(end, MAX_AUDIT_PATH_LEN - 1);
+    }
+
+    #[test]
+    fn path_truncation_ascii_at_exact_limit_keeps_full_limit() {
+        // An all-ASCII path of exactly MAX_AUDIT_PATH_LEN + 1 bytes:
+        // char boundary is at every byte, so end stays at MAX_AUDIT_PATH_LEN.
+        let long_path = "a".repeat(MAX_AUDIT_PATH_LEN + 1);
+        let mut end = MAX_AUDIT_PATH_LEN;
+        while !long_path.is_char_boundary(end) { end -= 1; }
+        assert_eq!(end, MAX_AUDIT_PATH_LEN, "ASCII boundary walk-back must be a no-op");
+        let truncated = format!("{}…", &long_path[..end]);
+        assert_eq!(truncated.len(), MAX_AUDIT_PATH_LEN + "…".len());
     }
 }

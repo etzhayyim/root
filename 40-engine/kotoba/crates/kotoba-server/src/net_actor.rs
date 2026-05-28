@@ -4,6 +4,17 @@ use kotoba_vm::distributed::DistributedMessage;
 use kotoba_core::store::BlockStore;
 use kotoba_graph::QuadStore;
 
+/// Maximum number of CID existence checks in a single Bitswap want_have list.
+const MAX_WANT_HAVE: usize = 1_000;
+/// Maximum number of full block fetches in a single Bitswap want_block list.
+const MAX_WANT_BLOCK: usize = 100;
+/// Maximum number of WantSince delta-sync entries in a single request.
+const MAX_WANT_SINCE: usize = 16;
+/// Maximum commits returned per WantSince entry.
+const MAX_DELTA_COMMITS_PER_GRAPH: usize = 1_000;
+/// Total serialised byte cap across all delta_commits in one response (8 MiB).
+const MAX_DELTA_COMMITS_TOTAL_BYTES: usize = 8 * 1024 * 1024;
+
 /// Swarm actor task.
 ///
 /// Four-way fan-out via `tokio::select!`:
@@ -55,11 +66,25 @@ pub async fn run(
             event = swarm.next_event() => {
                 let Some(event) = event else { break };
                 match event {
-                    KotobaNetEvent::BitswapRequest { peer: _, request, channel } => {
+                    KotobaNetEvent::BitswapRequest { peer, request, channel } => {
+                        let n_have  = request.want_have.len();
+                        let n_block = request.want_block.len();
+                        let n_since = request.want_since.len();
+                        if n_have > MAX_WANT_HAVE || n_block > MAX_WANT_BLOCK || n_since > MAX_WANT_SINCE {
+                            tracing::warn!(
+                                peer = %peer,
+                                n_have, n_block, n_since,
+                                "Bitswap request exceeds per-request caps — ignored"
+                            );
+                            // Do not respond; the peer will time out on its end.
+                            continue;
+                        }
+
                         let mut have          = Vec::new();
                         let mut dont_have     = Vec::new();
                         let mut blocks        = Vec::new();
                         let mut delta_commits = Vec::new();
+                        let mut delta_bytes   = 0usize;
 
                         for raw in &request.want_have {
                             let cid = kotoba_core::cid::KotobaCid(*raw);
@@ -76,15 +101,25 @@ pub async fn run(
                                 _               => dont_have.push(*raw),
                             }
                         }
-                        // Selective-sync delta: CBOR-serialise Commit chain oldest-first
-                        for ws in &request.want_since {
+                        // Selective-sync delta: CBOR-serialise Commit chain oldest-first.
+                        // Hard cap: MAX_DELTA_COMMITS_PER_GRAPH commits per graph,
+                        // MAX_DELTA_COMMITS_TOTAL_BYTES bytes total.
+                        'ws_loop: for ws in &request.want_since {
                             let graph_cid = kotoba_core::cid::KotobaCid(ws.graph_cid);
                             let head      = ws.head_cid.map(kotoba_core::cid::KotobaCid);
                             let commits   = quad_store.commits_since(&graph_cid, head.as_ref()).await;
-                            for commit in commits {
+                            for commit in commits.into_iter().take(MAX_DELTA_COMMITS_PER_GRAPH) {
+                                if delta_bytes >= MAX_DELTA_COMMITS_TOTAL_BYTES {
+                                    tracing::warn!(
+                                        peer = %peer,
+                                        "Bitswap delta_commits byte cap reached — truncating response"
+                                    );
+                                    break 'ws_loop;
+                                }
                                 let cid_raw = commit.cid.0;
                                 let mut buf = Vec::new();
                                 if ciborium::into_writer(&commit, &mut buf).is_ok() {
+                                    delta_bytes += buf.len();
                                     delta_commits.push((cid_raw, buf));
                                 }
                             }
@@ -105,14 +140,20 @@ pub async fn run(
                                 serde_json::from_slice::<kotoba_net::PregelNetMessage>(&data)
                             {
                                 use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
-                                let payload = B64.decode(&pnet.payload_b64).unwrap_or_default();
-                                pregel_inbound_tx
-                                    .try_send(DistributedMessage {
-                                        src: pnet.src,
-                                        dst: pnet.dst,
-                                        payload,
-                                    })
-                                    .ok();
+                                match B64.decode(&pnet.payload_b64) {
+                                    Ok(payload) => {
+                                        pregel_inbound_tx
+                                            .try_send(DistributedMessage {
+                                                src: pnet.src,
+                                                dst: pnet.dst,
+                                                payload,
+                                            })
+                                            .ok();
+                                    }
+                                    Err(e) => {
+                                        tracing::warn!(src = %pnet.src, err = %e, "pregel gossip: bad base64 payload — skipped");
+                                    }
+                                }
                             }
                         } else {
                             let kse_name = topic
@@ -137,5 +178,41 @@ pub async fn run(
                 }
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn max_want_have_is_1000() {
+        assert_eq!(MAX_WANT_HAVE, 1_000);
+    }
+
+    #[test]
+    fn max_want_block_is_100() {
+        assert_eq!(MAX_WANT_BLOCK, 100);
+    }
+
+    #[test]
+    fn max_want_since_is_16() {
+        assert_eq!(MAX_WANT_SINCE, 16);
+    }
+
+    #[test]
+    fn max_delta_commits_per_graph_is_1000() {
+        assert_eq!(MAX_DELTA_COMMITS_PER_GRAPH, 1_000);
+    }
+
+    #[test]
+    fn max_delta_commits_total_bytes_is_8mib() {
+        assert_eq!(MAX_DELTA_COMMITS_TOTAL_BYTES, 8 * 1024 * 1024);
+    }
+
+    #[test]
+    fn want_block_is_fraction_of_want_have() {
+        assert!(MAX_WANT_BLOCK < MAX_WANT_HAVE,
+            "want_block limit should be smaller than want_have");
     }
 }

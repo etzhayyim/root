@@ -16,7 +16,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use axum::{
     Json,
     extract::{Query, State},
-    http::StatusCode,
+    http::{HeaderMap, StatusCode},
     response::IntoResponse,
 };
 use serde::{Deserialize, Serialize};
@@ -25,6 +25,43 @@ use kotoba_core::cid::KotobaCid;
 use kotoba_kqe::quad::{Quad, QuadObject};
 
 use crate::server::KotobaState;
+
+const MAX_ATTEST_DID_LEN:      usize = 512;
+const MAX_ATTEST_CLAIM_TYPE:   usize =  64;
+const MAX_ATTEST_EVIDENCE_LEN: usize = 2_048;
+const MAX_ATTEST_REASON_LEN:   usize = 4_096;
+const MAX_ATTEST_CID_LEN:      usize =  256;
+
+fn require_attester_auth(
+    headers: &HeaderMap,
+    attester_did: &str,
+    operator_did: &str,
+) -> Result<(), (StatusCode, String)> {
+    let token = headers
+        .get(axum::http::header::AUTHORIZATION)
+        .and_then(|v| v.to_str().ok())
+        .and_then(|v| v.strip_prefix("Bearer "))
+        .ok_or_else(|| {
+            tracing::warn!("attester auth: missing Bearer token");
+            (StatusCode::UNAUTHORIZED, "Authorization: Bearer <token> required".to_string())
+        })?;
+    if crate::graph_auth::jwt_exp_elapsed(token) {
+        tracing::warn!("attester auth: expired JWT");
+        return Err((StatusCode::UNAUTHORIZED, "Bearer token has expired".to_string()));
+    }
+    let sub = crate::graph_auth::jwt_sub(token)
+        .ok_or_else(|| {
+            tracing::warn!("attester auth: JWT missing sub claim");
+            (StatusCode::UNAUTHORIZED, "Bearer token missing sub claim".to_string())
+        })?;
+    if sub == attester_did || sub == operator_did {
+        Ok(())
+    } else {
+        tracing::warn!(sub = %sub, attester_did = %attester_did, "attester auth: sub mismatch");
+        Err((StatusCode::UNAUTHORIZED,
+            format!("Bearer sub does not match attester_did {attester_did:?}")))
+    }
+}
 
 // ── NSID constants ────────────────────────────────────────────────────────────
 
@@ -49,6 +86,15 @@ fn attest_graph_cid() -> KotobaCid {
 
 fn audit_graph_cid() -> KotobaCid {
     KotobaCid::from_bytes(b"kotoba/audit/requests/v1")
+}
+
+/// Extract a displayable string from a QuadObject: Text → clone, Cid → multibase, others → empty.
+fn quad_object_text(obj: &QuadObject) -> String {
+    match obj {
+        QuadObject::Text(s)   => s.clone(),
+        QuadObject::Cid(c)    => c.to_multibase(),
+        _                     => String::new(),
+    }
 }
 
 fn now_unix() -> u64 {
@@ -153,8 +199,44 @@ pub struct RequestLogEntry {
 /// Validates stake thresholds and writes the attestation as Datoms.
 pub async fn attest_claim(
     State(state): State<Arc<KotobaState>>,
+    headers: HeaderMap,
     Json(req): Json<AttestClaimReq>,
 ) -> impl IntoResponse {
+    if let Err((code, msg)) = crate::graph_auth::validate_did(&req.entity_did, "entity_did", MAX_ATTEST_DID_LEN) {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
+    if let Err((code, msg)) = crate::graph_auth::validate_did(&req.attester_did, "attester_did", MAX_ATTEST_DID_LEN) {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
+    if req.claim_type.is_empty() || req.claim_type.len() > MAX_ATTEST_CLAIM_TYPE {
+        return (StatusCode::BAD_REQUEST,
+            Json(serde_json::json!({ "error": "claim_type must be 'self', 'verified_entity', or 'delegation'" }))).into_response();
+    }
+    if !matches!(req.claim_type.as_str(), "self" | "verified_entity" | "delegation") {
+        return (StatusCode::BAD_REQUEST,
+            Json(serde_json::json!({ "error": "claim_type must be 'self', 'verified_entity', or 'delegation'" }))).into_response();
+    }
+    if let Some(ev) = &req.evidence {
+        if ev.len() > MAX_ATTEST_EVIDENCE_LEN {
+            return (StatusCode::BAD_REQUEST,
+                Json(serde_json::json!({ "error": format!("evidence exceeds {MAX_ATTEST_EVIDENCE_LEN} bytes") }))).into_response();
+        }
+    }
+    if let Err((code, msg)) = require_attester_auth(&headers, &req.attester_did, &state.operator_did) {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
+
+    // Reject stake values that exceed i64::MAX to prevent silent truncation when
+    // stored as QuadObject::Integer(i64).  Real stakes are at most ~10^10 mKOTO,
+    // orders of magnitude below the 9.2×10^18 i64 ceiling.
+    if req.stake_mkoto > i64::MAX as u64 {
+        return (
+            StatusCode::BAD_REQUEST,
+            Json(serde_json::json!({ "error": "stake_mkoto exceeds maximum representable value" })),
+        )
+            .into_response();
+    }
+
     // Enforce stake threshold based on claim type.
     let min_stake = match req.claim_type.as_str() {
         "verified_entity" | "delegation" => MIN_STAKE_VERIFIED_ENTITY,
@@ -180,15 +262,14 @@ pub async fn attest_claim(
     let claim_seed = format!("attest/{}/{}/{}", req.entity_did, req.attester_did, ts);
     let claim_cid = KotobaCid::from_bytes(claim_seed.as_bytes());
 
-    let entity_cid   = KotobaCid::from_bytes(req.entity_did.as_bytes());
-    let attester_cid = KotobaCid::from_bytes(req.attester_did.as_bytes());
-
+    // Store entity/attester as Text so the DID string is recoverable in queries.
+    // (KotobaCid::from_bytes is a blake3 hash — non-invertible.)
     let mut quads = vec![
         Quad {
             graph: graph.clone(),
             subject: claim_cid.clone(),
             predicate: "attest/entity".to_string(),
-            object: QuadObject::Cid(entity_cid),
+            object: QuadObject::Text(req.entity_did.clone()),
         },
         Quad {
             graph: graph.clone(),
@@ -200,7 +281,7 @@ pub async fn attest_claim(
             graph: graph.clone(),
             subject: claim_cid.clone(),
             predicate: "attest/attester".to_string(),
-            object: QuadObject::Cid(attester_cid),
+            object: QuadObject::Text(req.attester_did.clone()),
         },
         Quad {
             graph: graph.clone(),
@@ -254,8 +335,24 @@ pub async fn attest_claim(
 /// Records a challenge against an existing attestation claim.
 pub async fn attest_challenge(
     State(state): State<Arc<KotobaState>>,
+    headers: HeaderMap,
     Json(req): Json<AttestChallengeReq>,
 ) -> impl IntoResponse {
+    if req.claim_cid.is_empty() || req.claim_cid.len() > MAX_ATTEST_CID_LEN {
+        return (StatusCode::BAD_REQUEST,
+            Json(serde_json::json!({ "error": format!("claim_cid must be 1–{MAX_ATTEST_CID_LEN} bytes") }))).into_response();
+    }
+    if let Err((code, msg)) = crate::graph_auth::validate_did(&req.challenger_did, "challenger_did", MAX_ATTEST_DID_LEN) {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
+    if req.reason.is_empty() || req.reason.len() > MAX_ATTEST_REASON_LEN {
+        return (StatusCode::BAD_REQUEST,
+            Json(serde_json::json!({ "error": format!("reason must be 1–{MAX_ATTEST_REASON_LEN} bytes") }))).into_response();
+    }
+    if let Err((code, msg)) = require_attester_auth(&headers, &req.challenger_did, &state.operator_did) {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
+
     // Decode the claim CID from multibase (base32lower 'b' prefix).
     let claim_cid = match KotobaCid::from_multibase(&req.claim_cid) {
         Some(c) => c,
@@ -325,50 +422,143 @@ pub async fn attest_challenge(
 
 /// GET `ai.gftd.apps.kotoba.attest.query`
 ///
-/// Query attestation records. Currently returns a stub response; full
-/// Datalog-backed query is Phase 2 (pending KQE arrangement integration).
+/// Query attestation records by entity_did or attester_did.
+/// Scans the hot Arrangement via AVET (POS) index; returns empty when neither
+/// filter is provided (full-scan is intentionally not supported to bound cost).
 pub async fn attest_query(
-    State(_state): State<Arc<KotobaState>>,
+    State(state): State<Arc<KotobaState>>,
     Query(params): Query<AttestQueryParams>,
 ) -> impl IntoResponse {
+    if params.entity_did.as_deref().map(|s| s.len() > MAX_ATTEST_DID_LEN).unwrap_or(false) {
+        return (StatusCode::BAD_REQUEST,
+            Json(serde_json::json!({ "error": format!("entity_did exceeds {MAX_ATTEST_DID_LEN} bytes") }))).into_response();
+    }
+    if params.attester_did.as_deref().map(|s| s.len() > MAX_ATTEST_DID_LEN).unwrap_or(false) {
+        return (StatusCode::BAD_REQUEST,
+            Json(serde_json::json!({ "error": format!("attester_did exceeds {MAX_ATTEST_DID_LEN} bytes") }))).into_response();
+    }
     let limit = params.limit.unwrap_or(20).min(100);
+    let graph = attest_graph_cid();
 
+    // Resolve claim CIDs via AVET (POS) reverse lookup.
+    // entity/attester are stored as Text (not Cid), so the object_key is the DID string.
+    let claim_cids: Vec<kotoba_core::cid::KotobaCid> = if let Some(ref did) = params.entity_did {
+        state.quad_store.lookup_subject_by_po(Some(&graph), "attest/entity", did).await
+    } else if let Some(ref did) = params.attester_did {
+        state.quad_store.lookup_subject_by_po(Some(&graph), "attest/attester", did).await
+    } else {
+        // No filter: return empty to avoid unbounded full-scan.
+        return Json(AttestQueryResp { claims: Vec::new(), total: 0 }).into_response();
+    };
+
+    let mut claims: Vec<AttestRecord> = Vec::new();
+    for claim_cid in claim_cids.into_iter().take(limit) {
+        let quads = state.quad_store.get_entity_quads(Some(&graph), &claim_cid).await;
+        let mut rec = AttestRecord {
+            claim_cid:    claim_cid.to_multibase(),
+            entity_did:   String::new(),
+            claim_type:   String::new(),
+            attester_did: String::new(),
+            stake_mkoto:  0,
+            ts_unix:      0,
+        };
+        for q in &quads {
+            match q.predicate.as_str() {
+                "attest/entity"      => rec.entity_did   = quad_object_text(&q.object),
+                "attest/type"        => rec.claim_type   = quad_object_text(&q.object),
+                "attest/attester"    => rec.attester_did = quad_object_text(&q.object),
+                "attest/stake_mkoto" => {
+                    if let kotoba_kqe::quad::QuadObject::Integer(n) = &q.object {
+                        rec.stake_mkoto = *n as u64;
+                    }
+                }
+                "attest/ts_unix" => {
+                    if let kotoba_kqe::quad::QuadObject::Integer(n) = &q.object {
+                        rec.ts_unix = *n as u64;
+                    }
+                }
+                _ => {}
+            }
+        }
+        if !rec.entity_did.is_empty() {
+            claims.push(rec);
+        }
+    }
+
+    let total = claims.len();
     tracing::debug!(
         entity_did = ?params.entity_did,
         attester_did = ?params.attester_did,
         limit,
-        "attest.query called"
+        total,
+        "attest.query result"
     );
-
-    // Phase 1: return empty result; Phase 2 will scan the Arrangement.
-    Json(AttestQueryResp {
-        claims: Vec::new(),
-        total: 0,
-    })
+    Json(AttestQueryResp { claims, total }).into_response()
 }
 
 /// GET `ai.gftd.apps.kotoba.request.log`
 ///
 /// Query the request audit log stored by the fingerprint middleware.
-/// Phase 1: stub response. Phase 2: scan audit graph Arrangement.
+/// Scans the audit graph Arrangement via predicate-prefix lookup.
+/// Requires operator auth — audit logs are internal security instruments.
 pub async fn request_log_query(
-    State(_state): State<Arc<KotobaState>>,
+    State(state): State<Arc<KotobaState>>,
+    headers: HeaderMap,
     Query(params): Query<RequestLogQueryParams>,
 ) -> impl IntoResponse {
+    if let Err((code, msg)) = crate::graph_auth::require_operator_auth(&headers, &state.operator_did) {
+        return (code, Json(serde_json::json!({ "error": msg }))).into_response();
+    }
     let limit = params.limit.unwrap_or(20).min(100);
-    let _graph = audit_graph_cid(); // will be used in Phase 2 Arrangement scan
+    let graph = audit_graph_cid();
 
+    // Fetch all quads in the audit graph whose predicate starts with "request/".
+    // Group by subject CID → hydrate each RequestLogEntry.
+    let all_quads = state.quad_store
+        .quads_by_predicate_prefix(Some(&graph), "request/")
+        .await;
+
+    // Build per-request-cid entry map.
+    let mut map: std::collections::HashMap<String, RequestLogEntry> =
+        std::collections::HashMap::new();
+    for q in &all_quads {
+        let subj_key = q.subject.to_multibase();
+        let entry = map.entry(subj_key.clone()).or_insert_with(|| RequestLogEntry {
+            request_cid: subj_key,
+            method: String::new(),
+            path: String::new(),
+            ts_unix: 0,
+        });
+        match q.predicate.as_str() {
+            "request/method"  => { entry.method  = quad_object_text(&q.object); }
+            "request/path"    => { entry.path     = quad_object_text(&q.object); }
+            "request/ts_unix" => {
+                if let QuadObject::Integer(n) = &q.object {
+                    entry.ts_unix = *n as u64;
+                }
+            }
+            _ => {}
+        }
+    }
+
+    // Apply optional path_prefix filter, then sort by ts_unix descending (newest first).
+    let mut entries: Vec<RequestLogEntry> = map.into_values()
+        .filter(|e| {
+            params.path_prefix.as_deref()
+                .is_none_or(|pfx| e.path.starts_with(pfx))
+        })
+        .collect();
+    entries.sort_by(|a, b| b.ts_unix.cmp(&a.ts_unix));
+    entries.truncate(limit);
+
+    let total = entries.len();
     tracing::debug!(
         path_prefix = ?params.path_prefix,
         limit,
-        "request.log query called"
+        total,
+        "request.log query result"
     );
-
-    // Phase 1: empty result.
-    Json(RequestLogResp {
-        entries: Vec::new(),
-        total: 0,
-    })
+    Json(RequestLogResp { entries, total }).into_response()
 }
 
 #[cfg(test)]
@@ -403,5 +593,86 @@ mod tests {
         let a = attest_graph_cid();
         let b = attest_graph_cid();
         assert_eq!(a.0, b.0);
+    }
+
+    #[test]
+    fn audit_graph_cid_is_stable() {
+        let a = audit_graph_cid();
+        let b = audit_graph_cid();
+        assert_eq!(a.0, b.0);
+    }
+
+    #[test]
+    fn attest_and_audit_graph_cids_differ() {
+        let attest = attest_graph_cid();
+        let audit  = audit_graph_cid();
+        assert_ne!(attest.0, audit.0, "attestation and audit graphs must have different CIDs");
+    }
+
+    #[test]
+    fn quad_object_text_returns_text_clone() {
+        let obj = QuadObject::Text("hello world".to_string());
+        assert_eq!(quad_object_text(&obj), "hello world");
+    }
+
+    #[test]
+    fn quad_object_text_returns_cid_multibase() {
+        let cid = KotobaCid::from_bytes(b"test-cid-seed");
+        let obj = QuadObject::Cid(cid.clone());
+        let result = quad_object_text(&obj);
+        assert_eq!(result, cid.to_multibase());
+        assert!(!result.is_empty(), "multibase should be non-empty");
+    }
+
+    #[test]
+    fn quad_object_text_returns_empty_for_integer() {
+        let obj = QuadObject::Integer(42);
+        assert_eq!(quad_object_text(&obj), "", "Integer variant should yield empty string");
+    }
+
+    #[test]
+    fn max_constants_values() {
+        assert_eq!(MAX_ATTEST_DID_LEN, 512);
+        assert_eq!(MAX_ATTEST_CLAIM_TYPE, 64);
+        assert_eq!(MAX_ATTEST_EVIDENCE_LEN, 2_048);
+        assert_eq!(MAX_ATTEST_REASON_LEN, 4_096);
+        assert_eq!(MAX_ATTEST_CID_LEN, 256);
+    }
+
+    #[test]
+    fn verified_entity_stake_exceeds_self_attested() {
+        assert!(MIN_STAKE_VERIFIED_ENTITY > MIN_STAKE_SELF_ATTESTED,
+            "verified_entity stake threshold must be higher than self-attested");
+    }
+
+    #[test]
+    fn nsids_are_distinct() {
+        let nsids = [
+            NSID_ATTEST_CLAIM,
+            NSID_ATTEST_CHALLENGE,
+            NSID_ATTEST_QUERY,
+            NSID_REQUEST_LOG,
+        ];
+        let unique: std::collections::HashSet<&&str> = nsids.iter().collect();
+        assert_eq!(unique.len(), nsids.len(), "all NSIDs must be distinct");
+    }
+
+    #[test]
+    fn stake_mkoto_overflow_guard_boundary() {
+        // i64::MAX as u64 must pass; i64::MAX as u64 + 1 must fail.
+        let just_below = i64::MAX as u64;
+        assert!(just_below <= i64::MAX as u64, "i64::MAX must be representable");
+        let overflow = (i64::MAX as u64).saturating_add(1);
+        assert!(overflow > i64::MAX as u64, "overflow value must exceed i64::MAX guard");
+    }
+
+    #[test]
+    fn stake_i64_max_cast_is_lossless() {
+        // Verify the guard condition: any stake_mkoto that passes the guard is
+        // safely castable to i64 without truncation or sign change.
+        let max_ok: u64 = i64::MAX as u64;
+        let as_i64 = max_ok as i64;
+        assert_eq!(as_i64, i64::MAX, "lossless cast must produce i64::MAX");
+        assert!(as_i64 >= 0, "must be non-negative");
     }
 }

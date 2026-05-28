@@ -140,7 +140,7 @@ pub async fn run_subscribe_repos(
                             // Persist cursor every CURSOR_PERSIST_INTERVAL commits
                             if let Some(seq) = seq {
                                 let n = commit_count.fetch_add(1, Ordering::Relaxed) + 1;
-                                if n % CURSOR_PERSIST_INTERVAL == 0 {
+                                if n.is_multiple_of(CURSOR_PERSIST_INTERVAL) {
                                     save_cursor(&*block_store, seq);
                                     debug!(seq, "subscribeRepos cursor persisted");
                                 }
@@ -215,11 +215,13 @@ async fn handle_commit(
         None => return None,
     };
 
-    if !did_filter.is_empty() && !did_filter.iter().any(|d| *d == repo) {
+    if !did_filter.is_empty() && !did_filter.contains(&repo) {
         return None;
     }
 
-    let seq     = cbor_i64(&body, "seq").unwrap_or(0) as u64;
+    let seq     = cbor_i64(&body, "seq")
+        .and_then(|v| u64::try_from(v).ok())
+        .unwrap_or(0);
     let too_big = cbor_bool(&body, "tooBig").unwrap_or(false);
 
     // Store CAR blocks in BlockStore (skip if tooBig — blocks absent)
@@ -360,7 +362,8 @@ fn read_cid_v1(buf: &[u8]) -> Option<(&[u8], usize)> {
     let (_, n) = read_uvarint(&buf[pos..])?; // hash function code
     pos += n;
     let (dlen, n) = read_uvarint(&buf[pos..])?; // digest length
-    pos += n + dlen as usize;
+    let dlen_usize = usize::try_from(dlen).ok()?;
+    pos = pos.checked_add(n)?.checked_add(dlen_usize)?;
     if buf.len() < pos { return None; }
     Some((&buf[..pos], pos))
 }
@@ -372,13 +375,27 @@ fn parse_car(data: &[u8]) -> Vec<(Vec<u8>, Vec<u8>)> {
 
     // Skip CAR header: uvarint(len) + CBOR header map
     let Some((hlen, n)) = read_uvarint(&data[pos..]) else { return result };
-    pos += n + hlen as usize;
+    let hlen_usize = match usize::try_from(hlen) {
+        Ok(v) => v,
+        Err(_) => return result,
+    };
+    pos = match pos.checked_add(n).and_then(|p| p.checked_add(hlen_usize)) {
+        Some(p) => p,
+        None => return result,
+    };
 
     while pos < data.len() {
         let Some((section_len, n)) = read_uvarint(&data[pos..]) else { break };
-        pos += n;
+        pos = match pos.checked_add(n) { Some(p) => p, None => break };
         if section_len == 0 { break; }
-        let section_end = pos + section_len as usize;
+        let section_len_usize = match usize::try_from(section_len) {
+            Ok(v) => v,
+            Err(_) => break,
+        };
+        let section_end = match pos.checked_add(section_len_usize) {
+            Some(e) => e,
+            None => break,
+        };
         if section_end > data.len() { break; }
 
         let Some((cid_bytes, cid_len)) = read_cid_v1(&data[pos..section_end]) else { break };
@@ -410,7 +427,7 @@ fn cbor_str(v: &Value, key: &str) -> Option<String> {
 
 fn cbor_i64(v: &Value, key: &str) -> Option<i64> {
     match cbor_get(v, key)? {
-        Value::Integer(i) => Some(i128::from(*i) as i64),
+        Value::Integer(i) => i64::try_from(i128::from(*i)).ok(),
         _ => None,
     }
 }
@@ -438,5 +455,140 @@ fn cbor_cid_bytes(v: &Value) -> Option<[u8; 36]> {
             None
         }
         _ => None,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use kotoba_store::MemoryBlockStore;
+    use std::sync::Arc;
+
+    fn mem() -> Arc<MemoryBlockStore> { Arc::new(MemoryBlockStore::new()) }
+
+    #[test]
+    fn cursor_slot_cid_has_expected_prefix() {
+        assert_eq!(CURSOR_SLOT_CID.0[0], 0x01); // CIDv1
+        assert_eq!(CURSOR_SLOT_CID.0[1], 0x71); // dag-cbor
+        assert_eq!(CURSOR_SLOT_CID.0[2], 0x1e); // blake3
+        assert_eq!(CURSOR_SLOT_CID.0[3], 0x20); // hash length 32
+    }
+
+    #[test]
+    fn load_cursor_returns_none_when_empty() {
+        let store = mem();
+        assert!(load_cursor(&*store).is_none());
+    }
+
+    #[test]
+    fn save_and_load_cursor_roundtrip() {
+        let store = mem();
+        save_cursor(&*store, 42_000);
+        assert_eq!(load_cursor(&*store), Some(42_000));
+    }
+
+    #[test]
+    fn save_cursor_overwrites_previous() {
+        let store = mem();
+        save_cursor(&*store, 1);
+        save_cursor(&*store, 9_999);
+        assert_eq!(load_cursor(&*store), Some(9_999));
+    }
+
+    #[test]
+    fn cbor_cid_bytes_extracts_36_byte_payload() {
+        let mut cid_bytes = vec![0x00u8]; // identity prefix
+        cid_bytes.extend_from_slice(&[0xABu8; 36]);
+        let val = ciborium::value::Value::Tag(42, Box::new(ciborium::value::Value::Bytes(cid_bytes)));
+        let result = cbor_cid_bytes(&val);
+        assert!(result.is_some());
+        assert_eq!(result.unwrap(), [0xABu8; 36]);
+    }
+
+    #[test]
+    fn cbor_cid_bytes_rejects_wrong_tag() {
+        let val = ciborium::value::Value::Tag(0, Box::new(ciborium::value::Value::Bytes(vec![0u8; 37])));
+        assert!(cbor_cid_bytes(&val).is_none());
+    }
+
+    #[test]
+    fn cbor_cid_bytes_rejects_wrong_length() {
+        let val = ciborium::value::Value::Tag(42, Box::new(ciborium::value::Value::Bytes(vec![0u8; 20])));
+        assert!(cbor_cid_bytes(&val).is_none());
+    }
+
+    #[test]
+    fn parse_car_crafted_overflow_section_len_does_not_panic() {
+        // CAR header: varint(0) = 0x00 (zero-length header)
+        // Section: varint(u64::MAX) encoded as 9-byte LEB128 + continuation
+        // A valid uvarint for u64::MAX is 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0x01
+        let mut data = vec![0x00u8]; // header len = 0
+        // u64::MAX = 0xFFFF_FFFF_FFFF_FFFF — 10-byte LEB128
+        data.extend_from_slice(&[0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x01]);
+        // Must return empty without panicking
+        let result = parse_car(&data);
+        assert!(result.is_empty(), "crafted overflow section_len must yield empty result, not panic");
+    }
+
+    #[test]
+    fn parse_car_empty_input_returns_empty() {
+        assert!(parse_car(&[]).is_empty());
+    }
+
+    #[test]
+    fn cbor_i64_rejects_value_exceeding_i64_max() {
+        use ciborium::value::Value;
+        // u64::MAX as CBOR Integer exceeds i64::MAX — must return None, not silently truncate.
+        // ciborium::value::Integer implements From<u64>.
+        let big = ciborium::value::Integer::from(u64::MAX);
+        let map = Value::Map(vec![
+            (Value::Text("seq".into()), Value::Integer(big)),
+        ]);
+        let result = cbor_i64(&map, "seq");
+        assert!(result.is_none(),
+            "cbor_i64 must return None for values > i64::MAX, got: {result:?}");
+    }
+
+    #[test]
+    fn cbor_i64_accepts_in_range_value() {
+        use ciborium::value::Value;
+        let map = Value::Map(vec![
+            (Value::Text("seq".into()), Value::Integer(42i64.into())),
+        ]);
+        assert_eq!(cbor_i64(&map, "seq"), Some(42i64));
+    }
+
+    #[test]
+    fn negative_seq_from_firehose_is_rejected_not_wrapped_to_huge_u64() {
+        // AT Protocol seq numbers are always non-negative.  A rogue firehose relay
+        // could send seq = -1; the old `as u64` cast wraps -1i64 → u64::MAX,
+        // corrupting the persisted cursor and breaking subsequent restarts.
+        // The fixed path uses `u64::try_from(i64)` which rejects negatives.
+        use ciborium::value::Value;
+        let negative_seq = ciborium::value::Integer::from(-1i64);
+        let map = Value::Map(vec![
+            (Value::Text("seq".into()), Value::Integer(negative_seq)),
+        ]);
+        // cbor_i64 accepts -1 (in i64 range), but u64::try_from(-1i64) rejects it.
+        // The combined pipeline must return 0 (the safe fallback), never u64::MAX.
+        let raw = cbor_i64(&map, "seq");
+        assert_eq!(raw, Some(-1i64), "cbor_i64 should pass through in-range negatives");
+        let seq_u64 = raw.and_then(|v| u64::try_from(v).ok()).unwrap_or(0);
+        assert_eq!(seq_u64, 0,
+            "negative seq must map to 0, not wrap to {}", u64::MAX);
+    }
+
+    #[test]
+    fn read_cid_v1_crafted_overflow_dlen_returns_none() {
+        // CIDv1 prefix bytes: version=1, codec=dag-cbor(0x71), hash=blake3(0x1e), then dlen=u64::MAX
+        let mut buf = vec![
+            0x01, // version = 1
+            0x71, // codec = dag-cbor
+            0x1e, // hash function = blake3
+        ];
+        // dlen = u64::MAX as LEB128 (10 bytes)
+        buf.extend_from_slice(&[0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x01]);
+        // Must return None without panicking
+        assert!(read_cid_v1(&buf).is_none());
     }
 }

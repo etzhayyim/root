@@ -1,5 +1,10 @@
 use kotoba_core::cid::KotobaCid;
 use kotoba_core::store::BlockStore;
+
+/// `(label, kv-pairs)` input for one ProllyTree build thread.
+type TreeInput = (&'static str, Vec<(Vec<u8>, Vec<u8>)>);
+/// Result from one ProllyTree build thread: `(root_cid, captured_blocks)`.
+type TreeResult = anyhow::Result<(KotobaCid, Vec<(KotobaCid, Vec<u8>)>)>;
 use kotoba_core::prolly::ProllyTree;
 use kotoba_store::{CapturingBlockStore, CarBundleWriter};
 use kotoba_kqe::quad::Quad;
@@ -479,7 +484,7 @@ impl QuadStore {
         // Each thread gets a CapturingBlockStore that writes through to the shared hot store
         // and simultaneously records every block written — used below for CAR bundling.
         let bs = Arc::clone(&self.block_store);
-        let tree_inputs: Vec<(&'static str, Vec<(Vec<u8>, Vec<u8>)>)> = vec![
+        let tree_inputs: Vec<TreeInput> = vec![
             ("eavt", eavt_entries),
             ("aevt", aevt_entries),
             ("avet", avet_entries),
@@ -492,7 +497,7 @@ impl QuadStore {
             let handle = std::thread::Builder::new()
                 .stack_size(64 * 1024 * 1024)
                 .name(format!("kotoba-prolly-{name}"))
-                .spawn(move || -> anyhow::Result<(KotobaCid, Vec<(KotobaCid, Vec<u8>)>)> {
+                .spawn(move || -> TreeResult {
                     let cap = Arc::new(CapturingBlockStore::new(inner));
                     let root = ProllyTree::build_tree(entries, &*cap)?;
                     let blocks = cap.drain();
@@ -580,7 +585,7 @@ impl QuadStore {
     /// Each commit's 4 ProllyTree roots are recursively walked to collect all live block CIDs.
     /// Blocks returned by `block_store.all_cids()` but absent from the live set are deleted.
     ///
-    /// Stores that don't implement `all_cids()` (S3, iroh) return an empty vec — in that case
+    /// Stores that don't implement `all_cids()` (S3, kubo) return an empty vec — in that case
     /// this function safely returns 0 without modifying anything.
     ///
     /// Returns the count of deleted blocks.
@@ -830,5 +835,62 @@ mod tests {
         // HEAD is still reachable for GC and queries.
         let dag = qs.commit_dag.read().await;
         assert!(dag.head(&graph).is_some(), "HEAD must survive prune");
+    }
+
+    // ── additional gap tests ──────────────────────────────────────────────────
+
+    #[tokio::test]
+    async fn arrangement_unknown_graph_returns_none() {
+        let journal     = Arc::new(Journal::new());
+        let block_store = Arc::new(MemoryBlockStore::new());
+        let qs          = QuadStore::new(Arc::clone(&journal), Arc::clone(&block_store) as _);
+        let unknown     = KotobaCid::from_bytes(b"never-asserted");
+        assert!(qs.arrangement(&unknown).await.is_none());
+    }
+
+    #[tokio::test]
+    async fn head_commit_unknown_graph_returns_none() {
+        let journal     = Arc::new(Journal::new());
+        let block_store = Arc::new(MemoryBlockStore::new());
+        let qs          = QuadStore::new(Arc::clone(&journal), Arc::clone(&block_store) as _);
+        let unknown     = KotobaCid::from_bytes(b"no-commits-here");
+        assert!(qs.head_commit(&unknown).await.is_none());
+    }
+
+    #[tokio::test]
+    async fn commit_dag_size_is_zero_initially() {
+        let journal     = Arc::new(Journal::new());
+        let block_store = Arc::new(MemoryBlockStore::new());
+        let qs          = QuadStore::new(Arc::clone(&journal), Arc::clone(&block_store) as _);
+        assert_eq!(qs.commit_dag_size().await, 0);
+    }
+
+    #[tokio::test]
+    async fn count_by_predicate_prefix_unknown_graph_returns_zero() {
+        let journal     = Arc::new(Journal::new());
+        let block_store = Arc::new(MemoryBlockStore::new());
+        let qs          = QuadStore::new(Arc::clone(&journal), Arc::clone(&block_store) as _);
+        let unknown     = KotobaCid::from_bytes(b"no-graph");
+        assert_eq!(qs.count_by_predicate_prefix(&unknown, "ai.gftd/").await, 0);
+    }
+
+    #[tokio::test]
+    async fn snapshot_deltas_unknown_graph_returns_empty() {
+        let journal     = Arc::new(Journal::new());
+        let block_store = Arc::new(MemoryBlockStore::new());
+        let qs          = QuadStore::new(Arc::clone(&journal), Arc::clone(&block_store) as _);
+        let unknown     = KotobaCid::from_bytes(b"empty-graph");
+        let deltas      = qs.snapshot_deltas(&unknown).await;
+        assert!(deltas.is_empty());
+    }
+
+    #[tokio::test]
+    async fn commits_since_empty_when_no_commits() {
+        let journal     = Arc::new(Journal::new());
+        let block_store = Arc::new(MemoryBlockStore::new());
+        let qs          = QuadStore::new(Arc::clone(&journal), Arc::clone(&block_store) as _);
+        let graph       = KotobaCid::from_bytes(b"empty-dag-graph");
+        let result      = qs.commits_since(&graph, None).await;
+        assert!(result.is_empty(), "no commits → commits_since must return empty");
     }
 }

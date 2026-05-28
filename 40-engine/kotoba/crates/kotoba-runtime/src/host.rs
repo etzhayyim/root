@@ -1,5 +1,8 @@
 use anyhow::Result;
 use std::sync::Arc;
+
+/// `(topic, payload)` pair drained from the KSE inbox.
+type KseInboxItem = (String, Vec<u8>);
 use wasmtime::{Config, Engine, Store};
 use wasmtime::component::{Component, ComponentType, Lift, Linker, Lower};
 use wasmtime_wasi::{WasiCtx, WasiCtxBuilder, WasiView, ResourceTable};
@@ -194,7 +197,11 @@ impl KotobaEngine {
     pub fn new() -> Result<Self> {
         let mut config = Config::new();
         config.wasm_component_model(true);
-        // Cranelift optimizing compiler (default)
+        // TODO(wasmtime-upgrade): componentize-py 0.23 emits extended-const expressions
+        // (i32.add in global initializers). wasmtime 22 disables this proposal by default
+        // and has no public Config API to re-enable it. Upgrade the wasmtime pin in
+        // Cargo.toml to "24" or later and add `config.wasm_extended_const(true)` here.
+        // Until then, Python-compiled WASM agents fail with CompileFailed on first load.
         let engine = Engine::new(&config)?;
         Ok(Self(engine))
     }
@@ -406,9 +413,9 @@ fn bind_kse(linker: &mut Linker<HostState>) -> Result<()> {
         "drain",
         |mut ctx: wasmtime::StoreContextMut<HostState>,
          (topic_pattern, max_items): (String, u32)|
-         -> Result<(Result<Vec<(String, Vec<u8>)>, String>,)> {
+         -> Result<(Result<Vec<KseInboxItem>, String>,)> {
             ctx.data_mut().charge_gas(20)?;
-            let matches: Vec<(String, Vec<u8>)> = ctx.data().kse_inbox.iter()
+            let matches: Vec<KseInboxItem> = ctx.data().kse_inbox.iter()
                 .filter(|(t, _)| topic_pattern.is_empty() || t.starts_with(&topic_pattern))
                 .take(max_items as usize)
                 .cloned()
