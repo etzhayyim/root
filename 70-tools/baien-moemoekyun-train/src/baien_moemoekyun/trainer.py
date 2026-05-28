@@ -36,13 +36,22 @@ def split_moe_param_groups(
     alpha_params: list[nn.Parameter] = []
 
     for wrapper in moe_wrappers.values():
-        # router = the linear projection inside moe_branch
-        router_params.append(wrapper.moe_branch.router.weight)
-        if wrapper.moe_branch.router.bias is not None:
-            router_params.append(wrapper.moe_branch.router.bias)
+        branch = wrapper.moe_branch
+        # router = linear-router weights ("learned" mode) OR cluster centroids ("distance" mode);
+        # both are R^{E×H} learnable params getting the same lr_router treatment.
+        if branch.router is not None:
+            router_params.append(branch.router.weight)
+            if branch.router.bias is not None:
+                router_params.append(branch.router.bias)
+        elif branch.cluster_centroids is not None:
+            router_params.append(branch.cluster_centroids)
+        else:
+            raise RuntimeError(
+                f"moe_branch has neither router nor cluster_centroids (routing_mode={branch.routing_mode!r})"
+            )
 
         # experts = all params in moe_branch.experts (the ModuleList of small FFNs)
-        for p in wrapper.moe_branch.experts.parameters():
+        for p in branch.experts.parameters():
             expert_params.append(p)
 
         # alpha = per-wrapper scalar Parameter
