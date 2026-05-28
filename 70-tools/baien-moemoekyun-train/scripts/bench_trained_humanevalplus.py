@@ -78,6 +78,7 @@ def main():
     p.add_argument("--max-new-tokens", type=int, default=384)
     p.add_argument("--timeout-sec", type=int, default=10)
     p.add_argument("--output", default="/workspace/bench-trained-c26-result.jsonl")
+    p.add_argument("--expert-kind", default="ffn", choices=["ffn","memory"])
     p.add_argument("--routing-mode", default="learned", choices=["learned","distance"], help="MoCLE-style cluster routing if distance")
     p.add_argument("--baseline-pass1", type=float, default=0.1890,
                    help="Pre-train baseline for Δ computation (cycle 24 = 18.90%)")
@@ -117,6 +118,7 @@ def main():
         expert_hidden_ratio=args.expert_hidden_ratio,
         ffn_attribute_name="mlp",
         routing_mode=args.routing_mode,
+        expert_kind=args.expert_kind,
     )
     for fqn, w in moe_wrappers.items():
         w.to(device=device, dtype=torch.bfloat16)
