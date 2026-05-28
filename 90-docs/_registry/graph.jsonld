@@ -9253,7 +9253,7 @@
         "doc:adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
         "doc:adr-2605231400-yatachain-holochain-iso-substrate"
       ],
-      "lastVerified": "2026-05-28"
+      "lastVerified": "2026-05-26"
     },
     {
       "id": "doc:adr-2605261900-baien-moemoekyun-moe-charter",
@@ -10709,6 +10709,26 @@
         "Charter §1.5 / §2(b) compliance pattern for compute-consumption accounting"
       ],
       "related": "doc:2605260004",
+      "lastVerified": "2026-05-28"
+    },
+    {
+      "id": "doc:adr-2605282200-kawase-yui-multi-stable-adherent-remittance-mutual-aid",
+      "type": "TechArticle",
+      "title": "ADR-2605282200: kawase-yui (為替結) — kotoba multi-stable adherent remittance mutual-aid substrate (TransferWise-equivalent under religious-corp constraints, R0 charter)",
+      "status": "proposed",
+      "topic": "kawase-yui-adherent-remittance-mutual-aid",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kawase-yui (為替結) actor charter — adherent-to-adherent multi-stable remittance via pre-funded pools",
+        "pool-match Pregel cell topology + mid-market FX oracle policy",
+        "constitutional gates G1..G14 + non-goals N1..N12",
+        "Lexicon family app.etzhayyim.kawase.* (8 schemas, R0 scaffold)",
+        "Cross-actor binding with wakai (mutual aid sibling), chigiri (multi-juris compliance), toritate (accounting), mKOTO economy (cell compute cost)"
+      ],
+      "related": [
+        "doc:2605263500",
+        "doc:2605264000"
+      ],
       "lastVerified": "2026-05-28"
     },
     {

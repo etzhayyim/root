@@ -13800,7 +13800,7 @@
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
-      "last_verified": "2026-05-28",
+      "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
     },
@@ -16424,6 +16424,47 @@
         "2605192145",
         "2605192200",
         "2605231525"
+      ],
+      "last_verified": "2026-05-28",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605282200-kawase-yui-multi-stable-adherent-remittance-mutual-aid.md",
+      "id": "adr-2605282200-kawase-yui-multi-stable-adherent-remittance-mutual-aid",
+      "title": "ADR-2605282200: kawase-yui (為替結) — kotoba multi-stable adherent remittance mutual-aid substrate (TransferWise-equivalent under religious-corp constraints, R0 charter)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kawase-yui-adherent-remittance-mutual-aid",
+      "authoritative": true,
+      "authoritative_for": [
+        "kawase-yui (為替結) actor charter — adherent-to-adherent multi-stable remittance via pre-funded pools",
+        "pool-match Pregel cell topology + mid-market FX oracle policy",
+        "constitutional gates G1..G14 + non-goals N1..N12",
+        "Lexicon family app.etzhayyim.kawase.* (8 schemas, R0 scaffold)",
+        "Cross-actor binding with wakai (mutual aid sibling), chigiri (multi-juris compliance), toritate (accounting), mKOTO economy (cell compute cost)"
+      ],
+      "related": [
+        "2605263500",
+        "2605264000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605282100",
+        "2605262130",
+        "2605263500",
+        "2605262700",
+        "2605262900",
+        "2605192130",
+        "2605192145",
+        "2605192200",
+        "2605172100",
+        "2605192115",
+        "2605215000",
+        "2605181100",
+        "2605231525",
+        "2605192300"
       ],
       "last_verified": "2026-05-28",
       "amends": [],

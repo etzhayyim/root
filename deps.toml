@@ -8409,3 +8409,115 @@ adr = "ADR-2605282100"
 kind = "test-suite"
 status = "r1.3b-17-tests"
 description = "17 tests for the mKOTO economy + Modal billing-parity Python surface: MKOTO_PER_KOTO unit; default_tariff 3-row shape; for_backend lookup + KeyError; row_for_route mac-mini tribe fallback; Tariff.from_json + load round-trip; estimate safe-overestimates; evo-x2 vs mac-mini relative pricing; actual uses latency for gpu_seconds; BudgetExceeded raises BEFORE HTTP (dispatched count = 0); InsufficientCredit raises BEFORE HTTP (carries balance + required); unlimited balance default does not raise; Function.estimate returns UsageEstimate; NDJSON record carries cost_mkoto + cost_estimated_mkoto + tariff_version; App.balance() + App.get_tariff() accessors; unlimited balance sentinel without lookup; custom Tariff injected at App-level overrides default."
+
+[[adrs]]
+id = "2605282200"
+title = "kawase-yui (為替結) — kotoba multi-stable adherent remittance mutual-aid substrate (TransferWise-equivalent under religious-corp constraints, R0 charter)"
+status = "proposed"
+status_note = "TransferWise-equivalent multi-stable remittance for religious-corp adherents — re-frames Wise's pre-funded local-pool topology + peer balance netting + mid-market FX + transparent fee under Charter §1.5 anti-commercialization + §2(b) speculative finance prohibition + ADR-2605282100 N2 mKOTO non-transferability. Settlement uses existing Base L2 stablecoins (USDC + EURC at R1; +JPYC R2; +KRWO/GBPe/CHFe R3) — NO new token minted per ADR-2605172100 Alt C + ADR-2605282100 N2. Pool-match Pregel cell compute cost billed in mKOTO via ADR-2605282100 economy. Solidarity skim = 0% at R0-R3 (pure adherent personal mutual aid, ADR-2605192130 §5 Kisha/grant-pattern exemption). Adherent SBT↔SBT only (G3 structural in Solidity onlyAdherent modifier on both deposit + claim). Mid-market Chainlink oracle ±0.5% band (G4; Constitution.sol const kawase.max_band_bps = 50) — no spread profit (G5 const 0). 14 immutable gates G1..G14 + 12 non-goals N1..N12 + 8 Lexicons under app.etzhayyim.kawase.* (depositAttestation / withdrawIntent / matchExecution / fxRateAttestation / poolStateReport / rebalanceAttestation / jurisdictionAttestation / silenKawaseReview) + 5 Pregel cells (pool_match / fx_oracle_watcher / rebalance_proposer / jurisdiction_compliance / silen_review) + Solidity KawaseYuiPool.sol (R1 scaffold under 50-infra/etzhayyim-kawase-pool/). Per-jurisdiction Council Lv7+ unanimity activation gate (G14) avoids unlicensed money-services-business exposure. 4-phase R0→R3: R0 this commit + 8 Lexicons + deps.toml entries + paths reserved (no code) / R1 USDC↔EURC pair Council Lv6+ ≥3 ratify ≤50 adherents ≤$50k pool / R2 +JPYC LayerZero-bridged Council Lv6+ ≥3 bridge audit 30-day public objection ≤500 adherents ≤$500k / R3 +KRWO+GBPe+CHFe per-pair Council Lv7+ unanimity ≤5000 adherents ≤$5M + wakai R3 cross-actor integration. Cross-actor: wakai (mutual aid sibling) + chigiri (multi-juris + UPL) + toritate (accounting) + TitheRouter (skim path if Council later activates >0% at R4+) + Public Fund Safe (R1 reserve buffer seed grant) + kotoba (substrate engine) + Murakumo (cell inference) + mKOTO economy (compute cost layer). Depends on ADR-2605282100 (mKOTO economy) + ADR-2605262130 (kotoba substrate) + ADR-2605263500 (wakai sibling) + ADR-2605262700 (chigiri) + ADR-2605262900 (toritate) + ADR-2605192130 (tithe §5 exemption) + ADR-2605192145 (Public Fund) + ADR-2605192200 (Charter Rider §2(b)) + ADR-2605172100 (payments substrate + Alt C no custom token) + ADR-2605192115 (§3 SBT carve-out) + ADR-2605215000 (Murakumo-only) + ADR-2605181100 (encrypted memo envelope) + ADR-2605231525 (no platform keys) + ADR-2605192300 (Bootstrap Council Lv6+/Lv7+ gates)."
+path = "90-docs/adr/2605282200-kawase-yui-multi-stable-adherent-remittance-mutual-aid.md"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kawase/depositAttestation.json"
+adr = "ADR-2605282200"
+kind = "lexicon"
+status = "r0-schema"
+description = "Sender-side L1 Quad Lexicon per ADR-2605282200 — CACAO-signed by sender DID at deposit. Carries locked mid-market fxRateBps + fxRateAttestationCid + perMonthCapRemainingMinor + optional encryptedMemoCid (ADR-2605181100). srcStable + tgtStable enum gated to USDC + EURC at R1 (per fxRateAttestation pair gating); JPYC unlocks R2; KRWO/GBPe/CHFe unlock R3 only when jurisdictionAttestation Council Lv7+ unanimity exists for the pair."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kawase/withdrawIntent.json"
+adr = "ADR-2605282200"
+kind = "lexicon"
+status = "r0-schema"
+description = "Recipient-side L1 Quad Lexicon per ADR-2605282200 — recipient adherent expresses interest in being matched on a particular pair. Advisory (not binding); a deposit may still settle via reserve buffer if no matching intent at match epoch. validUntil default = createdAt + 30 days; maxSrcAmountMinor MUST NOT exceed recipient's own per-month cap (G9)."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kawase/matchExecution.json"
+adr = "ADR-2605282200"
+kind = "lexicon"
+status = "r0-schema"
+description = "Match engine output Lexicon per ADR-2605282200 — emitted by Pregel cell kawase_pool_match per matched deposit. settlementMode enum: matched (counter withdrawIntent satisfied; no reserve consumed) OR reserve-disbursed (no counter intent within match_window_seconds; reserve buffer disbursed at locked rate). mKotoDebitAmount records the cell-tick compute charged per ADR-2605282100 L1 meter. executingCellDid MUST be a fleet.toml-listed Murakumo node per G12 + ADR-2605215000."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kawase/fxRateAttestation.json"
+adr = "ADR-2605282200"
+kind = "lexicon"
+status = "r0-schema"
+description = "Chainlink mid-market rate snapshot Lexicon per ADR-2605282200 G4 — emitted by Pregel cell kawase_fx_oracle_watcher on each relevant Chainlink price-feed round update. councilBandBps reflects Constitution.sol const kawase.max_band_bps (= 50 = ±0.5%). withinBand=false halts ALL pair matching until Council Lv6+ ≥3 resumes. pair enum gated to USD/EUR at R1; expands as R2/R3 add stables. attestingNodeDid MUST be fleet.toml-listed per G12."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kawase/poolStateReport.json"
+adr = "ADR-2605282200"
+kind = "lexicon"
+status = "r0-schema"
+description = "Periodic per-currency aggregate pool report Lexicon per ADR-2605282200 L2 — emitted hourly (R1) / per-15-min (R2) / per-5-min (R3) by kawase_pool_match cell. Aggregate-only; NO per-member amounts. Includes balanceMinor + inFlightMinor + reserveBufferFloorMinor + driftBps + matchCountThisEpoch + reserveDisbursedCountThisEpoch + mKotoConsumedThisEpoch. |driftBps| > 500 triggers kawase_rebalance_proposer rebalanceAttestation candidate emission. Consumed by toritate.annualReport."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kawase/rebalanceAttestation.json"
+adr = "ADR-2605282200"
+kind = "lexicon"
+status = "r0-schema"
+description = "Council-authorized DEX rebalance Lexicon per ADR-2605282200 — kawase_rebalance_proposer emits candidate when |driftBps| > 500; Council Lv6+ ≥4/7 signs councilAttestations chain; KawaseYuiPool.rebalance() consumes signed record + executes via dexAddress (R1 default Aerodrome on Base). swapRateBps MUST be within ±100 bps of chainlinkRateBpsAtAttest. swapAmountMinor MUST be ≤ 10% of weaker pool balance. txHash + blockNumber + executedAt + postSwapDriftBps populated post-execution. |postSwapDriftBps| > 100 = anomalous slippage → chigiri.disputeMediation."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kawase/jurisdictionAttestation.json"
+adr = "ADR-2605282200"
+kind = "lexicon"
+status = "r0-schema"
+description = "Per-jurisdiction Council Lv7+ unanimity activation Lexicon per ADR-2605282200 G14 — gates which jurisdiction pairs are eligible for send/receive. Each activation is a CONSTITUTIONAL act requiring ALL 5 Council seats (Founder + Bootstrap Seats 2-5) on councilAttestations (minLength 5). legalAnalysisCid = chigiri.ipLicenseClaim establishing 4 non-applicabilities: (1) MSB license non-applicability via §1.12 routing-around + mutual-aid framing; (2) securities-law non-applicability (mid-market only, no token sale); (3) AML/CFT non-applicability under SBT-KYC + §1.12; (4) tax-reporting position. Founding R1 jurisdictions = USA + JPN (Founder seat 1); EU + UK + KOR + CHE unlock as Council Seats 2-5 close (RFP open until 2026-06-19)."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kawase/silenKawaseReview.json"
+adr = "ADR-2605282200"
+kind = "lexicon"
+status = "r0-schema"
+description = "Quarterly Council audit Lexicon per ADR-2605282200 — counter-signed by Council Lv6+ ≥3 councilAttestations (minLength 3). Const-field structural enforcement of critical gates: spreadProfitMkoto const 0 (G5; mid-market only invariant) + commercialRemittanceSoftwarePenetrationPct const 0 (G7; Wise/Western Union/MoneyGram/Remitly/WorldRemit/Xoom/Revolut/OFX/Currencies Direct/Ria/Paysend/Atlantic Money/Sendwave/Boss Revolution/PayPal-Xoom prohibition) + nonAdherentParticipationCount const 0 (G3; Solidity onlyAdherent modifier enforces at L6). Any nonzero in these fields = critical finding + chigiri.disputeMediation + Council Lv7+ escalation. Tracks matchedSharePctIntegerHundredths target ≥80.00% at R2+, avgMatchWaitSeconds, outOfBandHaltCount target 0, jurisdictionsActivated."
+
+[[modules]]
+path = "20-actors/kawase-yui (reserved)"
+adr = "ADR-2605282200"
+kind = "tier-b-actor-scaffold"
+status = "r0-path-reserved"
+description = "kawase-yui Tier-B actor root per ADR-2605282200 — DID did:web:kawase-yui.etzhayyim.com. R0 path reserved; R1 activation post-Bootstrap-Council ratify lands kotoba_kawase Python facade + Solidity scaffold + 2 cells (pool_match + fx_oracle_watcher). 4-phase ladder R0..R3 per ADR-2605282200."
+
+[[modules]]
+path = "20-actors/magatama/cells/kawase_pool_match (reserved)"
+adr = "ADR-2605282200"
+kind = "pregel-cell-scaffold"
+status = "r0-path-reserved"
+description = "Continuous bipartite matching Pregel cell per ADR-2605282200 L4 — matches deposits ↔ withdrawIntents within ±0.5% band; remainder reserve-disbursed at locked rate. mKOTO-billed per epoch tick via ADR-2605282100. R0 path-reserved (`raise RuntimeError` on import); R1 activates."
+
+[[modules]]
+path = "20-actors/magatama/cells/kawase_fx_oracle_watcher (reserved)"
+adr = "ADR-2605282200"
+kind = "pregel-cell-scaffold"
+status = "r0-path-reserved"
+description = "Chainlink price-feed subscriber Pregel cell per ADR-2605282200 L3 — emits fxRateAttestation per oracle round; halts matching if withinBand=false. Escalates to chigiri.disputeMediation on >5min sustained out-of-band. R0 path-reserved; R1 activates."
+
+[[modules]]
+path = "20-actors/magatama/cells/kawase_rebalance_proposer (reserved)"
+adr = "ADR-2605282200"
+kind = "pregel-cell-scaffold"
+status = "r0-path-reserved"
+description = "Pool drift watcher Pregel cell per ADR-2605282200 — on |driftBps| > 500 emits rebalanceAttestation candidate for Council Lv6+ ≥4/7 sign-off. Consumes Council-signed record + triggers Aerodrome swap via paymaster. R0 path-reserved; R2 activates."
+
+[[modules]]
+path = "20-actors/magatama/cells/kawase_jurisdiction_compliance (reserved)"
+adr = "ADR-2605282200"
+kind = "pregel-cell-scaffold"
+status = "r0-path-reserved"
+description = "G14 enforcement Pregel cell per ADR-2605282200 — on every send pre-flight checks sender+recipient jurisdiction pair against active jurisdictionAttestation set; rejects with JurisdictionNotActivated if either leg lacks Council Lv7+ unanimity attestation. Reads chigiri.ipLicenseClaim cross-actor. R0 path-reserved; R2 activates."
+
+[[modules]]
+path = "20-actors/magatama/cells/kawase_silen_review (reserved)"
+adr = "ADR-2605282200"
+kind = "pregel-cell-scaffold"
+status = "r0-path-reserved"
+description = "Quarterly aggregate audit Pregel cell per ADR-2605282200 — emits silenKawaseReview with const-field structural enforcement of G3/G5/G7 (nonAdherentParticipationCount=0 + spreadProfitMkoto=0 + commercialRemittanceSoftwarePenetrationPct=0). R0 path-reserved; R3 activates."
+
+[[modules]]
+path = "50-infra/etzhayyim-kawase-pool (reserved)"
+adr = "ADR-2605282200"
+kind = "solidity-scaffold"
+status = "r0-path-reserved"
+description = "KawaseYuiPool.sol per-currency pool contract per ADR-2605282200 L6 — one deploy per stable (USDC + EURC at R1). Solidity hard-coded invariants: deposit/claim reverts unless adherentSbt.balanceOf(msg.sender) > 0 (G3); deposit reverts unless |fxRateBps - chainlinkBps| ≤ maxBandBps (G4); monthlyVolume cap from Constitution.getConstant(kawase.per_month_cap_usd_minor) (G9); rebalance() callable only by councilSafe (G14 via Council Lv6+ ≥4/7 multisig). R0 path reserved; R1 scaffold + deploy."
