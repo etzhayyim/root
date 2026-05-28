@@ -49,7 +49,12 @@ _GUARDED_ROOTS = [
     Path("20-actors/magatama/cells/kawase_jurisdiction_compliance"),
     Path("20-actors/magatama/cells/kawase_silen_review"),
     Path("50-infra/etzhayyim-kawase-pool"),
-    # Python facade lands under kotoba/py (Wave-aligned with kotoba_murakumo).
+    # Python facade — relocated per ADR-2605282300 from inside the
+    # kotoba subrepo to a sibling location (same pattern as
+    # kotoba_murakumo). Both paths are listed so the hook is layout-
+    # tolerant during the ADR-2605282300 cutover window; the legacy
+    # path is empty in the post-cutover tree.
+    Path("40-engine/kotoba_kawase"),
     Path("40-engine/kotoba/py/kotoba_kawase"),
 ]
 
