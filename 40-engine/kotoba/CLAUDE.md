@@ -28,6 +28,13 @@ KOTOBA ≝ Datom[CID/T] × EAVT[KSE Topic] × Pregel[BSP] × Datalog[Δ]
 | kotoba-store | BlockStore implementations: Memory (hot); **KuboBlockStore** (Kubo HTTP cold tier, Dual-CID: blake3 internal + SHA2-256 IPFS, 2026-05-27); BudgetedBlockStore<S> LRU eviction; TieredBlockStore<H,C> hot/cold tiering; **CapturingBlockStore** (pass-through + recorder for CAR bundling); **CarBundleWriter / CarBlockIndex** (CARv1 format: 72B header + blocks + 48B/entry index, 3.8 GiB/s serialize); **IpfsPinClient** (Kubo-compatible HTTP RPC: pin/add, pin/rm, pin/ls — kotoba 自体が IPFS node として自前 pin; 1GB 超の extended pin は kotobase.gftd.ai が担当). S3BlockStore + LayeredBlockStore + KotobasePinClient + IrohBlockStore removed 2026-05-27. |
 | kotoba-store-web | Browser IndexedDB block store (wasm32), AsyncBlockStore trait |
 
+## Python siblings (`py/`, see `py/README.md`)
+
+| package | path | 役割 |
+|---|---|---|
+| `kotoba_langgraph` | `py/kotoba_langgraph/` | LangGraph-compatible graph engine, stdlib-only, compiled to WASM Component via componentize-py |
+| `kotoba_murakumo` | `py/kotoba_murakumo/` | Modal-compatible facade for the Murakumo Mac mini fleet — routes to LiteLLM gateway (judah :4000) / EVO-X2 / own-node Ollama per `50-infra/murakumo/fleet.toml`; never to commercial GPU rental (ADR-2605215000 + ADR-2605262200 §2(i)(2)). API-compat shim at `kotoba_murakumo.modal_compat` for `import modal`-style drop-in. R1.1 ships live httpx-backed dispatch, Charter Rider §2 scan (advisory→enforce via `KOTOBA_MURAKUMO_CHARTER_ENFORCE=1`), and `70-tools/scripts/lint/verify_no_modal_labs_calls.py` CI grep gate. **R1.3 mKOTO economy + Modal-billing-parity** (`kotoba_murakumo.economy`): Tariff / UsageEstimate / UsageActual / BudgetExceeded / InsufficientCredit + `@app.function(max_cost_mkoto=...)` + `Function.estimate(...)` + pre-dispatch budget+balance check + NDJSON `cost_mkoto`/`tariff_version` extension. R1.3d scaffold for kotoba-server XRPC `app.etzhayyim.kotoba.economy.{tariff,balance,debit,creditFromDonation}` at `crates/kotoba-server/src/economy_xrpc.rs` (`#[cfg(any())]` gated; R1.3d-wiring is a separate ADR). See ADR-2605282000 + ADR-2605282100. |
+
 ## 実装順序
 
 1. kotoba-core (CID + 8-bit frame + Prolly Tree PoC)

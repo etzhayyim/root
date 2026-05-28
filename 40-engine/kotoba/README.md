@@ -51,6 +51,18 @@ Kotoba is a distributed, content-addressed knowledge graph database designed for
 | QuadStore batch insert | 252K–390K quad/s |
 | 1M quad loadtest | 290K q/s, 840 MB RSS |
 
+## Python siblings (`py/`)
+
+Pure-Python packages that ride on top of the Rust workspace:
+
+| Package | Path | Role |
+|---|---|---|
+| `kotoba-langgraph` | `py/kotoba_langgraph/` | LangGraph-compatible graph engine compiled to WASM Components via `componentize-py` (stdlib-only) |
+| `kotoba-murakumo` | `py/kotoba_murakumo/` | Modal-compatible facade for the etzhayyim Murakumo Mac mini fleet — Python decorators dispatch to LiteLLM gateway / EVO-X2 / own-node Ollama per `50-infra/murakumo/fleet.toml`; never to commercial GPU rental. R1.3 adds the mKOTO economy + Modal-billing-parity (spend caps, pre-flight estimate, post-call billing records). See `py/README.md` + ADR-2605282000 (facade) + ADR-2605282100 (economy). |
+
+Each Python package keeps its own `pyproject.toml`; there is no Python
+workspace umbrella at the kotoba level. `py/README.md` is the index.
+
 ## Build
 
 ```bash
@@ -58,6 +70,9 @@ cargo build --workspace
 cargo test --workspace
 cargo bench -p kotoba-kqe --bench arrangement
 cargo bench -p kotoba-graph --bench quad_store
+
+# Python siblings (independent; see py/README.md)
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest py/kotoba_murakumo/tests/
 ```
 
 ## License
