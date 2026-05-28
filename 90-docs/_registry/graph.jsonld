@@ -10629,6 +10629,32 @@
       "lastVerified": "2026-05-28"
     },
     {
+      "id": "doc:adr-2605281800-kotoba-monorepo-projection-r1-adr-corpus-ingest",
+      "type": "TechArticle",
+      "title": "ADR-2605281800: kotoba monorepo projection R1 — ADR corpus ingest tool (NDJSON emit, schema lock per R0)",
+      "status": "proposed",
+      "topic": "kotoba-monorepo-projection",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ADR corpus → kotoba quad NDJSON ingest tool surface"
+      ],
+      "lastVerified": "2026-05-28"
+    },
+    {
+      "id": "doc:adr-2605281900-kotoba-subrepo-charter-rider-reconciliation",
+      "type": "TechArticle",
+      "title": "ADR-2605281900: kotoba subrepo Charter Rider reconciliation — upstream Rider removal vs ADR-2605192200 invariant",
+      "status": "proposed-pending-council-ratification",
+      "topic": "charter-rider",
+      "authoritative": true,
+      "authoritativeFor": [
+        "reconciliation of upstream kotoba Rider deletion vs ADR-2605192200 invariant",
+        "acceptable state of NOTICE+Rider attachment in git-subrepo'd Apache-2.0 packages"
+      ],
+      "related": "doc:adr-2605192100-etzhayyim-mission-charter",
+      "lastVerified": "2026-05-28"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

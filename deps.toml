@@ -8175,3 +8175,31 @@ title = "kotoba content-addressed monorepo projection — files SoT, IPFS+DataLa
 status = "proposed"
 status_note = "R0 schema-only ADR. Specifies the quad vocabulary + subject IRI scheme by which ADR / Lexicon / deps.toml / Roster / CLAUDE.md Status are projected into kotoba (running locally at port 4080 with TieredBlockStore<BudgetedMemory, KuboIpfs> cold tier as of 2026-05-28). D1-D4 invariants make kotoba a read-only index over the same content-addressed substrate IPFS + DataLad already manage — no duplicated datastore. 7-phase rollout, R1+ to land as independent ADRs. Depends on ADR-2605262130 kotoba-storage-substrate-unification, ADR-2605262400 public-data-ingestion-organism-ecosystem, ADR-2605241500 dataset-cid-substrate, ADR-2605262500 robotics-sim-world-data-ingestion, ADR-2605215000 etzhayyim-inference-murakumo-only-no-runpod, ADR-2605192100 etzhayyim-mission-charter, ADR-2605192200 etzhayyim-ip-free-release-charter-rider. Schema additions or D-invariant changes require Council Lv6+ ≥3 attestation (G5)."
 path = "90-docs/adr/2605281700-kotoba-content-addressed-monorepo-projection.md"
+
+[[adrs]]
+id = "2605281800"
+title = "kotoba monorepo projection R1 — ADR corpus ingest tool (NDJSON emit, schema lock per R0)"
+status = "proposed"
+status_note = "R1 of the 7-phase rollout established in ADR-2605281700. Python tool 70-tools/kotoba-monorepo-ingest/ingest_adr.py walks 90-docs/adr/*.md, parses YAML front matter, computes IPFS CIDs via local Kubo only (ADR-2605215000), emits NDJSON quad stream conforming to R0 vocabulary (ADR-2605281700 §5.2). Subject IRI adr:<10-digit-id>. Validated against real corpus: 473 ADRs → 6,564 quads emitted with predicate distribution sanity-checked (hasCid/filePath/docType/status/title/topic/ingestRun: 473 each; dependsOn 1469; relatedTo 819; supersedes/supersededBy 13/12). 32 skipped (YAML parse errors — separate cleanup). Server write (quad.create XRPC + CACAO signing) deferred to R1.5. Depends on ADR-2605281700 R0 schema."
+path = "90-docs/adr/2605281800-kotoba-monorepo-projection-r1-adr-corpus-ingest.md"
+
+[[adrs]]
+id = "2605281900"
+title = "kotoba subrepo Charter Rider reconciliation — upstream Rider removal vs ADR-2605192200 invariant"
+status = "proposed-pending-council-ratification"
+status_note = "Records constitutional tension between commit 5e05ac98f (subrepo pull bringing upstream's removal of all per-crate NOTICE + CHARTER-RIDER.md in kotoba) and ADR-2605192200 §3.4 invariant. Revert a4bb5cf89 left the local subrepo aligned with upstream-pristine state per user 'remote 優先' directive 2026-05-28. Proposes 4 resolution paths (A: §3.4 carve-out amendment for religious-corp-controlled git-subrepo packages — recommended; B: upstream PR; C: local overlay; D: drop per-package invariant). Monorepo-root /CHARTER-RIDER.md remains intact and authoritative; substantive §2(a)-(h) constraints still bind kotoba authors via root Rider. Founder Lv7+ emergency authorization explicitly NOT taken (mirrors ADR-2605262200 institutional-integrity-over-expediency precedent). Depends on ADR-2605192200 + ADR-2605262130 + ADR-2605192300 Council Lv6+ threshold + Bootstrap Council Seat 2-5 RFP close 2026-06-19 for ratification path."
+path = "90-docs/adr/2605281900-kotoba-subrepo-charter-rider-reconciliation.md"
+
+[[modules]]
+path = "70-tools/kotoba-monorepo-ingest"
+adr = "ADR-2605281800"
+kind = "python-tool"
+status = "production"
+description = "ADR corpus → kotoba quad NDJSON ingester. Python 3 + PyYAML, stdlib otherwise. Walks 90-docs/adr/*.md, parses YAML front matter, computes IPFS CIDs via local Kubo (POST /api/v0/add?cid-version=1), emits NDJSON to 90-docs/_registry/kotoba-quads.ndjson conforming to ADR-2605281700 §5.2 vocabulary. CLI: --adr-dir / --kubo-endpoint (default KOTOBA_IPFS_ENDPOINT env or http://127.0.0.1:5001) / --out / --dry-run (schema-only, placeholder CIDs). Validated: 473 ADRs → 6,564 quads at HEAD."
+
+[[modules]]
+path = "90-docs/_registry/kotoba-quads.ndjson"
+adr = "ADR-2605281800"
+kind = "kotoba-quad-ndjson"
+status = "production"
+description = "Kotoba quad stream emitted by 70-tools/kotoba-monorepo-ingest/ingest_adr.py from the ADR corpus. 1 row per quad: {graph, subject, predicate, object}. Graph = kotoba:graph:etzhayyim-root. Regenerable from any git HEAD (deterministic given the same Kubo CIDv1 sha2-256 hash; placeholder CIDs in --dry-run mode). Current snapshot: 473 ADRs, 6564 quads (32 skipped due to YAML parse errors)."

@@ -1,10 +1,11 @@
 /// OpenAI-compatible HTTP inference engine.
 ///
-/// Works with any OpenAI-compatible endpoint: Ollama, vLLM, Vultr A16.
+/// Works with any OpenAI-compatible endpoint: Ollama, vLLM, Vultr A16, LiteLLM.
 ///
 /// Environment variables:
-///   KOTOBA_INFERENCE_URL   — base URL (e.g. http://localhost:11434 for Ollama)
-///   KOTOBA_INFERENCE_MODEL — model name (default: gemma2:2b)
+///   KOTOBA_INFERENCE_URL     — base URL (e.g. http://localhost:11434 for Ollama)
+///   KOTOBA_INFERENCE_MODEL   — model name (default: gemma4:e4b)
+///   KOTOBA_INFERENCE_API_KEY — optional Bearer token (LiteLLM / vLLM / OpenAI)
 ///
 /// Wire format: POST /v1/chat/completions (OpenAI chat completions API).
 ///
@@ -18,6 +19,7 @@ mod inner {
     pub struct HttpInferEngine {
         base_url: String,
         model: String,
+        api_key: Option<String>,
         client: reqwest::Client,
     }
 
@@ -26,17 +28,21 @@ mod inner {
         ///
         /// Requires `KOTOBA_INFERENCE_URL`.
         /// `KOTOBA_INFERENCE_MODEL` defaults to `"gemma4:e4b"`.
+        /// `KOTOBA_INFERENCE_API_KEY` is optional; when present, sent as
+        /// `Authorization: Bearer ...` (required for LiteLLM master-key auth).
         pub fn from_env() -> Result<Self> {
             let base_url = std::env::var("KOTOBA_INFERENCE_URL")
                 .map_err(|_| anyhow!("KOTOBA_INFERENCE_URL not set"))?;
             let model = std::env::var("KOTOBA_INFERENCE_MODEL")
                 .unwrap_or_else(|_| "gemma4:e4b".to_string());
+            let api_key = std::env::var("KOTOBA_INFERENCE_API_KEY").ok();
             let client = reqwest::Client::builder()
                 .timeout(std::time::Duration::from_secs(120))
                 .build()?;
             Ok(Self {
                 base_url: base_url.trim_end_matches('/').to_string(),
                 model,
+                api_key,
                 client,
             })
         }
@@ -62,14 +68,15 @@ mod inner {
                 "max_tokens": max_tokens,
                 "stream": false,
             });
-            let resp = self
+            let mut req = self
                 .client
                 .post(&url)
                 .header("Content-Type", "application/json")
-                .json(&body)
-                .send()
-                .await?
-                .error_for_status()?;
+                .json(&body);
+            if let Some(key) = &self.api_key {
+                req = req.bearer_auth(key);
+            }
+            let resp = req.send().await?.error_for_status()?;
 
             let json: serde_json::Value = resp.json().await?;
             let text = json["choices"][0]["message"]["content"]
