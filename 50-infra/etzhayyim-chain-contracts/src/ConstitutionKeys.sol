@@ -80,6 +80,18 @@ library ConstitutionKeys {
     bytes32 internal constant ENFORCEMENT_THREE_TIER = keccak256("enforcement.three_tier");
     bytes32 internal constant PHENOTYPE_NON_COMPLIANT_MULTIPLIER = keccak256("phenotype.non_compliant_multiplier");
 
+    // ─── kawase-yui remittance pool (ADR-2605282200) ─────────────
+    // kawase.max_band_bps is the Chainlink mid-market ±band tolerance
+    // (G4). Default 50 = ±0.5%. Out-of-band halts all match cells until
+    // Council Lv6+ ≥3 resumes. Constitutional (not mutable) because the
+    // mid-market-only invariant pins the religious-corp on the non-spread
+    // side of FX (Charter §2(b) speculative finance prohibition).
+    bytes32 internal constant KAWASE_MAX_BAND_BPS = keccak256("kawase.max_band_bps");
+
+    // ─── Land waqf-equivalent reaffirmation (ADR-2605192245) ─────
+    // (placeholder for future LAND_INALIENABLE key — kept here to
+    // anchor the section ordering)
+
     // ============================================================
     //  MUTABLES (governance-changeable within constant bounds)
     // ============================================================
@@ -105,4 +117,13 @@ library ConstitutionKeys {
     bytes32 internal constant LAND_REGISTRY_ADDRESS = keccak256("land_registry.address");
     bytes32 internal constant FORCE_AUTHORIZATION_ADDRESS = keccak256("force_authorization.address");
     bytes32 internal constant PUBLIC_FUND_GOVERNANCE_ADDRESS = keccak256("public_fund.governance_address");
+
+    // ─── kawase-yui remittance pool mutables (ADR-2605282200) ────
+    // Per-member monthly cap denominated in USD minor units (6 decimals
+    // matching USDC). Council Lv6+ ≥3 may adjust within R-cycle bounds:
+    //   R1 default = 1_000_000_000      (= $1_000.00)
+    //   R2         = 5_000_000_000      (= $5_000.00)
+    //   R3         = 25_000_000_000     (= $25_000.00)
+    // KawaseYuiPool reads this at deposit time; reverts on cap breach (G9).
+    bytes32 internal constant KAWASE_PER_MONTH_CAP_USD_MINOR = keccak256("kawase.per_month_cap_usd_minor");
 }

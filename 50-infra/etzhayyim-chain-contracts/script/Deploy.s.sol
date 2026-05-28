@@ -158,8 +158,9 @@ contract Deploy is Script {
 
     function _constants() internal pure returns (bytes32[] memory keys, bytes32[] memory vals) {
         // 8 original (ADR-2605172300) + 30 religious-corp wave (ADR-2605192100 §2)
-        keys = new bytes32[](38);
-        vals = new bytes32[](38);
+        // + 1 kawase-yui (ADR-2605282200 G4) = 39 constants
+        keys = new bytes32[](39);
+        vals = new bytes32[](39);
 
         // ─── Original ADR-2605172300 (8) ─────────────────────────────
         keys[0] = ConstitutionKeys.ONE_SBT_ONE_VOTE;          vals[0] = bytes32(uint256(1));
@@ -212,13 +213,20 @@ contract Deploy is Script {
         keys[35] = ConstitutionKeys.LICENSE_CHARTER_RIDER_REQUIRED;    vals[35] = bytes32(uint256(1));
         keys[36] = ConstitutionKeys.LICENSE_CHARTER_RIDER_VERSION;     vals[36] = bytes32("v2.0");
         keys[37] = ConstitutionKeys.ENFORCEMENT_THREE_TIER;            vals[37] = bytes32(uint256(1));
+
+        // ─── kawase-yui FX band (ADR-2605282200 G4) (1) ──────────────
+        // 50 bps = ±0.5% Chainlink mid-market tolerance. Constitutional
+        // because mid-market-only is the §2(b) speculative finance fence;
+        // widening the band would allow spread profit at the pool layer.
+        keys[38] = ConstitutionKeys.KAWASE_MAX_BAND_BPS;               vals[38] = bytes32(uint256(50));
     }
 
     function _mutables() internal pure returns (bytes32[] memory keys, bytes32[] memory vals) {
         // 8 original (ADR-2605172300) + 7 reference addresses (initial = 0, set via governance post-deploy)
         // + 1 phenotype.non_compliant_multiplier = 0 (mutable to allow ratcheting if Council rules require)
-        keys = new bytes32[](16);
-        vals = new bytes32[](16);
+        // + 1 kawase.per_month_cap_usd_minor = 1_000_000_000 (R1 default = $1,000; ADR-2605282200 G9)
+        keys = new bytes32[](17);
+        vals = new bytes32[](17);
 
         // ─── Original ADR-2605172300 mutables (8) ────────────────────
         keys[0] = ConstitutionKeys.KISHA_BASE_RATE;       vals[0] = bytes32(uint256(1_000_000));  // 1 USDC/day base
@@ -244,8 +252,14 @@ contract Deploy is Script {
         keys[13] = ConstitutionKeys.FORCE_AUTHORIZATION_ADDRESS;          vals[13] = bytes32(0);
         keys[14] = ConstitutionKeys.PUBLIC_FUND_GOVERNANCE_ADDRESS;       vals[14] = bytes32(0);
 
+        // ─── kawase-yui per-member monthly cap (ADR-2605282200 G9) ────
+        // 1_000_000_000 = $1_000.00 USD-equivalent in USDC minor units
+        // (6 decimals). R1 default; R2 raises to $5_000, R3 to $25_000.
+        // KawaseYuiPool reads this at deposit time; reverts on cap breach.
+        keys[15] = ConstitutionKeys.KAWASE_PER_MONTH_CAP_USD_MINOR; vals[15] = bytes32(uint256(1_000_000_000));
+
         // ─── Buffer slot for future religious-corp parameters ─────────
-        keys[15] = bytes32(0); vals[15] = bytes32(0);
+        keys[16] = bytes32(0); vals[16] = bytes32(0);
     }
 
     function _emitInternal(Internal memory o) internal pure {
