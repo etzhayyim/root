@@ -145,9 +145,14 @@ def main():
         # Unfreeze backbone shared FFN (mlp.backbone_ffn = original BitNet FFN) + layernorm in target layers
         for layer_idx in unfreeze_layer_indices:
             layer = model.model.layers[layer_idx]
-            # The MoE wrapper preserved original backbone_ffn — unfreeze that
-            if hasattr(layer.mlp, "backbone_ffn"):
-                for p in layer.mlp.backbone_ffn.parameters():
+            # The MoE wrapper (BitNetFFNWithMoE) preserved original FFN as `original_ffn`
+            if hasattr(layer.mlp, "original_ffn"):
+                for p in layer.mlp.original_ffn.parameters():
+                    p.requires_grad = True
+                    backbone_unfrozen.append(p)
+            elif hasattr(layer, "mlp"):
+                # Non-MoE layer: full mlp is backbone
+                for p in layer.mlp.parameters():
                     p.requires_grad = True
                     backbone_unfrozen.append(p)
             # Unfreeze layer norms
