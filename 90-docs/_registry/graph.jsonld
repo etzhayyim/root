@@ -9253,7 +9253,7 @@
         "doc:adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
         "doc:adr-2605231400-yatachain-holochain-iso-substrate"
       ],
-      "lastVerified": "2026-05-26"
+      "lastVerified": "2026-05-28"
     },
     {
       "id": "doc:adr-2605261900-baien-moemoekyun-moe-charter",
@@ -10652,6 +10652,63 @@
         "acceptable state of NOTICE+Rider attachment in git-subrepo'd Apache-2.0 packages"
       ],
       "related": "doc:adr-2605192100-etzhayyim-mission-charter",
+      "lastVerified": "2026-05-28"
+    },
+    {
+      "id": "doc:adr-2605281950-mitate-r2-general-lab-orders-and-iyashi-phlebotomy",
+      "type": "TechArticle",
+      "title": "mitate R2 extension — general blood + clinical-chemistry diagnostic orders (CBC / 生化学 / HbA1c / 甲状腺 / 脂質 / 鉄 / 凝固 / urinalysis) + iyashi internal phlebotomy cell + diagnosticConsentReceipt lexicon for 要配慮個人情報 移管 consent",
+      "status": "proposed",
+      "topic": "mitate-r2-general-lab-orders",
+      "authoritative": true,
+      "authoritativeFor": [
+        "mitate.diagnosticOrder generalization scope (R2+) — orderType + conditionContext enum extension policy",
+        "app.etzhayyim.mitate.diagnosticConsentReceipt — 要配慮個人情報 (APPI 第2条第3項 / 個人情報保護法) per-order consent receipt lexicon",
+        "app.etzhayyim.iyashi.phlebotomyAttestation — internal phlebotomy event log lexicon (iyashi R2+)",
+        "iyashi.internal_phlebotomy cell — reserved at iyashi R2 with import-time RuntimeError gate at R0",
+        "External clinical lab vendor allowlist policy — Charter Rider §2(a)-(h) scan + Council Lv6+ ≥3 attestation per vendor",
+        "Constitutional gates GA..GF (this ADR; layered on top of mitate G1..G14 from ADR-2605260100)",
+        "Non-goals N1..N12 (genetic / DTC / NIPT / oncology / fertility / STI / forensic / employer-screen / DTC paid panel / UPL-result-interpretation)",
+        "Cross-actor lexicon boundary mitate ↔ iyashi ↔ yakushi ↔ chigiri ↔ toritate"
+      ],
+      "related": [
+        "doc:00-contracts/lexicons/app/etzhayyim/mitate/diagnosticOrder.json",
+        "doc:00-contracts/lexicons/app/etzhayyim/mitate/diagnosticConsentReceipt.json",
+        "doc:00-contracts/lexicons/app/etzhayyim/iyashi/phlebotomyAttestation.json",
+        "doc:20-actors/magatama/cells/mitate_diagnostic_consent_orchestrator/",
+        "doc:20-actors/magatama/cells/mitate_diagnostic_order_general/",
+        "doc:20-actors/magatama/cells/mitate_diagnostic_result_ingest/",
+        "doc:20-actors/magatama/cells/iyashi_internal_phlebotomy/"
+      ],
+      "lastVerified": "2026-05-28"
+    },
+    {
+      "id": "doc:adr-2605282000-kotoba-murakumo-modal-compat-python-fleet-inference",
+      "type": "TechArticle",
+      "title": "ADR-2605282000: kotoba_murakumo — Modal-compatible Python facade for Murakumo Mac mini fleet GPU inference (R0 scaffold)",
+      "status": "proposed",
+      "topic": "kotoba-murakumo-python-facade",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba_murakumo Python facade for Murakumo fleet inference",
+        "Modal-API-compatibility contract for religious-corp internal apps",
+        "Inference routing policy from Python to the fleet's 3 backend tiers"
+      ],
+      "lastVerified": "2026-05-28"
+    },
+    {
+      "id": "doc:adr-2605282100-kotoba-mkoto-economy-and-modal-billing-parity",
+      "type": "TechArticle",
+      "title": "ADR-2605282100: kotoba mKOTO economy + Modal billing-parity for the Murakumo fleet (R1.3 6-layer charter)",
+      "status": "proposed",
+      "topic": "kotoba-mkoto-economy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "mKOTO economy charter — meter, tariff, wallet, cash-routing, Modal-parity surface, on-chain settlement bridge",
+        "Modal billing-API parity contract on the Murakumo fleet",
+        "Charter §1.5 / §2(b) compliance pattern for compute-consumption accounting"
+      ],
+      "related": "doc:2605260004",
       "lastVerified": "2026-05-28"
     },
     {
