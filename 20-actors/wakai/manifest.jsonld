@@ -32,7 +32,8 @@
     "chigiri.member_onboarding": "(read) Adherent SBT verification",
     "chigiri.stewardLaborAttestation": "(read) Administrator L5 vocation-flow (G11)",
     "publicFundSafe": "(← backstop disbursement) Council Lv6+ ≥4/7 when pool insufficient",
-    "titheRouter": "(read; aggregate solidarity capacity) Informs pool-balance forecasting"
+    "titheRouter": "(read; aggregate solidarity capacity) Informs pool-balance forecasting",
+    "kawase-yui": "Sibling mutual-aid actor — wakai covers in-jurisdiction health/disability/unemployment/disaster mutual aid; kawase-yui covers cross-border adherent-to-adherent multi-stable remittance (ADR-2605282200). R3 cross-actor integration enables composite flows (e.g. medical-evacuation = wakai medical event + kawase international transfer composed). Both inherit Charter §2(b) speculative-finance discipline + §1.7 反個人主義 mutual-aid framing."
   },
   "constitutionalDiscipline": {
     "notInsurance": "G3 — no premium-as-contract; no actuarial pricing; no claim adjudication; no policy denial; no underwriting",

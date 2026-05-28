@@ -27,7 +27,9 @@
     "Public Fund Safe on-chain contract (disbursement read)",
     "Council Safe on-chain contract (operational expense read)",
     "Land Registry on-chain contract (acquisition read)",
-    "chigiri.stewardLaborAttestation (L0..L6 classification read)"
+    "chigiri.stewardLaborAttestation (L0..L6 classification read)",
+    "did:web:kawase-yui.etzhayyim.com (ledgerEntry purpose=kawase-mutual-aid for every kawase flow + annual silenKawaseReview cross-referenced into toritate.annualReport; reserve buffer seed grant via Public Fund Safe at R1 launch; ADR-2605282200)",
+    "did:web:wakai.etzhayyim.com (mutual-aid pool transparency + Public Fund backstop accounting; sibling-mutual-aid-actor pairing with kawase-yui; ADR-2605263500)"
   ],
   "lexiconReadAccess": {
     "app.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient-vendor identity resolution before disbursement. Anti-related-party check on Public Fund Safe + Council Safe outflow against corporate-donor + officer-network records. CC0 1.0 license.",

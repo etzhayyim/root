@@ -37,7 +37,8 @@
     "did:web:mitate.etzhayyim.com (medical attestation interop)",
     "did:web:yakushi.etzhayyim.com (pharmaceutical regulatory)",
     "did:web:hagukumi.etzhayyim.com (caregiver attestation)",
-    "did:web:manabi.etzhayyim.com (anti-credentialism)"
+    "did:web:manabi.etzhayyim.com (anti-credentialism)",
+    "did:web:kawase-yui.etzhayyim.com (kawase_jurisdiction_compliance cell reads chigiri.ipLicenseClaim + chigiri.taxReceipt for G14 per-jurisdiction Council Lv7+ unanimity attestation; chigiri.disputeMediation handles every kawase-yui G11 dispute cooperative-first since kawase has no chargeback / no settlement reversal — ADR-2605282200)"
   ],
   "replaces": "Legacy lawfirm.etzhayyim.com reference in 20-actors/hanrei/CLAUDE.md (religious-corp native, Murakumo-only, SBT-gated, Charter Rider §2-compliant; no gftd lineage)",
   "form": "任意団体 internal procedure substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)",

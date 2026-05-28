@@ -263,13 +263,86 @@ def test_actor_root_readme_and_manifest_present() -> None:
 
 
 def test_deps_toml_has_no_kawase_reserved_markers() -> None:
+    """Every kawase scaffold path should be materialized by R0 — no
+    (reserved) markers left on actual path= assignments. Description
+    fields are allowed to discuss the marker convention.
+    """
     deps_text = (_REPO_ROOT / "deps.toml").read_text(encoding="utf-8")
-    # The (reserved) marker convention is "<path> (reserved)" inside a
-    # path = "..." assignment. We check there's no kawase line carrying
-    # the marker — every kawase scaffold should be materialized by R0.
     for line in deps_text.splitlines():
-        if "kawase" in line and "(reserved)" in line:
+        stripped = line.strip()
+        # Only check lines that are actual TOML `path = "..."` assignments.
+        if not stripped.startswith("path = "):
+            continue
+        if "kawase" in stripped and "(reserved)" in stripped:
             raise AssertionError(
                 f"deps.toml still has a (reserved) marker on a kawase path "
                 f"after R0 completion: {line!r}"
             )
+
+
+# ---------------------------------------------------------------------
+#  Iter 8: cross-actor reverse-references — sibling actor manifests
+#  must mention kawase-yui in their respective cross-actor fields so
+#  the relation graph is bidirectional. If any of these break, the
+#  manifest.jsonld was edited without updating the cross-reference.
+# ---------------------------------------------------------------------
+
+
+def test_wakai_manifest_mentions_kawase_yui_sibling() -> None:
+    manifest = _REPO_ROOT / "20-actors/wakai/manifest.jsonld"
+    with manifest.open() as f:
+        data = json.load(f)
+    cross = data.get("crossActor", {})
+    assert "kawase-yui" in cross, (
+        "wakai.crossActor must include kawase-yui as the cross-border mutual-aid sibling"
+    )
+    text = cross["kawase-yui"]
+    assert "ADR-2605282200" in text
+    assert "mutual-aid" in text.lower()
+
+
+def test_chigiri_manifest_mentions_kawase_yui_in_crossActorProcedure() -> None:
+    manifest = _REPO_ROOT / "20-actors/chigiri/manifest.jsonld"
+    with manifest.open() as f:
+        data = json.load(f)
+    procedures = data.get("crossActorProcedure", [])
+    matches = [p for p in procedures if "kawase-yui" in p]
+    assert matches, (
+        "chigiri.crossActorProcedure must include did:web:kawase-yui.etzhayyim.com "
+        "as the consumer of ipLicenseClaim (G14) + disputeMediation (G11) cross-actor"
+    )
+    entry = matches[0]
+    assert "G14" in entry
+    assert "ADR-2605282200" in entry
+
+
+def test_toritate_manifest_mentions_kawase_yui_in_crossActorBoundary() -> None:
+    manifest = _REPO_ROOT / "20-actors/toritate/manifest.jsonld"
+    with manifest.open() as f:
+        data = json.load(f)
+    boundary = data.get("crossActorBoundary", [])
+    matches = [b for b in boundary if "kawase-yui" in b]
+    assert matches, (
+        "toritate.crossActorBoundary must include kawase-yui as the source of "
+        "ledgerEntry purpose=kawase-mutual-aid + annual silenKawaseReview "
+        "consumption"
+    )
+    entry = matches[0]
+    assert "ADR-2605282200" in entry
+    assert "kawase-mutual-aid" in entry
+
+
+def test_kawase_yui_manifest_back_references_three_siblings() -> None:
+    """Symmetry check — kawase-yui's own manifest must reference all three
+    sibling actors that just gained a forward-reference."""
+    manifest = _REPO_ROOT / "20-actors/kawase-yui/manifest.jsonld"
+    with manifest.open() as f:
+        data = json.load(f)
+    cross = data.get("crossActorProcedure", [])
+    needed = ("chigiri", "toritate", "wakai")
+    for name in needed:
+        found = any(f"did:web:{name}.etzhayyim.com" in c for c in cross)
+        assert found, (
+            f"kawase-yui.crossActorProcedure must reference "
+            f"did:web:{name}.etzhayyim.com for relation-graph symmetry"
+        )
