@@ -8474,39 +8474,39 @@ status = "r0-path-reserved"
 description = "kawase-yui Tier-B actor root per ADR-2605282200 — DID did:web:kawase-yui.etzhayyim.com. R0 path reserved; R1 activation post-Bootstrap-Council ratify lands kotoba_kawase Python facade + Solidity scaffold + 2 cells (pool_match + fx_oracle_watcher). 4-phase ladder R0..R3 per ADR-2605282200."
 
 [[modules]]
-path = "20-actors/magatama/cells/kawase_pool_match (reserved)"
+path = "20-actors/magatama/cells/kawase_pool_match/"
 adr = "ADR-2605282200"
 kind = "pregel-cell-scaffold"
-status = "r0-path-reserved"
-description = "Continuous bipartite matching Pregel cell per ADR-2605282200 L4 — matches deposits ↔ withdrawIntents within ±0.5% band; remainder reserve-disbursed at locked rate. mKOTO-billed per epoch tick via ADR-2605282100. R0 path-reserved (`raise RuntimeError` on import); R1 activates."
+status = "r0-scaffold-landed"
+description = "Continuous bipartite matching Pregel cell per ADR-2605282200 L4 — matches deposits ↔ withdrawIntents within ±0.5% band; remainder reserve-disbursed at locked rate. mKOTO-billed per epoch tick via ADR-2605282100. R0 scaffold (cell.py raises RuntimeError on import per the magatama R0 cell convention, mirrors health_safety_sanitization_bot precedent); R1 activation requires Council Lv6+ ≥3 ratify + KawaseYuiPool deploy. Files: __init__.py + cell.py + README.md."
 
 [[modules]]
-path = "20-actors/magatama/cells/kawase_fx_oracle_watcher (reserved)"
+path = "20-actors/magatama/cells/kawase_fx_oracle_watcher/"
 adr = "ADR-2605282200"
 kind = "pregel-cell-scaffold"
-status = "r0-path-reserved"
-description = "Chainlink price-feed subscriber Pregel cell per ADR-2605282200 L3 — emits fxRateAttestation per oracle round; halts matching if withinBand=false. Escalates to chigiri.disputeMediation on >5min sustained out-of-band. R0 path-reserved; R1 activates."
+status = "r0-scaffold-landed"
+description = "Chainlink price-feed subscriber Pregel cell per ADR-2605282200 L3 — emits fxRateAttestation per oracle round; halts matching if withinBand=false. Escalates to chigiri.disputeMediation on >5min sustained out-of-band. R0 scaffold (RuntimeError-on-import per magatama convention); R1 activation requires Council Lv6+ ≥3 ratify + Chainlink feed allow-list. Files: __init__.py + cell.py + README.md."
 
 [[modules]]
-path = "20-actors/magatama/cells/kawase_rebalance_proposer (reserved)"
+path = "20-actors/magatama/cells/kawase_rebalance_proposer/"
 adr = "ADR-2605282200"
 kind = "pregel-cell-scaffold"
-status = "r0-path-reserved"
-description = "Pool drift watcher Pregel cell per ADR-2605282200 — on |driftBps| > 500 emits rebalanceAttestation candidate for Council Lv6+ ≥4/7 sign-off. Consumes Council-signed record + triggers Aerodrome swap via paymaster. R0 path-reserved; R2 activates."
+status = "r0-scaffold-landed"
+description = "Pool drift watcher Pregel cell per ADR-2605282200 — on |driftBps| > 500 emits rebalanceAttestation candidate for Council Lv6+ ≥4/7 sign-off. Consumes Council-signed record + triggers Aerodrome-on-Base swap via paymaster. swapAmount ≤10% of weaker pool; swapRate within ±100 bps of Chainlink (stricter than per-tx ±50 bps band). R0 scaffold; R2 activates."
 
 [[modules]]
-path = "20-actors/magatama/cells/kawase_jurisdiction_compliance (reserved)"
+path = "20-actors/magatama/cells/kawase_jurisdiction_compliance/"
 adr = "ADR-2605282200"
 kind = "pregel-cell-scaffold"
-status = "r0-path-reserved"
-description = "G14 enforcement Pregel cell per ADR-2605282200 — on every send pre-flight checks sender+recipient jurisdiction pair against active jurisdictionAttestation set; rejects with JurisdictionNotActivated if either leg lacks Council Lv7+ unanimity attestation. Reads chigiri.ipLicenseClaim cross-actor. R0 path-reserved; R2 activates."
+status = "r0-scaffold-landed"
+description = "G14 enforcement Pregel cell per ADR-2605282200 — on every send pre-flight checks sender+recipient jurisdiction pair against active jurisdictionAttestation set; rejects with JurisdictionNotActivated if either leg lacks Council Lv7+ unanimity attestation. Reads chigiri.ipLicenseClaim + chigiri.taxReceipt cross-actor. KawaseYuiPool has NO direct jurisdiction check at L6 — this cell is the SOLE G14 enforcement point. R0 scaffold; R2 activates."
 
 [[modules]]
-path = "20-actors/magatama/cells/kawase_silen_review (reserved)"
+path = "20-actors/magatama/cells/kawase_silen_review/"
 adr = "ADR-2605282200"
 kind = "pregel-cell-scaffold"
-status = "r0-path-reserved"
-description = "Quarterly aggregate audit Pregel cell per ADR-2605282200 — emits silenKawaseReview with const-field structural enforcement of G3/G5/G7 (nonAdherentParticipationCount=0 + spreadProfitMkoto=0 + commercialRemittanceSoftwarePenetrationPct=0). R0 path-reserved; R3 activates."
+status = "r0-scaffold-landed"
+description = "Quarterly aggregate audit Pregel cell per ADR-2605282200 — emits silenKawaseReview with const-field structural enforcement of G3/G5/G7 (nonAdherentParticipationCount=0 + spreadProfitMkoto=0 + commercialRemittanceSoftwarePenetrationPct=0). Any nonzero const-field halts cell + escalates to Council Lv7+ (constitutional violation severity). Published record consumed by toritate.annualReport (ADR-2605262900). R0 scaffold; R3 activates."
 
 [[modules]]
 path = "50-infra/etzhayyim-kawase-pool/"
