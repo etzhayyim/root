@@ -15,7 +15,7 @@ from kotoba_murakumo.exceptions import MurakumoCompatNotImplemented
 
 
 def _repo_root() -> Path:
-    return Path(__file__).resolve().parents[5]
+    return Path(__file__).resolve().parents[3]
 
 
 def test_modal_compat_surface_present() -> None:

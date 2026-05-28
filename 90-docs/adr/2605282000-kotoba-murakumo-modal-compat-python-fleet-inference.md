@@ -190,38 +190,40 @@ test = ["pytest>=8", "pytest-asyncio>=0.23"]
 
 Stdlib-only R0 keeps the package componentize-py-portable (same constraint that drove `kotoba_langgraph` to stdlib-only) so it can be embedded in WASM Components if needed.
 
-## Subrepo integration status (honest framing, 2026-05-28)
+## Subrepo placement (final framing, amended 2026-05-28 evening)
 
-This package is **filesystem-collocated inside the kotoba subrepo working
-tree** but is **not yet integrated** with the upstream kotoba repo. The
-distinction matters for downstream consumers who clone `github.com/etzhayyim/kotoba`
-directly rather than the monorepo, and for anyone reasoning about the kotoba
-crate's surface area:
+**Decision** (per ADR-2605282200 relocation rationale): `kotoba_murakumo`
+lives at **`40-engine/kotoba_murakumo/`** as a sibling of the kotoba
+subrepo, NOT inside it. This is the structurally correct placement and
+permanent.
 
-| Integration axis | State | Closing the gap |
-|---|---|---|
-| Path location | ✓ inside `40-engine/kotoba/py/kotoba_murakumo/` | done |
-| git-subrepo upstream push (`github.com/etzhayyim/kotoba`) | ✗ **pending** | `git subrepo push 40-engine/kotoba` once the R1.1 commit lands on monorepo `main` |
-| kotoba `README.md` index reference | ✓ added in this commit | done |
-| kotoba `CLAUDE.md` Python siblings note | ✓ added in this commit | done |
-| `40-engine/kotoba/py/README.md` umbrella index | ✓ added in this commit | done |
-| `40-engine/kotoba/py/pyproject.toml` (workspace umbrella) | ✗ NOT shared | each Python package keeps its own `pyproject.toml` (matches `kotoba_langgraph` precedent); no monorepo-level Python workspace exists |
-| Cargo workspace member | n/a (Python only) | — |
-| Rust crate dependency (e.g. `kotoba-vm` Invoke calls from Python) | ✗ none yet | R2 wires `kotoba_murakumo.client.kotoba_vm` calling `kotoba-server` XRPC for WASM Component dispatch |
-| CI / test integration | ✗ separate | `kotoba_murakumo` ships its own `pytest tests/`; kotoba `cargo test --workspace` does not exercise it. R1.2 will add a GHA workflow that runs both in the same pipeline. |
+Why the relocation: the original R0/R1.1/R1.2 commits (`81fe1db2c` +
+`b8549d937`) placed `kotoba_murakumo` inside the kotoba subrepo working
+tree at `40-engine/kotoba/py/kotoba_murakumo/`. The first attempt to
+`git subrepo push` revealed that the upstream `github.com/etzhayyim/kotoba`
+had force-pushed away the merge-base commit (`17e30d9db5...`) recorded in
+`.gitrepo`, making subrepo sync impossible without manual surgery.
+ADR-2605282300 §"Root cause" treats this as a structural signal: a
+religious-corp downstream consumer should not live inside an upstream
+mirror.
 
-**Why "collocated but not integrated" is acceptable at R1.1**: the package
-*consumes* the kotoba substrate engine (via `fleet.toml` routing only at
-R1.1; via `kotoba-vm` Invoke at R2) rather than extending it. Putting it
-inside the kotoba subrepo is a deliberate choice — it travels with kotoba
-when external mirrors pull `github.com/etzhayyim/kotoba` — but it does not
-yet earn the "integrated" label until the subrepo push happens and the
-Rust-side wiring lands.
+| Integration axis | State |
+|---|---|
+| Path location | ✓ `40-engine/kotoba_murakumo/` (sibling of `40-engine/kotoba/`) |
+| git-subrepo coupling | ✓ **none** — package is monorepo-only |
+| External clone visibility (`git clone github.com/etzhayyim/kotoba`) | ✗ by design — package is religious-corp internal, not part of kotoba's external surface |
+| `kotoba_langgraph` precedent | n/a — `kotoba_langgraph` lives inside the subrepo because it IS canonical kotoba (compiled to WASM Components for `kotoba-runtime`); `kotoba_murakumo` is downstream |
+| Cargo workspace member | n/a (Python only) |
+| Rust crate dependency | ✗ none at R1.1; the `economy_xrpc.rs` scaffold that lands in kotoba-server is independent (cfg-gated; R1.3d-wiring) |
+| CI / test runner | ✓ `70-tools/scripts/test-kotoba-murakumo.sh` (monorepo path; runs from project root) |
 
-**Closing the remaining gap in R1.2**: `git subrepo push` after this commit
-lands, then add `40-engine/kotoba/scripts/test-py.sh` that runs both
-`kotoba_langgraph` and `kotoba_murakumo` test suites, and wire it into the
-existing kotoba GHA matrix.
+**Consumer relationship (preserved)**: `kotoba_murakumo` consumes the
+kotoba substrate engine via HTTP at R1.1 (LiteLLM gateway + Ollama
+endpoints declared in `50-infra/murakumo/fleet.toml`), and will consume
+it via kotoba-vm XRPC at R2 (`kotoba_murakumo.client.kotoba_vm` →
+`POST /xrpc/app.etzhayyim.kotoba.vm.invoke` against a kotoba-server
+instance on the fleet). The consumer relationship does not require
+filesystem-collocation.
 
 ## Consequences
 

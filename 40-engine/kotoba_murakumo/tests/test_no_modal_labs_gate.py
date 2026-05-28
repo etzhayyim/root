@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 def test_gate_passes_on_real_source_tree() -> None:
-    repo_root = Path(__file__).resolve().parents[5]
+    repo_root = Path(__file__).resolve().parents[3]
     script = repo_root / "70-tools/scripts/lint/verify_no_modal_labs_calls.py"
     assert script.exists(), f"missing gate script: {script}"
 
@@ -26,12 +26,12 @@ def test_gate_passes_on_real_source_tree() -> None:
 
 def test_gate_flags_injected_violation(tmp_path) -> None:
     """If we drop a violating .py into the package dir, the gate must flag it."""
-    repo_root = Path(__file__).resolve().parents[5]
+    repo_root = Path(__file__).resolve().parents[3]
     script = repo_root / "70-tools/scripts/lint/verify_no_modal_labs_calls.py"
 
     # Build a temporary fake repo with the same path structure.
     fake_pkg = (
-        tmp_path / "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo"
+        tmp_path / "40-engine/kotoba_murakumo/kotoba_murakumo"
     )
     fake_pkg.mkdir(parents=True)
     bad = fake_pkg / "evil.py"

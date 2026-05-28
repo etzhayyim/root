@@ -13,7 +13,7 @@ from kotoba_murakumo.fleet import load
 
 
 def _repo_root() -> Path:
-    return Path(__file__).resolve().parents[5]
+    return Path(__file__).resolve().parents[3]
 
 
 @pytest.fixture(scope="module")

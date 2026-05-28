@@ -126,4 +126,4 @@ mechanically by the CI grep gate above.
 ## License
 
 Apache-2.0 + etzhayyim Charter Compliance Rider v2.0 — see
-[`/LICENSE`](../../../LICENSE) and [`/CHARTER-RIDER.md`](../../../CHARTER-RIDER.md).
+[`/LICENSE`](../../LICENSE) and [`/CHARTER-RIDER.md`](../../CHARTER-RIDER.md).

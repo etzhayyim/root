@@ -16,7 +16,7 @@ from kotoba_murakumo.fleet import load
 
 def _repo_root() -> Path:
     # tests/ → kotoba_murakumo/ → py/ → kotoba/ → 40-engine/ → repo root
-    return Path(__file__).resolve().parents[5]
+    return Path(__file__).resolve().parents[3]
 
 
 def test_load_canonical_fleet() -> None:

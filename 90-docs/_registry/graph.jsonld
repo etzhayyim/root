@@ -10732,6 +10732,20 @@
       "lastVerified": "2026-05-28"
     },
     {
+      "id": "doc:adr-2605282300-kotoba-murakumo-relocated-out-of-kotoba-subrepo",
+      "type": "TechArticle",
+      "title": "ADR-2605282300: kotoba_murakumo relocated out of the kotoba subrepo to 40-engine/kotoba_murakumo/ (downstream-consumer placement)",
+      "status": "proposed",
+      "topic": "kotoba-murakumo-subrepo-relocation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "placement of religious-corp downstream consumers vs upstream subrepo mirrors",
+        "kotoba_murakumo canonical filesystem location",
+        "subrepo-relocation pattern (when to move out vs stay in)"
+      ],
+      "lastVerified": "2026-05-28"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
