@@ -377,3 +377,32 @@ def test_adr_index_lists_kawase_yui() -> None:
     # ADR ID + a stable phrase from the canonical title
     assert "2605282200" in text, "ADR index must list 2605282200"
     assert "kawase-yui" in text, "ADR index entry must mention kawase-yui"
+
+
+def test_actor_claude_md_present_with_r1_runbook() -> None:
+    """Sibling actors (wakai / chigiri / toritate) all carry a CLAUDE.md
+    with an R1 Activation Triggers section that operators read before
+    bringing the actor to R1. kawase parity: same convention.
+    """
+    claude_md = _REPO_ROOT / "20-actors/kawase-yui/CLAUDE.md"
+    assert claude_md.is_file(), f"Actor CLAUDE.md missing: {claude_md}"
+    text = claude_md.read_text(encoding="utf-8")
+    # Must include the constitutional discipline section + R1 runbook
+    # + cross-actor coordination + build & deploy smoke tests.
+    required_sections = (
+        "Identity",
+        "Constitutional Discipline",
+        "Architecture",
+        "R1 Activation Triggers",
+        "R1 Cell Activation Order",
+        "Cross-Actor Coordination",
+        "Build & Deploy",
+    )
+    for section in required_sections:
+        assert section in text, (
+            f"Actor CLAUDE.md must contain '{section}' section "
+            f"(sibling-actor convention)"
+        )
+    # Must reference the master ADR + the mKOTO compute-cost layer
+    assert "ADR-2605282200" in text
+    assert "ADR-2605282100" in text

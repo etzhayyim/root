@@ -8478,7 +8478,14 @@ path = "20-actors/kawase-yui/"
 adr = "ADR-2605282200"
 kind = "tier-b-actor-scaffold"
 status = "r0-scaffold-landed"
-description = "kawase-yui Tier-B actor root per ADR-2605282200 — DID did:web:kawase-yui.etzhayyim.com. R0 ships README.md (full inventory + 14 gates + R0→R3 ladder + cross-actor reverse-references) + manifest.jsonld (ActorManifest with ADR ID linkage + Constitution key wiring + settlement token table per R-cycle + 14-gate enforcement matrix + 12 non-goals). Mirrors the chigiri / wakai sibling actor scaffold layout. R1 activation post-Bootstrap-Council Seats 2-5 close (RFP 2026-06-19) lands the active cells + KawaseYuiPool deploy."
+description = "kawase-yui Tier-B actor root per ADR-2605282200 — DID did:web:kawase-yui.etzhayyim.com. R0 ships README.md (full inventory + 14 gates + R0→R3 ladder + cross-actor reverse-references) + manifest.jsonld (ActorManifest with ADR ID linkage + Constitution key wiring + settlement token table per R-cycle + 14-gate enforcement matrix + 12 non-goals) + CLAUDE.md (operator-facing R1 activation runbook + 10-iter loop summary table + R1 deposit/claim Solidity body wiring sketch + 5-step R0 smoke-test recipe). Mirrors the chigiri / wakai sibling actor scaffold layout. R1 activation post-Bootstrap-Council Seats 2-5 close (RFP 2026-06-19) lands the active cells + KawaseYuiPool deploy."
+
+[[modules]]
+path = "20-actors/kawase-yui/CLAUDE.md"
+adr = "ADR-2605282200"
+kind = "doc"
+status = "r0-active"
+description = "Operator-facing actor CLAUDE.md per ADR-2605282200 — sibling pattern of chigiri/wakai/toritate CLAUDE.mds. Identity + 7-point Constitutional Discipline + Architecture (7 layers + 5 cells + 1 Solidity + 1 Python + 8 Lexicons) + Tests inventory (60+ passing) + 7-point R1 Activation Triggers + 4-step R1 Cell Activation Order + R1 deposit/claim Solidity body wiring sketch + 4 Cross-Actor Coordination patterns (wakai sibling / chigiri G14+G11 / toritate accounting / mKOTO economy compute layer) + 10-iter loop summary table (iter→commit→coverage delivered) + 5-step R0 smoke-test bash recipe + Related Files index. Operator runbook for bringing kawase-yui from R0 → R1 post Bootstrap Council ratification."
 
 [[modules]]
 path = "20-actors/magatama/cells/kawase_pool_match/"
