@@ -8508,11 +8508,32 @@ status = "r0-path-reserved"
 description = "Quarterly aggregate audit Pregel cell per ADR-2605282200 — emits silenKawaseReview with const-field structural enforcement of G3/G5/G7 (nonAdherentParticipationCount=0 + spreadProfitMkoto=0 + commercialRemittanceSoftwarePenetrationPct=0). R0 path-reserved; R3 activates."
 
 [[modules]]
-path = "50-infra/etzhayyim-kawase-pool (reserved)"
+path = "50-infra/etzhayyim-kawase-pool/"
+adr = "ADR-2605282200"
+kind = "solidity-scaffold-dir"
+status = "r0-scaffold-landed"
+description = "KawaseYuiPool contract family scaffold per ADR-2605282200 L6 — one Foundry project, one Solidity contract per Base L2 stablecoin (USDC + EURC at R1; +JPYC R2; +KRWO/GBPe/CHFe R3 with Council Lv7+ unanimity per pair). R0 = README + foundry.toml + src/KawaseYuiPool.sol scaffold (deposit / claim / rebalance revert NotYetImplemented; constructor + immutables + modifiers + Constitution reads live) + test/KawaseYuiPool.r0.t.sol (4 passing tests). Forge build successful (solc 0.8.27); 4/4 forge tests pass without forge-std (file-scope mocks for ERC-20 / AdherentRegistry / Constitution / Chainlink price feed). G3 onlyAdherent modifier reads adherentRegistry.tokenOf(who) != 0; G14 onlyCouncilSafe modifier checks msg.sender == councilSafe; G4 maxBandBps() + G9 perMonthCapUsdMinor() read through to Constitution. R1 fills in deposit/claim/rebalance bodies + Chainlink integration + per-month cap rolling window + reserve buffer floor + Forge tests for actual flows."
+
+[[modules]]
+path = "50-infra/etzhayyim-kawase-pool/src/KawaseYuiPool.sol"
 adr = "ADR-2605282200"
 kind = "solidity-scaffold"
-status = "r0-path-reserved"
-description = "KawaseYuiPool.sol per-currency pool contract per ADR-2605282200 L6 — one deploy per stable (USDC + EURC at R1). Solidity hard-coded invariants: deposit/claim reverts unless adherentSbt.balanceOf(msg.sender) > 0 (G3); deposit reverts unless |fxRateBps - chainlinkBps| ≤ maxBandBps (G4); monthlyVolume cap from Constitution.getConstant(kawase.per_month_cap_usd_minor) (G9); rebalance() callable only by councilSafe (G14 via Council Lv6+ ≥4/7 multisig). R0 path reserved; R1 scaffold + deploy."
+status = "r0-scaffold-landed"
+description = "R0 scaffold for KawaseYuiPool — interface, events, errors, constructor wiring, modifiers (onlyAdherent / onlyCouncilSafe), and Constitution read helpers all complete. State-mutating functions (deposit / claim / rebalance) revert NotYetImplemented(\"R1: ... body lands post-Bootstrap-Council ratify\") — the scaffold ships the constitutional SHAPE without the implementation surface. Reviewers can verify G3 / G4 / G5 / G9 / G11 / G14 honored at the interface level before R1 wires bodies. Inline dependency interfaces (IERC20 / IAdherentRegistry / IConstitution / IChainlinkPriceFeed) keep the file compilable in isolation; R1 will import canonical ones from 50-infra/etzhayyim-chain-contracts/."
+
+[[modules]]
+path = "50-infra/etzhayyim-kawase-pool/test/KawaseYuiPool.r0.t.sol"
+adr = "ADR-2605282200"
+kind = "solidity-test"
+status = "r0-4-tests-pass"
+description = "R0 scaffold tests for KawaseYuiPool — 4 forge tests pass: test_constructor_records_immutables (verifies councilSafe + maxBandBps + perMonthCapUsdMinor + BPS_DENOMINATOR + ROLLING_WINDOW_SECS all wired) + test_maxBandBps_reads_from_constitution (G4 plumbing) + test_perMonthCap_reads_from_constitution (G9 plumbing) + test_withinBand_returns_false_when_oracle_zero (R0 honesty — chainlinkRateBps() returns 0 in scaffold so withinBand() is always false until R1 wires the Chainlink read). Self-contained: no forge-std dependency, no network access, no real ERC-20/AdherentRegistry/Constitution/Chainlink — file-scope mocks capture the minimum interface surface. R1 adds: real deposit/claim/rebalance flow tests + withinBand boundary tests + per-month cap rollover tests + reserve buffer floor breach tests + G5 spread-profit-zero invariant fuzz tests."
+
+[[modules]]
+path = "50-infra/etzhayyim-kawase-pool/foundry.toml"
+adr = "ADR-2605282200"
+kind = "foundry-config"
+status = "r0-active"
+description = "Foundry profile for KawaseYuiPool scaffold — solc 0.8.27 (matches etzhayyim-chain-contracts pragma) + src=src + out=out + libs=[\"lib\"] + fmt line_length 100 / tab_width 4. R0 has no external lib dependencies (forge-std not pulled in); R1 will add forge-std for Test inheritance + cheatcodes once flow tests are written."
 
 [[modules]]
 path = "70-tools/scripts/lint/verify_no_commercial_remittance.py"
