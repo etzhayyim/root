@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: e7m-sim-nv-compat
 authoritative: true
-last_verified: 2026-05-26
+last_verified: 2026-05-28
 priority: 4.5
 axis: architecture
 weight: 0.60
@@ -333,6 +333,74 @@ D1 表に **10 番目の compat target = PhysX** を追加:
 
 PhysX® は NVIDIA Corporation の登録商標。CHARTER-RIDER.md §6.1 の trademark
 notice list に追加する (D1 + D8 と同パターン)。
+
+## D12. TS-side surface progress (amendment 2026-05-28; iter 71–109 of /loop)
+
+`@etzhayyim/sdk/nv-compat` (D6 + D7 R1.0) は当初 path-reservation 想定だったが、
+`/loop` セッション (prompt: "robotics 関係で nvidia family を webgpu, wasm で
+実装、再現するのにまだ足りていないのは? それを実装") の iter 71–109 で
+**TS-side surface を R1.1 kami-genesis bind 着地前に先行 ship** した。これは
+ADR を変更するものではなく、D7 phase 表の R1.0 達成範囲を **honest framing**
+として記録する amendment である。
+
+### D12.1 Sub-namespace 構成 (iter 109 時点)
+
+| Sub-namespace | 実装範囲 | Iter |
+|---|---|---|
+| `dynamics/` | Featherstone ABA + RNEA + CRBA + FK + 幾何 Jacobian + DLS IK / URDF parser (regex, XML dep なし) | 71–82 |
+| `controllers/` | PD joint controller | 100 |
+| `actions/` | action scale+clamp / effort_limit τ saturation | 101 / 102 |
+| `assets/` | Franka FCI 7-DoF (real joint origins) / ANYmal C 12-DoF branched (ANYbotics public) / UR10 6-DoF (ur_description BSD-3) | 83 / 91 / 98 |
+| `warp/` | ~16 WGSL kernels — `damping` / `pendulum` / `cartpole` / `twoLink` / Franka `fk` + `jacobian` + `reach` + `gravComp` / `anymalFk` / `genericSerialFk` N≤12 / `pdJointController` / `actionScaleClamp` / `effortLimit` / `observationNormalize` + `gaussianMarsaglia` + `mulberry32` / `l2NormSquared` + `trackVelExp` + `combineWeightedRewards` / `terminations` / `mlpPolicyForward` / `conditionalReset` / `groundContact` (spring-damper normal force) | 85–109 |
+| `policies/` | MLP v1 JSON checkpoint loader (`type:'mlp_policy'` / strict dim validation / He-init random fixture / `runMlpPolicy` wrapper) | 108 |
+
+### D12.2 End-to-end Isaac Lab task loop closed in WebGPU/WASM
+
+```
+raw_obs → observationNormalize (+ Gaussian noise)
+       → mlpPolicyForward (Linear → ReLU → Linear → tanh)
+       → actionScaleClamp → pdJointController → effortLimit
+       → ABA (forward dynamics) → integrate
+       → l2NormSquared / trackVelExp → combineWeightedRewards
+       → terminations (joint-limit + fall + timeout)
+       → conditionalReset (per-env done flag)
+       → next obs
+```
+
+Ground-plane contact (iter 109) は **normal force only** (frictionless); Coulomb
+friction tangent forces (`|F_t| ≤ μ·F_n` cone) は iter 110+ で追加予定。
+
+### D12.3 Compile-bound 制約 (mobile WebGPU safety)
+
+WGSL kernel は MAX を **compile-bound + runtime n 早期 exit** で構造化:
+
+- `genericSerialFk`: `MAX_N_SERIAL_FK = 12`
+- `terminations`: `MAX_N_TERM = 32`
+- `mlpPolicyForward`: `MAX_HIDDEN_MLP = 128`, `MAX_OBS_MLP = 64`
+
+これにより per-thread `array<f32, N>` が iPhone 12+ Safari の 32KB/workgroup
+limit に収まり、D4 baien edge-target invariant (≤2GB heap @4k ctx) を堅持する。
+
+### D12.4 Persistent regression guard
+
+`20-actors/etzhayyim-sdk/test/nv-compat-cross-validation.test.ts` — **69 test
+WGSL ↔ JS reference cross-validation**、wall 13–31 ms。新しい kernel が landing
+するたびに describe block を追加する pattern が確立 (iter 86 で 15 test として
+seed → iter 109 時点で 69 test)。byte-identity guarantee (CPU 上の inline JS
+reference と WGSL kernel が ±1 ULP 同期) を毎 commit で確認する。
+
+### D12.5 D7 phase 表に対する位置付け
+
+D7 R1.0 = 「10 crate path reservation, deps.toml 登録」想定だったが、iter 71–109
+で **TS-side surface (sub-namespace 6 個 + WGSL 16 kernel + 3 vendor asset + 69
+test)** が landed。これは **R1.1 (kami-genesis rigid + Cartpole gym) 着地前の
+ahead-of-schedule deliverable** と解釈し、D7 phase 表は変更しない (R1.1+ の
+kami-genesis bind / Isaac Sim 同 task reward curve ±10% gate は依然未達)。
+
+`20-actors/magatama/py/src/pymagatama/nv_compat` (Python-side facade) は
+ADR-2605261800 commit 時の Cartpole PoC 6 facade module (R1.1 Phase B) で
+止まっており、TS-side の advanced surface は **未 mirror**。Python ↔ TS parity
+は R1.2+ で kami-genesis bind が両側で同時に動いた時点で揃える。
 
 # Consequences
 
