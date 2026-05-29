@@ -201,7 +201,7 @@ mod tests {
     #[test]
     fn ed25519_public_key_extracted_correctly() {
         let raw_key = [0x42u8; 32];
-        let encoded = multibase::encode(multibase::Base::Base58Btc, &raw_key);
+        let encoded = multibase::encode(multibase::Base::Base58Btc, raw_key);
         let mut doc = base_doc("did:key:z");
         doc.verification_method.push(VerificationMethod {
             id:                   "did:key:z#key-1".to_string(),
@@ -228,7 +228,7 @@ mod tests {
     #[test]
     fn x25519_public_key_extracted_correctly() {
         let raw_key = [0xABu8; 32];
-        let encoded = multibase::encode(multibase::Base::Base58Btc, &raw_key);
+        let encoded = multibase::encode(multibase::Base::Base58Btc, raw_key);
         let mut doc = base_doc("did:key:zX25519");
         doc.verification_method.push(VerificationMethod {
             id:                   "did:key:zX25519#key-x25519".to_string(),
@@ -244,7 +244,7 @@ mod tests {
     fn x25519_wrong_length_returns_none() {
         // Encode only 16 bytes — should fail the 32-byte length check
         let short_key = [0x01u8; 16];
-        let encoded = multibase::encode(multibase::Base::Base58Btc, &short_key);
+        let encoded = multibase::encode(multibase::Base::Base58Btc, short_key);
         let mut doc = base_doc("did:key:zShort");
         doc.verification_method.push(VerificationMethod {
             id:                   "did:key:zShort#key-1".to_string(),
@@ -260,7 +260,7 @@ mod tests {
     #[test]
     fn ed25519_2018_type_is_recognised() {
         let raw_key = [0x55u8; 32];
-        let encoded = multibase::encode(multibase::Base::Base58Btc, &raw_key);
+        let encoded = multibase::encode(multibase::Base::Base58Btc, raw_key);
         let mut doc = base_doc("did:key:z2018");
         doc.verification_method.push(VerificationMethod {
             id:                   "did:key:z2018#key-1".to_string(),
@@ -317,8 +317,8 @@ mod tests {
     fn both_key_types_present_each_extracted_independently() {
         let raw_ed  = [0x11u8; 32];
         let raw_x25 = [0x22u8; 32];
-        let enc_ed  = multibase::encode(multibase::Base::Base58Btc, &raw_ed);
-        let enc_x25 = multibase::encode(multibase::Base::Base58Btc, &raw_x25);
+        let enc_ed  = multibase::encode(multibase::Base::Base58Btc, raw_ed);
+        let enc_x25 = multibase::encode(multibase::Base::Base58Btc, raw_x25);
 
         let mut doc = base_doc("did:key:zBoth");
         doc.verification_method.push(VerificationMethod {

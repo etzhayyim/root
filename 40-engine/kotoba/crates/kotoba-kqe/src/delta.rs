@@ -71,6 +71,9 @@ mod tests {
     }
 
     #[test]
+    // Intentional: this test exercises the `.clone()` method on a `Copy` type to
+    // confirm the `Clone` impl exists, so the clone_on_copy lint is not applicable.
+    #[allow(clippy::clone_on_copy)]
     fn multiplicity_copy_and_clone() {
         let m = Multiplicity::Assert;
         let m2 = m;          // Copy

@@ -280,6 +280,17 @@ fn load_head_sync(path: &PathBuf) -> (u64, Option<KotobaCid>) {
     (state.seq, cid)
 }
 
+fn now_ms() -> u64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_millis() as u64
+}
+
+fn uuid() -> String {
+    format!("cursor-{}", now_ms())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -512,15 +523,4 @@ mod tests {
         // For an in-memory journal without block store, prev is also None (no CBOR blocks)
         let _ = e2; // just ensure it was created without panic
     }
-}
-
-fn now_ms() -> u64 {
-    std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .unwrap_or_default()
-        .as_millis() as u64
-}
-
-fn uuid() -> String {
-    format!("cursor-{}", now_ms())
 }

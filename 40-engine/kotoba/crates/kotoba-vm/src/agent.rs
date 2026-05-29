@@ -109,12 +109,14 @@ impl Tool {
 
     /// Convenience constructor — wraps the closure in `Arc` for you.
     ///
-    /// ```ignore
-    /// Tool::from_fn("echo", "Echo input back", |input, _snap| ToolOutput {
+    /// ```
+    /// use kotoba_vm::agent::{Tool, ToolOutput};
+    ///
+    /// let _tool = Tool::from_fn("echo", "Echo input back", |input, _snap| ToolOutput {
     ///     observation: input.to_string(),
     ///     done: false,
     ///     route: None,
-    /// })
+    /// });
     /// ```
     pub fn from_fn<F>(
         name: impl Into<String>,

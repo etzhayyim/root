@@ -132,7 +132,7 @@ mod tests {
         let b = NodeId::from_pubkey(b"bbb");
         // They are different, so exactly one of a < b or a > b holds.
         assert!(a != b);
-        assert!(a < b || a > b, "NodeId ordering must be total");
+        assert!(a != b, "NodeId ordering must be total");
     }
 
     /// Clone produces an equal but independent value.

@@ -8718,3 +8718,26 @@ kind = "bench-script"
 version = "0.1.0"
 status = "active"
 description = "Best-of-N HE+ bench with ruff-lint multi-error verifier. Cycle 116: c105 first-50 = 58.00% (deployable) vs greedy 62% vs oracle pass@5 74%. Even multi-error lint can't recover -4pp vs greedy; production deploy verdict = use greedy by default."
+
+[[adrs]]
+id = "2605292100"
+title = "kotoba v0.1.0 first tag + Homebrew tap publication — `brew install kotoba` end-to-end verified"
+status = "active"
+status_note = "Delivery-closure ADR for the kotoba v0.1.0 first tagged release + Homebrew tap (etzhayyim/homebrew-kotoba) publication arc (2026-05-28 evening through 2026-05-29). 4-PR chain: homebrew-kotoba#1 + kotoba#2 (README docs(readme): require --HEAD while formula was HEAD-only, merge commits 0584457213 + a5a86740b9) → homebrew-kotoba#2 + kotoba#3 (feat(formula): pin to v0.1.0 stable tarball + drop --HEAD requirement, merge commits f36d8e5314 + 23d615ac7e). Tag v0.1.0 targets commit a5a86740b9 (post-README-fix main); source tarball sha256 = cdf1099d970aa6e5be0e88099fc58bcefea58cadec63392863c3b7538a883655. Formula shape (identical in both repos): url + sha256 before license per FormulaAudit/ComponentsOrder; head block retained alongside stable url so both `brew install kotoba` (stable) and `brew install --HEAD kotoba` (tracking main) work. End-to-end verified on operator Mac mini (arm64-apple-darwin25.3.0): brew tap + brew install + runtime smoke (kotoba --version / kotoba did-derive seed → did:key:z6Mkj…) + brew test all green; cargo build 2m09s; Cellar/kotoba/0.1.0 = 8 files 43.5MB. Host toolchain prerequisites recorded for next operator: brew (5.1.14 on Tahoe) requires Xcode 26.3+ AND CLT 26.3+; xcode-select -s CLT does NOT silence the Xcode-too-old check (brew detects /Applications/Xcode.app via filesystem). On this host: CLT 16.4 → 26.5 via `sudo softwareupdate --install \"Command Line Tools for Xcode 26.5-26.5\"`, Xcode.app 16.4 → 26.5 via App Store. Five follow-up trackers: (1) `brew test-bot` GH Actions on tap PRs; (2) aarch64/x86_64 darwin+linux bottle distribution → drop Rust-build-dep + Xcode/CLT prereq for end users; (3) version-tag cadence policy; (4) Charter Rider NOTICE re-application reach to kotoba (license line stays Apache-2.0); (5) per-tag re-audit that the formula install path does NOT pull kotoba-llm runtime (Murakumo-only invariant). Depends on ADR-2605262130 + ADR-2605215000 + ADR-2605192200. Related to ADR-2605282300 / 2605290000 / 2605292000 / 2605292030 (sibling closure ADRs same multi-day arc)."
+path = "90-docs/adr/2605292100-kotoba-v0.1.0-tag-brew-tap-publication.md"
+
+[[modules]]
+path = "https://github.com/etzhayyim/homebrew-kotoba"
+kind = "homebrew-tap-repo"
+version = "0.1.0"
+status = "active"
+description = "Canonical Homebrew tap for kotoba (etzhayyim/homebrew-kotoba). Contains Formula/kotoba.rb (byte-identical to the in-repo mirror at etzhayyim/kotoba:Formula/kotoba.rb) and README.md (tap install instructions). Created 2026-05-28T09:51:04Z. Public, Apache-2.0. End-to-end install command: `brew tap etzhayyim/kotoba && brew install kotoba`. PR-merged history: #1 (README --HEAD stop-gap) → #2 (feat(formula): pin to v0.1.0 stable tarball). Future: brew test-bot CI + bottle distribution per ADR-2605292100 follow-up trackers."
+adr = ["2605292100", "2605262130"]
+
+[[modules]]
+path = "Formula/kotoba.rb"
+kind = "homebrew-formula"
+version = "0.1.0"
+status = "active"
+description = "Homebrew formula for kotoba CLI. Lives in two byte-identical locations: etzhayyim/homebrew-kotoba/Formula/kotoba.rb (canonical install path via `brew tap`) and etzhayyim/kotoba/Formula/kotoba.rb (in-repo mirror for `brew install --build-from-source ./Formula/kotoba.rb`). Shape: url + sha256 (v0.1.0 tarball) + license Apache-2.0 + head block retained for --HEAD installs + depends_on rust => build + install via `cargo install --path crates/kotoba-cli --bin kotoba` + test_do block (`kotoba --help` + `kotoba did-derive <seed>` → `did:key:z…`). Updated via paired cross-repo PRs to prevent drift."
+adr = ["2605292100", "2605262130"]

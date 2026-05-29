@@ -16731,6 +16731,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605292100-kotoba-v0.1.0-tag-brew-tap-publication.md",
+      "id": "adr-2605292100-kotoba-v0.1.0-tag-brew-tap-publication",
+      "title": "ADR-2605292100: kotoba v0.1.0 first tag + Homebrew tap publication — `brew install kotoba` end-to-end verified",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kotoba-v0.1.0-brew-tap",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba v0.1.0 tag + GH Release as canonical first stable artifact",
+        "etzhayyim/homebrew-kotoba tap as canonical Homebrew distribution channel",
+        "host toolchain prerequisites for source-builds via brew on this fleet",
+        "PR-chain pattern for cross-repo formula coordination (kotoba <-> homebrew-kotoba)"
+      ],
+      "related": [
+        "2605282300",
+        "2605290000",
+        "2605292000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605215000",
+        "2605192200"
+      ],
+      "last_verified": "2026-05-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

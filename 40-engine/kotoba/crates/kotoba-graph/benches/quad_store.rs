@@ -203,6 +203,9 @@ impl BlockStore for SimulatedLatencyBlockStore {
     fn is_pinned(&self, cid: &KotobaCid) -> bool { self.inner.is_pinned(cid) }
 }
 
+/// Factory that builds a fresh simulated-latency store for one cold-query scenario.
+type StoreFactory = fn() -> SimulatedLatencyBlockStore;
+
 /// Build a small ProllyTree (1K entries) with a simulated-latency store, then
 /// do a single-key lookup.  Each ProllyTree level = 1 BlockStore.get() call.
 /// With a branching factor of ~256 entries/node, 1K entries = 1–2 levels.
@@ -214,7 +217,7 @@ fn bench_query_cold_prolly(c: &mut Criterion) {
         .collect();
     let lookup_key = 500u64.to_le_bytes().to_vec();
 
-    let scenarios: &[(&str, fn() -> SimulatedLatencyBlockStore)] = &[
+    let scenarios: &[(&str, StoreFactory)] = &[
         ("kubo_lan_1ms_get",   SimulatedLatencyBlockStore::kubo_lan),
         ("kubo_wan_80ms_get",  SimulatedLatencyBlockStore::kubo_wan),
         ("s3_same_az_2ms_get", SimulatedLatencyBlockStore::s3_same_az),

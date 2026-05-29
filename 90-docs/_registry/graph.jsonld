@@ -10881,6 +10881,26 @@
       "lastVerified": "2026-05-29"
     },
     {
+      "id": "doc:adr-2605292100-kotoba-v0.1.0-tag-brew-tap-publication",
+      "type": "TechArticle",
+      "title": "ADR-2605292100: kotoba v0.1.0 first tag + Homebrew tap publication — `brew install kotoba` end-to-end verified",
+      "status": "active",
+      "topic": "kotoba-v0.1.0-brew-tap",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba v0.1.0 tag + GH Release as canonical first stable artifact",
+        "etzhayyim/homebrew-kotoba tap as canonical Homebrew distribution channel",
+        "host toolchain prerequisites for source-builds via brew on this fleet",
+        "PR-chain pattern for cross-repo formula coordination (kotoba <-> homebrew-kotoba)"
+      ],
+      "related": [
+        "doc:2605282300",
+        "doc:2605290000",
+        "doc:2605292000"
+      ],
+      "lastVerified": "2026-05-29"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

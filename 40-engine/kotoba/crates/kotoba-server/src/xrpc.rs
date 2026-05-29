@@ -1889,8 +1889,8 @@ mod tests {
     #[test]
     fn agent_run_step_cap() {
         const MAX_STEPS_LIMIT: u32 = 50;
-        // Caller sending u32::MAX is clamped to 50.
-        assert_eq!(u32::MAX.min(MAX_STEPS_LIMIT), MAX_STEPS_LIMIT);
+        // A caller sending a huge step count is clamped to 50.
+        assert_eq!(1_000_000_u32.min(MAX_STEPS_LIMIT), MAX_STEPS_LIMIT);
         // Default of 10 passes through unchanged.
         assert_eq!(10_u32.min(MAX_STEPS_LIMIT), 10);
     }

@@ -303,9 +303,7 @@ mod tests {
 
     #[test]
     fn simple_bgp_one_triple() {
-        let sparql = format!(
-            "PREFIX k: <urn:k:> SELECT ?s ?o WHERE {{ ?s k:knows ?o }}"
-        );
+        let sparql = "PREFIX k: <urn:k:> SELECT ?s ?o WHERE { ?s k:knows ?o }".to_string();
         let mv = SparqlCompiler::compile(&sparql, "output").unwrap();
         let derived = mv.program.evaluate_delta(&[fact(KNOWS, "alice", "bob")]);
         assert!(has(&derived, "output", "alice", "bob"));
@@ -314,9 +312,7 @@ mod tests {
     #[test]
     fn join_two_triples_same_predicate() {
         // ancestor(?s, ?o) :- parent(?s, ?mid), parent(?mid, ?o).
-        let sparql = format!(
-            "PREFIX k: <urn:k:> SELECT ?s ?o WHERE {{ ?s k:parent ?mid . ?mid k:parent ?o }}"
-        );
+        let sparql = "PREFIX k: <urn:k:> SELECT ?s ?o WHERE { ?s k:parent ?mid . ?mid k:parent ?o }".to_string();
         let mv = SparqlCompiler::compile(&sparql, "ancestor").unwrap();
 
         let input = vec![
@@ -331,9 +327,7 @@ mod tests {
     #[test]
     fn join_two_different_predicates() {
         // co_follower(?s, ?o) :- knows(?s,?mid), follows(?mid,?o)
-        let sparql = format!(
-            "PREFIX k: <urn:k:> SELECT ?s ?o WHERE {{ ?s k:knows ?mid . ?mid k:follows ?o }}"
-        );
+        let sparql = "PREFIX k: <urn:k:> SELECT ?s ?o WHERE { ?s k:knows ?mid . ?mid k:follows ?o }".to_string();
         let mv = SparqlCompiler::compile(&sparql, "co_follower").unwrap();
 
         let input = vec![
@@ -347,9 +341,7 @@ mod tests {
     #[test]
     fn filter_equality_constant_substitution() {
         // alice_knows(?s, ?o) :- knows(alice, ?o)  [?s bound to "alice"]
-        let sparql = format!(
-            r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE {{ ?s k:knows ?o FILTER(?s = "alice") }}"#
-        );
+        let sparql = r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE { ?s k:knows ?o FILTER(?s = "alice") }"#.to_string();
         let mv = SparqlCompiler::compile(&sparql, "alice_knows").unwrap();
 
         let input = vec![
@@ -363,9 +355,7 @@ mod tests {
 
     #[test]
     fn filter_inequality_comparison() {
-        let sparql = format!(
-            r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE {{ ?s k:knows ?o FILTER(?s != "carol") }}"#
-        );
+        let sparql = r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE { ?s k:knows ?o FILTER(?s != "carol") }"#.to_string();
         let mv = SparqlCompiler::compile(&sparql, "not_carol_knows").unwrap();
 
         let input = vec![
@@ -379,9 +369,7 @@ mod tests {
 
     #[test]
     fn filter_and_two_conditions() {
-        let sparql = format!(
-            r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE {{ ?s k:knows ?o FILTER(?s = "alice" && ?o != "dave") }}"#
-        );
+        let sparql = r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE { ?s k:knows ?o FILTER(?s = "alice" && ?o != "dave") }"#.to_string();
         let mv = SparqlCompiler::compile(&sparql, "out").unwrap();
 
         let input = vec![
@@ -397,9 +385,7 @@ mod tests {
 
     #[test]
     fn select_distinct_is_accepted() {
-        let sparql = format!(
-            "PREFIX k: <urn:k:> SELECT DISTINCT ?s ?o WHERE {{ ?s k:knows ?o }}"
-        );
+        let sparql = "PREFIX k: <urn:k:> SELECT DISTINCT ?s ?o WHERE { ?s k:knows ?o }".to_string();
         let mv = SparqlCompiler::compile(&sparql, "output").unwrap();
         let derived = mv.program.evaluate_delta(&[fact(KNOWS, "alice", "bob")]);
         assert!(has(&derived, "output", "alice", "bob"));
@@ -449,9 +435,7 @@ mod tests {
     #[test]
     fn filter_equality_literal_on_left_side() {
         // FILTER("alice" = ?s) — operand order reversed (literal on left)
-        let sparql = format!(
-            r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE {{ ?s k:knows ?o FILTER("alice" = ?s) }}"#
-        );
+        let sparql = r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE { ?s k:knows ?o FILTER("alice" = ?s) }"#.to_string();
         let mv = SparqlCompiler::compile(&sparql, "out").unwrap();
         let input = vec![
             fact(KNOWS, "alice", "bob"),
@@ -465,9 +449,7 @@ mod tests {
     #[test]
     fn filter_inequality_object_variable() {
         // Filter on the object variable, not subject
-        let sparql = format!(
-            r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE {{ ?s k:knows ?o FILTER(?o != "dave") }}"#
-        );
+        let sparql = r#"PREFIX k: <urn:k:> SELECT ?s ?o WHERE { ?s k:knows ?o FILTER(?o != "dave") }"#.to_string();
         let mv = SparqlCompiler::compile(&sparql, "not_dave_target").unwrap();
         let input = vec![
             fact(KNOWS, "alice", "bob"),
