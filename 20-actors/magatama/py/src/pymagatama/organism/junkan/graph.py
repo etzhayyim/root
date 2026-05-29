@@ -8,48 +8,23 @@ ADR-2605290927. The pipeline:
 G4 (analysis-only / no actuation) is enforced **by absence**: there is no
 dispatch / post / mention / send node, and the only output is a ``FindingBundle``
 whose ``actuation_taken`` is a const False. ``emit_findings`` writes findings and
-nothing else — it cannot reach an outward channel because none exists in this
-module.
+nothing else — it cannot reach an outward channel because none exists here.
 
 ``run_analysis`` is a pure stdlib orchestrator (no langgraph, no network, no
-inference) so the core is fully testable offline. ``build_junkan_graph`` wires
-the same steps into a LangGraph ``StateGraph`` for the fleet runtime (R1+;
-cell activation is Council-gated).
+inference) so the core is fully testable offline. With ``auto=True`` and no
+explicit ``loop_specs`` it discovers the loops from the data (``cld.discover_loops``).
+``build_junkan_graph`` wires the same steps into a LangGraph ``StateGraph`` for
+the fleet runtime (R1+; cell activation is Council-gated).
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-
+from .cld import discover_loops
 from .datom import DatomStore
 from .flows import FlowEdge, infer_flow
 from .leverage import rank_leverage_candidates
 from .loops import build_loop, detect_regime_shift
-
-
-@dataclass(frozen=True)
-class StockSeries:
-    stock_id: str
-    levels: list[int]
-    unit: str
-    desirability: int  # +1 higher-is-better, -1 lower-is-better
-    source_cid: str  # G3 provenance
-
-
-@dataclass(frozen=True)
-class LoopSpec:
-    loop_id: str
-    stock_cycle: list[str]  # ordered stock ids; edges are consecutive incl. wraparound
-
-
-@dataclass(frozen=True)
-class FindingBundle:
-    """The sole output of junkan. Read-only; no outward channel (G4)."""
-
-    causal_loop_findings: list[dict] = field(default_factory=list)
-    leverage_findings: list[dict] = field(default_factory=list)
-    regime_shifts: list[dict] = field(default_factory=list)
-    actuation_taken: bool = False  # G4 const False — junkan never acts
+from .models import FindingBundle, LoopSpec, StockSeries
 
 
 def _pct(x: float) -> int:
@@ -72,14 +47,29 @@ def _slope_abs(levels: list[int]) -> float:
 
 def run_analysis(
     stock_series: list[StockSeries],
-    loop_specs: list[LoopSpec],
+    loop_specs: list[LoopSpec] | None = None,
     prev_regimes: dict[str, str] | None = None,
     *,
+    auto: bool = False,
+    min_conf: float = 0.5,
+    max_len: int = 3,
+    lag: int = 1,
     attesting_did: str = "did:web:junkan.etzhayyim.com",
 ) -> FindingBundle:
-    """Run the full analysis-only pipeline. Pure; returns findings only."""
+    """Run the full analysis-only pipeline. Pure; returns findings only.
+
+    If ``loop_specs`` is omitted and ``auto`` is True, loops are discovered
+    directly from the stock series (CLD auto-construction).
+    """
     prev_regimes = prev_regimes or {}
     series = {s.stock_id: s for s in stock_series}
+
+    if loop_specs is None:
+        loop_specs = (
+            discover_loops(stock_series, min_conf=min_conf, max_len=max_len, lag=lag)
+            if auto
+            else []
+        )
 
     # estimate_stocks: append-only datom store (G9), tick-by-tick history.
     store = DatomStore()
@@ -108,7 +98,7 @@ def run_analysis(
         edges: list[FlowEdge] = []
         ok = True
         for a, b in zip(cyc, cyc[1:] + cyc[:1]):
-            e = infer_flow(a, b, series[a].levels, series[b].levels, lag=1)
+            e = infer_flow(a, b, series[a].levels, series[b].levels, lag=lag)
             if e is None:  # G5: abstain on insufficient evidence
                 ok = False
                 break
@@ -164,7 +154,9 @@ def run_analysis(
             )
 
         # regime shift vs prior
-        shift = detect_regime_shift(loop.loop_id, prev_regimes.get(loop.loop_id, loop.regime), loop.regime)
+        shift = detect_regime_shift(
+            loop.loop_id, prev_regimes.get(loop.loop_id, loop.regime), loop.regime
+        )
         if shift is not None:
             regime_shifts.append(
                 {
@@ -183,6 +175,7 @@ def run_analysis(
         causal_loop_findings=loop_findings,
         leverage_findings=leverage_findings,
         regime_shifts=regime_shifts,
+        discovered_loop_ids=[s.loop_id for s in loop_specs],
     )
 
 
@@ -200,13 +193,15 @@ def build_junkan_graph():  # pragma: no cover - exercised only when langgraph pr
         stock_series: list
         loop_specs: list
         prev_regimes: dict
+        auto: bool
         bundle: FindingBundle
 
     def _analyze(state: "JunkanState") -> dict:
         bundle = run_analysis(
             state.get("stock_series", []),
-            state.get("loop_specs", []),
+            state.get("loop_specs", None),
             state.get("prev_regimes", {}),
+            auto=state.get("auto", False),
         )
         return {"bundle": bundle}
 

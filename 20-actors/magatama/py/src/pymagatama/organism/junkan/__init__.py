@@ -23,20 +23,17 @@ Council-gated (Bootstrap Council Seat 2-5 RFP close 2026-06-19).
 
 from __future__ import annotations
 
+from .cld import discover_loops, find_cycles, infer_adjacency
 from .datom import Datom, DatomStore
 from .flows import FlowEdge, infer_flow
-from .graph import (
-    FindingBundle,
-    LoopSpec,
-    StockSeries,
-    build_junkan_graph,
-    run_analysis,
-)
+from .graph import build_junkan_graph, run_analysis
+from .ingest import load_fixture, series_from_observations
 from .leverage import (
     MEADOWS_LEVELS,
     LeveragePointCandidate,
     rank_leverage_candidates,
 )
+from .models import FindingBundle, LoopSpec, StockSeries
 from .loops import (
     REGIMES,
     CausalLoop,
@@ -92,4 +89,9 @@ __all__ = [
     "FindingBundle",
     "run_analysis",
     "build_junkan_graph",
+    "discover_loops",
+    "find_cycles",
+    "infer_adjacency",
+    "series_from_observations",
+    "load_fixture",
 ]
