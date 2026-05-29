@@ -8659,9 +8659,9 @@ path = "90-docs/adr/2605290927-junkan-societal-feedback-loop-observer.md"
 [[modules]]
 path = "20-actors/junkan"
 kind = "tier-b-actor-analysis-only-observer"
-version = "0.0.0-r0-scaffold"
-status = "r0-scaffold"
-description = "junkan (循環) — analysis-only societal feedback-loop observer. Python LangGraph heartbeat-cadence Pregel graph (8 cells path-reserved) over a datom/Datalog model on canonical kotoba-kqe (Datomic-isomorphic; proprietary Datomic NOT used). Builds a system-dynamics model of society (stocks / flows / R + B causal loops) from passive public aggregate data and reads off virtuous (好循環) / vicious (悪循環) regimes + Meadows leverage candidates. ANALYSIS-ONLY: no outward channel (G4 enforced by absence of any dispatch cell). 5 Lexicons under app.etzhayyim.junkan.*. Outward sibling of the inward active-inference prior (doc 2605221243) + KaizenObserver (ADR-2605240200); distinct from ossekai (ADR-2605264000). R0 paths-reserved per ADR-2605290927; no runtime code until R1."
+version = "0.0.1-r0-analysis-core"
+status = "r0-analysis-core-landed-fleet-cells-gated"
+description = "junkan (循環) — analysis-only societal feedback-loop observer. Python LangGraph heartbeat-cadence Pregel graph (8 fleet cells path-reserved under 20-actors/magatama/cells/junkan_*, import-time RuntimeError until R1) over a datom/Datalog model on canonical kotoba-kqe (Datomic-isomorphic; proprietary Datomic NOT used). Builds a system-dynamics model of society (stocks / flows / R + B causal loops) from passive public aggregate data and reads off virtuous (好循環) / vicious (悪循環) regimes + Meadows leverage candidates. ANALYSIS-ONLY: no outward channel (G4 enforced by absence of any dispatch cell). 5 Lexicons under app.etzhayyim.junkan.*. Outward sibling of the inward active-inference prior (doc 2605221243) + KaizenObserver (ADR-2605240200); distinct from ossekai (ADR-2605264000). Per ADR-2605290927. **R0 analysis core landed**: the pure-stdlib R1-preparatory core under 20-actors/magatama/py/src/pymagatama/organism/junkan/ (datom/stocks/flows/loops/leverage/graph — DatomStore EAVT/AVET + as-of/history, lagged sign-aware correlation flow inference, loop-polarity regime read-off, Meadows candidate ranking, stdlib run_analysis + optional LangGraph build_junkan_graph; offline, no fleet/inference/network) + 16-case test_junkan.py. Fleet cell activation + kotoba-kqe binding + real passive sensors remain Council-gated (Seats 2-5 RFP close 2026-06-19)."
 
 [[adrs]]
 id = "2605291500"

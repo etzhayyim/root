@@ -302,9 +302,19 @@ Five Lexicons under `app.etzhayyim.junkan.*` (R0 skeletons; full schema at R1):
 
 ## Phased delivery (R0 → R3)
 
-- **R0** — this commit: charter ADR + actor scaffold + 5 Lexicon skeletons +
-  8 cell paths reserved + deps.toml `[[adrs]]`/`[[modules]]` + adr/README index.
-  Zero runtime code.
+- **R0** — landed this session: charter ADR + actor scaffold + 5 Lexicon
+  skeletons + 8 fleet cell paths reserved + deps.toml `[[adrs]]`/`[[modules]]` +
+  adr/README index. **Plus the pure-stdlib R1-preparatory analysis core**
+  (`20-actors/magatama/py/src/pymagatama/organism/junkan/`:
+  `datom`/`stocks`/`flows`/`loops`/`leverage`/`graph`) — `DatomStore` with
+  EAVT/AVET + `as-of`/`history`, lagged sign-aware correlation flow inference,
+  loop-polarity regime read-off (好循環/悪循環/neutral/transitioning), Meadows
+  candidate ranking, and a stdlib `run_analysis` orchestrator (+ optional
+  LangGraph `build_junkan_graph` wiring), all offline (no fleet / no inference /
+  no network), with a 16-case `test_junkan.py` unittest suite. The analysis core
+  ships runtime code on purpose — it carries no outward channel (G4 by absence)
+  and binds no fleet/sensors; the 8 Murakumo Pregel cells stay import-time
+  `RuntimeError`-gated until R1.
 - **R1** — post Bootstrap-Council ratify (Seats 2-5 RFP close 2026-06-19): wire
   the LangGraph graph + kotoba-kqe datom schema; 3 core cells (ingest,
   stock_estimator, loop_classifier); ≥3 Tier-A societal stocks from
