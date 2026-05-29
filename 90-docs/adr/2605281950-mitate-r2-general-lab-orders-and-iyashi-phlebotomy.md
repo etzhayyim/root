@@ -318,3 +318,43 @@ Required fields:
 - HIPAA 45 CFR §164.514 (de-identification standard; US; informs `dataCategoriesShared` enum)
 - WHO IUIS Allergen Nomenclature (specific IgE antigen identifiers; unchanged from ADR-2605260115)
 - JCCLS / JLAC10 / LOINC (clinical laboratory result coding; informational reference for R2 result ingest mapping)
+
+# R0 Landing Record (session-close 2026-05-29)
+
+Single-session arc from gap question ("アレルギー検査、血液検査の actor, agent は設計されている?") to landed R0 scaffold.
+
+**Commit chain**: `4ff94642c` — 7 files, +778/-13 (single commit; all 15 pre-commit hooks pass after lexicon spec fix described below).
+
+| Artifact | Path |
+|---|---|
+| This ADR | `90-docs/adr/2605281950-mitate-r2-general-lab-orders-and-iyashi-phlebotomy.md` |
+| diagnosticOrder lexicon extension (+16 orderType / +18 conditionContext / +orderRoutingTarget) | `00-contracts/lexicons/app/etzhayyim/mitate/diagnosticOrder.json` |
+| diagnosticConsentReceipt lexicon (NEW) | `00-contracts/lexicons/app/etzhayyim/mitate/diagnosticConsentReceipt.json` |
+| phlebotomyAttestation lexicon (NEW) | `00-contracts/lexicons/app/etzhayyim/iyashi/phlebotomyAttestation.json` |
+| 4 cell paths reserved via `(reserved)` markers | `20-actors/magatama/cells/{mitate_diagnostic_consent_orchestrator, mitate_diagnostic_order_general, mitate_diagnostic_result_ingest, iyashi_internal_phlebotomy}` |
+| deps.toml `[[adrs]]` + 6 `[[modules]]` | `deps.toml` |
+| mitate/iyashi lexicon README index bumps (8→9, 6→7) | `00-contracts/lexicons/app/etzhayyim/{mitate,iyashi}/README.md` |
+
+**Lexicon-spec correction (pre-commit hook caught)**: First commit attempt failed `validate-religious-corp-lexicons` on two AT Protocol Lexicon discipline violations in `phlebotomyAttestation.json`:
+
+1. `tubesCollected.items` was inline `type=object` → extracted to `#tubeRecord` def + array now uses `{"type": "ref", "ref": "#tubeRecord"}`
+2. `volumeMl` was `type=number` → renamed `volumeMlTenths` and converted to `type=integer` with implied units (5..200 = 0.5..20.0 mL); avoids floating-point storage drift per spec
+
+**Registry audit (5 PR-gate axes all EXIT 0)**:
+
+| Axis | State |
+|---|---|
+| deps.toml-paths | 586/605 resolve + 19 accepted-reserved + 0 drift |
+| docs.json freshness | 669 entries in sync |
+| graph.jsonld freshness | 669 nodes in sync |
+| docs+graph schemas | valid |
+| magatama manifests | 42/42 valid |
+
+**Deferred to subsequent ADRs** (each becomes its own R1+ ADR with Council attestation gate):
+
+1. **R1 ADR** — `mitate_diagnostic_consent_orchestrator` cell activation (consent template registry + chigiri annual template review path; dry-run-only consent surface, no patient ordering yet). Prerequisites: Bootstrap Council Seat 2-5 RFP close (2026-06-19), ADR-2605181100 envelope production deploy, ≥1 licensed MD on Council medical advisory, chigiri R1 active for stewardLaborAttestation read.
+2. **R2 ADR** — `mitate_diagnostic_order_general` + `mitate_diagnostic_result_ingest` + `iyashi_internal_phlebotomy` cell activation; first 3 external clinical lab vendor allowlist entries (each Council Lv6+ ≥3 + Charter Rider §2(a)-(h) scan attestation chain); ≤200-patient pilot ceiling. Requires GB external lab vendor onboarding playbook.
+3. **R3 ADR** — Multi-clinic; in-clinic centrifuge + basic-chemistry analyzer at iyashi (reduce external lab dependence); cross-jurisdictional consent receipt translation matrix; ≤25,000 patient capacity.
+4. **Out of R2/R3 scope per N1..N12** — Genetic / DTC / NIPT (N1/N2/N3) require Council Lv7+ unanimity; oncology markers (N4) require oncology-trained MD on Council; fertility (N5) requires musubi cross-doctrinal consult; STI (N6) requires chigiri data_privacy co-design; in-vivo skin prick (N11) requires iyashi acute_first_line R3-mature.
+
+**Session-question resolution**: Allergy serology (specific IgE panel) was already designed at ADR-2605260115 R0; general blood / clinical-chemistry / urinalysis lab orders + religious-corp internal phlebotomy + 要配慮個人情報 per-order consent receipt are now designed at R0 scaffold tier in this ADR. The actor surface answering 「アレルギー検査、血液検査」 is **mitate** (ordering) + **iyashi R2+** (in-house draw) + **external clinical lab vendors** (allowlist with GB §2 scan); no new actor introduced.
