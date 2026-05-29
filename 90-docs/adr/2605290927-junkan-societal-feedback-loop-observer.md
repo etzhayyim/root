@@ -372,6 +372,58 @@ Five Lexicons under `app.etzhayyim.junkan.*` (R0 skeletons; full schema at R1):
    inward self-model; conflating self and society breaks the N7 boundary and the
    passive-only / aggregate-only societal-data discipline (G3 + G6).
 
+# Implementation status
+
+**R0 scaffold + R1-preparatory analysis core LANDED 2026-05-29.** Fleet cell
+activation, the kotoba-kqe production binding, and live passive sensors remain
+**Council-gated** (Bootstrap Council Seats 2-5 RFP close 2026-06-19).
+
+What is implemented (pure stdlib; offline; **no fleet, no network, no inference,
+no outward channel** — G4 holds by absence of any dispatch path):
+
+- `20-actors/junkan/` actor scaffold (CLAUDE.md / README.md / manifest.jsonld /
+  NOTICE) + 5 Lexicon skeletons under `app.etzhayyim.junkan.*` (commit
+  `d2b0f2d60`, "bundle: junkan R0").
+- `pymagatama.organism.junkan` analysis core (commit `d2b0f2d60`):
+  - `datom.py` — Datomic-isomorphic append-only `DatomStore` (EAVT entity /
+    AVET `find` / VAET `referencing` / `as_of` / `history`; no retraction API, G9).
+    Reference impl; canonical production binding = kotoba-kqe.
+  - `stocks.py` — society-level stock observations (G6: `record_stock` rejects
+    individual fields; G9 append-only).
+  - `flows.py` — lagged sign-aware Pearson flow-polarity inference; abstains on
+    zero variance / too-few points (G5).
+  - `loops.py` — loop polarity (even-negatives → reinforcing) + regime read-off
+    (好循環 / 悪循環 / neutral / transitioning) + regime-shift detection.
+  - `leverage.py` — Meadows 12-level candidates (`prescription_given` const
+    False, G11).
+  - `graph.py` — stdlib `run_analysis` orchestrator + optional LangGraph
+    `build_junkan_graph` (no dispatch node — G4 by absence).
+- **CLD auto-discovery + passive dry-run** (commit `28d71340c`, branch
+  `feat/junkan-cld-dry-run`):
+  - `cld.py` — `infer_adjacency` over all ordered stock pairs at `min_conf` +
+    bounded simple-cycle enumeration (deduped by directed edge-set) →
+    `discover_loops`; **no `LoopSpec` required** — loops are discovered from data.
+  - `ingest.py` — `series_from_observations` / `load_fixture` reshape
+    already-fetched passive public-archive samples into stock series; G3
+    (`source_cid` required) + G6 (individual fields rejected) enforced
+    structurally. No network I/O.
+  - `models.py` — shared `StockSeries` / `LoopSpec` / `FindingBundle`.
+  - `graph.run_analysis(auto=True)` — discovers loops when no `LoopSpec` given.
+  - `tests/fixtures/junkan_netreg_dry_run.json` — Tier-A-shaped offline fixture
+    (RIR delegated concentration / smallholder share / IANA root anchor 1437).
+
+**Verification**: 23 junkan tests pass (`uv run python -m pytest`). The dry-run
+auto-discovers the vicious "address-concentration ↔ smallholder-share"
+reinforcing loop from data alone, correctly excludes the flat IANA control
+stock, and asserts G3/G4/G6 invariants. `findingRecord.actuationTaken` is False
+throughout.
+
+**Deferred to R1 (Council-gated)**: kotoba-kqe datom binding (replace the
+in-memory `DatomStore`); real `DatasetSensor` adapters for live passive Tier-A
+pins; the 8 fleet Pregel cells under `20-actors/magatama/cells/junkan_*/`
+(currently path-reserved, import-time `RuntimeError`); Charter Rider §2 real
+scan in `wellbecoming_frame`; Murakumo-only LLM-assisted loop-naming.
+
 # References
 
 - ADR-2605192100 (Mission Charter — §1.4 anti-individualism, §1.13 Wellbecoming, §1.15 non-eschatological, §1.12 routing-around)
