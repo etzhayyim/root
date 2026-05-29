@@ -112,6 +112,11 @@ def main():
     p.add_argument("--lr-alpha", type=float, default=5e-6)
     p.add_argument("--grad-clip", type=float, default=1.0)
     p.add_argument("--verifier-timeout-sec", type=int, default=8)
+    p.add_argument("--kl-beta", type=float, default=0.0,
+                   help="KL penalty coefficient β·KL(current||reference). 0 disables (v0 = c108/c111). "
+                        "Recommended 0.01-0.1 for v1 stability.")
+    p.add_argument("--reference-ckpt", default=None,
+                   help="Reference adapter ckpt for KL term (default = start-ckpt itself, snapshotted)")
     p.add_argument("--output-dir", required=True)
     p.add_argument("--runlog-out", required=True)
     args = p.parse_args()
@@ -166,6 +171,24 @@ def main():
     n_trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"[freeze] trainable params: {n_trainable/1e6:.2f}M")
 
+    # KL reference snapshot — for β·KL(current || reference) regularization in v1
+    # Reference = adapter state at start (or external --reference-ckpt).
+    # We snapshot once into CPU memory, then swap in/out per rollout for ref logprobs.
+    reference_adapter_state = None
+    if args.kl_beta > 0:
+        ref_src = args.reference_ckpt or args.start_ckpt
+        print(f"[kl] β={args.kl_beta}  reference={ref_src}")
+        ref_sd = torch.load(ref_src, map_location="cpu")
+        reference_adapter_state = {}
+        for fqn, wrapper in moe_wrappers.items():
+            if fqn in ref_sd:
+                reference_adapter_state[fqn] = {k: v.clone().detach()
+                                                 for k, v in ref_sd[fqn].items()}
+            else:
+                print(f"  [warn] reference missing {fqn}, will use current state at step 0 instead")
+                reference_adapter_state[fqn] = {k: v.clone().detach().cpu()
+                                                  for k, v in wrapper.state_dict().items()}
+
     opt = build_optimizer(moe_wrappers, lr_router=args.lr_router,
                           lr_experts=args.lr_experts, lr_alpha=args.lr_alpha)
 
@@ -189,7 +212,10 @@ def main():
         "host": "runpod-rtx5090",
         "model": args.model,
         "start_ckpt": args.start_ckpt,
-        "phase": "rlvr-grpo-v0-onpolicy-no-kl",
+        "phase": ("rlvr-grpo-v1-onpolicy-kl-beta" if args.kl_beta > 0
+                  else "rlvr-grpo-v0-onpolicy-no-kl"),
+        "kl_beta": args.kl_beta,
+        "reference_ckpt": (args.reference_ckpt or args.start_ckpt) if args.kl_beta > 0 else None,
         "rl_dataset": args.rl_dataset,
         "rl_problems": args.rl_problems,
         "rollouts": args.rollouts,
@@ -250,7 +276,44 @@ def main():
                         "prompt_ids": enc.input_ids[0].tolist(),
                         "gen_ids": gen_ids,
                         "reward": 1.0 if passed else 0.0,
+                        "ref_token_logprobs": None,  # filled below if kl_beta > 0
                     })
+
+        # If KL-regularized: compute reference logprobs for every rollout's gen tokens.
+        # Swap reference adapter state in, forward, capture, swap current back.
+        if reference_adapter_state is not None:
+            # Save current adapter state
+            current_adapter_state = {
+                fqn: {k: v.detach().clone() for k, v in w.state_dict().items()}
+                for fqn, w in moe_wrappers.items()
+            }
+            # Load reference state into wrappers (in-place, keep on device)
+            for fqn, wrapper in moe_wrappers.items():
+                ref_sd_on_dev = {k: v.to(device=device, dtype=torch.bfloat16)
+                                  for k, v in reference_adapter_state[fqn].items()}
+                wrapper.load_state_dict(ref_sd_on_dev)
+            # Forward each rollout under reference, capture per-token logprobs
+            model.eval()
+            with torch.no_grad():
+                for rd in rollout_data:
+                    if len(rd["gen_ids"]) < 2:
+                        continue
+                    full_ids = rd["prompt_ids"] + rd["gen_ids"]
+                    input_ids = torch.tensor([full_ids], dtype=torch.long, device=device)
+                    out = model(input_ids=input_ids)
+                    logits = out.logits[0]
+                    gen_start = len(rd["prompt_ids"])
+                    shift_logits = logits[gen_start - 1 : len(full_ids) - 1]
+                    ref_logprobs = F.log_softmax(shift_logits.float(), dim=-1)
+                    target_tokens = torch.tensor(rd["gen_ids"], dtype=torch.long, device=device)
+                    rd["ref_token_logprobs"] = ref_logprobs.gather(
+                        -1, target_tokens.unsqueeze(-1)
+                    ).squeeze(-1).detach().cpu()
+            # Restore current state
+            for fqn, wrapper in moe_wrappers.items():
+                cur_sd_on_dev = {k: v.to(device=device, dtype=torch.bfloat16)
+                                  for k, v in current_adapter_state[fqn].items()}
+                wrapper.load_state_dict(cur_sd_on_dev)
 
         # Compute group-normalized advantage per prompt
         rewards_by_prompt: dict[int, list[float]] = {}
@@ -277,26 +340,37 @@ def main():
                     p.requires_grad = True
         opt.zero_grad()
         loss_accum = 0.0
+        kl_accum = 0.0
         n_accum = 0
         for rd in rollout_data:
-            if abs(rd["advantage"]) < 1e-6:
-                continue  # zero advantage = no signal
+            if abs(rd["advantage"]) < 1e-6 and args.kl_beta == 0:
+                continue  # zero advantage AND no KL = no signal
             full_ids = rd["prompt_ids"] + rd["gen_ids"]
             if len(rd["gen_ids"]) < 2:
                 continue
             input_ids = torch.tensor([full_ids], dtype=torch.long, device=device)
             out = model(input_ids=input_ids)
-            logits = out.logits[0]  # (T, V)
-            # logprob_t = log p(token_{t+1} | token_<=t); we want sum over generated tokens
+            logits = out.logits[0]
             gen_start = len(rd["prompt_ids"])
-            # shift: token at position t was predicted from position t-1 logits
-            target_positions = list(range(gen_start, len(full_ids)))
             target_tokens = torch.tensor(rd["gen_ids"], dtype=torch.long, device=device)
-            shift_logits = logits[gen_start - 1 : len(full_ids) - 1]  # (gen_T, V)
+            shift_logits = logits[gen_start - 1 : len(full_ids) - 1]
             logprobs = F.log_softmax(shift_logits.float(), dim=-1)
             token_logprobs = logprobs.gather(-1, target_tokens.unsqueeze(-1)).squeeze(-1)
             avg_lp = token_logprobs.mean()
-            loss_g = -rd["advantage"] * avg_lp
+
+            # Policy gradient term
+            pg_loss = -rd["advantage"] * avg_lp if abs(rd["advantage"]) >= 1e-6 else 0.0 * avg_lp
+
+            # KL term: β · mean_t (current_logprob_t - ref_logprob_t)
+            # Approximates KL(current || reference) per-token, sampled at gen positions.
+            kl_loss = 0.0 * avg_lp
+            if args.kl_beta > 0 and rd["ref_token_logprobs"] is not None:
+                ref_lp = rd["ref_token_logprobs"].to(device=device, dtype=token_logprobs.dtype)
+                kl_term = (token_logprobs - ref_lp).mean()
+                kl_loss = args.kl_beta * kl_term
+                kl_accum += float(kl_loss)
+
+            loss_g = pg_loss + kl_loss
             loss_g.backward()
             loss_accum += float(loss_g)
             n_accum += 1
@@ -312,9 +386,10 @@ def main():
             "step": step, "rollouts": len(rollout_data),
             "n_pass": n_pass, "pass_rate": n_pass / max(1, len(rollout_data)),
             "mean_reward": mean_reward, "loss_accum": loss_accum,
+            "kl_accum": kl_accum,
             "n_grad_terms": n_accum, "wall_sec": round(wall, 2),
         })
-        print(f"[step {step}] loss={loss_accum:.4f} grad_terms={n_accum} wall={wall:.1f}s")
+        print(f"[step {step}] loss={loss_accum:.4f} kl={kl_accum:.4f} grad_terms={n_accum} wall={wall:.1f}s")
 
     # Save final adapter ckpt
     final_path = Path(args.output_dir) / "final.pt"
