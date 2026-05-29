@@ -61,6 +61,15 @@ def split_moe_param_groups(
                 f"moe_branch has neither experts nor memory_vectors (expert_kind={branch.expert_kind!r})"
             )
 
+        # cycle 113 fix: out_norm + out_scale (LayerNorm + learnable scale on moe_branch output)
+        # were not in any param group before — optimizer never updated them.
+        # Group them with router (similar small param count, same lr policy).
+        if hasattr(branch, "out_norm") and branch.out_norm is not None:
+            for p in branch.out_norm.parameters():
+                router_params.append(p)
+        if hasattr(branch, "out_scale") and branch.out_scale is not None:
+            router_params.append(branch.out_scale)
+
         # alpha = per-wrapper scalar Parameter
         alpha_params.append(wrapper.alpha)
 

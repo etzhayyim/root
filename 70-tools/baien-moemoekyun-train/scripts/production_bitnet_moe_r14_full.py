@@ -91,6 +91,11 @@ def main():
                    help="MoE router type: 'learned' (default linear) | 'distance' (MoCLE-style cluster centroids)")
     p.add_argument("--expert-kind", default="ffn", choices=["ffn", "memory"],
                    help="Expert kind: 'ffn' (default 2-layer SiLU) | 'memory' (UltraMem-style single learnable vector)")
+    p.add_argument("--alpha-init", type=float, default=0.0,
+                   help="α gate init (default 0.0 per G5; cycle 113 found that α=0 → zero gradient flow through residual path, "
+                        "so a small non-zero init like 0.1 may be needed to bootstrap training)")
+    p.add_argument("--alpha-init-jitter", type=float, default=1e-3,
+                   help="α init jitter for symmetry-breaking (default 1e-3)")
     args = p.parse_args()
 
     sys.path.insert(0, args.moemoekyun_src)
@@ -134,6 +139,8 @@ def main():
         ffn_attribute_name="mlp",
         routing_mode=args.routing_mode,
         expert_kind=args.expert_kind,
+        alpha_init=args.alpha_init,
+        alpha_init_jitter=args.alpha_init_jitter,
     )
     print(f"[moe] routing_mode={args.routing_mode} expert_kind={args.expert_kind}")
     for fqn, w in moe_wrappers.items():
