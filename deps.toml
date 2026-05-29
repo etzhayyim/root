@@ -8690,3 +8690,31 @@ title = "Session close — ADR-2605281950 mitate R2 general lab orders + iyashi 
 status = "active"
 status_note = "Two-commit closure record for the 2026-05-28→29 single-question arc 「アレルギー検査、血液検査の actor, agent は設計されている?」. Documents the R0 commit chain (4ff94642c R0 scaffold / 76b04ac30 parallel-session deps.toml absorption / 4eec496a8 R0 Landing Record body annotation), 15-hook pre-commit clearance after validate-religious-corp-lexicons fix (tubeRecord def + volumeMlTenths integer with implied units), 5/5 PR-gate registry axes EXIT 0 (586/605+19 reserved deps.toml-paths / 676 docs.json / 676 graph.jsonld / schemas valid / 42/42 magatama), and deferred items (R1 cell activation gated on Bootstrap Council Seat 2-5 RFP close 2026-06-19 / R2 + GB external lab vendor onboarding playbook / R3 multi-clinic + in-clinic centrifuge / N1..N12 escalation paths). Pure retrospective; no constitutional decisions (all carried in ADR-2605281950). ID 2605292030 to avoid same-minute collision with ADR-2605292000 (kotoba coverage hardening session-close, parallel session)."
 path = "90-docs/adr/2605292030-mitate-r2-lab-orders-session-close.md"
+
+[[adrs]]
+id = "2605291700"
+title = "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path"
+status = "active"
+status_note = "Authoritative summary of the cycle 17-116 baien-moemoekyun investigation. 12 plateau confirmations on HumanEval+ pass@1 33.54% (55/164) across all tested adapter configurations (4.22%-25.3% trainable mass; 16-2048 experts; learned/MoCLE routing; FFN/memory expert kinds; α=0/0.1 init; with/without LayerNorm out_norm+out_scale; SFT 500-5000 steps; RLVR 5-50 steps with/without KL term). Cycle 112c diagnostic identified that the wrapper output α × moe_normalized was 5×10⁻⁸ of FFN output magnitude — below bf16 precision when added to backbone. Cycle 113-114 fixes (LayerNorm + out_scale + trainer param-group + α-init flag) still land at 33.54%; the +14.64pp lift from raw 18.90% baseline is chat-template formatting artifact, not adapter contribution. Cycle 110 oracle pass@5 on full 164 = 49.39% (+15.85pp); cycle 115/116 production-realistic Best-of-N with syntax/lint verifier = 52%/58% on first-50 vs greedy 62% (verdict: weak verifier hurts; use greedy unless functional verifier available). Path forward for >49% requires (a) BitNet 4B+ release (blocked on Microsoft), (b) backbone continue-pretrain (~$50-200), or (c) full backbone unfreeze + RLVR (deferred pending Council Lv6+ Charter Rider §2(i)(2) ratification post 2026-07-19+). Code artifacts shipped: 70-tools/baien-moemoekyun-train/src/baien_moemoekyun/inference.py (MoemoekyunInference class with .best_of_n() + .pass_at_k() + built-in syntax/lint verifiers); 70-tools/baien-moemoekyun-train/scripts/bench_bestofn_{syntax,lint}.py. IPFS-pinned QmZD1hpAVcpk6gX8uAf3KQEGibi3xxYetg2VZwn4uncENU. Depends on ADR-2605261900 + ADR-2605262100 + ADR-2605280800 + ADR-2605215000 + ADR-2605241900 + ADR-2605263000 + ADR-2605263100."
+path = "90-docs/adr/2605291700-moemoekyun-plateau-and-bestofn-path.md"
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/src/baien_moemoekyun/inference.py"
+kind = "deployable-inference-wrapper"
+version = "0.1.0"
+status = "active"
+description = "MoemoekyunInference class — production Best-of-N inference wrapper for baien-moemoekyun. .generate() = greedy (33.54% HE+ plateau per ADR-2605291700); .best_of_n(verifier_fn, n) = best-of-N with pluggable verifier (52%/58%/68% on c105 first-50 with syntax/lint/oracle verifier); .pass_at_k(oracle_test_fn, n, k) = Chen et al 2021 unbiased estimator (49.39% on full 164 with n=5 oracle per cycle 110). Built-in syntax_verifier (python compile) and lint_verifier (ruff multi-error). Production deploy recommendation: default greedy, use Best-of-N only when functional verifier (unit tests / type check) available at inference time."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/bench_bestofn_syntax.py"
+kind = "bench-script"
+version = "0.1.0"
+status = "active"
+description = "Production-realistic Best-of-N HE+ bench with python-compile() syntax verifier. Cycle 115: c105 first-50 = 52.00% (deployable) vs greedy 62% vs oracle pass@5 68%. CORRECTS ADR-2605291700 §Deployable claim: syntax-only verifier underperforms greedy by -10pp."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/bench_bestofn_lint.py"
+kind = "bench-script"
+version = "0.1.0"
+status = "active"
+description = "Best-of-N HE+ bench with ruff-lint multi-error verifier. Cycle 116: c105 first-50 = 58.00% (deployable) vs greedy 62% vs oracle pass@5 74%. Even multi-error lint can't recover -4pp vs greedy; production deploy verdict = use greedy by default."
