@@ -18953,6 +18953,40 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605291500-tsukuroi-authorized-remediation-tier-b-actor-r0.md",
+      "id": "tsukuroi-authorized-remediation-tier-b-actor-r0",
+      "title": "ADR-2605291500: tsukuroi (繕い) — authorized vulnerability-remediation + patch-proposal actor (akuma's constructive sibling) R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "authorized-remediation",
+      "authoritative": true,
+      "authoritative_for": [
+        "authorized-remediation",
+        "remediation-mandate-contract",
+        "patch-proposal-propose-only-ceiling",
+        "remediation-audit"
+      ],
+      "related": [
+        "adr-2605091800-pruning-protocol",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605240200-kaizen-self-reflection"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605151400-akuma-authorized-redteam-actor",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only",
+        "adr-2605231525-server-side-signing-capability",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-05-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/proof/README.md",
       "id": "wellbecoming-karma-lean-proofs",
       "title": "WellBecoming + Karma — Lean 4 Formal Proofs",

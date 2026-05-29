@@ -104,6 +104,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | kokoro 心 | mental health support (NOT clinical psych) | 🟡 R0 | 2605263700 | 05-26 |
 | shidemori 死出守 | memorial + cemetery (FINAL gap-closure) | 🟡 R0 | 2605263800 | 05-26 |
 | ossekai 御節介 | info-arbitrage + Wellbecoming-nudge (AT Proto) | 🟡 R0 | 2605264000 | 05-26 |
+| tsukuroi 繕い | authorized vuln-remediation patch-proposer (akuma sibling; propose-only) | 🟡 R0 | 2605291500 | 05-29 |
 
 > **Note**: ADR ids `2605263400` and `2605263500` each label two distinct ADRs (parallel-agent race in the source); filename + actor name disambiguate. Tracked for a future ADR-id reconciliation.
 

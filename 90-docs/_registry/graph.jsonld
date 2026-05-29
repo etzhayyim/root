@@ -12535,6 +12535,27 @@
       "lastVerified": "2026-03-20"
     },
     {
+      "id": "doc:tsukuroi-authorized-remediation-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605291500: tsukuroi (繕い) — authorized vulnerability-remediation + patch-proposal actor (akuma's constructive sibling) R0",
+      "status": "proposed",
+      "topic": "authorized-remediation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "authorized-remediation",
+        "remediation-mandate-contract",
+        "patch-proposal-propose-only-ceiling",
+        "remediation-audit"
+      ],
+      "related": [
+        "doc:adr-2605091800-pruning-protocol",
+        "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "doc:adr-2605240200-kaizen-self-reflection"
+      ],
+      "lastVerified": "2026-05-29"
+    },
+    {
       "id": "doc:wellbecoming-karma-lean-proofs",
       "type": "TechArticle",
       "title": "WellBecoming + Karma — Lean 4 Formal Proofs",
