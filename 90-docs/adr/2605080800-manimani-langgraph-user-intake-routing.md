@@ -5,7 +5,9 @@ status: accepted
 doc_type: adr
 topic: manimani-user-intake-routing
 authoritative: true
-last_verified: 2026-05-08
+last_verified: 2026-05-29
+superseded_by:
+  - adr-2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest  # substrate/runtime/inference layers only; product contract preserved
 priority: 7.0
 axis: architecture
 weight: 0.6
@@ -33,6 +35,15 @@ related: []
 ---
 
 # ADR-2605080800: manimani LangGraph User Intake & Project Routing Pipeline
+
+> **⚠️ 2026-05-29 — substrate/runtime/inference layers SUPERSEDED by ADR-2605291100.**
+> RisingWave/Hyperdrive persistence, Anthropic-direct / RunPod vLLM inference, and the
+> Python LangGraph Server + Granian pool described below are now constitutionally prohibited
+> (ADR-2605262130 kotoba; ADR-2605215000 Murakumo-only). The reconciled design maps manimani
+> onto kotoba EAVT datoms + kotoba StateGraph + Murakumo LiteLLM + Signal E2E, and adds the
+> Gmail full-archive + broad PC-file ingest paths. **This ADR remains authoritative for the
+> product contract** (XRPC surface, 4 project kinds, LLM-led classification + `confidence<0.5
+> →unsorted` fallback, non-federable default). See ADR-2605291100.
 
 ## Goal
 

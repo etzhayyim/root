@@ -1,6 +1,19 @@
 # manimani.etzhayyim.com — personal knowledge router (LangGraph user-intake routing)
 
-Authoritative: ADR-2605080800 + ADR-2605080600 (LangGraph Server) + ADR-2604282300 (CF Worker = edge facade).
+> **⚠️ Substrate/runtime/inference SUPERSEDED (2026-05-29, ADR-2605291100).**
+> The persistence (RisingWave/Hyperdrive), inference (Anthropic-direct / RunPod vLLM),
+> and runtime (Python LangGraph Server + Granian pool) described below predate the
+> religious-corp constitutional wave and are now **prohibited**. The reconciled design
+> targets **kotoba EAVT datoms** (the "datomic"), **kotoba StateGraph** (the "langgraph"),
+> **Murakumo LiteLLM-only** inference, and Signal E2E PII — see
+> `90-docs/adr/2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest.md`.
+> The **product contract** below (XRPC surface, 4 project kinds, LLM-led classification,
+> non-federable default, CF Worker edge-facade role) is **preserved unchanged**.
+> Execution backend (`pymagatama/manimani/`) was never implemented; Phase 0 contract only.
+
+Authoritative: ADR-2605291100 (kotoba-native reconciliation + Gmail/PC ingest, current) ·
+ADR-2605080800 (product contract) + ADR-2605080600 (LangGraph Server, superseded by kotoba
+StateGraph) + ADR-2604282300 (CF Worker = edge facade).
 
 ## Layer
 

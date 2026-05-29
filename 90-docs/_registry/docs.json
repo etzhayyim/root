@@ -4534,6 +4534,9 @@
         "non-federable PII actor の境界 (default に AT Repo emit を出さない)"
       ],
       "related": [],
+      "superseded_by": [
+        "adr-2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest"
+      ],
       "depends_on": [
         "adr-2605080600-langgraph-server-granian-l3-runtime",
         "adr-2605080000-distributed-cognitive-actor-system",
@@ -4548,9 +4551,8 @@
         "adr-0026-agent-only-reverse-identity-topology",
         "adr-0018-pii-tier3-cohort-first"
       ],
-      "last_verified": "2026-05-08",
+      "last_verified": "2026-05-29",
       "supersedes": [],
-      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },
@@ -16573,6 +16575,75 @@
         "adr-2605281700-kotoba-content-addressed-monorepo-projection",
         "adr-2605281800-kotoba-monorepo-projection-r1-adr-corpus-ingest",
         "adr-2605281900-kotoba-subrepo-charter-rider-reconciliation"
+      ],
+      "last_verified": "2026-05-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605290927-junkan-societal-feedback-loop-observer.md",
+      "id": "adr-2605290927-junkan-societal-feedback-loop-observer",
+      "title": "ADR-2605290927: junkan (循環) — analysis-only societal feedback-loop observer (Python LangGraph + datom/kotoba-kqe)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "junkan-societal-feedback-loop-observer",
+      "authoritative": true,
+      "authoritative_for": [
+        "junkan actor R0 charter",
+        "societal causal-loop / virtuous-vicious-cycle analysis substrate",
+        "analysis-only (no-actuation) artificial-organism observer pattern"
+      ],
+      "related": [
+        "adr-2605221243-ideal-ecosystem-state-active-inference-prior",
+        "adr-2605232345-unspsc-actor-as-organism"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262400-public-data-ingestion-organism-ecosystem",
+        "adr-2605240200-kaizen-observer-self-reflection",
+        "adr-2605264000-ossekai-information-arbitrage-wellbecoming-nudge"
+      ],
+      "last_verified": "2026-05-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest.md",
+      "id": "adr-2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest",
+      "title": "ADR-2605291100: manimani — kotoba-native personal knowledge router (Gmail + PC ingest), reconciling RisingWave/Anthropic-direct/RunPod",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "manimani-kotoba-native-reconciliation",
+      "authoritative": true,
+      "authoritative_for": [
+        "manimani.etzhayyim.com の substrate 配置 (kotoba EAVT datoms; RisingWave 廃止)",
+        "manimani inference 経路 (Murakumo LiteLLM gateway のみ; Anthropic-direct / RunPod 廃止)",
+        "manimani runtime (kotoba StateGraph; pymagatama LangGraph Server + Granian pool 廃止)",
+        "Gmail 全アーカイブ ingest 経路 (kotoba-ingest gmail.rs OAuth2 → RFC2822 → E2E encrypt → QuadStore)",
+        "広範囲 PC ファイル ingest 経路 (kotoba-kse Vault chunking → BlobManifest CID → intake datom)",
+        "manimani datom schema (vertex_manimani_* RisingWave テーブルの EAVT predicate 置換)"
+      ],
+      "related": [
+        "adr-2605120000-ses-anken-jokyo-ingest-langgraph",
+        "kotoba-internal ADR-2605250002 (kotoba StateGraph / LangGraph-compatible API)",
+        "kotoba-internal ADR-2605252400 (kotoba-ingest Gmail OAuth2 → QuadStore)",
+        "kotoba-internal ADR-2605250004 / 2605250005 (kotoba WebGPU train / infer)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605080800-manimani-langgraph-user-intake-routing",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605181100-confidentiality-encrypted-records",
+        "adr-2604251830-shannon-optimal-layered-architecture"
       ],
       "last_verified": "2026-05-29",
       "amends": [],
