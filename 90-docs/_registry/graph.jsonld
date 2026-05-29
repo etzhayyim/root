@@ -10658,7 +10658,7 @@
       "id": "doc:adr-2605281950-mitate-r2-general-lab-orders-and-iyashi-phlebotomy",
       "type": "TechArticle",
       "title": "mitate R2 extension — general blood + clinical-chemistry diagnostic orders (CBC / 生化学 / HbA1c / 甲状腺 / 脂質 / 鉄 / 凝固 / urinalysis) + iyashi internal phlebotomy cell + diagnosticConsentReceipt lexicon for 要配慮個人情報 移管 consent",
-      "status": "proposed",
+      "status": "proposed-r0-landed",
       "topic": "mitate-r2-general-lab-orders",
       "authoritative": true,
       "authoritativeFor": [
@@ -10680,7 +10680,7 @@
         "doc:20-actors/magatama/cells/mitate_diagnostic_result_ingest/",
         "doc:20-actors/magatama/cells/iyashi_internal_phlebotomy/"
       ],
-      "lastVerified": "2026-05-28"
+      "lastVerified": "2026-05-29"
     },
     {
       "id": "doc:adr-2605282000-kotoba-murakumo-modal-compat-python-fleet-inference",
@@ -10757,6 +10757,38 @@
         "judah gateway bearer-auth env-var convention (LITELLM_MASTER_KEY)"
       ],
       "lastVerified": "2026-05-28"
+    },
+    {
+      "id": "doc:adr-2605290000-kotoba-murakumo-session-closure-r1-arc-2026-05-28",
+      "type": "TechArticle",
+      "title": "ADR-2605290000: kotoba_murakumo R1 session closure — full arc from facade design to live verification (2026-05-28 evening session, 4-ADR + 5-commit chain)",
+      "status": "active",
+      "topic": "kotoba-murakumo-session-closure",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba_murakumo R1 arc as a single navigable index",
+        "session-closure pattern for multi-ADR consumer-facade waves",
+        "durable trackers for R1.3c+ / R2 work that did not land in R1"
+      ],
+      "related": "doc:2605282200",
+      "lastVerified": "2026-05-29"
+    },
+    {
+      "id": "doc:adr-2605290900-kotoba-monorepo-projection-r0-r1-session-close",
+      "type": "TechArticle",
+      "title": "ADR-2605290900: kotoba monorepo projection R0+R1 session close — substrate live, Rider deferred, Kubo repaired",
+      "status": "accepted",
+      "topic": "kotoba-monorepo-projection",
+      "authoritative": true,
+      "authoritativeFor": [
+        "2026-05-28→29 kotoba session execution record"
+      ],
+      "related": [
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "lastVerified": "2026-05-29"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
