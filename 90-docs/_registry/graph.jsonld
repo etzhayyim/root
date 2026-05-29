@@ -10853,6 +10853,34 @@
       "lastVerified": "2026-05-29"
     },
     {
+      "id": "doc:adr-2605292000-kotoba-coverage-maturity-hardening-loop-session-close",
+      "type": "TechArticle",
+      "title": "ADR-2605292000: kotoba coverage + maturity hardening — /loop session closure (2026-05-29, 17 iterations)",
+      "status": "accepted",
+      "topic": "kotoba-coverage-maturity-hardening",
+      "authoritative": true,
+      "authoritativeFor": [
+        "record of the 2026-05-29 kotoba test-coverage + clippy-maturity hardening pass",
+        "kotoba workspace green-test baseline (1846 passed / 0 failed / 12 ignored) as of 2026-05-29"
+      ],
+      "related": "doc:adr-2605290900-kotoba-monorepo-projection-r0-r1-session-close",
+      "lastVerified": "2026-05-29"
+    },
+    {
+      "id": "doc:adr-2605292030-mitate-r2-lab-orders-session-close",
+      "type": "TechArticle",
+      "title": "Session close — ADR-2605281950 mitate R2 general lab orders + iyashi phlebotomy R0 scaffold (allergy + blood test gap arc)",
+      "status": "active",
+      "topic": "session-close",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Session-close record for ADR-2605281950 R0 scaffold arc",
+        "Deferred-item list referencing the R1 / R2 / R3 prerequisites surfaced by the R0 scaffold"
+      ],
+      "related": "doc:90-docs/adr/2605281950-mitate-r2-general-lab-orders-and-iyashi-phlebotomy.md",
+      "lastVerified": "2026-05-29"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
