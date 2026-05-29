@@ -1,11 +1,11 @@
 ---
 id: adr-2605281950-mitate-r2-general-lab-orders-and-iyashi-phlebotomy
 title: "mitate R2 extension — general blood + clinical-chemistry diagnostic orders (CBC / 生化学 / HbA1c / 甲状腺 / 脂質 / 鉄 / 凝固 / urinalysis) + iyashi internal phlebotomy cell + diagnosticConsentReceipt lexicon for 要配慮個人情報 移管 consent"
-status: proposed
+status: proposed-r0-landed
 doc_type: adr
 topic: mitate-r2-general-lab-orders
 authoritative: true
-last_verified: 2026-05-28
+last_verified: 2026-05-29
 priority: 5.5
 axis: actor-substrate
 weight: 0.55
