@@ -548,7 +548,7 @@ pub async fn request_log_query(
                 .is_none_or(|pfx| e.path.starts_with(pfx))
         })
         .collect();
-    entries.sort_by(|a, b| b.ts_unix.cmp(&a.ts_unix));
+    entries.sort_by_key(|e| std::cmp::Reverse(e.ts_unix));
     entries.truncate(limit);
 
     let total = entries.len();

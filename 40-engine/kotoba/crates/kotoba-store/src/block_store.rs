@@ -51,7 +51,7 @@ mod tests {
 
     #[test]
     fn store_error_is_displayable() {
-        let err = StoreError::Io(std::io::Error::new(std::io::ErrorKind::Other, "disk full"));
+        let err = StoreError::Io(std::io::Error::other("disk full"));
         let msg = err.to_string();
         assert!(msg.contains("io error") || msg.contains("disk full"), "got: {msg}");
     }
@@ -90,7 +90,7 @@ mod tests {
 
     #[test]
     fn store_error_debug_is_non_empty() {
-        let err = StoreError::Io(std::io::Error::new(std::io::ErrorKind::Other, "err"));
+        let err = StoreError::Io(std::io::Error::other("err"));
         let s = format!("{:?}", err);
         assert!(!s.is_empty());
     }
@@ -122,7 +122,7 @@ mod tests {
 
     #[test]
     fn store_error_contains_io_message() {
-        let err = StoreError::Io(std::io::Error::new(std::io::ErrorKind::Other, "no space left"));
+        let err = StoreError::Io(std::io::Error::other("no space left"));
         assert!(err.to_string().contains("no space left") || err.to_string().contains("io error"));
     }
 

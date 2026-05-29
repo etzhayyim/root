@@ -333,7 +333,7 @@ mod tests {
     async fn flush_as_car_without_store_returns_none() {
         let vault = Vault::new(); // no block store
         let blob_ref = vault.put(Bytes::from_static(b"no-store")).await;
-        let car = vault.flush_as_car(&blob_ref.cid, &[blob_ref.cid.clone()]).await;
+        let car = vault.flush_as_car(&blob_ref.cid, std::slice::from_ref(&blob_ref.cid)).await;
         assert!(car.is_none(), "flush_as_car without a block store must return None");
     }
 

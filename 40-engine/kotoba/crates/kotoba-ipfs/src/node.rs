@@ -19,12 +19,12 @@ use tracing::debug;
 
 const PROTOCOL_NAME: &str = "/kotoba/ipfs/1.0.0";
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BlockRequest {
     Want { cid: Vec<u8> },   // CID bytes
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum BlockResponse {
     Block { cid: Vec<u8>, data: Vec<u8> },
     NotFound { cid: Vec<u8> },
@@ -276,5 +276,73 @@ fn handle_event(
             debug!(%peer_id, "disconnected");
         }
         _ => {}
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Round-trip a value through the async `IpfsCodec` write→read path, exercising
+    /// the real CBOR wire format used between IPFS peers.
+    async fn round_trip_request(req: BlockRequest) -> BlockRequest {
+        let proto: &'static str = PROTOCOL_NAME;
+        let mut codec = IpfsCodec;
+        let mut wire: Vec<u8> = Vec::new();
+        codec.write_request(&proto, &mut futures::io::Cursor::new(&mut wire), req)
+            .await.expect("write_request");
+        codec.read_request(&proto, &mut futures::io::Cursor::new(wire))
+            .await.expect("read_request")
+    }
+
+    async fn round_trip_response(resp: BlockResponse) -> BlockResponse {
+        let proto: &'static str = PROTOCOL_NAME;
+        let mut codec = IpfsCodec;
+        let mut wire: Vec<u8> = Vec::new();
+        codec.write_response(&proto, &mut futures::io::Cursor::new(&mut wire), resp)
+            .await.expect("write_response");
+        codec.read_response(&proto, &mut futures::io::Cursor::new(wire))
+            .await.expect("read_response")
+    }
+
+    #[tokio::test]
+    async fn codec_request_want_round_trips() {
+        let req = BlockRequest::Want { cid: vec![0x01, 0x55, 0xde, 0xad] };
+        assert_eq!(round_trip_request(req.clone()).await, req);
+    }
+
+    #[tokio::test]
+    async fn codec_response_block_round_trips() {
+        let resp = BlockResponse::Block { cid: vec![0x01, 0x55], data: vec![9, 8, 7, 6] };
+        assert_eq!(round_trip_response(resp.clone()).await, resp);
+    }
+
+    #[tokio::test]
+    async fn codec_response_notfound_round_trips() {
+        let resp = BlockResponse::NotFound { cid: vec![0xff, 0x00] };
+        assert_eq!(round_trip_response(resp.clone()).await, resp);
+    }
+
+    #[tokio::test]
+    async fn codec_request_empty_cid_round_trips() {
+        // Defensive: an empty CID payload must still decode losslessly, not error.
+        let req = BlockRequest::Want { cid: vec![] };
+        assert_eq!(round_trip_request(req.clone()).await, req);
+    }
+
+    #[test]
+    fn protocol_name_is_namespaced_and_versioned() {
+        assert!(PROTOCOL_NAME.starts_with("/kotoba/"));
+        assert!(PROTOCOL_NAME.ends_with("/1.0.0"));
+    }
+
+    #[test]
+    fn ipfs_config_default_is_loopback_ephemeral() {
+        let cfg = IpfsConfig::default();
+        let s = cfg.listen.to_string();
+        assert!(s.contains("/ip4/127.0.0.1/"), "default must bind loopback, got {s}");
+        assert!(s.ends_with("/tcp/0"), "default must use an ephemeral TCP port, got {s}");
+        // new() is documented as an alias for default().
+        assert_eq!(IpfsConfig::new().listen.to_string(), s);
     }
 }

@@ -53,6 +53,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | organism R0+R1 sprint | 26-iter /loop, 8 axes A-H landed | 🟢 | 2605270930 | 05-27 |
 | Registry enforcement | 5→8-axis matrix, all PR-gates baseline 0 | 🟢 | 2605271100 / 271200 | 05-28 |
 | manimani kotoba-native | personal knowledge router reconciled onto kotoba EAVT + StateGraph + Murakumo + E2E; Gmail full-archive + PC-file ingest design | 🟡 | 2605291100 | 05-29 |
+| kotoba v0.1.0 + brew tap | first tag + GH Release + `etzhayyim/homebrew-kotoba` published; `brew install kotoba` end-to-end green (4-PR chain, host Xcode/CLT 16.4→26.5) | ✅ | 2605292100 | 05-29 |
 
 ### baien / silicon / ML
 

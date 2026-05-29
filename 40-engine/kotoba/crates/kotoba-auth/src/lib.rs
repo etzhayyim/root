@@ -22,7 +22,7 @@ pub use passkey::{
 mod tests {
     use super::*;
     use cacao::{Cacao, CacaoHeader, CacaoPayload, CacaoSig};
-    use bytes::Bytes;
+
 
     // ── eth helpers ────────────────────────────────────────────────────────
 

@@ -188,3 +188,77 @@ impl WasmExecutor {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn new_rejects_zero_gas() {
+        // Constitutional invariant: gas-less WASM execution is prohibited
+        // (kotoba CLAUDE.md § "禁止: gas_limit = 0 での WasmExecutor 生成").
+        assert!(WasmExecutor::new(0).is_err(), "gas_limit=0 must be rejected");
+    }
+
+    #[test]
+    fn new_accepts_positive_gas() {
+        assert!(WasmExecutor::new(1).is_ok());
+        assert!(WasmExecutor::new(10_000_000).is_ok());
+    }
+
+    #[test]
+    fn serialized_quad_from_pending_preserves_all_fields() {
+        let pending = PendingQuad {
+            graph:       "bafyGraph".into(),
+            subject:     "bafySubject".into(),
+            predicate:   "knows".into(),
+            object_cbor: vec![1, 2, 3, 4],
+        };
+        let s = SerializedQuad::from(pending);
+        assert_eq!(s.graph, "bafyGraph");
+        assert_eq!(s.subject, "bafySubject");
+        assert_eq!(s.predicate, "knows");
+        assert_eq!(s.object_cbor, vec![1, 2, 3, 4]);
+    }
+
+    #[test]
+    fn invoke_context_cbor_round_trips() {
+        // Locks the Invoke ChainEntry input wire format (guest ↔ host boundary).
+        let ctx = InvokeContext {
+            graph:       "bafyG".into(),
+            session_cid: Some("bafySession".into()),
+            args_cbor:   vec![0xa1, 0x00],
+        };
+        let mut buf = Vec::new();
+        ciborium::into_writer(&ctx, &mut buf).unwrap();
+        let back: InvokeContext = ciborium::from_reader(&buf[..]).unwrap();
+        assert_eq!(back.graph, "bafyG");
+        assert_eq!(back.session_cid.as_deref(), Some("bafySession"));
+        assert_eq!(back.args_cbor, vec![0xa1, 0x00]);
+    }
+
+    #[test]
+    fn invoke_context_session_none_round_trips() {
+        // UDF-style invocations carry no session; the None must survive CBOR.
+        let ctx = InvokeContext { graph: "g".into(), session_cid: None, args_cbor: vec![] };
+        let mut buf = Vec::new();
+        ciborium::into_writer(&ctx, &mut buf).unwrap();
+        let back: InvokeContext = ciborium::from_reader(&buf[..]).unwrap();
+        assert!(back.session_cid.is_none());
+    }
+
+    #[test]
+    fn serialized_quad_cbor_round_trips() {
+        let q = SerializedQuad {
+            graph:       "g".into(),
+            subject:     "s".into(),
+            predicate:   "p".into(),
+            object_cbor: vec![9, 9, 9],
+        };
+        let mut buf = Vec::new();
+        ciborium::into_writer(&q, &mut buf).unwrap();
+        let back: SerializedQuad = ciborium::from_reader(&buf[..]).unwrap();
+        assert_eq!(back.subject, "s");
+        assert_eq!(back.object_cbor, vec![9, 9, 9]);
+    }
+}

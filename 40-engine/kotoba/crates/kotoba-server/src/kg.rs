@@ -73,6 +73,16 @@ const MAX_KG_ID_LEN:    usize = 256;
 const MAX_KG_TEXT_LEN:  usize = 8_192;  // max embed text — prevents inference-engine DoS
 const MAX_KG_QUERY_LEN: usize = 2_048;
 const MAX_KG_LIMIT:     usize = 1_000;
+/// Hard ceiling on KG query result rows, regardless of caller request.
+const MAX_KG_QUERY_RESULT_LIMIT: usize = 10_000;
+
+/// Clamp a caller-supplied KG result `limit` to the handler's policy:
+/// absent → default `MAX_KG_LIMIT`; present → capped at `MAX_KG_QUERY_RESULT_LIMIT`.
+/// Single source of truth shared by the `kg_query` handler and its tests.
+#[inline]
+fn clamp_kg_result_limit(limit: Option<usize>) -> usize {
+    limit.unwrap_or(MAX_KG_LIMIT).min(MAX_KG_QUERY_RESULT_LIMIT)
+}
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -742,7 +752,6 @@ pub async fn kg_query(
     use kotoba_graph::sparql::SparqlCompiler;
 
     const MAX_KG_LANG_LEN: usize = 16;
-    const MAX_KG_QUERY_RESULT_LIMIT: usize = 10_000;
     if req.lang.len() > MAX_KG_LANG_LEN {
         return Err((StatusCode::BAD_REQUEST,
             format!("lang field too long ({} bytes, limit {MAX_KG_LANG_LEN})", req.lang.len())));
@@ -755,7 +764,7 @@ pub async fn kg_query(
         return Err((StatusCode::BAD_REQUEST,
             "lang must be 'sparql' or 'cypher'".to_string()));
     }
-    let result_limit = req.limit.unwrap_or(MAX_KG_LIMIT).min(MAX_KG_QUERY_RESULT_LIMIT);
+    let result_limit = clamp_kg_result_limit(req.limit);
 
     let t0        = Instant::now();
     let graph_cid = kg_graph_cid();
@@ -943,30 +952,21 @@ mod tests {
         // MAX_KG_LANG_LEN must accept "sparql" and "cypher" (6 and 6 chars) with margin.
         assert!("sparql".len() <= 16, "MAX_KG_LANG_LEN must fit 'sparql'");
         assert!("cypher".len() <= 16, "MAX_KG_LANG_LEN must fit 'cypher'");
-        // The constant must be small enough to prevent oversized error messages.
-        const _: () = assert!(16 <= 64, "MAX_KG_LANG_LEN should be modest");
     }
 
     #[test]
     fn kg_query_result_limit_constant_is_sane() {
-        // MAX_KG_QUERY_RESULT_LIMIT (10000) is ≥ MAX_KG_LIMIT (1000) and ≤ MAX_DERIVED_FACTS.
-        const _: () = assert!(10_000 >= MAX_KG_LIMIT, "result limit must be ≥ default kg limit");
-        // A response of 10k rows should remain reasonable in size.
-        const _: () = assert!(10_000 <= 100_000, "result limit should be bounded for response safety");
+        const _: () = assert!(MAX_KG_QUERY_RESULT_LIMIT >= MAX_KG_LIMIT,
+            "result ceiling must be ≥ default kg limit");
     }
 
     #[test]
     fn kg_query_limit_field_default_and_cap() {
-        // Default: None → MAX_KG_LIMIT (1000).
-        let default_limit = None::<usize>.unwrap_or(MAX_KG_LIMIT).min(10_000);
-        assert_eq!(default_limit, MAX_KG_LIMIT);
-
-        // Caller-supplied value is capped at MAX_KG_QUERY_RESULT_LIMIT.
-        let caller_huge = Some(999_999usize).unwrap_or(MAX_KG_LIMIT).min(10_000);
-        assert_eq!(caller_huge, 10_000, "oversized limit must be capped at 10_000");
-
-        // Caller-supplied small value passes through unchanged.
-        let caller_small = Some(42usize).unwrap_or(MAX_KG_LIMIT).min(10_000);
-        assert_eq!(caller_small, 42);
+        // Exercises the real handler clamp (`clamp_kg_result_limit`), which
+        // `kg_query` now calls directly — so this test tracks the live policy.
+        assert_eq!(clamp_kg_result_limit(None), MAX_KG_LIMIT, "absent limit → default");
+        assert_eq!(clamp_kg_result_limit(Some(999_999)), MAX_KG_QUERY_RESULT_LIMIT,
+            "oversized limit capped at ceiling");
+        assert_eq!(clamp_kg_result_limit(Some(42)), 42, "small limit passes through");
     }
 }

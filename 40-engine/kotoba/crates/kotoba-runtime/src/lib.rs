@@ -60,7 +60,11 @@ mod tests {
         fn table(&mut self) -> &mut ResourceTable { &mut self.wasi_table }
     }
 
+    // Requires the `kotoba-hello` example to be pre-built to wasm32-wasip2.
+    // Ignored by default so `cargo test` is green in a clean checkout; run with
+    // `cargo test -p kotoba-runtime -- --ignored` after building the example.
     #[test]
+    #[ignore = "requires pre-built examples/kotoba-hello/.../kotoba_hello.wasm fixture"]
     fn test_wasm_instantiate() -> Result<()> {
         let wasm_path = concat!(
             env!("CARGO_MANIFEST_DIR"),

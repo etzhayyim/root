@@ -1,5 +1,5 @@
-/// End-to-end integration test for the full Signal Protocol stack.
-/// Covers: key generation → X3DH → Double Ratchet 1:1 → Sender Keys group → field encryption.
+//! End-to-end integration test for the full Signal Protocol stack.
+//! Covers: key generation → X3DH → Double Ratchet 1:1 → Sender Keys group → field encryption.
 
 use kotoba_signal::{
     identity::IdentityKeyPair,
@@ -7,10 +7,7 @@ use kotoba_signal::{
     session::Session,
     group::{SenderKeyState, GroupSession},
     store::SignalStore,
-    x3dh::{x3dh_init_sender, x3dh_init_receiver},
-    ratchet::RatchetState,
 };
-use x25519_dalek::{StaticSecret, PublicKey as X25519Public};
 use rand::rngs::OsRng;
 
 // ── Helpers ────────────────────────────────────────────────────────────────────

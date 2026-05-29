@@ -23,7 +23,7 @@
 use std::time::Duration;
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use kotoba_core::cid::KotobaCid;
-use kotoba_store::{CarBundleWriter, CarBlockIndex, parse_index, extract_block};
+use kotoba_store::{CarBundleWriter, CarBlockIndex, extract_block};
 
 fn fake_cid(n: u64) -> KotobaCid { KotobaCid::from_bytes(&n.to_le_bytes()) }
 
@@ -124,8 +124,8 @@ fn bench_flush_comparison(c: &mut Criterion) {
     group.sample_size(10);
     group.measurement_time(Duration::from_secs(8));
 
-    for (label, n_blocks, put_µs, _desc) in scenarios {
-        let put_latency = Duration::from_micros(*put_µs);
+    for (label, n_blocks, put_us, _desc) in scenarios {
+        let put_latency = Duration::from_micros(*put_us);
         let blocks      = gen_blocks(*n_blocks, 512); // smaller blocks for bench speed
         let root        = fake_cid(0);
 
@@ -137,8 +137,8 @@ fn bench_flush_comparison(c: &mut Criterion) {
     }
 
     // Per-block serial (only for small N — large N takes too long even with µs sleep)
-    for (label, n_blocks, put_µs, _desc) in &scenarios[..2] {
-        let put_latency = Duration::from_micros(*put_µs);
+    for (label, n_blocks, put_us, _desc) in &scenarios[..2] {
+        let put_latency = Duration::from_micros(*put_us);
 
         group.bench_function(format!("per_block_serial/{label}"), |b| {
             b.iter(|| simulate_individual_flush(*n_blocks, put_latency));

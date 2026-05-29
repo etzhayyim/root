@@ -116,7 +116,7 @@ mod tests {
 
     #[test]
     fn spo_key_float_not_appended() {
-        let k = quad("p", QuadObject::Float(3.14)).spo_key();
+        let k = quad("p", QuadObject::Float(1.5)).spo_key();
         assert_eq!(k.len(), 36 + "p".len());
     }
 
@@ -225,7 +225,7 @@ mod tests {
 
     #[test]
     fn serde_quad_object_float() {
-        let obj = QuadObject::Float(2.718281828);
+        let obj = QuadObject::Float(1.25);
         assert_eq!(roundtrip(obj.clone()), obj);
     }
 

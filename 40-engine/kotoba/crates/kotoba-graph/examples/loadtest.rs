@@ -112,7 +112,7 @@ fn percentile(sorted: &[Duration], p: f64) -> Duration {
     sorted[idx]
 }
 
-fn query_latencies(arr: &Arrangement, n: u64, g: u64, iters: usize) -> (Duration, Duration, Duration) {
+fn query_latencies(arr: &Arrangement, n: u64, _g: u64, iters: usize) -> (Duration, Duration, Duration) {
     let mut times = Vec::with_capacity(iters * 4);
     let bound = n.max(1);
 

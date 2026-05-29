@@ -31,7 +31,8 @@ impl SimulatedLatencyBlockStore {
 
     /// kubo/HTTP LAN: GET ~1 ms, PUT ~2 ms
     fn kubo_lan() -> Self { Self::new(ms(1), ms(2)) }
-    /// kubo/HTTP WAN: GET ~80 ms, PUT ~100 ms
+    /// kubo/HTTP WAN: GET ~80 ms, PUT ~100 ms (reference profile; not all benches exercise it)
+    #[allow(dead_code)]
     fn kubo_wan() -> Self { Self::new(ms(80), ms(100)) }
 }
 

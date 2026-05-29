@@ -54,8 +54,10 @@ pub struct ChannelSchema {
 /// Schema for all channels in a `StateGraph`.
 ///
 /// Build with the builder API:
-/// ```ignore
-/// let schema = StateSchema::new()
+/// ```
+/// use kotoba_vm::{StateSchema, Reducer};
+///
+/// let _schema = StateSchema::new()
 ///     .channel("messages", Reducer::Append)
 ///     .channel("score",    Reducer::Override);
 /// ```
@@ -248,14 +250,17 @@ pub enum NodeKind {
 
 /// Builder for a `StateGraph`.
 ///
-/// ```ignore
-/// let compiled = StateGraph::new(
+/// ```
+/// use kotoba_vm::{StateGraph, StateSchema, Reducer, NodeKind, NodeOutput, EdgeTarget};
+/// use std::sync::Arc;
+///
+/// let _compiled = StateGraph::new(
 ///         StateSchema::new()
 ///             .channel("messages", Reducer::Append)
 ///     )
-///     .add_node("agent", NodeKind::Fn(agent_fn))
+///     .add_node("agent", NodeKind::Fn(Arc::new(|_state| NodeOutput::new())))
 ///     .add_node("tools", NodeKind::ToolNode)
-///     .add_conditional_edges("agent", Arc::new(|s| route_from_messages(s)))
+///     .add_conditional_edges("agent", Arc::new(|_state| EdgeTarget::End))
 ///     .add_edge("tools", "agent")
 ///     .set_entry_point("agent")
 ///     .compile();

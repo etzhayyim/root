@@ -366,7 +366,7 @@ mod tests {
         // fill digest with deterministic bytes
         for i in 0..32 { cid_bytes[4 + i] = (i as u8).wrapping_mul(7); }
 
-        let encoded = multibase::encode(multibase::Base::Base58Btc, &cid_bytes);
+        let encoded = multibase::encode(multibase::Base::Base58Btc, cid_bytes);
         assert!(encoded.starts_with('z'));
 
         let parsed = at_cid_str_to_kotoba(&encoded)
@@ -378,7 +378,7 @@ mod tests {
     fn at_cid_z_prefix_blake3_roundtrip() {
         // KotobaCid blake3 encoded as base58btc
         let cid = KotobaCid::from_bytes(b"test-blake3");
-        let encoded = multibase::encode(multibase::Base::Base58Btc, &cid.0);
+        let encoded = multibase::encode(multibase::Base::Base58Btc, cid.0);
         assert!(encoded.starts_with('z'));
         let parsed = at_cid_str_to_kotoba(&encoded).expect("z-prefix blake3 CID should parse");
         assert_eq!(parsed, cid);
@@ -421,7 +421,7 @@ mod tests {
         cid_bytes[1] = 0x55;  // NOT dag-cbor
         cid_bytes[2] = KotobaCid::MH_BLAKE3;
         cid_bytes[3] = 32;
-        let encoded = multibase::encode(multibase::Base::Base58Btc, &cid_bytes);
+        let encoded = multibase::encode(multibase::Base::Base58Btc, cid_bytes);
         assert!(at_cid_str_to_kotoba(&encoded).is_none());
     }
 
@@ -433,7 +433,7 @@ mod tests {
         cid_bytes[1] = KotobaCid::CODEC_DAG_CBOR;
         cid_bytes[2] = 0x13;  // unsupported multihash
         cid_bytes[3] = 32;
-        let encoded = multibase::encode(multibase::Base::Base58Btc, &cid_bytes);
+        let encoded = multibase::encode(multibase::Base::Base58Btc, cid_bytes);
         assert!(at_cid_str_to_kotoba(&encoded).is_none());
     }
 

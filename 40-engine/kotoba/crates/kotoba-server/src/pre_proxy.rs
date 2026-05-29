@@ -88,7 +88,7 @@ mod tests {
     use kotoba_store::MemoryBlockStore;
 
     fn make_doc_with_x25519(did: &str, key: [u8; 32]) -> DidDocument {
-        let encoded = multibase::encode(multibase::Base::Base58Btc, &key);
+        let encoded = multibase::encode(multibase::Base::Base58Btc, key);
         DidDocument {
             context: vec!["https://www.w3.org/ns/did/v1".into()],
             id: did.to_owned(),
