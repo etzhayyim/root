@@ -88,6 +88,17 @@ class BaienMoEResidual(nn.Module):
         if self.router is not None:
             nn.init.normal_(self.router.weight, mean=0.0, std=0.02)
 
+        # CRITICAL FIX (cycle 112c): output LayerNorm.
+        # Without normalization, the raw expert output magnitude (FFN ~5, memory_vectors ~0.02)
+        # is 100× to 30,000× smaller than the backbone FFN output magnitude (~641 on BitNet 2B).
+        # The α gate then makes contribution α × 1e-3 vs backbone ~641 ≈ ratio 1e-9, below
+        # bf16 precision. Result: wrapper output = backbone alone, MoE branch inert.
+        # Fix: pass moe_out through LayerNorm to normalize magnitude to ~1.0,
+        # then α × moe_out has predictable scale relative to backbone output.
+        # The learnable out_scale allows the model to learn the right magnitude relative to FFN.
+        self.out_norm = nn.LayerNorm(hidden_size)
+        self.out_scale = nn.Parameter(torch.ones(1))
+
         # G7: experts MUST NOT be initialized from dense FFN copy (Drop-Upcycling partial-reinit OK; identical-expert collapse rejected).
         # Default torch init (Kaiming uniform for Linear) gives independent random init per expert. Verified by test_expert_init_independent.py.
 
@@ -160,7 +171,12 @@ class BaienMoEResidual(nn.Module):
         prob_frac = router_probs.float().mean(dim=0)  # (E,) fp32
         aux_loss = self.num_experts * (token_frac * prob_frac).sum()
 
-        return output.reshape(batch, seq, hidden), aux_loss
+        # CRITICAL FIX (cycle 112c): normalize output to ~1.0 magnitude and apply learnable scale.
+        # Prevents the "MoE branch output 5×10⁻⁸ of backbone FFN" bug where the residual
+        # contribution was below bf16 precision and the wrapper degenerated to backbone-only.
+        output_norm = self.out_norm(output) * self.out_scale  # (num_tokens, hidden)
+
+        return output_norm.reshape(batch, seq, hidden), aux_loss
 
     def expert_utilization(self, x: torch.Tensor) -> torch.Tensor:
         """Diagnostic — returns fraction of tokens routed to each expert (no gradient).
