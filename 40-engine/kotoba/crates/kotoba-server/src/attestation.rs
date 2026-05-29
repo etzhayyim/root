@@ -641,7 +641,7 @@ mod tests {
 
     #[test]
     fn verified_entity_stake_exceeds_self_attested() {
-        assert!(MIN_STAKE_VERIFIED_ENTITY > MIN_STAKE_SELF_ATTESTED,
+        const _: () = assert!(MIN_STAKE_VERIFIED_ENTITY > MIN_STAKE_SELF_ATTESTED,
             "verified_entity stake threshold must be higher than self-attested");
     }
 

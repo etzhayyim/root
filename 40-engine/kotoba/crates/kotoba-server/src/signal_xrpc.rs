@@ -426,7 +426,7 @@ mod tests {
 
     #[test]
     fn bundle_bytes_cap_constant_is_smaller_than_payload_cap() {
-        assert!(MAX_BUNDLE_BYTES < MAX_PAYLOAD_BYTES,
+        const _: () = assert!(MAX_BUNDLE_BYTES < MAX_PAYLOAD_BYTES,
             "bundle cap should be tighter than general payload cap");
     }
 

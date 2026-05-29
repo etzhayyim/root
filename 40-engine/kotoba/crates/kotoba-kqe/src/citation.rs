@@ -135,7 +135,7 @@ impl CitationLedger {
             .collect();
 
         // Sort by royalty descending for deterministic ordering.
-        entries.sort_by(|a, b| b.royalty_mkoto.cmp(&a.royalty_mkoto));
+        entries.sort_by_key(|e| std::cmp::Reverse(e.royalty_mkoto));
 
         // Reset for next epoch.
         self.counts.clear();

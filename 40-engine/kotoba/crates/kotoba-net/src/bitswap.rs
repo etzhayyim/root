@@ -297,7 +297,7 @@ mod tests {
         let len_prefix = (encoded.len() as u32).to_be_bytes();
         let stream: Vec<u8> = [&len_prefix[..], &encoded].concat();
 
-        let result: std::io::Result<BitswapRequest> = read_cbor(&mut &*stream.as_slice()).await;
+        let result: std::io::Result<BitswapRequest> = read_cbor(&mut stream.as_slice()).await;
         assert!(result.is_ok(), "valid small request must be accepted: {result:?}");
     }
 

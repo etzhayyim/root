@@ -312,9 +312,9 @@ mod tests {
 
     #[test]
     fn size_limits_are_sane() {
-        assert!(MAX_OWNER_DID_LEN >= 64);
-        assert!(MAX_EMAIL_CID_LEN >= 32);
-        assert!(MAX_RAW_B64_LEN >= 1024);
+        const _: () = assert!(MAX_OWNER_DID_LEN >= 64);
+        const _: () = assert!(MAX_EMAIL_CID_LEN >= 32);
+        const _: () = assert!(MAX_RAW_B64_LEN >= 1024);
     }
 
     #[test]
@@ -347,7 +347,7 @@ mod tests {
 
     #[test]
     fn email_cid_len_cap_smaller_than_did_len_cap() {
-        assert!(MAX_EMAIL_CID_LEN < MAX_OWNER_DID_LEN,
+        const _: () = assert!(MAX_EMAIL_CID_LEN < MAX_OWNER_DID_LEN,
             "email CID length cap should be tighter than DID length cap");
     }
 

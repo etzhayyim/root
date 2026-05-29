@@ -839,8 +839,8 @@ mod tests {
 
     #[test]
     fn obj_to_json_float() {
-        let v = obj_to_json(&QuadObject::Float(3.14));
-        assert!((v.as_f64().unwrap() - 3.14).abs() < 1e-10);
+        let v = obj_to_json(&QuadObject::Float(2.5));
+        assert!((v.as_f64().unwrap() - 2.5).abs() < 1e-10);
     }
 
     #[test]
@@ -944,15 +944,15 @@ mod tests {
         assert!("sparql".len() <= 16, "MAX_KG_LANG_LEN must fit 'sparql'");
         assert!("cypher".len() <= 16, "MAX_KG_LANG_LEN must fit 'cypher'");
         // The constant must be small enough to prevent oversized error messages.
-        assert!(16 <= 64, "MAX_KG_LANG_LEN should be modest");
+        const _: () = assert!(16 <= 64, "MAX_KG_LANG_LEN should be modest");
     }
 
     #[test]
     fn kg_query_result_limit_constant_is_sane() {
         // MAX_KG_QUERY_RESULT_LIMIT (10000) is ≥ MAX_KG_LIMIT (1000) and ≤ MAX_DERIVED_FACTS.
-        assert!(10_000 >= MAX_KG_LIMIT, "result limit must be ≥ default kg limit");
+        const _: () = assert!(10_000 >= MAX_KG_LIMIT, "result limit must be ≥ default kg limit");
         // A response of 10k rows should remain reasonable in size.
-        assert!(10_000 <= 100_000, "result limit should be bounded for response safety");
+        const _: () = assert!(10_000 <= 100_000, "result limit should be bounded for response safety");
     }
 
     #[test]

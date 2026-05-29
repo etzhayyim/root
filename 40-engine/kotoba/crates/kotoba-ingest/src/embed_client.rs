@@ -223,7 +223,7 @@ mod tests {
         assert_eq!(results.len(), 3);
         for v in &results {
             assert_eq!(v.len(), 32);
-            for &x in v { assert!(x >= -1.0 && x <= 1.0); }
+            for &x in v { assert!((-1.0..=1.0).contains(&x)); }
         }
     }
 
@@ -252,7 +252,7 @@ mod tests {
         let client = Blake3EmbedClient::new(32);
         let results = client.embed_batch(&["test text here"]).await.unwrap();
         for &v in &results[0] {
-            assert!(v >= -1.0 && v <= 1.0, "value out of range: {v}");
+            assert!((-1.0..=1.0).contains(&v), "value out of range: {v}");
         }
     }
 

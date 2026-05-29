@@ -212,7 +212,7 @@ mod tests {
 
     #[test]
     fn want_block_is_fraction_of_want_have() {
-        assert!(MAX_WANT_BLOCK < MAX_WANT_HAVE,
+        const _: () = assert!(MAX_WANT_BLOCK < MAX_WANT_HAVE,
             "want_block limit should be smaller than want_have");
     }
 }

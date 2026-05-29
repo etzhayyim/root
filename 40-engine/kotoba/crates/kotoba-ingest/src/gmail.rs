@@ -145,3 +145,101 @@ impl GmailClient {
         Ok((raw, resp.thread_id))
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // The Gmail wire contract is encoded entirely in the `#[serde(rename)]` /
+    // `default` attributes on these private structs. The async methods that consume
+    // them can't be unit-tested without live OAuth, so these tests pin the exact JSON
+    // field mapping — a renamed/dropped field (or a broken rename) fails here instead
+    // of silently yielding empty deltas at runtime.
+
+    #[test]
+    fn token_response_extracts_access_token() {
+        let v: TokenResponse =
+            serde_json::from_str(r#"{"access_token":"ya29.abc","expires_in":3599}"#).unwrap();
+        assert_eq!(v.access_token, "ya29.abc");
+    }
+
+    #[test]
+    fn message_stub_maps_camelcase_thread_id() {
+        let v: MessageStub =
+            serde_json::from_str(r#"{"id":"18f","threadId":"t42"}"#).unwrap();
+        assert_eq!(v.id, "18f");
+        assert_eq!(v.thread_id, "t42");
+    }
+
+    #[test]
+    fn raw_message_response_maps_thread_id() {
+        let v: RawMessageResponse =
+            serde_json::from_str(r#"{"raw":"aGk","threadId":"t7","id":"m1"}"#).unwrap();
+        assert_eq!(v.raw, "aGk");
+        assert_eq!(v.thread_id, "t7");
+    }
+
+    #[test]
+    fn history_response_flattens_messages_added_into_stubs() {
+        // Mirrors the stub-extraction in `list_history` without any HTTP.
+        let json = r#"{
+            "historyId": "9001",
+            "history": [
+                {"id":"h1","messagesAdded":[
+                    {"message":{"id":"m1","threadId":"t1"}},
+                    {"message":{"id":"m2","threadId":"t2"}}
+                ]},
+                {"id":"h2","messagesAdded":[
+                    {"message":{"id":"m3","threadId":"t1"}}
+                ]}
+            ]
+        }"#;
+        let h: HistoryResponse = serde_json::from_str(json).unwrap();
+        assert_eq!(h.history_id.parse::<u64>().unwrap(), 9001);
+        let stubs: Vec<(String, String)> = h.history
+            .unwrap_or_default()
+            .into_iter()
+            .flat_map(|r| r.messages_added)
+            .map(|m| (m.message.id, m.message.thread_id))
+            .collect();
+        assert_eq!(stubs, vec![
+            ("m1".into(), "t1".into()),
+            ("m2".into(), "t2".into()),
+            ("m3".into(), "t1".into()),
+        ]);
+    }
+
+    #[test]
+    fn history_response_handles_empty_delta() {
+        // Gmail returns no `history` key when there are no changes since startHistoryId.
+        let h: HistoryResponse =
+            serde_json::from_str(r#"{"historyId":"9100"}"#).unwrap();
+        assert!(h.history.is_none());
+        assert_eq!(h.history.unwrap_or_default().len(), 0);
+    }
+
+    #[test]
+    fn history_record_defaults_messages_added_when_absent() {
+        // A history record can carry only label changes — `messagesAdded` then absent.
+        let r: HistoryRecord = serde_json::from_str(r#"{"id":"h9"}"#).unwrap();
+        assert!(r.messages_added.is_empty());
+    }
+
+    #[test]
+    fn raw_decode_uses_url_safe_no_pad_alphabet() {
+        // Gmail `format=raw` returns web-safe base64 (`-`/`_`, no padding). Bytes
+        // 0xFB 0xFF encode to "-_8" under URL_SAFE_NO_PAD; the standard alphabet
+        // would produce "+/" and fail here — guarding the chosen engine.
+        let bytes = [0xFBu8, 0xFF];
+        let encoded = B64URL.encode(bytes);
+        assert_eq!(encoded, "-_8");
+        assert_eq!(B64URL.decode(&encoded).unwrap(), bytes);
+    }
+
+    #[test]
+    fn raw_decode_round_trips_rfc2822_message() {
+        let msg = b"From: a@example.com\r\nSubject: hi\r\n\r\nbody";
+        let encoded = B64URL.encode(msg);
+        assert_eq!(B64URL.decode(&encoded).unwrap(), msg);
+    }
+}

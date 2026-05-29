@@ -106,6 +106,12 @@ const MAX_CONTEXT_K:   usize =   20;   // cap RAG context chunks before LLM prom
 const MAX_NPROBE:      usize =  256;   // cap IVF probe count to prevent brute-force fallback DoS
 const MAX_PARQUET_DIR: usize = 1_024;
 
+/// True when an IVF `nprobe` request value exceeds the DoS-protection cap.
+/// Single source of truth shared by the cc_search / cc_rag handlers and their
+/// tests, so the boundary check can't drift between call sites.
+#[inline]
+fn nprobe_exceeds_limit(nprobe: usize) -> bool { nprobe > MAX_NPROBE }
+
 #[derive(Serialize)]
 pub struct CcSearchResult {
     pub url:    String,
@@ -133,7 +139,7 @@ pub async fn cc_search(
                 Json(json!({"error": format!("lang exceeds {MAX_LANG_LEN} characters")}))).into_response();
         }
     }
-    if q.nprobe > MAX_NPROBE {
+    if nprobe_exceeds_limit(q.nprobe) {
         return (StatusCode::BAD_REQUEST,
             Json(json!({"error": format!("nprobe must not exceed {MAX_NPROBE}")}))).into_response();
     }
@@ -235,7 +241,7 @@ pub async fn cc_rag(
                 Json(json!({"error": format!("system prompt exceeds {MAX_SYSTEM_LEN} characters")}))).into_response();
         }
     }
-    if body.nprobe > MAX_NPROBE {
+    if nprobe_exceeds_limit(body.nprobe) {
         return (StatusCode::BAD_REQUEST,
             Json(json!({"error": format!("nprobe must not exceed {MAX_NPROBE}")}))).into_response();
     }
@@ -526,12 +532,12 @@ mod tests {
 
     #[test]
     fn limits_are_sane() {
-        assert!(MAX_QUERY_LEN  >= 1_024);
-        assert!(MAX_TOP_K      >=   10);
-        assert!(MAX_CONTEXT_K  <=   MAX_TOP_K);
-        assert!(MAX_NPROBE     >=   10,  "MAX_NPROBE should allow reasonable IVF probing");
-        assert!(MAX_NPROBE     <= 1_024, "MAX_NPROBE must cap unbounded computation");
-        assert!(MAX_PARQUET_DIR >= 10);
+        const _: () = assert!(MAX_QUERY_LEN  >= 1_024);
+        const _: () = assert!(MAX_TOP_K      >=   10);
+        const _: () = assert!(MAX_CONTEXT_K  <=   MAX_TOP_K);
+        const _: () = assert!(MAX_NPROBE     >=   10,  "MAX_NPROBE should allow reasonable IVF probing");
+        const _: () = assert!(MAX_NPROBE     <= 1_024, "MAX_NPROBE must cap unbounded computation");
+        const _: () = assert!(MAX_PARQUET_DIR >= 10);
     }
 
     #[test]
@@ -547,15 +553,16 @@ mod tests {
 
     #[test]
     fn nprobe_at_limit_is_accepted() {
-        // Boundary: MAX_NPROBE itself must be ≤ MAX_NPROBE (trivially, but documents intent)
-        assert!(MAX_NPROBE <= MAX_NPROBE);
+        // A request exactly at the cap must NOT be rejected by the handler predicate.
+        assert!(!nprobe_exceeds_limit(MAX_NPROBE));
+        assert!(!nprobe_exceeds_limit(MAX_NPROBE - 1));
     }
 
     #[test]
     fn nprobe_above_limit_would_be_rejected() {
-        // Documents that any nprobe > MAX_NPROBE should trigger a 400 in the handler.
-        // The handler check is: if q.nprobe > MAX_NPROBE { return 400 }
-        let oversized = MAX_NPROBE + 1;
-        assert!(oversized > MAX_NPROBE, "oversized nprobe must exceed the cap");
+        // Anything above the cap must trip the predicate the handlers gate on
+        // (cc_search line ~136 / cc_rag line ~238 → HTTP 400).
+        assert!(nprobe_exceeds_limit(MAX_NPROBE + 1));
+        assert!(nprobe_exceeds_limit(usize::MAX));
     }
 }

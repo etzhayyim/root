@@ -21,9 +21,8 @@ use kotoba_net::{KotobaSwarm, KotobaNetEvent, Multiaddr, PREGEL_GOSSIP_TOPIC};
 async fn get_listen_addr(swarm: &mut KotobaSwarm) -> Option<Multiaddr> {
     timeout(Duration::from_secs(5), async {
         loop {
-            match swarm.next_event().await? {
-                KotobaNetEvent::ListenAddr(a) => return Some(a),
-                _ => {}
+            if let KotobaNetEvent::ListenAddr(a) = swarm.next_event().await? {
+                return Some(a);
             }
         }
     })
@@ -50,16 +49,17 @@ async fn drive_until_gossip(
         }
         tokio::select! {
             ev1 = swarm1.next_event() => {
-                if ev1.is_none() { return None; }
-                // Swarm1 events keep it alive (GossipSub heartbeat, GRAFT etc.)
+                // Swarm1 events keep it alive (GossipSub heartbeat, GRAFT etc.);
+                // `?` propagates a closed stream as the None deadline result.
+                ev1?;
             }
             ev2 = swarm2.next_event() => {
                 match ev2 {
                     None => return None,
-                    Some(KotobaNetEvent::GossipMessage { topic, data, .. }) => {
-                        if topic.contains(topic_suffix) {
-                            return Some(data);
-                        }
+                    Some(KotobaNetEvent::GossipMessage { topic, data, .. })
+                        if topic.contains(topic_suffix) =>
+                    {
+                        return Some(data);
                     }
                     _ => {}
                 }

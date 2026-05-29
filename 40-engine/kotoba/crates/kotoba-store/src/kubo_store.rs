@@ -165,7 +165,7 @@ impl BlockStore for KuboBlockStore {
 
         tracing::debug!(blake3 = %cid, sha256 = %resp_key, "kubo block stored");
         // Canonicalise: use the CID that Kubo returned (may differ in encoding).
-        self.index_insert(cid, resp_key.is_empty().then(|| sha256_c).unwrap_or(resp_key));
+        self.index_insert(cid, if resp_key.is_empty() { sha256_c } else { resp_key });
         Ok(())
     }
 
