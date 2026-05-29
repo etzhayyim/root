@@ -1574,6 +1574,37 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605291700-moemoekyun-plateau-and-bestofn-path.md",
+      "id": "ADR-2605291700",
+      "title": "baien-moemoekyun plateau analysis (cycles 17-114) + Best-of-N as the deployable score-lift path",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "baien-moemoekyun",
+      "authoritative": true,
+      "authoritative_for": [
+        "moemoekyun adapter capability ceiling on BitNet 2B",
+        "score-improvement path forward for baien-moemoekyun deployment"
+      ],
+      "related": [
+        "ADR-2605261900",
+        "ADR-2605262100",
+        "ADR-2605280800",
+        "ADR-2605263000",
+        "ADR-2605263100"
+      ],
+      "depends_on": [
+        "ADR-2605261900",
+        "ADR-2605262100",
+        "ADR-2605215000",
+        "ADR-2605241900"
+      ],
+      "last_verified": "2026-05-29",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/260506-active-inference-agent-organism-design.md",
       "id": "active-inference-agent-organism-design",
       "title": "Active Inference Agent / Artificial Organism Design",
