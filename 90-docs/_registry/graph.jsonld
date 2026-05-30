@@ -11063,6 +11063,47 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605302245-danjo-global-fiscal-flow-extension",
+      "type": "TechArticle",
+      "title": "ADR-2605302245: 弾正 (danjo) global fiscal-flow extension — generalize the budget/procurement ingest cells beyond JP, add an inter-governmental fund-flow datom class, and emit fund-flow datoms that the kanae visualization actor (ADR-2605302300) consumes (still R3-gated, still non-adjudicating)",
+      "status": "proposed",
+      "topic": "danjo-global-fiscal-flow-extension",
+      "authoritative": true,
+      "authoritativeFor": [
+        "danjo budget_ledger + procurement_graph jurisdiction-parametric generalization (JP-first → global, R3-gated)",
+        "danjo inter-governmental fund-flow datom class (`intergov-fund-flow`) shared with kanae `fundFlowEdge`",
+        "the danjo (engine) ↔ kanae (visualizer) handoff contract"
+      ],
+      "related": [
+        "doc:adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+        "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605302300: 鼎 (kanae) — kotoba-native global government fiscal-flow visualization Tier-B actor that assembles worldwide fund flows (domestic full-chain + inter-governmental) into kotoba EAVT, narrates them with Murakumo-only LLM, and renders them as kami-engine WASM visualizations (R0 scaffold)",
+      "status": "proposed",
+      "topic": "kanae-global-fiscal-flow-visualization-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "new Tier-B actor `kanae` (global government fiscal-flow visualization + narrative)",
+        "kotoba-kqe EAVT datom schema for fund-flow-edge / flow-narrative / visualization-manifest",
+        "the boundary between danjo (cross-reference ENGINE; non-adjudicating discrepancy observations) and kanae (fiscal-flow ASSEMBLY + Murakumo narrative + kami-engine WASM visualization)",
+        "`app.etzhayyim.kanae.*` Lexicon namespace (fundFlowEdge / flowNarrative / visualizationManifest / methodNote)",
+        "kami-engine WASM as the constitutional render substrate for fiscal-flow visualization (no third-party BI / no ad/analytics SDK in the render path)"
+      ],
+      "related": [
+        "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "doc:adr-2605264000-ossekai-info-arbitrage-actor",
+        "doc:adr-2605263800-corp-identity-registry-lexicons"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-2605302330-chigiri-japan-certified-adr-mediation-lane",
       "type": "TechArticle",
       "title": "ADR-2605302330: chigiri — Japan 認証ADR (ADR法) certified-mediation lane, §72-exempt (extends ADR-2605302200; activates dispute_mediation cell)",

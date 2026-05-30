@@ -56,6 +56,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | Registry enforcement | 5→8-axis matrix, all PR-gates baseline 0 | 🟢 | 2605271100 / 271200 | 05-28 |
 | manimani kotoba-native | personal knowledge router reconciled onto kotoba EAVT + StateGraph + Murakumo + E2E; Gmail full-archive + PC-file ingest design | 🟡 | 2605291100 | 05-29 |
 | kotoba v0.1.0 + brew tap | first tag + GH Release + `etzhayyim/homebrew-kotoba` published; `brew install kotoba` end-to-end green (4-PR chain, host Xcode/CLT 16.4→26.5) | ✅ | 2605292100 | 05-29 |
+| kotoba actor deploy + Murakumo live | WASM + Python-LangGraph (aria) actors run in-WASM on :8077; wasmtime 22→25 (extended-const, PR#4) + json! wasm-runtime build fix (PR#5) merged upstream; kotoba→Murakumo `llm.infer` live (gemma4:e4b) verified end-to-end on prod :8077 | ✅ | 2605301625 | 05-30 |
 
 ### baien / silicon / ML
 
@@ -112,6 +113,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | tadori 辿 | authorized on-chain tx tracing + actor attribution (kotoba-EAVT-native; malak/ipaddress/yabai → kotoba migration) | 🟡 R0 | 2605301400 | 05-30 |
 | warifu 割符 | open zero-fee card (credit+debit), API/wire-compatible (Stripe-REST + EMV/ISO8583 + NFC/HCE); on-chain USDC settle (Base L2 + ERC-4337, T+0); 0% credit (qard ḥasan); Phase-1 SBT↔SBT closed-loop, Phase-2 external gated Lv7+ | 🟡 R0 | 2605302000 | 05-30 |
 | himotoki 繙き | ACTIVE disclosure-request filer — consent-bound DSAR (APPI/GDPR/CCPA) to private controllers (Discord/Google/LINE/Meta/Amazon) + FOIA (行政機関情報公開法) to public organs; coded target registry of each org's 窓口/住所/email/手続き; own-data-only + non-pretext; PII→encrypted DID-bound; active-outbound counterpart to passive danjo/tadori | 🟡 R0 | 2605302130 | 05-30 |
+| kanae 鼎 | global government fiscal-flow VISUALIZATION — assembles worldwide fund flows (domestic full chain appropriation→outlay→recipient + inter-governmental IMF/WB/OECD/UN transfer+aid+loan) into kotoba EAVT `fundFlowEdge`, narrates with Murakumo-only LLM (non-adjudicating), renders aggregate-first kami-engine WASM viz (Sankey/treemap/transfer-globe). **danjo finds, kanae renders**; kotoba-native (no RisingWave, ≠ maps). danjo global-fiscal-flow extension = ADR-2605302245 | 🟡 R0 | 2605302300 | 05-30 |
 
 > **Note**: ADR ids `2605263400` and `2605263500` each label two distinct ADRs (parallel-agent race in the source); filename + actor name disambiguate. Tracked for a future ADR-id reconciliation.
 

@@ -17013,6 +17013,75 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605302245-danjo-global-fiscal-flow-extension.md",
+      "id": "adr-2605302245-danjo-global-fiscal-flow-extension",
+      "title": "ADR-2605302245: 弾正 (danjo) global fiscal-flow extension — generalize the budget/procurement ingest cells beyond JP, add an inter-governmental fund-flow datom class, and emit fund-flow datoms that the kanae visualization actor (ADR-2605302300) consumes (still R3-gated, still non-adjudicating)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "danjo-global-fiscal-flow-extension",
+      "authoritative": true,
+      "authoritative_for": [
+        "danjo budget_ledger + procurement_graph jurisdiction-parametric generalization (JP-first → global, R3-gated)",
+        "danjo inter-governmental fund-flow datom class (`intergov-fund-flow`) shared with kanae `fundFlowEdge`",
+        "the danjo (engine) ↔ kanae (visualizer) handoff contract"
+      ],
+      "related": [
+        "adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605263900-public-data-open-government-ipfs-ingestion",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0.md",
+      "id": "adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+      "title": "ADR-2605302300: 鼎 (kanae) — kotoba-native global government fiscal-flow visualization Tier-B actor that assembles worldwide fund flows (domestic full-chain + inter-governmental) into kotoba EAVT, narrates them with Murakumo-only LLM, and renders them as kami-engine WASM visualizations (R0 scaffold)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kanae-global-fiscal-flow-visualization-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "new Tier-B actor `kanae` (global government fiscal-flow visualization + narrative)",
+        "kotoba-kqe EAVT datom schema for fund-flow-edge / flow-narrative / visualization-manifest",
+        "the boundary between danjo (cross-reference ENGINE; non-adjudicating discrepancy observations) and kanae (fiscal-flow ASSEMBLY + Murakumo narrative + kami-engine WASM visualization)",
+        "`app.etzhayyim.kanae.*` Lexicon namespace (fundFlowEdge / flowNarrative / visualizationManifest / methodNote)",
+        "kami-engine WASM as the constitutional render substrate for fiscal-flow visualization (no third-party BI / no ad/analytics SDK in the render path)"
+      ],
+      "related": [
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "adr-2605264000-ossekai-info-arbitrage-actor",
+        "adr-2605263800-corp-identity-registry-lexicons"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605302245-danjo-global-fiscal-flow-extension",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605263900-public-data-open-government-ipfs-ingestion",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605261800-nvidia-omniverse-compat-kami-engine",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605302330-chigiri-japan-certified-adr-mediation-lane.md",
       "id": "adr-2605302330-chigiri-japan-certified-adr-mediation-lane",
       "title": "ADR-2605302330: chigiri — Japan 認証ADR (ADR法) certified-mediation lane, §72-exempt (extends ADR-2605302200; activates dispute_mediation cell)",
