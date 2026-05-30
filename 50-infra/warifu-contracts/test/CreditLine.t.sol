@@ -32,7 +32,7 @@ contract CreditLineTest {
         vm.prank(router);
         credit.draw(holder, 600_000);
         (, uint256 outstanding) = credit.lines(holder);
-        require(outstanding == 600_000, "interest accrued — must be 0%");
+        require(outstanding == 600_000, "interest accrued; must be 0pct");
         require(credit.INTEREST_BPS() == 0, "interest bps must be 0");
         require(credit.LATE_FEE_BPS() == 0, "late fee bps must be 0");
         require(credit.available(holder) == 400_000, "available mismatch");
@@ -50,15 +50,15 @@ contract CreditLineTest {
 
     // --- cannot draw beyond limit ---
     function testOverLimitReverts() public {
-        vm.expectRevert(CreditLine.OverLimit.selector);
         vm.prank(router);
+        vm.expectRevert(CreditLine.OverLimit.selector);
         credit.draw(holder, 1_000_001);
     }
 
     // --- only router may draw ---
     function testDrawOnlyRouter() public {
-        vm.expectRevert(CreditLine.NotRouter.selector);
         vm.prank(holder);
+        vm.expectRevert(CreditLine.NotRouter.selector);
         credit.draw(holder, 1);
     }
 }
