@@ -199,6 +199,7 @@ app.etzhayyim.apps.ipaddress.scan_result        # port/service scan result (soft
 | → Followed by | yabai.etzhayyim.com (`y8b41k0x`) | `ComAtprotoSyncSubscribeRepos` | `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` → 自動リスク評価 + proxy/datacenter 検出で VPNDatacenter evidence 付与 |
 | → Followed by | ct-monitor.etzhayyim.com | `ComAtprotoSyncSubscribeRepos` | ASN/prefix → BGP 相関 |
 | → Followed by | maps.etzhayyim.com | `ComAtprotoSyncSubscribeRepos` | GeoIP → spatial mapping |
+| → Read by | tadori.etzhayyim.com | `kotoba-kqe` (post-T2, ADR-2605301400) | `ip-obs`/`dns-obs` datoms → **authorized, case-anchored** cross-store attribution join (address → cluster → ip-obs → dns-obs → person); PII objects written under `app.etzhayyim.encrypted.*`. Read-only consumer; ipaddress remains 1次 source-of-record |
 | ← Invokes | yabai.etzhayyim.com | `get-ip-risk` | risk score 照会 |
 | ← Invokes | ct-monitor.etzhayyim.com | `record-bgp-event` | BGP event 受信 |
 
