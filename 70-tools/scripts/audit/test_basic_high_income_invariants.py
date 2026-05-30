@@ -33,6 +33,7 @@ _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim"
 _METRIC = _LEX / "liberation" / "metricReport.json"
 _VENDOR = _LEX / "give" / "vendorMissionDonationAttestation.json"
+_VENDOR_POLICY = _LEX / "give" / "vendorSurplusPolicy.json"
 _VALUATION = _REPO / "20-actors" / "toritate" / "valuation" / "v1-retail-equiv.json"
 _CELLS = _REPO / "20-actors" / "magatama" / "cells"
 
@@ -93,6 +94,27 @@ class TestVendorDonationPurpose:
         # vendorDid + period + donatedAmountMicros + purpose + txHash are required;
         # nothing customer-identifying is required.
         assert "donatedAmountMicros" in rec["required"]
+
+
+# ─── 2b. vendorSurplusPolicy — Council-attested mission-commitment ──────
+
+
+class TestVendorSurplusPolicy:
+    def test_council_attestation_min_three(self):
+        rec = _load(_VENDOR_POLICY)["defs"]["main"]["record"]
+        att = rec["properties"]["councilAttestation"]
+        assert att.get("minItems", 0) >= 3, "policy needs Council Lv6+ ≥3 (ADR-2605301036 §6)"
+        assert "councilAttestation" in rec["required"]
+
+    def test_payout_ratio_is_bounded_integer(self):
+        rec = _load(_VENDOR_POLICY)["defs"]["main"]["record"]
+        ratio = rec["properties"]["payoutRatioBps"]
+        assert ratio["type"] == "integer"
+        assert ratio.get("maximum") == 10000, "payout ratio is basis points, capped at 100%"
+
+    def test_no_float_types(self):
+        bad = [n for n in _walk(_load(_VENDOR_POLICY)) if n.get("type") == "number"]
+        assert not bad, f"no `type: number` allowed; found {len(bad)}"
 
 
 # ─── 3. toritate valuation — commons-asset non-alienability ─────────────
