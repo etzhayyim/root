@@ -11129,6 +11129,23 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605310030-legal-services-vertical-session-closure",
+      "type": "TechArticle",
+      "title": "ADR-2605310030: legal-services vertical session closure — non-profit legal aid from law-analysis to in-node WASM, + SDK/CI repair",
+      "status": "active",
+      "topic": "legal-services-vertical-session",
+      "authoritative": true,
+      "authoritativeFor": [
+        "legal-services vertical session (2605291222) closure record",
+        "the 9-PR merge ledger + the residual-state honesty note"
+      ],
+      "related": [
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "doc:adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
