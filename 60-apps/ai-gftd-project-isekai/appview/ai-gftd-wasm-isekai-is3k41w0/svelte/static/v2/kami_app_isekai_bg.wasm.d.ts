@@ -1,21 +1,23 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
-export const isekaiOmniverseBanner: () => [number, number];
-export const isekaiOmniverseDefaultUsda: () => [number, number];
-export const runIsekaiOmniverse: (a: number, b: number, c: number, d: number) => any;
 export const run_isekai_v2: (a: number, b: number) => any;
 export const run_isekai_v2_scene: (a: number, b: number, c: number) => any;
-export const wasm_bindgen__closure__destroy__h5c1f4f983c7f8bff: (a: number, b: number) => void;
-export const wasm_bindgen__closure__destroy__h2999ab7c8b76f609: (a: number, b: number) => void;
-export const wasm_bindgen__closure__destroy__h08fe6a5ea70822a3: (a: number, b: number) => void;
-export const wasm_bindgen__convert__closures_____invoke__h7fab2cc70c6a6a11: (a: number, b: number, c: any) => [number, number];
-export const wasm_bindgen__convert__closures_____invoke__h5db5e8dc2faf8fdd: (a: number, b: number, c: any, d: any) => void;
-export const wasm_bindgen__convert__closures_____invoke__h3a6f88c67b5f8bee: (a: number, b: number, c: any) => void;
-export const wasm_bindgen__convert__closures_____invoke__h3a6f88c67b5f8bee_1: (a: number, b: number, c: any) => void;
-export const wasm_bindgen__convert__closures_____invoke__h3a6f88c67b5f8bee_2: (a: number, b: number, c: any) => void;
-export const wasm_bindgen__convert__closures_____invoke__h3a6f88c67b5f8bee_3: (a: number, b: number, c: any) => void;
-export const wasm_bindgen__convert__closures_____invoke__hc14154cec841365b: (a: number, b: number) => void;
+export const isekaiOmniverseBanner: () => [number, number];
+export const isekaiOmniverseDefaultUsda: () => [number, number];
+export const isekaiOmniverseWorldCatalog: () => [number, number];
+export const runIsekaiOmniverse: (a: number, b: number, c: number, d: number) => any;
+export const isekaiSetCartForce: (a: number) => void;
+export const wasm_bindgen__closure__destroy__h4cc8d9ef82568b4c: (a: number, b: number) => void;
+export const wasm_bindgen__closure__destroy__h3435a2f46af78ad4: (a: number, b: number) => void;
+export const wasm_bindgen__closure__destroy__h2272828a8287050c: (a: number, b: number) => void;
+export const wasm_bindgen__convert__closures_____invoke__hf36f016bc8d48565: (a: number, b: number, c: any) => [number, number];
+export const wasm_bindgen__convert__closures_____invoke__h9ab28270d6b15822: (a: number, b: number, c: any, d: any) => void;
+export const wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4: (a: number, b: number, c: any) => void;
+export const wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_1: (a: number, b: number, c: any) => void;
+export const wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_2: (a: number, b: number, c: any) => void;
+export const wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_3: (a: number, b: number, c: any) => void;
+export const wasm_bindgen__convert__closures_____invoke__h352b1769adabbb37: (a: number, b: number) => void;
 export const __wbindgen_malloc: (a: number, b: number) => number;
 export const __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
 export const __wbindgen_exn_store: (a: number) => void;
