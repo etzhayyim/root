@@ -46,6 +46,8 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | Gov 5-layer taxonomy | L1 namespace … L5 routing-around | ✅ | 2605212100 | 05-25 |
 | Charter §0 Preamble | Kingdom of God + Land Trust Wave 2 (ERC-721/5192/7401) | 🟡 | 2605252300 | 05-25 |
 | Labor Liberation ladder | Adherent SBT → 7-stage L0..L6 | 🟡 | 2605261000 | 05-26 |
+| Basic High Income doctrine | imputed-income (flow) + commons-asset (stock) — high income in-kind, cash≡0 (N1-consistent) | 🟡 | 2605301020 | 05-30 |
+| Mission-funding revenue arm | vendor commercial surplus → donation → Public Fund; non-profit MEANS not profit END; ad-free + no-payroll preserved | 🟡 | 2605301036 | 05-30 |
 | **kotoba** storage pivot | canonical substrate engine; supersedes yatachain + RW | 🟡 | 2605262130 | 05-26 |
 | Public-data ingestion | organism ecosystem IPFS DataLad subdatasets | 🟢 | 2605262400 | 05-26 |
 | Robotics-sim world-data | + kami-usd pipeline (sibling of 2605262400) | 🟢 | 2605262500 | 05-27 |

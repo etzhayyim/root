@@ -109,10 +109,22 @@ See ADR-2605262900 §6.
 skeleton only — required-field validation lands at R1 Council
 attestation review.
 
+## Basic High Income valuation (ADR-2605301020)
+
+toritate is the accounting SSoT for the **Basic High Income** doctrine — the
+non-cash income/asset figure (imputed income FLOW + commons-asset access STOCK)
+published in `app.etzhayyim.liberation.metricReport.basicHighIncome`. Two
+R0-path-reserved cells compute it (`toritate_imputed_income_compute` +
+`toritate_commons_asset_value`) against open, method-versioned reference tables in
+`20-actors/toritate/valuation/` (`v1-retail-equiv` draft 雛形). No cash is ever
+transferred (`cashStipendUsd ≡ 0`, N1); figures are aggregate-only (no
+per-adherent leaderboard). See `valuation/README.md`.
+
 ## Related Files
 
 - `/20-actors/toritate/manifest.jsonld`
 - `/20-actors/toritate/CLAUDE.md`
+- `/20-actors/toritate/valuation/` (Basic High Income reference price tables — ADR-2605301020)
 - `/00-contracts/lexicons/app/etzhayyim/toritate/` (5 Lexicons + README)
 - `/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md`
 - `/CHARTER-RIDER.md` §2 — 8 prohibited categories (esp. §2(e) anti-gatekeeping + §2(c) covert-ops vendor)

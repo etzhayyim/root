@@ -100,17 +100,17 @@ Extend `app.etzhayyim.liberation.metricReport` (ADR-2605261000 §4) with non-cas
   stage: "L2",
   adherentsAtStage: 847,
   basicHighIncome: {
-    imputedIncomeMedianUsdYr: 2150,        # in-kind services, market-equiv, NOT cash paid
+    imputedIncomeMedianUsdMicrosYr: 2150000000,  # 2150 USD/yr in-kind, market-equiv, NOT cash
     imputedIncomeValuationMethod: "v1-retail-equiv",
-    commonsAssetAccessMedianUsd: 0,        # L2 has no land/asset access yet
-    highIncomeBenchmarkRatio: 0.05,        # vs OECD upper-decile basket; rises toward ≥1.0 at L6
-    cashStipendUsd: 0                       # INVARIANT: always 0 (N1)
+    commonsAssetAccessMedianUsdMicros: 0,        # L2 has no land/asset access yet
+    highIncomeBenchmarkRatioPermille: 50,        # 0.05 vs OECD upper-decile; →≥1000 (1.0) at L6
+    cashStipendUsdMicros: 0                       # INVARIANT: always 0 (N1)
   },
-  ...                                       # existing labor-hours + wellbecoming + exit fields
+  ...                                             # existing labor-hours + wellbecoming + exit fields
 }
 ```
 
-`cashStipendUsd` is a **structural invariant field fixed at 0** — its presence in every report is the on-chain proof that N1 holds.
+All quantities are **integer-with-implied-units** per ADR-2605190900 (no float in Lexicons): USD as micros (×1e6), ratios as per-mille (×1000), labor-hours as centihours/week (×100), rates as basis points (×10000). `cashStipendUsdMicros` is a **structural invariant field fixed at 0** (`const: 0`) — its presence in every report is the on-chain proof that N1 holds.
 
 ### 6. Wellbecoming guard
 
