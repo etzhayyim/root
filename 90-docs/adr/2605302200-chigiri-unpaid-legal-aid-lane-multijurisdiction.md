@@ -31,6 +31,7 @@ depends_on:
 related:
   - adr-2605262800-public-data-legal-corpus-ipfs-ingestion
   - adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0
+  - adr-2605302330-chigiri-japan-certified-adr-mediation-lane
 supersedes: []
 superseded_by: []
 ---
@@ -71,7 +72,8 @@ the exact conditions that keep it lawful across the five surveyed jurisdictions.
 | **South Korea** | 변호사법 (Attorney-at-Law Act) §109 | **Compensation** — «보수를 받거나 받을 것을 약속하고» (receiving or promising to receive remuneration) | **Yes (likely)** — free service lacks the remuneration element; §34 separately forbids fee-sharing with non-lawyers (cf. Japan §27). Five 士業-equivalents (변호사/노무사/변리사/법무사/행정사) each have a statutory scope. | Court appearance reserved to 변호사. |
 | **Australia** | Legal Profession Uniform Law (state-adopted; e.g. NSW/Vic 2014), s.10 | **Compensation in several jurisdictions** — defence available if not for «fee, gain or reward» | **Yes (in those jurisdictions)** — pro bono practice with impunity where the «fee, gain or reward» defence exists. Max penalty otherwise 2 yrs / 250 penalty units. | Court practice reserved to qualified entities. |
 | **Canada (Ontario)** | Law Society Act + LSO By-Law 4 | **Licensure** — lawyers **and licensed paralegals** may provide legal services | **No, generally** — providing legal services requires an LSO licence; By-Law 4 carves out specific not-for-fee / non-commercial exemptions. Ontario uniquely licenses **paralegals** for small-claims, POA, summary criminal, tribunals. | Reserved to lawyers/paralegals per LSO scope; UPL actively prosecuted. |
-| **Austria / Switzerland** | Anwaltsmonopol (AT: broad; CH: BGFA — court-representation-centric) | **Activity-type (court representation)** — *needs further verification for out-of-court free advice* | **CH: likely yes** for out-of-court advice (no monopoly on Beratung; monopoly is Parteivertretung vor Gericht). **AT: more restrictive** — verify before enabling. | Court representation reserved (Anwaltsmonopol). ⚠️ R0 does NOT enable AT/CH matters until verified. |
+| **Switzerland** | BGFA (Anwaltsgesetz) | **Activity-type (court representation only)** — *verified 2026-05-30* | **Yes** — the Anwaltsmonopol is confined to professional party-representation before civil courts (and not even mediation/rental/labour courts or summary proceedings). **Out-of-court legal advice / Rechtsberatung is NOT monopolised** — unregistered advisers may give it. | Party-representation before civil courts reserved. `enabled` for out-of-court advice (G16 over-compliant). |
+| **Austria** | RAO (Rechtsanwaltsordnung) §8 + Winkelschreiberei prohibition | **Broad** — paid business legal advice also restricted | **Not relied on** — Austrian Winkelschreiberei doctrine reaches beyond court representation. ⚠️ `verify-required` — AT matters NOT enabled at R0 until the unentgeltlich scope is confirmed against RAO + case law. | Broad reservation. ⚠️ R0 does NOT enable AT matters. |
 
 ### Key asymmetry (9 jurisdictions surveyed)
 
@@ -79,7 +81,7 @@ Two regulatory families emerge:
 
 - **Compensation-gated** (free advice lawful on its own): **Japan** (§72), **France** (art. 54 «rémunéré»), **South Korea** (§109 «보수»), **Australia** (s.10 «fee, gain or reward» defence). "無償徹底" alone opens at least free advice here.
 - **Licensure / activity-gated** (free is *not* sufficient): **Germany** (RDG §6 — free OK *but* qualified-jurist supervision mandatory), **United States** (split; assume licensure-gated — bar-admitted attorney must deliver/supervise; California explicitly so), **Canada/Ontario** (LSO licence required; narrow not-for-fee carve-outs), **Austria** (broad Anwaltsmonopol — verify).
-- **Activity-type, advice unreserved** (most permissive): **England & Wales** (LSA 2007 — legal advice is unreserved, lawful free or paid; only the reserved-6 need authorisation), **Switzerland** (monopoly is court representation; out-of-court advice largely free — verify).
+- **Activity-type, advice unreserved** (most permissive): **England & Wales** (LSA 2007 — legal advice is unreserved, lawful free or paid; only the reserved-6 need authorisation), **Switzerland** (BGFA monopoly is court representation only; out-of-court advice not monopolised — *verified 2026-05-30*).
 - **Everywhere**: actual **litigation / court representation** stays a lawyer (or, in Ontario, lawyer/paralegal) monopoly. Out of scope for this lane.
 
 This confirms the universal safe harbor below holds across **all nine**: it is over-compliant in the compensation-gated and advice-unreserved families, and exactly-compliant in the licensure-gated family.
@@ -187,10 +189,11 @@ compensation + lawyer involvement; see ADR-2605302200."** This prevents the same
    and entgeltlich character (DE), collapsing the safe harbor and risking §27 非弁提携.
 3. **Software/LLM-delivered advice (drop the human lawyer)** — rejected: UPL in US even if free; also
    violates chigiri G14 and Murakumo discipline. The lawyer is constitutive, not optional.
-4. **認証ADR (Japan ADR法) certified-mediation lane** — *deferred, not rejected.* This is a genuinely
-   distinct lawful channel (statutory carve-out from §72 for 和解仲介 by certified non-lawyers) that maps
-   onto chigiri's existing `dispute_mediation` cell. It deserves its own ADR (certification process,
-   法務大臣 認証 dependency, scope limits) and is tracked as future work, not folded in here.
+4. **認証ADR (Japan ADR法) certified-mediation lane** — *split out into **ADR-2605302330** (2026-05-30).*
+   A genuinely distinct lawful channel (express §72 carve-out for 和解仲介 by certified providers, and
+   lawful 報酬 — so it does not even require gratuitousness) mapping onto chigiri's `dispute_mediation`
+   cell. Kept as a separate ADR because its legal basis is certification, not gratuitousness; it reuses
+   this ADR's G16 supervising-counsel mechanism for the §6-(5) 弁護士助言措置.
 5. **Per-jurisdiction divergent gates** — rejected for the trust-critical path: strictest-common-denominator
    (G15+G16) keeps the gate logic single-sourced; divergence lives only in the declarative routing table.
 

@@ -11057,7 +11057,27 @@
       ],
       "related": [
         "doc:adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
-        "doc:adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0"
+        "doc:adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0",
+        "doc:adr-2605302330-chigiri-japan-certified-adr-mediation-lane"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302330-chigiri-japan-certified-adr-mediation-lane",
+      "type": "TechArticle",
+      "title": "ADR-2605302330: chigiri — Japan 認証ADR (ADR法) certified-mediation lane, §72-exempt (extends ADR-2605302200; activates dispute_mediation cell)",
+      "status": "proposed",
+      "topic": "chigiri-certified-adr-mediation-lane",
+      "authoritative": true,
+      "authoritativeFor": [
+        "chigiri Japan 認証ADR certified-mediation lane",
+        "ADR法 §72-exemption mapping for chigiri dispute_mediation cell",
+        "認証紛争解決事業者 §6 sixteen-criteria compliance surface for chigiri",
+        "boundary between the 無償 advice lane and the certified-mediation lane"
+      ],
+      "related": [
+        "doc:adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0",
+        "doc:adr-2605262800-public-data-legal-corpus-ipfs-ingestion"
       ],
       "lastVerified": "2026-05-30"
     },
