@@ -1,6 +1,6 @@
 # R0 agentic SFT corpus recipe — baien-server-agentic-gemma4-26b-a4b
 #
-# Per ADR-2605302345 §4. Strengthens agentic capability (tool use / function
+# Per ADR-2605302359 §4. Strengthens agentic capability (tool use / function
 # calling / multi-step ReAct / structured output / self-correction) of
 # gemma-4-26B-A4B via QLoRA on EVO-X2 (own hardware, 128 GB unified; ADR §3).
 #
@@ -31,7 +31,7 @@ hand-authored tool-use seed (Charter-clean, Apache 2.0) plus open
 function-calling / agentic-trace datasets (admit ONLY Charter-clean,
 openly-licensed shards; per-shard license review + charter_rider.scan()).
 
-QLoRA target set (ADR-2605302345 §2): attention q/k/v/o + the shared/dense
+QLoRA target set (ADR-2605302359 §2): attention q/k/v/o + the shared/dense
 FFN (535M, always active); the 128 routed experts (22.84B) stay FROZEN.
 Post-train, re-run the moe-expert-activation profiler and diff
 expert-classification.json (verify_routing.py) to confirm code/reasoning/tool

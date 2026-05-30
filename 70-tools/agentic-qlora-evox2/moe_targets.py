@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MoE-aware LoRA target resolver for gemma-4-26B-A4B (ADR-2605302345 §2).
+"""MoE-aware LoRA target resolver for gemma-4-26B-A4B (ADR-2605302359 §2).
 
 The QLoRA target set is chosen from the expert-activation profiling:
   - TRAIN: attention q/k/v/o + the SHARED/dense FFN (gate/up/down) — 535M,

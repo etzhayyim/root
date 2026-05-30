@@ -17185,42 +17185,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605302345-moe-expert-activation-profiling-and-agentic-qlora.md",
-      "id": "adr-2605302345-moe-expert-activation-profiling-and-agentic-qlora",
-      "title": "ADR-2605302345: MoE expert-activation profiling substrate (gemma-4-26B-A4B) + agentic-capability QLoRA enhancement plan — profiling informs the QLoRA target set (shared expert + attention + router); Unsloth is CUDA-gated, peft+trl on ROCm is the now-path",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "moe-expert-activation-and-agentic-qlora",
-      "authoritative": true,
-      "authoritative_for": [
-        "MoE expert-activation profiling method (ffn_moe_topk capture via llama-eval-callback) + the `moe-expert-activation/<model>` DataLad subdataset layout",
-        "per-(layer,expert) classification schema (top_category / specialization / confidence / unseen-rare)",
-        "the MoE-aware QLoRA target policy (shared expert + attention + router trainable; routed experts frozen)",
-        "agentic-capability QLoRA plan for `baien-server-agentic-gemma4-26b-a4b-*`",
-        "Unsloth-vs-peft+trl decision under the ROCm/CUDA hardware reality",
-        "distributed-training path policy on the owned Murakumo Mac mini fleet (MLX data-parallel LoRA; pipeline-parallel for >1-mini models) — own hardware, no §2(i)(2) gate"
-      ],
-      "related": [
-        "adr-2605261900-baien-moemoekyun-moe-r0",
-        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605241500-etzhayyim-dataset-cid-substrate",
-        "adr-2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference",
-        "adr-2605250400-gemma-coder-distill-rocm",
-        "adr-2605231300-baien-distill-langgraph-coding",
-        "adr-2605262200-charter-rider-train-gpu-carveout",
-        "adr-2605241900-baien-edge-target-invariant",
-        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
-        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
-      ],
-      "last_verified": "2026-05-30",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing.md",
       "id": "adr-2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing",
       "title": "ADR-2605302355: kotoba LangGraph actor LLM inference — live end-to-end verification, three runtime fixes, macOS Local Network Privacy root-cause, and durable Murakumo LiteLLM-loopback routing (session closure)",
@@ -17323,6 +17287,42 @@
         "ADR-0087 (magatama MCP tool facade — MCP exposure)",
         "ADR-2605172600 (Membership Ritual — signed oath + dual→triple-permanent record)",
         "ADR-2605231525 (server-side signing capability — no platform-held key)"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605302359-moe-expert-activation-profiling-and-agentic-qlora.md",
+      "id": "adr-2605302359-moe-expert-activation-profiling-and-agentic-qlora",
+      "title": "ADR-2605302359: MoE expert-activation profiling substrate (gemma-4-26B-A4B) + agentic-capability QLoRA enhancement plan — profiling informs the QLoRA target set (shared expert + attention + router); Unsloth is CUDA-gated, peft+trl on ROCm is the now-path",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "moe-expert-activation-and-agentic-qlora",
+      "authoritative": true,
+      "authoritative_for": [
+        "MoE expert-activation profiling method (ffn_moe_topk capture via llama-eval-callback) + the `moe-expert-activation/<model>` DataLad subdataset layout",
+        "per-(layer,expert) classification schema (top_category / specialization / confidence / unseen-rare)",
+        "the MoE-aware QLoRA target policy (shared expert + attention + router trainable; routed experts frozen)",
+        "agentic-capability QLoRA plan for `baien-server-agentic-gemma4-26b-a4b-*`",
+        "Unsloth-vs-peft+trl decision under the ROCm/CUDA hardware reality",
+        "distributed-training path policy on the owned Murakumo Mac mini fleet (MLX data-parallel LoRA; pipeline-parallel for >1-mini models) — own hardware, no §2(i)(2) gate"
+      ],
+      "related": [
+        "adr-2605261900-baien-moemoekyun-moe-r0",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference",
+        "adr-2605250400-gemma-coder-distill-rocm",
+        "adr-2605231300-baien-distill-langgraph-coding",
+        "adr-2605262200-charter-rider-train-gpu-carveout",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "last_verified": "2026-05-30",
       "amends": [],

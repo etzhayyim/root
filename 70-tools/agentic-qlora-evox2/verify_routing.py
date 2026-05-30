@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Post-train routing-health check (ADR-2605302345 §5).
+"""Post-train routing-health check (ADR-2605302359 §5).
 
 After training the agentic adapter, re-run the MoE expert profiler on the
 merged model and diff the expert classification against the pre-train

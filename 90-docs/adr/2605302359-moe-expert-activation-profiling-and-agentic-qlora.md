@@ -1,6 +1,6 @@
 ---
-id: adr-2605302345-moe-expert-activation-profiling-and-agentic-qlora
-title: "ADR-2605302345: MoE expert-activation profiling substrate (gemma-4-26B-A4B) + agentic-capability QLoRA enhancement plan — profiling informs the QLoRA target set (shared expert + attention + router); Unsloth is CUDA-gated, peft+trl on ROCm is the now-path"
+id: adr-2605302359-moe-expert-activation-profiling-and-agentic-qlora
+title: "ADR-2605302359: MoE expert-activation profiling substrate (gemma-4-26B-A4B) + agentic-capability QLoRA enhancement plan — profiling informs the QLoRA target set (shared expert + attention + router); Unsloth is CUDA-gated, peft+trl on ROCm is the now-path"
 status: proposed
 doc_type: adr
 topic: moe-expert-activation-and-agentic-qlora

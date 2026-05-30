@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Harvest the repo's REAL agentic tool surface → Gemma-chat tool-use SFT
-(ADR-2605302345 §4 item 2 — the highest-value on-distribution signal).
+(ADR-2605302359 §4 item 2 — the highest-value on-distribution signal).
 
 Sources of the tool catalog (deterministic, from code):
   1. kotoba WIT `world.wit` — typed host functions kqe/kse/auth/llm/evm/chain

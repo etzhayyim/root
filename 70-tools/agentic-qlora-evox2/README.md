@@ -2,7 +2,7 @@
 
 Strengthen the **agentic capability** (tool use / function calling / multi-step
 ReAct / structured output / self-correction) of **gemma-4-26B-A4B** via QLoRA,
-on the owned **EVO-X2** node. Per **ADR-2605302345**.
+on the owned **EVO-X2** node. Per **ADR-2605302359**.
 
 Artifact: `baien-server-agentic-gemma4-26b-a4b-r<NN>` — server carve-out, **NOT**
 the ≤12B edge baien (ADR-2605241900). Inference stays Murakumo-only (ADR-2605215000).

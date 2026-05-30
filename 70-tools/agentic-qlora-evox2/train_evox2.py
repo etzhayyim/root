@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Agentic QLoRA trainer for gemma-4-26B-A4B on EVO-X2 (ADR-2605302345 §3).
+"""Agentic QLoRA trainer for gemma-4-26B-A4B on EVO-X2 (ADR-2605302359 §3).
 
 Owned-hardware now-path: EVO-X2 (AMD Ryzen AI Max+ 395, 128 GB unified —
 32 GB VRAM UMA carve-out + 96 GB sys, BIOS-re-carvable). 4-bit base ≈14 GB +
