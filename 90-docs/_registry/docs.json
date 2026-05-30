@@ -17088,6 +17088,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605302350-r2-cross-party-key-exchange-design-for-review.md",
+      "id": "adr-2605302350-r2-cross-party-key-exchange-design-for-review",
+      "title": "ADR-2605302350: R2 cross-party key exchange for encrypted records — DESIGN FOR REVIEW (signal.ts X25519 ECDH sealed-box)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "r2-cross-party-key-exchange",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2605231525-no-server-key-religious-corp-architecture"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605181200-mst-encrypted-metadata-leak-reduction"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605302355-legal-services-kotoba-wasm-in-node-deployment.md",
       "id": "adr-2605302355-legal-services-kotoba-wasm-in-node-deployment",
       "title": "ADR-2605302355: legal-services constitutional gates run as in-node kotoba WASM Component guests (not Cloudflare Workers)",
