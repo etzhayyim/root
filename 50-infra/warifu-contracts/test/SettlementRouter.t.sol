@@ -109,8 +109,8 @@ contract SettlementRouterTest {
 
     // --- only council may flip phase2 ---
     function testEnablePhase2OnlyCouncil() public {
-        vm.expectRevert(SettlementRouter.NotCouncil.selector);
         vm.prank(holder);
+        vm.expectRevert(SettlementRouter.NotCouncil.selector);
         router.enablePhase2(bytes32("nope"));
     }
 }
