@@ -11082,6 +11082,27 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605302345-etzhayyim-legal-services-delivery-and-global-judiciary-corpus",
+      "type": "TechArticle",
+      "title": "ADR-2605302345: etzhayyim.com legal-services delivery (counsel-operated, UPL-safe) + global judiciary corpus ingestion (courts/judges/case-history)",
+      "status": "proposed",
+      "topic": "etzhayyim-legal-services-delivery-and-judiciary-corpus",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim.com legal-consultation delivery architecture (counsel-operated, UPL-safe)",
+        "G18 counsel-operated comms gateway invariant (fax/email/e-filing; no corp signing key for legal acts)",
+        "G19 judge-analytics prohibition (France art.33 + global no-profiling)",
+        "global judiciary corpus ingestion (courts / judges / case-history) scope + gates",
+        "reframing of \"all legal work\" as counsel-orchestrated full-spectrum support"
+      ],
+      "related": [
+        "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
