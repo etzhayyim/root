@@ -152,3 +152,89 @@ def test_cell_stub_raises_r0(cell):
     with pytest.raises(RuntimeError) as exc:
         spec.loader.exec_module(mod)
     assert "R0 scaffold" in str(exc.value)
+
+
+# ─── 5. example records conform to their lexicon schemas ────────────────
+#
+# Nothing else in the repo validates instance records against lexicon schemas
+# (validate-lexicons.py checks the schema files themselves). This minimal
+# validator catches drift between an example fixture and its lexicon: required
+# fields, additionalProperties:false, primitive types, const, enum, minItems,
+# and string length bounds — enough to fail fast if a field is renamed or a
+# const/enum is weakened.
+
+_EXAMPLES = _REPO / "00-contracts" / "examples" / "app" / "etzhayyim"
+
+
+def _validate_record(schema_obj: dict, value, path: str = "$") -> list[str]:
+    errs: list[str] = []
+    t = schema_obj.get("const")
+    if "const" in schema_obj and value != t:
+        errs.append(f"{path}: const {t!r} != {value!r}")
+    if "enum" in schema_obj and value not in schema_obj["enum"]:
+        errs.append(f"{path}: {value!r} not in enum {schema_obj['enum']}")
+
+    typ = schema_obj.get("type")
+    if typ == "object":
+        if not isinstance(value, dict):
+            return errs + [f"{path}: expected object"]
+        props = schema_obj.get("properties", {})
+        for req in schema_obj.get("required", []):
+            if req not in value:
+                errs.append(f"{path}: missing required {req!r}")
+        if schema_obj.get("additionalProperties") is False:
+            extra = set(value) - set(props)
+            if extra:
+                errs.append(f"{path}: unexpected keys {sorted(extra)} (additionalProperties:false)")
+        for k, v in value.items():
+            if k in props:
+                errs += _validate_record(props[k], v, f"{path}.{k}")
+    elif typ == "integer":
+        if isinstance(value, bool) or not isinstance(value, int):
+            errs.append(f"{path}: expected integer, got {type(value).__name__}")
+        else:
+            if "minimum" in schema_obj and value < schema_obj["minimum"]:
+                errs.append(f"{path}: {value} < minimum {schema_obj['minimum']}")
+            if "maximum" in schema_obj and value > schema_obj["maximum"]:
+                errs.append(f"{path}: {value} > maximum {schema_obj['maximum']}")
+    elif typ == "string":
+        if not isinstance(value, str):
+            errs.append(f"{path}: expected string")
+        else:
+            if "minLength" in schema_obj and len(value) < schema_obj["minLength"]:
+                errs.append(f"{path}: len {len(value)} < minLength {schema_obj['minLength']}")
+            if "maxLength" in schema_obj and len(value) > schema_obj["maxLength"]:
+                errs.append(f"{path}: len {len(value)} > maxLength {schema_obj['maxLength']}")
+    elif typ == "array":
+        if not isinstance(value, list):
+            errs.append(f"{path}: expected array")
+        else:
+            if "minItems" in schema_obj and len(value) < schema_obj["minItems"]:
+                errs.append(f"{path}: {len(value)} items < minItems {schema_obj['minItems']}")
+            item_schema = schema_obj.get("items")
+            if isinstance(item_schema, dict):
+                for i, item in enumerate(value):
+                    errs += _validate_record(item_schema, item, f"{path}[{i}]")
+    return errs
+
+
+@pytest.mark.parametrize("example_rel, lexicon_path", [
+    ("liberation/metricReport.example.v1.json", _METRIC),
+    ("give/vendorMissionDonationAttestation.example.v1.json", _VENDOR),
+    ("give/vendorSurplusPolicy.example.v1.json", _VENDOR_POLICY),
+])
+def test_example_conforms_to_lexicon(example_rel, lexicon_path):
+    record_schema = _load(lexicon_path)["defs"]["main"]["record"]
+    instance = _load(_EXAMPLES / example_rel)
+    errs = _validate_record(record_schema, instance)
+    assert not errs, "example does not conform to lexicon:\n  " + "\n  ".join(errs)
+
+
+def test_metric_example_cash_stipend_is_zero():
+    inst = _load(_EXAMPLES / "liberation/metricReport.example.v1.json")
+    assert inst["basicHighIncome"]["cashStipendUsdMicros"] == 0
+
+
+def test_vendor_donation_example_purpose_is_titheable():
+    inst = _load(_EXAMPLES / "give/vendorMissionDonationAttestation.example.v1.json")
+    assert inst["purpose"] in {"donation", "grant"}
