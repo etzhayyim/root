@@ -206,3 +206,65 @@ class TestManifestGates:
             "app.etzhayyim.tadori.traceReport",
             "app.etzhayyim.tadori.silenTadoriReview",
         }, "manifest lexiconNamespaces must match the 4 shipped Lexicons"
+
+
+# ─── 7. manifest ↔ on-disk artifact consistency (drift guards) ──────────
+
+
+class TestManifestArtifactConsistency:
+    def test_namespaces_match_disk_lexicon_files_bidirectionally(self):
+        # Every declared namespace has a file; every file (minus README) is
+        # declared — catches an orphan lexicon or a phantom namespace.
+        declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}
+        on_disk = {p.stem for p in _TADORI_LEX.glob("*.json")}
+        assert declared == on_disk, (
+            f"manifest namespaces vs disk lexicons drifted: {declared ^ on_disk}"
+        )
+
+    def test_each_lexicon_id_matches_its_namespace(self):
+        for p in _TADORI_LEX.glob("*.json"):
+            lex_id = _load(p)["id"]
+            assert lex_id == f"app.etzhayyim.tadori.{p.stem}", (
+                f"{p.name}: lexicon id {lex_id!r} must match its filename + namespace"
+            )
+
+    def test_manifest_cell_modules_match_cell_dirs(self):
+        modules = {c["module"] for c in _load(_MANIFEST)["cells"]}
+        expected = {f"magatama.cells.{name}" for name in _CELL_NAMES}
+        assert modules == expected, f"manifest cell modules vs dirs drifted: {modules ^ expected}"
+
+    def test_did_is_consistent_across_artifacts(self):
+        man = _load(_MANIFEST)
+        assert man["id"] == "did:web:tadori.etzhayyim.com"
+        assert man["name"] == "tadori"
+        assert man["tier"] == "Tier-B"
+
+
+# ─── 8. lexicon enum coverage (designed value sets) ─────────────────────
+
+
+class TestLexiconEnumCoverage:
+    def test_case_mandate_authorization_basis_enum(self):
+        rec = _load(_CASE)["defs"]["main"]["record"]
+        basis = set(rec["properties"]["authorizationBasis"].get("knownValues", []))
+        assert basis == {
+            "fraud-victim-recovery",
+            "aml-cti-duty",
+            "sanctioned-entity-tracing",
+            "council-transparent-force",
+        }, "the 4 constitutional bases for an authorized trace must be pinned (G3)"
+
+    def test_trace_report_classification_covers_key_classes(self):
+        rec = _load(_TRACE)["defs"]["main"]["record"]
+        classes = set(rec["properties"]["classification"].get("knownValues", []))
+        # bridge_pool is the class whose v1 false-positive ADR-2605152000 fixed;
+        # mixer/sanctioned/whale_eoa are the high-signal AML classes.
+        for c in ("bridge_pool", "mixer", "sanctioned", "whale_eoa"):
+            assert c in classes, f"traceReport.classification must cover {c!r}"
+
+    def test_attribution_object_kinds_split_pii_and_public(self):
+        rec = _load(_ATTR)["defs"]["main"]["record"]
+        kinds = set(rec["properties"]["objectKind"].get("knownValues", []))
+        # PII classes force encryption; org/email are the broader set.
+        assert {"person", "ip-obs", "device"} <= kinds
+        assert {"org", "email"} <= kinds
