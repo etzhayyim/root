@@ -97,6 +97,7 @@ jobs:
             70-tools/scripts/audit/test_tsukuroi_invariants.py \
             70-tools/scripts/audit/test_karute_invariants.py \
             70-tools/scripts/audit/test_kokoro_invariants.py \
+            70-tools/scripts/audit/test_iyashi_invariants.py \
             70-tools/scripts/audit/test_all_sh.py \
             -v
 

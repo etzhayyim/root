@@ -120,6 +120,7 @@
     "app.etzhayyim.iyashi.chronicCareContinuityRecord",
     "app.etzhayyim.iyashi.vaccinationAttestation",
     "app.etzhayyim.iyashi.clinicFacilityAttestation",
+    "app.etzhayyim.iyashi.phlebotomyAttestation",
     "app.etzhayyim.iyashi.silenIyashiReview"
   ],
   "constitutionalGates": {
