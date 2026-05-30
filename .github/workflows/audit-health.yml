@@ -93,6 +93,7 @@ jobs:
             70-tools/scripts/audit/test_simple_audits.py \
             70-tools/scripts/audit/test_e7m_verify_perf.py \
             70-tools/scripts/audit/test_gitmodules.py \
+            70-tools/scripts/audit/test_tadori_invariants.py \
             70-tools/scripts/audit/test_all_sh.py \
             -v
 

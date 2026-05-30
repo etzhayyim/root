@@ -10901,6 +10901,224 @@
       "lastVerified": "2026-05-29"
     },
     {
+      "id": "doc:adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+      "type": "TechArticle",
+      "title": "ADR-2605301020: Basic High Income — Imputed-Income (flow) + Commons-Asset (stock) Doctrine for In-Kind Adherent Provision",
+      "status": "proposed",
+      "topic": "basic-high-income-imputed-commons-asset",
+      "authoritative": true,
+      "authoritativeFor": [
+        "definition of \"income\" and \"asset\" for adherents under the non-cash religious-corp economy",
+        "imputed-income (flow) accounting of in-kind service provision",
+        "commons-asset (stock) accounting of SBT-bound non-alienable access rights",
+        "reframing of the Liberation Ladder L0..L6 as a Basic High Income target"
+      ],
+      "related": [
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "doc:adr-2605192130-etzhayyim-tithe-redistribution",
+        "doc:adr-2605192145-etzhayyim-public-fund-architecture",
+        "doc:adr-2605192245-etzhayyim-global-land-sovereignty",
+        "doc:adr-2605172300-etzhayyim-bi-asset-substrate",
+        "doc:adr-2605262900-toritate-accounting-audit"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605301030-kotoba-kg-storage-session-52-entity-actor-graph",
+      "type": "TechArticle",
+      "title": "ADR-2605301030: kotoba KG storage session — 53-entity actor/doctrine graph on a live datomic node, IPFS-pinned provenance, and the snapshot-of-hot commit discipline",
+      "status": "active",
+      "topic": "kotoba-kg-storage-session",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba operator runbook (serve via launchd, JWT-shaped auth tier, kg.ingest_batch + commit)",
+        "snapshot-of-hot commit discipline (commit seals hot Arrangement only; never partial-ingest+commit after restart)",
+        "kg-seed-v1.ndjson canonical SoT + rehydrate.sh disaster-recovery contract",
+        "kotoba CLI shadow-install + ad-hoc codesign requirement on Apple Silicon"
+      ],
+      "related": [
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "doc:adr-2605192130-etzhayyim-tithe-redistribution"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605301036-mission-funding-earned-revenue-arm",
+      "type": "TechArticle",
+      "title": "ADR-2605301036: Mission-Funding Earned-Revenue Arm — Vendor commercial surplus → donation → Public Fund (earned income as non-profit MEANS, not profit END)",
+      "status": "proposed",
+      "topic": "mission-funding-earned-revenue-arm",
+      "authoritative": true,
+      "authoritativeFor": [
+        "how etzhayyim acquires revenue to fund its non-profit mission without becoming for-profit",
+        "the religious-corp (non-profit) ↔ vendor (commercial) two-entity earned-revenue boundary",
+        "permitted vs prohibited revenue categories for the vendor arm",
+        "the labor model for revenue-generating human work (vendor employment vs adherent vocation→donation)"
+      ],
+      "related": [
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "doc:adr-2605192130-etzhayyim-tithe-redistribution",
+        "doc:adr-2605192145-etzhayyim-public-fund-architecture",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "doc:adr-2605262900-toritate-accounting-audit",
+        "doc:adr-2605264000-ossekai-information-arbitrage-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+      "type": "TechArticle",
+      "title": "ADR-2605301400: 辿 (tadori) — authorized on-chain transaction-tracing + actor-attribution Tier-B actor, kotoba-EAVT-native; migrates malak pursuit + ipaddress + yabai off yata SQL / RisingWave",
+      "status": "proposed",
+      "topic": "tadori-onchain-tracing-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "new Tier-B actor `tadori` (authorized on-chain tx tracing + actor attribution)",
+        "kotoba-kqe EAVT datom schema for tx / address / cluster / label / case / ip-observation / dns-observation / attribution / risk",
+        "migration of malak `wallet_deep_inspect_pursuit` + `address_label_pursuit` Pregel output off filesystem/RisingWave onto kotoba QuadStore",
+        "migration of ipaddress.etzhayyim.com SQL graph off yata Workers RPC onto kotoba-kqe",
+        "migration of yabai.etzhayyim.com SQL graph (CTI / DNS / IP-history / access-audit) off yata Workers RPC onto kotoba-kqe"
+      ],
+      "related": [
+        "doc:adr-2605131600-malak-orchestration-langgraph-pregel-langserve",
+        "doc:adr-2605172000-malak-onion-frontier-ransomware-tracking",
+        "doc:adr-2604251935-blockchain-vke-head-ingest",
+        "doc:adr-2605291500-tsukuroi-authorized-remediation-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605301600: 弾正 (danjo) — kotoba-native public-accountability oversight Tier-B actor that ingests Diet statements + budget + procurement and emits non-adjudicating discrepancy observations (R0 scaffold)",
+      "status": "proposed",
+      "topic": "danjo-public-accountability-oversight-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "new Tier-B actor `danjo` (public-accountability oversight; civic transparency cross-reference)",
+        "kotoba-kqe EAVT datom schema for official / statement / authority / award / appropriation / outlay / entity / cross-reference-link / discrepancy-observation",
+        "the boundary between toritate (religious-corp's OWN on-chain books) and danjo (the STATE's published open-data books)",
+        "`app.etzhayyim.danjo.*` Lexicon namespace (discrepancyObservation / crossReferenceLink / oversightReport / methodNote)"
+      ],
+      "related": [
+        "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "doc:adr-2605264000-ossekai-info-arbitrage-actor",
+        "doc:adr-2605263800-corp-identity-registry-lexicons"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605302130: 繙き (himotoki) — kotoba-native ACTIVE disclosure-request Tier-B actor that files consent-bound data-subject access requests (APPI/GDPR/CCPA) to private controllers + freedom-of-information requests (情報公開法) to public organs, with a coded target-registry of each organization's 窓口 / address / email / portal / procedure (R0 scaffold)",
+      "status": "proposed",
+      "topic": "himotoki-disclosure-request-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "new Tier-B actor `himotoki` (active disclosure-request filer + response custodian)",
+        "`app.etzhayyim.himotoki.*` Lexicon namespace (disclosureTarget / disclosureRequest / requestDispatch / disclosureResponse / appealRecord)",
+        "the coded disclosure-target registry schema (per-organization 窓口 / address / email / portal / form / fee / statutory-deadline / legal-regime) and its verification gate",
+        "the boundary between chigiri (procedure templates + legal characterization + UPL routing) and himotoki (the ACTIVE filer + tracker + encrypted response custodian)",
+        "the boundary between himotoki (active right-of-access requests) and danjo/tadori (passive-only reading)",
+        "how disclosed personal data enters the substrate: `app.etzhayyim.encrypted.*` DID-bound envelopes ONLY (never plaintext PII on MST)"
+      ],
+      "related": [
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "doc:adr-2605263900-public-data-open-government-ipfs-ingestion",
+        "doc:adr-2605263800-public-data-corporate-disclosure-ipfs-ingestion",
+        "doc:adr-2605291100-manimani-kotoba-native-personal-knowledge-router",
+        "doc:adr-2605264000-ossekai-info-arbitrage-actor"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302200-chigiri-unpaid-legal-aid-lane-multijurisdiction",
+      "type": "TechArticle",
+      "title": "ADR-2605302200: chigiri — 無償徹底 (zero-compensation) lawyer-supervised legal-aid lane + multi-jurisdiction UPL analysis (amends ADR-2605262700)",
+      "status": "proposed",
+      "topic": "chigiri-unpaid-legal-aid-lane",
+      "authoritative": true,
+      "authoritativeFor": [
+        "chigiri zero-compensation legal-aid lane",
+        "multi-jurisdiction UPL / 非弁 analysis for religious-corp legal assistance (9 jurisdictions)",
+        "G15 zero-compensation invariant (incl. indirect benefit)",
+        "G16 jurisdiction-licensed-lawyer supervision invariant",
+        "per-jurisdiction legal-service routing table (JP/DE/FR/UK/US/KR/AU/CA-ON/AT-CH)",
+        "regulatory-family taxonomy (compensation / licensure / activity-gated)"
+      ],
+      "related": [
+        "doc:adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
+        "doc:adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0",
+        "doc:adr-2605302330-chigiri-japan-certified-adr-mediation-lane"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302330-chigiri-japan-certified-adr-mediation-lane",
+      "type": "TechArticle",
+      "title": "ADR-2605302330: chigiri — Japan 認証ADR (ADR法) certified-mediation lane, §72-exempt (extends ADR-2605302200; activates dispute_mediation cell)",
+      "status": "proposed",
+      "topic": "chigiri-certified-adr-mediation-lane",
+      "authoritative": true,
+      "authoritativeFor": [
+        "chigiri Japan 認証ADR certified-mediation lane",
+        "ADR法 §72-exemption mapping for chigiri dispute_mediation cell",
+        "認証紛争解決事業者 §6 sixteen-criteria compliance surface for chigiri",
+        "boundary between the 無償 advice lane and the certified-mediation lane"
+      ],
+      "related": [
+        "doc:adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0",
+        "doc:adr-2605262800-public-data-legal-corpus-ipfs-ingestion"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302345-etzhayyim-legal-services-delivery-and-global-judiciary-corpus",
+      "type": "TechArticle",
+      "title": "ADR-2605302345: etzhayyim.com legal-services delivery (counsel-operated, UPL-safe) + global judiciary corpus ingestion (courts/judges/case-history)",
+      "status": "proposed",
+      "topic": "etzhayyim-legal-services-delivery-and-judiciary-corpus",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim.com legal-consultation delivery architecture (counsel-operated, UPL-safe)",
+        "G18 counsel-operated comms gateway invariant (fax/email/e-filing; no corp signing key for legal acts)",
+        "G19 judge-analytics prohibition (France art.33 + global no-profiling)",
+        "global judiciary corpus ingestion (courts / judges / case-history) scope + gates",
+        "reframing of \"all legal work\" as counsel-orchestrated full-spectrum support"
+      ],
+      "related": [
+        "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302355-legal-services-kotoba-wasm-in-node-deployment",
+      "type": "TechArticle",
+      "title": "ADR-2605302355: legal-services constitutional gates run as in-node kotoba WASM Component guests (not Cloudflare Workers)",
+      "status": "accepted",
+      "topic": "legal-services-kotoba-wasm-deployment",
+      "authoritative": true,
+      "authoritativeFor": [
+        "legal-services in-node kotoba WASM deployment decision",
+        "chigiri-legal-aid-guest + chigiri-legal-comms-guest program manifests + CIDs",
+        "invoke.run / MCP kotoba_wasm_run / QUIC mesh request-surface for legal-services",
+        "CF Worker → kotoba WASM gate-logic migration record"
+      ],
+      "related": "doc:adr-2605301030-kotoba-kg-storage-session-52-entity-actor-graph",
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

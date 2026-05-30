@@ -65,15 +65,29 @@
 </div>
 <div id="hint">
   Click canvas to lock pointer ・ WASD move ・ Space/Shift fly ・ mouse look ・
+  <b>J / L = push cartpole left / right</b> ・
   edit .usda above → Reload to swap stage ・
-  PhysX α=0 step-0 verify (force inputs deferred to R1)
+  <a href="./worlds.htm" style="color:#9cf">▸ world gallery</a>
 </div>
 <script type="module">
 import init, {
   runIsekaiOmniverse,
   isekaiOmniverseBanner,
   isekaiOmniverseDefaultUsda,
+  isekaiSetCartForce,
 } from './v2/kami_app_isekai.js';
+
+// Cartpole force control: J = push left (−10 N), L = push right (+10 N).
+// Released keys zero the force. PhysX-shaped drive target via wasm bridge.
+const CART_F = 10.0;
+window.addEventListener('keydown', (e) => {
+  if (e.repeat) return;
+  if (e.key === 'j' || e.key === 'J') isekaiSetCartForce(-CART_F);
+  else if (e.key === 'l' || e.key === 'L') isekaiSetCartForce(CART_F);
+});
+window.addEventListener('keyup', (e) => {
+  if (['j', 'J', 'l', 'L'].includes(e.key)) isekaiSetCartForce(0);
+});
 
 const usdaEl = document.getElementById('usda');
 const errEl  = document.getElementById('err');

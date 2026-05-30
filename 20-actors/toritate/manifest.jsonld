@@ -105,6 +105,20 @@
       "murakumoNode": "reuben",
       "phase": "annual (event)",
       "io": "aggregate cells (1-5) → annual transparency report + Council ≥3 attestation chain"
+    },
+    {
+      "name": "imputed_income_compute",
+      "module": "magatama.cells.toritate_imputed_income_compute",
+      "murakumoNode": "gad",
+      "phase": "continuous",
+      "io": "encrypted per-adherent in-kind consumption → imputed income (FLOW) → metricReport.basicHighIncome (ADR-2605301020; valuation/ tables)"
+    },
+    {
+      "name": "commons_asset_value",
+      "module": "magatama.cells.toritate_commons_asset_value",
+      "murakumoNode": "gad",
+      "phase": "continuous",
+      "io": "SBT-bound non-alienable commons-asset access (STOCK) → metricReport.basicHighIncome (ADR-2605301020 §2)"
     }
   ],
   "lexiconNamespaces": [

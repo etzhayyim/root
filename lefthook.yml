@@ -168,6 +168,44 @@ pre-commit:
       run: node 70-tools/scripts/lint/charter-rider-notice.mjs {staged_files}
       stage_fixed: false
 
+    no-autonomous-legal-act:
+      # Enforce ADR-2605302345 §D2 G18. The counsel-operated comms gateway
+      # may transmit a LEGAL ACT (court filing / pleading / 内容証明 /
+      # demand / representation letter) ONLY when a human licensed lawyer
+      # actuated + signed it with their OWN credential; etzhayyim holds no
+      # legal-act signing key (no-server-key ADR-2605231525). Check A
+      # asserts the outboundLegalAct lexicon structure (counselActuation +
+      # actuatedByLicensedCounsel const true; no corp-signing property);
+      # Check B blocks autonomous-legal-act marker tokens in legal-comms
+      # code. Runs against the canonical lexicon even with no staged files.
+      glob: "*.{ts,tsx,js,mjs,cjs,py,go,rs,json}"
+      run: node 70-tools/scripts/lint/no-autonomous-legal-act.mjs {staged_files}
+      stage_fixed: false
+
+    lint-no-judge-profiling:
+      # Enforce ADR-2605302345 §D5 G19. The global judiciary corpus is
+      # FACTUAL reference only; it MUST NOT evaluate/analyse/compare/score/
+      # rank/predict a named judge (criminal in France, loi 2019-222 art.33
+      # / Code pénal art.226-18). Check A asserts the judgeReference lexicon
+      # carries noAnalytics const true + required and no analytics property;
+      # Check B blocks judge-analytics marker tokens in judiciary code.
+      glob: "*.{ts,tsx,js,mjs,cjs,py,go,rs,json}"
+      run: node 70-tools/scripts/lint/lint-no-judge-profiling.mjs {staged_files}
+      stage_fixed: false
+
+    no-legal-aid-consideration:
+      # Enforce ADR-2605302200 §D2 G15 (+ ADR-2605302330 §D4). Free legal
+      # aid charges the adherent NOTHING — no fee / tithe / SBT-purchase /
+      # indirect benefit; donations flow only to the general Public Fund,
+      # never coupled to a specific matter. Check A asserts the
+      # legalAidMatter lexicon carries zeroCompensation const true +
+      # supervisingCounsel (G16) required and no consideration property;
+      # Check B blocks matter↔consideration coupling markers in chigiri
+      # legalAid code. The central cash≡0 invariant (ADR-2605301020).
+      glob: "*.{ts,tsx,js,mjs,cjs,py,go,rs,json}"
+      run: node 70-tools/scripts/lint/no-legal-aid-consideration.mjs {staged_files}
+      stage_fixed: false
+
     karute-phi-plaintext-guard:
       # Enforce ADR-2605231100 §"Substrate hard-rules" + ADR-2605181100.
       # Blocks plaintext writes whose collection / $type / nsid points to a
