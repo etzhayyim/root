@@ -11103,6 +11103,22 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605302355-legal-services-kotoba-wasm-in-node-deployment",
+      "type": "TechArticle",
+      "title": "ADR-2605302355: legal-services constitutional gates run as in-node kotoba WASM Component guests (not Cloudflare Workers)",
+      "status": "accepted",
+      "topic": "legal-services-kotoba-wasm-deployment",
+      "authoritative": true,
+      "authoritativeFor": [
+        "legal-services in-node kotoba WASM deployment decision",
+        "chigiri-legal-aid-guest + chigiri-legal-comms-guest program manifests + CIDs",
+        "invoke.run / MCP kotoba_wasm_run / QUIC mesh request-surface for legal-services",
+        "CF Worker → kotoba WASM gate-logic migration record"
+      ],
+      "related": "doc:adr-2605301030-kotoba-kg-storage-session-52-entity-actor-graph",
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
