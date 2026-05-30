@@ -158,6 +158,7 @@
     "app.etzhayyim.mitate.triageVerdict",
     "app.etzhayyim.mitate.diagnosticOrder",
     "app.etzhayyim.mitate.diagnosticResult",
+    "app.etzhayyim.mitate.diagnosticConsentReceipt",
     "app.etzhayyim.mitate.treatmentPlan",
     "app.etzhayyim.mitate.outcomeFollowup",
     "app.etzhayyim.mitate.silenMitateReview",

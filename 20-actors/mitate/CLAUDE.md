@@ -69,7 +69,7 @@ Do NOT skip phases. Each R transition is its own ADR.
 
 ## Substrate-port + non-violation rules
 
-- 8 mitate lexicons use `app.etzhayyim.mitate.*` namespace (actor 名 = lexicon namespace, 1:1 ― yakushi の `app.etzhayyim.pharma.*` と対照的に condition-agnostic)
+- 9 mitate lexicons use `app.etzhayyim.mitate.*` namespace (actor 名 = lexicon namespace, 1:1 ― yakushi の `app.etzhayyim.pharma.*` と対照的に condition-agnostic)
 - 5 condition DIDs use **stable slug**: `:condition:allergic-rhinitis-perennial`, `:condition:vasomotor-rhinitis`, `:condition:chronic-sinusitis`, `:condition:septal-deviation`, `:condition:rhinitis-medicamentosa` — never ICD-10 code (jurisdictional dependent)
 - Patient pseudonym DID は **30-day rotation** ― G2 reinforcement;continuity が必要な longitudinal record (SLIT cohort, outcome followup) は patient passkey re-sign による pseudonym pair derivation
 - Treatment plan advisory **MUST NOT** mention brand drug names except yakushi-distributed products (registered under `did:web:etzhayyim.com:yakushi:product:*`) — INN only — G8 enforceable lint
