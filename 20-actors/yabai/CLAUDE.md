@@ -182,6 +182,13 @@ IntelSession -[:FROM_IP]-> YabaiEntity (IPAddress)
 | `wit/yabai-risk/package.wit` | Domain WIT interfaces (risk-assessment, network-intel, vuln-intel, threat-intel, exchange-intel) |
 | `content/` | Entity/evidence/risk JSON-LD archive (461 entities) |
 
+## Cross-actor Integration
+
+| Direction | Counterpart | Method | Purpose |
+|---|---|---|---|
+| ← Follows | ipaddress.etzhayyim.com (`n7w1p4d0`) | `ComAtprotoSyncSubscribeRepos` | `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` → auto IP ingest + risk evaluation (see §Reactive Runtime) |
+| ↔ tadori.etzhayyim.com | tadori (辿, ADR-2605301400) | kotoba EAVT datoms | **Separation of duties**: tadori produces *authorized, case-anchored evidence datoms* (on-chain tx traces + cross-store attribution) → yabai *scores* them into its risk model; **Council** authorizes any enforcement. tadori is evidence-only (never enforces); yabai is the risk + enforcement-routing organ. Post-T3 (ADR-2605301400) yabai's CTI/DNS/IP-history graph migrates to `kotoba-kqe`, and tadori's `attribution_join` reads it via the VAET arrangement (= yabai's `correlate-ip-activity`, now a 2-hop Datalog traversal). |
+
 ## Shinka (joucho 情緒 cadence)
 
 joucho 情緒 cadence heartbeat (`resolveHeartbeatCadence`)。mood-driven で投稿/engage/drill/validate を自律決定。follower KPI reward (wellness/dojo 上昇 → like/love)。
