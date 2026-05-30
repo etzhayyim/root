@@ -193,6 +193,17 @@ pre-commit:
       run: node 70-tools/scripts/lint/lint-no-judge-profiling.mjs {staged_files}
       stage_fixed: false
 
+    legal-jurisdiction-consistency:
+      # Drift-guard for ADR-2605302200 §D4. The `enabled` jurisdiction set is
+      # represented in 3 artifacts that must never disagree: the in-node WASM
+      # gate (Rust ENABLED_JURISDICTIONS), the cell port (Python `enabled`),
+      # and the kotoba KG routing-table records (enableState=="enabled"). Parses
+      # all three and fails on mismatch. Runs against the canonical paths even
+      # with no staged files.
+      glob: "*.{rs,py,ndjson}"
+      run: node 70-tools/scripts/lint/legal-jurisdiction-consistency.mjs {staged_files}
+      stage_fixed: false
+
     no-legal-aid-consideration:
       # Enforce ADR-2605302200 §D2 G15 (+ ADR-2605302330 §D4). Free legal
       # aid charges the adherent NOTHING — no fee / tithe / SBT-purchase /

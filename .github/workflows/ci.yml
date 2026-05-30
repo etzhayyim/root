@@ -49,8 +49,7 @@ jobs:
         echo "Scanning $(echo $CHANGED | wc -w | tr -d ' ') changed file(s) for substrate-boundary violations…"
         node 70-tools/scripts/lint/substrate-boundary.mjs $CHANGED
 
-    - name: Test etzhayyim-sdk
-      working-directory: 20-actors/etzhayyim-sdk
-      run: |
-        npm install
-        npm run test
+    # The @etzhayyim/sdk vitest suite moved to test.yml's path-scoped `sdk-test`
+    # job (ADR-2605302355 CI review) so an SDK-local issue no longer red-lights
+    # the always-on constitutional gate (lefthook + substrate-boundary) for every
+    # docs / Rust / Python / lexicon PR.

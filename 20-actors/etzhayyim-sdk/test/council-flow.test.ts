@@ -22,6 +22,7 @@
 
 import {AtpAgent} from "@atproto/api";
 import {ed25519} from "@noble/curves/ed25519";
+import {randomBytes} from "@noble/hashes/utils";
 import {beforeAll, afterAll, describe, expect, it} from "vitest";
 
 import {
@@ -32,15 +33,25 @@ import {
   type ResolvedRecipientIdentity,
 } from "../src/encrypted.js";
 import {signSignalIdentity, type SignedSignalIdentity} from "../src/did-signal.js";
-import {generateLocalIdentity, type LocalIdentityBundle} from "../src/signal.js";
 // @ts-expect-error fake-pds is a sibling .mjs without TS types
 import {startFakePds} from "./fake-pds.mjs";
+
+type PublishableIdentity = ResolvedRecipientIdentity["publishable"];
+function makePublishableIdentity(): PublishableIdentity {
+  return {
+    signalIdentityKey: randomBytes(32),
+    signalRegistrationId: 1,
+    signedPreKey: randomBytes(32),
+    signedPreKeyId: 1,
+    signedPreKeySignature: randomBytes(64),
+  };
+}
 
 interface CouncilActor {
   did: string;
   didPrivKey: Uint8Array;
   didPubKey: Uint8Array;
-  identity: LocalIdentityBundle;
+  publishable: PublishableIdentity;
   signed: SignedSignalIdentity;
   agent: AtpAgent;
   accessJwt: string;
@@ -81,16 +92,16 @@ describe("council deliberation flow (Tahoe-pattern E2E)", () => {
     const didPrivKey = ed25519.utils.randomPrivateKey();
     const didPubKey = ed25519.getPublicKey(didPrivKey);
 
-    const identity = await generateLocalIdentity({signedPreKeyId: 1});
+    const publishable = makePublishableIdentity();
 
     const signed = signSignalIdentity(
       {
         did,
-        signalIdentityKey: identity.publishable.signalIdentityKey,
-        signalRegistrationId: identity.publishable.signalRegistrationId,
-        signedPreKey: identity.publishable.signedPreKey,
-        signedPreKeyId: identity.publishable.signedPreKeyId,
-        signedPreKeySignature: identity.publishable.signedPreKeySignature,
+        signalIdentityKey: publishable.signalIdentityKey,
+        signalRegistrationId: publishable.signalRegistrationId,
+        signedPreKey: publishable.signedPreKey,
+        signedPreKeyId: publishable.signedPreKeyId,
+        signedPreKeySignature: publishable.signedPreKeySignature,
         createdAt: new Date().toISOString(),
       },
       didPrivKey
@@ -105,7 +116,7 @@ describe("council deliberation flow (Tahoe-pattern E2E)", () => {
       active: true,
     });
 
-    return {did, didPrivKey, didPubKey, identity, signed, agent, accessJwt};
+    return {did, didPrivKey, didPubKey, publishable, signed, agent, accessJwt};
   }
 
   beforeAll(async () => {
@@ -156,7 +167,6 @@ describe("council deliberation flow (Tahoe-pattern E2E)", () => {
       {
         agent: alice.agent,
         senderDid: alice.did,
-        senderStores: alice.identity.stores,
         resolveRecipientIdentity: recipientResolver(),
       },
       {
@@ -178,7 +188,6 @@ describe("council deliberation flow (Tahoe-pattern E2E)", () => {
       {
         agent: bob.agent,
         selfDid: bob.did,
-        selfStores: bob.identity.stores,
       },
       {
         fromSenders: [alice.did],
@@ -213,7 +222,6 @@ describe("council deliberation flow (Tahoe-pattern E2E)", () => {
       {
         agent: bob.agent,
         senderDid: bob.did,
-        senderStores: bob.identity.stores,
         resolveRecipientIdentity: recipientResolver(),
       },
       {
@@ -230,7 +238,6 @@ describe("council deliberation flow (Tahoe-pattern E2E)", () => {
       {
         agent: alice.agent,
         selfDid: alice.did,
-        selfStores: alice.identity.stores,
       },
       {
         fromSenders: [bob.did],
@@ -260,15 +267,15 @@ describe("council deliberation flow (Tahoe-pattern E2E)", () => {
     const carolPriv = ed25519.utils.randomPrivateKey();
     const carolWrongPub = ed25519.getPublicKey(ed25519.utils.randomPrivateKey()); // unrelated key
 
-    const carolIdentity = await generateLocalIdentity({signedPreKeyId: 1});
+    const carolPublishable = makePublishableIdentity();
     const carolSigned = signSignalIdentity(
       {
         did: carolDid,
-        signalIdentityKey: carolIdentity.publishable.signalIdentityKey,
-        signalRegistrationId: carolIdentity.publishable.signalRegistrationId,
-        signedPreKey: carolIdentity.publishable.signedPreKey,
-        signedPreKeyId: carolIdentity.publishable.signedPreKeyId,
-        signedPreKeySignature: carolIdentity.publishable.signedPreKeySignature,
+        signalIdentityKey: carolPublishable.signalIdentityKey,
+        signalRegistrationId: carolPublishable.signalRegistrationId,
+        signedPreKey: carolPublishable.signedPreKey,
+        signedPreKeyId: carolPublishable.signedPreKeyId,
+        signedPreKeySignature: carolPublishable.signedPreKeySignature,
         createdAt: new Date().toISOString(),
       },
       carolPriv
@@ -289,7 +296,6 @@ describe("council deliberation flow (Tahoe-pattern E2E)", () => {
       {
         agent: alice.agent,
         senderDid: alice.did,
-        senderStores: alice.identity.stores,
         resolveRecipientIdentity: resolverWithCarol,
       },
       {

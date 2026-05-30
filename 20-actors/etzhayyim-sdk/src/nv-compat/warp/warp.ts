@@ -293,7 +293,15 @@ export function indexOf<T>(arr: WpArray<T>, i: number): T {
 
 // ── Kernel + launch ──────────────────────────────────────────────────────
 
-export type KernelFn = (...args: unknown[]) => void;
+// A kernel registry holds functions of heterogeneous, kernel-specific
+// signatures (e.g. (arr: WpArray<number>, damping: number) => void). Under
+// strictFunctionTypes those specific signatures are not assignable to a
+// `(...args: unknown[])` parameter (contravariance), so the registry element
+// type uses `any[]` — the conventional shape for a varied-signature callback
+// table. Callers go through `launch(kernel, ...args)` which is checked at the
+// kernel's own definition site.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type KernelFn = (...args: any[]) => void;
 
 /** Wrapper around a kernel function. Real Warp JIT-compiles to GPU
  *  bytecode; the stub just stores the function. Decorator-style use

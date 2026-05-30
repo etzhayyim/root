@@ -11159,6 +11159,16 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605302350-r2-cross-party-key-exchange-design-for-review",
+      "type": "TechArticle",
+      "title": "ADR-2605302350: R2 cross-party key exchange for encrypted records — DESIGN FOR REVIEW (signal.ts X25519 ECDH sealed-box)",
+      "status": "proposed",
+      "topic": "r2-cross-party-key-exchange",
+      "authoritative": false,
+      "related": "doc:adr-2605231525-no-server-key-religious-corp-architecture",
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing",
       "type": "TechArticle",
       "title": "ADR-2605302355: kotoba LangGraph actor LLM inference — live end-to-end verification, three runtime fixes, macOS Local Network Privacy root-cause, and durable Murakumo LiteLLM-loopback routing (session closure)",
@@ -11175,6 +11185,22 @@
         "doc:ADR-2605291100 (manimani kotoba-native — StateGraph + Murakumo)",
         "doc:ADR-2605250002 (kotoba StateGraph / LangGraph API)"
       ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302355-legal-services-kotoba-wasm-in-node-deployment",
+      "type": "TechArticle",
+      "title": "ADR-2605302355: legal-services constitutional gates run as in-node kotoba WASM Component guests (not Cloudflare Workers)",
+      "status": "accepted",
+      "topic": "legal-services-kotoba-wasm-deployment",
+      "authoritative": true,
+      "authoritativeFor": [
+        "legal-services in-node kotoba WASM deployment decision",
+        "chigiri-legal-aid-guest + chigiri-legal-comms-guest program manifests + CIDs",
+        "invoke.run / MCP kotoba_wasm_run / QUIC mesh request-surface for legal-services",
+        "CF Worker → kotoba WASM gate-logic migration record"
+      ],
+      "related": "doc:adr-2605301030-kotoba-kg-storage-session-52-entity-actor-graph",
       "lastVerified": "2026-05-30"
     },
     {
@@ -11246,6 +11272,23 @@
         "doc:adr-2605262100-baien-moemoekyun-r1-phase0-coding-train"
       ],
       "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605310030-legal-services-vertical-session-closure",
+      "type": "TechArticle",
+      "title": "ADR-2605310030: legal-services vertical session closure — non-profit legal aid from law-analysis to in-node WASM, + SDK/CI repair",
+      "status": "active",
+      "topic": "legal-services-vertical-session",
+      "authoritative": true,
+      "authoritativeFor": [
+        "legal-services vertical session (2605291222) closure record",
+        "the 9-PR merge ledger + the residual-state honesty note"
+      ],
+      "related": [
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "doc:adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
+      "lastVerified": "2026-05-31"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",

@@ -9,7 +9,7 @@
   "displayName": "契 — Covenant (legal procedure substrate)",
   "displayNameJa": "契",
   "displayNameEn": "Chigiri",
-  "description": "Non-profit religious-corp legal procedure substrate. Procedural template + on-chain attestation + routing substrate for the 任意団体 internal procedures, external state-system interfaces, and Charter §1.12 state-function routing-around. NOT a commercial law firm and NOT an unauthorized practice of law (UPL constitutionally prohibited per G14). 12 cells / 9 Lexicons under app.etzhayyim.chigiri.* / 14 immutable gates / 12 non-goals. Consumes the global legal corpus from ADR-2605262800 (statutes / cases / treaties / procedures / templates). Replaces the legacy lawfirm.etzhayyim.com reference in hanrei.",
+  "description": "Non-profit religious-corp legal procedure substrate. Procedural template + on-chain attestation + routing substrate for the 任意団体 internal procedures, external state-system interfaces, and Charter §1.12 state-function routing-around. NOT a commercial law firm and NOT an unauthorized practice of law (UPL constitutionally prohibited per G14). 13 cells / 11 Lexicons under app.etzhayyim.chigiri.* / 17 immutable gates / 12 non-goals. Adds a free legal-aid lane (legal_aid_clinic cell, ADR-2605302200, G14/G15/G16) + a Japan 認証ADR mediation lane (dispute_mediation, ADR-2605302330, G17); advice/representation is delivered by jurisdiction-licensed human counsel via the Public Fund, never by chigiri. Consumes the global legal corpus from ADR-2605262800 (statutes / cases / treaties / procedures / templates). Replaces the legacy lawfirm.etzhayyim.com reference in hanrei.",
   "descriptionJa": "非営利 religious-corp の法的手続き substrate。任意団体 内部手続き + 国家システム interface + Charter §1.12 国家機能 routing-around を、手続きテンプレート + on-chain attestation + routing substrate として提供。商業 law firm ではなく、法律相談 (UPL) は G14 で構造的に禁止。12 cells / 9 Lexicons / 14 不変ゲート / 12 non-goals。Global legal corpus (ADR-2605262800) を消費。hanrei が参照していた lawfirm.etzhayyim.com を religious-corp ネイティブに置換。",
   "adr": {
     "master": "etzhayyim:adr:2605262700",
@@ -150,6 +150,13 @@
       "murakumoNode": "naphtali",
       "phase": "event",
       "io": "force request → 1 SBT = 1 vote attestation chain + IHL checklist (defensive only per G7)"
+    },
+    {
+      "name": "legal_aid_clinic",
+      "module": "magatama.cells.chigiri_legal_aid_clinic",
+      "murakumoNode": "judah",
+      "phase": "session",
+      "io": "adherent intake → conflict check → NON-advice triage (Murakumo) → jurisdiction-enabled check → Public-Fund counsel assignment → legalAidMatter (ADR-2605302200 G14/G15/G16)"
     }
   ],
   "lexiconNamespaces": [
@@ -161,7 +168,9 @@
     "app.etzhayyim.chigiri.ipLicenseClaim",
     "app.etzhayyim.chigiri.taxReceipt",
     "app.etzhayyim.chigiri.stewardLaborAttestation",
-    "app.etzhayyim.chigiri.forceAuthorizationRecord"
+    "app.etzhayyim.chigiri.forceAuthorizationRecord",
+    "app.etzhayyim.chigiri.legalAidMatter",
+    "app.etzhayyim.chigiri.jurisdictionPolicy"
   ],
   "dataSubstrate": {
     "ingestion": "ADR-2605262800 — global legal corpus (statutes / cases / treaties / procedures / templates) via IPFS-pinned DataLad subdatasets",
@@ -178,7 +187,7 @@
     "inferencePath": "Murakumo only (ADR-2605215000) — judah LiteLLM 127.0.0.1:4000 → gemma4:e4b; NO vendor LLM API callout"
   },
   "constitutionalGates": {
-    "description": "14 immutable gates per ADR-2605262700. Council Lv6+ supermajority + new ADR to amend (Lv7+ if constitutional invariant per Preamble §0.4).",
+    "description": "17 immutable gates: G1-G14 per ADR-2605262700; G15-G16 per ADR-2605302200 (free legal-aid lane); G17 per ADR-2605302330 (Japan 認証ADR mediation lane). Council Lv6+ supermajority + new ADR to amend (Lv7+ if constitutional invariant per Preamble §0.4).",
     "gates": {
       "G1": "Every legal document MUST pass Charter Rider §2(a)-(h) scan (etzhayyim_organism.sensors.charter_rider.scan); fail = block",
       "G2": "Every procedure MUST emit app.etzhayyim.chigiri.* Lexicon record with yatachain attestation lineage; missing = invisible",
@@ -193,7 +202,10 @@
       "G11": "Murakumo-only inference (ADR-2605215000); no vendor LLM API callout",
       "G12": "Excommunication = Council Lv6+ ≥4/7 + 30-day cure period; schema enforces curePeriodEndsAt > createdAt + 30d",
       "G13": "Volunteer ≠ employee per ADR-2605261000; stewardLaborAttestation schema enforces L0..L6 classification; constructive-employment drift detection continuous",
-      "G14": "UPL strictly prohibited; chigiri MUST NOT render legal advice; lint hook 70-tools/scripts/lint/no-chigiri-legal-advice.mjs scans code"
+      "G14": "UPL strictly prohibited; chigiri MUST NOT render legal advice; lint hook 70-tools/scripts/lint/no-chigiri-legal-advice.mjs scans code",
+      "G15": "Zero compensation (ADR-2605302200): the legal-aid lane charges the adherent nothing — no fee / tithe / SBT-purchase / indirect benefit; lint hook no-legal-aid-consideration.mjs + legalAidMatter.zeroCompensation const true",
+      "G16": "Jurisdiction-licensed-lawyer supervision (ADR-2605302200): a matter MUST NOT pass intake without an in-jurisdiction (license == matter) lawyer retained via Public Fund; verify-required jurisdictions (US-state / AT) refused",
+      "G17": "Certify-before-mediation (ADR-2605302330): the dispute_mediation cell claims §72-exemption only as a 認証紛争解決事業者 (Japan ADR法); pre-certification it degrades to non-binding facilitation"
     }
   },
   "nonGoals": {

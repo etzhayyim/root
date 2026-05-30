@@ -8826,6 +8826,48 @@ status = "proposed"
 status_note = "Designs warifu (割符 — 'split tally', two matching halves authenticate a tx) as a Tier-B actor: an open-source, ZERO-merchant-fee card payment service (credit + debit) that is API/wire-compatible across 3 drop-in surfaces — (A) Stripe-shaped REST (payment_intents/charges/refunds/customers/payment_methods + idempotency + webhooks), (B) EMV applet (ISO 7816 / ISO 14443 + EMV contactless) + ISO 8583 0100/0110 gateway, (C) mobile NFC via Host Card Emulation + self Token Service Provider (replaces VTS/MDES; network-tokenized, no raw PAN). Zero fee is STRUCTURAL not promotional: issuer = network = non-profit operator, so interchange/assessment/acquirer-markup are 0; the only real cost (Base L2 gas) is sponsored by etzhayyim-paymaster (ERC-4337) <- etzhayyim-public-fund (10% tithe pool); fraud/chargeback loss is mutualised by wakai 和会 (ADR-2605263500, NOT insurance). Credit is INTEREST-FREE (0% / qard hasan), underwritten by the wakai float + SBT reputation; default = L3 評価 penalty + mutual-aid absorption, never penalty interest. Settlement is T+0 final USDC on Base L2 via ERC-4337 smart accounts; ledger = kotoba EAVT (ADR-2605262130, no RisingWave/projection). 3DS-equivalent = WebAuthn passkey + on-chain attestation; no platform-held signing key (ADR-2605231525); card metadata under app.etzhayyim.encrypted.* (ADR-2605181100). CONSTITUTIONAL TENSION (explicit gate): the payment-purpose invariant (ADR-2605192115 §3) prohibits external purchase/subscription. Phase 1 = CLOSED-LOOP, SBT↔SBT carve-out only (internal-purchase/internal-subscription/internal-promo + escrow-refund) — charter-clean, no amendment, 'open' = open-source/open-spec. Phase 2 = external open-loop acceptance, GATED on BOTH a Council Lv7+ unanimity amendment of ADR-2605192115 AND routing through the commercial vendor arm (ADR-2605301036) as merchant-of-record; SettlementRouter.enablePhase2() refuses external purpose until that gate is recorded on-chain. Honest framing: 'zero fee' = cost socialised via Public Fund + mutual aid, not annihilated; Surface B physical terminal acceptance needs a BIN/acquirer membership and is deferred (Surfaces A+C self-controlled, ship first). TIGHT pairs: wakai (underwrite + loss), toritate 執帳 (on-chain accounting/audit, ADR-2605262900), chigiri 契 (dispute legal procedure, ADR-2605262700). R0 scaffold: ADR + actor (manifest + authorize/settle cells + cell-lex) + 10-protocol/warifu app.etzhayyim.card.* lexicons + 50-infra/warifu-contracts (WarifuCard ERC-5192 / CreditLine 0% / SettlementRouter purpose-gated) + 50-infra/warifu-gateway (stripe-compat OpenAPI + ISO 8583 map + NFC/HCE). Lexicon ratify + Phase 2 gate require Council post Bootstrap Council Seats 2-5 RFP close 2026-06-19."
 path = "90-docs/adr/2605302000-warifu-open-zero-fee-card.md"
 
+[[adrs]]
+id = "2605302200"
+title = "chigiri — 無償徹底 lawyer-supervised legal-aid lane + 10-jurisdiction UPL/非弁 analysis (JP/DE/FR/UK/US/KR/AU/CA-ON/AT/CH)"
+status = "proposed"
+status_note = "Corrects the premise 非営利 ≠ UPL exemption: the operative axis is compensation × lawyer-involvement, not for-profit/non-profit. Universal safe harbor = zero compensation + jurisdiction-licensed-lawyer supervision (G15 + G16). Lane A (advice). 6 lexicons / 3 lint gates ship across the vertical; enableState gating (CH verified→enabled; AT + US-state verify-required)."
+path = "90-docs/adr/2605302200-chigiri-unpaid-legal-aid-lane-multijurisdiction.md"
+
+[[adrs]]
+id = "2605302330"
+title = "chigiri — Japan 認証ADR (ADR法) certified-mediation lane, §72-exempt (activates dispute_mediation cell; G17)"
+status = "proposed"
+status_note = "Second lawful Japan lane: a 認証紛争解決事業者 gets an express Bengoshi-ho §72 carve-out for 和解仲介 (and may take 報酬 — so it does not even require gratuitousness), reusing the G16 supervising-counsel rail for the §6-(5) 弁護士助言措置. Still free (G15) by Charter."
+path = "90-docs/adr/2605302330-chigiri-japan-certified-adr-mediation-lane.md"
+
+[[adrs]]
+id = "2605302345"
+title = "etzhayyim.com counsel-operated legal-services delivery + global judiciary corpus (courts/judges/case-history)"
+status = "proposed"
+status_note = "Operationalizes real free consultation AS etzhayyim.com + a counsel-operated comms gateway + a courts/judges/case-history corpus, while structurally preventing UPL and judge-profiling. G18 (every legal act actuated+signed by licensed counsel; corp holds no legal-act signing key) + G19 (France loi 2019-222 art.33 judge-analytics criminal prohibition; passive-ingestion + pseudonymization)."
+path = "90-docs/adr/2605302345-etzhayyim-legal-services-delivery-and-global-judiciary-corpus.md"
+
+[[adrs]]
+id = "2605302350"
+title = "R2 cross-party key exchange for encrypted records — DESIGN FOR REVIEW (signal.ts X25519 ECDH sealed-box)"
+status = "proposed"
+status_note = "DESIGN-ONLY (authoritative:false). The current signal.ts (R1.0) is an in-memory same-process XChaCha20 PLACEHOLDER — encrypted records are NOT yet real cross-party E2E. Specifies per-recipient X25519 ECDH sealed-box (ECIES) + keyWrap v:2 + a security review checklist. An R2 implementation is gated on cryptographer + Council Lv6+ review and MUST NOT be produced autonomously."
+path = "90-docs/adr/2605302350-r2-cross-party-key-exchange-design-for-review.md"
+
+[[adrs]]
+id = "2605302355"
+title = "legal-services constitutional gates run as in-node kotoba WASM Component guests (not Cloudflare Workers)"
+status = "accepted"
+status_note = "Live-verified: chigiri-legal-aid-guest (G14/G15/G16) + chigiri-legal-comms-guest (G18) compiled with cargo-component, content-addressed via block.put, invoked via ai.gftd.apps.kotoba.invoke.run (wasm-node, operator JWT). Gate violations blocked server-side (assert_count=0); valid invocations journal the matter/legal-act quad (gas-metered). Python guests blocked on wasmtime 22 extended-const → Rust path."
+path = "90-docs/adr/2605302355-legal-services-kotoba-wasm-in-node-deployment.md"
+
+[[adrs]]
+id = "2605310030"
+title = "legal-services vertical session closure — non-profit legal aid from law-analysis to in-node WASM, + SDK/CI repair"
+status = "active"
+status_note = "Session-closure record for /loop session 2605291222. Nine PRs merged to main (#289-#297): the legal-services vertical (design→contract→lint→runtime→storage→ingestion→manifest) + an incidental SDK build repair (incomplete libsignal→XChaCha20 migration) + E2E test rewrite + CI path-scoping. Residual: R1.0 placeholder crypto (R2 design ADR-2605302350 awaits human review); judiciary sensor needs real datasets; WASM call-by-program_cid unbuilt."
+path = "90-docs/adr/2605310030-legal-services-vertical-session-closure.md"
+
 [[modules]]
 path = "20-actors/warifu"
 kind = "tier-b-actor-card-payments"
