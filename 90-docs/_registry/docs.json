@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-05-29",
+  "updated_at": "2026-05-30",
   "entries": [
     {
       "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
@@ -16757,6 +16757,110 @@
         "2605192200"
       ],
       "last_verified": "2026-05-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605301020-basic-high-income-imputed-and-commons-asset-doctrine.md",
+      "id": "adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+      "title": "ADR-2605301020: Basic High Income — Imputed-Income (flow) + Commons-Asset (stock) Doctrine for In-Kind Adherent Provision",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "basic-high-income-imputed-commons-asset",
+      "authoritative": true,
+      "authoritative_for": [
+        "definition of \"income\" and \"asset\" for adherents under the non-cash religious-corp economy",
+        "imputed-income (flow) accounting of in-kind service provision",
+        "commons-asset (stock) accounting of SBT-bound non-alienable access rights",
+        "reframing of the Liberation Ladder L0..L6 as a Basic High Income target"
+      ],
+      "related": [
+        "adr-2605261000-labor-liberation-transition-mechanism",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605262900-toritate-accounting-audit"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605192100 (Mission Charter — constitutional constants)",
+        "ADR-2605261000 (Labor Liberation Transition Mechanism — ladder + N1..N8)",
+        "ADR-2605192145 (Public Fund Architecture)",
+        "ADR-2605262900 (toritate accounting — on-chain SSoT)"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605301030-kotoba-kg-storage-session-52-entity-actor-graph.md",
+      "id": "adr-2605301030-kotoba-kg-storage-session-52-entity-actor-graph",
+      "title": "ADR-2605301030: kotoba KG storage session — 53-entity actor/doctrine graph on a live datomic node, IPFS-pinned provenance, and the snapshot-of-hot commit discipline",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kotoba-kg-storage-session",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba operator runbook (serve via launchd, JWT-shaped auth tier, kg.ingest_batch + commit)",
+        "snapshot-of-hot commit discipline (commit seals hot Arrangement only; never partial-ingest+commit after restart)",
+        "kg-seed-v1.ndjson canonical SoT + rehydrate.sh disaster-recovery contract",
+        "kotoba CLI shadow-install + ad-hoc codesign requirement on Apple Silicon"
+      ],
+      "related": [
+        "adr-2605261000-labor-liberation-transition-mechanism",
+        "adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "adr-2605192130-etzhayyim-tithe-redistribution"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605262130 (kotoba storage substrate unification — engine, EAVT/AEVT/AVET/VAET, commit→ProllyTree)",
+        "ADR-2605241500 (dataset CID substrate — DataLad + git-annex + sidecar IPFS pinner)",
+        "ADR-2605215000 (Murakumo-only inference — kotoba-llm stays disabled)",
+        "ADR-2605292100 (kotoba v0.1.0 tag + Homebrew tap)"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605301036-mission-funding-earned-revenue-arm.md",
+      "id": "adr-2605301036-mission-funding-earned-revenue-arm",
+      "title": "ADR-2605301036: Mission-Funding Earned-Revenue Arm — Vendor commercial surplus → donation → Public Fund (earned income as non-profit MEANS, not profit END)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "mission-funding-earned-revenue-arm",
+      "authoritative": true,
+      "authoritative_for": [
+        "how etzhayyim acquires revenue to fund its non-profit mission without becoming for-profit",
+        "the religious-corp (non-profit) ↔ vendor (commercial) two-entity earned-revenue boundary",
+        "permitted vs prohibited revenue categories for the vendor arm",
+        "the labor model for revenue-generating human work (vendor employment vs adherent vocation→donation)"
+      ],
+      "related": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261000-labor-liberation-transition-mechanism",
+        "adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "adr-2605262900-toritate-accounting-audit",
+        "adr-2605264000-ossekai-information-arbitrage-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605192100 (Mission Charter — non_profit_only / donation_only constants)",
+        "ADR-2605192115 (Non-profit / donation-only / no-ads — §3 internal carve-out + §4 upstream backend limit)",
+        "ADR-2605192130 (TitheRouter 10% auto-split)",
+        "ADR-2605192145 (Public Fund Architecture)"
+      ],
+      "last_verified": "2026-05-30",
       "amends": [],
       "amended_by": []
     },

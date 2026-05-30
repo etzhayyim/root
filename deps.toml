@@ -2800,6 +2800,13 @@ status_note = "Strategic master ADR closing the gap between the mission charter 
 path = "90-docs/adr/2605261000-labor-liberation-transition-mechanism.md"
 
 [[adrs]]
+id = "2605301020"
+title = "Basic High Income — Imputed-Income (flow) + Commons-Asset (stock) Doctrine for In-Kind Adherent Provision"
+status = "proposed"
+status_note = "Clarifying extension of ADR-2605261000 (Labor Liberation ladder L0..L6). Resolves the 'does etzhayyim provide high income to 信者?' question by separating income from cash and defining two non-cash value primitives: (1) imputed income (FLOW) = market-equivalent value of in-kind services an adherent consumes at prices they would otherwise pay in the commercial market etzhayyim routes around (L2 ≈ $2,000/yr internal cost → L6 ≈ $30,000/yr; retail-equivalent imputed value higher because 中間排除 removes margin/rent/intermediary capture); (2) commons-asset access (STOCK) = SBT-bound NON-ALIENABLE right of access to Land Trust residency / actor-mesh productive output / kotoba data substrate / hikari energy infra — never title, never tradable, never collateralizable, never inheritable as title, suspends on exit with no liquidation. Declares the Basic High Income (基本高所得) doctrine: the ladder delivers, ultimately at L6, a standard of living ≥ OECD upper-income-decile household consumption basket measured by imputed income + commons-asset access — ENTIRELY in-kind, never cash. CONSTITUTIONALLY consistent with ADR-2605261000 §5 N1 (no fiat-replacement UBI): N1 forbids cash stipends that replace wages; Basic High Income removes the NEED for the wage by provisioning the goods in kind, so does NOT amend N1, the ADR-2605192100 §2 constants (non_profit_only / donation_only), or any N1..N8. cashStipendUsd == 0 is a structural invariant field present in every Liberation Metric report = on-chain proof N1 holds. Access-not-ownership (§2) operationalizes anti-individualist ontology = wealth without property, abundance without accumulation; generalizes ADR-2605192245 land waqf-inalienability (no transfer/burn/setOwner) to ALL commons assets. Accounting SSoT delegated to toritate (ADR-2605262900, 100% on-chain): imputed_income_compute + commons_asset_value cells + open-source method-versioned valuation tables (auditable); per-adherent figures encrypted via ADR-2605181100 envelope, aggregate-only publication (no per-adherent leaderboard → no class formation, §7 + N6). Extends app.etzhayyim.liberation.metricReport with a basicHighIncome block (imputedIncomeMedianUsdYr + valuationMethod + commonsAssetAccessMedianUsd + highIncomeBenchmarkRatio + cashStipendUsd≡0); +1 Pregel cell basic_high_income_aggregate (levi); NO new Solidity (LiberationLadder.sol carries stage state). Wellbecoming guard (§6, Charter §1.13): imputed income ↑ must co-move with labor-hours ↓ AND healthy Wellbecoming attestation, else holdStage review — high in-kind provision must not become addictive/over-consumption. Deciders: Jun Kawasaki author + Council Lv6+ ≥3 ratify + 30-day public objection. Depends on ADR-2605261000 + 2605192100 + 2605192145 + 2605262900 + 2605181100 + 2605192245."
+path = "90-docs/adr/2605301020-basic-high-income-imputed-and-commons-asset-doctrine.md"
+
+[[adrs]]
 id = "2605261015"
 title = "mitsuho (瑞穂) — Food / Agriculture Tier-B Actor R0 Scaffold"
 status = "proposed"
@@ -8741,3 +8748,34 @@ version = "0.1.0"
 status = "active"
 description = "Homebrew formula for kotoba CLI. Lives in two byte-identical locations: etzhayyim/homebrew-kotoba/Formula/kotoba.rb (canonical install path via `brew tap`) and etzhayyim/kotoba/Formula/kotoba.rb (in-repo mirror for `brew install --build-from-source ./Formula/kotoba.rb`). Shape: url + sha256 (v0.1.0 tarball) + license Apache-2.0 + head block retained for --HEAD installs + depends_on rust => build + install via `cargo install --path crates/kotoba-cli --bin kotoba` + test_do block (`kotoba --help` + `kotoba did-derive <seed>` → `did:key:z…`). Updated via paired cross-repo PRs to prevent drift."
 adr = ["2605292100", "2605262130"]
+
+[[adrs]]
+id = "2605301030"
+title = "kotoba KG storage session — 53-entity actor/doctrine graph on a live datomic node, IPFS-pinned provenance, snapshot-of-hot commit discipline"
+status = "active"
+status_note = "Session-closure ADR for a 12-iteration /loop (session 2605291222) that stood up 40-engine/kotoba as a launchd-supervised datomic (EAVT) storage node on :8077 and loaded the repo's industry/actor/doctrine model into it as a queryable KG: 53 distinct entities across 7 types — supply-chain-analysis-actor (4: jukyu/supplychain/handotai/shosha), planetary-infra-producer (1: kuni-umi), tier-b-actor (28), constitutional-substrate (6: 50-infra wave), core-actor (6), labor-liberation-stage (7: L0..L6), doctrine (1: Basic High Income ADR-2605301020). Loaded via kg.ingest_batch then sealed with kotoba commit (4 ProllyTrees + IPFS cold tier); verified via SPARQL over cold path. KEY INVARIANT: QuadStore::commit() is SNAPSHOT-OF-HOT (quad_store.rs:3150 seals only the hot Arrangement, no cold union) — normal restart is safe (sled checkpoint + WAL replay restores full graph) but partial-ingest+commit after a restart overwrites the head root with only the partial set (iter-8 incident; prior commits stay recoverable in IPFS). Recovery: kg-seed-v1.ndjson canonical SoT + rehydrate.sh (one ingest_batch + one commit → unified root; idempotent, verified 3x + across kill -9 + launchd respawn). Auto-rehydrate-on-boot built then REJECTED (unnecessary + opaque). Auth tier is JWT-shaped (parses sub+exp, no sig verify; bare strings 401). Apple-Silicon gotcha: cp invalidates ad-hoc codesign → SIGKILL/LastExitStatus=9; re-sign via codesign --force --sign -. 11 ops-* provenance rows pinned via DataLad + git-annex + sidecar IPFS (ADR-2605241500). p2p build required a kotoba-vm LegacyQuad/LegacyQuadObject alias fix (submodule branch fix/kotoba-vm-legacyquad-alias-2605300100). Depends on ADR-2605262130 + 2605241500 + 2605215000 + 2605292100."
+path = "90-docs/adr/2605301030-kotoba-kg-storage-session-52-entity-actor-graph.md"
+
+[[modules]]
+path = "/Volumes/260317/etzhayyim/annex-store/ops/kg-seed/kg-seed-v1.ndjson"
+kind = "kotoba-kg-seed"
+version = "1"
+status = "active"
+description = "Canonical single-source-of-truth for the kotoba KG (yatabase-kg-v1 graph): 53 NDJSON entity records (id/type/labels/claims/relations), sorted by id for determinism. IPFS-pinned via e7m-dataset (ADR-2605241500). Defeats the snapshot-of-hot commit trap (ADR-2605301030 §4): replay the whole seed into hot then one commit → unified root. NOT in git (annex-store on the 260317 volume); pinned + manifest-tracked in 90-docs/baien/datasets.jsonl."
+adr = ["2605301030", "2605262130", "2605241500"]
+
+[[modules]]
+path = "/Volumes/260317/etzhayyim/annex-store/ops/kg-seed/rehydrate.sh"
+kind = "kotoba-kg-recovery-tool"
+version = "1"
+status = "active"
+description = "Idempotent kotoba KG disaster-recovery loader (ADR-2605301030 §5). Loads kg-seed-v1.ndjson via one kg.ingest_batch then one kotoba commit → unified ProllyTree root containing the whole graph. Resolves the kotoba binary by absolute path (launchd PATH lacks ~/.local/bin). Verified restart-safe 3x consecutively + across kill -9 + launchd respawn. MANUAL tool only — auto-rehydrate-on-boot was rejected (checkpoint restore already covers normal restarts)."
+adr = ["2605301030", "2605241500"]
+
+[[modules]]
+path = "~/Library/LaunchAgents/com.etzhayyim.kotoba.plist"
+kind = "launchd-service"
+version = "1"
+status = "active"
+description = "launchd LaunchAgent supervising `kotoba serve` on :8077 (store ~/.local/kotoba-etzhayyim/sled, IPFS cold tier Kubo :5001, KeepAlive gated on the 260317 IPFS volume PathState). Runs the locally-built CLI at ~/.local/bin/kotoba (shadows brew 0.1.0; p2p build). NOTE: after rebuild+cp the binary must be re-signed (codesign --force --sign -) or launchd SIGKILLs it (LastExitStatus=9). Plain `kotoba serve` — auto-rehydrate boot wrapper rejected per ADR-2605301030 §5."
+adr = ["2605301030", "2605262130"]

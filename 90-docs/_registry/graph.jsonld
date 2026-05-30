@@ -10901,6 +10901,77 @@
       "lastVerified": "2026-05-29"
     },
     {
+      "id": "doc:adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+      "type": "TechArticle",
+      "title": "ADR-2605301020: Basic High Income — Imputed-Income (flow) + Commons-Asset (stock) Doctrine for In-Kind Adherent Provision",
+      "status": "proposed",
+      "topic": "basic-high-income-imputed-commons-asset",
+      "authoritative": true,
+      "authoritativeFor": [
+        "definition of \"income\" and \"asset\" for adherents under the non-cash religious-corp economy",
+        "imputed-income (flow) accounting of in-kind service provision",
+        "commons-asset (stock) accounting of SBT-bound non-alienable access rights",
+        "reframing of the Liberation Ladder L0..L6 as a Basic High Income target"
+      ],
+      "related": [
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "doc:adr-2605192130-etzhayyim-tithe-redistribution",
+        "doc:adr-2605192145-etzhayyim-public-fund-architecture",
+        "doc:adr-2605192245-etzhayyim-global-land-sovereignty",
+        "doc:adr-2605172300-etzhayyim-bi-asset-substrate",
+        "doc:adr-2605262900-toritate-accounting-audit"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605301030-kotoba-kg-storage-session-52-entity-actor-graph",
+      "type": "TechArticle",
+      "title": "ADR-2605301030: kotoba KG storage session — 53-entity actor/doctrine graph on a live datomic node, IPFS-pinned provenance, and the snapshot-of-hot commit discipline",
+      "status": "active",
+      "topic": "kotoba-kg-storage-session",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba operator runbook (serve via launchd, JWT-shaped auth tier, kg.ingest_batch + commit)",
+        "snapshot-of-hot commit discipline (commit seals hot Arrangement only; never partial-ingest+commit after restart)",
+        "kg-seed-v1.ndjson canonical SoT + rehydrate.sh disaster-recovery contract",
+        "kotoba CLI shadow-install + ad-hoc codesign requirement on Apple Silicon"
+      ],
+      "related": [
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "doc:adr-2605192130-etzhayyim-tithe-redistribution"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605301036-mission-funding-earned-revenue-arm",
+      "type": "TechArticle",
+      "title": "ADR-2605301036: Mission-Funding Earned-Revenue Arm — Vendor commercial surplus → donation → Public Fund (earned income as non-profit MEANS, not profit END)",
+      "status": "proposed",
+      "topic": "mission-funding-earned-revenue-arm",
+      "authoritative": true,
+      "authoritativeFor": [
+        "how etzhayyim acquires revenue to fund its non-profit mission without becoming for-profit",
+        "the religious-corp (non-profit) ↔ vendor (commercial) two-entity earned-revenue boundary",
+        "permitted vs prohibited revenue categories for the vendor arm",
+        "the labor model for revenue-generating human work (vendor employment vs adherent vocation→donation)"
+      ],
+      "related": [
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "doc:adr-2605192130-etzhayyim-tithe-redistribution",
+        "doc:adr-2605192145-etzhayyim-public-fund-architecture",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "doc:adr-2605262900-toritate-accounting-audit",
+        "doc:adr-2605264000-ossekai-information-arbitrage-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
