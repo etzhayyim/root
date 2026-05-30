@@ -40,6 +40,21 @@ const args = process.argv.slice(2);
 // ── Check A: schema invariant ────────────────────────────────────────
 const JUDGE_LEX =
   "00-contracts/lexicons/app/etzhayyim/judiciary/judgeReference.json";
+const COURT_LEX =
+  "00-contracts/lexicons/app/etzhayyim/judiciary/court.json";
+const DECISION_LEX =
+  "00-contracts/lexicons/app/etzhayyim/judiciary/judicialDecision.json";
+
+// Corpus-wide passive-ingestion (G3) + pseudonymization (D6) invariants:
+// { lexPath: [ {prop, requiredToo} ... ] } — each MUST be const:true.
+const CONST_TRUE_INVARIANTS = {
+  [JUDGE_LEX]: [["noAnalytics", true], ["pseudonymizationApplied", true]],
+  [COURT_LEX]: [["passiveIngestion", true]],
+  [DECISION_LEX]: [
+    ["passiveIngestion", true],
+    ["pseudonymizationApplied", true],
+  ],
+};
 
 // Analytics property/field names that may NEVER appear (schema or code).
 const ANALYTICS_TOKENS = [
@@ -66,53 +81,50 @@ const JUDICIARY_CODE_RE =
 
 let violations = 0;
 
-// ── Run Check A over the canonical lexicon (always) ──────────────────
-{
-  const abs = resolve(process.cwd(), JUDGE_LEX);
-  if (existsSync(abs)) {
-    let doc;
-    try {
-      doc = JSON.parse(readFileSync(abs, "utf8"));
-    } catch (e) {
-      console.error(`[X] ${JUDGE_LEX}: invalid JSON (${e.message}).`);
+// ── Run Check A over every judiciary lexicon (always) ────────────────
+for (const [lexPath, invariants] of Object.entries(CONST_TRUE_INVARIANTS)) {
+  const abs = resolve(process.cwd(), lexPath);
+  if (!existsSync(abs)) continue; // R0: skeletons may not all exist yet
+  let doc;
+  try {
+    doc = JSON.parse(readFileSync(abs, "utf8"));
+  } catch (e) {
+    console.error(`[X] ${lexPath}: invalid JSON (${e.message}).`);
+    violations += 1;
+    continue;
+  }
+  const rec = doc?.defs?.main?.record ?? {};
+  const required = rec?.required ?? [];
+  const props = rec?.properties ?? {};
+
+  // (1) each invariant flag must be required + const:true (G3/G19/D6)
+  for (const [flag] of invariants) {
+    if (!required.includes(flag)) {
+      console.error(
+        `[X] ${lexPath}: '${flag}' MUST be in the record \`required\` array ` +
+          `(ADR-2605302345 G3/G19/D6).`,
+      );
       violations += 1;
-      doc = null;
     }
-    if (doc) {
-      const rec = doc?.defs?.main?.record ?? {};
-      const required = rec?.required ?? [];
-      const props = rec?.properties ?? {};
+    const p = props[flag];
+    if (!p || p.const !== true) {
+      console.error(
+        `[X] ${lexPath}: '${flag}' MUST have \`const: true\` ` +
+          `(passive-ingestion / pseudonymization / no-analytics invariant).`,
+      );
+      violations += 1;
+    }
+  }
 
-      // (1) noAnalytics const:true and required
-      if (!required.includes("noAnalytics")) {
-        console.error(
-          `[X] ${JUDGE_LEX}: 'noAnalytics' MUST be in the record ` +
-            `\`required\` array (ADR-2605302345 G19).`,
-        );
-        violations += 1;
-      }
-      const na = props.noAnalytics;
-      if (!na || na.const !== true) {
-        console.error(
-          `[X] ${JUDGE_LEX}: 'noAnalytics' MUST have \`const: true\` ` +
-            `(G19 — France loi 2019-222 art.33; judge profiling unrepresentable).`,
-        );
-        violations += 1;
-      }
-
-      // (2) no analytics property anywhere
-      const blob = JSON.stringify(doc).toLowerCase();
-      for (const t of ANALYTICS_TOKENS) {
-        // skip tokens that are only meaningful in code, to keep schema
-        // check focused on property-name leakage
-        if (blob.includes(`"${t}"`) || blob.includes(`${t}:`)) {
-          console.error(
-            `[X] ${JUDGE_LEX}: judge-analytics property '${t}' is PROHIBITED ` +
-              `— judge profiling must be unrepresentable (G19).`,
-          );
-          violations += 1;
-        }
-      }
+  // (2) no judge-analytics property anywhere in the lexicon
+  const blob = JSON.stringify(doc).toLowerCase();
+  for (const t of ANALYTICS_TOKENS) {
+    if (blob.includes(`"${t}"`) || blob.includes(`${t}:`)) {
+      console.error(
+        `[X] ${lexPath}: judge-analytics property '${t}' is PROHIBITED ` +
+          `— judge profiling must be unrepresentable (G19; France art.33).`,
+      );
+      violations += 1;
     }
   }
 }
