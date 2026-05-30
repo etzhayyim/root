@@ -47,6 +47,41 @@ Full attribute list → ADR-2605301400 §D2. Reads use the four `kotoba-kqe` arr
 
 Each cutover is dual-write/dual-read → verify set-equality → drop legacy (one R-cycle shadow).
 
+## Cells (6; R0 path-reserved under `20-actors/magatama/cells/tadori_*/`)
+
+| Cell | Purpose | Key gate |
+|---|---|---|
+| `case_intake` | open/validate an authorized `caseMandate` | G3, G5 |
+| `tx_trace` | wallet deep-inspect → tx/addr/cluster datoms (delegates to malak `wallet_deep_inspect_pursuit`) | G9, G11 |
+| `address_label` | multi-source labeling → label datoms (delegates to malak `address_label_pursuit`) | G4, G9 |
+| `attribution_join` | cross-store join addr/cluster → ip-obs/dns-obs/person (kotoba-kqe VAET); PII encrypted | G6, G10, G11 |
+| `transparent_force_log` | on-chain-anchored audit datom per case action (Charter §1.12) | G5, G7 |
+| `silen_tadori_review` | quarterly Council audit; structural zero-counters | G12 |
+
+Each cell is import-time `RuntimeError` until T1 (Council Lv6+ ≥3 ratify post 2026-06-19).
+
+## Constitutional gates (12; IMMUTABLE per ADR-2605301400 §D1)
+
+G1 Charter Rider §2(a)-(h) scan · G2 append-only EAVT (supersededBy, no soft delete) ·
+**G3 AUTHORIZED-INVESTIGATION-ONLY** (caseMandate required; no case → Phase 0 dry-run) ·
+**G4 OPEN-SOURCE** (no proprietary chain-analysis as SoR) ·
+**G5 ON-CHAIN-MONITORABLE** (Transparent Force audit datom) ·
+**G6 PII-ENCRYPTED** (`app.etzhayyim.encrypted.*`) ·
+**G7 EVIDENCE-ONLY / NO ENFORCEMENT** (enforcement via yabai + Council) ·
+**G8 NO PLATFORM-HELD KEY** (ADR-2605231525) · G9 Murakumo-only (ADR-2605215000) ·
+**G10 NO MASS SURVEILLANCE / NO ADHERENT DE-ANON** · G11 kotoba-only (ADR-2605262130) ·
+G12 Bonsai seed-tier prune on any silenTadoriReview nonzero counter.
+
+## Lexicons (`app.etzhayyim.tadori.*`)
+
+`caseMandate` (authorization anchor; `transparentForceLogged` const true; `phase` 0/1) ·
+`attributionFinding` (cross-store edge; `encrypted` required true for person/IP/device) ·
+`traceReport` (durable malak trace result; `externalSourcesUsed` = feature-flagged inputs only) ·
+`silenTadoriReview` (9 zero-counters: noncaseWrite / plaintextPii / proprietarySor /
+enforcementAction / platformHeldKey / murakumoBypass / massSurveillance / adherentDeanon /
+nonKotobaStore — any nonzero ⇒ halt + chigiri.disputeMediation). Schemas + manifest:
+`00-contracts/lexicons/app/etzhayyim/tadori/` · `20-actors/tadori/manifest.jsonld`.
+
 ## Relationship to siblings (no duplication)
 
 - **malak** = compute (Pregel super-steps). tadori = durable case graph + attribution surface.
