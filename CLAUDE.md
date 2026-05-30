@@ -56,7 +56,8 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | Registry enforcement | 5→8-axis matrix, all PR-gates baseline 0 | 🟢 | 2605271100 / 271200 | 05-28 |
 | manimani kotoba-native | personal knowledge router reconciled onto kotoba EAVT + StateGraph + Murakumo + E2E; Gmail full-archive + PC-file ingest design | 🟡 | 2605291100 | 05-29 |
 | kotoba v0.1.0 + brew tap | first tag + GH Release + `etzhayyim/homebrew-kotoba` published; `brew install kotoba` end-to-end green (4-PR chain, host Xcode/CLT 16.4→26.5) | ✅ | 2605292100 | 05-29 |
-| kotoba actor deploy + Murakumo live | WASM + Python-LangGraph (aria) actors run in-WASM on :8077; wasmtime 22→25 (extended-const, PR#4) + json! wasm-runtime build fix (PR#5) merged upstream; kotoba→Murakumo `llm.infer` live (gemma4:e4b) verified end-to-end on prod :8077 | ✅ | 2605301625 | 05-30 |
+| kotoba actor deploy + Murakumo live | WASM + Python-LangGraph (aria) actors run in-WASM on :8077; wasmtime 22→25 (extended-const, PR#4) + json! wasm-runtime build fix (PR#5) merged upstream; kotoba→Murakumo `llm.infer` (gemma4:e4b) | ✅ (see 2605302355) | 2605301625 | 05-30 |
+| kotoba LangGraph LLM verified + durable routing | EMPIRICAL re-verify on live :8077: Python LangGraph actor runs in-WASM AND does LLM inference end-to-end (agent.wasm → KotobaLLM → `llm.infer` → gemma4-e4b → "4"). 3 kotoba fixes (invoke_run Result · HttpInferEngine dedicated-runtime/fresh-client · langgraph example imports) + `KOTOBA_INFERENCE_API_KEY` bearer. **Root cause** of LAN failure = macOS Local Network Privacy (launchd daemon blocked from LAN inference node); **durable fix** = route via loopback Murakumo LiteLLM `127.0.0.1:4000` (TCC-exempt). Corrects 2605301625 "verified on prod" | ✅ | 2605302355 | 05-30 |
 
 ### baien / silicon / ML
 

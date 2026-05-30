@@ -17013,6 +17013,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605302200-kotoba-multimodal-cross-modal-search.md",
+      "id": "adr-2605302200-kotoba-multimodal-cross-modal-search",
+      "title": "ADR-2605302200: kotoba multimodal cross-modal search — shared-embedding-space media retrieval",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-multimodal-search",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba multimodal cross-modal search (media.* XRPC + media_embed/media crates)",
+        "media/* datom predicate namespace + media:2026:assets named graph",
+        "IvfIndex namespace-generalised persistence (cc/ivf/* and media/ivf/*)"
+      ],
+      "related": [
+        "adr-2605250006-kotoba-cc-ingest-predicate-namespace"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605240001-kotoba-cleanroom-architecture",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605302245-danjo-global-fiscal-flow-extension.md",
       "id": "adr-2605302245-danjo-global-fiscal-flow-extension",
       "title": "ADR-2605302245: 弾正 (danjo) global fiscal-flow extension — generalize the budget/procurement ingest cells beyond JP, add an inter-governmental fund-flow datom class, and emit fund-flow datoms that the kanae visualization actor (ADR-2605302300) consumes (still R3-gated, still non-adjudicating)",
@@ -17151,6 +17179,37 @@
         "adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
         "adr-2605302200-chigiri-unpaid-legal-aid-lane-multijurisdiction",
         "adr-2605302330-chigiri-japan-certified-adr-mediation-lane"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing.md",
+      "id": "adr-2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing",
+      "title": "ADR-2605302355: kotoba LangGraph actor LLM inference — live end-to-end verification, three runtime fixes, macOS Local Network Privacy root-cause, and durable Murakumo LiteLLM-loopback routing (session closure)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kotoba-actor-llm-inference-verification",
+      "authoritative": true,
+      "authoritative_for": [
+        "empirical status of kotoba LangGraph (Python) actors performing LLM inference on the live node",
+        "the three kotoba runtime fixes (invoke_run Result, HttpInferEngine runtime/client, langgraph example imports) + the bearer-key addition",
+        "the macOS Local Network Privacy (TCC) constraint on launchd-spawned kotoba reaching LAN inference nodes, and the loopback-gateway mitigation",
+        "the canonical inference routing for the local deployment: kotoba -> 127.0.0.1:4000 (Murakumo LiteLLM) -> gemma4-e4b"
+      ],
+      "related": [
+        "ADR-2605291100 (manimani kotoba-native — StateGraph + Murakumo)",
+        "ADR-2605250002 (kotoba StateGraph / LangGraph API)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605301625 (kotoba actor deploy + wasmtime 25 + Murakumo inference)",
+        "ADR-2605262130 (kotoba storage substrate unification)",
+        "ADR-2605215000 (Murakumo-only inference — LiteLLM 127.0.0.1:4000 SSoT)",
+        "ADR-2605292100 (kotoba v0.1.0 tag + Homebrew tap)",
+        "ADR-2605301030 (kotoba KG storage session — operator runbook)"
       ],
       "last_verified": "2026-05-30",
       "amends": [],

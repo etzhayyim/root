@@ -11063,6 +11063,21 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605302200-kotoba-multimodal-cross-modal-search",
+      "type": "TechArticle",
+      "title": "ADR-2605302200: kotoba multimodal cross-modal search — shared-embedding-space media retrieval",
+      "status": "proposed",
+      "topic": "kotoba-multimodal-search",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba multimodal cross-modal search (media.* XRPC + media_embed/media crates)",
+        "media/* datom predicate namespace + media:2026:assets named graph",
+        "IvfIndex namespace-generalised persistence (cc/ivf/* and media/ivf/*)"
+      ],
+      "related": "doc:adr-2605250006-kotoba-cc-ingest-predicate-namespace",
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-2605302245-danjo-global-fiscal-flow-extension",
       "type": "TechArticle",
       "title": "ADR-2605302245: 弾正 (danjo) global fiscal-flow extension — generalize the budget/procurement ingest cells beyond JP, add an inter-governmental fund-flow datom class, and emit fund-flow datoms that the kanae visualization actor (ADR-2605302300) consumes (still R3-gated, still non-adjudicating)",
@@ -11140,6 +11155,25 @@
         "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
         "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
         "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing",
+      "type": "TechArticle",
+      "title": "ADR-2605302355: kotoba LangGraph actor LLM inference — live end-to-end verification, three runtime fixes, macOS Local Network Privacy root-cause, and durable Murakumo LiteLLM-loopback routing (session closure)",
+      "status": "active",
+      "topic": "kotoba-actor-llm-inference-verification",
+      "authoritative": true,
+      "authoritativeFor": [
+        "empirical status of kotoba LangGraph (Python) actors performing LLM inference on the live node",
+        "the three kotoba runtime fixes (invoke_run Result, HttpInferEngine runtime/client, langgraph example imports) + the bearer-key addition",
+        "the macOS Local Network Privacy (TCC) constraint on launchd-spawned kotoba reaching LAN inference nodes, and the loopback-gateway mitigation",
+        "the canonical inference routing for the local deployment: kotoba -> 127.0.0.1:4000 (Murakumo LiteLLM) -> gemma4-e4b"
+      ],
+      "related": [
+        "doc:ADR-2605291100 (manimani kotoba-native — StateGraph + Murakumo)",
+        "doc:ADR-2605250002 (kotoba StateGraph / LangGraph API)"
       ],
       "lastVerified": "2026-05-30"
     },
