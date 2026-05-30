@@ -48,6 +48,8 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | Labor Liberation ladder | Adherent SBT → 7-stage L0..L6 | 🟡 | 2605261000 | 05-26 |
 | Basic High Income doctrine | imputed-income (flow) + commons-asset (stock) — high income in-kind, cash≡0 (N1-consistent) | 🟡 | 2605301020 | 05-30 |
 | Mission-funding revenue arm | vendor commercial surplus → donation → Public Fund; non-profit MEANS not profit END; ad-free + no-payroll preserved | 🟡 | 2605301036 | 05-30 |
+| Social Security for Humanity | Charter §1.16 — 人類の社会保障; covenantal-universal (open to all humanity, but conversion-gated: 悔い改め・バプテスマ・得度 = social death/rebirth); 信者 Level 0 via permanent commitment vow (kotoba + IPFS + token); preserves N1/N4/N7/N8 | 🟡 | 2605302357 | 05-30 |
+| Social Security delivery pipeline | §1.16 real-world flow: outreach (feed-post + MCP) → vow (kotoba+IPFS+SBT) → compute → openmail → atproto publish → social → MCP; 産土 ubusuna cells; R0 design-only, outward actions gated (G11) | 🟡 | 2605302358 | 05-30 |
 | **kotoba** storage pivot | canonical substrate engine; supersedes yatachain + RW | 🟡 | 2605262130 | 05-26 |
 | Public-data ingestion | organism ecosystem IPFS DataLad subdatasets | 🟢 | 2605262400 | 05-26 |
 | Robotics-sim world-data | + kami-usd pipeline (sibling of 2605262400) | 🟢 | 2605262500 | 05-27 |

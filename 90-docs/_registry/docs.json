@@ -17414,6 +17414,41 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging.md",
+      "id": "adr-2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging",
+      "title": "ADR-2605310100: Covenant Transparency Doctrine — anonymity abolished, full member-to-member visibility, and ingress-consent logging + publication of all who access etzhayyim / kotoba resources (non-members and inbound email included)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": true,
+      "authoritative_for": [
+        "the etzhayyim doctrine on anonymity vs privacy vs secrecy (the three are distinct; only anonymity is abolished outright)",
+        "intra-covenant transparency: full member-to-member visibility of all member actions (no Council-only tier)",
+        "ingress-consent: logging + publication policy for any party (member or non-member) that accesses etzhayyim / kotoba resources, inbound email included",
+        "the carve-out floor that transparency does NOT override (secrets/keys/credentials; non-ingress third-party data still bound by actor gates)",
+        "redefinition of kotoba `private` graph semantics and the `app.etzhayyim.encrypted.*` namespace scope",
+        "`app.etzhayyim.transparency.*` Lexicon namespace (ingressDisclosureNotice / accessLogPublication / covenantTransparencyAttestation)"
+      ],
+      "related": [
+        "adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605181100-etzhayyim-confidentiality-encrypted-records",
+        "adr-2605231525-etzhayyim-server-side-signing-capability"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

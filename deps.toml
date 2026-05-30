@@ -8904,6 +8904,16 @@ title = "kotoba LangGraph actor LLM inference — live end-to-end verification, 
 status = "active"
 status_note = "Session-closure ADR for 'kotoba で langgraph actor は llm 推論なども行なっている? 動いている?'. Establishes EMPIRICALLY (live :8077): a Python LangGraph actor runs in-WASM (aria_kotoba.wasm, gas 15, real output) AND performs LLM inference end-to-end (agent.wasm → KotobaLLM → kotoba:kais/llm.infer → Murakumo gemma4-e4b → '4', gas 1015). Corrects ADR-2605301625's over-stated '✅ verified on prod' (it did not build/run on the launchd daemon as-claimed). Three kotoba runtime fixes shipped (etzhayyim/kotoba branch fix/wasm-runtime-build-json-macro): (a53457e) invoke_run error paths return Err((StatusCode,String)) so --features wasm-runtime builds; HttpInferEngine runs the HTTP call on a dedicated OS thread + fresh per-call reqwest client (the startup client was bound to the wrong tokio runtime → immediate 'error sending request') + connect/timeout diagnostics; kotoba-langgraph-hello agent.py hoists lazy _cbor/_entry/wit_world.imports.llm imports to module scope (componentize-py static analysis doesn't follow lazy imports → call-time trap) and agent.wasm rebuilt (componentize-py 0.23). (5f9d14c) KOTOBA_INFERENCE_API_KEY optional bearer for OpenAI-compatible gateways. ROOT CAUSE of the LAN failure = macOS Local Network Privacy (TCC): the launchd-spawned kotoba daemon is denied access to LAN inference nodes (192.168.1.18:11434 → errno 65 'No route to host') even though curl from Terminal reaches it; launchd daemons don't inherit local-network permission. DURABLE FIX (canonical local): route inference through the loopback Murakumo LiteLLM gateway 127.0.0.1:4000 (TCC-exempt; LiteLLM holds LAN access + load-balances; ADR-2605215000 SSoT) with model alias gemma4-e4b + bearer key — set in com.etzhayyim.kotoba launchd env (secrets uncommitted), session-independent. New operator invariant: never set KOTOBA_INFERENCE_URL to a LAN address under launchd — use the loopback gateway. Parent pointer bumps c1d83789c + 89953d523. Depends on ADR-2605301625 + ADR-2605262130 + ADR-2605215000 + ADR-2605292100 + ADR-2605301030."
 path = "90-docs/adr/2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing.md"
+[[adrs]]
+id = "2605302357"
+title = "Charter §1.16 — etzhayyim as the Social Security of Humanity (人類の社会保障); covenantal-universal + conversion-gated (悔い改め・バプテスマ・得度 = social death/rebirth); 信者 Level 0 via permanent commitment vow (kotoba + IPFS + token); preserves N1/N4/N7/N8"
+status = "proposed"
+path = "90-docs/adr/2605302357-etzhayyim-social-security-for-humanity.md"
+[[adrs]]
+id = "2605302358"
+title = "§1.16 Social Security — Real-World Delivery & Outreach Pipeline (kotoba persist → compute → openmail mailer → atproto publish → social post → MCP expose); 6 stages, 13 gates, R0 design-only/outward-actions-gated"
+status = "proposed"
+path = "90-docs/adr/2605302358-social-security-real-world-delivery-pipeline.md"
 
 [[modules]]
 path = "70-tools/agentic-qlora-evox2"

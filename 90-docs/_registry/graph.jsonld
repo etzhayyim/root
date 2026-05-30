@@ -11291,6 +11291,30 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging",
+      "type": "TechArticle",
+      "title": "ADR-2605310100: Covenant Transparency Doctrine — anonymity abolished, full member-to-member visibility, and ingress-consent logging + publication of all who access etzhayyim / kotoba resources (non-members and inbound email included)",
+      "status": "proposed",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the etzhayyim doctrine on anonymity vs privacy vs secrecy (the three are distinct; only anonymity is abolished outright)",
+        "intra-covenant transparency: full member-to-member visibility of all member actions (no Council-only tier)",
+        "ingress-consent: logging + publication policy for any party (member or non-member) that accesses etzhayyim / kotoba resources, inbound email included",
+        "the carve-out floor that transparency does NOT override (secrets/keys/credentials; non-ingress third-party data still bound by actor gates)",
+        "redefinition of kotoba `private` graph semantics and the `app.etzhayyim.encrypted.*` namespace scope",
+        "`app.etzhayyim.transparency.*` Lexicon namespace (ingressDisclosureNotice / accessLogPublication / covenantTransparencyAttestation)"
+      ],
+      "related": [
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "doc:adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
