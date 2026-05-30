@@ -92,7 +92,7 @@ if [ "$TEST" -eq 1 ]; then
       exit 1
     fi
   else
-    echo "── pytest suite (9 files / 163 tests) ──"
+    echo "── pytest suite (10 files / 180 tests) ──"
     if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest \
          70-tools/scripts/audit/test_adr_cross_ref_health.py \
          70-tools/scripts/audit/test_manifest_lexicon_drift.py \
@@ -103,6 +103,7 @@ if [ "$TEST" -eq 1 ]; then
          70-tools/scripts/audit/test_tadori_invariants.py \
          70-tools/scripts/audit/test_tsukuroi_invariants.py \
          70-tools/scripts/audit/test_karute_invariants.py \
+         70-tools/scripts/audit/test_kokoro_invariants.py \
          2>&1; then
       echo "pytest suite FAILED — see output above" >&2
       exit 1
