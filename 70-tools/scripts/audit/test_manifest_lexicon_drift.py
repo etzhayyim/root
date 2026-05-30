@@ -13,6 +13,7 @@ useful as new actors author manifests.
 from __future__ import annotations
 
 import importlib.util
+import re
 import sys
 from pathlib import Path
 
@@ -145,3 +146,68 @@ class TestEndToEnd:
             f"manifest-lexicon-drift category regressed: {missing_count} missing "
             f"lexicons (was 0 at iter-52 closure)"
         )
+
+
+# ─── both-keys coverage + reverse-orphan detection (this commit) ────────
+
+
+class TestBothKeysAndReverse:
+    """The audit originally read only the legacy `lexicons` key, blind to the
+    31 actors using `lexiconNamespaces`. It now reads both and also reports
+    reverse-direction orphans (a lexicon file in an owned dir that no manifest
+    declares — the iyashi/phlebotomyAttestation class of drift)."""
+
+    @staticmethod
+    def _run():
+        import subprocess
+        return subprocess.run(
+            ["python3", str(_SCRIPT)], capture_output=True, text=True, check=False,
+        )
+
+    def test_reads_lexicon_namespaces_key(self):
+        # Legacy-only (`lexicons`) counted ~42; reading lexiconNamespaces too
+        # pushes the declared total well past 100 (39 actors covered, not 8).
+        out = self._run().stdout
+        m = re.search(r"Lexicons declared \(total\):\s*(\d+)", out)
+        assert m, f"missing declared-total line:\n{out}"
+        assert int(m.group(1)) >= 100, (
+            "audit appears to read only the legacy `lexicons` key; "
+            "lexiconNamespaces-style manifests are invisible again"
+        )
+
+    def test_forward_rollup_is_zero_and_stable(self):
+        out = self._run().stdout
+        assert "missing as JSON file: 0" in out, (
+            f"forward drift regressed (this would shift the aggregator baseline):\n{out}"
+        )
+
+    def test_reverse_orphan_detection_wired(self):
+        out = self._run().stdout
+        assert "Undeclared orphan lexicon files (tracked" in out, (
+            f"reverse-orphan detection line missing:\n{out}"
+        )
+
+    def test_default_mode_exits_zero(self):
+        # Orphans are tracked, not fatal (tracker mode) — default exit 0.
+        assert self._run().returncode == 0
+
+    def test_both_keys_no_forward_drift(self, audit):
+        # Mirror of test_post_closure_zero_drift but reading BOTH keys — locks
+        # that every lexiconNamespaces-declared lexicon also has a JSON file.
+        import json
+        missing = 0
+        for mpath in audit.find_manifests():
+            try:
+                data = json.loads(mpath.read_text())
+            except Exception:
+                continue
+            declared = []
+            for key in ("lexicons", "lexiconNamespaces"):
+                v = data.get(key, [])
+                if isinstance(v, list):
+                    declared.extend(v)
+            for nsid in declared:
+                if isinstance(nsid, str) and audit.NSID_RE.match(nsid):
+                    if not audit.nsid_to_lexicon_path(nsid).exists():
+                        missing += 1
+        assert missing == 0, f"{missing} declared lexicon(s) (incl. lexiconNamespaces) have no JSON file"
