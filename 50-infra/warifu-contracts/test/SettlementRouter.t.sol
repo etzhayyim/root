@@ -76,6 +76,22 @@ contract SettlementRouterTest {
         require(router.MERCHANT_FEE_BPS() == 0, "fee bps must be 0");
     }
 
+    // --- credit path: draws the 0% line and pays merchant from the wakai float (fee 0) ---
+    function testCreditZeroFeeDrawsLine() public {
+        uint256 amount = 800_000;
+        vm.prank(council);
+        credit.setLimit(holder, 1_000_000); // interest-free limit
+        usdc.mint(wakaiFloat, amount);
+        vm.prank(wakaiFloat);
+        usdc.approve(address(router), amount);
+
+        router.settleCredit(bytes32("authC"), holder, merchant, amount, "internal-purchase");
+
+        require(usdc.balanceOf(merchant) == amount, "merchant != amount (fee leaked)");
+        require(usdc.balanceOf(wakaiFloat) == 0, "wakai float not drawn");
+        require(credit.available(holder) == 200_000, "credit line not drawn at 0%");
+    }
+
     // --- purpose gate: external 'purchase' reverts before Phase 2 is enabled ---
     function testExternalPurposeGatedBeforePhase2() public {
         uint256 amount = 500_000;

@@ -61,4 +61,49 @@ contract CreditLineTest {
         vm.expectRevert(CreditLine.NotRouter.selector);
         credit.draw(holder, 1);
     }
+
+    // --- repaying more than outstanding reverts (no negative balance, no fee credit) ---
+    function testOverpayReverts() public {
+        vm.prank(router);
+        credit.draw(holder, 500_000);
+        vm.prank(router);
+        vm.expectRevert(CreditLine.Overpay.selector);
+        credit.repay(holder, 500_001);
+    }
+
+    // --- multiple draws accumulate against the same 0% line ---
+    function testMultipleDrawsAccumulate() public {
+        vm.prank(router);
+        credit.draw(holder, 300_000);
+        vm.prank(router);
+        credit.draw(holder, 200_000);
+        (, uint256 outstanding) = credit.lines(holder);
+        require(outstanding == 500_000, "draws must accumulate");
+        require(credit.available(holder) == 500_000, "available mismatch");
+    }
+
+    // --- repaying frees the line for reuse up to the full limit (still 0%) ---
+    function testLineReusableAfterRepay() public {
+        vm.prank(router);
+        credit.draw(holder, 600_000);
+        vm.prank(router);
+        credit.repay(holder, 600_000);
+        vm.prank(router);
+        credit.draw(holder, 1_000_000); // full limit again, 0%
+        require(credit.available(holder) == 0, "line not reusable after repay");
+    }
+
+    // --- only the router may repay ---
+    function testRepayOnlyRouter() public {
+        vm.prank(holder);
+        vm.expectRevert(CreditLine.NotRouter.selector);
+        credit.repay(holder, 1);
+    }
+
+    // --- only council may set limits ---
+    function testSetLimitOnlyCouncil() public {
+        vm.prank(holder);
+        vm.expectRevert(CreditLine.NotCouncil.selector);
+        credit.setLimit(holder, 5);
+    }
 }

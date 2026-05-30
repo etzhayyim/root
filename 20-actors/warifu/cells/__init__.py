@@ -12,6 +12,9 @@ Exposed cells:
     dispute    -- chargeback record -> chigiri procedure  -> EAVT `dispute`
 """
 
+from .substrate import SubstratePort, InMemorySubstrate, UnwiredSubstrate  # noqa: F401
+from .eavt_schema import ATTRS as EAVT_ATTRS, validate_facts, assert_valid  # noqa: F401
+from .guarded_substrate import GuardedSubstrate  # noqa: F401
 from .authorize import AuthorizeCell, authorize  # noqa: F401
 from .capture import CaptureCell, capture  # noqa: F401
 from .settle import SettleCell, settle  # noqa: F401
@@ -19,6 +22,8 @@ from .refund import RefundCell, refund  # noqa: F401
 from .dispute import DisputeCell, dispute  # noqa: F401
 
 __all__ = [
+    "SubstratePort", "InMemorySubstrate", "UnwiredSubstrate",
+    "EAVT_ATTRS", "validate_facts", "assert_valid", "GuardedSubstrate",
     "AuthorizeCell", "authorize",
     "CaptureCell", "capture",
     "SettleCell", "settle",
