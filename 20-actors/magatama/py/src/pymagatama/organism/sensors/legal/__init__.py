@@ -49,9 +49,11 @@ from .judicial_party_redactor import (
     PARTY_REDACTION_POLICY_BY_ISO3,
     PartyRedactionAction,
 )
+from .judiciary_corpus_sensor import JudiciaryCorpusSensor
 
 __all__ = [
     "JudicialPartyRedactor",
+    "JudiciaryCorpusSensor",
     "LegalCaseObservation",
     "LegalCaseSensor",
     "LegalProcedureObservation",
