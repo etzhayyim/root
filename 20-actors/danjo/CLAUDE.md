@@ -112,7 +112,10 @@ identical discipline to the tadori sibling (ADR-2605301400).
    `gov.dataset.*` records present;
 4. Charter Rider scanner false-positive rate ≤5% over 7-day trial on
    danjo-bound publication samples;
-5. `app.etzhayyim.danjo.crossReferenceLink` + `.methodNote` schemas
+5. `70-tools/scripts/lint/no-danjo-adjudication.mjs` (LANDED at R0)
+   deployed to the lefthook config (gated on the repo-wide "lefthook
+   hooks full set" wave; the script is already green standalone);
+6. `app.etzhayyim.danjo.crossReferenceLink` + `.methodNote` schemas
    Council-attestation-reviewed (R1 minimum cell trio = ingest cells).
 
 ## R1 Cell Activation Order
@@ -135,6 +138,38 @@ publication path under G10 + 1 SBT = 1 vote).
 **R0 status**: Scaffold only. No cells, no smoke test (cells don't yet
 exist). Lexicon schema validation (R1) will run via lefthook
 `validate-lexicons` on the 4 danjo Lexicons.
+
+**Constitutional lint (LANDED at R0)** —
+`70-tools/scripts/lint/no-danjo-adjudication.mjs` enforces the two
+defining gates structurally and is already green:
+
+- **Check A (G8)** — scans danjo CODE files (.py/.ts/.mjs/.js) for
+  commercial gov-intelligence terminal hostnames + SDK imports (GovWin /
+  Bloomberg Government / Politico Pro / E&E News / FiscalNote / CQ Roll
+  Call). Constitutional docs that ENUMERATE the deny-list are out of
+  scope by extension (same discipline as sensor-no-active-probe exempting
+  charter_rider.py).
+- **Check B (G4)** — parses the danjo Lexicon JSON and asserts
+  `nonAdjudicatingNotice` is `const:true` on discrepancyObservation +
+  oversightReport, and that the discrepancyObservation `category` enum
+  carries NO verdict token (crime / violation / guilt / illegal /
+  unlawful / fraud / 犯罪 / 違法 / 有罪 / 不正). A legal verdict is thus
+  unrepresentable at the schema layer.
+
+```bash
+# schema audit (no args needed — validates canonical lexicon paths):
+node 70-tools/scripts/lint/no-danjo-adjudication.mjs
+# pre-commit usage (staged danjo files as args):
+node 70-tools/scripts/lint/no-danjo-adjudication.mjs <files...>
+# regression suite (8 tests; pins the G4 anchor + G8 deny-list):
+node --test 70-tools/scripts/lint/no-danjo-adjudication.test.mjs
+```
+
+The regression suite (`no-danjo-adjudication.test.mjs`) proves the G4
+anchor cannot silently regress: it spawns the lint against poisoned
+fixtures (a verdict token added to the `category` enum / a non-`const`
+`nonAdjudicatingNotice`) and asserts a non-zero exit, plus a G8 fixture
+(govwin host + fiscalnote import) and the doc-exemption case.
 
 R1 smoke test (when cells are created):
 

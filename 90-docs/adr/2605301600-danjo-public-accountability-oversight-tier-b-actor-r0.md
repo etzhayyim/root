@@ -268,6 +268,51 @@ Council Lv6+ supermajority + new ADR to amend.
 | **R2** | post-R1 + 30-day public objection | + `danjo_crossref_engine` + `danjo_statement_consistency`; first `discrepancyObservation` records (JP-first); `discrepancyObservation` schema Council-reviewed | reuben + gad | Council Lv6+ ≥4 + 30-day public comment |
 | **R3** | post-R2 + Council Lv7+ unanimity | + `danjo_oversight_report`; first aggregate `oversightReport` (JP FY) published; named-party publication path (G10) battle-tested under 1 SBT = 1 vote; multi-jurisdiction extension | naphtali (full fleet) | Council Lv7+ unanimity |
 
+## §8 — R0 deliverables landed (session 2026-05-30)
+
+R0 is intentionally minimal — no cells run, no data flows, nothing
+infers until Council ratification. What this session actually shipped,
+beyond the bare scaffold, are the **constitutional anchors made
+structural and machine-checkable**, so the gates cannot silently
+regress before the actor is ever switched on:
+
+1. **Actor scaffold** — `90-docs/adr/2605301600-…` (this ADR) +
+   `20-actors/danjo/{manifest.jsonld, README.md, CLAUDE.md}` + 4
+   Lexicon skeletons under `00-contracts/lexicons/app/etzhayyim/danjo/`.
+2. **Ref-hardened lexicons (G10 made structural)** —
+   `discrepancyObservation` gains `#namedPartyRef` (a party is nameable
+   ONLY by citing the public source record that already names them, with
+   `publiclyNamedBasis`); `oversightReport` gains `#aggregateStat`
+   (aggregate-only, N9) + `#namedPartyEntry` (whose `councilReviewCid` +
+   `oneSbtOneVoteChainCid` are REQUIRED — an entry cannot publish without
+   both gate proofs). `additionalProperties:false` closure deferred to R1
+   per the repo-wide convention.
+3. **Open detector seed (G6)** — `20-actors/danjo/methods/v1-jp-seed.json`
+   (6 JP-first methods, draft status, `councilAttestation: []`), each
+   carrying mandatory `knownFalsePositiveModes`. Every `appliesToCategory`
+   is verified ⊆ the `discrepancyObservation` category enum.
+4. **Constitutional lint + regression suite (G4 + G8)** —
+   `70-tools/scripts/lint/no-danjo-adjudication.mjs` enforces, structurally:
+   (G4) `nonAdjudicatingNotice` is `const:true` and the observation
+   `category` enum carries no verdict token (crime/violation/guilt/…); and
+   (G8) the commercial gov-intel terminal deny-list (GovWin / Bloomberg
+   Government / FiscalNote / …) over danjo *code* (docs that enumerate the
+   deny-list are exempt by extension). The 8-test
+   `no-danjo-adjudication.test.mjs` suite pins both anchors against
+   poisoned fixtures (all green).
+5. **Bidirectional integration** — `deps.toml` ADR + module registration;
+   reciprocal cross-refs into `toritate` (boundary) and `tadori` (disjoint
+   kotoba-EAVT sibling); danjo registered as PRIMARY consumer in the
+   `gov.dataset.*` corpus README. Repo-wide lexicon lints
+   (`nsid-lexicon-exists` / `lexicon-primary-types` /
+   `nsid-lexicon-registration`) green; `NSID_APP_ETZHAYYIM_DANJO_*`
+   collision-free against ~6.7k existing lexicons.
+
+**Not done by R0 design**: cells are path-reserved, NOT created (matches
+the toritate/chigiri R0 discipline); no `additionalProperties:false`
+closure; no runtime inference. These are R1+, gated on Council Lv6+
+ratification post Bootstrap Council Seats 2-5 RFP close (2026-06-19).
+
 # Consequences
 
 **Positive.**

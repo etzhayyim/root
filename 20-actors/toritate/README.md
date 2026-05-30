@@ -102,6 +102,7 @@ See ADR-2605262900 §6.
 | Council Safe | → (read) | On-chain operational expense source |
 | Land Registry | → (read) | Land acquisition records |
 | chigiri.stewardLaborAttestation | → (read) | L0..L6 classification for subsistence flow categorization |
+| `danjo` (ADR-2605301600) | ↔ | **Boundary**: toritate audits the religious-corp's OWN on-chain books; danjo audits the STATE's published open-data books (国会会議録 / 予算書 / 政府調達). Cross-reference where a vendor appears in both (toritate's tithe-recipient set ∩ danjo's procurement/budget recipients). |
 
 ## R0 Status
 

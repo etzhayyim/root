@@ -88,6 +88,10 @@ nonKotobaStore — any nonzero ⇒ halt + chigiri.disputeMediation). Schemas + m
 - **ipaddress** = 1次 collector. tadori reads its `ip-obs`/`dns-obs` datoms post-T2.
 - **yabai** = risk scoring + enforcement routing. tadori feeds it *evidence datoms*; yabai
   scores; Council authorizes enforcement. Separation of duties preserved.
+- **danjo** (ADR-2605301600) = parallel kotoba-EAVT investigation sibling, **disjoint domain**:
+  tadori traces on-chain crypto-asset actors (authorized-investigation, PII-encrypted, case-anchored);
+  danjo cross-references the STATE's pre-published open-government records (passive-only, non-adjudicating,
+  public-record-only). Shared EAVT/kotoba-kqe pattern; no data overlap, no shared cells.
 
 ## Do Not
 

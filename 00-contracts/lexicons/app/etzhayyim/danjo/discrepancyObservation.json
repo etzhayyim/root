@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "app.etzhayyim.danjo.discrepancyObservation",
-  "description": "Factual, source-cited, NON-adjudicating discrepancy observation emitted by a danjo cross-reference cell over the open-government corpus (ADR-2605263900). R0 skeleton per ADR-2605301600 §3/§4. CONSTITUTIONAL: this record states a FACTUAL cross-reference only — it MUST NOT assert that a crime / law violation / 不正 occurred (G4 UPL-equivalent). `nonAdjudicatingNotice` is required and MUST be true; the `category` enum contains NO crime/violation/guilt value (a legal verdict is unrepresentable at the schema layer). `sourceRecordCids` MUST contain ≥2 upstream gov.dataset.* record CIDs (G5). `methodNoteCid` is required (G6 open method). Legal characterization routes to external counsel via chigiri + Public Fund (Council Lv6+).",
+  "description": "Factual, source-cited, NON-adjudicating discrepancy observation emitted by a danjo cross-reference cell over the open-government corpus (ADR-2605263900). R0 skeleton per ADR-2605301600 §3/§4; ref-typed nesting added (R1 hardening = additionalProperties:false + required-field enforcement). CONSTITUTIONAL: this record states a FACTUAL cross-reference only — it MUST NOT assert that a crime / law violation / 不正 occurred (G4 UPL-equivalent). `nonAdjudicatingNotice` is required and MUST be true; the `category` enum contains NO crime/violation/guilt value (a legal verdict is unrepresentable at the schema layer). `sourceRecordCids` MUST contain ≥2 upstream gov.dataset.* record CIDs (G5). `methodNoteCid` is required (G6 open method). Named parties (G10) are structured via #namedPartyRef: a party may be named ONLY by citing the public source record that already names them. Legal characterization routes to external counsel via chigiri + Public Fund (Council Lv6+).",
   "defs": {
     "main": {
       "type": "record",
@@ -74,8 +74,8 @@
           },
           "namedParties": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": "Names ONLY where the source records already name the party publicly (procurement awardees / Diet members on record / budget recipients) AND severity-gated + Council-reviewed (G10). Empty at R0/R1."
+            "description": "Names ONLY where the source records already name the party publicly AND severity-gated + Council-reviewed (G10). Each entry MUST cite the public record that names them. Empty at R0/R1.",
+            "items": {"type": "ref", "ref": "#namedPartyRef"}
           },
           "stateAlignedFlag": {"type": "boolean", "default": false, "description": "Pass-through from source (G13)"},
           "externalCounselReferralCid": {
@@ -83,6 +83,34 @@
             "description": "If legal characterization is sought: the chigiri-routed external-counsel engagement CID. danjo itself renders NO opinion (G4)."
           },
           "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    },
+    "namedPartyRef": {
+      "type": "object",
+      "description": "A party named in an observation. STRUCTURAL G10 enforcement: a party may be named ONLY by citing the public source record that already names them, with the publication basis recorded. danjo never originates a name.",
+      "required": ["publiclyNamedBasis", "sourceRecordCid"],
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "Name as it appears VERBATIM in the cited public source record (procurement awardee / Diet member / budget recipient)."
+        },
+        "partyLei": {"type": "string", "maxLength": 20, "description": "GLEIF LEI if the party is a legal entity (corp.leiReference)."},
+        "partyDid": {"type": "string", "format": "did", "description": "DID if the party is an etzhayyim member (rare; usually absent for state-side parties)."},
+        "publiclyNamedBasis": {
+          "type": "string",
+          "knownValues": [
+            "procurement-awardee",
+            "diet-member-on-record",
+            "budget-recipient",
+            "contracting-authority"
+          ],
+          "description": "WHY the party is already public in the source corpus. No other basis permits naming (G10)."
+        },
+        "sourceRecordCid": {
+          "type": "string",
+          "description": "The single gov.dataset.* record CID that ALREADY names this party publicly."
         }
       }
     }

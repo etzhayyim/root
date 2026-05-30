@@ -38,6 +38,16 @@ transparency reports. The censor's eye, never the censor's sword.
   publishes aggregate stats by default; `namedPartySection` is populated
   ONLY where source records already name the party publicly AND
   severity-gated + Council-reviewed + 1 SBT = 1 vote (`oneSbtOneVoteChainCid`).
+- **Named parties are structurally gated (G10), not free text**:
+  `discrepancyObservation.namedParties[]` is `#namedPartyRef` — every entry
+  MUST carry a `publiclyNamedBasis` enum + the single `sourceRecordCid` that
+  ALREADY names the party. danjo can never originate a name. In
+  `oversightReport`, `namedPartySection[]` is `#namedPartyEntry`, whose
+  `councilReviewCid` + `oneSbtOneVoteChainCid` are REQUIRED fields — an entry
+  is structurally incomplete (and cannot publish) without both gate proofs.
+- **Aggregate counts are structured (N9)**: `oversightReport.aggregateStats[]`
+  is `#aggregateStat` ({category, severity, count, methodNoteCids}); never a
+  per-individual figure. Replaces the R0 freeform JSON string.
 - **PII honoring (G9)**: no unilateral re-identification; 個人情報 / GDPR
   DSARs route via `chigiri.data_privacy` to the upstream publisher.
 - **stateAlignedFlag pass-through (G13)**: CN-class / state-aligned source
@@ -47,8 +57,21 @@ transparency reports. The censor's eye, never the censor's sword.
 ## R0 Status
 
 Schemas at R0 are skeleton-level: known-value enums + required-field
-lists + the `const`/`minLength` constitutional anchors are in place, but
-full ref-typed nested structures land at R1.
+lists + the `const`/`minLength` constitutional anchors are in place.
+`discrepancyObservation` + `oversightReport` already carry ref-typed
+nested defs (`#namedPartyRef` / `#aggregateStat` / `#namedPartyEntry`);
+`crossReferenceLink` + `methodNote` stay flat until R1. `additionalProperties:false`
+is the R1 closure step (per the repo-wide convention; see toritate
+`financialAttestation`).
+
+## Repo-wide validation (integration coverage)
+
+The 4 danjo lexicons pass the repo's lexicon lints: `nsid-lexicon-exists`,
+`lexicon-primary-types`, and `nsid-lexicon-registration` all green, and
+the generated `NSID_APP_ETZHAYYIM_DANJO_*` constants are collision-free
+(no name clash with any of the ~6.7k existing lexicons). They are also
+guarded by the actor-specific `no-danjo-adjudication.mjs` (G4 + G8) and
+its 8-test regression suite.
 
 ## Cross-actor consumers
 

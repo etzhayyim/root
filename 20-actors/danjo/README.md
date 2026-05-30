@@ -125,6 +125,8 @@ validation lands at R1 Council attestation review.
 
 - `/20-actors/danjo/manifest.jsonld`
 - `/20-actors/danjo/CLAUDE.md`
+- `/20-actors/danjo/methods/` (open, versioned detector heuristics — `v1-jp-seed`, 6 seeds; G6 open method)
+- `/70-tools/scripts/lint/no-danjo-adjudication.mjs` (G4 + G8 constitutional lint, green at R0)
 - `/00-contracts/lexicons/app/etzhayyim/danjo/` (4 Lexicons + README)
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md` — open-gov corpus (primary input)
