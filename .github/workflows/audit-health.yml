@@ -95,6 +95,7 @@ jobs:
             70-tools/scripts/audit/test_gitmodules.py \
             70-tools/scripts/audit/test_tadori_invariants.py \
             70-tools/scripts/audit/test_tsukuroi_invariants.py \
+            70-tools/scripts/audit/test_karute_invariants.py \
             70-tools/scripts/audit/test_all_sh.py \
             -v
 
