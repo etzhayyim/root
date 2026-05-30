@@ -294,3 +294,18 @@ def test_metric_example_matches_valuation_l3_row():
     assert ex["imputedIncomeMedianUsdMicrosYr"] == l3["flowUsdYr"] * 1_000_000
     assert ex["commonsAssetAccessMedianUsdMicros"] == l3["stockUsdYr"] * 1_000_000
     assert ex["highIncomeBenchmarkRatioPermille"] == round(l3["benchmarkRatio"] * 1000)
+
+
+# ─── 7. give namespace README index completeness ────────────────────────
+
+
+def test_give_readme_indexes_every_lexicon():
+    give = _LEX / "give"
+    readme = (give / "README.md").read_text()
+    missing = []
+    for lex in sorted(give.rglob("*.json")):
+        nsid = _load(lex)["id"]
+        short = nsid.removeprefix("app.etzhayyim.give.")  # e.g. usdc.donation / vendorSurplusPolicy
+        if short not in readme:
+            missing.append(short)
+    assert not missing, f"give/README.md must index every lexicon; missing: {missing}"
