@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.danjo.oversightReport",
+  "description": "Periodic AGGREGATE public-accountability transparency report assembled by danjo_oversight_report. R0 skeleton per ADR-2605301600 §3/§4. Aggregate-first (G10): publishes patterns over a reporting period; named-party content permitted ONLY where source records already name the party publicly AND severity-gated + Council-reviewed under 1 SBT = 1 vote (G10/G11). Council Lv6+ ≥3 attestation chain; IPFS-pinned (replication ≥2). NON-adjudicating: the report summarizes factual cross-references and any external-counsel referrals; it renders no verdict (G4).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "jurisdiction",
+          "periodStart",
+          "periodEnd",
+          "summary",
+          "observationCids",
+          "councilAttestations",
+          "nonAdjudicatingNotice",
+          "publishedCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "jurisdiction": {"type": "string", "maxLength": 8},
+          "periodStart": {"type": "string", "format": "datetime"},
+          "periodEnd": {"type": "string", "format": "datetime"},
+          "summary": {
+            "type": "string",
+            "maxLength": 8000,
+            "description": "Aggregate-first factual summary of the period's cross-reference patterns. No legal conclusions (G4)."
+          },
+          "observationCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "danjo.discrepancyObservation CIDs included in this report"
+          },
+          "aggregateStats": {
+            "type": "string",
+            "description": "JSON-encoded aggregate counts by category/severity (no per-individual scoring; anti-individualism N9)"
+          },
+          "namedPartySection": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Named-party observation CIDs published under G10 (source already names party + severity-gated + Council-reviewed + 1 SBT = 1 vote). Empty unless all gates pass."
+          },
+          "councilAttestations": {
+            "type": "array",
+            "minLength": 3,
+            "items": {"type": "string", "format": "did"},
+            "description": "≥3 distinct Council Lv6+ DIDs"
+          },
+          "oneSbtOneVoteChainCid": {
+            "type": "string",
+            "description": "If namedPartySection is non-empty: the 1 SBT = 1 vote publication-approval chain hash (G11; ADR-2605192315 pattern)"
+          },
+          "nonAdjudicatingNotice": {"type": "boolean", "const": true},
+          "stateAlignedFlagsPresent": {"type": "boolean", "default": false, "description": "True if any source carried stateAlignedFlag (G13)"},
+          "publishedCid": {"type": "string", "description": "IPFS CID of the published report (replication ≥2)"},
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

@@ -32,6 +32,21 @@ boundaries are structural:
    precedent search flows through judah LiteLLM (127.0.0.1:4000) →
    gemma4:e4b on the fleet per ADR-2605215000.
 
+> **Premise correction (ADR-2605302200)**: 非営利 ≠ UPL exemption. None of
+> the 9 surveyed jurisdictions (JP/DE/FR/UK/US/KR/AU/CA-ON/AT-CH) gates the
+> law-practice monopoly on for-profit/non-profit status. They split into
+> **compensation-gated** (JP/FR/KR/AU — free advice lawful alone),
+> **licensure-gated** (DE/US/CA-ON/AT — free insufficient), and
+> **activity-gated** (UK advice unreserved; CH out-of-court). The operative
+> axes are **compensation** and **lawyer involvement**. The free-legal-aid lane
+> (`chigiri_legal_aid_clinic`, R0 path-reserved) therefore binds on
+> **G15 (zero compensation, incl. indirect benefit)** + **G16
+> (jurisdiction-licensed-lawyer supervision)**, the strictest common
+> denominator across all five. G14 is unchanged — chigiri still renders no
+> advice; the lane is a Public-Fund-funded human-counsel delivery channel.
+> Court representation / litigation stays a lawyer monopoly everywhere and
+> is out of scope. See ADR-2605302200 for the per-jurisdiction table.
+
 ## Architecture
 
 12 Pregel cells, each path-reserved at R0 (`20-actors/magatama/cells/chigiri_*/`):

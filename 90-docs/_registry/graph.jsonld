@@ -10994,6 +10994,74 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605301600: 弾正 (danjo) — kotoba-native public-accountability oversight Tier-B actor that ingests Diet statements + budget + procurement and emits non-adjudicating discrepancy observations (R0 scaffold)",
+      "status": "proposed",
+      "topic": "danjo-public-accountability-oversight-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "new Tier-B actor `danjo` (public-accountability oversight; civic transparency cross-reference)",
+        "kotoba-kqe EAVT datom schema for official / statement / authority / award / appropriation / outlay / entity / cross-reference-link / discrepancy-observation",
+        "the boundary between toritate (religious-corp's OWN on-chain books) and danjo (the STATE's published open-data books)",
+        "`app.etzhayyim.danjo.*` Lexicon namespace (discrepancyObservation / crossReferenceLink / oversightReport / methodNote)"
+      ],
+      "related": [
+        "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "doc:adr-2605264000-ossekai-info-arbitrage-actor",
+        "doc:adr-2605263800-corp-identity-registry-lexicons"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605302130: 繙き (himotoki) — kotoba-native ACTIVE disclosure-request Tier-B actor that files consent-bound data-subject access requests (APPI/GDPR/CCPA) to private controllers + freedom-of-information requests (情報公開法) to public organs, with a coded target-registry of each organization's 窓口 / address / email / portal / procedure (R0 scaffold)",
+      "status": "proposed",
+      "topic": "himotoki-disclosure-request-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "new Tier-B actor `himotoki` (active disclosure-request filer + response custodian)",
+        "`app.etzhayyim.himotoki.*` Lexicon namespace (disclosureTarget / disclosureRequest / requestDispatch / disclosureResponse / appealRecord)",
+        "the coded disclosure-target registry schema (per-organization 窓口 / address / email / portal / form / fee / statutory-deadline / legal-regime) and its verification gate",
+        "the boundary between chigiri (procedure templates + legal characterization + UPL routing) and himotoki (the ACTIVE filer + tracker + encrypted response custodian)",
+        "the boundary between himotoki (active right-of-access requests) and danjo/tadori (passive-only reading)",
+        "how disclosed personal data enters the substrate: `app.etzhayyim.encrypted.*` DID-bound envelopes ONLY (never plaintext PII on MST)"
+      ],
+      "related": [
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "doc:adr-2605263900-public-data-open-government-ipfs-ingestion",
+        "doc:adr-2605263800-public-data-corporate-disclosure-ipfs-ingestion",
+        "doc:adr-2605291100-manimani-kotoba-native-personal-knowledge-router",
+        "doc:adr-2605264000-ossekai-info-arbitrage-actor"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302200-chigiri-unpaid-legal-aid-lane-multijurisdiction",
+      "type": "TechArticle",
+      "title": "ADR-2605302200: chigiri — 無償徹底 (zero-compensation) lawyer-supervised legal-aid lane + multi-jurisdiction UPL analysis (amends ADR-2605262700)",
+      "status": "proposed",
+      "topic": "chigiri-unpaid-legal-aid-lane",
+      "authoritative": true,
+      "authoritativeFor": [
+        "chigiri zero-compensation legal-aid lane",
+        "multi-jurisdiction UPL / 非弁 analysis for religious-corp legal assistance (9 jurisdictions)",
+        "G15 zero-compensation invariant (incl. indirect benefit)",
+        "G16 jurisdiction-licensed-lawyer supervision invariant",
+        "per-jurisdiction legal-service routing table (JP/DE/FR/UK/US/KR/AU/CA-ON/AT-CH)",
+        "regulatory-family taxonomy (compensation / licensure / activity-gated)"
+      ],
+      "related": [
+        "doc:adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
+        "doc:adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

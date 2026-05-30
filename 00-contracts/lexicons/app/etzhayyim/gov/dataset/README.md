@@ -36,7 +36,8 @@ Schemas at R0 are skeleton-level: known-value enums in place, required-field lis
 
 ## Cross-actor consumers
 
-- **ossekai** (ADR-2605263600): aggregate-anonymized publication of state-function-routing-around evidence per Charter §1.12
+- **danjo** (ADR-2605301600): PRIMARY cross-reference consumer — ingests parliamentRecord (国会会議録) + budgetRecord (予算書) + procurementRecord (政府調達) into kotoba EAVT and emits NON-adjudicating `discrepancyObservation` + aggregate `oversightReport`. The censor's eye, never the censor's sword (passive-only G3; non-adjudicating G4; observation + publication only G11).
+- **ossekai** (ADR-2605264000): aggregate-anonymized publication of state-function-routing-around evidence per Charter §1.12 (consumes `danjo.oversightReport`)
 - **toritate** (ADR-2605262900): recipient-vendor cross-reference via budget + procurement (anti-related-party check on tithe-recipient vendor list)
 - **chigiri** (ADR-2605262700): Charter §1.12 state-function-routing-around evidence base (covenant / inheritance / withdrawal cite publicly-recorded state procedure as substitution context)
 - **manabi**: L4 civic-literacy curriculum primary source (parliament + budget + procurement + statistics)

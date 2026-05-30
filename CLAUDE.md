@@ -108,7 +108,10 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | shidemori 死出守 | memorial + cemetery (FINAL gap-closure) | 🟡 R0 | 2605263800 | 05-26 |
 | ossekai 御節介 | info-arbitrage + Wellbecoming-nudge (AT Proto) | 🟡 R0 | 2605264000 | 05-26 |
 | tsukuroi 繕い | authorized vuln-remediation patch-proposer (akuma sibling; propose-only) | 🟡 R0 | 2605291500 | 05-29 |
+| danjo 弾正 | public-accountability oversight — ingests JP 国会会議録 + 予算書 + 政府調達 into kotoba EAVT, emits NON-adjudicating discrepancy observations (censor's eye, no sword; toritate boundary; tadori sibling) | 🟡 R0 | 2605301600 | 05-30 |
 | tadori 辿 | authorized on-chain tx tracing + actor attribution (kotoba-EAVT-native; malak/ipaddress/yabai → kotoba migration) | 🟡 R0 | 2605301400 | 05-30 |
+| warifu 割符 | open zero-fee card (credit+debit), API/wire-compatible (Stripe-REST + EMV/ISO8583 + NFC/HCE); on-chain USDC settle (Base L2 + ERC-4337, T+0); 0% credit (qard ḥasan); Phase-1 SBT↔SBT closed-loop, Phase-2 external gated Lv7+ | 🟡 R0 | 2605302000 | 05-30 |
+| himotoki 繙き | ACTIVE disclosure-request filer — consent-bound DSAR (APPI/GDPR/CCPA) to private controllers (Discord/Google/LINE/Meta/Amazon) + FOIA (行政機関情報公開法) to public organs; coded target registry of each org's 窓口/住所/email/手続き; own-data-only + non-pretext; PII→encrypted DID-bound; active-outbound counterpart to passive danjo/tadori | 🟡 R0 | 2605302130 | 05-30 |
 
 > **Note**: ADR ids `2605263400` and `2605263500` each label two distinct ADRs (parallel-agent race in the source); filename + actor name disambiguate. Tracked for a future ADR-id reconciliation.
 
