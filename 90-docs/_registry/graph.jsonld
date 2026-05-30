@@ -10972,6 +10972,28 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+      "type": "TechArticle",
+      "title": "ADR-2605301400: 辿 (tadori) — authorized on-chain transaction-tracing + actor-attribution Tier-B actor, kotoba-EAVT-native; migrates malak pursuit + ipaddress + yabai off yata SQL / RisingWave",
+      "status": "proposed",
+      "topic": "tadori-onchain-tracing-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "new Tier-B actor `tadori` (authorized on-chain tx tracing + actor attribution)",
+        "kotoba-kqe EAVT datom schema for tx / address / cluster / label / case / ip-observation / dns-observation / attribution / risk",
+        "migration of malak `wallet_deep_inspect_pursuit` + `address_label_pursuit` Pregel output off filesystem/RisingWave onto kotoba QuadStore",
+        "migration of ipaddress.etzhayyim.com SQL graph off yata Workers RPC onto kotoba-kqe",
+        "migration of yabai.etzhayyim.com SQL graph (CTI / DNS / IP-history / access-audit) off yata Workers RPC onto kotoba-kqe"
+      ],
+      "related": [
+        "doc:adr-2605131600-malak-orchestration-langgraph-pregel-langserve",
+        "doc:adr-2605172000-malak-onion-frontier-ransomware-tracking",
+        "doc:adr-2604251935-blockchain-vke-head-ingest",
+        "doc:adr-2605291500-tsukuroi-authorized-remediation-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
