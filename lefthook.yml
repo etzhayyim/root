@@ -193,6 +193,19 @@ pre-commit:
       run: node 70-tools/scripts/lint/lint-no-judge-profiling.mjs {staged_files}
       stage_fixed: false
 
+    no-legal-aid-consideration:
+      # Enforce ADR-2605302200 §D2 G15 (+ ADR-2605302330 §D4). Free legal
+      # aid charges the adherent NOTHING — no fee / tithe / SBT-purchase /
+      # indirect benefit; donations flow only to the general Public Fund,
+      # never coupled to a specific matter. Check A asserts the
+      # legalAidMatter lexicon carries zeroCompensation const true +
+      # supervisingCounsel (G16) required and no consideration property;
+      # Check B blocks matter↔consideration coupling markers in chigiri
+      # legalAid code. The central cash≡0 invariant (ADR-2605301020).
+      glob: "*.{ts,tsx,js,mjs,cjs,py,go,rs,json}"
+      run: node 70-tools/scripts/lint/no-legal-aid-consideration.mjs {staged_files}
+      stage_fixed: false
+
     karute-phi-plaintext-guard:
       # Enforce ADR-2605231100 §"Substrate hard-rules" + ADR-2605181100.
       # Blocks plaintext writes whose collection / $type / nsid points to a
