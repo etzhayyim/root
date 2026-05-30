@@ -136,6 +136,24 @@ class TestValuationInvariants:
         table = _load(_VALUATION)
         assert table["invariants"]["cashStipendUsd"] == 0
 
+    def test_every_entry_has_citable_source(self):
+        # ADR-2605301020 §4 + valuation/README: every category must carry a
+        # sourceRef to an open, citable price source before attestation — no
+        # bare "TBD" placeholders may survive into a populated table.
+        table = _load(_VALUATION)
+        missing = []
+        for section in ("flow", "stock"):
+            for key, entry in table[section].items():
+                if key.startswith("_") or not isinstance(entry, dict):
+                    continue
+                src = entry.get("sourceRef", "")
+                if not src or "TBD" in src:
+                    missing.append(f"{section}.{key}")
+        bsrc = table.get("benchmark", {}).get("sourceRef", "")
+        if not bsrc or "TBD" in bsrc:
+            missing.append("benchmark")
+        assert not missing, f"entries missing a citable sourceRef: {missing}"
+
 
 # ─── 4. R0 cell stubs raise at import ───────────────────────────────────
 
