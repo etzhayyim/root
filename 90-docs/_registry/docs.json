@@ -17143,6 +17143,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605310030-legal-services-vertical-session-closure.md",
+      "id": "adr-2605310030-legal-services-vertical-session-closure",
+      "title": "ADR-2605310030: legal-services vertical session closure — non-profit legal aid from law-analysis to in-node WASM, + SDK/CI repair",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "legal-services-vertical-session",
+      "authoritative": true,
+      "authoritative_for": [
+        "legal-services vertical session (2605291222) closure record",
+        "the 9-PR merge ledger + the residual-state honesty note"
+      ],
+      "related": [
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605302200-chigiri-unpaid-legal-aid-lane-multijurisdiction",
+        "adr-2605302330-chigiri-japan-certified-adr-mediation-lane",
+        "adr-2605302345-etzhayyim-legal-services-delivery-and-global-judiciary-corpus",
+        "adr-2605302355-legal-services-kotoba-wasm-in-node-deployment",
+        "adr-2605302350-r2-cross-party-key-exchange-design-for-review"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
