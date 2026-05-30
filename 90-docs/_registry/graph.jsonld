@@ -11103,6 +11103,16 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605302350-r2-cross-party-key-exchange-design-for-review",
+      "type": "TechArticle",
+      "title": "ADR-2605302350: R2 cross-party key exchange for encrypted records — DESIGN FOR REVIEW (signal.ts X25519 ECDH sealed-box)",
+      "status": "proposed",
+      "topic": "r2-cross-party-key-exchange",
+      "authoritative": false,
+      "related": "doc:adr-2605231525-no-server-key-religious-corp-architecture",
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-2605302355-legal-services-kotoba-wasm-in-node-deployment",
       "type": "TechArticle",
       "title": "ADR-2605302355: legal-services constitutional gates run as in-node kotoba WASM Component guests (not Cloudflare Workers)",
