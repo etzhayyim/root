@@ -206,8 +206,8 @@
       "missionCharter": "/90-docs/adr/2605192100-etzhayyim-mission-charter.md",
       "transparentForce": "/90-docs/adr/2605192315-etzhayyim-transparent-force-rd.md",
       "murakumoOnly": "/90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md",
-      "noServerKey": "/90-docs/adr/2605231525-server-side-signing-capability.md",
-      "encryptedRecords": "/90-docs/adr/2605181100-confidential-records-encrypted-envelope.md",
+      "noServerKey": "/90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md",
+      "encryptedRecords": "/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md",
       "kotoba": "/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md"
     },
     "crossActor": {

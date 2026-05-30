@@ -20,8 +20,8 @@ depends_on:
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605231525-server-side-signing-capability
-  - adr-2605181100-confidential-records-encrypted-envelope
+  - adr-2605231525-no-server-key-religious-corp-architecture
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605152000-wallet-deep-inspect-and-address-label-pregels
 related:
   - adr-2605131600-malak-orchestration-langgraph-pregel-langserve
