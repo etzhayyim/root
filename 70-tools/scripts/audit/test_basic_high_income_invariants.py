@@ -36,6 +36,7 @@ _VENDOR = _LEX / "give" / "vendorMissionDonationAttestation.json"
 _VENDOR_POLICY = _LEX / "give" / "vendorSurplusPolicy.json"
 _VALUATION = _REPO / "20-actors" / "toritate" / "valuation" / "v1-retail-equiv.json"
 _CELLS = _REPO / "20-actors" / "magatama" / "cells"
+_TORITATE_MANIFEST = _REPO / "20-actors" / "toritate" / "manifest.jsonld"
 
 
 def _load(p: Path) -> dict:
@@ -309,3 +310,28 @@ def test_give_readme_indexes_every_lexicon():
         if short not in readme:
             missing.append(short)
     assert not missing, f"give/README.md must index every lexicon; missing: {missing}"
+
+
+# ─── 8. toritate manifest declares the Basic High Income compute cells ──
+#
+# Lock the manifest ↔ disk consistency for the two BHI compute cells (only —
+# the original 6 toritate cells are path-reserved and intentionally have no dir
+# yet, so we do NOT assert those).
+
+
+def _manifest_cell_modules() -> set[str]:
+    return {c["module"] for c in _load(_TORITATE_MANIFEST)["cells"]}
+
+
+def test_manifest_declares_bhi_compute_cells():
+    modules = _manifest_cell_modules()
+    for mod in (
+        "magatama.cells.toritate_imputed_income_compute",
+        "magatama.cells.toritate_commons_asset_value",
+    ):
+        assert mod in modules, f"toritate manifest must declare {mod}"
+
+
+def test_manifest_bhi_cells_exist_on_disk():
+    for cell in ("toritate_imputed_income_compute", "toritate_commons_asset_value"):
+        assert (_CELLS / cell / "cell.py").exists(), f"{cell}/cell.py missing on disk"
