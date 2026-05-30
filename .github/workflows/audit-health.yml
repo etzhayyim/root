@@ -100,6 +100,7 @@ jobs:
             70-tools/scripts/audit/test_iyashi_invariants.py \
             70-tools/scripts/audit/test_mitate_invariants.py \
             70-tools/scripts/audit/test_futawa_invariants.py \
+            70-tools/scripts/audit/test_watatsumi_invariants.py \
             70-tools/scripts/audit/test_all_sh.py \
             -v
 

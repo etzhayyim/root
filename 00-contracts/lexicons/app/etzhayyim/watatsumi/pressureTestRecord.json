@@ -11,10 +11,10 @@
           "craftId": {"type": "string"},
           "designDepthM": {"type": "integer", "maximum": 6500},
           "testDepthEquivalentM": {"type": "integer"},
-          "testPressureBar": {"type": "number"},
+          "testPressureDbar": {"type": "integer", "description": "Test pressure, implied unit deci-bar (×10) per Lexicon v1 integer-only rule (ADR-2605190900). 8125 = 812.5 bar gauge."},
           "hibikiAEStream": {"type": "array", "items": {"type": "unknown"}},
           "holdDurationMinutes": {"type": "integer", "minimum": 60},
-          "leakRateMlPerMin": {"type": "number", "maximum": 1.0},
+          "leakRateMicrolitrePerMin": {"type": "integer", "maximum": 1000, "description": "Leak-rate ceiling, implied unit µL/min per Lexicon v1 integer-only rule. 1000 = 1.0 mL/min acceptance ceiling."},
           "overallAccept": {"type": "boolean"},
           "g12KpiCheck": {
             "type": "object",
@@ -26,7 +26,7 @@
           },
           "recordedAt": {"type": "string", "format": "datetime"}
         },
-        "required": ["craftId", "designDepthM", "testPressureBar", "overallAccept", "g12KpiCheck"]
+        "required": ["craftId", "designDepthM", "testPressureDbar", "overallAccept", "g12KpiCheck"]
       }
     }
   }

@@ -28,10 +28,10 @@ class PressureTestState:
     completionPct: int
     designDepthM: int | None = None
     testDepthEquivalentM: int | None = None
-    testPressureBar: float | None = None
+    testPressureDbar: int | None = None  # deci-bar (×10); Lexicon v1 integer-only
     hibikiAEStream: list[dict[str, Any]] | None = None
     holdDurationMinutes: int | None = None
-    leakRateMlPerMin: float | None = None
+    leakRateMicrolitrePerMin: int | None = None  # µL/min; 1000 = 1.0 mL/min ceiling
     overallAccept: bool | None = None
 
 
@@ -39,7 +39,7 @@ def transition_to_design_depth_verified(state: dict[str, Any]) -> dict[str, Any]
     pt = PressureTestState(**state.get("pressure_test_state", {}))
     pt.designDepthM = 6500
     pt.testDepthEquivalentM = int(6500 * 1.25)  # = 8125 m
-    pt.testPressureBar = round(8125 / 10.0, 1)  # ≈ 812.5 bar gauge
+    pt.testPressureDbar = 8125  # = 812.5 bar gauge, stored as deci-bar (integer)
     pt.phase = PressureTestPhase.DESIGN_DEPTH_VERIFIED
     pt.completionPct = 15
     return {"pressure_test_state": pt.__dict__, "next_node": "dock"}
@@ -71,7 +71,7 @@ def transition_to_hold(state: dict[str, Any]) -> dict[str, Any]:
     """Hold at test pressure for ≥60 min, leak-rate check."""
     pt = PressureTestState(**state.get("pressure_test_state", {}))
     pt.holdDurationMinutes = 60
-    pt.leakRateMlPerMin = 0.0
+    pt.leakRateMicrolitrePerMin = 0
     pt.phase = PressureTestPhase.HOLD
     pt.completionPct = 80
     return {"pressure_test_state": pt.__dict__, "next_node": "depressurize"}
@@ -87,7 +87,7 @@ def transition_to_depressurization(state: dict[str, Any]) -> dict[str, Any]:
 def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     pt = PressureTestState(**state.get("pressure_test_state", {}))
     pt.overallAccept = (
-        (pt.leakRateMlPerMin or 0.0) < 1.0
+        (pt.leakRateMicrolitrePerMin or 0) < 1000  # < 1.0 mL/min
         and pt.designDepthM is not None
         and pt.designDepthM <= 6500  # G12
     )
@@ -98,10 +98,10 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "craftId": pt.craftId,
         "designDepthM": pt.designDepthM,
         "testDepthEquivalentM": pt.testDepthEquivalentM,
-        "testPressureBar": pt.testPressureBar,
+        "testPressureDbar": pt.testPressureDbar,
         "hibikiAEStream": pt.hibikiAEStream,
         "holdDurationMinutes": pt.holdDurationMinutes,
-        "leakRateMlPerMin": pt.leakRateMlPerMin,
+        "leakRateMicrolitrePerMin": pt.leakRateMicrolitrePerMin,
         "overallAccept": pt.overallAccept,
         "g12KpiCheck": {"maxCivilianDepthM": 6500, "accept": True},
         "recordedAt": "2026-05-26T17:00:00Z",

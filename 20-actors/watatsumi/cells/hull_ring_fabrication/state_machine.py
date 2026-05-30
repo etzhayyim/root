@@ -26,7 +26,7 @@ class HullRingState:
     ringSpec: dict[str, Any] | None = None  # {outerDiamMm, thicknessMm, frameSpacingMm}
     rollingTelemetry: dict[str, Any] | None = None
     weldPasses: list[dict[str, Any]] | None = None
-    roundnessMeasurement: dict[str, Any] | None = None  # {maxOutOfRoundPct, accept}
+    roundnessMeasurement: dict[str, Any] | None = None  # {maxOutOfRoundPpm, accept}
     robotSignatures: list[dict[str, Any]] | None = None
 
 
@@ -94,8 +94,8 @@ def transition_to_roundness_qa(state: dict[str, Any]) -> dict[str, Any]:
         "measurements_mm": [6500, 6498, 6502, 6499, 6501, 6500, 6497, 6503],
         "maxOutOfRoundMm": 6,
         "diameterMm": 6500,
-        "maxOutOfRoundPct": round(6 / 6500 * 100, 4),
-        "limitPct": 0.5,
+        "maxOutOfRoundPpm": round(6 / 6500 * 1_000_000),  # = 923 ppm (0.0923%)
+        "limitPpm": 5000,  # = 0.5% Ø
         "accept": True,
     }
     hs.phase = HullRingPhase.ROUNDNESS_QA_PASSED
