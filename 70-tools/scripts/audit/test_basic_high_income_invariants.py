@@ -256,3 +256,41 @@ def test_metric_example_cash_stipend_is_zero():
 def test_vendor_donation_example_purpose_is_titheable():
     inst = _load(_EXAMPLES / "give/vendorMissionDonationAttestation.example.v1.json")
     assert inst["purpose"] in {"donation", "grant"}
+
+
+# ─── 6. cross-artifact arithmetic consistency ───────────────────────────
+#
+# Pin the planning figures so a future edit can't leave the valuation table
+# internally inconsistent or let the example fixture drift from it.
+
+_RATIO_TOL = 0.011  # stageBaskets ratios are rounded to 2 decimals
+
+
+def test_stage_basket_ratios_match_benchmark():
+    table = _load(_VALUATION)
+    bench = table["benchmark"]["perAdherentUsdYr"]
+    assert bench > 0
+    drift = []
+    for stage, row in table["stageBaskets"].items():
+        if stage.startswith("_") or not isinstance(row, dict):
+            continue
+        computed = (row["flowUsdYr"] + row["stockUsdYr"]) / bench
+        if abs(computed - row["benchmarkRatio"]) > _RATIO_TOL:
+            drift.append(f"{stage}: stated {row['benchmarkRatio']} vs computed {computed:.4f}")
+    assert not drift, "stageBaskets benchmarkRatio drift:\n  " + "\n  ".join(drift)
+
+
+def test_l6_target_approaches_high_income_benchmark():
+    # ADR-2605301020 §3: L6 target standard of living ≥ OECD upper-decile basket
+    # (ratio →1.0). Pin that the planning table actually reaches near-parity.
+    row = _load(_VALUATION)["stageBaskets"]["L6"]
+    assert row["benchmarkRatio"] >= 0.95, "L6 should approach the high-income benchmark"
+
+
+def test_metric_example_matches_valuation_l3_row():
+    table = _load(_VALUATION)
+    l3 = table["stageBaskets"]["L3"]
+    ex = _load(_EXAMPLES / "liberation/metricReport.example.v1.json")["basicHighIncome"]
+    assert ex["imputedIncomeMedianUsdMicrosYr"] == l3["flowUsdYr"] * 1_000_000
+    assert ex["commonsAssetAccessMedianUsdMicros"] == l3["stockUsdYr"] * 1_000_000
+    assert ex["highIncomeBenchmarkRatioPermille"] == round(l3["benchmarkRatio"] * 1000)
