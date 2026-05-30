@@ -86,6 +86,9 @@ def main() -> int:
     total_missing = 0
     actors_with_drift: list[tuple[Path, list[tuple[str, Path]]]] = []
     invalid_nsids: list[tuple[Path, str]] = []
+    declared_global: set[str] = set()
+    # dir → set of NSIDs declared into it by some manifest (the dir is "owned").
+    owned_dirs: dict[Path, set[str]] = {}
 
     for mpath in manifests:
         try:
@@ -94,19 +97,28 @@ def main() -> int:
             print(f"warning: could not parse {mpath.relative_to(REPO_ROOT)}: {e}", file=sys.stderr)
             continue
 
-        lexicons = data.get("lexicons", [])
-        if not isinstance(lexicons, list):
+        # Actors authored before the lexiconNamespaces convention use the
+        # `lexicons` key; the 31 newer actors use `lexiconNamespaces`. Read
+        # BOTH so the audit covers all 39 actors, not just the 8 legacy ones.
+        declared = []
+        for key in ("lexicons", "lexiconNamespaces"):
+            v = data.get(key, [])
+            if isinstance(v, list):
+                declared.extend(v)
+        if not declared:
             continue
 
         missing_in_actor: list[tuple[str, Path]] = []
-        for nsid in lexicons:
+        for nsid in declared:
             if not isinstance(nsid, str):
                 continue
             total_declared += 1
             if not NSID_RE.match(nsid):
                 invalid_nsids.append((mpath, nsid))
                 continue
+            declared_global.add(nsid)
             lex_path = nsid_to_lexicon_path(nsid)
+            owned_dirs.setdefault(lex_path.parent, set()).add(nsid)
             if not lex_path.exists():
                 missing_in_actor.append((nsid, lex_path))
                 total_missing += 1
@@ -114,11 +126,28 @@ def main() -> int:
         if missing_in_actor:
             actors_with_drift.append((mpath, missing_in_actor))
 
+    # Reverse direction: a lexicon JSON file that lives in an actor-owned dir
+    # (some manifest declares into it) but is itself UNDECLARED by any manifest.
+    # This is the iyashi/phlebotomyAttestation class of drift — an orphan
+    # contract surface. Tracked informationally (not fed into the rollup, so the
+    # aggregator baseline is unaffected); surfaced for follow-up declaration.
+    orphans: list[str] = []
+    for dirp in sorted(owned_dirs, key=str):
+        if not dirp.is_dir():
+            continue
+        for jf in sorted(dirp.glob("*.json")):
+            if jf.stem.startswith("_"):
+                continue
+            nsid = ".".join(jf.relative_to(LEXICONS_ROOT).with_suffix("").parts)
+            if nsid not in declared_global:
+                orphans.append(nsid)
+
     # Reporting. The aggregator script picks the LAST `: N$` line as
     # this script's rollup count, so put the headline number last.
     print(f"Manifests scanned: {len(manifests)}")
     print(f"Lexicons declared (total): {total_declared}")
     print(f"Actors with drift: {len(actors_with_drift)}")
+    print(f"Undeclared orphan lexicon files (tracked, not in rollup): {len(orphans)}")
     if invalid_nsids:
         print(f"Invalid NSIDs (don't match `a.b.c` pattern): {len(invalid_nsids)}")
 
@@ -141,7 +170,17 @@ def main() -> int:
             rel = mpath.relative_to(REPO_ROOT)
             print(f"  {rel}: {nsid!r}")
 
-    # Final summary line — what the aggregator picks up.
+    if orphans:
+        print()
+        print("Undeclared orphan lexicon files (exist on disk, no manifest declares them):")
+        for nsid in orphans[:20]:
+            print(f"  ORPHAN: {nsid}")
+        if len(orphans) > 20:
+            print(f"  ... and {len(orphans) - 20} more")
+
+    # Final summary line — what the aggregator picks up. Kept as the
+    # forward (declared-but-missing) count so the rollup baseline is stable;
+    # orphans are tracked above but intentionally excluded from this number.
     print()
     print(f"Lexicons declared in manifest but missing as JSON file: {total_missing}")
 

@@ -38,6 +38,9 @@ contract SettlementRouter {
     error NotCouncil();
     error PurposeGated();
     error PurposeNotAllowed();
+    error Reentrancy();
+
+    bool private _entered; // reentrancy guard
 
     constructor(address _usdc, address _creditLine, address _wakaiFloat, address _council) {
         usdc = IERC20(_usdc);
@@ -54,6 +57,14 @@ contract SettlementRouter {
     modifier onlyCouncil() {
         if (msg.sender != council) revert NotCouncil();
         _;
+    }
+
+    /// @dev Blocks re-entry via a malicious/hook token during transferFrom.
+    modifier nonReentrant() {
+        if (_entered) revert Reentrancy();
+        _entered = true;
+        _;
+        _entered = false;
     }
 
     /// @dev Records the on-chain ADR-2605192115 amendment hash; must be set by Lv7+ multisig
@@ -82,7 +93,7 @@ contract SettlementRouter {
         address merchant,
         uint256 amount,
         string calldata purpose
-    ) external {
+    ) external nonReentrant {
         _checkPurpose(purpose);
         // fee = 0: merchant receives exactly `amount`.
         require(usdc.transferFrom(holder, merchant, amount), "usdc transfer failed");
@@ -96,7 +107,7 @@ contract SettlementRouter {
         address merchant,
         uint256 amount,
         string calldata purpose
-    ) external {
+    ) external nonReentrant {
         _checkPurpose(purpose);
         creditLine.draw(holder, amount); // 0% interest
         require(usdc.transferFrom(wakaiFloat, merchant, amount), "wakai transfer failed");

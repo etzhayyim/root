@@ -18,3 +18,14 @@ return `GATED` until the Council Lv7+ amendment).
 
 Per-cell I/O contracts live in `lex/` (`warifu.authorize.json`, `warifu.settle.json`).
 Wire-level lexicons (`app.etzhayyim.card.*`) live in `10-protocol/warifu/`.
+
+## Substrate seam + tests
+
+- `substrate.py` — `SubstratePort` Protocol (the DI seam to kotoba/`@etzhayyim/sdk`),
+  `UnwiredSubstrate` (fail-loud default, no platform key), `InMemorySubstrate` (deterministic
+  test fake modelling balances / 0% credit lines / holds / settlements / EAVT facts log).
+  R1 injects an `@etzhayyim/sdk`-backed adapter; cells never import a concrete client.
+- `test_cells.py` — 26 happy + negative-path checks over `InMemorySubstrate`. Runnable with no
+  deps: `python 20-actors/warifu/cells/test_cells.py`. Covers purpose-gate, balance/credit/card
+  declines, zero-fee facts, exact money movement, partial/over-capture, partial/over-refund,
+  credit-line draw+repay (0%), dispute reason validation + encrypted-CID evidence.

@@ -28,11 +28,11 @@
           "roundness": {
             "type": "object",
             "properties": {
-              "maxOutOfRoundPct": {"type": "number"},
-              "limitPct": {"type": "number", "const": 0.5},
+              "maxOutOfRoundPpm": {"type": "integer", "description": "Max out-of-roundness, implied unit parts-per-million of Ø per Lexicon v1 (ADR-2605190900). 5000 = 0.5%."},
+              "limitPpm": {"type": "integer", "const": 5000, "description": "Roundness acceptance limit = 0.5% Ø = 5000 ppm (ADR-2605252200 L1)."},
               "accept": {"type": "boolean"}
             },
-            "required": ["maxOutOfRoundPct", "accept"]
+            "required": ["maxOutOfRoundPpm", "accept"]
           },
           "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
           "recordedAt": {"type": "string", "format": "datetime"}

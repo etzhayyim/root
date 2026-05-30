@@ -5,7 +5,8 @@
  *
  * Per ADR-2605231100 §"Substrate hard-rules" and ADR-2605181100, clinical
  * records (Patient / Encounter / SoapNote / Observation / Condition /
- * MedicationRequest / ServiceRequest / DispenseRecord) MUST flow through
+ * MedicationRequest / ServiceRequest / DispenseRecord / CarePlan /
+ * HomecareEpisode / HomeVisit) MUST flow through
  * `app.etzhayyim.encrypted.record` envelope. Direct writes to the inner
  * `app.etzhayyim.karute.*` collection on MST (or any other persistence
  * surface) leak PHI plaintext.
@@ -36,6 +37,9 @@ const KARUTE_INNER_TYPES = [
   "app.etzhayyim.karute.medicationRequest",
   "app.etzhayyim.karute.serviceRequest",
   "app.etzhayyim.karute.dispenseRecord",
+  "app.etzhayyim.karute.carePlan",
+  "app.etzhayyim.karute.homecareEpisode",
+  "app.etzhayyim.karute.homeVisit",
 ];
 
 const EXEMPT_PATH_PATTERNS = [
@@ -71,7 +75,7 @@ const EXEMPT_PATH_PATTERNS = [
 // We separately require that the call site is NOT inside an encryptedWrite() call
 // by checking the surrounding ~10 lines for `encryptedWrite(` token.
 
-const KARUTE_TYPE_PATTERN = /app\.etzhayyim\.karute\.(patient|encounter|soapNote|observation|condition|medicationRequest|serviceRequest|dispenseRecord)\b/;
+const KARUTE_TYPE_PATTERN = /app\.etzhayyim\.karute\.(patient|encounter|soapNote|observation|condition|medicationRequest|serviceRequest|dispenseRecord|carePlan|homecareEpisode|homeVisit)\b/;
 // We deliberately do not anchor with `\b` because `\b\$` does not fire when
 // `$type` follows whitespace (the common case). The `: "..."` tail is
 // restrictive enough to avoid false positives.

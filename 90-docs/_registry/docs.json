@@ -17013,6 +17013,103 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605302200-kotoba-multimodal-cross-modal-search.md",
+      "id": "adr-2605302200-kotoba-multimodal-cross-modal-search",
+      "title": "ADR-2605302200: kotoba multimodal cross-modal search — shared-embedding-space media retrieval",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-multimodal-search",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba multimodal cross-modal search (media.* XRPC + media_embed/media crates)",
+        "media/* datom predicate namespace + media:2026:assets named graph",
+        "IvfIndex namespace-generalised persistence (cc/ivf/* and media/ivf/*)"
+      ],
+      "related": [
+        "adr-2605250006-kotoba-cc-ingest-predicate-namespace"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605240001-kotoba-cleanroom-architecture",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605302245-danjo-global-fiscal-flow-extension.md",
+      "id": "adr-2605302245-danjo-global-fiscal-flow-extension",
+      "title": "ADR-2605302245: 弾正 (danjo) global fiscal-flow extension — generalize the budget/procurement ingest cells beyond JP, add an inter-governmental fund-flow datom class, and emit fund-flow datoms that the kanae visualization actor (ADR-2605302300) consumes (still R3-gated, still non-adjudicating)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "danjo-global-fiscal-flow-extension",
+      "authoritative": true,
+      "authoritative_for": [
+        "danjo budget_ledger + procurement_graph jurisdiction-parametric generalization (JP-first → global, R3-gated)",
+        "danjo inter-governmental fund-flow datom class (`intergov-fund-flow`) shared with kanae `fundFlowEdge`",
+        "the danjo (engine) ↔ kanae (visualizer) handoff contract"
+      ],
+      "related": [
+        "adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605263900-public-data-open-government-ipfs-ingestion",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0.md",
+      "id": "adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+      "title": "ADR-2605302300: 鼎 (kanae) — kotoba-native global government fiscal-flow visualization Tier-B actor that assembles worldwide fund flows (domestic full-chain + inter-governmental) into kotoba EAVT, narrates them with Murakumo-only LLM, and renders them as kami-engine WASM visualizations (R0 scaffold)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kanae-global-fiscal-flow-visualization-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "new Tier-B actor `kanae` (global government fiscal-flow visualization + narrative)",
+        "kotoba-kqe EAVT datom schema for fund-flow-edge / flow-narrative / visualization-manifest",
+        "the boundary between danjo (cross-reference ENGINE; non-adjudicating discrepancy observations) and kanae (fiscal-flow ASSEMBLY + Murakumo narrative + kami-engine WASM visualization)",
+        "`app.etzhayyim.kanae.*` Lexicon namespace (fundFlowEdge / flowNarrative / visualizationManifest / methodNote)",
+        "kami-engine WASM as the constitutional render substrate for fiscal-flow visualization (no third-party BI / no ad/analytics SDK in the render path)"
+      ],
+      "related": [
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "adr-2605264000-ossekai-info-arbitrage-actor",
+        "adr-2605263800-corp-identity-registry-lexicons"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605302245-danjo-global-fiscal-flow-extension",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605263900-public-data-open-government-ipfs-ingestion",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605261800-nvidia-omniverse-compat-kami-engine",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605302330-chigiri-japan-certified-adr-mediation-lane.md",
       "id": "adr-2605302330-chigiri-japan-certified-adr-mediation-lane",
       "title": "ADR-2605302330: chigiri — Japan 認証ADR (ADR法) certified-mediation lane, §72-exempt (extends ADR-2605302200; activates dispute_mediation cell)",
@@ -17111,6 +17208,37 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing.md",
+      "id": "adr-2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing",
+      "title": "ADR-2605302355: kotoba LangGraph actor LLM inference — live end-to-end verification, three runtime fixes, macOS Local Network Privacy root-cause, and durable Murakumo LiteLLM-loopback routing (session closure)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kotoba-actor-llm-inference-verification",
+      "authoritative": true,
+      "authoritative_for": [
+        "empirical status of kotoba LangGraph (Python) actors performing LLM inference on the live node",
+        "the three kotoba runtime fixes (invoke_run Result, HttpInferEngine runtime/client, langgraph example imports) + the bearer-key addition",
+        "the macOS Local Network Privacy (TCC) constraint on launchd-spawned kotoba reaching LAN inference nodes, and the loopback-gateway mitigation",
+        "the canonical inference routing for the local deployment: kotoba -> 127.0.0.1:4000 (Murakumo LiteLLM) -> gemma4-e4b"
+      ],
+      "related": [
+        "ADR-2605291100 (manimani kotoba-native — StateGraph + Murakumo)",
+        "ADR-2605250002 (kotoba StateGraph / LangGraph API)"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605301625 (kotoba actor deploy + wasmtime 25 + Murakumo inference)",
+        "ADR-2605262130 (kotoba storage substrate unification)",
+        "ADR-2605215000 (Murakumo-only inference — LiteLLM 127.0.0.1:4000 SSoT)",
+        "ADR-2605292100 (kotoba v0.1.0 tag + Homebrew tap)",
+        "ADR-2605301030 (kotoba KG storage session — operator runbook)"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605302355-legal-services-kotoba-wasm-in-node-deployment.md",
       "id": "adr-2605302355-legal-services-kotoba-wasm-in-node-deployment",
       "title": "ADR-2605302355: legal-services constitutional gates run as in-node kotoba WASM Component guests (not Cloudflare Workers)",
@@ -17137,6 +17265,119 @@
         "adr-2605302200-chigiri-unpaid-legal-aid-lane-multijurisdiction",
         "adr-2605302330-chigiri-japan-certified-adr-mediation-lane",
         "adr-2605302345-etzhayyim-legal-services-delivery-and-global-judiciary-corpus"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605302357-etzhayyim-social-security-for-humanity.md",
+      "id": "adr-2605302357-etzhayyim-social-security-for-humanity",
+      "title": "ADR-2605302357: Charter §1.16 — etzhayyim as the Social Security of Humanity (人類の社会保障) via Covenantal-Universal, Conversion-Gated Membership",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "social-security-for-humanity-covenantal-universal",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim self-constitution as the social security (社会保障) of humanity",
+        "covenantal-universal scope doctrine (open admissibility to all humanity; delivery via Adherent membership)",
+        "the conversion gate (悔い改め metanoia + バプテスマ baptism + 得度 tokudo = social death and rebirth) as the sole, universally-available entry condition",
+        "信者 Level 0 entry via a permanent commitment vow recorded to kotoba + IPFS + token (triple-permanent commitment)",
+        "reconciliation of \"humanity's social security\" with immutable N7 (adherent-gated benefits) and N4 (no state-safety-net replacement)"
+      ],
+      "related": [
+        "adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain",
+        "adr-2605301036-mission-funding-earned-revenue-arm",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605172700-membership-layering-shinto-adherent",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605192100 (Mission Charter — §1.1 labor-liberation telos; §2 constitutional constants; this ADR adds §1.16)",
+        "ADR-2605261000 (Labor Liberation Transition Mechanism — Liberation Ladder is the delivery vehicle; N1/N4/N7/N8 referenced, none amended)",
+        "ADR-2605301020 (Basic High Income — the \"income\" form of the security; in-kind, non-cash)",
+        "ADR-2605172600 (Membership Ritual — signed oath + dual-permanent record; the conversion gate this ADR constitutionally names)",
+        "ADR-2605262130 (kotoba storage substrate — permanent commitment record)",
+        "ADR-2605192145 (Public Fund Architecture — funding vehicle)",
+        "ADR-2605192130 (10% Tithe constitutional constant — funding rail)"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605302358-social-security-real-world-delivery-pipeline.md",
+      "id": "adr-2605302358-social-security-real-world-delivery-pipeline",
+      "title": "ADR-2605302358: §1.16 Social Security — Real-World Delivery & Outreach Pipeline (kotoba persist → compute → openmail → atproto publish → social post → MCP expose)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "social-security-real-world-delivery-pipeline",
+      "authoritative": true,
+      "authoritative_for": [
+        "the end-to-end pipeline that converts the §1.16 doctrine into real-world human effect",
+        "stage→substrate assignment (kotoba / compute / openmail / atproto / feed-post / MCP)",
+        "the 信者 Level 0 enrollment flow (vow → triple-permanent commitment → notify → publish)",
+        "the gate set that keeps outward-facing actions charter-compliant and reversible-until-ratified"
+      ],
+      "related": [
+        "adr-2605261000-labor-liberation-transition-mechanism",
+        "adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605262900-toritate-accounting-audit"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605302357 (§1.16 Social Security doctrine — covenantal-universal + conversion gate + L0 permanent-commitment vow)",
+        "ADR-2605262130 (kotoba storage substrate — EAVT persistence + compute)",
+        "ADR-2605172200 (openmail — atproto MST-native mailer + SMTP bridge + on-chain postage)",
+        "ADR-2605231902 (feed-post membrane + feed-discover projection — atproto publish + social post)",
+        "ADR-0087 (magatama MCP tool facade — MCP exposure)",
+        "ADR-2605172600 (Membership Ritual — signed oath + dual→triple-permanent record)",
+        "ADR-2605231525 (server-side signing capability — no platform-held key)"
+      ],
+      "last_verified": "2026-05-30",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605302359-moe-expert-activation-profiling-and-agentic-qlora.md",
+      "id": "adr-2605302359-moe-expert-activation-profiling-and-agentic-qlora",
+      "title": "ADR-2605302359: MoE expert-activation profiling substrate (gemma-4-26B-A4B) + agentic-capability QLoRA enhancement plan — profiling informs the QLoRA target set (shared expert + attention + router); Unsloth is CUDA-gated, peft+trl on ROCm is the now-path",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "moe-expert-activation-and-agentic-qlora",
+      "authoritative": true,
+      "authoritative_for": [
+        "MoE expert-activation profiling method (ffn_moe_topk capture via llama-eval-callback) + the `moe-expert-activation/<model>` DataLad subdataset layout",
+        "per-(layer,expert) classification schema (top_category / specialization / confidence / unseen-rare)",
+        "the MoE-aware QLoRA target policy (shared expert + attention + router trainable; routed experts frozen)",
+        "agentic-capability QLoRA plan for `baien-server-agentic-gemma4-26b-a4b-*`",
+        "Unsloth-vs-peft+trl decision under the ROCm/CUDA hardware reality",
+        "distributed-training path policy on the owned Murakumo Mac mini fleet (MLX data-parallel LoRA; pipeline-parallel for >1-mini models) — own hardware, no §2(i)(2) gate"
+      ],
+      "related": [
+        "adr-2605261900-baien-moemoekyun-moe-r0",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference",
+        "adr-2605250400-gemma-coder-distill-rocm",
+        "adr-2605231300-baien-distill-langgraph-coding",
+        "adr-2605262200-charter-rider-train-gpu-carveout",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "last_verified": "2026-05-30",
       "amends": [],

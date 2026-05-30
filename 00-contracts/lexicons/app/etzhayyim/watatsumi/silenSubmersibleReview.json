@@ -26,14 +26,7 @@
           "councilSafeAddress": {"type": "string"},
           "councilSignatures": {
             "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "councilMemberDid": {"type": "string", "format": "did"},
-                "signature": {"type": "string"},
-                "timestamp": {"type": "string", "format": "datetime"}
-              }
-            },
+            "items": {"type": "ref", "ref": "#councilSignature"},
             "minItems": 5
           },
           "decision": {"type": "string", "knownValues": ["approve", "reject", "request-revision"]},
@@ -42,6 +35,15 @@
         },
         "required": ["craftClassId", "scope", "councilSignatures", "decision", "recordedAt"]
       }
+    },
+    "councilSignature": {
+      "type": "object",
+      "properties": {
+        "councilMemberDid": {"type": "string", "format": "did"},
+        "signature": {"type": "string"},
+        "timestamp": {"type": "string", "format": "datetime"}
+      },
+      "required": ["councilMemberDid", "signature"]
     }
   }
 }

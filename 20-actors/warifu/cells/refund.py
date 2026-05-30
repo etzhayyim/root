@@ -1,19 +1,14 @@
 """warifu.refund — reverse a settled transaction (purpose always escrow-refund).
 
-R0 scaffold. kotoba-EAVT-native (ADR-2605262130). Reverses USDC from merchant back to the
-holder (debit) or back to the wakai float with a CreditLine repay (credit). Zero fee; refunds
-never net the holder less than the captured amount.
-
-Flow:
-    1. load `settlement` by settlement_id; compute refundable = amount - already_refunded
-    2. amount defaults to full refundable; partial allowed (<= refundable)
-    3. SettlementRouter reverse transfer; for credit, also CreditLine.repay(holder, amount)
-    4. write EAVT `refund` fact (purpose escrow-refund)
+kotoba-EAVT-native (ADR-2605262130). Substrate injected via SubstratePort. Reverses USDC from
+merchant back to holder (debit) or repays the 0% CreditLine (credit). Zero fee.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+
+from .substrate import SubstratePort, UnwiredSubstrate
 
 REFUND_PURPOSE = "escrow-refund"  # the only permitted refund purpose
 
@@ -38,8 +33,11 @@ class RefundResult:
 
 
 class RefundCell:
+    def __init__(self, substrate: SubstratePort | None = None):
+        self.substrate: SubstratePort = substrate or UnwiredSubstrate()
+
     def run(self, req: RefundRequest) -> RefundResult:
-        s = self._load_settlement(req.settlement_id)  # R0 stub
+        s = self.substrate.load_settlement(req.settlement_id)
         if s is None:
             return RefundResult(refunded=False, reason="settlement not found")
 
@@ -47,11 +45,11 @@ class RefundCell:
         if refundable <= 0:
             return RefundResult(refunded=False, reason="already fully refunded")
 
-        amount = req.amount_usdc or refundable
-        if amount > refundable:
+        amount = req.amount_usdc if req.amount_usdc is not None else refundable
+        if amount <= 0 or amount > refundable:
             return RefundResult(refunded=False, reason="refund exceeds refundable amount")
 
-        refund_id, tx = self._reverse(s, amount)  # R0 stub: SettlementRouter + (credit) repay
+        refund_id, tx = self.substrate.reverse_settlement(req.settlement_id, amount)
         facts = [
             (refund_id, "warifu/kind", "refund", refund_id),
             (refund_id, "warifu/settlement_id", req.settlement_id, refund_id),
@@ -60,19 +58,11 @@ class RefundCell:
             (refund_id, "warifu/fee_usdc", 0, refund_id),
             (refund_id, "warifu/tx", tx, refund_id),
         ]
+        self.substrate.write_facts(facts)
         return RefundResult(
             refunded=True, refund_id=refund_id, amount_usdc=amount, tx=tx, eavt_facts=facts
         )
 
-    # --- substrate edges (R1) ----------------------------------------------------------
-    def _load_settlement(self, settlement_id: str) -> dict | None:
-        raise NotImplementedError("R0: query kotoba EAVT settlement by settlement_id")
 
-    def _reverse(self, settlement: dict, amount: int) -> tuple[str, str]:
-        raise NotImplementedError(
-            "R0: SettlementRouter reverse transfer (+ CreditLine.repay for credit); return (id, tx)"
-        )
-
-
-def refund(req: RefundRequest) -> RefundResult:
-    return RefundCell().run(req)
+def refund(req: RefundRequest, substrate: SubstratePort | None = None) -> RefundResult:
+    return RefundCell(substrate).run(req)

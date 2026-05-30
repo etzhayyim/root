@@ -11063,6 +11063,62 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605302200-kotoba-multimodal-cross-modal-search",
+      "type": "TechArticle",
+      "title": "ADR-2605302200: kotoba multimodal cross-modal search — shared-embedding-space media retrieval",
+      "status": "proposed",
+      "topic": "kotoba-multimodal-search",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba multimodal cross-modal search (media.* XRPC + media_embed/media crates)",
+        "media/* datom predicate namespace + media:2026:assets named graph",
+        "IvfIndex namespace-generalised persistence (cc/ivf/* and media/ivf/*)"
+      ],
+      "related": "doc:adr-2605250006-kotoba-cc-ingest-predicate-namespace",
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302245-danjo-global-fiscal-flow-extension",
+      "type": "TechArticle",
+      "title": "ADR-2605302245: 弾正 (danjo) global fiscal-flow extension — generalize the budget/procurement ingest cells beyond JP, add an inter-governmental fund-flow datom class, and emit fund-flow datoms that the kanae visualization actor (ADR-2605302300) consumes (still R3-gated, still non-adjudicating)",
+      "status": "proposed",
+      "topic": "danjo-global-fiscal-flow-extension",
+      "authoritative": true,
+      "authoritativeFor": [
+        "danjo budget_ledger + procurement_graph jurisdiction-parametric generalization (JP-first → global, R3-gated)",
+        "danjo inter-governmental fund-flow datom class (`intergov-fund-flow`) shared with kanae `fundFlowEdge`",
+        "the danjo (engine) ↔ kanae (visualizer) handoff contract"
+      ],
+      "related": [
+        "doc:adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+        "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605302300: 鼎 (kanae) — kotoba-native global government fiscal-flow visualization Tier-B actor that assembles worldwide fund flows (domestic full-chain + inter-governmental) into kotoba EAVT, narrates them with Murakumo-only LLM, and renders them as kami-engine WASM visualizations (R0 scaffold)",
+      "status": "proposed",
+      "topic": "kanae-global-fiscal-flow-visualization-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "new Tier-B actor `kanae` (global government fiscal-flow visualization + narrative)",
+        "kotoba-kqe EAVT datom schema for fund-flow-edge / flow-narrative / visualization-manifest",
+        "the boundary between danjo (cross-reference ENGINE; non-adjudicating discrepancy observations) and kanae (fiscal-flow ASSEMBLY + Murakumo narrative + kami-engine WASM visualization)",
+        "`app.etzhayyim.kanae.*` Lexicon namespace (fundFlowEdge / flowNarrative / visualizationManifest / methodNote)",
+        "kami-engine WASM as the constitutional render substrate for fiscal-flow visualization (no third-party BI / no ad/analytics SDK in the render path)"
+      ],
+      "related": [
+        "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "doc:adr-2605264000-ossekai-info-arbitrage-actor",
+        "doc:adr-2605263800-corp-identity-registry-lexicons"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-2605302330-chigiri-japan-certified-adr-mediation-lane",
       "type": "TechArticle",
       "title": "ADR-2605302330: chigiri — Japan 認証ADR (ADR法) certified-mediation lane, §72-exempt (extends ADR-2605302200; activates dispute_mediation cell)",
@@ -11113,6 +11169,25 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605302355-kotoba-langgraph-llm-inference-live-verified-and-durable-murakumo-routing",
+      "type": "TechArticle",
+      "title": "ADR-2605302355: kotoba LangGraph actor LLM inference — live end-to-end verification, three runtime fixes, macOS Local Network Privacy root-cause, and durable Murakumo LiteLLM-loopback routing (session closure)",
+      "status": "active",
+      "topic": "kotoba-actor-llm-inference-verification",
+      "authoritative": true,
+      "authoritativeFor": [
+        "empirical status of kotoba LangGraph (Python) actors performing LLM inference on the live node",
+        "the three kotoba runtime fixes (invoke_run Result, HttpInferEngine runtime/client, langgraph example imports) + the bearer-key addition",
+        "the macOS Local Network Privacy (TCC) constraint on launchd-spawned kotoba reaching LAN inference nodes, and the loopback-gateway mitigation",
+        "the canonical inference routing for the local deployment: kotoba -> 127.0.0.1:4000 (Murakumo LiteLLM) -> gemma4-e4b"
+      ],
+      "related": [
+        "doc:ADR-2605291100 (manimani kotoba-native — StateGraph + Murakumo)",
+        "doc:ADR-2605250002 (kotoba StateGraph / LangGraph API)"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-2605302355-legal-services-kotoba-wasm-in-node-deployment",
       "type": "TechArticle",
       "title": "ADR-2605302355: legal-services constitutional gates run as in-node kotoba WASM Component guests (not Cloudflare Workers)",
@@ -11126,6 +11201,76 @@
         "CF Worker → kotoba WASM gate-logic migration record"
       ],
       "related": "doc:adr-2605301030-kotoba-kg-storage-session-52-entity-actor-graph",
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302357-etzhayyim-social-security-for-humanity",
+      "type": "TechArticle",
+      "title": "ADR-2605302357: Charter §1.16 — etzhayyim as the Social Security of Humanity (人類の社会保障) via Covenantal-Universal, Conversion-Gated Membership",
+      "status": "proposed",
+      "topic": "social-security-for-humanity-covenantal-universal",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim self-constitution as the social security (社会保障) of humanity",
+        "covenantal-universal scope doctrine (open admissibility to all humanity; delivery via Adherent membership)",
+        "the conversion gate (悔い改め metanoia + バプテスマ baptism + 得度 tokudo = social death and rebirth) as the sole, universally-available entry condition",
+        "信者 Level 0 entry via a permanent commitment vow recorded to kotoba + IPFS + token (triple-permanent commitment)",
+        "reconciliation of \"humanity's social security\" with immutable N7 (adherent-gated benefits) and N4 (no state-safety-net replacement)"
+      ],
+      "related": [
+        "doc:adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain",
+        "doc:adr-2605301036-mission-funding-earned-revenue-arm",
+        "doc:adr-2605172300-etzhayyim-bi-asset-substrate",
+        "doc:adr-2605172700-membership-layering-shinto-adherent",
+        "doc:adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "doc:adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302358-social-security-real-world-delivery-pipeline",
+      "type": "TechArticle",
+      "title": "ADR-2605302358: §1.16 Social Security — Real-World Delivery & Outreach Pipeline (kotoba persist → compute → openmail → atproto publish → social post → MCP expose)",
+      "status": "proposed",
+      "topic": "social-security-real-world-delivery-pipeline",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the end-to-end pipeline that converts the §1.16 doctrine into real-world human effect",
+        "stage→substrate assignment (kotoba / compute / openmail / atproto / feed-post / MCP)",
+        "the 信者 Level 0 enrollment flow (vow → triple-permanent commitment → notify → publish)",
+        "the gate set that keeps outward-facing actions charter-compliant and reversible-until-ratified"
+      ],
+      "related": [
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "doc:adr-2605192145-etzhayyim-public-fund-architecture",
+        "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "doc:adr-2605262900-toritate-accounting-audit"
+      ],
+      "lastVerified": "2026-05-30"
+    },
+    {
+      "id": "doc:adr-2605302359-moe-expert-activation-profiling-and-agentic-qlora",
+      "type": "TechArticle",
+      "title": "ADR-2605302359: MoE expert-activation profiling substrate (gemma-4-26B-A4B) + agentic-capability QLoRA enhancement plan — profiling informs the QLoRA target set (shared expert + attention + router); Unsloth is CUDA-gated, peft+trl on ROCm is the now-path",
+      "status": "proposed",
+      "topic": "moe-expert-activation-and-agentic-qlora",
+      "authoritative": true,
+      "authoritativeFor": [
+        "MoE expert-activation profiling method (ffn_moe_topk capture via llama-eval-callback) + the `moe-expert-activation/<model>` DataLad subdataset layout",
+        "per-(layer,expert) classification schema (top_category / specialization / confidence / unseen-rare)",
+        "the MoE-aware QLoRA target policy (shared expert + attention + router trainable; routed experts frozen)",
+        "agentic-capability QLoRA plan for `baien-server-agentic-gemma4-26b-a4b-*`",
+        "Unsloth-vs-peft+trl decision under the ROCm/CUDA hardware reality",
+        "distributed-training path policy on the owned Murakumo Mac mini fleet (MLX data-parallel LoRA; pipeline-parallel for >1-mini models) — own hardware, no §2(i)(2) gate"
+      ],
+      "related": [
+        "doc:adr-2605261900-baien-moemoekyun-moe-r0",
+        "doc:adr-2605262100-baien-moemoekyun-r1-phase0-coding-train"
+      ],
       "lastVerified": "2026-05-30"
     },
     {

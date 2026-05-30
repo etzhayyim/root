@@ -7,7 +7,7 @@
 - **ADR**: ADR-2605263000 (R0 scaffold, 2026-05-26)
 - **Parent ADR**: ADR-2605261000 (Liberation Ladder — L4 Care Tier gate)
 - **L4 Care Tier siblings**: yakushi (pharma mfg ADR-2605250500..615) / mitate (diagnosis routing ADR-2605260100) / hagukumi (daily-living ADR-2605261030)
-- **Status**: R0 scaffold — 6 cells path-reserved (import-time RuntimeError per G2 privacy invariant) + 6 Lexicon skeletons
+- **Status**: R0 scaffold — 6 cells path-reserved (import-time RuntimeError per G2 privacy invariant) + 7 Lexicon skeletons
 - **Form**: 任意団体 internal clinical care provider substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)
 
 ## Constitutional Discipline (CRITICAL — IMMUTABLE)
@@ -157,7 +157,7 @@ Expected: all 6 imports raise `RuntimeError` with "R0 scaffold" message.
 
 - `/20-actors/iyashi/manifest.jsonld`
 - `/20-actors/iyashi/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/iyashi/` (6 Lexicon JSONs + README)
+- `/00-contracts/lexicons/app/etzhayyim/iyashi/` (7 Lexicon JSONs + README)
 - `/90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md` — privacy envelope
 - `/90-docs/adr/2605181200-mst-encrypted-metadata-leak-reduction.md`

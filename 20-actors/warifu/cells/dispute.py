@@ -1,17 +1,17 @@
-"""warifu.dispute — open/advance a chargeback dispute over a settlement.
+"""warifu.dispute — open a chargeback dispute over a settlement.
 
-R0 scaffold. kotoba-EAVT-native (ADR-2605262130). A dispute is a record (not an automatic
-reversal): resolution runs through chigiri 契 (legal procedure) / Council arbitration; any
-loss is mutualised by wakai 和会 (ADR-2605263500). Evidence is stored encrypted
-(app.etzhayyim.encrypted.*, ADR-2605181100), never plaintext.
-
-Status machine: open -> evidence -> chigiri -> resolved | absorbed
+kotoba-EAVT-native (ADR-2605262130). Substrate injected via SubstratePort. A dispute is a record,
+not an auto-reversal: resolution routes through chigiri 契; loss is mutualised by wakai 和会
+(ADR-2605263500). Evidence is stored as encrypted CIDs only (app.etzhayyim.encrypted.*,
+ADR-2605181100), never plaintext.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
+
+from .substrate import SubstratePort, UnwiredSubstrate
 
 REASON_CODES = frozenset({"fraud", "not-received", "not-as-described", "duplicate", "other"})
 
@@ -43,13 +43,20 @@ class DisputeResult:
 
 
 class DisputeCell:
+    def __init__(self, substrate: SubstratePort | None = None):
+        self.substrate: SubstratePort = substrate or UnwiredSubstrate()
+
     def run(self, req: DisputeRequest) -> DisputeResult:
         if req.reason_code not in REASON_CODES:
             return DisputeResult(opened=False, reason=f"invalid reason_code '{req.reason_code}'")
-        if self._load_settlement(req.settlement_id) is None:  # R0 stub
+        if self.substrate.load_settlement(req.settlement_id) is None:
             return DisputeResult(opened=False, reason="settlement not found")
 
-        dispute_id = self._open(req)  # R0 stub
+        dispute_id = self.substrate.open_dispute(
+            settlement_id=req.settlement_id, reason_code=req.reason_code,
+            opened_by_did=req.opened_by_did, amount_usdc=req.amount_usdc,
+            evidence_cids=req.evidence_cids,
+        )
         facts = [
             (dispute_id, "warifu/kind", "dispute", dispute_id),
             (dispute_id, "warifu/settlement_id", req.settlement_id, dispute_id),
@@ -57,20 +64,13 @@ class DisputeCell:
             (dispute_id, "warifu/opened_by", req.opened_by_did, dispute_id),
             (dispute_id, "warifu/amount_usdc", req.amount_usdc, dispute_id),
             (dispute_id, "warifu/status", DisputeStatus.OPEN.value, dispute_id),
-            # evidence stored as encrypted CIDs only (no plaintext PII)
             *[(dispute_id, "warifu/evidence_cid", cid, dispute_id) for cid in req.evidence_cids],
         ]
+        self.substrate.write_facts(facts)
         return DisputeResult(
             opened=True, dispute_id=dispute_id, status=DisputeStatus.OPEN, eavt_facts=facts
         )
 
-    # --- substrate edges (R1) ----------------------------------------------------------
-    def _load_settlement(self, settlement_id: str) -> dict | None:
-        raise NotImplementedError("R0: query kotoba EAVT settlement by settlement_id")
 
-    def _open(self, req: DisputeRequest) -> str:
-        raise NotImplementedError("R0: write kotoba EAVT dispute record; route to chigiri")
-
-
-def dispute(req: DisputeRequest) -> DisputeResult:
-    return DisputeCell().run(req)
+def dispute(req: DisputeRequest, substrate: SubstratePort | None = None) -> DisputeResult:
+    return DisputeCell(substrate).run(req)
