@@ -30,7 +30,7 @@
   {:part/id "part:A2-tendon"  :part/name "Steering tendon cable"       :part/group "A-mechanism"
    :part/procurement :cots :part/manufacturer "Asahi Intecc" :part/product "7x7 SUS304 wire φ0.45mm"
    :part/mpn "SUS304-7x7-045" :part/purl "pkg:generic/asahi-intecc/sus304-7x7-045"
-   :part/qty 4 :part/mass-g 8  :part/sourcing :representative}
+   :part/qty 4 :part/mass-g 8 :part/sim-feature "j_yaw" :part/sourcing :representative}
   {:part/id "part:A3-feed"    :part/name "Linear feed stage"           :part/group "A-mechanism"
    :part/procurement :cots :part/manufacturer "OpenBuilds" :part/product "C-Beam Linear Actuator 250mm"
    :part/mpn "CBEAM-250" :part/purl "pkg:generic/openbuilds/c-beam-250"

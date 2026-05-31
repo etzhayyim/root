@@ -97,6 +97,10 @@
           "value": "8"
         },
         {
+          "name": "giemon:simFeature",
+          "value": "j_yaw"
+        },
+        {
           "name": "giemon:sourcing",
           "value": "representative"
         }

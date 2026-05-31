@@ -82,6 +82,24 @@ medium ina226; the non-fleet CVE correctly excluded), 3 `VulnMatch` entities
 queryable by `match/severity`. Production swaps the seed for a real OSV/NVD feed
 (the kotoba sbom lexicon's `cveIngestOsv`).
 
+## CAD-feature ↔ BOM binding (`sim_part_binding.py`)
+
+Tightens the loose `:part/sim-feature` link: validates that every part's
+`:part/sim-feature` resolves to a real `<link>`/`<joint>` in the robot's URDF,
+and reports bound / unbound parts + uncovered sim features (exits non-zero on an
+invalid binding, so it is gate-worthy).
+
+```
+python3 sim_part_binding.py \
+  70-tools/e7m-sim/scenes/giemon_kabitori/giemon_kabitori.urdf \
+  70-tools/e7m-sim/scenes/giemon_kabitori/parts.edn
+```
+
+Verified (kabitori): 13 URDF features, **0 invalid** bindings, 10 bound / 10
+unbound (electronics + cleaning parts have no mechanical feature — expected),
+5 uncovered features. (otete has no committed sim/URDF, so its parts are all
+unbound — also expected.)
+
 ## Honest scope
 
 No live RisingWave instance was available here, so the bridge is verified by
