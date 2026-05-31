@@ -38,6 +38,7 @@
   <div><span class="k">source:</span>  <span class="v">OpenStreetMap (ODbL)</span></div>
   <div><span class="k">engine:</span>  <span class="v">kami-genesis 3-D + contact</span></div>
   <div><span class="k">assets:</span>  <span class="v">kotoba EAVT (501 entities)</span></div>
+  <div><span class="k">3dgs (G):</span> <span class="v" id="a-splat">off</span></div>
   <div><span class="k">backend:</span> <span class="v" id="h-backend">—</span></div>
   <div><span class="k">fps:</span>     <span class="v" id="h-fps">—</span></div>
   <div id="err"></div>
@@ -51,14 +52,31 @@
   <div class="prov" id="a-prov">—</div>
 </div>
 <div id="hint">
-  drag = orbit ・ wheel = zoom ・ <b>ポール/街灯/信号/樹木をクリック → kotoba object データ表示</b> ・
-  複数エージェントが重力 + 接触 + 摩擦でフル物理走行
+  drag = orbit ・ wheel = zoom ・ <b>アセットをクリック → kotoba object データ</b> ・
+  <b>G = 3DGS overlay</b> (現状は coarse placeholder; 実 photoreal は Mapillary 学習 PLY) ・
+  複数エージェントがフル物理走行
 </div>
 <script type="module">
-import init, { run_shibuya_v1 } from './shibuya/kami_app_shibuya.js';
+import init, { run_shibuya_v1, shibuyaLoadSplat, shibuyaLoadSplatPly, shibuyaClearSplat } from './shibuya/kami_app_shibuya.js';
 
 const errEl = document.getElementById('err');
 let lastPick = null;
+let splatOn = false;
+// G = toggle the 3D Gaussian-Splat overlay. Loads the trained Mapillary PLY
+// (shibuya.ply) if present, else the coarse placeholder .splat (render-path
+// proof; real photoreal needs trainGsplatFromMapillary + a Mapillary token).
+window.addEventListener('keydown', async (e) => {
+  if (e.key !== 'g' && e.key !== 'G') return;
+  const tag = document.getElementById('a-splat');
+  if (splatOn) { shibuyaClearSplat(); splatOn = false; if (tag) tag.textContent = 'off'; return; }
+  try {
+    let r = await fetch('./shibuya/shibuya.ply');
+    if (r.ok) { const ok = shibuyaLoadSplatPly(new Uint8Array(await r.arrayBuffer())); splatOn = ok; if (tag) tag.textContent = ok ? 'Mapillary PLY' : 'load failed'; return; }
+    r = await fetch('./shibuya/shibuya_placeholder.splat');
+    const ok = shibuyaLoadSplat(new Uint8Array(await r.arrayBuffer()));
+    splatOn = ok; if (tag) tag.textContent = ok ? 'placeholder (coarse)' : 'load failed';
+  } catch (err) { if (tag) tag.textContent = 'error'; console.error('[shibuya] splat', err); }
+});
 (async () => {
   await init();
   const hudFps = document.getElementById('h-fps');

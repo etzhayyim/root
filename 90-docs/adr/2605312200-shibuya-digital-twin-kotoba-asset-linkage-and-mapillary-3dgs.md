@@ -76,16 +76,27 @@ record and publishes it to `window.__shibuya_pick`; `shibuya.htm` shows a panel
 (種別 / 会社 / 設置年 / 費用 / kotoba id) with a provenance note (実OSM vs 合成デモ).
 This closes the loop "画面のポール → kotoba object データ".
 
-## 3. Mapillary → 3DGS pipeline front (wired + documented; training offline)
+## 3. 3DGS render path (delivered) + Mapillary front (token-blocked)
 
-`70-tools/scripts/sim/mapillary_fetch.py` is the image-acquisition front: it
-pulls Mapillary Graph-API v4 image metadata (id / geometry / compass / thumb)
-for a bbox and writes a manifest that feeds the existing
-`app.etzhayyim.apps.maps.trainGsplatFromMapillary` procedure (COLMAP SfM →
-gsplat training on a GPU pod → PLY → B2 → `vertex_maps_gsplat_asset`). Without
-`MAPILLARY_TOKEN` it prints the schema + exact training invocation and exits 0,
-so the path is documented even offline. The trained PLY is rendered by the
-existing `kami-pipelines::GsplatAdapter` (ADR-2605092800).
+**Render path — delivered.** `kami-app-shibuya` now mounts a
+`kami-pipelines::GsplatAdapter` pipeline and exposes JS hooks
+`shibuyaLoadSplat` / `shibuyaLoadSplatPly` / `shibuyaClearSplat`; `shibuya.htm`
+binds **G** to toggle the 3-D Gaussian-Splat overlay, loading `shibuya.ply`
+(the trained Mapillary output) if present, else a coarse placeholder
+`shibuya_placeholder.splat`. `70-tools/scripts/sim/scene_to_splat.py` generates
+that placeholder (12,110 splats sampled on building surfaces + roads + assets,
+in the renderer's y-up frame, antimatter15 32-byte format) — explicitly **NOT
+photoreal**, only a render-path proof so the GS pipeline is visible now.
+
+**Acquisition front — token-blocked.** `70-tools/scripts/sim/mapillary_fetch.py`
+pulls Mapillary Graph-API v4 image metadata for a bbox → a manifest feeding the
+existing `app.etzhayyim.apps.maps.trainGsplatFromMapillary` procedure (COLMAP
+SfM → gsplat on a GPU pod → PLY → B2 → `vertex_maps_gsplat_asset`). It requires
+a Mapillary **client token** (`MLY|…`). The 1Password "Mapillary" item turned
+out to be a **website login** (email + 19-char password), **not** an API client
+token — the Graph API returns **HTTP 400** with it. So real photoreal Shibuya
+remains blocked on (a) a generated client token and (b) the offline GPU
+training; the render path is ready to display the PLY the moment it exists.
 
 # Consequences
 
@@ -103,10 +114,13 @@ existing `kami-pipelines::GsplatAdapter` (ADR-2605092800).
   is needed for authoritative values.
 - The EDN transaction is committed as a **file**; live ingest into a running
   kotoba `:8077` is not performed here.
-- **3DGS is not yet visible**: COLMAP+gsplat training is an offline GPU job and
-  no trained Shibuya PLY exists; the in-app `GsplatAdapter` render-wire (and a
-  `MAPILLARY_TOKEN`) are the remaining steps. Procedural splatification was
-  explicitly rejected (would not add real detail).
+- **3DGS render path is delivered + a coarse placeholder is visible (press G),
+  but real photoreal is blocked**: the 1Password "Mapillary" item is a website
+  login, not an API client token (Graph API → HTTP 400), and COLMAP+gsplat is an
+  offline GPU job — so no trained Shibuya PLY exists yet. The placeholder splat
+  proves the render pipeline; it is NOT photoreal and NOT the Mapillary product.
+  Unblock = a generated Mapillary client token (`MLY|…`) → `mapillary_fetch.py`
+  → `trainGsplatFromMapillary` → drop `shibuya.ply` next to the bundle.
 - Street-lamps / power-poles are sparse in this OSM bbox (real coverage); the
   39 objects are what OSM actually maps there.
 

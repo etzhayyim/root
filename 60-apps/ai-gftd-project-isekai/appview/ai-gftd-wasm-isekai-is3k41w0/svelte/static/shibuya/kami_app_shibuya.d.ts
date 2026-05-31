@@ -3,11 +3,29 @@
 
 export function run_shibuya_v1(canvas_id: string): Promise<void>;
 
+/**
+ * JS hook: remove the 3DGS overlay (back to the box city).
+ */
+export function shibuyaClearSplat(): void;
+
+/**
+ * JS hook: load a `.splat` (antimatter15 32-byte) cloud into the 3DGS overlay.
+ */
+export function shibuyaLoadSplat(bytes: Uint8Array): boolean;
+
+/**
+ * JS hook: load a `.ply` (gsplat training output) cloud into the 3DGS overlay.
+ */
+export function shibuyaLoadSplatPly(bytes: Uint8Array): boolean;
+
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
     readonly run_shibuya_v1: (a: number, b: number) => any;
+    readonly shibuyaLoadSplat: (a: number, b: number) => number;
+    readonly shibuyaLoadSplatPly: (a: number, b: number) => number;
+    readonly shibuyaClearSplat: () => void;
     readonly wasm_bindgen__closure__destroy__h4cc8d9ef82568b4c: (a: number, b: number) => void;
     readonly wasm_bindgen__closure__destroy__h3435a2f46af78ad4: (a: number, b: number) => void;
     readonly wasm_bindgen__closure__destroy__h5cc718e39248ba03: (a: number, b: number) => void;

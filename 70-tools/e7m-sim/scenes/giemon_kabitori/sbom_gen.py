@@ -127,8 +127,9 @@ def parse_edn(text):
 # ── claim mapping: a part map's keys → kg claims (string values) ─────────────
 _CLAIM_KEYS = [
     "part/group", "part/procurement", "part/manufacturer", "part/product",
-    "part/mpn", "part/purl", "part/qty", "part/mass-g", "part/sim-feature",
-    "part/fab-process", "part/sourcing", "part/note",
+    "part/mpn", "part/purl", "part/qty", "part/mass-g", "part/unit-jpy",
+    "part/supplier", "part/sim-feature", "part/fab-process", "part/sourcing",
+    "part/note",
 ]
 # kg claim predicate uses no hyphens for the camel-ish tail (keep slashes)
 def _claim_pred(k):
@@ -214,12 +215,17 @@ def main():
 
     cdx = to_cyclonedx(meta, parts)
     ing = to_kotoba_entities(meta, parts)
-    (out_dir / "kabitori.cdx.json").write_text(json.dumps(cdx, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    (out_dir / "kotoba_ingest.json").write_text(json.dumps(ing, ensure_ascii=False) + "\n", encoding="utf-8")
+    # Output names derive from :bom/of (e.g. giemon-kabitori → kabitori) so
+    # multiple robots' artifacts coexist in one directory.
+    slug = str(meta.get("bom/of", "robot")).removeprefix("giemon-")
+    cdx_path = out_dir / f"{slug}.cdx.json"
+    ing_path = out_dir / f"{slug}.ingest.json"
+    cdx_path.write_text(json.dumps(cdx, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    ing_path.write_text(json.dumps(ing, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    print(f"parts={len(parts)}  cots={n_cots}  custom-fab={n_fab}")
-    print(f"wrote {out_dir/'kabitori.cdx.json'} ({len(cdx['components'])} components)")
-    print(f"wrote {out_dir/'kotoba_ingest.json'} ({len(ing['entities'])} entities)")
+    print(f"{slug}: parts={len(parts)}  cots={n_cots}  custom-fab={n_fab}")
+    print(f"wrote {cdx_path} ({len(cdx['components'])} components)")
+    print(f"wrote {ing_path} ({len(ing['entities'])} entities)")
 
 
 if __name__ == "__main__":

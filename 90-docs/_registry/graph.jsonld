@@ -11506,6 +11506,23 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605312400: 申文 (moushibumi) — citizen democratic-participation concierge (election info + 請願 + パブリックコメント) Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "moushibumi-democratic-participation-concierge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "moushibumi-democratic-participation-concierge"
+      ],
+      "related": [
+        "doc:2605301600",
+        "doc:2605302130",
+        "doc:2605192315"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
       "type": "TechArticle",
       "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",
