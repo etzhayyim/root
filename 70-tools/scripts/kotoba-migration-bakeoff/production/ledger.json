@@ -1,0 +1,72 @@
+[
+  {
+    "cell": "gov-municipality-final_sign_off",
+    "src": "20-actors/gov-municipality/cells/final_sign_off/cell.py",
+    "build": true,
+    "structural": true,
+    "judge": 3,
+    "wall_s": 25.5,
+    "equiv": "strict",
+    "equiv_detail": null
+  },
+  {
+    "cell": "gov-municipality-inspection_scheduling",
+    "src": "20-actors/gov-municipality/cells/inspection_scheduling/cell.py",
+    "build": true,
+    "structural": true,
+    "judge": 4,
+    "wall_s": 25.7,
+    "equiv": "strict",
+    "equiv_detail": null
+  },
+  {
+    "cell": "gov-municipality-permit_submission",
+    "src": "20-actors/gov-municipality/cells/permit_submission/cell.py",
+    "build": true,
+    "structural": true,
+    "judge": 4,
+    "wall_s": 57.6,
+    "equiv": "no-gold",
+    "equiv_detail": "invalid syntax (state_machine.py, line 66)"
+  },
+  {
+    "cell": "infra-utility-connect-activation_test",
+    "src": "20-actors/infra-utility-connect/cells/activation_test/cell.py",
+    "build": true,
+    "structural": true,
+    "judge": 3,
+    "wall_s": 23.2,
+    "equiv": "strict",
+    "equiv_detail": null
+  },
+  {
+    "cell": "infra-utility-connect-meter_install",
+    "src": "20-actors/infra-utility-connect/cells/meter_install/cell.py",
+    "build": true,
+    "structural": true,
+    "judge": 3,
+    "wall_s": 25.1,
+    "equiv": "strict",
+    "equiv_detail": null
+  },
+  {
+    "cell": "infra-utility-connect-provider_approval",
+    "src": "20-actors/infra-utility-connect/cells/provider_approval/cell.py",
+    "build": true,
+    "structural": true,
+    "judge": 3,
+    "wall_s": 21.3,
+    "equiv": "strict",
+    "equiv_detail": null
+  },
+  {
+    "cell": "infra-utility-connect-service_request",
+    "src": "20-actors/infra-utility-connect/cells/service_request/cell.py",
+    "build": true,
+    "structural": true,
+    "judge": 4,
+    "wall_s": 25.7,
+    "equiv": "strict",
+    "equiv_detail": null
+  }
+]
