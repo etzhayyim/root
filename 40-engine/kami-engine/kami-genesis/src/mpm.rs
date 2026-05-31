@@ -255,6 +255,27 @@ impl MpmSolver {
         self.particles.iter().map(|p| p.x).collect()
     }
 
+    /// Top surface height of the deposited material per x-bin over the unit
+    /// x-domain (`0.0` where no particle reaches that column). This is the
+    /// fill-level / slump readout a vertical-slice pour controller targets —
+    /// e.g. "has the slab reached its finish thickness across the footprint?".
+    pub fn surface_profile(&self, bins: usize) -> Vec<f32> {
+        let bins = bins.max(1);
+        let mut prof = vec![0.0_f32; bins];
+        for p in &self.particles {
+            let b = ((p.x.x.clamp(0.0, 1.0) * bins as f32) as usize).min(bins - 1);
+            if p.x.y > prof[b] {
+                prof[b] = p.x.y;
+            }
+        }
+        prof
+    }
+
+    /// Overall peak fill height (max particle y); `0.0` if empty.
+    pub fn fill_height(&self) -> f32 {
+        self.particles.iter().map(|p| p.x.y).fold(0.0, f32::max)
+    }
+
     /// One MLS-MPM step (P2G → grid update → G2P + constitutive update).
     pub fn step(&mut self) {
         // advance kinematic obstacles by their velocity.
@@ -559,6 +580,50 @@ mod tests {
             "angular momentum not conserved: {l0} → {l1}"
         );
         assert!(s.all_finite());
+    }
+
+    #[test]
+    fn surface_profile_reports_the_block_top_then_tracks_the_pour() {
+        let bins = 20;
+        let occupied = |prof: &[f32]| prof.iter().filter(|&&h| h > 1e-4).count();
+
+        // Deterministic semantics: a freshly-seeded block (no physics yet) must
+        // report its top surface only in the columns it actually spans, at the
+        // block's top y. Block x∈[0.40,0.60], top row ≈ 0.713 → bins 8..=11.
+        let mut s = MpmSolver::new(64);
+        s.add_block(
+            Vec2::new(0.40, 0.50),
+            Vec2::new(0.60, 0.72),
+            16,
+            MpmMaterial::Fluid,
+        );
+        let prof0 = s.surface_profile(bins);
+        for (b, &h) in prof0.iter().enumerate() {
+            if (8..=11).contains(&b) {
+                assert!((h - 0.713).abs() < 0.02, "bin {b} top = {h}");
+            } else {
+                assert_eq!(h, 0.0, "bin {b} should be empty");
+            }
+        }
+        let occ0 = occupied(&prof0);
+        let h0 = s.fill_height();
+
+        // Integration: the pour drops onto the floor, spreads across more columns
+        // and its peak surface settles lower — the fill-level readout a screed /
+        // print-head controller watches to know the slab thickness.
+        for _ in 0..4000 {
+            s.step();
+        }
+        assert!(s.all_finite());
+        assert!(
+            occupied(&s.surface_profile(bins)) > occ0,
+            "pour did not spread laterally"
+        );
+        let hf = s.fill_height();
+        assert!(
+            hf < h0 && hf > 0.0,
+            "pour did not settle to a finite lower surface"
+        );
     }
 
     #[test]
