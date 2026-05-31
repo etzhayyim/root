@@ -206,6 +206,45 @@ mod tests {
     }
 
     #[test]
+    fn sat_is_rotationally_covariant() {
+        // Rotating the whole scene by R must rotate the contact normal by R and
+        // leave the penetration depth invariant (SAT is a frame-covariant
+        // geometric query). After an arbitrary R the contact axis is no longer a
+        // coordinate axis, so this exercises the rotated face + cross-product
+        // axes — the 9 edge×edge axes that distinguish OBB SAT from plain AABB.
+        let a0 = Obb::new(Vec3::ZERO, Vec3::splat(0.5), Quat::IDENTITY);
+        let b0 = Obb::new(Vec3::new(0.0, 0.0, 0.95), Vec3::splat(0.5), Quat::IDENTITY);
+        let (n0, d0) = obb_sat(&a0, &b0).expect("overlap");
+
+        let r = Quat::from_axis_angle(Vec3::new(1.0, 2.0, 3.0).normalize(), 0.7);
+        let a = Obb::new(Vec3::ZERO, Vec3::splat(0.5), r);
+        let b = Obb::new(r * Vec3::new(0.0, 0.0, 0.95), Vec3::splat(0.5), r);
+        let (n, d) = obb_sat(&a, &b).expect("overlap after rotation");
+
+        assert!(
+            (d - d0).abs() < 1e-4,
+            "depth not invariant under rotation: {d0} -> {d}"
+        );
+        assert!(
+            (n - r * n0).length() < 1e-3,
+            "normal not covariant: {n:?} vs R·n0 {:?}",
+            r * n0
+        );
+
+        // the manifold contact points are likewise the rotated originals.
+        let m0 = obb_manifold(&a0, &b0).expect("manifold");
+        let m = obb_manifold(&a, &b).expect("manifold after rotation");
+        assert_eq!(m.points.len(), m0.points.len());
+        for (p, _) in &m.points {
+            // every rotated contact point matches some R·(original point).
+            assert!(
+                m0.points.iter().any(|(q, _)| (*p - r * *q).length() < 1e-3),
+                "manifold point {p:?} is not a rotated original"
+            );
+        }
+    }
+
+    #[test]
     fn overlapping_centered_boxes_have_normal_and_points() {
         let a = unit(Vec3::ZERO);
         let b = unit(Vec3::new(0.2, 0.0, 0.0));
