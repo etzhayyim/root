@@ -24,6 +24,23 @@
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one
   :db/doc ":per-item :per-sticker :per-weight :flat :free"}
+ ;; R1 (ADR-2606010200 §R1) — per-jurisdiction fee parameters (minor units of currency)
+ {:db/ident :jurisdiction/currency
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "ISO-4217, e.g. JPY USD EUR GBP"}
+ {:db/ident :jurisdiction/fee-per-sticker
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "fee charged per collection sticker/item when model = :per-sticker"}
+ {:db/ident :jurisdiction/fee-per-kg
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "fee per kg when model = :per-weight"}
+ {:db/ident :jurisdiction/fee-flat
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "flat fee per pickup when model = :flat"}
 
  ;; ---- facility (ゴミ処理場 / waste-processing facility) ----
  {:db/ident :facility/id
@@ -265,4 +282,33 @@
  {:db/ident :route/state
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one
-  :db/doc ":planned :dispatched :in-progress :complete"}]
+  :db/doc ":planned :dispatched :in-progress :complete"}
+
+ ;; ---- slot (R1) — capacity-honest collection calendar (時間枠) ----
+ {:db/ident :slot/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity}
+ {:db/ident :slot/jurisdiction
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/ident :slot/date
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "ISO date of the collection day"}
+ {:db/ident :slot/service-area
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "matches :collection-point/service-area"}
+ {:db/ident :slot/window
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":am :pm :allday"}
+ {:db/ident :slot/capacity
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "max applications this slot can hold — hard constraint (G15)"}
+ {:db/ident :slot/booked
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "applications already booked into this slot"}]

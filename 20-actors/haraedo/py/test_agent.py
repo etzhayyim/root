@@ -96,7 +96,8 @@ def test_classify_splits_hazardous_g3():
 
 
 def test_quote_sums_accepted_fees():
-    state = {"accepted_items": ["furniture", "bedding"]}
+    # no fee-model in the fake → quote_node falls back to per-item base fees
+    state = {"jurisdiction": "us.sf", "accepted_items": ["furniture", "bedding"]}
     out, _ = _with_fake(agent.quote_node, state)
     assert out["fee"] == 2500
 
@@ -216,6 +217,163 @@ def test_route_load_within_vehicle_capacity_g15():
             if veh and load:
                 assert int(load.group(1)) <= vehicles[veh.group(1)], \
                     f"route load exceeds vehicle capacity:\n{m}"
+
+
+# --------------------------------------------------------------------------- #
+# 4. R1 — per-jurisdiction fee models
+# --------------------------------------------------------------------------- #
+class FakeJuris:
+    """Stub for jurisdiction fee-model + item-attr queries."""
+
+    def __init__(self, model, per_sticker=0, per_kg=0, flat=0, weights=None, base=None):
+        self.model, self.per_sticker, self.per_kg, self.flat = model, per_sticker, per_kg, flat
+        self.weights, self.base = weights or {}, base or {}
+        self.transacted = []
+
+    def q(self, query, *a):
+        if "jurisdiction/bulky-fee-model" in query:
+            return [[self.model]] if self.model is not None else []
+        if "jurisdiction/fee-per-sticker" in query:
+            return [[self.per_sticker]]
+        if "jurisdiction/fee-per-kg" in query:
+            return [[self.per_kg]]
+        if "jurisdiction/fee-flat" in query:
+            return [[self.flat]]
+        if "item-category/est-weight-kg" in query:
+            return [[self.weights.get(a[0], 0)]]
+        if "item-category/base-fee" in query:
+            return [[self.base.get(a[0], 0)]]
+        return []
+
+    def transact(self, d):
+        self.transacted.extend(d)
+
+
+def _quote_with(fake, state):
+    saved = agent.datalog
+    agent.datalog = fake
+    try:
+        return agent.quote_node(state)["fee"]
+    finally:
+        agent.datalog = saved
+
+
+def test_fee_model_per_sticker():
+    fake = FakeJuris(":per-sticker", per_sticker=400)
+    assert _quote_with(fake, {"jurisdiction": "jp.shibuya", "accepted_items": ["a", "b"]}) == 800
+
+
+def test_fee_model_per_weight():
+    fake = FakeJuris(":per-weight", per_kg=100, weights={"furniture": 35, "bedding": 25})
+    assert _quote_with(fake, {"jurisdiction": "gb.camden", "accepted_items": ["furniture", "bedding"]}) == 6000
+
+
+def test_fee_model_flat_and_free():
+    assert _quote_with(FakeJuris(":flat", flat=5000), {"jurisdiction": "de.berlin", "accepted_items": ["x", "y", "z"]}) == 5000
+    assert _quote_with(FakeJuris(":free"), {"jurisdiction": "us.nyc", "accepted_items": ["x", "y"]}) == 0
+
+
+def test_fee_model_per_item_default():
+    fake = FakeJuris(":per-item", base={"furniture": 1000, "bedding": 1500})
+    assert _quote_with(fake, {"jurisdiction": "us.sf", "accepted_items": ["furniture", "bedding"]}) == 2500
+
+
+# --------------------------------------------------------------------------- #
+# 5. R1 — capacity-honest slot scheduling
+# --------------------------------------------------------------------------- #
+class FakeSlots:
+    def __init__(self):
+        self.transacted = []
+
+    def q(self, query, *a):
+        if "collection-point/service-area" in query:
+            return [["shibuya-north"]]
+        if ":slot/jurisdiction" in query:
+            # (id, date, capacity, booked, window)
+            return [["s-pm", "2026-06-05", 20, 0, ":pm"],
+                    ["s-am", "2026-06-05", 20, 3, ":am"],
+                    ["s-full", "2026-06-04", 2, 2, ":am"]]
+        return []
+
+    def transact(self, d):
+        self.transacted.extend(d)
+
+
+def test_schedule_picks_earliest_open_slot_and_books():
+    saved = agent.datalog
+    agent.datalog = FakeSlots()
+    try:
+        out = agent.schedule_node({"jurisdiction": "jp.shibuya", "collection_point": "cp", "scheduled_date": ""})
+        assert out["slot_id"] == "s-am"          # full earlier slot skipped, am before pm
+        assert out["scheduled_date"] == "2026-06-05"
+        assert agent.datalog.transacted[0][":slot/booked"] == 4   # booked it (G15)
+    finally:
+        agent.datalog = saved
+
+
+def test_schedule_no_open_slot_returns_empty():
+    class AllFull:
+        def q(self, query, *a):
+            if "collection-point/service-area" in query:
+                return [["shibuya-north"]]
+            if ":slot/jurisdiction" in query:
+                return [["s1", "2026-06-05", 5, 5, ":am"]]
+            return []
+        def transact(self, d):
+            pass
+    saved = agent.datalog
+    agent.datalog = AllFull()
+    try:
+        out = agent.schedule_node({"jurisdiction": "jp.shibuya", "collection_point": "cp", "scheduled_date": ""})
+        assert out["slot_id"] == "" and out["scheduled_date"] == ""
+    finally:
+        agent.datalog = saved
+
+
+# --------------------------------------------------------------------------- #
+# 6. R1 — capacitated VRP (Clarke-Wright)
+# --------------------------------------------------------------------------- #
+VRP_COORDS = {
+    "a": (35.660, 139.700), "b": (35.665, 139.701),
+    "c": (35.670, 139.702), "d": (35.700, 139.750),
+}
+VRP_DEPOT = (35.659, 139.700)
+
+
+def test_clarke_wright_respects_capacity_and_covers_all():
+    demand = {"a": 2000, "b": 2000, "c": 2000, "d": 2000}
+    routes = agent._clarke_wright(list(VRP_COORDS), demand, VRP_COORDS, VRP_DEPOT, 4000)
+    for r in routes:                                   # every route ≤ capacity (G15)
+        assert sum(demand[s] for s in r) <= 4000
+    flat = [s for r in routes for s in r]
+    assert sorted(flat) == sorted(VRP_COORDS)          # every stop covered exactly once
+    assert len(routes) >= 2                             # 8000 total / 4000 cap → split
+
+
+def test_clarke_wright_single_route_when_it_all_fits():
+    demand = {k: 100 for k in VRP_COORDS}
+    routes = agent._clarke_wright(list(VRP_COORDS), demand, VRP_COORDS, VRP_DEPOT, 4000)
+    assert len(routes) == 1
+    assert sorted(routes[0]) == sorted(VRP_COORDS)
+
+
+# --------------------------------------------------------------------------- #
+# 7. R1 — seed completeness for fee params + slot capacity honesty
+# --------------------------------------------------------------------------- #
+def test_every_jurisdiction_has_currency_and_fee_params():
+    for m in _top_level_maps(_load_seed()):
+        if ":jurisdiction/id" in m:
+            assert ":jurisdiction/currency" in m, f"jurisdiction missing currency:\n{m}"
+            assert ":jurisdiction/bulky-fee-model" in m
+
+
+def test_slots_booked_within_capacity():
+    import re as _re
+    for m in _top_level_maps(_load_seed()):
+        if ":slot/id" in m:
+            cap = int(_re.search(r":slot/capacity (\d+)", m).group(1))
+            booked = int(_re.search(r":slot/booked (\d+)", m).group(1))
+            assert booked <= cap, f"slot overbooked:\n{m}"
 
 
 # --------------------------------------------------------------------------- #

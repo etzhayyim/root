@@ -106,6 +106,45 @@ Murakumo LiteLLM loopback `127.0.0.1:4000` only.
 - **chigiri boundary**: any licensing/permit legal procedure is chigiri's UPL-bounded
   domain.
 
+## R1 — capacity-honest scheduling · global fee models · capacitated routing
+
+R1 (still design-only under G11; verified by `py/test_agent.py`) extends R0 along
+the three axes where the R0 honest non-goals bit hardest:
+
+1. **Per-jurisdiction fee models** — `quote` now honours `:jurisdiction/bulky-fee-model`
+   (`:free` / `:per-item` / `:per-sticker` / `:per-weight` / `:flat`) with
+   per-jurisdiction parameters (`:jurisdiction/{currency fee-per-sticker fee-per-kg
+   fee-flat}`). Seed: JP per-sticker (¥400/¥300), US-NYC free, US-SF per-item,
+   DE-Berlin flat (€50), GB-Camden per-weight (£1/kg). Fixes the R0 "sum base fees
+   everywhere" shortcut.
+
+2. **Capacity-honest slot calendar** — new `:slot/*` entity (jurisdiction · date ·
+   service-area · window · capacity · booked). `schedule` resolves the earliest open
+   slot for the collection point's area on/after the desired date and **books it**
+   (`booked += 1`); no open slot → empty date (caller re-offers). Extends G15 from
+   facility/vehicle/crew capacity to the booking calendar itself.
+
+3. **Capacitated multi-vehicle VRP** — `dispatch` replaces the R0 single-vehicle
+   NN+2-opt tour with **Clarke-Wright savings** over per-stop demand: routes are
+   built so each route's load ≤ vehicle capacity, every stop is covered exactly
+   once, each route is 2-opt-polished, and each route is assigned the smallest
+   feasible available vehicle + early-shift crew + destination facility. Routes with
+   no feasible vehicle are surfaced in `unassigned` (G15 — never silently dropped).
+   Resolves the R0 non-goal "route opt is single-vehicle NN+2-opt, not VRP".
+
+Still deferred (R2+): exact/optimal VRP (OR-Tools-class), time-window VRP (slot ×
+route coupling), real authoritative facility/fee/slot data ingestion, live operator
+ingest (auth-gated, see below).
+
+### Deployment note (live kotoba)
+
+The running kotoba node enforces **operator auth** on writes (`quad put` → 401;
+MCP `tools/call` → "requires Authorization: Bearer <AT-session-JWT>"). This is the
+intended no-server-key posture: writing to the canonical Datom journal needs an
+authorized operator session token. `kotoba/ingest_mcp.py` flattens `seed.edn`
+(39 entities → 347 datoms, verified) and asserts via MCP `kotoba_datom_create`
+(or `kotoba quad put`) once `KOTOBA_TOKEN` is supplied, then `kotoba commit` seals.
+
 ## Consequences
 
 ### Positive

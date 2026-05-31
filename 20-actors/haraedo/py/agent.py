@@ -76,6 +76,81 @@ def _two_opt(order, coords, start):
     return best, best_len
 
 
+def _clarke_wright(stops, demand, coords, depot, cap):
+    """Capacitated VRP (Clarke-Wright savings) → list of capacity-feasible 2-opt routes.
+
+    R1 (ADR-2606010200): replaces the R0 single-vehicle NN tour. Each returned
+    route's summed demand is ≤ cap, except a lone stop whose own demand exceeds
+    cap (surfaced as over-capacity by the caller — G15, never silently dropped).
+    """
+    if not stops:
+        return []
+
+    def dij(a, b):
+        return _haversine_km(coords[a][0], coords[a][1], coords[b][0], coords[b][1])
+
+    def ddep(a):
+        return _haversine_km(depot[0], depot[1], coords[a][0], coords[a][1])
+
+    def rload(r):
+        return sum(demand.get(s, 0) for s in r)
+
+    routes = [[s] for s in stops]
+    savings = []
+    for i in range(len(stops)):
+        for j in range(i + 1, len(stops)):
+            a, b = stops[i], stops[j]
+            savings.append((ddep(a) + ddep(b) - dij(a, b), a, b))
+    savings.sort(key=lambda x: x[0], reverse=True)
+
+    def find_route(x):
+        for r in routes:
+            if x in r:
+                return r
+        return None
+
+    for _, a, b in savings:
+        ra, rb = find_route(a), find_route(b)
+        if ra is None or rb is None or ra is rb:
+            continue
+        if a not in (ra[0], ra[-1]) or b not in (rb[0], rb[-1]):
+            continue
+        if rload(ra) + rload(rb) > cap:
+            continue
+        if ra[0] == a:
+            ra.reverse()
+        if rb[-1] == b:
+            rb.reverse()
+        merged = ra + rb
+        routes.remove(ra)
+        routes.remove(rb)
+        routes.append(merged)
+
+    return [_two_opt(r, coords, depot)[0] for r in routes]
+
+
+# --------------------------------------------------------------------------- #
+# kotoba entity-attribute helpers (R1)
+# --------------------------------------------------------------------------- #
+def _q1(query, *args):
+    if datalog is None:
+        return None
+    rows = datalog.q(query, *args)
+    return rows[0][0] if rows else None
+
+
+def _attr(id_attr, id_val, attr):
+    """Fetch one attribute value of the entity identified by id_attr=id_val."""
+    return _q1(f"[:find ?v :in $ ?k :where [?e :{id_attr} ?k] [?e :{attr} ?v]]", id_val)
+
+
+def _to_int(v, default=0):
+    try:
+        return int(float(v))
+    except (TypeError, ValueError):
+        return default
+
+
 # --------------------------------------------------------------------------- #
 # intake graph (citizen side)
 # --------------------------------------------------------------------------- #
@@ -90,6 +165,7 @@ class IntakeState(TypedDict):
     fee: int
     facility: str
     scheduled_date: str
+    slot_id: str
     sticker_id: str
 
 
@@ -109,15 +185,24 @@ def classify_node(state: IntakeState) -> dict:
 
 
 def quote_node(state: IntakeState) -> dict:
-    """Quote fee = sum of per-category base fees (jurisdiction override TODO)."""
-    fee = 0
-    if datalog is not None:
-        for code in state["accepted_items"]:
-            rows = datalog.q(
-                "[:find ?f :in $ ?c :where [?e :item-category/code ?c] [?e :item-category/base-fee ?f]]",
-                code,
-            )
-            fee += int(rows[0][0]) if rows else 0
+    """Quote fee per the jurisdiction's fee model (R1, G14): free / per-item /
+    per-sticker / per-weight / flat. Falls back to per-item base fees."""
+    if datalog is None:
+        return {"fee": 0}
+    juris, items = state.get("jurisdiction", ""), state["accepted_items"]
+    model = _attr("jurisdiction/id", juris, "jurisdiction/bulky-fee-model")
+    model = (model or "").lstrip(":")
+    if model == "free":
+        fee = 0
+    elif model == "per-sticker":
+        fee = len(items) * _to_int(_attr("jurisdiction/id", juris, "jurisdiction/fee-per-sticker"))
+    elif model == "per-weight":
+        kg = sum(_to_int(_attr("item-category/code", c, "item-category/est-weight-kg")) for c in items)
+        fee = kg * _to_int(_attr("jurisdiction/id", juris, "jurisdiction/fee-per-kg"))
+    elif model == "flat":
+        fee = _to_int(_attr("jurisdiction/id", juris, "jurisdiction/fee-flat"))
+    else:  # per-item (default / unknown)
+        fee = sum(_to_int(_attr("item-category/code", c, "item-category/base-fee")) for c in items)
     return {"fee": fee}
 
 
@@ -143,9 +228,30 @@ def match_facility_node(state: IntakeState) -> dict:
 
 
 def schedule_node(state: IntakeState) -> dict:
-    """Offer the next collection slot for the chosen collection point (R0 stub)."""
-    # R0: caller supplies a desired date; production resolves against route calendar.
-    return {"scheduled_date": state.get("scheduled_date", "")}
+    """Resolve + book the earliest open collection slot for the collection point's
+    service area on/after the desired date (R1, G15 capacity-honest). No open slot
+    → empty date (caller re-offers)."""
+    if datalog is None:
+        return {"scheduled_date": state.get("scheduled_date", ""), "slot_id": ""}
+    area = _attr("collection-point/id", state["collection_point"], "collection-point/service-area")
+    desired = state.get("scheduled_date") or ""
+    rows = datalog.q(
+        "[:find ?id ?date ?cap ?booked ?win :in $ ?j ?a :where "
+        "[?s :slot/jurisdiction ?j] [?s :slot/service-area ?a] [?s :slot/id ?id] "
+        "[?s :slot/date ?date] [?s :slot/capacity ?cap] [?s :slot/booked ?booked] [?s :slot/window ?win]]",
+        state["jurisdiction"], area,
+    )
+    winrank = {":am": 0, "am": 0, ":allday": 0, "allday": 0, ":pm": 1, "pm": 1}
+    cand = sorted(
+        (d, winrank.get(w, 2), sid, _to_int(b))
+        for sid, d, cap, b, w in rows
+        if _to_int(b) < _to_int(cap) and (not desired or d >= desired)
+    )
+    if not cand:
+        return {"scheduled_date": "", "slot_id": ""}
+    d, _, sid, booked = cand[0]
+    datalog.transact([{":slot/id": sid, ":slot/booked": booked + 1}])  # book it (G15)
+    return {"scheduled_date": d, "slot_id": sid}
 
 
 def sticker_node(state: IntakeState) -> dict:
@@ -198,12 +304,15 @@ class DispatchState(TypedDict):
     service_area: str
     applications: list     # [{app_id, collection_point, items}]
     coords: dict           # collection_point_id -> (lat, lon)
+    demand: dict           # collection_point_id -> kg (R1, per-stop)
     load_kg: int
     vehicle: str
     crew: list
     stop_order: list
     distance_km: float
     facility: str
+    routes: list           # R1: capacitated multi-vehicle plan
+    unassigned: list       # R1: routes with no feasible vehicle (G15)
     plan: dict
 
 
@@ -222,8 +331,8 @@ def gather_node(state: DispatchState) -> dict:
 
 
 def cluster_node(state: DispatchState) -> dict:
-    """Cluster stops by service-area; load coordinates + estimate total load (kg)."""
-    coords, load_kg = {}, 0
+    """Cluster stops by service-area; load coordinates + per-stop demand (kg)."""
+    coords, demand, load_kg = {}, {}, 0
     if datalog is not None:
         for app in state["applications"]:
             cp = app["collection_point"]
@@ -234,14 +343,74 @@ def cluster_node(state: DispatchState) -> dict:
             )
             if rows:
                 coords[cp] = (rows[0][0], rows[0][1])
-            # estimate load from each application's item weights
             items = datalog.q(
                 "[:find ?w :in $ ?aid :where [?a :application/id ?aid] "
                 "[?a :application/items ?c] [?e :item-category/code ?c] [?e :item-category/est-weight-kg ?w]]",
                 app["app_id"],
             )
-            load_kg += int(sum(w[0] for w in items))
-    return {"coords": coords, "load_kg": load_kg}
+            kg = int(sum(w[0] for w in items))
+            demand[cp] = demand.get(cp, 0) + kg
+            load_kg += kg
+    return {"coords": coords, "demand": demand, "load_kg": load_kg}
+
+
+def build_routes_node(state: DispatchState) -> dict:
+    """R1 capacitated multi-vehicle plan: Clarke-Wright over per-stop demand →
+    assign smallest feasible available vehicle per route + early-shift crew +
+    destination facility. Routes with no feasible vehicle go to `unassigned`
+    (G15 — never silently dropped)."""
+    coords, demand = state["coords"], state.get("demand", {})
+    stops = list(coords)
+    if not stops:
+        return {"routes": [], "unassigned": []}
+
+    vehs, depot, facility = [], (35.66, 139.70), ""
+    drivers, loaders = [], []
+    if datalog is not None:
+        vehs = sorted(
+            (int(c), vid) for vid, c in datalog.q(
+                "[:find ?id ?cap :in $ ?j :where [?v :vehicle/jurisdiction ?j] "
+                "[?v :vehicle/status :available] [?v :vehicle/id ?id] [?v :vehicle/capacity-kg ?cap]]",
+                state["jurisdiction"])
+        )
+        if vehs:
+            d = datalog.q(
+                "[:find ?lat ?lon :in $ ?v :where [?x :vehicle/id ?v] "
+                "[?x :vehicle/depot-lat ?lat] [?x :vehicle/depot-lon ?lon]]", vehs[0][1])
+            if d:
+                depot = (d[0][0], d[0][1])
+        facs = datalog.q(
+            "[:find ?id ?cap ?load :in $ ?j :where [?f :facility/jurisdiction ?j] "
+            "[?f :facility/id ?id] [?f :facility/capacity-tonnes-day ?cap] "
+            "[?f :facility/load-tonnes-today ?load]]", state["jurisdiction"])
+        spare = [fid for fid, cap, load in facs if cap > load]
+        facility = spare[0] if spare else ""
+        crew = datalog.q(
+            "[:find ?id ?role :in $ ?j :where [?c :crew/jurisdiction ?j] "
+            "[?c :crew/shift :early] [?c :crew/id ?id] [?c :crew/role ?role]]", state["jurisdiction"])
+        drivers = [c[0] for c in crew if c[1] in (":driver", "driver")]
+        loaders = [c[0] for c in crew if c[1] in (":loader", "loader")]
+
+    cap = vehs[-1][0] if vehs else 4000
+    raw_routes = _clarke_wright(stops, demand, coords, depot, cap)
+
+    avail = list(vehs)  # (cap, id) ascending
+    routes, unassigned = [], []
+    for order in raw_routes:
+        load = sum(demand.get(s, 0) for s in order)
+        pick = next((k for k, (c, _) in enumerate(avail) if c >= load), None)
+        if pick is None:
+            unassigned.append({"stop_order": order, "load_kg": int(load),
+                               "reason": "no available vehicle with capacity ≥ load (G15)"})
+            continue
+        _, vid = avail.pop(pick)
+        crewset = ([drivers.pop(0)] if drivers else []) + [loaders.pop(0) for _ in range(min(2, len(loaders)))]
+        routes.append({
+            "vehicle": vid, "stop_order": order, "load_kg": int(load),
+            "distance_km": round(_route_length(order, coords, depot), 2),
+            "facility": facility, "crew": crewset,
+        })
+    return {"routes": routes, "unassigned": unassigned}
 
 
 def assign_vehicle_node(state: DispatchState) -> dict:
@@ -308,52 +477,43 @@ def select_facility_node(state: DispatchState) -> dict:
 
 
 def emit_plan_node(state: DispatchState) -> dict:
-    """Persist the route plan to kotoba (state :planned — G11 keeps it design-only)."""
-    route_id = f"{state['jurisdiction']}.route.{state['date'].replace('-', '')}-{state.get('service_area', 'all')}"
-    plan = {
-        "route_id": route_id,
-        "vehicle": state["vehicle"],
-        "crew": state["crew"],
-        "stop_order": state["stop_order"],
-        "facility_destination": state["facility"],
-        "distance_km": state["distance_km"],
-        "load_kg": state["load_kg"],
-        "state": ":planned",
-    }
-    if datalog is not None and state["vehicle"]:
-        datalog.transact([{
-            ":route/id": route_id,
-            ":route/jurisdiction": state["jurisdiction"],
-            ":route/date": state["date"],
-            ":route/vehicle": state["vehicle"],
-            ":route/crew": list(state["crew"]),
-            ":route/stops": list(state["stop_order"]),
-            ":route/stop-order": json.dumps(state["stop_order"], ensure_ascii=False),
-            ":route/facility-destination": state["facility"],
-            ":route/distance-km": state["distance_km"],
-            ":route/load-kg": int(state["load_kg"]),
-            ":route/state": ":planned",
-        }])
-    return {"plan": plan}
+    """Persist every capacitated route to kotoba (state :planned — G11 design-only)."""
+    area = state.get("service_area", "all")
+    date_compact = state["date"].replace("-", "")
+    written = []
+    for n, r in enumerate(state.get("routes", []), 1):
+        rid = f"{state['jurisdiction']}.route.{date_compact}-{area}-{n:02d}"
+        if datalog is not None and r["vehicle"]:
+            datalog.transact([{
+                ":route/id": rid,
+                ":route/jurisdiction": state["jurisdiction"],
+                ":route/date": state["date"],
+                ":route/vehicle": r["vehicle"],
+                ":route/crew": list(r["crew"]),
+                ":route/stops": list(r["stop_order"]),
+                ":route/stop-order": json.dumps(r["stop_order"], ensure_ascii=False),
+                ":route/facility-destination": r["facility"],
+                ":route/distance-km": r["distance_km"],
+                ":route/load-kg": int(r["load_kg"]),
+                ":route/state": ":planned",
+            }])
+        written.append({**r, "route_id": rid, "state": ":planned"})
+    return {"plan": {"routes": written, "unassigned": state.get("unassigned", [])}}
 
 
 def build_dispatch_graph():
+    """R1 dispatch graph: gather → cluster (coords+demand) → build_routes
+    (capacitated Clarke-Wright + vehicle/crew/facility assignment) → emit_plan."""
     from langgraph.graph import StateGraph, END
     g = StateGraph(DispatchState)
     g.add_node("gather", gather_node)
     g.add_node("cluster", cluster_node)
-    g.add_node("assign_vehicle", assign_vehicle_node)
-    g.add_node("assign_crew", assign_crew_node)
-    g.add_node("optimize_route", optimize_route_node)
-    g.add_node("select_facility", select_facility_node)
+    g.add_node("build_routes", build_routes_node)
     g.add_node("emit_plan", emit_plan_node)
     g.set_entry_point("gather")
     g.add_edge("gather", "cluster")
-    g.add_edge("cluster", "assign_vehicle")
-    g.add_edge("assign_vehicle", "assign_crew")
-    g.add_edge("assign_crew", "optimize_route")
-    g.add_edge("optimize_route", "select_facility")
-    g.add_edge("select_facility", "emit_plan")
+    g.add_edge("cluster", "build_routes")
+    g.add_edge("build_routes", "emit_plan")
     g.add_edge("emit_plan", END)
     return g.compile()
 

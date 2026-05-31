@@ -17,13 +17,13 @@
  {:item-category/code :battery         :item-category/label "バッテリー / battery"        :item-category/hazardous true  :item-category/base-fee 0    :item-category/est-weight-kg  5.0 :item-category/requires-dismantle true}
  {:item-category/code :other           :item-category/label "その他 / other"              :item-category/hazardous false :item-category/base-fee 1000 :item-category/est-weight-kg 20.0 :item-category/requires-dismantle false}
 
- ;; ============ jurisdictions (自治体) ============
- {:jurisdiction/id "jp.shibuya" :jurisdiction/name "渋谷区 (Shibuya)"   :jurisdiction/country "JP" :jurisdiction/admin-level :ward         :jurisdiction/bulky-fee-model :per-sticker}
- {:jurisdiction/id "jp.setagaya" :jurisdiction/name "世田谷区 (Setagaya)" :jurisdiction/country "JP" :jurisdiction/admin-level :ward        :jurisdiction/bulky-fee-model :per-sticker}
- {:jurisdiction/id "us.nyc"     :jurisdiction/name "New York City"      :jurisdiction/country "US" :jurisdiction/admin-level :municipality :jurisdiction/bulky-fee-model :free}
- {:jurisdiction/id "us.sf"      :jurisdiction/name "San Francisco"      :jurisdiction/country "US" :jurisdiction/admin-level :municipality :jurisdiction/bulky-fee-model :per-item}
- {:jurisdiction/id "de.berlin"  :jurisdiction/name "Berlin (BSR)"       :jurisdiction/country "DE" :jurisdiction/admin-level :region       :jurisdiction/bulky-fee-model :flat}
- {:jurisdiction/id "gb.camden"  :jurisdiction/name "London Borough of Camden" :jurisdiction/country "GB" :jurisdiction/admin-level :municipality :jurisdiction/bulky-fee-model :per-item}
+ ;; ============ jurisdictions (自治体) — R1 fee params (minor units) ============
+ {:jurisdiction/id "jp.shibuya" :jurisdiction/name "渋谷区 (Shibuya)"   :jurisdiction/country "JP" :jurisdiction/admin-level :ward         :jurisdiction/bulky-fee-model :per-sticker :jurisdiction/currency "JPY" :jurisdiction/fee-per-sticker 400 :jurisdiction/fee-per-kg 0   :jurisdiction/fee-flat 0}
+ {:jurisdiction/id "jp.setagaya" :jurisdiction/name "世田谷区 (Setagaya)" :jurisdiction/country "JP" :jurisdiction/admin-level :ward        :jurisdiction/bulky-fee-model :per-sticker :jurisdiction/currency "JPY" :jurisdiction/fee-per-sticker 300 :jurisdiction/fee-per-kg 0   :jurisdiction/fee-flat 0}
+ {:jurisdiction/id "us.nyc"     :jurisdiction/name "New York City"      :jurisdiction/country "US" :jurisdiction/admin-level :municipality :jurisdiction/bulky-fee-model :free       :jurisdiction/currency "USD" :jurisdiction/fee-per-sticker 0   :jurisdiction/fee-per-kg 0   :jurisdiction/fee-flat 0}
+ {:jurisdiction/id "us.sf"      :jurisdiction/name "San Francisco"      :jurisdiction/country "US" :jurisdiction/admin-level :municipality :jurisdiction/bulky-fee-model :per-item   :jurisdiction/currency "USD" :jurisdiction/fee-per-sticker 0   :jurisdiction/fee-per-kg 0   :jurisdiction/fee-flat 0}
+ {:jurisdiction/id "de.berlin"  :jurisdiction/name "Berlin (BSR)"       :jurisdiction/country "DE" :jurisdiction/admin-level :region       :jurisdiction/bulky-fee-model :flat       :jurisdiction/currency "EUR" :jurisdiction/fee-per-sticker 0   :jurisdiction/fee-per-kg 0   :jurisdiction/fee-flat 5000}
+ {:jurisdiction/id "gb.camden"  :jurisdiction/name "London Borough of Camden" :jurisdiction/country "GB" :jurisdiction/admin-level :municipality :jurisdiction/bulky-fee-model :per-weight :jurisdiction/currency "GBP" :jurisdiction/fee-per-sticker 0 :jurisdiction/fee-per-kg 100 :jurisdiction/fee-flat 0}
 
  ;; ============ processing facilities (ゴミ処理場) ============
  ;; --- Japan ---
@@ -81,4 +81,10 @@
   :route/stops #{"jp.shibuya.cp.jinnan-1" "jp.shibuya.cp.udagawa-1" "jp.shibuya.cp.dogenzaka-1"}
   :route/stop-order "[\"jp.shibuya.cp.jinnan-1\" \"jp.shibuya.cp.udagawa-1\" \"jp.shibuya.cp.dogenzaka-1\"]"
   :route/facility-destination "jp.shibuya.fac.bulky-dismantle-01"
-  :route/distance-km 4.8 :route/est-duration-min 95 :route/load-kg 320 :route/state :planned}]
+  :route/distance-km 4.8 :route/est-duration-min 95 :route/load-kg 320 :route/state :planned}
+
+ ;; ============ collection slots (R1) — capacity-honest calendar ============
+ {:slot/id "jp.shibuya.slot.20260605-north-am" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-05" :slot/service-area "shibuya-north" :slot/window :am :slot/capacity 20 :slot/booked 3}
+ {:slot/id "jp.shibuya.slot.20260605-north-pm" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-05" :slot/service-area "shibuya-north" :slot/window :pm :slot/capacity 20 :slot/booked 0}
+ {:slot/id "jp.shibuya.slot.20260605-south-am" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-05" :slot/service-area "shibuya-south" :slot/window :am :slot/capacity 20 :slot/booked 0}
+ {:slot/id "jp.shibuya.slot.20260612-north-am" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-12" :slot/service-area "shibuya-north" :slot/window :am :slot/capacity 20 :slot/booked 0}]

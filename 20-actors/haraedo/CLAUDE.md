@@ -66,6 +66,11 @@ Backed by two datalog registries: **facility_registry** (worldwide ゴミ処理�
 
 ## Status
 
-R0 — design + scaffold. All outward action (real receipt / dispatch / collection)
-gated by **G11** (Council ratification + community operator). Facility seed is
-representative (`:sourcing :representative`), not authoritative coverage.
+R0 + **R1** — design + scaffold + verified logic (`py/test_agent.py`, 22 tests).
+R1 adds: per-jurisdiction **fee models** (free/per-item/per-sticker/per-weight/flat),
+capacity-honest **slot calendar** (`:slot/*`, booked≤capacity), and **capacitated
+multi-vehicle VRP** (Clarke-Wright savings + per-route 2-opt; over-capacity routes
+surfaced as `unassigned`, G15). All outward action (real receipt / dispatch /
+collection) gated by **G11** (Council ratification + community operator) and by
+kotoba **operator auth** on writes. Facility/fee/slot seed is representative
+(`:sourcing :representative`), not authoritative coverage.
