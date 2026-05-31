@@ -62,6 +62,19 @@ python3 purl_vuln_match.py <jwt>
 kotoba --token <jwt> sparql 'SELECT * WHERE { ?m <kg/claim/match/severity> "critical" }'
 ```
 
+### CVE sources
+
+- `cve.seed.json` — **synthetic demo CVEs** (`EXAMPLE-2026-*`, not real advisories).
+- `osv_to_kotoba.py` + `osv_sample.json` — **real OSV schema** ingest
+  (https://ossf.github.io/osv-schema/): converts OSV records (a record, a list,
+  or an `{"vulns":[…]}` API response) → the same `cve/{id,affectsPurl,severity}`
+  entities, so `purl_vuln_match.py` is unchanged. Production replaces the sample
+  with a download from `api.osv.dev` (`POST /v1/query` per purl) or an OSV bucket
+  dump — this is the kotoba-native form of the sbom lexicon's `cveIngestOsv`.
+  Verified: OSV `OSV-DEMO-RP2040` (critical) joins the fleet alongside the
+  synthetic `EXAMPLE-2026-0001` (high) → the RP2040 shows **two advisories from
+  two sources**.
+
 `cve.seed.json` holds **synthetic demo CVEs** (`EXAMPLE-2026-*`, not real
 advisories) whose `affectsPurl` matches fleet purls. Verified (2026-05-31):
 17 components-with-purl × 4 CVEs → 3 matches (critical brake-ecu / high rp2040 /
