@@ -74,6 +74,19 @@ kotoba --token <jwt> sparql 'SELECT * WHERE { ?m <kg/claim/match/severity> "crit
   Verified: OSV `OSV-DEMO-RP2040` (critical) joins the fleet alongside the
   synthetic `EXAMPLE-2026-0001` (high) → the RP2040 shows **two advisories from
   two sources**.
+- `osv_fetch.py` — **live fetch from api.osv.dev** (read-only public query):
+  ```
+  python3 osv_fetch.py --ecosystem Maven --name org.apache.logging.log4j:log4j-core \
+      --version 2.14.0 --out log4j.osv.json
+  python3 osv_to_kotoba.py log4j.osv.json log4j.ingest.json   # → kg.ingest body
+  ```
+  **Verified live (2026-05-31)**: osv.dev returned 7 real advisories →
+  35 CveEntry; querying kotoba shows real GHSAs (incl. Log4Shell
+  `GHSA-jfh8-c2jp-5v3q`) across real Maven purls
+  (`pkg:maven/org.apache.logging.log4j/log4j-core`, …). OSV indexes **software**
+  packages, so the giemon **hardware** purls (`pkg:generic/*`) won't match — a
+  robot's software stack (RPi OS / ROS2 / Python deps) is the OSV-matchable
+  surface; hardware needs an ICS-CERT-style feed.
 
 `cve.seed.json` holds **synthetic demo CVEs** (`EXAMPLE-2026-*`, not real
 advisories) whose `affectsPurl` matches fleet purls. Verified (2026-05-31):
