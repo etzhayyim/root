@@ -239,14 +239,15 @@ impl MpmSolver {
                     f = Mat2::IDENTITY * jnew.sqrt();
                 }
                 MpmMaterial::Granular => {
-                    let (u, mut sig, v) = svd2(f);
-                    let oldj = sig.x * sig.y;
-                    sig.x = sig.x.clamp(1.0 - 2.5e-2, 1.0 + 4.5e-3);
-                    sig.y = sig.y.clamp(1.0 - 2.5e-2, 1.0 + 4.5e-3);
-                    let newj = sig.x * sig.y;
-                    p.jp = (p.jp * oldj / newj).clamp(0.6, 20.0);
+                    // Drucker–Prager sand plasticity (Klár et al. 2016): return-map
+                    // the Hencky strain to the cohesionless yield cone, so the
+                    // material shears like granular soil and settles at its angle
+                    // of repose (a real pile, not a fluid puddle).
+                    let (u, sig, v) = svd2(f);
+                    let (sig_new, dq) = drucker_prager(sig, mu0, la0);
+                    p.jp = (p.jp + dq).clamp(0.0, 40.0);
                     f = u
-                        * Mat2::from_cols(Vec2::new(sig.x, 0.0), Vec2::new(0.0, sig.y))
+                        * Mat2::from_cols(Vec2::new(sig_new.x, 0.0), Vec2::new(0.0, sig_new.y))
                         * v.transpose();
                 }
                 MpmMaterial::Elastic => {}
@@ -313,6 +314,35 @@ fn svd2(m: Mat2) -> (Mat2, Vec2, Mat2) {
     (u, Vec2::new(s1, s2), v)
 }
 
+/// Friction-angle coefficient of the Drucker–Prager cone (≈ 35° sand).
+const DP_ALPHA: f32 = 0.386;
+
+/// Drucker–Prager return mapping (Klár et al. 2016) on the 2-D principal
+/// stretches `sig`, with shear modulus `mu` and Lamé `la`. Returns the projected
+/// stretches and the plastic-flow magnitude (for hardening). This is what makes
+/// the granular material settle at an angle of repose rather than flowing flat.
+fn drucker_prager(sig: Vec2, mu: f32, la: f32) -> (Vec2, f32) {
+    let eps = Vec2::new(sig.x.max(1e-4).ln(), sig.y.max(1e-4).ln());
+    let tr = eps.x + eps.y;
+    let eps_hat = eps - Vec2::splat(tr * 0.5);
+    let eps_hat_norm = eps_hat.length();
+    if tr > 0.0 {
+        // pure expansion: no tensile strength → collapse to the cone tip.
+        return (Vec2::ONE, eps.length());
+    }
+    if eps_hat_norm < 1e-9 {
+        return (sig, 0.0); // hydrostatic compression → elastic
+    }
+    // δγ = ‖ε̂‖ + α·(d·la + 2μ)/(2μ)·tr(ε), d = 2
+    let dg = eps_hat_norm + DP_ALPHA * (2.0 * la + 2.0 * mu) / (2.0 * mu) * tr;
+    if dg <= 0.0 {
+        (sig, 0.0) // inside the yield cone → elastic
+    } else {
+        let eps_new = eps - eps_hat * (dg / eps_hat_norm);
+        (Vec2::new(eps_new.x.exp(), eps_new.y.exp()), dg)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -374,6 +404,28 @@ mod tests {
         assert!(s.all_finite());
         let (mn, mx) = s.bounds();
         assert!(mn.y >= -1e-3 && mx.y <= 1.001 && mn.x >= -1e-3 && mx.x <= 1.001);
+    }
+
+    #[test]
+    fn granular_settles_into_a_pile_not_a_puddle() {
+        // a Drucker–Prager granular column holds a pile (angle of repose): it
+        // spreads LESS and stays TALLER than a fluid column of the same shape.
+        let cmin = Vec2::new(0.45, 0.2);
+        let cmax = Vec2::new(0.55, 0.7);
+        let run = |mat| {
+            let mut s = MpmSolver::new(48);
+            s.add_block(cmin, cmax, 18, mat);
+            for _ in 0..800 {
+                s.step();
+            }
+            let (mn, mx) = s.bounds();
+            (mx.x - mn.x, mx.y - mn.y, s.all_finite())
+        };
+        let (gw, gh, gf) = run(MpmMaterial::Granular);
+        let (fw, _fh, ff) = run(MpmMaterial::Fluid);
+        assert!(gf && ff, "non-finite");
+        assert!(gw < fw, "granular spread {gw} not < fluid spread {fw}");
+        assert!(gh > 0.05, "granular pile collapsed flat: h={gh}");
     }
 
     #[test]
