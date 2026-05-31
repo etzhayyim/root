@@ -35,8 +35,9 @@
   <div id="err"></div>
 </div>
 <div id="hint">
-  drag = orbit ・ wheel = zoom ・ 各工程は <b>調達→搬入(自律トラック)→搬送(AGV黄カート)→建方/据付→締結/溶接→検査</b> の
-  robot op 列で実行 ・ コンクリ工程=堆積field, 鉄骨工程=溶接field(赤熱) ・ 青/灰/橙=施工ロボット
+  drag = orbit ・ wheel = zoom ・ 各工程は <b>調達→搬入→搬送→建方/据付→締結/溶接→検査</b> の robot op 列で実行 ・
+  <b>物理シミュレーション</b>: 黄カートが kami-genesis 物理で work-zone へ走行(衝突)、材料が重力で落下・接地、建方ペースは沈降物理で駆動 ・
+  コンクリ=堆積field, 鉄骨=溶接field(赤熱) ・ 青/灰/橙=施工ロボット
 </div>
 <script type="module">
 import init, { run_tatekata_v1, giemonTatekataStatus }

@@ -224,9 +224,23 @@ a geometry reveal. Binds to the `tatekata` 建方 actor (ADR-2605250715).
   + `weld_field.rs` (moving heat-source fusion → bolter steps).
 - **`kami-app-tatekata`** crate (path-deps `kami-app-giemon-factory`) — viewer
   `run_tatekata_v1`: each step's assigned robot performs its op sequence on
-  kami-genesis; a yellow cart ferries material 受入→work-zone during 搬入/搬送;
-  geometry grows only during the 据付/締結 ops (driven by the deposit/weld field
-  for concrete/steel); HUD shows the live op. `tatekata.htm` viewer.
+  kami-genesis; HUD shows the live op. `tatekata.htm` viewer.
+
+### v5 (2026-05-31) — the construction PROCESS itself is physics-driven
+
+At the founder's request ("シミュレーションも、ものを動かすのも、工事プロセスまでも
+物理シミュレーションに基づいて"), the tatekata construction is governed by real
+kami-genesis rigid-body physics, not scripted reveal:
+- **`Agv::step_toward`** (new) — the delivery **cart** physically DRIVES 受入 →
+  work-zone during 搬入/搬送 (clamped position-PD sized to overcome ground
+  friction μN, floating-base + obstacle contact).
+- **`Agv::step_free`** (new) — a material **payload** is DROPPED from height and
+  FALLS + SETTLES under gravity + contact; its **settling fraction drives the
+  build pace** (geometry reveal is gated by the physics, not a clock). Concrete
+  steps feed the settle into `DepositField`, steel steps into `WeldField`.
+- Validated by `cargo test`: `payload_free_falls_and_settles`,
+  `cart_drives_toward_target`. Honest: rigid-body cart/payload/robot physics is
+  real; material-process (concrete flow / weld pool) remains an app-layer field.
 
 ## Verification (all run 2026-05-31)
 
