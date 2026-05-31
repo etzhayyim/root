@@ -23,13 +23,17 @@ pub const UPSTREAM_REPO: &str = "Genesis-Embodied-AI/Genesis";
 pub const SOLVERS: &[&str] = &["rigid", "mpm", "sph", "fem", "pbd"];
 pub const SOLVERS_IMPLEMENTED_R1_1: &[&str] = &["rigid (cartpole closed-form)"];
 
+mod articulation3d;
 mod cartpole;
+mod contact;
 mod controllers;
 mod double_pendulum;
 mod ik;
+mod isaac_api;
 mod jacobian;
 mod lqr;
 mod planar_chain;
+mod spatial;
 mod trajectory;
 mod vectorized;
 mod world;
@@ -37,9 +41,14 @@ mod world;
 #[cfg(feature = "gpu")]
 mod wgpu_backend;
 
+pub use articulation3d::{
+    Articulation3dConfig, Articulation3dState, Body3d, JointType3d,
+};
 pub use cartpole::{CartpoleConfig, CartpoleState};
+pub use contact::{Collider, ContactParams, ContactWorld, Obstacle};
 pub use controllers::{ArticulationAction, ArticulationController};
 pub use double_pendulum::{DoublePendulumConfig, DoublePendulumState};
+pub use isaac_api::{ArticulationView, ArticulationViewMut, IsaacWorld};
 pub use ik::{
     IkOptions, IkResult, TargetPose, solve_ik_cartpole, solve_ik_dp, solve_ik_planar_chain,
 };

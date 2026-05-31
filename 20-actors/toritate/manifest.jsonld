@@ -29,7 +29,8 @@
     "Land Registry on-chain contract (acquisition read)",
     "chigiri.stewardLaborAttestation (L0..L6 classification read)",
     "did:web:kawase-yui.etzhayyim.com (ledgerEntry purpose=kawase-mutual-aid for every kawase flow + annual silenKawaseReview cross-referenced into toritate.annualReport; reserve buffer seed grant via Public Fund Safe at R1 launch; ADR-2605282200)",
-    "did:web:wakai.etzhayyim.com (mutual-aid pool transparency + Public Fund backstop accounting; sibling-mutual-aid-actor pairing with kawase-yui; ADR-2605263500)"
+    "did:web:wakai.etzhayyim.com (mutual-aid pool transparency + Public Fund backstop accounting; sibling-mutual-aid-actor pairing with kawase-yui; ADR-2605263500)",
+    "did:web:toritsugi.etzhayyim.com (tax-procedure boundary: toritsugi guides a member through citizen-side tax mechanics e.g. 確定申告/e-Tax operation + 必要書類, but ALL 税務 characterization + 税理士法-reserved 税務代理/税務書類作成 route to toritate + licensed 税理士; toritsugi renders no tax advice — toritsugi G5/N13; ADR-2605312030)"
   ],
   "lexiconReadAccess": {
     "app.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient-vendor identity resolution before disbursement. Anti-related-party check on Public Fund Safe + Council Safe outflow against corporate-donor + officer-network records. CC0 1.0 license.",

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>渋谷スクランブル — Street Digital-Twin Physics Sim · kami-genesis</title>
+<style>
+  html, body { margin:0; height:100%; background:#0b0e13; color:#cfe; font-family:system-ui, sans-serif; overflow:hidden; }
+  #gc { display:block; width:100vw; height:100vh; }
+  #hud {
+    position: fixed; top: 8px; left: 8px; padding: 9px 13px;
+    background: rgba(0,0,0,0.55); border-radius: 8px;
+    font: 12px/1.55 ui-monospace, monospace; color: #9fc; pointer-events: none; min-width: 250px;
+  }
+  #hud .head { color:#5ad1ff; font-weight:600; }
+  #hud .k { color:#8aa; } #hud .v { color:#fff; }
+  #hint {
+    position: fixed; bottom: 12px; left: 8px; padding: 6px 10px;
+    background: rgba(0,0,0,0.55); border-radius: 8px;
+    font: 11px/1.4 ui-monospace, monospace; color: #9fc; pointer-events: none; max-width: 92vw;
+  }
+  #err { color:#f88; font-size:11px; }
+</style>
+</head>
+<body>
+<canvas id="gc"></canvas>
+<div id="hud">
+  <div><span class="head">渋谷スクランブル Digital Twin</span></div>
+  <div><span class="k">source:</span>  <span class="v">OpenStreetMap (ODbL)</span></div>
+  <div><span class="k">engine:</span>  <span class="v">kami-genesis 3-D + contact</span></div>
+  <div><span class="k">backend:</span> <span class="v" id="h-backend">—</span></div>
+  <div><span class="k">fps:</span>     <span class="v" id="h-fps">—</span></div>
+  <div id="err"></div>
+</div>
+<div id="hint">
+  drag = orbit ・ wheel = zoom ・ 実 OSM 建物 = AABB 衝突体 ・ 道路 = 走行地面 ・
+  <b>複数エージェントが重力 + 接触 + 摩擦でフル物理走行</b>
+</div>
+<script type="module">
+import init, { run_shibuya_v1 } from './shibuya/kami_app_shibuya.js';
+
+const errEl = document.getElementById('err');
+(async () => {
+  await init();
+  const hudFps = document.getElementById('h-fps');
+  const hudBk  = document.getElementById('h-backend');
+  setInterval(() => {
+    const h = window.__kami_hud_shibuya ?? window.__kami_hud;
+    if (!h) return;
+    hudFps.textContent = `${(h.fps ?? 0).toFixed(0)}`;
+    hudBk.textContent  = h.backend ?? '—';
+  }, 250);
+  await run_shibuya_v1('gc');
+})().catch((e) => {
+  errEl.textContent = `init error: ${e?.message ?? e}`;
+  console.error('[shibuya]', e);
+});
+</script>
+</body>
+</html>

@@ -29,6 +29,7 @@
     "did:web:danjo.etzhayyim.com (FOIA-obtained PUBLIC administrative documents [non-PII] may feed danjo's open-government corpus; PII NEVER flows to danjo; ADR-2605301600)",
     "did:web:ossekai.etzhayyim.com (aggregate publication of FOIA-obtained public records [non-PII] via §1.12 path; ADR-2605264000)",
     "did:web:tadori.etzhayyim.com (sibling investigation actor — passive chain-tracing; shared EAVT pattern, disjoint posture; ADR-2605301400)",
+    "did:web:toritsugi.etzhayyim.com (SIBLING active-outbound: himotoki files 開示請求 [data OUT — exercises a right of access]; toritsugi files 申請/届出 [member INTO a government/municipal procedure]. Shared dispatch discipline (consent + own-data/own-procedure + transparent-non-pretext + lawful-channel-only + verified-target/procedure-only), disjoint purpose; ADR-2605312030)",
     "kotoba QuadStore EAVT (request-lifecycle + registry datoms; ADR-2605262130; no RisingWave / no projection layer)"
   ],
   "lexiconReadAccess": {

@@ -48,6 +48,8 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | Labor Liberation ladder | Adherent SBT → 7-stage L0..L6 | 🟡 | 2605261000 | 05-26 |
 | Basic High Income doctrine | imputed-income (flow) + commons-asset (stock) — high income in-kind, cash≡0 (N1-consistent) | 🟡 | 2605301020 | 05-30 |
 | Mission-funding revenue arm | vendor commercial surplus → donation → Public Fund; non-profit MEANS not profit END; ad-free + no-payroll preserved | 🟡 | 2605301036 | 05-30 |
+| Social Security for Humanity | Charter §1.16 — 人類の社会保障; covenantal-universal (open to all humanity, but conversion-gated: 悔い改め・バプテスマ・得度 = social death/rebirth); 信者 Level 0 via permanent commitment vow (kotoba + IPFS + token); preserves N1/N4/N7/N8 | 🟡 | 2605302357 | 05-30 |
+| Social Security delivery pipeline | §1.16 real-world flow: outreach (feed-post + MCP) → vow (kotoba+IPFS+SBT) → compute → openmail → atproto publish → social → MCP; 産土 ubusuna cells; R0 design-only, outward actions gated (G11) | 🟡 | 2605302358 | 05-30 |
 | **kotoba** storage pivot | canonical substrate engine; supersedes yatachain + RW | 🟡 | 2605262130 | 05-26 |
 | Public-data ingestion | organism ecosystem IPFS DataLad subdatasets | 🟢 | 2605262400 | 05-26 |
 | Robotics-sim world-data | + kami-usd pipeline (sibling of 2605262400) | 🟢 | 2605262500 | 05-27 |
@@ -71,6 +73,10 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | gemma-coder-distill | LangGraph coding LoRA on EVO-X2 ROCm | 🟡 | 2605250400 | 05-25 |
 | roso/baien 1-bit Bonsai | 5-wall empirical loop — train DEFERRED | ✅ | 2605242000 | 05-25 |
 | NVIDIA Omniverse compat | nv-compat facade + 13 kami-engine crates (R1.0+R1.1) | ✅ | 2605261800 | 05-26 |
+| kami-genesis physics maturation | PlanarChain N-link articulation + clean-room isaacsim.core.api surface + analytical/conservation-law validation + G5 Isaac-CSV scorecard (genesis 87 / dec 9 tests green) | 🟢 | 2605311500 | 05-31 |
+| kami-genesis 3-D spatial + contact | full 3-D reduced-coord solver (Featherstone RNEA+CRBA+LDLᵀ, arbitrary-axis joints — PhysX-class) + rigid contact (PGS, friction, `Obstacle::{Plane,Aabb}`) + `Spatial3d` topology in IsaacWorld; real 6-DOF giemon_arm6.urdf → giemon.htm Arm6. Decisive gate: planar cross-check vs planar_chain. genesis 94 / giemon 4 green, wasm ok | 🟢 | 2605311800 | 05-31 |
+| Shibuya street digital-twin (iter 1) | real OSM Shibuya Scramble (144 bldg + 318 roads, ODbL) → city-mesh (`osm_to_citymesh.py`) → kami-genesis full-physics multi-agent sim: buildings = AABB obstacles, roads = ground, 4-DOF floating-base agents (gravity+contact+friction); `kami-app-shibuya` + shibuya.htm. Deferred: BeamNG vehicle, agent-agent, polygon collision, PLATEAU, autonomous. shibuya 4 green, wasm ok | 🟢 | 2605311900 | 05-31 |
+| giemon kabitori (黴取り) mold-removal sim | steerable rotary-brush probe for EXISTING mold (A/C/gaps/ducts) on kami-genesis; 6-DOF mixed prismatic+revolute URDF + brush scrub; **engine ext**: `Obstacle::Plane/Aabb` wall/box contact (`with_obstacles`); **MoldField** scrub-erosion (app-layer stand-in, no FEM/MPM yet) + R0 BOM. genesis 94 / giemon 12 tests green, wasm ok | 🟢 | 2605312300 | 05-31 |
 | e7m-sim | robotics simulation substrate R0 charter | 🟡 | 2605261600 | 05-26 |
 | baien-moemoekyun MoE R0 | 2B BitNet backbone + 128-expert MoE residual | 🟡 | 2605261900 | 05-26 |
 | baien-moemoekyun R1 | Phase 0 freeze-train SFT on EVO-X2 ROCm | 🟡 | 2605262100 | 05-26 |
@@ -115,6 +121,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | warifu 割符 | open zero-fee card (credit+debit), API/wire-compatible (Stripe-REST + EMV/ISO8583 + NFC/HCE); on-chain USDC settle (Base L2 + ERC-4337, T+0); 0% credit (qard ḥasan); Phase-1 SBT↔SBT closed-loop, Phase-2 external gated Lv7+ | 🟡 R0 | 2605302000 | 05-30 |
 | himotoki 繙き | ACTIVE disclosure-request filer — consent-bound DSAR (APPI/GDPR/CCPA) to private controllers (Discord/Google/LINE/Meta/Amazon) + FOIA (行政機関情報公開法) to public organs; coded target registry of each org's 窓口/住所/email/手続き; own-data-only + non-pretext; PII→encrypted DID-bound; active-outbound counterpart to passive danjo/tadori | 🟡 R0 | 2605302130 | 05-30 |
 | kanae 鼎 | global government fiscal-flow VISUALIZATION — assembles worldwide fund flows (domestic full chain appropriation→outlay→recipient + inter-governmental IMF/WB/OECD/UN transfer+aid+loan) into kotoba EAVT `fundFlowEdge`, narrates with Murakumo-only LLM (non-adjudicating), renders aggregate-first kami-engine WASM viz (Sankey/treemap/transfer-globe). **danjo finds, kanae renders**; kotoba-native (no RisingWave, ≠ maps). danjo global-fiscal-flow extension = ADR-2605302245 | 🟡 R0 | 2605302300 | 05-30 |
+| toritsugi 取次 | citizen-facing government-procedure CONCIERGE (LINE-公式アカウント role) — service-delivery counterpart to passive danjo (watches state) + himotoki (right of access): relays a CONSENTING member through 自治体・政府手続き. Default = 案内+伴走+本人提出支援 (proactive 制度/給付 match + guide + 必要書類 checklist + 様式 draft-assist; **member self-submits**); gated R3 = 本人同意ベース提出代行. Coded procedure registry (窓口/所管/様式/必要書類/手数料/法定処理期間/根拠法令); **G5 行政書士法/UPL boundary** (no advice + no 作成代理 → chigiri + licensed), G6 PII-encrypted, G14 verified-procedure-only, G15 self-submit-default. atproto/kotoba-EAVT-native | 🟡 R0 | 2605312030 | 05-31 |
 
 > **Note**: ADR ids `2605263400` and `2605263500` each label two distinct ADRs (parallel-agent race in the source); filename + actor name disambiguate. Tracked for a future ADR-id reconciliation.
 
@@ -237,7 +244,7 @@ This repo is **blockchain-self-contained**. Hard rules enforced by ADRs and (fut
 
 | Concern | Allowed | Prohibited |
 |---|---|---|
-| State | AT Protocol MST + IPFS + Base L2 anchor | RisingWave / Postgres / Kysely / centralized DB |
+| State | **kotoba Datom log** (content-addressed EAVT Datalog — Datomic-isomorphic; FIRST-CLASS canonical state, ADR-2605312345) — subordinate layers: IPFS = block backend (CIDv1 cold tier/DHT) · AT Protocol MST = ingress/interop wire · Base L2 = trust anchor over commit-DAG root | RisingWave / Postgres / Kysely / centralized DB; treating MST/IPFS as the canonical state home (they materialize the Datom log, not vice-versa) |
 | Payment | USDC on Base L2 + ERC-4337 Smart Account + TitheRouter (10% auto-split) | Stripe / PayPal / Square / fiat processors |
 | Payment purpose | `donation` / `kisha` / `grant` / `tithe` / `escrow-refund` + (SBT↔SBT internal carve-out) `internal-purchase` / `internal-subscription` / `internal-promo` | `subscription` / `purchase` / `tip` for external; commercial sale for SaaS tier |
 | Advertising | etzhayyim 自身の religious 活動 案内 (internal-promo) のみ | 第三者広告 / AdSense / Meta Pixel / アフィリエイト / GA4 広告連携 |
@@ -250,8 +257,8 @@ This repo is **blockchain-self-contained**. Hard rules enforced by ADRs and (fut
 | Content (Gore) | 教育 / 歴史 / 宗教 / 人権告発 文脈の暴力 imagery のみ | 無目的暴力 entertainment / desensitization 設計 |
 | Confidentiality (ADR-2605181100) | `app.etzhayyim.encrypted.*` (XChaCha20-Poly1305 envelope + Signal-wrapped per-recipient keys, DID-bound) | Plaintext private records on MST / app-side libsignal / noble-ciphers imports |
 | Substrate client imports | Only via `@etzhayyim/sdk` | Direct `@atproto/api` / `viem` / IPFS client / `@noble/ciphers` / `@signalapp/libsignal-client` from app code |
-| Substrate engine | `kotoba` (`40-engine/kotoba/`, ADR-2605262130) — content-addressed Datalog + Pregel + Signal + WASM Component Model in one Rust workspace; 17 crates; canonical impl of every substrate primitive (supersedes yatachain composition spec ADR-2605231400) | inventing a parallel substrate engine name without ADR; importing yatachain / RW / Lance / Iroh as projection backends |
-| Read path (hot-path queries) | `kotoba-kqe` arrangements (EAVT / AEVT / AVET / VAET) directly over content-addressed blocks; no separate projection layer (ADR-2605262130 D7 + N8 supersedes ADR-2605231500 yatachain-projection rules). First L1-projection app `feed-discover` (50-infra/mst-projector/projection/, ADR-2605231902) preserved unchanged; read backend migrates to kotoba-kqe at Phase 2.5 | RisingWave / Postgres / Lance / DuckDB / SQLite as projection or cache; "yatachain-projection" marker comments — both deprecated by ADR-2605262130 |
+| Substrate engine | `kotoba` (`40-engine/kotoba/`, ADR-2605262130) — content-addressed Datalog + Pregel + Signal + WASM Component Model in one Rust workspace; 17 crates; canonical impl of every substrate primitive (supersedes yatachain composition spec ADR-2605231400). Its **Datom log is the first-class canonical state** (ADR-2605312345), not merely the read engine | inventing a parallel substrate engine name without ADR; importing yatachain / RW / Lance / Iroh as projection backends |
+| Read path (hot-path queries) | `kotoba-kqe` arrangements (EAVT / AEVT / AVET / VAET) directly over the canonical Datom log (content-addressed blocks; ADR-2605312345); no separate projection layer (ADR-2605262130 D7 + N8 supersedes ADR-2605231500 yatachain-projection rules). First L1-projection app `feed-discover` (50-infra/mst-projector/projection/, ADR-2605231902) preserved unchanged; read backend migrates to kotoba-kqe at Phase 2.5 | RisingWave / Postgres / Lance / DuckDB / SQLite as projection or cache; "yatachain-projection" marker comments — both deprecated by ADR-2605262130 |
 | Server-side signing capability (ADR-2605231525, Council ratify pending) | Member wallet sign (USDC), member passkey-derived ES256 (session), community-operator DID (bulk-ingest), Council 5-of-7 Safe (governance), read-only RPC / firehose subscribe / IPFS pin / static asset serve | Any platform-held private key, master credential, or signing token in etzhayyim-operated Workers / pods / CronJobs / CI / hosted bots. Exemption: `// no-server-key: read-only` marker on documented Stage handover rollback windows. Enforced by `e7m verify` (9th invariant) |
 | GPU / inference | LiteLLM gateway (127.0.0.1:4000) + EVO-X2 LAN (192.168.1.70) + per-node Mac mini Ollama gemma3:4b (per ADR-2605215000) | RunPod / OpenAI direct / Vertex AI direct / Anthropic-direct from vendor key / Linode GPU / AWS Bedrock direct / any commercial GPU rental |
 
@@ -273,6 +280,7 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `20-actors/etzhayyim-sdk/README.md` — SDK API surface + hard rules
 - `20-actors/magatama/cells/README.md` — religious-corp Pregel cell catalog
 - `90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — canonical storage substrate engine (kotoba); supersedes yatachain composition + projection layers; no RisingWave
+- `90-docs/adr/2605312345-kotoba-datom-first-class-canonical-state.md` — kotoba Datom log = first-class canonical state; IPFS = block backend, MST = ingress/interop wire, Base L2 = trust anchor (clarifies 2605262130 layering)
 - `40-engine/kotoba/README.md` — kotoba upstream README (17 crates)
 - `10-protocol/yatachain/SPEC.md` — (superseded by ADR-2605262130; deprecation banner Phase 0.5; retained one R-cycle then archived)
 - `90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md` — (superseded by ADR-2605262130)

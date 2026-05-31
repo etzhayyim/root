@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-05-30",
+  "updated_at": "2026-05-31",
   "entries": [
     {
       "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
@@ -17414,6 +17414,334 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging.md",
+      "id": "adr-2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging",
+      "title": "ADR-2605310100: Covenant Transparency Doctrine — anonymity abolished, full member-to-member visibility, and ingress-consent logging + publication of all who access etzhayyim / kotoba resources (non-members and inbound email included)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": true,
+      "authoritative_for": [
+        "the etzhayyim doctrine on anonymity vs privacy vs secrecy (the three are distinct; only anonymity is abolished outright)",
+        "intra-covenant transparency: full member-to-member visibility of all member actions (no Council-only tier)",
+        "ingress-consent: logging + publication policy for any party (member or non-member) that accesses etzhayyim / kotoba resources, inbound email included",
+        "the carve-out floor that transparency does NOT override (secrets/keys/credentials; non-ingress third-party data still bound by actor gates)",
+        "redefinition of kotoba `private` graph semantics and the `app.etzhayyim.encrypted.*` namespace scope",
+        "`app.etzhayyim.transparency.*` Lexicon namespace (ingressDisclosureNotice / accessLogPublication / covenantTransparencyAttestation)"
+      ],
+      "related": [
+        "adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605181100-etzhayyim-confidentiality-encrypted-records",
+        "adr-2605231525-etzhayyim-server-side-signing-capability"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605311254-session-close-social-security-for-humanity.md",
+      "id": "adr-2605311254-session-close-social-security-for-humanity",
+      "title": "ADR-2605311254: Session close — §1.16 Social Security for Humanity doctrine + R0 delivery pipeline scaffold (2026-05-30/31)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-social-security-for-humanity",
+      "authoritative": true,
+      "authoritative_for": [
+        "the 2026-05-30/31 §1.16 session deliverable list + verification state",
+        "commit 0077e4413 provenance + co-staged ADR-2605310100 note"
+      ],
+      "related": [
+        "adr-2605302357-etzhayyim-social-security-for-humanity",
+        "adr-2605302358-social-security-real-world-delivery-pipeline",
+        "adr-2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging",
+        "adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "adr-2605261000-labor-liberation-transition-mechanism"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605302357 (§1.16 Social Security doctrine)",
+        "ADR-2605302358 (§1.16 real-world delivery pipeline R0)"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility.md",
+      "id": "adr-2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility",
+      "title": "ADR-2605311310: yoro AppView black-screen fix (SPA-router infinite recursion) + IPFS-deploy feasibility (kotoba/Kubo) session closure",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "yoro-black-screen-and-ipfs-deploy",
+      "authoritative": true,
+      "authoritative_for": [
+        "yoro-appview-root-route-render",
+        "ipfs-static-frontend-deploy-feasibility"
+      ],
+      "related": [
+        "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2604261936-ipfs-self-hosted-vultr-b2",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface.md",
+      "id": "adr-2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface",
+      "title": "ADR-2605311500: kami-genesis physics maturation — PlanarChain articulation, clean-room isaacsim.core.api surface, analytical/conservation-law validation, and G5 Isaac-reference scorecard",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kami-genesis-physics-validation",
+      "authoritative": true,
+      "authoritative_for": [
+        "kami-genesis PlanarChain (N≥3 serial revolute) articulation topology",
+        "kami-genesis clean-room isaacsim.core.api World/Articulation surface scope",
+        "physics-correctness validation strategy (analytical + conservation law + G5 reference CSV)",
+        "G5 reference-CSV scorecard harness contract and Isaac-CSV drop-in path"
+      ],
+      "related": [
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605261800-nvidia-omniverse-stack-api-compat",
+        "adr-2605261600-robotics-simulation-substrate-r0",
+        "adr-2605272000-isekai-omniverse-r1-1-usd-physx-playable"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver.md",
+      "id": "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+      "title": "ADR-2605311800: kami-genesis 3-D spatial articulated-body dynamics + rigid contact solver — clean-room PhysX/Isaac-class arm",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kami-genesis-3d-spatial-and-contact",
+      "authoritative": true,
+      "authoritative_for": [
+        "kami-genesis 3-D spatial-vector articulation solver (arbitrary-axis revolute/prismatic/fixed)",
+        "kami-genesis rigid contact/collision solver scope and coupling to the articulation",
+        "giemon physics-arm = 6-DOF URDF-driven 3-D arm (supersedes the planar reconstruction)",
+        "Spatial3d topology routing in world.rs/isaac_api (mixed-axis chains → 3-D solver)"
+      ],
+      "related": [
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface",
+        "adr-2605261800-nvidia-omniverse-stack-api-compat",
+        "adr-2605261600-robotics-simulation-substrate-r0"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim.md",
+      "id": "adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim",
+      "title": "ADR-2605311900: Shibuya street digital-twin — OSM → city mesh → kami-genesis full-physics multi-agent sim (iteration 1)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shibuya-street-digital-twin",
+      "authoritative": true,
+      "authoritative_for": [
+        "OSM→e7m-sim city-scene format (osm_to_citymesh.py) and the Shibuya snapshot",
+        "kami-app-shibuya full-physics multi-agent street sim (iteration 1)",
+        "floating-base agent model (4-DOF x/y/z + yaw via URDF) on the kami-genesis solver"
+      ],
+      "related": [
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+        "adr-2605261600-robotics-simulation-substrate-r0"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0.md",
+      "id": "adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+      "title": "ADR-2605312030: 取次 (toritsugi) — citizen-facing government-procedure concierge Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "toritsugi-government-procedure-concierge",
+      "authoritative": true,
+      "authoritative_for": [
+        "toritsugi-government-procedure-concierge"
+      ],
+      "related": [
+        "2605262900",
+        "2605302000",
+        "2605301600",
+        "2605263400",
+        "2605260000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262700",
+        "2605302130",
+        "2605302357",
+        "2605302358",
+        "2605181100",
+        "2605262130",
+        "2605192100",
+        "2605192200",
+        "2605192300",
+        "2605215000"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312100-kotoba-migration-agentic-cli-bakeoff-and-gemini-selection.md",
+      "id": "adr-2605312100-kotoba-migration-agentic-cli-bakeoff-and-gemini-selection",
+      "title": "ADR-2605312100: kotoba py-WASM migration — agentic-CLI bake-off (claude-haiku vs gemini vs gemma-4-26B) + gemini selection",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-migration-agentic-cli-bakeoff-and-gemini-selection",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba py-WASM 1-by-1 agentic migration model selection"
+      ],
+      "related": [
+        "2605240000",
+        "2605302359"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605310200",
+        "2605262130",
+        "2605301625",
+        "2605302355",
+        "2605215000",
+        "2605253000"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312130-session-close-toritsugi-government-procedure-concierge.md",
+      "id": "adr-2605312130-session-close-toritsugi-government-procedure-concierge",
+      "title": "ADR-2605312130: Session close — 取次 (toritsugi) citizen-facing government-procedure concierge R0 + 9-iteration maturity loop (2026-05-31)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-toritsugi-government-procedure-concierge",
+      "authoritative": true,
+      "authoritative_for": [
+        "the 2026-05-31 toritsugi session deliverable list + verification state",
+        "commit fa3dee231 provenance"
+      ],
+      "related": [
+        "adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605302357-etzhayyim-social-security-for-humanity"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605312030 (toritsugi master)"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312300-giemon-kabitori-mold-removal-probe-sim.md",
+      "id": "adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
+      "title": "ADR-2605312300: giemon kabitori (黴取り) mold-removal probe — sim + wall-obstacle contact extension + mold-erosion field",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "giemon-kabitori-mold-removal-sim",
+      "authoritative": true,
+      "authoritative_for": [
+        "giemon kabitori mold-removal probe articulation (6-DOF mixed prismatic+revolute) + scene URDF",
+        "kami-genesis static environment obstacles (Obstacle::Plane / Obstacle::Aabb) in the contact solver",
+        "kabitori mold-coverage erosion model (MoldField) at the giemon application layer",
+        "honest scope boundary: rigid-body + ground/wall contact only; no biofilm/fluid solver yet"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+        "adr-2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface",
+        "adr-2605261800-nvidia-omniverse-stack-api-compat",
+        "adr-2605261600-robotics-simulation-substrate-r0"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312345-kotoba-datom-first-class-canonical-state.md",
+      "id": "adr-2605312345-kotoba-datom-first-class-canonical-state",
+      "title": "ADR-2605312345: kotoba Datom as First-Class Canonical State — IPFS reframed as block backend, MST as ingress/interop wire, Base L2 as trust anchor",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "storage-substrate",
+      "authoritative": true,
+      "authoritative_for": [
+        "canonical state primitive = kotoba Datom log (content-addressed EAVT Datalog)",
+        "reframing of IPFS as Datom block backend (cold tier / DHT)",
+        "reframing of AT Protocol MST as ingress + interop wire format (not canonical state home)",
+        "reframing of Base L2 as trust anchor over the Datom commit-DAG root"
+      ],
+      "related": [
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231500-yatachain-projection",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
@@ -19713,6 +20041,77 @@
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-03-20",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/transparency/ingress-disclosure-notice.md",
+      "id": "transparency-ingress-disclosure-notice",
+      "title": "Ingress Disclosure Notice — standing text (ja / en)",
+      "status": "proposed",
+      "doc_type": "reference",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": true,
+      "authoritative_for": [
+        "the canonical standing text of the ingress disclosure notice (ADR-2605310100 §3/§6)"
+      ],
+      "related": [
+        "adr-2605181100-etzhayyim-confidentiality-encrypted-records"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/transparency/ratification-dossier.md",
+      "id": "transparency-ratification-dossier",
+      "title": "Covenant Transparency Doctrine — Council Lv7+ ratification dossier (threat model + decision sheet + risk register)",
+      "status": "proposed",
+      "doc_type": "explanation",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": true,
+      "authoritative_for": [
+        "the decision Council Lv7+ must make to ratify or reject ADR-2605310100",
+        "the threat model the doctrine is justified against",
+        "the legal + reversibility risk register for the doctrine"
+      ],
+      "related": [
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605181100-etzhayyim-confidentiality-encrypted-records"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/transparency/worked-examples.md",
+      "id": "transparency-worked-examples",
+      "title": "Covenant Transparency Doctrine — worked examples (for Council ratification review)",
+      "status": "proposed",
+      "doc_type": "explanation",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2605181100-etzhayyim-confidentiality-encrypted-records"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging"
+      ],
+      "last_verified": "2026-05-31",
       "amends": [],
       "amended_by": []
     },
