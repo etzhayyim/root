@@ -11452,6 +11452,22 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605312200-shibuya-digital-twin-kotoba-asset-linkage-and-mapillary-3dgs",
+      "type": "TechArticle",
+      "title": "ADR-2605312200: Shibuya digital-twin iter 2 — object→kotoba EAVT asset linkage + Mapillary→3DGS pipeline wiring",
+      "status": "accepted",
+      "topic": "shibuya-digital-twin-kotoba-and-3dgs",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Shibuya point-asset OSM ingestion + kotoba EAVT asset-registry transaction format",
+        "asset attribute schema (:asset/*) + synthesized-vs-OSM provenance flagging",
+        "clickable asset → kotoba object data binding in kami-app-shibuya",
+        "Mapillary acquisition front (mapillary_fetch.py) → trainGsplatFromMapillary wiring"
+      ],
+      "related": "doc:adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
       "type": "TechArticle",
       "title": "ADR-2605312300: giemon kabitori (黴取り) mold-removal probe — sim + wall-obstacle contact extension + mold-erosion field",
@@ -11486,6 +11502,26 @@
         "doc:adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
         "doc:adr-2605231525-no-server-key-religious-corp-architecture",
         "doc:adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+      "type": "TechArticle",
+      "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",
+      "status": "accepted",
+      "topic": "giemon-factory-kami-engine-kotoba-4d-bim",
+      "authoritative": true,
+      "authoritativeFor": [
+        "giemon robot manufacturing plant R0 layout (factory.scene.json — walls/columns/beams/zones/machines/conveyors/cells/AGVs)",
+        "建材 + 設備 ledger (building.edn — Datomic-style EDN, 27 parts, groups A-F) → CycloneDX SBOM + kotoba kg/claim/part/* datoms",
+        "建築手順 / 4D 施工シーケンス (construction.edn — 13 steps, depends-on/consumes/reveals) → kotoba kg/claim/step/* datoms + construction.order.json",
+        "kami-app-giemon-factory two-entry viewer (completed plant w/ live arm6 cells + AGVs; 4D construction playback)",
+        "honest scope boundary: rigid-body + AABB contact + scheduling only; no FEM/CFD/structural/MEP solver"
+      ],
+      "related": [
+        "doc:adr-2605261600-robotics-simulation-substrate-r0",
+        "doc:adr-2605261200-igata-hpdc-megacasting-tier-b"
       ],
       "lastVerified": "2026-05-31"
     },

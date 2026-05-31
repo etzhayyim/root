@@ -17681,6 +17681,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605312200-shibuya-digital-twin-kotoba-asset-linkage-and-mapillary-3dgs.md",
+      "id": "adr-2605312200-shibuya-digital-twin-kotoba-asset-linkage-and-mapillary-3dgs",
+      "title": "ADR-2605312200: Shibuya digital-twin iter 2 — object→kotoba EAVT asset linkage + Mapillary→3DGS pipeline wiring",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shibuya-digital-twin-kotoba-and-3dgs",
+      "authoritative": true,
+      "authoritative_for": [
+        "Shibuya point-asset OSM ingestion + kotoba EAVT asset-registry transaction format",
+        "asset attribute schema (:asset/*) + synthesized-vs-OSM provenance flagging",
+        "clickable asset → kotoba object data binding in kami-app-shibuya",
+        "Mapillary acquisition front (mapillary_fetch.py) → trainGsplatFromMapillary wiring"
+      ],
+      "related": [
+        "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605092800-gsplat-preview-qc"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605312300-giemon-kabitori-mold-removal-probe-sim.md",
       "id": "adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
       "title": "ADR-2605312300: giemon kabitori (黴取り) mold-removal probe — sim + wall-obstacle contact extension + mold-erosion field",
@@ -17736,6 +17764,38 @@
         "adr-2605172000-etzhayyim-rw-free-substrate",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim.md",
+      "id": "adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+      "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "giemon-factory-kami-engine-kotoba-4d-bim",
+      "authoritative": true,
+      "authoritative_for": [
+        "giemon robot manufacturing plant R0 layout (factory.scene.json — walls/columns/beams/zones/machines/conveyors/cells/AGVs)",
+        "建材 + 設備 ledger (building.edn — Datomic-style EDN, 27 parts, groups A-F) → CycloneDX SBOM + kotoba kg/claim/part/* datoms",
+        "建築手順 / 4D 施工シーケンス (construction.edn — 13 steps, depends-on/consumes/reveals) → kotoba kg/claim/step/* datoms + construction.order.json",
+        "kami-app-giemon-factory two-entry viewer (completed plant w/ live arm6 cells + AGVs; 4D construction playback)",
+        "honest scope boundary: rigid-body + AABB contact + scheduling only; no FEM/CFD/structural/MEP solver"
+      ],
+      "related": [
+        "adr-2605261600-robotics-simulation-substrate-r0",
+        "adr-2605261200-igata-hpdc-megacasting-tier-b"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+        "adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim",
+        "adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "last_verified": "2026-05-31",
       "amends": [],
