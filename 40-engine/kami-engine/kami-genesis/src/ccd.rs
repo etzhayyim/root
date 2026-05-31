@@ -138,4 +138,70 @@ mod tests {
             conservative_advancement_toi(&a, &b, Vec3::new(1.0, 0.0, 0.0), Vec3::ZERO, 0.1, 0.02);
         assert!(toi.is_none(), "unexpected toi={toi:?}");
     }
+
+    #[test]
+    fn ca_toi_depends_only_on_relative_velocity() {
+        // Galilean invariance — the property that defines a correct CA: the TOI
+        // (a step fraction) must be identical for any velocity split with the
+        // same relative velocity, since CA solves in the other body's frame.
+        let a = ConvexPoly::box_at(Vec3::new(-5.0, 0.0, 0.0), Vec3::splat(0.5), Quat::IDENTITY);
+        let b = ConvexPoly::box_at(Vec3::ZERO, Vec3::splat(0.5), Quat::IDENTITY);
+        let (dt, margin) = (0.1, 0.02);
+        let only_a = conservative_advancement_toi(
+            &a,
+            &b,
+            Vec3::new(100.0, 0.0, 0.0),
+            Vec3::ZERO,
+            dt,
+            margin,
+        )
+        .expect("impact");
+        // both bodies moving, same relative velocity (+100 x):
+        let split = conservative_advancement_toi(
+            &a,
+            &b,
+            Vec3::new(60.0, 0.0, 0.0),
+            Vec3::new(-40.0, 0.0, 0.0),
+            dt,
+            margin,
+        )
+        .expect("impact");
+        // only b moving toward a (relative velocity still +100 x):
+        let only_b = conservative_advancement_toi(
+            &a,
+            &b,
+            Vec3::ZERO,
+            Vec3::new(-100.0, 0.0, 0.0),
+            dt,
+            margin,
+        )
+        .expect("impact");
+        assert!(
+            (only_a - split).abs() < 1e-3,
+            "split differs: {only_a} vs {split}"
+        );
+        assert!(
+            (only_a - only_b).abs() < 1e-3,
+            "b-move differs: {only_a} vs {only_b}"
+        );
+    }
+
+    #[test]
+    fn ca_toi_handles_diagonal_approach() {
+        // a closes on b along the xy diagonal; the AABB faces meet on both axes
+        // at the same fraction (per-axis gap 4, closing 10/step) ⇒ corner contact
+        // at TOI ≈ 0.4 — exercises a 2-axis relative displacement, not single-axis.
+        let a = ConvexPoly::box_at(Vec3::new(-5.0, -5.0, 0.0), Vec3::splat(0.5), Quat::IDENTITY);
+        let b = ConvexPoly::box_at(Vec3::ZERO, Vec3::splat(0.5), Quat::IDENTITY);
+        let toi = conservative_advancement_toi(
+            &a,
+            &b,
+            Vec3::new(100.0, 100.0, 0.0),
+            Vec3::ZERO,
+            0.1,
+            0.02,
+        )
+        .expect("impact");
+        assert!((toi - 0.4).abs() < 0.05, "toi={toi}");
+    }
 }
