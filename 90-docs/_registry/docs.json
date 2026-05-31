@@ -17652,6 +17652,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605312130-session-close-toritsugi-government-procedure-concierge.md",
+      "id": "adr-2605312130-session-close-toritsugi-government-procedure-concierge",
+      "title": "ADR-2605312130: Session close — 取次 (toritsugi) citizen-facing government-procedure concierge R0 + 9-iteration maturity loop (2026-05-31)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-toritsugi-government-procedure-concierge",
+      "authoritative": true,
+      "authoritative_for": [
+        "the 2026-05-31 toritsugi session deliverable list + verification state",
+        "commit fa3dee231 provenance"
+      ],
+      "related": [
+        "adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605302357-etzhayyim-social-security-for-humanity"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605312030 (toritsugi master)"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605312300-giemon-kabitori-mold-removal-probe-sim.md",
       "id": "adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
       "title": "ADR-2605312300: giemon kabitori (黴取り) mold-removal probe — sim + wall-obstacle contact extension + mold-erosion field",
@@ -17673,6 +17702,40 @@
         "adr-2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface",
         "adr-2605261800-nvidia-omniverse-stack-api-compat",
         "adr-2605261600-robotics-simulation-substrate-r0"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312345-kotoba-datom-first-class-canonical-state.md",
+      "id": "adr-2605312345-kotoba-datom-first-class-canonical-state",
+      "title": "ADR-2605312345: kotoba Datom as First-Class Canonical State — IPFS reframed as block backend, MST as ingress/interop wire, Base L2 as trust anchor",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "storage-substrate",
+      "authoritative": true,
+      "authoritative_for": [
+        "canonical state primitive = kotoba Datom log (content-addressed EAVT Datalog)",
+        "reframing of IPFS as Datom block backend (cold tier / DHT)",
+        "reframing of AT Protocol MST as ingress + interop wire format (not canonical state home)",
+        "reframing of Base L2 as trust anchor over the Datom commit-DAG root"
+      ],
+      "related": [
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231500-yatachain-projection",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
       ],
       "last_verified": "2026-05-31",
       "amends": [],

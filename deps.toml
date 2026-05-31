@@ -97,8 +97,13 @@ vultr_status = "etzhayyim.com legacy only; etzhayyim/* completely separated per 
 
 [platform.substrate]
 # Hard rules for any module under etzhayyim/root.
-state_substrate = ["AT Protocol MST", "IPFS", "Base L2 anchor"]
-state_prohibited = ["RisingWave", "Postgres", "Kysely", "MySQL", "MongoDB", "centralized DB"]
+# Canonical state = kotoba Datom log (content-addressed EAVT Datalog, Datomic-isomorphic).
+# IPFS / MST / Base L2 are SUBORDINATE layers under the Datom (ADR-2605312345):
+#   IPFS = block backend (CIDv1 cold tier/DHT) · MST = ingress/interop wire · Base L2 = trust anchor.
+state_canonical = "kotoba Datom log (content-addressed EAVT Datalog)"
+state_canonical_adr = "2605312345"
+state_substrate = ["kotoba Datom log (canonical)", "IPFS (block backend)", "AT Protocol MST (ingress/interop wire)", "Base L2 anchor (trust anchor)"]
+state_prohibited = ["RisingWave", "Postgres", "Kysely", "MySQL", "MongoDB", "centralized DB", "treating MST/IPFS as canonical state home over the Datom log"]
 state_rule_adr = "2605172000"
 
 # Learning loop status (Stage D Phase A, ADR-2605232200, 2026-05-23)
@@ -155,7 +160,7 @@ server_key_forbidden_env = [
 ]
 server_key_allowed_surfaces = [
   "com.atproto.sync.subscribeRepos (read-only firehose)",
-  "kotoba-kqe arrangement indexer (EAVT/AEVT/AVET/VAET; regenerable from MST + IPFS + Base L2 anchor; per ADR-2605262130 — supersedes yatachain-projection L0 indexer carve-out)",
+  "kotoba-kqe arrangement indexer (EAVT/AEVT/AVET/VAET over the canonical Datom log; MST + IPFS + Base L2 materialize/back the Datom — not vice-versa; per ADR-2605262130 + ADR-2605312345 — supersedes yatachain-projection L0 indexer carve-out)",
   "Public DID Document serving (document itself signed off-line by Council Safe + committed to repo)",
   "Lexicon publication (00-contracts/lexicons/**/*.json as static assets)",
   "Contract verification via read-only Base L2 RPC",
@@ -8966,6 +8971,14 @@ status_note = "Answers the 2026-05-31 audit ('etzhayyim で LINE のように自
 path = "90-docs/adr/2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0.md"
 adr = ["2605262700", "2605302130", "2605302357", "2605302358", "2605262900", "2605181100", "2605262130", "2605192100", "2605192200", "2605192300", "2605215000", "2605260000"]
 
+[[adrs]]
+id = "2605312130"
+title = "Session close — 取次 (toritsugi) citizen-facing government-procedure concierge R0 + 9-iteration maturity loop (2026-05-31)"
+status = "active"
+status_note = "Documentation-only session-closure ADR for the 2026-05-31 toritsugi session. Created Tier-B actor 取次 toritsugi (did:web:toritsugi.etzhayyim.com, ADR-2605312030) — the citizen-facing government-procedure concierge answering the LINE-で自治体・政府手続き audit, service-delivery counterpart to passive danjo/himotoki — and matured it through a 9-iteration self-paced 30-min /loop. Committed as fa3dee231 on branch feat/social-security-for-humanity (36 files, +2500/-2). Deliverables: master ADR + actor dir (manifest/README/CLAUDE.md/MATURITY) + 6 lexicons app.etzhayyim.toritsugi.* + procedure seed (6 national, all unverified-seed) + 7 import-raise Pregel cells + per-cell READMEs + bidirectional cross-actor boundary (chigiri/himotoki/toritate) + two-layer machine enforcement (pytest invariants 10 + node guard 6 checks) + VERIFICATION.md (G14 tiering) + SCALING.md (1741-自治体 two-tier plan) + registry rows (root CLAUDE.md / ADR README / deps.toml). 12/15 maturity items done; 3 honestly deferred to R1+ (kotoba KG seed = node-local git-external; fleet.toml cell placement = reuben undeployed; municipalBinding lexicon = R2+). R0 ceiling held throughout (cells import-raise, no dispatch, PII-encrypted G6, Murakumo-only G7, 行政書士法/UPL G5, G14 verified-procedure-only, G15 self-submit-default). Verification: pytest 10 passed, node guard clean, pre-commit lefthook all pass (one validate-religious-corp-lexicons catch on procedureGuide inline object fixed to #checklistEntry def-ref before landing). /loop stopped at close (no remaining R0-committable work; next maturity R1-gated on Council Lv6+ ≥3 ratify post 2026-06-19)."
+path = "90-docs/adr/2605312130-session-close-toritsugi-government-procedure-concierge.md"
+adr = ["2605312030"]
+
 [[modules]]
 path = "70-tools/scripts/kotoba-migration-bakeoff"
 kind = "migration-bakeoff-harness"
@@ -8997,3 +9010,11 @@ status = "accepted"
 status_note = "Turns a real Shibuya Scramble OpenStreetMap block into a 3-D physics sandbox on the kami-genesis 3-D spatial solver + contact (ADR-2605311800); clean-room, OSM is the ODbL application-consumed source (no external MVT/tracking). 70-tools/scripts/sim/osm_to_citymesh.py projects an Overpass `out geom` extract → local-metre scene JSON (building footprint AABB+height, road polylines+width, bbox); committed snapshot 70-tools/e7m-sim/scenes/shibuya/ = raw OSM (144 buildings + 318 roads) + baked scene (~35 KB). Collision substrate: buildings → static Obstacle::Aabb (footprint × height), roads → drivable ground plane (z=0). kami-app-shibuya: multiple 4-DOF floating-base agents (x/y/z + yaw via generated URDF through the validated from_articulated_system path; ~massless intermediate links, body link carries box mass) with 8 corner sphere colliders + per-agent ContactWorld (ground + all building AABBs); forward-drive + drag + wander controller; gravity + contact + Coulomb friction. Renderer y-up vs sim z-up (−90° X); static geometry merged into a few batches; entry run_shibuya_v1, page shibuya.htm. Honest iteration-1 limits: building collision is AABB not footprint-polygon; flat ground (no DEM); agents are rigid box bodies on translate+yaw (no pitch/roll/tire — BeamNG kami-vehicle deferred); agent-agent collision NOT solved (vs static world only); no sensors/planning (autonomous deferred); PLATEAU LOD2 deferred. Verified by direct cargo-test: kami-app-shibuya 4 passed/0 failed (scene loads 144 b/318 r, agent 4-DOF, dropped agent settles on road, agent blocked by building AABB no-tunnel); kami-genesis 94 passed; wasm-pack build ok export run_shibuya_v1. Depends on ADR-2605311800 + 2605261600 + 2605262500."
 path = "90-docs/adr/2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim.md"
 adr = ["2605311800", "2605261600", "2605262500"]
+
+[[adrs]]
+id = "2605312345"
+title = "kotoba Datom as first-class canonical state — IPFS reframed as block backend, MST as ingress/interop wire, Base L2 as trust anchor"
+status = "proposed"
+status_note = "Doctrine-clarifying successor to ADR-2605262130 (no constitutional invariant changed; layering authority made explicit). Resolves the contradiction between kotoba's README ('the distributed Datom DB is the source of truth; Datomic/Datalog primary') and the root-repo doctrine that listed the canonical State as 'AT Protocol MST + IPFS + Base L2 anchor' (Datom absent) with the kotoba-kqe arrangement called 'regenerable from MST + IPFS + Base L2' (wrong authority direction). DECISION: the kotoba Datom log (immutable content-addressed EAVT 5-tuple (E,A,V,T,Added), Datomic-isomorphic, indexed by kotoba-kqe EAVT/AEVT/AVET/VAET/TEA) is the FIRST-CLASS canonical state primitive — authority for query/consistency/as-of-history/cross-store join. IPFS/MST/Base L2 retained but reframed as subordinate layers under the Datom: IPFS = content-addressed block backend (CIDv1 cold tier/DHT), AT Protocol MST = ingress + interop wire (records enter as Datoms via the commit DAG, re-emitted as MST for AT Proto federation), Base L2 = trust anchor over the commit-DAG root. Directionality 'regenerable from MST+IPFS' inverted to 'MST/IPFS materialize the Datom log' (DR reconstructibility preserved; only live-query authority moves). 6 carve-outs preserved unchanged: C1 on-chain records stay on-chain (land/SBT/Council/Public Fund/Tithe/Force per ADR-2605192245 + 2605262130 D4/N3), C2 app.etzhayyim.encrypted.* bit-identical, C3 RW-free, C4 no-server-key, C5 Murakumo-only, C6 SDK-seam. Already matches junkan (ADR-2605290927) + tadori (ADR-2605301400) design. Doctrine/layering only — no code change; ADR-2605262130 R0..R7 rollout unchanged; feed-discover (ADR-2605231902) Phase 2.5 migration unaffected. Updates CLAUDE.md State/engine/read-path rows + deps.toml [platform.substrate] (state_canonical key). Depends on ADR-2605262130 + 2605172000 + 2605215000 + 2605181100."
+path = "90-docs/adr/2605312345-kotoba-datom-first-class-canonical-state.md"
+adr = ["2605262130", "2605172000", "2605215000", "2605181100"]
