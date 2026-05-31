@@ -73,6 +73,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | gemma-coder-distill | LangGraph coding LoRA on EVO-X2 ROCm | 🟡 | 2605250400 | 05-25 |
 | roso/baien 1-bit Bonsai | 5-wall empirical loop — train DEFERRED | ✅ | 2605242000 | 05-25 |
 | NVIDIA Omniverse compat | nv-compat facade + 13 kami-engine crates (R1.0+R1.1) | ✅ | 2605261800 | 05-26 |
+| kami-genesis physics maturation | PlanarChain N-link articulation + clean-room isaacsim.core.api surface + analytical/conservation-law validation + G5 Isaac-CSV scorecard (genesis 87 / dec 9 tests green) | 🟢 | 2605311500 | 05-31 |
 | e7m-sim | robotics simulation substrate R0 charter | 🟡 | 2605261600 | 05-26 |
 | baien-moemoekyun MoE R0 | 2B BitNet backbone + 128-expert MoE residual | 🟡 | 2605261900 | 05-26 |
 | baien-moemoekyun R1 | Phase 0 freeze-train SFT on EVO-X2 ROCm | 🟡 | 2605262100 | 05-26 |

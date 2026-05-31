@@ -11315,22 +11315,6 @@
       "lastVerified": "2026-05-31"
     },
     {
-      "id": "doc:adr-2605310100-kami-genesis-physics-validation-and-isaac-clean-room-surface",
-      "type": "TechArticle",
-      "title": "ADR-2605310100: kami-genesis physics maturation — PlanarChain articulation, clean-room isaacsim.core.api surface, analytical/conservation-law validation, and G5 Isaac-reference scorecard",
-      "status": "accepted",
-      "topic": "kami-genesis-physics-validation",
-      "authoritative": true,
-      "authoritativeFor": [
-        "kami-genesis PlanarChain (N≥3 serial revolute) articulation topology",
-        "kami-genesis clean-room isaacsim.core.api World/Articulation surface scope",
-        "physics-correctness validation strategy (analytical + conservation law + G5 reference CSV)",
-        "G5 reference-CSV scorecard harness contract and Isaac-CSV drop-in path"
-      ],
-      "related": "doc:adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
-      "lastVerified": "2026-05-31"
-    },
-    {
       "id": "doc:adr-2605311254-session-close-social-security-for-humanity",
       "type": "TechArticle",
       "title": "ADR-2605311254: Session close — §1.16 Social Security for Humanity doctrine + R0 delivery pipeline scaffold (2026-05-30/31)",
@@ -11362,6 +11346,22 @@
         "ipfs-static-frontend-deploy-feasibility"
       ],
       "related": "doc:60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md",
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface",
+      "type": "TechArticle",
+      "title": "ADR-2605311500: kami-genesis physics maturation — PlanarChain articulation, clean-room isaacsim.core.api surface, analytical/conservation-law validation, and G5 Isaac-reference scorecard",
+      "status": "accepted",
+      "topic": "kami-genesis-physics-validation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kami-genesis PlanarChain (N≥3 serial revolute) articulation topology",
+        "kami-genesis clean-room isaacsim.core.api World/Articulation surface scope",
+        "physics-correctness validation strategy (analytical + conservation law + G5 reference CSV)",
+        "G5 reference-CSV scorecard harness contract and Isaac-CSV drop-in path"
+      ],
+      "related": "doc:adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
       "lastVerified": "2026-05-31"
     },
     {
