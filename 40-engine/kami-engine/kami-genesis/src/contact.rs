@@ -10,11 +10,12 @@
 //! (`Articulation3dConfig::point_jacobian`). Penetration is corrected with
 //! Baumgarte stabilization; restitution is supported (default 0 = inelastic).
 //!
-//! Collision shapes are spheres / capsules attached to links, resolved against
-//! a static ground plane (z = `ground_z`, normal +z). This is the
-//! contact-against-environment case; broadphase is trivial all-pairs (link
-//! counts are small). Self-collision broad/narrow phase is a documented
-//! follow-up.
+//! Collision shapes are spheres / capsules / **boxes** attached to links,
+//! resolved against a static ground plane (z = `ground_z`, normal +z), `Plane`
+//! / `Aabb` / `Convex` obstacles. A `Collider::Box` emits a **multi-point
+//! manifold** (one contact per corner) so a box rests flat and stably rather
+//! than balancing on a single deepest point. Broadphase is trivial all-pairs
+//! (link counts are small). Self-collision broad/narrow phase is a follow-up.
 
 use crate::articulation3d::{Articulation3dConfig, Articulation3dState, solve_ldlt};
 use crate::convex::{ConvexPoly, epa_penetration, gjk_closest_vec};
@@ -26,6 +27,15 @@ pub enum Collider {
     Sphere { center: Vec3, radius: f32 },
     /// Capsule between `a` and `b` (body frame), swept radius `radius`.
     Capsule { a: Vec3, b: Vec3, radius: f32 },
+    /// Oriented box: `center` + half-extents (body frame), optional corner
+    /// `radius` (rounded box). Resolved as a **multi-point manifold** — one
+    /// contact per corner — so a box rests flat and stably (no wobble) instead
+    /// of needing 8 separate sphere colliders.
+    Box {
+        center: Vec3,
+        half: Vec3,
+        radius: f32,
+    },
 }
 
 /// A static environment obstacle, in addition to the implicit ground plane
@@ -249,6 +259,23 @@ impl ContactWorld {
                 Collider::Capsule { a, b, radius } => {
                     probe(*a, *radius);
                     probe(*b, *radius);
+                }
+                Collider::Box {
+                    center,
+                    half,
+                    radius,
+                } => {
+                    // 8 corners → a multi-point contact manifold. Resting on the
+                    // four lower corners keeps the box flat and stable.
+                    for sx in [-1.0f32, 1.0] {
+                        for sy in [-1.0f32, 1.0] {
+                            for sz in [-1.0f32, 1.0] {
+                                let corner =
+                                    *center + Vec3::new(sx * half.x, sy * half.y, sz * half.z);
+                                probe(corner, *radius);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -576,6 +603,70 @@ mod tests {
             ob.contact(7, Vec3::new(0.5, 0.0, 0.0), 0.05, 1.0e-3)
                 .is_none()
         );
+    }
+
+    #[test]
+    fn box_collider_makes_a_four_point_manifold_and_rests() {
+        // A 4-DOF floating base (x,y,z + yaw) carrying a Box collider. The box
+        // stays axis-aligned, so its 4 lower corners form a stable manifold —
+        // it rests flat on the ground instead of balancing on one point.
+        let urdf = r#"<robot name="b">
+<link name="world"/>
+<joint name="jx" type="prismatic"><parent link="world"/><child link="lx"/><origin xyz="0 0 0"/><axis xyz="1 0 0"/><limit lower="-100" upper="100" effort="1e8" velocity="1000"/></joint>
+<link name="lx"><inertial><mass value="0.0001"/><inertia ixx="1e-7" iyy="1e-7" izz="1e-7" ixy="0" ixz="0" iyz="0"/></inertial></link>
+<joint name="jy" type="prismatic"><parent link="lx"/><child link="ly"/><origin xyz="0 0 0"/><axis xyz="0 1 0"/><limit lower="-100" upper="100" effort="1e8" velocity="1000"/></joint>
+<link name="ly"><inertial><mass value="0.0001"/><inertia ixx="1e-7" iyy="1e-7" izz="1e-7" ixy="0" ixz="0" iyz="0"/></inertial></link>
+<joint name="jz" type="prismatic"><parent link="ly"/><child link="lz"/><origin xyz="0 0 0"/><axis xyz="0 0 1"/><limit lower="-100" upper="100" effort="1e8" velocity="1000"/></joint>
+<link name="lz"><inertial><mass value="0.0001"/><inertia ixx="1e-7" iyy="1e-7" izz="1e-7" ixy="0" ixz="0" iyz="0"/></inertial></link>
+<joint name="jyaw" type="continuous"><parent link="lz"/><child link="body"/><origin xyz="0 0 0"/><axis xyz="0 0 1"/></joint>
+<link name="body"><inertial><origin xyz="0 0 0"/><mass value="50"/><inertia ixx="8" iyy="8" izz="8" ixy="0" ixz="0" iyz="0"/></inertial></link>
+</robot>"#;
+        let sys = kami_articulated::parse_urdf(urdf).expect("urdf");
+        let cfg = Articulation3dConfig::from_articulated_system(
+            &sys,
+            Vec3::new(0.0, 0.0, -9.81),
+            1.0 / 240.0,
+        );
+        let body = cfg.body_index("body").expect("body");
+        let half = Vec3::splat(0.5);
+        let cw = ContactWorld::new(
+            vec![(
+                body,
+                Collider::Box {
+                    center: Vec3::ZERO,
+                    half,
+                    radius: 0.0,
+                },
+            )],
+            ContactParams {
+                ground_z: 0.0,
+                friction: 1.0,
+                ..Default::default()
+            },
+        );
+
+        // placed with the box centre at z = 0.4 → 4 lower corners below ground.
+        let mut st = Articulation3dState::zeros(cfg.ndof);
+        st.q[2] = 0.4;
+        assert_eq!(
+            cw.contact_count(&cfg, &st.q),
+            4,
+            "expected a 4-corner manifold"
+        );
+
+        // dropped from z = 2, it falls and rests flat (centre ≈ half-height).
+        st = Articulation3dState::zeros(cfg.ndof);
+        st.q[2] = 2.0;
+        for _ in 0..3000 {
+            cw.step(&cfg, &mut st, &vec![0.0; cfg.ndof]);
+        }
+        assert!(
+            st.q[2] > 0.35 && st.q[2] < 0.65,
+            "did not rest flat: z={}",
+            st.q[2]
+        );
+        assert!(st.qdot[2].abs() < 0.2, "still moving: {}", st.qdot[2]);
+        assert!(st.q.iter().all(|v| v.is_finite()));
     }
 
     #[test]

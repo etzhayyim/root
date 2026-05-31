@@ -6699,6 +6699,63 @@ sibling_modules = [
 ]
 
 
+# ─── kizashi (兆) non-invasive multimodal body-scan / sign-sensing R0 (ADR-2605312700) ──
+
+[[adrs]]
+id = "2605312700"
+title = "kizashi (兆) — non-invasive multimodal body-scan / sign-sensing substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "L4 Care Tier SENSING / instrument layer — answers the 2026-05-31 'futuristic scan pod' ask (アレルギー/鼻詰まり/腰痛/肩こり/炎症 cause-finding). kizashi (兆 — 兆し = sign) is UPSTREAM of all clinical adjudication: **kizashi senses → mitate diagnoses → iyashi treats**. 任意団体 non-invasive sensing/screening substrate at did:web:kizashi.etzhayyim.com (20-actors/kizashi/). Scope = multimodal non-invasive capture (3D optical posture / thermography / bioimpedance / shear-wave elastography / acoustic rhinometry / breath-VOC / consented microsampling) → signal fusion → PROBABILISTIC NON-DIAGNOSTIC attribution + self-referenced Wellbecoming trajectory + triage referral + modality capability ledger. **Constitutional crux**: (1) NON-DIAGNOSTIC G3 (医師法 §17 boundary — outputs 兆候 + probabilistic cause-contribution + consult recommendation ONLY; attributionReport schema FORBIDS diagnosis/prescription/treatmentPlan fields; licensed clinician via mitate/iyashi owns any diagnosis) / (2) Medical-device regulatory boundary G4 (薬機法/PMDA/SaMD — R0..R2 software+simulation+non-ionizing non-regulated sensing ONLY; regulated/energy-emitting/microsampling modalities R3-gated to licensed-device pathway + qualified operator + Council Lv7+) / (3) Encrypted envelope MANDATORY G2 (biometric scan = 要配慮個人情報 APPI; scanSessionAttestation + modalityObservation + wellbecomingTrajectory MUST carry encryptedPayloadCid; plaintext rejected R1 additionalProperties=false; 30-day rotating pseudonym DID per ADR-2605181200) / (4) Verified-modality-only / anti-pseudoscience G10 (only modalities in modalityCapability ledger with declared evidenceGrade + regulatoryClass may emit; bio-resonance / aura / 全身波動 / quantum scanners EXCLUDED grade X) / (5) Self-referenced Wellbecoming G8 (compare to member's OWN prior trajectory; no population ranking / health-score; anti-individualist 動的軌跡 per ADR-2605192100) / (6) Murakumo-only inference G14. 6 Pregel cells under 20-actors/magatama/cells/kizashi_*/ (R0 path-reserved, import-time RuntimeError per G2): scan_session / signal_fusion / attribution / wellbecoming_track / triage_referral / modality_registry. 6 Lexicons under app.etzhayyim.kizashi.*: scanSessionAttestation (G2) + modalityObservation (G2 + G10) + attributionReport (G3 forbids diagnosis fields + G7 requires confidence/disclaimer/consult) + wellbecomingTrajectory (G2 + G8 self-baseline) + triageReferral (G5 emergencyFlag + targetActor∈{mitate,iyashi,kokoro}) + modalityCapability (PUBLIC; G10 evidenceGrade+regulatoryClass+canDetect+cannotDetect). 14 immutable gates G1..G14 + 12 non-goals N1..N12 + 4-phase R0→R3 (R0 this commit, design+data-model+simulation, NO hardware / R1 post-Council + ≥1 licensed-MD + ADR-2605181100 deployed + mitate R1, software fusion+attribution on SIMULATED data / R2 +30-day public + medical-device regulatory-pathway assessment, ≤20-participant consented research pilot non-ionizing non-regulated modalities only / R3 Council Lv7+ unanimity + 薬機法 clearance, full pod incl. regulated modalities). HONEST LIMIT: highest-value cause-finding modalities (MRI/ultrasound/microsampling biochem) are exactly the regulated ones → R3-gated; R1/R2 = posture/thermal/bioimpedance only (useful for 腰痛/肩こり functional, weak for アレルギー/炎症 biochem); even at R3 outputs probabilistic contributions, never a confirmed cause. Cross-actor: mitate (TIGHT pair, sign→diagnosis) / iyashi (clinical) / kokoro (psychosocial) / yakushi (medication via iyashi) / hagukumi (consent) / chigiri (consent + steward L5) / toritate (Public Fund grant) / manabi (operator training)."
+path = "90-docs/adr/2605312700-kizashi-noninvasive-multimodal-bodyscan-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/kizashi"
+kind = "tier-b-non-profit-noninvasive-multimodal-bodyscan-sign-sensing-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-path-reserved-runtime-error-per-G2-privacy-invariant-NO-hardware"
+description = "kizashi (兆 — 兆し = sign / early indication) actor scaffold. Manifest + README + CLAUDE.md only at R0. The L4 Care Tier SENSING / instrument layer — kizashi senses → mitate diagnoses → iyashi treats. 6 Pregel cells path-reserved under 20-actors/magatama/cells/kizashi_*/ (cell modules created at R1; all import-time RuntimeError per G2 privacy invariant — prevents accidental plaintext biometric data flow). 6 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/kizashi/. Constitutional crux: (1) NON-DIAGNOSTIC G3 (医師法 §17; attributionReport forbids diagnosis/prescription fields) / (2) Medical-device boundary G4 (薬機法/SaMD; R0..R2 software+simulation+non-ionizing non-regulated only) / (3) Encrypted biometric envelope MANDATORY G2 (要配慮 PII) / (4) Anti-pseudoscience G10 (capability-ledger evidence-grade gate; bio-resonance/aura/波動 EXCLUDED) / (5) Self-referenced Wellbecoming G8 / (6) Murakumo-only inference G14. R0 = design + data-model + simulation ONLY, no hardware exists."
+adr = ["2605312700", "2605263700", "2605263000", "2605262900", "2605262700", "2605262130", "2605261030", "2605261000", "2605260100", "2605215000", "2605192300", "2605192200", "2605192145", "2605192100", "2605181200", "2605181100"]
+sibling_actors = [
+  "mitate (L4 Care Tier; diagnostic routing; TIGHT pair — kizashi senses, mitate diagnoses; G5 emergency keyword shared)",
+  "iyashi (L4 Care Tier; clinical care provider; encrypted-envelope G2 discipline mirrored; clinical-encounter referral)",
+  "kokoro (L4 Care Tier; mental health support; psychosocial referral — pain is multifactorial)",
+  "yakushi (L4 Care Tier; pharmaceutical manufacturing; medication via iyashi only)",
+  "hagukumi (L4 Care Tier; daily-living care; minor/elder consent)",
+  "chigiri (consent + stewardLaborAttestation L5 vocation-flow operator classification)",
+  "toritate (Public Fund grant accounting; no fee-for-scan)",
+  "manabi (operator training + capability-ledger evidence-grade literacy)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/app/etzhayyim/kizashi",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/kizashi"
+form = "任意団体 internal non-invasive sensing/screening substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格)"
+liberation_ladder_gate = "L4"
+non_diagnostic = true
+medical_device_boundary_gated = true
+encrypted_biometric_envelope_mandatory = true
+anti_pseudoscience_modality_ledger = true
+self_referenced_wellbecoming = true
+no_payroll_for_operators = true
+murakumo_only_inference = true
+phase_gate = "R1 activation requires Bootstrap Council Seat 2-5 RFP closure (2026-06-19) + Council Lv6+ ≥3 ratify of ADR-2605312700 + ≥1 licensed-MD on Council medical advisory + ADR-2605181100 encrypted-record framework production-deployed + modalityCapability ledger Council-ratified + mitate R1 active + chigiri R1 active. R3 (regulated/energy-emitting modalities) additionally requires 薬機法/medical-device regulatory pathway cleared + qualified operator + co-located licensed clinician + Council Lv7+ unanimity."
+charter_rider_risk = "MEDIUM (biometric scan = 要配慮 PII; G2 structural envelope + G3 non-diagnostic + G10 anti-pseudoscience + G12 no-commercial-imaging-cloud collectively mitigate §2(c)+§2(e) exposure; same privacy discipline as iyashi/hagukumi)"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kizashi"
+kind = "kizashi-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-6-lexicon-skeleton-schemas-+-README"
+description = "6 Lexicon JSONs for kizashi actor per ADR-2605312700: scanSessionAttestation (G2 STRUCTURAL: encryptedPayloadCid REQUIRED; biometric = 要配慮 PII; 30-day rotating pseudonym DID; scanConsentCid G6 required) + modalityObservation (G2 STRUCTURAL: encryptedPayloadCid REQUIRED; modalityId G10 must exist in capability ledger; regulatedModalityClearanceCid G4 for R3 regulated modalities) + attributionReport (G3 STRUCTURAL: schema FORBIDS diagnosis/prescription/treatmentPlan; G7 STRUCTURAL: confidence + disclaimer const + consultRecommendation REQUIRED; contributions name candidate factors never diseases) + wellbecomingTrajectory (G2 + G8 STRUCTURAL: encryptedPayloadCid REQUIRED; baseline = member's OWN prior scan only; no population field exists) + triageReferral (G5 STRUCTURAL: emergencyFlag REQUIRED; targetActor const-enum {mitate,iyashi,kokoro} — kizashi cannot self-treat) + modalityCapability (PUBLIC not encrypted — the honesty registry; G10 STRUCTURAL: evidenceGrade + regulatoryClass + canDetect + cannotDetect + councilAttestationCid REQUIRED; bio-resonance/aura/波動/quantum recordable ONLY as grade X excluded). R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement + encryptedPayloadCid mandatory + diagnosis-field prohibition active."
+adr = ["2605312700", "2605181100", "2605181200", "2605192100", "2605192200", "2605215000", "2605260100", "2605261000", "2605263000"]
+sibling_modules = [
+  "20-actors/kizashi",
+  "00-contracts/lexicons/app/etzhayyim/iyashi",
+  "00-contracts/lexicons/app/etzhayyim/mitate",
+  "00-contracts/lexicons/app/etzhayyim/chigiri",
+]
+
+
 # ─── mizuho (水穂) water + sanitation substrate R0 (ADR-2605263100) ──
 
 [[adrs]]
