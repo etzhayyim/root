@@ -170,17 +170,26 @@ R3 adds regulated modalities via licensed-medical-device pathway.
 
 ## Build & Deploy
 
-**R0 status**: Scaffold only. All cells RuntimeError on import
-(intentional — prevents plaintext biometric data flow).
+**R0 status**: Scaffold only. All 6 cell stubs exist under
+`20-actors/magatama/cells/kizashi_*/cell.py` and raise `RuntimeError`
+on import (intentional — prevents plaintext biometric data flow).
 
 **Smoke test** (import-only; R0 cells deliberately fail import):
 ```bash
-cd 20-actors/magatama/py
-python -c "from magatama.cells.kizashi_scan_session import _r0_marker" 2>&1 | grep "R0 scaffold"
-# ... similar for all 6 kizashi_* cells
+cd 20-actors/etzhayyim-root  # repo root
+for c in kizashi_modality_registry kizashi_signal_fusion kizashi_attribution \
+         kizashi_scan_session kizashi_wellbecoming_track kizashi_triage_referral; do
+  python3 -c "
+import importlib.util
+s = importlib.util.spec_from_file_location('$c.cell', '20-actors/magatama/cells/$c/cell.py')
+m = importlib.util.module_from_spec(s)
+try: s.loader.exec_module(m); print('✘ $c did NOT raise')
+except RuntimeError as e: print('✓ $c', 'R0 scaffold' in str(e))
+"
+done
 ```
 
-Expected: all 6 imports raise `RuntimeError` with "R0 scaffold" message.
+Expected: all 6 raise `RuntimeError` with an "R0 scaffold" message.
 
 ## Honest limits (read before extending)
 
