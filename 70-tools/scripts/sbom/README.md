@@ -45,6 +45,30 @@ The two RisingWave indexes carry over as kotoba query patterns:
 - `kabitori.cdx.json` (20) round-trips: claims include `part/group`, `part/procurement`, … (giemon props preserved).
 - `sample_rw_export.cdx.json` (a 2-component vehicle SBOM mimicking RW rows) → 2 entities / 22 quads; `SELECT … <cdx/supplier> "Bosch"` → 1; `<cdx/purl>` → both purls.
 
+## purl-keyed SBOM ↔ CVE vuln-match (`purl_vuln_match.py`)
+
+The kotoba-native equivalent of the legacy `vertex_sbom_vuln_match`
+(ADR-2604282300 Phase C). Joins component `*/purl` against CVE `cve/affectsPurl`
+and materializes one `VulnMatch` entity per hit (kotoba's BGP join is
+subject-keyed, so the purl value-join is computed in-app then written back as
+first-class entities — exactly how the RW Phase C table is populated).
+
+```
+# with a running kotoba serve holding the fleet SBOM:
+curl -s -XPOST localhost:8080/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch \
+  -H "Authorization: Bearer <jwt>" -H 'Content-Type: application/json' --data @cve.seed.json
+python3 purl_vuln_match.py <jwt>
+# → VulnMatch entities; query e.g.:
+kotoba --token <jwt> sparql 'SELECT * WHERE { ?m <kg/claim/match/severity> "critical" }'
+```
+
+`cve.seed.json` holds **synthetic demo CVEs** (`EXAMPLE-2026-*`, not real
+advisories) whose `affectsPurl` matches fleet purls. Verified (2026-05-31):
+17 components-with-purl × 4 CVEs → 3 matches (critical brake-ecu / high rp2040 /
+medium ina226; the non-fleet CVE correctly excluded), 3 `VulnMatch` entities
+queryable by `match/severity`. Production swaps the seed for a real OSV/NVD feed
+(the kotoba sbom lexicon's `cveIngestOsv`).
+
 ## Honest scope
 
 No live RisingWave instance was available here, so the bridge is verified by
