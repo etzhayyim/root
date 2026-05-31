@@ -456,6 +456,7 @@ def build_routes_node(state: DispatchState) -> dict:
 
     cap = vehs[-1][0] if vehs else 4000
     window_of = state.get("window_of", {})
+    speed, service = 20.0, 10
 
     # R2 VRPTW: partition stops by their booked time window, route each window
     # separately so a vehicle serves one window's stops within that window.
@@ -464,26 +465,32 @@ def build_routes_node(state: DispatchState) -> dict:
         w = window_of.get(s, {"window": "allday", "start": 480, "end": 1020})
         groups.setdefault((w["window"], w["start"], w["end"]), []).append(s)
 
-    avail = list(vehs)  # (cap, id) ascending
+    # R3 inter-window reuse: vehicles persist in a pool with a `free_at` clock
+    # (minute they are next back at the depot). A later window may reuse a vehicle
+    # iff it is back by that window's start. Pool stays ascending by capacity.
+    pool = [{"cap": c, "vid": v, "free_at": float("-inf")} for c, v in vehs]
     routes, unassigned = [], []
     for (win, w_start, w_end), gstops in sorted(groups.items(), key=lambda kv: kv[0][1]):
         for order in _clarke_wright(gstops, demand, coords, depot, cap):
             load = sum(demand.get(s, 0) for s in order)
-            pick = next((k for k, (c, _) in enumerate(avail) if c >= load), None)
-            if pick is None:
+            cand = next((p for p in pool if p["cap"] >= load and p["free_at"] <= w_start), None)
+            if cand is None:
                 unassigned.append({"stop_order": order, "load_kg": int(load), "window": win,
-                                   "reason": "no available vehicle with capacity ≥ load (G15)"})
+                                   "reason": "no vehicle free (capacity ≥ load AND back by window start) — G15"})
                 continue
-            _, vid = avail.pop(pick)
+            reused = cand["free_at"] > float("-inf")
+            etas = _route_eta(order, coords, depot, w_start, speed, service)
+            return_min = (_haversine_km(coords[order[-1]][0], coords[order[-1]][1], depot[0], depot[1])
+                          / speed * 60.0) if order else 0.0
+            cand["free_at"] = (etas[-1][1] if etas else w_start) + service + return_min  # back-at-depot clock
             crewset = ([drivers.pop(0)] if drivers else []) + [loaders.pop(0) for _ in range(min(2, len(loaders)))]
-            etas = _route_eta(order, coords, depot, w_start)
             tw_violations = [{"stop": s, "eta_min": e} for s, e in etas if e > w_end]  # G15: surfaced, not hidden
             routes.append({
-                "vehicle": vid, "stop_order": order, "load_kg": int(load),
+                "vehicle": cand["vid"], "stop_order": order, "load_kg": int(load),
                 "distance_km": round(_route_length(order, coords, depot), 2),
                 "facility": facility, "crew": crewset,
                 "window": win, "window_start": w_start, "window_end": w_end,
-                "etas": etas, "tw_violations": tw_violations,
+                "etas": etas, "tw_violations": tw_violations, "vehicle_reused": reused,
             })
     return {"routes": routes, "unassigned": unassigned}
 

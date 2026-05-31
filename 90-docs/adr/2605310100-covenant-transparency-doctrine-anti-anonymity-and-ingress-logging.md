@@ -246,6 +246,34 @@ but the encryption-narrowing and publication changes are **not executed**.
 3. **Status quo (ADR-2605181100 member privacy retained).** **Rejected** as the very
    "private" regime the founder identifies as the enabler of concealment.
 
+# Session Closure (2026-05-31)
+
+Status remains **proposed** — nothing below executes any gated change (§5). What
+landed this session is the complete, ratification-ready scaffold, all
+`proposed-unratified`:
+
+- **This ADR** + registration in `90-docs/adr/README.md` and `deps.toml`.
+- **4 Lexicons** `app.etzhayyim.transparency.*` — `ingressDisclosureNotice`,
+  `accessLogPublication`, `covenantTransparencyAttestation`, `redactionMethodNote`
+  (repo lexicon validator CLEAN).
+- **Standing notice text** (ja/en): `90-docs/transparency/ingress-disclosure-notice.md`.
+- **Worked examples** incl. the innocent-fourth-party inbound-email cascade:
+  `90-docs/transparency/worked-examples.md`.
+- **Council ratification dossier** (threat model + what-flips-on-YES + open
+  questions Q-1/Q-2 + legal/reversibility risk register):
+  `90-docs/transparency/ratification-dossier.md`.
+- **Machine-enforced constitutional guard**:
+  `70-tools/scripts/lint/transparency-floor-and-gate.{mjs,test.mjs}` — Check A (§5
+  `ratificationStatus` const) + Check B (§4 floor consts) + Check C (no premature
+  execution in code without a `councilRatificationCid`); 9-test suite green, clean
+  on the real repo.
+
+**Gated, not done** (await Council Lv7+ ratification per §5/§6): kotoba `private`
+graph re-definition, `fingerprint_middleware` publishable promotion, `app.etzhayyim.encrypted.*`
+narrowing, and the cross-ref edits to repo CLAUDE.md + ADR-2605181100. The two
+sub-decisions (Q-1 fourth-party cascade; Q-2 §1.13/pastoral visibility) are
+reserved to the ratification vote. Bootstrap Council Seats 2-5 RFP closes 2026-06-19.
+
 # References
 
 - ADR-2605192100 (etzhayyim Mission Charter — §0.4 Lv7+ lock, §1.12 Transparent
