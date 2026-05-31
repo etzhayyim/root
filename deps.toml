@@ -8988,6 +8988,14 @@ path = "90-docs/adr/2605312500-kurashimori-consumer-protection-concierge-tier-b-
 adr = ["2605312030", "2605312400", "2605302130", "2605262700", "2605263500", "2605302000", "2605181100", "2605262130", "2605192100", "2605192200", "2605192300", "2605215000"]
 
 [[adrs]]
+id = "2606010400"
+title = "Session close — citizen-facing concierge trio (toritsugi + moushibumi + kurashimori) R0"
+status = "active"
+status_note = "Documentation-only session-closure ADR for the 2026-05-31/06-01 sessions that completed the citizen-facing concierge family: toritsugi (citizen↔government, ADR-2605312030) + moushibumi (citizen→state: 選挙情報/請願/パブコメ, ADR-2605312400) + kurashimori (citizen↔merchant: 苦情/返金/クーリングオフ, ADR-2605312500). Records deliverables, verification state, and the gap-audit verdict: disaster citizen-support is already COVERED by kazaori (ADR-2605263200) so NOT built (no duplicate); democratic-participation + consumer-protection were genuine gaps and were built. Shared pattern: coded target registry (unverified-seed, G14) + member-self-action default (G15, 代行 gated R3 via DAIKOU_R3_GATE_TX) + 7 import-raise Pregel cells each + PII-encrypted (G6) + per-axis reserved-practice boundary (行政書士法/公職選挙法/司法書士法・弁護士法). Verification (moushibumi+kurashimori): 13 lexicons pass validate-religious-corp-lexicons (0 errors), lexicon-primary-types + nsid-lexicon-exists green, 14 cells import-raise, deps.toml valid TOML, docs.json+graph.jsonld regenerated (720). Trio creation commit 7ba09ee60, pushed 3e9061a2e on branch feat/social-security-for-humanity. R0 ceiling held (no submission/dispatch, no plaintext PII, Murakumo-only). Next maturity R1-gated on Council Lv6+ ≥3 ratify post Bootstrap Council Seats 2-5 RFP close 2026-06-19. Depends on ADR-2605312030 + 2605312400 + 2605312500."
+path = "90-docs/adr/2606010400-session-close-citizen-facing-concierge-trio.md"
+adr = ["2605312030", "2605312400", "2605312500"]
+
+[[adrs]]
 id = "2605312130"
 title = "Session close — 取次 (toritsugi) citizen-facing government-procedure concierge R0 + 9-iteration maturity loop (2026-05-31)"
 status = "active"

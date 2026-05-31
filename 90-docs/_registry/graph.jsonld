@@ -11578,6 +11578,25 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2606010400-session-close-citizen-facing-concierge-trio",
+      "type": "TechArticle",
+      "title": "ADR-2606010400: Session close — citizen-facing concierge trio (toritsugi + moushibumi + kurashimori) R0",
+      "status": "active",
+      "topic": "session-close-citizen-facing-concierge-trio",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the citizen-facing concierge trio deliverable list + verification state",
+        "the 2026-05-31 citizen-facing gap-audit verdict"
+      ],
+      "related": [
+        "doc:adr-2605312130-session-close-toritsugi-government-procedure-concierge",
+        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605263200-kazaori-disaster-response-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
