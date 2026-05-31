@@ -613,6 +613,74 @@ mod tests {
     }
 
     #[test]
+    fn restitution_controls_the_rebound_height() {
+        // A sphere dropped from z=1 onto the ground: with restitution e=0.6 it
+        // bounces back high (but below the drop, since e<1); with e=0 it does not.
+        let urdf = r#"<robot name="d">
+<link name="world"/>
+<joint name="jz" type="prismatic"><parent link="world"/><child link="body"/><origin xyz="0 0 0"/><axis xyz="0 0 1"/><limit lower="-1e4" upper="1e4" effort="1e9" velocity="1e4"/></joint>
+<link name="body"><inertial><origin xyz="0 0 0"/><mass value="5"/><inertia ixx="0.05" iyy="0.05" izz="0.05" ixy="0" ixz="0" iyz="0"/></inertial></link>
+</robot>"#;
+        let sys = kami_articulated::parse_urdf(urdf).expect("urdf");
+        let cfg = Articulation3dConfig::from_articulated_system(
+            &sys,
+            Vec3::new(0.0, 0.0, -9.81),
+            1.0 / 240.0,
+        );
+        let body = cfg.body_index("body").expect("body");
+        let radius = 0.1;
+
+        let first_bounce_apex = |e: f32| -> f32 {
+            let cw = ContactWorld::new(
+                vec![(
+                    body,
+                    Collider::Sphere {
+                        center: Vec3::ZERO,
+                        radius,
+                    },
+                )],
+                ContactParams {
+                    ground_z: 0.0,
+                    restitution: e,
+                    friction: 0.0,
+                    ..Default::default()
+                },
+            );
+            let mut st = Articulation3dState::zeros(cfg.ndof);
+            st.q[0] = 1.0; // centre at z = 1 (drop distance ≈ 0.9 above the rest)
+            let (mut hit, mut apex, mut done) = (false, 0.0_f32, false);
+            for _ in 0..2400 {
+                cw.step(&cfg, &mut st, &[0.0]);
+                let z = st.q[0];
+                if !hit {
+                    if z < radius + 0.02 {
+                        hit = true;
+                    }
+                } else if !done {
+                    apex = apex.max(z);
+                    if z < radius + 0.02 && apex > radius + 0.03 {
+                        done = true; // returned to the ground → end of first bounce
+                    }
+                }
+            }
+            apex
+        };
+
+        let bouncy = first_bounce_apex(0.6);
+        let dead = first_bounce_apex(0.0);
+        assert!(bouncy > 0.3, "e=0.6 should rebound high: apex={bouncy}");
+        assert!(
+            bouncy < 1.0,
+            "e<1 must not exceed the drop height: apex={bouncy}"
+        );
+        assert!(dead < 0.18, "e=0 should barely rebound: apex={dead}");
+        assert!(
+            bouncy > dead + 0.2,
+            "restitution had no effect: {dead} vs {bouncy}"
+        );
+    }
+
+    #[test]
     fn friction_cone_holds_below_angle_and_slides_above() {
         // A sphere on a plane tilted by θ stays (static friction) when
         // tanθ < μ and slides down-slope when tanθ > μ — the Coulomb-cone law.
