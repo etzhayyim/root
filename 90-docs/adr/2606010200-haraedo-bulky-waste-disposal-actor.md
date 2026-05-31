@@ -145,6 +145,40 @@ authorized operator session token. `kotoba/ingest_mcp.py` flattens `seed.edn`
 (39 entities → 347 datoms, verified) and asserts via MCP `kotoba_datom_create`
 (or `kotoba quad put`) once `KOTOBA_TOKEN` is supplied, then `kotoba commit` seals.
 
+## R2 — VRPTW (slot×route) · Or-opt local search · authoritative facility data
+
+R2 (design-only under G11; verified by `py/test_agent.py`) closes the three R2-deferred
+items named in §R1:
+
+1. **Solver upgrade (Or-opt + local search)** — `_or_opt` (relocate chains of length
+   1–3) composed with 2-opt into `_local_search` (alternate until neither improves).
+   `_clarke_wright` now polishes each route with `_local_search` instead of 2-opt
+   only, so quality is provably ≥ R1. True exact/`OR-Tools`-class VRP stays a deferred
+   server-side carve-out (heavy native dep, not WASM-edge-friendly per the lean-edge
+   ethos); R2 ships a stronger pure-Python metaheuristic, honestly labelled.
+
+2. **VRPTW — time-window × route coupling** — the R1-deferred coupling. `schedule`
+   already books a `:slot/*`; R2 persists `:application/slot-id` so `dispatch` can join
+   application → slot → window. `cluster` loads each stop's `{window,start,end}`;
+   `build_routes` partitions stops by window and routes each window separately;
+   `_route_eta` computes an arrival clock (depot at `window-start`, `speed_kmh`,
+   `service_min/stop`); stops whose ETA exceeds `window-end` are surfaced as
+   `tw_violations` (G15 — never silently served late). Routes carry `:route/window`.
+
+3. **Authoritative facility ingestion** — `kotoba/fetch_facilities.py` replaces the
+   R0/R1 `:sourcing :representative` seed with a coded **open-license SOURCES registry**
+   (JP 環境省 一般廃棄物処理実態調査 / US EPA FRS / EU E-PRTR / GB EA — all
+   open/public-domain, no proprietary aggregators per Charter Rider §2(e)) + a
+   CSV→kotoba-EDN transform that stamps every record `:facility/sourcing :authoritative`
+   with `:facility/source-url` + `:facility/source-dataset` provenance (G8
+   non-fabrication). Network crawl of each portal is the deferred R2.1 step; the
+   transform is the stable seam (`--from <csv> --dataset <id>`).
+
+New schema: `:application/slot-id`, `:slot/window-start|end`, `:route/window`,
+`:facility/source-url|source-dataset`. Still deferred (R3+): exact VRP solver,
+inter-window vehicle reuse, live authoritative crawl, real operator dispatch (auth +
+Council, G11).
+
 ## Consequences
 
 ### Positive
