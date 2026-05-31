@@ -11381,6 +11381,71 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim",
+      "type": "TechArticle",
+      "title": "ADR-2605311900: Shibuya street digital-twin — OSM → city mesh → kami-genesis full-physics multi-agent sim (iteration 1)",
+      "status": "accepted",
+      "topic": "shibuya-street-digital-twin",
+      "authoritative": true,
+      "authoritativeFor": [
+        "OSM→e7m-sim city-scene format (osm_to_citymesh.py) and the Shibuya snapshot",
+        "kami-app-shibuya full-physics multi-agent street sim (iteration 1)",
+        "floating-base agent model (4-DOF x/y/z + yaw via URDF) on the kami-genesis solver"
+      ],
+      "related": "doc:adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605312030: 取次 (toritsugi) — citizen-facing government-procedure concierge Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "toritsugi-government-procedure-concierge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "toritsugi-government-procedure-concierge"
+      ],
+      "related": [
+        "doc:2605262900",
+        "doc:2605302000",
+        "doc:2605301600",
+        "doc:2605263400",
+        "doc:2605260000"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312100-kotoba-migration-agentic-cli-bakeoff-and-gemini-selection",
+      "type": "TechArticle",
+      "title": "ADR-2605312100: kotoba py-WASM migration — agentic-CLI bake-off (claude-haiku vs gemini vs gemma-4-26B) + gemini selection",
+      "status": "accepted",
+      "topic": "kotoba-migration-agentic-cli-bakeoff-and-gemini-selection",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba py-WASM 1-by-1 agentic migration model selection"
+      ],
+      "related": [
+        "doc:2605240000",
+        "doc:2605302359"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
+      "type": "TechArticle",
+      "title": "ADR-2605312300: giemon kabitori (黴取り) mold-removal probe — sim + wall-obstacle contact extension + mold-erosion field",
+      "status": "accepted",
+      "topic": "giemon-kabitori-mold-removal-sim",
+      "authoritative": true,
+      "authoritativeFor": [
+        "giemon kabitori mold-removal probe articulation (6-DOF mixed prismatic+revolute) + scene URDF",
+        "kami-genesis static environment obstacles (Obstacle::Plane / Obstacle::Aabb) in the contact solver",
+        "kabitori mold-coverage erosion model (MoldField) at the giemon application layer",
+        "honest scope boundary: rigid-body + ground/wall contact only; no biofilm/fluid solver yet"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

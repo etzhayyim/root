@@ -17561,6 +17561,124 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim.md",
+      "id": "adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim",
+      "title": "ADR-2605311900: Shibuya street digital-twin — OSM → city mesh → kami-genesis full-physics multi-agent sim (iteration 1)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shibuya-street-digital-twin",
+      "authoritative": true,
+      "authoritative_for": [
+        "OSM→e7m-sim city-scene format (osm_to_citymesh.py) and the Shibuya snapshot",
+        "kami-app-shibuya full-physics multi-agent street sim (iteration 1)",
+        "floating-base agent model (4-DOF x/y/z + yaw via URDF) on the kami-genesis solver"
+      ],
+      "related": [
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+        "adr-2605261600-robotics-simulation-substrate-r0"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0.md",
+      "id": "adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+      "title": "ADR-2605312030: 取次 (toritsugi) — citizen-facing government-procedure concierge Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "toritsugi-government-procedure-concierge",
+      "authoritative": true,
+      "authoritative_for": [
+        "toritsugi-government-procedure-concierge"
+      ],
+      "related": [
+        "2605262900",
+        "2605302000",
+        "2605301600",
+        "2605263400",
+        "2605260000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262700",
+        "2605302130",
+        "2605302357",
+        "2605302358",
+        "2605181100",
+        "2605262130",
+        "2605192100",
+        "2605192200",
+        "2605192300",
+        "2605215000"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312100-kotoba-migration-agentic-cli-bakeoff-and-gemini-selection.md",
+      "id": "adr-2605312100-kotoba-migration-agentic-cli-bakeoff-and-gemini-selection",
+      "title": "ADR-2605312100: kotoba py-WASM migration — agentic-CLI bake-off (claude-haiku vs gemini vs gemma-4-26B) + gemini selection",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-migration-agentic-cli-bakeoff-and-gemini-selection",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba py-WASM 1-by-1 agentic migration model selection"
+      ],
+      "related": [
+        "2605240000",
+        "2605302359"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605310200",
+        "2605262130",
+        "2605301625",
+        "2605302355",
+        "2605215000",
+        "2605253000"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312300-giemon-kabitori-mold-removal-probe-sim.md",
+      "id": "adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
+      "title": "ADR-2605312300: giemon kabitori (黴取り) mold-removal probe — sim + wall-obstacle contact extension + mold-erosion field",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "giemon-kabitori-mold-removal-sim",
+      "authoritative": true,
+      "authoritative_for": [
+        "giemon kabitori mold-removal probe articulation (6-DOF mixed prismatic+revolute) + scene URDF",
+        "kami-genesis static environment obstacles (Obstacle::Plane / Obstacle::Aabb) in the contact solver",
+        "kabitori mold-coverage erosion model (MoldField) at the giemon application layer",
+        "honest scope boundary: rigid-body + ground/wall contact only; no biofilm/fluid solver yet"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+        "adr-2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface",
+        "adr-2605261800-nvidia-omniverse-stack-api-compat",
+        "adr-2605261600-robotics-simulation-substrate-r0"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
