@@ -189,6 +189,69 @@ mod tests {
     }
 
     #[test]
+    fn batched_env_matches_the_standalone_single_articulation() {
+        // The batch must not change physics: env k stepped with effort e must be
+        // bit-for-bit identical to a standalone Articulation3dState stepped with
+        // the same cfg + e. Uses gravity (non-trivial trajectory) and verifies a
+        // NON-target env stays independent (no cross-env contamination).
+        let cfg = Articulation3dConfig {
+            gravity: glam::Vec3::new(0.0, 0.0, -9.81),
+            ..pendulum_cfg()
+        };
+        let ndof = cfg.ndof;
+        let q0 = 0.4_f32;
+        let tau = 0.7_f32;
+
+        // standalone reference.
+        let mut ref_st = Articulation3dState::zeros(ndof);
+        for v in ref_st.q.iter_mut() {
+            *v = q0;
+        }
+        for _ in 0..120 {
+            cfg.step(&mut ref_st, &vec![tau; ndof]);
+        }
+
+        // batch: env 1 mirrors the reference; envs 0/2 run different efforts.
+        let n = 3;
+        let mut b = ArticulationBatch::new(cfg, n);
+        let mut pos = vec![0.0_f32; n * ndof];
+        for j in 0..ndof {
+            pos[ndof + j] = q0; // env 1 only
+        }
+        b.set_joint_positions(&pos);
+        let mut eff = vec![0.0_f32; n * ndof];
+        for j in 0..ndof {
+            eff[j] = -0.3; // env 0
+            eff[ndof + j] = tau; // env 1 (target)
+            eff[2 * ndof + j] = 0.5; // env 2
+        }
+        b.set_joint_efforts(&eff);
+        for _ in 0..120 {
+            b.step();
+        }
+
+        let q = b.get_joint_positions();
+        let qd = b.get_joint_velocities();
+        for j in 0..ndof {
+            assert!(
+                (q[ndof + j] - ref_st.q[j]).abs() < 1e-6,
+                "env1 q[{j}] {} != standalone {}",
+                q[ndof + j],
+                ref_st.q[j]
+            );
+            assert!(
+                (qd[ndof + j] - ref_st.qdot[j]).abs() < 1e-6,
+                "env1 qdot[{j}] drift"
+            );
+        }
+        // the other envs evolved differently → no shared/aliased state.
+        assert!(
+            (q[0] - q[ndof]).abs() > 1e-4 && (q[2 * ndof] - q[ndof]).abs() > 1e-4,
+            "non-target envs not independent"
+        );
+    }
+
+    #[test]
     fn physx_facade_aliases_delegate() {
         use px::PxArticulationReducedCoordinate;
         let cfg = pendulum_cfg();
