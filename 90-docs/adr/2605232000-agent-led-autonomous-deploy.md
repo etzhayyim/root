@@ -43,7 +43,7 @@ Two needs surfaced concurrently during the karute deployment work (ADR-260523190
 
     > Don't put long-lived secrets into the transcript. Prefer short-lived + scoped tokens over long-lived roots. Make rotation a 1-liner.
 
-But the existing primitives only cover **runtime** XRPC calls (`gftd agent-token --lxm ai.gftd.apps.gmail.syncInbox --ttl 60`). Deploy-time authority — "this agent may run `wrangler deploy` against the `karute-did-web` Worker and `kubectl apply` against `lg-karute`" — has no formalized capability.
+But the existing primitives only cover **runtime** XRPC calls (`gftd agent-token --lxm app.etzhayyim.apps.gmail.syncInbox --ttl 60`). Deploy-time authority — "this agent may run `wrangler deploy` against the `karute-did-web` Worker and `kubectl apply` against `lg-karute`" — has no formalized capability.
 
 Both problems share a solution shape: a declarative manifest + a capability-gated executor + audit emission per step.
 
@@ -138,7 +138,7 @@ Extends `app.etzhayyim.consent.capability` (ADR-2605231400) to cover deploy auth
 }
 ```
 
-`e7m actor deploy` rejects any stage whose `require_cap` is not in the capability's `scope`, with a `denied` DEPLOY_EVENT logged. The capability itself is a normal PDS record and revocable via `ai.gftd.apps.karute.revokeConsent` (or the generic equivalent on `did:web:audit.etzhayyim.com`).
+`e7m actor deploy` rejects any stage whose `require_cap` is not in the capability's `scope`, with a `denied` DEPLOY_EVENT logged. The capability itself is a normal PDS record and revocable via `app.etzhayyim.apps.karute.revokeConsent` (or the generic equivalent on `did:web:audit.etzhayyim.com`).
 
 ## Three-tier credential model (for agents)
 

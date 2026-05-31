@@ -19,48 +19,48 @@
 ## App Collections (declared)
 
 - Drive collections:
-  - `ai.gftd.apps.drive.file`
-  - `ai.gftd.apps.drive.folder`
-  - `ai.gftd.apps.drive.fileShare`
-  - `ai.gftd.apps.drive.fileDeletion`
-  - `ai.gftd.apps.drive.fileMove`
-  - `ai.gftd.apps.drive.fileStatusUpdate`
-  - `ai.gftd.apps.drive.fileLocationUpdate`
+  - `app.etzhayyim.apps.drive.file`
+  - `app.etzhayyim.apps.drive.folder`
+  - `app.etzhayyim.apps.drive.fileShare`
+  - `app.etzhayyim.apps.drive.fileDeletion`
+  - `app.etzhayyim.apps.drive.fileMove`
+  - `app.etzhayyim.apps.drive.fileStatusUpdate`
+  - `app.etzhayyim.apps.drive.fileLocationUpdate`
   - Ref: `60-apps/ai-gftd-project-drive/appview/drive-app-component/magatama.jsonld` lines 58-64
 
 - Calendar collections (used in app code):
-  - `ai.gftd.apps.calendar.event`
-  - `ai.gftd.apps.calendar.invitation`
-  - `ai.gftd.apps.calendar.recurrence`
-  - `ai.gftd.apps.calendar.rsvp`
-  - `ai.gftd.apps.calendar.reminder`
+  - `app.etzhayyim.apps.calendar.event`
+  - `app.etzhayyim.apps.calendar.invitation`
+  - `app.etzhayyim.apps.calendar.recurrence`
+  - `app.etzhayyim.apps.calendar.rsvp`
+  - `app.etzhayyim.apps.calendar.reminder`
   - Ref: `60-apps/ai-gftd-project-calendar/appview/calendar-mcp-component/src/app.ts`
 
 - Docs collections:
-  - `ai.gftd.apps.docs.docsEntity`
-  - `ai.gftd.apps.docs.docsEvent`
-  - `ai.gftd.apps.docs.docsReport`
+  - `app.etzhayyim.apps.docs.docsEntity`
+  - `app.etzhayyim.apps.docs.docsEvent`
+  - `app.etzhayyim.apps.docs.docsReport`
   - Ref: `60-apps/ai-gftd-project-docs/appview/docs-performers-r5ycqp6x/magatama.jsonld` lines 78-80
 
 - PPTX collections:
-  - `ai.gftd.apps.pptx.presentation`
-  - `ai.gftd.apps.pptx.slide`
-  - `ai.gftd.apps.pptx.shape`
-  - `ai.gftd.apps.pptx.textRun`
-  - `ai.gftd.apps.pptx.image`
-  - `ai.gftd.apps.pptx.slideTemplate`
+  - `app.etzhayyim.apps.pptx.presentation`
+  - `app.etzhayyim.apps.pptx.slide`
+  - `app.etzhayyim.apps.pptx.shape`
+  - `app.etzhayyim.apps.pptx.textRun`
+  - `app.etzhayyim.apps.pptx.image`
+  - `app.etzhayyim.apps.pptx.slideTemplate`
   - Ref: `60-apps/ai-gftd-project-pptx/appview/ai-gftd-wasm-pptx-t53br1o0/magatama.jsonld` lines 70-75
 
 - Sheets collections (Excel相当):
-  - `ai.gftd.apps.sheets.sheetsEntity`
-  - `ai.gftd.apps.sheets.sheetsEvent`
-  - `ai.gftd.apps.sheets.sheetsReport`
+  - `app.etzhayyim.apps.sheets.sheetsEntity`
+  - `app.etzhayyim.apps.sheets.sheetsEvent`
+  - `app.etzhayyim.apps.sheets.sheetsReport`
   - Ref: `60-apps/ai-gftd-project-sheets/appview/sheets-mcp-component/magatama.jsonld` lines 78-80
 
 - XLSX actor collections:
-  - `ai.gftd.apps.xlsx.workbook`
-  - `ai.gftd.apps.xlsx.sheet`
-  - `ai.gftd.apps.xlsx.pivot`
+  - `app.etzhayyim.apps.xlsx.workbook`
+  - `app.etzhayyim.apps.xlsx.sheet`
+  - `app.etzhayyim.apps.xlsx.pivot`
   - Ref: `20-actors/xlsx/actor-manifest.jsonld` line 30
 
 ## Gap Matrix (as-is)
@@ -76,7 +76,7 @@
 ### Evidence for calendar missing state
 
 `60-apps/ai-gftd-project-calendar/appview/calendar-mcp-component/src/app.ts`
-- lines 30-31: `vertex_calendar_* not in @gftd/graph-schema`
+- lines 30-31: `vertex_calendar_* not in @etzhayyim/graph-schema`
 - line 119: pre-existence check skipped
 - line 193: events list unavailable
 - line 208: event/rsvp lookup unavailable

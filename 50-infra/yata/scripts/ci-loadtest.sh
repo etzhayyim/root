@@ -99,9 +99,9 @@ APPLY_LATENCIES=""
 for i in $(seq 1 $NUM_WRITES); do
   T0=$(python3 -c "import time; print(int(time.time()*1000))")
 
-  RESULT=$(curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.mergeRecordWal" \
+  RESULT=$(curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.mergeRecordWal" \
     -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
-    -d "{\"label\":\"LtNode\",\"pk_key\":\"rkey\",\"pk_value\":\"lt_$i\",\"props\":{\"idx\":$i,\"batch\":\"ci\",\"text\":\"record $i\",\"collection\":\"ai.gftd.apps.loadtest\",\"repo\":\"did:web:loadtest.etzhayyim.com\"}}")
+    -d "{\"label\":\"LtNode\",\"pk_key\":\"rkey\",\"pk_value\":\"lt_$i\",\"props\":{\"idx\":$i,\"batch\":\"ci\",\"text\":\"record $i\",\"collection\":\"app.etzhayyim.apps.loadtest\",\"repo\":\"did:web:loadtest.etzhayyim.com\"}}")
 
   T1=$(python3 -c "import time; print(int(time.time()*1000))")
   WRITE_LATENCIES="$WRITE_LATENCIES $((T1 - T0))"
@@ -110,9 +110,9 @@ for i in $(seq 1 $NUM_WRITES); do
   ENTRY=$(echo "$RESULT" | python3 -c "import sys,json; e=json.load(sys.stdin).get('wal_entry'); print(json.dumps(e) if e else '')" 2>/dev/null || echo "")
   if [ -n "$ENTRY" ] && [ "$ENTRY" != "null" ]; then
     T2=$(python3 -c "import time; print(int(time.time()*1000))")
-    curl -s -X POST "$READ0_URL/xrpc/ai.gftd.yata.walApply" \
+    curl -s -X POST "$READ0_URL/xrpc/app.etzhayyim.yata.walApply" \
       -H 'Content-Type: application/json' -d "{\"entries\":[$ENTRY]}" > /dev/null &
-    curl -s -X POST "$READ1_URL/xrpc/ai.gftd.yata.walApply" \
+    curl -s -X POST "$READ1_URL/xrpc/app.etzhayyim.yata.walApply" \
       -H 'Content-Type: application/json' -d "{\"entries\":[$ENTRY]}" > /dev/null &
     wait
     T3=$(python3 -c "import time; print(int(time.time()*1000))")
@@ -145,7 +145,7 @@ COUNT_START=$(python3 -c "import time; print(int(time.time()*1000))")
 for i in $(seq 1 $NUM_READS); do
   if [ $((i % 2)) -eq 0 ]; then URL="$READ0_URL"; else URL="$READ1_URL"; fi
   T0=$(python3 -c "import time; print(int(time.time()*1000))")
-  curl -s -X POST "$URL/xrpc/ai.gftd.yata.cypher" \
+  curl -s -X POST "$URL/xrpc/app.etzhayyim.yata.cypher" \
     -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
     -d '{"statement":"MATCH (r:LtNode) WHERE r.batch = '"'"'ci'"'"' RETURN count(r) AS cnt LIMIT 1"}' > /dev/null
   T1=$(python3 -c "import time; print(int(time.time()*1000))")
@@ -172,7 +172,7 @@ for i in $(seq 1 $NUM_READS); do
   RK=$((RANDOM % NUM_WRITES + 1))
   if [ $((i % 2)) -eq 0 ]; then URL="$READ0_URL"; else URL="$READ1_URL"; fi
   T0=$(python3 -c "import time; print(int(time.time()*1000))")
-  curl -s -X POST "$URL/xrpc/ai.gftd.yata.cypher" \
+  curl -s -X POST "$URL/xrpc/app.etzhayyim.yata.cypher" \
     -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
     -d "{\"statement\":\"MATCH (r:LtNode) WHERE r.rkey = 'lt_$RK' RETURN r.text AS text LIMIT 1\"}" > /dev/null
   T1=$(python3 -c "import time; print(int(time.time()*1000))")
@@ -195,7 +195,7 @@ echo "--- Phase 4: Edge Create + 2-Hop Traversal ---"
 
 # Create Company nodes
 for i in $(seq 1 5); do
-  curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.mergeRecordWal" \
+  curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.mergeRecordWal" \
     -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
     -d "{\"label\":\"LtCompany\",\"pk_key\":\"rkey\",\"pk_value\":\"co_$i\",\"props\":{\"name\":\"Company $i\"}}" > /dev/null
 done
@@ -204,7 +204,7 @@ done
 EDGE_COUNT=0
 for i in $(seq 1 100); do
   CO=$((i % 5 + 1))
-  RES=$(curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.cypher" \
+  RES=$(curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.cypher" \
     -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
     -d "{\"statement\":\"MATCH (p:LtNode),(c:LtCompany) WHERE p.rkey = 'lt_$i' AND c.rkey = 'co_$CO' CREATE (p)-[:WORKS_AT]->(c)\"}")
   EDGE_COUNT=$((EDGE_COUNT + 1))
@@ -213,7 +213,7 @@ done
 # Create edges: LtNode -[:KNOWS]-> LtNode (first 50 nodes, next neighbor)
 for i in $(seq 1 49); do
   NXT=$((i + 1))
-  curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.cypher" \
+  curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.cypher" \
     -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
     -d "{\"statement\":\"MATCH (a:LtNode),(b:LtNode) WHERE a.rkey = 'lt_$i' AND b.rkey = 'lt_$NXT' CREATE (a)-[:KNOWS]->(b)\"}" > /dev/null
 done
@@ -228,7 +228,7 @@ TWOHOP_START=$(python3 -c "import time; print(int(time.time()*1000))")
 for i in $(seq 1 $TWOHOP_READS); do
   RK=$((RANDOM % 49 + 1))
   T0=$(python3 -c "import time; print(int(time.time()*1000))")
-  curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.cypher" \
+  curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.cypher" \
     -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
     -d "{\"statement\":\"MATCH (a:LtNode)-[:KNOWS]->(b:LtNode)-[:WORKS_AT]->(c:LtCompany) WHERE a.rkey = 'lt_$RK' RETURN b.rkey AS person, c.name AS company LIMIT 5\"}" > /dev/null
   T1=$(python3 -c "import time; print(int(time.time()*1000))")
@@ -251,7 +251,7 @@ echo "--- Phase 5: WAL Operations ---"
 
 # WAL tail
 T0=$(python3 -c "import time; print(int(time.time()*1000))")
-TAIL=$(curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.walTail" \
+TAIL=$(curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.walTail" \
   -H 'Content-Type: application/json' -d '{"after_seq":0,"limit":10}')
 T1=$(python3 -c "import time; print(int(time.time()*1000))")
 HEAD_SEQ=$(echo "$TAIL" | python3 -c "import sys,json; print(json.load(sys.stdin).get('head_seq',0))" 2>/dev/null || echo "0")
@@ -259,7 +259,7 @@ echo "  walTail: $((T1 - T0))ms (head_seq=$HEAD_SEQ)"
 
 # WAL flush segment
 T0=$(python3 -c "import time; print(int(time.time()*1000))")
-FLUSH=$(curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.walFlushSegment" \
+FLUSH=$(curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.walFlushSegment" \
   -H 'Content-Type: application/json' -d '{}')
 T1=$(python3 -c "import time; print(int(time.time()*1000))")
 FLUSH_BYTES=$(echo "$FLUSH" | python3 -c "import sys,json; print(json.load(sys.stdin).get('bytes',0))" 2>/dev/null || echo "0")
@@ -268,7 +268,7 @@ check "flush_bytes > 0" "$FLUSH_BYTES > 0"
 
 # WAL checkpoint (Lance-backed state)
 T0=$(python3 -c "import time; print(int(time.time()*1000))")
-CP=$(curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.walCheckpoint" \
+CP=$(curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.walCheckpoint" \
   -H 'Content-Type: application/json' -d '{}')
 T1=$(python3 -c "import time; print(int(time.time()*1000))")
 CP_V=$(echo "$CP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('vertices',0))" 2>/dev/null || echo "0")
@@ -279,7 +279,7 @@ check "checkpoint_vertices > 0" "$CP_V > 0"
 
 # Cold start read-1 from checkpoint
 T0=$(python3 -c "import time; print(int(time.time()*1000))")
-COLD=$(curl -s -X POST "$READ1_URL/xrpc/ai.gftd.yata.walColdStart" \
+COLD=$(curl -s -X POST "$READ1_URL/xrpc/app.etzhayyim.yata.walColdStart" \
   -H 'Content-Type: application/json' -d '{}')
 T1=$(python3 -c "import time; print(int(time.time()*1000))")
 COLD_SEQ=$(echo "$COLD" | python3 -c "import sys,json; print(json.load(sys.stdin).get('checkpoint_seq',0))" 2>/dev/null || echo "0")
@@ -287,18 +287,18 @@ COLD_MS=$((T1 - T0))
 echo "  walColdStart (read-1): ${COLD_MS}ms (checkpoint_seq=$COLD_SEQ)"
 
 # Catch up from WAL tail after checkpoint
-CATCH_TAIL=$(curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.walTail" \
+CATCH_TAIL=$(curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.walTail" \
   -H 'Content-Type: application/json' -d "{\"after_seq\":$COLD_SEQ,\"limit\":100000}")
 CATCH_ENTRIES=$(echo "$CATCH_TAIL" | python3 -c "import sys,json; d=json.load(sys.stdin); entries=d.get('entries',[]); print(len(entries))" 2>/dev/null || echo "0")
 if [ "$CATCH_ENTRIES" -gt 0 ]; then
   ENTRIES_JSON=$(echo "$CATCH_TAIL" | python3 -c "import sys,json; d=json.load(sys.stdin); print(json.dumps(d.get('entries',[])))")
-  curl -s -X POST "$READ1_URL/xrpc/ai.gftd.yata.walApply" \
+  curl -s -X POST "$READ1_URL/xrpc/app.etzhayyim.yata.walApply" \
     -H 'Content-Type: application/json' -d "{\"entries\":$ENTRIES_JSON}" > /dev/null
 fi
 echo "  WAL catch-up: $CATCH_ENTRIES entries applied to read-1"
 
 # Verify data on read-1 after cold start
-VERIFY=$(curl -s -X POST "$READ1_URL/xrpc/ai.gftd.yata.cypher" \
+VERIFY=$(curl -s -X POST "$READ1_URL/xrpc/app.etzhayyim.yata.cypher" \
   -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
   -d '{"statement":"MATCH (r:LtNode) RETURN count(r) AS cnt LIMIT 1"}')
 VERIFY_CNT=$(echo "$VERIFY" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['rows'][0][0] if d.get('rows') else 0)" 2>/dev/null || echo "0")
@@ -317,7 +317,7 @@ MIXED_OPS=0
 for i in $(seq 1 $MIXED_N); do
   # Read
   RK=$((RANDOM % NUM_WRITES + 1))
-  curl -s -X POST "$READ0_URL/xrpc/ai.gftd.yata.cypher" \
+  curl -s -X POST "$READ0_URL/xrpc/app.etzhayyim.yata.cypher" \
     -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
     -d "{\"statement\":\"MATCH (r:LtNode) WHERE r.rkey = 'lt_$RK' RETURN r.text AS text LIMIT 1\"}" > /dev/null
   MIXED_OPS=$((MIXED_OPS + 1))
@@ -325,7 +325,7 @@ for i in $(seq 1 $MIXED_N); do
   # Write every 3rd iteration
   if [ $((i % 3)) -eq 0 ]; then
     WI=$((NUM_WRITES + i))
-    curl -s -X POST "$WRITE_URL/xrpc/ai.gftd.yata.mergeRecordWal" \
+    curl -s -X POST "$WRITE_URL/xrpc/app.etzhayyim.yata.mergeRecordWal" \
       -H 'Content-Type: application/json' -H 'X-Magatama-Verified: true' \
       -d "{\"label\":\"LtNode\",\"pk_key\":\"rkey\",\"pk_value\":\"lt_$WI\",\"props\":{\"idx\":$WI,\"batch\":\"mixed\"}}" > /dev/null
     MIXED_OPS=$((MIXED_OPS + 1))

@@ -415,7 +415,7 @@ describe("open-banking rw-free", () => {
     });
 
     it("creates two LedgerEntry records per transfer", async () => {
-      const beforeCount = e.count("ai.gftd.apps.openBanking.ledger");
+      const beforeCount = e.count("app.etzhayyim.apps.openBanking.ledger");
 
       await transfer(e, {
         transferId: "tx-count",
@@ -426,7 +426,7 @@ describe("open-banking rw-free", () => {
         currency: "USDC",
       });
 
-      const afterCount = e.count("ai.gftd.apps.openBanking.ledger");
+      const afterCount = e.count("app.etzhayyim.apps.openBanking.ledger");
       expect(afterCount - beforeCount).toBe(2);
     });
   });

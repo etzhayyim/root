@@ -10,7 +10,7 @@ authoritative_for:
   - saikin ecosystem member design
   - horizontal signal transfer in myco-yeast artificial organism
 related:
-  - adr-2605071200
+  - adr-2605071200-myco-yeast-artificial-organism-jp-naming
   - adr-2605071900
 supersedes: []
 superseded_by: []

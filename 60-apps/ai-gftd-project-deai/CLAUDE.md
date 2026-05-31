@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-`deai.gftd.ai` — Spirit-in-Physics 研究データ収集フロントエンド + 出会い・マッチングアプリ。
+`deapp.etzhayyim.ai` — Spirit-in-Physics 研究データ収集フロントエンド + 出会い・マッチングアプリ。
 
 **主目的は研究データ収集。** 出会い・マッチング機能は参加インセンティブ。
 全データは spirit-in-physics.com（研究 SSoT）に送信される。
@@ -64,9 +64,9 @@ P(w_O | w_I) = exp(w_I · w_O) × r^α × exp(γ·ΔSP/λ) × exp(η·F) / Z
 
 | DID | 用途 |
 |---|---|
-| `did:web:deai.gftd.ai` (primary) | Platform agent (controller) |
-| `did:web:deai.gftd.ai:{cohort-hash}` | コホートユーザー（統計的個体群） |
-| `did:web:deai.gftd.ai:type:{spirit-type}` | Spirit Type アーキタイプ DID |
+| `did:web:deapp.etzhayyim.ai` (primary) | Platform agent (controller) |
+| `did:web:deapp.etzhayyim.ai:{cohort-hash}` | コホートユーザー（統計的個体群） |
+| `did:web:deapp.etzhayyim.ai:type:{spirit-type}` | Spirit Type アーキタイプ DID |
 
 ## Runtime
 
@@ -76,7 +76,7 @@ P(w_O | w_I) = exp(w_I · w_O) × r^α × exp(γ·ΔSP/λ) × exp(η·F) / Z
 | Frontend | `appview/deai-cgxi8oem/svelte/` (SvelteKit 5 SPA, CSR only) |
 | Mobile | `appview/deai-cgxi8oem/mobile/` (Capacitor 6 iOS/Android) |
 | nanoid | `cgxi8oem` |
-| Domain | `deai.gftd.ai` |
+| Domain | `deapp.etzhayyim.ai` |
 | Deploy | `cd appview/deai-cgxi8oem && gftd deploy` |
 
 ## Data Model
@@ -84,7 +84,7 @@ P(w_O | w_I) = exp(w_I · w_O) × r^α × exp(γ·ΔSP/λ) × exp(η·F) / Z
 ### AT Protocol Collections (Tier 1 Social)
 | Collection | 用途 |
 |---|---|
-| `ai.gftd.apps.deai.checkin` | 毎日の Spirit Check-in（感情 snapshot） |
+| `app.etzhayyim.apps.deai.checkin` | 毎日の Spirit Check-in（感情 snapshot） |
 
 ### Domain Tables (Tier 2, K8s Pod → RisingWave)
 | Table | 主要カラム |
@@ -105,13 +105,13 @@ P(w_O | w_I) = exp(w_I · w_O) × r^α × exp(γ·ΔSP/λ) × exp(η·F) / Z
 
 | NSID | 型 | 説明 |
 |---|---|---|
-| `ai.gftd.apps.deai.startAssessment` | procedure | 語連想セッション開始 |
-| `ai.gftd.apps.deai.submitResponse` | procedure | 語 + 感情応答送信 |
-| `ai.gftd.apps.deai.getProfile` | query | Spirit プロファイル取得 |
-| `ai.gftd.apps.deai.listMatches` | query | マッチ一覧取得 |
-| `ai.gftd.apps.deai.createCheckin` | procedure | Spirit Check-in 作成 |
-| `ai.gftd.apps.deai.sendMessage` | procedure | 暗号化メッセージ送信 |
-| `ai.gftd.apps.deai.listMessages` | query | メッセージ一覧取得 |
+| `app.etzhayyim.apps.deai.startAssessment` | procedure | 語連想セッション開始 |
+| `app.etzhayyim.apps.deai.submitResponse` | procedure | 語 + 感情応答送信 |
+| `app.etzhayyim.apps.deai.getProfile` | query | Spirit プロファイル取得 |
+| `app.etzhayyim.apps.deai.listMatches` | query | マッチ一覧取得 |
+| `app.etzhayyim.apps.deai.createCheckin` | procedure | Spirit Check-in 作成 |
+| `app.etzhayyim.apps.deai.sendMessage` | procedure | 暗号化メッセージ送信 |
+| `app.etzhayyim.apps.deai.listMessages` | query | メッセージ一覧取得 |
 
 ## LangGraph Graphs
 
@@ -124,7 +124,7 @@ P(w_O | w_I) = exp(w_I · w_O) × r^α × exp(γ·ΔSP/λ) × exp(η·F) / Z
 
 | 項目 | 値 |
 |---|---|
-| App ID | `ai.gftd.deai` |
+| App ID | `app.etzhayyim.deai` |
 | App Name | `deai — Spirit Match` |
 | Web Dir | `../svelte/build` |
 | iOS | `mobile/ios/` |
@@ -142,7 +142,7 @@ npx cap open android  # Android Studio
 ## Security / Privacy
 
 - **Vault zero-knowledge**: 生体データ（顔・音声）は client 側で Hume API 呼び出し後に即破棄。スコアのみ送信。
-- **Cohort DID**: 個人識別子は server に保持しない。cohort DID (`did:web:deai.gftd.ai:{hash}`) のみ。
+- **Cohort DID**: 個人識別子は server に保持しない。cohort DID (`did:web:deapp.etzhayyim.ai:{hash}`) のみ。
 - **Signal protocol**: DM は E2E 暗号化 `signal:v1:{ciphertext}` フィールド。
 - **Consent gate**: マッチング・感情データ共有はユーザー明示同意が必要。
 - **PII Tier 3**: 年齢・性別・地域は Cohort 次元として統計化。raw PII は Vault のみ。

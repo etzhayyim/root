@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govNor.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govNor.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Norway government.",
-        "operationId": "ai.gftd.govNor.followSiteDeps",
+        "operationId": "app.etzhayyim.govNor.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNor.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govNor.heartbeatTick": {
       "post": {
         "summary": "Run the Norway government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govNor.heartbeatTick",
+        "operationId": "app.etzhayyim.govNor.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNor.listOrgs": {
+    "/xrpc/app.etzhayyim.govNor.listOrgs": {
       "get": {
         "summary": "List Norway government organization graph records.",
-        "operationId": "ai.gftd.govNor.listOrgs",
+        "operationId": "app.etzhayyim.govNor.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNor.registerDIDs": {
+    "/xrpc/app.etzhayyim.govNor.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Norway government organizations.",
-        "operationId": "ai.gftd.govNor.registerDIDs",
+        "operationId": "app.etzhayyim.govNor.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNor.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govNor.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Norway government organization path to its graph record.",
-        "operationId": "ai.gftd.govNor.resolveOrgPath",
+        "operationId": "app.etzhayyim.govNor.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNor.seedOrgs": {
+    "/xrpc/app.etzhayyim.govNor.seedOrgs": {
       "post": {
         "summary": "Seed initial Norway government organization records into the graph.",
-        "operationId": "ai.gftd.govNor.seedOrgs",
+        "operationId": "app.etzhayyim.govNor.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNor.shinka": {
+    "/xrpc/app.etzhayyim.govNor.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Norway government organization update.",
-        "operationId": "ai.gftd.govNor.shinka",
+        "operationId": "app.etzhayyim.govNor.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNor.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govNor.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Norway government organization changes to graph.",
-        "operationId": "ai.gftd.govNor.syncWetUpdates",
+        "operationId": "app.etzhayyim.govNor.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

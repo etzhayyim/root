@@ -25,7 +25,7 @@ function createSdk() {
 
 let setupCallback: ((sdk: ReturnType<typeof createSdk>) => void) | null = null;
 
-vi.mock("@gftd/magatama-host-sdk", () => ({
+vi.mock("@etzhayyim/magatama-host-sdk", () => ({
   createWorkerExport: (cb: (sdk: ReturnType<typeof createSdk>) => void) => {
     setupCallback = cb;
     return { fetch: vi.fn() };
@@ -70,28 +70,28 @@ describe("cpc command registration", () => {
     setupCallback!(sdk);
 
     const nsids = sdk.app.command.mock.calls.map((c: unknown[]) => c[0]);
-    expect(nsids).toContain("ai.gftd.apps.cpc.catalog.listSections");
-    expect(nsids).toContain("ai.gftd.apps.cpc.catalog.listDivisions");
-    expect(nsids).toContain("ai.gftd.apps.cpc.catalog.getProduct");
-    expect(nsids).toContain("ai.gftd.apps.cpc.catalog.searchProducts");
-    expect(nsids).toContain("ai.gftd.apps.cpc.concordance.get");
-    expect(nsids).toContain("ai.gftd.apps.cpc.process.resolveManufacturingProcess");
-    expect(nsids).toContain("ai.gftd.apps.cpc.registry.registerToPds");
-    expect(nsids).toContain("ai.gftd.apps.cpc.stats");
-    expect(nsids).toContain("ai.gftd.apps.cpc.wave");
+    expect(nsids).toContain("app.etzhayyim.apps.cpc.catalog.listSections");
+    expect(nsids).toContain("app.etzhayyim.apps.cpc.catalog.listDivisions");
+    expect(nsids).toContain("app.etzhayyim.apps.cpc.catalog.getProduct");
+    expect(nsids).toContain("app.etzhayyim.apps.cpc.catalog.searchProducts");
+    expect(nsids).toContain("app.etzhayyim.apps.cpc.concordance.get");
+    expect(nsids).toContain("app.etzhayyim.apps.cpc.process.resolveManufacturingProcess");
+    expect(nsids).toContain("app.etzhayyim.apps.cpc.registry.registerToPds");
+    expect(nsids).toContain("app.etzhayyim.apps.cpc.stats");
+    expect(nsids).toContain("app.etzhayyim.apps.cpc.wave");
     expect(nsids).toHaveLength(9);
   });
 });
 
 describe("cpc handlers", () => {
   it("listSections returns 10 sections", () => {
-    const handler = getHandler("ai.gftd.apps.cpc.catalog.listSections");
+    const handler = getHandler("app.etzhayyim.apps.cpc.catalog.listSections");
     const result = dec(handler(null, enc({})));
     expect(result.totalSections).toBe(10);
   });
 
   it("listDivisions can filter by section", () => {
-    const handler = getHandler("ai.gftd.apps.cpc.catalog.listDivisions");
+    const handler = getHandler("app.etzhayyim.apps.cpc.catalog.listDivisions");
     const result = dec(handler(null, enc({ section: 4 })));
     const items = result.items as Array<{ section: number; code: number }>;
     expect(items.length).toBeGreaterThan(0);
@@ -99,14 +99,14 @@ describe("cpc handlers", () => {
   });
 
   it("getProduct returns known CPC product", () => {
-    const handler = getHandler("ai.gftd.apps.cpc.catalog.getProduct");
+    const handler = getHandler("app.etzhayyim.apps.cpc.catalog.getProduct");
     const result = dec(handler(null, enc({ cpc_code: "45220" })));
     expect(result.code).toBe("45220");
     expect(result.division).toBe(45);
   });
 
   it("searchProducts supports code prefix", () => {
-    const handler = getHandler("ai.gftd.apps.cpc.catalog.searchProducts");
+    const handler = getHandler("app.etzhayyim.apps.cpc.catalog.searchProducts");
     const result = dec(handler(null, enc({ code_prefix: "49" })));
     const items = result.items as Array<{ code: string }>;
     expect(items.length).toBeGreaterThan(0);
@@ -114,7 +114,7 @@ describe("cpc handlers", () => {
   });
 
   it("getConcordance returns CPC-ISIC-HS mapping", () => {
-    const handler = getHandler("ai.gftd.apps.cpc.concordance.get");
+    const handler = getHandler("app.etzhayyim.apps.cpc.concordance.get");
     const result = dec(handler(null, enc({ cpc_code: "49113" })));
     expect(result.cpc_code).toBe("49113");
     expect(result.isic4).toBeTruthy();
@@ -122,14 +122,14 @@ describe("cpc handlers", () => {
   });
 
   it("resolveManufacturingProcess resolves mapped divisions", () => {
-    const handler = getHandler("ai.gftd.apps.cpc.process.resolveManufacturingProcess");
+    const handler = getHandler("app.etzhayyim.apps.cpc.process.resolveManufacturingProcess");
     const result = dec(handler(null, enc({ cpc_code: "54111" })));
     expect(result.division).toBe(54);
     expect((result.process as { process: string }).process).toBe("building-construction");
   });
 
   it("registerToPds writes records unless dry_run", () => {
-    const handler = getHandler("ai.gftd.apps.cpc.registry.registerToPds");
+    const handler = getHandler("app.etzhayyim.apps.cpc.registry.registerToPds");
 
     const dry = dec(handler(null, enc({ division: 45, dry_run: true })));
     expect(dry.count).toBe(1);
@@ -139,11 +139,11 @@ describe("cpc handlers", () => {
     expect(real.count).toBe(1);
     expect(dispatchCalls.length).toBe(1);
     expect(dispatchCalls[0].type).toBe("com.atproto.repo.createRecord");
-    expect(dispatchCalls[0].payload.collection).toBe("ai.gftd.apps.cpc.product");
+    expect(dispatchCalls[0].payload.collection).toBe("app.etzhayyim.apps.cpc.product");
   });
 
   it("stats returns coverage snapshot", () => {
-    const handler = getHandler("ai.gftd.apps.cpc.stats");
+    const handler = getHandler("app.etzhayyim.apps.cpc.stats");
     const result = dec(handler(null, enc({})));
     expect(result.cpcVersion).toBe("2.1");
     expect(result.coverage).toBeTruthy();

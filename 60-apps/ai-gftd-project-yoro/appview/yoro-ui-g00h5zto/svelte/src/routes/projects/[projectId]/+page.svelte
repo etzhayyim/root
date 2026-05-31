@@ -408,7 +408,7 @@
 
 		try {
 			const res = await withTimeout(
-				atProcedureWithSession('ai.gftd.apps.ops.newProjectConvo', payload),
+				atProcedureWithSession('app.etzhayyim.apps.ops.newProjectConvo', payload),
 				OPS_TIMEOUT_MS,
 				'ops.newProjectConvo',
 			);
@@ -419,7 +419,7 @@
 			console.warn('ops.newProjectConvo failed:', e);
 		}
 
-		const legacyRes = await atProcedureWithSession('ai.gftd.projector.newProjectConvo', payload);
+		const legacyRes = await atProcedureWithSession('app.etzhayyim.projector.newProjectConvo', payload);
 		const legacy = (typeof legacyRes === 'string' ? JSON.parse(legacyRes) : legacyRes) as Record<string, unknown>;
 		const convo = (legacy?.convoId as string) || (legacy?.convo_id as string);
 		if (!convo) throw new Error('newProjectConvo returned no convoId');
@@ -436,7 +436,7 @@
 
 	async function loadChat() {
 		try {
-			const res = await atProcedureWithSession('ai.gftd.projector.loadProjectChat', { convoId });
+			const res = await atProcedureWithSession('app.etzhayyim.projector.loadProjectChat', { convoId });
 			const data = res as Record<string, unknown>;
 			const loaded = (data?.messages ?? []) as ChatMessage[];
 			const loadedMembers = (data?.members ?? []) as ProjectMember[];
@@ -445,7 +445,7 @@
 		} catch (e) { console.warn('loadProjectChat failed:', e); }
 		// Load project metadata (email, name, DID)
 		try {
-			const meta = await atProcedureWithSession<Record<string, unknown>>('ai.gftd.projector.getProjectConvo', { convoId });
+			const meta = await atProcedureWithSession<Record<string, unknown>>('app.etzhayyim.projector.getProjectConvo', { convoId });
 			const proj = (typeof meta === 'string' ? JSON.parse(meta) : meta) as Record<string, unknown>;
 			const project = (proj?.project ?? {}) as Record<string, unknown>;
 			projectEmail = (project?.email as string) || '';
@@ -459,7 +459,7 @@
 				parentProjectName = (project?.parentProjectName as string) || '';
 				// If no parent name in response, fetch it
 				if (!parentProjectName && parentId) {
-					atProcedureWithSession<Record<string, unknown>>('ai.gftd.projector.getProjectConvo', { convoId: parentId })
+					atProcedureWithSession<Record<string, unknown>>('app.etzhayyim.projector.getProjectConvo', { convoId: parentId })
 						.then(r => { const p = (typeof r === 'string' ? JSON.parse(r) : r) as Record<string, unknown>; const pp = (p?.project ?? {}) as Record<string, unknown>; parentProjectName = (pp?.name as string) || parentId.slice(0, 8); })
 						.catch((error) => {
 							console.warn('[silent-fail] projects/[projectId]/+page.svelte: parent project fetch failed', error);
@@ -484,8 +484,8 @@
 	async function loadSubProjects() {
 		subProjectsLoading = true;
 		try {
-			const parentUri = `at://${selfDid}/ai.gftd.projector/${convoId}`;
-			const res = await atProcedureWithSession<{ convos: typeof subProjects }>('ai.gftd.projector.listProjectConvos', { parentUri, limit: 50 });
+			const parentUri = `at://${selfDid}/app.etzhayyim.projector/${convoId}`;
+			const res = await atProcedureWithSession<{ convos: typeof subProjects }>('app.etzhayyim.projector.listProjectConvos', { parentUri, limit: 50 });
 			const data = typeof res === 'string' ? JSON.parse(res) : res;
 			subProjects = (data?.convos ?? []) as typeof subProjects;
 		} catch (e) { console.warn('loadSubProjects failed:', e); subProjects = []; }
@@ -499,8 +499,8 @@
 		try {
 			const now = new Date();
 			const name = `Sub ${now.toLocaleDateString('ja-JP')} ${now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })}`;
-			const parentUri = `at://${selfDid}/ai.gftd.projector/${convoId}`;
-			const res = await atProcedureWithSession<Record<string, unknown>>('ai.gftd.projector.newProjectConvo', { name, parentProjectUri: parentUri });
+			const parentUri = `at://${selfDid}/app.etzhayyim.projector/${convoId}`;
+			const res = await atProcedureWithSession<Record<string, unknown>>('app.etzhayyim.projector.newProjectConvo', { name, parentProjectUri: parentUri });
 			const parsed = (typeof res === 'string' ? JSON.parse(res) : res) as Record<string, unknown>;
 			const newConvoId = (parsed?.convoId as string) || '';
 			if (newConvoId) {
@@ -514,7 +514,7 @@
 	/** Check if current user is owner/member of this project. */
 	async function checkMembership() {
 		try {
-			const meta = await atProcedureWithSession<Record<string, unknown>>('ai.gftd.projector.getProjectConvo', { convoId });
+			const meta = await atProcedureWithSession<Record<string, unknown>>('app.etzhayyim.projector.getProjectConvo', { convoId });
 			const proj = (typeof meta === 'string' ? JSON.parse(meta) : meta) as Record<string, unknown>;
 			const project = (proj?.project ?? {}) as Record<string, unknown>;
 			const membersList = (project?.members ?? proj?.members ?? []) as Array<{ did: string }>;
@@ -596,7 +596,7 @@
 		const question = knowledgeQuestion(text);
 		if (!question) return false;
 		loadingLabel = 'Domain knowledge を検索中...';
-		const res = await fetch('https://llm.etzhayyim.com/xrpc/ai.gftd.apps.llm.answerWithKnowledge?stream=1&timeoutMs=240000', {
+		const res = await fetch('https://llm.etzhayyim.com/xrpc/app.etzhayyim.apps.llm.answerWithKnowledge?stream=1&timeoutMs=240000', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream' },
 			body: JSON.stringify(knowledgePayload(question)),
@@ -670,7 +670,7 @@
 		if (shouldUseKnowledgeAnswer(text)) {
 			try {
 				if (await handleKnowledgeAnswer(text, msgId)) {
-					atProcedureWithSession('ai.gftd.projector.sendProjectMessage', { convoId, text: text.trim() }).catch((e) => console.warn('[knowledge] PDS persist failed:', e));
+					atProcedureWithSession('app.etzhayyim.projector.sendProjectMessage', { convoId, text: text.trim() }).catch((e) => console.warn('[knowledge] PDS persist failed:', e));
 					chatLoading = false; loadingLabel = ''; sending = false;
 					await tick(); scrollToBottom();
 					return;
@@ -744,7 +744,7 @@
 					messages = [...messages, { id: `local-${Date.now()}`, role: 'assistant', body: cleanReply, timestamp: new Date().toISOString() }];
 				}
 				chatLoading = false; loadingLabel = ''; sending = false;
-				atProcedureWithSession('ai.gftd.projector.sendProjectMessage', { convoId, text: text.trim() }).catch((e) => console.warn('[agent-executor] PDS persist failed:', e));
+				atProcedureWithSession('app.etzhayyim.projector.sendProjectMessage', { convoId, text: text.trim() }).catch((e) => console.warn('[agent-executor] PDS persist failed:', e));
 				await tick(); scrollToBottom();
 				return;
 			}
@@ -759,7 +759,7 @@
 				messages = messages.map((m) => (m.id === msgId ? { ...m, status: 'sent' as const } : m));
 				messages = [...messages, { id: `local-${Date.now()}`, role: 'assistant', body: localReply, timestamp: new Date().toISOString() }];
 				chatLoading = false; loadingLabel = ''; sending = false;
-				atProcedureWithSession('ai.gftd.projector.sendProjectMessage', { convoId, text: text.trim() }).catch((e) => console.warn('[graphrag] PDS persist failed:', e));
+				atProcedureWithSession('app.etzhayyim.projector.sendProjectMessage', { convoId, text: text.trim() }).catch((e) => console.warn('[graphrag] PDS persist failed:', e));
 				await tick(); scrollToBottom();
 				return;
 			}
@@ -768,7 +768,7 @@
 		// PDS server-side LLM fallback (Murakumo + MCP tool calling)
 		loadingLabel = 'Agent 推論中 (server)...';
 		try {
-			const res = await atProcedureWithSession('ai.gftd.projector.sendProjectMessage', { convoId, text: text.trim() }, { timeout: LLM_TIMEOUT_MS });
+			const res = await atProcedureWithSession('app.etzhayyim.projector.sendProjectMessage', { convoId, text: text.trim() }, { timeout: LLM_TIMEOUT_MS });
 			const data = res as Record<string, unknown>;
 			messages = messages.map((m) => (m.id === msgId ? { ...m, status: 'sent' as const } : m));
 			let replyText = (data?.reply as string) ?? '';
@@ -793,7 +793,7 @@
 		await tick();
 		scrollToBottom();
 		try {
-			const res = await atProcedureWithSession('ai.gftd.projector.sendProjectMessage', {
+			const res = await atProcedureWithSession('app.etzhayyim.projector.sendProjectMessage', {
 				convoId,
 				text: `/image ${prompt}`,
 			}, { timeout: LLM_TIMEOUT_MS });
@@ -830,7 +830,7 @@
 		await tick();
 		scrollToBottom();
 		try {
-			const res = await atProcedureWithSession('ai.gftd.projector.sendProjectMessage', {
+			const res = await atProcedureWithSession('app.etzhayyim.projector.sendProjectMessage', {
 				convoId, text: `/think ${prompt}`,
 			}, { timeout: LLM_TIMEOUT_MS });
 			const data = res as Record<string, unknown>;
@@ -872,7 +872,7 @@
 		if (!target) return;
 		chatLoading = true;
 		try {
-			await atProcedureWithSession('ai.gftd.projector.addConvoMember', { convoId: convoId, memberDid: target, role: 'member' });
+			await atProcedureWithSession('app.etzhayyim.projector.addConvoMember', { convoId: convoId, memberDid: target, role: 'member' });
 			let displayName = target;
 			try { const r = await searchActors(target, { limit: 1 }); displayName = (r?.actors ?? [])[0]?.displayName ?? target; } catch { /* ok */ }
 			members = [...members, { did: target, displayName, role: 'member', addedAt: new Date().toISOString() }];
@@ -995,7 +995,7 @@
 			const payload: Record<string, unknown> = { convoId, text: text || `[ファイル: ${attachments.map(a => a.name).join(', ')}]` };
 			if (embed) payload.embed = embed;
 			if (attachments.length > 0) payload.attachments = attachments;
-			const res = await atProcedureWithSession('ai.gftd.projector.sendProjectMessage', payload, { timeout: LLM_TIMEOUT_MS });
+			const res = await atProcedureWithSession('app.etzhayyim.projector.sendProjectMessage', payload, { timeout: LLM_TIMEOUT_MS });
 			const data = res as Record<string, unknown>;
 			const replyText = ((data?.reply as string) ?? '').replace(/<think>[\s\S]*?<\/think>\s*/g, '').trim();
 			if (replyText) {

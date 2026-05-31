@@ -9,11 +9,11 @@ last_verified: 2026-05-23
 priority: 6.8
 axis: architecture
 weight: 0.68
-priority_note: "Closes the substrate hop between etzhayyim (PHI custody, USDC self-pay) and vendor iryo.gftd.ai (RisingWave + Stripe + DPC/DRG insurance billing) without weakening the etzhayyim charter's three-axis-split rule. The same consent capability primitive serves data portability, second-opinion, research-de-identified, and emergency disclosure — i.e. every cross-actor PHI flow."
+priority_note: "Closes the substrate hop between etzhayyim (PHI custody, USDC self-pay) and vendor iryo.etzhayyim.com (RisingWave + Stripe + DPC/DRG insurance billing) without weakening the etzhayyim charter's three-axis-split rule. The same consent capability primitive serves data portability, second-opinion, research-de-identified, and emergency disclosure — i.e. every cross-actor PHI flow."
 authoritative_for:
   - consent capability shape (`app.etzhayyim.consent.capability`)
   - cross-actor PHI delegation pattern under the etzhayyim charter
-  - karute ↔ iryo.gftd.ai billing bridge
+  - karute ↔ iryo.etzhayyim.com billing bridge
   - patient-initiated grant/revoke flow in karute UI
 depends_on:
   - adr-2605231100-karute-emr-phase1
@@ -21,7 +21,7 @@ depends_on:
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605172000-etzhayyim-rw-free-substrate
 related:
-  - adr-2605192115-non-profit-only-payment-purpose
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
 supersedes: []
 superseded_by: []
 ---
@@ -34,7 +34,7 @@ superseded_by: []
 
 # Context
 
-ADR-2605231100 (karute EMR Phase 1) deferred insurance billing to a follow-up consent-capability ADR. The 3-axis split rule (ADR-2605172400) puts clinical PHI custody on the etzhayyim substrate but JP insurance claim submission (社保 / 国保 → DPC/DRG) on the vendor `iryo.gftd.ai` actor because:
+ADR-2605231100 (karute EMR Phase 1) deferred insurance billing to a follow-up consent-capability ADR. The 3-axis split rule (ADR-2605172400) puts clinical PHI custody on the etzhayyim substrate but JP insurance claim submission (社保 / 国保 → DPC/DRG) on the vendor `iryo.etzhayyim.com` actor because:
 
 1. **Settlement** is fiat (社保支払基金 / 国保連 → bank wire). The etzhayyim substrate restricts payments to USDC/ERC-4337 (ADR-2605172100). Self-pay clinics work day one; insurance-clinics need vendor.
 2. **Custody** for billed claims is regulatory (社保レセプト保管義務). Vendor side holds the claim record; etzhayyim holds the source clinical record. Single-system custody is constitutionally precluded.
@@ -57,7 +57,7 @@ A consent capability is an Ed25519-signed delegation record stored at `app.etzha
 {
   version: 1,
   granterDid:    "did:plc:patient-self-or-guardian",
-  granteeDid:    "did:web:iryo.gftd.ai" | "did:web:dr-someone.etzhayyim.com" | ...,
+  granteeDid:    "did:web:iryo.etzhayyim.com" | "did:web:dr-someone.etzhayyim.com" | ...,
   purpose:       "insurance-billing" | "second-opinion" | "data-portability"
                 | "research-deidentified" | "emergency-disclosure" | "legal-disclosure",
   scope:         ["app.etzhayyim.karute.encounter", "app.etzhayyim.karute.serviceRequest", ...],
@@ -90,11 +90,11 @@ The grantee actor presents the capability to the karute substrate alongside its 
 
 ### Pattern 2 — etzhayyim ↔ vendor bridge (insurance billing)
 
-A patient grants `did:web:iryo.gftd.ai` an `insurance-billing` capability scoped to the encounter + service-request + medication-request URIs for a specific encounter. The karute pipeline calls iryo's `ingestKaruteEncounterForBilling` XRPC, passing the capability URI. iryo:
+A patient grants `did:web:iryo.etzhayyim.com` an `insurance-billing` capability scoped to the encounter + service-request + medication-request URIs for a specific encounter. The karute pipeline calls iryo's `ingestKaruteEncounterForBilling` XRPC, passing the capability URI. iryo:
 
 1. Resolves the capability record (public, signed)
 2. Verifies signature against the patient's DID document
-3. Verifies `purpose === "insurance-billing"` and `granteeDid === did:web:iryo.gftd.ai`
+3. Verifies `purpose === "insurance-billing"` and `granteeDid === did:web:iryo.etzhayyim.com`
 4. Verifies the requested scope is within the capability scope and timestamp is within validity
 5. Issues a key-wrap request to the karute substrate (which the substrate honors because the capability is valid)
 6. Decrypts each in-scope record via `@etzhayyim/sdk.encryptedRead`
@@ -123,10 +123,10 @@ Mitigations:
 
 | Method | Type | Purpose |
 |---|---|---|
-| `ai.gftd.apps.karute.grantConsent` | procedure | Issue a new capability (server signs via `@etzhayyim/sdk`) |
-| `ai.gftd.apps.karute.revokeConsent` | procedure | Mark a capability revoked |
-| `ai.gftd.apps.karute.listConsent` | query | Enumerate capabilities by granter / grantee / purpose / status |
-| `ai.gftd.apps.karute.requestIryoBilling` | procedure | Bridge endpoint that verifies the capability + forwards to vendor iryo |
+| `app.etzhayyim.apps.karute.grantConsent` | procedure | Issue a new capability (server signs via `@etzhayyim/sdk`) |
+| `app.etzhayyim.apps.karute.revokeConsent` | procedure | Mark a capability revoked |
+| `app.etzhayyim.apps.karute.listConsent` | query | Enumerate capabilities by granter / grantee / purpose / status |
+| `app.etzhayyim.apps.karute.requestIryoBilling` | procedure | Bridge endpoint that verifies the capability + forwards to vendor iryo |
 
 The lexicon record `app.etzhayyim.consent.capability` is the canonical on-chain form; the XRPC layer above is the ergonomic procedural surface.
 
@@ -163,7 +163,7 @@ The lexicon record `app.etzhayyim.consent.capability` is the canonical on-chain 
 
 1. **This commit** — Lexicons (`app.etzhayyim.consent.capability` + 4 XRPC) + ADR + actor manifest pipelines + UI integration in PatientPortalView.
 2. **Phase 2** — Real signature via `@etzhayyim/sdk.signConsentCapability` (currently a stub in the actor manifest). Server-side capability verification middleware.
-3. **Phase 3** — iryo.gftd.ai vendor-side `ingestKaruteEncounterForBilling` XRPC + DPC/DRG materialization pipeline. (Lives in `ai-gftd-apps-gftdcojp` repo, not this one.)
+3. **Phase 3** — iryo.etzhayyim.com vendor-side `ingestKaruteEncounterForBilling` XRPC + DPC/DRG materialization pipeline. (Lives in `ai-gftd-apps-gftdcojp` repo, not this one.)
 4. **Phase 4** — Auditor webhook subsystem + clinician affordance ("Request billing consent") in PatientDetailView. Patient-DID-hash variant for capability metadata.
 5. **Phase 5** — Per-record rekey + tombstone protocol (joint follow-up with ADR-2605181100).
 
@@ -195,7 +195,7 @@ OAuth scopes are server-side and bound to access tokens, not records. Doesn't co
 - ADR-2605181100 [MST encrypted records + Signal key-wrap](./2605181100-mst-encrypted-records-signal-keywrap.md)
 - ADR-2605172000 [RW-free substrate](./2605172000-etzhayyim-rw-free-substrate.md)
 - ADR-2605172400 [etzhayyim/vendor 3-axis split](./2605172400-etzhayyim-vendor-three-axis-split-rule.md)
-- ADR-2605192115 [Non-profit-only payment purpose](./2605192115-non-profit-only-payment-purpose.md)
+- ADR-2605192115 [Non-profit-only payment purpose](/90-docs/adr/2605192115-etzhayyim-non-profit-donation-only-no-ads.md)
 - 個人情報保護法 §17, §17-2, §18, §27 (PHI 第三者提供同意)
 - 保険医療機関及び保険医療養担当規則 (レセプト記載 + 保管義務)
 - UCAN spec — https://ucan.xyz/

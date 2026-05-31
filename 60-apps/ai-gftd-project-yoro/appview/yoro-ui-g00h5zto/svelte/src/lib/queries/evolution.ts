@@ -1,11 +1,11 @@
 import { compileKysely, graphSql, ksql, sqlString } from '$lib/graph-sql';
 
 export const YORO_EVOLUTION_COLLECTIONS = {
-	koji: 'ai.gftd.apps.yoro.kojiDiscovery',
-	kyumei: 'ai.gftd.apps.yoro.kyumeiValidation',
-	shinka: 'ai.gftd.apps.yoro.shinkaEvolution',
-	hinshitsu: 'ai.gftd.apps.yoro.hinshitsuAssessment',
-	shinkaKnowledge: 'ai.gftd.apps.yoro.shinkaKnowledge',
+	koji: 'app.etzhayyim.apps.yoro.kojiDiscovery',
+	kyumei: 'app.etzhayyim.apps.yoro.kyumeiValidation',
+	shinka: 'app.etzhayyim.apps.yoro.shinkaEvolution',
+	hinshitsu: 'app.etzhayyim.apps.yoro.hinshitsuAssessment',
+	shinkaKnowledge: 'app.etzhayyim.apps.yoro.shinkaKnowledge',
 } as const;
 
 export interface EvolutionActorCandidateRow {

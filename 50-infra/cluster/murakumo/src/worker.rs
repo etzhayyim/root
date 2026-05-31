@@ -73,11 +73,11 @@ pub fn detect_native_worker_capability(cfg: &NodeConfig) -> WorkerCapability {
         }
     }
 
-    let available = env_bool("GFTD_NATIVE_WEBGPU_AVAILABLE", true);
+    let available = env_bool("ETZHAYYIM_NATIVE_WEBGPU_AVAILABLE", true);
     let os = std::env::consts::OS;
     let arch = std::env::consts::ARCH;
 
-    let runtime_class = std::env::var("GFTD_NATIVE_WORKER_RUNTIME_CLASS").unwrap_or_else(|_| {
+    let runtime_class = std::env::var("ETZHAYYIM_NATIVE_WORKER_RUNTIME_CLASS").unwrap_or_else(|_| {
         if os == "macos" && arch == "aarch64" {
             "native_mlx".to_string()
         } else if available {
@@ -87,7 +87,7 @@ pub fn detect_native_worker_capability(cfg: &NodeConfig) -> WorkerCapability {
         }
     });
 
-    let accelerator_class = std::env::var("GFTD_NATIVE_WORKER_ACCELERATOR_CLASS").unwrap_or_else(|_| {
+    let accelerator_class = std::env::var("ETZHAYYIM_NATIVE_WORKER_ACCELERATOR_CLASS").unwrap_or_else(|_| {
         if os == "macos" && arch == "aarch64" {
             "mlx".to_string()
         } else if available {
@@ -97,16 +97,16 @@ pub fn detect_native_worker_capability(cfg: &NodeConfig) -> WorkerCapability {
         }
     });
 
-    let adapter = std::env::var("GFTD_NATIVE_WEBGPU_ADAPTER")
+    let adapter = std::env::var("ETZHAYYIM_NATIVE_WEBGPU_ADAPTER")
         .unwrap_or_else(|_| detect_native_gpu_adapter());
 
-    let features = env_list("GFTD_NATIVE_WEBGPU_FEATURES")
+    let features = env_list("ETZHAYYIM_NATIVE_WEBGPU_FEATURES")
         .unwrap_or_else(|| default_native_webgpu_features(&tier, available));
 
-    let max_storage = env_i64("GFTD_NATIVE_WEBGPU_MAX_STORAGE_BUFFER_BINDING_SIZE")
+    let max_storage = env_i64("ETZHAYYIM_NATIVE_WEBGPU_MAX_STORAGE_BUFFER_BINDING_SIZE")
         .unwrap_or_else(|| default_native_max_storage_buffer(&tier, available));
 
-    let max_compute = env_i64("GFTD_NATIVE_WEBGPU_MAX_COMPUTE_WORKGROUP_STORAGE_SIZE")
+    let max_compute = env_i64("ETZHAYYIM_NATIVE_WEBGPU_MAX_COMPUTE_WORKGROUP_STORAGE_SIZE")
         .unwrap_or(32768);
 
     WorkerCapability {
@@ -119,10 +119,10 @@ pub fn detect_native_worker_capability(cfg: &NodeConfig) -> WorkerCapability {
             max_storage_buffer_binding_size: max_storage,
             max_compute_workgroup_storage_size: max_compute,
         },
-        mem_class: env_or("GFTD_NATIVE_MEM_CLASS", &classify_native_memory_class(vram_mb)),
-        net_class: env_or("GFTD_NATIVE_NET_CLASS", "good"),
-        power_class: env_or("GFTD_NATIVE_POWER_CLASS", "desktop"),
-        gpu_tier: env_or("GFTD_NATIVE_GPU_TIER", &tier),
+        mem_class: env_or("ETZHAYYIM_NATIVE_MEM_CLASS", &classify_native_memory_class(vram_mb)),
+        net_class: env_or("ETZHAYYIM_NATIVE_NET_CLASS", "good"),
+        power_class: env_or("ETZHAYYIM_NATIVE_POWER_CLASS", "desktop"),
+        gpu_tier: env_or("ETZHAYYIM_NATIVE_GPU_TIER", &tier),
         runtime_class,
         accelerator_class,
     }
@@ -183,7 +183,7 @@ fn classify_native_memory_class(vram_mb: i32) -> String {
 
 pub fn native_worker_user_agent() -> String {
     format!(
-        "gftd-murakumo-native/{} {}/{}",
+        "etzhayyim-murakumo-native/{} {}/{}",
         crate::VERSION,
         std::env::consts::OS,
         std::env::consts::ARCH,
@@ -394,7 +394,7 @@ pub fn normalize_exec_result(result: &mut NativeExecResult) {
 
 /// Auto-select the best local LLM model.
 pub fn auto_select_model() -> String {
-    if let Ok(v) = std::env::var("GFTD_DEFAULT_MODEL") {
+    if let Ok(v) = std::env::var("ETZHAYYIM_DEFAULT_MODEL") {
         let model = v.trim();
         if !model.is_empty() {
             return model.to_string();

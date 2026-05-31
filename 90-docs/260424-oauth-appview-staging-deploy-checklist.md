@@ -77,7 +77,7 @@ curl -sS https://authn.etzhayyim.com/.well-known/jwks.json | jq '.keys | length'
 
 ```bash
 cd 50-infra/cloudflare/workers/appview
-pnpm install   # workspace deps (@gftd/graph-schema, @gftd/magatama-host-sdk, kysely, pg)
+pnpm install   # workspace deps (@etzhayyim/graph-schema, @etzhayyim/magatama-host-sdk, kysely, pg)
 wrangler deploy
 ```
 
@@ -142,7 +142,7 @@ Extra end-to-end check:
 
 ```bash
 # Revoke → introspect round-trip. sk_live_* from `gftd authz list-api-keys`.
-SK=$(security find-generic-password -s "gftd.dev" -a "sk_live" -w 2>/dev/null || echo "$GFTD_API_KEY")
+SK=$(security find-generic-password -s "gftd.dev" -a "sk_live" -w 2>/dev/null || echo "$etzhayyim_API_KEY")
 # 1. mint a session via passkey login (browser)
 gftd authn signin
 

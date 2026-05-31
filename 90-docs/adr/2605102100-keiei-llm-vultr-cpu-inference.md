@@ -16,7 +16,7 @@ authoritative_for:
 related:
   - adr-2605101200-ai-cxo-roles-lsp-resident
   - adr-2604231828-appview-domain-separation-bsky-gftd-ai
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-2605141500-shinshi-review-generation-quality-loop
 ---
@@ -25,7 +25,7 @@ related:
 
 Status: **Proposed** (2026-05-10, iter129).
 Operating Entity: etzhayyim (sole principal).
-Vendor: Gftd Japan株式会社 (engineering capacity).
+Vendor: etzhayyim Japan株式会社 (engineering capacity).
 Author: etzhayyim Claude Agent on behalf of CEO 河崎.
 
 ## 1. Decision
@@ -37,10 +37,10 @@ calls through a **dedicated Vultr VKE CPU inference pod** running
 `https://gemma-e2b.etzhayyim.com` via Cloudflare Tunnel; in-cluster surface is
 the ClusterIP `keiei-llm.keiei-llm.svc.cluster.local:8080`.
 
-The macOS launchd daemon (`ai.gftd.keiei`) is wired through a small
+The macOS launchd daemon (`app.etzhayyim.keiei`) is wired through a small
 shell wrapper that loads the bearer from macOS Keychain
 (`gftd.keiei / LLM_BEARER`) at process start; the secret never lives in
-the world-readable `~/Library/LaunchAgents/ai.gftd.keiei.plist`.
+the world-readable `~/Library/LaunchAgents/app.etzhayyim.keiei.plist`.
 
 ## 2. Why CPU, not GPU
 
@@ -89,10 +89,10 @@ new operational shape — only a new instance of an established pattern.
 ## 4. Component layout
 
 ```
-macOS launchd ai.gftd.keiei  (PID alive, KeepAlive=true)
+macOS launchd app.etzhayyim.keiei  (PID alive, KeepAlive=true)
   └─ /bin/zsh -c keiei-launchd-wrapper.sh
-       ├─ security find-generic-password -s gftd.keiei -a LLM_BEARER → GFTD_LLM_API_KEY
-       ├─ export GFTD_LLM_URL=https://gemma-e2b.etzhayyim.com/v1/chat/completions
+       ├─ security find-generic-password -s gftd.keiei -a LLM_BEARER → etzhayyim_LLM_API_KEY
+       ├─ export etzhayyim_LLM_URL=https://gemma-e2b.etzhayyim.com/v1/chat/completions
        ├─ export KEIEI_LLM_MODEL=gemma-4-E2B-it
        └─ exec python3 -m pymagatama.keiei --socket ~/Library/Caches/keiei.sock
             ↓

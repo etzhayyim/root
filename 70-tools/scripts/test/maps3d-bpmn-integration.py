@@ -7,11 +7,11 @@ LangServer pods running. Layer 2 of three.
 Asserts:
   1. dispatcher reachable        (`/health`, `/bindings` includes maps3d.processTile)
   2. seed a fresh tile row in vertex_maps3d_tile (status='pending')
-  3. trigger via XRPC            (`POST /xrpc/ai.gftd.apps.maps3d.processTile`)
+  3. trigger via XRPC            (`POST /xrpc/app.etzhayyim.apps.maps3d.processTile`)
   4. Zeebe spawns an instance, all 11 service tasks run with stub handlers
   5. tile row reaches status='done' (or 'failed' on the negative path) within timeout
   6. mesh_uri populated when status='done'
-  7. OCEL audit row recorded (`ai.gftd.apps.maps3d.tile.processed`)
+  7. OCEL audit row recorded (`app.etzhayyim.apps.maps3d.tile.processed`)
 
 Env:
   BPMN_DISPATCHER_URL  default https://dispatcher.etzhayyim.com
@@ -40,7 +40,7 @@ import urllib.request
 DISPATCHER_URL = os.environ.get(
     "BPMN_DISPATCHER_URL", "https://dispatcher.etzhayyim.com"
 ).rstrip("/")
-NSID = "ai.gftd.apps.maps3d.processTile"
+NSID = "app.etzhayyim.apps.maps3d.processTile"
 DEFAULT_TILE = os.environ.get("TILE_H3", "8a2a1072b59ffff")
 WAIT_SECS = int(os.environ.get("WAIT_SECS", "600"))
 POLL_INTERVAL = 5
@@ -121,7 +121,7 @@ def stage_seed_tile(tile_h3: str, skip_rw: bool) -> bool:
     if skip_rw:
         print(f"  SKIP  seed tile {tile_h3} (--skip-rw)")
         return True
-    vid = f"at://{OWNER_DID}/ai.gftd.apps.maps3d.tile/{tile_h3}"
+    vid = f"at://{OWNER_DID}/app.etzhayyim.apps.maps3d.tile/{tile_h3}"
     sql = f"""
 INSERT INTO vertex_maps3d_tile
   (vertex_id, tile_h3, status, priority, owner_did, sensitivity_ord, org_id, user_id, actor_id, created_at, created_date)

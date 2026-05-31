@@ -16,9 +16,9 @@ const CREATED_AT = "2026-05-07T20:00:00Z";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 const DISPATCH_PROCESS_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-policy-dispatch-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-policy-dispatch-v1";
 const DISPATCH_BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-policy-dispatch-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-policy-dispatch-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(
@@ -47,7 +47,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT
       ${DISPATCH_BINDING_VID}, ${OWNER_DID}, 'rl_policy_dispatch',
-      'ai.gftd.apps.rl.policyDispatch',
+      'app.etzhayyim.apps.rl.policyDispatch',
       ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${DISPATCH_BINDING_VID}

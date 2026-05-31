@@ -28,8 +28,8 @@ describe("Seed open-isic BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openIsic.classifyEntity"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openIsic.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openIsic.classifyEntity"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openIsic.recordConcordance"');
   });
 
   it("uses open-isic-specific actor_id + owner_did", () => {

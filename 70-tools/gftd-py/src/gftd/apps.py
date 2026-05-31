@@ -84,7 +84,7 @@ def apps(ctx: click.Context, workspace_dir: str | None, pds: str | None, json_ou
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.apps.listApps",
+            f"{pds_url}/xrpc/app.etzhayyim.apps.listApps",
             headers={"Authorization": f"Bearer {tok}"} if tok else {},
             timeout=30,
         )
@@ -184,7 +184,7 @@ def _list_pds_records(pds_url: str, token: str, repo_did: str, collection: str,
 def _xrpc_coverage_stats(nanoid: str, app_name: str, token: str, timeout: int = 15) -> dict | None:
     if not app_name:
         app_name = nanoid
-    url = f"https://{nanoid}.etzhayyim.com/xrpc/ai.gftd.apps.{app_name}.coverageStats"
+    url = f"https://{nanoid}.etzhayyim.com/xrpc/app.etzhayyim.apps.{app_name}.coverageStats"
     headers = {"Content-Type": "application/json"}
     if token:
         headers["Authorization"] = f"Bearer {token}"
@@ -290,7 +290,7 @@ def apps_coverage(nanoid: str, pds: str | None, timeout: int,
     repo_dids = [did, f"did:web:{nanoid}.etzhayyim.com"]
     repo_dids = list(dict.fromkeys(repo_dids))
     for repo_did in repo_dids:
-        for col in (collections or [f"ai.gftd.apps.{nanoid}.status"]):
+        for col in (collections or [f"app.etzhayyim.apps.{nanoid}.status"]):
             recs = _list_pds_records(pds_url, token, repo_did, col, 250, timeout)
             for r in recs:
                 live_records += 1
@@ -412,7 +412,7 @@ def apps_kyumei_koji(nanoid: str, pds: str | None, domain: str, fast: bool,
     # Live record counts from PDS
     repo_dids = list(dict.fromkeys([did, f"did:web:{nanoid}.etzhayyim.com"]))
     live_record_counts: dict[str, int] = {}
-    default_cols = [f"ai.gftd.apps.{nanoid}.status"] if not collections else []
+    default_cols = [f"app.etzhayyim.apps.{nanoid}.status"] if not collections else []
     for col in (collections or default_cols):
         total = 0
         for repo_did in repo_dids:
@@ -428,7 +428,7 @@ def apps_kyumei_koji(nanoid: str, pds: str | None, domain: str, fast: bool,
         for path in sub_did_paths[:12]:
             sub_did = f"did:web:{nanoid}.etzhayyim.com:{path.replace('/', ':')}"
             cnt = 0
-            for col in (collections[:3] or [f"ai.gftd.apps.{nanoid}.status"]):
+            for col in (collections[:3] or [f"app.etzhayyim.apps.{nanoid}.status"]):
                 cnt += len(_list_pds_records(pds_url, token, sub_did, col, 100, timeout))
             sub_dids_info.append({"path": path, "records": cnt})
             if cnt > 0:

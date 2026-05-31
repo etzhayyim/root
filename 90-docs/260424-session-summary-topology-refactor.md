@@ -29,13 +29,13 @@ just the log of what happened and where to find the pieces.
 
 ## PR #1115 — `feat(topology): γ2 cutover + sh1n5h1x fix + migration pattern` (merged 06:54:34Z → `fd749574c56`)
 
-- **γ2 legacy-trust cutover automation (`ai.gftd.legacy-trust-tally`)**
+- **γ2 legacy-trust cutover automation (`app.etzhayyim.legacy-trust-tally`)**
   - Runbook `90-docs/260424-legacy-trust-headers-cutover-runbook.md` with
     real-log `[trust][legacy] hit did=... matched=...` pre-flip query.
   - Daily observation probe `70-tools/scripts/legacy-trust-tally-probe.sh`
     (60 s `wrangler tail` sample of `ai-gftd-appview`, appends to
     `90-docs/260424-legacy-trust-tally.log`).
-  - macOS LaunchAgent `50-infra/launchd/ai.gftd.legacy-trust-tally.plist`
+  - macOS LaunchAgent `50-infra/launchd/app.etzhayyim.legacy-trust-tally.plist`
     firing daily at 09:17 local for the full 14-day window (Claude's
     `/schedule` caps at 7 d; launchd carries the rest).
   - Pre-written cleanup `70-tools/scripts/cleanup-legacy-trust-headers.sh`
@@ -103,7 +103,7 @@ just the log of what happened and where to find the pieces.
 
 5 Workers (`appview/{profile,feed,search}`, `chat`, `signal`) migrated
 off hand-rolled `Kysely+PostgresDialect+pg.Pool` to
-`createKyselyDb(env.HYPERDRIVE)` from `@gftd/magatama-host-sdk`
+`createKyselyDb(env.HYPERDRIVE)` from `@etzhayyim/magatama-host-sdk`
 (HyperdriveDialect + single `pg.Client`). Fixes the ADR-0007 CI lint
 gate and removes the CF 1101 risk from idle-Pool-client errors.
 Refresh of `90-docs/rules/waituntil-requires-catch-baseline.txt`
@@ -117,7 +117,7 @@ Refresh of `90-docs/rules/waituntil-requires-catch-baseline.txt`
 | `atproto.etzhayyim.com` | Routing unchanged; BPMN yabai batch-3 NSIDs now land at dispatcher |
 | `dispatcher.etzhayyim.com` | 12 yabai BPMN actors live in `vertex_bpmn_lexicon_binding` |
 | `sh1n5h1x.etzhayyim.com` | `postsCount = 1476` (was 0), did-web root row in `mv_actor_social_stats` |
-| LaunchAgent | `ai.gftd.legacy-trust-tally` bootstrapped in `gui/501`, fires 09:17 daily |
+| LaunchAgent | `app.etzhayyim.legacy-trust-tally` bootstrapped in `gui/501`, fires 09:17 daily |
 | Tally log | `90-docs/260424-legacy-trust-tally.log` seeded with first samples (0/0 hits) |
 | RisingWave | 1236 tables / 17152 columns, drift clean |
 
@@ -140,7 +140,7 @@ Documented in ADR-2604241038 β2 addendum. A future ephemeral cutover
 
 1. **Runbook** `90-docs/YYMMDD-X-cutover-runbook.md`
 2. **Observation probe** `70-tools/scripts/X-tally-probe.sh`
-3. **Scheduler** `50-infra/launchd/ai.gftd.X-tally.plist`
+3. **Scheduler** `50-infra/launchd/app.etzhayyim.X-tally.plist`
 4. **Preflight validator** `.../scripts/X-preflight.sh`
 5. **Pre-written cleanup** `70-tools/scripts/cleanup-X.sh`
 6. **End-to-end smoke** `70-tools/scripts/X-smoke.sh`

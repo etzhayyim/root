@@ -12,7 +12,7 @@ authoritative_for:
   - okaimono WIT pruning
 related:
   - 2604251700-wproto-wit-dead-path
-  - 2604261110-wproto-wreactive-wit-retirement
+  - adr-2604261110-wproto-wreactive-wit-retirement
 supersedes: []
 superseded_by: []
 ---
@@ -22,9 +22,9 @@ superseded_by: []
 Okaimono needs to consume actual UNSPSC commodity items from the openUnispsc
 MCP surface:
 
-- `ai.gftd.apps.openUnispsc.syncCatalogItem`
-- `ai.gftd.apps.openUnispsc.planCatalogPurchase`
-- `ai.gftd.apps.openUnispsc.importSegmentCatalog`
+- `app.etzhayyim.apps.openUnispsc.syncCatalogItem`
+- `app.etzhayyim.apps.openUnispsc.planCatalogPurchase`
+- `app.etzhayyim.apps.openUnispsc.importSegmentCatalog`
 
 The Okaimono side exposes those capabilities through shopping catalog/order
 contracts, component manifest capabilities/subscriptions, and operator docs.

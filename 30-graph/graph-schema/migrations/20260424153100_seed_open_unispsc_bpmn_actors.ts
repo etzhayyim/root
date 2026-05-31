@@ -16,19 +16,19 @@ const ownerDid = "did:web:open-unispsc.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-unispsc";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-unispsc-procurement-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-unispsc-procurement-v1",
     bpmnProcessId: "open_unispsc_procurement",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-unispsc/procurement.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-unispsc-supplier-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-unispsc-supplier-v1",
     bpmnProcessId: "open_unispsc_supplier",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-unispsc/supplier.bpmn", ownerDid },
 ];
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-unispsc-procurement-v1",
-    nsid: "ai.gftd.apps.openUnispsc.procurement", bpmnProcessId: "open_unispsc_procurement",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-unispsc-procurement-v1",
+    nsid: "app.etzhayyim.apps.openUnispsc.procurement", bpmnProcessId: "open_unispsc_procurement",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-unispsc-supplier-v1",
-    nsid: "ai.gftd.apps.openUnispsc.supplier", bpmnProcessId: "open_unispsc_supplier",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-unispsc-supplier-v1",
+    nsid: "app.etzhayyim.apps.openUnispsc.supplier", bpmnProcessId: "open_unispsc_supplier",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

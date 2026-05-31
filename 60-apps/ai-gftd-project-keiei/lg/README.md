@@ -35,8 +35,8 @@ clients can retry against the lease holder.
 | `KEIEI_LEADER_TTL_SEC` | `15` | lease duration |
 | `KEIEI_LEADER_RENEW_SEC` | `5` | renew interval |
 | `KEIEI_HTTP_BEARER` | `""` | when set, `/jsonrpc` requires this token |
-| `GFTD_LLM_URL` | gemma-e2b.etzhayyim.com | LLM endpoint for deliberation |
-| `GFTD_LLM_API_KEY` | `""` | LLM bearer (Keychain-injected) |
+| `etzhayyim_LLM_URL` | gemma-e2b.etzhayyim.com | LLM endpoint for deliberation |
+| `etzhayyim_LLM_API_KEY` | `""` | LLM bearer (Keychain-injected) |
 
 ## Build
 

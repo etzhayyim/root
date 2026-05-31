@@ -26,8 +26,8 @@ import type { EthTxEnv } from "./eth-tx";
 import { settleClaim } from "./claim-stake";
 
 export interface RegoArbiterEnv extends EthRpcEnv, EthTxEnv {
-  GFTD_CLAIM_STAKE_ESCROW_ADDR?: string;
-  GFTD_REGO_ARBITER_ADDR?: string;
+  etzhayyim_CLAIM_STAKE_ESCROW_ADDR?: string;
+  etzhayyim_REGO_ARBITER_ADDR?: string;
   ETH_PRIVATE_CHAIN_ID?: string;
 }
 
@@ -35,8 +35,8 @@ const RECORD_DECISION_SELECTOR = selector("recordDecision(bytes32,bool,bytes32,b
 const DECISION_VIEW_SELECTOR   = selector("decision(bytes32)");
 
 function regoAddr(env: RegoArbiterEnv): string {
-  const a = (env.GFTD_REGO_ARBITER_ADDR || "").trim();
-  if (!a) throw new Error("GFTD_REGO_ARBITER_ADDR is not configured");
+  const a = (env.etzhayyim_REGO_ARBITER_ADDR || "").trim();
+  if (!a) throw new Error("etzhayyim_REGO_ARBITER_ADDR is not configured");
   return a;
 }
 
@@ -75,8 +75,8 @@ export function signArbiterSettlement(
 ): { sig: string; signerAddress: string } {
   const sealerPriv = (env.SEALER_PRIV || "").trim();
   if (!sealerPriv) throw new Error("SEALER_PRIV is not configured");
-  const escrow = (env.GFTD_CLAIM_STAKE_ESCROW_ADDR || "").trim();
-  if (!escrow) throw new Error("GFTD_CLAIM_STAKE_ESCROW_ADDR is not configured");
+  const escrow = (env.etzhayyim_CLAIM_STAKE_ESCROW_ADDR || "").trim();
+  if (!escrow) throw new Error("etzhayyim_CLAIM_STAKE_ESCROW_ADDR is not configured");
   const chainId = Number((env.ETH_PRIVATE_CHAIN_ID || "0").trim());
   if (chainId <= 0) throw new Error("ETH_PRIVATE_CHAIN_ID is not configured");
 

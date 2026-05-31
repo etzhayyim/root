@@ -31,7 +31,7 @@ import {
   type EnrichIsinOutput,
 } from "./types.js";
 
-const COLLECT_RUN_COLLECTION = "ai.gftd.isin.collectRun";
+const COLLECT_RUN_COLLECTION = "app.etzhayyim.isin.collectRun";
 
 function collectRunRkey(runId: string): string {
   return `collectrun-${idSlug(runId)}`;

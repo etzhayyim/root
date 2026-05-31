@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govDnk.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govDnk.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Denmark government.",
-        "operationId": "ai.gftd.govDnk.followSiteDeps",
+        "operationId": "app.etzhayyim.govDnk.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDnk.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govDnk.heartbeatTick": {
       "post": {
         "summary": "Run the Denmark government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govDnk.heartbeatTick",
+        "operationId": "app.etzhayyim.govDnk.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDnk.listOrgs": {
+    "/xrpc/app.etzhayyim.govDnk.listOrgs": {
       "get": {
         "summary": "List Denmark government organization graph records.",
-        "operationId": "ai.gftd.govDnk.listOrgs",
+        "operationId": "app.etzhayyim.govDnk.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDnk.registerDIDs": {
+    "/xrpc/app.etzhayyim.govDnk.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Denmark government organizations.",
-        "operationId": "ai.gftd.govDnk.registerDIDs",
+        "operationId": "app.etzhayyim.govDnk.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDnk.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govDnk.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Denmark government organization path to its graph record.",
-        "operationId": "ai.gftd.govDnk.resolveOrgPath",
+        "operationId": "app.etzhayyim.govDnk.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDnk.seedOrgs": {
+    "/xrpc/app.etzhayyim.govDnk.seedOrgs": {
       "post": {
         "summary": "Seed initial Denmark government organization records into the graph.",
-        "operationId": "ai.gftd.govDnk.seedOrgs",
+        "operationId": "app.etzhayyim.govDnk.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDnk.shinka": {
+    "/xrpc/app.etzhayyim.govDnk.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Denmark government organization update.",
-        "operationId": "ai.gftd.govDnk.shinka",
+        "operationId": "app.etzhayyim.govDnk.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDnk.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govDnk.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Denmark government organization changes to graph.",
-        "operationId": "ai.gftd.govDnk.syncWetUpdates",
+        "operationId": "app.etzhayyim.govDnk.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

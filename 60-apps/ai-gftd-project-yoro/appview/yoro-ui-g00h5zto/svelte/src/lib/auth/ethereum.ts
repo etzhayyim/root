@@ -9,9 +9,9 @@
  * Wire path:
  *   browser EIP-1193 wallet
  *     → eth_requestAccounts → address
- *     → POST authz.etzhayyim.com/xrpc/ai.gftd.authz.linkEthereumBegin
+ *     → POST authz.etzhayyim.com/xrpc/app.etzhayyim.authz.linkEthereumBegin
  *     → personal_sign (window.ethereum)
- *     → POST authz.etzhayyim.com/xrpc/ai.gftd.authz.linkEthereumVerify
+ *     → POST authz.etzhayyim.com/xrpc/app.etzhayyim.authz.linkEthereumVerify
  */
 
 import { getSessionToken } from './passkey';
@@ -92,7 +92,7 @@ export async function linkEthereumAddress(opts: { statement?: string } = {}): Pr
 		nonce: string;
 		chainId: number;
 		expiresAt: number;
-	}>('/xrpc/ai.gftd.authz.linkEthereumBegin', {
+	}>('/xrpc/app.etzhayyim.authz.linkEthereumBegin', {
 		address,
 		statement: opts.statement,
 		walletKind,
@@ -108,7 +108,7 @@ export async function linkEthereumAddress(opts: { statement?: string } = {}): Pr
 
 	// 4. Server recovers the address from the signature and persists the link.
 	const verify = await authzPost<EthereumLinkResult>(
-		'/xrpc/ai.gftd.authz.linkEthereumVerify',
+		'/xrpc/app.etzhayyim.authz.linkEthereumVerify',
 		{ message: begin.message, signature, walletKind },
 	);
 	return verify;
@@ -116,7 +116,7 @@ export async function linkEthereumAddress(opts: { statement?: string } = {}): Pr
 
 /** Remove a previously linked Ethereum address. */
 export async function unlinkEthereumAddress(address: string, provider = 'ethereum'): Promise<{ ok: boolean }> {
-	return authzPost('/xrpc/ai.gftd.authz.unlinkMethod', {
+	return authzPost('/xrpc/app.etzhayyim.authz.unlinkMethod', {
 		provider,
 		providerSubject: address.toLowerCase(),
 	});

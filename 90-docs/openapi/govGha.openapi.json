@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govGha.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govGha.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Ghana government.",
-        "operationId": "ai.gftd.govGha.followSiteDeps",
+        "operationId": "app.etzhayyim.govGha.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGha.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govGha.heartbeatTick": {
       "post": {
         "summary": "Run the Ghana government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govGha.heartbeatTick",
+        "operationId": "app.etzhayyim.govGha.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGha.listOrgs": {
+    "/xrpc/app.etzhayyim.govGha.listOrgs": {
       "get": {
         "summary": "List Ghana government organization graph records.",
-        "operationId": "ai.gftd.govGha.listOrgs",
+        "operationId": "app.etzhayyim.govGha.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGha.registerDIDs": {
+    "/xrpc/app.etzhayyim.govGha.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Ghana government organizations.",
-        "operationId": "ai.gftd.govGha.registerDIDs",
+        "operationId": "app.etzhayyim.govGha.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGha.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govGha.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Ghana government organization path to its graph record.",
-        "operationId": "ai.gftd.govGha.resolveOrgPath",
+        "operationId": "app.etzhayyim.govGha.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGha.seedOrgs": {
+    "/xrpc/app.etzhayyim.govGha.seedOrgs": {
       "post": {
         "summary": "Seed initial Ghana government organization records into the graph.",
-        "operationId": "ai.gftd.govGha.seedOrgs",
+        "operationId": "app.etzhayyim.govGha.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGha.shinka": {
+    "/xrpc/app.etzhayyim.govGha.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Ghana government organization update.",
-        "operationId": "ai.gftd.govGha.shinka",
+        "operationId": "app.etzhayyim.govGha.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGha.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govGha.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Ghana government organization changes to graph.",
-        "operationId": "ai.gftd.govGha.syncWetUpdates",
+        "operationId": "app.etzhayyim.govGha.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

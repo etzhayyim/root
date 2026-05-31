@@ -1,5 +1,5 @@
 /**
- * Re-export from @gftd/ameno package.
+ * Re-export from @etzhayyim/ameno package.
  * @see packages/llm/inference/ameno/src/inference.ts
  */
 export {
@@ -13,4 +13,4 @@ export {
   type InferenceState,
   type ChatMessage,
   type GenerationStats,
-} from "@gftd/ameno/inference";
+} from "@etzhayyim/ameno/inference";

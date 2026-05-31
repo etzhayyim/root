@@ -86,8 +86,8 @@ AT Protocol spec に忠実に準拠する機能。外部 AT Protocol client は�
 
 ### [PRODUCTION] Lexicon Namespace Extension
 
-- `ai.gftd.apps.*` (per-app domain data) — AT Lexicon の正規拡張方法
-- `ai.gftd.{convo|signal|rtc|files}.*` — W Protocol 4 namespace
+- `app.etzhayyim.apps.*` (per-app domain data) — AT Lexicon の正規拡張方法
+- `app.etzhayyim.{convo|signal|rtc|files}.*` — W Protocol 4 namespace
 - AT Protocol は namespace を無限に拡張可能 — 仕様に矛盾しない
 
 ## Layer 1: W Protocol Extension

@@ -18,7 +18,7 @@ depends_on:
   - adr-2605232345-unispsc-actor-as-organism
   - adr-2605240000-unispsc-organism-fleet-mass-deploy
 related:
-  - 2605240015-unispsc-organism-joucho-personality.md
+  - adr-2605240015-unispsc-organism-joucho-personality
 supersedes: []
 superseded_by: []
 ---
@@ -90,7 +90,7 @@ Activated via `UNISPSC_ORGANISM_FOLLOWER_SEED=/path/to/follower-seed.json`.
 ```
 @etzhayyim/sdk Python binding (Wave 3, not yet shipped)
   → sdk.atproto.mst_query(
-      "ai.gftd.apps.etzhayyim.joucho.score",
+      "app.etzhayyim.apps.etzhayyim.joucho.score",
       filter={"followerOf": actor_did}
     )
   → list[FollowerCurrentScore]

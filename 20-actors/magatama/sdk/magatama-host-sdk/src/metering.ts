@@ -12,7 +12,7 @@
 //   2. `createMeteringMiddleware()` — Hono middleware that auto-emits one
 //      `api_request` event per inbound request. Wire once at the top of
 //      the router; bypasses metering for unauthenticated / public traffic
-//      and for `ai.gftd.apps.billing.*` calls (avoid recursion).
+//      and for `app.etzhayyim.apps.billing.*` calls (avoid recursion).
 //
 // Pricing & cost registries are kept server-side in
 // `20-actors/magatama/py/src/pymagatama/primitives/billing.py` (the
@@ -28,7 +28,7 @@
 // per-isolate Map. Uncached lookup hits `vertex_billing_org_plan`. Unknown
 // orgs default to 0% discount.
 //
-// Opt-out: env.GFTD_METERING_DISABLED === '1'.
+// Opt-out: env.etzhayyim_METERING_DISABLED === '1'.
 
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { createKyselyDb, type Hyperdrive, type KyselyDb } from "./kysely.js";
@@ -59,7 +59,7 @@ export type BillingProduct = "yata" | "obj" | "gateway" | "platform";
 export interface MeteringEnv {
   HYPERDRIVE?: Hyperdrive;
   /** Set to "1" to disable metering (smoke-test, dev). */
-  GFTD_METERING_DISABLED?: string;
+  etzhayyim_METERING_DISABLED?: string;
 }
 
 export interface MeteringContext {
@@ -149,7 +149,7 @@ async function contentPk(parts: string[]): Promise<string> {
     .map(b => b.toString(16).padStart(2, "0"))
     .join("")
     .slice(0, 32);
-  return `at://did:web:billing.etzhayyim.com/ai.gftd.apps.billing.event/${hex}`;
+  return `at://did:web:billing.etzhayyim.com/app.etzhayyim.apps.billing.event/${hex}`;
 }
 
 // ──────────────────────────────────────────────────────────────────────
@@ -161,7 +161,7 @@ async function contentPk(parts: string[]): Promise<string> {
  * Returns immediately; the actual INSERT runs after the response is sent.
  *
  * Drops silently when:
- *   - env.GFTD_METERING_DISABLED === '1'
+ *   - env.etzhayyim_METERING_DISABLED === '1'
  *   - env.HYPERDRIVE is missing
  *   - orgDid is empty / not a DID
  *   - qty <= 0
@@ -172,7 +172,7 @@ export function recordUsageEvent(
   ctx: MeteringContext,
   params: RecordUsageEventParams,
 ): void {
-  if (env.GFTD_METERING_DISABLED === "1") return;
+  if (env.etzhayyim_METERING_DISABLED === "1") return;
   if (!env.HYPERDRIVE) return;
   if (!params.orgDid || !params.orgDid.startsWith("did:")) return;
   if (!Number.isFinite(params.qty) || params.qty <= 0) return;
@@ -230,7 +230,7 @@ interface MeteringMiddlewareOptions {
   /**
    * NSID prefixes whose requests should NOT be metered (avoid recursion
    * on billing.* calls + skip non-business endpoints like /health).
-   * Defaults to ["ai.gftd.apps.billing.", "_app/"].
+   * Defaults to ["app.etzhayyim.apps.billing.", "_app/"].
    */
   skipPrefixes?: string[];
 }
@@ -238,7 +238,7 @@ interface MeteringMiddlewareOptions {
 /**
  * Create a Hono middleware that emits one `api_request` event per
  * authenticated inbound request. Bypasses unauthenticated traffic and
- * `ai.gftd.apps.billing.*` to prevent recursion.
+ * `app.etzhayyim.apps.billing.*` to prevent recursion.
  *
  * Wire it once at the top of `createWorkerExport`:
  *
@@ -251,12 +251,12 @@ interface MeteringMiddlewareOptions {
 export function createMeteringMiddleware(
   options: MeteringMiddlewareOptions,
 ) {
-  const skipPrefixes = options.skipPrefixes ?? ["ai.gftd.apps.billing.", "_app/"];
+  const skipPrefixes = options.skipPrefixes ?? ["app.etzhayyim.apps.billing.", "_app/"];
   return async function meteringMiddleware(c: any, next: () => Promise<void>) {
     await next();
     try {
       const env = c.env as MeteringEnv;
-      if (env.GFTD_METERING_DISABLED === "1") return;
+      if (env.etzhayyim_METERING_DISABLED === "1") return;
       const path = String(c.req?.path ?? "");
       const xrpcMatch = path.match(/^\/xrpc\/([^/?#]+)/);
       const nsid = xrpcMatch?.[1] ?? "";

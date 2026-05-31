@@ -11,6 +11,7 @@ one spot later.
 from __future__ import annotations
 
 import subprocess
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
@@ -528,8 +529,51 @@ def _is_first_party_source(f: Path) -> bool:
     return True
 
 
+def _first_party_source_files(
+    repo: Path, scan_roots: list[str], extensions: tuple[str, ...]
+) -> list[Path]:
+    """Enumerate first-party source files under `scan_roots` with one of
+    `extensions` (lowercase, dotted). Uses `git ls-files` for speed — see
+    `_no_server_key_candidates` for the rationale + fallback shape.
+
+    Honours `_is_first_party_source` filtering (legacy `ai-gftd-project-*`
+    paths + minified artifacts excluded). Files outside the git index
+    (build caches, node_modules) are never enumerated.
+    """
+    # Build pathspecs like '60-apps/**/*.html' for git ls-files.
+    pathspecs: list[str] = []
+    for root in scan_roots:
+        for ext in extensions:
+            pathspecs.append(f"{root}/**/*{ext}")
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo), "ls-files", "-z", "--", *pathspecs],
+            capture_output=True, check=True, timeout=30,
+        )
+        rel = [p for p in out.stdout.decode("utf-8", errors="ignore").split("\0") if p]
+        cand = [repo / r for r in rel]
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        # Fallback: original pathlib rglob path.
+        cand = []
+        for root in scan_roots:
+            rp = repo / root
+            if not rp.is_dir():
+                continue
+            for f in rp.rglob("*"):
+                if f.suffix.lower() in extensions:
+                    cand.append(f)
+    return [f for f in cand if _is_first_party_source(f)]
+
+
 def _check_no_advertising(repo: Path) -> tuple[bool, list[str]]:
-    """§1.13 — third-party advertising prohibited (in first-party source)."""
+    """§1.13 — third-party advertising prohibited (in first-party source).
+
+    Implementation: `git grep -lE` does the needle-matching in C against
+    the git index (~10x faster than pythonic `for f in ...; f.read_text;
+    needle in text`) — and honours `.gitignore` so `node_modules/` /
+    build caches are never scanned. The fallback path uses
+    `_first_party_source_files` for non-git environments.
+    """
     needles = [
         ("googletagmanager.com", "GTM"),
         ("g.doubleclick.net",    "DoubleClick"),
@@ -539,17 +583,39 @@ def _check_no_advertising(repo: Path) -> tuple[bool, list[str]]:
         ("static.ads-twitter",   "Twitter Pixel"),
         ("script.hotjar.com",    "Hotjar"),
     ]
-    hits: list[str] = []
     scan_roots = ["60-apps", "10-protocol", "20-actors", "50-infra"]
-    for root in scan_roots:
-        rp = repo / root
-        if not rp.is_dir():
-            continue
-        for f in rp.rglob("*"):
-            if f.suffix.lower() not in (".html", ".js", ".ts", ".tsx", ".jsx", ".svelte", ".py", ".rs"):
+    extensions = (".html", ".js", ".ts", ".tsx", ".jsx", ".svelte", ".py", ".rs")
+    # Construct git pathspecs: one per (root, extension) pair.
+    pathspecs = [f"{root}/**/*{ext}" for root in scan_roots for ext in extensions]
+    # Fixed-string alternation via -F + -e (one -e per needle).
+    grep_args = ["git", "-C", str(repo), "grep", "-l", "-F"]
+    for needle, _label in needles:
+        grep_args += ["-e", needle]
+    grep_args += ["--", *pathspecs]
+    hits: list[str] = []
+    try:
+        out = subprocess.run(grep_args, capture_output=True, timeout=30)
+        # git grep returns 1 = no matches; 0 = matches found; treat both
+        # as success, other returncodes as fallback trigger.
+        if out.returncode not in (0, 1):
+            raise subprocess.SubprocessError(f"git grep exit {out.returncode}")
+        matched_files = [
+            repo / p for p in out.stdout.decode("utf-8", errors="ignore").split("\n") if p
+        ]
+        # Re-apply legacy `ai-gftd-project-*` exclusion via _is_first_party_source.
+        matched_files = [f for f in matched_files if _is_first_party_source(f)]
+        # Identify which specific needles matched, for the hit listing.
+        for f in matched_files:
+            try:
+                text = f.read_text(encoding="utf-8", errors="ignore")
+            except OSError:
                 continue
-            if not _is_first_party_source(f):
-                continue
+            for needle, label in needles:
+                if needle in text:
+                    hits.append(f"  {label} in {f.relative_to(repo)}")
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        # Fallback: pythonic read + match against the candidate set.
+        for f in _first_party_source_files(repo, scan_roots, extensions):
             try:
                 text = f.read_text(encoding="utf-8", errors="ignore")
             except OSError:
@@ -567,13 +633,26 @@ def _check_charter_rider(repo: Path) -> tuple[bool, list[str]]:
     rider = repo / "CHARTER-RIDER.md"
     if not rider.exists():
         return False, ["CHARTER-RIDER.md missing at repo root"]
-    notices = list(repo.rglob("NOTICE"))
-    if len(notices) < 30:
+    # `repo.rglob("NOTICE")` walks the entire filesystem tree including
+    # node_modules / .venv / build caches — ~10s on this monorepo.
+    # `git ls-files NOTICE` reads the index instead: <100ms.
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo), "ls-files", "-z", "--", "NOTICE", "**/NOTICE"],
+            capture_output=True, check=True, timeout=30,
+        )
+        notice_count = sum(1 for p in out.stdout.decode("utf-8", errors="ignore").split("\0") if p)
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        notice_count = sum(
+            1 for f in repo.rglob("NOTICE")
+            if "node_modules" not in f.parts and ".venv" not in f.parts and ".git" not in f.parts
+        )
+    if notice_count < 30:
         return False, [
-            f"only {len(notices)} NOTICE files found",
+            f"only {notice_count} NOTICE files found",
             "ADR-2605192200 says ≥39 first-party Apache-2.0 packages should carry NOTICE + Rider",
         ]
-    return True, [f"CHARTER-RIDER.md present at root + {len(notices)} NOTICE files propagated"]
+    return True, [f"CHARTER-RIDER.md present at root + {notice_count} NOTICE files propagated"]
 
 
 def _check_non_eschatological(repo: Path) -> tuple[bool, list[str]]:
@@ -695,24 +774,33 @@ def _check_substrate_boundary(repo: Path) -> tuple[bool, list[str]]:
         ("paypal.com/sdk",       "PayPal"),
         ("@kysely/kysely",       "Kysely (centralized DB ORM)"),
     ]
-    hits: list[str] = []
     scan_roots = ["60-apps", "10-protocol", "20-actors"]
-    for root in scan_roots:
-        rp = repo / root
-        if not rp.is_dir():
+    pathspecs = [f"{r}/**/package.json" for r in scan_roots]
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo), "ls-files", "-z", "--", *pathspecs],
+            capture_output=True, check=True, timeout=30,
+        )
+        files = [repo / p for p in out.stdout.decode("utf-8", errors="ignore").split("\0") if p]
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        files = []
+        for root in scan_roots:
+            rp = repo / root
+            if not rp.is_dir():
+                continue
+            for f in rp.rglob("package.json"):
+                if "node_modules" in f.parts or ".venv" in f.parts:
+                    continue
+                files.append(f)
+    hits: list[str] = []
+    for f in files:
+        try:
+            text = f.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
             continue
-        for f in rp.rglob("*.json"):
-            if "node_modules" in f.parts or ".venv" in f.parts:
-                continue
-            if f.name != "package.json":
-                continue
-            try:
-                text = f.read_text(encoding="utf-8", errors="ignore")
-            except OSError:
-                continue
-            for needle, label in prohibited:
-                if needle in text:
-                    hits.append(f"  {label} in {f.relative_to(repo)}")
+        for needle, label in prohibited:
+            if needle in text:
+                hits.append(f"  {label} in {f.relative_to(repo)}")
     if hits:
         return False, ["substrate boundary violation in package.json dependencies:"] + hits[:10]
     return True, ["scanned package.json files — no prohibited fiat/DB processors"]
@@ -768,6 +856,54 @@ _NO_SERVER_KEY_SCAN_GLOBS = (
 _NO_SERVER_KEY_EXEMPTION_MARKER = "no-server-key: read-only"
 
 
+def _no_server_key_candidates(repo: Path) -> list[Path]:
+    """Enumerate the files that `_check_no_server_key` must scan.
+
+    Uses `git ls-files` first because it is **~100× faster** than
+    `pathlib.Path.glob("**/…")` on this repo — pathlib walks every
+    directory (including `node_modules/`, `target/`, `.svelte-kit/`,
+    `dist/`, build caches) before filtering, whereas `git ls-files`
+    reads the index and emits only tracked + staged files.
+
+    On the operator workstation as of 2026-05-26 the pathlib path took
+    ~116s; the git-index path takes <100ms. Pre-commit hook total drops
+    from ~127s to ~11s — recovers safe hook usage during parallel-
+    session monorepo work where `--no-verify` had become routine.
+
+    Falls back to `pathlib.glob` when `git ls-files` is unavailable
+    (bare tarball extract, non-git CI checkout); the slow path remains
+    correct, just expensive.
+    """
+    # Patterns mirror _NO_SERVER_KEY_SCAN_GLOBS but in the dialect git
+    # ls-files understands: it uses fnmatch-style globs and supports
+    # multiple positional pathspecs.
+    pathspecs = [
+        "*wrangler.jsonc", "*wrangler.toml", "*wrangler.json",
+        "**/k8s/**/*.yaml", "**/k8s/**/*.yml",
+        "*docker-compose*.yml", "*docker-compose*.yaml",
+        ".github/workflows/*.yml", ".github/workflows/*.yaml",
+        "**/.github/workflows/*.yml", "**/.github/workflows/*.yaml",
+    ]
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo), "ls-files", "-z", "--", *pathspecs],
+            capture_output=True, check=True, timeout=30,
+        )
+        rel = [p for p in out.stdout.decode("utf-8", errors="ignore").split("\0") if p]
+        return [repo / r for r in rel]
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        # Fallback: original pathlib glob path. Slow on monorepos but
+        # works in non-git environments (bare tarball extract / CI).
+        out_files: list[Path] = []
+        for g in _NO_SERVER_KEY_SCAN_GLOBS:
+            for f in repo.glob(g):
+                parts = set(f.parts)
+                if "node_modules" in parts or ".venv" in parts or ".git" in parts:
+                    continue
+                out_files.append(f)
+        return out_files
+
+
 def _check_no_server_key(repo: Path) -> tuple[bool, list[str]]:
     """ADR-2605231525 — etzhayyim-operated infrastructure must not hold
     any of the 13 server-side signing / master-credential env vars.
@@ -780,25 +916,21 @@ def _check_no_server_key(repo: Path) -> tuple[bool, list[str]]:
     """
     hits: list[str] = []
     exemptions = 0
-    for glob in _NO_SERVER_KEY_SCAN_GLOBS:
-        for f in repo.glob(glob):
-            parts = set(f.parts)
-            if "node_modules" in parts or ".venv" in parts or ".git" in parts:
-                continue
-            try:
-                text = f.read_text(encoding="utf-8", errors="ignore")
-            except OSError:
-                continue
-            if _NO_SERVER_KEY_EXEMPTION_MARKER in text:
-                exemptions += 1
-                continue
-            for needle in _NO_SERVER_KEY_FORBIDDEN_ENV:
-                if needle in text:
-                    hits.append(f"  {needle} in {f.relative_to(repo)}")
-                    if len(hits) >= 20:
-                        break
-            if len(hits) >= 20:
-                break
+    scanned = 0
+    for f in _no_server_key_candidates(repo):
+        try:
+            text = f.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        scanned += 1
+        if _NO_SERVER_KEY_EXEMPTION_MARKER in text:
+            exemptions += 1
+            continue
+        for needle in _NO_SERVER_KEY_FORBIDDEN_ENV:
+            if needle in text:
+                hits.append(f"  {needle} in {f.relative_to(repo)}")
+                if len(hits) >= 20:
+                    break
         if len(hits) >= 20:
             break
     if hits:
@@ -808,7 +940,7 @@ def _check_no_server_key(repo: Path) -> tuple[bool, list[str]]:
             f"  ({exemptions} file(s) exempted via 'no-server-key: read-only' marker)",
         ]
     return True, [
-        f"scanned {sum(1 for _ in (repo.glob(g) for g in _NO_SERVER_KEY_SCAN_GLOBS))} glob group(s); zero violations",
+        f"scanned {scanned} file(s) via git ls-files; zero violations",
         f"({exemptions} file(s) exempted via marker)",
     ]
 
@@ -827,15 +959,33 @@ _CHECKS: list[tuple[str, str, callable]] = [
 
 
 def verify() -> dict[str, Any]:
-    """Scan all constitutional hard invariants. Read-only."""
+    """Scan all constitutional hard invariants. Read-only.
+
+    Checks are independent and I/O-bound (each spawns a `git grep`
+    subprocess), so we run them in parallel via a thread pool. The
+    GIL is released for the duration of subprocess.run, so threads
+    overlap effectively.
+
+    Sequential wall time (iter-55 baseline): ~2.3s on dev box.
+    Parallel wall time: ~1.3s (bounded by the slowest check
+    `no_advertising` at ~970ms).
+    """
     repo = _repo_root()
-    results: list[dict[str, Any]] = []
-    for key, desc, fn in _CHECKS:
+
+    def _run_one(item: tuple[str, str, Any]) -> dict[str, Any]:
+        key, desc, fn = item
         try:
             passed, evidence = fn(repo)
         except Exception as exc:
             passed, evidence = False, [f"check raised: {exc!r}"]
-        results.append({"key": key, "description": desc, "passed": passed, "evidence": evidence})
+        return {"key": key, "description": desc, "passed": passed, "evidence": evidence}
+
+    with ThreadPoolExecutor(max_workers=len(_CHECKS)) as pool:
+        # Preserve _CHECKS declaration order in the output (operator
+        # expectations of the report layout). map() returns in submit
+        # order, not completion order, which is exactly what we want.
+        results = list(pool.map(_run_one, _CHECKS))
+
     n_pass = sum(1 for r in results if r["passed"])
     return {
         "ok": n_pass == len(results),

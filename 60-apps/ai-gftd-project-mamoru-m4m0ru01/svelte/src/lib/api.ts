@@ -99,19 +99,19 @@ export const api = {
     limit?: number;
     offset?: number;
   } = {}): Promise<ListIncidentsResponse> {
-    return xrpcGet("ai.gftd.apps.mamoru.listIncidents", params as Record<string, string | number | undefined>);
+    return xrpcGet("app.etzhayyim.apps.mamoru.listIncidents", params as Record<string, string | number | undefined>);
   },
 
   getIncident(incidentId: string, occurrenceLimit = 20): Promise<IncidentDetail> {
-    return xrpcGet("ai.gftd.apps.mamoru.getIncident", { incidentId, occurrenceLimit });
+    return xrpcGet("app.etzhayyim.apps.mamoru.getIncident", { incidentId, occurrenceLimit });
   },
 
   resolveIncident(incidentId: string, resolution: "revoked" | "false_positive" | "accepted_risk", note?: string): Promise<{ ok: boolean }> {
-    return xrpcPost("ai.gftd.apps.mamoru.resolveIncident", { incidentId, resolution, note });
+    return xrpcPost("app.etzhayyim.apps.mamoru.resolveIncident", { incidentId, resolution, note });
   },
 
   scanCommit(repoId: string, commitSha: string, diffPayload = ""): Promise<{ scanId: string }> {
-    return xrpcPost("ai.gftd.apps.mamoru.scanCommit", {
+    return xrpcPost("app.etzhayyim.apps.mamoru.scanCommit", {
       repoId,
       commitSha,
       diffPayload: btoa(diffPayload),

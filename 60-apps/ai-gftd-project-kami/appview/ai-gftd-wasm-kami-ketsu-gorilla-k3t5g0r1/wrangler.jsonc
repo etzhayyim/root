@@ -18,23 +18,23 @@
     "APP_DISPLAY_NAME": "Goriketsu Dash!!",
     "APP_EMBED_URL": "ketsu-game.htm",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "APP_NANOID": "k3t5g0r1",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"
   },
   "routes": [
     {
-      "pattern": "k3t5g0r1.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "k3t5g0r1.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "gorigori-ketsu-dasshu.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "gorigori-ketsu-dasshu.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "ketsu-gorilla-kami.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "ketsu-gorilla-kami.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

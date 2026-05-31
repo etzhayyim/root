@@ -19,9 +19,18 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 2605192245-etzhayyim-global-land-sovereignty.md
+  - adr-2605192245-etzhayyim-global-land-sovereignty
+  - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
 supersedes: []
 superseded_by: []
+superseded_by_partial:
+  - adr: 2605263500-energy-substrate-dependency-vs-substance-reframing
+    scope:
+      - "Hard rule (b) '化石燃料新規排除' — re-framed: zero commercial fossil purchase/extraction stays banned via Charter Rider §2(d) + D1+D3 of 2605263400; religious-corp closed-loop microbial hydrocarbon newly permitted under §2.2 conditions"
+      - "SMR / 水素 / 核融合 deferral section — superseded for fusion (now §2.3 of 2605263400 provides conditional permit + R&D-entry path); SMR + RTG categorically banned per §2.4 of 2605263400 on D1+D2+D4 grounds; hydrogen remains deferred to its own future ADR under D1..D5"
+    status: proposed-pending-council-ratification
+    effective_earliest: 2026-07-19
+    note: "Hard rules (a) open-hardware + (c) collective ownership + Phase A/B/C roadmap PRESERVED unchanged."
 ---
 
 # ADR-2605202000: etzhayyim Energy Substrate — solar + storage + microgrid first; SMR deferred; open-hardware mandatory; 3-phase scale

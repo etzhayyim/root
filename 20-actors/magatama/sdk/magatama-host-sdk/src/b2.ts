@@ -18,7 +18,7 @@
  *
  * Usage:
  *
- *   import { b2Get, b2Put, b2Head, b2Delete } from "@gftd/magatama-host-sdk";
+ *   import { b2Get, b2Put, b2Head, b2Delete } from "@etzhayyim/magatama-host-sdk";
  *   const obj = await b2Get(env, "bim/blobs/abc123");
  *   if (obj) {
  *     const buf = await obj.arrayBuffer();

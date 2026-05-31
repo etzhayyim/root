@@ -64,7 +64,7 @@
     signUpHref = 'https://authn.etzhayyim.com/sign-up',
     walletHref = 'https://metamask.io/download/',
     walletLabel = 'MetaMask',
-    appName = 'GFTD',
+    appName = 'etzhayyim',
     homeHref = '/',
     showMenuButton = false,
     onMenuClick,

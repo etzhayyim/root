@@ -24,6 +24,7 @@
 	import AppDrawer from '$lib/components/AppDrawer.svelte';
 	import OpsFAB from '$lib/components/OpsFAB.svelte';
 	import InferenceConsent from '$lib/components/InferenceConsent.svelte';
+	import NoCookieBanner from '$lib/components/NoCookieBanner.svelte';
 	import { hasInferenceConsent, requestInferenceConsent } from '$lib/components/inference-consent-state.svelte.js';
 	import { useGamification, AchievementToast } from '$lib/gamification';
 	import { hitl } from '$lib/hitl-store.svelte';
@@ -222,7 +223,7 @@
 				onclick={() => {
 					const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
 					const redirectUrl = isNative
-						? `ai.gftd.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
+						? `app.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
 						: window.location.href;
 					window.location.href = `https://authn.etzhayyim.com/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`;
 				}}
@@ -235,7 +236,7 @@
 				onclick={() => {
 					const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
 					const redirectUrl = isNative
-						? `ai.gftd.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
+						? `app.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
 						: window.location.href;
 					window.location.href = `https://authn.etzhayyim.com/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`;
 				}}
@@ -256,3 +257,4 @@
 <ActionSheet bind:open={menuOpen} actions={menuActions} cancelLabel="キャンセル" />
 <AchievementToast />
 <InferenceConsent />
+<NoCookieBanner />

@@ -38,7 +38,7 @@ class TestIntakeSubmit(unittest.TestCase):
         self.assertTrue(out["ok"])
         self.assertTrue(out["intake_id"])
         self.assertTrue(out["intake_uri"].startswith(
-            "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.intake/"
+            "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.intake/"
         ))
         self.assertIn("Thank you", out["next_steps_message"])
 
@@ -111,7 +111,7 @@ class TestMatterCreate(unittest.TestCase):
         self.assertTrue(out["ok"])
         self.assertTrue(out["matter_id"])
         self.assertTrue(out["matter_uri"].startswith(
-            "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.matter/"
+            "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.matter/"
         ))
         self.assertEqual(out["status"], "pending_pwc")
 

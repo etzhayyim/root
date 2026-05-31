@@ -153,16 +153,16 @@ async def stream_run(body: dict[str, Any]) -> StreamingResponse:
 # ── XRPC-compat surface ────────────────────────────────────────────────
 
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "ai.gftd.apps.yukkuri.health":           "health",
-    "ai.gftd.apps.yukkuri.listVideos":       "list_videos",
-    "ai.gftd.apps.yukkuri.getVideo":         "get_video",
-    "ai.gftd.apps.yukkuri.compose":          "compose",
-    "ai.gftd.apps.yukkuri.generateScript":   "generate_script",
-    "ai.gftd.apps.yukkuri.synthesizeVoice":  "synthesize_voice",
-    "ai.gftd.apps.yukkuri.generateVisual":   "generate_visual",
-    "ai.gftd.apps.yukkuri.generateBgm":      "generate_bgm",
-    "ai.gftd.apps.yukkuri.renderVideo":      "render_video",
-    "ai.gftd.apps.yukkuri.reviewVideo":      "review_video",
+    "app.etzhayyim.apps.yukkuri.health":           "health",
+    "app.etzhayyim.apps.yukkuri.listVideos":       "list_videos",
+    "app.etzhayyim.apps.yukkuri.getVideo":         "get_video",
+    "app.etzhayyim.apps.yukkuri.compose":          "compose",
+    "app.etzhayyim.apps.yukkuri.generateScript":   "generate_script",
+    "app.etzhayyim.apps.yukkuri.synthesizeVoice":  "synthesize_voice",
+    "app.etzhayyim.apps.yukkuri.generateVisual":   "generate_visual",
+    "app.etzhayyim.apps.yukkuri.generateBgm":      "generate_bgm",
+    "app.etzhayyim.apps.yukkuri.renderVideo":      "render_video",
+    "app.etzhayyim.apps.yukkuri.reviewVideo":      "review_video",
 }
 
 

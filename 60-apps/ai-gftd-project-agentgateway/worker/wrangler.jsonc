@@ -8,8 +8,8 @@
   },
   "routes": [
     {
-      "pattern": "mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
-      "zone_name": "gftd.ai"
+      "pattern": "mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {
@@ -20,6 +20,6 @@
   },
   "vars": {
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   }
 }

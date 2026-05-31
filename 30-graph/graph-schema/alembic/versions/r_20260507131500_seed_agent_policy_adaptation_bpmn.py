@@ -26,7 +26,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-policy-adaptation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-policy-adaptation-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -189,14 +189,14 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-policy-adaptation',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-policy-adaptation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-policy-adaptation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '       result_timeout_ms, write_table_allowlist, status, created_at,\n'
          '       sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did)\n'
          '    SELECT\n'
-         "      $1, $2, 'ai.gftd.apps.agent.adaptPolicy',\n"
+         "      $1, $2, 'app.etzhayyim.apps.agent.adaptPolicy',\n"
          "      'agent_policy_adaptation', 1, 120000,\n"
          "      'vertex_agent_policy_adaptation_proposal,vertex_agent_prior_preference',\n"
          "      'active', $3, 1, $4, $5, $6,\n"
@@ -205,19 +205,19 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-policy-adaptation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-policy-adaptation-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '2026-05-07T13:15:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-policy-adaptation',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-policy-adaptation-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-policy-adaptation-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-policy-adaptation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-policy-adaptation-v1']},
  {'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-policy-adaptation-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-policy-adaptation-v1']}]
 
 
 def upgrade() -> None:

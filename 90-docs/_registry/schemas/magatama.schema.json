@@ -48,13 +48,16 @@
       "enum": [
         "worker",
         "container",
-        "native"
+        "native",
+        "logical",
+        "pymagatama-zeebe"
       ],
-      "default": "worker"
+      "default": "worker",
+      "description": "Execution backend. worker=Cloudflare Worker / container=Docker / native=raw process / logical=app exists without runtime binding (e.g. doc-only or registry-only) / pymagatama-zeebe=Python+Zeebe orchestration backend."
     },
     "uiType": {
       "type": "string",
-      "description": "UI mode. appview (default) = own domain + optional SvelteKit UI. Legacy values (iframe, esm, full, fullapp, canvas, custom) are auto-mapped to appview.",
+      "description": "UI mode. appview (default) = own domain + optional SvelteKit UI. yoro = Yoro-rendered surface (open-yoro app SDK). 'none' = headless service variant. Legacy values (iframe, esm, full, fullapp, canvas, custom) are auto-mapped to appview by the runtime.",
       "enum": [
         "appview",
         "webcomponent",
@@ -67,7 +70,12 @@
         "custom",
         "miniapp",
         "full",
-        "fullapp"
+        "fullapp",
+        "yoro",
+        "none",
+        "static",
+        "calm-static",
+        "ameno"
       ],
       "default": "appview"
     },
@@ -181,14 +189,8 @@
         },
         "category": {
           "type": "string",
-          "enum": [
-            "government",
-            "international",
-            "religious",
-            "ngo",
-            "sport",
-            "academic"
-          ]
+          "minLength": 1,
+          "description": "Free-form business-domain category. Common values include: government / international / religious / ngo / sport / academic / infrastructure / knowledge / security / image-generation. Schema is permissive on this field; future normalization requires governance review."
         },
         "country": {
           "type": "string",
@@ -202,16 +204,18 @@
         },
         "isBot": {
           "type": "boolean",
-          "const": true
+          "description": "True for autonomous/agent apps; false for PWA / interactive user-facing surfaces."
         },
         "agentType": {
           "type": "string",
           "enum": [
             "autonomous",
             "semi-autonomous",
-            "reactive"
+            "reactive",
+            "advisory"
           ],
-          "default": "autonomous"
+          "default": "autonomous",
+          "description": "advisory = read-only / recommendation-only agent that doesn't take autonomous actions on external state."
         },
         "capabilities": {
           "type": "array",

@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/handotai-collect-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-collect-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_collect',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -48,9 +48,9 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Cadence: R/PT4H. One BPMN instance every 4 hours.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.handotai.handotaiCollect\n'
+                 '  NSID: app.etzhayyim.apps.handotai.handotaiCollect\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/handotai-collect-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-collect-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -64,7 +64,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.handotai.handotaiCollect", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.handotai.handotaiCollect", "version": 1, '
                  '"resultTimeoutMs": 600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -135,7 +135,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.handotai.handotaiCollect&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.handotai.handotaiCollect&quot;" '
                  'target="event_type"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;did:web:handotai.etzhayyim.com&quot;"              '
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/handotai-collect-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-collect-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -171,21 +171,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/handotai-collect-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-collect-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'ai.gftd.apps.handotai.handotaiCollect',
+                 'app.etzhayyim.apps.handotai.handotaiCollect',
                  'handotai_collect',
                  600000,
                  '2026-04-29T12:01:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/handotai-collect-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-collect-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/handotai-collect-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-collect-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/handotai-collect-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-collect-v1']}]
 
 
 def upgrade() -> None:

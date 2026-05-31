@@ -165,14 +165,14 @@ describe('grantConsent', () => {
     nextResponse = { ok: true, body: { capabilityUri: 'at://cap', capabilityCid: 'bafy-cap' } };
     await grantConsent({
       granterDid: 'did:plc:p',
-      granteeDid: 'did:web:iryo.gftd.ai',
+      granteeDid: 'did:web:iryo.etzhayyim.com',
       scope: ['app.etzhayyim.karute.encounter', 'app.etzhayyim.karute.serviceRequest'],
       expiresAt: '2026-08-23T00:00:00Z',
       purpose: 'insurance-billing',
     });
     const body = captured[0].bodyJson as { purpose: string; granteeDid: string; scope: string[] };
     expect(body.purpose).toBe('insurance-billing');
-    expect(body.granteeDid).toBe('did:web:iryo.gftd.ai');
+    expect(body.granteeDid).toBe('did:web:iryo.etzhayyim.com');
     expect(body.scope).toContain('app.etzhayyim.karute.encounter');
   });
 });

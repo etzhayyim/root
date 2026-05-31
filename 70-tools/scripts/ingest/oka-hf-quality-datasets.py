@@ -100,13 +100,13 @@ def safe_slug(repo_id: str, split: str) -> str:
 
 def catalog_vid(slug: str) -> str:
     safe = re.sub(r"[^a-zA-Z0-9._-]", "-", slug)[:180]
-    return f"at://{OWNER_DID}/ai.gftd.apps.hfDataset.dataset/{safe}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.hfDataset.dataset/{safe}"
 
 
 def record_vid(slug: str, record_id: str) -> str:
     safe_s = re.sub(r"[^a-zA-Z0-9._-]", "-", slug)[:150]
     safe_r = re.sub(r"[^a-zA-Z0-9._-]", "-", record_id)[:170]
-    return f"at://{OWNER_DID}/ai.gftd.apps.hfDataset.record/{safe_s}--{safe_r}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.hfDataset.record/{safe_s}--{safe_r}"
 
 
 def compact_json(row: dict[str, Any]) -> str:

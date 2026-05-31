@@ -1,7 +1,7 @@
 [project]
 name = "lg-lawfirm-intake"
 version = "0.1.0"
-description = "LangGraph Server: lawfirm.gftd.ai intake triage + bengoshi matching pod."
+description = "LangGraph Server: lawfirm.etzhayyim.com intake triage + bengoshi matching pod."
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "langgraph>=0.2.61",

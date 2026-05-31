@@ -20,13 +20,13 @@ const ownerDid = "did:web:etzhayyim.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.etzhayyim";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/etzhayyim-personnel-assignment-decide-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/etzhayyim-personnel-assignment-decide-v1",
   bpmnProcessId: "etzhayyim_personnel_assignment_decide",
   sourcePath: "00-contracts/bpmn/ai/gftd/etzhayyim/personnelAssignmentDecide.bpmn",
 };
 const BINDING = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/etzhayyim-personnel-assignment-decide-xrpc-v1",
-  nsid: "ai.gftd.apps.etzhayyim.personnelAssignmentDecide",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/etzhayyim-personnel-assignment-decide-xrpc-v1",
+  nsid: "app.etzhayyim.apps.etzhayyim.personnelAssignmentDecide",
   bpmnProcessId: "etzhayyim_personnel_assignment_decide",
   resultTimeoutMs: 600_000,
 };

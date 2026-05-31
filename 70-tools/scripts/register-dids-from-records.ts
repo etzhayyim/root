@@ -11,14 +11,14 @@
 
 const PDS_URL = "https://atproto.etzhayyim.com";
 
-// ADR-0023 P4: GFTD_TOKEN Bearer replaces spoofable x-magatama-verified.
-const GFTD_TOKEN = process.env.GFTD_TOKEN;
-if (!GFTD_TOKEN) {
-  throw new Error("GFTD_TOKEN env var required — run `export GFTD_TOKEN=$(gftd auth token)` first");
+// ADR-0023 P4: etzhayyim_TOKEN Bearer replaces spoofable x-magatama-verified.
+const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
+if (!etzhayyim_TOKEN) {
+  throw new Error("etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first");
 }
 const AUTH_HEADERS: Record<string, string> = {
   "Content-Type": "application/json",
-  "Authorization": `Bearer ${GFTD_TOKEN}`,
+  "Authorization": `Bearer ${etzhayyim_TOKEN}`,
   "x-gftd-org-id": "anon",
 };
 const DATA_BASE = "/Volumes/251220/domain-data";
@@ -476,7 +476,7 @@ async function registerDIDsBatch(
         headers: AUTH_HEADERS,
         body: JSON.stringify({
           repo: appDid,
-          collection: "ai.gftd.wproto.did",
+          collection: "app.etzhayyim.wproto.did",
           record: didRecord,
         }),
       });

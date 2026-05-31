@@ -10,12 +10,12 @@
     "APP_CAPABILITIES": "[\"guide-navigation\",\"collection-scheduling\",\"receipt-issuance\",\"image-recognition\",\"material-classification\",\"disassembly-planning\",\"robotic-arm-control\",\"human-task-delegation\",\"material-appraisal\",\"campaign-announcement\"]",
     "APP_DESCRIPTION": "Urban Mining Intelligence — e-waste からの貴金属・レアメタル回収 end-to-end パイプライン (10 actor 協調)",
     "APP_DISPLAY_NAME": "都市鉱山",
-    "APP_EMBED_URL": "https://tk7x9p2m.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://tk7x9p2m.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "tk7x9p2m",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -27,12 +27,12 @@
   ],
   "routes": [
     {
-      "pattern": "tk7x9p2m.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "tk7x9p2m.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "toshi-kozan.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "toshi-kozan.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

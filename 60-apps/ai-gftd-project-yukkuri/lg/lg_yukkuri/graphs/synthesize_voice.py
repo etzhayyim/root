@@ -1,6 +1,6 @@
 """yukkuri `synthesizeVoice` graph — kokoro-ts TTS (L + R 並列).
 
-NSID: ai.gftd.apps.yukkuri.synthesizeVoice
+NSID: app.etzhayyim.apps.yukkuri.synthesizeVoice
 
 Actors:
   LEFT  → did:web:yukkuri.etzhayyim.com:actor:voiceLeft  (voice preset: af_heart)

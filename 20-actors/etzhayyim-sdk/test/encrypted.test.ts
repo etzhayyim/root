@@ -20,15 +20,12 @@ import {describe, it, expect, beforeAll, afterAll} from "vitest";
 import {startFakePds} from "./fake-pds.mjs";
 import {AtpAgent} from "@atproto/api";
 import {ed25519} from "@noble/curves/ed25519";
+import {randomBytes} from "@noble/hashes/utils";
 
 import {
   signSignalIdentity,
   type SignedSignalIdentity,
 } from "../src/did-signal.js";
-import {
-  generateLocalIdentity,
-  type LocalIdentityBundle,
-} from "../src/signal.js";
 import {
   encryptedReadStandalone,
   encryptedWriteStandalone,
@@ -41,16 +38,27 @@ import {
 const ALICE_DID = "did:test:alice";
 const BOB_DID = "did:test:bob";
 
+type PublishableIdentity = ResolvedRecipientIdentity["publishable"];
+function makePublishableIdentity(): PublishableIdentity {
+  return {
+    signalIdentityKey: randomBytes(32),
+    signalRegistrationId: 1,
+    signedPreKey: randomBytes(32),
+    signedPreKeyId: 1,
+    signedPreKeySignature: randomBytes(64),
+  };
+}
+
 interface Actor {
   did: string;
-  identity: LocalIdentityBundle;
+  publishable: PublishableIdentity;
   didSigningKey: Uint8Array;
   didVerificationKey: Uint8Array;
   signed: SignedSignalIdentity;
 }
 
 async function makeActor(did: string): Promise<Actor> {
-  const identity = await generateLocalIdentity({signedPreKeyId: 1});
+  const publishable = makePublishableIdentity();
 
   // Generate a separate Ed25519 keypair that "represents" the actor's DID
   // signing key. In production this would be resolved from the DID document.
@@ -61,17 +69,17 @@ async function makeActor(did: string): Promise<Actor> {
   const signed = signSignalIdentity(
     {
       did,
-      signalIdentityKey: identity.publishable.signalIdentityKey,
-      signalRegistrationId: identity.publishable.signalRegistrationId,
-      signedPreKey: identity.publishable.signedPreKey,
-      signedPreKeyId: identity.publishable.signedPreKeyId,
-      signedPreKeySignature: identity.publishable.signedPreKeySignature,
+      signalIdentityKey: publishable.signalIdentityKey,
+      signalRegistrationId: publishable.signalRegistrationId,
+      signedPreKey: publishable.signedPreKey,
+      signedPreKeyId: publishable.signedPreKeyId,
+      signedPreKeySignature: publishable.signedPreKeySignature,
       createdAt: new Date().toISOString(),
     },
     didSigningKey
   );
 
-  return {did, identity, didSigningKey, didVerificationKey, signed};
+  return {did, publishable, didSigningKey, didVerificationKey, signed};
 }
 
 describe("encrypted — full encryptedWrite → encryptedRead round-trip", () => {
@@ -115,7 +123,7 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
       const actor = actors.find((a) => a.did === recipientDid);
       if (!actor) return null;
       return {
-        publishable: actor.identity.publishable,
+        publishable: actor.publishable,
         signed: actor.signed,
         didVerificationKey: actor.didVerificationKey,
       };
@@ -135,7 +143,6 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
       {
         agent,
         senderDid: ALICE_DID,
-        senderStores: alice.identity.stores,
         resolveRecipientIdentity: makeResolver([alice, bob]),
       },
       {
@@ -158,7 +165,6 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
       {
         agent,
         selfDid: BOB_DID,
-        selfStores: bob.identity.stores,
       },
       {
         innerType: "app.etzhayyim.governance.proposal",
@@ -188,7 +194,6 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
       {
         agent,
         senderDid: BOB_DID,
-        senderStores: bob.identity.stores,
         resolveRecipientIdentity: makeResolver([alice, bob]),
       },
       {
@@ -205,7 +210,6 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
       {
         agent,
         selfDid: ALICE_DID,
-        selfStores: alice.identity.stores,
       },
       {
         innerType: "app.etzhayyim.governance.vote",
@@ -222,7 +226,7 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
     // Carol's signalIdentity is signed with a key that does NOT match the
     // verification key we declare. encryptedWrite must skip her.
     const carolDid = "did:test:carol";
-    const carolIdentity = await generateLocalIdentity({signedPreKeyId: 1});
+    const carolPublishable = makePublishableIdentity();
     const carolWrongSigningKey = ed25519.utils.randomPrivateKey();
     const carolFakeVerificationKey = ed25519.getPublicKey(
       ed25519.utils.randomPrivateKey()
@@ -230,11 +234,11 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
     const carolSigned = signSignalIdentity(
       {
         did: carolDid,
-        signalIdentityKey: carolIdentity.publishable.signalIdentityKey,
-        signalRegistrationId: carolIdentity.publishable.signalRegistrationId,
-        signedPreKey: carolIdentity.publishable.signedPreKey,
-        signedPreKeyId: carolIdentity.publishable.signedPreKeyId,
-        signedPreKeySignature: carolIdentity.publishable.signedPreKeySignature,
+        signalIdentityKey: carolPublishable.signalIdentityKey,
+        signalRegistrationId: carolPublishable.signalRegistrationId,
+        signedPreKey: carolPublishable.signedPreKey,
+        signedPreKeyId: carolPublishable.signedPreKeyId,
+        signedPreKeySignature: carolPublishable.signedPreKeySignature,
         createdAt: new Date().toISOString(),
       },
       carolWrongSigningKey
@@ -245,21 +249,21 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
     ): Promise<ResolvedRecipientIdentity | null> => {
       if (recipientDid === BOB_DID) {
         return {
-          publishable: bob.identity.publishable,
+          publishable: bob.publishable,
           signed: bob.signed,
           didVerificationKey: bob.didVerificationKey,
         };
       }
       if (recipientDid === ALICE_DID) {
         return {
-          publishable: alice.identity.publishable,
+          publishable: alice.publishable,
           signed: alice.signed,
           didVerificationKey: alice.didVerificationKey,
         };
       }
       if (recipientDid === carolDid) {
         return {
-          publishable: carolIdentity.publishable,
+          publishable: carolPublishable,
           signed: carolSigned,
           didVerificationKey: carolFakeVerificationKey,
         };
@@ -271,7 +275,6 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
       {
         agent,
         senderDid: ALICE_DID,
-        senderStores: alice.identity.stores,
         resolveRecipientIdentity: resolverWithBadCarol,
       },
       {
@@ -295,7 +298,6 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
       {
         agent,
         senderDid: ALICE_DID,
-        senderStores: alice.identity.stores,
         resolveRecipientIdentity: makeResolver([alice, bob]),
       },
       {

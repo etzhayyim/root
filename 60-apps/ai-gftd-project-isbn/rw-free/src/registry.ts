@@ -34,7 +34,7 @@ import {
   type RegisterBookOutput,
 } from "./types.js";
 
-const BOOK_COLLECTION = "ai.gftd.isbn.book";
+const BOOK_COLLECTION = "app.etzhayyim.isbn.book";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

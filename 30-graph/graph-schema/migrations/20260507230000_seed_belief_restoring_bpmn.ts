@@ -16,9 +16,9 @@ const CREATED_AT = "2026-05-07T23:00:00Z";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 const PROCESS_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1";
 const BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(
@@ -53,7 +53,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       ${BINDING_VID}, ${OWNER_DID},
       'wellbecoming_belief_restoring_capture',
-      'ai.gftd.apps.wellbecoming.beliefRestoringCapture',
+      'app.etzhayyim.apps.wellbecoming.beliefRestoringCapture',
       ${CREATED_AT}, 1,
       ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.wellbecoming'
     WHERE NOT EXISTS (

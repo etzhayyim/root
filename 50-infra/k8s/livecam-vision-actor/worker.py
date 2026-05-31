@@ -273,7 +273,7 @@ def build_records(analysis: dict[str, Any], context: dict[str, str], model: str,
 
 
 async def commit_analysis(payload: dict[str, Any]) -> dict[str, Any]:
-    url = os.environ.get("LIVECAM_COMMIT_ANALYSIS_URL", "https://livecam.etzhayyim.com/xrpc/ai.gftd.apps.livecam.commitAnalysis")
+    url = os.environ.get("LIVECAM_COMMIT_ANALYSIS_URL", "https://livecam.etzhayyim.com/xrpc/app.etzhayyim.apps.livecam.commitAnalysis")
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
         res = await client.post(url, json=payload)
     if res.status_code >= 400:

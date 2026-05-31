@@ -16,12 +16,12 @@
     "APP_CAPABILITIES": "[\"command-serve\",\"domain-query\",\"product-configurator\",\"firmware-intelligence\"]",
     "APP_DESCRIPTION": "Ergonomic Dual-Body Split Keyboard + FIDO2 — product intelligence, CTO configurator, firmware AI optimization [AI Agent — unofficial, not affiliated with the real organization]",
     "APP_DISPLAY_NAME": "KB-SPLIT Keyboard",
-    "APP_EMBED_URL": "https://kb0ard1x.gftd.ai/embed",
+    "APP_EMBED_URL": "https://kb0ard1x.etzhayyim.com/embed",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "kb0ard1x",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -33,8 +33,8 @@
   ],
   "routes": [
     {
-      "pattern": "kb0ard1x.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "kb0ard1x.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

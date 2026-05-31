@@ -22,7 +22,7 @@ related:
   - adr-0014-self-hosted-did-plc
   - adr-0094-risingwave-stable-three-node-topology
   - adr-2605080600-langgraph-server-granian-l3-runtime
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
 supersedes: []
 superseded_by: []
 amends: []

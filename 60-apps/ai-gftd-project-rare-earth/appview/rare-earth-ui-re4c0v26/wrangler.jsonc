@@ -13,6 +13,6 @@
     { "type": "CompiledWasm", "globs": ["**/*.wasm"] }
   ],
   "routes": [
-    { "pattern": "rare-earth.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "rare-earth.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

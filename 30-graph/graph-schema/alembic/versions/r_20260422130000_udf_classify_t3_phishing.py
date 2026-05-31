@@ -15,7 +15,7 @@ depends_on = None
 UP = [{'sql': '\n'
          '    CREATE FUNCTION classify_t3_phishing(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'ai.gftd.apps.yabaiClassifier.phishingT3'\n"
+         "      AS 'app.etzhayyim.apps.yabaiClassifier.phishingT3'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []}]

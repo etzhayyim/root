@@ -10,9 +10,9 @@
 Two BPMN processes + two pyzeebe primitives that turn the long-stubbed
 `maps.satellite_*` commands into a live ingest + analysis pipeline:
 
-- `ai.gftd.apps.maps.sentinelIngest` (timer R/PT24H) — Sentinel-2 L2A
+- `app.etzhayyim.apps.maps.sentinelIngest` (timer R/PT24H) — Sentinel-2 L2A
   + Sentinel-1 GRD STAC search → `vertex_repo_record`
-- `ai.gftd.apps.maps.sentinelAnalyze` (XRPC POST) — RunPod Serverless
+- `app.etzhayyim.apps.maps.sentinelAnalyze` (XRPC POST) — RunPod Serverless
   GPU analysis (changeDetection / landUse / sarFlood) → `vertex_repo_record`
 
 ## Pre-flight (gate, MUST PASS)
@@ -112,7 +112,7 @@ ORDER BY vertex_id;
 
 SELECT vertex_id, nsid, bpmn_process_id, status
 FROM vertex_bpmn_lexicon_binding
-WHERE nsid LIKE 'ai.gftd.apps.maps.sentinel%'
+WHERE nsid LIKE 'app.etzhayyim.apps.maps.sentinel%'
 ORDER BY nsid;
 SQL
 ```
@@ -164,8 +164,8 @@ kubectl -n mitama-udf logs -l app.kubernetes.io/name=zeebe-worker --tail=50 \
 
 ```bash
 # Manual one-shot kick of the timer process (don't wait 24 h).
-TOKEN=$(gftd agent-token --lxm ai.gftd.apps.maps.sentinelIngest)
-curl -sS -X POST "https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.sentinelIngest" \
+TOKEN=$(gftd agent-token --lxm app.etzhayyim.apps.maps.sentinelIngest)
+curl -sS -X POST "https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.sentinelIngest" \
   -H "authorization: Bearer $TOKEN" \
   -H "content-type: application/json" \
   -d '{"timeRangeDays":1,"maxScenesPerAoi":2,"platforms":["sentinel-2-l2a"]}' \
@@ -180,7 +180,7 @@ psql "$DATABASE_URL" <<'SQL'
 SELECT count(*) AS scenes,
        max(created_at) AS latest
 FROM vertex_repo_record
-WHERE collection = 'ai.gftd.apps.maps.satelliteScene';
+WHERE collection = 'app.etzhayyim.apps.maps.satelliteScene';
 SQL
 ```
 
@@ -191,15 +191,15 @@ Pick a scene URI from Step 6 and analyze it:
 ```bash
 SCENE_URI=$(psql "$DATABASE_URL" -tAc "
   SELECT uri FROM vertex_repo_record
-  WHERE collection='ai.gftd.apps.maps.satelliteScene'
+  WHERE collection='app.etzhayyim.apps.maps.satelliteScene'
   ORDER BY ts_ms DESC LIMIT 1")
-TOKEN=$(gftd agent-token --lxm ai.gftd.apps.maps.sentinelAnalyze)
-curl -sS -X POST "https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.sentinelAnalyze" \
+TOKEN=$(gftd agent-token --lxm app.etzhayyim.apps.maps.sentinelAnalyze)
+curl -sS -X POST "https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.sentinelAnalyze" \
   -H "authorization: Bearer $TOKEN" \
   -H "content-type: application/json" \
   -d "{\"sceneUri\":\"$SCENE_URI\",\"analysisType\":\"landUse\"}" \
   | python3 -m json.tool
-# Expect: {"analysisUri":"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteAnalysis/…",
+# Expect: {"analysisUri":"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.satelliteAnalysis/…",
 #          "summary":"…","confidence":0.78,"modelVersion":"sentinel2_landuse_unet","runtimeMs":12345}
 ```
 
@@ -224,7 +224,7 @@ function is reversible. To roll back:
 psql "$DATABASE_URL" -c "
   UPDATE vertex_bpmn_lexicon_binding
   SET status='inactive'
-  WHERE nsid LIKE 'ai.gftd.apps.maps.sentinel%';"
+  WHERE nsid LIKE 'app.etzhayyim.apps.maps.sentinel%';"
 
 # 2. Helm rollback (worker pod reverts; new task types are simply
 #    never registered. Already-registered task types degrade silently
@@ -248,7 +248,7 @@ are gated by an explicit `register()` call that the rollback removes.
 | `ingest` returns 200 with `scenesIngested:0` | AOI list rejected by STAC (CRS / bbox order) | inspect primitive logs `kubectl -n mitama-udf logs -l app.kubernetes.io/name=zeebe-worker | grep stac` |
 | `analyze` returns 504 timeout | RunPod cold-start over 5 min | bump `RUNPOD_TIMEOUT_SEC` in values.yaml; re-deploy |
 | Sentinel-1 always 0 hits | Copernicus secret missing or `productType` filter wrong | confirm `SENTINEL_HUB_CLIENT_*` env present in pod; check `_copernicus_token()` cache |
-| `ingest` 401 from CF Worker XRPC layer | missing Service Auth, or NSID not registered in PDS routing | confirm `vertex_bpmn_lexicon_binding` row + `gftd agent-token --lxm ai.gftd.apps.maps.sentinelIngest` returns a token |
+| `ingest` 401 from CF Worker XRPC layer | missing Service Auth, or NSID not registered in PDS routing | confirm `vertex_bpmn_lexicon_binding` row + `gftd agent-token --lxm app.etzhayyim.apps.maps.sentinelIngest` returns a token |
 
 ## Out of scope
 

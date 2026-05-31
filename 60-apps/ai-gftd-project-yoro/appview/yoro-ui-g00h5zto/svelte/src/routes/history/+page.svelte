@@ -1,6 +1,6 @@
 <!--
   /history — Browsing history (Twitter-style access/view history).
-  Data stored in Cypher graph via PDS (ai.gftd.apps.yoro.browsingHistory).
+  Data stored in Cypher graph via PDS (app.etzhayyim.apps.yoro.browsingHistory).
 -->
 <script lang="ts">
 	import { goto } from '$app/navigation';

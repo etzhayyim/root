@@ -63,9 +63,9 @@ Two complementary paths:
 
 The mangaka appview already has import scripts at
 `60-apps/ai-gftd-project-mangaka/scripts/import-jump-all.ts` that ingest these
-episodes into the live `mangaka.etzhayyim.com` PDS as `ai.gftd.mangaka.document`
+episodes into the live `mangaka.etzhayyim.com` PDS as `app.etzhayyim.mangaka.document`
 records. Each episode becomes 1 document with deep-link
-`https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/doc-gh-<slug>`.
+`https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.document/doc-gh-<slug>`.
 Run with `deno run scripts/import-jump-all.ts` after updating the `JUMP_DIR`
 constant if needed (currently points at the original `~/github/...` path).
 

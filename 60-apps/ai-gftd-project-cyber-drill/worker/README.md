@@ -102,7 +102,7 @@ cyber-drill is vendor-only per **ADR-2605172400** (3-axis split:
 liability / custody / settlement all vendor). This worker MUST NOT be
 mirrored to `etzhayyim/root`. It's also explicitly excluded from
 `gftd deploy` style account-level worker conventions because it isn't
-hosted at `*.gftd.ai`; the workers.dev URL keeps customer-facing
+hosted at `*.etzhayyim.com`; the workers.dev URL keeps customer-facing
 infrastructure cleanly separated from the gftdcojp public footprint.
 
 Authoritative: `90-docs/adr/2605211800-cyber-drill-webvr-spark-effects.md`.

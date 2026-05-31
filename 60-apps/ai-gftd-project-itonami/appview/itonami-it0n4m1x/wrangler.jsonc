@@ -4,13 +4,13 @@
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat", "nodejs_als"],
   "alias": {
-    "@gftd/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts",
+    "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts",
     "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js",
-    "@gftd/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts",
-    "@gftd/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts",
-    "@gftd/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts",
-    "@gftd/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts",
-    "@gftd/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts"
+    "@etzhayyim/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts",
+    "@etzhayyim/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts",
+    "@etzhayyim/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts",
+    "@etzhayyim/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts",
+    "@etzhayyim/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts"
   },
   "assets": {
     "directory": "../../svelte/build",
@@ -23,7 +23,7 @@
     "APP_CAPABILITIES": "[\"aircraft-lifecycle-simulation\",\"unspsc-bom\",\"isic-supplier\",\"digital-twin\"]",
     "APP_DESCRIPTION": "Aircraft engine lifecycle simulation — design, procurement, assembly, testing, and digital twin flight operation",
     "APP_DISPLAY_NAME": "Itonami",
-    "APP_EMBED_URL": "https://itonami.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://itonami.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "ts-native",
     "APP_NANOID": "it0n4m1x",
     "APP_PERFORMER_TYPE": "service",
@@ -47,7 +47,7 @@
     { "type": "CompiledWasm", "globs": ["**/*.wasm"] }
   ],
   "routes": [
-    { "pattern": "it0n4m1x.gftd.ai/*", "zone_name": "gftd.ai" },
-    { "pattern": "itonami.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "it0n4m1x.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "itonami.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

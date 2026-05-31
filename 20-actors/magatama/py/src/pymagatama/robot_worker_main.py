@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.robotics.workflow.start")
+    @worker.task(task_type="app.etzhayyim.apps.robotics.workflow.start")
     async def task_workflow_start(**kwargs):
         process_id = kwargs.get("processId", "")
         robot_did = kwargs.get("robotDid", "")
@@ -48,7 +48,7 @@ async def run_worker():
 
         return {"instanceId": instance_id, "status": "running"}
 
-    @worker.task(task_type="ai.gftd.apps.robotics.workflow.plan")
+    @worker.task(task_type="app.etzhayyim.apps.robotics.workflow.plan")
     async def task_workflow_plan(**kwargs):
         process_id = kwargs.get("processId", "")
         context = kwargs.get("context", {})
@@ -64,7 +64,7 @@ async def run_worker():
             "createdAt": now,
         }
 
-    @worker.task(task_type="ai.gftd.apps.robotics.mission.plan")
+    @worker.task(task_type="app.etzhayyim.apps.robotics.mission.plan")
     async def task_mission_plan(**kwargs):
         robot_did = kwargs.get("robotDid", "")
         goal = kwargs.get("goal", "")
@@ -91,7 +91,7 @@ async def run_worker():
 
         return {"missionId": mission_id, "status": "planned"}
 
-    @worker.task(task_type="ai.gftd.apps.robotics.mission.status")
+    @worker.task(task_type="app.etzhayyim.apps.robotics.mission.status")
     async def task_mission_status(**kwargs):
         mission_id = kwargs.get("missionId", "")
 
@@ -109,7 +109,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.robotics.mission.simulate")
+    @worker.task(task_type="app.etzhayyim.apps.robotics.mission.simulate")
     async def task_mission_simulate(**kwargs):
         mission_id = kwargs.get("missionId", "")
         dry_run = kwargs.get("dryRun", True)
@@ -127,7 +127,7 @@ async def run_worker():
             "simulatedAt": now,
         }
 
-    @worker.task(task_type="ai.gftd.apps.robotics.telemetry.ingest")
+    @worker.task(task_type="app.etzhayyim.apps.robotics.telemetry.ingest")
     async def task_telemetry_ingest(**kwargs):
         robot_did = kwargs.get("robotDid", "")
         topic = kwargs.get("topic", "")
@@ -155,7 +155,7 @@ async def run_worker():
 
         return {"id": telemetry_id, "ingested": True}
 
-    @worker.task(task_type="ai.gftd.apps.robotics.process.catalog")
+    @worker.task(task_type="app.etzhayyim.apps.robotics.process.catalog")
     async def task_process_catalog(**kwargs):
         category = kwargs.get("category", "")
         limit = int(kwargs.get("limit", 50))
@@ -176,7 +176,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="ai.gftd.apps.robotics.fulfillment.close")
+    @worker.task(task_type="app.etzhayyim.apps.robotics.fulfillment.close")
     async def task_fulfillment_close(**kwargs):
         fulfillment_id = kwargs.get("fulfillmentId", "")
         outcome = kwargs.get("outcome", "delivered")

@@ -4,17 +4,17 @@
 
 ## 責務
 
-- `xrpc/`: XRPC transport, auth, encode/decode, dispatch, app NSID 規約, command/query DSL の protocol core (`@gftd/xrpc`)
-- `wproto/`: W Protocol TS client — service API, Signal E2E, governance, stream (`@gftd/wproto`)
+- `xrpc/`: XRPC transport, auth, encode/decode, dispatch, app NSID 規約, command/query DSL の protocol core (`@etzhayyim/xrpc`)
+- `wproto/`: W Protocol TS client — service API, Signal E2E, governance, stream (`@etzhayyim/wproto`)
 
 ## 依存関係
 
 ```text
-@gftd/xrpc
+@etzhayyim/xrpc
   └─ (no internal package deps)
 
-@gftd/wproto
-  └─ @gftd/xrpc
+@etzhayyim/wproto
+  └─ @etzhayyim/xrpc
 ```
 
 ## 境界ルール

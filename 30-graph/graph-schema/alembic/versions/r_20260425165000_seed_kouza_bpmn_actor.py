@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-sync-due-connections-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_sync_due_connections',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_SyncDue" name="scan and mark due kouza '
                  'connections">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="ai.gftd.kouza.syncDueConnections"/>\n'
+                 '        <zeebe:taskDefinition type="app.etzhayyim.kouza.syncDueConnections"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=if maxConnections = null then 25 else '
                  'maxConnections" target="maxConnections"/>\n'
@@ -111,7 +111,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-sync-due-connections-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -125,21 +125,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-syncDueConnections-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.syncDueConnections',
+                 'app.etzhayyim.apps.kouza.syncDueConnections',
                  'kouza_sync_due_connections',
                  120000,
                  '2026-04-25T16:50:00Z',
                  'did:web:kouza.etzhayyim.com',
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-syncDueConnections-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncDueConnections-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-syncDueConnections-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-due-connections-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-sync-due-connections-v1']}]
 
 
 def upgrade() -> None:

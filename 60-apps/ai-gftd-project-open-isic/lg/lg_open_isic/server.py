@@ -7,7 +7,7 @@ HTTP surface:
   GET  /threads/{tid}/state → fetch latest checkpoint
   GET  /ok / /health      → liveness / readiness
 
-NSID namespace: ai.gftd.apps.openIsic.*
+NSID namespace: app.etzhayyim.apps.openIsic.*
 Auth: optional LG_API_KEY env enforces x-api-key on /runs.
       /xrpc/{nsid} is unauthenticated (trust at cloudflared tunnel layer).
 """
@@ -39,8 +39,8 @@ GRAPHS: dict[str, Any] = {
 }
 
 NSID_MAP: dict[str, str] = {
-    "ai.gftd.apps.openIsic.classifyEntity":      "classify_entity",
-    "ai.gftd.apps.openIsic.hierarchicalClassify": "hierarchical_classify",
+    "app.etzhayyim.apps.openIsic.classifyEntity":      "classify_entity",
+    "app.etzhayyim.apps.openIsic.hierarchicalClassify": "hierarchical_classify",
 }
 
 _API_KEY = os.environ.get("LG_API_KEY", "").strip()

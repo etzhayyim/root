@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.signal.ensureDevice": {
+    "/xrpc/app.etzhayyim.signal.ensureDevice": {
       "post": {
-        "summary": "ai.gftd.signal.ensureDevice",
-        "operationId": "ai.gftd.signal.ensureDevice",
+        "summary": "app.etzhayyim.signal.ensureDevice",
+        "operationId": "app.etzhayyim.signal.ensureDevice",
         "requestBody": {
           "required": true,
           "content": {
@@ -65,10 +65,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.getIdentityFingerprint": {
+    "/xrpc/app.etzhayyim.signal.getIdentityFingerprint": {
       "get": {
-        "summary": "ai.gftd.signal.getIdentityFingerprint",
-        "operationId": "ai.gftd.signal.getIdentityFingerprint",
+        "summary": "app.etzhayyim.signal.getIdentityFingerprint",
+        "operationId": "app.etzhayyim.signal.getIdentityFingerprint",
         "parameters": [
           {
             "name": "did",
@@ -108,10 +108,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.getPrekeyBundle": {
+    "/xrpc/app.etzhayyim.signal.getPrekeyBundle": {
       "get": {
-        "summary": "ai.gftd.signal.getPrekeyBundle",
-        "operationId": "ai.gftd.signal.getPrekeyBundle",
+        "summary": "app.etzhayyim.signal.getPrekeyBundle",
+        "operationId": "app.etzhayyim.signal.getPrekeyBundle",
         "parameters": [
           {
             "name": "did",
@@ -147,10 +147,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.getPrekeyBundles": {
+    "/xrpc/app.etzhayyim.signal.getPrekeyBundles": {
       "get": {
-        "summary": "ai.gftd.signal.getPrekeyBundles",
-        "operationId": "ai.gftd.signal.getPrekeyBundles",
+        "summary": "app.etzhayyim.signal.getPrekeyBundles",
+        "operationId": "app.etzhayyim.signal.getPrekeyBundles",
         "parameters": [
           {
             "name": "did",
@@ -189,10 +189,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.listDevices": {
+    "/xrpc/app.etzhayyim.signal.listDevices": {
       "get": {
-        "summary": "ai.gftd.signal.listDevices",
-        "operationId": "ai.gftd.signal.listDevices",
+        "summary": "app.etzhayyim.signal.listDevices",
+        "operationId": "app.etzhayyim.signal.listDevices",
         "parameters": [],
         "responses": {
           "200": {
@@ -222,10 +222,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.ratchetEncrypt": {
+    "/xrpc/app.etzhayyim.signal.ratchetEncrypt": {
       "post": {
-        "summary": "ai.gftd.signal.ratchetEncrypt",
-        "operationId": "ai.gftd.signal.ratchetEncrypt",
+        "summary": "app.etzhayyim.signal.ratchetEncrypt",
+        "operationId": "app.etzhayyim.signal.ratchetEncrypt",
         "requestBody": {
           "required": true,
           "content": {
@@ -273,10 +273,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.registerPrekeys": {
+    "/xrpc/app.etzhayyim.signal.registerPrekeys": {
       "post": {
-        "summary": "ai.gftd.signal.registerPrekeys",
-        "operationId": "ai.gftd.signal.registerPrekeys",
+        "summary": "app.etzhayyim.signal.registerPrekeys",
+        "operationId": "app.etzhayyim.signal.registerPrekeys",
         "requestBody": {
           "required": true,
           "content": {
@@ -342,10 +342,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.renameDevice": {
+    "/xrpc/app.etzhayyim.signal.renameDevice": {
       "post": {
-        "summary": "ai.gftd.signal.renameDevice",
-        "operationId": "ai.gftd.signal.renameDevice",
+        "summary": "app.etzhayyim.signal.renameDevice",
+        "operationId": "app.etzhayyim.signal.renameDevice",
         "requestBody": {
           "required": true,
           "content": {
@@ -397,10 +397,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.replenishOtpks": {
+    "/xrpc/app.etzhayyim.signal.replenishOtpks": {
       "post": {
-        "summary": "ai.gftd.signal.replenishOtpks",
-        "operationId": "ai.gftd.signal.replenishOtpks",
+        "summary": "app.etzhayyim.signal.replenishOtpks",
+        "operationId": "app.etzhayyim.signal.replenishOtpks",
         "requestBody": {
           "required": true,
           "content": {
@@ -454,10 +454,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.revokeDevice": {
+    "/xrpc/app.etzhayyim.signal.revokeDevice": {
       "post": {
-        "summary": "ai.gftd.signal.revokeDevice",
-        "operationId": "ai.gftd.signal.revokeDevice",
+        "summary": "app.etzhayyim.signal.revokeDevice",
+        "operationId": "app.etzhayyim.signal.revokeDevice",
         "requestBody": {
           "required": true,
           "content": {
@@ -505,10 +505,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.rotateGroupKey": {
+    "/xrpc/app.etzhayyim.signal.rotateGroupKey": {
       "post": {
-        "summary": "ai.gftd.signal.rotateGroupKey",
-        "operationId": "ai.gftd.signal.rotateGroupKey",
+        "summary": "app.etzhayyim.signal.rotateGroupKey",
+        "operationId": "app.etzhayyim.signal.rotateGroupKey",
         "requestBody": {
           "required": true,
           "content": {
@@ -560,10 +560,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.setEncryption": {
+    "/xrpc/app.etzhayyim.signal.setEncryption": {
       "post": {
-        "summary": "ai.gftd.signal.setEncryption",
-        "operationId": "ai.gftd.signal.setEncryption",
+        "summary": "app.etzhayyim.signal.setEncryption",
+        "operationId": "app.etzhayyim.signal.setEncryption",
         "requestBody": {
           "required": true,
           "content": {
@@ -614,10 +614,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.signal.verifyIdentity": {
+    "/xrpc/app.etzhayyim.signal.verifyIdentity": {
       "post": {
-        "summary": "ai.gftd.signal.verifyIdentity",
-        "operationId": "ai.gftd.signal.verifyIdentity",
+        "summary": "app.etzhayyim.signal.verifyIdentity",
+        "operationId": "app.etzhayyim.signal.verifyIdentity",
         "requestBody": {
           "required": true,
           "content": {

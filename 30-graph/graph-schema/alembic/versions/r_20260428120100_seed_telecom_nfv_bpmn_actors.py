@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-onboard-network-service-descriptor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-onboard-network-service-descriptor-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_onboard_network_service_descriptor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -80,7 +80,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-onboard-network-service-descriptor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-onboard-network-service-descriptor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-onboard-vnf-descriptor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-onboard-vnf-descriptor-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_onboard_vnf_descriptor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -149,7 +149,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-onboard-vnf-descriptor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-onboard-vnf-descriptor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -163,7 +163,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-instantiate-network-service-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-instantiate-network-service-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_instantiate_network_service',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -217,7 +217,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-instantiate-network-service-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-instantiate-network-service-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -231,7 +231,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-instantiate-vnf-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-instantiate-vnf-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_instantiate_vnf',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -287,7 +287,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-instantiate-vnf-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-instantiate-vnf-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -301,7 +301,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-scale-vnf-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-scale-vnf-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_scale_vnf',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -355,7 +355,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-scale-vnf-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-scale-vnf-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -369,7 +369,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-heal-vnf-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-heal-vnf-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_heal_vnf',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -421,7 +421,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-heal-vnf-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-heal-vnf-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -435,7 +435,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-provision-sdn-flow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-provision-sdn-flow-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_provision_sdn_flow',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -491,7 +491,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-provision-sdn-flow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-provision-sdn-flow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -505,7 +505,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-terminate-network-service-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-terminate-network-service-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_terminate_network_service',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -559,7 +559,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-terminate-network-service-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-terminate-network-service-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -573,16 +573,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-onboardNetworkServiceDescriptor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-onboardNetworkServiceDescriptor-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.onboardNetworkServiceDescriptor',
+                 'app.etzhayyim.apps.telecom.onboardNetworkServiceDescriptor',
                  'telecom_onboard_network_service_descriptor',
                  30000,
                  '2026-04-28T12:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-onboardNetworkServiceDescriptor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-onboardNetworkServiceDescriptor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -596,16 +596,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-onboardVnfDescriptor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-onboardVnfDescriptor-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.onboardVnfDescriptor',
+                 'app.etzhayyim.apps.telecom.onboardVnfDescriptor',
                  'telecom_onboard_vnf_descriptor',
                  30000,
                  '2026-04-28T12:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-onboardVnfDescriptor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-onboardVnfDescriptor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -619,16 +619,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-instantiateNetworkService-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-instantiateNetworkService-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.instantiateNetworkService',
+                 'app.etzhayyim.apps.telecom.instantiateNetworkService',
                  'telecom_instantiate_network_service',
                  60000,
                  '2026-04-28T12:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-instantiateNetworkService-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-instantiateNetworkService-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -642,16 +642,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-instantiateVnf-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-instantiateVnf-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.instantiateVnf',
+                 'app.etzhayyim.apps.telecom.instantiateVnf',
                  'telecom_instantiate_vnf',
                  60000,
                  '2026-04-28T12:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-instantiateVnf-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-instantiateVnf-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -665,16 +665,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-scaleVnf-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-scaleVnf-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.scaleVnf',
+                 'app.etzhayyim.apps.telecom.scaleVnf',
                  'telecom_scale_vnf',
                  30000,
                  '2026-04-28T12:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-scaleVnf-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-scaleVnf-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -688,16 +688,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-healVnf-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-healVnf-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.healVnf',
+                 'app.etzhayyim.apps.telecom.healVnf',
                  'telecom_heal_vnf',
                  60000,
                  '2026-04-28T12:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-healVnf-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-healVnf-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -711,16 +711,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-provisionSdnFlow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-provisionSdnFlow-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.provisionSdnFlow',
+                 'app.etzhayyim.apps.telecom.provisionSdnFlow',
                  'telecom_provision_sdn_flow',
                  15000,
                  '2026-04-28T12:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-provisionSdnFlow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-provisionSdnFlow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -734,49 +734,49 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-terminateNetworkService-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-terminateNetworkService-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.terminateNetworkService',
+                 'app.etzhayyim.apps.telecom.terminateNetworkService',
                  'telecom_terminate_network_service',
                  30000,
                  '2026-04-28T12:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-nfv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-terminateNetworkService-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-terminateNetworkService-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-onboardNetworkServiceDescriptor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-onboardNetworkServiceDescriptor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-onboardVnfDescriptor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-onboardVnfDescriptor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-instantiateNetworkService-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-instantiateNetworkService-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-instantiateVnf-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-instantiateVnf-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-scaleVnf-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-scaleVnf-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-healVnf-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-healVnf-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-provisionSdnFlow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-provisionSdnFlow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-terminateNetworkService-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-terminateNetworkService-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-onboard-network-service-descriptor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-onboard-network-service-descriptor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-onboard-vnf-descriptor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-onboard-vnf-descriptor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-instantiate-network-service-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-instantiate-network-service-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-instantiate-vnf-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-instantiate-vnf-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-scale-vnf-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-scale-vnf-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-heal-vnf-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-heal-vnf-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-provision-sdn-flow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-provision-sdn-flow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-terminate-network-service-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-terminate-network-service-v1']}]
 
 
 def upgrade() -> None:

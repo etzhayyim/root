@@ -6,7 +6,7 @@ Murakumo leader: `issachar` (discernment + scholar tribe — Gen 49:14-15, 1 Chr
 ## Trigger
 
 `enrollDebtor` XRPC request, scoped to a `riteId` that is in `status=active`.
-Input lexicon: `ai.gftd.apps.etzhayyim.yobel.enrollDebtor`.
+Input lexicon: `app.etzhayyim.apps.etzhayyim.yobel.enrollDebtor`.
 
 ## Steps
 
@@ -30,14 +30,14 @@ Input lexicon: `ai.gftd.apps.etzhayyim.yobel.enrollDebtor`.
 
 ## Output
 
-Lexicon `ai.gftd.apps.etzhayyim.yobel.enrollDebtor` response:
+Lexicon `app.etzhayyim.apps.etzhayyim.yobel.enrollDebtor` response:
 
 ```json
 {
   "ok": true,
   "enrollmentId": "yobel-2074-tree-of-life-50yr-debt-<tid>",
   "eligible": true,
-  "vertexId": "at://<debtorDid>/ai.gftd.apps.etzhayyim.yobel.debtorEnrollment/<tid>"
+  "vertexId": "at://<debtorDid>/app.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment/<tid>"
 }
 ```
 

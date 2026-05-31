@@ -14,7 +14,7 @@
     "esModuleInterop": true,
     "allowImportingTsExtensions": false,
     "paths": {
-      "@gftd/magatama-host-sdk": [
+      "@etzhayyim/magatama-host-sdk": [
         "../../../../20-actors/magatama/sdk/magatama-host-sdk/src/index.ts"
       ]
     }

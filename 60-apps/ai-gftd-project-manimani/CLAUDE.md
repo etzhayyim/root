@@ -1,6 +1,19 @@
 # manimani.etzhayyim.com — personal knowledge router (LangGraph user-intake routing)
 
-Authoritative: ADR-2605080800 + ADR-2605080600 (LangGraph Server) + ADR-2604282300 (CF Worker = edge facade).
+> **⚠️ Substrate/runtime/inference SUPERSEDED (2026-05-29, ADR-2605291100).**
+> The persistence (RisingWave/Hyperdrive), inference (Anthropic-direct / RunPod vLLM),
+> and runtime (Python LangGraph Server + Granian pool) described below predate the
+> religious-corp constitutional wave and are now **prohibited**. The reconciled design
+> targets **kotoba EAVT datoms** (the "datomic"), **kotoba StateGraph** (the "langgraph"),
+> **Murakumo LiteLLM-only** inference, and Signal E2E PII — see
+> `90-docs/adr/2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest.md`.
+> The **product contract** below (XRPC surface, 4 project kinds, LLM-led classification,
+> non-federable default, CF Worker edge-facade role) is **preserved unchanged**.
+> Execution backend (`pymagatama/manimani/`) was never implemented; Phase 0 contract only.
+
+Authoritative: ADR-2605291100 (kotoba-native reconciliation + Gmail/PC ingest, current) ·
+ADR-2605080800 (product contract) + ADR-2605080600 (LangGraph Server, superseded by kotoba
+StateGraph) + ADR-2604282300 (CF Worker = edge facade).
 
 ## Layer
 
@@ -13,13 +26,13 @@ intake / project / artifact rows to RisingWave directly via Hyperdrive.
 
 | Path | Purpose |
 |---|---|
-| `/xrpc/ai.gftd.apps.manimani.ingest` | procedure — submit text/url/file_ref/email intake, returns `runId` |
-| `/xrpc/ai.gftd.apps.manimani.classify` | procedure — re-classify an intake into a different project |
-| `/xrpc/ai.gftd.apps.manimani.process` | procedure — re-process an intake with a different model / kind |
-| `/xrpc/ai.gftd.apps.manimani.resumeRun` | procedure — resume a HITL-paused run with `decision: approve|reject|reassign` (Phase 4) |
-| `/xrpc/ai.gftd.apps.manimani.getProject` | query — fetch project + recent artifacts |
-| `/xrpc/ai.gftd.apps.manimani.listProjects` | query — list active projects in actor scope |
-| `/xrpc/ai.gftd.apps.manimani.coverage` | query — counters + 24h delta + unrouted count |
+| `/xrpc/app.etzhayyim.apps.manimani.ingest` | procedure — submit text/url/file_ref/email intake, returns `runId` |
+| `/xrpc/app.etzhayyim.apps.manimani.classify` | procedure — re-classify an intake into a different project |
+| `/xrpc/app.etzhayyim.apps.manimani.process` | procedure — re-process an intake with a different model / kind |
+| `/xrpc/app.etzhayyim.apps.manimani.resumeRun` | procedure — resume a HITL-paused run with `decision: approve|reject|reassign` (Phase 4) |
+| `/xrpc/app.etzhayyim.apps.manimani.getProject` | query — fetch project + recent artifacts |
+| `/xrpc/app.etzhayyim.apps.manimani.listProjects` | query — list active projects in actor scope |
+| `/xrpc/app.etzhayyim.apps.manimani.coverage` | query — counters + 24h delta + unrouted count |
 | `/health`, `/_app/meta` | edge probe |
 
 ## Project kinds
@@ -45,10 +58,10 @@ intake / project / artifact rows to RisingWave directly via Hyperdrive.
 Client → CF Worker (manimani.etzhayyim.com)
    ↓ auth middleware → PDS_SERVICE binding /_internal/resolve-auth
    ↓ resolved { did, orgDid, activeDid, productScope }
-   ↓ POST https://dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.manimani.{method}
+   ↓ POST https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.manimani.{method}
       headers: x-internal-trust=<HMAC>, x-gftd-{org,actor}-did, x-gftd-trace-id
 bpmn-dispatcher (K8s ClusterIP)
-   ↓ NSID prefix routing (ai.gftd.apps.manimani.* → langgraph backend)
+   ↓ NSID prefix routing (app.etzhayyim.apps.manimani.* → langgraph backend)
 manimani-langgraph (mitama-manimani-pool, Granian :8000)
    ↓ POST /runs — start StateGraph
    ↓ Pregel: parse → classify → route → {extract_facts | expand_todo | summarize | defer} → persist → audit
@@ -60,7 +73,7 @@ manimani-langgraph (mitama-manimani-pool, Granian :8000)
 
 - Direct LLM API calls from this CF Worker. LLM only known to LangGraph Server pod env.
 - Direct Hyperdrive INSERT from this CF Worker. Domain writes go from LangGraph nodes only (ADR-0036).
-- `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` for `ai.gftd.apps.manimani.*` — non-federable, default block.
+- `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` for `app.etzhayyim.apps.manimani.*` — non-federable, default block.
 - AT Repo emit (federable) of intake / project / artifact rows. Social derive is opt-in only via explicit `pds.dispatch({type:"app.bsky.feed.post"})` from a downstream actor.
 - Adding new XRPC endpoints outside the 6 lexicons in `00-contracts/lexicons/ai/gftd/apps/manimani/`. New methods require an ADR addendum + lexicon PR.
 - Hardcoded LLM model names in dispatcher routing. Use `resolveModelId()` / `MURAKUMO_DEFAULT_MODEL` SSoT (LLM Model SSoT convention).
@@ -81,7 +94,7 @@ curl https://manimani.etzhayyim.com/health
 curl https://manimani.etzhayyim.com/_app/meta
 
 # 2. Submit a text intake (Bearer required)
-curl -X POST https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.ingest \
+curl -X POST https://manimani.etzhayyim.com/xrpc/app.etzhayyim.apps.manimani.ingest \
   -H "Authorization: Bearer sk_live_xxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -92,11 +105,11 @@ curl -X POST https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.ingest \
 # → { "runId": "...", "intakeId": "...", "status": "running", "estimatedSeconds": 3 }
 
 # 3. List projects (auto-emerged on first ingest)
-curl https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.listProjects \
+curl https://manimani.etzhayyim.com/xrpc/app.etzhayyim.apps.manimani.listProjects \
   -H "Authorization: Bearer sk_live_xxxxx"
 
 # 4. Re-classify an intake
-curl -X POST https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.classify \
+curl -X POST https://manimani.etzhayyim.com/xrpc/app.etzhayyim.apps.manimani.classify \
   -H "Authorization: Bearer sk_live_xxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -105,6 +118,6 @@ curl -X POST https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.classify 
   }'
 
 # 5. Coverage snapshot
-curl 'https://manimani.etzhayyim.com/xrpc/ai.gftd.apps.manimani.coverage?windowDays=7' \
+curl 'https://manimani.etzhayyim.com/xrpc/app.etzhayyim.apps.manimani.coverage?windowDays=7' \
   -H "Authorization: Bearer sk_live_xxxxx"
 ```

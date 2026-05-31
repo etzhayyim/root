@@ -1,16 +1,24 @@
 {
-  "@context": "https://etzhayyim.com/ld/magatama/v1",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
   "name": "ai-gftd-project-voxelforge",
+  "nanoid": "voxelforg",
+  "performerType": "service",
   "displayName": "Voxelforge",
   "description": "3D design pipeline. text / image / CAD code → mesh (.glb) + voxel (.vox MagicaVoxel) via LangGraph Server + Granian on RunPod 6000 Ada unified pod (TRELLIS + ComfyUI 3D-Pack + CadQuery). Output consumed by isekai (kami-voxel) and external Minecraft tools.",
   "did": "did:web:voxelforge.etzhayyim.com",
   "tier": "T2",
   "uiType": "appview",
   "embedUrl": "https://voxelforge.etzhayyim.com/embed",
-  "routes": ["voxelforge.etzhayyim.com"],
+  "routes": [
+    {
+      "host": "voxelforge.etzhayyim.com"
+    }
+  ],
   "layer": "edge-dispatcher",
   "atStandard": false,
-  "nsidPrefixes": ["ai.gftd.apps.voxelforge"],
+  "nsidPrefixes": [
+    "ai.gftd.apps.voxelforge"
+  ],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",
     "authn": "https://authn.etzhayyim.com",

@@ -2,7 +2,7 @@ import type { Page, BrowserContext } from "playwright";
 import { resolveValueRef } from "./value-ref.js";
 
 /**
- * Generic dispatcher — executes any ai.gftd.apps.playwright op against a
+ * Generic dispatcher — executes any app.etzhayyim.apps.playwright op against a
  * Playwright Page. Keeps parity with the XRPC schema.
  *
  * Returns the op result payload (to be POSTed back to reportActionResult).

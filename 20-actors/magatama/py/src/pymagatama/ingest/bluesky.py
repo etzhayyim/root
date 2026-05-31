@@ -200,7 +200,7 @@ def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
 
 def write_profile(rec: dict[str, Any], nanoid: str, indexed_at: str) -> int:
     rkey = rec["source_did"].replace(":", "-")
-    vertex_id = f"at://{ACTOR_DID}/ai.gftd.apps.bluesky.profile/{rkey}"
+    vertex_id = f"at://{ACTOR_DID}/app.etzhayyim.apps.bluesky.profile/{rkey}"
     return _execute(
         """
         INSERT INTO vertex_bluesky_profile
@@ -233,7 +233,7 @@ def write_profile(rec: dict[str, Any], nanoid: str, indexed_at: str) -> int:
 
 def write_post(rec: dict[str, Any], nanoid: str, indexed_at: str) -> int:
     rkey = f"{rec['source_did'].replace(':', '-')}-{rec['source_rkey']}"
-    vertex_id = f"at://{ACTOR_DID}/ai.gftd.apps.bluesky.post/{rkey}"
+    vertex_id = f"at://{ACTOR_DID}/app.etzhayyim.apps.bluesky.post/{rkey}"
     return _execute(
         """
         INSERT INTO vertex_bluesky_post
@@ -274,7 +274,7 @@ def write_post(rec: dict[str, Any], nanoid: str, indexed_at: str) -> int:
 
 def write_opt_out(did: str, handle: str | None, reason: str, hit_label: str, nanoid: str, indexed_at: str) -> int:
     rkey = did.replace(":", "-")
-    vertex_id = f"at://{ACTOR_DID}/ai.gftd.apps.bluesky.optOut/{rkey}"
+    vertex_id = f"at://{ACTOR_DID}/app.etzhayyim.apps.bluesky.optOut/{rkey}"
     note = f"hit label: {hit_label}" if hit_label else None
     return _execute(
         """
@@ -319,10 +319,10 @@ def cascade_tombstones(source_did: str, fresh_rkeys: set[str], nanoid: str, inde
 
     to_purge = [str(row[0]) for row in existing if str(row[0]) not in fresh_rkeys]
     for rkey in to_purge:
-        vertex_id = f"at://{ACTOR_DID}/ai.gftd.apps.bluesky.post/{source_did.replace(':', '-')}-{rkey}"
+        vertex_id = f"at://{ACTOR_DID}/app.etzhayyim.apps.bluesky.post/{source_did.replace(':', '-')}-{rkey}"
         _execute("DELETE FROM vertex_bluesky_post WHERE vertex_id = %s", (vertex_id,))
         tomb_rkey = f"{source_did.replace(':', '-')}-{rkey}-{int(time.time() * 1000)}"
-        tomb_vid = f"at://{ACTOR_DID}/ai.gftd.apps.bluesky.tombstone/{tomb_rkey}"
+        tomb_vid = f"at://{ACTOR_DID}/app.etzhayyim.apps.bluesky.tombstone/{tomb_rkey}"
         _execute(
             """
             INSERT INTO vertex_bluesky_tombstone

@@ -1,6 +1,6 @@
 /**
  * public-fund seed — writes baseline public fund records into the PDS so
- * world coverage can count real `ai.gftd.apps.publicFund.*` collections.
+ * world coverage can count real `app.etzhayyim.apps.publicFund.*` collections.
  *
  * Usage: npx tsx 60-apps/ai-gftd-project-public-fund/seed.ts
  */
@@ -14,14 +14,14 @@ const PDS = 'https://atproto.etzhayyim.com';
 const ROOT_DID = 'did:web:public-fund.etzhayyim.com';
 const PROJECT_ID = 'public-fund';
 
-const GFTD_TOKEN = process.env.GFTD_TOKEN;
-if (!GFTD_TOKEN) {
-  throw new Error('GFTD_TOKEN env var required — run `export GFTD_TOKEN=$(gftd auth token)` first');
+const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
+if (!etzhayyim_TOKEN) {
+  throw new Error('etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first');
 }
 
 const INTERNAL_HEADERS = {
   'Content-Type': 'application/json',
-  'Authorization': `Bearer ${GFTD_TOKEN}`,
+  'Authorization': `Bearer ${etzhayyim_TOKEN}`,
   'x-gftd-org-id': 'anon',
 };
 
@@ -37,7 +37,7 @@ async function createRecord(collection: string, record: Record<string, unknown>)
 }
 
 async function actorCreate(did: string, displayName: string, description: string): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/ai.gftd.actor.create`, {
+  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.actor.create`, {
     method: 'POST',
     headers: INTERNAL_HEADERS,
     body: JSON.stringify({ did, projectId: PROJECT_ID, displayName, description, hasWorker: false }),
@@ -233,7 +233,7 @@ async function main(): Promise<void> {
   await actorCreate(ROOT_DID, 'Public Fund', 'Public fund program, application, and disbursement registry');
 
   for (const program of FUND_PROGRAMS) {
-    await createRecord('ai.gftd.apps.publicFund.fundProgram', {
+    await createRecord('app.etzhayyim.apps.publicFund.fundProgram', {
       ...program,
       ownerDid: ROOT_DID,
       createdAt: isoNow(),
@@ -242,7 +242,7 @@ async function main(): Promise<void> {
   }
 
   for (const campaign of FUND_CAMPAIGNS) {
-    await createRecord('ai.gftd.apps.publicFund.fundCampaign', {
+    await createRecord('app.etzhayyim.apps.publicFund.fundCampaign', {
       ...campaign,
       ownerDid: ROOT_DID,
       createdAt: isoNow(),
@@ -251,7 +251,7 @@ async function main(): Promise<void> {
   }
 
   for (const pledge of PLEDGES) {
-    await createRecord('ai.gftd.apps.publicFund.pledge', {
+    await createRecord('app.etzhayyim.apps.publicFund.pledge', {
       ...pledge,
       ownerDid: ROOT_DID,
       createdAt: isoNow(),
@@ -259,7 +259,7 @@ async function main(): Promise<void> {
   }
 
   for (const allocation of ROUTED_ALLOCATIONS) {
-    await createRecord('ai.gftd.apps.publicFund.routedAllocation', {
+    await createRecord('app.etzhayyim.apps.publicFund.routedAllocation', {
       ...allocation,
       ownerDid: ROOT_DID,
       createdAt: isoNow(),
@@ -267,7 +267,7 @@ async function main(): Promise<void> {
   }
 
   for (const policy of ELIGIBILITY_POLICIES) {
-    await createRecord('ai.gftd.apps.publicFund.eligibilityPolicy', {
+    await createRecord('app.etzhayyim.apps.publicFund.eligibilityPolicy', {
       ...policy,
       ownerDid: ROOT_DID,
       status: 'published',
@@ -276,7 +276,7 @@ async function main(): Promise<void> {
   }
 
   for (const application of APPLICATIONS) {
-    await createRecord('ai.gftd.apps.publicFund.application', {
+    await createRecord('app.etzhayyim.apps.publicFund.application', {
       ...application,
       ownerDid: ROOT_DID,
       submittedAt: isoNow(),
@@ -284,7 +284,7 @@ async function main(): Promise<void> {
   }
 
   for (const decision of DECISIONS) {
-    await createRecord('ai.gftd.apps.publicFund.decision', {
+    await createRecord('app.etzhayyim.apps.publicFund.decision', {
       ...decision,
       ownerDid: ROOT_DID,
       decidedAt: isoNow(),
@@ -292,7 +292,7 @@ async function main(): Promise<void> {
   }
 
   for (const disbursement of DISBURSEMENTS) {
-    await createRecord('ai.gftd.apps.publicFund.disbursement', {
+    await createRecord('app.etzhayyim.apps.publicFund.disbursement', {
       ...disbursement,
       ownerDid: ROOT_DID,
       executedAt: isoNow(),

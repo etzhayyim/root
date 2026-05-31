@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-socialArbitrageIntel-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/news-socialArbitrageIntel-v1',
                  'did:web:news.etzhayyim.com',
                  'news_social_arbitrage_intel',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -102,7 +102,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_Analyze" name="persist intel report">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.news.analyzeIntel"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.news.analyzeIntel"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=draft" target="input"/>\n'
                  '          <zeebe:output source="=result" target="intelReport"/>\n'
@@ -144,7 +144,7 @@ UP = [{'sql': '\n'
                  'did:web:news.etzhayyim.com',
                  'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-socialArbitrageIntel-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/news-socialArbitrageIntel-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -158,16 +158,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-socialArbitrageIntel-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/news-socialArbitrageIntel-v1',
                  'did:web:news.etzhayyim.com',
-                 'ai.gftd.apps.news.socialArbitrageIntel',
+                 'app.etzhayyim.apps.news.socialArbitrageIntel',
                  'news_social_arbitrage_intel',
                  120000,
                  '2026-04-29T09:01:00Z',
                  'did:web:news.etzhayyim.com',
                  'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-socialArbitrageIntel-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/news-socialArbitrageIntel-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -181,7 +181,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-rssIngest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/news-rssIngest-v1',
                  'did:web:news.etzhayyim.com',
                  'news_rss_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
                  'did:web:news.etzhayyim.com',
                  'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-rssIngest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/news-rssIngest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -283,16 +283,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-rssIngest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/news-rssIngest-v1',
                  'did:web:news.etzhayyim.com',
-                 'ai.gftd.apps.news.rssIngest',
+                 'app.etzhayyim.apps.news.rssIngest',
                  'news_rss_ingest',
                  120000,
                  '2026-04-29T09:01:00Z',
                  'did:web:news.etzhayyim.com',
                  'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-rssIngest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/news-rssIngest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -306,7 +306,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-liveAudioIngest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/news-liveAudioIngest-v1',
                  'did:web:news.etzhayyim.com',
                  'news_live_audio_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -412,7 +412,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_Analyze" name="XRPC analyze live audio intel">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.news.analyzeIntel"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.news.analyzeIntel"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
@@ -454,7 +454,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_Publish" name="XRPC publish live audio intel">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.news.publishIntel"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.news.publishIntel"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=intelReport.report" target="input"/>\n'
                  '          <zeebe:output source="=result" target="publishResult"/>\n'
@@ -504,7 +504,7 @@ UP = [{'sql': '\n'
                  'did:web:news.etzhayyim.com',
                  'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-liveAudioIngest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/news-liveAudioIngest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -518,29 +518,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-liveAudioIngest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/news-liveAudioIngest-v1',
                  'did:web:news.etzhayyim.com',
-                 'ai.gftd.apps.news.liveAudioIngest',
+                 'app.etzhayyim.apps.news.liveAudioIngest',
                  'news_live_audio_ingest',
                  240000,
                  '2026-04-29T09:01:00Z',
                  'did:web:news.etzhayyim.com',
                  'did:web:news.etzhayyim.com',
                  'sys.bpmn.seed.news',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-liveAudioIngest-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/news-liveAudioIngest-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-socialArbitrageIntel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/news-socialArbitrageIntel-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-socialArbitrageIntel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/news-socialArbitrageIntel-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-rssIngest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/news-rssIngest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-rssIngest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/news-rssIngest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/news-liveAudioIngest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/news-liveAudioIngest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/news-liveAudioIngest-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/news-liveAudioIngest-v1']}]
 
 
 def upgrade() -> None:

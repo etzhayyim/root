@@ -3,6 +3,7 @@ id: 2605160800
 title: "Itonami Lifecycle Dashboard and Pregel UI Alignment"
 status: accepted
 doc_type: adr
+topic: itonami-lifecycle-dashboard-pregel-ui
 date: 2026-05-16
 ---
 # ADR 2605160800: Itonami Lifecycle Dashboard and Pregel UI Alignment

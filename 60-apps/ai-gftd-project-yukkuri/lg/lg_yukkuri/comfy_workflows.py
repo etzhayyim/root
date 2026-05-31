@@ -1,4 +1,4 @@
-"""API-format ComfyUI workflow builders for yukkuri.gftd.ai scene generation.
+"""API-format ComfyUI workflow builders for yukkuri.etzhayyim.com scene generation.
 
 Each builder returns a {node_id: {class_type, inputs}} dict that comfy_runner
 POSTs to ComfyUI's /prompt endpoint. Three builders:
@@ -34,7 +34,7 @@ NEG_DEFAULT = (
 )
 
 # Yukkuri voice-actor sub-DID display names. Independent of東方 IP — these are
-# GFTD original characters. Names mirror CLAUDE.md "ゆきり / まりり" convention.
+# etzhayyim original characters. Names mirror CLAUDE.md "ゆきり / まりり" convention.
 LEFT_CHARACTER_DEFAULT = "ゆきり"   # Reimu-like, calm
 RIGHT_CHARACTER_DEFAULT = "まりり"  # Marisa-like, energetic
 

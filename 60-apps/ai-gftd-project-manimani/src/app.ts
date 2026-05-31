@@ -2,19 +2,19 @@
 //
 // Surfaces:
 //   /health, /_app/meta                          edge probe (no auth)
-//   /xrpc/ai.gftd.apps.manimani.ingest           procedure (Bearer auth)
-//   /xrpc/ai.gftd.apps.manimani.classify         procedure (Bearer auth)
-//   /xrpc/ai.gftd.apps.manimani.process          procedure (Bearer auth)
-//   /xrpc/ai.gftd.apps.manimani.getProject       query     (Bearer auth)
-//   /xrpc/ai.gftd.apps.manimani.listProjects     query     (Bearer auth)
-//   /xrpc/ai.gftd.apps.manimani.coverage         query     (Bearer auth)
+//   /xrpc/app.etzhayyim.apps.manimani.ingest           procedure (Bearer auth)
+//   /xrpc/app.etzhayyim.apps.manimani.classify         procedure (Bearer auth)
+//   /xrpc/app.etzhayyim.apps.manimani.process          procedure (Bearer auth)
+//   /xrpc/app.etzhayyim.apps.manimani.getProject       query     (Bearer auth)
+//   /xrpc/app.etzhayyim.apps.manimani.listProjects     query     (Bearer auth)
+//   /xrpc/app.etzhayyim.apps.manimani.coverage         query     (Bearer auth)
 //
 // Auth: Bearer sk_live_* / ES256 JWT → PDS service binding
 // `/_internal/resolve-auth` returns { did, orgDid, activeDid, productScope }.
 // Dispatch: forwards to bpmn-dispatcher with x-internal-trust HMAC.
 //
 // LangGraph backend: bpmn-dispatcher routes
-// `ai.gftd.apps.manimani.*` to LangGraph Server `/runs` (per
+// `app.etzhayyim.apps.manimani.*` to LangGraph Server `/runs` (per
 // ADR-2605080600 Phase 3). This Worker stays state-less — no LLM call,
 // no Hyperdrive write here. All compute happens in mitama-manimani-pool.
 
@@ -32,7 +32,7 @@ type Env = {
   PDS_SERVICE?: { fetch(req: Request): Promise<Response> };
   AUTHN_SERVICE?: { fetch(req: Request): Promise<Response> };
   HYPERDRIVE?: unknown;
-  GFTD_METERING_DISABLED?: string;
+  etzhayyim_METERING_DISABLED?: string;
 };
 
 interface AuthContext {
@@ -65,14 +65,14 @@ app.get("/_app/meta", (c) =>
     version: c.env.MANIMANI_VERSION ?? "0.0.0",
     layer: "L3-dispatcher",
     surfaces: [
-      "/xrpc/ai.gftd.apps.manimani.ingest",
-      "/xrpc/ai.gftd.apps.manimani.classify",
-      "/xrpc/ai.gftd.apps.manimani.process",
-      "/xrpc/ai.gftd.apps.manimani.resumeRun",
-      "/xrpc/ai.gftd.apps.manimani.getProject",
-      "/xrpc/ai.gftd.apps.manimani.listProjects",
-      "/xrpc/ai.gftd.apps.manimani.listPendingRuns",
-      "/xrpc/ai.gftd.apps.manimani.coverage",
+      "/xrpc/app.etzhayyim.apps.manimani.ingest",
+      "/xrpc/app.etzhayyim.apps.manimani.classify",
+      "/xrpc/app.etzhayyim.apps.manimani.process",
+      "/xrpc/app.etzhayyim.apps.manimani.resumeRun",
+      "/xrpc/app.etzhayyim.apps.manimani.getProject",
+      "/xrpc/app.etzhayyim.apps.manimani.listProjects",
+      "/xrpc/app.etzhayyim.apps.manimani.listPendingRuns",
+      "/xrpc/app.etzhayyim.apps.manimani.coverage",
       "/embed",
     ],
     backend: c.env.BPMN_DISPATCHER_URL,
@@ -177,10 +177,10 @@ app.get("/", (c) => c.redirect("/embed", 302));
 
 app.all("/xrpc/:nsidParam", async (c) => {
   const nsid = c.req.param("nsidParam") || "";
-  if (!nsid.startsWith("ai.gftd.apps.manimani.")) {
+  if (!nsid.startsWith("app.etzhayyim.apps.manimani.")) {
     return c.json({ error: "NotFound", path: c.req.path }, 404);
   }
-  const method = nsid.slice("ai.gftd.apps.manimani.".length);
+  const method = nsid.slice("app.etzhayyim.apps.manimani.".length);
   const auth = c.var.auth;
   if (!auth) {
     return c.json({ error: "AuthRequired" }, 401);

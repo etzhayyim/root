@@ -1,38 +1,32 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://etzhayyim.com/docs/schemas/docs-graph.schema.json",
-  "title": "Docs Relation Graph",
+  "title": "etzhayyim docs relation graph (graph.jsonld)",
+  "description": "Schema for 90-docs/_registry/graph.jsonld — the JSON-LD relation-graph projection regenerated from docs.json by 70-tools/scripts/docs/regen-graph-jsonld.py. Refreshed cycle 50 (2026-05-27) to match real data: camelCase JSON-LD predicate names, schema.org + etzhayyim ontology, all 10 doc_type values mapped to TechArticle/Article. Source chain: .md → docs.json → graph.jsonld.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "@context",
-    "@graph"
-  ],
+  "required": ["@context", "@graph"],
   "properties": {
     "@context": {
-      "type": "object"
+      "type": "object",
+      "description": "JSON-LD context preserved verbatim from existing graph.jsonld so downstream SPARQL queries + IRI mappings stay stable."
     },
     "@graph": {
       "type": "array",
       "items": {
         "type": "object",
-        "additionalProperties": true,
-        "required": [
-          "id",
-          "type",
-          "title",
-          "status",
-          "topic",
-          "authoritative"
-        ],
+        "additionalProperties": false,
+        "required": ["id", "type"],
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^doc:.+$"
+            "pattern": "^doc:.+$",
+            "description": "Prefixed IRI mapping to docs.json entry id."
           },
           "type": {
             "type": "string",
-            "minLength": 1
+            "enum": ["TechArticle", "Article"],
+            "description": "schema.org type. TechArticle for adr/reference/how-to/design/etc; Article for explanation/tutorial."
           },
           "title": {
             "type": "string",
@@ -40,12 +34,8 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "active",
-              "deprecated",
-              "superseded",
-              "proposed"
-            ]
+            "minLength": 1,
+            "description": "Governance-evolving status field (same value space as docs.json status; see docs.schema.json for permissive rationale)."
           },
           "topic": {
             "type": "string",
@@ -62,25 +52,40 @@
             }
           },
           "related": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^doc:.+$"
-            }
+            "oneOf": [
+              {"type": "string", "pattern": "^doc:.+$"},
+              {"type": "array", "items": {"type": "string", "pattern": "^doc:.+$"}}
+            ],
+            "description": "schema.org isRelatedTo; single string OR list of doc: IRIs."
           },
           "supersedes": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^doc:.+$"
-            }
+            "oneOf": [
+              {"type": "string", "pattern": "^doc:.+$"},
+              {"type": "array", "items": {"type": "string", "pattern": "^doc:.+$"}}
+            ]
           },
           "supersededBy": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^doc:.+$"
-            }
+            "oneOf": [
+              {"type": "string", "pattern": "^doc:.+$"},
+              {"type": "array", "items": {"type": "string", "pattern": "^doc:.+$"}}
+            ]
+          },
+          "amends": {
+            "oneOf": [
+              {"type": "string", "pattern": "^doc:.+$"},
+              {"type": "array", "items": {"type": "string", "pattern": "^doc:.+$"}}
+            ]
+          },
+          "amendedBy": {
+            "oneOf": [
+              {"type": "string", "pattern": "^doc:.+$"},
+              {"type": "array", "items": {"type": "string", "pattern": "^doc:.+$"}}
+            ]
+          },
+          "lastVerified": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}Z?)?$",
+            "description": "ISO 8601 date or datetime (matches docs.schema.json last_verified). Free-form annotations after the date are flagged as errors."
           }
         }
       }

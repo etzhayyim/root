@@ -62,7 +62,7 @@ credits service 不達・unknown method・その他エラーはスルー (credit
 
 ## Integration
 
-`@gftd/magatama-host-sdk` `llm.ts`:
+`@etzhayyim/magatama-host-sdk` `llm.ts`:
 - `llmAsk(prompt)` → Ollama Tier 0 (gemma4:e4b)
 - `llmCall(system, user, "hayate-v5")` → Murakumo
 - `agentConverseAsync(msgs, { use_case: "heartbeat" })` → Ollama Tier 0 gemma4:e4b

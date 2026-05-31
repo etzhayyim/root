@@ -107,7 +107,7 @@ gate_input
 | Return value | When | Use case |
 |---|---|---|
 | `[Send("llm_extract_one", ...), ...]` | default | Parallel LLM fan-out across N sources |
-| `"llm_extract_serial"` | `state.serial_llm=True` or `GFTD_LLM_SERIAL=1` | Single-GPU local Ollama (no concurrent inference) |
+| `"llm_extract_serial"` | `state.serial_llm=True` or `etzhayyim_LLM_SERIAL=1` | Single-GPU local Ollama (no concurrent inference) |
 | `"inject_fixtures"` | `state.fixture_extractions` non-empty | Deterministic testing / dev iteration / upstream LLM unavailable |
 | `"correlate"` | `state.llm_disabled=True` or no fetched body | Smoke-test (fetch + persist only) |
 

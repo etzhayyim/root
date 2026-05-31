@@ -13,7 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PG = ["-h", process.env.RW_HOST ?? "45.32.79.245", "-p", process.env.RW_PORT ?? "4566",
             "-U", process.env.RW_USER ?? "root", "-d", process.env.RW_DB ?? "dev"];
 const FROM = process.env.ABUSE_FROM ?? "abuse-liaison@etzhayyim.com";
-const REPLY_TO = process.env.ABUSE_REPLY_TO ?? "jun@gftd.group";
+const REPLY_TO = process.env.ABUSE_REPLY_TO ?? "jun@etzhayyim.com";
 
 const ABUSE_TARGETS = {
   asn: {
@@ -59,7 +59,7 @@ function eml({ to, subject, body }) {
 const legalBoilerplate = `
 We identified the following domains as active phishing / typosquat
 infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
-Classification source: Gftd Yabai intel pipeline (ai.gftd.apps.yabai,
+Classification source: etzhayyim Yabai intel pipeline (app.etzhayyim.apps.yabai,
 evidence category PhishingInfrastructure, confidence >=0.95). Probe
 method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
 
@@ -70,7 +70,7 @@ applicable ICANN / local law obligations.
 We can provide additional evidence (original phishing SMS/email payload,
 victim reports, timeline) on request. Please reply to ${REPLY_TO}.
 
-— Gftd Security Intel, https://yabai.etzhayyim.com
+— etzhayyim Security Intel, https://yabai.etzhayyim.com
 `.trim();
 
 async function hostingDrafts() {
@@ -98,7 +98,7 @@ async function hostingDrafts() {
       ``,
       legalBoilerplate,
     ].join("\n");
-    const subject = `[Abuse][AS${asn}] ${cnt} phishing domains on your network (Gftd Yabai)`;
+    const subject = `[Abuse][AS${asn}] ${cnt} phishing domains on your network (etzhayyim Yabai)`;
     const file = join(__dirname, `hosting-AS${asn}.eml`);
     writeFileSync(file, eml({ to: tgt.to, subject, body }));
     console.log(`wrote ${file} → ${tgt.to} (${cnt} domains)`);

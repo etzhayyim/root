@@ -1,5 +1,5 @@
 /**
- * @gftd/graph-schema — generated DB types for the GFTD graph DB (RisingWave).
+ * @etzhayyim/graph-schema — generated DB types for the etzhayyim graph DB (RisingWave).
  *
  * Single source of truth for database schema definitions.
  * Migration: Kysely migration runtime → SQLAlchemy/Alembic/SQLMesh (2026-05-07)

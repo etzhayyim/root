@@ -17,7 +17,7 @@ Effect:
   - If max(|drift|) > drift_threshold_bps → build Safe rebalance tx +
     TreasuryMirror.updateNAV oracle update calldata
   - Submit via Governance.propose(targets, calldatas, descCid)
-  - Emit ai.gftd.apps.payment.treasury-rebalance-proposal AT Record
+  - Emit app.etzhayyim.apps.payment.treasury-rebalance-proposal AT Record
 
 Murakumo node: zebulun (leader), asher (failover replica)
 """
@@ -219,9 +219,9 @@ def submit_to_governance(state, port):
 
 
 def emit_at_record(state, port):
-    """Write ai.gftd.apps.payment.treasury-rebalance-proposal AT Record."""
+    """Write app.etzhayyim.apps.payment.treasury-rebalance-proposal AT Record."""
     uri = port.create_record(
-        collection="ai.gftd.apps.payment.treasury-rebalance-proposal",
+        collection="app.etzhayyim.apps.payment.treasury-rebalance-proposal",
         record={
             "proposalId": state["proposal_id"],
             "txHash": state["proposal_tx_hash"],
@@ -251,7 +251,7 @@ def emit_skip_record(state, port):
     """Write a skip-trail AT Record so the monthly tick is observable
     even when no proposal was needed (within band or empty treasury)."""
     uri = port.create_record(
-        collection="ai.gftd.apps.payment.treasury-rebalance-skip",
+        collection="app.etzhayyim.apps.payment.treasury-rebalance-skip",
         record={
             "reason": state.get("skipped_reason", "unknown"),
             "navLiquidUsdcMicros": state.get("nav_liquid", 0),

@@ -48,7 +48,7 @@ export function euvDesignManufacturingFlow(
 ): EuvDesignFlowOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.euv.flow.v1",
+    schema: "app.etzhayyim.apps.tsukuru.euv.flow.v1",
     flowId: input.flowId ?? `euv-flow-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     technologyNodeNm: input.technologyNodeNm ?? DEFAULT_TECH_NODE_NM,
@@ -70,7 +70,7 @@ export function euvPrepareOrderPackage(
 ): EuvPrepareOrderOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.euv.order.v1",
+    schema: "app.etzhayyim.apps.tsukuru.euv.order.v1",
     packageId: input.packageId ?? `euv-pkg-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     flowId: input.flowId,
@@ -88,7 +88,7 @@ export function euvGetImplementationCoverage(
   // Phase 2 stub — real coverage stats arrive from mst-projector Phase 3.
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.euv.coverage.v1",
+    schema: "app.etzhayyim.apps.tsukuru.euv.coverage.v1",
     totalFlows: 0,
     phaseCoverage: EUV_PHASES.map((phase) => ({
       phase,

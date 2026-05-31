@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govBih.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govBih.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Bosnia and Herzegovina government.",
-        "operationId": "ai.gftd.govBih.followSiteDeps",
+        "operationId": "app.etzhayyim.govBih.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBih.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govBih.heartbeatTick": {
       "post": {
         "summary": "Run the Bosnia and Herzegovina government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govBih.heartbeatTick",
+        "operationId": "app.etzhayyim.govBih.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBih.listOrgs": {
+    "/xrpc/app.etzhayyim.govBih.listOrgs": {
       "get": {
         "summary": "List Bosnia and Herzegovina government organization graph records.",
-        "operationId": "ai.gftd.govBih.listOrgs",
+        "operationId": "app.etzhayyim.govBih.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBih.registerDIDs": {
+    "/xrpc/app.etzhayyim.govBih.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Bosnia and Herzegovina government organizations.",
-        "operationId": "ai.gftd.govBih.registerDIDs",
+        "operationId": "app.etzhayyim.govBih.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBih.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govBih.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Bosnia and Herzegovina government organization path to its graph record.",
-        "operationId": "ai.gftd.govBih.resolveOrgPath",
+        "operationId": "app.etzhayyim.govBih.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBih.seedOrgs": {
+    "/xrpc/app.etzhayyim.govBih.seedOrgs": {
       "post": {
         "summary": "Seed initial Bosnia and Herzegovina government organization records into the graph.",
-        "operationId": "ai.gftd.govBih.seedOrgs",
+        "operationId": "app.etzhayyim.govBih.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBih.shinka": {
+    "/xrpc/app.etzhayyim.govBih.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Bosnia and Herzegovina government organization update.",
-        "operationId": "ai.gftd.govBih.shinka",
+        "operationId": "app.etzhayyim.govBih.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBih.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govBih.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Bosnia and Herzegovina government organization changes to graph.",
-        "operationId": "ai.gftd.govBih.syncWetUpdates",
+        "operationId": "app.etzhayyim.govBih.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

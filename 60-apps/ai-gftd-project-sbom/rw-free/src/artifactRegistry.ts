@@ -29,8 +29,8 @@ import {
   type RegisterComponentOutput,
 } from "./types.js";
 
-const ARTIFACT_COLLECTION = "ai.gftd.apps.sbom.artifact";
-const COMPONENT_COLLECTION = "ai.gftd.apps.sbom.component";
+const ARTIFACT_COLLECTION = "app.etzhayyim.apps.sbom.artifact";
+const COMPONENT_COLLECTION = "app.etzhayyim.apps.sbom.component";
 
 function isSha256(s: string): boolean {
   return /^[a-f0-9]{64}$/i.test(s);

@@ -35,7 +35,7 @@ spec:
             - name: PDS_HOST
               value: "https://atproto.etzhayyim.com"
             # In a real environment, load tokens from Kubernetes Secrets
-            - name: GFTD_TOKEN
+            - name: etzhayyim_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: tsukuru-worker-secrets

@@ -1,6 +1,6 @@
 """seed: mangaka compose_scene_3d assistant + deployment
 
-Registers `ai.gftd.apps.mangaka.composeScene3d` in the RW-resident LangGraph
+Registers `app.etzhayyim.apps.mangaka.composeScene3d` in the RW-resident LangGraph
 SSoT (ADR-2605082000) so the bpmn-dispatcher → /runs router can route NSID
 → assistant. Phase A uses kind='py_factory'; Phase B/C switches to
 kind='topology' from compose_scene_3d.topology.yaml once the 6 pending MCP

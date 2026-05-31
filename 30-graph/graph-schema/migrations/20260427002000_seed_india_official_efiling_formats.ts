@@ -63,7 +63,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   let seq = 20260427002000;
   for (const path of descriptorPaths) {
     const descriptor = loadDescriptor(path);
-    const vertexId = `at://${descriptor.actorDid}/ai.gftd.apps.ind.efiling.format/${descriptor.formatKey}`;
+    const vertexId = `at://${descriptor.actorDid}/app.etzhayyim.apps.ind.efiling.format/${descriptor.formatKey}`;
     await sql`DELETE FROM vertex_ind_efiling_format WHERE format_key = ${descriptor.formatKey}`.execute(db);
     await sql`
       INSERT INTO vertex_ind_efiling_format (

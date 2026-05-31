@@ -15,19 +15,19 @@ const actorId = "sys.bpmn.seed.collector";
 const project = "collector";
 
 const seeds: Seed[] = [
-  { slug: "collect-netintel-dns", processId: "collector_collect_netintel_dns", nsid: "ai.gftd.apps.collector.collectNetintelDns", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectNetintelDns.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_run,vertex_collector_dns_observation,vertex_collector_dns_snapshot,vertex_collector_organization" },
-  { slug: "collect-blockchain-btc", processId: "collector_collect_blockchain_btc", nsid: "ai.gftd.apps.collector.collectBlockchainBtc", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectBlockchainBtc.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_run,vertex_collector_blockchain_actor,vertex_collector_risk_signal" },
-  { slug: "collect-blockchain-eth", processId: "collector_collect_blockchain_eth", nsid: "ai.gftd.apps.collector.collectBlockchainEth", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectBlockchainEth.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_run,vertex_collector_blockchain_actor,vertex_collector_risk_signal" },
-  { slug: "collect-common-crawl", processId: "collector_collect_common_crawl", nsid: "ai.gftd.apps.collector.collectCommonCrawl", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectCommonCrawl.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_archive_snapshot" },
-  { slug: "collect-archive", processId: "collector_collect_archive", nsid: "ai.gftd.apps.collector.collectArchive", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectArchive.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_archive_snapshot" },
-  { slug: "ingest-scan-result", processId: "collector_ingest_scan_result", nsid: "ai.gftd.apps.collector.ingestScanResult", sourcePath: "00-contracts/bpmn/ai/gftd/collector/ingestScanResult.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_collector_scan_result" },
-  { slug: "trigger-run", processId: "collector_trigger_run", nsid: "ai.gftd.apps.collector.triggerRun", sourcePath: "00-contracts/bpmn/ai/gftd/collector/triggerRun.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_run,vertex_collector_dns_observation,vertex_collector_dns_snapshot,vertex_collector_organization,vertex_collector_blockchain_actor,vertex_collector_archive_snapshot" },
-  { slug: "get-dashboard", processId: "collector_get_dashboard", nsid: "ai.gftd.apps.collector.getDashboard", sourcePath: "00-contracts/bpmn/ai/gftd/collector/getDashboard.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "list-jobs", processId: "collector_list_jobs", nsid: "ai.gftd.apps.collector.listJobs", sourcePath: "00-contracts/bpmn/ai/gftd/collector/listJobs.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "collect-netintel-dns", processId: "collector_collect_netintel_dns", nsid: "app.etzhayyim.apps.collector.collectNetintelDns", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectNetintelDns.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_run,vertex_collector_dns_observation,vertex_collector_dns_snapshot,vertex_collector_organization" },
+  { slug: "collect-blockchain-btc", processId: "collector_collect_blockchain_btc", nsid: "app.etzhayyim.apps.collector.collectBlockchainBtc", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectBlockchainBtc.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_run,vertex_collector_blockchain_actor,vertex_collector_risk_signal" },
+  { slug: "collect-blockchain-eth", processId: "collector_collect_blockchain_eth", nsid: "app.etzhayyim.apps.collector.collectBlockchainEth", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectBlockchainEth.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_run,vertex_collector_blockchain_actor,vertex_collector_risk_signal" },
+  { slug: "collect-common-crawl", processId: "collector_collect_common_crawl", nsid: "app.etzhayyim.apps.collector.collectCommonCrawl", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectCommonCrawl.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_archive_snapshot" },
+  { slug: "collect-archive", processId: "collector_collect_archive", nsid: "app.etzhayyim.apps.collector.collectArchive", sourcePath: "00-contracts/bpmn/ai/gftd/collector/collectArchive.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_archive_snapshot" },
+  { slug: "ingest-scan-result", processId: "collector_ingest_scan_result", nsid: "app.etzhayyim.apps.collector.ingestScanResult", sourcePath: "00-contracts/bpmn/ai/gftd/collector/ingestScanResult.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_collector_scan_result" },
+  { slug: "trigger-run", processId: "collector_trigger_run", nsid: "app.etzhayyim.apps.collector.triggerRun", sourcePath: "00-contracts/bpmn/ai/gftd/collector/triggerRun.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_collector_run,vertex_collector_dns_observation,vertex_collector_dns_snapshot,vertex_collector_organization,vertex_collector_blockchain_actor,vertex_collector_archive_snapshot" },
+  { slug: "get-dashboard", processId: "collector_get_dashboard", nsid: "app.etzhayyim.apps.collector.getDashboard", sourcePath: "00-contracts/bpmn/ai/gftd/collector/getDashboard.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "list-jobs", processId: "collector_list_jobs", nsid: "app.etzhayyim.apps.collector.listJobs", sourcePath: "00-contracts/bpmn/ai/gftd/collector/listJobs.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

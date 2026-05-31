@@ -3,7 +3,7 @@
   "formKey": "openGas.reportLeak.v1",
   "name": "Report Gas Leak",
   "version": 1,
-  "lexiconRef": "ai.gftd.apps.openGas.reportLeak",
+  "lexiconRef": "app.etzhayyim.apps.openGas.reportLeak",
   "components": [
     { "key": "segmentDid", "label": "Pipe segment DID", "type": "textfield",
       "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },

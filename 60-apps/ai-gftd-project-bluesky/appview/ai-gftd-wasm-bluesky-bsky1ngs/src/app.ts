@@ -21,7 +21,7 @@ interface Env {
 }
 
 const ACTOR_DID = "did:web:bluesky.etzhayyim.com";
-const INGEST_NSID = "ai.gftd.apps.bluesky.ingestActor";
+const INGEST_NSID = "app.etzhayyim.apps.bluesky.ingestActor";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

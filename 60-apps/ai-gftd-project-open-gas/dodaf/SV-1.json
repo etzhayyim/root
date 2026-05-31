@@ -10,15 +10,15 @@
         "id": "sys.worker", "name": "open-gas Worker",
         "platform": "Cloudflare Workers", "entrypoint": "worker/src/app.ts",
         "interfaces": [
-          { "id": "if.xrpc.defineRegulator",   "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openGas.defineRegulator" },
-          { "id": "if.xrpc.definePipeSegment", "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openGas.definePipeSegment" },
-          { "id": "if.xrpc.getNode",           "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openGas.getNode" },
-          { "id": "if.xrpc.listSegments",      "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openGas.listSegments" },
-          { "id": "if.xrpc.recordReading",     "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openGas.recordReading" },
-          { "id": "if.xrpc.reportLeak",        "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openGas.reportLeak" },
-          { "id": "if.xrpc.listLeaks",         "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openGas.listLeaks" },
-          { "id": "if.xrpc.recordPressureLog", "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openGas.recordPressureLog" },
-          { "id": "if.xrpc.listPressureLogs",  "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openGas.listPressureLogs" }
+          { "id": "if.xrpc.defineRegulator",   "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openGas.defineRegulator" },
+          { "id": "if.xrpc.definePipeSegment", "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openGas.definePipeSegment" },
+          { "id": "if.xrpc.getNode",           "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openGas.getNode" },
+          { "id": "if.xrpc.listSegments",      "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openGas.listSegments" },
+          { "id": "if.xrpc.recordReading",     "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openGas.recordReading" },
+          { "id": "if.xrpc.reportLeak",        "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openGas.reportLeak" },
+          { "id": "if.xrpc.listLeaks",         "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openGas.listLeaks" },
+          { "id": "if.xrpc.recordPressureLog", "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openGas.recordPressureLog" },
+          { "id": "if.xrpc.listPressureLogs",  "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openGas.listPressureLogs" }
         ]
       },
       { "id": "sys.d1", "name": "Cloudflare D1 (SQLite)", "platform": "D1",

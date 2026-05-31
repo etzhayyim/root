@@ -1,6 +1,6 @@
-# GFTD Resource Provider Project
+# etzhayyim Resource Provider Project
 
-This project establishes the GFTD Resource Provider Network, a decentralized system where users can contribute various resources in exchange for rewards.
+This project establishes the etzhayyim Resource Provider Network, a decentralized system where users can contribute various resources in exchange for rewards.
 
 ## Core Resources
 - **Documents & Images**: For RAG and AI model training.

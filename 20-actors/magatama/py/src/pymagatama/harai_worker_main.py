@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.harai.createPayment")
+    @worker.task(task_type="app.etzhayyim.apps.harai.createPayment")
     async def task_create_payment(**kwargs):
         payer_did = kwargs.get("payerDid", "")
         payee_did = kwargs.get("payeeDid", "")
@@ -49,7 +49,7 @@ async def run_worker():
 
         return {"paymentId": payment_id, "status": "pending"}
 
-    @worker.task(task_type="ai.gftd.apps.harai.listPayments")
+    @worker.task(task_type="app.etzhayyim.apps.harai.listPayments")
     async def task_list_payments(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -83,7 +83,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="ai.gftd.apps.harai.settlePayment")
+    @worker.task(task_type="app.etzhayyim.apps.harai.settlePayment")
     async def task_settle_payment(**kwargs):
         payment_id = kwargs.get("paymentId", "")
         now = datetime.utcnow().isoformat()
@@ -99,7 +99,7 @@ async def run_worker():
 
         return {"paymentId": payment_id, "status": "settled", "settledAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.harai.refundPayment")
+    @worker.task(task_type="app.etzhayyim.apps.harai.refundPayment")
     async def task_refund_payment(**kwargs):
         payment_id = kwargs.get("paymentId", "")
         reason = kwargs.get("reason", "")
@@ -116,7 +116,7 @@ async def run_worker():
 
         return {"paymentId": payment_id, "status": "refunded", "refundedAt": now, "reason": reason}
 
-    @worker.task(task_type="ai.gftd.apps.harai.getBalance")
+    @worker.task(task_type="app.etzhayyim.apps.harai.getBalance")
     async def task_get_balance(**kwargs):
         account_did = kwargs.get("accountDid", "")
         currency = kwargs.get("currency", "JPY")
@@ -135,7 +135,7 @@ async def run_worker():
         balance = float(row["balance"]) if row and row["balance"] is not None else 0.0
         return {"accountDid": account_did, "currency": currency, "balance": balance}
 
-    @worker.task(task_type="ai.gftd.apps.harai.transferFunds")
+    @worker.task(task_type="app.etzhayyim.apps.harai.transferFunds")
     async def task_transfer_funds(**kwargs):
         from_did = kwargs.get("fromDid", "")
         to_did = kwargs.get("toDid", "")
@@ -163,7 +163,7 @@ async def run_worker():
 
         return {"transferId": transfer_id, "status": "settled", "transferredAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.harai.listTransactions")
+    @worker.task(task_type="app.etzhayyim.apps.harai.listTransactions")
     async def task_list_transactions(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -200,7 +200,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="ai.gftd.apps.harai.closeAccount")
+    @worker.task(task_type="app.etzhayyim.apps.harai.closeAccount")
     async def task_close_account(**kwargs):
         account_did = kwargs.get("accountDid", "")
         reason = kwargs.get("reason", "")

@@ -9,7 +9,7 @@ last_verified: 2026-03-20
 authoritative_for:
   - magatama runtime default vs container fallback
 related:
-  - 260320-magatama-runtime-dual-backend-design
+  - 260320-magatama-cloudflare-containers-evaluation
   - 260320-magatama-cloudflare-worker-rpc-optimization
 supersedes: []
 superseded_by: []
@@ -250,7 +250,7 @@ Browser
 
 この評価は repo の既存方針と一致する。
 
-- [20-actors/magatama/CLAUDE.md](/Users/junkawasaki/etzhayyim/etzhayyim-root/20-actors/magatama/CLAUDE.md)
+- [20-actors/magatama/CLAUDE.md](/Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/CLAUDE.md)
 - [60-apps/CLAUDE.md](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/CLAUDE.md)
 - [90-docs/260320-magatama-cloudflare-worker-rpc-optimization.md](/Users/junkawasaki/etzhayyim/etzhayyim-root/90-docs/260320-magatama-cloudflare-worker-rpc-optimization.md)
 - [90-docs/260320-magatama-runtime-dual-backend-design.md](/Users/junkawasaki/etzhayyim/etzhayyim-root/90-docs/260320-magatama-runtime-dual-backend-design.md)

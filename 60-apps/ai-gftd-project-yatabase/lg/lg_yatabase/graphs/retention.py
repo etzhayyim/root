@@ -203,7 +203,7 @@ async def escalate_high(state: RetentionState) -> RetentionState:
                 "churn-escalate",
                 f"yatabase チャーンリスク: {org_did[:24]} ({plan}, {days:.0f}d inactive)",
                 body,
-                "jun@gftd.group",
+                "jun@etzhayyim.com",
                 "queued-no-recipient",
                 datetime.now(timezone.utc),
             )

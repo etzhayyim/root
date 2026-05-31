@@ -98,11 +98,11 @@ def _utc_now() -> str:
 
 
 def _sec_vid(rkey: str) -> str:
-    return f"at://{_OWNER_DID}/ai.gftd.apps.isin.security/{rkey}"
+    return f"at://{_OWNER_DID}/app.etzhayyim.apps.isin.security/{rkey}"
 
 
 def _filing_vid(rkey: str) -> str:
-    return f"at://{_OWNER_DID}/ai.gftd.apps.isin.filing/{rkey}"
+    return f"at://{_OWNER_DID}/app.etzhayyim.apps.isin.filing/{rkey}"
 
 
 def _is_dup(e: Exception) -> bool:
@@ -645,7 +645,7 @@ async def tool_link_lei_isin(limit: int = 100) -> dict:
             )
             if not lei_row:
                 continue
-            edge_id = f"at://{_OWNER_DID}/ai.gftd.apps.isin.leiMatch/{sec['ticker'] or uuid.uuid4().hex[:8]}"
+            edge_id = f"at://{_OWNER_DID}/app.etzhayyim.apps.isin.leiMatch/{sec['ticker'] or uuid.uuid4().hex[:8]}"
             try:
                 await conn.execute(
                     "INSERT INTO edge_isin_lei_match "
@@ -1034,7 +1034,7 @@ def _ir_doc_rkey(doc_type: str, url: str) -> str:
 
 
 def _ir_doc_vid(rkey: str) -> str:
-    return f"at://{_OWNER_DID}/ai.gftd.apps.isin.irDoc/{rkey}"
+    return f"at://{_OWNER_DID}/app.etzhayyim.apps.isin.irDoc/{rkey}"
 
 
 async def _save_ir_doc(
@@ -1341,7 +1341,7 @@ async def tool_link_security_filing(limit: int = 200) -> dict:
             if not sec_row:
                 continue
             edge_id = (
-                f"at://{_OWNER_DID}/ai.gftd.apps.isin.securityFiling"
+                f"at://{_OWNER_DID}/app.etzhayyim.apps.isin.securityFiling"
                 f"/{fil['ticker']}-{uuid.uuid4().hex[:8]}"
             )
             try:

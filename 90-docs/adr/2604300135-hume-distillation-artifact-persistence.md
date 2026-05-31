@@ -20,7 +20,7 @@ superseded_by: []
 
 # Context
 
-Hume Expression Measurement is being used as the teacher for GFTD's
+Hume Expression Measurement is being used as the teacher for etzhayyim's
 multimodal expression student models while the Hume API remains available. The
 distillation runs produce several durable artifacts:
 

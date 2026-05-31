@@ -2,7 +2,7 @@
 /**
  * ADR-0007 enforcement (rule 6): Hyperdrive → Kysely wiring must go through
  * the canonical `createKyselyDb` factory exported by
- * `@gftd/magatama-host-sdk/kysely`. Local `createHyperdriveDb` factories in
+ * `@etzhayyim/magatama-host-sdk/kysely`. Local `createHyperdriveDb` factories in
  * worker code are allowed ONLY if they delegate to `createKyselyDb` (proved
  * by their body importing/calling it). Anything else drifts the driver
  * layer and re-introduces pg.Pool.
@@ -40,7 +40,7 @@ for (const f of listFiles()) {
 if (offenders.length > 0) {
   console.error('ADR-0007 violation (hyperdrive-driver-unified):');
   console.error('  Local `createHyperdriveDb` / `createKyselyDb` factories must delegate to');
-  console.error('  `@gftd/magatama-host-sdk/kysely::createKyselyDb` (HyperdriveDialect, single pg.Client).');
+  console.error('  `@etzhayyim/magatama-host-sdk/kysely::createKyselyDb` (HyperdriveDialect, single pg.Client).');
   for (const f of offenders) console.error(`  ${f}`);
   process.exit(1);
 }

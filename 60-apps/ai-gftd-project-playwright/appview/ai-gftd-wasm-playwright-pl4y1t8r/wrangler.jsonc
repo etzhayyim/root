@@ -11,7 +11,7 @@
     "APP_DEPLOY_AT": "2026-04-19T10:00:00Z",
     "APP_DESCRIPTION": "Browser automation primitives XRPC — goto/fill/click/scrape/snapshot over local daemon OR cf-browser",
     "APP_DISPLAY_NAME": "Playwright",
-    "APP_EMBED_URL": "https://pl4y1t8r.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://pl4y1t8r.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "pl4y1t8r",
     "APP_PERFORMER_TYPE": "service",
@@ -19,7 +19,7 @@
     "APP_UI_TYPE": "appview",
     "APP_VERSION": "0.1.0",
     "INTERFACES_REQUIRES": "[\"gftd:collection/collection@1.0.0\",\"gftd:vault/vault@1.0.0\"]",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -31,12 +31,12 @@
   ],
   "routes": [
     {
-      "pattern": "pl4y1t8r.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "pl4y1t8r.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "playwright.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "playwright.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

@@ -3,6 +3,7 @@ id: 2605150000
 title: "lg-isin — Resident LangServer for Global Listed-Company Data Ingest"
 status: accepted
 doc_type: adr
+topic: lg-isin-listed-company-ingest-langserver
 date: 2026-05-15
 ---
 # ADR-2605150000: lg-isin — Resident LangServer for Global Listed-Company Data Ingest

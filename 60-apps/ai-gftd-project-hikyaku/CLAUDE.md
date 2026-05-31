@@ -32,7 +32,7 @@ Browser (SuperApp Mobile-First)
 
 ### Transport Rule
 
-- 正規 command contract は Matrix `org.gftd.command.hikyaku.*`
+- 正規 command contract は Matrix `org.etzhayyim.command.hikyaku.*`
 - typed read は XRPC `HikyakuQueryService`
 - HC 連携は XRPC `HCCommandService/CreateShift` 経由
 

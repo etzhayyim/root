@@ -9,7 +9,7 @@ export default function Header() {
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.png"
-            alt="Gftd PRE Logo"
+            alt="etzhayyim PRE Logo"
             width={140}
             height={40}
             priority

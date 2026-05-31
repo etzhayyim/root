@@ -9,9 +9,9 @@ expect the yatabase CF Worker forwarder to provide:
     x-gftd-trace-id   = cf-ray (optional)
 
 NSIDs:
-    ai.gftd.apps.yata.signup    (anonymous mint)
-    ai.gftd.apps.yata.invite    (member key under caller org)
-    ai.gftd.apps.yata.revoke    (revoke a key the caller owns)
+    app.etzhayyim.apps.yata.signup    (anonymous mint)
+    app.etzhayyim.apps.yata.invite    (member key under caller org)
+    app.etzhayyim.apps.yata.revoke    (revoke a key the caller owns)
 
 Closes the ADR-2605111200 cutover gap on the auth surface so the CF
 Worker can stop calling createKyselyDb in src/auth-signup.ts.
@@ -64,7 +64,7 @@ async def _verify_trust(request: Request, x_internal_trust: str | None) -> bytes
     raise HTTPException(status_code=401, detail="x-internal-trust mismatch")
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.signup")
+@router.post("/xrpc/app.etzhayyim.apps.yata.signup")
 async def yata_signup(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -112,7 +112,7 @@ async def yata_signup(
     })
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.invite")
+@router.post("/xrpc/app.etzhayyim.apps.yata.invite")
 async def yata_invite(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -142,7 +142,7 @@ async def yata_invite(
     })
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.authResolveApiKey")
+@router.post("/xrpc/app.etzhayyim.apps.yata.authResolveApiKey")
 async def yata_auth_resolve_api_key(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -168,7 +168,7 @@ async def yata_auth_resolve_api_key(
     return JSONResponse({"ok": True, "found": True, **out})
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.revoke")
+@router.post("/xrpc/app.etzhayyim.apps.yata.revoke")
 async def yata_revoke(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),

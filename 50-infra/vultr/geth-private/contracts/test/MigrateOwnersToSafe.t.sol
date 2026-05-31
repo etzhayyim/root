@@ -28,16 +28,16 @@ contract MigrateOwnersToSafeTest is Test {
     // Mirror the address constants from the script so we can mock them.
     address constant GCC                          = 0x8e9A5162b2800E0D19acC1708A531A3954900E21;
     address constant DEPLOY_REGISTRY              = 0x995AD6A2bb4D8916Ba036f5B2e29E7739Ee243b5;
-    address constant GFTD_ACTOR_REGISTRY          = 0xc097cC8f6dfa6f3a539b0De36E9Bb550B9AA7025;
-    address constant GFTD_ROOT_IDENTITY_REGISTRY  = 0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8;
-    address constant GFTD_AGENT_REGISTRY          = 0xcA3480edDAfa39c9377B83eEB18291286C8Cb865;
+    address constant etzhayyim_ACTOR_REGISTRY          = 0xc097cC8f6dfa6f3a539b0De36E9Bb550B9AA7025;
+    address constant etzhayyim_ROOT_IDENTITY_REGISTRY  = 0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8;
+    address constant etzhayyim_AGENT_REGISTRY          = 0xcA3480edDAfa39c9377B83eEB18291286C8Cb865;
     address constant ACTOR_RUNTIME_REGISTRY       = 0x9C730960e9BF7A403E610Dca0C8a565CF655b6a1;
     address constant MURAKUMO_REGISTRY            = 0x4E3d742ece9483f97c3094b40c4b8C7901a6E3B6;
     address constant MURAKUMO_ESCROW              = 0xD0DAB2B574948d4c8Bb9cF1D751CD0C6662f484d; // v2 ERC-1271
     address constant CLAIM_STAKE_ESCROW           = 0x8448Bd7FC883d0735D8A2416DAd0B7e4FbFA9767; // v2 ERC-1271
     address constant REGO_ARBITER                 = 0x53E29CA12Bd77fD35926627318036c7B2BBE245d;
 
-    // GftdActorRegistry is intentionally excluded — it has no Ownable;
+    // etzhayyimActorRegistry is intentionally excluded — it has no Ownable;
     // activate() is permissionless by design. allTargets covers the 9 owned
     // contracts + SAFE_FAKE (needed so code.length > 0 for _validateSafe).
     address[10] internal allTargets;
@@ -53,8 +53,8 @@ contract MigrateOwnersToSafeTest is Test {
 
         allTargets = [
             DEPLOY_REGISTRY,
-            GFTD_ROOT_IDENTITY_REGISTRY,
-            GFTD_AGENT_REGISTRY,
+            etzhayyim_ROOT_IDENTITY_REGISTRY,
+            etzhayyim_AGENT_REGISTRY,
             ACTOR_RUNTIME_REGISTRY,
             MURAKUMO_REGISTRY,
             GCC,
@@ -66,8 +66,8 @@ contract MigrateOwnersToSafeTest is Test {
         for (uint256 i; i < allTargets.length; ++i) {
             vm.etch(allTargets[i], stub);
         }
-        // Also etch GFTD_ACTOR_REGISTRY so any accidental call wouldn't hit EOA code.
-        vm.etch(GFTD_ACTOR_REGISTRY, stub);
+        // Also etch etzhayyim_ACTOR_REGISTRY so any accidental call wouldn't hit EOA code.
+        vm.etch(etzhayyim_ACTOR_REGISTRY, stub);
 
         // Default mock returns: every owned contract reports owner() = sealer
         // and role-getters return sealer too. Each test can override.
@@ -132,11 +132,11 @@ contract MigrateOwnersToSafeTest is Test {
 
         // Mock all the writes so they don't revert. We then assert each
         // selector was called at least once.
-        // Note: GFTD_ACTOR_REGISTRY is excluded — it has no Ownable.
+        // Note: etzhayyim_ACTOR_REGISTRY is excluded — it has no Ownable.
         bytes memory transferAbi = abi.encodeCall(_OwnableLike.transferOwnership, (SAFE_FAKE));
         vm.mockCall(DEPLOY_REGISTRY,             transferAbi, "");
-        vm.mockCall(GFTD_ROOT_IDENTITY_REGISTRY, transferAbi, "");
-        vm.mockCall(GFTD_AGENT_REGISTRY,         transferAbi, "");
+        vm.mockCall(etzhayyim_ROOT_IDENTITY_REGISTRY, transferAbi, "");
+        vm.mockCall(etzhayyim_AGENT_REGISTRY,         transferAbi, "");
         vm.mockCall(ACTOR_RUNTIME_REGISTRY,      transferAbi, "");
         vm.mockCall(MURAKUMO_REGISTRY,           transferAbi, "");
         vm.mockCall(GCC,                         transferAbi, "");
@@ -160,10 +160,10 @@ contract MigrateOwnersToSafeTest is Test {
 
         // Expected calls. forge-std `expectCall` fails the test if the
         // selector isn't invoked at the target during the test body.
-        // GFTD_ACTOR_REGISTRY is intentionally excluded (no Ownable).
+        // etzhayyim_ACTOR_REGISTRY is intentionally excluded (no Ownable).
         vm.expectCall(DEPLOY_REGISTRY,             transferAbi);
-        vm.expectCall(GFTD_ROOT_IDENTITY_REGISTRY, transferAbi);
-        vm.expectCall(GFTD_AGENT_REGISTRY,         transferAbi);
+        vm.expectCall(etzhayyim_ROOT_IDENTITY_REGISTRY, transferAbi);
+        vm.expectCall(etzhayyim_AGENT_REGISTRY,         transferAbi);
         vm.expectCall(ACTOR_RUNTIME_REGISTRY,      transferAbi);
         vm.expectCall(MURAKUMO_REGISTRY,           transferAbi);
         vm.expectCall(GCC,                         transferAbi);

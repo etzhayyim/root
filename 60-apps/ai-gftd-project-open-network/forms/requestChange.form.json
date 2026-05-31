@@ -3,7 +3,7 @@
   "formKey": "openNetwork.requestChange.v1",
   "name": "Request Change",
   "version": 1,
-  "lexiconRef": "ai.gftd.apps.openNetwork.requestChange",
+  "lexiconRef": "app.etzhayyim.apps.openNetwork.requestChange",
   "components": [
     { "key": "title", "label": "Title", "type": "textfield",
       "validate": { "required": true, "maxLength": 128 } },

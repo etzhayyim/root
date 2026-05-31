@@ -1,0 +1,90 @@
+openapi: 3.1.0
+info:
+  title: warifu Card API (Stripe-shaped, open re-implementation)
+  version: 0.1.0-R0
+  description: >
+    Drop-in compatible online card API for warifu 割符 (ADR-2605302000). Request/response shapes
+    mirror common card-API conventions so existing merchant SDKs adopt by changing baseURL only.
+    Settles on-chain (USDC, Base L2). Merchant fee is always 0. NOT affiliated with any vendor;
+    interoperable open spec. Apache-2.0 + Charter Rider v2.0.
+servers:
+  - url: https://api.warifu.etzhayyim.com/v1
+paths:
+  /payment_intents:
+    post:
+      summary: Create a payment intent (authorize, optionally auto-capture)
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [amount, currency, payment_method]
+              properties:
+                amount: { type: integer, description: USDC minor units (6dp) }
+                currency: { type: string, enum: [usdc] }
+                payment_method: { type: string, description: warifu payment_method token (wpm_...) }
+                capture_method: { type: string, enum: [automatic, manual], default: automatic }
+                metadata:
+                  type: object
+                  properties:
+                    purpose:
+                      type: string
+                      description: >
+                        Phase 1: internal-purchase | internal-subscription | internal-promo |
+                        escrow-refund. purchase/subscription are GATED (HTTP 451) until Lv7+.
+      responses:
+        "200":
+          description: succeeded / requires_capture
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string, example: wpi_... }
+                  status: { type: string, enum: [succeeded, requires_capture, requires_action] }
+                  amount: { type: integer }
+                  settlement:
+                    type: object
+                    properties:
+                      chain: { type: string, example: base }
+                      tx: { type: string }
+                      fee: { type: string, example: "0" }
+                      finality: { type: string, example: "T+0" }
+        "451":
+          description: >
+            Unavailable For Legal Reasons — purpose constitutionally gated (Phase 2 requires
+            Council Lv7+ amendment of ADR-2605192115). Use the vendor merchant-of-record bridge.
+  /payment_intents/{id}/capture:
+    post:
+      summary: Capture a manual payment intent
+      parameters:
+        - { in: path, name: id, required: true, schema: { type: string } }
+      responses:
+        "200": { description: captured }
+  /refunds:
+    post:
+      summary: Refund a settled payment (purpose escrow-refund; fee 0)
+      responses:
+        "200": { description: refunded }
+  /payment_methods:
+    post:
+      summary: Tokenize a warifu card (network token; no raw PAN stored)
+      responses:
+        "200": { description: created }
+  /customers:
+    post:
+      summary: Create a customer (DID-bound; Adherent SBT holder)
+      responses:
+        "200": { description: created }
+components:
+  securitySchemes:
+    passkey:
+      type: http
+      scheme: bearer
+      description: WebAuthn passkey assertion (3-D-Secure-equivalent). No platform-held key.

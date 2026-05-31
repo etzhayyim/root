@@ -11,7 +11,7 @@
 //
 // Usage in src/app.ts:
 //
-//   import { createCreditsMeter, createWorkerExport } from "@gftd/magatama-host-sdk";
+//   import { createCreditsMeter, createWorkerExport } from "@etzhayyim/magatama-host-sdk";
 //
 //   export default createWorkerExport((sdk) => {
 //     // wire mcpRegistry with meter opt-in
@@ -33,8 +33,8 @@ export interface CreditsMeterEnv {
 	CREDITS_INTERNAL_TOKEN?: string;
 }
 
-const CHECK_NSID = "ai.gftd.apps.credits.checkSpendAllowed";
-const SPEND_NSID = "ai.gftd.apps.credits.spendCredits";
+const CHECK_NSID = "app.etzhayyim.apps.credits.checkSpendAllowed";
+const SPEND_NSID = "app.etzhayyim.apps.credits.spendCredits";
 
 async function xrpcPost(
 	env: CreditsMeterEnv,
@@ -81,7 +81,7 @@ async function xrpcPost(
  *
  * @example
  * ```ts
- * import { createCreditsMeter } from "@gftd/magatama-host-sdk";
+ * import { createCreditsMeter } from "@etzhayyim/magatama-host-sdk";
  *
  * export default createWorkerExport((sdk) => { ... }, {
  *   mcpRegistry: {

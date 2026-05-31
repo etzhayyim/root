@@ -12,8 +12,8 @@ authoritative_for:
 related:
   - 260403-wproto-transport-and-routing-consolidated
 supersedes:
-  - 260325-magatama-inference-rust-single-codebase-design
-  - 260327-ts-native-wit-contract-design
+  - 260325-claude-native-lifecycle-management
+  - ingredient-safety-scoring
   - 260330-hayate-wasm-magatama-design
   - 260330-hayate-artifact-schema-design
 superseded_by: []

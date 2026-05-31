@@ -5,7 +5,9 @@ status: accepted
 doc_type: adr
 topic: manimani-user-intake-routing
 authoritative: true
-last_verified: 2026-05-08
+last_verified: 2026-05-29
+superseded_by:
+  - adr-2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest  # substrate/runtime/inference layers only; product contract preserved
 priority: 7.0
 axis: architecture
 weight: 0.6
@@ -21,7 +23,7 @@ depends_on:
   - adr-2605080000-distributed-cognitive-actor-system
   - adr-2605080200-pydantic-l6-validation-contract
   - adr-2605080300-sqlalchemy-core-usage-contract
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-2604291800-well-becoming-spirit-objective-function
   - adr-0036-worker-direct-hyperdrive-persistence
@@ -33,6 +35,15 @@ related: []
 ---
 
 # ADR-2605080800: manimani LangGraph User Intake & Project Routing Pipeline
+
+> **⚠️ 2026-05-29 — substrate/runtime/inference layers SUPERSEDED by ADR-2605291100.**
+> RisingWave/Hyperdrive persistence, Anthropic-direct / RunPod vLLM inference, and the
+> Python LangGraph Server + Granian pool described below are now constitutionally prohibited
+> (ADR-2605262130 kotoba; ADR-2605215000 Murakumo-only). The reconciled design maps manimani
+> onto kotoba EAVT datoms + kotoba StateGraph + Murakumo LiteLLM + Signal E2E, and adds the
+> Gmail full-archive + broad PC-file ingest paths. **This ADR remains authoritative for the
+> product contract** (XRPC surface, 4 project kinds, LLM-led classification + `confidence<0.5
+> →unsorted` fallback, non-federable default). See ADR-2605291100.
 
 ## Goal
 
@@ -46,7 +57,7 @@ user が自分の頭の中にある断片 (text / link / file への参照) を 
 
 - T3 actor `manimani.etzhayyim.com` (CF Worker edge facade + LangGraph Server execution) の定義
 - 4 vertex + 1 edge + 2 MV の RisingWave schema (Hyperdrive direct, ADR-0036)
-- 6 NSID lexicon (`ai.gftd.apps.manimani.{ingest, classify, process, getProject, listProjects, coverage}`)
+- 6 NSID lexicon (`app.etzhayyim.apps.manimani.{ingest, classify, process, getProject, listProjects, coverage}`)
 - LangGraph StateGraph 7 node (parse_input → classify_project → route_processor → 3 並列 processor → persist_artifact → emit_audit)
 - LLM 主導 project classification の Pydantic v2 contract (Anthropic structured output)
 - non-federable 境界: AT Repo emit は default block、social derive は user の明示 opt-in 経由のみ
@@ -237,12 +248,12 @@ ADR-0095 RLS 列 (`actor_did` / `org_did` / `at_did` / `created_at`) を全 vert
 
 | NSID | kind | 用途 | binding |
 |---|---|---|---|
-| `ai.gftd.apps.manimani.ingest` | procedure | text/url/file_ref/email を投入 → run_id を返す | LangGraph Server `/runs` への薄い proxy (BPMN binding 1 本、gateway のみ) |
-| `ai.gftd.apps.manimani.classify` | procedure | 既存 intake の再振り分け (user 上書き or 強制再分類) | LangGraph Server `/classify` |
-| `ai.gftd.apps.manimani.process` | procedure | 既存 intake を別 model / kind で再処理 | LangGraph Server `/reprocess` |
-| `ai.gftd.apps.manimani.getProject` | query | project_id → project + 直近 50 artifact | `generic.db.select` BPMN |
-| `ai.gftd.apps.manimani.listProjects` | query | actor scope の active project + 件数 | `generic.db.select` BPMN |
-| `ai.gftd.apps.manimani.coverage` | query | health snapshot (intake / project / artifact 総数 + 直近 24h delta) | `generic.db.select` BPMN |
+| `app.etzhayyim.apps.manimani.ingest` | procedure | text/url/file_ref/email を投入 → run_id を返す | LangGraph Server `/runs` への薄い proxy (BPMN binding 1 本、gateway のみ) |
+| `app.etzhayyim.apps.manimani.classify` | procedure | 既存 intake の再振り分け (user 上書き or 強制再分類) | LangGraph Server `/classify` |
+| `app.etzhayyim.apps.manimani.process` | procedure | 既存 intake を別 model / kind で再処理 | LangGraph Server `/reprocess` |
+| `app.etzhayyim.apps.manimani.getProject` | query | project_id → project + 直近 50 artifact | `generic.db.select` BPMN |
+| `app.etzhayyim.apps.manimani.listProjects` | query | actor scope の active project + 件数 | `generic.db.select` BPMN |
+| `app.etzhayyim.apps.manimani.coverage` | query | health snapshot (intake / project / artifact 総数 + 直近 24h delta) | `generic.db.select` BPMN |
 
 `ingest` のみ BPMN gateway 1 本を持つ (validate → forward to LangGraph Server)。残り 2 procedure は LangGraph Server を CF Worker から直接 forward する (BPMN を経由しない)。query 3 つは `generic.db.select` BPMN で十分。
 
@@ -253,7 +264,7 @@ ADR-0095 RLS 列 (`actor_did` / `org_did` / `at_did` / `created_at`) を全 vert
 ├─ magatama.jsonld          T3 dispatcher actor + AI Agent profile
 ├─ wrangler.jsonc           manimani.etzhayyim.com/* + HYPERDRIVE binding (Phase B read shortcut 用)
 │                           PDS_SERVICE / AUTHN_SERVICE service binding
-├─ package.json             @gftd/magatama-host-sdk dep
+├─ package.json             @etzhayyim/magatama-host-sdk dep
 ├─ tsconfig.json
 ├─ CLAUDE.md                project rules + forbidden patterns
 └─ src/
@@ -288,7 +299,7 @@ LLM inference は `pymagatama.llm.call_tier` 経由:
 | 禁止 | 代替 |
 |---|---|
 | CF Worker `manimani.etzhayyim.com` 内で Anthropic / vLLM を直接叩く | LangGraph Server (mitama-manimani-pool) 経由 |
-| `sdk.pds.dispatch({type:"com.atproto.repo.createRecord"})` で `ai.gftd.apps.manimani.*` 書込 | `createKyselyDb(env.HYPERDRIVE).insertInto('vertex_manimani_*').values(...).execute()` (ADR-0036) |
+| `sdk.pds.dispatch({type:"com.atproto.repo.createRecord"})` で `app.etzhayyim.apps.manimani.*` 書込 | `createKyselyDb(env.HYPERDRIVE).insertInto('vertex_manimani_*').values(...).execute()` (ADR-0036) |
 | AT Repo (federable) に manimani の intake / project / artifact を emit | non-federable 維持。social derive は user の明示 `pds.dispatch({type:'app.bsky.feed.post'})` opt-in のみ |
 | ハードコード LLM model 名 | `resolveModelId()` / `MURAKUMO_DEFAULT_MODEL` (LLM Model SSoT convention) |
 | LangGraph state を Postgres / Redis に永続化 | RisingWave 直 (`vertex_manimani_run.checkpoint_json` + custom `BaseCheckpointSaver`、Phase B) |
@@ -325,7 +336,7 @@ LangGraph Server (Granian) なら StateGraph で表現できる + Phase B で `B
 
 ### non-federable をデフォルトにする理由 (ADR-0018 互換)
 
-manimani が扱うのは user の頭の中 / 機密情報 / 個人 PII を含む intake。default で AT Repo (federable) に emit すると Bluesky firehose 経由で外部 relay に流出する。明示的 `pds.dispatch({type:'app.bsky.feed.post'})` を user が呼んだ時のみ社外発信 (= post 化) を許す。`vertex_manimani_*` は domain (`ai.gftd.apps.manimani.*`) として PDS 予約から外し、Hyperdrive 直 INSERT (ADR-0036) のみ。
+manimani が扱うのは user の頭の中 / 機密情報 / 個人 PII を含む intake。default で AT Repo (federable) に emit すると Bluesky firehose 経由で外部 relay に流出する。明示的 `pds.dispatch({type:'app.bsky.feed.post'})` を user が呼んだ時のみ社外発信 (= post 化) を許す。`vertex_manimani_*` は domain (`app.etzhayyim.apps.manimani.*`) として PDS 予約から外し、Hyperdrive 直 INSERT (ADR-0036) のみ。
 
 ## Exceptions
 

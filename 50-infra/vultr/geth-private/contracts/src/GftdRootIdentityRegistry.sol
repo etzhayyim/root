@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.23;
 
-import {GftdRootIdentity} from "./GftdRootIdentity.sol";
+import {etzhayyimRootIdentity} from "./etzhayyimRootIdentity.sol";
 
-/// @title GftdRootIdentityRegistry
+/// @title etzhayyimRootIdentityRegistry
 /// @notice Registry mapping ERC725 root DID hashes and facade DID hashes to
-///         GFTD root identity contracts.
-contract GftdRootIdentityRegistry {
+///         etzhayyim root identity contracts.
+contract etzhayyimRootIdentityRegistry {
     address public owner;
 
     mapping(bytes32 rootDidHash => address identity) public identityByRootDid;
@@ -45,7 +45,7 @@ contract GftdRootIdentityRegistry {
         if (identityByRootDid[rootDidHash] != address(0)) revert IdentityAlreadyRegistered();
 
         address identityOwner = controller == address(0) ? owner : controller;
-        GftdRootIdentity root = new GftdRootIdentity(identityOwner);
+        etzhayyimRootIdentity root = new etzhayyimRootIdentity(identityOwner);
         identity = address(root);
         identityByRootDid[rootDidHash] = identity;
         emit RootIdentityRegistered(rootDidHash, identity, identityOwner, rootDidUri);
@@ -60,7 +60,7 @@ contract GftdRootIdentityRegistry {
         if (identityByRootDid[rootDidHash] != address(0)) revert IdentityAlreadyRegistered();
 
         identityByRootDid[rootDidHash] = identity;
-        emit RootIdentityRegistered(rootDidHash, identity, GftdRootIdentity(payable(identity)).owner(), rootDidUri);
+        emit RootIdentityRegistered(rootDidHash, identity, etzhayyimRootIdentity(payable(identity)).owner(), rootDidUri);
     }
 
     function linkFacade(bytes32 rootDidHash, bytes32 facadeDidHash, string calldata facadeDidUri) external onlyOwner {

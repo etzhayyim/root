@@ -36,10 +36,10 @@ const AIRLINES: Airline[] = [
 const BROAD_SOURCES = ["amadeus", "duffel", "kiwi-tequila", "travelpayouts-aviasales", "skyscanner-affiliate"];
 
 function airlineVid(iata: string): string {
-  return `at://${ownerDid}/ai.gftd.apps.flightOffer.airline/${iata}`;
+  return `at://${ownerDid}/app.etzhayyim.apps.flightOffer.airline/${iata}`;
 }
 function sourceVid(sourceId: string): string {
-  return `at://${ownerDid}/ai.gftd.apps.flightOffer.source/${sourceId}`;
+  return `at://${ownerDid}/app.etzhayyim.apps.flightOffer.source/${sourceId}`;
 }
 function edgeId(sourceId: string, iata: string): string {
   return `${sourceVid(sourceId)}|covers|${airlineVid(iata)}`;

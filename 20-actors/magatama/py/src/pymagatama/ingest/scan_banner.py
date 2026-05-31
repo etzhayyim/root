@@ -75,7 +75,7 @@ def _insert_scan_result(ip: str, port: int, result: dict, run_id: str) -> bool:
     ts = now_iso()
     proto = result.get("protocol", "tcp")
     vertex_id = (
-        f"at://did:web:ingest.etzhayyim.com/ai.gftd.apps.collector.scanResult"
+        f"at://did:web:ingest.etzhayyim.com/app.etzhayyim.apps.collector.scanResult"
         f"/{ip}:{port}:{proto}"
     )
     sql = (

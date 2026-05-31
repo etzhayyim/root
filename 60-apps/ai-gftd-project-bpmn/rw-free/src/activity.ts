@@ -13,7 +13,7 @@ import {
   type ActivityLogEntry,
 } from "./types.js";
 
-const ACTIVITY_COLLECTION = "ai.gftd.bpmn.activityLog";
+const ACTIVITY_COLLECTION = "app.etzhayyim.bpmn.activityLog";
 
 export async function getActivityLog(
   e: Etzhayyim,

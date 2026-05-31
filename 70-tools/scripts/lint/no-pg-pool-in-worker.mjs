@@ -5,7 +5,7 @@
  * In CF Workers, `pg.Pool`'s idle-client 'error' EventEmitter escapes the
  * fetch handler scope and surfaces as opaque CF 1101 platform errors. All
  * Worker code must use `HyperdriveDialect` (single pg.Client) via
- * `@gftd/magatama-host-sdk/kysely::createKyselyDb`.
+ * `@etzhayyim/magatama-host-sdk/kysely::createKyselyDb`.
  *
  * Scope: CF Worker source trees under 50-infra/cloudflare/workers and
  * 60-apps per-project worker directories.

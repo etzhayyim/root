@@ -13,8 +13,8 @@ authoritative_for:
   - BPMN-native worker path alongside LangGraph Server main runtime
   - zeebe-replacement-runbook
 related:
-  - 90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md
-  - 90-docs/adr/2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic.md
+  - adr-2605080600-langgraph-server-granian-l3-runtime
+  - adr-2604282300
   - 90-docs/adr/0056-bpmn-as-actor.md
   - 90-docs/adr/0036-worker-direct-hyperdrive-persistence.md
   - 90-docs/adr/0094-risingwave-stable-three-node-topology.md
@@ -49,7 +49,7 @@ BPMN worker で実行する。
 ## Architecture
 
 ```
-BPMN XML (ai.gftd.bpmn.process AT record collection, code-as-data)
+BPMN XML (app.etzhayyim.bpmn.process AT record collection, code-as-data)
     │ deploy = AT record commit
     ▼
 graphar.vertex_bpmn_process (RW, append-only, latest version = MAX(deployed_at))
@@ -75,7 +75,7 @@ graphar.vertex_spiff_timer (instance_id, fire_at, 1s tick reconciler)
 - **Persistence**: `vertex_spiff_instance` への state write は **delete-then-insert** (1 row 単位、PK = `instance_id`)。`db.transaction()` は RW で no-op として扱う (root CLAUDE.md "Record-log semantics" 規約)。
 - **Job dispatch**: engine が `READY` task を `vertex_spiff_job` に append、worker は `mv_spiff_ready_jobs` を 5s polling もしくは RW subscribe で pull。`claim_until` lease column で at-least-once。
 - **Worker shim**: `gftd_bpmn` decorator package を `20-actors/magatama/sdk/` 配下に新設し、`@worker.task(task_type="...")` 互換 API を提供。既存 handler 関数本体は無改修。
-- **Deploy = AT record**: BPMN XML を `ai.gftd.bpmn.process` collection に commit (Worker-direct Hyperdrive、ADR-0036)。engine host は firehose (or RW notification) で hot-reload。
+- **Deploy = AT record**: BPMN XML を `app.etzhayyim.bpmn.process` collection に commit (Worker-direct Hyperdrive、ADR-0036)。engine host は firehose (or RW notification) で hot-reload。
 - **Timer**: `vertex_spiff_timer` を 1s tick reconciler で照会し、`fire_at <= now()` を engine に inject。
 - **Archive**: 完了 instance の `vertex_spiff_history` を Iceberg sink (既存 RW B2 path) で長期保存。
 
@@ -284,7 +284,7 @@ def _inject_zeebe_task_types(spec, xml_root, bpmn_process_id):
 
 動的属性は default converter で **serialize round-trip 時に脱落する** ため、
 `BpmnTaskSpecConverter` をサブクラス化して `to_dict` / `from_dict` で `task_type`
-を明示的に往復させる必要がある (engine.py `_GftdServiceTaskConverter`)。
+を明示的に往復させる必要がある (engine.py `_etzhayyimServiceTaskConverter`)。
 
 代替案として CamundaParser 系のフルカスタムサブクラス (~150 行) も評価したが、
 **XML 再走査 + dynamic attr + custom converter (~50 行)** の方が小回り効く。
@@ -333,8 +333,8 @@ schema が残り、engine の SELECT が `column does not exist` で死ぬ。
 | Zeebe runtime (legacy, 不変) | `vertex_bpmn_instance`, `vertex_bpmn_activity_event`, `vertex_bpmn_signal_log` | Camunda 8、Phase 2 で broker 撤去後に retire 候補 |
 
 AT record collection paths も整合:
-`ai.gftd.apps.spiff.{instance,job,history}` — 既存
-`ai.gftd.bpmn.process` (spec) は engine-agnostic として保持。
+`app.etzhayyim.apps.spiff.{instance,job,history}` — 既存
+`app.etzhayyim.bpmn.process` (spec) は engine-agnostic として保持。
 
 ## requirements.txt ピン
 

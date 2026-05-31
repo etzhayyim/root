@@ -15,7 +15,7 @@
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { SegmentDef } from "./types.js";
 
-const COLLECTION = "ai.gftd.apps.openUnispsc.segmentDef";
+const COLLECTION = "app.etzhayyim.apps.openUnispsc.segmentDef";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_READER_DID ?? "did:web:etzhayyim.com",

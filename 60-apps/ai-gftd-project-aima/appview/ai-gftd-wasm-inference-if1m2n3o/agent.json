@@ -4,7 +4,7 @@
   "url": "https://ai-gftd-wasm-inference-if1m2n3o.etzhayyim.com/api/grpc",
   "version": "1.0.0",
   "provider": {
-    "service": "GFTD",
+    "service": "etzhayyim",
     "url": "https://kyber-services.etzhayyim.com"
   },
   "supportedProtocols": [

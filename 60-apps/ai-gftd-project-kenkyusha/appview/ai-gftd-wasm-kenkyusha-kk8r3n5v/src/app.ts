@@ -21,27 +21,27 @@ const ACTOR = {
 };
 
 const NSIDS = new Set([
-  "ai.gftd.apps.kenkyusha.collectEvidence",
-  "ai.gftd.apps.kenkyusha.coverageMap",
-  "ai.gftd.apps.kenkyusha.detectFrontiers",
-  "ai.gftd.apps.kenkyusha.evaluateHypothesis",
-  "ai.gftd.apps.kenkyusha.generateHypothesis",
-  "ai.gftd.apps.kenkyusha.getFrontier",
-  "ai.gftd.apps.kenkyusha.listDisciplines",
-  "ai.gftd.apps.kenkyusha.listFrontiers",
-  "ai.gftd.apps.kenkyusha.publishFrontier",
-  "ai.gftd.apps.kenkyusha.registerDids",
-  "ai.gftd.apps.kenkyusha.searchEvidence",
-  "ai.gftd.apps.kenkyusha.seedDisciplines",
-  "ai.gftd.apps.kenkyusha.stats",
+  "app.etzhayyim.apps.kenkyusha.collectEvidence",
+  "app.etzhayyim.apps.kenkyusha.coverageMap",
+  "app.etzhayyim.apps.kenkyusha.detectFrontiers",
+  "app.etzhayyim.apps.kenkyusha.evaluateHypothesis",
+  "app.etzhayyim.apps.kenkyusha.generateHypothesis",
+  "app.etzhayyim.apps.kenkyusha.getFrontier",
+  "app.etzhayyim.apps.kenkyusha.listDisciplines",
+  "app.etzhayyim.apps.kenkyusha.listFrontiers",
+  "app.etzhayyim.apps.kenkyusha.publishFrontier",
+  "app.etzhayyim.apps.kenkyusha.registerDids",
+  "app.etzhayyim.apps.kenkyusha.searchEvidence",
+  "app.etzhayyim.apps.kenkyusha.seedDisciplines",
+  "app.etzhayyim.apps.kenkyusha.stats",
 ]);
 
 // NSIDs that go directly to the lg-kenkyusha pod (Phase 2A MCP facade).
 // Everything else still goes through dispatcher.etzhayyim.com.
 const POD_NSIDS = new Set([
-  "ai.gftd.apps.kenkyusha.publishFrontier",
-  "ai.gftd.apps.kenkyusha.getFrontier",
-  "ai.gftd.apps.kenkyusha.listFrontiers",
+  "app.etzhayyim.apps.kenkyusha.publishFrontier",
+  "app.etzhayyim.apps.kenkyusha.getFrontier",
+  "app.etzhayyim.apps.kenkyusha.listFrontiers",
 ]);
 
 const json = (body: unknown, init: ResponseInit = {}) =>
@@ -104,12 +104,12 @@ async function dispatchPod(env: Env, nsid: string, body: Record<string, unknown>
   let url = base;
   let init: RequestInit = { headers };
   switch (nsid) {
-    case "ai.gftd.apps.kenkyusha.publishFrontier": {
+    case "app.etzhayyim.apps.kenkyusha.publishFrontier": {
       url += "/frontiers/publish";
       init = { method: "POST", headers, body: JSON.stringify(body) };
       break;
     }
-    case "ai.gftd.apps.kenkyusha.getFrontier": {
+    case "app.etzhayyim.apps.kenkyusha.getFrontier": {
       const fid = String((body as Record<string, unknown>).frontier_id ?? "").trim();
       if (!fid) {
         return new Response(JSON.stringify({ error: "frontier_id required" }), {
@@ -121,7 +121,7 @@ async function dispatchPod(env: Env, nsid: string, body: Record<string, unknown>
       init = { method: "GET", headers };
       break;
     }
-    case "ai.gftd.apps.kenkyusha.listFrontiers": {
+    case "app.etzhayyim.apps.kenkyusha.listFrontiers": {
       const params = new URLSearchParams();
       const limit = String((body as Record<string, unknown>).limit ?? "");
       const status = String((body as Record<string, unknown>).status ?? "");

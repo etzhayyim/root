@@ -2,7 +2,7 @@
 
 ## Overview
 
-GFTD CS Certified — サイバーセキュリティ診断済みサイトに認証ロゴ (バッジ) を発行・表示するサービス。
+etzhayyim CS Certified — サイバーセキュリティ診断済みサイトに認証ロゴ (バッジ) を発行・表示するサービス。
 SSL trust seal のように、セキュリティ診断完了サイトが信頼性を証明するバッジを埋め込める。
 
 - **公開ドメイン**: `certs.etzhayyim.com`

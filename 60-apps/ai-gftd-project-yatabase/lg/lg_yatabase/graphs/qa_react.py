@@ -6,7 +6,7 @@ optionally calls LLM to analyze failures, and returns a structured QA report.
 ReAct loop:
   run_tests → analyze_failures → build_report
 
-NSID: ai.gftd.apps.yata.lg.qaReact.run
+NSID: app.etzhayyim.apps.yata.lg.qaReact.run
 Graph ID: qa_react
 Triggered: manually or pre-deploy gate
 """
@@ -35,7 +35,7 @@ try:
 except IndexError:
     _SMOKE_SCRIPT = Path(os.environ.get("YATA_SMOKE_SCRIPT", "/opt/smoke/yatabase-smoke.mjs"))
 
-_HOST = os.environ.get("YATABASE_HOST", "https://yatabase.gftd.ai")
+_HOST = os.environ.get("YATABASE_HOST", "https://yatabase.etzhayyim.com")
 _API_KEY = os.environ.get("YATA_API_KEY", "")
 _NODE_BIN = os.environ.get("NODE_BIN", "node")
 _SMOKE_TIMEOUT = int(os.environ.get("YATA_SMOKE_TIMEOUT_SEC", "600"))

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govZmb.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govZmb.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Zambia government.",
-        "operationId": "ai.gftd.govZmb.followSiteDeps",
+        "operationId": "app.etzhayyim.govZmb.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZmb.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govZmb.heartbeatTick": {
       "post": {
         "summary": "Run the Zambia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govZmb.heartbeatTick",
+        "operationId": "app.etzhayyim.govZmb.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZmb.listOrgs": {
+    "/xrpc/app.etzhayyim.govZmb.listOrgs": {
       "get": {
         "summary": "List Zambia government organization graph records.",
-        "operationId": "ai.gftd.govZmb.listOrgs",
+        "operationId": "app.etzhayyim.govZmb.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZmb.registerDIDs": {
+    "/xrpc/app.etzhayyim.govZmb.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Zambia government organizations.",
-        "operationId": "ai.gftd.govZmb.registerDIDs",
+        "operationId": "app.etzhayyim.govZmb.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZmb.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govZmb.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Zambia government organization path to its graph record.",
-        "operationId": "ai.gftd.govZmb.resolveOrgPath",
+        "operationId": "app.etzhayyim.govZmb.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZmb.seedOrgs": {
+    "/xrpc/app.etzhayyim.govZmb.seedOrgs": {
       "post": {
         "summary": "Seed initial Zambia government organization records into the graph.",
-        "operationId": "ai.gftd.govZmb.seedOrgs",
+        "operationId": "app.etzhayyim.govZmb.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZmb.shinka": {
+    "/xrpc/app.etzhayyim.govZmb.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Zambia government organization update.",
-        "operationId": "ai.gftd.govZmb.shinka",
+        "operationId": "app.etzhayyim.govZmb.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZmb.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govZmb.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Zambia government organization changes to graph.",
-        "operationId": "ai.gftd.govZmb.syncWetUpdates",
+        "operationId": "app.etzhayyim.govZmb.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

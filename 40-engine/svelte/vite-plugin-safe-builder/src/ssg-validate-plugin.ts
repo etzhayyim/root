@@ -21,7 +21,7 @@ export interface SSGValidatePluginOptions {
   /** Check internal links in HTML (default: true) */
   checkLinks?: boolean;
   /** Check gftd.json route declarations (default: true) */
-  checkGftdRoutes?: boolean;
+  checketzhayyimRoutes?: boolean;
   /** Additional paths that must exist in build output */
   requiredPaths?: string[];
   /** Treat warnings as errors (default: false) */
@@ -83,7 +83,7 @@ export function ssgValidate(options: SSGValidatePluginOptions = {}): Plugin {
           projectDir: projectRoot,
           checkLocales: options.checkLocales ?? true,
           checkLinks: options.checkLinks ?? true,
-          checkGftdRoutes: options.checkGftdRoutes ?? true,
+          checketzhayyimRoutes: options.checketzhayyimRoutes ?? true,
           requiredPaths: options.requiredPaths ?? [],
           strict: options.strict ?? false,
         };

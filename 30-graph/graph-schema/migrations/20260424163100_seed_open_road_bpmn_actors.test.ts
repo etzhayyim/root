@@ -27,8 +27,8 @@ describe("Seed open-road BPMN actors migration", () => {
     expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-road/reportIncident.bpmn"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openRoad.defineRoad"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openRoad.reportIncident"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openRoad.defineRoad"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openRoad.reportIncident"');
   });
   it("uses open-road-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-road"');

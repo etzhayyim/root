@@ -106,7 +106,7 @@ def _djb2(text: str) -> str:
 
 def _vid(label: str, key: str) -> str:
     safe = re.sub(r"[^a-zA-Z0-9._:-]", "_", key)[:160] or uuid.uuid4().hex
-    return f"at://{APP_DID}/ai.gftd.apps.bunken.{label}/{safe}"
+    return f"at://{APP_DID}/app.etzhayyim.apps.bunken.{label}/{safe}"
 
 
 def _build_did(scheme: str, external_id: str) -> str:
@@ -466,15 +466,15 @@ def task_bunken_get_record(did: str = "", scheme: str = "", externalId: str = ""
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.ai.gftd.apps.bunken.collectFromCdx": task_bunken_collect_from_cdx,
-        "xrpc.ai.gftd.apps.bunken.fetchCdxBatch": task_bunken_fetch_cdx_batch,
-        "xrpc.ai.gftd.apps.bunken.enrichBatch": task_bunken_enrich_batch,
-        "xrpc.ai.gftd.apps.bunken.collectFromNdlApi": task_bunken_collect_from_ndl_api,
-        "xrpc.ai.gftd.apps.bunken.registerDids": task_bunken_register_dids,
-        "xrpc.ai.gftd.apps.bunken.linkSameAs": task_bunken_link_same_as,
-        "xrpc.ai.gftd.apps.bunken.stats": task_bunken_stats,
-        "xrpc.ai.gftd.apps.bunken.search": task_bunken_search,
-        "xrpc.ai.gftd.apps.bunken.getRecord": task_bunken_get_record,
+        "xrpc.app.etzhayyim.apps.bunken.collectFromCdx": task_bunken_collect_from_cdx,
+        "xrpc.app.etzhayyim.apps.bunken.fetchCdxBatch": task_bunken_fetch_cdx_batch,
+        "xrpc.app.etzhayyim.apps.bunken.enrichBatch": task_bunken_enrich_batch,
+        "xrpc.app.etzhayyim.apps.bunken.collectFromNdlApi": task_bunken_collect_from_ndl_api,
+        "xrpc.app.etzhayyim.apps.bunken.registerDids": task_bunken_register_dids,
+        "xrpc.app.etzhayyim.apps.bunken.linkSameAs": task_bunken_link_same_as,
+        "xrpc.app.etzhayyim.apps.bunken.stats": task_bunken_stats,
+        "xrpc.app.etzhayyim.apps.bunken.search": task_bunken_search,
+        "xrpc.app.etzhayyim.apps.bunken.getRecord": task_bunken_get_record,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

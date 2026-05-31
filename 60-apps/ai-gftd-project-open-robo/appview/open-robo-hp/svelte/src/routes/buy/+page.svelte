@@ -181,5 +181,5 @@
 
 <!-- ─── Footer ─── -->
 <footer class="bg-[#080b10] border-t border-[#21262d] py-8 px-5 text-center text-[11px] text-slate-600">
-  © 2026 amanomibashira — お問い合わせ: <a href="mailto:sales@gftd.co.jp" class="hover:text-slate-400">sales@gftd.co.jp</a>
+  © 2026 amanomibashira — お問い合わせ: <a href="mailto:sales@etzhayyim.com" class="hover:text-slate-400">sales@etzhayyim.com</a>
 </footer>

@@ -26,31 +26,31 @@
 | Tier | 用途 | 関数 | Collection NSID |
 |---|---|---|---|
 | **1 Social** | 作品公開・更新告知 | `AppBskyFeedPost(did, text, {embed})` | `app.bsky.feed.post` |
-| **2 Domain** | work/page/panel/asset | `ComAtprotoRepoCreateRecord(kind, payload)` | `ai.gftd.mangaka.*` |
+| **2 Domain** | work/page/panel/asset | `ComAtprotoRepoCreateRecord(kind, payload)` | `app.etzhayyim.mangaka.*` |
 | **3 State** | エディタ設定・ブラシプリセット | `Preferences()` | server-side |
 
 ## Domain Record Types (Tier 2, camelCase)
 
 | Kind | NSID | 内容 |
 |---|---|---|
-| `work` | `ai.gftd.mangaka.work` | 漫画作品 (title, genre, status, coverCid) |
-| `chapter` | `ai.gftd.mangaka.chapter` | 話 (workId, chapterNum, title, pageCount) |
-| `page` | `ai.gftd.mangaka.page` | ページ (chapterId, pageNum, width, height, layersCid) |
-| `panel` | `ai.gftd.mangaka.panel` | コマ (pageId, x, y, w, h, order, contentCid) |
-| `asset` | `ai.gftd.mangaka.asset` | 素材 (screentone, effect, background, character sheet) |
-| `character` | `ai.gftd.mangaka.character` | キャラクターデザイン (name, appearance, expressions) |
-| `document` | `ai.gftd.mangaka.document` | Genko canvas 状態 (B2 primary, metadata graph) |
-| `project` | `ai.gftd.mangaka.project` | プロジェクト (B2 index + graph) |
-| `organization` | `ai.gftd.mangaka.organization` | 作中組織 |
-| `environment` | `ai.gftd.mangaka.environment` | 場面環境 (basePrompt) |
-| `generatedImage` | `ai.gftd.mangaka.generatedImage` | AI 画像生成履歴 |
-| `chatMessage` | `ai.gftd.mangaka.chatMessage` | プロジェクト内 LLM 対話 |
+| `work` | `app.etzhayyim.mangaka.work` | 漫画作品 (title, genre, status, coverCid) |
+| `chapter` | `app.etzhayyim.mangaka.chapter` | 話 (workId, chapterNum, title, pageCount) |
+| `page` | `app.etzhayyim.mangaka.page` | ページ (chapterId, pageNum, width, height, layersCid) |
+| `panel` | `app.etzhayyim.mangaka.panel` | コマ (pageId, x, y, w, h, order, contentCid) |
+| `asset` | `app.etzhayyim.mangaka.asset` | 素材 (screentone, effect, background, character sheet) |
+| `character` | `app.etzhayyim.mangaka.character` | キャラクターデザイン (name, appearance, expressions) |
+| `document` | `app.etzhayyim.mangaka.document` | Genko canvas 状態 (B2 primary, metadata graph) |
+| `project` | `app.etzhayyim.mangaka.project` | プロジェクト (B2 index + graph) |
+| `organization` | `app.etzhayyim.mangaka.organization` | 作中組織 |
+| `environment` | `app.etzhayyim.mangaka.environment` | 場面環境 (basePrompt) |
+| `generatedImage` | `app.etzhayyim.mangaka.generatedImage` | AI 画像生成履歴 |
+| `chatMessage` | `app.etzhayyim.mangaka.chatMessage` | プロジェクト内 LLM 対話 |
 
 ## Reactive Pipeline (ComAtprotoSyncSubscribeRepos) `[DESIGN]`
 
-- `ai.gftd.mangaka.work` create -> social announcement via AppBskyFeedPost
-- `ai.gftd.mangaka.page` create -> AI auto-panel layout suggestion
-- `ai.gftd.mangaka.panel` create -> AI inking/toning assist
+- `app.etzhayyim.mangaka.work` create -> social announcement via AppBskyFeedPost
+- `app.etzhayyim.mangaka.page` create -> AI auto-panel layout suggestion
+- `app.etzhayyim.mangaka.panel` create -> AI inking/toning assist
 
 ## KAMI Engine Integration `[DESIGN]`
 
@@ -68,14 +68,14 @@
 AT Protocol URI scheme (`at://`) を HTTP path `/at/` にマッピング。正規化コスト 0 (`s|/at/|at://|`)。
 
 ```
-https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/{rkey}
-  ↔ at://mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/{rkey}
+https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.document/{rkey}
+  ↔ at://mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.document/{rkey}
 ```
 
 | Collection | Deep-link 例 |
 |---|---|
-| document | `mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/doc-gh-arc01-xxx` |
-| work | `mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.work/work-arc0-1-origin` |
+| document | `mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.document/doc-gh-arc01-xxx` |
+| work | `mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.work/work-arc0-1-origin` |
 
 **Genko canvas**: pathname から `{authority}/{collection}/{rkey}` を parse → `loadDocument(rkey)` で自動ロード。
 
@@ -116,13 +116,13 @@ mangaka uses a **subset** of the 8-stage kami-cine pipeline (`gftd:kami-cine@1.0
 
 | Use case | Stages | Output binding |
 |---|---|---|
-| 3D-reference panel (BG / mech pose) | 1 → 5 | `ai.gftd.mangaka.panel.contentCid` ← stage-5 beauty PNG |
-| Inked AI panel | 1 → 6 | `ai.gftd.mangaka.panel.contentCid` ← stage-6 refined PNG |
-| Animated chapter PV | 1 → 8 | `ai.gftd.mangaka.chapter` social post `embed.video` ← stage-8 mp4 |
+| 3D-reference panel (BG / mech pose) | 1 → 5 | `app.etzhayyim.mangaka.panel.contentCid` ← stage-5 beauty PNG |
+| Inked AI panel | 1 → 6 | `app.etzhayyim.mangaka.panel.contentCid` ← stage-6 refined PNG |
+| Animated chapter PV | 1 → 8 | `app.etzhayyim.mangaka.chapter` social post `embed.video` ← stage-8 mp4 |
 
-Stage records live in the shared `ai.gftd.apps.cine.*` collections. Each render carries a `pipelineRunId` (TID) and `subjectKind = "mangaka.page"` or `"mangaka.panel"` + `subjectRef` strongRef. Stage executors run pod-side per ADR-2605111200; the mangaka edge worker only dispatches via XRPC.
+Stage records live in the shared `app.etzhayyim.apps.cine.*` collections. Each render carries a `pipelineRunId` (TID) and `subjectKind = "mangaka.page"` or `"mangaka.panel"` + `subjectRef` strongRef. Stage executors run pod-side per ADR-2605111200; the mangaka edge worker only dispatches via XRPC.
 
-Subscribe to `ai.gftd.apps.cine.encode` to derive social announcements on take-finalize.
+Subscribe to `app.etzhayyim.apps.cine.encode` to derive social announcements on take-finalize.
 
 ### LangGraph Pregel implementation
 
@@ -130,13 +130,13 @@ Two new graphs in `lg/lg_mangaka/graphs/` execute the pipeline pod-side; both ar
 
 | Graph | Stages | Pregel pattern | NSID handler |
 |---|---|---|---|
-| `cine_generate_scene` | 1-4 (worldModel → usdScene → neuralGeom → temporalField) | Sequential super-steps; **Send fan-out** at stage 3 (one reconstruction per region of the USD bbox) merged via a shallow-dict reducer. | `ai.gftd.mangaka.cineGenerateScene` |
-| `cine_generate_panel` | 5-6 (neuralRender + diffusionPass) | `load_scene` → `plan_panels` → **Send fan-out** of `per_panel_render` (one per panel on the page) → `aggregate` → `finalize`. Each panel write goes through `record_stage` twice + `record_panel` once. | `ai.gftd.mangaka.cineGeneratePanel` |
+| `cine_generate_scene` | 1-4 (worldModel → usdScene → neuralGeom → temporalField) | Sequential super-steps; **Send fan-out** at stage 3 (one reconstruction per region of the USD bbox) merged via a shallow-dict reducer. | `app.etzhayyim.mangaka.cineGenerateScene` |
+| `cine_generate_panel` | 5-6 (neuralRender + diffusionPass) | `load_scene` → `plan_panels` → **Send fan-out** of `per_panel_render` (one per panel on the page) → `aggregate` → `finalize`. Each panel write goes through `record_stage` twice + `record_panel` once. | `app.etzhayyim.mangaka.cineGeneratePanel` |
 
 Shared helpers live in `lg/lg_mangaka/cine.py` (`STAGE_NAMES`, `new_run_id`, `record_stage`, `record_run`, `record_panel`).
 
 **Persistence** is dual-write per stage:
-- `graphar.vertex_cine_stage` — shared ledger, one row per `ai.gftd.apps.cine.<stage>` artifact (works across mangaka/animeka/dogaka)
+- `graphar.vertex_cine_stage` — shared ledger, one row per `app.etzhayyim.apps.cine.<stage>` artifact (works across mangaka/animeka/dogaka)
 - `graphar.vertex_mangaka_cine_run` — per-`pipelineRunId` summary (status: `scene_ready` → `panels_rendered`)
 - `graphar.vertex_mangaka_cine_panel` — per finalized panel (render_blob_key + refined_blob_key + score)
 
@@ -152,7 +152,7 @@ Shared helpers live in `lg/lg_mangaka/cine.py` (`STAGE_NAMES`, `new_run_id`, `re
 | `studio.mintApiKey` | sk_live_* mint (RW INSERT) | `auth_mint_api_key` Pregel (`lg/lg_mangaka/graphs/auth_mint_api_key.py`) — pod は cluster 内なので RW_URL 到達可 |
 | `studio.restartStudio` | k8s rollout restart 案内 | manual `kubectl rollout restart` |
 
-**Auth**: CF Access JWT (`@gftd.co.jp` / Microsoft Entra) で gate。`Cf-Access-Authenticated-User-Email` → `owner_did` 自動派生 (`did:web:mangaka.etzhayyim.com:user:{email-safe}`)。passkey は **studio.etzhayyim.com への 24h SSO 1 回のみ** — `gftd authn signin` の chicken-and-egg は解消。
+**Auth**: CF Access JWT (`@etzhayyim.com` / Microsoft Entra) で gate。`Cf-Access-Authenticated-User-Email` → `owner_did` 自動派生 (`did:web:mangaka.etzhayyim.com:user:{email-safe}`)。passkey は **studio.etzhayyim.com への 24h SSO 1 回のみ** — `gftd authn signin` の chicken-and-egg は解消。
 
 **Deploy state (2026-05-19)**: 
 - Image: `ghcr.io/etzhayyim/lg-mangaka-studio:0.1.1-amd64@sha256:eb6901c…` (slim, no torch/cuda — ~400MB vs 8GB)
@@ -170,18 +170,18 @@ Shared helpers live in `lg/lg_mangaka/cine.py` (`STAGE_NAMES`, `new_run_id`, `re
 
 | Tier | Where | What |
 |---|---|---|
-| UI + auth edge | CF Worker `magatama-stdk2024` at `studio.etzhayyim.com/*` | Svelte 5 SPA (graph list + Mermaid DAG + invoke form + SSE stream). Behind CF Access (Microsoft Entra IdP, `@gftd.co.jp` domain). Code: `appview-studio/ai-gftd-wasm-studio-stdk2024/` |
+| UI + auth edge | CF Worker `magatama-stdk2024` at `studio.etzhayyim.com/*` | Svelte 5 SPA (graph list + Mermaid DAG + invoke form + SSE stream). Behind CF Access (Microsoft Entra IdP, `@etzhayyim.com` domain). Code: `appview-studio/ai-gftd-wasm-studio-stdk2024/` |
 | LangGraph backend | k8s pod `lg-mangaka-studio` × 2 (mitama-udf ns) at `studio-api.etzhayyim.com` | Stock `langgraph dev` (in-memory, ClientIP affinity). Image: `lg/Dockerfile.studio`. Chart: `50-infra/vultr/lg-mangaka-pool/templates/studio.yaml`, toggle `studio.enabled=true`. Tunnel: `50-infra/vultr/cloudflared/lg-mangaka-studio-tunnel.yaml`. Behind CF Access **service-token** policy — only the Worker's `CF-Access-Client-Id/-Secret` pair passes through. Audit disabled (`LG_AUDIT_DISABLED=1`). |
 
 Operator runbook (8 steps including the two CF Access apps) lives in the tunnel YAML header. End-user opens `https://studio.etzhayyim.com/` → SSO → pick `cine_generate_scene` / `cine_generate_panel` (or any of the 20) → run with `"dry_run": true` for cost-free inspection.
 
 Invocation pattern (XRPC → bpmn-dispatcher → LangServer pod):
 ```
-POST /xrpc/ai.gftd.mangaka.cineGenerateScene
+POST /xrpc/app.etzhayyim.mangaka.cineGenerateScene
   { subject_kind, subject_ref, prompt, style, world_kind, frame_start, frame_end }
   → { status: "scene_ready", pipeline_run_id, stage_records }
 
-POST /xrpc/ai.gftd.mangaka.cineGeneratePanel
+POST /xrpc/app.etzhayyim.mangaka.cineGeneratePanel
   { pipeline_run_id, page_rkey, panels: [{panel_rkey, framing, charactersAppearing}] }
   → { status: "panels_rendered", panels: [{panel_rkey, panel_blob_key, score}] }
 ```

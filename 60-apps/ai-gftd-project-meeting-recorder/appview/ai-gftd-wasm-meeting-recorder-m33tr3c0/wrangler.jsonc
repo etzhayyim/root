@@ -14,22 +14,22 @@
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
     "APP_CAPABILITIES": "[\"meeting-join-teams\",\"meeting-join-meet\",\"meeting-join-zoom\",\"audio-record\",\"video-record\",\"transcript-e2e-encrypted\",\"consent-gated-join\",\"pii-tier-3\"]",
-    "RECORDER_SELF_URL": "https://meeting-recorder.gftd.ai",
-    "PDS_DID": "did:web:atproto.gftd.ai",
-    "DID_GFTD_RESOLVER": "https://did.gftd.ai",
+    "RECORDER_SELF_URL": "https://meeting-recorder.etzhayyim.com",
+    "PDS_DID": "did:web:atproto.etzhayyim.com",
+    "DID_etzhayyim_RESOLVER": "https://did.etzhayyim.com",
     "DID_PLC_RESOLVER": "https://plc.directory",
     "RECORDER_CHUNK_SECONDS_DEFAULT": "60",
     "CONSENT_MAX_EXPIRY_SECONDS": "600",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "m33tr3c0.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "m33tr3c0.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "meeting-recorder.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "meeting-recorder.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

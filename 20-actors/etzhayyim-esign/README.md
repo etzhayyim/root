@@ -30,7 +30,7 @@ Defined in `00-contracts/lexicons/app/etzhayyim/esign/`:
 
 This Worker MUST NOT import `@atproto/api` or `viem` directly. All AT Protocol writes flow through `@etzhayyim/sdk`. All on-chain anchoring is delegated to `anchor-cron` via the `completedEvent` record — this Worker never holds a wallet key.
 
-DocuSign / Adobe Sign / RazorpaySign passthroughs (`ai.gftd.apps.lawfirm.eSign*`) are reserved for fiat receipts and external counsel intake per ADR-2605192115 §4. Religious-corp documents (Council resolutions, Land donations, Force R&D consent, Public Fund disbursements, membership affirmations) MUST use this actor.
+DocuSign / Adobe Sign / RazorpaySign passthroughs (`app.etzhayyim.apps.lawfirm.eSign*`) are reserved for fiat receipts and external counsel intake per ADR-2605192115 §4. Religious-corp documents (Council resolutions, Land donations, Force R&D consent, Public Fund disbursements, membership affirmations) MUST use this actor.
 
 ## License
 

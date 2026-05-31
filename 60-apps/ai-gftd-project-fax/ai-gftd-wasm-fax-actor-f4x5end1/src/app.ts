@@ -35,7 +35,7 @@ import {
   str,
   withCapabilityTags,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 // Cross-actor invoke helpers deleted (ADR-0047 audit 2026-04-21).
 // The `invokeRemote` helper + `hostClient.invokeCall` primary path + fetch
@@ -74,11 +74,11 @@ async function providerAuthHeader(sdk: HostSDK): Promise<string> {
 // ───────────────────────── write helper ─────────────────────────
 
 function write(sdk: HostSDK, kind: string, rec: Record<string, unknown>): void {
-  const collection = `ai.gftd.apps.fax.${kind}`;
+  const collection = `app.etzhayyim.apps.fax.${kind}`;
   const enriched = {
     ...rec,
     createdAt: nowISO(),
-    org_id: "gftd.co.jp",
+    org_id: "etzhayyim.com",
     user_id: "anon",
     actor_id: appId,
   };
@@ -379,7 +379,7 @@ function countPdfPages(bytes: Uint8Array): number {
 async function renderHtmlToPdf(env: Record<string, unknown>, html: string, pageSize: string = "A4"): Promise<Uint8Array> {
   const browserBinding = env.HEADLESS_BROWSER;
   if (!browserBinding) {
-    throw new Error("HEADLESS_BROWSER binding missing. To enable in-actor PDF rendering, add `browser` binding in wrangler config + install @cloudflare/puppeteer at the package level. Until then, render PDF agent-side (Chrome headless / Pages / pandoc) and call ai.gftd.apps.fax.uploadDocument with base64-encoded PDF bytes.");
+    throw new Error("HEADLESS_BROWSER binding missing. To enable in-actor PDF rendering, add `browser` binding in wrangler config + install @cloudflare/puppeteer at the package level. Until then, render PDF agent-side (Chrome headless / Pages / pandoc) and call app.etzhayyim.apps.fax.uploadDocument with base64-encoded PDF bytes.");
   }
   // Dynamic import so the bundle compiles without the dep present. In-actor rendering is opt-in.
   const puppeteerMod: any = await import(/* @vite-ignore */ "@cloudflare/puppeteer").catch((e) => {
@@ -458,9 +458,9 @@ async function cmdUploadDocument(sdk: HostSDK, body: Uint8Array) {
 
 async function recordToRoukisho(_sdk: HostSDK, params: Record<string, unknown>): Promise<{ recordId: string | null; debug?: unknown }> {
   // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invokeRemote(ROUKISHO_DID,
-  // "ai.gftd.apps.roukisho.recordCommunication", params). This was best-effort
+  // "app.etzhayyim.apps.roukisho.recordCommunication", params). This was best-effort
   // audit logging for communications. TODO: reimplement as write-only derived —
-  // roukisho can consume ai.gftd.apps.fax.faxTx commits and produce its own
+  // roukisho can consume app.etzhayyim.apps.fax.faxTx commits and produce its own
   // communication record (ADR-0004 pattern).
   const to = typeof params.to === "string" ? params.to : Array.isArray(params.to) ? params.to.join(",") : "";
   console.log(`[fax] recordToRoukisho cross-actor stub: to=${to.slice(0, 40)}`);
@@ -528,7 +528,7 @@ async function cmdComposeAndSend(sdk: HostSDK, body: Uint8Array) {
         // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invokeRemote to
         // mailer.etzhayyim.com/send for Teams-channel + operator notification.
         // Best-effort only; humanInstructions fallback remains below.
-        // TODO: emit ai.gftd.apps.fax.notificationRequest record and let
+        // TODO: emit app.etzhayyim.apps.fax.notificationRequest record and let
         // mailer consume it via onCommit (ADR-0004 write-only derived).
         // Operator still receives info via the humanInstructions returned
         // below (Teams channel / email now need to come from a separate
@@ -556,7 +556,7 @@ async function cmdComposeAndSend(sdk: HostSDK, body: Uint8Array) {
           `Upload PDF from ${publicUrl} (or local copy)`,
           `Recipient (E.164 → JP local): ${recipient}`,
           "Send",
-          `After send, call ai.gftd.apps.fax.confirmManualSend({ txId: "${txId}", providerFaxId: "<provider-side id if known>", sentAt: "<ISO timestamp>" })`,
+          `After send, call app.etzhayyim.apps.fax.confirmManualSend({ txId: "${txId}", providerFaxId: "<provider-side id if known>", sentAt: "<ISO timestamp>" })`,
         ],
       },
     };
@@ -591,7 +591,7 @@ async function cmdComposeAndSend(sdk: HostSDK, body: Uint8Array) {
     if (!recordId) {
       roukishoFollowup = {
         hint: "Cross-actor invoke failed (CF 522 same-zone). Call roukisho directly to close audit chain.",
-        method: "ai.gftd.apps.roukisho.recordCommunication",
+        method: "app.etzhayyim.apps.roukisho.recordCommunication",
         payload: recordParams,
       };
     }
@@ -649,11 +649,11 @@ async function cmdConfirmManualSend(sdk: HostSDK, body: Uint8Array) {
       // Cross-actor invoke is currently blocked by CF same-zone Worker→Worker fetch
       // (HTTP 522) and PDS does not auto-dispatch custom NSIDs. Return a follow-up payload
       // so the calling agent (or human) can complete the audit chain by POSTing directly:
-      //   curl -X POST https://r0uk15h0.etzhayyim.com/xrpc/ai.gftd.apps.roukisho.recordCommunication
+      //   curl -X POST https://r0uk15h0.etzhayyim.com/xrpc/app.etzhayyim.apps.roukisho.recordCommunication
       //        -H 'content-type: application/json' -d '<payload>'
       roukishoFollowup = {
         hint: "Cross-actor invoke failed (CF 522 same-zone). Call roukisho directly to close audit chain.",
-        method: "ai.gftd.apps.roukisho.recordCommunication",
+        method: "app.etzhayyim.apps.roukisho.recordCommunication",
         payload: recordParams,
       };
     }
@@ -707,27 +707,27 @@ export default createWorkerExport((sdk) => {
 
   sdk.app
     // Tier 1 (DEFAULT for agents) — composes letter + delivers via manual-handoff (Dropbox Fax UI)
-    .command(nsid("ai.gftd.apps.fax.composeAndSend"), async (_c, b) => cmdComposeAndSend(sdk, b),
+    .command(nsid("app.etzhayyim.apps.fax.composeAndSend"), async (_c, b) => cmdComposeAndSend(sdk, b),
       asAgentTool("End-to-end FAX preparation: text/markdown/HTML → A4 PDF → CDN R2 → manual handoff via Dropbox Fax UI (provider='manual' is DEFAULT; Phaxio is dead path). Posts a Teams/email notification to operator with the prepared PDF + recipient + step-by-step instructions. After operator sends manually, call confirmManualSend({txId,...}) to close the audit chain (cross-actor record to roukisho)."),
       withCapabilityTags("fax", "compose", "outbound", "compliance", "high-level"))
-    .command(nsid("ai.gftd.apps.fax.confirmManualSend"), async (_c, b) => cmdConfirmManualSend(sdk, b),
+    .command(nsid("app.etzhayyim.apps.fax.confirmManualSend"), async (_c, b) => cmdConfirmManualSend(sdk, b),
       asAgentTool("Mark a manual-handoff faxTx as completed once the operator has sent the FAX via Dropbox Fax UI. Updates faxTxUpdate + invokes roukisho.recordCommunication if officeId provided."),
       withCapabilityTags("fax", "compose", "confirm", "audit"))
     // Tier 2 (compose helpers — agent can call directly for finer control)
-    .command(nsid("ai.gftd.apps.fax.renderPdf"), async (_c, b) => cmdRenderPdf(sdk, b),
-      asAgentTool("Render text/markdown/HTML to A4 PDF via CF Browser Rendering, upload to CDN R2 (SHA-256 keyed). Returns blobKey usable by ai.gftd.apps.fax.send / composeAndSend."),
+    .command(nsid("app.etzhayyim.apps.fax.renderPdf"), async (_c, b) => cmdRenderPdf(sdk, b),
+      asAgentTool("Render text/markdown/HTML to A4 PDF via CF Browser Rendering, upload to CDN R2 (SHA-256 keyed). Returns blobKey usable by app.etzhayyim.apps.fax.send / composeAndSend."),
       withCapabilityTags("fax", "render", "pdf"))
-    .command(nsid("ai.gftd.apps.fax.uploadDocument"), async (_c, b) => cmdUploadDocument(sdk, b),
-      asAgentTool("Upload a pre-rendered document (base64) to CDN R2 (content-addressed, deduped). Returns blobKey usable by ai.gftd.apps.fax.send / composeAndSend."),
+    .command(nsid("app.etzhayyim.apps.fax.uploadDocument"), async (_c, b) => cmdUploadDocument(sdk, b),
+      asAgentTool("Upload a pre-rendered document (base64) to CDN R2 (content-addressed, deduped). Returns blobKey usable by app.etzhayyim.apps.fax.send / composeAndSend."),
       withCapabilityTags("fax", "upload", "blob"))
     // Tier 3 (transmission — Phaxio path retained but never wired in production)
-    .command(nsid("ai.gftd.apps.fax.send"), async (_c, b) => cmdSend(sdk, b),
+    .command(nsid("app.etzhayyim.apps.fax.send"), async (_c, b) => cmdSend(sdk, b),
       asAgentTool("Send a FAX via Phaxio API (DEAD PATH — only fires if SS_FAX_API_KEY is set). For manual flow, use composeAndSend instead."),
       withCapabilityTags("fax", "transport", "outbound", "dead-path"))
-    .command(nsid("ai.gftd.apps.fax.cancel"), async (_c, b) => cmdCancel(sdk, b),
+    .command(nsid("app.etzhayyim.apps.fax.cancel"), async (_c, b) => cmdCancel(sdk, b),
       asAgentTool("Cancel a queued Phaxio fax (DEAD PATH)."),
       withCapabilityTags("fax", "transport", "cancel", "dead-path"))
-    .query(nsid("ai.gftd.apps.fax.getStatus"), async (_c, b) => cmdGetStatus(sdk, b))
-    .query(nsid("ai.gftd.apps.fax.listSent"), async (_c, b) => cmdListSent(sdk, b))
-    .query(nsid("ai.gftd.apps.fax.listReceived"), async (_c, b) => cmdListReceived(sdk, b));
+    .query(nsid("app.etzhayyim.apps.fax.getStatus"), async (_c, b) => cmdGetStatus(sdk, b))
+    .query(nsid("app.etzhayyim.apps.fax.listSent"), async (_c, b) => cmdListSent(sdk, b))
+    .query(nsid("app.etzhayyim.apps.fax.listReceived"), async (_c, b) => cmdListReceived(sdk, b));
 });

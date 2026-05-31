@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
 // etzhayyim Charter Compliance Rider v2.0 applies — see /CHARTER-RIDER.md
 //
-// Per ADR-2605192245 (Global Land Sovereignty).
-// Deployed on geth-private (chainId 2605) — constitutional layer.
+// Per ADR-2605192245 (Global Land Sovereignty) + ADR-2605252315 (Land Trust
+// Wave 2 — Multi-ERC Alignment). Deployed on geth-private (chainId 2605) —
+// constitutional layer. Soulbound signalling per EIP-5192.
 
 pragma solidity 0.8.27;
+
+import {IERC5192} from "./interfaces/IERC5192.sol";
 
 interface IAdherentRegistry {
     function isActive(uint256 tokenId, uint64 windowSecs) external view returns (bool);
@@ -18,7 +21,7 @@ interface IChartersComplianceRegistry {
     function isNonAlignedAddress(address subject) external view returns (bool);
 }
 
-contract LandRegistry {
+contract LandRegistry is IERC5192 {
     enum LandType { Agricultural, Residential, Forest, ReligiousFacility, Other, Ocean, Water, Air, Orbit }
     enum Status { Active, UnderDispute, RehabReversal }
 
@@ -59,12 +62,19 @@ contract LandRegistry {
     error NotCouncilMember(address signer);
     error LandNotActive(uint256 landId);
     error StewardNotEligible(address steward);
+    error LandNotFound(uint256 landId);
 
     // NOTE: Intentionally absent (constitutional invariants):
     //   - transfer() — donations are inalienable
     //   - burn() / destroy() — permanent record
     //   - setOwner() — only steward role exists
     //   - mint() — only via donate() ritual
+    //
+    // ERC-5192 (Minimal Soulbound NFTs) signalling, per ADR-2605252315:
+    //   - locked(landId) returns true for every donated parcel — forever
+    //   - Locked event emitted on donate() — once, never unlocked
+    //   - Unlocked event MUST NEVER be emitted (no function path exists)
+    //   - supportsInterface(IERC5192) returns true (interface id 0xb45a3c0e)
 
     constructor(IAdherentRegistry _registry, IChartersComplianceRegistry _charters) {
         adherentRegistry = _registry;
@@ -100,6 +110,26 @@ contract LandRegistry {
         stewardLands[steward].push(landId);
 
         emit Donated(landId, msg.sender, geojsonCid, areaM2, landType);
+        // ERC-5192: signal soulbound status at donation. Never unlocked.
+        emit Locked(landId);
+    }
+
+    /// @notice ERC-5192 locked(uint256) — soulbound status of a land record.
+    /// @dev CONSTITUTIONAL: always returns true for valid landId. Donated land
+    ///      cannot be transferred (no transfer function exists). Per
+    ///      ADR-2605192245 §2 + ADR-2605252315 §2.1.
+    /// @param landId The land record identifier.
+    /// @return True (constant) — reverts LandNotFound for unknown ids.
+    function locked(uint256 landId) external view returns (bool) {
+        if (lands[landId].donatedAt == 0) revert LandNotFound(landId);
+        return true;
+    }
+
+    /// @notice ERC-165 supportsInterface — declares ERC-5192 (0xb45a3c0e) + ERC-165 (0x01ffc9a7).
+    /// @dev Per ADR-2605252315 §2.5.
+    function supportsInterface(bytes4 interfaceId) external pure returns (bool) {
+        return interfaceId == type(IERC5192).interfaceId  // 0xb45a3c0e
+            || interfaceId == bytes4(0x01ffc9a7);          // ERC-165
     }
 
     function reassignSteward(

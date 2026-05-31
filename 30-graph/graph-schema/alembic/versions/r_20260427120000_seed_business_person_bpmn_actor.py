@@ -25,14 +25,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-collectPublicRoles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-collectPublicRoles-v1',
                  'did:web:business-person.etzhayyim.com',
                  'business_person_collect_public_roles',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Business person public-role ingest wrapper.\n'
                  '\n'
-                 '  NSID:       ai.gftd.apps.businessPerson.collectPublicRoles\n'
+                 '  NSID:       app.etzhayyim.apps.businessPerson.collectPublicRoles\n'
                  '  Owner DID:  did:web:business-person.etzhayyim.com\n'
                  '  Process ID: business_person_collect_public_roles\n'
                  '\n'
@@ -75,7 +75,7 @@ UP = [{'sql': '\n'
                  'target="type"/>\n'
                  '          <zeebe:input source="={repo: '
                  '&quot;did:web:business-person.etzhayyim.com&quot;, collection: '
-                 '&quot;ai.gftd.apps.businessPerson.collectionJob&quot;, record: {sourceId: '
+                 '&quot;app.etzhayyim.apps.businessPerson.collectionJob&quot;, record: {sourceId: '
                  'sourceId, sourceUrl: sourceUrl, jurisdiction: jurisdiction, format: format, '
                  'limit: limit, publicOnly: true, requestedBy: operatorDid}}" target="payload"/>\n'
                  '        </zeebe:ioMapping>\n'
@@ -327,7 +327,7 @@ UP = [{'sql': '\n'
                  'did:web:business-person.etzhayyim.com',
                  'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-collectPublicRoles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-collectPublicRoles-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -342,21 +342,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/businessPerson-collectPublicRoles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/businessPerson-collectPublicRoles-v1',
                  'did:web:business-person.etzhayyim.com',
-                 'ai.gftd.apps.businessPerson.collectPublicRoles',
+                 'app.etzhayyim.apps.businessPerson.collectPublicRoles',
                  'business_person_collect_public_roles',
                  '2026-04-27T12:00:00Z',
                  'did:web:business-person.etzhayyim.com',
                  'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
                  'vertex_business_person',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/businessPerson-collectPublicRoles-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/businessPerson-collectPublicRoles-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/businessPerson-collectPublicRoles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/businessPerson-collectPublicRoles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-collectPublicRoles-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-collectPublicRoles-v1']}]
 
 
 def upgrade() -> None:

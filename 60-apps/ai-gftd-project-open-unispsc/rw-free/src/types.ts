@@ -1,5 +1,5 @@
 /**
- * Mirrors the ai.gftd.apps.openUnispsc.segmentDef Lexicon record shape.
+ * Mirrors the app.etzhayyim.apps.openUnispsc.segmentDef Lexicon record shape.
  * Source: 00-contracts/lexicons/ai/gftd/apps/openUnispsc/segmentDef.json
  */
 export interface SegmentDef {

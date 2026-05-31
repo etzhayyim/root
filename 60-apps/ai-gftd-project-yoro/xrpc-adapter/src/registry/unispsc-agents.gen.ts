@@ -3,7 +3,7 @@
 // Regenerate: python3 70-tools/scripts/registry/generate-unispsc-registry.py
 
 // Compact tuple form: [code, handle, title, segment].
-// Bundled into the xrpc-adapter Worker for ai.gftd.apps.unispsc.listAgents.
+// Bundled into the xrpc-adapter Worker for app.etzhayyim.apps.unispsc.listAgents.
 // Phase β migration target: IPFS CID + KV cache (see ADR-2605171800).
 
 export type UnispscAgentRow = readonly [code: string, handle: string, title: string, segment: string];

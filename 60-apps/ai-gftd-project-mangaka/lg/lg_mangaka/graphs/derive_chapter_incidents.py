@@ -100,7 +100,7 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
             data = inc["data"]
             name = data.get("gh:description") or rkey
             title = (data.get("gh:arc") or "") + " — " + (data.get("gh:industry") or "")
-            vid = f"at://{_APP_DID}/ai.gftd.mangaka.incident/{rkey}"
+            vid = f"at://{_APP_DID}/app.etzhayyim.mangaka.incident/{rkey}"
             props = {
                 "arc": data.get("gh:arc") or "",
                 "industry": data.get("gh:industry") or "",
@@ -118,7 +118,7 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
                     kind, status, created_at, props, parent_rkey, actor_did, org_did
                 ) VALUES (%s, %s, 0, %s, %s, %s, %s, %s, 'incident', %s, %s, %s, 'incident', 'saved', %s, %s, %s, %s, %s)""",
                 (vid, now_date, _APP_DID, rkey, _APP_DID, _APP_DID,
-                 "ai.gftd.mangaka.incident", title.strip(" —"), name, name,
+                 "app.etzhayyim.mangaka.incident", title.strip(" —"), name, name,
                  now_iso, json.dumps(props, ensure_ascii=False), work_rkey,
                  _APP_DID, _DEFAULT_ORG_DID))
             inc_count += 1

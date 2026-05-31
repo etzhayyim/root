@@ -259,7 +259,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       CAST(NULL AS VARCHAR) AS country,
       COUNT(*)::BIGINT AS dealer_count
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.car_dealer.dealer'
+    WHERE collection = 'app.etzhayyim.apps.car_dealer.dealer'
       AND repo = 'did:web:kuruma.etzhayyim.com'
     GROUP BY SPLIT_PART(SPLIT_PART(repo, '.etzhayyim.com', 1), 'did:web:', 2)`.execute(db);
 }

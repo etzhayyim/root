@@ -9,12 +9,12 @@ last_verified: 2026-04-27
 authoritative_for:
   - claim-level-stake-primitive
   - truth-incentive-game-theory
-  - ai.gftd.claim.stakedAttestation lexicon
+  - app.etzhayyim.claim.stakedAttestation lexicon
   - ClaimStakeEscrow.sol contract
 related:
   - adr-0074-ethereum-identity-bridge-cacao-webauthn
   - adr-2604261100-rego-dmn-policy-decision-layers
-  - adr-0046-yoro-triple-witness-autonomy-monitoring
+  - adr-0046
   - adr-0032-gmail-direct-ingest-yabai-classifier
   - adr-2604251220-record-log-not-mst
   - adr-0036-worker-direct-hyperdrive-persistence
@@ -63,7 +63,7 @@ Phase 2-B (Rego decision registry + auto-settler):
   worker-authz:
     /internal/record-rego-decision  (HMAC-gated; signs + submits RegoArbiter.recordDecision)
     /internal/auto-settle-claim     (HMAC-gated; signs + submits ClaimStakeEscrow.settle)
-    GFTD_REGO_ARBITER_ADDR=0x53E29CA12Bd77fD35926627318036c7B2BBE245d
+    etzhayyim_REGO_ARBITER_ADDR=0x53E29CA12Bd77fD35926627318036c7B2BBE245d
     CLAIM_SETTLER_HMAC + SEALER_PRIV secrets present
   claim-consumer:
     workers_dev=false; cron + service-binding only
@@ -86,9 +86,9 @@ that actually exercises the 85 / 10 / 5 split as separate balance flows
 remain to be tested when (i) Phase 2-B introduces a non-sealer arbiter
 and (ii) the time budget allows a 14-day wait or a fork-chain test rig.
 
-The XRPC routes `ai.gftd.claim.{post,challenge,settle,get}StakedAttestation`
+The XRPC routes `app.etzhayyim.claim.{post,challenge,settle,get}StakedAttestation`
 are wired into `worker-authz/src-ts/index.ts`, gated on
-`GFTD_CLAIM_STAKE_ESCROW_ADDR=0x7C1d…`, and deployed. `challenge` additionally
+`etzhayyim_CLAIM_STAKE_ESCROW_ADDR=0x7C1d…`, and deployed. `challenge` additionally
 persists the off-chain rebuttal text to `claim-consumer` through the
 `CLAIM_CONSUMER_RPC` service binding so the Murakumo judge can evaluate it;
 the chain event itself intentionally carries only claim id / challenger /
@@ -124,7 +124,7 @@ V_claim = D · A · (1 - e^(-λ·I))     ;  I = α·S + β·H
 
 # Decision
 
-**`ai.gftd.claim.stakedAttestation` lexicon** + **`ClaimStakeEscrow.sol`** +
+**`app.etzhayyim.claim.stakedAttestation` lexicon** + **`ClaimStakeEscrow.sol`** +
 **challenge period game** で、AT Record と EVM stake を 1 つの IPLD object として
 束ねる **claim-level stake primitive** を導入する。
 
@@ -155,13 +155,13 @@ EV(truth) = (1 − P) · (+ε) + P · (+bond)  >  0
 
 ## 2. AT Record layer (light)
 
-### Lexicon: `ai.gftd.claim.stakedAttestation`
+### Lexicon: `app.etzhayyim.claim.stakedAttestation`
 
 ```jsonc
 // 00-contracts/lexicons/ai/gftd/claim/stakedAttestation.json
 {
   "lexicon": 1,
-  "id": "ai.gftd.claim.stakedAttestation",
+  "id": "app.etzhayyim.claim.stakedAttestation",
   "defs": {
     "main": {
       "type": "record",
@@ -196,12 +196,12 @@ EV(truth) = (1 − P) · (+ε) + P · (+bond)  >  0
 - `arbiter` は **DMN Decision Table (ADR-2604261100)** か **jury** か **single oracle** を
   名前空間で指定。最初は DMN 起点 (deterministic, on-chain verifiable) を default。
 
-### Counter-claim lexicon: `ai.gftd.claim.challenge`
+### Counter-claim lexicon: `app.etzhayyim.claim.challenge`
 
 ```jsonc
 {
   "lexicon": 1,
-  "id": "ai.gftd.claim.challenge",
+  "id": "app.etzhayyim.claim.challenge",
   "defs": {
     "main": {
       "type": "record",
@@ -222,12 +222,12 @@ EV(truth) = (1 − P) · (+ε) + P · (+bond)  >  0
 }
 ```
 
-### Resolution lexicon: `ai.gftd.claim.resolution`
+### Resolution lexicon: `app.etzhayyim.claim.resolution`
 
 ```jsonc
 {
   "lexicon": 1,
-  "id": "ai.gftd.claim.resolution",
+  "id": "app.etzhayyim.claim.resolution",
   "defs": {
     "main": {
       "type": "record",
@@ -339,11 +339,11 @@ Phase 2-B の live 実装は **adapter-first**:
 ```
 yoro UI: "post staked claim"
    ↓
-worker-authz/xrpc/ai.gftd.claim.postStakedAttestation
+worker-authz/xrpc/app.etzhayyim.claim.postStakedAttestation
    ↓ (passkey-bearer session 必須、ADR-0023)
    ↓ 1) gcc.approve(escrow, bond)  ← user wallet (did:pkh) signs
    ↓ 2) ClaimStakeEscrow.postClaim(claimId, didHash, cid, bond, period)
-   ↓ 3) PDS createRecord ai.gftd.claim.stakedAttestation
+   ↓ 3) PDS createRecord app.etzhayyim.claim.stakedAttestation
    ↓ 4) AT Record CID を contract event log に anchor (txHash → record)
    ↓
 graph: vertex_claim_stake (label, id=claimId, didHash, bond, state, …)
@@ -351,7 +351,7 @@ graph: vertex_claim_stake (label, id=claimId, didHash, bond, state, …)
         edge_claim_challenge (challenge → claim)
    ↓
 challenger watcher (yabai / triple-witness):
-  POST /xrpc/ai.gftd.claim.challenge
+  POST /xrpc/app.etzhayyim.claim.challenge
    ↓ approve+challenge+createRecord
    ↓
 period 経過 OR challenge 発生 → arbiter resolution
@@ -364,7 +364,7 @@ claim-consumer settlerTick → worker-authz/internal/auto-settle-claim
    ↓
 ClaimStakeEscrow.settle(...) → ClaimSlashed / ClaimUpheld event
    ↓
-PDS createRecord ai.gftd.claim.resolution
+PDS createRecord app.etzhayyim.claim.resolution
    ↓
 graph: vertex_claim_stake.state = upheld|slashed
 ```
@@ -379,7 +379,7 @@ graph: vertex_claim_stake.state = upheld|slashed
 
 ```
 DID (ADR-0029) ─────┐
-                     ├─ ai.gftd.claim.stakedAttestation  ← 新規 lexicon (~200 LoC)
+                     ├─ app.etzhayyim.claim.stakedAttestation  ← 新規 lexicon (~200 LoC)
 AT Record (0019) ───┤
                      ├─ ClaimStakeEscrow.sol             ← 新規 contract (~250 LoC)
 GCC + Escrow pattern ┤
@@ -397,7 +397,7 @@ CAR で federate する path も自動で開く。
 ## Positive
 
 - **Information weight is now selectable per-record** — default 0 (today の挙動と完全互換)、
-  user が `ai.gftd.claim.stakedAttestation` を選べば bond ぶん重い
+  user が `app.etzhayyim.claim.stakedAttestation` を選べば bond ぶん重い
 - **Asymmetric truth incentive** — 数学的に EV(lie) < 0 < EV(truth) が enforce される
 - **Challenger market が立つ** — yabai (ADR-0032) / triple-witness (ADR-0046) が自動 challenger に
 - **Arbiter は plug-in** — DMN / oracle / jury を `arbiterType` で差し替え可能
@@ -410,7 +410,7 @@ CAR で federate する path も自動で開く。
 - **UX 複雑化** — yoro post UI に "stake this claim" toggle + bond 入力 + GCC approve 追加
 - **GCC 流動性必要** — bond 用に user 側で GCC 保有 (faucet or DEX が要る)
 - **arbiter abuse 余地** — DMN table 改ざん / oracle multisig 買収。
-  mitigation: arbiter 変更を AT Record `ai.gftd.governance.arbiterChange` で公開、
+  mitigation: arbiter 変更を AT Record `app.etzhayyim.governance.arbiterChange` で公開、
   challenge period に signal が出る
 - **Censorship 懸念** — 重要 claim が大量 frivolous challenge で疲弊する可能性。
   mitigation: counter-bond 最小値 = bond × 0.5 で frivolous attack に下限コスト
@@ -428,7 +428,7 @@ CAR で federate する path も自動で開く。
 
 | primitive | function | overlap | verdict |
 |---|---|---|---|
-| `ai.gftd.claim.stakedAttestation` | claim record + bond pointer | none (新 lexicon) | **add** |
+| `app.etzhayyim.claim.stakedAttestation` | claim record + bond pointer | none (新 lexicon) | **add** |
 | `ClaimStakeEscrow.sol` | per-claim stake | `MurakumoEscrow` と類似だが scope 違う (job vs claim) | **add** |
 | Arbiter dispatch | resolution | ADR-2604261100 DMN を再利用 | **reuse** |
 | AT Record CAR carrier | federation | ADR-0074 Phase 3 CACAO を再利用 | **reuse** |
@@ -481,7 +481,7 @@ CAR で federate する path も自動で開く。
 | Foundry script | `50-infra/vultr/geth-private/contracts/script/DeployClaimStake.s.sol` | sealer key で deploy |
 | Address record | `50-infra/vultr/geth-private/contracts/ADDRESSES.md` | `ClaimStakeEscrow` 追記 |
 | AuthZ XRPC | `60-apps/ai-gftd-project-auth/worker-authz/src-ts/claim-stake.ts` | `postStakedAttestation` / `challenge` / `settle` 3 endpoint |
-| AuthZ XRPC handlers | `ai.gftd.claim.{post,challenge,settle}StakedAttestation` | passkey-required, ADR-0023 |
+| AuthZ XRPC handlers | `app.etzhayyim.claim.{post,challenge,settle}StakedAttestation` | passkey-required, ADR-0023 |
 | Graph migration | `30-graph/graph-schema/migrations/202604xxxxxx_claim_stake.ts` | `vertex_claim_stake` + `edge_claim_*` |
 | MV | `mv_claim_stake_outcomes` | label, count by outcome, treasury balance |
 
@@ -511,7 +511,7 @@ CAR で federate する path も自動で開く。
 
 ## Phase 5 — Federation via CACAO [PROPOSED, depends on ADR-0074 Phase 3]
 
-- `ai.gftd.claim.stakedAttestation` を CACAO v2 DAG-CBOR で wrap
+- `app.etzhayyim.claim.stakedAttestation` を CACAO v2 DAG-CBOR で wrap
 - AT Record CAR export 時に bond/escrow pointer 同梱、外部 PDS にも payload で federate
 - Ceramic Network との互換確認
 

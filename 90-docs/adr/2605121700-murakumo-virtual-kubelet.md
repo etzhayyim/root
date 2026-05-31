@@ -14,7 +14,7 @@ authoritative_paths:
 
 ## 1. Context
 
-The Gftd Mac mini M4 fleet (murakumo) provides significant Apple Silicon (Metal) GPU resources for local LLM inference and resident Langserver processes. However, these nodes run macOS and cannot directly join a Linux-based Kubernetes cluster (like Vultr VKE) without heavy virtualization overhead (e.g., krunkit or Lima), which degrades Metal performance.
+The etzhayyim Mac mini M4 fleet (murakumo) provides significant Apple Silicon (Metal) GPU resources for local LLM inference and resident Langserver processes. However, these nodes run macOS and cannot directly join a Linux-based Kubernetes cluster (like Vultr VKE) without heavy virtualization overhead (e.g., krunkit or Lima), which degrades Metal performance.
 
 Previously, processes on the Mac mini fleet were managed locally via `launchd` and bespoke Ansible scripts, creating an orchestration disconnect between the cloud K8s workloads and the bare-metal fleet workloads.
 

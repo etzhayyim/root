@@ -51,8 +51,8 @@ contract DeployReligiousCorp is Script {
 
     // ─── Constants vocabulary (must match Deploy.s.sol _constants/_mutables) ──
     function _constants() internal pure returns (bytes32[] memory keys, bytes32[] memory vals) {
-        keys = new bytes32[](38);
-        vals = new bytes32[](38);
+        keys = new bytes32[](39);
+        vals = new bytes32[](39);
         keys[0] = K.ONE_SBT_ONE_VOTE;            vals[0] = bytes32(uint256(1));
         keys[1] = K.NO_TRANSFERABLE_SHARE;       vals[1] = bytes32(uint256(1));
         keys[2] = K.LICENSE;                      vals[2] = bytes32("Apache-2.0");
@@ -91,11 +91,13 @@ contract DeployReligiousCorp is Script {
         keys[35] = K.LICENSE_CHARTER_RIDER_REQUIRED;      vals[35] = bytes32(uint256(1));
         keys[36] = K.LICENSE_CHARTER_RIDER_VERSION;       vals[36] = bytes32("v2.0");
         keys[37] = K.ENFORCEMENT_THREE_TIER;               vals[37] = bytes32(uint256(1));
+        // kawase-yui FX band (ADR-2605282200 G4): ±0.5% Chainlink mid-market.
+        keys[38] = K.KAWASE_MAX_BAND_BPS;                   vals[38] = bytes32(uint256(50));
     }
 
     function _mutables(address publicFundSafe) internal pure returns (bytes32[] memory keys, bytes32[] memory vals) {
-        keys = new bytes32[](16);
-        vals = new bytes32[](16);
+        keys = new bytes32[](17);
+        vals = new bytes32[](17);
         keys[0] = K.KISHA_BASE_RATE;       vals[0] = bytes32(uint256(1_000_000));
         keys[1] = K.KAPPA_BPS;              vals[1] = bytes32(uint256(300));
         keys[2] = K.TIER_LIQUID_BPS;        vals[2] = bytes32(uint256(1_000));
@@ -112,7 +114,9 @@ contract DeployReligiousCorp is Script {
         keys[12] = K.LAND_REGISTRY_ADDRESS;                vals[12] = bytes32(0);
         keys[13] = K.FORCE_AUTHORIZATION_ADDRESS;          vals[13] = bytes32(0);
         keys[14] = K.PUBLIC_FUND_GOVERNANCE_ADDRESS;       vals[14] = bytes32(0);
-        keys[15] = bytes32(0); vals[15] = bytes32(0);
+        // kawase-yui per-member monthly cap (ADR-2605282200 G9): R1 default $1,000.
+        keys[15] = K.KAWASE_PER_MONTH_CAP_USD_MINOR;        vals[15] = bytes32(uint256(1_000_000_000));
+        keys[16] = bytes32(0); vals[16] = bytes32(0);
     }
 
     function run(

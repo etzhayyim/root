@@ -15,7 +15,7 @@
  * verbatim from the upstream worker.
  *
  * Substrate hard rules enforced:
- *   - NO @atproto/api / viem / kysely / @gftd/magatama-host-sdk direct imports
+ *   - NO @atproto/api / viem / kysely / @etzhayyim/magatama-host-sdk direct imports
  *   - NO HYPERDRIVE binding
  *   - All durable state goes through @etzhayyim/sdk
  */
@@ -1016,7 +1016,7 @@ app.get("/internal/capacity", async (c) => {
 });
 
 // Zeebe-driven cron tick (timer-start BPMN R/PT5M).
-app.post("/xrpc/ai.gftd.apps.murakumo.cronTick", async (c) => {
+app.post("/xrpc/app.etzhayyim.apps.murakumo.cronTick", async (c) => {
   c.executionCtx.waitUntil(
     runFleetHealthCheck(c.env).catch((err) =>
       console.error("[murakumo-cron] Zeebe cron tick failed:", err)

@@ -53,12 +53,12 @@ pub fn load_config() -> NodeConfig {
             }
             if let Some((key, val)) = line.split_once('=') {
                 match key {
-                    "GFTD_NODE_ID" => cfg.node_id = val.to_string(),
-                    "GFTD_WORKER_ID" => cfg.worker_id = val.to_string(),
-                    "GFTD_MURAKUMO" => cfg.endpoint = val.to_string(),
-                    "GFTD_GPU_TIER" => cfg.gpu_tier = val.to_string(),
-                    "GFTD_GPU_VRAM_MB" => cfg.gpu_vram_mb = val.to_string(),
-                    "GFTD_PROVIDER_MODE" => cfg.mode = val.to_string(),
+                    "etzhayyim_NODE_ID" => cfg.node_id = val.to_string(),
+                    "etzhayyim_WORKER_ID" => cfg.worker_id = val.to_string(),
+                    "etzhayyim_MURAKUMO" => cfg.endpoint = val.to_string(),
+                    "etzhayyim_GPU_TIER" => cfg.gpu_tier = val.to_string(),
+                    "etzhayyim_GPU_VRAM_MB" => cfg.gpu_vram_mb = val.to_string(),
+                    "etzhayyim_PROVIDER_MODE" => cfg.mode = val.to_string(),
                     _ => {}
                 }
             }
@@ -66,15 +66,15 @@ pub fn load_config() -> NodeConfig {
     }
 
     // Override with env vars
-    if let Ok(v) = std::env::var("GFTD_NODE_ID") { cfg.node_id = v; }
-    if let Ok(v) = std::env::var("GFTD_WORKER_ID") { cfg.worker_id = v; }
-    if let Ok(v) = std::env::var("GFTD_MURAKUMO") { cfg.endpoint = v; }
-    if let Ok(v) = std::env::var("GFTD_NODE_ROLE") { cfg.role = v; }
-    if let Ok(v) = std::env::var("GFTD_GPU_TIER") { cfg.gpu_tier = v; }
-    if let Ok(v) = std::env::var("GFTD_GPU_VRAM_MB") { cfg.gpu_vram_mb = v; }
-    if let Ok(v) = std::env::var("GFTD_PROVIDER_MODE") { cfg.mode = v; }
-    if let Ok(v) = std::env::var("GFTD_NATS_URL") { cfg.nats_url = v; }
-    if let Ok(v) = std::env::var("GFTD_QUIC_GATEWAY_ADDR") { cfg.quic_gateway_addr = v; }
+    if let Ok(v) = std::env::var("etzhayyim_NODE_ID") { cfg.node_id = v; }
+    if let Ok(v) = std::env::var("etzhayyim_WORKER_ID") { cfg.worker_id = v; }
+    if let Ok(v) = std::env::var("etzhayyim_MURAKUMO") { cfg.endpoint = v; }
+    if let Ok(v) = std::env::var("etzhayyim_NODE_ROLE") { cfg.role = v; }
+    if let Ok(v) = std::env::var("etzhayyim_GPU_TIER") { cfg.gpu_tier = v; }
+    if let Ok(v) = std::env::var("etzhayyim_GPU_VRAM_MB") { cfg.gpu_vram_mb = v; }
+    if let Ok(v) = std::env::var("etzhayyim_PROVIDER_MODE") { cfg.mode = v; }
+    if let Ok(v) = std::env::var("etzhayyim_NATS_URL") { cfg.nats_url = v; }
+    if let Ok(v) = std::env::var("etzhayyim_QUIC_GATEWAY_ADDR") { cfg.quic_gateway_addr = v; }
 
     cfg
 }
@@ -84,7 +84,7 @@ impl NodeConfig {
         let dir = config_dir();
         fs::create_dir_all(&dir)?;
         let content = format!(
-            "GFTD_NODE_ID={}\nGFTD_WORKER_ID={}\nGFTD_MURAKUMO={}\nGFTD_GPU_TIER={}\nGFTD_GPU_VRAM_MB={}\nGFTD_PROVIDER_MODE={}\n",
+            "etzhayyim_NODE_ID={}\netzhayyim_WORKER_ID={}\netzhayyim_MURAKUMO={}\netzhayyim_GPU_TIER={}\netzhayyim_GPU_VRAM_MB={}\netzhayyim_PROVIDER_MODE={}\n",
             self.node_id, self.worker_id, self.endpoint, self.gpu_tier, self.gpu_vram_mb, self.mode,
         );
         fs::write(config_path(), content)
@@ -92,8 +92,8 @@ impl NodeConfig {
 
     pub fn update_field(&mut self, key: &str, val: &str) {
         match key {
-            "GFTD_NODE_ID" => self.node_id = val.to_string(),
-            "GFTD_WORKER_ID" => self.worker_id = val.to_string(),
+            "etzhayyim_NODE_ID" => self.node_id = val.to_string(),
+            "etzhayyim_WORKER_ID" => self.worker_id = val.to_string(),
             _ => {}
         }
         let _ = self.save();

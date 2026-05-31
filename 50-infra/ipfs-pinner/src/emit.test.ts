@@ -14,7 +14,7 @@ import { buildPinRecord } from "./emit.js";
 const BASE = {
   did: "did:web:pinner.etzhayyim.com",
   pdsUrl: "https://pds.etzhayyim.com",
-  shardKey: "ai.gftd.apps.threads.post",
+  shardKey: "app.etzhayyim.apps.threads.post",
   rootCid: "bafyreigh2akiscaildc7obb6q3vbiqd5gukvvr44e7lsdgowf2c5sb6e44",
   carCid: "bafyreigh2akiscaildc7obb6q3vbiqd5gukvvr44e7lsdgowf2c5sb6e44",
   providers: ["kubo"],

@@ -9,14 +9,14 @@ subscriber / SIM / service / CDR / billing / SLA. Phase 2 closes the
 
 | BPMN | NSID | task type | 用途 |
 |---|---|---|---|
-| `registerSpectrumLicense` | `ai.gftd.apps.telecom.registerSpectrumLicense` | `telecom.spectrum.register` | 周波数免許 (band / MHz / region / 期限) |
-| `registerCellSite` | `ai.gftd.apps.telecom.registerCellSite` | `telecom.site.register` | 基地局 (lat/lon / tower owner / power) |
-| `registerRanNode` | `ai.gftd.apps.telecom.registerRanNode` | `telecom.ranNode.register` | gNB/eNB/DU/CU + spectrum binding |
-| `registerNetworkAsset` | `ai.gftd.apps.telecom.registerNetworkAsset` | `telecom.asset.register` | 物理 asset (router / fiber / antenna) serial# tracking |
-| `recordSiteIncident` | `ai.gftd.apps.telecom.recordSiteIncident` | `telecom.site.incident` | 障害 (outage / degradation / vandalism) |
-| `scheduleMaintenance` | `ai.gftd.apps.telecom.scheduleMaintenance` | `telecom.maintenance.schedule` | 保全計画 (preventive / corrective / spec window) |
-| `requestRma` | `ai.gftd.apps.telecom.requestRma` | `telecom.rma.request` | 故障返品 (asset → vendor RMA case) |
-| `auditPerformanceCounters` | `ai.gftd.apps.telecom.auditPerformanceCounters` | `telecom.kpi.audit` | TMF671 PM (RRC drop / DL throughput / handover / CQI) |
+| `registerSpectrumLicense` | `app.etzhayyim.apps.telecom.registerSpectrumLicense` | `telecom.spectrum.register` | 周波数免許 (band / MHz / region / 期限) |
+| `registerCellSite` | `app.etzhayyim.apps.telecom.registerCellSite` | `telecom.site.register` | 基地局 (lat/lon / tower owner / power) |
+| `registerRanNode` | `app.etzhayyim.apps.telecom.registerRanNode` | `telecom.ranNode.register` | gNB/eNB/DU/CU + spectrum binding |
+| `registerNetworkAsset` | `app.etzhayyim.apps.telecom.registerNetworkAsset` | `telecom.asset.register` | 物理 asset (router / fiber / antenna) serial# tracking |
+| `recordSiteIncident` | `app.etzhayyim.apps.telecom.recordSiteIncident` | `telecom.site.incident` | 障害 (outage / degradation / vandalism) |
+| `scheduleMaintenance` | `app.etzhayyim.apps.telecom.scheduleMaintenance` | `telecom.maintenance.schedule` | 保全計画 (preventive / corrective / spec window) |
+| `requestRma` | `app.etzhayyim.apps.telecom.requestRma` | `telecom.rma.request` | 故障返品 (asset → vendor RMA case) |
+| `auditPerformanceCounters` | `app.etzhayyim.apps.telecom.auditPerformanceCounters` | `telecom.kpi.audit` | TMF671 PM (RRC drop / DL throughput / handover / CQI) |
 
 Timer-start で `auditPerformanceCounters` を `R/PT15M` (15 分間隔) にすると、
 `escalateSlaBreach` (Phase 1) に自動連鎖して Customer 側 SLA 通知が走る。

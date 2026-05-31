@@ -62,7 +62,7 @@ def upgrade() -> None:
             updated_at
         ) VALUES (
             'at://sys.worker.gov.pregel/deployment/gov-fractal-pregel',
-            'ai.gftd.apps.gov.syncWetUpdates',
+            'app.etzhayyim.apps.gov.syncWetUpdates',
             'gov-fractal-pregel',
             1,
             'active',

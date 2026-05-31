@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govArg.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govArg.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Argentina government.",
-        "operationId": "ai.gftd.govArg.followSiteDeps",
+        "operationId": "app.etzhayyim.govArg.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govArg.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govArg.heartbeatTick": {
       "post": {
         "summary": "Run the Argentina government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govArg.heartbeatTick",
+        "operationId": "app.etzhayyim.govArg.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govArg.listOrgs": {
+    "/xrpc/app.etzhayyim.govArg.listOrgs": {
       "get": {
         "summary": "List Argentina government organization graph records.",
-        "operationId": "ai.gftd.govArg.listOrgs",
+        "operationId": "app.etzhayyim.govArg.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govArg.registerDIDs": {
+    "/xrpc/app.etzhayyim.govArg.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Argentina government organizations.",
-        "operationId": "ai.gftd.govArg.registerDIDs",
+        "operationId": "app.etzhayyim.govArg.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govArg.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govArg.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Argentina government organization path to its graph record.",
-        "operationId": "ai.gftd.govArg.resolveOrgPath",
+        "operationId": "app.etzhayyim.govArg.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govArg.seedOrgs": {
+    "/xrpc/app.etzhayyim.govArg.seedOrgs": {
       "post": {
         "summary": "Seed initial Argentina government organization records into the graph.",
-        "operationId": "ai.gftd.govArg.seedOrgs",
+        "operationId": "app.etzhayyim.govArg.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govArg.shinka": {
+    "/xrpc/app.etzhayyim.govArg.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Argentina government organization update.",
-        "operationId": "ai.gftd.govArg.shinka",
+        "operationId": "app.etzhayyim.govArg.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govArg.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govArg.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Argentina government organization changes to graph.",
-        "operationId": "ai.gftd.govArg.syncWetUpdates",
+        "operationId": "app.etzhayyim.govArg.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

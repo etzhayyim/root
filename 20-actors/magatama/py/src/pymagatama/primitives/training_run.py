@@ -54,7 +54,7 @@ from pymagatama.primitives import training_export as _texp
 # ──────────────────────────────────────────────────────────────────────
 
 _TRAINING_ACTOR = "did:web:training.etzhayyim.com"
-_BPMN_NSID_PREFIX = "ai.gftd.apps.training"
+_BPMN_NSID_PREFIX = "app.etzhayyim.apps.training"
 _CHECKPOINT_PREFIX = os.environ.get("TRAINING_CHECKPOINT_PREFIX", "v1/checkpoints")
 _TEACHER_LABEL_PREFIX = os.environ.get("TRAINING_TEACHER_LABEL_PREFIX", "v1/teacher_labels")
 _MURAKUMO_URL = os.environ.get("MURAKUMO_INFERENCE_URL", "https://murakumo-serve.etzhayyim.com/v1/chat/completions").rstrip("/")
@@ -365,7 +365,7 @@ def task_train_teacher_label(
                         %s, 'active', %s, CAST(%s AS date), 0, %s, %s, 'sys.training.teacher_label')
                 """,
                 (
-                    f"at://{_TRAINING_ACTOR}/ai.gftd.training.teacherLabels/{artifact_run_id}",
+                    f"at://{_TRAINING_ACTOR}/app.etzhayyim.training.teacherLabels/{artifact_run_id}",
                     _TRAINING_ACTOR, artifact_run_id, b2_uri, len(gz), len(label_records),
                     json.dumps({"distillMethod": distillMethod, "temperature": temperature,
                                 "teacherKind": teacherKind, "teacherRunId": teacherRunId,

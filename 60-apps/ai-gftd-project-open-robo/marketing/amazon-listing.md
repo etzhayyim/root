@@ -113,7 +113,7 @@ Otete armcrawler gftd raspberry pi robot arm crawler
 |---|---|
 | カテゴリ | おもちゃ > ロボット > 組立・工作キット |
 | ブランド | Giemon Otete (gftd) |
-| メーカー | Gftd Japan株式会社 |
+| メーカー | etzhayyim Japan株式会社 |
 | 原産国 | 日本 |
 | 電池 | 別売 (18650 × 2 推奨: パナソニック NCR18650B) |
 | 対象年齢 | 15歳以上 |
@@ -159,4 +159,4 @@ A: ROS2 Humble Hawksbill (Ubuntu 22.04) に対応しています。Python 単体
 A: KRS-3204 サーボ・ミスミアルミ部品・Otete HAT は Amazon JP および tsukuru.etzhayyim.com で個別購入可能です。
 
 **Q: 法人・学校向けの見積もりは可能ですか?**  
-A: 可能です。5セット以上は別途お見積もりいたします。sales@gftd.co.jp までお問い合わせください。
+A: 可能です。5セット以上は別途お見積もりいたします。sales@etzhayyim.com までお問い合わせください。

@@ -21,7 +21,7 @@ data:
       reverse_proxy http://kubo.ipfs.svc.cluster.local:8080 {
         # Strip any caller-supplied auth header; HMAC enforcement happens at
         # the CF Worker (ai-gftd-ipfs-proxy), never trust upstream-of-proxy.
-        header_up -X-Gftd-Ipfs-Auth
+        header_up -X-etzhayyim-Ipfs-Auth
       }
     }
 ---

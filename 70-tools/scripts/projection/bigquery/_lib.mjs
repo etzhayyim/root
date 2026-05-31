@@ -389,7 +389,7 @@ export function vertexId(actorHost, collection, rkey) {
 //
 // Status values: "complete" / "partial" / "failed" / "in_flight".
 
-const COLLECTION_CURSOR = "ai.gftd.apps.ingest.cursor";
+const COLLECTION_CURSOR = "app.etzhayyim.apps.ingest.cursor";
 
 function cursorVertexId(ingestFamily, sourceId, shardKey) {
   const rkey = sha256([ingestFamily, sourceId, shardKey].join("|"));
@@ -486,9 +486,9 @@ export async function loadBindingOrThrow({ datasetId, targetVertexLabel }) {
 
 // ── ingest job / artifact / run header ledger ──────────────────────────────
 
-const COLLECTION_JOB = "ai.gftd.apps.bigquery.ingestJob";
-const COLLECTION_RUN = "ai.gftd.apps.bigquery.profileRun";
-const COLLECTION_ARTIFACT = "ai.gftd.apps.bigquery.exportArtifact";
+const COLLECTION_JOB = "app.etzhayyim.apps.bigquery.ingestJob";
+const COLLECTION_RUN = "app.etzhayyim.apps.bigquery.profileRun";
+const COLLECTION_ARTIFACT = "app.etzhayyim.apps.bigquery.exportArtifact";
 
 export function bytesBilledToUsd(bytes) {
   const tib = bytes / 1024 ** 4;
@@ -562,7 +562,7 @@ export async function recordRunHeader({
   );
 
   // Also record into generic vertex_ingest_run for parity with P0/P1 spine.
-  const ingestVid = `at://${COLLECTOR_DID}/ai.gftd.apps.ingest.run/${runId}`;
+  const ingestVid = `at://${COLLECTOR_DID}/app.etzhayyim.apps.ingest.run/${runId}`;
   await rwQuery(
     `INSERT INTO vertex_ingest_run (
        vertex_id, sensitivity_ord, owner_did,
@@ -609,7 +609,7 @@ export async function recordExportArtifact({
     ],
   );
 
-  const ingestVid = `at://${COLLECTOR_DID}/ai.gftd.apps.ingest.artifact/${id}`;
+  const ingestVid = `at://${COLLECTOR_DID}/app.etzhayyim.apps.ingest.artifact/${id}`;
   await rwQuery(
     `INSERT INTO vertex_ingest_artifact (
        vertex_id, sensitivity_ord, owner_did,

@@ -22,7 +22,7 @@ depends_on:
   - adr-2605192130-etzhayyim-tithe-redistribution
   - adr-2605192145-etzhayyim-public-fund-architecture
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
@@ -73,7 +73,7 @@ superseded_by: []
 
 ## 非整合 3 — namespace prefix
 
-3 lexicons + appview directory が `ai.gftd.*` / `ai-gftd-project-*` prefix を使用している。CLAUDE.md "Do Not" 節:
+3 lexicons + appview directory が `app.etzhayyim.*` / `ai-gftd-project-*` prefix を使用している。CLAUDE.md "Do Not" 節:
 
 > Do not introduce legacy organisation-specific prefixes in newly authored code. Use `etzhayyim-` or no prefix. Existing seeded files with legacy prefixes will be renamed in a follow-up cutover.
 
@@ -134,7 +134,7 @@ kafun の mission axis を **`mission.health_liberation`** とする。Mission C
 
 | Phase | 頻度 | 内容 |
 |---|---|---|
-| **Proposal** | 四半期 | kafun project leader (executor DID) が次 quarter の予算 / milestones / 期待 outcome を `ai.gftd.apps.public-fund.proposal` record で提案。`missionAxisHash = MISSION_AXIS_HEALTH_LIBERATION` |
+| **Proposal** | 四半期 | kafun project leader (executor DID) が次 quarter の予算 / milestones / 期待 outcome を `app.etzhayyim.apps.public-fund.proposal` record で提案。`missionAxisHash = MISSION_AXIS_HEALTH_LIBERATION` |
 | **Evaluation** | 提案後即時 | PublicFundGrantCell (ADR-2605192145 §3) が proposal を Pregel evaluate。kafun の場合 `similar_grant_outcomes` は過去の kafun grant の vertex_kafun_action 達成度 metric を traverse |
 | **Vote** | 7 days | 1 SBT = 1 vote。quorum 20% / approval 50% |
 | **Execute** | timelock 48h 後 | Public Fund Safe → 0xSplits → kafun executor DID 管理の operational wallet |
@@ -151,7 +151,7 @@ kafun の mission axis を **`mission.health_liberation`** とする。Mission C
 |---|---|---|
 | `fund.create` | Public Fund は単一 (ADR-2605192145 §1) | (なし。proposal を通して allocation を受ける) |
 | `fund.record_fee` | 取引手数料モデル禁止 (ADR-2605192115 §1.3) | (なし) |
-| `fund.contribute` | 第三者からの fund 流入は donation のみ。専用 contribute API は不要 | `ai.gftd.apps.payment.sent` (purpose=`donation`) |
+| `fund.contribute` | 第三者からの fund 流入は donation のみ。専用 contribute API は不要 | `app.etzhayyim.apps.payment.sent` (purpose=`donation`) |
 | `fund.allocate` (ユーザー均等分配) | Public Fund 出金は grant proposal のみ (ADR-2605192145 §2) | (なし) |
 
 ### 2.2 維持する method (16 methods + 4 修正)
@@ -174,18 +174,18 @@ kafun の mission axis を **`mission.health_liberation`** とする。Mission C
 
 ## 3. Lexicon の religious-corp 整合化
 
-### 3.1 現状の 3 lexicon (`ai.gftd.apps.kafun.agent.*`) は維持
+### 3.1 現状の 3 lexicon (`app.etzhayyim.apps.kafun.agent.*`) は維持
 
 `tick.json` / `think.json` / `research.json` は **religious-corp 経済モデルと衝突しない** (純粋に LangGraph 実行の I/O 契約)。本 ADR では rename しない。Status #8 cutover (legacy prefix 一括 rename) で `etzhayyim.apps.kafun.agent.*` に rename される。
 
-### 3.2 新規 Lexicon `ai.gftd.apps.kafun.public-fund-integration.*`
+### 3.2 新規 Lexicon `app.etzhayyim.apps.kafun.public-fund-integration.*`
 
 | Lexicon | 用途 | 必須 fields |
 |---|---|---|
 | `actionSpend.json` | grant allocation 消費記録 | proposalId, amount, actionDid, evidenceCid, agentSig |
 | `milestoneReport.json` | quarter milestone evidence | proposalId, milestoneIndex, achievementMetrics, vertexKafunActionCids[], agentSig |
 
-これらは ADR-2605192145 §5 の `ai.gftd.apps.public-fund.milestone-evidence` の **kafun-specific 拡張** として位置付ける。
+これらは ADR-2605192145 §5 の `app.etzhayyim.apps.public-fund.milestone-evidence` の **kafun-specific 拡張** として位置付ける。
 
 ## 4. Charter Rider 適用
 
@@ -208,7 +208,7 @@ kafun の AI agent 出力 (research findings / proposals / actions) は **Charte
 本 ADR では **kafun の rename を実施しない**。理由:
 
 1. Status #8 cutover が repo 全体 220 file を対象とする計画であり、kafun 単独 cutover は drift する
-2. legacy prefix `ai.gftd.*` の意味論的問題 (religious-corp 帰属の曖昧化) は本 ADR §1-§4 で **意味論レベルでは解消** される (Charter Rider 適用 + Public Fund grantee 化 + mission axis 帰属)
+2. legacy prefix `app.etzhayyim.*` の意味論的問題 (religious-corp 帰属の曖昧化) は本 ADR §1-§4 で **意味論レベルでは解消** される (Charter Rider 適用 + Public Fund grantee 化 + mission axis 帰属)
 3. URL identifier (`n97ik10n.etzhayyim.com` / `kafun-bokumetsu.etzhayyim.com`) の rename は登記変更後に並行実施
 
 ただし以下を本 ADR 承認後即時実施:
@@ -254,7 +254,7 @@ Tier D の **追加 ADR は必要ない**。本 ADR がそのまま参照され�
 - **XRPC method 4 削除 + 4 修正 + 1 新規**。既存 frontend (Svelte SPA) で `fund.create` 等を呼ぶ page (`/funds`, `/allocations`) は再設計必要。
 - **runway 不確実性**。Public Fund からの grant は 1 SBT = 1 vote で承認されるため、kafun が継続的に grant を受けられる保証はない。提案品質と milestone 達成度に依存する。
 - **mission axis hash の Constitution amend が必要**。`MISSION_AXIS_HEALTH_LIBERATION` constant 追加は Constitution.sol の変更であり、constitutional 変更 (quorum 33%) を要する。
-- **legacy prefix を維持する判断の political cost**。「religious-corp 整合化」と称しつつ `ai.gftd.*` namespace を維持することへの違和感。Status #8 cutover の優先度上昇を促す圧力になる (positive 側面でもある)。
+- **legacy prefix を維持する判断の political cost**。「religious-corp 整合化」と称しつつ `app.etzhayyim.*` namespace を維持することへの違和感。Status #8 cutover の優先度上昇を促す圧力になる (positive 側面でもある)。
 
 ## 中立 / トレードオフ
 
@@ -299,7 +299,7 @@ religious-corp 公式 project から外し、外部 NPO として運営。
 
 ## E. 本 ADR 承認 + Status #8 cutover を kafun 先行実施
 
-「religious-corp 整合化」のために `ai.gftd.*` → `etzhayyim.*` rename を kafun 単独で先行実施。
+「religious-corp 整合化」のために `app.etzhayyim.*` → `etzhayyim.*` rename を kafun 単独で先行実施。
 
 - Pro: 意味論レベルだけでなく namespace レベルでも整合化。
 - Con: Status #8 は 220 file repo-wide cutover を想定しており、kafun 単独先行は他 220 file との PR rebase コストが increasing。kafun 先行 rename は drift を生む。

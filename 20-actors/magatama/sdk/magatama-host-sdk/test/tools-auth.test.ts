@@ -24,7 +24,7 @@ function makeUnsignedJwt(payload: Record<string, unknown>): string {
 	return `${header}.${body}.FAKE_SIGNATURE`;
 }
 
-const NSID = "ai.gftd.apps.lawfirm.createCase";
+const NSID = "app.etzhayyim.apps.lawfirm.createCase";
 
 describe("checkBearerLxm", () => {
 	it("returns null when no authorization header is present (public tool path)", () => {
@@ -56,11 +56,11 @@ describe("checkBearerLxm", () => {
 	});
 
 	it("returns LxmScopeMismatch when `lxm` does not match the requested tool", () => {
-		const jwt = makeUnsignedJwt({ lxm: "ai.gftd.apps.lawfirm.closeMatter" });
+		const jwt = makeUnsignedJwt({ lxm: "app.etzhayyim.apps.lawfirm.closeMatter" });
 		const result = checkBearerLxm(`Bearer ${jwt}`, NSID);
 		expect(result).not.toBeNull();
 		expect(result!.error).toBe("LxmScopeMismatch");
-		expect(result!.message).toContain("ai.gftd.apps.lawfirm.closeMatter");
+		expect(result!.message).toContain("app.etzhayyim.apps.lawfirm.closeMatter");
 		expect(result!.message).toContain(NSID);
 	});
 
@@ -70,7 +70,7 @@ describe("checkBearerLxm", () => {
 	});
 
 	it("handles Bearer with mixed case and surrounding whitespace", () => {
-		const jwt = makeUnsignedJwt({ lxm: "ai.gftd.apps.lawfirm.closeMatter" });
+		const jwt = makeUnsignedJwt({ lxm: "app.etzhayyim.apps.lawfirm.closeMatter" });
 		const result = checkBearerLxm(`  bearer   ${jwt}  `, NSID);
 		expect(result).not.toBeNull();
 		expect(result!.error).toBe("LxmScopeMismatch");

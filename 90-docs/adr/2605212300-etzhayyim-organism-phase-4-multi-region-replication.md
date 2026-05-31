@@ -19,7 +19,7 @@ depends_on:
   - adr-2605211200-etzhayyim-active-inference-organism-on-murakumo
   - adr-2605212200-etzhayyim-organism-phase-3-vendor-decouple
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605172100-payments-on-chain-only
+  - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-0019-atproto-native-identifier-topology

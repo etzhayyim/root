@@ -90,7 +90,7 @@ run_test "news articles exist in graph (ListArticles query)" \
     -d "{\"limit\":5}" 2>/dev/null || echo "{}"); [ -n "$RESP" ]'
 
 run_test "news XRPC query articles" \
-  'RESP=$(curl -sf "$BASE/xrpc/ai.gftd.apps.news.listArticles?limit=5" 2>/dev/null || echo "{}"); [ -n "$RESP" ]'
+  'RESP=$(curl -sf "$BASE/xrpc/app.etzhayyim.apps.news.listArticles?limit=5" 2>/dev/null || echo "{}"); [ -n "$RESP" ]'
 
 # ── 6. Heartbeat Handler (10-min article generation) ─────────
 echo ""

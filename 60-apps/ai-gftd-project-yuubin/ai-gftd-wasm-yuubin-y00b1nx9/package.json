@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@cloudflare/puppeteer": "^0.0.14",
-    "@gftd/magatama-host-sdk": "workspace:*",
+    "@etzhayyim/magatama-host-sdk": "workspace:*",
     "aws4fetch": "^1.0.20",
     "fflate": "^0.8.2"
   }

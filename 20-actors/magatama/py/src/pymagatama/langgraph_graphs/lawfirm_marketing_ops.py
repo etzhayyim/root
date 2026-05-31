@@ -91,7 +91,7 @@ def _now_iso() -> str:
 def _vid(kind: str) -> str:
     import datetime as _dt
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{_OWNER_DID}/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{_OWNER_DID}/app.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _llm_md(system: str, user: str, max_tokens: int = 1800) -> str:
@@ -152,7 +152,7 @@ def _db_query(sql_str: str, params: dict | None = None) -> list[dict]:
 
 def _envelope_content(state: MarketingState, envelope_key: str) -> str:
     """Phase E3: extract content from `<envelope_key>.result.content` set by
-    the upstream `mcp://ai.gftd.tools.llm.chat` node. Returns '' if absent.
+    the upstream `mcp://app.etzhayyim.tools.llm.chat` node. Returns '' if absent.
     Mirrors webmk_proposal:_envelope_content."""
     envelope = state.get(envelope_key)  # type: ignore[arg-type]
     if isinstance(envelope, dict):

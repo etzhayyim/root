@@ -1,5 +1,38 @@
 #!/usr/bin/env node
 /**
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  SUPERSEDED — DO NOT RUN ON THE RELIGIOUS-CORP SUBSTRATE              ║
+ * ║                                                                       ║
+ * ║  Status: pre-religious-corp commercial-fund era artifact (RisingWave  ║
+ * ║          + vertex_* graph schema, neither of which is part of the     ║
+ * ║          current substrate per ADR-2605262130 + ADR-2605172000).      ║
+ * ║                                                                       ║
+ * ║  Superseded by: ADR-2605263800 (Global corporate-disclosure ingestion ║
+ * ║                 via IPFS-pinned DataLad subdatasets) — W1 fetcher:    ║
+ * ║                 70-tools/e7m-dataset/src/e7m_dataset/fetchers/        ║
+ * ║                 sec_edgar.py                                          ║
+ * ║                                                                       ║
+ * ║  Why superseded (religious-corp substrate-fit):                       ║
+ * ║    - DataLad subdataset + IPFS-pin storage (NOT RisingWave)           ║
+ * ║    - app.etzhayyim.corp.{registryAttestation,disclosureAttestation,   ║
+ * ║      filingEvent} Lexicon records (NOT vertex_* PG tables)            ║
+ * ║    - Passive-only invariant per ADR-2605262400 §7 (no full live API   ║
+ * ║      enumeration; uses SEC quarterly-index bulk archive only)         ║
+ * ║    - CorpRegistrySensor / CorpDisclosureSensor / CorpFilingEventSensor║
+ * ║      Protocols (pymagatama.organism.sensors.corp.*) consume the       ║
+ * ║      pinned subdataset, not direct API output                         ║
+ * ║    - Charter Rider §2(e)+§2(c) vendor-commercial-terminal deny-list   ║
+ * ║      enforced at recipe lint (Bloomberg Terminal / Refinitiv / FactSet║
+ * ║      / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro PROHIBITED)   ║
+ * ║                                                                       ║
+ * ║  Operator action:                                                     ║
+ * ║    - For new ingestion: use `e7m-dataset pull sec-edgar` (W1)         ║
+ * ║    - For legacy data already in RW: read ADR-2605263800 §7 W4 plan    ║
+ * ║                                                                       ║
+ * ║  Removal scheduled: ADR-2605263800 W4 deliverable (after sensor       ║
+ * ║                     parity is verified at W3).                        ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ *
  * SEC EDGAR disclosure ingest -> vertex_company_filing / vertex_company_fact.
  *
  * Purpose:
@@ -147,7 +180,7 @@ function buildRecentFilings(submissions, companyDid, cik) {
       vertex_id: `filing:edgar:${cik}:${accessionCompact}`,
       rkey: accessionCompact.slice(0, 63),
       repo: COLLECTOR_DID,
-      label: "ai.gftd.apps.legalEntity.companyFiling",
+      label: "app.etzhayyim.apps.legalEntity.companyFiling",
       company_did: companyDid,
       filing_source: "sec_edgar",
       filing_type: form,
@@ -246,7 +279,7 @@ function buildFacts(companyFacts, companyDid, cik) {
           vertex_id: `fact:edgar:${cik}:${spec.canonical}:${accessionCompact || end || out.length}`,
           rkey: `${spec.canonical}-${accessionCompact || end}`.replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 63),
           repo: COLLECTOR_DID,
-          label: "ai.gftd.apps.legalEntity.companyFact",
+          label: "app.etzhayyim.apps.legalEntity.companyFact",
           company_did: companyDid,
           filing_did: filingDid,
           fact_namespace: spec.namespace,
@@ -344,7 +377,7 @@ async function buildEmployeeFallbackFact(submissions, companyDid, cik, existingF
         vertex_id: `fact:edgar:${cik}:employee_count:${accessionCompact || isoDate || "fallback"}`,
         rkey: `employee_count-${accessionCompact || isoDate || "fallback"}`.replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 63),
         repo: COLLECTOR_DID,
-        label: "ai.gftd.apps.legalEntity.companyFact",
+        label: "app.etzhayyim.apps.legalEntity.companyFact",
         company_did: companyDid,
         filing_did: accessionCompact ? `filing:edgar:${cik}:${accessionCompact}` : null,
         fact_namespace: "sec-text",

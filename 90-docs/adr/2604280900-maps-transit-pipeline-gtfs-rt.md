@@ -20,15 +20,15 @@ authoritative_for:
 related:
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0056-bpmn-as-actor
-  - adr-2604241342-risingwave-migration-failure-modes
+  - adr-2604241342-risingwave-out-of-band-migration-pattern
   - adr-0048-risingwave-vultr-b2-primary
 ---
 
 # ADR-2604280900 — Maps Transit Data Pipeline (GTFS-JP / OpenFlights / Ferry / GTFS-RT)
 
-**Status**: active  
-**Date**: 2026-04-28  
-**Authors**: Jun Kawasaki + Claude Code  
+**Status**: active
+**Date**: 2026-04-28
+**Authors**: Jun Kawasaki + Claude Code
 
 ## Context
 
@@ -47,9 +47,9 @@ The CF Worker heartbeat model (30s/128MB budget) cannot handle bulk GTFS ingest 
 
 | Worker pod | BPMN trigger | Source | Cadence |
 |---|---|---|---|
-| `bulk-ingest-gtfs-jp` | `ai.gftd.apps.maps.bulkRefreshGtfsJp` R/PT24H | GTFS-JP per-agency feed ZIP | Daily |
-| `bulk-ingest-openflights` | `ai.gftd.apps.maps.bulkRefreshOpenflights` R/P7D | OpenFlights airports/routes/airlines (ODbL) | Weekly |
-| `bulk-ingest-ferry-routes` | `ai.gftd.apps.maps.bulkRefreshFerryRoutes` R/P7D | OSM Overpass relation[route=ferry] × 7 bboxes | Weekly |
+| `bulk-ingest-gtfs-jp` | `app.etzhayyim.apps.maps.bulkRefreshGtfsJp` R/PT24H | GTFS-JP per-agency feed ZIP | Daily |
+| `bulk-ingest-openflights` | `app.etzhayyim.apps.maps.bulkRefreshOpenflights` R/P7D | OpenFlights airports/routes/airlines (ODbL) | Weekly |
+| `bulk-ingest-ferry-routes` | `app.etzhayyim.apps.maps.bulkRefreshFerryRoutes` R/P7D | OSM Overpass relation[route=ferry] × 7 bboxes | Weekly |
 | `bulk-ingest-gtfs-rt` | internal 30s/60s/300s scheduler | ODPT + no-auth RT binary feeds | **Gated, replicas=0** |
 
 ### Layer 4: Two new RisingWave tables (Phase 2)
@@ -78,8 +78,8 @@ Streaming MV rows fall out of window at compaction time; base tables retain raw 
 
 | NSID | Pattern | Index |
 |---|---|---|
-| `ai.gftd.apps.maps.nextDeparturesAtStop` | 3-way JOIN stop_time × trip × vertex_spatial | `idx_maps_stop_time_stop_dep` |
-| `ai.gftd.apps.maps.realtimeDelaysAtStop` | Same + LEFT JOIN `mv_maps_recent_trip_update` | degrades gracefully when RT offline |
+| `app.etzhayyim.apps.maps.nextDeparturesAtStop` | 3-way JOIN stop_time × trip × vertex_spatial | `idx_maps_stop_time_stop_dep` |
+| `app.etzhayyim.apps.maps.realtimeDelaysAtStop` | Same + LEFT JOIN `mv_maps_recent_trip_update` | degrades gracefully when RT offline |
 
 RT query degrades explicitly: when RT tables are empty/offline, `departureDelaySec = null`, `rtAvailable = false`. Static `nextDeparturesAtStop` path is unaffected by RT status.
 
@@ -163,7 +163,7 @@ Timer-start R/P7D auto-fires next run in 7 days. `bulkRefreshGtfsJp` R/PT24H fir
 | 5 | ODPT registration or no-auth RT index → scale `bulk-ingest-gtfs-rt --replicas=1` | Phase 3 live |
 | 6 | `gftd deploy` for `maps-ui-uqpel6i6` | XRPC handlers reachable |
 
-After (1)+(2)+(3)+(4)+(6): `nextDeparturesAtStop` is live for the 4 verified bus operators.  
+After (1)+(2)+(3)+(4)+(6): `nextDeparturesAtStop` is live for the 4 verified bus operators.
 After (5): `realtimeDelaysAtStop` returns RT delays for configured operators.
 
 ## Files

@@ -5,7 +5,9 @@
     createCineBridge,
     createMockCineBridge,
     type IncidentVrEngine,
+    type SceneDescriptor,
   } from '@etzhayyim/kami-engine-sdk/webvr';
+  import { mountIncidentScene, type SceneHandle } from '$lib/three-renderer';
   import { SEMI_PLANT_INCIDENT } from '$scenarios/semiconductor-chem-plant';
 
   let canvas: HTMLCanvasElement;
@@ -25,24 +27,29 @@
       : createMockCineBridge();
 
   onMount(() => {
+    let handle: SceneHandle | undefined;
     engine = createIncidentVrEngine({
       scenario: SEMI_PLANT_INCIDENT,
+      cineBridge,
+      onScene: (scene: SceneDescriptor) => handle?.update(scene),
+      onOpLog: (e) => {
+        // Optional XRPC sink: dispatch to app.etzhayyim.apps.cyberDrill.recordDecision
+        // via Worker. Stubbed here.
+        // eslint-disable-next-line no-console
+        console.debug('[op-log]', e);
+      },
+    });
+    handle = mountIncidentScene(canvas, {
+      onSelect: (choiceId) => engine?.select(choiceId),
       gazeDwellMs: 3000,
       selectionDeadlineMs: 30000,
       enableVrButton: true,
       narrate: narrateOn,
       narrateLang: 'ja-JP',
       transitionFadeMs: 320,
-      cineBridge,
-      onOpLog: (e) => {
-        // Optional XRPC sink: dispatch to ai.gftd.apps.cyberDrill.recordDecision
-        // via Worker. Stubbed here.
-        // eslint-disable-next-line no-console
-        console.debug('[op-log]', e);
-      },
+      initial: engine.scene,
     });
-    engine.attach(canvas);
-    return () => engine?.detach();
+    return () => handle?.dispose();
   });
 
   const kpi = $derived(engine?.state.kpi);

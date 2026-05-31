@@ -23,8 +23,8 @@ owned sender / external inbound mail
   -> *@etzhayyim.com Cloudflare Email Routing catch-all
   -> ai-gftd-email-relay Worker email() handler
   -> PDS record:
-     did:web:ml1nb0nd.etzhayyim.com / ai.gftd.apps.mailer.inboundEmail
-  -> LaunchAgent ai.gftd.malak-trap-sync, every 300s
+     did:web:ml1nb0nd.etzhayyim.com / app.etzhayyim.apps.mailer.inboundEmail
+  -> LaunchAgent app.etzhayyim.malak-trap-sync, every 300s
   -> vertex_malak_trap_message
 ```
 
@@ -81,13 +81,13 @@ values.
 Label:
 
 ```text
-ai.gftd.malak-trap-sync
+app.etzhayyim.malak-trap-sync
 ```
 
 Paths:
 
 ```text
-50-infra/launchd/ai.gftd.malak-trap-sync.plist
+50-infra/launchd/app.etzhayyim.malak-trap-sync.plist
 50-infra/launchd/malak-trap-sync.sh
 ~/.gftd/malak-trap-sync.log
 ~/.gftd/malak-trap-sync.err
@@ -96,7 +96,7 @@ Paths:
 Verify:
 
 ```bash
-launchctl print "gui/$(id -u)/ai.gftd.malak-trap-sync" | rg 'state =|last exit code|run interval|runs ='
+launchctl print "gui/$(id -u)/app.etzhayyim.malak-trap-sync" | rg 'state =|last exit code|run interval|runs ='
 ```
 
 ## Safety Boundary

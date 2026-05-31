@@ -22,14 +22,14 @@ interface Entry {
 const entries: Entry[] = [
   {
     bpmnProcessId: "flight_offer_add_watch",
-    nsid: "ai.gftd.apps.flightOffer.addWatch",
+    nsid: "app.etzhayyim.apps.flightOffer.addWatch",
     sourcePath: "00-contracts/bpmn/ai/gftd/flight-offer/addWatch.bpmn",
     resultTimeoutMs: 15000,
     slug: "flight-offer-add-watch-v1",
   },
   {
     bpmnProcessId: "flight_offer_poll_watchlist",
-    nsid: "ai.gftd.apps.flightOffer.pollWatchlist",
+    nsid: "app.etzhayyim.apps.flightOffer.pollWatchlist",
     sourcePath: "00-contracts/bpmn/ai/gftd/flight-offer/pollWatchlist.bpmn",
     resultTimeoutMs: 300000,
     slug: "flight-offer-poll-watchlist-v1",
@@ -37,10 +37,10 @@ const entries: Entry[] = [
 ];
 
 function processVertexId(slug: string): string {
-  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${slug}`;
+  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${slug}`;
 }
 function bindingVertexId(slug: string): string {
-  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${slug}`;
+  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${slug}`;
 }
 
 export async function up(db: Kysely<unknown>): Promise<void> {

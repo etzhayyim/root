@@ -28,8 +28,8 @@ describe("Seed open-unispsc BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openUnispsc.procurement"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openUnispsc.supplier"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openUnispsc.procurement"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openUnispsc.supplier"');
   });
 
   it("uses open-unispsc-specific actor_id + owner_did", () => {

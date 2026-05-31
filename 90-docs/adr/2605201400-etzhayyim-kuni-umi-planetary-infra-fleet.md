@@ -17,7 +17,7 @@ authoritative_for:
   - open-* utility lexicons と open-robo / open-ot 間の orchestration seam
   - Multi-jurisdiction 施工 governance (land sovereignty + Charter Rider gate)
 depends_on:
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
@@ -99,7 +99,7 @@ religious-corp の力学的 routing-around (§1.12 §1.11) は **物理層** で
 
 Each phase cell is a LangGraph `StateGraph` with `MstCheckpointSaver` (ADR-2605191559) → MST → IPFS pin (ADR-2605191608) → Base L2 anchor (ADR-2605191625). One super-step = one phase tick = one IEC 61499 event when bridging into `open-ot`.
 
-## 2. Lexicon namespace `ai.gftd.apps.etzhayyim.kuniUmi.*`
+## 2. Lexicon namespace `app.etzhayyim.apps.etzhayyim.kuniUmi.*`
 
 Six lexicons authored in `00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/`:
 

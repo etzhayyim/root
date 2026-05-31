@@ -32,7 +32,7 @@ from .graph import app, triage_app, TriageState, _is_internal_addr, _is_recent_d
 # ── Cursor persistence ────────────────────────────────────────────────────────
 _CURSOR_FILE = Path(os.getenv("PREGEL_CURSOR_FILE", Path.home() / ".gftd" / "pregel-inbox-cursor.txt"))
 _MICROSOFT_XRPC = os.getenv("MICROSOFT_XRPC_BASE", "https://microsoft.etzhayyim.com/xrpc")
-_FROM_UPN       = os.getenv("PREGEL_FROM_UPN", "j.kawasaki@gftd.co.jp")
+_FROM_UPN       = os.getenv("PREGEL_FROM_UPN", "j.kawasaki@etzhayyim.com")
 _POLL_INTERVAL  = int(os.getenv("PREGEL_POLL_INTERVAL", "60"))
 
 
@@ -69,12 +69,12 @@ def _fetch_inbox(since: str = "", top: int = 50) -> tuple[list[dict], str]:
         params["since"] = since
     payload = json.dumps(params).encode()
     try:
-        token = _mint_token("ai.gftd.apps.microsoft.listInbox")
+        token = _mint_token("app.etzhayyim.apps.microsoft.listInbox")
     except Exception as exc:
         print(f"[pregel][poll] listInbox error: token mint failed: {exc}")
         return [], ""
     req = urllib.request.Request(
-        f"{_MICROSOFT_XRPC}/ai.gftd.apps.microsoft.listInbox",
+        f"{_MICROSOFT_XRPC}/app.etzhayyim.apps.microsoft.listInbox",
         data=payload,
         headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"},
         method="POST",
@@ -169,7 +169,7 @@ _TRIAGE_MOVED_FILE = Path(os.getenv(
     "TRIAGE_MOVED_FILE",
     str(Path.home() / ".gftd" / "triage-moved.txt"),
 ))
-_TRIAGE_MOVE_URL = f"{_MICROSOFT_XRPC}/ai.gftd.apps.microsoft.batchMoveMessages"
+_TRIAGE_MOVE_URL = f"{_MICROSOFT_XRPC}/app.etzhayyim.apps.microsoft.batchMoveMessages"
 _TRIAGE_CATEGORY_TO_FOLDER = {
     "DELETE":  "deleteditems",
     "ARCHIVE": "archive",
@@ -207,7 +207,7 @@ def _batch_move(message_ids: list[str], target_folder: str) -> dict:
         "targetFolder": target_folder,
     }).encode()
     try:
-        token = _mint_token("ai.gftd.apps.microsoft.batchMoveMessages")
+        token = _mint_token("app.etzhayyim.apps.microsoft.batchMoveMessages")
     except Exception as exc:
         print(f"[triage][move] batchMoveMessages error: token mint failed: {exc}")
         return {}
@@ -342,9 +342,9 @@ async def run_triage(args: argparse.Namespace) -> None:
 SMOKE_EMAILS = [
     {
         "message_id": "smoke-nishino-trackbc",
-        "from_address": "y.nishino@gftd.co.jp",
+        "from_address": "y.nishino@etzhayyim.com",
         "from_name": "西野 能彦",
-        "to_addresses": "j.kawasaki@gftd.co.jp",
+        "to_addresses": "j.kawasaki@etzhayyim.com",
         "subject": "[GO] D-Day Track C 起動依頼 / ConfigMap mount + Track B 実行可能性確認",
         "received_at": "2026-05-11T16:56:00+09:00",
         "body_preview": "河崎さん、何をすればいいのか分かりません。workstationとは何を指しているのか…",
@@ -353,7 +353,7 @@ SMOKE_EMAILS = [
         "message_id": "smoke-tmi-invoice",
         "from_address": "Sumire_Hoshino@tmi.gr.jp",
         "from_name": "成本 治男 (TMI)",
-        "to_addresses": "j.kawasaki@gftd.co.jp",
+        "to_addresses": "j.kawasaki@etzhayyim.com",
         "subject": "COMMONS株式会社/工事解約 請求書",
         "received_at": "2026-02-05T15:52:00+09:00",
         "body_preview": "請求書正本PDFを発行させていただきます。よろしくご査収のほどお願い申し上げます。",
@@ -362,18 +362,18 @@ SMOKE_EMAILS = [
         "message_id": "smoke-justco-blocker",
         "from_address": "justco@myworkday.com",
         "from_name": "JustCo Workday No-Reply",
-        "to_addresses": "j.kawasaki@gftd.co.jp",
+        "to_addresses": "j.kawasaki@etzhayyim.com",
         "subject": "JustCo (Japan) - Final Reminder: Outstanding Balance",
         "received_at": "2026-04-16T23:01:00+09:00",
         "body_preview": "We regret that despite several reminders, outstandings due to us remain unpaid.",
         "blocker_annotation": "法人に資金がないのでブロッカー",
-        "delegated_to": "a.nakamura@gftd.co.jp",
+        "delegated_to": "a.nakamura@etzhayyim.com",
     },
     {
         "message_id": "smoke-alibaba-sales",
         "from_address": "noreply@alibabacloud.com",
         "from_name": "Alibaba Cloud",
-        "to_addresses": "j.kawasaki@gftd.co.jp",
+        "to_addresses": "j.kawasaki@etzhayyim.com",
         "subject": "AgentBay empowers a leading cross-border e-commerce platform",
         "received_at": "2026-05-12T13:02:00+09:00",
         "body_preview": "AgentBay is the next-generation agentic computing infrastructure.",
@@ -383,7 +383,7 @@ SMOKE_EMAILS = [
         "message_id": "smoke-phishing-lpa",
         "from_address": "info@abogadosjubilados.org.ar",
         "from_name": "Abogados",
-        "to_addresses": "j.kawasaki@gftd.co.jp",
+        "to_addresses": "j.kawasaki@etzhayyim.com",
         "subject": "Limited Partnership Agreement Ready for Signature",
         "received_at": "2026-05-13T03:13:00+09:00",
         "body_preview": "Please review and sign the attached Limited Partnership Agreement.",
@@ -392,7 +392,7 @@ SMOKE_EMAILS = [
         "message_id": "smoke-ses-dstanding",
         "from_address": "dss@d-standing.co.jp",
         "from_name": "D-Standing",
-        "to_addresses": "j.kawasaki@gftd.co.jp",
+        "to_addresses": "j.kawasaki@etzhayyim.com",
         "subject": "【エンド直】90万円以上 / Go / フルリモート / ECアプリケーション運営企業",
         "received_at": "2026-05-13T02:00:00+09:00",
         "body_preview": "エンド直案件のご紹介です。Go言語のバックエンドエンジニアを募集しています。",

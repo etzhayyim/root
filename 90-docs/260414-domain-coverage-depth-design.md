@@ -5,7 +5,10 @@ status: active
 doc_type: explanation
 topic: domain-coverage
 authoritative: true
-authoritative_for: ["kuruma-graph-depth", "media-anime-graph-depth", "media-gamers-graph-depth"]
+authoritative_for:
+  - kuruma-graph-depth
+  - media-anime-graph-depth
+  - media-gamers-graph-depth
 last_verified: 2026-04-14
 related:
   - 30-graph/graph-schema/migrations/0025_world_coverage_live_mv.ts

@@ -137,7 +137,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_paleolithic-001-100000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_paleolithic-001-100000',
                  'did:web:natural-person.etzhayyim.com',
                  'early_paleolithic-001-100000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -180,7 +180,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/toba_bottleneck-001-74000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/toba_bottleneck-001-74000',
                  'did:web:natural-person.etzhayyim.com',
                  'toba_bottleneck-001-74000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -223,7 +223,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
                  'did:web:natural-person.etzhayyim.com',
                  'upper_paleolithic-001-70000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -266,7 +266,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
                  'did:web:natural-person.etzhayyim.com',
                  'neolithic-001-10000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -309,7 +309,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/bronze_age-001-3000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/bronze_age-001-3000',
                  'did:web:natural-person.etzhayyim.com',
                  'bronze_age-001-3000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -352,7 +352,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/iron_age-001-1200',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/iron_age-001-1200',
                  'did:web:natural-person.etzhayyim.com',
                  'iron_age-001-1200',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -395,7 +395,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/classical-001-500',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/classical-001-500',
                  'did:web:natural-person.etzhayyim.com',
                  'classical-001-500',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -438,7 +438,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_medieval-001-500',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_medieval-001-500',
                  'did:web:natural-person.etzhayyim.com',
                  'early_medieval-001-500',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -481,7 +481,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
                  'did:web:natural-person.etzhayyim.com',
                  'medieval-001-1000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -524,7 +524,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
                  'did:web:natural-person.etzhayyim.com',
                  'early_modern-001-1500',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -567,7 +567,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/pre_industrial-001-1700',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/pre_industrial-001-1700',
                  'did:web:natural-person.etzhayyim.com',
                  'pre_industrial-001-1700',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -610,7 +610,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/industrial-001-1800',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/industrial-001-1800',
                  'did:web:natural-person.etzhayyim.com',
                  'industrial-001-1800',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -653,7 +653,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
                  'did:web:natural-person.etzhayyim.com',
                  'modern_early-001-1900',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -696,7 +696,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_boom-001-1950',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_boom-001-1950',
                  'did:web:natural-person.etzhayyim.com',
                  'modern_boom-001-1950',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -739,7 +739,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_transition-001-1975',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_transition-001-1975',
                  'did:web:natural-person.etzhayyim.com',
                  'modern_transition-001-1975',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -782,7 +782,7 @@ UP = [{'sql': '\n'
          '        $18, $19, null, $20\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'contemporary-001-2000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -815,9 +815,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-early_paleolithic-toba_bottleneck',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_paleolithic-001-100000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/toba_bottleneck-001-74000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-early_paleolithic-toba_bottleneck',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_paleolithic-001-100000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/toba_bottleneck-001-74000',
                  'did:web:natural-person.etzhayyim.com',
                  1040,
                  0,
@@ -837,9 +837,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-toba_bottleneck-upper_paleolithic',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/toba_bottleneck-001-74000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-toba_bottleneck-upper_paleolithic',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/toba_bottleneck-001-74000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
                  'did:web:natural-person.etzhayyim.com',
                  160,
                  0,
@@ -859,9 +859,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-upper_paleolithic-neolithic',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-upper_paleolithic-neolithic',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
                  'did:web:natural-person.etzhayyim.com',
                  2400,
                  0,
@@ -881,9 +881,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-neolithic-bronze_age',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/bronze_age-001-3000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-neolithic-bronze_age',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/bronze_age-001-3000',
                  'did:web:natural-person.etzhayyim.com',
                  280,
                  0,
@@ -903,9 +903,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-bronze_age-iron_age',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/bronze_age-001-3000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/iron_age-001-1200',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-bronze_age-iron_age',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/bronze_age-001-3000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/iron_age-001-1200',
                  'did:web:natural-person.etzhayyim.com',
                  72,
                  0,
@@ -925,9 +925,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-iron_age-classical',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/iron_age-001-1200',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/classical-001-500',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-iron_age-classical',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/iron_age-001-1200',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/classical-001-500',
                  'did:web:natural-person.etzhayyim.com',
                  28,
                  0,
@@ -947,9 +947,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-classical-early_medieval',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/classical-001-500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_medieval-001-500',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-classical-early_medieval',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/classical-001-500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_medieval-001-500',
                  'did:web:natural-person.etzhayyim.com',
                  40,
                  0,
@@ -969,9 +969,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-early_medieval-medieval',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_medieval-001-500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-early_medieval-medieval',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_medieval-001-500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
                  'did:web:natural-person.etzhayyim.com',
                  20,
                  0,
@@ -991,9 +991,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-medieval-early_modern',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-medieval-early_modern',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
                  'did:web:natural-person.etzhayyim.com',
                  20,
                  0,
@@ -1013,9 +1013,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-early_modern-pre_industrial',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/pre_industrial-001-1700',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-early_modern-pre_industrial',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/pre_industrial-001-1700',
                  'did:web:natural-person.etzhayyim.com',
                  8,
                  0,
@@ -1035,9 +1035,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-pre_industrial-industrial',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/pre_industrial-001-1700',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/industrial-001-1800',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-pre_industrial-industrial',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/pre_industrial-001-1700',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/industrial-001-1800',
                  'did:web:natural-person.etzhayyim.com',
                  4,
                  0,
@@ -1057,9 +1057,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-industrial-modern_early',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/industrial-001-1800',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-industrial-modern_early',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/industrial-001-1800',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
                  'did:web:natural-person.etzhayyim.com',
                  4,
                  0,
@@ -1079,9 +1079,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-modern_early-modern_boom',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_boom-001-1950',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-modern_early-modern_boom',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_boom-001-1950',
                  'did:web:natural-person.etzhayyim.com',
                  2,
                  0,
@@ -1101,9 +1101,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-modern_boom-modern_transition',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_boom-001-1950',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_transition-001-1975',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-modern_boom-modern_transition',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_boom-001-1950',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_transition-001-1975',
                  'did:web:natural-person.etzhayyim.com',
                  1,
                  0,
@@ -1123,9 +1123,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/anc-modern_transition-contemporary',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_transition-001-1975',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-modern_transition-contemporary',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_transition-001-1975',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
                  'did:web:natural-person.etzhayyim.com',
                  1,
                  0,
@@ -1144,7 +1144,7 @@ UP = [{'sql': '\n'
          '      app_host, collection, domain, world_total, unit\n'
          '    ) VALUES (\n'
          "      'natural-person',\n"
-         "      'ai.gftd.apps.naturalPerson.populationCohort',\n"
+         "      'app.etzhayyim.apps.naturalPerson.populationCohort',\n"
          "      'natural_person',\n"
          '      108000000000,\n'
          "      'humans ever lived'\n"
@@ -1169,7 +1169,7 @@ DOWN = [{'sql': 'DROP MATERIALIZED VIEW IF EXISTS mv_person_cohort_era_summary',
   'parameters': []},
  {'sql': '\n'
          '    DELETE FROM dim_world_domain_collection\n'
-         "    WHERE collection = 'ai.gftd.apps.naturalPerson.populationCohort'\n"
+         "    WHERE collection = 'app.etzhayyim.apps.naturalPerson.populationCohort'\n"
          '  ',
   'parameters': []}]
 

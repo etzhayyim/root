@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govMoz.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govMoz.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Mozambique government.",
-        "operationId": "ai.gftd.govMoz.followSiteDeps",
+        "operationId": "app.etzhayyim.govMoz.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMoz.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govMoz.heartbeatTick": {
       "post": {
         "summary": "Run the Mozambique government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govMoz.heartbeatTick",
+        "operationId": "app.etzhayyim.govMoz.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMoz.listOrgs": {
+    "/xrpc/app.etzhayyim.govMoz.listOrgs": {
       "get": {
         "summary": "List Mozambique government organization graph records.",
-        "operationId": "ai.gftd.govMoz.listOrgs",
+        "operationId": "app.etzhayyim.govMoz.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMoz.registerDIDs": {
+    "/xrpc/app.etzhayyim.govMoz.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Mozambique government organizations.",
-        "operationId": "ai.gftd.govMoz.registerDIDs",
+        "operationId": "app.etzhayyim.govMoz.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMoz.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govMoz.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Mozambique government organization path to its graph record.",
-        "operationId": "ai.gftd.govMoz.resolveOrgPath",
+        "operationId": "app.etzhayyim.govMoz.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMoz.seedOrgs": {
+    "/xrpc/app.etzhayyim.govMoz.seedOrgs": {
       "post": {
         "summary": "Seed initial Mozambique government organization records into the graph.",
-        "operationId": "ai.gftd.govMoz.seedOrgs",
+        "operationId": "app.etzhayyim.govMoz.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMoz.shinka": {
+    "/xrpc/app.etzhayyim.govMoz.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Mozambique government organization update.",
-        "operationId": "ai.gftd.govMoz.shinka",
+        "operationId": "app.etzhayyim.govMoz.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMoz.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govMoz.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Mozambique government organization changes to graph.",
-        "operationId": "ai.gftd.govMoz.syncWetUpdates",
+        "operationId": "app.etzhayyim.govMoz.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govPak.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govPak.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Pakistan government.",
-        "operationId": "ai.gftd.govPak.followSiteDeps",
+        "operationId": "app.etzhayyim.govPak.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPak.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govPak.heartbeatTick": {
       "post": {
         "summary": "Run the Pakistan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govPak.heartbeatTick",
+        "operationId": "app.etzhayyim.govPak.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPak.listOrgs": {
+    "/xrpc/app.etzhayyim.govPak.listOrgs": {
       "get": {
         "summary": "List Pakistan government organization graph records.",
-        "operationId": "ai.gftd.govPak.listOrgs",
+        "operationId": "app.etzhayyim.govPak.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPak.registerDIDs": {
+    "/xrpc/app.etzhayyim.govPak.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Pakistan government organizations.",
-        "operationId": "ai.gftd.govPak.registerDIDs",
+        "operationId": "app.etzhayyim.govPak.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPak.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govPak.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Pakistan government organization path to its graph record.",
-        "operationId": "ai.gftd.govPak.resolveOrgPath",
+        "operationId": "app.etzhayyim.govPak.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPak.seedOrgs": {
+    "/xrpc/app.etzhayyim.govPak.seedOrgs": {
       "post": {
         "summary": "Seed initial Pakistan government organization records into the graph.",
-        "operationId": "ai.gftd.govPak.seedOrgs",
+        "operationId": "app.etzhayyim.govPak.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPak.shinka": {
+    "/xrpc/app.etzhayyim.govPak.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Pakistan government organization update.",
-        "operationId": "ai.gftd.govPak.shinka",
+        "operationId": "app.etzhayyim.govPak.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPak.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govPak.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Pakistan government organization changes to graph.",
-        "operationId": "ai.gftd.govPak.syncWetUpdates",
+        "operationId": "app.etzhayyim.govPak.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

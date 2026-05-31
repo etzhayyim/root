@@ -16,7 +16,7 @@ from pymagatama.db_sync import sync_cursor
 
 
 PDS_DID = "did:web:atproto.etzhayyim.com"
-HEARTBEAT_COLLECTION = "ai.gftd.apps.pds.heartbeatCron"
+HEARTBEAT_COLLECTION = "app.etzhayyim.apps.pds.heartbeatCron"
 DEFAULT_TIMEOUT_SEC = 90.0
 
 

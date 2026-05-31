@@ -10,16 +10,16 @@
         "id": "sys.worker", "name": "open-ports Worker",
         "platform": "Cloudflare Workers", "entrypoint": "worker/src/app.ts",
         "interfaces": [
-          { "id": "if.xrpc.definePort",                "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openPorts.definePort" },
-          { "id": "if.xrpc.listPorts",                 "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openPorts.listPorts" },
-          { "id": "if.xrpc.registerVessel",            "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openPorts.registerVessel" },
-          { "id": "if.xrpc.scheduleVesselCall",        "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openPorts.scheduleVesselCall" },
-          { "id": "if.xrpc.recordCallEvent",           "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openPorts.recordCallEvent" },
-          { "id": "if.xrpc.listVesselCalls",           "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openPorts.listVesselCalls" },
-          { "id": "if.xrpc.recordContainerManifest",   "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openPorts.recordContainerManifest" },
-          { "id": "if.xrpc.listContainers",            "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openPorts.listContainers" },
-          { "id": "if.xrpc.reportIncident",            "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openPorts.reportIncident" },
-          { "id": "if.xrpc.listIncidents",             "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openPorts.listIncidents" }
+          { "id": "if.xrpc.definePort",                "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openPorts.definePort" },
+          { "id": "if.xrpc.listPorts",                 "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openPorts.listPorts" },
+          { "id": "if.xrpc.registerVessel",            "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openPorts.registerVessel" },
+          { "id": "if.xrpc.scheduleVesselCall",        "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openPorts.scheduleVesselCall" },
+          { "id": "if.xrpc.recordCallEvent",           "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openPorts.recordCallEvent" },
+          { "id": "if.xrpc.listVesselCalls",           "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openPorts.listVesselCalls" },
+          { "id": "if.xrpc.recordContainerManifest",   "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openPorts.recordContainerManifest" },
+          { "id": "if.xrpc.listContainers",            "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openPorts.listContainers" },
+          { "id": "if.xrpc.reportIncident",            "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openPorts.reportIncident" },
+          { "id": "if.xrpc.listIncidents",             "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openPorts.listIncidents" }
         ]
       },
       { "id": "sys.d1", "name": "Cloudflare D1 (SQLite)", "platform": "D1",

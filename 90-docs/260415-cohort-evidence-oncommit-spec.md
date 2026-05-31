@@ -1,6 +1,6 @@
 ---
 id: cohort-evidence-oncommit-spec-260415
-title: "ai.gftd.cohort.evidence onCommit Handler Spec (ADR-0026 Phase B)"
+title: "app.etzhayyim.cohort.evidence onCommit Handler Spec (ADR-0026 Phase B)"
 status: active
 doc_type: how-to
 topic: cohort-evidence
@@ -15,7 +15,7 @@ superseded_by: []
 
 # Goal
 
-Phase B: `ai.gftd.cohort.evidence` の commit → APQC projector OCEL emit 経路を固定。
+Phase B: `app.etzhayyim.cohort.evidence` の commit → APQC projector OCEL emit 経路を固定。
 
 # Invocation path
 
@@ -40,7 +40,7 @@ async function handleCohortEvidenceCommit(
     };
   },
 ): Promise<void> {
-  if (commit.collection !== 'ai.gftd.cohort.evidence') return;
+  if (commit.collection !== 'app.etzhayyim.cohort.evidence') return;
   if (commit.action !== 'create') return;
 
   // 1. Fetch cohort actor to resolve pcfL1 / fission_enabled
@@ -89,7 +89,7 @@ async function handleCohortEvidenceCommit(
 # Open issues
 
 - `forwardOcelToApqc` の `kProxy` 引数を `numericPayload` 等に rename して意味を分離するべき (現状は k_proxy と posterior を同じ slot で運んでいる)
-- `deriveCohortEventType` は `@gftd/magatama-host-sdk/cohort` からの import。PDS worker bundle に含まれる
+- `deriveCohortEventType` は `@etzhayyim/magatama-host-sdk/cohort` からの import。PDS worker bundle に含まれる
 - Phase C の `cohort.fission` は別経路 (別 handler、ADR-0026 Phase C fission procedure)
 
 # Integration points

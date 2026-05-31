@@ -86,7 +86,7 @@ def test_ago_domain_slug_empty_returns_empty() -> None:
 def test_ago_vertex_id_format() -> None:
     vid = AGO._vertex_id("mod")
     assert vid.startswith("at://")
-    assert "ai.gftd.apps.states.govOrg" in vid
+    assert "app.etzhayyim.apps.states.govOrg" in vid
 
 
 def test_ago_vertex_id_contains_path() -> None:
@@ -126,7 +126,7 @@ def test_deu_load_seed_orgs_returns_list() -> None:
 def test_deu_vertex_id_format() -> None:
     vid = DEU._vertex_id("bmi")
     assert vid.startswith("at://")
-    assert "ai.gftd.apps.states.govOrg" in vid
+    assert "app.etzhayyim.apps.states.govOrg" in vid
 
 
 def test_deu_url_to_domain_slug() -> None:
@@ -145,7 +145,7 @@ def test_jpn_load_seed_orgs_returns_list() -> None:
 def test_jpn_vertex_id_format() -> None:
     vid = JPN._vertex_id("mof")
     assert vid.startswith("at://")
-    assert "ai.gftd.apps.states.govOrg" in vid
+    assert "app.etzhayyim.apps.states.govOrg" in vid
 
 
 def test_jpn_url_to_domain_slug_japanese_domain() -> None:

@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kami-ketsu-gorilla-submit-score-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kami-ketsu-gorilla-submit-score-v1',
                  'did:web:k3t5g0r1.etzhayyim.com',
                  'kami_ketsu_gorilla_submit_score',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kamiKetsuGorilla"><bpmn:process '
                  'id="kami_ketsu_gorilla_submit_score" name="kamiKetsuGorilla submitScore" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kami.ketsuGorilla.submitScore", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.kami.ketsuGorilla.submitScore", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
                  'did:web:k3t5g0r1.etzhayyim.com',
                  'sys.bpmn.seed.kami-ketsu-gorilla',
                  'did:web:k3t5g0r1.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kami-ketsu-gorilla-submit-score-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kami-ketsu-gorilla-submit-score-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kami-ketsu-gorilla-submitScore-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kami-ketsu-gorilla-submitScore-v1',
                  'did:web:k3t5g0r1.etzhayyim.com',
-                 'ai.gftd.apps.kami.ketsuGorilla.submitScore',
+                 'app.etzhayyim.apps.kami.ketsuGorilla.submitScore',
                  'kami_ketsu_gorilla_submit_score',
                  30000,
                  'vertex_atrecord_kami_ketsu_gorilla_score',
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
                  'did:web:k3t5g0r1.etzhayyim.com',
                  'sys.bpmn.seed.kami-ketsu-gorilla',
                  'did:web:k3t5g0r1.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kami-ketsu-gorilla-submitScore-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kami-ketsu-gorilla-submitScore-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kami-ketsu-gorilla-get-leaderboard-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kami-ketsu-gorilla-get-leaderboard-v1',
                  'did:web:k3t5g0r1.etzhayyim.com',
                  'kami_ketsu_gorilla_get_leaderboard',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kamiKetsuGorilla"><bpmn:process '
                  'id="kami_ketsu_gorilla_get_leaderboard" name="kamiKetsuGorilla getLeaderboard" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kami.ketsuGorilla.getLeaderboard", "version": 1, '
+                 '"app.etzhayyim.apps.kami.ketsuGorilla.getLeaderboard", "version": 1, '
                  '"resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -119,7 +119,7 @@ UP = [{'sql': '\n'
                  'did:web:k3t5g0r1.etzhayyim.com',
                  'sys.bpmn.seed.kami-ketsu-gorilla',
                  'did:web:k3t5g0r1.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kami-ketsu-gorilla-get-leaderboard-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kami-ketsu-gorilla-get-leaderboard-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,9 +134,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kami-ketsu-gorilla-getLeaderboard-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kami-ketsu-gorilla-getLeaderboard-v1',
                  'did:web:k3t5g0r1.etzhayyim.com',
-                 'ai.gftd.apps.kami.ketsuGorilla.getLeaderboard',
+                 'app.etzhayyim.apps.kami.ketsuGorilla.getLeaderboard',
                  'kami_ketsu_gorilla_get_leaderboard',
                  30000,
                  '',
@@ -145,16 +145,16 @@ UP = [{'sql': '\n'
                  'did:web:k3t5g0r1.etzhayyim.com',
                  'sys.bpmn.seed.kami-ketsu-gorilla',
                  'did:web:k3t5g0r1.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kami-ketsu-gorilla-getLeaderboard-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kami-ketsu-gorilla-getLeaderboard-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kami-ketsu-gorilla-submitScore-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kami-ketsu-gorilla-submitScore-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kami-ketsu-gorilla-submit-score-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kami-ketsu-gorilla-submit-score-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kami-ketsu-gorilla-getLeaderboard-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kami-ketsu-gorilla-getLeaderboard-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kami-ketsu-gorilla-get-leaderboard-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kami-ketsu-gorilla-get-leaderboard-v1']}]
 
 
 def upgrade() -> None:

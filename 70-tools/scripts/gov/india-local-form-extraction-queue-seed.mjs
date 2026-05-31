@@ -157,7 +157,7 @@ function linksForProcedure(row) {
 }
 
 function buildTaskValues(row, lang, link, ordinal) {
-  const vertexId = `at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.formExtractionTask/ind-${hash(`${row.vertex_id}|${lang.locale}|${link.href}`)}`;
+  const vertexId = `at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.formExtractionTask/ind-${hash(`${row.vertex_id}|${lang.locale}|${link.href}`)}`;
   const priority = priorityFor({
     taskKind: link.taskKind,
     languageStatus: lang.translation_status,

@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.outlook.get.oauth.config")
+    @worker.task(task_type="app.etzhayyim.apps.outlook.get.oauth.config")
     async def task_get_oauth_config(**kwargs):
         return {
             "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
@@ -29,7 +29,7 @@ async def run_worker():
             "responseType": "code",
         }
 
-    @worker.task(task_type="ai.gftd.apps.outlook.start.auth")
+    @worker.task(task_type="app.etzhayyim.apps.outlook.start.auth")
     async def task_start_auth(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
         redirect_uri = kwargs.get("redirectUri", "")
@@ -43,7 +43,7 @@ async def run_worker():
 
         return {"authUrl": auth_url, "state": state}
 
-    @worker.task(task_type="ai.gftd.apps.outlook.exchange.code")
+    @worker.task(task_type="app.etzhayyim.apps.outlook.exchange.code")
     async def task_exchange_code(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
         code = kwargs.get("code", "")
@@ -70,7 +70,7 @@ async def run_worker():
 
         return {"connectionId": connection_id, "status": "connected"}
 
-    @worker.task(task_type="ai.gftd.apps.outlook.get.auth.status")
+    @worker.task(task_type="app.etzhayyim.apps.outlook.get.auth.status")
     async def task_get_auth_status(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
 
@@ -88,7 +88,7 @@ async def run_worker():
             return {"status": "disconnected", "connectionId": None}
         return {"status": row["status"], "connectionId": row["id"], "upn": row["upn"]}
 
-    @worker.task(task_type="ai.gftd.apps.outlook.get.connection")
+    @worker.task(task_type="app.etzhayyim.apps.outlook.get.connection")
     async def task_get_connection(**kwargs):
         connection_id = kwargs.get("connectionId", "")
 
@@ -105,7 +105,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.outlook.sync.mailbox")
+    @worker.task(task_type="app.etzhayyim.apps.outlook.sync.mailbox")
     async def task_sync_mailbox(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
         connection_id = kwargs.get("connectionId", "")
@@ -131,7 +131,7 @@ async def run_worker():
 
         return {"mailboxId": mailbox_id, "connectionId": connection_id, "syncedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.outlook.card.home")
+    @worker.task(task_type="app.etzhayyim.apps.outlook.card.home")
     async def task_card_home(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:outlook.etzhayyim.com")
 
@@ -157,7 +157,7 @@ async def run_worker():
             "mailbox": dict(mailbox_row) if mailbox_row else None,
         }
 
-    @worker.task(task_type="ai.gftd.apps.outlook.card.action")
+    @worker.task(task_type="app.etzhayyim.apps.outlook.card.action")
     async def task_card_action(**kwargs):
         action = kwargs.get("action", "")
         payload = kwargs.get("payload", {})

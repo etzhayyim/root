@@ -52,7 +52,7 @@ Or via the `provider-vault` XRPC adapter (preferred — scoped by DID session):
 
 ```bash
 curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.put \
-  -H "Authorization: Bearer $GFTD_TOKEN" \
+  -H "Authorization: Bearer $etzhayyim_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "service": "japanpost-enaiyo",
@@ -73,7 +73,7 @@ Check configured credentials (no value returned):
 
 ```bash
 curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.check \
-  -H "Authorization: Bearer $GFTD_TOKEN" \
+  -H "Authorization: Bearer $etzhayyim_TOKEN" \
   -d '{"service":"japanpost-enaiyo","key":"primary"}'
 ```
 

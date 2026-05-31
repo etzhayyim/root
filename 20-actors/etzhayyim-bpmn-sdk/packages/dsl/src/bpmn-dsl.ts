@@ -103,7 +103,7 @@ export function flow(name: string, builder: (f: FlowBuilder) => void): BpmnIR {
     definitions: {
       id: context.generateId('Definitions'),
       name,
-      targetNamespace: 'http://www.gftd.co.jp/bpmn',
+      targetNamespace: 'http://www.etzhayyim.com/bpmn',
       processes: [result.process],
       version: '1.0',
     },

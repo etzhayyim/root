@@ -21,15 +21,15 @@ describe("Oil Shipping Actor Manifest", () => {
   });
   it("subscribes to vessel.portCall", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("ai.gftd.apps.vessel.portCall");
+    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.vessel.portCall");
   });
   it("xrpc covers cargo, exposure, chokepoints, health", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("ai.gftd.apps.oilShipping.routing.getCargo");
-    expect(nsids).toContain("ai.gftd.apps.oilShipping.routing.listCargoes");
-    expect(nsids).toContain("ai.gftd.apps.oilShipping.routing.getRouteExposure");
-    expect(nsids).toContain("ai.gftd.apps.oilShipping.routing.listChokepoints");
-    expect(nsids).toContain("ai.gftd.apps.oilShipping.health");
+    expect(nsids).toContain("app.etzhayyim.apps.oilShipping.routing.getCargo");
+    expect(nsids).toContain("app.etzhayyim.apps.oilShipping.routing.listCargoes");
+    expect(nsids).toContain("app.etzhayyim.apps.oilShipping.routing.getRouteExposure");
+    expect(nsids).toContain("app.etzhayyim.apps.oilShipping.routing.listChokepoints");
+    expect(nsids).toContain("app.etzhayyim.apps.oilShipping.health");
   });
   it("4 actor paths", () => { expect(m.actors).toHaveLength(4); });
 });

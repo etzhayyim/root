@@ -20,7 +20,7 @@ State:
   error           str|None  error message if ok=False
 
 Activation (once routing_target='langgraph' set on the binding row):
-  POST /xrpc/ai.gftd.apps.shosha.agentLoop → bpmn-dispatcher
+  POST /xrpc/app.etzhayyim.apps.shosha.agentLoop → bpmn-dispatcher
     → POST http://langgraph-server.mitama-udf.svc:8000/runs
         {assistant_id: "shosha_agent_loop", input: {prompt, tier?, ...}}
 """
@@ -128,7 +128,7 @@ def fetch_context(state: ShoshaAgentState) -> dict:
             lines.append(f"  - {c} | {n}")
 
     # Phase E1 (ADR-2605082000): pre-render `_userMessage` so the downstream
-    # mcp_tool ai.gftd.tools.llm.chat node can consume `user` directly via
+    # mcp_tool app.etzhayyim.tools.llm.chat node can consume `user` directly via
     # input_paths={"user":"_userMessage"}, retiring the call_llm py_primitive.
     ctx_text = "\n".join(lines) if lines else "(no context rows yet)"
     prompt_text = (state.get("prompt") or "").strip()
@@ -183,7 +183,7 @@ def emit_audit(state: ShoshaAgentState) -> dict:
                 (
                     str(uuid.uuid4()),
                     "did:web:shosha.etzhayyim.com",
-                    "ai.gftd.apps.shosha.agentLoop",
+                    "app.etzhayyim.apps.shosha.agentLoop",
                     f"lg-{int(_time.time() * 1000)}",
                     "create",
                     int(_time.time() * 1000),

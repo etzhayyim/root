@@ -24,8 +24,8 @@ import {
   type ListIpsOutput,
 } from "./types.js";
 
-const ASN_COLLECTION = "ai.gftd.apps.ipaddress.asn";
-const IP_COLLECTION = "ai.gftd.apps.ipaddress.ip";
+const ASN_COLLECTION = "app.etzhayyim.apps.ipaddress.asn";
+const IP_COLLECTION = "app.etzhayyim.apps.ipaddress.ip";
 
 export async function listAsns(
   e: Etzhayyim,

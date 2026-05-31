@@ -2,10 +2,10 @@
 pragma solidity 0.8.27;
 
 import "forge-std/Test.sol";
-import {GftdAgentRegistry} from "../src/GftdAgentRegistry.sol";
+import {etzhayyimAgentRegistry} from "../src/etzhayyimAgentRegistry.sol";
 
-contract GftdAgentRegistryTest is Test {
-    GftdAgentRegistry r;
+contract etzhayyimAgentRegistryTest is Test {
+    etzhayyimAgentRegistry r;
 
     address constant COUNCIL = address(0xC0DEC011);
     address constant STEWARD = address(0x57E4A4D);
@@ -17,18 +17,18 @@ contract GftdAgentRegistryTest is Test {
     bytes32 constant DID_A = keccak256("did:web:etzhayyim.com:actor:dataset-pinner");
     bytes32 constant DID_B = keccak256("did:web:etzhayyim.com:actor:pinner");
     bytes32 constant SCOPE_NONE = bytes32(0);
-    bytes32 constant SCOPE_DATASETPIN = keccak256("ai.gftd.apps.substrate.datasetPin");
+    bytes32 constant SCOPE_DATASETPIN = keccak256("app.etzhayyim.apps.substrate.datasetPin");
 
     string constant URI_A = "ipfs://bafybeigdataset/agent.json";
     string constant URI_A_V2 = "ipfs://bafybeigdatasetv2/agent.json";
 
     function setUp() public {
-        r = new GftdAgentRegistry(COUNCIL);
+        r = new etzhayyimAgentRegistry(COUNCIL);
     }
 
     function test_constructor_rejectsZeroCouncil() public {
-        vm.expectRevert(GftdAgentRegistry.StewardZero.selector);
-        new GftdAgentRegistry(address(0));
+        vm.expectRevert(etzhayyimAgentRegistry.StewardZero.selector);
+        new etzhayyimAgentRegistry(address(0));
     }
 
     function test_register_mintsMonotonically() public {
@@ -41,7 +41,7 @@ contract GftdAgentRegistryTest is Test {
         assertEq(r.didHashToTokenId(DID_B), 2);
         assertEq(r.addrToTokenId(AGENT_ADDR), 1);
 
-        GftdAgentRegistry.Agent memory a = r.getAgentById(t1);
+        etzhayyimAgentRegistry.Agent memory a = r.getAgentById(t1);
         assertEq(a.didHash, DID_A);
         assertEq(a.agentAddr, AGENT_ADDR);
         assertEq(a.steward, STEWARD);
@@ -52,24 +52,24 @@ contract GftdAgentRegistryTest is Test {
 
     function test_register_rejectsDuplicateDid() public {
         r.registerAgent(DID_A, AGENT_ADDR, STEWARD, URI_A, SCOPE_NONE);
-        vm.expectRevert(abi.encodeWithSelector(GftdAgentRegistry.AlreadyRegistered.selector, DID_A));
+        vm.expectRevert(abi.encodeWithSelector(etzhayyimAgentRegistry.AlreadyRegistered.selector, DID_A));
         r.registerAgent(DID_A, AGENT_ADDR_2, STEWARD_2, URI_A, SCOPE_NONE);
     }
 
     function test_register_rejectsZeroSteward() public {
-        vm.expectRevert(GftdAgentRegistry.StewardZero.selector);
+        vm.expectRevert(etzhayyimAgentRegistry.StewardZero.selector);
         r.registerAgent(DID_A, AGENT_ADDR, address(0), URI_A, SCOPE_NONE);
     }
 
     function test_register_rejectsEmptyURI() public {
-        vm.expectRevert(GftdAgentRegistry.AgentURIEmpty.selector);
+        vm.expectRevert(etzhayyimAgentRegistry.AgentURIEmpty.selector);
         r.registerAgent(DID_A, AGENT_ADDR, STEWARD, "", SCOPE_NONE);
     }
 
     function test_updateAgentURI_onlySteward() public {
         uint256 t = r.registerAgent(DID_A, AGENT_ADDR, STEWARD, URI_A, SCOPE_NONE);
         // Non-steward should be rejected.
-        vm.expectRevert(abi.encodeWithSelector(GftdAgentRegistry.NotSteward.selector, t, STRANGER));
+        vm.expectRevert(abi.encodeWithSelector(etzhayyimAgentRegistry.NotSteward.selector, t, STRANGER));
         vm.prank(STRANGER);
         r.updateAgentURI(t, URI_A_V2);
         // Steward succeeds.
@@ -81,7 +81,7 @@ contract GftdAgentRegistryTest is Test {
     function test_updateAgentURI_rejectsEmpty() public {
         uint256 t = r.registerAgent(DID_A, AGENT_ADDR, STEWARD, URI_A, SCOPE_NONE);
         vm.prank(STEWARD);
-        vm.expectRevert(GftdAgentRegistry.AgentURIEmpty.selector);
+        vm.expectRevert(etzhayyimAgentRegistry.AgentURIEmpty.selector);
         r.updateAgentURI(t, "");
     }
 
@@ -99,7 +99,7 @@ contract GftdAgentRegistryTest is Test {
         assertFalse(r.isActive(t));
         // Cannot deactivate twice.
         vm.prank(STEWARD);
-        vm.expectRevert(abi.encodeWithSelector(GftdAgentRegistry.AgentInactive.selector, t));
+        vm.expectRevert(abi.encodeWithSelector(etzhayyimAgentRegistry.AgentInactive.selector, t));
         r.deactivateAgent(t);
     }
 
@@ -107,7 +107,7 @@ contract GftdAgentRegistryTest is Test {
         uint256 t = r.registerAgent(DID_A, AGENT_ADDR, STEWARD, URI_A, SCOPE_NONE);
         // Steward cannot revoke.
         vm.prank(STEWARD);
-        vm.expectRevert(GftdAgentRegistry.NotCouncil.selector);
+        vm.expectRevert(etzhayyimAgentRegistry.NotCouncil.selector);
         r.revokeAgent(t);
         // Council can.
         vm.prank(COUNCIL);
@@ -117,7 +117,7 @@ contract GftdAgentRegistryTest is Test {
 
     function test_revoke_rejectsUnknownToken() public {
         vm.prank(COUNCIL);
-        vm.expectRevert(abi.encodeWithSelector(GftdAgentRegistry.UnknownToken.selector, uint256(99)));
+        vm.expectRevert(abi.encodeWithSelector(etzhayyimAgentRegistry.UnknownToken.selector, uint256(99)));
         r.revokeAgent(99);
     }
 
@@ -128,13 +128,13 @@ contract GftdAgentRegistryTest is Test {
 
     function test_transferFrom_alwaysReverts() public {
         r.registerAgent(DID_A, AGENT_ADDR, STEWARD, URI_A, SCOPE_NONE);
-        vm.expectRevert(GftdAgentRegistry.SoulboundTransfer.selector);
+        vm.expectRevert(etzhayyimAgentRegistry.SoulboundTransfer.selector);
         r.transferFrom(STEWARD, STRANGER, 1);
     }
 
     function test_getAgentByDid_returnsCorrectAgent() public {
         r.registerAgent(DID_A, AGENT_ADDR, STEWARD, URI_A, SCOPE_DATASETPIN);
-        GftdAgentRegistry.Agent memory a = r.getAgentByDid(DID_A);
+        etzhayyimAgentRegistry.Agent memory a = r.getAgentByDid(DID_A);
         assertEq(a.didHash, DID_A);
         assertEq(a.agentURI, URI_A);
         assertEq(a.scopeHash, SCOPE_DATASETPIN);

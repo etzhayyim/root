@@ -29,10 +29,10 @@ export interface QueryForwardResult {
 }
 
 const QUERY_NSIDS = new Set([
-  "ai.gftd.apps.yata.deployQuery",
-  "ai.gftd.apps.yata.executeDeployedQuery",
-  "ai.gftd.apps.yata.listDeployedQueries",
-  "ai.gftd.apps.yata.deleteDeployedQuery",
+  "app.etzhayyim.apps.yata.deployQuery",
+  "app.etzhayyim.apps.yata.executeDeployedQuery",
+  "app.etzhayyim.apps.yata.listDeployedQueries",
+  "app.etzhayyim.apps.yata.deleteDeployedQuery",
 ]);
 
 export function isQueryNsid(nsid: string): boolean {

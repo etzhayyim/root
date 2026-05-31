@@ -24,7 +24,7 @@ class TestPwcPersistRequest(unittest.TestCase):
         ))
         self.assertTrue(out["ok"])
         self.assertTrue(out["clearance_uri"].startswith(
-            "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.pwcClearance/"
+            "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.pwcClearance/"
         ))
         self.assertIn("sla_deadline", out)
 

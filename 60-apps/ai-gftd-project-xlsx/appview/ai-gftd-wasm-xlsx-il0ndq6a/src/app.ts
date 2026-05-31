@@ -17,7 +17,7 @@ import {
   decodeJson,
   nsid,
   parseLexiconInput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const getDb = () => createKyselyDb();
 
@@ -39,14 +39,14 @@ let actorDID = "";
 
 /** Upload an XLSX file: parse SpreadsheetML structure into kagami graph nodes. */
 async function cmdUploadWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.upload", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.upload", body);
   const title = str(args.title ?? "Untitled");
   const wbId = genID("wb");
   const sheetCount = Number(args.sheetCount) || 1;
 
   // Create workbook domain record (Tier 2)
   await getDb().insertInto("vertex_xlsx_workbook" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.workbook/${wbId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.workbook/${wbId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: wbId,
@@ -70,12 +70,12 @@ async function cmdUploadWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uint8A
 
 /** Create a new blank workbook with one default sheet. */
 async function cmdCreateWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.create", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.create", body);
   const title = str(args.title ?? "New Workbook");
   const wbId = genID("wb");
 
   await getDb().insertInto("vertex_xlsx_workbook" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.workbook/${wbId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.workbook/${wbId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: wbId,
@@ -91,7 +91,7 @@ async function cmdCreateWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uint8A
   // Create default sheet (Tier 2)
   const sheetId = genID("sheet");
   await getDb().insertInto("vertex_xlsx_sheet" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.sheet/${sheetId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.sheet/${sheetId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: sheetId,
@@ -117,7 +117,7 @@ async function cmdCreateWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uint8A
 
 /** Delete a workbook and all associated graph nodes. */
 function cmdDeleteWorkbook(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.delete", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.delete", body);
   const id = str(args.id ?? "");
   if (!id) return encodeJson({ error: "id required" });
 
@@ -131,7 +131,7 @@ function cmdDeleteWorkbook(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Export a workbook from graph back to XLSX format. */
 async function cmdExportWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.export", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.export", body);
   const wbId = str(args.id ?? "");
   if (!wbId) return encodeJson({ error: "id required" });
 
@@ -150,7 +150,7 @@ async function cmdExportWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uint8A
 
 /** Duplicate a workbook. */
 async function cmdDuplicateWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.duplicate", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.duplicate", body);
   const sourceId = str(args.id ?? "");
   if (!sourceId) return encodeJson({ error: "id required" });
 
@@ -158,7 +158,7 @@ async function cmdDuplicateWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uin
   const title = str(args.title ?? "Copy");
 
   await getDb().insertInto("vertex_xlsx_workbook" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.workbook/${newId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.workbook/${newId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: newId,
@@ -179,7 +179,7 @@ async function cmdDuplicateWorkbook(sdk: HostSDK, body: Uint8Array): Promise<Uin
 
 /** Set a cell value (string, number, boolean, date). */
 async function cmdSetCellValue(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.setCellValue", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.setCellValue", body);
   const sheetId = str(args.sheetId ?? "");
   const ref = str(args.ref ?? "");
   if (!sheetId || !ref) return encodeJson({ error: "sheetId and ref required" });
@@ -187,7 +187,7 @@ async function cmdSetCellValue(sdk: HostSDK, body: Uint8Array): Promise<Uint8Arr
   const cellId = genID("cell");
 
   await getDb().insertInto("vertex_xlsx_cell" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.cell/${cellId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.cell/${cellId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: cellId,
@@ -210,7 +210,7 @@ async function cmdSetCellValue(sdk: HostSDK, body: Uint8Array): Promise<Uint8Arr
 
 /** Set a cell formula. */
 async function cmdSetCellFormula(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.setCellFormula", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.setCellFormula", body);
   const sheetId = str(args.sheetId ?? "");
   const ref = str(args.ref ?? "");
   const formula = str(args.formula ?? "");
@@ -219,7 +219,7 @@ async function cmdSetCellFormula(sdk: HostSDK, body: Uint8Array): Promise<Uint8A
   const cellId = genID("cell");
 
   await getDb().insertInto("vertex_xlsx_cell" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.cell/${cellId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.cell/${cellId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: cellId,
@@ -242,7 +242,7 @@ async function cmdSetCellFormula(sdk: HostSDK, body: Uint8Array): Promise<Uint8A
 
 /** Apply style to a cell or range. */
 async function cmdSetCellStyle(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.setCellStyle", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.setCellStyle", body);
   const sheetId = str(args.sheetId ?? "");
   const ref = str(args.ref ?? "");
   if (!sheetId || !ref) return encodeJson({ error: "sheetId and ref required" });
@@ -250,7 +250,7 @@ async function cmdSetCellStyle(sdk: HostSDK, body: Uint8Array): Promise<Uint8Arr
   const styleId = genID("style");
 
   await getDb().insertInto("vertex_xlsx_style" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.style/${styleId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.style/${styleId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: styleId,
@@ -272,14 +272,14 @@ async function cmdSetCellStyle(sdk: HostSDK, body: Uint8Array): Promise<Uint8Arr
 
 /** Insert rows at a given position. */
 async function cmdInsertRows(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.insertRows", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.insertRows", body);
   const sheetId = str(args.sheetId ?? "");
   const row = Number(args.row) || 0;
   const count = Number(args.count) || 1;
   if (!sheetId) return encodeJson({ error: "sheetId required" });
 
   await getDb().insertInto("vertex_xlsx_sheet_op" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.sheetOp/${genID("op")}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.sheetOp/${genID("op")}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     operation: "insertRows",
@@ -297,14 +297,14 @@ async function cmdInsertRows(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array
 
 /** Delete rows at a given position. */
 async function cmdDeleteRows(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.deleteRows", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.deleteRows", body);
   const sheetId = str(args.sheetId ?? "");
   const row = Number(args.row) || 0;
   const count = Number(args.count) || 1;
   if (!sheetId) return encodeJson({ error: "sheetId required" });
 
   await getDb().insertInto("vertex_xlsx_sheet_op" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.sheetOp/${genID("op")}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.sheetOp/${genID("op")}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     operation: "deleteRows",
@@ -322,14 +322,14 @@ async function cmdDeleteRows(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array
 
 /** Insert columns at a given position. */
 async function cmdInsertColumns(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.insertColumns", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.insertColumns", body);
   const sheetId = str(args.sheetId ?? "");
   const col = Number(args.col) || 0;
   const count = Number(args.count) || 1;
   if (!sheetId) return encodeJson({ error: "sheetId required" });
 
   await getDb().insertInto("vertex_xlsx_sheet_op" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.sheetOp/${genID("op")}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.sheetOp/${genID("op")}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     operation: "insertColumns",
@@ -347,14 +347,14 @@ async function cmdInsertColumns(sdk: HostSDK, body: Uint8Array): Promise<Uint8Ar
 
 /** Delete columns at a given position. */
 async function cmdDeleteColumns(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.deleteColumns", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.deleteColumns", body);
   const sheetId = str(args.sheetId ?? "");
   const col = Number(args.col) || 0;
   const count = Number(args.count) || 1;
   if (!sheetId) return encodeJson({ error: "sheetId required" });
 
   await getDb().insertInto("vertex_xlsx_sheet_op" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.sheetOp/${genID("op")}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.sheetOp/${genID("op")}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     operation: "deleteColumns",
@@ -372,7 +372,7 @@ async function cmdDeleteColumns(sdk: HostSDK, body: Uint8Array): Promise<Uint8Ar
 
 /** Merge a range of cells. */
 async function cmdMergeCells(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.mergeCells", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.mergeCells", body);
   const sheetId = str(args.sheetId ?? "");
   const startRef = str(args.startRef ?? "");
   const endRef = str(args.endRef ?? "");
@@ -381,7 +381,7 @@ async function cmdMergeCells(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array
   const mergeId = genID("merge");
 
   await getDb().insertInto("vertex_xlsx_merge" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.merge/${mergeId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.merge/${mergeId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: mergeId,
@@ -399,7 +399,7 @@ async function cmdMergeCells(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array
 
 /** Unmerge a merged cell region. */
 function cmdUnmergeCells(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.unmergeCells", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.unmergeCells", body);
   const id = str(args.id ?? "");
   if (!id) return encodeJson({ error: "id required" });
 
@@ -413,7 +413,7 @@ function cmdUnmergeCells(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Add a new sheet to the workbook. */
 async function cmdAddSheet(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.addSheet", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.addSheet", body);
   const workbookId = str(args.workbookId ?? "");
   if (!workbookId) return encodeJson({ error: "workbookId required" });
 
@@ -422,7 +422,7 @@ async function cmdAddSheet(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> 
   const order = Number(args.order) || 0;
 
   await getDb().insertInto("vertex_xlsx_sheet" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.xlsx.sheet/${sheetId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.xlsx.sheet/${sheetId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: sheetId,
@@ -443,7 +443,7 @@ async function cmdAddSheet(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> 
 
 /** Remove a sheet from the workbook. */
 function cmdRemoveSheet(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.removeSheet", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.removeSheet", body);
   const id = str(args.id ?? "");
   if (!id) return encodeJson({ error: "id required" });
 
@@ -457,7 +457,7 @@ function cmdRemoveSheet(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Rename an existing sheet. */
 function cmdRenameSheet(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.renameSheet", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.renameSheet", body);
   const id = str(args.id ?? "");
   const name = str(args.name ?? "");
   if (!id || !name) return encodeJson({ error: "id and name required" });
@@ -472,7 +472,7 @@ function cmdRenameSheet(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Reorder sheets within the workbook. */
 function cmdReorderSheets(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.reorderSheets", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.reorderSheets", body);
   const workbookId = str(args.workbookId ?? "");
   const sheetIds: string[] = args.sheetIds ?? [];
   if (!workbookId || sheetIds.length === 0) return encodeJson({ error: "workbookId and sheetIds required" });
@@ -489,7 +489,7 @@ function cmdReorderSheets(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Sort a cell range by column(s). */
 function cmdSortRange(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.sortRange", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.sortRange", body);
   const sheetId = str(args.sheetId ?? "");
   const range = str(args.range ?? "");
   const sortCol = Number(args.sortCol) || 0;
@@ -501,7 +501,7 @@ function cmdSortRange(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Apply auto-filter to a cell range. */
 function cmdFilterRange(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.filterRange", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.filterRange", body);
   const sheetId = str(args.sheetId ?? "");
   const range = str(args.range ?? "");
   if (!sheetId || !range) return encodeJson({ error: "sheetId and range required" });
@@ -515,7 +515,7 @@ function cmdFilterRange(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Search workbooks by title or content. */
 async function cmdSearchWorkbooks(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.search", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.search", body);
   const query = str(args.query ?? "");
   const limit = Number(args.limit) || 50;
 
@@ -526,7 +526,7 @@ async function cmdSearchWorkbooks(sdk: HostSDK, body: Uint8Array): Promise<Uint8
 
 /** List sheets in a workbook. */
 async function cmdListSheets(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.listSheets", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.listSheets", body);
   const workbookId = str(args.workbookId ?? "");
   if (!workbookId) return encodeJson({ error: "workbookId required" });
 
@@ -537,7 +537,7 @@ async function cmdListSheets(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array
 
 /** Get cell values/formulas for a range. */
 async function cmdGetCellRange(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.getCellRange", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.getCellRange", body);
   const sheetId = str(args.sheetId ?? "");
   const startRow = Number(args.startRow) || 0;
   const endRow = Number(args.endRow) || 100;
@@ -552,7 +552,7 @@ async function cmdGetCellRange(sdk: HostSDK, body: Uint8Array): Promise<Uint8Arr
 
 /** Get formula dependency graph for a cell (DuckPGQ multi-hop). */
 async function cmdGetFormulaDeps(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.xlsx.getFormulaDeps", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.xlsx.getFormulaDeps", body);
   const sheetId = str(args.sheetId ?? "");
   const ref = str(args.ref ?? "");
   if (!sheetId || !ref) return encodeJson({ error: "sheetId and ref required" });
@@ -575,8 +575,8 @@ function handleComAtprotoSyncSubscribeReposCommit(
 
   const collection = str(commit.collection ?? "");
 
-  if (collection.startsWith("ai.gftd.apps.xlsx.")) {
-    const kind = collection.replace("ai.gftd.apps.xlsx.", "");
+  if (collection.startsWith("app.etzhayyim.apps.xlsx.")) {
+    const kind = collection.replace("app.etzhayyim.apps.xlsx.", "");
     return { ok: true, detail: `processed xlsx.${kind}` };
   }
 
@@ -659,101 +659,101 @@ export default createWorkerExport((sdk) => {
 
   sdk.app
     // --- Workbook Management ---
-    .command(nsid("ai.gftd.apps.xlsx.upload"), (ctx, body) => cmdUploadWorkbook(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.upload"), (ctx, body) => cmdUploadWorkbook(sdk, body),
       asAgentTool("Upload and parse XLSX file"),
       withCapabilityTags("write", "xlsx", "upload"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.create"), (ctx, body) => cmdCreateWorkbook(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.create"), (ctx, body) => cmdCreateWorkbook(sdk, body),
       asAgentTool("Create new blank workbook"),
       withCapabilityTags("write", "xlsx"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.delete"), (ctx, body) => cmdDeleteWorkbook(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.delete"), (ctx, body) => cmdDeleteWorkbook(sdk, body),
       asAgentTool("Delete a workbook"),
       withCapabilityTags("write", "xlsx"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.export"), (ctx, body) => cmdExportWorkbook(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.export"), (ctx, body) => cmdExportWorkbook(sdk, body),
       asAgentTool("Export workbook to XLSX"),
       withCapabilityTags("export", "xlsx"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.duplicate"), (ctx, body) => cmdDuplicateWorkbook(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.duplicate"), (ctx, body) => cmdDuplicateWorkbook(sdk, body),
       asAgentTool("Duplicate a workbook"),
       withCapabilityTags("write", "xlsx"),
     )
     // --- Sheet Editing ---
-    .command(nsid("ai.gftd.apps.xlsx.setCellValue"), (ctx, body) => cmdSetCellValue(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.setCellValue"), (ctx, body) => cmdSetCellValue(sdk, body),
       asAgentTool("Set a cell value"),
       withCapabilityTags("write", "xlsx", "cell"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.setCellFormula"), (ctx, body) => cmdSetCellFormula(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.setCellFormula"), (ctx, body) => cmdSetCellFormula(sdk, body),
       asAgentTool("Set a cell formula"),
       withCapabilityTags("write", "xlsx", "formula"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.setCellStyle"), (ctx, body) => cmdSetCellStyle(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.setCellStyle"), (ctx, body) => cmdSetCellStyle(sdk, body),
       asAgentTool("Apply style to a cell or range"),
       withCapabilityTags("write", "xlsx", "style"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.insertRows"), (ctx, body) => cmdInsertRows(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.insertRows"), (ctx, body) => cmdInsertRows(sdk, body),
       asAgentTool("Insert rows"),
       withCapabilityTags("write", "xlsx", "row"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.deleteRows"), (ctx, body) => cmdDeleteRows(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.deleteRows"), (ctx, body) => cmdDeleteRows(sdk, body),
       asAgentTool("Delete rows"),
       withCapabilityTags("write", "xlsx", "row"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.insertColumns"), (ctx, body) => cmdInsertColumns(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.insertColumns"), (ctx, body) => cmdInsertColumns(sdk, body),
       asAgentTool("Insert columns"),
       withCapabilityTags("write", "xlsx", "column"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.deleteColumns"), (ctx, body) => cmdDeleteColumns(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.deleteColumns"), (ctx, body) => cmdDeleteColumns(sdk, body),
       asAgentTool("Delete columns"),
       withCapabilityTags("write", "xlsx", "column"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.mergeCells"), (ctx, body) => cmdMergeCells(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.mergeCells"), (ctx, body) => cmdMergeCells(sdk, body),
       asAgentTool("Merge a range of cells"),
       withCapabilityTags("write", "xlsx", "merge"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.unmergeCells"), (ctx, body) => cmdUnmergeCells(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.unmergeCells"), (ctx, body) => cmdUnmergeCells(sdk, body),
       asAgentTool("Unmerge cells"),
       withCapabilityTags("write", "xlsx", "merge"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.addSheet"), (ctx, body) => cmdAddSheet(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.addSheet"), (ctx, body) => cmdAddSheet(sdk, body),
       asAgentTool("Add a new sheet"),
       withCapabilityTags("write", "xlsx", "sheet"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.removeSheet"), (ctx, body) => cmdRemoveSheet(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.removeSheet"), (ctx, body) => cmdRemoveSheet(sdk, body),
       asAgentTool("Remove a sheet"),
       withCapabilityTags("write", "xlsx", "sheet"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.renameSheet"), (ctx, body) => cmdRenameSheet(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.renameSheet"), (ctx, body) => cmdRenameSheet(sdk, body),
       asAgentTool("Rename a sheet"),
       withCapabilityTags("write", "xlsx", "sheet"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.reorderSheets"), (ctx, body) => cmdReorderSheets(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.reorderSheets"), (ctx, body) => cmdReorderSheets(sdk, body),
       asAgentTool("Reorder sheets"),
       withCapabilityTags("write", "xlsx", "sheet"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.sortRange"), (ctx, body) => cmdSortRange(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.sortRange"), (ctx, body) => cmdSortRange(sdk, body),
       asAgentTool("Sort a cell range"),
       withCapabilityTags("write", "xlsx", "sort"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.filterRange"), (ctx, body) => cmdFilterRange(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.filterRange"), (ctx, body) => cmdFilterRange(sdk, body),
       asAgentTool("Apply auto-filter to a range"),
       withCapabilityTags("write", "xlsx", "filter"),
     )
     // --- Workbook Search ---
-    .command(nsid("ai.gftd.apps.xlsx.search"), (ctx, body) => cmdSearchWorkbooks(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.search"), (ctx, body) => cmdSearchWorkbooks(sdk, body),
       asAgentTool("Search workbooks"),
       withCapabilityTags("search", "xlsx"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.listSheets"), (ctx, body) => cmdListSheets(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.listSheets"), (ctx, body) => cmdListSheets(sdk, body),
       asAgentTool("List sheets in a workbook"),
       withCapabilityTags("query", "xlsx", "sheet"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.getCellRange"), (ctx, body) => cmdGetCellRange(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.getCellRange"), (ctx, body) => cmdGetCellRange(sdk, body),
       asAgentTool("Get cell range values"),
       withCapabilityTags("query", "xlsx", "cell"),
     )
-    .command(nsid("ai.gftd.apps.xlsx.getFormulaDeps"), (ctx, body) => cmdGetFormulaDeps(sdk, body),
+    .command(nsid("app.etzhayyim.apps.xlsx.getFormulaDeps"), (ctx, body) => cmdGetFormulaDeps(sdk, body),
       asAgentTool("Get formula dependency graph"),
       withCapabilityTags("query", "xlsx", "formula"),
     );

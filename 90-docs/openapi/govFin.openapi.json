@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govFin.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govFin.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Finland government.",
-        "operationId": "ai.gftd.govFin.followSiteDeps",
+        "operationId": "app.etzhayyim.govFin.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFin.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govFin.heartbeatTick": {
       "post": {
         "summary": "Run the Finland government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govFin.heartbeatTick",
+        "operationId": "app.etzhayyim.govFin.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFin.listOrgs": {
+    "/xrpc/app.etzhayyim.govFin.listOrgs": {
       "get": {
         "summary": "List Finland government organization graph records.",
-        "operationId": "ai.gftd.govFin.listOrgs",
+        "operationId": "app.etzhayyim.govFin.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFin.registerDIDs": {
+    "/xrpc/app.etzhayyim.govFin.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Finland government organizations.",
-        "operationId": "ai.gftd.govFin.registerDIDs",
+        "operationId": "app.etzhayyim.govFin.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFin.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govFin.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Finland government organization path to its graph record.",
-        "operationId": "ai.gftd.govFin.resolveOrgPath",
+        "operationId": "app.etzhayyim.govFin.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFin.seedOrgs": {
+    "/xrpc/app.etzhayyim.govFin.seedOrgs": {
       "post": {
         "summary": "Seed initial Finland government organization records into the graph.",
-        "operationId": "ai.gftd.govFin.seedOrgs",
+        "operationId": "app.etzhayyim.govFin.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFin.shinka": {
+    "/xrpc/app.etzhayyim.govFin.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Finland government organization update.",
-        "operationId": "ai.gftd.govFin.shinka",
+        "operationId": "app.etzhayyim.govFin.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFin.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govFin.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Finland government organization changes to graph.",
-        "operationId": "ai.gftd.govFin.syncWetUpdates",
+        "operationId": "app.etzhayyim.govFin.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

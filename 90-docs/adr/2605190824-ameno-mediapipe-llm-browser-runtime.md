@@ -7,10 +7,10 @@ topic: ameno-browser-inference
 authoritative: true
 last_verified: 2026-05-19
 related:
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
-  - 2605182312-local-bring-up-murakumo-gemma4.md
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+V05182312-local-bring-up-murakumo-gemma4
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate.md
+  - adr-2605172000-etzhayyim-rw-free-substrate
 ---
 
 # ADR 2605190824: Ameno MediaPipe LLM Inference Web — third browser kernel
@@ -36,8 +36,8 @@ ameno は Tier 2 として **「ブラウザで `.task` を直接焼ける」** 
 
 **MediaPipe LLM Inference Web を ameno の第 3 kernel `mediapipe-gpu` として導入する。**
 
-1. **Lexicon** — `ai.gftd.apps.ameno.listModels` の `kernel` 列挙を `webgpu / wasm-ternary / mediapipe-gpu` に拡張する(`description` の更新のみ。string で開いているので breaking ではない)。
-2. **Runtime module** — `60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte/src/lib/mediapipe-runtime.ts` に独立実装。既存 `inference.ts` (= `@gftd/ameno/inference` 再 export) と並列。共通 shape:
+1. **Lexicon** — `app.etzhayyim.apps.ameno.listModels` の `kernel` 列挙を `webgpu / wasm-ternary / mediapipe-gpu` に拡張する(`description` の更新のみ。string で開いているので breaking ではない)。
+2. **Runtime module** — `60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte/src/lib/mediapipe-runtime.ts` に独立実装。既存 `inference.ts` (= `@etzhayyim/ameno/inference` 再 export) と並列。共通 shape:
    - `loadModel(onProgress, modelId, device): Promise<void>`
    - `generate(messages, onToken): Promise<GenerationStats>`
    - `MODELS: Record<string, ModelMeta>`

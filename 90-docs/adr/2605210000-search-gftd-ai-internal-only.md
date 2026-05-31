@@ -16,7 +16,7 @@ authoritative_for:
   - search-gftd-ai-internal-only
 related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
 supersedes: []
 superseded_by: []
@@ -53,7 +53,7 @@ amended_by: []
 | 呼び出し元 | 方法 | 許可 |
 |---|---|---|
 | 内部 CF Worker (PDS / dispatcher) | CF Service Binding | ✅ |
-| K8s pod / LangServer | XRPC `ai.gftd.apps.search.*` via dispatcher | ✅ |
+| K8s pod / LangServer | XRPC `app.etzhayyim.apps.search.*` via dispatcher | ✅ |
 | 外部クライアント | `mcp.etzhayyim.com/mcp` MCP tool 経由 | ✅ (MCP facade が auth gate) |
 | 外部クライアント | `search.etzhayyim.com` 直接 HTTP | ❌ 禁止 |
 | `*.workers.dev` URL | — | ❌ 無効化 |

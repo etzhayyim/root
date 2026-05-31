@@ -6,12 +6,12 @@ Hot path for the chat product. CF Worker (etzhayyim.com) → CF Tunnel
 
 Routes:
     POST /api/chat                          SSE streaming agent loop (browser)
-    POST /xrpc/ai.gftd.apps.chat.sendMessage non-streaming single-shot
-    POST /xrpc/ai.gftd.apps.chat.agentLoop  non-streaming agent loop
-    GET  /xrpc/ai.gftd.apps.chat.coverage   counts
-    GET  /xrpc/ai.gftd.apps.chat.listConversations
-    GET  /xrpc/ai.gftd.apps.chat.getConversation
-    POST /xrpc/ai.gftd.apps.chat.deleteConversation
+    POST /xrpc/app.etzhayyim.apps.chat.sendMessage non-streaming single-shot
+    POST /xrpc/app.etzhayyim.apps.chat.agentLoop  non-streaming agent loop
+    GET  /xrpc/app.etzhayyim.apps.chat.coverage   counts
+    GET  /xrpc/app.etzhayyim.apps.chat.listConversations
+    GET  /xrpc/app.etzhayyim.apps.chat.getConversation
+    POST /xrpc/app.etzhayyim.apps.chat.deleteConversation
     GET  /health
     GET  /_app/meta
 
@@ -446,7 +446,7 @@ async def xrpc_delete_conversation(request: web.Request) -> web.Response:
 
 _OPENAI_MODELS: list[dict[str, Any]] = [
     {"id": "gftd-chat", "object": "model", "owned_by": "gftd",
-     "description": "Gftd chat assistant (default). Built-in tools: code, image, file save, history search, web search."},
+     "description": "etzhayyim chat assistant (default). Built-in tools: code, image, file save, history search, web search."},
     {"id": "gftd-chat-fast", "object": "model", "owned_by": "gftd",
      "description": "Lower-latency variant for short replies."},
     {"id": "gftd-chat-balanced", "object": "model", "owned_by": "gftd",
@@ -517,7 +517,7 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
 
     model = str(payload.get("model") or "gftd-chat")
     tier = _MODEL_TO_TIER.get(model, "balanced")
-    # If the caller asked for a non-Gftd model name (e.g. "gpt-4o-mini"), pass
+    # If the caller asked for a non-etzhayyim model name (e.g. "gpt-4o-mini"), pass
     # it through as a model_hint so the upstream LLM sees the requested name.
     model_hint = "" if model.startswith("gftd-chat") else model
 
@@ -591,7 +591,7 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
                                      "finish_reason": None}],
                     })
                 elif ev["event"] == "tool":
-                    # Surface tool activity in a Gftd-specific chunk extension
+                    # Surface tool activity in a etzhayyim-specific chunk extension
                     # (OpenAI clients ignore unknown fields). Cleaner than
                     # spamming `delta.content`.
                     await write_chunk({
@@ -726,7 +726,7 @@ def _mcp_tool_definitions() -> list[dict[str, Any]]:
     out.append({
         "name": "chat",
         "description": (
-            "Run a single user turn through the Gftd chat agent (LangGraph + "
+            "Run a single user turn through the etzhayyim chat agent (LangGraph + "
             "LLM + internal tools). Returns the assistant's reply text."
         ),
         "inputSchema": {
@@ -845,7 +845,7 @@ def _mcp_handle_request(req: dict[str, Any], *, owner_did: str) -> dict[str, Any
                 "version": MCP_SERVER_VERSION,
             },
             "instructions": (
-                "Gftd chat MCP server. Use `chat` for full agent invocation, "
+                "etzhayyim chat MCP server. Use `chat` for full agent invocation, "
                 "or call individual tools (code_exec / image_gen / file_save / "
                 "rag_search / web_search / schedule_report) directly."
             ),
@@ -983,12 +983,12 @@ def make_app() -> web.Application:
     app.on_startup.append(_warm_domain_knowledge)
     app.add_routes([
         web.post("/api/chat", post_chat_sse),
-        web.post("/xrpc/ai.gftd.apps.chat.sendMessage", xrpc_send_message),
-        web.post("/xrpc/ai.gftd.apps.chat.agentLoop", xrpc_agent_loop),
-        web.get("/xrpc/ai.gftd.apps.chat.coverage", xrpc_coverage),
-        web.get("/xrpc/ai.gftd.apps.chat.listConversations", xrpc_list_conversations),
-        web.get("/xrpc/ai.gftd.apps.chat.getConversation", xrpc_get_conversation),
-        web.post("/xrpc/ai.gftd.apps.chat.deleteConversation", xrpc_delete_conversation),
+        web.post("/xrpc/app.etzhayyim.apps.chat.sendMessage", xrpc_send_message),
+        web.post("/xrpc/app.etzhayyim.apps.chat.agentLoop", xrpc_agent_loop),
+        web.get("/xrpc/app.etzhayyim.apps.chat.coverage", xrpc_coverage),
+        web.get("/xrpc/app.etzhayyim.apps.chat.listConversations", xrpc_list_conversations),
+        web.get("/xrpc/app.etzhayyim.apps.chat.getConversation", xrpc_get_conversation),
+        web.post("/xrpc/app.etzhayyim.apps.chat.deleteConversation", xrpc_delete_conversation),
         # OpenAI-compatible API surface.
         web.get("/v1/models", openai_list_models),
         web.post("/v1/chat/completions", openai_chat_completions),

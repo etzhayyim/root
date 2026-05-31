@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.animeka.addCut": {
+    "/xrpc/app.etzhayyim.animeka.addCut": {
       "post": {
         "summary": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.etzhayyim.com:cut:{rkey}. Sequential addCut calls on the same scene auto-increment cutNum if omitted.",
-        "operationId": "ai.gftd.animeka.addCut",
+        "operationId": "app.etzhayyim.animeka.addCut",
         "requestBody": {
           "required": true,
           "content": {
@@ -115,10 +115,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.addEpisode": {
+    "/xrpc/app.etzhayyim.animeka.addEpisode": {
       "post": {
-        "summary": "Create an episode record (ai.gftd.apps.animeka.episode) and bootstrap its project (convoId). The episode inherits work.fps unless overridden. Emits social announcement via derive rule on status transition.",
-        "operationId": "ai.gftd.animeka.addEpisode",
+        "summary": "Create an episode record (app.etzhayyim.apps.animeka.episode) and bootstrap its project (convoId). The episode inherits work.fps unless overridden. Emits social announcement via derive rule on status transition.",
+        "operationId": "app.etzhayyim.animeka.addEpisode",
         "requestBody": {
           "required": true,
           "content": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.autoTrace": {
+    "/xrpc/app.etzhayyim.animeka.autoTrace": {
       "post": {
-        "summary": "Invoke the finisher AI actor to auto-color-trace a keyframe or inbetween frame using the given color model. Produces ai.gftd.apps.animeka.colorTrace record with method='aiAutoTrace' and status='review'.",
-        "operationId": "ai.gftd.animeka.autoTrace",
+        "summary": "Invoke the finisher AI actor to auto-color-trace a keyframe or inbetween frame using the given color model. Produces app.etzhayyim.apps.animeka.colorTrace record with method='aiAutoTrace' and status='review'.",
+        "operationId": "app.etzhayyim.animeka.autoTrace",
         "requestBody": {
           "required": true,
           "content": {
@@ -286,10 +286,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.breakdownScene": {
+    "/xrpc/app.etzhayyim.animeka.breakdownScene": {
       "post": {
         "summary": "Stage 2/12 — Break a scene into 3-8 cuts via Qwen 7B (mid tier). Persists a sceneBreakdown plan row (cuts array in description). UI/caller fanouts addCut per entry. Backed by BPMN animeka_breakdown_scene (ADR-2604231328).",
-        "operationId": "ai.gftd.animeka.breakdownScene",
+        "operationId": "app.etzhayyim.animeka.breakdownScene",
         "requestBody": {
           "required": true,
           "content": {
@@ -339,10 +339,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.chat": {
+    "/xrpc/app.etzhayyim.animeka.chat": {
       "post": {
-        "summary": "Send a chat message to one of the 12 animeka actors (or broadcast to director when actorSlug omitted). Writes the user turn + the actor reply as ai.gftd.apps.animeka.chatMessage records scoped to the episode convoId, and returns the reply synchronously for UI rendering.",
-        "operationId": "ai.gftd.animeka.chat",
+        "summary": "Send a chat message to one of the 12 animeka actors (or broadcast to director when actorSlug omitted). Writes the user turn + the actor reply as app.etzhayyim.apps.animeka.chatMessage records scoped to the episode convoId, and returns the reply synchronously for UI rendering.",
+        "operationId": "app.etzhayyim.animeka.chat",
         "requestBody": {
           "required": true,
           "content": {
@@ -420,10 +420,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.createWork": {
+    "/xrpc/app.etzhayyim.animeka.createWork": {
       "post": {
         "summary": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.etzhayyim.com:work:{slug}.",
-        "operationId": "ai.gftd.animeka.createWork",
+        "operationId": "app.etzhayyim.animeka.createWork",
         "requestBody": {
           "required": true,
           "content": {
@@ -530,10 +530,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.designColorModel": {
+    "/xrpc/app.etzhayyim.animeka.designColorModel": {
       "post": {
         "summary": "Stage 7/12 — Design a color model (palette + character color chart) for a character. Typically invoked once per character. Backed by BPMN animeka_design_color_model (ADR-2604231328).",
-        "operationId": "ai.gftd.animeka.designColorModel",
+        "operationId": "app.etzhayyim.animeka.designColorModel",
         "requestBody": {
           "required": true,
           "content": {
@@ -583,10 +583,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.generateBackground": {
+    "/xrpc/app.etzhayyim.animeka.generateBackground": {
       "post": {
         "summary": "Stage 9/12 — Generate a painterly anime background (FLUX.1-dev, 1920x1080). Derive rule fires on layout.status=approved in parallel with keyframe gen. Backed by BPMN animeka_generate_background (ADR-2604231328).",
-        "operationId": "ai.gftd.animeka.generateBackground",
+        "operationId": "app.etzhayyim.animeka.generateBackground",
         "requestBody": {
           "required": true,
           "content": {
@@ -647,10 +647,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.generateInbetween": {
+    "/xrpc/app.etzhayyim.animeka.generateInbetween": {
       "post": {
-        "summary": "Invoke the inbetweener AI actor to interpolate in-between frames between two keyframes on the same cut + layerRole. Creates ai.gftd.apps.animeka.inbetween records with method='aiInterp' and status='review'.",
-        "operationId": "ai.gftd.animeka.generateInbetween",
+        "summary": "Invoke the inbetweener AI actor to interpolate in-between frames between two keyframes on the same cut + layerRole. Creates app.etzhayyim.apps.animeka.inbetween records with method='aiInterp' and status='review'.",
+        "operationId": "app.etzhayyim.animeka.generateInbetween",
         "requestBody": {
           "required": true,
           "content": {
@@ -737,10 +737,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.generateKeyframe": {
+    "/xrpc/app.etzhayyim.animeka.generateKeyframe": {
       "post": {
         "summary": "Stage 5/12 — Generate a single anime keyframe (Animagine XL + ControlNet-pose + IPAdapter character ref). Caller fanouts per key pose. Backed by BPMN animeka_generate_keyframe (ADR-2604231328).",
-        "operationId": "ai.gftd.animeka.generateKeyframe",
+        "operationId": "app.etzhayyim.animeka.generateKeyframe",
         "requestBody": {
           "required": true,
           "content": {
@@ -801,10 +801,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.generateLayout": {
+    "/xrpc/app.etzhayyim.animeka.generateLayout": {
       "post": {
         "summary": "Stage 4/12 — Generate a layout paper from an approved storyboard (ControlNet-depth + Animagine 1024x1024). HITL: produces status=draft, director approves downstream. Backed by BPMN animeka_generate_layout (ADR-2604231328).",
-        "operationId": "ai.gftd.animeka.generateLayout",
+        "operationId": "app.etzhayyim.animeka.generateLayout",
         "requestBody": {
           "required": true,
           "content": {
@@ -858,10 +858,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.generateScript": {
+    "/xrpc/app.etzhayyim.animeka.generateScript": {
       "post": {
         "summary": "Stage 1/12 — Draft an episode script with Claude Sonnet 4.5 (deep tier), structure scenes via Qwen 7B (mid tier), and persist a script row. Backed by BPMN animeka_generate_script (ADR-2604231328).",
-        "operationId": "ai.gftd.animeka.generateScript",
+        "operationId": "app.etzhayyim.animeka.generateScript",
         "requestBody": {
           "required": true,
           "content": {
@@ -920,10 +920,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.generateSoundCue": {
+    "/xrpc/app.etzhayyim.animeka.generateSoundCue": {
       "post": {
         "summary": "Stage 11/12 — Generate one sound cue (dialogue via Style-Bert-VITS2 JP / SFX via Stable Audio Open / BGM via MusicGen medium). Caller fanouts per cue. Backed by BPMN animeka_generate_sound_cue (ADR-2604231328).",
-        "operationId": "ai.gftd.animeka.generateSoundCue",
+        "operationId": "app.etzhayyim.animeka.generateSoundCue",
         "requestBody": {
           "required": true,
           "content": {
@@ -986,10 +986,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.generateStoryboard": {
+    "/xrpc/app.etzhayyim.animeka.generateStoryboard": {
       "post": {
         "summary": "Stage 3/12 — Generate one storyboard candidate image (Animagine XL 512x512). Caller invokes 3 times (candidateNum=1,2,3); director picks 1 via status=approved gate. Backed by BPMN animeka_generate_storyboard (ADR-2604231328).",
-        "operationId": "ai.gftd.animeka.generateStoryboard",
+        "operationId": "app.etzhayyim.animeka.generateStoryboard",
         "requestBody": {
           "required": true,
           "content": {
@@ -1048,10 +1048,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.getCut": {
+    "/xrpc/app.etzhayyim.animeka.getCut": {
       "get": {
         "summary": "Get a cut with its full layer tree (storyboard, layout, keyframes, inbetweens, colorTrace, background, composite, soundCue, retakes). Drives the Cut Detail view.",
-        "operationId": "ai.gftd.animeka.getCut",
+        "operationId": "app.etzhayyim.animeka.getCut",
         "parameters": [
           {
             "name": "cutId",
@@ -1118,10 +1118,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.health": {
+    "/xrpc/app.etzhayyim.animeka.health": {
       "post": {
         "summary": "Health check. Returns app identity + timestamp.",
-        "operationId": "ai.gftd.animeka.health",
+        "operationId": "app.etzhayyim.animeka.health",
         "requestBody": {
           "required": true,
           "content": {
@@ -1166,10 +1166,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.listCuts": {
+    "/xrpc/app.etzhayyim.animeka.listCuts": {
       "get": {
         "summary": "List cuts. Powers the Pipeline Board (episode-scoped) and the flat Cuts browser (cross-episode when only workId is given).",
-        "operationId": "ai.gftd.animeka.listCuts",
+        "operationId": "app.etzhayyim.animeka.listCuts",
         "parameters": [
           {
             "name": "episodeId",
@@ -1345,10 +1345,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.listEpisodes": {
+    "/xrpc/app.etzhayyim.animeka.listEpisodes": {
       "get": {
         "summary": "List episodes of a work. Uses edge_contains graph traversal from work.",
-        "operationId": "ai.gftd.animeka.listEpisodes",
+        "operationId": "app.etzhayyim.animeka.listEpisodes",
         "parameters": [
           {
             "name": "workId",
@@ -1479,10 +1479,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.listRetakes": {
+    "/xrpc/app.etzhayyim.animeka.listRetakes": {
       "get": {
         "summary": "List retakes. Powers the Review Room queue and per-cut retake panel. Default filter is status='open'.",
-        "operationId": "ai.gftd.animeka.listRetakes",
+        "operationId": "app.etzhayyim.animeka.listRetakes",
         "parameters": [
           {
             "name": "episodeId",
@@ -1625,10 +1625,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.listWorks": {
+    "/xrpc/app.etzhayyim.animeka.listWorks": {
       "get": {
         "summary": "List anime works (series).",
-        "operationId": "ai.gftd.animeka.listWorks",
+        "operationId": "app.etzhayyim.animeka.listWorks",
         "parameters": [
           {
             "name": "status",
@@ -1722,10 +1722,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.publishEpisode": {
+    "/xrpc/app.etzhayyim.animeka.publishEpisode": {
       "post": {
         "summary": "Publish or update an episode. Transitions status (typically 'review' → 'delivered' → 'published') and sets masterCid. Transition to 'published' fires the `episode-published-social` derive rule to emit Tier 1 social post (AppBskyFeedPost) authored by the work's path-based DID.",
-        "operationId": "ai.gftd.animeka.publishEpisode",
+        "operationId": "app.etzhayyim.animeka.publishEpisode",
         "requestBody": {
           "required": true,
           "content": {
@@ -1820,10 +1820,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.renderComposite": {
+    "/xrpc/app.etzhayyim.animeka.renderComposite": {
       "post": {
-        "summary": "Invoke the compositor AI actor to render the final composite for a cut. Combines colorTrace frames + background + fxStack + camera move into outputCid. Creates ai.gftd.apps.animeka.composite record.",
-        "operationId": "ai.gftd.animeka.renderComposite",
+        "summary": "Invoke the compositor AI actor to render the final composite for a cut. Combines colorTrace frames + background + fxStack + camera move into outputCid. Creates app.etzhayyim.apps.animeka.composite record.",
+        "operationId": "app.etzhayyim.animeka.renderComposite",
         "requestBody": {
           "required": true,
           "content": {
@@ -1899,10 +1899,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.resolveRetake": {
+    "/xrpc/app.etzhayyim.animeka.resolveRetake": {
       "post": {
         "summary": "Mark a retake resolved by pointing at the new record that addresses it. Un-flips cut.priority if no open retakes remain.",
-        "operationId": "ai.gftd.animeka.resolveRetake",
+        "operationId": "app.etzhayyim.animeka.resolveRetake",
         "requestBody": {
           "required": true,
           "content": {
@@ -1968,10 +1968,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.submitRetake": {
+    "/xrpc/app.etzhayyim.animeka.submitRetake": {
       "post": {
-        "summary": "Submit a retake (リテイク) against a target record. Creates ai.gftd.apps.animeka.retake and flips the target cut's priority to 'retake' and the relevant stage status to 'retake'.",
-        "operationId": "ai.gftd.animeka.submitRetake",
+        "summary": "Submit a retake (リテイク) against a target record. Creates app.etzhayyim.apps.animeka.retake and flips the target cut's priority to 'retake' and the relevant stage status to 'retake'.",
+        "operationId": "app.etzhayyim.animeka.submitRetake",
         "requestBody": {
           "required": true,
           "content": {
@@ -2081,10 +2081,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.animeka.updateCutStage": {
+    "/xrpc/app.etzhayyim.animeka.updateCutStage": {
       "post": {
         "summary": "Update cut.stageStatus and/or cut.assignees for a single pipeline stage. Drives the Pipeline Board kanban. Stage transition to 'approved' may cascade via derive rules (e.g. storyboard→layout, layout→keyAnim+bg).",
-        "operationId": "ai.gftd.animeka.updateCutStage",
+        "operationId": "app.etzhayyim.animeka.updateCutStage",
         "requestBody": {
           "required": true,
           "content": {
@@ -3338,7 +3338,7 @@
           },
           "episodeCount": {
             "type": "integer",
-            "description": "Planned total episode count (informational; actual episodes are separate ai.gftd.apps.animeka.episode records)."
+            "description": "Planned total episode count (informational; actual episodes are separate app.etzhayyim.apps.animeka.episode records)."
           },
           "fps": {
             "type": "integer",

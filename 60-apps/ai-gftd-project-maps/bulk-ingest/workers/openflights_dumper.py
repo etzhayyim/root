@@ -199,7 +199,7 @@ def _build_airport_rows(airports_rows: list[list[str]]) -> tuple[list[dict], dic
             "type": r[12] if len(r) > 12 else None,
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.airport/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.airport/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": "Airport",
@@ -266,7 +266,7 @@ def _build_airroute_rows(routes_rows: list[list[str]],
             "equipment": r[8],
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.airRoute/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.airRoute/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": "AirRoute",

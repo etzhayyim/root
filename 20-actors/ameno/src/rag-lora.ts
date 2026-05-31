@@ -1,5 +1,5 @@
 /**
- * @gftd/ameno/rag-lora — RAG search + adapter selection facade.
+ * @etzhayyim/ameno/rag-lora — RAG search + adapter selection facade.
  *
  * Scaffold v0.1.0. Returns empty results so the appview's history / adapter
  * panel renders cleanly without a graph backend. Real impl hits the

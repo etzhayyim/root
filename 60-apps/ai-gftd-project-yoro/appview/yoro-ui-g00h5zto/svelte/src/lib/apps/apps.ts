@@ -5,11 +5,11 @@ export const apps: GfAppLink[] = [
 	{
 		id: 'gftd',
 		name: 'etzhayyim.com',
-		shortName: 'GFTD',
+		shortName: 'etzhayyim',
 		href: 'https://etzhayyim.com',
 		icon: '🌐',
 		category: 'Orgs',
-		description: 'GFTD portal',
+		description: 'etzhayyim portal',
 		external: false
 	},
 

@@ -17,7 +17,7 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 
 ## Reactive Runtime (Design D 準拠)
 
-- **Input**: `subscribe-repos.handle-repo-commit` (`handleComAtprotoSyncSubscribeReposCommit`) で `ai.gftd.apps.yabai.*` + `ai.gftd.apps.ipaddress.*` commit を受けて即時処理
+- **Input**: `subscribe-repos.handle-repo-commit` (`handleComAtprotoSyncSubscribeReposCommit`) で `app.etzhayyim.apps.yabai.*` + `app.etzhayyim.apps.ipaddress.*` commit を受けて即時処理
 - **Follow-based input**: `magatama.Follow("n7w1p4d0")` で ipaddress.etzhayyim.com を Follow → `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` を自動受信
 - **Processing**: yabai commit → reactive publish。ipaddress commit → auto IP ingest + risk evaluation
 - **Output (stream)**: `serve.handle-stream("stream-alerts")` を subscriber role + trust level で配信
@@ -181,6 +181,13 @@ IntelSession -[:FROM_IP]-> YabaiEntity (IPAddress)
 | `wasm/ai-gftd-wasm-yabai-y8b41k0x/wit/world.wit` | WIT capability export |
 | `wit/yabai-risk/package.wit` | Domain WIT interfaces (risk-assessment, network-intel, vuln-intel, threat-intel, exchange-intel) |
 | `content/` | Entity/evidence/risk JSON-LD archive (461 entities) |
+
+## Cross-actor Integration
+
+| Direction | Counterpart | Method | Purpose |
+|---|---|---|---|
+| ← Follows | ipaddress.etzhayyim.com (`n7w1p4d0`) | `ComAtprotoSyncSubscribeRepos` | `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` → auto IP ingest + risk evaluation (see §Reactive Runtime) |
+| ↔ tadori.etzhayyim.com | tadori (辿, ADR-2605301400) | kotoba EAVT datoms | **Separation of duties**: tadori produces *authorized, case-anchored evidence datoms* (on-chain tx traces + cross-store attribution) → yabai *scores* them into its risk model; **Council** authorizes any enforcement. tadori is evidence-only (never enforces); yabai is the risk + enforcement-routing organ. Post-T3 (ADR-2605301400) yabai's CTI/DNS/IP-history graph migrates to `kotoba-kqe`, and tadori's `attribution_join` reads it via the VAET arrangement (= yabai's `correlate-ip-activity`, now a 2-hop Datalog traversal). |
 
 ## Shinka (joucho 情緒 cadence)
 

@@ -57,8 +57,8 @@ No individual PII — cohort-level only (sensitivity_ord=0, ADR-0018).
 
 ## subscribeRepos triggers
 
-- `ai.gftd.apps.news.article` — news signals
-- `ai.gftd.narou.chapter` — creative signals
+- `app.etzhayyim.apps.news.article` — news signals
+- `app.etzhayyim.narou.chapter` — creative signals
 
 ## Env
 

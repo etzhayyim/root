@@ -14,7 +14,7 @@ authoritative_for:
 related:
   - 60-apps/ai-gftd-project-ma/magatama.toml
   - 90-docs/260427-fund-ma-actor-activation-runbook.md
-  - 90-docs/adr/2604261200-fund-intel-zeebe-ingest.md
+  - adr-2604261200
   - 30-graph/graph-schema/migrations/20260427040000_seed_fund_ma_bpmn_actors.ts
   - 30-graph/graph-schema/migrations/20260424161100_seed_open_lei_bpmn_actors.ts
 supersedes: []
@@ -133,7 +133,7 @@ explicitly:
   and `hasNextPage`.
 - `businessPerson.scheduleNextPage` emits a
   `com.atproto.repo.createRecord` payload for
-  `ai.gftd.apps.businessPerson.collectionJob`.
+  `app.etzhayyim.apps.businessPerson.collectionJob`.
 
 This is a scheduler handoff, not yet durable cursor persistence. Durable
 cursor tables, scheduled execution, and retry observability remain explicit
@@ -177,4 +177,4 @@ data, and legal-entity ownership data.
 
 Direct autonomous outreach from ingest results was rejected. External email,
 negotiation, DD requests, and LP solicitation must pass through human approval
-and policy gates before `ai.gftd.apps.mailer.sendEmail`.
+and policy gates before `app.etzhayyim.apps.mailer.sendEmail`.

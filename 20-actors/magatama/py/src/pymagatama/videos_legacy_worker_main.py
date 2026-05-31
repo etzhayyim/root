@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.videosLegacy.list.videos")
+    @worker.task(task_type="app.etzhayyim.apps.videosLegacy.list.videos")
     async def task_list_videos(**kwargs):
         channel_id = kwargs.get("channelId", "")
         limit = int(kwargs.get("limit", 50))
@@ -40,7 +40,7 @@ async def run_worker():
 
         return {"videos": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.videosLegacy.get.video")
+    @worker.task(task_type="app.etzhayyim.apps.videosLegacy.get.video")
     async def task_get_video(**kwargs):
         video_id = kwargs.get("videoId", "")
 
@@ -57,7 +57,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.videosLegacy.migrate.video")
+    @worker.task(task_type="app.etzhayyim.apps.videosLegacy.migrate.video")
     async def task_migrate_video(**kwargs):
         source_url = kwargs.get("sourceUrl", "")
         channel_id = kwargs.get("channelId", "")
@@ -84,7 +84,7 @@ async def run_worker():
 
         return {"videoId": video_id, "status": "migrated", "sourceUrl": source_url}
 
-    @worker.task(task_type="ai.gftd.apps.videosLegacy.list.channels")
+    @worker.task(task_type="app.etzhayyim.apps.videosLegacy.list.channels")
     async def task_list_channels(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -99,7 +99,7 @@ async def run_worker():
 
         return {"channels": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.videosLegacy.get.channel")
+    @worker.task(task_type="app.etzhayyim.apps.videosLegacy.get.channel")
     async def task_get_channel(**kwargs):
         channel_id = kwargs.get("channelId", "")
 
@@ -116,7 +116,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.videosLegacy.search.videos")
+    @worker.task(task_type="app.etzhayyim.apps.videosLegacy.search.videos")
     async def task_search_videos(**kwargs):
         query_str = kwargs.get("query", "")
         limit = int(kwargs.get("limit", 50))
@@ -134,7 +134,7 @@ async def run_worker():
 
         return {"videos": [dict(r) for r in rows], "query": query_str, "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.videosLegacy.get.metadata")
+    @worker.task(task_type="app.etzhayyim.apps.videosLegacy.get.metadata")
     async def task_get_metadata(**kwargs):
         video_id = kwargs.get("videoId", "")
 
@@ -151,7 +151,7 @@ async def run_worker():
             return {"error": "not found"}
         return {"metadata": dict(row)}
 
-    @worker.task(task_type="ai.gftd.apps.videosLegacy.list.playlists")
+    @worker.task(task_type="app.etzhayyim.apps.videosLegacy.list.playlists")
     async def task_list_playlists(**kwargs):
         channel_id = kwargs.get("channelId", "")
         limit = int(kwargs.get("limit", 50))

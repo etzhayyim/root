@@ -32,7 +32,7 @@ test.describe('outlook.etzhayyim.com — Worker Health', () => {
 test.describe('outlook.etzhayyim.com — API Endpoints', () => {
   test('GetOAuthConfig returns clientId and tenantId', async ({ request }) => {
     const res = await request.post(`${BASE}/xrpc/gftd.outlook.v1.OutlookService/GetOAuthConfig`, {
-      headers: { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-test' },
+      headers: { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e-test' },
       data: {},
     });
     expect(res.ok()).toBeTruthy();
@@ -44,7 +44,7 @@ test.describe('outlook.etzhayyim.com — API Endpoints', () => {
 
   test('GetConnection returns not connected for unknown user', async ({ request }) => {
     const res = await request.post(`${BASE}/xrpc/gftd.outlook.v1.OutlookService/GetConnection`, {
-      headers: { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-unknown' },
+      headers: { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e-unknown' },
       data: {},
     });
     expect(res.ok()).toBeTruthy();
@@ -54,45 +54,45 @@ test.describe('outlook.etzhayyim.com — API Endpoints', () => {
 
   test('card.home returns list card', async ({ request }) => {
     const res = await request.post(`${BASE}/xrpc/gftd.outlook.v1.OutlookService/card.home`, {
-      headers: { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-test', 'X-GFTD-ORG-ID': 'anon' },
+      headers: { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e-test', 'X-etzhayyim-ORG-ID': 'anon' },
       data: {},
     });
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
-    expect(body.contentType).toBe('application/vnd.gftd.card.list');
+    expect(body.contentType).toBe('application/vnd.etzhayyim.card.list');
     expect(body.payload.items.length).toBeGreaterThan(0);
   });
 
   test('card.compose returns form card', async ({ request }) => {
     const res = await request.post(`${BASE}/xrpc/gftd.outlook.v1.OutlookService/card.compose`, {
-      headers: { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-test' },
+      headers: { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e-test' },
       data: {},
     });
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
-    expect(body.contentType).toBe('application/vnd.gftd.card.form');
+    expect(body.contentType).toBe('application/vnd.etzhayyim.card.form');
     expect(body.payload.fields.length).toBe(3);
     expect(body.payload.action).toBe('outlook.send');
   });
 
   test('card.action with unknown action returns home card', async ({ request }) => {
     const res = await request.post(`${BASE}/xrpc/gftd.outlook.v1.OutlookService/card.action`, {
-      headers: { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-test', 'X-GFTD-ORG-ID': 'anon' },
+      headers: { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e-test', 'X-etzhayyim-ORG-ID': 'anon' },
       data: { action: 'unknown' },
     });
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
-    expect(body.contentType).toBe('application/vnd.gftd.card.list');
+    expect(body.contentType).toBe('application/vnd.etzhayyim.card.list');
   });
 
   test('card.action disconnect shows confirmation card', async ({ request }) => {
     const res = await request.post(`${BASE}/xrpc/gftd.outlook.v1.OutlookService/card.action`, {
-      headers: { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-test', 'X-GFTD-ORG-ID': 'anon' },
+      headers: { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e-test', 'X-etzhayyim-ORG-ID': 'anon' },
       data: { action: 'outlook.disconnect' },
     });
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
-    expect(body.contentType).toBe('application/vnd.gftd.card.confirmation');
+    expect(body.contentType).toBe('application/vnd.etzhayyim.card.confirmation');
     expect(body.payload.destructive).toBe(true);
   });
 });

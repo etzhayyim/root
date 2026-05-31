@@ -23,19 +23,19 @@ const ACTOR_TAG = "sys.bpmn.seed.wellbecoming";
 
 const TIMER_ENTRIES = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1",
     bpmnProcessId: "wellbecoming_detect_bottleneck",
     sourcePath: "00-contracts/bpmn/ai/gftd/wellbecoming/detectBottleneck.bpmn",
     file: "detectBottleneck.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-proactive-connect-v1",
     bpmnProcessId: "wellbecoming_proactive_connect",
     sourcePath: "00-contracts/bpmn/ai/gftd/wellbecoming/proactiveConnect.bpmn",
     file: "proactiveConnect.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1",
     bpmnProcessId: "wellbecoming_floor_violation_alert",
     sourcePath: "00-contracts/bpmn/ai/gftd/wellbecoming/floorViolationAlert.bpmn",
     file: "floorViolationAlert.bpmn",
@@ -44,11 +44,11 @@ const TIMER_ENTRIES = [
 
 // agentLoop is XRPC-triggered (none-start) — needs a lexicon binding too.
 const XRPC_ENTRY = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-agent-loop-v1",
   bpmnProcessId: "wellbecoming_agent_loop",
   sourcePath: "00-contracts/bpmn/ai/gftd/wellbecoming/agentLoop.bpmn",
   file: "agentLoop.bpmn",
-  nsid: "ai.gftd.apps.wellbecoming.agentLoop",
+  nsid: "app.etzhayyim.apps.wellbecoming.agentLoop",
 };
 
 export async function up(db: Kysely<unknown>): Promise<void> {
@@ -84,7 +84,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   // agentLoop lexicon binding
-  const bindingVertexId = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1";
+  const bindingVertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1";
   await sql`
     INSERT INTO vertex_bpmn_lexicon_binding
       (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,

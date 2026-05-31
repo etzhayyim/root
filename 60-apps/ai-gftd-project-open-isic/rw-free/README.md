@@ -77,7 +77,7 @@ const weaponsClass = await getByCode("2520");
 
 The new record lexicon is
 [`00-contracts/lexicons/ai/gftd/apps/openIsic/class.json`](../../../00-contracts/lexicons/ai/gftd/apps/openIsic/class.json)
-(NSID `ai.gftd.apps.openIsic.class`). The classification path
+(NSID `app.etzhayyim.apps.openIsic.class`). The classification path
 (`classifyEntity`, `recordConcordance`, etc.) continues to use the
 existing query / procedure lexicons under the same namespace — this PR
 adds only the `class` record type for taxonomy publication.
@@ -116,7 +116,7 @@ prefix-only for substrate-purity.
 ## Verify
 
 ```bash
-pnpm tsx src/verify.ts at://did:web:etzhayyim.com/ai.gftd.apps.openIsic.class/2520
+pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apps.openIsic.class/2520
 ```
 
 Returns the Merkle path from the record to the MST root that was

@@ -255,7 +255,7 @@ async function persistAndEarn(result: ShinkaResult, signal: AbortSignal): Promis
 			headers,
 			signal,
 			body: JSON.stringify({
-				collection: 'ai.gftd.apps.yoro.shinkaInference',
+				collection: 'app.etzhayyim.apps.yoro.shinkaInference',
 				record: {
 					actorDid: result.actorDid, actorName: result.actorName,
 					joucho: result.joucho, mood: result.mood,
@@ -272,7 +272,7 @@ async function persistAndEarn(result: ShinkaResult, signal: AbortSignal): Promis
 			headers,
 			signal,
 			body: JSON.stringify({
-				collection: 'ai.gftd.apps.credits.creditTransaction',
+				collection: 'app.etzhayyim.apps.credits.creditTransaction',
 				record: {
 					type: 'earn', amount: CREDIT_PER_JOB,
 					source: 'murakumo', contributionType: 'browser_inference',

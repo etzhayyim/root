@@ -52,7 +52,7 @@ export interface OutboxEnv {
   HYPERDRIVE?: unknown;
   RESEND_API_KEY?: string;          // optional — outbox-only when missing
   EMAIL_FROM?: string;              // sender, e.g. "noreply@yatabase.etzhayyim.com"
-  GFTD_OUTBOX_DISABLED?: string;
+  etzhayyim_OUTBOX_DISABLED?: string;
   YATABASE_AUTH_CACHE?: KVNamespace; // P89: KV mirror when RW is degraded
 }
 
@@ -63,7 +63,7 @@ interface RawDb {}
 async function getRealDb(env: OutboxEnv): Promise<{ db: RawDb; sql: ((s: TemplateStringsArray, ...v: unknown[]) => unknown) } | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     const db = (sdk as unknown as { createKyselyDb: (h: unknown) => unknown }).createKyselyDb(env.HYPERDRIVE as never) as RawDb;
     const sql = (sdk as unknown as { sql?: (s: TemplateStringsArray, ...v: unknown[]) => unknown }).sql ?? null;
     if (!sql) return null;
@@ -89,13 +89,13 @@ async function sha256Hex(text: string): Promise<string> {
  *   skipped  — outbox disabled or no recipient
  */
 export async function emitOutbox(env: OutboxEnv, event: OutboxEvent): Promise<{ status: string; vertexId?: string }> {
-  if (env.GFTD_OUTBOX_DISABLED === "1") return { status: "disabled" };
+  if (env.etzhayyim_OUTBOX_DISABLED === "1") return { status: "disabled" };
   if (!event.orgDid) return { status: "skipped-no-org" };
 
   const tsMs = Date.now();
   const nowIso = new Date(tsMs).toISOString();
   const idDigest = await sha256Hex(`${event.orgDid}|${event.kind}|${tsMs}|${Math.random()}`);
-  const vertexId = `at://did:web:outbox.etzhayyim.com/ai.gftd.apps.outbox.event/${idDigest.slice(0, 32)}`;
+  const vertexId = `at://did:web:outbox.etzhayyim.com/app.etzhayyim.apps.outbox.event/${idDigest.slice(0, 32)}`;
   const recipient = event.recipientEmail ?? "";
 
   // P65: send via Resend regardless of RW availability. Customers care
@@ -397,7 +397,7 @@ Questions? Reply to this email — sakamoto (our CS agent) routes it. The
 Yatabase team operates as 4 named AI agents — see https://yatabase.etzhayyim.com/team.
 
 — The Yatabase team (chikada / tanaka / nishino / sakamoto)
-   Operated by etz hayim · Invoiced by Gftd Japan株式会社 (T9007028460042)
+   Operated by etz hayim · Invoiced by etzhayyim Japan株式会社 (T9007028460042)
 `;
 
   // HTML body — proper branded email. Inline CSS only (the only thing that
@@ -466,7 +466,7 @@ Yatabase team operates as 4 named AI agents — see https://yatabase.etzhayyim.c
         Questions? Reply to this email — <strong>sakamoto</strong> (our CS agent) routes it.
         The Yatabase team operates as 4 named AI agents: <a href="https://yatabase.etzhayyim.com/team" style="color:#0ea5e9">chikada · tanaka · nishino · sakamoto</a>.
         <br><br>
-        Operated by <strong>etz hayim</strong> · Invoiced by <strong>Gftd Japan株式会社</strong> (T9007028460042 — 適格請求書登録番号)
+        Operated by <strong>etz hayim</strong> · Invoiced by <strong>etzhayyim Japan株式会社</strong> (T9007028460042 — 適格請求書登録番号)
         <br>
         <a href="https://yatabase.etzhayyim.com/privacy" style="color:#94a3b8">Privacy</a> ·
         <a href="https://yatabase.etzhayyim.com/terms" style="color:#94a3b8">Terms</a> ·
@@ -713,7 +713,7 @@ Quick-start guide:
 Questions? Reply here — sakamoto routes it to the right agent.
 
 — The Yatabase team (chikada / tanaka / nishino / sakamoto)
-   Operated by etz hayim · Invoiced by Gftd Japan株式会社 (T9007028460042)
+   Operated by etz hayim · Invoiced by etzhayyim Japan株式会社 (T9007028460042)
    Unsubscribe: POST /api/account/delete to close your account and erase all data.
 `;
 
@@ -750,7 +750,7 @@ Questions? Reply here — sakamoto routes it to the right agent.
       </td></tr>
       <tr><td style="padding:0 32px 24px 32px;font-size:13px;color:#64748b;border-top:1px solid #f1f5f9">
         <p style="margin:16px 0 4px 0">Questions? Reply here — sakamoto routes it to the right agent.</p>
-        <p style="margin:4px 0">— The Yatabase team · Operated by etz hayim · Invoiced by Gftd Japan株式会社</p>
+        <p style="margin:4px 0">— The Yatabase team · Operated by etz hayim · Invoiced by etzhayyim Japan株式会社</p>
         <p style="margin:4px 0">Unsubscribe: <code>POST /api/account/delete</code> to close your account.</p>
       </td></tr>
     </table>
@@ -788,7 +788,7 @@ The quota resets at UTC midnight. The Starter plan ($13/mo) gives you 33× more 
 Compare plans: https://yatabase.etzhayyim.com/comparison
 
 — The Yatabase team (chikada / tanaka / nishino / sakamoto)
-   Operated by etz hayim · Invoiced by Gftd Japan株式会社 (T9007028460042)
+   Operated by etz hayim · Invoiced by etzhayyim Japan株式会社 (T9007028460042)
    Unsubscribe: POST /api/account/delete to close your account and erase all data.
 `;
 
@@ -837,7 +837,7 @@ Compare plans: https://yatabase.etzhayyim.com/comparison
       </td></tr>
       <tr><td style="padding:0 32px 24px 32px;font-size:13px;color:#64748b;border-top:1px solid #f1f5f9">
         <p style="margin:16px 0 4px 0">Questions? Reply here — sakamoto routes it to the right agent.</p>
-        <p style="margin:4px 0">— The Yatabase team · Operated by etz hayim · Invoiced by Gftd Japan株式会社</p>
+        <p style="margin:4px 0">— The Yatabase team · Operated by etz hayim · Invoiced by etzhayyim Japan株式会社</p>
         <p style="margin:4px 0">Unsubscribe: <code>POST /api/account/delete</code> to close your account.</p>
       </td></tr>
     </table>

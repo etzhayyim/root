@@ -51,14 +51,81 @@ def _try_repo_root_inject() -> bool:
     return False
 
 
+def _direct_load_charter_rider(charter_rider_path: Path) -> ModuleType | None:
+    """Load charter_rider.py as a standalone module.
+
+    Avoids triggering ``pymagatama/__init__.py`` (which imports
+    langchain → pydantic; on machines with a broken pydantic-core
+    pinning that init poisons the import). The Charter scanner is pure
+    stdlib + regex; it does not need the rest of the pymagatama
+    package to function.
+    """
+    import importlib.util
+
+    if not charter_rider_path.is_file():
+        return None
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "_e7m_dataset_charter_rider_direct", charter_rider_path
+        )
+        if spec is None or spec.loader is None:
+            return None
+        mod = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = mod
+        spec.loader.exec_module(mod)
+        return mod
+    except Exception:  # noqa: BLE001 — best-effort sidecar load
+        return None
+
+
+def _find_charter_rider_path() -> Path | None:
+    """Try the SRC_OVERRIDE_ENV first, then repo-root walk-up."""
+    override = os.environ.get(SRC_OVERRIDE_ENV)
+    if override:
+        ov = Path(override).resolve()
+        candidate = ov / "pymagatama" / "organism" / "sensors" / "charter_rider.py"
+        if candidate.is_file():
+            return candidate
+    here = Path.cwd().resolve()
+    for p in [here, *here.parents]:
+        candidate = (
+            p
+            / "20-actors" / "magatama" / "py" / "src"
+            / "pymagatama" / "organism" / "sensors" / "charter_rider.py"
+        )
+        if candidate.is_file():
+            return candidate
+    return None
+
+
 def _load_scanner() -> ModuleType | None:
-    """Return the charter_rider module or None."""
+    """Return the charter_rider module or None.
+
+    Strategy ordering:
+      1. Direct file-load from the in-tree source (skips pymagatama
+         package __init__, robust to unrelated langchain/pydantic
+         pinning issues).
+      2. Standard ``pymagatama.organism.sensors.charter_rider`` import
+         — works in production where pymagatama is installed cleanly.
+      3. ETZ_PYMAGATAMA_SRC sys.path prepend + standard import.
+      4. Repo-root auto-discovery sys.path prepend + standard import.
+    """
+    # Strategy 1: direct file-load. Try this FIRST so we never touch
+    # the broken pymagatama package init when the scanner is enough.
+    charter_path = _find_charter_rider_path()
+    if charter_path is not None:
+        mod = _direct_load_charter_rider(charter_path)
+        if mod is not None:
+            return mod
+
+    # Strategy 2: standard package import.
     try:
         from pymagatama.organism.sensors import charter_rider  # type: ignore
         return charter_rider
     except ImportError:
         pass
 
+    # Strategy 3: env override + standard package import.
     override = os.environ.get(SRC_OVERRIDE_ENV)
     if override:
         ov = Path(override).resolve()
@@ -71,6 +138,7 @@ def _load_scanner() -> ModuleType | None:
             except ImportError:
                 pass
 
+    # Strategy 4: repo-root walk-up + standard package import.
     if _try_repo_root_inject():
         try:
             from pymagatama.organism.sensors import charter_rider  # type: ignore

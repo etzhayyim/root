@@ -13,10 +13,10 @@
 ```
 ameno.etzhayyim.com (CF Worker — TS Native)
   ├─ Backend (src/app.ts)
-  │   ├─ ai.gftd.apps.ameno.listModels     — ONNX model registry
-  │   ├─ ai.gftd.apps.ameno.saveResult     — Persist inference result to the graph query layer
-  │   ├─ ai.gftd.apps.ameno.listHistory    — Query inference history
-  │   └─ ai.gftd.apps.ameno.cardHome       — Protocol canvas card
+  │   ├─ app.etzhayyim.apps.ameno.listModels     — ONNX model registry
+  │   ├─ app.etzhayyim.apps.ameno.saveResult     — Persist inference result to the graph query layer
+  │   ├─ app.etzhayyim.apps.ameno.listHistory    — Query inference history
+  │   └─ app.etzhayyim.apps.ameno.cardHome       — Protocol canvas card
   │
   └─ Frontend (svelte/)
       ├─ inference.ts     — transformers.js pipeline + WebGPU state machine
@@ -43,7 +43,7 @@ ameno は murakumo の **Tier 2 inference layer** として機能。murakumo Inf
 
 ## Package
 
-**`@gftd/ameno`** (`40-engine/llm/inference/ameno/`) — inference engine, LoRA runtime, RAG-LoRA pipeline の Single Source。project の svelte lib は re-export のみ。
+**`@etzhayyim/ameno`** (`40-engine/llm/inference/ameno/`) — inference engine, LoRA runtime, RAG-LoRA pipeline の Single Source。project の svelte lib は re-export のみ。
 
 ## Key Files
 

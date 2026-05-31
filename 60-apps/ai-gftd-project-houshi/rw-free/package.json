@@ -1,6 +1,7 @@
 {
   "name": "@etzhayyim/houshi-rw-free",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "description": "houshi rw-free — Phase E Option B spore dispersal & dormancy system (PDS XRPC writes via @etzhayyim/sdk e.write())",
   "type": "module",
   "exports": {

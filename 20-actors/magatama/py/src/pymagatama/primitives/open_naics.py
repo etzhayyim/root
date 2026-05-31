@@ -52,7 +52,7 @@ def industry_did(naics_code: Any) -> str:
 
 
 def classification_vertex_id(entity_did: str, naics_code: str, classified_at: str) -> str:
-    return f"at://{OPEN_NAICS_DID}/ai.gftd.apps.openNaics.classification/{_digest(entity_did, naics_code, classified_at)}"
+    return f"at://{OPEN_NAICS_DID}/app.etzhayyim.apps.openNaics.classification/{_digest(entity_did, naics_code, classified_at)}"
 
 
 def _audit(caller_did: str) -> dict[str, Any]:
@@ -175,7 +175,7 @@ async def task_open_naics_record_concordance(
         return {"ok": False, "error": "naicsCode must be 2-6 digits"}
     if relation not in VALID_RELATIONS:
         return {"ok": False, "error": f"invalid relation: {relation}"}
-    vertex_id = f"at://{OPEN_NAICS_DID}/ai.gftd.apps.openNaics.concordance/{_digest(code, otherTaxonomy, otherCode, relation)}"
+    vertex_id = f"at://{OPEN_NAICS_DID}/app.etzhayyim.apps.openNaics.concordance/{_digest(code, otherTaxonomy, otherCode, relation)}"
     _insert(
         "vertex_open_naics_concordance",
         {

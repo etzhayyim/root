@@ -195,7 +195,7 @@ def build_langchain_prompt(state: OpenUnispscItemState) -> dict[str, Any]:
 
 def build_item_graph_design(state: OpenUnispscItemState) -> dict[str, Any]:
     code = state.get("commodity_code", "")
-    nsid_prefix = f"ai.gftd.apps.openUnispsc.item{code}"
+    nsid_prefix = f"app.etzhayyim.apps.openUnispsc.item{code}"
     bpmn_ids = [r["processId"] for r in state.get("bpmn_refs", [])]
     nodes = [
         "normalize_item",
@@ -221,13 +221,13 @@ def build_item_graph_design(state: OpenUnispscItemState) -> dict[str, Any]:
             "nodes": nodes,
             "edges": [[nodes[i], nodes[i + 1]] for i in range(len(nodes) - 1)],
             "mcpTools": {
-                "design": "ai.gftd.apps.openUnispsc.designItem",
-                "getSpec": "ai.gftd.apps.openUnispsc.itemGetSpec",
-                "screenSupplier": "ai.gftd.apps.openUnispsc.itemScreenSupplier",
-                "planProcurement": "ai.gftd.apps.openUnispsc.itemPlanProcurement",
-                "flagCompliance": "ai.gftd.apps.openUnispsc.itemFlagCompliance",
-                "syncCatalogItem": "ai.gftd.apps.openUnispsc.syncCatalogItem",
-                "planCatalogPurchase": "ai.gftd.apps.openUnispsc.planCatalogPurchase",
+                "design": "app.etzhayyim.apps.openUnispsc.designItem",
+                "getSpec": "app.etzhayyim.apps.openUnispsc.itemGetSpec",
+                "screenSupplier": "app.etzhayyim.apps.openUnispsc.itemScreenSupplier",
+                "planProcurement": "app.etzhayyim.apps.openUnispsc.itemPlanProcurement",
+                "flagCompliance": "app.etzhayyim.apps.openUnispsc.itemFlagCompliance",
+                "syncCatalogItem": "app.etzhayyim.apps.openUnispsc.syncCatalogItem",
+                "planCatalogPurchase": "app.etzhayyim.apps.openUnispsc.planCatalogPurchase",
                 "itemScopedPrefix": nsid_prefix,
             },
             "bpmnReferences": state.get("bpmn_refs", []),
@@ -397,22 +397,22 @@ def sync_catalog_item(state: OpenUnispscItemState) -> dict[str, Any]:
             "operation": "syncCatalogItem",
             "commodityCode": code,
             "commodityName": name,
-            "sourceCollection": "ai.gftd.apps.unispsc.commodity",
+            "sourceCollection": "app.etzhayyim.apps.unispsc.commodity",
             "sourceRepo": source_repo,
             "sourceRkey": rkey,
-            "catalogCollection": "ai.gftd.apps.okaimono.catalogItem",
+            "catalogCollection": "app.etzhayyim.apps.okaimono.catalogItem",
             "catalogRkey": product_id,
             "catalogItem": record,
             "atprotoWritePlan": {
                 "mode": "deterministic-upsert",
                 "operation": "upsertOkaimonoCatalogItemFromUnispscCommodity",
                 "repo": "did:web:okaimono.etzhayyim.com",
-                "collection": "ai.gftd.apps.okaimono.catalogItem",
+                "collection": "app.etzhayyim.apps.okaimono.catalogItem",
                 "rkey": product_id,
                 "record": record,
             },
             "classificationEdge": {
-                "src": f"at://did:web:okaimono.etzhayyim.com/ai.gftd.apps.okaimono.catalogItem/{product_id}",
+                "src": f"at://did:web:okaimono.etzhayyim.com/app.etzhayyim.apps.okaimono.catalogItem/{product_id}",
                 "dst": commodity_did,
                 "role": "CLASSIFIED_BY",
             },
@@ -452,7 +452,7 @@ def plan_catalog_purchase(state: OpenUnispscItemState) -> dict[str, Any]:
             "procurementInvocation": {
                 "step": "procurement-find-offers",
                 "targetActorDid": segment_actor,
-                "mcpTool": "ai.gftd.apps.openUnispsc.itemGetSpec",
+                "mcpTool": "app.etzhayyim.apps.openUnispsc.itemGetSpec",
                 "arguments": {"commodityCode": code},
             },
             "fulfillmentPlan": {

@@ -60,7 +60,7 @@ const defaultManifestPath = path.resolve(
   repoRoot,
   '60-apps/ai-gftd-project-states/data/jp_fiscal/sources.json',
 );
-const userAgent = 'gftd-jp-fiscal-source-audit/0.1 (+https://gftd.co.jp)';
+const userAgent = 'gftd-jp-fiscal-source-audit/0.1 (+https://etzhayyim.com)';
 
 function parseArgs(argv: string[]): { apply: boolean; manifestPath: string; limit: number; sourceId?: string } {
   let apply = false;

@@ -13,7 +13,7 @@ branch_labels = None
 depends_on = None
 
 UP = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -26,7 +26,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
          "'sys.bpmn.reseed.timer-retrigger'\n"
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '

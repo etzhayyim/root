@@ -68,12 +68,12 @@
 		inferenceLoading = true;
 		try {
 			const collections = [
-				'ai.gftd.apps.yoro.shinkaInference',
-				'ai.gftd.apps.yoro.shinkaKnowledge',
-				'ai.gftd.apps.yoro.shinkaEvolution',
-				'ai.gftd.apps.yoro.kojiDiscovery',
-				'ai.gftd.apps.yoro.kyumeiValidation',
-				'ai.gftd.apps.yoro.hinshitsuAssessment',
+				'app.etzhayyim.apps.yoro.shinkaInference',
+				'app.etzhayyim.apps.yoro.shinkaKnowledge',
+				'app.etzhayyim.apps.yoro.shinkaEvolution',
+				'app.etzhayyim.apps.yoro.kojiDiscovery',
+				'app.etzhayyim.apps.yoro.kyumeiValidation',
+				'app.etzhayyim.apps.yoro.hinshitsuAssessment',
 			];
 			const entries: InferenceActivity[] = [];
 			for (const collection of collections) {
@@ -196,7 +196,7 @@
 		try {
 			const tab = TABS.find(t => t.id === activeTab) || TABS[0];
 			const res = await yoroApi.atProcedure<{ activities: ActivityEvent[]; cursor?: string }>(
-				'ai.gftd.apps.yoro.activity.listActivities',
+				'app.etzhayyim.apps.yoro.activity.listActivities',
 				{
 					limit: 50,
 					cursor: append ? cursor : undefined,
@@ -212,7 +212,7 @@
 			}
 			cursor = data?.cursor;
 			// Mark as seen
-			void yoroApi.atProcedure('ai.gftd.apps.yoro.activity.markSeen', {}).catch((e: unknown) => console.warn('markSeen failed', e));
+			void yoroApi.atProcedure('app.etzhayyim.apps.yoro.activity.markSeen', {}).catch((e: unknown) => console.warn('markSeen failed', e));
 		} catch (e) {
 			console.warn('loadActivities failed:', e);
 			if (!append) activities = [];

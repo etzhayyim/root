@@ -41,7 +41,7 @@ export class LLMService {
 			defaultHeaders: process.env.OPENROUTER_API_KEY_251025
 				? {
 					"HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-					"X-Title": "AI GFTD HRSE",
+					"X-Title": "AI etzhayyim HRSE",
 				}
 				: undefined,
 		});

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govZaf.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govZaf.followSiteDeps": {
       "post": {
         "summary": "Create graph-visible site dependency follow records for South Africa government organizations.",
-        "operationId": "ai.gftd.govZaf.followSiteDeps",
+        "operationId": "app.etzhayyim.govZaf.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZaf.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govZaf.heartbeatTick": {
       "post": {
         "summary": "Run the South Africa government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govZaf.heartbeatTick",
+        "operationId": "app.etzhayyim.govZaf.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -143,10 +143,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZaf.ingestOfficialSources": {
+    "/xrpc/app.etzhayyim.govZaf.ingestOfficialSources": {
       "post": {
         "summary": "Queue official South Africa government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "ai.gftd.govZaf.ingestOfficialSources",
+        "operationId": "app.etzhayyim.govZaf.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZaf.listOrgs": {
+    "/xrpc/app.etzhayyim.govZaf.listOrgs": {
       "get": {
         "summary": "List South Africa government organizations by tier.",
-        "operationId": "ai.gftd.govZaf.listOrgs",
+        "operationId": "app.etzhayyim.govZaf.listOrgs",
         "parameters": [
           {
             "name": "orgTier",
@@ -297,10 +297,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZaf.registerDIDs": {
+    "/xrpc/app.etzhayyim.govZaf.registerDIDs": {
       "post": {
         "summary": "Register graph-visible DID records for South Africa government organizations.",
-        "operationId": "ai.gftd.govZaf.registerDIDs",
+        "operationId": "app.etzhayyim.govZaf.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZaf.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govZaf.resolveOrgPath": {
       "get": {
         "summary": "Resolve a South Africa government organization path to its actor DID and display metadata.",
-        "operationId": "ai.gftd.govZaf.resolveOrgPath",
+        "operationId": "app.etzhayyim.govZaf.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -398,10 +398,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZaf.seedOrgs": {
+    "/xrpc/app.etzhayyim.govZaf.seedOrgs": {
       "post": {
         "summary": "Seed South Africa central ministry and province organization rows into the graph.",
-        "operationId": "ai.gftd.govZaf.seedOrgs",
+        "operationId": "app.etzhayyim.govZaf.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -448,10 +448,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZaf.shinka": {
+    "/xrpc/app.etzhayyim.govZaf.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible South Africa government organization update.",
-        "operationId": "ai.gftd.govZaf.shinka",
+        "operationId": "app.etzhayyim.govZaf.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -502,10 +502,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govZaf.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govZaf.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated South Africa government organization content.",
-        "operationId": "ai.gftd.govZaf.syncWetUpdates",
+        "operationId": "app.etzhayyim.govZaf.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -58,7 +58,7 @@ _TOPOLOGY_PATH = (
     _LG_DIR / "lg_mangaka" / "graphs" / "compose_character_vrm.topology.yaml"
 )
 _DMN_NS = {"dmn": "https://www.omg.org/spec/DMN/20191111/MODEL/"}
-_DECISION_KEY = "ai.gftd.policies.mangaka.vrmBindRetry"
+_DECISION_KEY = "app.etzhayyim.policies.mangaka.vrmBindRetry"
 _DECISION_VERSION = 1
 
 

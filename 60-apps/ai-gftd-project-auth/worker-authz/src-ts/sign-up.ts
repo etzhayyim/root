@@ -3,8 +3,8 @@
  *
  * Private-chain v1 path (single sealer signs everything):
  *
- *   1. Sealer calls `GftdRootIdentityRegistry.deployRootIdentity(seedHash,
- *      label, controller=sealer)`. Contract deploys a fresh `GftdRootIdentity`
+ *   1. Sealer calls `etzhayyimRootIdentityRegistry.deployRootIdentity(seedHash,
+ *      label, controller=sealer)`. Contract deploys a fresh `etzhayyimRootIdentity`
  *      and stores `identityByRootDid[seedHash] = newIdentity`.
  *   2. After the receipt lands we read `identityByRootDid(seedHash)` to
  *      recover the deployed address (the contract uses plain `new`, not
@@ -49,7 +49,7 @@ export interface ProvisionRootIdentityRequest {
   seedHash: string;
   /** Free-form label written to `RootIdentityRegistered` event. */
   label: string;
-  /** GftdRootIdentity owner. Defaults to sealer (zero-address sentinel). */
+  /** etzhayyimRootIdentity owner. Defaults to sealer (zero-address sentinel). */
   controller?: string;
   /** Legacy DIDs to register as facades pointing to this root. */
   facadeDids?: string[];
@@ -136,8 +136,8 @@ export async function provisionRootIdentity(
   env: SignUpEnv,
   req: ProvisionRootIdentityRequest,
 ): Promise<ProvisionRootIdentityResult> {
-  const registry = (env.GFTD_ROOT_IDENTITY_REGISTRY_ADDR || "").trim();
-  if (!registry) throw new Error("GFTD_ROOT_IDENTITY_REGISTRY_ADDR is not configured");
+  const registry = (env.etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR || "").trim();
+  if (!registry) throw new Error("etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR is not configured");
   const chainId = (env.ETH_PRIVATE_CHAIN_ID || "").trim();
   if (!chainId) throw new Error("ETH_PRIVATE_CHAIN_ID is not configured");
   if (!req.seedHash.startsWith("0x") || req.seedHash.length !== 66) throw new Error("seedHash must be 0x + 64 hex chars");

@@ -163,12 +163,12 @@ def _row_from_overture(theme: str, record: dict) -> dict | None:
     label = _map_overture_category_to_label(theme, category)
 
     return {
-        "vertex_id": f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.{label.lower()}/overture-{ov_id}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.{label.lower()}/overture-{ov_id}",
         "rkey": f"overture-{ov_id}",
         "repo": "did:web:maps.etzhayyim.com",
         "label": label,
         "did": "did:web:maps.etzhayyim.com",
-        "collection": f"ai.gftd.apps.maps.{label.lower()}",
+        "collection": f"app.etzhayyim.apps.maps.{label.lower()}",
         "name": str(name)[:200],
         "lat": lat,
         "lng": lon,

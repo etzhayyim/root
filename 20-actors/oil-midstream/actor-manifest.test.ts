@@ -21,15 +21,15 @@ describe("Oil Midstream Actor Manifest", () => {
   });
   it("subscribes to oilShipping.cargo", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("ai.gftd.apps.oilShipping.cargo");
+    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.oilShipping.cargo");
   });
   it("xrpc covers pipeline, terminals, network, health", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("ai.gftd.apps.oilMidstream.infrastructure.getPipeline");
-    expect(nsids).toContain("ai.gftd.apps.oilMidstream.infrastructure.listPipelines");
-    expect(nsids).toContain("ai.gftd.apps.oilMidstream.infrastructure.listTerminals");
-    expect(nsids).toContain("ai.gftd.apps.oilMidstream.infrastructure.getTerminalNetwork");
-    expect(nsids).toContain("ai.gftd.apps.oilMidstream.health");
+    expect(nsids).toContain("app.etzhayyim.apps.oilMidstream.infrastructure.getPipeline");
+    expect(nsids).toContain("app.etzhayyim.apps.oilMidstream.infrastructure.listPipelines");
+    expect(nsids).toContain("app.etzhayyim.apps.oilMidstream.infrastructure.listTerminals");
+    expect(nsids).toContain("app.etzhayyim.apps.oilMidstream.infrastructure.getTerminalNetwork");
+    expect(nsids).toContain("app.etzhayyim.apps.oilMidstream.health");
   });
   it("4 actor paths", () => { expect(m.actors).toHaveLength(4); });
 });

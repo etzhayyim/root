@@ -8,7 +8,7 @@
  * implemented in the resolver Worker.
  */
 
-import type { DidGftdDocument } from "./did-doc";
+import type { DidetzhayyimDocument } from "./did-doc";
 
 export interface DidResolutionMetadata {
   contentType: "application/did+ld+json";
@@ -26,12 +26,12 @@ export interface DidDocumentMetadata {
 
 export interface DidResolutionResult {
   "@context": "https://w3id.org/did-resolution/v1";
-  didDocument: DidGftdDocument | null;
+  didDocument: DidetzhayyimDocument | null;
   didResolutionMetadata: DidResolutionMetadata;
   didDocumentMetadata: DidDocumentMetadata;
 }
 
-export function ok(doc: DidGftdDocument, metadata: DidDocumentMetadata = {}): DidResolutionResult {
+export function ok(doc: DidetzhayyimDocument, metadata: DidDocumentMetadata = {}): DidResolutionResult {
   return {
     "@context": "https://w3id.org/did-resolution/v1",
     didDocument: doc,

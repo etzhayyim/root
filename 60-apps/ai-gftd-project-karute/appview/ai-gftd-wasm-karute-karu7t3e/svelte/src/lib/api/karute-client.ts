@@ -101,55 +101,55 @@ async function encryptedWrite<R extends Record<string, unknown>>(
 
 export async function listPatients(opts: { limit?: number; offset?: number; q?: string } = {}) {
   return xrpcQuery<{ items: PatientMeta[]; total: number; offset: number; limit: number }>(
-    'ai.gftd.apps.karute.listPatients',
+    'app.etzhayyim.apps.karute.listPatients',
     opts as XrpcQueryParams,
   );
 }
 
 export async function listEncounters(patientDid: string, opts: { limit?: number; offset?: number; fromDate?: string; toDate?: string } = {}) {
   return xrpcQuery<{ items: EncounterMeta[]; offset: number; limit: number }>(
-    'ai.gftd.apps.karute.listEncounters',
+    'app.etzhayyim.apps.karute.listEncounters',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listSoapNotes(patientDid: string, opts: { encounterDid?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: SoapNoteMeta[]; offset: number; limit: number }>(
-    'ai.gftd.apps.karute.listSoapNotes',
+    'app.etzhayyim.apps.karute.listSoapNotes',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listObservations(patientDid: string, opts: { category?: string; loincCode?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: ObservationMeta[]; offset: number; limit: number }>(
-    'ai.gftd.apps.karute.listObservations',
+    'app.etzhayyim.apps.karute.listObservations',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listMedications(patientDid: string, opts: { status?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: MedicationMeta[]; offset: number; limit: number }>(
-    'ai.gftd.apps.karute.listMedications',
+    'app.etzhayyim.apps.karute.listMedications',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listOrders(patientDid: string, opts: { status?: string; category?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: OrderMeta[]; offset: number; limit: number }>(
-    'ai.gftd.apps.karute.listOrders',
+    'app.etzhayyim.apps.karute.listOrders',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listDispenses(opts: { patientDid?: string; pharmacyDid?: string; status?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: DispenseMeta[]; offset: number; limit: number }>(
-    'ai.gftd.apps.karute.listDispenses',
+    'app.etzhayyim.apps.karute.listDispenses',
     opts as XrpcQueryParams,
   );
 }
 
 export async function getChartSummary(patientDid: string, limit = 100) {
-  return xrpcQuery<ChartSummary>('ai.gftd.apps.karute.getChartSummary', { patientDid, limit });
+  return xrpcQuery<ChartSummary>('app.etzhayyim.apps.karute.getChartSummary', { patientDid, limit });
 }
 
 // ----- Procedures (write through encryption seam) -----
@@ -167,7 +167,7 @@ export async function createPatient(args: CreatePatientArgs) {
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string; patientDid: string }>(
-    'ai.gftd.apps.karute.createPatient',
+    'app.etzhayyim.apps.karute.createPatient',
     {
       envelopeUri: enc.uri,
       encryptedCid: enc.cid,
@@ -196,7 +196,7 @@ export async function createSoapNote(args: CreateSoapArgs) {
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string }>(
-    'ai.gftd.apps.karute.createSoapNote',
+    'app.etzhayyim.apps.karute.createSoapNote',
     { envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
       skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta },
   );
@@ -218,7 +218,7 @@ export async function createObservation(args: CreateObsArgs) {
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string }>(
-    'ai.gftd.apps.karute.createObservation',
+    'app.etzhayyim.apps.karute.createObservation',
     { envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
       skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta },
   );
@@ -246,7 +246,7 @@ export async function createMedicationRequest(args: CreateRxArgs) {
     encryptedCid: string;
     interactionFlags?: Array<{ severity: Severity; mechanism: string; recommendation: string }>;
     blocked?: boolean;
-  }>('ai.gftd.apps.karute.createMedicationRequest', {
+  }>('app.etzhayyim.apps.karute.createMedicationRequest', {
     envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
     skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta,
     overrideInteractionBlock: args.overrideInteractionBlock,
@@ -270,7 +270,7 @@ export async function createServiceRequest(args: CreateOrderArgs) {
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string }>(
-    'ai.gftd.apps.karute.createServiceRequest',
+    'app.etzhayyim.apps.karute.createServiceRequest',
     { envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
       skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta },
   );
@@ -296,7 +296,7 @@ export async function createDispense(args: CreateDispenseArgs) {
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string }>(
-    'ai.gftd.apps.karute.createDispense',
+    'app.etzhayyim.apps.karute.createDispense',
     { envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
       skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta },
   );
@@ -313,7 +313,7 @@ interface RequestIryoBillingArgs {
 
 export async function requestIryoBilling(args: RequestIryoBillingArgs) {
   return xrpcProcedure<{ ack: boolean; iryoClaimRef?: string; error?: string }>(
-    'ai.gftd.apps.karute.requestIryoBilling',
+    'app.etzhayyim.apps.karute.requestIryoBilling',
     args,
   );
 }
@@ -333,7 +333,7 @@ export async function grantConsent(args: GrantConsentArgs) {
   // procedure wrapper that takes the cleartext params and lets the actor
   // pipeline build + sign the capability via @etzhayyim/sdk on the server.
   return xrpcProcedure<{ capabilityUri: string; capabilityCid: string }>(
-    'ai.gftd.apps.karute.grantConsent',
+    'app.etzhayyim.apps.karute.grantConsent',
     args,
   );
 }

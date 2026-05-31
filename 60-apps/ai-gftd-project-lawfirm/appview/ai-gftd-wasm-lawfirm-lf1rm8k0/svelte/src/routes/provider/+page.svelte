@@ -64,7 +64,7 @@
       icon: "⚖️",
       summary: "Shortcut to runConflictCheck with matter-intake scope. Use before advancing status from conflictCheck → engaged.",
       inputHint: "matterDid · counterparty DIDs",
-      routesTo: "XRPC → ai.gftd.apps.lawfirm.runConflictCheck",
+      routesTo: "XRPC → app.etzhayyim.apps.lawfirm.runConflictCheck",
       action: () => {
         if (!selectedMatter) return;
         location.assign(`/m/${selectedMatter.matterRkey}?firm=${encodeURIComponent(selectedMatter.firmDid)}&openConflict=1`);

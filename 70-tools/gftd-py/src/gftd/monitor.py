@@ -248,7 +248,7 @@ def _normalize_domain_lookup(v: str) -> str:
 
 
 def _extract_collection_literals(src: str, ns_candidates: list[str]) -> list[str]:
-    prefixes = [f"ai.gftd.apps.{_normalize_domain_lookup(ns)}." for ns in ns_candidates if ns]
+    prefixes = [f"app.etzhayyim.apps.{_normalize_domain_lookup(ns)}." for ns in ns_candidates if ns]
     seen: set[str] = set()
     out: list[str] = []
     for m in _RE_COLLECTION.finditer(src):
@@ -582,7 +582,7 @@ def monitor_shinka(
 ) -> None:
     """Analyze shinka/kyumei-koji implementation quality across apps."""
     pds_url = pds_url.rstrip("/")
-    token = os.environ.get("GFTD_TOKEN", "")
+    token = os.environ.get("etzhayyim_TOKEN", "")
     if not token:
         auth = _load_auth()
         token = auth.get("accessJwt") or auth.get("access_token") or ""
@@ -633,7 +633,7 @@ def monitor_vote(pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.governance.listVotes",
+            f"{pds_url}/xrpc/app.etzhayyim.governance.listVotes",
             headers=_auth_headers(), timeout=30,
         )
         resp.raise_for_status()

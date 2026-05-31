@@ -79,11 +79,11 @@ INT は固定標準ではないため、プロダクト内部では次の 3 軸�
 
 正規 command は Matrix event。
 
-- `org.gftd.command.intel.case.open`
-- `org.gftd.command.intel.collection.run`
-- `org.gftd.command.intel.observation.attach`
-- `org.gftd.command.intel.hypothesis.score`
-- `org.gftd.command.intel.alert.acknowledge`
+- `org.etzhayyim.command.intel.case.open`
+- `org.etzhayyim.command.intel.collection.run`
+- `org.etzhayyim.command.intel.observation.attach`
+- `org.etzhayyim.command.intel.hypothesis.score`
+- `org.etzhayyim.command.intel.alert.acknowledge`
 
 command payload の標準 fields:
 

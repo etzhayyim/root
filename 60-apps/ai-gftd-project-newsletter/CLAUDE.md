@@ -11,7 +11,7 @@
 - **Agent Loop**: LangGraph (Python, L8) via LangServer
 - **Delivery**: Resend batch (per-subscriber personalized)
 - **Schedule**: Every Tuesday 09:00 JST (LangServer BPMN-contract timer `0 0 * * 2`)
-- **Input**: news.etzhayyim.com (`ai.gftd.apps.news.article`) + narou.etzhayyim.com chapters via subscribeRepos
+- **Input**: news.etzhayyim.com (`app.etzhayyim.apps.news.article`) + narou.etzhayyim.com chapters via subscribeRepos
 - **Ad Integration**: ads.etzhayyim.com `createCampaign` (optional sponsor slot)
 
 ## Flow
@@ -42,10 +42,10 @@ On-demand:
 ## XRPC Endpoints
 
 ### Procedure (3)
-`ai.gftd.apps.newsletter.{createCampaign, addSubscriber, sendCampaign}`
+`app.etzhayyim.apps.newsletter.{createCampaign, addSubscriber, sendCampaign}`
 
 ### Query (2)
-`ai.gftd.apps.newsletter.{getCampaign, listCampaigns}`
+`app.etzhayyim.apps.newsletter.{getCampaign, listCampaigns}`
 
 ## RisingWave Tables
 
@@ -86,10 +86,10 @@ gftd deploy
 python -m pymagatama.newsletter_worker_main
 
 curl https://nwsl0001.etzhayyim.com/health
-curl -X POST https://nwsl0001.etzhayyim.com/xrpc/ai.gftd.apps.newsletter.addSubscriber \
+curl -X POST https://nwsl0001.etzhayyim.com/xrpc/app.etzhayyim.apps.newsletter.addSubscriber \
   -H "Content-Type: application/json" \
   -d '{"email":"test@example.com","name":"Test User","cohortName":"cohort-apqc-3-market-sell"}'
-curl -X POST https://nwsl0001.etzhayyim.com/xrpc/ai.gftd.apps.newsletter.createCampaign \
+curl -X POST https://nwsl0001.etzhayyim.com/xrpc/app.etzhayyim.apps.newsletter.createCampaign \
   -H "Content-Type: application/json" \
   -d '{"name":"Weekly AI Digest #1","topic":"AI business tools and marketing automation"}'
 ```

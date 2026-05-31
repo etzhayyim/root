@@ -76,14 +76,14 @@ const procs = [
 const seeds: Seed[] = procs.map((proc) => ({
   proc,
   bpmnProcessId: `handotai_${snake(proc)}`,
-  nsid: `ai.gftd.apps.handotai.${proc}`,
+  nsid: `app.etzhayyim.apps.handotai.${proc}`,
   resultTimeoutMs: 30000,
   writeTableAllowlist: writeProcs.has(proc) ? handotaiWriteTableAllowlist : "",
 }));
 
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/handotai/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/handotai-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/handotai-${slug(s.proc)}-v1`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

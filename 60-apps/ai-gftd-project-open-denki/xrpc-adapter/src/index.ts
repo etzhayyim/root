@@ -20,7 +20,7 @@ interface Env {
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "ai.gftd.apps.openDenki";
+const NSID_BASE = "app.etzhayyim.apps.openDenki";
 
 interface RouteConfig {
   method: "POST" | "GET";

@@ -7,7 +7,7 @@ compatibility_date = "2026-05-22"
 # resolves to Cloudflare edge.
 #
 # Each request is forwarded via service binding to the corresponding
-# upstream worker (which still owns the gftd.ai routes). This lets the
+# upstream worker (which still owns the etzhayyim.com routes). This lets the
 # etzhayyim.com zone reuse the existing PDS / AppView / Auth / MCP
 # workers without redeploying them.
 [[routes]]
@@ -32,7 +32,7 @@ custom_domain = true
 
 # Service bindings — Worker→Worker calls within ai-gftd-cloud account.
 # These bypass the CF Bot Management blocks at the public HTTP edge that
-# affect *.gftd.ai requests.
+# affect *.etzhayyim.com requests.
 [[services]]
 binding = "PDS"
 service = "ai-gftd-pds-2603241700"

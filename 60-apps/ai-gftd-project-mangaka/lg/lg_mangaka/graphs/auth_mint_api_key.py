@@ -67,7 +67,7 @@ class _State(TypedDict, total=False):
 
 
 def _email_to_did(email: str) -> str:
-    """Map `user@gftd.co.jp` → `did:web:mangaka.etzhayyim.com:user:user_at_gftd_co_jp`.
+    """Map `user@etzhayyim.com` → `did:web:mangaka.etzhayyim.com:user:user_at_gftd_co_jp`.
 
     DID path segments must be ASCII without `:`/`@`/`.`, so we substitute.
     """
@@ -104,7 +104,7 @@ async def _persist(state: _State) -> dict[str, Any]:
     name = state.get("name") or f"studio-{(state.get('user_email') or 'anon').split('@')[0]}"
     scopes = state.get("scopes") or _DEFAULT_SCOPES
     owner = state["owner_did"]
-    vid = f"at://{owner}/ai.gftd.auth.apiKey/{state['key_hash'][:13]}"
+    vid = f"at://{owner}/app.etzhayyim.auth.apiKey/{state['key_hash'][:13]}"
     now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
     try:

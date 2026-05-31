@@ -19,7 +19,7 @@ Context: post-MST removal (2026-04-24), we wanted to identify additional dead ha
 | `comAtprotoIdentityCreate` (rpcMethod) | 13 | **all `exception`** (100% failure) | Crashing on every call. Called via Worker RPC (service binding), not HTTP XRPC. Handler lives at `gftd/index.ts:2476`. |
 | `app.bsky.feed.getAuthorFeed` | 7 | Ok | Only 2 unique actor DIDs: `sh1n5h1x.etzhayyim.com:{boa-hancock-one-piece, rias-gremory-high-school-dxd}` — looks cron-driven (5-min cadence). |
 | `/health` | 1 | Canceled | Internal healthcheck. |
-| (none) | 0 | — | Zero HTTP `com.atproto.*` / `ai.gftd.*` write traffic |
+| (none) | 0 | — | Zero HTTP `com.atproto.*` / `app.etzhayyim.*` write traffic |
 
 **Result: 2 distinct NSIDs out of 342 exercised in 3 minutes.** 340 were not observed.
 
@@ -43,17 +43,17 @@ Top NSIDs by volume (60min):
    11  com.atproto.repo.uploadBlob
     5  com.atproto.identity.list
     5  com.atproto.server.getServiceAuth
-    4  ai.gftd.yoro.respondToMention
+    4  app.etzhayyim.yoro.respondToMention
     4  com.atproto.sync.getBlob
     2  app.bsky.feed.post
-    1  ai.gftd.apps.llm.generateImage
-    1  ai.gftd.yoro.platformPulse
+    1  app.etzhayyim.apps.llm.generateImage
+    1  app.etzhayyim.yoro.platformPulse
     1  com.atproto.repo.putRecord
     1  com.atproto.repo.getRecord
 ```
 
 Of the 14 observed NSIDs, **4 are not in the v2 routed set of 375** (extractor gap):
-`ai.gftd.yoro.{platformPulse, respondToMention}`, `app.bsky.feed.post`,
+`app.etzhayyim.yoro.{platformPulse, respondToMention}`, `app.bsky.feed.post`,
 `com.atproto.repo.putRecord`. These are dispatched via patterns the extractor
 does not yet resolve (table-based `Set.has(nsid)` dispatch, pipethrough to
 AppView binding, or runtime string concat). Real routed handler count is > 375.
@@ -75,7 +75,7 @@ v3 stats:
 Resolved: `com.atproto.repo.putRecord` is in `XRPC_UPDATE_METHODS`. `com.atproto.sync.*`, `app.bsky.graph.*`, `app.bsky.feed.like/repost/threadgate`, and many more Set-dispatched NSIDs now counted correctly.
 
 **Still not in routed set** (not extractor bugs):
-- `ai.gftd.yoro.{platformPulse, respondToMention}` — dispatched via `pipethroughAppView()` (`dispatch.ts:334`) that forwards unknown `ai.gftd.yoro.*` NSIDs to `APPVIEW_SERVICE` binding. Not routed locally; routed at yoro Worker.
+- `app.etzhayyim.yoro.{platformPulse, respondToMention}` — dispatched via `pipethroughAppView()` (`dispatch.ts:334`) that forwards unknown `app.etzhayyim.yoro.*` NSIDs to `APPVIEW_SERVICE` binding. Not routed locally; routed at yoro Worker.
 - `app.bsky.feed.post` — record `$type` collection, not an XRPC method. Prod URL hits are either invalid client requests or path-pattern extraction false positives.
 
 **Sample size note**: the 60-min window got us from 342→375→448 routed (extractor improvements) and 2→14 observed. Dead-handler deletion still needs multi-day data.
@@ -117,7 +117,7 @@ This is NOT an NSID-is-dead finding — it's a **"NSID is exercised AND broken"*
 ## Alternative signal: dead handler via code shape
 
 Without traffic data, code-level signals for likely-dead handlers:
-- Handler returns a hardcoded error / stub response (e.g. we just did this to `ai.gftd.admin.repoBackfillMst`: 410 Gone).
+- Handler returns a hardcoded error / stub response (e.g. we just did this to `app.etzhayyim.admin.repoBackfillMst`: 410 Gone).
 - Handler writes to a vertex_* table with 0 rows in prod (we know 555/934 are 0-row).
 - Handler references a removed constant / deprecated ENV var.
 - Handler has no corresponding lexicon file anymore.
@@ -164,29 +164,29 @@ that the v1 extractor missed, including `com.atproto.identity.create`.
 |---|---|
 | app.bsky.graph | 25 |
 | com.atproto.server | 24 |
-| ai.gftd.projector | 23 |
-| ai.gftd.apps | 23 |
+| app.etzhayyim.projector | 23 |
+| app.etzhayyim.apps | 23 |
 | app.bsky.feed | 22 |
 | chat.bsky.convo | 17 |
 | app.bsky.unspecced | 17 |
 | com.atproto.admin | 16 |
-| ai.gftd.rtc | 15 |
+| app.etzhayyim.rtc | 15 |
 | com.atproto.sync | 14 |
-| ai.gftd.governance | 13 |
-| ai.gftd.signal | 12 |
+| app.etzhayyim.governance | 13 |
+| app.etzhayyim.signal | 12 |
 | com.atproto.identity | 10 |
 | app.bsky.notification | 10 |
 | com.atproto.repo | 9 |
 | app.bsky.contact | 8 |
-| ai.gftd.pds | 8 |
+| app.etzhayyim.pds | 8 |
 | com.atproto.temp | 7 |
-| ai.gftd.cohort | 7 |
+| app.etzhayyim.cohort | 7 |
 | tools.ozone.moderation | 6 |
 | app.bsky.actor | 6 |
 | tools.ozone.{set,team,safelink,communication,verification,setting,server} | 19 |
 | chat.bsky.{moderation,actor} | 5 |
 | app.bsky.{draft,bookmark,video,ageassurance,labeler} | 14 |
-| ai.gftd.{stream,convo,identity,murakumo,kagami,agent,admin} | 11 |
+| app.etzhayyim.{stream,convo,identity,murakumo,kagami,agent,admin} | 11 |
 
 Full list: `/tmp/traffic-zero.txt` (ephemeral, not committed — regenerate
 via `grep + comm -23` against a fresh tail).

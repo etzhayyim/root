@@ -8,14 +8,14 @@ Apache-2.0.
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.openAirplane.defineAirport` | procedure | airport (ICAO + IATA + runways) |
-| `ai.gftd.apps.openAirplane.listAirports` | query | airport directory |
-| `ai.gftd.apps.openAirplane.registerAircraft` | procedure | aircraft registration (tail no. + ICAO 24-bit) |
-| `ai.gftd.apps.openAirplane.scheduleFlight` | procedure | publish a single flight (origin → destination) |
-| `ai.gftd.apps.openAirplane.recordFlightStatus` | procedure | OOOI events (off, out, on, in) + cancel |
-| `ai.gftd.apps.openAirplane.listFlights` | query | flights by airport / date / status |
-| `ai.gftd.apps.openAirplane.reportIncident` | procedure | safety incident with severity DMN |
-| `ai.gftd.apps.openAirplane.listIncidents` | query | incidents by aircraft / since |
+| `app.etzhayyim.apps.openAirplane.defineAirport` | procedure | airport (ICAO + IATA + runways) |
+| `app.etzhayyim.apps.openAirplane.listAirports` | query | airport directory |
+| `app.etzhayyim.apps.openAirplane.registerAircraft` | procedure | aircraft registration (tail no. + ICAO 24-bit) |
+| `app.etzhayyim.apps.openAirplane.scheduleFlight` | procedure | publish a single flight (origin → destination) |
+| `app.etzhayyim.apps.openAirplane.recordFlightStatus` | procedure | OOOI events (off, out, on, in) + cancel |
+| `app.etzhayyim.apps.openAirplane.listFlights` | query | flights by airport / date / status |
+| `app.etzhayyim.apps.openAirplane.reportIncident` | procedure | safety incident with severity DMN |
+| `app.etzhayyim.apps.openAirplane.listIncidents` | query | incidents by aircraft / since |
 
 ## Architecture
 

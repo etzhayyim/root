@@ -1,7 +1,7 @@
 ---
 id: adr-2605231500-yatachain-projection
-title: "ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries"
-status: proposed
+title: "ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries (SUPERSEDED by 2605262130)"
+status: superseded
 doc_type: adr
 topic: yatachain-projection
 authoritative: true
@@ -14,13 +14,14 @@ authoritative_for:
   - "ADR-2605172000 hot-path escape hatch (when RW / Lance / Iroh / index serving range queries is permitted)"
   - "Bluesky AppView analog — PDS = state, projection = derivable cache"
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605231400-yatachain-holochain-iso-substrate
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605231400-yatachain-holochain-iso-substrate
 related:
-  - 2605222330-etzhayyim-com-substrate-violation-transition-window
-  - 2605111200-cf-worker-db-prohibition
+  - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
+  - adr-2605111200-cf-worker-edge-only-no-rw-connection
 supersedes: []
-superseded_by: []
+superseded_by:
+  - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries
@@ -31,8 +32,8 @@ superseded_by: []
 
 ## Context
 
-[ADR-2605172000](2605172000-etzhayyim-rw-free-substrate.md) mandates RW-free substrate
-(`AT Protocol MST + IPFS + Base L2 anchor`) as the **state store**. [ADR-2605231400](2605231400-yatachain-holochain-iso-substrate.md)
+[ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) mandates RW-free substrate
+(`AT Protocol MST + IPFS + Base L2 anchor`) as the **state store**. [ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md)
 names the composed architecture `yatachain` and defines three conformance levels
 (L0 nominal / L1 witnessed / L2 anchored). Neither ADR addresses **derived read
 paths** — i.e., the question:
@@ -246,7 +247,7 @@ overall chain back to MST is documented.
   diverged from canonical state? Periodic random-slice replay + alert; cost
   budget per projection.
 - **Council deliberation projection**: the council deliberation cell (per
-  [ADR-2605192300](2605192300-council-bootstrap.md)) is itself a
+  [ADR-2605192300](/90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md)) is itself a
   projection (votes derived from `app.etzhayyim.governance.*` records). This
   ADR's framing applies — but the rebuild path must preserve the
   cryptographic chain of attestations, not just summarize them. Tracked as

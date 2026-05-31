@@ -25,7 +25,7 @@ DSM 整理 (2026-04-26) で、現 contract layer のうち以下 3 つは Shanno
 観点で冗長 / 縮退:
 
 1. **WIT** (`_archive/00-contracts/wit/`, `_archive/wit-2026-04-13/`)
-   F-Plan 2026-04-13 で `ai.gftd.host.*` Lexicon JSON に置換済み。
+   F-Plan 2026-04-13 で `app.etzhayyim.host.*` Lexicon JSON に置換済み。
    T3 Container (`ai-gftd-wasm-cad-cd4dview`) と Rust `contract-jco`
    (`ai-gftd-wasm-hoge-h0g3t3st`) のみ in-tree `wit/` を保持。
 2. **wproto** (`10-protocol/wproto/`)
@@ -48,7 +48,7 @@ ADR-2604261100 が Rego + DMN を一級化するのと並行して、subtractive
 - 既存 2 例外 (`ai-gftd-wasm-cad-cd4dview` Container runtime,
   `ai-gftd-wasm-hoge-h0g3t3st` contract-jco generator) は legacy compat
   として **凍結** (機能追加なし、bug fix のみ)。
-- `ai.gftd.host.*` Lexicon を全 host capability の SSoT として再宣言
+- `app.etzhayyim.host.*` Lexicon を全 host capability の SSoT として再宣言
   (F-Plan 2026-04-13 を上書き)。
 - `Governance WIT` / `WIT Lexicon Typed Alignment` / `Contract WIT` /
   `W Protocol Query WIT` などの旧 convention は all `[[conventions]]`
@@ -60,7 +60,7 @@ ADR-2604261100 が Rego + DMN を一級化するのと並行して、subtractive
 
 | 旧 wproto 資産 | 移行先 | 経路 |
 |---|---|---|
-| 235 typed XRPC wrapper (browser) | **`@atproto/api` AtpAgent 直接呼び出し** | call site で `agent.com.atproto.repo.*` / `agent.app.bsky.*` / `agent.api.call('ai.gftd.apps.foo.bar', ...)` に書き換え |
+| 235 typed XRPC wrapper (browser) | **`@atproto/api` AtpAgent 直接呼び出し** | call site で `agent.com.atproto.repo.*` / `agent.app.bsky.*` / `agent.api.call('app.etzhayyim.apps.foo.bar', ...)` に書き換え |
 | `src/signal.ts` (Signal Protocol E2E) | **新パッケージ `10-protocol/signal/`** | パッケージ独立、wproto に依存しない |
 | `src/vault.ts` (secret bootstrap) | **新パッケージ `10-protocol/signal/` 配下 or `magatama-host-sdk`** | 評価して fast-follow ADR で確定 |
 | `src/client.ts` / `service.ts` (session bootstrap) | **削除** (AtpAgent.login で代替) | — |
@@ -72,20 +72,20 @@ ADR-2604261100 が Rego + DMN を一級化するのと並行して、subtractive
 - **公式 Lexicon (`com.atproto.*` / `app.bsky.*` / `chat.bsky.*` /
   `tools.ozone.*`)** → `@atproto/api` AtpAgent の typed method を直接
   使用。
-- **`ai.gftd.*` 拡張 NSID** → Lexicon JSON から **browser client を
+- **`app.etzhayyim.*` 拡張 NSID** → Lexicon JSON から **browser client を
   codegen** (host 側 `host-client.ts` と対称、後続 ADR で実装計画)。
-  暫定は `agent.api.call('ai.gftd.apps.foo.bar', input)` で動かす。
+  暫定は `agent.api.call('app.etzhayyim.apps.foo.bar', input)` で動かす。
 - **両方とも単一 AtpAgent インスタンス**を使用 (session / DPoP / refresh
   を一元管理)。
 
 ### Signal package (`10-protocol/signal/`)
 
-- パッケージ名: `@gftd/signal`
+- パッケージ名: `@etzhayyim/signal`
 - 公開 API: `signal:v1:` envelope encode/decode、prekey bundle exchange、
-  X3DH + double-ratchet。`ai.gftd.signal.*` Lexicon を本パッケージが
+  X3DH + double-ratchet。`app.etzhayyim.signal.*` Lexicon を本パッケージが
   consume する側、record 定義は `00-contracts/lexicons/ai/gftd/signal/`
   に維持。
-- 依存: `@atproto/api` (transport), libsodium (crypto)。**`@gftd/wproto`
+- 依存: `@atproto/api` (transport), libsodium (crypto)。**`@etzhayyim/wproto`
   に依存しない**。
 - CRITICAL convention `Signal Protocol E2E` の SSoT pointer を
   `10-protocol/wproto/src/signal.ts` から `10-protocol/signal/` に
@@ -105,8 +105,8 @@ ADR-2604261100 が Rego + DMN を一級化するのと並行して、subtractive
 |---|---|---|
 | 0 | 本 ADR + ADR-2604261100 を merge | done in PR |
 | 1 | `10-protocol/signal/` package 雛形作成、`signal.ts` 移植 | `[[migrations]] signal-extract-from-wproto` |
-| 2 | `appshellv2` / 他 wproto consumer を AtpAgent 直接 + `@gftd/signal` に書き換え | per-app PR |
-| 3 | `ai.gftd.*` 用 browser codegen (`gen-browser-client-from-lexicon.mjs`) 設計 ADR | fast-follow |
+| 2 | `appshellv2` / 他 wproto consumer を AtpAgent 直接 + `@etzhayyim/signal` に書き換え | per-app PR |
+| 3 | `app.etzhayyim.*` 用 browser codegen (`gen-browser-client-from-lexicon.mjs`) 設計 ADR | fast-follow |
 | 4 | 235 typed wrapper 全廃 → call site 書き換え完了後 `10-protocol/wproto/` を `_archive/` に移動 | `[[migrations]] wproto-retirement` |
 | 5 | `server-wproto` 削除 | `[[migrations]] server-wproto-removal` |
 

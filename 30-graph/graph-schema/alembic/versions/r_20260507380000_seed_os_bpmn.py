@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-list-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-list-v1',
                  'did:web:os.etzhayyim.com',
                  'os_agent_list',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -42,7 +42,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_agentList"/>\n'
                  '    <bpmn:serviceTask id="Task_agentList" name="agentList">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.agentList" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.agentList" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -60,13 +60,13 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-list-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-list-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1085, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-list-v1']},
+  'parameters': [1085, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-list-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -81,9 +81,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-list-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-list-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.agentList',
+                 'app.etzhayyim.apps.os.agentList',
                  'os_agent_list',
                  '',
                  '2026-05-07T00:50:00Z',
@@ -91,7 +91,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-list-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-list-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -107,7 +107,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-migrate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-migrate-v1',
                  'did:web:os.etzhayyim.com',
                  'os_agent_migrate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -122,7 +122,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_agentMigrate"/>\n'
                  '    <bpmn:serviceTask id="Task_agentMigrate" name="agentMigrate">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.agentMigrate" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.agentMigrate" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -140,14 +140,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-migrate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-migrate-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1109,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-migrate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-migrate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -162,9 +162,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-migrate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-migrate-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.agentMigrate',
+                 'app.etzhayyim.apps.os.agentMigrate',
                  'os_agent_migrate',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -172,7 +172,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-migrate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-migrate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -188,7 +188,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-pause-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-pause-v1',
                  'did:web:os.etzhayyim.com',
                  'os_agent_pause',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -203,7 +203,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_agentPause"/>\n'
                  '    <bpmn:serviceTask id="Task_agentPause" name="agentPause">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.agentPause" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.agentPause" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -221,13 +221,13 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-pause-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-pause-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1093, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-pause-v1']},
+  'parameters': [1093, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-pause-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -242,9 +242,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-pause-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-pause-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.agentPause',
+                 'app.etzhayyim.apps.os.agentPause',
                  'os_agent_pause',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -252,7 +252,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-pause-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-pause-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -268,7 +268,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-resume-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-resume-v1',
                  'did:web:os.etzhayyim.com',
                  'os_agent_resume',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -283,7 +283,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_agentResume"/>\n'
                  '    <bpmn:serviceTask id="Task_agentResume" name="agentResume">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.agentResume" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.agentResume" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -301,14 +301,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-resume-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-resume-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1101,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-resume-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-resume-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -323,9 +323,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-resume-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-resume-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.agentResume',
+                 'app.etzhayyim.apps.os.agentResume',
                  'os_agent_resume',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -333,7 +333,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-resume-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-resume-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -349,7 +349,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-spawn-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-spawn-v1',
                  'did:web:os.etzhayyim.com',
                  'os_agent_spawn',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -364,7 +364,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_agentSpawn"/>\n'
                  '    <bpmn:serviceTask id="Task_agentSpawn" name="agentSpawn">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.agentSpawn" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.agentSpawn" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -382,13 +382,13 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-spawn-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-spawn-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1093, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-spawn-v1']},
+  'parameters': [1093, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-spawn-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -403,9 +403,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-spawn-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-spawn-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.agentSpawn',
+                 'app.etzhayyim.apps.os.agentSpawn',
                  'os_agent_spawn',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -413,7 +413,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-spawn-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-spawn-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -429,7 +429,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-stop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-stop-v1',
                  'did:web:os.etzhayyim.com',
                  'os_agent_stop',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -444,7 +444,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_agentStop"/>\n'
                  '    <bpmn:serviceTask id="Task_agentStop" name="agentStop">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.agentStop" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.agentStop" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -462,13 +462,13 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-stop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-stop-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1085, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-stop-v1']},
+  'parameters': [1085, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-stop-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -483,9 +483,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-stop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-stop-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.agentStop',
+                 'app.etzhayyim.apps.os.agentStop',
                  'os_agent_stop',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -493,7 +493,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-stop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-stop-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -509,7 +509,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-audit-trail-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-audit-trail-v1',
                  'did:web:os.etzhayyim.com',
                  'os_audit_trail',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -524,7 +524,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_auditTrail"/>\n'
                  '    <bpmn:serviceTask id="Task_auditTrail" name="auditTrail">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.auditTrail" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.auditTrail" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -542,13 +542,13 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-audit-trail-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-audit-trail-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1093, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-audit-trail-v1']},
+  'parameters': [1093, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-audit-trail-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -563,9 +563,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-audit-trail-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-audit-trail-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.auditTrail',
+                 'app.etzhayyim.apps.os.auditTrail',
                  'os_audit_trail',
                  '',
                  '2026-05-07T00:50:00Z',
@@ -573,7 +573,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-audit-trail-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-audit-trail-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -589,7 +589,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-budget-allocate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-budget-allocate-v1',
                  'did:web:os.etzhayyim.com',
                  'os_budget_allocate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -605,7 +605,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_budgetAllocate"/>\n'
                  '    <bpmn:serviceTask id="Task_budgetAllocate" name="budgetAllocate">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.budgetAllocate" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.budgetAllocate" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -623,14 +623,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-budget-allocate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-budget-allocate-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1125,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-budget-allocate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-budget-allocate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -645,9 +645,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-budget-allocate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-budget-allocate-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.budgetAllocate',
+                 'app.etzhayyim.apps.os.budgetAllocate',
                  'os_budget_allocate',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -655,7 +655,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-budget-allocate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-budget-allocate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -671,7 +671,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-budget-balance-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-budget-balance-v1',
                  'did:web:os.etzhayyim.com',
                  'os_budget_balance',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -687,7 +687,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_budgetBalance"/>\n'
                  '    <bpmn:serviceTask id="Task_budgetBalance" name="budgetBalance">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.budgetBalance" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.budgetBalance" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -705,14 +705,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-budget-balance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-budget-balance-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1117,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-budget-balance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-budget-balance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -727,9 +727,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-budget-balance-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-budget-balance-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.budgetBalance',
+                 'app.etzhayyim.apps.os.budgetBalance',
                  'os_budget_balance',
                  '',
                  '2026-05-07T00:50:00Z',
@@ -737,7 +737,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-budget-balance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-budget-balance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -753,7 +753,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-approve-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-approve-v1',
                  'did:web:os.etzhayyim.com',
                  'os_consent_approve',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -769,7 +769,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_consentApprove"/>\n'
                  '    <bpmn:serviceTask id="Task_consentApprove" name="consentApprove">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.consentApprove" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.consentApprove" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -787,14 +787,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-approve-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-approve-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1125,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-approve-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-approve-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -809,9 +809,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-approve-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-approve-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.consentApprove',
+                 'app.etzhayyim.apps.os.consentApprove',
                  'os_consent_approve',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -819,7 +819,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-approve-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-approve-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -835,7 +835,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-deny-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-deny-v1',
                  'did:web:os.etzhayyim.com',
                  'os_consent_deny',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -850,7 +850,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_consentDeny"/>\n'
                  '    <bpmn:serviceTask id="Task_consentDeny" name="consentDeny">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.consentDeny" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.consentDeny" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -868,14 +868,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-deny-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-deny-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1101,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-deny-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-deny-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -890,9 +890,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-deny-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-deny-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.consentDeny',
+                 'app.etzhayyim.apps.os.consentDeny',
                  'os_consent_deny',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -900,7 +900,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-deny-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-deny-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -916,7 +916,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-pending-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-pending-v1',
                  'did:web:os.etzhayyim.com',
                  'os_consent_pending',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -932,7 +932,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_consentPending"/>\n'
                  '    <bpmn:serviceTask id="Task_consentPending" name="consentPending">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.consentPending" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.consentPending" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -950,14 +950,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-pending-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-pending-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1125,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-pending-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-pending-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -972,9 +972,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-pending-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-pending-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.consentPending',
+                 'app.etzhayyim.apps.os.consentPending',
                  'os_consent_pending',
                  '',
                  '2026-05-07T00:50:00Z',
@@ -982,7 +982,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-pending-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-pending-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -998,7 +998,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-submit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-submit-v1',
                  'did:web:os.etzhayyim.com',
                  'os_consent_submit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1014,7 +1014,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_consentSubmit"/>\n'
                  '    <bpmn:serviceTask id="Task_consentSubmit" name="consentSubmit">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.consentSubmit" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.consentSubmit" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1032,14 +1032,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-submit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-submit-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1117,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-submit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-submit-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1054,9 +1054,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-submit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-submit-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.consentSubmit',
+                 'app.etzhayyim.apps.os.consentSubmit',
                  'os_consent_submit',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -1064,7 +1064,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-submit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-submit-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1080,7 +1080,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-directory-register-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-directory-register-v1',
                  'did:web:os.etzhayyim.com',
                  'os_directory_register',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1096,7 +1096,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_directoryRegister"/>\n'
                  '    <bpmn:serviceTask id="Task_directoryRegister" name="directoryRegister">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.directoryRegister" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.directoryRegister" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1114,14 +1114,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-directory-register-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-directory-register-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1149,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-directory-register-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-directory-register-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1136,9 +1136,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-directory-register-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-directory-register-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.directoryRegister',
+                 'app.etzhayyim.apps.os.directoryRegister',
                  'os_directory_register',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -1146,7 +1146,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-directory-register-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-directory-register-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1162,7 +1162,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-directory-search-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-directory-search-v1',
                  'did:web:os.etzhayyim.com',
                  'os_directory_search',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1178,7 +1178,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_directorySearch"/>\n'
                  '    <bpmn:serviceTask id="Task_directorySearch" name="directorySearch">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.directorySearch" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.directorySearch" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1196,14 +1196,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-directory-search-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-directory-search-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1133,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-directory-search-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-directory-search-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1218,9 +1218,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-directory-search-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-directory-search-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.directorySearch',
+                 'app.etzhayyim.apps.os.directorySearch',
                  'os_directory_search',
                  '',
                  '2026-05-07T00:50:00Z',
@@ -1228,7 +1228,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-directory-search-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-directory-search-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1244,7 +1244,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-health-v1',
                  'did:web:os.etzhayyim.com',
                  'os_health',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1259,7 +1259,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_health"/>\n'
                  '    <bpmn:serviceTask id="Task_health" name="health">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.health" retries="2"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.health" retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -1276,13 +1276,13 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-health-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1059, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-health-v1']},
+  'parameters': [1059, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1297,9 +1297,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-health-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.health',
+                 'app.etzhayyim.apps.os.health',
                  'os_health',
                  '',
                  '2026-05-07T00:50:00Z',
@@ -1307,7 +1307,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1323,7 +1323,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-sync-pull-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-sync-pull-v1',
                  'did:web:os.etzhayyim.com',
                  'os_sync_pull',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1338,7 +1338,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_syncPull"/>\n'
                  '    <bpmn:serviceTask id="Task_syncPull" name="syncPull">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.syncPull" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.syncPull" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1356,13 +1356,13 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-sync-pull-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-sync-pull-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1077, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-sync-pull-v1']},
+  'parameters': [1077, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-sync-pull-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1377,9 +1377,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-sync-pull-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-sync-pull-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.syncPull',
+                 'app.etzhayyim.apps.os.syncPull',
                  'os_sync_pull',
                  '',
                  '2026-05-07T00:50:00Z',
@@ -1387,7 +1387,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-sync-pull-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-sync-pull-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1403,7 +1403,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-sync-push-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-sync-push-v1',
                  'did:web:os.etzhayyim.com',
                  'os_sync_push',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1418,7 +1418,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_syncPush"/>\n'
                  '    <bpmn:serviceTask id="Task_syncPush" name="syncPush">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.syncPush" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.syncPush" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1436,13 +1436,13 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-sync-push-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-sync-push-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1077, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-sync-push-v1']},
+  'parameters': [1077, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-sync-push-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1457,9 +1457,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-sync-push-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-sync-push-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.syncPush',
+                 'app.etzhayyim.apps.os.syncPush',
                  'os_sync_push',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -1467,7 +1467,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-sync-push-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-sync-push-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1483,7 +1483,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-window-close-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-window-close-v1',
                  'did:web:os.etzhayyim.com',
                  'os_window_close',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1498,7 +1498,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_windowClose"/>\n'
                  '    <bpmn:serviceTask id="Task_windowClose" name="windowClose">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.windowClose" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.windowClose" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1516,14 +1516,14 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-window-close-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-window-close-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1101,
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-window-close-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-window-close-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1538,9 +1538,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-window-close-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-window-close-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.windowClose',
+                 'app.etzhayyim.apps.os.windowClose',
                  'os_window_close',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -1548,7 +1548,7 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-window-close-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-window-close-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1564,7 +1564,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-window-open-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-window-open-v1',
                  'did:web:os.etzhayyim.com',
                  'os_window_open',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1579,7 +1579,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_windowOpen"/>\n'
                  '    <bpmn:serviceTask id="Task_windowOpen" name="windowOpen">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.os.windowOpen" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.os.windowOpen" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1597,13 +1597,13 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-window-open-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-window-open-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1093, 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-window-open-v1']},
+  'parameters': [1093, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-window-open-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1618,9 +1618,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-window-open-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-window-open-v1',
                  'did:web:os.etzhayyim.com',
-                 'ai.gftd.apps.os.windowOpen',
+                 'app.etzhayyim.apps.os.windowOpen',
                  'os_window_open',
                  'vertex_os_agent,vertex_os_agent_event,vertex_os_audit_entry,vertex_os_consent_request,vertex_os_consent_response,vertex_os_budget_allocation,vertex_os_directory_entry,vertex_os_sync_event,vertex_os_window_event,edge_os_agent_event,edge_os_agent_audit_entry,edge_os_consent_response,edge_os_budget_agent',
                  '2026-05-07T00:50:00Z',
@@ -1628,88 +1628,88 @@ UP = [{'sql': '\n'
                  'did:web:os.etzhayyim.com',
                  'sys.bpmn.seed.os',
                  'did:web:os.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-window-open-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-window-open-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-list-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-list-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-list-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-list-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-migrate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-migrate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-migrate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-migrate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-pause-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-pause-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-pause-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-pause-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-resume-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-resume-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-resume-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-resume-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-spawn-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-spawn-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-spawn-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-spawn-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-agent-stop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-agent-stop-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-agent-stop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-agent-stop-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-audit-trail-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-audit-trail-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-audit-trail-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-audit-trail-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-budget-allocate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-budget-allocate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-budget-allocate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-budget-allocate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-budget-balance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-budget-balance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-budget-balance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-budget-balance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-approve-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-approve-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-approve-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-approve-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-deny-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-deny-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-deny-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-deny-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-pending-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-pending-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-pending-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-pending-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-consent-submit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-consent-submit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-consent-submit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-consent-submit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-directory-register-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-directory-register-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-directory-register-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-directory-register-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-directory-search-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-directory-search-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-directory-search-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-directory-search-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-sync-pull-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-sync-pull-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-sync-pull-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-sync-pull-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-sync-push-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-sync-push-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-sync-push-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-sync-push-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-window-close-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-window-close-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-window-close-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-window-close-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/os-window-open-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-window-open-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/os-window-open-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-window-open-v1']}]
 
 
 def upgrade() -> None:

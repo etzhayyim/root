@@ -28,8 +28,8 @@ describe("Seed open-airplane BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openAirplane.scheduleFlight"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openAirplane.reportIncident"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openAirplane.scheduleFlight"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openAirplane.reportIncident"');
   });
 
   it("uses open-airplane-specific actor_id + owner_did", () => {

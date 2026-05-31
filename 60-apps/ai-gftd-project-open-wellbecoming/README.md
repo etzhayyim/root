@@ -10,8 +10,8 @@ Phase 2 (scaffolding) per ADR-2605172400. No content yet.
 
 ## Scope
 
-- `ai.gftd.wellBecoming.skillClaim` (record) — user-asserted claim on their own PDS
-- `ai.gftd.wellBecoming.attestation` (record) — peer attestation on peer's PDS
+- `app.etzhayyim.wellBecoming.skillClaim` (record) — user-asserted claim on their own PDS
+- `app.etzhayyim.wellBecoming.attestation` (record) — peer attestation on peer's PDS
 - Rank-compute lexicon (`getRank`) — pure function over claims + attestations
 
 ## Out of scope (stays vendor)

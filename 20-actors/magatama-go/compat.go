@@ -358,7 +358,7 @@ var (
 	EvtEvolutionAccept               = "evolution.accept"
 	EvtEvolutionReject               = "evolution.reject"
 	EvtFormsPending                  = "forms.pending"
-	LexiconEvolutionTeamSessionStart = "ai.gftd.evolution.teamSessionStart"
+	LexiconEvolutionTeamSessionStart = "app.etzhayyim.evolution.teamSessionStart"
 )
 
 func DefaultAppTeam(args ...any) AppTeamConfig                              { return AppTeamConfig{} }
@@ -389,7 +389,7 @@ func WriteJSON(w http.ResponseWriter, status int, payload any) {
 func HandleCORS(w http.ResponseWriter, r *http.Request) bool {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, Connect-Protocol-Version, X-GFTD-ORG-ID, X-Request-ID")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, Connect-Protocol-Version, X-etzhayyim-ORG-ID, X-Request-ID")
 	if r.Method == http.MethodOptions {
 		w.WriteHeader(http.StatusNoContent)
 		return true

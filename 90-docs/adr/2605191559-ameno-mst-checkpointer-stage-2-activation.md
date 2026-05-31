@@ -7,12 +7,12 @@ topic: ameno-substrate-persistence
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
-  - 2605191257-ameno-daemon-path-b-pymagatama-python.md
-  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - 2605191257-ameno-daemon-path-b-pymagatama-python
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
 related:
-  - 2605181100-mst-encrypted-records-signal-keywrap.md
-  - 2605172000-etzhayyim-rw-free-substrate.md
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605172000-etzhayyim-rw-free-substrate
 ---
 
 # ADR 2605191559: Ameno → MstCheckpointSaver Stage 2 activation

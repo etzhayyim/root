@@ -172,7 +172,7 @@ Return ONLY the JSON object.`,
 export function buildCharacterPreviewScene(def: CharacterDef, glbBlobKey: string): Record<string, unknown> {
   const bg: [number, number, number] = [0.05, 0.04, 0.07];
   return {
-    "@context": "https://gftd.co.jp/ns/kami/scene",
+    "@context": "https://etzhayyim.com/ns/kami/scene",
     "@type": "IslandScene",
     name: "Character Preview",
     genre: "social",

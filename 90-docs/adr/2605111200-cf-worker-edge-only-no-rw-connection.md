@@ -19,7 +19,7 @@ authoritative_for:
   - createKyselyDb-deprecation
 related:
   - adr-0002-persistence-risingwave-only
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2605080600-langgraph-server-granian-l3-runtime
   - adr-2605081200-spiffworkflow-bpmn-engine-replacement
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
@@ -44,7 +44,7 @@ ADR-2604282300 が暗黙に許容していた T3 Worker の直接 DB write/read 
 
 - 禁止対象: 全 CF Worker から `env.HYPERDRIVE` 経由の PostgreSQL 接続。
 - 撤去対象: 全 `wrangler.jsonc` の `"hyperdrive"` binding。
-- 廃止対象: `@gftd/magatama-host-sdk` の `createKyselyDb()` / `setKyselyHyperdrive()` の "Worker 内 DB connection 生成" 機能。型エクスポートは残し、関数は throw 化する。
+- 廃止対象: `@etzhayyim/magatama-host-sdk` の `createKyselyDb()` / `setKyselyHyperdrive()` の "Worker 内 DB connection 生成" 機能。型エクスポートは残し、関数は throw 化する。
 - 移行先: bpmn-dispatcher → LangGraph Server (`/runs`) / SpiffWorkflow BPMN worker / 既存 K8s pod (`zeebe-worker`, `claim-consumer-actor`, 等)。
 
 # Executive Summary
@@ -81,7 +81,7 @@ binding 自体を `wrangler.jsonc` から削除する。
 
 ## 2. SDK 側で fail-fast
 
-`@gftd/magatama-host-sdk/src/kysely.ts`:
+`@etzhayyim/magatama-host-sdk/src/kysely.ts`:
 
 ```ts
 export class WorkerDBProhibitedError extends Error {
@@ -112,7 +112,7 @@ CF Worker が DB I/O を必要とする場合は **必ず HTTP / XRPC で server
 
 | 用途 | 代替経路 |
 |---|---|
-| Domain write (`vertex_<actor>_<kind>`) | XRPC `ai.gftd.apps.<actor>.<method>` → bpmn-dispatcher → LangGraph `/runs` or SpiffWorkflow `/v1/instance` → pod → INSERT |
+| Domain write (`vertex_<actor>_<kind>`) | XRPC `app.etzhayyim.apps.<actor>.<method>` → bpmn-dispatcher → LangGraph `/runs` or SpiffWorkflow `/v1/instance` → pod → INSERT |
 | Domain read | XRPC query method → bpmn-dispatcher → LangGraph node → SELECT → response |
 | Social write (`app.bsky.*`) | `sdk.pds.dispatch({type:"app.bsky.feed.post",...})` (PDS pipethrough は維持) |
 | Federation read | XRPC through PDS (unchanged) |
@@ -124,7 +124,7 @@ ADR-2604282300 の "T3 = Worker 許可" 条項のうち、**DB I/O に関する�
 T3 が必要な理由 (CF 固有 binding / WebSocket / SSE / edge latency) は維持するが、
 T3 Worker 内で `createKyselyDb()` を呼ぶことは禁止。
 
-`ai.gftd.vault.*` (D1 zero-knowledge) と `ai.gftd.signal.*` (E2E prekey) は元から PDS pipethrough のため影響なし。
+`app.etzhayyim.vault.*` (D1 zero-knowledge) と `app.etzhayyim.signal.*` (E2E prekey) は元から PDS pipethrough のため影響なし。
 
 ## 5. Phase 化 (soft-prune)
 
@@ -167,7 +167,7 @@ Per `60-apps/ai-gftd-project-<actor>/appview/.../src/app.ts`:
 
 1. Identify `createKyselyDb(env.HYPERDRIVE)` callsites → list domain collections involved
 2. For each domain write:
-   - Add `ai.gftd.apps.<actor>.<method>` lexicon (if not exists) として bpmn-dispatcher route 化
+   - Add `app.etzhayyim.apps.<actor>.<method>` lexicon (if not exists) として bpmn-dispatcher route 化
    - Worker handler は `parseLexiconInput()` + `await fetch(BPMN_DISPATCHER_URL, ...)` または `sdk.pds.xrpc(...)` 経由に書き換え
    - server-side (LangGraph node / Spiff task / pyzeebe primitive) で INSERT を実装
 3. For each domain read:
@@ -245,7 +245,7 @@ The same session inventory confirmed the intended Worker shape:
 - `/xrpc/[...path]` shims forward JSON-RPC MCP calls to
   `AGENTGATEWAY_MCP_ROUTER_URL` or `MCP_ROUTER_URL`;
 - canonical public MCP routing is
-  `https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`;
+  `https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message`;
 - legacy non-Svelte / Worker-local logic remains a migration target and must be
   treated as exception debt, not a new precedent.
 

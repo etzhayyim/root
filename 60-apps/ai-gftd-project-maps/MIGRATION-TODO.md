@@ -11,7 +11,7 @@ Authoritative target: **yatachain L1 witnessed** for low-write entity registrati
 | Layer | Substrate | Charter status |
 |---|---|---|
 | Domain / DID | `maps.etzhayyim.com` / `did:web:maps.etzhayyim.com` | ✅ migrated |
-| Lexicons | `ai.gftd.apps.maps.*` (47 record kinds) | ⚠️ NSID prefix not yet cut over to `app.etzhayyim.maps.*` |
+| Lexicons | `app.etzhayyim.apps.maps.*` (47 record kinds) | ⚠️ NSID prefix not yet cut over to `app.etzhayyim.maps.*` |
 | Write path | `createKyselyDb(env.HYPERDRIVE).insertInto("vertex_spatial")` direct, ADR-0036 bypass | ❌ violates ADR-2605172000 (centralized RW) |
 | Read path | `createKyselyDb(env.HYPERDRIVE).selectFrom(...)` direct | ❌ violates ADR-2605172000 |
 | Blob | B2 (`maps-bulk-ingest/gsplat*`) + R2 + Cloudflare Tile | ❌ centralized object stores; content-addressed paths exist (SHA-256 prefix shard) so swap to IPFS is mechanical |
@@ -51,8 +51,8 @@ Every maps write/read maps to one of four tiers per [yatachain SPEC §Conformanc
 
 | Surface | Commands | Why |
 |---|---|---|
-| Tile vector overlay | `ai.gftd.apps.maps.tileGeoJson` (XRPC) | bbox spatial query on `vertex_spatial WHERE label IN (...)`, sub-100ms target |
-| H3 chunk overlay | `ai.gftd.apps.maps.getChunk` | `cellToBoundary → union bbox → 1 query → centroid → owning cell` routing, cache key = h3Cell |
+| Tile vector overlay | `app.etzhayyim.apps.maps.tileGeoJson` (XRPC) | bbox spatial query on `vertex_spatial WHERE label IN (...)`, sub-100ms target |
+| H3 chunk overlay | `app.etzhayyim.apps.maps.getChunk` | `cellToBoundary → union bbox → 1 query → centroid → owning cell` routing, cache key = h3Cell |
 | GTFS-RT realtime | `realtimeDelaysAtStop` + `mv_maps_recent_vehicle_position` / `mv_maps_recent_trip_update` / `mv_maps_active_alerts` streaming MV | 30s polling cadence, sub-50ms read, RW streaming MV pruning windows |
 | GTFS static timetable | `nextDeparturesAtStop` with `idx_maps_stop_time_stop_dep (stop_id, departure_time)` | sub-50ms read on 5M+ row table |
 | Graph traversal | `graph_traverse` (depth 1-5), `graph_neighbors`, `search_resources` (multi-label) | range / join / aggregate semantics outside MST prefix-scan |
@@ -163,7 +163,7 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 
 ## Open questions
 
-- **OQ-M-1** (Lexicon NSID cutover): when does `ai.gftd.apps.maps.*` migrate to `app.etzhayyim.maps.*`? This is independent of yatachain conformance but needed for Charter §1 doctrinal-position consistency (operating entity = etzhayyim, not gftd). Suggest: bundle into Phase 1.
+- **OQ-M-1** (Lexicon NSID cutover): when does `app.etzhayyim.apps.maps.*` migrate to `app.etzhayyim.maps.*`? This is independent of yatachain conformance but needed for Charter §1 doctrinal-position consistency (operating entity = etzhayyim, not gftd). Suggest: bundle into Phase 1.
 - **OQ-M-2** (Witness on encrypted user-post EXIF): per [ADR-2605181100](../../90-docs/adr/2605181100-app-etzhayyim-encrypted-records.md) `app.etzhayyim.encrypted.*` envelope, can a witness validate envelope structure + signature without decrypting EXIF payload? Tracked as yatachain SPEC OQ-1; resolution blocks user post path.
 - **OQ-M-3** (Search index witness): vector IVF backfill (`maps_search_ivf_backfill.py`) produces a derived structure (embedding index), not a primary record. Treat as yatachain-projection (Tier C) or as a derived Tier B record kind with witness over the embedding model hash? Suggest projection unless audit trail is needed.
 - **OQ-M-4** (Cross-actor invoke during witness): commands that `sdk.pds.dispatch({type:"invoke", payload:{did:"site.etzhayyim.com", ...}})` (e.g., `seed_geo_domains`) — does the witness wait for the cross-actor reply, or attest only on the dispatch envelope? Suggest envelope-only attestation; downstream actor produces its own witnessed records.
@@ -210,7 +210,7 @@ for the per-worker checklist.
 
 - 12 worker files: same mechanical refactor as openflights_dumper. See
   per-file checklist in `bulk-ingest/workers/MIGRATION-TODO.md`.
-- Lexicons for the 51 maps node labels (`ai.gftd.apps.maps.{label}`) —
+- Lexicons for the 51 maps node labels (`app.etzhayyim.apps.maps.{label}`) —
   several exist; remaining ones need scaffolds before `ETZHAYYIM_SUBSTRATE_MODE=mst`
   can be flipped in production.
 

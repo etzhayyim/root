@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
          "        '2026-04-29T03:00:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.track/demo-1',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.track/demo-1',
                  1,
                  'Opener (Wota Call)',
                  128,
@@ -116,15 +116,15 @@ UP = [{'sql': '\n'
          '      )\n'
          '      VALUES (\n'
          '        $1,\n'
-         "        'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',\n"
+         "        'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.room/demo',\n"
          '        $2,\n'
          '        $3,\n'
          "        '2026-04-29T03:00:00Z',\n"
          "        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.roomTrack/demo-1',
-                 'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.track/demo-1',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.roomTrack/demo-1',
+                 'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.track/demo-1',
                  1]},
  {'sql': '\n'
          '      INSERT INTO vertex_live_track (\n'
@@ -141,7 +141,7 @@ UP = [{'sql': '\n'
          "        '2026-04-29T03:00:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.track/demo-2',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.track/demo-2',
                  2,
                  'Ballad Breakdown',
                  92,
@@ -158,15 +158,15 @@ UP = [{'sql': '\n'
          '      )\n'
          '      VALUES (\n'
          '        $1,\n'
-         "        'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',\n"
+         "        'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.room/demo',\n"
          '        $2,\n'
          '        $3,\n'
          "        '2026-04-29T03:00:00Z',\n"
          "        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.roomTrack/demo-2',
-                 'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.track/demo-2',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.roomTrack/demo-2',
+                 'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.track/demo-2',
                  2]},
  {'sql': '\n'
          '      INSERT INTO vertex_live_track (\n'
@@ -183,7 +183,7 @@ UP = [{'sql': '\n'
          "        '2026-04-29T03:00:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.track/demo-3',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.track/demo-3',
                  3,
                  'K-Pop Encore',
                  140,
@@ -200,15 +200,15 @@ UP = [{'sql': '\n'
          '      )\n'
          '      VALUES (\n'
          '        $1,\n'
-         "        'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',\n"
+         "        'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.room/demo',\n"
          '        $2,\n'
          '        $3,\n'
          "        '2026-04-29T03:00:00Z',\n"
          "        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.roomTrack/demo-3',
-                 'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.track/demo-3',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.roomTrack/demo-3',
+                 'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.track/demo-3',
                  3]},
  {'sql': '\n'
          '      INSERT INTO vertex_live_lighting_cue (\n'
@@ -225,7 +225,7 @@ UP = [{'sql': '\n'
          "        '2026-04-29T03:00:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.lightingCue/demo-1',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.lightingCue/demo-1',
                  'frontPar',
                  1,
                  0.55,
@@ -244,15 +244,15 @@ UP = [{'sql': '\n'
          '      )\n'
          '      VALUES (\n'
          '        $1,\n'
-         "        'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',\n"
+         "        'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.room/demo',\n"
          '        $2,\n'
          '        $3,\n'
          "        '2026-04-29T03:00:00Z',\n"
          "        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.roomLightingCue/demo-1',
-                 'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.lightingCue/demo-1',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.roomLightingCue/demo-1',
+                 'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.lightingCue/demo-1',
                  0]},
  {'sql': '\n'
          '      INSERT INTO vertex_live_lighting_cue (\n'
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
          "        '2026-04-29T03:00:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.lightingCue/demo-2',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.lightingCue/demo-2',
                  'laser',
                  0.2,
                  0.7,
@@ -288,15 +288,15 @@ UP = [{'sql': '\n'
          '      )\n'
          '      VALUES (\n'
          '        $1,\n'
-         "        'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',\n"
+         "        'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.room/demo',\n"
          '        $2,\n'
          '        $3,\n'
          "        '2026-04-29T03:00:00Z',\n"
          "        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.roomLightingCue/demo-2',
-                 'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.lightingCue/demo-2',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.roomLightingCue/demo-2',
+                 'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.lightingCue/demo-2',
                  0]},
  {'sql': '\n'
          '      INSERT INTO vertex_live_lighting_cue (\n'
@@ -313,7 +313,7 @@ UP = [{'sql': '\n'
          "        '2026-04-29T03:00:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.lightingCue/demo-3',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.lightingCue/demo-3',
                  'strobe',
                  1,
                  1,
@@ -332,15 +332,15 @@ UP = [{'sql': '\n'
          '      )\n'
          '      VALUES (\n'
          '        $1,\n'
-         "        'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',\n"
+         "        'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.room/demo',\n"
          '        $2,\n'
          '        $3,\n'
          "        '2026-04-29T03:00:00Z',\n"
          "        'did:web:live.etzhayyim.com', 'anon', 'did:web:live.etzhayyim.com'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:live.etzhayyim.com/ai.gftd.apps.live.roomLightingCue/demo-3',
-                 'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.lightingCue/demo-3',
+  'parameters': ['at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.roomLightingCue/demo-3',
+                 'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.lightingCue/demo-3',
                  2]}]
 
 DOWN = [{'sql': 'DROP TABLE IF EXISTS edge_live_room_lighting_cue', 'parameters': []},

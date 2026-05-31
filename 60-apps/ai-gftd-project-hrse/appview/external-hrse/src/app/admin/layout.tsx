@@ -3,7 +3,7 @@ import { getUserAuthInfo, determineEffectiveUserType } from "@/lib/auth-helpers"
 
 /**
  * 管理者ページ用レイアウト
- * システム管理者（@gftd.co.jp）のみアクセス可能
+ * システム管理者（@etzhayyim.com）のみアクセス可能
  */
 export default async function AdminLayout({
 	children,

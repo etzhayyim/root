@@ -1,7 +1,7 @@
 """
 pymagatama — Python runtime SDK for mitama reactive agents (ADR-0049).
 
-Counterpart to `@gftd/magatama-host-sdk` (TypeScript, for CF Worker Mode B).
+Counterpart to `@etzhayyim/magatama-host-sdk` (TypeScript, for CF Worker Mode B).
 Runs inside RisingWave External Python UDF servers on the mitama-udf pool
 (Vultr VKE per ADR-0048).
 
@@ -10,7 +10,7 @@ Public surface:
     from pymagatama import udf, serve
     from pymagatama.db_sync import fetch_one, fetch_all, execute  # sync DB
 
-    @udf("ai.gftd.apps.yabai.classify",
+    @udf("app.etzhayyim.apps.yabai.classify",
          input_types=["VARCHAR"], result_type="VARCHAR", io_threads=100)
     def classify(body_json: str) -> str:
         return compute_score(body_json)

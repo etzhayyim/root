@@ -7,8 +7,8 @@ topic: yobel-deployments
 authoritative: true
 last_verified: 2026-05-20
 related:
-  - 90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md
-  - 90-docs/governance/proposals/2605201800-yobel-ratification.md
+  - adr-2605201800-etzhayyim-yobel-debt-release-actor
+  - proposal-2605201800-yobel-ratification
   - 50-infra/etzhayyim-yobel-contract/script/Deploy.s.sol
 ---
 
@@ -97,7 +97,7 @@ forge script script/Deploy.s.sol \
 2. **Anchor deployment receipt** — call `EtzhayyimAnchor.anchor(rootHash, ipfsCid, batchSize=2)` where `rootHash = keccak256(abi.encode(YobelRiteRegistry, YobelReleaseRegistry, deploymentBlock))`, `ipfsCid` points to the verified Etherscan JSON
 3. **Update orchestrator wiring** — `20-actors/yobel/orchestrator.py` constructor accepts a `chain_id` + `registry_address`; set via env at the deployer-defined value
 4. **Update vendor bridge** — vendor:`70-tools/scripts/yobel-bridge/README.md` deployment table updated with the canonical testnet (and later mainnet) `yobelRiteRegistryAddress`
-5. **Notify Public Fund auditor** — encrypted MST record under `ai.gftd.apps.etzhayyim.publicFund.deploymentAudit` per ADR-2605192145
+5. **Notify Public Fund auditor** — encrypted MST record under `app.etzhayyim.apps.etzhayyim.publicFund.deploymentAudit` per ADR-2605192145
 
 ## Rollback / emergency response
 

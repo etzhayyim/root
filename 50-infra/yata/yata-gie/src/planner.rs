@@ -359,7 +359,7 @@ mod tests {
             .scan("Person", "a")
             .expand("a", "KNOWS", "b", Direction::Out)
             .expand("b", "WORKS_AT", "c", Direction::Out)
-            .filter(Predicate::Eq("name".into(), PropValue::Str("GFTD".into())))
+            .filter(Predicate::Eq("name".into(), PropValue::Str("etzhayyim".into())))
             .project(vec![
                 Expr::Prop("a".into(), "name".into()),
                 Expr::Prop("c".into(), "name".into()),

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govMdg.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govMdg.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Madagascar government.",
-        "operationId": "ai.gftd.govMdg.followSiteDeps",
+        "operationId": "app.etzhayyim.govMdg.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMdg.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govMdg.heartbeatTick": {
       "post": {
         "summary": "Run the Madagascar government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govMdg.heartbeatTick",
+        "operationId": "app.etzhayyim.govMdg.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMdg.listOrgs": {
+    "/xrpc/app.etzhayyim.govMdg.listOrgs": {
       "get": {
         "summary": "List Madagascar government organization graph records.",
-        "operationId": "ai.gftd.govMdg.listOrgs",
+        "operationId": "app.etzhayyim.govMdg.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMdg.registerDIDs": {
+    "/xrpc/app.etzhayyim.govMdg.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Madagascar government organizations.",
-        "operationId": "ai.gftd.govMdg.registerDIDs",
+        "operationId": "app.etzhayyim.govMdg.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMdg.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govMdg.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Madagascar government organization path to its graph record.",
-        "operationId": "ai.gftd.govMdg.resolveOrgPath",
+        "operationId": "app.etzhayyim.govMdg.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMdg.seedOrgs": {
+    "/xrpc/app.etzhayyim.govMdg.seedOrgs": {
       "post": {
         "summary": "Seed initial Madagascar government organization records into the graph.",
-        "operationId": "ai.gftd.govMdg.seedOrgs",
+        "operationId": "app.etzhayyim.govMdg.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMdg.shinka": {
+    "/xrpc/app.etzhayyim.govMdg.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Madagascar government organization update.",
-        "operationId": "ai.gftd.govMdg.shinka",
+        "operationId": "app.etzhayyim.govMdg.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMdg.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govMdg.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Madagascar government organization changes to graph.",
-        "operationId": "ai.gftd.govMdg.syncWetUpdates",
+        "operationId": "app.etzhayyim.govMdg.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

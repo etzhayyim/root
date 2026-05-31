@@ -19,9 +19,9 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192245-etzhayyim-global-land-sovereignty
 related:
-  - 2605192200-etzhayyim-ip-free-release-charter-rider.md
-  - 2605202000-etzhayyim-energy-substrate.md
-  - 2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605202000-etzhayyim-energy-substrate
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
 supersedes: []
 superseded_by: []
 ---
@@ -118,7 +118,7 @@ magatama Pregel cells に新規 cell 追加:
   README.md
 ```
 
-Adherent SBT holder が自身の寄付土地に対する agronomy advice を取得できる。advice は AT Record として永続化される (`ai.gftd.apps.etzhayyim.agronomy-advisory` Lexicon, future)。
+Adherent SBT holder が自身の寄付土地に対する agronomy advice を取得できる。advice は AT Record として永続化される (`app.etzhayyim.apps.etzhayyim.agronomy-advisory` Lexicon, future)。
 
 ## 残る 4 産業の future ADR
 

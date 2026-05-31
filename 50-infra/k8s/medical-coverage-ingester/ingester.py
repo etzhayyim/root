@@ -86,19 +86,19 @@ K8S_CA_PATH = Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
 TARGETS = {
     "pubmed": {
         "domain": "gakujutsu_ronbun",
-        "collection": "ai.gftd.apps.iryo.pubmedPaper",
+        "collection": "app.etzhayyim.apps.iryo.pubmedPaper",
     },
     "clinical_trials": {
         "domain": "rinshou_shiken",
-        "collection": "ai.gftd.apps.iryo.rinshou",
+        "collection": "app.etzhayyim.apps.iryo.rinshou",
     },
     "dsm": {
         "domain": "dsm_shikkan",
-        "collection": "ai.gftd.apps.iryo.dsmCategory",
+        "collection": "app.etzhayyim.apps.iryo.dsmCategory",
     },
     "facilities_csv": {
         "domain": "iryo_shisetsu",
-        "collection": "ai.gftd.apps.iryo.shisetsu",
+        "collection": "app.etzhayyim.apps.iryo.shisetsu",
     },
 }
 
@@ -452,10 +452,10 @@ def medical_source_edge(record: tuple[str, str, str, str, str, str, str, int, st
     )
     description = str(value.get("fullJournalName") or value.get("taxonomy") or value.get("overallStatus") or "")
     standard = {
-        "ai.gftd.apps.iryo.pubmedPaper": "PubMed",
-        "ai.gftd.apps.iryo.rinshou": "ClinicalTrials.gov",
-        "ai.gftd.apps.iryo.dsmCategory": "DSM",
-        "ai.gftd.apps.iryo.shisetsu": "Healthcare facility",
+        "app.etzhayyim.apps.iryo.pubmedPaper": "PubMed",
+        "app.etzhayyim.apps.iryo.rinshou": "ClinicalTrials.gov",
+        "app.etzhayyim.apps.iryo.dsmCategory": "DSM",
+        "app.etzhayyim.apps.iryo.shisetsu": "Healthcare facility",
     }.get(collection, "medical")
     return (
         uri,

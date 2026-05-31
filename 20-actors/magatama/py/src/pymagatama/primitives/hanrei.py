@@ -31,10 +31,10 @@ from pymagatama.db_sync import sync_cursor
 
 
 _OWNER_DID = "did:web:hanrei.etzhayyim.com"
-_COL_JOB = "ai.gftd.apps.hanrei.collectionJob"
-_COL_CASE = "ai.gftd.apps.hanrei.caseRecord"
-_COL_JURISDICTION = "ai.gftd.apps.hanrei.jurisdiction"
-_COL_COURT = "ai.gftd.apps.hanrei.court"
+_COL_JOB = "app.etzhayyim.apps.hanrei.collectionJob"
+_COL_CASE = "app.etzhayyim.apps.hanrei.caseRecord"
+_COL_JURISDICTION = "app.etzhayyim.apps.hanrei.jurisdiction"
+_COL_COURT = "app.etzhayyim.apps.hanrei.court"
 
 
 def _utc_now() -> str:

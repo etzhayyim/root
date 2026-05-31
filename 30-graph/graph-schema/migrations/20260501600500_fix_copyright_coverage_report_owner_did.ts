@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const sourcePath = "00-contracts/bpmn/ai/gftd/copyright/coverageReport.bpmn";
-const vid = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/copyright-coverage-report-v1";
+const vid = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-coverage-report-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(path.resolve(repoRoot, sourcePath), "utf8");

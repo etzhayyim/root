@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/contribution-royalty-distribute-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'contribution_royalty_distribute',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -64,7 +64,7 @@ UP = [{'sql': '\n'
                  '  Process ID  : contribution_royalty_distribute\n'
                  '  NSID        : (timer-start — no lexicon binding needed)\n'
                  '  vertex_id   : '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/contribution-royalty-distribute-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -162,7 +162,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.contribution.royalty.distribute&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.contribution.royalty.distribute&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;ok&quot;: distributeOk, '
                  '&quot;txHash&quot;: txHash, &quot;totalWei&quot;: totalWei, '
@@ -182,7 +182,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.contribution.royalty.skip&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.contribution.royalty.skip&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;reason&quot;: '
                  '&quot;no-royalties-yesterday&quot; }" target="attributes"/>\n'
@@ -206,10 +206,10 @@ UP = [{'sql': '\n'
                  '2026-04-28T20:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/contribution-royalty-distribute-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/contribution-royalty-distribute-v1']}]
 
 
 def upgrade() -> None:

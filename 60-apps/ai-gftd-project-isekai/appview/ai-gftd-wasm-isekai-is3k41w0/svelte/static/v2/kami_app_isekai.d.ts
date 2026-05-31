@@ -2,6 +2,41 @@
 /* eslint-disable */
 
 /**
+ * nv-compat banner; useful for HUD strings and audit trails.
+ */
+export function isekaiOmniverseBanner(): string;
+
+/**
+ * JS-callable: return the bundled default USDA so the JS side can
+ * display / edit / re-submit it.
+ */
+export function isekaiOmniverseDefaultUsda(): string;
+
+/**
+ * JS-callable: return the built-in world catalog as a JSON string
+ * `[{id, name, usda}]`. Each `usda` field is produced by
+ * `kami_usd::to_usda` over a programmatically-built `Stage`.
+ */
+export function isekaiOmniverseWorldCatalog(): string;
+
+/**
+ * JS-callable: set the force (N) applied to every cartpole cart each
+ * physics step. `omniverse.htm` / `worlds.htm` bind J/L (or ←/→) to
+ * `isekaiSetCartForce(±F)` on keydown and `isekaiSetCartForce(0)` on
+ * keyup.
+ */
+export function isekaiSetCartForce(force: number): void;
+
+/**
+ * Run the ISEKAI omniverse entry.
+ *
+ * `canvas_id`  — WebGPU canvas DOM id.
+ * `usda_src`   — USDA stage text. Pass empty string to use
+ *                `DEFAULT_ISEKAI_USDA`.
+ */
+export function runIsekaiOmniverse(canvas_id: string, usda_src: string): Promise<void>;
+
+/**
  * Entry point exported to JS.
  *
  * ```js
@@ -31,15 +66,21 @@ export interface InitOutput {
     readonly memory: WebAssembly.Memory;
     readonly run_isekai_v2: (a: number, b: number) => any;
     readonly run_isekai_v2_scene: (a: number, b: number, c: number) => any;
-    readonly wasm_bindgen__closure__destroy__h2999ab7c8b76f609: (a: number, b: number) => void;
-    readonly wasm_bindgen__closure__destroy__h4100316d4464f38b: (a: number, b: number) => void;
-    readonly wasm_bindgen__closure__destroy__h2d51862d9d8acb10: (a: number, b: number) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h7fab2cc70c6a6a11: (a: number, b: number, c: any) => [number, number];
-    readonly wasm_bindgen__convert__closures_____invoke__h5db5e8dc2faf8fdd: (a: number, b: number, c: any, d: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h67d2d77a4c3b48e0: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h67d2d77a4c3b48e0_3: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h67d2d77a4c3b48e0_4: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h74397136654de27e: (a: number, b: number) => void;
+    readonly isekaiOmniverseBanner: () => [number, number];
+    readonly isekaiOmniverseDefaultUsda: () => [number, number];
+    readonly isekaiOmniverseWorldCatalog: () => [number, number];
+    readonly runIsekaiOmniverse: (a: number, b: number, c: number, d: number) => any;
+    readonly isekaiSetCartForce: (a: number) => void;
+    readonly wasm_bindgen__closure__destroy__h4cc8d9ef82568b4c: (a: number, b: number) => void;
+    readonly wasm_bindgen__closure__destroy__h3435a2f46af78ad4: (a: number, b: number) => void;
+    readonly wasm_bindgen__closure__destroy__h2272828a8287050c: (a: number, b: number) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__hf36f016bc8d48565: (a: number, b: number, c: any) => [number, number];
+    readonly wasm_bindgen__convert__closures_____invoke__h9ab28270d6b15822: (a: number, b: number, c: any, d: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_1: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_2: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_3: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h352b1769adabbb37: (a: number, b: number) => void;
     readonly __wbindgen_malloc: (a: number, b: number) => number;
     readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
     readonly __wbindgen_exn_store: (a: number) => void;

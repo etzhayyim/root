@@ -13,23 +13,23 @@
   },
   "vars": {
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"gameplay-upload-campaign\",\"reward-estimation\"]",
-    "APP_DESCRIPTION": "Game Play Uploader — recruits players to upload gameplay videos in exchange for Amazon gift cards at ¥100/hour via hc.gftd.ai",
+    "APP_DESCRIPTION": "Game Play Uploader — recruits players to upload gameplay videos in exchange for Amazon gift cards at ¥100/hour via hc.etzhayyim.com",
     "APP_DISPLAY_NAME": "Game Play Uploader",
-    "APP_EMBED_URL": "https://gm3pup1d.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://gm3pup1d.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "gm3pup1d",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "gm3pup1d.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "gm3pup1d.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "game-play-uploader.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "game-play-uploader.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

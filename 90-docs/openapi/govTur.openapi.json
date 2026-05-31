@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govTur.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govTur.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Turkey government.",
-        "operationId": "ai.gftd.govTur.followSiteDeps",
+        "operationId": "app.etzhayyim.govTur.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govTur.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govTur.heartbeatTick": {
       "post": {
         "summary": "Run the Turkey government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govTur.heartbeatTick",
+        "operationId": "app.etzhayyim.govTur.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govTur.listOrgs": {
+    "/xrpc/app.etzhayyim.govTur.listOrgs": {
       "get": {
         "summary": "List Turkey government organization graph records.",
-        "operationId": "ai.gftd.govTur.listOrgs",
+        "operationId": "app.etzhayyim.govTur.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govTur.registerDIDs": {
+    "/xrpc/app.etzhayyim.govTur.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Turkey government organizations.",
-        "operationId": "ai.gftd.govTur.registerDIDs",
+        "operationId": "app.etzhayyim.govTur.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govTur.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govTur.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Turkey government organization path to its graph record.",
-        "operationId": "ai.gftd.govTur.resolveOrgPath",
+        "operationId": "app.etzhayyim.govTur.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govTur.seedOrgs": {
+    "/xrpc/app.etzhayyim.govTur.seedOrgs": {
       "post": {
         "summary": "Seed initial Turkey government organization records into the graph.",
-        "operationId": "ai.gftd.govTur.seedOrgs",
+        "operationId": "app.etzhayyim.govTur.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govTur.shinka": {
+    "/xrpc/app.etzhayyim.govTur.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Turkey government organization update.",
-        "operationId": "ai.gftd.govTur.shinka",
+        "operationId": "app.etzhayyim.govTur.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govTur.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govTur.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Turkey government organization changes to graph.",
-        "operationId": "ai.gftd.govTur.syncWetUpdates",
+        "operationId": "app.etzhayyim.govTur.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -24,7 +24,7 @@ depends_on:
   - adr-0041-pds-commit-content-addressed-pk
   - adr-0056-bpmn-as-actor
 related:
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-0026-agent-only-reverse-identity-topology
   - adr-0095-simplified-3layer-identity-rw-vault
 supersedes: []

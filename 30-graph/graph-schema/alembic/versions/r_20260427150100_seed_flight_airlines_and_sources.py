@@ -23,7 +23,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
                  'AA',
                  'AAL',
                  'American Airlines',
@@ -33,7 +33,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -45,7 +45,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
                  'DL',
                  'DAL',
                  'Delta Air Lines',
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -67,7 +67,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
                  'UA',
                  'UAL',
                  'United Airlines',
@@ -77,7 +77,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -89,7 +89,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
                  'WN',
                  'SWA',
                  'Southwest Airlines',
@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -111,7 +111,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
                  'B6',
                  'JBU',
                  'JetBlue Airways',
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -133,7 +133,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
                  'AS',
                  'ASA',
                  'Alaska Airlines',
@@ -143,7 +143,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -155,7 +155,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
                  'AC',
                  'ACA',
                  'Air Canada',
@@ -165,7 +165,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -177,7 +177,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
                  'LH',
                  'DLH',
                  'Lufthansa',
@@ -187,7 +187,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -199,7 +199,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
                  'AF',
                  'AFR',
                  'Air France',
@@ -209,7 +209,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -221,7 +221,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
                  'KL',
                  'KLM',
                  'KLM Royal Dutch Airlines',
@@ -231,7 +231,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -243,7 +243,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
                  'BA',
                  'BAW',
                  'British Airways',
@@ -253,7 +253,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -265,7 +265,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
                  'IB',
                  'IBE',
                  'Iberia',
@@ -275,7 +275,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -287,7 +287,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
                  'AZ',
                  'ITY',
                  'ITA Airways',
@@ -297,7 +297,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -309,7 +309,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
                  'AY',
                  'FIN',
                  'Finnair',
@@ -319,7 +319,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -331,7 +331,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
                  'VS',
                  'VIR',
                  'Virgin Atlantic',
@@ -341,7 +341,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -353,7 +353,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
                  'TK',
                  'THY',
                  'Turkish Airlines',
@@ -363,7 +363,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -375,7 +375,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
                  'EK',
                  'UAE',
                  'Emirates',
@@ -385,7 +385,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -397,7 +397,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
                  'QR',
                  'QTR',
                  'Qatar Airways',
@@ -407,7 +407,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -419,7 +419,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
                  'EY',
                  'ETD',
                  'Etihad Airways',
@@ -429,7 +429,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -441,7 +441,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
                  'SQ',
                  'SIA',
                  'Singapore Airlines',
@@ -451,7 +451,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -463,7 +463,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
                  'CX',
                  'CPA',
                  'Cathay Pacific',
@@ -473,7 +473,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -485,7 +485,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
                  'TG',
                  'THA',
                  'Thai Airways International',
@@ -495,7 +495,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -507,7 +507,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
                  'NH',
                  'ANA',
                  'All Nippon Airways',
@@ -517,7 +517,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -529,7 +529,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
                  'JL',
                  'JAL',
                  'Japan Airlines',
@@ -539,7 +539,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -551,7 +551,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
                  'KE',
                  'KAL',
                  'Korean Air',
@@ -561,7 +561,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -573,7 +573,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
                  'OZ',
                  'AAR',
                  'Asiana Airlines',
@@ -583,7 +583,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -595,7 +595,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
                  'QF',
                  'QFA',
                  'Qantas',
@@ -605,7 +605,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -617,7 +617,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
                  'CZ',
                  'CSN',
                  'China Southern',
@@ -627,7 +627,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -639,7 +639,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
                  'MU',
                  'CES',
                  'China Eastern',
@@ -649,7 +649,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': '\n'
          '      INSERT INTO vertex_airline (\n'
          '        vertex_id, iata_code, icao_code, name, country_code, alliance,\n'
@@ -661,7 +661,7 @@ UP = [{'sql': '\n'
          '             1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_airline WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
                  'CA',
                  'CCA',
                  'Air China',
@@ -671,7 +671,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_offer_source (\n'
          '        vertex_id, source_id, source_type, adapter_key, base_url,\n'
@@ -686,7 +686,7 @@ UP = [{'sql': '\n'
          '             1, $14, $15, $16\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_offer_source WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
                  'amadeus',
                  'gds',
                  'amadeus',
@@ -702,7 +702,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_offer_source (\n'
          '        vertex_id, source_id, source_type, adapter_key, base_url,\n'
@@ -717,7 +717,7 @@ UP = [{'sql': '\n'
          '             1, $14, $15, $16\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_offer_source WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
                  'duffel',
                  'gds_ndc',
                  'duffel',
@@ -733,7 +733,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_offer_source (\n'
          '        vertex_id, source_id, source_type, adapter_key, base_url,\n'
@@ -748,7 +748,7 @@ UP = [{'sql': '\n'
          '             1, $14, $15, $16\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_offer_source WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
                  'kiwi-tequila',
                  'metasearch',
                  'kiwi',
@@ -764,7 +764,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_offer_source (\n'
          '        vertex_id, source_id, source_type, adapter_key, base_url,\n'
@@ -779,7 +779,7 @@ UP = [{'sql': '\n'
          '             1, $14, $15, $16\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_offer_source WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
                  'travelpayouts-aviasales',
                  'metasearch',
                  'travelpayouts',
@@ -795,7 +795,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_offer_source (\n'
          '        vertex_id, source_id, source_type, adapter_key, base_url,\n'
@@ -810,7 +810,7 @@ UP = [{'sql': '\n'
          '             1, $14, $15, $16\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_offer_source WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
                  'skyscanner-affiliate',
                  'metasearch',
                  'skyscanner',
@@ -826,7 +826,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_offer_source (\n'
          '        vertex_id, source_id, source_type, adapter_key, base_url,\n'
@@ -841,7 +841,7 @@ UP = [{'sql': '\n'
          '             1, $14, $15, $16\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_offer_source WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/ana-ndc',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/ana-ndc',
                  'ana-ndc',
                  'direct_ndc',
                  'anaNdc',
@@ -857,7 +857,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/ana-ndc']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/ana-ndc']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_offer_source (\n'
          '        vertex_id, source_id, source_type, adapter_key, base_url,\n'
@@ -872,7 +872,7 @@ UP = [{'sql': '\n'
          '             1, $14, $15, $16\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_offer_source WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/jal-ndc',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/jal-ndc',
                  'jal-ndc',
                  'direct_ndc',
                  'jalNdc',
@@ -888,7 +888,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/jal-ndc']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/jal-ndc']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_offer_source (\n'
          '        vertex_id, source_id, source_type, adapter_key, base_url,\n'
@@ -903,7 +903,7 @@ UP = [{'sql': '\n'
          '             1, $14, $15, $16\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_offer_source WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub',
                  'stub',
                  'stub',
                  'stub',
@@ -919,7 +919,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -931,9 +931,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
                  'amadeus',
                  'AA',
                  'primary',
@@ -941,7 +941,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -953,9 +953,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
                  'amadeus',
                  'DL',
                  'primary',
@@ -963,7 +963,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -975,9 +975,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
                  'amadeus',
                  'UA',
                  'primary',
@@ -985,7 +985,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -997,9 +997,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
                  'amadeus',
                  'WN',
                  'primary',
@@ -1007,7 +1007,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1019,9 +1019,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
                  'amadeus',
                  'B6',
                  'primary',
@@ -1029,7 +1029,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1041,9 +1041,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
                  'amadeus',
                  'AS',
                  'primary',
@@ -1051,7 +1051,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1063,9 +1063,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
                  'amadeus',
                  'AC',
                  'primary',
@@ -1073,7 +1073,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1085,9 +1085,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
                  'amadeus',
                  'LH',
                  'primary',
@@ -1095,7 +1095,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1107,9 +1107,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
                  'amadeus',
                  'AF',
                  'primary',
@@ -1117,7 +1117,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1129,9 +1129,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
                  'amadeus',
                  'KL',
                  'primary',
@@ -1139,7 +1139,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1151,9 +1151,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
                  'amadeus',
                  'BA',
                  'primary',
@@ -1161,7 +1161,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1173,9 +1173,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
                  'amadeus',
                  'IB',
                  'primary',
@@ -1183,7 +1183,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1195,9 +1195,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
                  'amadeus',
                  'AZ',
                  'primary',
@@ -1205,7 +1205,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1217,9 +1217,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
                  'amadeus',
                  'AY',
                  'primary',
@@ -1227,7 +1227,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1239,9 +1239,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
                  'amadeus',
                  'VS',
                  'primary',
@@ -1249,7 +1249,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1261,9 +1261,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
                  'amadeus',
                  'TK',
                  'primary',
@@ -1271,7 +1271,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1283,9 +1283,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
                  'amadeus',
                  'EK',
                  'primary',
@@ -1293,7 +1293,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1305,9 +1305,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
                  'amadeus',
                  'QR',
                  'primary',
@@ -1315,7 +1315,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1327,9 +1327,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
                  'amadeus',
                  'EY',
                  'primary',
@@ -1337,7 +1337,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1349,9 +1349,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
                  'amadeus',
                  'SQ',
                  'primary',
@@ -1359,7 +1359,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1371,9 +1371,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
                  'amadeus',
                  'CX',
                  'primary',
@@ -1381,7 +1381,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1393,9 +1393,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
                  'amadeus',
                  'TG',
                  'primary',
@@ -1403,7 +1403,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1415,9 +1415,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
                  'amadeus',
                  'NH',
                  'primary',
@@ -1425,7 +1425,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1437,9 +1437,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
                  'amadeus',
                  'JL',
                  'primary',
@@ -1447,7 +1447,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1459,9 +1459,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
                  'amadeus',
                  'KE',
                  'primary',
@@ -1469,7 +1469,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1481,9 +1481,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
                  'amadeus',
                  'OZ',
                  'primary',
@@ -1491,7 +1491,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1503,9 +1503,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
                  'amadeus',
                  'QF',
                  'primary',
@@ -1513,7 +1513,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1525,9 +1525,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
                  'amadeus',
                  'CZ',
                  'primary',
@@ -1535,7 +1535,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1547,9 +1547,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
                  'amadeus',
                  'MU',
                  'primary',
@@ -1557,7 +1557,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1569,9 +1569,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
                  'amadeus',
                  'CA',
                  'primary',
@@ -1579,7 +1579,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1591,9 +1591,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
                  'duffel',
                  'AA',
                  'primary',
@@ -1601,7 +1601,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1613,9 +1613,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
                  'duffel',
                  'DL',
                  'primary',
@@ -1623,7 +1623,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1635,9 +1635,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
                  'duffel',
                  'UA',
                  'primary',
@@ -1645,7 +1645,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1657,9 +1657,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
                  'duffel',
                  'WN',
                  'primary',
@@ -1667,7 +1667,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1679,9 +1679,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
                  'duffel',
                  'B6',
                  'primary',
@@ -1689,7 +1689,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1701,9 +1701,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
                  'duffel',
                  'AS',
                  'primary',
@@ -1711,7 +1711,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1723,9 +1723,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
                  'duffel',
                  'AC',
                  'primary',
@@ -1733,7 +1733,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1745,9 +1745,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
                  'duffel',
                  'LH',
                  'primary',
@@ -1755,7 +1755,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1767,9 +1767,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
                  'duffel',
                  'AF',
                  'primary',
@@ -1777,7 +1777,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1789,9 +1789,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
                  'duffel',
                  'KL',
                  'primary',
@@ -1799,7 +1799,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1811,9 +1811,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
                  'duffel',
                  'BA',
                  'primary',
@@ -1821,7 +1821,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1833,9 +1833,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
                  'duffel',
                  'IB',
                  'primary',
@@ -1843,7 +1843,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1855,9 +1855,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
                  'duffel',
                  'AZ',
                  'primary',
@@ -1865,7 +1865,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1877,9 +1877,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
                  'duffel',
                  'AY',
                  'primary',
@@ -1887,7 +1887,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1899,9 +1899,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
                  'duffel',
                  'VS',
                  'primary',
@@ -1909,7 +1909,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1921,9 +1921,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
                  'duffel',
                  'TK',
                  'primary',
@@ -1931,7 +1931,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1943,9 +1943,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
                  'duffel',
                  'EK',
                  'primary',
@@ -1953,7 +1953,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1965,9 +1965,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
                  'duffel',
                  'QR',
                  'primary',
@@ -1975,7 +1975,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -1987,9 +1987,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
                  'duffel',
                  'EY',
                  'primary',
@@ -1997,7 +1997,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2009,9 +2009,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
                  'duffel',
                  'SQ',
                  'primary',
@@ -2019,7 +2019,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2031,9 +2031,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
                  'duffel',
                  'CX',
                  'primary',
@@ -2041,7 +2041,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2053,9 +2053,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
                  'duffel',
                  'TG',
                  'primary',
@@ -2063,7 +2063,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2075,9 +2075,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
                  'duffel',
                  'NH',
                  'primary',
@@ -2085,7 +2085,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2097,9 +2097,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
                  'duffel',
                  'JL',
                  'primary',
@@ -2107,7 +2107,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2119,9 +2119,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
                  'duffel',
                  'KE',
                  'primary',
@@ -2129,7 +2129,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2141,9 +2141,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
                  'duffel',
                  'OZ',
                  'primary',
@@ -2151,7 +2151,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2163,9 +2163,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
                  'duffel',
                  'QF',
                  'primary',
@@ -2173,7 +2173,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2185,9 +2185,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
                  'duffel',
                  'CZ',
                  'primary',
@@ -2195,7 +2195,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2207,9 +2207,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
                  'duffel',
                  'MU',
                  'primary',
@@ -2217,7 +2217,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2229,9 +2229,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
                  'duffel',
                  'CA',
                  'primary',
@@ -2239,7 +2239,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2251,9 +2251,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
                  'kiwi-tequila',
                  'AA',
                  'primary',
@@ -2261,7 +2261,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2273,9 +2273,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
                  'kiwi-tequila',
                  'DL',
                  'primary',
@@ -2283,7 +2283,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2295,9 +2295,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
                  'kiwi-tequila',
                  'UA',
                  'primary',
@@ -2305,7 +2305,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2317,9 +2317,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
                  'kiwi-tequila',
                  'WN',
                  'primary',
@@ -2327,7 +2327,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2339,9 +2339,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
                  'kiwi-tequila',
                  'B6',
                  'primary',
@@ -2349,7 +2349,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2361,9 +2361,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
                  'kiwi-tequila',
                  'AS',
                  'primary',
@@ -2371,7 +2371,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2383,9 +2383,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
                  'kiwi-tequila',
                  'AC',
                  'primary',
@@ -2393,7 +2393,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2405,9 +2405,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
                  'kiwi-tequila',
                  'LH',
                  'primary',
@@ -2415,7 +2415,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2427,9 +2427,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
                  'kiwi-tequila',
                  'AF',
                  'primary',
@@ -2437,7 +2437,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2449,9 +2449,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
                  'kiwi-tequila',
                  'KL',
                  'primary',
@@ -2459,7 +2459,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2471,9 +2471,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
                  'kiwi-tequila',
                  'BA',
                  'primary',
@@ -2481,7 +2481,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2493,9 +2493,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
                  'kiwi-tequila',
                  'IB',
                  'primary',
@@ -2503,7 +2503,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2515,9 +2515,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
                  'kiwi-tequila',
                  'AZ',
                  'primary',
@@ -2525,7 +2525,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2537,9 +2537,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
                  'kiwi-tequila',
                  'AY',
                  'primary',
@@ -2547,7 +2547,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2559,9 +2559,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
                  'kiwi-tequila',
                  'VS',
                  'primary',
@@ -2569,7 +2569,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2581,9 +2581,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
                  'kiwi-tequila',
                  'TK',
                  'primary',
@@ -2591,7 +2591,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2603,9 +2603,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
                  'kiwi-tequila',
                  'EK',
                  'primary',
@@ -2613,7 +2613,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2625,9 +2625,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
                  'kiwi-tequila',
                  'QR',
                  'primary',
@@ -2635,7 +2635,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2647,9 +2647,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
                  'kiwi-tequila',
                  'EY',
                  'primary',
@@ -2657,7 +2657,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2669,9 +2669,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
                  'kiwi-tequila',
                  'SQ',
                  'primary',
@@ -2679,7 +2679,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2691,9 +2691,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
                  'kiwi-tequila',
                  'CX',
                  'primary',
@@ -2701,7 +2701,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2713,9 +2713,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
                  'kiwi-tequila',
                  'TG',
                  'primary',
@@ -2723,7 +2723,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2735,9 +2735,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
                  'kiwi-tequila',
                  'NH',
                  'primary',
@@ -2745,7 +2745,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2757,9 +2757,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
                  'kiwi-tequila',
                  'JL',
                  'primary',
@@ -2767,7 +2767,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2779,9 +2779,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
                  'kiwi-tequila',
                  'KE',
                  'primary',
@@ -2789,7 +2789,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2801,9 +2801,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
                  'kiwi-tequila',
                  'OZ',
                  'primary',
@@ -2811,7 +2811,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2823,9 +2823,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
                  'kiwi-tequila',
                  'QF',
                  'primary',
@@ -2833,7 +2833,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2845,9 +2845,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
                  'kiwi-tequila',
                  'CZ',
                  'primary',
@@ -2855,7 +2855,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2867,9 +2867,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
                  'kiwi-tequila',
                  'MU',
                  'primary',
@@ -2877,7 +2877,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2889,9 +2889,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
                  'kiwi-tequila',
                  'CA',
                  'primary',
@@ -2899,7 +2899,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2911,9 +2911,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
                  'travelpayouts-aviasales',
                  'AA',
                  'primary',
@@ -2921,7 +2921,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2933,9 +2933,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
                  'travelpayouts-aviasales',
                  'DL',
                  'primary',
@@ -2943,7 +2943,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2955,9 +2955,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
                  'travelpayouts-aviasales',
                  'UA',
                  'primary',
@@ -2965,7 +2965,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2977,9 +2977,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
                  'travelpayouts-aviasales',
                  'WN',
                  'primary',
@@ -2987,7 +2987,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -2999,9 +2999,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
                  'travelpayouts-aviasales',
                  'B6',
                  'primary',
@@ -3009,7 +3009,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3021,9 +3021,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
                  'travelpayouts-aviasales',
                  'AS',
                  'primary',
@@ -3031,7 +3031,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3043,9 +3043,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
                  'travelpayouts-aviasales',
                  'AC',
                  'primary',
@@ -3053,7 +3053,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3065,9 +3065,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
                  'travelpayouts-aviasales',
                  'LH',
                  'primary',
@@ -3075,7 +3075,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3087,9 +3087,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
                  'travelpayouts-aviasales',
                  'AF',
                  'primary',
@@ -3097,7 +3097,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3109,9 +3109,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
                  'travelpayouts-aviasales',
                  'KL',
                  'primary',
@@ -3119,7 +3119,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3131,9 +3131,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
                  'travelpayouts-aviasales',
                  'BA',
                  'primary',
@@ -3141,7 +3141,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3153,9 +3153,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
                  'travelpayouts-aviasales',
                  'IB',
                  'primary',
@@ -3163,7 +3163,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3175,9 +3175,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
                  'travelpayouts-aviasales',
                  'AZ',
                  'primary',
@@ -3185,7 +3185,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3197,9 +3197,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
                  'travelpayouts-aviasales',
                  'AY',
                  'primary',
@@ -3207,7 +3207,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3219,9 +3219,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
                  'travelpayouts-aviasales',
                  'VS',
                  'primary',
@@ -3229,7 +3229,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3241,9 +3241,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
                  'travelpayouts-aviasales',
                  'TK',
                  'primary',
@@ -3251,7 +3251,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3263,9 +3263,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
                  'travelpayouts-aviasales',
                  'EK',
                  'primary',
@@ -3273,7 +3273,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3285,9 +3285,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
                  'travelpayouts-aviasales',
                  'QR',
                  'primary',
@@ -3295,7 +3295,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3307,9 +3307,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
                  'travelpayouts-aviasales',
                  'EY',
                  'primary',
@@ -3317,7 +3317,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3329,9 +3329,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
                  'travelpayouts-aviasales',
                  'SQ',
                  'primary',
@@ -3339,7 +3339,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3351,9 +3351,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
                  'travelpayouts-aviasales',
                  'CX',
                  'primary',
@@ -3361,7 +3361,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3373,9 +3373,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
                  'travelpayouts-aviasales',
                  'TG',
                  'primary',
@@ -3383,7 +3383,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3395,9 +3395,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
                  'travelpayouts-aviasales',
                  'NH',
                  'primary',
@@ -3405,7 +3405,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3417,9 +3417,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
                  'travelpayouts-aviasales',
                  'JL',
                  'primary',
@@ -3427,7 +3427,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3439,9 +3439,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
                  'travelpayouts-aviasales',
                  'KE',
                  'primary',
@@ -3449,7 +3449,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3461,9 +3461,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
                  'travelpayouts-aviasales',
                  'OZ',
                  'primary',
@@ -3471,7 +3471,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3483,9 +3483,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
                  'travelpayouts-aviasales',
                  'QF',
                  'primary',
@@ -3493,7 +3493,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3505,9 +3505,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
                  'travelpayouts-aviasales',
                  'CZ',
                  'primary',
@@ -3515,7 +3515,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3527,9 +3527,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
                  'travelpayouts-aviasales',
                  'MU',
                  'primary',
@@ -3537,7 +3537,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3549,9 +3549,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
                  'travelpayouts-aviasales',
                  'CA',
                  'primary',
@@ -3559,7 +3559,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3571,9 +3571,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA',
                  'skyscanner-affiliate',
                  'AA',
                  'primary',
@@ -3581,7 +3581,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3593,9 +3593,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL',
                  'skyscanner-affiliate',
                  'DL',
                  'primary',
@@ -3603,7 +3603,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3615,9 +3615,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA',
                  'skyscanner-affiliate',
                  'UA',
                  'primary',
@@ -3625,7 +3625,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3637,9 +3637,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN',
                  'skyscanner-affiliate',
                  'WN',
                  'primary',
@@ -3647,7 +3647,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3659,9 +3659,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6',
                  'skyscanner-affiliate',
                  'B6',
                  'primary',
@@ -3669,7 +3669,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3681,9 +3681,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS',
                  'skyscanner-affiliate',
                  'AS',
                  'primary',
@@ -3691,7 +3691,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3703,9 +3703,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC',
                  'skyscanner-affiliate',
                  'AC',
                  'primary',
@@ -3713,7 +3713,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3725,9 +3725,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH',
                  'skyscanner-affiliate',
                  'LH',
                  'primary',
@@ -3735,7 +3735,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3747,9 +3747,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF',
                  'skyscanner-affiliate',
                  'AF',
                  'primary',
@@ -3757,7 +3757,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3769,9 +3769,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL',
                  'skyscanner-affiliate',
                  'KL',
                  'primary',
@@ -3779,7 +3779,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3791,9 +3791,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA',
                  'skyscanner-affiliate',
                  'BA',
                  'primary',
@@ -3801,7 +3801,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3813,9 +3813,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB',
                  'skyscanner-affiliate',
                  'IB',
                  'primary',
@@ -3823,7 +3823,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3835,9 +3835,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ',
                  'skyscanner-affiliate',
                  'AZ',
                  'primary',
@@ -3845,7 +3845,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3857,9 +3857,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY',
                  'skyscanner-affiliate',
                  'AY',
                  'primary',
@@ -3867,7 +3867,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3879,9 +3879,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS',
                  'skyscanner-affiliate',
                  'VS',
                  'primary',
@@ -3889,7 +3889,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3901,9 +3901,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK',
                  'skyscanner-affiliate',
                  'TK',
                  'primary',
@@ -3911,7 +3911,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3923,9 +3923,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK',
                  'skyscanner-affiliate',
                  'EK',
                  'primary',
@@ -3933,7 +3933,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3945,9 +3945,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR',
                  'skyscanner-affiliate',
                  'QR',
                  'primary',
@@ -3955,7 +3955,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3967,9 +3967,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY',
                  'skyscanner-affiliate',
                  'EY',
                  'primary',
@@ -3977,7 +3977,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -3989,9 +3989,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
                  'skyscanner-affiliate',
                  'SQ',
                  'primary',
@@ -3999,7 +3999,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4011,9 +4011,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX',
                  'skyscanner-affiliate',
                  'CX',
                  'primary',
@@ -4021,7 +4021,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4033,9 +4033,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG',
                  'skyscanner-affiliate',
                  'TG',
                  'primary',
@@ -4043,7 +4043,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4055,9 +4055,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
                  'skyscanner-affiliate',
                  'NH',
                  'primary',
@@ -4065,7 +4065,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4077,9 +4077,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
                  'skyscanner-affiliate',
                  'JL',
                  'primary',
@@ -4087,7 +4087,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4099,9 +4099,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE',
                  'skyscanner-affiliate',
                  'KE',
                  'primary',
@@ -4109,7 +4109,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4121,9 +4121,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ',
                  'skyscanner-affiliate',
                  'OZ',
                  'primary',
@@ -4131,7 +4131,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4143,9 +4143,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF',
                  'skyscanner-affiliate',
                  'QF',
                  'primary',
@@ -4153,7 +4153,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4165,9 +4165,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ',
                  'skyscanner-affiliate',
                  'CZ',
                  'primary',
@@ -4175,7 +4175,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4187,9 +4187,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU',
                  'skyscanner-affiliate',
                  'MU',
                  'primary',
@@ -4197,7 +4197,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4209,9 +4209,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA',
                  'skyscanner-affiliate',
                  'CA',
                  'primary',
@@ -4219,7 +4219,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4231,9 +4231,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/ana-ndc|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/ana-ndc',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/ana-ndc|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/ana-ndc',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
                  'ana-ndc',
                  'NH',
                  'exclusive',
@@ -4241,7 +4241,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/ana-ndc|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/ana-ndc|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4253,9 +4253,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/jal-ndc|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/jal-ndc',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/jal-ndc|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/jal-ndc',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
                  'jal-ndc',
                  'JL',
                  'exclusive',
@@ -4263,7 +4263,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/jal-ndc|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/jal-ndc|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4275,9 +4275,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH',
                  'stub',
                  'NH',
                  'fixture',
@@ -4285,7 +4285,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4297,9 +4297,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL',
                  'stub',
                  'JL',
                  'fixture',
@@ -4307,7 +4307,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': '\n'
          '      INSERT INTO edge_flight_offer_source_covers_airline (\n'
          '        edge_id, src_vertex_id, dst_vertex_id, source_id, iata_code, coverage_class,\n'
@@ -4319,9 +4319,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_flight_offer_source_covers_airline WHERE '
          'edge_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ',
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub',
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ',
                  'stub',
                  'SQ',
                  'fixture',
@@ -4329,394 +4329,394 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']}]
+                 'at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']}]
 
 DOWN = [{'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/ana-ndc|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/ana-ndc|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/jal-ndc|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/jal-ndc|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': 'DELETE FROM edge_flight_offer_source_covers_airline WHERE edge_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub|covers|at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': 'DELETE FROM vertex_flight_offer_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/amadeus']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/amadeus']},
  {'sql': 'DELETE FROM vertex_flight_offer_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/duffel']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/duffel']},
  {'sql': 'DELETE FROM vertex_flight_offer_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/kiwi-tequila']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/kiwi-tequila']},
  {'sql': 'DELETE FROM vertex_flight_offer_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/travelpayouts-aviasales']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/travelpayouts-aviasales']},
  {'sql': 'DELETE FROM vertex_flight_offer_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/skyscanner-affiliate']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/skyscanner-affiliate']},
  {'sql': 'DELETE FROM vertex_flight_offer_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/ana-ndc']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/ana-ndc']},
  {'sql': 'DELETE FROM vertex_flight_offer_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/jal-ndc']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/jal-ndc']},
  {'sql': 'DELETE FROM vertex_flight_offer_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.source/stub']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.source/stub']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AA']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/DL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/DL']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/UA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/UA']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/WN']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/WN']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/B6']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/B6']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AS']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AC']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AC']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/LH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/LH']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AF']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KL']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/BA']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/BA']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/IB']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/IB']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AZ']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/AY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/AY']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/VS']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/VS']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TK']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EK']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EK']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QR']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QR']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/EY']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/EY']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/SQ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/SQ']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CX']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CX']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/TG']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/TG']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/NH']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/NH']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/JL']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/JL']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/KE']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/KE']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/OZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/OZ']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/QF']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/QF']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CZ']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CZ']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/MU']},
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/MU']},
  {'sql': 'DELETE FROM vertex_airline WHERE vertex_id = $1',
-  'parameters': ['at://did:web:flight-offer.etzhayyim.com/ai.gftd.apps.flightOffer.airline/CA']}]
+  'parameters': ['at://did:web:flight-offer.etzhayyim.com/app.etzhayyim.apps.flightOffer.airline/CA']}]
 
 
 def upgrade() -> None:

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govEth.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govEth.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Ethiopia government.",
-        "operationId": "ai.gftd.govEth.followSiteDeps",
+        "operationId": "app.etzhayyim.govEth.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govEth.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govEth.heartbeatTick": {
       "post": {
         "summary": "Run the Ethiopia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govEth.heartbeatTick",
+        "operationId": "app.etzhayyim.govEth.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govEth.listOrgs": {
+    "/xrpc/app.etzhayyim.govEth.listOrgs": {
       "get": {
         "summary": "List Ethiopia government organization graph records.",
-        "operationId": "ai.gftd.govEth.listOrgs",
+        "operationId": "app.etzhayyim.govEth.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govEth.registerDIDs": {
+    "/xrpc/app.etzhayyim.govEth.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Ethiopia government organizations.",
-        "operationId": "ai.gftd.govEth.registerDIDs",
+        "operationId": "app.etzhayyim.govEth.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govEth.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govEth.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Ethiopia government organization path to its graph record.",
-        "operationId": "ai.gftd.govEth.resolveOrgPath",
+        "operationId": "app.etzhayyim.govEth.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govEth.seedOrgs": {
+    "/xrpc/app.etzhayyim.govEth.seedOrgs": {
       "post": {
         "summary": "Seed initial Ethiopia government organization records into the graph.",
-        "operationId": "ai.gftd.govEth.seedOrgs",
+        "operationId": "app.etzhayyim.govEth.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govEth.shinka": {
+    "/xrpc/app.etzhayyim.govEth.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Ethiopia government organization update.",
-        "operationId": "ai.gftd.govEth.shinka",
+        "operationId": "app.etzhayyim.govEth.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govEth.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govEth.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Ethiopia government organization changes to graph.",
-        "operationId": "ai.gftd.govEth.syncWetUpdates",
+        "operationId": "app.etzhayyim.govEth.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

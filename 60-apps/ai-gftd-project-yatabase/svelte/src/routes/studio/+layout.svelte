@@ -17,7 +17,7 @@
 	});
 </script>
 
-<div class="flex min-h-screen bg-gftd-bg text-gftd-text">
+<div class="flex min-h-screen bg-etzhayyim-bg text-etzhayyim-text">
 	{#if $identity}
 		<StudioNav />
 	{/if}

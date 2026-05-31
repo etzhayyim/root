@@ -23,7 +23,7 @@
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { IsicClass } from "./types.js";
 
-const COLLECTION = "ai.gftd.apps.openIsic.class";
+const COLLECTION = "app.etzhayyim.apps.openIsic.class";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_READER_DID ?? "did:web:etzhayyim.com",

@@ -10,7 +10,7 @@
 | nanoid | `it0n4m1x` |
 | handle | `itonami.etzhayyim.com` |
 | DID | `did:web:itonami.etzhayyim.com` |
-| NSID prefix | `ai.gftd.apps.itonami.*` |
+| NSID prefix | `app.etzhayyim.apps.itonami.*` |
 | runtimeType | `worker` |
 | complianceFramework | `aerospace-safety` |
 
@@ -58,13 +58,13 @@ EngineDesign
 
 | NSID | Type | 用途 |
 |---|---|---|
-| `ai.gftd.apps.itonami.health` | procedure | ヘルスチェック |
-| `ai.gftd.apps.itonami.registerEngine` | procedure | エンジン設計エントリを登録 |
-| `ai.gftd.apps.itonami.recordAssembly` | procedure | 組立フェーズのマイルストーンを記録 |
-| `ai.gftd.apps.itonami.logTestResult` | procedure | 試験結果を記録 |
-| `ai.gftd.apps.itonami.logFlightEvent` | procedure | デジタルツイン飛行イベントを記録 |
-| `ai.gftd.apps.itonami.listEngines` | query | エンジン一覧（フィルタ・ページネーション） |
-| `ai.gftd.apps.itonami.getEngine` | query | エンジン詳細（最新テスト結果含む） |
+| `app.etzhayyim.apps.itonami.health` | procedure | ヘルスチェック |
+| `app.etzhayyim.apps.itonami.registerEngine` | procedure | エンジン設計エントリを登録 |
+| `app.etzhayyim.apps.itonami.recordAssembly` | procedure | 組立フェーズのマイルストーンを記録 |
+| `app.etzhayyim.apps.itonami.logTestResult` | procedure | 試験結果を記録 |
+| `app.etzhayyim.apps.itonami.logFlightEvent` | procedure | デジタルツイン飛行イベントを記録 |
+| `app.etzhayyim.apps.itonami.listEngines` | query | エンジン一覧（フィルタ・ページネーション） |
+| `app.etzhayyim.apps.itonami.getEngine` | query | エンジン詳細（最新テスト結果含む） |
 
 ## Lexicons
 
@@ -72,13 +72,13 @@ EngineDesign
 
 | ファイル | NSID |
 |---|---|
-| `health.json` | `ai.gftd.apps.itonami.health` |
-| `registerEngine.json` | `ai.gftd.apps.itonami.registerEngine` |
-| `recordAssembly.json` | `ai.gftd.apps.itonami.recordAssembly` |
-| `logTestResult.json` | `ai.gftd.apps.itonami.logTestResult` |
-| `logFlightEvent.json` | `ai.gftd.apps.itonami.logFlightEvent` |
-| `listEngines.json` | `ai.gftd.apps.itonami.listEngines` |
-| `getEngine.json` | `ai.gftd.apps.itonami.getEngine` |
+| `health.json` | `app.etzhayyim.apps.itonami.health` |
+| `registerEngine.json` | `app.etzhayyim.apps.itonami.registerEngine` |
+| `recordAssembly.json` | `app.etzhayyim.apps.itonami.recordAssembly` |
+| `logTestResult.json` | `app.etzhayyim.apps.itonami.logTestResult` |
+| `logFlightEvent.json` | `app.etzhayyim.apps.itonami.logFlightEvent` |
+| `listEngines.json` | `app.etzhayyim.apps.itonami.listEngines` |
+| `getEngine.json` | `app.etzhayyim.apps.itonami.getEngine` |
 
 ## SQL Graph Schema
 
@@ -106,9 +106,9 @@ EngineDesign
 - **cross-actor invoke パターン**:
   ```ts
   // UNSPSC commodity spec 取得
-  const spec = await magatama.Invoke("", "ai.gftd.apps.openUnispsc.commodity", { code: "25101504" });
+  const spec = await magatama.Invoke("", "app.etzhayyim.apps.openUnispsc.commodity", { code: "25101504" });
   // ISIC supplier 分類
-  const isic = await magatama.Invoke("", "ai.gftd.openIsic.classifyEntity", { name: supplierName });
+  const isic = await magatama.Invoke("", "app.etzhayyim.openIsic.classifyEntity", { name: supplierName });
   ```
 
 ## appview

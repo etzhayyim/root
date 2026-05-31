@@ -2,7 +2,7 @@
  * RisingWave-native vector overlay for KAMI.
  *
  * Replaces the external MVT tile dependency (tiles-maps.etzhayyim.com) with a
- * direct XRPC query to ai.gftd.apps.maps.tileGeoJson. On every moveend we
+ * direct XRPC query to app.etzhayyim.apps.maps.tileGeoJson. On every moveend we
  * fetch per-label GeoJSON for the current viewport bbox and feed it into
  * KAMI's existing GeoJSON layer path (circle/line/fill). No WASM change
  * required.
@@ -126,7 +126,7 @@ export function applyRisingWaveOverlay(
           if (!labels.includes(e.label)) labels.push(e.label);
         }
       }
-      const res = await xrpc("ai.gftd.apps.maps.tileGeoJson", {
+      const res = await xrpc("app.etzhayyim.apps.maps.tileGeoJson", {
         west: sw.lng, south: sw.lat, east: ne.lng, north: ne.lat,
         labels, zoom, limit: 1000,
       }) as { layers?: Record<string, FeatureCollection> };

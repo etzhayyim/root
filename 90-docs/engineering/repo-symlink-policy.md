@@ -1,5 +1,5 @@
 ---
-id: adr-0008-repo-symlink-ban
+id: repo-symlink-policy
 title: "ADR-0008: active tree での repo 内 symlink を全面禁止する"
 status: active
 doc_type: adr

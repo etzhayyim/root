@@ -54,7 +54,7 @@ const spec = lexiconsToOpenApi(
   [
     {
       lexicon: 1,
-      id: "ai.gftd.kiyo.getPaper",
+      id: "app.etzhayyim.kiyo.getPaper",
       defs: { main: { type: "query", /* ... */ } }
     }
   ],
@@ -102,7 +102,7 @@ For lexicon:
 ```json
 {
   "lexicon": 1,
-  "id": "ai.gftd.kiyo.getPaper",
+  "id": "app.etzhayyim.kiyo.getPaper",
   "defs": {
     "main": {
       "type": "query",
@@ -128,10 +128,10 @@ Generates OpenAPI:
   "info": { "title": "Kiyo XRPC API", "version": "0.1.0" },
   "servers": [{ "url": "https://kiyo.etzhayyim.com" }],
   "paths": {
-    "/xrpc/ai.gftd.kiyo.getPaper": {
+    "/xrpc/app.etzhayyim.kiyo.getPaper": {
       "get": {
         "summary": "Get paper metadata",
-        "operationId": "ai.gftd.kiyo.getPaper",
+        "operationId": "app.etzhayyim.kiyo.getPaper",
         "parameters": [{
           "name": "paperId",
           "in": "query",

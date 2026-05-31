@@ -81,14 +81,14 @@ def test_bra_domain_slug_basic() -> None:
 def test_fra_vertex_id_format() -> None:
     vid = FRA._vertex_id("premier-ministre")
     assert vid.startswith("at://")
-    assert "ai.gftd.apps.states.govOrg" in vid
+    assert "app.etzhayyim.apps.states.govOrg" in vid
     assert "premier-ministre" in vid
 
 
 def test_usa_vertex_id_format() -> None:
     vid = USA._vertex_id("executive/president")
     assert vid.startswith("at://")
-    assert "ai.gftd.apps.states.govOrg" in vid
+    assert "app.etzhayyim.apps.states.govOrg" in vid
 
 
 def test_gbr_vertex_id_deterministic() -> None:
@@ -104,7 +104,7 @@ def test_can_vertex_id_contains_path() -> None:
 
 def test_aus_vertex_id_format() -> None:
     vid = AUS._vertex_id("pm-cabinet")
-    assert "ai.gftd.apps.states.govOrg" in vid
+    assert "app.etzhayyim.apps.states.govOrg" in vid
 
 
 def test_chn_vertex_id_format() -> None:

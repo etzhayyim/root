@@ -4,7 +4,7 @@ import { sql } from "kysely";
 /**
  * ADR-0050 — register `vultr_chat_completions` external Python UDF.
  *
- * Delegates to `ai.gftd.apps.vultrInference.chatCompletions` on the
+ * Delegates to `app.etzhayyim.apps.vultrInference.chatCompletions` on the
  * mitama-udf pool. The handler wraps `api.vultrinference.com/v1/chat/completions`
  * (OpenAI-compatible) behind a SQL function so streaming MVs can enrich
  * rows with LLM output in the RisingWave dataflow.
@@ -33,7 +33,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     CREATE FUNCTION vultr_chat_completions(VARCHAR)
       RETURNS VARCHAR
-      AS 'ai.gftd.apps.vultrInference.chatCompletions'
+      AS 'app.etzhayyim.apps.vultrInference.chatCompletions'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 }

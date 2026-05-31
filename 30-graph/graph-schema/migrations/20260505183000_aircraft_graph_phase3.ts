@@ -161,7 +161,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   const createdAt = "2026-05-05T18:30:00Z";
   for (const [code, en, ja, desc] of purposes) {
-    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.flightPurpose/${code}`;
+    const vid = `at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/${code}`;
     await sql`
       INSERT INTO vertex_flight_purpose (
         vertex_id, purpose_code, label_en, label_ja, description, regulated_under, created_at

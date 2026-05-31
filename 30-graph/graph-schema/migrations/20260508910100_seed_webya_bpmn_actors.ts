@@ -12,8 +12,8 @@ import { sql } from "kysely";
  * seoAudit                 → Zeebe cron timer 0 0 0 ? * MON
  *
  * XRPC bindings (2):
- *   ai.gftd.apps.webya.createSite   → webya_create_site   (langgraph)
- *   ai.gftd.apps.webya.reviseSite   → webya_revise_site   (langgraph)
+ *   app.etzhayyim.apps.webya.createSite   → webya_create_site   (langgraph)
+ *   app.etzhayyim.apps.webya.reviseSite   → webya_revise_site   (langgraph)
  *
  * Process defs (4): createSite + reviseSite stubs + domainSslMonitor + seoAudit
  */
@@ -42,25 +42,25 @@ const ownerDid = "did:web:webya.etzhayyim.com";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-create-site-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-create-site-v1",
     bpmnProcessId: "webya_create_site",
     sourcePath: "00-contracts/bpmn/ai/gftd/webya/createSite.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-revise-site-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-revise-site-v1",
     bpmnProcessId: "webya_revise_site",
     sourcePath: "00-contracts/bpmn/ai/gftd/webya/reviseSite.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-domain-ssl-monitor-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-domain-ssl-monitor-v1",
     bpmnProcessId: "webya_domain_ssl_monitor",
     sourcePath: "00-contracts/bpmn/ai/gftd/webya/domainSslMonitor.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-seo-audit-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-seo-audit-v1",
     bpmnProcessId: "webya_seo_audit",
     sourcePath: "00-contracts/bpmn/ai/gftd/webya/seoAudit.bpmn",
     ownerDid,
@@ -69,16 +69,16 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-createSite-v1",
-    nsid: "ai.gftd.apps.webya.createSite",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webya-createSite-v1",
+    nsid: "app.etzhayyim.apps.webya.createSite",
     bpmnProcessId: "webya_create_site",
     ownerDid,
     resultTimeoutMs: 300_000,
     routingTarget: "langgraph",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-reviseSite-v1",
-    nsid: "ai.gftd.apps.webya.reviseSite",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webya-reviseSite-v1",
+    nsid: "app.etzhayyim.apps.webya.reviseSite",
     bpmnProcessId: "webya_revise_site",
     ownerDid,
     resultTimeoutMs: 180_000,

@@ -255,7 +255,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.oshiete.submit.question")
+    @worker.task(task_type="app.etzhayyim.apps.oshiete.submit.question")
     async def task_submit_question(**kwargs):
         return await asyncio.to_thread(
             _submit_question_sync,
@@ -266,7 +266,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.oshiete.list.questions")
+    @worker.task(task_type="app.etzhayyim.apps.oshiete.list.questions")
     async def task_list_questions(**kwargs):
         return await asyncio.to_thread(
             _list_questions_sync,
@@ -276,7 +276,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.oshiete.get.question")
+    @worker.task(task_type="app.etzhayyim.apps.oshiete.get.question")
     async def task_get_question(**kwargs):
         return await asyncio.to_thread(
             _get_question_sync,
@@ -284,7 +284,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.oshiete.submit.answer")
+    @worker.task(task_type="app.etzhayyim.apps.oshiete.submit.answer")
     async def task_submit_answer(**kwargs):
         return await asyncio.to_thread(
             _submit_answer_sync,
@@ -294,7 +294,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.oshiete.list.answers")
+    @worker.task(task_type="app.etzhayyim.apps.oshiete.list.answers")
     async def task_list_answers(**kwargs):
         return await asyncio.to_thread(
             _list_answers_sync,
@@ -304,7 +304,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.oshiete.vote.answer")
+    @worker.task(task_type="app.etzhayyim.apps.oshiete.vote.answer")
     async def task_vote_answer(**kwargs):
         return await asyncio.to_thread(
             _vote_answer_sync,
@@ -313,7 +313,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.oshiete.list.topics")
+    @worker.task(task_type="app.etzhayyim.apps.oshiete.list.topics")
     async def task_list_topics(**kwargs):
         return await asyncio.to_thread(
             _list_topics_sync,
@@ -322,7 +322,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.oshiete.get.expert")
+    @worker.task(task_type="app.etzhayyim.apps.oshiete.get.expert")
     async def task_get_expert(**kwargs):
         return await asyncio.to_thread(
             _get_expert_sync,

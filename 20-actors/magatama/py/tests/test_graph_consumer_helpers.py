@@ -68,12 +68,12 @@ def test_maps_entity_label_returns_string() -> None:
 # ─── _convention_candidates ──────────────────────────────────────────────────
 
 def test_convention_candidates_valid_vertex_collection() -> None:
-    candidates = G._convention_candidates("ai.gftd.apps.yabai.entity")
+    candidates = G._convention_candidates("app.etzhayyim.apps.yabai.entity")
     assert any("vertex_yabai" in c for c in candidates)
 
 
 def test_convention_candidates_valid_edge_collection() -> None:
-    candidates = G._convention_candidates("ai.gftd.apps.yabai.edgeFoo")
+    candidates = G._convention_candidates("app.etzhayyim.apps.yabai.edgeFoo")
     assert any("edge_yabai" in c for c in candidates)
 
 
@@ -83,23 +83,23 @@ def test_convention_candidates_invalid_format() -> None:
 
 
 def test_convention_candidates_maps_entity_uses_vertex_spatial() -> None:
-    candidates = G._convention_candidates("ai.gftd.apps.maps.station")
+    candidates = G._convention_candidates("app.etzhayyim.apps.maps.station")
     assert "vertex_spatial" in candidates
 
 
 def test_convention_candidates_maps_edge_not_spatial() -> None:
-    candidates = G._convention_candidates("ai.gftd.apps.maps.edgeRoute")
+    candidates = G._convention_candidates("app.etzhayyim.apps.maps.edgeRoute")
     assert "vertex_spatial" not in candidates
     assert any("edge_maps" in c for c in candidates)
 
 
 def test_convention_candidates_returns_two_candidates_for_vertex() -> None:
-    candidates = G._convention_candidates("ai.gftd.apps.gmail.email")
+    candidates = G._convention_candidates("app.etzhayyim.apps.gmail.email")
     assert len(candidates) == 2
 
 
 def test_convention_candidates_returns_two_candidates_for_edge() -> None:
-    candidates = G._convention_candidates("ai.gftd.apps.gmail.edgeContact")
+    candidates = G._convention_candidates("app.etzhayyim.apps.gmail.edgeContact")
     assert len(candidates) == 2
 
 
@@ -282,8 +282,8 @@ def test_handle_collection_profile_display_name_in_row() -> None:
 
 def test_handle_collection_unknown_collection_returns_none() -> None:
     rec = {"someField": "value"}
-    ctx = _make_ctx(vid="at://did:web:x/ai.gftd.apps.unknown/rkey1")
-    result = G._handle_collection("ai.gftd.apps.unknown.entity", rec, ctx)
+    ctx = _make_ctx(vid="at://did:web:x/app.etzhayyim.apps.unknown/rkey1")
+    result = G._handle_collection("app.etzhayyim.apps.unknown.entity", rec, ctx)
     assert result is None
 
 

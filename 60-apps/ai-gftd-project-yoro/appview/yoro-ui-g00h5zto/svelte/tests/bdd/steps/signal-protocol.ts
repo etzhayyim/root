@@ -20,7 +20,7 @@ async function readJsonSafe(res: Response): Promise<Record<string, unknown> | nu
 Given(
 	'I register a device with identityKey {string} and signedPreKey {string}',
 	async ({ apiState, apiBase }, identityKey: string, signedPreKey: string) => {
-		const res = await xrpcPost(apiBase, 'ai.gftd.signal.registerDevice', {
+		const res = await xrpcPost(apiBase, 'app.etzhayyim.signal.registerDevice', {
 			identityKey,
 			signedPreKey,
 		});
@@ -30,7 +30,7 @@ Given(
 );
 
 When('I list my devices', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'ai.gftd.signal.listDevices', {});
+	const res = await xrpcPost(apiBase, 'app.etzhayyim.signal.listDevices', {});
 	apiState.lastResponse = res;
 	apiState.lastBody = await readJsonSafe(res);
 });
@@ -38,7 +38,7 @@ When('I list my devices', async ({ apiState, apiBase }) => {
 When(
 	'I send an encrypted message to the created channel with body {string} and encryptedBody {string}',
 	async ({ apiState, apiBase }, body: string, encryptedBody: string) => {
-		const res = await xrpcPost(apiBase, 'ai.gftd.convo.send', {
+		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.send', {
 			convoId: apiState.createdConvoId,
 			body,
 			encryptedBody,

@@ -345,10 +345,10 @@ command は Matrix event。
 
 候補:
 
-- `org.gftd.command.collector.crawl.ingest`
-- `org.gftd.command.collector.crawl.reanalyze`
-- `org.gftd.command.resources.entity.resolve`
-- `org.gftd.command.intel.collection.run`
+- `org.etzhayyim.command.collector.crawl.ingest`
+- `org.etzhayyim.command.collector.crawl.reanalyze`
+- `org.etzhayyim.command.resources.entity.resolve`
+- `org.etzhayyim.command.intel.collection.run`
 
 ## 11. Recommended Ownership Split
 

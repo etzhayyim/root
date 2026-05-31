@@ -86,19 +86,19 @@ Control Plane (App, SQL Graph)
 
 | Service | Methods |
 |---------|---------|
-| `GoldCommandService` | compatibility ingress only. 正規 command contract は Matrix `org.gftd.command.gold.*` |
+| `GoldCommandService` | compatibility ingress only. 正規 command contract は Matrix `org.etzhayyim.command.gold.*` |
 | `GoldQueryService` | `GetSpotPrice`, `GetPortfolio`, `GetPositionHistory`, `GetRiskMetrics`, `ListPhysicalInventory`, `GetTaxReport` |
 
 ### Command Contract
 
 - command room: `#gold-commands:etzhayyim.com`
 - event types:
-  - `org.gftd.command.gold.ingest-market-data`
-  - `org.gftd.command.gold.create-position`
-  - `org.gftd.command.gold.close-position`
-  - `org.gftd.command.gold.register-physical-asset`
-  - `org.gftd.command.gold.execute-trade`
-  - `org.gftd.command.gold.rebalance-portfolio`
+  - `org.etzhayyim.command.gold.ingest-market-data`
+  - `org.etzhayyim.command.gold.create-position`
+  - `org.etzhayyim.command.gold.close-position`
+  - `org.etzhayyim.command.gold.register-physical-asset`
+  - `org.etzhayyim.command.gold.execute-trade`
+  - `org.etzhayyim.command.gold.rebalance-portfolio`
 - UI mutation path は XRPC command を W Protocol command façade として使う
 
 ## Arrow Tables

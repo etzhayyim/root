@@ -10,7 +10,7 @@
    - **デプロイ**: `vault-mcp-component` の static 配信 (`/...`) に統合
    - **UIライブラリ**: `@etzhayyim/appshellv2` を使用した 1Password 風の3ペインレイアウト (Sidebar, Item List, Item Detail)
    - **認証**: `@etzhayyim/appshellv2/auth` (Clerk) を使用。ログイン後に `org_id` と `user_id` を取得。
-   - **通信**: バックエンドの `vault-mcp-component` に対して、HTTP Header (`X-GFTD-ORG-ID`, `X-GFTD-USER-ID`) を付与してリクエストを送信。
+   - **通信**: バックエンドの `vault-mcp-component` に対して、HTTP Header (`X-etzhayyim-ORG-ID`, `X-etzhayyim-USER-ID`) を付与してリクエストを送信。
 
 2. **Backend (App Component)**
    - **コンポーネント**: `vault-mcp-component` (Go)
@@ -73,7 +73,7 @@ Clerkの情報を基に、以下のパス階層でデータを分離します。
 
 ## セキュリティと認可 (Security & Authorization)
 
-1. **認証**: Frontend で Clerk Token を取得し、Component 呼び出し時に JWT として送信するか、Edge/Gateway レベルで検証された Header (`X-GFTD-USER-ID`, `X-GFTD-ORG-ID`) を信頼します。
+1. **認証**: Frontend で Clerk Token を取得し、Component 呼び出し時に JWT として送信するか、Edge/Gateway レベルで検証された Header (`X-etzhayyim-USER-ID`, `X-etzhayyim-ORG-ID`) を信頼します。
 2. **認可 (Component層)**:
    - Personal アイテムへのアクセス時: リクエストの `user_id` とパスの `{user_id}` が一致すること。
    - Shared アイテムへのアクセス時: リクエストの `org_id` とパスの `{org_id}` が一致すること。

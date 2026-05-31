@@ -757,7 +757,7 @@
 
 			<!-- Bottom plate label -->
 			<div class="flex items-center justify-center pb-2.5">
-				<span class="text-[7px] font-bold uppercase tracking-[0.3em] text-[#2a2520]">GFTD Audio Co.</span>
+				<span class="text-[7px] font-bold uppercase tracking-[0.3em] text-[#2a2520]">etzhayyim Audio Co.</span>
 			</div>
 		</div>
 	{/if}

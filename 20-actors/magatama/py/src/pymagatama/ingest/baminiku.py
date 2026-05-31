@@ -13,13 +13,13 @@ from pymagatama.db_sync import sync_cursor
 OWNER_DID = "did:web:baminiku.etzhayyim.com"
 KAMI_SDK = "gftd:kami@1.0.0"
 COLLECTION_TABLES = {
-    "ai.gftd.apps.baminiku.agent": "vertex_baminiku_agent_profile",
-    "ai.gftd.apps.baminiku.stream": "vertex_baminiku_stream",
-    "ai.gftd.apps.baminiku.stagePatch": "vertex_baminiku_stage_patch",
-    "ai.gftd.apps.baminiku.chat": "vertex_baminiku_chat",
-    "ai.gftd.apps.baminiku.tip": "vertex_baminiku_tip",
-    "ai.gftd.apps.baminiku.track": "vertex_baminiku_track",
-    "ai.gftd.apps.baminiku.trackEvent": "vertex_baminiku_track_event",
+    "app.etzhayyim.apps.baminiku.agent": "vertex_baminiku_agent_profile",
+    "app.etzhayyim.apps.baminiku.stream": "vertex_baminiku_stream",
+    "app.etzhayyim.apps.baminiku.stagePatch": "vertex_baminiku_stage_patch",
+    "app.etzhayyim.apps.baminiku.chat": "vertex_baminiku_chat",
+    "app.etzhayyim.apps.baminiku.tip": "vertex_baminiku_tip",
+    "app.etzhayyim.apps.baminiku.track": "vertex_baminiku_track",
+    "app.etzhayyim.apps.baminiku.trackEvent": "vertex_baminiku_track_event",
 }
 
 
@@ -157,12 +157,12 @@ def _write_edge(cur: Any, table: str, src: str, dst: str, relation: str, value: 
 
 def _write_related_edges(cur: Any, collection: str, kind: str, rec: dict[str, Any], vertex_id: str, created_at: str) -> None:
     stream_id = _s(rec.get("streamId"))
-    stream_vid = _vertex_id("ai.gftd.apps.baminiku.stream", stream_id) if stream_id else ""
+    stream_vid = _vertex_id("app.etzhayyim.apps.baminiku.stream", stream_id) if stream_id else ""
     if kind == "stream":
         agent_did = _s(rec.get("agentDid"))
         if agent_did:
-            _write_edge(cur, "edge_baminiku_stream_agent", vertex_id, _vertex_id("ai.gftd.apps.baminiku.agent", agent_did), "hosted_by_agent", rec, created_at)
-    elif collection == "ai.gftd.apps.baminiku.stagePatch" and stream_vid:
+            _write_edge(cur, "edge_baminiku_stream_agent", vertex_id, _vertex_id("app.etzhayyim.apps.baminiku.agent", agent_did), "hosted_by_agent", rec, created_at)
+    elif collection == "app.etzhayyim.apps.baminiku.stagePatch" and stream_vid:
         _write_edge(cur, "edge_baminiku_stream_stage_patch", stream_vid, vertex_id, "has_stage_patch", rec, created_at)
     elif kind == "chat" and stream_vid:
         _write_edge(cur, "edge_baminiku_stream_chat", stream_vid, vertex_id, "has_chat", rec, created_at)
@@ -170,7 +170,7 @@ def _write_related_edges(cur: Any, collection: str, kind: str, rec: dict[str, An
         _write_edge(cur, "edge_baminiku_stream_tip", stream_vid, vertex_id, "has_tip", rec, created_at)
     elif kind == "track" and stream_vid:
         _write_edge(cur, "edge_baminiku_stream_track", stream_vid, vertex_id, "has_track", rec, created_at)
-    elif collection == "ai.gftd.apps.baminiku.trackEvent" and stream_vid:
+    elif collection == "app.etzhayyim.apps.baminiku.trackEvent" and stream_vid:
         _write_edge(cur, "edge_baminiku_stream_track_event", stream_vid, vertex_id, "has_track_event", rec, created_at)
 
 
@@ -316,7 +316,7 @@ def set_agent_profile(
         "appearance": _default_appearance(_obj(appearance)),
         "moderationPolicy": _obj(moderationPolicy) or {"chat": "family-safe", "tips": "allow"},
     }
-    rec = _record("ai.gftd.apps.baminiku.agent", "agentProfile", {"profileId": profile_id, **character}, agent_did, agent_did=agent_did)
+    rec = _record("app.etzhayyim.apps.baminiku.agent", "agentProfile", {"profileId": profile_id, **character}, agent_did, agent_did=agent_did)
     return {"profileId": profile_id, "agentDid": agent_did, "profile": rec, "kamiCommand": _kami("character.setAppearance", rec)}
 
 
@@ -347,7 +347,7 @@ def create_stream(
         "knpRoom": knp_room,
         "scene": scene,
     }
-    _record("ai.gftd.apps.baminiku.stream", "stream", stream, stream_id, stream_id=stream_id, agent_did=agent_did)
+    _record("app.etzhayyim.apps.baminiku.stream", "stream", stream, stream_id, stream_id=stream_id, agent_did=agent_did)
     commands = [_kami("island.create", scene, stream_id), _kami("knp.openRoom", {"room": knp_room}, stream_id)]
     return {"streamId": stream_id, "scene": scene, "knpRoom": knp_room, "stream": stream, "kamiCommands": commands}
 
@@ -357,7 +357,7 @@ def update_stage(streamId: Any = None, lighting: Any = None, camera: Any = None,
     if not stream_id:
         return {"error": "streamId required"}
     patch = {"streamId": stream_id, "lighting": _obj(lighting), "camera": _obj(camera), "backdrop": _obj(backdrop), "entities": _arr(entities)}
-    _record("ai.gftd.apps.baminiku.stagePatch", "stagePatch", patch, stream_id=stream_id)
+    _record("app.etzhayyim.apps.baminiku.stagePatch", "stagePatch", patch, stream_id=stream_id)
     return {"streamId": stream_id, "kamiCommand": _kami("stage.patch", patch, stream_id)}
 
 
@@ -369,7 +369,7 @@ def record_chat(streamId: Any = None, viewerDid: Any = None, text: Any = None, c
         return {"error": "streamId, viewerDid, text required"}
     chat_id = _id("chat")
     rec = _record(
-        "ai.gftd.apps.baminiku.chat",
+        "app.etzhayyim.apps.baminiku.chat",
         "chat",
         {"chatId": chat_id, "streamId": stream_id, "viewerDid": viewer_did, "text": body, "convoId": _s(convoId)},
         chat_id,
@@ -399,7 +399,7 @@ def record_tip(
     tip_id = _id("tip")
     scale = max(0.5, min(3.0, tip_amount / 5000))
     effect = {"entityId": f"tip-{tip_id}", "kind": "tipEffect", "effectType": effect_type, "color": colors.get(effect_type, "#facc15"), "scale": scale, "amount": tip_amount, "currency": _s(currency or "JPY"), "message": _s(message)}
-    rec = _record("ai.gftd.apps.baminiku.tip", "tip", {"tipId": tip_id, "streamId": stream_id, "viewerDid": viewer_did, **effect}, tip_id, stream_id=stream_id)
+    rec = _record("app.etzhayyim.apps.baminiku.tip", "tip", {"tipId": tip_id, "streamId": stream_id, "viewerDid": viewer_did, **effect}, tip_id, stream_id=stream_id)
     return {"tipId": tip_id, "tip": rec, "effectEntity": effect, "kamiCommand": _kami("entity.spawnTipEffect", effect, stream_id)}
 
 
@@ -407,11 +407,11 @@ def enqueue_track(streamId: Any = None, title: Any = None, audioUri: Any = None,
     stream_id = _s(streamId)
     if not stream_id or not title or not audioUri:
         return {"error": "streamId, title, audioUri required"}
-    existing = _list_records("ai.gftd.apps.baminiku.track", "AND stream_id=%s", (stream_id,), 500)
+    existing = _list_records("app.etzhayyim.apps.baminiku.track", "AND stream_id=%s", (stream_id,), 500)
     track_id = _id("track")
     queue_position = len([t for t in existing if _s(t.get("status"), "queued") == "queued"]) + 1
     track = {"trackId": track_id, "streamId": stream_id, "title": _s(title), "artist": _s(artist), "audioUri": _s(audioUri), "requestedByDid": _s(requestedByDid), "queuePosition": queue_position, "status": "queued"}
-    _record("ai.gftd.apps.baminiku.track", "track", track, track_id, stream_id=stream_id)
+    _record("app.etzhayyim.apps.baminiku.track", "track", track, track_id, stream_id=stream_id)
     return {"trackId": track_id, "queuePosition": queue_position, "kamiCommand": _kami("audio.enqueue", track, stream_id)}
 
 
@@ -419,11 +419,11 @@ def skip_track(streamId: Any = None, reason: Any = None, **_: Any) -> dict[str, 
     stream_id = _s(streamId)
     if not stream_id:
         return {"error": "streamId required"}
-    queue = _list_records("ai.gftd.apps.baminiku.track", "AND stream_id=%s", (stream_id,), 500)
+    queue = _list_records("app.etzhayyim.apps.baminiku.track", "AND stream_id=%s", (stream_id,), 500)
     queued = [t for t in reversed(queue) if _s(t.get("status"), "queued") == "queued"]
     skipped = queued[0] if queued else {}
     event = {"streamId": stream_id, "skippedTrackId": _s(skipped.get("trackId")), "reason": _s(reason)}
-    _record("ai.gftd.apps.baminiku.trackEvent", "trackSkip", event, stream_id=stream_id)
+    _record("app.etzhayyim.apps.baminiku.trackEvent", "trackSkip", event, stream_id=stream_id)
     return {"streamId": stream_id, "skippedTrackId": event["skippedTrackId"], "kamiCommand": _kami("audio.skip", event, stream_id)}
 
 
@@ -431,15 +431,15 @@ def get_stream_state(streamId: Any = None, **_: Any) -> dict[str, Any]:
     stream_id = _s(streamId)
     if not stream_id:
         return {"error": "streamId required"}
-    streams = _list_records("ai.gftd.apps.baminiku.stream", "AND stream_id=%s", (stream_id,), 1)
+    streams = _list_records("app.etzhayyim.apps.baminiku.stream", "AND stream_id=%s", (stream_id,), 1)
     stream = streams[0] if streams else {}
     agent_did = _s(stream.get("agentDid"))
-    profiles = _list_records("ai.gftd.apps.baminiku.agent", "AND agent_did=%s", (agent_did,), 1) if agent_did else []
+    profiles = _list_records("app.etzhayyim.apps.baminiku.agent", "AND agent_did=%s", (agent_did,), 1) if agent_did else []
     return {
         "streamId": stream_id,
         "stream": stream,
         "profile": profiles[0] if profiles else {},
-        "queue": list(reversed(_list_records("ai.gftd.apps.baminiku.track", "AND stream_id=%s", (stream_id,), 50))),
-        "recentChats": _list_records("ai.gftd.apps.baminiku.chat", "AND stream_id=%s", (stream_id,), 20),
-        "recentTips": _list_records("ai.gftd.apps.baminiku.tip", "AND stream_id=%s", (stream_id,), 20),
+        "queue": list(reversed(_list_records("app.etzhayyim.apps.baminiku.track", "AND stream_id=%s", (stream_id,), 50))),
+        "recentChats": _list_records("app.etzhayyim.apps.baminiku.chat", "AND stream_id=%s", (stream_id,), 20),
+        "recentTips": _list_records("app.etzhayyim.apps.baminiku.tip", "AND stream_id=%s", (stream_id,), 20),
     }

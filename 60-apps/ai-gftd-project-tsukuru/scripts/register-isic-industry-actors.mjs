@@ -4,7 +4,7 @@ import { TSUKURU_ISIC_INDUSTRY_ACTORS } from "../appview/tsukuru-tsukr8u0/src/is
 
 const PDS_HOST = process.env.PDS_HOST ?? "https://atproto.etzhayyim.com";
 const APP_DID = process.env.TSUKURU_APP_DID ?? "did:web:tsukuru.etzhayyim.com";
-const TOKEN = process.env.GFTD_TOKEN;
+const TOKEN = process.env.etzhayyim_TOKEN;
 const DRY_RUN = process.argv.includes("--dry-run");
 const SECTION = getArg("--section");
 
@@ -14,8 +14,8 @@ function getArg(flag) {
 }
 
 if (!TOKEN && !DRY_RUN) {
-  console.error("error: GFTD_TOKEN env var is required unless --dry-run is used.");
-  console.error("  export GFTD_TOKEN=$(gftd agent-token --lxm com.atproto.identity.create --did did:web:tsukuru.etzhayyim.com)");
+  console.error("error: etzhayyim_TOKEN env var is required unless --dry-run is used.");
+  console.error("  export etzhayyim_TOKEN=$(gftd agent-token --lxm com.atproto.identity.create --did did:web:tsukuru.etzhayyim.com)");
   process.exit(1);
 }
 

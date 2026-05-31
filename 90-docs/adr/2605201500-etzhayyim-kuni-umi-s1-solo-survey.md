@@ -18,11 +18,11 @@ authoritative_for:
   - S1 → S2 exit gate
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605181100-mst-encrypted-records-signal-keywrap
-  - adr-2605191559-ameno-mst-checkpointer-stage-2-activation
-  - adr-2605191657-ameno-daemon-did-auth
+  - 2605191559-ameno-mst-checkpointer-stage-2-activation
+  - 2605191657-ameno-daemon-did-auth
   - adr-2605192245-etzhayyim-global-land-sovereignty
 related:
   - 60-apps/ai-gftd-project-open-robo/CLAUDE.md
@@ -168,7 +168,7 @@ def witness_attest(state: SiteSurveyState) -> SiteSurveyState:
 def emit_survey(state: SiteSurveyState) -> SiteSurveyState:
     from etzhayyim_sdk import sdk
     sdk.mst.write(
-        nsid="ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey",
+        nsid="app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
         record={
             "siteDid": state["site_did"],
             "surveyBlobCids": state["survey_blob_cids"],
@@ -201,7 +201,7 @@ def build_graph():
 
 if __name__ == "__main__":
     listener = MstListener(
-        nsid="ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite",
+        nsid="app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite",
         on_record=lambda record: build_graph().invoke(
             SiteSurveyState(**record_to_state(record)),
             config={"configurable": {"thread_id": record["siteDid"]}},

@@ -22,19 +22,19 @@ superseded_by: []
 
 # Goal
 
-NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格させ、federation-critical NSID だけを edge に残し、`ai.gftd.apps.*` domain NSID を K8s に consolidate する。これにより (1) Shannon η を estimated 0.60 → 0.83 に引き上げ、(2) ADR-0041 の CF isolate 分散状態 race を domain 側で構造的に排除し、(3) ADR-0056 BPMN-as-actor を全 domain に普遍化する。
+NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格させ、federation-critical NSID だけを edge に残し、`app.etzhayyim.apps.*` domain NSID を K8s に consolidate する。これにより (1) Shannon η を estimated 0.60 → 0.83 に引き上げ、(2) ADR-0041 の CF isolate 分散状態 race を domain 側で構造的に排除し、(3) ADR-0056 BPMN-as-actor を全 domain に普遍化する。
 
 # Scope
 
 **対象**:
-- `50-infra/cloudflare/workers/atproto/src/routing-table.ts` — `ai.gftd.apps.*` entry の fallback 方向 flip
+- `50-infra/cloudflare/workers/atproto/src/routing-table.ts` — `app.etzhayyim.apps.*` entry の fallback 方向 flip
 - `50-infra/vultr/mitama-udf-pool/` — BPMN dispatcher の HTTPS ingress 昇格 (CF Tunnel → cert-manager)
 - `etzhayyim-root/00-contracts/bpmn/` — 未登録 21 F1 BPMN + 4 undeployed process_def の完遂
 - ADR-2604241038 Contract 3 (trust plane HMAC 統一) の完遂依存
 
 **対象外**:
 - AT Protocol federation NSID (`com.atproto.*` / `app.bsky.*` / `chat.bsky.convo.*`) は edge 維持 (ADR-2604231828 unchanged)
-- Vault / Signal / Chat / PLC / Relay は該当 NSID prefix が `ai.gftd.apps.*` ではないため Rule 1 で自然に edge 側
+- Vault / Signal / Chat / PLC / Relay は該当 NSID prefix が `app.etzhayyim.apps.*` ではないため Rule 1 で自然に edge 側
 - RisingWave / Hyperdrive 配線は ADR-0048 のまま (変更なし)
 - `sdk.pds.dispatch` で federation に乗る write は ADR-0081 のまま
 
@@ -47,8 +47,8 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 | 要素 | 現状 | D 目標 |
 |---|---|---|
 | `NSID_ROUTING_TABLE` SSoT | ✓ 238 行の table-driven routing (`atproto/src/routing-table.ts`) | 変更なし |
-| `ai.gftd.apps.*` per-actor Worker | **0 個** | 0 個維持 |
-| BPMN bindings | 137 rows, 16 NSID が `NSID_EXACT_MATCH_TABLE` で dispatcher:8080 へ pipethrough | 全 `ai.gftd.apps.*` が default で dispatcher へ |
+| `app.etzhayyim.apps.*` per-actor Worker | **0 個** | 0 個維持 |
+| BPMN bindings | 137 rows, 16 NSID が `NSID_EXACT_MATCH_TABLE` で dispatcher:8080 へ pipethrough | 全 `app.etzhayyim.apps.*` が default で dispatcher へ |
 | K8s XRPC ingress | CF Tunnel (cloudflared pod) → zeebe-gateway ClusterIP → aiohttp :8080 (HTTP, `noTLSVerify`) | cert-manager TLS termination |
 | Trust plane | 4 パターン混在 (`x-gftd-authenticated-did` / `x-magatama-verified` / `x-internal-trust` / binding existence) | HMAC-SHA256 `x-gftd-internal-trust` 1 本 (ADR-2604241038 Contract 3) |
 
@@ -64,22 +64,22 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 |---|---|---|---|
 | **Edge** | `com.atproto.*` | CF PDS worker (`atproto.etzhayyim.com`) | AT Protocol federation endpoint, 3rd party atproto client 直叩き必須 |
 | **Edge** | `app.bsky.*` | CF AppView worker (`bsky.etzhayyim.com`) | Bluesky 互換 read API, CF POP latency が UX 支配 |
-| **Edge** | `chat.bsky.convo.*` / `ai.gftd.convo.*` | CF Chat worker | DM latency 制約, E2E signal 経路 |
-| **Edge** | `ai.gftd.signal.*` | CF Signal worker | Key directory — Service Auth verify hot path |
-| **Edge** | `ai.gftd.vault.*` | CF Vault worker | Zero-knowledge 前提, ciphertext のみ server 保持 (root rule) |
-| **Edge** | `ai.gftd.plc.*` / `ai.gftd.identity.*` | CF PLC directory / PDS local | DID resolution, edge cache が η 支配 |
-| **K8s** | `ai.gftd.apps.*` | K8s bpmn-dispatcher (`dispatcher.etzhayyim.com`) | Domain state, RisingWave 近接, BPMN evaluator |
+| **Edge** | `chat.bsky.convo.*` / `app.etzhayyim.convo.*` | CF Chat worker | DM latency 制約, E2E signal 経路 |
+| **Edge** | `app.etzhayyim.signal.*` | CF Signal worker | Key directory — Service Auth verify hot path |
+| **Edge** | `app.etzhayyim.vault.*` | CF Vault worker | Zero-knowledge 前提, ciphertext のみ server 保持 (root rule) |
+| **Edge** | `app.etzhayyim.plc.*` / `app.etzhayyim.identity.*` | CF PLC directory / PDS local | DID resolution, edge cache が η 支配 |
+| **K8s** | `app.etzhayyim.apps.*` | K8s bpmn-dispatcher (`dispatcher.etzhayyim.com`) | Domain state, RisingWave 近接, BPMN evaluator |
 
-`ai.gftd.apps.*` の default fallback は `local` (actor-slug Worker) から `pipethrough:bpmn` に flip する。
+`app.etzhayyim.apps.*` の default fallback は `local` (actor-slug Worker) から `pipethrough:bpmn` に flip する。
 
-## Rule 2 — `ai.gftd.apps.*` の NSID handler は BPMN-as-actor (ADR-0056) に統一する
+## Rule 2 — `app.etzhayyim.apps.*` の NSID handler は BPMN-as-actor (ADR-0056) に統一する
 
-新規 `ai.gftd.apps.*` NSID の handler 追加は **BPMN process 定義** 一択とする:
+新規 `app.etzhayyim.apps.*` NSID の handler 追加は **BPMN process 定義** 一択とする:
 
 - `etzhayyim-root/00-contracts/bpmn/{actor}/{slug}.bpmn` XML + `vertex_bpmn_process_def` + `vertex_bpmn_lexicon_binding` 2 行 INSERT
 - BPMN task は内部で SQL UDF / Embedded Rust UDF / External Python UDF を invoke してよい (ADR-0044 のまま、evaluator 選択は BPMN 内の関心事で本 ADR の対象外)
 
-CF Worker を新規に作って `ai.gftd.apps.*` を handle するのは禁止する (現状 binding 0 個を維持)。既存の `NSID_EXACT_MATCH_TABLE` 16 entry は `ai.gftd.apps.*` prefix rule の default flip が吸収するので、Phase δ5 で削除する。
+CF Worker を新規に作って `app.etzhayyim.apps.*` を handle するのは禁止する (現状 binding 0 個を維持)。既存の `NSID_EXACT_MATCH_TABLE` 16 entry は `app.etzhayyim.apps.*` prefix rule の default flip が吸収するので、Phase δ5 で削除する。
 
 ## Rule 3 — K8s XRPC ingress = cert-manager 管理の HTTPS 単一 endpoint
 
@@ -89,15 +89,15 @@ CF Worker を新規に作って `ai.gftd.apps.*` を handle するのは禁止�
 
 ingress middleware には ADR-0042 と同じく `lxm`-scoped Service Auth JWT verify を乗せ、ADR-2604241038 Contract 3 の HMAC trust header verify と並走させる。
 
-## Rule 4 — `ai.gftd.apps.*` default=K8s に対する唯一の carve-out
+## Rule 4 — `app.etzhayyim.apps.*` default=K8s に対する唯一の carve-out
 
-Rule 1 の `ai.gftd.apps.*` → K8s に対する **唯一の例外** は **Murakumo inference fleet** (`ai.gftd.apps.murakumo.*`):
+Rule 1 の `app.etzhayyim.apps.*` → K8s に対する **唯一の例外** は **Murakumo inference fleet** (`app.etzhayyim.apps.murakumo.*`):
 
 - 実体は 4-node Python MLX fleet (CF Tunnel + auto-LB) で K8s pod ではない
 - 移管すると既存 "Murakumo Fleet (native)" トポロジーを崩す
-- `NSID_EXACT_MATCH_TABLE` に `ai.gftd.apps.murakumo.*` → CF Tunnel edge を明示残置する
+- `NSID_EXACT_MATCH_TABLE` に `app.etzhayyim.apps.murakumo.*` → CF Tunnel edge を明示残置する
 
-その他の edge-resident worker (signal / vault / chat / plc-directory / relay / authn / authz) は `ai.gftd.apps.*` prefix に該当しないので Rule 1 テーブルで自然に edge 側に入る。これらは本 Rule の exception 対象ではなく、Rule 1 の通常適用である。
+その他の edge-resident worker (signal / vault / chat / plc-directory / relay / authn / authz) は `app.etzhayyim.apps.*` prefix に該当しないので Rule 1 テーブルで自然に edge 側に入る。これらは本 Rule の exception 対象ではなく、Rule 1 の通常適用である。
 
 ## Rule 5 — Trust plane HMAC-SHA256 統一 (ADR-2604241038 Contract 3 依存)
 
@@ -120,7 +120,7 @@ E Full K8s:          |redundant paths| ≈ 2   η ≈ 0.87  - edge benefit loss
 ## B を採らない理由
 
 1. **Federation compliance 違反** — `atproto.etzhayyim.com` は 3rd party atproto client (Bluesky app, 独自 client) が直接叩く前提。BFF 裏に入れると AT Protocol network から切断される
-2. **APAC latency** — Vultr LAX 単一 region は Gftd Japan 本拠地の p95 を 150–300ms 悪化させる
+2. **APAC latency** — Vultr LAX 単一 region は etzhayyim Japan 本拠地の p95 を 150–300ms 悪化させる
 3. **BFF XRPC proxy = 純オーバーヘッド** — BFF は UI concern (SSR / session / CSRF) を扱うものであり、XRPC を tunnel するのは redundant hop
 
 ## C ではなく D を選ぶ理由
@@ -133,10 +133,10 @@ C は edge-thin PDS + K8s actor core の「責務分離」止まりで、NSID pr
 
 ## Phase δ1 — routing default flip (1 sprint)
 
-- `routing-table.ts` の `ai.gftd.apps.*` entry を `fallback: 'local'` → `pipethrough: BPMN_URL` に変更
+- `routing-table.ts` の `app.etzhayyim.apps.*` entry を `fallback: 'local'` → `pipethrough: BPMN_URL` に変更
 - `NSID_EXACT_MATCH_TABLE` 16 entry は **safety net として残す** — BPMN dispatcher が 5xx を返した場合の fallback、または BPMN binding が未登録な NSID の明示経路として有効
 - smoke test: yabai / yoro autonomous actor の既存 E2E が pass することを確認
-- 新規 `ai.gftd.apps.*` NSID は BPMN binding 経由で追加するのみ、`NSID_EXACT_MATCH_TABLE` には追加しない
+- 新規 `app.etzhayyim.apps.*` NSID は BPMN binding 経由で追加するのみ、`NSID_EXACT_MATCH_TABLE` には追加しない
 
 ## Phase δ2 — BPMN coverage 完遂 (2 sprint)
 
@@ -164,7 +164,7 @@ C は edge-thin PDS + K8s actor core の「責務分離」止まりで、NSID pr
 
 # Exceptions
 
-- **Murakumo** (`ai.gftd.apps.murakumo.*`) は Rule 1 に対する明示例外。K8s ではなく CF Tunnel + Python MLX fleet を維持
+- **Murakumo** (`app.etzhayyim.apps.murakumo.*`) は Rule 1 に対する明示例外。K8s ではなく CF Tunnel + Python MLX fleet を維持
 - **Legacy yabai NSID** は Phase δ1 完了後も safety net として `NSID_EXACT_MATCH_TABLE` に残してよい (δ5 で BPMN coverage 確認後削除)
 - **Bootstrap 経路** (`authn.etzhayyim.com` / `authz.etzhayyim.com`) は本 ADR の NSID routing 対象外 (ADR-0022 循環依存回避)
 
@@ -174,7 +174,7 @@ C は edge-thin PDS + K8s actor core の「責務分離」止まりで、NSID pr
 
 - Shannon η estimated 0.60 → 0.83
 - ADR-0041 content-PK race は federation 経路 (`com.atproto.*` のみ edge 分散) に局所化、domain 経路は K8s 単一 isolate で構造的に race-free
-- 新規 `ai.gftd.apps.*` 追加のデプロイ判断が機械化 (BPMN 2 行 INSERT で完了、CF Worker wrangler.jsonc 作成不要)
+- 新規 `app.etzhayyim.apps.*` 追加のデプロイ判断が機械化 (BPMN 2 行 INSERT で完了、CF Worker wrangler.jsonc 作成不要)
 - CF Workers deploy 対象が 22 個から圧縮される (edge infra actor + BFF のみ、正確な数は δ5 で確定)
 
 ## Negative / Risk

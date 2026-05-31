@@ -120,7 +120,7 @@ def test_ma_as_float_custom_default() -> None:
 def test_ma_deal_vid_format() -> None:
     vid = MA._deal_vid("deal-001")
     assert vid.startswith("at://")
-    assert "ai.gftd.apps.ma.deal" in vid
+    assert "app.etzhayyim.apps.ma.deal" in vid
     assert "deal-001" in vid
 
 
@@ -134,7 +134,7 @@ def test_ma_deal_vid_deterministic() -> None:
 
 def test_ma_candidate_vid_format() -> None:
     vid = MA._candidate_vid("cand-001")
-    assert "ai.gftd.apps.ma.candidate" in vid
+    assert "app.etzhayyim.apps.ma.candidate" in vid
     assert "cand-001" in vid
 
 
@@ -142,7 +142,7 @@ def test_ma_candidate_vid_format() -> None:
 
 def test_ma_valuation_vid_format() -> None:
     vid = MA._valuation_vid("val-001")
-    assert "ai.gftd.apps.ma.valuation" in vid
+    assert "app.etzhayyim.apps.ma.valuation" in vid
     assert "val-001" in vid
 
 
@@ -150,7 +150,7 @@ def test_ma_valuation_vid_format() -> None:
 
 def test_ma_match_vid_format() -> None:
     vid = MA._match_vid("match-001")
-    assert "ai.gftd.apps.ma.match" in vid
+    assert "app.etzhayyim.apps.ma.match" in vid
     assert "match-001" in vid
 
 
@@ -223,7 +223,7 @@ class _FakeCursorMA:
 def test_ma_insert_ignore_builds_select_not_exists() -> None:
     cur = _FakeCursorMA()
     MA._insert_ignore(cur, "vertex_ma_deal", "vertex_id", {
-        "vertex_id": "at://did/ai.gftd.apps.ma.deal/deal-001",
+        "vertex_id": "at://did/app.etzhayyim.apps.ma.deal/deal-001",
         "title": "Acquisition of Target",
     })
     assert "WHERE NOT EXISTS" in cur.last_sql
@@ -233,7 +233,7 @@ def test_ma_insert_ignore_builds_select_not_exists() -> None:
 def test_ma_insert_ignore_returns_rowcount() -> None:
     cur = _FakeCursorMA(rowcount=1)
     result = MA._insert_ignore(cur, "vertex_ma_deal", "vertex_id", {
-        "vertex_id": "at://did/ai.gftd.apps.ma.deal/deal-001",
+        "vertex_id": "at://did/app.etzhayyim.apps.ma.deal/deal-001",
     })
     assert result == 1
 

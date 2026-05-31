@@ -8,7 +8,7 @@ functions of their input — they do NOT touch the LangGraph `_State` channel
   • Phase A in-tree path: `compose_scene_3d._step_*` nodes call these and
     wrap the result back into the channel.
   • Phase C activation: `vertex_langgraph_assistant.kind='topology'` resolves
-    each `mcp://ai.gftd.mangaka.tools.*` node by calling the
+    each `mcp://app.etzhayyim.mangaka.tools.*` node by calling the
     corresponding lexicon-validated endpoint, which dispatches here.
 
 Splitting the body off the Pregel node keeps the lexicon contract honest:
@@ -98,7 +98,7 @@ async def tool_load_panel_plan(
     panel_rkey: str,
     rw_url: str | None = None,
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.loadPanelPlan
+    """Lexicon: app.etzhayyim.mangaka.tools.loadPanelPlan
 
     Returns `{"panel_plan": {...}}` on success or `{"error": str}` on failure.
     Pure I/O modulo RisingWave read.
@@ -151,7 +151,7 @@ async def tool_resolve_assets(
     panel_plan: dict[str, Any],
     rw_url: str | None = None,
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.resolveAssets
+    """Lexicon: app.etzhayyim.mangaka.tools.resolveAssets
 
     Resolves character / environment / prop vertex rows referenced by the
     panel_plan, returning their VRM/glTF blob keys + display metadata.
@@ -240,7 +240,7 @@ def tool_place_scene(
     asset_refs: dict[str, Any],
     pose_plan: dict[str, Any],
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.placeScene
+    """Lexicon: app.etzhayyim.mangaka.tools.placeScene
 
     Compose `scene_dag` JSON-LD from plan + refs + poses. Pure CPU.
     """
@@ -293,7 +293,7 @@ async def tool_simulate_character(
     pose: dict[str, Any] | None = None,
     ticks: int = 30,
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.simulateCharacter
+    """Lexicon: app.etzhayyim.mangaka.tools.simulateCharacter
 
     Settle spring bones + cloth for one character. Returns the per-character
     sim slice that the Pregel reducer merges into `sim_result`.
@@ -329,7 +329,7 @@ async def tool_render_keyframes(
     render_angles: int = 3,
     sim_seed: int = 0,
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.renderKeyframes
+    """Lexicon: app.etzhayyim.mangaka.tools.renderKeyframes
 
     Returns `{"renders": [...], "iteration": int}`. When the kami-mangaka-scene
     PyO3 wheel is installed AND B2 is configured, the renders carry real
@@ -375,7 +375,7 @@ def tool_validate_camera_plan(
     camera_plan_raw: dict[str, Any] | None,
     fallback_shot: str = "MediumShot",
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.validateCameraPlan
+    """Lexicon: app.etzhayyim.mangaka.tools.validateCameraPlan
 
     Clamp + validate the raw LLM cinematography output. Returns the
     runtime-ready `{camera_plan: {camera, lights, llm}}` channel value.
@@ -498,7 +498,7 @@ def tool_aggregate_critique(
     target_mood: str | None = None,
     fallback_score: float = 0.6,
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.aggregateCritique
+    """Lexicon: app.etzhayyim.mangaka.tools.aggregateCritique
 
     Overlays the Hume image-feature `emotionAlignment` score onto each
     render's LLM axes (when target_mood + B2 are available), computes the
@@ -613,7 +613,7 @@ async def tool_attach_character_vrm(
     vrm_content_b64: str,
     rw_url: str | None = None,
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.attachCharacterVrm
+    """Lexicon: app.etzhayyim.mangaka.tools.attachCharacterVrm
 
     Validates a VRM 1.0 / glTF binary payload, uploads it to B2 keyed by
     sha256 (`blobs/mangaka/vrm/{sha256hex}`), then writes the resolved
@@ -694,7 +694,7 @@ async def tool_attach_character_vrm(
         # Idempotent: skip the UPDATE when the blob_key already matches.
         if existing_props.get("vrmBlobKey") == blob_key:
             vertex_id = (
-                f"at://{_APP_DID}/ai.gftd.mangaka.character/{character_rkey}"
+                f"at://{_APP_DID}/app.etzhayyim.mangaka.character/{character_rkey}"
             )
             return {
                 "blobKey": blob_key,
@@ -711,7 +711,7 @@ async def tool_attach_character_vrm(
             (new_props_json, character_rkey),
         )
         vertex_id = (
-            f"at://{_APP_DID}/ai.gftd.mangaka.character/{character_rkey}"
+            f"at://{_APP_DID}/app.etzhayyim.mangaka.character/{character_rkey}"
         )
     finally:
         await conn.close()
@@ -735,7 +735,7 @@ async def tool_persist_scene_3d(
     dry_run: bool = False,
     rw_url: str | None = None,
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.persistScene3d
+    """Lexicon: app.etzhayyim.mangaka.tools.persistScene3d
 
     INSERTs the rendered scene row into `vertex_mangaka_scene_3d` via asyncpg.
     Per ADR-2605111200 this must run on a pod, never on a CF Worker — the
@@ -751,7 +751,7 @@ async def tool_persist_scene_3d(
     import psycopg
 
     scene_rkey = f"scene3d-{panel_rkey}-{int(time.time())}"
-    vertex_id = f"at://{_APP_DID}/ai.gftd.mangaka.scene3d/{scene_rkey}"
+    vertex_id = f"at://{_APP_DID}/app.etzhayyim.mangaka.scene3d/{scene_rkey}"
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
 
@@ -823,7 +823,7 @@ async def tool_persist_hume_emotion_observation(
     dry_run: bool = False,
     rw_url: str | None = None,
 ) -> dict[str, Any]:
-    """Lexicon: ai.gftd.mangaka.tools.persistHumeEmotionObservation
+    """Lexicon: app.etzhayyim.mangaka.tools.persistHumeEmotionObservation
 
     INSERTs one row per render into `vertex_vector_emotion_signal` so the
     full Hume distillation corpus (imageFeatures + topEmotions + author-
@@ -854,9 +854,9 @@ async def tool_persist_hume_emotion_observation(
         f"hume:{panel_rkey}:i{int(iteration)}:{angle_slug}:{blob_key}"
     )
     source_uri = (
-        f"at://{_APP_DID}/ai.gftd.mangaka.scene3d/{scene_rkey}"
+        f"at://{_APP_DID}/app.etzhayyim.mangaka.scene3d/{scene_rkey}"
         if scene_rkey
-        else f"at://{_APP_DID}/ai.gftd.mangaka.panel/{panel_rkey}"
+        else f"at://{_APP_DID}/app.etzhayyim.mangaka.panel/{panel_rkey}"
     )
 
     # `raw_json` carries everything the centroid trainer needs as a single
@@ -864,7 +864,7 @@ async def tool_persist_hume_emotion_observation(
     # (target_mood + family). `scores_json` mirrors topEmotions for the
     # top_emotion / top_score index columns to remain queryable.
     raw_payload = {
-        "schema": "ai.gftd.mangaka.humeObservation.v1",
+        "schema": "app.etzhayyim.mangaka.humeObservation.v1",
         "input": {
             "imageFeatures": image_features or {},
         },

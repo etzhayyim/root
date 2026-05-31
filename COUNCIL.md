@@ -13,6 +13,19 @@
 
 After 2026-06-19, the founder selects from candidates that have cleared the public objection mechanism.
 
+### 2026-05-21 — RFP Day 2 of 30
+
+- **Period**: 2026-05-20 → 2026-06-19 (30-day public objection window per ADR-2605192300)
+- **Days remaining**: 29
+- **Proposals received**: 0 — RFP newly opened
+- **Objections filed**: 0 — no objections recorded
+- **Seats filled / open**: Seat 1 (Jun Kawasaki, Lv7) / Seats 2–5 open
+- **Constitutional ADRs accepted under proposed status during RFP**:
+  - ADR-2605214000 (Murakumo mesh, no-VKE + lexicon port rules) — 2026-05-21
+  - ADR-2605215000 (Murakumo-fleet-only inference, no RunPod) — 2026-05-21
+  - ADR-2605215100 (Sentinel-1/2 satellite analysis on Murakumo fleet, tiered MLX/ROCm) — 2026-05-21
+- **Next checkpoint**: 2026-06-04 (RFP Day 15 / mid-period)
+
 ## The 5 seats
 
 Each seat covers an axis of expertise needed for Council deliberations across the religious-corp ADR surface. The founder may not act unilaterally — Council attestations require ≥3 multisig per ChartersComplianceRegistry / LandRegistry contracts.
@@ -29,7 +42,7 @@ Each seat covers an axis of expertise needed for Council deliberations across th
 
 | Seat | Name / Handle | DID | Smart Wallet | Status | Confirmed |
 |---|---|---|---|---|---|
-| 1 | Jun Kawasaki | did:web:jun.gftd.group (interim) | TBD | ✅ confirmed | 2026-05-19 |
+| 1 | Jun Kawasaki | did:web:jun.etzhayyim.com (interim) | TBD | ✅ confirmed | 2026-05-19 |
 | 2 | _(open)_ | — | — | 🟡 awaiting candidates | — |
 | 3 | _(open)_ | — | — | 🟡 awaiting candidates | — |
 | 4 | _(open)_ | — | — | 🟡 awaiting candidates | — |
@@ -46,20 +59,20 @@ Each seat covers an axis of expertise needed for Council deliberations across th
    You do not publicly represent any entity in Rider §2 prohibited categories. The application form requires affirming this.
 
 3. **Submit a `council-candidate-application` AT Record on your PDS**
-   - Lexicon: [`ai.gftd.apps.etzhayyim.council-candidate-application`](00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-candidate-application.json)
+   - Lexicon: [`app.etzhayyim.apps.etzhayyim.council-candidate-application`](00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-candidate-application.json)
    - Includes: seat axis, narrative (why this seat), qualifications, Smart Wallet address, COI disclosure, DID-bound signature
 
 4. **Announce on github**
    Open a discussion at https://github.com/etzhayyim/root/discussions linking to the AT Record URI.
 
 5. **Stay accessible during the 30-day window**
-   Objections (per Lexicon `ai.gftd.apps.etzhayyim.council-objection`) may arrive from any active Adherent SBT holder. Respond to good-faith concerns.
+   Objections (per Lexicon `app.etzhayyim.apps.etzhayyim.council-objection`) may arrive from any active Adherent SBT holder. Respond to good-faith concerns.
 
 ## How to object to a candidate
 
 1. **You must hold an active Adherent SBT** (AdherentRegistry.isActive == true)
 2. **Submit a `council-objection` AT Record on your PDS**
-   - Lexicon: [`ai.gftd.apps.etzhayyim.council-objection`](00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-objection.json)
+   - Lexicon: [`app.etzhayyim.apps.etzhayyim.council-objection`](00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-objection.json)
    - Cite specific Rider §2(a)-(h) violation, undisclosed COI, qualification fabrication, doctrinal incompatibility, or axis mismatch
 3. **Three (3) distinct SBT-holder objections** within the 30-day window triggers founder re-proposal for that seat
 4. **Defamatory or evidence-free objections** themselves may trigger Council Lv6+ review of the objector under the Charter Compliance framework

@@ -1,5 +1,5 @@
 """
-ai.gftd.apps.media_gamers chart analysis primitives.
+app.etzhayyim.apps.media_gamers chart analysis primitives.
 
 Two LangServer task types backing chartFetch.bpmn + chartAnalyze.bpmn:
 
@@ -37,8 +37,8 @@ from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives.yoro_social import insert_social_post_record
 
 _ACTOR_DID = os.getenv("MEDIA_GAMERS_ACTOR_DID", "did:web:media-gamers.etzhayyim.com")
-_COLLECTION_SNAPSHOT = "ai.gftd.apps.media_gamers.chartSnapshot"
-_COLLECTION_ANALYSIS = "ai.gftd.apps.media_gamers.chartAnalysis"
+_COLLECTION_SNAPSHOT = "app.etzhayyim.apps.media_gamers.chartSnapshot"
+_COLLECTION_ANALYSIS = "app.etzhayyim.apps.media_gamers.chartAnalysis"
 
 _STEAMSPY_TOP2W_URL = "https://steamspy.com/api.php?request=top100in2weeks"
 _RAWG_GAMES_URL = "https://api.rawg.io/api/games"

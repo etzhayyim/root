@@ -27,7 +27,7 @@ const procs = ["sentinelIngest", "sentinelAnalyze"] as const;
 
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (proc: string) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const proc of procs) {

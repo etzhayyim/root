@@ -1,6 +1,6 @@
 """media-gamers `health` graph — simplest possible end-to-end probe.
 
-NSID: ai.gftd.apps.media_gamers.health
+NSID: app.etzhayyim.apps.media_gamers.health
 
 Returns {"ok": True, "service": "lg-media-gamers", "version": "0.1.0"}
 along with RW connectivity status.

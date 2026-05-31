@@ -7,10 +7,10 @@ topic: ameno-substrate-pipeline
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191608-ameno-stage-3-ipfs-pin-activation.md
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
+  - 2605191608-ameno-stage-3-ipfs-pin-activation
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
-  - 2605191559-ameno-mst-checkpointer-stage-2-activation.md
+V05191559-ameno-mst-checkpointer-stage-2-activation
 ---
 
 # ADR 2605191625: Ameno Stage 4 — Base L2 anchor CronJob

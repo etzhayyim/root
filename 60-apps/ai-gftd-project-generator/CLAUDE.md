@@ -98,6 +98,6 @@ gftd deploy --smoke-url https://g3nrt0rx.etzhayyim.com/health
 
 - **pnpm** only (never npm)
 - Tailwind CSS + `@etzhayyim/design-system` + `@etzhayyim/appshell`
-- Auth headers: `Authorization: Bearer <JWT>`, `X-GFTD-ORG-ID`, `X-GFTD-USER-ID`
+- Auth headers: `Authorization: Bearer <JWT>`, `X-etzhayyim-ORG-ID`, `X-etzhayyim-USER-ID`
 - XRPC-first: no hardcoded nanoid URLs
 - Async operations (t2v/i2v): submit → poll pattern with KV-backed state

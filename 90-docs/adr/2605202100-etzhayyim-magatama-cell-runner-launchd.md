@@ -17,9 +17,9 @@ authoritative_for:
   - Per-node cell assignment readback contract (fleet.toml ↔ runner CLI)
   - 常駐起動 OS-level boot path (launchd → uv → magatama-cell-runner)
 depends_on:
-  - adr-2605182312-local-bring-up-murakumo-gemma4
-  - adr-2605191346-etzhayyim-vultr-free-murakumo-control-plane
-  - adr-2605191559-ameno-mst-checkpointer-stage-2-activation
+  - 2605182312-local-bring-up-murakumo-gemma4
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - 2605191559-ameno-mst-checkpointer-stage-2-activation
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
   - 50-infra/cluster/murakumo/cell-runner/

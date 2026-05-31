@@ -2,7 +2,7 @@
 # Authoritative per ADR-2605181040 (jp.etzhayyim.med.uhl.institution)
 # License: CC-BY-4.0
 # Update procedure: see ./README.md
-# Verifier: jun@gftd.group
+# Verifier: jun@etzhayyim.com
 # All entries have last_verified_at = 2026-05-18 (initial seed)
 
 institutions:
@@ -31,7 +31,7 @@ institutions:
         notes_ja: 厚労科研 難治性聴覚障害研究班 代表者所属。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: jp-nho-tmc-cic
     name_ja: 独立行政法人 国立病院機構 東京医療センター 人工内耳センター
@@ -56,7 +56,7 @@ institutions:
         notes_ja: 内耳奇形・蝸牛骨化を含む困難症例の対応実績。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: jp-keio-orl
     name_ja: 慶應義塾大学医学部 耳鼻咽喉科学教室
@@ -91,7 +91,7 @@ institutions:
         notes_ja: 遺伝学的検査実施。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: jp-ycu-citizen
     name_ja: 横浜市立大学附属市民総合医療センター 耳鼻咽喉科
@@ -116,7 +116,7 @@ institutions:
         notes_ja: 蝸牛神経低形成症例にも術前評価対応。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: jp-tokyo-med-u-hearing
     name_ja: 東京医科大学病院 聴覚・人工内耳センター
@@ -134,7 +134,7 @@ institutions:
         notes_ja: 専門センター。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: jp-utokyo-orl
     name_ja: 東京大学医学部附属病院 耳鼻咽喉科・頭頸部外科
@@ -164,7 +164,7 @@ institutions:
           reimbursement: hoken
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: jp-fukushima-nms-abi
     name_ja: 福島県立医科大学 脳神経外科 × 日本医科大学 脳神経外科 (連携)
@@ -185,7 +185,7 @@ institutions:
           STALENESS WARNING: cumulative_count_as_of は 15 年前、最新数値の確認が必要。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: jp-amed-deafblind
     name_ja: AMED 難治性疾患実用化研究事業「視覚聴覚二重障害（盲ろう）の医療」研究班
@@ -205,4 +205,4 @@ institutions:
           referral coordination および診療マニュアル提供。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com

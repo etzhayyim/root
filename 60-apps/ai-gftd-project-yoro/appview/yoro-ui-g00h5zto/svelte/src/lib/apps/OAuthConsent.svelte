@@ -94,14 +94,14 @@
 					{appIcon}
 				</span>
 				<div>
-					<h2 class="text-[17px] font-bold text-gftd-text">{appName}</h2>
-					<p class="text-[13px] text-gftd-muted">wants access to your account</p>
+					<h2 class="text-[17px] font-bold text-etzhayyim-text">{appName}</h2>
+					<p class="text-[13px] text-etzhayyim-muted">wants access to your account</p>
 				</div>
 			</div>
 
 			<!-- Scopes list -->
 			<div class="px-5 pb-4">
-				<p class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider mb-3">Permissions</p>
+				<p class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider mb-3">Permissions</p>
 				<div class="flex flex-col gap-1">
 					{#each scopeDetails as scope}
 						<button
@@ -117,7 +117,7 @@
 							<div class={cn(
 								'flex items-center justify-center w-5 h-5 rounded border-2 transition-colors shrink-0',
 								scope.granted
-									? 'bg-gftd-accent border-gftd-accent'
+									? 'bg-etzhayyim-accent border-etzhayyim-accent'
 									: 'bg-white border-gray-300'
 							)}>
 								{#if scope.granted}
@@ -127,8 +127,8 @@
 								{/if}
 							</div>
 							<div class="min-w-0 flex-1">
-								<p class="text-[14px] font-medium text-gftd-text">{scope.label}</p>
-								<p class="text-[12px] text-gftd-muted">{scope.description}</p>
+								<p class="text-[14px] font-medium text-etzhayyim-text">{scope.label}</p>
+								<p class="text-[12px] text-etzhayyim-muted">{scope.description}</p>
 							</div>
 						</button>
 					{/each}
@@ -138,7 +138,7 @@
 			<!-- Actions -->
 			<div class="flex gap-3 px-5 pb-5">
 				<button
-					class="flex-1 py-3 rounded-xl border border-gftd-border text-[15px] font-medium text-gftd-secondary active:bg-gftd-hover transition-colors touch-manipulation min-h-[48px]"
+					class="flex-1 py-3 rounded-xl border border-etzhayyim-border text-[15px] font-medium text-etzhayyim-secondary active:bg-gftd-hover transition-colors touch-manipulation min-h-[48px]"
 					onclick={handleCancel}
 					disabled={installing}
 				>
@@ -147,7 +147,7 @@
 				<button
 					class={cn(
 						'flex-1 py-3 rounded-xl text-[15px] font-medium text-white transition-colors touch-manipulation min-h-[48px]',
-						installing ? 'bg-gftd-accent/60' : 'bg-gftd-accent active:bg-gftd-accent/80'
+						installing ? 'bg-etzhayyim-accent/60' : 'bg-etzhayyim-accent active:bg-etzhayyim-accent/80'
 					)}
 					onclick={handleInstall}
 					disabled={installing}

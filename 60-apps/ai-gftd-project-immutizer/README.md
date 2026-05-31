@@ -1,6 +1,6 @@
 # ai-gftd-project-immutizer
 
-`ai-gftd-project-immutizer` は、GFTD OS 向けの **クラウド連携型アンチウイルス設計** です。ローカル検査は `ai-gftd-project-os` 内の `gftd-system` が担当し、`immutizer.etzhayyim.com` が脅威インテリジェンスで結果を補強します。
+`ai-gftd-project-immutizer` は、etzhayyim OS 向けの **クラウド連携型アンチウイルス設計** です。ローカル検査は `ai-gftd-project-os` 内の `gftd-system` が担当し、`immutizer.etzhayyim.com` が脅威インテリジェンスで結果を補強します。
 
 ## 設計方針
 
@@ -9,7 +9,7 @@
 - **フェイルセーフ**: クラウド障害時でもローカル結果は必ず返却。
 - **Tauri 統合**: デスクトップ UI から `run_immutizer_scan` コマンドで一括実行。
 
-## GFTD OS (Tauri) との統合点
+## etzhayyim OS (Tauri) との統合点
 
 統合済みコマンド:
 

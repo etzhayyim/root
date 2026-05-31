@@ -16,7 +16,7 @@ axis: hardware-runtime
 weight: 0.9
 priority_note: "Hardware-level invariant. Train + Inference share the same pod (盆栽は同じ場所で育つ)."
 depends_on:
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
   - adr-2605092200-continuous-metabolic-training
 related:

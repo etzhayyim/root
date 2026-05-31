@@ -1,30 +1,36 @@
-import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+// adapter-cloudflare with `fallback: 'spa'` emits _app/ + index.html directly
+// into the wrangler assets dir (svelte.config.js + wrangler.jsonc point both
+// SPA shell and Vite output through the same path). This script's remaining
+// job is to mirror svelte/public/* — Vite's default publicDir — into the
+// parent static/ dir, since SvelteKit doesn't ingest it (only static/ is its
+// canonical convention). Without this, llms.txt / favicon.png / robots.txt
+// etc. disappear from the deployed Worker after each build.
 const here = path.dirname(fileURLToPath(import.meta.url));
 const svelteDir = path.resolve(here, '..');
-const buildDir = path.join(svelteDir, 'build');
+const publicDir = path.join(svelteDir, 'public');
 const staticDir = path.resolve(svelteDir, '../static');
-const passthroughFiles = ['_headers', '_redirects'];
 
-if (!existsSync(buildDir)) {
-  console.error(`Build output not found: ${buildDir}`);
-  process.exit(1);
+if (!existsSync(publicDir)) {
+  console.log(`No public/ dir at ${publicDir}; nothing to sync.`);
+  process.exit(0);
 }
 
 mkdirSync(staticDir, { recursive: true });
-rmSync(path.join(staticDir, '_app'), { recursive: true, force: true });
-rmSync(path.join(staticDir, 'assets'), { recursive: true, force: true });
 
-cpSync(path.join(buildDir, 'index.html'), path.join(staticDir, 'index.html'));
-if (existsSync(path.join(buildDir, 'assets'))) {
-  cpSync(path.join(buildDir, 'assets'), path.join(staticDir, 'assets'), { recursive: true });
-}
-for (const name of passthroughFiles) {
-  const src = path.join(staticDir, name);
-  if (!existsSync(src)) continue;
-  cpSync(src, path.join(buildDir, name));
+let copied = 0;
+for (const name of readdirSync(publicDir)) {
+  // Skip stale _app/ from old build pipeline — current build writes _app/
+  // directly to static/ via adapter-cloudflare fallback: 'spa'.
+  if (name === '_app') continue;
+  const src = path.join(publicDir, name);
+  const dst = path.join(staticDir, name);
+  const st = statSync(src);
+  cpSync(src, dst, { recursive: st.isDirectory() });
+  copied += 1;
 }
 
-console.log(`Synced SPA assets to ${staticDir}`);
+console.log(`Mirrored ${copied} entries from public/ → ${staticDir}`);

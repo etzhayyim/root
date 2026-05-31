@@ -70,7 +70,7 @@ Hebrew 表記 (`עץ חיים`) と romanized form (`etz hayim`) は legacy alia
 **Positive**
 - Footer / 契約 PDF / lawfirm 顧客向け doc の表示が日本語コンテキスト
   と整合し、海外 Hebrew 綴りの読みづらさが解消。
-- legal entity boundary (`etzhayyim` = principal / Gftd Japan =
+- legal entity boundary (`etzhayyim` = principal / etzhayyim Japan =
   vendor) の説明が日本語顧客に通じやすくなる。
 - on-chain Hebrew identity と display name が分離されるため、表示層の
   将来 rebrand は ADR 1 本で完結する (on-chain change は別 ADR 必須)。

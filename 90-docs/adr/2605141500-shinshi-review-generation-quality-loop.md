@@ -57,14 +57,14 @@ and owns the generation graphs.
 The canonical NSID is:
 
 ```text
-ai.gftd.apps.shinshi.reviewGenerationBatch
+app.etzhayyim.apps.shinshi.reviewGenerationBatch
 ```
 
 It is exposed through:
 
 - `00-contracts/lexicons/ai/gftd/apps/shinshi/reviewGenerationBatch.json`
 - `lg_shinshi.server` MCP `tools/list` and `tools/call`
-- `/xrpc/ai.gftd.apps.shinshi.reviewGenerationBatch`
+- `/xrpc/app.etzhayyim.apps.shinshi.reviewGenerationBatch`
 - generated Svelte contract `svelte/src/lib/contracts/shinshi-mcp.ts`
 
 Inputs:

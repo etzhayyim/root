@@ -8,7 +8,7 @@
 //   1. Creates vertex_signal_identity with actor_did (ERC725 DID) as canonical PK.
 //   2. Adds indexes for at_did federation lookup.
 //
-// Prekey bundle XRPC (ai.gftd.signal.getPrekeyBundle) resolves by actor_did first,
+// Prekey bundle XRPC (app.etzhayyim.signal.getPrekeyBundle) resolves by actor_did first,
 // falls back to at_did for legacy AT Protocol callers.
 
 import type { Kysely } from "kysely";

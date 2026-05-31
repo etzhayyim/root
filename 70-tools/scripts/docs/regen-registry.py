@@ -42,6 +42,7 @@ SURFACED_KEYS = (
     "id", "path", "title", "status", "doc_type", "topic",
     "authoritative", "authoritative_for", "related",
     "supersedes", "superseded_by", "amends", "amended_by",
+    "depends_on",  # added cycle 64 for relation integrity coverage
     "last_verified",
 )
 

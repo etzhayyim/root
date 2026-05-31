@@ -14,7 +14,7 @@ Path-based DIDs under `did:web:open-ot.etzhayyim.com`:
 | `:loop:` | Logical control loop (≥ 1 cell + signals) | `did:web:open-ot.etzhayyim.com:loop:tank3-level-control` |
 | `:fault:` | Fault record | `did:web:open-ot.etzhayyim.com:fault:2026-05-15-001` |
 
-Devices, cells, signals, and loops are AT records under `ai.gftd.apps.openOt.*`. Fault records carry a DMN-evaluated severity.
+Devices, cells, signals, and loops are AT records under `app.etzhayyim.apps.openOt.*`. Fault records carry a DMN-evaluated severity.
 
 ## 2. NSID surface (MVP)
 
@@ -22,28 +22,28 @@ Procedures (write):
 
 | NSID | Purpose | Notes |
 |---|---|---|
-| `ai.gftd.apps.openOt.defineDevice` | register physical controller | manufacturer / model / firmware / location |
-| `ai.gftd.apps.openOt.defineCell` | declare WASM cell instance | references pinned module CID, host capabilities, cohort links |
-| `ai.gftd.apps.openOt.defineSignal` | analog / digital / string signal | EU range, deadband, sample period |
-| `ai.gftd.apps.openOt.defineLoop` | PID / sequence / interlock | references cells + signals |
-| `ai.gftd.apps.openOt.pinModule` | pin `.aot` / `.wasm` artefact | content-addressed CID, signed by builder DID |
-| `ai.gftd.apps.openOt.grantCapability` | host capability grant | I/O, network peer, neighbor cell, time source |
-| `ai.gftd.apps.openOt.setpointChange` | operator / agent setpoint | requires `setpoint:write` capability + audit reason |
-| `ai.gftd.apps.openOt.modeChange` | auto / manual / cascade / safe | interlock-checked DMN |
-| `ai.gftd.apps.openOt.recordTelemetryBatch` | pod-side ingest from Zenoh aggregator | array of `(signal_did, ts, value, quality)` |
-| `ai.gftd.apps.openOt.reportFault` | fault with severity DMN | optional public notice |
+| `app.etzhayyim.apps.openOt.defineDevice` | register physical controller | manufacturer / model / firmware / location |
+| `app.etzhayyim.apps.openOt.defineCell` | declare WASM cell instance | references pinned module CID, host capabilities, cohort links |
+| `app.etzhayyim.apps.openOt.defineSignal` | analog / digital / string signal | EU range, deadband, sample period |
+| `app.etzhayyim.apps.openOt.defineLoop` | PID / sequence / interlock | references cells + signals |
+| `app.etzhayyim.apps.openOt.pinModule` | pin `.aot` / `.wasm` artefact | content-addressed CID, signed by builder DID |
+| `app.etzhayyim.apps.openOt.grantCapability` | host capability grant | I/O, network peer, neighbor cell, time source |
+| `app.etzhayyim.apps.openOt.setpointChange` | operator / agent setpoint | requires `setpoint:write` capability + audit reason |
+| `app.etzhayyim.apps.openOt.modeChange` | auto / manual / cascade / safe | interlock-checked DMN |
+| `app.etzhayyim.apps.openOt.recordTelemetryBatch` | pod-side ingest from Zenoh aggregator | array of `(signal_did, ts, value, quality)` |
+| `app.etzhayyim.apps.openOt.reportFault` | fault with severity DMN | optional public notice |
 
 Queries (read):
 
 | NSID | Purpose |
 |---|---|
-| `ai.gftd.apps.openOt.getDevice` | device detail incl. attached cells |
-| `ai.gftd.apps.openOt.getCell` | cell detail incl. pinned module + capabilities |
-| `ai.gftd.apps.openOt.getLoop` | loop detail incl. cells + signals + setpoint |
-| `ai.gftd.apps.openOt.listSignals` | by device / cell / since |
-| `ai.gftd.apps.openOt.listLoops` | by device / status |
-| `ai.gftd.apps.openOt.listFaults` | by device / loop / since / minSeverity |
-| `ai.gftd.apps.openOt.listReadings` | telemetry by signal / since (paged) |
+| `app.etzhayyim.apps.openOt.getDevice` | device detail incl. attached cells |
+| `app.etzhayyim.apps.openOt.getCell` | cell detail incl. pinned module + capabilities |
+| `app.etzhayyim.apps.openOt.getLoop` | loop detail incl. cells + signals + setpoint |
+| `app.etzhayyim.apps.openOt.listSignals` | by device / cell / since |
+| `app.etzhayyim.apps.openOt.listLoops` | by device / status |
+| `app.etzhayyim.apps.openOt.listFaults` | by device / loop / since / minSeverity |
+| `app.etzhayyim.apps.openOt.listReadings` | telemetry by signal / since (paged) |
 
 All NSIDs in `camelCase` per platform identifier convention.
 
@@ -141,7 +141,7 @@ A control **loop** is a LangGraph graph; each **cell** in the loop is a Pregel n
 
 | LangGraph / Pregel | Open-OT | Storage |
 |---|---|---|
-| Graph definition (per ADR-2605082000) | `defineLoop` record with cell DIDs + edges | atproto `ai.gftd.apps.openOt.loop` |
+| Graph definition (per ADR-2605082000) | `defineLoop` record with cell DIDs + edges | atproto `app.etzhayyim.apps.openOt.loop` |
 | Pregel node | one cell DID | `vertex_open_ot_cell` |
 | Pregel message | typed IEC 61499 event + data | Zenoh key `open-ot/{site}/{loop}/msg/{from_cell}→{to_cell}/{event}` |
 | Super-step id | monotonic `super_step: u64` per loop | column in checkpoint row |

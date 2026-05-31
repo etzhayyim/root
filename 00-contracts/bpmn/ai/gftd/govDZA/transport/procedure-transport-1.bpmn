@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="P_DZA" targetNamespace="http://etzhayyim.com/gov/DZA/transport">
+  <bpmn:process id="Process_DZA_transport" isExecutable="true">
+    <bpmn:startEvent id="Start" name="Start"/>
+    <bpmn:task id="T1" name="Handle"/>
+    <bpmn:endEvent id="End" name="End"/>
+  </bpmn:process>
+</bpmn:definitions>

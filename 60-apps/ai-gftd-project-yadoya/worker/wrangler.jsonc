@@ -11,13 +11,13 @@
   "workers_dev": false,
   "routes": [
     {
-      "pattern": "yadoya.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "yadoya.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "vars": {
-    "APP_HANDLE": "yadoya.gftd.ai",
-    "PRIMARY_DID": "did:web:yadoya.gftd.ai",
+    "APP_HANDLE": "yadoya.etzhayyim.com",
+    "PRIMARY_DID": "did:web:yadoya.etzhayyim.com",
     "ERC725_ROOT_DID": "",
     "ERC725_ROOT_IDENTITY_ADDR": "",
     "APP_DISPLAY_NAME": "Yadoya — Autonomous Hotel Search & Reservation",
@@ -26,7 +26,7 @@
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "yoro",
     "APP_MCP_REGISTRY": "1",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "observability": {
     "enabled": true

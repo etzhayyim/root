@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_belief_influence_propagate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -40,9 +40,9 @@ UP = [{'sql': '\n'
                  '  mv_belief_convergence tracks convergence_status '
                  "('converged'/'converging'/'active').\n"
                  '\n'
-                 '  NSID: ai.gftd.apps.wellbecoming.beliefInfluencePropagate\n'
+                 '  NSID: app.etzhayyim.apps.wellbecoming.beliefInfluencePropagate\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -56,7 +56,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="wellbecoming_belief_influence_propagate" name="Well-Becoming '
                  'Belief Influence Propagate (D-obs)" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.wellbecoming.beliefInfluencePropagate", "version": '
+                 '      { "nsid": "app.etzhayyim.apps.wellbecoming.beliefInfluencePropagate", "version": '
                  '1, "resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -105,10 +105,10 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1']}]
 
 
 def upgrade() -> None:

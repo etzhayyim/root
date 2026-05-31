@@ -30,4 +30,4 @@ Allow: /
 User-agent: Media.net
 Allow: /
 
-Sitemap: https://yoro.gftd.ai/sitemap.xml
+Sitemap: https://yoro.etzhayyim.com/sitemap.xml

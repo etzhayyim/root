@@ -47,7 +47,7 @@ def test_absorb_scan_empty():
 
 def test_absorb_scan_returns_pending():
     """Scan mode with a pending row returns its ID and status='absorbed'."""
-    row = ("at://ki.etzhayyim.com/ai.gftd.apps.ki.absorb/xyl-deadbeef",)
+    row = ("at://ki.etzhayyim.com/app.etzhayyim.apps.ki.absorb/xyl-deadbeef",)
     with patch("pymagatama.ki_worker_main.fetch_one", return_value=row):
         from pymagatama.ki_worker_main import task_absorb
 
@@ -66,7 +66,7 @@ def test_absorb_by_content():
         from pymagatama.ki_worker_main import task_absorb
 
         result = _run(task_absorb(
-            sourceVertexId="at://koke.etzhayyim.com/ai.gftd.apps.koke.fixation/kox-abc",
+            sourceVertexId="at://koke.etzhayyim.com/app.etzhayyim.apps.koke.fixation/kox-abc",
             inputKind="text",
             content="sample knowledge content",
         ))
@@ -190,7 +190,7 @@ def test_bloom_low_confidence_skips():
     mock_cm.__exit__ = MagicMock(return_value=False)
 
     # confidence 0.3 is below default cutoff 0.6
-    row = ("at://ki.etzhayyim.com/ai.gftd.apps.ki.artifact/art-abc", 0.3)
+    row = ("at://ki.etzhayyim.com/app.etzhayyim.apps.ki.artifact/art-abc", 0.3)
 
     with (
         patch("pymagatama.ki_worker_main.fetch_one", return_value=row),
@@ -209,7 +209,7 @@ def test_bloom_success():
     mock_cm.__enter__ = MagicMock(return_value=MagicMock())
     mock_cm.__exit__ = MagicMock(return_value=False)
 
-    row = ("at://ki.etzhayyim.com/ai.gftd.apps.ki.artifact/art-abc", 0.85)
+    row = ("at://ki.etzhayyim.com/app.etzhayyim.apps.ki.artifact/art-abc", 0.85)
 
     with (
         patch("pymagatama.ki_worker_main.fetch_one", return_value=row),

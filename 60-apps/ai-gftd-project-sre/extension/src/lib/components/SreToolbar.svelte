@@ -1,7 +1,7 @@
 <svelte:options customElement="ai-gftd-project-sre-toolbar" />
 
 <script lang="ts">
-  import { AiGftdProjectSreToolbar, submitFeedbackViaMcp } from '@sre-shared';
+  import { AietzhayyimProjectSreToolbar, submitFeedbackViaMcp } from '@sre-shared';
 
   let { authToken = '', mcpEndpoint = 'https://sre-toolbar.etzhayyim.com/xrpc' } = $props<{
     authToken?: string;
@@ -19,7 +19,7 @@
 </script>
 
 <div class="host">
-  <AiGftdProjectSreToolbar pageUrl={window.location.href} onSubmitFeedback={onSubmitFeedback} />
+  <AietzhayyimProjectSreToolbar pageUrl={window.location.href} onSubmitFeedback={onSubmitFeedback} />
 </div>
 
 <style>

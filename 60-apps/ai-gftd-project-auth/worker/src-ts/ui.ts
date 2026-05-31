@@ -20,7 +20,7 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>${title} - GFTD</title>
+  <title>${title} - etzhayyim</title>
   <style>
     :root { color-scheme: dark; }
     * { box-sizing: border-box; }
@@ -206,7 +206,7 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
     }
 
     async function signUp() {
-      const begin = await fetch(API + "/xrpc/ai.gftd.auth.passkeyBeginRegister", {
+      const begin = await fetch(API + "/xrpc/app.etzhayyim.auth.passkeyBeginRegister", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: "{}",
@@ -232,7 +232,7 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
       });
       if (!cred) throw new Error("Passkey creation cancelled");
 
-      const verify = await fetch(API + "/xrpc/ai.gftd.auth.passkeyVerifyRegister", {
+      const verify = await fetch(API + "/xrpc/app.etzhayyim.auth.passkeyVerifyRegister", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -248,7 +248,7 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
     }
 
     async function signIn() {
-      const begin = await fetch(API + "/xrpc/ai.gftd.auth.passkeyBeginAuth", {
+      const begin = await fetch(API + "/xrpc/app.etzhayyim.auth.passkeyBeginAuth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: "{}",
@@ -275,7 +275,7 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
         assertion = await navigator.credentials.get({ publicKey: basePublicKey });
       }
       if (!assertion) throw new Error("Passkey cancelled");
-      const verified = await fetch(API + "/xrpc/ai.gftd.auth.passkeyVerifyAuth", {
+      const verified = await fetch(API + "/xrpc/app.etzhayyim.auth.passkeyVerifyAuth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -338,7 +338,7 @@ export function renderLinkResultPage(ok: boolean, provider: string, message = ""
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>${title} - GFTD Accounts</title>
+  <title>${title} - etzhayyim Accounts</title>
   <style>
     body {
       margin: 0;

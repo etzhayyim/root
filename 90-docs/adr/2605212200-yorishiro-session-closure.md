@@ -14,9 +14,9 @@ authoritative_for:
   - 260521-yorishiro-phase1 branch closure narrative
   - PR #256 contents map
 related:
-  - 90-docs/adr/2605211900-etzhayyim-yorishiro-external-actor-bridge.md
-  - 90-docs/adr/2605212100-stripe-removed-from-religious-corp-canonical.md
-  - 90-docs/runbooks/2605212130-yorishiro-cell-runner-deploy.md
+  - adr-2605211900-etzhayyim-yorishiro-external-actor-bridge
+  - adr-2605212100-stripe-removed-from-religious-corp-canonical
+  - runbook-2605212130-yorishiro-cell-runner-deploy
   - 50-infra/cluster/murakumo/cell-runner/cells.toml
 supersedes: []
 superseded_by: []

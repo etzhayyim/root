@@ -176,7 +176,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 **Implementation (commit `39bd3166dbc`, ADR-2604282300 §Addendum 2026-04-30)**:
 `zeebe_worker_main.py:task_generic_pds_dispatch` を 3-way K8s-internal routing に置換:
 1. `app.bsky.*` / `chat.bsky.*` / `com.atproto.repo.*` → **C-path**: `insert_social_post_record(row, flush=False)` 直接 INSERT
-2. `ai.gftd.*` → **bpmn-dispatcher ClusterIP**: `http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080` (`x-internal-trust` 認証)
+2. `app.etzhayyim.*` → **bpmn-dispatcher ClusterIP**: `http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080` (`x-internal-trust` 認証)
 3. その他 → legacy PDS HTTP フォールバック
 
 **CF-edge call site 排除 (4箇所)**:
@@ -226,7 +226,7 @@ See: `deps.toml [[conventions]] rw-psycopg3-no-param-limit`, `[[conventions]] py
 - pg.Pool → `createKyselyDb(env.HYPERDRIVE)` sweep across 5 Workers
   (appview/{profile,feed,search} + chat + signal) per ADR-0007.
 - γ2 one-button cutover automation: runbook + LaunchAgent
-  (`ai.gftd.legacy-trust-tally.plist`, daily 09:17 local) + tally
+  (`app.etzhayyim.legacy-trust-tally.plist`, daily 09:17 local) + tally
   log + pre-written cleanup script + DRY_RUN-verified.
 - 4 baseline pre-existing CI failures → **2 cleared** in 2 days.
 - Out-of-band migration helper `30-graph/graph-schema/scripts/apply-pending.sh`
@@ -385,7 +385,7 @@ PDS create guard: `com.atproto.repo.createRecord` now rejects non-post
 collections before repo write. `com.atproto.repo.applyWrites` rejects non-post
 create/update entries, while delete-only legacy cleanup remains available.
 
-Private graph write helper: `@gftd/magatama-host-sdk` now exports
+Private graph write helper: `@etzhayyim/magatama-host-sdk` now exports
 `writePrivate()`. App handlers can write non-social state directly to typed
 `vertex_*` / `edge_*` tables over Kysely, and the helper rejects repo-public
 tables such as `vertex_repo_record`.
@@ -487,8 +487,8 @@ Proposals non-federable (internal, sensitivity_ord=2).
 - `edge_newsletter_sent` (campaign → subscriber, resend_email_id)
 
 **subscribeRepos** (magatama.jsonld triggers):
-- `ai.gftd.apps.news.article` — fresh articles from news.etzhayyim.com
-- `ai.gftd.narou.chapter` — chapters from narou.etzhayyim.com
+- `app.etzhayyim.apps.news.article` — fresh articles from news.etzhayyim.com
+- `app.etzhayyim.narou.chapter` — chapters from narou.etzhayyim.com
 
 **Governance**: Subscriber PII (email) is Tier 3 (ADR-0018). Never logged or included in AT Repo records. Cohort-first grouping. GDPR Art 17 cascade purge applies.
 
@@ -560,8 +560,8 @@ Start → CheckDnc → DncGateway:
 
 ### subscribeRepos triggers (magatama.jsonld)
 
-- `ai.gftd.apps.gmail.message` — reply detection from Gmail ingest
-- `ai.gftd.apps.m365Ingest.email` — reply detection from M365 ingest
+- `app.etzhayyim.apps.gmail.message` — reply detection from Gmail ingest
+- `app.etzhayyim.apps.m365Ingest.email` — reply detection from M365 ingest
 
 ### Governance
 
@@ -634,7 +634,7 @@ load_cohort_profile → match_sources → draft_content → rank_variants → qu
 
 ### Tables: vertex_contentengine_cohort_profile, vertex_contentengine_content. No PII (sensitivity_ord=0, ADR-0018 cohort-first).
 
-### subscribeRepos: ai.gftd.apps.news.article + ai.gftd.narou.chapter (signals for personalization)
+### subscribeRepos: app.etzhayyim.apps.news.article + app.etzhayyim.narou.chapter (signals for personalization)
 
 ## 2026-05-07 — All 5 Business Models Complete
 
@@ -691,7 +691,7 @@ load_cohort_profile → match_sources → draft_content → rank_variants → qu
 | Path | Purpose |
 |---|---|
 | `50-infra/k8s/recruit-job-ingester/` | Dockerfile + Kustomize Deployment/Service/CronJob for internal XRPC ingest worker |
-| `70-tools/scripts/recruit-job-ingest-worker.mjs` | Long-running HTTP worker: `/healthz`, `/readyz`, `/xrpc/ai.gftd.apps.recruit.ingestJobPostings` |
+| `70-tools/scripts/recruit-job-ingest-worker.mjs` | Long-running HTTP worker: `/healthz`, `/readyz`, `/xrpc/app.etzhayyim.apps.recruit.ingestJobPostings` |
 | `70-tools/scripts/recruit-run-job-ingest.mjs` | Operational wrapper: DB readiness, optional migration, ATS ingest, run history |
 | `30-graph/graph-schema/migrations/20260507860000_recruit_real_job_ingest.ts` | `source_homepage` + `vertex_recruit_job_ingest_run` |
 

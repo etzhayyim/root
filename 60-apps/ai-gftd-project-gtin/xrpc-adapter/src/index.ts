@@ -7,7 +7,7 @@ import * as gtinRwFree from "@etzhayyim/gtin-rw-free";
 
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; PDS_ACCESS_JWT?: string; PDS_REFRESH_JWT?: string; }
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
-const NSID_BASE = "ai.gftd.gtin";
+const NSID_BASE = "app.etzhayyim.gtin";
 interface RouteConfig { method: "POST" | "GET"; handler: Handler; }
 
 const routes: Record<string, RouteConfig> = {

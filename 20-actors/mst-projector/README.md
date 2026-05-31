@@ -42,7 +42,7 @@ export const actorProjector: ProjectorConfig = {
   actorDid: "did:web:actor.etzhayyim.com",
   collections: {
     recordType: {
-      collection: "ai.gftd.actor.recordType",
+      collection: "app.etzhayyim.actor.recordType",
       
       // Text search: concatenate fields, embed, index in LanceDB
       textIndex: {
@@ -105,7 +105,7 @@ This scaffold is a stub (types + class skeleton + kiyo example config).
 2. DuckDB cursor for incremental aggregates
 3. Firehose subscription loop + checkpoint cursor
 4. Query methods implementation
-5. Materialization back to PDS as `ai.gftd.projector.<actor>View` records
+5. Materialization back to PDS as `app.etzhayyim.projector.<actor>View` records
 
 ## Storage
 

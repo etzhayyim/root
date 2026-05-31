@@ -23,9 +23,9 @@ const ENTRIES: BpmnEntry[] = [
   {
     processId: "saikin_horizontal_transfer_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn",
-    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
-    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/saikin-horizontal-transfer-cycle-v1",
-    nsid: "ai.gftd.apps.saikin.probeEnvironment",
+    processVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/saikin-horizontal-transfer-cycle-v1",
+    nsid: "app.etzhayyim.apps.saikin.probeEnvironment",
   },
 ];
 

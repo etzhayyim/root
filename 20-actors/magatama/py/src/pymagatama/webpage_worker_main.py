@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.webpage.create.page")
+    @worker.task(task_type="app.etzhayyim.apps.webpage.create.page")
     async def task_create_page(**kwargs):
         title = kwargs.get("title", "")
         content = kwargs.get("content", "")
@@ -47,7 +47,7 @@ async def run_worker():
 
         return {"pageId": page_id, "status": "draft"}
 
-    @worker.task(task_type="ai.gftd.apps.webpage.list.pages")
+    @worker.task(task_type="app.etzhayyim.apps.webpage.list.pages")
     async def task_list_pages(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -62,7 +62,7 @@ async def run_worker():
 
         return {"pages": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.webpage.get.page")
+    @worker.task(task_type="app.etzhayyim.apps.webpage.get.page")
     async def task_get_page(**kwargs):
         page_id = kwargs.get("pageId", "")
 
@@ -79,7 +79,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.webpage.update.page")
+    @worker.task(task_type="app.etzhayyim.apps.webpage.update.page")
     async def task_update_page(**kwargs):
         page_id = kwargs.get("pageId", "")
         title = kwargs.get("title", "")
@@ -96,7 +96,7 @@ async def run_worker():
 
         return {"pageId": page_id, "updatedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.webpage.publish.page")
+    @worker.task(task_type="app.etzhayyim.apps.webpage.publish.page")
     async def task_publish_page(**kwargs):
         page_id = kwargs.get("pageId", "")
 
@@ -125,7 +125,7 @@ async def run_worker():
 
         return {"pageId": page_id, "publishId": publish_id, "status": "published"}
 
-    @worker.task(task_type="ai.gftd.apps.webpage.list.published")
+    @worker.task(task_type="app.etzhayyim.apps.webpage.list.published")
     async def task_list_published(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -140,7 +140,7 @@ async def run_worker():
 
         return {"published": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.webpage.get.pageStats")
+    @worker.task(task_type="app.etzhayyim.apps.webpage.get.pageStats")
     async def task_get_page_stats(**kwargs):
         page_id = kwargs.get("pageId", "")
 
@@ -157,7 +157,7 @@ async def run_worker():
             return {"error": "not found"}
         return {"pageId": page_id, "stats": {"views": 0, "status": row["status"]}}
 
-    @worker.task(task_type="ai.gftd.apps.webpage.search.pages")
+    @worker.task(task_type="app.etzhayyim.apps.webpage.search.pages")
     async def task_search_pages(**kwargs):
         query_str = kwargs.get("query", "")
         limit = int(kwargs.get("limit", 50))

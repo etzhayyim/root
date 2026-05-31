@@ -1,6 +1,6 @@
 """animeka `generateInbetween` graph — ComfyUI img2img in-between frame generation.
 
-NSID: ai.gftd.animeka.generateInbetween
+NSID: app.etzhayyim.animeka.generateInbetween
 
 Takes a cut_id and generates N intermediate frames between the two most
 recent keyframes (or specified prev/next frame CIDs). Uses img2img
@@ -54,7 +54,7 @@ async def _node_fetch_keyframes(state: _State) -> dict[str, Any]:
             cur = conn.cursor()
             await cur.execute(
                 """SELECT image_cid, frame_num FROM vertex_animeka
-                   WHERE collection='ai.gftd.animeka.keyframe' AND cut_id=%s
+                   WHERE collection='app.etzhayyim.animeka.keyframe' AND cut_id=%s
                    ORDER BY frame_num ASC LIMIT 2""",
                 [cut_id],
             )
@@ -62,7 +62,7 @@ async def _node_fetch_keyframes(state: _State) -> dict[str, Any]:
             # Also grab visual prompt from layout
             await cur.execute(
                 """SELECT camera_note FROM vertex_animeka
-                   WHERE collection='ai.gftd.animeka.layout' AND cut_id=%s
+                   WHERE collection='app.etzhayyim.animeka.layout' AND cut_id=%s
                    ORDER BY created_at DESC LIMIT 1""",
                 [cut_id],
             )
@@ -134,12 +134,12 @@ async def _node_insert(state: _State) -> dict[str, Any]:
         try:
             for idx, cid in enumerate(state["blob_cids"]):
                 rkey = f"ib-{secrets.token_hex(4)}"
-                vertex_id = f"at://{_REPO}/ai.gftd.animeka.inbetween/{rkey}"
+                vertex_id = f"at://{_REPO}/app.etzhayyim.animeka.inbetween/{rkey}"
                 await conn.execute(
                     """INSERT INTO vertex_animeka
                        (vertex_id, repo, rkey, collection, kind, owner_did,
                         cut_id, image_cid, frame_num, status, created_at)
-                       VALUES (%s, %s, %s, 'ai.gftd.animeka.inbetween', 'inbetween',
+                       VALUES (%s, %s, %s, 'app.etzhayyim.animeka.inbetween', 'inbetween',
                                %s, %s, %s, %s, 'draft', %s)""",
                     [vertex_id, _REPO, rkey, _DEFAULT_APP_DID,
                      cut_id, cid, idx + 1, created_at],

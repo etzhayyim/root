@@ -1336,22 +1336,22 @@ Integration points:
 
 | Kind | AT Collection NSID | Domain | Tier |
 |---|---|---|---|
-| `kami.eng.project` | `ai.gftd.apps.kami.eng.project` | Shared | T2 Domain |
-| `kami.eng.revision` | `ai.gftd.apps.kami.eng.revision` | Shared | T2 Domain |
-| `kami.eda.schematic` | `ai.gftd.apps.kami.eda.schematic` | EDA | T2 Domain |
-| `kami.eda.pcbLayout` | `ai.gftd.apps.kami.eda.pcbLayout` | EDA | T2 Domain |
-| `kami.eda.netlist` | `ai.gftd.apps.kami.eda.netlist` | EDA | T2 Domain |
-| `kami.eda.symbolLibrary` | `ai.gftd.apps.kami.eda.symbolLibrary` | EDA | T2 Domain |
-| `kami.cad.model` | `ai.gftd.apps.kami.cad.model` | CAD | T2 Domain |
-| `kami.cad.featureTree` | `ai.gftd.apps.kami.cad.featureTree` | CAD | T2 Domain |
-| `kami.cad.assembly` | `ai.gftd.apps.kami.cad.assembly` | CAD | T2 Domain |
-| `kami.cam.job` | `ai.gftd.apps.kami.cam.job` | CAM | T2 Domain |
-| `kami.cam.toolLibrary` | `ai.gftd.apps.kami.cam.toolLibrary` | CAM | T2 Domain |
-| `kami.rtl.module` | `ai.gftd.apps.kami.rtl.module` | RTL | T2 Domain |
-| `kami.rtl.simulation` | `ai.gftd.apps.kami.rtl.simulation` | RTL | T2 Domain |
-| `kami.cae.analysis` | `ai.gftd.apps.kami.cae.analysis` | CAE | T2 Domain |
-| `kami.cae.meshConfig` | `ai.gftd.apps.kami.cae.meshConfig` | CAE | T2 Domain |
-| `kami.cae.materialLib` | `ai.gftd.apps.kami.cae.materialLib` | CAE | T2 Domain |
+| `kami.eng.project` | `app.etzhayyim.apps.kami.eng.project` | Shared | T2 Domain |
+| `kami.eng.revision` | `app.etzhayyim.apps.kami.eng.revision` | Shared | T2 Domain |
+| `kami.eda.schematic` | `app.etzhayyim.apps.kami.eda.schematic` | EDA | T2 Domain |
+| `kami.eda.pcbLayout` | `app.etzhayyim.apps.kami.eda.pcbLayout` | EDA | T2 Domain |
+| `kami.eda.netlist` | `app.etzhayyim.apps.kami.eda.netlist` | EDA | T2 Domain |
+| `kami.eda.symbolLibrary` | `app.etzhayyim.apps.kami.eda.symbolLibrary` | EDA | T2 Domain |
+| `kami.cad.model` | `app.etzhayyim.apps.kami.cad.model` | CAD | T2 Domain |
+| `kami.cad.featureTree` | `app.etzhayyim.apps.kami.cad.featureTree` | CAD | T2 Domain |
+| `kami.cad.assembly` | `app.etzhayyim.apps.kami.cad.assembly` | CAD | T2 Domain |
+| `kami.cam.job` | `app.etzhayyim.apps.kami.cam.job` | CAM | T2 Domain |
+| `kami.cam.toolLibrary` | `app.etzhayyim.apps.kami.cam.toolLibrary` | CAM | T2 Domain |
+| `kami.rtl.module` | `app.etzhayyim.apps.kami.rtl.module` | RTL | T2 Domain |
+| `kami.rtl.simulation` | `app.etzhayyim.apps.kami.rtl.simulation` | RTL | T2 Domain |
+| `kami.cae.analysis` | `app.etzhayyim.apps.kami.cae.analysis` | CAE | T2 Domain |
+| `kami.cae.meshConfig` | `app.etzhayyim.apps.kami.cae.meshConfig` | CAE | T2 Domain |
+| `kami.cae.materialLib` | `app.etzhayyim.apps.kami.cae.materialLib` | CAE | T2 Domain |
 
 ### Cypher Graph Labels
 

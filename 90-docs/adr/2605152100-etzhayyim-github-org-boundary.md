@@ -11,7 +11,7 @@ axis: organization
 weight: 0.70
 priority_note: "Active 2026-05-15: domain etzhayyim.com 登録済 (Cloudflare 12:08 UTC), github.com/etzhayyim org 作成済 (2026-05-10 14:23 UTC), github.com/etzhayyim/root monorepo 作成済 (2026-05-15 12:20 UTC, public, Apache 2.0). Remaining = monorepo content seed (filter-repo) + downstream cutover (220-file etzhayyim→etzhayyim sed)."
 authoritative_for:
-  - GitHub org boundary between religious-corp principal (etzhayyim) and Gftd Japan vendor (etzhayyim)
+  - GitHub org boundary between religious-corp principal (etzhayyim) and etzhayyim Japan vendor (etzhayyim)
   - License policy per org (Apache 2.0 for etzhayyim, proprietary for gftd)
   - Monorepo seed strategy (single etzhayyim/root, NOT multi-repo transfer)
   - Monorepo directory layout convention (Shannon-Optimal 8-Layer mirrored)
@@ -23,7 +23,7 @@ related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-2605151200-open-ot-wasm-plc-dlc
   - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design
-  - adr-2605150600-ameno-browser-inference-platform
+  - ameno-browser-inference-platform
 supersedes: []
 superseded_by: []
 ---
@@ -36,7 +36,7 @@ superseded_by: []
 
 # Context
 
-`[platform.operating_entity]` の 2026-05-15 rename (`etzhayyim` → `etzhayyim`) で canonical 名が確定したのに合わせて、principal (etzhayyim = 宗教法人) と vendor (Gftd Japan株式会社) を **source-control 層でも明確に分離**する必要が出てきた。
+`[platform.operating_entity]` の 2026-05-15 rename (`etzhayyim` → `etzhayyim`) で canonical 名が確定したのに合わせて、principal (etzhayyim = 宗教法人) と vendor (etzhayyim Japan株式会社) を **source-control 層でも明確に分離**する必要が出てきた。
 
 現状 `github.com/etzhayyim` org には:
 
@@ -46,7 +46,7 @@ superseded_by: []
 
 混在の問題:
 
-1. **payoff 帰属の不透明性** — open repos が `etzhayyim` org 配下にあると、外部から見て「Gftd Japan が単独 owner」と誤読される。Operating Entity Boundary (CLAUDE.md root rule) では owner は etzhayyim。
+1. **payoff 帰属の不透明性** — open repos が `etzhayyim` org 配下にあると、外部から見て「etzhayyim Japan が単独 owner」と誤読される。Operating Entity Boundary (CLAUDE.md root rule) では owner は etzhayyim。
 2. **license 矛盾** — Apache 2.0 repo と proprietary repo が同 org 配下にあると、commit history / issue tracker の境界線が曖昧。
 3. **migration / fork 抑制** — 宗教法人公益活動として外部 contributor を受け入れる時、`etzhayyim` (株式会社名 = 営利 vendor) ブランドが reputational barrier になる。
 
@@ -103,9 +103,9 @@ etzhayyim/root/
 
 | 属性 | 値 |
 |---|---|
-| **所有** | Gftd Japan株式会社 (vendor / contractor) |
+| **所有** | etzhayyim Japan株式会社 (vendor / contractor) |
 | **license** | proprietary (社内 SOW 配下、外部公開不可) |
-| **identity** | `did:web:gftd.co.jp` (現状維持) |
+| **identity** | `did:web:etzhayyim.com` (現状維持) |
 
 **配下に残すスコープ**:
 
@@ -173,7 +173,7 @@ etzhayyim/root/
 
 商号風だが財団 (foundation) を匂わせる中立 org 名を新規作成する案。
 
-却下理由: `etzhayyim` が canonical 法人名に決まった以上、別ブランドを立てると 3 法人 (etzhayyim / gftd-foundation / Gftd Japan) と読まれて混乱する。
+却下理由: `etzhayyim` が canonical 法人名に決まった以上、別ブランドを立てると 3 法人 (etzhayyim / gftd-foundation / etzhayyim Japan) と読まれて混乱する。
 
 ## D. user account `github.com/junkawasaki` 配下に open repos を移す
 

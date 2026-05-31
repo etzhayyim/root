@@ -1,6 +1,6 @@
 # ai-gftd-project-marketer
 
-`marketer.gftd.ai` 向けに、全世界のマーケット統計データを収集し、分類体系（COFOG / ISIC など）で正規化して可視化する。
+`marketer.etzhayyim.com` 向けに、全世界のマーケット統計データを収集し、分類体系（COFOG / ISIC など）で正規化して可視化する。
 
 ## Capability (CV-1)
 

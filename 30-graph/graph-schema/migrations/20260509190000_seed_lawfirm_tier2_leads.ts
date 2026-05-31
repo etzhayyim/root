@@ -128,7 +128,7 @@ const LEADS: Lead[] = [
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const l of LEADS) {
-    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/${l.leadId}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.lead/${l.leadId}`;
     await sql`
       INSERT INTO vertex_lawfirm_lead
         (vertex_id, lead_id, lead_kind, target_name, target_email,
@@ -147,7 +147,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
 export async function down(db: Kysely<unknown>): Promise<void> {
   for (const l of LEADS) {
-    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/${l.leadId}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.lead/${l.leadId}`;
     await sql`DELETE FROM vertex_lawfirm_lead WHERE vertex_id = ${vid}`.execute(db);
   }
 }

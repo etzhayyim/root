@@ -32,7 +32,7 @@ Tier C escalation は generic
 
 ## Lexicon namespace
 
-`ai.gftd.apps.etzhayyim.yobel.*` — 8 lexicons under
+`app.etzhayyim.apps.etzhayyim.yobel.*` — 8 lexicons under
 [`00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/`](../../00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/):
 
 | Lexicon | Type | Phase | Encryption |

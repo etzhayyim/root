@@ -25,7 +25,7 @@ export interface MeterEvent {
 
 export interface MeterEnv {
   HYPERDRIVE?: unknown;
-  GFTD_METERING_DISABLED?: string;
+  etzhayyim_METERING_DISABLED?: string;
   YATABASE_AUTH_CACHE?: KVNamespace; // P63: KV mirror of meter counters
   LG_YATABASE_URL?: string;          // direct pod URL for meterEvent XRPC
   DISPATCHER_INTERNAL_SECRET?: string;
@@ -73,7 +73,7 @@ function listPrice(metric: MeterMetric, qty: number): number {
 async function podMeterEvent(env: MeterEnv, event: MeterEvent): Promise<void> {
   const base = env.LG_YATABASE_URL;
   if (!base) return;
-  const url = `${base.replace(/\/+$/, "")}/xrpc/ai.gftd.apps.yata.meterEvent`;
+  const url = `${base.replace(/\/+$/, "")}/xrpc/app.etzhayyim.apps.yata.meterEvent`;
   const headers: Record<string, string> = { "content-type": "application/json" };
   if (env.DISPATCHER_INTERNAL_SECRET) {
     headers["x-internal-trust"] = env.DISPATCHER_INTERNAL_SECRET;
@@ -95,7 +95,7 @@ async function podMeterEvent(env: MeterEnv, event: MeterEvent): Promise<void> {
 }
 
 export async function emitMeter(env: MeterEnv, event: MeterEvent): Promise<void> {
-  if (env.GFTD_METERING_DISABLED === "1") return;
+  if (env.etzhayyim_METERING_DISABLED === "1") return;
   if (!event.orgDid || event.qty < 0) return;
   // Always bump KV counter — survives RW outages so /api/usage stays non-zero.
   await kvBumpUsage(env, event);

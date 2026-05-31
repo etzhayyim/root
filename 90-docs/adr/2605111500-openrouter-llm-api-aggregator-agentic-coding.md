@@ -16,7 +16,7 @@ authoritative_for:
   - Model selection by workload (interactive / batch / long-context / code-correctness)
   - RisingWave bench result schema (vertex_bench_run / vertex_bench_result)
 related:
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2605110227-gpu-cross-provider-pricing-research
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
   - adr-0018-pii-tier3-cohort-first
@@ -26,7 +26,7 @@ related:
 
 Status: **Active** (2026-05-11).
 Operating Entity: etzhayyim (sole principal).
-Vendor: Gftd Japan株式会社 (engineering capacity).
+Vendor: etzhayyim Japan株式会社 (engineering capacity).
 Author: etzhayyim Claude Agent on behalf of CEO 河崎.
 
 ## 1. Decision

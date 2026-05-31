@@ -1,6 +1,7 @@
 {
-  "@context": "https://etzhayyim.com/ld/magatama/v1",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
   "name": "ai-gftd-project-mamoru",
+  "performerType": "service",
   "nanoid": "m4m0ru01",
   "displayName": "Mamoru",
   "description": "Secret guardian for git repositories. Scans commits for leaked API keys, tokens, and credentials using pattern matching, entropy analysis, and active validity probing.",
@@ -10,13 +11,17 @@
   "routes": [
     {
       "host": "mamoru.etzhayyim.com",
-      "paths": ["/"],
+      "paths": [
+        "/"
+      ],
       "tls": true
     }
   ],
   "layer": "edge-dispatcher",
   "atStandard": false,
-  "nsidPrefixes": ["ai.gftd.apps.mamoru"],
+  "nsidPrefixes": [
+    "ai.gftd.apps.mamoru"
+  ],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",
     "authn": "https://authn.etzhayyim.com",

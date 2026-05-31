@@ -26,7 +26,7 @@ from pymagatama.primitives.pgp import lookup_public_key as _pgp_lookup
 
 ACTOR = "did:web:mailer.etzhayyim.com"
 INBOUND_REPO = "did:web:ml1nb0nd.etzhayyim.com"
-INBOUND_COLLECTION = "ai.gftd.apps.mailer.inboundEmail"
+INBOUND_COLLECTION = "app.etzhayyim.apps.mailer.inboundEmail"
 PDS_ORIGIN = os.environ.get("PDS_ORIGIN", "https://atproto.etzhayyim.com")
 
 
@@ -286,7 +286,7 @@ def _record_outbound(
 ) -> None:
     rid = f"outbound-{uuid.uuid4().hex[:16]}"
     now_ms = int(time.time() * 1000)
-    vertex_id = f"at://{ACTOR}/ai.gftd.apps.mailer.outboundEmail/{rid}"
+    vertex_id = f"at://{ACTOR}/app.etzhayyim.apps.mailer.outboundEmail/{rid}"
     _execute("DELETE FROM vertex_mailer_outbound_email WHERE vertex_id = %s", (vertex_id,))
     _execute(
         """INSERT INTO vertex_mailer_outbound_email
@@ -521,7 +521,7 @@ def decrypt_inbound(
 def handle_commit(collection: str = "", action: str = "", **_: Any) -> dict[str, Any]:
     if action and action != "create":
         return {"ok": True, "detail": "skip non-create"}
-    if collection in (INBOUND_COLLECTION, "ai.gftd.apps.mailer.emailBinding"):
+    if collection in (INBOUND_COLLECTION, "app.etzhayyim.apps.mailer.emailBinding"):
         return {"ok": True, "detail": f"processed {collection}"}
     return {"ok": True, "detail": "commit accepted"}
 

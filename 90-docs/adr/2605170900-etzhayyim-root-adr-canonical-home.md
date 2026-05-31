@@ -16,8 +16,6 @@ authoritative_for:
   - ID convention for etzhayyim/root ADRs
 depends_on: []
 related:
-  - 
-  - 
 supersedes: []
 superseded_by: []
 ---

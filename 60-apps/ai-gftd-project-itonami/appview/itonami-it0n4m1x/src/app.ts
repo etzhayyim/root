@@ -13,7 +13,7 @@ import {
   nsid,
   asAgentTool,
   withCapabilityTags,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -262,13 +262,13 @@ function cmdRegisterSupplier(_payload: Uint8Array): Uint8Array {
 export default createWorkerExport((sdk) => {
   sdk.app
     .command(
-      nsid("ai.gftd.apps.itonami.health"),
+      nsid("app.etzhayyim.apps.itonami.health"),
       async () => ({ ok: true, actor: "did:web:itonami.etzhayyim.com", ts: nowISO() }),
       asAgentTool("Health check for itonami — aircraft engine lifecycle simulation actor"),
       withCapabilityTags("health", "itonami", "aircraft", "simulation"),
     )
     .command(
-      nsid("ai.gftd.apps.itonami.registerEngine"),
+      nsid("app.etzhayyim.apps.itonami.registerEngine"),
       async (_c, body) => cmdRegisterEngine(body),
       asAgentTool(
         "Upsert an aircraft engine record into vertex_itonami_engine. " +
@@ -277,7 +277,7 @@ export default createWorkerExport((sdk) => {
       withCapabilityTags("engine", "write", "itonami", "aircraft"),
     )
     .command(
-      nsid("ai.gftd.apps.itonami.recordAssembly"),
+      nsid("app.etzhayyim.apps.itonami.recordAssembly"),
       async (_c, body) => cmdRecordAssembly(body),
       asAgentTool(
         "Insert a build-phase milestone into vertex_itonami_assembly. " +
@@ -286,7 +286,7 @@ export default createWorkerExport((sdk) => {
       withCapabilityTags("assembly", "write", "itonami", "aircraft"),
     )
     .command(
-      nsid("ai.gftd.apps.itonami.logTestResult"),
+      nsid("app.etzhayyim.apps.itonami.logTestResult"),
       async (_c, body) => cmdLogTestResult(body),
       asAgentTool(
         "Insert an engine test result into vertex_itonami_test_result. " +
@@ -295,7 +295,7 @@ export default createWorkerExport((sdk) => {
       withCapabilityTags("test-result", "write", "itonami", "aircraft"),
     )
     .command(
-      nsid("ai.gftd.apps.itonami.logFlightEvent"),
+      nsid("app.etzhayyim.apps.itonami.logFlightEvent"),
       async (_c, body) => cmdLogFlightEvent(body),
       asAgentTool(
         "Insert a digital twin flight event into vertex_itonami_flight_event. " +
@@ -304,7 +304,7 @@ export default createWorkerExport((sdk) => {
       withCapabilityTags("flight-event", "write", "itonami", "digital-twin"),
     )
     .command(
-      nsid("ai.gftd.apps.itonami.listEngines"),
+      nsid("app.etzhayyim.apps.itonami.listEngines"),
       async (_c, body) => cmdListEngines(body),
       asAgentTool(
         "List aircraft engines from vertex_itonami_engine with offset/limit pagination. " +
@@ -313,7 +313,7 @@ export default createWorkerExport((sdk) => {
       withCapabilityTags("engine", "read", "itonami", "aircraft"),
     )
     .command(
-      nsid("ai.gftd.apps.itonami.getEngine"),
+      nsid("app.etzhayyim.apps.itonami.getEngine"),
       async (_c, body) => cmdGetEngine(body),
       asAgentTool(
         "Get an aircraft engine plus its latest test results from vertex_itonami_engine. " +
@@ -322,7 +322,7 @@ export default createWorkerExport((sdk) => {
       withCapabilityTags("engine", "read", "itonami", "aircraft"),
     )
     .command(
-      nsid("ai.gftd.apps.itonami.addProcurementItem"),
+      nsid("app.etzhayyim.apps.itonami.addProcurementItem"),
       async (_c, body) => cmdAddProcurementItem(body),
       asAgentTool(
         "Add a UNSPSC procurement line item to an engine build. " +
@@ -332,7 +332,7 @@ export default createWorkerExport((sdk) => {
       withCapabilityTags("procurement", "unspsc", "isic", "write", "itonami"),
     )
     .command(
-      nsid("ai.gftd.apps.itonami.registerSupplier"),
+      nsid("app.etzhayyim.apps.itonami.registerSupplier"),
       async (_c, body) => cmdRegisterSupplier(body),
       asAgentTool(
         "Register an aerospace parts supplier with ISIC Rev.4 industry classification. " +

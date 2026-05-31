@@ -23,7 +23,7 @@ superseded_by: []
 
 Replace the Bluesky-style flat notification list (`/notifications`) with an **OCEL v2 (IEEE 1849-2023) object-centric activity log** (`/activities`). Consolidate project-scoped notifications into `/projects` with unread badges.
 
-This design now assumes a canonical OCEL record schema at `ai.gftd.ocel.event`. UI activity events are reconstructed from the `OcelEvent` graph label, whose `props` field stores the canonical OCEL payload.
+This design now assumes a canonical OCEL record schema at `app.etzhayyim.ocel.event`. UI activity events are reconstructed from the `OcelEvent` graph label, whose `props` field stores the canonical OCEL payload.
 
 ## Scope
 
@@ -73,19 +73,19 @@ interface ActivityEvent {
 | Source | Object Types | Activities | Graph Label |
 |---|---|---|---|
 | **Bluesky notifications** | `notification` | `social:like`, `social:repost`, `social:follow`, `social:mention`, `social:reply`, `social:quote` | `Like`, `Follow`, `Repost` (existing) |
-| **OCEL collector events** | `deploy`, `worker`, `record`, `actor` | `deploy:*`, `record:*`, `profile:*`, `auth:*` | `OcelEvent` (`collection = ai.gftd.ocel.event`) |
+| **OCEL collector events** | `deploy`, `worker`, `record`, `actor` | `deploy:*`, `record:*`, `profile:*`, `auth:*` | `OcelEvent` (`collection = app.etzhayyim.ocel.event`) |
 | **Shinka evolution records** | `app` | `evolution:heartbeat`, `evolution:knowledge` | `shinkaEvolution`, `shinkaKnowledge` (collection filter) |
 
 ### 2.1 Canonical OCEL Record
 
-The canonical persisted OCEL schema is the record lexicon `ai.gftd.ocel.event`.
+The canonical persisted OCEL schema is the record lexicon `app.etzhayyim.ocel.event`.
 
-- Storage collection: `ai.gftd.ocel.event`
+- Storage collection: `app.etzhayyim.ocel.event`
 - Graph label: `OcelEvent`
 - Row projection: `graphar.vertex_ocel_event`
 - Canonical payload location: `props`
 
-The activity feed does not depend on legacy synthetic collection names such as `ai.gftd.apps.ocel.ocelEvent`.
+The activity feed does not depend on legacy synthetic collection names such as `app.etzhayyim.apps.ocel.ocelEvent`.
 
 ### 3. XRPC Endpoints
 
@@ -93,9 +93,9 @@ The activity feed does not depend on legacy synthetic collection names such as `
 
 | NSID | Type | Purpose |
 |---|---|---|
-| `ai.gftd.yoro.activity.listActivities` | query | List OCEL v2 activity events with object type / activity filter |
-| `ai.gftd.yoro.activity.getActivityTrace` | query | Get all events for a specific object (trace view) |
-| `ai.gftd.yoro.activity.markSeen` | procedure | Record activity seen timestamp |
+| `app.etzhayyim.yoro.activity.listActivities` | query | List OCEL v2 activity events with object type / activity filter |
+| `app.etzhayyim.yoro.activity.getActivityTrace` | query | Get all events for a specific object (trace view) |
+| `app.etzhayyim.yoro.activity.markSeen` | procedure | Record activity seen timestamp |
 
 **`listActivities` params**: `{ limit, cursor, objectTypes[]?, activities[]?, actorDid? }`
 
@@ -103,8 +103,8 @@ The activity feed does not depend on legacy synthetic collection names such as `
 
 | NSID | Type | Purpose |
 |---|---|---|
-| `ai.gftd.projector.listProjectNotifications` | query | List notifications scoped to project convo(s) |
-| `ai.gftd.projector.getProjectUnreadCounts` | query | Get unread count per project convoId |
+| `app.etzhayyim.projector.listProjectNotifications` | query | List notifications scoped to project convo(s) |
+| `app.etzhayyim.projector.getProjectUnreadCounts` | query | Get unread count per project convoId |
 
 ### 4. UI Architecture
 
@@ -152,7 +152,7 @@ The existing `app.bsky.notification.*` XRPC handlers remain unchanged for AT Pro
 PDS Commit Stream (ComAtprotoSyncSubscribeRepos)
   |
   +---> OCEL Collector DIDs (existing ocel.etzhayyim.com)
-  |     +-- ingest ai.gftd.ocel.event --> OcelEvent graph label
+  |     +-- ingest app.etzhayyim.ocel.event --> OcelEvent graph label
   |
   +---> Bluesky Notification (existing)
   |     +-- Like/Follow/Repost graph labels
@@ -161,16 +161,16 @@ PDS Commit Stream (ComAtprotoSyncSubscribeRepos)
         +-- shinkaEvolution / shinkaKnowledge records
 
 Browser (/activities)
-  +-- XRPC ai.gftd.yoro.activity.listActivities
+  +-- XRPC app.etzhayyim.yoro.activity.listActivities
       +-- Source 1: Like/Follow/Repost --> social:* events
-      +-- Source 2: OcelEvent(props = canonical ai.gftd.ocel.event) --> deploy:*/record:* events
+      +-- Source 2: OcelEvent(props = canonical app.etzhayyim.ocel.event) --> deploy:*/record:* events
       +-- Source 3: shinkaEvolution/Knowledge --> evolution:* events
       +-- Merge + sort by timestamp --> paginated response
 
 Browser (/projects)
-  +-- XRPC ai.gftd.projector.getProjectUnreadCounts
+  +-- XRPC app.etzhayyim.projector.getProjectUnreadCounts
   |   +-- convo.message records, grouped by convoId
-  +-- XRPC ai.gftd.projector.listProjectNotifications
+  +-- XRPC app.etzhayyim.projector.listProjectNotifications
       +-- convo.message/member/project records, filtered by convoId
 ```
 
@@ -202,7 +202,7 @@ The same `OcelEvent` graph label is consumed by both the UI (`listActivities`) a
 
 Canonical record URI form for persisted OCEL events:
 
-`at://{repo}/ai.gftd.ocel.event/{rkey}`
+`at://{repo}/app.etzhayyim.ocel.event/{rkey}`
 
 ## References
 

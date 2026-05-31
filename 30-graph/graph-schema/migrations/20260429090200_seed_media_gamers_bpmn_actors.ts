@@ -25,21 +25,21 @@ const seeds: Seed[] = [
   {
     proc: "guideGenerate",
     bpmnProcessId: "media_gamers_guide_generate",
-    nsid: "ai.gftd.apps.media_gamers.guide.guideGenerate",
+    nsid: "app.etzhayyim.apps.media_gamers.guide.guideGenerate",
     sourcePath: "00-contracts/bpmn/ai/gftd/media-gamers/guideGenerate.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "knowledgeGuideGenerate",
     bpmnProcessId: "media_gamers_knowledge_guide_generate",
-    nsid: "ai.gftd.apps.media_gamers.knowledge.knowledgeGuideGenerate",
+    nsid: "app.etzhayyim.apps.media_gamers.knowledge.knowledgeGuideGenerate",
     sourcePath: "00-contracts/bpmn/ai/gftd/media-gamers/knowledgeGuideGenerate.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "evalModels",
     bpmnProcessId: "media_gamers_eval_models",
-    nsid: "ai.gftd.apps.media_gamers.evalModelsProcess",
+    nsid: "app.etzhayyim.apps.media_gamers.evalModelsProcess",
     sourcePath: "00-contracts/bpmn/ai/gftd/media-gamers/evalModels.bpmn",
     resultTimeoutMs: 120000,
   },
@@ -50,9 +50,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

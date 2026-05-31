@@ -36,7 +36,7 @@ const e = new Etzhayyim({
 // Write — pins blob to IPFS, then createRecord on PDS, then schedules
 // MST root for next L2 anchor batch.
 const receipt = await e.write({
-  collection: "ai.gftd.apps.openIsco.occupation",
+  collection: "app.etzhayyim.apps.openIsco.occupation",
   record: {
     code: "2511",
     name: "Software Developer",
@@ -49,7 +49,7 @@ const receipt = await e.write({
 
 // Read — MST traversal, optional blob fetch.
 const { records, cursor } = await e.read<Occupation>({
-  collection: "ai.gftd.apps.openIsco.occupation",
+  collection: "app.etzhayyim.apps.openIsco.occupation",
   prefix: "2",   // major code prefix
   limit: 50,
 });
@@ -60,7 +60,7 @@ const proof = await e.verify(receipt.uri);
 
 // Subscribe — replaces streaming MV.
 for await (const ev of e.subscribe<Occupation>({
-  collections: ["ai.gftd.apps.openIsco.occupation"],
+  collections: ["app.etzhayyim.apps.openIsco.occupation"],
 })) {
   console.log(ev.op, ev.uri, ev.value);
 }

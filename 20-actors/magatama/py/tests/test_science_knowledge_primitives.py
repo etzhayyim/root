@@ -19,7 +19,7 @@ from pymagatama.primitives import science_knowledge as SK  # noqa: E402
 
 def test_vid_format():
     v = SK._vid("chemistry", "element", "Fe")
-    assert v == "at://did:web:chemistry.etzhayyim.com/ai.gftd.apps.chemistry.element/Fe"
+    assert v == "at://did:web:chemistry.etzhayyim.com/app.etzhayyim.apps.chemistry.element/Fe"
 
 
 def test_edge_id_is_deterministic():

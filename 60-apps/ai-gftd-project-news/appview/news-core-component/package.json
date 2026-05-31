@@ -1,7 +1,7 @@
 {
   "name": "magatama-nwscr001",
   "version": "1.0.0",
-  "description": "GFTD News — RSS ingestion + multilingual translation (news.etzhayyim.com)",
+  "description": "etzhayyim News — RSS ingestion + multilingual translation (news.etzhayyim.com)",
   "main": "src/app.ts",
   "scripts": {
     "test": "echo \"no tests\""
@@ -11,6 +11,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@gftd/magatama-host-sdk": "workspace:*"
+    "@etzhayyim/magatama-host-sdk": "workspace:*"
   }
 }

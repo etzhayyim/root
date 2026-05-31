@@ -1,10 +1,10 @@
 // TODO(ADR-2605111200 Phase 2, migration guide: 90-docs/2605111400-phase2-app-actor-dispatcher-migration-guide.md):
 // 4 createKyselyDb callsites below throw WorkerDBProhibitedError at runtime.
-// Replace each with `sdk.pds.xrpc("ai.gftd.apps.yorishiroNuro.<method>", ...)`:
-//   - getDb().selectFrom(tableForLabel(label))         → ai.gftd.apps.yorishiroNuro.listOffersOrJobs
-//   - insertInto("vertex_yorishiroNuro_offer")         → ai.gftd.apps.yorishiroNuro.putOffer
-//   - insertInto("vertex_yorishiroNuro_claimReceipt")  → ai.gftd.apps.yorishiroNuro.putClaimReceipt
-//   - insertInto("vertex_yorishiroNuro_claimJob")      → ai.gftd.apps.yorishiroNuro.putClaimJob
+// Replace each with `sdk.pds.xrpc("app.etzhayyim.apps.yorishiroNuro.<method>", ...)`:
+//   - getDb().selectFrom(tableForLabel(label))         → app.etzhayyim.apps.yorishiroNuro.listOffersOrJobs
+//   - insertInto("vertex_yorishiroNuro_offer")         → app.etzhayyim.apps.yorishiroNuro.putOffer
+//   - insertInto("vertex_yorishiroNuro_claimReceipt")  → app.etzhayyim.apps.yorishiroNuro.putClaimReceipt
+//   - insertInto("vertex_yorishiroNuro_claimJob")      → app.etzhayyim.apps.yorishiroNuro.putClaimJob
 // Each NSID needs a lexicon JSON in 00-contracts/lexicons/ai/gftd/apps/yorishiroNuro/
 // + a server-side handler + a vertex_bpmn_lexicon_binding row.
 // Reference migration: ai-gftd-wasm-yorishiro-squarespace-sqddf3sp/src/app.ts (2026-05-11).
@@ -20,7 +20,7 @@ import {
   type HostSDK,
   nsid,
   parseLexiconInput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 // ---------------------------------------------------------------------------
 // Yorishiro — NURO 光 (Sony Network Communications) MyPage cashback adapter
@@ -62,9 +62,9 @@ type AnyRow = Record<string, unknown>;
 let db: KyselyDb | null = null;
 
 const NSID = {
-  offer: "ai.gftd.apps.yorishiroNuro.offer",
-  claimJob: "ai.gftd.apps.yorishiroNuro.claimJob",
-  claimReceipt: "ai.gftd.apps.yorishiroNuro.claimReceipt",
+  offer: "app.etzhayyim.apps.yorishiroNuro.offer",
+  claimJob: "app.etzhayyim.apps.yorishiroNuro.claimJob",
+  claimReceipt: "app.etzhayyim.apps.yorishiroNuro.claimReceipt",
 } as const;
 
 const PROVIDER_DID = "did:web:yorishiro.etzhayyim.com";
@@ -164,7 +164,7 @@ function cmdListOffers(sdk: HostSDK, _payload: Uint8Array): unknown {
 }
 
 async function cmdGetOffers(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroNuro.getOffers", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroNuro.getOffers", payload);
   const offset = req.offset ?? 0;
   const limit = Math.min(req.limit ?? 50, 100);
   const rows = (await q("YorishiroNuroOffer", (row) =>
@@ -186,7 +186,7 @@ async function cmdGetOffers(_sdk: HostSDK, payload: Uint8Array): Promise<unknown
 }
 
 async function cmdGetClaimStatus(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroNuro.getClaimStatus", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroNuro.getClaimStatus", payload);
   if (!req.jobId && !req.campaignCode) return { error: "jobId or campaignCode is required" };
   const jobs = await q("YorishiroNuroClaimJob", (row) =>
     (!req.jobId || String(row.jobId ?? "") === req.jobId) &&
@@ -216,7 +216,7 @@ async function cmdGetClaimStatus(_sdk: HostSDK, payload: Uint8Array): Promise<un
 // ---------------------------------------------------------------------------
 
 async function cmdRecordOffers(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroNuro.recordOffers", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroNuro.recordOffers", payload);
   if (!req.jobId) return { error: "jobId is required" };
   const offers = Array.isArray(req.offers) ? req.offers : [];
   const discoveredAt = nowISO();
@@ -229,7 +229,7 @@ async function cmdRecordOffers(_sdk: HostSDK, payload: Uint8Array): Promise<unkn
     await getDb()
       .insertInto("vertex_yorishiroNuro_offer" as any)
       .values({
-        vertex_id: `at://${ownerDid}/ai.gftd.apps.yorishiroNuro.offer/${rkey}`,
+        vertex_id: `at://${ownerDid}/app.etzhayyim.apps.yorishiroNuro.offer/${rkey}`,
         campaign_code: code,
         title: String(o.title ?? ""),
         amount_jpy: Number(o.amountJpy ?? 0) || 0,
@@ -250,7 +250,7 @@ async function cmdRecordOffers(_sdk: HostSDK, payload: Uint8Array): Promise<unkn
 }
 
 async function cmdRecordClaim(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroNuro.recordClaim", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroNuro.recordClaim", payload);
   if (!req.jobId || !req.campaignCode || !req.receiptNumber) {
     return { error: "jobId, campaignCode, receiptNumber are required" };
   }
@@ -259,7 +259,7 @@ async function cmdRecordClaim(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   await getDb()
     .insertInto("vertex_yorishiroNuro_claimReceipt" as any)
     .values({
-      vertex_id: `at://${ownerDid}/ai.gftd.apps.yorishiroNuro.claimReceipt/${receiptId}`,
+      vertex_id: `at://${ownerDid}/app.etzhayyim.apps.yorishiroNuro.claimReceipt/${receiptId}`,
       receipt_id: receiptId,
       job_id: req.jobId,
       campaign_code: req.campaignCode,
@@ -284,7 +284,7 @@ async function cmdRecordClaim(sdk: HostSDK, payload: Uint8Array): Promise<unknow
 // ---------------------------------------------------------------------------
 
 async function cmdClaimCashback(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroNuro.claimCashback", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroNuro.claimCashback", payload);
 
   if (!req.campaignCode) return { error: "campaignCode is required (e.g. 'B195')" };
   if (!req.bankVaultKey) {
@@ -330,7 +330,7 @@ async function cmdClaimCashback(sdk: HostSDK, payload: Uint8Array): Promise<unkn
   await getDb()
     .insertInto("vertex_yorishiroNuro_claimJob" as any)
     .values({
-      vertex_id: `at://${ownerDid}/ai.gftd.apps.yorishiroNuro.claimJob/${jobId}`,
+      vertex_id: `at://${ownerDid}/app.etzhayyim.apps.yorishiroNuro.claimJob/${jobId}`,
       job_id: jobId,
       campaign_code: req.campaignCode,
       bank_vault_key: req.bankVaultKey,
@@ -358,34 +358,34 @@ async function cmdClaimCashback(sdk: HostSDK, payload: Uint8Array): Promise<unkn
 function registerYorishiroNuroApp(sdk: HostSDK): void {
   sdk.app
     // ── Query ──────────────────────────────────────────────────────────────
-    .command(nsid("ai.gftd.apps.yorishiroNuro.listOffers"),
+    .command(nsid("app.etzhayyim.apps.yorishiroNuro.listOffers"),
       (_ctx, body) => cmdListOffers(sdk, body),
       asAgentTool("Login to NURO MyPage via browser and enumerate available cashback offers (特典・キャンペーン). Provider callbacks recordOffers with results."),
       withCapabilityTags("nuro", "offer", "query", "browser-automation"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroNuro.getOffers"),
+    .command(nsid("app.etzhayyim.apps.yorishiroNuro.getOffers"),
       (_ctx, body) => cmdGetOffers(sdk, body),
       asAgentTool("Get previously enumerated NURO offers. Filter by campaignCode or jobId with pagination."),
       withCapabilityTags("nuro", "offer", "query"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroNuro.getClaimStatus"),
+    .command(nsid("app.etzhayyim.apps.yorishiroNuro.getClaimStatus"),
       (_ctx, body) => cmdGetClaimStatus(sdk, body),
       asAgentTool("Get the status of a NURO cashback claim job by jobId or campaignCode (includes receiptNumber + screenshot blobKey once completed)."),
       withCapabilityTags("nuro", "claim", "query", "tracking"),
     )
     // ── Callback (provider → app) ──────────────────────────────────────────
-    .command(nsid("ai.gftd.apps.yorishiroNuro.recordOffers"),
+    .command(nsid("app.etzhayyim.apps.yorishiroNuro.recordOffers"),
       (_ctx, body) => cmdRecordOffers(sdk, body),
       asAgentTool("Record offers (callback from yorishiro-provider after MyPage enumeration)."),
       withCapabilityTags("nuro", "offer", "callback"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroNuro.recordClaim"),
+    .command(nsid("app.etzhayyim.apps.yorishiroNuro.recordClaim"),
       (_ctx, body) => cmdRecordClaim(sdk, body),
       asAgentTool("Record a claim receipt (callback from yorishiro-provider after form submission)."),
       withCapabilityTags("nuro", "claim", "receipt", "callback"),
     )
     // ── Destructive — Cashback claim (financial, requires approval) ───────
-    .command(nsid("ai.gftd.apps.yorishiroNuro.claimCashback"),
+    .command(nsid("app.etzhayyim.apps.yorishiroNuro.claimCashback"),
       (_ctx, body) => cmdClaimCashback(sdk, body),
       asAgentTool("Submit a NURO cashback receipt form via browser automation (requires confirm=true + bankVaultKey + idempotencyKey). Bank account is loaded from provider-vault nuro/bankAccount/<bankVaultKey>; it is never passed as a parameter."),
       withCapabilityTags("nuro", "claim", "cashback", "browser-automation"),

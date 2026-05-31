@@ -95,6 +95,23 @@ spec:
               mountPath: /var/lib/etzhayyim/organism-posts
             - name: tmp
               mountPath: /tmp
+        # Drainer sidecar (Wave 3)
+        - name: drainer
+          image: ghcr.io/etzhayyim/organism-post-drainer:main
+          imagePullPolicy: Always
+          env:
+            - name: ORGANISM_POST_QUEUE_PATH
+              value: /var/lib/etzhayyim/organism-posts/shard-2.ndjson
+            - name: ETZHAYYIM_PDS_URL
+              value: https://atproto.etzhayyim.com
+            - name: ETZHAYYIM_SHARD
+              value: "2"
+          resources:
+            requests: { cpu: 100m, memory: 256Mi }
+            limits:   { cpu: 500m, memory: 512Mi }
+          volumeMounts:
+            - name: organism-posts
+              mountPath: /var/lib/etzhayyim/organism-posts
       volumes:
         - name: repo
           hostPath:

@@ -17,10 +17,10 @@ const ownerDid = "did:web:maps.etzhayyim.com";
 const actorId = "sys.bpmn.seed.maps-aircraft-phase3";
 
 const seed = {
-  processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1",
-  bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1",
+  processVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1",
+  bindingVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1",
   processId: "maps_backfill_aircraft_registry",
-  nsid: "ai.gftd.apps.maps.backfillAircraftRegistry",
+  nsid: "app.etzhayyim.apps.maps.backfillAircraftRegistry",
   sourcePath: "00-contracts/bpmn/ai/gftd/maps/backfillAircraftRegistry.bpmn",
   resultTimeoutMs: 1_800_000,
   writeTableAllowlist: "vertex_aircraft,edge_aircraft_state_for_aircraft",

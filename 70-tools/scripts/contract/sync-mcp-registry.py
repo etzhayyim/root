@@ -17,10 +17,10 @@ See: 90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md
      ADR-0056 — same `INSERT N rows` pattern as BPMN-as-actor
 
 Convention:
-  vertex_id = at://did:web:{actor-host}/ai.gftd.mcp.toolDef/{slug}
+  vertex_id = at://did:web:{actor-host}/app.etzhayyim.mcp.toolDef/{slug}
     where slug = nsid.replace(".", "-")
   actor_did  = did:web:{actor-host}.etzhayyim.com
-    where actor-host = the 4th NSID segment (`ai.gftd.apps.<actor>.<method>`)
+    where actor-host = the 4th NSID segment (`app.etzhayyim.apps.<actor>.<method>`)
 
 Behavior:
   --apply    : upsert rows
@@ -52,7 +52,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "apps"
 GOVIND_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "govInd"
 GOVAFG_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "govAfg"
-TOOL_REPO_PREFIX = "at://did:web:{host}.etzhayyim.com/ai.gftd.mcp.toolDef"
+TOOL_REPO_PREFIX = "at://did:web:{host}.etzhayyim.com/app.etzhayyim.mcp.toolDef"
 
 
 # ─── Keychain / psql ───────────────────────────────────────────────────
@@ -123,17 +123,17 @@ def parse_lexicon(path: Path) -> ParsedTool | None:
         return None
     nsid = doc.get("id")
     if not isinstance(nsid, str) or not (
-        nsid.startswith("ai.gftd.apps.")
-        or nsid.startswith("ai.gftd.govInd.")
-        or nsid.startswith("ai.gftd.govAfg.")
+        nsid.startswith("app.etzhayyim.apps.")
+        or nsid.startswith("app.etzhayyim.govInd.")
+        or nsid.startswith("app.etzhayyim.govAfg.")
     ):
         return None
     parts = nsid.split(".")
-    if nsid.startswith("ai.gftd.apps.") and len(parts) < 5:
+    if nsid.startswith("app.etzhayyim.apps.") and len(parts) < 5:
         return None
-    if nsid.startswith("ai.gftd.govInd."):
+    if nsid.startswith("app.etzhayyim.govInd."):
         actor = "govInd"
-    elif nsid.startswith("ai.gftd.govAfg."):
+    elif nsid.startswith("app.etzhayyim.govAfg."):
         actor = "govAfg"
     else:
         actor = parts[3]

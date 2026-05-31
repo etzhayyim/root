@@ -7,34 +7,34 @@
   "content": {
     "activities": [
       { "id": "act.defineSite", "name": "Define Site", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openNetwork.defineSite" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openNetwork.defineSite" }] },
       { "id": "act.defineLink", "name": "Define Link", "type": "bpmn",
         "bpmnProcessKey": "defineLink", "source": "bpmn/define-link.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openNetwork.defineLink" },
+          { "xrpc": "app.etzhayyim.apps.openNetwork.defineLink" },
           { "form": "openNetwork.defineLink.v1" }
         ] },
       { "id": "act.recordUtilization", "name": "Record Utilization", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openNetwork.recordUtilization" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openNetwork.recordUtilization" }] },
       { "id": "act.reportIncident", "name": "Report Incident", "type": "xrpc",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openNetwork.reportIncident" },
+          { "xrpc": "app.etzhayyim.apps.openNetwork.reportIncident" },
           { "dmn":  "openNetwork.incidentSeverity" }
         ] },
       { "id": "act.requestChange", "name": "Request Change", "type": "bpmn",
         "bpmnProcessKey": "requestChange", "source": "bpmn/request-change.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openNetwork.requestChange" },
+          { "xrpc": "app.etzhayyim.apps.openNetwork.requestChange" },
           { "form": "openNetwork.requestChange.v1" },
           { "dmn":  "openNetwork.changeRisk" }
         ] },
       { "id": "act.queryNetwork", "name": "Query Sites / Links / Utilization / Incidents / Changes", "type": "xrpc",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openNetwork.getSite" },
-          { "xrpc": "ai.gftd.apps.openNetwork.listLinks" },
-          { "xrpc": "ai.gftd.apps.openNetwork.getLinkUtilization" },
-          { "xrpc": "ai.gftd.apps.openNetwork.listIncidents" },
-          { "xrpc": "ai.gftd.apps.openNetwork.listChanges" }
+          { "xrpc": "app.etzhayyim.apps.openNetwork.getSite" },
+          { "xrpc": "app.etzhayyim.apps.openNetwork.listLinks" },
+          { "xrpc": "app.etzhayyim.apps.openNetwork.getLinkUtilization" },
+          { "xrpc": "app.etzhayyim.apps.openNetwork.listIncidents" },
+          { "xrpc": "app.etzhayyim.apps.openNetwork.listChanges" }
         ] }
     ]
   },

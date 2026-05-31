@@ -1,0 +1,100 @@
+{
+  "method_policy": {
+    "app.etzhayyim.apps.arms.registerFirearm": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.registerFirearm"],
+      "allowedPermissionSets": ["arms:authority", "arms:system"],
+      "publicRead": false
+    },
+    "app.etzhayyim.apps.arms.authenticateHolder": {
+      "requiresAuth": false,
+      "allowedScopes": ["rpc?lxm=*"],
+      "allowedPermissionSets": [],
+      "publicRead": true
+    },
+    "app.etzhayyim.apps.arms.verifyAuthChallenge": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.verifyAuthChallenge", "rpc?lxm=*"],
+      "allowedPermissionSets": [],
+      "publicRead": false
+    },
+    "app.etzhayyim.apps.arms.issuePermit": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.issuePermit"],
+      "allowedPermissionSets": ["arms:authority"],
+      "publicRead": false
+    },
+    "app.etzhayyim.apps.arms.transferCustody": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.transferCustody"],
+      "allowedPermissionSets": ["arms:holder", "arms:authority"],
+      "publicRead": false,
+      "requiresHolderAuthSession": true
+    },
+    "app.etzhayyim.apps.arms.checkOutFirearm": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.checkOutFirearm", "rpc?lxm=*"],
+      "allowedPermissionSets": ["arms:holder", "arms:authority"],
+      "publicRead": false,
+      "requiresHolderAuthSession": true
+    },
+    "app.etzhayyim.apps.arms.checkInFirearm": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.checkInFirearm", "rpc?lxm=*"],
+      "allowedPermissionSets": ["arms:holder", "arms:authority"],
+      "publicRead": false
+    },
+    "app.etzhayyim.apps.arms.reportIncident": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.reportIncident", "rpc?lxm=*"],
+      "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
+      "publicRead": false
+    },
+    "app.etzhayyim.apps.arms.getFirearm": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.getFirearm", "rpc?lxm=*"],
+      "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
+      "publicRead": false
+    },
+    "app.etzhayyim.apps.arms.listFirearms": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.listFirearms", "rpc?lxm=*"],
+      "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
+      "publicRead": false
+    },
+    "app.etzhayyim.apps.arms.listPermits": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.listPermits", "rpc?lxm=*"],
+      "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
+      "publicRead": false
+    },
+    "app.etzhayyim.apps.arms.getAuditLog": {
+      "requiresAuth": true,
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.getAuditLog"],
+      "allowedPermissionSets": ["arms:authority", "arms:law-enforcement"],
+      "publicRead": false
+    }
+  },
+  "export_restricted_jurisdictions": [
+    "KP", "IR", "SY", "RU", "BY", "MM", "SD", "CF", "LY", "SO", "YE", "SS"
+  ],
+  "permit_types": {
+    "military": {
+      "issuingAuthority": ["arms:authority"],
+      "requiredPermissionSets": ["arms:military-registry"]
+    },
+    "law-enforcement": {
+      "issuingAuthority": ["arms:authority", "arms:law-enforcement"],
+      "requiredPermissionSets": ["arms:law-enforcement"]
+    },
+    "civilian-possession": {
+      "issuingAuthority": ["arms:authority"],
+      "requiredPermissionSets": [],
+      "maxFirearms": 1
+    },
+    "licensed-dealer": {
+      "issuingAuthority": ["arms:authority"],
+      "requiredPermissionSets": ["arms:dealer"]
+    }
+  }
+}

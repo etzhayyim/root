@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-internetDemandPoll-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-internetDemandPoll-v1',
                  'did:web:market.etzhayyim.com',
                  'market_internet_demand_poll',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -42,9 +42,9 @@ UP = [{'sql': '\n'
                  '    python3 70-tools/scripts/cron/market-demand-poll.py\n'
                  '  This is the script that runs today (1-shot) to drive ∇φ.\n'
                  '\n'
-                 '  NSID:      ai.gftd.market.internetDemandPoll\n'
+                 '  NSID:      app.etzhayyim.market.internetDemandPoll\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-internetDemandPoll-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-internetDemandPoll-v1\n'
                  '  binding allowlist: vertex_market_demand_signal\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -58,7 +58,7 @@ UP = [{'sql': '\n'
                  'poll" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.market.internetDemandPoll", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.market.internetDemandPoll", "version": 1, '
                  '"resultTimeoutMs": 90000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -108,7 +108,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.market.demand.poll&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.market.demand.poll&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;triggerOk&quot;: triggerOk }" '
                  'target="attributes"/>\n'
@@ -132,7 +132,7 @@ UP = [{'sql': '\n'
                  'did:web:market.etzhayyim.com',
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-internetDemandPoll-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-internetDemandPoll-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -146,9 +146,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1',
                  'did:web:market.etzhayyim.com',
-                 'ai.gftd.market.internetDemandPoll',
+                 'app.etzhayyim.market.internetDemandPoll',
                  'market_internet_demand_poll',
                  90000,
                  'vertex_market_demand_signal',
@@ -157,12 +157,12 @@ UP = [{'sql': '\n'
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-internetDemandPoll-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-internetDemandPoll-v1']}]
 
 
 def upgrade() -> None:

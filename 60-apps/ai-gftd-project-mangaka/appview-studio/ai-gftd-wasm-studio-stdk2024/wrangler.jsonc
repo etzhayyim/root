@@ -18,20 +18,20 @@
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
     // Backend: the k8s lg-mangaka-studio pod exposed via CF Tunnel.
-    // Renamed from studio.gftd.ai → studio-api.gftd.ai when we put the
+    // Renamed from studio.etzhayyim.com → studio-api.etzhayyim.com when we put the
     // Worker (this) in front. The Worker calls this with a CF Access
     // Service Token (bypasses user SSO challenge for machine-to-machine).
-    "STUDIO_BACKEND_URL": "https://studio-api.gftd.ai"
+    "STUDIO_BACKEND_URL": "https://studio-api.etzhayyim.com"
   },
   "secrets_store_secrets": [
-    // CF Access Service Token to call studio-api.gftd.ai.
+    // CF Access Service Token to call studio-api.etzhayyim.com.
     // Created in CF dashboard: Zero Trust → Access → Service Auth → Create Service Token.
-    // Add a SECOND CF Access policy on studio-api.gftd.ai that includes this token.
+    // Add a SECOND CF Access policy on studio-api.etzhayyim.com that includes this token.
     { "binding": "SS_CF_ACCESS_CLIENT_ID", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "studio_cf_access_client_id" },
     { "binding": "SS_CF_ACCESS_CLIENT_SECRET", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "studio_cf_access_client_secret" }
   ],
   "routes": [
-    { "pattern": "stdk2024.gftd.ai/*", "zone_name": "gftd.ai" },
-    { "pattern": "studio.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "stdk2024.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "studio.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

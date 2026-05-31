@@ -59,7 +59,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       sensitivity_ord, org_id, user_id, actor_id
     )
     SELECT
-      'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-mineral-seed-v1',
+      'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-mineral-seed-v1',
       'did:web:bpmn.etzhayyim.com',
       'science_mineral_seed',
       1,

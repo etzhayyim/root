@@ -5,13 +5,13 @@
 ## What it does
 
 ```
-ai.gftd.apps.substrate.mstRoot records (PDS firehose)
+app.etzhayyim.apps.substrate.mstRoot records (PDS firehose)
        │
        ▼
 ipfs-pinner ──▶ read CAR from local mst-projector data volume
        │   ──▶ POST to pinning provider (Pinata / Web3.Storage / Filecoin)
        │   ──▶ verify pinned (GET /ipfs/<cid>)
-       │   ──▶ emit ai.gftd.apps.substrate.ipfsPin record
+       │   ──▶ emit app.etzhayyim.apps.substrate.ipfsPin record
        ▼
 public IPFS network
 ```

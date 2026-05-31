@@ -5,14 +5,14 @@ interface Env { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | S
 
 const APP = "wallet";
 const ACTOR = "did:web:wallet.etzhayyim.com";
-const CREDIT_PREFIX = "ai.gftd.apps.credits.";
-const WALLET_PREFIX = "ai.gftd.apps.wallet.";
+const CREDIT_PREFIX = "app.etzhayyim.apps.credits.";
+const WALLET_PREFIX = "app.etzhayyim.apps.wallet.";
 
 const WALLET_TO_CREDITS: Record<string, string> = {
-  "ai.gftd.apps.wallet.checkSpendAllowed": "ai.gftd.apps.credits.checkSpendAllowed",
-  "ai.gftd.apps.wallet.spendCredits": "ai.gftd.apps.credits.spendCredits",
-  "ai.gftd.apps.wallet.rewardFromCompute": "ai.gftd.apps.credits.rewardFromCompute",
-  "ai.gftd.apps.wallet.rewardFromHC": "ai.gftd.apps.credits.rewardFromHC",
+  "app.etzhayyim.apps.wallet.checkSpendAllowed": "app.etzhayyim.apps.credits.checkSpendAllowed",
+  "app.etzhayyim.apps.wallet.spendCredits": "app.etzhayyim.apps.credits.spendCredits",
+  "app.etzhayyim.apps.wallet.rewardFromCompute": "app.etzhayyim.apps.credits.rewardFromCompute",
+  "app.etzhayyim.apps.wallet.rewardFromHC": "app.etzhayyim.apps.credits.rewardFromHC",
 };
 
 export default {

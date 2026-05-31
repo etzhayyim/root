@@ -30,7 +30,7 @@ export interface ForwardIdentity {
   traceId?: string;
 }
 
-const BMC_NSID_PREFIX = "ai.gftd.apps.yata.bmc";
+const BMC_NSID_PREFIX = "app.etzhayyim.apps.yata.bmc";
 
 export function isBmcNsid(nsid: string): boolean {
   return nsid.startsWith(BMC_NSID_PREFIX);

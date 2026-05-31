@@ -62,7 +62,7 @@
     <table>
       <tbody>
         <tr><th>運営主体 (operating entity)</th><td>amanomibashira</td></tr>
-        <tr><th>実装受託 (vendor)</th><td>Gftd Japan株式会社</td></tr>
+        <tr><th>実装受託 (vendor)</th><td>etzhayyim Japan株式会社</td></tr>
         <tr><th>個情法上の取扱事業者</th><td>amanomibashira</td></tr>
         <tr><th>顔特徴量管理責任者</th><td>amanomibashira CLO</td></tr>
         <tr><th>インシデント窓口</th><td>privacy@etzhayyim.com (24h 受付)</td></tr>

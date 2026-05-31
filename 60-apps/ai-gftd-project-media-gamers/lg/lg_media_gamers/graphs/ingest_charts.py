@@ -1,6 +1,6 @@
 """media-gamers `ingest_charts` graph — SteamSpy chart ingest + LLM analysis.
 
-NSID: ai.gftd.apps.media_gamers.ingestCharts
+NSID: app.etzhayyim.apps.media_gamers.ingestCharts
 
 Nodes:
   fetch   → SteamSpy top2w via API. Parse top 20 by players_2weeks.

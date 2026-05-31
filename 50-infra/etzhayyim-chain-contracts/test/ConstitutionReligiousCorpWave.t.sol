@@ -21,9 +21,9 @@ contract ConstitutionReligiousCorpWaveTest is Test {
     Constitution internal c;
 
     function setUp() public {
-        // ─── Constants (38 = 8 original + 30 religious-corp wave) ──
-        bytes32[] memory cK = new bytes32[](38);
-        bytes32[] memory cV = new bytes32[](38);
+        // ─── Constants (39 = 8 original + 30 religious-corp wave + 1 kawase) ──
+        bytes32[] memory cK = new bytes32[](39);
+        bytes32[] memory cV = new bytes32[](39);
 
         // Original (8)
         cK[0] = K.ONE_SBT_ONE_VOTE;            cV[0] = bytes32(uint256(1));
@@ -77,9 +77,12 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         cK[36] = K.LICENSE_CHARTER_RIDER_VERSION;       cV[36] = bytes32("v2.0");
         cK[37] = K.ENFORCEMENT_THREE_TIER;               cV[37] = bytes32(uint256(1));
 
-        // ─── Mutables (16 = 8 original + 1 phenotype + 6 references + 1 buffer) ──
-        bytes32[] memory mK = new bytes32[](16);
-        bytes32[] memory mV = new bytes32[](16);
+        // kawase-yui FX band (ADR-2605282200 G4)
+        cK[38] = K.KAWASE_MAX_BAND_BPS;                  cV[38] = bytes32(uint256(50));
+
+        // ─── Mutables (17 = 8 original + 1 phenotype + 6 references + 1 kawase + 1 buffer) ──
+        bytes32[] memory mK = new bytes32[](17);
+        bytes32[] memory mV = new bytes32[](17);
         mK[0] = K.KISHA_BASE_RATE;        mV[0] = bytes32(uint256(1_000_000));
         mK[1] = K.KAPPA_BPS;               mV[1] = bytes32(uint256(300));
         mK[2] = K.TIER_LIQUID_BPS;         mV[2] = bytes32(uint256(1_000));
@@ -96,7 +99,9 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         mK[12] = K.LAND_REGISTRY_ADDRESS;                mV[12] = bytes32(0);
         mK[13] = K.FORCE_AUTHORIZATION_ADDRESS;          mV[13] = bytes32(0);
         mK[14] = K.PUBLIC_FUND_GOVERNANCE_ADDRESS;       mV[14] = bytes32(0);
-        mK[15] = bytes32(0);                              mV[15] = bytes32(0);
+        // kawase-yui per-member monthly cap (ADR-2605282200 G9): R1 default $1,000.
+        mK[15] = K.KAWASE_PER_MONTH_CAP_USD_MINOR;       mV[15] = bytes32(uint256(1_000_000_000));
+        mK[16] = bytes32(0);                              mV[16] = bytes32(0);
 
         c = new Constitution(cK, cV, mK, mV);
     }
@@ -161,6 +166,18 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         assertEq(c.getMutable(K.PHENOTYPE_NON_COMPLIANT_MULTIPLIER), bytes32(uint256(0)));
     }
 
+    function test_kawase_yui_constants_set() public view {
+        // ADR-2605282200 G4: Chainlink mid-market band = ±0.5% (50 bps).
+        // Constitutional because mid-market-only pins the religious-corp
+        // on the non-spread side of FX (Charter §2(b) speculative finance).
+        assertEq(c.getConstant(K.KAWASE_MAX_BAND_BPS), bytes32(uint256(50)));
+        // ADR-2605282200 G9: R1 per-member monthly cap = $1,000 in USDC minor.
+        assertEq(
+            c.getMutable(K.KAWASE_PER_MONTH_CAP_USD_MINOR),
+            bytes32(uint256(1_000_000_000))
+        );
+    }
+
     // ============================================================
     //  Verify mutable reference addresses start at zero (must be
     //  wired via governance post-deploy per RUNBOOK)
@@ -193,5 +210,6 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         assertTrue(c.isConstant(K.ECONOMIC_TITHE_TO_PUBLIC_FUND_BPS), "tithe");
         assertTrue(c.isConstant(K.LICENSE_CHARTER_RIDER_REQUIRED), "rider");
         assertTrue(c.isConstant(K.ENFORCEMENT_THREE_TIER), "three-tier");
+        assertTrue(c.isConstant(K.KAWASE_MAX_BAND_BPS), "kawase-band");
     }
 }

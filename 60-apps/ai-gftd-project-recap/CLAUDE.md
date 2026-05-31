@@ -19,7 +19,7 @@ YouTube · TikTok · Instagram Reels · Twitter/X · NicoNico · Bilibili · Vim
 
 ```
 User / yoro MCP Tool
-  → XRPC ai.gftd.apps.recap.{download,getInfo,listDownloads}
+  → XRPC app.etzhayyim.apps.recap.{download,getInfo,listDownloads}
     → CF Worker (recap.etzhayyim.com) — L3 thin dispatcher
       → DISPATCHER_URL = http://lg-recap:8000/xrpc/{nsid}
         → LangGraph FastAPI server (lg-recap pod, mitama-udf namespace)
@@ -33,15 +33,15 @@ User / yoro MCP Tool
 | Graph | NSID | Description |
 |---|---|---|
 | `health` | — | liveness |
-| `download` | `ai.gftd.apps.recap.download` | Full download → B2 → record |
-| `get_info` | `ai.gftd.apps.recap.getInfo` | Metadata only (yt-dlp --dump-json) |
-| `list_downloads` | `ai.gftd.apps.recap.listDownloads` | Paginated history |
+| `download` | `app.etzhayyim.apps.recap.download` | Full download → B2 → record |
+| `get_info` | `app.etzhayyim.apps.recap.getInfo` | Metadata only (yt-dlp --dump-json) |
+| `list_downloads` | `app.etzhayyim.apps.recap.listDownloads` | Paginated history |
 
 ## Data Model
 
 ### vertex_recap_download (RisingWave)
 ```sql
-vertex_id VARCHAR PK  -- at://{did}/ai.gftd.apps.recap.download/{rkey}
+vertex_id VARCHAR PK  -- at://{did}/app.etzhayyim.apps.recap.download/{rkey}
 rkey VARCHAR
 owner_did VARCHAR
 actor_did VARCHAR      -- ADR-0095
@@ -77,7 +77,7 @@ created_at VARCHAR
 - **Fair-use enforcement**: `ALLOWED_SCOPES = {"research", "authorized"}` in LangGraph validate_url node
 - **Platform allowlist**: enforced in validate_url — NSFW-only platforms rejected
 - **Disclaimer**: all AT Record `scope` field must be `"research"` or `"authorized"`
-- AT records are T2 Domain (`ai.gftd.apps.recap.*`) — written via psycopg direct
+- AT records are T2 Domain (`app.etzhayyim.apps.recap.*`) — written via psycopg direct
 
 ## Build & Deploy
 

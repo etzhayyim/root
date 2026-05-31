@@ -39,7 +39,7 @@ def logs(ctx: click.Context, pds: str | None, limit: int, json_out: bool) -> Non
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.logs.listEvents",
+            f"{pds_url}/xrpc/app.etzhayyim.logs.listEvents",
             params={"limit": limit}, headers=_auth_headers(), timeout=30,
         )
         resp.raise_for_status()
@@ -68,7 +68,7 @@ def logs_tail(pds: str | None, limit: int, filter_text: str, json_out: bool) -> 
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.logs.listEvents",
+            f"{pds_url}/xrpc/app.etzhayyim.logs.listEvents",
             params={"limit": limit, "filter": filter_text},
             headers=_auth_headers(), timeout=30,
         )
@@ -93,7 +93,7 @@ def logs_errors(pds: str | None, limit: int, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.logs.listEvents",
+            f"{pds_url}/xrpc/app.etzhayyim.logs.listEvents",
             params={"limit": limit, "minStatus": 500},
             headers=_auth_headers(), timeout=30,
         )
@@ -118,7 +118,7 @@ def logs_stats(pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.logs.getStats",
+            f"{pds_url}/xrpc/app.etzhayyim.logs.getStats",
             headers=_auth_headers(), timeout=30,
         )
         resp.raise_for_status()

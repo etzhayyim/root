@@ -17,9 +17,9 @@
     "APP_CAPABILITIES": "[\"domain-query\",\"data-management\"]",
     "APP_DESCRIPTION": "Kyber Hr — AI Agent",
     "APP_DISPLAY_NAME": "Kyber Hr",
-    "APP_EMBED_URL": "https://mdtpqjc8.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://mdtpqjc8.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "APP_NANOID": "mdtpqjc8",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"
@@ -34,8 +34,8 @@
   ],
   "routes": [
     {
-      "pattern": "mdtpqjc8.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "mdtpqjc8.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

@@ -58,7 +58,7 @@ Public model aliases:
 - `tier0-runpod`
 - `gemma4:26b-a4b-it-q4_K_M`
 
-`llm.etzhayyim.com/xrpc/ai.gftd.apps.llm.answerWithKnowledge` is intentionally unsupported on this
+`llm.etzhayyim.com/xrpc/app.etzhayyim.apps.llm.answerWithKnowledge` is intentionally unsupported on this
 gateway and returns `unsupported_route`. RisingWave/BPMN knowledge workflows must use their own
 actor route and must not be smuggled through the RunPod gateway.
 

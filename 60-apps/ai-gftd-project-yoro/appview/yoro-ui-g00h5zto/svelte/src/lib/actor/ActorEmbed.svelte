@@ -62,11 +62,11 @@
 				actorId: did ?? '',
 				orgId: '',
 				async wSend(kind, payload) {
-					await atProcedure('ai.gftd.convo.send', { kind, payload: toBase64Utf8(JSON.stringify(payload)), contentType: 'application/json' });
+					await atProcedure('app.etzhayyim.convo.send', { kind, payload: toBase64Utf8(JSON.stringify(payload)), contentType: 'application/json' });
 				},
 				async wQuery(method, params) {
 					const lcMethod = method.charAt(0).toLowerCase() + method.slice(1);
-					return atProcedure(`ai.gftd.convo.${lcMethod}`, params);
+					return atProcedure(`app.etzhayyim.convo.${lcMethod}`, params);
 				},
 				backend: {
 					async call(service, method, body = {}) {
@@ -79,13 +79,13 @@
 					async exec(stmt, params) {
 						const session = getSession();
 						if (!session?.accessJwt) return;
-						await _agent.api.call('ai.gftd.kagami.sql', { statement: stmt, parameters: params ?? {} }, undefined, { headers: buildHeaders() });
+						await _agent.api.call('app.etzhayyim.kagami.sql', { statement: stmt, parameters: params ?? {} }, undefined, { headers: buildHeaders() });
 					},
 					async query(stmt, params) {
 						const session = getSession();
 						if (!session?.accessJwt) return [];
 						try {
-							const r = await _agent.api.call('ai.gftd.kagami.sql', { statement: stmt, parameters: params ?? {} }, undefined, { headers: buildHeaders() });
+							const r = await _agent.api.call('app.etzhayyim.kagami.sql', { statement: stmt, parameters: params ?? {} }, undefined, { headers: buildHeaders() });
 							return ((r.data as { rows?: Record<string, unknown>[] }).rows) ?? [];
 						} catch {
 							return [];
@@ -95,7 +95,7 @@
 				navigate(_path) { },
 				async remoteCall(pkg, iface, func, params) {
 					try {
-						const r = await _agent.api.call('ai.gftd.wrpc.call', { package: pkg, interface: iface, function: func, params: Array.from(params) }, undefined, { headers: buildHeaders() });
+						const r = await _agent.api.call('app.etzhayyim.wrpc.call', { package: pkg, interface: iface, function: func, params: Array.from(params) }, undefined, { headers: buildHeaders() });
 						const data = r.data as ArrayBuffer | Uint8Array | undefined;
 						if (!data) return new Uint8Array(0);
 						return data instanceof Uint8Array ? data : new Uint8Array(data);

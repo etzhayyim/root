@@ -1,6 +1,6 @@
 """animeka `listRetakes` graph — list retakes with multi-axis filtering.
 
-NSID: ai.gftd.animeka.listRetakes
+NSID: app.etzhayyim.animeka.listRetakes
 """
 import logging
 import os
@@ -57,7 +57,7 @@ async def _node_query(state: _ListRetakesState) -> dict[str, Any]:
         try:
             cur = conn.cursor()
 
-            params: list[Any] = ["ai.gftd.animeka.retake"]
+            params: list[Any] = ["app.etzhayyim.animeka.retake"]
             where_parts = ["collection = %s"]
 
             if episode_id:
@@ -65,7 +65,7 @@ async def _node_query(state: _ListRetakesState) -> dict[str, Any]:
                 # Resolve episode vertex_id
                 await cur.execute(
                     """SELECT vertex_id FROM vertex_animeka
-                       WHERE collection='ai.gftd.animeka.episode' AND rkey=%s LIMIT 1""",
+                       WHERE collection='app.etzhayyim.animeka.episode' AND rkey=%s LIMIT 1""",
                     [ep_rkey],
                 )
                 ep_row = await cur.fetchone()
@@ -77,7 +77,7 @@ async def _node_query(state: _ListRetakesState) -> dict[str, Any]:
                 cut_rkey = _rkey_from_id(cut_id)
                 await cur.execute(
                     """SELECT vertex_id FROM vertex_animeka
-                       WHERE collection='ai.gftd.animeka.cut' AND rkey=%s LIMIT 1""",
+                       WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1""",
                     [cut_rkey],
                 )
                 cut_row = await cur.fetchone()

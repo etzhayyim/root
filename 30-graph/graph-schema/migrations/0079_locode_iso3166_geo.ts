@@ -10,8 +10,8 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                        | Rows    | Source                                       |
  * |-----------------------------------|---------|----------------------------------------------|
- * | ai.gftd.apps.locode.location      | 116,067 | UNECE UN/LOCODE 2024-1 (via GitHub/datasets) |
- * | ai.gftd.apps.iso3166.country      |     296 | World Bank API (ISO 3166-1 alpha-3)          |
+ * | app.etzhayyim.apps.locode.location      | 116,067 | UNECE UN/LOCODE 2024-1 (via GitHub/datasets) |
+ * | app.etzhayyim.apps.iso3166.country      |     296 | World Bank API (ISO 3166-1 alpha-3)          |
  *
  * ### UN LOCODE (United Nations Code for Trade and Transport Locations)
  * 116,067 location codes covering 249+ countries/territories.
@@ -39,8 +39,8 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New views
  *
- * - view_locode_location: projection of ai.gftd.apps.locode.location
- * - view_iso3166_country: projection of ai.gftd.apps.iso3166.country
+ * - view_locode_location: projection of app.etzhayyim.apps.locode.location
+ * - view_iso3166_country: projection of app.etzhayyim.apps.iso3166.country
  *
  * ## Topology integrity (post-apply)
  *
@@ -77,7 +77,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       (value_json::jsonb->>'has_rail')::boolean    AS has_rail,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.locode.location'
+    WHERE collection = 'app.etzhayyim.apps.locode.location'
   `.execute(db);
 
   await sql`
@@ -91,7 +91,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'capital' AS capital,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.iso3166.country'
+    WHERE collection = 'app.etzhayyim.apps.iso3166.country'
   `.execute(db);
 
   // ── dim_world_domain ───────────────────────────────────────────────────
@@ -117,8 +117,8 @@ export async function up(db: Kysely<any>): Promise<void> {
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_locode_location`.execute(db);
   await sql`DROP VIEW IF EXISTS view_iso3166_country`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.locode.location'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.iso3166.country'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.locode.location'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.iso3166.country'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain IN ('locode','iso3166')`.execute(db);
   await sql`DELETE FROM edge_classified_as WHERE system IN ('sovereign_m49','iso3166_sovereign')`.execute(db);
 }

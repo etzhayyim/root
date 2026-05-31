@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-generate-preferences-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -35,9 +35,9 @@ UP = [{'sql': '\n'
                  '  Fires daily (R/P1D). Queries total step count, then conditionally generates\n'
                  '  cross-actor (chosen, rejected) pairs for DPO fine-tuning.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.rl.generatePreferences\n'
+                 '  NSID: app.etzhayyim.apps.rl.generatePreferences\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-generate-preferences-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="rl_generate_preferences" name="RL Generate Preferences" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.rl.generatePreferences", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.rl.generatePreferences", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -95,30 +95,30 @@ UP = [{'sql': '\n'
                  '2026-05-06T21:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-generate-preferences-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, bpmn_process_id, nsid,\n'
          '       created_at, sensitivity_ord, org_id, user_id, actor_id)\n'
          '    SELECT\n'
          "      $1, $2, 'rl_generate_preferences',\n"
-         "      'ai.gftd.apps.rl.generatePreferences',\n"
+         "      'app.etzhayyim.apps.rl.generatePreferences',\n"
          "      $3, 1, $4, $5, 'sys.bpmn.seed.rl'\n"
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $6\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-generate-preferences-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-generate-preferences-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '2026-05-06T21:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-generate-preferences-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-generate-preferences-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-generate-preferences-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-generate-preferences-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-generate-preferences-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1']}]
 
 
 def upgrade() -> None:

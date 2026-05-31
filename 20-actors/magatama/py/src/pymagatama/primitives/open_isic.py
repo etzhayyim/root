@@ -180,7 +180,7 @@ async def task_open_isic_classify_entity(
     verification = str(decision.get("verification") or verification_for_confidence(conf))
     status = "confirmed" if verification in {"authoritative", "community"} else "candidate"
     classified_at = classifiedAt or _now_iso()
-    vertex_id = _vertex_id("ai.gftd.apps.openIsic.classification", entityDid, isicClassCode, classified_at)
+    vertex_id = _vertex_id("app.etzhayyim.apps.openIsic.classification", entityDid, isicClassCode, classified_at)
     audit = _audit(callerDid or OPEN_ISIC_DID)
     _insert("vertex_open_isic_classification", {
         "vertex_id": vertex_id,
@@ -195,11 +195,11 @@ async def task_open_isic_classify_entity(
         "classified_at": classified_at,
         **audit,
     }, dry_run=dryRun)
-    edge_id = _vertex_id("ai.gftd.apps.openIsic.classificationClass", vertex_id, isicClassCode)
+    edge_id = _vertex_id("app.etzhayyim.apps.openIsic.classificationClass", vertex_id, isicClassCode)
     _insert("edge_open_isic_classification_class", {
         "edge_id": edge_id,
         "src_vid": vertex_id,
-        "dst_vid": f"at://{_class_did(isicClassCode)}/ai.gftd.apps.openIsic.class/{isicClassCode}",
+        "dst_vid": f"at://{_class_did(isicClassCode)}/app.etzhayyim.apps.openIsic.class/{isicClassCode}",
         "role": "classifiedAs",
         **audit,
     }, dry_run=dryRun)
@@ -230,7 +230,7 @@ async def task_open_isic_record_concordance(
         return {"ok": False, "error": f"invalid relation: {relation}"}
     if _load_class(isicClassCode) is None:
         return {"ok": False, "error": f"unknown ISIC class: {isicClassCode}"}
-    vertex_id = _vertex_id("ai.gftd.apps.openIsic.concordance", isicClassCode, otherTaxonomy, otherCode, relation)
+    vertex_id = _vertex_id("app.etzhayyim.apps.openIsic.concordance", isicClassCode, otherTaxonomy, otherCode, relation)
     _insert("vertex_open_isic_concordance", {
         "vertex_id": vertex_id,
         "isic_class_code": isicClassCode,

@@ -23,7 +23,7 @@ related:
   - 70-tools/baien-distill/
   - 70-tools/scripts/bench/baien-microbench/microbench.py
   - 70-tools/etzhayyim-cli/bench.go
-  - 90-docs/baien/frontier-bench-snapshot-260523.md
+  - doc-260523-frontier-bench-snapshot
 supersedes: []
 superseded_by: []
 ---

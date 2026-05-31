@@ -1,7 +1,7 @@
 ---
 id: adr-2605232300-yatachain-engine-options-exploration
-title: "ADR-2605232300: yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork)"
-status: proposed
+title: "ADR-2605232300: yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)"
+status: superseded
 doc_type: adr
 topic: yatachain-engine
 authoritative: false
@@ -12,18 +12,19 @@ weight: 0.7
 priority_note: "Exploratory only. No option adopted. Sets up a future authoritative ADR once Council/timeline trade-offs are resolved."
 authoritative_for: []
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605231400-yatachain-holochain-iso-substrate
-  - 2605231500-yatachain-projection
-  - 2605181100-encrypted-records-on-mst
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192200-etzhayyim-ip-free-release-charter-rider
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231500-yatachain-projection
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - 2604241342-risingwave-out-of-band-migration-pattern
-  - 2605171300-magatama-unispsc-langgraph-agents
+  - adr-2604241342-risingwave-out-of-band-migration-pattern
+  - 2605171300
 supersedes: []
-superseded_by: []
+superseded_by:
+  - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605232300: yatachain — engine architecture options exploration
@@ -38,9 +39,9 @@ superseded_by: []
 
 ## Context
 
-[ADR-2605231400](2605231400-yatachain-holochain-iso-substrate.md) は
+[ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md) は
 `yatachain` を Holochain-isomorphic な substrate composition の名称として定義し、
-[ADR-2605231500](2605231500-yatachain-projection.md) は hot-path projection
+[ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md) は hot-path projection
 layer (RW / Lance / Iroh / index) の使用条件を規定した。
 
 しかし **projection layer の具体的な engine 実装** は両 ADR ともオープン。一方で

@@ -28,10 +28,10 @@ import {
   type LawRecord,
 } from "./types.js";
 
-const CASE_COLLECTION = "ai.gftd.hanrei.case";
-const LAW_COLLECTION = "ai.gftd.hanrei.law";
-const GAZETTE_COLLECTION = "ai.gftd.hanrei.gazetteEntry";
-const HUNT_RESULT_COLLECTION = "ai.gftd.hanrei.huntResult";
+const CASE_COLLECTION = "app.etzhayyim.hanrei.case";
+const LAW_COLLECTION = "app.etzhayyim.hanrei.law";
+const GAZETTE_COLLECTION = "app.etzhayyim.hanrei.gazetteEntry";
+const HUNT_RESULT_COLLECTION = "app.etzhayyim.hanrei.huntResult";
 
 const DEFAULT_MAX_SCAN = 10_000;
 const PAGE_LIMIT = 100;

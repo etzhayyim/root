@@ -29,10 +29,10 @@ import { sql } from "kysely";
  *   mv_training_active_serving         current alias → checkpoint
  *
  * Naming: `vertex_id` content-addressed per ADR-0041:
- *   run         = at://did:web:training.etzhayyim.com/ai.gftd.training.run/{run_id}
- *   checkpoint  = at://did:web:training.etzhayyim.com/ai.gftd.training.checkpoint/{run_id}-step-{NNNNNN}
- *   eval        = at://did:web:training.etzhayyim.com/ai.gftd.training.eval/{checkpoint_id}-{bench_name}
- *   dataset     = at://did:web:training.etzhayyim.com/ai.gftd.training.datasetSnapshot/{dataset_name}-{content_hash[:12]}
+ *   run         = at://did:web:training.etzhayyim.com/app.etzhayyim.training.run/{run_id}
+ *   checkpoint  = at://did:web:training.etzhayyim.com/app.etzhayyim.training.checkpoint/{run_id}-step-{NNNNNN}
+ *   eval        = at://did:web:training.etzhayyim.com/app.etzhayyim.training.eval/{checkpoint_id}-{bench_name}
+ *   dataset     = at://did:web:training.etzhayyim.com/app.etzhayyim.training.datasetSnapshot/{dataset_name}-{content_hash[:12]}
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── Vertex: dataset snapshot ──────────────────────────────────────

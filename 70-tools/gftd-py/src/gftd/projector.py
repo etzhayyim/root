@@ -1,7 +1,7 @@
 """projector subcommands — Python port of Go gftd/projector.go (ADR-2605151500).
 
 Calls the projector MCP tool via JSON-RPC 2.0 over HTTPS.
-Auth: GFTD_AGENT_TOKEN env var → Authorization: Bearer {token}.
+Auth: etzhayyim_AGENT_TOKEN env var → Authorization: Bearer {token}.
 MCP endpoint: POST {pds}/mcp
 """
 
@@ -22,7 +22,7 @@ _REQ_ID = 1
 
 
 def _agent_token() -> str | None:
-    return os.environ.get("GFTD_AGENT_TOKEN")
+    return os.environ.get("etzhayyim_AGENT_TOKEN")
 
 
 def _mcp_headers() -> dict[str, str]:
@@ -75,7 +75,7 @@ def projector():
 
 @projector.command("create")
 @click.argument("name")
-@click.option("--org-id", envvar="GFTD_ORG_ID", default=None, help="Organization DID")
+@click.option("--org-id", envvar="etzhayyim_ORG_ID", default=None, help="Organization DID")
 @click.option("--description", "-d", default=None)
 @click.option("--parent-id", default=None)
 @click.option("--target-date", default=None, help="ISO date e.g. 2026-12-31")
@@ -146,7 +146,7 @@ def update(project_id: str, progress: int | None, state: str | None, target_date
 # ── list ───────────────────────────────────────────────────────────────────────
 
 @projector.command("list")
-@click.option("--org-id", envvar="GFTD_ORG_ID", default=None)
+@click.option("--org-id", envvar="etzhayyim_ORG_ID", default=None)
 @click.option("--state", default=None, help="Filter by lifecycle state")
 @click.option("--limit", default=20, show_default=True)
 def list_projects(org_id: str | None, state: str | None, limit: int):

@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adsk-ingest-dataset-v1',
                  'did:web:adsk.etzhayyim.com',
                  'adsk_ingest_dataset',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -97,7 +97,7 @@ UP = [{'sql': '\n'
                  'did:web:adsk.etzhayyim.com',
                  'did:web:adsk.etzhayyim.com',
                  'sys.bpmn.seed.adsk-hf-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adsk-ingest-dataset-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_hf_dataset (\n'
          '      vertex_id, owner_did, sensitivity_ord,\n'
@@ -112,7 +112,7 @@ UP = [{'sql': '\n'
          '      $12, $13, $14, $15\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_hf_dataset WHERE vertex_id = $16)\n'
          '  ',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-100k',
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-100k',
                  'did:web:adsk.etzhayyim.com',
                  'ADSKAILab/Zero-To-CAD-100k',
                  'ADSKAILab',
@@ -127,7 +127,7 @@ UP = [{'sql': '\n'
                  'did:web:adsk.etzhayyim.com',
                  'did:web:adsk.etzhayyim.com',
                  'sys.bpmn.seed.adsk-hf-ingest',
-                 'at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-100k']},
+                 'at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-100k']},
  {'sql': '\n'
          '    INSERT INTO vertex_hf_dataset (\n'
          '      vertex_id, owner_did, sensitivity_ord,\n'
@@ -142,7 +142,7 @@ UP = [{'sql': '\n'
          '      $12, $13, $14, $15\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_hf_dataset WHERE vertex_id = $16)\n'
          '  ',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-1m',
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-1m',
                  'did:web:adsk.etzhayyim.com',
                  'ADSKAILab/Zero-To-CAD-1m',
                  'ADSKAILab',
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
                  'did:web:adsk.etzhayyim.com',
                  'did:web:adsk.etzhayyim.com',
                  'sys.bpmn.seed.adsk-hf-ingest',
-                 'at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-1m']},
+                 'at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-1m']},
  {'sql': '\n'
          '    INSERT INTO vertex_hf_dataset (\n'
          '      vertex_id, owner_did, sensitivity_ord,\n'
@@ -172,7 +172,7 @@ UP = [{'sql': '\n'
          '      $11, $12, $13, $14\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_hf_dataset WHERE vertex_id = $15)\n'
          '  ',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-LLM-narrative-planning-taskset',
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-LLM-narrative-planning-taskset',
                  'did:web:adsk.etzhayyim.com',
                  'ADSKAILab/LLM-narrative-planning-taskset',
                  'ADSKAILab',
@@ -186,7 +186,7 @@ UP = [{'sql': '\n'
                  'did:web:adsk.etzhayyim.com',
                  'did:web:adsk.etzhayyim.com',
                  'sys.bpmn.seed.adsk-hf-ingest',
-                 'at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-LLM-narrative-planning-taskset']},
+                 'at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-LLM-narrative-planning-taskset']},
  {'sql': '\n'
          '    INSERT INTO vertex_hf_dataset (\n'
          '      vertex_id, owner_did, sensitivity_ord,\n'
@@ -201,7 +201,7 @@ UP = [{'sql': '\n'
          '      $12, $13, $14, $15\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_hf_dataset WHERE vertex_id = $16)\n'
          '  ',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-113247-model-anthropic-claude-3-5-sonnet-fewshot-5',
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-113247-model-anthropic-claude-3-5-sonnet-fewshot-5',
                  'did:web:adsk.etzhayyim.com',
                  'ADSKAILab/dsl_icl_eval-2025_01_21_113247_model-anthropic-claude-3.5-sonnet_fewshot-5',
                  'ADSKAILab',
@@ -216,7 +216,7 @@ UP = [{'sql': '\n'
                  'did:web:adsk.etzhayyim.com',
                  'did:web:adsk.etzhayyim.com',
                  'sys.bpmn.seed.adsk-hf-ingest',
-                 'at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-113247-model-anthropic-claude-3-5-sonnet-fewshot-5']},
+                 'at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-113247-model-anthropic-claude-3-5-sonnet-fewshot-5']},
  {'sql': '\n'
          '    INSERT INTO vertex_hf_dataset (\n'
          '      vertex_id, owner_did, sensitivity_ord,\n'
@@ -231,7 +231,7 @@ UP = [{'sql': '\n'
          '      $12, $13, $14, $15\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_hf_dataset WHERE vertex_id = $16)\n'
          '  ',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-112645-model-openai-gpt-4o-2024-11-20-fewshot-5',
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-112645-model-openai-gpt-4o-2024-11-20-fewshot-5',
                  'did:web:adsk.etzhayyim.com',
                  'ADSKAILab/dsl_icl_eval-2025_01_21_112645_model-openai-gpt-4o-2024-11-20_fewshot-5',
                  'ADSKAILab',
@@ -246,20 +246,20 @@ UP = [{'sql': '\n'
                  'did:web:adsk.etzhayyim.com',
                  'did:web:adsk.etzhayyim.com',
                  'sys.bpmn.seed.adsk-hf-ingest',
-                 'at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-112645-model-openai-gpt-4o-2024-11-20-fewshot-5']}]
+                 'at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-112645-model-openai-gpt-4o-2024-11-20-fewshot-5']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_hf_dataset WHERE vertex_id = $1',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-100k']},
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-100k']},
  {'sql': 'DELETE FROM vertex_hf_dataset WHERE vertex_id = $1',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-1m']},
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-Zero-To-CAD-1m']},
  {'sql': 'DELETE FROM vertex_hf_dataset WHERE vertex_id = $1',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-LLM-narrative-planning-taskset']},
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-LLM-narrative-planning-taskset']},
  {'sql': 'DELETE FROM vertex_hf_dataset WHERE vertex_id = $1',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-113247-model-anthropic-claude-3-5-sonnet-fewshot-5']},
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-113247-model-anthropic-claude-3-5-sonnet-fewshot-5']},
  {'sql': 'DELETE FROM vertex_hf_dataset WHERE vertex_id = $1',
-  'parameters': ['at://did:web:adsk.etzhayyim.com/ai.gftd.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-112645-model-openai-gpt-4o-2024-11-20-fewshot-5']},
+  'parameters': ['at://did:web:adsk.etzhayyim.com/app.etzhayyim.apps.adsk.dataset/ADSKAILab-dsl-icl-eval-2025-01-21-112645-model-openai-gpt-4o-2024-11-20-fewshot-5']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adsk-ingest-dataset-v1']}]
 
 
 def upgrade() -> None:

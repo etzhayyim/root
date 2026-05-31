@@ -18,16 +18,16 @@ const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 // ─── Belief Update (R/PT1H) ──────────────────────────────────────────────────
 
 const BELIEF_PROCESS_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-aif-belief-update-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-aif-belief-update-v1";
 const BELIEF_BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-aif-belief-update-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-belief-update-v1";
 
 // ─── Learn Model (R/P1D) ─────────────────────────────────────────────────────
 
 const LEARN_PROCESS_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-aif-learn-model-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-aif-learn-model-v1";
 const LEARN_BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-aif-learn-model-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-learn-model-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── belief update BPMN ──────────────────────────────────────────────────────
@@ -57,7 +57,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT
       ${BELIEF_BINDING_VID}, ${OWNER_DID}, 'rl_aif_belief_update',
-      'ai.gftd.apps.rl.aifUpdateBeliefs',
+      'app.etzhayyim.apps.rl.aifUpdateBeliefs',
       ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${BELIEF_BINDING_VID}
@@ -91,7 +91,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT
       ${LEARN_BINDING_VID}, ${OWNER_DID}, 'rl_aif_learn_model',
-      'ai.gftd.apps.rl.aifLearnModel',
+      'app.etzhayyim.apps.rl.aifLearnModel',
       ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${LEARN_BINDING_VID}

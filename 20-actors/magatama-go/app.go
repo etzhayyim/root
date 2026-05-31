@@ -237,8 +237,8 @@ func (a *App) Command(name string, handler func(*AppContext, []byte) ([]byte, er
 	a.commands = append(a.commands, e)
 	a.methodMap[name] = handler
 	if e.lexiconSuffix != "" {
-		// W Protocol collection routing: ai.gftd.w.{suffix} → command name
-		a.wRoutes["ai.gftd.w."+e.lexiconSuffix] = name
+		// W Protocol collection routing: app.etzhayyim.w.{suffix} → command name
+		a.wRoutes["app.etzhayyim.w."+e.lexiconSuffix] = name
 	}
 	return a
 }
@@ -503,13 +503,13 @@ func (a *App) handleGRPC(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) handleWCommit(commit WCommit) error {
-	// A2A task dispatch — intercept ai.gftd.a2a.task before collection filtering.
+	// A2A task dispatch — intercept app.etzhayyim.a2a.task before collection filtering.
 	if commit.Collection == A2ACollectionTask && commit.Action == "create" {
 		return a.dispatchA2ACommit(commit)
 	}
 
-	// Conversation message dispatch — intercept ai.gftd.a2a.message.
-	if commit.Collection == "ai.gftd.a2a.message" && commit.Action == "create" {
+	// Conversation message dispatch — intercept app.etzhayyim.a2a.message.
+	if commit.Collection == "app.etzhayyim.a2a.message" && commit.Action == "create" {
 		return a.dispatchConversationCommit(commit)
 	}
 
@@ -573,7 +573,7 @@ func (a *App) dispatchA2ACommit(commit WCommit) error {
 
 func (a *App) resolveContext(r *http.Request) *AppContext {
 	authHeader := r.Header.Get("Authorization")
-	orgHeader := r.Header.Get("X-GFTD-ORG-ID")
+	orgHeader := r.Header.Get("X-etzhayyim-ORG-ID")
 	reqIDHeader := r.Header.Get("X-Request-ID")
 
 	orgID := "anon"

@@ -30,7 +30,7 @@ LangServer pod XRPC handler is the next operator task per ADR-2605203000.
 | Vendor (`ipaddress.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
-| `db.insertInto("vertex_ip_asn").values({...}).execute()` | `e.write({ collection: "ai.gftd.apps.ipaddress.asn", record, rkey })` |
+| `db.insertInto("vertex_ip_asn").values({...}).execute()` | `e.write({ collection: "app.etzhayyim.apps.ipaddress.asn", record, rkey })` |
 | `db.selectFrom("vertex_ip_asn").where("number","=",n).execute()` | `e.read({ collection, rkey: \`asn-${n}\` })` |
 | Duplicate check via `.where(...).limit(1)` | rkey-direct read returns `notFound` if missing |
 

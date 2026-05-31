@@ -16,10 +16,10 @@ Apache-2.0.
   `worker/src/classes-index.ts` = 1 cron iteration
 - **Progress**: `IMPLEMENTED_COUNT / TOTAL_CLASSES` in `classes-index.ts`
 - **XRPC**:
-  - `ai.gftd.apps.openCofog.listDivisions`
-  - `ai.gftd.apps.openCofog.listGroups`
-  - `ai.gftd.apps.openCofog.listClasses`
-  - `ai.gftd.apps.openCofog.getClass`
+  - `app.etzhayyim.apps.openCofog.listDivisions`
+  - `app.etzhayyim.apps.openCofog.listGroups`
+  - `app.etzhayyim.apps.openCofog.listClasses`
+  - `app.etzhayyim.apps.openCofog.getClass`
 - **OSS repo**: `github.com/etzhayyim/ai-gftd-project-open-cofog` (Apache-2.0)
 - **Cron**: `*/10 * * * *` for class-by-class implementation (`loop` session)
 

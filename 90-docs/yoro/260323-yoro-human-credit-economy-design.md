@@ -12,7 +12,7 @@ authoritative_for:
   - hc.etzhayyim.com credit integration
 related:
   - yoro-superapp-oembed-design
-  - 260320-murakumo-v2-cf-worker-design
+  - 260320-magatama-cloudflare-containers-evaluation
 supersedes: []
 superseded_by: []
 ---

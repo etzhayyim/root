@@ -37,25 +37,25 @@ const seeds: Seed[] = [
   {
     proc: "aisStreamConsumer",
     bpmnProcessId: "maps_aismarine_consumer",
-    nsid: "ai.gftd.apps.maps.aismarine.aisStreamConsumer",
+    nsid: "app.etzhayyim.apps.maps.aismarine.aisStreamConsumer",
     resultTimeoutMs: 30_000,
   },
   {
     proc: "voyageDetector",
     bpmnProcessId: "maps_aismarine_voyage_detector",
-    nsid: "ai.gftd.apps.maps.aismarine.voyageDetector",
+    nsid: "app.etzhayyim.apps.maps.aismarine.voyageDetector",
     resultTimeoutMs: 240_000,
   },
   {
     proc: "refreshVesselMaster",
     bpmnProcessId: "maps_aismarine_refresh_vessel_master",
-    nsid: "ai.gftd.apps.maps.aismarine.refreshVesselMaster",
+    nsid: "app.etzhayyim.apps.maps.aismarine.refreshVesselMaster",
     resultTimeoutMs: 240_000,
   },
   {
     proc: "refreshVesselDensity",
     bpmnProcessId: "maps_aismarine_refresh_vessel_density",
-    nsid: "ai.gftd.apps.maps.aismarine.refreshVesselDensity",
+    nsid: "app.etzhayyim.apps.maps.aismarine.refreshVesselDensity",
     resultTimeoutMs: 30_000,
   },
 ];
@@ -65,9 +65,9 @@ const sourcePath = (s: Seed) =>
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-aismarine-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-aismarine-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-aismarine-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-aismarine-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

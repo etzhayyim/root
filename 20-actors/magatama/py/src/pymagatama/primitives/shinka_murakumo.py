@@ -23,9 +23,9 @@ Pregel cell topology (ADR-2605215200 §1):
 Super-step flow:
   [cron / kyumeiSignal]
        ↓
-  KarmaHegemonObservationCell  → writes ai.gftd.apps.etzhayyim.shinka.observeAdherent
+  KarmaHegemonObservationCell  → writes app.etzhayyim.apps.etzhayyim.shinka.observeAdherent
        ↓
-  EvolutionValidationCell      → writes ai.gftd.apps.etzhayyim.shinka.validateEvolution
+  EvolutionValidationCell      → writes app.etzhayyim.apps.etzhayyim.shinka.validateEvolution
        ↓
   EvolutionEmissionCell        → writes evolutionEvent to MST + IPFS + Base L2
 
@@ -173,7 +173,7 @@ class ComposeDraft:
     the vendor prompt verbatim.
 
     Stored in EvolutionEventRecord and MST via vertex_shinka_evolution.props.draft
-    (vendor side) or ai.gftd.apps.etzhayyim.evolutionEvent.composeDraft (religious-corp).
+    (vendor side) or app.etzhayyim.apps.etzhayyim.evolutionEvent.composeDraft (religious-corp).
 
     tone is one of: reflective / celebratory / grateful / focused / observational
     (matches vendor _compose_content tone enum, portable).
@@ -211,7 +211,7 @@ class EvolutionClaim:
 
 @dataclass(slots=True)
 class EvolutionEventRecord:
-    """MST record payload for ai.gftd.apps.etzhayyim.evolutionEvent.
+    """MST record payload for app.etzhayyim.apps.etzhayyim.evolutionEvent.
 
     Wire shape is byte-compatible with vendor shinka_tick_actor JSON response
     for interop at Step 8 (ADR-2605215200 §3 compatibility note).
@@ -500,7 +500,7 @@ async def _check_charter_compliance(adherent_did: str) -> str:
 
     Returns one of: "compliant", "pending", "non_aligned", "unknown".
 
-    Queries the canonical lexicon ai.gftd.apps.etzhayyim.charter-compliance
+    Queries the canonical lexicon app.etzhayyim.apps.etzhayyim.charter-compliance
     (ChartersComplianceRegistry attestation records per ADR-2605192100 §1.12).
     Until the Solidity-binding for ChartersComplianceRegistry.sol is wired into
     the SDK (M4+ when sdk.l2 grows contract-read support), this falls back to
@@ -520,7 +520,7 @@ async def _check_charter_compliance(adherent_did: str) -> str:
     """
     try:
         records = await _mst_mod.query(
-            collection="ai.gftd.apps.etzhayyim.charter-compliance",
+            collection="app.etzhayyim.apps.etzhayyim.charter-compliance",
             filter={"subjectDid": adherent_did},
         )
         if not records:
@@ -557,7 +557,7 @@ async def evolution_validation_cell(claim: EvolutionClaim) -> ValidationResult:
     Trigger: mst-listener on app.etzhayyim.shinka.observeAdherent
 
     Attestation query path:
-      Queries ai.gftd.apps.etzhayyim.charter-attestation via
+      Queries app.etzhayyim.apps.etzhayyim.charter-attestation via
       mst.council_attestation_details() with recency filter (WITNESS_RECENCY_DAYS).
       Council Lv6+ status resolved against COUNCIL_LV6_DIDS bootstrap roster
       (ADR-2605192300); live registry NSID TBD.

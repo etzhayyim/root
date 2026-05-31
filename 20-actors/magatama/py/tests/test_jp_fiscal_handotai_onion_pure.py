@@ -89,7 +89,7 @@ def test_jf_contract_vid_contains_ministry():
 
 def test_jf_contract_vid_sanitizes_slashes():
     result = JF._contract_vid("meti", "A/B/C", 1)
-    assert "/" not in result.split("/ai.gftd.apps.jpFiscal.contract/")[1]
+    assert "/" not in result.split("/app.etzhayyim.apps.jpFiscal.contract/")[1]
 
 
 def test_jf_contract_vid_seq_fallback():

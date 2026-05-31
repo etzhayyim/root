@@ -31,7 +31,7 @@ Browser (SuperApp Mobile-First)
 
 ### Transport Rule
 
-- 正規 command contract は Matrix `org.gftd.command.hc.*`
+- 正規 command contract は Matrix `org.etzhayyim.command.hc.*`
 - typed read は XRPC `HCQueryService`
 - この文書時点では notifications は Matrix、business mutation は compatibility endpoint から段階移行対象
 
@@ -118,7 +118,7 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 **二重報酬**: HC タスクは USDC/USDT の直接報酬 + yoro クレジット の両方を受け取る。クレジットは追加インセンティブ。
 
-## Contracts (CRITICAL — 日本法準拠, GFTD 有利設計)
+## Contracts (CRITICAL — 日本法準拠, etzhayyim 有利設計)
 
 **全契約の準拠法は日本法。専属管轄は東京地方裁判所。** 国別ローカライズは各国強行法規の最低限遵守のみ。
 
@@ -126,11 +126,11 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 ### 契約書 4 種
 
-| 契約 | DID | 対象 | GFTD 有利ポイント |
+| 契約 | DID | 対象 | etzhayyim 有利ポイント |
 |---|---|---|---|
 | **Worker Agreement** | `did:web:hc.etzhayyim.com:legal:worker-agreement` | ギグ/タスクワーカー | 成果物 IP 全帰属 (著作権法27条28条含む), 人格権不行使, 免責最大化, 責任上限=直近12ヶ月報酬, 即時アカウント停止権, 競業避止1年, 秘密保持無期限+違約金100万円/件, 規約変更14日 |
-| **SP Service Agreement** | `did:web:hc.etzhayyim.com:legal:sp-service-agreement` | OEM 製造者/工場 | 品質保証義務+瑕疵担保2年は SP 側, 不合格品費用 SP 負担, 納期遅延0.5%/日, PL法負担は SP, 監査権(3営業日通知), 競業避止2年, 秘密保持5年, 一方的解除権(30日), IP 改良は GFTD 帰属 |
-| **Task Terms** | `did:web:hc.etzhayyim.com:legal:task-terms` | マイクロタスク個別 | reject 時報酬なし, auto-approve 期限後の黙示承認, 紛争裁定は GFTD 最終・拘束力あり・不服申立不可, 禁止行為違反で未払報酬没収 |
+| **SP Service Agreement** | `did:web:hc.etzhayyim.com:legal:sp-service-agreement` | OEM 製造者/工場 | 品質保証義務+瑕疵担保2年は SP 側, 不合格品費用 SP 負担, 納期遅延0.5%/日, PL法負担は SP, 監査権(3営業日通知), 競業避止2年, 秘密保持5年, 一方的解除権(30日), IP 改良は etzhayyim 帰属 |
+| **Task Terms** | `did:web:hc.etzhayyim.com:legal:task-terms` | マイクロタスク個別 | reject 時報酬なし, auto-approve 期限後の黙示承認, 紛争裁定は etzhayyim 最終・拘束力あり・不服申立不可, 禁止行為違反で未払報酬没収 |
 | **Shift Terms** | `did:web:hc.etzhayyim.com:legal:shift-terms` | シフトワーク個別 | 当社はマッチングのみ(契約当事者でない), シフト中事故の免責, 即時払い3%手数料, 手数料率変更権 |
 
 ### 国別ローカライズ (13 locale)
@@ -154,7 +154,7 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 ### 設計原則
 
 - **日本法が全契約のデフォルト**: 各国 addendum は強行法規 override のみ
-- **IP は全部 GFTD**: 成果物・改良・発明すべて。報酬に対価含む
+- **IP は全部 etzhayyim**: 成果物・改良・発明すべて。報酬に対価含む
 - **免責は最大化**: AS IS 提供, 間接損害免責, 責任上限あり
 - **解除は当社優位**: 理由不問の即時停止権 (ワーカー), 30日通知の理由不問解除 (SP)
 - **紛争は東京地裁**: 仲裁は米国・中国等の強行法規対応としてのみ追加
@@ -168,7 +168,7 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 ```
 1. SP 申請 → HC `create_sp_application` (基本情報 + 書類)
-   → ai.gftd.apps.hc.sp_application record 作成
+   → app.etzhayyim.apps.hc.sp_application record 作成
    → KYC/KYB verification task 自動生成 (kyc49bb7)
 
 2. KYC/KYB 検証 → HC worker が書類確認タスクを実行
@@ -203,10 +203,10 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 | Kind | AT Lexicon NSID | 用途 |
 |---|---|---|
-| `hc_sp_application` | `ai.gftd.apps.hc.sp_application` | SP 登録申請 |
-| `hc_sp_verification` | `ai.gftd.apps.hc.sp_verification` | KYC/KYB 検証結果 |
-| `hc_sp_audit` | `ai.gftd.apps.hc.sp_audit` | 工場監査結果 |
-| `hc_sp_registration` | `ai.gftd.apps.hc.sp_registration` | tsukuru 登録完了 |
+| `hc_sp_application` | `app.etzhayyim.apps.hc.sp_application` | SP 登録申請 |
+| `hc_sp_verification` | `app.etzhayyim.apps.hc.sp_verification` | KYC/KYB 検証結果 |
+| `hc_sp_audit` | `app.etzhayyim.apps.hc.sp_audit` | 工場監査結果 |
+| `hc_sp_registration` | `app.etzhayyim.apps.hc.sp_registration` | tsukuru 登録完了 |
 
 ### Cross-Project Dependencies
 

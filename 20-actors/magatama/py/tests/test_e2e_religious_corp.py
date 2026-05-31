@@ -247,7 +247,7 @@ async def test_e2e_religious_corp_full_cycle(mock_sdk: dict[str, MagicMock]) -> 
     ]
     mock_sdk["mst"].council_attestation_details = AsyncMock(return_value=mock_attestations)
 
-    # Charter compliance query (ai.gftd.apps.etzhayyim.charter-compliance collection).
+    # Charter compliance query (app.etzhayyim.apps.etzhayyim.charter-compliance collection).
     # _check_charter_compliance uses mst.query with filter={subjectDid: ...}.
     compliance_record = {
         "value": {

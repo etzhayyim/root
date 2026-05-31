@@ -19,13 +19,13 @@ verification.
   - `etzhayyim-root/00-contracts/bpmn/ai/gftd/domain/registerAssist.bpmn`
   - `etzhayyim-root/00-contracts/bpmn/ai/gftd/domain/refreshTldCatalog.bpmn`
 - XRPC lexicons:
-  - `ai.gftd.apps.domain.eligibilityCheck`
-  - `ai.gftd.apps.domain.registerAssist`
+  - `app.etzhayyim.apps.domain.eligibilityCheck`
+  - `app.etzhayyim.apps.domain.registerAssist`
 - Query/catalog lexicons:
-  - `ai.gftd.apps.domain.coverage`
-  - `ai.gftd.apps.domain.getTld`
-  - `ai.gftd.apps.domain.listRegistrars`
-  - `ai.gftd.apps.domain.listTlds`
+  - `app.etzhayyim.apps.domain.coverage`
+  - `app.etzhayyim.apps.domain.getTld`
+  - `app.etzhayyim.apps.domain.listRegistrars`
+  - `app.etzhayyim.apps.domain.listTlds`
 
 ## Graph Model
 

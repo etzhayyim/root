@@ -1,5 +1,5 @@
 /**
- * Re-export from @gftd/ameno package.
+ * Re-export from @etzhayyim/ameno package.
  * @see packages/llm/inference/ameno/src/lora-runtime.ts
  */
 export {
@@ -10,4 +10,4 @@ export {
   type LoraLayerWeights,
   type LoadedLoraAdapter,
   type AdapterMergeSpec,
-} from "@gftd/ameno/lora-runtime";
+} from "@etzhayyim/ameno/lora-runtime";

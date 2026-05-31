@@ -89,7 +89,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-gleif:LegalEntity',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-gleif:LegalEntity',
                  'did:web:maps.etzhayyim.com:registry:gleif',
                  'LegalEntity',
                  2500000,
@@ -105,7 +105,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-jp-nta:LegalEntity',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-jp-nta:LegalEntity',
                  'did:web:maps.etzhayyim.com:registry:jp-nta',
                  'LegalEntity',
                  6000000,
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata:LegalEntity',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata:LegalEntity',
                  'did:web:maps.etzhayyim.com:registry:wikidata',
                  'LegalEntity',
                  500000,
@@ -137,7 +137,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-openaddresses:Place',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-openaddresses:Place',
                  'did:web:maps.etzhayyim.com:registry:openaddresses',
                  'Place',
                  1000000000,
@@ -153,7 +153,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-opencorporates:LegalEntity',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-opencorporates:LegalEntity',
                  'did:web:maps.etzhayyim.com:registry:opencorporates',
                  'LegalEntity',
                  200000000,
@@ -169,7 +169,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-osm:Place',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-osm:Place',
                  'did:web:maps.etzhayyim.com:registry:osm',
                  'Place',
                  50000000,
@@ -185,7 +185,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:Building',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Building',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Building',
                  10000000,
@@ -201,7 +201,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:Airport',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Airport',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Airport',
                  3000,
@@ -217,7 +217,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:Station',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Station',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Station',
                  10000,
@@ -233,7 +233,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:AdminArea',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:AdminArea',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'AdminArea',
                  7800,
@@ -249,7 +249,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/satellite:SatelliteScene',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/satellite:SatelliteScene',
                  'did:web:maps.etzhayyim.com:satellite',
                  'SatelliteScene',
                  500000,
@@ -265,7 +265,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/gtfs:BusRoute',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/gtfs:BusRoute',
                  'did:web:maps.etzhayyim.com:gtfs',
                  'BusRoute',
                  50000,

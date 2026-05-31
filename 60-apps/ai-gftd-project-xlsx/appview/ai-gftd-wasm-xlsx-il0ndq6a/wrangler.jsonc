@@ -17,9 +17,9 @@
     "APP_CAPABILITIES": "[\"workbook-management\",\"sheet-editing\",\"workbook-search\"]",
     "APP_DESCRIPTION": "Excel editor — upload, edit spreadsheets with formula evaluation, and export XLSX workbooks.",
     "APP_DISPLAY_NAME": "XLSX Editor",
-    "APP_EMBED_URL": "https://il0ndq6a.gftd.ai/embed",
+    "APP_EMBED_URL": "https://il0ndq6a.etzhayyim.com/embed",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "APP_NANOID": "il0ndq6a",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"
@@ -34,12 +34,12 @@
   ],
   "routes": [
     {
-      "pattern": "il0ndq6a.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "il0ndq6a.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "xlsx.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "xlsx.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

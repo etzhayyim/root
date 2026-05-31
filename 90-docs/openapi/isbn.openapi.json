@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.isbn.coverage": {
+    "/xrpc/app.etzhayyim.isbn.coverage": {
       "get": {
         "summary": "Coverage report — books per language / jurisdiction / PD ratio.",
-        "operationId": "ai.gftd.isbn.coverage",
+        "operationId": "app.etzhayyim.isbn.coverage",
         "parameters": [
           {
             "name": "groupBy",
@@ -63,10 +63,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isbn.list": {
+    "/xrpc/app.etzhayyim.isbn.list": {
       "get": {
         "summary": "List books with optional language / registration group / source / PD filter.",
-        "operationId": "ai.gftd.isbn.list",
+        "operationId": "app.etzhayyim.isbn.list",
         "parameters": [
           {
             "name": "language",
@@ -161,10 +161,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isbn.lookup": {
+    "/xrpc/app.etzhayyim.isbn.lookup": {
       "get": {
         "summary": "Lookup a book by ISBN-13 / ISBN-10.",
-        "operationId": "ai.gftd.isbn.lookup",
+        "operationId": "app.etzhayyim.isbn.lookup",
         "parameters": [
           {
             "name": "isbn",

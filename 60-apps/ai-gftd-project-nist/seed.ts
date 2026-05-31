@@ -13,20 +13,20 @@ const PROJECT_ID = 'nist';
 
 // ── Helpers ──
 
-// ADR-0023 P4: use GFTD_TOKEN (sk_live_*) Bearer instead of spoofable
-// x-magatama-verified header. Required: `export GFTD_TOKEN=$(gftd auth token)`.
-const GFTD_TOKEN = process.env.GFTD_TOKEN;
-if (!GFTD_TOKEN) {
-  throw new Error('GFTD_TOKEN env var required — run `export GFTD_TOKEN=$(gftd auth token)` first');
+// ADR-0023 P4: use etzhayyim_TOKEN (sk_live_*) Bearer instead of spoofable
+// x-magatama-verified header. Required: `export etzhayyim_TOKEN=$(gftd auth token)`.
+const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
+if (!etzhayyim_TOKEN) {
+  throw new Error('etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first');
 }
 const INTERNAL_HEADERS = {
   'Content-Type': 'application/json',
-  'Authorization': `Bearer ${GFTD_TOKEN}`,
+  'Authorization': `Bearer ${etzhayyim_TOKEN}`,
   'x-gftd-org-id': 'anon',
 };
 
 async function actorCreate(did: string, displayName: string, description: string): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/ai.gftd.actor.create`, {
+  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.actor.create`, {
     method: 'POST',
     headers: INTERNAL_HEADERS,
     body: JSON.stringify({ did, projectId: PROJECT_ID, displayName, description, hasWorker: false }),
@@ -66,7 +66,7 @@ async function registerApp(body: Record<string, unknown>): Promise<void> {
 }
 
 async function toolRegister(tool: Record<string, unknown>): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/ai.gftd.tool.register`, {
+  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.tool.register`, {
     method: 'POST',
     headers: INTERNAL_HEADERS,
     body: JSON.stringify(tool),
@@ -595,7 +595,7 @@ async function main(): Promise<void> {
   for (const t of TOOLS) {
     await toolRegister({ ...t, capabilityWorker: NANOID });
     // Grant to root actor
-    await fetch(`${PDS}/xrpc/ai.gftd.actor.grantTool`, {
+    await fetch(`${PDS}/xrpc/app.etzhayyim.actor.grantTool`, {
       method: 'POST', headers: INTERNAL_HEADERS,
       body: JSON.stringify({ actorDid: ROOT_DID, toolName: t.name }),
     });
@@ -611,46 +611,46 @@ async function main(): Promise<void> {
 
   // 2. CSF Functions
   console.log('\n── 2. CSF Functions (6) ──');
-  await batchRecords('ai.gftd.apps.nist.csfFunction', CSF_FUNCTIONS.map(f => ({
+  await batchRecords('app.etzhayyim.apps.nist.csfFunction', CSF_FUNCTIONS.map(f => ({
     ...f, version: '2.0', ownerDid: `${ROOT_DID}:csf:${f.code === 'GV' ? 'govern' : f.code === 'ID' ? 'identify' : f.code === 'PR' ? 'protect' : f.code === 'DE' ? 'detect' : f.code === 'RS' ? 'respond' : 'recover'}`,
   })));
 
   // 3. CSF Categories
   console.log('\n── 3. CSF Categories (22) ──');
-  await batchRecords('ai.gftd.apps.nist.csfCategory', CSF_CATEGORIES.map(c => ({ ...c })));
+  await batchRecords('app.etzhayyim.apps.nist.csfCategory', CSF_CATEGORIES.map(c => ({ ...c })));
 
   // 4. CSF Subcategories
   console.log(`\n── 4. CSF Subcategories (${CSF_SUBCATEGORIES.length}) ──`);
-  await batchRecords('ai.gftd.apps.nist.csfSubcategory', CSF_SUBCATEGORIES.map(s => ({ ...s, version: '2.0' })));
+  await batchRecords('app.etzhayyim.apps.nist.csfSubcategory', CSF_SUBCATEGORIES.map(s => ({ ...s, version: '2.0' })));
 
   // 5. Tier Gap (106 subcategories × 6 dimensions = 636)
   const tierGaps = buildTierGaps();
   console.log(`\n── 5. Tier 3→4 Gap Records (${tierGaps.length}) ──`);
-  await batchRecords('ai.gftd.apps.nist.tierGap', tierGaps);
+  await batchRecords('app.etzhayyim.apps.nist.tierGap', tierGaps);
 
   // 6. CMMC Families
   console.log('\n── 6. CMMC Families (14) ──');
-  await batchRecords('ai.gftd.apps.nist.cmmcFamily', CMMC_FAMILIES.map(f => ({
+  await batchRecords('app.etzhayyim.apps.nist.cmmcFamily', CMMC_FAMILIES.map(f => ({
     ...f, level: 2, framework: 'CMMC_2.0', ownerDid: `${ROOT_DID}:cmmc:level2`,
   })));
 
   // 7. CMMC Practices
   const practices = buildCmmcPractices();
   console.log(`\n── 7. CMMC L2 Practices (${practices.length}) ──`);
-  await batchRecords('ai.gftd.apps.nist.cmmcPractice', practices);
+  await batchRecords('app.etzhayyim.apps.nist.cmmcPractice', practices);
 
   // 8. CMMC→CSF Mappings
   const mappings = buildCmmcCsfMappings();
   console.log(`\n── 8. CMMC→CSF Mappings (${mappings.length}) ──`);
-  await batchRecords('ai.gftd.apps.nist.cmmcCsfMapping', mappings);
+  await batchRecords('app.etzhayyim.apps.nist.cmmcCsfMapping', mappings);
 
   // 9. SP 1302 Community Profiles
   console.log(`\n── 9. SP 1302 Community Profiles (${COMMUNITY_PROFILES.length}) ──`);
-  await batchRecords('ai.gftd.apps.nist.communityProfile', COMMUNITY_PROFILES);
+  await batchRecords('app.etzhayyim.apps.nist.communityProfile', COMMUNITY_PROFILES);
 
   // 10. CSF 1.1→2.0 Migration Records
   console.log(`\n── 10. CSF 1.1→2.0 Migration (${CSF_V1_V2_MIGRATIONS.length}) ──`);
-  await batchRecords('ai.gftd.apps.nist.csfMigration', CSF_V1_V2_MIGRATIONS.map(m => ({
+  await batchRecords('app.etzhayyim.apps.nist.csfMigration', CSF_V1_V2_MIGRATIONS.map(m => ({
     ...m, ownerDid: `${ROOT_DID}:migration:v1to2`, sourceVersion: '1.1', targetVersion: '2.0',
   })));
 

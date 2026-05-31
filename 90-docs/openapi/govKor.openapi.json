@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govKor.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govKor.followSiteDeps": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govKor.followSiteDeps",
+        "operationId": "app.etzhayyim.govKor.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -46,10 +46,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKor.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govKor.heartbeatTick": {
       "post": {
         "summary": "Run the South Korea government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govKor.heartbeatTick",
+        "operationId": "app.etzhayyim.govKor.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -132,10 +132,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKor.ingestOfficialSources": {
+    "/xrpc/app.etzhayyim.govKor.ingestOfficialSources": {
       "post": {
         "summary": "Queue official South Korea government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "ai.gftd.govKor.ingestOfficialSources",
+        "operationId": "app.etzhayyim.govKor.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -198,10 +198,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKor.listOrgs": {
+    "/xrpc/app.etzhayyim.govKor.listOrgs": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govKor.listOrgs",
+        "operationId": "app.etzhayyim.govKor.listOrgs",
         "parameters": [],
         "responses": {
           "200": {
@@ -220,10 +220,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKor.registerDIDs": {
+    "/xrpc/app.etzhayyim.govKor.registerDIDs": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govKor.registerDIDs",
+        "operationId": "app.etzhayyim.govKor.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -256,10 +256,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKor.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govKor.resolveOrgPath": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govKor.resolveOrgPath",
+        "operationId": "app.etzhayyim.govKor.resolveOrgPath",
         "parameters": [],
         "responses": {
           "200": {
@@ -278,10 +278,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKor.seedOrgs": {
+    "/xrpc/app.etzhayyim.govKor.seedOrgs": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govKor.seedOrgs",
+        "operationId": "app.etzhayyim.govKor.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -314,10 +314,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKor.shinka": {
+    "/xrpc/app.etzhayyim.govKor.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible South Korea government organization update.",
-        "operationId": "ai.gftd.govKor.shinka",
+        "operationId": "app.etzhayyim.govKor.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -368,10 +368,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKor.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govKor.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated South Korea government organization content.",
-        "operationId": "ai.gftd.govKor.syncWetUpdates",
+        "operationId": "app.etzhayyim.govKor.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -12,7 +12,7 @@ import { Kysely, sql } from 'kysely';
  *
  * Columns align with records emitted by
  *   60-apps/ai-gftd-project-gmail/appview/ai-gftd-wasm-gmail-gm4il0x1/src/app.ts
- * via collection NSIDs ai.gftd.apps.gmail.{account,thread,email,contact,syncJob,
+ * via collection NSIDs app.etzhayyim.apps.gmail.{account,thread,email,contact,syncJob,
  * outboundEmail,accountBinding,phishingAlert,labelAction,triageResult}.
  *
  * Private text fields (subject, snippet, body_preview, to/cc/bcc) are

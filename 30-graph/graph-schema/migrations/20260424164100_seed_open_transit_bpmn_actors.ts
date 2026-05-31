@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-transit.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-transit";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-transit-define-route-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-transit-define-route-v1",
     bpmnProcessId: "open_transit_define_route",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-transit/defineRoute.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-transit-report-delay-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-transit-report-delay-v1",
     bpmnProcessId: "open_transit_report_delay",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-transit/reportDelay.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-transit-defineRoute-v1",
-    nsid: "ai.gftd.apps.openTransit.defineRoute", bpmnProcessId: "open_transit_define_route",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-transit-defineRoute-v1",
+    nsid: "app.etzhayyim.apps.openTransit.defineRoute", bpmnProcessId: "open_transit_define_route",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-transit-reportDelay-v1",
-    nsid: "ai.gftd.apps.openTransit.reportDelay", bpmnProcessId: "open_transit_report_delay",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-transit-reportDelay-v1",
+    nsid: "app.etzhayyim.apps.openTransit.reportDelay", bpmnProcessId: "open_transit_report_delay",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

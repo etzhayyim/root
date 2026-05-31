@@ -26,11 +26,43 @@ class State(TypedDict, total=False):
     quarantine_status: str
     transport_permit_id: str
     species_verified: bool
+    # Stage D learning loop (per ADR-2605232100): the unispsc-capabilities
+    # wrapper injects prior observations + a computed consensus when this
+    # actor has been invoked before. Reading these is opt-in — see
+    # verify_health() for the canonical "prior shortcut" pattern.
+    _prior_observations: list[dict]
+    _prior_consensus: dict
 
 
 def verify_health(state: State) -> dict[str, Any]:
-    """Inspects health certification records for the live animal."""
+    """Inspects health certification records for the live animal.
+
+    Stage D learning loop (ADR-2605232100 §A): if the wrapper has provided
+    a `_prior_consensus` field with high confidence (≥80% dominant outcome)
+    over ≥3 outcomes and the current input matches at least one prior, lean
+    on the prior consensus instead of re-running the full check. This is
+    the canonical "actor reads its priors" reference impl — other UNSPSC
+    actors can adopt the same pattern by reading `state["_prior_consensus"]`.
+    """
     inp = state.get("input") or {}
+    consensus = state.get("_prior_consensus") or {}
+    confidence = consensus.get("confidence_permille", 0) if isinstance(consensus, dict) else 0
+    outcome_count = consensus.get("outcome_count", 0) if isinstance(consensus, dict) else 0
+    input_matches = consensus.get("input_match_count", 0) if isinstance(consensus, dict) else 0
+    dominant = consensus.get("dominant_status") if isinstance(consensus, dict) else None
+
+    if outcome_count >= 3 and confidence >= 800 and input_matches >= 1 and dominant == "authorized":
+        # Prior-informed shortcut: history strongly suggests this input
+        # leads to authorization. Skip the cert lookup and proceed.
+        return {
+            "log": [
+                f"{UNISPSC_CODE}:verify_health:prior_shortcut"
+                f"(conf={confidence}/1000,n={outcome_count},matches={input_matches})"
+            ],
+            "health_certified": True,
+            "species_verified": "species" in inp,
+        }
+
     health_data = inp.get("health_data", {})
     is_certified = health_data.get("certified", False)
     return {

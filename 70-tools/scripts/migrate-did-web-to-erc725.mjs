@@ -9,7 +9,7 @@
  *   1. Computes seedHash = keccak256("gftd-account:migrate:" || did:web)
  *   2. POSTs to authz `/internal/provision-root-identity` with
  *      `{ stableId: "migrate:" + did, label: did, facadeDids: [did] }`.
- *      authz deploys a fresh `GftdRootIdentity` contract on chain 260425
+ *      authz deploys a fresh `etzhayyimRootIdentity` contract on chain 260425
  *      and follows up with `linkFacade` so the legacy DID resolves to the
  *      new identity via `resolveFacade(keccak256(did))`.
  *   3. Logs `(did:web → did:erc725, identityAddress, txHash)` per account.

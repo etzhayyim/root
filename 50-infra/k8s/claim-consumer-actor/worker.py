@@ -21,7 +21,7 @@ import uvicorn
 LOG = logging.getLogger("claim-consumer-actor")
 OWNER_DID = "did:web:claim.etzhayyim.com"
 CONSUMER_FAMILY = "claim-consumer"
-CLAIM_COLLECTION = "ai.gftd.claim.stakedAttestation"
+CLAIM_COLLECTION = "app.etzhayyim.claim.stakedAttestation"
 
 FRAUD_SYSTEM_PROMPT = (
     "You are a fraud detector for staked claims on the gftd network. "
@@ -191,7 +191,7 @@ def persist_witness_alarms(alarms: list[dict[str, Any]]) -> int:
             for alarm in alarms:
                 claim_id = clean(alarm["claim_id"])
                 rkey = f"claim-witness-{claim_id[2:18] if claim_id.startswith('0x') else claim_id[:16]}-{int(time.time() * 1000)}"
-                attest_vid = f"at://{OWNER_DID}/ai.gftd.monitor.attestation/{rkey}"
+                attest_vid = f"at://{OWNER_DID}/app.etzhayyim.monitor.attestation/{rkey}"
                 cur.execute(
                     """
                     INSERT INTO vertex_yoro_monitor_attestation

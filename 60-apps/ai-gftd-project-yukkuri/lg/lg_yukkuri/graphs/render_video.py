@@ -1,11 +1,11 @@
 """yukkuri `renderVideo` graph — timeline JSON → dougaka render pod → mp4.
 
-NSID: ai.gftd.apps.yukkuri.renderVideo
+NSID: app.etzhayyim.apps.yukkuri.renderVideo
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:renderer
 
 Calls lg-dougaka (ComfyUI image-per-scene + ffmpeg mux render service).
-  POST {DOUGAKA_XRPC_URL}/xrpc/ai.gftd.apps.dougaka.render
+  POST {DOUGAKA_XRPC_URL}/xrpc/app.etzhayyim.apps.dougaka.render
     {videoId: "...", timeline: {...}}
   → {blobKey: "...", blobUrl: "..."}
 
@@ -133,7 +133,7 @@ async def _node_render(state: _State) -> dict[str, Any]:
     try:
         async with httpx.AsyncClient(timeout=_RENDER_TIMEOUT) as client:
             r = await client.post(
-                f"{_DOUGAKA_XRPC_URL}/xrpc/ai.gftd.apps.dougaka.render",
+                f"{_DOUGAKA_XRPC_URL}/xrpc/app.etzhayyim.apps.dougaka.render",
                 json={"video_id": video_id, "timeline": json.loads(state["timeline_json"])},
                 headers={"Content-Type": "application/json"},
             )

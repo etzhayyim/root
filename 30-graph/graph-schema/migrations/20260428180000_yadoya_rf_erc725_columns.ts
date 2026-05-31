@@ -17,8 +17,8 @@ import { sql } from "kysely";
 // Columns are nullable. Backfill is performed by
 // `30-graph/graph-schema/scripts/migrate-rw-erc725-root.mjs --did
 // did:web:yadoya.etzhayyim.com` (and resource-flow) once the corresponding
-// `GftdRootIdentity` contracts are deployed and registered in
-// `GftdRootIdentityRegistry`. Until then, callers continue to use
+// `etzhayyimRootIdentity` contracts are deployed and registered in
+// `etzhayyimRootIdentityRegistry`. Until then, callers continue to use
 // the facade DID columns and observe NULL on the root columns.
 
 const TABLES = [

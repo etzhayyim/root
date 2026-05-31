@@ -74,15 +74,15 @@ Permission set は **Lexicon JSON schema** (`type: "permission-set"`) で定義�
 
 | Lexicon NSID | Title | nsAuthority | File |
 |---|---|---|---|
-| `ai.gftd.auth.authFull` | Full W Protocol Access | `ai.gftd.` | `auth/authFull.json` |
-| `ai.gftd.convo.authConversation` | Conversations | `ai.gftd.convo.` | `convo/authConversation.json` |
-| `ai.gftd.projector.authProjectManagement` | Project Management | `ai.gftd.projector.` | `projector/authProjectManagement.json` |
-| `ai.gftd.signal.authEncryption` | Encryption & Signal Protocol | `ai.gftd.signal.` | `signal/authEncryption.json` |
-| `ai.gftd.rtc.authCommunication` | Real-Time Communication | `ai.gftd.rtc.` | `rtc/authCommunication.json` |
-| `ai.gftd.kagami.authGraph` | Graph Database | `ai.gftd.kagami.` | `kagami/authGraph.json` |
-| `ai.gftd.governance.authGovernance` | Governance & Access Control | `ai.gftd.governance.` | `governance/authGovernance.json` |
-| `ai.gftd.actor.authActorManagement` | Actor Management | `ai.gftd.actor.` | `actor/authActorManagement.json` |
-| `ai.gftd.pds.authPlatform` | PDS Platform | `ai.gftd.pds.` | `pds/authPlatform.json` |
+| `app.etzhayyim.auth.authFull` | Full W Protocol Access | `app.etzhayyim.` | `auth/authFull.json` |
+| `app.etzhayyim.convo.authConversation` | Conversations | `app.etzhayyim.convo.` | `convo/authConversation.json` |
+| `app.etzhayyim.projector.authProjectManagement` | Project Management | `app.etzhayyim.projector.` | `projector/authProjectManagement.json` |
+| `app.etzhayyim.signal.authEncryption` | Encryption & Signal Protocol | `app.etzhayyim.signal.` | `signal/authEncryption.json` |
+| `app.etzhayyim.rtc.authCommunication` | Real-Time Communication | `app.etzhayyim.rtc.` | `rtc/authCommunication.json` |
+| `app.etzhayyim.kagami.authGraph` | Graph Database | `app.etzhayyim.kagami.` | `kagami/authGraph.json` |
+| `app.etzhayyim.governance.authGovernance` | Governance & Access Control | `app.etzhayyim.governance.` | `governance/authGovernance.json` |
+| `app.etzhayyim.actor.authActorManagement` | Actor Management | `app.etzhayyim.actor.` | `actor/authActorManagement.json` |
+| `app.etzhayyim.pds.authPlatform` | PDS Platform | `app.etzhayyim.pds.` | `pds/authPlatform.json` |
 
 Bluesky compat (TS-only, Lexicon JSON なし):
 
@@ -98,9 +98,9 @@ Bluesky compat (TS-only, Lexicon JSON なし):
 Permission set は **自身の NSID namespace 以下のみ** 参照可能。`nsAuthorityCovers()` で enforce。
 
 ```
-ai.gftd.convo.authConversation → ai.gftd.convo.* のみ grant 可能
-ai.gftd.auth.authFull          → ai.gftd.* 全体を grant 可能
-ai.gftd.actor.authActorManagement → ai.gftd.actor.* + ai.gftd.dmn.* + ai.gftd.form.* (共通親 ai.gftd.)
+app.etzhayyim.convo.authConversation → app.etzhayyim.convo.* のみ grant 可能
+app.etzhayyim.auth.authFull          → app.etzhayyim.* 全体を grant 可能
+app.etzhayyim.actor.authActorManagement → app.etzhayyim.actor.* + app.etzhayyim.dmn.* + app.etzhayyim.form.* (共通親 app.etzhayyim.)
 ```
 
 ### Lexicon JSON Format
@@ -108,7 +108,7 @@ ai.gftd.actor.authActorManagement → ai.gftd.actor.* + ai.gftd.dmn.* + ai.gftd.
 ```json
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.authConversation",
+  "id": "app.etzhayyim.convo.authConversation",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -117,8 +117,8 @@ ai.gftd.actor.authActorManagement → ai.gftd.actor.* + ai.gftd.dmn.* + ai.gftd.
       "detail": "Create, send, and manage conversations.",
       "detail:lang": { "ja": "会話の作成・送信・管理" },
       "permissions": [
-        { "type": "permission", "resource": "repo", "collection": ["ai.gftd.convo.*"], "action": ["create", "update", "delete"] },
-        { "type": "permission", "resource": "rpc", "lxm": ["ai.gftd.convo.*"] }
+        { "type": "permission", "resource": "repo", "collection": ["app.etzhayyim.convo.*"], "action": ["create", "update", "delete"] },
+        { "type": "permission", "resource": "rpc", "lxm": ["app.etzhayyim.convo.*"] }
       ]
     }
   }
@@ -133,9 +133,9 @@ AT Protocol scope string format (spec 準拠):
 atproto                                          — base scope
 transition:chat.bsky                             — Bluesky DM
 transition:generic                               — transitional
-include:ai.gftd.convo.authConversation           — permission set
+include:app.etzhayyim.convo.authConversation           — permission set
 repo:com.atproto.repo.createRecord?collection=app.bsky.feed.post — resource scope
-rpc?aud=did:web:test.etzhayyim.com&lxm=ai.gftd.pds.getProfile        — rpc scope
+rpc?aud=did:web:test.etzhayyim.com&lxm=app.etzhayyim.pds.getProfile        — rpc scope
 blob?accept=image/*                              — blob (standalone only)
 account?action=manage                            — account (standalone only)
 identity:manage                                  — identity (standalone only)
@@ -150,7 +150,7 @@ identity:manage                                  — identity (standalone only)
 | `chat.bsky.*` | `transition:chat.bsky` |
 | その他すべて | `atproto` |
 
-Override 例外: `ai.gftd.projector.sendProjectMessage` → `atproto` (chat.bsky.convo と混在する dispatch のため)
+Override 例外: `app.etzhayyim.projector.sendProjectMessage` → `atproto` (chat.bsky.convo と混在する dispatch のため)
 
 ## Codegen Pipeline
 

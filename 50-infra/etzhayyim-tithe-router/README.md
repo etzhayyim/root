@@ -23,7 +23,7 @@
   → SDK: TitheRouter.route(recipient, 100 USDC, keccak256("donation"))
         ├─ usdc.transferFrom(donor, publicFund, 10 USDC)
         └─ usdc.transferFrom(donor, recipient, 90 USDC)
-  → SDK: MST: emit ai.gftd.apps.payment.sent + ai.gftd.apps.payment.tithe records
+  → SDK: MST: emit app.etzhayyim.apps.payment.sent + app.etzhayyim.apps.payment.tithe records
 ```
 
 ## v0 deploy quirk
@@ -55,7 +55,7 @@ forge script script/DeployReligiousCorp.s.sol:DeployReligiousCorp \
 
 ## Pregel cell
 
-[`20-actors/magatama/cells/tithe_routing/`](../../20-actors/magatama/cells/tithe_routing/) — MST listener on `ai.gftd.apps.payment.sent` records, validates `route()` was invoked correctly + alerts on SDK bypass.
+[`20-actors/magatama/cells/tithe_routing/`](../../20-actors/magatama/cells/tithe_routing/) — MST listener on `app.etzhayyim.apps.payment.sent` records, validates `route()` was invoked correctly + alerts on SDK bypass.
 
 ## Lexicon
 

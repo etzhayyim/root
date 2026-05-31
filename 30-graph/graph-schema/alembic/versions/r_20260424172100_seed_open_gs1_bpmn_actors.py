@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gs1-register-gtin-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gs1-register-gtin-v1',
                  'did:web:open-gs1.etzhayyim.com',
                  'open_gs1_register_gtin',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -86,7 +86,7 @@ UP = [{'sql': '\n'
                  'did:web:open-gs1.etzhayyim.com',
                  'did:web:open-gs1.etzhayyim.com',
                  'sys.bpmn.seed.open-gs1',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gs1-register-gtin-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gs1-register-gtin-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gs1-map-to-unspsc-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gs1-map-to-unspsc-v1',
                  'did:web:open-gs1.etzhayyim.com',
                  'open_gs1_map_to_unspsc',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -158,7 +158,7 @@ UP = [{'sql': '\n'
                  'did:web:open-gs1.etzhayyim.com',
                  'did:web:open-gs1.etzhayyim.com',
                  'sys.bpmn.seed.open-gs1',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gs1-map-to-unspsc-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gs1-map-to-unspsc-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -166,16 +166,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gs1-registerGtin-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gs1-registerGtin-v1',
                  'did:web:open-gs1.etzhayyim.com',
-                 'ai.gftd.apps.openGs1.registerGtin',
+                 'app.etzhayyim.apps.openGs1.registerGtin',
                  'open_gs1_register_gtin',
                  15000,
                  '2026-04-24T17:30:00Z',
                  'did:web:open-gs1.etzhayyim.com',
                  'did:web:open-gs1.etzhayyim.com',
                  'sys.bpmn.seed.open-gs1',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gs1-registerGtin-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gs1-registerGtin-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -183,25 +183,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gs1-mapToUnspsc-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gs1-mapToUnspsc-v1',
                  'did:web:open-gs1.etzhayyim.com',
-                 'ai.gftd.apps.openGs1.mapToUnspsc',
+                 'app.etzhayyim.apps.openGs1.mapToUnspsc',
                  'open_gs1_map_to_unspsc',
                  15000,
                  '2026-04-24T17:30:00Z',
                  'did:web:open-gs1.etzhayyim.com',
                  'did:web:open-gs1.etzhayyim.com',
                  'sys.bpmn.seed.open-gs1',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gs1-mapToUnspsc-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gs1-mapToUnspsc-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gs1-registerGtin-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gs1-registerGtin-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-gs1-mapToUnspsc-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gs1-mapToUnspsc-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gs1-register-gtin-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gs1-register-gtin-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-gs1-map-to-unspsc-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gs1-map-to-unspsc-v1']}]
 
 
 def upgrade() -> None:

@@ -5,11 +5,11 @@ Do not edit by hand; regenerate from the training artifact.
 """
 from __future__ import annotations
 
-MODEL = {'schema': 'ai.gftd.apps.hume.studentTextExpressionModel.v1',
+MODEL = {'schema': 'app.etzhayyim.apps.hume.studentTextExpressionModel.v1',
  'createdAt': '2026-04-29T11:09:50.981Z',
  'algorithm': 'tfidf_emotion_centroid',
  'teacher': {'provider': 'hume', 'api': 'expression-measurement', 'sunset': '2026-06-14'},
- 'outputSchema': 'ai.gftd.apps.hume.normalizedExpression.v1',
+ 'outputSchema': 'app.etzhayyim.apps.hume.normalizedExpression.v1',
  'vocab': ['about',
            'action',
            'afraid',

@@ -19,7 +19,7 @@
     "APP_VERSION": "0.1.0",
     "BLUESKY_APPVIEW": "https://public.api.bsky.app",
     "INGEST_ENABLED": "1",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "assets": {
     "directory": "./svelte/.svelte-kit/cloudflare/client",

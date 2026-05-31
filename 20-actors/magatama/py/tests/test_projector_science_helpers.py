@@ -212,7 +212,7 @@ def test_build_system_prompt_limits_memory_to_5() -> None:
 def test_vid_format() -> None:
     vid = SK._vid("sciKnowledge", "periodicElement", "H")
     assert vid.startswith("at://did:web:sciKnowledge.etzhayyim.com/")
-    assert "ai.gftd.apps.sciKnowledge.periodicElement" in vid
+    assert "app.etzhayyim.apps.sciKnowledge.periodicElement" in vid
     assert vid.endswith("/H")
 
 

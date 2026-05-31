@@ -127,9 +127,9 @@ def _insert_run(state: SupplychainState, status: str, summary: dict[str, Any] | 
             _now_iso() if status != "running" else None,
             status,
             json.dumps(summary or {}, ensure_ascii=False, sort_keys=True),
-            "ai.gftd.apps.supplychain.pregelRun",
+            "app.etzhayyim.apps.supplychain.pregelRun",
             _ACTOR_DID,
-            "did:web:gftd.co.jp",
+            "did:web:etzhayyim.com",
         ),
     )
 
@@ -356,9 +356,9 @@ def _upsert_company_exposures(exposures: list[dict[str, Any]], run_id: str) -> i
                 json.dumps([{"source": "pregel_propagation", "runId": run_id}], ensure_ascii=False),
                 "Review alternate material suppliers and qualification pipeline.",
                 "active",
-                "ai.gftd.apps.supplychain.companyExposure",
+                "app.etzhayyim.apps.supplychain.companyExposure",
                 _ACTOR_DID,
-                "did:web:gftd.co.jp",
+                "did:web:etzhayyim.com",
             ),
         )
         if ok:
@@ -515,9 +515,9 @@ def write_signals(state: SupplychainState) -> dict[str, Any]:
                 "Qualify additional material suppliers and increase safety stock.",
                 "pending",
                 _now_iso(),
-                "ai.gftd.apps.supplychain.notificationSignal",
+                "app.etzhayyim.apps.supplychain.notificationSignal",
                 _ACTOR_DID,
-                "did:web:gftd.co.jp",
+                "did:web:etzhayyim.com",
             ),
         )
         if ok:

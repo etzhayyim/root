@@ -28,8 +28,8 @@ describe("Seed open-isco BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openIsco.classifyWorker"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openIsco.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openIsco.classifyWorker"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openIsco.recordConcordance"');
   });
 
   it("uses open-isco-specific actor_id + owner_did", () => {

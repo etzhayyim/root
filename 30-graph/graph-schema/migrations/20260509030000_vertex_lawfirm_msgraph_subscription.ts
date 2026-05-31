@@ -21,7 +21,7 @@ const ownerDid = "did:web:lawfirm.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-msgraph-subscription-renew-tick-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-msgraph-subscription-renew-tick-v1",
   bpmnProcessId: "lawfirm_msgraph_subscription_renew_tick",
   sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/msGraphSubscriptionRenewTick.bpmn",
 };

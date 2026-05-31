@@ -15,22 +15,22 @@
   "vars": {
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"oauth-redirect\"]",
     "APP_DESCRIPTION": "Thin edge facade; Google Drive OAuth and sync run in BPMN + Zeebe Python",
-    "APP_DISPLAY_NAME": "GFTD Drive",
-    "APP_EMBED_URL": "https://dr1v3st0.gftd.ai/?embed=1",
+    "APP_DISPLAY_NAME": "etzhayyim Drive",
+    "APP_EMBED_URL": "https://dr1v3st0.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "APP_NANOID": "dr1v3st0",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"
   },
   "routes": [
     {
-      "pattern": "dr1v3st0.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "dr1v3st0.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "drive.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "drive.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

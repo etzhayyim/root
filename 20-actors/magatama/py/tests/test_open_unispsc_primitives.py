@@ -31,7 +31,7 @@ async def test_open_unispsc_commodity_runs_hierarchy_business_logic():
     assert commodity["parentCode"] == "432115"
     assert commodity["businessLogic"]["approvalTier"] == "standard"
     assert commodity["businessLogic"]["totalAmount"] == 2000
-    assert commodity["mcpTool"] == "ai.gftd.apps.openUnispsc.commodity"
+    assert commodity["mcpTool"] == "app.etzhayyim.apps.openUnispsc.commodity"
 
 
 @pytest.mark.asyncio
@@ -64,26 +64,26 @@ async def test_mcp_dispatch_registers_open_unispsc_hierarchy_tools():
 
     handlers = build_default_handlers()
     for name in [
-        "ai.gftd.apps.openUnispsc.segment",
-        "ai.gftd.apps.openUnispsc.family",
-        "ai.gftd.apps.openUnispsc.class",
-        "ai.gftd.apps.openUnispsc.commodity",
-        "ai.gftd.apps.openUnispsc.designItem",
-        "ai.gftd.apps.openUnispsc.itemGetSpec",
-        "ai.gftd.apps.openUnispsc.itemScreenSupplier",
-        "ai.gftd.apps.openUnispsc.itemPlanProcurement",
-        "ai.gftd.apps.openUnispsc.itemFlagCompliance",
-        "ai.gftd.apps.openUnispsc.syncCatalogItem",
-        "ai.gftd.apps.openUnispsc.planCatalogPurchase",
-        "ai.gftd.apps.openUnispsc.syncAllCommodityDids",
-        "ai.gftd.apps.openUnispsc.importSegmentCatalog",
-        "ai.gftd.apps.openUnispsc.supplier",
-        "ai.gftd.apps.openUnispsc.procurement",
-        "ai.gftd.apps.openUnispsc.flagArmsCommodity",
-        "ai.gftd.apps.openUnispsc.flagDualUseCommodity",
-        "ai.gftd.apps.openUnispsc.applyGraphWritePlan",
-        "ai.gftd.apps.openUnispsc.runItemWorkflow",
-        "ai.gftd.apps.openUnispsc.coverageSnapshot",
+        "app.etzhayyim.apps.openUnispsc.segment",
+        "app.etzhayyim.apps.openUnispsc.family",
+        "app.etzhayyim.apps.openUnispsc.class",
+        "app.etzhayyim.apps.openUnispsc.commodity",
+        "app.etzhayyim.apps.openUnispsc.designItem",
+        "app.etzhayyim.apps.openUnispsc.itemGetSpec",
+        "app.etzhayyim.apps.openUnispsc.itemScreenSupplier",
+        "app.etzhayyim.apps.openUnispsc.itemPlanProcurement",
+        "app.etzhayyim.apps.openUnispsc.itemFlagCompliance",
+        "app.etzhayyim.apps.openUnispsc.syncCatalogItem",
+        "app.etzhayyim.apps.openUnispsc.planCatalogPurchase",
+        "app.etzhayyim.apps.openUnispsc.syncAllCommodityDids",
+        "app.etzhayyim.apps.openUnispsc.importSegmentCatalog",
+        "app.etzhayyim.apps.openUnispsc.supplier",
+        "app.etzhayyim.apps.openUnispsc.procurement",
+        "app.etzhayyim.apps.openUnispsc.flagArmsCommodity",
+        "app.etzhayyim.apps.openUnispsc.flagDualUseCommodity",
+        "app.etzhayyim.apps.openUnispsc.applyGraphWritePlan",
+        "app.etzhayyim.apps.openUnispsc.runItemWorkflow",
+        "app.etzhayyim.apps.openUnispsc.coverageSnapshot",
     ]:
         assert name in handlers
 
@@ -91,7 +91,7 @@ async def test_mcp_dispatch_registers_open_unispsc_hierarchy_tools():
         {
             "method": "tools/call",
             "params": {
-                "name": "ai.gftd.apps.openUnispsc.class",
+                "name": "app.etzhayyim.apps.openUnispsc.class",
                 "arguments": {"code": "432115", "dryRun": True},
             },
         },
@@ -104,9 +104,9 @@ async def test_mcp_dispatch_registers_open_unispsc_hierarchy_tools():
     scoped_handlers = build_actor_handlers({"openUnispsc"})
     assert set(scoped_handlers) == {
         name for name in handlers
-        if name.startswith("ai.gftd.apps.openUnispsc.")
+        if name.startswith("app.etzhayyim.apps.openUnispsc.")
     }
-    assert all(name.startswith("ai.gftd.apps.openUnispsc.") for name in scoped_handlers)
+    assert all(name.startswith("app.etzhayyim.apps.openUnispsc.") for name in scoped_handlers)
 
 
 @pytest.mark.asyncio
@@ -119,7 +119,7 @@ async def test_open_unispsc_design_item_uses_bpmn_and_langchain_contract():
     )
 
     assert result["ok"] is True
-    assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.designItem"
+    assert result["mcpTool"] == "app.etzhayyim.apps.openUnispsc.designItem"
     assert result["langgraph_design"]["graphId"] == "open_unispsc_item_25172504"
     assert "procurement_plan" in result["langgraph_design"]["nodes"]
     assert "supplier_screen" in result["langgraph_design"]["nodes"]
@@ -154,7 +154,7 @@ async def test_open_unispsc_item_get_spec_is_executable_contract():
 
     assert result["ok"] is True
     assert result["operation"] == "getSpec"
-    assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.itemGetSpec"
+    assert result["mcpTool"] == "app.etzhayyim.apps.openUnispsc.itemGetSpec"
     assert result["specTemplate"]["quality"] == ["standards", "certifications", "inspectionCriteria"]
     assert result["langgraphDesign"]["graphId"] == "open_unispsc_item_25172504"
     assert result["langchainPrompt"]["framework"] == "langchain"
@@ -225,9 +225,9 @@ async def test_open_unispsc_sync_catalog_item_maps_to_okaimono_catalog_contract(
     )
 
     assert result["ok"] is True
-    assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.syncCatalogItem"
-    assert result["sourceCollection"] == "ai.gftd.apps.unispsc.commodity"
-    assert result["catalogCollection"] == "ai.gftd.apps.okaimono.catalogItem"
+    assert result["mcpTool"] == "app.etzhayyim.apps.openUnispsc.syncCatalogItem"
+    assert result["sourceCollection"] == "app.etzhayyim.apps.unispsc.commodity"
+    assert result["catalogCollection"] == "app.etzhayyim.apps.okaimono.catalogItem"
     assert result["catalogRkey"] == "unispsc-43211501"
     assert result["catalogItem"] == {
         "product_id": "unispsc-43211501",
@@ -242,7 +242,7 @@ async def test_open_unispsc_sync_catalog_item_maps_to_okaimono_catalog_contract(
         "active": True,
     }
     assert result["atprotoWritePlan"]["mode"] == "deterministic-upsert"
-    assert result["atprotoWritePlan"]["collection"] == "ai.gftd.apps.okaimono.catalogItem"
+    assert result["atprotoWritePlan"]["collection"] == "app.etzhayyim.apps.okaimono.catalogItem"
     assert result["classificationEdge"]["role"] == "CLASSIFIED_BY"
 
 
@@ -261,7 +261,7 @@ async def test_open_unispsc_plan_catalog_purchase_invokes_segment_item_spec():
     )
 
     assert result["ok"] is True
-    assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.planCatalogPurchase"
+    assert result["mcpTool"] == "app.etzhayyim.apps.openUnispsc.planCatalogPurchase"
     assert result["commodityCode"] == "43211501"
     assert result["orderLine"] == {
         "orderId": "order-001",
@@ -274,7 +274,7 @@ async def test_open_unispsc_plan_catalog_purchase_invokes_segment_item_spec():
     assert result["procurementInvocation"] == {
         "step": "procurement-find-offers",
         "targetActorDid": "did:web:unispsc.etzhayyim.com:seg43",
-        "mcpTool": "ai.gftd.apps.openUnispsc.itemGetSpec",
+        "mcpTool": "app.etzhayyim.apps.openUnispsc.itemGetSpec",
         "arguments": {"commodityCode": "43211501"},
     }
     assert result["fulfillmentPlan"]["step"] == "fulfillment-create-shipment"
@@ -299,7 +299,7 @@ async def test_open_unispsc_sync_all_commodity_dids_plans_segment_fanout():
     )
 
     assert result["ok"] is True
-    assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.syncAllCommodityDids"
+    assert result["mcpTool"] == "app.etzhayyim.apps.openUnispsc.syncAllCommodityDids"
     assert result["dryRun"] is True
     assert result["segmentCount"] == 2
     assert result["batchSize"] == 250
@@ -328,7 +328,7 @@ async def test_open_unispsc_import_segment_catalog_plans_bulk_okaimono_import():
     )
 
     assert result["ok"] is True
-    assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.importSegmentCatalog"
+    assert result["mcpTool"] == "app.etzhayyim.apps.openUnispsc.importSegmentCatalog"
     assert result["segment"] == "46"
     assert result["importCommand"] == "import-unispsc-segment"
     assert result["sourceQuery"] == {
@@ -338,8 +338,8 @@ async def test_open_unispsc_import_segment_catalog_plans_bulk_okaimono_import():
         "pageSize": 750,
     }
     assert result["importPlan"]["mode"] == "bulk-query-to-catalog-upsert"
-    assert result["importPlan"]["transformTool"] == "ai.gftd.apps.openUnispsc.syncCatalogItem"
-    assert result["importPlan"]["targetCollection"] == "ai.gftd.apps.okaimono.catalogItem"
+    assert result["importPlan"]["transformTool"] == "app.etzhayyim.apps.openUnispsc.syncCatalogItem"
+    assert result["importPlan"]["targetCollection"] == "app.etzhayyim.apps.okaimono.catalogItem"
 
 
 @pytest.mark.asyncio
@@ -358,9 +358,9 @@ async def test_open_unispsc_supplier_matches_bpmn_lexicon_tool():
     assert result["ok"] is True
     assert result["riskTier"] == "blocked"
     assert result["bpmnProcessId"] == "open_unispsc_supplier"
-    assert result["vertexId"].startswith("at://did:web:unispsc.etzhayyim.com/ai.gftd.apps.openUnispsc.supplier/")
+    assert result["vertexId"].startswith("at://did:web:unispsc.etzhayyim.com/app.etzhayyim.apps.openUnispsc.supplier/")
     assert result["instanceKey"] > 0
-    assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.supplier"
+    assert result["mcpTool"] == "app.etzhayyim.apps.openUnispsc.supplier"
     assert result["status"] == "blocked"
     write_plan = result["graphWritePlan"]
     assert write_plan["mode"] == "deterministic-upsert"
@@ -388,7 +388,7 @@ async def test_open_unispsc_procurement_matches_bpmn_lexicon_tool():
     assert result["approvalTier"] == "department"
     assert result["requireCab"] is False
     assert result["bpmnProcessId"] == "open_unispsc_procurement"
-    assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.procurement"
+    assert result["mcpTool"] == "app.etzhayyim.apps.openUnispsc.procurement"
     assert result["status"] == "submitted"
     write_plan = result["graphWritePlan"]
     assert write_plan["mode"] == "deterministic-upsert"
@@ -430,14 +430,14 @@ async def test_open_unispsc_direct_flag_tools_match_bpmn_lexicons():
 
     assert arms["ok"] is True
     assert arms["bpmnProcessId"] == "open_unispsc_flag_arms_commodity"
-    assert arms["mcpTool"] == "ai.gftd.apps.openUnispsc.flagArmsCommodity"
+    assert arms["mcpTool"] == "app.etzhayyim.apps.openUnispsc.flagArmsCommodity"
     assert arms["graphWritePlan"]["operation"] == "upsertOpenUnispscArmsDefenceEvent"
     assert arms["graphWritePlan"]["rows"][0]["table"] == "vertex_open_defence_event"
     assert arms["graphWritePlan"]["rows"][0]["record"]["action_class"] == "commodity.arms"
     assert arms["graphWritePlan"]["rows"][0]["record"]["commodity_code"] == "46101501"
     assert dual["ok"] is True
     assert dual["bpmnProcessId"] == "open_unispsc_flag_dual_use_commodity"
-    assert dual["mcpTool"] == "ai.gftd.apps.openUnispsc.flagDualUseCommodity"
+    assert dual["mcpTool"] == "app.etzhayyim.apps.openUnispsc.flagDualUseCommodity"
     assert dual["graphWritePlan"]["operation"] == "upsertOpenUnispscDualUseDefenceEvent"
     assert dual["graphWritePlan"]["rows"][0]["record"]["action_class"] == "commodity.dualUse"
 
@@ -466,7 +466,7 @@ async def test_open_unispsc_apply_graph_write_plan_validates_and_previews_sql():
     assert result["dryRun"] is True
     assert result["validatedRows"] == 2
     assert result["appliedRows"] == 0
-    assert result["mcpTool"] == "ai.gftd.apps.openUnispsc.applyGraphWritePlan"
+    assert result["mcpTool"] == "app.etzhayyim.apps.openUnispsc.applyGraphWritePlan"
     assert result["sqlStatements"][0]["sql"].startswith("INSERT INTO vertex_open_unispsc_procurement")
     assert "ON CONFLICT (vertex_id)" in result["sqlStatements"][0]["sql"]
     assert result["sqlStatements"][1]["sql"].startswith("INSERT INTO edge_open_unispsc_procurement_commodity")
@@ -540,7 +540,7 @@ async def test_open_unispsc_run_item_workflow_merges_all_graph_plans():
     )
 
     assert workflow["ok"] is True
-    assert workflow["mcpTool"] == "ai.gftd.apps.openUnispsc.runItemWorkflow"
+    assert workflow["mcpTool"] == "app.etzhayyim.apps.openUnispsc.runItemWorkflow"
     assert workflow["workflowStatus"] == "manual-review"
     assert workflow["summary"]["supplierRiskTier"] == "approved"
     assert workflow["summary"]["requireCab"] is True
@@ -600,9 +600,9 @@ async def test_open_unispsc_coverage_snapshot_reports_complete_contract_surface(
     assert result["alembicReferencesUpSql"] is True
     assert result["alembicReferencesDownSql"] is True
     nsids = {tool["nsid"] for tool in result["tools"]}
-    assert "ai.gftd.apps.openUnispsc.runItemWorkflow" in nsids
-    assert "ai.gftd.apps.openUnispsc.coverageSnapshot" in nsids
-    workflow = next(tool for tool in result["tools"] if tool["nsid"] == "ai.gftd.apps.openUnispsc.runItemWorkflow")
+    assert "app.etzhayyim.apps.openUnispsc.runItemWorkflow" in nsids
+    assert "app.etzhayyim.apps.openUnispsc.coverageSnapshot" in nsids
+    workflow = next(tool for tool in result["tools"] if tool["nsid"] == "app.etzhayyim.apps.openUnispsc.runItemWorkflow")
     assert workflow["handlerFunctionPresent"] is True
     assert workflow["handlerRegistered"] is True
     assert workflow["lexiconPresent"] is True

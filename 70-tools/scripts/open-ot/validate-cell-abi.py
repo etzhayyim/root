@@ -5,7 +5,7 @@ Walks `60-apps/ai-gftd-project-open-ot/cells/*/manifest.json` and
 `00-contracts/lexicons/ai/gftd/apps/openOt/*.json` and verifies:
 
 - All Lexicon files load as valid JSON.
-- Lexicon `id` field matches the filename: `ai.gftd.apps.openOt.<basename>`.
+- Lexicon `id` field matches the filename: `app.etzhayyim.apps.openOt.<basename>`.
 - No `type: "number"` anywhere in Lexicon (root CLAUDE.md guardrail —
   AT Lexicon prohibits float at the wire boundary).
 - No inline `items: { "type": "object" }` in Lexicon — array-of-object
@@ -60,7 +60,7 @@ def check_lexicon(path: Path) -> list[str]:
     except json.JSONDecodeError as exc:
         return [f"{path.name}: invalid JSON: {exc}"]
 
-    expected_id = f"ai.gftd.apps.openOt.{path.stem}"
+    expected_id = f"app.etzhayyim.apps.openOt.{path.stem}"
     if data.get("id") != expected_id:
         errs.append(f"{path.name}: id={data.get('id')!r} != {expected_id!r}")
 

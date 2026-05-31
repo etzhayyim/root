@@ -9,7 +9,7 @@
     "smoke": "curl -s https://ses.etzhayyim.com/health"
   },
   "dependencies": {
-    "@gftd/magatama-host-sdk": "workspace:*",
+    "@etzhayyim/magatama-host-sdk": "workspace:*",
     "hono": "^4.6.0"
   },
   "devDependencies": {

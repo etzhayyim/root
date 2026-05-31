@@ -7,7 +7,7 @@ import {
   sql,
   withCapabilityTags,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 import {
   findSeedPartner,
   listSeedPartners,
@@ -112,7 +112,7 @@ async function insertInsatsuEdge(
 }
 
 async function writeRecord(_sdk: HostSDK, collection: string, record: Record<string, unknown>): Promise<void> {
-  // Derive table name from last NSID segment: ai.gftd.apps.insatsu.printPartner → vertex_insatsu_print_partner
+  // Derive table name from last NSID segment: app.etzhayyim.apps.insatsu.printPartner → vertex_insatsu_print_partner
   const kind = collection.split(".").pop() ?? collection;
   const tableName = `vertex_insatsu_${camelToSnake(kind)}`;
   const rkey = String(record.jobId ?? record.slug ?? nowISO());
@@ -130,7 +130,7 @@ async function writeRecord(_sdk: HostSDK, collection: string, record: Record<str
   const db = createKyselyDb();
   await db.insertInto(tableName as any).values(row as any).execute();
 
-  if (collection === "ai.gftd.apps.insatsu.printMailJob") {
+  if (collection === "app.etzhayyim.apps.insatsu.printMailJob") {
     const partnerDid = typeof record.partnerDid === "string" ? record.partnerDid : "";
     if (partnerDid) {
       const partner = await db
@@ -272,7 +272,7 @@ async function cmdRegisterPrintPartner(sdk: HostSDK, payload: Uint8Array): Promi
     downstreamActorDid: str(args.downstream_actor_did) || null,
   };
 
-  await writeRecord(sdk, "ai.gftd.apps.insatsu.printPartner", record);
+  await writeRecord(sdk, "app.etzhayyim.apps.insatsu.printPartner", record);
   return out({ status: "registered", partnerDid, slug });
 }
 
@@ -368,7 +368,7 @@ async function cmdCreatePrintMailJob(sdk: HostSDK, payload: Uint8Array): Promise
   let downstreamDispatch: Record<string, unknown> | null = null;
   let status = quote.downstreamActorDid ? "dispatched" : "queued";
   if (quote.downstreamActorDid === YUUBIN_DID && destinationCountry === "JPN") {
-    downstreamDispatch = invoke(sdk, YUUBIN_DID, "ai.gftd.apps.yuubin.composeAndPost", {
+    downstreamDispatch = invoke(sdk, YUUBIN_DID, "app.etzhayyim.apps.yuubin.composeAndPost", {
       url: documentUrl,
       subject: str(args.subject),
       caseId: str(args.case_id),
@@ -406,7 +406,7 @@ async function cmdCreatePrintMailJob(sdk: HostSDK, payload: Uint8Array): Promise
     downstreamDispatch,
     createdAt: nowISO(),
   };
-  await writeRecord(sdk, "ai.gftd.apps.insatsu.printMailJob", record);
+  await writeRecord(sdk, "app.etzhayyim.apps.insatsu.printMailJob", record);
 
   return out({
     jobId,
@@ -440,43 +440,43 @@ async function cmdListPrintMailJobs(_sdk: HostSDK, payload: Uint8Array): Promise
 export default createWorkerExport((sdk) => {
   sdk.app
     .command(
-      nsid("ai.gftd.apps.insatsu.printPartner.registerPrintPartner"),
+      nsid("app.etzhayyim.apps.insatsu.printPartner.registerPrintPartner"),
       async (_c, body) => cmdRegisterPrintPartner(sdk, body),
       asAgentTool("Register a regional print partner in the insatsu network."),
       withCapabilityTags("print-partner", "write")
     )
     .command(
-      nsid("ai.gftd.apps.insatsu.printPartner.getPrintPartner"),
+      nsid("app.etzhayyim.apps.insatsu.printPartner.getPrintPartner"),
       async (_c, body) => cmdGetPrintPartner(sdk, body),
       asAgentTool("Resolve a cloud print partner by slug or actor DID."),
       withCapabilityTags("print-partner", "read")
     )
     .command(
-      nsid("ai.gftd.apps.insatsu.printPartner.listPrintPartners"),
+      nsid("app.etzhayyim.apps.insatsu.printPartner.listPrintPartners"),
       async (_c, body) => cmdListPrintPartners(sdk, body),
       asAgentTool("List cloud print partners by region and capability."),
       withCapabilityTags("print-partner", "read")
     )
     .command(
-      nsid("ai.gftd.apps.insatsu.printMailJob.quotePrintMailJob"),
+      nsid("app.etzhayyim.apps.insatsu.printMailJob.quotePrintMailJob"),
       async (_c, body) => cmdQuotePrintMailJob(sdk, body),
       asAgentTool("Quote and route a print-and-mail job."),
       withCapabilityTags("print-mail-job", "read")
     )
     .command(
-      nsid("ai.gftd.apps.insatsu.printMailJob.createPrintMailJob"),
+      nsid("app.etzhayyim.apps.insatsu.printMailJob.createPrintMailJob"),
       async (_c, body) => cmdCreatePrintMailJob(sdk, body),
       asAgentTool("Create a print-and-mail job and dispatch downstream when possible."),
       withCapabilityTags("print-mail-job", "write")
     )
     .command(
-      nsid("ai.gftd.apps.insatsu.printMailJob.getPrintMailJob"),
+      nsid("app.etzhayyim.apps.insatsu.printMailJob.getPrintMailJob"),
       async (_c, body) => cmdGetPrintMailJob(sdk, body),
       asAgentTool("Get a cloud print-and-mail job by ID."),
       withCapabilityTags("print-mail-job", "read")
     )
     .command(
-      nsid("ai.gftd.apps.insatsu.printMailJob.listPrintMailJobs"),
+      nsid("app.etzhayyim.apps.insatsu.printMailJob.listPrintMailJobs"),
       async (_c, body) => cmdListPrintMailJobs(sdk, body),
       asAgentTool("List cloud print-and-mail jobs."),
       withCapabilityTags("print-mail-job", "read")

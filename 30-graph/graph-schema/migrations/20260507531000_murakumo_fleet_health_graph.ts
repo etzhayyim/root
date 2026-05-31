@@ -9,11 +9,11 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const ownerDid = "did:web:murakumo.etzhayyim.com";
 const createdAt = "2026-05-07T06:31:00Z";
-const nsid = "ai.gftd.apps.murakumo.fleetHealthCheck";
+const nsid = "app.etzhayyim.apps.murakumo.fleetHealthCheck";
 const bpmnProcessId = "murakumo_fleet_health_check";
 const sourcePath = "00-contracts/bpmn/ai/gftd/murakumo/fleetHealthCheck.bpmn";
-const processVid = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/murakumo-fleet-health-check-v1";
-const bindingVid = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/murakumo-fleet-health-check-v1";
+const processVid = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/murakumo-fleet-health-check-v1";
+const bindingVid = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/murakumo-fleet-health-check-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`

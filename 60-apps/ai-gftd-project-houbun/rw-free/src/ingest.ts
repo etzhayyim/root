@@ -37,7 +37,7 @@ import {
   type IngestTreatyUnOutput,
 } from "./types.js";
 
-const INGEST_RUN_COLLECTION = "ai.gftd.houbun.ingestRun";
+const INGEST_RUN_COLLECTION = "app.etzhayyim.houbun.ingestRun";
 
 function ingestRunRkey(runId: string): string {
   return `ingestrun-${idSlug(runId)}`;

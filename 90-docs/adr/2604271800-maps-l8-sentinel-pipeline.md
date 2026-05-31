@@ -63,7 +63,7 @@ Start (timer R/PT24H)
   → Task_StacSearch       (maps.sentinel.stac.search)
   → Gateway_HasScenes     (XOR; skip when 0 hits)
   → Task_PersistScenes    (generic.db.insert, multi-instance over rows)
-  → Task_Audit            (generic.audit.emit "ai.gftd.apps.maps.sentinel.ingest")
+  → Task_Audit            (generic.audit.emit "app.etzhayyim.apps.maps.sentinel.ingest")
   → End
 ```
 
@@ -76,13 +76,13 @@ Start (timer R/PT24H)
 - LangChain in primitive: prompt → STAC `POST /search` → JSON parse →
   filter cloud cover < 30% (S-2) / orbit pass (S-1).
 - Persist to `vertex_repo_record` (collection
-  `ai.gftd.apps.maps.satelliteScene`, no schema migration required).
+  `app.etzhayyim.apps.maps.satelliteScene`, no schema migration required).
   Phase 2 (separate ADR) promotes to a typed `vertex_satellite_scene`.
 
 ### 2. `sentinelAnalyze.bpmn` — XRPC-triggered
 
 ```
-Start (XRPC POST ai.gftd.apps.maps.sentinelAnalyze)
+Start (XRPC POST app.etzhayyim.apps.maps.sentinelAnalyze)
   → Task_LoadScene        (generic.db.select vertex_repo_record by scene URI)
   → Task_RunpodAnalyze    (maps.sentinel.runpod.analyze)
   → Task_PersistResult    (generic.db.insert vertex_repo_record)
@@ -144,7 +144,7 @@ LangChain + Sentinel SDK Python deps land in the existing
 ### 6. Graph projection
 
 Phase 1: writes use `vertex_repo_record` with collection
-`ai.gftd.apps.maps.satelliteScene` and `…satelliteAnalysis`. Avoids a
+`app.etzhayyim.apps.maps.satelliteScene` and `…satelliteAnalysis`. Avoids a
 RisingWave DDL during the recovery-sensitive Vultr+B2 cluster window
 (see CLAUDE.md "RisingWave Smooth Scaling Gate").
 
@@ -195,7 +195,7 @@ cluster footprint is back inside RW license caps.
 | PR #1151 | ✅ `safe-deploy-and-fix-settler-ws` → `main` |
 
 Persistence: Phase 1 BPMNs write to `vertex_repo_record` (collection
-`ai.gftd.apps.maps.satelliteScene` / `…satelliteAnalysis`). No DDL
+`app.etzhayyim.apps.maps.satelliteScene` / `…satelliteAnalysis`). No DDL
 change required; the `generic.db.insert` task type is already wired.
 
 ### ✅ Phase 2 DDL pre-staged

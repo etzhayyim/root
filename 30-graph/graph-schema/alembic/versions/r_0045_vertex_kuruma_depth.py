@@ -334,7 +334,7 @@ UP = [{'sql': 'CREATE TABLE IF NOT EXISTS vertex_kuruma_model (\n'
          '      CAST(NULL AS VARCHAR) AS country,\n'
          '      COUNT(*)::BIGINT AS dealer_count\n'
          '    FROM vertex_repo_record\n'
-         "    WHERE collection = 'ai.gftd.apps.car_dealer.dealer'\n"
+         "    WHERE collection = 'app.etzhayyim.apps.car_dealer.dealer'\n"
          "      AND repo = 'did:web:kuruma.etzhayyim.com'\n"
          "    GROUP BY SPLIT_PART(SPLIT_PART(repo, '.etzhayyim.com', 1), 'did:web:', 2)",
   'parameters': []}]

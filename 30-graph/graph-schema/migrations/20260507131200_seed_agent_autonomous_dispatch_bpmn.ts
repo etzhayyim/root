@@ -14,11 +14,11 @@ const ACTOR_ID = "sys.bpmn.seed.agent-autonomous-dispatch";
 
 const ENTRY = {
   processVid:
-    "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1",
+    "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1",
   bindingVid:
-    "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1",
+    "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1",
   bpmnProcessId: "agent_realworld_autonomous_dispatch",
-  nsid: "ai.gftd.apps.agent.planRealWorldDispatch",
+  nsid: "app.etzhayyim.apps.agent.planRealWorldDispatch",
   sourcePath: "00-contracts/bpmn/ai/gftd/agent/realWorldAutonomousDispatch.bpmn",
   writeTableAllowlist:
     "vertex_agent_realworld_effect,vertex_agent_observation,vertex_agent_dispatch_ledger",

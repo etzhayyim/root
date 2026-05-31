@@ -3,7 +3,7 @@
     {
       "hash": "0xf6e0d0081df6c4da9835780b49e14f9b9a1e55fb3d7e039a50e389a2d28f2896",
       "transactionType": "CREATE",
-      "contractName": "GftdRootIdentityRegistry",
+      "contractName": "etzhayyimRootIdentityRegistry",
       "contractAddress": "0x11405300fb75c5cdd665b9c0ef445f8e312e3ee8",
       "function": null,
       "arguments": [
@@ -23,7 +23,7 @@
     {
       "hash": "0xd18bd3c144c4821e0c0a93b7f696d2d687fc257590b370126b273fe4e1907b8f",
       "transactionType": "CREATE",
-      "contractName": "GftdAgentRegistry",
+      "contractName": "etzhayyimAgentRegistry",
       "contractAddress": "0xca3480eddafa39c9377b83eeb18291286c8cb865",
       "function": null,
       "arguments": [

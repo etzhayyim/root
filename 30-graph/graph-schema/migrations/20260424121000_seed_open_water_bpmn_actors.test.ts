@@ -28,8 +28,8 @@ describe("Seed open-water BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openWater.defineMain"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openWater.reportLeak"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openWater.defineMain"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openWater.reportLeak"');
   });
 
   it("uses open-water-specific actor_id + owner_did", () => {

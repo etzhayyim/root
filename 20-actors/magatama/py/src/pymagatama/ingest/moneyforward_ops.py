@@ -166,7 +166,7 @@ def issue_invoice(
     total = subtotal + tax_amount
     number = invoiceNumber or f"INV-{int(time.time())}"
     rkey = _slug(number)
-    vertex_id = _vid(owner_did, "ai.gftd.apps.seikyu.invoice", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.seikyu.invoice", rkey)
     period_from = (period or {}).get("from", "")[:10] if isinstance(period, dict) else None
     period_to = (period or {}).get("to", "")[:10] if isinstance(period, dict) else None
     inserted = _insert_if_missing(
@@ -186,7 +186,7 @@ def issue_invoice(
     )
     return {
         "invoiceDid": vertex_id,
-        "uri": _uri(owner_did, "ai.gftd.apps.seikyu.invoice", rkey),
+        "uri": _uri(owner_did, "app.etzhayyim.apps.seikyu.invoice", rkey),
         "subtotal": subtotal,
         "taxAmount": tax_amount,
         "total": total,
@@ -230,7 +230,7 @@ def record_payment_received(
     if not invoice:
         return {"error": "invoice not found"}
     rkey = _slug(f"{invoiceDid}-{paymentDate or today()}-{reference or int(time.time())}")
-    vertex_id = _vid(invoice["owner_did"], "ai.gftd.apps.seikyu.paymentReceived", rkey)
+    vertex_id = _vid(invoice["owner_did"], "app.etzhayyim.apps.seikyu.paymentReceived", rkey)
     _insert_if_missing(
         "vertex_atrecord_seikyu_payment_received",
         vertex_id,
@@ -300,7 +300,7 @@ def draft_agreement(
     if not counterpartyDid or not title or not effectiveFrom or not pdfCid:
         return {"error": "counterpartyDid, title, effectiveFrom, pdfCid required"}
     rkey = _slug(f"{title}-{int(time.time())}")
-    vertex_id = _vid(owner_did, "ai.gftd.apps.keiyaku.agreement", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.keiyaku.agreement", rkey)
     _insert_if_missing(
         "vertex_atrecord_keiyaku_agreement",
         vertex_id,
@@ -316,7 +316,7 @@ def draft_agreement(
         ),
     )
     if recurringAmount:
-        schedule_id = _vid(owner_did, "ai.gftd.apps.seikyu.recurringSchedule", _slug(rkey))
+        schedule_id = _vid(owner_did, "app.etzhayyim.apps.seikyu.recurringSchedule", _slug(rkey))
         _insert_if_missing(
             "vertex_atrecord_seikyu_recurring_schedule",
             schedule_id,
@@ -329,14 +329,14 @@ def draft_agreement(
                 currency or "JPY", recurringFrequency or "monthly", effectiveFrom[:10], now_iso(),
             ),
         )
-    return {"agreementDid": vertex_id, "uri": _uri(owner_did, "ai.gftd.apps.keiyaku.agreement", rkey)}
+    return {"agreementDid": vertex_id, "uri": _uri(owner_did, "app.etzhayyim.apps.keiyaku.agreement", rkey)}
 
 
 def submit_for_signature(agreementDid: str = "", signerDid: str = "", **_: Any) -> dict[str, Any]:
     agreement = _fetch_one("SELECT owner_did FROM vertex_atrecord_keiyaku_agreement WHERE vertex_id=%s", (agreementDid,))
     if not agreement:
         return {"error": "agreement not found"}
-    flow_id = _vid(agreement["owner_did"], "ai.gftd.apps.keiyaku.signingFlow", _slug(f"{agreementDid}-{signerDid}-{int(time.time())}"))
+    flow_id = _vid(agreement["owner_did"], "app.etzhayyim.apps.keiyaku.signingFlow", _slug(f"{agreementDid}-{signerDid}-{int(time.time())}"))
     _insert_if_missing(
         "vertex_atrecord_keiyaku_signing_flow",
         flow_id,
@@ -372,7 +372,7 @@ def create_project(owner: str = "", customerDid: str = "", projectCode: str = ""
     if not projectCode or not projectName or not startDate:
         return {"error": "projectCode, projectName, startDate required"}
     rkey = _slug(projectCode)
-    vertex_id = _vid(owner_did, "ai.gftd.apps.kousuu.project", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.kousuu.project", rkey)
     _insert_if_missing(
         "vertex_atrecord_kousuu_project",
         vertex_id,
@@ -381,7 +381,7 @@ def create_project(owner: str = "", customerDid: str = "", projectCode: str = ""
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'active',%s)""",
         (vertex_id, _next_seq("vertex_atrecord_kousuu_project"), owner_did, customerDid or None, projectCode, projectName, budgetHours, budgetCostJpy, startDate[:10], endDate[:10] if endDate else None, now_iso()),
     )
-    return {"projectDid": vertex_id, "uri": _uri(owner_did, "ai.gftd.apps.kousuu.project", rkey)}
+    return {"projectDid": vertex_id, "uri": _uri(owner_did, "app.etzhayyim.apps.kousuu.project", rkey)}
 
 
 def record_time_entry(owner: str = "", memberDid: str = "", projectDid: str = "", taskDid: str = "", entryDate: str = "", hours: Any = 0, billable: Any = True, **_: Any) -> dict[str, Any]:
@@ -389,7 +389,7 @@ def record_time_entry(owner: str = "", memberDid: str = "", projectDid: str = ""
     if not memberDid or not projectDid or not entryDate:
         return {"error": "memberDid, projectDid, entryDate required"}
     rkey = _slug(f"{memberDid}-{projectDid}-{entryDate}-{int(time.time() * 1000)}")
-    vertex_id = _vid(owner_did, "ai.gftd.apps.kousuu.timeEntry", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.kousuu.timeEntry", rkey)
     _insert_if_missing(
         "vertex_atrecord_kousuu_time_entry",
         vertex_id,
@@ -398,7 +398,7 @@ def record_time_entry(owner: str = "", memberDid: str = "", projectDid: str = ""
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL,'submitted',NULL,NULL,%s)""",
         (vertex_id, _next_seq("vertex_atrecord_kousuu_time_entry"), owner_did, memberDid, projectDid, taskDid or None, entryDate[:10], _float(hours), bool(billable), now_iso()),
     )
-    return {"timeEntryDid": vertex_id, "uri": _uri(owner_did, "ai.gftd.apps.kousuu.timeEntry", rkey)}
+    return {"timeEntryDid": vertex_id, "uri": _uri(owner_did, "app.etzhayyim.apps.kousuu.timeEntry", rkey)}
 
 
 def approve_time_entry(timeEntryDid: str = "", approvedByDid: str = "", approved: Any = True, **_: Any) -> dict[str, Any]:
@@ -421,7 +421,7 @@ def submit_expense(owner: str = "", employeeDid: str = "", projectDid: str = "",
     if not employeeDid or not expenseDate:
         return {"error": "employeeDid and expenseDate required"}
     rkey = _slug(f"{employeeDid}-{expenseDate}-{int(time.time() * 1000)}")
-    vertex_id = _vid(owner_did, "ai.gftd.apps.keihi.expense", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.keihi.expense", rkey)
     _insert_if_missing(
         "vertex_atrecord_keihi_expense",
         vertex_id,
@@ -430,13 +430,13 @@ def submit_expense(owner: str = "", employeeDid: str = "", projectDid: str = "",
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'submitted',NULL,NULL,%s)""",
         (vertex_id, _next_seq("vertex_atrecord_keihi_expense"), owner_did, employeeDid, projectDid or None, vendorName or None, expenseDate[:10], _float(amount), currency or "JPY", _float(taxRate), category or None, receiptCid or None, now_iso()),
     )
-    return {"expenseDid": vertex_id, "uri": _uri(owner_did, "ai.gftd.apps.keihi.expense", rkey), "status": "submitted"}
+    return {"expenseDid": vertex_id, "uri": _uri(owner_did, "app.etzhayyim.apps.keihi.expense", rkey), "status": "submitted"}
 
 
 def approve_expense(expenseDid: str = "", approved: Any = True, approvedByDid: str = "", reason: str = "", **_: Any) -> dict[str, Any]:
     status = "approved" if bool(approved) else "rejected"
     updated = _execute("UPDATE vertex_atrecord_keihi_expense SET status=%s, approved_by_did=%s, approved_at=%s WHERE vertex_id=%s", (status, approvedByDid or None, now_iso(), expenseDid))
-    return {"ok": updated > 0, "expenseDid": expenseDid, "status": status, "reason": reason, "kaikeiSourceType": "ai.gftd.apps.keihi.expense.approved" if status == "approved" else ""}
+    return {"ok": updated > 0, "expenseDid": expenseDid, "status": status, "reason": reason, "kaikeiSourceType": "app.etzhayyim.apps.keihi.expense.approved" if status == "approved" else ""}
 
 
 def upsert_employee(owner: str = "", employeeDid: str = "", displayNameEncrypted: str = "", employmentStatus: str = "active", joinedOn: str = "", leftOn: str = "", **_: Any) -> dict[str, Any]:
@@ -444,7 +444,7 @@ def upsert_employee(owner: str = "", employeeDid: str = "", displayNameEncrypted
     if not employeeDid or not displayNameEncrypted:
         return {"error": "employeeDid and displayNameEncrypted required"}
     rkey = _slug(employeeDid)
-    vertex_id = _vid(owner_did, "ai.gftd.apps.jinji.employee", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.jinji.employee", rkey)
     _execute("DELETE FROM vertex_atrecord_jinji_employee WHERE vertex_id=%s", (vertex_id,))
     _execute(
         """INSERT INTO vertex_atrecord_jinji_employee
@@ -458,7 +458,7 @@ def upsert_employee(owner: str = "", employeeDid: str = "", displayNameEncrypted
 def record_attendance(owner: str = "", employeeDid: str = "", workDate: str = "", minutesWorked: Any = 0, status: str = "submitted", **_: Any) -> dict[str, Any]:
     owner_did = resolve_owner(owner)
     rkey = _slug(f"{employeeDid}-{workDate}")
-    vertex_id = _vid(owner_did, "ai.gftd.apps.jinji.attendance", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.jinji.attendance", rkey)
     _insert_if_missing(
         "vertex_atrecord_jinji_attendance",
         vertex_id,
@@ -475,7 +475,7 @@ def complete_payroll_run(owner: str = "", payrollMonth: str = "", grossTotalEncr
     if not payrollMonth or not grossTotalEncrypted:
         return {"error": "payrollMonth and grossTotalEncrypted required"}
     rkey = _slug(payrollMonth)
-    vertex_id = _vid(owner_did, "ai.gftd.apps.jinji.payrollRun", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.jinji.payrollRun", rkey)
     _execute("DELETE FROM vertex_atrecord_jinji_payroll_run WHERE vertex_id=%s", (vertex_id,))
     _execute(
         """INSERT INTO vertex_atrecord_jinji_payroll_run
@@ -483,7 +483,7 @@ def complete_payroll_run(owner: str = "", payrollMonth: str = "", grossTotalEncr
         VALUES (%s,%s,%s,%s,%s,%s,%s,'completed',%s,%s)""",
         (vertex_id, _next_seq("vertex_atrecord_jinji_payroll_run"), owner_did, payrollMonth, grossTotalEncrypted, statutoryTotalEncrypted or None, netTotalEncrypted or None, now_iso(), now_iso()),
     )
-    return {"ok": True, "payrollRunDid": vertex_id, "status": "completed", "kaikeiSourceType": "ai.gftd.apps.jinji.payrollRun.completed"}
+    return {"ok": True, "payrollRunDid": vertex_id, "status": "completed", "kaikeiSourceType": "app.etzhayyim.apps.jinji.payrollRun.completed"}
 
 
 def generate_statutory_report(
@@ -498,7 +498,7 @@ def generate_statutory_report(
     if not reportType or not periodFrom or not periodTo:
         return {"error": "reportType, periodFrom, periodTo required"}
     rkey = _slug(f"{reportType}-{periodFrom[:10]}-{periodTo[:10]}")
-    vertex_id = _vid(owner_did, "ai.gftd.apps.kaikei.statutoryReport", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.kaikei.statutoryReport", rkey)
     _execute("DELETE FROM vertex_kaikei_statutory_report WHERE vertex_id=%s", (vertex_id,))
     _execute(
         """INSERT INTO vertex_kaikei_statutory_report
@@ -534,7 +534,7 @@ def validate_moneyforward_parity(
     diff = rw_total - mf_total
     status = "matched" if abs(diff) < 1 else "mismatch"
     rkey = _slug(f"{periodFrom[:10]}-{periodTo[:10]}-{int(time.time())}")
-    vertex_id = _vid(owner_did, "ai.gftd.apps.kaikei.moneyForwardParityRun", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.kaikei.moneyForwardParityRun", rkey)
     _execute(
         """INSERT INTO vertex_kaikei_moneyforward_parity_run
         (vertex_id,_seq,owner_did,period_from,period_to,mf_export_cid,rw_total,mf_total,diff_amount,status,checked_at,created_at)
@@ -563,7 +563,7 @@ def register_saas_asset(
     if not provider or not assetType or not externalId or not displayName:
         return {"error": "provider, assetType, externalId, displayName required"}
     rkey = _slug(f"{provider}-{assetType}-{externalId}")
-    vertex_id = _vid(owner_did, "ai.gftd.apps.kaisya.saasAsset", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.kaisya.saasAsset", rkey)
     _execute("DELETE FROM vertex_kaisya_saas_asset WHERE vertex_id=%s", (vertex_id,))
     _execute(
         """INSERT INTO vertex_kaisya_saas_asset
@@ -591,7 +591,7 @@ def record_year_end_adjustment(
     if not employeeDid or not taxYear or not declarationHash:
         return {"error": "employeeDid, taxYear, declarationHash required"}
     rkey = _slug(f"{employeeDid}-{taxYear}")
-    vertex_id = _vid(owner_did, "ai.gftd.apps.jinji.yearEndAdjustment", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.jinji.yearEndAdjustment", rkey)
     _execute("DELETE FROM vertex_atrecord_jinji_year_end_adjustment WHERE vertex_id=%s", (vertex_id,))
     done = now_iso() if status == "completed" else None
     _execute(
@@ -619,7 +619,7 @@ def register_mynumber_vault_ref(
     if not employeeDid or not vaultRefEncrypted or not declarationHash:
         return {"error": "employeeDid, vaultRefEncrypted, declarationHash required"}
     rkey = _slug(employeeDid)
-    vertex_id = _vid(owner_did, "ai.gftd.apps.jinji.mynumberVaultRef", rkey)
+    vertex_id = _vid(owner_did, "app.etzhayyim.apps.jinji.mynumberVaultRef", rkey)
     _execute("DELETE FROM vertex_atrecord_jinji_mynumber_vault_ref WHERE vertex_id=%s", (vertex_id,))
     _execute(
         """INSERT INTO vertex_atrecord_jinji_mynumber_vault_ref

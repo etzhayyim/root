@@ -84,9 +84,9 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           COALESCE(status, 'active'),
           'vertex_automotive_material_requirement',
           vertex_id,
-          'ai.gftd.apps.supplychain.supplyNode',
+          'app.etzhayyim.apps.supplychain.supplyNode',
           'did:web:supplychain.etzhayyim.com',
-          'did:web:gftd.co.jp'
+          'did:web:etzhayyim.com'
         FROM vertex_automotive_material_requirement
         WHERE status IS NULL OR status <> 'deleted'
         """
@@ -119,9 +119,9 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           COALESCE(readiness_status, 'active'),
           'vertex_robotics_product_package',
           vertex_id,
-          'ai.gftd.apps.supplychain.supplyNode',
+          'app.etzhayyim.apps.supplychain.supplyNode',
           'did:web:supplychain.etzhayyim.com',
-          'did:web:gftd.co.jp'
+          'did:web:etzhayyim.com'
         FROM vertex_robotics_product_package
         WHERE readiness_status IS NULL OR readiness_status <> 'cancelled'
         """
@@ -165,9 +165,9 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           CASE s.is_qualified WHEN 1 THEN 'active' ELSE 'inactive' END,
           'edge_automotive_material_supplied_by',
           s.edge_id,
-          'ai.gftd.apps.supplychain.supplyNode',
+          'app.etzhayyim.apps.supplychain.supplyNode',
           'did:web:supplychain.etzhayyim.com',
-          'did:web:gftd.co.jp'
+          'did:web:etzhayyim.com'
         FROM unique_suppliers s
         """
     )
@@ -284,9 +284,9 @@ def normalize_cleaning_robot() -> dict[str, Any]:
           'cleaning_robot_adapter',
           0.60,
           'active',
-          'ai.gftd.apps.supplychain.balanceObservation',
+          'app.etzhayyim.apps.supplychain.balanceObservation',
           'did:web:supplychain.etzhayyim.com',
-          'did:web:gftd.co.jp'
+          'did:web:etzhayyim.com'
         FROM vertex_automotive_material_requirement m
         LEFT JOIN edge_automotive_material_supplied_by ms
           ON ms.material_id = m.material_id

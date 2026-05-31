@@ -4,11 +4,11 @@
   import { ui } from '../lib/store.svelte';
 
   const nsid = {
-    listThreads: 'ai.gftd.apps.mailer.listThreads',
-    listMessages: 'ai.gftd.apps.mailer.listMessages',
-    sendMail: 'ai.gftd.apps.mailer.sendMail',
-    classifyMail: 'ai.gftd.apps.mailer.classifyMail',
-    listBecAlerts: 'ai.gftd.apps.mailer.listBecAlerts'
+    listThreads: 'app.etzhayyim.apps.mailer.listThreads',
+    listMessages: 'app.etzhayyim.apps.mailer.listMessages',
+    sendMail: 'app.etzhayyim.apps.mailer.sendMail',
+    classifyMail: 'app.etzhayyim.apps.mailer.classifyMail',
+    listBecAlerts: 'app.etzhayyim.apps.mailer.listBecAlerts'
   } as const;
 
   type Folder = 'inbox' | 'starred' | 'sent' | 'drafts' | 'alerts' | 'archive' | 'trash';
@@ -96,7 +96,7 @@
 
 <div class="grid grid-cols-[200px_320px_minmax(0,1fr)] gap-0 -m-5 min-h-[calc(100vh-160px)]">
   <!-- Left rail -->
-  <aside class="border-r border-gftd-border bg-gftd-sidebar p-3 flex flex-col gap-3">
+  <aside class="border-r border-etzhayyim-border bg-gftd-sidebar p-3 flex flex-col gap-3">
     <Button size="md" variant="solid-fill" onclick={() => (composing = true)}>
       ✏️ Compose
     </Button>
@@ -105,7 +105,7 @@
         <button
           type="button"
           class="flex items-center justify-between px-3 py-2 rounded-r-full transition"
-          class:bg-gftd-accent={folder === f.id}
+          class:bg-etzhayyim-accent={folder === f.id}
           class:text-white={folder === f.id}
           class:font-semibold={folder === f.id}
           class:hover:bg-gftd-hover={folder !== f.id}
@@ -116,8 +116,8 @@
         </button>
       {/each}
     </nav>
-    <div class="border-t border-gftd-border pt-3 text-[11px] text-gftd-muted">
-      <p class="font-semibold text-gftd-secondary mb-1">Labels</p>
+    <div class="border-t border-etzhayyim-border pt-3 text-[11px] text-etzhayyim-muted">
+      <p class="font-semibold text-etzhayyim-secondary mb-1">Labels</p>
       <ul class="space-y-1">
         <li>● <span class="ml-1">finance</span></li>
         <li>● <span class="ml-1">hr</span></li>
@@ -128,8 +128,8 @@
   </aside>
 
   <!-- Thread list -->
-  <section class="border-r border-gftd-border flex flex-col min-w-0">
-    <div class="flex items-center gap-2 px-3 py-2 border-b border-gftd-border">
+  <section class="border-r border-etzhayyim-border flex flex-col min-w-0">
+    <div class="flex items-center gap-2 px-3 py-2 border-b border-etzhayyim-border">
       <Input bind:value={cSubject} blockSize="sm" placeholder="Search mail" class="flex-1" />
       <Button size="xs" variant="outline" onclick={() => run(nsid.listThreads, { box: folder, limit: 50 })}>↻</Button>
     </div>
@@ -137,25 +137,25 @@
       {#each filtered as t}
         <button
           type="button"
-          class="w-full text-left px-3 py-2 border-b border-gftd-border/40 hover:bg-gftd-hover flex flex-col gap-0.5"
+          class="w-full text-left px-3 py-2 border-b border-etzhayyim-border/40 hover:bg-gftd-hover flex flex-col gap-0.5"
           class:bg-gftd-hover={selected?.id === t.id}
           onclick={() => (selected = t)}
         >
           <div class="flex items-center gap-2">
-            <div class="h-7 w-7 rounded-full bg-gftd-accent grid place-items-center text-[10px] font-bold text-white">
+            <div class="h-7 w-7 rounded-full bg-etzhayyim-accent grid place-items-center text-[10px] font-bold text-white">
               {t.fromInitial}
             </div>
             <span class="text-xs flex-1 truncate" class:font-bold={t.unread}>{t.from}</span>
-            <span class="text-[10px] text-gftd-muted">{t.time}</span>
+            <span class="text-[10px] text-etzhayyim-muted">{t.time}</span>
           </div>
           <p class="text-sm truncate" class:font-semibold={t.unread}>{t.subject}</p>
-          <p class="text-[11px] text-gftd-muted truncate">{t.snippet}</p>
+          <p class="text-[11px] text-etzhayyim-muted truncate">{t.snippet}</p>
           <div class="flex gap-1 mt-0.5">
             {#each (t.labels ?? []) as l}<Badge value={l} variant="default" />{/each}
           </div>
         </button>
       {:else}
-        <div class="text-center py-12 text-sm text-gftd-muted">No mail in {folder}.</div>
+        <div class="text-center py-12 text-sm text-etzhayyim-muted">No mail in {folder}.</div>
       {/each}
     </div>
   </section>
@@ -163,37 +163,37 @@
   <!-- Reading pane -->
   <section class="flex flex-col min-w-0">
     {#if selected}
-      <div class="px-5 py-3 border-b border-gftd-border flex items-center gap-2">
+      <div class="px-5 py-3 border-b border-etzhayyim-border flex items-center gap-2">
         <Button size="xs" variant="text" onclick={() => (selected = null)}>← Back</Button>
         <Button size="xs" variant="outline">Archive</Button>
         <Button size="xs" variant="outline">Snooze</Button>
         <Button size="xs" variant="outline"
           onclick={() => run(nsid.classifyMail, { subject: selected!.subject, body: selected!.body })}>Classify</Button>
-        <span class="ml-auto text-[11px] text-gftd-muted">{selected.time}</span>
+        <span class="ml-auto text-[11px] text-etzhayyim-muted">{selected.time}</span>
       </div>
-      <div class="px-5 py-4 border-b border-gftd-border">
+      <div class="px-5 py-4 border-b border-etzhayyim-border">
         <h2 class="text-xl font-semibold">{selected.subject}</h2>
         <div class="flex gap-1 mt-1">
           {#each (selected.labels ?? []) as l}<Badge value={l} variant="default" />{/each}
         </div>
       </div>
-      <div class="px-5 py-4 flex items-start gap-3 border-b border-gftd-border">
-        <div class="h-10 w-10 rounded-full bg-gftd-accent grid place-items-center text-xs font-bold text-white">
+      <div class="px-5 py-4 flex items-start gap-3 border-b border-etzhayyim-border">
+        <div class="h-10 w-10 rounded-full bg-etzhayyim-accent grid place-items-center text-xs font-bold text-white">
           {selected.fromInitial}
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-sm font-semibold">{selected.from}</p>
-          <p class="text-[11px] text-gftd-muted">to me</p>
+          <p class="text-[11px] text-etzhayyim-muted">to me</p>
         </div>
       </div>
       <div class="flex-1 overflow-auto px-5 py-4 text-sm whitespace-pre-wrap leading-relaxed">{selected.body}</div>
-      <div class="px-5 py-3 border-t border-gftd-border flex gap-2">
+      <div class="px-5 py-3 border-t border-etzhayyim-border flex gap-2">
         <Button size="sm" variant="outline" onclick={() => { composing = true; cTo = selected!.from; cSubject = 'Re: ' + selected!.subject; cBody = `\n\n— On ${selected!.time} ${selected!.from} wrote:\n${selected!.body}`; }}>Reply</Button>
         <Button size="sm" variant="outline">Reply all</Button>
         <Button size="sm" variant="outline">Forward</Button>
       </div>
     {:else}
-      <div class="flex-1 grid place-items-center text-sm text-gftd-muted">
+      <div class="flex-1 grid place-items-center text-sm text-etzhayyim-muted">
         Select a conversation.
       </div>
     {/if}
@@ -205,23 +205,23 @@
     <div
       role="dialog"
       tabindex="-1"
-      class="absolute right-6 bottom-6 w-[520px] max-w-[calc(100vw-3rem)] rounded-t-xl rounded-b-xl bg-gftd-card border border-gftd-border shadow-2xl flex flex-col max-h-[80vh]"
+      class="absolute right-6 bottom-6 w-[520px] max-w-[calc(100vw-3rem)] rounded-t-xl rounded-b-xl bg-gftd-card border border-etzhayyim-border shadow-2xl flex flex-col max-h-[80vh]"
       onclick={(e) => e.stopPropagation()}
       onkeydown={(e) => e.stopPropagation()}
     >
       <header class="px-4 py-2 bg-gftd-sidebar rounded-t-xl flex items-center justify-between">
         <span class="text-sm font-semibold">New message</span>
-        <button type="button" class="text-gftd-muted" onclick={() => (composing = false)}>✕</button>
+        <button type="button" class="text-etzhayyim-muted" onclick={() => (composing = false)}>✕</button>
       </header>
       <div class="px-4 py-3 flex flex-col gap-2 flex-1 overflow-auto">
         <Input bind:value={cTo} blockSize="sm" placeholder="To (email or DID)" />
         <Input bind:value={cSubject} blockSize="sm" placeholder="Subject" />
         <Textarea bind:value={cBody} rows={10} />
       </div>
-      <footer class="px-4 py-3 border-t border-gftd-border flex items-center gap-2">
+      <footer class="px-4 py-3 border-t border-etzhayyim-border flex items-center gap-2">
         <Button size="sm" variant="solid-fill" onclick={sendCompose}>Send</Button>
         <Button size="sm" variant="outline">Save draft</Button>
-        <span class="ml-auto text-[11px] text-gftd-muted">Signal E2E available</span>
+        <span class="ml-auto text-[11px] text-etzhayyim-muted">Signal E2E available</span>
       </footer>
     </div>
   </div>

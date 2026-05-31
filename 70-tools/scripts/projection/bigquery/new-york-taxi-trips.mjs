@@ -13,7 +13,7 @@ import {
 const INGEST_FAMILY = "bigquery.public_dataset.projection";
 const DATASET_ID = "bigquery-public-data:new_york_taxi_trips";
 const ACTOR_HOST = "taxi";
-const COLLECTION = "ai.gftd.apps.transport.taxi_trip";
+const COLLECTION = "app.etzhayyim.apps.transport.taxi_trip";
 const CITY = "nyc";
 
 async function main() {

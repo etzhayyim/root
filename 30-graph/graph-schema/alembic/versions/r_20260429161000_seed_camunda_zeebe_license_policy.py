@@ -32,10 +32,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_domain_knowledge_document WHERE vertex_id = $7\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
                  'did:web:llm.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'Camunda/Zeebe runtime policy as of 2026-04-29: GFTD pins the self-managed Zeebe '
+                 'Camunda/Zeebe runtime policy as of 2026-04-29: etzhayyim pins the self-managed Zeebe '
                  'broker to camunda/zeebe:8.5.23 as a short-term Zeebe-only compatibility track.\n'
                  'Do not deploy Camunda Operate, Tasklist, Optimize, or Elasticsearch/OpenSearch '
                  'under this 8.5 compatibility posture without separate license review.\n'
@@ -50,7 +50,7 @@ UP = [{'sql': '\n'
                  'broker downgrades are safe in-place.',
                  '2026-04-29T16:10:00+09:00',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429']},
  {'sql': '\n'
          '      INSERT INTO vertex_domain_knowledge_chunk (\n'
          '        vertex_id, _seq, created_date, sensitivity_ord, owner_did,\n'
@@ -70,13 +70,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_domain_knowledge_chunk WHERE vertex_id = $6\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-1',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-1',
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
-                 'GFTD pins the self-managed Zeebe broker to camunda/zeebe:8.5.23 as a short-term '
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+                 'etzhayyim pins the self-managed Zeebe broker to camunda/zeebe:8.5.23 as a short-term '
                  'Zeebe-only compatibility track.',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-1']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-1']},
  {'sql': '\n'
          '      INSERT INTO vertex_domain_knowledge_chunk (\n'
          '        vertex_id, _seq, created_date, sensitivity_ord, owner_did,\n'
@@ -96,13 +96,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_domain_knowledge_chunk WHERE vertex_id = $6\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-2',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-2',
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
                  'Do not deploy Operate, Tasklist, Optimize, or Elasticsearch/OpenSearch under the '
                  '8.5 compatibility posture without separate license review.',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-2']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-2']},
  {'sql': '\n'
          '      INSERT INTO vertex_domain_knowledge_chunk (\n'
          '        vertex_id, _seq, created_date, sensitivity_ord, owner_did,\n'
@@ -122,13 +122,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_domain_knowledge_chunk WHERE vertex_id = $6\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-3',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-3',
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
                  'Camunda 8.6+ self-managed production usage changes the licensing posture; '
                  'require Enterprise/SaaS approval or an approved replacement plan.',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-3']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-3']},
  {'sql': '\n'
          '      INSERT INTO vertex_domain_knowledge_chunk (\n'
          '        vertex_id, _seq, created_date, sensitivity_ord, owner_did,\n'
@@ -148,13 +148,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_domain_knowledge_chunk WHERE vertex_id = $6\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-4',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-4',
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
                  'Zeebe 8.5 keeps existing BPMN zeebe:taskDefinition, zeebe:ioMapping, and pyzeebe '
                  'worker contracts with minimal code churn, but is past maintenance end.',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-4']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-4']},
  {'sql': '\n'
          '      INSERT INTO vertex_domain_knowledge_chunk (\n'
          '        vertex_id, _seq, created_date, sensitivity_ord, owner_did,\n'
@@ -174,13 +174,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_domain_knowledge_chunk WHERE vertex_id = $6\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-5',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-5',
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
                  'Before live downgrade from 8.6.x to 8.5.x, validate persisted partition data '
                  'compatibility or recreate pilot broker state.',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-5']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429/chunk-5']},
  {'sql': '\n'
          '      INSERT INTO vertex_domain_knowledge_source (\n'
          '        vertex_id, _seq, created_date, sensitivity_ord, owner_did,\n'
@@ -196,7 +196,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_domain_knowledge_source WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-pricing-self-managed',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-pricing-self-managed',
                  'did:web:llm.etzhayyim.com',
                  'https://camunda.com/pricing/',
                  'Camunda pricing: Self-Managed Free and Enterprise',
@@ -205,7 +205,7 @@ UP = [{'sql': '\n'
                  'high',
                  '2026-04-29T16:10:00+09:00',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-pricing-self-managed']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-pricing-self-managed']},
  {'sql': '\n'
          '      INSERT INTO edge_domain_knowledge_cites (\n'
          '        edge_id, src_vid, dst_vid, _seq, created_date, sensitivity_ord,\n'
@@ -219,8 +219,8 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['edge:dk-cites:camunda-zeebe-license:camunda-pricing-self-managed',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-pricing-self-managed',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-pricing-self-managed',
                  'did:web:llm.etzhayyim.com',
                  '2026-04-29T16:10:00+09:00',
                  'edge:dk-cites:camunda-zeebe-license:camunda-pricing-self-managed']},
@@ -239,7 +239,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_domain_knowledge_source WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-license-reference',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-license-reference',
                  'did:web:llm.etzhayyim.com',
                  'https://docs.camunda.io/docs/reference/licenses/',
                  'Camunda 8 license reference',
@@ -248,7 +248,7 @@ UP = [{'sql': '\n'
                  'high',
                  '2026-04-29T16:10:00+09:00',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-license-reference']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-license-reference']},
  {'sql': '\n'
          '      INSERT INTO edge_domain_knowledge_cites (\n'
          '        edge_id, src_vid, dst_vid, _seq, created_date, sensitivity_ord,\n'
@@ -262,8 +262,8 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['edge:dk-cites:camunda-zeebe-license:camunda-license-reference',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-license-reference',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-license-reference',
                  'did:web:llm.etzhayyim.com',
                  '2026-04-29T16:10:00+09:00',
                  'edge:dk-cites:camunda-zeebe-license:camunda-license-reference']},
@@ -282,7 +282,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_domain_knowledge_source WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-8-5-release-notes',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-8-5-release-notes',
                  'did:web:llm.etzhayyim.com',
                  'https://docs.camunda.io/docs/8.5/reference/release-notes/850/',
                  'Camunda 8.5 release notes and maintenance window',
@@ -291,7 +291,7 @@ UP = [{'sql': '\n'
                  'high',
                  '2026-04-29T16:10:00+09:00',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-8-5-release-notes']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-8-5-release-notes']},
  {'sql': '\n'
          '      INSERT INTO edge_domain_knowledge_cites (\n'
          '        edge_id, src_vid, dst_vid, _seq, created_date, sensitivity_ord,\n'
@@ -305,8 +305,8 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['edge:dk-cites:camunda-zeebe-license:camunda-8-5-release-notes',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-8-5-release-notes',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-8-5-release-notes',
                  'did:web:llm.etzhayyim.com',
                  '2026-04-29T16:10:00+09:00',
                  'edge:dk-cites:camunda-zeebe-license:camunda-8-5-release-notes']},
@@ -325,7 +325,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_domain_knowledge_source WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-2024-license-update',
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-2024-license-update',
                  'did:web:llm.etzhayyim.com',
                  'https://camunda.com/blog/2024/04/licensing-update-camunda-8-self-managed/',
                  'Camunda 8 Self-Managed licensing update',
@@ -334,7 +334,7 @@ UP = [{'sql': '\n'
                  'medium',
                  '2026-04-29T16:10:00+09:00',
                  '2026-04-29T16:10:00+09:00',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-2024-license-update']},
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-2024-license-update']},
  {'sql': '\n'
          '      INSERT INTO edge_domain_knowledge_cites (\n'
          '        edge_id, src_vid, dst_vid, _seq, created_date, sensitivity_ord,\n'
@@ -348,26 +348,26 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['edge:dk-cites:camunda-zeebe-license:camunda-2024-license-update',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
-                 'at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-2024-license-update',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429',
+                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-2024-license-update',
                  'did:web:llm.etzhayyim.com',
                  '2026-04-29T16:10:00+09:00',
                  'edge:dk-cites:camunda-zeebe-license:camunda-2024-license-update']}]
 
 DOWN = [{'sql': 'DELETE FROM edge_domain_knowledge_cites WHERE src_vid = $1',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429']},
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429']},
  {'sql': 'DELETE FROM vertex_domain_knowledge_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-pricing-self-managed']},
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-pricing-self-managed']},
  {'sql': 'DELETE FROM vertex_domain_knowledge_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-license-reference']},
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-license-reference']},
  {'sql': 'DELETE FROM vertex_domain_knowledge_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-8-5-release-notes']},
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-8-5-release-notes']},
  {'sql': 'DELETE FROM vertex_domain_knowledge_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-2024-license-update']},
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-2024-license-update']},
  {'sql': 'DELETE FROM vertex_domain_knowledge_chunk WHERE document_vid = $1',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429']},
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429']},
  {'sql': 'DELETE FROM vertex_domain_knowledge_document WHERE vertex_id = $1',
-  'parameters': ['at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429']}]
+  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429']}]
 
 
 def upgrade() -> None:

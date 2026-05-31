@@ -482,9 +482,9 @@ describe('decodeMessageBody', () => {
 		expect(decodeMessageBody(envelope)).toBe('');
 	});
 
-	it('passes through application/vnd.gftd.card.list without decoding', () => {
+	it('passes through application/vnd.etzhayyim.card.list without decoding', () => {
 		const json = '{"title":"Items","items":[]}';
-		const envelope = { payload: json, contentType: 'application/vnd.gftd.card.list' };
+		const envelope = { payload: json, contentType: 'application/vnd.etzhayyim.card.list' };
 		expect(decodeMessageBody(envelope)).toBe(json);
 	});
 

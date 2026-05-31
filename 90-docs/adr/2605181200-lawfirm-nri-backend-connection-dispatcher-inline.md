@@ -16,7 +16,7 @@ authoritative_for:
 related:
   - adr-0036-lawfirm-india-intake-auto-route
   - adr-0018-pii-tier3-cohort-first
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2605180000-lawfirm-product-focus-bmc-lean
 supersedes: []
 superseded_by: []
@@ -24,13 +24,13 @@ superseded_by: []
 
 # ADR-2605181200: lawfirm NRI バックエンド接続 — dispatcher inline handler + frontend wiring
 
-**Status**: accepted  
-**Date**: 2026-05-18  
+**Status**: accepted
+**Date**: 2026-05-18
 **Deciders**: Jun Kawasaki
 
 ## Context
 
-lawfirm.etzhayyim.com の 4 NSID (`requestConsult`, `createCase`, `translateToLang`, `translateFromLang`) が  
+lawfirm.etzhayyim.com の 4 NSID (`requestConsult`, `createCase`, `translateToLang`, `translateFromLang`) が
 `bpmn-dispatcher` (`https://lf1rm8k0.etzhayyim.com/xrpc/...`) から 404 を返していた。
 
 根本原因: `vertex_bpmn_lexicon_binding` テーブルにこれらの NSID が未登録のため、
@@ -45,14 +45,14 @@ lawfirm.etzhayyim.com の 4 NSID (`requestConsult`, `createCase`, `translateToLa
 
 `vertex_bpmn_lexicon_binding` に DB エントリを追加するのではなく、
 `dispatcher_main.py` に `lawfirm_direct_handler()` 関数を追加し、
-`LAWFIRM_PREFIX = "ai.gftd.apps.lawfirm."` で始まる NSID を DB lookup 前に横取りする。
+`LAWFIRM_PREFIX = "app.etzhayyim.apps.lawfirm."` で始まる NSID を DB lookup 前に横取りする。
 
 **根拠**: `public_malak_direct_query` で実績のあるパターン。DB マイグレーション不要で即時反映可能。
 `vertex_bpmn_lexicon_binding` は 汎用 BPMN actor のバインディングテーブルであり、
 Python primitive の lawfirm handler を登録する適切な場所ではない。
 
 ```python
-LAWFIRM_PREFIX = "ai.gftd.apps.lawfirm."
+LAWFIRM_PREFIX = "app.etzhayyim.apps.lawfirm."
 
 async def lawfirm_direct_handler(request, nsid, body=None) -> web.Response | None:
     if not nsid.startswith(LAWFIRM_PREFIX):
@@ -77,7 +77,7 @@ if lawfirm_response is not None:
 
 | 関数 | 実装内容 |
 |---|---|
-| `task_lawfirm_request_consult` | `summaryHash` (SHA-256) + `triageCohortDid` のみ INSERT (ADR-0018 Tier 3 PII)。`consultDid = at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.consult/{timestamp}-{uuid8}` を返す |
+| `task_lawfirm_request_consult` | `summaryHash` (SHA-256) + `triageCohortDid` のみ INSERT (ADR-0018 Tier 3 PII)。`consultDid = at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.consult/{timestamp}-{uuid8}` を返す |
 | `task_lawfirm_create_case` | `subjectSummary` を `signal:v1:{base64(utf8)}` field-encrypt (ADR-0010 Stage 1)。India marker 検出時に `LAWYER_FIRM_DID_HINT` env var 参照 → 未設定の場合は `autoRouteError: {code: "NotConfigured"}` + `autoRouteExpected: true` を返す (fail-loud; 案件 record 自体は作成) |
 
 **India marker 判定** (ADR-0036 準拠):
@@ -99,7 +99,7 @@ def _is_india_marker(lang="", state="", jurisdiction="") -> bool:
 | `task_lawfirm_translate_to_lang` | `pymagatama.llm.call_tier("fast", system, user, max_tokens=2048)` 経由で OpenRouter LLM に翻訳要求 |
 | `task_lawfirm_translate_from_lang` | source_lang 省略時は自動検出 prompt を付与して同 call_tier 経由 |
 
-`call_tier` シグネチャ: `call_tier(tier: str, system: str, user: str, *, max_tokens, ...)` → `dict{content: str}`。  
+`call_tier` シグネチャ: `call_tier(tier: str, system: str, user: str, *, max_tokens, ...)` → `dict{content: str}`。
 `OPENROUTER_API_KEY` は `lg-pregel-secrets` Secret から dispatcher pod へ inject (optional: True)。
 
 ### 3. mcp_dispatch.py 登録
@@ -125,7 +125,7 @@ def _is_india_marker(lang="", state="", jurisdiction="") -> bool:
       optional: true
 ```
 
-pymagatama image `ghcr.io/etzhayyim/pymagatama:16a1aeab4e6-20260518095952-amd64` を  
+pymagatama image `ghcr.io/etzhayyim/pymagatama:16a1aeab4e6-20260518095952-amd64` を
 `kubectl set image deployment/bpmn-dispatcher dispatcher=<image> -n mitama-udf` で更新。
 
 ### 5. NRI booking form frontend wiring
@@ -140,16 +140,16 @@ pymagatama image `ghcr.io/etzhayyim/pymagatama:16a1aeab4e6-20260518095952-amd64`
 ## Verified Live State (2026-05-18)
 
 ```
-POST https://lf1rm8k0.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.requestConsult
-→ {"ok":true,"consultDid":"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.consult/20260518013456-d8e37780",...}
+POST https://lf1rm8k0.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.requestConsult
+→ {"ok":true,"consultDid":"at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.consult/20260518013456-d8e37780",...}
 
-POST https://lf1rm8k0.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.createCase
+POST https://lf1rm8k0.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.createCase
 → {"ok":true,"caseDid":"...","autoRouteExpected":true,"autoRouteError":{"code":"NotConfigured",...}}
 
-POST https://lf1rm8k0.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.translateToLang
+POST https://lf1rm8k0.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.translateToLang
 → {"ok":true,"translatedText":"...","targetLang":"hi","register":"court-of-record"}
 
-POST https://lf1rm8k0.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.translateFromLang
+POST https://lf1rm8k0.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.translateFromLang
 → {"ok":true,"translatedText":"...","sourceLang":"auto","targetLang":"en","register":"court-of-record"}
 ```
 
@@ -163,9 +163,9 @@ lawyer portal read operations (`getDashboard`, `listAssignedMatters`, `listPendi
 ### Bug 1 — CF Worker proxy routing
 
 `lawfirm.etzhayyim.com` の `/xrpc/[...path]/+server.ts` が全 NSID を `atproto.etzhayyim.com` に転送していた
-→ `ai.gftd.apps.*` は atproto PDS が処理しないため 522。
+→ `app.etzhayyim.apps.*` は atproto PDS が処理しないため 522。
 
-Fix: `ai.gftd.apps.*` → `dispatcher.etzhayyim.com` (with `x-internal-trust` header)、それ以外は `atproto.etzhayyim.com`。
+Fix: `app.etzhayyim.apps.*` → `dispatcher.etzhayyim.com` (with `x-internal-trust` header)、それ以外は `atproto.etzhayyim.com`。
 
 ### Bug 2 — SQL param style + INSERT column mismatch (lawfirm_intake.py)
 
@@ -181,7 +181,7 @@ Fix: `%(name)s` style に統一、`actor_did`、`status='invited'` を明示。
 `LIMIT $1 OFFSET $2` として prepared statement に昇格 → RisingWave "Failed to prepare the statement"。
 また `sa_query()` が生タプルを返すのに全呼び出し元が `.get()` (dict アクセス) → `AttributeError`。
 
-Fix (1): LIMIT/OFFSET を Python f-string 整数リテラルに変更 (`[[conventions]] rw-psycopg3-no-param-limit` 準拠)。  
+Fix (1): LIMIT/OFFSET を Python f-string 整数リテラルに変更 (`[[conventions]] rw-psycopg3-no-param-limit` 準拠)。
 Fix (2): `_q()` を `sync_cursor` 直接使用に書き換え、`cursor.description` からカラム名を取得して dict を構築。
 
 Deployed: `ghcr.io/etzhayyim/pymagatama:9fe3e9181b0-20260519003849-amd64` (Helm rev 489)
@@ -189,17 +189,17 @@ Deployed: `ghcr.io/etzhayyim/pymagatama:9fe3e9181b0-20260519003849-amd64` (Helm 
 ### Verified Live State (2026-05-19T00:44Z)
 
 ```
-POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.listPendingGrants
+POST dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.listPendingGrants
   {"lawyerDid":"did:web:k-bakshi.etzhayyim.com","limit":10,"offset":0}
   → {"grants":[{"grantId":"20260518152613-5e3059ec","role":"coCounsel",...},
                {"grantId":"20260518151310-40fe202f","role":"coCounsel",...}],
      "count":2,"offset":0,"limit":10}
 
-POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.getDashboard
+POST dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.getDashboard
   {"lawyerDid":"did:web:k-bakshi.etzhayyim.com"}
   → {"pendingGrants":2,"pendingGrantList":[{…},{…}],"activeMatters":0,...}
 
-POST lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.listPendingGrants  ← E2E CF→dispatcher
+POST lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.listPendingGrants  ← E2E CF→dispatcher
   → {"grants":[{…},{…}],"count":2}
 ```
 
@@ -226,12 +226,12 @@ POST lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.listPendingGrants  ← E2E C
 ### Verified Live State (2026-05-19T02:24Z)
 
 ```
-POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.logWorkNote
+POST dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.logWorkNote
   {"matterId":"20260518152613-7170c1b7","lawyerDid":"did:web:k-bakshi.etzhayyim.com",
    "billableMinutes":45,"noteType":"work_note","content":"Reviewed NRI property docs"}
   → {"ok":true,"noteId":"20260519015852-6344db68","billableMinutes":45}
 
-POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.submitDocumentDraft
+POST dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.submitDocumentDraft
   {"matterId":"20260518152613-7170c1b7","lawyerDid":"did:web:k-bakshi.etzhayyim.com",
    "documentType":"vakalatnama","contentPrompt":"Draft vakalatnama for NRI property..."}
   → {"ok":true,"draftId":"20260519022434-4b601c45","threadId":"draft:addfefb9...",
@@ -262,14 +262,14 @@ ISCO-2611 advocate review queue — `/drafts` SvelteKit page + `approveDocumentD
 ### Verified Live State (2026-05-19)
 
 ```
-GET  dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.listDocumentDrafts?lawyerDid=…&status=under_review
+GET  dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.listDocumentDrafts?lawyerDid=…&status=under_review
   → {"ok":true,"drafts":[…],"total":N,"offset":0,"limit":50}
 
-POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.approveDocumentDraft
+POST dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.approveDocumentDraft
   {"draftId":"…","reviewerDid":"did:web:k-bakshi.etzhayyim.com","reviewNote":"LGTM"}
   → {"ok":true,"draftId":"…","status":"approved","approvedAt":"…"}
 
-POST dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.lawyer.rejectDocumentDraft
+POST dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.rejectDocumentDraft
   {"draftId":"…","reviewerDid":"did:web:k-bakshi.etzhayyim.com","reviewNote":"Missing vakalatnama clause"}
   → {"ok":true,"draftId":"…","status":"rejected","rejectedAt":"…","reviewNote":"…"}
 ```
@@ -291,7 +291,7 @@ Stripe billing infrastructure — webhook HMAC verification + Mode A (flat SaaS)
 
 **Manual ops remaining** (require human):
 - `kubectl -n mitama-udf edit secret lawfirm-stripe` → add `STRIPE_WEBHOOK_SECRET`, `STRIPE_IN_API_KEY`, `STRIPE_JP_API_KEY` (base64)
-- Register webhook in Stripe Dashboard: `https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.billing.processWebhookInvoicePaid` (event: `invoice.paid`) → copy `whsec_…` → insert as `STRIPE_WEBHOOK_SECRET`
+- Register webhook in Stripe Dashboard: `https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.billing.processWebhookInvoicePaid` (event: `invoice.paid`) → copy `whsec_…` → insert as `STRIPE_WEBHOOK_SECRET`
 
 ## Pending
 

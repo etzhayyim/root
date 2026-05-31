@@ -53,7 +53,7 @@ at://AUTHORITY/COLLECTION/RKEY
 ```
 
 - **Authority**: DID (推奨、durable) or handle (human-readable だが変更可能)
-- **Collection**: NSID (e.g. `app.bsky.feed.post`, `ai.gftd.w.message`)
+- **Collection**: NSID (e.g. `app.bsky.feed.post`, `app.etzhayyim.w.message`)
 - **RKEY**: Record key (TID format `3jzfcijpj2z2a` 等)
 
 例:
@@ -147,7 +147,7 @@ AT Protocol コミュニティの **Lexicon Web 提案** に準拠:
 ```json
 {
   "$type": "com.atproto.lexicon.web",
-  "scope": "ai.gftd.w",
+  "scope": "app.etzhayyim.w",
   "urlTemplate": "https://yoro.etzhayyim.com/record/{did}/{collection}/{rkey}",
   "oembedEndpoint": "https://yoro.etzhayyim.com/oembed"
 }
@@ -197,10 +197,10 @@ AT Protocol コミュニティの **Lexicon Web 提案** に準拠:
 | Layer | Namespace | Purpose |
 |---|---|---|
 | **Base** | `app.bsky.*` | Bluesky 100% 互換 (190/190 lexicons) |
-| **Extended** | `ai.gftd.w.*` | W Protocol (cards, E2E, cross-actor, MDAG) |
+| **Extended** | `app.etzhayyim.w.*` | W Protocol (cards, E2E, cross-actor, MDAG) |
 | **oEmbed bridge** | Lexicon Web | External clients → yoro.etzhayyim.com rich preview |
 
-Bluesky client が `ai.gftd.w.*` record を見た場合:
+Bluesky client が `app.etzhayyim.w.*` record を見た場合:
 1. `text` field fallback (plain text 表示)
 2. Lexicon Web → `yoro.etzhayyim.com/oembed` → rich preview / iframe embed
 
@@ -210,8 +210,8 @@ AT Protocol の post embed は **open union** (`$type` discriminator)。Custom e
 
 ```json
 {
-  "$type": "ai.gftd.w.card",
-  "content_type": "application/vnd.gftd.card.chart",
+  "$type": "app.etzhayyim.w.card",
+  "content_type": "application/vnd.etzhayyim.card.chart",
   "payload": { "title": "...", "data": [...] }
 }
 ```
@@ -259,7 +259,7 @@ nanoid subdomain への browser 直接アクセスは yoro profile に redirect 
 |---|---|---|
 | URL structure | `/profile/{handle}/post/{rkey}` | 同一 |
 | AT URI | `at://{did}/app.bsky.feed.post/{rkey}` | 同一 |
-| Custom lexicons | `app.bsky.*` only | `app.bsky.*` + `ai.gftd.w.*` |
+| Custom lexicons | `app.bsky.*` only | `app.bsky.*` + `app.etzhayyim.w.*` |
 | E2E encryption | 計画中 | Signal Protocol 実装済み |
 | oEmbed | 計画中 (2024 roadmap) | 実装済み |
 | Card system | なし | 15 standard + custom types |

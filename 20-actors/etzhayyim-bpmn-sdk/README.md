@@ -1,4 +1,4 @@
-# @gftd/bpmn-sdk
+# @etzhayyim/bpmn-sdk
 
 **Complete BPMN 2.0 SDK with TypeScript DSL and bpmn-engine Runtime Integration**
 
@@ -24,7 +24,7 @@
 
 ## 🎯 Overview
 
-`@gftd/bpmn-sdk` is a comprehensive TypeScript SDK for enterprise BPMN workflow development.
+`@etzhayyim/bpmn-sdk` is a comprehensive TypeScript SDK for enterprise BPMN workflow development.
 
 ### Key Features
 
@@ -49,7 +49,7 @@
 ## 📦 Architecture
 
 ```
-@gftd/bpmn-sdk/
+@etzhayyim/bpmn-sdk/
 ├── ✅ core/           # BPMN 2.0 types & IR (Internal Representation)
 ├── ✅ dsl/            # TypeScript DSL for declarative modeling
 ├── ✅ compiler/       # IR → BPMN 2.0 XML (bpmn-moddle based)
@@ -91,20 +91,20 @@
 
 ```bash
 # pnpm is recommended
-pnpm add @gftd/bpmn-sdk
+pnpm add @etzhayyim/bpmn-sdk
 
 # or npm
-npm install @gftd/bpmn-sdk
+npm install @etzhayyim/bpmn-sdk
 
 # or yarn
-yarn add @gftd/bpmn-sdk
+yarn add @etzhayyim/bpmn-sdk
 ```
 
 ### Basic Usage
 
 ```typescript
-import { flow } from '@gftd/bpmn-sdk/dsl';
-import { deployAndStart } from '@gftd/bpmn-sdk/runtime';
+import { flow } from '@etzhayyim/bpmn-sdk/dsl';
+import { deployAndStart } from '@etzhayyim/bpmn-sdk/runtime';
 
 // Define process with TypeScript DSL
 const invoiceProcess = flow('InvoiceApproval', f => {
@@ -164,9 +164,9 @@ console.log(`⏱️  Duration: ${context.endTime ? context.endTime.getTime() - c
 ### Advanced Usage
 
 ```typescript
-import { validateProcess } from '@gftd/bpmn-sdk/validation';
-import { HumanTaskManager } from '@gftd/bpmn-sdk/human';
-import { BpmnMonitor } from '@gftd/bpmn-sdk/ops';
+import { validateProcess } from '@etzhayyim/bpmn-sdk/validation';
+import { HumanTaskManager } from '@etzhayyim/bpmn-sdk/human';
+import { BpmnMonitor } from '@etzhayyim/bpmn-sdk/ops';
 
 // Static validation
 const validation = await validateProcess(invoiceProcess);
@@ -292,7 +292,7 @@ runtime.onEvent((event) => {
 
 ### Static Validation
 ```typescript
-import { validateProcess } from '@gftd/bpmn-sdk/validation';
+import { validateProcess } from '@etzhayyim/bpmn-sdk/validation';
 
 const result = validateProcess(invoiceProcess);
 // → { valid: true } or { valid: false, errors: [...] }
@@ -305,7 +305,7 @@ console.log(`Complexity Score: ${result.statistics.complexityScore}`);
 
 ### Human Task Management
 ```typescript
-import { HumanTaskManager } from '@gftd/bpmn-sdk/human';
+import { HumanTaskManager } from '@etzhayyim/bpmn-sdk/human';
 
 const taskManager = new HumanTaskManager(runtime);
 
@@ -332,7 +332,7 @@ await taskManager.completeTask(task.id, 'accountant@example.com', {
 
 ### Monitoring & Observability
 ```typescript
-import { BpmnMonitor } from '@gftd/bpmn-sdk/ops';
+import { BpmnMonitor } from '@etzhayyim/bpmn-sdk/ops';
 
 const monitor = new BpmnMonitor({
   serviceName: 'bpmn-service',
@@ -355,7 +355,7 @@ console.log(`System health: ${health.status}`);
 
 ### Testing Framework
 ```typescript
-import { bpmnPropertyTest, bpmnScenarioTest } from '@gftd/bpmn-sdk/testing';
+import { bpmnPropertyTest, bpmnScenarioTest } from '@etzhayyim/bpmn-sdk/testing';
 
 // Property-based testing
 const propertyResult = await bpmnPropertyTest(
@@ -390,7 +390,7 @@ This tutorial guides you through creating a complete invoice approval workflow.
 #### Step 1: Process Modeling
 
 ```typescript
-import { flow } from '@gftd/bpmn-sdk/dsl';
+import { flow } from '@etzhayyim/bpmn-sdk/dsl';
 
 const invoiceApprovalProcess = flow('InvoiceApprovalWorkflow', f => f
   .process('InvoiceApprovalWorkflow', p => p
@@ -444,7 +444,7 @@ const invoiceApprovalProcess = flow('InvoiceApprovalWorkflow', f => f
 #### Step 2: Static Validation
 
 ```typescript
-import { validateProcess } from '@gftd/bpmn-sdk/validation';
+import { validateProcess } from '@etzhayyim/bpmn-sdk/validation';
 
 const validation = await validateProcess(invoiceApprovalProcess);
 
@@ -462,7 +462,7 @@ console.log('✅ Process validation successful');
 #### Step 3: Human Task Management Setup
 
 ```typescript
-import { HumanTaskManager } from '@gftd/bpmn-sdk/human';
+import { HumanTaskManager } from '@etzhayyim/bpmn-sdk/human';
 
 const taskManager = new HumanTaskManager(runtime);
 
@@ -492,7 +492,7 @@ const escalationActions = [{
 #### Step 4: Monitoring System Setup
 
 ```typescript
-import { BpmnMonitor } from '@gftd/bpmn-sdk/ops';
+import { BpmnMonitor } from '@etzhayyim/bpmn-sdk/ops';
 
 const monitor = new BpmnMonitor({
   serviceName: 'invoice-approval-service',
@@ -517,7 +517,7 @@ monitor.attachToRuntime(runtime);
 #### Step 5: Process Execution
 
 ```typescript
-import { deployAndStart } from '@gftd/bpmn-sdk/runtime';
+import { deployAndStart } from '@etzhayyim/bpmn-sdk/runtime';
 
 // Deploy process
 const { runtime, context } = await deployAndStart(invoiceApprovalProcess, {
@@ -572,7 +572,7 @@ if (pendingTasks.length > 0) {
 ### Tutorial: Property-based Testing
 
 ```typescript
-import { bpmnPropertyTest, bpmnScenarioTest } from '@gftd/bpmn-sdk/testing';
+import { bpmnPropertyTest, bpmnScenarioTest } from '@etzhayyim/bpmn-sdk/testing';
 
 // Property testing
 const deadEndTest = await bpmnPropertyTest(runtime, invoiceProcess, 'noDeadEnds', {
@@ -626,9 +626,9 @@ pnpm test
 pnpm --filter e2e-integration start
 
 # Run package-specific tests
-pnpm --filter @gftd/bpmn-sdk/core test
-pnpm --filter @gftd/bpmn-sdk/validation test
-pnpm --filter @gftd/bpmn-sdk/human test
+pnpm --filter @etzhayyim/bpmn-sdk/core test
+pnpm --filter @etzhayyim/bpmn-sdk/validation test
+pnpm --filter @etzhayyim/bpmn-sdk/human test
 ```
 
 ### API Documentation Generation
@@ -657,7 +657,7 @@ pnpm docs:serve
 pnpm build
 
 # Build specific package
-pnpm --filter @gftd/bpmn-sdk/dsl build
+pnpm --filter @etzhayyim/bpmn-sdk/dsl build
 ```
 
 ## 📚 Examples
@@ -697,10 +697,10 @@ pnpm --filter order-processing start
 pnpm --filter e2e-minimal start
 
 # Run form-js minimal example
-pnpm --filter @gftd/bpmn-sdk-example/form-js-minimal start
+pnpm --filter @etzhayyim/bpmn-sdk-example/form-js-minimal start
 
 # Run dmn-js minimal example
-pnpm --filter @gftd/bpmn-sdk-example/dmn-js-minimal start
+pnpm --filter @etzhayyim/bpmn-sdk-example/dmn-js-minimal start
 ```
 
 ### 📖 Learning Path
@@ -761,13 +761,13 @@ runtime.onEvent(listener: (event: RuntimeEvent) => void)
 インストール:
 
 ```bash
-pnpm add @gftd/bpmn-sdk/form
+pnpm add @etzhayyim/bpmn-sdk/form
 ```
 
 Viewer 最小例:
 
 ```ts
-import { createForm } from '@gftd/bpmn-sdk/form';
+import { createForm } from '@etzhayyim/bpmn-sdk/form';
 
 const container = document.getElementById('app')!;
 const schema = { components: [] } as any;
@@ -781,21 +781,21 @@ form.onSubmit(({ data, errors }) => {
 Editor 最小例:
 
 ```ts
-import { createFormEditor } from '@gftd/bpmn-sdk/form';
+import { createFormEditor } from '@etzhayyim/bpmn-sdk/form';
 await createFormEditor({ container, schema });
 ```
 
 Playground 最小例:
 
 ```ts
-import { createFormPlayground } from '@gftd/bpmn-sdk/form';
+import { createFormPlayground } from '@etzhayyim/bpmn-sdk/form';
 await createFormPlayground({ container, schema, data: {} });
 ```
 
 スキーマ変数の取得:
 
 ```ts
-import { FormUtils } from '@gftd/bpmn-sdk/form';
+import { FormUtils } from '@etzhayyim/bpmn-sdk/form';
 
 const variables = FormUtils.getSchemaVariables(schema); // string[] | { inputs; outputs }
 ```
@@ -809,13 +809,13 @@ const variables = FormUtils.getSchemaVariables(schema); // string[] | { inputs; 
 インストール:
 
 ```bash
-pnpm add @gftd/bpmn-sdk/dmn
+pnpm add @etzhayyim/bpmn-sdk/dmn
 ```
 
 最小例:
 
 ```ts
-import { createDmnViewer } from '@gftd/bpmn-sdk/dmn';
+import { createDmnViewer } from '@etzhayyim/bpmn-sdk/dmn';
 
 const viewer = await createDmnViewer({ container: document.getElementById('app')! });
 await viewer.importXML('<definitions ...>...</definitions>');

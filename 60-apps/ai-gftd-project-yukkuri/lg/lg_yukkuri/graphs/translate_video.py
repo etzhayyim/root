@@ -1,8 +1,8 @@
 """yukkuri `translateVideo` graph — multilingual subtitles + dubbed voice.
 
-NSID: ai.gftd.apps.yukkuri.translateVideo
+NSID: app.etzhayyim.apps.yukkuri.translateVideo
 
-Actor: did:web:yukkuri.gftd.ai:actor:translator
+Actor: did:web:yukkuri.etzhayyim.com:actor:translator
 
 For each target language:
   1. LLM-translate every vertex_yukkuri_line.text in original timeline order.
@@ -54,10 +54,10 @@ _TTS_URL = os.environ.get(
 _TTS_TIMEOUT = float(os.environ.get("TTS_TIMEOUT_SEC", "30"))
 
 _PDS_BLOB_URL = os.environ.get(
-    "PDS_BLOB_URL", "https://atproto.gftd.ai/xrpc/com.atproto.repo.uploadBlob",
+    "PDS_BLOB_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob",
 )
 _TRANSLATOR_DID = os.environ.get(
-    "YUKKURI_TRANSLATOR_DID", "did:web:yukkuri.gftd.ai:actor:translator",
+    "YUKKURI_TRANSLATOR_DID", "did:web:yukkuri.etzhayyim.com:actor:translator",
 )
 
 DEFAULT_LANGS = ["en", "zh", "ko", "es", "fr"]

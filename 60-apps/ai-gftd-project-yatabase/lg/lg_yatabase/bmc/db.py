@@ -6,16 +6,16 @@ Maintains the same public function signatures (fetch, fetchrow, fetchval, execut
 so callers in repository.py do not need to change.
 
 Collection mapping:
-  vertex_bmc_state → ai.gftd.apps.yatable.bmc.state
-  vertex_bmc_hypothesis → ai.gftd.apps.yatable.bmc.hypothesis
-  vertex_bmc_iteration → ai.gftd.apps.yatable.bmc.iteration
-  vertex_bmc_hypothesis_event → ai.gftd.apps.yatable.bmc.hypothesis_event
-  vertex_bmc_metric_sample → ai.gftd.apps.yatable.bmc.metric_sample
-  vertex_bmc_decision → ai.gftd.apps.yatable.bmc.decision
-  edge_bmc_state_supersedes → ai.gftd.apps.yatable.bmc.edge_state_supersedes
-  edge_bmc_iteration_of_hypothesis → ai.gftd.apps.yatable.bmc.edge_iter_hyp
-  edge_bmc_decision_of_iteration → ai.gftd.apps.yatable.bmc.edge_dec_iter
-  edge_bmc_pivot_applied_to_state → ai.gftd.apps.yatable.bmc.edge_pivot_state
+  vertex_bmc_state → app.etzhayyim.apps.yatable.bmc.state
+  vertex_bmc_hypothesis → app.etzhayyim.apps.yatable.bmc.hypothesis
+  vertex_bmc_iteration → app.etzhayyim.apps.yatable.bmc.iteration
+  vertex_bmc_hypothesis_event → app.etzhayyim.apps.yatable.bmc.hypothesis_event
+  vertex_bmc_metric_sample → app.etzhayyim.apps.yatable.bmc.metric_sample
+  vertex_bmc_decision → app.etzhayyim.apps.yatable.bmc.decision
+  edge_bmc_state_supersedes → app.etzhayyim.apps.yatable.bmc.edge_state_supersedes
+  edge_bmc_iteration_of_hypothesis → app.etzhayyim.apps.yatable.bmc.edge_iter_hyp
+  edge_bmc_decision_of_iteration → app.etzhayyim.apps.yatable.bmc.edge_dec_iter
+  edge_bmc_pivot_applied_to_state → app.etzhayyim.apps.yatable.bmc.edge_pivot_state
 
 SELECT queries map to listRecords(collection, limit, cursor) with client-side
 filtering. INSERT maps to createRecord(collection, record, rkey). UPDATE/DELETE
@@ -42,16 +42,16 @@ _HTTP_CLIENT: httpx.AsyncClient | None = None
 
 # Collection → table name mapping (reverse of above)
 _COLLECTION_MAP = {
-    "vertex_bmc_state": "ai.gftd.apps.yatable.bmc.state",
-    "vertex_bmc_hypothesis": "ai.gftd.apps.yatable.bmc.hypothesis",
-    "vertex_bmc_iteration": "ai.gftd.apps.yatable.bmc.iteration",
-    "vertex_bmc_hypothesis_event": "ai.gftd.apps.yatable.bmc.hypothesis_event",
-    "vertex_bmc_metric_sample": "ai.gftd.apps.yatable.bmc.metric_sample",
-    "vertex_bmc_decision": "ai.gftd.apps.yatable.bmc.decision",
-    "edge_bmc_state_supersedes": "ai.gftd.apps.yatable.bmc.edge_state_supersedes",
-    "edge_bmc_iteration_of_hypothesis": "ai.gftd.apps.yatable.bmc.edge_iter_hyp",
-    "edge_bmc_decision_of_iteration": "ai.gftd.apps.yatable.bmc.edge_dec_iter",
-    "edge_bmc_pivot_applied_to_state": "ai.gftd.apps.yatable.bmc.edge_pivot_state",
+    "vertex_bmc_state": "app.etzhayyim.apps.yatable.bmc.state",
+    "vertex_bmc_hypothesis": "app.etzhayyim.apps.yatable.bmc.hypothesis",
+    "vertex_bmc_iteration": "app.etzhayyim.apps.yatable.bmc.iteration",
+    "vertex_bmc_hypothesis_event": "app.etzhayyim.apps.yatable.bmc.hypothesis_event",
+    "vertex_bmc_metric_sample": "app.etzhayyim.apps.yatable.bmc.metric_sample",
+    "vertex_bmc_decision": "app.etzhayyim.apps.yatable.bmc.decision",
+    "edge_bmc_state_supersedes": "app.etzhayyim.apps.yatable.bmc.edge_state_supersedes",
+    "edge_bmc_iteration_of_hypothesis": "app.etzhayyim.apps.yatable.bmc.edge_iter_hyp",
+    "edge_bmc_decision_of_iteration": "app.etzhayyim.apps.yatable.bmc.edge_dec_iter",
+    "edge_bmc_pivot_applied_to_state": "app.etzhayyim.apps.yatable.bmc.edge_pivot_state",
 }
 
 

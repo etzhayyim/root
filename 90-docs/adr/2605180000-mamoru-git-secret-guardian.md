@@ -15,7 +15,7 @@ priority: 8.5
 axis: mamoru-security
 weight: 0.85
 related:
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2605080600-langgraph-server-granian-l3-runtime
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
 supersedes: []
@@ -95,7 +95,7 @@ Message-ID: `d8dbcf17-1548-4817-8af8-6a5ae32daae6`.
 
 ## 3. processSecretAlert XRPC method
 
-New lexicon: `ai.gftd.apps.mamoru.processSecretAlert` (procedure).
+New lexicon: `app.etzhayyim.apps.mamoru.processSecretAlert` (procedure).
 
 The pod handles pre-detected tokens directly — the 9-node scan pipeline
 (parse_diff → detect_secrets → …) is bypassed. Instead:
@@ -142,12 +142,12 @@ client-side routing for `/scan` and `/incident/[id]`.
 |---|---|---|---|
 | `/webhook/github` | POST | HMAC-SHA256 | push + repository.publicized |
 | `/webhook/github-secret-scanning` | POST | ECDSA-P256 | Partner Program alerts |
-| `/xrpc/ai.gftd.apps.mamoru.scanCommit` | POST | Bearer | manual / webhook-triggered scan |
-| `/xrpc/ai.gftd.apps.mamoru.scanRepo` | POST | Bearer | full repo scan |
-| `/xrpc/ai.gftd.apps.mamoru.processSecretAlert` | POST | Bearer (internal) | Partner Program pipeline |
-| `/xrpc/ai.gftd.apps.mamoru.listIncidents` | GET | Bearer | incident list with filters |
-| `/xrpc/ai.gftd.apps.mamoru.getIncident` | GET | Bearer | incident detail + occurrences |
-| `/xrpc/ai.gftd.apps.mamoru.resolveIncident` | POST | Bearer | revoke / false_positive / accepted_risk |
+| `/xrpc/app.etzhayyim.apps.mamoru.scanCommit` | POST | Bearer | manual / webhook-triggered scan |
+| `/xrpc/app.etzhayyim.apps.mamoru.scanRepo` | POST | Bearer | full repo scan |
+| `/xrpc/app.etzhayyim.apps.mamoru.processSecretAlert` | POST | Bearer (internal) | Partner Program pipeline |
+| `/xrpc/app.etzhayyim.apps.mamoru.listIncidents` | GET | Bearer | incident list with filters |
+| `/xrpc/app.etzhayyim.apps.mamoru.getIncident` | GET | Bearer | incident detail + occurrences |
+| `/xrpc/app.etzhayyim.apps.mamoru.resolveIncident` | POST | Bearer | revoke / false_positive / accepted_risk |
 | `/health`, `/_app/meta` | GET | none | edge probes |
 
 # Deployment

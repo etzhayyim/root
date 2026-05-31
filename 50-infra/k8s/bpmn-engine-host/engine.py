@@ -69,7 +69,7 @@ _NS = {
 }
 
 
-class _GftdServiceTaskConverter(BpmnTaskSpecConverter):
+class _etzhayyimServiceTaskConverter(BpmnTaskSpecConverter):
     """Round-trips the dynamic `task_type` attribute that we inject onto
     `ServiceTask` specs from `<zeebe:taskDefinition type="...">`. Spiff's
     default converter doesn't know about this attribute (Zeebe ext is
@@ -96,7 +96,7 @@ def _build_serializer() -> BpmnWorkflowSerializer:
     Spiff treats external work as user-supplied) plus our `task_type`
     attribute round-trip."""
     config = dict(DEFAULT_CONFIG)
-    config[ServiceTask] = _GftdServiceTaskConverter
+    config[ServiceTask] = _etzhayyimServiceTaskConverter
     config.setdefault(SendTask, BpmnTaskSpecConverter)
     config.setdefault(ReceiveTask, BpmnTaskSpecConverter)
     registry = BpmnWorkflowSerializer.configure(config)
@@ -138,15 +138,15 @@ PROCESS_DID_HOST = "did:web:bpmn.etzhayyim.com"
 
 
 def _vertex_instance(instance_id: str, seq: int = 0) -> str:
-    return f"at://{PROCESS_DID_HOST}/ai.gftd.apps.spiff.instance/{instance_id}:{seq}"
+    return f"at://{PROCESS_DID_HOST}/app.etzhayyim.apps.spiff.instance/{instance_id}:{seq}"
 
 
 def _vertex_job(job_id: str, seq: int = 0) -> str:
-    return f"at://{PROCESS_DID_HOST}/ai.gftd.apps.spiff.job/{job_id}:{seq}"
+    return f"at://{PROCESS_DID_HOST}/app.etzhayyim.apps.spiff.job/{job_id}:{seq}"
 
 
 def _vertex_history(instance_id: str, seq: int) -> str:
-    return f"at://{PROCESS_DID_HOST}/ai.gftd.apps.spiff.history/{instance_id}:{seq}"
+    return f"at://{PROCESS_DID_HOST}/app.etzhayyim.apps.spiff.history/{instance_id}:{seq}"
 
 
 def _now_iso() -> str:

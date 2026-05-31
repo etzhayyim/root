@@ -1,12 +1,12 @@
 # ai-gftd-project-playwright — Browser automation primitives actor
 
 `did:web:playwright.etzhayyim.com` / nanoid `pl4y1t8r`。Browser 操作を XRPC primitive
-に分解。`ai.gftd.apps.bpmn` の serviceTask から呼ばれる汎用 capability。
+に分解。`app.etzhayyim.apps.bpmn` の serviceTask から呼ばれる汎用 capability。
 
 ## Scope
 
 - 汎用 (shiharai / common-crawl / keiyaku / kaisya ... 全 app 共有)
-- **Execution target**: `local` (Mac daemon) / `cf-browser` (→ `ai.gftd.apps.cloudflareBrowserRender` delegate)
+- **Execution target**: `local` (Mac daemon) / `cf-browser` (→ `app.etzhayyim.apps.cloudflareBrowserRender` delegate)
 - **Credential**: `valueRef: "vault://..."` 記法で vault.etzhayyim.com から ephemeral 取得 (ADR-0029)
 - recipe / orchestration は **持たない** — BPMN actor の責務
 
@@ -78,5 +78,5 @@ bpmn serviceTask → playwright.<op> XRPC
 ## Phase
 
 - **Phase 1** (this PR): 11 XRPC method, 2 execution target stub, local daemon skeleton
-- **Phase 2**: CF Browser Rendering integration (→ `ai.gftd.apps.cloudflareBrowserRender`)
+- **Phase 2**: CF Browser Rendering integration (→ `app.etzhayyim.apps.cloudflareBrowserRender`)
 - **Phase 3**: 1Password / Keychain valueRef resolver

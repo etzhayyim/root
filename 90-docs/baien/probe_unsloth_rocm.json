@@ -1,0 +1,37 @@
+{
+  "adr": "2605250400",
+  "ts": "2026-05-25T00:00Z",
+  "host": "NucBox_EVO-X2",
+  "python": "C:\\Users\\gad\\ComfyUI\\ComfyUI_windows_portable\\python_embeded\\python.exe (3.12)",
+  "torch_version": "2.9.1+rocm7.2.1",
+  "hip_version": "7.2.53211-158bd99533",
+  "cuda_available_via_hip": true,
+  "decision": "fallback-peft-trl",
+  "outcome": "Unsloth dep tree is CUDA-targeted; pip resolution fails on this Windows + ROCm + Python 3.12 environment",
+  "evidence": {
+    "stage": "pip install --upgrade unsloth (Step 1, dep resolution)",
+    "failure": "RecursionError: maximum recursion depth exceeded in pip resolvelib._has_route_to_root (982 frames)",
+    "root_cause": [
+      "xformers wheel resolved by pip is xformers-0.0.35-py39-none-win_amd64.whl (Python 3.9 only) — current interpreter is Python 3.12",
+      "triton-windows wheel is CUDA-only (no ROCm variant)",
+      "torchao + cut_cross_entropy are CUDA-stack assumed",
+      "Compounded: resolver thrashes over xformers ↔ torch version constraints under ROCm wheel set"
+    ]
+  },
+  "checks": {
+    "torch_rocm": "ok",
+    "unsloth_import": "FAIL (never installed)",
+    "unsloth_gemma3_load": "SKIP (unsloth not importable)",
+    "unsloth_tiny_lora_step": "SKIP (unsloth not importable)"
+  },
+  "fallback_path": {
+    "trainer": "peft + trl direct (mirrors 70-tools/baien-distill/src/baien_distill/nodes/train.py)",
+    "verified_by": "baien-distill probe_rocm.py 2026-05-23 (same EVO-X2 + Python 3.12 + ROCm 7.2.1)",
+    "speed_penalty_vs_unsloth": "~2x slower est. (Unsloth marketing claim) — acceptable for gemma3:4b LoRA"
+  },
+  "re_probe_conditions": [
+    "Unsloth ships Windows ROCm wheel set (xformers / triton-windows / cut_cross_entropy / torchao with HIP build)",
+    "OR: dual-boot Linux on EVO-X2 — separate ADR required (out of current scope)",
+    "OR: switch ROCm venv to Python 3.9 — high regression risk for existing ComfyUI stack on this box"
+  ]
+}

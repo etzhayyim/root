@@ -53,7 +53,7 @@ def authz_create_api_key(
     payload = {"name": name, "label": label, "scopes": scopes, "test": is_test}
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/ai.gftd.auth.createApiKey",
+            f"{pds_url}/xrpc/app.etzhayyim.auth.createApiKey",
             json=payload, headers=_headers(), timeout=30,
         )
         resp.raise_for_status()
@@ -77,7 +77,7 @@ def authz_list_api_keys(pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.authz.listApiKeys",
+            f"{pds_url}/xrpc/app.etzhayyim.authz.listApiKeys",
             headers=_headers(), timeout=30,
         )
         resp.raise_for_status()
@@ -100,7 +100,7 @@ def authz_revoke_api_key(key_id: str, pds: str | None) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/ai.gftd.authz.revokeApiKey",
+            f"{pds_url}/xrpc/app.etzhayyim.authz.revokeApiKey",
             json={"id": key_id}, headers=_headers(), timeout=30,
         )
         resp.raise_for_status()

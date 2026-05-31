@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-04-27
 authoritative_for:
   - MCP `tools/call` 従量課金 (`mcp_invoke` action) と 10% public fund 再分配の継承
-  - Murakumo operator (`MurakumoRegistry`) と ERC-8004 agent identity (`GftdAgentRegistry`) の bridge
+  - Murakumo operator (`MurakumoRegistry`) と ERC-8004 agent identity (`etzhayyimAgentRegistry`) の bridge
 related:
   - adr-2604261000-mcp-registry-via-kysely-schema
   - adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime
@@ -29,14 +29,14 @@ superseded_by: []
    (`20-actors/credits/CLAUDE.md` L9-14, L40, L135)。
    ただし Spend rate table に登録されている action は `Post` / `Reply` /
    `DM` のみで、MCP 経由 (`/mcp` Streamable HTTP, ADR-0087) や
-   `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` 経由の tool 呼び出しは
+   `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` 経由の tool 呼び出しは
    metering されていない。host-sdk
    (`20-actors/magatama/sdk/magatama-host-sdk/src/mcp-server.ts`) の
    `tools/call` は `app.handleXRPC()` または BPMN dispatcher に
    delegate するだけで credits ledger を経由しない。
 
 2. **ERC-8004 agent identity と Murakumo operator が分離している**。
-   `GftdAgentRegistry`
+   `etzhayyimAgentRegistry`
    (`0xcA3480edDAfa39c9377B83eEB18291286C8Cb865`, ADR-2604262100) は
    ERC-8004 形 agent registry で、ERC725 root DID hash → tokenId +
    agentURI (ipfs://) を持つ。一方 `MurakumoRegistry`
@@ -112,12 +112,12 @@ host-sdk は分配を意識しない。
 
 `50-infra/vultr/geth-private/contracts/src/MurakumoAgentBridge.sol` を
 追加し、`MurakumoRegistry.operatorDid` (bytes32) と
-`GftdAgentRegistry` tokenId を双方向 mapping する。
+`etzhayyimAgentRegistry` tokenId を双方向 mapping する。
 
 ```solidity
 contract MurakumoAgentBridge {
     IMurakumoRegistry public immutable murakumo;
-    IGftdAgentRegistry public immutable agents;
+    IetzhayyimAgentRegistry public immutable agents;
     address public owner;
 
     mapping(bytes32 operatorDid => uint256 agentTokenId) public agentByOperator;
@@ -128,7 +128,7 @@ contract MurakumoAgentBridge {
 
     function link(bytes32 operatorDid, uint256 agentTokenId) external {
         // operator must be active in MurakumoRegistry (stake intact)
-        // agentTokenId must be issued by GftdAgentRegistry
+        // agentTokenId must be issued by etzhayyimAgentRegistry
         // caller must be MurakumoRegistry operator (payoutAddress) OR owner
         ...
     }
@@ -200,12 +200,12 @@ off-chain reader が `agentByOperator[did]` を引いた上で
    伴う場合のみ inference 経由で課金。却下 — pure tool (search /
    read / write) は LLM call を伴わないため網羅性に穴が空く。
 3. **bridge contract 不要、registry SELECT で resolve**: off-chain で
-   `MurakumoRegistry` + `GftdAgentRegistry` 両方を読んで JOIN。却下 —
+   `MurakumoRegistry` + `etzhayyimAgentRegistry` 両方を読んで JOIN。却下 —
    ERC-8004 caller (外部 agent ecosystem) は on-chain 単一 view を期待
    する。bridge が無いと caller 側に gftd 内部の registry topology
    knowledge を強制する。
 4. **新規 ERC-8004 token を Murakumo operator 1:1 で再発行**:
-   `GftdAgentRegistry.openRegistration=true` にして operator が直接
+   `etzhayyimAgentRegistry.openRegistration=true` にして operator が直接
    mint。却下 — root identity (ERC725) が agent token に対応しない
    operator (mac mini 等の物理 node) が混入し、ADR-2604262100 の
    identity hierarchy が壊れる。
@@ -221,4 +221,4 @@ off-chain reader が `agentByOperator[did]` を引いた上で
 - `20-actors/magatama/sdk/magatama-host-sdk/src/mcp-server.ts`
 - `50-infra/vultr/geth-private/contracts/ADDRESSES.md`
 - `50-infra/vultr/geth-private/contracts/src/MurakumoRegistry.sol`
-- `50-infra/vultr/geth-private/contracts/src/GftdAgentRegistry.sol`
+- `50-infra/vultr/geth-private/contracts/src/etzhayyimAgentRegistry.sol`

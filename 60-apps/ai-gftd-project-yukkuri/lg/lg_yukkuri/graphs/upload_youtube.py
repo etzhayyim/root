@@ -1,8 +1,8 @@
 """yukkuri `uploadYoutube` graph — publish rendered mp4 to YouTube via Data API v3.
 
-NSID: ai.gftd.apps.yukkuri.uploadYoutube
+NSID: app.etzhayyim.apps.yukkuri.uploadYoutube
 
-Actor: did:web:yukkuri.gftd.ai:actor:publisher
+Actor: did:web:yukkuri.etzhayyim.com:actor:publisher
 
 OAuth2 refresh-token flow (shared with ai-gftd-project-youtube). Secrets read
 from env (loaded from vault by k8s pod):
@@ -47,7 +47,7 @@ _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _PDS_BLOB_FETCH = os.environ.get(
-    "PDS_BLOB_FETCH_URL", "https://atproto.gftd.ai/xrpc/com.atproto.sync.getBlob",
+    "PDS_BLOB_FETCH_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.sync.getBlob",
 )
 
 _CLIENT_ID = os.environ.get("YOUTUBE_CLIENT_ID", "")
@@ -56,12 +56,12 @@ _REFRESH_TOKEN = os.environ.get("YOUTUBE_REFRESH_TOKEN", "")
 _DEFAULT_PRIVACY = os.environ.get("YOUTUBE_DEFAULT_PRIVACY", "unlisted")
 _DEFAULT_CATEGORY = os.environ.get("YOUTUBE_DEFAULT_CATEGORY_ID", "22")
 _CHANNEL_DISPLAY = os.environ.get(
-    "YOUTUBE_CHANNEL_DISPLAY", "ゆきり & まりり / yukkuri.gftd.ai",
+    "YOUTUBE_CHANNEL_DISPLAY", "ゆきり & まりり / yukkuri.etzhayyim.com",
 )
 _UPLOAD_TIMEOUT = float(os.environ.get("YOUTUBE_UPLOAD_TIMEOUT_SEC", "900"))
 
 _PUBLISHER_DID = os.environ.get(
-    "YUKKURI_PUBLISHER_DID", "did:web:yukkuri.gftd.ai:actor:publisher",
+    "YUKKURI_PUBLISHER_DID", "did:web:yukkuri.etzhayyim.com:actor:publisher",
 )
 
 _TOKEN_URL = "https://oauth2.googleapis.com/token"
@@ -207,7 +207,7 @@ async def _node_upload_video(state: _State) -> dict[str, Any]:
     snippet = {
         "title": title,
         "description": description,
-        "tags": ["yukkuri", "AI", "commentary", "GFTD"],
+        "tags": ["yukkuri", "AI", "commentary", "etzhayyim"],
         "categoryId": state.get("category_id") or _DEFAULT_CATEGORY,
         "defaultLanguage": video_row.get("language", "ja"),
         "defaultAudioLanguage": video_row.get("language", "ja"),

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govPrt.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govPrt.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Portugal government.",
-        "operationId": "ai.gftd.govPrt.followSiteDeps",
+        "operationId": "app.etzhayyim.govPrt.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrt.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govPrt.heartbeatTick": {
       "post": {
         "summary": "Run the Portugal government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govPrt.heartbeatTick",
+        "operationId": "app.etzhayyim.govPrt.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrt.listOrgs": {
+    "/xrpc/app.etzhayyim.govPrt.listOrgs": {
       "get": {
         "summary": "List Portugal government organization graph records.",
-        "operationId": "ai.gftd.govPrt.listOrgs",
+        "operationId": "app.etzhayyim.govPrt.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrt.registerDIDs": {
+    "/xrpc/app.etzhayyim.govPrt.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Portugal government organizations.",
-        "operationId": "ai.gftd.govPrt.registerDIDs",
+        "operationId": "app.etzhayyim.govPrt.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrt.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govPrt.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Portugal government organization path to its graph record.",
-        "operationId": "ai.gftd.govPrt.resolveOrgPath",
+        "operationId": "app.etzhayyim.govPrt.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrt.seedOrgs": {
+    "/xrpc/app.etzhayyim.govPrt.seedOrgs": {
       "post": {
         "summary": "Seed initial Portugal government organization records into the graph.",
-        "operationId": "ai.gftd.govPrt.seedOrgs",
+        "operationId": "app.etzhayyim.govPrt.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrt.shinka": {
+    "/xrpc/app.etzhayyim.govPrt.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Portugal government organization update.",
-        "operationId": "ai.gftd.govPrt.shinka",
+        "operationId": "app.etzhayyim.govPrt.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrt.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govPrt.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Portugal government organization changes to graph.",
-        "operationId": "ai.gftd.govPrt.syncWetUpdates",
+        "operationId": "app.etzhayyim.govPrt.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -3,7 +3,7 @@
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat","nodejs_als"],
-  "alias": { "@gftd/magatama-host-sdk": "/Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts" },
+  "alias": { "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts" },
   "assets": {
     "directory": "./svelte/build",
     "binding": "ASSETS",

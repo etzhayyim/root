@@ -17,7 +17,7 @@ PDS firehose ──▶ mst-projector ──▶ MST shard set (local) ──▶ r
 
 PDS already stores commits in its own repo MST. But:
 
-1. The PDS MST is **per-actor**, optimized for personal-data-server use. A public open-* app like `open-isco` needs a **per-collection cross-actor** MST so any client can traverse `ai.gftd.apps.openIsco.occupation` records without DID-by-DID enumeration.
+1. The PDS MST is **per-actor**, optimized for personal-data-server use. A public open-* app like `open-isco` needs a **per-collection cross-actor** MST so any client can traverse `app.etzhayyim.apps.openIsco.occupation` records without DID-by-DID enumeration.
 2. The PDS firehose is **write-only stream**; clients can't do efficient range scans on it. The projected MST is a **queryable read structure**.
 3. IPFS pinning needs **stable content addresses**; the projector freezes shards on flush boundaries (every N records or T seconds) and hands those CIDs to ipfs-pinner.
 
@@ -64,7 +64,7 @@ mst-projector/
 | `ETZ_PROJECTOR_DATA_DIR` | `/data/mst-projector` | local CAR file storage (`<dataDir>/<urlencoded shardKey>/<rootCid>.car`) |
 | `ETZ_PROJECTOR_FLUSH_RECORDS` | `1000` | flush threshold by record count |
 | `ETZ_PROJECTOR_FLUSH_SECONDS` | `60` | flush threshold by wall-clock seconds |
-| `ETZ_PROJECTOR_COLLECTIONS` | `app.etzhayyim.,ai.gftd.apps.` | NSID prefix filter (comma list) |
+| `ETZ_PROJECTOR_COLLECTIONS` | `app.etzhayyim.,app.etzhayyim.apps.` | NSID prefix filter (comma list) |
 | `ETZ_PROJECTOR_IPFS_API_URL` | — | optional Kubo HTTP API, e.g. `http://localhost:5001`. If unset, snapshotCid is omitted from emitted records. |
 
 ## Operational guarantees
@@ -76,7 +76,7 @@ mst-projector/
 ## Future
 
 - Multi-replica (each projector pulls firehose independently; consensus = identical root CIDs at the same seq).
-- Shard sharding (sub-trees per major-version of a collection, e.g., `ai.gftd.apps.openIsco.occupation/major=2`).
+- Shard sharding (sub-trees per major-version of a collection, e.g., `app.etzhayyim.apps.openIsco.occupation/major=2`).
 
 ## See also
 

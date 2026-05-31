@@ -16,7 +16,7 @@ interface ExportedHandler<E> {
 }
 
 const APP = "baminiku";
-const NSID_PREFIX = "ai.gftd.apps.baminiku.";
+const NSID_PREFIX = "app.etzhayyim.apps.baminiku.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

@@ -74,15 +74,15 @@ def _onion_slug(host: str) -> str:
 
 
 def _site_vid(host: str) -> str:
-    return f"at://{OWNER_DID}/ai.gftd.apps.onion.site/{_onion_slug(host)}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.onion.site/{_onion_slug(host)}"
 
 
 def _page_vid(url: str) -> str:
-    return f"at://{OWNER_DID}/ai.gftd.apps.onion.page/{_sha('p', url)}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.onion.page/{_sha('p', url)}"
 
 
 def _crawl_vid(host: str, started_at: str) -> str:
-    return f"at://{OWNER_DID}/ai.gftd.apps.onion.crawl/{_onion_slug(host)}-{_sha('s', host, started_at)}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.onion.crawl/{_onion_slug(host)}-{_sha('s', host, started_at)}"
 
 
 def _site_did(host: str) -> str:

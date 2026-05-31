@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govLby.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govLby.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Libya government.",
-        "operationId": "ai.gftd.govLby.followSiteDeps",
+        "operationId": "app.etzhayyim.govLby.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLby.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govLby.heartbeatTick": {
       "post": {
         "summary": "Run the Libya government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govLby.heartbeatTick",
+        "operationId": "app.etzhayyim.govLby.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLby.listOrgs": {
+    "/xrpc/app.etzhayyim.govLby.listOrgs": {
       "get": {
         "summary": "List Libya government organization graph records.",
-        "operationId": "ai.gftd.govLby.listOrgs",
+        "operationId": "app.etzhayyim.govLby.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLby.registerDIDs": {
+    "/xrpc/app.etzhayyim.govLby.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Libya government organizations.",
-        "operationId": "ai.gftd.govLby.registerDIDs",
+        "operationId": "app.etzhayyim.govLby.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLby.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govLby.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Libya government organization path to its graph record.",
-        "operationId": "ai.gftd.govLby.resolveOrgPath",
+        "operationId": "app.etzhayyim.govLby.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLby.seedOrgs": {
+    "/xrpc/app.etzhayyim.govLby.seedOrgs": {
       "post": {
         "summary": "Seed initial Libya government organization records into the graph.",
-        "operationId": "ai.gftd.govLby.seedOrgs",
+        "operationId": "app.etzhayyim.govLby.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLby.shinka": {
+    "/xrpc/app.etzhayyim.govLby.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Libya government organization update.",
-        "operationId": "ai.gftd.govLby.shinka",
+        "operationId": "app.etzhayyim.govLby.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLby.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govLby.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Libya government organization changes to graph.",
-        "operationId": "ai.gftd.govLby.syncWetUpdates",
+        "operationId": "app.etzhayyim.govLby.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

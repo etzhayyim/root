@@ -44,7 +44,7 @@ S3_SECRET = os.environ.get("S3_SECRET_KEY", "Wv5b0cNdv7wNoZuiSmnJAxMwlye1MHEl1C6
 
 GRAPH_XRPC_URL = os.environ.get(
     "GRAPH_XRPC_URL",
-    "https://graph.etzhayyim.com/xrpc/ai.gftd.kagami.sql",
+    "https://graph.etzhayyim.com/xrpc/app.etzhayyim.kagami.sql",
 )
 XRPC_TIMEOUT = int(os.environ.get("XRPC_TIMEOUT", "120"))
 

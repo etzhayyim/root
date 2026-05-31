@@ -19,8 +19,8 @@ related:
   - w-protocol-at-superset-architecture
   - did-path-lexicon-correspondence
   - wit-lexicon-typed-alignment
-  - 90-docs/adr/0087-magatama-mcp-tool-facade.md
-  - 90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md
+  - adr-0087-magatama-mcp-tool-facade
+  - adr-2604261000-mcp-registry-via-kysely-schema
 supersedes:
   - wit-lexicon-typed-alignment
 superseded_by: []
@@ -34,7 +34,7 @@ magatama-host-sdk の host capability surface (app に提供される ~100 個�
 
 ## Scope
 
-**対象**: TS Native (DEFAULT, T3) 経路。`src/app.ts` + `@gftd/magatama-host-sdk` + esbuild → CF Worker。
+**対象**: TS Native (DEFAULT, T3) 経路。`src/app.ts` + `@etzhayyim/magatama-host-sdk` + esbuild → CF Worker。
 
 **対象外**: T3 Container (wasmtime, ~2 components) 経路。Rust contract-jco generator (1 component)。これらは WIT を継続使用。
 
@@ -180,7 +180,7 @@ source count は 1 のまま保たれ、Shannon η=1.0 を維持できる。
 ```json
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.secrets.get",
+  "id": "app.etzhayyim.host.secrets.get",
   "defs": {
     "main": {
       "type": "query",
@@ -274,15 +274,15 @@ F1 (host capability) 統合に続き、F2 (app command surface) も Lexicon SSoT
 
 #### Holdout apps (manually migrated 2026-04-13)
 
-- **shinshi**: `"shinshi.createDID"` → `ai.gftd.apps.shinshi.createDid` (short-form → fully-qualified AT Protocol NSID)
-- **i18n**: ``${CMD_SERVICE}.RegisterProject`` × 12 → `ai.gftd.apps.i18n.registerProject` × 12 (template literal → static literal)
-- **outlook-mcp-component**: ``${SERVICE_NS}.GetOAuthConfig`` × 10 → `ai.gftd.apps.outlook.getOauthConfig` × 10
+- **shinshi**: `"shinshi.createDID"` → `app.etzhayyim.apps.shinshi.createDid` (short-form → fully-qualified AT Protocol NSID)
+- **i18n**: ``${CMD_SERVICE}.RegisterProject`` × 12 → `app.etzhayyim.apps.i18n.registerProject` × 12 (template literal → static literal)
+- **outlook-mcp-component**: ``${SERVICE_NS}.GetOAuthConfig`` × 10 → `app.etzhayyim.apps.outlook.getOauthConfig` × 10
 - **media-gamers**: 5 underscore-name NSIDs migrated via re-run of codemod after stub bootstrap
 
 #### Legacy archive
 
 - `AssertCommandNSID` / `AssertQueryNSID` loose types → `_archive/20-actors/magatama/sdk/magatama-host-sdk-legacy-nsid-assert-260413/`
-- `@gftd/magatama-host-contract` 12-line stub package → inlined into `magatama-host-sdk/src/types.ts`, archived to `_archive/00-contracts/magatama-host-contract-260413/`
+- `@etzhayyim/magatama-host-contract` 12-line stub package → inlined into `magatama-host-sdk/src/types.ts`, archived to `_archive/00-contracts/magatama-host-contract-260413/`
 - `build.go` dead `validateWITVersion` path → softened to optional (only runs when `--wit-dir` / `MAGATAMA_WIT_DIR` is set)
 
 #### Final state
@@ -321,7 +321,7 @@ F1 (host capability) 統合に続き、F2 (app command surface) も Lexicon SSoT
 | 多言語 SDK 同形性 | × (各言語別 codegen 必要) | **◎** (atproto と同じ pattern、Go/Rust/Python codegen 流用可能) |
 | AT Protocol federable | × | **◎** (W Protocol superset として一貫) |
 | validator 生成 | × (手書き) | **◎** (lex-cli が生成) |
-| Wire format と host interface の名前空間統一 | × (別系統) | **◎** (`ai.gftd.host.*` / `ai.gftd.apps.*` 同じ NSID space) |
+| Wire format と host interface の名前空間統一 | × (別系統) | **◎** (`app.etzhayyim.host.*` / `app.etzhayyim.apps.*` 同じ NSID space) |
 | Description / doc string ホバー | △ (WIT comment) | **◎** (Lexicon `description` field) |
 | Build 依存 | jco / canonical-abi / wasm-tools | **なし** (esbuild + node script) |
 | Build time | 数秒 (jco) | **<1s** (純粋 TS) |

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govSvk.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govSvk.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Slovakia government.",
-        "operationId": "ai.gftd.govSvk.followSiteDeps",
+        "operationId": "app.etzhayyim.govSvk.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvk.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govSvk.heartbeatTick": {
       "post": {
         "summary": "Run the Slovakia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govSvk.heartbeatTick",
+        "operationId": "app.etzhayyim.govSvk.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvk.listOrgs": {
+    "/xrpc/app.etzhayyim.govSvk.listOrgs": {
       "get": {
         "summary": "List Slovakia government organization graph records.",
-        "operationId": "ai.gftd.govSvk.listOrgs",
+        "operationId": "app.etzhayyim.govSvk.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvk.registerDIDs": {
+    "/xrpc/app.etzhayyim.govSvk.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Slovakia government organizations.",
-        "operationId": "ai.gftd.govSvk.registerDIDs",
+        "operationId": "app.etzhayyim.govSvk.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvk.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govSvk.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Slovakia government organization path to its graph record.",
-        "operationId": "ai.gftd.govSvk.resolveOrgPath",
+        "operationId": "app.etzhayyim.govSvk.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvk.seedOrgs": {
+    "/xrpc/app.etzhayyim.govSvk.seedOrgs": {
       "post": {
         "summary": "Seed initial Slovakia government organization records into the graph.",
-        "operationId": "ai.gftd.govSvk.seedOrgs",
+        "operationId": "app.etzhayyim.govSvk.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvk.shinka": {
+    "/xrpc/app.etzhayyim.govSvk.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Slovakia government organization update.",
-        "operationId": "ai.gftd.govSvk.shinka",
+        "operationId": "app.etzhayyim.govSvk.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvk.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govSvk.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Slovakia government organization changes to graph.",
-        "operationId": "ai.gftd.govSvk.syncWetUpdates",
+        "operationId": "app.etzhayyim.govSvk.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

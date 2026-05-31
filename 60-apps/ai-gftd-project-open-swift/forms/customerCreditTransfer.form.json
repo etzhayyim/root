@@ -3,7 +3,7 @@
   "formKey": "openSwift.customerCreditTransfer.v1",
   "name": "Customer Credit Transfer",
   "version": 1,
-  "lexiconRef": "ai.gftd.apps.openSwift.sendCustomerCreditTransfer",
+  "lexiconRef": "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer",
   "components": [
     { "key": "debtorAgentBic", "label": "Debtor Agent BIC", "type": "textfield",
       "validate": { "required": true, "pattern": "^[A-Z0-9]{8}([A-Z0-9]{3})?$" } },

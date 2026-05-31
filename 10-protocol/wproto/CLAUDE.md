@@ -23,7 +23,7 @@ W Protocol core logic crate。AT Protocol + Signal Protocol を Bytecode Allianc
 | `commit.rs` | WCommitLog — channel-scoped MDAG commit chain (time-travel, checkout, history) |
 | `diff.rs` | `w_diff()` — Merkle diff between channel commits O(changed kinds) |
 | `crypto.rs` | AutoCrypto — encryption decision engine (host/client/passthrough) |
-| `record.rs` | RecordMapper — CBOR primary + Lexicon JSON derived。`kind` → `ai.gftd.w.{kind}` |
+| `record.rs` | RecordMapper — CBOR primary + Lexicon JSON derived。`kind` → `app.etzhayyim.w.{kind}` |
 | `serve.rs` | WrpcRouter — wRPC instance/method routing constants |
 | `invoke.rs` | FederationInvoke — wRPC federation call helpers |
 | `transport.rs` | NatsSubjects — NATS subject mapping (for yata-wrpc) |
@@ -128,8 +128,8 @@ MDAG commit chain, Merkle diff, auto-encryption が自動適用。
 
 ## Key Rules
 
-- **kind → AT collection は自動**: `RecordMapper::kind_to_collection("message")` → `ai.gftd.w.message`
-- **A2A/governance passthrough**: `a2a-task` → `ai.gftd.a2a.task` (既存 collection)
+- **kind → AT collection は自動**: `RecordMapper::kind_to_collection("message")` → `app.etzhayyim.w.message`
+- **A2A/governance passthrough**: `a2a-task` → `app.etzhayyim.a2a.task` (既存 collection)
 - **MDAG CID = envelope identity**: 同一内容 → 同一 CID (dedup)
 - **Commit chain per channel**: `WRootBlock.parent` で time-travel
 - **Merkle diff O(changed)**: 未変更 kind group は CID 比較で O(1) skip

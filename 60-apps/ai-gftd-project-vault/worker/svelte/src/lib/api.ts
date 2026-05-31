@@ -54,11 +54,11 @@ export function createVault(args: {
   wrappedVaultKey: string;
   memberDeviceKeyId: string;
 }) {
-  return xrpc<{ vaultId: string; createdAt: string }>("ai.gftd.vault.createVault", args);
+  return xrpc<{ vaultId: string; createdAt: string }>("app.etzhayyim.vault.createVault", args);
 }
 
 export function listVaults() {
-  return xrpcGet<{ vaults: VaultInfo[] }>("ai.gftd.vault.listVaults", {});
+  return xrpcGet<{ vaults: VaultInfo[] }>("app.etzhayyim.vault.listVaults", {});
 }
 
 export function putItem(args: {
@@ -71,19 +71,19 @@ export function putItem(args: {
   contentType?: string;
   labels?: string[];
 }) {
-  return xrpc<{ itemId: string; createdAt: string; size: number }>("ai.gftd.vault.putItem", args);
+  return xrpc<{ itemId: string; createdAt: string; size: number }>("app.etzhayyim.vault.putItem", args);
 }
 
 export function listItems(vaultId: string) {
-  return xrpcGet<{ items: VaultItem[] }>("ai.gftd.vault.listItems", { vaultId });
+  return xrpcGet<{ items: VaultItem[] }>("app.etzhayyim.vault.listItems", { vaultId });
 }
 
 export function getItem(itemId: string, vaultId: string) {
   return xrpcGet<VaultItem & { wrappedItemKey: string; ciphertext: string; iv: string }>(
-    "ai.gftd.vault.getItem", { itemId, vaultId }
+    "app.etzhayyim.vault.getItem", { itemId, vaultId }
   );
 }
 
 export function deleteItem(args: { itemId: string; vaultId: string }) {
-  return xrpc<{ ok: boolean }>("ai.gftd.vault.deleteItem", args);
+  return xrpc<{ ok: boolean }>("app.etzhayyim.vault.deleteItem", args);
 }

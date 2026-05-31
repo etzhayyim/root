@@ -150,7 +150,7 @@ export class LangserverActorError extends Error {
 const DEFAULT_TIMEOUT_MS = 8_000;
 
 function nsidPath(taxonomy: Taxonomy, action: string): string {
-  return `/xrpc/ai.gftd.apps.${taxonomy}.${action}`;
+  return `/xrpc/app.etzhayyim.apps.${taxonomy}.${action}`;
 }
 
 function urlWithQuery(base: string, params: Record<string, unknown>): string {

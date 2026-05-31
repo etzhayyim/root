@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govIta.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govIta.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Italy government.",
-        "operationId": "ai.gftd.govIta.followSiteDeps",
+        "operationId": "app.etzhayyim.govIta.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIta.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govIta.heartbeatTick": {
       "post": {
         "summary": "Run the Italy government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govIta.heartbeatTick",
+        "operationId": "app.etzhayyim.govIta.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIta.listOrgs": {
+    "/xrpc/app.etzhayyim.govIta.listOrgs": {
       "get": {
         "summary": "List Italy government organization graph records.",
-        "operationId": "ai.gftd.govIta.listOrgs",
+        "operationId": "app.etzhayyim.govIta.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIta.registerDIDs": {
+    "/xrpc/app.etzhayyim.govIta.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Italy government organizations.",
-        "operationId": "ai.gftd.govIta.registerDIDs",
+        "operationId": "app.etzhayyim.govIta.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIta.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govIta.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Italy government organization path to its graph record.",
-        "operationId": "ai.gftd.govIta.resolveOrgPath",
+        "operationId": "app.etzhayyim.govIta.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIta.seedOrgs": {
+    "/xrpc/app.etzhayyim.govIta.seedOrgs": {
       "post": {
         "summary": "Seed initial Italy government organization records into the graph.",
-        "operationId": "ai.gftd.govIta.seedOrgs",
+        "operationId": "app.etzhayyim.govIta.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIta.shinka": {
+    "/xrpc/app.etzhayyim.govIta.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Italy government organization update.",
-        "operationId": "ai.gftd.govIta.shinka",
+        "operationId": "app.etzhayyim.govIta.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIta.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govIta.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Italy government organization changes to graph.",
-        "operationId": "ai.gftd.govIta.syncWetUpdates",
+        "operationId": "app.etzhayyim.govIta.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

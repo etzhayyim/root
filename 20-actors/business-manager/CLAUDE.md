@@ -33,6 +33,6 @@
 
 ## Triggers
 
-- `subscribeRepos`: `ai.gftd.apps.businessManager.{journalEntry,invoice,employee,purchaseOrder,budgetAllocation}`
+- `subscribeRepos`: `app.etzhayyim.apps.businessManager.{journalEntry,invoice,employee,purchaseOrder,budgetAllocation}`
 - `xrpc`: `listJournalEntries`, `createJournalEntry`, `createPurchaseOrder`, `coverage.get`
 - `cron`: `0 9 * * 1` (weekly budget report), `0 */6 * * *` (coverage snapshot)

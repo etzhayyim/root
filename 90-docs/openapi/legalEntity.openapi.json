@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.legalEntity.collectAus": {
+    "/xrpc/app.etzhayyim.legalEntity.collectAus": {
       "post": {
         "summary": "Return the Australia ABR/ABN bulk-ingest workflow contract. This command does not call ABN Lookup or page through records; stage the bulk extract and commit Zeebe output with commitEntities.",
-        "operationId": "ai.gftd.legalEntity.collectAus",
+        "operationId": "app.etzhayyim.legalEntity.collectAus",
         "requestBody": {
           "required": true,
           "content": {
@@ -91,10 +91,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectBel": {
+    "/xrpc/app.etzhayyim.legalEntity.collectBel": {
       "post": {
         "summary": "Return the Belgium KBO/BCE bulk-ingest workflow contract. This command does not parse CSV data directly; stage the bulk snapshot and commit Zeebe output with commitEntities.",
-        "operationId": "ai.gftd.legalEntity.collectBel",
+        "operationId": "app.etzhayyim.legalEntity.collectBel",
         "requestBody": {
           "required": true,
           "content": {
@@ -172,10 +172,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectBra": {
+    "/xrpc/app.etzhayyim.legalEntity.collectBra": {
       "post": {
         "summary": "Return the Brazil CNPJ bulk-ingest workflow contract. This command does not fetch Receita Federal data directly; stage official bulk files and commit Zeebe output with commitEntities.",
-        "operationId": "ai.gftd.legalEntity.collectBra",
+        "operationId": "app.etzhayyim.legalEntity.collectBra",
         "requestBody": {
           "required": true,
           "content": {
@@ -253,10 +253,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectCan": {
+    "/xrpc/app.etzhayyim.legalEntity.collectCan": {
       "post": {
         "summary": "Return the Canada Corporations Canada/ISED bulk-ingest workflow contract. This command does not fetch registry pages directly; stage the open-data snapshot and commit Zeebe output with commitEntities.",
-        "operationId": "ai.gftd.legalEntity.collectCan",
+        "operationId": "app.etzhayyim.legalEntity.collectCan",
         "requestBody": {
           "required": true,
           "content": {
@@ -334,10 +334,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectChe": {
+    "/xrpc/app.etzhayyim.legalEntity.collectChe": {
       "post": {
         "summary": "Collect Swiss corporate data from Zefix (FOSC/SHAB) central business name index. CHE/UID as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectChe",
+        "operationId": "app.etzhayyim.legalEntity.collectChe",
         "requestBody": {
           "required": true,
           "content": {
@@ -411,10 +411,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectCze": {
+    "/xrpc/app.etzhayyim.legalEntity.collectCze": {
       "post": {
         "summary": "Collect Czech corporate data from ARES (Administrative Register of Economic Subjects). ICO as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectCze",
+        "operationId": "app.etzhayyim.legalEntity.collectCze",
         "requestBody": {
           "required": true,
           "content": {
@@ -480,10 +480,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectDnk": {
+    "/xrpc/app.etzhayyim.legalEntity.collectDnk": {
       "post": {
         "summary": "Collect Danish corporate data from CVR (Central Business Register) via Virk.dk API. CVR number as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectDnk",
+        "operationId": "app.etzhayyim.legalEntity.collectDnk",
         "requestBody": {
           "required": true,
           "content": {
@@ -549,10 +549,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectEst": {
+    "/xrpc/app.etzhayyim.legalEntity.collectEst": {
       "post": {
         "summary": "Collect Estonian corporate data from e-Business Register (ariregister.rik.ee). Registry code as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectEst",
+        "operationId": "app.etzhayyim.legalEntity.collectEst",
         "requestBody": {
           "required": true,
           "content": {
@@ -618,10 +618,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectFin": {
+    "/xrpc/app.etzhayyim.legalEntity.collectFin": {
       "post": {
         "summary": "Collect Finnish corporate data from PRH/YTJ (Business Information System). Business ID (Y-tunnus) as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectFin",
+        "operationId": "app.etzhayyim.legalEntity.collectFin",
         "requestBody": {
           "required": true,
           "content": {
@@ -687,10 +687,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectFra": {
+    "/xrpc/app.etzhayyim.legalEntity.collectFra": {
       "post": {
         "summary": "Collect French corporate data from INSEE SIRENE API. SIREN/SIRET as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectFra",
+        "operationId": "app.etzhayyim.legalEntity.collectFra",
         "requestBody": {
           "required": true,
           "content": {
@@ -760,10 +760,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectGbr": {
+    "/xrpc/app.etzhayyim.legalEntity.collectGbr": {
       "post": {
         "summary": "Collect UK corporate data from Companies House REST API. Company number as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectGbr",
+        "operationId": "app.etzhayyim.legalEntity.collectGbr",
         "requestBody": {
           "required": true,
           "content": {
@@ -837,10 +837,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectGlobal": {
+    "/xrpc/app.etzhayyim.legalEntity.collectGlobal": {
       "post": {
         "summary": "Collect GLEIF LEI records (global corporate registry). Paginated bulk ingest.",
-        "operationId": "ai.gftd.legalEntity.collectGlobal",
+        "operationId": "app.etzhayyim.legalEntity.collectGlobal",
         "requestBody": {
           "required": true,
           "content": {
@@ -920,10 +920,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectGlobalGleif": {
+    "/xrpc/app.etzhayyim.legalEntity.collectGlobalGleif": {
       "post": {
         "summary": "Start the Zeebe Python GLEIF global legal-entity collection pipeline.",
-        "operationId": "ai.gftd.legalEntity.collectGlobalGleif",
+        "operationId": "app.etzhayyim.legalEntity.collectGlobalGleif",
         "requestBody": {
           "required": true,
           "content": {
@@ -973,10 +973,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectIsr": {
+    "/xrpc/app.etzhayyim.legalEntity.collectIsr": {
       "post": {
         "summary": "Collect Israeli corporate data from Companies Registrar (Rasham HaChavarot). Company number as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectIsr",
+        "operationId": "app.etzhayyim.legalEntity.collectIsr",
         "requestBody": {
           "required": true,
           "content": {
@@ -1046,10 +1046,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectJpn": {
+    "/xrpc/app.etzhayyim.legalEntity.collectJpn": {
       "post": {
         "summary": "Collect Japanese corporate registry data from NTA (National Tax Agency) houjin-bangou API. 13-digit corporate number.",
-        "operationId": "ai.gftd.legalEntity.collectJpn",
+        "operationId": "app.etzhayyim.legalEntity.collectJpn",
         "requestBody": {
           "required": true,
           "content": {
@@ -1127,10 +1127,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectNld": {
+    "/xrpc/app.etzhayyim.legalEntity.collectNld": {
       "post": {
         "summary": "Collect Dutch corporate data from KVK (Kamer van Koophandel) Handelsregister API. KVK number as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectNld",
+        "operationId": "app.etzhayyim.legalEntity.collectNld",
         "requestBody": {
           "required": true,
           "content": {
@@ -1196,10 +1196,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectNor": {
+    "/xrpc/app.etzhayyim.legalEntity.collectNor": {
       "post": {
         "summary": "Collect Norwegian corporate data from Bronnoysund Register Centre (Enhetsregisteret). Organisation number as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectNor",
+        "operationId": "app.etzhayyim.legalEntity.collectNor",
         "requestBody": {
           "required": true,
           "content": {
@@ -1265,10 +1265,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectNzl": {
+    "/xrpc/app.etzhayyim.legalEntity.collectNzl": {
       "post": {
         "summary": "Collect New Zealand corporate data from Companies Office (MBIE). NZ Company Number (NZBN) as primary key.",
-        "operationId": "ai.gftd.legalEntity.collectNzl",
+        "operationId": "app.etzhayyim.legalEntity.collectNzl",
         "requestBody": {
           "required": true,
           "content": {
@@ -1338,10 +1338,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectUsa": {
+    "/xrpc/app.etzhayyim.legalEntity.collectUsa": {
       "post": {
         "summary": "Start the Zeebe Python SEC EDGAR collection pipeline. The edge worker only returns workflow metadata; state SOS registry work remains a future actor slice.",
-        "operationId": "ai.gftd.legalEntity.collectUsa",
+        "operationId": "app.etzhayyim.legalEntity.collectUsa",
         "requestBody": {
           "required": true,
           "content": {
@@ -1433,10 +1433,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectUsaEdgar": {
+    "/xrpc/app.etzhayyim.legalEntity.collectUsaEdgar": {
       "post": {
         "summary": "Start the Zeebe Python SEC EDGAR listed-company collection pipeline.",
-        "operationId": "ai.gftd.legalEntity.collectUsaEdgar",
+        "operationId": "app.etzhayyim.legalEntity.collectUsaEdgar",
         "requestBody": {
           "required": true,
           "content": {
@@ -1489,10 +1489,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.collectZaf": {
+    "/xrpc/app.etzhayyim.legalEntity.collectZaf": {
       "post": {
         "summary": "Return the South Africa CIPC unsupported/bulk-required workflow contract. This command does not fetch CIPC data; use an approved export or API entitlement with Zeebe and commit output with commitEntities.",
-        "operationId": "ai.gftd.legalEntity.collectZaf",
+        "operationId": "app.etzhayyim.legalEntity.collectZaf",
         "requestBody": {
           "required": true,
           "content": {
@@ -1570,10 +1570,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.commitEntities": {
+    "/xrpc/app.etzhayyim.legalEntity.commitEntities": {
       "post": {
         "summary": "Thin edge write boundary for Zeebe-collected legal entity records.",
-        "operationId": "ai.gftd.legalEntity.commitEntities",
+        "operationId": "app.etzhayyim.legalEntity.commitEntities",
         "requestBody": {
           "required": true,
           "content": {
@@ -1644,10 +1644,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.commitEntityDids": {
+    "/xrpc/app.etzhayyim.legalEntity.commitEntityDids": {
       "post": {
         "summary": "Thin edge boundary for Zeebe-resolved legal-entity path DID creation.",
-        "operationId": "ai.gftd.legalEntity.commitEntityDids",
+        "operationId": "app.etzhayyim.legalEntity.commitEntityDids",
         "requestBody": {
           "required": true,
           "content": {
@@ -1733,10 +1733,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.commitSecDisclosure": {
+    "/xrpc/app.etzhayyim.legalEntity.commitSecDisclosure": {
       "post": {
         "summary": "Thin edge write boundary for Zeebe-collected SEC company filing and company fact records.",
-        "operationId": "ai.gftd.legalEntity.commitSecDisclosure",
+        "operationId": "app.etzhayyim.legalEntity.commitSecDisclosure",
         "requestBody": {
           "required": true,
           "content": {
@@ -1833,10 +1833,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.ingestSecDisclosure": {
+    "/xrpc/app.etzhayyim.legalEntity.ingestSecDisclosure": {
       "post": {
         "summary": "Dispatch SEC EDGAR submissions and companyfacts ingest for one issuer to the Zeebe Python collector.",
-        "operationId": "ai.gftd.legalEntity.ingestSecDisclosure",
+        "operationId": "app.etzhayyim.legalEntity.ingestSecDisclosure",
         "requestBody": {
           "required": true,
           "content": {
@@ -1912,10 +1912,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.linkOwnership": {
+    "/xrpc/app.etzhayyim.legalEntity.linkOwnership": {
       "post": {
         "summary": "Create ownership/subsidiary relationship records between legal entities. Each item may resolve endpoints by vertexId, LEI, source/sourceRecordId, or name/country.",
-        "operationId": "ai.gftd.legalEntity.linkOwnership",
+        "operationId": "app.etzhayyim.legalEntity.linkOwnership",
         "requestBody": {
           "required": true,
           "content": {
@@ -2039,10 +2039,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.linkTrade": {
+    "/xrpc/app.etzhayyim.legalEntity.linkTrade": {
       "post": {
         "summary": "Create customer/supplier/partner relationship records between legal entities. Each item may resolve endpoints by vertexId, LEI, source/sourceRecordId, or name/country.",
-        "operationId": "ai.gftd.legalEntity.linkTrade",
+        "operationId": "app.etzhayyim.legalEntity.linkTrade",
         "requestBody": {
           "required": true,
           "content": {
@@ -2163,10 +2163,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.registerDids": {
+    "/xrpc/app.etzhayyim.legalEntity.registerDids": {
       "post": {
         "summary": "Start the Zeebe Python path-DID registration pipeline for GLEIF LEI entities. The edge worker only returns workflow metadata and exposes commitEntityDids for the actor.",
-        "operationId": "ai.gftd.legalEntity.registerDids",
+        "operationId": "app.etzhayyim.legalEntity.registerDids",
         "requestBody": {
           "required": true,
           "content": {
@@ -2247,10 +2247,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.registerGleifDids": {
+    "/xrpc/app.etzhayyim.legalEntity.registerGleifDids": {
       "post": {
         "summary": "Start the Zeebe Python GLEIF path-DID registration pipeline.",
-        "operationId": "ai.gftd.legalEntity.registerGleifDids",
+        "operationId": "app.etzhayyim.legalEntity.registerGleifDids",
         "requestBody": {
           "required": true,
           "content": {
@@ -2300,10 +2300,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.search": {
+    "/xrpc/app.etzhayyim.legalEntity.search": {
       "get": {
         "summary": "Search legal entities by exact name match.",
-        "operationId": "ai.gftd.legalEntity.search",
+        "operationId": "app.etzhayyim.legalEntity.search",
         "parameters": [],
         "responses": {
           "200": {
@@ -2330,10 +2330,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.legalEntity.stats": {
+    "/xrpc/app.etzhayyim.legalEntity.stats": {
       "get": {
         "summary": "Legal entity collection stats (total count, top countries).",
-        "operationId": "ai.gftd.legalEntity.stats",
+        "operationId": "app.etzhayyim.legalEntity.stats",
         "parameters": [],
         "responses": {
           "200": {

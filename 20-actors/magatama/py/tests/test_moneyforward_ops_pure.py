@@ -44,7 +44,7 @@ def test_issue_invoice_writes_draft_invoice(fake_db: list[tuple[str, tuple[Any, 
         taxRate=0.1,
     )
 
-    assert result["invoiceDid"] == "did:plc:gftd-works|ai.gftd.apps.seikyu.invoice|inv-001"
+    assert result["invoiceDid"] == "did:plc:gftd-works|app.etzhayyim.apps.seikyu.invoice|inv-001"
     assert result["subtotal"] == 1000
     assert result["taxAmount"] == 100
     assert result["total"] == 1100
@@ -63,7 +63,7 @@ def test_record_payment_updates_invoice_status(monkeypatch: pytest.MonkeyPatch, 
     monkeypatch.setattr(mf, "_fetch_one", fetch_one)
 
     result = mf.record_payment_received(
-        invoiceDid="did:plc:gftd-works|ai.gftd.apps.seikyu.invoice|inv-001",
+        invoiceDid="did:plc:gftd-works|app.etzhayyim.apps.seikyu.invoice|inv-001",
         paymentDate="2026-05-09",
         amount=1100,
         reference="bank-1",
@@ -87,7 +87,7 @@ def test_draft_agreement_creates_recurring_schedule_when_amount_present(fake_db:
         recurringFrequency="monthly",
     )
 
-    assert result["agreementDid"].startswith("did:plc:gftd-works|ai.gftd.apps.keiyaku.agreement|msa-")
+    assert result["agreementDid"].startswith("did:plc:gftd-works|app.etzhayyim.apps.keiyaku.agreement|msa-")
     assert any("vertex_atrecord_keiyaku_agreement" in sql for sql, _ in fake_db)
     assert any("vertex_atrecord_seikyu_recurring_schedule" in sql for sql, _ in fake_db)
 
@@ -125,7 +125,7 @@ def test_t3_handlers_store_only_encrypted_refs(fake_db: list[tuple[str, tuple[An
     )
 
     assert payroll["status"] == "completed"
-    assert payroll["kaikeiSourceType"] == "ai.gftd.apps.jinji.payrollRun.completed"
+    assert payroll["kaikeiSourceType"] == "app.etzhayyim.apps.jinji.payrollRun.completed"
     assert vault["ok"] is True
     flattened_params = " ".join(str(v) for _, params in fake_db for v in params)
     assert "signal:v1:" in flattened_params
@@ -143,5 +143,5 @@ def test_register_saas_asset_targets_kaisya_inventory(fake_db: list[tuple[str, t
     )
 
     assert result["ok"] is True
-    assert result["assetDid"] == "did:plc:gftd-works|ai.gftd.apps.kaisya.saasAsset|box-folder-folder-1"
+    assert result["assetDid"] == "did:plc:gftd-works|app.etzhayyim.apps.kaisya.saasAsset|box-folder-folder-1"
     assert any("vertex_kaisya_saas_asset" in sql for sql, _ in fake_db)

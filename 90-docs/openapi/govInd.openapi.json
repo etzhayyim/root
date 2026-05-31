@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govInd.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govInd.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for India government.",
-        "operationId": "ai.gftd.govInd.followSiteDeps",
+        "operationId": "app.etzhayyim.govInd.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govInd.getBpmnProcess": {
+    "/xrpc/app.etzhayyim.govInd.getBpmnProcess": {
       "get": {
         "summary": "Get one Government of India BPMN process index entry by processId or bpmnRef.",
-        "operationId": "ai.gftd.govInd.getBpmnProcess",
+        "operationId": "app.etzhayyim.govInd.getBpmnProcess",
         "parameters": [
           {
             "name": "processId",
@@ -128,10 +128,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govInd.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govInd.heartbeatTick": {
       "post": {
         "summary": "Run the India government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govInd.heartbeatTick",
+        "operationId": "app.etzhayyim.govInd.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -211,10 +211,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govInd.listBpmnDefs": {
+    "/xrpc/app.etzhayyim.govInd.listBpmnDefs": {
       "get": {
         "summary": "List Government of India BPMN definitions from the bundled administrative process index.",
-        "operationId": "ai.gftd.govInd.listBpmnDefs",
+        "operationId": "app.etzhayyim.govInd.listBpmnDefs",
         "parameters": [
           {
             "name": "q",
@@ -296,10 +296,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govInd.listOrgs": {
+    "/xrpc/app.etzhayyim.govInd.listOrgs": {
       "get": {
         "summary": "List India government organization graph records.",
-        "operationId": "ai.gftd.govInd.listOrgs",
+        "operationId": "app.etzhayyim.govInd.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -370,10 +370,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govInd.registerDIDs": {
+    "/xrpc/app.etzhayyim.govInd.registerDIDs": {
       "post": {
         "summary": "Register DIDs for India government organizations.",
-        "operationId": "ai.gftd.govInd.registerDIDs",
+        "operationId": "app.etzhayyim.govInd.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -423,10 +423,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govInd.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govInd.resolveOrgPath": {
       "get": {
         "summary": "Resolve a India government organization path to its graph record.",
-        "operationId": "ai.gftd.govInd.resolveOrgPath",
+        "operationId": "app.etzhayyim.govInd.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -479,10 +479,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govInd.seedOrgs": {
+    "/xrpc/app.etzhayyim.govInd.seedOrgs": {
       "post": {
         "summary": "Seed initial India government organization records into the graph.",
-        "operationId": "ai.gftd.govInd.seedOrgs",
+        "operationId": "app.etzhayyim.govInd.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -529,10 +529,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govInd.shinka": {
+    "/xrpc/app.etzhayyim.govInd.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible India government organization update.",
-        "operationId": "ai.gftd.govInd.shinka",
+        "operationId": "app.etzhayyim.govInd.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -583,10 +583,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govInd.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govInd.syncWetUpdates": {
       "post": {
         "summary": "Sync recent India government organization changes to graph.",
-        "operationId": "ai.gftd.govInd.syncWetUpdates",
+        "operationId": "app.etzhayyim.govInd.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

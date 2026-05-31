@@ -12,7 +12,7 @@ authoritative_for:
   - app.css required directives
   - package.json required devDependencies for Tailwind
 related:
-  - 90-docs/adr/2605152100-auth-unified-topology.md
+  - adr-2605152100-auth-unified-topology
   - 40-engine/svelte/design-system/
 ---
 

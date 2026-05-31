@@ -99,7 +99,7 @@ async def task_check_flow_threshold(
 
         # Form the block
         block_id = _uid("blk")
-        block_vid = f"at://{KINOKO_DID}/ai.gftd.apps.kinoko.block/{block_id}"
+        block_vid = f"at://{KINOKO_DID}/app.etzhayyim.apps.kinoko.block/{block_id}"
         now = _now()
         snapshot_hash = hashlib.sha256(
             f"{total_flow}{min_eta}{participant_count}{now}".encode()

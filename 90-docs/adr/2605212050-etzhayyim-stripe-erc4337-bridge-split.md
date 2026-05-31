@@ -162,7 +162,7 @@ Etzhayyim maintains a **dedicated USDC reserve** on Base L2 at `etzhayyim-fiat-b
 | Role | Holder | Authority |
 |---|---|---|
 | **Custody** | etzhayyim (5-of-7 Council multisig Safe) | only Council multisig can withdraw |
-| **Backing** | vendor (Gftd Japan) | vendor's fiat receivables (Stripe outstanding) back the on-chain balance |
+| **Backing** | vendor (etzhayyim Japan) | vendor's fiat receivables (Stripe outstanding) back the on-chain balance |
 
 Vendor deposits USDC into the reserve as part of regular treasury operations (e.g. monthly net settlement: vendor's gross fiat inflows minus its operating costs → top-up the reserve). The reserve drains as etzhayyim mints USDC for bridge calls.
 
@@ -196,7 +196,7 @@ recipient asks for refund
   → etzhayyim mints reverse UserOp: recipient → reserve, plus
     Public Fund refunds 10% to reserve (tithe-router reverse split)
   → etzhayyim writes org.etzhayyim.payment.fiatBridgeRefundReceipt AT Record
-  → etzhayyim calls back vendor XRPC: ai.gftd.authz.fiatBridgeRefundCallback
+  → etzhayyim calls back vendor XRPC: app.etzhayyim.authz.fiatBridgeRefundCallback
     (vendor side; vendor reverses the Stripe Issuing authorization or
     issues a Stripe refund depending on settlement state)
 ```
@@ -217,7 +217,7 @@ Vendor MUST honor `fiatBridgeRefundCallback` within 24h or the etzhayyim receipt
   - `fiatBridgeReceipt.json` (record)
   - `fiatBridgeRefundReceipt.json` (record)
 - New vendor-side lexicons (vendor repo, separate PR):
-  - `ai.gftd.authz.fiatBridgeRefundCallback` (procedure, etzhayyim → vendor)
+  - `app.etzhayyim.authz.fiatBridgeRefundCallback` (procedure, etzhayyim → vendor)
 - Vendor `60-apps/ai-gftd-project-murakumo/CLAUDE.md` and Stripe Issuing description sections updated to reflect the new flow (vendor approves authorization → calls etzhayyim XRPC → records receipt). Vendor private chain `260425` no longer involved in fiat → chain settlement.
 - Tithe receipts per ADR-2605192130 increase — every fiat-originated chain credit contributes to the Public Fund. This is the intended design.
 - Treasury reserve becomes a single point of operational risk: depletion = bridge unavailable. Mitigation: minimum-balance alarm + vendor SOP for monthly top-up.
@@ -245,7 +245,7 @@ Vendor MUST honor `fiatBridgeRefundCallback` within 24h or the etzhayyim receipt
 - Decide the initial daily cap value (proposed 50,000 USDC; awaiting Council confirmation).
 - Decide the reserve minimum-balance threshold (proposed 30 days of average burn; needs traffic data).
 - Define vendor SOP for monthly treasury top-up (which bank wire path → Coinbase / Circle Mint → Base L2 USDC → reserve).
-- Lexicon NSIDs: confirm `org.etzhayyim.payment.creditFromFiat` (this ADR) vs alternative under existing `ai.gftd.apps.payment.*` namespace. Recommended: `org.etzhayyim.payment.*` for new endpoints to mirror ADR-2605212030 namespace decision.
+- Lexicon NSIDs: confirm `org.etzhayyim.payment.creditFromFiat` (this ADR) vs alternative under existing `app.etzhayyim.apps.payment.*` namespace. Recommended: `org.etzhayyim.payment.*` for new endpoints to mirror ADR-2605212030 namespace decision.
 - Reserve contract implementation choice — bare Solidity vs OpenZeppelin Governor vs Safe-only. Recommended: Safe (5-of-7) with a thin module exposing the cap-check + mint-helper for the XRPC handler.
 - Vendor authorization id ↔ etzhayyim receipt cross-reference SLA — how long does vendor retain `vertex_gftd_stripe_issuing_authorization` rows? Match etzhayyim AT Record retention.
 - Failure mode: what if the etzhayyim bundler is down at the moment of vendor → etzhayyim call? Buffer with retry queue vs return error to Stripe (decline). Recommended: short retry (≤ 2s) then decline; never queue across the Stripe authorization window.

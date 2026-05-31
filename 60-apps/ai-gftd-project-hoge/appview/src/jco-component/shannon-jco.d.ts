@@ -1,10 +1,10 @@
 // world root:component/root
-import type * as GftdHogeComputeCompute from './interfaces/gftd-hoge-compute-compute.js'; // gftd:hoge-compute/compute@1.0.0
+import type * as etzhayyimHogeComputeCompute from './interfaces/gftd-hoge-compute-compute.js'; // gftd:hoge-compute/compute@1.0.0
 export interface ImportObject {
 }
 export interface Root {
-  'gftd:hoge-compute/compute@1.0.0': typeof GftdHogeComputeCompute,
-  compute: typeof GftdHogeComputeCompute,
+  'gftd:hoge-compute/compute@1.0.0': typeof etzhayyimHogeComputeCompute,
+  compute: typeof etzhayyimHogeComputeCompute,
 }
 
 /**

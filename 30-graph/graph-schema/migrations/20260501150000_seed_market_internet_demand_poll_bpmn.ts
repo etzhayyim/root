@@ -30,10 +30,10 @@ interface BpmnSeed {
 
 const seeds: BpmnSeed[] = [
   {
-    processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-internetDemandPoll-v1",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-internetDemandPoll-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/market-internetDemandPoll-v1",
     processId: "market_internet_demand_poll",
-    nsid: "ai.gftd.market.internetDemandPoll",
+    nsid: "app.etzhayyim.market.internetDemandPoll",
     sourcePath: "00-contracts/bpmn/ai/gftd/generic/internetDemandPoll.bpmn",
     resultTimeoutMs: 90_000,
     writeTableAllowlist: "vertex_market_demand_signal",

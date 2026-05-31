@@ -4,7 +4,7 @@
  *
  * Mechanically replaces `<env>.CDN_R2.{get,put,head,delete}(...)` call
  * sites with `b2{Get,Put,Head,Delete}(<env>, ...)` from
- * `@gftd/magatama-host-sdk`, and adjusts the import block.
+ * `@etzhayyim/magatama-host-sdk`, and adjusts the import block.
  *
  * What this codemod does NOT do (deliberately, because each requires
  * per-Worker judgment):
@@ -76,7 +76,7 @@ const METHOD_CALL_REPLACEMENTS = [
   ],
 ];
 
-// Match `import { ... } from "@gftd/magatama-host-sdk"` allowing the
+// Match `import { ... } from "@etzhayyim/magatama-host-sdk"` allowing the
 // `{ ... }` to span multiple lines.
 const IMPORT_PATTERN_HOSTSDK =
   /import\s+\{([\s\S]*?)\}\s+from\s+["']@gftd\/magatama-host-sdk["']\s*;?/;
@@ -95,10 +95,10 @@ function addB2Imports(text) {
     const typeAdditions = have.has("B2Env") ? [] : ["type B2Env"];
     if (additions.length === 0 && typeAdditions.length === 0) return text;
     const merged = [...existing, ...additions, ...typeAdditions];
-    const rebuilt = `import {\n  ${merged.join(",\n  ")},\n} from "@gftd/magatama-host-sdk";`;
+    const rebuilt = `import {\n  ${merged.join(",\n  ")},\n} from "@etzhayyim/magatama-host-sdk";`;
     return text.replace(IMPORT_PATTERN_HOSTSDK, rebuilt);
   }
-  return `import { b2Get, b2Put, b2Head, b2Delete, type B2Env } from "@gftd/magatama-host-sdk";\n${text}`;
+  return `import { b2Get, b2Put, b2Head, b2Delete, type B2Env } from "@etzhayyim/magatama-host-sdk";\n${text}`;
 }
 
 function transform(text) {

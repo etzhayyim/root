@@ -49,7 +49,7 @@ test.describe("lawfirm matter lifecycle (ADR-0029 recursive did:gftd)", () => {
   test("full lifecycle", async ({ request }) => {
     // 1. createMatter
     const created = await xrpc<{ matterDid: string; matterRkey: string; uri: string; materialHashProof: string }>(
-      request, "ai.gftd.apps.lawfirm.createMatter", {
+      request, "app.etzhayyim.apps.lawfirm.createMatter", {
         firmDid: env.firm,
         matterType: "litigation",
         clientDid: env.client,
@@ -69,7 +69,7 @@ test.describe("lawfirm matter lifecycle (ADR-0029 recursive did:gftd)", () => {
 
     // 2. runConflictCheck (matterIntake)
     const scan = await xrpc<{ rkey: string; uri: string; result: string }>(
-      request, "ai.gftd.apps.lawfirm.runConflictCheck", {
+      request, "app.etzhayyim.apps.lawfirm.runConflictCheck", {
         matterDid,
         scanScope: "matterIntake",
         counterpartyDids: [env.external],
@@ -80,12 +80,12 @@ test.describe("lawfirm matter lifecycle (ADR-0029 recursive did:gftd)", () => {
     const conflictCheckRef = scan.uri;
 
     // 3. updateMatterStatus: intake → conflictCheck
-    await xrpc(request, "ai.gftd.apps.lawfirm.updateMatterStatus", {
+    await xrpc(request, "app.etzhayyim.apps.lawfirm.updateMatterStatus", {
       matterDid, newStatus: "conflictCheck",
     });
 
     // 4. updateMatterStatus: conflictCheck → engaged (requires scan ref)
-    await xrpc(request, "ai.gftd.apps.lawfirm.updateMatterStatus", {
+    await xrpc(request, "app.etzhayyim.apps.lawfirm.updateMatterStatus", {
       matterDid, newStatus: "engaged", conflictCheckRef,
     });
 
@@ -93,7 +93,7 @@ test.describe("lawfirm matter lifecycle (ADR-0029 recursive did:gftd)", () => {
     const cid = Array.from(crypto.getRandomValues(new Uint8Array(32)))
       .map((b) => b.toString(16).padStart(2, "0")).join("");
     const doc = await xrpc<{ documentDid: string; uri: string; status: string }>(
-      request, "ai.gftd.apps.lawfirm.uploadDocument", {
+      request, "app.etzhayyim.apps.lawfirm.uploadDocument", {
         matterDid, docType: "motion", title: "Draft motion — jurisdiction",
         cid, privileged: true, aiGenerated: true,
       },
@@ -103,7 +103,7 @@ test.describe("lawfirm matter lifecycle (ADR-0029 recursive did:gftd)", () => {
 
     // 6. inviteExternalCounsel
     const grant = await xrpc<{ grantDid: string; grantUri: string; conflictCheckPassed: boolean }>(
-      request, "ai.gftd.apps.lawfirm.inviteExternalCounsel", {
+      request, "app.etzhayyim.apps.lawfirm.inviteExternalCounsel", {
         matterDid, granteeDid: env.external, role: "coCounsel",
         capabilities: ["read", "comment"],
         expiresAt: new Date(Date.now() + 30 * 86400_000).toISOString(),
@@ -113,7 +113,7 @@ test.describe("lawfirm matter lifecycle (ADR-0029 recursive did:gftd)", () => {
 
     // 7. acceptExternalCounsel (only if external bearer provided)
     if (env.externalBearer) {
-      const accept = await request.post(`/xrpc/ai.gftd.apps.lawfirm.acceptExternalCounsel`, {
+      const accept = await request.post(`/xrpc/app.etzhayyim.apps.lawfirm.acceptExternalCounsel`, {
         data: { grantDid: grant.grantDid },
         headers: { Authorization: `Bearer ${env.externalBearer}` },
       });
@@ -124,7 +124,7 @@ test.describe("lawfirm matter lifecycle (ADR-0029 recursive did:gftd)", () => {
 
     // 8. scheduleHearing
     const hearing = await xrpc<{ hearingDid: string; uri: string }>(
-      request, "ai.gftd.apps.lawfirm.scheduleHearing", {
+      request, "app.etzhayyim.apps.lawfirm.scheduleHearing", {
         matterDid, hearingType: "firstAppearance",
         scheduledAt: new Date(Date.now() + 14 * 86400_000).toISOString(),
         durationMin: 60, location: "Tokyo District Court",
@@ -133,16 +133,16 @@ test.describe("lawfirm matter lifecycle (ADR-0029 recursive did:gftd)", () => {
     expect(didDepth(hearing.hearingDid)).toBe(3);
 
     // 9. engaged → filed → hearing
-    await xrpc(request, "ai.gftd.apps.lawfirm.updateMatterStatus", { matterDid, newStatus: "filed" });
-    await xrpc(request, "ai.gftd.apps.lawfirm.updateMatterStatus", { matterDid, newStatus: "hearing" });
+    await xrpc(request, "app.etzhayyim.apps.lawfirm.updateMatterStatus", { matterDid, newStatus: "filed" });
+    await xrpc(request, "app.etzhayyim.apps.lawfirm.updateMatterStatus", { matterDid, newStatus: "hearing" });
 
     // 10. recordTimeEntry
-    await xrpc(request, "ai.gftd.apps.lawfirm.recordTimeEntry", {
+    await xrpc(request, "app.etzhayyim.apps.lawfirm.recordTimeEntry", {
       matterDid, bengoshiDid: env.bengoshi, hours: 2.5, rate: 30_000, currency: "JPY", category: "research",
     });
 
     // 11. issueInvoice — may return NoTimeEntries if time entries aren't yet approved in this smoke run
-    const invResp = await request.post(`/xrpc/ai.gftd.apps.lawfirm.issueInvoice`, {
+    const invResp = await request.post(`/xrpc/app.etzhayyim.apps.lawfirm.issueInvoice`, {
       data: {
         matterDid,
         period: { from: new Date(Date.now() - 7 * 86400_000).toISOString(), to: new Date().toISOString() },
@@ -157,14 +157,14 @@ test.describe("lawfirm matter lifecycle (ADR-0029 recursive did:gftd)", () => {
 
     // 12. revokeExternalCounsel
     const revoke = await xrpc<{ revokedAt: string; descendantsInvalidated: number }>(
-      request, "ai.gftd.apps.lawfirm.revokeExternalCounsel", {
+      request, "app.etzhayyim.apps.lawfirm.revokeExternalCounsel", {
         grantDid: grant.grantDid, reason: "completed",
       },
     );
     expect(revoke.revokedAt).toBeTruthy();
 
     // 13. closeMatter — may return OpenBlockers; accept either outcome for the smoke path
-    const close = await request.post(`/xrpc/ai.gftd.apps.lawfirm.closeMatter`, {
+    const close = await request.post(`/xrpc/app.etzhayyim.apps.lawfirm.closeMatter`, {
       data: { matterDid, outcome: "settled", finalNote: "smoke test end" },
     });
     const closeBody = await close.json();

@@ -10,7 +10,7 @@ export default function Footer() {
             <Link href="/" className="mb-2">
               <Image
                 src="/logo.png"
-                alt="Gftd PRE Logo"
+                alt="etzhayyim PRE Logo"
                 width={120}
                 height={34}
               />
@@ -20,7 +20,7 @@ export default function Footer() {
             </p>
           </div>
           <p className="text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Gftd PRE. All Rights Reserved.
+            &copy; {new Date().getFullYear()} etzhayyim PRE. All Rights Reserved.
           </p>
         </div>
       </div>

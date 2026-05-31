@@ -13,12 +13,12 @@ authoritative_for:
 related:
   - 260403-wproto-transport-and-routing-consolidated
 supersedes:
-  - 260324-did-path-lexicon-correspondence
-  - 260324-performertype-did-generation-design
-  - 260324-w-protocol-nsid-namespace-design
-  - 260323-states-resource-flow-lexicon-design
-  - 260323-states-multi-did-consolidation-design
-  - 260323-isic-multi-did-consolidation-design
+  - 260324-source-graph-hybrid-design
+  - 260324-source-graph-hybrid-design
+  - 260324-source-graph-hybrid-design
+  - 260323-yoro-human-credit-economy-design
+  - 260323-yoro-human-credit-economy-design
+  - 260323-yoro-human-credit-economy-design
   - 260326-did-follow-deps-governance-design
 superseded_by: []
 ---

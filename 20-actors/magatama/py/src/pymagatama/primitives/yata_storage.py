@@ -43,12 +43,12 @@ def _today() -> str:
 
 def _event_id(*parts: str) -> str:
     digest = hashlib.sha256("|".join(parts).encode()).hexdigest()[:32]
-    return f"at://did:web:billing.etzhayyim.com/ai.gftd.apps.billing.event/{digest}"
+    return f"at://did:web:billing.etzhayyim.com/app.etzhayyim.apps.billing.event/{digest}"
 
 
 def _object_id(bucket: str, key: str, version: str = "") -> str:
     digest = hashlib.sha256(f"{bucket}|{key}|{version}".encode()).hexdigest()[:32]
-    return f"at://did:web:yatabase.etzhayyim.com/ai.gftd.apps.yata.blob/{digest}"
+    return f"at://did:web:yatabase.etzhayyim.com/app.etzhayyim.apps.yata.blob/{digest}"
 
 
 async def task_yata_database_provision(**kwargs: Any) -> dict[str, Any]:
@@ -59,7 +59,7 @@ async def task_yata_database_provision(**kwargs: Any) -> dict[str, Any]:
     pg_user = db_name + "_rw"
     now = _now_ts()
     today = _today()
-    vertex_id = f"at://did:web:yatabase.etzhayyim.com/ai.gftd.apps.yata.database/{db_name}"
+    vertex_id = f"at://did:web:yatabase.etzhayyim.com/app.etzhayyim.apps.yata.database/{db_name}"
 
     with sync_cursor() as cur:
         cur.execute(
@@ -259,7 +259,7 @@ def _ensure_tenant_schema(org_did: str) -> str:
         cur.execute(
             f'INSERT INTO "{schema}".vertex_demo (vertex_id, name, created_at) VALUES (%s, %s, %s)',
             (
-                f"at://{org_did}/ai.gftd.apps.yata.demo/welcome",
+                f"at://{org_did}/app.etzhayyim.apps.yata.demo/welcome",
                 "Welcome to your yatabase tenant",
                 _dt.datetime.now(tz=_dt.UTC).isoformat(),
             ),
@@ -1470,7 +1470,7 @@ async def task_yata_storage_multipart_init(
     ).hexdigest()[:24]
     expires_at = _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0)
     expires_at += _dt.timedelta(hours=24)
-    vid = "at://did:web:yatabase.etzhayyim.com/ai.gftd.apps.yata.multipart/" + upload_id
+    vid = "at://did:web:yatabase.etzhayyim.com/app.etzhayyim.apps.yata.multipart/" + upload_id
     with sync_cursor() as cur:
         cur.execute(
             """

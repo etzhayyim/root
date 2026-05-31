@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govCiv.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govCiv.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Côte d'Ivoire government.",
-        "operationId": "ai.gftd.govCiv.followSiteDeps",
+        "operationId": "app.etzhayyim.govCiv.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCiv.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govCiv.heartbeatTick": {
       "post": {
         "summary": "Run the Côte d'Ivoire government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govCiv.heartbeatTick",
+        "operationId": "app.etzhayyim.govCiv.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCiv.listOrgs": {
+    "/xrpc/app.etzhayyim.govCiv.listOrgs": {
       "get": {
         "summary": "List Côte d'Ivoire government organization graph records.",
-        "operationId": "ai.gftd.govCiv.listOrgs",
+        "operationId": "app.etzhayyim.govCiv.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCiv.registerDIDs": {
+    "/xrpc/app.etzhayyim.govCiv.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Côte d'Ivoire government organizations.",
-        "operationId": "ai.gftd.govCiv.registerDIDs",
+        "operationId": "app.etzhayyim.govCiv.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCiv.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govCiv.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Côte d'Ivoire government organization path to its graph record.",
-        "operationId": "ai.gftd.govCiv.resolveOrgPath",
+        "operationId": "app.etzhayyim.govCiv.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCiv.seedOrgs": {
+    "/xrpc/app.etzhayyim.govCiv.seedOrgs": {
       "post": {
         "summary": "Seed initial Côte d'Ivoire government organization records into the graph.",
-        "operationId": "ai.gftd.govCiv.seedOrgs",
+        "operationId": "app.etzhayyim.govCiv.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCiv.shinka": {
+    "/xrpc/app.etzhayyim.govCiv.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Côte d'Ivoire government organization update.",
-        "operationId": "ai.gftd.govCiv.shinka",
+        "operationId": "app.etzhayyim.govCiv.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCiv.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govCiv.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Côte d'Ivoire government organization changes to graph.",
-        "operationId": "ai.gftd.govCiv.syncWetUpdates",
+        "operationId": "app.etzhayyim.govCiv.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

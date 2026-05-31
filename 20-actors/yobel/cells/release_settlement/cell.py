@@ -218,10 +218,10 @@ def execute_release(state, tithe_router_port, base_l2_paymaster, lawfirm_invoke)
 def anchor_release(state, anchor_bridge):
     if anchor_bridge is None:
         return {
-            "release_vertex_uri": f"at://did:web:yobel.etzhayyim.com/ai.gftd.apps.etzhayyim.yobel.release/{state.get('release_id','')}",
+            "release_vertex_uri": f"at://did:web:yobel.etzhayyim.com/app.etzhayyim.apps.etzhayyim.yobel.release/{state.get('release_id','')}",
         }
     result = anchor_bridge.write_and_anchor(
-        collection="ai.gftd.apps.etzhayyim.yobel.release",
+        collection="app.etzhayyim.apps.etzhayyim.yobel.release",
         rkey=state["release_id"],
         payload={
             "release_id": state["release_id"],

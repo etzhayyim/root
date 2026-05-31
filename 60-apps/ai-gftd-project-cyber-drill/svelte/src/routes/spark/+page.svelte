@@ -9,7 +9,7 @@
     dynoNodeLibrary,
     makeGalaxyCloud,
     type SparkSampleHandle,
-  } from '@etzhayyim/kami-engine-sdk/spark';
+  } from '$lib/three-renderer';
 
   type DemoId = 'splat' | 'ellipsoid' | 'temporal' | 'dyno';
 
@@ -109,10 +109,10 @@
   <canvas bind:this={canvas} class="stage"></canvas>
 
   <header class="hud">
-    <h1>kami-engine-sdk · spark samples</h1>
+    <h1>cyber-drill · spark samples (vendor three.js)</h1>
     <p class="sub">
       Spark 2.0-style web-3DGS demos. Source:
-      <code>@etzhayyim/kami-engine-sdk/spark</code>.
+      <code>$lib/three-renderer</code> (vendor-local; the religious-corp SDK is three-free).
     </p>
   </header>
 

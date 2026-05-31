@@ -1,8 +1,8 @@
 """yukkuri `generateCharacter` graph — L/R 立ち絵 via ComfyUI.
 
-NSID: ai.gftd.apps.yukkuri.generateCharacter
+NSID: app.etzhayyim.apps.yukkuri.generateCharacter
 
-Actor: did:web:yukkuri.gftd.ai:actor:character
+Actor: did:web:yukkuri.etzhayyim.com:actor:character
 
 Generates the per-video L/R 立ち絵 sheet (ゆきり / まりり, or whatever
 description the user passes for the video). Default emotion = "normal";
@@ -40,10 +40,10 @@ _log = logging.getLogger(__name__)
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _COMFY_TIMEOUT = int(os.environ.get("COMFY_TIMEOUT_SEC", "300"))
 _PDS_BLOB_URL = os.environ.get(
-    "PDS_BLOB_URL", "https://atproto.gftd.ai/xrpc/com.atproto.repo.uploadBlob",
+    "PDS_BLOB_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob",
 )
 _CHARACTER_DID = os.environ.get(
-    "YUKKURI_CHARACTER_DID", "did:web:yukkuri.gftd.ai:actor:character",
+    "YUKKURI_CHARACTER_DID", "did:web:yukkuri.etzhayyim.com:actor:character",
 )
 
 # Default emotion set per video — minimal coverage. Per-scene overrides happen

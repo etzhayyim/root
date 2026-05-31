@@ -194,7 +194,7 @@ def test_gov_vertex_id_starts_with_at() -> None:
 
 def test_gov_vertex_id_collection_in_path() -> None:
     vid = GA._vertex_id("mof")
-    assert "ai.gftd.apps.states.govOrg" in vid
+    assert "app.etzhayyim.apps.states.govOrg" in vid
 
 
 def test_gov_load_seed_orgs_returns_list() -> None:

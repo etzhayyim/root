@@ -24,7 +24,7 @@
 
 export interface AuditEnv {
   HYPERDRIVE?: unknown;
-  GFTD_AUDIT_DISABLED?: string;
+  etzhayyim_AUDIT_DISABLED?: string;
   YATABASE_AUTH_CACHE?: KVNamespace; // P87: KV mirror when RW is degraded
 }
 
@@ -39,7 +39,7 @@ interface AnyKyselyDb {
 async function getDb(env: AuditEnv): Promise<AnyKyselyDb | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     return sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
   } catch {
     return null;
@@ -67,7 +67,7 @@ export interface AuditEvent {
 }
 
 export async function emitAudit(env: AuditEnv, event: AuditEvent): Promise<void> {
-  if (env.GFTD_AUDIT_DISABLED === "1") return;
+  if (env.etzhayyim_AUDIT_DISABLED === "1") return;
   if (!event.orgDid) return;
 
   const tsMs = Date.now();
@@ -100,7 +100,7 @@ export async function emitAudit(env: AuditEnv, event: AuditEvent): Promise<void>
   let realDb: unknown = null;
   let sqlTag: ((s: TemplateStringsArray, ...v: unknown[]) => unknown) | null = null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     realDb = (sdk as unknown as { createKyselyDb: (h: unknown) => unknown }).createKyselyDb(env.HYPERDRIVE as never);
     sqlTag = (sdk as unknown as { sql?: (s: TemplateStringsArray, ...v: unknown[]) => unknown }).sql ?? null;
   } catch {
@@ -110,7 +110,7 @@ export async function emitAudit(env: AuditEnv, event: AuditEvent): Promise<void>
 
   const nowIso = new Date(tsMs).toISOString().slice(0, 19).replace("T", " ");
   const idDigest = await sha256Hex(`${event.orgDid}|${tsMs}|${event.path}|${Math.random()}`);
-  const vertexId = `at://did:web:audit.etzhayyim.com/ai.gftd.apps.audit.event/${idDigest.slice(0, 32)}`;
+  const vertexId = `at://did:web:audit.etzhayyim.com/app.etzhayyim.apps.audit.event/${idDigest.slice(0, 32)}`;
 
   try {
     const q = sqlTag`
@@ -205,7 +205,7 @@ export async function getAuditEvents(
 
   let sqlTag: ((strings: TemplateStringsArray, ...values: unknown[]) => unknown) | null = null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     sqlTag = (sdk as unknown as { sql?: typeof sqlTag }).sql ?? null;
   } catch {
     return kv;  // KV result (possibly empty) is better than null

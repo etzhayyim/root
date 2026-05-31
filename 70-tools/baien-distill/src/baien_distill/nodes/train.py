@@ -56,9 +56,10 @@ def train_lora(state: DistillState) -> DistillState:
     dataset_hash = _sha256_file(dataset_path)
 
     epochs = 1 if state.get("quick") else 2
+    student_id = state.get("student_model_id") or BASE_MODEL_ID
     cfg: dict[str, Any] = {
         **LORA_DEFAULTS,
-        "base_model": BASE_MODEL_ID,
+        "base_model": student_id,
         "epochs": epochs,
         "batch_size": 1,
         "dataset_path": str(dataset_path),
@@ -81,7 +82,7 @@ def train_lora(state: DistillState) -> DistillState:
     # already sets up the dynamo/inductor suppression we need on Windows.
     from ..adapters.baien_student import load_student
 
-    tok, model = load_student(BASE_MODEL_ID)
+    tok, model = load_student(student_id)
 
     from peft import LoraConfig, get_peft_model
 
@@ -98,21 +99,20 @@ def train_lora(state: DistillState) -> DistillState:
 
     def _format(ex: dict[str, str]) -> dict[str, str]:
         if getattr(tok, "chat_template", None):
-            text = tok.apply_chat_template(
-                [
-                    {"role": "user", "content": ex["prompt"]},
-                    {"role": "assistant", "content": ex["response"]},
-                ],
-                tokenize=False, add_generation_prompt=False,
+            prompt_str = tok.apply_chat_template(
+                [{"role": "user", "content": ex["prompt"]}],
+                tokenize=False, add_generation_prompt=True,
             )
         else:
-            text = f"<|user|>\n{ex['prompt']}\n<|assistant|>\n{ex['response']}"
-        return {"text": text}
+            prompt_str = f"<|user|>\n{ex['prompt']}\n<|assistant|>\n"
+        return {"prompt": prompt_str, "completion": ex["response"]}
 
     ds = Dataset.from_list([ex.to_jsonl() for ex in examples]).map(_format)
 
+    import torch as _t
     from trl import SFTConfig, SFTTrainer  # type: ignore
 
+    _gpu = _t.cuda.is_available()
     sft = SFTConfig(
         output_dir=str(base_out / "sft-run"),
         num_train_epochs=epochs,
@@ -122,11 +122,10 @@ def train_lora(state: DistillState) -> DistillState:
         warmup_steps=cfg["warmup_steps"],
         lr_scheduler_type=cfg["scheduler"],
         bf16=True,
+        use_cpu=not _gpu,  # GPU when available (ROCm/CUDA); fall back to CPU
         logging_steps=10,
         save_strategy="epoch",
         report_to=[],
-        max_seq_length=1024,
-        dataset_text_field="text",
         packing=False,
     )
 
@@ -145,7 +144,7 @@ def train_lora(state: DistillState) -> DistillState:
     tok.save_pretrained(str(adapter_dir))
 
     merged_dir = base_out / "merged"
-    merge_adapter(BASE_MODEL_ID, adapter_dir, merged_dir)
+    merge_adapter(student_id, adapter_dir, merged_dir)
 
     state["lora_path"] = base_out
     state["notes"].append(

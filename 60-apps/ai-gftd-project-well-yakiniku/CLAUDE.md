@@ -8,13 +8,13 @@ Camera-based Yakiniku Cooking Advisor. iPad 卓上カメラで肉・魚・野菜
 
 | Domain | Role | Description |
 |---|---|---|
-| `yakiniku.gftd.ai` | Cooking Advisor | iPad 卓上: カメラ映像からの焼き加減判定、焼き方ガイド、薬味レコメンド |
+| `yakiniku.etzhayyim.com` | Cooking Advisor | iPad 卓上: カメラ映像からの焼き加減判定、焼き方ガイド、薬味レコメンド |
 
 ## Architecture
 
 - **Runtime**: TS Native + Lexicon Contract
 - **nanoid**: `yk1n1ku7`
-- **Vision AI**: murakumo.gftd.ai (`qwen3-vl-8b`) — カメラフレームの肉部位認識・焼き加減判定
+- **Vision AI**: murakumo.etzhayyim.com (`qwen3-vl-8b`) — カメラフレームの肉部位認識・焼き加減判定
 - **Backend**: App (部位DB、焼きレシピ、薬味マッピング、印刷テンプレート)
 - **Transport**: Matrix protocol (command/conversation)
 
@@ -22,7 +22,7 @@ Camera-based Yakiniku Cooking Advisor. iPad 卓上カメラで肉・魚・野菜
 
 | Component | Folder | Domain | Description |
 |---|---|---|---|
-| yakiniku-component | `ai-gftd-wasm-yakiniku-yk1n1ku7` | yakiniku.gftd.ai | Vision advisor + print API |
+| yakiniku-component | `ai-gftd-wasm-yakiniku-yk1n1ku7` | yakiniku.etzhayyim.com | Vision advisor + print API |
 
 ## Food Categories
 
@@ -48,7 +48,7 @@ Camera-based Yakiniku Cooking Advisor. iPad 卓上カメラで肉・魚・野菜
 iPad Camera (front-facing, table mount)
   → MediaStream API → canvas frame capture (2fps)
     → base64 encode → POST /xrpc/yakiniku.v1.YakinikuService/AnalyzeFrame
-      → murakumo.gftd.ai qwen3-vl-8b (vision)
+      → murakumo.etzhayyim.com qwen3-vl-8b (vision)
         → { items: [{ cut, doneness, heat_source, action, condiments }] }
           → Matrix room event (cooking log)
           → UI overlay update (timer, flip alert, done alert)
@@ -102,7 +102,7 @@ iPad Camera (front-facing, table mount)
 | Capability | Provider | Purpose |
 |---|---|---|
 | wasi:http/incoming-handler | http-server | Serve HTTP (iPad UI + API) |
-| wasi:http/outgoing-handler | http-client | Call murakumo.gftd.ai (Vision LLM) |
+| wasi:http/outgoing-handler | http-client | Call murakumo.etzhayyim.com (Vision LLM) |
 | gftd:agent/agent | agent-provider | LLM conversation for cooking advice |
 
 ## sql graph Tables
@@ -129,5 +129,5 @@ iPad Camera (front-facing, table mount)
 ```bash
 cd wasm/ai-gftd-wasm-yakiniku-yk1n1ku7
 gftd build
-gftd deploy --smoke-url https://yk1n1ku7.gftd.ai/health
+gftd deploy --smoke-url https://yk1n1ku7.etzhayyim.com/health
 ```

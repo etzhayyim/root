@@ -7,10 +7,10 @@ topic: ameno-auth
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191657-ameno-daemon-did-auth.md
+  - 2605191657-ameno-daemon-did-auth
 related:
-  - 2605191407-ameno-browser-viewer-mode.md
-  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
+V05191407-ameno-browser-viewer-mode
+V05191346-etzhayyim-vultr-free-murakumo-control-plane
 ---
 
 # ADR 2605191641: Ameno daemon — DID auth allowlist (AMENO_ALLOWED_DIDS)

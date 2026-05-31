@@ -20,7 +20,7 @@ async function readJsonSafe(res: Response): Promise<Record<string, unknown> | nu
 Given(
 	'I send a message {string} to the created channel',
 	async ({ apiState, apiBase }, body: string) => {
-		const res = await xrpcPost(apiBase, 'ai.gftd.convo.send', {
+		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.send', {
 			convoId: apiState.createdConvoId,
 			body,
 		});
@@ -32,7 +32,7 @@ Given(
 );
 
 When('I list messages in the created channel', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'ai.gftd.convo.listEnvelopes', {
+	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.listEnvelopes', {
 		convoId: apiState.createdConvoId,
 		limit: 50,
 	});
@@ -41,7 +41,7 @@ When('I list messages in the created channel', async ({ apiState, apiBase }) => 
 });
 
 When('I send a read receipt for the last message', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'ai.gftd.convo.markRead', {
+	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.markRead', {
 		convoId: apiState.createdConvoId,
 		lastRkey: apiState.lastMessageRkey,
 	});
@@ -50,7 +50,7 @@ When('I send a read receipt for the last message', async ({ apiState, apiBase })
 });
 
 When('I add reaction {string} to the last message', async ({ apiState, apiBase }, emoji: string) => {
-	const res = await xrpcPost(apiBase, 'ai.gftd.convo.react', {
+	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.react', {
 		convoId: apiState.createdConvoId,
 		targetRkey: apiState.lastMessageRkey,
 		emoji,

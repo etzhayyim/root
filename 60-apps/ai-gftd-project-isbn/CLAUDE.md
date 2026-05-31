@@ -8,7 +8,7 @@
 | performerType | service |
 | nanoid | bn7k2m4x |
 | primary DID | `did:web:isbn.etzhayyim.com` |
-| NSID prefix | `ai.gftd.isbn.*` |
+| NSID prefix | `app.etzhayyim.isbn.*` |
 
 ## What This App Does
 
@@ -31,14 +31,14 @@ ISO 2108 International Standard Book Number registry。世界中の書籍を DID
 
 | collection | NSID | 内容 |
 |---|---|---|
-| book | `ai.gftd.isbn.book` | ISBN master (isbn13, title, authors, publisher, year, language) |
-| publisher | `ai.gftd.isbn.publisher` | Publisher prefix registry |
-| edition | `ai.gftd.isbn.edition` | Edition/format variants (hardcover, paperback, ebook) |
-| series | `ai.gftd.isbn.series` | Book series grouping |
-| coverage_report | `ai.gftd.isbn.coverage_report` | Coverage metrics per group |
-| book_chapter | `ai.gftd.isbn.book_chapter` | チャプター単位テキスト (isbn13, chapter_number, title, text, token_count, language) |
-| book_fulltext | `ai.gftd.isbn.book_fulltext` | 全文メタデータ (isbn13, source, source_url, format, total_chapters, total_tokens, license) |
-| book_copyright | `ai.gftd.isbn.book_copyright` | 著作権状態 (isbn13, status: pd/cc0/cc_by/cc_by_sa, author_death_year, jurisdiction, evidence_url) |
+| book | `app.etzhayyim.isbn.book` | ISBN master (isbn13, title, authors, publisher, year, language) |
+| publisher | `app.etzhayyim.isbn.publisher` | Publisher prefix registry |
+| edition | `app.etzhayyim.isbn.edition` | Edition/format variants (hardcover, paperback, ebook) |
+| series | `app.etzhayyim.isbn.series` | Book series grouping |
+| coverage_report | `app.etzhayyim.isbn.coverage_report` | Coverage metrics per group |
+| book_chapter | `app.etzhayyim.isbn.book_chapter` | チャプター単位テキスト (isbn13, chapter_number, title, text, token_count, language) |
+| book_fulltext | `app.etzhayyim.isbn.book_fulltext` | 全文メタデータ (isbn13, source, source_url, format, total_chapters, total_tokens, license) |
+| book_copyright | `app.etzhayyim.isbn.book_copyright` | 著作権状態 (isbn13, status: pd/cc0/cc_by/cc_by_sa, author_death_year, jurisdiction, evidence_url) |
 
 ## SQL Graph (Fulltext)
 

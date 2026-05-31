@@ -1,4 +1,4 @@
-export const GFTD_MM_768_SPACE_ID = "gftd-mm-768";
+export const etzhayyim_MM_768_SPACE_ID = "gftd-mm-768";
 export const VECTOR_DIMENSION = 768;
 
 export type Modality =
@@ -97,7 +97,7 @@ export function stableEmbeddingId(input: Omit<Embedding768Input, "embeddingId" |
   const version = input.modelVersion ?? "initial";
   return [
     "emb768",
-    GFTD_MM_768_SPACE_ID,
+    etzhayyim_MM_768_SPACE_ID,
     input.modelId,
     input.projectionId,
     input.sourceUri,
@@ -157,7 +157,7 @@ export function toEmbedding768Row(input: Embedding768Input): Embedding768Row {
     shard_id: input.shardId ?? null,
     modality: input.modality,
     model_id: input.modelId,
-    space_id: GFTD_MM_768_SPACE_ID,
+    space_id: etzhayyim_MM_768_SPACE_ID,
     model_version: input.modelVersion ?? "initial",
     projection_id: input.projectionId,
     emb: vectorLiteral(input.vector),

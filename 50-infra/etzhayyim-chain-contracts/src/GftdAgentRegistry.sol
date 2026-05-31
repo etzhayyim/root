@@ -2,7 +2,7 @@
 pragma solidity 0.8.27;
 
 /**
- * @title GftdAgentRegistry
+ * @title etzhayyimAgentRegistry
  * @notice ERC-8004-shaped Identity Registry for the religious-corp
  *         agent fleet. Per ADR-2604262100 + ADR-2604262145 + ADR-2605241800.
  *
@@ -47,7 +47,7 @@ interface IERC5192Locked {
     event Unlocked(uint256 tokenId);
 }
 
-contract GftdAgentRegistry is IERC5192Locked {
+contract etzhayyimAgentRegistry is IERC5192Locked {
     // -------------------------------------------------------------------
     // Errors
     // -------------------------------------------------------------------

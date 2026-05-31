@@ -19,7 +19,7 @@ const entries = [
 ];
 
 const seeds = entries.map((e) => ({
-  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${e.proc}-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${e.proc}-v1`,
   bpmnProcessId: e.bpmnProcessId,
   sourcePath: `00-contracts/bpmn/ai/gftd/${project}/${e.proc}.bpmn`,
 }));

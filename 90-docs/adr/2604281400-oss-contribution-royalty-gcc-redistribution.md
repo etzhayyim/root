@@ -11,13 +11,13 @@ authoritative_for:
 related:
   - adr-0074-ethereum-identity-bridge-cacao-webauthn
   - adr-0056-bpmn-as-actor
-  - adr-2604261100-rego-authz-dmn-rego-sso
+  - adr-2604261100-rego-dmn-policy-decision-layers
 ---
 
 # ADR-2604281400: OSS/データコントリビューター GCC ロイヤルティ自動再分配
 
-**Status**: proposed  
-**Date**: 2026-04-28  
+**Status**: proposed
+**Date**: 2026-04-28
 **Context**: ADR-0074 (ERC725 root identity), GCC Phase 2-A contracts, ADR-0056 (BPMN-as-actor)
 
 ---
@@ -141,9 +141,9 @@ contract ContributionRoyaltyRegistry is Ownable2Step {
 }
 ```
 
-**デプロイ先**: `contracts/src/ContributionRoyaltyRegistry.sol` + `script/DeployContributionRegistry.s.sol`  
-**オーナー**: Safe `0xc0C2…`  
-**オラクル**: sealer EOA (将来は dedicated BPMN bot key)  
+**デプロイ先**: `contracts/src/ContributionRoyaltyRegistry.sol` + `script/DeployContributionRegistry.s.sol`
+**オーナー**: Safe `0xc0C2…`
+**オラクル**: sealer EOA (将来は dedicated BPMN bot key)
 **初期 GCC 供給**: Safe から `gcc.transfer(registry, 10_000e18)` で 10,000 GCC をプールに入金
 
 ---
@@ -208,7 +208,7 @@ GROUP BY
     DATE_TRUNC('day', used_at::TIMESTAMP);
 ```
 
-**インデックス**: `source_hash` + `used_at` on `vertex_contribution_usage`  
+**インデックス**: `source_hash` + `used_at` on `vertex_contribution_usage`
 **フレッシュネス**: streaming MV (<100ms)
 
 ---
@@ -243,7 +243,7 @@ async def emit_contribution_usage(
     db, source_hash: str, consumer_did: str,
     usage_type: str, gcc_value_wei: str
 ):
-    vertex_id = f"at://did:web:contribution.etzhayyim.com/ai.gftd.apps.contribution.usage/{generate_tid()}"
+    vertex_id = f"at://did:web:contribution.etzhayyim.com/app.etzhayyim.apps.contribution.usage/{generate_tid()}"
     await db.execute("""
         INSERT INTO vertex_contribution_usage
             (vertex_id, source_hash, consumer_did, usage_type, gcc_value_wei, used_at, actor_did, org_did)
@@ -276,7 +276,7 @@ BPMN タスクの `input` に `contribution_source_id: "media:irasutoya.com/illu
 #### 5-A. Platform ユーザー (既登録 DID)
 
 ```
-authz.etzhayyim.com/xrpc/ai.gftd.authz.registerContributionSource
+authz.etzhayyim.com/xrpc/app.etzhayyim.authz.registerContributionSource
   body: {
     canonicalId: "oss:github.com/myname/mylib",
     sourceType: "oss",
@@ -289,7 +289,7 @@ authz.etzhayyim.com/xrpc/ai.gftd.authz.registerContributionSource
 
 1. contributor が etzhayyim.com で sign-up
 2. `linkGithub` (OAuth) → GitHub handle を `linked_auth_methods` に登録
-3. `ai.gftd.authz.claimContributionPending` を呼ぶ
+3. `app.etzhayyim.authz.claimContributionPending` を呼ぶ
 4. authz が `pendingEarned[keccak256("github:{handle}")]` を lookup → `registerSource` + `claimPending` on-chain
 
 #### 5-C. いらすとや (免責・自動)
@@ -321,7 +321,7 @@ Safe (multisig) が `royalty_bps` を個別ソースごとに変更できる (au
 |---|---|---|
 | **P1 (今日〜1 週)** | ContributionRoyaltyRegistry デプロイ + 初期 10K GCC 入金 + RisingWave 2 テーブル作成 | 既存 GCC + Safe |
 | **P2 (1〜2 週)** | Murakumo 推論 usage emit (modelId → source_hash lookup) + BPMN distributionWorker | ADR-0056 BPMN |
-| **P3 (2〜3 週)** | `gftd deploy` 依存解析 + `ai.gftd.authz.registerContributionSource` XRPC + pending claim 機能 | authz Worker |
+| **P3 (2〜3 週)** | `gftd deploy` 依存解析 + `app.etzhayyim.authz.registerContributionSource` XRPC + pending claim 機能 | authz Worker |
 | **P4 (3〜4 週)** | yoro UI: `/credits` にコントリビューター残高 + claim ボタン | authz getActorTokenBalance |
 
 ---
@@ -337,7 +337,7 @@ Safe (multisig) が `royalty_bps` を個別ソースごとに変更できる (au
 
 ### 9. 既存コントラクト変更なし
 
-GCCStablecoin / GftdActorRegistry / GftdRootIdentityRegistry は無変更。新規コントラクト 1 本 + グラフテーブル 2 本 + BPMN 1 本の加法追加。
+GCCStablecoin / etzhayyimActorRegistry / etzhayyimRootIdentityRegistry は無変更。新規コントラクト 1 本 + グラフテーブル 2 本 + BPMN 1 本の加法追加。
 
 ---
 

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.otakiage.agentChat": {
+    "/xrpc/app.etzhayyim.otakiage.agentChat": {
       "post": {
         "summary": "Conversational agent for otakiage. Multi-turn conversation backed by LangGraph (intent classification → action branch → response composition、3 LLM call で ADR-2605072000 の intra-job ≥3 LLM branches 条件を満たす)。supported intents: submit (物品登録の対話)、search (近接 reuse 候補の検索)、ritual (供養依頼)、inquire (matsuri / certificate 質問)、chat (一般会話)。会話 state は vertex_otakiage_conversation + vertex_otakiage_conversation_turn に永続化、threadId で会話を継続。",
-        "operationId": "ai.gftd.otakiage.agentChat",
+        "operationId": "app.etzhayyim.otakiage.agentChat",
         "requestBody": {
           "required": true,
           "content": {
@@ -189,10 +189,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.anchorCertificate": {
+    "/xrpc/app.etzhayyim.otakiage.anchorCertificate": {
       "post": {
         "summary": "供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する (Phase 2b1)。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。Phase 2b1 = state tracking のみ (`anchor_status: pending → queued`)、Phase 2b2 で実 on-chain 取引を ethers/viem 経由で実装。anchored 状態に到達した certificate は etzhayyim の blockchain 登記の延長として永続証跡を持つ。redo 不可 (1 certificate = 1 anchor token、token_id = sha256(certificate_json))。",
-        "operationId": "ai.gftd.otakiage.anchorCertificate",
+        "operationId": "app.etzhayyim.otakiage.anchorCertificate",
         "requestBody": {
           "required": true,
           "content": {
@@ -296,10 +296,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.confirmHandover": {
+    "/xrpc/app.etzhayyim.otakiage.confirmHandover": {
       "post": {
         "summary": "譲渡完了を確定。寄贈者 (item.ownerDid) のみ呼べる。reuse_request を一つ選んで handed_over に遷移、他の pending request は cancelled。完了後に handover record を INSERT、socialAnnounce BPMN を内部発火 (T1 social derive、PII 除去 + H3 res-3 まで丸める)。state machine の terminal の 1 つ。",
-        "operationId": "ai.gftd.otakiage.confirmHandover",
+        "operationId": "app.etzhayyim.otakiage.confirmHandover",
         "requestBody": {
           "required": true,
           "content": {
@@ -393,10 +393,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.coverage": {
+    "/xrpc/app.etzhayyim.otakiage.coverage": {
       "get": {
         "summary": "platform-wide coverage 状況。mv_otakiage_items_by_state を返す。reuse / ritual の流量モニタ用。",
-        "operationId": "ai.gftd.otakiage.coverage",
+        "operationId": "app.etzhayyim.otakiage.coverage",
         "parameters": [],
         "responses": {
           "200": {
@@ -450,10 +450,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.getItem": {
+    "/xrpc/app.etzhayyim.otakiage.getItem": {
       "get": {
         "summary": "単一 item の詳細取得。state machine 全 history と関連 reuse_request / handover / ritual / certificate URI を返す。",
-        "operationId": "ai.gftd.otakiage.getItem",
+        "operationId": "app.etzhayyim.otakiage.getItem",
         "parameters": [
           {
             "name": "uri",
@@ -545,10 +545,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.issueCertificate": {
+    "/xrpc/app.etzhayyim.otakiage.issueCertificate": {
       "post": {
         "summary": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = JSON、Phase 2 で anchorTokenId に ERC725 anchor 追加可能。",
-        "operationId": "ai.gftd.otakiage.issueCertificate",
+        "operationId": "app.etzhayyim.otakiage.issueCertificate",
         "requestBody": {
           "required": true,
           "content": {
@@ -594,7 +594,7 @@
                     },
                     "certificateUri": {
                       "type": "string",
-                      "description": "at://did:web:otakiage.etzhayyim.com:ritual/ai.gftd.apps.otakiage.certificate/{rkey}"
+                      "description": "at://did:web:otakiage.etzhayyim.com:ritual/app.etzhayyim.apps.otakiage.certificate/{rkey}"
                     },
                     "ritualUri": {
                       "type": "string"
@@ -630,10 +630,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.listItems": {
+    "/xrpc/app.etzhayyim.otakiage.listItems": {
       "get": {
         "summary": "物品一覧。state / category / h3Cell でフィルタ。reuse 候補探索の主たる経路。Phase 1 = schema-only (generic.db.select BPMN で実装)。",
-        "operationId": "ai.gftd.otakiage.listItems",
+        "operationId": "app.etzhayyim.otakiage.listItems",
         "parameters": [
           {
             "name": "state",
@@ -782,10 +782,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.requestReuse": {
+    "/xrpc/app.etzhayyim.otakiage.requestReuse": {
       "post": {
         "summary": "物品の引取希望を登録。reuser が H3 cell + メッセージを送り、寄贈者が confirmHandover で確定するまで pending。1 item に対して N reuse_request 並列許容、最初に confirm された 1 件のみ handed_over。",
-        "operationId": "ai.gftd.otakiage.requestReuse",
+        "operationId": "app.etzhayyim.otakiage.requestReuse",
         "requestBody": {
           "required": true,
           "content": {
@@ -869,10 +869,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.requestRitual": {
+    "/xrpc/app.etzhayyim.otakiage.requestRitual": {
       "post": {
         "summary": "お焚き上げ依頼。寄贈者または reuse 経由の TTL expire からの遷移。state を ritual_pending に変更、対応する matsuri (季節祭) に紐付ける。家具/家電 (mode=reuse_only) では reject される。実 ritual 開催 + 証跡発行は matsuri 開催時に issueCertificate 経由。",
-        "operationId": "ai.gftd.otakiage.requestRitual",
+        "operationId": "app.etzhayyim.otakiage.requestRitual",
         "requestBody": {
           "required": true,
           "content": {
@@ -952,10 +952,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.scheduleMatsuri": {
+    "/xrpc/app.etzhayyim.otakiage.scheduleMatsuri": {
       "post": {
         "summary": "季節祭 (供養祭) を新規スケジュール。authority gated (issuer = did:web:otakiage.etzhayyim.com or :matsuri sub-DID のみ)。BPMN matsuriSchedule (cron 月初) からも内部呼出される。",
-        "operationId": "ai.gftd.otakiage.scheduleMatsuri",
+        "operationId": "app.etzhayyim.otakiage.scheduleMatsuri",
         "requestBody": {
           "required": true,
           "content": {
@@ -1043,10 +1043,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.otakiage.submitItem": {
+    "/xrpc/app.etzhayyim.otakiage.submitItem": {
       "post": {
         "summary": "物品を otakiage 登録。state=submitted で INSERT され、家具以外は自動で reuse_open に遷移。photoBlobKeys は B2 content-addressed (SHA-256 hex)、登録前に uploadBlob で保存しておく。h3Cell が空の場合は h3FromLatLng で res-5 cell に解決。",
-        "operationId": "ai.gftd.otakiage.submitItem",
+        "operationId": "app.etzhayyim.otakiage.submitItem",
         "requestBody": {
           "required": true,
           "content": {
@@ -1140,7 +1140,7 @@
                     },
                     "itemUri": {
                       "type": "string",
-                      "description": "at://did:web:otakiage.etzhayyim.com/ai.gftd.apps.otakiage.item/{rkey}"
+                      "description": "at://did:web:otakiage.etzhayyim.com/app.etzhayyim.apps.otakiage.item/{rkey}"
                     },
                     "state": {
                       "type": "string",

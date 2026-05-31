@@ -23,7 +23,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_detect_bottleneck',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -34,9 +34,9 @@ UP = [{'sql': '\n'
                  '  U axis is the current bottleneck per caller, then upserts\n'
                  '  vertex_actor_wellbecoming_profile with bottleneck_axis + at_risk flag.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.wellbecoming.detectBottleneck\n'
+                 '  NSID: app.etzhayyim.apps.wellbecoming.detectBottleneck\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -50,7 +50,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="wellbecoming_detect_bottleneck" name="Well-Becoming '
                  'Bottleneck Detect" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.wellbecoming.detectBottleneck", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.wellbecoming.detectBottleneck", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -106,7 +106,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-proactive-connect-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_proactive_connect',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -117,9 +117,9 @@ UP = [{'sql': '\n'
                  '  received a proactive message recently, then sends a warm check-in via\n'
                  '  vertex_repo_record (C-path, graph-visible).\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.wellbecoming.proactiveConnect\n'
+                 '  NSID: app.etzhayyim.apps.wellbecoming.proactiveConnect\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-proactive-connect-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -133,7 +133,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="wellbecoming_proactive_connect" name="Well-Becoming '
                  'Proactive Connect" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.wellbecoming.proactiveConnect", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.wellbecoming.proactiveConnect", "version": 1, '
                  '"resultTimeoutMs": 180000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -178,7 +178,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-proactive-connect-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -190,7 +190,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_floor_violation_alert',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -203,9 +203,9 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Hard floor = Von Neumann minimax constraint — never negotiable.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.wellbecoming.floorViolationAlert\n'
+                 '  NSID: app.etzhayyim.apps.wellbecoming.floorViolationAlert\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -219,7 +219,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="wellbecoming_floor_violation_alert" name="Well-Becoming '
                  'Floor Violation Alert" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.wellbecoming.floorViolationAlert", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.wellbecoming.floorViolationAlert", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -299,7 +299,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -311,7 +311,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-agent-loop-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_agent_loop',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -326,9 +326,9 @@ UP = [{'sql': '\n'
                  '      → (separating + refinements < 2) → refine → generate_response\n'
                  '      → emit_event → END\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.wellbecoming.agentLoop\n'
+                 '  NSID: app.etzhayyim.apps.wellbecoming.agentLoop\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-agent-loop-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -342,7 +342,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="wellbecoming_agent_loop" name="Well-Becoming Agent Loop" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.wellbecoming.agentLoop", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.wellbecoming.agentLoop", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -390,7 +390,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-agent-loop-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -403,26 +403,26 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'ai.gftd.apps.wellbecoming.agentLoop',
+                 'app.etzhayyim.apps.wellbecoming.agentLoop',
                  'wellbecoming_agent_loop',
                  '2026-04-29T23:10:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-proactive-connect-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-agent-loop-v1']},
  {'sql': '\n    DELETE FROM vertex_bpmn_lexicon_binding\n    WHERE nsid = $1\n  ',
-  'parameters': ['ai.gftd.apps.wellbecoming.agentLoop']}]
+  'parameters': ['app.etzhayyim.apps.wellbecoming.agentLoop']}]
 
 
 def upgrade() -> None:

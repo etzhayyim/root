@@ -4,7 +4,7 @@
  * 10-protocol/lexicons-bundle/src/lexicons.gen.json as a single array of
  * LexiconDoc objects.
  *
- * Run: pnpm --filter @gftd/lexicons-bundle build
+ * Run: pnpm --filter @etzhayyim/lexicons-bundle build
  * or:  node 10-protocol/lexicons-bundle/scripts/build-bundle.mjs
  */
 import { readdirSync, readFileSync, writeFileSync, statSync, mkdirSync } from "node:fs";

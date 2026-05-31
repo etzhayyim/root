@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
+// Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 import OV1 from "../../dodaf/OV-1.json";
@@ -30,11 +30,11 @@ export async function bootstrapDodaf(env: BootstrapEnv) {
   const did = env.PRIMARY_DID;
   const errors: string[] = [];
   for (const v of DODAF_VIEWS) {
-    try { await xrpc(env.PDS, "ai.gftd.dodafv2.deployView", { did, ...v }); }
+    try { await xrpc(env.PDS, "app.etzhayyim.dodafv2.deployView", { did, ...v }); }
     catch (e: any) { errors.push(`dodafv2.deployView ${(v as any).viewId}: ${e?.message}`); }
   }
   for (const f of FORMS) {
-    try { await xrpc(env.PDS, "ai.gftd.form.register", { did, ...f }); }
+    try { await xrpc(env.PDS, "app.etzhayyim.form.register", { did, ...f }); }
     catch (e: any) { errors.push(`form.register ${(f as any).formKey}: ${e?.message}`); }
   }
   return { ok: errors.length === 0, errors };

@@ -318,4 +318,35 @@ def scan(
     }
 
 
-__all__ = ["scan"]
+def scan_with_normalization(text: str) -> dict:
+    """Normalize input text and scan it for violations.
+
+    Returns the same dict shape as `scan()`, but operates on a single string
+    after applying adversarial normalization (NFKC, de-obfuscation).
+    """
+    import tempfile
+    from pymagatama.organism.adversarial.normalizer import normalize_input
+
+    # 1. Normalize
+    res = normalize_input(text)
+
+    # 2. Write to temp file to reuse existing line-oriented `scan`
+    with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".txt", delete=False) as f:
+        f.write(res.normalized)
+        temp_path = Path(f.name)
+
+    try:
+        # 3. Scan the normalized text
+        scan_res = scan([temp_path], kind="normalized_text")
+        # Add normalization context if suspicious
+        if res.suspicious:
+            scan_res["note"] = f"[SUSPICIOUS INPUT DETECTED] {scan_res['note']}"
+            scan_res["suspicious"] = True
+            scan_res["normalization_transforms"] = res.transforms
+        return scan_res
+    finally:
+        if temp_path.exists():
+            temp_path.unlink()
+
+
+__all__ = ["scan", "scan_with_normalization"]

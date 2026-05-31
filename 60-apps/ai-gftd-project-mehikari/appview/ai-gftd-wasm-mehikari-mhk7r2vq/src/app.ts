@@ -19,7 +19,7 @@ import {
 	withCapabilityTags,
 	DecisionClass,
 	type LexiconOutput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const ALLOWED_OPT_IN_SOURCES = new Set(["exhibition_list", "lecture_host", "referral", "inbound"]);
 const ALLOWED_BUSINESS_DAYS = new Set(["Mon", "Tue", "Wed", "Thu", "Fri"]);
@@ -66,13 +66,13 @@ export default createWorkerExport((sdk) => {
 	// 検索系 (police operator surface)
 	// ──────────────────────────────────────────────────────────
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.registerCamera"),
+		nsid("app.etzhayyim.apps.mehikari.registerCamera"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.registerCamera", body);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.registerCamera", body);
 			if (!input.agreementId) {
 				return JSON.stringify({ status: "rejected", rejectionReason: "agreementId required" });
 			}
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.registerCamera", input);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.registerCamera", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Register a surveillance camera + owner recording-utilisation agreement."),
@@ -80,10 +80,10 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.ingestClip"),
+		nsid("app.etzhayyim.apps.mehikari.ingestClip"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.ingestClip", body);
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.ingestClip", input);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.ingestClip", body);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.ingestClip", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Ingest a recorded clip; audio track is hard-rejected at decode layer."),
@@ -91,10 +91,10 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.queryScene"),
+		nsid("app.etzhayyim.apps.mehikari.queryScene"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.queryScene", body);
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.queryScene", input);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.queryScene", body);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.queryScene", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Open-vocabulary Japanese scene search across permitted cameras. No person identification."),
@@ -102,9 +102,9 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.queryPerson"),
+		nsid("app.etzhayyim.apps.mehikari.queryPerson"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.queryPerson", body);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.queryPerson", body);
 			const lb = (input as { legalBasis?: { warrantRef?: string; enquiryRef?: string } }).legalBasis ?? {};
 			if (!(lb.warrantRef && lb.warrantRef.length > 0) && !(lb.enquiryRef && lb.enquiryRef.length > 0)) {
 				return JSON.stringify({
@@ -112,7 +112,7 @@ export default createWorkerExport((sdk) => {
 					error: "WARRANT_OR_ENQUIRY_REQUIRED: queryPerson is hard-gated; provide legalBasis.warrantRef OR legalBasis.enquiryRef.",
 				});
 			}
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.queryPerson", input);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.queryPerson", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Person re-identification from a reference photo. Hard-gated by warrant or 捜査関係事項照会書."),
@@ -121,10 +121,10 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.reviewMatches"),
+		nsid("app.etzhayyim.apps.mehikari.reviewMatches"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.reviewMatches", body);
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.reviewMatches", input);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.reviewMatches", body);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.reviewMatches", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Record investigator's human assessment of top-K matches (human_review_gate)."),
@@ -132,14 +132,14 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.exportEvidence"),
+		nsid("app.etzhayyim.apps.mehikari.exportEvidence"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.exportEvidence", body);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.exportEvidence", body);
 			const i = input as { sectionChiefDid?: string; supervisorDid?: string };
 			if (!i.supervisorDid || !i.sectionChiefDid) {
 				return JSON.stringify({ error: "TWO_STAGE_APPROVAL_REQUIRED: supervisorDid + sectionChiefDid both required." });
 			}
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.exportEvidence", input);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.exportEvidence", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Generate JP police evidence packet (監視カメラ捜査報告書 / 証拠資料目録 / 送致書 / chain_of_custody)."),
@@ -151,9 +151,9 @@ export default createWorkerExport((sdk) => {
 	// 営業系 (internal sales surface)
 	// ──────────────────────────────────────────────────────────
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.registerProspect"),
+		nsid("app.etzhayyim.apps.mehikari.registerProspect"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.registerProspect", body);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.registerProspect", body);
 			const i = input as { optInSource?: string; optInAt?: string };
 			if (!i.optInSource || !ALLOWED_OPT_IN_SOURCES.has(i.optInSource)) {
 				return JSON.stringify({ status: "rejectedOptInSource", error: `optInSource must be one of ${[...ALLOWED_OPT_IN_SOURCES].join(", ")}` });
@@ -161,7 +161,7 @@ export default createWorkerExport((sdk) => {
 			if (!i.optInAt) {
 				return JSON.stringify({ status: "rejectedOptInMissing", error: "optInAt required" });
 			}
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.registerProspect", input);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.registerProspect", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Register an outbound sales prospect with mandatory opt-in evidence."),
@@ -169,10 +169,10 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.draftSalesEmail"),
+		nsid("app.etzhayyim.apps.mehikari.draftSalesEmail"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.draftSalesEmail", body);
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.draftSalesEmail", input);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.draftSalesEmail", body);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.draftSalesEmail", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Draft an outbound sales email (LangGraph: enrich → draft → safety_review)."),
@@ -180,10 +180,10 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.reviewSalesEmail"),
+		nsid("app.etzhayyim.apps.mehikari.reviewSalesEmail"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.reviewSalesEmail", body);
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.reviewSalesEmail", input);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.reviewSalesEmail", body);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.reviewSalesEmail", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Sales-manager approval gate for a generated draft (kaisya consent helper)."),
@@ -192,14 +192,14 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.sendSalesEmail"),
+		nsid("app.etzhayyim.apps.mehikari.sendSalesEmail"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.sendSalesEmail", body);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.sendSalesEmail", body);
 			const i = input as { scheduleHint?: string };
 			if (i.scheduleHint !== "nextBusinessHour" && !withinBusinessHours()) {
 				return JSON.stringify({ status: "rejectedOutsideHours", error: "Outside 09:00-17:00 JST weekdays; resubmit with scheduleHint=nextBusinessHour to queue." });
 			}
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.sendSalesEmail", input);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.sendSalesEmail", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Dispatch an approved draft via microsoft.etzhayyim.com. Idempotent on draftId."),
@@ -207,10 +207,10 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.handleInboundReply"),
+		nsid("app.etzhayyim.apps.mehikari.handleInboundReply"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.handleInboundReply", body);
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.handleInboundReply", input);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.handleInboundReply", body);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.handleInboundReply", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Process inbound reply (Cloudflare email worker → reply.mehikari.etzhayyim.com)."),
@@ -218,10 +218,10 @@ export default createWorkerExport((sdk) => {
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.mehikari.unsubscribe"),
+		nsid("app.etzhayyim.apps.mehikari.unsubscribe"),
 		async (_ctx, body) => {
-			const input = parseLexiconInput("ai.gftd.apps.mehikari.unsubscribe", body);
-			const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.unsubscribe", input);
+			const input = parseLexiconInput("app.etzhayyim.apps.mehikari.unsubscribe", body);
+			const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.unsubscribe", input);
 			return JSON.stringify(result);
 		},
 		asAgentTool("Honour opt-out request (特電法 §3 mandatory + hard delete per root rule)."),
@@ -231,21 +231,21 @@ export default createWorkerExport((sdk) => {
 	// ──────────────────────────────────────────────────────────
 	// Queries
 	// ──────────────────────────────────────────────────────────
-	sdk.app.query(nsid("ai.gftd.apps.mehikari.listQueries"), async (_ctx, body) => {
-		const input = parseLexiconInput("ai.gftd.apps.mehikari.listQueries", body);
-		const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.listQueries", input);
+	sdk.app.query(nsid("app.etzhayyim.apps.mehikari.listQueries"), async (_ctx, body) => {
+		const input = parseLexiconInput("app.etzhayyim.apps.mehikari.listQueries", body);
+		const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.listQueries", input);
 		return JSON.stringify(result);
 	});
 
-	sdk.app.query(nsid("ai.gftd.apps.mehikari.getAuditTrail"), async (_ctx, body) => {
-		const input = parseLexiconInput("ai.gftd.apps.mehikari.getAuditTrail", body);
-		const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.getAuditTrail", input);
+	sdk.app.query(nsid("app.etzhayyim.apps.mehikari.getAuditTrail"), async (_ctx, body) => {
+		const input = parseLexiconInput("app.etzhayyim.apps.mehikari.getAuditTrail", body);
+		const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.getAuditTrail", input);
 		return JSON.stringify(result);
 	});
 
-	sdk.app.query(nsid("ai.gftd.apps.mehikari.listOutreach"), async (_ctx, body) => {
-		const input = parseLexiconInput("ai.gftd.apps.mehikari.listOutreach", body);
-		const result = await dispatchToBpmn(sdk.env, "ai.gftd.apps.mehikari.listOutreach", input);
+	sdk.app.query(nsid("app.etzhayyim.apps.mehikari.listOutreach"), async (_ctx, body) => {
+		const input = parseLexiconInput("app.etzhayyim.apps.mehikari.listOutreach", body);
+		const result = await dispatchToBpmn(sdk.env, "app.etzhayyim.apps.mehikari.listOutreach", input);
 		return JSON.stringify(result);
 	});
 

@@ -154,11 +154,11 @@ def test_ms_default_repo_starts_with_did():
 
 
 def test_ms_collection_scene_is_nsid():
-    assert "ai.gftd.apps.maps" in MS.COLLECTION_SCENE
+    assert "app.etzhayyim.apps.maps" in MS.COLLECTION_SCENE
 
 
 def test_ms_collection_analysis_is_nsid():
-    assert "ai.gftd.apps.maps" in MS.COLLECTION_ANALYSIS
+    assert "app.etzhayyim.apps.maps" in MS.COLLECTION_ANALYSIS
 
 
 def test_ms_valid_analysis_types_is_set():

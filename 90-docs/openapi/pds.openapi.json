@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.pds.exportRepo": {
+    "/xrpc/app.etzhayyim.pds.exportRepo": {
       "get": {
-        "summary": "ai.gftd.pds.exportRepo",
-        "operationId": "ai.gftd.pds.exportRepo",
+        "summary": "app.etzhayyim.pds.exportRepo",
+        "operationId": "app.etzhayyim.pds.exportRepo",
         "parameters": [
           {
             "name": "did",
@@ -49,10 +49,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.getActorProfile": {
+    "/xrpc/app.etzhayyim.pds.getActorProfile": {
       "get": {
-        "summary": "ai.gftd.pds.getActorProfile",
-        "operationId": "ai.gftd.pds.getActorProfile",
+        "summary": "app.etzhayyim.pds.getActorProfile",
+        "operationId": "app.etzhayyim.pds.getActorProfile",
         "parameters": [
           {
             "name": "did",
@@ -124,21 +124,21 @@
                     },
                     "runtime": {
                       "type": "string",
-                      "description": "GFTD extension: actor business runtime placement",
+                      "description": "etzhayyim extension: actor business runtime placement",
                       "x-knownValues": [
                         "k8s-langserver"
                       ]
                     },
                     "edge": {
                       "type": "string",
-                      "description": "GFTD extension: public edge placement",
+                      "description": "etzhayyim extension: public edge placement",
                       "x-knownValues": [
                         "sveltekit-proxy"
                       ]
                     },
                     "legacyExecutionTier": {
                       "type": "string",
-                      "description": "GFTD extension: historical migration inventory only",
+                      "description": "etzhayyim extension: historical migration inventory only",
                       "x-knownValues": [
                         "T1",
                         "T2",
@@ -147,7 +147,7 @@
                     },
                     "actorStatus": {
                       "type": "string",
-                      "description": "GFTD extension",
+                      "description": "etzhayyim extension",
                       "x-knownValues": [
                         "active",
                         "suspended",
@@ -169,10 +169,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.getAppPreview": {
+    "/xrpc/app.etzhayyim.pds.getAppPreview": {
       "get": {
-        "summary": "ai.gftd.pds.getAppPreview",
-        "operationId": "ai.gftd.pds.getAppPreview",
+        "summary": "app.etzhayyim.pds.getAppPreview",
+        "operationId": "app.etzhayyim.pds.getAppPreview",
         "parameters": [
           {
             "name": "nanoid",
@@ -208,10 +208,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.getEntityGraph": {
+    "/xrpc/app.etzhayyim.pds.getEntityGraph": {
       "get": {
-        "summary": "ai.gftd.pds.getEntityGraph",
-        "operationId": "ai.gftd.pds.getEntityGraph",
+        "summary": "app.etzhayyim.pds.getEntityGraph",
+        "operationId": "app.etzhayyim.pds.getEntityGraph",
         "parameters": [
           {
             "name": "did",
@@ -265,10 +265,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.getProfile": {
+    "/xrpc/app.etzhayyim.pds.getProfile": {
       "get": {
-        "summary": "ai.gftd.pds.getProfile",
-        "operationId": "ai.gftd.pds.getProfile",
+        "summary": "app.etzhayyim.pds.getProfile",
+        "operationId": "app.etzhayyim.pds.getProfile",
         "parameters": [
           {
             "name": "did",
@@ -343,21 +343,21 @@
                     },
                     "runtime": {
                       "type": "string",
-                      "description": "GFTD extension: actor business runtime placement",
+                      "description": "etzhayyim extension: actor business runtime placement",
                       "x-knownValues": [
                         "k8s-langserver"
                       ]
                     },
                     "edge": {
                       "type": "string",
-                      "description": "GFTD extension: public edge placement",
+                      "description": "etzhayyim extension: public edge placement",
                       "x-knownValues": [
                         "sveltekit-proxy"
                       ]
                     },
                     "legacyExecutionTier": {
                       "type": "string",
-                      "description": "GFTD extension: historical migration inventory only",
+                      "description": "etzhayyim extension: historical migration inventory only",
                       "x-knownValues": [
                         "T1",
                         "T2",
@@ -366,7 +366,7 @@
                     },
                     "actorStatus": {
                       "type": "string",
-                      "description": "GFTD extension: actor platform status",
+                      "description": "etzhayyim extension: actor platform status",
                       "x-knownValues": [
                         "active",
                         "suspended",
@@ -389,10 +389,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.importRepo": {
+    "/xrpc/app.etzhayyim.pds.importRepo": {
       "post": {
-        "summary": "ai.gftd.pds.importRepo",
-        "operationId": "ai.gftd.pds.importRepo",
+        "summary": "app.etzhayyim.pds.importRepo",
+        "operationId": "app.etzhayyim.pds.importRepo",
         "requestBody": {
           "required": true,
           "content": {
@@ -406,7 +406,7 @@
                   },
                   "did": {
                     "type": "string",
-                    "description": "GFTD extension: target DID for import",
+                    "description": "etzhayyim extension: target DID for import",
                     "format": "did"
                   }
                 },
@@ -442,10 +442,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.invoke": {
+    "/xrpc/app.etzhayyim.pds.invoke": {
       "post": {
-        "summary": "ai.gftd.pds.invoke",
-        "operationId": "ai.gftd.pds.invoke",
+        "summary": "app.etzhayyim.pds.invoke",
+        "operationId": "app.etzhayyim.pds.invoke",
         "requestBody": {
           "required": true,
           "content": {
@@ -496,10 +496,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.listHeartbeatApps": {
+    "/xrpc/app.etzhayyim.pds.listHeartbeatApps": {
       "get": {
-        "summary": "ai.gftd.pds.listHeartbeatApps",
-        "operationId": "ai.gftd.pds.listHeartbeatApps",
+        "summary": "app.etzhayyim.pds.listHeartbeatApps",
+        "operationId": "app.etzhayyim.pds.listHeartbeatApps",
         "parameters": [
           {
             "name": "limit",
@@ -538,10 +538,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.putProfile": {
+    "/xrpc/app.etzhayyim.pds.putProfile": {
       "post": {
-        "summary": "ai.gftd.pds.putProfile",
-        "operationId": "ai.gftd.pds.putProfile",
+        "summary": "app.etzhayyim.pds.putProfile",
+        "operationId": "app.etzhayyim.pds.putProfile",
         "requestBody": {
           "required": true,
           "content": {
@@ -604,10 +604,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.query": {
+    "/xrpc/app.etzhayyim.pds.query": {
       "get": {
-        "summary": "ai.gftd.pds.query",
-        "operationId": "ai.gftd.pds.query",
+        "summary": "app.etzhayyim.pds.query",
+        "operationId": "app.etzhayyim.pds.query",
         "parameters": [
           {
             "name": "statement",
@@ -654,10 +654,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.pds.registerSyncApp": {
+    "/xrpc/app.etzhayyim.pds.registerSyncApp": {
       "post": {
-        "summary": "ai.gftd.pds.registerSyncApp",
-        "operationId": "ai.gftd.pds.registerSyncApp",
+        "summary": "app.etzhayyim.pds.registerSyncApp",
+        "operationId": "app.etzhayyim.pds.registerSyncApp",
         "requestBody": {
           "required": true,
           "content": {

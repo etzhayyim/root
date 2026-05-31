@@ -49,7 +49,7 @@ const actorTag = "sys.bpmn.seed.adsk-hf-ingest";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/adsk-ingest-dataset-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adsk-ingest-dataset-v1",
     bpmnProcessId: "adsk_ingest_dataset",
     sourcePath: "00-contracts/bpmn/ai/gftd/adsk/ingestAdskDataset.bpmn",
     ownerDid,
@@ -125,7 +125,7 @@ async function insertProcessDef(db: Kysely<unknown>, s: P): Promise<void> {
 }
 
 async function insertCatalog(db: Kysely<unknown>, c: CatalogSeed): Promise<void> {
-  const vertexId = `at://${ownerDid}/ai.gftd.apps.adsk.dataset/${c.slug.replace(/[^a-zA-Z0-9]/g, "-")}`;
+  const vertexId = `at://${ownerDid}/app.etzhayyim.apps.adsk.dataset/${c.slug.replace(/[^a-zA-Z0-9]/g, "-")}`;
   const rowCountExpectedSql =
     c.rowCountExpected === null
       ? sql`CAST(NULL AS bigint)`
@@ -153,7 +153,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
 export async function down(db: Kysely<unknown>): Promise<void> {
   for (const c of catalogSeeds) {
-    const vertexId = `at://${ownerDid}/ai.gftd.apps.adsk.dataset/${c.slug.replace(/[^a-zA-Z0-9]/g, "-")}`;
+    const vertexId = `at://${ownerDid}/app.etzhayyim.apps.adsk.dataset/${c.slug.replace(/[^a-zA-Z0-9]/g, "-")}`;
     await sql`DELETE FROM vertex_hf_dataset WHERE vertex_id = ${vertexId}`.execute(db);
   }
   for (const s of processSeeds) {

@@ -7,9 +7,9 @@ topic: ameno-substrate-pipeline
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191559-ameno-mst-checkpointer-stage-2-activation.md
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
-  - 2605181100-mst-encrypted-records-signal-keywrap.md
+  - 2605191559-ameno-mst-checkpointer-stage-2-activation
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 ---
 
 # ADR 2605191608: Ameno Stage 3 — IPFS pin activation

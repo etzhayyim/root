@@ -102,7 +102,7 @@
       if (formJurisdiction.trim()) payload.jurisdiction = formJurisdiction.trim();
       if (formReviewerDid.trim()) payload.reviewerDid = formReviewerDid.trim();
 
-      const resp = await fetch('/xrpc/ai.gftd.apps.lawyer.submitDocumentDraft', {
+      const resp = await fetch('/xrpc/app.etzhayyim.apps.lawyer.submitDocumentDraft', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(payload),
@@ -153,7 +153,7 @@
   }
 </script>
 
-<svelte:head><title>Drafts — Gftd Lawyer</title></svelte:head>
+<svelte:head><title>Drafts — etzhayyim Lawyer</title></svelte:head>
 
 <div class="page">
   <header class="page-header">
@@ -189,7 +189,7 @@
 
         <div class="field">
           <label for="title-hint">Title Hint (optional)</label>
-          <input id="title-hint" type="text" placeholder="e.g. Vakalatnama for Gftd Japan K.K." bind:value={formTitleHint} />
+          <input id="title-hint" type="text" placeholder="e.g. Vakalatnama for etzhayyim Japan K.K." bind:value={formTitleHint} />
         </div>
 
         <div class="field">

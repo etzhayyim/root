@@ -61,7 +61,7 @@
           },
           "label": {
             "type": "string",
-            "description": "GFTD extension: W Protocol label namespace identifier"
+            "description": "etzhayyim extension: W Protocol label namespace identifier"
           }
         },
         "required": [

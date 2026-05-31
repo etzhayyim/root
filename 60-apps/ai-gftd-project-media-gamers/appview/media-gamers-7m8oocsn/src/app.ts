@@ -28,15 +28,15 @@ const APP = "media-gamers";
 const ACTOR_DID = "did:web:media-gamers.etzhayyim.com";
 const REPO_DID = "did:web:a7m8oocs.etzhayyim.com";
 const DEFAULT_NANOID = "a7m8oocs";
-const NSID_PREFIX = "ai.gftd.apps.media_gamers.";
+const NSID_PREFIX = "app.etzhayyim.apps.media_gamers.";
 // MCP adapter routes via capability_worker='a7m8oocs' (nanoid, DNS-safe).
-// Rewrite ai.gftd.apps.a7m8oocs.* → ai.gftd.apps.media_gamers.* before routing.
-const NSID_PREFIX_ALIAS = "ai.gftd.apps.a7m8oocs.";
+// Rewrite app.etzhayyim.apps.a7m8oocs.* → app.etzhayyim.apps.media_gamers.* before routing.
+const NSID_PREFIX_ALIAS = "app.etzhayyim.apps.a7m8oocs.";
 
 // NSIDs handled locally in the CF Worker (not forwarded to dispatcher).
 const LOCAL_NSIDS = new Set([
-  "ai.gftd.apps.media_gamers.guide.commitGuide",
-  "ai.gftd.apps.media_gamers.knowledge.commitKnowledgeGuide",
+  "app.etzhayyim.apps.media_gamers.guide.commitGuide",
+  "app.etzhayyim.apps.media_gamers.knowledge.commitKnowledgeGuide",
 ]);
 
 export default {
@@ -80,10 +80,10 @@ export default {
 // ── local handlers ────────────────────────────────────────────────────
 
 async function handleLocal(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  if (nsid === "ai.gftd.apps.media_gamers.guide.commitGuide") {
+  if (nsid === "app.etzhayyim.apps.media_gamers.guide.commitGuide") {
     return handleCommitGuide(env, body);
   }
-  if (nsid === "ai.gftd.apps.media_gamers.knowledge.commitKnowledgeGuide") {
+  if (nsid === "app.etzhayyim.apps.media_gamers.knowledge.commitKnowledgeGuide") {
     return handleCommitKnowledgeGuide(env, body);
   }
   return json({ error: "NotFound" }, 404);
@@ -104,7 +104,7 @@ async function handleCommitGuide(env: Env, body: Record<string, unknown>): Promi
 
   const rkey = `${gameSlug}-${guideType}-${Date.now()}`.slice(0, 128).replace(/[^a-z0-9-]/g, "-");
   const record = {
-    $type: "ai.gftd.apps.media_gamers.guide",
+    $type: "app.etzhayyim.apps.media_gamers.guide",
     gameSlug,
     guideType,
     gameName,
@@ -126,12 +126,12 @@ async function handleCommitGuide(env: Env, body: Record<string, unknown>): Promi
         "x-magatama-verified": "true",
         "x-gftd-org-id": "anon",
       },
-      body: JSON.stringify({ repo: REPO_DID, collection: "ai.gftd.apps.media_gamers.guide", rkey, record }),
+      body: JSON.stringify({ repo: REPO_DID, collection: "app.etzhayyim.apps.media_gamers.guide", rkey, record }),
     });
     const text = await resp.text();
     let result: Record<string, unknown> = {};
     try { result = JSON.parse(text); } catch { result = { raw: text }; }
-    return json({ ok: resp.ok, rkey, uri: `at://${REPO_DID}/ai.gftd.apps.media_gamers.guide/${rkey}`, pdsStatus: resp.status, ...result });
+    return json({ ok: resp.ok, rkey, uri: `at://${REPO_DID}/app.etzhayyim.apps.media_gamers.guide/${rkey}`, pdsStatus: resp.status, ...result });
   } catch (err) {
     return json({ ok: false, rkey, error: String(err).slice(0, 200) }, 500);
   }
@@ -144,7 +144,7 @@ async function handleCommitKnowledgeGuide(env: Env, body: Record<string, unknown
 
   const rkey = `kg-${Date.now()}`.slice(0, 64);
   const record = {
-    $type: "ai.gftd.apps.media_gamers.guide",
+    $type: "app.etzhayyim.apps.media_gamers.guide",
     guideType: "knowledge-guide",
     title,
     body: guideBody,
@@ -162,12 +162,12 @@ async function handleCommitKnowledgeGuide(env: Env, body: Record<string, unknown
         "x-magatama-verified": "true",
         "x-gftd-org-id": "anon",
       },
-      body: JSON.stringify({ repo: REPO_DID, collection: "ai.gftd.apps.media_gamers.guide", rkey, record }),
+      body: JSON.stringify({ repo: REPO_DID, collection: "app.etzhayyim.apps.media_gamers.guide", rkey, record }),
     });
     const text = await resp.text();
     let result: Record<string, unknown> = {};
     try { result = JSON.parse(text); } catch { result = { raw: text }; }
-    return json({ ok: resp.ok, rkey, uri: `at://${REPO_DID}/ai.gftd.apps.media_gamers.guide/${rkey}`, pdsStatus: resp.status, ...result });
+    return json({ ok: resp.ok, rkey, uri: `at://${REPO_DID}/app.etzhayyim.apps.media_gamers.guide/${rkey}`, pdsStatus: resp.status, ...result });
   } catch (err) {
     return json({ ok: false, rkey, error: String(err).slice(0, 200) }, 500);
   }

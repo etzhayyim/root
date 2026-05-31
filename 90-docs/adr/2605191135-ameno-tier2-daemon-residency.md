@@ -7,15 +7,15 @@ topic: ameno-organism-daemon
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605182312-local-bring-up-murakumo-gemma4.md
-  - 2605191000-ameno-browser-pregel-reflection.md
-  - 2605191113-ameno-active-inference-lexical-surprise.md
-  - 2605191120-ameno-embedding-surprise-tier-c.md
-  - 2605191129-ameno-browser-tool-use-react.md
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
+  - 2605182312-local-bring-up-murakumo-gemma4
+  - 2605191000-ameno-browser-pregel-reflection
+  - 2605191113-ameno-active-inference-lexical-surprise
+  - 2605191120-ameno-embedding-surprise-tier-c
+  - 2605191129-ameno-browser-tool-use-react
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
-  - 2605171300-open-unispsc-generative-agent-fleet.md
-  - 2605172000-etzhayyim-rw-free-substrate.md
+V05171300
+  - adr-2605172000-etzhayyim-rw-free-substrate
 ---
 
 # ADR 2605191135: Ameno as resident Tier-2 daemon in the artificial-organism ecosystem

@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-wlan-rcoi-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-register-wlan-rcoi-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_register_wlan_rcoi',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -80,7 +80,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-wlan-rcoi-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-register-wlan-rcoi-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-hotspot-venue-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-register-hotspot-venue-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_register_hotspot_venue',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -150,7 +150,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-hotspot-venue-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-register-hotspot-venue-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -164,7 +164,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-provision-passpoint-pps-mo-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-provision-passpoint-pps-mo-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_provision_passpoint_pps_mo',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -220,7 +220,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-provision-passpoint-pps-mo-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-provision-passpoint-pps-mo-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -234,7 +234,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-anqp-query-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-record-anqp-query-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_record_anqp_query',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -288,7 +288,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-anqp-query-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-record-anqp-query-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -302,7 +302,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-attach-wlan-session-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-attach-wlan-session-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_attach_wlan_session',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -356,7 +356,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-attach-wlan-session-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-attach-wlan-session-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -370,7 +370,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-wlan-roaming-exchange-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-record-wlan-roaming-exchange-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_record_wlan_roaming_exchange',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -425,7 +425,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-wlan-roaming-exchange-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-record-wlan-roaming-exchange-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -439,7 +439,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-bridge-andsp-to-cellular-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-bridge-andsp-to-cellular-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_bridge_andsp_to_cellular',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -495,7 +495,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-bridge-andsp-to-cellular-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-bridge-andsp-to-cellular-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -509,7 +509,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-settle-wlan-roaming-invoice-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-settle-wlan-roaming-invoice-v1',
                  'did:web:telecom.etzhayyim.com',
                  'telecom_settle_wlan_roaming_invoice',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -562,7 +562,7 @@ UP = [{'sql': '\n'
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-settle-wlan-roaming-invoice-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-settle-wlan-roaming-invoice-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -576,16 +576,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerWlanRcoi-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-registerWlanRcoi-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.registerWlanRcoi',
+                 'app.etzhayyim.apps.telecom.registerWlanRcoi',
                  'telecom_register_wlan_rcoi',
                  30000,
                  '2026-04-28T14:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerWlanRcoi-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-registerWlanRcoi-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -599,16 +599,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerHotspotVenue-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-registerHotspotVenue-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.registerHotspotVenue',
+                 'app.etzhayyim.apps.telecom.registerHotspotVenue',
                  'telecom_register_hotspot_venue',
                  30000,
                  '2026-04-28T14:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerHotspotVenue-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-registerHotspotVenue-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -622,16 +622,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-provisionPasspointPpsMo-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-provisionPasspointPpsMo-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.provisionPasspointPpsMo',
+                 'app.etzhayyim.apps.telecom.provisionPasspointPpsMo',
                  'telecom_provision_passpoint_pps_mo',
                  30000,
                  '2026-04-28T14:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-provisionPasspointPpsMo-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-provisionPasspointPpsMo-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -645,16 +645,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordAnqpQuery-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-recordAnqpQuery-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.recordAnqpQuery',
+                 'app.etzhayyim.apps.telecom.recordAnqpQuery',
                  'telecom_record_anqp_query',
                  15000,
                  '2026-04-28T14:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordAnqpQuery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-recordAnqpQuery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -668,16 +668,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-attachWlanSession-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-attachWlanSession-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.attachWlanSession',
+                 'app.etzhayyim.apps.telecom.attachWlanSession',
                  'telecom_attach_wlan_session',
                  15000,
                  '2026-04-28T14:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-attachWlanSession-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-attachWlanSession-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -691,16 +691,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordWlanRoamingExchange-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-recordWlanRoamingExchange-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.recordWlanRoamingExchange',
+                 'app.etzhayyim.apps.telecom.recordWlanRoamingExchange',
                  'telecom_record_wlan_roaming_exchange',
                  15000,
                  '2026-04-28T14:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordWlanRoamingExchange-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-recordWlanRoamingExchange-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -714,16 +714,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-bridgeAndspToCellular-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-bridgeAndspToCellular-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.bridgeAndspToCellular',
+                 'app.etzhayyim.apps.telecom.bridgeAndspToCellular',
                  'telecom_bridge_andsp_to_cellular',
                  15000,
                  '2026-04-28T14:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-bridgeAndspToCellular-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-bridgeAndspToCellular-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -737,49 +737,49 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-settleWlanRoamingInvoice-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-settleWlanRoamingInvoice-v1',
                  'did:web:telecom.etzhayyim.com',
-                 'ai.gftd.apps.telecom.settleWlanRoamingInvoice',
+                 'app.etzhayyim.apps.telecom.settleWlanRoamingInvoice',
                  'telecom_settle_wlan_roaming_invoice',
                  60000,
                  '2026-04-28T14:01:00Z',
                  'did:web:telecom.etzhayyim.com',
                  'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-wlan',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-settleWlanRoamingInvoice-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-settleWlanRoamingInvoice-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerWlanRcoi-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-registerWlanRcoi-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerHotspotVenue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-registerHotspotVenue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-provisionPasspointPpsMo-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-provisionPasspointPpsMo-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordAnqpQuery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-recordAnqpQuery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-attachWlanSession-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-attachWlanSession-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordWlanRoamingExchange-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-recordWlanRoamingExchange-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-bridgeAndspToCellular-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-bridgeAndspToCellular-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-settleWlanRoamingInvoice-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/telecom-settleWlanRoamingInvoice-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-wlan-rcoi-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-register-wlan-rcoi-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-hotspot-venue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-register-hotspot-venue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-provision-passpoint-pps-mo-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-provision-passpoint-pps-mo-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-anqp-query-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-record-anqp-query-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-attach-wlan-session-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-attach-wlan-session-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-wlan-roaming-exchange-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-record-wlan-roaming-exchange-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-bridge-andsp-to-cellular-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-bridge-andsp-to-cellular-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-settle-wlan-roaming-invoice-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/telecom-settle-wlan-roaming-invoice-v1']}]
 
 
 def upgrade() -> None:

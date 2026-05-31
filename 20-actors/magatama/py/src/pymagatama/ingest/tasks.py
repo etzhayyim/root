@@ -71,7 +71,7 @@ def _list_row(token: dict[str, Any], lst: dict[str, Any]) -> dict[str, Any]:
     actor = ACTOR_DID
     now = now_iso()
     return {
-        "vertex_id": f"at://{actor}/ai.gftd.apps.tasks.list/{list_id}",
+        "vertex_id": f"at://{actor}/app.etzhayyim.apps.tasks.list/{list_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,
@@ -96,7 +96,7 @@ def _task_row(token: dict[str, Any], list_id: str, t: dict[str, Any]) -> dict[st
     actor = ACTOR_DID
     now = now_iso()
     return {
-        "vertex_id": f"at://{actor}/ai.gftd.apps.tasks.task/{list_id}_{task_id}",
+        "vertex_id": f"at://{actor}/app.etzhayyim.apps.tasks.task/{list_id}_{task_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,
@@ -156,7 +156,7 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
             tasks_data = _http_json(f"https://tasks.googleapis.com/tasks/v1/lists/{list_id}/tasks?{qs}", headers={"authorization": f"Bearer {access}"})
             for t in tasks_data.get("items") or []:
                 if t.get("deleted"):
-                    vid = f"at://{ACTOR_DID}/ai.gftd.apps.tasks.task/{list_id}_{t.get('id')}"
+                    vid = f"at://{ACTOR_DID}/app.etzhayyim.apps.tasks.task/{list_id}_{t.get('id')}"
                     _execute(f"DELETE FROM {TASKS_TASK_TABLE} WHERE vertex_id = %s", (vid,))
                 else:
                     _insert(TASKS_TASK_TABLE, _task_row(token, list_id, t))

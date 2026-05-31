@@ -14,7 +14,7 @@ import {
 const INGEST_FAMILY = "bigquery.public_dataset.projection";
 const DATASET_ID = "bigquery-public-data:noaa_icoads";
 const ACTOR_HOST = "marine";
-const COLLECTION = "ai.gftd.apps.marine.observation";
+const COLLECTION = "app.etzhayyim.apps.marine.observation";
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));

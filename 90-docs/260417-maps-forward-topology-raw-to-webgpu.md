@@ -16,7 +16,7 @@
 XYZ PNG pyramid (逆トポロジー)
   tile.openstreetmap.org/{z}/{x}/{y}.png  ── raster 一方向依存 ──▶  KAMI upload_tile
                                                                        │
-ai.gftd.apps.maps.tileGeoJson  ── GeoJSON  ─────────────────────────▶  KAMI addLayer (line/fill/circle)
+app.etzhayyim.apps.maps.tileGeoJson  ── GeoJSON  ─────────────────────────▶  KAMI addLayer (line/fill/circle)
                                                                        │
                                                   (building polygons) ─▶  KAMI addExtrudeLayer  (3D)
                                                                        │
@@ -92,11 +92,11 @@ Client は `viewport → visibleH3Cells(resolution) → chunk query` する。
 ### Layer 3 — Chunk XRPC (replaces tileGeoJson)
 
 ```
-ai.gftd.apps.maps.getChunk
+app.etzhayyim.apps.maps.getChunk
   input:  { h3Cells: string[], lod: 0-5, labels: string[], format: "geojson" | "binary" }
   output: { chunks: { [h3Cell]: { [label]: Feature[] } } }
 
-ai.gftd.apps.maps.subscribeChunks (wRPC stream)
+app.etzhayyim.apps.maps.subscribeChunks (wRPC stream)
   input:  { h3Cells: string[], lod: int, labels: string[] }
   stream: { h3Cell: string, label: string, delta: "upsert" | "delete", feature: Feature }
 ```
@@ -170,7 +170,7 @@ OSM raster PNG pyramid を完全に捨てるには、低 zoom の「世界が見
 ## 実装順序 (follow-up migrations)
 
 1. **[[migrations]] maps-h3-chunk-projection**: `vertex_spatial` + OSM MV に `h3_res{4,6,8,10}_cell` column を migration 追加、back-fill
-2. **[[migrations]] maps-forward-topology-xrpc**: `ai.gftd.apps.maps.getChunk` + `subscribeChunks` lexicon + handler
+2. **[[migrations]] maps-forward-topology-xrpc**: `app.etzhayyim.apps.maps.getChunk` + `subscribeChunks` lexicon + handler
 3. **[[migrations]] maps-client-chunk-renderer**: Svelte 側に `visibleH3Cells` + chunk cache + stream subscriber。既存 `risingwave-overlay.ts` をリプレース
 4. **[[migrations]] maps-osm-basemap-coastline**: `mv_world_landmass_simplified` 生成 + L0 endpoint、OSM.org PNG 依存除去
 5. **[[migrations]] maps-satellite-cog-webgpu** (optional): COG decoder を kami-map に追加、低 zoom basemap に整合

@@ -1,6 +1,7 @@
 ---
 id: murakumo-hegemon-lifecycle-tick-20260508
 title: "Murakumo Hegemon Artificial-Organism Lifecycle Tick"
+status: active
 doc_type: proof
 topic: karma-organism-ecosystem
 last_verified: 2026-05-08
@@ -158,4 +159,4 @@ To move the resident loop from direct fleet processes into k8s Pods:
    signing key.
 3. Apply `actor-workers.yaml` directly on Murakumo k3s, or restore Karmada and
    apply the `shinka-actors` kustomization on the hub.
-4. Verify rollout and record the first successful `ai.gftd.shinka.tick`.
+4. Verify rollout and record the first successful `app.etzhayyim.shinka.tick`.

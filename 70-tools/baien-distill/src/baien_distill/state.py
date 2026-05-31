@@ -60,6 +60,7 @@ class DistillState(TypedDict, total=False):
     source: Source                  # "hf" (default, public datasets) | "teacher" (on-fleet OSS gen)
     quick: bool                     # if True: N=50, epochs=1
     dry_run: bool                   # if True: skip teacher inference + training
+    student_model_id: str           # override BASE_MODEL_ID (e.g. roso-quantized path)
 
     # --- mutated during loop ---
     iter: int                       # 0-indexed
@@ -78,7 +79,8 @@ class DistillState(TypedDict, total=False):
 
 def new_state(bench_dir: Path, *, max_iter: int = 3, n_per_category: int = 200,
               source: Source = "hf",
-              quick: bool = False, dry_run: bool = False) -> DistillState:
+              quick: bool = False, dry_run: bool = False,
+              student_model_id: str = "microsoft/bitnet-b1.58-2B-4T-bf16") -> DistillState:
     """Initialize a DistillState for a fresh loop run."""
     if quick:
         n_per_category = min(n_per_category, 50)
@@ -89,6 +91,7 @@ def new_state(bench_dir: Path, *, max_iter: int = 3, n_per_category: int = 200,
         source=source,
         quick=quick,
         dry_run=dry_run,
+        student_model_id=student_model_id,
         iter=0,
         weak_categories=[],
         teacher=None,

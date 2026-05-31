@@ -1,6 +1,7 @@
 {
   "name": "@etzhayyim/design-system",
   "version": "0.1.0",
+  "description": "Svelte 5 + Tailwind CSS design system for etzhayyim apps — 50+ UI components (BottomNav, SnapFeed, Toast, etc.), headless builders, motion utilities, Tailwind plugin, audio feedback",
   "type": "module",
   "main": "dist/index.cjs.js",
   "typings": "dist/index.d.ts",

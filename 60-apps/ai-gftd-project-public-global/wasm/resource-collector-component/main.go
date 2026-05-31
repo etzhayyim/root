@@ -316,7 +316,7 @@ func callTool(name string, args map[string]any) (any, error) {
 	case "collector.publish":
 		targetURL := strVal(args["target_mcp_url"])
 		if targetURL == "" {
-			targetURL = "https://actors.gftd.ai/w5n8p3q6/api/mcp"
+			targetURL = "https://actors.etzhayyim.com/w5n8p3q6/api/mcp"
 		}
 		return publishToMCP(targetURL)
 
@@ -470,7 +470,7 @@ func exportJSONLD(resourceID string) (any, error) {
 		graph = append(graph, jsonldResource{
 			Context:     "https://schema.org/",
 			Type:        "Observation",
-			ID:          fmt.Sprintf("https://resources.gftd.ai/content/resource/%s/%s/%d", v.ResourceID, strings.ToLower(v.Region), v.Year),
+			ID:          fmt.Sprintf("https://resources.etzhayyim.com/content/resource/%s/%s/%d", v.ResourceID, strings.ToLower(v.Region), v.Year),
 			Name:        fmt.Sprintf("%s - %s (%d)", v.ResourceID, v.RegionName, v.Year),
 			Description: fmt.Sprintf("Collected value for %s in %s, year %d", v.ResourceID, v.RegionName, v.Year),
 			Region:      v.RegionName,
@@ -485,8 +485,8 @@ func exportJSONLD(resourceID string) (any, error) {
 	return map[string]any{
 		"@context": "https://schema.org/",
 		"@type":    "Dataset",
-		"@id":      "https://resources.gftd.ai/content/resource/collection",
-		"name":     "GFTD Global Resource Collection",
+		"@id":      "https://resources.etzhayyim.com/content/resource/collection",
+		"name":     "etzhayyim Global Resource Collection",
 		"dateCreated": latest.FinishedAt,
 		"@graph":   graph,
 		"count":    len(graph),

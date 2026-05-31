@@ -153,7 +153,7 @@ for (slug, lex_app, method, table, group_col, group_val,
 
     lex = {
         "lexicon": 1,
-        "id": f"ai.gftd.apps.{lex_app}.{method}",
+        "id": f"app.etzhayyim.apps.{lex_app}.{method}",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -186,7 +186,7 @@ for (slug, lex_app, method, table, group_col, group_val,
     lex_dir.mkdir(parents=True, exist_ok=True)
     (lex_dir / f"{method}.json").write_text(json.dumps(lex, indent=2, ensure_ascii=False))
 
-    nsid = f"ai.gftd.apps.{lex_app}.{method}"
+    nsid = f"app.etzhayyim.apps.{lex_app}.{method}"
     bind_lines.append(f"('binding:{nsid}','{nsid}','{proc}',1,'active',now())")
 
 with open("/tmp/wave13/bind119.sql", "w") as f:

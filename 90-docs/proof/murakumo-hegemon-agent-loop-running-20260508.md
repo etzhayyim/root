@@ -1,6 +1,7 @@
 ---
 id: murakumo-hegemon-agent-loop-running-20260508
 title: "Murakumo Hegemon Agent Loop Running"
+status: active
 doc_type: proof
 topic: karma-organism-ecosystem
 last_verified: 2026-05-08

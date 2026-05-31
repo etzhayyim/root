@@ -32,13 +32,13 @@ const seeds: Seed[] = [
   {
     proc: "sentinelIngest",
     bpmnProcessId: "maps_sentinel_ingest",
-    nsid: "ai.gftd.apps.maps.satelliteIngest",
+    nsid: "app.etzhayyim.apps.maps.satelliteIngest",
     resultTimeoutMs: 180_000,
   },
   {
     proc: "sentinelAnalyze",
     bpmnProcessId: "maps_sentinel_analyze",
-    nsid: "ai.gftd.apps.maps.satelliteAnalyze",
+    nsid: "app.etzhayyim.apps.maps.satelliteAnalyze",
     resultTimeoutMs: 600_000,
   },
 ];
@@ -47,9 +47,9 @@ const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

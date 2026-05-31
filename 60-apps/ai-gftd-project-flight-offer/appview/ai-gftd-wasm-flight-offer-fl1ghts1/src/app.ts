@@ -1,4 +1,4 @@
-import { createWorkerExport } from "@gftd/magatama-host-sdk";
+import { createWorkerExport } from "@etzhayyim/magatama-host-sdk";
 
 const EMBED_HTML = String.raw`<!doctype html>
 <html lang="en">
@@ -110,7 +110,7 @@ function num(id){const v=parseFloat(val(id));return Number.isFinite(v)?v:undefin
 
 async function doSearch(){
   show("o-search","…");
-  const r = await call("ai.gftd.apps.flightOffer.searchOffers", nonEmpty({
+  const r = await call("app.etzhayyim.apps.flightOffer.searchOffers", nonEmpty({
     originIata:val("s-org").toUpperCase(), destinationIata:val("s-dst").toUpperCase(),
     outboundDate:val("s-out"), returnDate:val("s-ret"),
     currency:val("s-ccy").toUpperCase(), provider:val("s-pv"), maxOffers:num("s-max")
@@ -120,7 +120,7 @@ async function doSearch(){
 
 async function doCheapest(){
   show("o-cheapest","…");
-  const r = await call("ai.gftd.apps.flightOffer.getCheapest", nonEmpty({
+  const r = await call("app.etzhayyim.apps.flightOffer.getCheapest", nonEmpty({
     originIata:val("c-org").toUpperCase(), destinationIata:val("c-dst").toUpperCase(),
     outboundDate:val("c-out"), currency:val("c-ccy").toUpperCase()||"USD"
   }));
@@ -129,7 +129,7 @@ async function doCheapest(){
 
 async function doAdd(){
   show("o-add","…");
-  const r = await call("ai.gftd.apps.flightOffer.addWatch", nonEmpty({
+  const r = await call("app.etzhayyim.apps.flightOffer.addWatch", nonEmpty({
     originIata:val("w-org").toUpperCase(), destinationIata:val("w-dst").toUpperCase(),
     outboundDate:val("w-out"), currency:val("w-ccy").toUpperCase()||"USD",
     thresholdPct:num("w-th"), cadenceMinutes:num("w-cad")
@@ -140,7 +140,7 @@ async function doAdd(){
 async function doList(){
   const out = document.getElementById("o-list");
   out.innerHTML = "<em style='color:var(--mut)'>loading…</em>";
-  const r = await call("ai.gftd.apps.flightOffer.listWatch", {status:val("l-status"),limit:200});
+  const r = await call("app.etzhayyim.apps.flightOffer.listWatch", {status:val("l-status"),limit:200});
   if(r.status!==200||!r.json||!Array.isArray(r.json.items)){out.innerHTML="<span class='err'>"+(r.json?.error||r.raw||r.status)+"</span>";return}
   if(!r.json.items.length){out.innerHTML="<em style='color:var(--mut)'>no rows</em>";return}
   let h="<table><thead><tr><th>Route</th><th>Date</th><th>CCY</th><th>Threshold</th><th>Cadence</th><th>Next due</th><th></th></tr></thead><tbody>";
@@ -154,7 +154,7 @@ async function doList(){
 async function doHealth(){
   const out = document.getElementById("o-health");
   out.innerHTML = "<em style='color:var(--mut)'>loading…</em>";
-  const r = await call("ai.gftd.apps.flightOffer.sourceHealth", {});
+  const r = await call("app.etzhayyim.apps.flightOffer.sourceHealth", {});
   if(r.status!==200||!r.json||!Array.isArray(r.json.sources)){out.innerHTML="<span class='err'>"+(r.json?.error||r.raw||r.status)+"</span>";return}
   if(!r.json.sources.length){out.innerHTML="<em style='color:var(--mut)'>no sources</em>";return}
   let h="<table><thead><tr><th>Source</th><th>Runs</th><th>Success %</th><th>Avg latency</th><th>Last OK</th><th>Creds</th></tr></thead><tbody>";
@@ -179,7 +179,7 @@ document.addEventListener("click", async (e)=>{
   if(t.dataset.act==="health") return doHealth();
   if(t.dataset.rm){
     t.disabled = true;
-    await call("ai.gftd.apps.flightOffer.removeWatch", {
+    await call("app.etzhayyim.apps.flightOffer.removeWatch", {
       originIata:t.dataset.org, destinationIata:t.dataset.dst,
       outboundDate:t.dataset.out, currency:t.dataset.ccy
     });
