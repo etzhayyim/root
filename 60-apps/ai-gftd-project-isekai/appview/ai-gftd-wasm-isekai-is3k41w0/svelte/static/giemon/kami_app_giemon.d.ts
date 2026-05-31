@@ -17,6 +17,14 @@ export function run_giemon_caterpillar_v1(canvas_id: string): Promise<void>;
 
 export function run_giemon_hitogata_v1(canvas_id: string): Promise<void>;
 
+/**
+ * Physics-driven kabitori (mold-removal) probe demo. The probe feeds into a
+ * gap, droops its brush onto the mold surface (contact ground plane), and
+ * scrubs autonomously (continuous brush spin + yaw sweep) — all advanced by
+ * the kami-genesis 3-D solver + contact solver. Clean-room (ADR-2605261800).
+ */
+export function run_giemon_kabitori_sim_v1(canvas_id: string): Promise<void>;
+
 export function run_giemon_sim_v1(canvas_id: string): Promise<void>;
 
 export function run_giemon_v1(canvas_id: string): Promise<void>;
@@ -27,6 +35,7 @@ export interface InitOutput {
     readonly memory: WebAssembly.Memory;
     readonly run_giemon_caterpillar_v1: (a: number, b: number) => any;
     readonly run_giemon_hitogata_v1: (a: number, b: number) => any;
+    readonly run_giemon_kabitori_sim_v1: (a: number, b: number) => any;
     readonly run_giemon_sim_v1: (a: number, b: number) => any;
     readonly run_giemon_v1: (a: number, b: number) => any;
     readonly giemonSetJointTorque: (a: number) => void;

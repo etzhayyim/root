@@ -3,6 +3,7 @@
 export const memory: WebAssembly.Memory;
 export const run_giemon_caterpillar_v1: (a: number, b: number) => any;
 export const run_giemon_hitogata_v1: (a: number, b: number) => any;
+export const run_giemon_kabitori_sim_v1: (a: number, b: number) => any;
 export const run_giemon_sim_v1: (a: number, b: number) => any;
 export const run_giemon_v1: (a: number, b: number) => any;
 export const giemonSetJointTorque: (a: number) => void;

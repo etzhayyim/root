@@ -64,11 +64,13 @@ import init, {
   run_giemon_hitogata_v1,
   run_giemon_caterpillar_v1,
   run_giemon_sim_v1,
+  run_giemon_kabitori_sim_v1,
   giemonSetJointTorque,
   giemonSelectJoint,
 } from './giemon/kami_app_giemon.js';
 
 const MODELS = [
+  { id: 'kabitori',    name: 'Kabitori 黴取り — Mold-Removal Sim', desc: 'autonomous probe feeds into a walled gap + scrubs mold off the surface (green→clean); kami-genesis contact + wall obstacles + scrub-erosion', run: run_giemon_kabitori_sim_v1 },
   { id: 'physics-arm', name: 'Arm6 — 3-D Physics Sim', desc: 'kami-genesis 6-DOF spatial solver + contact (1-6 select · J/L torque)', run: run_giemon_sim_v1, physics: true },
   { id: 'armcrawler',  name: 'ArmCrawler — Viewer',      desc: '6-DOF arm + rubber-track crawler (display pose)', run: run_giemon_v1 },
   { id: 'hitogata',    name: 'Hitogata — Biped',         desc: '17-DOF humanoid (~285mm)', run: run_giemon_hitogata_v1 },
