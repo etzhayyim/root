@@ -27,9 +27,13 @@
     try {
       selected = sessionStorage.getItem('giemon-model') ?? 'kabitori';
       const model = MODELS.find((m) => m.id === selected) ?? MODELS[0];
-      // Absolute URL → served from static/giemon/; @vite-ignore keeps vite from
-      // trying to bundle a static asset.
-      const mod: any = await import(/* @vite-ignore */ '/giemon/kami_app_giemon.js');
+      // The bundle lives in static/ (Vite's /public): it is copied as-is and
+      // must NOT be import-analyzed. Build the URL at runtime so Vite leaves
+      // this as a native browser dynamic import (a string literal here triggers
+      // "Cannot import non-asset file … inside /public"). init() then fetches
+      // kami_app_giemon_bg.wasm relative to the module URL (/giemon/).
+      const jsUrl = `${location.origin}/giemon/kami_app_giemon.js`;
+      const mod: any = await import(/* @vite-ignore */ jsUrl);
       await mod.default(); // wasm-bindgen init()
       status = `running (${model.name})`;
       // Arm6 keyboard controls (no-op for other models).
