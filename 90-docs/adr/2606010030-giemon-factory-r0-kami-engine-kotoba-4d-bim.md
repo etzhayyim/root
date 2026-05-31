@@ -260,10 +260,21 @@ Honest limits (unchanged direction): MPM/thermal は **2-D・explicit・CPU/WASM
 GPU dispatch は cartpole/DP のみ(一般 articulation の GPU batch は未)。いずれも
 *アルゴリズム同クラスを単体テストで検証* であって NVIDIA とのビット一致ではない。
 
-Verified by `cargo test -p kami-genesis`: **111 passed** (+17 new — GJK 距離/交差,
-EPA 貫入, CCD トンネリング防止, 2×2 SVD 再構成, MPM 質量保存/弾性落下/流体拡散,
-熱 1D 定常=解析線形/エネルギー保存/融合域/CFL 安定). `--features gpu`: **115 passed**
-(incl. `wgpu_dispatch_matches_cpu_vectorized` 1024-env on Metal). wasm32 build green.
+**v6 follow-up — engine 結線 + API parity**: (a) narrow-phase を剛体ソルバに**統合** —
+`contact.rs` に `Obstacle::Convex(ConvexPoly)`(任意傾斜凸体)、球コライダを GJK 分離 /
+EPA 貫入で解決(プロキシ形状だけだった接触に**汎用凸体接触**を結線)。(b) **batched
+API** `batched.rs::ArticulationBatch` — Isaac Sim `ArticulationView` の **tensor 形
+`[num_envs, n_dof]`**(env-major flat)で `set_joint_efforts`/`get_joint_positions`/
+`step` を提供(単env `Vec` 形しか無かった API-shape ギャップを解消; 実行は CPU loop、
+GPU batch は cartpole/DP のみ)。(c) **PhysX facade** `batched::px` — `PxScene` /
+`PxArticulationReducedCoordinate` 型 + `setJointEfforts`/`simulate`/`getJointPositions`
+の camelCase 委譲(型として未実装だった PhysX 名を実体化、意味論は KAMI ソルバ)。
+
+Verified by `cargo test -p kami-genesis`: **115 passed** (+21 new — GJK 距離/交差,
+EPA 貫入, CCD トンネリング防止, 2×2 SVD, MPM 質量保存/弾性落下/流体拡散, 熱 1D 定常=
+解析線形/エネルギー保存/融合域/CFL, **Convex 接触 GJK+EPA**, **batched [num_envs,n_dof]
+env 分岐**, **PhysX facade 委譲**). `--features gpu`: **119 passed** (incl.
+`wgpu_dispatch_matches_cpu_vectorized` 1024-env on Metal). wasm32 build green.
 
 ## Verification (all run 2026-05-31)
 

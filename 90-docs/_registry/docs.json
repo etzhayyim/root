@@ -18030,6 +18030,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606010600-kami-autodrive-gnc-autonomy-layer.md",
+      "id": "adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+      "title": "ADR-2606010600: kami-autodrive — vehicle-class-agnostic GNC autonomy layer (perception → planning → control)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kami-autodrive-gnc-autonomy",
+      "authoritative": true,
+      "authoritative_for": [
+        "kami-autodrive crate API (Autopilot, perception/OccupancyGrid, planner, control, plant, classes)",
+        "lidar→occupancy→A*→pure-pursuit+PID closed loop wiring over kami-sensor-sim + kami-pathfind",
+        "SoftBodyCar adapter (kami-vehicle plant driven by the same Autopilot; soft-body-car feature)",
+        "per-VehicleClass kinematic fidelity boundary (Car full / Ship·Drone·Aircraft planar-kinematic)"
+      ],
+      "related": [
+        "adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim",
+        "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605261800-nvidia-omniverse-compat-facade",
+        "adr-2605242000-wadachi-autonomous-mobility-rd"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

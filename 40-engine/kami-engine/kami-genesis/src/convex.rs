@@ -15,7 +15,7 @@
 use glam::Vec3;
 
 /// A convex polytope given by its world-space vertices (support = argmax dot).
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct ConvexPoly {
     pub verts: Vec<Vec3>,
 }
@@ -144,18 +144,25 @@ fn closest_on_tetra(a: Vec3, b: Vec3, c: Vec3, d: Vec3) -> (Vec3, bool) {
 
 /// GJK closest distance between two convex polytopes (0.0 if intersecting).
 pub fn gjk_distance(a: &ConvexPoly, b: &ConvexPoly) -> f32 {
+    gjk_closest_vec(a, b).length()
+}
+
+/// GJK closest-point vector on the Minkowski difference (a ⊖ b) to the origin —
+/// i.e. the separation vector pointing from `b` toward `a`. `Vec3::ZERO` when the
+/// shapes intersect. Witness for contact-normal generation.
+pub fn gjk_closest_vec(a: &ConvexPoly, b: &ConvexPoly) -> Vec3 {
     let mut dir = Vec3::X;
     let mut simplex: Vec<Vec3> = vec![cso_support(a, b, dir)];
     let mut closest = simplex[0];
     for _ in 0..64 {
         dir = -closest;
         if dir.length_squared() < 1e-12 {
-            return 0.0; // origin on the simplex → touching/penetrating
+            return Vec3::ZERO; // origin on the simplex → touching/penetrating
         }
         let p = cso_support(a, b, dir);
         // no progress toward the origin → converged.
         if p.dot(dir) - closest.dot(dir) < 1e-7 {
-            return closest.length();
+            return closest;
         }
         simplex.push(p);
         // reduce simplex to the feature closest to the origin.
@@ -169,7 +176,7 @@ pub fn gjk_distance(a: &ConvexPoly, b: &ConvexPoly) -> f32 {
             _ => closest_on_tetra(simplex[0], simplex[1], simplex[2], simplex[3]),
         };
         if inside {
-            return 0.0;
+            return Vec3::ZERO;
         }
         closest = cp;
         // keep only the simplex vertices that define the closest feature: drop
@@ -189,7 +196,7 @@ pub fn gjk_distance(a: &ConvexPoly, b: &ConvexPoly) -> f32 {
             simplex.remove(worst);
         }
     }
-    closest.length()
+    closest
 }
 
 // ── boolean GJK (origin enclosure) for EPA seeding ────────────────────────────

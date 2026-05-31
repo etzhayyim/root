@@ -16,7 +16,8 @@
 //! counts are small). Self-collision broad/narrow phase is a documented
 //! follow-up.
 
-use crate::articulation3d::{solve_ldlt, Articulation3dConfig, Articulation3dState};
+use crate::articulation3d::{Articulation3dConfig, Articulation3dState, solve_ldlt};
+use crate::convex::{ConvexPoly, epa_penetration, gjk_closest_vec};
 use glam::Vec3;
 
 #[derive(Clone, Debug)]
@@ -41,6 +42,10 @@ pub enum Obstacle {
     /// (nearest-face push-out; interior centres exit along the min-penetration
     /// axis).
     Aabb { min: Vec3, max: Vec3 },
+    /// Solid arbitrary **convex polytope** (tilted box, hull). Sphere colliders
+    /// are resolved against it with GJK (separation) / EPA (penetration), the
+    /// general narrow-phase. The convex-vs-convex piece the proxy shapes lacked.
+    Convex(ConvexPoly),
 }
 
 impl Obstacle {
@@ -52,7 +57,12 @@ impl Obstacle {
                 let n = normal.normalize();
                 let d = c.dot(n) - offset; // signed distance, +n = free side
                 let depth = radius - d;
-                (depth > -slop).then(|| Contact { link, p: c - n * d, n, depth })
+                (depth > -slop).then(|| Contact {
+                    link,
+                    p: c - n * d,
+                    n,
+                    depth,
+                })
             }
             Obstacle::Aabb { min, max } => {
                 let cp = c.clamp(*min, *max); // nearest point on/in the box
@@ -62,7 +72,12 @@ impl Obstacle {
                     let dist = dist2.sqrt();
                     let n = diff / dist;
                     let depth = radius - dist;
-                    (depth > -slop).then(|| Contact { link, p: cp, n, depth })
+                    (depth > -slop).then(|| Contact {
+                        link,
+                        p: cp,
+                        n,
+                        depth,
+                    })
                 } else {
                     // Centre inside the box: exit along the axis of least
                     // penetration (closest face).
@@ -80,7 +95,43 @@ impl Obstacle {
                             n = axis;
                         }
                     }
-                    Some(Contact { link, p: c, n, depth: radius + best })
+                    Some(Contact {
+                        link,
+                        p: c,
+                        n,
+                        depth: radius + best,
+                    })
+                }
+            }
+            Obstacle::Convex(poly) => {
+                // sphere centre as a degenerate (1-vertex) convex; GJK gives the
+                // separation vector from the polytope toward the centre.
+                let pt = ConvexPoly::new(vec![c]);
+                let cv = gjk_closest_vec(&pt, poly);
+                let d = cv.length();
+                if d > 1e-6 {
+                    let n = cv / d; // poly → centre (push-out direction)
+                    let depth = radius - d;
+                    (depth > -slop).then(|| Contact {
+                        link,
+                        p: c - n * radius,
+                        n,
+                        depth,
+                    })
+                } else {
+                    // centre inside the polytope → EPA for the exit direction.
+                    let (pd, mut n) = epa_penetration(&pt, poly)?;
+                    let centroid =
+                        poly.verts.iter().copied().sum::<Vec3>() / poly.verts.len().max(1) as f32;
+                    if n.dot(c - centroid) < 0.0 {
+                        n = -n; // orient outward (away from the polytope interior)
+                    }
+                    Some(Contact {
+                        link,
+                        p: c,
+                        n,
+                        depth: radius + pd,
+                    })
                 }
             }
         }
@@ -129,7 +180,11 @@ struct Contact {
 
 impl ContactWorld {
     pub fn new(colliders: Vec<(usize, Collider)>, params: ContactParams) -> Self {
-        Self { colliders, params, obstacles: Vec::new() }
+        Self {
+            colliders,
+            params,
+            obstacles: Vec::new(),
+        }
     }
 
     /// Add static environment obstacles (walls / boxes) for boxing-in a
@@ -238,7 +293,11 @@ impl ContactWorld {
             // Penetration push-out (Baumgarte), capped at the slop band.
             let pen = (c.depth - self.params.slop).max(0.0);
             let vn_pre = dotv(&jn, &st.qdot);
-            let restitution = if vn_pre < 0.0 { -self.params.restitution * vn_pre } else { 0.0 };
+            let restitution = if vn_pre < 0.0 {
+                -self.params.restitution * vn_pre
+            } else {
+                0.0
+            };
             let bias_n = (self.params.baumgarte / dt) * pen + restitution;
             rows.push(Row {
                 jn,
@@ -362,8 +421,17 @@ mod tests {
             ndof: 1,
         };
         let cw = ContactWorld::new(
-            vec![(0, Collider::Sphere { center: Vec3::new(0.0, 0.0, -l), radius: 0.05 })],
-            ContactParams { ground_z, ..Default::default() },
+            vec![(
+                0,
+                Collider::Sphere {
+                    center: Vec3::new(0.0, 0.0, -l),
+                    radius: 0.05,
+                },
+            )],
+            ContactParams {
+                ground_z,
+                ..Default::default()
+            },
         );
         (cfg, cw)
     }
@@ -378,7 +446,10 @@ mod tests {
         // Start horizontal (q=π/2 about −y swings tip toward −x/down). Ground
         // at z=−0.6 catches the tip (radius 0.05 → rest near −0.55).
         let (cfg, cw) = one_link_with_ground(-0.6);
-        let mut st = Articulation3dState { q: vec![std::f32::consts::FRAC_PI_2], qdot: vec![0.0] };
+        let mut st = Articulation3dState {
+            q: vec![std::f32::consts::FRAC_PI_2],
+            qdot: vec![0.0],
+        };
         for _ in 0..2000 {
             cw.step(&cfg, &mut st, &[0.0]);
         }
@@ -387,13 +458,20 @@ mod tests {
         assert!(z >= -0.62, "tip penetrated: z={z}");
         assert!(z <= -0.45, "tip should have fallen to the ground, z={z}");
         // At rest: joint velocity ≈ 0.
-        assert!(st.qdot[0].abs() < 0.05, "should be at rest, qdot={}", st.qdot[0]);
+        assert!(
+            st.qdot[0].abs() < 0.05,
+            "should be at rest, qdot={}",
+            st.qdot[0]
+        );
     }
 
     #[test]
     fn no_contact_when_ground_is_far_below() {
         let (cfg, cw) = one_link_with_ground(-5.0);
-        let st = Articulation3dState { q: vec![std::f32::consts::FRAC_PI_2], qdot: vec![0.0] };
+        let st = Articulation3dState {
+            q: vec![std::f32::consts::FRAC_PI_2],
+            qdot: vec![0.0],
+        };
         assert_eq!(cw.contact_count(&cfg, &st.q), 0);
     }
 
@@ -437,12 +515,27 @@ mod tests {
         // Tip sphere; ground far below so only the wall matters.
         let radius = 0.05;
         let cw = ContactWorld::new(
-            vec![(0, Collider::Sphere { center: Vec3::new(0.0, 0.0, -l), radius })],
-            ContactParams { ground_z: -10.0, ..Default::default() },
+            vec![(
+                0,
+                Collider::Sphere {
+                    center: Vec3::new(0.0, 0.0, -l),
+                    radius,
+                },
+            )],
+            ContactParams {
+                ground_z: -10.0,
+                ..Default::default()
+            },
         )
-        .with_obstacles(vec![Obstacle::Plane { normal: Vec3::X, offset: -0.30 }]);
+        .with_obstacles(vec![Obstacle::Plane {
+            normal: Vec3::X,
+            offset: -0.30,
+        }]);
         // Start so the tip is on the free side and swings toward the wall.
-        let mut st = Articulation3dState { q: vec![std::f32::consts::FRAC_PI_2], qdot: vec![0.0] };
+        let mut st = Articulation3dState {
+            q: vec![std::f32::consts::FRAC_PI_2],
+            qdot: vec![0.0],
+        };
         let tip_x = |st: &Articulation3dState| {
             let (r, p0) = cfg.link_world(&st.q)[0];
             (p0 + r * Vec3::new(0.0, 0.0, -1.0)).x
@@ -451,7 +544,11 @@ mod tests {
             cw.step(&cfg, &mut st, &[0.0]);
         }
         // Wall holds the tip centre at x ≥ -0.30 - radius (minus a little slop).
-        assert!(tip_x(&st) >= -0.30 - radius - 0.02, "wall breached: x={}", tip_x(&st));
+        assert!(
+            tip_x(&st) >= -0.30 - radius - 0.02,
+            "wall breached: x={}",
+            tip_x(&st)
+        );
         assert!(st.q.iter().all(|v| v.is_finite()) && st.qdot.iter().all(|v| v.is_finite()));
     }
 
@@ -459,14 +556,55 @@ mod tests {
     fn aabb_obstacle_keeps_sphere_outside() {
         // A static AABB obstacle yields an outward contact for a sphere that
         // would otherwise overlap it.
-        let ob = Obstacle::Aabb { min: Vec3::new(-1.0, -1.0, -1.0), max: Vec3::new(0.0, 1.0, 1.0) };
+        let ob = Obstacle::Aabb {
+            min: Vec3::new(-1.0, -1.0, -1.0),
+            max: Vec3::new(0.0, 1.0, 1.0),
+        };
         // Sphere centre just to the +x side of the box face at x=0.
-        let ct = ob.contact(7, Vec3::new(0.03, 0.0, 0.0), 0.05, 1.0e-3).expect("overlap → contact");
+        let ct = ob
+            .contact(7, Vec3::new(0.03, 0.0, 0.0), 0.05, 1.0e-3)
+            .expect("overlap → contact");
         assert_eq!(ct.link, 7);
-        assert!(ct.n.dot(Vec3::X) > 0.9, "normal should push out +x: n={:?}", ct.n);
+        assert!(
+            ct.n.dot(Vec3::X) > 0.9,
+            "normal should push out +x: n={:?}",
+            ct.n
+        );
         assert!(ct.depth > 0.0, "penetration positive");
         // Far away → no contact.
-        assert!(ob.contact(7, Vec3::new(0.5, 0.0, 0.0), 0.05, 1.0e-3).is_none());
+        assert!(
+            ob.contact(7, Vec3::new(0.5, 0.0, 0.0), 0.05, 1.0e-3)
+                .is_none()
+        );
+    }
+
+    #[test]
+    fn convex_obstacle_resolves_sphere_via_gjk_epa() {
+        use glam::Quat;
+        // a 45°-tilted box (corner points along +x at ~0.707) as a Convex obstacle.
+        let poly = ConvexPoly::box_at(Vec3::ZERO, Vec3::splat(0.5), Quat::from_rotation_z(0.785));
+        let ob = Obstacle::Convex(poly);
+        // far away → no contact
+        assert!(
+            ob.contact(3, Vec3::new(3.0, 0.0, 0.0), 0.1, 1.0e-3)
+                .is_none()
+        );
+        // just outside the +x corner, within the sphere radius → outward contact
+        let ct = ob
+            .contact(3, Vec3::new(0.78, 0.0, 0.0), 0.1, 1.0e-3)
+            .expect("near corner → contact (GJK)");
+        assert_eq!(ct.link, 3);
+        assert!(ct.depth > 0.0 && ct.depth.is_finite(), "depth={}", ct.depth);
+        assert!(ct.n.x > 0.3, "normal should push out +x: n={:?}", ct.n);
+        // centre inside the polytope → EPA push-out (large depth)
+        let ci = ob
+            .contact(3, Vec3::ZERO, 0.1, 1.0e-3)
+            .expect("inside → contact (EPA)");
+        assert!(
+            ci.depth > 0.1 && ci.depth.is_finite(),
+            "epa depth={}",
+            ci.depth
+        );
     }
 
     #[test]
@@ -474,13 +612,19 @@ mod tests {
         // With restitution 0, total energy must not rise over the contact phase
         // (Baumgarte can add a little; bound generously but finite).
         let (cfg, cw) = one_link_with_ground(-0.6);
-        let mut st = Articulation3dState { q: vec![std::f32::consts::FRAC_PI_2], qdot: vec![0.0] };
+        let mut st = Articulation3dState {
+            q: vec![std::f32::consts::FRAC_PI_2],
+            qdot: vec![0.0],
+        };
         let e0 = cfg.energy(&st);
         let mut emax = e0;
         for _ in 0..2000 {
             cw.step(&cfg, &mut st, &[0.0]);
             emax = emax.max(cfg.energy(&st));
         }
-        assert!(emax <= e0 + 0.05 * e0.abs().max(1.0), "energy grew: e0={e0} emax={emax}");
+        assert!(
+            emax <= e0 + 0.05 * e0.abs().max(1.0),
+            "energy grew: e0={e0} emax={emax}"
+        );
     }
 }
