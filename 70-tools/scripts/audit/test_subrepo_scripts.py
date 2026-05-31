@@ -34,7 +34,20 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 # Iter-39/52 baselines (post-audit-closure). Any drift in either
 # direction signals new work — investigate before bumping.
 EXPECTED_STALE_URLS = 7
-EXPECTED_ESCAPE_SYMLINKS = 18
+# ESCAPE_SYMLINKS baseline dropped 18 → 0 (2026-05-31): the 18 escape
+# symlinks were all the `CHARTER-RIDER.md → ../../CHARTER-RIDER.md`
+# pattern inside the kotoba **git-subrepo** (1 root + 17 crates), a
+# root-side charter-rider-applicator artifact that the script itself
+# flags as a DEFECT (dangles when the subrepo is extracted standalone).
+# kotoba was converted from git-subrepo → git-submodule (`.gitmodules`,
+# url=github.com/etzhayyim/kotoba), so its tree is no longer vendored
+# into this repo and `subrepo-symlink-health.sh` (which only scans
+# `.gitrepo` subrepos) correctly finds 0. This is the resolved end-state,
+# not a regression. Charter Rider application to kotoba's 17 crates is now
+# decoupled from the symlink mechanism and tracked separately as the
+# upstream Phase-1 deliverable D1 of ADR-2605262130 (apply Apache-2.0 +
+# Charter Rider v2.0 in the kotoba repo via upstream PR per N5).
+EXPECTED_ESCAPE_SYMLINKS = 0
 
 
 def _run_script(path: Path, args: list[str] | None = None) -> tuple[int, str, float]:
@@ -122,18 +135,34 @@ class TestSubrepoSymlinkHealth:
             f"got different count\nstdout:\n{out}"
         )
 
-    def test_detects_kotoba_charter_rider_pattern(self):
-        """The canonical iter-31 finding is the kotoba subrepo's
-        CHARTER-RIDER.md symlinks escaping to ../../CHARTER-RIDER.md."""
+    def test_kotoba_charter_rider_escape_pattern_resolved(self):
+        """The canonical iter-31 finding was the kotoba git-subrepo's
+        `CHARTER-RIDER.md → ../../CHARTER-RIDER.md` escape symlinks (1 root
+        + 17 crates). kotoba migrated git-subrepo → git-submodule (2026-05),
+        so those symlinks are no longer vendored in this repo and the scan
+        is expected to find NONE of the kotoba escape pattern.
+
+        Charter Rider application to kotoba's crates is now the upstream
+        Phase-1 deliverable D1 of ADR-2605262130 (not the symlink hack)."""
         _, out, _ = _run_script(SYMLINK_HEALTH)
-        assert "kotoba" in out and "CHARTER-RIDER.md" in out, (
-            "expected to find the kotoba CHARTER-RIDER.md escape pattern; "
+        assert "kotoba" not in out, (
+            "kotoba CHARTER-RIDER.md escape symlinks reappeared — kotoba "
+            "should be a git-submodule (no vendored tree). If kotoba was "
+            "re-vendored as a subrepo, re-evaluate the Charter Rider "
+            "application strategy (ADR-2605262130 D1) before re-baselining.\n"
             f"stdout:\n{out}"
         )
 
-    def test_strict_mode_exits_1_on_findings(self):
+    def test_strict_mode_clean_at_zero_findings(self):
+        """With kotoba now a submodule, there are 0 escape symlinks, so
+        strict mode is clean (exit 0). If new escape symlinks are added to
+        a remaining `.gitrepo` subrepo, this flips to exit 1 — investigate
+        and bump EXPECTED_ESCAPE_SYMLINKS before changing this assertion."""
         rc, _, _ = _run_script(SYMLINK_HEALTH, ["--strict"])
-        assert rc == 1, f"strict mode with {EXPECTED_ESCAPE_SYMLINKS} findings should exit 1; got {rc}"
+        assert rc == 0, (
+            f"strict mode with {EXPECTED_ESCAPE_SYMLINKS} findings should "
+            f"exit 0; got {rc} (new escape symlinks introduced?)"
+        )
 
     def test_performance_budget(self):
         """Iter-57 replaced nested `find` walks with a single git ls-files -s scan.
