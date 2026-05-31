@@ -179,6 +179,21 @@ New schema: `:application/slot-id`, `:slot/window-start|end`, `:route/window`,
 inter-window vehicle reuse, live authoritative crawl, real operator dispatch (auth +
 Council, G11).
 
+## R3 (started) — inter-window vehicle reuse
+
+First R3 increment (design-only under G11; verified by `py/test_agent.py`). R2
+routed each time window with a fresh disposable vehicle list. R3 replaces that with
+a **persistent vehicle pool carrying a `free_at` clock** (the minute each vehicle is
+next back at the depot): a later window may **reuse** a vehicle iff `free_at ≤
+window_start`. After each route, `free_at = last-stop ETA + service + return-to-depot
+travel`. Routes carry `vehicle_reused`; a vehicle that cannot return in time is not
+forced (the route goes to `unassigned`, G15). This raises fleet utilisation
+(one AM+PM-capable truck now serves both windows) without overstating capacity.
+
+Still deferred (R3.x / R4): exact/optimal VRPTW solver (server carve-out), crew
+inter-window reuse + shift rules, live authoritative-data crawl, and real operator
+dispatch (auth + Council ratification, G11).
+
 ## Consequences
 
 ### Positive

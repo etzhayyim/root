@@ -446,6 +446,75 @@ def test_fetch_facilities_sources_are_open_license_only():
 
 
 # --------------------------------------------------------------------------- #
+# 10. R3 — inter-window vehicle reuse
+# --------------------------------------------------------------------------- #
+class FakeDispatchDL:
+    """Stub for build_routes_node: one small vehicle, one facility, no crew."""
+
+    def q(self, query, *a):
+        if ":vehicle/status :available" in query:
+            return [["v1", 2000]]
+        if ":vehicle/depot-lat" in query:
+            return [[35.660, 139.700]]
+        if ":facility/jurisdiction" in query and ":facility/capacity-tonnes-day" in query:
+            return [["f1", 100.0, 0.0]]
+        if ":crew/shift :early" in query:
+            return []
+        return []
+
+    def transact(self, d):
+        pass
+
+
+def test_inter_window_vehicle_reuse_r3():
+    saved = agent.datalog
+    agent.datalog = FakeDispatchDL()
+    try:
+        state = {
+            "jurisdiction": "x",
+            "coords": {"a": (35.661, 139.701), "b": (35.662, 139.702)},
+            "demand": {"a": 500, "b": 500},
+            "window_of": {
+                "a": {"window": "am", "start": 480, "end": 720},
+                "b": {"window": "pm", "start": 780, "end": 1020},
+            },
+        }
+        out = agent.build_routes_node(state)
+        routes = out["routes"]
+        assert out["unassigned"] == []                 # the one vehicle covers both windows
+        assert len(routes) == 2
+        by_win = {r["window"]: r for r in routes}
+        assert by_win["am"]["vehicle"] == "v1" and by_win["pm"]["vehicle"] == "v1"
+        assert by_win["am"]["vehicle_reused"] is False  # first use
+        assert by_win["pm"]["vehicle_reused"] is True   # reused across windows (R3)
+    finally:
+        agent.datalog = saved
+
+
+def test_no_reuse_when_vehicle_cannot_return_in_time_r3():
+    # The AM stop is ~120 km from depot, so the single vehicle is still out (well
+    # past the PM window start) and cannot be reused → PM goes unassigned (G15).
+    saved = agent.datalog
+    agent.datalog = FakeDispatchDL()
+    try:
+        state = {
+            "jurisdiction": "x",
+            "coords": {"a": (36.50, 140.60), "b": (35.662, 139.702)},  # 'a' very far
+            "demand": {"a": 500, "b": 500},
+            "window_of": {
+                "a": {"window": "am", "start": 480, "end": 720},
+                "b": {"window": "pm", "start": 900, "end": 1020},
+            },
+        }
+        out = agent.build_routes_node(state)
+        wins = {r["window"] for r in out["routes"]}
+        assert "am" in wins
+        assert "pm" not in wins and len(out["unassigned"]) >= 1   # G15: surfaced, not silently served
+    finally:
+        agent.datalog = saved
+
+
+# --------------------------------------------------------------------------- #
 # standalone runner
 # --------------------------------------------------------------------------- #
 if __name__ == "__main__":
