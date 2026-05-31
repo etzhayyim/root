@@ -377,6 +377,75 @@ def test_slots_booked_within_capacity():
 
 
 # --------------------------------------------------------------------------- #
+# 8. R2 — solver upgrade (Or-opt + local search) and VRPTW ETA
+# --------------------------------------------------------------------------- #
+def test_or_opt_never_worse():
+    pts = list(VRP_COORDS)
+    base = agent._route_length(pts, VRP_COORDS, VRP_DEPOT)
+    order, length = agent._or_opt(pts, VRP_COORDS, VRP_DEPOT)
+    assert set(order) == set(pts)
+    assert length <= base + 1e-9
+
+
+def test_local_search_at_least_as_good_as_two_opt():
+    pts = list(VRP_COORDS)
+    _, two_opt_len = agent._two_opt(pts, VRP_COORDS, VRP_DEPOT)
+    ls_order, ls_len = agent._local_search(pts, VRP_COORDS, VRP_DEPOT)
+    assert set(ls_order) == set(pts)
+    assert ls_len <= two_opt_len + 1e-9        # local search starts with 2-opt → never worse
+
+
+def test_route_eta_monotonic_and_window_flag():
+    order = ["a", "b", "c", "d"]
+    etas = agent._route_eta(order, VRP_COORDS, VRP_DEPOT, start_min=480, speed_kmh=20.0, service_min=10)
+    times = [t for _, t in etas]
+    assert times == sorted(times)              # ETAs strictly increase along the route
+    assert all(t >= 480 for t in times)        # never before window open
+    # a tight window end forces a violation on the later stops
+    violations = [s for s, t in etas if t > 485]
+    assert len(violations) >= 1                 # G15: late stops are detectable, not hidden
+
+
+# --------------------------------------------------------------------------- #
+# 9. R2 — authoritative facility ingestion transform
+# --------------------------------------------------------------------------- #
+def _load_fetch_module():
+    import importlib.util
+    p = os.path.join(os.path.dirname(__file__), "..", "kotoba", "fetch_facilities.py")
+    spec = importlib.util.spec_from_file_location("fetch_facilities", p)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def test_fetch_facilities_transform_is_authoritative_with_provenance():
+    fm = _load_fetch_module()
+    rows = [{
+        "id": "jp.shibuya.fac.auth-01", "jurisdiction": "jp.shibuya",
+        "name": "渋谷清掃工場 (official)", "kind": "incinerator",
+        "lat": "35.658", "lon": "139.699", "capacity_tonnes_day": "200",
+        "accepted_categories": "furniture;bedding", "operating_hours": "Mon-Sat 08:00-17:00",
+        "gate_fee_per_tonne": "4000",
+    }]
+    out = fm.transform(rows, "jp.moe.ippan", fm.SOURCES["jp.moe.ippan"]["url"])
+    assert len(out) == 1
+    rec = out[0]
+    assert ":facility/sourcing :authoritative" in rec     # NOT :representative
+    assert ":facility/source-url" in rec and "env.go.jp" in rec
+    assert ":facility/source-dataset \"jp.moe.ippan\"" in rec
+    assert ":facility/kind :incinerator" in rec
+    assert "#{:furniture :bedding}" in rec
+
+
+def test_fetch_facilities_sources_are_open_license_only():
+    fm = _load_fetch_module()
+    banned = ("GovWin", "Bloomberg", "Politico", "FiscalNote", "proprietary")
+    for k, v in fm.SOURCES.items():
+        assert v["url"].startswith("http")
+        assert not any(b.lower() in v["license"].lower() for b in banned)
+
+
+# --------------------------------------------------------------------------- #
 # standalone runner
 # --------------------------------------------------------------------------- #
 if __name__ == "__main__":

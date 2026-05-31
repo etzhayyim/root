@@ -89,6 +89,14 @@
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one
   :db/doc ":authoritative or :representative (R0 seed flag)"}
+ {:db/ident :facility/source-url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "provenance URL of the authoritative dataset (R2, G8 non-fabrication)"}
+ {:db/ident :facility/source-dataset
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "source dataset id from the fetch_facilities SOURCES registry (R2)"}
 
  ;; ---- item-category (粗大ゴミ品目区分) ----
  {:db/ident :item-category/code
@@ -229,6 +237,10 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc "collection sticker/ticket id"}
+ {:db/ident :application/slot-id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref to :slot/id booked at schedule time (R2, couples intake↔dispatch)"}
  {:db/ident :application/consent-sig
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
@@ -279,6 +291,10 @@
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one
   :db/doc "summed estimated load; must be ≤ vehicle capacity (G15)"}
+ {:db/ident :route/window
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc "served time window (R2 VRPTW): :am :pm :allday"}
  {:db/ident :route/state
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one
@@ -311,4 +327,13 @@
  {:db/ident :slot/booked
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one
-  :db/doc "applications already booked into this slot"}]
+  :db/doc "applications already booked into this slot"}
+ ;; R2 — VRPTW time-window bounds (minutes from midnight)
+ {:db/ident :slot/window-start
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "earliest service minute (e.g. 480 = 08:00)"}
+ {:db/ident :slot/window-end
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "latest service minute (e.g. 720 = 12:00); ETA past this = window violation (G15)"}]

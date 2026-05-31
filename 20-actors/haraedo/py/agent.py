@@ -76,6 +76,58 @@ def _two_opt(order, coords, start):
     return best, best_len
 
 
+def _or_opt(order, coords, start):
+    """Or-opt local move: relocate chains of length 1..3 to a better position.
+    Complements 2-opt (which only reverses segments) — together they escape more
+    local minima than 2-opt alone (R2, ADR-2606010200 §R2)."""
+    best = order[:]
+    best_len = _route_length(best, coords, start)
+    improved = True
+    while improved:
+        improved = False
+        n = len(best)
+        for seg in (1, 2, 3):
+            if seg >= n:
+                break
+            for i in range(n - seg + 1):
+                chain = best[i:i + seg]
+                rest = best[:i] + best[i + seg:]
+                for j in range(len(rest) + 1):
+                    cand = rest[:j] + chain + rest[j:]
+                    cand_len = _route_length(cand, coords, start)
+                    if cand_len + 1e-9 < best_len:
+                        best, best_len, improved = cand, cand_len, True
+            if improved:
+                break
+    return best, best_len
+
+
+def _local_search(order, coords, start):
+    """R2 route polish: alternate 2-opt and Or-opt until neither improves.
+    Strictly ≥ R1's 2-opt-only quality (2-opt is the first move it runs)."""
+    cur = order[:]
+    cur_len = _route_length(cur, coords, start)
+    while True:
+        cur, _ = _two_opt(cur, coords, start)
+        cur, new_len = _or_opt(cur, coords, start)
+        if new_len + 1e-9 >= cur_len:
+            return cur, new_len
+        cur_len = new_len
+
+
+def _route_eta(order, coords, depot, start_min, speed_kmh=20.0, service_min=10):
+    """VRPTW arrival clock (R2): minutes-from-midnight ETA at each stop, leaving
+    the depot at `start_min`, travelling at `speed_kmh`, `service_min` per stop."""
+    etas, cur, t = [], depot, float(start_min)
+    for s in order:
+        nxt = coords[s]
+        t += _haversine_km(cur[0], cur[1], nxt[0], nxt[1]) / speed_kmh * 60.0
+        etas.append((s, round(t, 1)))
+        t += service_min
+        cur = nxt
+    return etas
+
+
 def _clarke_wright(stops, demand, coords, depot, cap):
     """Capacitated VRP (Clarke-Wright savings) → list of capacity-feasible 2-opt routes.
 
@@ -126,7 +178,7 @@ def _clarke_wright(stops, demand, coords, depot, cap):
         routes.remove(rb)
         routes.append(merged)
 
-    return [_two_opt(r, coords, depot)[0] for r in routes]
+    return [_local_search(r, coords, depot)[0] for r in routes]
 
 
 # --------------------------------------------------------------------------- #
@@ -273,6 +325,7 @@ def sticker_node(state: IntakeState) -> dict:
             ":application/fee": state["fee"],
             ":application/sticker-id": sticker,
             ":application/consent-sig": state["consent_sig"],
+            ":application/slot-id": state.get("slot_id", ""),
             ":application/state": ":scheduled",
         }])
     return {"sticker_id": sticker}
@@ -305,6 +358,7 @@ class DispatchState(TypedDict):
     applications: list     # [{app_id, collection_point, items}]
     coords: dict           # collection_point_id -> (lat, lon)
     demand: dict           # collection_point_id -> kg (R1, per-stop)
+    window_of: dict        # collection_point_id -> {window,start,end} (R2 VRPTW)
     load_kg: int
     vehicle: str
     crew: list
@@ -331,8 +385,9 @@ def gather_node(state: DispatchState) -> dict:
 
 
 def cluster_node(state: DispatchState) -> dict:
-    """Cluster stops by service-area; load coordinates + per-stop demand (kg)."""
-    coords, demand, load_kg = {}, {}, 0
+    """Cluster stops; load coordinates + per-stop demand (kg) + each stop's booked
+    time window (R2 VRPTW, via application→slot-id→slot)."""
+    coords, demand, window_of, load_kg = {}, {}, {}, 0
     if datalog is not None:
         for app in state["applications"]:
             cp = app["collection_point"]
@@ -351,7 +406,15 @@ def cluster_node(state: DispatchState) -> dict:
             kg = int(sum(w[0] for w in items))
             demand[cp] = demand.get(cp, 0) + kg
             load_kg += kg
-    return {"coords": coords, "demand": demand, "load_kg": load_kg}
+            srow = datalog.q(
+                "[:find ?win ?ws ?we :in $ ?aid :where [?a :application/id ?aid] "
+                "[?a :application/slot-id ?sid] [?s :slot/id ?sid] [?s :slot/window ?win] "
+                "[?s :slot/window-start ?ws] [?s :slot/window-end ?we]]",
+                app["app_id"],
+            )
+            if srow:
+                window_of[cp] = {"window": str(srow[0][0]), "start": int(srow[0][1]), "end": int(srow[0][2])}
+    return {"coords": coords, "demand": demand, "window_of": window_of, "load_kg": load_kg}
 
 
 def build_routes_node(state: DispatchState) -> dict:
@@ -392,24 +455,36 @@ def build_routes_node(state: DispatchState) -> dict:
         loaders = [c[0] for c in crew if c[1] in (":loader", "loader")]
 
     cap = vehs[-1][0] if vehs else 4000
-    raw_routes = _clarke_wright(stops, demand, coords, depot, cap)
+    window_of = state.get("window_of", {})
+
+    # R2 VRPTW: partition stops by their booked time window, route each window
+    # separately so a vehicle serves one window's stops within that window.
+    groups = {}
+    for s in stops:
+        w = window_of.get(s, {"window": "allday", "start": 480, "end": 1020})
+        groups.setdefault((w["window"], w["start"], w["end"]), []).append(s)
 
     avail = list(vehs)  # (cap, id) ascending
     routes, unassigned = [], []
-    for order in raw_routes:
-        load = sum(demand.get(s, 0) for s in order)
-        pick = next((k for k, (c, _) in enumerate(avail) if c >= load), None)
-        if pick is None:
-            unassigned.append({"stop_order": order, "load_kg": int(load),
-                               "reason": "no available vehicle with capacity ≥ load (G15)"})
-            continue
-        _, vid = avail.pop(pick)
-        crewset = ([drivers.pop(0)] if drivers else []) + [loaders.pop(0) for _ in range(min(2, len(loaders)))]
-        routes.append({
-            "vehicle": vid, "stop_order": order, "load_kg": int(load),
-            "distance_km": round(_route_length(order, coords, depot), 2),
-            "facility": facility, "crew": crewset,
-        })
+    for (win, w_start, w_end), gstops in sorted(groups.items(), key=lambda kv: kv[0][1]):
+        for order in _clarke_wright(gstops, demand, coords, depot, cap):
+            load = sum(demand.get(s, 0) for s in order)
+            pick = next((k for k, (c, _) in enumerate(avail) if c >= load), None)
+            if pick is None:
+                unassigned.append({"stop_order": order, "load_kg": int(load), "window": win,
+                                   "reason": "no available vehicle with capacity ≥ load (G15)"})
+                continue
+            _, vid = avail.pop(pick)
+            crewset = ([drivers.pop(0)] if drivers else []) + [loaders.pop(0) for _ in range(min(2, len(loaders)))]
+            etas = _route_eta(order, coords, depot, w_start)
+            tw_violations = [{"stop": s, "eta_min": e} for s, e in etas if e > w_end]  # G15: surfaced, not hidden
+            routes.append({
+                "vehicle": vid, "stop_order": order, "load_kg": int(load),
+                "distance_km": round(_route_length(order, coords, depot), 2),
+                "facility": facility, "crew": crewset,
+                "window": win, "window_start": w_start, "window_end": w_end,
+                "etas": etas, "tw_violations": tw_violations,
+            })
     return {"routes": routes, "unassigned": unassigned}
 
 
@@ -495,6 +570,7 @@ def emit_plan_node(state: DispatchState) -> dict:
                 ":route/facility-destination": r["facility"],
                 ":route/distance-km": r["distance_km"],
                 ":route/load-kg": int(r["load_kg"]),
+                ":route/window": f":{r.get('window', 'allday')}",
                 ":route/state": ":planned",
             }])
         written.append({**r, "route_id": rid, "state": ":planned"})

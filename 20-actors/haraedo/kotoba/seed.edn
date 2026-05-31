@@ -73,7 +73,7 @@
   :application/jurisdiction "jp.shibuya" :application/items #{:furniture :bedding}
   :application/collection-point "jp.shibuya.cp.udagawa-1" :application/scheduled-date "2026-06-05"
   :application/fee 2500 :application/sticker-id "SBY-26060500001" :application/consent-sig "z-did-sig-placeholder"
-  :application/state :scheduled}
+  :application/slot-id "jp.shibuya.slot.20260605-north-am" :application/state :scheduled}
 
  {:route/id "jp.shibuya.route.20260605-north-01" :route/jurisdiction "jp.shibuya" :route/date "2026-06-05"
   :route/vehicle "jp.shibuya.veh.packer-01"
@@ -84,7 +84,7 @@
   :route/distance-km 4.8 :route/est-duration-min 95 :route/load-kg 320 :route/state :planned}
 
  ;; ============ collection slots (R1) — capacity-honest calendar ============
- {:slot/id "jp.shibuya.slot.20260605-north-am" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-05" :slot/service-area "shibuya-north" :slot/window :am :slot/capacity 20 :slot/booked 3}
- {:slot/id "jp.shibuya.slot.20260605-north-pm" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-05" :slot/service-area "shibuya-north" :slot/window :pm :slot/capacity 20 :slot/booked 0}
- {:slot/id "jp.shibuya.slot.20260605-south-am" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-05" :slot/service-area "shibuya-south" :slot/window :am :slot/capacity 20 :slot/booked 0}
- {:slot/id "jp.shibuya.slot.20260612-north-am" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-12" :slot/service-area "shibuya-north" :slot/window :am :slot/capacity 20 :slot/booked 0}]
+ {:slot/id "jp.shibuya.slot.20260605-north-am" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-05" :slot/service-area "shibuya-north" :slot/window :am :slot/capacity 20 :slot/booked 3 :slot/window-start 480 :slot/window-end 720}
+ {:slot/id "jp.shibuya.slot.20260605-north-pm" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-05" :slot/service-area "shibuya-north" :slot/window :pm :slot/capacity 20 :slot/booked 0 :slot/window-start 780 :slot/window-end 1020}
+ {:slot/id "jp.shibuya.slot.20260605-south-am" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-05" :slot/service-area "shibuya-south" :slot/window :am :slot/capacity 20 :slot/booked 0 :slot/window-start 480 :slot/window-end 720}
+ {:slot/id "jp.shibuya.slot.20260612-north-am" :slot/jurisdiction "jp.shibuya" :slot/date "2026-06-12" :slot/service-area "shibuya-north" :slot/window :am :slot/capacity 20 :slot/booked 0 :slot/window-start 480 :slot/window-end 720}]
