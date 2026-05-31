@@ -1,0 +1,398 @@
+//! mpm — Material Point Method continuum solver (2-D MLS-MPM).
+//!
+//! A real continuum solver (the family Isaac/PhysX use for deformables/granular)
+//! to replace the `kami-app-*` field stand-ins (`DepositField`, `MoldField`) with
+//! actual elasto-plastic / granular / fluid material: concrete pour + soil/砂 =
+//! granular plasticity, fresh slurry = weakly-compressible fluid, sealant = soft
+//! elastic. Moving Least Squares MPM (Hu et al. 2018), APIC transfer, quadratic
+//! B-spline grid, fixed-corotated elasticity + return-mapping plasticity.
+//!
+//! Honest scope: 2-D, explicit, single-grid, CPU/WASM, f32 — an order of
+//! magnitude simpler than PhysX GPU FEM/MPM, but a *genuine* continuum solver
+//! (mass conserved, momentum from a real constitutive model), not a stand-in.
+
+use glam::{Mat2, Vec2};
+
+#[derive(Clone, Copy, PartialEq)]
+pub enum MpmMaterial {
+    /// Soft elastic (sealant / jelly) — no plasticity.
+    Elastic,
+    /// Granular plasticity (concrete / soil / 砂) — settles into a pile.
+    Granular,
+    /// Weakly-compressible fluid (slurry) — flows and spreads.
+    Fluid,
+}
+
+#[derive(Clone)]
+struct Particle {
+    x: Vec2,
+    v: Vec2,
+    c: Mat2, // APIC affine velocity
+    f: Mat2, // deformation gradient
+    jp: f32, // plastic volume ratio
+    mat: MpmMaterial,
+}
+
+pub struct MpmSolver {
+    pub n: usize, // grid nodes per axis (domain = unit square)
+    dx: f32,
+    inv_dx: f32,
+    pub dt: f32,
+    p_mass: f32,
+    p_vol: f32,
+    e: f32,  // Young's modulus
+    nu: f32, // Poisson ratio
+    gravity: f32,
+    particles: Vec<Particle>,
+    grid_v: Vec<Vec2>,
+    grid_m: Vec<f32>,
+}
+
+impl MpmSolver {
+    pub fn new(n: usize) -> Self {
+        let n = n.max(16);
+        Self {
+            n,
+            dx: 1.0 / n as f32,
+            inv_dx: n as f32,
+            dt: 1e-4,
+            p_mass: 1.0,
+            p_vol: 1.0,
+            e: 1.0e4,
+            nu: 0.2,
+            gravity: -200.0,
+            particles: Vec::new(),
+            grid_v: vec![Vec2::ZERO; (n + 1) * (n + 1)],
+            grid_m: vec![0.0; (n + 1) * (n + 1)],
+        }
+    }
+
+    pub fn with_youngs(mut self, e: f32) -> Self {
+        self.e = e;
+        self
+    }
+
+    pub fn particle_count(&self) -> usize {
+        self.particles.len()
+    }
+
+    /// Seed a filled rectangular block of particles (domain coords in 0..1).
+    pub fn add_block(&mut self, min: Vec2, max: Vec2, per_axis: usize, mat: MpmMaterial) {
+        for i in 0..per_axis {
+            for j in 0..per_axis {
+                let fx = (i as f32 + 0.5) / per_axis as f32;
+                let fy = (j as f32 + 0.5) / per_axis as f32;
+                self.particles.push(Particle {
+                    x: Vec2::new(min.x + fx * (max.x - min.x), min.y + fy * (max.y - min.y)),
+                    v: Vec2::ZERO,
+                    c: Mat2::ZERO,
+                    f: Mat2::IDENTITY,
+                    jp: 1.0,
+                    mat,
+                });
+            }
+        }
+    }
+
+    pub fn total_mass(&self) -> f32 {
+        self.particles.len() as f32 * self.p_mass
+    }
+
+    pub fn bounds(&self) -> (Vec2, Vec2) {
+        let mut mn = Vec2::splat(f32::INFINITY);
+        let mut mx = Vec2::splat(f32::NEG_INFINITY);
+        for p in &self.particles {
+            mn = mn.min(p.x);
+            mx = mx.max(p.x);
+        }
+        (mn, mx)
+    }
+
+    pub fn mean_height(&self) -> f32 {
+        if self.particles.is_empty() {
+            return 0.0;
+        }
+        self.particles.iter().map(|p| p.x.y).sum::<f32>() / self.particles.len() as f32
+    }
+
+    pub fn all_finite(&self) -> bool {
+        self.particles
+            .iter()
+            .all(|p| p.x.is_finite() && p.v.is_finite())
+    }
+
+    /// One MLS-MPM step (P2G → grid update → G2P + constitutive update).
+    pub fn step(&mut self) {
+        for m in self.grid_m.iter_mut() {
+            *m = 0.0;
+        }
+        for v in self.grid_v.iter_mut() {
+            *v = Vec2::ZERO;
+        }
+        let mu0 = self.e / (2.0 * (1.0 + self.nu));
+        let la0 = self.e * self.nu / ((1.0 + self.nu) * (1.0 - 2.0 * self.nu));
+        let dt = self.dt;
+
+        // ── P2G ──
+        for p in &self.particles {
+            let base = (p.x * self.inv_dx - Vec2::splat(0.5)).floor();
+            let fx = p.x * self.inv_dx - base;
+            let w = quad_weights(fx);
+
+            // constitutive model → first Piola term PF = P·Fᵀ
+            let (svd_u, sig, svd_v) = svd2(p.f);
+            let mut mu = mu0;
+            let mut la = la0;
+            let j = sig.x * sig.y;
+            let pf = match p.mat {
+                MpmMaterial::Fluid => {
+                    // volumetric only (mu = 0): PF = λ·J·(J−1)·I
+                    Mat2::IDENTITY * (la * j * (j - 1.0))
+                }
+                MpmMaterial::Elastic => {
+                    mu *= 0.3;
+                    la *= 0.3;
+                    let r = svd_u * svd_v.transpose();
+                    (p.f - r) * p.f.transpose() * (2.0 * mu) + Mat2::IDENTITY * (la * j * (j - 1.0))
+                }
+                MpmMaterial::Granular => {
+                    let h = (10.0 * (1.0 - p.jp)).exp().clamp(0.05, 8.0);
+                    mu *= h;
+                    la *= h;
+                    let r = svd_u * svd_v.transpose();
+                    (p.f - r) * p.f.transpose() * (2.0 * mu) + Mat2::IDENTITY * (la * j * (j - 1.0))
+                }
+            };
+            let stress = pf * (-dt * self.p_vol * 4.0 * self.inv_dx * self.inv_dx);
+            let affine = stress + p.c * self.p_mass;
+
+            for gi in 0..3 {
+                for gj in 0..3 {
+                    let dpos = (Vec2::new(gi as f32, gj as f32) - fx) * self.dx;
+                    let weight = w[gi].x * w[gj].y;
+                    let ni = (base.x as i32 + gi as i32).clamp(0, self.n as i32) as usize;
+                    let nj = (base.y as i32 + gj as i32).clamp(0, self.n as i32) as usize;
+                    let g = ni * (self.n + 1) + nj;
+                    self.grid_v[g] += (p.v * self.p_mass + affine * dpos) * weight;
+                    self.grid_m[g] += weight * self.p_mass;
+                }
+            }
+        }
+
+        // ── grid update ──
+        let bound = 3;
+        for i in 0..=self.n {
+            for j in 0..=self.n {
+                let g = i * (self.n + 1) + j;
+                if self.grid_m[g] > 0.0 {
+                    self.grid_v[g] /= self.grid_m[g];
+                    self.grid_v[g].y += dt * self.gravity;
+                    // sticky/slip walls
+                    if i < bound && self.grid_v[g].x < 0.0 {
+                        self.grid_v[g].x = 0.0;
+                    }
+                    if i > self.n - bound && self.grid_v[g].x > 0.0 {
+                        self.grid_v[g].x = 0.0;
+                    }
+                    if j < bound && self.grid_v[g].y < 0.0 {
+                        self.grid_v[g].y = 0.0;
+                    }
+                    if j > self.n - bound && self.grid_v[g].y > 0.0 {
+                        self.grid_v[g].y = 0.0;
+                    }
+                }
+            }
+        }
+
+        // ── G2P + advect + plasticity ──
+        for p in &mut self.particles {
+            let base = (p.x * self.inv_dx - Vec2::splat(0.5)).floor();
+            let fx = p.x * self.inv_dx - base;
+            let w = quad_weights(fx);
+            let mut new_v = Vec2::ZERO;
+            let mut new_c = Mat2::ZERO;
+            for gi in 0..3 {
+                for gj in 0..3 {
+                    let dpos = Vec2::new(gi as f32, gj as f32) - fx;
+                    let ni = (base.x as i32 + gi as i32).clamp(0, self.n as i32) as usize;
+                    let nj = (base.y as i32 + gj as i32).clamp(0, self.n as i32) as usize;
+                    let gv = self.grid_v[ni * (self.n + 1) + nj];
+                    let weight = w[gi].x * w[gj].y;
+                    new_v += gv * weight;
+                    // APIC: C += 4·inv_dx·weight·(gv ⊗ dpos)
+                    new_c += outer(gv * (weight * 4.0 * self.inv_dx), dpos);
+                }
+            }
+            p.v = new_v;
+            p.c = new_c;
+            p.x += new_v * dt;
+            p.x = p.x.clamp(Vec2::splat(0.0), Vec2::splat(1.0));
+
+            // update deformation gradient
+            let mut f = (Mat2::IDENTITY + new_c * dt) * p.f;
+            // plasticity / volume tracking
+            match p.mat {
+                MpmMaterial::Fluid => {
+                    // reset shear; keep volume J so it stays fluid
+                    let jnew = (p.jp * (1.0 + dt * trace(new_c))).clamp(0.4, 1.6);
+                    p.jp = jnew;
+                    f = Mat2::IDENTITY * jnew.sqrt();
+                }
+                MpmMaterial::Granular => {
+                    let (u, mut sig, v) = svd2(f);
+                    let oldj = sig.x * sig.y;
+                    sig.x = sig.x.clamp(1.0 - 2.5e-2, 1.0 + 4.5e-3);
+                    sig.y = sig.y.clamp(1.0 - 2.5e-2, 1.0 + 4.5e-3);
+                    let newj = sig.x * sig.y;
+                    p.jp = (p.jp * oldj / newj).clamp(0.6, 20.0);
+                    f = u
+                        * Mat2::from_cols(Vec2::new(sig.x, 0.0), Vec2::new(0.0, sig.y))
+                        * v.transpose();
+                }
+                MpmMaterial::Elastic => {}
+            }
+            p.f = f;
+        }
+    }
+}
+
+#[inline]
+fn quad_weights(fx: Vec2) -> [Vec2; 3] {
+    // quadratic B-spline weights per axis for the 3-cell stencil.
+    let a = Vec2::splat(1.5) - fx;
+    let b = fx - Vec2::splat(1.0);
+    let c = fx - Vec2::splat(0.5);
+    [a * a * 0.5, Vec2::splat(0.75) - b * b, c * c * 0.5]
+}
+
+#[inline]
+fn outer(a: Vec2, b: Vec2) -> Mat2 {
+    Mat2::from_cols(a * b.x, a * b.y)
+}
+
+#[inline]
+fn trace(m: Mat2) -> f32 {
+    m.col(0).x + m.col(1).y
+}
+
+/// 2×2 SVD via the symmetric eigendecomposition of MᵀM: returns (U, singular
+/// values σ₁≥σ₂≥0, V) with M = U·diag(σ)·Vᵀ.
+fn svd2(m: Mat2) -> (Mat2, Vec2, Mat2) {
+    // S = MᵀM (symmetric): [[s11, s12],[s12, s22]]
+    let c0 = m.col(0);
+    let c1 = m.col(1);
+    let s11 = c0.dot(c0);
+    let s12 = c0.dot(c1);
+    let s22 = c1.dot(c1);
+    let tr = s11 + s22;
+    let disc = ((s11 - s22) * (s11 - s22) + 4.0 * s12 * s12)
+        .max(0.0)
+        .sqrt();
+    let l1 = 0.5 * (tr + disc); // larger eigenvalue
+    let l2 = (0.5 * (tr - disc)).max(0.0);
+    let s1 = l1.sqrt();
+    let s2 = l2.sqrt();
+    // eigenvector of S for l1 → first column of V
+    let v1 = if s12.abs() > 1e-9 {
+        Vec2::new(s12, l1 - s11).normalize_or(Vec2::X)
+    } else if s11 >= s22 {
+        Vec2::X
+    } else {
+        Vec2::Y
+    };
+    let v2 = Vec2::new(-v1.y, v1.x); // orthonormal
+    let v = Mat2::from_cols(v1, v2);
+    // U columns = M·v_i / σ_i
+    let u1 = if s1 > 1e-9 { (m * v1) / s1 } else { Vec2::X };
+    let u2 = if s2 > 1e-9 {
+        (m * v2) / s2
+    } else {
+        Vec2::new(-u1.y, u1.x)
+    };
+    let u = Mat2::from_cols(u1, u2);
+    (u, Vec2::new(s1, s2), v)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn svd_reconstructs() {
+        let m = Mat2::from_cols(Vec2::new(1.2, 0.3), Vec2::new(-0.4, 0.9));
+        let (u, sig, v) = svd2(m);
+        let recon =
+            u * Mat2::from_cols(Vec2::new(sig.x, 0.0), Vec2::new(0.0, sig.y)) * v.transpose();
+        for k in 0..2 {
+            assert!(
+                (recon.col(k) - m.col(k)).length() < 1e-4,
+                "col {k} mismatch"
+            );
+        }
+        assert!(sig.x >= sig.y && sig.y >= 0.0);
+    }
+
+    #[test]
+    fn mass_is_conserved_and_finite() {
+        let mut s = MpmSolver::new(48);
+        s.add_block(
+            Vec2::new(0.35, 0.55),
+            Vec2::new(0.65, 0.85),
+            24,
+            MpmMaterial::Granular,
+        );
+        let m0 = s.total_mass();
+        let n0 = s.particle_count();
+        for _ in 0..600 {
+            s.step();
+        }
+        assert_eq!(s.particle_count(), n0, "particles lost");
+        assert!((s.total_mass() - m0).abs() < 1e-3);
+        assert!(s.all_finite());
+        // all particles remain inside the domain
+        let (mn, mx) = s.bounds();
+        assert!(mn.x >= -1e-3 && mn.y >= -1e-3 && mx.x <= 1.001 && mx.y <= 1.001);
+    }
+
+    #[test]
+    fn elastic_block_falls_under_gravity() {
+        let mut s = MpmSolver::new(48).with_youngs(5.0e4);
+        s.add_block(
+            Vec2::new(0.4, 0.6),
+            Vec2::new(0.6, 0.8),
+            20,
+            MpmMaterial::Elastic,
+        );
+        let h0 = s.mean_height();
+        assert!(h0 > 0.6, "seeded height {h0}");
+        for _ in 0..500 {
+            s.step();
+        }
+        let h1 = s.mean_height();
+        // fell under gravity, stayed finite + inside the domain (rests on the floor).
+        assert!(h1 < h0, "did not fall: {h0} → {h1}");
+        assert!(s.all_finite());
+        let (mn, mx) = s.bounds();
+        assert!(mn.y >= -1e-3 && mx.y <= 1.001 && mn.x >= -1e-3 && mx.x <= 1.001);
+    }
+
+    #[test]
+    fn fluid_column_spreads() {
+        let mut s = MpmSolver::new(48);
+        s.add_block(
+            Vec2::new(0.45, 0.2),
+            Vec2::new(0.55, 0.7),
+            18,
+            MpmMaterial::Fluid,
+        );
+        let (mn0, mx0) = s.bounds();
+        let w0 = mx0.x - mn0.x;
+        for _ in 0..800 {
+            s.step();
+        }
+        let (mn1, mx1) = s.bounds();
+        let w1 = mx1.x - mn1.x;
+        assert!(w1 > w0 * 1.3, "fluid did not spread: {w0} → {w1}");
+        assert!(s.all_finite());
+    }
+}

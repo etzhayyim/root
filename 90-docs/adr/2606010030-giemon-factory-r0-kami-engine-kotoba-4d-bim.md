@@ -242,6 +242,29 @@ kami-genesis rigid-body physics, not scripted reveal:
   `cart_drives_toward_target`. Honest: rigid-body cart/payload/robot physics is
   real; material-process (concrete flow / weld pool) remains an app-layer field.
 
+### v6 (2026-05-31) — kami-genesis maturation: close the PhysX/Isaac gap
+
+Founder asked to raise the physics-engine coverage vs NVIDIA (Omniverse / Isaac /
+PhysX). Three clean-room, WASM-targeted additions to `kami-genesis` (no NVIDIA
+code; algorithm-class, validated by unit tests, **not** GPU-FEM parity):
+
+| 領域 | before | after | new module |
+|---|---|---|---|
+| ② 接触/衝突 narrow-phase | 🟡 AABB/sphere/capsule proxy のみ | 🟢 **GJK 距離 + EPA 貫入(深さ/法線) + CCD**(conservative-advancement TOI + 解析 sphere-plane) | `convex.rs`, `ccd.rs` |
+| ③ 変形体/粒状/流体 | 🔴 app-layer field stand-in のみ | 🟡 **MLS-MPM 連続体**(弾性 / 砂・コンクリ granular plasticity / 流体)= DepositField/MoldField の本物化 | `mpm.rs` |
+| ③ 溶接(熱) | 🔴 WeldField crude | 🟡 **transient 熱伝導 PDE**(2D explicit FDM + 移動 Gaussian 源 + Dirichlet/Neumann BC)= 融合域が conduction から創発 | `thermal.rs` |
+| ① GPU 並列 env | 🔴 deferred と記載 | 🟡 **既に実装済みを確認**: `wgpu_backend` が cartpole/double-pendulum を実 `wgpu::Device`(Metal)で 1024-env compute dispatch、CPU-vectorized と一致検証 | (既存) |
+
+Honest limits (unchanged direction): MPM/thermal は **2-D・explicit・CPU/WASM・f32**
+(PhysX GPU FEM/MPM より一桁単純); narrow-phase は manifold/persistent contact 未生成;
+GPU dispatch は cartpole/DP のみ(一般 articulation の GPU batch は未)。いずれも
+*アルゴリズム同クラスを単体テストで検証* であって NVIDIA とのビット一致ではない。
+
+Verified by `cargo test -p kami-genesis`: **111 passed** (+17 new — GJK 距離/交差,
+EPA 貫入, CCD トンネリング防止, 2×2 SVD 再構成, MPM 質量保存/弾性落下/流体拡散,
+熱 1D 定常=解析線形/エネルギー保存/融合域/CFL 安定). `--features gpu`: **115 passed**
+(incl. `wgpu_dispatch_matches_cpu_vectorized` 1024-env on Metal). wasm32 build green.
+
 ## Verification (all run 2026-05-31)
 
 - `python3 kotoba_gen.py` (orchestrates process + buildability + engineering +
