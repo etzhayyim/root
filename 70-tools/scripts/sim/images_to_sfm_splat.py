@@ -43,29 +43,52 @@ def main():
     if not recs:
         print("no reconstruction (insufficient image overlap)")
         sys.exit(2)
+    import numpy as np
+
     rec = max(recs.values(), key=lambda r: len(r.points3D))
-    pts = list(rec.points3D.values())
-    print(f"largest reconstruction: {len(rec.images)} registered images, {len(pts)} points")
-    if len(pts) < 50:
+    p3d = list(rec.points3D.values())
+    print(f"largest reconstruction: {len(rec.images)} registered images, {len(p3d)} points")
+    if len(p3d) < 50:
         print("too few points")
         sys.exit(3)
 
-    cx = sum(p.xyz[0] for p in pts) / len(pts)
-    cy = sum(p.xyz[1] for p in pts) / len(pts)
-    cz = sum(p.xyz[2] for p in pts) / len(pts)
-    rad = max(((p.xyz[0] - cx) ** 2 + (p.xyz[1] - cy) ** 2 + (p.xyz[2] - cz) ** 2) ** 0.5 for p in pts) or 1.0
-    scale = target_r / rad
+    pts = np.array([p.xyz for p in p3d], float)
+    cols = np.array([list(p.color) for p in p3d], float)
+
+    # Gravity-align to render y-up: the camera centres are ~co-planar at
+    # eye/car height, so the normal of the plane through them is "up". Rotate
+    # that normal → +Y, drop the ground to y≈0, scale horizontally to target_r —
+    # so a physics ground plane at y=0 sits on the reconstructed street.
+    cams = []
+    for im in rec.images.values():
+        try:
+            cams.append(np.array(im.projection_center(), float))
+        except Exception:
+            cams.append(np.array(im.cam_from_world.inverse().translation, float))
+    cams = np.array(cams)
+    _, _, vt = np.linalg.svd(cams - cams.mean(0))
+    normal = vt[-1]
+    if np.dot(cams.mean(0) - pts.mean(0), normal) < 0:
+        normal = -normal
+    up = np.array([0.0, 1.0, 0.0])
+    v = np.cross(normal, up)
+    c = float(np.dot(normal, up))
+    if np.linalg.norm(v) < 1e-6:
+        R = np.eye(3) if c > 0 else np.diag([1.0, -1.0, 1.0])
+    else:
+        vx = np.array([[0, -v[2], v[1]], [v[2], 0, -v[0]], [-v[1], v[0], 0]])
+        R = np.eye(3) + vx + vx @ vx * ((1 - c) / float(v @ v))
+    P = (R @ (pts - pts.mean(0)).T).T
+    P[:, 1] -= np.percentile(P[:, 1], 5)  # ground ≈ y = 0
+    horiz = np.sqrt(P[:, 0] ** 2 + P[:, 2] ** 2)
+    P *= target_r / (np.percentile(horiz, 95) or 1.0)
 
     body = []
-    for p in pts:
-        rx = (p.xyz[0] - cx) * scale
-        ry = (p.xyz[1] - cy) * scale
-        rz = (p.xyz[2] - cz) * scale
-        c = p.color
+    for i in range(len(P)):
         body.append(
-            struct.pack("<3f", rx, ry, rz)
+            struct.pack("<3f", float(P[i, 0]), float(P[i, 1]), float(P[i, 2]))
             + struct.pack("<3f", 0.4, 0.4, 0.4)
-            + bytes([int(c[0]) & 255, int(c[1]) & 255, int(c[2]) & 255, 240])
+            + bytes([int(cols[i, 0]) & 255, int(cols[i, 1]) & 255, int(cols[i, 2]) & 255, 240])
             + ID_QUAT
         )
     with open(out, "wb") as f:
