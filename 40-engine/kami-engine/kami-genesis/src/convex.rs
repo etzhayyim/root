@@ -451,6 +451,38 @@ mod tests {
     }
 
     #[test]
+    fn diagonal_gap_distance_is_corner_to_corner() {
+        // Boxes offset on BOTH x and y: the closest features are the parallel
+        // vertical edges at opposite corners, so the gap is the xy diagonal
+        // √(1²+1²) = √2 — exercises GJK on an edge/vertex simplex, not the
+        // face-aligned axial case the other tests cover.
+        let a = unit_box(Vec3::ZERO); // [-0.5, 0.5]³
+        let b = unit_box(Vec3::new(2.0, 2.0, 0.0)); // corner (0.5,0.5) ↔ (1.5,1.5)
+        assert!(!gjk_intersects(&a, &b));
+        let d = gjk_distance(&a, &b);
+        let expect = 2.0_f32.sqrt();
+        assert!(
+            (d - expect).abs() < 0.05,
+            "diagonal distance={d}, expected {expect}"
+        );
+    }
+
+    #[test]
+    fn penetration_resolves_along_the_minimum_overlap_axis() {
+        // Overlap on the y axis only → EPA must return depth = the y overlap and
+        // a normal along ±y (the existing depth test only checks the x axis).
+        let a = unit_box(Vec3::ZERO);
+        let b = unit_box(Vec3::new(0.0, 0.6, 0.0)); // y overlap = 1 - 0.6 = 0.4
+        assert!(gjk_intersects(&a, &b));
+        let (depth, n) = epa_penetration(&a, &b).expect("penetration");
+        assert!((depth - 0.4).abs() < 0.05, "depth={depth}");
+        assert!(
+            n.y.abs() > 0.9 && n.x.abs() < 0.3 && n.z.abs() < 0.3,
+            "normal not along ±y: {n:?}"
+        );
+    }
+
+    #[test]
     fn far_apart_not_intersecting() {
         let a = unit_box(Vec3::ZERO);
         let b = unit_box(Vec3::new(0.0, 10.0, 0.0));
