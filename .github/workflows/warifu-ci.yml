@@ -1,0 +1,59 @@
+name: warifu-ci
+
+# CI for warifu 割符 — Open Zero-Fee Card (ADR-2605302000). Runs the SAME unified suite as the
+# local runner (70-tools/scripts/warifu-test.sh): forge contracts + python cells/eavt-schema/
+# guarded-substrate/lexicons + node gateway. A green PR == green local run.
+#
+# Scoped to warifu paths so it only fires when warifu changes. Guard, not a build (<3 min).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "10-protocol/warifu/**"
+      - "20-actors/warifu/**"
+      - "50-infra/warifu-contracts/**"
+      - "50-infra/warifu-gateway/**"
+      - "70-tools/scripts/warifu-test.sh"
+      - ".github/workflows/warifu-ci.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "10-protocol/warifu/**"
+      - "20-actors/warifu/**"
+      - "50-infra/warifu-contracts/**"
+      - "50-infra/warifu-gateway/**"
+      - "70-tools/scripts/warifu-test.sh"
+      - ".github/workflows/warifu-ci.yml"
+
+jobs:
+  warifu-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Run unified warifu suite
+        run: bash 70-tools/scripts/warifu-test.sh
+
+      # Belt-and-suspenders: re-assert the charter invariants are still 0 in source, so a
+      # weakening edit fails CI even if a test were removed.
+      - name: Assert zero-fee / zero-interest constants in source
+        run: |
+          set -e
+          grep -q "MERCHANT_FEE_BPS = 0" 50-infra/warifu-contracts/src/SettlementRouter.sol
+          grep -q "INTEREST_BPS = 0"     50-infra/warifu-contracts/src/CreditLine.sol
+          grep -q "LATE_FEE_BPS = 0"     50-infra/warifu-contracts/src/CreditLine.sol
+          echo "charter constants intact: merchant-fee 0 / interest 0 / late-fee 0"
