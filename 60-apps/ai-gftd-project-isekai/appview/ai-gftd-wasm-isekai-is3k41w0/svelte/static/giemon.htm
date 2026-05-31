@@ -56,7 +56,7 @@
 </div>
 <div id="hint">
   drag = orbit ・ wheel = zoom ・ click part = highlight ・
-  <b>physics-arm: J / L = torque the shoulder joint</b> ・ pick a model on the right →
+  <b>arm6: 1-6 = select joint ・ J / L = torque it</b> ・ <span id="selj">joint 1</span> ・ pick a model on the right →
 </div>
 <script type="module">
 import init, {
@@ -65,10 +65,11 @@ import init, {
   run_giemon_caterpillar_v1,
   run_giemon_sim_v1,
   giemonSetJointTorque,
+  giemonSelectJoint,
 } from './giemon/kami_app_giemon.js';
 
 const MODELS = [
-  { id: 'physics-arm', name: 'ArmCrawler — Physics Sim', desc: 'kami-genesis planar-chain arm (J/L = torque)', run: run_giemon_sim_v1, physics: true },
+  { id: 'physics-arm', name: 'Arm6 — 3-D Physics Sim', desc: 'kami-genesis 6-DOF spatial solver + contact (1-6 select · J/L torque)', run: run_giemon_sim_v1, physics: true },
   { id: 'armcrawler',  name: 'ArmCrawler — Viewer',      desc: '6-DOF arm + rubber-track crawler (display pose)', run: run_giemon_v1 },
   { id: 'hitogata',    name: 'Hitogata — Biped',         desc: '17-DOF humanoid (~285mm)', run: run_giemon_hitogata_v1 },
   { id: 'caterpillar', name: 'Caterpillar — UGV',        desc: 'heavy dual-track + LiDAR + stereo cam', run: run_giemon_caterpillar_v1 },
@@ -78,11 +79,15 @@ const errEl = document.getElementById('err');
 const listEl = document.getElementById('list');
 const modelEl = document.getElementById('h-model');
 
-// Joint torque control: J = −, L = +. Released keys zero the torque.
-const T = 3.0;
+// Arm6 control: 1-6 select a joint, J/L torque it (− / +), key-up → 0.
+const T = 8.0;
 window.addEventListener('keydown', (e) => {
   if (e.repeat) return;
-  if (e.key === 'j' || e.key === 'J') giemonSetJointTorque(-T);
+  if (e.key >= '1' && e.key <= '6') {
+    giemonSelectJoint(Number(e.key));
+    const s = document.getElementById('selj');
+    if (s) s.textContent = `joint ${e.key}`;
+  } else if (e.key === 'j' || e.key === 'J') giemonSetJointTorque(-T);
   else if (e.key === 'l' || e.key === 'L') giemonSetJointTorque(T);
 });
 window.addEventListener('keyup', (e) => {

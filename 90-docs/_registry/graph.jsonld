@@ -11365,6 +11365,22 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+      "type": "TechArticle",
+      "title": "ADR-2605311800: kami-genesis 3-D spatial articulated-body dynamics + rigid contact solver — clean-room PhysX/Isaac-class arm",
+      "status": "accepted",
+      "topic": "kami-genesis-3d-spatial-and-contact",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kami-genesis 3-D spatial-vector articulation solver (arbitrary-axis revolute/prismatic/fixed)",
+        "kami-genesis rigid contact/collision solver scope and coupling to the articulation",
+        "giemon physics-arm = 6-DOF URDF-driven 3-D arm (supersedes the planar reconstruction)",
+        "Spatial3d topology routing in world.rs/isaac_api (mixed-axis chains → 3-D solver)"
+      ],
+      "related": "doc:adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

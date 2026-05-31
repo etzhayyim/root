@@ -17533,6 +17533,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver.md",
+      "id": "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+      "title": "ADR-2605311800: kami-genesis 3-D spatial articulated-body dynamics + rigid contact solver — clean-room PhysX/Isaac-class arm",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kami-genesis-3d-spatial-and-contact",
+      "authoritative": true,
+      "authoritative_for": [
+        "kami-genesis 3-D spatial-vector articulation solver (arbitrary-axis revolute/prismatic/fixed)",
+        "kami-genesis rigid contact/collision solver scope and coupling to the articulation",
+        "giemon physics-arm = 6-DOF URDF-driven 3-D arm (supersedes the planar reconstruction)",
+        "Spatial3d topology routing in world.rs/isaac_api (mixed-axis chains → 3-D solver)"
+      ],
+      "related": [
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface",
+        "adr-2605261800-nvidia-omniverse-stack-api-compat",
+        "adr-2605261600-robotics-simulation-substrate-r0"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

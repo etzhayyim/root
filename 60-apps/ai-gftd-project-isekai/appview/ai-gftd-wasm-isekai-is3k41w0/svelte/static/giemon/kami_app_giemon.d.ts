@@ -2,8 +2,14 @@
 /* eslint-disable */
 
 /**
- * JS control hook: set the constant torque (N·m) applied to the shoulder
- * joint. The page maps J → −T, L → +T, key-up → 0.
+ * JS hook: select which joint (1-based, matching the URDF j1..j6) the torque
+ * drives. Out-of-range values are clamped.
+ */
+export function giemonSelectJoint(one_based: number): void;
+
+/**
+ * JS hook: torque (N·m) applied to the currently-selected joint. J → −T,
+ * L → +T, key-up → 0.
  */
 export function giemonSetJointTorque(torque: number): void;
 
@@ -24,16 +30,17 @@ export interface InitOutput {
     readonly run_giemon_sim_v1: (a: number, b: number) => any;
     readonly run_giemon_v1: (a: number, b: number) => any;
     readonly giemonSetJointTorque: (a: number) => void;
-    readonly wasm_bindgen__closure__destroy__h3435a2f46af78ad4: (a: number, b: number) => void;
-    readonly wasm_bindgen__closure__destroy__h4fb62e26ac1c529b: (a: number, b: number) => void;
+    readonly giemonSelectJoint: (a: number) => void;
     readonly wasm_bindgen__closure__destroy__h4cc8d9ef82568b4c: (a: number, b: number) => void;
+    readonly wasm_bindgen__closure__destroy__h3435a2f46af78ad4: (a: number, b: number) => void;
+    readonly wasm_bindgen__closure__destroy__hcea6cdf56f623c7c: (a: number, b: number) => void;
     readonly wasm_bindgen__convert__closures_____invoke__hf36f016bc8d48565: (a: number, b: number, c: any) => [number, number];
     readonly wasm_bindgen__convert__closures_____invoke__h9ab28270d6b15822: (a: number, b: number, c: any, d: any) => void;
     readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_1: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_2: (a: number, b: number, c: any) => void;
     readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_3: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_4: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_5: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__hfc08fc564d116c36: (a: number, b: number) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h107ec9ab60342548: (a: number, b: number) => void;
     readonly __wbindgen_malloc: (a: number, b: number) => number;
     readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
     readonly __wbindgen_exn_store: (a: number) => void;
