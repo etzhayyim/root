@@ -144,14 +144,39 @@
    :gate  :unit+integration-green
    :status :pending}
 
+  {:wave 1
+   :name  "gov-municipality + infra-utility-connect (DONE 2026-05-31)"
+   :count 7
+   :runner "70-tools/scripts/kotoba-migration-bakeoff/migrate_namespace.py (gemini-3-flash-preview)"
+   :result {:build-pass "7/7" :invoke-equiv-strict "6/7"
+            :permit_submission "fixed original SyntaxError; equiv-feedback added the missing output key,
+                                but rebuilt component imports kotoba:kais/evm (runtime linker mismatch) — NEEDS REVIEW"}
+   :ledger "70-tools/scripts/kotoba-migration-bakeoff/production/ledger.json"
+   :status :done}
+
+  {:wave 2
+   :name  "Tier-B actor cells (yamabiko/watatsumi/sarutahiko/kanayama/yoro-supply/yobel/wadachi/tatekata/silicon)"
+   :count 60
+   :note  "Most are R0 scaffolds whose originals RAISE on solve() (gated pre-ratification) -> build-verified
+           only (no runtime gold). equiv-feedback engages on any runnable cell that mismatches."
+   :status :running}
+
   {:wave 4
    :name  "UNSPSC 1-by-1 agentic migration"
-   :goal  "Migrate all 8074 individually via winning bake-off model + agentic feedback loop"
    :count 8074
-   :method "Per file: agentic generate -> build -> (on fail) feed error -> retry -> deploy -> invoke-equiv -> judge. Ledger-tracked. NO codegen template shortcut (user decision 2026-05-31: maturity over throughput)."
-   :gate  :per-file-invoke-equiv+judge->=4
-   :note  "Highest file count; now highest-effort too. Parallelize across Murakumo nodes; checkpoint via ledger."
-   :status :pending}
+   :method "Per file: agentic generate -> build -> (on fail) feed build error -> retry -> deploy -> invoke-equiv
+            -> (on mismatch) feed key-diff -> retry. Ledger-tracked, resumable."
+   :assessment-2026-05-31
+   {:structural-mismatch "UNSPSC agents (pymagatama/langgraph_graphs/) are NOT cells/<name>/cell.py with a
+                          Cell.solve() — they are flat modules with a `def build_graph(): ... return g.compile()`
+                          builder + per-agent TypedDict state. The harness (discover/host_reference assume
+                          cell.py + solve()) needs a pymagatama variant + a per-agent invoke reference."
+    :scale "8074 x ~30-60s/cell agentic = 67-134 HOURS sequential; a dedicated multi-day batch, parallelized
+            across Murakumo nodes, NOT a single session. Resumable via the merged ledger + --resume."
+    :equivalence "no uniform ref_input -> bulk = build-only verification + SAMPLED invoke-equivalence on a
+                  representative subset; full per-agent equiv needs synthesized inputs per TypedDict schema."}
+   :gate  :per-file-build + sampled-invoke-equiv
+   :status :assessed-blocked-on-harness-variant+batch-window}
 
   {:wave 5
    :name  "Religious-corp constitutional cells"
