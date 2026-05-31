@@ -11063,21 +11063,6 @@
       "lastVerified": "2026-05-30"
     },
     {
-      "id": "doc:adr-2605302200-kotoba-multimodal-cross-modal-search",
-      "type": "TechArticle",
-      "title": "ADR-2605302200: kotoba multimodal cross-modal search — shared-embedding-space media retrieval",
-      "status": "proposed",
-      "topic": "kotoba-multimodal-search",
-      "authoritative": true,
-      "authoritativeFor": [
-        "kotoba multimodal cross-modal search (media.* XRPC + media_embed/media crates)",
-        "media/* datom predicate namespace + media:2026:assets named graph",
-        "IvfIndex namespace-generalised persistence (cc/ivf/* and media/ivf/*)"
-      ],
-      "related": "doc:adr-2605250006-kotoba-cc-ingest-predicate-namespace",
-      "lastVerified": "2026-05-30"
-    },
-    {
       "id": "doc:adr-2605302245-danjo-global-fiscal-flow-extension",
       "type": "TechArticle",
       "title": "ADR-2605302245: 弾正 (danjo) global fiscal-flow extension — generalize the budget/procurement ingest cells beyond JP, add an inter-governmental fund-flow datom class, and emit fund-flow datoms that the kanae visualization actor (ADR-2605302300) consumes (still R3-gated, still non-adjudicating)",
@@ -11396,6 +11381,23 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605312000-ndl-oai-ingest-etzhayyim",
+      "type": "TechArticle",
+      "title": "ADR-2605312000: NDL (国立国会図書館) OAI-PMH metadata ingest on the etzhayyim RW-free substrate",
+      "status": "active",
+      "topic": "ndl-oai-ingest-etzhayyim",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ndl open-data ingest worker (etzhayyim)",
+        "ndl persistence seam → kotoba datomic refactor handoff"
+      ],
+      "related": [
+        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
       "type": "TechArticle",
       "title": "ADR-2605312030: 取次 (toritsugi) — citizen-facing government-procedure concierge Tier-B actor (R0)",
@@ -11427,6 +11429,23 @@
       "related": [
         "doc:2605240000",
         "doc:2605302359"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312100-open-data-kg-ingest-etzhayyim",
+      "type": "TechArticle",
+      "title": "ADR-2605312100: Open-data KG ingest (public-internet sources) on the etzhayyim RW-free substrate",
+      "status": "active",
+      "topic": "open-data-kg-ingest-etzhayyim",
+      "authoritative": true,
+      "authoritativeFor": [
+        "open-data KG ingest worker (etzhayyim) — wikidata + crossref",
+        "vendor kg_ingest deletion = post-cutover step (NOT done)"
+      ],
+      "related": [
+        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
       ],
       "lastVerified": "2026-05-31"
     },
@@ -11520,6 +11539,24 @@
         "doc:adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
         "doc:adr-2605231525-no-server-key-religious-corp-architecture",
         "doc:adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1",
+      "type": "TechArticle",
+      "title": "ADR-2605312355: Session close — kotoba Datom first-class state + SHA2-256 CID + Charter Rider D1 applied",
+      "status": "active",
+      "topic": "session-close",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session provenance 2026-05-31 (kotoba Datom / SHA2-256 / Charter Rider D1)",
+        "ADR-2605262130 D1 completion record (Charter Rider applied to kotoba upstream)"
+      ],
+      "related": [
+        "doc:adr-2605302200-kotoba-multimodal-cross-modal-search",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "lastVerified": "2026-05-31"
     },
@@ -13297,44 +13334,6 @@
         "doc:security-crypto-agility-policy"
       ],
       "lastVerified": "2026-03-20"
-    },
-    {
-      "id": "doc:transparency-ingress-disclosure-notice",
-      "type": "TechArticle",
-      "title": "Ingress Disclosure Notice — standing text (ja / en)",
-      "status": "proposed",
-      "topic": "covenant-transparency-doctrine",
-      "authoritative": true,
-      "authoritativeFor": [
-        "the canonical standing text of the ingress disclosure notice (ADR-2605310100 §3/§6)"
-      ],
-      "related": "doc:adr-2605181100-etzhayyim-confidentiality-encrypted-records",
-      "lastVerified": "2026-05-31"
-    },
-    {
-      "id": "doc:transparency-ratification-dossier",
-      "type": "Article",
-      "title": "Covenant Transparency Doctrine — Council Lv7+ ratification dossier (threat model + decision sheet + risk register)",
-      "status": "proposed",
-      "topic": "covenant-transparency-doctrine",
-      "authoritative": true,
-      "authoritativeFor": [
-        "the decision Council Lv7+ must make to ratify or reject ADR-2605310100",
-        "the threat model the doctrine is justified against",
-        "the legal + reversibility risk register for the doctrine"
-      ],
-      "related": "doc:adr-2605192300-etzhayyim-bootstrap-council-five",
-      "lastVerified": "2026-05-31"
-    },
-    {
-      "id": "doc:transparency-worked-examples",
-      "type": "Article",
-      "title": "Covenant Transparency Doctrine — worked examples (for Council ratification review)",
-      "status": "proposed",
-      "topic": "covenant-transparency-doctrine",
-      "authoritative": false,
-      "related": "doc:adr-2605181100-etzhayyim-confidentiality-encrypted-records",
-      "lastVerified": "2026-05-31"
     },
     {
       "id": "doc:tsukuroi-authorized-remediation-tier-b-actor-r0",
