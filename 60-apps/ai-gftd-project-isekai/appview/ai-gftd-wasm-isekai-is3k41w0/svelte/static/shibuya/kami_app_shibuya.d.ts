@@ -4,6 +4,14 @@
 export function run_shibuya_v1(canvas_id: string): Promise<void>;
 
 /**
+ * Standalone 3-D Gaussian-Splat viewer: sky + GsplatAdapter, orbit camera
+ * framed on a cloud centred at the origin (radius ≈ 60, normalised by
+ * `opensfm_to_splat.py`). The JS shell loads a `.splat` via `shibuyaLoadSplat`.
+ * Used to view REAL Mapillary-SfM point clouds (Tsuru / Boston / …).
+ */
+export function run_splat_viewer_v1(canvas_id: string): Promise<void>;
+
+/**
  * JS hook: remove the 3DGS overlay (back to the box city).
  */
 export function shibuyaClearSplat(): void;
@@ -23,6 +31,7 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
     readonly run_shibuya_v1: (a: number, b: number) => any;
+    readonly run_splat_viewer_v1: (a: number, b: number) => any;
     readonly shibuyaLoadSplat: (a: number, b: number) => number;
     readonly shibuyaLoadSplatPly: (a: number, b: number) => number;
     readonly shibuyaClearSplat: () => void;

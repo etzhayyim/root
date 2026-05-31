@@ -2,6 +2,7 @@
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
 export const run_shibuya_v1: (a: number, b: number) => any;
+export const run_splat_viewer_v1: (a: number, b: number) => any;
 export const shibuyaLoadSplat: (a: number, b: number) => number;
 export const shibuyaLoadSplatPly: (a: number, b: number) => number;
 export const shibuyaClearSplat: () => void;
