@@ -917,6 +917,67 @@ mod tests {
     }
 
     #[test]
+    fn geometric_jacobian_times_qdot_matches_link_twist() {
+        // J(q)·q̇ must equal the link's spatial twist (ω, v_origin) from the
+        // forward-kinematics velocity recursion — validates BOTH the angular rows
+        // and the ω×p-shifted linear rows of the 6-row geometric Jacobian (Isaac
+        // get_jacobians), independently of point_jacobian (iter 17 checked only
+        // the linear column via finite differences).
+        let m = 1.0;
+        let i_com = Mat3::from_diagonal(Vec3::splat(0.02));
+        let mk = |parent: isize, axis: Vec3, r: Vec3, dof: isize| Body3d {
+            name: "l".into(),
+            parent,
+            joint_type: JointType3d::Revolute,
+            axis,
+            e_tree: Mat3::IDENTITY,
+            r_tree: r,
+            inertia: spatial_inertia(m, Vec3::new(0.1, 0.0, 0.0), i_com),
+            mass: m,
+            com: Vec3::new(0.1, 0.0, 0.0),
+            lower: 0.0,
+            upper: 0.0,
+            has_limit: false,
+            effort: 0.0,
+            damping: 0.0,
+            dof,
+        };
+        let cfg = Articulation3dConfig {
+            bodies: vec![
+                mk(-1, Vec3::Z, Vec3::ZERO, 0),
+                mk(0, Vec3::Y, Vec3::new(0.3, 0.0, 0.0), 1),
+                mk(1, Vec3::X, Vec3::new(0.3, 0.0, 0.0), 2),
+            ],
+            gravity: Vec3::ZERO,
+            dt: 1.0 / 240.0,
+            ndof: 3,
+        };
+        let q = vec![0.3_f32, -0.5, 0.7];
+        let qd = vec![1.1_f32, -0.8, 0.6];
+        let link = 2;
+
+        let j = cfg.geometric_jacobian(link, &q);
+        let mut tw = [0.0_f32; 6];
+        for (r, row) in j.iter().enumerate() {
+            for d in 0..cfg.ndof {
+                tw[r] += row[d] * qd[d];
+            }
+        }
+        let w_jac = Vec3::new(tw[0], tw[1], tw[2]);
+        let v_jac = Vec3::new(tw[3], tw[4], tw[5]);
+
+        let (_pos, _rot, v_fk, w_fk) = cfg.link_state_world(link, &q, &qd);
+        assert!(
+            (w_jac - w_fk).length() < 1e-3,
+            "angular: {w_jac:?} vs {w_fk:?}"
+        );
+        assert!(
+            (v_jac - v_fk).length() < 1e-3,
+            "linear: {v_jac:?} vs {v_fk:?}"
+        );
+    }
+
+    #[test]
     fn mass_matrix_matches_kinetic_energy_3d() {
         // The spatial-algebra CRBA mass matrix must agree with the independent
         // 6-D spatial-velocity energy recursion: with gravity off, energy() is
