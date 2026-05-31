@@ -11626,6 +11626,27 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605312700-kizashi-noninvasive-multimodal-bodyscan-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605312700: kizashi (兆) — non-invasive multimodal body-scan / sign-sensing substrate Tier-B actor R0 charter",
+      "status": "proposed",
+      "topic": "kizashi-bodyscan-r0",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kizashi actor R0 charter",
+        "religious-corp non-invasive multimodal body-scan / sign-sensing substrate single SoT",
+        "`app.etzhayyim.kizashi.*` Lexicon namespace boundary",
+        "non-diagnostic invariant (G3 structural — 兆候 + probabilistic attribution + consult ONLY, never diagnosis)",
+        "medical-device regulatory boundary (G4 — 薬機法/SaMD; regulated/ionizing modalities gated to licensed pathway)",
+        "encrypted biometric-scan envelope invariant (G2 structural, same discipline as iyashi)",
+        "verified-modality-only / anti-pseudoscience invariant (G10 — capability ledger evidence-grade gate)",
+        "self-referenced Wellbecoming trajectory (G8 — compare-to-self, no population ranking)",
+        "distinction from mitate (diagnosis) / iyashi (treatment) / kokoro (mental health)"
+      ],
+      "related": "doc:adr-2605301020-basic-high-income-imputed-income-doctrine",
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
       "type": "TechArticle",
       "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",

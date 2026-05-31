@@ -270,11 +270,20 @@ GPU batch は cartpole/DP のみ)。(c) **PhysX facade** `batched::px` — `PxSc
 `PxArticulationReducedCoordinate` 型 + `setJointEfforts`/`simulate`/`getJointPositions`
 の camelCase 委譲(型として未実装だった PhysX 名を実体化、意味論は KAMI ソルバ)。
 
-Verified by `cargo test -p kami-genesis`: **115 passed** (+21 new — GJK 距離/交差,
+**v6 follow-up #2 — 安定接触 + 一般 articulation GPU**: (d) **OBB 接触マニフォールド**
+`obb.rs` — SAT(15軸)で法線+最小貫入、**多点マニフォールド**(vertex-in-face 双方向)で
+box-on-box が**4点接触→転倒しない安定接触**(EPA 単点では wobble)。(e) **一般 articulation
+を GPU 並列化** `wgsl/planar_chain_step.wgsl` + `wgpu_planar.rs` — 平面 N-link(≤7,
+Franka級)の **RNEA+CRBA+LDLᵀ+semi-implicit Euler を WGSL に完全移植**し `wgpu::Device`
+(Metal)で num_envs 並列 dispatch、**CPU planar_chain と一致検証**(256env×60step、
+max_err<2e-2)。cartpole/DP 専用だった GPU batch を**任意平面チェーンに一般化**。
+
+Verified by `cargo test -p kami-genesis`: **118 passed** (+24 new — GJK 距離/交差,
 EPA 貫入, CCD トンネリング防止, 2×2 SVD, MPM 質量保存/弾性落下/流体拡散, 熱 1D 定常=
-解析線形/エネルギー保存/融合域/CFL, **Convex 接触 GJK+EPA**, **batched [num_envs,n_dof]
-env 分岐**, **PhysX facade 委譲**). `--features gpu`: **119 passed** (incl.
-`wgpu_dispatch_matches_cpu_vectorized` 1024-env on Metal). wasm32 build green.
+解析線形/エネルギー保存/融合域/CFL, Convex 接触 GJK+EPA, batched [num_envs,n_dof]
+env 分岐, PhysX facade 委譲, **OBB SAT+manifold 安定接触**). `--features gpu`:
+**123 passed** (incl. `wgpu_dispatch_matches_cpu_vectorized` 1024-env + **一般
+planar articulation GPU 256-env parity** on Metal). wasm32 build green.
 
 ## Verification (all run 2026-05-31)
 

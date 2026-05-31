@@ -17969,6 +17969,52 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605312700-kizashi-noninvasive-multimodal-bodyscan-tier-b-actor-r0.md",
+      "id": "adr-2605312700-kizashi-noninvasive-multimodal-bodyscan-tier-b-actor-r0",
+      "title": "ADR-2605312700: kizashi (兆) — non-invasive multimodal body-scan / sign-sensing substrate Tier-B actor R0 charter",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kizashi-bodyscan-r0",
+      "authoritative": true,
+      "authoritative_for": [
+        "kizashi actor R0 charter",
+        "religious-corp non-invasive multimodal body-scan / sign-sensing substrate single SoT",
+        "`app.etzhayyim.kizashi.*` Lexicon namespace boundary",
+        "non-diagnostic invariant (G3 structural — 兆候 + probabilistic attribution + consult ONLY, never diagnosis)",
+        "medical-device regulatory boundary (G4 — 薬機法/SaMD; regulated/ionizing modalities gated to licensed pathway)",
+        "encrypted biometric-scan envelope invariant (G2 structural, same discipline as iyashi)",
+        "verified-modality-only / anti-pseudoscience invariant (G10 — capability ledger evidence-grade gate)",
+        "self-referenced Wellbecoming trajectory (G8 — compare-to-self, no population ranking)",
+        "distinction from mitate (diagnosis) / iyashi (treatment) / kokoro (mental health)"
+      ],
+      "related": [
+        "adr-2605301020-basic-high-income-imputed-income-doctrine"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605181200-mst-encrypted-metadata-leak-reduction",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605261000",
+        "adr-2605261030",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0",
+        "adr-2605263700-kokoro-mental-health-tier-b-actor-r0"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim.md",
       "id": "adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
       "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",

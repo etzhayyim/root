@@ -36,6 +36,7 @@ mod isaac_api;
 mod jacobian;
 mod lqr;
 mod mpm;
+mod obb;
 mod planar_chain;
 mod spatial;
 mod thermal;
@@ -45,6 +46,8 @@ mod world;
 
 #[cfg(feature = "gpu")]
 mod wgpu_backend;
+#[cfg(feature = "gpu")]
+mod wgpu_planar;
 
 pub use articulation3d::{Articulation3dConfig, Articulation3dState, Body3d, JointType3d};
 pub use cartpole::{CartpoleConfig, CartpoleState};
@@ -70,10 +73,13 @@ pub use batched::{ArticulationBatch, px};
 pub use ccd::{conservative_advancement_toi, sphere_plane_toi};
 pub use convex::{ConvexPoly, epa_penetration, gjk_closest_vec, gjk_distance, gjk_intersects};
 pub use mpm::{MpmMaterial, MpmSolver};
+pub use obb::{Manifold, Obb, obb_manifold, obb_sat};
 pub use thermal::{Bc, ThermalField};
 
 #[cfg(feature = "gpu")]
 pub use wgpu_backend::WgpuBackend;
+#[cfg(feature = "gpu")]
+pub use wgpu_planar::PlanarChainGpu;
 
 /// Solver coverage by R1 sub-phase.
 pub fn solver_for_phase(phase: &str) -> Option<&'static str> {
