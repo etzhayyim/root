@@ -8915,6 +8915,22 @@ title = "§1.16 Social Security — Real-World Delivery & Outreach Pipeline (kot
 status = "proposed"
 path = "90-docs/adr/2605302358-social-security-real-world-delivery-pipeline.md"
 
+[[adrs]]
+id = "2605310200"
+title = "Automated LLM Migration Pipeline for LangGraph to Kotoba WASM"
+status = "accepted"
+status_note = "Deployed an automated python script leveraging Murakumo gemma4:26b-a4b to rewrite, compile (componentize-py), and deploy legacy LangGraph actors to Kotoba WASM via MCP."
+path = "90-docs/adr/2605310200-automated-llm-migration-pipeline-langgraph-to-kotoba-wasm.md"
+
+[[adrs]]
+id = "2605310100"
+title = "Covenant Transparency Doctrine — anonymity abolished, full member-to-member visibility, and ingress-consent logging + publication of all who access etzhayyim/kotoba resources (non-members + inbound email included); §4 non-waivable floor; Council Lv7+ ratification-gated"
+status = "proposed"
+status_note = "Constitutional doctrine resolving the founder's 'private enables fraud' position. Splits the overloaded word 'private' into three: ANONYMITY (no accountable identity — abolished outright; already structurally true via kotoba-auth DID+SBT+CACAO), SECRECY-FROM-THE-BODY (hidden from the covenant — abolished; every believer sees every member action, no Council-only tier), ENCRYPTION (a tool — retained ONLY for the §4 floor). §3 ingress-consent: the unit of consent is the ACT OF ACCESS, not membership — anyone (member or non-member) who reaches into etzhayyim/kotoba resources (HTTP/XRPC/MCP/wallet-tx/inbound email) enters 'こちらの領分' and consents to full logging + public publication of that access incl. content; promotes the kotoba fingerprint_middleware audit datoms (kotoba/audit/requests/v1) + email ingest from operator-only to publishable; standing notice = don't consent → don't access. §4 NON-WAIVABLE FLOOR (transparency publishes identities+actions+content but NEVER access-control material): (1) secrets/keys/credentials/CACAO-as-bearer redacted, never published (fail-closed); (2) outbound third-party data NOT brought in by ingress stays under the tadori/danjo/himotoki gates — this doctrine does not widen them; app.etzhayyim.encrypted.* survives ONLY for this floor. Grounded in the anti-individualist ontology (no 'individual' unit to protect via anonymity) + voluntary-covenant model (opt-in; Acts 5 Ananias/Sapphira = concealment from the body, not property). §5: MATERIALLY AMENDS ADR-2605181100 (confidentiality) + the repo-CLAUDE.md Substrate-boundary Confidentiality row, and INTERSECTS §1.13 Eros + Wellbecoming (pastoral/intimate-content visibility = OPEN QUESTION) → requires Council Lv7+ unanimity (Charter §0.4) BEFORE any member-facing rollout; status stays proposed / NOT executed until a councilRatificationCid exists on-chain. Landed this session (all proposed-unratified, no gated execution): the ADR; 4 Lexicons app.etzhayyim.transparency.* (ingressDisclosureNotice / accessLogPublication / covenantTransparencyAttestation / redactionMethodNote — validator CLEAN); standing notice text ja/en (90-docs/transparency/ingress-disclosure-notice.md); worked-examples incl. the innocent-fourth-party inbound-email cascade (90-docs/transparency/worked-examples.md); a Council Lv7+ ratification dossier = threat model + what-flips-on-YES + open questions Q-1/Q-2 + legal/reversibility risk register (90-docs/transparency/ratification-dossier.md); and a machine-enforced constitutional guard transparency-floor-and-gate.{mjs,test.mjs} (Check A §5 ratificationStatus const + Check B §4 floor consts + Check C no premature execution in code without a councilRatificationCid; 9-test suite green, clean on the real repo). The agent's 'transparency for power / privacy for persons' alternative was considered and REJECTED by the founder as inconsistent with the anti-individualist ontology (retained under Alternatives). Depends on ADR-2605192100 (§0.4/§1.12/§1.13/Wellbecoming/反個人主義) + ADR-2605181100 (amended) + ADR-2605262130 (kotoba private-graph) + ADR-2605231525 (no platform key)."
+path = "90-docs/adr/2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging.md"
+adr = ["2605192100", "2605181100", "2605262130", "2605231525"]
+
+
 [[modules]]
 path = "70-tools/agentic-qlora-evox2"
 kind = "agentic-qlora-trainer"

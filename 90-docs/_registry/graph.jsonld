@@ -11315,6 +11315,26 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605311254-session-close-social-security-for-humanity",
+      "type": "TechArticle",
+      "title": "ADR-2605311254: Session close — §1.16 Social Security for Humanity doctrine + R0 delivery pipeline scaffold (2026-05-30/31)",
+      "status": "active",
+      "topic": "session-close-social-security-for-humanity",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the 2026-05-30/31 §1.16 session deliverable list + verification state",
+        "commit 0077e4413 provenance + co-staged ADR-2605310100 note"
+      ],
+      "related": [
+        "doc:adr-2605302357-etzhayyim-social-security-for-humanity",
+        "doc:adr-2605302358-social-security-real-world-delivery-pipeline",
+        "doc:adr-2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging",
+        "doc:adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "doc:adr-2605261000-labor-liberation-transition-mechanism"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
@@ -13015,6 +13035,44 @@
         "doc:security-crypto-agility-policy"
       ],
       "lastVerified": "2026-03-20"
+    },
+    {
+      "id": "doc:transparency-ingress-disclosure-notice",
+      "type": "TechArticle",
+      "title": "Ingress Disclosure Notice — standing text (ja / en)",
+      "status": "proposed",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the canonical standing text of the ingress disclosure notice (ADR-2605310100 §3/§6)"
+      ],
+      "related": "doc:adr-2605181100-etzhayyim-confidentiality-encrypted-records",
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:transparency-ratification-dossier",
+      "type": "Article",
+      "title": "Covenant Transparency Doctrine — Council Lv7+ ratification dossier (threat model + decision sheet + risk register)",
+      "status": "proposed",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the decision Council Lv7+ must make to ratify or reject ADR-2605310100",
+        "the threat model the doctrine is justified against",
+        "the legal + reversibility risk register for the doctrine"
+      ],
+      "related": "doc:adr-2605192300-etzhayyim-bootstrap-council-five",
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:transparency-worked-examples",
+      "type": "Article",
+      "title": "Covenant Transparency Doctrine — worked examples (for Council ratification review)",
+      "status": "proposed",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": false,
+      "related": "doc:adr-2605181100-etzhayyim-confidentiality-encrypted-records",
+      "lastVerified": "2026-05-31"
     },
     {
       "id": "doc:tsukuroi-authorized-remediation-tier-b-actor-r0",
