@@ -8988,6 +8988,14 @@ path = "90-docs/adr/2605312500-kurashimori-consumer-protection-concierge-tier-b-
 adr = ["2605312030", "2605312400", "2605302130", "2605262700", "2605263500", "2605302000", "2605181100", "2605262130", "2605192100", "2605192200", "2605192300", "2605215000"]
 
 [[adrs]]
+id = "2606010200"
+title = "祓戸 (haraedo) — global bulky-waste (粗大ゴミ) disposal Tier-B actor (R0)"
+status = "proposed"
+status_note = "Two-sided 粗大ゴミ disposal actor. CITIZEN intake (intake cell: classify→quote→match-facility→schedule→sticker; G1 consent / G3 hazardous-boundary) + OPERATOR logistics (dispatch cell: 受付→cluster→配車→担当者 crew→route optimize NN+2-opt→搬入先 facility→plan). Worldwide processing-facility registry (ゴミ処理場 位置/種別/処理能力 capacity-tonnes-day/受入品目; JP/US/DE/GB seed :representative) + fleet/crew registry — all kotoba EAVT EDN. langgraph py→WASM cell, Murakumo-only LLM. G5 labor-dignity (Labor Liberation ladder, no gig), G7 fee-non-fiat, G11 outward-gated (real collection = Council+operator), G14/G15 verified+capacity-honest. toritsugi-surfaceable; hodoki/kanayama reprocess boundary. NOTE: deps.toml registration backfilled (the haraedo ADR + actor were committed in 40fc1fa84 with README + CLAUDE.md rows but the deps.toml [[adrs]] entry was omitted). Depends on ADR-2605262130 + 2605215000 + 2605201400 + 2605192100 + 2605192200 + 2605262500."
+path = "90-docs/adr/2606010200-haraedo-bulky-waste-disposal-actor.md"
+adr = ["2605262130", "2605215000", "2605201400", "2605192100", "2605192200", "2605262500"]
+
+[[adrs]]
 id = "2606010400"
 title = "Session close — citizen-facing concierge trio (toritsugi + moushibumi + kurashimori) R0"
 status = "active"
