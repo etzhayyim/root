@@ -39,12 +39,14 @@
       <option value="sfm_Washington.splat">Washington (USA)</option>
     </select>
   </div>
+  <div><label><input type="checkbox" id="phys"> physics agents (#3)</label></div>
   <div class="note">sparse SfM points (real street photos). dense photoreal = gsplat GPU train (next).</div>
   <div id="err"></div>
 </div>
-<div id="hint">drag = orbit ・ wheel = zoom ・ 実 Mapillary 街路写真から復元した 3D 点群を Gaussian で描画</div>
+<div id="hint">drag = orbit ・ wheel = zoom ・ 実 Mapillary 街路写真から復元した 3D 点群を Gaussian 描画 ・ physics = splat 背景でエージェント物理走行</div>
 <script type="module">
-import init, { run_splat_viewer_v1, shibuyaLoadSplat } from './shibuya/kami_app_shibuya.js';
+import init, { run_splat_viewer_v1, run_splat_physics_v1, shibuyaLoadSplat } from './shibuya/kami_app_shibuya.js';
+const physics = new URLSearchParams(location.search).has('physics');
 const errEl = document.getElementById('err');
 async function load(name) {
   try {
@@ -56,9 +58,12 @@ async function load(name) {
 }
 (async () => {
   await init();
+  const cb = document.getElementById('phys');
+  cb.checked = physics;
+  cb.addEventListener('change', () => { location.search = cb.checked ? '?physics=1' : ''; });
   const hudFps = document.getElementById('h-fps'), hudBk = document.getElementById('h-backend');
   setInterval(() => { const h = window.__kami_hud_splat ?? window.__kami_hud; if (h) { hudFps.textContent = (h.fps??0).toFixed(0); hudBk.textContent = h.backend ?? '—'; } }, 250);
-  await run_splat_viewer_v1('gc');
+  if (physics) await run_splat_physics_v1('gc'); else await run_splat_viewer_v1('gc');
   await load(document.getElementById('city').value);
   document.getElementById('city').addEventListener('change', (e) => load(e.target.value));
 })().catch((e) => { errEl.textContent = 'init error: ' + (e?.message ?? e); console.error('[splat]', e); });
