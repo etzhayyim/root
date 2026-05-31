@@ -23,6 +23,64 @@ pub enum MpmMaterial {
     Fluid,
 }
 
+/// A static rigid obstacle the continuum collides with (one-way coupling): grid
+/// velocities inside it lose their inward normal component, so material flows
+/// *around* it (a column on a formwork core, slurry past a pile cap).
+#[derive(Clone, Copy)]
+pub enum MpmObstacle {
+    Sphere { center: Vec2, radius: f32 },
+    Box { min: Vec2, max: Vec2 },
+}
+
+impl MpmObstacle {
+    /// If `pos` is inside the obstacle and `v` points inward, remove the inward
+    /// normal component (separating boundary condition).
+    fn project(&self, pos: Vec2, v: Vec2) -> Vec2 {
+        match self {
+            MpmObstacle::Sphere { center, radius } => {
+                let d = pos - *center;
+                let dist = d.length();
+                if dist < *radius {
+                    let n = if dist > 1e-6 { d / dist } else { Vec2::Y };
+                    let vn = v.dot(n);
+                    if vn < 0.0 {
+                        return v - n * vn;
+                    }
+                }
+                v
+            }
+            MpmObstacle::Box { min, max } => {
+                if pos.x > min.x && pos.x < max.x && pos.y > min.y && pos.y < max.y {
+                    let dl = pos - *min;
+                    let dh = *max - pos;
+                    let mut best = f32::INFINITY;
+                    let mut n = Vec2::Y;
+                    if dl.x < best {
+                        best = dl.x;
+                        n = Vec2::new(-1.0, 0.0);
+                    }
+                    if dh.x < best {
+                        best = dh.x;
+                        n = Vec2::new(1.0, 0.0);
+                    }
+                    if dl.y < best {
+                        best = dl.y;
+                        n = Vec2::new(0.0, -1.0);
+                    }
+                    if dh.y < best {
+                        n = Vec2::new(0.0, 1.0);
+                    }
+                    let vn = v.dot(n);
+                    if vn < 0.0 {
+                        return v - n * vn;
+                    }
+                }
+                v
+            }
+        }
+    }
+}
+
 #[derive(Clone)]
 struct Particle {
     x: Vec2,
@@ -46,6 +104,7 @@ pub struct MpmSolver {
     particles: Vec<Particle>,
     grid_v: Vec<Vec2>,
     grid_m: Vec<f32>,
+    obstacles: Vec<MpmObstacle>,
 }
 
 impl MpmSolver {
@@ -64,12 +123,18 @@ impl MpmSolver {
             particles: Vec::new(),
             grid_v: vec![Vec2::ZERO; (n + 1) * (n + 1)],
             grid_m: vec![0.0; (n + 1) * (n + 1)],
+            obstacles: Vec::new(),
         }
     }
 
     pub fn with_youngs(mut self, e: f32) -> Self {
         self.e = e;
         self
+    }
+
+    /// Add a static rigid obstacle the continuum flows around (one-way coupling).
+    pub fn add_obstacle(&mut self, ob: MpmObstacle) {
+        self.obstacles.push(ob);
     }
 
     pub fn particle_count(&self) -> usize {
@@ -119,6 +184,11 @@ impl MpmSolver {
         self.particles
             .iter()
             .all(|p| p.x.is_finite() && p.v.is_finite())
+    }
+
+    /// Particle positions (for inspection / rendering).
+    pub fn positions(&self) -> Vec<Vec2> {
+        self.particles.iter().map(|p| p.x).collect()
     }
 
     /// One MLS-MPM step (P2G → grid update → G2P + constitutive update).
@@ -199,6 +269,13 @@ impl MpmSolver {
                     }
                     if j > self.n - bound && self.grid_v[g].y > 0.0 {
                         self.grid_v[g].y = 0.0;
+                    }
+                    // static rigid obstacles (one-way coupling)
+                    if !self.obstacles.is_empty() {
+                        let pos = Vec2::new(i as f32, j as f32) * self.dx;
+                        for ob in &self.obstacles {
+                            self.grid_v[g] = ob.project(pos, self.grid_v[g]);
+                        }
                     }
                 }
             }
@@ -426,6 +503,39 @@ mod tests {
         assert!(gf && ff, "non-finite");
         assert!(gw < fw, "granular spread {gw} not < fluid spread {fw}");
         assert!(gh > 0.05, "granular pile collapsed flat: h={gh}");
+    }
+
+    #[test]
+    fn obstacle_deflects_the_continuum() {
+        // a box obstacle in the lower-middle; granular poured from above must
+        // flow AROUND it — no particle ends up deep inside the obstacle.
+        let mut s = MpmSolver::new(48);
+        let ob_min = Vec2::new(0.4, 0.25);
+        let ob_max = Vec2::new(0.6, 0.42);
+        s.add_obstacle(MpmObstacle::Box {
+            min: ob_min,
+            max: ob_max,
+        });
+        s.add_block(
+            Vec2::new(0.42, 0.6),
+            Vec2::new(0.58, 0.85),
+            16,
+            MpmMaterial::Granular,
+        );
+        for _ in 0..1200 {
+            s.step();
+        }
+        assert!(s.all_finite());
+        // allow a one-cell boundary layer; the interior must stay empty.
+        let m = 0.04;
+        let inside = s
+            .positions()
+            .iter()
+            .filter(|p| {
+                p.x > ob_min.x + m && p.x < ob_max.x - m && p.y > ob_min.y + m && p.y < ob_max.y - m
+            })
+            .count();
+        assert_eq!(inside, 0, "{inside} particles penetrated the obstacle");
     }
 
     #[test]

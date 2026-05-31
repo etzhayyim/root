@@ -72,7 +72,7 @@ pub use world::{Articulation, ArticulationHandle, LinkState, World};
 pub use batched::{ArticulationBatch, px};
 pub use ccd::{conservative_advancement_toi, sphere_plane_toi};
 pub use convex::{ConvexPoly, epa_penetration, gjk_closest_vec, gjk_distance, gjk_intersects};
-pub use mpm::{MpmMaterial, MpmSolver};
+pub use mpm::{MpmMaterial, MpmObstacle, MpmSolver};
 pub use obb::{Manifold, Obb, obb_manifold, obb_sat};
 pub use thermal::{Bc, ThermalField};
 
