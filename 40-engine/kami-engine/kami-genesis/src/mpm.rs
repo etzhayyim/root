@@ -164,6 +164,32 @@ impl MpmSolver {
         self.particles.iter().map(|p| p.v).sum::<Vec2>() * self.p_mass
     }
 
+    /// Initialise every particle to a rigid rotation about `center` at rate
+    /// `omega` (sets both the velocity and the APIC affine matrix C).
+    pub fn swirl(&mut self, center: Vec2, omega: f32) {
+        for p in &mut self.particles {
+            let r = p.x - center;
+            p.v = Vec2::new(-omega * r.y, omega * r.x);
+            // C = ∂v/∂x = omega·[[0,-1],[1,0]] (column-major).
+            p.c = Mat2::from_cols(Vec2::new(0.0, omega), Vec2::new(-omega, 0.0));
+        }
+    }
+
+    /// Total APIC angular momentum about `about` = Σ mᵢ[ rᵢ×vᵢ + ¼dx²(C_yx−C_xy) ].
+    /// The affine term is what makes APIC conserve angular momentum (unlike PIC).
+    pub fn angular_momentum(&self, about: Vec2) -> f32 {
+        let dp = 0.25 * self.dx * self.dx; // quadratic B-spline inertia
+        self.particles
+            .iter()
+            .map(|p| {
+                let r = p.x - about;
+                let lin = r.x * p.v.y - r.y * p.v.x;
+                let aff = dp * (p.c.col(0).y - p.c.col(1).x);
+                self.p_mass * (lin + aff)
+            })
+            .sum()
+    }
+
     /// Add a static rigid obstacle the continuum flows around (one-way coupling).
     pub fn add_obstacle(&mut self, ob: MpmObstacle) {
         self.obstacles.push((ob, Vec2::ZERO));
@@ -505,6 +531,32 @@ mod tests {
         assert!(
             (p1 - p0).length() < 0.02 * p0.length(),
             "momentum not conserved: {p0:?} → {p1:?}"
+        );
+        assert!(s.all_finite());
+    }
+
+    #[test]
+    fn apic_conserves_angular_momentum() {
+        // a freely spinning blob (no gravity / boundary) keeps its angular
+        // momentum — APIC's signature property (PIC would dissipate it).
+        let mut s = MpmSolver::new(64).with_gravity(0.0);
+        let c = Vec2::new(0.5, 0.5);
+        s.add_block(
+            Vec2::new(0.4, 0.4),
+            Vec2::new(0.6, 0.6),
+            16,
+            MpmMaterial::Fluid,
+        );
+        s.swirl(c, 3.0);
+        let l0 = s.angular_momentum(c);
+        assert!(l0.abs() > 1e-6, "no initial spin");
+        for _ in 0..80 {
+            s.step();
+        }
+        let l1 = s.angular_momentum(c);
+        assert!(
+            (l1 - l0).abs() < 0.05 * l0.abs(),
+            "angular momentum not conserved: {l0} → {l1}"
         );
         assert!(s.all_finite());
     }
