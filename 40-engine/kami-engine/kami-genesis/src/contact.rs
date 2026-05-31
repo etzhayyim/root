@@ -257,8 +257,15 @@ impl ContactWorld {
             match col {
                 Collider::Sphere { center, radius } => probe(*center, *radius),
                 Collider::Capsule { a, b, radius } => {
-                    probe(*a, *radius);
-                    probe(*b, *radius);
+                    // Sample the capsule axis with spacing ≤ radius so no contact
+                    // along the segment (not just the two endpoints) is missed.
+                    let seg = *b - *a;
+                    let len = seg.length();
+                    let n_samp = ((len / radius.max(1.0e-4)).ceil() as usize + 1).max(2);
+                    for s in 0..n_samp {
+                        let t = s as f32 / (n_samp - 1) as f32;
+                        probe(*a + seg * t, *radius);
+                    }
                 }
                 Collider::Box {
                     center,
@@ -602,6 +609,50 @@ mod tests {
         assert!(
             ob.contact(7, Vec3::new(0.5, 0.0, 0.0), 0.05, 1.0e-3)
                 .is_none()
+        );
+    }
+
+    #[test]
+    fn capsule_mid_span_contact_is_not_missed() {
+        // A long horizontal capsule whose two endpoints clear an AABB obstacle
+        // but whose MIDDLE presses on it. Endpoint-only sampling would miss it;
+        // the axis sampling catches it.
+        let urdf = r#"<robot name="c">
+<link name="world"/>
+<joint name="jx" type="prismatic"><parent link="world"/><child link="body"/><origin xyz="0 0 0"/><axis xyz="1 0 0"/><limit lower="-100" upper="100" effort="1e8" velocity="1000"/></joint>
+<link name="body"><inertial><origin xyz="0 0 0"/><mass value="10"/><inertia ixx="1" iyy="1" izz="1" ixy="0" ixz="0" iyz="0"/></inertial></link>
+</robot>"#;
+        let sys = kami_articulated::parse_urdf(urdf).expect("urdf");
+        let cfg = Articulation3dConfig::from_articulated_system(
+            &sys,
+            Vec3::new(0.0, 0.0, -9.81),
+            1.0 / 240.0,
+        );
+        let body = cfg.body_index("body").expect("body");
+        // capsule along x at z = 0.5, half-length 1.0, radius 0.2.
+        let cw = ContactWorld::new(
+            vec![(
+                body,
+                Collider::Capsule {
+                    a: Vec3::new(-1.0, 0.0, 0.5),
+                    b: Vec3::new(1.0, 0.0, 0.5),
+                    radius: 0.2,
+                },
+            )],
+            ContactParams {
+                ground_z: -10.0,
+                ..Default::default()
+            }, // ground far below
+        )
+        .with_obstacles(vec![Obstacle::Aabb {
+            min: Vec3::new(-0.3, -0.3, 0.0),
+            max: Vec3::new(0.3, 0.3, 0.45), // top at z=0.45; capsule mid bottom = 0.3
+        }]);
+        let st = Articulation3dState::zeros(cfg.ndof);
+        // the two endpoints (x=±1) are clear; only the mid-span samples contact.
+        assert!(
+            cw.contact_count(&cfg, &st.q) >= 1,
+            "mid-span capsule contact missed"
         );
     }
 
