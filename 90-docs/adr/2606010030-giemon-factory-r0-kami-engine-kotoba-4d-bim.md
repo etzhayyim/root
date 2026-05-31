@@ -218,10 +218,12 @@ a geometry reveal. Binds to the `tatekata` 建方 actor (ADR-2605250715).
 - **Buildability** (in `engineering.py`) — per step: robot reach vs work-zone
   (relocation setups), cycle-time vs schedule (robots needed), footprint —
   `build/*` datoms. All 23 schedule-feasible (with N setups reported).
-- **Material-process solvers** (`kami-app-tatekata`, app-layer stand-ins, same
-  honest posture as kabitori `MoldField` — NO granular/MPM/thermal-FEM):
-  `deposit_field.rs` (concrete deposition/levelling height grid → printer steps)
-  + `weld_field.rs` (moving heat-source fusion → bolter steps).
+- **Material-process solvers** (`kami-app-tatekata`):
+  `deposit_field.rs` (concrete deposition/levelling height grid → printer steps,
+  still an app-layer stand-in like kabitori `MoldField`) +
+  `weld_field.rs` (moving heat-source fusion → bolter steps). **As of v7 (iter
+  14) `weld_field` is NO LONGER a stand-in** — it delegates to the real
+  `kami_genesis::ThermalField` transient-heat PDE (see v7).
 - **`kami-app-tatekata`** crate (path-deps `kami-app-giemon-factory`) — viewer
   `run_tatekata_v1`: each step's assigned robot performs its op sequence on
   kami-genesis; HUD shows the live op. `tatekata.htm` viewer.
@@ -259,6 +261,31 @@ Honest limits (unchanged direction): MPM/thermal は **2-D・explicit・CPU/WASM
 (PhysX GPU FEM/MPM より一桁単純); narrow-phase は manifold/persistent contact 未生成;
 GPU dispatch は cartpole/DP のみ(一般 articulation の GPU batch は未)。いずれも
 *アルゴリズム同クラスを単体テストで検証* であって NVIDIA とのビット一致ではない。
+
+### v7 (2026-06-01) — maturation /loop: validation hardening + weld goes real
+
+Self-paced maturity loop ("成熟度を高めて") — each iteration one bounded, tested,
+committed increment to `kami-genesis` (118 → 134 tests):
+
+- **Validation cross-checks** (no behavior change, lock correctness): APIC
+  angular-momentum conservation (`mpm.rs`); CRBA mass-matrix ≡ kinetic energy on
+  both the planar single-axis (`planar_chain.rs`) and full 6-D spatial
+  (`articulation3d.rs`) solvers — `½q̇ᵀMq̇` vs the independent energy recursion;
+  GJK diagonal-gap (√2) + off-axis EPA min-translation-axis resolution
+  (`convex.rs`).
+- **ThermalField multi-source welding** (`step_multi`) — N superposed Gaussian
+  arcs (multi-pass / both-ends bridging); `step()` delegates, single-source path
+  bit-identical.
+- **ThermalField Newton convection** (`with_convection`, default 0 = insulated;
+  conservation regression preserved) — a member cools to ambient air after the
+  arc passes, not just internal conduction.
+- **`weld_field.rs` migrated off its stand-in** onto `ThermalField`: the 1-D
+  seam is a thin 2-D strip; `pass()` sub-steps to the CFL bound and walks the arc.
+  De-risked for the live viewer by a test that replicates the viewer's exact
+  call pattern (`pass(settle, 9000, 1/60)` swept 0→1 over 30/60/150 frames →
+  fuses + glows + bounded) plus a weld-then-cool test. `tatekata.htm` wasm
+  bundle rebuilt. `deposit_field.rs` (concrete) remains a stand-in (MPM wiring
+  is the next candidate).
 
 **v6 follow-up — engine 結線 + API parity**: (a) narrow-phase を剛体ソルバに**統合** —
 `contact.rs` に `Obstacle::Convex(ConvexPoly)`(任意傾斜凸体)、球コライダを GJK 分離 /

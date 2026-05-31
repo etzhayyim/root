@@ -30,6 +30,7 @@ pub struct ThermalField {
     pub ambient: f32,   // °C
     pub t_melt: f32,    // fusion threshold (°C)
     pub rho_c: f32,     // ρ·c volumetric heat capacity (J/m³K)
+    pub h_conv: f32,    // Newton convection rate to ambient (1/s); 0 = insulated
     pub t: Vec<f32>,    // temperature
     pub peak: Vec<f32>, // peak temperature ever reached (fusion evidence)
     pub bc: [Bc; 4],    // [-x, +x, -y, +y]
@@ -47,6 +48,7 @@ impl ThermalField {
             ambient,
             t_melt,
             rho_c: 4.0e6, // ~steel ≈ ρ7850·c500
+            h_conv: 0.0,  // insulated by default (conduction only)
             t: vec![ambient; nx * ny],
             peak: vec![ambient; nx * ny],
             bc: [Bc::Neumann; 4],
@@ -62,6 +64,15 @@ impl ThermalField {
     /// power raises temperature faster (use to calibrate the weld source).
     pub fn with_rho_c(mut self, rho_c: f32) -> Self {
         self.rho_c = rho_c;
+        self
+    }
+
+    /// Enable Newton convective heat loss to ambient at volumetric rate `k`
+    /// (1/s): each cell sheds `k·(T − ambient)` per second, modelling a member
+    /// cooling to surrounding air after the arc passes. Default 0 = insulated
+    /// (pure conduction, heat conserved). Sub-step so `k·dt < 1` for stability.
+    pub fn with_convection(mut self, k: f32) -> Self {
+        self.h_conv = k.max(0.0);
         self
     }
 
@@ -131,7 +142,9 @@ impl ThermalField {
                     let dist2 = (cx - sx) * (cx - sx) + (cy - sy) * (cy - sy);
                     q += norm * (-dist2 / two_sig2).exp();
                 }
-                let mut next = c + (self.alpha * lap + q) * dt;
+                // conduction + source − Newton convection to ambient (explicit).
+                let conv = self.h_conv * (c - self.ambient);
+                let mut next = c + (self.alpha * lap + q - conv) * dt;
                 if next < self.ambient {
                     next = self.ambient;
                 }

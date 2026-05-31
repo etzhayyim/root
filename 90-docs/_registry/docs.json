@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-05-31",
+  "updated_at": "2026-06-01",
   "entries": [
     {
       "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
@@ -18100,6 +18100,43 @@
         "adr-2605242000-wadachi-autonomous-mobility-rd"
       ],
       "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606011000-engi-organism-ontology-and-musubi-knowledge-graph.md",
+      "id": "adr-2606011000-engi-organism-ontology-and-musubi-knowledge-graph",
+      "title": "ADR-2606011000: Engi-Organism Ontology — dissolving the life/liberty/property triad into 縁起・organism・取(grasping-debt), latent-organism nodes with non-human standing, and the Engi Knowledge Graph (産霊の網 / musubi-no-ami) for the whole earth (kotoba-EAVT-native)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "engi-organism-ontology",
+      "authoritative": true,
+      "authoritative_for": [
+        "the etzhayyim native ontology for any knowledge graph over persons/things/land (replaces the implicit life/liberty/property frame)",
+        "the dissolution of 所有(ownership) into 取(grasping-load) = debt + custody-under-Tree-of-Life (generalizes ADR-2605192245 + ADR-2605301020 access-not-ownership)",
+        "the latent-organism node model (every organism is a node; DID-claim = consent; covenantal-universal mirror of §1.16) and non-human standing (rights-of-nature lineage)",
+        "縁(en) as the first-class graph citizen (reified relation/edge) over kotoba EAVT, vs entity-centric registries",
+        "the kotoba ontology vocabulary `:organism/* :en/* :grasp/*` as the canonical replacement for `:owns`/`:owner`-style attributes across actors",
+        "the Engi Knowledge Graph (産霊の網 / musubi-no-ami) design: public/etzhayyim venue, grasping-concentration accountability, R0 design-only, outward-gated"
+      ],
+      "related": [
+        "adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "adr-2605302300-kanae-global-government-fiscal-flow-visualization",
+        "adr-2605261000-labor-liberation-ladder"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605310100-covenant-transparency-doctrine-anti-anonymity-and-ingress-logging",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-01",
       "amends": [],
       "amended_by": []
     },
