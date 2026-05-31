@@ -11063,6 +11063,21 @@
       "lastVerified": "2026-05-30"
     },
     {
+      "id": "doc:adr-2605302200-kotoba-multimodal-cross-modal-search",
+      "type": "TechArticle",
+      "title": "ADR-2605302200: kotoba multimodal cross-modal search — shared-embedding-space media retrieval",
+      "status": "proposed",
+      "topic": "kotoba-multimodal-search",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba multimodal cross-modal search (media.* XRPC + media_embed/media crates)",
+        "media/* datom predicate namespace + media:2026:assets named graph",
+        "IvfIndex namespace-generalised persistence (cc/ivf/* and media/ivf/*)"
+      ],
+      "related": "doc:adr-2605250006-kotoba-cc-ingest-predicate-namespace",
+      "lastVerified": "2026-05-30"
+    },
+    {
       "id": "doc:adr-2605302245-danjo-global-fiscal-flow-extension",
       "type": "TechArticle",
       "title": "ADR-2605302245: 弾正 (danjo) global fiscal-flow extension — generalize the budget/procurement ingest cells beyond JP, add an inter-governmental fund-flow datom class, and emit fund-flow datoms that the kanae visualization actor (ADR-2605302300) consumes (still R3-gated, still non-adjudicating)",
@@ -11592,6 +11607,22 @@
         "doc:2605302000",
         "doc:2605263400"
       ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312600-shibuya-3dgs-mapillary-sfm-and-splat-physics-integration",
+      "type": "TechArticle",
+      "title": "ADR-2605312600: Shibuya 3DGS — real Mapillary imagery → CPU SfM → splat viewer + physics integration",
+      "status": "accepted",
+      "topic": "shibuya-3dgs-sfm-splat-physics",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Mapillary client-token acquisition + image fetch (mapillary_fetch.py) for Shibuya",
+        "CPU SfM → .splat tool (images_to_sfm_splat.py) incl. camera-plane gravity alignment",
+        "kami-app-shibuya splat viewer (run_splat_viewer_v1) + splat-physics (run_splat_physics_v1)",
+        "3DGS data-handling policy (token→Keychain, derived data gitignored CC-BY-SA)"
+      ],
+      "related": "doc:adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
       "lastVerified": "2026-05-31"
     },
     {
@@ -13334,6 +13365,44 @@
         "doc:security-crypto-agility-policy"
       ],
       "lastVerified": "2026-03-20"
+    },
+    {
+      "id": "doc:transparency-ingress-disclosure-notice",
+      "type": "TechArticle",
+      "title": "Ingress Disclosure Notice — standing text (ja / en)",
+      "status": "proposed",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the canonical standing text of the ingress disclosure notice (ADR-2605310100 §3/§6)"
+      ],
+      "related": "doc:adr-2605181100-etzhayyim-confidentiality-encrypted-records",
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:transparency-ratification-dossier",
+      "type": "Article",
+      "title": "Covenant Transparency Doctrine — Council Lv7+ ratification dossier (threat model + decision sheet + risk register)",
+      "status": "proposed",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the decision Council Lv7+ must make to ratify or reject ADR-2605310100",
+        "the threat model the doctrine is justified against",
+        "the legal + reversibility risk register for the doctrine"
+      ],
+      "related": "doc:adr-2605192300-etzhayyim-bootstrap-council-five",
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:transparency-worked-examples",
+      "type": "Article",
+      "title": "Covenant Transparency Doctrine — worked examples (for Council ratification review)",
+      "status": "proposed",
+      "topic": "covenant-transparency-doctrine",
+      "authoritative": false,
+      "related": "doc:adr-2605181100-etzhayyim-confidentiality-encrypted-records",
+      "lastVerified": "2026-05-31"
     },
     {
       "id": "doc:tsukuroi-authorized-remediation-tier-b-actor-r0",
