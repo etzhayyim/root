@@ -857,6 +857,66 @@ mod tests {
     }
 
     #[test]
+    fn point_jacobian_matches_finite_difference_fk() {
+        // The 3-D linear-velocity Jacobian of a world point rigidly attached to a
+        // link must equal the finite difference of that point's world position
+        // w.r.t. each joint angle. jacobian.rs has this cross-check for the 2-D
+        // analytic Jacobians; articulation3d's point_jacobian (the column IK /
+        // contact use, Isaac get_jacobians linear rows) lacked it. An OFFSET point
+        // exercises both the origin-velocity and the ω×p rotational parts.
+        let m = 1.0;
+        let i_com = Mat3::from_diagonal(Vec3::splat(0.02));
+        let mk = |parent: isize, axis: Vec3, r: Vec3, dof: isize| Body3d {
+            name: "l".into(),
+            parent,
+            joint_type: JointType3d::Revolute,
+            axis,
+            e_tree: Mat3::IDENTITY,
+            r_tree: r,
+            inertia: spatial_inertia(m, Vec3::new(0.1, 0.0, 0.0), i_com),
+            mass: m,
+            com: Vec3::new(0.1, 0.0, 0.0),
+            lower: 0.0,
+            upper: 0.0,
+            has_limit: false,
+            effort: 0.0,
+            damping: 0.0,
+            dof,
+        };
+        let cfg = Articulation3dConfig {
+            bodies: vec![
+                mk(-1, Vec3::Z, Vec3::ZERO, 0),
+                mk(0, Vec3::Y, Vec3::new(0.3, 0.0, 0.0), 1),
+                mk(1, Vec3::X, Vec3::new(0.3, 0.0, 0.0), 2),
+            ],
+            gravity: Vec3::ZERO,
+            dt: 1.0 / 240.0,
+            ndof: 3,
+        };
+        let q = vec![0.3_f32, -0.5, 0.7];
+        let link = 2;
+        // world point = link-2 frame origin + an offset fixed in the link frame.
+        let (r0, t0) = cfg.link_world(&q)[link];
+        let offset_local = Vec3::new(0.2, 0.1, -0.05);
+        let p = t0 + r0 * offset_local;
+
+        let jac = cfg.point_jacobian(link, p, &q);
+        let h = 1e-4;
+        for d in 0..3 {
+            let mut qp = q.clone();
+            qp[d] += h;
+            let (r1, t1) = cfg.link_world(&qp)[link];
+            let world_p = t1 + r1 * offset_local;
+            let fd = (world_p - p) / h;
+            let col = Vec3::new(jac[d][0], jac[d][1], jac[d][2]);
+            assert!(
+                (fd - col).length() < 2e-2,
+                "dof {d}: finite-diff {fd:?} vs jacobian {col:?}"
+            );
+        }
+    }
+
+    #[test]
     fn mass_matrix_matches_kinetic_energy_3d() {
         // The spatial-algebra CRBA mass matrix must agree with the independent
         // 6-D spatial-velocity energy recursion: with gravity off, energy() is
