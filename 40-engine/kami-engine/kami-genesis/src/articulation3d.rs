@@ -106,7 +106,10 @@ pub struct Articulation3dState {
 
 impl Articulation3dState {
     pub fn zeros(ndof: usize) -> Self {
-        Self { q: vec![0.0; ndof], qdot: vec![0.0; ndof] }
+        Self {
+            q: vec![0.0; ndof],
+            qdot: vec![0.0; ndof],
+        }
     }
 }
 
@@ -137,7 +140,11 @@ impl Articulation3dConfig {
         for i in 0..nb {
             let b = &self.bodies[i];
             let qi = if b.movable() { q[b.dof as usize] } else { 0.0 };
-            let qdi = if b.movable() { qdot[b.dof as usize] } else { 0.0 };
+            let qdi = if b.movable() {
+                qdot[b.dof as usize]
+            } else {
+                0.0
+            };
             let xi = mat_mul(&b.x_joint(qi), &b.x_tree());
             x[i] = xi;
 
@@ -159,7 +166,11 @@ impl Articulation3dConfig {
             com_world[i] = pwi + rwi * b.com;
 
             // Spatial velocity recursion: v_i = X_i v_parent + S_i q̇_i.
-            let v_parent = if b.parent < 0 { ZERO_SV } else { v[b.parent as usize] };
+            let v_parent = if b.parent < 0 {
+                ZERO_SV
+            } else {
+                v[b.parent as usize]
+            };
             let vj = scale_sv(qdi, &b.s());
             v[i] = add_sv(&mat_vec(&xi, &v_parent), &vj);
 
@@ -171,7 +182,14 @@ impl Articulation3dConfig {
                 mat_mul(&x0_inv[b.parent as usize], &xi_inv)
             };
         }
-        Kin { x, x0_inv, v, rwb, pw, com_world }
+        Kin {
+            x,
+            x0_inv,
+            v,
+            rwb,
+            pw,
+            com_world,
+        }
     }
 
     /// Inverse-dynamics bias `C(q,q̇) + g(q)` via RNEA with `q̈ = 0`.
@@ -183,10 +201,21 @@ impl Articulation3dConfig {
 
         for i in 0..nb {
             let b = &self.bodies[i];
-            let qdi = if b.movable() { qdot[b.dof as usize] } else { 0.0 };
-            let a_parent = if b.parent < 0 { a_base } else { a[b.parent as usize] };
+            let qdi = if b.movable() {
+                qdot[b.dof as usize]
+            } else {
+                0.0
+            };
+            let a_parent = if b.parent < 0 {
+                a_base
+            } else {
+                a[b.parent as usize]
+            };
             let vj = scale_sv(qdi, &b.s());
-            a[i] = add_sv(&mat_vec(&kin.x[i], &a_parent), &mat_vec(&crm(&kin.v[i]), &vj));
+            a[i] = add_sv(
+                &mat_vec(&kin.x[i], &a_parent),
+                &mat_vec(&crm(&kin.v[i]), &vj),
+            );
             let iv = mat_vec(&b.inertia, &kin.v[i]);
             f[i] = add_sv(&mat_vec(&b.inertia, &a[i]), &mat_vec(&crf(&kin.v[i]), &iv));
         }
@@ -320,7 +349,9 @@ impl Articulation3dConfig {
     /// `(world←body rotation, body-origin in world)` per body.
     pub fn link_world(&self, q: &[f32]) -> Vec<(Mat3, Vec3)> {
         let kin = self.kinematics(q, &vec![0.0; self.ndof]);
-        (0..self.bodies.len()).map(|i| (kin.rwb[i], kin.pw[i])).collect()
+        (0..self.bodies.len())
+            .map(|i| (kin.rwb[i], kin.pw[i]))
+            .collect()
     }
 
     /// Total mechanical energy `KE + PE`.
@@ -374,9 +405,14 @@ impl Articulation3dConfig {
     pub fn geometric_jacobian(&self, link: usize, q: &[f32]) -> [Vec<f32>; 6] {
         let kin = self.kinematics(q, &vec![0.0; self.ndof]);
         let p = kin.pw[link];
-        let mut rows: [Vec<f32>; 6] =
-            [vec![0.0; self.ndof], vec![0.0; self.ndof], vec![0.0; self.ndof],
-             vec![0.0; self.ndof], vec![0.0; self.ndof], vec![0.0; self.ndof]];
+        let mut rows: [Vec<f32>; 6] = [
+            vec![0.0; self.ndof],
+            vec![0.0; self.ndof],
+            vec![0.0; self.ndof],
+            vec![0.0; self.ndof],
+            vec![0.0; self.ndof],
+            vec![0.0; self.ndof],
+        ];
         let mut i = link as isize;
         while i >= 0 {
             let b = &self.bodies[i as usize];
@@ -437,8 +473,12 @@ impl Articulation3dConfig {
         use kami_articulated::JointKind;
         use std::collections::HashMap;
 
-        let name_idx: HashMap<&str, usize> =
-            sys.links.iter().enumerate().map(|(i, l)| (l.name.as_str(), i)).collect();
+        let name_idx: HashMap<&str, usize> = sys
+            .links
+            .iter()
+            .enumerate()
+            .map(|(i, l)| (l.name.as_str(), i))
+            .collect();
         // joint whose child is link i
         let mut joint_of_link: Vec<Option<usize>> = vec![None; sys.links.len()];
         // children link indices of each link
@@ -446,7 +486,10 @@ impl Articulation3dConfig {
         let child_names: std::collections::HashSet<&str> =
             sys.joints.iter().map(|j| j.child.as_str()).collect();
         for (ji, j) in sys.joints.iter().enumerate() {
-            if let (Some(&ci), Some(&pi)) = (name_idx.get(j.child.as_str()), name_idx.get(j.parent.as_str())) {
+            if let (Some(&ci), Some(&pi)) = (
+                name_idx.get(j.child.as_str()),
+                name_idx.get(j.parent.as_str()),
+            ) {
                 joint_of_link[ci] = Some(ji);
                 children[pi].push(ci);
             }
@@ -483,60 +526,74 @@ impl Articulation3dConfig {
             let com = inert.com.xyz;
             let inertia = spatial_inertia(inert.mass, com, i_com);
 
-            let (parent, joint_type, axis, e_tree, r_tree, lower, upper, has_limit, effort, damping, dof) =
-                match joint_of_link[li] {
-                    None => (
-                        -1isize,
-                        JointType3d::Fixed,
-                        Vec3::Z,
-                        Mat3::IDENTITY,
-                        Vec3::ZERO,
-                        0.0,
-                        0.0,
-                        false,
-                        0.0,
-                        0.0,
-                        -1isize,
-                    ),
-                    Some(ji) => {
-                        let j = &sys.joints[ji];
-                        let parent_body = *link_to_body
-                            .get(name_idx.get(j.parent.as_str()).unwrap())
-                            .expect("parent emitted before child (BFS)");
-                        let (jt, movable) = match j.kind {
-                            JointKind::Fixed => (JointType3d::Fixed, false),
-                            JointKind::Prismatic => (JointType3d::Prismatic, true),
-                            JointKind::Revolute | JointKind::Continuous => (JointType3d::Revolute, true),
-                        };
-                        let axis = if j.axis.length_squared() > 1e-12 {
-                            j.axis.normalize()
-                        } else {
-                            Vec3::Z
-                        };
-                        let r_o = rpy_to_mat3(j.origin.rpy);
-                        let has_limit = movable && matches!(j.kind, JointKind::Revolute | JointKind::Prismatic);
-                        let dof = if movable {
-                            let d = ndof as isize;
-                            ndof += 1;
-                            d
-                        } else {
-                            -1
-                        };
-                        (
-                            parent_body as isize,
-                            jt,
-                            axis,
-                            r_o.transpose(),
-                            j.origin.xyz,
-                            j.lower,
-                            j.upper,
-                            has_limit,
-                            j.effort.max(0.0),
-                            j.damping.max(0.0),
-                            dof,
-                        )
-                    }
-                };
+            let (
+                parent,
+                joint_type,
+                axis,
+                e_tree,
+                r_tree,
+                lower,
+                upper,
+                has_limit,
+                effort,
+                damping,
+                dof,
+            ) = match joint_of_link[li] {
+                None => (
+                    -1isize,
+                    JointType3d::Fixed,
+                    Vec3::Z,
+                    Mat3::IDENTITY,
+                    Vec3::ZERO,
+                    0.0,
+                    0.0,
+                    false,
+                    0.0,
+                    0.0,
+                    -1isize,
+                ),
+                Some(ji) => {
+                    let j = &sys.joints[ji];
+                    let parent_body = *link_to_body
+                        .get(name_idx.get(j.parent.as_str()).unwrap())
+                        .expect("parent emitted before child (BFS)");
+                    let (jt, movable) = match j.kind {
+                        JointKind::Fixed => (JointType3d::Fixed, false),
+                        JointKind::Prismatic => (JointType3d::Prismatic, true),
+                        JointKind::Revolute | JointKind::Continuous => {
+                            (JointType3d::Revolute, true)
+                        }
+                    };
+                    let axis = if j.axis.length_squared() > 1e-12 {
+                        j.axis.normalize()
+                    } else {
+                        Vec3::Z
+                    };
+                    let r_o = rpy_to_mat3(j.origin.rpy);
+                    let has_limit =
+                        movable && matches!(j.kind, JointKind::Revolute | JointKind::Prismatic);
+                    let dof = if movable {
+                        let d = ndof as isize;
+                        ndof += 1;
+                        d
+                    } else {
+                        -1
+                    };
+                    (
+                        parent_body as isize,
+                        jt,
+                        axis,
+                        r_o.transpose(),
+                        j.origin.xyz,
+                        j.lower,
+                        j.upper,
+                        has_limit,
+                        j.effort.max(0.0),
+                        j.damping.max(0.0),
+                        dof,
+                    )
+                }
+            };
             link_to_body.insert(li, bodies.len());
             bodies.push(Body3d {
                 name: link.name.clone(),
@@ -557,7 +614,12 @@ impl Articulation3dConfig {
             });
         }
 
-        Articulation3dConfig { bodies, gravity, dt, ndof }
+        Articulation3dConfig {
+            bodies,
+            gravity,
+            dt,
+            ndof,
+        }
     }
 }
 
@@ -645,7 +707,11 @@ fn uniform_planar_chain(n: usize, gravity: f32, dt: f32) -> Articulation3dConfig
         let i_com = Mat3::from_diagonal(Vec3::new(i_perp, i_perp, 0.0));
         let com = Vec3::new(0.0, 0.0, -l / 2.0);
         let inertia = spatial_inertia(m, com, i_com);
-        let r_tree = if i == 0 { Vec3::ZERO } else { Vec3::new(0.0, 0.0, -1.0) };
+        let r_tree = if i == 0 {
+            Vec3::ZERO
+        } else {
+            Vec3::new(0.0, 0.0, -1.0)
+        };
         bodies.push(Body3d {
             name: format!("link{i}"),
             parent: i as isize - 1,
@@ -664,7 +730,12 @@ fn uniform_planar_chain(n: usize, gravity: f32, dt: f32) -> Articulation3dConfig
             dof: i as isize,
         });
     }
-    Articulation3dConfig { bodies, gravity: Vec3::new(0.0, 0.0, -gravity), dt, ndof: n }
+    Articulation3dConfig {
+        bodies,
+        gravity: Vec3::new(0.0, 0.0, -gravity),
+        dt,
+        ndof: n,
+    }
 }
 
 #[cfg(test)]
@@ -693,8 +764,14 @@ mod tests {
             for i in 0..n {
                 q0[i] = seed[i];
             }
-            let mut s3 = Articulation3dState { q: q0.clone(), qdot: vec![0.0; n] };
-            let mut s2 = PlanarChainState { q: q0.clone(), qdot: vec![0.0; n] };
+            let mut s3 = Articulation3dState {
+                q: q0.clone(),
+                qdot: vec![0.0; n],
+            };
+            let mut s2 = PlanarChainState {
+                q: q0.clone(),
+                qdot: vec![0.0; n],
+            };
             let zero = vec![0.0_f32; n];
             for _ in 0..(0.5 / dt) as usize {
                 cfg3.step(&mut s3, &zero);
@@ -716,13 +793,19 @@ mod tests {
         let g = 9.81;
         let dt = 1.0 / 240.0;
         let cfg = uniform_planar_chain(1, g, dt);
-        let mut s = Articulation3dState { q: vec![0.05], qdot: vec![0.0] };
+        let mut s = Articulation3dState {
+            q: vec![0.05],
+            qdot: vec![0.0],
+        };
         let e0 = cfg.energy(&s);
         for _ in 0..(1.637 / dt) as usize {
             cfg.step(&mut s, &[0.0]);
         }
         let e1 = cfg.energy(&s);
-        assert!((e1 - e0).abs() / e0.abs().max(1.0) < 0.05, "drift e0={e0} e1={e1}");
+        assert!(
+            (e1 - e0).abs() / e0.abs().max(1.0) < 0.05,
+            "drift e0={e0} e1={e1}"
+        );
     }
 
     #[test]
@@ -757,13 +840,78 @@ mod tests {
             dt: 1.0 / 480.0,
             ndof: 3,
         };
-        let mut s = Articulation3dState { q: vec![0.3, -0.5, 0.7], qdot: vec![1.0, -0.8, 0.5] };
+        let mut s = Articulation3dState {
+            q: vec![0.3, -0.5, 0.7],
+            qdot: vec![1.0, -0.8, 0.5],
+        };
         let e0 = cfg.energy(&s);
         for _ in 0..2000 {
             cfg.step(&mut s, &[0.0, 0.0, 0.0]);
         }
         let e1 = cfg.energy(&s);
         assert!(s.q.iter().all(|x| x.is_finite()));
-        assert!((e1 - e0).abs() / e0.abs().max(1.0) < 0.02, "energy drift e0={e0} e1={e1}");
+        assert!(
+            (e1 - e0).abs() / e0.abs().max(1.0) < 0.02,
+            "energy drift e0={e0} e1={e1}"
+        );
+    }
+
+    #[test]
+    fn mass_matrix_matches_kinetic_energy_3d() {
+        // The spatial-algebra CRBA mass matrix must agree with the independent
+        // 6-D spatial-velocity energy recursion: with gravity off, energy() is
+        // pure KE = ½ Σ vᵢᵀ Iᵢ vᵢ, which by definition equals ½·q̇ᵀ M(q) q̇.
+        // Genuinely out-of-plane axes (z, y, x) + COM offsets exercise the full
+        // 3-D composite-inertia path, not the planar special case.
+        let m = 1.0;
+        let i_com = Mat3::from_diagonal(Vec3::new(0.02, 0.03, 0.015));
+        let mk = |parent: isize, axis: Vec3, r: Vec3, dof: isize| Body3d {
+            name: "l".into(),
+            parent,
+            joint_type: JointType3d::Revolute,
+            axis,
+            e_tree: Mat3::IDENTITY,
+            r_tree: r,
+            inertia: spatial_inertia(m, Vec3::new(0.1, 0.05, 0.0), i_com),
+            mass: m,
+            com: Vec3::new(0.1, 0.05, 0.0),
+            lower: 0.0,
+            upper: 0.0,
+            has_limit: false,
+            effort: 0.0,
+            damping: 0.0,
+            dof,
+        };
+        let cfg = Articulation3dConfig {
+            bodies: vec![
+                mk(-1, Vec3::Z, Vec3::ZERO, 0),
+                mk(0, Vec3::Y, Vec3::new(0.2, 0.0, 0.0), 1),
+                mk(1, Vec3::X, Vec3::new(0.2, 0.0, 0.0), 2),
+            ],
+            gravity: Vec3::ZERO,
+            dt: 1.0 / 480.0,
+            ndof: 3,
+        };
+        let q = vec![0.3_f32, -0.5, 0.7];
+        let qd = vec![1.1_f32, -0.8, 0.6];
+        let st = Articulation3dState {
+            q: q.clone(),
+            qdot: qd.clone(),
+        };
+        let ke_direct = cfg.energy(&st); // gravity = 0 → pure KE
+
+        let mm = cfg.mass_matrix(&q);
+        let mut ke_matrix = 0.0_f32;
+        for i in 0..cfg.ndof {
+            for j in 0..cfg.ndof {
+                ke_matrix += qd[i] * mm[i][j] * qd[j];
+            }
+        }
+        ke_matrix *= 0.5;
+
+        assert!(
+            (ke_direct - ke_matrix).abs() < 1e-4 * ke_direct.abs().max(1.0),
+            "3D KE mismatch: spatial recursion {ke_direct} vs ½q̇ᵀMq̇ {ke_matrix}"
+        );
     }
 }
