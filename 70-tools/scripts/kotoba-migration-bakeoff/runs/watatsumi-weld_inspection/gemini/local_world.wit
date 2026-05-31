@@ -1,0 +1,66 @@
+package kotoba:kais@0.1.0;
+
+interface kqe {
+    record quad {
+        graph:     string,
+        subject:   string,
+        predicate: string,
+        object-cbor: list<u8>,
+    }
+    assert-quad: func(q: quad) -> result<_, string>;
+    retract-quad: func(q: quad) -> result<_, string>;
+    query: func(datalog-src: string) -> result<list<quad>, string>;
+    get-objects: func(graph: string, subject: string, predicate: string) -> list<list<u8>>;
+    get-head: func(graph-name: string) -> option<string>;
+    evaluate-rules: func(rules-cbor: list<u8>) -> result<list<quad>, string>;
+}
+
+interface kse {
+    publish: func(topic: string, payload: list<u8>) -> result<string, string>;
+    drain: func(topic-pattern: string, max-items: u32) -> result<list<tuple<string, list<u8>>>, string>;
+}
+
+interface auth {
+    current-did: func() -> string;
+    verify-cacao: func(cacao-cbor: list<u8>) -> result<string, string>;
+    has-capability: func(resource-uri: string, ability: string) -> bool;
+}
+
+interface llm {
+    infer: func(model-cid: string, prompt-bytes: list<u8>) -> result<list<u8>, string>;
+    embed: func(model-cid: string, text: string) -> result<list<u8>, string>;
+    load-lora: func(base-model-cid: string, lora-cid: string) -> result<_, string>;
+}
+
+interface evm {
+    eth-call: func(rpc-url: string, to: string, calldata: list<u8>, block-tag: option<string>) -> result<list<u8>, string>;
+    eth-get-storage-at: func(rpc-url: string, address: string, slot: string) -> result<list<u8>, string>;
+    eth-get-balance: func(rpc-url: string, address: string) -> result<string, string>;
+    eth-chain-id: func(rpc-url: string) -> result<string, string>;
+    eth-block-number: func(rpc-url: string) -> result<string, string>;
+    eth-get-code: func(rpc-url: string, address: string, block-tag: option<string>) -> result<list<u8>, string>;
+    eth-get-transaction-count: func(rpc-url: string, address: string, block-tag: option<string>) -> result<string, string>;
+    eth-get-transaction-receipt: func(rpc-url: string, tx-hash: string) -> result<string, string>;
+    eth-get-logs: func(rpc-url: string, filter-json: string) -> result<string, string>;
+    erc20-balance-of: func(rpc-url: string, token: string, holder: string) -> result<string, string>;
+    erc20-total-supply: func(rpc-url: string, token: string) -> result<string, string>;
+    erc20-decimals: func(rpc-url: string, token: string) -> result<u8, string>;
+    erc20-symbol: func(rpc-url: string, token: string) -> result<string, string>;
+    erc20-name: func(rpc-url: string, token: string) -> result<string, string>;
+}
+
+interface chain {
+    append-infer: func(model-cid: string, prompt-cid: string, output-cid: string) -> result<string, string>;
+    head-cid: func() -> option<string>;
+}
+
+world kotoba-node {
+    import kqe;
+    import kse;
+    import auth;
+    import llm;
+    import chain;
+    import evm;
+    // wasi:http removed to bypass missing package error
+    export run: func(ctx-cbor: list<u8>) -> result<list<u8>, string>;
+}
