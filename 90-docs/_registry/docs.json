@@ -17449,6 +17449,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605310100-kami-genesis-physics-validation-and-isaac-clean-room-surface.md",
+      "id": "adr-2605310100-kami-genesis-physics-validation-and-isaac-clean-room-surface",
+      "title": "ADR-2605310100: kami-genesis physics maturation — PlanarChain articulation, clean-room isaacsim.core.api surface, analytical/conservation-law validation, and G5 Isaac-reference scorecard",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kami-genesis-physics-validation",
+      "authoritative": true,
+      "authoritative_for": [
+        "kami-genesis PlanarChain (N≥3 serial revolute) articulation topology",
+        "kami-genesis clean-room isaacsim.core.api World/Articulation surface scope",
+        "physics-correctness validation strategy (analytical + conservation law + G5 reference CSV)",
+        "G5 reference-CSV scorecard harness contract and Isaac-CSV drop-in path"
+      ],
+      "related": [
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605261800-nvidia-omniverse-stack-api-compat",
+        "adr-2605261600-robotics-simulation-substrate-r0",
+        "adr-2605272000-isekai-omniverse-r1-1-usd-physx-playable"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605311254-session-close-social-security-for-humanity.md",
       "id": "adr-2605311254-session-close-social-security-for-humanity",
       "title": "ADR-2605311254: Session close — §1.16 Social Security for Humanity doctrine + R0 delivery pipeline scaffold (2026-05-30/31)",
@@ -17472,6 +17500,33 @@
       "depends_on": [
         "ADR-2605302357 (§1.16 Social Security doctrine)",
         "ADR-2605302358 (§1.16 real-world delivery pipeline R0)"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility.md",
+      "id": "adr-2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility",
+      "title": "ADR-2605311310: yoro AppView black-screen fix (SPA-router infinite recursion) + IPFS-deploy feasibility (kotoba/Kubo) session closure",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "yoro-black-screen-and-ipfs-deploy",
+      "authoritative": true,
+      "authoritative_for": [
+        "yoro-appview-root-route-render",
+        "ipfs-static-frontend-deploy-feasibility"
+      ],
+      "related": [
+        "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2604261936-ipfs-self-hosted-vultr-b2",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "last_verified": "2026-05-31",
       "amends": [],
