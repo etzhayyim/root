@@ -613,6 +613,76 @@ mod tests {
     }
 
     #[test]
+    fn friction_cone_holds_below_angle_and_slides_above() {
+        // A sphere on a plane tilted by θ stays (static friction) when
+        // tanθ < μ and slides down-slope when tanθ > μ — the Coulomb-cone law.
+        let urdf = r#"<robot name="s">
+<link name="world"/>
+<joint name="jx" type="prismatic"><parent link="world"/><child link="lx"/><origin xyz="0 0 0"/><axis xyz="1 0 0"/><limit lower="-1e4" upper="1e4" effort="1e9" velocity="1e4"/></joint>
+<link name="lx"><inertial><mass value="0.0001"/><inertia ixx="1e-7" iyy="1e-7" izz="1e-7" ixy="0" ixz="0" iyz="0"/></inertial></link>
+<joint name="jy" type="prismatic"><parent link="lx"/><child link="ly"/><origin xyz="0 0 0"/><axis xyz="0 1 0"/><limit lower="-1e4" upper="1e4" effort="1e9" velocity="1e4"/></joint>
+<link name="ly"><inertial><mass value="0.0001"/><inertia ixx="1e-7" iyy="1e-7" izz="1e-7" ixy="0" ixz="0" iyz="0"/></inertial></link>
+<joint name="jz" type="prismatic"><parent link="ly"/><child link="body"/><origin xyz="0 0 0"/><axis xyz="0 0 1"/><limit lower="-1e4" upper="1e4" effort="1e9" velocity="1e4"/></joint>
+<link name="body"><inertial><origin xyz="0 0 0"/><mass value="10"/><inertia ixx="0.1" iyy="0.1" izz="0.1" ixy="0" ixz="0" iyz="0"/></inertial></link>
+</robot>"#;
+        let sys = kami_articulated::parse_urdf(urdf).expect("urdf");
+        let cfg = Articulation3dConfig::from_articulated_system(
+            &sys,
+            Vec3::new(0.0, 0.0, -9.81),
+            1.0 / 240.0,
+        );
+        let body = cfg.body_index("body").expect("body");
+        let r = 0.2;
+        let mu = 0.8; // friction angle ≈ 38.7°
+
+        let down_slope_drift = |theta_deg: f32| -> f32 {
+            let th = theta_deg.to_radians();
+            let (s, c) = (th.sin(), th.cos());
+            let n = Vec3::new(s, 0.0, c); // plane normal (tilted about y)
+            let cw = ContactWorld::new(
+                vec![(
+                    body,
+                    Collider::Sphere {
+                        center: Vec3::ZERO,
+                        radius: r,
+                    },
+                )],
+                ContactParams {
+                    ground_z: -100.0,
+                    friction: mu,
+                    ..Default::default()
+                },
+            )
+            .with_obstacles(vec![Obstacle::Plane {
+                normal: n,
+                offset: 0.0,
+            }]);
+            let mut st = Articulation3dState::zeros(cfg.ndof);
+            let start = n * r; // rest the sphere on the plane (centre at distance r)
+            st.q[0] = start.x;
+            st.q[1] = start.y;
+            st.q[2] = start.z;
+            for _ in 0..800 {
+                cw.step(&cfg, &mut st, &[0.0, 0.0, 0.0]);
+            }
+            let center = Vec3::new(st.q[0], st.q[1], st.q[2]);
+            let t = Vec3::new(c, 0.0, -s); // unit down-slope direction
+            (center - start).dot(t)
+        };
+
+        let stays = down_slope_drift(20.0); // tan20°=0.36 < 0.8 → static
+        let slides = down_slope_drift(55.0); // tan55°=1.43 > 0.8 → slides
+        assert!(
+            stays.abs() < 0.05,
+            "should stick on a 20° slope: drift={stays}"
+        );
+        assert!(
+            slides > 0.5,
+            "should slide down a 55° slope: drift={slides}"
+        );
+    }
+
+    #[test]
     fn capsule_mid_span_contact_is_not_missed() {
         // A long horizontal capsule whose two endpoints clear an AABB obstacle
         // but whose MIDDLE presses on it. Endpoint-only sampling would miss it;
