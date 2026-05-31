@@ -70,6 +70,39 @@ RUSTC=~/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc \
 #   await init(); run_giemon_kabitori_sim_v1('canvas')
 ```
 
+## Part ledger → SBOM → kotoba (product / manufacturer / procurement)
+
+Each part is linked to a product name, manufacturer/company, MPN, purl, and a
+**procurement type** (`cots` = buy off-the-shelf · `custom-fab` = commission /
+fabricate), plus the sim `feature_id` it maps to. The ledger is integrated into
+the **kotoba** EAVT store (Datomic-class) and is queryable via the kotoba API.
+
+- **`parts.edn`** — SSoT, Datomic-style EDN ledger (`{:bom/meta … :bom/parts […]}`).
+  `:part/sourcing :representative` flags these as R0 design selections, not a
+  procurement-verified purchase list.
+- **`sbom_gen.py`** — parses `parts.edn` → emits `kabitori.cdx.json` (CycloneDX
+  1.5 SBOM) + `kotoba_ingest.json` (a `kg.ingest_batch` body). Run: `python3 sbom_gen.py`.
+- **`kabitori.cdx.json`** — committed CycloneDX SBOM (per-part publisher/supplier/purl).
+
+Load into kotoba and query (verified live, 2026-05-31; in-memory, no IPFS):
+
+```bash
+KOTOBA_IPFS=off kotoba serve &                          # in-memory EAVT
+TOK=$(python3 -c 'import base64,json;b=lambda o:base64.urlsafe_b64encode(json.dumps(o,separators=(",",":")).encode()).rstrip(b"=").decode();print(f"{b({\"alg\":\"HS256\",\"typ\":\"JWT\"})}.{b({\"sub\":\"operator\",\"exp\":9999999999})}.sig")')
+curl -s -XPOST localhost:8080/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch \
+  -H "Authorization: Bearer $TOK" -H 'Content-Type: application/json' --data @kotoba_ingest.json
+# claims become kg/claim/part/* datoms; query with SPARQL:
+kotoba --token "$TOK" sparql 'SELECT * WHERE { ?s <kg/claim/part/procurement> "cots" }'        # → 15
+kotoba --token "$TOK" sparql 'SELECT * WHERE { ?s <kg/claim/part/manufacturer> ?m }'           # → 15 companies
+kotoba --token "$TOK" sparql 'SELECT * WHERE { ?s <kg/claim/part/simFeature> "link_brush" }'   # CAD↔part join
+kotoba --token "$TOK" sparql 'SELECT * WHERE { ?s <kg/claim/part/group> "C-extraction" . ?s <kg/claim/part/manufacturer> ?m }'
+```
+
+Verified result: 20 parts (15 cots / 5 custom-fab); manufacturers include
+Raspberry Pi Ltd, Sony Semiconductor, TDK InvenSense, Texas Instruments, Maxon,
+Makita, Camfil, … Note: the legacy SBOM app (`60-apps/ai-gftd-project-sbom`)
+persists to RisingWave; this pilot uses **kotoba** per ADR-2605262130 (no-RisingWave).
+
 ## Source
 
 - URDF: `giemon_kabitori.urdf` (this dir)
