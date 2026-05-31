@@ -146,6 +146,24 @@ impl MpmSolver {
         self
     }
 
+    pub fn with_gravity(mut self, g: f32) -> Self {
+        self.gravity = g;
+        self
+    }
+
+    /// Add a uniform velocity to every particle (an impulse / initial kick).
+    pub fn kick(&mut self, v: Vec2) {
+        for p in &mut self.particles {
+            p.v += v;
+        }
+    }
+
+    /// Total linear momentum Σ mᵢ·vᵢ (conserved by the MLS-MPM transfer when no
+    /// external force or boundary acts).
+    pub fn linear_momentum(&self) -> Vec2 {
+        self.particles.iter().map(|p| p.v).sum::<Vec2>() * self.p_mass
+    }
+
     /// Add a static rigid obstacle the continuum flows around (one-way coupling).
     pub fn add_obstacle(&mut self, ob: MpmObstacle) {
         self.obstacles.push((ob, Vec2::ZERO));
@@ -464,6 +482,31 @@ mod tests {
             );
         }
         assert!(sig.x >= sig.y && sig.y >= 0.0);
+    }
+
+    #[test]
+    fn linear_momentum_is_conserved_by_the_transfer() {
+        // a free blob (no gravity, no boundary contact) given an initial kick
+        // must keep its linear momentum — the core MLS-MPM transfer guarantee.
+        let mut s = MpmSolver::new(64).with_gravity(0.0);
+        s.add_block(
+            Vec2::new(0.4, 0.4),
+            Vec2::new(0.6, 0.6),
+            16,
+            MpmMaterial::Fluid,
+        );
+        s.kick(Vec2::new(2.0, 0.5));
+        let p0 = s.linear_momentum();
+        assert!(p0.length() > 0.0);
+        for _ in 0..60 {
+            s.step();
+        }
+        let p1 = s.linear_momentum();
+        assert!(
+            (p1 - p0).length() < 0.02 * p0.length(),
+            "momentum not conserved: {p0:?} → {p1:?}"
+        );
+        assert!(s.all_finite());
     }
 
     #[test]
