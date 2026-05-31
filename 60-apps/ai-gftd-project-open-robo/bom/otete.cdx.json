@@ -62,6 +62,10 @@
           "value": "Kondo direct"
         },
         {
+          "name": "giemon:simFeature",
+          "value": "j1"
+        },
+        {
           "name": "giemon:sourcing",
           "value": "spec"
         }
@@ -108,6 +112,10 @@
         {
           "name": "giemon:supplier",
           "value": "Kondo direct"
+        },
+        {
+          "name": "giemon:simFeature",
+          "value": "j3"
         },
         {
           "name": "giemon:sourcing",
@@ -158,6 +166,10 @@
           "value": "Kondo direct"
         },
         {
+          "name": "giemon:simFeature",
+          "value": "j5"
+        },
+        {
           "name": "giemon:sourcing",
           "value": "spec"
         }
@@ -204,6 +216,10 @@
         {
           "name": "giemon:supplier",
           "value": "RS Components"
+        },
+        {
+          "name": "giemon:simFeature",
+          "value": "j_grip"
         },
         {
           "name": "giemon:sourcing",
@@ -559,6 +575,10 @@
         {
           "name": "giemon:supplier",
           "value": "Meviy"
+        },
+        {
+          "name": "giemon:simFeature",
+          "value": "link1"
         },
         {
           "name": "giemon:fabProcess",
@@ -1215,6 +1235,10 @@
         {
           "name": "giemon:supplier",
           "value": "KSY"
+        },
+        {
+          "name": "giemon:simFeature",
+          "value": "link6"
         },
         {
           "name": "giemon:sourcing",

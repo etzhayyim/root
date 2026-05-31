@@ -25,6 +25,8 @@ export function run_giemon_hitogata_v1(canvas_id: string): Promise<void>;
  */
 export function run_giemon_kabitori_sim_v1(canvas_id: string): Promise<void>;
 
+export function run_giemon_otete_sim_v1(canvas_id: string): Promise<void>;
+
 export function run_giemon_sim_v1(canvas_id: string): Promise<void>;
 
 export function run_giemon_v1(canvas_id: string): Promise<void>;
@@ -36,6 +38,7 @@ export interface InitOutput {
     readonly run_giemon_caterpillar_v1: (a: number, b: number) => any;
     readonly run_giemon_hitogata_v1: (a: number, b: number) => any;
     readonly run_giemon_kabitori_sim_v1: (a: number, b: number) => any;
+    readonly run_giemon_otete_sim_v1: (a: number, b: number) => any;
     readonly run_giemon_sim_v1: (a: number, b: number) => any;
     readonly run_giemon_v1: (a: number, b: number) => any;
     readonly giemonSetJointTorque: (a: number) => void;

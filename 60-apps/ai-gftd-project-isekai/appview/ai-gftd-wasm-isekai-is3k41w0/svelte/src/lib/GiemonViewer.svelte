@@ -9,6 +9,7 @@
   const MODELS: Model[] = [
     { id: 'kabitori',    name: 'Kabitori 黴取り — Mold-Removal Sim', desc: 'autonomous probe feeds into a walled gap + scrubs mold off the surface (green→clean)', fn: 'run_giemon_kabitori_sim_v1' },
     { id: 'physics-arm', name: 'Arm6 — 3-D Physics Sim',             desc: '6-DOF spatial solver + contact (1–6 select · J/L torque)', fn: 'run_giemon_sim_v1', physics: true },
+    { id: 'otete',       name: 'Otete 御手 — 7-DOF arm sim',          desc: 'Giemon Otete kit: 6-axis arm + prismatic gripper (DH-faithful · 1–6 select · J/L torque)', fn: 'run_giemon_otete_sim_v1', physics: true },
     { id: 'armcrawler',  name: 'ArmCrawler — Viewer',                desc: '6-DOF arm + rubber-track crawler', fn: 'run_giemon_v1' },
     { id: 'hitogata',    name: 'Hitogata — Biped',                   desc: '17-DOF humanoid (~285mm)', fn: 'run_giemon_hitogata_v1' },
     { id: 'caterpillar', name: 'Caterpillar — UGV',                  desc: 'dual-track + LiDAR + stereo cam', fn: 'run_giemon_caterpillar_v1' }
