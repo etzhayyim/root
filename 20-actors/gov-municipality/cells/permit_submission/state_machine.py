@@ -63,7 +63,7 @@ def transition_to_application_prepared(state: dict[str, Any]) -> dict[str, Any]:
         "gfa_m2": 2400,
     }
     ps.phase = PermitPhase.APPLICATION_PREPARED
-    ps.applicationData = {**ps.applicationData or {}, **mock_application}
+    ps.applicationData = {**(ps.applicationData or {}), **mock_application}
     ps.completionPct = 70
     return {"permit_state": ps.__dict__, "next_node": "submit"}
 
