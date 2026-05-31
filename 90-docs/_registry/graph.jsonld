@@ -11431,6 +11431,27 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605312130-session-close-toritsugi-government-procedure-concierge",
+      "type": "TechArticle",
+      "title": "ADR-2605312130: Session close — 取次 (toritsugi) citizen-facing government-procedure concierge R0 + 9-iteration maturity loop (2026-05-31)",
+      "status": "active",
+      "topic": "session-close-toritsugi-government-procedure-concierge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the 2026-05-31 toritsugi session deliverable list + verification state",
+        "commit fa3dee231 provenance"
+      ],
+      "related": [
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302357-etzhayyim-social-security-for-humanity"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
       "type": "TechArticle",
       "title": "ADR-2605312300: giemon kabitori (黴取り) mold-removal probe — sim + wall-obstacle contact extension + mold-erosion field",
@@ -11442,6 +11463,29 @@
         "kami-genesis static environment obstacles (Obstacle::Plane / Obstacle::Aabb) in the contact solver",
         "kabitori mold-coverage erosion model (MoldField) at the giemon application layer",
         "honest scope boundary: rigid-body + ground/wall contact only; no biofilm/fluid solver yet"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
+      "type": "TechArticle",
+      "title": "ADR-2605312345: kotoba Datom as First-Class Canonical State — IPFS reframed as block backend, MST as ingress/interop wire, Base L2 as trust anchor",
+      "status": "proposed",
+      "topic": "storage-substrate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "canonical state primitive = kotoba Datom log (content-addressed EAVT Datalog)",
+        "reframing of IPFS as Datom block backend (cold tier / DHT)",
+        "reframing of AT Protocol MST as ingress + interop wire format (not canonical state home)",
+        "reframing of Base L2 as trust anchor over the Datom commit-DAG root"
+      ],
+      "related": [
+        "doc:adr-2605231400-yatachain-holochain-iso-substrate",
+        "doc:adr-2605231500-yatachain-projection",
+        "doc:adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "doc:adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "doc:adr-2605231525-no-server-key-religious-corp-architecture",
+        "doc:adr-2605192245-etzhayyim-global-land-sovereignty"
       ],
       "lastVerified": "2026-05-31"
     },
