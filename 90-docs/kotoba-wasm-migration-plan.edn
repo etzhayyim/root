@@ -157,9 +157,19 @@
   {:wave 2
    :name  "Tier-B actor cells (yamabiko/watatsumi/sarutahiko/kanayama/yoro-supply/yobel/wadachi/tatekata/silicon)"
    :count 60
-   :note  "Most are R0 scaffolds whose originals RAISE on solve() (gated pre-ratification) -> build-verified
-           only (no runtime gold). equiv-feedback engages on any runnable cell that mismatches."
-   :status :running}
+   :result {:build-pass "59/60"
+            :no-gold 49        ; R0 scaffolds — originals RAISE on solve(), build-verified only
+            :invoke-error 11   ; ALL = kotoba:kais/evm WIT interface skew (systematic, see substrate-finding)
+            :timeout-error 1}  ; yobel-debtor_enrollment hit the 900s agent timeout — re-run via --resume
+   :substrate-finding
+   {:issue "kotoba:kais/evm WIT interface mismatch ('eth-chain-id has the wrong type')"
+    :scope "every runnable chain/finance-touching cell (yoro-supply, permit_submission, yobel) — they build
+            into components importing kotoba:kais/evm, but the deployed :8077 binary's evm host interface
+            signature diverges from the componentize-py-bundled WIT world."
+    :nature "SUBSTRATE WIT-skew, NOT a migration defect — ports build clean; only runtime invoke-verification
+             is blocked. Non-evm cells verify strict (Wave 1: 6/6)."
+    :fix "rebuild :8077 against the matching evm WIT, or pin the evm interface version; then re-verify the 11."}
+   :status :done}
 
   {:wave 4
    :name  "UNSPSC 1-by-1 agentic migration"
