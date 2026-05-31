@@ -33,18 +33,32 @@ pub enum MpmObstacle {
 }
 
 impl MpmObstacle {
-    /// If `pos` is inside the obstacle and `v` points inward, remove the inward
-    /// normal component (separating boundary condition).
-    fn project(&self, pos: Vec2, v: Vec2) -> Vec2 {
+    /// Move the obstacle (kinematic / swept obstacles advance each step).
+    fn translate(&mut self, d: Vec2) {
+        match self {
+            MpmObstacle::Sphere { center, .. } => *center += d,
+            MpmObstacle::Box { min, max } => {
+                *min += d;
+                *max += d;
+            }
+        }
+    }
+
+    /// Boundary condition: if `pos` is inside the obstacle and the grid velocity
+    /// moves *into* it relative to the obstacle's own velocity `v_ob`, cancel the
+    /// inward relative normal component — so a moving obstacle (screed / piston /
+    /// vibrator) drags the material along instead of letting it penetrate.
+    fn project(&self, pos: Vec2, v: Vec2, v_ob: Vec2) -> Vec2 {
+        let vrel = v - v_ob;
         match self {
             MpmObstacle::Sphere { center, radius } => {
                 let d = pos - *center;
                 let dist = d.length();
                 if dist < *radius {
                     let n = if dist > 1e-6 { d / dist } else { Vec2::Y };
-                    let vn = v.dot(n);
+                    let vn = vrel.dot(n);
                     if vn < 0.0 {
-                        return v - n * vn;
+                        return v_ob + (vrel - n * vn);
                     }
                 }
                 v
@@ -70,9 +84,9 @@ impl MpmObstacle {
                     if dh.y < best {
                         n = Vec2::new(0.0, 1.0);
                     }
-                    let vn = v.dot(n);
+                    let vn = vrel.dot(n);
                     if vn < 0.0 {
-                        return v - n * vn;
+                        return v_ob + (vrel - n * vn);
                     }
                 }
                 v
@@ -104,7 +118,7 @@ pub struct MpmSolver {
     particles: Vec<Particle>,
     grid_v: Vec<Vec2>,
     grid_m: Vec<f32>,
-    obstacles: Vec<MpmObstacle>,
+    obstacles: Vec<(MpmObstacle, Vec2)>, // (shape, velocity)
 }
 
 impl MpmSolver {
@@ -134,7 +148,13 @@ impl MpmSolver {
 
     /// Add a static rigid obstacle the continuum flows around (one-way coupling).
     pub fn add_obstacle(&mut self, ob: MpmObstacle) {
-        self.obstacles.push(ob);
+        self.obstacles.push((ob, Vec2::ZERO));
+    }
+
+    /// Add a kinematic (swept) obstacle moving at `vel` — a screed / piston /
+    /// vibrator that drags the continuum along as it advances.
+    pub fn add_moving_obstacle(&mut self, ob: MpmObstacle, vel: Vec2) {
+        self.obstacles.push((ob, vel));
     }
 
     pub fn particle_count(&self) -> usize {
@@ -193,6 +213,13 @@ impl MpmSolver {
 
     /// One MLS-MPM step (P2G → grid update → G2P + constitutive update).
     pub fn step(&mut self) {
+        // advance kinematic obstacles by their velocity.
+        let dt_ob = self.dt;
+        for (ob, vel) in self.obstacles.iter_mut() {
+            if *vel != Vec2::ZERO {
+                ob.translate(*vel * dt_ob);
+            }
+        }
         for m in self.grid_m.iter_mut() {
             *m = 0.0;
         }
@@ -270,11 +297,11 @@ impl MpmSolver {
                     if j > self.n - bound && self.grid_v[g].y > 0.0 {
                         self.grid_v[g].y = 0.0;
                     }
-                    // static rigid obstacles (one-way coupling)
+                    // rigid obstacles (one-way coupling; moving obstacles drag)
                     if !self.obstacles.is_empty() {
                         let pos = Vec2::new(i as f32, j as f32) * self.dx;
-                        for ob in &self.obstacles {
-                            self.grid_v[g] = ob.project(pos, self.grid_v[g]);
+                        for (ob, vel) in &self.obstacles {
+                            self.grid_v[g] = ob.project(pos, self.grid_v[g], *vel);
                         }
                     }
                 }
@@ -503,6 +530,47 @@ mod tests {
         assert!(gf && ff, "non-finite");
         assert!(gw < fw, "granular spread {gw} not < fluid spread {fw}");
         assert!(gh > 0.05, "granular pile collapsed flat: h={gh}");
+    }
+
+    #[test]
+    fn moving_obstacle_drags_the_continuum() {
+        // a box sweeping rightward through a granular slab (a screed) pushes the
+        // material's mean-x further right than a static box at the same start.
+        let run = |moving: bool| -> f32 {
+            let mut s = MpmSolver::new(48);
+            s.add_block(
+                Vec2::new(0.3, 0.1),
+                Vec2::new(0.65, 0.28),
+                18,
+                MpmMaterial::Granular,
+            );
+            let bmin = Vec2::new(0.22, 0.05);
+            let bmax = Vec2::new(0.32, 0.32);
+            if moving {
+                s.add_moving_obstacle(
+                    MpmObstacle::Box {
+                        min: bmin,
+                        max: bmax,
+                    },
+                    Vec2::new(0.6, 0.0),
+                );
+            } else {
+                s.add_obstacle(MpmObstacle::Box {
+                    min: bmin,
+                    max: bmax,
+                });
+            }
+            for _ in 0..2500 {
+                s.step();
+            }
+            s.positions().iter().map(|p| p.x).sum::<f32>() / s.particle_count() as f32
+        };
+        let swept = run(true);
+        let still = run(false);
+        assert!(
+            swept > still + 0.05,
+            "sweep did not drag material: moving={swept} static={still}"
+        );
     }
 
     #[test]
