@@ -8972,6 +8972,22 @@ path = "90-docs/adr/2605312030-toritsugi-government-procedure-concierge-tier-b-a
 adr = ["2605262700", "2605302130", "2605302357", "2605302358", "2605262900", "2605181100", "2605262130", "2605192100", "2605192200", "2605192300", "2605215000", "2605260000"]
 
 [[adrs]]
+id = "2605312400"
+title = "申文 (moushibumi) — citizen democratic-participation concierge (election info + 請願 + パブリックコメント) Tier-B actor (R0)"
+status = "proposed"
+status_note = "Second of the citizen-facing trio after toritsugi (ADR-2605312030): the citizen's VOICE INTO the state — sibling to toritsugi, counterpart to danjo (which watches the state's output). Three member-initiated consent-bound channels: 選挙情報 INFO-ONLY (no campaigning/endorsement/GOTV), 請願/陳情 (請願法/国会法 §79), パブリックコメント (行政手続法 §39). Default 案内+起草補助+本人提出; gated R3 本人同意ベース代行. Coded participationTarget registry (organ/channel/根拠法令/様式/期限/紹介議員-flag); seed registry/targets.seed.json (5 entries: 国会請願/地方議会陳情/国パブコメ e-Gov/自治体パブコメ/選挙情報, all unverified-seed). 7 cells (target_registry/voter_info/opportunity_match on reuben → intake/compose on gad → submit/status_track on naphtali). 6 Lexicons app.etzhayyim.moushibumi.*. 15 gates incl G3 公職選挙法+political-neutrality (CRITICAL — INFO+procedure only, no campaigning/endorsement/ranking/vote-solicitation/GOTV; protects §1.12 / 1 SBT = 1 vote), G6 PII+political-opinion (APPI §2 special-care) encrypted, G9 non-partisan+non-commercial (no party/PAC/paid-lobbying), G5 UPL, G14/G15. 13 non-goals. JP-first R0. R0 scaffold (no submission) → R1 案内+起草補助 → R2 member self-submit → R3 gated 代行. Depends on ADR-2605312030 + 2605302130 + 2605262700 + 2605301600 + 2605181100 + 2605262130 + 2605192100 + 2605192200 + 2605192300 + 2605215000."
+path = "90-docs/adr/2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0.md"
+adr = ["2605312030", "2605302130", "2605262700", "2605301600", "2605181100", "2605262130", "2605192100", "2605192200", "2605192300", "2605215000"]
+
+[[adrs]]
+id = "2605312500"
+title = "暮らし守 (kurashimori) — citizen consumer-protection concierge (苦情 + 返金 + クーリングオフ) Tier-B actor (R0)"
+status = "proposed"
+status_note = "Third of the citizen-facing trio: the citizen↔MERCHANT self-help sibling of toritsugi (citizen↔government) and moushibumi (citizen→state); 国民生活センター/消費生活センター-equivalent. Three member-initiated consent-bound self-help channels: クーリングオフ (特定商取引法 §9 訪問販売 8日 / §40 連鎖販売 20日), 返金/苦情, エスカレーション (消費生活センター/消費者ホットライン 188/ADR/chigiri+licensed). Default 診断+起草補助+本人送付; gated R3 代行. Coded remedyTarget registry (remedy kind/根拠法令/statutory window 日数/様式/channel/escalation forum); seed registry/targets.seed.json (5 entries: 訪問販売・連鎖販売 クーリングオフ/通信販売 返品特約/消費生活センター 188/適格消費者団体 ADR, all unverified-seed). 7 cells (remedy_registry/intake/cooloff_check on reuben → compose/escalation on gad → send/status_track on naphtali). 7 Lexicons app.etzhayyim.kurashimori.*. 15 gates incl G5 UPL/司法書士法/弁護士法 (CRITICAL — no advice/no representation/no rights-determination → chigiri+licensed; cooling-off output is a date-computation, isLegalOpinion const false, NOT a legal opinion), G9 no claims-buying/no contingency/no 取立, G10 lawful+non-harassment (no 威迫), G8 non-fabrication (a wrong 日数 is harmful), G14 verified-remedy-only, G15 self-action default. 13 non-goals. Cross-actor: chigiri (escalation+representation) / wakai (mutual-aid relief) / warifu (card chargeback). JP-first R0. R0 scaffold → R1 診断+起草補助 → R2 self-send+escalation → R3 gated 代行. Depends on ADR-2605312030 + 2605312400 + 2605302130 + 2605262700 + 2605263500 + 2605302000 + 2605181100 + 2605262130 + 2605192100 + 2605192200 + 2605192300 + 2605215000."
+path = "90-docs/adr/2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0.md"
+adr = ["2605312030", "2605312400", "2605302130", "2605262700", "2605263500", "2605302000", "2605181100", "2605262130", "2605192100", "2605192200", "2605192300", "2605215000"]
+
+[[adrs]]
 id = "2605312130"
 title = "Session close — 取次 (toritsugi) citizen-facing government-procedure concierge R0 + 9-iteration maturity loop (2026-05-31)"
 status = "active"

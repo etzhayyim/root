@@ -11523,6 +11523,23 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605312500: 暮らし守 (kurashimori) — citizen consumer-protection concierge (苦情 + 返金 + クーリングオフ) Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "kurashimori-consumer-protection-concierge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kurashimori-consumer-protection-concierge"
+      ],
+      "related": [
+        "doc:2605312400",
+        "doc:2605302000",
+        "doc:2605263400"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
       "type": "TechArticle",
       "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",

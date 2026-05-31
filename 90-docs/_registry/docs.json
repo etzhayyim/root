@@ -17803,6 +17803,40 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0.md",
+      "id": "adr-2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0",
+      "title": "ADR-2605312500: 暮らし守 (kurashimori) — citizen consumer-protection concierge (苦情 + 返金 + クーリングオフ) Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kurashimori-consumer-protection-concierge",
+      "authoritative": true,
+      "authoritative_for": [
+        "kurashimori-consumer-protection-concierge"
+      ],
+      "related": [
+        "2605312400",
+        "2605302000",
+        "2605263400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605312030",
+        "2605302130",
+        "2605262700",
+        "2605263500",
+        "2605181100",
+        "2605262130",
+        "2605192100",
+        "2605192200",
+        "2605192300",
+        "2605215000"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim.md",
       "id": "adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
       "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",
