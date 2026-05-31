@@ -87,11 +87,16 @@ impl ThermalField {
     /// `power` (W) deposited as a Gaussian of radius `sigma` (m) centred at the
     /// world position `(sx, sy)` (m).
     pub fn step(&mut self, sx: f32, sy: f32, power: f32, sigma: f32, dt: f32) {
+        self.step_multi(&[(sx, sy, power, sigma)], dt);
+    }
+
+    /// Advance by `dt` with *several* simultaneous heat sources, each a tuple
+    /// `(sx, sy, power, sigma)` whose Gaussian contributions superpose. Models
+    /// multi-pass / multi-torch welding (and the bridging seam where two members
+    /// are fastened from both ends at once). An empty slice = pure conduction.
+    pub fn step_multi(&mut self, sources: &[(f32, f32, f32, f32)], dt: f32) {
         let inv_h2 = 1.0 / (self.h * self.h);
         let prev = self.t.clone();
-        let two_sig2 = 2.0 * sigma * sigma;
-        // Gaussian normalisation so the integral ≈ power (per unit thickness).
-        let norm = power / (std::f32::consts::PI * two_sig2 * self.rho_c);
         for j in 0..self.ny {
             for i in 0..self.nx {
                 let c = prev[self.idx(i, j)];
@@ -116,10 +121,16 @@ impl ThermalField {
                     bc_val(self.bc[3], c)
                 };
                 let lap = (l + r + d + u - 4.0 * c) * inv_h2;
-                // moving source term
+                // superposed Gaussian source terms
                 let (cx, cy) = self.cell_center(i, j);
-                let dist2 = (cx - sx) * (cx - sx) + (cy - sy) * (cy - sy);
-                let q = norm * (-dist2 / two_sig2).exp();
+                let mut q = 0.0;
+                for &(sx, sy, power, sigma) in sources {
+                    let two_sig2 = 2.0 * sigma * sigma;
+                    // Gaussian normalisation so the integral ≈ power (per unit thickness).
+                    let norm = power / (std::f32::consts::PI * two_sig2 * self.rho_c);
+                    let dist2 = (cx - sx) * (cx - sx) + (cy - sy) * (cy - sy);
+                    q += norm * (-dist2 / two_sig2).exp();
+                }
                 let mut next = c + (self.alpha * lap + q) * dt;
                 if next < self.ambient {
                     next = self.ambient;
@@ -259,6 +270,42 @@ mod tests {
         // bounded (no numerical blow-up under CFL)
         assert!(f.max_temp() < 50_000.0, "max_temp={}", f.max_temp());
         assert!(f.t.iter().all(|v| v.is_finite()));
+    }
+
+    #[test]
+    fn two_simultaneous_sources_each_fuse_their_own_zone() {
+        // Two stationary torches well apart along the seam, fired at once via
+        // step_multi. Both spots must reach fusion. The discriminator: with a
+        // *single* source the second spot stays essentially ambient — so the
+        // second fusion zone can only come from the superposed second source.
+        let mk = || ThermalField::new(60, 12, 0.002, 4e-6, 20.0, 1450.0).with_rho_c(2.0e3);
+        let dt = mk().cfl_dt();
+        let f0 = mk();
+        let y = f0.cell_center(0, 6).1;
+        let sx1 = f0.cell_center(15, 6).0;
+        let sx2 = f0.cell_center(45, 6).0;
+        let k1 = f0.idx(15, 6);
+        let k2 = f0.idx(45, 6);
+        let steps = 150;
+
+        let mut two = mk();
+        for _ in 0..steps {
+            two.step_multi(&[(sx1, y, 150.0, 0.004), (sx2, y, 150.0, 0.004)], dt);
+        }
+        assert!(two.peak[k1] >= 1450.0, "zone 1 not fused: {}", two.peak[k1]);
+        assert!(two.peak[k2] >= 1450.0, "zone 2 not fused: {}", two.peak[k2]);
+
+        let mut one = mk();
+        for _ in 0..steps {
+            one.step(sx1, y, 150.0, 0.004, dt);
+        }
+        assert!(one.peak[k1] >= 1450.0, "single-source zone 1 not fused");
+        assert!(
+            one.peak[k2] < 100.0,
+            "zone 2 heated with no source there: {}",
+            one.peak[k2]
+        );
+        assert!(two.t.iter().all(|v| v.is_finite()));
     }
 
     #[test]
