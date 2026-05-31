@@ -88,6 +88,23 @@ kotoba --token <jwt> sparql 'SELECT * WHERE { ?m <kg/claim/match/severity> "crit
   robot's software stack (RPi OS / ROS2 / Python deps) is the OSV-matchable
   surface; hardware needs an ICS-CERT-style feed.
 
+### Software-stack SBOM (the OSV-matchable surface)
+
+`60-apps/ai-gftd-project-open-robo/firmware/software-sbom.edn` is the Otete
+firmware's software SBOM (`:bom/of giemon-otete-sw`) — PyPI deps
+(`pkg:pypi/*`, from pyproject.toml) + ROS2 Humble debs (`pkg:deb/ros-humble-*`).
+Run it through the same pipeline and match against **real** OSV:
+```
+python3 70-tools/e7m-sim/scenes/giemon_kabitori/sbom_gen.py software-sbom.edn .   # → otete-sw.cdx.json + ingest
+# ingest otete-sw.ingest.json, then for each PyPI dep:
+python3 osv_fetch.py --ecosystem PyPI --name setuptools --out o.json && python3 osv_to_kotoba.py o.json o.ingest.json   # ingest
+python3 purl_vuln_match.py <jwt>
+```
+Verified live (2026-05-31): real osv.dev advisories (setuptools 7 · numpy 16 ·
+scipy 4 · pytest 1 · pyserial 0) → **28 pkg:pypi VulnMatch** across the robot's
+actual declared deps. This is the real-data counterpart to the hardware fleet's
+synthetic CVEs.
+
 `cve.seed.json` holds **synthetic demo CVEs** (`EXAMPLE-2026-*`, not real
 advisories) whose `affectsPurl` matches fleet purls. Verified (2026-05-31):
 17 components-with-purl × 4 CVEs → 3 matches (critical brake-ecu / high rp2040 /
