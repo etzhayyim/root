@@ -17701,6 +17701,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2605312200-shibuya-digital-twin-kotoba-asset-linkage-and-mapillary-3dgs.md",
+      "id": "adr-2605312200-shibuya-digital-twin-kotoba-asset-linkage-and-mapillary-3dgs",
+      "title": "ADR-2605312200: Shibuya digital-twin iter 2 — object→kotoba EAVT asset linkage + Mapillary→3DGS pipeline wiring",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "shibuya-digital-twin-kotoba-and-3dgs",
+      "authoritative": true,
+      "authoritative_for": [
+        "Shibuya point-asset OSM ingestion + kotoba EAVT asset-registry transaction format",
+        "asset attribute schema (:asset/*) + synthesized-vs-OSM provenance flagging",
+        "clickable asset → kotoba object data binding in kami-app-shibuya",
+        "Mapillary acquisition front (mapillary_fetch.py) → trainGsplatFromMapillary wiring"
+      ],
+      "related": [
+        "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605092800-gsplat-preview-qc"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605312300-giemon-kabitori-mold-removal-probe-sim.md",
       "id": "adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
       "title": "ADR-2605312300: giemon kabitori (黴取り) mold-removal probe — sim + wall-obstacle contact extension + mold-erosion field",
@@ -17722,6 +17750,35 @@
         "adr-2605311500-kami-genesis-physics-validation-and-isaac-clean-room-surface",
         "adr-2605261800-nvidia-omniverse-stack-api-compat",
         "adr-2605261600-robotics-simulation-substrate-r0"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte.md",
+      "id": "adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte",
+      "title": "ADR-2605312330: giemon part graph — EDN ledger → CycloneDX SBOM → kotoba EAVT → cross-robot fleet + purl-CVE vuln-match + Svelte surfaces",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "giemon-part-graph-sbom-kotoba",
+      "authoritative": true,
+      "authoritative_for": [
+        "giemon part-ledger EDN schema (parts.edn) + sbom_gen.py generator",
+        "giemon SBOM → kotoba EAVT ingest contract (kg.ingest_batch, kg/claim/part/*)",
+        "cross-robot fleet part graph (kabitori + giemon-otete) in kotoba",
+        "legacy RisingWave SBOM → kotoba bridge (cyclonedx_to_kotoba.py) + column mapping",
+        "purl-keyed SBOM↔CVE vuln-match materialization (VulnMatch entities)",
+        "giemon Svelte surfaces (/giemon, /giemon.htm, /fleet) in ai-gftd-project-isekai"
+      ],
+      "related": [
+        "adr-2605051430-drive-cad-jbeam-sbom-pipeline"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
+        "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "last_verified": "2026-05-31",
       "amends": [],
@@ -17785,6 +17842,134 @@
         "adr-2605262130-kotoba-storage-substrate-unification"
       ],
       "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0.md",
+      "id": "adr-2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0",
+      "title": "ADR-2605312400: 申文 (moushibumi) — citizen democratic-participation concierge (election info + 請願 + パブリックコメント) Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "moushibumi-democratic-participation-concierge",
+      "authoritative": true,
+      "authoritative_for": [
+        "moushibumi-democratic-participation-concierge"
+      ],
+      "related": [
+        "2605301600",
+        "2605302130",
+        "2605192315"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605312030",
+        "2605262700",
+        "2605302130",
+        "2605181100",
+        "2605262130",
+        "2605192100",
+        "2605192200",
+        "2605192300",
+        "2605215000"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0.md",
+      "id": "adr-2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0",
+      "title": "ADR-2605312500: 暮らし守 (kurashimori) — citizen consumer-protection concierge (苦情 + 返金 + クーリングオフ) Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kurashimori-consumer-protection-concierge",
+      "authoritative": true,
+      "authoritative_for": [
+        "kurashimori-consumer-protection-concierge"
+      ],
+      "related": [
+        "2605312400",
+        "2605302000",
+        "2605263400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605312030",
+        "2605302130",
+        "2605262700",
+        "2605263500",
+        "2605181100",
+        "2605262130",
+        "2605192100",
+        "2605192200",
+        "2605192300",
+        "2605215000"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim.md",
+      "id": "adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+      "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "giemon-factory-kami-engine-kotoba-4d-bim",
+      "authoritative": true,
+      "authoritative_for": [
+        "giemon robot manufacturing plant R0 layout (factory.scene.json — walls/columns/beams/zones/machines/conveyors/cells/AGVs)",
+        "建材 + 設備 ledger (building.edn — Datomic-style EDN, 27 parts, groups A-F) → CycloneDX SBOM + kotoba kg/claim/part/* datoms",
+        "建築手順 / 4D 施工シーケンス (construction.edn — 13 steps, depends-on/consumes/reveals) → kotoba kg/claim/step/* datoms + construction.order.json",
+        "kami-app-giemon-factory two-entry viewer (completed plant w/ live arm6 cells + AGVs; 4D construction playback)",
+        "honest scope boundary: rigid-body + AABB contact + scheduling only; no FEM/CFD/structural/MEP solver"
+      ],
+      "related": [
+        "adr-2605261600-robotics-simulation-substrate-r0",
+        "adr-2605261200-igata-hpdc-megacasting-tier-b"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+        "adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim",
+        "adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-05-31",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606010400-session-close-citizen-facing-concierge-trio.md",
+      "id": "adr-2606010400-session-close-citizen-facing-concierge-trio",
+      "title": "ADR-2606010400: Session close — citizen-facing concierge trio (toritsugi + moushibumi + kurashimori) R0",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-citizen-facing-concierge-trio",
+      "authoritative": true,
+      "authoritative_for": [
+        "the citizen-facing concierge trio deliverable list + verification state",
+        "the 2026-05-31 citizen-facing gap-audit verdict"
+      ],
+      "related": [
+        "adr-2605312130-session-close-toritsugi-government-procedure-concierge",
+        "adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605263200-kazaori-disaster-response-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605312030",
+        "2605312400",
+        "2605312500"
+      ],
+      "last_verified": "2026-06-01",
       "amends": [],
       "amended_by": []
     },

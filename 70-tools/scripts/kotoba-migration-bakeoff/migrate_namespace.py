@@ -71,6 +71,20 @@ def verify_equiv(cell):
     return "mismatch", {"extra": sorted(extra), "missing": sorted(set(gold) - set(out))}
 
 
+MAX_EQUIV_RETRIES = 2
+
+
+def _correction_prompt(cell, detail, example_text):
+    src = ROOT / cell["src"]
+    return (B.task_prompt(cell, B.BUILD, example_text)
+            + f"\n\nIMPORTANT — your PREVIOUS port built but is RUNTIME-WRONG. Invoking it produced an "
+              f"output state dict that differs from the original `solve()`:\n  missing keys: {detail.get('missing')}\n"
+              f"  extra keys: {detail.get('extra')}\nThe output state MUST match the original EXACTLY. Make sure "
+              f"every node that writes an output channel is present and writes the same keys/shapes as the "
+              f"original cell (`{cell['src']}`). Re-output agent.py and rebuild with: "
+              f"bash {B.BUILD} agent.py agent.wasm.")
+
+
 def migrate_one(cell, example_text):
     # gemini migrate + build (reuse bake-off; writes runs/<id>/gemini/agent.py|.wasm)
     src = ROOT / cell["src"]
@@ -82,9 +96,20 @@ def migrate_one(cell, example_text):
     verdict, detail = ("skip", None)
     if row.get("build_pass"):
         verdict, detail = verify_equiv(cell)
-    out = {"cell": cell["id"], "src": cell["src"], "build": bool(row.get("build_pass")),
+
+    # EQUIV-FEEDBACK: if the port built but is runtime-wrong, feed the diff back and retry.
+    retries = 0
+    workdir = B.RUNS / cell["id"] / "gemini"
+    while verdict == "mismatch" and retries < MAX_EQUIV_RETRIES:
+        retries += 1
+        print(f"    {YEL}equiv-feedback retry {retries}{RST}: {detail}")
+        B.run_gemini(str(workdir), _correction_prompt(cell, detail, example_text))
+        if (workdir / "agent.wasm").exists():
+            verdict, detail = verify_equiv(cell)
+
+    out = {"cell": cell["id"], "src": cell["src"], "build": (B.RUNS / cell["id"] / "gemini" / "agent.wasm").exists(),
            "structural": bool(row.get("structural_ok")), "judge": row.get("judge_score"),
-           "wall_s": row.get("wall_s"), "equiv": verdict, "equiv_detail": detail}
+           "wall_s": row.get("wall_s"), "equiv_retries": retries, "equiv": verdict, "equiv_detail": detail}
     color = GREEN if verdict in ("strict", "modulo-input") else (YEL if verdict in ("no-gold",) else RED)
     print(f"  {color}{verdict:13s}{RST} build={out['build']} judge={out['judge']} {cell['id']}"
           + (f"  {DIM}{detail}{RST}" if detail else ""))
@@ -101,10 +126,14 @@ def main():
 
     cells = discover(args.namespaces, only)
     LEDGER.parent.mkdir(parents=True, exist_ok=True)
+    # ledger MERGES across runs (keyed by cell id) so a later wave never clobbers an earlier one.
     ledger = {}
-    if args.resume and LEDGER.exists():
+    if LEDGER.exists():
         ledger = {r["cell"]: r for r in json.loads(LEDGER.read_text())}
     example_text = B.GOLD_EXAMPLE.read_text()
+
+    def flush():
+        LEDGER.write_text(json.dumps(list(ledger.values()), indent=2, default=str))
 
     print(f"Wave: {len(cells)} cells across {args.namespaces} (model=gemini-3-flash-preview)\n")
     rows = []
@@ -112,13 +141,15 @@ def main():
         if args.resume and ledger.get(cell["id"], {}).get("equiv") in ("strict", "modulo-input"):
             print(f"  {DIM}skip (done): {cell['id']}{RST}"); rows.append(ledger[cell["id"]]); continue
         try:
-            rows.append(migrate_one(cell, example_text))
+            r = migrate_one(cell, example_text)
         except Exception as e:
             print(f"  {RED}ERROR{RST} {cell['id']}: {e}")
-            rows.append({"cell": cell["id"], "src": cell["src"], "build": False, "equiv": "error", "equiv_detail": str(e)[:150]})
-        LEDGER.write_text(json.dumps(rows, indent=2, default=str))   # checkpoint each cell
+            r = {"cell": cell["id"], "src": cell["src"], "build": False, "equiv": "error", "equiv_detail": str(e)[:150]}
+        rows.append(r)
+        ledger[cell["id"]] = r
+        flush()   # checkpoint each cell (merged ledger)
 
-    # rollup
+    # rollup over THIS wave's cells
     from collections import Counter
     c = Counter(r["equiv"] for r in rows)
     nbuild = sum(bool(r.get("build")) for r in rows)

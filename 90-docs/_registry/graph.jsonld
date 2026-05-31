@@ -11471,6 +11471,22 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605312200-shibuya-digital-twin-kotoba-asset-linkage-and-mapillary-3dgs",
+      "type": "TechArticle",
+      "title": "ADR-2605312200: Shibuya digital-twin iter 2 — object→kotoba EAVT asset linkage + Mapillary→3DGS pipeline wiring",
+      "status": "accepted",
+      "topic": "shibuya-digital-twin-kotoba-and-3dgs",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Shibuya point-asset OSM ingestion + kotoba EAVT asset-registry transaction format",
+        "asset attribute schema (:asset/*) + synthesized-vs-OSM provenance flagging",
+        "clickable asset → kotoba object data binding in kami-app-shibuya",
+        "Mapillary acquisition front (mapillary_fetch.py) → trainGsplatFromMapillary wiring"
+      ],
+      "related": "doc:adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-2605312300-giemon-kabitori-mold-removal-probe-sim",
       "type": "TechArticle",
       "title": "ADR-2605312300: giemon kabitori (黴取り) mold-removal probe — sim + wall-obstacle contact extension + mold-erosion field",
@@ -11483,6 +11499,24 @@
         "kabitori mold-coverage erosion model (MoldField) at the giemon application layer",
         "honest scope boundary: rigid-body + ground/wall contact only; no biofilm/fluid solver yet"
       ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte",
+      "type": "TechArticle",
+      "title": "ADR-2605312330: giemon part graph — EDN ledger → CycloneDX SBOM → kotoba EAVT → cross-robot fleet + purl-CVE vuln-match + Svelte surfaces",
+      "status": "accepted",
+      "topic": "giemon-part-graph-sbom-kotoba",
+      "authoritative": true,
+      "authoritativeFor": [
+        "giemon part-ledger EDN schema (parts.edn) + sbom_gen.py generator",
+        "giemon SBOM → kotoba EAVT ingest contract (kg.ingest_batch, kg/claim/part/*)",
+        "cross-robot fleet part graph (kabitori + giemon-otete) in kotoba",
+        "legacy RisingWave SBOM → kotoba bridge (cyclonedx_to_kotoba.py) + column mapping",
+        "purl-keyed SBOM↔CVE vuln-match materialization (VulnMatch entities)",
+        "giemon Svelte surfaces (/giemon, /giemon.htm, /fleet) in ai-gftd-project-isekai"
+      ],
+      "related": "doc:adr-2605051430-drive-cad-jbeam-sbom-pipeline",
       "lastVerified": "2026-05-31"
     },
     {
@@ -11525,6 +11559,79 @@
         "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605312400: 申文 (moushibumi) — citizen democratic-participation concierge (election info + 請願 + パブリックコメント) Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "moushibumi-democratic-participation-concierge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "moushibumi-democratic-participation-concierge"
+      ],
+      "related": [
+        "doc:2605301600",
+        "doc:2605302130",
+        "doc:2605192315"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605312500: 暮らし守 (kurashimori) — citizen consumer-protection concierge (苦情 + 返金 + クーリングオフ) Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "kurashimori-consumer-protection-concierge",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kurashimori-consumer-protection-concierge"
+      ],
+      "related": [
+        "doc:2605312400",
+        "doc:2605302000",
+        "doc:2605263400"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+      "type": "TechArticle",
+      "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",
+      "status": "accepted",
+      "topic": "giemon-factory-kami-engine-kotoba-4d-bim",
+      "authoritative": true,
+      "authoritativeFor": [
+        "giemon robot manufacturing plant R0 layout (factory.scene.json — walls/columns/beams/zones/machines/conveyors/cells/AGVs)",
+        "建材 + 設備 ledger (building.edn — Datomic-style EDN, 27 parts, groups A-F) → CycloneDX SBOM + kotoba kg/claim/part/* datoms",
+        "建築手順 / 4D 施工シーケンス (construction.edn — 13 steps, depends-on/consumes/reveals) → kotoba kg/claim/step/* datoms + construction.order.json",
+        "kami-app-giemon-factory two-entry viewer (completed plant w/ live arm6 cells + AGVs; 4D construction playback)",
+        "honest scope boundary: rigid-body + AABB contact + scheduling only; no FEM/CFD/structural/MEP solver"
+      ],
+      "related": [
+        "doc:adr-2605261600-robotics-simulation-substrate-r0",
+        "doc:adr-2605261200-igata-hpdc-megacasting-tier-b"
+      ],
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2606010400-session-close-citizen-facing-concierge-trio",
+      "type": "TechArticle",
+      "title": "ADR-2606010400: Session close — citizen-facing concierge trio (toritsugi + moushibumi + kurashimori) R0",
+      "status": "active",
+      "topic": "session-close-citizen-facing-concierge-trio",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the citizen-facing concierge trio deliverable list + verification state",
+        "the 2026-05-31 citizen-facing gap-audit verdict"
+      ],
+      "related": [
+        "doc:adr-2605312130-session-close-toritsugi-government-procedure-concierge",
+        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605263200-kazaori-disaster-response-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-01"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",

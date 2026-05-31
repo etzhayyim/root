@@ -11,6 +11,67 @@ export function run_shibuya_v1(canvas_id) {
     return ret;
 }
 
+/**
+ * #3 — Splat backdrop + live physics: the real Mapillary-SfM cloud as the
+ * visual world, with kami-genesis floating-base agents doing full physics on a
+ * ground plane inside it. (Pairs the GsplatAdapter overlay with the
+ * ContactWorld sim — a coarse "physics on a captured city" integration.)
+ * @param {string} canvas_id
+ * @returns {Promise<void>}
+ */
+export function run_splat_physics_v1(canvas_id) {
+    const ptr0 = passStringToWasm0(canvas_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.run_splat_physics_v1(ptr0, len0);
+    return ret;
+}
+
+/**
+ * Standalone 3-D Gaussian-Splat viewer: sky + GsplatAdapter, orbit camera
+ * framed on a cloud centred at the origin (radius ≈ 60, normalised by
+ * `opensfm_to_splat.py`). The JS shell loads a `.splat` via `shibuyaLoadSplat`.
+ * Used to view REAL Mapillary-SfM point clouds (Tsuru / Boston / …).
+ * @param {string} canvas_id
+ * @returns {Promise<void>}
+ */
+export function run_splat_viewer_v1(canvas_id) {
+    const ptr0 = passStringToWasm0(canvas_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.run_splat_viewer_v1(ptr0, len0);
+    return ret;
+}
+
+/**
+ * JS hook: remove the 3DGS overlay (back to the box city).
+ */
+export function shibuyaClearSplat() {
+    wasm.shibuyaClearSplat();
+}
+
+/**
+ * JS hook: load a `.splat` (antimatter15 32-byte) cloud into the 3DGS overlay.
+ * @param {Uint8Array} bytes
+ * @returns {boolean}
+ */
+export function shibuyaLoadSplat(bytes) {
+    const ptr0 = passArray8ToWasm0(bytes, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.shibuyaLoadSplat(ptr0, len0);
+    return ret !== 0;
+}
+
+/**
+ * JS hook: load a `.ply` (gsplat training output) cloud into the 3DGS overlay.
+ * @param {Uint8Array} bytes
+ * @returns {boolean}
+ */
+export function shibuyaLoadSplatPly(bytes) {
+    const ptr0 = passArray8ToWasm0(bytes, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.shibuyaLoadSplatPly(ptr0, len0);
+    return ret !== 0;
+}
+
 function __wbg_get_imports() {
     const import0 = {
         __proto__: null,
@@ -1012,32 +1073,32 @@ function __wbg_get_imports() {
             arg0.writeBuffer(arg1, arg2, arg3, arg4, arg5);
         }, arguments); },
         __wbindgen_cast_0000000000000001: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { dtor_idx: 110, function: Function { arguments: [NamedExternref("Event")], shim_idx: 111, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { dtor_idx: 143, function: Function { arguments: [NamedExternref("Event")], shim_idx: 144, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm.wasm_bindgen__closure__destroy__h4cc8d9ef82568b4c, wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4);
             return ret;
         },
         __wbindgen_cast_0000000000000002: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { dtor_idx: 110, function: Function { arguments: [NamedExternref("KeyboardEvent")], shim_idx: 111, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { dtor_idx: 143, function: Function { arguments: [NamedExternref("KeyboardEvent")], shim_idx: 144, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm.wasm_bindgen__closure__destroy__h4cc8d9ef82568b4c, wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_1);
             return ret;
         },
         __wbindgen_cast_0000000000000003: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { dtor_idx: 110, function: Function { arguments: [NamedExternref("MouseEvent")], shim_idx: 111, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { dtor_idx: 143, function: Function { arguments: [NamedExternref("MouseEvent")], shim_idx: 144, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm.wasm_bindgen__closure__destroy__h4cc8d9ef82568b4c, wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_2);
             return ret;
         },
         __wbindgen_cast_0000000000000004: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { dtor_idx: 110, function: Function { arguments: [NamedExternref("WheelEvent")], shim_idx: 111, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { dtor_idx: 143, function: Function { arguments: [NamedExternref("WheelEvent")], shim_idx: 144, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm.wasm_bindgen__closure__destroy__h4cc8d9ef82568b4c, wasm_bindgen__convert__closures_____invoke__h2d97656a5ae4bcf4_3);
             return ret;
         },
         __wbindgen_cast_0000000000000005: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { dtor_idx: 187, function: Function { arguments: [Externref], shim_idx: 188, ret: Result(Unit), inner_ret: Some(Result(Unit)) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { dtor_idx: 222, function: Function { arguments: [Externref], shim_idx: 223, ret: Result(Unit), inner_ret: Some(Result(Unit)) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm.wasm_bindgen__closure__destroy__h3435a2f46af78ad4, wasm_bindgen__convert__closures_____invoke__hf36f016bc8d48565);
             return ret;
         },
         __wbindgen_cast_0000000000000006: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { dtor_idx: 59, function: Function { arguments: [], shim_idx: 60, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { dtor_idx: 64, function: Function { arguments: [], shim_idx: 65, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm.wasm_bindgen__closure__destroy__h5cc718e39248ba03, wasm_bindgen__convert__closures_____invoke__hea8de30ba9aec218);
             return ret;
         },
@@ -1322,6 +1383,13 @@ function makeMutClosure(arg0, arg1, dtor, f) {
     };
     CLOSURE_DTORS.register(real, state, state);
     return real;
+}
+
+function passArray8ToWasm0(arg, malloc) {
+    const ptr = malloc(arg.length * 1, 1) >>> 0;
+    getUint8ArrayMemory0().set(arg, ptr / 1);
+    WASM_VECTOR_LEN = arg.length;
+    return ptr;
 }
 
 function passStringToWasm0(arg, malloc, realloc) {

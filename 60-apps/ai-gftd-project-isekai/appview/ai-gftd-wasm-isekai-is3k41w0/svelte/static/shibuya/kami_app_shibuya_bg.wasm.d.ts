@@ -2,6 +2,11 @@
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
 export const run_shibuya_v1: (a: number, b: number) => any;
+export const run_splat_physics_v1: (a: number, b: number) => any;
+export const run_splat_viewer_v1: (a: number, b: number) => any;
+export const shibuyaLoadSplat: (a: number, b: number) => number;
+export const shibuyaLoadSplatPly: (a: number, b: number) => number;
+export const shibuyaClearSplat: () => void;
 export const wasm_bindgen__closure__destroy__h4cc8d9ef82568b4c: (a: number, b: number) => void;
 export const wasm_bindgen__closure__destroy__h3435a2f46af78ad4: (a: number, b: number) => void;
 export const wasm_bindgen__closure__destroy__h5cc718e39248ba03: (a: number, b: number) => void;

@@ -2,11 +2,404 @@
   "version": 0.6,
   "generator": "Overpass API 0.7.62.11 87bfad18",
   "osm3s": {
-    "timestamp_osm_base": "2026-05-31T09:52:15Z",
+    "timestamp_osm_base": "2026-05-31T11:34:01Z",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
   },
   "elements": [
 
+{
+  "type": "node",
+  "id": 252674261,
+  "lat": 35.6604356,
+  "lon": 139.7008224,
+  "tags": {
+    "crossing": "marked",
+    "highway": "traffic_signals",
+    "name": "井ノ頭通り入口",
+    "name:en": "Inokashiradori St.",
+    "name:ja": "井ノ頭通り入口"
+  }
+},
+{
+  "type": "node",
+  "id": 1745599772,
+  "lat": 35.6596704,
+  "lon": 139.6990464,
+  "tags": {
+    "amenity": "telephone",
+    "source": "image;Bing,2007-03"
+  }
+},
+{
+  "type": "node",
+  "id": 1745599773,
+  "lat": 35.6596785,
+  "lon": 139.6990265,
+  "tags": {
+    "amenity": "telephone",
+    "source": "image;Bing,2007-03"
+  }
+},
+{
+  "type": "node",
+  "id": 2850364789,
+  "lat": 35.6596319,
+  "lon": 139.6993087,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals": "signal",
+    "traffic_signals:direction": "forward"
+  }
+},
+{
+  "type": "node",
+  "id": 3777734363,
+  "lat": 35.6599735,
+  "lon": 139.7005830,
+  "tags": {
+    "emergency": "fire_hydrant",
+    "fire_hydrant:type": "wall",
+    "operator": "西武百貨店"
+  }
+},
+{
+  "type": "node",
+  "id": 3777735266,
+  "lat": 35.6592358,
+  "lon": 139.7009133,
+  "tags": {
+    "emergency": "fire_hydrant",
+    "fire_hydrant:position": "sidewalk",
+    "fire_hydrant:type": "wall"
+  }
+},
+{
+  "type": "node",
+  "id": 3779077587,
+  "lat": 35.6596641,
+  "lon": 139.6997264,
+  "tags": {
+    "emergency": "fire_hydrant",
+    "fire_hydrant:position": "sidewalk",
+    "fire_hydrant:type": "underground"
+  }
+},
+{
+  "type": "node",
+  "id": 3779077928,
+  "lat": 35.6599910,
+  "lon": 139.6985516,
+  "tags": {
+    "emergency": "fire_hydrant",
+    "fire_hydrant:position": "sidewalk",
+    "fire_hydrant:type": "underground"
+  }
+},
+{
+  "type": "node",
+  "id": 3888037508,
+  "lat": 35.6595952,
+  "lon": 139.7008255,
+  "tags": {
+    "emergency": "fire_hydrant",
+    "fire_hydrant:type": "underground",
+    "source": "survey"
+  }
+},
+{
+  "type": "node",
+  "id": 5091218456,
+  "lat": 35.6587398,
+  "lon": 139.7002141,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals": "signal"
+  }
+},
+{
+  "type": "node",
+  "id": 5091218458,
+  "lat": 35.6587469,
+  "lon": 139.7002884,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals": "signal"
+  }
+},
+{
+  "type": "node",
+  "id": 5091218473,
+  "lat": 35.6587609,
+  "lon": 139.7004093,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals": "signal"
+  }
+},
+{
+  "type": "node",
+  "id": 5668208923,
+  "lat": 35.6594593,
+  "lon": 139.7000854,
+  "tags": {
+    "amenity": "waste_basket"
+  }
+},
+{
+  "type": "node",
+  "id": 6219685050,
+  "lat": 35.6593167,
+  "lon": 139.7003090,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals": "signal",
+    "traffic_signals:direction": "forward"
+  }
+},
+{
+  "type": "node",
+  "id": 6219685051,
+  "lat": 35.6595354,
+  "lon": 139.7001546,
+  "tags": {
+    "highway": "traffic_signals",
+    "note": "8時から22時右折禁止(路線バスを除く)",
+    "traffic_signals": "signal",
+    "traffic_signals:direction": "forward"
+  }
+},
+{
+  "type": "node",
+  "id": 6219685052,
+  "lat": 35.6597310,
+  "lon": 139.7006545,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals": "signal",
+    "traffic_signals:direction": "forward"
+  }
+},
+{
+  "type": "node",
+  "id": 6219685053,
+  "lat": 35.6594640,
+  "lon": 139.7008086,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals": "signal",
+    "traffic_signals:direction": "backward"
+  }
+},
+{
+  "type": "node",
+  "id": 7092233011,
+  "lat": 35.6585142,
+  "lon": 139.7017766,
+  "tags": {
+    "amenity": "vending_machine",
+    "vending": "public_transport_tickets",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 8007279073,
+  "lat": 35.6593555,
+  "lon": 139.7008306,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8007279074,
+  "lat": 35.6593405,
+  "lon": 139.7009628,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183934,
+  "lat": 35.6602852,
+  "lon": 139.7007175,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183935,
+  "lat": 35.6602209,
+  "lon": 139.7007014,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183936,
+  "lat": 35.6601413,
+  "lon": 139.7006880,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183937,
+  "lat": 35.6600683,
+  "lon": 139.7006638,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183938,
+  "lat": 35.6600128,
+  "lon": 139.7006477,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183939,
+  "lat": 35.6598831,
+  "lon": 139.7006182,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183940,
+  "lat": 35.6599681,
+  "lon": 139.7008154,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183941,
+  "lat": 35.6600585,
+  "lon": 139.7008422,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183942,
+  "lat": 35.6601860,
+  "lon": 139.7008757,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183943,
+  "lat": 35.6598667,
+  "lon": 139.7007926,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183944,
+  "lat": 35.6597959,
+  "lon": 139.7007738,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 8363183945,
+  "lat": 35.6597371,
+  "lon": 139.7007564,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 10577113262,
+  "lat": 35.6595383,
+  "lon": 139.6995861,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals": "signal",
+    "traffic_signals:direction": "backward"
+  }
+},
+{
+  "type": "node",
+  "id": 10577113263,
+  "lat": 35.6594198,
+  "lon": 139.6991764,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals": "signal",
+    "traffic_signals:direction": "backward"
+  }
+},
+{
+  "type": "node",
+  "id": 10605619818,
+  "lat": 35.6595005,
+  "lon": 139.7020157,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals:direction": "forward"
+  }
+},
+{
+  "type": "node",
+  "id": 10605619819,
+  "lat": 35.6593368,
+  "lon": 139.7024488,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals:direction": "forward"
+  }
+},
+{
+  "type": "node",
+  "id": 10605619820,
+  "lat": 35.6597398,
+  "lon": 139.7024207,
+  "tags": {
+    "highway": "traffic_signals",
+    "traffic_signals:direction": "forward"
+  }
+},
+{
+  "type": "node",
+  "id": 11296210762,
+  "lat": 35.6604258,
+  "lon": 139.7014173,
+  "tags": {
+    "natural": "tree"
+  }
+},
+{
+  "type": "node",
+  "id": 12609135580,
+  "lat": 35.6589222,
+  "lon": 139.7013996,
+  "tags": {
+    "amenity": "waste_basket",
+    "indoor": "yes",
+    "level": "0",
+    "waste": "trash;paper;recycling"
+  }
+},
 {
   "type": "way",
   "id": 23334685,
