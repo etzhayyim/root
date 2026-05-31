@@ -11483,6 +11483,24 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte",
+      "type": "TechArticle",
+      "title": "ADR-2605312330: giemon part graph — EDN ledger → CycloneDX SBOM → kotoba EAVT → cross-robot fleet + purl-CVE vuln-match + Svelte surfaces",
+      "status": "accepted",
+      "topic": "giemon-part-graph-sbom-kotoba",
+      "authoritative": true,
+      "authoritativeFor": [
+        "giemon part-ledger EDN schema (parts.edn) + sbom_gen.py generator",
+        "giemon SBOM → kotoba EAVT ingest contract (kg.ingest_batch, kg/claim/part/*)",
+        "cross-robot fleet part graph (kabitori + giemon-otete) in kotoba",
+        "legacy RisingWave SBOM → kotoba bridge (cyclonedx_to_kotoba.py) + column mapping",
+        "purl-keyed SBOM↔CVE vuln-match materialization (VulnMatch entities)",
+        "giemon Svelte surfaces (/giemon, /giemon.htm, /fleet) in ai-gftd-project-isekai"
+      ],
+      "related": "doc:adr-2605051430-drive-cad-jbeam-sbom-pipeline",
+      "lastVerified": "2026-05-31"
+    },
+    {
       "id": "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
       "type": "TechArticle",
       "title": "ADR-2605312345: kotoba Datom as First-Class Canonical State — IPFS reframed as block backend, MST as ingress/interop wire, Base L2 as trust anchor",
