@@ -148,7 +148,10 @@ etzhayyim/root/
 │                        #   See Status § "Tier-B actors" for the full roster (name · purpose · ADR).
 │                        #   Per-actor gates/prohibitions live in each actor's ADR + 20-actors/<name>/CLAUDE.md.
 ├── 30-graph/            # graph-schema, kagami, risingwave-udf, vectorization
-├── 40-engine/           # Rust workspaces: kami-engine (reusable engine; submodule-target),
+├── 40-engine/           # Rust workspaces: kami-engine (reusable engine — git submodule
+│                        #     of github.com/etzhayyim/kami-engine per ADR-2606011500 §4;
+│                        #     kami-engine-sdk nested inside; `git submodule update
+│                        #     --init --recursive 40-engine/kami-engine` to populate),
 │                        #   kami-apps (L3 etzhayyim robotics-actor apps —
 │                        #     kami-app-{shibuya,giemon,giemon-factory,tatekata},
 │                        #     extracted from kami-engine per ADR-2606011500 §3), llm,

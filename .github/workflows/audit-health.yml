@@ -66,12 +66,13 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Checkout kami-engine-sdk submodule
-        # sdk-exports-dist.py audits the sdk's exports vs its built tree;
-        # kami-engine-sdk is now a git-submodule (ADR-2606011500 stage 1),
-        # so init that path (only — not the local-only baien/datasets
-        # superdataset) for the audit to have real content to check.
-        run: git submodule update --init --depth=1 40-engine/kami-engine/kami-engine-sdk
+      - name: Checkout kami-engine submodule (recursive — incl. nested kami-engine-sdk)
+        # sdk-exports-dist.py audits the sdk's exports; kami-engine is now a
+        # git-submodule (ADR-2606011500 stage 4) and kami-engine-sdk is nested
+        # INSIDE it, so init kami-engine --recursive to populate both. Targeted
+        # (not a blanket `submodules: recursive` on checkout, which would choke
+        # on the local-only baien/datasets superdataset).
+        run: git submodule update --init --recursive --depth=1 40-engine/kami-engine
 
       - name: Set up Python
         uses: actions/setup-python@v5

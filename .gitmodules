@@ -38,7 +38,7 @@
 	path = 40-engine/kotoba
 	url = https://github.com/etzhayyim/kotoba.git
 	branch = main
-[submodule "40-engine/kami-engine/kami-engine-sdk"]
-	path = 40-engine/kami-engine/kami-engine-sdk
-	url = https://github.com/etzhayyim/kami-engine-sdk.git
+[submodule "40-engine/kami-engine"]
+	path = 40-engine/kami-engine
+	url = https://github.com/etzhayyim/kami-engine.git
 	branch = main
