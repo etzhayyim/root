@@ -18266,6 +18266,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606012000-kotoba-prolly-incremental-commit-diff-cbor.md",
+      "id": "adr-2606012000-kotoba-prolly-incremental-commit-diff-cbor",
+      "title": "ADR-2606012000: kotoba ProllyTree incremental commit (path-copy) + O(|diff|) diff + CBOR leaf values",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "storage-substrate",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba commit() is incremental: per-tx delta applied onto the previous commit's index roots (no full-history re-read)",
+        "ProllyTree::apply_batch path-copy semantics + convergence-with-build_tree invariant",
+        "ProllyTree::diff / diff_entries as the content-addressed diff primitive",
+        "persisted ProllyTree leaf values are DAG-CBOR (ciborium), not JSON"
+      ],
+      "related": [
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "adr-2605240001-kotoba-cleanroom-architecture"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

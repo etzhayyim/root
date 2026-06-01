@@ -11803,6 +11803,25 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606012000-kotoba-prolly-incremental-commit-diff-cbor",
+      "type": "TechArticle",
+      "title": "ADR-2606012000: kotoba ProllyTree incremental commit (path-copy) + O(|diff|) diff + CBOR leaf values",
+      "status": "accepted",
+      "topic": "storage-substrate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba commit() is incremental: per-tx delta applied onto the previous commit's index roots (no full-history re-read)",
+        "ProllyTree::apply_batch path-copy semantics + convergence-with-build_tree invariant",
+        "ProllyTree::diff / diff_entries as the content-addressed diff primitive",
+        "persisted ProllyTree leaf values are DAG-CBOR (ciborium), not JSON"
+      ],
+      "related": [
+        "doc:adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "doc:adr-2605240001-kotoba-cleanroom-architecture"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
