@@ -18280,6 +18280,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606011700-session-close-pr-queue-drain-and-664-engine-submodule-merge.md",
+      "id": "adr-2606011700-session-close-pr-queue-drain-and-664-engine-submodule-merge",
+      "title": "ADR-2606011700: Session close — full PR-queue drain (366 merged) +",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "ci-pr-hygiene",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-01 PR-queue-drain +"
+      ],
+      "related": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan",
+        "adr-2606011500-spirit-in-physics-kotoba-datafication"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606011800-tsumugi-spirit-intel-power-graph.md",
       "id": "adr-2606011800-tsumugi-spirit-intel-power-graph",
       "title": "ADR-2606011800: tsumugi 紡ぎ — Spirit-in-Physics intel over the Engi Knowledge Graph (取-concentration of real public power-entities) + no-LFS/DataLad policy",
