@@ -11850,6 +11850,22 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+      "type": "TechArticle",
+      "title": "ADR-2606013100: sarutahiko (猿田彦) truck assembly plant — full-robotics 4D-BIM design + 積込ロボット (giemon-factory pattern, R0 design)",
+      "status": "proposed",
+      "topic": "sarutahiko-truck-factory-full-robotics-and-loader",
+      "authoritative": true,
+      "authoritativeFor": [
+        "sarutahiko Class-8 truck assembly plant design (layout + 建材 + 全MEP + 外構 + 出荷ヤード + 4D 建築手順)",
+        "truck-line production-robot roster (arm6 cells + part-AGV + 積込ロボット loading robot) and its kami-genesis simulation",
+        "reuse of the giemon-factory-r0 4D-BIM toolchain (ADR-2606010030) for a heavy-truck plant",
+        "kami-app-sarutahiko-factory crate (3 WASM entries) + sarutahiko-factory-r0 scene SSoT"
+      ],
+      "related": "doc:adr-2605242000-roso-pattern-frontier-distill",
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
