@@ -17,7 +17,7 @@ Sim baseline (G5 quality gate).
 ## Files (R1.1 reservation)
 
 ```
-70-tools/e7m-sim/scenes/cartpole/
+40-engine/kami-engine/fixtures/cartpole/
 ├── README.md                  # this file (R1.0)
 ├── cartpole.urdf              # 2-DoF (slider + revolute), kami-articulated input (R1.0)
 ├── scene.yaml                 # Isaac Lab-compat scene config (R1.0)

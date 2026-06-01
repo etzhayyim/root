@@ -64,7 +64,7 @@ Adopt a **three-layer model** and separate along it:
 | Layer | Contents | Management target |
 |---|---|---|
 | **L1 — UI SDK** | `kami-engine-sdk` (TS/Svelte: genko, trackpad, gsplat, document, manufacturing, webvr) | git **submodule** ✅ (PR #655 — `etzhayyim/kami-engine-sdk@ccb315c`, SoT inverted) |
-| **L2 — Reusable Rust robotics engine** | kami-core, kami-render, kami-genesis (physics + **control**), kami-articulated, kami-sensor-sim (**sensors**), kami-autodrive (autonomy), kami-pathfind, kami-vehicle, kami-physics-*, kami-terrain, kami-atmosphere, … + generic fixtures (cartpole / double_pendulum / arm3 / giemon_arm6 / _schema) | git **submodule** (after L3 + fixtures separated) |
+| **L2 — Reusable Rust robotics engine** | kami-core, kami-render, kami-genesis (physics + **control**), kami-articulated, kami-sensor-sim (**sensors**), kami-autodrive (autonomy), kami-pathfind, kami-vehicle, kami-physics-*, kami-terrain, kami-atmosphere, … + generic fixtures now in-workspace `kami-engine/fixtures/` ✅ (cartpole / double_pendulum / arm3 / giemon_arm6) | git **submodule** (fixtures separated ✅ stage 2; remaining: after L3 extraction) |
 | **L3 — etzhayyim repo-specific** | kami-app-{shibuya, giemon, giemon-factory, tatekata, …} + repo-specific scenes (shibuya, *-r1-*, giemon-factory-r0, giemon_kabitori/otete, kusawake, …) | stays in monorepo (app layer) |
 
 Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
@@ -84,11 +84,24 @@ Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
    monorepo-health) gained a targeted `git submodule update --init` step
    (not `submodules: recursive`, which would choke on the local-only
    `90-docs/baien/datasets` DataLad superdataset).
-2. **Generic-fixtures home.** cartpole/double_pendulum/arm3/giemon_arm6/_schema
-   are shared by L2 (Rust compile-time) and magatama (Python runtime). Decide:
-   (a) vendor into L2 engine (drift risk), (b) move into L2 as SoT + update
-   magatama/tooling, or (c) a small shared `e7m-fixtures` submodule both consume.
-   This unblocks L2 self-containment.
+2. **Generic-fixtures home. ✅ DONE (option b, 2026-06-01).** cartpole/
+   double_pendulum/arm3/giemon_arm6 were shared by L2 (Rust compile-time) and
+   magatama (Python runtime) via an out-of-workspace `../../../../70-tools/`
+   escape — the concrete blocker for stage 4. **Owner picked option (b)**: the
+   4 generic fixtures were `git mv`'d into `40-engine/kami-engine/fixtures/` as
+   the single SoT (history preserved). All 15 compile-time `include_str!` (across
+   kami-genesis, kami-shugyo, kami-cartpole-wasm, kami-app-giemon{,-factory}) +
+   the one runtime CWD-relative CSV read in `kami-genesis/tests/g5_scorecard.rs`
+   now resolve in-workspace (`../../fixtures/` / `../fixtures/`); magatama's
+   resolvers gained a shared `_fixture.load_fixture` helper that probes
+   `kami-engine/fixtures/` first with the legacy `70-tools/e7m-sim/scenes/` path
+   as fallback. `_schema` + the ~16 repo-specific (L3) scenes stay in
+   `70-tools/e7m-sim/scenes/`. **L2 is now self-contained** (zero out-of-workspace
+   fixture escapes), unblocking stage 4. Verified: every touched crate builds +
+   tests green (kami-genesis 94 / kami-shugyo / kami-cartpole-wasm / kami-app-giemon
+   4 / kami-app-giemon-factory; g5_scorecard 3); magatama resolver finds all 4.
+   Pre-existing workspace failures (kami-map/kami-web wgpu API drift; kami-game
+   island_gen) are unrelated, stash-confirmed on origin/main.
 3. **L3 extraction.** Move repo-specific kami-app-* crates + their scenes out of
    the reusable engine workspace into the monorepo app layer; they keep
    path/submodule deps on L2. Update the ~24 repo-specific include paths.

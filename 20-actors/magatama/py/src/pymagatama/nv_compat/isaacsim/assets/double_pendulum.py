@@ -3,16 +3,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from pathlib import Path
+
+from ._fixture import load_fixture
 
 
 def _load_dp_urdf() -> str:
-    here = Path(__file__).resolve()
-    for ancestor in here.parents:
-        candidate = ancestor / "70-tools" / "e7m-sim" / "scenes" / "double_pendulum" / "double_pendulum.urdf"
-        if candidate.exists():
-            return candidate.read_text()
-    raise FileNotFoundError("Could not locate double_pendulum.urdf")
+    # SoT moved to 40-engine/kami-engine/fixtures/double_pendulum/ per
+    # ADR-2606011500 §2 (legacy 70-tools/e7m-sim/scenes kept as fallback).
+    return load_fixture("double_pendulum", "double_pendulum.urdf")
 
 
 @dataclass
