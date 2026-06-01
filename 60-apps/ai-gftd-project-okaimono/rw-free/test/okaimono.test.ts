@@ -7,6 +7,10 @@ import {
   createOrder,
   getOrder,
   settleOrder,
+  refundOrder,
+  openSupportCase,
+  updateSupportCase,
+  getSupportCase,
   splitTithe,
   parseMicros,
   setStock,
@@ -238,6 +242,87 @@ describe("okaimono rw-free", () => {
         status: "ready",
       });
       expect(u.status).toBe("notFound");
+    });
+  });
+
+  describe("support (CS cases)", () => {
+    const c = {
+      caseId: "CASE-1",
+      buyerDid: "did:web:alice.etzhayyim.com",
+      subject: "Pillow arrived flat",
+      orderId: "ORD-1",
+    };
+    it("opens a case with default priority + status new", async () => {
+      const r = await openSupportCase(e, c);
+      expect(r.status).toBe("opened");
+      const got = await getSupportCase(e, { caseId: "CASE-1" });
+      expect(got.case?.status).toBe("new");
+      expect(got.case?.priority).toBe("medium");
+      expect(got.case?.escalatedToHuman).toBe(false);
+    });
+    it("is idempotent on caseId", async () => {
+      await openSupportCase(e, c);
+      const again = await openSupportCase(e, c);
+      expect(again.status).toBe("alreadyExists");
+    });
+    it("escalates + resolves", async () => {
+      await openSupportCase(e, c);
+      await updateSupportCase(e, {
+        caseId: "CASE-1",
+        status: "awaiting_human",
+        escalatedToHuman: true,
+        priority: "high",
+      });
+      const u = await updateSupportCase(e, { caseId: "CASE-1", status: "resolved" });
+      expect(u.status).toBe("updated");
+      const got = await getSupportCase(e, { caseId: "CASE-1" });
+      expect(got.case?.status).toBe("resolved");
+      expect(got.case?.escalatedToHuman).toBe(true);
+      expect(got.case?.priority).toBe("high");
+    });
+    it("rejects an invalid status", async () => {
+      await openSupportCase(e, c);
+      const u = await updateSupportCase(e, {
+        caseId: "CASE-1",
+        status: "abducted" as any,
+      });
+      expect(u.status).toBe("rejected");
+    });
+  });
+
+  describe("refund (escrow-refund settlement)", () => {
+    const order = {
+      orderId: "ORD-R",
+      buyerDid: "did:web:alice.etzhayyim.com",
+      lines: [{ sku: "MAT-001", qty: 1, unitPriceMicros: "120000000" }],
+    };
+    const buyerAddr = "0x2222222222222222222222222222222222222222";
+    it("refunds a paid order: escrow-refund + order→refunded", async () => {
+      await createOrder(e, order);
+      await settleOrder(e, fakeSettle, {
+        orderId: "ORD-R",
+        to: "0x1111111111111111111111111111111111111111",
+      });
+      const r = await refundOrder(e, fakeSettle, { orderId: "ORD-R", to: buyerAddr });
+      expect(r.status).toBe("refunded");
+      expect(r.amountMicros).toBe("120000000");
+      const got = await getOrder(e, { orderId: "ORD-R" });
+      expect(got.order?.status).toBe("refunded");
+    });
+    it("refusing to refund an unpaid order", async () => {
+      await createOrder(e, order);
+      const r = await refundOrder(e, fakeSettle, { orderId: "ORD-R", to: buyerAddr });
+      expect(r.status).toBe("notRefundable");
+    });
+    it("does not double-refund", async () => {
+      await createOrder(e, order);
+      await settleOrder(e, fakeSettle, {
+        orderId: "ORD-R",
+        to: "0x1111111111111111111111111111111111111111",
+      });
+      await refundOrder(e, fakeSettle, { orderId: "ORD-R", to: buyerAddr });
+      const again = await refundOrder(e, fakeSettle, { orderId: "ORD-R", to: buyerAddr });
+      expect(again.status).toBe("alreadyRefunded");
     });
   });
 });

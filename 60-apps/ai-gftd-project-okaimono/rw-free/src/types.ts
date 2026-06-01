@@ -27,6 +27,7 @@ export const STOCK_COLLECTION = "app.etzhayyim.apps.okaimono.stock";
 export const STOCK_RESERVATION_COLLECTION =
   "app.etzhayyim.apps.okaimono.stockReservation";
 export const SHIPMENT_COLLECTION = "app.etzhayyim.apps.okaimono.shipment";
+export const SUPPORT_CASE_COLLECTION = "app.etzhayyim.apps.okaimono.supportCase";
 
 /** D2C OEM-only production modes (no external resale; tsukuru manufacturing). */
 export type ProductionMode = "OEM" | "BTO" | "MTO" | "CTO";
@@ -392,4 +393,105 @@ export function shipmentRkey(shipmentId: string): string {
 
 export function shipmentDid(shipmentId: string): string {
   return `${OKAIMONO_DID_PREFIX}shipment:${shipmentId.toLowerCase()}`;
+}
+
+// ─── Support tier (CS cases + returns) ──────────────────────────────
+
+export type CaseStatus =
+  | "new"
+  | "in_progress"
+  | "waiting_for_customer"
+  | "awaiting_human"
+  | "resolved"
+  | "closed";
+
+export type CasePriority = "low" | "medium" | "high" | "critical";
+
+export interface SupportCaseRecord {
+  did: string;
+  caseId: string;
+  buyerDid: string;
+  orderId?: string;
+  subject: string;
+  channel?: string;
+  status: CaseStatus;
+  priority: CasePriority;
+  escalatedToHuman: boolean;
+  rootCause?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SupportCaseView extends SupportCaseRecord {
+  caseUri: string;
+}
+
+export interface OpenSupportCaseInput {
+  caseId: string;
+  buyerDid: string;
+  subject: string;
+  orderId?: string;
+  channel?: string;
+  priority?: CasePriority;
+}
+
+export interface OpenSupportCaseOutput {
+  status: "opened" | "alreadyExists" | "rejected";
+  caseUri?: string;
+  did?: string;
+  caseId?: string;
+  error?: string;
+}
+
+export interface UpdateSupportCaseInput {
+  caseId: string;
+  status?: CaseStatus;
+  priority?: CasePriority;
+  escalatedToHuman?: boolean;
+  rootCause?: string;
+}
+
+export interface UpdateSupportCaseOutput {
+  status: "updated" | "notFound" | "rejected";
+  caseId?: string;
+  newStatus?: CaseStatus;
+  error?: string;
+}
+
+export interface GetSupportCaseInput {
+  caseId: string;
+}
+
+export interface GetSupportCaseOutput {
+  case?: SupportCaseView;
+  error?: string;
+}
+
+export function supportCaseRkey(caseId: string): string {
+  return `case-${caseId.toLowerCase()}`;
+}
+
+export function supportCaseDid(caseId: string): string {
+  return `${OKAIMONO_DID_PREFIX}case:${caseId.toLowerCase()}`;
+}
+
+// ─── Refund (escrow-refund settlement) ──────────────────────────────
+
+export interface RefundOrderInput {
+  orderId: string;
+  /** Buyer address to refund to (Base L2). */
+  to: string;
+  reason?: string;
+}
+
+export interface RefundOrderOutput {
+  status: "refunded" | "notFound" | "notRefundable" | "alreadyRefunded" | "rejected";
+  refundUri?: string;
+  txHash?: string;
+  amountMicros?: string;
+  error?: string;
+}
+
+export function refundRkey(orderId: string): string {
+  return `refund-${orderId.toLowerCase()}`;
 }

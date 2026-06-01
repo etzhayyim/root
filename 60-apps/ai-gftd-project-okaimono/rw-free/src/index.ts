@@ -17,7 +17,12 @@ export {
   getCatalogItem,
   listCatalogItems,
 } from "./catalog.js";
-export { createOrder, getOrder, settleOrder } from "./order.js";
+export { createOrder, getOrder, settleOrder, refundOrder } from "./order.js";
+export {
+  openSupportCase,
+  updateSupportCase,
+  getSupportCase,
+} from "./support.js";
 export {
   setStock,
   reserveStock,

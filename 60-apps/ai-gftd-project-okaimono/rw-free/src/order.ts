@@ -19,6 +19,7 @@ import {
   orderDid,
   orderRkey,
   paymentRkey,
+  refundRkey,
   type CreateOrderInput,
   type CreateOrderOutput,
   type GetOrderInput,
@@ -26,6 +27,8 @@ import {
   type OrderLine,
   type OrderRecord,
   type PaymentRecord,
+  type RefundOrderInput,
+  type RefundOrderOutput,
   type SettlementExecutor,
   type SettleOrderInput,
   type SettleOrderOutput,
@@ -202,5 +205,79 @@ export async function settleOrder(
     txHash,
     titheMicros: payment.titheMicros,
     netMicros: payment.netMicros,
+  };
+}
+
+/**
+ * Refund a paid order on-chain (full refund of the gross to the buyer) via the
+ * `escrow-refund` purpose. Validates the order is paid, executes the reverse
+ * USDC transfer through the injected SettlementExecutor, writes a refund payment
+ * record, and flips the order to refunded. Idempotent: a second refund of an
+ * already-refunded order returns alreadyRefunded.
+ */
+export async function refundOrder(
+  e: Etzhayyim,
+  settle: SettlementExecutor,
+  input: RefundOrderInput
+): Promise<RefundOrderOutput> {
+  if (!input.orderId || !input.to) {
+    return { status: "rejected", error: "missingRequiredFields" };
+  }
+
+  const resp = await e
+    .read<OrderRecord>({
+      collection: ORDER_COLLECTION,
+      rkey: orderRkey(input.orderId),
+    })
+    .catch(() => ({ records: [] }));
+  const orderRec = resp.records[0];
+  if (!orderRec?.value) return { status: "notFound", error: "orderNotFound" };
+  const order = orderRec.value;
+  if (order.status === "refunded") {
+    return { status: "alreadyRefunded", error: "orderAlreadyRefunded" };
+  }
+  if (order.status !== "paid") {
+    return { status: "notRefundable", error: `orderNotPaid:${order.status}` };
+  }
+
+  const gross = parseMicros(order.totalMicros);
+
+  // Reverse transfer back to the buyer. escrow-refund is a non-titheable purpose.
+  const { txHash } = await settle({
+    to: input.to,
+    amountMicros: gross,
+    purpose: "escrow-refund",
+    memo: input.reason,
+    forUri: orderRec.uri,
+  });
+
+  const refund: PaymentRecord = {
+    orderId: order.orderId,
+    buyerDid: order.buyerDid,
+    purpose: "escrow-refund",
+    grossMicros: gross.toString(),
+    titheMicros: "0",
+    netMicros: gross.toString(),
+    txHash,
+    settledAt: new Date().toISOString(),
+  };
+  const refundReceipt = await e.write({
+    collection: PAYMENT_COLLECTION,
+    record: refund as unknown as Record<string, unknown>,
+    rkey: refundRkey(order.orderId),
+  });
+
+  const refundedOrder: OrderRecord = { ...order, status: "refunded" };
+  await e.write({
+    collection: ORDER_COLLECTION,
+    record: refundedOrder as unknown as Record<string, unknown>,
+    rkey: orderRkey(order.orderId),
+  });
+
+  return {
+    status: "refunded",
+    refundUri: refundReceipt.uri,
+    txHash,
+    amountMicros: gross.toString(),
   };
 }
