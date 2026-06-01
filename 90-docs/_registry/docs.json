@@ -18030,6 +18030,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606011040-session-close-kami-autodrive-gnc-and-ci-hygiene.md",
+      "id": "adr-2606011040-session-close-kami-autodrive-gnc-and-ci-hygiene",
+      "title": "ADR-2606011040: Session close — kami-autodrive GNC autonomy layer + CI-hygiene green",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-kami-autodrive-gnc",
+      "authoritative": true,
+      "authoritative_for": [
+        "kami-autodrive crate landing (4 PRs) + per-class fidelity boundary",
+        "CI-hygiene resolution (docs-registry sync, dependabot defunct, sdk-exports un-built skip)"
+      ],
+      "related": [
+        "adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1",
+        "adr-2605261800-nvidia-omniverse-compat-facade",
+        "adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+        "adr-2605242000-wadachi-autonomous-mobility-rd"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

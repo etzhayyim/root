@@ -11668,6 +11668,24 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2606011040-session-close-kami-autodrive-gnc-and-ci-hygiene",
+      "type": "TechArticle",
+      "title": "ADR-2606011040: Session close — kami-autodrive GNC autonomy layer + CI-hygiene green",
+      "status": "active",
+      "topic": "session-close-kami-autodrive-gnc",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kami-autodrive crate landing (4 PRs) + per-class fidelity boundary",
+        "CI-hygiene resolution (docs-registry sync, dependabot defunct, sdk-exports un-built skip)"
+      ],
+      "related": [
+        "doc:adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1",
+        "doc:adr-2605261800-nvidia-omniverse-compat-facade",
+        "doc:adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
