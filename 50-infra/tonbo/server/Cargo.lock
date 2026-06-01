@@ -1281,9 +1281,9 @@ dependencies = [
 
 [[package]]
 name = "dashmap"
-version = "6.1.0"
+version = "6.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5041cc499144891f3790297212f32a74fb938e5136a14943f338ef9e0ae276cf"
+checksum = "e6361d5c062261c78a176addb82d4c821ae42bed6089de0e12603cd25de2059c"
 dependencies = [
  "cfg-if",
  "crossbeam-utils",
@@ -1309,7 +1309,7 @@ dependencies = [
  "bytes",
  "bzip2 0.4.4",
  "chrono",
- "dashmap 6.1.0",
+ "dashmap 6.2.1",
  "datafusion-catalog",
  "datafusion-common",
  "datafusion-common-runtime",
@@ -1407,7 +1407,7 @@ checksum = "30b4cedcd98151e0a297f34021b6b232ff0ebc0f2f18ea5e7446b5ebda99b1a1"
 dependencies = [
  "arrow",
  "chrono",
- "dashmap 6.1.0",
+ "dashmap 6.2.1",
  "datafusion-common",
  "datafusion-expr",
  "futures",
@@ -3512,9 +3512,9 @@ dependencies = [
 
 [[package]]
 name = "once_cell"
-version = "1.21.3"
+version = "1.21.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "42f5e15c9953c5e4ccceeb2e7382a716482c34515315f7b03532b8b4e8393d2d"
+checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
 
 [[package]]
 name = "oneshot"
@@ -5198,7 +5198,7 @@ dependencies = [
  "async-trait",
  "axum 0.8.8",
  "chrono",
- "dashmap 6.1.0",
+ "dashmap 6.2.1",
  "datafusion",
  "futures",
  "lance",
