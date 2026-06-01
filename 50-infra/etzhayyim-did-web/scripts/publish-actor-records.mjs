@@ -140,6 +140,7 @@ function recordFromSeed(m) {
   opt("ui-type", "uiType");
   opt("primary-lexicon", "primaryLexicon");
   opt("primary-schema", "primarySchema");
+  opt("wasm-cid", "wasmCid");
   opt("created-at", "createdAt");
   rec.source = "kotoba";
   return rec;
@@ -153,6 +154,16 @@ function toDidDoc(rec, authzContract) {
   if (chainRef) alsoKnownAs.push(chainRef);
   else if (authzContract)
     alsoKnownAs.push(`did:erc725:base:${authzContract}#__rootId-pending-chain-lookup__`);
+  const service = [];
+  if (rec.wasmCid)
+    service.push({
+      id: `${did}#wasm`,
+      type: "EtzhayyimWasmComponent",
+      serviceEndpoint: `ipfs://${rec.wasmCid}`,
+      "x-exec": "browser-local|donated-mesh",
+      "x-runtime": "kotoba-wasm",
+    });
+  service.push(...rec.service.map((s) => ({ ...s })));
   return {
     "@context": [
       "https://www.w3.org/ns/did/v1",
@@ -161,13 +172,15 @@ function toDidDoc(rec, authzContract) {
     id: did,
     alsoKnownAs,
     verificationMethod: rec.vm.map((v) => ({ ...v })),
-    service: rec.service.map((s) => ({ ...s })),
+    service,
     _meta: {
-      adr: ["2605212030", "2605241800", "2606013800", ...rec.adr],
+      adr: ["2605212030", "2605241800", "2606013800", "2606014500", ...rec.adr],
       source: rec.source,
       kind: rec.kind,
       status: rec.status,
       glyph: rec.glyph,
+      wasmCid: rec.wasmCid ?? null,
+      execModel: rec.wasmCid ? "wasm-local (browser/donated-mesh)" : "service",
       primaryLexicon: rec.primaryLexicon,
       primarySchema: rec.primarySchema,
       note:
@@ -224,6 +237,7 @@ function recordToKgEntity(rec) {
   add("description", rec.description);
   add("avatar", rec.avatar);
   add("banner", rec.banner);
+  add("wasm-cid", rec.wasmCid);
   add("performer-type", rec.performerType);
   add("ui-type", rec.uiType);
   add("primary-lexicon", rec.primaryLexicon);
