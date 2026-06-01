@@ -57,6 +57,37 @@ async function idbPut(key, value) {
   }
 }
 
+// ── OPFS append-only transaction journal (P2) ──────────────────────────────
+// Local writes are durably appended to an OPFS JSONL log (one tx per line) in
+// addition to the IndexedDB materialized state. The journal is the replay /
+// audit / future-push source; IndexedDB is the fast restore cache.
+const TX_JOURNAL = "kotoba-tx.jsonl";
+async function appendTxJournal(datoms, ts) {
+  try {
+    const root = await navigator.storage.getDirectory();
+    const fh = await root.getFileHandle(TX_JOURNAL, { create: true });
+    // createSyncAccessHandle is dedicated-worker-only; in a Service Worker use
+    // the async writable stream + seek-to-end for append.
+    const size = (await fh.getFile()).size;
+    const w = await fh.createWritable({ keepExistingData: true });
+    await w.seek(size);
+    await w.write(JSON.stringify({ t: ts, datoms }) + "\n");
+    await w.close();
+  } catch (e) {
+    console.warn("[kotoba-sw] OPFS journal append failed", e);
+  }
+}
+async function txJournalCount() {
+  try {
+    const root = await navigator.storage.getDirectory();
+    const fh = await root.getFileHandle(TX_JOURNAL, { create: false });
+    const txt = await (await fh.getFile()).text();
+    return txt.split("\n").filter(Boolean).length;
+  } catch {
+    return 0;
+  }
+}
+
 let node = null;
 let ready = null;
 
@@ -115,6 +146,31 @@ self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (event) => {
   ensureReady();
   event.waitUntil(self.clients.claim());
+});
+
+// P2 local write: the page posts {type:'transact', datoms, ts} → assert into the
+// local engine, re-persist the materialized state to IndexedDB, and append the
+// tx to the OPFS journal. Acks via the provided MessagePort.
+self.addEventListener("message", (event) => {
+  const m = event.data || {};
+  if (m.type !== "transact" || !Array.isArray(m.datoms)) return;
+  event.waitUntil(
+    (async () => {
+      let ack = { ok: false };
+      try {
+        await ensureReady();
+        const asserted = node.transact(JSON.stringify(m.datoms));
+        const full = JSON.parse(node.exportDatoms());
+        await idbPut("datoms", full);
+        await idbPut("len", full.length);
+        await appendTxJournal(m.datoms, m.ts ?? 0);
+        ack = { ok: true, asserted, total: full.length, journal: await txJournalCount() };
+      } catch (e) {
+        ack = { ok: false, error: String(e) };
+      }
+      if (event.ports && event.ports[0]) event.ports[0].postMessage(ack);
+    })(),
+  );
 });
 
 self.addEventListener("fetch", (event) => {

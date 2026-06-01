@@ -27,6 +27,22 @@ export class KotobaNode {
         wasm.kotobanode_assert(this.__wbg_ptr, ptr0, len0, ptr1, len1, ptr2, len2);
     }
     /**
+     * Export current state as `[{e,a,v_edn}]` for IndexedDB/OPFS persistence.
+     * @returns {string}
+     */
+    exportDatoms() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.kotobanode_exportDatoms(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
      * Hydrate from a remote kotoba `datomic.datoms` JSON array (P1 sync).
      * Returns the number of datoms loaded.
      * @param {string} datoms_json
@@ -71,6 +87,20 @@ export class KotobaNode {
         } finally {
             wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
         }
+    }
+    /**
+     * P2 local write — assert `[{e,a,v_edn}]` datoms into the local engine.
+     * @param {string} datoms_json
+     * @returns {number}
+     */
+    transact(datoms_json) {
+        const ptr0 = passStringToWasm0(datoms_json, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.kotobanode_transact(this.__wbg_ptr, ptr0, len0);
+        if (ret[2]) {
+            throw takeFromExternrefTable0(ret[1]);
+        }
+        return ret[0] >>> 0;
     }
 }
 if (Symbol.dispose) KotobaNode.prototype[Symbol.dispose] = KotobaNode.prototype.free;
