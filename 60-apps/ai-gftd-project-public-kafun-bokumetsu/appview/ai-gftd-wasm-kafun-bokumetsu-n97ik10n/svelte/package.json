@@ -16,7 +16,7 @@
     "@sveltejs/vite-plugin-svelte": "^5.1.1",
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.9",
-    "svelte": "^5.55.3",
+    "svelte": "^5.56.0",
     "svelte-check": "^4.4.6",
     "tailwindcss": "^3.4.19",
     "typescript": "^6.0.3",
