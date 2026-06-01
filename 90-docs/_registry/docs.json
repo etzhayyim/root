@@ -18632,6 +18632,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606014800-session-close-actor-profile-and-wasm-actor-runtime.md",
+      "id": "adr-2606014800-session-close-actor-profile-and-wasm-actor-runtime",
+      "title": "ADR-2606014800: Session close — actor profile, dynamic did.json, one-Worker WASM-actor runtime",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-actor-profile-and-wasm-actor-runtime",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2605212030",
+        "2605241800",
+        "2606011800",
+        "2606012600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606013800",
+        "2606014500",
+        "2606014600"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

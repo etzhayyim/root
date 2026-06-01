@@ -12023,6 +12023,21 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606014800-session-close-actor-profile-and-wasm-actor-runtime",
+      "type": "TechArticle",
+      "title": "ADR-2606014800: Session close — actor profile, dynamic did.json, one-Worker WASM-actor runtime",
+      "status": "active",
+      "topic": "session-close-actor-profile-and-wasm-actor-runtime",
+      "authoritative": false,
+      "related": [
+        "doc:2605212030",
+        "doc:2605241800",
+        "doc:2606011800",
+        "doc:2606012600"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

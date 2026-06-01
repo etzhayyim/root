@@ -9344,6 +9344,38 @@ status_note = "Documentation-only session-close record for the 2026-06-01 sessio
 path = "90-docs/adr/2606014000-session-close-funadaiku-zero-emission-cargo-shipbuilding.md"
 adr = ["2606013400", "2606010600", "2605252200"]
 
+[[adrs]]
+id = "2606013800"
+title = "Actor profile schema + dynamic did.json issuance from kotoba"
+status = "accepted"
+status_note = "Closes (1) /profile/did:web:...:tsumugi 'profile not found' (apex proxies /profile/* to yoro which resolves a handle against the PDS; tsumugi is kotoba-native with no atproto repo) and (2) hardcoded /actor/<h>/did.json. New SSoT 00-contracts/schemas/actor-profile.kotoba.edn (:actor/* in public actors-v1 graph) backs BOTH the DID Document AND app.bsky.actor.getProfile (+ seed for 10 actors). Apex Worker issues did.json dynamically via resolveActorRecord = 3-tier fail-open KV (actor:<handle>) → kotoba pull (kg.entity) → compiled INFRA_ACTORS fallback → pure toDidDoc(); verificationMethod is an on-chain ERC725 mirror (empty → no server-minted key, did:web trust = TLS). New GET /actor/<h>/profile.json + getProfile XRPC short-circuit + yoro SSR getProfile() resolves actor DIDs via apex first → /profile/did:web:...:tsumugi renders. Canonical actor DID = did:web:etzhayyim.com:actor:<handle>. Publisher scripts/publish-actor-records.mjs. Worker tsc clean; 10/10 actors. PR #688. HONEST R0: ACTOR_KV + KOTOBA_ENDPOINT operator-gated (compiled fallback until enabled, identical output)."
+path = "90-docs/adr/2606013800-actor-profile-and-dynamic-did-issuance.md"
+adr = ["2605212030", "2605241800", "2605231525", "2605312345", "2605262130", "2606011800"]
+
+[[adrs]]
+id = "2606014500"
+title = "One Worker, many WASM actors — actors as content-addressed WASM on IPFS, executed browser-local"
+status = "accepted"
+status_note = "etzhayyim.com is the ONLY first-party CF Worker (identity / dynamic did.json / registry / donate / apex proxy — no actor compute). An actor's state = kotoba Datom log; its logic = a content-addressed WASM component on IPFS, declared in the DID doc as EtzhayyimWasmComponent (ipfs://<cid>) from :actor/wasm-cid. Tiers: T1 browser-local (ameno) fetch WASM from IPFS → instantiate → run locally; T2 donated mesh (kotoba/e7m) via libp2p; T0 per-actor Worker removed. Trust = did:web TLS + WASM CID integrity (loader recomputes sha256→CIDv1, refuses mismatched bytes) — no server key. All 10 actors' #xrpc-https-legacy per-actor hosts retired (Phase C). PoC: tsumugi-core Rust→wasm32-unknown-unknown (23.5 KB, edge-primary 取-concentration) → real IPFS CIDv1 bafkrei…kddfi; loader/index.html (browser) + loader/verify.mjs (headless) resolve → CID-verify → run locally → top 取 = TSMC. Worker tsc clean. PR #689. HONEST R0: bounded :representative seed; core module not yet WASI/Component-Model; py langgraph actors → componentize-py path."
+path = "90-docs/adr/2606014500-one-worker-wasm-actor-model.md"
+adr = ["2605241800", "2606013800", "2605241900", "2605231525", "2605215000", "2605262130"]
+
+[[adrs]]
+id = "2606014600"
+title = "WASM-actor runtime — trustless IPFS gateway, ameno loader, componentize-py actors"
+status = "accepted"
+status_note = "Makes the one-Worker WASM-actor model runnable end-to-end, validated on a real Tier-B actor. (b) Trustless IPFS gateway GET /ipfs/<cid> on the apex Worker: fetches from UNTRUSTED upstream gateways (IPFS_GATEWAYS) and re-hashes bytes to the CID before serving (src/cid.ts; gateway never trusted, CID = trust anchor, no server key); raw single-block CIDs (bafkrei…) verified, multi-block dag-pb (bafy…) → 501 (T2). (c) ameno loader @etzhayyim/ameno/inference/wasm-actor-loader: resolveActorWasm → fetchVerifiedWasm (client re-verifies CID independently of the gateway) → instantiate → runCompute; refuses non-raw CIDs; 5/5 node:test green incl. tamper-rejection + full tsumugi pipeline → TSMC. (a) componentize-py actor: watatsuna chokepoint-criticality built to a WASI Component-Model component with componentize-py 0.23.0, jco-transpiled, headless-verified (top chokepoint = Malacca 865 Tbps). Python component bundles CPython (~17.6 MB → dag-pb CID), formalizing the two-tier rule: T1 browser-local = compact Rust/AS (raw CID, gateway-verifiable); T2 donated-mesh = componentize-py (full IPFS node / jco / wasmtime). DID doc encodes the tier via EtzhayyimWasmComponent x-exec + x-cid-codec. Worker tsc clean; cid.ts reproduces ipfs add --cid-version=1. PR #693. HONEST R0: gateway verifies raw CIDs only (dag-pb deferred → T2); default upstreams public until etzhayyim pin wired; watatsuna 17.6 MB binary + jco output gitignored (rebuild via build.sh, CID in meta.json); bounded :representative seed; live pinning + mesh exec operator-gated."
+path = "90-docs/adr/2606014600-wasm-actor-runtime-gateway-and-componentize.md"
+adr = ["2606014500", "2606013800", "2605231525", "2605215000", "2605241900"]
+
+[[adrs]]
+id = "2606014800"
+title = "Session close — actor profile, dynamic did.json, one-Worker WASM-actor runtime"
+status = "active"
+status_note = "Documentation-only session-close record for the 2026-06-01 session beginning 「/profile/did:web:...:tsumugi で profile が見つからない. 最新の kotoba 設計だと actor の did は何?」 and evolving into 「CF Worker は etzhayyim.com のみ、他 actor は IPFS/protocol、kotoba は WASM なのでブラウザで local 実行できる?」. Indexes the three authoritative ADRs (2606013800 actor-profile + dynamic did.json → PR #688; 2606014500 one-Worker WASM-actor model → PR #689; 2606014600 gateway + ameno loader + componentize-py → PR #693) and states next steps (componentize more Tier-B actors; wire IPFS_GATEWAYS to the etzhayyim pin + dag-pb verification; ameno UI loadActor() surface; operator ACTOR_KV/KOTOBA_ENDPOINT enablement; on-chain ERC725 verificationMethod; T2 mesh execution node). All merged to main; worker/ameno tsc clean; cid.ts matches ipfs add; ameno 5/5 tests; watatsuna runs via jco (Malacca top). Authoritative designs = ADR-2606013800 + 2606014500 + 2606014600."
+path = "90-docs/adr/2606014800-session-close-actor-profile-and-wasm-actor-runtime.md"
+adr = ["2606013800", "2606014500", "2606014600"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
