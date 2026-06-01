@@ -116,9 +116,7 @@ class KaizenPrAgent:
         except json.JSONDecodeError:
             logging.error(f"Invalid JSON in queue: {proposal_ndjson}")
             # Move malformed line to a quarantine file or just drop i
-            self.proposal_queue_path.write_text("
-".join(remaining_lines) + "
-")
+            self.proposal_queue_path.write_text("\n".join(remaining_lines) + "\n")
             return None
 
         # 1. Generate Branch Name
@@ -170,9 +168,7 @@ class KaizenPrAgent:
             logging.info(f"PR result: {pr_url}")
 
             # 6. Update queue file
-            self.proposal_queue_path.write_text("
-".join(remaining_lines) + "
-" if remaining_lines else "")
+            self.proposal_queue_path.write_text("\n".join(remaining_lines) + "\n" if remaining_lines else "")
             logging.info("Proposal consumed and queue updated.")
 
             # 7. Return to original branch
