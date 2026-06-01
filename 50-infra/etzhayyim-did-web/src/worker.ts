@@ -9,6 +9,16 @@ import {
   INFRA_ACTOR_HANDLES,
   getInfraActor,
 } from "./registry/infra-actors";
+import {
+  actorHandleFromParam,
+  coerceActorRecord,
+  compiledActorRecord,
+  toDidDoc,
+  toGetProfileView,
+  COMPILED_ACTOR_HANDLES,
+  type ActorRecord,
+} from "./registry/actor-profiles";
+import { fetchKotobaActorRecord } from "./kotoba";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -319,6 +329,13 @@ interface Env {
   AUTHZ_CONTRACT_ADDRESS?: string;
   BASE_RPC_URL?: string;
   CHAIN_ID?: string;
+  // Actor-profile dynamic issuance (ADR-2606013800). KV holds materialized
+  // ActorRecord JSON per actor (`actor:<handle>`), refreshed by the publisher
+  // from the kotoba `actors-v1` graph. KOTOBA_ENDPOINT is the best-effort pull
+  // fallback when KV misses. Both optional — absent → compiled INFRA_ACTORS
+  // fallback keeps did:web resolution live.
+  ACTOR_KV?: KVNamespace;
+  KOTOBA_ENDPOINT?: string;
   // Per-NSID-family XRPC upstream origins (populated from wrangler.toml [vars]).
   // New actors are added here, NOT as new subdomains — this Worker is the
   // single etzhayyim.com endpoint per ADR-2605212030 §D2.
@@ -576,6 +593,56 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
   };
 }
 
+// ─── Actor record resolution (ADR-2606013800) ─────────────────────────────
+//
+// 3-tier, fail-open. KV (publisher-materialized from kotoba) → kotoba pull →
+// compiled INFRA_ACTORS. Returns null only for handles that are not registered
+// actors at all (free-form member/council handles), in which case the caller
+// falls back to buildPerActorDidDoc.
+async function resolveActorRecord(
+  handle: string,
+  env: Env,
+  ctx: ExecutionContext,
+): Promise<ActorRecord | null> {
+  // 1) KV snapshot — fast, origin-independent.
+  if (env.ACTOR_KV) {
+    try {
+      const raw = (await env.ACTOR_KV.get(`actor:${handle}`, "json")) as
+        | Record<string, unknown>
+        | null;
+      const rec = raw ? coerceActorRecord(raw, "kv") : null;
+      if (rec) return rec;
+    } catch {
+      /* KV unavailable → fall through */
+    }
+  }
+
+  // 2) kotoba pull — first-class canonical state; cache the hit into KV.
+  const fromKotoba = await fetchKotobaActorRecord(env, handle);
+  if (fromKotoba) {
+    if (env.ACTOR_KV) {
+      ctx.waitUntil(
+        env.ACTOR_KV.put(`actor:${handle}`, JSON.stringify(fromKotoba), {
+          expirationTtl: 300,
+        }).catch(() => {}),
+      );
+    }
+    return fromKotoba;
+  }
+
+  // 3) compiled fallback — INFRA_ACTORS (null for non-registered handles).
+  return compiledActorRecord(handle);
+}
+
+const ACTOR_JSON_HEADERS: Record<string, string> = {
+  "content-type": "application/json; charset=utf-8",
+  "cache-control": "public, max-age=60, must-revalidate",
+  "access-control-allow-origin": "*",
+  "x-content-type-options": "nosniff",
+  "strict-transport-security": "max-age=31536000; includeSubDomains",
+  "x-etzhayyim-no-cookie": "1",
+};
+
 // Headers we strip from the upstream response. `set-cookie` is dropped because
 // etzhayyim.com is a cookie-free zone by constitutional design — see
 // /CHARTER-RIDER.md §2(c) (no surveillance / trackers) + ADR-2605172000
@@ -660,7 +727,11 @@ function rewriteUpstreamResponse(upstream: Response, pathname: string): Response
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
     const url = new URL(request.url);
 
     // ──────────────────────────────────────────────────────────────────
@@ -824,7 +895,11 @@ export default {
             },
           );
         }
-        const doc = buildPerActorDidDoc(handle, env);
+        // Dynamic issuance (ADR-2606013800): resolve the canonical ActorRecord
+        // (KV → kotoba → compiled) and map it to the DID doc. Free-form handles
+        // (not registered actors) get null → legacy buildPerActorDidDoc scaffold.
+        const rec = await resolveActorRecord(handle, env, ctx);
+        const doc = rec ? toDidDoc(rec, env) : buildPerActorDidDoc(handle, env);
         return new Response(JSON.stringify(doc, null, 2) + "\n", {
           status: 200,
           headers: {
@@ -837,7 +912,47 @@ export default {
             "strict-transport-security": "max-age=31536000; includeSubDomains",
             "permissions-policy": PERMISSIONS_POLICY,
             "x-etzhayyim-no-cookie": "1",
+            "x-etzhayyim-actor-source": rec?.source ?? "scaffold",
           },
+        });
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 2b) Per-actor profile (REST) — `/actor/<handle>/profile.json`.
+    //     app.bsky.actor.getProfile view for the actor, same ActorRecord
+    //     source as the DID doc. Convenience surface for curl / clients that
+    //     prefer REST over XRPC. Per ADR-2606013800.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const m = url.pathname.match(/^\/actor\/([^/]+)\/profile\.json$/);
+      if (m) {
+        if (request.method !== "GET" && request.method !== "HEAD") {
+          return new Response("Method Not Allowed", {
+            status: 405,
+            headers: { allow: "GET, HEAD" },
+          });
+        }
+        const handle = decodeURIComponent(m[1]).toLowerCase();
+        if (!HANDLE_REGEX.test(handle)) {
+          return new Response(
+            JSON.stringify({ error: "HandleInvalid" }),
+            { status: 400, headers: ACTOR_JSON_HEADERS },
+          );
+        }
+        const rec = await resolveActorRecord(handle, env, ctx);
+        if (!rec) {
+          return new Response(
+            JSON.stringify({
+              error: "ProfileNotFound",
+              message: `'${handle}' is not a registered actor; profiles for free-form handles resolve via the PDS, not the actor registry`,
+            }),
+            { status: 404, headers: ACTOR_JSON_HEADERS },
+          );
+        }
+        return new Response(JSON.stringify(toGetProfileView(rec), null, 2) + "\n", {
+          status: 200,
+          headers: { ...ACTOR_JSON_HEADERS, "x-etzhayyim-actor-source": rec.source },
         });
       }
     }
@@ -857,6 +972,42 @@ export default {
       const m = url.pathname.match(/^\/xrpc\/([A-Za-z0-9._-]+)$/);
       if (m) {
         const nsid = m[1];
+
+        // ── Actor-profile short-circuit (ADR-2606013800) ──────────────────
+        // getProfile for a REGISTERED actor resolves from the actor registry
+        // (KV → kotoba → compiled), NOT the PDS/substrate. Gated on the actor
+        // being a known actor so human-member profiles are never hijacked:
+        //  - a `did:web:etzhayyim.com:actor:<h>` param is unambiguously an actor
+        //  - a bare/handle param only short-circuits when `<h>` is a compiled
+        //    actor; everything else falls through to substrate routing.
+        if (
+          (nsid === "app.bsky.actor.getProfile" ||
+            nsid === "app.etzhayyim.actor.getProfile") &&
+          (request.method === "GET" || request.method === "HEAD")
+        ) {
+          const actorParam = url.searchParams.get("actor") ?? "";
+          const isActorDid = actorParam.startsWith(
+            "did:web:etzhayyim.com:actor:",
+          );
+          const handle = actorHandleFromParam(actorParam);
+          if (handle && (isActorDid || COMPILED_ACTOR_HANDLES.has(handle))) {
+            const rec = await resolveActorRecord(handle, env, ctx);
+            if (rec) {
+              return new Response(
+                JSON.stringify(toGetProfileView(rec)) + "\n",
+                {
+                  status: 200,
+                  headers: {
+                    ...ACTOR_JSON_HEADERS,
+                    "x-etzhayyim-actor-source": rec.source,
+                    "permissions-policy": PERMISSIONS_POLICY,
+                  },
+                },
+              );
+            }
+          }
+          // not a registered actor → fall through to substrate alias routing.
+        }
 
         const aliasedNsid = SUBSTRATE_NSID_ALIASES[nsid];
         const passthrough =

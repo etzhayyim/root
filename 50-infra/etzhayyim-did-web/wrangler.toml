@@ -40,8 +40,32 @@ service = "yoro-xrpc-adapter"
 # + CF Tunnel to the lg-open-unispsc Service are live.
 # Add new actors as separate vars; never introduce a new subdomain unless
 # wildcard handle DNS is provisioned per ADR-2605212030 §D2.
+
+# ── Actor-profile dynamic did.json issuance (ADR-2606013800) ──────────────
+# ACTOR_KV holds the materialized ActorRecord JSON per actor (`actor:<handle>`),
+# pushed by `scripts/publish-actor-records.mjs` from the kotoba `actors-v1`
+# graph. The Worker reads KV first (fast, origin-independent), then falls back
+# to a kotoba pull (KOTOBA_ENDPOINT), then to the compiled INFRA_ACTORS
+# registry — so did:web resolution stays live even with KV + kotoba both down.
+#
+# ENABLE (operator, once): create the namespace, paste its id below, publish:
+#   wrangler kv namespace create ACTOR_KV
+#   node scripts/publish-actor-records.mjs --put-kv
+# Until enabled the binding is absent and the Worker serves the compiled
+# fallback — now routed through the SAME toDidDoc/toGetProfileView mappers, so
+# behaviour is identical; KV just promotes kotoba to live source of truth.
+#
+# [[kv_namespaces]]
+# binding = "ACTOR_KV"
+# id = "REPLACE_WITH_wrangler_kv_namespace_create_OUTPUT"
+
 [vars]
 XRPC_UNISPSC_UPSTREAM = ""
+# kotoba actors-v1 pull endpoint (best-effort tier-2). Empty until a public
+# read surface for the kotoba server is provisioned (operator/CF-Tunnel gated;
+# Murakumo-mesh-internal today). Empty → Worker skips the pull and uses KV /
+# compiled. NEVER a commercial endpoint — kotoba substrate only (ADR-2605215000).
+KOTOBA_ENDPOINT = ""
 # AT Protocol / Bluesky stack — target the etzhayyim.com subdomain (handled by
 # etzhayyim-xrpc-proxy worker, which forwards via service binding to the
 # upstream ai-gftd-pds / ai-gftd-appview workers without hitting the

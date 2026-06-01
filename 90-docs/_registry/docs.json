@@ -18621,6 +18621,30 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606013600-kotoba-persistent-ipns-graph-heads.md",
+      "id": "adr-2606013600-kotoba-persistent-ipns-graph-heads",
+      "title": "ADR-2606013600: kotoba durable IPNS graph heads — disk-persistent registry replaces in-memory default",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kotoba-ipns-head-durability",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-ipns-registry-durability"
+      ],
+      "related": [
+        "40-engine/kotoba/crates/kotoba-ipfs/src/ipns.rs"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606013200-yoro-kotoba-feed-readpath-migration",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606013600-kotoba-wasm-browser-node.md",
       "id": "adr-2606013600-kotoba-wasm-browser-node",
       "title": "ADR-2606013600: kotoba browser node — WASM read/write node + browser-native Pregel/UDF guests",
@@ -18643,6 +18667,38 @@
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605241900-baien-edge-target-invariant",
         "adr-2606012100-donation-funded-operation-and-compute-node-donation"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606013800-actor-profile-and-dynamic-did-issuance.md",
+      "id": "adr-2606013800-actor-profile-and-dynamic-did-issuance",
+      "title": "ADR-2606013800: Actor profile schema + dynamic did.json issuance from kotoba",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "actor-profile-and-dynamic-did-issuance",
+      "authoritative": true,
+      "authoritative_for": [
+        "actor-profile-schema",
+        "dynamic-did-web-issuance",
+        "actor-getprofile-resolution"
+      ],
+      "related": [
+        "2606011800",
+        "2606012600",
+        "2606013200",
+        "2606012100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605212030",
+        "2605241800",
+        "2605231525",
+        "2605312345",
+        "2605262130"
       ],
       "last_verified": "2026-06-01",
       "amends": [],
