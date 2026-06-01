@@ -5,7 +5,7 @@ status: proposed
 doc_type: adr
 topic: kizashi-bodyscan-r0
 authoritative: true
-last_verified: 2026-05-31
+last_verified: 2026-06-01
 priority: 6.5
 axis: care
 weight: 0.55
@@ -231,6 +231,28 @@ All cell modules at R0 raise import-time `RuntimeError` (prevents accidental pla
 4. `deps.toml` registration ([[adrs]] + [[modules]] actor + [[modules]] lexicon namespace);
 5. ADR README index row (`90-docs/adr/README.md`);
 6. Root `CLAUDE.md` Tier-B actor roster row.
+
+## §10. R0 maturity log (session 2026-05-31 → 06-01)
+
+R0 was matured over a 5-iteration self-paced `/loop`. Each iteration shipped one
+increment, verified gates green (lexicon validator 6/6 + the iteration's own
+check), held the R0 ceiling (non-diagnostic G3 / device-boundary G4 / no hardware
+/ all cells import-raise), and committed **path-scoped** (kept clean of a
+concurrent kami-genesis loop on the same branch):
+
+| # | Increment | Commit |
+|---|---|---|
+| 1 | 6 `magatama.cells.kizashi_*` cell stubs physically present (`cell.py` import-raises `RuntimeError` per phase gate) + per-dir READMEs; all 6 verified to raise | `9a4275261` |
+| 2 | `registry/VERIFICATION.md` — G10 modality-ledger tiers + an **empirically verified** cross-actor handoff snapshot (mitate `emergencyEscalation.intakeUri` ✅ / kokoro `acuteCrisisEscalationLog.detectionSourceCid` ✅ / iyashi pull ✅ / mitate `diagnosticOrder` has no source field = G3 by design); honest gap tracked (no generic mitate referral-intake lexicon yet) | `ac84be02a` |
+| 3 | `lexicons/.../R1-ENFORCEMENT.md` — exact per-lexicon `additionalProperties:false` + finalized `required[]` + the G3 forbidden-field denylist + a runnable drift-check (DRIFT-CHECK PASS) | `a44968a05` |
+| 4 | `registry/SCALING.md` — honest scaling design: compute is never the bottleneck; the four real ceilings are encrypted-envelope / licensed-MD / 薬機法-clearance / L5-operators; G8 self-referencing means no population datastore to scale | `9dacabbd4` |
+| 5 | `registry/examples/` — worked 腰痛 `attributionReport` + `triageReferral` records demonstrating the non-diagnostic contract concretely, with an embedded conformance check (EXAMPLE CONFORMANCE PASS); double as R1 fixtures | `da92177c2` |
+
+**Open item (human-in-loop, deliberately NOT done autonomously)**: pin
+verifiable provenance URLs for the 14 modality seed entries — by the design of
+`VERIFICATION.md` this is a *maintainer-verification* action requiring real
+source confirmation by a human/Council DID, not an autonomous fire. All 14
+entries remain `unverified-seed`. R1 activation remains Council-gated (§7).
 
 # Consequences
 
