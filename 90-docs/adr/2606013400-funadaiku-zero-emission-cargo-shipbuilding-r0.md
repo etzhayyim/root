@@ -188,8 +188,19 @@ zero-emission; the vessel and the yard are both first-class kotoba EAVT data; de
 producing actor for okaimono (zero-emission freight as an internal service) and a concrete
 Labor-Liberation / Basic-High-Income-in-kind logistics capability.
 
+**Operational simulation (landed)**: beyond the analytic budget, the Nagi class sails
+autonomously in kami-engine — `40-engine/kami-engine/kami-autodrive/examples/nagi_voyage.rs`
+drives the `Autopilot` + `ShipHydro` GNC through a multi-waypoint coastal course while a
+reduced-order zero-emission powertrain (wind-assist + solar + H₂ FC + LFP) gates the available
+propulsion power each step and books the energy split. No fossil source exists; when the green
+budget can't meet commanded thrust the throttle is power-limited (slower), never fuel-topped.
+Captured run: autonomous arrival, **hydrogen 84.4% / solar 8.9% / wind-assist 6.6% / fossil
+0.0%** (`20-actors/funadaiku/out/nagi-voyage-sim.txt`). Regression test
+`kami-autodrive/tests/nagi_zero_emission_voyage.rs` (2 tests) green; full kami-autodrive suite green.
+
 **Honest R0 limits**: design + data-model + simulation ONLY — no steel cut, no hull, no FC
-stack. The voyage energy budget is a reduced-order analytic model (areal solar yield, rotor-sail
+stack. In the kami-engine demo `ShipHydro` is a small-vessel surrogate (8 m/s, ~2 t) at
+perception-grid scale — the energy shares are scale-invariant, the kWh figures are demo-scale. The voyage energy budget is a reduced-order analytic model (areal solar yield, rotor-sail
 thrust coefficient curve, FC efficiency, drag-power), not CFD/sea-keeping. `kami-autodrive`
 ShipHydro provides 3-DOF planar GNC, not 6-DOF sea-keeping — full marine CFD is deferred. The
 Nagi class is coastal/short-sea scale; ocean VLCC scale is explicitly out of R0–R3 (G12).
