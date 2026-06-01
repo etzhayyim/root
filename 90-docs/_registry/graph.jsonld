@@ -11686,6 +11686,23 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan",
+      "type": "TechArticle",
+      "title": "ADR-2606011500: kami-engine reusable-vs-repo-specific separation plan (submodule prerequisite)",
+      "status": "proposed",
+      "topic": "kami-engine-layer-separation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kami-engine reusable-vs-repo-specific layer classification",
+        "staged submodule-separation plan (kami-engine-sdk + reusable robotics engine)"
+      ],
+      "related": [
+        "doc:adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
+        "doc:adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
