@@ -94,7 +94,7 @@
     "viem": "^2.21.0"
   },
   "optionalDependencies": {
-    "@signalapp/libsignal-client": "^0.55.0"
+    "@signalapp/libsignal-client": "^0.94.3"
   },
   "devDependencies": {
     "@types/node": "^25.8.0",
