@@ -11610,6 +11610,43 @@
       "lastVerified": "2026-05-31"
     },
     {
+      "id": "doc:adr-2605312600-shibuya-3dgs-mapillary-sfm-and-splat-physics-integration",
+      "type": "TechArticle",
+      "title": "ADR-2605312600: Shibuya 3DGS — real Mapillary imagery → CPU SfM → splat viewer + physics integration",
+      "status": "accepted",
+      "topic": "shibuya-3dgs-sfm-splat-physics",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Mapillary client-token acquisition + image fetch (mapillary_fetch.py) for Shibuya",
+        "CPU SfM → .splat tool (images_to_sfm_splat.py) incl. camera-plane gravity alignment",
+        "kami-app-shibuya splat viewer (run_splat_viewer_v1) + splat-physics (run_splat_physics_v1)",
+        "3DGS data-handling policy (token→Keychain, derived data gitignored CC-BY-SA)"
+      ],
+      "related": "doc:adr-2605311800-kami-genesis-3d-spatial-articulation-and-contact-solver",
+      "lastVerified": "2026-05-31"
+    },
+    {
+      "id": "doc:adr-2605312700-kizashi-noninvasive-multimodal-bodyscan-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2605312700: kizashi (兆) — non-invasive multimodal body-scan / sign-sensing substrate Tier-B actor R0 charter",
+      "status": "proposed",
+      "topic": "kizashi-bodyscan-r0",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kizashi actor R0 charter",
+        "religious-corp non-invasive multimodal body-scan / sign-sensing substrate single SoT",
+        "`app.etzhayyim.kizashi.*` Lexicon namespace boundary",
+        "non-diagnostic invariant (G3 structural — 兆候 + probabilistic attribution + consult ONLY, never diagnosis)",
+        "medical-device regulatory boundary (G4 — 薬機法/SaMD; regulated/ionizing modalities gated to licensed pathway)",
+        "encrypted biometric-scan envelope invariant (G2 structural, same discipline as iyashi)",
+        "verified-modality-only / anti-pseudoscience invariant (G10 — capability ledger evidence-grade gate)",
+        "self-referenced Wellbecoming trajectory (G8 — compare-to-self, no population ranking)",
+        "distinction from mitate (diagnosis) / iyashi (treatment) / kokoro (mental health)"
+      ],
+      "related": "doc:adr-2605301020-basic-high-income-imputed-income-doctrine",
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
       "type": "TechArticle",
       "title": "ADR-2606010030: giemon factory R0 — whole-plant layout + 建材 + 4D 建築手順, designed in kami-engine + kotoba Datomic",
@@ -11686,6 +11723,40 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606011200-session-close-kotoba-edn-world-info-ingestion-substrate",
+      "type": "TechArticle",
+      "title": "ADR-2606011200: Session close — magatama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)",
+      "status": "active",
+      "topic": "kotoba-edn-ingestion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-01 kotoba-EDN ingestion maturity loop"
+      ],
+      "related": [
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
+      "id": "doc:adr-2606011330-kotoba-dht-holochain-validating-dht-durability-substrate",
+      "type": "TechArticle",
+      "title": "ADR-2606011330: kotoba-dht — Holochain-iso validating DHT as the durability + verifiable-availability substrate (IPFS demoted to CIDv1 cold/interop tier)",
+      "status": "proposed",
+      "topic": "kotoba-storage-durability",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba block-durability + verifiable-availability substrate (40-engine/kotoba/crates/kotoba-dht)",
+        "BlockStore durability tier selection (kotoba-store)",
+        "IPFS role demotion to CIDv1 cold/interop backstop"
+      ],
+      "related": [
+        "doc:adr-2605231400-yatachain-holochain-iso-substrate",
+        "doc:adr-2605231525-no-server-key-posture"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan",
       "type": "TechArticle",
       "title": "ADR-2606011500: kami-engine reusable-vs-repo-specific separation plan (submodule prerequisite)",
@@ -11699,6 +11770,25 @@
       "related": [
         "doc:adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
         "doc:adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
+      "id": "doc:adr-2606011500-spirit-in-physics-kotoba-datafication",
+      "type": "TechArticle",
+      "title": "ADR-2606011500: Spirit-in-Physics → kotoba Datom datafication — edge-primary 霊性 across self / humanity / world",
+      "status": "proposed",
+      "topic": "spirit-in-physics-kotoba-datafication",
+      "authoritative": true,
+      "authoritativeFor": [
+        "spirit-in-physics data model on kotoba",
+        ":spirit/* :spirit.bond/* kotoba-EAVT vocabulary",
+        "spirit-in-physics submodule vendoring",
+        "D1 → kotoba spirit-data migration"
+      ],
+      "related": [
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605192100-etzhayyim-mission-charter"
       ],
       "lastVerified": "2026-06-01"
     },
@@ -11719,6 +11809,27 @@
         "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
         "doc:adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
         "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
+      "id": "doc:adr-2606011800-tsumugi-spirit-intel-power-graph",
+      "type": "TechArticle",
+      "title": "ADR-2606011800: tsumugi 紡ぎ — Spirit-in-Physics intel over the Engi Knowledge Graph (取-concentration of real public power-entities) + no-LFS/DataLad policy",
+      "status": "proposed",
+      "topic": "tsumugi-spirit-intel-power-graph",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsumugi actor (Engi Knowledge Graph intel weaver)",
+        "spirit-in-physics power-graph analyzer",
+        "no-git-lfs / DataLad-via-IPFS asset policy"
+      ],
+      "related": [
+        "doc:adr-2605301600-danjo-public-accountability",
+        "doc:adr-2605301400-tadori-onchain-tracing",
+        "doc:adr-2605302300-kanae-fiscal-flow-visualization",
+        "doc:adr-2605310100-covenant-transparency",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "lastVerified": "2026-06-01"
     },

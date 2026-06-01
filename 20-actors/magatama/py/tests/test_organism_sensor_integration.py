@@ -67,13 +67,21 @@ class _StubSensor:
 
 
 def _make_organism(sensors: tuple = (), sample_size: int = 4) -> UnispscOrganism:
-    """Build a UnispscOrganism with a no-op graph stub."""
-    return UnispscOrganism(
+    """Build a UnispscOrganism with a no-op graph stub.
+
+    Birthed to ACTIVE so ``tick()`` exercises the real heartbeat path:
+    the lifecycle R1 state machine (commit c0d1099f5) gates ``tick()``
+    behind ACTIVE/CLONED, and an INACTIVE organism legitimately skips
+    polling. A live organism is what these integration tests intend.
+    """
+    org = UnispscOrganism(
         code="99999999",
         graph=MagicMock(),
         sensors=sensors,
         sensor_sample_size=sample_size,
     )
+    org.lifecycle.handle_birth(org.actor_did)
+    return org
 
 
 # ── poll_sensors basic behavior ────────────────────────────────────────

@@ -25,6 +25,28 @@ from __future__ import annotations
 
 from .cld import discover_loops, find_cycles, infer_adjacency
 from .datom import Datom, DatomStore
+from .edn import (
+    EdnError,
+    Keyword,
+    datom_to_eavt_edn,
+    datoms_from_dataclass,
+    datoms_to_tx_edn,
+    entity_to_edn,
+    kw,
+    ns_for,
+    parse_tx_edn,
+    read_all_edn,
+    read_edn,
+    store_to_tx_edn,
+    to_edn,
+)
+from .sink import (
+    DEFAULT_KEY_FIELDS,
+    DroppedObservation,
+    EavtSink,
+    IngestReceipt,
+    SinkClass,
+)
 from .flows import FlowEdge, infer_flow
 from .graph import build_junkan_graph, run_analysis
 from .ingest import load_fixture, series_from_observations
@@ -69,6 +91,24 @@ __all__ = [
     "GATES",
     "Datom",
     "DatomStore",
+    "Keyword",
+    "kw",
+    "to_edn",
+    "datom_to_eavt_edn",
+    "datoms_to_tx_edn",
+    "entity_to_edn",
+    "store_to_tx_edn",
+    "datoms_from_dataclass",
+    "ns_for",
+    "EdnError",
+    "read_edn",
+    "read_all_edn",
+    "parse_tx_edn",
+    "EavtSink",
+    "IngestReceipt",
+    "DroppedObservation",
+    "SinkClass",
+    "DEFAULT_KEY_FIELDS",
     "FlowEdge",
     "infer_flow",
     "CausalLoop",

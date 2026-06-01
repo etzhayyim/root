@@ -218,10 +218,12 @@ a geometry reveal. Binds to the `tatekata` 建方 actor (ADR-2605250715).
 - **Buildability** (in `engineering.py`) — per step: robot reach vs work-zone
   (relocation setups), cycle-time vs schedule (robots needed), footprint —
   `build/*` datoms. All 23 schedule-feasible (with N setups reported).
-- **Material-process solvers** (`kami-app-tatekata`, app-layer stand-ins, same
-  honest posture as kabitori `MoldField` — NO granular/MPM/thermal-FEM):
-  `deposit_field.rs` (concrete deposition/levelling height grid → printer steps)
-  + `weld_field.rs` (moving heat-source fusion → bolter steps).
+- **Material-process solvers** (`kami-app-tatekata`):
+  `deposit_field.rs` (concrete deposition/levelling height grid → printer steps,
+  still an app-layer stand-in like kabitori `MoldField`) +
+  `weld_field.rs` (moving heat-source fusion → bolter steps). **As of v7 (iter
+  14) `weld_field` is NO LONGER a stand-in** — it delegates to the real
+  `kami_genesis::ThermalField` transient-heat PDE (see v7).
 - **`kami-app-tatekata`** crate (path-deps `kami-app-giemon-factory`) — viewer
   `run_tatekata_v1`: each step's assigned robot performs its op sequence on
   kami-genesis; HUD shows the live op. `tatekata.htm` viewer.
@@ -241,6 +243,100 @@ kami-genesis rigid-body physics, not scripted reveal:
 - Validated by `cargo test`: `payload_free_falls_and_settles`,
   `cart_drives_toward_target`. Honest: rigid-body cart/payload/robot physics is
   real; material-process (concrete flow / weld pool) remains an app-layer field.
+
+### v6 (2026-05-31) — kami-genesis maturation: close the PhysX/Isaac gap
+
+Founder asked to raise the physics-engine coverage vs NVIDIA (Omniverse / Isaac /
+PhysX). Three clean-room, WASM-targeted additions to `kami-genesis` (no NVIDIA
+code; algorithm-class, validated by unit tests, **not** GPU-FEM parity):
+
+| 領域 | before | after | new module |
+|---|---|---|---|
+| ② 接触/衝突 narrow-phase | 🟡 AABB/sphere/capsule proxy のみ | 🟢 **GJK 距離 + EPA 貫入(深さ/法線) + CCD**(conservative-advancement TOI + 解析 sphere-plane) | `convex.rs`, `ccd.rs` |
+| ③ 変形体/粒状/流体 | 🔴 app-layer field stand-in のみ | 🟡 **MLS-MPM 連続体**(弾性 / 砂・コンクリ granular plasticity / 流体)= DepositField/MoldField の本物化 | `mpm.rs` |
+| ③ 溶接(熱) | 🔴 WeldField crude | 🟡 **transient 熱伝導 PDE**(2D explicit FDM + 移動 Gaussian 源 + Dirichlet/Neumann BC)= 融合域が conduction から創発 | `thermal.rs` |
+| ① GPU 並列 env | 🔴 deferred と記載 | 🟡 **既に実装済みを確認**: `wgpu_backend` が cartpole/double-pendulum を実 `wgpu::Device`(Metal)で 1024-env compute dispatch、CPU-vectorized と一致検証 | (既存) |
+
+Honest limits (unchanged direction): MPM/thermal は **2-D・explicit・CPU/WASM・f32**
+(PhysX GPU FEM/MPM より一桁単純); narrow-phase は manifold/persistent contact 未生成;
+GPU dispatch は cartpole/DP のみ(一般 articulation の GPU batch は未)。いずれも
+*アルゴリズム同クラスを単体テストで検証* であって NVIDIA とのビット一致ではない。
+
+### v7 (2026-06-01) — maturation /loop: validation hardening + weld goes real + 3-D control stack
+
+Self-paced maturity loop ("成熟度を高めて") — each iteration one bounded, tested,
+committed increment to `kami-genesis`, all lefthook gates green (**118 → 143
+tests**, iters 9–24). Three themes:
+
+**(1) Validation cross-checks** (no behaviour change, lock correctness against an
+independent derivation):
+- APIC angular-momentum conservation (`mpm.rs`) — the property MLS-MPM uses APIC
+  (over PIC) to get.
+- CRBA mass-matrix ≡ kinetic energy on the planar single-axis (`planar_chain.rs`)
+  AND the full 6-D spatial (`articulation3d.rs`) solver — `½q̇ᵀMq̇` vs the
+  independent energy recursion.
+- 3-D Jacobians both ways: `point_jacobian` vs finite-difference FK (offset
+  point → linear + ω×p terms); 6-row `geometric_jacobian` via `J·q̇` = the FK
+  link twist (angular + linear rows).
+- GJK diagonal-gap (√2) + off-axis EPA min-translation-axis; CCD
+  conservative-advancement Galilean invariance + diagonal approach (`ccd.rs`).
+- OBB SAT + manifold rotational covariance (exercises the 9 edge×edge axes);
+  batched `ArticulationView` ≡ standalone single-articulation **bit-for-bit**
+  (`batched.rs`).
+
+**(2) `weld_field.rs` migrated off its stand-in** onto the real
+`kami_genesis::ThermalField` 2-D transient-heat PDE: the 1-D seam is a thin 2-D
+strip; `pass()` sub-steps to the CFL bound and walks the arc. Two additive solver
+capabilities made it faithful: `ThermalField::step_multi` (N superposed Gaussian
+arcs — multi-pass / both-ends bridging; `step()` delegates, single-source path
+bit-identical) and `ThermalField::with_convection` (Newton heat loss to ambient,
+default 0 = insulated so the conservation regression is preserved). De-risked for
+the live viewer by a test replicating its exact call pattern (`pass(settle, 9000,
+1/60)` swept 0→1 over 30/60/150 frames → fuses + glows + bounded) + a weld-then-
+cool test. `tatekata.htm` wasm bundle rebuilt. `deposit_field.rs` (concrete)
+remains a stand-in: `DepositField` is a **plan-view** areal height grid while
+MPM is a **vertical slice** — a faithful pour is a reconception, not a drop-in;
+bridged for now by `MpmSolver::surface_profile`/`fill_height` (the fill-level a
+screed controller targets).
+
+**(3) Full 3-D control stack on `Articulation3dConfig`** (the solver the giemon
+arm6 + factory work-cells run on; previously raw-torque only) — Isaac/PhysX-class
+actuator + dynamics API, each validated:
+- `pd_position_torque` / `drive_to_targets` — joint-space PD position targets
+  (Isaac `set_joint_position_targets`); a z/y/x arm converges to all targets.
+- `gravity_torque` — RNEA gravity feedforward `g(q)`; PD + g(q) removes the
+  steady-state droop `g(q)/kp` (>4× accuracy under gravity).
+- `inverse_dynamics` — full `τ = M·q̈* + C + g` (computed-torque basis, Isaac
+  `compute_inverse_dynamics`); validated by FD/ID round-trip (`q̈*` recovered
+  < 1e-3).
+- `solve_position_ik` — damped-least-squares Cartesian position IK (Nakamura/
+  Wampler) on the validated point Jacobian, joint-limit clamped; reaches a
+  reachable target < 1e-3.
+
+**v6 follow-up — engine 結線 + API parity**: (a) narrow-phase を剛体ソルバに**統合** —
+`contact.rs` に `Obstacle::Convex(ConvexPoly)`(任意傾斜凸体)、球コライダを GJK 分離 /
+EPA 貫入で解決(プロキシ形状だけだった接触に**汎用凸体接触**を結線)。(b) **batched
+API** `batched.rs::ArticulationBatch` — Isaac Sim `ArticulationView` の **tensor 形
+`[num_envs, n_dof]`**(env-major flat)で `set_joint_efforts`/`get_joint_positions`/
+`step` を提供(単env `Vec` 形しか無かった API-shape ギャップを解消; 実行は CPU loop、
+GPU batch は cartpole/DP のみ)。(c) **PhysX facade** `batched::px` — `PxScene` /
+`PxArticulationReducedCoordinate` 型 + `setJointEfforts`/`simulate`/`getJointPositions`
+の camelCase 委譲(型として未実装だった PhysX 名を実体化、意味論は KAMI ソルバ)。
+
+**v6 follow-up #2 — 安定接触 + 一般 articulation GPU**: (d) **OBB 接触マニフォールド**
+`obb.rs` — SAT(15軸)で法線+最小貫入、**多点マニフォールド**(vertex-in-face 双方向)で
+box-on-box が**4点接触→転倒しない安定接触**(EPA 単点では wobble)。(e) **一般 articulation
+を GPU 並列化** `wgsl/planar_chain_step.wgsl` + `wgpu_planar.rs` — 平面 N-link(≤7,
+Franka級)の **RNEA+CRBA+LDLᵀ+semi-implicit Euler を WGSL に完全移植**し `wgpu::Device`
+(Metal)で num_envs 並列 dispatch、**CPU planar_chain と一致検証**(256env×60step、
+max_err<2e-2)。cartpole/DP 専用だった GPU batch を**任意平面チェーンに一般化**。
+
+Verified by `cargo test -p kami-genesis`: **118 passed** (+24 new — GJK 距離/交差,
+EPA 貫入, CCD トンネリング防止, 2×2 SVD, MPM 質量保存/弾性落下/流体拡散, 熱 1D 定常=
+解析線形/エネルギー保存/融合域/CFL, Convex 接触 GJK+EPA, batched [num_envs,n_dof]
+env 分岐, PhysX facade 委譲, **OBB SAT+manifold 安定接触**). `--features gpu`:
+**123 passed** (incl. `wgpu_dispatch_matches_cpu_vectorized` 1024-env + **一般
+planar articulation GPU 256-env parity** on Metal). wasm32 build green.
 
 ## Verification (all run 2026-05-31)
 

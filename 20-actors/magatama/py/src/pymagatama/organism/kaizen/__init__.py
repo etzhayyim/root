@@ -566,7 +566,12 @@ class StaleSensorPinRule:
     def __call__(self, obs: Observation) -> list[KaizenProposal]:
         out: list[KaizenProposal] = []
         for s in obs.sensors:
-            if s.refresh_cadence_sec <= 0 or s.latest_pin_created_at_ms <= 0:
+            # cadence unknown → cannot reason about staleness; skip.
+            # latest_pin_created_at_ms == 0 means "never received a pin"
+            # (epoch), which is maximally stale, NOT a skip condition: a
+            # sensor running past 4× its cadence with no pin is exactly the
+            # drift R7 must surface (age = obs.ts - 0 = obs.ts).
+            if s.refresh_cadence_sec <= 0:
                 continue
             age_ms = obs.ts - s.latest_pin_created_at_ms
             threshold_ms = s.refresh_cadence_sec * 1000 * 4
