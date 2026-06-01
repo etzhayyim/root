@@ -1,15 +1,18 @@
-# kami-apps — etzhayyim repo-specific (L3) robotics-actor apps, extracted from
-# the kami-engine reusable-engine workspace per ADR-2606011500 stage 3 so the
-# eventual kami-engine git-submodule (stage 4) stays purely reusable.
+# kami-apps — etzhayyim repo-specific (L3) *.etzhayyim.com product apps.
 #
-# These crates path-depend on the L2 engine crates under ../kami-engine/.
+# Per ADR-2606011500: the robotics/sim apps (giemon, shibuya, tatekata,
+# sarutahiko, funadaiku, …) are maintained canonically IN the kami-engine
+# submodule (etzhayyim/kami-engine); this monorepo workspace holds the
+# etzhayyim product apps (bim/cad/live/maps3d/animeka-timeline). All crates
+# path-depend on the L2 engine + domain-lib crates under ../kami-engine/.
 [workspace]
 resolver = "2"
 members = [
-    "kami-app-shibuya",
-    "kami-app-giemon",
-    "kami-app-giemon-factory",
-    "kami-app-tatekata",
+    "kami-app-bim",
+    "kami-app-cad",
+    "kami-app-live",
+    "kami-app-maps3d",
+    "kami-app-animeka-timeline",
 ]
 
 [workspace.package]
@@ -24,3 +27,5 @@ log = "0.4"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 wasm-bindgen = "0.2"
+bytemuck = { version = "1", features = ["derive"] }
+hecs = "0.10"

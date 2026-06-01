@@ -152,24 +152,22 @@ All 4 staged migrations landed (PRs #655 / #662 / #663 / #666). Follow-on work:
   longer aborts under `bash -e` on pre-existing kotoba metadata drift;
   monorepo-health rollup re-baselined 25 → 7 (legitimate resolution).
 
-- **Stage-3 follow-on — `*.etzhayyim.com` product apps: ⚠️ PARTIAL / BLOCKED.**
-  Owner chose to extract 5 (`kami-app-{bim,cad,live,maps3d,animeka-timeline}`)
-  to monorepo `kami-apps`, keeping `amenominaka` (Omniverse-Kit-equivalent
-  app-shell infra) + the domain libs (kami-bim/kami-cad/kami-live/…) with the
-  engine. **Engine-side removal pushed** (`etzhayyim/kami-engine@0155c1c`, ahead
-  of the monorepo gitlink so the monorepo is unaffected); **monorepo side held
-  unpushed.**
-  **OPEN DECISION — canonical app-crate home.** Discovered concurrently:
-  parallel engine PRs #1/#2/#3 (kami-genesis physics sync · carry
-  `kami-app-{giemon,giemon-factory,shibuya,tatekata}` *into* the engine repo ·
-  add `kami-app-sarutahiko-factory`) move apps the **opposite** direction (INTO
-  the engine), and the monorepo gitlink was advanced to `2c54ff5`. Result: the
-  robotics app crates now exist in BOTH the engine repo AND monorepo
-  `kami-apps/` (duplication), and the engine's new `Collider::Box` variant
-  leaves `kami-app-giemon`'s match non-exhaustive. The unresolved question is
-  **which copy is canonical** — engine-repo-as-superset (revert `0155c1c`, drop
-  the `kami-apps` robotics duplicates) vs strict-L3-separation (revert engine
-  PR #2, keep `kami-apps`). Pending owner decision before either is reconciled.
+- **Stage-3 follow-on — app-crate homes: ✅ RESOLVED (split model, 2026-06-01).**
+  Concurrent parallel engine PRs (#1 physics sync · #2 carry robotics apps INTO
+  the engine · #3 sarutahiko-factory · #4 funadaiku) revealed the canonical
+  split: **robotics/sim apps are maintained IN the `etzhayyim/kami-engine`
+  submodule; `*.etzhayyim.com` product apps live in monorepo `kami-apps/`.**
+  - Engine repo: the 5 product apps (`bim/cad/live/maps3d/animeka-timeline`)
+    were removed (`kami-engine@0155c1c`, kept — owner built PR #4 on top of it);
+    robotics apps (giemon/giemon-factory/shibuya/tatekata/sarutahiko/funadaiku)
+    + domain libs (kami-bim/kami-cad/kami-live/…) + `amenominaka` app-shell stay.
+  - Monorepo `kami-apps/`: now holds **only the 5 product apps**; the stage-3
+    robotics duplicates were **dropped** (they were stale — `kami-app-giemon`'s
+    `Collider`-match never tracked the engine's `Collider::Box` variant, i.e.
+    abandoned in favour of the engine copies). Gitlink bumped `2c54ff5 → 8e60f9a`.
+  This removes the robotics-app duplication; each app crate now has exactly one
+  home. (A brief mis-step — an erroneous revert of `0155c1c` (`de15ac4`) — was
+  force-undone before reconciliation; engine main restored to `8e60f9a`.)
 
 # Consequences
 
