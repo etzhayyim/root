@@ -337,6 +337,17 @@ impl Articulation3dConfig {
         self.step(st, &tau);
     }
 
+    /// Joint torques that hold the arm static against gravity at configuration
+    /// `q` — the RNEA bias evaluated at `q̇ = 0` (Coriolis vanishes, so only the
+    /// gravity term `g(q)` remains). This is the gravity feedforward of Isaac's
+    /// gravity-compensated actuator; add it to a PD command to remove the
+    /// steady-state droop `g(q)/kp` that plain PD leaves under gravity.
+    pub fn gravity_torque(&self, q: &[f32]) -> Vec<f32> {
+        let zero = vec![0.0_f32; self.ndof];
+        let kin = self.kinematics(q, &zero);
+        self.rnea_bias(&zero, &kin)
+    }
+
     /// Integrate `q̇ += dt·q̈ ; q += dt·q̇` with joint-limit clamping. Exposed so
     /// the contact solver can correct `q̇` before the position update.
     pub(crate) fn integrate(&self, st: &mut Articulation3dState, qddot: &[f32]) {
@@ -939,6 +950,77 @@ mod tests {
             st.qdot.iter().all(|v| v.abs() < 1e-2),
             "not settled at rest"
         );
+    }
+
+    #[test]
+    fn gravity_compensation_removes_pd_droop() {
+        // Under gravity, plain PD settles with steady-state error g(q)/kp on the
+        // gravity-loaded joints. Adding the RNEA gravity feedforward τ = g(q) + PD
+        // cancels the bias → the arm holds the target with near-zero error.
+        let m = 1.0;
+        let i_com = Mat3::from_diagonal(Vec3::splat(0.02));
+        let mk = |parent: isize, axis: Vec3, r: Vec3, dof: isize| Body3d {
+            name: "l".into(),
+            parent,
+            joint_type: JointType3d::Revolute,
+            axis,
+            e_tree: Mat3::IDENTITY,
+            r_tree: r,
+            inertia: spatial_inertia(m, Vec3::new(0.1, 0.0, 0.0), i_com),
+            mass: m,
+            com: Vec3::new(0.1, 0.0, 0.0),
+            lower: 0.0,
+            upper: 0.0,
+            has_limit: false,
+            effort: 0.0,
+            damping: 0.0,
+            dof,
+        };
+        let make = || Articulation3dConfig {
+            bodies: vec![
+                mk(-1, Vec3::Z, Vec3::ZERO, 0),
+                mk(0, Vec3::Y, Vec3::new(0.3, 0.0, 0.0), 1),
+                mk(1, Vec3::X, Vec3::new(0.3, 0.0, 0.0), 2),
+            ],
+            gravity: Vec3::new(0.0, 0.0, -9.81),
+            dt: 1.0 / 240.0,
+            ndof: 3,
+        };
+        let target = vec![0.4_f32, -0.3, 0.5];
+        let (kp, kd) = (30.0, 6.0);
+        let max_err = |st: &Articulation3dState| {
+            (0..3)
+                .map(|d| (st.q[d] - target[d]).abs())
+                .fold(0.0_f32, f32::max)
+        };
+
+        // plain PD — sags under gravity.
+        let cfg = make();
+        let mut a = Articulation3dState::zeros(3);
+        for _ in 0..3000 {
+            cfg.drive_to_targets(&mut a, &target, kp, kd);
+        }
+        let err_pd = max_err(&a);
+
+        // PD + gravity feedforward.
+        let mut b = Articulation3dState::zeros(3);
+        for _ in 0..3000 {
+            let g = cfg.gravity_torque(&b.q);
+            let pd = cfg.pd_position_torque(&b, &target, kp, kd);
+            let tau: Vec<f32> = (0..3).map(|d| g[d] + pd[d]).collect();
+            cfg.step(&mut b, &tau);
+        }
+        let err_gc = max_err(&b);
+
+        assert!(
+            err_pd > 0.02,
+            "test too weak: plain PD barely drooped ({err_pd})"
+        );
+        assert!(
+            err_gc < 0.25 * err_pd,
+            "gravity comp did not help: pd={err_pd} gc={err_gc}"
+        );
+        assert!(err_gc < 1e-2, "gravity-comp pose not accurate: {err_gc}");
     }
 
     #[test]
