@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "bpmn-moddle": "^10.0.0",
-    "moddle-xml": "^9.0.5"
+    "moddle-xml": "^12.0.0"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
