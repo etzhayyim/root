@@ -348,6 +348,23 @@ impl Articulation3dConfig {
         self.rnea_bias(&zero, &kin)
     }
 
+    /// Inverse dynamics: the joint torques that realise a desired acceleration
+    /// `q̈*` at state `(q, q̇)` — the full RNEA `τ = M(q)·q̈* + C(q,q̇) + g(q)`.
+    /// The exact inverse of `forward_dynamics`, and the basis of computed-torque
+    /// control (Isaac `compute_inverse_dynamics`). `gravity_torque` is the
+    /// special case `q̇ = 0, q̈* = 0`.
+    pub fn inverse_dynamics(&self, q: &[f32], qdot: &[f32], qddot_des: &[f32]) -> Vec<f32> {
+        let kin = self.kinematics(q, qdot);
+        let mut tau = self.rnea_bias(qdot, &kin); // C + g
+        let m = self.crba(&kin);
+        for i in 0..self.ndof {
+            for j in 0..self.ndof {
+                tau[i] += m[i][j] * qddot_des.get(j).copied().unwrap_or(0.0);
+            }
+        }
+        tau
+    }
+
     /// Integrate `q̇ += dt·q̈ ; q += dt·q̇` with joint-limit clamping. Exposed so
     /// the contact solver can correct `q̇` before the position update.
     pub(crate) fn integrate(&self, st: &mut Articulation3dState, qddot: &[f32]) {
@@ -950,6 +967,61 @@ mod tests {
             st.qdot.iter().all(|v| v.abs() < 1e-2),
             "not settled at rest"
         );
+    }
+
+    #[test]
+    fn inverse_dynamics_round_trips_through_forward_dynamics() {
+        // τ = ID(q, q̇, q̈*) fed back to forward dynamics must reproduce q̈* — the
+        // M·q̈ + C + g identity that ties the two solvers together. Exercised with
+        // gravity on, nonzero q̇ (Coriolis active) and a nontrivial desired
+        // acceleration, so M, C and g all contribute (the full coupled case).
+        let m = 1.0;
+        let i_com = Mat3::from_diagonal(Vec3::splat(0.02));
+        let mk = |parent: isize, axis: Vec3, r: Vec3, dof: isize| Body3d {
+            name: "l".into(),
+            parent,
+            joint_type: JointType3d::Revolute,
+            axis,
+            e_tree: Mat3::IDENTITY,
+            r_tree: r,
+            inertia: spatial_inertia(m, Vec3::new(0.1, 0.0, 0.0), i_com),
+            mass: m,
+            com: Vec3::new(0.1, 0.0, 0.0),
+            lower: 0.0,
+            upper: 0.0,
+            has_limit: false,
+            effort: 0.0, // unlimited → no clamp, exact round-trip
+            damping: 0.0,
+            dof,
+        };
+        let cfg = Articulation3dConfig {
+            bodies: vec![
+                mk(-1, Vec3::Z, Vec3::ZERO, 0),
+                mk(0, Vec3::Y, Vec3::new(0.3, 0.0, 0.0), 1),
+                mk(1, Vec3::X, Vec3::new(0.3, 0.0, 0.0), 2),
+            ],
+            gravity: Vec3::new(0.0, 0.0, -9.81),
+            dt: 1.0 / 240.0,
+            ndof: 3,
+        };
+        let q = vec![0.3_f32, -0.5, 0.7];
+        let qd = vec![0.9_f32, -0.4, 0.6];
+        let qdd_des = vec![1.5_f32, -2.0, 0.8];
+
+        let tau = cfg.inverse_dynamics(&q, &qd, &qdd_des);
+        let st = Articulation3dState {
+            q: q.clone(),
+            qdot: qd.clone(),
+        };
+        let (qdd, _m) = cfg.forward_dynamics(&st, &tau);
+        for d in 0..3 {
+            assert!(
+                (qdd[d] - qdd_des[d]).abs() < 1e-3,
+                "dof {d}: forward {} vs desired {}",
+                qdd[d],
+                qdd_des[d]
+            );
+        }
     }
 
     #[test]
