@@ -18683,6 +18683,38 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606015200-wasm-actor-runtime-round-2-dagpb-mesh-kanae-erc725.md",
+      "id": "adr-2606015200-wasm-actor-runtime-round-2-dagpb-mesh-kanae-erc725",
+      "title": "ADR-2606015200: WASM-actor runtime round 2 — dag-pb CAR verify, mesh runner, kanae T1, ameno panel, ERC725 mirror, operator enablement",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "wasm-actor-runtime-round-2",
+      "authoritative": true,
+      "authoritative_for": [
+        "dagpb-car-verification",
+        "t2-mesh-runner",
+        "ameno-actor-panel",
+        "erc725-vm-mirror"
+      ],
+      "related": [
+        "2605302300",
+        "2606011800",
+        "2606012600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606014600",
+        "2606014500",
+        "2606013800",
+        "2605212030",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

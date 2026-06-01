@@ -225,6 +225,29 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606011800"],
   },
+  kanae: {
+    description:
+      "鼎 — global government fiscal-flow VISUALIZATION. Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders). Per ADR-2605302300.",
+    glyph: "鼎",
+    displayName: "Kanae — Government Fiscal-Flow Visualization",
+    primaryLexicon: "app.etzhayyim.kanae",
+    // Content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
+    // Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200).
+    wasmCid: "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kanae#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kanae#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2605302300"],
+  },
 } as const;
 
 

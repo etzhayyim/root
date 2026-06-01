@@ -31,6 +31,12 @@ export function base32(bytes: Uint8Array): string {
   return out;
 }
 
+/** A dag-pb (UnixFS) sha2-256 CIDv1 string (`bafybei…`) — multi-block content
+ *  verifiable via CAR (`car.ts`), not by a single sha256. */
+export function isDagPbCidV1(cid: string): boolean {
+  return /^bafybei[a-z2-7]{52}$/.test(cid);
+}
+
 /** A raw-codec, sha2-256, CIDv1 string (`bafkrei…`). 59 chars, base32. */
 export function isRawCidV1(cid: string): boolean {
   return /^bafkrei[a-z2-7]{52}$/.test(cid);
