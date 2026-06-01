@@ -11745,6 +11745,43 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606011330-kotoba-dht-holochain-validating-dht-durability-substrate",
+      "type": "TechArticle",
+      "title": "ADR-2606011330: kotoba-dht — Holochain-iso validating DHT as the durability + verifiable-availability substrate (IPFS demoted to CIDv1 cold/interop tier)",
+      "status": "proposed",
+      "topic": "kotoba-storage-durability",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba block-durability + verifiable-availability substrate (40-engine/kotoba/crates/kotoba-dht)",
+        "BlockStore durability tier selection (kotoba-store)",
+        "IPFS role demotion to CIDv1 cold/interop backstop"
+      ],
+      "related": [
+        "doc:adr-2605231400-yatachain-holochain-iso-substrate",
+        "doc:adr-2605231525-no-server-key-posture"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
+      "id": "doc:adr-2606011500-spirit-in-physics-kotoba-datafication",
+      "type": "TechArticle",
+      "title": "ADR-2606011500: Spirit-in-Physics → kotoba Datom datafication — edge-primary 霊性 across self / humanity / world",
+      "status": "proposed",
+      "topic": "spirit-in-physics-kotoba-datafication",
+      "authoritative": true,
+      "authoritativeFor": [
+        "spirit-in-physics data model on kotoba",
+        ":spirit/* :spirit.bond/* kotoba-EAVT vocabulary",
+        "spirit-in-physics submodule vendoring",
+        "D1 → kotoba spirit-data migration"
+      ],
+      "related": [
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

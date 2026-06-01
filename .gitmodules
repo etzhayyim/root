@@ -38,3 +38,14 @@
 	path = 40-engine/kotoba
 	url = https://github.com/etzhayyim/kotoba.git
 	branch = main
+[submodule "60-apps/spirit-in-physics"]
+	# Spirit-in-Physics measurement instrument + research SSoT (ADR-2606011500).
+	# Private upstream (com-junkawasaki/spirit-in-physics), same author. Vendored
+	# as the 霊性 measurement model; canonical religious-corp home is the kotoba
+	# Datom log (00-contracts/schemas/spirit-ontology.kotoba.edn), NOT its D1.
+	# Uses git-lfs (paper PDFs); clone with GIT_LFS_SKIP_SMUDGE=1 if git-lfs absent.
+	# `ignore = dirty` suppresses LFS-smudge status failures during parent traversal.
+	path = 60-apps/spirit-in-physics
+	url = https://github.com/com-junkawasaki/spirit-in-physics.git
+	branch = main
+	ignore = dirty
