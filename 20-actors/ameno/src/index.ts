@@ -56,6 +56,22 @@ export {
   type InferenceBackend,
 } from "./inference/webnn";
 
+// WASM-actor loader (ADR-2606014500 + 2606014600) — resolve actor DID, fetch
+// its content-addressed WASM via the apex trustless gateway, CID-verify, run
+// browser-local. The "one Worker, many WASM actors" runtime in the browser.
+export {
+  didToDocUrl,
+  resolveActorWasm,
+  fetchVerifiedWasm,
+  instantiateActor,
+  runCompute,
+  loadActor,
+  isRawCidV1,
+  cidV1Raw,
+  type WasmActorRef,
+  type WasmActorLoaderOpts,
+} from "./inference/wasm-actor-loader";
+
 export {
   TRAIN_DEFAULTS,
   DEVICE_STEP_BUDGET,

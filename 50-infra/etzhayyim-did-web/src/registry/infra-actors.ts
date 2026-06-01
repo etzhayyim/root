@@ -183,6 +183,9 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     glyph: "綿津綱",
     displayName: "Watatsuna — World Submarine-Cable Network Knowledge Graph",
     primaryLexicon: "app.etzhayyim.cable",
+    // componentize-py WASM component (20-actors/watatsuna/wasm) — dag-pb (17.6MB,
+    // bundles CPython) → T2 donated-mesh tier, not browser-local (ADR-2606014600).
+    wasmCid: "bafybeihusqahaeirwqur64aeh5fvwuoh54cawbmo7smx3h2abvps6li7pa",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:watatsuna#atproto_pds",
