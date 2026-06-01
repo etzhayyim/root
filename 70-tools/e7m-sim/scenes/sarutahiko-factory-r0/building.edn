@@ -1,0 +1,359 @@
+;; sarutahiko-factory-r0 — 建材 + 設備 台帳 (building-materials + equipment ledger),
+;; Datomic-style EDN. SSoT for every physical element of the 猿田彦 Class-8 truck
+;; assembly plant simulated by `kami-app-sarutahiko-factory` (ADR-2606013100).
+;;
+;; Same shape as the giemon-factory `building.edn` (ADR-2606010030) so the shared
+;; `kotoba_gen.py` reader/SBOM/IFC toolchain is reused unchanged: each part becomes
+;; one kotoba entity whose claims are kg/claim/part/* datoms (EAVT, ADR-2605312345);
+;; the whole file also emits a CycloneDX SBOM.
+;;
+;; The building shell + MEP + 外構 + raw-materials groups (A-E, G-L) are the same
+;; generic industrial fit-out as the giemon plant (a steel portal-frame bay scales
+;; from a light-assembly plant to a truck plant by size, not by kind). The CHANGE
+;; vs the giemon plant is group F (production equipment): truck-line machines —
+;; frame jigs / stamping press / BIW weld jigs / paint booth / GA marriage gantry /
+;; EOL roller dyno — PLUS the line robots, including F10 積込ロボット (the loading
+;; robot that loads a finished truck onto a carrier, simulated by the `*_load`
+;; entry of the kami-app crate).
+;;
+;; :part/group        A-foundation · B-steel-frame · C-roof · D-cladding ·
+;;                    E-mep · F-equipment · G-electrical · H-water · I-gas ·
+;;                    J-fire-safety · K-site (外構/外部動線) · L-raw-materials (原材料)
+;; :part/procurement  :cots — buy off-the-shelf (has :part/manufacturer + :part/purl)
+;;                    :custom-fab — cast / weld / commission on site
+;; :part/sim-feature  links the part to a render element id in factory.scene.json
+;; :part/sourcing     :representative — R0 design selection, NOT a procurement-verified
+;;                    purchase or building-permit decision. Confirm before buying/building.
+
+{:bom/meta
+ {:bom/of          "sarutahiko-factory-r0"
+  :bom/revision    "v1"
+  :bom/title       "猿田彦 Class-8 truck assembly plant — R0 building + equipment BOM"
+  :bom/currency    "JPY"
+  :bom/sourcing    :representative
+  :bom/note        "R0 design BOM for a 180m x 90m steel portal-frame truck assembly plant (full MEP + 外構 + 出荷ヤード) producing the Class-8 cargo truck of ADR-2605252500. Building shell (A-E) + utilities (G electrical / H water / I gas / J fire) routed as kami-genesis geometry; site/外部動線 + 出荷ヤード (K) outside the bay; raw materials (L) as bulk inputs; production equipment (F) = truck-line machines + line robots incl. F10 積込ロボット. Manufacturer/MPN/数量/length-m/area-m2/mass are representative R0 design figures, NOT a finalized purchase, 確認申請, 消防同意, or 受電/受水/ガス供給契約. Capital-intensive heavy-truck plant per ADR-2605252500 §Consequences — R3 community-scale is Council + LANDS.md gated."}
+
+ :bom/parts
+ [;; ── A. foundation (建材) ──────────────────────────────────────────────────
+  {:part/id "bld:A1-subbase"   :part/name "Crushed-stone sub-base (RC-40)" :part/group "A-foundation"
+   :part/procurement :custom-fab :part/fab-process "300mm compacted crushed concrete, CBR>=40, 180x90m heavy-load yard"
+   :part/qty 1 :part/mass-kg 4200000 :part/material "aggregate" :part/sim-feature "ground" :part/sourcing :representative}
+  {:part/id "bld:A2-slab"      :part/name "RC ground slab + thickened machine bases" :part/group "A-foundation"
+   :part/procurement :custom-fab :part/fab-process "300mm C35/45 RC slab on DPM, FM2 flatness, thickened under press_1/dyno"
+   :part/qty 1 :part/mass-kg 5800000 :part/material "concrete-C35/45" :part/sim-feature "floor" :part/sourcing :representative}
+  {:part/id "bld:A3-rebar"     :part/name "Reinforcement mesh + edge/base bars"   :part/group "A-foundation"
+   :part/procurement :cots :part/manufacturer "JFE Steel" :part/product "SD345 D16 mesh + base cages"
+   :part/mpn "SD345-D16" :part/purl "pkg:generic/jfe-steel/sd345-d16"
+   :part/qty 1 :part/mass-kg 86000 :part/material "steel-rebar" :part/sim-feature "floor" :part/sourcing :representative}
+  {:part/id "bld:A4-anchor"    :part/name "Cast-in column anchor bolts M36"  :part/group "A-foundation"
+   :part/procurement :cots :part/manufacturer "Hilti" :part/product "HIT-Z M36 chemical anchor"
+   :part/mpn "HIT-Z-M36" :part/purl "pkg:generic/hilti/hit-z-m36"
+   :part/qty 48 :part/mass-kg 1.4 :part/material "steel-8.8" :part/sim-feature "col_0" :part/sourcing :representative}
+
+  ;; ── B. steel frame (建材) ─────────────────────────────────────────────────
+  {:part/id "bld:B1-column"    :part/name "H-section steel column H400x400"  :part/group "B-steel-frame"
+   :part/procurement :cots :part/manufacturer "Nippon Steel" :part/product "Hot-rolled H-400x400x13x21 SN490B"
+   :part/mpn "H400-SN490B" :part/purl "pkg:generic/nippon-steel/h400-sn490b"
+   :part/qty 12 :part/mass-kg 2050 :part/material "steel-SN490B" :part/sim-feature "col_0" :part/sourcing :representative}
+  {:part/id "bld:B2-baseplate" :part/name "Column base plate + leveling grout":part/group "B-steel-frame"
+   :part/procurement :custom-fab :part/fab-process "PL-36 600x600 + non-shrink grout, welded shear studs"
+   :part/qty 12 :part/mass-kg 64 :part/material "steel-SS400" :part/sim-feature "col_0" :part/sourcing :representative}
+  {:part/id "bld:B3-bracing"   :part/name "Vertical + roof wind bracing"      :part/group "B-steel-frame"
+   :part/procurement :cots :part/manufacturer "Nippon Steel" :part/product "L-120x120x12 angle SS400"
+   :part/mpn "L120-SS400" :part/purl "pkg:generic/nippon-steel/l120-ss400"
+   :part/qty 40 :part/mass-kg 48 :part/material "steel-SS400" :part/sim-feature "col_1" :part/sourcing :representative}
+
+  ;; ── C. roof (建材) ────────────────────────────────────────────────────────
+  {:part/id "bld:C1-truss"     :part/name "Roof lattice truss / rafter beam"  :part/group "C-roof"
+   :part/procurement :custom-fab :part/fab-process "welded H-600 lattice truss, 90m clear span, 4 bays"
+   :part/qty 4 :part/mass-kg 6200 :part/material "steel-SN490B" :part/sim-feature "beam_0" :part/sourcing :representative}
+  {:part/id "bld:C2-deck"      :part/name "Folded-steel roof deck + purlins"  :part/group "C-roof"
+   :part/procurement :cots :part/manufacturer "Nisshin Steel" :part/product "ZAM roof deck t1.0 + C-purlin"
+   :part/mpn "ZAM-DECK-10" :part/purl "pkg:generic/nisshin-steel/zam-deck-10"
+   :part/qty 1 :part/mass-kg 64000 :part/material "steel-ZAM" :part/sim-feature "beam_1" :part/sourcing :representative}
+  {:part/id "bld:C3-insul"     :part/name "Roof insulation + waterproof membrane" :part/group "C-roof"
+   :part/procurement :cots :part/manufacturer "Lonseal" :part/product "75mm glass wool + TPO membrane"
+   :part/mpn "TPO-20" :part/purl "pkg:generic/lonseal/tpo-20"
+   :part/qty 1 :part/mass-kg 18500 :part/material "glasswool+tpo" :part/sim-feature "beam_2" :part/sourcing :representative}
+
+  ;; ── D. cladding + openings (建材) ─────────────────────────────────────────
+  {:part/id "bld:D1-panel"     :part/name "Insulated wall sandwich panel"     :part/group "D-cladding"
+   :part/procurement :cots :part/manufacturer "IG Kogyo" :part/product "Isowall 75mm PIR sandwich panel"
+   :part/mpn "ISOWALL-75" :part/purl "pkg:generic/ig-kogyo/isowall-75"
+   :part/qty 1 :part/mass-kg 52000 :part/material "PIR+steel" :part/sim-feature "wall_n" :part/sourcing :representative}
+  {:part/id "bld:D2-partition" :part/name "Paint-booth clean partition"       :part/group "D-cladding"
+   :part/procurement :custom-fab :part/fab-process "studwork + FRP panel + air-lock door, 塗装ブース隔壁"
+   :part/qty 1 :part/mass-kg 4200 :part/material "FRP+steel-stud" :part/sim-feature "wall_paint" :part/sourcing :representative}
+  {:part/id "bld:D3-shutter"   :part/name "Insulated roller shutter door (truck)" :part/group "D-cladding"
+   :part/procurement :cots :part/manufacturer "Bunka Shutter" :part/product "Insulated overhead 6x6m (truck)"
+   :part/mpn "MEISHO-6060" :part/purl "pkg:generic/bunka-shutter/meisho-6060"
+   :part/qty 4 :part/mass-kg 980 :part/material "steel-insulated" :part/sim-feature "wall_s" :part/sourcing :representative}
+  {:part/id "bld:D4-door"      :part/name "Personnel door + fixed windows"    :part/group "D-cladding"
+   :part/procurement :cots :part/manufacturer "Sankyo Tateyama" :part/product "Aluminium door + IGU window set"
+   :part/mpn "ST-DW-1" :part/purl "pkg:generic/sankyo-tateyama/st-dw-1"
+   :part/qty 8 :part/mass-kg 65 :part/material "aluminium+glass" :part/sim-feature "wall_e" :part/sourcing :representative}
+
+  ;; ── E. MEP (建材 — line items + schedule only) ────────────────────────────
+  {:part/id "bld:E1-lighting"  :part/name "LED high-bay lighting"            :part/group "E-mep"
+   :part/procurement :cots :part/manufacturer "Iwasaki Electric" :part/product "LEDioc HIGH-BAY 200W 5000K"
+   :part/mpn "LEDHB-200" :part/purl "pkg:generic/iwasaki/ledhb-200"
+   :part/qty 20 :part/mass-kg 5.2 :part/material "led-fixture" :part/sim-feature "beam_1" :part/sourcing :representative}
+  {:part/id "bld:E2-busway"    :part/name "Overhead busway power distribution":part/group "E-mep"
+   :part/procurement :cots :part/manufacturer "Panasonic" :part/product "Plug-in busway 800A 3P"
+   :part/mpn "BW-800A" :part/purl "pkg:generic/panasonic/bw-800a"
+   :part/qty 1 :part/mass-kg 4200 :part/material "copper-busbar" :part/sourcing :representative}
+  {:part/id "bld:E3-air"       :part/name "Compressed-air ring main + drops"  :part/group "E-mep"
+   :part/procurement :cots :part/manufacturer "SMC" :part/product "Aluminium air piping 65A + FRL drops"
+   :part/mpn "SMC-AIR-65" :part/purl "pkg:generic/smc/smc-air-65"
+   :part/qty 1 :part/mass-kg 2400 :part/material "aluminium-pipe" :part/sourcing :representative}
+  {:part/id "bld:E4-hvac"      :part/name "Roof ventilation + paint-booth AHU" :part/group "E-mep"
+   :part/procurement :cots :part/manufacturer "Daikin" :part/product "Industrial package A/C + paint-booth AHU + roof fans"
+   :part/mpn "DAIKIN-IND-2" :part/purl "pkg:generic/daikin/daikin-ind-2"
+   :part/qty 1 :part/mass-kg 9800 :part/material "hvac-unit" :part/sourcing :representative}
+
+  ;; ── F. production equipment / 生産設備 (truck line) ────────────────────────
+  {:part/id "bld:F1-framejig"  :part/name "フレーム組立溶接治具 (ladder-frame jig)" :part/group "F-equipment"
+   :part/procurement :custom-fab :part/fab-process "HSLA-590/780 ladder-frame fixture, hydraulic clamps, ±0.5mm/m datum, robotic MIG/MAG access"
+   :part/qty 2 :part/mass-kg 14000 :part/material "weld-fixture" :part/sim-feature "frame_jig_1" :part/sourcing :representative}
+  {:part/id "bld:F2-press"     :part/name "サーボプレス (cab panel stamping)"  :part/group "F-equipment"
+   :part/procurement :cots :part/manufacturer "Komatsu" :part/product "サーボトランスファープレス 1600t"
+   :part/mpn "KOMATSU-H1F-1600" :part/purl "pkg:generic/komatsu/h1f-1600" :part/rating "1600t"
+   :part/qty 1 :part/mass-kg 380000 :part/material "stamping-press" :part/sim-feature "press_1" :part/sourcing :representative}
+  {:part/id "bld:F3-weldjig"   :part/name "キャブBIWスポット溶接治具 (cab BIW jig)" :part/group "F-equipment"
+   :part/procurement :custom-fab :part/fab-process "cab body-in-white geo-fixture + servo spot-weld guns, leak-test seal frame"
+   :part/qty 2 :part/mass-kg 11000 :part/material "weld-fixture" :part/sim-feature "weld_jig_1" :part/sourcing :representative}
+  {:part/id "bld:F4-paintbooth" :part/name "水性塗装ブース (KTL→base→clear, VOC<100g/L)" :part/group "F-equipment"
+   :part/procurement :cots :part/manufacturer "Taikisha" :part/product "水性塗装ブース + 焼付乾燥炉 (downdraft)"
+   :part/mpn "TAIKISHA-WB-1" :part/purl "pkg:generic/taikisha/wb-1" :part/spec "waterborne, VOC<100g/L"
+   :part/qty 1 :part/mass-kg 96000 :part/material "paint-booth" :part/sim-feature "paint_booth" :part/sourcing :representative}
+  {:part/id "bld:F5-conveyor"  :part/name "EMS搬送コンベア (受入→出荷 power-and-free)" :part/group "F-equipment"
+   :part/procurement :cots :part/manufacturer "Daifuku" :part/product "EMS overhead power-and-free + floor skid 170m"
+   :part/mpn "DAIFUKU-EMS-170" :part/purl "pkg:generic/daifuku/ems-170"
+   :part/qty 1 :part/mass-kg 42000 :part/material "conveyor" :part/sim-feature "conv_main" :part/sourcing :representative}
+  {:part/id "bld:F6-rack"      :part/name "コイル/部品ラック (受入)"            :part/group "F-equipment"
+   :part/procurement :cots :part/manufacturer "Daifuku" :part/product "Heavy coil + pallet rack 4-level"
+   :part/mpn "DAIFUKU-HR4" :part/purl "pkg:generic/daifuku/hr4"
+   :part/qty 1 :part/mass-kg 9800 :part/material "rack-steel" :part/sim-feature "coil_rack" :part/sourcing :representative}
+  {:part/id "bld:F7-dyno"      :part/name "ローラーシャシダイナモ (EOL test)"   :part/group "F-equipment"
+   :part/procurement :cots :part/manufacturer "Meidensha" :part/product "シャシダイナモ 大型車用 + 排ガス計測"
+   :part/mpn "MEIDEN-CD-HV" :part/purl "pkg:generic/meidensha/cd-hv" :part/rating "Class-8"
+   :part/qty 1 :part/mass-kg 34000 :part/material "dynamometer" :part/sim-feature "dyno" :part/sourcing :representative}
+  {:part/id "bld:F8-cell"      :part/name "Giemon arm6 ライン用ロボットセル"     :part/group "F-equipment"
+   :part/procurement :custom-fab :part/fab-process "giemon_arm6 manipulator + fixed base + safety fence + tool changer (frame-weld / spot-weld / paint / harness / inspect roles)"
+   :part/qty 8 :part/mass-kg 9 :part/material "giemon-arm6" :part/purl "pkg:generic/etzhayyim/giemon-arm6"
+   :part/sim-feature "cell_frame_1" :part/sourcing :representative}
+  {:part/id "bld:F9-agv"       :part/name "自律部品搬送AGV"                    :part/group "F-equipment"
+   :part/procurement :custom-fab :part/fab-process "4-DOF floating-base AGV, LiDAR + bumper, USDC-billed task queue, parts kit delivery"
+   :part/qty 2 :part/mass-kg 320 :part/material "agv" :part/sim-feature "agv_1" :part/sourcing :representative}
+  {:part/id "bld:F10-loader"   :part/name "完成車 積込ロボット (straddle loader)" :part/group "F-equipment"
+   :part/procurement :custom-fab :part/fab-process "自律ストラドル積込機: 完成トラックを跨いで持上げ→運搬→車載トレーラーへ積込。4-DOF floating-base + 油圧リフトフォーク, witness-quorum ≥2 (G4), USDC-billed task queue. Simulated by run_sarutahiko_factory_load_v1 (kami-genesis step_toward 運搬 + step_free 沈降着座)."
+   :part/qty 2 :part/mass-kg 2200 :part/material "loader-robot" :part/sim-feature "loader_1" :part/sourcing :representative}
+  {:part/id "bld:F11-marriage" :part/name "結合ガントリ (chassis↔cab↔powertrain marriage)" :part/group "F-equipment"
+   :part/procurement :custom-fab :part/fab-process "overhead marriage gantry + servo nutrunners, ≥2 robot witness on critical torque (G4)"
+   :part/qty 1 :part/mass-kg 28000 :part/material "marriage-gantry" :part/sim-feature "marriage_gantry" :part/sourcing :representative}
+  {:part/id "bld:F12-cmm"      :part/name "EOL 測定機 (CMM + アライメント)"      :part/group "F-equipment"
+   :part/procurement :cots :part/manufacturer "Mitutoyo" :part/product "大型門形CMM + ホイールアライメント"
+   :part/mpn "MITUTOYO-LEGEX" :part/purl "pkg:generic/mitutoyo/legex"
+   :part/qty 1 :part/mass-kg 6500 :part/material "measuring-machine" :part/sim-feature "eol_cmm" :part/sourcing :representative}
+
+  ;; ── G. electrical / 電気 (受電→配電→配線→照明電源) ───────────────────────────
+  {:part/id "bld:G1-cubicle"   :part/name "高圧受電キュービクル (6.6kV)"        :part/group "G-electrical"
+   :part/procurement :cots :part/manufacturer "Nitto Kogyo" :part/product "屋外用高圧受電盤 CB形"
+   :part/mpn "OEP-66CB-2" :part/purl "pkg:generic/nitto-kogyo/oep-66cb-2" :part/rating "6.6kV 1500kVA"
+   :part/qty 1 :part/mass-kg 3200 :part/material "switchgear" :part/sim-feature "svc_elec" :part/sourcing :representative}
+  {:part/id "bld:G2-transformer" :part/name "モールド変圧器 6.6kV→210/420V"     :part/group "G-electrical"
+   :part/procurement :cots :part/manufacturer "Hitachi" :part/product "モールドトランス 1500kVA"
+   :part/mpn "HMT-1500" :part/purl "pkg:generic/hitachi/hmt-1500" :part/rating "1500kVA"
+   :part/qty 1 :part/mass-kg 3800 :part/material "transformer" :part/sim-feature "svc_elec" :part/sourcing :representative}
+  {:part/id "bld:G3-mdb"       :part/name "主分電盤 MDB (低圧主幹)"             :part/group "G-electrical"
+   :part/procurement :cots :part/manufacturer "Panasonic" :part/product "主幹盤 ACB 2000A"
+   :part/mpn "BQR-2000" :part/purl "pkg:generic/panasonic/bqr-2000" :part/rating "2000A 3P"
+   :part/qty 1 :part/mass-kg 680 :part/material "panelboard" :part/sim-feature "util_elec_incoming" :part/sourcing :representative}
+  {:part/id "bld:G4-dboard"    :part/name "ゾーン分電盤 (動力+電灯)"           :part/group "G-electrical"
+   :part/procurement :cots :part/manufacturer "Kawamura" :part/product "動力+電灯分電盤"
+   :part/mpn "KW-DB-Z" :part/purl "pkg:generic/kawamura/kw-db-z" :part/rating "225A"
+   :part/qty 7 :part/mass-kg 48 :part/material "panelboard" :part/sourcing :representative}
+  {:part/id "bld:G5-cabletray" :part/name "ケーブルラック (天井+ピット)"        :part/group "G-electrical"
+   :part/procurement :cots :part/manufacturer "Nichido Denko" :part/product "鋼製ケーブルラック 900W"
+   :part/mpn "NDK-CR-900" :part/purl "pkg:generic/nichido/ndk-cr-900"
+   :part/qty 1 :part/length-m 420 :part/mass-kg 4200 :part/material "cable-tray" :part/sim-feature "util_busway" :part/sourcing :representative}
+  {:part/id "bld:G6-cvcable"   :part/name "CV 幹線ケーブル (受電→MDB→盤)"      :part/group "G-electrical"
+   :part/procurement :cots :part/manufacturer "Furukawa Electric" :part/product "600V CV 3C x 325sq"
+   :part/mpn "CV-3C-325" :part/purl "pkg:generic/furukawa/cv-3c-325" :part/spec "600V CV 3C-325sq (受電→MDB, 並列)"
+   :part/qty 1 :part/length-m 90 :part/mass-kg 4600 :part/material "power-cable" :part/sim-feature "util_elec_incoming" :part/sourcing :representative}
+  {:part/id "bld:G7-branchwire" :part/name "分岐配線 (IV/VVF + 電線管)"         :part/group "G-electrical"
+   :part/procurement :cots :part/manufacturer "Fujikura" :part/product "IV 8sq + PF管 + 配線器具"
+   :part/mpn "IV-8" :part/purl "pkg:generic/fujikura/iv-8" :part/spec "600V IV 8sq + PF28"
+   :part/qty 1 :part/length-m 3200 :part/mass-kg 2200 :part/material "branch-wire" :part/sim-feature "util_branch_frame" :part/sourcing :representative}
+  {:part/id "bld:G8-earthing"  :part/name "接地工事 (A/B/C/D種) + 等電位"       :part/group "G-electrical"
+   :part/procurement :custom-fab :part/fab-process "接地棒打設 + 銅帯 + 主接地端子箱, A種10Ω以下/D種100Ω以下, 溶接ロボ帰線含む"
+   :part/qty 1 :part/mass-kg 420 :part/material "earthing" :part/sourcing :representative}
+  {:part/id "bld:G9-generator" :part/name "非常用発電機 + UPS"                 :part/group "G-electrical"
+   :part/procurement :cots :part/manufacturer "Denyo" :part/product "ディーゼル発電機 200kVA + UPS 30kVA"
+   :part/mpn "DCA-200" :part/purl "pkg:generic/denyo/dca-200" :part/rating "200kVA"
+   :part/qty 1 :part/mass-kg 3600 :part/material "generator" :part/sim-feature "svc_gen" :part/sourcing :representative}
+  {:part/id "bld:G10-wiringdev" :part/name "配線器具 (コンセント/動力盤口)"      :part/group "G-electrical"
+   :part/procurement :cots :part/manufacturer "Panasonic" :part/product "防雨/3P動力 + 接地2P コンセント"
+   :part/mpn "WK-SET" :part/purl "pkg:generic/panasonic/wk-set"
+   :part/qty 120 :part/mass-kg 0.3 :part/material "wiring-device" :part/sourcing :representative}
+
+  ;; ── H. water + sanitary + drainage / 給排水衛生 ──────────────────────────────
+  {:part/id "bld:H1-waterservice" :part/name "水道引込 + 量水器"               :part/group "H-water"
+   :part/procurement :cots :part/manufacturer "水道局指定 (Kubota meter)" :part/product "引込75A + 量水器 50mm"
+   :part/mpn "MTR-50" :part/purl "pkg:generic/kubota/mtr-50" :part/spec "DN75 引込 / 50mm 量水器"
+   :part/qty 1 :part/mass-kg 90 :part/material "water-service" :part/sim-feature "svc_water" :part/sourcing :representative}
+  {:part/id "bld:H2-tank"      :part/name "受水槽 (FRP) 15m3"                  :part/group "H-water"
+   :part/procurement :cots :part/manufacturer "Sekisui" :part/product "FRPパネル受水槽 15m3"
+   :part/mpn "FRP-15M3" :part/purl "pkg:generic/sekisui/frp-15m3" :part/rating "15m3"
+   :part/qty 1 :part/mass-kg 780 :part/material "water-tank" :part/sim-feature "svc_water" :part/sourcing :representative}
+  {:part/id "bld:H3-pump"      :part/name "加圧給水ポンプユニット"             :part/group "H-water"
+   :part/procurement :cots :part/manufacturer "Ebara" :part/product "定圧給水ユニット 5.5kW"
+   :part/mpn "EBR-FW-55" :part/purl "pkg:generic/ebara/ebr-fw-55" :part/rating "5.5kW"
+   :part/qty 1 :part/mass-kg 180 :part/material "pump" :part/sim-feature "svc_water" :part/sourcing :representative}
+  {:part/id "bld:H4-supplypipe" :part/name "給水管 (PPR + 保温) + 弁類"        :part/group "H-water"
+   :part/procurement :cots :part/manufacturer "Sekisui" :part/product "エスロンPPR 20-65A + ゲート弁"
+   :part/mpn "ESLON-PPR-2" :part/purl "pkg:generic/sekisui/eslon-ppr-2" :part/spec "PPR 20-65A"
+   :part/qty 1 :part/length-m 460 :part/mass-kg 720 :part/material "ppr-pipe" :part/sim-feature "util_water" :part/sourcing :representative}
+  {:part/id "bld:H5-heater"    :part/name "給湯器 (電気温水器)"               :part/group "H-water"
+   :part/procurement :cots :part/manufacturer "Mitsubishi" :part/product "電気温水器 370L"
+   :part/mpn "SRG-370" :part/purl "pkg:generic/mitsubishi/srg-370" :part/rating "370L"
+   :part/qty 1 :part/mass-kg 110 :part/material "water-heater" :part/sim-feature "util_hotwater" :part/sourcing :representative}
+  {:part/id "bld:H6-sanitary"  :part/name "衛生器具 (便器/手洗/流し/シャワー)"  :part/group "H-water"
+   :part/procurement :cots :part/manufacturer "TOTO" :part/product "節水便器 + 手洗器 + 流し台 + 作業者シャワー"
+   :part/mpn "TOTO-SET-2" :part/purl "pkg:generic/toto/toto-set-2"
+   :part/qty 16 :part/mass-kg 42 :part/material "sanitary-ware" :part/sourcing :representative}
+  {:part/id "bld:H7-drainpipe" :part/name "排水管 (VP/VU) + 通気 + 除害"        :part/group "H-water"
+   :part/procurement :cots :part/manufacturer "Sekisui" :part/product "硬質塩ビ VP 50-150A + 通気管 + 塗装排水除害"
+   :part/mpn "VP-150" :part/purl "pkg:generic/sekisui/vp-150" :part/spec "VP 50-150A"
+   :part/qty 1 :part/length-m 520 :part/mass-kg 980 :part/material "pvc-drain" :part/sim-feature "util_drainage" :part/sourcing :representative}
+  {:part/id "bld:H8-grease"    :part/name "排水桝 + 油水分離 + マンホール"      :part/group "H-water"
+   :part/procurement :cots :part/manufacturer "Hinode Suido" :part/product "塩ビ桝 + 油水分離槽 + 鋳鉄蓋"
+   :part/mpn "OWS-50" :part/purl "pkg:generic/hinode/ows-50"
+   :part/qty 10 :part/mass-kg 85 :part/material "drain-pit" :part/sourcing :representative}
+  {:part/id "bld:H9-stormpipe" :part/name "雨水排水管 + 樋 + 浸透桝"           :part/group "H-water"
+   :part/procurement :cots :part/manufacturer "Panasonic" :part/product "雨樋 + 縦管 VP150 + 浸透桝"
+   :part/mpn "RAIN-VP150" :part/purl "pkg:generic/panasonic/rain-vp150" :part/spec "VP150 storm"
+   :part/qty 1 :part/length-m 360 :part/mass-kg 540 :part/material "storm-pipe" :part/sim-feature "util_storm" :part/sourcing :representative}
+
+  ;; ── I. gas / 都市ガス ────────────────────────────────────────────────────────
+  {:part/id "bld:I1-gasservice" :part/name "ガス引込 + マイコンメーター"        :part/group "I-gas"
+   :part/procurement :cots :part/manufacturer "Tokyo Gas (指定)" :part/product "引込PE管 + マイコンメーター"
+   :part/mpn "GAS-MTR-2" :part/purl "pkg:generic/tokyo-gas/gas-mtr-2" :part/spec "都市ガス13A 引込 (焼付乾燥炉)"
+   :part/qty 1 :part/mass-kg 70 :part/material "gas-service" :part/sim-feature "svc_gas" :part/sourcing :representative}
+  {:part/id "bld:I2-regulator" :part/name "ガス整圧器 (ガバナ)"                :part/group "I-gas"
+   :part/procurement :cots :part/manufacturer "Aichi Tokei" :part/product "整圧器 中圧A→低圧"
+   :part/mpn "AT-GOV-B" :part/purl "pkg:generic/aichi-tokei/at-gov-b"
+   :part/qty 1 :part/mass-kg 90 :part/material "gas-regulator" :part/sim-feature "svc_gas" :part/sourcing :representative}
+  {:part/id "bld:I3-gaspipe"   :part/name "ガス配管 (白ガス管/PE) + 弁"         :part/group "I-gas"
+   :part/procurement :cots :part/manufacturer "JFE Steel" :part/product "SGP 白ガス管 25-80A + ガス栓"
+   :part/mpn "SGP-80" :part/purl "pkg:generic/jfe-steel/sgp-80" :part/spec "SGP 25-80A (乾燥炉)"
+   :part/qty 1 :part/length-m 180 :part/mass-kg 520 :part/material "gas-pipe" :part/sim-feature "util_gas" :part/sourcing :representative}
+  {:part/id "bld:I4-shutoff"   :part/name "緊急遮断弁 + ガス漏れ警報"           :part/group "I-gas"
+   :part/procurement :cots :part/manufacturer "Yazaki" :part/product "緊急遮断弁 + ガス漏れ検知器"
+   :part/mpn "YZ-ESV" :part/purl "pkg:generic/yazaki/yz-esv"
+   :part/qty 4 :part/mass-kg 12 :part/material "gas-safety" :part/sourcing :representative}
+
+  ;; ── J. fire + life-safety / 消防・防災 ──────────────────────────────────────
+  {:part/id "bld:J1-hydrant"   :part/name "屋内消火栓設備 + 配管 + ポンプ"      :part/group "J-fire-safety"
+   :part/procurement :cots :part/manufacturer "Hochiki" :part/product "1号消火栓 x 複数 + 加圧送水装置"
+   :part/mpn "HOCHIKI-1H-M" :part/purl "pkg:generic/hochiki/hochiki-1h-m"
+   :part/qty 1 :part/length-m 360 :part/mass-kg 3200 :part/material "fire-hydrant" :part/sim-feature "util_fire" :part/sourcing :representative}
+  {:part/id "bld:J2-extinguisher" :part/name "消火器 (ABC粉末 + 油火災対応)"   :part/group "J-fire-safety"
+   :part/procurement :cots :part/manufacturer "Morita Miyata" :part/product "ABC粉末消火器 10型 + 塗装区画用"
+   :part/mpn "MYT-ABC10-M" :part/purl "pkg:generic/morita-miyata/myt-abc10-m"
+   :part/qty 32 :part/mass-kg 4.5 :part/material "extinguisher" :part/sourcing :representative}
+  {:part/id "bld:J3-alarm"     :part/name "自動火災報知設備 + 受信機"          :part/group "J-fire-safety"
+   :part/procurement :cots :part/manufacturer "Hochiki" :part/product "R型受信機 + 煙/熱/炎感知器 + 発信機"
+   :part/mpn "HOCHIKI-R1" :part/purl "pkg:generic/hochiki/hochiki-r1"
+   :part/qty 1 :part/length-m 700 :part/mass-kg 520 :part/material "fire-alarm" :part/sourcing :representative}
+  {:part/id "bld:J4-exitlight" :part/name "誘導灯 + 非常用照明 (内蔵電池)"      :part/group "J-fire-safety"
+   :part/procurement :cots :part/manufacturer "Panasonic" :part/product "LED誘導灯 + 非常灯"
+   :part/mpn "PNS-EXIT" :part/purl "pkg:generic/panasonic/pns-exit"
+   :part/qty 20 :part/mass-kg 2.0 :part/material "exit-light" :part/sim-feature "exit_lights" :part/sourcing :representative}
+  {:part/id "bld:J5-sprinkler" :part/name "スプリンクラー + 泡消火 (塗装区画)"  :part/group "J-fire-safety"
+   :part/procurement :cots :part/manufacturer "Senju Sprinkler" :part/product "閉鎖型ヘッド + 塗装ブース泡消火 + 制御弁"
+   :part/mpn "SENJU-CL-FOAM" :part/purl "pkg:generic/senju/senju-cl-foam"
+   :part/qty 1 :part/length-m 560 :part/mass-kg 2400 :part/material "sprinkler"
+   :part/note "塗装ブースは危険物/指定可燃物扱い、泡消火 + 消防同意で要否確定 (R0は計上のみ)" :part/sourcing :representative}
+
+  ;; ── K. site / 外構・外部動線 + 出荷ヤード ───────────────────────────────────
+  {:part/id "bld:K1-asphalt"   :part/name "アスファルト舗装 (車道+ヤード+出荷)" :part/group "K-site"
+   :part/procurement :custom-fab :part/fab-process "アスコン t80 表層 + t150 基層, 構内車道+トラックヤード+出荷ヤード(重荷重)"
+   :part/qty 1 :part/area-m2 7200 :part/mass-kg 2160000 :part/material "asphalt-pavement"
+   :part/sim-feature "site_ship_yard" :part/sourcing :representative}
+  {:part/id "bld:K2-subbase"   :part/name "路盤 (再生砕石 RC-40)"             :part/group "K-site"
+   :part/procurement :custom-fab :part/fab-process "RC-40 路盤 t300 締固め CBR>=30 (重荷重ヤード)"
+   :part/qty 1 :part/area-m2 7200 :part/mass-kg 5180000 :part/material "road-base" :part/sourcing :representative}
+  {:part/id "bld:K3-curb"      :part/name "縁石 + 側溝 + 集水桝"              :part/group "K-site"
+   :part/procurement :cots :part/manufacturer "Landes" :part/product "PCa縁石 + L形側溝 + 集水桝"
+   :part/mpn "LND-CURB" :part/purl "pkg:generic/landes/lnd-curb" :part/spec "PCa curb + L-gutter"
+   :part/qty 1 :part/length-m 620 :part/mass-kg 186000 :part/material "concrete-curb" :part/sourcing :representative}
+  {:part/id "bld:K4-marking"   :part/name "区画線 + 路面標示 (通路/駐車/出荷レーン)" :part/group "K-site"
+   :part/procurement :custom-fab :part/fab-process "溶融式区画線 + 歩行者通路グリーン + 出荷レーン + 立入禁止ゼブラ"
+   :part/qty 1 :part/length-m 1100 :part/mass-kg 2200 :part/material "road-marking"
+   :part/sim-feature "site_walkway" :part/sourcing :representative}
+  {:part/id "bld:K5-fence"     :part/name "外周メッシュフェンス"              :part/group "K-site"
+   :part/procurement :cots :part/manufacturer "Sankin" :part/product "メッシュフェンス H2000"
+   :part/mpn "SK-MF-2000" :part/purl "pkg:generic/sankin/sk-mf-2000" :part/spec "H2000 mesh"
+   :part/qty 1 :part/length-m 720 :part/mass-kg 16000 :part/material "fence" :part/sim-feature "site_fence" :part/sourcing :representative}
+  {:part/id "bld:K6-gate"      :part/name "引込門扉 (電動スライドゲート)"       :part/group "K-site"
+   :part/procurement :cots :part/manufacturer "Bunka Shutter" :part/product "電動アルミスライドゲート W12m"
+   :part/mpn "BS-SLIDE-12" :part/purl "pkg:generic/bunka-shutter/bs-slide-12" :part/spec "W12m 電動"
+   :part/qty 1 :part/mass-kg 820 :part/material "gate" :part/sim-feature "site_gate" :part/sourcing :representative}
+  {:part/id "bld:K7-bollard"   :part/name "車止めボラード (固定/可倒)"         :part/group "K-site"
+   :part/procurement :cots :part/manufacturer "Saga Tekkohsho" :part/product "鋼製ボラード φ139"
+   :part/mpn "ST-BL-139" :part/purl "pkg:generic/saga-tekko/st-bl-139"
+   :part/qty 5 :part/mass-kg 26 :part/material "bollard" :part/sim-feature "site_bollards" :part/sourcing :representative}
+  {:part/id "bld:K8-polelight" :part/name "外灯ポール (LED)"                  :part/group "K-site"
+   :part/procurement :cots :part/manufacturer "Iwasaki Electric" :part/product "LEDポール灯 8m 120W"
+   :part/mpn "IWS-POLE-120" :part/purl "pkg:generic/iwasaki/iws-pole-120" :part/rating "120W"
+   :part/qty 6 :part/mass-kg 120 :part/material "pole-light" :part/sim-feature "site_poles" :part/sourcing :representative}
+  {:part/id "bld:K9-landscape" :part/name "植栽 + 緑地 + 法面"               :part/group "K-site"
+   :part/procurement :custom-fab :part/fab-process "高木+低木+芝張り+客土, 緑地2区画"
+   :part/qty 1 :part/area-m2 6000 :part/mass-kg 0 :part/material "landscaping"
+   :part/sim-feature "site_landscape" :part/sourcing :representative}
+  {:part/id "bld:K10-sign"     :part/name "工場サイン + 構内案内看板"          :part/group "K-site"
+   :part/procurement :custom-fab :part/fab-process "自立サイン + 構内案内 + 出荷ヤード安全標識"
+   :part/qty 1 :part/mass-kg 240 :part/material "signage" :part/sim-feature "site_sign" :part/sourcing :representative}
+  {:part/id "bld:K11-dataservice" :part/name "通信引込 (光ファイバ) + 配線盤"   :part/group "K-site"
+   :part/procurement :cots :part/manufacturer "NTT (指定)" :part/product "光引込 + SC配線盤 + LAN幹線"
+   :part/mpn "NTT-FTTH" :part/purl "pkg:generic/ntt/ntt-ftth" :part/spec "FTTH + Cat6A backbone"
+   :part/qty 1 :part/length-m 180 :part/mass-kg 60 :part/material "data-service" :part/sim-feature "svc_data" :part/sourcing :representative}
+
+  ;; ── L. raw materials / 原材料 (bulk inputs to the build) ─────────────────────
+  {:part/id "bld:L1-readymix"  :part/name "生コンクリート (基礎/土間/外構)"     :part/group "L-raw-materials"
+   :part/procurement :cots :part/manufacturer "近隣生コンプラント (JIS A 5308)" :part/product "レディミクストコンクリート 35-18-20N"
+   :part/mpn "RMC-35-18-20" :part/purl "pkg:generic/jis/rmc-35-18-20" :part/spec "35-18-20N (高炉B種)"
+   :part/composition "セメント(高炉B種)+細骨材+粗骨材20mm+水(W/C48%)+AE減水剤, スランプ18cm, 設計基準強度Fc35N/mm2"
+   :part/qty 1 :part/unit "m3" :part/mass-kg 5800000 :part/material "concrete" :part/sourcing :representative}
+  {:part/id "bld:L2-asphaltmix" :part/name "アスファルト合材"                  :part/group "L-raw-materials"
+   :part/procurement :cots :part/manufacturer "NIPPO" :part/product "再生密粒度アスコン 13F"
+   :part/mpn "ASCON-13F" :part/purl "pkg:generic/nippo/ascon-13f" :part/spec "再生密粒度13F"
+   :part/qty 1 :part/unit "t" :part/mass-kg 2160000 :part/material "asphalt-mix" :part/sourcing :representative}
+  {:part/id "bld:L3-roadstone" :part/name "路盤材 (再生砕石 RC-40)"           :part/group "L-raw-materials"
+   :part/procurement :cots :part/manufacturer "近隣砕石プラント" :part/product "再生クラッシャラン RC-40"
+   :part/mpn "RC-40" :part/purl "pkg:generic/generic/rc-40" :part/spec "RC-40"
+   :part/qty 1 :part/unit "t" :part/mass-kg 5180000 :part/material "crushed-stone" :part/sourcing :representative}
+  {:part/id "bld:L4-epoxy"     :part/name "エポキシ床塗料 (帯電防止/耐重荷重)"  :part/group "L-raw-materials"
+   :part/procurement :cots :part/manufacturer "ABC Trading" :part/product "ケミクリートE 帯電防止 耐重荷重"
+   :part/mpn "CHEMI-E-HD" :part/purl "pkg:generic/abc-trading/chemi-e-hd" :part/spec "HD epoxy"
+   :part/qty 1 :part/unit "kg" :part/mass-kg 4800 :part/material "epoxy-coating" :part/sourcing :representative}
+  {:part/id "bld:L5-sealant"   :part/name "シーリング材 + 防水材"             :part/group "L-raw-materials"
+   :part/procurement :cots :part/manufacturer "Sika" :part/product "変成シリコーン + ウレタン防水"
+   :part/mpn "SIKA-MS" :part/purl "pkg:generic/sika/sika-ms"
+   :part/qty 1 :part/unit "kg" :part/mass-kg 1800 :part/material "sealant" :part/sourcing :representative}
+  {:part/id "bld:L6-steelpaint" :part/name "鉄骨塗装 (錆止め+上塗り)"          :part/group "L-raw-materials"
+   :part/procurement :cots :part/manufacturer "Nippon Paint" :part/product "変性エポキシ錆止め + ウレタン上塗"
+   :part/mpn "NP-EPU" :part/purl "pkg:generic/nippon-paint/np-epu"
+   :part/composition "1層: 変性エポキシ樹脂錆止め 2回 / 2層: ポリウレタン上塗 2回, 計4層 DFT 120um"
+   :part/qty 1 :part/unit "kg" :part/mass-kg 3200 :part/material "steel-paint" :part/sourcing :representative}
+  {:part/id "bld:L7-rebarstock" :part/name "鉄筋素材 (異形棒鋼 SD345)"        :part/group "L-raw-materials"
+   :part/procurement :cots :part/manufacturer "Tokyo Steel" :part/product "異形棒鋼 SD345 D10-D32"
+   :part/mpn "SD345-STOCK" :part/purl "pkg:generic/tokyo-steel/sd345-stock" :part/spec "JIS G 3112 SD345"
+   :part/composition "C<=0.27 / 降伏点345-440N/mm2 / 引張490N/mm2以上, ミルシート添付"
+   :part/qty 1 :part/unit "t" :part/mass-kg 86000 :part/material "rebar-stock" :part/sourcing :representative}
+  {:part/id "bld:L8-htbolt"    :part/name "高力ボルト (F10T) + 普通ボルト"      :part/group "L-raw-materials"
+   :part/procurement :cots :part/manufacturer "Saga Tekkohsho" :part/product "トルシア形高力ボルト S10T M22-M24"
+   :part/mpn "S10T-M22" :part/purl "pkg:generic/saga-tekko/s10t-m22" :part/spec "JIS B 1186 F10T相当 (S10T)"
+   :part/composition "合金鋼 焼入焼戻し, 引張1000-1200N/mm2, 摩擦接合 すべり係数0.45以上"
+   :part/qty 1 :part/unit "set" :part/mass-kg 5200 :part/material "high-tension-bolt" :part/sourcing :representative}]}

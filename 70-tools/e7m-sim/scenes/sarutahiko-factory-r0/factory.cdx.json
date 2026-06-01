@@ -1,0 +1,5551 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "device",
+      "name": "猿田彦 Class-8 truck assembly plant — R0 building + equipment BOM",
+      "version": "v1"
+    },
+    "properties": [
+      {
+        "name": "sarutahiko:bomOf",
+        "value": "sarutahiko-factory-r0"
+      },
+      {
+        "name": "sarutahiko:sourcing",
+        "value": "representative"
+      },
+      {
+        "name": "sarutahiko:note",
+        "value": "R0 design BOM for a 180m x 90m steel portal-frame truck assembly plant (full MEP + 外構 + 出荷ヤード) producing the Class-8 cargo truck of ADR-2605252500. Building shell (A-E) + utilities (G electrical / H water / I gas / J fire) routed as kami-genesis geometry; site/外部動線 + 出荷ヤード (K) outside the bay; raw materials (L) as bulk inputs; production equipment (F) = truck-line machines + line robots incl. F10 積込ロボット. Manufacturer/MPN/数量/length-m/area-m2/mass are representative R0 design figures, NOT a finalized purchase, 確認申請, 消防同意, or 受電/受水/ガス供給契約. Capital-intensive heavy-truck plant per ADR-2605252500 §Consequences — R3 community-scale is Council + LANDS.md gated."
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "device",
+      "bom-ref": "bld:A1-subbase",
+      "name": "Crushed-stone sub-base (RC-40)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "A-foundation"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "4200000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "aggregate"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "ground"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "300mm compacted crushed concrete, CBR>=40, 180x90m heavy-load yard"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:A2-slab",
+      "name": "RC ground slab + thickened machine bases",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "A-foundation"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "5800000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "concrete-C35/45"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "floor"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "300mm C35/45 RC slab on DPM, FM2 flatness, thickened under press_1/dyno"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:A3-rebar",
+      "name": "Reinforcement mesh + edge/base bars",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "A-foundation"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "JFE Steel"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "SD345 D16 mesh + base cages"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "SD345-D16"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/jfe-steel/sd345-d16"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "86000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "steel-rebar"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "floor"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "メタルワン (商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "8 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "JFE Steel",
+      "supplier": {
+        "name": "メタルワン (商社)"
+      },
+      "version": "SD345 D16 mesh + base cages",
+      "purl": "pkg:generic/jfe-steel/sd345-d16"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:A4-anchor",
+      "name": "Cast-in column anchor bolts M36",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "A-foundation"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Hilti"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "HIT-Z M36 chemical anchor"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "HIT-Z-M36"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/hilti/hit-z-m36"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "48"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "1.4"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "steel-8.8"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "col_0"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ヒルティ・ジャパン (直販)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "LI/CN"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "3 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "Hilti",
+      "supplier": {
+        "name": "ヒルティ・ジャパン (直販)"
+      },
+      "version": "HIT-Z M36 chemical anchor",
+      "purl": "pkg:generic/hilti/hit-z-m36"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:B1-column",
+      "name": "H-section steel column H400x400",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "B-steel-frame"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Nippon Steel"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "Hot-rolled H-400x400x13x21 SN490B"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "H400-SN490B"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/nippon-steel/h400-sn490b"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "12"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "2050"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "steel-SN490B"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "col_0"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "伊藤忠丸紅鉄鋼 (商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "10 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Nippon Steel",
+      "supplier": {
+        "name": "伊藤忠丸紅鉄鋼 (商社)"
+      },
+      "version": "Hot-rolled H-400x400x13x21 SN490B",
+      "purl": "pkg:generic/nippon-steel/h400-sn490b"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:B2-baseplate",
+      "name": "Column base plate + leveling grout",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "B-steel-frame"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "12"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "64"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "steel-SS400"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "col_0"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "PL-36 600x600 + non-shrink grout, welded shear studs"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:B3-bracing",
+      "name": "Vertical + roof wind bracing",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "B-steel-frame"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Nippon Steel"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "L-120x120x12 angle SS400"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "L120-SS400"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/nippon-steel/l120-ss400"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "40"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "48"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "steel-SS400"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "col_1"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "伊藤忠丸紅鉄鋼 (商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "10 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Nippon Steel",
+      "supplier": {
+        "name": "伊藤忠丸紅鉄鋼 (商社)"
+      },
+      "version": "L-120x120x12 angle SS400",
+      "purl": "pkg:generic/nippon-steel/l120-ss400"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:C1-truss",
+      "name": "Roof lattice truss / rafter beam",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "C-roof"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "4"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "6200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "steel-SN490B"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "beam_0"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "welded H-600 lattice truss, 90m clear span, 4 bays"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:C2-deck",
+      "name": "Folded-steel roof deck + purlins",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "C-roof"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Nisshin Steel"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "ZAM roof deck t1.0 + C-purlin"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "ZAM-DECK-10"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/nisshin-steel/zam-deck-10"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "64000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "steel-ZAM"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "beam_1"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "阪和興業 (商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "8 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Nisshin Steel",
+      "supplier": {
+        "name": "阪和興業 (商社)"
+      },
+      "version": "ZAM roof deck t1.0 + C-purlin",
+      "purl": "pkg:generic/nisshin-steel/zam-deck-10"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:C3-insul",
+      "name": "Roof insulation + waterproof membrane",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "C-roof"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Lonseal"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "75mm glass wool + TPO membrane"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "TPO-20"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/lonseal/tpo-20"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "18500"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "glasswool+tpo"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "beam_2"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ロンシール工業 特約店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Lonseal",
+      "supplier": {
+        "name": "ロンシール工業 特約店"
+      },
+      "version": "75mm glass wool + TPO membrane",
+      "purl": "pkg:generic/lonseal/tpo-20"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:D1-panel",
+      "name": "Insulated wall sandwich panel",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "D-cladding"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "IG Kogyo"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "Isowall 75mm PIR sandwich panel"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "ISOWALL-75"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/ig-kogyo/isowall-75"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "52000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "PIR+steel"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "wall_n"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "アイジー工業 特約店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "6 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "IG Kogyo",
+      "supplier": {
+        "name": "アイジー工業 特約店"
+      },
+      "version": "Isowall 75mm PIR sandwich panel",
+      "purl": "pkg:generic/ig-kogyo/isowall-75"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:D2-partition",
+      "name": "Paint-booth clean partition",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "D-cladding"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "4200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "FRP+steel-stud"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "wall_paint"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "studwork + FRP panel + air-lock door, 塗装ブース隔壁"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:D3-shutter",
+      "name": "Insulated roller shutter door (truck)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "D-cladding"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Bunka Shutter"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "Insulated overhead 6x6m (truck)"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "MEISHO-6060"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/bunka-shutter/meisho-6060"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "4"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "980"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "steel-insulated"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "wall_s"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "文化シヤッター 直需"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "7 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "Bunka Shutter",
+      "supplier": {
+        "name": "文化シヤッター 直需"
+      },
+      "version": "Insulated overhead 6x6m (truck)",
+      "purl": "pkg:generic/bunka-shutter/meisho-6060"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:D4-door",
+      "name": "Personnel door + fixed windows",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "D-cladding"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Sankyo Tateyama"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "Aluminium door + IGU window set"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "ST-DW-1"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/sankyo-tateyama/st-dw-1"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "8"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "65"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "aluminium+glass"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "wall_e"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "三協アルミ建材代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "5 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Sankyo Tateyama",
+      "supplier": {
+        "name": "三協アルミ建材代理店"
+      },
+      "version": "Aluminium door + IGU window set",
+      "purl": "pkg:generic/sankyo-tateyama/st-dw-1"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:E1-lighting",
+      "name": "LED high-bay lighting",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "E-mep"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Iwasaki Electric"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "LEDioc HIGH-BAY 200W 5000K"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "LEDHB-200"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/iwasaki/ledhb-200"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "20"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "5.2"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "led-fixture"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "beam_1"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "岩崎電気 特約店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Iwasaki Electric",
+      "supplier": {
+        "name": "岩崎電気 特約店"
+      },
+      "version": "LEDioc HIGH-BAY 200W 5000K",
+      "purl": "pkg:generic/iwasaki/ledhb-200"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:E2-busway",
+      "name": "Overhead busway power distribution",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "E-mep"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Panasonic"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "Plug-in busway 800A 3P"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "BW-800A"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/panasonic/bw-800a"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "4200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "copper-busbar"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "因幡電機産業 (電材商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Panasonic",
+      "supplier": {
+        "name": "因幡電機産業 (電材商社)"
+      },
+      "version": "Plug-in busway 800A 3P",
+      "purl": "pkg:generic/panasonic/bw-800a"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:E3-air",
+      "name": "Compressed-air ring main + drops",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "E-mep"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "SMC"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "Aluminium air piping 65A + FRL drops"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "SMC-AIR-65"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/smc/smc-air-65"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "2400"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "aluminium-pipe"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "SMC → エア機器商社 (山善)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "SMC",
+      "supplier": {
+        "name": "SMC → エア機器商社 (山善)"
+      },
+      "version": "Aluminium air piping 65A + FRL drops",
+      "purl": "pkg:generic/smc/smc-air-65"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:E4-hvac",
+      "name": "Roof ventilation + paint-booth AHU",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "E-mep"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Daikin"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "Industrial package A/C + paint-booth AHU + roof fans"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "DAIKIN-IND-2"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/daikin/daikin-ind-2"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "9800"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "hvac-unit"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ダイキン工業 → 空調設備業者"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "8 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Daikin",
+      "supplier": {
+        "name": "ダイキン工業 → 空調設備業者"
+      },
+      "version": "Industrial package A/C + paint-booth AHU + roof fans",
+      "purl": "pkg:generic/daikin/daikin-ind-2"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F1-framejig",
+      "name": "フレーム組立溶接治具 (ladder-frame jig)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "2"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "14000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "weld-fixture"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "frame_jig_1"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "HSLA-590/780 ladder-frame fixture, hydraulic clamps, ±0.5mm/m datum, robotic MIG/MAG access"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F2-press",
+      "name": "サーボプレス (cab panel stamping)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Komatsu"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "サーボトランスファープレス 1600t"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "KOMATSU-H1F-1600"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/komatsu/h1f-1600"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "1600t"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "380000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "stamping-press"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "press_1"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "コマツ産機 (直販)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "28 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "Komatsu",
+      "supplier": {
+        "name": "コマツ産機 (直販)"
+      },
+      "version": "サーボトランスファープレス 1600t",
+      "purl": "pkg:generic/komatsu/h1f-1600"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F3-weldjig",
+      "name": "キャブBIWスポット溶接治具 (cab BIW jig)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "2"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "11000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "weld-fixture"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "weld_jig_1"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "cab body-in-white geo-fixture + servo spot-weld guns, leak-test seal frame"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F4-paintbooth",
+      "name": "水性塗装ブース (KTL→base→clear, VOC<100g/L)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Taikisha"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "水性塗装ブース + 焼付乾燥炉 (downdraft)"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "TAIKISHA-WB-1"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/taikisha/wb-1"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "waterborne, VOC<100g/L"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "96000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "paint-booth"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "paint_booth"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "大気社 (直販, 塗装プラント)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "30 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "Taikisha",
+      "supplier": {
+        "name": "大気社 (直販, 塗装プラント)"
+      },
+      "version": "水性塗装ブース + 焼付乾燥炉 (downdraft)",
+      "purl": "pkg:generic/taikisha/wb-1"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F5-conveyor",
+      "name": "EMS搬送コンベア (受入→出荷 power-and-free)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Daifuku"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "EMS overhead power-and-free + floor skid 170m"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "DAIFUKU-EMS-170"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/daifuku/ems-170"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "42000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "conveyor"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "conv_main"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ダイフク 直需"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "18 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "Daifuku",
+      "supplier": {
+        "name": "ダイフク 直需"
+      },
+      "version": "EMS overhead power-and-free + floor skid 170m",
+      "purl": "pkg:generic/daifuku/ems-170"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F6-rack",
+      "name": "コイル/部品ラック (受入)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Daifuku"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "Heavy coil + pallet rack 4-level"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "DAIFUKU-HR4"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/daifuku/hr4"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "9800"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "rack-steel"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "coil_rack"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ダイフク 直需"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "18 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "Daifuku",
+      "supplier": {
+        "name": "ダイフク 直需"
+      },
+      "version": "Heavy coil + pallet rack 4-level",
+      "purl": "pkg:generic/daifuku/hr4"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F7-dyno",
+      "name": "ローラーシャシダイナモ (EOL test)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Meidensha"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "シャシダイナモ 大型車用 + 排ガス計測"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "MEIDEN-CD-HV"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/meidensha/cd-hv"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "Class-8"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "34000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "dynamometer"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "dyno"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "明電舎 (直販, ダイナモ)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "20 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "Meidensha",
+      "supplier": {
+        "name": "明電舎 (直販, ダイナモ)"
+      },
+      "version": "シャシダイナモ 大型車用 + 排ガス計測",
+      "purl": "pkg:generic/meidensha/cd-hv"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F8-cell",
+      "name": "Giemon arm6 ライン用ロボットセル",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/etzhayyim/giemon-arm6"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "8"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "9"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "giemon-arm6"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "cell_frame_1"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "giemon_arm6 manipulator + fixed base + safety fence + tool changer (frame-weld / spot-weld / paint / harness / inspect roles)"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      },
+      "purl": "pkg:generic/etzhayyim/giemon-arm6"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F9-agv",
+      "name": "自律部品搬送AGV",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "2"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "320"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "agv"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "agv_1"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "4-DOF floating-base AGV, LiDAR + bumper, USDC-billed task queue, parts kit delivery"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F10-loader",
+      "name": "完成車 積込ロボット (straddle loader)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "2"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "2200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "loader-robot"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "loader_1"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "自律ストラドル積込機: 完成トラックを跨いで持上げ→運搬→車載トレーラーへ積込。4-DOF floating-base + 油圧リフトフォーク, witness-quorum ≥2 (G4), USDC-billed task queue. Simulated by run_sarutahiko_factory_load_v1 (kami-genesis step_toward 運搬 + step_free 沈降着座)."
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F11-marriage",
+      "name": "結合ガントリ (chassis↔cab↔powertrain marriage)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "28000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "marriage-gantry"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "marriage_gantry"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "overhead marriage gantry + servo nutrunners, ≥2 robot witness on critical torque (G4)"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:F12-cmm",
+      "name": "EOL 測定機 (CMM + アライメント)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "F-equipment"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Mitutoyo"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "大型門形CMM + ホイールアライメント"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "MITUTOYO-LEGEX"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/mitutoyo/legex"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "6500"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "measuring-machine"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "eol_cmm"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ミツトヨ (直販)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "10 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "Mitutoyo",
+      "supplier": {
+        "name": "ミツトヨ (直販)"
+      },
+      "version": "大型門形CMM + ホイールアライメント",
+      "purl": "pkg:generic/mitutoyo/legex"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G1-cubicle",
+      "name": "高圧受電キュービクル (6.6kV)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Nitto Kogyo"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "屋外用高圧受電盤 CB形"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "OEP-66CB-2"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/nitto-kogyo/oep-66cb-2"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "6.6kV 1500kVA"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "3200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "switchgear"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "svc_elec"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "因幡電機産業 (電材商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "6 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Nitto Kogyo",
+      "supplier": {
+        "name": "因幡電機産業 (電材商社)"
+      },
+      "version": "屋外用高圧受電盤 CB形",
+      "purl": "pkg:generic/nitto-kogyo/oep-66cb-2"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G2-transformer",
+      "name": "モールド変圧器 6.6kV→210/420V",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Hitachi"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "モールドトランス 1500kVA"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "HMT-1500"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/hitachi/hmt-1500"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "1500kVA"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "3800"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "transformer"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "svc_elec"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "日立産機システム 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "10 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Hitachi",
+      "supplier": {
+        "name": "日立産機システム 代理店"
+      },
+      "version": "モールドトランス 1500kVA",
+      "purl": "pkg:generic/hitachi/hmt-1500"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G3-mdb",
+      "name": "主分電盤 MDB (低圧主幹)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Panasonic"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "主幹盤 ACB 2000A"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "BQR-2000"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/panasonic/bqr-2000"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "2000A 3P"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "680"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "panelboard"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_elec_incoming"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "因幡電機産業 (電材商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Panasonic",
+      "supplier": {
+        "name": "因幡電機産業 (電材商社)"
+      },
+      "version": "主幹盤 ACB 2000A",
+      "purl": "pkg:generic/panasonic/bqr-2000"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G4-dboard",
+      "name": "ゾーン分電盤 (動力+電灯)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Kawamura"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "動力+電灯分電盤"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "KW-DB-Z"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/kawamura/kw-db-z"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "225A"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "7"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "48"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "panelboard"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "河村電器 特約店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "5 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Kawamura",
+      "supplier": {
+        "name": "河村電器 特約店"
+      },
+      "version": "動力+電灯分電盤",
+      "purl": "pkg:generic/kawamura/kw-db-z"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G5-cabletray",
+      "name": "ケーブルラック (天井+ピット)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Nichido Denko"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "鋼製ケーブルラック 900W"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "NDK-CR-900"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/nichido/ndk-cr-900"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "420"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "4200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "cable-tray"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_busway"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ネグロス/日動電工 商社"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Nichido Denko",
+      "supplier": {
+        "name": "ネグロス/日動電工 商社"
+      },
+      "version": "鋼製ケーブルラック 900W",
+      "purl": "pkg:generic/nichido/ndk-cr-900"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G6-cvcable",
+      "name": "CV 幹線ケーブル (受電→MDB→盤)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Furukawa Electric"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "600V CV 3C x 325sq"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "CV-3C-325"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/furukawa/cv-3c-325"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "600V CV 3C-325sq (受電→MDB, 並列)"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "90"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "4600"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "power-cable"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_elec_incoming"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "古河電工 → 電線商社"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "6 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Furukawa Electric",
+      "supplier": {
+        "name": "古河電工 → 電線商社"
+      },
+      "version": "600V CV 3C x 325sq",
+      "purl": "pkg:generic/furukawa/cv-3c-325"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G7-branchwire",
+      "name": "分岐配線 (IV/VVF + 電線管)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Fujikura"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "IV 8sq + PF管 + 配線器具"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "IV-8"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/fujikura/iv-8"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "600V IV 8sq + PF28"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "3200"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "2200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "branch-wire"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_branch_frame"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "フジクラ → 電線商社"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "5 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Fujikura",
+      "supplier": {
+        "name": "フジクラ → 電線商社"
+      },
+      "version": "IV 8sq + PF管 + 配線器具",
+      "purl": "pkg:generic/fujikura/iv-8"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G8-earthing",
+      "name": "接地工事 (A/B/C/D種) + 等電位",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "420"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "earthing"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "接地棒打設 + 銅帯 + 主接地端子箱, A種10Ω以下/D種100Ω以下, 溶接ロボ帰線含む"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G9-generator",
+      "name": "非常用発電機 + UPS",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Denyo"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "ディーゼル発電機 200kVA + UPS 30kVA"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "DCA-200"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/denyo/dca-200"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "200kVA"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "3600"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "generator"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "svc_gen"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "デンヨー 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "6 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Denyo",
+      "supplier": {
+        "name": "デンヨー 代理店"
+      },
+      "version": "ディーゼル発電機 200kVA + UPS 30kVA",
+      "purl": "pkg:generic/denyo/dca-200"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:G10-wiringdev",
+      "name": "配線器具 (コンセント/動力盤口)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "G-electrical"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Panasonic"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "防雨/3P動力 + 接地2P コンセント"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "WK-SET"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/panasonic/wk-set"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "120"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "0.3"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "wiring-device"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "因幡電機産業 (電材商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Panasonic",
+      "supplier": {
+        "name": "因幡電機産業 (電材商社)"
+      },
+      "version": "防雨/3P動力 + 接地2P コンセント",
+      "purl": "pkg:generic/panasonic/wk-set"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:H1-waterservice",
+      "name": "水道引込 + 量水器",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "H-water"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "水道局指定 (Kubota meter)"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "引込75A + 量水器 50mm"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "MTR-50"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/kubota/mtr-50"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "DN75 引込 / 50mm 量水器"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "90"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "water-service"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "svc_water"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "水道局指定 (Kubota meter) (地場プラント/指定業者)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "1-2 週"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "local"
+        }
+      ],
+      "publisher": "水道局指定 (Kubota meter)",
+      "supplier": {
+        "name": "水道局指定 (Kubota meter) (地場プラント/指定業者)"
+      },
+      "version": "引込75A + 量水器 50mm",
+      "purl": "pkg:generic/kubota/mtr-50"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:H2-tank",
+      "name": "受水槽 (FRP) 15m3",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "H-water"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Sekisui"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "FRPパネル受水槽 15m3"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "FRP-15M3"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/sekisui/frp-15m3"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "15m3"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "780"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "water-tank"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "svc_water"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "積水化学 → 橋本総業 (管材商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "3 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Sekisui",
+      "supplier": {
+        "name": "積水化学 → 橋本総業 (管材商社)"
+      },
+      "version": "FRPパネル受水槽 15m3",
+      "purl": "pkg:generic/sekisui/frp-15m3"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:H3-pump",
+      "name": "加圧給水ポンプユニット",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "H-water"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Ebara"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "定圧給水ユニット 5.5kW"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "EBR-FW-55"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/ebara/ebr-fw-55"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "5.5kW"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "180"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "pump"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "svc_water"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "荏原製作所 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "6 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Ebara",
+      "supplier": {
+        "name": "荏原製作所 代理店"
+      },
+      "version": "定圧給水ユニット 5.5kW",
+      "purl": "pkg:generic/ebara/ebr-fw-55"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:H4-supplypipe",
+      "name": "給水管 (PPR + 保温) + 弁類",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "H-water"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Sekisui"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "エスロンPPR 20-65A + ゲート弁"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "ESLON-PPR-2"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/sekisui/eslon-ppr-2"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "PPR 20-65A"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "460"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "720"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "ppr-pipe"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_water"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "積水化学 → 橋本総業 (管材商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "3 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Sekisui",
+      "supplier": {
+        "name": "積水化学 → 橋本総業 (管材商社)"
+      },
+      "version": "エスロンPPR 20-65A + ゲート弁",
+      "purl": "pkg:generic/sekisui/eslon-ppr-2"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:H5-heater",
+      "name": "給湯器 (電気温水器)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "H-water"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Mitsubishi"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "電気温水器 370L"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "SRG-370"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/mitsubishi/srg-370"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "370L"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "110"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "water-heater"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_hotwater"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "三菱電機 住環境 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "5 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Mitsubishi",
+      "supplier": {
+        "name": "三菱電機 住環境 代理店"
+      },
+      "version": "電気温水器 370L",
+      "purl": "pkg:generic/mitsubishi/srg-370"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:H6-sanitary",
+      "name": "衛生器具 (便器/手洗/流し/シャワー)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "H-water"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "TOTO"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "節水便器 + 手洗器 + 流し台 + 作業者シャワー"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "TOTO-SET-2"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/toto/toto-set-2"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "16"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "42"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "sanitary-ware"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "TOTO → 住設商社 (橋本総業)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "TOTO",
+      "supplier": {
+        "name": "TOTO → 住設商社 (橋本総業)"
+      },
+      "version": "節水便器 + 手洗器 + 流し台 + 作業者シャワー",
+      "purl": "pkg:generic/toto/toto-set-2"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:H7-drainpipe",
+      "name": "排水管 (VP/VU) + 通気 + 除害",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "H-water"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Sekisui"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "硬質塩ビ VP 50-150A + 通気管 + 塗装排水除害"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "VP-150"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/sekisui/vp-150"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "VP 50-150A"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "520"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "980"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "pvc-drain"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_drainage"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "積水化学 → 橋本総業 (管材商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "3 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Sekisui",
+      "supplier": {
+        "name": "積水化学 → 橋本総業 (管材商社)"
+      },
+      "version": "硬質塩ビ VP 50-150A + 通気管 + 塗装排水除害",
+      "purl": "pkg:generic/sekisui/vp-150"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:H8-grease",
+      "name": "排水桝 + 油水分離 + マンホール",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "H-water"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Hinode Suido"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "塩ビ桝 + 油水分離槽 + 鋳鉄蓋"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "OWS-50"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/hinode/ows-50"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "10"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "85"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "drain-pit"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "日之出水道機器 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "5 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Hinode Suido",
+      "supplier": {
+        "name": "日之出水道機器 代理店"
+      },
+      "version": "塩ビ桝 + 油水分離槽 + 鋳鉄蓋",
+      "purl": "pkg:generic/hinode/ows-50"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:H9-stormpipe",
+      "name": "雨水排水管 + 樋 + 浸透桝",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "H-water"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Panasonic"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "雨樋 + 縦管 VP150 + 浸透桝"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "RAIN-VP150"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/panasonic/rain-vp150"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "VP150 storm"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "360"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "540"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "storm-pipe"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_storm"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "因幡電機産業 (電材商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Panasonic",
+      "supplier": {
+        "name": "因幡電機産業 (電材商社)"
+      },
+      "version": "雨樋 + 縦管 VP150 + 浸透桝",
+      "purl": "pkg:generic/panasonic/rain-vp150"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:I1-gasservice",
+      "name": "ガス引込 + マイコンメーター",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "I-gas"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Tokyo Gas (指定)"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "引込PE管 + マイコンメーター"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "GAS-MTR-2"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/tokyo-gas/gas-mtr-2"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "都市ガス13A 引込 (焼付乾燥炉)"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "70"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "gas-service"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "svc_gas"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "Tokyo Gas (指定) (地場プラント/指定業者)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "1-2 週"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "local"
+        }
+      ],
+      "publisher": "Tokyo Gas (指定)",
+      "supplier": {
+        "name": "Tokyo Gas (指定) (地場プラント/指定業者)"
+      },
+      "version": "引込PE管 + マイコンメーター",
+      "purl": "pkg:generic/tokyo-gas/gas-mtr-2"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:I2-regulator",
+      "name": "ガス整圧器 (ガバナ)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "I-gas"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Aichi Tokei"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "整圧器 中圧A→低圧"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "AT-GOV-B"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/aichi-tokei/at-gov-b"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "90"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "gas-regulator"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "svc_gas"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "愛知時計電機 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "6 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Aichi Tokei",
+      "supplier": {
+        "name": "愛知時計電機 代理店"
+      },
+      "version": "整圧器 中圧A→低圧",
+      "purl": "pkg:generic/aichi-tokei/at-gov-b"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:I3-gaspipe",
+      "name": "ガス配管 (白ガス管/PE) + 弁",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "I-gas"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "JFE Steel"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "SGP 白ガス管 25-80A + ガス栓"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "SGP-80"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/jfe-steel/sgp-80"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "SGP 25-80A (乾燥炉)"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "180"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "520"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "gas-pipe"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_gas"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "メタルワン (商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "8 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "JFE Steel",
+      "supplier": {
+        "name": "メタルワン (商社)"
+      },
+      "version": "SGP 白ガス管 25-80A + ガス栓",
+      "purl": "pkg:generic/jfe-steel/sgp-80"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:I4-shutoff",
+      "name": "緊急遮断弁 + ガス漏れ警報",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "I-gas"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Yazaki"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "緊急遮断弁 + ガス漏れ検知器"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "YZ-ESV"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/yazaki/yz-esv"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "4"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "12"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "gas-safety"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "矢崎エナジーシステム 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "5 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Yazaki",
+      "supplier": {
+        "name": "矢崎エナジーシステム 代理店"
+      },
+      "version": "緊急遮断弁 + ガス漏れ検知器",
+      "purl": "pkg:generic/yazaki/yz-esv"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:J1-hydrant",
+      "name": "屋内消火栓設備 + 配管 + ポンプ",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "J-fire-safety"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Hochiki"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "1号消火栓 x 複数 + 加圧送水装置"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "HOCHIKI-1H-M"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/hochiki/hochiki-1h-m"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "360"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "3200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "fire-hydrant"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "util_fire"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ホーチキ → 消防設備業者"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "8 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Hochiki",
+      "supplier": {
+        "name": "ホーチキ → 消防設備業者"
+      },
+      "version": "1号消火栓 x 複数 + 加圧送水装置",
+      "purl": "pkg:generic/hochiki/hochiki-1h-m"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:J2-extinguisher",
+      "name": "消火器 (ABC粉末 + 油火災対応)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "J-fire-safety"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Morita Miyata"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "ABC粉末消火器 10型 + 塗装区画用"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "MYT-ABC10-M"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/morita-miyata/myt-abc10-m"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "32"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "4.5"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "extinguisher"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "モリタ宮田工業 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "3 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Morita Miyata",
+      "supplier": {
+        "name": "モリタ宮田工業 代理店"
+      },
+      "version": "ABC粉末消火器 10型 + 塗装区画用",
+      "purl": "pkg:generic/morita-miyata/myt-abc10-m"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:J3-alarm",
+      "name": "自動火災報知設備 + 受信機",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "J-fire-safety"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Hochiki"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "R型受信機 + 煙/熱/炎感知器 + 発信機"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "HOCHIKI-R1"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/hochiki/hochiki-r1"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "700"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "520"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "fire-alarm"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ホーチキ → 消防設備業者"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "8 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Hochiki",
+      "supplier": {
+        "name": "ホーチキ → 消防設備業者"
+      },
+      "version": "R型受信機 + 煙/熱/炎感知器 + 発信機",
+      "purl": "pkg:generic/hochiki/hochiki-r1"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:J4-exitlight",
+      "name": "誘導灯 + 非常用照明 (内蔵電池)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "J-fire-safety"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Panasonic"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "LED誘導灯 + 非常灯"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "PNS-EXIT"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/panasonic/pns-exit"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "20"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "2.0"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "exit-light"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "exit_lights"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "因幡電機産業 (電材商社)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Panasonic",
+      "supplier": {
+        "name": "因幡電機産業 (電材商社)"
+      },
+      "version": "LED誘導灯 + 非常灯",
+      "purl": "pkg:generic/panasonic/pns-exit"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:J5-sprinkler",
+      "name": "スプリンクラー + 泡消火 (塗装区画)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "J-fire-safety"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Senju Sprinkler"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "閉鎖型ヘッド + 塗装ブース泡消火 + 制御弁"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "SENJU-CL-FOAM"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/senju/senju-cl-foam"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "560"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "2400"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "sprinkler"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:note",
+          "value": "塗装ブースは危険物/指定可燃物扱い、泡消火 + 消防同意で要否確定 (R0は計上のみ)"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "千住スプリンクラー → 消防設備業者"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "8 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Senju Sprinkler",
+      "supplier": {
+        "name": "千住スプリンクラー → 消防設備業者"
+      },
+      "version": "閉鎖型ヘッド + 塗装ブース泡消火 + 制御弁",
+      "purl": "pkg:generic/senju/senju-cl-foam"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K1-asphalt",
+      "name": "アスファルト舗装 (車道+ヤード+出荷)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:areaM2",
+          "value": "7200"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "2160000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "asphalt-pavement"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "site_ship_yard"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "アスコン t80 表層 + t150 基層, 構内車道+トラックヤード+出荷ヤード(重荷重)"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K2-subbase",
+      "name": "路盤 (再生砕石 RC-40)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:areaM2",
+          "value": "7200"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "5180000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "road-base"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "RC-40 路盤 t300 締固め CBR>=30 (重荷重ヤード)"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K3-curb",
+      "name": "縁石 + 側溝 + 集水桝",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Landes"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "PCa縁石 + L形側溝 + 集水桝"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "LND-CURB"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/landes/lnd-curb"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "PCa curb + L-gutter"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "620"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "186000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "concrete-curb"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ランデス 特約店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Landes",
+      "supplier": {
+        "name": "ランデス 特約店"
+      },
+      "version": "PCa縁石 + L形側溝 + 集水桝",
+      "purl": "pkg:generic/landes/lnd-curb"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K4-marking",
+      "name": "区画線 + 路面標示 (通路/駐車/出荷レーン)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "1100"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "2200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "road-marking"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "site_walkway"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "溶融式区画線 + 歩行者通路グリーン + 出荷レーン + 立入禁止ゼブラ"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K5-fence",
+      "name": "外周メッシュフェンス",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Sankin"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "メッシュフェンス H2000"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "SK-MF-2000"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/sankin/sk-mf-2000"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "H2000 mesh"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "720"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "16000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "fence"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "site_fence"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "三協立山/サンキン 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Sankin",
+      "supplier": {
+        "name": "三協立山/サンキン 代理店"
+      },
+      "version": "メッシュフェンス H2000",
+      "purl": "pkg:generic/sankin/sk-mf-2000"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K6-gate",
+      "name": "引込門扉 (電動スライドゲート)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Bunka Shutter"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "電動アルミスライドゲート W12m"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "BS-SLIDE-12"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/bunka-shutter/bs-slide-12"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "W12m 電動"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "820"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "gate"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "site_gate"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "文化シヤッター 直需"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "7 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "Bunka Shutter",
+      "supplier": {
+        "name": "文化シヤッター 直需"
+      },
+      "version": "電動アルミスライドゲート W12m",
+      "purl": "pkg:generic/bunka-shutter/bs-slide-12"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K7-bollard",
+      "name": "車止めボラード (固定/可倒)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Saga Tekkohsho"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "鋼製ボラード φ139"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "ST-BL-139"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/saga-tekko/st-bl-139"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "5"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "26"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "bollard"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "site_bollards"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "佐賀鉄工所 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Saga Tekkohsho",
+      "supplier": {
+        "name": "佐賀鉄工所 代理店"
+      },
+      "version": "鋼製ボラード φ139",
+      "purl": "pkg:generic/saga-tekko/st-bl-139"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K8-polelight",
+      "name": "外灯ポール (LED)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Iwasaki Electric"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "LEDポール灯 8m 120W"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "IWS-POLE-120"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/iwasaki/iws-pole-120"
+        },
+        {
+          "name": "sarutahiko:rating",
+          "value": "120W"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "6"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "120"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "pole-light"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "site_poles"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "岩崎電気 特約店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Iwasaki Electric",
+      "supplier": {
+        "name": "岩崎電気 特約店"
+      },
+      "version": "LEDポール灯 8m 120W",
+      "purl": "pkg:generic/iwasaki/iws-pole-120"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K9-landscape",
+      "name": "植栽 + 緑地 + 法面",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:areaM2",
+          "value": "6000"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "0"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "landscaping"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "site_landscape"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "高木+低木+芝張り+客土, 緑地2区画"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K10-sign",
+      "name": "工場サイン + 構内案内看板",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "custom-fab"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "240"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "signage"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "site_sign"
+        },
+        {
+          "name": "sarutahiko:fabProcess",
+          "value": "自立サイン + 構内案内 + 出荷ヤード安全標識"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "施工JV / 専門工事業者 (発注)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP (on-site fab)"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "施工計画依存"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "subcontract"
+        }
+      ],
+      "supplier": {
+        "name": "施工JV / 専門工事業者 (発注)"
+      }
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:K11-dataservice",
+      "name": "通信引込 (光ファイバ) + 配線盤",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "K-site"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "NTT (指定)"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "光引込 + SC配線盤 + LAN幹線"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "NTT-FTTH"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/ntt/ntt-ftth"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "FTTH + Cat6A backbone"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:lengthM",
+          "value": "180"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "60"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "data-service"
+        },
+        {
+          "name": "sarutahiko:simFeature",
+          "value": "svc_data"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "NTT (指定) 代理店 (要確認)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "要確認"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "要見積"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "NTT (指定)",
+      "supplier": {
+        "name": "NTT (指定) 代理店 (要確認)"
+      },
+      "version": "光引込 + SC配線盤 + LAN幹線",
+      "purl": "pkg:generic/ntt/ntt-ftth"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:L1-readymix",
+      "name": "生コンクリート (基礎/土間/外構)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "L-raw-materials"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "近隣生コンプラント (JIS A 5308)"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "レディミクストコンクリート 35-18-20N"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "RMC-35-18-20"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/jis/rmc-35-18-20"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "35-18-20N (高炉B種)"
+        },
+        {
+          "name": "sarutahiko:composition",
+          "value": "セメント(高炉B種)+細骨材+粗骨材20mm+水(W/C48%)+AE減水剤, スランプ18cm, 設計基準強度Fc35N/mm2"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:unit",
+          "value": "m3"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "5800000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "concrete"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "近隣生コンプラント (JIS A 5308) (地場プラント/指定業者)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "1-2 週"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "local"
+        }
+      ],
+      "publisher": "近隣生コンプラント (JIS A 5308)",
+      "supplier": {
+        "name": "近隣生コンプラント (JIS A 5308) (地場プラント/指定業者)"
+      },
+      "version": "レディミクストコンクリート 35-18-20N",
+      "purl": "pkg:generic/jis/rmc-35-18-20"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:L2-asphaltmix",
+      "name": "アスファルト合材",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "L-raw-materials"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "NIPPO"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "再生密粒度アスコン 13F"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "ASCON-13F"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/nippo/ascon-13f"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "再生密粒度13F"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:unit",
+          "value": "t"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "2160000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "asphalt-mix"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "NIPPO 合材プラント (地場)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "1 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "local"
+        }
+      ],
+      "publisher": "NIPPO",
+      "supplier": {
+        "name": "NIPPO 合材プラント (地場)"
+      },
+      "version": "再生密粒度アスコン 13F",
+      "purl": "pkg:generic/nippo/ascon-13f"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:L3-roadstone",
+      "name": "路盤材 (再生砕石 RC-40)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "L-raw-materials"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "近隣砕石プラント"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "再生クラッシャラン RC-40"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "RC-40"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/generic/rc-40"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "RC-40"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:unit",
+          "value": "t"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "5180000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "crushed-stone"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "近隣砕石プラント (地場プラント/指定業者)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "1-2 週"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "local"
+        }
+      ],
+      "publisher": "近隣砕石プラント",
+      "supplier": {
+        "name": "近隣砕石プラント (地場プラント/指定業者)"
+      },
+      "version": "再生クラッシャラン RC-40",
+      "purl": "pkg:generic/generic/rc-40"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:L4-epoxy",
+      "name": "エポキシ床塗料 (帯電防止/耐重荷重)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "L-raw-materials"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "ABC Trading"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "ケミクリートE 帯電防止 耐重荷重"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "CHEMI-E-HD"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/abc-trading/chemi-e-hd"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "HD epoxy"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:unit",
+          "value": "kg"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "4800"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "epoxy-coating"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "ABC商会 (直販)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "3 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "direct"
+        }
+      ],
+      "publisher": "ABC Trading",
+      "supplier": {
+        "name": "ABC商会 (直販)"
+      },
+      "version": "ケミクリートE 帯電防止 耐重荷重",
+      "purl": "pkg:generic/abc-trading/chemi-e-hd"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:L5-sealant",
+      "name": "シーリング材 + 防水材",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "L-raw-materials"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Sika"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "変成シリコーン + ウレタン防水"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "SIKA-MS"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/sika/sika-ms"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:unit",
+          "value": "kg"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "1800"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "sealant"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "シーカ・ジャパン 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP/CH"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "3 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Sika",
+      "supplier": {
+        "name": "シーカ・ジャパン 代理店"
+      },
+      "version": "変成シリコーン + ウレタン防水",
+      "purl": "pkg:generic/sika/sika-ms"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:L6-steelpaint",
+      "name": "鉄骨塗装 (錆止め+上塗り)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "L-raw-materials"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Nippon Paint"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "変性エポキシ錆止め + ウレタン上塗"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "NP-EPU"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/nippon-paint/np-epu"
+        },
+        {
+          "name": "sarutahiko:composition",
+          "value": "1層: 変性エポキシ樹脂錆止め 2回 / 2層: ポリウレタン上塗 2回, 計4層 DFT 120um"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:unit",
+          "value": "kg"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "3200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "steel-paint"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "日本ペイント → 塗料商社"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "3 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Nippon Paint",
+      "supplier": {
+        "name": "日本ペイント → 塗料商社"
+      },
+      "version": "変性エポキシ錆止め + ウレタン上塗",
+      "purl": "pkg:generic/nippon-paint/np-epu"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:L7-rebarstock",
+      "name": "鉄筋素材 (異形棒鋼 SD345)",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "L-raw-materials"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Tokyo Steel"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "異形棒鋼 SD345 D10-D32"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "SD345-STOCK"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/tokyo-steel/sd345-stock"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "JIS G 3112 SD345"
+        },
+        {
+          "name": "sarutahiko:composition",
+          "value": "C<=0.27 / 降伏点345-440N/mm2 / 引張490N/mm2以上, ミルシート添付"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:unit",
+          "value": "t"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "86000"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "rebar-stock"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "Tokyo Steel 代理店 (要確認)"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "要確認"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "要見積"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Tokyo Steel",
+      "supplier": {
+        "name": "Tokyo Steel 代理店 (要確認)"
+      },
+      "version": "異形棒鋼 SD345 D10-D32",
+      "purl": "pkg:generic/tokyo-steel/sd345-stock"
+    },
+    {
+      "type": "device",
+      "bom-ref": "bld:L8-htbolt",
+      "name": "高力ボルト (F10T) + 普通ボルト",
+      "properties": [
+        {
+          "name": "sarutahiko:group",
+          "value": "L-raw-materials"
+        },
+        {
+          "name": "sarutahiko:procurement",
+          "value": "cots"
+        },
+        {
+          "name": "sarutahiko:manufacturer",
+          "value": "Saga Tekkohsho"
+        },
+        {
+          "name": "sarutahiko:product",
+          "value": "トルシア形高力ボルト S10T M22-M24"
+        },
+        {
+          "name": "sarutahiko:mpn",
+          "value": "S10T-M22"
+        },
+        {
+          "name": "sarutahiko:purl",
+          "value": "pkg:generic/saga-tekko/s10t-m22"
+        },
+        {
+          "name": "sarutahiko:spec",
+          "value": "JIS B 1186 F10T相当 (S10T)"
+        },
+        {
+          "name": "sarutahiko:composition",
+          "value": "合金鋼 焼入焼戻し, 引張1000-1200N/mm2, 摩擦接合 すべり係数0.45以上"
+        },
+        {
+          "name": "sarutahiko:qty",
+          "value": "1"
+        },
+        {
+          "name": "sarutahiko:unit",
+          "value": "set"
+        },
+        {
+          "name": "sarutahiko:massKg",
+          "value": "5200"
+        },
+        {
+          "name": "sarutahiko:material",
+          "value": "high-tension-bolt"
+        },
+        {
+          "name": "sarutahiko:sourcing",
+          "value": "representative"
+        },
+        {
+          "name": "sarutahiko:supplier",
+          "value": "佐賀鉄工所 代理店"
+        },
+        {
+          "name": "sarutahiko:origin",
+          "value": "JP"
+        },
+        {
+          "name": "sarutahiko:leadTime",
+          "value": "4 週 (代表値)"
+        },
+        {
+          "name": "sarutahiko:channel",
+          "value": "distributor"
+        }
+      ],
+      "publisher": "Saga Tekkohsho",
+      "supplier": {
+        "name": "佐賀鉄工所 代理店"
+      },
+      "version": "トルシア形高力ボルト S10T M22-M24",
+      "purl": "pkg:generic/saga-tekko/s10t-m22"
+    }
+  ]
+}

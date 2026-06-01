@@ -6,21 +6,18 @@ Mirrors the upstream pattern `isaacsim.assets.Cartpole(prim_path=...)`.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Optional
+
+from ._fixture import load_fixture
 
 
 def _load_cartpole_urdf() -> str:
-    """Load the kami-native cartpole URDF from 70-tools/e7m-sim/scenes."""
-    # Walk up from this file to repo root.
-    here = Path(__file__).resolve()
-    # path: .../pymagatama/nv_compat/isaacsim/assets/cartpole.py
-    # repo root is 7 levels up (file/assets/isaacsim/nv_compat/pymagatama/src/py/magatama/20-actors/<root>)
-    for ancestor in here.parents:
-        candidate = ancestor / "70-tools" / "e7m-sim" / "scenes" / "cartpole" / "cartpole.urdf"
-        if candidate.exists():
-            return candidate.read_text()
-    raise FileNotFoundError("Could not locate cartpole.urdf — repo layout changed?")
+    """Load the kami-native cartpole URDF.
+
+    SoT moved to ``40-engine/kami-engine/fixtures/cartpole/`` per
+    ADR-2606011500 §2 (legacy ``70-tools/e7m-sim/scenes`` kept as fallback).
+    """
+    return load_fixture("cartpole", "cartpole.urdf")
 
 
 @dataclass
