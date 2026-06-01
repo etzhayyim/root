@@ -19,23 +19,25 @@ Per **ADR-2605242530**.
 
 ## Phase 1 scope (this directory)
 
-- `rtl/fuigo_top.sv` — top-level port list stub
-- `rtl/forward_sa.sv` — 1024×1024 ternary PE grid wrapper (instantiates `shared-ip/ternary-pe`)
-- `rtl/backward_sa.sv` — 8k BF16 MAC grid stub
-- `rtl/ste_glue.sv` — STE bridge stub
-- `rtl/lion_optimizer.sv` — Lion optimizer hardwire stub
-- `rtl/memory/hbm3e_ctrl.sv` — HBM3e PHY controller stub
-- `rtl/memory/cxl_mem_3_ep.sv` — CXL.mem 3.0 endpoint stub
-- `rtl/interconnect/libp2p_nic.sv` — libp2p protocol engine stub (delegates to `shared-ip/libp2p-nic`)
-- `sim/test_ste_glue.py` — STE bridge unit test (cocotb)
-- `sim/test_lion_step.py` — 1-step Lion optimizer update micro test
-- `sim/test_forward_backward_loop.py` — 1-iteration end-to-end micro loop
+| File | Role | Test | Status |
+|---|---|---|---|
+| `rtl/fuigo_top.sv` | die top: **live forward path** (shared `pe_array` / ternary-pe IP) + Phase-2 placeholders | `sim/test_fuigo_top.py` (101 cases, ACC_WIDTH=32) | ✅ green |
+
+The forward systolic array reuses the canonical `../shared-ip/ternary-pe/`
+through `../iwakura/rtl/pe_array.sv` — **the exact IP-reuse deliverable** of
+ADR-2605242530 §Phase-1. No fork: iwakura inference and fuigo training share one
+verified ternary MAC engine, differing only in accumulator width (24 vs 32).
+
+Still Phase-2 (not yet written): `backward_sa.sv` (BF16), `ste_glue.sv`,
+`lion_optimizer.sv`, `memory/hbm3e_ctrl.sv`, `memory/cxl_mem_3_ep.sv`,
+`interconnect/libp2p_nic.sv`. Backward BF16 is the part fuigo does **not** share
+with iwakura and is deliberately out of Phase-1.
 
 ## Build & test
 
 ```bash
 cd sim
-make sim
+make sim     # forward-path integration (shared ternary-pe IP, ACC_WIDTH=32)
 ```
 
 ## ADR pointers

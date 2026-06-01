@@ -25,7 +25,25 @@ A small ROM-based divider (5-stage unrolled) produces 5 ternary weights
 per cycle. Stage-i computes `(code / 3^i) mod 3 - 1`. Implementation is
 combinational; latency 0 (purely wire-level once `code` is registered).
 
-## Phase 1 scope
+## Status
 
-`rtl/radix3_decoder.sv` (Phase 2) — combinational decoder.
-This README placeholder for now.
+`rtl/radix3_decoder.sv` — combinational 5-stage divider, **implemented**.
+`sim/test_radix3_decoder.py` — exhaustive over all 256 byte codes
+(243 valid → 5 trits each; 243..255 clamp to all-zero with `code_valid=0`)
+plus roundtrip corner vectors.
+
+```bash
+cd 50-infra/silicon/shared-ip/radix3-packer/sim
+make sim     # Verilator + cocotb
+```
+
+Expected:
+
+```
+radix3_decoder: 256 codes checked, 243 valid
+2 tests passed: exhaustive_all_256_codes, roundtrip_corner_vectors
+```
+
+The decoder emits each trit in the `ternary_pe` 2-bit encoding (`00/01/10`),
+so its output wires straight into `pe_array` / `ternary_pe` without a
+translation layer.

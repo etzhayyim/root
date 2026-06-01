@@ -118,6 +118,15 @@ outputs:
 - 1× INT8 multiplier (汎用 NPU PE): ~5,200 gates
 - 1× iwakura ternary PE (本 ADR): ~620 gates → **8.4× 高密度**
 
+> **合成検証 (2026-06-01, yosys 0.65 + ABC, generic 2-input gate lib, no PDK)**:
+> `synth/run_synth.sh` で実合成。multiplier ブロック単体 (BitNet が削除する論理)
+> = `mul8x8 ÷ ternary_mul` = **raw 10.0× / GE 12.7×** → 上記 8.4× 見積りを
+> **検証 (むしろ conservative)**。ただし 24-bit accumulator は両方式で共通のため、
+> **PE 全体**では `int8_mac_ref ÷ ternary_pe` = **raw 3.78× / GE 3.68×** が
+> 正直な system-level 比 (zero-skip 35% は area ではなく動的電力に上乗せ)。
+> 絶対 gate 数 (ternary_pe 159 / int8 601) は metric が異なる (generic gate vs
+> N5 NAND-equiv) ため ADR の絶対値とは非可比、ratio のみ可比。詳細 `50-infra/silicon/synth/README.md`。
+
 256×256 = 65,536 PE / die. Clock 1 GHz → **65 Tera-ternary-ops/s peak** (汎用 NPU の TOPS と直接比較できないが、equivalent FP8 ops で換算すると ~32 TFLOPS 相当).
 
 ## radix-3 weight packing convention
@@ -290,10 +299,26 @@ iwakura は **専用 ISA** (~20 opcodes: load_weight_block / load_act / matmul_t
 2. ✅ §Decision PE micro-architecture が gate-level estimate 含めて確定
 3. ✅ §Decision radix-3 packing convention 確定
 4. ✅ §Decision Phase 1 scope = RTL + cocotb sim まで
-5. ⏳ `50-infra/silicon/iwakura/` + `shared-ip/ternary-pe/` scaffold commit (本 wave 内)
-6. ⏳ `test_ternary_pe.py` cocotb test 81 cases 全 pass — 別 commit (Verilator build pass 確認後)
+5. ✅ `50-infra/silicon/iwakura/` + `shared-ip/{ternary-pe,radix3-packer}/` 実装 commit
+   (2026-06-01: `pe_array.sv` / `zero_skip_dispatcher.sv` / `radix3_decoder.sv`
+   実装 + `iwakura_top` を live compute tile に結線。stub から脱却)
+6. ✅ cocotb test 全 pass (Verilator 5.048 + cocotb 2.0.1):
+   - `ternary_pe` 3 tests / 75 cases
+   - `radix3_decoder` 2 tests / 全 256 byte codes
+   - `pe_array` 3 tests / 200+ randomized matrix-vector cases vs reference + zero-skip activity + back-to-back independence
+   - `zero_skip_dispatcher` 3 tests / 全 65,536 weight blocks + BitNet 分布で gated 35.0% 実測 (ADR の ~30% 動的電力削減 claim 裏付け)
+   - `iwakura_top` integration smoke (y 一致 + pe_active_count + dispatcher col0 estimate)
+   - 全 RTL `verilator --lint-only -Wall` clean
 7. ⏳ Phase 2 (FPGA prototype) ADR — 別 wave、Council 承認 + budget 確保後
 8. ⏳ Phase 3 (MPW tape-out) ADR — 別 wave、tsukuru production_order 経由
+
+> **honest scope (2026-06-01)**: Phase 1 = RTL + functional cocotb sim +
+> **generic 論理合成** (yosys + ABC, PDK なし — density ratio 検証目的)。
+> **未実施**: PDK/liberty mapping・place-and-route・タイミング closure・GDSII
+> (これらは NDA std-cell library を要し Phase 3 MPW tape-out、Council-gated)。
+> `pe_array` は time-multiplexed 形 (1 column/cycle); 物理 256×256 systolic skew
+> + pipeline register は Phase 2。`iwakura_top` の PHY ports
+> (PCIe/LPDDR5X/modality encoder) は placeholder。
 
 # References
 
