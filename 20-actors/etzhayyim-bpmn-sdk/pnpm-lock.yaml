@@ -38,7 +38,7 @@ importers:
 
   examples/dmn-js-minimal:
     dependencies:
-      '@gftd/bpmn-sdk/dmn':
+      '@etzhayyim/bpmn-sdk-dmn':
         specifier: workspace:*
         version: link:../../packages/dmn
     devDependencies:
@@ -48,31 +48,31 @@ importers:
 
   examples/e2e-integration:
     dependencies:
-      '@gftd/bpmn-sdk/compiler':
+      '@etzhayyim/bpmn-sdk-compiler':
         specifier: workspace:*
         version: link:../../packages/compiler
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@gftd/bpmn-sdk/dsl':
+      '@etzhayyim/bpmn-sdk-dsl':
         specifier: workspace:*
         version: link:../../packages/dsl
-      '@gftd/bpmn-sdk/human':
+      '@etzhayyim/bpmn-sdk-human':
         specifier: workspace:*
         version: link:../../packages/human
-      '@gftd/bpmn-sdk/importer':
+      '@etzhayyim/bpmn-sdk-importer':
         specifier: workspace:*
         version: link:../../packages/importer
-      '@gftd/bpmn-sdk/ops':
+      '@etzhayyim/bpmn-sdk-ops':
         specifier: workspace:*
         version: link:../../packages/ops
-      '@gftd/bpmn-sdk/runtime':
+      '@etzhayyim/bpmn-sdk-runtime':
         specifier: workspace:*
         version: link:../../packages/runtime
-      '@gftd/bpmn-sdk/testing':
+      '@etzhayyim/bpmn-sdk-testing':
         specifier: workspace:*
         version: link:../../packages/testing
-      '@gftd/bpmn-sdk/validation':
+      '@etzhayyim/bpmn-sdk-validation':
         specifier: workspace:*
         version: link:../../packages/validation
     devDependencies:
@@ -100,13 +100,13 @@ importers:
 
   examples/e2e-minimal:
     dependencies:
-      '@gftd/bpmn-sdk/compiler':
+      '@etzhayyim/bpmn-sdk-compiler':
         specifier: workspace:*
         version: link:../../packages/compiler
-      '@gftd/bpmn-sdk/dsl':
+      '@etzhayyim/bpmn-sdk-dsl':
         specifier: workspace:*
         version: link:../../packages/dsl
-      '@gftd/bpmn-sdk/runtime':
+      '@etzhayyim/bpmn-sdk-runtime':
         specifier: workspace:*
         version: link:../../packages/runtime
     devDependencies:
@@ -125,7 +125,7 @@ importers:
 
   examples/form-js-minimal:
     dependencies:
-      '@gftd/bpmn-sdk/form':
+      '@etzhayyim/bpmn-sdk-form':
         specifier: workspace:*
         version: link:../../packages/form
     devDependencies:
@@ -135,28 +135,28 @@ importers:
 
   examples/order-processing:
     dependencies:
-      '@gftd/bpmn-sdk/compiler':
+      '@etzhayyim/bpmn-sdk-compiler':
         specifier: workspace:*
         version: link:../../packages/compiler
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@gftd/bpmn-sdk/dsl':
+      '@etzhayyim/bpmn-sdk-dsl':
         specifier: workspace:*
         version: link:../../packages/dsl
-      '@gftd/bpmn-sdk/human':
+      '@etzhayyim/bpmn-sdk-human':
         specifier: workspace:*
         version: link:../../packages/human
-      '@gftd/bpmn-sdk/ops':
+      '@etzhayyim/bpmn-sdk-ops':
         specifier: workspace:*
         version: link:../../packages/ops
-      '@gftd/bpmn-sdk/runtime':
+      '@etzhayyim/bpmn-sdk-runtime':
         specifier: workspace:*
         version: link:../../packages/runtime
-      '@gftd/bpmn-sdk/testing':
+      '@etzhayyim/bpmn-sdk-testing':
         specifier: workspace:*
         version: link:../../packages/testing
-      '@gftd/bpmn-sdk/validation':
+      '@etzhayyim/bpmn-sdk-validation':
         specifier: workspace:*
         version: link:../../packages/validation
     devDependencies:
@@ -184,7 +184,7 @@ importers:
 
   packages/compiler:
     dependencies:
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../core
       bpmn-moddle:
@@ -213,8 +213,8 @@ importers:
   packages/dmn:
     dependencies:
       dmn-js:
-        specifier: ^17.4.0
-        version: 17.4.0
+        specifier: ^17.8.1
+        version: 17.8.1
     devDependencies:
       rimraf:
         specifier: ^5.0.5
@@ -228,7 +228,7 @@ importers:
 
   packages/dsl:
     dependencies:
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -263,10 +263,10 @@ importers:
 
   packages/human:
     dependencies:
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../core
-      '@gftd/bpmn-sdk/runtime':
+      '@etzhayyim/bpmn-sdk-runtime':
         specifier: workspace:*
         version: link:../runtime
     devDependencies:
@@ -279,7 +279,7 @@ importers:
 
   packages/importer:
     dependencies:
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../core
       bpmn-moddle:
@@ -314,10 +314,10 @@ importers:
 
   packages/ops:
     dependencies:
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../core
-      '@gftd/bpmn-sdk/runtime':
+      '@etzhayyim/bpmn-sdk-runtime':
         specifier: workspace:*
         version: link:../runtime
       '@opentelemetry/api':
@@ -348,10 +348,10 @@ importers:
 
   packages/runtime:
     dependencies:
-      '@gftd/bpmn-sdk/compiler':
+      '@etzhayyim/bpmn-sdk-compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../core
       bpmn-engine:
@@ -367,13 +367,13 @@ importers:
 
   packages/testing:
     dependencies:
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../core
-      '@gftd/bpmn-sdk/runtime':
+      '@etzhayyim/bpmn-sdk-runtime':
         specifier: workspace:*
         version: link:../runtime
-      '@gftd/bpmn-sdk/validation':
+      '@etzhayyim/bpmn-sdk-validation':
         specifier: workspace:*
         version: link:../validation
       fast-check:
@@ -392,7 +392,7 @@ importers:
 
   packages/validation:
     dependencies:
-      '@gftd/bpmn-sdk/core':
+      '@etzhayyim/bpmn-sdk-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -652,15 +652,22 @@ packages:
   '@bpmn-io/draggle@4.1.2':
     resolution: {integrity: sha512-k7Al5tZA5GZ6KvrsuJ+PFleB3y9WUgEr4KErD6t82Uw1SMn6IK3dXFLhwLxxzga4IrmTGke7wZWdqg6vGOxoTw==}
 
-  '@bpmn-io/feel-editor@1.12.0':
-    resolution: {integrity: sha512-l19PUPZX4DurVNZF06x3mJ0jBNnVpEJTP4tTzVBpgxofxRDWemDjfHWlY+gsuW4QFFGjVL3hV5IIEiZp/oA3Kw==}
+  '@bpmn-io/feel-editor@1.12.1':
+    resolution: {integrity: sha512-XEsbglURtQsphlvGQll3aiGYsM8Qc22y7fDGmxUqSYv3AVzORBzYdFhFFwfYMfKfzln/qwa3Wlrl0amvELRJ2A==}
     engines: {node: '>= 16'}
+
+  '@bpmn-io/feel-editor@2.5.2':
+    resolution: {integrity: sha512-pxbhUDAlLe+zDAvmG7Y057o8rnVImKYEbgjH4+zZiq3WjPw5bZYu2kraJfpWMs3xkyOCvLR6H3J3f8yJRuHmgw==}
+    engines: {node: '>= 20'}
 
   '@bpmn-io/feel-lint@1.4.0':
     resolution: {integrity: sha512-1bsdR/9vPD7RQVqWWPk0X0tpjLsYTDrCxIzOVtN/h32o4nPGl0dZBU5m07qaFUGD4wG3eOH4Qim1wexHG8YkBw==}
 
   '@bpmn-io/feel-lint@2.1.0':
     resolution: {integrity: sha512-fUGye6KppyowiwUqlfRHpMtXQ8so8jv1rh2LEQp+fhKf+WeLkbokmQwXZbCQe/4Kam/OLQRlx+p3Qnu0IrZQ6A==}
+
+  '@bpmn-io/feel-lint@3.1.0':
+    resolution: {integrity: sha512-nOCYWMXgwR0joU4XKhu4f3P5f4/AsmuyiV1e+fzcXTCh7iMLU8VYdHXSIzZuJ0zxz3Gsnp7A8S8lt+HJ43H6IA==}
 
   '@bpmn-io/form-js-carbon-styles@1.17.0':
     resolution: {integrity: sha512-VXIGF9aaZECjxy9gDTYDvD+kmxJ325tRRfuqMBhfZK7DcWTHI78KGn/iH8fMGqTt3wzVLGwiYBWzQeDdMgkQSw==}
@@ -680,14 +687,25 @@ packages:
   '@bpmn-io/lang-feel@2.4.0':
     resolution: {integrity: sha512-0c1pratAD/YTOaivwLd7MljT0/MoDUMpfm87JbtAOBvivRfEr8mel5l8Ig3kgpYJ+xkznLaA9s79ZDKLh/O8ag==}
 
+  '@bpmn-io/lang-feel@3.0.0':
+    resolution: {integrity: sha512-t/k0z5AW18J7Qz2i/bIFAlvlcS63RuyQB9OQ0YiC1WyMosxXRAnv98LHnVbwirx9vje1DLll85tkBT2B8KLjmQ==}
+    engines: {node: '>= 20.12.0'}
+
   '@bpmn-io/lezer-feel@1.9.0':
     resolution: {integrity: sha512-mV+pj+x0++9zT5/RkOOUNtkT2hpKpGWbXuFR8trJlvJeRe1dL/5yPal/RBcnk3z73tILK4kP6LzXelcsshQCEw==}
+
+  '@bpmn-io/lezer-feel@2.4.0':
+    resolution: {integrity: sha512-V6L6p7GZSQnpNld1RKlk9A2GYmKoK3f1Qnzcay58ei/OGYDUHCl+267ldhe9LRmlFUr5emp5MSvjG2ekkXdwtQ==}
+    engines: {node: '>= 20.12.0'}
 
   '@bpmn-io/properties-panel@3.33.0':
     resolution: {integrity: sha512-I41JNpfX7zzKTOpmB84ETt8dnyE4OLDtzNmQBN6m3wEnfFw19VuBa7C0XXMtF/Us1zvy3yFx+dAH//Hgg9e0uQ==}
 
   '@camunda/feel-builtins@0.2.0':
     resolution: {integrity: sha512-Jusm8x3Onqze9E5Y0lGGdPj66bnFKLYNwDz+uG4otsEXgSL0FpF+koGHK48LkF9Jqo67KaP1y3zr2y/HIWRePw==}
+
+  '@camunda/feel-builtins@1.2.0':
+    resolution: {integrity: sha512-dtfv9TSDiTEivARL2l8qawxsQi9BBajoSUQQIlVXVBwt5rp/FQ9UD2DTzki//RnLnu2V2O69SxGZDhWTT28qQg==}
 
   '@carbon/grid@11.45.0':
     resolution: {integrity: sha512-J8hh5li0Q0RRS6IGg+MVPQVfjp1ePxzQsyMyjQOHLux8i8HwiWJmKLQ+4lKMzRXorLG2RtEoPVl00EaKlQEgKQ==}
@@ -698,6 +716,12 @@ packages:
   '@codemirror/autocomplete@6.19.0':
     resolution: {integrity: sha512-61Hfv3cF07XvUxNeC3E7jhG8XNi1Yom1G0lRC936oLnlF+jrbrv8rc/J98XlYzcsAoTVupfsf5fLej1aI8kyIg==}
 
+  '@codemirror/autocomplete@6.20.2':
+    resolution: {integrity: sha512-G5FPkgIiLjOgZMjqVjvuKQ1rGPtHogLldJr33eFJdVLtmwY+giGrlv/ewljLz6b9BSQLkjxuwBc6g6omDM+YxQ==}
+
+  '@codemirror/commands@6.10.3':
+    resolution: {integrity: sha512-JFRiqhKu+bvSkDLI+rUhJwSxQxYb759W5GBezE8Uc8mHLqC9aV/9aTC7yJSqCtB3F00pylrLCwnyS91Ap5ej4Q==}
+
   '@codemirror/commands@6.9.0':
     resolution: {integrity: sha512-454TVgjhO6cMufsyyGN70rGIfJxJEjcqjBG2x2Y03Y/+Fm99d3O/Kv1QDYWuG6hvxsgmjXmBuATikIIYvERX+w==}
 
@@ -707,8 +731,14 @@ packages:
   '@codemirror/language@6.11.3':
     resolution: {integrity: sha512-9HBM2XnwDj7fnu0551HkGdrUrrqmYq/WC5iv6nbY2WdicXdGbhR/gfbZOH73Aqj4351alY1+aoG9rCNfiwS1RA==}
 
+  '@codemirror/language@6.12.3':
+    resolution: {integrity: sha512-QwCZW6Tt1siP37Jet9Tb02Zs81TQt6qQrZR2H+eGMcFsL1zMrk2/b9CLC7/9ieP1fjIUMgviLWMmgiHoJrj+ZA==}
+
   '@codemirror/lint@6.9.0':
     resolution: {integrity: sha512-wZxW+9XDytH3SKvS8cQzMyQCaaazH8XL1EMHleHe00wVzsv7NBQKVW2yzEHrRhmM7ZOhVdItPbvlRBvMp9ej7A==}
+
+  '@codemirror/lint@6.9.6':
+    resolution: {integrity: sha512-6Kp7r6XfCi/D/5sdXieMfg9pJU1bUEx96WITuLU6ESaKizCz0QHFMjY/TaFSbigDdEAIgi93itLBIUETP4oK+A==}
 
   '@codemirror/search@6.5.11':
     resolution: {integrity: sha512-KmWepDE6jUdL6n8cAAqIpRmLPBZ5ZKnicE8oGU/s3QrAVID+0VhLFrzUucVKHG5035/BSykhExDL/Xm7dHthiA==}
@@ -716,8 +746,14 @@ packages:
   '@codemirror/state@6.5.2':
     resolution: {integrity: sha512-FVqsPqtPWKVVL3dPSxy8wEF/ymIEuVzF1PK3VbUgrxXpJUSHQWWZz4JMToquRxnkw+36LTamCZG2iua2Ptq0fA==}
 
+  '@codemirror/state@6.6.0':
+    resolution: {integrity: sha512-4nbvra5R5EtiCzr9BTHiTLc+MLXK2QGiAVYMyi8PkQd3SR+6ixar/Q/01Fa21TBIDOZXgeWV4WppsQolSreAPQ==}
+
   '@codemirror/view@6.38.6':
     resolution: {integrity: sha512-qiS0z1bKs5WOvHIAC0Cybmv4AJSkAXgX5aD6Mqd2epSLlVJsQl8NG23jCVouIgkh4All/mrbdsf2UOLFnJw0tw==}
+
+  '@codemirror/view@6.43.0':
+    resolution: {integrity: sha512-V7ZCLQO3Jus9hzh2jVCCPW3mO4IBMr43O37PqSUYautJSnnJF41YlgLw21x0fLJTYvJ+Vkm6Gp+qKGH9pltgXA==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -1020,11 +1056,20 @@ packages:
   '@lezer/common@1.3.0':
     resolution: {integrity: sha512-L9X8uHCYU310o99L3/MpJKYxPzXPOS7S0NmBaM7UO/x2Kb2WbmMLSkfvdr1KxRIFYOpbY0Jhn7CfLSUDzL8arQ==}
 
+  '@lezer/common@1.5.2':
+    resolution: {integrity: sha512-sxQE460fPZyU3sdc8lafxiPwJHBzZRy/udNFynGQky1SePYBdhkBl1kOagA9uT3pxR8K09bOrmTUqA9wb/PjSQ==}
+
   '@lezer/highlight@1.2.2':
     resolution: {integrity: sha512-z8TQwaBXXQIvG6i2g3e9cgMwUUXu9Ib7jo2qRRggdhwKpM56Dw3PM3wmexn+EGaaOZ7az0K7sjc3/gcGW7sz7A==}
 
+  '@lezer/highlight@1.2.3':
+    resolution: {integrity: sha512-qXdH7UqTvGfdVBINrgKhDsVTJTxactNNxLk7+UMwZhU13lMHaOBlJe9Vqp907ya56Y3+ed2tlqzys7jDkTmW0g==}
+
   '@lezer/json@1.0.3':
     resolution: {integrity: sha512-BP9KzdF9Y35PDpv04r0VeSTKDeox5vVr3efE7eBbx3r4s3oNLfunchejZhjArmeieBH+nVOpgIiBJpEAv8ilqQ==}
+
+  '@lezer/lr@1.4.10':
+    resolution: {integrity: sha512-rnCpTIBafOx4mRp43xOxDJbFipJm/c0cia/V5TiGlhmMa+wsSdoGmUN3w5Bqrks/09Q/D4tNAmWaT8p6NRi77A==}
 
   '@lezer/lr@1.4.2':
     resolution: {integrity: sha512-pu0K1jCIdnQ12aWNaAVU5bzi7Bd1w54J3ECgANPmYLtQKP0HBj2cE/5coBD66MT10xbtIuUr7tg0Shbsvk0mDA==}
@@ -1782,8 +1827,8 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@standard-schema/spec@1.0.0':
-    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
+  '@standard-schema/spec@1.1.0':
+    resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
@@ -2278,17 +2323,21 @@ packages:
     resolution: {integrity: sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==}
     engines: {node: '>=8'}
 
-  diagram-js-direct-editing@3.2.0:
-    resolution: {integrity: sha512-+pyxeQGBSdLiZX0/tmmsm2qZSvm9YtVzod5W3RMHSTR7VrkUMD6E7EX/W9JQv3ebxO7oIdqFmytmNDDpSHnYEw==}
+  diagram-js-direct-editing@3.4.0:
+    resolution: {integrity: sha512-eXfd+nxJr5xt3YlCrs+E53mPi+gqBWRBkAXkR99ZPL7Pl0B3H5nkv/uiwx4Q4vJU/Sp8Jy3zVdhP/Y2c6loTjw==}
     peerDependencies:
       diagram-js: '*'
 
-  diagram-js@15.4.0:
-    resolution: {integrity: sha512-rpwDLA/w55wPfiZgp/z2T6cFdCXU3bARGdjhUpEOoh673K18OJ4ruEu3+/94ALRIIyEvJ0XHUk9sgZrzzE79ng==}
+  diagram-js@15.14.0:
+    resolution: {integrity: sha512-xXIKBgK9qC5YIfdUs0Qx+rSlz3DNGMtYxx+pRK+U8eVBD184eZnLCu6KVzaZXXyyC5YRirQayorCVI55Ulhzvg==}
 
   didi@10.2.2:
     resolution: {integrity: sha512-l8NYkYFXV1izHI65EyT8EXOjUZtKmQkHLTT89cSP7HU5J/G7AOj0dXKtLc04EXYlga99PBY18IPjOeZ+c3DI4w==}
     engines: {node: '>= 16'}
+
+  didi@11.0.0:
+    resolution: {integrity: sha512-PzCfRzQttvFpVcYMbSF7h8EsWjeJpVjWH4qDhB5LkMi1ILvHq4Ob0vhM2wLFziPkbUBi+PAo7ODbe2sacR7nJQ==}
+    engines: {node: '>= 20.12'}
 
   diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
@@ -2298,27 +2347,27 @@ packages:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
     engines: {node: '>=0.3.1'}
 
-  dmn-js-boxed-expression@17.4.0:
-    resolution: {integrity: sha512-AHFlO/wjBVc2J6dJoLM4EmDF08zlZXt0CbpKE0rkCaRayB9EsHo4vG6K3PUIbAiPsBRlJego1jlhY8jckUyKxQ==}
+  dmn-js-boxed-expression@17.8.1:
+    resolution: {integrity: sha512-v4hkE9tI6aAjHY6UKA8jLut3StKxkijNiuQea6Bbh1IYO/wNo6ObX+P8FdNPVPXea0kfwhx9F0XvFOxzz6u05Q==}
 
-  dmn-js-decision-table@17.4.0:
-    resolution: {integrity: sha512-YkJMWC4ASET76QGS8YYOEsO+IF7QqsPJsEJCfQjLSmpV7F7JPs4cVTOLWyDxdorX3RKAtiF3hTgnF26BOlbV1w==}
+  dmn-js-decision-table@17.8.1:
+    resolution: {integrity: sha512-n7jlNeEq/vYiQ2npb4Tnyqu6mVYqiS4VEz281NJWpei2cVC0RqpjZih7nM1YmAyoIwHZs4mAEV5/kuK4QkW0fA==}
 
-  dmn-js-drd@17.4.0:
-    resolution: {integrity: sha512-9lAu85C2cYZrxJfeGfUSRi5JVguvqWqvlKsGAKGpqFaIw1fHqVy0XLBtfX7vbOo8yxUxClgVSbLTT9/y9u6p/g==}
+  dmn-js-drd@17.8.1:
+    resolution: {integrity: sha512-celWA3jQQQwKELiP9TPXxocjyYEW3lxYqyitZT/uVH2abZ5Nw30lAafIe+OgfqsS3qzTXGqQ/oW5ITkVrKFwGQ==}
 
-  dmn-js-literal-expression@17.4.0:
-    resolution: {integrity: sha512-w3dRSp8/2r6MpNvG8t8fQL33/q6Dd2zpEJ29Nl5wPZqcIrkQp4Kc0xtty0BUe0PQR71FKZiJZ5DTSGrUIrUNsw==}
+  dmn-js-literal-expression@17.8.1:
+    resolution: {integrity: sha512-8iYfxtSNXaL5doDXAs+2On2XVGHqJ+W8eFh3jEDLYEvucCyoqg7wiLRhhzMVYtGF34olD60FNOZuUoLBDgcZ+A==}
 
-  dmn-js-shared@17.4.0:
-    resolution: {integrity: sha512-dR9nQs4fclAPNwevRUG/1PdIP6JSdr4g0J1qidg9Fy98d3/d7zt8ZJzkKShMlILASi5G8/cYuErJurAMyh5CCw==}
+  dmn-js-shared@17.8.1:
+    resolution: {integrity: sha512-9OjNaXzJUo3NFl+eROnCu46A1aiKajaG3QFvkbnRpdsDgYMu4SPYabB6B9MomWFsfY3BunlwZJ+Czi8QtdKsrA==}
 
-  dmn-js@17.4.0:
-    resolution: {integrity: sha512-QEo8Sdu0EGCP9lMB0O3/pxDCGsCInz86SrNLGBsTOQjPxOfYskvWAPsnj3gMf6aBFQJgs9OhbORdxHmILkQw1A==}
+  dmn-js@17.8.1:
+    resolution: {integrity: sha512-fGWZdorwZnRkKCwbcnpDY9K+pfxD2FiK3LTm8P8uQrkvVoeBv3rIMIw0SxQaVGPjwGVLrWEslOVdwME1rzBL9g==}
 
-  dmn-moddle@11.0.0:
-    resolution: {integrity: sha512-gQfiBZx6rQNQqCN21csZWF/Ti2XbjHt8uON76cxk8qsgHFvrsvO18UGPzKQp34wJtJyuj/nREQIbVW1hmQf1LQ==}
-    engines: {node: '>= 18'}
+  dmn-moddle@12.0.1:
+    resolution: {integrity: sha512-nTKEfIpVCt2YRQo4XqO+qCHj9WcnXUXyBeY/jxLEby7XEFXcxh+ni4mhYuxl08ZXqTRV7h73L+F8NNh5iX1hDw==}
+    engines: {node: '>= 20.12'}
 
   dom-iterator@1.0.2:
     resolution: {integrity: sha512-BMelEjhy08OpoWF3v/jrPtx7PZCyP1VM9yiB7rJk19UVmt7zTN5rqoC0Jea+EyT0M6v/VokL0LxIlGLUOBJZ2g==}
@@ -2326,9 +2375,9 @@ packages:
   domify@1.4.2:
     resolution: {integrity: sha512-m4yreHcUWHBncGVV7U+yQzc12vIlq0jMrtHZ5mW6dQMiL/7skSYNVX9wqKwOtyO9SGCgevrAFEgOCAHmamHTUA==}
 
-  domify@2.0.0:
-    resolution: {integrity: sha512-rmvrrmWQPD/X1A/nPBfIVg4r05792QdG9Z4Prk6oQG0F9zBMDkr0GKAdds1wjb2dq1rTz/ywc4ZxpZbgz0tttg==}
-    engines: {node: '>=18'}
+  domify@3.0.0:
+    resolution: {integrity: sha512-bs2yO68JDFOm6rKv8f0EnrM2cENduhRkpqOtt/s5l5JBA/eqGBZCzLPmdYoHtJ6utgLGgcBajFsEQbl12pT0lQ==}
+    engines: {node: '>=20'}
 
   dompurify@3.3.0:
     resolution: {integrity: sha512-r+f6MYR1gGN1eJv0TVQbhA7if/U7P87cdPl3HN5rikqaBSBxLiCb/b9O+2eG0cxz0ghyU+mU1QkbsOwERMYlWQ==}
@@ -2551,11 +2600,12 @@ packages:
 
   glob@10.4.5:
     resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   google-logging-utils@0.0.2:
     resolution: {integrity: sha512-NEgUnEcBiP5HrPzufUkBzJOD/Sxsco3rLNo1F1TNf7ieU8ryUzBhqba8r756CjLX7rn3fHl6iLEwPYuqpoKgQQ==}
@@ -2639,6 +2689,10 @@ packages:
 
   ids@1.0.5:
     resolution: {integrity: sha512-XQ0yom/4KWTL29sLG+tyuycy7UmeaM/79GRtSJq6IG9cJGIPeBz5kwDCguie3TwxaMNIc3WtPi0cTa1XYHicpw==}
+
+  ids@3.0.2:
+    resolution: {integrity: sha512-t6YJP4mdC+GHF96Nbis/4FEANhP/8VWmYMvUuYpXvSdrhg5hpIVbq2XZlOA3UWTbtdwPCi0q7jEXOdHkAnqOnw==}
+    engines: {node: '>= 20.12'}
 
   import-in-the-middle@1.15.0:
     resolution: {integrity: sha512-bpQy+CrsRmYmoPMAE/0G33iwRqwW4ouqdRg8jgbH3aKuCtOc8lxgmYXg2dMM92CRiGP660EtBcymH/eVUpCSaA==}
@@ -3034,11 +3088,14 @@ packages:
   min-dash@4.2.3:
     resolution: {integrity: sha512-VLMYQI5+FcD9Ad24VcB08uA83B07OhueAlZ88jBK6PyupTvEJwllTMUqMy0wPGYs7pZUEtEEMWdHB63m3LtEcg==}
 
+  min-dash@5.0.0:
+    resolution: {integrity: sha512-EGuoBnVL7/Fnv2sqakpX5WGmZehZ3YMmLayT7sM8E9DRU74kkeyMg4Rik1lsOkR2GbFNeBca4/L+UfU6gF0Edw==}
+
   min-dom@4.2.1:
     resolution: {integrity: sha512-TMoL8SEEIhUWYgkj7XMSgxmwSyGI+4fP2KFFGnN3FbHfbGHVdsLYSz8LoIsgPhz4dWRmLvxWWSMgzZMJW5sZuA==}
 
-  min-dom@5.1.1:
-    resolution: {integrity: sha512-GaKUlguMAofd3OJsB0OkP17i5kucKqErgVCJxPawO9l5NwIPnr28SAr99zzlzMCWWljISBYrnZVWdE2Q92YGFQ==}
+  min-dom@5.3.0:
+    resolution: {integrity: sha512-0w5FEBgPAyHhmFojW3zxd7we3D+m5XYS3E/06OyvxmbHJoiQVa4Nagj6RWvoAKYRw5xth6cP5TMePc5cR1M9hA==}
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -3068,8 +3125,8 @@ packages:
   moddle-xml@10.1.0:
     resolution: {integrity: sha512-erWckwLt+dYskewKXJso9u+aAZ5172lOiYxSOqKCPTy7L/xmqH1PoeoA7eVC7oJTt3PqF5TkZzUmbjGH6soQBg==}
 
-  moddle-xml@11.0.0:
-    resolution: {integrity: sha512-L3Sseepfcq9Uy0iIfqEDTXSoYLva1Y/JGbN/4AMOeQ6cqbu8Ma/SDJIdOFm7smsAa64j2z3SwCGG3FIilQVnUg==}
+  moddle-xml@12.0.0:
+    resolution: {integrity: sha512-NJc2+sCe4tvuGlaUBcoZcYf6j9f+z+qxHOyGm/LB3ZrlJXVPPHoBTg/KXgDRCufdBJhJ3AheFs3QU/abABNzRg==}
     engines: {node: '>= 18'}
     peerDependencies:
       moddle: '>= 6.2.0'
@@ -3083,8 +3140,8 @@ packages:
   moddle@6.2.3:
     resolution: {integrity: sha512-bLVN+ZHL3aKnhxc19XtjUfvdJsS3EsiEJC7bT6YPD11qYmTzvsxrGgyYz1Ouof7TZuGw0lDJ1OLmEnxcpQWk3Q==}
 
-  moddle@7.2.0:
-    resolution: {integrity: sha512-x1+JREThy7JBOBR3g2hbOnOfrlC/YAWXX9RzrSZS5HhqeuBly9H/PCtOBtcQs+Y2sjRAXF+WTNSgHvn8Uq+6Yw==}
+  moddle@8.1.0:
+    resolution: {integrity: sha512-dBddc1CNuZHgro8nQWwfPZ2BkyLWdnxoNpPu9d+XKPN96DAiiBOeBw527ft++ebDuFez5PMdaR3pgUgoOaUGrA==}
 
   module-details-from-path@1.0.4:
     resolution: {integrity: sha512-EGWKgxALGMgzvxYF1UyGTy0HXX/2vHLkw6+NvDKW2jypWbHpjQuj4UMcqQWXHERJhVGKikolT06G3bcKe4fi7w==}
@@ -3194,8 +3251,8 @@ packages:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==}
     engines: {node: '>=8'}
 
-  path-intersection@3.1.0:
-    resolution: {integrity: sha512-3xS3lvv/vuwm5aH2BVvNRvnvwR2Drde7jQClKpCXTYXIMMjcw/EnMhzCgeHwqbCpzi760PEfAkU53vSIlrNr9A==}
+  path-intersection@4.1.0:
+    resolution: {integrity: sha512-urUP6WvhnxbHPdHYl6L7Yrc6+1ny6uOFKPCzPxTSUSYGHG0o94RmI7SvMMaScNAM5RtTf08bg4skc6/kjfne3A==}
     engines: {node: '>= 14.20'}
 
   path-is-absolute@1.0.1:
@@ -3290,6 +3347,9 @@ packages:
   preact@10.27.2:
     resolution: {integrity: sha512-5SYSgFKSyhCbk6SrXyMpqjb5+MQBgfvEKE/OC+PujcY34sOpqtr+0AZQtPYx5IA6VxynQ7rUPCtKzyovpj9Bpg==}
 
+  preact@10.29.2:
+    resolution: {integrity: sha512-7tNmwg/7mzzAoB/8kSg6Hl37JraAZw3Z3A0JSY7VXlZwo82Xn0G7wKbNNs2qoF4ZEEsQGTwDAroNdqKs1ofJxQ==}
+
   pretty-format@29.7.0:
     resolution: {integrity: sha512-Pdlw/oPxN+aXdmM9R00JVC9WVFoCLTKJvDVLgmJ+qAffBMxsV85l/Lu7sNx4zSzPyoL2euImuEwHhOXdEgNFZQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -3374,9 +3434,9 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  saxen@10.0.0:
-    resolution: {integrity: sha512-RXsmWok/SAWqOG/f5ADEz51DN9WtZEzqih3e08ranldcaXekxjx8NBKjGh/y5hlowjo0JH/LekBu6gtPFD1G6g==}
-    engines: {node: '>= 18'}
+  saxen@11.0.2:
+    resolution: {integrity: sha512-WDb4gqac8uiJzOdOdVpr9NWh9NrJMm7Brn5GX2Poj+mjE/QTXqYQENr8T/mom54dDDgbd3QjwTg23TRHYiWXRA==}
+    engines: {node: '>= 20.12'}
 
   saxen@8.1.2:
     resolution: {integrity: sha512-xUOiiFbc3Ow7p8KMxwsGICPx46ZQvy3+qfNVhrkwfz3Vvq45eGt98Ft5IQaA1R/7Tb5B5MKh9fUR9x3c3nDTxw==}
@@ -3388,14 +3448,11 @@ packages:
   secure-compare@3.0.1:
     resolution: {integrity: sha512-AckIIV90rPDcBcglUwXPF3kg0P0qmPsPXAj6BBEENQE1p5yA1xfmDJzfi1Tappj37Pv2mVbKpL3Z1T+Nn7k1Qw==}
 
-  selection-ranges@3.0.3:
-    resolution: {integrity: sha512-60Oqc07j16YCrp96uITgBFu7oT81JKMmL+cOOcxe3jvuGSiFSwsLpOSXNBAlITV9hGhEl1H6P/+g1bKnpfXoSw==}
+  selection-ranges@4.1.1:
+    resolution: {integrity: sha512-MaWca8GVQV+g3IOJDDgDehXFWtB+ycrQD5wkWTTwAQjXvwm1ZeZVoN4IA8KP7R+z8UMOsdkdnpMfo8+40Hru+Q==}
 
-  selection-ranges@4.0.3:
-    resolution: {integrity: sha512-GwzYG/idGEF+DxbyWCpPKS0QO8voQX8EE3IzpzsLG8teRt3E5xXW5XU36OJ1NoLfrduhdWqYNdncQqLy0HNhqQ==}
-
-  selection-update@0.1.2:
-    resolution: {integrity: sha512-4jzoJNh7VT2s2tvm/kUSskSw7pD0BVcrrGccbfOMK+3AXLBPz6nIy1yo+pbXgvNoTNII96Pq92+sAY+rF0LUAA==}
+  selection-update@1.1.1:
+    resolution: {integrity: sha512-sdkTSquPXiPTUUJh5KcnNoLauJqy68ctusGj7JfMo+t629f8Tv3EMx0hzTjFe8fYy7dZUzXRDAS42K/YS6Pi6Q==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -3543,8 +3600,8 @@ packages:
   tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
 
-  table-js@9.2.0:
-    resolution: {integrity: sha512-TcphjV4hN3NKDJkAqsTRn7N0dLaO7ST3LwEZnwYMjDkyBNG6kzTHBbN9b6nlvuxxiVxWHFuc/REU1FR2mh0oLA==}
+  table-js@9.4.0:
+    resolution: {integrity: sha512-m7G/yfFnP2pniz+NMT9QnrYko8MUVBbWsFD+zHY808VBmVZqIHPR68VzCtvWXDF1oCLG4c96BM0nOA4ILzqK+w==}
     peerDependencies:
       diagram-js: ^11.3.0 || ^12 || ^13 || ^14 || ^15
       inferno: ^5.0.5
@@ -3565,8 +3622,9 @@ packages:
   ticky@1.0.1:
     resolution: {integrity: sha512-RX35iq/D+lrsqhcPWIazM9ELkjOe30MSeoBHQHSsRwd1YuhJO5ui1K1/R0r7N3mFvbLBs33idw+eR6j+w6i/DA==}
 
-  tiny-svg@3.1.3:
-    resolution: {integrity: sha512-9mwnPqXInRsBmH/DO6NMxBE++9LsqpVXQSSTZGc5bomoKKvL5OX/Hlotw7XVXP6XLRcHWIzZpxfovGqWKgCypQ==}
+  tiny-svg@4.1.4:
+    resolution: {integrity: sha512-cBaEACCbouYrQc9RG+eTXnPYosX1Ijqty/I6DdXovwDd89Pwu4jcmpOR7BuFEF9YCcd7/AWwasE0207WMK7hdw==}
+    engines: {node: '>= 20'}
 
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
@@ -3755,10 +3813,12 @@ packages:
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -3882,10 +3942,12 @@ packages:
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -4237,14 +4299,14 @@ snapshots:
 
   '@bpmn-io/cm-theme@0.1.0-alpha.2':
     dependencies:
-      '@codemirror/language': 6.11.3
-      '@codemirror/view': 6.38.6
-      '@lezer/highlight': 1.2.2
+      '@codemirror/language': 6.12.3
+      '@codemirror/view': 6.43.0
+      '@lezer/highlight': 1.2.3
 
   '@bpmn-io/diagram-js-ui@0.2.3':
     dependencies:
       htm: 3.1.1
-      preact: 10.27.2
+      preact: 10.29.2
 
   '@bpmn-io/dmn-variable-resolver@0.7.0': {}
 
@@ -4252,29 +4314,49 @@ snapshots:
     dependencies:
       contra: 1.9.4
 
-  '@bpmn-io/feel-editor@1.12.0':
+  '@bpmn-io/feel-editor@1.12.1':
     dependencies:
       '@bpmn-io/feel-lint': 2.1.0
       '@bpmn-io/lang-feel': 2.4.0
       '@camunda/feel-builtins': 0.2.0
-      '@codemirror/autocomplete': 6.19.0
-      '@codemirror/commands': 6.9.0
-      '@codemirror/language': 6.11.3
-      '@codemirror/lint': 6.9.0
-      '@codemirror/state': 6.5.2
-      '@codemirror/view': 6.38.6
-      '@lezer/highlight': 1.2.2
+      '@codemirror/autocomplete': 6.20.2
+      '@codemirror/commands': 6.10.3
+      '@codemirror/language': 6.12.3
+      '@codemirror/lint': 6.9.6
+      '@codemirror/state': 6.6.0
+      '@codemirror/view': 6.43.0
+      '@lezer/highlight': 1.2.3
       min-dom: 4.2.1
+
+  '@bpmn-io/feel-editor@2.5.2':
+    dependencies:
+      '@bpmn-io/feel-lint': 3.1.0
+      '@bpmn-io/lang-feel': 3.0.0
+      '@camunda/feel-builtins': 1.2.0
+      '@codemirror/autocomplete': 6.20.2
+      '@codemirror/commands': 6.10.3
+      '@codemirror/language': 6.12.3
+      '@codemirror/lint': 6.9.6
+      '@codemirror/state': 6.6.0
+      '@codemirror/view': 6.43.0
+      '@lezer/highlight': 1.2.3
+      min-dom: 5.3.0
+      mitt: 3.0.1
 
   '@bpmn-io/feel-lint@1.4.0':
     dependencies:
-      '@codemirror/language': 6.11.3
+      '@codemirror/language': 6.12.3
       lezer-feel: 1.9.0
 
   '@bpmn-io/feel-lint@2.1.0':
     dependencies:
       '@bpmn-io/lezer-feel': 1.9.0
-      '@codemirror/language': 6.11.3
+      '@codemirror/language': 6.12.3
+
+  '@bpmn-io/feel-lint@3.1.0':
+    dependencies:
+      '@bpmn-io/lezer-feel': 2.4.0
+      '@codemirror/language': 6.12.3
 
   '@bpmn-io/form-js-carbon-styles@1.17.0': {}
 
@@ -4335,19 +4417,32 @@ snapshots:
   '@bpmn-io/lang-feel@2.4.0':
     dependencies:
       '@bpmn-io/lezer-feel': 1.9.0
-      '@codemirror/autocomplete': 6.19.0
-      '@codemirror/language': 6.11.3
-      '@lezer/common': 1.3.0
+      '@codemirror/autocomplete': 6.20.2
+      '@codemirror/language': 6.12.3
+      '@lezer/common': 1.5.2
+
+  '@bpmn-io/lang-feel@3.0.0':
+    dependencies:
+      '@bpmn-io/lezer-feel': 2.4.0
+      '@codemirror/autocomplete': 6.20.2
+      '@codemirror/language': 6.12.3
+      '@lezer/common': 1.5.2
 
   '@bpmn-io/lezer-feel@1.9.0':
     dependencies:
-      '@lezer/highlight': 1.2.2
-      '@lezer/lr': 1.4.2
+      '@lezer/highlight': 1.2.3
+      '@lezer/lr': 1.4.10
       min-dash: 4.2.3
+
+  '@bpmn-io/lezer-feel@2.4.0':
+    dependencies:
+      '@lezer/highlight': 1.2.3
+      '@lezer/lr': 1.4.10
+      min-dash: 5.0.0
 
   '@bpmn-io/properties-panel@3.33.0':
     dependencies:
-      '@bpmn-io/feel-editor': 1.12.0
+      '@bpmn-io/feel-editor': 1.12.1
       '@codemirror/view': 6.38.6
       classnames: 2.5.1
       feelers: 1.4.0
@@ -4356,6 +4451,8 @@ snapshots:
       min-dom: 4.2.1
 
   '@camunda/feel-builtins@0.2.0': {}
+
+  '@camunda/feel-builtins@1.2.0': {}
 
   '@carbon/grid@11.45.0':
     dependencies:
@@ -4372,6 +4469,20 @@ snapshots:
       '@codemirror/state': 6.5.2
       '@codemirror/view': 6.38.6
       '@lezer/common': 1.3.0
+
+  '@codemirror/autocomplete@6.20.2':
+    dependencies:
+      '@codemirror/language': 6.12.3
+      '@codemirror/state': 6.6.0
+      '@codemirror/view': 6.43.0
+      '@lezer/common': 1.5.2
+
+  '@codemirror/commands@6.10.3':
+    dependencies:
+      '@codemirror/language': 6.12.3
+      '@codemirror/state': 6.6.0
+      '@codemirror/view': 6.43.0
+      '@lezer/common': 1.5.2
 
   '@codemirror/commands@6.9.0':
     dependencies:
@@ -4394,25 +4505,51 @@ snapshots:
       '@lezer/lr': 1.4.2
       style-mod: 4.1.3
 
+  '@codemirror/language@6.12.3':
+    dependencies:
+      '@codemirror/state': 6.6.0
+      '@codemirror/view': 6.43.0
+      '@lezer/common': 1.5.2
+      '@lezer/highlight': 1.2.3
+      '@lezer/lr': 1.4.10
+      style-mod: 4.1.3
+
   '@codemirror/lint@6.9.0':
     dependencies:
       '@codemirror/state': 6.5.2
       '@codemirror/view': 6.38.6
       crelt: 1.0.6
 
+  '@codemirror/lint@6.9.6':
+    dependencies:
+      '@codemirror/state': 6.6.0
+      '@codemirror/view': 6.43.0
+      crelt: 1.0.6
+
   '@codemirror/search@6.5.11':
     dependencies:
-      '@codemirror/state': 6.5.2
-      '@codemirror/view': 6.38.6
+      '@codemirror/state': 6.6.0
+      '@codemirror/view': 6.43.0
       crelt: 1.0.6
 
   '@codemirror/state@6.5.2':
     dependencies:
       '@marijn/find-cluster-break': 1.0.2
 
+  '@codemirror/state@6.6.0':
+    dependencies:
+      '@marijn/find-cluster-break': 1.0.2
+
   '@codemirror/view@6.38.6':
     dependencies:
       '@codemirror/state': 6.5.2
+      crelt: 1.0.6
+      style-mod: 4.1.3
+      w3c-keyname: 2.2.8
+
+  '@codemirror/view@6.43.0':
+    dependencies:
+      '@codemirror/state': 6.6.0
       crelt: 1.0.6
       style-mod: 4.1.3
       w3c-keyname: 2.2.8
@@ -4750,15 +4887,25 @@ snapshots:
 
   '@lezer/common@1.3.0': {}
 
+  '@lezer/common@1.5.2': {}
+
   '@lezer/highlight@1.2.2':
     dependencies:
       '@lezer/common': 1.3.0
 
+  '@lezer/highlight@1.2.3':
+    dependencies:
+      '@lezer/common': 1.5.2
+
   '@lezer/json@1.0.3':
     dependencies:
       '@lezer/common': 1.3.0
-      '@lezer/highlight': 1.2.2
+      '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.2
+
+  '@lezer/lr@1.4.10':
+    dependencies:
+      '@lezer/common': 1.5.2
 
   '@lezer/lr@1.4.2':
     dependencies:
@@ -4767,7 +4914,7 @@ snapshots:
   '@lezer/markdown@1.5.0':
     dependencies:
       '@lezer/common': 1.3.0
-      '@lezer/highlight': 1.2.2
+      '@lezer/highlight': 1.2.3
 
   '@marijn/find-cluster-break@1.0.2': {}
 
@@ -5710,7 +5857,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@standard-schema/spec@1.0.0': {}
+  '@standard-schema/spec@1.1.0': {}
 
   '@tsconfig/node10@1.0.11': {}
 
@@ -6278,102 +6425,105 @@ snapshots:
 
   detect-newline@3.1.0: {}
 
-  diagram-js-direct-editing@3.2.0(diagram-js@15.4.0):
+  diagram-js-direct-editing@3.4.0(diagram-js@15.14.0):
     dependencies:
-      diagram-js: 15.4.0
-      min-dash: 4.2.3
-      min-dom: 4.2.1
+      diagram-js: 15.14.0
+      min-dash: 5.0.0
+      min-dom: 5.3.0
 
-  diagram-js@15.4.0:
+  diagram-js@15.14.0:
     dependencies:
       '@bpmn-io/diagram-js-ui': 0.2.3
       clsx: 2.1.1
-      didi: 10.2.2
+      didi: 11.0.0
       inherits-browser: 0.1.0
-      min-dash: 4.2.3
-      min-dom: 4.2.1
+      min-dash: 5.0.0
+      min-dom: 5.3.0
       object-refs: 0.4.0
-      path-intersection: 3.1.0
-      tiny-svg: 3.1.3
+      path-intersection: 4.1.0
+      tiny-svg: 4.1.4
 
   didi@10.2.2: {}
+
+  didi@11.0.0: {}
 
   diff-sequences@29.6.3: {}
 
   diff@4.0.2: {}
 
-  dmn-js-boxed-expression@17.4.0:
+  dmn-js-boxed-expression@17.8.1:
     dependencies:
       '@bpmn-io/dmn-variable-resolver': 0.7.0
-      diagram-js: 15.4.0
-      dmn-js-shared: 17.4.0
+      diagram-js: 15.14.0
+      dmn-js-shared: 17.8.1
       inferno: 5.6.3
-      min-dash: 4.2.3
-      min-dom: 4.2.1
-      table-js: 9.2.0(diagram-js@15.4.0)(inferno@5.6.3)
+      min-dash: 5.0.0
+      min-dom: 5.3.0
+      table-js: 9.4.0(diagram-js@15.14.0)(inferno@5.6.3)
 
-  dmn-js-decision-table@17.4.0:
+  dmn-js-decision-table@17.8.1:
     dependencies:
       '@bpmn-io/dmn-variable-resolver': 0.7.0
       css.escape: 1.5.1
-      diagram-js: 15.4.0
-      dmn-js-shared: 17.4.0
+      diagram-js: 15.14.0
+      dmn-js-shared: 17.8.1
       escape-html: 1.0.3
       inferno: 5.6.3
-      min-dash: 4.2.3
-      min-dom: 4.2.1
-      selection-ranges: 3.0.3
-      table-js: 9.2.0(diagram-js@15.4.0)(inferno@5.6.3)
+      min-dash: 5.0.0
+      min-dom: 5.3.0
+      selection-ranges: 4.1.1
+      table-js: 9.4.0(diagram-js@15.14.0)(inferno@5.6.3)
 
-  dmn-js-drd@17.4.0:
+  dmn-js-drd@17.8.1:
     dependencies:
-      diagram-js: 15.4.0
-      diagram-js-direct-editing: 3.2.0(diagram-js@15.4.0)
-      dmn-js-shared: 17.4.0
+      diagram-js: 15.14.0
+      diagram-js-direct-editing: 3.4.0(diagram-js@15.14.0)
+      dmn-js-shared: 17.8.1
+      ids: 3.0.2
       inherits-browser: 0.1.0
-      min-dash: 4.2.3
-      min-dom: 4.2.1
+      min-dash: 5.0.0
+      min-dom: 5.3.0
       object-refs: 0.4.0
-      tiny-svg: 3.1.3
+      tiny-svg: 4.1.4
 
-  dmn-js-literal-expression@17.4.0:
+  dmn-js-literal-expression@17.8.1:
     dependencies:
       '@bpmn-io/dmn-variable-resolver': 0.7.0
-      diagram-js: 15.4.0
-      dmn-js-shared: 17.4.0
+      diagram-js: 15.14.0
+      dmn-js-shared: 17.8.1
       escape-html: 1.0.3
       inferno: 5.6.3
-      min-dash: 4.2.3
-      min-dom: 4.2.1
-      table-js: 9.2.0(diagram-js@15.4.0)(inferno@5.6.3)
+      min-dash: 5.0.0
+      min-dom: 5.3.0
+      table-js: 9.4.0(diagram-js@15.14.0)(inferno@5.6.3)
 
-  dmn-js-shared@17.4.0:
+  dmn-js-shared@17.8.1:
     dependencies:
-      '@bpmn-io/feel-editor': 1.12.0
-      diagram-js: 15.4.0
-      didi: 10.2.2
-      dmn-moddle: 11.0.0
-      ids: 1.0.5
+      '@bpmn-io/feel-editor': 2.5.2
+      diagram-js: 15.14.0
+      didi: 11.0.0
+      dmn-moddle: 12.0.1
+      ids: 3.0.2
       inferno: 5.6.3
-      min-dash: 4.2.3
-      min-dom: 4.2.1
-      selection-ranges: 3.0.3
-      selection-update: 0.1.2
-      table-js: 9.2.0(diagram-js@15.4.0)(inferno@5.6.3)
+      min-dash: 5.0.0
+      min-dom: 5.3.0
+      selection-ranges: 4.1.1
+      selection-update: 1.1.1
+      table-js: 9.4.0(diagram-js@15.14.0)(inferno@5.6.3)
 
-  dmn-js@17.4.0:
+  dmn-js@17.8.1:
     dependencies:
-      dmn-js-boxed-expression: 17.4.0
-      dmn-js-decision-table: 17.4.0
-      dmn-js-drd: 17.4.0
-      dmn-js-literal-expression: 17.4.0
-      dmn-js-shared: 17.4.0
+      dmn-js-boxed-expression: 17.8.1
+      dmn-js-decision-table: 17.8.1
+      dmn-js-drd: 17.8.1
+      dmn-js-literal-expression: 17.8.1
+      dmn-js-shared: 17.8.1
 
-  dmn-moddle@11.0.0:
+  dmn-moddle@12.0.1:
     dependencies:
-      min-dash: 4.2.3
-      moddle: 7.2.0
-      moddle-xml: 11.0.0(moddle@7.2.0)
+      min-dash: 5.0.0
+      moddle: 8.1.0
+      moddle-xml: 12.0.0(moddle@8.1.0)
 
   dom-iterator@1.0.2:
     dependencies:
@@ -6382,7 +6532,7 @@ snapshots:
 
   domify@1.4.2: {}
 
-  domify@2.0.0: {}
+  domify@3.0.0: {}
 
   dompurify@3.3.0:
     optionalDependencies:
@@ -6400,7 +6550,7 @@ snapshots:
 
   effect@3.18.4:
     dependencies:
-      '@standard-schema/spec': 1.0.0
+      '@standard-schema/spec': 1.1.0
       fast-check: 3.23.2
 
   electron-to-chromium@1.5.237: {}
@@ -6542,7 +6692,7 @@ snapshots:
       '@lezer/markdown': 1.5.0
       feelin: 3.2.0
       lezer-feel: 1.9.0
-      min-dom: 5.1.1
+      min-dom: 5.3.0
 
   feelin@3.2.0:
     dependencies:
@@ -6753,6 +6903,8 @@ snapshots:
       safer-buffer: 2.1.2
 
   ids@1.0.5: {}
+
+  ids@3.0.2: {}
 
   import-in-the-middle@1.15.0:
     dependencies:
@@ -7234,7 +7386,7 @@ snapshots:
 
   lezer-feel@1.9.0:
     dependencies:
-      '@lezer/highlight': 1.2.2
+      '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.2
       min-dash: 4.2.3
 
@@ -7337,16 +7489,18 @@ snapshots:
 
   min-dash@4.2.3: {}
 
+  min-dash@5.0.0: {}
+
   min-dom@4.2.1:
     dependencies:
       component-event: 0.2.1
       domify: 1.4.2
       min-dash: 4.2.3
 
-  min-dom@5.1.1:
+  min-dom@5.3.0:
     dependencies:
-      domify: 2.0.0
-      min-dash: 4.2.3
+      domify: 3.0.0
+      min-dash: 5.0.0
 
   minimatch@3.1.2:
     dependencies:
@@ -7379,11 +7533,11 @@ snapshots:
       moddle: 6.2.3
       saxen: 8.1.2
 
-  moddle-xml@11.0.0(moddle@7.2.0):
+  moddle-xml@12.0.0(moddle@8.1.0):
     dependencies:
-      min-dash: 4.2.3
-      moddle: 7.2.0
-      saxen: 10.0.0
+      min-dash: 5.0.0
+      moddle: 8.1.0
+      saxen: 11.0.2
 
   moddle-xml@9.0.6:
     dependencies:
@@ -7399,9 +7553,9 @@ snapshots:
     dependencies:
       min-dash: 4.2.3
 
-  moddle@7.2.0:
+  moddle@8.1.0:
     dependencies:
-      min-dash: 4.2.3
+      min-dash: 5.0.0
 
   module-details-from-path@1.0.4: {}
 
@@ -7486,7 +7640,7 @@ snapshots:
 
   path-exists@4.0.0: {}
 
-  path-intersection@3.1.0: {}
+  path-intersection@4.1.0: {}
 
   path-is-absolute@1.0.1: {}
 
@@ -7563,6 +7717,8 @@ snapshots:
       xtend: 4.0.2
 
   preact@10.27.2: {}
+
+  preact@10.29.2: {}
 
   pretty-format@29.7.0:
     dependencies:
@@ -7670,7 +7826,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  saxen@10.0.0: {}
+  saxen@11.0.2: {}
 
   saxen@8.1.2: {}
 
@@ -7680,15 +7836,11 @@ snapshots:
 
   secure-compare@3.0.1: {}
 
-  selection-ranges@3.0.3:
+  selection-ranges@4.1.1:
     dependencies:
       dom-iterator: 1.0.2
 
-  selection-ranges@4.0.3:
-    dependencies:
-      dom-iterator: 1.0.2
-
-  selection-update@0.1.2: {}
+  selection-update@1.1.1: {}
 
   semver@6.3.1: {}
 
@@ -7820,15 +7972,14 @@ snapshots:
 
   tabbable@6.2.0: {}
 
-  table-js@9.2.0(diagram-js@15.4.0)(inferno@5.6.3):
+  table-js@9.4.0(diagram-js@15.14.0)(inferno@5.6.3):
     dependencies:
-      diagram-js: 15.4.0
-      didi: 10.2.2
-      ids: 1.0.5
+      diagram-js: 15.14.0
+      didi: 11.0.0
       inferno: 5.6.3
-      min-dash: 4.2.3
-      min-dom: 4.2.1
-      selection-ranges: 4.0.3
+      min-dash: 5.0.0
+      min-dom: 5.3.0
+      selection-ranges: 4.1.1
 
   test-exclude@6.0.0:
     dependencies:
@@ -7850,7 +8001,7 @@ snapshots:
 
   ticky@1.0.1: {}
 
-  tiny-svg@3.1.3: {}
+  tiny-svg@4.1.4: {}
 
   tinybench@2.9.0: {}
 
