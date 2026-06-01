@@ -16,6 +16,6 @@ kami-text = { path = "../../../../40-engine/kami-engine/kami-text" }
 bytemuck = { version = "1", features = ["derive"] }
 glam = "0.33"
 pollster = "0.4"
-png = "0.17"
+png = "0.18"
 wgpu = "24"
 winit = "0.29"
