@@ -11915,6 +11915,20 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606013300-session-close-sarutahiko-truck-factory-and-iwakura-branch-landing",
+      "type": "TechArticle",
+      "title": "ADR-2606013300: Session close — sarutahiko full-robotics truck factory (plant + production line + 積込ロボット) + lossless landing of the iwakura branch onto main",
+      "status": "active",
+      "topic": "session-close-sarutahiko-truck-factory-and-iwakura-branch-landing",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606012100-okaimono-provisioning-commons-actor",
+        "doc:adr-2606012300-kotoba-hybrid-web-search-bm25-pagerank-rrf",
+        "doc:adr-2606012800-session-close-iwakura-fuigo-rtl-gdsii"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

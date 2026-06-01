@@ -18448,6 +18448,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606013300-session-close-sarutahiko-truck-factory-and-iwakura-branch-landing.md",
+      "id": "adr-2606013300-session-close-sarutahiko-truck-factory-and-iwakura-branch-landing",
+      "title": "ADR-2606013300: Session close — sarutahiko full-robotics truck factory (plant + production line + 積込ロボット) + lossless landing of the iwakura branch onto main",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-sarutahiko-truck-factory-and-iwakura-branch-landing",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606012100-okaimono-provisioning-commons-actor",
+        "adr-2606012300-kotoba-hybrid-web-search-bm25-pagerank-rrf",
+        "adr-2606012800-session-close-iwakura-fuigo-rtl-gdsii"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
+        "adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+        "adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan",
+        "adr-2606011700-session-close-pr-queue-drain-and-664-engine-submodule-merge"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
