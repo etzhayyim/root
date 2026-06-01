@@ -18060,7 +18060,7 @@
       "path": "90-docs/adr/2606011500-kami-engine-reusable-vs-repo-specific-separation-plan.md",
       "id": "adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan",
       "title": "ADR-2606011500: kami-engine reusable-vs-repo-specific separation plan (submodule prerequisite)",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "kami-engine-layer-separation",
       "authoritative": true,
@@ -18077,6 +18077,37 @@
       "depends_on": [
         "adr-2606010600-kami-autodrive-gnc-autonomy-layer",
         "adr-2606011040-session-close-kami-autodrive-gnc-and-ci-hygiene"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606011600-session-close-corp-ubo-ownership-graph-pipeline.md",
+      "id": "adr-2606011600-session-close-corp-ubo-ownership-graph-pipeline",
+      "title": "ADR-2606011600: Session close — corp UBO ownership-graph pipeline (GLEIF L2/L1 → kotoba EAVT → danjo crossReferenceLink), W1/R1",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-corp-ubo-ownership-graph-pipeline",
+      "authoritative": true,
+      "authoritative_for": [
+        "the corp UBO ownership-graph pipeline deliverable list (W1 ownership sensor + datom transforms + crossref core + RR normalizer + e2e) + verification state",
+        "the L1-join contract requirement between gleif_rr_normalize and ownership_edge_datom",
+        "the gate boundary: which UBO steps are pure/R1 vs R2-gated (continuous danjo_crossref_engine + live kotoba ingest)"
+      ],
+      "related": [
+        "adr-2605263800-public-data-corporate-disclosure-ipfs-ingestion",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605263800",
+        "2605301600",
+        "2605312345",
+        "2605302300"
       ],
       "last_verified": "2026-06-01",
       "amends": [],

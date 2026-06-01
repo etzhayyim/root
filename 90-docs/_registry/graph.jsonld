@@ -11689,7 +11689,7 @@
       "id": "doc:adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan",
       "type": "TechArticle",
       "title": "ADR-2606011500: kami-engine reusable-vs-repo-specific separation plan (submodule prerequisite)",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "kami-engine-layer-separation",
       "authoritative": true,
       "authoritativeFor": [
@@ -11699,6 +11699,26 @@
       "related": [
         "doc:adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
         "doc:adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
+      "id": "doc:adr-2606011600-session-close-corp-ubo-ownership-graph-pipeline",
+      "type": "TechArticle",
+      "title": "ADR-2606011600: Session close — corp UBO ownership-graph pipeline (GLEIF L2/L1 → kotoba EAVT → danjo crossReferenceLink), W1/R1",
+      "status": "active",
+      "topic": "session-close-corp-ubo-ownership-graph-pipeline",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the corp UBO ownership-graph pipeline deliverable list (W1 ownership sensor + datom transforms + crossref core + RR normalizer + e2e) + verification state",
+        "the L1-join contract requirement between gleif_rr_normalize and ownership_edge_datom",
+        "the gate boundary: which UBO steps are pure/R1 vs R2-gated (continuous danjo_crossref_engine + live kotoba ingest)"
+      ],
+      "related": [
+        "doc:adr-2605263800-public-data-corporate-disclosure-ipfs-ingestion",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
       "lastVerified": "2026-06-01"
     },

@@ -1,7 +1,7 @@
 ---
 id: adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan
 title: "ADR-2606011500: kami-engine reusable-vs-repo-specific separation plan (submodule prerequisite)"
-status: proposed
+status: accepted
 doc_type: adr
 topic: kami-engine-layer-separation
 authoritative: true
@@ -63,7 +63,7 @@ Adopt a **three-layer model** and separate along it:
 
 | Layer | Contents | Management target |
 |---|---|---|
-| **L1 — UI SDK** | `kami-engine-sdk` (TS/Svelte: genko, trackpad, gsplat, document, manufacturing, webvr) | git **submodule** (remote `etzhayyim/kami-engine-sdk` exists; currently git-subrepo) |
+| **L1 — UI SDK** | `kami-engine-sdk` (TS/Svelte: genko, trackpad, gsplat, document, manufacturing, webvr) | git **submodule** ✅ (PR #655 — `etzhayyim/kami-engine-sdk@ccb315c`, SoT inverted) |
 | **L2 — Reusable Rust robotics engine** | kami-core, kami-render, kami-genesis (physics + **control**), kami-articulated, kami-sensor-sim (**sensors**), kami-autodrive (autonomy), kami-pathfind, kami-vehicle, kami-physics-*, kami-terrain, kami-atmosphere, … + generic fixtures (cartpole / double_pendulum / arm3 / giemon_arm6 / _schema) | git **submodule** (after L3 + fixtures separated) |
 | **L3 — etzhayyim repo-specific** | kami-app-{shibuya, giemon, giemon-factory, tatekata, …} + repo-specific scenes (shibuya, *-r1-*, giemon-factory-r0, giemon_kabitori/otete, kusawake, …) | stays in monorepo (app layer) |
 
@@ -71,9 +71,19 @@ Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
 
 ## Staged migration (each stage = its own PR; ordered by risk)
 
-1. **L1: kami-engine-sdk subrepo → submodule.** Lowest risk; remote exists;
-   precedent = kotoba (ADR-2605312355). Remove `.gitrepo`, add `.gitmodules`
-   gitlink at the recorded commit.
+1. **L1: kami-engine-sdk subrepo → submodule. ✅ DONE (PR #655, 2026-06-01).**
+   Lowest risk; remote exists; precedent = kotoba (ADR-2605312355). The mirror
+   `etzhayyim/kami-engine-sdk` was first advanced to the current monorepo source
+   (conflict-free: it was a single `Initial mirror` snapshot, the monorepo a
+   strict superset) at `ccb315c`; then the monorepo's 94 vendored files +
+   `.gitrepo` were replaced by a `.gitmodules` gitlink pinned there. **SoT
+   inversion**: this supersedes ADR-2605211845's "monorepo SoT + read-only
+   mirror" *for kami-engine-sdk* — the standalone repo is now the source of
+   truth. Submodule content verified byte-identical to the prior subrepo (93
+   files, 0 mismatches). CI jobs that read the sdk path (SDK-build,
+   monorepo-health) gained a targeted `git submodule update --init` step
+   (not `submodules: recursive`, which would choke on the local-only
+   `90-docs/baien/datasets` DataLad superdataset).
 2. **Generic-fixtures home.** cartpole/double_pendulum/arm3/giemon_arm6/_schema
    are shared by L2 (Rust compile-time) and magatama (Python runtime). Decide:
    (a) vendor into L2 engine (drift risk), (b) move into L2 as SoT + update
