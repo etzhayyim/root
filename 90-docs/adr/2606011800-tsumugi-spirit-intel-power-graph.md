@@ -86,6 +86,25 @@ kotoba graph and runs the Spirit-in-Physics pipeline over it, surfacing 取-conc
 - **Position**: upper layer over **danjo** (power 取), **kanae** (fiscal render), **tadori**
   (attribution), **himotoki** (self-claim) — integrates, does not replace.
 
+## A.1 The §D7.1 ingester (`methods/ingest.py`)
+
+The mechanism that grows the web beyond the curated seed ("繋げていって"): it weaves the seed
+with ingest sources (`data/ingest/*.edn`) into one `out/woven-graph.kotoba.edn`, deduping by
+`:organism/id` / `:en/id`, **claimed-first + aggregate-first**:
+
+- Latent organisms minted from public handles are forced `:organism/claimed? false` +
+  `:organism/standing :latent` (become `:member` only on the §D5 covenant claim) and stay
+  `:sourcing :representative`.
+- **G1**: ingest fixtures contain institutions / public-role nodes only — no private persons.
+- **G7 gate**: the live path (`--live`, real `app.bsky.graph.getFollows`) is **refused**
+  unless `TSUMUGI_OPERATOR_GATE` is set; even then it is a documented scaffold (wire via
+  `@etzhayyim/sdk` + MST membrane, ADR-2605231902, under Council ratification). Default =
+  fixture mode, no network — the §D7.1 R0 posture.
+
+First fixture = `data/ingest/atproto-institutional.kotoba.edn` (7 public institutional atproto
+accounts — NYTimes, Reuters, Guardian, AP, NASA, Bluesky, The Verge — + 11 follow 縁 with low
+attention-取, some cross-weaving into the corp component).
+
 ## B. First run (empirical, this ADR)
 
 Seed = 19 real public organisms (Toyota keiretsu · SoftBank→Arm · TSMC · NVIDIA · Apple ·
@@ -102,6 +121,12 @@ one public-role node), 28 縁. Result: **one connected component** (everything w
 
 The bottleneck/lock-in nodes (foundry, semiconductor IP, keiretsu hub) surface as the highest
 取-concentration — exactly the accountability signal §D2 intends, with the powerless absent.
+
+**After ingest** (`ingest.py` weaves the atproto-institutional fixture): **26 organisms (7
+latent/unclaimed) / 39 縁, still one connected component** — the press/agency cluster weaves
+into the power cluster. NVIDIA rises to #3 (2.22) and OpenAI to #5 (1.27) as press attention-縁
+accrue; Reuters surfaces as an attention-hub (0.51). This is "繋げていって" working: the web
+grows by ingest, stays connected, and the 取-concentration signal re-ranks accordingly.
 
 ## C. No git-lfs — DataLad → IPFS
 

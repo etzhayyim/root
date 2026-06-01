@@ -42,20 +42,29 @@ It is the upper layer over **danjo** (power 取), **kanae** (fiscal-flow render)
 20-actors/tsumugi/
 ├── CLAUDE.md                       # this file
 ├── manifest.jsonld                 # actor manifest
-├── data/seed-power-graph.kotoba.edn  # real PUBLIC power entities + 縁 (:representative)
-├── methods/analyze.py              # spirit-in-physics intel analyzer (stdlib + numpy)
-└── out/                            # GENERATED — do not hand-edit
-    ├── intel-report.md             # aggregate-first 取-concentration report
-    └── spirit-graph.kotoba.edn     # :spirit.bond/* + :spirit/* + :grasp/* datoms
+├── data/
+│   ├── seed-power-graph.kotoba.edn      # real PUBLIC power entities + 縁 (:representative)
+│   └── ingest/*.edn                     # §D7.1 ingest sources (atproto follow fixtures, deps…)
+├── methods/
+│   ├── ingest.py                        # §D7.1 ingester — weave seed + sources (gated)
+│   └── analyze.py                       # spirit-in-physics intel analyzer (stdlib + numpy)
+└── out/                                 # GENERATED — do not hand-edit
+    ├── woven-graph.kotoba.edn           # seed + ingest merged (claimed-first, latent-flagged)
+    ├── intel-report.md                  # aggregate-first 取-concentration report
+    └── spirit-graph.kotoba.edn          # :spirit.bond/* + :spirit/* + :grasp/* datoms
 ```
 
 ## Run
 
 ```bash
-python3 20-actors/tsumugi/methods/analyze.py            # uses data/seed-power-graph.kotoba.edn
+# 1. weave the graph (fixture mode — NO network; latent organisms flagged claimed?=false)
+python3 20-actors/tsumugi/methods/ingest.py
+# 2. analyze the woven graph (or a specific seed)
+python3 20-actors/tsumugi/methods/analyze.py 20-actors/tsumugi/out/woven-graph.kotoba.edn --out 20-actors/tsumugi/out
 python3 20-actors/tsumugi/methods/analyze.py <seed.edn> --out <dir>
 ```
 
 Emits the connected spirit-graph (edge-primary) + the 取-concentration intel report. To
-advance over more of the earth: extend the seed with `:representative`-flagged public
-relationships, or (Council-gated) wire the atproto follow/deps ingester (§D7.1).
+advance over more of the earth (§D7.1, "繋げていって"): drop more `:representative` public
+relations into `data/ingest/`, or (Council-gated, `--live` + `TSUMUGI_OPERATOR_GATE`) wire
+the real `app.bsky.graph.getFollows` fetch via `@etzhayyim/sdk` + MST membrane (ADR-2605231902).
