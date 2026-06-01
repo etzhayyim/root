@@ -83,7 +83,7 @@
   "dependencies": {
     "@atproto/api": "^0.13.0",
     "@atproto/common": "^0.6.1",
-    "@atproto/repo": "^0.9.1",
+    "@atproto/repo": "^0.10.0",
     "@ipld/car": "^5.4.6",
     "@ipld/dag-cbor": "^10.0.1",
     "@msgpack/msgpack": "^3.1.3",
