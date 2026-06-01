@@ -4,7 +4,7 @@ name: kami-engine-sdk + cyber-drill build
 # the cyber-drill prod build unblock (commit b638c27e0). Both are fragile
 # multi-layer setups:
 #
-#   - SDK is a git subrepo + workspace member; its dist/ is what
+#   - SDK is a git submodule + workspace member; its dist/ is what
 #     downstream apps consume
 #   - cyber-drill `link:`s the SDK and resolves `@langchain/langgraph` +
 #     `@langchain/core` as external during its SSR (prerender) build —
@@ -62,8 +62,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # Subrepo metadata is in the working tree; no special fetch
-          # depth needed because we don't unpack the subrepo here.
+          # kami-engine-sdk is a git-submodule (ADR-2606011500 stage 1):
+          # check it out so svelte-package / vitest have the source tree.
+          submodules: recursive
           fetch-depth: 1
 
       - name: Set up Node.js
