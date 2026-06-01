@@ -232,7 +232,7 @@ dependencies = [
  "futures",
  "once_cell",
  "paste",
- "prost",
+ "prost 0.13.5",
  "prost-types",
  "tokio",
  "tonic",
@@ -2682,7 +2682,7 @@ dependencies = [
  "object_store 0.10.2",
  "permutation",
  "pin-project",
- "prost",
+ "prost 0.13.5",
  "prost-build",
  "prost-types",
  "rand 0.8.5",
@@ -2743,7 +2743,7 @@ dependencies = [
  "num_cpus",
  "object_store 0.10.2",
  "pin-project",
- "prost",
+ "prost 0.13.5",
  "rand 0.8.5",
  "roaring",
  "serde_json",
@@ -2777,7 +2777,7 @@ dependencies = [
  "lance-core",
  "lazy_static",
  "log",
- "prost",
+ "prost 0.13.5",
  "snafu 0.7.5",
  "tokio",
 ]
@@ -2811,7 +2811,7 @@ dependencies = [
  "log",
  "num-traits",
  "paste",
- "prost",
+ "prost 0.13.5",
  "prost-build",
  "prost-types",
  "rand 0.8.5",
@@ -2848,7 +2848,7 @@ dependencies = [
  "log",
  "num-traits",
  "object_store 0.10.2",
- "prost",
+ "prost 0.13.5",
  "prost-build",
  "prost-types",
  "roaring",
@@ -2896,7 +2896,7 @@ dependencies = [
  "moka",
  "num-traits",
  "object_store 0.10.2",
- "prost",
+ "prost 0.13.5",
  "prost-build",
  "rand 0.8.5",
  "rayon",
@@ -2942,7 +2942,7 @@ dependencies = [
  "object_store 0.10.2",
  "path_abs",
  "pin-project",
- "prost",
+ "prost 0.13.5",
  "prost-build",
  "rand 0.8.5",
  "shellexpand",
@@ -3001,7 +3001,7 @@ dependencies = [
  "lance-io",
  "log",
  "object_store 0.10.2",
- "prost",
+ "prost 0.13.5",
  "prost-build",
  "prost-types",
  "rand 0.8.5",
@@ -3831,7 +3831,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2796faa41db3ec313a31f7624d9286acf277b52de526150b7e69f3debf891ee5"
 dependencies = [
  "bytes",
- "prost-derive",
+ "prost-derive 0.13.5",
+]
+
+[[package]]
+name = "prost"
+version = "0.14.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d2ea70524a2f82d518bce41317d0fae74151505651af45faf1ffbd6fd33f0568"
+dependencies = [
+ "bytes",
+ "prost-derive 0.14.3",
 ]
 
 [[package]]
@@ -3847,7 +3857,7 @@ dependencies = [
  "once_cell",
  "petgraph 0.7.1",
  "prettyplease",
- "prost",
+ "prost 0.13.5",
  "prost-types",
  "regex",
  "syn 2.0.117",
@@ -3868,12 +3878,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "prost-derive"
+version = "0.14.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "27c6023962132f4b30eb4c172c91ce92d933da334c59c23cddee82358ddafb0b"
+dependencies = [
+ "anyhow",
+ "itertools 0.14.0",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.117",
+]
+
+[[package]]
 name = "prost-types"
 version = "0.13.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "52c2c1bf36ddb1a1c396b3601a3cec27c2462e45f07c386894ec3ccf5332bd16"
 dependencies = [
- "prost",
+ "prost 0.13.5",
 ]
 
 [[package]]
@@ -5173,7 +5196,7 @@ dependencies = [
  "ocra",
  "once_cell",
  "prometheus",
- "prost",
+ "prost 0.14.3",
  "serde",
  "serde_json",
  "tempfile",
@@ -5205,7 +5228,7 @@ dependencies = [
  "hyper-util",
  "percent-encoding",
  "pin-project",
- "prost",
+ "prost 0.13.5",
  "socket2 0.5.10",
  "tokio",
  "tokio-stream",
