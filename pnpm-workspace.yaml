@@ -67,10 +67,11 @@ packages:
   - "60-apps/etzhayyim-organism-viz/web"
 
   # @etzhayyim/kami-engine-sdk canonical (ADR-2605265200, Phase 3
-  # deletion of the legacy 20-actors duplicate completed in this
-  # commit). Subrepo of github.com/gftdcojp/kami-engine-sdk;
-  # `workspace:*` references in consumer apps now resolve here
-  # unambiguously.
+  # deletion of the legacy 20-actors duplicate completed earlier).
+  # git-submodule of github.com/etzhayyim/kami-engine-sdk (the submodule
+  # repo is the SoT per ADR-2606011500 stage 1; run `git submodule update
+  # --init` to populate). `workspace:*` references in consumer apps resolve
+  # here once the submodule is checked out.
   - "40-engine/kami-engine/kami-engine-sdk"
 
 # pnpm overrides — dedupe onnxruntime-web to the version pinned by
