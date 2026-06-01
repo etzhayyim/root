@@ -42,11 +42,31 @@ Full design in [`data/vessel.edn`](data/vessel.edn).
 all cells import-clean and raise `RuntimeError` on `.solve()` until Council ratifies R1
 (ADR-2606013415, reserved).
 
+## Operational simulation (kami-engine)
+
+Beyond the analytic budget, the Nagi class **actually sails autonomously** in the
+physics engine: `40-engine/kami-engine/kami-autodrive/examples/nagi_voyage.rs` runs the
+`Autopilot` + `ShipHydro` GNC through a multi-waypoint coastal course while a reduced-order
+**zero-emission powertrain** (wind-assist + solar + hydrogen FC + LFP) decides the available
+propulsion power each step and books the energy split. There is **no fossil source** — when
+the green budget can't meet the commanded thrust the throttle is *power-limited* (the ship
+sails slower), never topped up with fuel.
+
+```sh
+cargo run -p kami-autodrive --example nagi_voyage      # captured: 20-actors/funadaiku/out/nagi-voyage-sim.txt
+cargo test -p kami-autodrive --test nagi_zero_emission_voyage   # 2 tests green
+```
+
+Captured run: autonomous arrival through all waypoints, split **hydrogen 84.4% / solar 8.9% /
+wind-assist 6.6% / fossil 0.0%** — the same shape as the analytic budget and the propulsion survey.
+
 ## Honest R0 boundary
 
 Design + data-model + simulation ONLY. No steel cut, no hull, no FC stack. The voyage energy
-budget is a reduced-order analytic model (not CFD/sea-keeping). ShipHydro is 3-DOF planar
-(not 6-DOF marine CFD). Nagi is coastal scale; ocean VLCC scale is out of R0–R3 (G12). Robotics
+budget is a reduced-order analytic model (not CFD/sea-keeping). `ShipHydro` is 3-DOF planar
+(not 6-DOF marine CFD), and in the kami-engine demo it is a small-vessel surrogate (8 m/s, ~2 t)
+at perception-grid scale — energy *shares* are scale-invariant but the kWh figures are demo-scale.
+Nagi is coastal scale; ocean VLCC scale is out of R0–R3 (G12). Robotics
 fleet is design-only. All numbers `:representative`. Live yard / bunkering / sea trial is
 Council + operator gated (G11/G12).
 
