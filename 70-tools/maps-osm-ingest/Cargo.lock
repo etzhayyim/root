@@ -1994,9 +1994,9 @@ checksum = "9774ba4a74de5f7b1c1451ed6cd5285a32eddb5cccb8cc655a4e50009e06477f"
 
 [[package]]
 name = "s2"
-version = "0.0.12"
+version = "0.0.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cc7fbc04bb52c40b5f48c9bb2d2961375301916e0c25d9f373750654d588cd5c"
+checksum = "23434007bcef0196e3f083834576ac004241f354001a22c61d2f2208c780e8df"
 dependencies = [
  "bigdecimal",
  "cgmath",
