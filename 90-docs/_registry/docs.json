@@ -18452,6 +18452,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606012800-session-close-iwakura-fuigo-rtl-gdsii.md",
+      "id": "adr-2606012800-session-close-iwakura-fuigo-rtl-gdsii",
+      "title": "ADR-2606012800: Session close — iwakura/fuigo ternary RTL → functional sim → synthesis → sky130 GDSII",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "silicon-iwakura",
+      "authoritative": false,
+      "authoritative_for": [
+        "session-close record for the 2026-06-01 iwakura/fuigo RTL→GDSII session"
+      ],
+      "related": [
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605241900-baien-edge-target-invariant"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605242515-iwakura-ternary-inference-asic",
+        "adr-2605242530-fuigo-hybrid-ternary-bf16-training-asic"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

@@ -88,10 +88,16 @@ comparison — but the constitutional boundary on value-inflow is preserved:
   - **R0 (now):** okaimono produces a *self-checkout handoff* (deep link / pre-filled
     cart) — the member completes the purchase at the external retailer with their own
     funds (the toritsugi/kurashimori "guide + member self-submits" pattern).
-  - **R3 (gated):** 代理-checkout (okaimono executes the external purchase on the member's
-    behalf — request scope item 3) is permitted **only** routed through the commercial
-    vendor arm (ADR-2605301036: vendor surplus → donation → Public Fund) **or** via a
-    Council **Lv7+ unanimity amendment of §1.3**, plus an operator. Gated by G2/G11.
+  - **R3 — assisted secure checkout, MEMBER-PRINCIPAL (corrected framing of scope-3).**
+    This draft originally mis-framed scope-3 as "代理-purchase" (okaimono as buyer). The
+    correct model is that okaimono **never becomes the buyer**: the member stays the
+    purchasing principal and pays the retailer with their own instrument, while okaimono
+    provides a secure *rail* — safe card entry, encrypted transport, procedure assist,
+    delivery. Because value flows member→retailer (never INTO etzhayyim), **§1.3 is
+    preserved and no Lv7+ amendment is required**; binding gates are G14 (member-principal),
+    G15 (no-server-key), G9 (encryption), G11 (operator for live action). True 代理-purchase
+    (okaimono-as-principal) remains separately gated (vendor arm ADR-2605301036 OR Lv7+
+    amendment) and is **not the path okaimono takes** — see §R3 below.
 
 ### Lifecycle closure (Wellbecoming, non-eschatological)
 
@@ -118,6 +124,8 @@ invariant, ADR-2606011500); the trajectory is Wellbecoming, not a loyalty score 
 | G11 | outward-gated | live scraping ingest + real external 代理-purchase = Council Lv7+ + operator |
 | G12 | anti-individualism | household / multi-generational baskets + commons-share first; not individual-consumption-maximizing |
 | G13 | lifecycle-closure | every product carries a repair/recycle/disposal route (hodoki/kanayama/haraedo); provisioning history is Wellbecoming trajectory, no final "consumer" state |
+| G14 | member-principal | in assisted checkout okaimono is NEVER the buyer; the member is the purchasing principal and pays the retailer directly — no external purchase value flows into etzhayyim (§1.3 preserved without amendment) |
+| G15 | no-server-key | the member signs each payment with their own passkey / smart-account (ERC-4337); okaimono holds no card secret or signing key (ADR-2605231525); a platform/server signature is refused |
 
 ### Cells
 
@@ -219,6 +227,42 @@ is hand-authored `:representative`, not fetched); per-provider API ToS for data-
 affiliate use must be verified before any live ingest (tracked, not assumed); the affiliate
 denylist is comprehensive but not exhaustive (new networks need additions); no GDSN trade-item
 hierarchy resolution yet; 代理-purchase (scope 3) remains R3-gated.
+
+## R3 — Assisted secure checkout, member-principal (landed 2026-06-01)
+
+R3 corrects the scope-3 framing and implements the secure *rail* by which the agent assists
+a member's OWN external purchase — safe card, encrypted comms, procedure, delivery — without
+okaimono ever becoming the buyer. This is the constitutional unlock: it is **not** 代理-purchase,
+so §1.3 holds and no Lv7+ amendment is needed; the gates are G14/G15/G9/G11.
+
+1. **Member-principal payment intent (G14/G15).** `build_payment_intent` returns an
+   **unsigned** intent whose `principal` is the member and whose `requiredSigner` is the
+   member's passkey / ERC-4337 smart-account; `serverHeldKey` is `False` by construction.
+   `authorize_payment` accepts **only** a member-origin signature — a server/platform
+   signature is refused outright (the no-server-key invariant, ADR-2605231525, as code).
+   `instrument ∈ {member-external-card, warifu}`; warifu at an **external** retailer additionally
+   flags `requiresWarifuExternalGate` (warifu's own Phase-2 Lv7+ gate, ADR-2605302000) rather
+   than silently allowing it.
+2. **Encrypted transport (G9).** `seal_encrypted` models the `app.etzhayyim.encrypted.*`
+   envelope (XChaCha20-Poly1305, Signal-wrapped, DID-bound, ADR-2605181100): it returns an
+   opaque envelope ref + the sealed field **names**, and **never** the plaintext values — no
+   cleartext card/PII crosses the okaimono boundary (verified by test).
+3. **Procedure assist with member authorization (G11/G14).** `assist_checkout` seals PII,
+   builds the member-signable intent, keeps the affiliate-stripped handoff (G3), and **submits
+   nothing** without the member's per-transaction signature: it returns
+   `:awaiting-member-authorization` → (member signs) `:authorized-pending-operator` → (operator)
+   `:submitted`. A server signature yields `:refused`. Tithe is 0 (external, G2/G7).
+4. **Delivery (G8/G13).** `arrange_delivery` prefers an etzhayyim logistics actor (no gig)
+   where serviceable, else the retailer's shipping, and hands to lifecycle.
+
+Tests: **`py/test_agent.py` 40/40 green** (unsigned member-principal intent, server-signature
+refusal, warifu-external gate flag, unknown-instrument rejection, plaintext-never-leaks,
+awaiting/authorized/submitted/refused states, no-gig delivery).
+
+**R3 honest limits:** logic + invariants only — no live retailer submission, no real ERC-4337
+broadcast, no real envelope crypto here (the client seals; this enforces the *contract*); the
+member-signature + operator + warifu-external gates are all still required for any live action
+(G11); per-retailer checkout-form schemas are not yet modeled.
 
 ## Consequences
 

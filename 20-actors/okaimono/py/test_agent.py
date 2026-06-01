@@ -234,6 +234,87 @@ def test_landed_cost_external():
     assert lc["landedMinor"] == 1_290_000 + 80_000 + 129_000
 
 
+# ----------------------------- R3 — assisted secure checkout (member-principal) ----------------------------- #
+MEMBER = "did:plc:member-001"
+_SIG_MEMBER = {"origin": "member", "ref": "sig:passkey:abc"}
+_SIG_SERVER = {"origin": "server", "ref": "sig:platform:xyz"}
+
+
+def test_payment_intent_is_unsigned_member_principal_no_server_key():
+    pi = agent.build_payment_intent(MEMBER, "shop.example", 4200, "USD", "member-external-card")
+    assert pi["principal"] == "member"        # G14: member is the buyer, not okaimono
+    assert pi["serverHeldKey"] is False        # G15: okaimono holds no key
+    assert pi["signed"] is False               # must be member-authorized
+    assert pi["requiredSigner"].startswith("member")
+
+
+def test_payment_authorize_requires_member_signature():
+    pi = agent.build_payment_intent(MEMBER, "shop.example", 4200, "USD", "member-external-card")
+    refused = agent.authorize_payment(pi, _SIG_SERVER)   # server signature must be refused (G15)
+    assert refused["refused"] is True and refused["signed"] is False
+    ok = agent.authorize_payment(pi, _SIG_MEMBER)
+    assert ok["signed"] is True
+
+
+def test_warifu_external_trips_its_own_gate():
+    pi = agent.build_payment_intent(MEMBER, "shop.example", 4200, "USD", "warifu", external=True)
+    assert pi.get("requiresWarifuExternalGate") is True   # warifu Phase-2 Lv7+ (ADR-2605302000)
+    pi_internal = agent.build_payment_intent(MEMBER, "int", 4200, "USD", "warifu", external=False)
+    assert "requiresWarifuExternalGate" not in pi_internal
+
+
+def test_payment_intent_rejects_unknown_instrument():
+    try:
+        agent.build_payment_intent(MEMBER, "shop", 1, "USD", "stolen-card")
+        assert False
+    except ValueError:
+        pass
+
+
+def test_seal_encrypted_never_leaks_plaintext():
+    env = agent.seal_encrypted({"pan": "4111111111111111", "cvv": "123", "name": "A B"}, MEMBER)
+    blob = repr(env)
+    assert "4111111111111111" not in blob and "123" not in blob and "A B" not in blob
+    assert env["envelopeRef"].startswith("app.etzhayyim.encrypted:")
+    assert env["sealedFields"] == ["cvv", "name", "pan"]  # field NAMES only, no values
+
+
+def test_assist_checkout_awaits_member_without_signature():
+    p = {"retailerUrl": "https://shop.example/p?tag=etz-22", "priceMinor": 4200, "currency": "USD"}
+    out = agent.assist_checkout(MEMBER, p, {"address": "123 Secret St, Apt 9"})
+    assert out["state"] == "awaiting-member-authorization"
+    assert out["principal"] == "member" and out["titheMinor"] == 0  # §1.3 preserved (G14)
+    assert "tag=" not in out["handoffUri"]                          # G3 still enforced
+    assert "123 Secret St" not in repr(out["encrypted"])           # G9: PII VALUE never leaks (names ok)
+
+
+def test_assist_checkout_member_authorized_pending_operator():
+    p = {"retailerUrl": "https://shop.example/p", "priceMinor": 4200, "currency": "USD"}
+    out = agent.assist_checkout(MEMBER, p, {"address": "x"}, member_signature=_SIG_MEMBER)
+    assert out["state"] == "authorized-pending-operator"           # G11: live submit needs operator
+
+
+def test_assist_checkout_submits_with_member_sig_and_operator():
+    p = {"retailerUrl": "https://shop.example/p", "priceMinor": 4200, "currency": "USD"}
+    out = agent.assist_checkout(MEMBER, p, {"address": "x"},
+                                member_signature=_SIG_MEMBER, operator_ref="council-op-1")
+    assert out["state"] == "submitted" and out["paymentIntent"]["signed"] is True
+
+
+def test_assist_checkout_refuses_server_signature():
+    p = {"retailerUrl": "https://shop.example/p", "priceMinor": 4200, "currency": "USD"}
+    out = agent.assist_checkout(MEMBER, p, {"address": "x"},
+                                member_signature=_SIG_SERVER, operator_ref="council-op-1")
+    assert out["state"] == "refused"
+
+
+def test_arrange_delivery_prefers_no_gig():
+    d = agent.arrange_delivery({"itemClass": "bulky"}, "jp")
+    assert d["mode"] == "etzhayyim-logistics" and d["gig"] is False and d["carrier"] == "haraedo"
+    d2 = agent.arrange_delivery({}, "us")
+    assert d2["mode"] == "retailer-shipping" and d2["gig"] is False
+
+
 if __name__ == "__main__":
     import sys
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]

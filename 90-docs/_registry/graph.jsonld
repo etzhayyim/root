@@ -11924,6 +11924,22 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606012800-session-close-iwakura-fuigo-rtl-gdsii",
+      "type": "TechArticle",
+      "title": "ADR-2606012800: Session close — iwakura/fuigo ternary RTL → functional sim → synthesis → sky130 GDSII",
+      "status": "active",
+      "topic": "silicon-iwakura",
+      "authoritative": false,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-01 iwakura/fuigo RTL→GDSII session"
+      ],
+      "related": [
+        "doc:adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "doc:adr-2605241900-baien-edge-target-invariant"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

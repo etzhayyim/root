@@ -62,6 +62,8 @@ kurashimori / wakai. Provisioning history is a kotoba `as-of` Wellbecoming traje
 | G11 | outward-gated | live scraping + real 代理-purchase = Council Lv7+ + operator |
 | G12 | anti-individualism | household/multi-gen baskets + commons-share first |
 | G13 | lifecycle-closure | repair/recycle/disposal route on every product; no final consumer state |
+| G14 | member-principal | assisted checkout: member is buyer, okaimono never; no external inflow (§1.3 holds) |
+| G15 | no-server-key | member signs each payment (passkey/ERC-4337); okaimono holds no key; server sig refused |
 
 ## Layout
 
@@ -82,7 +84,19 @@ kurashimori / wakai. Provisioning history is a kotoba `as-of` Wellbecoming traje
 
 ## Status
 
-🟢 **R0 + R1 + R2** — design + data-model + **verified Ring 1 & Ring 2 logic**.
+🟢 **R0 + R1 + R2 + R3** — design + data-model + **verified Ring 1 / Ring 2 / assisted-checkout logic**.
+
+**R3 (assisted secure checkout, member-principal — landed 2026-06-01):** corrects the
+scope-3 framing — okaimono does NOT proxy-buy; the **member is the purchasing principal**
+and pays the retailer with their own instrument while the agent provides a secure rail
+(safe card / encrypted comms / procedure / delivery). Because value never flows INTO
+etzhayyim, **§1.3 holds and no Lv7+ amendment is needed** (only G14/G15/G9/G11). `agent.py`
+adds `build_payment_intent` (unsigned, member-principal, `serverHeldKey=false`, warifu-
+external trips its own Lv7+ gate), `authorize_payment` (member signature only; server sig
+refused — G15), `seal_encrypted` (envelope ref + field names, never plaintext — G9),
+`assist_checkout` (awaiting→authorized→submitted; nothing submits without member sig +
+operator), `arrange_delivery` (no-gig preferred). +`app.etzhayyim.okaimono.assist` lexicon.
+**40/40 tests green.**
 
 **R2 (Ring 2 external catalog, landed 2026-06-01):** the constitutional crux is G3
 (no ads/affiliate) + G2 (§1.3). `agent.py` adds `strip_affiliate` (Amazon `tag`/`/ref=`,

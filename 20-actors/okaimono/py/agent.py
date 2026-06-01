@@ -377,3 +377,117 @@ def landed_cost_external(price_minor: int, shipping_minor: int, tariff_bps: int)
         "tariffMinor": tariff,
         "landedMinor": price + int(shipping_minor) + tariff,
     }
+
+
+# =========================================================================== #
+# R3 — Assisted secure checkout, MEMBER-PRINCIPAL (ADR-2606012100 §R3)
+# =========================================================================== #
+# Corrects the earlier "代理-purchase" framing of scope-3. okaimono does NOT become
+# the buyer. The MEMBER remains the purchasing principal and pays the external retailer
+# with their OWN instrument; okaimono only provides a secure rail — safe card entry,
+# encrypted transport, procedure assist, delivery. Because value flows member→retailer
+# (never INTO etzhayyim), §1.3 is preserved and NO Lv7+ amendment is required. The binding
+# gates are: G14 member-principal (no inflow), G15 no-server-key (member signs each
+# payment), G9 encryption, G11 outward-operator for live action.
+
+PAYMENT_INSTRUMENTS = {"member-external-card", "warifu"}
+
+
+def seal_encrypted(fields: dict, recipient_did: str) -> dict:
+    """Wrap card / PII fields into an app.etzhayyim.encrypted.* envelope (G9). Returns ONLY
+    an opaque envelope ref + recipient — never the plaintext. The plaintext is assumed to be
+    sealed client-side (XChaCha20-Poly1305, Signal-wrapped, DID-bound, ADR-2605181100); this
+    function models the contract: no cleartext PII crosses the okaimono boundary."""
+    # deterministic opaque ref from field keys only (NOT values) — values never leave plaintext
+    keysig = "+".join(sorted(fields.keys()))
+    ref = f"app.etzhayyim.encrypted:{abs(hash(keysig)) & 0xFFFFFFFF:08x}"
+    return {"envelopeRef": ref, "recipientDid": recipient_did, "sealedFields": sorted(fields.keys())}
+
+
+def build_payment_intent(member_did: str, retailer: str, amount_minor: int,
+                         currency: str, instrument: str, external: bool = True) -> dict:
+    """Construct an UNSIGNED payment intent that ONLY the member can authorize (G15 no-server-key).
+    okaimono never holds the card secret or a signing key; it returns an intent whose required
+    signer is the member's own passkey/smart-account. ERC-4337 user-op for on-chain rails.
+    warifu used at an EXTERNAL retailer additionally trips warifu's own Phase-2 Lv7+ gate
+    (ADR-2605302000) — flagged, not silently allowed."""
+    if instrument not in PAYMENT_INSTRUMENTS:
+        raise ValueError(f"unknown instrument {instrument!r}")
+    intent = {
+        "memberDid": member_did,
+        "retailer": retailer,
+        "amountMinor": int(amount_minor),
+        "currency": currency,
+        "instrument": instrument,
+        "rail": "erc4337-user-op" if instrument == "warifu" else "member-card-direct",
+        "principal": "member",        # G14: the buyer is the member, NOT okaimono
+        "serverHeldKey": False,        # G15: invariant — okaimono holds no key/secret
+        "requiredSigner": "member-passkey-or-smart-account",
+        "signed": False,               # must be authorized by the member before it is live
+    }
+    if instrument == "warifu" and external:
+        intent["requiresWarifuExternalGate"] = True  # warifu Phase-2 Lv7+ (ADR-2605302000)
+    return intent
+
+
+def authorize_payment(intent: dict, signature: dict) -> dict:
+    """Authorize a payment intent. ONLY a member-origin signature is accepted (G15);
+    a platform/server signature is refused outright. Does not itself broadcast (G11)."""
+    if signature.get("origin") != "member":
+        return {**intent, "signed": False, "refused": True,
+                "reason": "only a member passkey/wallet signature can authorize (G15 no-server-key)"}
+    if intent.get("serverHeldKey"):
+        return {**intent, "signed": False, "refused": True,
+                "reason": "intent carries a server-held key — invariant violation (G15)"}
+    return {**intent, "signed": True, "signatureRef": signature.get("ref")}
+
+
+def assist_checkout(member_did: str, product: dict, profile_fields: dict,
+                    member_signature: dict | None = None, operator_ref: str | None = None) -> dict:
+    """Orchestrate a member-principal assisted external checkout: seal PII (G9), fill the
+    retailer procedure from the member's consented profile, build a member-signable payment
+    intent (G14/G15), and arrange delivery — but SUBMIT only with the member's per-transaction
+    authorization AND an operator for the live outward action (G11). Without the member
+    signature it returns :awaiting-member-authorization and submits nothing."""
+    envelope = seal_encrypted(profile_fields, member_did)
+    amount = int(product.get("priceMinor", 0))
+    instrument = product.get("instrument", "member-external-card")
+    intent = build_payment_intent(member_did, product.get("retailer", ""), amount,
+                                  product.get("currency", "USD"), instrument)
+    handoff = build_external_handoff(product)  # affiliate-stripped target (G3)
+    base = {
+        "ring": "external",
+        "mode": "assisted-secure-checkout",
+        "principal": "member",         # §1.3 preserved: okaimono is not the buyer (G14)
+        "encrypted": envelope,
+        "handoffUri": handoff["handoffUri"],
+        "paymentIntent": intent,
+        "titheMinor": 0,               # external: no internal value flow (G2/G7)
+    }
+    if member_signature is None:
+        return {**base, "state": "awaiting-member-authorization"}
+    authed = authorize_payment(intent, member_signature)
+    if authed.get("refused"):
+        return {**base, "state": "refused", "reason": authed["reason"]}
+    if not operator_ref:
+        # member-authorized, but the live outward submit needs an operator (G11)
+        return {**base, "state": "authorized-pending-operator", "paymentIntent": authed}
+    return {**base, "state": "submitted", "paymentIntent": authed, "operatorRef": operator_ref}
+
+
+def arrange_delivery(product: dict, region: str) -> dict:
+    """Choose a delivery path: prefer an etzhayyim logistics actor (no gig, G8) for last-mile
+    where serviceable, else fall back to the retailer's own shipping. Hands to lifecycle (G13)."""
+    serviceable = region in {"jp", "shibuya"}  # representative: where etzhayyim logistics runs
+    if serviceable:
+        carrier = assign_fulfillment(product.get("itemClass", "road"))
+        mode = "etzhayyim-logistics"
+    else:
+        carrier = "retailer-ship"
+        mode = "retailer-shipping"
+    return {
+        "carrier": carrier,
+        "mode": mode,
+        "gig": False,                  # G8: never gig labor on the etzhayyim leg
+        "lifecycleRoute": product.get("lifecycleRoute", "haraedo"),
+    }
