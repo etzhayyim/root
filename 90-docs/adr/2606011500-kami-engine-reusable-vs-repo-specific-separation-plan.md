@@ -64,8 +64,8 @@ Adopt a **three-layer model** and separate along it:
 | Layer | Contents | Management target |
 |---|---|---|
 | **L1 — UI SDK** | `kami-engine-sdk` (TS/Svelte: genko, trackpad, gsplat, document, manufacturing, webvr) | git **submodule** ✅ (PR #655 — `etzhayyim/kami-engine-sdk@ccb315c`, SoT inverted) |
-| **L2 — Reusable Rust robotics engine** | kami-core, kami-render, kami-genesis (physics + **control**), kami-articulated, kami-sensor-sim (**sensors**), kami-autodrive (autonomy), kami-pathfind, kami-vehicle, kami-physics-*, kami-terrain, kami-atmosphere, … + generic fixtures now in-workspace `kami-engine/fixtures/` ✅ (cartpole / double_pendulum / arm3 / giemon_arm6) | git **submodule** (fixtures separated ✅ stage 2; remaining: after L3 extraction) |
-| **L3 — etzhayyim repo-specific** | kami-app-{shibuya, giemon, giemon-factory, tatekata, …} + repo-specific scenes (shibuya, *-r1-*, giemon-factory-r0, giemon_kabitori/otete, kusawake, …) | stays in monorepo (app layer) |
+| **L2 — Reusable Rust robotics engine** | kami-core, kami-render, kami-genesis (physics + **control**), kami-articulated, kami-sensor-sim (**sensors**), kami-autodrive (autonomy), kami-pathfind, kami-vehicle, kami-physics-*, kami-terrain, kami-atmosphere, … + generic fixtures now in-workspace `kami-engine/fixtures/` ✅ (cartpole / double_pendulum / arm3 / giemon_arm6) | git **submodule** (fixtures ✅ stage 2 + L3 robotics-actor apps extracted ✅ stage 3; prerequisites met → stage 4 unblocked) |
+| **L3 — etzhayyim repo-specific** | robotics-actor apps `kami-app-{shibuya, giemon, giemon-factory, tatekata}` extracted ✅ to `40-engine/kami-apps/` (stage 3); repo-specific scenes (shibuya, *-r1-*, giemon-factory-r0, giemon_kabitori/otete, kusawake, …) in `70-tools/e7m-sim/scenes/` | stays in monorepo (app layer) |
 
 Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
 
@@ -102,9 +102,24 @@ Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
    4 / kami-app-giemon-factory; g5_scorecard 3); magatama resolver finds all 4.
    Pre-existing workspace failures (kami-map/kami-web wgpu API drift; kami-game
    island_gen) are unrelated, stash-confirmed on origin/main.
-3. **L3 extraction.** Move repo-specific kami-app-* crates + their scenes out of
-   the reusable engine workspace into the monorepo app layer; they keep
-   path/submodule deps on L2. Update the ~24 repo-specific include paths.
+3. **L3 extraction. ✅ DONE (4 robotics-actor apps, 2026-06-01).** Owner scoped
+   this to the 4 robotics-actor apps (`kami-app-{shibuya, giemon, giemon-factory,
+   tatekata}`) — the ADR-named L3 set that consumes L3 scenes; the 3 reference
+   games (isekai / quarry-walk / car-sim) and the 6 `*.etzhayyim.com` product
+   apps stay with the engine (a follow-on may reclassify the product apps). The
+   4 crates were `git mv`'d out of the kami-engine Cargo workspace into a new
+   sibling workspace `40-engine/kami-apps/` (OUTSIDE the future submodule root
+   `40-engine/kami-engine/`). Path-deps rewired `../kami-X` → `../../kami-engine/kami-X`
+   (the tatekata→giemon-factory inter-app dep stays relative); the `giemon_arm6`
+   fixture includes deepened `../../fixtures/` → `../../../kami-engine/fixtures/`;
+   L3 scene includes (`70-tools/e7m-sim/scenes/`) unchanged (same path depth).
+   **Deploy unaffected**: the `.htm` pages load wasm from committed
+   `60-apps/.../static/<app>/` bundles (independent of crate-source location);
+   only the `wasm-pack build` path moves. Verified: kami-apps workspace builds +
+   **39 tests green**; the kami-engine workspace still builds (minus the 3
+   pre-existing-broken crates kami-map/kami-web/kami-character — broken on
+   origin/main regardless, stash-confirmed). The ~9 other kami-app-* (reference
+   games + product apps) were intentionally NOT moved.
 4. **L2: kami-engine → submodule.** Once L3 + fixtures are separated, extract
    the reusable engine (history via `git subtree split`), new remote
    `etzhayyim/kami-engine`, add Charter Rider + NOTICE per repo convention,
