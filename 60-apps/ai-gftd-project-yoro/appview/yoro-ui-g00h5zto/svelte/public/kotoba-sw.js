@@ -186,26 +186,59 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(
     (async () => {
-      // NETWORK-FIRST: live data wins when reachable.
+      const q = url.searchParams.get("q") || "";
+
+      // NETWORK-FIRST: try the live server.
+      let resp = null;
+      let live = null;
       try {
-        return await fetch(event.request);
-      } catch (netErr) {
-        // Offline → serve from the local wasm read node (restored from IDB).
-        try {
-          await ensureReady();
-          if (!node) throw netErr;
-          const q = url.searchParams.get("q") || "";
-          return new Response(node.searchActors(q), {
-            status: 200,
-            headers: {
-              "content-type": "application/json; charset=utf-8",
-              "x-kotoba-sw": "local-wasm-offline",
-            },
-          });
-        } catch {
-          return Response.error();
-        }
+        resp = await fetch(event.request);
+        const ct = resp.headers.get("content-type") || "";
+        if (!ct.includes("json")) return resp; // opaque/non-JSON → untouched
+        live = await resp.clone().json().catch(() => null);
+      } catch {
+        resp = null;
       }
+
+      // Local registered-actor set from the in-browser node (reliable backfill).
+      let localActors = [];
+      try {
+        await ensureReady();
+        if (node) localActors = JSON.parse(node.searchActors(q)).actors || [];
+      } catch {
+        /* node not ready */
+      }
+
+      if (resp && live) {
+        // BACKFILL: if the live server is missing registered actors (e.g. it
+        // lost data on a restart), add them back from the local seed so search
+        // never silently degrades. When live is complete, pass it through
+        // untouched (rich shape, correct order).
+        const liveDids = new Set((live.actors || []).map((a) => a && a.did));
+        const missing = localActors.filter((a) => a && a.did && !liveDids.has(a.did));
+        if (missing.length === 0) return resp;
+        const merged = { ...live, actors: [...(live.actors || []), ...missing] };
+        merged.totalActors = merged.actors.length;
+        return new Response(JSON.stringify(merged), {
+          status: 200,
+          headers: {
+            "content-type": "application/json; charset=utf-8",
+            "x-kotoba-sw": "backfill",
+          },
+        });
+      }
+
+      // Network failed → serve the local node (offline edge resilience).
+      if (localActors.length) {
+        return new Response(JSON.stringify({ actors: localActors }), {
+          status: 200,
+          headers: {
+            "content-type": "application/json; charset=utf-8",
+            "x-kotoba-sw": "local-wasm-offline",
+          },
+        });
+      }
+      return resp || Response.error();
     })(),
   );
 });
