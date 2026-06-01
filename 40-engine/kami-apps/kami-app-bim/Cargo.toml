@@ -1,6 +1,6 @@
 [package]
-name = "kami-app-tatekata"
-description = "tatekata 建方 — robotic construction of the giemon factory: each 4D step's assigned 施工ロボット builds it on kami-genesis, with concrete-deposition + weld material-process fields (ADR-2606010030, ADR-2605250715)"
+name = "kami-app-bim"
+description = "BIM viewer / editor entry (bim.etzhayyim.com) — storey LOD + space highlight + IFC-aware overlay, composed on KamiApp Builder"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -11,13 +11,10 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 kami-app = { path = "../../kami-engine/kami-app" }
 kami-pipelines = { path = "../../kami-engine/kami-pipelines" }
+kami-bim = { path = "../../kami-engine/kami-bim" }
 kami-render = { path = "../../kami-engine/kami-render" }
-kami-genesis = { path = "../../kami-engine/kami-genesis" }
-kami-articulated = { path = "../../kami-engine/kami-articulated" }
-kami-app-giemon-factory = { path = "../kami-app-giemon-factory" }
 glam = { workspace = true }
 log = { workspace = true }
-serde = { workspace = true }
 serde_json = { workspace = true }
 
 [target.'cfg(target_family = "wasm")'.dependencies]
