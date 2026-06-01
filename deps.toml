@@ -9223,3 +9223,68 @@ status = "accepted"
 status_note = "Gives the Prolly-on-content-addressed-store design its incremental + diff 'soul'. (1) ProllyTree::apply_batch path-copies only the leaves a batch key routes into (boundary-key splits + boundary-delete merges handled locally), keeping untouched leaf CIDs verbatim, then rebuilds the spine — bit-for-bit identical to build_tree (30-round randomized convergence test). (2) commit() drops the per-commit full-history cold re-read (history_datoms_cold): append-only Datom trees (datom_eavt/aevt/tea) get additive upserts; current-view trees (datom_avet/vaet) upsert the tx's net asserts + retract prior representatives located via bounded scan_prefix (new Datom::avet_prefix/vaet_prefix); Quad-compat trees still build from the in-memory Arrangement (no cold read). Equivalence locked by a multi-commit test: every committed Datom-native root == from-scratch rebuild of cumulative history (asserts/retracts/representative-replacement/VAET refs). (3) Real ProllyTree::diff (leaf-CID set, for replication) + diff_entries (added/removed/changed) — identical leaves share a CID and are never loaded → O(|diff|). (4) Persisted leaf values switched JSON→CBOR (ciborium) via centralized enc/dec helpers; Journal WAL unchanged. (5) Two read-amplification bugs found by a byte-counting BlockStore test and fixed: list_leaves was loading every leaf (now reads pointers from the bottom internal level — O(#internal)), and scan_prefix never early-terminated for an absent prefix (now prefix-upper-bounded — speeds up all cold reads). Measured: per-commit reads for a fixed delta scale sublinearly (32k/8k bytes ≈ 1.8× vs the ~4× a full re-read shows), trending to the O(delta) plateau. Tests: kotoba-core 100, kotoba-kqe 205, kotoba-graph 228. Honest limits: not a flat plateau at small scale (content-hashed keys scatter — true locality needs monotonic-T/entity-ordered keys, a future ADR); Quad-compat indexes still O(current) CPU rebuild from memory; CBOR is a format break for pre-existing JSON-valued graphs (pre-1.0, WAL replay unaffected). Depends on ADR-2605312345 + 2605262130."
 path = "90-docs/adr/2606012000-kotoba-prolly-incremental-commit-diff-cbor.md"
 adr = ["2605312345", "2605262130", "2605231902", "2605240001"]
+
+[[adrs]]
+id = "2606012200"
+title = "kotoba serialization-format strategy — JSON wire / EDN values / CBOR internal; Transit rejected"
+status = "accepted"
+status_note = "Records the kotoba serialization-format split and the explicit decision NOT to adopt Cognitect Transit. Roles (verified by code audit of kotoba-server + workspace): JSON (serde_json/axum) = HTTP/XRPC wire bodies; EDN (kotoba-edn) = Datomic tx-data + Datalog + VC/datom values + *.kotoba.edn; CBOR/dag-cbor (ciborium) = internal content-addressed blocks (ProllyTree nodes/CAR), P2P gossip/firehose (net_actor.rs), CACAO chains (DAG-CBOR+base64), WASM UDF invoke ctx. Transit is used NOWHERE (only 'transitivity' Datalog comments). Verdict: do not adopt. Transit's two value-adds are each already covered — EDN gives rich keyword/set/instant semantics, CBOR gives compact IPLD-canonical binary — so it would be a 3rd redundant format (against Shannon-minimality, ADR-2604251830). Two hard blockers: (1) dag-cbor CID lock-in — kotoba CIDs are SHA2-256 over dag-cbor bytes, content-addressing+IPFS require dag-cbor in the block layer, Transit can't replace it without breaking CID/IPFS compat; (2) weak Rust support — Transit is Clojure-centric, no maintained production Rust codec, kotoba is Rust-first. Narrow documented exception (NOT adopted): Transit-JSON on the HTTP wire is the one place it could add value (keyword/set/instant fidelity over a JSON-compatible transport + key-caching compaction on large attribute-repetitive datom result sets, polyglot Datomic-client compat) — reconsider ONLY if a Datomic-compatible polyglot client protocol is required, and even then benchmark vs cheaper near-substitutes (EDN-over-wire, application/cbor body [codec already present], zstd on JSON). Depends on ADR-2606012000 + 2605312345."
+path = "90-docs/adr/2606012200-kotoba-serialization-format-strategy-transit-rejected.md"
+adr = ["2606012000", "2605312345", "2605262130", "2604251830"]
+
+[[adrs]]
+id = "2606012100"
+title = "Donation-funded operation (明記 on etzhayyim.com) + compute/node-participation as in-kind donation (ameno browser inference / e7m CLI node / kotoba pod)"
+status = "proposed"
+status_note = "Two gaps, one ADR. (1) PUBLIC DECLARATION: etzhayyim.com nowhere stated it runs on donation only; ADR-2605192115 §6 requires a third-party-auditable non-profit proof. The apex Worker (50-infra/etzhayyim-did-web/src/worker.ts) now serves two LOCAL cookie-free/tracker-free routes before the yoro proxy — GET /donate (human HTML) + GET /.well-known/donation.json (machine policy: entity DID, accepted purposes, cash rail, three compute-node modalities + gates) — analogue of /.well-known/did.json. Information about etzhayyim's own religious activity = not advertising (ADR-2605192115 §1.2). (2) COMPUTE DONATION: donation was money-only; the mission's scarcest resources are Murakumo inference (deliberately non-rentable, ADR-2605215000) + kotoba substrate durability. New in-kind COMPUTE donation modality: a supporter joins the Murakumo mesh + kotoba substrate as a DONATED first-party node in 3 forms — (a) ameno browser WebGPU/WebNN inference on frozen baien edge models (zero install, WASM-32, ADR-2605241900); (b) e7m CLI node (e7m node join → Ollama gemma3:4b/WASM); (c) kotoba pod (IPFS block backend + Datom replication). The MIRROR IMAGE of Basic High Income (ADR-2605301020): donor in-kind contribution imputed-valued for transparency while no cash crosses. ZERO invariant amendments — extends the ADR-2605215000 fleet definition with a 'donated' node class (addendum). New lexicon app.etzhayyim.give.computeDonationAttestation (aggregate, no PII; const invariants titheable=false / compensatedUsdMicros=0 / grantsBenefit=false / bestEffort=true). 9 gates: G1 consent-only · G2 uncompensated gift (paying = commercial GPU rental, Charter Rider §2(i), prohibited) · G3 Murakumo-mesh-only · G4 no quid-pro-quo (never a path to Liberation benefits, anti-class N2/N3 + ADR-2605301020 §7) · G5 non-titheable in-kind (no USDC to split, kisha precedent ADR-2605192130 §5; 100% to mission) · G6 no-server-key (donor holds keys, ADR-2605231525) · G7 cookie-free/no-tracking · G8 Wellbecoming device power-budget · G9 outward-gated (live external mesh-enrollment = Council + operator; donated capacity best-effort, never an SLA). R0 = ADR + /donate page + /.well-known/donation.json + lexicon + e7m node CLI design surface; live enrollment gated. HONEST: browser/CLI/pod live mesh-join not yet wired; donated capacity advisory; no on-chain settlement for in-kind (no purpose-enum change). Depends on ADR-2605192115 + 2605215000 + 2605192130 + 2605301020 + 2605241900 + 2605231525."
+path = "90-docs/adr/2606012100-donation-funded-operation-and-compute-node-participation.md"
+adr = ["2605192115", "2605215000", "2605192130", "2605301020", "2605241900", "2605231525", "2605192100", "2605262130", "2605262900"]
+
+[[adrs]]
+id = "2606012300"
+title = "kotoba hybrid web search — BM25 + PageRank + RRF fusion over the Datom log"
+status = "accepted"
+status_note = "Answers 「google のような global な検索は kotoba server で設計実装されているか」: it was only PARTIAL (semantic IVF vector search + RAG present; no keyword search, the IVF query path was inert via `let _ = ivf;`, and no authority ranking). Closes the three missing Google-shaped legs, all pure-Rust + datom-native — no external search engine / vector DB; Murakumo-only embed (substrate invariants 2605262130/2605312345/2605215000 preserved). 3 new kotoba-ingest modules: bm25.rs (Okapi BM25 lexical inverted index k1=1.2 b=0.75, CJK-aware bigram tokenizer so JP CC text is searchable with no segmenter; cc/bm25/* quad persistence — n/avgdl/per-doc len/per-term df+packed postings + from_datoms); pagerank.rs (pure power-iteration link-authority over cc:2026-12:links, Σ=1 dangling-mass redistribution, damping 0.85, cc/rank/score Float datoms; normalized_score/top); fusion.rs (Reciprocal Rank Fusion RRF_K=60 — scale-free across unbounded BM25 / cosine∈[-1,1] / PageRank∈(0,1] — + min-max weighted-linear fuser with authority boost). Server (kotoba-server::cc_xrpc): FIXED the dead IVF fallback — semantic_ranking() reads persisted cc/ivf/cluster + centroids and probes nprobe nearest centroids (cc_search now uses it; brute-force only when no index); new ai.gftd.apps.kotoba.search.web (GET, operator-auth) fuses lexical+semantic+authority via RRF with graceful degrade (no embed backend → lexical+authority; empty link graph → drop authority leg) + weights wLex/wSem/wAuth + per-signal rank breakdown. PRECOMPUTE WIRED (2nd increment): corpus-global BM25 build pass + CcPageIngestor::ingest_links_dir_datoms/read_page_links (parse outlinks List<Utf8> column → cc/link/to edges into cc:links, self-loops dropped) + PageRank pass — all auto-run at end of cc.ingest and on-demand via ai.gftd.apps.kotoba.search.reindex (POST); web_search prefers the persisted cc/bm25/* index; cc.status reports bm25_terms/link_edges/pagerank_nodes. 105 kotoba-ingest (incl. cc-parquet) + 22 cc_xrpc tests green; builds in default + cc-parquet. kotoba submodule f14cef2; root bump 3e47cb7ab. HONEST R0: edge extraction needs an outlinks list column in the pages parquet — scalar-outlink_count-only datasets yield no edges (empty link graph → authority leg dropped, logged at ingest); full-rebuild reindex (no incremental); no crawler (ingests Common Crawl); operator-auth gated (not a public ad-supported index — Charter ad-free/donation-only). Depends on ADR-2605262130 + 2605312345 + 2605215000 + 2605250006."
+path = "90-docs/adr/2606012300-kotoba-hybrid-web-search-bm25-pagerank-rrf.md"
+adr = ["2605262130", "2605312345", "2605215000", "2605250006", "2604251830"]
+
+[[adrs]]
+id = "2606012400"
+title = "Session close — kotoba hybrid web search (BM25 + PageRank + RRF) shipped"
+status = "active"
+status_note = "Documentation-only session-close record for the 2026-06-01 session answering 「google のような global な検索は kotoba server で設計実装されているか」. Shipped the hybrid retrieval stack per ADR-2606012300 in two increments: (1) the three missing legs (bm25/pagerank/fusion pure-Rust modules) + fixed the inert IVF query path (was `let _ = ivf;`) + ai.gftd.apps.kotoba.search.web RRF endpoint; (2) precompute wiring — corpus-global BM25 build + outlink-edge ingestion (CcPageIngestor::ingest_links_dir_datoms reads the parquet outlinks column → cc/link/to edges) + PageRank pass, all auto-run at end of cc.ingest + on-demand via search.reindex. 105 kotoba-ingest + 22 cc_xrpc tests green; default + cc-parquet build green. kotoba submodule f14cef2; root 3e47cb7ab (path-limited commit avoiding a concurrent background loop's staged files). Loop stopped: remaining gap (real link-graph data at scale) is dataset-sourcing, not a buildable code increment. Authoritative design = ADR-2606012300. Depends on ADR-2606012300."
+path = "90-docs/adr/2606012400-session-close-kotoba-hybrid-web-search.md"
+adr = ["2606012300", "2605262130", "2605312345", "2605215000"]
+
+# ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
+# Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
+[donation]
+funded_by = "donation-only"
+entity_did = "did:web:etzhayyim.com"
+adherent_cash_stipend_usd = 0          # Basic High Income N1 (ADR-2605301020): cash ≡ 0
+public_page = "https://etzhayyim.com/donate"
+machine_policy = "https://etzhayyim.com/.well-known/donation.json"
+adr = "2606012100"
+
+[donation.cash]
+asset = "USDC"
+rail = "TitheRouter.donate() on Base L2"
+split = "90% recipient / 10% Public Fund (ADR-2605192130)"
+purposes = ["donation", "kisha", "grant"]
+status = "Base L2 testnet pending Council"
+
+[donation.compute]
+# In-kind compute donation — joins the Murakumo mesh + kotoba substrate.
+medium = "in-kind"
+titheable = false                      # no USDC to split (kisha precedent, ADR-2605192130 §5)
+compensated = false                    # uncompensated gift; paying = commercial GPU rental (Charter Rider §2(i))
+grants_benefit = false                 # never a path to Liberation benefits (anti-class, G4)
+best_effort = true                     # donated capacity is never an SLA (G9)
+node_classes = ["ameno", "e7m", "kotoba"]
+lexicon = "app.etzhayyim.give.computeDonationAttestation"
+enrollment = "R0 design; live external mesh-enrollment gated on Council + operator"
+
+[donation.compute.nodes]
+ameno = "browser WebGPU/WebNN inference on frozen baien edge models (zero install, WASM-32, iPhone 12+ / Android 4GB)"
+e7m = "e7m node join — laptop/workstation as Ollama (gemma3:4b) / WASM node"
+kotoba = "kotoba pod — IPFS block backend + Datom replication (optional Ollama)"
