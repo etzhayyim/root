@@ -59,20 +59,30 @@ def main() -> int:
     exports = pkg.get("exports") or {}
     missing: list[tuple[str, str, str]] = []
 
-    for subpath, dispatch in exports.items():
-        # exports values can be a string (legacy single-target) or a dict
-        # of condition → target.
-        if isinstance(dispatch, str):
-            f = pkg_dir / dispatch.lstrip("./")
-            if not f.exists():
-                missing.append((subpath, "default", dispatch))
-        elif isinstance(dispatch, dict):
-            for cond, target in dispatch.items():
-                if not isinstance(target, str):
-                    continue
-                f = pkg_dir / target.lstrip("./")
+    # Export targets resolve into the build output (`dist/`), which is
+    # git-ignored. When the package hasn't been built (no `dist/`), EVERY
+    # target is trivially "missing", so the audit is only meaningful AFTER a
+    # build. Skip pre-build so it's a no-op on a fresh checkout (e.g. CI
+    # without `npm run build`) and still catches genuine dist-target
+    # mismatches once a build is present.
+    dist_dir = pkg_dir / "dist"
+    if dist_dir.exists():
+        for subpath, dispatch in exports.items():
+            # exports values can be a string (legacy single-target) or a dict
+            # of condition → target.
+            if isinstance(dispatch, str):
+                f = pkg_dir / dispatch.lstrip("./")
                 if not f.exists():
-                    missing.append((subpath, cond, target))
+                    missing.append((subpath, "default", dispatch))
+            elif isinstance(dispatch, dict):
+                for cond, target in dispatch.items():
+                    if not isinstance(target, str):
+                        continue
+                    f = pkg_dir / target.lstrip("./")
+                    if not f.exists():
+                        missing.append((subpath, cond, target))
+    else:
+        print("  (dist/ not built — export targets not audited)", file=sys.stderr)
 
     print(f"missing dist/ targets in {pkg_dir.relative_to(repo)}: {len(missing)}")
     for subpath, cond, target in missing:
