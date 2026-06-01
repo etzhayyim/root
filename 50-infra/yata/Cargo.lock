@@ -1617,7 +1617,7 @@ dependencies = [
  "log",
  "object_store",
  "parking_lot",
- "rand 0.9.2",
+ "rand 0.9.4",
  "regex",
  "sqlparser",
  "tempfile",
@@ -1731,7 +1731,7 @@ dependencies = [
  "itertools 0.14.0",
  "log",
  "object_store",
- "rand 0.9.2",
+ "rand 0.9.4",
  "tokio",
  "url",
 ]
@@ -1827,7 +1827,7 @@ dependencies = [
  "log",
  "object_store",
  "parking_lot",
- "rand 0.9.2",
+ "rand 0.9.4",
  "tempfile",
  "url",
 ]
@@ -1891,7 +1891,7 @@ dependencies = [
  "log",
  "md-5",
  "num-traits",
- "rand 0.9.2",
+ "rand 0.9.4",
  "regex",
  "sha2",
  "unicode-segmentation",
@@ -2455,7 +2455,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a32ddfc5478379cd1782bdd9d7d1411063f563e5b338fc73bafe5916451a5b9d"
 dependencies = [
  "arrow-array 57.3.1",
- "rand 0.9.2",
+ "rand 0.9.4",
 ]
 
 [[package]]
@@ -3197,7 +3197,7 @@ dependencies = [
  "nom 8.0.0",
  "num-traits",
  "ordered-float",
- "rand 0.9.2",
+ "rand 0.9.4",
  "serde",
  "serde_json",
  "zmij",
@@ -3255,7 +3255,7 @@ dependencies = [
  "pin-project",
  "prost",
  "prost-types",
- "rand 0.9.2",
+ "rand 0.9.4",
  "roaring",
  "semver",
  "serde",
@@ -3289,7 +3289,7 @@ dependencies = [
  "half",
  "jsonb",
  "num-traits",
- "rand 0.9.2",
+ "rand 0.9.4",
 ]
 
 [[package]]
@@ -3330,7 +3330,7 @@ dependencies = [
  "object_store",
  "pin-project",
  "prost",
- "rand 0.9.2",
+ "rand 0.9.4",
  "roaring",
  "serde_json",
  "snafu 0.9.0",
@@ -3388,7 +3388,7 @@ dependencies = [
  "futures",
  "half",
  "hex",
- "rand 0.9.2",
+ "rand 0.9.4",
  "rand_distr 0.5.1",
  "rand_xoshiro",
  "random_word",
@@ -3424,7 +3424,7 @@ dependencies = [
  "prost",
  "prost-build",
  "prost-types",
- "rand 0.9.2",
+ "rand 0.9.4",
  "snafu 0.9.0",
  "strum",
  "tokio",
@@ -3515,7 +3515,7 @@ dependencies = [
  "prost",
  "prost-build",
  "prost-types",
- "rand 0.9.2",
+ "rand 0.9.4",
  "rand_distr 0.5.1",
  "rangemap",
  "rayon",
@@ -3566,7 +3566,7 @@ dependencies = [
  "path_abs",
  "pin-project",
  "prost",
- "rand 0.9.2",
+ "rand 0.9.4",
  "serde",
  "snafu 0.9.0",
  "tempfile",
@@ -3590,7 +3590,7 @@ dependencies = [
  "lance-arrow",
  "lance-core",
  "num-traits",
- "rand 0.9.2",
+ "rand 0.9.4",
 ]
 
 [[package]]
@@ -3628,7 +3628,7 @@ dependencies = [
  "lance-table",
  "log",
  "object_store",
- "rand 0.9.2",
+ "rand 0.9.4",
  "serde_json",
  "snafu 0.9.0",
  "tokio",
@@ -3674,7 +3674,7 @@ dependencies = [
  "prost",
  "prost-build",
  "prost-types",
- "rand 0.9.2",
+ "rand 0.9.4",
  "rangemap",
  "roaring",
  "semver",
@@ -3697,7 +3697,7 @@ dependencies = [
  "arrow-schema 57.3.1",
  "lance-arrow",
  "num-traits",
- "rand 0.9.2",
+ "rand 0.9.4",
 ]
 
 [[package]]
@@ -3749,7 +3749,7 @@ dependencies = [
  "num-traits",
  "object_store",
  "pin-project",
- "rand 0.9.2",
+ "rand 0.9.4",
  "regex",
  "semver",
  "serde",
@@ -4057,7 +4057,7 @@ dependencies = [
  "hashbrown 0.15.5",
  "metrics",
  "quanta",
- "rand 0.9.2",
+ "rand 0.9.4",
  "rand_xoshiro",
  "sketches-ddsketch",
 ]
@@ -4298,7 +4298,7 @@ dependencies = [
  "parking_lot",
  "percent-encoding",
  "quick-xml 0.38.4",
- "rand 0.9.2",
+ "rand 0.9.4",
  "reqwest",
  "ring",
  "serde",
@@ -4773,7 +4773,7 @@ dependencies = [
  "bytes",
  "getrandom 0.3.4",
  "lru-slab",
- "rand 0.9.2",
+ "rand 0.9.4",
  "ring",
  "rustc-hash",
  "rustls",
@@ -4848,9 +4848,9 @@ dependencies = [
 
 [[package]]
 name = "rand"
-version = "0.9.2"
+version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6db2770f06117d490610c7488547d543617b21bfa07796d7a12f6f1bd53850d1"
+checksum = "44c5af06bb1b7d3216d91932aed5265164bf384dc89cd6ba05cf59a35f5f76ea"
 dependencies = [
  "rand_chacha 0.9.0",
  "rand_core 0.9.5",
@@ -4911,7 +4911,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6a8615d50dcf34fa31f7ab52692afec947c4dd0ab803cc87cb3b0b4570ff7463"
 dependencies = [
  "num-traits",
- "rand 0.9.2",
+ "rand 0.9.4",
 ]
 
 [[package]]
@@ -4932,7 +4932,7 @@ dependencies = [
  "ahash",
  "brotli",
  "paste",
- "rand 0.9.2",
+ "rand 0.9.4",
  "unicase",
 ]
 
@@ -6309,7 +6309,7 @@ dependencies = [
  "http 1.4.0",
  "httparse",
  "log",
- "rand 0.9.2",
+ "rand 0.9.4",
  "sha1",
  "thiserror 2.0.18",
 ]
@@ -6320,7 +6320,7 @@ version = "2.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9ea3136b675547379c4bd395ca6b938e5ad3c3d20fad76e7fe85f9e0d011419c"
 dependencies = [
- "rand 0.9.2",
+ "rand 0.9.4",
 ]
 
 [[package]]
@@ -6916,7 +6916,7 @@ dependencies = [
  "bytes",
  "libc",
  "memmap2",
- "rand 0.9.2",
+ "rand 0.9.4",
  "serde",
  "serde_json",
  "tempfile",
