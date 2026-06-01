@@ -38,7 +38,7 @@
 		"effect": "^3.0.0"
 	},
 	"dependencies": {
-		"@neo4j/cypher-builder": "^2.0.0",
+		"@neo4j/cypher-builder": "^3.3.0",
 		"neo4j-driver": "^5.0.0"
 	},
 	"devDependencies": {
