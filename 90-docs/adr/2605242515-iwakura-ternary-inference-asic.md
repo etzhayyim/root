@@ -313,12 +313,16 @@ iwakura は **専用 ISA** (~20 opcodes: load_weight_block / load_act / matmul_t
 8. ⏳ Phase 3 (MPW tape-out) ADR — 別 wave、tsukuru production_order 経由
 
 > **honest scope (2026-06-01)**: Phase 1 = RTL + functional cocotb sim +
-> **generic 論理合成** (yosys + ABC, PDK なし — density ratio 検証目的)。
-> **未実施**: PDK/liberty mapping・place-and-route・タイミング closure・GDSII
-> (これらは NDA std-cell library を要し Phase 3 MPW tape-out、Council-gated)。
+> **generic 論理合成** (yosys + ABC) + **sky130 オープン PDK の実 P&R→GDSII**
+> (OpenLane2: OpenROAD/yosys/magic/klayout/netgen)。`pe_array` を実際に
+> place & route → CTS → 配線 → 寄生抽出 STA → DRC/LVS → **GDSII 生成**:
+> **DRC 0 / LVS 0 / antenna 0**、f_max ≈ 93 MHz (slow sign-off corner
+> ss_100C_1v60) / 160 MHz (typical)、die 53,120 µm²。詳細 `50-infra/silicon/pnr/README.md`。
+> **未実施 (= Phase 3, NDA + Council-gated)**: TSMC **N5** PDK での P&R・
+> タイミング closure・GDSII (sky130 は 130 nm オープン PDK であり製造ターゲット
+> N5 ではない; 1 GHz 目標は N5 前提で sky130 の 93–160 MHz は妥当な process gap)。
 > `pe_array` は time-multiplexed 形 (1 column/cycle); 物理 256×256 systolic skew
-> + pipeline register は Phase 2。`iwakura_top` の PHY ports
-> (PCIe/LPDDR5X/modality encoder) は placeholder。
+> + pipeline register は Phase 2。`iwakura_top` の PHY ports は placeholder。
 
 # References
 
