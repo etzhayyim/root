@@ -18658,6 +18658,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606015000-session-close-kami-engine-separation-complete-and-app-split.md",
+      "id": "adr-2606015000-session-close-kami-engine-separation-complete-and-app-split",
+      "title": "ADR-2606015000: Session close — kami-engine separation complete (stages 1–4) + native-build/CI fixes + product-app split",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-kami-engine-separation",
+      "authoritative": true,
+      "authoritative_for": [
+        "kami-engine separation completion (stages 1–4) operational close",
+        "post-separation fixes (native build, CI baseline reds, product-app/robotics split)"
+      ],
+      "related": [
+        "adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
+        "adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

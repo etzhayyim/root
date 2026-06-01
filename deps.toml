@@ -9297,6 +9297,14 @@ path = "90-docs/adr/2606011500-kami-engine-reusable-vs-repo-specific-separation-
 adr = ["2606010600", "2606011040", "2605211845", "2605312355"]
 
 [[adrs]]
+id = "2606015000"
+title = "Session close — kami-engine separation complete (stages 1-4) + native-build/CI fixes + product-app split"
+status = "active"
+status_note = "Operational close for the 2026-06-01 kami-engine reusable-vs-repo-specific separation (ADR-2606011500). All 4 staged migrations landed on main: L1 kami-engine-sdk subrepo→submodule (PR #655); L2 generic fixtures git-mv'd into kami-engine/fixtures/ (PR #662); L3 robotics-actor apps extracted to a new 40-engine/kami-apps/ workspace (PR #663); kami-engine itself → public git-submodule etzhayyim/kami-engine via 105-commit subtree split, with kami-engine-sdk NESTED inside it + LICENSE/Rider/README added + 3 CI workflows switched to --init --recursive (PR #666). Clones now need `git submodule update --init --recursive 40-engine/kami-engine`. Three follow-ups also landed: (a) the 3 native-build-broken engine crates fixed (kami-character glam 0.29→0.33, kami-map/kami-web wasm-only cfg, + .gitignore; engine@0419c43, gitlink bump PR #672); (b) the 2 pre-existing CI baseline reds turned green (deps-toml-paths set -e abort on the non-strict tracker, monorepo-health rollup re-baselined 25→7; PR #680); (c) the app-crate-home question resolved as a SPLIT (PR #692, gitlink→8e60f9a) — robotics/sim apps (giemon/giemon-factory/shibuya/tatekata/sarutahiko/funadaiku) maintained IN the engine submodule, *.etzhayyim.com product apps (bim/cad/live/maps3d/animeka-timeline) in monorepo kami-apps; stale stage-3 robotics duplicates dropped from kami-apps (their Collider match never tracked the engine's Collider::Box variant). Each app crate now has one home; no duplication. HONEST PROCESS NOTE: this session ran concurrently with parallel work on the kami-engine repo (PRs #1-4: physics sync · carry robotics apps in · sarutahiko · funadaiku); that collision caused one mistake — an inference that the engine should be an app-superset led to an erroneous git revert of the product-app removal (de15ac4), caught immediately (PR #4 was built on the removal) and force-undone before reconciliation (engine main stayed at owner's 8e60f9a). NOTE: ADR id 2606011500 collides (separation-plan vs the parallel Spirit-in-Physics ADR) — a parallel-agent race tracked for id reconciliation."
+path = "90-docs/adr/2606015000-session-close-kami-engine-separation-complete-and-app-split.md"
+adr = ["2606011500", "2605211845", "2605312355"]
+
+[[adrs]]
 id = "2606011600"
 title = "Session close — corp UBO ownership-graph pipeline (GLEIF L2/L1 → kotoba EAVT → danjo crossReferenceLink), W1/R1"
 status = "active"
