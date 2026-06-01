@@ -64,7 +64,7 @@ Adopt a **three-layer model** and separate along it:
 | Layer | Contents | Management target |
 |---|---|---|
 | **L1 — UI SDK** | `kami-engine-sdk` (TS/Svelte: genko, trackpad, gsplat, document, manufacturing, webvr) | git **submodule** ✅ (PR #655 — `etzhayyim/kami-engine-sdk@ccb315c`, SoT inverted) |
-| **L2 — Reusable Rust robotics engine** | kami-core, kami-render, kami-genesis (physics + **control**), kami-articulated, kami-sensor-sim (**sensors**), kami-autodrive (autonomy), kami-pathfind, kami-vehicle, kami-physics-*, kami-terrain, kami-atmosphere, … + generic fixtures now in-workspace `kami-engine/fixtures/` ✅ (cartpole / double_pendulum / arm3 / giemon_arm6) | git **submodule** (fixtures ✅ stage 2 + L3 robotics-actor apps extracted ✅ stage 3; prerequisites met → stage 4 unblocked) |
+| **L2 — Reusable Rust robotics engine** | kami-core, kami-render, kami-genesis (physics + **control**), kami-articulated, kami-sensor-sim (**sensors**), kami-autodrive (autonomy), kami-pathfind, kami-vehicle, kami-physics-*, kami-terrain, kami-atmosphere, … + generic fixtures now in-workspace `kami-engine/fixtures/` ✅ (cartpole / double_pendulum / arm3 / giemon_arm6) | git **submodule** ✅ (PR stage 4 — `etzhayyim/kami-engine@a58df69c`; kami-engine-sdk nested inside) |
 | **L3 — etzhayyim repo-specific** | robotics-actor apps `kami-app-{shibuya, giemon, giemon-factory, tatekata}` extracted ✅ to `40-engine/kami-apps/` (stage 3); repo-specific scenes (shibuya, *-r1-*, giemon-factory-r0, giemon_kabitori/otete, kusawake, …) in `70-tools/e7m-sim/scenes/` | stays in monorepo (app layer) |
 
 Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
@@ -120,11 +120,23 @@ Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
    pre-existing-broken crates kami-map/kami-web/kami-character — broken on
    origin/main regardless, stash-confirmed). The ~9 other kami-app-* (reference
    games + product apps) were intentionally NOT moved.
-4. **L2: kami-engine → submodule.** Once L3 + fixtures are separated, extract
-   the reusable engine (history via `git subtree split`), new remote
-   `etzhayyim/kami-engine`, add Charter Rider + NOTICE per repo convention,
-   wire external dependents (`20-actors/magatama/hosts/magatama-kami-host`,
-   `60-apps/ai-gftd-project-watashi/native/watashi-host`).
+4. **L2: kami-engine → submodule. ✅ DONE (2026-06-01).** Extracted the reusable
+   engine via `git subtree split -P 40-engine/kami-engine` (105-commit history)
+   to the new public remote **`etzhayyim/kami-engine`** (`a58df69c`), then
+   replaced the monorepo's 567-file tracked tree with a `.gitmodules` gitlink.
+   **Nested submodule**: kami-engine-sdk (the L1 TS SDK) now lives as a submodule
+   INSIDE kami-engine (its `.gitmodules` moved from the monorepo root into the
+   kami-engine repo; pinned at `ccb315c`) — clones need
+   `git submodule update --init --recursive 40-engine/kami-engine`. Added
+   LICENSE + CHARTER-RIDER.md + README to the kami-engine repo per convention
+   (NOTICE already present). **External dependents unaffected by path**: the
+   `../../../../40-engine/kami-engine/kami-X` path-deps in
+   `magatama-kami-host` + `watashi-host` (×2) resolve unchanged once the
+   submodule is checked out. CI: the 3 workflows that read kami-engine internals
+   (kami-engine-sdk build, monorepo-health, deps-toml-paths) switched their
+   stage-1/2 targeted sdk-init to `--init --recursive 40-engine/kami-engine`.
+   Verified: no data loss (567 original files all present); the `kami-apps`
+   workspace builds green through the submodule path-deps.
 5. Update deps.toml + ADRs at each stage.
 
 # Consequences
