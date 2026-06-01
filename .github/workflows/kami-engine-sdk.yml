@@ -62,10 +62,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # kami-engine-sdk is a git-submodule (ADR-2606011500 stage 1):
-          # check it out so svelte-package / vitest have the source tree.
-          submodules: recursive
           fetch-depth: 1
+
+      - name: Checkout kami-engine-sdk submodule
+        # kami-engine-sdk is a git-submodule (ADR-2606011500 stage 1) — init
+        # ONLY that path so svelte-package / vitest have the source tree. A
+        # blanket `submodules: recursive` on checkout would also try the
+        # local-only DataLad superdataset `90-docs/baien/datasets` (url=./…,
+        # unclonable in CI) and abort, so we target the sdk explicitly.
+        run: git submodule update --init --depth=1 40-engine/kami-engine/kami-engine-sdk
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

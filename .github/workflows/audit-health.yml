@@ -66,6 +66,13 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Checkout kami-engine-sdk submodule
+        # sdk-exports-dist.py audits the sdk's exports vs its built tree;
+        # kami-engine-sdk is now a git-submodule (ADR-2606011500 stage 1),
+        # so init that path (only — not the local-only baien/datasets
+        # superdataset) for the audit to have real content to check.
+        run: git submodule update --init --depth=1 40-engine/kami-engine/kami-engine-sdk
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

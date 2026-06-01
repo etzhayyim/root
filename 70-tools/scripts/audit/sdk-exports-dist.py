@@ -52,7 +52,12 @@ def main() -> int:
     pkg_dir = repo / (args[0] if args else "40-engine/kami-engine/kami-engine-sdk")
     pkg_json = pkg_dir / "package.json"
     if not pkg_json.exists():
-        print(f"missing: {pkg_json}", file=sys.stderr)
+        # No package.json — e.g. the package is a git-submodule that wasn't
+        # initialised (kami-engine-sdk, ADR-2606011500). Nothing to audit, but
+        # the aggregator (all.sh) keys on a trailing `: <int>` summary line, so
+        # emit one (0 findings) rather than silently producing no stdout.
+        print(f"  (no package.json at {pkg_dir.relative_to(repo)} — submodule not checked out?)", file=sys.stderr)
+        print(f"missing dist/ targets in {pkg_dir.relative_to(repo)}: 0")
         return 0
 
     pkg = json.loads(pkg_json.read_text())
