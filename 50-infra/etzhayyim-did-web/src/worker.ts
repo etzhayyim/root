@@ -5,6 +5,7 @@ import {
   UNISPSC_TOTAL_COUNT,
 } from "./registry/unispsc-handles.gen";
 import {
+  INFRA_ACTORS,
   INFRA_ACTOR_HANDLES,
   getInfraActor,
 } from "./registry/infra-actors";
@@ -39,10 +40,271 @@ import {
  * Excluded from proxy (always served locally by this Worker):
  *   - /.well-known/did.json                — entity DID Document
  *   - /actor/<handle>/did.json             — per-actor DID Document
+ *   - /actors                              — actor registry index (HTML, human-facing)
+ *   - /.well-known/actors.json             — actor registry (machine-readable)
+ *   - /donate                              — donation declaration (HTML, ADR-2606012100)
+ *   - /.well-known/donation.json           — donation policy (machine-readable)
  *   - future: /.well-known/atproto-did, /.well-known/security.txt, etc.
  */
 
 const UPSTREAM_HOST = "yoro.etzhayyim.com";
+
+// ─── Donation policy (ADR-2606012100) ──────────────────────────────────────
+//
+// etzhayyim is a 宗教法人 operated ONLY on donation (non_profit_only +
+// donation_only constitutional constants, ADR-2605192100 §2 / ADR-2605192115).
+// This Worker serves the public declaration locally (cookie-free, tracker-free)
+// at two routes — the human page `/donate` and the machine policy
+// `/.well-known/donation.json` — satisfying the ADR-2605192115 §6 public-proof
+// requirement on the always-on apex surface (alongside the DID document).
+//
+// Two donation media: CASH (USDC via TitheRouter, 90/10 split) and in-kind
+// COMPUTE (joining the Murakumo mesh + kotoba substrate as a donated node).
+// Compute donation is uncompensated, non-titheable, and grants the donor
+// nothing (anti-class G4). See ADR-2606012100.
+const DONATION_POLICY = {
+  entity: "etzhayyim",
+  entityDid: "did:web:etzhayyim.com",
+  form: "宗教法人 (任意団体 / unincorporated religious voluntary association)",
+  fundedBy: "donation-only",
+  invariants: {
+    nonProfitOnly: true,
+    donationOnly: true,
+    advertising: "none",
+    sells: "nothing",
+    adherentCashStipend: 0, // Basic High Income N1: cashStipendUsd ≡ 0 (ADR-2605301020)
+    tracking: "none",
+    cookies: "none",
+  },
+  media: [
+    {
+      medium: "cash",
+      asset: "USDC",
+      rail: "TitheRouter.donate() on Base L2",
+      split: "90% recipient program / 10% Public Fund (ADR-2605192130)",
+      purposes: ["donation", "kisha", "grant"],
+      status: "Base L2 testnet pending Council (CLAUDE.md §Live governance)",
+    },
+    {
+      medium: "compute",
+      kind: "in-kind",
+      titheable: false,
+      compensated: false,
+      grantsBenefit: false,
+      bestEffort: true,
+      description:
+        "Donate compute/storage to the Murakumo mesh + kotoba substrate as a donated first-party node. Uncompensated gift; earns the donor nothing (anti-class). Murakumo-only — never commercial GPU rental.",
+      nodes: [
+        {
+          class: "ameno",
+          how: "Open a consent-gated browser tab; WebGPU/WebNN inference on frozen baien edge models. Zero install (WASM-32, iPhone 12+ / Android 4GB).",
+          gates: ["consent-only", "device-power-budget", "frozen-edge-models"],
+        },
+        {
+          class: "e7m",
+          how: "`e7m node join` — register a laptop/workstation as an Ollama (gemma3:4b) / WASM inference node.",
+          gates: ["donor-held-key", "murakumo-mesh-only"],
+        },
+        {
+          class: "kotoba",
+          how: "Run a kotoba pod (IPFS block backend + Datom replication, optional Ollama) joining the substrate.",
+          gates: ["donor-hardware", "best-effort"],
+        },
+      ],
+      enrollment: "R0 design; live external mesh-enrollment gated on Council + operator (ADR-2606012100 §6 G9)",
+    },
+  ],
+  adr: ["2606012100", "2605192115", "2605192130", "2605215000", "2605301020", "2605241900"],
+  references: {
+    page: "https://etzhayyim.com/donate",
+    didDocument: "https://etzhayyim.com/.well-known/did.json",
+    repo: "https://github.com/etzhayyim/root",
+  },
+} as const;
+
+// Static, dependency-free, cookie-free. No external resource, no inline script
+// (Charter Rider §2(c) — the page itself must not track). Information about
+// etzhayyim's own religious activity = not advertising (ADR-2605192115 §1.2).
+const DONATE_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donate · etzhayyim</title>
+<meta name="description" content="etzhayyim is a religious corp operated only on donation. Give money or compute.">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:48rem;padding:2.5rem 1.25rem;margin-inline:auto}
+h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
+.sub{opacity:.7;margin:0 0 2rem}
+h2{font-size:1.15rem;margin:2rem 0 .5rem;border-bottom:1px solid currentColor;padding-bottom:.25rem}
+.card{border:1px solid color-mix(in srgb,currentColor 25%,transparent);border-radius:.6rem;padding:1rem 1.1rem;margin:.75rem 0}
+.tag{display:inline-block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;opacity:.65;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin-right:.4rem}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:color-mix(in srgb,currentColor 10%,transparent);padding:.1rem .35rem;border-radius:.3rem}
+ul{margin:.4rem 0 .4rem 1.1rem;padding:0}
+footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
+a{color:inherit}
+</style>
+</head>
+<body>
+<h1>etzhayyim is operated <em>only</em> on donation.</h1>
+<p class="sub">A 宗教法人 (unincorporated religious association). We take no advertising, sell nothing, and never pay any member cash. You can give <strong>money</strong> or <strong>compute</strong>.</p>
+
+<h2>Give money</h2>
+<div class="card">
+<span class="tag">USDC</span><span class="tag">Base L2</span>
+<p>Donations settle on-chain through <strong>TitheRouter</strong>: 90% to the recipient program, 10% auto-split to the Public Fund. No fiat processor, no fees skimmed by middlemen.</p>
+<p style="opacity:.7;margin:.25rem 0 0">Status: Base L2 testnet pending Council ratification — on-chain donate address published here when live.</p>
+</div>
+
+<h2>Give compute</h2>
+<p>Our inference runs on the <strong>Murakumo mesh</strong> only — we deliberately do <em>not</em> rent commercial GPUs. So the most valuable gift you can make is your own compute. It is an <strong>uncompensated gift</strong>: it earns you nothing, buys no benefit, and is never required.</p>
+
+<div class="card">
+<span class="tag">ameno</span><span class="tag">browser · zero install</span>
+<p>Open a consent-gated tab and your browser runs inference (WebGPU/WebNN) on frozen edge models — on a phone (iPhone 12+ / Android 4GB) or laptop. Runs only while the tab is open and you've opted in; respects a battery/thermal budget.</p>
+</div>
+
+<div class="card">
+<span class="tag">e7m</span><span class="tag">CLI</span>
+<p>Donate a laptop or workstation as a mesh node: <code>e7m node join</code> (and <code>e7m node leave</code> to stop). You hold your own key; we hold none.</p>
+</div>
+
+<div class="card">
+<span class="tag">kotoba</span><span class="tag">pod · storage</span>
+<p>Run a kotoba pod to contribute substrate durability — IPFS block storage and Datom replication (with optional inference). Your hardware, your keys.</p>
+</div>
+
+<p style="opacity:.75">Compute you donate joins the Murakumo fleet as a first-party node — never a commercial cloud. It is valued (imputed, for transparency only) but no money ever moves to or from you, and donating more grants you no priority. Live enrollment for external nodes is being rolled out under Council oversight.</p>
+
+<footer>
+Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
+Design: ADR-2606012100 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
+</footer>
+</body>
+</html>
+`;
+
+// ─── Actor registry index (/actors + /.well-known/actors.json) ─────────────
+//
+// The apex surface lists every actor whose DID resolves at
+// `/actor/<handle>/did.json`. INFRA_ACTORS (registry/infra-actors.ts) is the
+// single source of truth — adding an actor there makes it both DID-resolvable
+// AND appear here, with no second edit. Two media, mirroring /donate:
+//   - `/actors`               human page (static HTML, cookie-free, no script)
+//   - /.well-known/actors.json machine policy (the registry, JSON)
+//
+// Glyphed entries (紡ぎ / 綿津綱 …) are the named Tier-B / knowledge-graph
+// actors; un-glyphed entries are the substrate plumbing service DIDs.
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function buildActorsJson() {
+  const actors = Object.entries(INFRA_ACTORS).map(([handle, e]) => ({
+    handle,
+    did: `did:web:etzhayyim.com:actor:${handle}`,
+    didDocument: `https://etzhayyim.com/actor/${handle}/did.json`,
+    glyph: e.glyph ?? null,
+    displayName: e.displayName ?? null,
+    kind: e.glyph ? "actor" : "substrate-service",
+    description: e.description,
+    primaryLexicon: e.primaryLexicon ?? null,
+    primarySchema: e.primarySchema ?? null,
+    adr: e.adrs,
+  }));
+  return {
+    entity: "etzhayyim",
+    entityDid: "did:web:etzhayyim.com",
+    count: actors.length,
+    note: "Actors whose DID resolves at /actor/<handle>/did.json. INFRA_ACTORS (registry/infra-actors.ts) is the single source of truth. Free-form member/council handles also resolve but are not enumerated here.",
+    page: "https://etzhayyim.com/actors",
+    adr: ["2605241800", "2605212030"],
+    actors,
+  };
+}
+
+function renderActorCard(handle: string): string {
+  const e = INFRA_ACTORS[handle];
+  const title = e.glyph
+    ? `<span class="glyph">${escapeHtml(e.glyph)}</span> <code>${escapeHtml(handle)}</code>`
+    : `<code>${escapeHtml(handle)}</code>`;
+  const name = e.displayName
+    ? `<p class="name">${escapeHtml(e.displayName)}</p>`
+    : "";
+  const lex = e.primaryLexicon
+    ? `<span class="tag">${escapeHtml(e.primaryLexicon)}</span>`
+    : "";
+  const schema = e.primarySchema
+    ? `<span class="tag">kotoba EDN</span>`
+    : "";
+  const adrs = e.adrs
+    .map((a) => `<span class="tag">ADR-${escapeHtml(a)}</span>`)
+    .join("");
+  return `<div class="card">
+<h3>${title}</h3>
+${name}
+<p>${escapeHtml(e.description)}</p>
+<p class="meta">${lex}${schema}${adrs}</p>
+<p class="did"><a href="/actor/${escapeHtml(handle)}/did.json">did:web:etzhayyim.com:actor:${escapeHtml(handle)}</a></p>
+</div>`;
+}
+
+function buildActorsHtml(): string {
+  const handles = Object.keys(INFRA_ACTORS);
+  const named = handles.filter((h) => INFRA_ACTORS[h].glyph);
+  const infra = handles.filter((h) => !INFRA_ACTORS[h].glyph);
+  const namedCards = named.map(renderActorCard).join("\n");
+  const infraCards = infra.map(renderActorCard).join("\n");
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Actors · etzhayyim</title>
+<meta name="description" content="Actors registered on etzhayyim — each resolves a did:web DID and is kotoba-native.">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:52rem;padding:2.5rem 1.25rem;margin-inline:auto}
+h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
+.sub{opacity:.7;margin:0 0 2rem}
+h2{font-size:1.15rem;margin:2.25rem 0 .5rem;border-bottom:1px solid currentColor;padding-bottom:.25rem}
+h3{font-size:1.05rem;margin:0 0 .15rem;font-weight:600}
+.glyph{font-size:1.2em}
+.name{opacity:.85;margin:.1rem 0 .5rem;font-size:.95rem}
+.card{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:.6rem;padding:1rem 1.1rem;margin:.75rem 0}
+.meta{margin:.6rem 0 .4rem;line-height:2}
+.tag{display:inline-block;font-size:.72rem;letter-spacing:.03em;opacity:.7;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin:0 .35rem .15rem 0}
+.did{margin:.4rem 0 0;font-size:.82rem;opacity:.75}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:color-mix(in srgb,currentColor 10%,transparent);padding:.1rem .35rem;border-radius:.3rem}
+footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
+a{color:inherit}
+</style>
+</head>
+<body>
+<h1>Actors on etzhayyim</h1>
+<p class="sub">Each actor resolves a <code>did:web:etzhayyim.com:actor:&lt;handle&gt;</code> DID and is kotoba-native (state lives in the kotoba Datom log; inference is Murakumo-only). Below is the registry — the same data is machine-readable at <a href="/.well-known/actors.json">/.well-known/actors.json</a>.</p>
+
+<h2>Knowledge-graph &amp; Tier-B actors</h2>
+${namedCards}
+
+<h2>Substrate service DIDs</h2>
+${infraCards}
+
+<footer>
+Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
+Per ADR-2605241800 (single did-web Worker) + ADR-2605212030. Free-form member/council handles also resolve but are not listed here.
+</footer>
+</body>
+</html>
+`;
+}
 
 // Service binding name — populated from wrangler.toml [[services]] block.
 interface Env {
@@ -299,6 +561,7 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       kind: infraActor ? "infra-actor" : registered ? "unispsc-actor" : "free-form",
       description: infraActor?.description,
       primaryLexicon: infraActor?.primaryLexicon,
+      primarySchema: infraActor?.primarySchema,
       registry: registered
         ? {
             lexicon: "app.etzhayyim.apps.unispsc",
@@ -417,6 +680,105 @@ export default {
           "cache-control": "public, max-age=300, must-revalidate",
           "access-control-allow-origin": "*",
           "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 1b) Donation declaration (ADR-2606012100) — served locally, cookie-
+    //     free, no upstream call. `/donate` = human page; the machine
+    //     policy lives at `/.well-known/donation.json`. Both state that
+    //     etzhayyim is donation-funded and describe cash + in-kind compute
+    //     (ameno / e7m / kotoba) giving. GET/HEAD only.
+    // ──────────────────────────────────────────────────────────────────
+    if (url.pathname === "/.well-known/donation.json") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(JSON.stringify(DONATION_POLICY, null, 2) + "\n", {
+        status: 200,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+    if (url.pathname === "/donate" || url.pathname === "/donate/") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(DONATE_HTML, {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          // No external resource, no inline script, no cookie (Charter Rider §2(c)).
+          "content-security-policy":
+            "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 1c) Actor registry index — `/actors` (human HTML) +
+    //     `/.well-known/actors.json` (machine). Served locally, cookie-free,
+    //     no upstream call. INFRA_ACTORS is the single source of truth, so
+    //     this list updates whenever an actor is registered. GET/HEAD only.
+    // ──────────────────────────────────────────────────────────────────
+    if (url.pathname === "/.well-known/actors.json") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(JSON.stringify(buildActorsJson(), null, 2) + "\n", {
+        status: 200,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+    if (url.pathname === "/actors" || url.pathname === "/actors/") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(buildActorsHtml(), {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          // No external resource, no inline script, no cookie (Charter Rider §2(c)).
+          "content-security-policy":
+            "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
           "permissions-policy": PERMISSIONS_POLICY,
           "x-etzhayyim-no-cookie": "1",

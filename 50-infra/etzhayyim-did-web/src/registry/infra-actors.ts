@@ -31,6 +31,15 @@ export interface InfraActorEntry {
   readonly adrs: readonly string[];
   /** Lexicon namespace this actor primarily emits / consumes. */
   readonly primaryLexicon?: string;
+  /** kotoba EDN vocabulary this actor primarily emits / consumes — used by
+   *  kotoba-native actors that have no atproto lexicon (state lives directly
+   *  in the Datom log). Mutually informative with `primaryLexicon`. */
+  readonly primarySchema?: string;
+  /** Japanese glyph (e.g. 紡ぎ). Present for the named Tier-B / knowledge
+   *  actors; absent for the plumbing service DIDs. Display-only. */
+  readonly glyph?: string;
+  /** Short human display name for the `/actors` index. Display-only. */
+  readonly displayName?: string;
 }
 
 
@@ -204,6 +213,48 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2605231100", "2605231900"],
+  },
+  watatsuna: {
+    description:
+      "綿津綱 — world submarine-cable network knowledge graph. Datafies cable systems / landing stations / segments / fault bulletins into the kotoba Datom log; surfaces chokepoint single-point-of-failure concentration routed to redundancy + faster repair (a resilience map, NEVER a target-list — paired with watatsumi N8). Per ADR-2606012600.",
+    glyph: "綿津綱",
+    displayName: "Watatsuna — World Submarine-Cable Network Knowledge Graph",
+    primaryLexicon: "app.etzhayyim.cable",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:watatsuna#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:watatsuna#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606012600"],
+  },
+  tsumugi: {
+    description:
+      "紡ぎ — Engi Knowledge Graph (産霊の網) intel weaver. Runs Spirit-in-Physics (RBF emotion-kernel → spectral 3D embed → tensegrity) over real PUBLIC power-entities (法人 / institution / public-role) and their 縁 to surface 取-concentration (power held OVER others) routed to release. An aggregate-first accountability map, NEVER a target-list (powerless absent by construction; edge-primary karma N1 — no per-soul score). World-coverage; upper layer over danjo / kanae / tadori / himotoki. Per ADR-2606011800.",
+    glyph: "紡ぎ",
+    displayName: "Tsumugi — Engi Knowledge Graph (産霊の網) Intel Weaver",
+    // No atproto lexicon: tsumugi emits kotoba EDN directly into the Datom log.
+    primarySchema:
+      "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tsumugi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tsumugi#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606011800"],
   },
 } as const;
 
