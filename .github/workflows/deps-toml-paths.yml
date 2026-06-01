@@ -54,6 +54,16 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Checkout kami-engine-sdk submodule
+        # deps.toml references sdk-internal paths (e.g. IsekaiCanvas.svelte);
+        # kami-engine-sdk is now a git-submodule (ADR-2606011500 stage 1), so
+        # init it (targeted — not `submodules: recursive`, which chokes on the
+        # local-only baien/datasets superdataset) for those paths to resolve.
+        # NOTE: pre-existing full-repo drift remains (kotoba module entries:
+        # a homebrew formula / launchd plist / GH URL that are not files, plus
+        # kotoba's own un-inited submodule path) — that is unchanged by this PR.
+        run: git submodule update --init --depth=1 40-engine/kami-engine/kami-engine-sdk
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
