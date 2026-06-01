@@ -1,0 +1,43 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/actor#",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "actor:tsumugi",
+  "type": "Actor",
+  "name": "tsumugi",
+  "glyph": "紡ぎ",
+  "purpose": "Engi Knowledge Graph (産霊の網) intel weaver — Spirit-in-Physics over real public power-entities; surfaces 取-concentration routed to release.",
+  "status": "R0-design-only",
+  "tier": "B",
+  "adr": "2606011800",
+  "dependsOnAdr": ["2606011000", "2606011500", "2605081300", "2605170000", "2605301600", "2605301400", "2605302300", "2605241500"],
+  "schema": ["00-contracts/schemas/engi-organism-ontology.kotoba.edn", "00-contracts/schemas/spirit-ontology.kotoba.edn"],
+  "substrate": {
+    "state": "kotoba Datom log (ADR-2605312345)",
+    "largeAssets": "DataLad → IPFS (80-data/spirit-in-physics) — NO git-lfs",
+    "inference": "Murakumo-only (ADR-2605215000)"
+  },
+  "integrates": ["actor:danjo", "actor:kanae", "actor:tadori", "actor:himotoki"],
+  "cells": [
+    {
+      "id": "cell:tsumugi.analyze",
+      "method": "methods/analyze.py",
+      "input": "data/seed-power-graph.kotoba.edn",
+      "output": ["out/intel-report.md", "out/spirit-graph.kotoba.edn"],
+      "pipeline": "rbf-kernel → laplacian → spectral-embed-3 → tensegrity-unilateral → 取-concentration"
+    }
+  ],
+  "gates": {
+    "G1": "power-only scope; powerless absent by construction (§D8/§D9)",
+    "G2": "edge-primary karma (N1) — no per-soul score",
+    "G3": "aggregate-first + claimed-first",
+    "G4": "public venue (open + on-chain + 1 SBT = 1 vote)",
+    "G5": "sourcing honesty (:authoritative | :representative)",
+    "G6": "Murakumo-only narration",
+    "G7": "outward-gated (live ingest = Council + operator)",
+    "G8": "no git-lfs; DataLad → IPFS",
+    "G9": "要配慮 PII → XChaCha20-Poly1305 envelope"
+  }
+}

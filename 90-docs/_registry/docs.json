@@ -18233,6 +18233,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606011800-tsumugi-spirit-intel-power-graph.md",
+      "id": "adr-2606011800-tsumugi-spirit-intel-power-graph",
+      "title": "ADR-2606011800: tsumugi 紡ぎ — Spirit-in-Physics intel over the Engi Knowledge Graph (取-concentration of real public power-entities) + no-LFS/DataLad policy",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tsumugi-spirit-intel-power-graph",
+      "authoritative": true,
+      "authoritative_for": [
+        "tsumugi actor (Engi Knowledge Graph intel weaver)",
+        "spirit-in-physics power-graph analyzer",
+        "no-git-lfs / DataLad-via-IPFS asset policy"
+      ],
+      "related": [
+        "adr-2605301600-danjo-public-accountability",
+        "adr-2605301400-tadori-onchain-tracing",
+        "adr-2605302300-kanae-fiscal-flow-visualization",
+        "adr-2605310100-covenant-transparency",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606011500-spirit-in-physics-kotoba-datafication",
+        "adr-2606011000-engi-organism-ontology-and-musubi-knowledge-graph",
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2605170000-deai-spirit-physics-matching",
+        "adr-2605241500-dataset-cid-substrate"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

@@ -11782,6 +11782,27 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606011800-tsumugi-spirit-intel-power-graph",
+      "type": "TechArticle",
+      "title": "ADR-2606011800: tsumugi 紡ぎ — Spirit-in-Physics intel over the Engi Knowledge Graph (取-concentration of real public power-entities) + no-LFS/DataLad policy",
+      "status": "proposed",
+      "topic": "tsumugi-spirit-intel-power-graph",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsumugi actor (Engi Knowledge Graph intel weaver)",
+        "spirit-in-physics power-graph analyzer",
+        "no-git-lfs / DataLad-via-IPFS asset policy"
+      ],
+      "related": [
+        "doc:adr-2605301600-danjo-public-accountability",
+        "doc:adr-2605301400-tadori-onchain-tracing",
+        "doc:adr-2605302300-kanae-fiscal-flow-visualization",
+        "doc:adr-2605310100-covenant-transparency",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
