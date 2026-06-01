@@ -70,6 +70,19 @@
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one
   :db/doc ":authoritative | :representative (R0 seed honesty, G10)"}
+ ;; R2 (ADR-2606012100 §R2) — external-catalog fields (Ring 2)
+ {:db/ident :product/retailer-url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "external ring: retailer deep-link, AFFILIATE-STRIPPED at ingest (G3); self-checkout handoff target"}
+ {:db/ident :product/availability
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc "external ring: :in-stock | :out-of-stock | :preorder | :unknown (data-only API field)"}
+ {:db/ident :product/tariff-bps
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "external ring: cross-border import tariff in basis points (landed-cost input)"}
 
  ;; ───────────────────────────── :need/* — member need (PII envelope) ─────────────────────────────
  {:db/ident :need/id

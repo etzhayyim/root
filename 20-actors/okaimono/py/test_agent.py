@@ -148,6 +148,92 @@ def test_order_advance_caps_at_in_use():
     assert agent.advance_order(o2)["state"] == "settle-intent"
 
 
+# ----------------------------- R2 — Ring 2 external catalog ----------------------------- #
+def test_strip_affiliate_amazon():
+    url = "https://www.amazon.co.jp/dp/B0XXXX/ref=as_li_ss_tl?tag=etz-22&linkCode=ll1&psc=1&th=1"
+    out = agent.strip_affiliate(url)
+    assert "tag=" not in out and "linkCode=" not in out and "psc=" not in out
+    assert "/ref=" not in out
+    assert "th=1" in out  # functional param preserved
+    assert out.startswith("https://www.amazon.co.jp/dp/B0XXXX")
+
+
+def test_strip_affiliate_utm_and_click_ids():
+    url = "https://shop.example/p/123?utm_source=x&utm_medium=aff&gclid=abc&fbclid=def&q=pillow&aff_id=99"
+    out = agent.strip_affiliate(url)
+    for bad in ("utm_source", "utm_medium", "gclid", "fbclid", "aff_id"):
+        assert bad not in out
+    assert "q=pillow" in out  # the real query survives
+
+
+def test_strip_affiliate_idempotent_and_clean_url_untouched():
+    clean = "https://shop.example/p/123?q=pillow&sku=AB12"
+    assert agent.strip_affiliate(clean) == clean
+    assert agent.strip_affiliate(agent.strip_affiliate(clean)) == clean
+
+
+def test_normalize_external_is_data_only():
+    raw = {
+        "gtin": "04901234567894", "title": "down comforter", "unspsc": "52121500",
+        "url": "https://shop.example/p/9?tag=etz-22&utm_campaign=x",
+        "priceMinor": 1290000, "currency": "JPY", "availability": "in-stock",
+        # adversarial: affiliate/commission/sponsored fields must NOT survive
+        "affiliateLink": "https://aff.example/redirect?tag=etz-22",
+        "commissionBps": 300, "sponsoredRank": 1, "trackingPixel": "https://px.example/x.gif",
+    }
+    p = agent.normalize_external(raw, "api-data-only")
+    assert p["ring"] == "external" and p["source"] == "api-data-only"
+    assert p["sourcing"] == "representative"
+    # affiliate stripped from the retailer URL
+    assert "tag=" not in p["retailerUrl"] and "utm_campaign" not in p["retailerUrl"]
+    # data-only: no affiliate/commission/sponsored/tracking keys carried over (G3)
+    for forbidden in ("affiliateLink", "commissionBps", "sponsoredRank", "trackingPixel"):
+        assert forbidden not in p
+
+
+def test_normalize_external_rejects_unknown_source():
+    try:
+        agent.normalize_external({"id": "x"}, "blackhat-scrape")
+        assert False, "should reject unknown source"
+    except ValueError:
+        pass
+
+
+def test_external_handoff_has_no_tithe_and_clean_uri():
+    p = {"retailerUrl": "https://shop.example/p/9?tag=etz-22&q=z"}
+    h = agent.build_external_handoff(p)
+    assert h["settlement"] == "self-checkout-handoff"
+    assert h["titheMinor"] == 0          # external: no internal value flow (G2/G7)
+    assert "tag=" not in h["handoffUri"] and "q=z" in h["handoffUri"]
+
+
+def test_scrape_gate_denies_robots_disallow():
+    g = agent.scrape_gate("https://site.example/private/x", ["/private"], {})
+    assert g["allowed"] is False and g["verdict"] == "denied"
+
+
+def test_scrape_gate_policy_ok_but_operator_gated():
+    g = agent.scrape_gate("https://site.example/public/x", ["/private"], {"_limit": 30})
+    assert g["allowed"] is True and g["verdict"] == "gated"  # G11: no live fetch without operator
+
+
+def test_scrape_gate_fetch_with_operator():
+    g = agent.scrape_gate("https://site.example/public/x", ["/private"], {"_limit": 30},
+                          operator_ref="council-op-xxxx")
+    assert g["verdict"] == "fetch"
+
+
+def test_scrape_gate_rate_budget():
+    g = agent.scrape_gate("https://site.example/p", [], {"site.example": 30, "_limit": 30})
+    assert g["allowed"] is False and "rate budget" in g["reason"]
+
+
+def test_landed_cost_external():
+    lc = agent.landed_cost_external(1_290_000, 80_000, 1000)  # 10% tariff
+    assert lc["tariffMinor"] == 129_000
+    assert lc["landedMinor"] == 1_290_000 + 80_000 + 129_000
+
+
 if __name__ == "__main__":
     import sys
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]

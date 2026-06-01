@@ -22,6 +22,7 @@ purchases and does not run live scraping ingest (both G11-gated).
 from __future__ import annotations
 
 from typing import TypedDict
+from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 
 # kotoba-provided host bindings (WASM Component Model imports)
 try:
@@ -256,3 +257,123 @@ def advance_order(order: dict) -> dict:
         return order
     i = ORDER_STATES.index(st)
     return {**order, "state": ORDER_STATES[min(i + 1, len(ORDER_STATES) - 1)]}
+
+
+# =========================================================================== #
+# R2 — Ring 2 external world catalog (ADR-2606012100 §R2)
+# =========================================================================== #
+# The constitutional crux of Ring 2 is G3 (no ads / no affiliate): external product
+# APIs are DATA-ONLY, affiliate + tracking parameters are stripped, zero commission,
+# and the §1.3 value-inflow boundary means R0 ships only a *self-checkout handoff*
+# (member pays the retailer directly); 代理-purchase stays R3-gated.
+
+# Affiliate / tracking query-parameter denylist (case-insensitive, exact names).
+_AFFILIATE_PARAMS = frozenset({
+    # generic affiliate
+    "aff", "affid", "aff_id", "affiliate", "affiliate_id", "partner", "partner_id",
+    "pid", "click_id", "clickid", "cjevent", "irclickid", "irgwc",
+    "ranmid", "raneaid", "ransiteid", "siteid", "subid", "sub_id",
+    # Amazon Associates
+    "tag", "ascsubtag", "linkcode", "linkid", "creativeasin", "camp", "creative",
+    "smid", "psc",
+    # Rakuten / Yahoo / others
+    "scid", "sc2id", "rafcid", "icm_cid", "icm_acid",
+    # ad / analytics tracking
+    "gclid", "fbclid", "msclkid", "dclid", "yclid", "twclid", "ttclid",
+    "mc_cid", "mc_eid", "ref", "ref_", "referrer", "_branch_match_id",
+})
+# Any param whose lowercase name starts with one of these prefixes is also stripped.
+_AFFILIATE_PREFIXES = ("utm_", "aff_", "pk_", "_hs", "spm")
+# External catalog data sources (G10 honesty: provenance per product).
+_EXTERNAL_SOURCES = {"open-standard", "vendor-direct", "api-data-only", "scraped"}
+
+
+def strip_affiliate(url: str) -> str:
+    """Remove affiliate + tracking parameters from a retailer URL (G3). Functional
+    params (product id, sku, gtin, node, q, …) are preserved; order is kept stable.
+    Also drops Amazon-style `/ref=...` path segments. This is the single enforcement
+    point that guarantees okaimono earns NO commission and plants NO tracker."""
+    parts = urlsplit(url)
+    kept = [
+        (k, v) for (k, v) in parse_qsl(parts.query, keep_blank_values=True)
+        if k.lower() not in _AFFILIATE_PARAMS
+        and not any(k.lower().startswith(p) for p in _AFFILIATE_PREFIXES)
+    ]
+    # strip Amazon `/ref=...` path segment (affiliate/cross-link tag in the path)
+    path = "/".join(seg for seg in parts.path.split("/") if not seg.startswith("ref="))
+    if parts.path.endswith("/") and not path.endswith("/"):
+        path += "/"
+    return urlunsplit((parts.scheme, parts.netloc, path, urlencode(kept), ""))
+
+
+def normalize_external(raw: dict, source: str) -> dict:
+    """Map a raw external product record to an okaimono `:product/* :ring :external`
+    entry, DATA-ONLY: only price / availability / spec / provenance fields are kept;
+    any affiliate-link, commission, or sponsored-rank field in `raw` is dropped (G3).
+    Source provenance is recorded and `:sourcing` is :representative (G10 honesty)."""
+    if source not in _EXTERNAL_SOURCES:
+        raise ValueError(f"unknown external source {source!r}")
+    retailer_url = raw.get("url") or raw.get("retailerUrl") or ""
+    return {
+        "productId": f"ext.{raw.get('gtin') or raw.get('id') or 'unknown'}",
+        "title": raw.get("title", ""),
+        "ring": "external",
+        "source": source,
+        "gtin": raw.get("gtin"),
+        "unspsc": raw.get("unspsc"),
+        "retailerUrl": strip_affiliate(retailer_url) if retailer_url else "",
+        "priceMinor": int(raw.get("priceMinor", 0)),
+        "currency": raw.get("currency", "USD"),
+        "availability": raw.get("availability", "unknown"),
+        "durabilityYears": float(raw.get("durabilityYears", 0.0)),
+        "repairability": int(raw.get("repairability", 0)),
+        "laborProvenance": raw.get("laborProvenance", "unknown"),
+        "carbonKg": float(raw.get("carbonKg", 0.0)),
+        "lifecycleRoute": raw.get("lifecycleRoute", "haraedo"),
+        "sourcing": "representative",
+        # explicitly NOT carried over: affiliateLink / commissionBps / sponsoredRank / trackingPixel
+    }
+
+
+def build_external_handoff(product: dict) -> dict:
+    """Ring 2 R0 checkout: a self-checkout handoff (member pays the retailer directly).
+    The deep-link is affiliate-stripped (G3); no tithe (external, no internal value flow,
+    G2/G7); 代理-purchase is NOT offered here (R3-gated)."""
+    return {
+        "ring": "external",
+        "settlement": "self-checkout-handoff",
+        "handoffUri": strip_affiliate(product.get("retailerUrl", "")),
+        "titheMinor": 0,
+    }
+
+
+def scrape_gate(url: str, robots_disallow: list, rate_state: dict,
+                operator_ref: str | None = None) -> dict:
+    """G10 catalog-sourcing legality gate for the scraping source. Checks robots.txt
+    disallow + public-only + a simple per-host rate budget. Even when policy-ALLOWED,
+    the actual fetch is G11-gated: without an operator_ref the verdict is :gated
+    (compute the plan, do not fetch). Returns {allowed, verdict, reason}."""
+    host = urlsplit(url).netloc
+    path = urlsplit(url).path or "/"
+    if any(path.startswith(rule) for rule in robots_disallow):
+        return {"allowed": False, "verdict": "denied", "reason": f"robots.txt disallows {path}"}
+    used = int(rate_state.get(host, 0))
+    if used >= int(rate_state.get("_limit", 30)):
+        return {"allowed": False, "verdict": "denied", "reason": f"rate budget exhausted for {host}"}
+    if not operator_ref:
+        # policy-clean but outward fetch needs Council/operator (G11)
+        return {"allowed": True, "verdict": "gated", "reason": "robots-ok; live fetch is operator-gated (G11)"}
+    return {"allowed": True, "verdict": "fetch", "reason": "robots-ok + operator authorized"}
+
+
+def landed_cost_external(price_minor: int, shipping_minor: int, tariff_bps: int) -> dict:
+    """Cross-border landed cost for an external product: price + shipping + tariff.
+    tariff_bps applies to the goods price (not shipping). No tithe (external, G2/G7)."""
+    price = int(price_minor)
+    tariff = (price * int(tariff_bps)) // 10_000
+    return {
+        "priceMinor": price,
+        "shippingMinor": int(shipping_minor),
+        "tariffMinor": tariff,
+        "landedMinor": price + int(shipping_minor) + tariff,
+    }

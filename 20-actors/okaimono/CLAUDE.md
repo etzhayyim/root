@@ -82,7 +82,17 @@ kurashimori / wakai. Provisioning history is a kotoba `as-of` Wellbecoming traje
 
 ## Status
 
-🟢 **R0 + R1** — design + data-model + **verified Ring 1 logic**.
+🟢 **R0 + R1 + R2** — design + data-model + **verified Ring 1 & Ring 2 logic**.
+
+**R2 (Ring 2 external catalog, landed 2026-06-01):** the constitutional crux is G3
+(no ads/affiliate) + G2 (§1.3). `agent.py` adds `strip_affiliate` (Amazon `tag`/`/ref=`,
+`utm_*`, click-ids, `aff_*` … stripped; functional params kept; idempotent),
+`normalize_external` (data-only: price/availability/spec only; affiliate/commission/
+sponsored/tracking fields dropped by construction), `build_external_handoff` (affiliate-
+stripped self-checkout deep-link, no tithe), `scrape_gate` (robots.txt + public-only +
+rate budget; live fetch operator-gated G11), `landed_cost_external` (cross-border tariff).
++`:product/retailer-url :availability :tariff-bps` schema; `kotoba/external-catalog.edn`
+(4 products, one per source). **30/30 tests green**.
 
 **R1 (Ring 1 internal economy, landed 2026-06-01):** each producing actor owns its goods
 catalog in `20-actors/<actor>/products.edn` (SSoT; makura/mitsuho/yakushi/tsutae/futawa/
@@ -92,11 +102,12 @@ TitheRouter split** (exact `gross=tithe+payout`, intent-only until operator-gate
 order state machine capped at `:in-use` (G13), and no-gig fulfillment routing
 (sarutahiko/wadachi/haraedo, G8). `py/test_agent.py` **19/19 green**.
 
-**Honest limits:** R0 rings still design+sim (no live retailer integration; Ring 2
-**代理-purchase scope-3 does NOT ship** — R3-gated; scraping gated G10/G11; per-API ToS
-unverified). R1: no live USDC/TitheRouter broadcast (intent-only); SBT registry is an
-attestation map not the on-chain roster; finished-SKU prices `:representative`; no
-inventory/out-of-stock signal yet.
+**Honest limits:** R1: no live USDC/TitheRouter broadcast (intent-only); SBT registry is
+an attestation map not the on-chain roster; finished-SKU prices `:representative`. R2: no
+live retailer API/scrape ingest (all G11-gated; `external-catalog.edn` hand-authored
+`:representative`, not fetched); per-provider API ToS for data-only use unverified;
+affiliate denylist comprehensive but not exhaustive; no GDSN hierarchy resolution; **Ring 2
+代理-purchase (scope 3) does NOT ship — R3-gated**.
 
 ## Boundaries
 

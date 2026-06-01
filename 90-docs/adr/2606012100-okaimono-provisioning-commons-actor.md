@@ -178,6 +178,48 @@ order refusal/advance, no-gig fulfillment). `ingest_internal.py --check` validat
 is an attestation map, not the live on-chain roster; finished-SKU prices `:representative`;
 no inventory/availability tracking yet (a maker actor cannot yet signal out-of-stock).
 
+## R2 — Ring 2 external world catalog (landed 2026-06-01)
+
+R2 wires the external ring's data path while holding every charter boundary. The
+constitutional crux is **G3 (no ads / no affiliate)** + **G2 (§1.3 value-inflow)**: external
+product APIs are **data-only**, okaimono earns **zero commission**, plants **no tracker**, and
+external value never flows in (R0 = self-checkout handoff; 代理-purchase stays R3-gated).
+
+1. **Affiliate/tracking stripping (G3) — the single enforcement point.** `strip_affiliate(url)`
+   removes affiliate params (Amazon `tag`/`linkCode`/`ascsubtag` + `/ref=` path segment,
+   Rakuten `scid`, generic `aff_*`/`pid`/`irclickid`, …) and tracking params (`utm_*`,
+   `gclid`/`fbclid`/`msclkid`, `mc_cid`, …) while preserving functional query params
+   (sku/gtin/q/node). Idempotent; a clean URL is returned untouched.
+2. **Data-only normalization (G3/G10).** `normalize_external(raw, source)` maps a raw
+   external record to a `:product/* :ring :external` entry carrying **only** price /
+   availability / spec / provenance, with the retailer URL affiliate-stripped. Adversarial
+   fields (`affiliateLink`, `commissionBps`, `sponsoredRank`, `trackingPixel`) are **dropped
+   by construction** — verified by test. Source provenance ∈ {open-standard (GTIN/UNSPSC/
+   GDSN), vendor-direct, api-data-only, scraped} is recorded; `:sourcing :representative`.
+3. **Self-checkout handoff (G2/G7).** `build_external_handoff(product)` returns a
+   `:self-checkout-handoff` with an affiliate-stripped deep-link and **no tithe** (external,
+   no internal value flow). 代理-purchase is not offered here (R3-gated).
+4. **Scraping legality gate (G10/G11).** `scrape_gate(url, robots_disallow, rate_state,
+   operator_ref?)` enforces robots.txt disallow + public-only + a per-host rate budget;
+   even when policy-clean the verdict is **`:gated`** (compute the plan, do not fetch) unless
+   an operator_ref is present — no live scraping at R0.
+5. **Cross-border landed cost.** `landed_cost_external(price, shipping, tariff_bps)` adds
+   import tariff (bps on goods) so Ring 2 candidates compare on true landed cost; the
+   existing Wellbecoming `compare` then ranks them (durability/repairability/labor/carbon),
+   never by paid placement.
+
+New schema: `:product/retailer-url :product/availability :product/tariff-bps`. Representative
+`kotoba/external-catalog.edn` (4 products, one per source, post-normalization). Tests:
+**`py/test_agent.py` 30/30 green** (adds Amazon + utm/click-id stripping, idempotency,
+data-only normalization with adversarial fields, unknown-source rejection, handoff
+no-tithe + clean URI, scrape robots/rate/operator gating, landed cost).
+
+**R2 honest limits:** no live retailer API/scrape ingest (all G11-gated; `external-catalog.edn`
+is hand-authored `:representative`, not fetched); per-provider API ToS for data-only-without-
+affiliate use must be verified before any live ingest (tracked, not assumed); the affiliate
+denylist is comprehensive but not exhaustive (new networks need additions); no GDSN trade-item
+hierarchy resolution yet; 代理-purchase (scope 3) remains R3-gated.
+
 ## Consequences
 
 **Positive**

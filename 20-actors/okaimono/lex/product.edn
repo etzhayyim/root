@@ -25,4 +25,7 @@
      :laborProvenance  {:type "string" :description "etzhayyim-dignity|verified-fair|disclosed|unknown"}
      :carbonKg         {:type "number"}
      :lifecycleRoute   {:type "string" :description "hodoki|kanayama|haraedo|wakai|commons-return"}
+     :retailerUrl      {:type "string" :description "external ring: AFFILIATE-STRIPPED retailer deep-link (G3)"}
+     :availability     {:type "string" :description "external ring: in-stock|out-of-stock|preorder|unknown"}
+     :tariffBps        {:type "integer" :description "external ring: cross-border tariff (basis points)"}
      :sourcing         {:type "string" :description "authoritative|representative"}}}}}}
