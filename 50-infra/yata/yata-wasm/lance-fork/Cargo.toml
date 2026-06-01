@@ -83,7 +83,7 @@ half = { "version" = "2.1", default-features = false, features = [
     "std",
 ] }
 bitvec = "1"
-bytes = "1.4"
+bytes = "1.11"
 byteorder = "1.5"
 clap = { version = "4", features = ["derive"] }
 # Version temporarily pinned to work around unlabeled breaking change
