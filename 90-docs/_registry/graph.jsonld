@@ -11705,30 +11705,6 @@
       "lastVerified": "2026-05-31"
     },
     {
-      "id": "doc:adr-2606011000-engi-organism-ontology-and-musubi-knowledge-graph",
-      "type": "TechArticle",
-      "title": "ADR-2606011000: Engi-Organism Ontology — dissolving the life/liberty/property triad into 縁起・organism・取(grasping-debt), latent-organism nodes with non-human standing, and the Engi Knowledge Graph (産霊の網 / musubi-no-ami) for the whole earth (kotoba-EAVT-native)",
-      "status": "proposed",
-      "topic": "engi-organism-ontology",
-      "authoritative": true,
-      "authoritativeFor": [
-        "the etzhayyim native ontology for any knowledge graph over persons/things/land (replaces the implicit life/liberty/property frame)",
-        "the dissolution of 所有(ownership) into 取(grasping-load) = debt + custody-under-Tree-of-Life (generalizes ADR-2605192245 + ADR-2605301020 access-not-ownership)",
-        "the latent-organism node model (every organism is a node; DID-claim = consent; covenantal-universal mirror of §1.16) and non-human standing (rights-of-nature lineage)",
-        "縁(en) as the first-class graph citizen (reified relation/edge) over kotoba EAVT, vs entity-centric registries",
-        "the kotoba ontology vocabulary `:organism/* :en/* :grasp/*` as the canonical replacement for `:owns`/`:owner`-style attributes across actors",
-        "the Engi Knowledge Graph (産霊の網 / musubi-no-ami) design: public/etzhayyim venue, grasping-concentration accountability, R0 design-only, outward-gated"
-      ],
-      "related": [
-        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
-        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
-        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
-        "doc:adr-2605302300-kanae-global-government-fiscal-flow-visualization",
-        "doc:adr-2605261000-labor-liberation-ladder"
-      ],
-      "lastVerified": "2026-06-01"
-    },
-    {
       "id": "doc:adr-2606011200-session-close-kotoba-edn-world-info-ingestion-substrate",
       "type": "TechArticle",
       "title": "ADR-2606011200: Session close — magatama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)",
@@ -11803,71 +11779,6 @@
       "lastVerified": "2026-06-01"
     },
     {
-      "id": "doc:adr-2606012000-kotoba-prolly-incremental-commit-diff-cbor",
-      "type": "TechArticle",
-      "title": "ADR-2606012000: kotoba ProllyTree incremental commit (path-copy) + O(|diff|) diff + CBOR leaf values",
-      "status": "accepted",
-      "topic": "storage-substrate",
-      "authoritative": true,
-      "authoritativeFor": [
-        "kotoba commit() is incremental: per-tx delta applied onto the previous commit's index roots (no full-history re-read)",
-        "ProllyTree::apply_batch path-copy semantics + convergence-with-build_tree invariant",
-        "ProllyTree::diff / diff_entries as the content-addressed diff primitive",
-        "persisted ProllyTree leaf values are DAG-CBOR (ciborium), not JSON"
-      ],
-      "related": [
-        "doc:adr-2605231902-feed-post-membrane-and-feed-discover-projection",
-        "doc:adr-2605240001-kotoba-cleanroom-architecture"
-      ],
-      "lastVerified": "2026-06-01"
-    },
-    {
-      "id": "doc:adr-2606012100-donation-funded-operation-and-compute-node-participation",
-      "type": "TechArticle",
-      "title": "ADR-2606012100: Donation-Funded Operation (明記 on etzhayyim.com) + Compute/Node-Participation as In-Kind Donation (ameno browser inference / e7m CLI node / kotoba pod)",
-      "status": "proposed",
-      "topic": "donation-funded-operation-and-compute-node-participation",
-      "authoritative": true,
-      "authoritativeFor": [
-        "public declaration on etzhayyim.com that the religious-corp operates on donation only (the /donate page + /.well-known/donation.json)",
-        "the in-kind COMPUTE donation modality (donating compute/storage to the Murakumo mesh + kotoba substrate counts as donation)",
-        "the three node-participation forms — ameno browser inference, e7m CLI node, kotoba pod — and their constitutional gates",
-        "how in-kind compute donation reconciles with Murakumo-only inference, no-commercial-GPU, tithe, and anti-class invariants"
-      ],
-      "related": [
-        "doc:adr-2605192100-etzhayyim-mission-charter",
-        "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
-        "doc:adr-2605192130-etzhayyim-tithe-redistribution",
-        "doc:adr-2605192145-etzhayyim-public-fund-architecture",
-        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
-        "doc:adr-2605241900-baien-edge-target-invariant",
-        "doc:adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
-        "doc:adr-2605301036-mission-funding-earned-revenue-arm",
-        "doc:adr-2605262130-kotoba-storage-substrate-unification",
-        "doc:adr-2605262900-toritate-accounting-audit",
-        "doc:adr-2605231525-etzhayyim-no-server-side-signing-key"
-      ],
-      "lastVerified": "2026-06-01"
-    },
-    {
-      "id": "doc:adr-2606012200-kotoba-serialization-format-strategy-transit-rejected",
-      "type": "TechArticle",
-      "title": "ADR-2606012200: kotoba serialization-format strategy — JSON wire / EDN values / CBOR internal; Transit rejected",
-      "status": "accepted",
-      "topic": "storage-substrate",
-      "authoritative": true,
-      "authoritativeFor": [
-        "kotoba serialization-format roles: JSON (HTTP/XRPC wire) / EDN (Datomic value+query) / CBOR dag-cbor (internal block, P2P, CACAO, UDF)",
-        "decision: Cognitect Transit is NOT adopted in kotoba",
-        "condition under which the HTTP-wire Transit exception would be reconsidered"
-      ],
-      "related": [
-        "doc:adr-2605262130-kotoba-storage-substrate-unification",
-        "doc:adr-2604251830-shannon-optimal-8-layer-architecture"
-      ],
-      "lastVerified": "2026-06-01"
-    },
-    {
       "id": "doc:adr-2606012300-kotoba-hybrid-web-search",
       "type": "TechArticle",
       "title": "ADR-2606012300: kotoba hybrid web search — BM25 + PageRank + RRF fusion over the Datom log",
@@ -11901,29 +11812,6 @@
       "lastVerified": "2026-06-01"
     },
     {
-      "id": "doc:adr-2606012600-watatsuna-submarine-cable-knowledge-graph-and-watatsumi-cable-laying-robotics",
-      "type": "TechArticle",
-      "title": "ADR-2606012600: watatsuna 綿津綱 — world submarine-cable network knowledge graph (kotoba EAVT) + watatsumi 綿津見 cable-laying robotics extension",
-      "status": "proposed",
-      "topic": "watatsuna-submarine-cable-knowledge-graph",
-      "authoritative": true,
-      "authoritativeFor": [
-        "watatsuna actor (world submarine-cable network knowledge graph)",
-        "submarine-cable-ontology kotoba schema",
-        "app.etzhayyim.cable.* kotoba-native lexicons (supersede legacy gftd telecom/telecomInfra/cableRepairFleet)",
-        "watatsumi cable-laying robotics fleet"
-      ],
-      "related": [
-        "doc:adr-2606011500-spirit-in-physics-kotoba-datafication",
-        "doc:adr-2605301600-danjo-public-accountability",
-        "doc:adr-2605302300-kanae-fiscal-flow-visualization",
-        "doc:adr-2605301400-tadori-onchain-tracing",
-        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
-        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
-      ],
-      "lastVerified": "2026-06-01"
-    },
-    {
       "id": "doc:adr-2606012800-session-close-iwakura-fuigo-rtl-gdsii",
       "type": "TechArticle",
       "title": "ADR-2606012800: Session close — iwakura/fuigo ternary RTL → functional sim → synthesis → sky130 GDSII",
@@ -11936,52 +11824,6 @@
       "related": [
         "doc:adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
         "doc:adr-2605241900-baien-edge-target-invariant"
-      ],
-      "lastVerified": "2026-06-01"
-    },
-    {
-      "id": "doc:adr-2606013000-session-close-watatsuna-submarine-cable-kg",
-      "type": "TechArticle",
-      "title": "ADR-2606013000: Session close — watatsuna 綿津綱 world submarine-cable knowledge graph (R0+R1+R2) + watatsumi cable-laying robotics",
-      "status": "active",
-      "topic": "session-close-watatsuna-submarine-cable-kg",
-      "authoritative": false,
-      "related": [
-        "doc:adr-2606011800-tsumugi-spirit-intel-power-graph",
-        "doc:adr-2605252200-watatsumi-civilian-submersible-r0"
-      ],
-      "lastVerified": "2026-06-01"
-    },
-    {
-      "id": "doc:adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
-      "type": "TechArticle",
-      "title": "ADR-2606013100: sarutahiko (猿田彦) truck assembly plant — full-robotics 4D-BIM design + 積込ロボット (giemon-factory pattern, R0 design)",
-      "status": "proposed",
-      "topic": "sarutahiko-truck-factory-full-robotics-and-loader",
-      "authoritative": true,
-      "authoritativeFor": [
-        "sarutahiko Class-8 truck assembly plant design (layout + 建材 + 全MEP + 外構 + 出荷ヤード + 4D 建築手順)",
-        "truck-line production-robot roster (arm6 cells + part-AGV + 積込ロボット loading robot) and its kami-genesis simulation",
-        "reuse of the giemon-factory-r0 4D-BIM toolchain (ADR-2606010030) for a heavy-truck plant",
-        "kami-app-sarutahiko-factory crate (3 WASM entries) + sarutahiko-factory-r0 scene SSoT"
-      ],
-      "related": "doc:adr-2605242000-roso-pattern-frontier-distill",
-      "lastVerified": "2026-06-01"
-    },
-    {
-      "id": "doc:adr-2606013200-yoro-kotoba-feed-readpath-migration",
-      "type": "TechArticle",
-      "title": "ADR-2606013200: yoro feed read-path migration to kotoba Datom log (Phase 2.5) + public yoro-social graph",
-      "status": "active",
-      "topic": "yoro-feed-kotoba-readpath",
-      "authoritative": true,
-      "authoritativeFor": [
-        "yoro-appview-feed-read-backend",
-        "yoro-social-kotoba-graph-schema"
-      ],
-      "related": [
-        "doc:00-contracts/schemas/yoro-feed-ontology.kotoba.edn",
-        "doc:60-apps/ai-gftd-project-yoro/rw-free/src/kotoba.ts"
       ],
       "lastVerified": "2026-06-01"
     },
@@ -12005,6 +11847,20 @@
         "doc:adr-2605261100-hikari-energy-tier-b-actor-r0",
         "doc:adr-2606012100-okaimono-provisioning-commons-actor",
         "doc:adr-2605301020-basic-high-income-doctrine"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
+      "id": "doc:adr-2606014000-session-close-funadaiku-zero-emission-cargo-shipbuilding",
+      "type": "TechArticle",
+      "title": "ADR-2606014000: Session close — funadaiku 船大工 zero-emission cargo shipbuilding (R0 + kami-engine operational voyage sim)",
+      "status": "active",
+      "topic": "session-close-funadaiku-zero-emission-cargo-shipbuilding",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2605242000-etzhayyim-wadachi-autonomous-mobility-rd",
+        "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+        "doc:adr-2605261100-hikari-energy-tier-b-actor-r0"
       ],
       "lastVerified": "2026-06-01"
     },
