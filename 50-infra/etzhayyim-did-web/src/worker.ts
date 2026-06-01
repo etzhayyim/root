@@ -316,6 +316,92 @@ Per ADR-2605241800 (single did-web Worker) + ADR-2605212030. Free-form member/co
 `;
 }
 
+// Browser-based actors page (ADR-2606013600): the actor registry + every actor
+// referenced from it are rendered **in the browser by the kotoba wasm read
+// engine** — no server query for the actor data. The page loads the same-origin
+// kotoba-wasm bundle (`/kotoba/*`, proxied to yoro static), pulls the registry
+// (`/.well-known/actors.json`, INFRA_ACTORS SSoT), hydrates an in-page
+// `KotobaNode`, and answers search/render via `node.searchActors()`. Cookie-free,
+// no external resource, no tracker (Charter Rider §2(c)); only same-origin
+// script + wasm + fetch.
+function buildActorsBrowserHtml(): string {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Actors · etzhayyim (browser-native)</title>
+<meta name="description" content="The etzhayyim actor registry, rendered in your browser by the kotoba wasm read engine.">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:52rem;padding:2.5rem 1.25rem;margin-inline:auto}
+h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
+.sub{opacity:.7;margin:0 0 1.25rem}
+#q{font:inherit;width:100%;padding:.55rem .8rem;border:1px solid color-mix(in srgb,currentColor 30%,transparent);border-radius:.5rem;background:transparent;color:inherit}
+#status{font-size:.82rem;opacity:.7;margin:.6rem 0 1rem}
+.card{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:.6rem;padding:.9rem 1.05rem;margin:.6rem 0}
+h3{font-size:1.05rem;margin:0 0 .3rem}
+.desc{margin:.2rem 0 .5rem;font-size:.92rem;opacity:.9}
+.did{margin:0;font-size:.8rem;opacity:.75}
+a{color:inherit}
+footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em}
+</style>
+</head>
+<body>
+<h1>Actors on etzhayyim</h1>
+<p class="sub">This registry and every actor in it are rendered <strong>in your browser</strong> by the kotoba wasm read engine — the actor data is queried client-side, not fetched per-search from a server.</p>
+<input id="q" placeholder="search actors… (try: tsumugi, submarine, 綿津綱)" autocomplete="off">
+<p id="status">loading the in-browser kotoba node…</p>
+<div id="list"></div>
+<footer>
+Rendered by <code>kotoba-wasm</code> (in-browser Datom read engine, ADR-2606013600) over the registry at <a href="/.well-known/actors.json">/.well-known/actors.json</a>. Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a>
+</footer>
+<script type="module">
+import init, { KotobaNode } from '/kotoba/kotoba_wasm.js';
+const listEl = document.getElementById('list');
+const statusEl = document.getElementById('status');
+function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+async function main(){
+  await init();
+  const node = new KotobaNode();
+  statusEl.textContent = 'loading registry…';
+  const reg = await (await fetch('/.well-known/actors.json')).json();
+  const datoms = [];
+  for (const a of (reg.actors || [])) {
+    const e = 'bafy-' + a.handle;
+    const name = a.displayName || a.glyph || a.handle;
+    datoms.push({ e: e, a: ':yoro.profile/did', v_edn: JSON.stringify(a.did) });
+    datoms.push({ e: e, a: ':yoro.profile/handle', v_edn: JSON.stringify(a.handle) });
+    datoms.push({ e: e, a: ':yoro.profile/displayName', v_edn: JSON.stringify(name) });
+    datoms.push({ e: e, a: ':yoro.profile/description', v_edn: JSON.stringify(a.description || '') });
+  }
+  node.loadDatoms(JSON.stringify(datoms));
+  function handleOf(did){ return (did || '').replace(/^did:web:etzhayyim.com:actor:/, '').replace(/^did:web:etzhayyim.com$/, ''); }
+  function render(q){
+    const res = JSON.parse(node.searchActors(q || ''));
+    statusEl.textContent = res.actors.length + ' actor(s) — queried in-browser by the kotoba wasm node (no server round-trip)';
+    let html = '';
+    for (const a of res.actors) {
+      const h = handleOf(a.did);
+      const link = h ? ('/actor/' + esc(h) + '/did.json') : '/.well-known/did.json';
+      html += '<div class="card"><h3>' + esc(a.displayName || a.handle) + '</h3>'
+        + '<p class="desc">' + esc(a.description) + '</p>'
+        + '<p class="did"><a href="' + link + '">' + esc(a.did) + '</a></p></div>';
+    }
+    listEl.innerHTML = html;
+  }
+  document.getElementById('q').addEventListener('input', function(ev){ render(ev.target.value); });
+  render('');
+}
+main().catch(function(e){ statusEl.textContent = 'failed to load the in-browser node: ' + e; });
+</script>
+</body>
+</html>
+`;
+}
+
 // Service binding name — populated from wrangler.toml [[services]] block.
 interface Env {
   YORO: Fetcher;
@@ -841,15 +927,24 @@ export default {
           headers: { allow: "GET, HEAD" },
         });
       }
-      return new Response(buildActorsHtml(), {
+      // `?static=1` serves the legacy server-rendered list (no-JS fallback);
+      // default is the browser-native page where the kotoba wasm node renders
+      // every actor client-side.
+      const wantStatic = url.searchParams.get("static") === "1";
+      const body = wantStatic ? buildActorsHtml() : buildActorsBrowserHtml();
+      const csp = wantStatic
+        ? "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"
+        // Same-origin only: the kotoba wasm bundle + registry fetch, no external
+        // resource, no tracker (Charter Rider §2(c)). wasm-unsafe-eval enables
+        // WebAssembly.instantiate for the in-browser read engine.
+        : "default-src 'none'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'";
+      return new Response(body, {
         status: 200,
         headers: {
           "content-type": "text/html; charset=utf-8",
           "cache-control": "public, max-age=300, must-revalidate",
           "x-content-type-options": "nosniff",
-          // No external resource, no inline script, no cookie (Charter Rider §2(c)).
-          "content-security-policy":
-            "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+          "content-security-policy": csp,
           "strict-transport-security": "max-age=31536000; includeSubDomains",
           "permissions-policy": PERMISSIONS_POLICY,
           "x-etzhayyim-no-cookie": "1",
