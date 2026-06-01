@@ -139,6 +139,38 @@ Robotics control + sensor are **L2**, distinct from the **L1** TS SDK.
    workspace builds green through the submodule path-deps.
 5. Update deps.toml + ADRs at each stage.
 
+## Post-stage-4 status (2026-06-01)
+
+All 4 staged migrations landed (PRs #655 / #662 / #663 / #666). Follow-on work:
+
+- **Engine native-build fix** (`etzhayyim/kami-engine@0419c43`, monorepo gitlink
+  bump PR #672): the 3 crates that failed `cargo build --workspace` on native —
+  kami-character (`glam` 0.29 vs workspace 0.33), kami-map / kami-web (ungated
+  wasm-only wgpu code) — fixed; added a `.gitignore` to the engine repo (the
+  subtree split hadn't carried the monorepo's root one).
+- **CI baseline reds** (PR #680): deps-toml-paths "non-strict tracker" step no
+  longer aborts under `bash -e` on pre-existing kotoba metadata drift;
+  monorepo-health rollup re-baselined 25 → 7 (legitimate resolution).
+
+- **Stage-3 follow-on — `*.etzhayyim.com` product apps: ⚠️ PARTIAL / BLOCKED.**
+  Owner chose to extract 5 (`kami-app-{bim,cad,live,maps3d,animeka-timeline}`)
+  to monorepo `kami-apps`, keeping `amenominaka` (Omniverse-Kit-equivalent
+  app-shell infra) + the domain libs (kami-bim/kami-cad/kami-live/…) with the
+  engine. **Engine-side removal pushed** (`etzhayyim/kami-engine@0155c1c`, ahead
+  of the monorepo gitlink so the monorepo is unaffected); **monorepo side held
+  unpushed.**
+  **OPEN DECISION — canonical app-crate home.** Discovered concurrently:
+  parallel engine PRs #1/#2/#3 (kami-genesis physics sync · carry
+  `kami-app-{giemon,giemon-factory,shibuya,tatekata}` *into* the engine repo ·
+  add `kami-app-sarutahiko-factory`) move apps the **opposite** direction (INTO
+  the engine), and the monorepo gitlink was advanced to `2c54ff5`. Result: the
+  robotics app crates now exist in BOTH the engine repo AND monorepo
+  `kami-apps/` (duplication), and the engine's new `Collider::Box` variant
+  leaves `kami-app-giemon`'s match non-exhaustive. The unresolved question is
+  **which copy is canonical** — engine-repo-as-superset (revert `0155c1c`, drop
+  the `kami-apps` robotics duplicates) vs strict-L3-separation (revert engine
+  PR #2, keep `kami-apps`). Pending owner decision before either is reconciled.
+
 # Consequences
 
 - Reusable robotics engine (L2) and UI SDK (L1) become independently versioned
