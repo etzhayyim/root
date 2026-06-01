@@ -1656,7 +1656,11 @@ fn decode_png(path: &Path) -> Result<DecodedPng> {
     let bytes = std::fs::read(path).with_context(|| format!("read png {}", path.display()))?;
     let decoder = png::Decoder::new(Cursor::new(bytes));
     let mut reader = decoder.read_info().context("read png info")?;
-    let mut buf = vec![0; reader.output_buffer_size()];
+    // png 0.18: output_buffer_size() returns Option<usize> (None on overflow).
+    let buf_size = reader
+        .output_buffer_size()
+        .context("png output buffer size overflow")?;
+    let mut buf = vec![0; buf_size];
     let info = reader.next_frame(&mut buf).context("read png frame")?;
     let data = &buf[..info.buffer_size()];
     let rgba = match info.color_type {
