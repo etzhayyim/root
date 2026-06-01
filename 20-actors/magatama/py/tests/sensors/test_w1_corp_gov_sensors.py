@@ -153,6 +153,77 @@ def test_jp_edinet_sensor_round_trip(tmp_path, load_sensor, make_pin):
     assert all(o.jurisdiction_iso3 == "JPN" for o in obs)
 
 
+# ─── corp/gleif_l2_ownership_sensor — GleifL2OwnershipSensor ─────────
+
+
+def test_gleif_l2_ownership_sensor_round_trip(tmp_path, load_sensor, make_pin):
+    own_mod = load_sensor("corp.gleif_l2_ownership_sensor")
+    sensor_cls = own_mod.GleifL2OwnershipSensor
+    sub = "corp/ownership/gleif-l2"
+    rows = [
+        # 1) Direct accounting parent → parent-subsidiary.
+        #    Sony Group (ultimate) directly consolidates Sony Semiconductor.
+        {"subjectLei": "5493004YDGTGB2VK3O27",
+         "ownerLei": "353800OE2WPLLC7YPQ59",
+         "relationshipType": "IS_DIRECTLY_CONSOLIDATED_BY",
+         "relationshipStatus": "ACTIVE",
+         "subjectJurisdictionIso3": "JPN", "ownerJurisdictionIso3": "JPN",
+         "asOf": "2025-04-01"},
+        # 2) Ultimate accounting parent → control-relationship (the UBO edge).
+        {"subjectLei": "5493004YDGTGB2VK3O27",
+         "ownerLei": "353800OE2WPLLC7YPQ59",
+         "relationshipType": "IS_ULTIMATELY_CONSOLIDATED_BY",
+         "relationshipStatus": "ACTIVE",
+         "subjectJurisdictionIso3": "JPN", "ownerJurisdictionIso3": "JPN"},
+        # 3) INACTIVE edge → skipped (only currently-true edges surfaced).
+        {"subjectLei": "549300JM3RYS3WXSML22",
+         "ownerLei": "353800OE2WPLLC7YPQ59",
+         "relationshipType": "IS_DIRECTLY_CONSOLIDATED_BY",
+         "relationshipStatus": "INACTIVE"},
+        # 4) Unmapped relationship type → G7 skip.
+        {"subjectLei": "549300JM3RYS3WXSML22",
+         "ownerLei": "HWUPKR0MPOU8FGXBT394",
+         "relationshipType": "IS_FUND-MANAGED_BY",
+         "relationshipStatus": "ACTIVE"},
+        # 5) Short owner LEI → G7 skip.
+        {"subjectLei": "549300JM3RYS3WXSML22",
+         "ownerLei": "TOOSHORT",
+         "relationshipType": "IS_DIRECTLY_CONSOLIDATED_BY"},
+        # 6) Self-loop → G7 skip.
+        {"subjectLei": "HWUPKR0MPOU8FGXBT394",
+         "ownerLei": "HWUPKR0MPOU8FGXBT394",
+         "relationshipType": "IS_ULTIMATELY_CONSOLIDATED_BY"},
+    ]
+    _stage_shard(tmp_path, sub, rows)
+    pin, resolver = make_pin(sub, license="CC0-1.0", tier="A")
+    sensor = sensor_cls(annex_root=tmp_path, pin_resolver=resolver)
+    obs = list(sensor.stream(sensor.latest_pin()))
+    assert len(obs) == 2  # rows 3-6 all skipped
+    kinds = {o.ownership_kind for o in obs}
+    assert kinds == {"parent-subsidiary", "control-relationship"}
+    assert all(o.tier == "A" for o in obs)
+    assert all(o.license_tag == "CC0-1.0" for o in obs)
+    assert all(o.internal_only is False for o in obs)
+    # GLEIF consolidation edges carry no percentage.
+    assert all(o.pct_held is None for o in obs)
+    # Direction convention: subject = child, owner = parent.
+    control = next(o for o in obs if o.ownership_kind == "control-relationship")
+    assert control.subject_lei == "5493004YDGTGB2VK3O27"
+    assert control.owner_lei == "353800OE2WPLLC7YPQ59"
+    assert control.subject_jurisdiction_iso3 == "JPN"
+    # ownership_kind_filter = (control-relationship,) → 1 obs (the UBO edge).
+    ubo_only = list(sensor_cls(
+        annex_root=tmp_path, pin_resolver=resolver,
+        ownership_kind_filter=("control-relationship",),
+    ).stream(pin))
+    assert len(ubo_only) == 1
+    assert ubo_only[0].ownership_kind == "control-relationship"
+    # G7 determinism on hot_sample.
+    s1 = [(o.subject_lei, o.ownership_kind) for o in sensor.hot_sample(pin, 1)]
+    s2 = [(o.subject_lei, o.ownership_kind) for o in sensor.hot_sample(pin, 1)]
+    assert s1 == s2
+
+
 # ─── gov/worldbank_open_data_sensor — WorldBankOpenDataSensor ────────
 
 
