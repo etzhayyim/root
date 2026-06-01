@@ -49,7 +49,7 @@ import type {
   WaveOutput,
 } from "./types.js";
 
-const CERTIFICATION_COLLECTION = "ai.gftd.apps.tsukuru.certification";
+const CERTIFICATION_COLLECTION = "com.etzhayyim.apps.tsukuru.certification";
 
 // ─── exportControl ──────────────────────────────────────────────────
 
@@ -66,7 +66,7 @@ export function screenDeniedParties(
 ): ScreenDeniedPartiesOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.exportControl.deniedParties.v1",
+    schema: "com.etzhayyim.apps.tsukuru.exportControl.deniedParties.v1",
     targetDid: input.targetDid,
     targetLegalName: input.targetLegalName,
     countryIso3: input.countryIso3,
@@ -82,7 +82,7 @@ export function screenExportControl(
 ): ScreenExportControlOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.exportControl.licensing.v1",
+    schema: "com.etzhayyim.apps.tsukuru.exportControl.licensing.v1",
     eccn: input.eccn ?? "EAR99",
     licenseRequirement: "NLR",
     licenseExceptions: [],
@@ -101,7 +101,7 @@ export function classifyProduct(
   // Phase 2 stub — real classification = LangServer ML pod
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.hsClassification.v1",
+    schema: "com.etzhayyim.apps.tsukuru.hsClassification.v1",
     productDescription: input.productDescription,
     candidateHsCodes: [
       { hsCode: "8517.62.00", confidencePermille: 600, label: "Communication equipment" },
@@ -173,7 +173,7 @@ export function resolveProcess(
 ): ResolveProcessOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.processRegistry.v1",
+    schema: "com.etzhayyim.apps.tsukuru.processRegistry.v1",
     cpcCode: input.cpcCode,
     processName: input.processName ?? "generic-manufacturing",
     isicCodes: [],
@@ -237,7 +237,7 @@ export async function listCertifications(
 export function tsukuruStats(_input: StatsInput = {}): StatsOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.stats.v1",
+    schema: "com.etzhayyim.apps.tsukuru.stats.v1",
     moduleCoverage: {
       productionOrder: { commands: 6, ported: 6 },
       qualityInspection: { commands: 2, ported: 2 },
@@ -269,7 +269,7 @@ export function tsukuruStats(_input: StatsInput = {}): StatsOutput {
 export function tsukuruWave(_input: WaveInput = {}): WaveOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.wave.v1",
+    schema: "com.etzhayyim.apps.tsukuru.wave.v1",
     wave: 10,
     phase: 2,
     status_label: "complete",

@@ -57,7 +57,7 @@ export function cntDesignManufacturingFlow(
 ): CntDesignFlowOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.cnt.flow.v1",
+    schema: "com.etzhayyim.apps.tsukuru.cnt.flow.v1",
     flowId: input.flowId ?? `cnt-flow-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     processId: input.processId ?? "cvd",
@@ -78,7 +78,7 @@ export function cntPlanAutomation(
 ): CntPlanAutomationOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.cnt.automation.v1",
+    schema: "com.etzhayyim.apps.tsukuru.cnt.automation.v1",
     planId: input.planId ?? `cnt-auto-${Date.now()}`,
     flowId: input.flowId,
     automatedSteps: ["catalyst-deposition", "reactor-temp-control", "cnt-growth", "post-process-rinse"],
@@ -93,7 +93,7 @@ export function cntGetAutomationCoverage(
 ): CntAutomationCoverageOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.cnt.coverage.v1",
+    schema: "com.etzhayyim.apps.tsukuru.cnt.coverage.v1",
     totalPlans: 0,
     phaseCoverage: CNT_FLOW_PHASES.map((phase) => ({ phase, count: 0 })),
     computedAt: new Date().toISOString(),
@@ -105,7 +105,7 @@ export function cntPrepareOrderPackage(
 ): CntPrepareOrderOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.cnt.order.v1",
+    schema: "com.etzhayyim.apps.tsukuru.cnt.order.v1",
     packageId: input.packageId ?? `cnt-pkg-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     flowId: input.flowId,
@@ -121,7 +121,7 @@ export function cntPrepareRunPackage(
 ): CntRunPackageOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.cnt.run.v1",
+    schema: "com.etzhayyim.apps.tsukuru.cnt.run.v1",
     runId: input.runId ?? `cnt-run-${Date.now()}`,
     flowId: input.flowId,
     batchSize: input.batchSize ?? 1,
@@ -141,7 +141,7 @@ export function cntValidateRunPackage(
     status: issues.length === 0 ? "valid" : "invalid",
     runId: input.runId,
     issues,
-    schema: "ai.gftd.apps.tsukuru.cnt.run.v1",
+    schema: "com.etzhayyim.apps.tsukuru.cnt.run.v1",
   };
 }
 
@@ -150,7 +150,7 @@ export function cntGetProcessCatalog(
 ): CntProcessCatalogOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.cnt.catalog.v1",
+    schema: "com.etzhayyim.apps.tsukuru.cnt.catalog.v1",
     processes: CNT_PROCESS_CATALOG.map((p) => ({
       processId: p.processId,
       name: p.name,

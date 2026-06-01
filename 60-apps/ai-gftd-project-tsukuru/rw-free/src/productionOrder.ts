@@ -136,7 +136,7 @@ export async function createProductionOrder(
   };
 
   const receipt = await e.write({
-    collection: "ai.gftd.apps.tsukuru.productionOrder",
+    collection: "com.etzhayyim.apps.tsukuru.productionOrder",
     record: record as unknown as Record<string, unknown>,
   });
 
@@ -186,7 +186,7 @@ export async function cancelProductionOrder(
   }
 
   const readResp = await e.read<ProductionOrderRecord>({
-    collection: "ai.gftd.apps.tsukuru.productionOrder",
+    collection: "com.etzhayyim.apps.tsukuru.productionOrder",
     rkey,
   });
   const order = readResp.records[0]?.value;
@@ -234,7 +234,7 @@ export async function cancelProductionOrder(
     escrowRefundUri,
   };
   await e.write({
-    collection: "ai.gftd.apps.tsukuru.productionOrder",
+    collection: "com.etzhayyim.apps.tsukuru.productionOrder",
     record: updated as unknown as Record<string, unknown>,
     rkey,
   });
@@ -268,7 +268,7 @@ function parseAtUri(s: string): {
 
 // ─── Slice 4: remaining productionOrder commands ─────────────────────
 
-const ORDER_COLLECTION = "ai.gftd.apps.tsukuru.productionOrder";
+const ORDER_COLLECTION = "com.etzhayyim.apps.tsukuru.productionOrder";
 
 /** Read a single productionOrder by AT URI. */
 export async function getProductionOrder(

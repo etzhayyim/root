@@ -39,7 +39,7 @@ export interface PaymentIntent {
   chainId?: number;
 }
 
-/** Record body for `ai.gftd.apps.tsukuru.productionOrder.productionOrder`. */
+/** Record body for `com.etzhayyim.apps.tsukuru.productionOrder.productionOrder`. */
 export interface ProductionOrderRecord {
   manufacturerDid: string;
   customerDid: string;
@@ -223,7 +223,7 @@ export const SETTLEMENT_TRIGGERING_RESULTS = [
   "conditional_pass",
 ] as const satisfies readonly InspectionResult[];
 
-/** Record body for `ai.gftd.apps.tsukuru.qualityInspection`. */
+/** Record body for `com.etzhayyim.apps.tsukuru.qualityInspection`. */
 export interface QualityInspectionRecord {
   productionOrderUri: string;
   inspectorDid: string;
@@ -285,7 +285,7 @@ export type OnboardingStatus =
   | "off-boarded";
 export type VerificationTier = "basic" | "verified" | "audited";
 
-/** Record body for `ai.gftd.apps.tsukuru.manufacturer`. */
+/** Record body for `com.etzhayyim.apps.tsukuru.manufacturer`. */
 export interface ManufacturerRecord {
   did: string;
   slug: string;

@@ -1,0 +1,123 @@
+---
+id: adr-2606011700-hakken-etzhayyim-migration-override
+title: "ADR-2606011700: hakken product-discovery ingest → etzhayyim (override of vendor-keep ADR-2606011400)"
+status: proposed
+doc_type: adr
+topic: hakken-etzhayyim-migration-override
+authoritative: true
+last_verified: 2026-06-01
+priority: 7.0
+axis: organization
+weight: 0.70
+priority_note: "User-directed move (2026-06-01) of hakken's product-discovery ingest front to etzhayyim, overriding the same-day vendor-keep verdict of vendor ADR-2606011400 (Consensys pattern). Phase 1 (scaffold + ingest-core rw-free + lexicons + this ADR) lands now. Phase 2 (pipeline rehome) and Phase 3 (fulfillment via gftd consent capability) deferred."
+authoritative_for:
+  - hakken product-discovery ingest on the etzhayyim RW-free substrate
+  - com.etzhayyim.apps.hakken.* record namespace
+  - the etzhayyim/gftd boundary for hakken (ingest front vs fulfillment tail)
+depends_on:
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
+  - adr-2605202800-tsukuru-etzhayyim-business-model-change
+overrides:
+  - vendor ADR-2606011400 (Consensys pattern) — vendor-keep verdict for hakken
+---
+
+# ADR-2606011700: hakken product-discovery ingest → etzhayyim (override of vendor-keep ADR-2606011400)
+
+## Status
+
+Proposed (2026-06-01). User-directed.
+
+## Context
+
+`hakken` (発見, vendor `hakken.gftd.ai`, nanoid `h4kk3n0x`) is an AI-First OEM
+product-discovery × D2C pipeline (vendor ADR-2605270000): it scans branded-product price
+gaps, searches OEM/supplier candidates on AliExpress / Alibaba / 1688, scores them, routes
+SKUs through a 3-phase lifecycle (dropship → import → OEM), and registers them for D2C sale.
+
+Under the vendor 3-axis split rule (ADR-2605172400) hakken was **vendor-confirmed**:
+
+| Axis | Evidence | Verdict |
+|---|---|---|
+| Liability | resale / small-lot import operator duty | HIT |
+| Custody | supplier master + marketplace order data | HIT |
+| Settlement | `okaimono_register` Stripe product creation, `import_order` marketplace payment | HIT |
+
+The same-day vendor ADR-2606011400 (Consensys pattern) reaffirmed this: the **consumer-facing
+product layer defaults to the etzhayyim front**, while **regulated functions (merchant-of-record,
+fiat settlement, fulfillment, PII custody) stay gftd functions** consumed via consent capability.
+
+The user directed (2026-06-01): *"etzhayyim/root に移行してください"* for the company/product
+ingest actors (hakken + tsukuru). This ADR records the hakken half.
+
+## Decision
+
+Move hakken's **product-discovery ingest front** to etzhayyim, splitting it from the regulated
+fulfillment tail exactly as ADR-2606011400 prescribes — but landing the product-front code in
+etzhayyim/root rather than leaving it vendor-side.
+
+1. **Ingest front → etzhayyim.** `trend_scan`, `gap_analysis`, `supplier_search`,
+   `quality_eval`, and the **ingest write path** (branded products + supplier candidates →
+   kotoba product KG) move to `hakken.etzhayyim.com`. These are on-chain-clean: the facts are
+   public OSINT-grade product/supplier data, no payment, no private custody.
+
+2. **Fulfillment tail stays a gftd function.** `okaimono_register` (Ph1 dropship) + Stripe
+   product creation, `import_order` (Ph2 Alibaba small-lot), and `tsukuru_order` (Ph3 OEM)
+   HIT the Settlement + Custody axes. They remain gftd functions consumed via consent
+   capability. etzhayyim hakken takes no payment and is not merchant-of-record. (tsukuru
+   itself is separately etzhayyim-migrated per ADR-2605202800; its on-chain escrow-intent is
+   a later option for hakken's OEM route.)
+
+3. **RW-free + on-chain.** Persistence is `@etzhayyim/sdk` `e.write()` → PDS XRPC createRecord
+   → MST + IPFS + Base L2 anchor. No RisingWave. Mirrors tsukuru rw-free (ADR-2605202800
+   Phase 2). Vendor floats are integer-encoded (`weightG` = kg×1000, `ratingMilli` = rating×1000)
+   per the AT-Lexicon no-float rule.
+
+4. **NSID namespace = `com.etzhayyim.apps.hakken.*`** (operator-directed, reverse-DNS of
+   etzhayyim.com). hakken had no legacy gftd lexicon (vendor wrote kotoba datoms directly), so
+   the namespace is native. **Note:** the established record-NSID authority elsewhere in
+   etzhayyim/root is `app.etzhayyim.*` (consent / council / encrypted / esign), with
+   `com.etzhayyim.*` otherwise reserved for launchd/system labels. `com.etzhayyim.*` was chosen
+   here by explicit operator direction; if the org standardises record NSIDs on `app.etzhayyim.*`,
+   hakken should follow in a later sweep (lexicons + write-path collections + magatama
+   `nsidPrefixes`).
+
+## Override
+
+This ADR **overrides the hakken-specific vendor-keep verdict of vendor ADR-2606011400**. The
+*structure* of 2606011400 is preserved (product front → etzhayyim, regulated tail → gftd
+function); only the placement of the product-front code changes from vendor-side to
+etzhayyim/root. The liability invariant is unchanged: etzhayyim is neither merchant-of-record
+nor settlement counterparty; gftd remains both for any hakken-originated sale.
+
+## Consequences
+
+- **Phase 1 (this commit):** scaffold (`PROJECT.jsonld`, `magatama.jsonld`, `OWNERS`,
+  `CLAUDE.md`) + 4 lexicons (`ingestProduct`, `ingestSupplierCandidate`, `listProducts`,
+  `listSupplierCandidates`) + `rw-free/` ingest reference (`types.ts`, `ingest.ts`). Vendor
+  `hakken.gftd.ai` unchanged.
+- **Phase 2 (planned):** rehome the LangGraph discovery nodes to the etzhayyim Murakumo fleet,
+  writing through the rw-free ingest surface. kotoba product KG only; no RW.
+- **Phase 3 (deferred):** fulfillment via gftd consent capability; optional on-chain
+  escrow-intent OEM route reusing tsukuru's Phase 2 pattern.
+- **Phase 4 (planned):** vendor discovery-node sunset once etzhayyim ingest is stable.
+- **Lexicon bundle:** `10-protocol/lexicons-bundle/src/lexicons.gen.json` regenerated
+  (`node scripts/build-bundle.mjs`) so the 4 `com.etzhayyim.apps.hakken.*` lexicons resolve;
+  without this the PDS validator hangs with `Lexicon not found`. The PDS typed registry
+  (`gen-pds-lexicon-registry.mjs`) + Worker redeploy is a **Phase 2 deploy prerequisite**
+  (no etzhayyim deploy happens in this commit; vendor is unchanged).
+- **Payment namespace:** hakken takes no payment, so it writes no payment records. For the
+  sibling tsukuru change in this branch, payment/escrow records intentionally stay
+  `ai.gftd.apps.payment.*` (the shared cross-app payment authority read by treasury / tithe /
+  sent / split / stream) — they are NOT renamed to the tsukuru namespace. Only tsukuru-owned
+  records (`com.etzhayyim.apps.tsukuru.*`) moved.
+- **Open:** the `com.etzhayyim.*` vs `app.etzhayyim.*` record-NSID convention (see Decision §4)
+  needs an org-level ruling; until then hakken follows the operator directive.
+
+## References
+
+- Vendor ADR-2606011400 — Consensys pattern (product front / infra back) [overridden for hakken placement]
+- Vendor ADR-2605270000 — hakken OEM product-discovery BMC-lean (origin design)
+- ADR-2605202800 — tsukuru full move to etzhayyim (business-model-change; sibling ingest actor)
+- ADR-2605172000 — etzhayyim RW-free substrate
+- ADR-2605172400 — etzhayyim 3-axis split rule
