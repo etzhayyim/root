@@ -3,12 +3,15 @@
 // Served at the origin ROOT (/kotoba-sw.js) so its scope is `/` and it can see
 // `/xrpc/*`. Registered from +layout.svelte. Module Service Worker.
 //
-// Production posture = NETWORK-FIRST: when online, `/xrpc/...searchActors` goes
-// to the live server unchanged (no staleness, no shadowing). When the network
-// fails (offline / server unreachable), the request is served from the
-// in-browser kotoba read engine (kotoba-wasm) hydrated from a same-origin seed
-// snapshot — edge resilience without a server round-trip. Everything we don't
-// recognise is left to the network entirely.
+// NETWORK-FIRST: `/xrpc/...searchActors` goes to the live server when online
+// (no staleness/shadowing). On network failure it is served from the in-browser
+// kotoba-wasm read engine — offline edge resilience, no server round-trip.
+//
+// PERSISTENCE: the hydrated datoms are cached in IndexedDB, so a reload restores
+// the node WITHOUT re-fetching the seed (reseed-free). A background refresh
+// re-pulls the same-origin snapshot and re-hydrates only when it changed
+// (snapshot-level delta); incremental basis_t delta activates when pointed at a
+// live same-origin `datomic.datoms` endpoint.
 
 import init, { KotobaNode } from "./kotoba/kotoba_wasm.js";
 
@@ -18,27 +21,99 @@ const SEARCH_NSIDS = new Set([
   "app.etzhayyim.yoro.actor.searchActors",
 ]);
 
+// ── IndexedDB persistence ──────────────────────────────────────────────────
+const DB_NAME = "kotoba-node";
+const STORE = "state";
+function openDb() {
+  return new Promise((resolve, reject) => {
+    const r = indexedDB.open(DB_NAME, 1);
+    r.onupgradeneeded = () => r.result.createObjectStore(STORE);
+    r.onsuccess = () => resolve(r.result);
+    r.onerror = () => reject(r.error);
+  });
+}
+async function idbGet(key) {
+  try {
+    const db = await openDb();
+    return await new Promise((resolve) => {
+      const req = db.transaction(STORE, "readonly").objectStore(STORE).get(key);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => resolve(undefined);
+    });
+  } catch {
+    return undefined;
+  }
+}
+async function idbPut(key, value) {
+  try {
+    const db = await openDb();
+    await new Promise((resolve) => {
+      const req = db.transaction(STORE, "readwrite").objectStore(STORE).put(value, key);
+      req.onsuccess = () => resolve();
+      req.onerror = () => resolve();
+    });
+  } catch {
+    /* best-effort */
+  }
+}
+
 let node = null;
 let ready = null;
+
+function hydrate(datoms) {
+  node = node || new KotobaNode();
+  return node.loadDatoms(JSON.stringify(datoms));
+}
 
 async function boot() {
   await init();
   node = new KotobaNode();
+
+  // 1) Reseed-free restore: if we persisted datoms before, load them and skip
+  //    the network entirely. A background refresh keeps them fresh.
+  const cached = await idbGet("datoms");
+  if (Array.isArray(cached) && cached.length) {
+    hydrate(cached);
+    console.log(`[kotoba-sw] restored ${cached.length} datoms from IndexedDB`);
+    refreshSnapshot().catch(() => {});
+    return;
+  }
+
+  // 2) First run: pull the same-origin snapshot, hydrate, and persist.
+  await refreshSnapshot();
+}
+
+// Snapshot-level delta: re-fetch the same-origin seed; re-hydrate + persist only
+// if it differs from what we have (cheap freshness without a server query path).
+async function refreshSnapshot() {
   try {
     const r = await fetch(SEED_URL, { cache: "no-cache" });
-    if (r.ok) {
-      const seed = await r.json();
-      const n = node.loadDatoms(JSON.stringify(seed));
-      console.log(`[kotoba-sw] offline fallback ready: ${n} datoms`);
+    if (!r.ok) return;
+    const fresh = await r.json();
+    const prevLen = (await idbGet("len")) ?? -1;
+    const sig = Array.isArray(fresh) ? fresh.length : -1;
+    if (sig !== prevLen || !node) {
+      const n = hydrate(fresh);
+      await idbPut("datoms", fresh);
+      await idbPut("len", sig);
+      console.log(`[kotoba-sw] hydrated+persisted ${n} datoms (snapshot delta)`);
     }
-  } catch (e) {
-    /* offline at activate — node stays empty until a later boot */
+  } catch {
+    /* offline — keep whatever we restored */
   }
+}
+
+// Idempotent — runs boot() once. Called from BOTH activate and the fetch
+// handler: on a cold SW restart `activate` does NOT re-fire, so the first
+// intercepted request is what kicks off the IndexedDB restore.
+function ensureReady() {
+  if (!ready) ready = boot();
+  return ready;
 }
 
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (event) => {
-  ready = boot();
+  ensureReady();
   event.waitUntil(self.clients.claim());
 });
 
@@ -59,9 +134,9 @@ self.addEventListener("fetch", (event) => {
       try {
         return await fetch(event.request);
       } catch (netErr) {
-        // Offline → serve from the local wasm read node.
+        // Offline → serve from the local wasm read node (restored from IDB).
         try {
-          if (ready) await ready;
+          await ensureReady();
           if (!node) throw netErr;
           const q = url.searchParams.get("q") || "";
           return new Response(node.searchActors(q), {
@@ -78,3 +153,8 @@ self.addEventListener("fetch", (event) => {
     })(),
   );
 });
+
+// Kick off boot() as soon as the SW starts (cold restarts included), while the
+// network is still up — so init() can fetch the wasm and the IndexedDB restore
+// completes before any offline request arrives.
+ensureReady();
