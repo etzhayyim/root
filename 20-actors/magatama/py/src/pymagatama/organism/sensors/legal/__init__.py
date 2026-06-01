@@ -50,10 +50,16 @@ from .judicial_party_redactor import (
     PartyRedactionAction,
 )
 from .judiciary_corpus_sensor import JudiciaryCorpusSensor
+from .procedure_corpus_sensor import ProcedureCorpusSensor
+from .template_corpus_sensor import TemplateCorpusSensor
+from .treaty_corpus_sensor import TreatyCorpusSensor
 
 __all__ = [
     "JudicialPartyRedactor",
     "JudiciaryCorpusSensor",
+    "ProcedureCorpusSensor",
+    "TemplateCorpusSensor",
+    "TreatyCorpusSensor",
     "LegalCaseObservation",
     "LegalCaseSensor",
     "LegalProcedureObservation",

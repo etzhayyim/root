@@ -18010,7 +18010,7 @@
         "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0",
         "adr-2605263700-kokoro-mental-health-tier-b-actor-r0"
       ],
-      "last_verified": "2026-05-31",
+      "last_verified": "2026-06-01",
       "amends": [],
       "amended_by": []
     },
@@ -18135,6 +18135,35 @@
         "adr-2605301020-basic-high-income-imputed-and-commons-asset-doctrine",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606011200-session-close-kotoba-edn-world-info-ingestion-substrate.md",
+      "id": "adr-2606011200-session-close-kotoba-edn-world-info-ingestion-substrate",
+      "title": "ADR-2606011200: Session close — magatama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kotoba-edn-ingestion",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close record for the 2026-06-01 kotoba-EDN ingestion maturity loop"
+      ],
+      "related": [
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
+        "adr-2605290927-junkan-societal-feedback-loop-observer",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "last_verified": "2026-06-01",
       "amends": [],

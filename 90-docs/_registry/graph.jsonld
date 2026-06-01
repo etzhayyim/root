@@ -11644,7 +11644,7 @@
         "distinction from mitate (diagnosis) / iyashi (treatment) / kokoro (mental health)"
       ],
       "related": "doc:adr-2605301020-basic-high-income-imputed-income-doctrine",
-      "lastVerified": "2026-05-31"
+      "lastVerified": "2026-06-01"
     },
     {
       "id": "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
@@ -11725,6 +11725,22 @@
         "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
         "doc:adr-2605302300-kanae-global-government-fiscal-flow-visualization",
         "doc:adr-2605261000-labor-liberation-ladder"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
+      "id": "doc:adr-2606011200-session-close-kotoba-edn-world-info-ingestion-substrate",
+      "type": "TechArticle",
+      "title": "ADR-2606011200: Session close — magatama organism kotoba-EDN world-info ingestion substrate (10-iteration maturity loop)",
+      "status": "active",
+      "topic": "kotoba-edn-ingestion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close record for the 2026-06-01 kotoba-EDN ingestion maturity loop"
+      ],
+      "related": [
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0"
       ],
       "lastVerified": "2026-06-01"
     },
