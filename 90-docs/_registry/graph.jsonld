@@ -12009,6 +12009,33 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606013400-kotoba-write-cost-economy",
+      "type": "TechArticle",
+      "title": "ADR-2606013400: kotoba write-cost economy — datomic writes cost mKOTO",
+      "status": "active",
+      "topic": "kotoba-write-cost-economy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba-datomic-write-cost"
+      ],
+      "related": "doc:40-engine/kotoba/crates/kotoba-server/src/econ.rs",
+      "lastVerified": "2026-06-01"
+    },
+    {
+      "id": "doc:adr-2606013600-kotoba-wasm-browser-node",
+      "type": "TechArticle",
+      "title": "ADR-2606013600: kotoba browser node — WASM read/write node + browser-native Pregel/UDF guests",
+      "status": "proposed",
+      "topic": "kotoba-wasm-browser-node",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba-wasm-browser-node",
+        "kotoba-guest-runtime-abstraction"
+      ],
+      "related": "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
