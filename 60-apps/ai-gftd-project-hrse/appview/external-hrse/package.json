@@ -61,7 +61,7 @@
   "dependencies": {
     "@atproto/api": "^0.13.35",
     "@bufbuild/protobuf": "^2.11.0",
-    "@clerk/nextjs": "6.34.1",
+    "@clerk/nextjs": "6.39.2",
     "@clerk/themes": "^2.4.57",
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1",
@@ -97,11 +97,11 @@
     "jsdom": "^27.4.0",
     "msw": "^2.13.2",
     "nyc": "^17.1.0",
-    "postcss": "^8.5.9",
+    "postcss": "^8.5.10",
     "tailwindcss": "^4.2.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.4"
+    "vitest": "^4.1.0"
   },
   "msw": {
     "workerDirectory": [
