@@ -11929,6 +11929,26 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606013800-actor-profile-and-dynamic-did-issuance",
+      "type": "TechArticle",
+      "title": "ADR-2606013800: Actor profile schema + dynamic did.json issuance from kotoba",
+      "status": "accepted",
+      "topic": "actor-profile-and-dynamic-did-issuance",
+      "authoritative": true,
+      "authoritativeFor": [
+        "actor-profile-schema",
+        "dynamic-did-web-issuance",
+        "actor-getprofile-resolution"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606012600",
+        "doc:2606013200",
+        "doc:2606012100"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
