@@ -99,9 +99,14 @@ jobs:
 
       - name: Full-repo audit (non-strict, baseline tracker)
         run: |
+          # Non-strict tracker: the verifier exits 1 when it finds drift, but
+          # this step only REPORTS drift in the job summary — the strict-scoped
+          # step above is the real PR gate. Capture the exit code without
+          # letting `bash -e` abort the step (the prior code put `full_exit=$?`
+          # on the next line, which `set -e` never reached on drift).
+          full_exit=0
           python3 70-tools/scripts/lint/verify_deps_toml_paths.py \
-            --json > /tmp/full-audit.json
-          full_exit=$?
+            --json > /tmp/full-audit.json || full_exit=$?
 
           ok=$(python3 -c "import json; print(json.load(open('/tmp/full-audit.json'))['ok'])")
           total=$(python3 -c "import json; print(json.load(open('/tmp/full-audit.json'))['total'])")
