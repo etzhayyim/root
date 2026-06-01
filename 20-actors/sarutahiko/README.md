@@ -127,8 +127,29 @@ Plus terminal `vehicleManufactureRecord` (aggregate, R0 emitted by `vin_attestat
 - **EoL loop**: vehicles back to kanayama Wave 2 for steel recovery, Wave 1 for Al, Wave 3 for copper
 - **Witness quorum**: ADR-2605191524 (≥2 robot Ed25519 + human attestation)
 
+## Plant design (full-robotics 4D-BIM + 積込ロボット, ADR-2606013100)
+
+The **factory that builds the Class-8 truck** is designed (design + physics-sim
+only; this does NOT activate the cells above — they stay R0 `RuntimeError`):
+
+- Scene SSoT: `70-tools/e7m-sim/scenes/sarutahiko-factory-r0/` — 180m×90m plant,
+  7 zones mapping the 5-layer process (受入→L1 フレーム→L2 パワートレイン→L3 キャブBIW
+  →塗装→L4 GA結合→L5 EOL→出荷ヤード), 77-part A-L BOM (group F = truck-line
+  equipment incl. **F10 積込ロボット**), 25-step 4D 建築手順, 8 構成ロボ, full MEP +
+  外構 + 出荷ヤード. Generated: SBOM + 286 kotoba EAVT + 137 robot ops + engineering
+  (drainage/避難/消火栓 NG honest findings) + IFC4.
+- Production line: `production.edn` — 8-station manufacturing flow (受入→L1→L3→塗装
+  →L4→L5→積込); `ProductionLine` simulates **one truck made end-to-end** (body flows
+  on physics, cells work it, recoloured at paint, loader ships it).
+- Viewer crate: `40-engine/kami-engine/kami-app-sarutahiko-factory/` — **4 WASM
+  entries** (完成工場 / 4D建設再生 / **生産ライン** / **積込ロボット**) + browser viewer
+  `sarutahiko-factory.htm` (`?mode=live|build|produce|load`). **14 native tests green**
+  (incl. end-to-end production + loader pick→carry→settle).
+
 ## References
 
 - `/90-docs/adr/2605252500-sarutahiko-heavy-truck-manufacturing-r0.md` — Master ADR
+- `/90-docs/adr/2606013100-sarutahiko-truck-factory-full-robotics-and-loader.md` — Plant design ADR
+- `/70-tools/e7m-sim/scenes/sarutahiko-factory-r0/README.md` — Plant scene SSoT
 - `/20-actors/wadachi/README.md` — Operator-side counterpart
 - `/CLAUDE.md` — Religious-corp status table row 52

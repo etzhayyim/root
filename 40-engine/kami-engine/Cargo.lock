@@ -1456,6 +1456,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "kami-app-sarutahiko-factory"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "console_log",
+ "glam",
+ "js-sys",
+ "kami-app",
+ "kami-articulated",
+ "kami-genesis",
+ "kami-pipelines",
+ "kami-render",
+ "log",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+]
+
+[[package]]
 name = "kami-app-shibuya"
 version = "0.1.0"
 dependencies = [
