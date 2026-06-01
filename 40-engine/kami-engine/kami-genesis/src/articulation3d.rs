@@ -365,6 +365,62 @@ impl Articulation3dConfig {
         tau
     }
 
+    /// Damped-least-squares position IK: joint angles that place the point
+    /// `p_local` (fixed in `link`'s frame) at world `target`, starting from
+    /// `q_init`. Iterates `q ← q + Jᵀ(JJᵀ+λ²I)⁻¹·(target − p)` using the
+    /// (finite-diff-validated) point Jacobian, clamping to joint limits each
+    /// step. `lambda` damps singularities (Nakamura/Wampler). Redundant arms
+    /// reach the target point via many configurations — only the point is
+    /// constrained. Returns the joint solution.
+    pub fn solve_position_ik(
+        &self,
+        link: usize,
+        p_local: Vec3,
+        target: Vec3,
+        q_init: &[f32],
+        iters: usize,
+        lambda: f32,
+    ) -> Vec<f32> {
+        let n = self.ndof;
+        let mut q = q_init.to_vec();
+        q.resize(n, 0.0);
+        for _ in 0..iters {
+            let (r, t) = self.link_world(&q)[link];
+            let p = t + r * p_local;
+            let e = target - p;
+            if e.length() < 1e-6 {
+                break;
+            }
+            let jac = self.point_jacobian(link, p, &q); // 3×n (column per dof)
+            // JJᵀ + λ²I (3×3 SPD).
+            let mut a = vec![vec![0.0_f32; 3]; 3];
+            for col in jac.iter().take(n) {
+                for r0 in 0..3 {
+                    for c0 in 0..3 {
+                        a[r0][c0] += col[r0] * col[c0];
+                    }
+                }
+            }
+            for d in 0..3 {
+                a[d][d] += lambda * lambda;
+            }
+            let mut rhs = vec![e.x, e.y, e.z];
+            let y = match solve_ldlt(&a, &mut rhs) {
+                Some(y) => y,
+                None => break,
+            };
+            // dq = Jᵀ·y, then clamp to limits.
+            for (d, col) in jac.iter().enumerate().take(n) {
+                q[d] += col[0] * y[0] + col[1] * y[1] + col[2] * y[2];
+            }
+            for b in self.bodies.iter().filter(|b| b.movable() && b.has_limit) {
+                let di = b.dof as usize;
+                q[di] = q[di].clamp(b.lower, b.upper);
+            }
+        }
+        q
+    }
+
     /// Integrate `q̇ += dt·q̈ ; q += dt·q̇` with joint-limit clamping. Exposed so
     /// the contact solver can correct `q̇` before the position update.
     pub(crate) fn integrate(&self, st: &mut Articulation3dState, qddot: &[f32]) {
@@ -966,6 +1022,56 @@ mod tests {
         assert!(
             st.qdot.iter().all(|v| v.abs() < 1e-2),
             "not settled at rest"
+        );
+    }
+
+    #[test]
+    fn position_ik_reaches_a_reachable_cartesian_target() {
+        // Target defined as the FK of a known config, so it is reachable; solve
+        // from a different start and confirm the controlled point reaches it.
+        // The solution joints need not equal the original (redundant arm) — only
+        // the Cartesian point is constrained.
+        let m = 1.0;
+        let i_com = Mat3::from_diagonal(Vec3::splat(0.02));
+        let mk = |parent: isize, axis: Vec3, r: Vec3, dof: isize| Body3d {
+            name: "l".into(),
+            parent,
+            joint_type: JointType3d::Revolute,
+            axis,
+            e_tree: Mat3::IDENTITY,
+            r_tree: r,
+            inertia: spatial_inertia(m, Vec3::new(0.1, 0.0, 0.0), i_com),
+            mass: m,
+            com: Vec3::new(0.1, 0.0, 0.0),
+            lower: 0.0,
+            upper: 0.0,
+            has_limit: false,
+            effort: 0.0,
+            damping: 0.0,
+            dof,
+        };
+        let cfg = Articulation3dConfig {
+            bodies: vec![
+                mk(-1, Vec3::Z, Vec3::ZERO, 0),
+                mk(0, Vec3::Y, Vec3::new(0.3, 0.0, 0.0), 1),
+                mk(1, Vec3::X, Vec3::new(0.3, 0.0, 0.0), 2),
+            ],
+            gravity: Vec3::ZERO,
+            dt: 1.0 / 240.0,
+            ndof: 3,
+        };
+        let link = 2;
+        let p_local = Vec3::new(0.15, 0.0, 0.0);
+        let q_true = vec![0.5_f32, -0.3, 0.4];
+        let (rt, tt) = cfg.link_world(&q_true)[link];
+        let target = tt + rt * p_local;
+
+        let q_sol = cfg.solve_position_ik(link, p_local, target, &[0.0, 0.0, 0.0], 300, 0.02);
+        let (rs, ts) = cfg.link_world(&q_sol)[link];
+        let reached = ts + rs * p_local;
+        assert!(
+            (reached - target).length() < 1e-3,
+            "IK did not reach target: {reached:?} vs {target:?}"
         );
     }
 
