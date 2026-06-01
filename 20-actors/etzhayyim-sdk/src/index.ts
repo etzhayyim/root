@@ -620,3 +620,12 @@ export {
   type CreateAgentOpts,
   type XrpcOpts,
 } from "./atproto.js";
+export {
+  donate,
+  isAllowedDonationPurpose,
+  mapDonationPurpose,
+  type DonateOpts,
+  type DonateConfig,
+  type DonateResult,
+  type DonatePurpose,
+} from "./donate.js";

@@ -23,6 +23,10 @@ export const OKAIMONO_DID_PREFIX = "did:web:okaimono.etzhayyim.com:" as const;
 export const CATALOG_ITEM_COLLECTION = "app.etzhayyim.apps.okaimono.catalogItem";
 export const ORDER_COLLECTION = "app.etzhayyim.apps.okaimono.order";
 export const PAYMENT_COLLECTION = "app.etzhayyim.apps.okaimono.payment";
+export const STOCK_COLLECTION = "app.etzhayyim.apps.okaimono.stock";
+export const STOCK_RESERVATION_COLLECTION =
+  "app.etzhayyim.apps.okaimono.stockReservation";
+export const SHIPMENT_COLLECTION = "app.etzhayyim.apps.okaimono.shipment";
 
 /** D2C OEM-only production modes (no external resale; tsukuru manufacturing). */
 export type ProductionMode = "OEM" | "BTO" | "MTO" | "CTO";
@@ -236,4 +240,156 @@ export function orderRkey(orderId: string): string {
 
 export function paymentRkey(orderId: string): string {
   return `payment-${orderId.toLowerCase()}`;
+}
+
+// ─── Inventory tier ─────────────────────────────────────────────────
+
+export interface StockRecord {
+  did: string;
+  sku: string;
+  /** Physical units on hand. */
+  onHand: number;
+  /** Units reserved against open orders (onHand - reserved = sellable). */
+  reserved: number;
+  updatedAt: string;
+}
+
+export interface StockView extends StockRecord {
+  stockUri: string;
+  sellable: number;
+}
+
+export interface StockReservationRecord {
+  orderId: string;
+  sku: string;
+  qty: number;
+  reservedAt: string;
+}
+
+export interface SetStockInput {
+  sku: string;
+  onHand: number;
+}
+
+export interface SetStockOutput {
+  status: "ok" | "rejected";
+  stockUri?: string;
+  sku?: string;
+  error?: string;
+}
+
+export interface ReserveStockInput {
+  orderId: string;
+  sku: string;
+  qty: number;
+}
+
+export interface ReserveStockOutput {
+  status: "reserved" | "alreadyReserved" | "insufficient" | "notFound" | "rejected";
+  sellableAfter?: number;
+  error?: string;
+}
+
+export interface ReleaseStockInput {
+  orderId: string;
+  sku: string;
+}
+
+export interface ReleaseStockOutput {
+  status: "released" | "noReservation" | "notFound" | "rejected";
+  sellableAfter?: number;
+  error?: string;
+}
+
+export interface GetStockInput {
+  sku: string;
+}
+
+export interface GetStockOutput {
+  stock?: StockView;
+  error?: string;
+}
+
+export function stockRkey(sku: string): string {
+  return `stock-${sku.toLowerCase()}`;
+}
+
+export function stockDid(sku: string): string {
+  return `${OKAIMONO_DID_PREFIX}stock:${sku.toLowerCase()}`;
+}
+
+export function reservationRkey(orderId: string, sku: string): string {
+  return `resv-${orderId.toLowerCase()}-${sku.toLowerCase()}`;
+}
+
+// ─── Fulfillment tier ───────────────────────────────────────────────
+
+export type ShipmentStatus =
+  | "created"
+  | "ready"
+  | "picked"
+  | "in_transit"
+  | "delivered"
+  | "exception";
+
+export interface ShipmentRecord {
+  did: string;
+  shipmentId: string;
+  orderId: string;
+  carrier?: string;
+  serviceType?: string;
+  trackingId?: string;
+  status: ShipmentStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ShipmentView extends ShipmentRecord {
+  shipmentUri: string;
+}
+
+export interface CreateShipmentInput {
+  shipmentId: string;
+  orderId: string;
+  carrier?: string;
+  serviceType?: string;
+  trackingId?: string;
+}
+
+export interface CreateShipmentOutput {
+  status: "created" | "alreadyExists" | "rejected";
+  shipmentUri?: string;
+  did?: string;
+  shipmentId?: string;
+  error?: string;
+}
+
+export interface UpdateShipmentStatusInput {
+  shipmentId: string;
+  status: ShipmentStatus;
+  trackingId?: string;
+}
+
+export interface UpdateShipmentStatusOutput {
+  status: "updated" | "notFound" | "rejected";
+  shipmentId?: string;
+  newStatus?: ShipmentStatus;
+  error?: string;
+}
+
+export interface GetShipmentInput {
+  shipmentId: string;
+}
+
+export interface GetShipmentOutput {
+  shipment?: ShipmentView;
+  error?: string;
+}
+
+export function shipmentRkey(shipmentId: string): string {
+  return `shipment-${shipmentId.toLowerCase()}`;
+}
+
+export function shipmentDid(shipmentId: string): string {
+  return `${OKAIMONO_DID_PREFIX}shipment:${shipmentId.toLowerCase()}`;
 }

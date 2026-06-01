@@ -18,3 +18,15 @@ export {
   listCatalogItems,
 } from "./catalog.js";
 export { createOrder, getOrder, settleOrder } from "./order.js";
+export {
+  setStock,
+  reserveStock,
+  releaseStock,
+  getStock,
+} from "./inventory.js";
+export {
+  createShipment,
+  updateShipmentStatus,
+  getShipment,
+} from "./fulfillment.js";
+export { donateSettlementExecutor } from "./settlement.js";
