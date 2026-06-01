@@ -306,6 +306,37 @@ impl Articulation3dConfig {
         self.integrate(st, &qddot);
     }
 
+    /// Joint-space PD torque for position targets — the Isaac "implicit
+    /// actuator" (`set_joint_position_targets`): `τᵢ = kp·(q*ᵢ − qᵢ) − kd·q̇ᵢ`.
+    /// Feed the result to `step()`, which clamps each joint to its effort limit.
+    /// One global `(kp, kd)`; scale the returned vector for per-joint gains.
+    pub fn pd_position_torque(
+        &self,
+        st: &Articulation3dState,
+        q_target: &[f32],
+        kp: f32,
+        kd: f32,
+    ) -> Vec<f32> {
+        (0..self.ndof)
+            .map(|d| {
+                let qt = q_target.get(d).copied().unwrap_or(0.0);
+                kp * (qt - st.q[d]) - kd * st.qdot[d]
+            })
+            .collect()
+    }
+
+    /// Convenience: one PD position-target step (`pd_position_torque` → `step`).
+    pub fn drive_to_targets(
+        &self,
+        st: &mut Articulation3dState,
+        q_target: &[f32],
+        kp: f32,
+        kd: f32,
+    ) {
+        let tau = self.pd_position_torque(st, q_target, kp, kd);
+        self.step(st, &tau);
+    }
+
     /// Integrate `q̇ += dt·q̈ ; q += dt·q̇` with joint-limit clamping. Exposed so
     /// the contact solver can correct `q̇` before the position update.
     pub(crate) fn integrate(&self, st: &mut Articulation3dState, qddot: &[f32]) {
@@ -853,6 +884,60 @@ mod tests {
         assert!(
             (e1 - e0).abs() / e0.abs().max(1.0) < 0.02,
             "energy drift e0={e0} e1={e1}"
+        );
+    }
+
+    #[test]
+    fn pd_position_targets_drive_the_3d_arm_to_target() {
+        // Isaac set_joint_position_targets on the 3-D solver: PD torque drives
+        // every joint of a genuinely 3-D (z/y/x) arm to its target. Gravity off
+        // so a well-damped PD has the static equilibrium q=target, q̇=0.
+        let m = 1.0;
+        let i_com = Mat3::from_diagonal(Vec3::splat(0.02));
+        let mk = |parent: isize, axis: Vec3, r: Vec3, dof: isize| Body3d {
+            name: "l".into(),
+            parent,
+            joint_type: JointType3d::Revolute,
+            axis,
+            e_tree: Mat3::IDENTITY,
+            r_tree: r,
+            inertia: spatial_inertia(m, Vec3::new(0.1, 0.0, 0.0), i_com),
+            mass: m,
+            com: Vec3::new(0.1, 0.0, 0.0),
+            lower: 0.0,
+            upper: 0.0,
+            has_limit: false,
+            effort: 0.0, // unlimited so PD converges cleanly
+            damping: 0.0,
+            dof,
+        };
+        let cfg = Articulation3dConfig {
+            bodies: vec![
+                mk(-1, Vec3::Z, Vec3::ZERO, 0),
+                mk(0, Vec3::Y, Vec3::new(0.3, 0.0, 0.0), 1),
+                mk(1, Vec3::X, Vec3::new(0.3, 0.0, 0.0), 2),
+            ],
+            gravity: Vec3::ZERO,
+            dt: 1.0 / 240.0,
+            ndof: 3,
+        };
+        let mut st = Articulation3dState::zeros(3);
+        let target = vec![0.5_f32, -0.4, 0.3];
+        let (kp, kd) = (40.0, 8.0);
+        for _ in 0..3000 {
+            cfg.drive_to_targets(&mut st, &target, kp, kd);
+        }
+        for d in 0..3 {
+            assert!(
+                (st.q[d] - target[d]).abs() < 1e-2,
+                "joint {d}: {} vs target {}",
+                st.q[d],
+                target[d]
+            );
+        }
+        assert!(
+            st.qdot.iter().all(|v| v.abs() < 1e-2),
+            "not settled at rest"
         );
     }
 
