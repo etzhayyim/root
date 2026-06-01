@@ -1,6 +1,6 @@
 //! yata XRPC API — Cypher query endpoint for Workers RPC.
 //!
-//! XRPC-only: `/xrpc/ai.gftd.yata.cypher` (unified read+write).
+//! XRPC-only: `/xrpc/app.etzhayyim.yata.cypher` (unified read+write).
 //! Design E: yata-native JWT auth + SecurityScope lazy compile from policy vertices.
 //! Auth: X-Magatama-Verified: true (internal bypass) or Authorization: Bearer {ES256 JWT}.
 
@@ -104,15 +104,15 @@ pub fn router<G: GraphQueryExecutor>(state: YataRestState<G>) -> Router {
         .route("/healthz", get(health))
         .route("/readyz", get(health))
         // XRPC — primary API (Workers RPC only)
-        .route("/xrpc/ai.gftd.yata.cypher", post(xrpc_cypher::<G>))
-        .route("/xrpc/ai.gftd.yata.cypherBatch", post(xrpc_cypher_batch::<G>))
+        .route("/xrpc/app.etzhayyim.yata.cypher", post(xrpc_cypher::<G>))
+        .route("/xrpc/app.etzhayyim.yata.cypherBatch", post(xrpc_cypher_batch::<G>))
         // LanceDB lifecycle
-        .route("/xrpc/ai.gftd.yata.coldStart", post(cold_start_handler::<G>))
-        .route("/xrpc/ai.gftd.yata.compact", post(compact_handler::<G>))
-        .route("/xrpc/ai.gftd.yata.repair", post(repair_handler::<G>))
-        .route("/xrpc/ai.gftd.yata.stats", get(stats_handler::<G>))
+        .route("/xrpc/app.etzhayyim.yata.coldStart", post(cold_start_handler::<G>))
+        .route("/xrpc/app.etzhayyim.yata.compact", post(compact_handler::<G>))
+        .route("/xrpc/app.etzhayyim.yata.repair", post(repair_handler::<G>))
+        .route("/xrpc/app.etzhayyim.yata.stats", get(stats_handler::<G>))
         // Phase 5: Distributed GIE fragment execution
-        .route("/xrpc/ai.gftd.yata.executeFragment", post(execute_fragment_handler::<G>))
+        .route("/xrpc/app.etzhayyim.yata.executeFragment", post(execute_fragment_handler::<G>))
         .with_state(state)
 }
 
@@ -203,7 +203,7 @@ async fn health() -> impl IntoResponse {
     })
 }
 
-/// GET /xrpc/ai.gftd.yata.stats — CPM metrics (read/mutation/mergeRecord counters).
+/// GET /xrpc/app.etzhayyim.yata.stats — CPM metrics (read/mutation/mergeRecord counters).
 async fn stats_handler<G: GraphQueryExecutor>(
     State(state): State<YataRestState<G>>,
     headers: HeaderMap,
@@ -280,7 +280,7 @@ fn xrpc_parse_params(
         .collect()
 }
 
-/// POST /xrpc/ai.gftd.yata.cypher — unified Cypher read+write.
+/// POST /xrpc/app.etzhayyim.yata.cypher — unified Cypher read+write.
 /// Design E: auth dispatches to 3 paths (Internal/Authenticated/Public).
 async fn xrpc_cypher<G: GraphQueryExecutor>(
     State(state): State<YataRestState<G>>,
@@ -408,7 +408,7 @@ async fn xrpc_cypher<G: GraphQueryExecutor>(
     }
 }
 
-/// POST /xrpc/ai.gftd.yata.cypherBatch — execute multiple Cypher statements in one HTTP round-trip.
+/// POST /xrpc/app.etzhayyim.yata.cypherBatch — execute multiple Cypher statements in one HTTP round-trip.
 /// CP3 optimization: reduces N × ~1-5ms coordinator overhead → 1 × ~1-5ms.
 /// All statements execute on the same Container (same partition) with shared auth context.
 #[derive(Deserialize)]
@@ -513,7 +513,7 @@ async fn xrpc_cypher_batch<G: GraphQueryExecutor>(
 }
 
 
-/// POST /xrpc/ai.gftd.yata.coldStart — Open LanceDB table from R2.
+/// POST /xrpc/app.etzhayyim.yata.coldStart — Open LanceDB table from R2.
 async fn cold_start_handler<G: GraphQueryExecutor>(
     State(state): State<YataRestState<G>>,
     headers: HeaderMap,
@@ -535,7 +535,7 @@ async fn cold_start_handler<G: GraphQueryExecutor>(
     }
 }
 
-/// POST /xrpc/ai.gftd.yata.compact — L1 Compaction: PK-dedup Lance fragments.
+/// POST /xrpc/app.etzhayyim.yata.compact — L1 Compaction: PK-dedup Lance fragments.
 async fn compact_handler<G: GraphQueryExecutor>(
     State(state): State<YataRestState<G>>,
     headers: HeaderMap,
@@ -599,7 +599,7 @@ async fn compact_handler<G: GraphQueryExecutor>(
     }
 }
 
-/// POST /xrpc/ai.gftd.yata.repair — Repair corrupted Lance table by version rollback.
+/// POST /xrpc/app.etzhayyim.yata.repair — Repair corrupted Lance table by version rollback.
 async fn repair_handler<G: GraphQueryExecutor>(
     State(state): State<YataRestState<G>>,
     headers: HeaderMap,
@@ -774,7 +774,7 @@ mod tests {
             .oneshot(
                 Request::builder()
                     .method("POST")
-                    .uri("/xrpc/ai.gftd.yata.cypherBatch")
+                    .uri("/xrpc/app.etzhayyim.yata.cypherBatch")
                     .header("Content-Type", "application/json")
                     .header("X-Magatama-Verified", "true")
                     .body(Body::from(serde_json::to_string(&body).unwrap()))
@@ -796,7 +796,7 @@ mod tests {
         let resp = app
             .oneshot(
                 Request::builder()
-                    .uri("/xrpc/ai.gftd.yata.stats")
+                    .uri("/xrpc/app.etzhayyim.yata.stats")
                     .body(Body::empty())
                     .unwrap(),
             )

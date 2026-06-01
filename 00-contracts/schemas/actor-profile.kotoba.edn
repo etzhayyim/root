@@ -1,0 +1,79 @@
+;; actor-profile.kotoba.edn
+;;
+;; kotoba Datom schema for ACTOR IDENTITY + PROFILE — the single SSoT that
+;; backs BOTH the per-actor did:web DID Document (`/actor/<handle>/did.json`)
+;; AND the actor profile view (`app.bsky.actor.getProfile` for actor DIDs,
+;; rendered by yoro's AgentProfile). Per ADR-2606013800.
+;;
+;; This SUPERSEDES the hand-authored `INFRA_ACTORS` registry hardcode in
+;; `50-infra/etzhayyim-did-web/src/registry/infra-actors.ts` as the source of
+;; truth: that TS object is demoted to a compiled last-resort FALLBACK so
+;; did:web resolution never goes dark when kotoba/KV is unreachable
+;; (identity-live invariant). The canonical record is the Datom here
+;; (ADR-2605312345 — Datom log is first-class canonical state).
+;;
+;; Graph addressing (CRITICAL — shared by publisher + worker + kotoba boot):
+;;   graph name  = "actors-v1"
+;;   graph CID   = KotobaCid::from_bytes(b"actors-v1").to_multibase()
+;;                 (derived deterministically at kotoba-server boot, same rule
+;;                  as yoro-social-v1; not fabricated here — the worker pull
+;;                  path queries by entity id and lets graph default to head)
+;;   visibility  = Public (reads need no auth; profiles + DID docs are public)
+;;
+;; Conventions:
+;;   - one entity per actor, keyed by `:actor/handle` (:db.unique/identity) so
+;;     re-publish upserts in place (idempotent).
+;;   - DID-doc `service[]` and `verificationMethod[]` are carried as
+;;     JSON-encoded strings (`:actor/service-json` / `:actor/vm-json`), the same
+;;     full-record-as-JSON pattern used by `:yoro.post/record`. The normalized
+;;     `:service/*` / `:vm/*` entity form is the Phase-B alternative (commented
+;;     at the foot of this file) once VAET service queries are needed.
+;;   - `:actor/vm-json` is a MIRROR of the on-chain ERC725 Root.activeKey
+;;     (did:erc725:base). It is NEVER minted server-side (ADR-2605231525
+;;     no-server-key). Until chain wiring lands it is "[]" and the DID doc's
+;;     verificationMethod stays empty — did:web trust root is TLS, not a
+;;     worker signature.
+
+{:graph    {:name       "actors-v1"
+            :cid        :derived ;; KotobaCid::from_bytes(b"actors-v1") at boot
+            :visibility :public}
+
+ ;; ── schema install tx (run once by publisher before first upsert) ───────
+ :schema-tx
+ [{:db/id ":actor/handle" :db/ident :actor/handle :db/unique :db.unique/identity}
+  {:db/id ":actor/did"    :db/ident :actor/did    :db/unique :db.unique/identity}]
+
+ ;; ── actor (identity + profile) ──────────────────────────────────────────
+ :actor
+ {:actor/handle          {:type :string  :unique :identity
+                          :doc "lowercase slug; did = did:web:etzhayyim.com:actor:<handle>"}
+  :actor/did             {:type :string  :unique :identity
+                          :doc "resolved did:web (stored for VAET/did→handle reverse lookup)"}
+  :actor/kind            {:type :keyword :doc "#{:tier-b :infra :substrate-service :agent :member}"}
+  :actor/tier            {:type :string  :optional true :doc "B / substrate / …"}
+  :actor/status          {:type :keyword :doc "#{:r0 :landed :shipped :retired}"}
+  :actor/glyph           {:type :string  :optional true :doc "紡ぎ / 綿津綱 … (display)"}
+  :actor/display-name-ja {:type :string  :optional true}
+  :actor/display-name-en {:type :string  :optional true}
+  :actor/description     {:type :string  :doc "≤256 graphemes (app.bsky.actor.profile parity)"}
+  :actor/avatar          {:type :string  :optional true :doc "ipfs:// CID or https url"}
+  :actor/banner          {:type :string  :optional true :doc "ipfs:// CID or https url"}
+  :actor/performer-type  {:type :keyword :optional true
+                          :doc "#{:person :service :organization :system} — yoro AgentProfile tab logic"}
+  :actor/ui-type         {:type :keyword :optional true :doc "#{:appview :baminiku :iframe :none}"}
+  :actor/primary-lexicon {:type :string  :optional true :doc "atproto lexicon NSID, if any"}
+  :actor/primary-schema  {:type :string  :optional true :doc "kotoba EDN vocab this actor emits into"}
+  :actor/adr             {:type :string  :cardinality :many :doc "governing ADR ids"}
+  :actor/service-json    {:type :string  :doc "DID-doc service[] array, JSON-encoded"}
+  :actor/vm-json         {:type :string  :optional true
+                          :doc "DID-doc verificationMethod[], JSON-encoded; MIRROR of on-chain ERC725 key; \"[]\" until chain wiring (never server-minted)"}
+  :actor/wasm-cid        {:type :string  :optional true
+                          :doc "IPFS CIDv1 of the actor's content-addressed WASM component. Present → DID doc emits an EtzhayyimWasmComponent service (ipfs://<cid>) and the actor runs browser-local (ameno) / donated mesh — NO per-actor server (ADR-2606014500)."}
+  :actor/created-at      {:type :string  :doc "ISO-8601 registration date"}}
+
+ ;; ── normalized service / verificationMethod (Phase B — not used at R0) ──
+ ;; When VAET service queries are needed, split :actor/service-json into
+ ;; :service/* entities referenced by :actor/service (ref, cardinality many):
+ ;;   :service/id :service/type :service/endpoint :service/proto
+ ;;   :vm/id :vm/type :vm/controller :vm/chain-ref :vm/public-key-jwk
+ }

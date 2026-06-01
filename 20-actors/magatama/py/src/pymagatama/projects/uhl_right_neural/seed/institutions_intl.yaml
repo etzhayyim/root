@@ -2,7 +2,7 @@
 # Authoritative per ADR-2605181040 (jp.etzhayyim.med.uhl.institution)
 # License: CC-BY-4.0
 # Update procedure: see ./README.md
-# Verifier: jun@gftd.group
+# Verifier: jun@etzhayyim.com
 # All entries have last_verified_at = 2026-05-18 (initial seed)
 #
 # Referral paths to these institutions are governed by ADR-2605181050.
@@ -26,7 +26,7 @@ institutions:
           OTOF deafness gene therapy 試験継続。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: uk-manchester-abi
     name_ja: マンチェスター大学 NHS 財団トラスト / マンチェスター王立小児病院 ABI サービス
@@ -55,7 +55,7 @@ institutions:
     referral_paths:
       - path_id: abi-uk-nhs-paediatric
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: uk-gstt-abi
     name_ja: ガイズ・アンド・セント・トーマス NHS 財団トラスト ABI サービス
@@ -80,7 +80,7 @@ institutions:
     referral_paths:
       - path_id: abi-uk-nhs-paediatric
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: de-goettingen-ekfz-ot
     name_ja: ゲッティンゲン大学 / Else Kröner Fresenius 光遺伝学治療センター (EKFZ OT)
@@ -110,7 +110,7 @@ institutions:
     referral_paths:
       - path_id: optoci-de-trial
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: uk-sheffield-rivolta
     name_ja: シェフィールド大学 Rivolta 研究室 (内耳幹細胞)
@@ -132,7 +132,7 @@ institutions:
     referral_paths:
       - path_id: sgn-regen-uk-research
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: us-regeneron-otarmeni
     name_ja: リジェネロン (Otarmeni / lunsotogene parvec-cwha 製造販売)
@@ -154,7 +154,7 @@ institutions:
           注: 本機関は治療実施施設ではなく sponsor。実施施設は CHORD JP site (確定後追加)。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com
 
   - id: de-dzne-dzhk
     name_ja: ドイツ神経変性疾患センター / ドイツ心血管研究センター (光遺伝学臨床橋渡し)
@@ -174,4 +174,4 @@ institutions:
           EKFZ OT (de-goettingen-ekfz-ot) と連携。
     referral_paths: []
     last_verified_at: 2026-05-18
-    verified_by: jun@gftd.group
+    verified_by: jun@etzhayyim.com

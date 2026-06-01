@@ -12,7 +12,7 @@ weight: 0.60
 priority_note: "Phase 5 of ADR-2605232345. Replaces the constant 50/50/30/50/50 default joucho provider with a deterministic per-code personality derived from the UNSPSC code itself, so all 18,342 organisms have distinct stable moods without requiring an MST round-trip. Defines the future hook for an MST-backed JouchoScore reader."
 authoritative_for:
   - deterministic UNSPSC joucho personality function (5-axis from code seed)
-  - ai.gftd.apps.etzhayyim.joucho.score lexicon shape (proposed)
+  - app.etzhayyim.apps.etzhayyim.joucho.score lexicon shape (proposed)
   - joucho_personality_provider Python contract
 depends_on:
   - adr-2605232345-unispsc-actor-as-organism
@@ -104,9 +104,9 @@ in-segment variation from the hash.
 The lexicon shape for the eventual MST record:
 
 ```
-NSID: ai.gftd.apps.etzhayyim.joucho.score
+NSID: app.etzhayyim.apps.etzhayyim.joucho.score
 collection record:
-  $type: ai.gftd.apps.etzhayyim.joucho.score
+  $type: app.etzhayyim.apps.etzhayyim.joucho.score
   actorDid: did:web:etzhayyim.com:actor:c{code}
   scores:
     joy: int 0..100

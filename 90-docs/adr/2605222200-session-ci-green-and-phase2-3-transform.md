@@ -18,15 +18,15 @@ authoritative_for:
   - base-sepolia-and-mainnet-deploy-checklists
   - council-rfp-per-seat-discussions
 depends_on:
-  - 2605192100  # Mission Charter
-  - 2605192200  # Charter Rider v2.0
-  - 2605192300  # Bootstrap Council
-  - 2605192415  # Religious-corp daemon architecture (deploy roadmap S2)
-  - 2605172000  # State rule (AT MST + IPFS, no RW)
-  - 2605172100  # Payment rule (USDC + ERC-4337, no fiat)
-  - 2605192115  # Tithe + carve-out
+  - adr-2605192100-etzhayyim-mission-charter  # Mission Charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider  # Charter Rider v2.0
+  - adr-2605192300-etzhayyim-bootstrap-council-five  # Bootstrap Council
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture  # Religious-corp daemon architecture (deploy roadmap S2)
+  - adr-2605172000-etzhayyim-rw-free-substrate  # State rule (AT MST + IPFS, no RW)
+  - adr-2605172100-etzhayyim-payments-on-chain-only  # Payment rule (USDC + ERC-4337, no fiat)
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads  # Tithe + carve-out
 related:
-  - 2605221411  # Artificial organism ecosystem framing
+  - adr-2605221411-etzhayyim-artificial-organism-ecosystem  # Artificial organism ecosystem framing
   - 2605220810  # Stall rotation cycle 18
 supersedes: []
 superseded_by: []
@@ -81,7 +81,7 @@ Four parallel haiku sub-agents + two locally-authored deploy checklists:
 
 1. **SDK extension** — `20-actors/etzhayyim-sdk/src/atproto.ts` re-exports `AtpAgent` / `AtpBaseClient` + `AppBskyActorDefs` / `AppBskyFeedDefs` / `AppBskyRichtextFacet`, with `createAgent({ service, headers })` factory and `xrpc()` generic helper. Unblocks the 6 substrate-boundary consumers in a future pass.
 2. **Stripe → USDC v0.2** — SDK `donate.ts` + `DONATE.md` enforcing the 8 Charter-§2 purposes; yatabase `/api/donate` + `/webhook/usdc` handlers + `useDonate()` Svelte composable; Hono routes wired.
-3. **RW → AT MST PoC** — `60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/bmc/db.py` fully rewritten from asyncpg pool to `httpx` + AT XRPC; public API (`get_pool` / `fetch` / `fetchrow` / `fetchval` / `execute` / `close_pool`) preserved so 28 downstream call-sites need no change. 10 SQL tables mapped to `ai.gftd.apps.yatable.bmc.*` MST collections. Remaining yatabase migration estimate revised 6-9 → 4-6 weeks.
+3. **RW → AT MST PoC** — `60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/bmc/db.py` fully rewritten from asyncpg pool to `httpx` + AT XRPC; public API (`get_pool` / `fetch` / `fetchrow` / `fetchval` / `execute` / `close_pool`) preserved so 28 downstream call-sites need no change. 10 SQL tables mapped to `app.etzhayyim.apps.yatable.bmc.*` MST collections. Remaining yatabase migration estimate revised 6-9 → 4-6 weeks.
 4. **Council outreach** — four per-seat Discussion posts created via `gh api graphql` (#258 Seat 2 Substrate, #259 Seat 3 Legal/Ethics, #260 Seat 4 Economics, #261 Seat 5 Stewardship/Land) + a weekly status template comment on master #257.
 5. **Base Sepolia deploy checklist** — `50-infra/etzhayyim-chain-contracts/DEPLOY-CHECKLIST-SEPOLIA.md`. 126 Forge tests verified passing. Explicit Council-4 / 5 hard gate per `BOOTSTRAP_COUNCIL_SIZE = 5` immutable. `forge script` commands with env-var table.
 6. **Base mainnet deploy checklist** — `DEPLOY-CHECKLIST-MAINNET.md`. Sepolia 30-day operational window + external audit (4-6 weeks) + Phase 2 governance ADR drafting required pre-deploy. Inalienability + non-amendable invariants enumerated.

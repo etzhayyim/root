@@ -15,28 +15,28 @@ depends_on = None
 UP = [{'sql': '\n'
          '    CREATE FUNCTION bpmn_compile_json_to_xml(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'ai.gftd.apps.bpmn.compileJsonToXml'\n"
+         "      AS 'app.etzhayyim.apps.bpmn.compileJsonToXml'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []},
  {'sql': '\n'
          '    CREATE FUNCTION bpmn_validate_xml(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'ai.gftd.apps.bpmn.validateXml'\n"
+         "      AS 'app.etzhayyim.apps.bpmn.validateXml'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []},
  {'sql': '\n'
          '    CREATE FUNCTION playwright_session_open(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'ai.gftd.apps.playwright.sessionOpen'\n"
+         "      AS 'app.etzhayyim.apps.playwright.sessionOpen'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []},
  {'sql': '\n'
          '    CREATE FUNCTION playwright_session_close(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'ai.gftd.apps.playwright.sessionClose'\n"
+         "      AS 'app.etzhayyim.apps.playwright.sessionClose'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []}]

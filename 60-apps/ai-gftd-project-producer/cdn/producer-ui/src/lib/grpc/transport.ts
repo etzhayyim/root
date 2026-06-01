@@ -26,7 +26,7 @@ export async function connectPost<T>(method: string, body = {}, extraHeaders?: R
 		...(await auth.resolve()),
 		...(extraHeaders ?? {})
 	};
-	const response = await fetch(`${grpcApiUrl || 'https://atproto.etzhayyim.com'}/xrpc/ai.gftd.apps.producer.${method}`, {
+	const response = await fetch(`${grpcApiUrl || 'https://atproto.etzhayyim.com'}/xrpc/app.etzhayyim.apps.producer.${method}`, {
 		method: 'POST',
 		headers,
 		body: JSON.stringify(body)

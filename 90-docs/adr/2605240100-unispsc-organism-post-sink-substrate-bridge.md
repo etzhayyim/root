@@ -18,10 +18,10 @@ depends_on:
   - adr-2605232345-unispsc-actor-as-organism
   - adr-2605240000-unispsc-organism-fleet-mass-deploy
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605172100-etzhayyim-sdk-substrate-rules
+  - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
-  - 2605240015-unispsc-organism-joucho-personality.md
-  - 2605240030-unispsc-organism-followers.md
+  - adr-2605240015-unispsc-organism-joucho-personality
+  - adr-2605240030-unispsc-organism-followers
 supersedes: []
 superseded_by: []
 ---

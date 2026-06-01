@@ -31,7 +31,7 @@ Apple Keychain 必須を規定していたが、登録 service 名や delegated 
 
 1. **Primary** = macOS Keychain (`security` コマンド)。iCloud Keychain で
    Apple device 間自動同期。
-2. **Mirror / backup** = 1Password `Gftd Japan株式会社` vault。Keychain の
+2. **Mirror / backup** = 1Password `etzhayyim Japan株式会社` vault。Keychain の
    `service/account` を同一値のまま item title `{service}/{account}` に保存する。
    ローカル repo の秘密ファイルは Document item `repo-file/{repo-relative-path}`、
    repo が依存する SSH key は Document item `repo-ssh/{~/.ssh/path}` に保存する。
@@ -71,7 +71,7 @@ security find-generic-password -s "gftd.m365" -a "CLIENT_SECRET" -w
 
 ## D3b. 1Password mirror registry (2026-04-29)
 
-Vault: `Gftd Japan株式会社`
+Vault: `etzhayyim Japan株式会社`
 
 Mirrored and hash-verified without printing secret values:
 
@@ -110,7 +110,7 @@ Microsoft Graph (delegated permission) は 90-day refresh token を要する。
 ## D6. 2026-04-29 mirror execution record
 
 The 1Password mirror was refreshed with `op` 2.34.0 into vault
-`Gftd Japan株式会社`. Secret values were not printed; verification compared
+`etzhayyim Japan株式会社`. Secret values were not printed; verification compared
 hashes only.
 
 Verified groups:
@@ -146,6 +146,6 @@ created in 1Password. Examples: `gftd.hf/HF_TOKEN`, `gftd.cf/*`,
 - `deps.toml [etzhayyim_agent.keychain]`
 - `~/.local/outlook-cache/load-credentials.mjs`
 - `~/.local/outlook-cache/get-delegated-token.mjs`
-- 1Password vault `Gftd Japan株式会社` (mirror / backup)
+- 1Password vault `etzhayyim Japan株式会社` (mirror / backup)
 - ADR-2604251200 (Vault ZK — server-side counterpart)
 - ADR-2604251210 (Credential Sharing — team-shared counterpart)

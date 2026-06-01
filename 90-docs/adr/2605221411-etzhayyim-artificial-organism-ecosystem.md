@@ -25,9 +25,9 @@ depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192245-etzhayyim-global-land-sovereignty.md
-  - 2605192300-etzhayyim-bootstrap-council-five.md
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192245-etzhayyim-global-land-sovereignty
+  - adr-2605192300-etzhayyim-bootstrap-council-five
 supersedes: []
 superseded_by: []
 ---

@@ -1,5 +1,5 @@
 /**
- * Mirrors the ai.gftd.apps.openIsic.class Lexicon record shape.
+ * Mirrors the app.etzhayyim.apps.openIsic.class Lexicon record shape.
  * Source: 00-contracts/lexicons/ai/gftd/apps/openIsic/class.json
  */
 export interface IsicClass {

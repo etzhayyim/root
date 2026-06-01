@@ -7,11 +7,11 @@ interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const APP = "kamiEng";
 const NSID_PREFIXES = [
-  "ai.gftd.apps.kami.eda.",
-  "ai.gftd.apps.kami.cad.",
-  "ai.gftd.apps.kami.cam.",
-  "ai.gftd.apps.kami.rtl.",
-  "ai.gftd.apps.kami.cae.",
+  "app.etzhayyim.apps.kami.eda.",
+  "app.etzhayyim.apps.kami.cad.",
+  "app.etzhayyim.apps.kami.cam.",
+  "app.etzhayyim.apps.kami.rtl.",
+  "app.etzhayyim.apps.kami.cae.",
 ];
 
 export default {

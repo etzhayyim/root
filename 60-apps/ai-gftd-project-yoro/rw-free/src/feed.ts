@@ -231,6 +231,79 @@ export interface SearchActorsOutput {
   cursor?: string;
 }
 
+// yatachain-projection: feed-discover read.
+//
+// Per ADR-2605231500. When the caller configures a `FEED_DISCOVER_DID`
+// pointing to a mst-projector instance emitting
+// `app.etzhayyim.projection.feedDiscover` snapshots, getTimeline /
+// getDiscoverFeed read the latest snapshot instead of the single-actor
+// `collectFeed`. Falls back to single-actor on miss so existing behaviour
+// is preserved when no projector is configured. The projection daemon
+// + manifest live at `50-infra/mst-projector/projection/`.
+async function tryProjectionRead(
+  e: Etzhayyim,
+  limit: number,
+): Promise<FeedViewPost[] | null> {
+  const projectorDid = (e as unknown as {
+    config?: { projectionDiscoverDid?: string };
+  }).config?.projectionDiscoverDid;
+  if (!projectorDid) return null;
+  try {
+    // Use the underlying agent directly so we can read a different repo
+    // than the SDK's bound DID. The SDK only ever queries its own DID.
+    const agent = await (e as unknown as { pds: () => Promise<{
+      com: { atproto: { repo: { listRecords: (input: {
+        repo: string; collection: string; limit: number; reverse?: boolean;
+      }) => Promise<{
+        data: { records: { uri: string; cid: string; value: unknown }[] };
+      }> } } };
+    }> }).pds();
+    const res = await agent.com.atproto.repo.listRecords({
+      repo: projectorDid,
+      collection: "app.etzhayyim.projection.feedDiscover",
+      limit: 1,
+      reverse: true,
+    });
+    const latest = res.data.records[0]?.value as
+      | { items?: ProjectionFeedItem[] }
+      | undefined;
+    if (!latest?.items?.length) return null;
+    return latest.items
+      .filter((it) => it.verdict !== "reject")  // belt-and-braces; projector
+                                                // already drops rejected
+      .slice(0, limit)
+      .map(projectionItemToFeedViewPost);
+  } catch {
+    // Projection unavailable — fall through to single-actor feed.
+    return null;
+  }
+}
+
+interface ProjectionFeedItem {
+  uri: string;
+  cid: string;
+  did: string;
+  indexedAt: string;
+  textPreview?: string;
+  verdict?: "approve" | "escalate" | "unverdicted" | "reject";
+}
+
+function projectionItemToFeedViewPost(item: ProjectionFeedItem): FeedViewPost {
+  return {
+    post: {
+      uri: item.uri,
+      cid: item.cid,
+      author: profileFromDid(item.did),
+      record: {
+        $type: "app.bsky.feed.post",
+        text: item.textPreview ?? "",
+        createdAt: item.indexedAt,
+      },
+      indexedAt: item.indexedAt,
+    },
+  };
+}
+
 export async function getTimeline(
   e: Etzhayyim,
   input?: GetTimelineInput
@@ -238,8 +311,11 @@ export async function getTimeline(
   // Following-graph-aware timeline is out of scope for the scaffold: it
   // requires reading `app.bsky.graph.follow` from the caller's repo and
   // joining against per-followed-DID `app.bsky.feed.post` records. Until
-  // wired, return the same single-actor view as Discover.
+  // wired, prefer the feed-discover projection (cross-DID, hot path);
+  // fall back to single-actor on projector miss.
   const limit = Math.min(input?.limit ?? 50, 100);
+  const projected = await tryProjectionRead(e, limit);
+  if (projected) return { feed: projected, cursor: undefined };
   return collectFeed(e, input?.cursor, limit);
 }
 
@@ -292,6 +368,8 @@ export async function getDiscoverFeed(
   input?: GetDiscoverFeedInput
 ): Promise<GetDiscoverFeedOutput> {
   const limit = Math.min(input?.limit ?? 50, 100);
+  const projected = await tryProjectionRead(e, limit);
+  if (projected) return { feed: projected, cursor: undefined };
   return collectFeed(e, input?.cursor, limit);
 }
 

@@ -1,6 +1,6 @@
 # ai-gftd-project-open-saas
 
-`ai-gftd-project-open-saas` は、GFTD 系プロジェクト向けに「公開できる設計」「自己ホストできる実装」「課金と監査まで含めた SaaS 運用面」を同時に扱うための OSS SaaS スターターです。
+`ai-gftd-project-open-saas` は、etzhayyim 系プロジェクト向けに「公開できる設計」「自己ホストできる実装」「課金と監査まで含めた SaaS 運用面」を同時に扱うための OSS SaaS スターターです。
 
 このディレクトリには以下を含みます。
 

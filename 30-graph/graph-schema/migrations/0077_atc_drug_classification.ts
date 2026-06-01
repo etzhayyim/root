@@ -10,7 +10,7 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                  | Rows  | Source                                     |
  * |-----------------------------|-------|--------------------------------------------|
- * | ai.gftd.apps.atc.substance  | 6,440 | WHO ATC-DDD 2021-12-03 (github.com/fabkury) |
+ * | app.etzhayyim.apps.atc.substance  | 6,440 | WHO ATC-DDD 2021-12-03 (github.com/fabkury) |
  *
  * ### WHO ATC Classification (Anatomical Therapeutic Chemical)
  * 6,440 unique codes across 5 levels:
@@ -33,11 +33,11 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New view
  *
- * - view_atc_substance: projection of ai.gftd.apps.atc.substance
+ * - view_atc_substance: projection of app.etzhayyim.apps.atc.substance
  *
  * ## Topology integrity (post-apply)
  *
- * 0 orphan nodes in ai.gftd.apps.atc.substance.
+ * 0 orphan nodes in app.etzhayyim.apps.atc.substance.
  * No new concordance edges (ATC is a standalone hierarchy).
  * ATC→ICD-11 concordance is possible via drug→indication mapping (future work).
  *
@@ -57,7 +57,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'adm_r'  AS adm_r,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.atc.substance'
+    WHERE collection = 'app.etzhayyim.apps.atc.substance'
   `.execute(db);
 
   // ── dim_world_domain ───────────────────────────────────────────────────
@@ -69,6 +69,6 @@ export async function up(db: Kysely<any>): Promise<void> {
 
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_atc_substance`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.atc.substance'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.atc.substance'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain = 'atc'`.execute(db);
 }

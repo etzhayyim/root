@@ -1,6 +1,7 @@
 {
   "@context": "https://etzhayyim.com/ns/magatama/v1",
   "name": "graph-sos-intel",
+  "performerType": "service",
   "nanoid": "gs0s1nt7",
   "profile": {
     "displayName": "Graph SoS Intel",
@@ -13,8 +14,14 @@
   },
   "triggers": {
     "cron": [
-      { "schedule": "R/PT15M", "nsid": "ai.gftd.apps.graphSosIntel.inventoryTick" },
-      { "schedule": "R/PT6H",  "nsid": "ai.gftd.apps.graphSosIntel.briefingTick"  }
+      {
+        "schedule": "R/PT15M",
+        "nsid": "ai.gftd.apps.graphSosIntel.inventoryTick"
+      },
+      {
+        "schedule": "R/PT6H",
+        "nsid": "ai.gftd.apps.graphSosIntel.briefingTick"
+      }
     ]
   }
 }

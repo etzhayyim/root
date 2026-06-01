@@ -42,7 +42,7 @@ manufacturing package が必要になる。特に robot arm と drone は
 
 # Decision
 
-GFTD robotics は、実機制御と製品製造を以下の二層で扱う。
+etzhayyim robotics は、実機制御と製品製造を以下の二層で扱う。
 
 ## 1. 実機制御 adapter boundary
 
@@ -53,7 +53,7 @@ mission plan、replan、approval request、simulation request までを作る。
 
 標準 adapter は以下を default とする。
 
-| Asset | Control standard / SDK | GFTD adapter |
+| Asset | Control standard / SDK | etzhayyim adapter |
 |---|---|---|
 | robot arm / cobot | ROS 2, ros2_control, MoveIt 2, vendor driver | `robotics.adapter.ros2_control` / `robotics.adapter.robot_arm` |
 | drone | MAVLink, PX4 / ArduPilot, MAVSDK | `robotics.adapter.mavlink` |
@@ -169,7 +169,7 @@ Minimum manifest fields:
 
 ```json
 {
-  "schema": "ai.gftd.robotics.product.manufacturing.v1",
+  "schema": "app.etzhayyim.robotics.product.manufacturing.v1",
   "productId": "robotics-product",
   "revision": "A",
   "assetKind": "robot-arm",

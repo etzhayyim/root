@@ -23,7 +23,7 @@ describe("Seed agent autonomous dispatch BPMN migration", () => {
       'bpmnProcessId: "agent_realworld_autonomous_dispatch"',
     );
     expect(migrationSource).toContain(
-      'nsid: "ai.gftd.apps.agent.planRealWorldDispatch"',
+      'nsid: "app.etzhayyim.apps.agent.planRealWorldDispatch"',
     );
     expect(migrationSource).toContain(
       'sourcePath: "00-contracts/bpmn/ai/gftd/agent/realWorldAutonomousDispatch.bpmn"',

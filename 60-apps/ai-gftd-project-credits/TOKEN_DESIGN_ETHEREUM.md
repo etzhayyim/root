@@ -12,7 +12,7 @@
 
 ## 2. 推奨トークン構成
 
-### 2.1 トークン本体: `GCC`（GFTD Computing Credit）
+### 2.1 トークン本体: `GCC`（etzhayyim Computing Credit）
 
 - 規格: ERC-20
 - シンボル: `GCC`

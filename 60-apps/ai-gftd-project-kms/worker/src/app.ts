@@ -1,10 +1,10 @@
-// kms.gftd.ai thin edge facade (ADR-2604282300).
+// kms.etzhayyim.com thin edge facade (ADR-2604282300).
 //
 // Access-policy issuance for etzhayyim private records runs in the KMS
 // LangServer pod. This Worker only exposes health/meta and proxies
-// ai.gftd.kms.* XRPC calls to the dispatcher.
+// app.etzhayyim.kms.* XRPC calls to the dispatcher.
 //
-// Interim trust anchor: issuer = did:web:gftd.co.jp
+// Interim trust anchor: issuer = did:web:etzhayyim.com
 // Migration target:     issuer = did:web:etzhayyim.com
 
 interface SecretBinding {
@@ -18,7 +18,7 @@ interface Env {
   PRIMARY_DID?: string;
 }
 
-const NSID_PREFIX = "ai.gftd.kms.";
+const NSID_PREFIX = "app.etzhayyim.kms.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -27,11 +27,11 @@ export default {
     if (url.pathname === "/_app/meta" || url.pathname === "/health") {
       return json({
         ok: true,
-        handle: env.APP_HANDLE ?? "kms.gftd.ai",
-        did: env.PRIMARY_DID ?? "did:web:kms.gftd.ai",
+        handle: env.APP_HANDLE ?? "kms.etzhayyim.com",
+        did: env.PRIMARY_DID ?? "did:web:kms.etzhayyim.com",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/kms/handlers.py",
-        issuer: "did:web:gftd.co.jp",
+        issuer: "did:web:etzhayyim.com",
         migrationTarget: "did:web:etzhayyim.com",
         adr: "ADR-2604282300",
       });
@@ -61,7 +61,7 @@ export default {
 } satisfies ExportedHandler<Env>;
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

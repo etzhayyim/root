@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.etzhayyim.com';
 const SVC = `${BASE}/xrpc/gftd.malak.v1.MalakService`;
-const HDR = { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-sql-test' };
+const HDR = { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e-sql-test' };
 
 test.describe('malak.etzhayyim.com — SQL CRUD: seed → query → dashboard', () => {
 	test('seedIntelData endpoint is available or explicitly unavailable', async ({ request }) => {
@@ -67,7 +67,7 @@ test.describe('malak.etzhayyim.com — SQL CRUD: seed → query → dashboard', 
 		const r = await request.post(`${SVC}/malak.threatActors`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
 		const b = await r.json();
-		expect(b.contentType).toBe('application/vnd.gftd.card.list');
+		expect(b.contentType).toBe('application/vnd.etzhayyim.card.list');
 		expect(b.payload.items.length).toBeGreaterThanOrEqual(1);
 		expect(b.payload.items[0].icon).toBeTruthy();
 	});

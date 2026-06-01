@@ -108,6 +108,31 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        to populations without provision for the wellbecoming-trajectory of
        cognitive sovereignty of those populations.
 
+   (i) COMMERCIAL GPU RENTAL FOR RELIGIOUS-CORP INFERENCE (added in v2.0).
+
+       AMENDMENT PENDING (proposed 2026-05-26 per ADR-2605262200; Council Lv6+
+       supermajority + 30-day public objection period required; earliest
+       effective ~2026-07-19): a train-only carve-out for baien-server-* /
+       baien-XL-* artifacts (NOT inference, NOT other actors). Until effective,
+       the original text below remains binding for all train + inference.
+
+       etzhayyim inference workloads for religious-corp callable paths (LLM,
+       vision, audio, video, training, fine-tuning, embedding, SAR analysis)
+       MUST execute exclusively on the Murakumo distributed fleet as defined in
+       ADR-2605202345 and deployed per ADR-2605215000 (Mac mini cluster +
+       EVO-X2 LAN inference pod). Prohibited GPU backends: RunPod, Vertex AI
+       direct-to-vendor, OpenAI direct without Murakumo proxy gateway,
+       Anthropic SDK direct from vendor-billed key, AWS Bedrock direct,
+       Linode GPU, Google Colab paid compute, any commercial or rented GPU
+       inference service accessed without the Murakumo dispatch layer. The
+       vendor (etzhayyim.com) operates a separate commercial GPU pool for
+       paid SaaS workloads; religious-corp callers MUST NOT invoke vendor
+       RunPod or equivalent external GPU paths (consent-capability enforcement
+       operates at runtime to ensure adherence). This invariant cannot be
+       amended without Council Lv6+ supermajority (≥4 of 7 seats) plus
+       thirty (30) day public objection period (ref. ADR-2605172600 Council
+       governance).
+
 3. EFFECT OF VIOLATION
 
    Use of this work by a Non-Aligned Entity, or by any entity providing this
@@ -162,7 +187,7 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
 
    Disputes regarding whether an entity is a Non-Aligned Entity under Section 2
    shall be resolved by the etzhayyim Council (Lv6+ per ADR-2605172600) via an
-   on-chain attestation record (ai.gftd.apps.etzhayyim.charter-attestation).
+   on-chain attestation record (app.etzhayyim.apps.etzhayyim.charter-attestation).
    Such attestation creates a public determination but does not preclude
    parallel judicial proceedings under applicable law. Council attestations
    require quorum of three (3) Lv6+ members and are appealable by the
@@ -174,6 +199,23 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
    "amanomibashira", "天御柱", "עץ חיים", "Tree of Life" as used by etzhayyim,
    or any associated logos, beyond fair-use attribution under Section 4 of
    the Apache License 2.0.
+
+   6.1 THIRD-PARTY TRADEMARK ACKNOWLEDGMENT (added 2026-05-26 per ADR-2605261800)
+
+       NVIDIA®, Omniverse®, Isaac®, OptiX®, RTX®, Nucleus®, DriveSim®, and
+       PhysX® are trademarks of NVIDIA Corporation. This project is not affiliated with
+       or endorsed by NVIDIA Corporation. Where the foregoing names appear
+       within source files, package documentation, or registries of this
+       project, they are used solely as API compatibility identifiers (i.e.,
+       to indicate which third-party API surface a particular module mirrors
+       for drop-in interoperability purposes, consistent with Google LLC v.
+       Oracle America, Inc., 593 U.S. ___ (2021)). Canonical implementations
+       carry distinct (Japanese) names — namely amenominaka (天之御中),
+       yatachain-nucleus, e7m-sim, e7m-shugyo (修行), hikari-rt (光),
+       kami-rtx, utsushimi (写身), wadachi-sim, and murakumo-render — and the
+       NVIDIA names are confined to a clearly delimited compatibility facade
+       namespace (`20-actors/etzhayyim-sdk/src/nv-compat/` for TypeScript and
+       `20-actors/magatama/py/src/pymagatama/nv_compat/` for Python).
 
 7. SEVERABILITY
 

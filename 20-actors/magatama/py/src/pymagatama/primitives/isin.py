@@ -21,9 +21,9 @@ from pymagatama.db_sync import sync_cursor
 
 
 _OWNER_DID = "did:web:isin.etzhayyim.com"
-_COL_SEC = "ai.gftd.apps.isin.security"
-_COL_FILING = "ai.gftd.apps.isin.filing"
-_EDGAR_UA = "isin.etzhayyim.com/1.0 contact@gftd.co.jp"
+_COL_SEC = "app.etzhayyim.apps.isin.security"
+_COL_FILING = "app.etzhayyim.apps.isin.filing"
+_EDGAR_UA = "isin.etzhayyim.com/1.0 contact@etzhayyim.com"
 _EDGAR_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 _OPENFIGI_URL = "https://api.openfigi.com/v3/mapping"
 _EDINET_URL = "https://api.edinet-fsa.go.jp/api/v2/documents.json"

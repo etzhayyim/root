@@ -17,7 +17,7 @@ authoritative_for:
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
-  - adr-2605202400-etzhayyim-vendor-three-axis-split-rule
+  - adr-2605202400-gtfs-rt-vendor-mirror
 related:
   - adr-2605202400-gtfs-rt-vendor-mirror
   - adr-2605202800-tsukuru-etzhayyim-business-model-change
@@ -118,7 +118,7 @@ etzhayyim app  ← e.read() ← MST traversal
               ← e.read() (projector view)
 ```
 
-Reference impl: 
+Reference impl:
 - `60-apps/ai-gftd-project-open-isco/rw-free/` (seeder + query CLI)
 - `60-apps/ai-gftd-project-tsukuru/rw-free/` (full app — production
   order + escrow + manufacturer registry, 13 commands)
@@ -148,7 +148,7 @@ For bulk-blob actors where data is mostly large immutable artifacts
 SDK `ipfsApiUrl` + record holds the CID reference.
 
 ```
-etzhayyim app  → e.write({ blobs: Map<field, Blob> }) 
+etzhayyim app  → e.write({ blobs: Map<field, Blob> })
                   → SDK pins to IPFS, embeds $type=blob ref
                   → PDS createRecord with CID ref
 

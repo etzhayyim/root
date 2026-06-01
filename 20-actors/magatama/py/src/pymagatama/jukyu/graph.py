@@ -125,9 +125,9 @@ def _insert_run(state: JukyuState, status: str, summary: dict[str, Any] | None =
             _now_iso() if status != "running" else None,
             status,
             json.dumps(summary or {}, ensure_ascii=False, sort_keys=True),
-            "ai.gftd.apps.jukyu.pregelRun",
+            "app.etzhayyim.apps.jukyu.pregelRun",
             "did:web:jukyu.etzhayyim.com",
-            "did:web:gftd.co.jp",
+            "did:web:etzhayyim.com",
         ),
     )
 
@@ -448,9 +448,9 @@ def _upsert_company_exposures(exposures: list[dict[str, Any]], run_id: str) -> i
                 row.get("evidence_json") or json.dumps([{"source": "pregel_propagation", "runId": run_id}], ensure_ascii=False),
                 "Review alternate supply routes, term coverage, and inventory buffer.",
                 "active",
-                "ai.gftd.apps.jukyu.companyExposure",
+                "app.etzhayyim.apps.jukyu.companyExposure",
                 "did:web:jukyu.etzhayyim.com",
-                "did:web:gftd.co.jp",
+                "did:web:etzhayyim.com",
             ),
         )
         if ok:
@@ -636,9 +636,9 @@ def write_signals(state: JukyuState) -> dict[str, Any]:
                 row.get("recommended_action") or "Review alternate supply paths and inventory buffer.",
                 "pending",
                 _now_iso(),
-                "ai.gftd.apps.jukyu.notificationSignal",
+                "app.etzhayyim.apps.jukyu.notificationSignal",
                 "did:web:jukyu.etzhayyim.com",
-                "did:web:gftd.co.jp",
+                "did:web:etzhayyim.com",
             ),
         )
         if ok:

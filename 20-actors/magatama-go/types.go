@@ -430,7 +430,7 @@ type ConversationMessage struct {
 // ── A2A (Agent-to-Agent) types ────────────────────────────────────────────
 
 // A2ATask is an agent-to-agent task envelope sent as an AT record.
-// Collection: ai.gftd.a2a.task
+// Collection: app.etzhayyim.a2a.task
 type A2ATask struct {
 	// Unique task ID (ULID).
 	TaskID string `json:"taskId"`
@@ -451,7 +451,7 @@ type A2ATask struct {
 }
 
 // A2AResult is the result of an A2A task, sent back as an AT record.
-// Collection: ai.gftd.a2a.result
+// Collection: app.etzhayyim.a2a.result
 type A2AResult struct {
 	// Task ID this result corresponds to.
 	TaskID string `json:"taskId"`

@@ -206,7 +206,7 @@ async def task_aidesk_tsukuru_handoff(variables: dict[str, Any]) -> dict[str, An
     if BPMN_DISPATCHER_SECRET:
         headers["x-internal-trust"] = BPMN_DISPATCHER_SECRET
 
-    nsid = "ai.gftd.apps.tsukuru.supplierExchange.normalizePackage"
+    nsid = "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage"
     resp = httpx.post(
         f"{BPMN_DISPATCHER_URL}/xrpc/{nsid}",
         headers=headers,

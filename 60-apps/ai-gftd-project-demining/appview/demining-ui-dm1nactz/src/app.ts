@@ -5,7 +5,7 @@ interface Env { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | S
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const APP = "demining";
-const NSID_PREFIX = "ai.gftd.apps.demining.";
+const NSID_PREFIX = "app.etzhayyim.apps.demining.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

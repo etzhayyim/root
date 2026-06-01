@@ -8,16 +8,16 @@ container manifest / incident. Apache-2.0.
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.openPorts.definePort` | procedure | port (UN/LOCODE + berths) |
-| `ai.gftd.apps.openPorts.listPorts` | query | port directory |
-| `ai.gftd.apps.openPorts.registerVessel` | procedure | vessel registration (IMO + MMSI + flag) |
-| `ai.gftd.apps.openPorts.scheduleVesselCall` | procedure | vessel call (ETA / ETD + berth assignment) |
-| `ai.gftd.apps.openPorts.recordCallEvent` | procedure | ATA / berthed / unberthed / departed events |
-| `ai.gftd.apps.openPorts.listVesselCalls` | query | calls by port / vessel / status |
-| `ai.gftd.apps.openPorts.recordContainerManifest` | procedure | container TEU manifest (ISO 6346 ID + dangerous goods) |
-| `ai.gftd.apps.openPorts.listContainers` | query | containers by call / status |
-| `ai.gftd.apps.openPorts.reportIncident` | procedure | port-state-control / spill / collision incident |
-| `ai.gftd.apps.openPorts.listIncidents` | query | incidents by port / vessel / since |
+| `app.etzhayyim.apps.openPorts.definePort` | procedure | port (UN/LOCODE + berths) |
+| `app.etzhayyim.apps.openPorts.listPorts` | query | port directory |
+| `app.etzhayyim.apps.openPorts.registerVessel` | procedure | vessel registration (IMO + MMSI + flag) |
+| `app.etzhayyim.apps.openPorts.scheduleVesselCall` | procedure | vessel call (ETA / ETD + berth assignment) |
+| `app.etzhayyim.apps.openPorts.recordCallEvent` | procedure | ATA / berthed / unberthed / departed events |
+| `app.etzhayyim.apps.openPorts.listVesselCalls` | query | calls by port / vessel / status |
+| `app.etzhayyim.apps.openPorts.recordContainerManifest` | procedure | container TEU manifest (ISO 6346 ID + dangerous goods) |
+| `app.etzhayyim.apps.openPorts.listContainers` | query | containers by call / status |
+| `app.etzhayyim.apps.openPorts.reportIncident` | procedure | port-state-control / spill / collision incident |
+| `app.etzhayyim.apps.openPorts.listIncidents` | query | incidents by port / vessel / since |
 
 ## Architecture
 

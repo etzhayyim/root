@@ -38,7 +38,7 @@ test.describe("kaisya.etzhayyim.com WebAuthn E2E", () => {
     // 1. passkeyBeginRegister — Node.js side
     const userId = randomBytes(16).toString("hex");
     const userName = `kaisya-e2e-${randomBytes(4).toString("hex")}@etzhayyim.com`;
-    const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/ai.gftd.auth.passkeyBeginRegister`, {
+    const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/app.etzhayyim.auth.passkeyBeginRegister`, {
       data: { userId, userName },
     });
     expect(beginResp.ok(), `passkeyBeginRegister failed: ${beginResp.status()}`).toBe(true);
@@ -76,7 +76,7 @@ test.describe("kaisya.etzhayyim.com WebAuthn E2E", () => {
     }, begin);
 
     // 3. passkeyVerifyRegister — Node.js side
-    const verifyResp = await request.post(`${AUTH_ORIGIN}/xrpc/ai.gftd.auth.passkeyVerifyRegister`, {
+    const verifyResp = await request.post(`${AUTH_ORIGIN}/xrpc/app.etzhayyim.auth.passkeyVerifyRegister`, {
       data: {
         challenge: begin.challenge,
         clientDataJson: credResult.clientDataJson,
@@ -92,7 +92,7 @@ test.describe("kaisya.etzhayyim.com WebAuthn E2E", () => {
     const accessJwt = String(regResult.accessJwt);
     test.info().annotations.push({ type: "did", description: String(regResult.did) });
 
-    const getMeUnauthed = await request.get(`${KAISYA_API}/xrpc/ai.gftd.apps.kaisya.getMe`);
+    const getMeUnauthed = await request.get(`${KAISYA_API}/xrpc/app.etzhayyim.apps.kaisya.getMe`);
     expect(getMeUnauthed.status()).toBe(401);
 
     const callbackResponse = await page.goto(
@@ -112,7 +112,7 @@ test.describe("kaisya.etzhayyim.com WebAuthn E2E", () => {
 
     // getMe/getHome are soft assertions: they depend on SS_SIGNING_KEY (kaisya Secrets Store)
     // matching SS_AT_SESSION_SECRET (auth Worker env). Mismatch = production config issue.
-    const getMe = await request.get(`${KAISYA_API}/xrpc/ai.gftd.apps.kaisya.getMe`, {
+    const getMe = await request.get(`${KAISYA_API}/xrpc/app.etzhayyim.apps.kaisya.getMe`, {
       headers: authHeaders,
     });
     const getMeBody = await getMe.json().catch(() => ({}));
@@ -125,7 +125,7 @@ test.describe("kaisya.etzhayyim.com WebAuthn E2E", () => {
       expect((getMeBody as any).role).toBeTruthy();
     }
 
-    const getHome = await request.get(`${KAISYA_API}/xrpc/ai.gftd.apps.kaisya.getHome`, {
+    const getHome = await request.get(`${KAISYA_API}/xrpc/app.etzhayyim.apps.kaisya.getHome`, {
       headers: authHeaders,
     });
     const getHomeBody = await getHome.json().catch(() => ({}));
@@ -139,7 +139,7 @@ test.describe("kaisya.etzhayyim.com WebAuthn E2E", () => {
     }
 
     const startDeclaration = await request.post(
-      `${KAISYA_API}/xrpc/ai.gftd.apps.kaisya.payrollStartDeclaration`,
+      `${KAISYA_API}/xrpc/app.etzhayyim.apps.kaisya.payrollStartDeclaration`,
       {
         headers: { ...authHeaders, "Content-Type": "application/json" },
         data: {

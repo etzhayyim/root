@@ -10,7 +10,7 @@
  *   submitRevision   — new paper record with prevRevisionPaperId chain link
  *
  * Idempotency: paper rkey = paper-{paperId-slug}. paperId follows the
- * convention `kiyo:{YYYY}:{TID}` per ADR-2604300000.
+ * convention `kiyo:{YYYY}:{TID}` per `60-apps/ai-gftd-project-kiyo/CLAUDE.md`.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";
@@ -33,7 +33,7 @@ import {
   type WithdrawPaperOutput,
 } from "./types.js";
 
-const PAPER_COLLECTION = "ai.gftd.kiyo.paper";
+const PAPER_COLLECTION = "app.etzhayyim.kiyo.paper";
 
 function isPaperId(id: string): boolean {
   return /^kiyo:\d{4}:[a-z0-9-]{1,32}$/i.test(id);

@@ -10,10 +10,10 @@ const ownerDid = "did:web:llm.etzhayyim.com";
 const actorDid = "did:web:bpmn.etzhayyim.com";
 const createdAt = "2026-04-29T16:10:00+09:00";
 const docVid =
-  "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429";
+  "at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/camunda-zeebe-license-policy-20260429";
 
 const body = [
-  "Camunda/Zeebe runtime policy as of 2026-04-29: GFTD pins the self-managed Zeebe broker to camunda/zeebe:8.5.23 as a short-term Zeebe-only compatibility track.",
+  "Camunda/Zeebe runtime policy as of 2026-04-29: etzhayyim pins the self-managed Zeebe broker to camunda/zeebe:8.5.23 as a short-term Zeebe-only compatibility track.",
   "Do not deploy Camunda Operate, Tasklist, Optimize, or Elasticsearch/OpenSearch under this 8.5 compatibility posture without separate license review.",
   "Camunda 8.6 and later self-managed production usage changes the licensing posture for Zeebe and the broader Camunda 8 stack; production use should require Enterprise/SaaS approval or an approved replacement plan.",
   "Zeebe 8.5 preserves the existing BPMN XML plus zeebe:taskDefinition, zeebe:ioMapping, and pyzeebe worker contract with minimal code churn, but it is past upstream maintenance end and is not a long-term production baseline.",
@@ -21,7 +21,7 @@ const body = [
 ].join("\n");
 
 const chunks = [
-  "GFTD pins the self-managed Zeebe broker to camunda/zeebe:8.5.23 as a short-term Zeebe-only compatibility track.",
+  "etzhayyim pins the self-managed Zeebe broker to camunda/zeebe:8.5.23 as a short-term Zeebe-only compatibility track.",
   "Do not deploy Operate, Tasklist, Optimize, or Elasticsearch/OpenSearch under the 8.5 compatibility posture without separate license review.",
   "Camunda 8.6+ self-managed production usage changes the licensing posture; require Enterprise/SaaS approval or an approved replacement plan.",
   "Zeebe 8.5 keeps existing BPMN zeebe:taskDefinition, zeebe:ioMapping, and pyzeebe worker contracts with minimal code churn, but is past maintenance end.",
@@ -30,7 +30,7 @@ const chunks = [
 
 const sources = [
   {
-    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-pricing-self-managed",
+    vid: "at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-pricing-self-managed",
     url: "https://camunda.com/pricing/",
     title: "Camunda pricing: Self-Managed Free and Enterprise",
     kind: "vendor-pricing",
@@ -38,7 +38,7 @@ const sources = [
     confidence: "high",
   },
   {
-    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-license-reference",
+    vid: "at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-license-reference",
     url: "https://docs.camunda.io/docs/reference/licenses/",
     title: "Camunda 8 license reference",
     kind: "vendor-license-doc",
@@ -46,7 +46,7 @@ const sources = [
     confidence: "high",
   },
   {
-    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-8-5-release-notes",
+    vid: "at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-8-5-release-notes",
     url: "https://docs.camunda.io/docs/8.5/reference/release-notes/850/",
     title: "Camunda 8.5 release notes and maintenance window",
     kind: "vendor-release-notes",
@@ -54,7 +54,7 @@ const sources = [
     confidence: "high",
   },
   {
-    vid: "at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.knowledgeSource/camunda-2024-license-update",
+    vid: "at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/camunda-2024-license-update",
     url: "https://camunda.com/blog/2024/04/licensing-update-camunda-8-self-managed/",
     title: "Camunda 8 Self-Managed licensing update",
     kind: "vendor-license-blog",

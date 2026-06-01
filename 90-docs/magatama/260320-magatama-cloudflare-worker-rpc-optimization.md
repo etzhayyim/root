@@ -10,7 +10,7 @@ authoritative_for:
   - worker internal transport selection between rpc and http service bindings
 related:
   - 260320-magatama-cloudflare-containers-evaluation
-  - 260320-magatama-runtime-dual-backend-design
+  - 260320-magatama-cloudflare-containers-evaluation
 supersedes: []
 superseded_by: []
 ---

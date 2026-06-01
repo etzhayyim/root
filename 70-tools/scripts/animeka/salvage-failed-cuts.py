@@ -3,7 +3,7 @@
 """Salvage failed cutRunner cuts by re-posting with whatever CIDs were captured.
 
 A failed cut shows up as a `vertex_repo_commit` row with collection
-`ai.gftd.bpmn.audit`, vertex_id ending in `cutRunner:create`, and a
+`app.etzhayyim.bpmn.audit`, vertex_id ending in `cutRunner:create`, and a
 value_json payload containing `cutId / sbCid / lyCid / kfCid / bgCid /
 postStatus`. When `postStatus != 200` the cut never made it to the AT
 Protocol feed even though up to four blob CIDs were already pinned in

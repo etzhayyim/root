@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.rtc.admitParticipant": {
+    "/xrpc/app.etzhayyim.rtc.admitParticipant": {
       "post": {
-        "summary": "ai.gftd.rtc.admitParticipant",
-        "operationId": "ai.gftd.rtc.admitParticipant",
+        "summary": "app.etzhayyim.rtc.admitParticipant",
+        "operationId": "app.etzhayyim.rtc.admitParticipant",
         "requestBody": {
           "required": true,
           "content": {
@@ -69,10 +69,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.createBreakout": {
+    "/xrpc/app.etzhayyim.rtc.createBreakout": {
       "post": {
-        "summary": "ai.gftd.rtc.createBreakout",
-        "operationId": "ai.gftd.rtc.createBreakout",
+        "summary": "app.etzhayyim.rtc.createBreakout",
+        "operationId": "app.etzhayyim.rtc.createBreakout",
         "requestBody": {
           "required": true,
           "content": {
@@ -128,10 +128,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.getVAPIDPublicKey": {
+    "/xrpc/app.etzhayyim.rtc.getVAPIDPublicKey": {
       "get": {
-        "summary": "ai.gftd.rtc.getVAPIDPublicKey",
-        "operationId": "ai.gftd.rtc.getVAPIDPublicKey",
+        "summary": "app.etzhayyim.rtc.getVAPIDPublicKey",
+        "operationId": "app.etzhayyim.rtc.getVAPIDPublicKey",
         "parameters": [],
         "responses": {
           "200": {
@@ -158,10 +158,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.hangupCall": {
+    "/xrpc/app.etzhayyim.rtc.hangupCall": {
       "post": {
-        "summary": "ai.gftd.rtc.hangupCall",
-        "operationId": "ai.gftd.rtc.hangupCall",
+        "summary": "app.etzhayyim.rtc.hangupCall",
+        "operationId": "app.etzhayyim.rtc.hangupCall",
         "requestBody": {
           "required": true,
           "content": {
@@ -219,10 +219,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.joinMeeting": {
+    "/xrpc/app.etzhayyim.rtc.joinMeeting": {
       "post": {
-        "summary": "ai.gftd.rtc.joinMeeting",
-        "operationId": "ai.gftd.rtc.joinMeeting",
+        "summary": "app.etzhayyim.rtc.joinMeeting",
+        "operationId": "app.etzhayyim.rtc.joinMeeting",
         "requestBody": {
           "required": true,
           "content": {
@@ -274,10 +274,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.openHuddle": {
+    "/xrpc/app.etzhayyim.rtc.openHuddle": {
       "post": {
-        "summary": "ai.gftd.rtc.openHuddle",
-        "operationId": "ai.gftd.rtc.openHuddle",
+        "summary": "app.etzhayyim.rtc.openHuddle",
+        "operationId": "app.etzhayyim.rtc.openHuddle",
         "requestBody": {
           "required": true,
           "content": {
@@ -329,10 +329,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.raiseHand": {
+    "/xrpc/app.etzhayyim.rtc.raiseHand": {
       "post": {
-        "summary": "ai.gftd.rtc.raiseHand",
-        "operationId": "ai.gftd.rtc.raiseHand",
+        "summary": "app.etzhayyim.rtc.raiseHand",
+        "operationId": "app.etzhayyim.rtc.raiseHand",
         "requestBody": {
           "required": true,
           "content": {
@@ -387,10 +387,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.scheduleMeeting": {
+    "/xrpc/app.etzhayyim.rtc.scheduleMeeting": {
       "post": {
-        "summary": "ai.gftd.rtc.scheduleMeeting",
-        "operationId": "ai.gftd.rtc.scheduleMeeting",
+        "summary": "app.etzhayyim.rtc.scheduleMeeting",
+        "operationId": "app.etzhayyim.rtc.scheduleMeeting",
         "requestBody": {
           "required": true,
           "content": {
@@ -451,10 +451,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.sendCallAnswer": {
+    "/xrpc/app.etzhayyim.rtc.sendCallAnswer": {
       "post": {
-        "summary": "ai.gftd.rtc.sendCallAnswer",
-        "operationId": "ai.gftd.rtc.sendCallAnswer",
+        "summary": "app.etzhayyim.rtc.sendCallAnswer",
+        "operationId": "app.etzhayyim.rtc.sendCallAnswer",
         "requestBody": {
           "required": true,
           "content": {
@@ -513,10 +513,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.sendCallICE": {
+    "/xrpc/app.etzhayyim.rtc.sendCallICE": {
       "post": {
-        "summary": "ai.gftd.rtc.sendCallICE",
-        "operationId": "ai.gftd.rtc.sendCallICE",
+        "summary": "app.etzhayyim.rtc.sendCallICE",
+        "operationId": "app.etzhayyim.rtc.sendCallICE",
         "requestBody": {
           "required": true,
           "content": {
@@ -580,10 +580,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.sendCallOffer": {
+    "/xrpc/app.etzhayyim.rtc.sendCallOffer": {
       "post": {
-        "summary": "ai.gftd.rtc.sendCallOffer",
-        "operationId": "ai.gftd.rtc.sendCallOffer",
+        "summary": "app.etzhayyim.rtc.sendCallOffer",
+        "operationId": "app.etzhayyim.rtc.sendCallOffer",
         "requestBody": {
           "required": true,
           "content": {
@@ -649,10 +649,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.shareScreen": {
+    "/xrpc/app.etzhayyim.rtc.shareScreen": {
       "post": {
-        "summary": "ai.gftd.rtc.shareScreen",
-        "operationId": "ai.gftd.rtc.shareScreen",
+        "summary": "app.etzhayyim.rtc.shareScreen",
+        "operationId": "app.etzhayyim.rtc.shareScreen",
         "requestBody": {
           "required": true,
           "content": {
@@ -707,10 +707,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.startRecording": {
+    "/xrpc/app.etzhayyim.rtc.startRecording": {
       "post": {
-        "summary": "ai.gftd.rtc.startRecording",
-        "operationId": "ai.gftd.rtc.startRecording",
+        "summary": "app.etzhayyim.rtc.startRecording",
+        "operationId": "app.etzhayyim.rtc.startRecording",
         "requestBody": {
           "required": true,
           "content": {
@@ -765,10 +765,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.subscribePush": {
+    "/xrpc/app.etzhayyim.rtc.subscribePush": {
       "post": {
-        "summary": "ai.gftd.rtc.subscribePush",
-        "operationId": "ai.gftd.rtc.subscribePush",
+        "summary": "app.etzhayyim.rtc.subscribePush",
+        "operationId": "app.etzhayyim.rtc.subscribePush",
         "requestBody": {
           "required": true,
           "content": {
@@ -820,10 +820,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.rtc.unsubscribePush": {
+    "/xrpc/app.etzhayyim.rtc.unsubscribePush": {
       "post": {
-        "summary": "ai.gftd.rtc.unsubscribePush",
-        "operationId": "ai.gftd.rtc.unsubscribePush",
+        "summary": "app.etzhayyim.rtc.unsubscribePush",
+        "operationId": "app.etzhayyim.rtc.unsubscribePush",
         "requestBody": {
           "required": true,
           "content": {

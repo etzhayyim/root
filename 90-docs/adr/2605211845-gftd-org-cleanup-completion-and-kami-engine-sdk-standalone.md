@@ -19,16 +19,34 @@ related:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement
 depends_on: []
 supersedes: []
-superseded_by: []
+superseded_by:
+  - adr-2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement
 ---
 
 # ADR-2605211845: gftd org cleanup completion + kami-engine-sdk standalone publication
 
-**Status**: accepted
+**Status**: **partially superseded** by ADR-2605265200 (the "monorepo subdir `20-actors/kami-engine-sdk/` is SoT" portion of this ADR was reversed on 2026-05-26 — canonical is now `40-engine/kami-engine/kami-engine-sdk/`, the 20-actors duplicate was deleted in Phase 3 commit `2d199cca9`)
 **Date**: 2026-05-21
 **Deciders**: Jun Kawasaki
+
+> ⚠️ **Partial supersession note (added 2026-05-26 iter-18 of /loop):**
+>
+> The "**monorepo subdir `20-actors/kami-engine-sdk/` is SoT**" decision
+> in §"kami-engine-sdk standalone publication" below is **superseded by
+> ADR-2605265200**. The canonical SDK location is now
+> `40-engine/kami-engine/kami-engine-sdk/` (git subrepo of
+> `github.com/gftdcojp/kami-engine-sdk`). The `20-actors/kami-engine-sdk/`
+> directory was retired in a 3-phase deprecation completed 2026-05-26:
+> Phase 1 `491ff8ee6` (deprecation marker + workspace registration),
+> Phase 2 `243470dc8` (verification log), Phase 3 `2d199cca9` (atomic
+> 80-file `git rm -r`).
+>
+> The rest of this ADR (gftd org cleanup completion, MOVED-tag deletions,
+> public-global reconciliation, the standalone-mirror policy concept)
+> remains historically accurate and is NOT superseded.
 
 # Context
 
@@ -86,6 +104,67 @@ During the same session that performed (a)–(c), a 6-wave commit plan was attem
 Waves 1–5 were pushed to `260521-cell-waves` and opened as PR #254, but CI failed across the board (vitest + tsc) because the supporting cross-cutting (lockfile + pyproject + fleet.toml) was missing. The user is reconstructing the same work in parallel in the working tree (untracked `shinka_murakumo.py` / `joucho_murakumo.py` / etc. verified byte-identical to the wave commits); PR #254 was closed and `260521-cell-waves` deleted to avoid duplication.
 
 No durable loss to etzhayyim/root because the user's parallel reconstruction will land via a fresh PR with proper cross-cutting included. Recorded here so the reflog window is searchable by future audits.
+
+## Orphaned `.gitrepo` files post-cleanup (audit 2026-05-26 iter-29 of /loop)
+
+An audit during iter-29 enumerated all `.gitrepo` files in the
+monorepo and tested each `remote` URL via `gh repo view`. Excluding
+the ai-gftd-project-cofog tree (hundreds of per-COFOG-code subrepos
+that are a separate concern):
+
+  - `40-engine/kami-engine/kami-engine-sdk/.gitrepo` — was stale
+    (pointed at `gftdcojp/kami-engine-sdk`, 404); fixed in iter-28
+    commit `957ec4c0a` to point at `etzhayyim/kami-engine-sdk`
+    (which exists, was created per the §"kami-engine-sdk standalone
+    publication" Decision above)
+  - `40-engine/kotoba/.gitrepo` — points at `etzhayyim/kotoba`,
+    confirmed alive
+
+The following 7 `.gitrepo` files remained stale post-cleanup, with
+NO surviving `etzhayyim/<name>` equivalent (all `gh repo view
+etzhayyim/<name>` calls returned NOT FOUND):
+
+  60-apps/ai-gftd-project-intel/.gitrepo               → gftdcojp/ai-gftd-intel (404)
+  60-apps/ai-gftd-project-news/.gitrepo                → gftdcojp/ai-gftd-apps-media (404)
+  60-apps/ai-gftd-project-watashi/.gitrepo             → gftdcojp/watashi (404)
+  60-apps/ai-gftd-project-os/.gitrepo                  → gftdcojp/ai-gftd-project-os (404)
+  60-apps/ai-gftd-project-activity-monitor/ai-gftd-performer-sys-gftd-app-activity-monitor-ui-xgng091s/.gitrepo
+                                                        → gftdcojp/ai-gftd-performer-sys-gftd-app-activity-monitor-ui-xgng091s (404)
+  50-infra/yata/yata-wasm/lance-fork/.gitrepo          → gftdcojp/lancedb-wasm (404)
+  60-apps/ai-gftd-project-har/appview/har-app-5ugfx2n1/svelte/.gitrepo
+                                                        → gftdcojp/ai-gftd-har (404)
+
+These are consistent with the §"6 deletion batches" table — the gftd
+cleanup deleted upstream repos that were imported into the monorepo
+prior to deletion. The in-monorepo content remains canonical; the
+`.gitrepo` metadata is now historical bookkeeping that cannot be
+acted on (any `git subrepo push` / `git subrepo pull` will 404).
+
+Three options exist for resolving each:
+
+  1. **Update `remote` to a live successor** — only viable for the
+     kami-engine-sdk case (iter-28); no etzhayyim/<name> successors
+     exist for any of the 7 above.
+  2. **Detach the subrepo** by `git rm .gitrepo` — drops the subrepo
+     tooling marker; the directory becomes plain monorepo content.
+     Reversible by re-running `git subrepo init` later if needed.
+  3. **Leave as-is** — bookkeeping accurately reflects historical
+     import; nobody will operate on it because the live upstream is
+     gone.
+
+This ADR does NOT prescribe Option 1/2/3 for each — that's a per-app
+operator decision. Audit recorded here so the choice is informed.
+Audit script (reproducible):
+
+  for f in $(find . -name '.gitrepo' -not -path '*/node_modules/*' \\
+              -not -path '*/.claude/*' -not -path '*/ai-gftd-project-cofog/*'); do
+    remote=$(grep 'remote =' "$f" | awk '{print $3}')
+    orgrepo=$(echo "$remote" | grep -oE 'github\\.com[:/]([^/]+/[^/.]+)' \\
+              | head -1 | sed 's|github.com[:/]||')
+    [ -n "$orgrepo" ] && \\
+      gh repo view "$orgrepo" --json visibility >/dev/null 2>&1 || \\
+      echo "STALE: $f → $orgrepo"
+  done
 
 # Alternatives Considered
 

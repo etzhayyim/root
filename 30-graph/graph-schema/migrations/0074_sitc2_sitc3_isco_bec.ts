@@ -10,10 +10,10 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                               | Rows | Source                        |
  * |------------------------------------------|------|-------------------------------|
- * | ai.gftd.apps.sitc.commodity_rev3         | 5,690 | UN Comtrade S3.json (SITC R.3)|
- * | ai.gftd.apps.sitc.commodity_rev2         | 3,723 | UN Comtrade S2.json (SITC R.2)|
- * | ai.gftd.apps.isco.occupation             |   393 | ILO ISCO-08 (2012 edition)    |
- * | ai.gftd.apps.bec.category                |    31 | UN BEC Rev.5 (2016)           |
+ * | app.etzhayyim.apps.sitc.commodity_rev3         | 5,690 | UN Comtrade S3.json (SITC R.3)|
+ * | app.etzhayyim.apps.sitc.commodity_rev2         | 3,723 | UN Comtrade S2.json (SITC R.2)|
+ * | app.etzhayyim.apps.isco.occupation             |   393 | ILO ISCO-08 (2012 edition)    |
+ * | app.etzhayyim.apps.bec.category                |    31 | UN BEC Rev.5 (2016)           |
  *
  * ### SITC Revision history coverage
  * SITC Rev.2 (1975) → Rev.3 (1986) → Rev.4 (2006): now all three editions in graph.
@@ -40,10 +40,10 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New views
  *
- * - view_sitc3_commodity: projection of ai.gftd.apps.sitc.commodity_rev3
- * - view_sitc2_commodity: projection of ai.gftd.apps.sitc.commodity_rev2
- * - view_isco_occupation: projection of ai.gftd.apps.isco.occupation
- * - view_bec_category: projection of ai.gftd.apps.bec.category
+ * - view_sitc3_commodity: projection of app.etzhayyim.apps.sitc.commodity_rev3
+ * - view_sitc2_commodity: projection of app.etzhayyim.apps.sitc.commodity_rev2
+ * - view_isco_occupation: projection of app.etzhayyim.apps.isco.occupation
+ * - view_bec_category: projection of app.etzhayyim.apps.bec.category
  *
  * ## Topology integrity (post-apply)
  *
@@ -72,7 +72,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.sitc.commodity_rev3'
+    WHERE collection = 'app.etzhayyim.apps.sitc.commodity_rev3'
   `.execute(db);
 
   await sql`
@@ -86,7 +86,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.sitc.commodity_rev2'
+    WHERE collection = 'app.etzhayyim.apps.sitc.commodity_rev2'
   `.execute(db);
 
   await sql`
@@ -101,7 +101,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.isco.occupation'
+    WHERE collection = 'app.etzhayyim.apps.isco.occupation'
   `.execute(db);
 
   await sql`
@@ -113,7 +113,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent' AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.bec.category'
+    WHERE collection = 'app.etzhayyim.apps.bec.category'
   `.execute(db);
 
   // ── dim_world_domain ───────────────────────────────────────────────────
@@ -150,10 +150,10 @@ export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_sitc2_commodity`.execute(db);
   await sql`DROP VIEW IF EXISTS view_isco_occupation`.execute(db);
   await sql`DROP VIEW IF EXISTS view_bec_category`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.sitc.commodity_rev3'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.sitc.commodity_rev2'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.isco.occupation'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.bec.category'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.sitc.commodity_rev3'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.sitc.commodity_rev2'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.isco.occupation'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.bec.category'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain IN ('sitc3','sitc2','isco','bec')`.execute(db);
   await sql`DELETE FROM edge_classified_as WHERE system IN ('sitc3_sitc4','sitc2_sitc3','sitc2_sitc4')`.execute(db);
 }

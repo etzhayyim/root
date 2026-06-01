@@ -14,7 +14,7 @@ metadata:
     etzhayyim.com/leader-hostname: zebulunnomac-mini.local
     etzhayyim.com/trigger: mst-listener
     etzhayyim.com/healthz-port: '13018'
-    etzhayyim.com/listens-to: ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey
+    etzhayyim.com/listens-to: app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey
     etzhayyim.com/adr: 2605201400,2605171300,2605172100,2605192130,2605192200,2605192230
 spec:
   selector:

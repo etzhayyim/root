@@ -34,13 +34,13 @@ async fn main() {
         "sync" => daemon::cmd_sync(&cfg).await,
         "upload" => {
             if command_args.is_empty() {
-                fatal("usage: gftd-murakumo upload <model_id_or_path>");
+                fatal("usage: etzhayyim-murakumo upload <model_id_or_path>");
             }
             cmd_upload(&cfg, &command_args[0]).await;
         }
         "download" => {
             if command_args.is_empty() {
-                fatal("usage: gftd-murakumo download <model_id>");
+                fatal("usage: etzhayyim-murakumo download <model_id>");
             }
             cmd_download(&cfg, &command_args[0]).await;
         }
@@ -81,7 +81,7 @@ fn parse_args(args: &[String]) -> (String, Vec<String>) {
         }
     }
 
-    if std::env::var("GFTD_MURAKUMO_VERBOSE").is_ok() {
+    if std::env::var("ETZHAYYIM_MURAKUMO_VERBOSE").is_ok() {
         VERBOSE.store(true, Ordering::Relaxed);
     }
 
@@ -107,7 +107,7 @@ fn version_summary() -> String {
 
 fn print_usage() {
     print!(
-        r#"gftd-murakumo -- Native Worker for Murakumo Compute Cluster
+        r#"etzhayyim-murakumo -- Native Worker for Murakumo Compute Cluster
 
   Joins the Murakumo network (murakumo.etzhayyim.com CF Worker cluster)
   as a native compute worker via HTTP/3.
@@ -135,29 +135,29 @@ commands:
   health           Show control plane health + version
   version          Print version
 
-modes (GFTD_PROVIDER_MODE):
+modes (ETZHAYYIM_PROVIDER_MODE):
   worker     Native compute worker + MLX inference (default)
   inference  MLX inference only (no task dispatch)
 
 env:
-  GFTD_MURAKUMO              Control plane (default: https://murakumo.etzhayyim.com)
-  GFTD_PROVIDER_MODE         Mode: worker|inference
-  GFTD_MURAKUMO_HTTP_TIMEOUT Connect timeout (default: 90s)
-  GFTD_MURAKUMO_VERBOSE      Enable trace logs
-  GFTD_NATS_URL              NATS URL (optional)
-  GFTD_QUIC_GATEWAY_ADDR     QUIC gateway address (optional)
+  ETZHAYYIM_MURAKUMO              Control plane (default: https://murakumo.etzhayyim.com)
+  ETZHAYYIM_PROVIDER_MODE         Mode: worker|inference
+  ETZHAYYIM_MURAKUMO_HTTP_TIMEOUT Connect timeout (default: 90s)
+  ETZHAYYIM_MURAKUMO_VERBOSE      Enable trace logs
+  ETZHAYYIM_NATS_URL              NATS URL (optional)
+  ETZHAYYIM_QUIC_GATEWAY_ADDR     QUIC gateway address (optional)
 
 examples:
   curl -fsSL https://murakumo.etzhayyim.com/install.sh | sh
-  GFTD_PROVIDER_MODE=inference curl -fsSL https://murakumo.etzhayyim.com/install.sh | sh
-  gftd-murakumo daemon --verbose
-  gftd-murakumo join
-  gftd-murakumo sync
-  gftd-murakumo murakumo-mesh keygen --node-id my-node
-  gftd-murakumo murakumo-mesh stun
-  gftd-murakumo murakumo-mesh tunnel --node-id my-node --secret-key <sk>
-  gftd-murakumo murakumo-mesh status
-  gftd-murakumo murakumo-mesh dns <node-id>.mesh.etzhayyim.com
+  ETZHAYYIM_PROVIDER_MODE=inference curl -fsSL https://murakumo.etzhayyim.com/install.sh | sh
+  etzhayyim-murakumo daemon --verbose
+  etzhayyim-murakumo join
+  etzhayyim-murakumo sync
+  etzhayyim-murakumo murakumo-mesh keygen --node-id my-node
+  etzhayyim-murakumo murakumo-mesh stun
+  etzhayyim-murakumo murakumo-mesh tunnel --node-id my-node --secret-key <sk>
+  etzhayyim-murakumo murakumo-mesh status
+  etzhayyim-murakumo murakumo-mesh dns <node-id>.mesh.etzhayyim.com
 "#
     );
 }
@@ -318,7 +318,7 @@ async fn cmd_download(cfg: &config::NodeConfig, model_id: &str) {
 fn cmd_status(cfg: &config::NodeConfig) {
     println!("Version:    {}", version_summary());
     if cfg.node_id.is_empty() {
-        println!("not installed -- run: gftd-murakumo install");
+        println!("not installed -- run: etzhayyim-murakumo install");
         return;
     }
     println!("Node ID:    {}", cfg.node_id);
@@ -354,7 +354,7 @@ async fn cmd_health(cfg: &config::NodeConfig) {
 
 async fn cmd_mesh(cfg: &config::NodeConfig, args: &[String]) {
     if args.is_empty() {
-        fatal("usage: gftd-murakumo murakumo-mesh <keygen|register|peers|stun|tunnel|status|dns|encrypt|decrypt>");
+        fatal("usage: etzhayyim-murakumo murakumo-mesh <keygen|register|peers|stun|tunnel|status|dns|encrypt|decrypt>");
     }
 
     match args[0].as_str() {
@@ -440,7 +440,7 @@ async fn cmd_mesh(cfg: &config::NodeConfig, args: &[String]) {
             }
 
             if node_id.is_empty() {
-                fatal("--node-id required (or run gftd-murakumo install first)");
+                fatal("--node-id required (or run etzhayyim-murakumo install first)");
             }
 
             let identity = if secret_key.is_empty() {
@@ -570,7 +570,7 @@ async fn cmd_mesh(cfg: &config::NodeConfig, args: &[String]) {
         }
         "dns" => {
             if args.len() < 2 {
-                fatal("usage: gftd-murakumo murakumo-mesh dns <name.mesh.etzhayyim.com>");
+                fatal("usage: etzhayyim-murakumo murakumo-mesh dns <name.mesh.etzhayyim.com>");
             }
             let name = &args[1];
             if let Some(node_id) = name.strip_suffix(".mesh.etzhayyim.com") {
@@ -602,7 +602,7 @@ async fn cmd_mesh(cfg: &config::NodeConfig, args: &[String]) {
                 Err(e) => fatal(&e),
             }
         }
-        _ => fatal("usage: gftd-murakumo murakumo-mesh <keygen|register|peers|stun|tunnel|status|dns|encrypt|decrypt>"),
+        _ => fatal("usage: etzhayyim-murakumo murakumo-mesh <keygen|register|peers|stun|tunnel|status|dns|encrypt|decrypt>"),
     }
 }
 
@@ -676,7 +676,7 @@ async fn cmd_distill_status(cfg: &config::NodeConfig, args: &[String]) {
         i += 1;
     }
     if job_id.is_empty() {
-        fatal("usage: gftd-murakumo distill-status --job-id <id>");
+        fatal("usage: etzhayyim-murakumo distill-status --job-id <id>");
     }
 
     let client = api::http_client();
@@ -782,7 +782,7 @@ async fn cmd_opus_distill_eval(cfg: &config::NodeConfig, args: &[String]) {
         i += 1;
     }
     if job_id.is_empty() {
-        fatal("usage: gftd-murakumo opus-distill-eval --job-id <id>");
+        fatal("usage: etzhayyim-murakumo opus-distill-eval --job-id <id>");
     }
 
     let client = api::http_client();

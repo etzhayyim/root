@@ -3,7 +3,7 @@
   "formKey": "openWater.reportLeak.v1",
   "name": "Report Leak",
   "version": 1,
-  "lexiconRef": "ai.gftd.apps.openWater.reportLeak",
+  "lexiconRef": "app.etzhayyim.apps.openWater.reportLeak",
   "components": [
     { "key": "mainDid", "label": "Main DID", "type": "textfield",
       "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },

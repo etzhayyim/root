@@ -8,7 +8,7 @@
  * Two-pass render: PBR pass (SDF body) + Splat pass (3DGS face).
  *
  * Usage in app.ts:
- *   import { buildHybridCharacterScene } from "@gftd/magatama-host-sdk/kami-character-hybrid";
+ *   import { buildHybridCharacterScene } from "@etzhayyim/magatama-host-sdk/kami-character-hybrid";
  *   const scene = buildHybridCharacterScene({ faceSplatKey: "sofia-face.ply", ... });
  */
 
@@ -109,7 +109,7 @@ export function buildHybridCharacterScene(config: HybridCharacterConfig): Record
     }));
 
   return {
-    "@context": "https://gftd.co.jp/ns/kami/scene",
+    "@context": "https://etzhayyim.com/ns/kami/scene",
     "@type": "IslandScene",
     name: config.name ?? "Hybrid Character",
     genre: "social",

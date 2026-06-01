@@ -18,7 +18,7 @@ async function readJsonSafe(res: Response): Promise<Record<string, unknown> | nu
 }
 
 Given('I create a channel named {string}', async ({ apiState, apiBase }, name: string) => {
-	const res = await xrpcPost(apiBase, 'ai.gftd.convo.createConvo', { name, kind: 'public' });
+	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.createConvo', { name, kind: 'public' });
 	apiState.lastResponse = res;
 	apiState.lastBody = await readJsonSafe(res);
 	apiState.createdConvoId =
@@ -29,13 +29,13 @@ Given('I create a channel named {string}', async ({ apiState, apiBase }, name: s
 });
 
 When('I list all channels', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'ai.gftd.convo.listPublicConvos', { limit: 20 });
+	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.listPublicConvos', { limit: 20 });
 	apiState.lastResponse = res;
 	apiState.lastBody = await readJsonSafe(res);
 });
 
 When('I join the created channel', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'ai.gftd.convo.joinConvo', {
+	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.joinConvo', {
 		convoId: apiState.createdConvoId,
 	});
 	apiState.lastResponse = res;
@@ -43,7 +43,7 @@ When('I join the created channel', async ({ apiState, apiBase }) => {
 });
 
 When('I leave the created channel', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'ai.gftd.convo.leaveConvo', {
+	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.leaveConvo', {
 		convoId: apiState.createdConvoId,
 	});
 	apiState.lastResponse = res;

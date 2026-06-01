@@ -1,4 +1,4 @@
-# @gftd/ameno-daemon
+# @etzhayyim/ameno-daemon
 
 Headless system-resident daemon for ameno (Tier-2 worker host).
 

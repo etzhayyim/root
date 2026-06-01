@@ -1,6 +1,6 @@
-# GFTD Public Resources
+# etzhayyim Public Resources
 
-Public JSON-LD entity resources for GFTD projects. Content under `content/` is stored as normalized JSON-LD entity files.
+Public JSON-LD entity resources for etzhayyim projects. Content under `content/` is stored as normalized JSON-LD entity files.
 
 ## Structure
 

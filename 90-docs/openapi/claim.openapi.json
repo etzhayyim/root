@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.claim.challengeStakedAttestation": {
+    "/xrpc/app.etzhayyim.claim.challengeStakedAttestation": {
       "post": {
         "summary": "ADR-2604261717 Phase 1 — challenge a staked claim. Caller must already hold a passkey-bearer session AND have approved ClaimStakeEscrow to transfer `counterBond` GCC. Calls ClaimStakeEscrow.challenge(claimId, challengerDidHash, counterBond) which moves the claim into Challenged state and starts the arbiter resolution window.",
-        "operationId": "ai.gftd.claim.challengeStakedAttestation",
+        "operationId": "app.etzhayyim.claim.challengeStakedAttestation",
         "requestBody": {
           "required": true,
           "content": {
@@ -87,10 +87,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.claim.getStakedAttestation": {
+    "/xrpc/app.etzhayyim.claim.getStakedAttestation": {
       "get": {
         "summary": "ADR-2604261717 Phase 1 — read a staked claim's on-chain state. Issues an eth_call to ClaimStakeEscrow.claims(bytes32) and (optionally) ClaimStakeEscrow.challenges(bytes32) and reflects the canonical state without graph mediation. Public — no session required.",
-        "operationId": "ai.gftd.claim.getStakedAttestation",
+        "operationId": "app.etzhayyim.claim.getStakedAttestation",
         "parameters": [
           {
             "name": "claimId",
@@ -172,10 +172,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.claim.postStakedAttestation": {
+    "/xrpc/app.etzhayyim.claim.postStakedAttestation": {
       "post": {
         "summary": "ADR-2604261717 Phase 1 — submit a staked claim. Caller must already hold a passkey-bearer session (ADR-0023 / ADR-0074 Phase 1) AND have approved ClaimStakeEscrow to transfer `bond` GCC. The handler builds a sealer-funded tx that calls ClaimStakeEscrow.postClaim(claimId, didHash, atRecordCid, bond, challengePeriodSec) and (TODO Phase 2) writes the AT Record + vertex_claim_stake row.",
-        "operationId": "ai.gftd.claim.postStakedAttestation",
+        "operationId": "app.etzhayyim.claim.postStakedAttestation",
         "requestBody": {
           "required": true,
           "content": {
@@ -275,10 +275,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.claim.settleStakedAttestation": {
+    "/xrpc/app.etzhayyim.claim.settleStakedAttestation": {
       "post": {
         "summary": "ADR-2604261717 Phase 1 — finalize a staked claim. Path A (no challenge filed within challengePeriod): anyone can call to refund the bond and close the claim. Path B (challenged): the configured arbiter signs the outcome via ECDSA over keccak256(claimId, claimWins, escrow, chainId) and the contract distributes per the 85/10/5 split. Path C (no-show, arbiter timed out): both sides refunded.",
-        "operationId": "ai.gftd.claim.settleStakedAttestation",
+        "operationId": "app.etzhayyim.claim.settleStakedAttestation",
         "requestBody": {
           "required": true,
           "content": {
@@ -354,7 +354,7 @@
         "properties": {
           "targetClaimId": {
             "type": "string",
-            "description": "0x-prefixed 32-byte claimId from the original ai.gftd.claim.stakedAttestation"
+            "description": "0x-prefixed 32-byte claimId from the original app.etzhayyim.claim.stakedAttestation"
           },
           "counterBond": {
             "type": "string",
@@ -481,7 +481,7 @@
           },
           "outcome": {
             "type": "string",
-            "description": "unchallenged | upheld | slashed | refunded — set by ai.gftd.claim.resolution annotation"
+            "description": "unchallenged | upheld | slashed | refunded — set by app.etzhayyim.claim.resolution annotation"
           }
         },
         "required": [

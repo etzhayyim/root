@@ -1,0 +1,33 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:fleamarket.gftd.ai",
+  "nanoid": "fmdd4v30",
+  "name": "fleamarket",
+  "project": "fleamarket",
+  "runtimeType": "worker",
+  "performerType": "service",
+  "uiType": "yoro",
+  "accent": "#ef4444",
+  "convoSystemPrompt": "You are the flea market agent. You manage C2C listings, bids, transactions, and shipping.",
+  "profile": {
+    "displayName": "Flea Market",
+    "description": "fleamarket — C2C flea market platform — listings, bids, transactions, shipping",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "amanomibashira",
+    "capabilities": ["createListing", "listListings", "getListing", "createBid", "listBids", "closeListing", "createTransaction", "listTransactions"],
+    "protocols": ["xrpc", "mcp"]
+  },
+  "governance": {
+    "raci": "responsible",
+    "classification": "public"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.fleamarket.listing",
+        "ai.gftd.apps.fleamarket.transaction"
+      ]
+    }
+  }
+}

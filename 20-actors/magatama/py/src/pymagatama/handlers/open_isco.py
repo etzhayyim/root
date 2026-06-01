@@ -13,7 +13,7 @@ from pymagatama.primitives.open_isco import (
 
 
 @udf(
-    nsid="ai.gftd.apps.openIsco.codeLevel",
+    nsid="app.etzhayyim.apps.openIsco.codeLevel",
     io_threads=32,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -25,7 +25,7 @@ def code_level_udf(isco_code: str) -> str:
 
 
 @udf(
-    nsid="ai.gftd.apps.openIsco.verificationForConfidence",
+    nsid="app.etzhayyim.apps.openIsco.verificationForConfidence",
     io_threads=32,
     input_types=["FLOAT64"],
     result_type="VARCHAR",
@@ -41,7 +41,7 @@ def verification_for_confidence_udf(confidence: float) -> str:
 
 
 @udf(
-    nsid="ai.gftd.apps.openIsco.classificationVertexId",
+    nsid="app.etzhayyim.apps.openIsco.classificationVertexId",
     io_threads=32,
     input_types=["VARCHAR", "VARCHAR", "VARCHAR"],
     result_type="VARCHAR",

@@ -18,7 +18,7 @@ authoritative_paths:
 
 ## 1. Context
 
-Previous ADRs defined the conceptual elements of Gftd's autonomous systems: CXO roles (ADR 2605101200), the PEGEL evaluation loop for provenance (ADR 260509-pokopia), and the physical fleet infrastructure via Murakumo Virtual Kubelet (ADR 2605121700).
+Previous ADRs defined the conceptual elements of etzhayyim's autonomous systems: CXO roles (ADR 2605101200), the PEGEL evaluation loop for provenance (ADR 260509-pokopia), and the physical fleet infrastructure via Murakumo Virtual Kubelet (ADR 2605121700).
 
 However, these were isolated concepts. The development iterations of `iter126` through `iter142+` (May 2026) have necessitated synthesizing these components into a unified, self-sustaining system. We needed to transition from running discrete, human-triggered Python scripts to a constantly vigilant, self-monitoring, and natively distributed ecosystem—effectively realizing the long-planned "Artificial Organism."
 

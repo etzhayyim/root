@@ -206,7 +206,7 @@ async function lookupApiKeyRowByAwsAccessKeyId(
   if (!env.HYPERDRIVE) return null;
 
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     const db = sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
     const row = await db
       .selectFrom("vertex_api_key")

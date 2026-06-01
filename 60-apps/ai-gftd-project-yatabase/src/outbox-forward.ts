@@ -33,7 +33,7 @@ export async function forwardOutboxList(
 	return forwardBmc(
 		env,
 		"POST",
-		"ai.gftd.apps.yata.outboxList",
+		"app.etzhayyim.apps.yata.outboxList",
 		body as Record<string, unknown>,
 		withTrace(traceId),
 		{ timeoutMs: 10_000 },
@@ -57,7 +57,7 @@ export async function forwardOutboxApprove(
 	return forwardBmc(
 		env,
 		"POST",
-		"ai.gftd.apps.yata.outboxApprove",
+		"app.etzhayyim.apps.yata.outboxApprove",
 		body as Record<string, unknown>,
 		withTrace(traceId),
 		{ timeoutMs: 10_000 },
@@ -77,7 +77,7 @@ export async function forwardOutboxReject(
 	return forwardBmc(
 		env,
 		"POST",
-		"ai.gftd.apps.yata.outboxReject",
+		"app.etzhayyim.apps.yata.outboxReject",
 		body as Record<string, unknown>,
 		withTrace(traceId),
 		{ timeoutMs: 10_000 },

@@ -25,7 +25,7 @@ export const kiyoProjector: ProjectorConfig = {
   actorDid: "did:web:kiyo.etzhayyim.com",
   collections: {
     paper: {
-      collection: "ai.gftd.kiyo.paper",
+      collection: "app.etzhayyim.kiyo.paper",
       textIndex: {
         fields: ["title", "titleLocal", "abstract", "abstractLocal"],
         model: "all-MiniLM-L6-v2",
@@ -34,7 +34,7 @@ export const kiyoProjector: ProjectorConfig = {
       aggregates: ["status", "language", "field"],
     },
     review: {
-      collection: "ai.gftd.kiyo.review",
+      collection: "app.etzhayyim.kiyo.review",
       textIndex: {
         fields: ["conclusion"],
         model: "all-MiniLM-L6-v2",
@@ -43,7 +43,7 @@ export const kiyoProjector: ProjectorConfig = {
       aggregates: ["status"],
     },
     endorsement: {
-      collection: "ai.gftd.kiyo.endorsement",
+      collection: "app.etzhayyim.kiyo.endorsement",
       // No text search — endorsements are small structured records
       attributes: ["endorserDid"],
       aggregates: ["endorserDid"],

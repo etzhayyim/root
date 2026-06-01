@@ -172,7 +172,7 @@ export function buildEmergencyKitText(input: {
 }): string {
 	const issuedAt = (input.issuedAt ?? new Date()).toISOString();
 	return [
-		'# GFTD Emergency Kit',
+		'# etzhayyim Emergency Kit',
 		'',
 		'Keep this file offline in a secure location.',
 		`Issued At: ${issuedAt}`,

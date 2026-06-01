@@ -59,28 +59,28 @@ const ALREADY_MIGRATED = new Set([
 // (<actor>.etzhayyim.com) so it's intentionally short. Method NSIDs include the
 // distinguishing prefix that was originally part of the assistant_id.
 const ACTOR_GROUPS = {
-  // pymagatama.primitives.aria_signal:task_aria_*  →  ai.gftd.apps.aria.*
+  // pymagatama.primitives.aria_signal:task_aria_*  →  app.etzhayyim.apps.aria.*
   aria: {
     matches: /^aria_/,
     method_template: (assistantId) => assistantId.replace(/^aria_/, ""),
     module: "pymagatama.primitives.aria_signal",
     fn_template: "task_aria_{snake}",
   },
-  // pymagatama.primitives.shosha:task_shosha_*  →  ai.gftd.apps.shosha.*
+  // pymagatama.primitives.shosha:task_shosha_*  →  app.etzhayyim.apps.shosha.*
   shosha: {
     matches: /^shosha_/,
     method_template: (assistantId) => assistantId.replace(/^shosha_/, ""),
     module: "pymagatama.primitives.shosha",
     fn_template: "task_shosha_{snake}",
   },
-  // pymagatama.primitives.isbn:task_isbn_*  →  ai.gftd.apps.isbn.*
+  // pymagatama.primitives.isbn:task_isbn_*  →  app.etzhayyim.apps.isbn.*
   isbn: {
     matches: /^isbn_/,
     method_template: (assistantId) => assistantId.replace(/^isbn_/, ""),
     module: "pymagatama.primitives.isbn",
     fn_template: "task_isbn_{snake}",
   },
-  // pymagatama.primitives.wellbecoming_*  →  ai.gftd.apps.wellbecoming.*
+  // pymagatama.primitives.wellbecoming_*  →  app.etzhayyim.apps.wellbecoming.*
   // (per-sub-module variation; resolver still finds it because module is set)
   wellbecoming: {
     matches: /^wellbecoming_/,
@@ -226,7 +226,7 @@ function makeArtifacts(actor, byNode, assistantSpec) {
     path: `00-contracts/lexicons/ai/gftd/apps/${actor}/${m.method}.json`,
     json: {
       lexicon: 1,
-      id: `ai.gftd.apps.${actor}.${m.method}`,
+      id: `app.etzhayyim.apps.${actor}.${m.method}`,
       defs: {
         main: {
           type: "procedure",
@@ -266,8 +266,8 @@ function makeArtifacts(actor, byNode, assistantSpec) {
     sql += `   description, input_schema, output_schema, visibility, version, enabled,\n`;
     sql += `   source_path, org_id, user_id, actor_id, created_at)\n`;
     sql += `VALUES\n`;
-    sql += `  ('at://did:web:${actor}.etzhayyim.com/ai.gftd.mcp.toolDef/${slug}',\n`;
-    sql += `   0, 0, 'ai.gftd.apps.${actor}.${m.method}',\n`;
+    sql += `  ('at://did:web:${actor}.etzhayyim.com/app.etzhayyim.mcp.toolDef/${slug}',\n`;
+    sql += `   0, 0, 'app.etzhayyim.apps.${actor}.${m.method}',\n`;
     sql += `   'did:web:${actor}.etzhayyim.com', '${actor}.etzhayyim.com', 'procedure',\n`;
     sql += `   '[STUB — fill from lexicon]',\n`;
     sql += `   '{"type":"object"}', '{"type":"object"}',\n`;
@@ -299,10 +299,10 @@ function makeArtifacts(actor, byNode, assistantSpec) {
     const config = JSON.stringify({
       input_keys: m.analysis?.stateKeys || [],
       result_key: `${m.method}Out`,
-      args: { name: `ai.gftd.apps.${actor}.${m.method}` },
+      args: { name: `app.etzhayyim.apps.${actor}.${m.method}` },
     });
     return `  ('${v2}:${m.nodeId}', 0, 0, '${v2}', '${m.nodeId}',\n` +
-           `   'mcp_tool', 'mcp://ai.gftd.apps.${actor}.${m.method}',\n` +
+           `   'mcp_tool', 'mcp://app.etzhayyim.apps.${actor}.${m.method}',\n` +
            `   '${config.replace(/'/g, "''")}',\n` +
            `   '2026-05-09T00:00:00Z')`;
   });

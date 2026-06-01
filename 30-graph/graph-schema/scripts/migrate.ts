@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Kysely migration runner for @gftd/graph-schema.
+ * Kysely migration runner for @etzhayyim/graph-schema.
  *
  * Replaces the archived Python `apply-migrations.py`. Uses the kysely
  * `Migrator` + `FileMigrationProvider` so migrations run as real TypeScript
@@ -70,9 +70,9 @@ interface ParsedArgs {
   target?: string;
 }
 
-const migrateDebug = process.env.GFTD_MIGRATE_DEBUG === '1';
+const migrateDebug = process.env.etzhayyim_MIGRATE_DEBUG === '1';
 const migrateTimeoutMs = (() => {
-  const raw = process.env.GFTD_MIGRATE_TIMEOUT_MS;
+  const raw = process.env.etzhayyim_MIGRATE_TIMEOUT_MS;
   if (!raw) return 180_000;
   const n = Number(raw);
   return Number.isFinite(n) && n > 0 ? Math.floor(n) : 180_000;
@@ -89,7 +89,7 @@ async function withTimeout<T>(label: string, fn: () => Promise<T>): Promise<T> {
     fn(),
     new Promise<never>((_, reject) => {
       setTimeout(() => {
-        reject(new Error(`${label} timed out after ${migrateTimeoutMs}ms (set GFTD_MIGRATE_TIMEOUT_MS to override)`));
+        reject(new Error(`${label} timed out after ${migrateTimeoutMs}ms (set etzhayyim_MIGRATE_TIMEOUT_MS to override)`));
       }, migrateTimeoutMs);
     }),
   ]);

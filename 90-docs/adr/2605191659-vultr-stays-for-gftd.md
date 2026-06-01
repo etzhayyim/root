@@ -15,7 +15,7 @@ authoritative_for:
   - supersession of ADR-2605191358 §step 6 (Vultr archive sweep)
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
   - adr-2605191358-yoro-murakumo-rw-free-rewrite-map
 related: []
 supersedes:

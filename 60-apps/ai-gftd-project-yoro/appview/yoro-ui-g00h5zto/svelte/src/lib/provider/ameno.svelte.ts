@@ -1,7 +1,7 @@
 /**
- * ameno.svelte.ts — Svelte 5 provider for @gftd/ameno browser WebGPU inference.
+ * ameno.svelte.ts — Svelte 5 provider for @etzhayyim/ameno browser WebGPU inference.
  *
- * Wraps the @gftd/ameno package (transformers.js ONNX + WebGPU LoRA merge +
+ * Wraps the @etzhayyim/ameno package (transformers.js ONNX + WebGPU LoRA merge +
  * RAG context injection) with Svelte 5 runes for reactive state management.
  *
  * Architecture: Dual-backend with local-llm.svelte.ts (WebLLM).
@@ -25,14 +25,14 @@ import {
 	type InferenceState,
 	type ChatMessage as AmenoChatMessage,
 	type GenerationStats,
-} from '@gftd/ameno/inference';
+} from '@etzhayyim/ameno/inference';
 
 import {
 	fetchLoraAdapter,
 	applyLoraAdapters,
 	type AdapterMergeSpec,
 	type LoadedLoraAdapter,
-} from '@gftd/ameno/lora-runtime';
+} from '@etzhayyim/ameno/lora-runtime';
 
 import {
 	ragSearch,
@@ -40,7 +40,7 @@ import {
 	buildRagContextPrompt,
 	type RagResult,
 	type RagLoraContext,
-} from '@gftd/ameno/rag-lora';
+} from '@etzhayyim/ameno/rag-lora';
 
 export type AmenoState = 'idle' | 'loading' | 'ready' | 'generating' | 'merging-lora' | 'error';
 
@@ -296,7 +296,7 @@ export function useAmeno() {
 		loadActorAdapter,
 		clearAdapters,
 
-		// ── RAG (re-export from @gftd/ameno) ──
+		// ── RAG (re-export from @etzhayyim/ameno) ──
 		ragSearch,
 		ragLoraSelect,
 		buildRagContextPrompt,

@@ -21,7 +21,7 @@ interface ExportedHandler<E> {
 const APP = "yabai";
 const ACTOR_DID = "did:web:yabai.etzhayyim.com";
 const DEFAULT_NANOID = "y8b41k0x";
-const NSID_PREFIX = "ai.gftd.apps.yabai.";
+const NSID_PREFIX = "app.etzhayyim.apps.yabai.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

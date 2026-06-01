@@ -9,23 +9,23 @@
       { "id": "act.registerInstitution", "name": "Register Institution", "type": "bpmn",
         "bpmnProcessKey": "registerInstitution", "source": "bpmn/register-institution.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openSwift.registerInstitution" },
+          { "xrpc": "app.etzhayyim.apps.openSwift.registerInstitution" },
           { "form": "openSwift.registerInstitution.v1" }
         ] },
       { "id": "act.creditTransfer", "name": "Customer Credit Transfer", "type": "bpmn",
         "bpmnProcessKey": "customerCreditTransfer", "source": "bpmn/credit-transfer.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openSwift.sendCustomerCreditTransfer" },
+          { "xrpc": "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer" },
           { "form": "openSwift.customerCreditTransfer.v1" },
           { "dmn":  "openSwift.screening" }
         ] },
       { "id": "act.acknowledge", "name": "Acknowledge Message", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openSwift.acknowledgeMessage" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openSwift.acknowledgeMessage" }] },
       { "id": "act.queryMessage", "name": "Query Messages", "type": "xrpc",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openSwift.getMessage" },
-          { "xrpc": "ai.gftd.apps.openSwift.listMessages" },
-          { "xrpc": "ai.gftd.apps.openSwift.listInstitutions" }
+          { "xrpc": "app.etzhayyim.apps.openSwift.getMessage" },
+          { "xrpc": "app.etzhayyim.apps.openSwift.listMessages" },
+          { "xrpc": "app.etzhayyim.apps.openSwift.listInstitutions" }
         ] }
     ]
   },

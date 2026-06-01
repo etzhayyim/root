@@ -88,7 +88,7 @@ def _contact_row(token: dict[str, Any], p: dict[str, Any]) -> dict[str, Any]:
     metadata = p.get("metadata") or {}
     updated_time = _str((metadata.get("sources") or [{}])[0].get("updateTime"))
     return {
-        "vertex_id": f"at://{actor}/ai.gftd.apps.contacts.contact/{rkey}",
+        "vertex_id": f"at://{actor}/app.etzhayyim.apps.contacts.contact/{rkey}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,
@@ -155,7 +155,7 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
         for p in data.get("connections") or []:
             if p.get("metadata", {}).get("deleted"):
                 rkey = _str(p.get("resourceName")).replace("/", "_")
-                vid = f"at://{ACTOR_DID}/ai.gftd.apps.contacts.contact/{rkey}"
+                vid = f"at://{ACTOR_DID}/app.etzhayyim.apps.contacts.contact/{rkey}"
                 _execute(f"DELETE FROM {CONTACTS_TABLE} WHERE vertex_id = %s", (vid,))
             else:
                 _insert(CONTACTS_TABLE, _contact_row(token, p))

@@ -1,0 +1,190 @@
+;; actor-profile-seed.kotoba.edn
+;;
+;; Seed Datoms for the `actors-v1` kotoba graph (schema: actor-profile.kotoba.edn).
+;; Canonical declaration of every registered actor's identity + profile, from
+;; which the publisher (50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs)
+;; materializes (a) the per-actor did:web DID Document and (b) the
+;; app.bsky.actor.getProfile view, then writes them to CF KV + (operator-gated)
+;; ingests Datoms into kotoba. Per ADR-2606013800.
+;;
+;; Authoring note: `:actor/service` and `:actor/vm` are expressed here as native
+;; EDN (vectors of string-keyed maps) for readability. The publisher serializes
+;; them to the stored Datom attributes `:actor/service-json` / `:actor/vm-json`
+;; (JSON strings) AND into the DID-doc `service[]` / `verificationMethod[]`.
+;;
+;; `:actor/vm` is "[]" for every actor at R0 — verificationMethod is a MIRROR of
+;; the on-chain ERC725 Root.activeKey, never minted server-side (ADR-2605231525);
+;; did:web trust root is TLS. It populates only when chain wiring lands.
+
+{:graph {:name "actors-v1" :visibility :public}
+
+ :seed
+ [;; ── substrate service DIDs (no glyph; performer-type :service) ──────────
+  {:actor/handle "pinner"
+   :actor/did "did:web:etzhayyim.com:actor:pinner"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "MST CAR pinner — pins shard CARs produced by mst-projector to IPFS."
+   :actor/primary-lexicon "app.etzhayyim.substrate.ipfsPin"
+   :actor/adr ["2605171800"]
+   :actor/created-at "2026-05-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:pinner#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "esign"
+   :actor/did "did:web:etzhayyim.com:actor:esign"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Document-signing actor — issues, collects, completes app.etzhayyim.esign.* envelopes."
+   :actor/primary-lexicon "app.etzhayyim.esign"
+   :actor/adr ["2605231230"]
+   :actor/created-at "2026-05-23"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:esign#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "audit"
+   :actor/did "did:web:etzhayyim.com:actor:audit"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Audit-event aggregator — substrate-wide app.etzhayyim.audit.event sink referenced by every actor manifest."
+   :actor/primary-lexicon "app.etzhayyim.audit.event"
+   :actor/adr ["2605231700" "2605231900"]
+   :actor/created-at "2026-05-23"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:audit#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "dataset-pinner"
+   :actor/did "did:web:etzhayyim.com:actor:dataset-pinner"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Dataset pinner — mirrors DataLad/git-annex remote objects to IPFS and emits app.etzhayyim.substrate.datasetPin records."
+   :actor/primary-lexicon "app.etzhayyim.substrate.datasetPin"
+   :actor/adr ["2605241500" "2605241800"]
+   :actor/created-at "2026-05-24"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:dataset-pinner#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:dataset-pinner#xrpc-libp2p-primary" "type" "AtprotoXrpc" "serviceEndpoint" "/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc" "x-libp2p-protocol" "/x/etzhayyim/xrpc/1.0"}
+                   {"id" "did:web:etzhayyim.com:actor:dataset-pinner#xrpc-libp2p-bootstrap" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc" "x-libp2p-protocol" "/x/etzhayyim/xrpc/1.0"}]}
+
+  {:actor/handle "pds"
+   :actor/did "did:web:etzhayyim.com:actor:pds"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Personal Data Server — atproto.etzhayyim.com PDS canonical endpoint. Service DID, not an actor in the AAT sense."
+   :actor/primary-lexicon "com.atproto"
+   :actor/adr ["2605171800"]
+   :actor/created-at "2026-05-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:pds#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "anchorer"
+   :actor/did "did:web:etzhayyim.com:actor:anchorer"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "L2 anchor cron — submits L2Anchor records to Base L2 referencing per-shard pin receipts."
+   :actor/adr ["2605171800"]
+   :actor/created-at "2026-05-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:anchorer#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "projector"
+   :actor/did "did:web:etzhayyim.com:actor:projector"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "MST projector — turns PDS firehose into MST shards and CAR files for the pinner."
+   :actor/adr ["2605171800"]
+   :actor/created-at "2026-05-17"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:projector#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  {:actor/handle "karute"
+   :actor/did "did:web:etzhayyim.com:actor:karute"
+   :actor/kind :substrate-service
+   :actor/status :landed
+   :actor/performer-type :service
+   :actor/ui-type :none
+   :actor/description "Karute electronic medical record actor (EMR / FHIR R5). PHI sealing mandatory."
+   :actor/primary-lexicon "app.etzhayyim.apps.karute"
+   :actor/adr ["2605231100" "2605231900"]
+   :actor/created-at "2026-05-23"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:karute#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}]}
+
+  ;; ── knowledge-graph / Tier-B actors (glyph; performer-type :system) ─────
+  {:actor/handle "watatsuna"
+   :actor/did "did:web:etzhayyim.com:actor:watatsuna"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "綿津綱"
+   :actor/display-name-ja "綿津綱 — 海底ケーブル網ナレッジグラフ"
+   :actor/display-name-en "Watatsuna — World Submarine-Cable Network Knowledge Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "World submarine-cable knowledge graph — surfaces chokepoint concentration routed to redundancy + faster repair. A resilience map, NEVER a target-list (watatsumi N8 pair)."
+   :actor/primary-lexicon "app.etzhayyim.cable"
+   :actor/primary-schema "00-contracts/schemas/submarine-cable-ontology.kotoba.edn"
+   :actor/adr ["2606012600"]
+   :actor/created-at "2026-06-01"
+   ;; componentize-py WASM component (20-actors/watatsuna/wasm) — dag-pb (17.6MB,
+   ;; bundles CPython) → T2 donated-mesh tier, not browser-local (ADR-2606014600)
+   :actor/wasm-cid "bafybeihusqahaeirwqur64aeh5fvwuoh54cawbmo7smx3h2abvps6li7pa"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:watatsuna#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:watatsuna#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "tsumugi"
+   :actor/did "did:web:etzhayyim.com:actor:tsumugi"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "紡ぎ"
+   :actor/display-name-ja "紡ぎ — 産霊の網 Intel Weaver"
+   :actor/display-name-en "Tsumugi — Engi Knowledge Graph (産霊の網) Intel Weaver"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Spirit-in-Physics over real public power-entities + their 縁 to surface 取-concentration routed to release. An aggregate-first accountability map, NEVER a target-list (edge-primary karma, N1)."
+   :actor/primary-schema "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)"
+   :actor/adr ["2606011800"]
+   :actor/created-at "2026-06-01"
+   ;; content-addressed WASM actor (20-actors/tsumugi/wasm/tsumugi-core) — runs
+   ;; browser-local (ameno) / donated mesh, NO per-actor server (ADR-2606014500)
+   :actor/wasm-cid "bafkreidfttpqimwnx4i5a3rswum3orcg3qfa3q7fwts6axgqtcpuokddfi"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsumugi#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsumugi#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "kanae"
+   :actor/did "did:web:etzhayyim.com:actor:kanae"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "鼎"
+   :actor/display-name-ja "鼎 — 政府資金フロー可視化"
+   :actor/display-name-en "Kanae — Government Fiscal-Flow Visualization"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders)."
+   :actor/primary-lexicon "app.etzhayyim.kanae"
+   :actor/adr ["2605302300"]
+   :actor/created-at "2026-06-01"
+   ;; content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
+   ;; Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200)
+   :actor/wasm-cid "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:kanae#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kanae#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}

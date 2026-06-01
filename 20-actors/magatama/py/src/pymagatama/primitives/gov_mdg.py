@@ -108,7 +108,7 @@ def _load_seed_orgs() -> list[dict[str, Any]]:
 
 
 def _vertex_id(path: str) -> str:
-    return f"at://{PRIMARY_DID}/ai.gftd.apps.states.govOrg/{path}"
+    return f"at://{PRIMARY_DID}/app.etzhayyim.apps.states.govOrg/{path}"
 
 
 def _repo_rkey(prefix: str, key: str) -> str:
@@ -232,7 +232,7 @@ def _insert_repo_record(repo: str, collection: str, rkey: str, record: dict[str,
                     params,
                 )
             return uri
-        if collection == "ai.gftd.apps.states.govOrgSiteDep":
+        if collection == "app.etzhayyim.apps.states.govOrgSiteDep":
             path = str(record.get("path") or "")
             site_did = str(record.get("siteDid") or "")
             params = {
@@ -646,10 +646,10 @@ async def task_gov_mdg_follow_site_deps(limit: int = 15) -> dict[str, Any]:
         }
         _insert_repo_record(
             f"{PRIMARY_DID}:{path}",
-            "ai.gftd.apps.states.govOrgSiteDep",
+            "app.etzhayyim.apps.states.govOrgSiteDep",
             _repo_rkey("site-dep", path),
             {
-                "$type": "ai.gftd.apps.states.govOrgSiteDep",
+                "$type": "app.etzhayyim.apps.states.govOrgSiteDep",
                 "path": path,
                 "siteNanoid": SITE_NANOID,
                 "siteTopicDid": SITE_GOV_TOPIC_DID,
@@ -845,42 +845,42 @@ async def task_gov_mdg_heartbeat_tick(
 
 def register(worker: Any, *, timeout_ms: int) -> None:
     worker.task(
-        task_type="xrpc.ai.gftd.govMdg.seedOrgs",
+        task_type="xrpc.app.etzhayyim.govMdg.seedOrgs",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_mdg_seed_orgs)
     worker.task(
-        task_type="xrpc.ai.gftd.govMdg.registerDIDs",
+        task_type="xrpc.app.etzhayyim.govMdg.registerDIDs",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_mdg_register_dids)
     worker.task(
-        task_type="xrpc.ai.gftd.govMdg.followSiteDeps",
+        task_type="xrpc.app.etzhayyim.govMdg.followSiteDeps",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_mdg_follow_site_deps)
     worker.task(
-        task_type="xrpc.ai.gftd.govMdg.resolveOrgPath",
+        task_type="xrpc.app.etzhayyim.govMdg.resolveOrgPath",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_mdg_resolve_org_path)
     worker.task(
-        task_type="xrpc.ai.gftd.govMdg.listOrgs",
+        task_type="xrpc.app.etzhayyim.govMdg.listOrgs",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_mdg_list_orgs)
     worker.task(
-        task_type="xrpc.ai.gftd.govMdg.syncWetUpdates",
+        task_type="xrpc.app.etzhayyim.govMdg.syncWetUpdates",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_mdg_sync_wet_updates)
     worker.task(
-        task_type="xrpc.ai.gftd.govMdg.shinka",
+        task_type="xrpc.app.etzhayyim.govMdg.shinka",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_mdg_shinka)
     worker.task(
-        task_type="xrpc.ai.gftd.govMdg.heartbeatTick",
+        task_type="xrpc.app.etzhayyim.govMdg.heartbeatTick",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_mdg_heartbeat_tick)

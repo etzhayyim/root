@@ -84,5 +84,5 @@ kubectl apply -f ../../infra/k8s/sre-cronjobs.yaml
 ```bash
 curl -X POST https://sre.etzhayyim.com/xrpc/gftd.sre.v1.SREService/register_app \
   -H "Content-Type: application/json" \
-  -d '{"id":"7m8oocsn","name":"GFTD Gamers","hostname":"gamers.etzhayyim.com","playwright_enabled":true}'
+  -d '{"id":"7m8oocsn","name":"etzhayyim Gamers","hostname":"gamers.etzhayyim.com","playwright_enabled":true}'
 ```

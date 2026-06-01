@@ -6,6 +6,6 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@gftd/magatama-host-sdk": "workspace:*"
+    "@etzhayyim/magatama-host-sdk": "workspace:*"
   }
 }

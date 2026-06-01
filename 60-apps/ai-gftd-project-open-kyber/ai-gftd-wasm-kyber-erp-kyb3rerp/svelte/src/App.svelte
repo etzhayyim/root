@@ -25,33 +25,33 @@
   );
 </script>
 
-<div class="h-full grid grid-rows-[auto_1fr] bg-gftd-bg text-gftd-text">
+<div class="h-full grid grid-rows-[auto_1fr] bg-etzhayyim-bg text-etzhayyim-text">
   <!-- Top bar -->
   <header
-    class="flex items-center justify-between gap-3 px-4 border-b border-gftd-border bg-gftd-sidebar"
+    class="flex items-center justify-between gap-3 px-4 border-b border-etzhayyim-border bg-gftd-sidebar"
     style="height: var(--gv2-header-height);"
   >
     <div class="flex items-center gap-3">
       <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-500 to-sky-400 grid place-items-center text-white font-bold">K</div>
       <div class="leading-tight">
         <h1 class="text-sm font-semibold">Kyber Command Center</h1>
-        <p class="text-[11px] text-gftd-muted">kyber.etzhayyim.com · designsystem + gftduikit</p>
+        <p class="text-[11px] text-etzhayyim-muted">kyber.etzhayyim.com · designsystem + gftduikit</p>
       </div>
     </div>
     <div class="flex items-center gap-2">
       <Badge value={ui.loading ? 'syncing…' : 'live'} variant={ui.loading ? 'warning' : 'success'} />
-      <div class="hidden sm:flex gap-1 rounded-full border border-gftd-border p-0.5">
+      <div class="hidden sm:flex gap-1 rounded-full border border-etzhayyim-border p-0.5">
         <button
           type="button"
           class="px-2 py-0.5 text-xs rounded-full"
-          class:bg-gftd-accent={theme === 'dark'}
+          class:bg-etzhayyim-accent={theme === 'dark'}
           class:text-white={theme === 'dark'}
           onclick={() => setTheme('dark')}
         >Dark</button>
         <button
           type="button"
           class="px-2 py-0.5 text-xs rounded-full"
-          class:bg-gftd-accent={theme === 'light'}
+          class:bg-etzhayyim-accent={theme === 'light'}
           class:text-white={theme === 'light'}
           onclick={() => setTheme('light')}
         >Light</button>
@@ -62,14 +62,14 @@
 
   <div class="grid grid-cols-[72px_minmax(0,1fr)] lg:grid-cols-[72px_minmax(0,1fr)_360px] min-h-0">
     <!-- Left rail: apps -->
-    <nav class="flex flex-col items-center gap-1 py-3 border-r border-gftd-border bg-gftd-sidebar overflow-y-auto">
+    <nav class="flex flex-col items-center gap-1 py-3 border-r border-etzhayyim-border bg-gftd-sidebar overflow-y-auto">
       {#each apps as a}
         <button
           type="button"
           class="w-14 h-14 rounded-2xl grid place-items-center text-[11px] font-semibold transition"
           class:bg-gftd-hover={active === a.id}
-          class:text-gftd-text={active === a.id}
-          class:text-gftd-secondary={active !== a.id}
+          class:text-etzhayyim-text={active === a.id}
+          class:text-etzhayyim-secondary={active !== a.id}
           class:hover:bg-gftd-hover={true}
           title={a.label}
           onclick={() => (active = a.id)}
@@ -86,12 +86,12 @@
 
     <!-- Main content -->
     <main class="min-w-0 min-h-0 overflow-y-auto">
-      <div class="sticky top-0 z-10 border-b border-gftd-border bg-gftd-bg/95 backdrop-blur px-5 py-3">
+      <div class="sticky top-0 z-10 border-b border-etzhayyim-border bg-etzhayyim-bg/95 backdrop-blur px-5 py-3">
         <div class="flex items-baseline justify-between gap-3">
           <div>
             <div class="flex items-center gap-2">
               <h2 class="text-base font-semibold">#{current.label}</h2>
-              <span class="text-xs text-gftd-muted">· {current.description}</span>
+              <span class="text-xs text-etzhayyim-muted">· {current.description}</span>
             </div>
           </div>
           <div class="flex gap-2">
@@ -126,22 +126,22 @@
     </main>
 
     <!-- Right inspector (lg+) -->
-    <aside class="hidden lg:flex flex-col gap-4 border-l border-gftd-border bg-gftd-sidebar p-4 overflow-y-auto">
+    <aside class="hidden lg:flex flex-col gap-4 border-l border-etzhayyim-border bg-gftd-sidebar p-4 overflow-y-auto">
       <div>
-        <h3 class="text-xs font-semibold uppercase tracking-wider text-gftd-muted mb-2">Response Inspector</h3>
-        <pre class="text-[11px] leading-snug bg-gftd-input rounded-lg p-3 overflow-auto max-h-[45vh] border border-gftd-border">{resultPretty}</pre>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-etzhayyim-muted mb-2">Response Inspector</h3>
+        <pre class="text-[11px] leading-snug bg-gftd-input rounded-lg p-3 overflow-auto max-h-[45vh] border border-etzhayyim-border">{resultPretty}</pre>
       </div>
       <div>
-        <h3 class="text-xs font-semibold uppercase tracking-wider text-gftd-muted mb-2">Activity</h3>
-        <ul class="text-[11px] space-y-1 text-gftd-secondary">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-etzhayyim-muted mb-2">Activity</h3>
+        <ul class="text-[11px] space-y-1 text-etzhayyim-secondary">
           {#each ui.activity as line}
             <li class="truncate">{line}</li>
           {:else}
-            <li class="text-gftd-muted">No activity yet.</li>
+            <li class="text-etzhayyim-muted">No activity yet.</li>
           {/each}
         </ul>
       </div>
-      <div class="mt-auto text-[11px] text-gftd-muted">
+      <div class="mt-auto text-[11px] text-etzhayyim-muted">
         <p>AT URI deep-links: <code>/at/{'{'}authority{'}'}/{'{'}collection{'}'}/{'{'}rkey{'}'}</code></p>
       </div>
     </aside>

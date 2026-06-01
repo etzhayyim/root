@@ -11,7 +11,7 @@ authoritative_for:
 related:
   - 260317-w-protocol-design
   - 260317-w-protocol-wrpc-design
-  - 260320-magatama-runtime-dual-backend-design
+  - 260320-magatama-cloudflare-containers-evaluation
 supersedes: []
 superseded_by: []
 ---

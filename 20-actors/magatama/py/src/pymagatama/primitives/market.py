@@ -1,4 +1,4 @@
-"""GFTD Market XRPC primitives for BPMN/LangServer."""
+"""etzhayyim Market XRPC primitives for BPMN/LangServer."""
 
 from __future__ import annotations
 
@@ -120,7 +120,7 @@ def task_market_publish_offer(**body: Any) -> dict[str, Any]:
 
     listing_id = _rkey()
     now = _now()
-    vertex_id = f"at://{PRIMARY_DID}/ai.gftd.market.listing/{listing_id}"
+    vertex_id = f"at://{PRIMARY_DID}/app.etzhayyim.market.listing/{listing_id}"
     issuer_did = _str(body.get("issuerDid")) or _str(body.get("issuer_did")) or f"did:erc725:gftd:260425:{lane}"
     currency = _str(body.get("settlementCurrency")) or _str(body.get("settlement_currency")) or _str(body.get("currency")) or "JPY"
     with sync_cursor() as cur:
@@ -217,11 +217,11 @@ def task_market_settle_invoice(**body: Any) -> dict[str, Any]:
 
     invoice_id = _rkey()
     now = _now()
-    vertex_id = f"at://{PRIMARY_DID}/ai.gftd.market.settlement/{invoice_id}"
+    vertex_id = f"at://{PRIMARY_DID}/app.etzhayyim.market.settlement/{invoice_id}"
     issuer_did = _str(listing.get("issuer_did")) or f"did:erc725:gftd:260425:{lane}"
     payer_did = _str(body.get("payerDid")) or _str(body.get("payer_did")) or actor_did
     settlement_currency = _str(listing.get("settlement_currency")) or "USDC"
-    anchor = _anchor(issuer_did, "ai.gftd.market.settleInvoice", quantity, unit_price, vertex_id, now)
+    anchor = _anchor(issuer_did, "app.etzhayyim.market.settleInvoice", quantity, unit_price, vertex_id, now)
     with sync_cursor() as cur:
         cur.execute(
             """
@@ -234,9 +234,9 @@ def task_market_settle_invoice(**body: Any) -> dict[str, Any]:
             """,
             (
                 vertex_id, now[:10], 1, PRIMARY_DID, invoice_id, str(listing.get("listing_id") or listing_key),
-                lane, issuer_did, payer_did, "ai.gftd.market.settleInvoice", quantity, unit_price, total_price,
+                lane, issuer_did, payer_did, "app.etzhayyim.market.settleInvoice", quantity, unit_price, total_price,
                 settlement_currency, anchor, True, "pending", _str(body.get("memo")) or None, now, None, now,
-                PRIMARY_DID, actor_did, "ai.gftd.market.settleInvoice", actor_did, _str(body.get("org_did")) or "anon",
+                PRIMARY_DID, actor_did, "app.etzhayyim.market.settleInvoice", actor_did, _str(body.get("org_did")) or "anon",
                 _str(body.get("at_did")) or None, listing.get("vertex_id"), settlement_currency, None,
             ),
         )
@@ -264,7 +264,7 @@ def task_market_observe_demand(**body: Any) -> dict[str, Any]:
     actor_did = _str(body.get("actor_did")) or _str(body.get("actorDid")) or "anon"
     now = _now()
     observed_at = _str(body.get("observed_at")) or _str(body.get("observedAt")) or now
-    vertex_id = f"at://{PRIMARY_DID}/ai.gftd.market.demandSignal/{_rkey()}"
+    vertex_id = f"at://{PRIMARY_DID}/app.etzhayyim.market.demandSignal/{_rkey()}"
     with sync_cursor() as cur:
         cur.execute(
             """
@@ -277,7 +277,7 @@ def task_market_observe_demand(**body: Any) -> dict[str, Any]:
                 vertex_id, observed_at[:10], 1, PRIMARY_DID, signal_kind, lane,
                 _str(body.get("demand_hash")) or _str(body.get("demandHash")) or "",
                 _num(body.get("magnitude"), 1.0), observed_at, now, PRIMARY_DID, actor_did,
-                "ai.gftd.market.observeDemand", actor_did, _str(body.get("org_did")) or "anon",
+                "app.etzhayyim.market.observeDemand", actor_did, _str(body.get("org_did")) or "anon",
                 _str(body.get("description")), _str(body.get("at_did")) or None,
             ),
         )
@@ -331,11 +331,11 @@ def task_market_well_known(**_: Any) -> dict[str, Any]:
             for lane in sorted(VALID_LANES)
         ],
         "nsids": {
-            "list": "https://market.etzhayyim.com/xrpc/ai.gftd.market.listOffer",
-            "quote": "https://market.etzhayyim.com/xrpc/ai.gftd.market.quotePrice",
-            "publish": "https://market.etzhayyim.com/xrpc/ai.gftd.market.publishOffer",
-            "settle": "https://market.etzhayyim.com/xrpc/ai.gftd.market.settleInvoice",
-            "observe": "https://market.etzhayyim.com/xrpc/ai.gftd.market.observeDemand",
+            "list": "https://market.etzhayyim.com/xrpc/app.etzhayyim.market.listOffer",
+            "quote": "https://market.etzhayyim.com/xrpc/app.etzhayyim.market.quotePrice",
+            "publish": "https://market.etzhayyim.com/xrpc/app.etzhayyim.market.publishOffer",
+            "settle": "https://market.etzhayyim.com/xrpc/app.etzhayyim.market.settleInvoice",
+            "observe": "https://market.etzhayyim.com/xrpc/app.etzhayyim.market.observeDemand",
         },
         "auth": "Service Auth ES256 JWT, lxm-scoped, <=60s lifetime",
     }
@@ -343,12 +343,12 @@ def task_market_well_known(**_: Any) -> dict[str, Any]:
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.ai.gftd.market.listOffer": task_market_list_offer,
-        "xrpc.ai.gftd.market.observeDemand": task_market_observe_demand,
-        "xrpc.ai.gftd.market.publishOffer": task_market_publish_offer,
-        "xrpc.ai.gftd.market.quotePrice": task_market_quote_price,
-        "xrpc.ai.gftd.market.settleInvoice": task_market_settle_invoice,
-        "xrpc.ai.gftd.market.wellKnownMarket": task_market_well_known,
+        "xrpc.app.etzhayyim.market.listOffer": task_market_list_offer,
+        "xrpc.app.etzhayyim.market.observeDemand": task_market_observe_demand,
+        "xrpc.app.etzhayyim.market.publishOffer": task_market_publish_offer,
+        "xrpc.app.etzhayyim.market.quotePrice": task_market_quote_price,
+        "xrpc.app.etzhayyim.market.settleInvoice": task_market_settle_invoice,
+        "xrpc.app.etzhayyim.market.wellKnownMarket": task_market_well_known,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

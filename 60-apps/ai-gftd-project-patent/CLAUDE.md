@@ -6,7 +6,7 @@
 
 ## Role
 
-patent = **知的財産 (特許・実用新案) perspective**。出願・公開・登録・引用ネットワークを NSID `ai.gftd.apps.patent.*` に正規化し、申請人 (applicant) / 発明者 (inventor) を他 actor にリンクする。
+patent = **知的財産 (特許・実用新案) perspective**。出願・公開・登録・引用ネットワークを NSID `app.etzhayyim.apps.patent.*` に正規化し、申請人 (applicant) / 発明者 (inventor) を他 actor にリンクする。
 
 ## Architecture
 
@@ -17,7 +17,7 @@ patent = **知的財産 (特許・実用新案) perspective**。出願・公開�
 | Primary | `did:web:patent.etzhayyim.com` | Coordinator, heartbeat, social evolution |
 | Jurisdiction | `did:web:patent.etzhayyim.com:jp` / `:us` / `:ep` / `:wo` | 国/地域別 coverage 投稿 |
 
-## Lexicon (`ai.gftd.apps.patent.*`)
+## Lexicon (`app.etzhayyim.apps.patent.*`)
 
 | Collection | 用途 |
 |---|---|

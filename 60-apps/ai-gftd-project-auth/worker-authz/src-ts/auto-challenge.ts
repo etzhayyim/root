@@ -28,8 +28,8 @@ import type { EthTxEnv } from "./eth-tx";
 import { encodeChallenge } from "./claim-stake";
 
 export interface AutoChallengeEnv extends EthRpcEnv, EthTxEnv {
-  GFTD_CLAIM_STAKE_ESCROW_ADDR?: string;
-  GFTD_CREDIT_ADDR?: string;
+  etzhayyim_CLAIM_STAKE_ESCROW_ADDR?: string;
+  etzhayyim_CREDIT_ADDR?: string;
   ETH_PRIVATE_CHAIN_ID?: string;
 }
 
@@ -41,13 +41,13 @@ const ERC20_MINT_SELECTOR       = selector("mint(address,uint256)");
 const MAX_UINT256 = "0x" + "f".repeat(64);
 
 function escrow(env: AutoChallengeEnv): string {
-  const a = (env.GFTD_CLAIM_STAKE_ESCROW_ADDR || "").trim();
-  if (!a) throw new Error("GFTD_CLAIM_STAKE_ESCROW_ADDR is not configured");
+  const a = (env.etzhayyim_CLAIM_STAKE_ESCROW_ADDR || "").trim();
+  if (!a) throw new Error("etzhayyim_CLAIM_STAKE_ESCROW_ADDR is not configured");
   return a;
 }
 function gcc(env: AutoChallengeEnv): string {
-  const a = (env.GFTD_CREDIT_ADDR || "").trim();
-  if (!a) throw new Error("GFTD_CREDIT_ADDR is not configured");
+  const a = (env.etzhayyim_CREDIT_ADDR || "").trim();
+  if (!a) throw new Error("etzhayyim_CREDIT_ADDR is not configured");
   return a;
 }
 

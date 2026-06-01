@@ -16,7 +16,7 @@ from pymagatama.db_sync import sync_cursor
 
 
 PDS_DID = "did:web:atproto.etzhayyim.com"
-MITAMA_CRON_COLLECTION = "ai.gftd.apps.pds.mitamaCronResync"
+MITAMA_CRON_COLLECTION = "app.etzhayyim.apps.pds.mitamaCronResync"
 DEFAULT_TIMEOUT_SEC = 60.0
 
 

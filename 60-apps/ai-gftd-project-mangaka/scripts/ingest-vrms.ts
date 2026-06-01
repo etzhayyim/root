@@ -5,7 +5,7 @@
  * P13 of ADR-2605141200 — VRM character ingestion. Walks a directory of
  * character folders (`<NAME>/avatar.vrm` per the ghost-hacker layout),
  * base64-encodes each, and POSTs to
- *   POST {POD_BASE}/xrpc/ai.gftd.mangaka.tools.attachCharacterVrm
+ *   POST {POD_BASE}/xrpc/app.etzhayyim.mangaka.tools.attachCharacterVrm
  *
  * The tool validates the glTF magic, uploads to B2 with content-addressed
  * key `blobs/mangaka/vrm/{sha256hex}`, and patches the character vertex's
@@ -31,7 +31,7 @@
 
 const POD_BASE = (Deno.env.get("POD_BASE") ?? "https://mangaka.etzhayyim.com").replace(/\/$/, "");
 const API_KEY = Deno.env.get("MANGAKA_API_KEY") ?? "";
-const ENDPOINT = `${POD_BASE}/xrpc/ai.gftd.mangaka.tools.attachCharacterVrm`;
+const ENDPOINT = `${POD_BASE}/xrpc/app.etzhayyim.mangaka.tools.attachCharacterVrm`;
 
 interface CliArgs {
   dir: string;

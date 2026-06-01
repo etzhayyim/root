@@ -11,7 +11,7 @@ authoritative_for:
   - vault WIT interface design (magatama:secrets/vault)
 last_verified: "2026-03-20"
 related:
-  - 260321-consent-gated-data-sharing-design
+  - yoro-superapp-oembed-design
   - 260317-yata-secure-cas-design
   - 260315-atprotocol-signal-design
   - 260319-magatama-wit-dodaf-nist-coverage

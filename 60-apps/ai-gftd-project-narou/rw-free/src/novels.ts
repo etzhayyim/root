@@ -15,7 +15,7 @@ import {
   type SearchNovelsOutput,
 } from "./types.js";
 
-const NOVEL_COLLECTION = "ai.gftd.narou.novel";
+const NOVEL_COLLECTION = "app.etzhayyim.narou.novel";
 
 function isNovelId(id: string): boolean {
   return /^[a-z0-9-]{1,32}$/i.test(id);

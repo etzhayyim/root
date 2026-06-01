@@ -43,7 +43,7 @@ ADR-0014 (自前 plc.etzhayyim.com) は `did:plc` を primary identity として
 
 ## Federation に求められる機能
 
-「Bluesky client が GFTD actor の post / profile を見られる」ためには、外部
+「Bluesky client が etzhayyim actor の post / profile を見られる」ためには、外部
 `@atproto/identity` が:
 
 1. handle (`kami.etzhayyim.com`) → DID を resolve できる (`_atproto` TXT)
@@ -94,12 +94,12 @@ https://did.etzhayyim.com/{s0}/{s1}/.../{sN}/did.json         (depth=N)
 具体例 (3-segment standard form `sub:id:lexicon`):
 
 ```
-did:gftd:user:kami:ai.gftd.yoro.profile
-  ↔ did:web:did.etzhayyim.com:user:kami:ai.gftd.yoro.profile
-  ↔ https://did.etzhayyim.com/user/kami/ai.gftd.yoro.profile/did.json
+did:gftd:user:kami:app.etzhayyim.yoro.profile
+  ↔ did:web:did.etzhayyim.com:user:kami:app.etzhayyim.yoro.profile
+  ↔ https://did.etzhayyim.com/user/kami/app.etzhayyim.yoro.profile/did.json
 
-did:gftd:lawfirm-kagoshima-univ:matter-2026-001:ai.gftd.apps.sashiosae.case
-  ↔ https://did.etzhayyim.com/lawfirm-kagoshima-univ/matter-2026-001/ai.gftd.apps.sashiosae.case/did.json
+did:gftd:lawfirm-kagoshima-univ:matter-2026-001:app.etzhayyim.apps.sashiosae.case
+  ↔ https://did.etzhayyim.com/lawfirm-kagoshima-univ/matter-2026-001/app.etzhayyim.apps.sashiosae.case/did.json
 ```
 
 `did:web` spec は colon を path separator として解釈する (`did:web:host:a:b:c` →
@@ -114,7 +114,7 @@ did:gftd:3k2vfg8qnwxhealoxy123456                       (legacy)
 
 ## R3. Handle binding
 
-federated actor の handle は GFTD 既存の `{name}.etzhayyim.com` をそのまま使う:
+federated actor の handle は etzhayyim 既存の `{name}.etzhayyim.com` をそのまま使う:
 
 - **handle**: `kami.etzhayyim.com`
 - **DID**: `did:web:did.etzhayyim.com:h0:h1:…` (DID host と handle host を分離)
@@ -133,15 +133,15 @@ did.etzhayyim.com Worker は `vertex_gftd_identity` から on-demand 生成:
 ```json
 {
   "@context": ["https://www.w3.org/ns/did/v1"],
-  "id": "did:web:did.etzhayyim.com:user:kami:ai.gftd.yoro.profile",
+  "id": "did:web:did.etzhayyim.com:user:kami:app.etzhayyim.yoro.profile",
   "alsoKnownAs": [
     "at://kami.etzhayyim.com",
-    "at://kami/ai.gftd.yoro.profile/self"
+    "at://kami/app.etzhayyim.yoro.profile/self"
   ],
   "verificationMethod": [{
-    "id": "did:web:did.etzhayyim.com:user:kami:ai.gftd.yoro.profile#atproto",
+    "id": "did:web:did.etzhayyim.com:user:kami:app.etzhayyim.yoro.profile#atproto",
     "type": "Multikey",
-    "controller": "did:web:did.etzhayyim.com:user:kami:ai.gftd.yoro.profile",
+    "controller": "did:web:did.etzhayyim.com:user:kami:app.etzhayyim.yoro.profile",
     "publicKeyMultibase": "z..." /* from vertex_gftd_identity.pubkey_multibase of nearest pubkey/root ancestor */
   }],
   "service": [{
@@ -241,8 +241,8 @@ leak しない** (privacy default)。`federated=true` は明示的な opt-in。
   追随が必要 (現時点で did:web spec は stable)
 - handle host (`{name}.etzhayyim.com`) と DID host (`did.etzhayyim.com`) の分離を運用で意識する
   必要 (docs で明示)
-- Bluesky client 側から見た GFTD actor は全て `did:web:did.etzhayyim.com:*` prefix を
-  持つため、GFTD origin の actor が識別しやすい (privacy 観点でのリスクは限定的、
+- Bluesky client 側から見た etzhayyim actor は全て `did:web:did.etzhayyim.com:*` prefix を
+  持つため、etzhayyim origin の actor が識別しやすい (privacy 観点でのリスクは限定的、
   handle で既に .etzhayyim.com origin は判る)
 
 # Alternatives Considered
@@ -265,7 +265,7 @@ long-term ecosystem work。Bluesky 側の maintainer review + publish + 各 SDK 
 
 ## D. AppView peer federation (PLC bypass, 却下)
 
-Bluesky AppView と GFTD AppView (yoro) の subscribeRepos peer は現状 AT Protocol
+Bluesky AppView と etzhayyim AppView (yoro) の subscribeRepos peer は現状 AT Protocol
 spec 外。Bluesky 側 outreach が成立しない限り動かない。repo 層 federation として
 別途検討価値はあるが、identity 層の本 ADR のスコープ外。
 

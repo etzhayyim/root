@@ -3,14 +3,14 @@
 # lg-open-unispsc — resident LangServer for 18,342 UNSPSC commodity agents.
 #
 # Surface (per 00-contracts/lexicons/ai/gftd/apps/unispsc/*.json):
-#   GET  /xrpc/ai.gftd.apps.unispsc.health
-#   GET  /xrpc/ai.gftd.apps.unispsc.listAgents
-#   POST /xrpc/ai.gftd.apps.unispsc.invokeAgent
-#   POST /xrpc/ai.gftd.apps.unispsc.classify
+#   GET  /xrpc/app.etzhayyim.apps.unispsc.health
+#   GET  /xrpc/app.etzhayyim.apps.unispsc.listAgents
+#   POST /xrpc/app.etzhayyim.apps.unispsc.invokeAgent
+#   POST /xrpc/app.etzhayyim.apps.unispsc.classify
 #
 # Upstream of the unified etzhayyim.com CF Worker
 # (50-infra/etzhayyim-did-web). The Worker routes
-# /xrpc/ai.gftd.apps.unispsc.* → this Service via env.XRPC_UNISPSC_UPSTREAM.
+# /xrpc/app.etzhayyim.apps.unispsc.* → this Service via env.XRPC_UNISPSC_UPSTREAM.
 # No per-actor subdomain (ADR-2605212030 §D2).
 #
 # Substrate: yatachain (ADR-2605231400) — RW-free per ADR-2605172000. The
@@ -92,6 +92,25 @@ spec:
               value: "1"
             - name: ORGANISM_SQLITE_DIR
               value: "/tmp/etzhayyim/organism"
+            # Stage D / yatachain wire-up (ADR-2605231400 §2 + §3): each
+            # observation is POSTed to the PDS via com.atproto.repo.createRecord
+            # in addition to the local SQLite hot cache. Downstream the
+            # existing mst-projector + ipfs-pinner + anchor-cron pipeline
+            # makes the record IPFS-content-addressed + L2-anchored.
+            # Publish errors degrade gracefully to local-only.
+            - name: ETZ_PDS_ENDPOINT
+              value: "https://pds.etzhayyim.com"
+            # Service token for PDS writes — optional. If absent, anonymous
+            # writes (rejected by PDS for protected NSIDs). Long-term:
+            # member-signed writes per ADR-2605231525 Stage E. The legacy
+            # service-token shim is acceptable while the wrapper is gated
+            # behind the no-server-key exemption marker.
+            - name: ETZ_PDS_SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: pds-service-token
+                  key: token
+                  optional: true
             # Suppress the static-builtin assistants — this server's surface
             # is the XRPC façade, not /runs?assistant_id=builtin_*.
             - name: LANGGRAPH_DISABLE_BUILTINS
@@ -126,7 +145,7 @@ spec:
             # listAgents / invokeAgent / classify from the in-memory _GRAPH_REGISTRY,
             # so registry-ready is the correct readiness signal.
             #
-            # Previous target /xrpc/ai.gftd.apps.unispsc.health transitively
+            # Previous target /xrpc/app.etzhayyim.apps.unispsc.health transitively
             # exercised /readyz (psycopg DB SELECT 1) → removed by ADR-2605232100
             # in lockstep with the RW_URL / DATABASE_URL secret removal.
             httpGet:

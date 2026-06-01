@@ -1,12 +1,12 @@
 # ADR-2605211000: Worker XRPC adapter deploy runbook (25 actors)
 
-**Status**: ACTIVE  
-**Date**: 2026-05-21  
+**Status**: ACTIVE
+**Date**: 2026-05-21
 **Decider**: Cloud Operator + Claude Opus 4.7
 
 ## Context
 
-[ADR-2605210000](2605210000-phase-e-reference-impl-completion.md) completed the rw-free reference implementation scaffold for all 25 actors. This ADR documents the execution-layer deploy procedure: wiring each rw-free package to a Cloudflare Worker, exposing XRPC endpoints, and smoke-testing.
+[ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) completed the rw-free reference implementation scaffold for all 25 actors. This ADR documents the execution-layer deploy procedure: wiring each rw-free package to a Cloudflare Worker, exposing XRPC endpoints, and smoke-testing.
 
 Each actor has:
 - `60-apps/ai-gftd-project-<actor>/xrpc-adapter/wrangler.jsonc` with route `<actor>.etzhayyim.com/xrpc/*`
@@ -21,7 +21,7 @@ Operator deploys in strict order: Tier 1 → (wait 7 days) → Tier 2 → (wait 
 
 **Actors** (7, CI matrix: `.github/workflows/test.yml` + `wrangler-validate.yml`): `isbn` / `gtin` / `ndc` / `houbun` / `hanrei` / `ipaddress` / `ocel`
 
-> **open-isco excluded from xrpc-adapter cohort** (2026-05-21 reconciliation): the standalone CF Worker runtime is retired for open-isco (see `60-apps/ai-gftd-project-open-isco/CLAUDE.md` §"Active Runtime"). open-isco runs as BPMN + LangServer + LangGraph + UDF (`openIsco.classifyWorker` / `openIsco.recordConcordance`). The `@etzhayyim/open-isco-rw-free` package exists as a read-only embed surface (`queryByPrefix` / `getByCode` against `ai.gftd.apps.openIsco.occupation`) for other apps; no xrpc-adapter is shipped. Earlier drafts of this ADR listed open-isco at Tier 1; that was inconsistent with the BPMN-only runtime decision and is corrected here.
+> **open-isco excluded from xrpc-adapter cohort** (2026-05-21 reconciliation): the standalone CF Worker runtime is retired for open-isco (see `60-apps/ai-gftd-project-open-isco/CLAUDE.md` §"Active Runtime"). open-isco runs as BPMN + LangServer + LangGraph + UDF (`openIsco.classifyWorker` / `openIsco.recordConcordance`). The `@etzhayyim/open-isco-rw-free` package exists as a read-only embed surface (`queryByPrefix` / `getByCode` against `app.etzhayyim.apps.openIsco.occupation`) for other apps; no xrpc-adapter is shipped. Earlier drafts of this ADR listed open-isco at Tier 1; that was inconsistent with the BPMN-only runtime decision and is corrected here.
 
 **Rationale**: No PII, no mutations from public callers, idempotent write path (rkey-gated, existing record check before write).
 
@@ -98,7 +98,7 @@ wrangler deploy
 ### Health endpoint (all actors)
 
 ```bash
-curl -i https://<actor>.etzhayyim.com/xrpc/ai.gftd.<actor>.health
+curl -i https://<actor>.etzhayyim.com/xrpc/app.etzhayyim.<actor>.health
 ```
 
 Expected response (200):
@@ -117,7 +117,7 @@ Expected response (200):
 **Tier 1 example (isbn — register book)**:
 
 ```bash
-curl -X POST https://isbn.etzhayyim.com/xrpc/ai.gftd.isbn.registerBook \
+curl -X POST https://isbn.etzhayyim.com/xrpc/app.etzhayyim.isbn.registerBook \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer <pds-session-token>' \
   -d '{
@@ -133,7 +133,7 @@ Expected response (200):
 {
   "status": "registered",
   "did": "did:web:isbn.etzhayyim.com#book-9784106102845",
-  "bookUri": "at://did:web:isbn.etzhayyim.com/ai.gftd.isbn.book/rkey-…"
+  "bookUri": "at://did:web:isbn.etzhayyim.com/app.etzhayyim.isbn.book/rkey-…"
 }
 ```
 
@@ -143,14 +143,14 @@ Or (if already exists):
 {
   "status": "alreadyExists",
   "error": "Book already registered under this rkey",
-  "bookUri": "at://did:web:isbn.etzhayyim.com/ai.gftd.isbn.book/rkey-…"
+  "bookUri": "at://did:web:isbn.etzhayyim.com/app.etzhayyim.isbn.book/rkey-…"
 }
 ```
 
 **Tier 2 example (bpmn — deploy process)**:
 
 ```bash
-curl -X POST https://bpmn.etzhayyim.com/xrpc/ai.gftd.bpmn.deployProcess \
+curl -X POST https://bpmn.etzhayyim.com/xrpc/app.etzhayyim.bpmn.deployProcess \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer <operator-token>' \
   -d '{
@@ -166,14 +166,14 @@ Expected response (200):
 {
   "status": "deployed",
   "processId": "did:web:bpmn.etzhayyim.com#process-…",
-  "uri": "at://did:web:bpmn.etzhayyim.com/ai.gftd.bpmn.process/…"
+  "uri": "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.bpmn.process/…"
 }
 ```
 
 **Tier 3 example (yoro — post to feed)**:
 
 ```bash
-curl -X POST https://yoro.etzhayyim.com/xrpc/ai.gftd.yoro.postFeedItem \
+curl -X POST https://yoro.etzhayyim.com/xrpc/app.etzhayyim.yoro.postFeedItem \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer <user-session-token>' \
   -d '{
@@ -189,7 +189,7 @@ Expected response (200):
 ```json
 {
   "status": "posted",
-  "uri": "at://did:web:yoro.etzhayyim.com/ai.gftd.yoro.feedItem/…",
+  "uri": "at://did:web:yoro.etzhayyim.com/app.etzhayyim.yoro.feedItem/…",
   "cid": "bagcqcer…"
 }
 ```
@@ -197,7 +197,7 @@ Expected response (200):
 **Tier 4 example (open-banking — record transaction)**:
 
 ```bash
-curl -X POST https://open-banking.etzhayyim.com/xrpc/ai.gftd.open-banking.recordTransaction \
+curl -X POST https://open-banking.etzhayyim.com/xrpc/app.etzhayyim.open-banking.recordTransaction \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer <user-session-token>' \
   -d '{
@@ -215,7 +215,7 @@ Expected response (200):
 ```json
 {
   "status": "recorded",
-  "uri": "at://did:web:open-banking.etzhayyim.com/ai.gftd.open-banking.transaction/…",
+  "uri": "at://did:web:open-banking.etzhayyim.com/app.etzhayyim.open-banking.transaction/…",
   "transactionId": "txn-…"
 }
 ```
@@ -223,7 +223,7 @@ Expected response (200):
 ### List path test (sample aggregation, if applicable)
 
 ```bash
-curl 'https://<actor>.etzhayyim.com/xrpc/ai.gftd.<actor>.list<Items>?limit=10&offset=0' \
+curl 'https://<actor>.etzhayyim.com/xrpc/app.etzhayyim.<actor>.list<Items>?limit=10&offset=0' \
   -H 'Authorization: Bearer <token>'
 ```
 
@@ -321,7 +321,7 @@ All 25 workers ready for production when:
 
 ## Related ADRs
 
-- [ADR-2605210000](2605210000-phase-e-reference-impl-completion.md) — Phase E rw-free scaffold completion
-- [ADR-2605203000](2605203000-rw-free-write-target-options.md) — rw-free write-target options (foundation)
-- [ADR-2605172000](2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate mandate
-- [ADR-2605172400](2605172400-etzhayyim-vendor-three-axis-split-rule.md) — Vendor/etzhayyim 3-axis split
+- [ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) — Phase E rw-free scaffold completion
+- [ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) — rw-free write-target options (foundation)
+- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate mandate
+- [ADR-2605172400](/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md) — Vendor/etzhayyim 3-axis split

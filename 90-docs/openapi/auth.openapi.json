@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.auth.authenticate": {
+    "/xrpc/app.etzhayyim.auth.authenticate": {
       "post": {
         "summary": "Authenticate a request. Returns auth level, account DID, active DID, and token scopes. Used by PDS service binding to delegate authentication.",
-        "operationId": "ai.gftd.auth.authenticate",
+        "operationId": "app.etzhayyim.auth.authenticate",
         "requestBody": {
           "required": true,
           "content": {
@@ -29,7 +29,7 @@
                     "type": "boolean",
                     "description": "Internal service binding flag"
                   },
-                  "xGftdOrgId": {
+                  "xetzhayyimOrgId": {
                     "type": "string",
                     "description": "Org ID for internal requests"
                   }
@@ -93,10 +93,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.createAgentSession": {
+    "/xrpc/app.etzhayyim.auth.createAgentSession": {
       "post": {
         "summary": "Create an agent DID with P-256 keypair and AT Protocol session in one call. Used by gftd deploy for automatic agent credential provisioning.",
-        "operationId": "ai.gftd.auth.createAgentSession",
+        "operationId": "app.etzhayyim.auth.createAgentSession",
         "requestBody": {
           "required": true,
           "content": {
@@ -176,10 +176,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.createGuestAccount": {
+    "/xrpc/app.etzhayyim.auth.createGuestAccount": {
       "post": {
         "summary": "Create a guest account with username/password. Issues AT Protocol session with guest tier.",
-        "operationId": "ai.gftd.auth.createGuestAccount",
+        "operationId": "app.etzhayyim.auth.createGuestAccount",
         "requestBody": {
           "required": true,
           "content": {
@@ -248,10 +248,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.createPlcAlias": {
+    "/xrpc/app.etzhayyim.auth.createPlcAlias": {
       "post": {
         "summary": "Create a did:plc alias for a did:web identity. Used for AT Protocol federation bridge.",
-        "operationId": "ai.gftd.auth.createPlcAlias",
+        "operationId": "app.etzhayyim.auth.createPlcAlias",
         "requestBody": {
           "required": true,
           "content": {
@@ -315,10 +315,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.createSetupIntent": {
+    "/xrpc/app.etzhayyim.auth.createSetupIntent": {
       "post": {
         "summary": "Create a Stripe SetupIntent for Telecom tier payment method registration. Returns client secret for Stripe.js confirmSetupIntent().",
-        "operationId": "ai.gftd.auth.createSetupIntent",
+        "operationId": "app.etzhayyim.auth.createSetupIntent",
         "requestBody": {
           "required": true,
           "content": {
@@ -360,10 +360,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.esimProvision": {
+    "/xrpc/app.etzhayyim.auth.esimProvision": {
       "post": {
         "summary": "Provision a Telnyx eSIM for Telecom tier members. Creates SIM card, DID, and AT Protocol session. Requires Stripe payment verification.",
-        "operationId": "ai.gftd.auth.esimProvision",
+        "operationId": "app.etzhayyim.auth.esimProvision",
         "requestBody": {
           "required": true,
           "content": {
@@ -432,10 +432,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.listAgentKeys": {
+    "/xrpc/app.etzhayyim.auth.listAgentKeys": {
       "post": {
         "summary": "List agent signing keys for a DID.",
-        "operationId": "ai.gftd.auth.listAgentKeys",
+        "operationId": "app.etzhayyim.auth.listAgentKeys",
         "requestBody": {
           "required": true,
           "content": {
@@ -486,10 +486,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.mintChildDid": {
+    "/xrpc/app.etzhayyim.auth.mintChildDid": {
       "post": {
         "summary": "Mint a child did:gftd under a parent DID. ADR-0029 (revised 2026-04-19) defines two input shapes: (A) semantic path form — `{parentDid, segmentKind, segmentValue}`; (B) legacy hex Merkle form — `{parentDid, materialKind, material}`. New callers should use form (A). `pubkey` kind generates an independent P-256 keypair; other kinds are keyless and sign via the nearest ancestor key. Caller must control parent (session accountDid equal to parent or a prefix ancestor).",
-        "operationId": "ai.gftd.auth.mintChildDid",
+        "operationId": "app.etzhayyim.auth.mintChildDid",
         "requestBody": {
           "required": true,
           "content": {
@@ -645,10 +645,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.passkeyBeginAuth": {
+    "/xrpc/app.etzhayyim.auth.passkeyBeginAuth": {
       "post": {
         "summary": "Begin WebAuthn/FIDO2 passkey authentication. Returns challenge and credential request options for navigator.credentials.get().",
-        "operationId": "ai.gftd.auth.passkeyBeginAuth",
+        "operationId": "app.etzhayyim.auth.passkeyBeginAuth",
         "requestBody": {
           "required": true,
           "content": {
@@ -699,10 +699,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.passkeyBeginRegister": {
+    "/xrpc/app.etzhayyim.auth.passkeyBeginRegister": {
       "post": {
         "summary": "Begin WebAuthn/FIDO2 passkey registration. Returns challenge and credential creation options for navigator.credentials.create().",
-        "operationId": "ai.gftd.auth.passkeyBeginRegister",
+        "operationId": "app.etzhayyim.auth.passkeyBeginRegister",
         "requestBody": {
           "required": true,
           "content": {
@@ -769,10 +769,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.passkeyVerifyAuth": {
+    "/xrpc/app.etzhayyim.auth.passkeyVerifyAuth": {
       "post": {
         "summary": "Verify WebAuthn authentication assertion. Validates signature against stored credential and issues AT Protocol session.",
-        "operationId": "ai.gftd.auth.passkeyVerifyAuth",
+        "operationId": "app.etzhayyim.auth.passkeyVerifyAuth",
         "requestBody": {
           "required": true,
           "content": {
@@ -849,10 +849,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.passkeyVerifyRegister": {
+    "/xrpc/app.etzhayyim.auth.passkeyVerifyRegister": {
       "post": {
         "summary": "Verify WebAuthn registration attestation. Creates DID, stores passkey credential, and issues AT Protocol session.",
-        "operationId": "ai.gftd.auth.passkeyVerifyRegister",
+        "operationId": "app.etzhayyim.auth.passkeyVerifyRegister",
         "requestBody": {
           "required": true,
           "content": {
@@ -926,10 +926,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.resolveExternalDid": {
+    "/xrpc/app.etzhayyim.auth.resolveExternalDid": {
       "post": {
         "summary": "Resolve an external DID (did:plc via PLC Directory, did:web via .well-known). Used for AT Protocol federation.",
-        "operationId": "ai.gftd.auth.resolveExternalDid",
+        "operationId": "app.etzhayyim.auth.resolveExternalDid",
         "requestBody": {
           "required": true,
           "content": {
@@ -984,10 +984,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.rotateAgentKey": {
+    "/xrpc/app.etzhayyim.auth.rotateAgentKey": {
       "post": {
         "summary": "Rotate an agent's P-256 signing key. Generates new keypair and revokes the old key.",
-        "operationId": "ai.gftd.auth.rotateAgentKey",
+        "operationId": "app.etzhayyim.auth.rotateAgentKey",
         "requestBody": {
           "required": true,
           "content": {
@@ -1049,10 +1049,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.smsOtpSend": {
+    "/xrpc/app.etzhayyim.auth.smsOtpSend": {
       "post": {
         "summary": "Send SMS OTP verification code via Telnyx. Code expires in 5 minutes. Used for Verified tier phone verification.",
-        "operationId": "ai.gftd.auth.smsOtpSend",
+        "operationId": "app.etzhayyim.auth.smsOtpSend",
         "requestBody": {
           "required": true,
           "content": {
@@ -1106,10 +1106,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.smsOtpVerify": {
+    "/xrpc/app.etzhayyim.auth.smsOtpVerify": {
       "post": {
         "summary": "Verify SMS OTP code. On success, creates a person DID and issues AT Protocol session.",
-        "operationId": "ai.gftd.auth.smsOtpVerify",
+        "operationId": "app.etzhayyim.auth.smsOtpVerify",
         "requestBody": {
           "required": true,
           "content": {
@@ -1170,10 +1170,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.auth.verifyDpop": {
+    "/xrpc/app.etzhayyim.auth.verifyDpop": {
       "post": {
         "summary": "Verify a DPoP proof (RFC 9449). Validates ES256 signature, JWK thumbprint, and jti replay protection.",
-        "operationId": "ai.gftd.auth.verifyDpop",
+        "operationId": "app.etzhayyim.auth.verifyDpop",
         "requestBody": {
           "required": true,
           "content": {

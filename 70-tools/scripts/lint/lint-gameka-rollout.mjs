@@ -29,10 +29,10 @@
  *   5. zeebe-worker registers all 4 gameka task types.
  *      `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
  *      must declare:
- *        - ai.gftd.agent.gameka.studio
+ *        - app.etzhayyim.agent.gameka.studio
  *        - gameka.codegen.renderKamiApp
  *        - gameka.avatar.render
- *        - ai.gftd.agent.gameka.visualCritic
+ *        - app.etzhayyim.agent.gameka.visualCritic
  *
  *   6. gameka-build-runner Dockerfile COPY paths still exist.
  *      Drift between repo layout and build-runner image breaks
@@ -69,15 +69,15 @@ function read(rel) {
 section("lexicons");
 const LEXICON_DIR = "00-contracts/lexicons/ai/gftd/apps/gameka";
 const EXPECTED_LEXICONS = [
-  ["proposeGame.json",   "ai.gftd.apps.gameka.proposeGame",   "procedure"],
-  ["generateGame.json",  "ai.gftd.apps.gameka.generateGame",  "procedure"],
-  ["playtestGame.json",  "ai.gftd.apps.gameka.playtestGame",  "procedure"],
-  ["publishGame.json",   "ai.gftd.apps.gameka.publishGame",   "procedure"],
-  ["tickStudio.json",    "ai.gftd.apps.gameka.tickStudio",    "procedure"],
-  ["gameSpec.json",      "ai.gftd.apps.gameka.gameSpec",      "record"],
-  ["buildArtifact.json", "ai.gftd.apps.gameka.buildArtifact", "record"],
-  ["gameQa.json",        "ai.gftd.apps.gameka.gameQa",        "record"],
-  ["gameTitle.json",     "ai.gftd.apps.gameka.gameTitle",     "record"],
+  ["proposeGame.json",   "app.etzhayyim.apps.gameka.proposeGame",   "procedure"],
+  ["generateGame.json",  "app.etzhayyim.apps.gameka.generateGame",  "procedure"],
+  ["playtestGame.json",  "app.etzhayyim.apps.gameka.playtestGame",  "procedure"],
+  ["publishGame.json",   "app.etzhayyim.apps.gameka.publishGame",   "procedure"],
+  ["tickStudio.json",    "app.etzhayyim.apps.gameka.tickStudio",    "procedure"],
+  ["gameSpec.json",      "app.etzhayyim.apps.gameka.gameSpec",      "record"],
+  ["buildArtifact.json", "app.etzhayyim.apps.gameka.buildArtifact", "record"],
+  ["gameQa.json",        "app.etzhayyim.apps.gameka.gameQa",        "record"],
+  ["gameTitle.json",     "app.etzhayyim.apps.gameka.gameTitle",     "record"],
 ];
 for (const [file, id, type] of EXPECTED_LEXICONS) {
   const raw = read(`${LEXICON_DIR}/${file}`);
@@ -94,11 +94,11 @@ for (const [file, id, type] of EXPECTED_LEXICONS) {
 section("BPMNs");
 const BPMN_DIR = "00-contracts/bpmn/ai/gftd/gameka";
 const EXPECTED_BPMNS = [
-  ["proposeGame.bpmn",   "ai.gftd.apps.gameka.proposeGame"],
-  ["generateGame.bpmn",  "ai.gftd.apps.gameka.generateGame"],
-  ["playtestGame.bpmn",  "ai.gftd.apps.gameka.playtestGame"],
-  ["publishGame.bpmn",   "ai.gftd.apps.gameka.publishGame"],
-  ["tickStudio.bpmn",    "ai.gftd.apps.gameka.tickStudio"],
+  ["proposeGame.bpmn",   "app.etzhayyim.apps.gameka.proposeGame"],
+  ["generateGame.bpmn",  "app.etzhayyim.apps.gameka.generateGame"],
+  ["playtestGame.bpmn",  "app.etzhayyim.apps.gameka.playtestGame"],
+  ["publishGame.bpmn",   "app.etzhayyim.apps.gameka.publishGame"],
+  ["tickStudio.bpmn",    "app.etzhayyim.apps.gameka.tickStudio"],
 ];
 for (const [file, expectedNsid] of EXPECTED_BPMNS) {
   const raw = read(`${BPMN_DIR}/${file}`);
@@ -153,8 +153,8 @@ section("zeebe-worker task registrations");
 const ZBW = read("20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py");
 if (ZBW) {
   const TASKS = [
-    "ai.gftd.agent.gameka.studio",
-    "ai.gftd.agent.gameka.visualCritic",
+    "app.etzhayyim.agent.gameka.studio",
+    "app.etzhayyim.agent.gameka.visualCritic",
     "gameka.codegen.renderKamiApp",
     "gameka.avatar.render",
   ];

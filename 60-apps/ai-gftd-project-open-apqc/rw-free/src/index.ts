@@ -14,7 +14,7 @@ export { PCF_V74_L1_CATEGORIES, toProcessCategory } from "./seed.js";
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { ProcessCategory } from "./types.js";
 
-const COLLECTION = "ai.gftd.apqc.processCategory";
+const COLLECTION = "app.etzhayyim.apqc.processCategory";
 
 function defaultClient() {
   return new Etzhayyim({

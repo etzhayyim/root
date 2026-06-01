@@ -76,7 +76,7 @@ interface AnyKyselyDb {
 async function getDb(env: AgentEnv): Promise<AnyKyselyDb | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     return sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
   } catch {
     return null;
@@ -90,7 +90,7 @@ export async function recordAgentRun(
   const db = await getDb(env);
   if (!db) return;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     const sql = (sdk as { sql?: unknown }).sql as
       | ((parts: TemplateStringsArray, ...vals: unknown[]) => unknown)
       | undefined;
@@ -151,7 +151,7 @@ export async function bootstrapAgentTables(env: AgentEnv): Promise<{
 }> {
   const db = await getDb(env);
   if (!db) return { ok: false, tables: [] };
-  const sdk = await import("@gftd/magatama-host-sdk");
+  const sdk = await import("@etzhayyim/magatama-host-sdk");
   const sql = (sdk as { sql?: unknown }).sql as
     | ((parts: TemplateStringsArray, ...vals: unknown[]) => unknown)
     | undefined;
@@ -258,7 +258,7 @@ export async function recentAgentRuns(
 ): Promise<Array<Record<string, unknown>>> {
   const db = await getDb(env);
   if (!db) return [];
-  const sdk = await import("@gftd/magatama-host-sdk");
+  const sdk = await import("@etzhayyim/magatama-host-sdk");
   const sql = (sdk as { sql?: unknown }).sql as
     | ((parts: TemplateStringsArray, ...vals: unknown[]) => unknown)
     | undefined;

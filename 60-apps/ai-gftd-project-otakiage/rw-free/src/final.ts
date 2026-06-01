@@ -34,10 +34,10 @@ import {
   type ItemStatus,
 } from "./types.js";
 
-const ITEM_COLLECTION = "ai.gftd.otakiage.item";
-const CERTIFICATE_COLLECTION = "ai.gftd.otakiage.certificate";
-const MATSURI_COLLECTION = "ai.gftd.otakiage.matsuri";
-const AGENT_CHAT_COLLECTION = "ai.gftd.otakiage.agentChat";
+const ITEM_COLLECTION = "app.etzhayyim.otakiage.item";
+const CERTIFICATE_COLLECTION = "app.etzhayyim.otakiage.certificate";
+const MATSURI_COLLECTION = "app.etzhayyim.otakiage.matsuri";
+const AGENT_CHAT_COLLECTION = "app.etzhayyim.otakiage.agentChat";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

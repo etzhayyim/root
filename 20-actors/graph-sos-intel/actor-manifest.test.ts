@@ -54,9 +54,9 @@ describe("Graph SoS Intel Actor Manifest", () => {
     const nsids = manifest.pipelines
       .filter((pipeline: any) => pipeline.trigger.type === "xrpc")
       .map((pipeline: any) => pipeline.trigger.nsid);
-    expect(nsids).toContain("ai.gftd.apps.graphSosIntel.health");
-    expect(nsids).toContain("ai.gftd.apps.graphSosIntel.listRelations");
-    expect(nsids).toContain("ai.gftd.apps.graphSosIntel.listFindings");
+    expect(nsids).toContain("app.etzhayyim.apps.graphSosIntel.health");
+    expect(nsids).toContain("app.etzhayyim.apps.graphSosIntel.listRelations");
+    expect(nsids).toContain("app.etzhayyim.apps.graphSosIntel.listFindings");
   });
 
   it("reads relation and index catalog inventories", () => {

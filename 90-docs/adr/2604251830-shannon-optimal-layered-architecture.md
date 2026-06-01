@@ -14,7 +14,7 @@ authoritative_for:
 related:
   - adr-0036-shannon-cleanup-did-actor-topology
   - adr-0044-risingwave-udf-language-strategy
-  - adr-0046-triple-witness-monitoring
+  - adr-0046
   - adr-0048-risingwave-vultr-b2-primary
   - adr-0056-bpmn-as-actor
   - adr-2604240946-yoro-autonomous-actor-hybrid-loop
@@ -154,7 +154,7 @@ CF Worker は **edge / routing / dispatcher** の 3 sublayer のみ。
 - **Identity**: did:web (apps), did:plc (users via plc-private), did:gftd (legacy nanoid grandfather table)
 - **3-Tier Write** (ADR-0036, restated):
   - Tier 1 Social = L2 PDS dispatch (`app.bsky.*` / `com.atproto.*`)
-  - Tier 2 Domain = L3 dispatcher → L4 Hyperdrive direct write (`ai.gftd.apps.*`)
+  - Tier 2 Domain = L3 dispatcher → L4 Hyperdrive direct write (`app.etzhayyim.apps.*`)
   - Tier 3 State = `Preferences()` server-side state
 
 ## Scope (forward-only)
@@ -218,7 +218,7 @@ L4 registry + L7/L8 backend で書き、徐々に L3 へ縮退させる。
 1. **L4 schema migration**: `actor_registry` / `mcp_registry` / `tool_registry` の `30-graph/graph-schema/migrations/` 追加
 2. **registry generator**: 既存の `_app/meta` / `actor-manifest.jsonld` / `process_def` を読んで L4 へ INSERT する one-shot bootstrap script
 3. **L2 routing-gateway 改修**: NSID 解決時に L4 registry を読むよう変更 (現行は static map)
-4. **L3 dispatcher SDK**: `@gftd/magatama-host-sdk` に `tool_registry` lookup helper を追加
+4. **L3 dispatcher SDK**: `@etzhayyim/magatama-host-sdk` に `tool_registry` lookup helper を追加
 5. **doc rewrite**: `60-apps/CLAUDE.md` §239-324 を本 ADR への pointer に縮約
 6. **convention pruning**: `deps.toml [[conventions]]` の `Design E 3-Tier Write` を `3-Tier Write (ADR-0036)` にリネーム、`Inter-App Communication (W Protocol over wRPC)` 系を削除
 

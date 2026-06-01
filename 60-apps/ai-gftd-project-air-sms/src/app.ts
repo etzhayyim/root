@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "ai.gftd.apps.airSms.";
+const NSID_PREFIX = "app.etzhayyim.apps.airSms.";
 const ACTOR_DID = "did:web:air-sms.etzhayyim.com";
 
 export default {

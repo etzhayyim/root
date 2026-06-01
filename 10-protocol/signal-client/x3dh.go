@@ -9,7 +9,7 @@ import (
 )
 
 // x3dhInfo is the HKDF info string used for key derivation.
-const x3dhInfo = "GFTD Signal X3DH v1"
+const x3dhInfo = "etzhayyim Signal X3DH v1"
 
 // InitialMessage is the message sent by the initiator to establish an X3DH session.
 // The recipient needs this to derive the same shared secret.

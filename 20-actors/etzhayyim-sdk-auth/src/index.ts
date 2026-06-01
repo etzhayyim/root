@@ -8,6 +8,13 @@ export interface SessionEnv {
   PDS_ACCESS_JWT?: string;
   /** atproto refresh JWT (long-lived) — stored as CF Workers Secret. */
   PDS_REFRESH_JWT?: string;
+  /**
+   * yatachain-projection: feed-discover projector DID (ADR-2605231500).
+   * When set, feed read paths read the cross-DID projection emitted by
+   * `50-infra/mst-projector/` instead of the single ACTOR_DID MST.
+   * See `50-infra/mst-projector/projection/yatachain-projection.toml`.
+   */
+  PROJECTION_DISCOVER_DID?: string;
 }
 
 export interface AuthedEtzhayyimOpts {
@@ -31,6 +38,7 @@ export function createAuthedEtzhayyim(opts: AuthedEtzhayyimOpts): Etzhayyim {
     did: opts.env.ACTOR_DID,
     pdsUrl: opts.env.PDS_URL,
     l2RpcUrl: opts.env.L2_RPC_URL ?? "https://mainnet.base.org",
+    projectionDiscoverDid: opts.env.PROJECTION_DISCOVER_DID,
   };
 
   // Attach session if we have an access JWT.

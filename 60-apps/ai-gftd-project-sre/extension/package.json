@@ -1,6 +1,7 @@
 {
   "name": "@etzhayyim/sre-toolbar-extension",
   "version": "1.0.0",
+  "license": "Apache-2.0",
   "description": "SRE Toolbar extension for etzhayyim.com",
   "type": "module",
   "scripts": {

@@ -1,26 +1,26 @@
 ---
 id: jun-gftd-group-data-ingest-risingwave-vertex-edge-design-260416
-title: "jun@gftd.group 全量取り込み設計 — RisingWave / Vertex / Edge"
+title: "jun@etzhayyim.com 全量取り込み設計 — RisingWave / Vertex / Edge"
 status: active
 doc_type: explanation
 topic: personal-workspace-ingest
 authoritative: true
 last_verified: 2026-04-16
 authoritative_for:
-  - jun@gftd.group の非 Microsoft 系データ取り込み設計
+  - jun@etzhayyim.com の非 Microsoft 系データ取り込み設計
   - RisingWave 上の Vertex / Edge モデル
   - full backfill + incremental sync + cursor 運用
 related:
   - adr-0018-pii-tier3-cohort-first
   - adr-0019-atproto-native-identifier-topology
-  - 260407-kagami-p10v2-graphar-native-design
+  - kagami-p10v2-graphar-native-design
 supersedes: []
 superseded_by: []
 ---
 
 # Goal
 
-`jun@gftd.group` に紐づく業務データを、Microsoft 取り込み済み前提で **追加ソースを統合**し、RisingWave 上で横断検索・時系列分析・エージェント利用可能な形にする。
+`jun@etzhayyim.com` に紐づく業務データを、Microsoft 取り込み済み前提で **追加ソースを統合**し、RisingWave 上で横断検索・時系列分析・エージェント利用可能な形にする。
 
 # Scope
 
@@ -58,7 +58,7 @@ Google APIs (Gmail/Calendar/Drive/People)
 ### Core
 
 - `vertex_workspace_account`
-  - 1 row = 1 account mapping (`jun@gftd.group` + provider tenant)
+  - 1 row = 1 account mapping (`jun@etzhayyim.com` + provider tenant)
 - `vertex_workspace_cursor`
   - source ごとの増分 cursor / checkpoint
 - `vertex_workspace_raw_event`
@@ -97,7 +97,7 @@ Google APIs (Gmail/Calendar/Drive/People)
 
 - `vertex_id`:
   - `ws:{provider}:{tenant}:{type}:{native_id}`
-  - 例: `ws:google:gftd.group:message:18c9f...`
+  - 例: `ws:google:etzhayyim.com:message:18c9f...`
 - `src_vid/dst_vid` は上記 `vertex_id` をそのまま利用。
 - 同一実体の provider 跨ぎ統合は `edge_workspace_same_as` (Phase 2) で追加。
 
@@ -114,7 +114,7 @@ Google APIs (Gmail/Calendar/Drive/People)
 
 ## 6) Cursor Strategy (Google Workspace)
 
-`jun@gftd.group` の Google 側は source ごとに cursor を分離する。
+`jun@etzhayyim.com` の Google 側は source ごとに cursor を分離する。
 
 | source_kind | API / cursor | 保存先 | 失効時の扱い |
 |---|---|---|---|
@@ -181,7 +181,7 @@ Google APIs (Gmail/Calendar/Drive/People)
    - `20260416123000_workspace_ingest_vertices.ts`
    - `20260416123100_workspace_ingest_edges.ts`
    - `20260416123200_workspace_ingest_mvs.ts`
-2. Google adapter で full backfill (`jun@gftd.group`)
+2. Google adapter で full backfill (`jun@etzhayyim.com`)
 3. cursor 増分同期 (5-15 分周期)
 4. Microsoft 既存データとの `same_as` 解決
 5. action queue を projector / agent tool に接続

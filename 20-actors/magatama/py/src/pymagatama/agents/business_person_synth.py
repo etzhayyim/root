@@ -140,7 +140,7 @@ def did_mint(state: BPState) -> BPState:
             continue
         vertex_id = (
             f"at://did:web:business-person.etzhayyim.com/"
-            f"ai.gftd.apps.businessPerson.person/{_stable_id(lei, name, role)}"
+            f"app.etzhayyim.apps.businessPerson.person/{_stable_id(lei, name, role)}"
         )
         minted.append({
             "vertex_id": vertex_id,

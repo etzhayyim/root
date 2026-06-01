@@ -1,6 +1,6 @@
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import type { Insertable, Kysely } from "kysely";
-import type { StrictDatabase } from "@gftd/graph-schema";
+import type { StrictDatabase } from "@etzhayyim/graph-schema";
 import { createKyselyDb, type Hyperdrive, type KyselyDb } from "./kysely.js";
 
 export type PrivateGraphTable = Extract<keyof StrictDatabase, `vertex_${string}` | `edge_${string}`>;

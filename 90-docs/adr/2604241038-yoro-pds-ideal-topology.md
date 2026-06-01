@@ -40,8 +40,8 @@ NSID prefix ごとの pipethrough branch を直接持っている:
 
 | NSID prefix | pipethrough 先 | 現状の位置 |
 |---|---|---|
-| `ai.gftd.vault.*` | `VAULT_SERVICE` (binding) | `dispatch.ts:447-468` |
-| `ai.gftd.apps.yabai.*` (8 NSID) | `dispatcher.etzhayyim.com:8080` (BPMN) | `dispatch.ts:376-440` |
+| `app.etzhayyim.vault.*` | `VAULT_SERVICE` (binding) | `dispatch.ts:447-468` |
+| `app.etzhayyim.apps.yabai.*` (8 NSID) | `dispatcher.etzhayyim.com:8080` (BPMN) | `dispatch.ts:376-440` |
 | `app.bsky.*` | `APPVIEW_URL` (public HTTP, disabled binding) | `dispatch.ts:330-402` |
 | `com.atproto.*` | 自前 handler (PDS local) | `handlers/pds/*` |
 | その他 | ??? (inline if / switch) | 散在 |
@@ -54,11 +54,11 @@ NSID prefix ごとの pipethrough branch を直接持っている:
 
 ADR-2604231828 A2 で剥離したが (今日 commit `62798063cde`)、依然として:
 
-- `app.all("/xrpc/*", ...)` route が残り `ai.gftd.convo.* / ai.gftd.signal.* /
+- `app.all("/xrpc/*", ...)` route が残り `app.etzhayyim.convo.* / app.etzhayyim.signal.* /
   chat.bsky.convo.*` を `atproto.etzhayyim.com` にプロキシしている
 - `yoro.etzhayyim.com` host が public に XRPC endpoint を持っている状態
 - ブラウザ側 code (`svelte/src/lib/graph/feed.ts`) は
-  `@gftd/wproto` 経由で `atproto.etzhayyim.com` に話しているが、**一部古い code
+  `@etzhayyim/wproto` 経由で `atproto.etzhayyim.com` に話しているが、**一部古い code
   は `yoro.etzhayyim.com/xrpc/*` を直接叩いている可能性**がある (grep 残存)
 
 ### C. bsky.etzhayyim.com は暫定 proxy、まだ自立していない
@@ -111,7 +111,7 @@ root 集約、yoro frontend の `postsCountDisplay = actor.postsCount ?? feedIte
 
 yoro browser code:
 
-- `@gftd/wproto` AtpAgent は `atproto.etzhayyim.com` に固定で話す
+- `@etzhayyim/wproto` AtpAgent は `atproto.etzhayyim.com` に固定で話す
 - SSR load() は `PDS_SERVICE` binding 経由で PDS に話す (internal)
 - Bot snapshot renderer は `PDS_SERVICE` binding 経由で PDS に話す (internal)
 - gftd CLI は `atproto.etzhayyim.com` に public HTTP で話す
@@ -165,7 +165,7 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
 ┌──────────────────────────────────────────────────────────────────────────────────────┐
 │               RisingWave (graph DB) + HYPERDRIVE binding                             │
 │  vertex_* / edge_* / mv_*_stats                                                      │
-│  Write side: PDS (com.atproto.*) + actor Workers (ai.gftd.apps.*) direct INSERT      │
+│  Write side: PDS (com.atproto.*) + actor Workers (app.etzhayyim.apps.*) direct INSERT      │
 │  Read side:  AppView / Chat / Actor-Query / Coverage read-only SELECT                │
 └──────────────────────────────────────────────────────────────────────────────────────┘
 
@@ -180,7 +180,7 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
         │ Actor Workers (Layer 10, N instances)                      │
         │                                                            │
         │   shinshi / animeka / yabai / lawfirm / kaikei / ...       │
-        │   Each owns `ai.gftd.apps.<actor>.*` NSID                  │
+        │   Each owns `app.etzhayyim.apps.<actor>.*` NSID                  │
         │   Receives viewer DID from PDS via trusted pipethrough     │
         └────────────────────────────────────────────────────────────┘
 ```
@@ -191,17 +191,17 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
 |---|---|---|---|---|---|
 | **atproto.etzhayyim.com** | PDS + Entryway | 1 + 4 | `com.atproto.*` (local) + `/oauth/*` + `/.well-known/oauth-*` | repo commit / session / identity | commit log (`vertex_repo_commit`) + repo MST |
 | **bsky.etzhayyim.com** | AppView | 2 | `app.bsky.{actor,feed,graph,notification}.*` | ❌ (read-only) | `vertex_repo_record` + feed/engagement MVs |
-| **chat.etzhayyim.com** | Chat Service | 7 | `chat.bsky.convo.*` + `ai.gftd.convo.*` | `vertex_message` / `vertex_convo` | 同左 |
-| **signal.etzhayyim.com** | Key Directory | 11 | `ai.gftd.signal.*` | `vertex_signal_prekey` | 同左 |
-| **vault.etzhayyim.com** | Secret Vault | 12 | `ai.gftd.vault.*` | D1 ciphertext only | 同左 |
-| **plc.etzhayyim.com** | DID Directory (plc) | 14 | `com.atproto.identity.resolveDid` (plc) + `ai.gftd.plc.*` | D1 plc operation log | 同左 |
-| **did.etzhayyim.com** | DID Directory (gftd) | 14 | `ai.gftd.identity.*` (gftd method) | `vertex_gftd_identity` | 同左 |
-| **authn.etzhayyim.com** | Entryway AuthN | 4 | `/oauth/token` / `/sign-in` / `ai.gftd.auth.*` | session JWT / passkey / did doc | `AUTH_DB` D1 |
-| **authz.etzhayyim.com** | Entryway AuthZ | 4 | `/manage` / `ai.gftd.authz.*` | api_key / linked method / org | `AUTH_DB` D1 + graph org tables |
-| **murakumo.etzhayyim.com** | Inference Fleet | 13 | `ai.gftd.apps.murakumo.*` | inference log | cluster meta |
+| **chat.etzhayyim.com** | Chat Service | 7 | `chat.bsky.convo.*` + `app.etzhayyim.convo.*` | `vertex_message` / `vertex_convo` | 同左 |
+| **signal.etzhayyim.com** | Key Directory | 11 | `app.etzhayyim.signal.*` | `vertex_signal_prekey` | 同左 |
+| **vault.etzhayyim.com** | Secret Vault | 12 | `app.etzhayyim.vault.*` | D1 ciphertext only | 同左 |
+| **plc.etzhayyim.com** | DID Directory (plc) | 14 | `com.atproto.identity.resolveDid` (plc) + `app.etzhayyim.plc.*` | D1 plc operation log | 同左 |
+| **did.etzhayyim.com** | DID Directory (gftd) | 14 | `app.etzhayyim.identity.*` (gftd method) | `vertex_gftd_identity` | 同左 |
+| **authn.etzhayyim.com** | Entryway AuthN | 4 | `/oauth/token` / `/sign-in` / `app.etzhayyim.auth.*` | session JWT / passkey / did doc | `AUTH_DB` D1 |
+| **authz.etzhayyim.com** | Entryway AuthZ | 4 | `/manage` / `app.etzhayyim.authz.*` | api_key / linked method / org | `AUTH_DB` D1 + graph org tables |
+| **murakumo.etzhayyim.com** | Inference Fleet | 13 | `app.etzhayyim.apps.murakumo.*` | inference log | cluster meta |
 | **dispatcher.etzhayyim.com** | Process Orchestrator | 15 | BPMN-declared NSIDs (ADR-0056) | BPMN process state | 同左 |
 | **yoro.etzhayyim.com** | Client App | 9 | **なし (SPA only)** — XRPC route 完全撤去 | ❌ | ❌ |
-| **{actor}.etzhayyim.com** | Actor Worker × N | 10 | `ai.gftd.apps.{actor}.*` (内部 pipethrough 経由) | per-actor vertex/edge | 同左 |
+| **{actor}.etzhayyim.com** | Actor Worker × N | 10 | `app.etzhayyim.apps.{actor}.*` (内部 pipethrough 経由) | per-actor vertex/edge | 同左 |
 
 **禁止**:
 - 1 Worker が複数 layer を兼業する (ADR-2604231828 で yoro が違反していた型)
@@ -226,23 +226,23 @@ export const NSID_ROUTING_TABLE: Array<{
   { prefix: "app.bsky.",               target: { kind: "http", env: "APPVIEW_URL" },  trust: "internal" },
   // Layer 7 Chat.
   { prefix: "chat.bsky.convo.",        target: { kind: "http", env: "CHAT_URL" },     trust: "internal" },
-  { prefix: "ai.gftd.convo.",          target: { kind: "http", env: "CHAT_URL" },     trust: "internal" },
+  { prefix: "app.etzhayyim.convo.",          target: { kind: "http", env: "CHAT_URL" },     trust: "internal" },
   // Layer 11 Key Directory.
-  { prefix: "ai.gftd.signal.",         target: { kind: "http", env: "SIGNAL_URL" },   trust: "internal" },
+  { prefix: "app.etzhayyim.signal.",         target: { kind: "http", env: "SIGNAL_URL" },   trust: "internal" },
   // Layer 12 Secret Vault.
-  { prefix: "ai.gftd.vault.",          target: { kind: "http", env: "VAULT_URL" },    trust: "internal" },
+  { prefix: "app.etzhayyim.vault.",          target: { kind: "http", env: "VAULT_URL" },    trust: "internal" },
   // Layer 14 DID Directory.
-  { prefix: "ai.gftd.plc.",            target: { kind: "http", env: "PLC_URL" },      trust: "internal" },
-  { prefix: "ai.gftd.identity.",       target: { kind: "http", env: "DID_GFTD_URL" }, trust: "internal" },
+  { prefix: "app.etzhayyim.plc.",            target: { kind: "http", env: "PLC_URL" },      trust: "internal" },
+  { prefix: "app.etzhayyim.identity.",       target: { kind: "http", env: "DID_etzhayyim_URL" }, trust: "internal" },
   // Layer 13 Inference Fleet.
-  { prefix: "ai.gftd.apps.murakumo.",  target: { kind: "http", env: "MURAKUMO_URL" }, trust: "internal" },
+  { prefix: "app.etzhayyim.apps.murakumo.",  target: { kind: "http", env: "MURAKUMO_URL" }, trust: "internal" },
   // Layer 15 Process Orchestrator — BPMN dispatched NSIDs.
   //   Allowlist is data, lives in a separate `BPMN_DISPATCHED_NSIDS` Set.
   //   Kept out of prefix table because match is exact, not prefix.
   // Layer 10 Actor Workers — longest-prefix match last.
-  { prefix: "ai.gftd.apps.",           target: { kind: "http", env: "__ACTOR_URL__" }, trust: "internal" },
+  { prefix: "app.etzhayyim.apps.",           target: { kind: "http", env: "__ACTOR_URL__" }, trust: "internal" },
   //   __ACTOR_URL__ is resolved from the NSID itself: the 3rd segment
-  //   (ai.gftd.apps.shinshi.*) maps to `https://shinshi.etzhayyim.com`.
+  //   (app.etzhayyim.apps.shinshi.*) maps to `https://shinshi.etzhayyim.com`.
 ];
 ```
 
@@ -255,8 +255,8 @@ entry でルーティングする。新 layer / actor 追加 = table に 1 行�
 // BPMN-dispatched NSIDs (ADR-0056). Exact match only — actor Worker
 // fallback would otherwise catch them.
 export const BPMN_DISPATCHED_NSIDS = new Set<string>([
-  "ai.gftd.apps.yabai.flagEntity",
-  "ai.gftd.apps.yabai.getFlags",
+  "app.etzhayyim.apps.yabai.flagEntity",
+  "app.etzhayyim.apps.yabai.getFlags",
   // ...
 ]);
 ```
@@ -399,7 +399,7 @@ entry 1 つ)。key rotation は Secrets Store の update + Worker 再 deploy で
   - Tally log: `90-docs/260424-legacy-trust-tally.log`.
   - Day 2 / 14 status: 4 consecutive zero-hit samples
     (matched_true=0 / matched_false=0).
-  - LaunchAgent `ai.gftd.legacy-trust-tally.plist` fires daily 09:17
+  - LaunchAgent `app.etzhayyim.legacy-trust-tally.plist` fires daily 09:17
     local through 2026-05-08; one-shot cleanup at
     `70-tools/scripts/cleanup-legacy-trust-headers.sh` (DRY_RUN
     verified 2026-04-24).
@@ -418,7 +418,7 @@ than a single `wrangler deploy` command.
 |---|---|---|
 | Runbook | `90-docs/260424-legacy-trust-headers-cutover-runbook.md` | Declares the flip (`LEGACY_TRUST_HEADERS: on → off`), the 3 gates, the rollback, and the 14-day post-flip window. Ephemeral — deleted at cleanup. |
 | Observation probe (script) | `70-tools/scripts/legacy-trust-tally-probe.sh` | 60s `wrangler tail` sample of `ai-gftd-appview` Worker, counts `[trust][legacy] hit ... matched=true\|false`, appends one row per day to `90-docs/260424-legacy-trust-tally.log`. |
-| Observation scheduler | `50-infra/launchd/ai.gftd.legacy-trust-tally.plist` | macOS LaunchAgent firing the probe daily at 09:17 local. Chosen over Claude's `/schedule` because the γ2 gate spans 14 days and Claude's runtime caps scheduled tasks at 7d. |
+| Observation scheduler | `50-infra/launchd/app.etzhayyim.legacy-trust-tally.plist` | macOS LaunchAgent firing the probe daily at 09:17 local. Chosen over Claude's `/schedule` because the γ2 gate spans 14 days and Claude's runtime caps scheduled tasks at 7d. |
 | Preflight validator | (not needed for γ2; see γ siblings) | The γ2 flip has a single binary gate (0 hits for 14d). The sibling strict-mode cutover has one: `50-infra/cloudflare/workers/atproto/scripts/oauth-strict-mode-preflight.sh`. |
 | Pre-written cleanup script | `70-tools/scripts/cleanup-legacy-trust-headers.sh` | DRY_RUN-capable. On the T+14d cleanup day: drops `LEGACY_TRUST_HEADERS` env var from 4 wranglers, removes the `emitLegacy` branch from `dispatch.ts`, simplifies `trustedViewerDid()` in the AppView to HMAC-only. One invocation produces the commit-ready diff. |
 | Post-flip cutover smoke | `70-tools/scripts/sh1n5h1x-profile-smoke.sh` | Not γ2-specific — verifies the sibling `mv_actor_social_stats` root-normalization fix. The pattern applies: end-to-end assertion that the cutover actually fixed the target bug. |
@@ -487,7 +487,7 @@ grep for this pattern before declaring the Phase green.
   client は atproto.etzhayyim.com 経由で本家を叩く)
 - ε2: yoro の `PDS_SERVICE` binding を read-only pattern に閉じ込め (SSR +
   SEO snapshot 専用、XRPC 本番パスにしない)
-- ε3: yoro package.json から `@gftd/graph-schema` を remove (AppView 依存
+- ε3: yoro package.json から `@etzhayyim/graph-schema` を remove (AppView 依存
   は appview Worker に閉じる)
 
 ### Phase ζ — DID Doc service[] 完全同期

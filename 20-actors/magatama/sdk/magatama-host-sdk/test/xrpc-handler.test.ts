@@ -18,8 +18,8 @@ describe("handleXRPC dispatch", () => {
   it("routes full NSID to the correct handler", async () => {
     const app = makeApp();
     const handler = vi.fn((_ctx, _p) => new TextEncoder().encode('{"ok":true}'));
-    app.command("ai.gftd.apps.myapp.processOrder", handler);
-    const res = await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.processOrder", [], new Uint8Array());
+    app.command("app.etzhayyim.apps.myapp.processOrder", handler);
+    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.processOrder", [], new Uint8Array());
     expect(res.status).toBe(200);
     expect(handler).toHaveBeenCalledTimes(1);
   });
@@ -27,26 +27,26 @@ describe("handleXRPC dispatch", () => {
   it("routes full NSID with camelCase method", async () => {
     const app = makeApp();
     const handler = vi.fn((_ctx, _p) => new TextEncoder().encode("{}"));
-    app.command("ai.gftd.apps.myapp.doSomething", handler);
-    const res = await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.doSomething", [], new Uint8Array());
+    app.command("app.etzhayyim.apps.myapp.doSomething", handler);
+    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.doSomething", [], new Uint8Array());
     expect(res.status).toBe(200);
   });
 
   it("returns JSON error for unknown methods", async () => {
     const app = makeApp();
-    const res = await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.unknownMethod", [], new Uint8Array());
+    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.unknownMethod", [], new Uint8Array());
     expect(res.status).toBe(404);
     const body = JSON.parse(new TextDecoder().decode(res.body));
     expect(body.error).toContain("unknown xrpc method");
-    expect(body.error).toContain("ai.gftd.apps.myapp.unknownMethod");
+    expect(body.error).toContain("app.etzhayyim.apps.myapp.unknownMethod");
     expect(body.errorCode).toBe("XRPC_UNKNOWN_METHOD");
     expect(body.retryable).toBe(false);
   });
 
   it("returns 500 with error details on handler throw", async () => {
     const app = makeApp();
-    app.command("ai.gftd.apps.myapp.explode", () => { throw new Error("kaboom"); });
-    const res = await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.explode", [], new Uint8Array());
+    app.command("app.etzhayyim.apps.myapp.explode", () => { throw new Error("kaboom"); });
+    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.explode", [], new Uint8Array());
     expect(res.status).toBe(500);
     const body = JSON.parse(new TextDecoder().decode(res.body));
     expect(body.error).toContain("kaboom");
@@ -56,8 +56,8 @@ describe("handleXRPC dispatch", () => {
 
   it("content-type header is application/json", async () => {
     const app = makeApp();
-    app.command("ai.gftd.apps.myapp.test", (_ctx, _p) => new TextEncoder().encode("{}"));
-    const res = await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.test", [], new Uint8Array());
+    app.command("app.etzhayyim.apps.myapp.test", (_ctx, _p) => new TextEncoder().encode("{}"));
+    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.test", [], new Uint8Array());
     const ctHeader = res.headers.find(([k]) => k === "content-type");
     expect(ctHeader?.[1]).toBe("application/json");
   });
@@ -65,12 +65,12 @@ describe("handleXRPC dispatch", () => {
   it("passes body payload to handler", async () => {
     const app = makeApp();
     let receivedBody: Uint8Array | undefined;
-    app.command("ai.gftd.apps.myapp.echo", (_ctx, payload) => {
+    app.command("app.etzhayyim.apps.myapp.echo", (_ctx, payload) => {
       receivedBody = payload;
       return payload;
     });
     const inputBody = new TextEncoder().encode('{"msg":"hello"}');
-    await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.echo", [], inputBody);
+    await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.echo", [], inputBody);
     expect(receivedBody).toEqual(inputBody);
   });
 
@@ -79,11 +79,11 @@ describe("handleXRPC dispatch", () => {
     const host = createMockHostImports({ ocelEmitEvent });
     const app = new App(createMockAppDef({ id: "myapp" }), host);
     app.command(
-      "ai.gftd.apps.myapp.auditAction",
+      "app.etzhayyim.apps.myapp.auditAction",
       () => ({ ok: true }),
       withOCELEvent("audit.action"),
     );
-    const res = await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.auditAction", [], new Uint8Array());
+    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.auditAction", [], new Uint8Array());
     expect(res.status).toBe(200);
     expect(ocelEmitEvent).toHaveBeenCalledTimes(2);
     const startPayload = JSON.parse(ocelEmitEvent.mock.calls[0][0]);
@@ -98,12 +98,12 @@ describe("handleXRPC dispatch", () => {
     const ocelEmitEvent = vi.fn();
     const host = createMockHostImports({ ocelEmitEvent });
     const app = new App(createMockAppDef({ id: "myapp" }), host);
-    app.command("ai.gftd.apps.myapp.plainAction", () => ({ ok: true }));
-    const res = await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.plainAction", [], new Uint8Array());
+    app.command("app.etzhayyim.apps.myapp.plainAction", () => ({ ok: true }));
+    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.plainAction", [], new Uint8Array());
     expect(res.status).toBe(200);
     expect(ocelEmitEvent).toHaveBeenCalledTimes(2);
     const startPayload = JSON.parse(ocelEmitEvent.mock.calls[0][0]);
-    expect(startPayload.eventType).toBe("xrpc.ai.gftd.apps.myapp.plainAction");
+    expect(startPayload.eventType).toBe("xrpc.app.etzhayyim.apps.myapp.plainAction");
     expect(startPayload.phase).toBe("start");
   });
 
@@ -111,11 +111,11 @@ describe("handleXRPC dispatch", () => {
     const ocelEmitEvent = vi.fn();
     const host = createMockHostImports({ ocelEmitEvent });
     const app = new App(createMockAppDef({ id: "myapp" }), host);
-    const res = await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.unknownXrpc", [], new Uint8Array());
+    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.unknownXrpc", [], new Uint8Array());
     expect(res.status).toBe(404);
     expect(ocelEmitEvent).toHaveBeenCalledTimes(2);
     const errorPayload = JSON.parse(ocelEmitEvent.mock.calls[1][0]);
-    expect(errorPayload.eventType).toBe("xrpc.ai.gftd.apps.myapp.unknownXrpc");
+    expect(errorPayload.eventType).toBe("xrpc.app.etzhayyim.apps.myapp.unknownXrpc");
     expect(errorPayload.phase).toBe("error");
     expect(errorPayload.error.code).toBe("XRPC_UNKNOWN_METHOD");
   });
@@ -125,7 +125,7 @@ describe("handleXRPC dispatch", () => {
     const host = createMockHostImports({ ocelEmitEvent });
     const app = new App(createMockAppDef({ id: "myapp" }), host);
     app.command(
-      "ai.gftd.apps.myapp.failingAuditAction",
+      "app.etzhayyim.apps.myapp.failingAuditAction",
       () => {
         const err = new Error("audit-failed");
         (err as Error & { code?: string; status?: number }).code = "AUDIT_FAILED";
@@ -134,7 +134,7 @@ describe("handleXRPC dispatch", () => {
       },
       withOCELEvent("audit.action.failed"),
     );
-    const res = await app.handleXRPC("/xrpc/ai.gftd.apps.myapp.failingAuditAction", [], new Uint8Array());
+    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.myapp.failingAuditAction", [], new Uint8Array());
     expect(res.status).toBe(502);
     const body = JSON.parse(new TextDecoder().decode(res.body));
     expect(body.errorCode).toBe("AUDIT_FAILED");
@@ -152,11 +152,11 @@ describe("SDK handleRequest", () => {
       appDef: createMockAppDef(),
       env: {},
     });
-    sdk.app.command("ai.gftd.apps.test.ping", () => new TextEncoder().encode('{"pong":true}'));
+    sdk.app.command("app.etzhayyim.apps.test.ping", () => new TextEncoder().encode('{"pong":true}'));
 
     const request = {
       method: "POST",
-      url: "https://test.etzhayyim.com/xrpc/ai.gftd.apps.test.ping",
+      url: "https://test.etzhayyim.com/xrpc/app.etzhayyim.apps.test.ping",
       headers: new Headers({ "content-type": "application/json" }),
       body: null,
     };
@@ -189,18 +189,18 @@ describe("SDK handleRequest", () => {
 
 describe("NSID utilities", () => {
   it("witToCollection converts WIT kebab to AT collection", () => {
-    expect(witToCollection("gftd:handotai", "article")).toBe("ai.gftd.apps.handotai.article");
+    expect(witToCollection("gftd:handotai", "article")).toBe("app.etzhayyim.apps.handotai.article");
     expect(witToCollection("gftd:handotai", "semiconductor-company")).toBe(HANDOTAI_COMPANY);
   });
 
   it("collectionToLabel converts AT collection to SQL label", () => {
-    expect(collectionToLabel("ai.gftd.apps.handotai.article")).toBe("Article");
-    expect(collectionToLabel("ai.gftd.apps.handotai.semiconductorCompany")).toBe("SemiconductorCompany");
+    expect(collectionToLabel("app.etzhayyim.apps.handotai.article")).toBe("Article");
+    expect(collectionToLabel("app.etzhayyim.apps.handotai.semiconductorCompany")).toBe("SemiconductorCompany");
     expect(collectionToLabel("app.bsky.feed.post")).toBe("Post");
   });
 
   it("nsidToMethod extracts method from NSID", () => {
-    expect(nsidToMethod("ai.gftd.apps.handotai.article")).toBe("Article");
+    expect(nsidToMethod("app.etzhayyim.apps.handotai.article")).toBe("Article");
     expect(nsidToMethod("app.bsky.feed.getTimeline")).toBe("GetTimeline");
     expect(nsidToMethod("com.atproto.repo.createRecord")).toBe("CreateRecord");
   });

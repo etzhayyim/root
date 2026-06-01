@@ -22,7 +22,7 @@ export interface TeamEnv {
 async function loadDb(env: TeamEnv): Promise<{ db: AnyDb; sql: SqlTag } | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     const db = (sdk as { createKyselyDb: (h: unknown) => unknown }).createKyselyDb(
       env.HYPERDRIVE as never,
     ) as AnyDb;
@@ -194,7 +194,7 @@ export async function teamResponse(env: TeamEnv): Promise<Response> {
 <section>
   <h2>Operating entity</h2>
   <p>
-    <strong>etz hayim</strong> (運営法人) operates the service. <strong>Gftd Japan株式会社</strong>
+    <strong>etz hayim</strong> (運営法人) operates the service. <strong>etzhayyim Japan株式会社</strong>
     (T9007028460042 — 適格請求書登録番号) is the vendor. Path-based DIDs under
     <code>did:web:yatabase.etzhayyim.com:actor:*</code> represent the AI roles, all controlled
     by the platform DID <code>did:web:yatabase.etzhayyim.com</code>.

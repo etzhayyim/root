@@ -37,7 +37,7 @@ import (
 
 func runAgentToken(args []string) error {
 	fs := flag.NewFlagSet("agent-token", flag.ContinueOnError)
-	lxm := fs.String("lxm", "", "scope NSID (single value; e.g. 'deploy.cfWorker:karute-did-web' or 'ai.gftd.apps.karute.createSoapNote')")
+	lxm := fs.String("lxm", "", "scope NSID (single value; e.g. 'deploy.cfWorker:karute-did-web' or 'app.etzhayyim.apps.karute.createSoapNote')")
 	ttl := fs.Int("ttl", 60, "lifetime in seconds (default 60)")
 	issuer := fs.String("issuer", "", "issuer DID (default: $ETZ_STEWARD_DID)")
 	agent := fs.String("agent", "", "agent DID being authorized (default: $ETZ_AGENT_DID)")
@@ -149,7 +149,7 @@ OPTIONAL:
 
 EXAMPLES:
   # Mint a 60s token for one karute write XRPC
-  AT_TOKEN=$(gftd agent-token --lxm ai.gftd.apps.karute.createSoapNote)
+  AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.apps.karute.createSoapNote)
   curl -H "Authorization: Bearer $AT_TOKEN" https://karute.etzhayyim.com/xrpc/... -d '…'
 
   # Agent-led deploy stage
@@ -162,10 +162,10 @@ EXAMPLES:
 }
 
 func inferAudienceFromLxm(lxm string) string {
-	// "ai.gftd.apps.karute.createSoapNote" → did:web:karute.etzhayyim.com
+	// "app.etzhayyim.apps.karute.createSoapNote" → did:web:karute.etzhayyim.com
 	// "deploy.cfWorker:karute-did-web"    → did:web:karute-did-web.etzhayyim.com
 	// "deploy.k8s:lg-karute"              → did:web:karute.etzhayyim.com (back-reference)
-	if strings.HasPrefix(lxm, "ai.gftd.apps.") {
+	if strings.HasPrefix(lxm, "app.etzhayyim.apps.") {
 		parts := strings.Split(lxm, ".")
 		if len(parts) >= 4 {
 			return "did:web:" + parts[3] + ".etzhayyim.com"

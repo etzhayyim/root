@@ -1,4 +1,4 @@
-"""mangaka `load_document` graph — SELECT for ai.gftd.mangaka.document.
+"""mangaka `load_document` graph — SELECT for app.etzhayyim.mangaka.document.
 
 Counterpart of save_document.py. Reads one row from vertex_mangaka by
 docId and returns the Genko canvas JSON stored in `props`.
@@ -25,7 +25,7 @@ from langgraph.types import RetryPolicy
 _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
-_NSID = "ai.gftd.mangaka.document"
+_NSID = "app.etzhayyim.mangaka.document"
 _RW_URL = os.environ.get("RW_URL", "")
 
 

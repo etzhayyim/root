@@ -1,0 +1,28 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": { "component": { "type": "device", "name": "wadachi-vehicle-rev3" } },
+  "components": [
+    {
+      "type": "device",
+      "bom-ref": "comp:brake-ecu",
+      "name": "Brake ECU",
+      "version": "R3",
+      "publisher": "Bosch",
+      "supplier": { "name": "Bosch" },
+      "purl": "pkg:generic/bosch/brake-ecu@r3",
+      "properties": [{ "name": "mpn", "value": "0265956317" }]
+    },
+    {
+      "type": "device",
+      "bom-ref": "comp:lidar",
+      "name": "LiDAR unit",
+      "version": "v2",
+      "publisher": "Velodyne",
+      "supplier": { "name": "Velodyne" },
+      "purl": "pkg:generic/velodyne/vlp16@v2",
+      "properties": [{ "name": "mpn", "value": "VLP-16" }]
+    }
+  ]
+}

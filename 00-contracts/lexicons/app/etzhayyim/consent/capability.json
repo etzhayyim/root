@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Patient-issued, DID-bound, scope-limited, time-bound delegation token. Grants the `granteeDid` permission to operate on a defined set of resources (typically `app.etzhayyim.karute.*` AT URIs) under a specific stated purpose. Always signed by the granter; revocable. Used as the bridging primitive between etzhayyim (PHI custody) and vendor iryo.gftd.ai (insurance billing) and any third-party EHR / second-opinion clinic. Per ADR-2605231400.",
+      "description": "Patient-issued, DID-bound, scope-limited, time-bound delegation token. Grants the `granteeDid` permission to operate on a defined set of resources (typically `app.etzhayyim.karute.*` AT URIs) under a specific stated purpose. Always signed by the granter; revocable. Used as the bridging primitive between etzhayyim (PHI custody) and vendor iryo.etzhayyim.com (insurance billing) and any third-party EHR / second-opinion clinic. Per ADR-2605231400.",
       "key": "any",
       "record": {
         "type": "object",

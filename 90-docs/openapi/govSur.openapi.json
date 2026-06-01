@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govSur.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govSur.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Suriname government.",
-        "operationId": "ai.gftd.govSur.followSiteDeps",
+        "operationId": "app.etzhayyim.govSur.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSur.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govSur.heartbeatTick": {
       "post": {
         "summary": "Run the Suriname government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govSur.heartbeatTick",
+        "operationId": "app.etzhayyim.govSur.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSur.listOrgs": {
+    "/xrpc/app.etzhayyim.govSur.listOrgs": {
       "get": {
         "summary": "List Suriname government organization graph records.",
-        "operationId": "ai.gftd.govSur.listOrgs",
+        "operationId": "app.etzhayyim.govSur.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSur.registerDIDs": {
+    "/xrpc/app.etzhayyim.govSur.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Suriname government organizations.",
-        "operationId": "ai.gftd.govSur.registerDIDs",
+        "operationId": "app.etzhayyim.govSur.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSur.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govSur.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Suriname government organization path to its graph record.",
-        "operationId": "ai.gftd.govSur.resolveOrgPath",
+        "operationId": "app.etzhayyim.govSur.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSur.seedOrgs": {
+    "/xrpc/app.etzhayyim.govSur.seedOrgs": {
       "post": {
         "summary": "Seed initial Suriname government organization records into the graph.",
-        "operationId": "ai.gftd.govSur.seedOrgs",
+        "operationId": "app.etzhayyim.govSur.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSur.shinka": {
+    "/xrpc/app.etzhayyim.govSur.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Suriname government organization update.",
-        "operationId": "ai.gftd.govSur.shinka",
+        "operationId": "app.etzhayyim.govSur.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSur.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govSur.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Suriname government organization changes to graph.",
-        "operationId": "ai.gftd.govSur.syncWetUpdates",
+        "operationId": "app.etzhayyim.govSur.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

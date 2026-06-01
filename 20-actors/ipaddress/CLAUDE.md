@@ -115,18 +115,18 @@ ITU (treaty:itu)                         ← ITU Constitution Art.44
 ## Lexicon NSIDs `[DESIGN]`
 
 ```
-ai.gftd.apps.ipaddress.ip_address         # individual IP record
-ai.gftd.apps.ipaddress.ip_range           # CIDR block
-ai.gftd.apps.ipaddress.asn                # Autonomous System
-ai.gftd.apps.ipaddress.whois_snapshot     # WHOIS snapshot
-ai.gftd.apps.ipaddress.geolocation        # GeoIP mapping
-ai.gftd.apps.ipaddress.reverse_dns        # PTR record
-ai.gftd.apps.ipaddress.hosting_provider   # hosting provider
-ai.gftd.apps.ipaddress.abuse_contact      # RIR abuse contact
-ai.gftd.apps.ipaddress.delegation_event   # RIR delegation change
-ai.gftd.apps.ipaddress.governance_rule    # governance rule (treaty/charter/standard/sovereign)
-ai.gftd.apps.ipaddress.ip_analysis        # full IP analysis result (GeoIP+WHOIS+ASN+PTR+Scan)
-ai.gftd.apps.ipaddress.scan_result        # port/service scan result (software, version, banner, TLS)
+app.etzhayyim.apps.ipaddress.ip_address         # individual IP record
+app.etzhayyim.apps.ipaddress.ip_range           # CIDR block
+app.etzhayyim.apps.ipaddress.asn                # Autonomous System
+app.etzhayyim.apps.ipaddress.whois_snapshot     # WHOIS snapshot
+app.etzhayyim.apps.ipaddress.geolocation        # GeoIP mapping
+app.etzhayyim.apps.ipaddress.reverse_dns        # PTR record
+app.etzhayyim.apps.ipaddress.hosting_provider   # hosting provider
+app.etzhayyim.apps.ipaddress.abuse_contact      # RIR abuse contact
+app.etzhayyim.apps.ipaddress.delegation_event   # RIR delegation change
+app.etzhayyim.apps.ipaddress.governance_rule    # governance rule (treaty/charter/standard/sovereign)
+app.etzhayyim.apps.ipaddress.ip_analysis        # full IP analysis result (GeoIP+WHOIS+ASN+PTR+Scan)
+app.etzhayyim.apps.ipaddress.scan_result        # port/service scan result (software, version, banner, TLS)
 ```
 
 ## Agent Behavior `[DESIGN]`
@@ -199,6 +199,7 @@ ai.gftd.apps.ipaddress.scan_result        # port/service scan result (software, 
 | → Followed by | yabai.etzhayyim.com (`y8b41k0x`) | `ComAtprotoSyncSubscribeRepos` | `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` → 自動リスク評価 + proxy/datacenter 検出で VPNDatacenter evidence 付与 |
 | → Followed by | ct-monitor.etzhayyim.com | `ComAtprotoSyncSubscribeRepos` | ASN/prefix → BGP 相関 |
 | → Followed by | maps.etzhayyim.com | `ComAtprotoSyncSubscribeRepos` | GeoIP → spatial mapping |
+| → Read by | tadori.etzhayyim.com | `kotoba-kqe` (post-T2, ADR-2605301400) | `ip-obs`/`dns-obs` datoms → **authorized, case-anchored** cross-store attribution join (address → cluster → ip-obs → dns-obs → person); PII objects written under `app.etzhayyim.encrypted.*`. Read-only consumer; ipaddress remains 1次 source-of-record |
 | ← Invokes | yabai.etzhayyim.com | `get-ip-risk` | risk score 照会 |
 | ← Invokes | ct-monitor.etzhayyim.com | `record-bgp-event` | BGP event 受信 |
 

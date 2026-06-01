@@ -7,17 +7,17 @@
   ],
   "routes": [
     {
-      "pattern": "voxelforge.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "voxelforge.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "vars": {
     "VOXELFORGE_VERSION": "0.1.0",
-    "VOXELFORGE_ACTOR_DID": "did:web:voxelforge.gftd.ai",
-    "PDS_URL": "https://atproto.gftd.ai",
-    "AUTHN_URL": "https://authn.gftd.ai",
+    "VOXELFORGE_ACTOR_DID": "did:web:voxelforge.etzhayyim.com",
+    "PDS_URL": "https://atproto.etzhayyim.com",
+    "AUTHN_URL": "https://authn.etzhayyim.com",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "observability": {
     "enabled": true

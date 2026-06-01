@@ -106,13 +106,23 @@ nor settlement counterparty; gftd remains both for any hakken-originated sale.
   without this the PDS validator hangs with `Lexicon not found`. The PDS typed registry
   (`gen-pds-lexicon-registry.mjs`) + Worker redeploy is a **Phase 2 deploy prerequisite**
   (no etzhayyim deploy happens in this commit; vendor is unchanged).
-- **Payment namespace:** hakken takes no payment, so it writes no payment records. For the
-  sibling tsukuru change in this branch, payment/escrow records intentionally stay
-  `ai.gftd.apps.payment.*` (the shared cross-app payment authority read by treasury / tithe /
-  sent / split / stream) — they are NOT renamed to the tsukuru namespace. Only tsukuru-owned
-  records (`com.etzhayyim.apps.tsukuru.*`) moved.
+- **This PR is hakken-only.** `main` independently migrated tsukuru to `app.etzhayyim.apps.tsukuru.*`
+  (~86 files, part of a repo-wide `app.etzhayyim.apps.*` standard — 15,758 occurrences vs 0 for
+  `com.etzhayyim.*`). Per operator direction (2026-06-01), tsukuru will be converted to
+  `com.etzhayyim.apps.tsukuru.*` to match hakken, **but in a separate follow-up PR** because it
+  overrides merged work across 86 files including cross-app refs (aidesk / hc), graph migrations,
+  and four generated registries (`lexicons.gen.json` / `_manifest.json` / `apps.openapi.json` /
+  `docs.json`) that must be regenerated. Bundling it here would make this PR unreviewable. hakken
+  is left at `com.etzhayyim.*` in this PR; the tsukuru sweep follows.
+- **Payment namespace stays shared.** hakken takes no payment, so writes no payment records. The
+  shared payment/escrow authority (`payment.escrowOpened/escrowRefunded/sent/split/stream`,
+  read by treasury / tithe) is owned by a different actor and is NOT part of the hakken or
+  tsukuru namespace decision — it follows whatever the payment authority standardises on
+  (currently `app.etzhayyim.apps.payment.*` on main).
 - **Open:** the `com.etzhayyim.*` vs `app.etzhayyim.*` record-NSID convention (see Decision §4)
-  needs an org-level ruling; until then hakken follows the operator directive.
+  needs an org-level ruling. The operator chose `com.etzhayyim.*` for hakken/tsukuru with full
+  knowledge that the repo standard is `app.etzhayyim.*`; this divergence is deliberate and
+  documented, to be revisited at org-level standardisation.
 
 ## References
 

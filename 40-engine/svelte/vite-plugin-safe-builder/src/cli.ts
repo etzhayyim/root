@@ -83,7 +83,7 @@ Options:
     projectDir,
     checkLocales: args["locales"] !== false,
     checkLinks: args["links"] !== false,
-    checkGftdRoutes: args["gftd"] !== false,
+    checketzhayyimRoutes: args["gftd"] !== false,
     requiredPaths,
     strict: args["strict"] === true,
   });

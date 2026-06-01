@@ -23,7 +23,7 @@ import {
   type RegisterLawOutput,
 } from "./types.js";
 
-const LAW_COLLECTION = "ai.gftd.hanrei.law";
+const LAW_COLLECTION = "app.etzhayyim.hanrei.law";
 
 function lawSlug(lawId: string): string {
   return lawId.toLowerCase().replace(/[^a-z0-9]/g, "-");

@@ -12,7 +12,7 @@ authoritative_for:
   - yoro-cloudflare-waf-rule
 related:
   - adr-2604241038-yoro-pds-ideal-topology
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2604231828-appview-domain-separation-bsky-gftd-ai
 supersedes: []
 superseded_by: []

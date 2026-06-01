@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govSau.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govSau.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Saudi Arabia government.",
-        "operationId": "ai.gftd.govSau.followSiteDeps",
+        "operationId": "app.etzhayyim.govSau.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSau.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govSau.heartbeatTick": {
       "post": {
         "summary": "Run the Saudi Arabia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govSau.heartbeatTick",
+        "operationId": "app.etzhayyim.govSau.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSau.listOrgs": {
+    "/xrpc/app.etzhayyim.govSau.listOrgs": {
       "get": {
         "summary": "List Saudi Arabia government organization graph records.",
-        "operationId": "ai.gftd.govSau.listOrgs",
+        "operationId": "app.etzhayyim.govSau.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSau.registerDIDs": {
+    "/xrpc/app.etzhayyim.govSau.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Saudi Arabia government organizations.",
-        "operationId": "ai.gftd.govSau.registerDIDs",
+        "operationId": "app.etzhayyim.govSau.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSau.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govSau.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Saudi Arabia government organization path to its graph record.",
-        "operationId": "ai.gftd.govSau.resolveOrgPath",
+        "operationId": "app.etzhayyim.govSau.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSau.seedOrgs": {
+    "/xrpc/app.etzhayyim.govSau.seedOrgs": {
       "post": {
         "summary": "Seed initial Saudi Arabia government organization records into the graph.",
-        "operationId": "ai.gftd.govSau.seedOrgs",
+        "operationId": "app.etzhayyim.govSau.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSau.shinka": {
+    "/xrpc/app.etzhayyim.govSau.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Saudi Arabia government organization update.",
-        "operationId": "ai.gftd.govSau.shinka",
+        "operationId": "app.etzhayyim.govSau.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSau.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govSau.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Saudi Arabia government organization changes to graph.",
-        "operationId": "ai.gftd.govSau.syncWetUpdates",
+        "operationId": "app.etzhayyim.govSau.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

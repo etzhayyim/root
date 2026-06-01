@@ -5,7 +5,7 @@
 
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
-import type { StrictDatabase } from "@gftd/graph-schema";
+import type { StrictDatabase } from "@etzhayyim/graph-schema";
 import { HyperdriveDialect, type Hyperdrive } from "./hyperdrive-dialect.js";
 
 // CF Worker ランタイム検出: caches AND WorkerGlobalScope が両方 defined の場合のみ CF Worker

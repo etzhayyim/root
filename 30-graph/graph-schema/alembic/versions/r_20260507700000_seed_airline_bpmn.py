@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-register-schedule-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-register-schedule-v1',
                  'did:web:air-sched.etzhayyim.com',
                  'air_sched_register_schedule',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -82,7 +82,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-register-schedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-register-schedule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -98,9 +98,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-register-schedule-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-register-schedule-v1',
                  'did:web:air-sched.etzhayyim.com',
-                 'ai.gftd.apps.airSched.registerSchedule',
+                 'app.etzhayyim.apps.airSched.registerSchedule',
                  'air_sched_register_schedule',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -108,7 +108,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-register-schedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-register-schedule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -124,7 +124,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-request-slot-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-request-slot-v1',
                  'did:web:air-sched.etzhayyim.com',
                  'air_sched_request_slot',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -178,7 +178,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-request-slot-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-request-slot-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -194,9 +194,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-request-slot-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-request-slot-v1',
                  'did:web:air-sched.etzhayyim.com',
-                 'ai.gftd.apps.airSched.requestSlot',
+                 'app.etzhayyim.apps.airSched.requestSlot',
                  'air_sched_request_slot',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -204,7 +204,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-request-slot-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-request-slot-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -220,7 +220,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-allocate-slot-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-allocate-slot-v1',
                  'did:web:air-sched.etzhayyim.com',
                  'air_sched_allocate_slot',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -274,7 +274,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-allocate-slot-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-allocate-slot-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -290,9 +290,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-allocate-slot-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-allocate-slot-v1',
                  'did:web:air-sched.etzhayyim.com',
-                 'ai.gftd.apps.airSched.allocateSlot',
+                 'app.etzhayyim.apps.airSched.allocateSlot',
                  'air_sched_allocate_slot',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -300,7 +300,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-allocate-slot-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-allocate-slot-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -316,7 +316,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-assign-fleet-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-assign-fleet-v1',
                  'did:web:air-sched.etzhayyim.com',
                  'air_sched_assign_fleet',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -370,7 +370,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-assign-fleet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-assign-fleet-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -386,9 +386,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-assign-fleet-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-assign-fleet-v1',
                  'did:web:air-sched.etzhayyim.com',
-                 'ai.gftd.apps.airSched.assignFleet',
+                 'app.etzhayyim.apps.airSched.assignFleet',
                  'air_sched_assign_fleet',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -396,7 +396,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-assign-fleet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-assign-fleet-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -412,7 +412,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-publish-schedule-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-publish-schedule-v1',
                  'did:web:air-sched.etzhayyim.com',
                  'air_sched_publish_schedule',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -466,7 +466,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-publish-schedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-publish-schedule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -482,9 +482,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-publish-schedule-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-publish-schedule-v1',
                  'did:web:air-sched.etzhayyim.com',
-                 'ai.gftd.apps.airSched.publishSchedule',
+                 'app.etzhayyim.apps.airSched.publishSchedule',
                  'air_sched_publish_schedule',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -492,7 +492,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-publish-schedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-publish-schedule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -508,7 +508,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-assign-gate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-assign-gate-v1',
                  'did:web:air-sched.etzhayyim.com',
                  'air_sched_assign_gate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -562,7 +562,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-assign-gate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-assign-gate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -578,9 +578,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-assign-gate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-assign-gate-v1',
                  'did:web:air-sched.etzhayyim.com',
-                 'ai.gftd.apps.airSched.assignGate',
+                 'app.etzhayyim.apps.airSched.assignGate',
                  'air_sched_assign_gate',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -588,7 +588,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-assign-gate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-assign-gate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -604,7 +604,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-change-frequency-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-change-frequency-v1',
                  'did:web:air-sched.etzhayyim.com',
                  'air_sched_change_frequency',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -658,7 +658,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-change-frequency-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-change-frequency-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -674,9 +674,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-change-frequency-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-change-frequency-v1',
                  'did:web:air-sched.etzhayyim.com',
-                 'ai.gftd.apps.airSched.changeFrequency',
+                 'app.etzhayyim.apps.airSched.changeFrequency',
                  'air_sched_change_frequency',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -684,7 +684,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-change-frequency-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-change-frequency-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -700,7 +700,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-register-codeshare-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-register-codeshare-v1',
                  'did:web:air-sched.etzhayyim.com',
                  'air_sched_register_codeshare',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -755,7 +755,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-register-codeshare-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-register-codeshare-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -771,9 +771,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-register-codeshare-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-register-codeshare-v1',
                  'did:web:air-sched.etzhayyim.com',
-                 'ai.gftd.apps.airSched.registerCodeshare',
+                 'app.etzhayyim.apps.airSched.registerCodeshare',
                  'air_sched_register_codeshare',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -781,7 +781,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sched.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sched.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-register-codeshare-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-register-codeshare-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -797,7 +797,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-create-pnr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-create-pnr-v1',
                  'did:web:air-book.etzhayyim.com',
                  'air_book_create_pnr',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -851,7 +851,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-create-pnr-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-create-pnr-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -867,9 +867,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-create-pnr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-create-pnr-v1',
                  'did:web:air-book.etzhayyim.com',
-                 'ai.gftd.apps.airBook.createPnr',
+                 'app.etzhayyim.apps.airBook.createPnr',
                  'air_book_create_pnr',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -877,7 +877,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-create-pnr-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-create-pnr-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -893,7 +893,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-confirm-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-confirm-booking-v1',
                  'did:web:air-book.etzhayyim.com',
                  'air_book_confirm_booking',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -947,7 +947,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-confirm-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-confirm-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -963,9 +963,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-confirm-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-confirm-booking-v1',
                  'did:web:air-book.etzhayyim.com',
-                 'ai.gftd.apps.airBook.confirmBooking',
+                 'app.etzhayyim.apps.airBook.confirmBooking',
                  'air_book_confirm_booking',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -973,7 +973,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-confirm-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-confirm-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -989,7 +989,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-issue-ticket-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-issue-ticket-v1',
                  'did:web:air-book.etzhayyim.com',
                  'air_book_issue_ticket',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1042,7 +1042,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-issue-ticket-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-issue-ticket-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1058,9 +1058,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-issue-ticket-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-issue-ticket-v1',
                  'did:web:air-book.etzhayyim.com',
-                 'ai.gftd.apps.airBook.issueTicket',
+                 'app.etzhayyim.apps.airBook.issueTicket',
                  'air_book_issue_ticket',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1068,7 +1068,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-issue-ticket-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-issue-ticket-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1084,7 +1084,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-assign-seat-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-assign-seat-v1',
                  'did:web:air-book.etzhayyim.com',
                  'air_book_assign_seat',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1137,7 +1137,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-assign-seat-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-assign-seat-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1153,9 +1153,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-assign-seat-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-assign-seat-v1',
                  'did:web:air-book.etzhayyim.com',
-                 'ai.gftd.apps.airBook.assignSeat',
+                 'app.etzhayyim.apps.airBook.assignSeat',
                  'air_book_assign_seat',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1163,7 +1163,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-assign-seat-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-assign-seat-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1179,7 +1179,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-add-ancillary-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-add-ancillary-v1',
                  'did:web:air-book.etzhayyim.com',
                  'air_book_add_ancillary',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1233,7 +1233,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-add-ancillary-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-add-ancillary-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1249,9 +1249,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-add-ancillary-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-add-ancillary-v1',
                  'did:web:air-book.etzhayyim.com',
-                 'ai.gftd.apps.airBook.addAncillary',
+                 'app.etzhayyim.apps.airBook.addAncillary',
                  'air_book_add_ancillary',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1259,7 +1259,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-add-ancillary-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-add-ancillary-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1275,7 +1275,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-cancel-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-cancel-booking-v1',
                  'did:web:air-book.etzhayyim.com',
                  'air_book_cancel_booking',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1329,7 +1329,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-cancel-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-cancel-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1345,9 +1345,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-cancel-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-cancel-booking-v1',
                  'did:web:air-book.etzhayyim.com',
-                 'ai.gftd.apps.airBook.cancelBooking',
+                 'app.etzhayyim.apps.airBook.cancelBooking',
                  'air_book_cancel_booking',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1355,7 +1355,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-cancel-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-cancel-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1371,7 +1371,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-reprotect-passenger-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-reprotect-passenger-v1',
                  'did:web:air-book.etzhayyim.com',
                  'air_book_reprotect_passenger',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1425,7 +1425,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-reprotect-passenger-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-reprotect-passenger-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1441,9 +1441,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-reprotect-passenger-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-reprotect-passenger-v1',
                  'did:web:air-book.etzhayyim.com',
-                 'ai.gftd.apps.airBook.reprotectPassenger',
+                 'app.etzhayyim.apps.airBook.reprotectPassenger',
                  'air_book_reprotect_passenger',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1451,7 +1451,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-reprotect-passenger-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-reprotect-passenger-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1467,7 +1467,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-settle-bsp-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-settle-bsp-v1',
                  'did:web:air-book.etzhayyim.com',
                  'air_book_settle_bsp',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1521,7 +1521,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-settle-bsp-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-settle-bsp-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1537,9 +1537,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-settle-bsp-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-settle-bsp-v1',
                  'did:web:air-book.etzhayyim.com',
-                 'ai.gftd.apps.airBook.settleBsp',
+                 'app.etzhayyim.apps.airBook.settleBsp',
                  'air_book_settle_bsp',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1547,7 +1547,7 @@ UP = [{'sql': '\n'
                  'did:web:air-book.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-book.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-settle-bsp-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-settle-bsp-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1563,7 +1563,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-publish-fare-class-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-publish-fare-class-v1',
                  'did:web:air-yield.etzhayyim.com',
                  'air_yield_publish_fare_class',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1618,7 +1618,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-publish-fare-class-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-publish-fare-class-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1634,9 +1634,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-publish-fare-class-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-publish-fare-class-v1',
                  'did:web:air-yield.etzhayyim.com',
-                 'ai.gftd.apps.airYield.publishFareClass',
+                 'app.etzhayyim.apps.airYield.publishFareClass',
                  'air_yield_publish_fare_class',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1644,7 +1644,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-publish-fare-class-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-publish-fare-class-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1660,7 +1660,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-adjust-inventory-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-adjust-inventory-v1',
                  'did:web:air-yield.etzhayyim.com',
                  'air_yield_adjust_inventory',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1714,7 +1714,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-adjust-inventory-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-adjust-inventory-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1730,9 +1730,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-adjust-inventory-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-adjust-inventory-v1',
                  'did:web:air-yield.etzhayyim.com',
-                 'ai.gftd.apps.airYield.adjustInventory',
+                 'app.etzhayyim.apps.airYield.adjustInventory',
                  'air_yield_adjust_inventory',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1740,7 +1740,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-adjust-inventory-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-adjust-inventory-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1756,7 +1756,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-file-fare-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-file-fare-v1',
                  'did:web:air-yield.etzhayyim.com',
                  'air_yield_file_fare',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1810,7 +1810,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-file-fare-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-file-fare-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1826,9 +1826,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-file-fare-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-file-fare-v1',
                  'did:web:air-yield.etzhayyim.com',
-                 'ai.gftd.apps.airYield.fileFare',
+                 'app.etzhayyim.apps.airYield.fileFare',
                  'air_yield_file_fare',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1836,7 +1836,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-file-fare-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-file-fare-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1852,7 +1852,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-set-overbooking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-set-overbooking-v1',
                  'did:web:air-yield.etzhayyim.com',
                  'air_yield_set_overbooking',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1906,7 +1906,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-set-overbooking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-set-overbooking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1922,9 +1922,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-set-overbooking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-set-overbooking-v1',
                  'did:web:air-yield.etzhayyim.com',
-                 'ai.gftd.apps.airYield.setOverbooking',
+                 'app.etzhayyim.apps.airYield.setOverbooking',
                  'air_yield_set_overbooking',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -1932,7 +1932,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-set-overbooking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-set-overbooking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1948,7 +1948,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-process-group-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-process-group-booking-v1',
                  'did:web:air-yield.etzhayyim.com',
                  'air_yield_process_group_booking',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2002,7 +2002,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-process-group-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-process-group-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2018,9 +2018,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-process-group-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-process-group-booking-v1',
                  'did:web:air-yield.etzhayyim.com',
-                 'ai.gftd.apps.airYield.processGroupBooking',
+                 'app.etzhayyim.apps.airYield.processGroupBooking',
                  'air_yield_process_group_booking',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2028,7 +2028,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-process-group-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-process-group-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2044,7 +2044,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-apply-dynamic-price-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-apply-dynamic-price-v1',
                  'did:web:air-yield.etzhayyim.com',
                  'air_yield_apply_dynamic_price',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2099,7 +2099,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-apply-dynamic-price-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-apply-dynamic-price-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2115,9 +2115,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-apply-dynamic-price-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-apply-dynamic-price-v1',
                  'did:web:air-yield.etzhayyim.com',
-                 'ai.gftd.apps.airYield.applyDynamicPrice',
+                 'app.etzhayyim.apps.airYield.applyDynamicPrice',
                  'air_yield_apply_dynamic_price',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2125,7 +2125,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-apply-dynamic-price-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-apply-dynamic-price-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2141,7 +2141,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-generate-revenue-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-generate-revenue-report-v1',
                  'did:web:air-yield.etzhayyim.com',
                  'air_yield_generate_revenue_report',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2197,7 +2197,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-generate-revenue-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-generate-revenue-report-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2213,9 +2213,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-generate-revenue-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-generate-revenue-report-v1',
                  'did:web:air-yield.etzhayyim.com',
-                 'ai.gftd.apps.airYield.generateRevenueReport',
+                 'app.etzhayyim.apps.airYield.generateRevenueReport',
                  'air_yield_generate_revenue_report',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2223,7 +2223,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-generate-revenue-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-generate-revenue-report-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2239,7 +2239,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-forecast-demand-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-forecast-demand-v1',
                  'did:web:air-yield.etzhayyim.com',
                  'air_yield_forecast_demand',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2293,7 +2293,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-forecast-demand-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-forecast-demand-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2309,9 +2309,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-forecast-demand-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-forecast-demand-v1',
                  'did:web:air-yield.etzhayyim.com',
-                 'ai.gftd.apps.airYield.forecastDemand',
+                 'app.etzhayyim.apps.airYield.forecastDemand',
                  'air_yield_forecast_demand',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2319,7 +2319,7 @@ UP = [{'sql': '\n'
                  'did:web:air-yield.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-yield.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-forecast-demand-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-forecast-demand-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2335,7 +2335,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-process-check-in-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-process-check-in-v1',
                  'did:web:air-dcs.etzhayyim.com',
                  'air_dcs_process_check_in',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2389,7 +2389,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-process-check-in-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-process-check-in-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2405,9 +2405,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-process-check-in-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-process-check-in-v1',
                  'did:web:air-dcs.etzhayyim.com',
-                 'ai.gftd.apps.airDcs.processCheckIn',
+                 'app.etzhayyim.apps.airDcs.processCheckIn',
                  'air_dcs_process_check_in',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2415,7 +2415,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-process-check-in-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-process-check-in-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2431,7 +2431,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-process-boarding-pass-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-process-boarding-pass-v1',
                  'did:web:air-dcs.etzhayyim.com',
                  'air_dcs_process_boarding_pass',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2485,7 +2485,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-process-boarding-pass-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-process-boarding-pass-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2501,9 +2501,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-process-boarding-pass-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-process-boarding-pass-v1',
                  'did:web:air-dcs.etzhayyim.com',
-                 'ai.gftd.apps.airDcs.processBoardingPass',
+                 'app.etzhayyim.apps.airDcs.processBoardingPass',
                  'air_dcs_process_boarding_pass',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2511,7 +2511,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-process-boarding-pass-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-process-boarding-pass-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2527,7 +2527,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-accept-baggage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-accept-baggage-v1',
                  'did:web:air-dcs.etzhayyim.com',
                  'air_dcs_accept_baggage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2581,7 +2581,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-accept-baggage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-accept-baggage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2597,9 +2597,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-accept-baggage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-accept-baggage-v1',
                  'did:web:air-dcs.etzhayyim.com',
-                 'ai.gftd.apps.airDcs.acceptBaggage',
+                 'app.etzhayyim.apps.airDcs.acceptBaggage',
                  'air_dcs_accept_baggage',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2607,7 +2607,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-accept-baggage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-accept-baggage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2623,7 +2623,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-reconcile-baggage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-reconcile-baggage-v1',
                  'did:web:air-dcs.etzhayyim.com',
                  'air_dcs_reconcile_baggage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2677,7 +2677,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-reconcile-baggage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-reconcile-baggage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2693,9 +2693,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-reconcile-baggage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-reconcile-baggage-v1',
                  'did:web:air-dcs.etzhayyim.com',
-                 'ai.gftd.apps.airDcs.reconcileBaggage',
+                 'app.etzhayyim.apps.airDcs.reconcileBaggage',
                  'air_dcs_reconcile_baggage',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2703,7 +2703,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-reconcile-baggage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-reconcile-baggage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2719,7 +2719,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-compute-load-sheet-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-compute-load-sheet-v1',
                  'did:web:air-dcs.etzhayyim.com',
                  'air_dcs_compute_load_sheet',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2774,7 +2774,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-compute-load-sheet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-compute-load-sheet-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2790,9 +2790,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-compute-load-sheet-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-compute-load-sheet-v1',
                  'did:web:air-dcs.etzhayyim.com',
-                 'ai.gftd.apps.airDcs.computeLoadSheet',
+                 'app.etzhayyim.apps.airDcs.computeLoadSheet',
                  'air_dcs_compute_load_sheet',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2800,7 +2800,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-compute-load-sheet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-compute-load-sheet-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2816,7 +2816,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-transmit-apis-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-transmit-apis-v1',
                  'did:web:air-dcs.etzhayyim.com',
                  'air_dcs_transmit_apis',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2870,7 +2870,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-transmit-apis-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-transmit-apis-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2886,9 +2886,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-transmit-apis-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-transmit-apis-v1',
                  'did:web:air-dcs.etzhayyim.com',
-                 'ai.gftd.apps.airDcs.transmitApis',
+                 'app.etzhayyim.apps.airDcs.transmitApis',
                  'air_dcs_transmit_apis',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2896,7 +2896,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-transmit-apis-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-transmit-apis-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2912,7 +2912,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-track-turnaround-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-track-turnaround-v1',
                  'did:web:air-dcs.etzhayyim.com',
                  'air_dcs_track_turnaround',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2967,7 +2967,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-track-turnaround-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-track-turnaround-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2983,9 +2983,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-track-turnaround-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-track-turnaround-v1',
                  'did:web:air-dcs.etzhayyim.com',
-                 'ai.gftd.apps.airDcs.trackTurnaround',
+                 'app.etzhayyim.apps.airDcs.trackTurnaround',
                  'air_dcs_track_turnaround',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -2993,7 +2993,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-track-turnaround-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-track-turnaround-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3009,7 +3009,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-issue-departure-control-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-issue-departure-control-v1',
                  'did:web:air-dcs.etzhayyim.com',
                  'air_dcs_issue_departure_control',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3063,7 +3063,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-issue-departure-control-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-issue-departure-control-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3079,9 +3079,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-issue-departure-control-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-issue-departure-control-v1',
                  'did:web:air-dcs.etzhayyim.com',
-                 'ai.gftd.apps.airDcs.issueDepartureControl',
+                 'app.etzhayyim.apps.airDcs.issueDepartureControl',
                  'air_dcs_issue_departure_control',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3089,7 +3089,7 @@ UP = [{'sql': '\n'
                  'did:web:air-dcs.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-dcs.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-issue-departure-control-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-issue-departure-control-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3105,7 +3105,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-file-flight-plan-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-file-flight-plan-v1',
                  'did:web:air-ops.etzhayyim.com',
                  'air_ops_file_flight_plan',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3160,7 +3160,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-file-flight-plan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-file-flight-plan-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3176,9 +3176,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-file-flight-plan-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-file-flight-plan-v1',
                  'did:web:air-ops.etzhayyim.com',
-                 'ai.gftd.apps.airOps.fileFlightPlan',
+                 'app.etzhayyim.apps.airOps.fileFlightPlan',
                  'air_ops_file_flight_plan',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3186,7 +3186,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-file-flight-plan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-file-flight-plan-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3202,7 +3202,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-create-dispatch-brief-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-create-dispatch-brief-v1',
                  'did:web:air-ops.etzhayyim.com',
                  'air_ops_create_dispatch_brief',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3256,7 +3256,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-create-dispatch-brief-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-create-dispatch-brief-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3272,9 +3272,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-create-dispatch-brief-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-create-dispatch-brief-v1',
                  'did:web:air-ops.etzhayyim.com',
-                 'ai.gftd.apps.airOps.createDispatchBrief',
+                 'app.etzhayyim.apps.airOps.createDispatchBrief',
                  'air_ops_create_dispatch_brief',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3282,7 +3282,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-create-dispatch-brief-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-create-dispatch-brief-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3298,7 +3298,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-fetch-notam-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-fetch-notam-v1',
                  'did:web:air-ops.etzhayyim.com',
                  'air_ops_fetch_notam',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3351,7 +3351,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-fetch-notam-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-fetch-notam-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3367,9 +3367,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-fetch-notam-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-fetch-notam-v1',
                  'did:web:air-ops.etzhayyim.com',
-                 'ai.gftd.apps.airOps.fetchNotam',
+                 'app.etzhayyim.apps.airOps.fetchNotam',
                  'air_ops_fetch_notam',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3377,7 +3377,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-fetch-notam-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-fetch-notam-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3393,7 +3393,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-fetch-weather-brief-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-fetch-weather-brief-v1',
                  'did:web:air-ops.etzhayyim.com',
                  'air_ops_fetch_weather_brief',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3447,7 +3447,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-fetch-weather-brief-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-fetch-weather-brief-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3463,9 +3463,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-fetch-weather-brief-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-fetch-weather-brief-v1',
                  'did:web:air-ops.etzhayyim.com',
-                 'ai.gftd.apps.airOps.fetchWeatherBrief',
+                 'app.etzhayyim.apps.airOps.fetchWeatherBrief',
                  'air_ops_fetch_weather_brief',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3473,7 +3473,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-fetch-weather-brief-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-fetch-weather-brief-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3489,7 +3489,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-record-tech-log-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-record-tech-log-v1',
                  'did:web:air-ops.etzhayyim.com',
                  'air_ops_record_tech_log',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3543,7 +3543,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-record-tech-log-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-record-tech-log-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3559,9 +3559,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-record-tech-log-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-record-tech-log-v1',
                  'did:web:air-ops.etzhayyim.com',
-                 'ai.gftd.apps.airOps.recordTechLog',
+                 'app.etzhayyim.apps.airOps.recordTechLog',
                  'air_ops_record_tech_log',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3569,7 +3569,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-record-tech-log-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-record-tech-log-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3585,7 +3585,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-order-fuel-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-order-fuel-v1',
                  'did:web:air-ops.etzhayyim.com',
                  'air_ops_order_fuel',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3637,7 +3637,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-order-fuel-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-order-fuel-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3653,9 +3653,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-order-fuel-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-order-fuel-v1',
                  'did:web:air-ops.etzhayyim.com',
-                 'ai.gftd.apps.airOps.orderFuel',
+                 'app.etzhayyim.apps.airOps.orderFuel',
                  'air_ops_order_fuel',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3663,7 +3663,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-order-fuel-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-order-fuel-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3679,7 +3679,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-submit-pirep-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-submit-pirep-v1',
                  'did:web:air-ops.etzhayyim.com',
                  'air_ops_submit_pirep',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3733,7 +3733,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-submit-pirep-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-submit-pirep-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3749,9 +3749,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-submit-pirep-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-submit-pirep-v1',
                  'did:web:air-ops.etzhayyim.com',
-                 'ai.gftd.apps.airOps.submitPirep',
+                 'app.etzhayyim.apps.airOps.submitPirep',
                  'air_ops_submit_pirep',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3759,7 +3759,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-submit-pirep-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-submit-pirep-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3775,7 +3775,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-monitor-flight-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-monitor-flight-v1',
                  'did:web:air-ops.etzhayyim.com',
                  'air_ops_monitor_flight',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3830,7 +3830,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-monitor-flight-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-monitor-flight-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3846,9 +3846,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-monitor-flight-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-monitor-flight-v1',
                  'did:web:air-ops.etzhayyim.com',
-                 'ai.gftd.apps.airOps.monitorFlight',
+                 'app.etzhayyim.apps.airOps.monitorFlight',
                  'air_ops_monitor_flight',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3856,7 +3856,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ops.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ops.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-monitor-flight-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-monitor-flight-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3872,7 +3872,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-publish-roster-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-publish-roster-v1',
                  'did:web:air-crew.etzhayyim.com',
                  'air_crew_publish_roster',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -3926,7 +3926,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-publish-roster-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-publish-roster-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3942,9 +3942,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-publish-roster-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-publish-roster-v1',
                  'did:web:air-crew.etzhayyim.com',
-                 'ai.gftd.apps.airCrew.publishRoster',
+                 'app.etzhayyim.apps.airCrew.publishRoster',
                  'air_crew_publish_roster',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -3952,7 +3952,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-publish-roster-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-publish-roster-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3968,7 +3968,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-build-pairing-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-build-pairing-v1',
                  'did:web:air-crew.etzhayyim.com',
                  'air_crew_build_pairing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4022,7 +4022,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-build-pairing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-build-pairing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4038,9 +4038,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-build-pairing-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-build-pairing-v1',
                  'did:web:air-crew.etzhayyim.com',
-                 'ai.gftd.apps.airCrew.buildPairing',
+                 'app.etzhayyim.apps.airCrew.buildPairing',
                  'air_crew_build_pairing',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4048,7 +4048,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-build-pairing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-build-pairing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4064,7 +4064,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-track-qualification-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-track-qualification-v1',
                  'did:web:air-crew.etzhayyim.com',
                  'air_crew_track_qualification',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4119,7 +4119,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-track-qualification-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-track-qualification-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4135,9 +4135,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-track-qualification-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-track-qualification-v1',
                  'did:web:air-crew.etzhayyim.com',
-                 'ai.gftd.apps.airCrew.trackQualification',
+                 'app.etzhayyim.apps.airCrew.trackQualification',
                  'air_crew_track_qualification',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4145,7 +4145,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-track-qualification-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-track-qualification-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4161,7 +4161,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-assess-fatigue-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-assess-fatigue-v1',
                  'did:web:air-crew.etzhayyim.com',
                  'air_crew_assess_fatigue',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4217,7 +4217,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-assess-fatigue-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-assess-fatigue-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4233,9 +4233,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-assess-fatigue-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-assess-fatigue-v1',
                  'did:web:air-crew.etzhayyim.com',
-                 'ai.gftd.apps.airCrew.assessFatigue',
+                 'app.etzhayyim.apps.airCrew.assessFatigue',
                  'air_crew_assess_fatigue',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4243,7 +4243,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-assess-fatigue-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-assess-fatigue-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4259,7 +4259,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-assign-crew-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-assign-crew-v1',
                  'did:web:air-crew.etzhayyim.com',
                  'air_crew_assign_crew',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4313,7 +4313,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-assign-crew-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-assign-crew-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4329,9 +4329,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-assign-crew-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-assign-crew-v1',
                  'did:web:air-crew.etzhayyim.com',
-                 'ai.gftd.apps.airCrew.assignCrew',
+                 'app.etzhayyim.apps.airCrew.assignCrew',
                  'air_crew_assign_crew',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4339,7 +4339,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-assign-crew-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-assign-crew-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4355,7 +4355,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-book-crew-travel-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-book-crew-travel-v1',
                  'did:web:air-crew.etzhayyim.com',
                  'air_crew_book_crew_travel',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4409,7 +4409,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-book-crew-travel-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-book-crew-travel-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4425,9 +4425,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-book-crew-travel-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-book-crew-travel-v1',
                  'did:web:air-crew.etzhayyim.com',
-                 'ai.gftd.apps.airCrew.bookCrewTravel',
+                 'app.etzhayyim.apps.airCrew.bookCrewTravel',
                  'air_crew_book_crew_travel',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4435,7 +4435,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-book-crew-travel-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-book-crew-travel-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4451,7 +4451,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-record-duty-time-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-record-duty-time-v1',
                  'did:web:air-crew.etzhayyim.com',
                  'air_crew_record_duty_time',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4508,7 +4508,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-record-duty-time-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-record-duty-time-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4524,9 +4524,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-record-duty-time-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-record-duty-time-v1',
                  'did:web:air-crew.etzhayyim.com',
-                 'ai.gftd.apps.airCrew.recordDutyTime',
+                 'app.etzhayyim.apps.airCrew.recordDutyTime',
                  'air_crew_record_duty_time',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4534,7 +4534,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-record-duty-time-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-record-duty-time-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4550,7 +4550,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-notify-crew-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-notify-crew-v1',
                  'did:web:air-crew.etzhayyim.com',
                  'air_crew_notify_crew',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4605,7 +4605,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-notify-crew-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-notify-crew-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4621,9 +4621,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-notify-crew-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-notify-crew-v1',
                  'did:web:air-crew.etzhayyim.com',
-                 'ai.gftd.apps.airCrew.notifyCrew',
+                 'app.etzhayyim.apps.airCrew.notifyCrew',
                  'air_crew_notify_crew',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4631,7 +4631,7 @@ UP = [{'sql': '\n'
                  'did:web:air-crew.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-crew.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-notify-crew-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-notify-crew-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4647,7 +4647,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-create-work-order-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-create-work-order-v1',
                  'did:web:air-mro.etzhayyim.com',
                  'air_mro_create_work_order',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4699,7 +4699,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-create-work-order-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-create-work-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4715,9 +4715,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-create-work-order-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-create-work-order-v1',
                  'did:web:air-mro.etzhayyim.com',
-                 'ai.gftd.apps.airMro.createWorkOrder',
+                 'app.etzhayyim.apps.airMro.createWorkOrder',
                  'air_mro_create_work_order',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4725,7 +4725,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-create-work-order-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-create-work-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4741,7 +4741,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-track-component-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-track-component-v1',
                  'did:web:air-mro.etzhayyim.com',
                  'air_mro_track_component',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4797,7 +4797,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-track-component-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-track-component-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4813,9 +4813,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-track-component-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-track-component-v1',
                  'did:web:air-mro.etzhayyim.com',
-                 'ai.gftd.apps.airMro.trackComponent',
+                 'app.etzhayyim.apps.airMro.trackComponent',
                  'air_mro_track_component',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4823,7 +4823,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-track-component-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-track-component-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4839,7 +4839,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-check-airworthiness-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-check-airworthiness-v1',
                  'did:web:air-mro.etzhayyim.com',
                  'air_mro_check_airworthiness',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4896,7 +4896,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-check-airworthiness-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-check-airworthiness-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -4912,9 +4912,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-check-airworthiness-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-check-airworthiness-v1',
                  'did:web:air-mro.etzhayyim.com',
-                 'ai.gftd.apps.airMro.checkAirworthiness',
+                 'app.etzhayyim.apps.airMro.checkAirworthiness',
                  'air_mro_check_airworthiness',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -4922,7 +4922,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-check-airworthiness-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-check-airworthiness-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -4938,7 +4938,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-report-tech-occurrence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-report-tech-occurrence-v1',
                  'did:web:air-mro.etzhayyim.com',
                  'air_mro_report_tech_occurrence',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -4992,7 +4992,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-report-tech-occurrence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-report-tech-occurrence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5008,9 +5008,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-report-tech-occurrence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-report-tech-occurrence-v1',
                  'did:web:air-mro.etzhayyim.com',
-                 'ai.gftd.apps.airMro.reportTechOccurrence',
+                 'app.etzhayyim.apps.airMro.reportTechOccurrence',
                  'air_mro_report_tech_occurrence',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5018,7 +5018,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-report-tech-occurrence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-report-tech-occurrence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5034,7 +5034,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-schedule-maintenance-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-schedule-maintenance-v1',
                  'did:web:air-mro.etzhayyim.com',
                  'air_mro_schedule_maintenance',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5087,7 +5087,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-schedule-maintenance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-schedule-maintenance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5103,9 +5103,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-schedule-maintenance-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-schedule-maintenance-v1',
                  'did:web:air-mro.etzhayyim.com',
-                 'ai.gftd.apps.airMro.scheduleMaintenance',
+                 'app.etzhayyim.apps.airMro.scheduleMaintenance',
                  'air_mro_schedule_maintenance',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5113,7 +5113,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-schedule-maintenance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-schedule-maintenance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5129,7 +5129,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-report-reliability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-report-reliability-v1',
                  'did:web:air-mro.etzhayyim.com',
                  'air_mro_report_reliability',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5184,7 +5184,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-report-reliability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-report-reliability-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5200,9 +5200,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-report-reliability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-report-reliability-v1',
                  'did:web:air-mro.etzhayyim.com',
-                 'ai.gftd.apps.airMro.reportReliability',
+                 'app.etzhayyim.apps.airMro.reportReliability',
                  'air_mro_report_reliability',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5210,7 +5210,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-report-reliability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-report-reliability-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5226,7 +5226,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-order-spare-part-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-order-spare-part-v1',
                  'did:web:air-mro.etzhayyim.com',
                  'air_mro_order_spare_part',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5282,7 +5282,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-order-spare-part-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-order-spare-part-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5298,9 +5298,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-order-spare-part-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-order-spare-part-v1',
                  'did:web:air-mro.etzhayyim.com',
-                 'ai.gftd.apps.airMro.orderSparePart',
+                 'app.etzhayyim.apps.airMro.orderSparePart',
                  'air_mro_order_spare_part',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5308,7 +5308,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-order-spare-part-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-order-spare-part-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5324,7 +5324,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-record-ground-equipment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-record-ground-equipment-v1',
                  'did:web:air-mro.etzhayyim.com',
                  'air_mro_record_ground_equipment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5377,7 +5377,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-record-ground-equipment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-record-ground-equipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5393,9 +5393,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-record-ground-equipment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-record-ground-equipment-v1',
                  'did:web:air-mro.etzhayyim.com',
-                 'ai.gftd.apps.airMro.recordGroundEquipment',
+                 'app.etzhayyim.apps.airMro.recordGroundEquipment',
                  'air_mro_record_ground_equipment',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5403,7 +5403,7 @@ UP = [{'sql': '\n'
                  'did:web:air-mro.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-mro.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-record-ground-equipment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-record-ground-equipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5419,7 +5419,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-submit-safety-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-submit-safety-report-v1',
                  'did:web:air-sms.etzhayyim.com',
                  'air_sms_submit_safety_report',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5473,7 +5473,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-submit-safety-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-submit-safety-report-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5489,9 +5489,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-submit-safety-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-submit-safety-report-v1',
                  'did:web:air-sms.etzhayyim.com',
-                 'ai.gftd.apps.airSms.submitSafetyReport',
+                 'app.etzhayyim.apps.airSms.submitSafetyReport',
                  'air_sms_submit_safety_report',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5499,7 +5499,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-submit-safety-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-submit-safety-report-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5515,7 +5515,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-assess-risk-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-assess-risk-v1',
                  'did:web:air-sms.etzhayyim.com',
                  'air_sms_assess_risk',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5568,7 +5568,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-assess-risk-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-assess-risk-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5584,9 +5584,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-assess-risk-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-assess-risk-v1',
                  'did:web:air-sms.etzhayyim.com',
-                 'ai.gftd.apps.airSms.assessRisk',
+                 'app.etzhayyim.apps.airSms.assessRisk',
                  'air_sms_assess_risk',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5594,7 +5594,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-assess-risk-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-assess-risk-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5610,7 +5610,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-record-iosa-finding-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-record-iosa-finding-v1',
                  'did:web:air-sms.etzhayyim.com',
                  'air_sms_record_iosa_finding',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5664,7 +5664,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-record-iosa-finding-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-record-iosa-finding-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5680,9 +5680,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-record-iosa-finding-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-record-iosa-finding-v1',
                  'did:web:air-sms.etzhayyim.com',
-                 'ai.gftd.apps.airSms.recordIosaFinding',
+                 'app.etzhayyim.apps.airSms.recordIosaFinding',
                  'air_sms_record_iosa_finding',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5690,7 +5690,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-record-iosa-finding-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-record-iosa-finding-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5706,7 +5706,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-file-regulatory-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-file-regulatory-report-v1',
                  'did:web:air-sms.etzhayyim.com',
                  'air_sms_file_regulatory_report',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5760,7 +5760,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-file-regulatory-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-file-regulatory-report-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5776,9 +5776,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-file-regulatory-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-file-regulatory-report-v1',
                  'did:web:air-sms.etzhayyim.com',
-                 'ai.gftd.apps.airSms.fileRegulatoryReport',
+                 'app.etzhayyim.apps.airSms.fileRegulatoryReport',
                  'air_sms_file_regulatory_report',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5786,7 +5786,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-file-regulatory-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-file-regulatory-report-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5802,7 +5802,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-report-occurrence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-report-occurrence-v1',
                  'did:web:air-sms.etzhayyim.com',
                  'air_sms_report_occurrence',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5856,7 +5856,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-report-occurrence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-report-occurrence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5872,9 +5872,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-report-occurrence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-report-occurrence-v1',
                  'did:web:air-sms.etzhayyim.com',
-                 'ai.gftd.apps.airSms.reportOccurrence',
+                 'app.etzhayyim.apps.airSms.reportOccurrence',
                  'air_sms_report_occurrence',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5882,7 +5882,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-report-occurrence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-report-occurrence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5898,7 +5898,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-distribute-safety-bulletin-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-distribute-safety-bulletin-v1',
                  'did:web:air-sms.etzhayyim.com',
                  'air_sms_distribute_safety_bulletin',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -5953,7 +5953,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-distribute-safety-bulletin-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-distribute-safety-bulletin-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -5969,9 +5969,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-distribute-safety-bulletin-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-distribute-safety-bulletin-v1',
                  'did:web:air-sms.etzhayyim.com',
-                 'ai.gftd.apps.airSms.distributeSafetyBulletin',
+                 'app.etzhayyim.apps.airSms.distributeSafetyBulletin',
                  'air_sms_distribute_safety_bulletin',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -5979,7 +5979,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-distribute-safety-bulletin-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-distribute-safety-bulletin-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -5995,7 +5995,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-screen-dangerous-goods-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-screen-dangerous-goods-v1',
                  'did:web:air-sms.etzhayyim.com',
                  'air_sms_screen_dangerous_goods',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6048,7 +6048,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-screen-dangerous-goods-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-screen-dangerous-goods-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6064,9 +6064,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-screen-dangerous-goods-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-screen-dangerous-goods-v1',
                  'did:web:air-sms.etzhayyim.com',
-                 'ai.gftd.apps.airSms.screenDangerousGoods',
+                 'app.etzhayyim.apps.airSms.screenDangerousGoods',
                  'air_sms_screen_dangerous_goods',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6074,7 +6074,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-screen-dangerous-goods-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-screen-dangerous-goods-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6090,7 +6090,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-handle-security-alert-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-handle-security-alert-v1',
                  'did:web:air-sms.etzhayyim.com',
                  'air_sms_handle_security_alert',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6144,7 +6144,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-handle-security-alert-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-handle-security-alert-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6160,9 +6160,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-handle-security-alert-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-handle-security-alert-v1',
                  'did:web:air-sms.etzhayyim.com',
-                 'ai.gftd.apps.airSms.handleSecurityAlert',
+                 'app.etzhayyim.apps.airSms.handleSecurityAlert',
                  'air_sms_handle_security_alert',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6170,7 +6170,7 @@ UP = [{'sql': '\n'
                  'did:web:air-sms.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-sms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-handle-security-alert-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-handle-security-alert-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6186,7 +6186,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-create-cargo-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-create-cargo-booking-v1',
                  'did:web:air-cargo.etzhayyim.com',
                  'air_cargo_create_cargo_booking',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6240,7 +6240,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-create-cargo-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-create-cargo-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6256,9 +6256,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-create-cargo-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-create-cargo-booking-v1',
                  'did:web:air-cargo.etzhayyim.com',
-                 'ai.gftd.apps.airCargo.createCargoBooking',
+                 'app.etzhayyim.apps.airCargo.createCargoBooking',
                  'air_cargo_create_cargo_booking',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6266,7 +6266,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-create-cargo-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-create-cargo-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6282,7 +6282,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-issue-air-waybill-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-issue-air-waybill-v1',
                  'did:web:air-cargo.etzhayyim.com',
                  'air_cargo_issue_air_waybill',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6337,7 +6337,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-issue-air-waybill-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-issue-air-waybill-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6353,9 +6353,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-issue-air-waybill-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-issue-air-waybill-v1',
                  'did:web:air-cargo.etzhayyim.com',
-                 'ai.gftd.apps.airCargo.issueAirWaybill',
+                 'app.etzhayyim.apps.airCargo.issueAirWaybill',
                  'air_cargo_issue_air_waybill',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6363,7 +6363,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-issue-air-waybill-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-issue-air-waybill-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6379,7 +6379,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-accept-cargo-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-accept-cargo-v1',
                  'did:web:air-cargo.etzhayyim.com',
                  'air_cargo_accept_cargo',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6433,7 +6433,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-accept-cargo-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-accept-cargo-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6449,9 +6449,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-accept-cargo-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-accept-cargo-v1',
                  'did:web:air-cargo.etzhayyim.com',
-                 'ai.gftd.apps.airCargo.acceptCargo',
+                 'app.etzhayyim.apps.airCargo.acceptCargo',
                  'air_cargo_accept_cargo',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6459,7 +6459,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-accept-cargo-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-accept-cargo-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6475,7 +6475,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-assign-uld-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-assign-uld-v1',
                  'did:web:air-cargo.etzhayyim.com',
                  'air_cargo_assign_uld',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6528,7 +6528,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-assign-uld-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-assign-uld-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6544,9 +6544,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-assign-uld-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-assign-uld-v1',
                  'did:web:air-cargo.etzhayyim.com',
-                 'ai.gftd.apps.airCargo.assignUld',
+                 'app.etzhayyim.apps.airCargo.assignUld',
                  'air_cargo_assign_uld',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6554,7 +6554,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-assign-uld-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-assign-uld-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6570,7 +6570,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-track-shipment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-track-shipment-v1',
                  'did:web:air-cargo.etzhayyim.com',
                  'air_cargo_track_shipment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6623,7 +6623,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-track-shipment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-track-shipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6639,9 +6639,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-track-shipment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-track-shipment-v1',
                  'did:web:air-cargo.etzhayyim.com',
-                 'ai.gftd.apps.airCargo.trackShipment',
+                 'app.etzhayyim.apps.airCargo.trackShipment',
                  'air_cargo_track_shipment',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6649,7 +6649,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-track-shipment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-track-shipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6665,7 +6665,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-process-claim-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-process-claim-v1',
                  'did:web:air-cargo.etzhayyim.com',
                  'air_cargo_process_claim',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6719,7 +6719,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-process-claim-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-process-claim-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6735,9 +6735,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-process-claim-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-process-claim-v1',
                  'did:web:air-cargo.etzhayyim.com',
-                 'ai.gftd.apps.airCargo.processClaim',
+                 'app.etzhayyim.apps.airCargo.processClaim',
                  'air_cargo_process_claim',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6745,7 +6745,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-process-claim-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-process-claim-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6761,7 +6761,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-settle-cargo-account-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-settle-cargo-account-v1',
                  'did:web:air-cargo.etzhayyim.com',
                  'air_cargo_settle_cargo_account',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6816,7 +6816,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-settle-cargo-account-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-settle-cargo-account-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6832,9 +6832,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-settle-cargo-account-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-settle-cargo-account-v1',
                  'did:web:air-cargo.etzhayyim.com',
-                 'ai.gftd.apps.airCargo.settleCargoAccount',
+                 'app.etzhayyim.apps.airCargo.settleCargoAccount',
                  'air_cargo_settle_cargo_account',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6842,7 +6842,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-settle-cargo-account-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-settle-cargo-account-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6858,7 +6858,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-report-cargo-security-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-report-cargo-security-v1',
                  'did:web:air-cargo.etzhayyim.com',
                  'air_cargo_report_cargo_security',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -6912,7 +6912,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-report-cargo-security-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-report-cargo-security-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -6928,9 +6928,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-report-cargo-security-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-report-cargo-security-v1',
                  'did:web:air-cargo.etzhayyim.com',
-                 'ai.gftd.apps.airCargo.reportCargoSecurity',
+                 'app.etzhayyim.apps.airCargo.reportCargoSecurity',
                  'air_cargo_report_cargo_security',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -6938,7 +6938,7 @@ UP = [{'sql': '\n'
                  'did:web:air-cargo.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-cargo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-report-cargo-security-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-report-cargo-security-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -6954,7 +6954,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-enroll-member-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-enroll-member-v1',
                  'did:web:air-ffp.etzhayyim.com',
                  'air_ffp_enroll_member',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -7007,7 +7007,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-enroll-member-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-enroll-member-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -7023,9 +7023,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-enroll-member-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-enroll-member-v1',
                  'did:web:air-ffp.etzhayyim.com',
-                 'ai.gftd.apps.airFfp.enrollMember',
+                 'app.etzhayyim.apps.airFfp.enrollMember',
                  'air_ffp_enroll_member',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -7033,7 +7033,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-enroll-member-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-enroll-member-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -7049,7 +7049,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-accrue-points-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-accrue-points-v1',
                  'did:web:air-ffp.etzhayyim.com',
                  'air_ffp_accrue_points',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -7103,7 +7103,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-accrue-points-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-accrue-points-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -7119,9 +7119,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-accrue-points-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-accrue-points-v1',
                  'did:web:air-ffp.etzhayyim.com',
-                 'ai.gftd.apps.airFfp.accruePoints',
+                 'app.etzhayyim.apps.airFfp.accruePoints',
                  'air_ffp_accrue_points',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -7129,7 +7129,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-accrue-points-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-accrue-points-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -7145,7 +7145,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-redeem-reward-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-redeem-reward-v1',
                  'did:web:air-ffp.etzhayyim.com',
                  'air_ffp_redeem_reward',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -7200,7 +7200,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-redeem-reward-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-redeem-reward-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -7216,9 +7216,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-redeem-reward-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-redeem-reward-v1',
                  'did:web:air-ffp.etzhayyim.com',
-                 'ai.gftd.apps.airFfp.redeemReward',
+                 'app.etzhayyim.apps.airFfp.redeemReward',
                  'air_ffp_redeem_reward',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -7226,7 +7226,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-redeem-reward-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-redeem-reward-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -7242,7 +7242,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-update-tier-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-update-tier-v1',
                  'did:web:air-ffp.etzhayyim.com',
                  'air_ffp_update_tier',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -7296,7 +7296,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-update-tier-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-update-tier-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -7312,9 +7312,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-update-tier-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-update-tier-v1',
                  'did:web:air-ffp.etzhayyim.com',
-                 'ai.gftd.apps.airFfp.updateTier',
+                 'app.etzhayyim.apps.airFfp.updateTier',
                  'air_ffp_update_tier',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -7322,7 +7322,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-update-tier-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-update-tier-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -7338,7 +7338,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-transfer-miles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-transfer-miles-v1',
                  'did:web:air-ffp.etzhayyim.com',
                  'air_ffp_transfer_miles',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -7391,7 +7391,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-transfer-miles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-transfer-miles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -7407,9 +7407,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-transfer-miles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-transfer-miles-v1',
                  'did:web:air-ffp.etzhayyim.com',
-                 'ai.gftd.apps.airFfp.transferMiles',
+                 'app.etzhayyim.apps.airFfp.transferMiles',
                  'air_ffp_transfer_miles',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -7417,7 +7417,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-transfer-miles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-transfer-miles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -7433,7 +7433,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-process-purchase-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-process-purchase-v1',
                  'did:web:air-ffp.etzhayyim.com',
                  'air_ffp_process_purchase',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -7487,7 +7487,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-process-purchase-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-process-purchase-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -7503,9 +7503,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-process-purchase-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-process-purchase-v1',
                  'did:web:air-ffp.etzhayyim.com',
-                 'ai.gftd.apps.airFfp.processPurchase',
+                 'app.etzhayyim.apps.airFfp.processPurchase',
                  'air_ffp_process_purchase',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -7513,7 +7513,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-process-purchase-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-process-purchase-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -7529,7 +7529,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-expire-miles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-expire-miles-v1',
                  'did:web:air-ffp.etzhayyim.com',
                  'air_ffp_expire_miles',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -7584,7 +7584,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-expire-miles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-expire-miles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -7600,9 +7600,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-expire-miles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-expire-miles-v1',
                  'did:web:air-ffp.etzhayyim.com',
-                 'ai.gftd.apps.airFfp.expireMiles',
+                 'app.etzhayyim.apps.airFfp.expireMiles',
                  'air_ffp_expire_miles',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -7610,7 +7610,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-expire-miles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-expire-miles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -7626,7 +7626,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-reconcile-partner-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-reconcile-partner-v1',
                  'did:web:air-ffp.etzhayyim.com',
                  'air_ffp_reconcile_partner',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -7681,7 +7681,7 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-reconcile-partner-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-reconcile-partner-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -7697,9 +7697,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-reconcile-partner-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-reconcile-partner-v1',
                  'did:web:air-ffp.etzhayyim.com',
-                 'ai.gftd.apps.airFfp.reconcilePartner',
+                 'app.etzhayyim.apps.airFfp.reconcilePartner',
                  'air_ffp_reconcile_partner',
                  'active',
                  '2026-05-07T12:00:00Z',
@@ -7707,328 +7707,328 @@ UP = [{'sql': '\n'
                  'did:web:air-ffp.etzhayyim.com',
                  'sys.bpmn.seed.airline',
                  'did:web:air-ffp.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-reconcile-partner-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-reconcile-partner-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-register-schedule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-register-schedule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-register-schedule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-register-schedule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-request-slot-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-request-slot-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-request-slot-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-request-slot-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-allocate-slot-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-allocate-slot-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-allocate-slot-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-allocate-slot-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-assign-fleet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-assign-fleet-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-assign-fleet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-assign-fleet-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-publish-schedule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-publish-schedule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-publish-schedule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-publish-schedule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-assign-gate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-assign-gate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-assign-gate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-assign-gate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-change-frequency-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-change-frequency-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-change-frequency-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-change-frequency-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sched-register-codeshare-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sched-register-codeshare-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sched-register-codeshare-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sched-register-codeshare-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-create-pnr-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-create-pnr-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-create-pnr-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-create-pnr-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-confirm-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-confirm-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-confirm-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-confirm-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-issue-ticket-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-issue-ticket-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-issue-ticket-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-issue-ticket-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-assign-seat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-assign-seat-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-assign-seat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-assign-seat-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-add-ancillary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-add-ancillary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-add-ancillary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-add-ancillary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-cancel-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-cancel-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-cancel-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-cancel-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-reprotect-passenger-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-reprotect-passenger-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-reprotect-passenger-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-reprotect-passenger-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-book-settle-bsp-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-book-settle-bsp-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-book-settle-bsp-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-book-settle-bsp-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-publish-fare-class-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-publish-fare-class-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-publish-fare-class-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-publish-fare-class-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-adjust-inventory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-adjust-inventory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-adjust-inventory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-adjust-inventory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-file-fare-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-file-fare-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-file-fare-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-file-fare-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-set-overbooking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-set-overbooking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-set-overbooking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-set-overbooking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-process-group-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-process-group-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-process-group-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-process-group-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-apply-dynamic-price-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-apply-dynamic-price-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-apply-dynamic-price-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-apply-dynamic-price-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-generate-revenue-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-generate-revenue-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-generate-revenue-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-generate-revenue-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-yield-forecast-demand-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-yield-forecast-demand-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-yield-forecast-demand-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-yield-forecast-demand-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-process-check-in-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-process-check-in-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-process-check-in-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-process-check-in-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-process-boarding-pass-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-process-boarding-pass-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-process-boarding-pass-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-process-boarding-pass-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-accept-baggage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-accept-baggage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-accept-baggage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-accept-baggage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-reconcile-baggage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-reconcile-baggage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-reconcile-baggage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-reconcile-baggage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-compute-load-sheet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-compute-load-sheet-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-compute-load-sheet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-compute-load-sheet-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-transmit-apis-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-transmit-apis-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-transmit-apis-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-transmit-apis-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-track-turnaround-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-track-turnaround-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-track-turnaround-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-track-turnaround-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-dcs-issue-departure-control-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-dcs-issue-departure-control-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-dcs-issue-departure-control-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-dcs-issue-departure-control-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-file-flight-plan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-file-flight-plan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-file-flight-plan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-file-flight-plan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-create-dispatch-brief-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-create-dispatch-brief-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-create-dispatch-brief-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-create-dispatch-brief-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-fetch-notam-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-fetch-notam-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-fetch-notam-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-fetch-notam-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-fetch-weather-brief-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-fetch-weather-brief-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-fetch-weather-brief-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-fetch-weather-brief-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-record-tech-log-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-record-tech-log-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-record-tech-log-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-record-tech-log-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-order-fuel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-order-fuel-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-order-fuel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-order-fuel-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-submit-pirep-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-submit-pirep-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-submit-pirep-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-submit-pirep-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ops-monitor-flight-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ops-monitor-flight-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ops-monitor-flight-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ops-monitor-flight-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-publish-roster-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-publish-roster-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-publish-roster-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-publish-roster-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-build-pairing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-build-pairing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-build-pairing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-build-pairing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-track-qualification-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-track-qualification-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-track-qualification-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-track-qualification-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-assess-fatigue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-assess-fatigue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-assess-fatigue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-assess-fatigue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-assign-crew-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-assign-crew-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-assign-crew-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-assign-crew-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-book-crew-travel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-book-crew-travel-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-book-crew-travel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-book-crew-travel-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-record-duty-time-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-record-duty-time-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-record-duty-time-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-record-duty-time-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-crew-notify-crew-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-crew-notify-crew-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-crew-notify-crew-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-crew-notify-crew-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-create-work-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-create-work-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-create-work-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-create-work-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-track-component-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-track-component-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-track-component-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-track-component-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-check-airworthiness-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-check-airworthiness-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-check-airworthiness-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-check-airworthiness-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-report-tech-occurrence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-report-tech-occurrence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-report-tech-occurrence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-report-tech-occurrence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-schedule-maintenance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-schedule-maintenance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-schedule-maintenance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-schedule-maintenance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-report-reliability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-report-reliability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-report-reliability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-report-reliability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-order-spare-part-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-order-spare-part-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-order-spare-part-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-order-spare-part-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-mro-record-ground-equipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-mro-record-ground-equipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-mro-record-ground-equipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-mro-record-ground-equipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-submit-safety-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-submit-safety-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-submit-safety-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-submit-safety-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-assess-risk-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-assess-risk-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-assess-risk-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-assess-risk-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-record-iosa-finding-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-record-iosa-finding-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-record-iosa-finding-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-record-iosa-finding-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-file-regulatory-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-file-regulatory-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-file-regulatory-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-file-regulatory-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-report-occurrence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-report-occurrence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-report-occurrence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-report-occurrence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-distribute-safety-bulletin-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-distribute-safety-bulletin-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-distribute-safety-bulletin-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-distribute-safety-bulletin-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-screen-dangerous-goods-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-screen-dangerous-goods-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-screen-dangerous-goods-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-screen-dangerous-goods-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-sms-handle-security-alert-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-sms-handle-security-alert-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-sms-handle-security-alert-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-sms-handle-security-alert-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-create-cargo-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-create-cargo-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-create-cargo-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-create-cargo-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-issue-air-waybill-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-issue-air-waybill-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-issue-air-waybill-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-issue-air-waybill-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-accept-cargo-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-accept-cargo-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-accept-cargo-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-accept-cargo-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-assign-uld-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-assign-uld-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-assign-uld-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-assign-uld-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-track-shipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-track-shipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-track-shipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-track-shipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-process-claim-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-process-claim-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-process-claim-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-process-claim-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-settle-cargo-account-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-settle-cargo-account-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-settle-cargo-account-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-settle-cargo-account-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-cargo-report-cargo-security-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-cargo-report-cargo-security-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-cargo-report-cargo-security-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-cargo-report-cargo-security-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-enroll-member-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-enroll-member-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-enroll-member-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-enroll-member-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-accrue-points-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-accrue-points-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-accrue-points-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-accrue-points-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-redeem-reward-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-redeem-reward-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-redeem-reward-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-redeem-reward-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-update-tier-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-update-tier-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-update-tier-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-update-tier-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-transfer-miles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-transfer-miles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-transfer-miles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-transfer-miles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-process-purchase-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-process-purchase-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-process-purchase-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-process-purchase-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-expire-miles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-expire-miles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-expire-miles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-expire-miles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/air-ffp-reconcile-partner-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/air-ffp-reconcile-partner-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/air-ffp-reconcile-partner-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/air-ffp-reconcile-partner-v1']}]
 
 
 def upgrade() -> None:

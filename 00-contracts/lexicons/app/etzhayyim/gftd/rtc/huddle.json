@@ -1,0 +1,20 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.rtc.huddle",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId"
+        ]
+      }
+    }
+  }
+}

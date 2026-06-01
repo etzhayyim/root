@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-dns-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_dns_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -60,7 +60,7 @@ UP = [{'sql': '\n'
                  '  Pulls stale domains from vertex_dns_observation, re-queries RDAP + DoH,\n'
                  '  and writes updated rows.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.ingest.start (timer-triggered)\n'
+                 '  NSID: app.etzhayyim.apps.ingest.start (timer-triggered)\n'
                  '  Task: netintel.dns.delta\n'
                  '  Cadence: R/PT1M (every 1 minute)\n'
                  '-->\n'
@@ -75,7 +75,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelDnsDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelDnsDelta", "version": 1, '
                  '"resultTimeoutMs": 3600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -170,20 +170,20 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-dns-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '        result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id,\n'
          '        actor_id, write_table_allowlist\n'
          '      )\n'
-         "      SELECT $1, $2, 'ai.gftd.apps.ingest.start',\n"
+         "      SELECT $1, $2, 'app.etzhayyim.apps.ingest.start',\n"
          "             $3, 1, CAST(0 AS integer), 'active',\n"
          '             $4, 1, $5, $6, $7,\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_dns_delta',
                  '2026-04-28T18:00:00Z',
@@ -191,7 +191,7 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_dns_observation,vertex_ingest_run',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -202,7 +202,7 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-ip-enrich-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_ip_enrich_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -225,7 +225,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelIpEnrichDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelIpEnrichDelta", "version": 1, '
                  '"resultTimeoutMs": 3600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -320,20 +320,20 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '        result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id,\n'
          '        actor_id, write_table_allowlist\n'
          '      )\n'
-         "      SELECT $1, $2, 'ai.gftd.apps.ingest.start',\n"
+         "      SELECT $1, $2, 'app.etzhayyim.apps.ingest.start',\n"
          "             $3, 1, CAST(0 AS integer), 'active',\n"
          '             $4, 1, $5, $6, $7,\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_ip_enrich_delta',
                  '2026-04-28T18:00:00Z',
@@ -341,7 +341,7 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_ip_address,vertex_ingest_run',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -352,7 +352,7 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-whois-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_whois_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -375,7 +375,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelWhoisDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelWhoisDelta", "version": 1, '
                  '"resultTimeoutMs": 3600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -470,20 +470,20 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-whois-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '        result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id,\n'
          '        actor_id, write_table_allowlist\n'
          '      )\n'
-         "      SELECT $1, $2, 'ai.gftd.apps.ingest.start',\n"
+         "      SELECT $1, $2, 'app.etzhayyim.apps.ingest.start',\n"
          "             $3, 1, CAST(0 AS integer), 'active',\n"
          '             $4, 1, $5, $6, $7,\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_whois_delta',
                  '2026-04-28T18:00:00Z',
@@ -491,7 +491,7 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_whois_record,vertex_ingest_run',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -502,7 +502,7 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-scan-banner-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_scan_banner_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -527,7 +527,7 @@ UP = [{'sql': '\n'
                  'delta" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelScanBannerDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelScanBannerDelta", "version": 1, '
                  '"resultTimeoutMs": 7200000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -622,20 +622,20 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '        result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id,\n'
          '        actor_id, write_table_allowlist\n'
          '      )\n'
-         "      SELECT $1, $2, 'ai.gftd.apps.ingest.start',\n"
+         "      SELECT $1, $2, 'app.etzhayyim.apps.ingest.start',\n"
          "             $3, 1, CAST(0 AS integer), 'active',\n"
          '             $4, 1, $5, $6, $7,\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_scan_banner_delta',
                  '2026-04-28T18:00:00Z',
@@ -643,7 +643,7 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_scan_result,vertex_ingest_run',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -654,7 +654,7 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-fingerprint-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_fingerprint_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -680,7 +680,7 @@ UP = [{'sql': '\n'
                  'delta" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelFingerprintDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelFingerprintDelta", "version": 1, '
                  '"resultTimeoutMs": 7200000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -775,20 +775,20 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-fingerprint-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '        result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id,\n'
          '        actor_id, write_table_allowlist\n'
          '      )\n'
-         "      SELECT $1, $2, 'ai.gftd.apps.ingest.start',\n"
+         "      SELECT $1, $2, 'app.etzhayyim.apps.ingest.start',\n"
          "             $3, 1, CAST(0 AS integer), 'active',\n"
          '             $4, 1, $5, $6, $7,\n'
          '             $8\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'netintel_fingerprint_delta',
                  '2026-04-28T18:00:00Z',
@@ -796,28 +796,28 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.netintel-ingest',
                  'vertex_scan_result,vertex_ingest_run',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-dns-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-dns-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-ip-enrich-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-whois-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-whois-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-scan-banner-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-netintel-fingerprint-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-fingerprint-delta-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_whois_record', 'parameters': []}]
 
 

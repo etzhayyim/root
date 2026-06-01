@@ -157,15 +157,15 @@ def test_scene_row_from_stac_shape():
     feature = _stac_feature("S2A_TEST_001")
     row = MS._scene_row_from_stac(feature, platform="sentinel-2-l2a")
 
-    assert row["collection"] == "ai.gftd.apps.maps.satelliteScene"
+    assert row["collection"] == "app.etzhayyim.apps.maps.satelliteScene"
     assert row["repo"] == MS.DEFAULT_REPO
-    assert row["uri"].startswith(f"at://{MS.DEFAULT_REPO}/ai.gftd.apps.maps.satelliteScene/")
+    assert row["uri"].startswith(f"at://{MS.DEFAULT_REPO}/app.etzhayyim.apps.maps.satelliteScene/")
     assert row["rkey"] == row["cid"]
     assert row["vertex_id"] == row["uri"]
     assert isinstance(row["ts_ms"], int)
 
     record = json.loads(row["value_json"])
-    assert record["$type"] == "ai.gftd.apps.maps.satelliteScene"
+    assert record["$type"] == "app.etzhayyim.apps.maps.satelliteScene"
     assert record["sceneId"] == "S2A_TEST_001"
     assert record["platform"] == "sentinel-2-l2a"
     assert record["cloudCover"] == 5.2
@@ -455,16 +455,16 @@ def test_task_runpod_analyze_without_credentials_writes_degraded_row(monkeypatch
 
     with patch("pymagatama.primitives.maps_sentinel.sync_cursor", return_value=ctx):
         result = MS.task_maps_sentinel_runpod_analyze(
-            scene_uri="at://maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/abc123",
+            scene_uri="at://maps.etzhayyim.com/app.etzhayyim.apps.maps.satelliteScene/abc123",
             analysis_type="change_detection",
         )
 
     assert result["ok"] is False
-    assert result["analysisUri"].startswith("at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteAnalysis/")
+    assert result["analysisUri"].startswith("at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.satelliteAnalysis/")
     assert len(ctx.cursor.sqls) == 1
 
     record = json.loads(ctx.cursor.params[0][5])  # value_json is index 5
-    assert record["$type"] == "ai.gftd.apps.maps.satelliteAnalysis"
+    assert record["$type"] == "app.etzhayyim.apps.maps.satelliteAnalysis"
     assert record["analysisType"] == "change_detection"
     assert record["confidence"] == 0.0
 
@@ -494,7 +494,7 @@ def test_task_runpod_analyze_with_credentials_writes_result(monkeypatch):
          patch("time.sleep"), \
          patch("pymagatama.primitives.maps_sentinel.sync_cursor", return_value=ctx):
         result = MS.task_maps_sentinel_runpod_analyze(
-            scene_uri="at://maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/s1flood",
+            scene_uri="at://maps.etzhayyim.com/app.etzhayyim.apps.maps.satelliteScene/s1flood",
             analysis_type="sar_flood",
             model_version="phase1",
         )
@@ -503,10 +503,10 @@ def test_task_runpod_analyze_with_credentials_writes_result(monkeypatch):
     assert result["summary"] == "Flood detected in low-lying area"
     # phase1 cap: 0.79 < 0.85 → unchanged
     assert result["confidence"] == 0.79
-    assert result["analysisUri"].startswith("at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteAnalysis/")
+    assert result["analysisUri"].startswith("at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.satelliteAnalysis/")
 
     record = json.loads(ctx.cursor.params[0][5])
-    assert record["sceneUri"] == "at://maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/s1flood"
+    assert record["sceneUri"] == "at://maps.etzhayyim.com/app.etzhayyim.apps.maps.satelliteScene/s1flood"
     assert record["analysisType"] == "sar_flood"
     assert record["modelVersion"] == "phase1"
 

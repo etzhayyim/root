@@ -10,8 +10,8 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                    | Rows    | Source                                     |
  * |-------------------------------|---------|---------------------------------------------|
- * | ai.gftd.apps.asfis.species    | 13,761  | FAO ASFIS 2025 (fish species + ISSCAAP groups) |
- * | ai.gftd.apps.fda.ndc          | 131,664 | FDA NDC bulk download 2025 (drug products)  |
+ * | app.etzhayyim.apps.asfis.species    | 13,761  | FAO ASFIS 2025 (fish species + ISSCAAP groups) |
+ * | app.etzhayyim.apps.fda.ndc          | 131,664 | FDA NDC bulk download 2025 (drug products)  |
  *
  * ### FAO ASFIS (Aquatic Sciences and Fisheries Information System) species list
  * 13,761 nodes in 2-level hierarchy:
@@ -43,8 +43,8 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New views
  *
- * - view_asfis_species: projection of ai.gftd.apps.asfis.species
- * - view_fda_ndc: projection of ai.gftd.apps.fda.ndc
+ * - view_asfis_species: projection of app.etzhayyim.apps.asfis.species
+ * - view_fda_ndc: projection of app.etzhayyim.apps.fda.ndc
  *
  * ## Topology integrity (post-apply)
  *
@@ -80,7 +80,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       (value_json::jsonb->>'in_fishstat')::boolean AS in_fishstat,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.asfis.species'
+    WHERE collection = 'app.etzhayyim.apps.asfis.species'
   `.execute(db);
 
   await sql`
@@ -98,7 +98,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'app_num'       AS application_number,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.fda.ndc'
+    WHERE collection = 'app.etzhayyim.apps.fda.ndc'
   `.execute(db);
 
   // ── dim_world_domain ───────────────────────────────────────────────────
@@ -121,8 +121,8 @@ export async function up(db: Kysely<any>): Promise<void> {
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_asfis_species`.execute(db);
   await sql`DROP VIEW IF EXISTS view_fda_ndc`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.asfis.species'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.fda.ndc'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.asfis.species'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.fda.ndc'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain IN ('asfis','fda_ndc')`.execute(db);
   await sql`DELETE FROM edge_classified_as WHERE system = 'atc_ndc'`.execute(db);
 }

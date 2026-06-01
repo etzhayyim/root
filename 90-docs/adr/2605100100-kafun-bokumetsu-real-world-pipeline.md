@@ -9,8 +9,8 @@ last_verified: 2026-05-10
 authoritative_for:
   - kafun-bokumetsu-pipeline
 related:
-  - 90-docs/adr/2605100000-agent-goal-dag-schema.md
-  - 90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md
+  - adr-2605100000-agent-goal-dag-schema
+  - adr-2605080600-langgraph-server-granian-l3-runtime
 supersedes: []
 superseded_by: []
 ---

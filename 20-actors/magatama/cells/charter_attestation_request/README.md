@@ -1,6 +1,6 @@
 # charter_attestation_request — Pregel Cell
 
-**Trigger**: MST listener on `ai.gftd.apps.etzhayyim.charter-attestation-request`
+**Trigger**: MST listener on `app.etzhayyim.apps.etzhayyim.charter-attestation-request`
 
 **Effect**: LLM pre-analysis → Council Lv6+ dispatch → on ≥3 signatures → ChartersComplianceRegistry.attestNonAligned() tx on Base L2 + AT Record
 

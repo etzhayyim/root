@@ -54,7 +54,7 @@ def test_esim_hash_varies_with_value() -> None:
 def test_esim_vid_format() -> None:
     vid = ESIM._vid("euicc", "key-001")
     assert "at://" in vid
-    assert "ai.gftd.apps.telecom.euicc" in vid
+    assert "app.etzhayyim.apps.telecom.euicc" in vid
     assert "key-001" in vid
 
 

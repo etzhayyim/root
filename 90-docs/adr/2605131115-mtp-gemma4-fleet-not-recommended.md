@@ -9,7 +9,7 @@ last_verified: 2026-05-13
 authoritative_for:
   - "decision: MTP rollout to murakumo Mac mini fleet"
 related:
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2605080000-distributed-cognitive-actor-system
   - adr-2605121700-murakumo-virtual-kubelet
 supersedes: []

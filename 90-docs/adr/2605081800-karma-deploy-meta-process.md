@@ -19,7 +19,7 @@ depends_on:
   - adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic
   - adr-2605081400-karma-self-growing-organism-ecosystem
   - adr-0056-bpmn-as-actor
-  - adr-2604241342-out-of-band-migration-pattern
+  - adr-2604241342-risingwave-out-of-band-migration-pattern
 related: []
 supersedes: []
 superseded_by: []
@@ -55,7 +55,7 @@ operator-karma issuance for successful deploys.
 A new BPMN actor encapsulates the entire deploy sequence:
 
 ```
-karma_deploy (XRPC: ai.gftd.apps.karma.deploy)
+karma_deploy (XRPC: app.etzhayyim.apps.karma.deploy)
   ├─ migration.applyPending  — apply N migrations sequentially
   │   ├─ ddl.queueWait        — poll rw_ddl_progress until drained
   │   ├─ ddl.applyBatch       — issue 1 DDL at a time with 5min timeout

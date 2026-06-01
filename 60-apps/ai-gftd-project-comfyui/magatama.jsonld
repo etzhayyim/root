@@ -10,7 +10,7 @@
     "displayName": "ComfyUI",
     "description": "Image generation gateway — SDXL / Animagine XL 4.0 default, workflow-graph inference (txt2img + img2img now; inpaint, ControlNet, LoRA, IPAdapter planned). OpenAI-compat + XRPC.",
     "isBot": true,
-    "agentType": "service",
+    "agentType": "reactive",
     "operator": "etzhayyim",
     "category": "image-generation",
     "capabilities": [

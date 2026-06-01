@@ -27,9 +27,9 @@
 
 | Kind | Collection | Description |
 |---|---|---|
-| `customary_tradition` | `ai.gftd.apps.customary.customary_tradition` | Tradition registry (Tikanga, Adat, etc.) |
-| `customary_rule` | `ai.gftd.apps.customary.customary_rule` | Individual rules within a tradition |
-| `court_recognition` | `ai.gftd.apps.customary.court_recognition` | Court recognition records per jurisdiction |
+| `customary_tradition` | `app.etzhayyim.apps.customary.customary_tradition` | Tradition registry (Tikanga, Adat, etc.) |
+| `customary_rule` | `app.etzhayyim.apps.customary.customary_rule` | Individual rules within a tradition |
+| `court_recognition` | `app.etzhayyim.apps.customary.court_recognition` | Court recognition records per jurisdiction |
 
 ## Channels
 

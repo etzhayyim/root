@@ -29,7 +29,7 @@ const processId = "gmail_triage_tick";
 const ownerDid = "did:web:gmail.etzhayyim.com";
 const actorId = "sys.gmail";
 const createdAt = "2026-05-08T15:00:00Z";
-const vertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gmail-triage-tick-v1`;
+const vertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gmail-triage-tick-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(path.resolve(repoRoot, sourcePath), "utf8");

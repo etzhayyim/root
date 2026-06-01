@@ -20,7 +20,7 @@ interface Env {
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "ai.gftd.houshi";
+const NSID_BASE = "app.etzhayyim.houshi";
 
 interface RouteConfig {
   method: "POST" | "GET";

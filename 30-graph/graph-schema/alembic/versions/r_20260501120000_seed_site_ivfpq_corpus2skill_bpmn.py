@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/site-ivfPqReindex-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/site-ivfPqReindex-v1',
                  'did:web:site.etzhayyim.com',
                  'site_ivf_pq_reindex',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -197,7 +197,7 @@ UP = [{'sql': '\n'
                  'did:web:site.etzhayyim.com',
                  'did:web:site.etzhayyim.com',
                  'sys.bpmn.seed.site',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/site-ivfPqReindex-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/site-ivfPqReindex-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -211,9 +211,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1',
                  'did:web:site.etzhayyim.com',
-                 'ai.gftd.apps.site.ivfPqReindex',
+                 'app.etzhayyim.apps.site.ivfPqReindex',
                  'site_ivf_pq_reindex',
                  14400000,
                  '2026-05-01T10:00:00Z',
@@ -221,7 +221,7 @@ UP = [{'sql': '\n'
                  'did:web:site.etzhayyim.com',
                  'sys.bpmn.seed.site',
                  'did:web:site.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -234,7 +234,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/site-corpus2skillDistill-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/site-corpus2skillDistill-v1',
                  'did:web:site.etzhayyim.com',
                  'site_corpus2skill_distill',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -378,7 +378,7 @@ UP = [{'sql': '\n'
                  'did:web:site.etzhayyim.com',
                  'did:web:site.etzhayyim.com',
                  'sys.bpmn.seed.site',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/site-corpus2skillDistill-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/site-corpus2skillDistill-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -392,9 +392,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1',
                  'did:web:site.etzhayyim.com',
-                 'ai.gftd.apps.site.corpus2skillDistill',
+                 'app.etzhayyim.apps.site.corpus2skillDistill',
                  'site_corpus2skill_distill',
                  28800000,
                  '2026-05-01T10:00:00Z',
@@ -402,16 +402,16 @@ UP = [{'sql': '\n'
                  'did:web:site.etzhayyim.com',
                  'sys.bpmn.seed.site',
                  'did:web:site.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/site-ivfPqReindex-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/site-ivfPqReindex-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/site-corpus2skillDistill-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/site-corpus2skillDistill-v1']}]
 
 
 def upgrade() -> None:

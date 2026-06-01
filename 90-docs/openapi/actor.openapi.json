@@ -44,14 +44,14 @@
           },
           "runtime": {
             "type": "string",
-            "description": "GFTD extension: business execution runtime placement",
+            "description": "etzhayyim extension: business execution runtime placement",
             "x-knownValues": [
               "k8s-langserver"
             ]
           },
           "edge": {
             "type": "string",
-            "description": "GFTD extension: public edge placement",
+            "description": "etzhayyim extension: public edge placement",
             "x-knownValues": [
               "sveltekit-proxy"
             ]
@@ -68,7 +68,7 @@
           },
           "status": {
             "type": "string",
-            "description": "GFTD extension: app lifecycle status",
+            "description": "etzhayyim extension: app lifecycle status",
             "x-knownValues": [
               "active",
               "suspended",

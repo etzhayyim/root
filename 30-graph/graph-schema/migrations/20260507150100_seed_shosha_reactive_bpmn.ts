@@ -21,7 +21,7 @@ const actorTag = "sys.bpmn.seed.shosha.phase2a";
 
 const seeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-react-to-upstream-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-react-to-upstream-v1",
     bpmnProcessId: "shosha_react_to_upstream",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/reactToUpstream.bpmn",
     ownerDid,

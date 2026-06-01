@@ -65,3 +65,20 @@ packages:
 
   # etzhayyim-organism-viz Svelte frontend (ADR-2605221411)
   - "60-apps/etzhayyim-organism-viz/web"
+
+  # @etzhayyim/kami-engine-sdk canonical (ADR-2605265200, Phase 3
+  # deletion of the legacy 20-actors duplicate completed earlier).
+  # git-submodule of github.com/etzhayyim/kami-engine-sdk (the submodule
+  # repo is the SoT per ADR-2606011500 stage 1; run `git submodule update
+  # --init` to populate). `workspace:*` references in consumer apps resolve
+  # here once the submodule is checked out.
+  - "40-engine/kami-engine/kami-engine-sdk"
+
+# pnpm overrides — dedupe onnxruntime-web to the version pinned by
+# @huggingface/transformers@3.8.1 (the larger 1.26.0 release is 25 MiB and hits
+# the Cloudflare Workers per-asset hard limit, blocking magatama-yoro deploy).
+# Two consumers in the yoro SPA bundle: (a) transformers (pinned to 1.22.0-dev),
+# (b) src/lib/provider/diffusion-worker.ts (only uses stable InferenceSession
+# API + type imports, compatible with 1.22.0-dev).
+overrides:
+  onnxruntime-web: "1.22.0-dev.20250409-89f8206ba4"

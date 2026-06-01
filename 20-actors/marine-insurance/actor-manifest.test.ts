@@ -23,7 +23,7 @@ describe("Marine Insurance Actor Manifest", () => {
   });
   it("subscribes to vessel.ship for coverage check", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("ai.gftd.apps.vessel.ship");
+    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.vessel.ship");
   });
   it("vesselCoverage has 3 queries (policies + P&I + claims)", () => {
     const vc = m.pipelines.find((p: any) => p.trigger?.nsid?.includes("getVesselCoverage"));
@@ -32,10 +32,10 @@ describe("Marine Insurance Actor Manifest", () => {
   });
   it("xrpc covers policies, claims, P&I, vessel coverage", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("ai.gftd.apps.marineInsurance.underwriting.getPolicy");
-    expect(nsids).toContain("ai.gftd.apps.marineInsurance.underwriting.listClaims");
-    expect(nsids).toContain("ai.gftd.apps.marineInsurance.underwriting.listPiEntries");
-    expect(nsids).toContain("ai.gftd.apps.marineInsurance.underwriting.getVesselCoverage");
+    expect(nsids).toContain("app.etzhayyim.apps.marineInsurance.underwriting.getPolicy");
+    expect(nsids).toContain("app.etzhayyim.apps.marineInsurance.underwriting.listClaims");
+    expect(nsids).toContain("app.etzhayyim.apps.marineInsurance.underwriting.listPiEntries");
+    expect(nsids).toContain("app.etzhayyim.apps.marineInsurance.underwriting.getVesselCoverage");
   });
   it("6 actors (H&M, P&I, cargo, war, GA, claims)", () => { expect(m.actors).toHaveLength(6); });
   it("York-Antwerp Rules compliance", () => { expect(m.governance.complianceFrameworks).toContain("York-Antwerp Rules"); });

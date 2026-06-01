@@ -10,9 +10,9 @@ authoritative_for:
   - Baien capability roadmap (multimodal + reasoning)
   - Decision on what NOT to chase at 2B / 1.58-bit scale
 related:
-  - 90-docs/adr/2605092350-baien-1bit-multimodal-edge-browser-cpu-design.md
-  - 90-docs/adr/2605092345-runpod-l40s-fp8-multimodal-model-design.md
-  - 90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion.md
+  - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design
+  - adr-2605092345-runpod-l40s-fp8-multimodal-model-design
+  - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
 ---
 
 # Goal

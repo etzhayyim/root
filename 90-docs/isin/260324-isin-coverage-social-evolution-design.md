@@ -9,8 +9,8 @@ authoritative_for:
   - isin-coverage-heartbeat
 last_verified: 2026-03-24
 related:
-  - 260323-authority-chain-compliance-design
-  - 260323-actor-visibility-governance-design
+  - 260323-yoro-human-credit-economy-design
+  - 260323-yoro-human-credit-economy-design
 ---
 
 # ISIN Coverage-Driven Social Evolution Design
@@ -168,7 +168,7 @@ curl "https://atproto.etzhayyim.com/xrpc/app.bsky.feed.getAuthorFeed?actor=did:w
 
 ```bash
 # Via cross-actor invoke
-curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.projector.sendProjectMessage \
+curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.projector.sendProjectMessage \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $(gftd authn token)" \
   -d '{"app_id":"is1n8k2x","method":"get-coverage","params":"{}"}'

@@ -19,10 +19,6 @@ depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
-  - 
-  - 
-  - 
-  - 
 supersedes: []
 superseded_by: []
 ---
@@ -93,7 +89,7 @@ const e = new Etzhayyim({
 
 // Domain write — replaces SQL INSERT
 const receipt = await e.write({
-  collection: 'ai.gftd.apps.openIsco.occupation',  // NSID
+  collection: 'app.etzhayyim.apps.openIsco.occupation',  // NSID
   record: { code: '2511', name: 'Software Developer', major: '2' },
   blobs: { handbookPdf: pdfBlob },  // optional, pinned to IPFS
 });
@@ -101,7 +97,7 @@ const receipt = await e.write({
 
 // Domain read — replaces SQL SELECT
 const occ = await e.read({
-  collection: 'ai.gftd.apps.openIsco.occupation',
+  collection: 'app.etzhayyim.apps.openIsco.occupation',
   filter: { major: '2' },     // key-prefix traversal of MST
   limit: 50,
 });

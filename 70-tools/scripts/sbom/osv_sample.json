@@ -1,0 +1,19 @@
+{
+  "_note": "OSV-schema sample (https://ossf.github.io/osv-schema/). Record 1 is a real-ecosystem advisory shape (PyPI) to show schema fidelity; record 2 is a DEMO advisory whose affected purl matches a fleet part (pkg:generic/raspberrypi/rp2040) so the vuln-match join produces a hit. In production this file is replaced by a download from api.osv.dev (POST /v1/query per purl) or an OSV bucket dump.",
+  "vulns": [
+    {
+      "id": "GHSA-EXAMPLE-pypi-0001",
+      "summary": "Example advisory in a real ecosystem (schema-fidelity demo)",
+      "aliases": ["CVE-EXAMPLE-9001"],
+      "severity": [{ "type": "CVSS_V3", "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H" }],
+      "database_specific": { "severity": "HIGH" },
+      "affected": [{ "package": { "ecosystem": "PyPI", "name": "example-pkg", "purl": "pkg:pypi/example-pkg" } }]
+    },
+    {
+      "id": "OSV-DEMO-RP2040",
+      "summary": "DEMO advisory affecting a fleet part (RP2040 MCU)",
+      "database_specific": { "severity": "CRITICAL" },
+      "affected": [{ "package": { "ecosystem": "generic", "name": "rp2040", "purl": "pkg:generic/raspberrypi/rp2040" } }]
+    }
+  ]
+}

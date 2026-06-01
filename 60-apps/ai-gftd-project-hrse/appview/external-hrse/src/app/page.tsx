@@ -15,7 +15,7 @@ import { getUserAuthInfo, determineEffectiveUserType } from "@/lib/auth-helpers"
 
 /**
  * システム管理者かどうかを判定
- * @gftd.co.jp ドメインのメールアドレスを持つユーザーを管理者とみなす
+ * @etzhayyim.com ドメインのメールアドレスを持つユーザーを管理者とみなす
  */
 async function isSystemAdmin(): Promise<boolean> {
 	const { userId } = await auth();
@@ -32,7 +32,7 @@ async function isSystemAdmin(): Promise<boolean> {
 		}
 
 		return user.emailAddresses.some(
-			(email) => email.emailAddress?.includes("@gftd.co.jp")
+			(email) => email.emailAddress?.includes("@etzhayyim.com")
 		);
 	} catch (error) {
 		console.error("Failed to check admin status:", error);
@@ -139,7 +139,7 @@ export default async function Home() {
 	const testimonials = [
 		{
 			quote:
-				"Gftd HRSEを利用して、優秀なセキュリティエンジニアを見つけることができました。迅速な対応と専門性の高さに感動しています。",
+				"etzhayyim HRSEを利用して、優秀なセキュリティエンジニアを見つけることができました。迅速な対応と専門性の高さに感動しています。",
 			authorName: "",
 			authorTitle: "CTO",
 			companyName: "テクノロジー企業E",
@@ -172,7 +172,7 @@ export default async function Home() {
 							<span className="text-white">トップ3%のタレントを採用</span>
 						</h1>
 						<p className="mb-8 text-xl leading-relaxed text-white/90 sm:text-2xl">
-							Gftd HRSEは、サイバーセキュリティ特化型のフリーランスマッチングプラットフォームです。
+							etzhayyim HRSEは、サイバーセキュリティ特化型のフリーランスマッチングプラットフォームです。
                             <br />
 							厳格な審査を通過した専門家が、あなたの重要なプロジェクトをサポートします。
 						</p>

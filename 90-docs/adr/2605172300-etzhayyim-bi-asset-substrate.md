@@ -20,13 +20,13 @@ authoritative_for:
   - private-vs-public split: PII / roster on geth-private; settlement, NAV, anchors on Base L2
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
-  - 2605172700-membership-layering-shinto-adherent.md
-  - 2605172600-etzhayyim-membership-ritual.md
+  - adr-2605172700-membership-layering-shinto-adherent
+  - adr-2605172600-etzhayyim-membership-ritual
 supersedes: []
 superseded_by: []
 ---
@@ -71,7 +71,7 @@ What is **still missing** is the economic body of the association: how members a
 
 Two structural pressures shape this layer:
 
-1. **Voluntary-association legal framing**. Without a 宗教法人 corporate shell, etzhayyim cannot hold a corporate bank account or employ members in the labor-law sense. Distributions must be framed as **voluntary gifts between the association and its constituent adherents (構成員 / Adherent — distinct from the broader 信者 commitment layer of [ADR-2605172600](2605172600-etzhayyim-membership-ritual.md); see [ADR-2605172700](2605172700-membership-layering-shinto-adherent.md))**, not as wages. Members declare receipts as 一時所得 / 雑所得 individually. The system therefore optimizes for **adherent-declarable, association-auditable, non-employer-employee** semantics.
+1. **Voluntary-association legal framing**. Without a 宗教法人 corporate shell, etzhayyim cannot hold a corporate bank account or employ members in the labor-law sense. Distributions must be framed as **voluntary gifts between the association and its constituent adherents (構成員 / Adherent — distinct from the broader 信者 commitment layer of [ADR-2605172600](/90-docs/adr/2605172600-etzhayyim-membership-ritual.md); see [ADR-2605172700](/90-docs/adr/2605172700-membership-layering-shinto-adherent.md))**, not as wages. Members declare receipts as 一時所得 / 雑所得 individually. The system therefore optimizes for **adherent-declarable, association-auditable, non-employer-employee** semantics.
 
 2. **Substrate-purity double bind**. ADR-2605172000 prohibits centralized off-chain DBs. ADR-2605172100 prohibits fiat processors and commits public payments to Base L2. But **internal constitutional state** (who is an adherent, what is each adherent's current kisha rate, what is the outcome of a doctrine-change vote) does not belong on a public, anyone-can-read L2 — both for PII reasons and for write-cost reasons. We need an **internal** programmable substrate that is *not* a centralized DB but also *not* a public chain.
 
@@ -92,7 +92,7 @@ This ADR composes those three building blocks into a single layer.
 | 護持資産 (goji-shisan) | corp assets | 流動 (liquid) / 準備 (reserve) / 本財 (corpus) three-tier |
 | 役員 (yakuin) | officer | Safe signer + geth-private validator |
 
-[^vocab]: Earlier drafts of this ADR used "信徒 (shinto) / adherent" interchangeably for the SBT holder. [ADR-2605172700](2605172700-membership-layering-shinto-adherent.md) clarifies that the looser cultural label 信者 belongs to the [ADR-2605172600](2605172600-etzhayyim-membership-ritual.md) public-commitment layer on Base. The SBT holder used here is "Adherent / 構成員" — a 信者 who has additionally been enrolled in the economic body.
+[^vocab]: Earlier drafts of this ADR used "信徒 (shinto) / adherent" interchangeably for the SBT holder. [ADR-2605172700](/90-docs/adr/2605172700-membership-layering-shinto-adherent.md) clarifies that the looser cultural label 信者 belongs to the [ADR-2605172600](/90-docs/adr/2605172600-etzhayyim-membership-ritual.md) public-commitment layer on Base. The SBT holder used here is "Adherent / 構成員" — a 信者 who has additionally been enrolled in the economic body.
 
 # Decision
 
@@ -281,7 +281,7 @@ A representative attempting to dispose of a corpus asset against governance vote
    │◄────────────────────────────────  Treasury Safe → adherent wallet
    │                                       │
    │                                       ▼
-   │                                     ai.gftd.apps.payment.kisha record
+   │                                     app.etzhayyim.apps.payment.kisha record
    │                                     (NSID per ADR-2605172100 convention)
    │                                       │
    │                                       ▼
@@ -325,7 +325,7 @@ const st = await e.bi.status();
 
 // Claim accrued kisha. Gas sponsored.
 const receipt = await e.bi.claim();
-// → reuses e.pay() internals; writes ai.gftd.apps.payment.kisha record
+// → reuses e.pay() internals; writes app.etzhayyim.apps.payment.kisha record
 
 // Governance.
 const pid = await e.bi.propose({
@@ -342,7 +342,7 @@ await e.bi.vote(pid, "for" | "against" | "abstain");
 | Surface | What is exposed | What is not |
 |---|---|---|
 | geth-private (officer-readable, peer-validator-readable) | DID, SBT tokenId, attestation event-type hash, claim ticket amount | event body, evidence blob preimage, identity tied to DID |
-| Base L2 (public) | total kisha distributed (aggregated), NAV by tier, anchored geth-private root, individual `ai.gftd.apps.payment.kisha` records | individual rates (rates are computed off-chain and only the resulting transfer is observable; an observer can infer per-adherent receipts only by correlating wallet addresses) |
+| Base L2 (public) | total kisha distributed (aggregated), NAV by tier, anchored geth-private root, individual `app.etzhayyim.apps.payment.kisha` records | individual rates (rates are computed off-chain and only the resulting transfer is observable; an observer can infer per-adherent receipts only by correlating wallet addresses) |
 | IPFS | encrypted-to-passkey blobs (default); plaintext only for evidence the adherent chooses to publicize | — |
 
 A future zk upgrade (RISC Zero or SP1 zkVM) can move per-adherent rate proofs to the public surface without exposing the rate itself: `KishaStream` would verify a proof-of-correct-accrual rather than reading individual state. Out of scope for v0.

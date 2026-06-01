@@ -54,8 +54,8 @@ security add-generic-password \
   -l "karute did:web Ed25519 private key (key-0)" \
   -w "$PRIVATE_KEY_BASE64URL"
 
-# Mirror to 1Password (Gftd Japan株式会社 vault → karute/did-web/key-0)
-op item create --vault "Gftd Japan株式会社" \
+# Mirror to 1Password (etzhayyim Japan株式会社 vault → karute/did-web/key-0)
+op item create --vault "etzhayyim Japan株式会社" \
   --category "API Credential" \
   --title "karute/did-web/key-0" \
   --tags "etzhayyim,karute,did:web" \

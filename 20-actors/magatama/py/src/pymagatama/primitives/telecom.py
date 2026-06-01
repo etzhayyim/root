@@ -12,7 +12,7 @@ Six BPMN service tasks registered via ADR-0056 BPMN-as-actor:
 PII split per ADR-0018: AT Repo + main subscriber row hold hashed MSISDN/IMSI
 only; raw name / MSISDN / IMSI live in vertex_telecom_subscriber_pii at
 sensitivity_ord=3. Domain writes follow ADR-0036 (Worker-direct RisingWave
-INSERT, no PDS createRecord for ai.gftd.apps.telecom.*).
+INSERT, no PDS createRecord for app.etzhayyim.apps.telecom.*).
 """
 
 from __future__ import annotations
@@ -109,15 +109,15 @@ def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
 
 
 def _vid_subscriber(subscriber_id: str) -> str:
-    return f"at://did:web:telecom.etzhayyim.com/ai.gftd.apps.telecom.subscriber/{subscriber_id}"
+    return f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.subscriber/{subscriber_id}"
 
 
 def _vid_sim(sim_id: str) -> str:
-    return f"at://did:web:telecom.etzhayyim.com/ai.gftd.apps.telecom.sim/{sim_id}"
+    return f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.sim/{sim_id}"
 
 
 def _vid_service(service_id: str) -> str:
-    return f"at://did:web:telecom.etzhayyim.com/ai.gftd.apps.telecom.service/{service_id}"
+    return f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.service/{service_id}"
 
 
 # ─── Task implementations ───────────────────────────────────────────────
@@ -261,7 +261,7 @@ def task_telecom_usage_record(
     if units_f < 0:
         raise ValueError("units must be non-negative")
     cdr_id = cdrId.strip() or _new_id("cdr", subscriberId, serviceId, usageType, startedAt)
-    vid = f"at://did:web:telecom.etzhayyim.com/ai.gftd.apps.telecom.cdr/{cdr_id}"
+    vid = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.cdr/{cdr_id}"
     row = {
         "vertex_id": vid,
         "owner_did": _caller(payload),
@@ -300,7 +300,7 @@ def task_telecom_billing_cycle(
     sub_vid = _vid_subscriber(subscriberId)
     cycle = cycleId.strip() or f"{ps.isoformat()}_{pe.isoformat()}"
     inv_id = invoiceId.strip() or _new_id("inv", subscriberId, cycle)
-    vid = f"at://did:web:telecom.etzhayyim.com/ai.gftd.apps.telecom.invoice/{inv_id}"
+    vid = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.invoice/{inv_id}"
     totals = {k: 0.0 for k in RATE_CARD}
     if not dryRun:
         with sync_cursor() as cur:
@@ -361,7 +361,7 @@ def task_telecom_sla_escalate(
         raise ValueError(f"unsupported severity: {severity}")
     br_id = breachId.strip() or _new_id("brc", serviceId, observedAt, breachType)
     tkt = ticketId.strip() or _new_id("tkt", br_id)
-    vid = f"at://did:web:telecom.etzhayyim.com/ai.gftd.apps.telecom.slaBreach/{br_id}"
+    vid = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.slaBreach/{br_id}"
     row = {
         "vertex_id": vid,
         "owner_did": _caller(payload),

@@ -71,9 +71,9 @@
     try {
       // Load all cuts and find this one by rkey
       const [cutsResp, retakesResp] = await Promise.all([
-        atQuery<{ items: CutRow[] }>('ai.gftd.animeka.listCuts', { limit: 500 }),
+        atQuery<{ items: CutRow[] }>('app.etzhayyim.animeka.listCuts', { limit: 500 }),
         atQuery<{ items: Record<string, unknown>[] }>(
-          'ai.gftd.animeka.listRetakes',
+          'app.etzhayyim.animeka.listRetakes',
           { cut_id: rkey, limit: 50 }
         ),
       ]);
@@ -90,8 +90,8 @@
     if (!rkey || !retakeComment.trim()) return;
     submittingRetake = true;
     try {
-      await atProcedure('ai.gftd.animeka.submitRetake', {
-        target_uri: `at://anonymous/ai.gftd.animeka.cut/${rkey}`,
+      await atProcedure('app.etzhayyim.animeka.submitRetake', {
+        target_uri: `at://anonymous/app.etzhayyim.animeka.cut/${rkey}`,
         cut_id: rkey,
         stage: tabStage(),
         severity: retakeSeverity,
@@ -106,7 +106,7 @@
 
   async function resolveRetake(r: Record<string, unknown>) {
     if (!r.rkey) return;
-    await atProcedure('ai.gftd.animeka.resolveRetake', { retakeId: r.rkey, status: 'resolved' });
+    await atProcedure('app.etzhayyim.animeka.resolveRetake', { retakeId: r.rkey, status: 'resolved' });
     await load();
   }
 

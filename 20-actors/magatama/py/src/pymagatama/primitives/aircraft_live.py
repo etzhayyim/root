@@ -596,7 +596,7 @@ def task_flight_registry_refresh(csv_url: Any = None, max_rows: int = 200_000) -
             owner = (row.get("owner") or "").strip()
 
             did = f"did:web:maps.etzhayyim.com:aircraft:{icao24}"
-            vertex_id = f"at://{did}/ai.gftd.apps.maps.aircraft/{icao24}"
+            vertex_id = f"at://{did}/app.etzhayyim.apps.maps.aircraft/{icao24}"
             operator_did = f"did:web:maps.etzhayyim.com:operator:{operator.lower().replace(' ', '_')}" if operator else None
             owner_did = f"did:web:maps.etzhayyim.com:owner:{owner.lower().replace(' ', '_')}" if owner else None
 

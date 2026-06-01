@@ -84,7 +84,7 @@ def test_task_writes_domain_coverage_tick(monkeypatch):
     assert out["domain"] == "example.com"
     row = factory.cursors[0].params[0]
     assert row["repo"] == "did:web:atproto.etzhayyim.com"
-    assert row["collection"] == "ai.gftd.apps.pds.domainCoverageExpansion"
+    assert row["collection"] == "app.etzhayyim.apps.pds.domainCoverageExpansion"
     value = json.loads(row["value_json"])
     assert value["appDid"] == "did:web:example-com.etzhayyim.com"
     assert value["postWritten"] is True

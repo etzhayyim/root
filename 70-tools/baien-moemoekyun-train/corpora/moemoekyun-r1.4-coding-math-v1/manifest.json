@@ -1,0 +1,104 @@
+{
+  "schema": "etzhayyim.baien.r14-corpus-manifest.v1",
+  "tool": "assemble-r1.4-corpus.py",
+  "adr": "ADR-2605262100 §3.1 + cycle-7 R1.4 math-rebalance + cycle-19 IPFS substrate",
+  "ran_at": "2026-05-26T13:40:30.031072+00:00",
+  "target_examples": 5000,
+  "actual_examples": 4715,
+  "corpus_sha256": "037076af5aa4d873cd9743be4e89648a5a2c0bbac2b9d3641d4233ca00f6becf",
+  "sources": [
+    {
+      "name": "magicoder",
+      "task": "magicoder_oss_instruct_75k",
+      "weight": 0.25,
+      "tier": "A",
+      "license": "MIT",
+      "internal_only": false
+    },
+    {
+      "name": "commitpack",
+      "task": "commitpackft",
+      "weight": 0.25,
+      "tier": "A",
+      "license": "MIT",
+      "internal_only": false
+    },
+    {
+      "name": "reasoning_distill",
+      "task": "reasoning_distill_opus_47_max_sft",
+      "weight": 0.2,
+      "tier": "A",
+      "license": "distill-opus-attribution",
+      "internal_only": false
+    },
+    {
+      "name": "codealpaca",
+      "task": "codealpaca_20k",
+      "weight": 0.1,
+      "tier": "A",
+      "license": "CC-BY-NC-4.0",
+      "internal_only": true
+    },
+    {
+      "name": "langgraph_internal",
+      "task": "_local_langgraph",
+      "weight": 0.1,
+      "tier": "A",
+      "license": "Apache-2.0 + Charter Rider",
+      "internal_only": false
+    },
+    {
+      "name": "gsm8k",
+      "task": "gsm8k",
+      "weight": 0.05,
+      "tier": "A",
+      "license": "MIT",
+      "internal_only": false
+    },
+    {
+      "name": "math_500",
+      "task": "math_500",
+      "weight": 0.03,
+      "tier": "A",
+      "license": "MIT",
+      "internal_only": false
+    }
+  ],
+  "stats": {
+    "per_source": {
+      "magicoder": {
+        "target": 1275,
+        "collected": 1275
+      },
+      "commitpack": {
+        "target": 1275,
+        "collected": 1275
+      },
+      "reasoning_distill": {
+        "target": 1020,
+        "collected": 1020
+      },
+      "codealpaca": {
+        "target": 510,
+        "collected": 510
+      },
+      "langgraph_internal": {
+        "target": 510,
+        "collected": 227
+      },
+      "gsm8k": {
+        "target": 255,
+        "collected": 255
+      },
+      "math_500": {
+        "target": 153,
+        "collected": 153
+      }
+    },
+    "charter_rider_rejected": 22,
+    "extraction_failed": 0
+  },
+  "output_path": "90-docs/baien/datasets/training/corpora/moemoekyun-r1.4-coding-math-v1/shard-00.jsonl",
+  "internal_only_propagated": true,
+  "g13_note": "CodeAlpaca CC-BY-NC propagates fleet-internal-only restriction (ADR-2605262100 G13). Resulting moemoekyun checkpoint MUST NOT be published; LiteLLM + SBT-gate only."
+}

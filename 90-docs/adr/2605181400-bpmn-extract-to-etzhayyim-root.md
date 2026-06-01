@@ -10,10 +10,10 @@ authoritative_for:
   - bpmn-process-definition-ownership
   - bpmn-engine-infra-ownership
 related:
-  - 90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md
-  - 90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion.md
-  - 90-docs/adr/2605081200-spiffworkflow-bpmn-engine-replacement.md
-  - 90-docs/adr/2605082200-pyzeebe-handler-thin-dispatcher-contract.md
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
+  - adr-2605081200-spiffworkflow-bpmn-engine-replacement
+  - adr-2605082200-pyzeebe-handler-thin-dispatcher-contract
 supersedes: []
 superseded_by: []
 ---
@@ -219,8 +219,8 @@ iter144 sed で path prefix は自動更新済 (`CLAUDE.md` は sed 対象)。
 | `configmap-mailer-direct-patch.yaml` | `…/configmap-bpmn-dispatcher-mailer-direct-patch.json` |
 | `README.md` + `RUNBOOK.md` | new |
 
-Domain rewrites: `dispatcher.gftd.ai` → `dispatcher.etzhayyim.com`,
-`mcp.gftd.ai` → `mcp.etzhayyim.com`, `ses-api.gftd.ai` →
+Domain rewrites: `dispatcher.etzhayyim.com` → `dispatcher.etzhayyim.com`,
+`mcp.etzhayyim.com` → `mcp.etzhayyim.com`, `ses-api.etzhayyim.com` →
 `ses-api.etzhayyim.com`.
 
 **Substrate-boundary 注記** (ADR-2605172100 hard rule "MUST NOT integrate
@@ -249,7 +249,7 @@ binding registry の AT MST 化を行う別 iter で対応。pymagatama 自体�
    削除 (cutover 検証後)。
 
 **触らない範囲** (本 iter 対象外、別 iter で sed):
-- ai-gftd-apps-gftdcojp 20+ files の `dispatcher.gftd.ai` 参照
+- ai-gftd-apps-gftdcojp 20+ files の `dispatcher.etzhayyim.com` 参照
   (terraform / ingress RUNBOOK / K8s deployment.yaml / CF Worker
   routing-table.ts 等) — §D3 follow-up と同様 path-rewrite iter で処理。
 - `00-contracts/bpmn/` の lexicon binding 列挙はそのまま (ADR-2605091400

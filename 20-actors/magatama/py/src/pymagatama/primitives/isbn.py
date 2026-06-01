@@ -349,9 +349,9 @@ def _persist_image(
         except Exception:
             b2_key = ""  # B2 unavailable; row still records hash + source URL
 
-    vertex_id = f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book_image/{isbn13}-{role}"
+    vertex_id = f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book_image/{isbn13}-{role}"
     if page_index is not None:
-        vertex_id = f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book_image/{isbn13}-{role}-{page_index:04d}"
+        vertex_id = f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book_image/{isbn13}-{role}-{page_index:04d}"
     now = _now_iso()
     return (
         vertex_id, isbn13, role, page_index, sha256, cid,
@@ -414,7 +414,7 @@ def _book_row(
     authors: list[str], publication_year: int | None, language: str | None,
     page_count: int | None, source: str, source_url: str | None,
 ) -> tuple[Any, ...]:
-    vertex_id = f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book/{isbn13}"
+    vertex_id = f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book/{isbn13}"
     now = _now_iso()
     return (
         vertex_id, isbn13, isbn10, (title or "")[:1000], (subtitle or "")[:1000],
@@ -431,7 +431,7 @@ def _copyright_row(
     author_death_year: int | None, pd_year: int | None,
     license_url: str | None, evidence_url: str | None,
 ) -> tuple[Any, ...]:
-    vertex_id = f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book_copyright/{isbn13}"
+    vertex_id = f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book_copyright/{isbn13}"
     now = _now_iso()
     return (
         vertex_id, isbn13, status, author_death_year, jurisdiction, pd_year,
@@ -525,7 +525,7 @@ async def task_isbn_open_library_ingest(
         if pub_name and prefix not in seen_pub:
             seen_pub.add(prefix)
             rows_pub.append((
-                f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.publisher/{prefix}",
+                f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.publisher/{prefix}",
                 prefix, pub_name[:200], _registration_group(isbn13), "",
                 "", "active", _ISBN_ACTOR, 1, _now_iso(),
                 _ISBN_ACTOR, _ISBN_ACTOR, "sys.bpmn.isbn",
@@ -708,7 +708,7 @@ async def task_isbn_aozora_ingest(
                         b2_key = None
 
                 for n, ctitle, ctext in chapters:
-                    cvid = f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book_chapter/{isbn13}-{n:04d}"
+                    cvid = f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book_chapter/{isbn13}-{n:04d}"
                     chap_batch.append((
                         cvid, isbn13, n, ctitle[:200], ctext,
                         len(ctext), len(ctext.encode("utf-8")), "ja",
@@ -718,7 +718,7 @@ async def task_isbn_aozora_ingest(
                     ))
 
                 full_batch.append((
-                    f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book_fulltext/{isbn13}",
+                    f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book_fulltext/{isbn13}",
                     isbn13, "aozora", text_url, "text/plain",
                     len(chapters), sum(len(c[2]) for c in chapters),
                     sum(len(c[2].encode("utf-8")) for c in chapters),
@@ -847,7 +847,7 @@ async def task_isbn_gutenberg_ingest(
                             pass
 
                     for n, ctitle, ctext in chapters:
-                        cvid = f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book_chapter/{isbn13}-{n:04d}"
+                        cvid = f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book_chapter/{isbn13}-{n:04d}"
                         chap_batch.append((
                             cvid, isbn13, n, ctitle[:200], ctext,
                             len(ctext), len(ctext.encode("utf-8")), lang,
@@ -857,7 +857,7 @@ async def task_isbn_gutenberg_ingest(
                         ))
 
                     full_batch.append((
-                        f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book_fulltext/{isbn13}",
+                        f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book_fulltext/{isbn13}",
                         isbn13, "gutenberg", text_url, "text/plain",
                         len(chapters), sum(len(c[2]) for c in chapters),
                         sum(len(c[2].encode("utf-8")) for c in chapters),
@@ -1277,7 +1277,7 @@ async def task_isbn_internet_archive_ingest(
                         pass
 
                 for n, ctitle, ctext in chapters:
-                    cvid = f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book_chapter/{isbn13}-{n:04d}"
+                    cvid = f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book_chapter/{isbn13}-{n:04d}"
                     chap_batch.append((
                         cvid, isbn13, n, ctitle[:200], ctext,
                         len(ctext), len(ctext.encode("utf-8")), lang,
@@ -1287,7 +1287,7 @@ async def task_isbn_internet_archive_ingest(
                     ))
 
                 full_batch.append((
-                    f"at://{_ISBN_ACTOR}/ai.gftd.apps.isbn.book_fulltext/{isbn13}",
+                    f"at://{_ISBN_ACTOR}/app.etzhayyim.apps.isbn.book_fulltext/{isbn13}",
                     isbn13, "internetarchive",
                     f"https://archive.org/download/{ident}/{ident}_djvu.txt",
                     "text/plain", len(chapters),

@@ -7,7 +7,7 @@ name = "actor_runtime"
 version = "0.1.0"
 dependencies = [
  "actor_runtime_integrity",
- "getrandom 0.3.4",
+ "getrandom 0.4.2",
  "hdk",
  "holochain_serialized_bytes",
  "serde",
@@ -17,7 +17,7 @@ dependencies = [
 name = "actor_runtime_integrity"
 version = "0.1.0"
 dependencies = [
- "getrandom 0.3.4",
+ "getrandom 0.4.2",
  "hdi",
  "holochain_serialized_bytes",
  "serde",
@@ -1681,10 +1681,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0de51e6874e94e7bf76d726fc5d13ba782deca734ff60d5bb2fb2607c7406555"
 dependencies = [
  "cfg-if",
+ "js-sys",
  "libc",
  "r-efi 6.0.0",
  "wasip2",
  "wasip3",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -5652,7 +5654,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
  "fastrand",
- "getrandom 0.3.4",
+ "getrandom 0.4.2",
  "once_cell",
  "rustix",
  "windows-sys 0.61.2",

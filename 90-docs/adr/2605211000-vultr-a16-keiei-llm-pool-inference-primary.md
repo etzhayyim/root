@@ -8,14 +8,14 @@ authoritative: true
 last_verified: 2026-05-21
 authoritative_for:
   - LLM inference backend for all gftd K8s workloads (defense actor, keiei daemon, zeebe-worker, LangGraph agents)
-  - in-cluster LLM endpoint SSoT (LOCAL_LLM_ENDPOINT / LLM_CHAT_COMPLETIONS_URL / GFTD_LLM_URL)
+  - in-cluster LLM endpoint SSoT (LOCAL_LLM_ENDPOINT / LLM_CHAT_COMPLETIONS_URL / etzhayyim_LLM_URL)
   - Gemma 4 model deployment topology (E2B + E4B on single GPU pod)
 related:
   - adr-2605010000  # superseded for LLM inference path; ComfyUI / image generation path unchanged
-  - adr-2605110100  # GPU Operator A40 node pool design (extended to A16 SJC cluster)
+  - adr-2605110100-vultr-a40-third-2node-consolidation  # GPU Operator A40 node pool design (extended to A16 SJC cluster)
   - adr-2605102100-keiei-llm-vultr-cpu-inference  # keiei-llm CPU inference (superseded by this ADR)
-  - adr-2605080600  # resident LangGraph organism actors — L8 somatic inference
-  - adr-2605190100  # defense cluster topology
+  - adr-2605080600-langgraph-server-granian-l3-runtime  # resident LangGraph organism actors — L8 somatic inference
+  - adr-2605190100-defense-cluster-topology  # defense cluster topology
 supersedes:
   - adr-2605010000  # for LLM text inference only — RunPod ComfyUI image generation path stays as-is
   - adr-2605102100-keiei-llm-vultr-cpu-inference  # keiei-llm CPU-only deployment
@@ -79,7 +79,7 @@ gftd-risingwave-sjc-gpu (VKE, SJC)
 | Variable | Value |
 |---|---|
 | `LOCAL_LLM_PROVIDER` | `openai` |
-| `LOCAL_LLM_ENDPOINT` / `LLM_CHAT_COMPLETIONS_URL` / `GFTD_LLM_URL` | `http://keiei-litellm.keiei-llm.svc.cluster.local:4000/v1/chat/completions` |
+| `LOCAL_LLM_ENDPOINT` / `LLM_CHAT_COMPLETIONS_URL` / `etzhayyim_LLM_URL` | `http://keiei-litellm.keiei-llm.svc.cluster.local:4000/v1/chat/completions` |
 | `LOCAL_LLM_MODEL` | `gemma-4-E4B-it` (default; `gemma-4-E2B-it` for latency-sensitive fast paths) |
 | `LOCAL_LLM_NUM_PREDICT` | `2048` |
 | `LOCAL_LLM_TIMEOUT_SEC` | `120` |
@@ -120,7 +120,7 @@ defense actor (pydefense) in zeebe-worker
     → chat_json_sync() → OpenAI-compat POST → LiteLLM :4000 → llama-server-e4b :8081
 
 keiei daemon (pymagatama.keiei)
-  GFTD_LLM_URL = http://keiei-litellm.keiei-llm.svc.cluster.local:4000/v1/chat/completions
+  etzhayyim_LLM_URL = http://keiei-litellm.keiei-llm.svc.cluster.local:4000/v1/chat/completions
   model: gemma-4-E4B-it
 ```
 
@@ -143,7 +143,7 @@ RunPod (ADR-2605010000) serves **ComfyUI image generation only** once Secure sup
 | ComfyUI / SDXL image generation | RunPod RTX 6000 Ada (48 GB) | ⏳ SUPPLY_CONSTRAINT — restore when available |
 | Animated video (WAN) | RunPod RTX 6000 Ada (48 GB) | ⏳ same |
 
-`LLM_CHAT_COMPLETIONS_URL` in zeebe-worker and `GFTD_LLM_URL` **no longer need to be updated when a new RunPod pod ID is issued**.
+`LLM_CHAT_COMPLETIONS_URL` in zeebe-worker and `etzhayyim_LLM_URL` **no longer need to be updated when a new RunPod pod ID is issued**.
 
 # Alternatives considered
 

@@ -10,17 +10,17 @@
         "id": "cap.directory",
         "name": "Government Directory",
         "children": [
-          { "id": "cap.listMinistries", "name": "List roster",    "realisedBy": "ai.gftd.apps.openJpnGov.listMinistries" },
-          { "id": "cap.getMinistry",    "name": "Get single entity","realisedBy": "ai.gftd.apps.openJpnGov.getMinistry" },
-          { "id": "cap.listAgencies",   "name": "List sub-agencies","realisedBy": "ai.gftd.apps.openJpnGov.listAgencies" }
+          { "id": "cap.listMinistries", "name": "List roster",    "realisedBy": "app.etzhayyim.apps.openJpnGov.listMinistries" },
+          { "id": "cap.getMinistry",    "name": "Get single entity","realisedBy": "app.etzhayyim.apps.openJpnGov.getMinistry" },
+          { "id": "cap.listAgencies",   "name": "List sub-agencies","realisedBy": "app.etzhayyim.apps.openJpnGov.listAgencies" }
         ]
       },
       {
         "id": "cap.lawLookup",
         "name": "Law Lookup",
         "children": [
-          { "id": "cap.searchLaws", "name": "Search laws",   "realisedBy": "ai.gftd.apps.openJpnGov.searchLaws" },
-          { "id": "cap.getLaw",     "name": "Get law text", "realisedBy": "ai.gftd.apps.openJpnGov.getLaw" }
+          { "id": "cap.searchLaws", "name": "Search laws",   "realisedBy": "app.etzhayyim.apps.openJpnGov.searchLaws" },
+          { "id": "cap.getLaw",     "name": "Get law text", "realisedBy": "app.etzhayyim.apps.openJpnGov.getLaw" }
         ]
       },
       {

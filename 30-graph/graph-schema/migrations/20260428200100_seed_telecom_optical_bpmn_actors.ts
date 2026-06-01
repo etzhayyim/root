@@ -22,30 +22,30 @@ const project = "telecom";
 
 const seeds: Seed[] = [
   { proc: "registerOpticalDomain", bpmnProcessId: "telecom_register_optical_domain",
-    nsid: "ai.gftd.apps.telecom.registerOpticalDomain", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerOpticalDomain", resultTimeoutMs: 30000 },
   { proc: "registerOpticalLineSystem", bpmnProcessId: "telecom_register_optical_line_system",
-    nsid: "ai.gftd.apps.telecom.registerOpticalLineSystem", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerOpticalLineSystem", resultTimeoutMs: 30000 },
   { proc: "registerRoadm", bpmnProcessId: "telecom_register_roadm",
-    nsid: "ai.gftd.apps.telecom.registerRoadm", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerRoadm", resultTimeoutMs: 30000 },
   { proc: "registerFiberSpan", bpmnProcessId: "telecom_register_fiber_span",
-    nsid: "ai.gftd.apps.telecom.registerFiberSpan", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerFiberSpan", resultTimeoutMs: 30000 },
   { proc: "provisionDwdmChannel", bpmnProcessId: "telecom_provision_dwdm_channel",
-    nsid: "ai.gftd.apps.telecom.provisionDwdmChannel", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.provisionDwdmChannel", resultTimeoutMs: 30000 },
   { proc: "provisionOtnConnection", bpmnProcessId: "telecom_provision_otn_connection",
-    nsid: "ai.gftd.apps.telecom.provisionOtnConnection", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.provisionOtnConnection", resultTimeoutMs: 30000 },
   { proc: "recordOpticalAlarm", bpmnProcessId: "telecom_record_optical_alarm",
-    nsid: "ai.gftd.apps.telecom.recordOpticalAlarm", resultTimeoutMs: 15000 },
+    nsid: "app.etzhayyim.apps.telecom.recordOpticalAlarm", resultTimeoutMs: 15000 },
   { proc: "recordPmEvent", bpmnProcessId: "telecom_record_pm_event",
-    nsid: "ai.gftd.apps.telecom.recordPmEvent", resultTimeoutMs: 15000 },
+    nsid: "app.etzhayyim.apps.telecom.recordPmEvent", resultTimeoutMs: 15000 },
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

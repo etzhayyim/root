@@ -15,13 +15,13 @@ authoritative_for:
   - religious-corp cell substrate (was launchd-only; now k3s on Mac mini fleet per ADR-2605232100)
   - K8s/k3s/GPU-pod reintroduction policy (was "禁止 再導入禁止"; now approved within etzhayyim/* scope)
 depends_on:
-  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture.md
-  - 2605231400-yatachain-holochain-iso-substrate.md
-  - 2605232100-religious-corp-cells-on-k3s-daemonset.md
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605232100-etzhayyim-organism-vertical-implementation
 related:
-  - 2605171300-open-unispsc-generative-agent-fleet.md
-  - 2605182312-local-bring-up-murakumo-gemma4.md
+V05171300
+V05182312-local-bring-up-murakumo-gemma4
 supersedes:
   - "60-apps/ai-gftd-project-murakumo/CLAUDE.md §Hard Constraints (2026-05-11): the K8s/WireGuard/Aeron/UCX/RDMA/Ray/Nomad 禁止 line is lifted for etzhayyim/* religious-corp cells; the RunPod LLM SSoT decision is left intact"
   - "ADR-0034 (Goose agent runtime — yoro-as-actor topology, 2026-04-20, murakumo-scoped): Goose role + recipes + crontab entries on judah are retired in favor of LangGraph cells served from langserver under yatachain substrate"
@@ -60,7 +60,7 @@ This ADR records the architectural pivot those two directives mandate.
 
 - **LangGraph** — every agent is a compiled `StateGraph`. Per-actor under `20-actors/magatama/py/src/pymagatama/langgraph_graphs/` (18,342 UNSPSC commodity actors today) or per-cell under `20-actors/magatama/cells/` (15 religious-corp cells per ADR-2605192415 + 16 yorishiro source connectors).
 - **yatachain** (`10-protocol/yatachain/`, ADR-2605231400) — the composition of `(DID + WebAuthn + Adherent SBT) + (atproto PDS MST source chain) + (IPFS + Base L2 anchor DHT) + (Lexicon + Rego + LangGraph membrane)` provides all state, identity, and validation. AT-IPFS-local SQLite hot-cache (`pymagatama.primitives.at_ipfs_belief_store`) is the agent-side knowledge accumulator (perceive/record loop wired in ADR-2605232100 Stage D, 2026-05-23).
-- **langserver** — the XRPC façade that exposes LangGraph agents over `ai.gftd.apps.<domain>.invokeAgent` / `…listAgents` / `…health` / `…classify` Lexicons. `lg-open-unispsc` (live on orbstack, 2026-05-23) is the reference implementation; per-cell langservers (per ADR-2605202200 cell runtime contract) follow the same pattern.
+- **langserver** — the XRPC façade that exposes LangGraph agents over `app.etzhayyim.apps.<domain>.invokeAgent` / `…listAgents` / `…health` / `…classify` Lexicons. `lg-open-unispsc` (live on orbstack, 2026-05-23) is the reference implementation; per-cell langservers (per ADR-2605202200 cell runtime contract) follow the same pattern.
 
 **(2) Goose retirement.** The Goose agent runtime decisions in `60-apps/ai-gftd-project-murakumo/CLAUDE.md` (ADR-0034 scope) are retired in `etzhayyim/*` scope:
 

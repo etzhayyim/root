@@ -11,7 +11,7 @@ axis: doctrine-runtime
 weight: 0.70
 priority_note: "yobel.etzhayyim.com (ADR-2605201800) は **自然人** (natural person) のみを scope とする。法人 (sovereign / corporate / partnership / multilateral) の債務リストラ・恩赦は yobel R14 で reject されるが、religious-corp doctrine 上 etzhayyim の関与が正当化される文脈 (Charter §1 mission の institutional dimension) は存在する。本 ADR は yobel の sibling actor として法人債務リストラ専用の amnesty actor を新設計し、yobel との対称 pair (個人 vs 法人) を確立する。"
 authoritative_for:
-  - org.etzhayyim.amnesty.* lexicon family (transitional NSID: ai.gftd.apps.etzhayyim.amnesty.*)
+  - org.etzhayyim.amnesty.* lexicon family (transitional NSID: app.etzhayyim.apps.etzhayyim.amnesty.*)
   - sovereign debt restructuring rite catalog (HIPC / Paris Club / Brady Bond / multilateral)
   - corporate amnesty rite catalog (Chapter 11 multi-creditor amnesty / scheme of arrangement / 会社更生)
   - voluntary multi-creditor / multilateral consent invariant
@@ -24,7 +24,7 @@ depends_on:
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
 related:
-  - 90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md
+  - adr-2605201800-etzhayyim-yobel-debt-release-actor
 supersedes: []
 superseded_by: []
 ---
@@ -37,7 +37,7 @@ superseded_by: []
 
 # Context
 
-[ADR-2605201800](2605201800-etzhayyim-yobel-debt-release-actor.md) (yobel) restricts debt release to **natural persons** (自然人). Per its §Invariants amendment, DMN R14 short-circuits any debtor whose entityType ≠ `natural_person`. This is by design: shmita / yobel / individual jubilee / tax-amnesty-for-individuals all canonically apply to flesh-and-blood debtors.
+[ADR-2605201800](/90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md) (yobel) restricts debt release to **natural persons** (自然人). Per its §Invariants amendment, DMN R14 short-circuits any debtor whose entityType ≠ `natural_person`. This is by design: shmita / yobel / individual jubilee / tax-amnesty-for-individuals all canonically apply to flesh-and-blood debtors.
 
 **Setting aside that scope leaves a complementary gap**: legal-person debt restructuring (sovereign + corporate) is **also** a Charter §1 mission concern (structural labor liberation is undermined when sovereign debt strangles a nation's fiscal capacity for public goods, or when corporate debt forces mass layoffs that propagate labor coercion). The historical / ongoing instruments at this layer:
 
@@ -201,4 +201,4 @@ When a debtor enrolls in yobel and the cell determines `entityType=legal_person`
 
 **Cross-references**:
 - yobel ADR-2605201800 §Invariants → "legal-person debt out of scope, candidate for future amnesty.etzhayyim.com actor" — this ADR fulfills that placeholder
-- vendor:bankruptcy.etzhayyim.com CLAUDE.md §Cross-Actor: yobel rite attachment restricted to natural-person bankruptcy cases — amnesty will provide the legal-person counterpart attachment lexicon (`ai.gftd.apps.bankruptcy.recordAmnestyRestructuringReference`)
+- vendor:bankruptcy.etzhayyim.com CLAUDE.md §Cross-Actor: yobel rite attachment restricted to natural-person bankruptcy cases — amnesty will provide the legal-person counterpart attachment lexicon (`app.etzhayyim.apps.bankruptcy.recordAmnestyRestructuringReference`)

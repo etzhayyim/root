@@ -28,7 +28,7 @@ const TALENT_DID = "did:web:talent.etzhayyim.com";
 const SOURCE = "orcid";
 const LICENSE = "CC0";
 const HOMEPAGE = "https://orcid.org/";
-const COLLECTION = "ai.gftd.apps.talent.talentCohort";
+const COLLECTION = "app.etzhayyim.apps.talent.talentCohort";
 const ISCO_CODE = "2";  // ISCO major 2 = Professionals (includes researchers/academics)
 
 const args = process.argv.slice(2);

@@ -123,7 +123,7 @@ app = FastAPI(
 class InvokeRequest(BaseModel):
     """LangServer task invocation body.
 
-    `name` is an MCP tool NSID such as `ai.gftd.apps.shinka.tick`.
+    `name` is an MCP tool NSID such as `app.etzhayyim.apps.shinka.tick`.
     `arguments` is passed to the registered async task function.
     """
 
@@ -748,9 +748,9 @@ def metrics() -> Response:
 
 
 # SSE-aware ameno subscribeBriefs route — must precede the catch-all xrpc route.
-@app.get("/xrpc/ai.gftd.apps.ameno.subscribeBriefs")
+@app.get("/xrpc/app.etzhayyim.apps.ameno.subscribeBriefs")
 async def ameno_subscribe_briefs(request: Request) -> StreamingResponse:
-    """ai.gftd.apps.ameno.subscribeBriefs — SSE stream of NATS commit events.
+    """app.etzhayyim.apps.ameno.subscribeBriefs — SSE stream of NATS commit events.
 
     Browsers open EventSource against this endpoint (via the PDS pipethrough).
     Each frame is `event: brief\\ndata: {...}\\n\\n`; stream ends with `done`.
@@ -774,35 +774,35 @@ async def xrpc(nsid: str, request: Request) -> dict[str, Any]:
     """Pod-side XRPC facade for read-only LangServer-backed actor methods."""
     payload = await _request_payload(request)
     try:
-        if nsid == "ai.gftd.apps.maps.getDashboard":
+        if nsid == "app.etzhayyim.apps.maps.getDashboard":
             return _maps_dashboard()
-        if nsid == "ai.gftd.apps.maps.listLiveAircraft":
+        if nsid == "app.etzhayyim.apps.maps.listLiveAircraft":
             return _maps_list_live_aircraft(payload)
-        if nsid == "ai.gftd.apps.maps.listLiveSatellites":
+        if nsid == "app.etzhayyim.apps.maps.listLiveSatellites":
             return _maps_list_live_satellites(payload)
-        if nsid == "ai.gftd.apps.maps.getWorldMonitorDashboard":
+        if nsid == "app.etzhayyim.apps.maps.getWorldMonitorDashboard":
             return _maps_world_monitor_dashboard(payload)
-        if nsid == "ai.gftd.apps.maps.listIntelEvents":
+        if nsid == "app.etzhayyim.apps.maps.listIntelEvents":
             return _maps_intel_events(payload)
-        if nsid == "ai.gftd.apps.maps.getRiskSnapshot":
+        if nsid == "app.etzhayyim.apps.maps.getRiskSnapshot":
             return _maps_risk_snapshot(payload)
-        if nsid == "ai.gftd.apps.maps.getLatestBrief":
+        if nsid == "app.etzhayyim.apps.maps.getLatestBrief":
             return _maps_latest_brief(payload)
-        if nsid == "ai.gftd.apps.maps.listIntelAlerts":
+        if nsid == "app.etzhayyim.apps.maps.listIntelAlerts":
             return _maps_intel_alerts(payload)
-        if nsid == "ai.gftd.apps.ameno.saveResult":
+        if nsid == "app.etzhayyim.apps.ameno.saveResult":
             from pymagatama.ameno_handlers import handle_save_result
 
             return handle_save_result(payload)
-        if nsid == "ai.gftd.apps.ameno.listHistory":
+        if nsid == "app.etzhayyim.apps.ameno.listHistory":
             from pymagatama.ameno_handlers import handle_list_history
 
             return handle_list_history(payload)
-        if nsid == "ai.gftd.apps.ameno.listActorAdapters":
+        if nsid == "app.etzhayyim.apps.ameno.listActorAdapters":
             from pymagatama.ameno_handlers import handle_list_actor_adapters
 
             return handle_list_actor_adapters(payload)
-        if nsid == "ai.gftd.apps.ameno.listMyCredits":
+        if nsid == "app.etzhayyim.apps.ameno.listMyCredits":
             from pymagatama.ameno_handlers import handle_list_my_credits
 
             return handle_list_my_credits(payload)

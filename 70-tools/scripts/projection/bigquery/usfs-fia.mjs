@@ -13,7 +13,7 @@ import {
 const INGEST_FAMILY = "bigquery.public_dataset.projection";
 const DATASET_ID = "bigquery-public-data:usfs_fia";
 const ACTOR_HOST = "forest-inventory";
-const COLLECTION = "ai.gftd.apps.forestry.plot";
+const COLLECTION = "app.etzhayyim.apps.forestry.plot";
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));

@@ -29,7 +29,7 @@ gftd CLI / browser  ──Bearer JWT (AT session or Service Auth lxm)──▶  
 - `wrappedItemKey` = AES-key-wrap(itemKey, vaultKey) — stored per item
 - `ciphertext` = AES-256-GCM(itemKey, plaintext)
 
-Sharing = X3DH (`ai.gftd.signal.getPrekeyBundle(recipientDid)`) → derive sharedSecret → wrap vaultKey to recipient → `addMember`.
+Sharing = X3DH (`app.etzhayyim.signal.getPrekeyBundle(recipientDid)`) → derive sharedSecret → wrap vaultKey to recipient → `addMember`.
 
 ## Storage
 
@@ -42,7 +42,7 @@ Sharing = X3DH (`ai.gftd.signal.getPrekeyBundle(recipientDid)`) → derive share
 
 `MAX_CIPHERTEXT_BYTES = 900_000` enforced in `handlers.ts handlePutItem`.
 
-## NSIDs (`ai.gftd.vault.*`)
+## NSIDs (`app.etzhayyim.vault.*`)
 
 | NSID | Method | Required role |
 |---|---|---|
@@ -65,7 +65,7 @@ Lexicon JSON: `00-contracts/lexicons/ai/gftd/vault/*.json`
 Delegated to `AUTH_SERVICE` binding (`ai-gftd-auth`):
 - `Authorization: Bearer <jwt>` → AT session HS256, ES256 Service Auth, or API key (`sk_live_*`)
 - `X-Active-DID: did:web:...` → switch to sub-actor DID per request
-- For programmatic agents (Claude Code), use `gftd agent-token --lxm ai.gftd.vault.getItem --ttl 60` to mint scoped Service Auth JWT
+- For programmatic agents (Claude Code), use `gftd agent-token --lxm app.etzhayyim.vault.getItem --ttl 60` to mint scoped Service Auth JWT
 
 Vault role enforcement is **per-NSID** against `vault_members` table.
 
@@ -91,11 +91,11 @@ gftd deploy   # or: wrangler deploy
 
 PDS pipethrough: ensure `50-infra/cloudflare/workers/atproto/wrangler.jsonc` has
 `{ "binding": "VAULT_SERVICE", "service": "ai-gftd-vault" }` and that
-`ai.gftd.vault.*` NSIDs route to it from `pds-dispatch.ts`.
+`app.etzhayyim.vault.*` NSIDs route to it from `pds-dispatch.ts`.
 
 ## Client
 
-- TS: `@gftd/wproto` exports `vaultGet/vaultSet/vaultShare/vaultRotate` (P4)
+- TS: `@etzhayyim/wproto` exports `vaultGet/vaultSet/vaultShare/vaultRotate` (P4)
 - CLI: `gftd vault create/add/get/list/share/rotate/audit/run/inject` (P5)
 - Browser: WebAuthn PRF extension to derive `memberDeviceKey` (browser-native, no npm deps)
 - gftd CLI: macOS Keychain stores `memberDeviceKey` per device (`security add-generic-password` wrapper)

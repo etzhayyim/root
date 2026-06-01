@@ -2,7 +2,7 @@
 # smoke-vault.sh — end-to-end test of vault.etzhayyim.com via PDS pipethrough.
 #
 # Exercises: health → createVault → putItem → listItems → getItem → deleteItem
-# Auth: reads session from `gftd auth login` (~/.gftd/auth.json) or GFTD_TOKEN.
+# Auth: reads session from `gftd auth login` (~/.gftd/auth.json) or etzhayyim_TOKEN.
 #
 # Assumes: ./deploy-vault.sh already ran successfully AND PDS has been
 # redeployed with VAULT_SERVICE binding.
@@ -20,11 +20,11 @@ command -v gftd >/dev/null || fail "gftd CLI not in PATH"
 command -v curl >/dev/null || fail "curl not installed"
 command -v jq   >/dev/null || fail "jq not installed"
 
-TOKEN="${GFTD_TOKEN:-}"
+TOKEN="${etzhayyim_TOKEN:-}"
 if [[ -z "$TOKEN" ]]; then
   TOKEN=$(gftd auth token 2>/dev/null || true)
 fi
-[[ -n "$TOKEN" ]] || fail "no auth token (run 'gftd auth login' or set GFTD_TOKEN)"
+[[ -n "$TOKEN" ]] || fail "no auth token (run 'gftd auth login' or set etzhayyim_TOKEN)"
 
 # ── 1. Direct health probe (skips PDS) ──────────────────────────────────────
 say "1/7  GET $VAULT_DIRECT/health"

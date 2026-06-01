@@ -24,7 +24,7 @@ import {
   type RegisterCourtProfilesOutput,
 } from "./types.js";
 
-const COURT_COLLECTION = "ai.gftd.hanrei.court";
+const COURT_COLLECTION = "app.etzhayyim.hanrei.court";
 
 function courtDid(jurisdiction: string, courtId: string): string {
   return `${HANREI_DID_PREFIX}court:${jurisdiction.toLowerCase()}:${courtId.toLowerCase()}`;
@@ -125,7 +125,7 @@ export function collectWikidataCourts(
 ): CollectWikidataCourtsOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.hanrei.collect.v1",
+    schema: "app.etzhayyim.hanrei.collect.v1",
     source: "wikidata",
     sparqlEndpoint: "https://query.wikidata.org/sparql",
     jurisdiction: input.jurisdiction,

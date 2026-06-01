@@ -19,7 +19,7 @@ depends_on:
   - adr-2605181040-uhl-medical-institution-registry
   - adr-2605181050-uhl-overseas-referral-paths
 related:
-  - 2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md
+  - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 supersedes: []
 superseded_by: []
 ---

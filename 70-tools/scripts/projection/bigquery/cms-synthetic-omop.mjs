@@ -13,7 +13,7 @@ import {
 const INGEST_FAMILY = "bigquery.public_dataset.projection";
 const DATASET_ID = "bigquery-public-data:cms_synthetic_patient_data_omop";
 const ACTOR_HOST = "synthetic-patient";
-const COLLECTION = "ai.gftd.apps.healthcare.synthetic_patient";
+const COLLECTION = "app.etzhayyim.apps.healthcare.synthetic_patient";
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));

@@ -20,7 +20,7 @@
  *   - kami-web: MediaPipe face landmarker JS integration
  *
  * Usage in app.ts:
- *   import { buildVRMVTuberScene } from "@gftd/magatama-host-sdk/kami-vtuber-vrm";
+ *   import { buildVRMVTuberScene } from "@etzhayyim/magatama-host-sdk/kami-vtuber-vrm";
  *   const scene = buildVRMVTuberScene({
  *     blobKey: "avatar.vrm",
  *     tracking: { source: "mediapipe" },
@@ -218,7 +218,7 @@ export function buildVRMVTuberScene(config: VRMVTuberConfig): Record<string, unk
   const tracking = config.tracking ?? { source: "mediapipe" };
 
   return {
-    "@context": "https://gftd.co.jp/ns/kami/scene",
+    "@context": "https://etzhayyim.com/ns/kami/scene",
     "@type": "IslandScene",
     name: config.name ?? "VRM VTuber",
     genre: "social",

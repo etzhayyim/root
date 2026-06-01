@@ -95,7 +95,7 @@ def _fix_suggestions(issues: list[str]) -> list[str]:
             fname = issue[len("missing_field:"):]
             suggestions.append(f"Add '{fname}' field to magatama.jsonld")
         elif issue == "nsid_placeholder":
-            suggestions.append('Replace "nsid" placeholder with proper NSID (ai.gftd.apps.<actor>.<method>)')
+            suggestions.append('Replace "nsid" placeholder with proper NSID (app.etzhayyim.apps.<actor>.<method>)')
         elif issue == "hardcoded_model":
             suggestions.append("Replace hardcoded model name with resolveModelId() / MURAKUMO_DEFAULT_MODEL")
     return suggestions

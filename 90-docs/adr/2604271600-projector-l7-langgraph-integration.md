@@ -29,7 +29,7 @@ ADR-0049 (pyzeebe in-cluster worker), ADR-0023 (auth Shannon-optimal)
 
 ## Context
 
-The yoro `/projects` projector (`ai.gftd.projector.*`) currently runs
+The yoro `/projects` projector (`app.etzhayyim.projector.*`) currently runs
 as a co-located handler inside the PDS CF Worker
 (`50-infra/cloudflare/workers/atproto/src/handlers/gftd/`). Reasoning
 loops (Chain-of-Thought, Tree-of-Thoughts, Self-Consistency, Reflexion)
@@ -75,7 +75,7 @@ matching the canonical 8-layer Shannon-optimal topology
 
 | Layer | Component | Responsibility |
 |---|---|---|
-| **L3 Dispatcher** | `pds-handlers-gftd.ts handleSendProjectMessage` | XRPC accept, viewer DID resolution, `sdk.zeebe.publishMessage(name="ai.gftd.apps.projector.sendProjectMessage", correlationKey=convoId, variables)`. Returns 202 + convoId. **No reasoning, no tool dispatch.** |
+| **L3 Dispatcher** | `pds-handlers-gftd.ts handleSendProjectMessage` | XRPC accept, viewer DID resolution, `sdk.zeebe.publishMessage(name="app.etzhayyim.apps.projector.sendProjectMessage", correlationKey=convoId, variables)`. Returns 202 + convoId. **No reasoning, no tool dispatch.** |
 | **L7 Orchestration** | Zeebe (Vultr k8s) | XOR command routing, sub-process call activities, retry, OCEL audit emission, guardrail boundary events. |
 | **L7 pyzeebe** | `pymagatama.primitives.projector.*` | LangGraph StateGraph entries: ReAct (`projector.agent.loop`), ToT (`projector.tot.expand`), Self-Consistency (`projector.sc.parallel`), Reflexion R/W (`projector.reflexion.{load,write}`), MCP discovery (`projector.tools.discover`), persist (`projector.persist.message`), command parser (`projector.command.parse`). |
 | **L4 Registry** | RisingWave PG | `vertex_bpmn_process_def` × 4 + `vertex_bpmn_lexicon_binding` × 4 (this ADR's seed migration). `vertex_projector_reflection` for episodic memory. `vertex_repo_record` for projector replies (graph-visible to existing yoro UI fetch path). |
@@ -84,7 +84,7 @@ matching the canonical 8-layer Shannon-optimal topology
 ### BPMN process graph
 
 ```
-ai.gftd.apps.projector.sendProjectMessage  (root, message-start)
+app.etzhayyim.apps.projector.sendProjectMessage  (root, message-start)
   │
   ├─ Task_ParseCommand        (projector.command.parse)
   │
@@ -96,7 +96,7 @@ ai.gftd.apps.projector.sendProjectMessage  (root, message-start)
        ├─ /think       → Task_DeferThink       → Task_PersistReply  (CF direct, Phase 3)
        └─ default      → Call_AgentLoop        → Task_PersistReply
 
-ai.gftd.apps.projector.agentLoop  (sub-process)
+app.etzhayyim.apps.projector.agentLoop  (sub-process)
   │
   ├─ Task_ReflexionLoad   (projector.reflexion.load)
   ├─ Task_LoadHistory     (generic.db.select on vertex_repo_record)
@@ -104,10 +104,10 @@ ai.gftd.apps.projector.agentLoop  (sub-process)
   └─ Task_AgentLoop       (projector.agent.loop, LangGraph ReAct)
         ⊥ BE_GuardrailDenied → EndDenied  (boundary error: agent.guardrail.denied)
 
-ai.gftd.apps.projector.treeOfThoughts  (sub-process)
+app.etzhayyim.apps.projector.treeOfThoughts  (sub-process)
   └─ Task_TotExpand       (projector.tot.expand, LangGraph ToT)
 
-ai.gftd.apps.projector.selfConsistency (sub-process)
+app.etzhayyim.apps.projector.selfConsistency (sub-process)
   └─ Task_ScParallel      (projector.sc.parallel, asyncio.gather + Counter)
 ```
 
@@ -170,7 +170,7 @@ answer plus `(self-consistency: N/M paths agreed)` summary.
 ### Reply surface
 
 `projector.persist.message` writes the projector's reply to
-`vertex_repo_record` under `collection=ai.gftd.convo.message`,
+`vertex_repo_record` under `collection=app.etzhayyim.convo.message`,
 `repo=did:web:ops.etzhayyim.com` (PM agent DID). yoro's existing
 `loadProjectChat` graph SQL query already reads this surface, so
 the UI sees BPMN-produced replies with no client-side change.
@@ -189,7 +189,7 @@ Protocol firehose).
 |---|---|---|
 | **Phase 1** | ✅ Scaffolded | 4 BPMN files, `pymagatama.primitives.projector` module with LangGraph ReAct, Reflexion, history loader, tool discovery, persist primitive. Migration `20260427160000_seed_projector_bpmn_actors.ts` registers `process_def` + `lexicon_binding`. Worker registration in `zeebe_worker_main.py`. |
 | **Phase 2** | ✅ Scaffolded | Tree-of-Thoughts (`projector.tot.expand`) and Self-Consistency (`projector.sc.parallel`) implementations, `treeOfThoughts.bpmn` + `selfConsistency.bpmn`, XOR routing in `sendProjectMessage.bpmn`. |
-| **Phase 3** | ✅ implemented (flag-gated, default off) | (a) CF Worker `handleSendProjectMessage` now branches on `env.PROJECTOR_USE_BPMN`: when `1`/`true`, it `waitUntil(fetch(dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.projector.sendProjectMessage))` and returns `202 + {convoId, backend:"bpmn"}`. (b) yoro Worker exposes `GET /sse/projects/{convoId}` (90s server budget, auto-reconnect) — Server-Sent Events stream of new `vertex_repo_record` rows scoped to that convoId. (c) `/projects/[projectId]/+page.svelte` opens `EventSource` on `initProjectChat`, dedups by rkey, appends BPMN replies as they land. (d) `projector.persist.message` honours `PROJECTOR_PERSIST_VIA_PDS=1` to route the reply through `generic.pds.dispatch` (HMAC-mint Service Auth) so it federates; default = direct `vertex_repo_record` INSERT (graph-visible, non-federable). (e) `projector.auth.mint` task type exposes the existing `_mint_pds_service_auth(lxm)` helper to BPMN flows so PM tools can splice a Bearer for downstream `generic.http.fetch` / `generic.pds.dispatch` without 401. `/image` and `/think` slash commands stay on the deferred shim (BPMN-side reply text) — moving them to dedicated `imageGen.bpmn` / `deepReason.bpmn` sub-processes is deferred to Phase 5. |
+| **Phase 3** | ✅ implemented (flag-gated, default off) | (a) CF Worker `handleSendProjectMessage` now branches on `env.PROJECTOR_USE_BPMN`: when `1`/`true`, it `waitUntil(fetch(dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.projector.sendProjectMessage))` and returns `202 + {convoId, backend:"bpmn"}`. (b) yoro Worker exposes `GET /sse/projects/{convoId}` (90s server budget, auto-reconnect) — Server-Sent Events stream of new `vertex_repo_record` rows scoped to that convoId. (c) `/projects/[projectId]/+page.svelte` opens `EventSource` on `initProjectChat`, dedups by rkey, appends BPMN replies as they land. (d) `projector.persist.message` honours `PROJECTOR_PERSIST_VIA_PDS=1` to route the reply through `generic.pds.dispatch` (HMAC-mint Service Auth) so it federates; default = direct `vertex_repo_record` INSERT (graph-visible, non-federable). (e) `projector.auth.mint` task type exposes the existing `_mint_pds_service_auth(lxm)` helper to BPMN flows so PM tools can splice a Bearer for downstream `generic.http.fetch` / `generic.pds.dispatch` without 401. `/image` and `/think` slash commands stay on the deferred shim (BPMN-side reply text) — moving them to dedicated `imageGen.bpmn` / `deepReason.bpmn` sub-processes is deferred to Phase 5. |
 | **Phase 4** | pending | Delete the obsolete TS reasoning code from `pds-handlers-gftd.ts` (≈ 1500 LoC), keep PDS-bound writes (`branchConvo`, `addReflection`, `newProjectConvo` metadata) in TS. CF Worker bundle size measurement target: −30%. |
 | **Phase 5** | pending | DMN guardrail rules (richer policy beyond the Phase 1 deny-list), per-tool RACI binding in `vertex_bpmn_lexicon_binding.governance_json`, A/B vs CF Worker direct path on a 5% canary cohort. |
 
@@ -203,7 +203,7 @@ Protocol firehose).
   primitive crashes mid-loop trigger Zeebe retry rather than losing
   the entire conversation context.
 - **Durable audit.** Every BPMN service task → OCEL event in
-  `ai.gftd.apqc.apqcEvent` via the Kyber projector pipeline
+  `app.etzhayyim.apqc.apqcEvent` via the Kyber projector pipeline
   (ADR-0025), so projector reasoning is now first-class auditable.
 - **Reuse.** ToT, SC, Reflexion, agent loop are surfaceable as
   primitives any other BPMN can `Call_*` — gameka, mangaka, oshikatsu,
@@ -248,7 +248,7 @@ Protocol firehose).
 2. **F5 watcher** in `dispatcher.etzhayyim.com:8080` picks up the 4 new
    `vertex_bpmn_process_def` rows within 30s and deploys to Zeebe.
 3. **Smoke**: `curl -X POST http://dispatcher.etzhayyim.com:8080/xrpc/
-   ai.gftd.apps.projector.sendProjectMessage -d '{"convoId":"…",
+   app.etzhayyim.apps.projector.sendProjectMessage -d '{"convoId":"…",
    "text":"hello","callerDid":"did:web:…"}'`. Expect 202 + a new
    `vertex_repo_record` row for the projector reply within 10s.
 4. **Phase 3 cutover** (this ADR's Phase 3 row, now ✅):
@@ -280,7 +280,7 @@ Protocol firehose).
   that lands, projector becomes the canary for visual editing.
 - **Cross-actor BPMN reuse.** If projector's `treeOfThoughts.bpmn`
   proves useful, generalize it to `etzhayyim-root/00-contracts/bpmn/ai/gftd/reasoning/`
-  and expose as `ai.gftd.reasoning.tot` / `ai.gftd.reasoning.sc` so
+  and expose as `app.etzhayyim.reasoning.tot` / `app.etzhayyim.reasoning.sc` so
   any actor BPMN can `Call_*` it without per-actor copies.
 
 ## Files changed

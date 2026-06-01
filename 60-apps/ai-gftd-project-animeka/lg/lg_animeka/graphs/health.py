@@ -1,6 +1,6 @@
 """animeka `health` graph — simplest possible end-to-end probe.
 
-Replaces BPMN `animeka_health` (NSID: ai.gftd.animeka.health).
+Replaces BPMN `animeka_health` (NSID: app.etzhayyim.animeka.health).
 Confirms the server can:
   1. Compile a graph
   2. Reach RW (SELECT 1)

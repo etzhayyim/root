@@ -161,7 +161,7 @@ async function writePostings(postings) {
     const rkey = `${SOURCE}-${String(post.sourceId).replace(/[^a-zA-Z0-9]/g, "-").slice(0, 63)}`;
     const license = SOURCE === "usajobs" ? "public-domain" : "publisher-licensed";
     const row = [
-      vid, rkey, COLLECTOR_DID, "ai.gftd.apps.recruit.jobPosting",
+      vid, rkey, COLLECTOR_DID, "app.etzhayyim.apps.recruit.jobPosting",
       SOURCE, license, String(post.sourceId), post.sourceUrl,
       post.title, post.description,
       post.employerResolved.did, post.employerResolved.name, post.employerResolved.registryId,

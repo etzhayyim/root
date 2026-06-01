@@ -22,7 +22,7 @@ import {
   type RegisterGazetteEntryOutput,
 } from "./types.js";
 
-const GAZETTE_COLLECTION = "ai.gftd.hanrei.gazetteEntry";
+const GAZETTE_COLLECTION = "app.etzhayyim.hanrei.gazetteEntry";
 
 function gazetteSlug(entryId: string): string {
   return entryId.toLowerCase().replace(/[^a-z0-9]/g, "-");

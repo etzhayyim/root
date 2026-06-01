@@ -8,7 +8,7 @@ import { describe, it, expect } from "vitest";
 import {
   createGenesis,
   verifyGenesis,
-  isValidDidGftd,
+  isValidDidetzhayyim,
   didDepth,
   didParent,
   didRoot,
@@ -16,7 +16,7 @@ import {
   encodeCanonicalCbor,
   createCidV1,
   cidv1ToString,
-  DID_GFTD_PREFIX,
+  DID_etzhayyim_PREFIX,
   MAX_PATH_DEPTH,
 } from "../src/index";
 
@@ -33,7 +33,7 @@ describe("did:gftd genesis", () => {
       vm: SAMPLE_VM,
       createdAt: "2026-04-17T00:00:00Z",
     });
-    expect(g.did.startsWith(DID_GFTD_PREFIX)).toBe(true);
+    expect(g.did.startsWith(DID_etzhayyim_PREFIX)).toBe(true);
     expect(g.did.startsWith("did:gftd:bafy")).toBe(true); // base32 multibase, dag-cbor codec? we use raw → "bafk"
     // raw codec CIDv1 bafkrei... base32 prefix:
     // multibase 'b' + version 0x01 + codec 0x55 + sha2-256 multihash
@@ -90,12 +90,12 @@ describe("did:gftd genesis", () => {
     })).rejects.toThrow(/MAX_PATH_DEPTH/);
   });
 
-  it("isValidDidGftd accepts well-formed and rejects malformed", () => {
-    expect(isValidDidGftd("did:gftd:bafkreiabcdef")).toBe(true);
-    expect(isValidDidGftd("did:gftd:bafkreiabcdef:bafkreichild")).toBe(true);
-    expect(isValidDidGftd("did:plc:abcdef")).toBe(false);
-    expect(isValidDidGftd("did:gftd:")).toBe(false);
-    expect(isValidDidGftd("did:gftd:has space")).toBe(false);
+  it("isValidDidetzhayyim accepts well-formed and rejects malformed", () => {
+    expect(isValidDidetzhayyim("did:gftd:bafkreiabcdef")).toBe(true);
+    expect(isValidDidetzhayyim("did:gftd:bafkreiabcdef:bafkreichild")).toBe(true);
+    expect(isValidDidetzhayyim("did:plc:abcdef")).toBe(false);
+    expect(isValidDidetzhayyim("did:gftd:")).toBe(false);
+    expect(isValidDidetzhayyim("did:gftd:has space")).toBe(false);
   });
 
   it("DID Document is W3C DID Core conformant (no proprietary top-level fields)", async () => {

@@ -31,9 +31,9 @@ describe("Rare Earth Coverage Actor Manifest", () => {
   });
   it("xrpc covers get, listActors, listFlows", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("ai.gftd.apps.rareEarth.coverage.get");
-    expect(nsids).toContain("ai.gftd.apps.rareEarth.coverage.listActors");
-    expect(nsids).toContain("ai.gftd.apps.rareEarth.coverage.listFlows");
+    expect(nsids).toContain("app.etzhayyim.apps.rareEarth.coverage.get");
+    expect(nsids).toContain("app.etzhayyim.apps.rareEarth.coverage.listActors");
+    expect(nsids).toContain("app.etzhayyim.apps.rareEarth.coverage.listFlows");
   });
   it("registers broad rare earth actor set", () => { expect(m.actors.length).toBeGreaterThanOrEqual(30); });
   it("isBot true", () => { expect(m.profile.isBot).toBe(true); });

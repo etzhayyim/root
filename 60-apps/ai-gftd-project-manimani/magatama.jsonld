@@ -1,6 +1,7 @@
 {
-  "@context": "https://etzhayyim.com/ld/magatama/v1",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
   "name": "ai-gftd-project-manimani",
+  "performerType": "service",
   "nanoid": "m4n1m4n1",
   "displayName": "Manimani",
   "description": "Personal knowledge router. Drop a fragment (text / link / file) and it lands in the right project automatically. LLM-driven classification + project-typed processing pipeline (knowledge / task / memo / unsorted) on LangGraph Server.",
@@ -11,13 +12,17 @@
   "routes": [
     {
       "host": "manimani.etzhayyim.com",
-      "paths": ["/"],
+      "paths": [
+        "/"
+      ],
       "tls": true
     }
   ],
   "layer": "edge-dispatcher",
   "atStandard": false,
-  "nsidPrefixes": ["ai.gftd.apps.manimani"],
+  "nsidPrefixes": [
+    "ai.gftd.apps.manimani"
+  ],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",
     "authn": "https://authn.etzhayyim.com",

@@ -3,6 +3,7 @@ id: 2605171300
 title: "Open-UNSPSC Generative Agent Fleet using OpenRouter and Local Fallback"
 status: accepted
 doc_type: adr
+topic: open-unispsc-generative-agent-fleet
 date: 2026-05-17
 ---
 # ADR 2605171300: Open-UNSPSC Generative Agent Fleet using OpenRouter and Local Fallback

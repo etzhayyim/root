@@ -25,20 +25,20 @@ const project = "legal-corpus";
 
 const seeds: Seed[] = [
   { proc: "searchDocument",     bpmnProcessId: "legal_corpus_search_document",
-    nsid: "ai.gftd.apps.legal-corpus.searchDocument",     resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.legal-corpus.searchDocument",     resultTimeoutMs: 30000 },
   { proc: "getDocument",        bpmnProcessId: "legal_corpus_get_document",
-    nsid: "ai.gftd.apps.legal-corpus.getDocument",        resultTimeoutMs: 10000 },
+    nsid: "app.etzhayyim.apps.legal-corpus.getDocument",        resultTimeoutMs: 10000 },
   { proc: "listJurisdictions",  bpmnProcessId: "legal_corpus_list_jurisdictions",
-    nsid: "ai.gftd.apps.legal-corpus.listJurisdictions",  resultTimeoutMs: 10000 },
+    nsid: "app.etzhayyim.apps.legal-corpus.listJurisdictions",  resultTimeoutMs: 10000 },
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

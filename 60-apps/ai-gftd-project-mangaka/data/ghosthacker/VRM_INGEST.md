@@ -17,7 +17,7 @@ deno run -A scripts/ingest-vrms.ts \
     data/ghosthacker/resources/characters --dry-run
 
 # 3. Real ingest (uploads + patches vertex_mangaka):
-MANGAKA_API_KEY=$(op read 'op://Gftd Japan株式会社/lg-mangaka/api-key') \
+MANGAKA_API_KEY=$(op read 'op://etzhayyim Japan株式会社/lg-mangaka/api-key') \
 deno run -A scripts/ingest-vrms.ts data/ghosthacker/resources/characters
 ```
 
@@ -54,7 +54,7 @@ with `--rkey-prefix` if the production rkey scheme differs.
 
 ```
 artist hands off                            mangaka pod
-  Chise/avatar.vrm                              ai.gftd.mangaka.tools.attachCharacterVrm
+  Chise/avatar.vrm                              app.etzhayyim.mangaka.tools.attachCharacterVrm
        │                                              │
        │  scripts/ingest-vrms.ts                      │
        │  POST /xrpc/...attachCharacterVrm            │
@@ -76,7 +76,7 @@ artist hands off                            mangaka pod
        │  ◄───────────────────────────────────────────┤
        │  { blobKey: "blobs/mangaka/vrm/9b...",        │
        │    vertexId: "at://did:web:mangaka.etzhayyim.com/ │
-       │                ai.gftd.mangaka.character/ch-chise",
+       │                app.etzhayyim.mangaka.character/ch-chise",
        │    status: "attached" }                      │
        ▼                                              │
    next render run                                    │
@@ -110,7 +110,7 @@ curl -I https://mangaka.etzhayyim.com/api/blob/blobs/mangaka/vrm/<sha256>
 #   → 200 OK, content-type: model/gltf-binary
 
 # Confirm character row sees the new key (replace ch-chise / API key):
-curl -X POST https://mangaka.etzhayyim.com/xrpc/ai.gftd.mangaka.tools.resolveAssets \
+curl -X POST https://mangaka.etzhayyim.com/xrpc/app.etzhayyim.mangaka.tools.resolveAssets \
   -H "content-type: application/json" \
   -d '{"panelPlan": {"characters": ["ch-chise"]}}'
 #   → {"assetRefs": {"characters": {"ch-chise": {"vrm_blob_key": "blobs/mangaka/vrm/<sha256>", ...}}}}

@@ -24,8 +24,8 @@ RW_USER = "root"
 RW_DB   = "dev"
 
 REPO               = "did:plc:gftd-collector"
-PATENT_COLLECTION  = "ai.gftd.apps.patent.patent"
-DNS_COLLECTION     = "ai.gftd.apps.dns.observation"
+PATENT_COLLECTION  = "app.etzhayyim.apps.patent.patent"
+DNS_COLLECTION     = "app.etzhayyim.apps.dns.observation"
 
 STATE_FILE         = "/tmp/hourly-collection-state.json"
 TRANCO_CACHE       = "/tmp/tranco_top1m.csv"

@@ -5,21 +5,21 @@ CF Worker that exposes the 11 rw-free commands as XRPC endpoints.
 ## Endpoints
 
 ### Security Registry
-- `POST /xrpc/ai.gftd.isin.registerSecurity` — register ISIN security
-- `GET /xrpc/ai.gftd.isin.getSecurity?isin=...` — security by ISIN
-- `GET /xrpc/ai.gftd.isin.searchSecurities?query=...` — search securities
-- `GET /xrpc/ai.gftd.isin.listSecurities?limit=...&offset=...` — paginated list
+- `POST /xrpc/app.etzhayyim.isin.registerSecurity` — register ISIN security
+- `GET /xrpc/app.etzhayyim.isin.getSecurity?isin=...` — security by ISIN
+- `GET /xrpc/app.etzhayyim.isin.searchSecurities?query=...` — search securities
+- `GET /xrpc/app.etzhayyim.isin.listSecurities?limit=...&offset=...` — paginated list
 
 ### Country & Entity
-- `GET /xrpc/ai.gftd.isin.listByCountry?countryCode=...` — securities by country
-- `POST /xrpc/ai.gftd.isin.registerEntity` — register entity (LEI)
-- `GET /xrpc/ai.gftd.isin.validateIsin?isin=...` — validate ISIN
+- `GET /xrpc/app.etzhayyim.isin.listByCountry?countryCode=...` — securities by country
+- `POST /xrpc/app.etzhayyim.isin.registerEntity` — register entity (LEI)
+- `GET /xrpc/app.etzhayyim.isin.validateIsin?isin=...` — validate ISIN
 
 ### Dashboard & Collection
-- `GET /xrpc/ai.gftd.isin.getDashboard` — registry statistics
-- `POST /xrpc/ai.gftd.isin.collectSecurities` — collect ISIN batch
-- `POST /xrpc/ai.gftd.isin.collectEntityIR` — collect entity IR data
-- `POST /xrpc/ai.gftd.isin.enrichISIN` — enrich ISIN metadata
+- `GET /xrpc/app.etzhayyim.isin.getDashboard` — registry statistics
+- `POST /xrpc/app.etzhayyim.isin.collectSecurities` — collect ISIN batch
+- `POST /xrpc/app.etzhayyim.isin.collectEntityIR` — collect entity IR data
+- `POST /xrpc/app.etzhayyim.isin.enrichISIN` — enrich ISIN metadata
 
 ## Setup
 

@@ -42,37 +42,37 @@ const seeds: Seed[] = [
   {
     proc: "resolveEntity",
     bpmnProcessId: "intel_resolve_entity",
-    nsid: "ai.gftd.apps.intel.resolveEntity",
+    nsid: "app.etzhayyim.apps.intel.resolveEntity",
     resultTimeoutMs: 60_000,
   },
   {
     proc: "listDependencyCandidates",
     bpmnProcessId: "intel_list_dependency_candidates",
-    nsid: "ai.gftd.apps.intel.listDependencyCandidates",
+    nsid: "app.etzhayyim.apps.intel.listDependencyCandidates",
     resultTimeoutMs: 30_000,
   },
   {
     proc: "inferDependencies",
     bpmnProcessId: "intel_infer_dependencies",
-    nsid: "ai.gftd.apps.intel.inferDependencies",
+    nsid: "app.etzhayyim.apps.intel.inferDependencies",
     resultTimeoutMs: 60_000,
   },
   {
     proc: "explainDependency",
     bpmnProcessId: "intel_explain_dependency",
-    nsid: "ai.gftd.apps.intel.explainDependency",
+    nsid: "app.etzhayyim.apps.intel.explainDependency",
     resultTimeoutMs: 60_000,
   },
   {
     proc: "getCounterpartyGraph",
     bpmnProcessId: "intel_get_counterparty_graph",
-    nsid: "ai.gftd.apps.intel.getCounterpartyGraph",
+    nsid: "app.etzhayyim.apps.intel.getCounterpartyGraph",
     resultTimeoutMs: 60_000,
   },
   {
     proc: "getBuildingOwnershipGraph",
     bpmnProcessId: "intel_get_building_ownership_graph",
-    nsid: "ai.gftd.apps.intel.getBuildingOwnershipGraph",
+    nsid: "app.etzhayyim.apps.intel.getBuildingOwnershipGraph",
     resultTimeoutMs: 60_000,
   },
 ];
@@ -81,9 +81,9 @@ const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

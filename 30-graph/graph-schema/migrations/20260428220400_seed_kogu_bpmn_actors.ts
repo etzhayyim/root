@@ -21,19 +21,19 @@ const seeds: Seed[] = [
   {
     proc: "dailyPulse",
     bpmnProcessId: "kogu_daily_pulse",
-    nsid: "ai.gftd.apps.kogu.dailyPulse",
+    nsid: "app.etzhayyim.apps.kogu.dailyPulse",
     resultTimeoutMs: 30000,
   },
   {
     proc: "scheduleCalibration",
     bpmnProcessId: "kogu_schedule_calibration",
-    nsid: "ai.gftd.apps.kogu.scheduleCalibration",
+    nsid: "app.etzhayyim.apps.kogu.scheduleCalibration",
     resultTimeoutMs: 30000,
   },
   {
     proc: "checkoutTool",
     bpmnProcessId: "kogu_checkout_tool",
-    nsid: "ai.gftd.apps.kogu.checkoutTool",
+    nsid: "app.etzhayyim.apps.kogu.checkoutTool",
     resultTimeoutMs: 30000,
   },
 ];
@@ -42,9 +42,9 @@ const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

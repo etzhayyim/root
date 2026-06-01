@@ -17,7 +17,7 @@
     "paths": {
       "$lib/*": ["./src/lib/*"],
       "$app/environment": ["./src/spa/app-environment.ts"],
-      "@gftd/wproto": ["./src/typecheck-shims/wproto.d.ts"],
+      "@etzhayyim/wproto": ["./src/typecheck-shims/wproto.d.ts"],
       "$lib/auth/passkey": ["./src/typecheck-shims/auth-passkey.d.ts"],
       "kysely": ["./src/typecheck-shims/kysely.d.ts"]
     }

@@ -128,13 +128,13 @@ Sen の Capability Approach を子どもの文脈に適用:
   → Family Bond Strengthener (和) — ペアレンティング支援
 
 Fund 連携審査 (in !case-{application-id} — cross-project)
-  → [受信] org.gftd.xproject.assessment.request from public-fund
-  → Growth Guardian (守) — org.gftd.xproject.assessment.result (発達評価)
-  → Capability Nurturer (育) — org.gftd.xproject.assessment.result (capability 評価)
+  → [受信] org.etzhayyim.xproject.assessment.request from public-fund
+  → Growth Guardian (守) — org.etzhayyim.xproject.assessment.result (発達評価)
+  → Capability Nurturer (育) — org.etzhayyim.xproject.assessment.result (capability 評価)
   → Safety Protector (盾) — セーフガードスクリーニング結果
 
 リスク対応 (in !xp-safeguard-{nanoid} — 緊急 cross-project)
-  → Safety Protector (盾) — org.gftd.xproject.safeguard.alert → fund disbursement 停止
+  → Safety Protector (盾) — org.etzhayyim.xproject.safeguard.alert → fund disbursement 停止
   → Growth Guardian (守) — 発達リスク介入推薦
   → Family Bond Strengthener (和) — 家族支援調整
 ```
@@ -221,9 +221,9 @@ Fund 連携審査 (in !case-{application-id} — cross-project)
 
 ### Command Path (Matrix Events)
 
-- **Fund Application 審査**: `org.gftd.xproject.assessment.request` を受信 → capability agent が `!case-{application-id}` room で評価結果を conversation として返す
-- **セーフガード**: `org.gftd.xproject.safeguard.alert` を `!xp-safeguard-{nanoid}` room に送信 → fund 側が disbursement 停止
-- **成果報告**: `org.gftd.xproject.outcome.report` を fund 側 room に送信
+- **Fund Application 審査**: `org.etzhayyim.xproject.assessment.request` を受信 → capability agent が `!case-{application-id}` room で評価結果を conversation として返す
+- **セーフガード**: `org.etzhayyim.xproject.safeguard.alert` を `!xp-safeguard-{nanoid}` room に送信 → fund 側が disbursement 停止
+- **成果報告**: `org.etzhayyim.xproject.outcome.report` を fund 側 room に送信
 
 ### Query Path (XRPC)
 

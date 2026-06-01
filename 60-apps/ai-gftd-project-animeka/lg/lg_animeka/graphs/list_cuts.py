@@ -1,6 +1,6 @@
 """animeka `listCuts` graph — list cuts by episode (or work).
 
-NSID: ai.gftd.animeka.listCuts
+NSID: app.etzhayyim.animeka.listCuts
 
 Query params:
   episodeId  (optional) filter by episode rkey
@@ -63,7 +63,7 @@ async def _node_query(state: _State) -> dict[str, Any]:
         try:
             cur = conn.cursor()
 
-            where_parts = ["collection = 'ai.gftd.animeka.cut'"]
+            where_parts = ["collection = 'app.etzhayyim.animeka.cut'"]
             params: list[Any] = []
 
             if episode_id:

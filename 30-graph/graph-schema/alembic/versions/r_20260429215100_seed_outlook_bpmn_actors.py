@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-get-oauth-config-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-get-oauth-config-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_get_oauth_config',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_get_oauth_config" name="outlook '
                  'getOauthConfig" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.getOauthConfig", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.outlook.getOauthConfig", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -53,7 +53,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-get-oauth-config-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-get-oauth-config-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -68,9 +68,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-getOauthConfig-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-getOauthConfig-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.getOauthConfig',
+                 'app.etzhayyim.apps.outlook.getOauthConfig',
                  'outlook_get_oauth_config',
                  30000,
                  '',
@@ -79,7 +79,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-getOauthConfig-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-getOauthConfig-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -95,7 +95,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-get-auth-status-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-get-auth-status-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_get_auth_status',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -105,7 +105,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_get_auth_status" name="outlook '
                  'getAuthStatus" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.getAuthStatus", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.outlook.getAuthStatus", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-get-auth-status-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-get-auth-status-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -136,9 +136,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-getAuthStatus-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-getAuthStatus-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.getAuthStatus',
+                 'app.etzhayyim.apps.outlook.getAuthStatus',
                  'outlook_get_auth_status',
                  30000,
                  '',
@@ -147,7 +147,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-getAuthStatus-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-getAuthStatus-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -163,7 +163,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-start-auth-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-start-auth-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_start_auth',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -173,7 +173,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_start_auth" name="outlook '
                  'startAuth" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.startAuth", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.outlook.startAuth", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -188,7 +188,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-start-auth-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-start-auth-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -203,9 +203,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-startAuth-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-startAuth-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.startAuth',
+                 'app.etzhayyim.apps.outlook.startAuth',
                  'outlook_start_auth',
                  30000,
                  'vertex_outlook_pending_oauth',
@@ -214,7 +214,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-startAuth-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-startAuth-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -230,7 +230,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-exchange-code-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-exchange-code-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_exchange_code',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -240,7 +240,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_exchange_code" name="outlook '
                  'exchangeCode" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.exchangeCode", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.outlook.exchangeCode", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -255,7 +255,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-exchange-code-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-exchange-code-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -270,9 +270,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-exchangeCode-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-exchangeCode-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.exchangeCode',
+                 'app.etzhayyim.apps.outlook.exchangeCode',
                  'outlook_exchange_code',
                  120000,
                  'vertex_outlook_pending_oauth,vertex_outlook_oauth_connection,vertex_outlook_sync_job',
@@ -281,7 +281,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-exchangeCode-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-exchangeCode-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -297,7 +297,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-get-connection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-get-connection-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_get_connection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -307,7 +307,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_get_connection" name="outlook '
                  'getConnection" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.getConnection", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.outlook.getConnection", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -323,7 +323,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-get-connection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-get-connection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -338,9 +338,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-getConnection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-getConnection-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.getConnection',
+                 'app.etzhayyim.apps.outlook.getConnection',
                  'outlook_get_connection',
                  30000,
                  'vertex_outlook_oauth_connection',
@@ -349,7 +349,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-getConnection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-getConnection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -365,7 +365,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-sync-mailbox-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-sync-mailbox-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_sync_mailbox',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -375,7 +375,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_sync_mailbox" name="outlook '
                  'syncMailbox" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.syncMailbox", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.outlook.syncMailbox", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -390,7 +390,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-sync-mailbox-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-sync-mailbox-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -405,9 +405,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-syncMailbox-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-syncMailbox-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.syncMailbox',
+                 'app.etzhayyim.apps.outlook.syncMailbox',
                  'outlook_sync_mailbox',
                  120000,
                  'vertex_outlook_oauth_connection,vertex_outlook_sync_job',
@@ -416,7 +416,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-syncMailbox-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-syncMailbox-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -432,7 +432,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-disconnect-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-disconnect-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_disconnect',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -442,7 +442,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_disconnect" name="outlook '
                  'disconnect" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.disconnect", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.outlook.disconnect", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -457,7 +457,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-disconnect-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-disconnect-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -472,9 +472,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-disconnect-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-disconnect-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.disconnect',
+                 'app.etzhayyim.apps.outlook.disconnect',
                  'outlook_disconnect',
                  30000,
                  'vertex_outlook_pending_oauth,vertex_outlook_oauth_connection',
@@ -483,7 +483,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-disconnect-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-disconnect-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -499,7 +499,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-card-home-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-card-home-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_card_home',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -509,7 +509,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_card_home" name="outlook '
                  'cardHome" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.cardHome", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.outlook.cardHome", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -524,7 +524,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-card-home-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-card-home-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -539,9 +539,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-cardHome-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-cardHome-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.cardHome',
+                 'app.etzhayyim.apps.outlook.cardHome',
                  'outlook_card_home',
                  30000,
                  '',
@@ -550,7 +550,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-cardHome-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-cardHome-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -566,7 +566,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-card-compose-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-card-compose-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_card_compose',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -576,7 +576,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_card_compose" name="outlook '
                  'cardCompose" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.cardCompose", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.outlook.cardCompose", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -591,7 +591,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-card-compose-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-card-compose-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -606,9 +606,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-cardCompose-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-cardCompose-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.cardCompose',
+                 'app.etzhayyim.apps.outlook.cardCompose',
                  'outlook_card_compose',
                  30000,
                  '',
@@ -617,7 +617,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-cardCompose-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-cardCompose-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -633,7 +633,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-card-action-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-card-action-v1',
                  'did:web:outlook.etzhayyim.com',
                  'outlook_card_action',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -643,7 +643,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/outlook" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="outlook_card_action" name="outlook '
                  'cardAction" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.outlook.cardAction", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.outlook.cardAction", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -658,7 +658,7 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-card-action-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-card-action-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -673,9 +673,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-cardAction-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-cardAction-v1',
                  'did:web:outlook.etzhayyim.com',
-                 'ai.gftd.apps.outlook.cardAction',
+                 'app.etzhayyim.apps.outlook.cardAction',
                  'outlook_card_action',
                  30000,
                  '',
@@ -684,48 +684,48 @@ UP = [{'sql': '\n'
                  'did:web:outlook.etzhayyim.com',
                  'sys.bpmn.seed.outlook',
                  'did:web:outlook.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-cardAction-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-cardAction-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-getOauthConfig-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-getOauthConfig-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-get-oauth-config-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-get-oauth-config-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-getAuthStatus-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-getAuthStatus-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-get-auth-status-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-get-auth-status-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-startAuth-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-startAuth-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-start-auth-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-start-auth-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-exchangeCode-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-exchangeCode-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-exchange-code-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-exchange-code-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-getConnection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-getConnection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-get-connection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-get-connection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-syncMailbox-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-syncMailbox-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-sync-mailbox-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-sync-mailbox-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-disconnect-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-disconnect-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-disconnect-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-disconnect-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-cardHome-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-cardHome-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-card-home-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-card-home-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-cardCompose-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-cardCompose-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-card-compose-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-card-compose-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-cardAction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-cardAction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-card-action-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-card-action-v1']}]
 
 
 def upgrade() -> None:

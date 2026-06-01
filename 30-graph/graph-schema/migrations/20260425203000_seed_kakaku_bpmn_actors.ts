@@ -33,17 +33,17 @@ const writeTableAllowlist = [
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-upsertOffer-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kakaku-upsertOffer-v1",
     bpmnProcessId: "kakaku_upsert_offer",
     sourcePath: "00-contracts/bpmn/ai/gftd/kakaku/upsertOffer.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1",
     bpmnProcessId: "kakaku_ingest_offer_from_url",
     sourcePath: "00-contracts/bpmn/ai/gftd/kakaku/ingestOfferFromUrl.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-compareOffers-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kakaku-compareOffers-v1",
     bpmnProcessId: "kakaku_compare_offers",
     sourcePath: "00-contracts/bpmn/ai/gftd/kakaku/compareOffers.bpmn",
   },
@@ -51,20 +51,20 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-upsertOffer-v1",
-    nsid: "ai.gftd.apps.kakaku.upsertOffer",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kakaku-upsertOffer-v1",
+    nsid: "app.etzhayyim.apps.kakaku.upsertOffer",
     bpmnProcessId: "kakaku_upsert_offer",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1",
-    nsid: "ai.gftd.apps.kakaku.ingestOfferFromUrl",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1",
+    nsid: "app.etzhayyim.apps.kakaku.ingestOfferFromUrl",
     bpmnProcessId: "kakaku_ingest_offer_from_url",
     resultTimeoutMs: 120_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-compareOffers-v1",
-    nsid: "ai.gftd.apps.kakaku.compareOffers",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kakaku-compareOffers-v1",
+    nsid: "app.etzhayyim.apps.kakaku.compareOffers",
     bpmnProcessId: "kakaku_compare_offers",
     resultTimeoutMs: 60_000,
   },

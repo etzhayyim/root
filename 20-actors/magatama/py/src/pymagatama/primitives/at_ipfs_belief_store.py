@@ -542,15 +542,15 @@ CREATE TABLE IF NOT EXISTS edge_ki_vascular (
 # Phase 3 Stage D (ADR-2605212200) — NSID namespace switch.
 #
 # ORGANISM_NSID_NAMESPACE env selects the canonical write namespace:
-#   - "gftd"      (default, legacy): writes ai.gftd.agent.*
+#   - "gftd"      (default, legacy): writes app.etzhayyim.agent.*
 #   - "etzhayyim" (Phase 3 canonical): writes ai.etzhayyim.agent.*
 #
 # The dual-publish bundle from Stage C (PR #1362) means EITHER namespace
 # validates on the PDS side. Operators flip this env var once their actor
-# pods are confirmed reading both forms; legacy ai.gftd.* writes stay
+# pods are confirmed reading both forms; legacy app.etzhayyim.* writes stay
 # valid for the 30-day Stage C overlap.
 _NSID_NAMESPACES = {
-    "gftd": "ai.gftd.agent",
+    "gftd": "app.etzhayyim.agent",
     "etzhayyim": "ai.etzhayyim.agent",
 }
 

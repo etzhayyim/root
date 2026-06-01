@@ -9,8 +9,8 @@ last_verified: 2026-05-08
 authoritative_for:
   - LangGraph agent loop usage within L3 actor runtime
 related:
-  - adr-2605071200
-  - adr-2605072000-saikin-bacteria-horizontal-transfer-layer
+  - adr-2605071200-myco-yeast-artificial-organism-jp-naming
+  - adr-2605072000
   - adr-2605080600-langgraph-server-granian-l3-runtime
 supersedes: []
 superseded_by: []
@@ -21,10 +21,10 @@ amended_by:
 
 # ADR-2605072000: LangGraph Agent Loop Pattern
 
-**Status**: accepted  
-**Date**: 2026-05-07  
-**Deciders**: Jun Kawasaki  
-**Supersedes**: —  
+**Status**: accepted
+**Date**: 2026-05-07
+**Deciders**: Jun Kawasaki
+**Supersedes**: —
 **Superseded by**: —
 
 ## Context

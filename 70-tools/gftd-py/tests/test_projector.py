@@ -15,26 +15,26 @@ from gftd.projector import _mcp_call, _agent_token, _mcp_headers
 # ── _agent_token ───────────────────────────────────────────────────────────────
 
 def test_agent_token_from_env(monkeypatch):
-    monkeypatch.setenv("GFTD_AGENT_TOKEN", "tok-abc")
+    monkeypatch.setenv("etzhayyim_AGENT_TOKEN", "tok-abc")
     assert _agent_token() == "tok-abc"
 
 
 def test_agent_token_missing(monkeypatch):
-    monkeypatch.delenv("GFTD_AGENT_TOKEN", raising=False)
+    monkeypatch.delenv("etzhayyim_AGENT_TOKEN", raising=False)
     assert _agent_token() is None
 
 
 # ── _mcp_headers ───────────────────────────────────────────────────────────────
 
 def test_mcp_headers_with_token(monkeypatch):
-    monkeypatch.setenv("GFTD_AGENT_TOKEN", "tok-xyz")
+    monkeypatch.setenv("etzhayyim_AGENT_TOKEN", "tok-xyz")
     h = _mcp_headers()
     assert h["Authorization"] == "Bearer tok-xyz"
     assert h["Content-Type"] == "application/json"
 
 
 def test_mcp_headers_without_token(monkeypatch):
-    monkeypatch.delenv("GFTD_AGENT_TOKEN", raising=False)
+    monkeypatch.delenv("etzhayyim_AGENT_TOKEN", raising=False)
     h = _mcp_headers()
     assert "Authorization" not in h
     assert h["Content-Type"] == "application/json"

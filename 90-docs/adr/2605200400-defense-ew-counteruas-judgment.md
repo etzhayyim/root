@@ -18,7 +18,7 @@ weight: 0.90
 depends_on:
   - adr-2605190100-defense-cluster-topology
   - adr-2605200300-defense-isr-sensor-fusion
-  - adr-2604261100-rego-authz-ssot
+  - adr-2604261100-rego-dmn-policy-decision-layers
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
 related:
   - adr-2605200100-defense-mission-orchestration-lattice
@@ -41,9 +41,9 @@ Anduril Leonidas / Pulsar 相当のソフトウェアレイヤーが必要:
 
 | Method | NSID | 機能 |
 |---|---|---|
-| declareTarget | `ai.gftd.apps.defEw.declareTarget` | 脅威ターゲット宣言 (classification ≥ 3 必須) |
-| requestIntervention | `ai.gftd.apps.defEw.requestIntervention` | 介入要求 (人間承認トークン必須) |
-| listInterventions | `ai.gftd.apps.defEw.listInterventions` | 介入履歴一覧 |
+| declareTarget | `app.etzhayyim.apps.defEw.declareTarget` | 脅威ターゲット宣言 (classification ≥ 3 必須) |
+| requestIntervention | `app.etzhayyim.apps.defEw.requestIntervention` | 介入要求 (人間承認トークン必須) |
+| listInterventions | `app.etzhayyim.apps.defEw.listInterventions` | 介入履歴一覧 |
 
 ### 介入タイプ
 

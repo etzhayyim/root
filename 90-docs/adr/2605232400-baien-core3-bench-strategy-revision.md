@@ -15,7 +15,7 @@ depends_on:
   - adr-2605231300-baien-distill-react-loop
   - adr-2605231600-baien-context-extension
 related:
-  - 90-docs/baien/frontier-bench-snapshot-260523.md
+  - doc-260523-frontier-bench-snapshot
   - 90-docs/baien/lm-eval-260523/
   - 70-tools/etzhayyim-cli/bench.go
 supersedes: []

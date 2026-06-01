@@ -1,5 +1,40 @@
 #!/usr/bin/env node
 /**
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  SUPERSEDED — DO NOT RUN ON THE RELIGIOUS-CORP SUBSTRATE              ║
+ * ║                                                                       ║
+ * ║  Status: pre-religious-corp commercial-fund era artifact (writes to   ║
+ * ║          edge_legal_entity_* graph edges on RisingWave-bound PG,      ║
+ * ║          neither of which is part of the current substrate per        ║
+ * ║          ADR-2605262130 + ADR-2605172000).                            ║
+ * ║                                                                       ║
+ * ║  Superseded by: ADR-2605263800 — corp ownership-graph attestation     ║
+ * ║                 lexicon `app.etzhayyim.corp.ownershipEdge` (CC0 1.0   ║
+ * ║                 GLEIF L2 + CC-BY-SA 4.0 OpenCorporates open-data)     ║
+ * ║                                                                       ║
+ * ║  Why superseded (religious-corp substrate-fit):                       ║
+ * ║    - CorpOwnershipSensor Protocol (pymagatama.organism.sensors.corp.* ║
+ * ║      corp_ownership_sensor) consumes GLEIF L2 / EU UBO registers /    ║
+ * ║      OpenCorporates open-data via IPFS-pinned subdataset              ║
+ * ║    - app.etzhayyim.corp.ownershipEdge Lexicon record canonical        ║
+ * ║      (NOT PG `edge_legal_entity_owns` / `edge_legal_entity_trades_with`)║
+ * ║    - `ownershipKind` enum: {ubo, direct-shareholder, parent-subsidiary,║
+ * ║      control-relationship, officer} (NOT the legacy mode argument)    ║
+ * ║    - Tier-B OpenCorporates open-data fork carries `-tierB-` infix on  ║
+ * ║      derivative training artifacts; OpenCorporates paid-API tier is   ║
+ * ║      CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)              ║
+ * ║                                                                       ║
+ * ║  Operator action:                                                     ║
+ * ║    - For new ingestion: use `e7m-dataset pull gleif-l2` +             ║
+ * ║      `e7m-dataset pull opencorporates-opendata` (W3; Tier-B accept    ║
+ * ║      flag required at ~/.etzhayyim/source-acceptance/                 ║
+ * ║      opencorporates-opendata.toml — template at                       ║
+ * ║      70-tools/e7m-dataset/acceptance-templates/)                      ║
+ * ║                                                                       ║
+ * ║  Removal scheduled: ADR-2605263800 W4 deliverable (after sensor       ║
+ * ║                     parity is verified at W3).                        ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ *
  * Legal-entity relationship ingest -> edge_legal_entity_owns / edge_legal_entity_trades_with.
  *
  * Input: JSONL with one relationship per line.

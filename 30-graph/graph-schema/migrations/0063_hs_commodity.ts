@@ -9,7 +9,7 @@ import { Kysely, sql } from 'kysely';
  *   - /tables/CPC/CPCv21_HS12/cpc21-hs2012.txt    (5,584 rows → 5,205 unique HS2012 subheadings)
  *
  * RisingWave state after apply:
- *   - vertex_repo_record @ collection='ai.gftd.apps.hs.commodity'
+ *   - vertex_repo_record @ collection='app.etzhayyim.apps.hs.commodity'
  *       96 chapters + 1,222 headings + 5,387 subheadings = 6,705 rows
  *   - edge_classified_as system='hs2017' : 5,843 rows
  *   - edge_classified_as system='hs2012' : 5,584 rows
@@ -32,7 +32,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity'
+    WHERE collection = 'app.etzhayyim.apps.hs.commodity'
   `.execute(db);
 
   await sql`UPDATE dim_world_domain SET world_total = 6705 WHERE domain = 'hs'`.execute(db);

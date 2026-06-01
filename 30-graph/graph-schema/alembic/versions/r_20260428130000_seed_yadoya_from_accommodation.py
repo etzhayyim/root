@@ -22,7 +22,7 @@ UP = [{'sql': '\n'
          '      created_at, org_id, user_id, actor_id\n'
          '    )\n'
          '    SELECT\n'
-         "      'at://' || $1 || '/ai.gftd.apps.yadoya.hotel/' || a.osm_id,\n"
+         "      'at://' || $1 || '/app.etzhayyim.apps.yadoya.hotel/' || a.osm_id,\n"
          '      1, $2,\n'
          '      a.osm_id,\n'
          '      a.osm_id,\n'
@@ -48,7 +48,7 @@ UP = [{'sql': '\n'
          '      AND a.name IS NOT NULL\n'
          '      AND NOT EXISTS (\n'
          '        SELECT 1 FROM vertex_yadoya_hotel y\n'
-         "        WHERE y.vertex_id = 'at://' || $19 || '/ai.gftd.apps.yadoya.hotel/' || a.osm_id\n"
+         "        WHERE y.vertex_id = 'at://' || $19 || '/app.etzhayyim.apps.yadoya.hotel/' || a.osm_id\n"
          '      )\n'
          '    LIMIT 200\n'
          '  ',

@@ -18,7 +18,7 @@ import {
 const INGEST_FAMILY = "bigquery.public_dataset.projection";
 const DATASET_ID = "bigquery-public-data:stackoverflow";
 const ACTOR_HOST = "qa";
-const COLLECTION = "ai.gftd.apps.qa.post";
+const COLLECTION = "app.etzhayyim.apps.qa.post";
 
 const TABLES = [
   { bq: "posts_questions", post_type: "question" },

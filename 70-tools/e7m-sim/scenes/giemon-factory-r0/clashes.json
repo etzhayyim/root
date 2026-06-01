@@ -1,0 +1,185 @@
+{
+  "of": "giemon-factory-r0",
+  "clashes": [
+    {
+      "id": "clash:util_air_ring__wall_insp",
+      "kind": "hard",
+      "systems": [
+        "圧空",
+        "wall"
+      ],
+      "a": "util_air_ring",
+      "b": "wall_insp",
+      "x": 12.0,
+      "y": 22.0,
+      "z": 3.96,
+      "clearance_m": -0.3,
+      "note": "圧空配管/配線がwall(wall_insp)を貫通"
+    },
+    {
+      "id": "clash:util_data__wall_e",
+      "kind": "hard",
+      "systems": [
+        "通信",
+        "wall"
+      ],
+      "a": "util_data",
+      "b": "wall_e",
+      "x": 39.85,
+      "y": 10.5,
+      "z": 3.6,
+      "clearance_m": -0.3,
+      "note": "通信配管/配線がwall(wall_e)を貫通"
+    },
+    {
+      "id": "clash:util_data__wall_insp",
+      "kind": "hard",
+      "systems": [
+        "通信",
+        "wall"
+      ],
+      "a": "util_data",
+      "b": "wall_insp",
+      "x": 12.0,
+      "y": 18.0,
+      "z": 3.6,
+      "clearance_m": -0.3,
+      "note": "通信配管/配線がwall(wall_insp)を貫通"
+    },
+    {
+      "id": "clash:util_fire__wall_insp",
+      "kind": "hard",
+      "systems": [
+        "消火",
+        "wall"
+      ],
+      "a": "util_fire",
+      "b": "wall_insp",
+      "x": 12.0,
+      "y": 22.0,
+      "z": 0.6,
+      "clearance_m": -0.3,
+      "note": "消火配管/配線がwall(wall_insp)を貫通"
+    },
+    {
+      "id": "clash:util_water__util_drainage@36_-3",
+      "kind": "coordination",
+      "systems": [
+        "給水",
+        "排水"
+      ],
+      "a": "util_water",
+      "b": "util_drainage",
+      "x": 36.01,
+      "y": -3.0,
+      "z": -0.5,
+      "clearance_m": 0.2,
+      "note": "給水×排水 交差 Δz=0.2m < 0.3m 要調整"
+    },
+    {
+      "id": "clash:util_water__util_gas@36_-3",
+      "kind": "coordination",
+      "systems": [
+        "給水",
+        "ガス"
+      ],
+      "a": "util_water",
+      "b": "util_gas",
+      "x": 36.0,
+      "y": -3.0,
+      "z": -0.35,
+      "clearance_m": 0.1,
+      "note": "給水×ガス 交差 Δz=0.1m < 0.3m 要調整"
+    },
+    {
+      "id": "clash:util_water__util_drainage@36_18",
+      "kind": "coordination",
+      "systems": [
+        "給水",
+        "排水"
+      ],
+      "a": "util_water",
+      "b": "util_drainage",
+      "x": 36.0,
+      "y": 17.99,
+      "z": -0.5,
+      "clearance_m": 0.2,
+      "note": "給水×排水 交差 Δz=0.2m < 0.3m 要調整"
+    },
+    {
+      "id": "clash:util_water__util_drainage@36_8",
+      "kind": "coordination",
+      "systems": [
+        "給水",
+        "排水"
+      ],
+      "a": "util_water",
+      "b": "util_drainage",
+      "x": 36.0,
+      "y": 7.5,
+      "z": -0.5,
+      "clearance_m": 0.2,
+      "note": "給水×排水 交差 Δz=0.2m < 0.3m 要調整"
+    },
+    {
+      "id": "clash:util_water__util_gas@36_4",
+      "kind": "coordination",
+      "systems": [
+        "給水",
+        "ガス"
+      ],
+      "a": "util_water",
+      "b": "util_gas",
+      "x": 36.01,
+      "y": 4.0,
+      "z": -0.35,
+      "clearance_m": 0.1,
+      "note": "給水×ガス 交差 Δz=0.1m < 0.3m 要調整"
+    },
+    {
+      "id": "clash:util_water__util_gas@36_0",
+      "kind": "coordination",
+      "systems": [
+        "給水",
+        "ガス"
+      ],
+      "a": "util_water",
+      "b": "util_gas",
+      "x": 36.0,
+      "y": 0.49,
+      "z": -0.35,
+      "clearance_m": 0.1,
+      "note": "給水×ガス 交差 Δz=0.1m < 0.3m 要調整"
+    },
+    {
+      "id": "clash:util_water__util_drainage@28_18",
+      "kind": "coordination",
+      "systems": [
+        "給水",
+        "排水"
+      ],
+      "a": "util_water",
+      "b": "util_drainage",
+      "x": 28.0,
+      "y": 18.0,
+      "z": -0.5,
+      "clearance_m": 0.2,
+      "note": "給水×排水 交差 Δz=0.2m < 0.3m 要調整"
+    },
+    {
+      "id": "clash:util_hotwater__util_drainage@30_18",
+      "kind": "coordination",
+      "systems": [
+        "給水",
+        "排水"
+      ],
+      "a": "util_hotwater",
+      "b": "util_drainage",
+      "x": 30.0,
+      "y": 18.0,
+      "z": -0.47,
+      "clearance_m": 0.25,
+      "note": "給水×排水 交差 Δz=0.25m < 0.3m 要調整"
+    }
+  ]
+}

@@ -124,7 +124,7 @@ Hummock 集計が本質なので移行対象)。
 **理由**: 単一マシン (mac-mini) 依存で HA 不可。
 
 **移行先**:
-- `ai.gftd.legacy-trust-tally.plist` (γ2 cutover tally, 9:17 daily)
+- `app.etzhayyim.legacy-trust-tally.plist` (γ2 cutover tally, 9:17 daily)
   は 2026-05-08 に自動 cleanup する短命 job。**移行不要、消化待ち**。
 
 **今後**: etzhayyim 個人 mac の launchd は agent-token / vault

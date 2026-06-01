@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1',
                  'did:web:maps.etzhayyim.com',
                  'maps_purge_stale_live_tracker',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,9 +44,9 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Cadence: R/PT24H. Single instance per day.\n'
                  '\n'
-                 '  ai.gftd.apps.maps.purgeStaleLiveTracker.\n'
+                 '  app.etzhayyim.apps.maps.purgeStaleLiveTracker.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -60,7 +60,7 @@ UP = [{'sql': '\n'
                  'tracker" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.maps.purgeStaleLiveTracker", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.maps.purgeStaleLiveTracker", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -139,7 +139,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.maps.purgeStaleLiveTracker&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.maps.purgeStaleLiveTracker&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;aircraftStateDeleted&quot;: '
                  'aircraftStateDeleted, &quot;satellitePassDeleted&quot;: satellitePassDeleted, '
@@ -163,7 +163,7 @@ UP = [{'sql': '\n'
                  'did:web:maps.etzhayyim.com',
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-purge-live-tracker',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -177,9 +177,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-purgeStaleLiveTracker-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-purgeStaleLiveTracker-v1',
                  'did:web:maps.etzhayyim.com',
-                 'ai.gftd.apps.maps.purgeStaleLiveTracker',
+                 'app.etzhayyim.apps.maps.purgeStaleLiveTracker',
                  'maps_purge_stale_live_tracker',
                  300000,
                  'vertex_aircraft_state,vertex_satellite_pass,vertex_satellite_tle',
@@ -188,12 +188,12 @@ UP = [{'sql': '\n'
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-purge-live-tracker',
                  'did:web:maps.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-purgeStaleLiveTracker-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-purgeStaleLiveTracker-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-purgeStaleLiveTracker-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-purgeStaleLiveTracker-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1']}]
 
 
 def upgrade() -> None:

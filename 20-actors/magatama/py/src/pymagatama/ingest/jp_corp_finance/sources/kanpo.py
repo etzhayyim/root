@@ -12,7 +12,7 @@ from typing import Any
 
 SOURCE_ID = "kanpo"
 BASE_URL = "https://www.kanpo.go.jp"
-USER_AGENT = "jp-corp-finance.etzhayyim.com/0.1 contact@gftd.co.jp"
+USER_AGENT = "jp-corp-finance.etzhayyim.com/0.1 contact@etzhayyim.com"
 
 
 @dataclass(frozen=True)

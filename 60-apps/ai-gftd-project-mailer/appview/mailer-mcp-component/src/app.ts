@@ -5,7 +5,7 @@ interface Env { ASSETS?: Fetcher; DISPATCHER_URL?: string; DISPATCHER_INTERNAL_S
 
 const APP = "mailer";
 const ACTOR = "did:web:mailer.etzhayyim.com";
-const NSID_PREFIX = "ai.gftd.apps.mailer.";
+const NSID_PREFIX = "app.etzhayyim.apps.mailer.";
 const PDS_ORIGIN = "https://atproto.etzhayyim.com";
 
 export default {
@@ -22,9 +22,9 @@ export default {
       });
     }
 
-    if (url.pathname === "/api/emails") return proxyToDispatcher(env, "ai.gftd.apps.mailer.listEmails", queryBody(url));
-    if (url.pathname === "/api/bindings") return proxyToDispatcher(env, "ai.gftd.apps.mailer.listBindings", queryBody(url));
-    if (url.pathname === "/api/stats") return proxyToDispatcher(env, "ai.gftd.apps.mailer.stats", {});
+    if (url.pathname === "/api/emails") return proxyToDispatcher(env, "app.etzhayyim.apps.mailer.listEmails", queryBody(url));
+    if (url.pathname === "/api/bindings") return proxyToDispatcher(env, "app.etzhayyim.apps.mailer.listBindings", queryBody(url));
+    if (url.pathname === "/api/stats") return proxyToDispatcher(env, "app.etzhayyim.apps.mailer.stats", {});
 
     const nsid = url.pathname.startsWith("/xrpc/") ? url.pathname.slice("/xrpc/".length) : "";
     if (nsid.startsWith(NSID_PREFIX) && (req.method === "POST" || req.method === "GET")) {

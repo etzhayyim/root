@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-run-conflict-check-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-run-conflict-check-v1',
                  'did:web:lawfirm.etzhayyim.com',
                  'lawfirm_run_conflict_check',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -111,7 +111,7 @@ UP = [{'sql': '\n'
                  'checked_at, owner_did, sensitivity_ord, created_at) VALUES ($1, $2, $3, $4, $5, '
                  '$6, $7, $8, $9, $10, $11, $12, $13, $14)&quot;" target="sql"/>\n'
                  '          <zeebe:input source="=[&quot;at://&quot; + firmDid + '
-                 '&quot;/ai.gftd.apps.lawfirm.conflictCheck/&quot; + checkId, firmDid, callerDid, '
+                 '&quot;/app.etzhayyim.apps.lawfirm.conflictCheck/&quot; + checkId, firmDid, callerDid, '
                  'partyDids, subjectMatter, conflictResult.severity, conflictResult.status, '
                  'count(pastMatters), string join([for h in precedentHits return h.canonical_uri], '
                  '&quot;,&quot;), if precedentHits != null and precedentHits[1] != null then '
@@ -132,7 +132,7 @@ UP = [{'sql': '\n'
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-run-conflict-check-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-run-conflict-check-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -140,7 +140,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-submit-filing-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-submit-filing-v1',
                  'did:web:lawfirm.etzhayyim.com',
                  'lawfirm_submit_filing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -177,7 +177,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_lawfirm_filing&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: &quot;at://&quot; + matter.firm_did '
-                 '+ &quot;/ai.gftd.apps.lawfirm.filing/&quot; + filingId, matter_uri: matterUri, '
+                 '+ &quot;/app.etzhayyim.apps.lawfirm.filing/&quot; + filingId, matter_uri: matterUri, '
                  'court_did: courtDid, filing_type: filingType, document_uris_csv: documentUris, '
                  'filed_at: now, status: &quot;submitted&quot;, owner_did: matter.firm_did, '
                  'sensitivity_ord: 2, created_at: now}" target="row"/>\n'
@@ -227,7 +227,7 @@ UP = [{'sql': '\n'
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-submit-filing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-submit-filing-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -235,7 +235,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-issue-invoice-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-issue-invoice-v1',
                  'did:web:lawfirm.etzhayyim.com',
                  'lawfirm_issue_invoice',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -292,7 +292,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_lawfirm_invoice&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: &quot;at://&quot; + firmDid + '
-                 '&quot;/ai.gftd.apps.lawfirm.invoice/&quot; + invoiceId, matter_uri: matterUri, '
+                 '&quot;/app.etzhayyim.apps.lawfirm.invoice/&quot; + invoiceId, matter_uri: matterUri, '
                  'period_start: periodStart, period_end: periodEnd, total: agg.total, currency: '
                  'agg.currency, body_json: invoiceJson, status: &quot;issued&quot;, issued_at: '
                  'now, owner_did: firmDid, sensitivity_ord: 2, created_at: now}" target="row"/>\n'
@@ -330,7 +330,7 @@ UP = [{'sql': '\n'
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-issue-invoice-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-issue-invoice-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -338,16 +338,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-runConflictCheck-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v1',
                  'did:web:lawfirm.etzhayyim.com',
-                 'ai.gftd.apps.lawfirm.runConflictCheck',
+                 'app.etzhayyim.apps.lawfirm.runConflictCheck',
                  'lawfirm_run_conflict_check',
                  60000,
                  '2026-04-27T23:02:00Z',
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-runConflictCheck-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -355,16 +355,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-submitFiling-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-submitFiling-v1',
                  'did:web:lawfirm.etzhayyim.com',
-                 'ai.gftd.apps.lawfirm.submitFiling',
+                 'app.etzhayyim.apps.lawfirm.submitFiling',
                  'lawfirm_submit_filing',
                  60000,
                  '2026-04-27T23:02:00Z',
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-submitFiling-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-submitFiling-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -372,29 +372,29 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-issueInvoice-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-issueInvoice-v1',
                  'did:web:lawfirm.etzhayyim.com',
-                 'ai.gftd.apps.lawfirm.issueInvoice',
+                 'app.etzhayyim.apps.lawfirm.issueInvoice',
                  'lawfirm_issue_invoice',
                  60000,
                  '2026-04-27T23:02:00Z',
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-issueInvoice-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-issueInvoice-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-runConflictCheck-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-submitFiling-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-submitFiling-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-issueInvoice-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-issueInvoice-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-run-conflict-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-run-conflict-check-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-submit-filing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-submit-filing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-issue-invoice-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-issue-invoice-v1']}]
 
 
 def upgrade() -> None:

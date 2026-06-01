@@ -7,14 +7,14 @@ topic: ameno-headless-daemon
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191229-ameno-daemon-path-a-bun-langgraph.md
-  - 2605182312-local-bring-up-murakumo-gemma4.md
-  - 2605191135-ameno-tier2-daemon-residency.md
+  - 2605191229-ameno-daemon-path-a-bun-langgraph
+  - 2605182312-local-bring-up-murakumo-gemma4
+  - 2605191135-ameno-tier2-daemon-residency
 related:
-  - 2605191000-ameno-browser-pregel-reflection.md
-  - 2605191113-ameno-active-inference-lexical-surprise.md
-  - 2605191129-ameno-browser-tool-use-react.md
-  - 2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md
+V05191000-ameno-browser-pregel-reflection
+V05191113-ameno-active-inference-lexical-surprise
+V05191129-ameno-browser-tool-use-react
+  - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 ---
 
 # ADR 2605191257: Ameno headless daemon (Path B) — pymagatama Python port

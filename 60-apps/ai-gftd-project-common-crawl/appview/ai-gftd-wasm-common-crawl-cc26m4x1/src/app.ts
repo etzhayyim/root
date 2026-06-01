@@ -2,7 +2,7 @@
 // Entity extraction logic lives in pymagatama/primitives/common_crawl.py
 // (LangServer task type: commonCrawl.entities.extract, timeout 600s).
 // Hourly autonomous runs via extractEntities.bpmn R/PT1H timer-start (ADR-0056).
-import { createWorkerExport, decodeJson, nsid, type HostSDK } from "@gftd/magatama-host-sdk";
+import { createWorkerExport, decodeJson, nsid, type HostSDK } from "@etzhayyim/magatama-host-sdk";
 
 const VALID_DOMAINS = ["kuruma", "media_anime", "media_gamers", "handotai"] as const;
 type Domain = typeof VALID_DOMAINS[number];
@@ -38,7 +38,7 @@ export default createWorkerExport((sdk) => {
   // Heavy work: SELECT unextracted pages + OpenRouter LLM fan-out + DB writes.
   // Must run in L7 LangServer (600s budget), not L3 CF Worker (25s budget).
   sdk.app.command(
-    nsid("ai.gftd.commonCrawl.extractEntities"),
+    nsid("app.etzhayyim.commonCrawl.extractEntities"),
     async (_ctx, body) => {
       const params = decodeJson(body, { domain: "", limit: 15 });
       const domain = String(params.domain || "").trim() as Domain;
@@ -46,7 +46,7 @@ export default createWorkerExport((sdk) => {
         return JSON.stringify({ error: `unknown domain: ${domain}`, valid: [...VALID_DOMAINS] });
       }
       const limit = Math.min(Number(params.limit) || 15, 30);
-      return proxyToBpmn(sdk, "ai.gftd.commonCrawl.extractEntities", { domain, limit });
+      return proxyToBpmn(sdk, "app.etzhayyim.commonCrawl.extractEntities", { domain, limit });
     },
   );
   // sdk.app.scheduled removed — replaced by extractEntities.bpmn R/PT1H timer-start (ADR-0056).

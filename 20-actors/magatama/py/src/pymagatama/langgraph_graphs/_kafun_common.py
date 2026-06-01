@@ -24,9 +24,9 @@ RESEARCHER_DID = f"{KAFUN_CONTROLLER_DID}:actor:researcher"
 PROPOSER_DID = f"{KAFUN_CONTROLLER_DID}:actor:proposer"
 EXECUTOR_DID = f"{KAFUN_CONTROLLER_DID}:actor:executor"
 
-_LLM_URL = os.environ.get("GFTD_LLM_URL", "https://murakumo.etzhayyim.com/v1/chat/completions")
-_LLM_KEY = os.environ.get("GFTD_LLM_API_KEY", "sk-murakumo-local")
-_LLM_MODEL = os.environ.get("KAFUN_LLM_MODEL", os.environ.get("GFTD_LLM_MODEL", "qwen3-vl-8b"))
+_LLM_URL = os.environ.get("etzhayyim_LLM_URL", "https://murakumo.etzhayyim.com/v1/chat/completions")
+_LLM_KEY = os.environ.get("etzhayyim_LLM_API_KEY", "sk-murakumo-local")
+_LLM_MODEL = os.environ.get("KAFUN_LLM_MODEL", os.environ.get("etzhayyim_LLM_MODEL", "qwen3-vl-8b"))
 
 
 async def llm(prompt: str, *, temperature: float = 0.2, max_tokens: int = 1024) -> str:
@@ -53,4 +53,4 @@ def rkey(seed: str) -> str:
 
 
 def vertex_id(did: str, kind: str, key: str) -> str:
-    return f"at://{did}/ai.gftd.apps.kafun.{kind}/{key}"
+    return f"at://{did}/app.etzhayyim.apps.kafun.{kind}/{key}"

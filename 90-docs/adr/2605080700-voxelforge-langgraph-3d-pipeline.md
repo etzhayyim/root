@@ -24,7 +24,7 @@ depends_on:
   - adr-2605080200-pydantic-l6-validation-contract
   - adr-2605080300-sqlalchemy-core-usage-contract
   - adr-2605010000
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0041-pds-commit-content-addressed-pk
@@ -171,10 +171,10 @@ mv_3d_blob_count_by_source
 
 | NSID | kind | 用途 |
 |---|---|---|
-| `ai.gftd.voxelforge.generate` | procedure | text/image/cad 入力 → run_id を返す。LangGraph Server `/runs` への薄い proxy |
-| `ai.gftd.voxelforge.getRun` | query | run_id → status / current_node / artifact URI 一覧 |
-| `ai.gftd.voxelforge.listArtifacts` | query | designId or actor_did でフィルタ、ページング付き artifact list |
-| `ai.gftd.voxelforge.coverage` | query | artifact / design / run の総数 + format 内訳 |
+| `app.etzhayyim.voxelforge.generate` | procedure | text/image/cad 入力 → run_id を返す。LangGraph Server `/runs` への薄い proxy |
+| `app.etzhayyim.voxelforge.getRun` | query | run_id → status / current_node / artifact URI 一覧 |
+| `app.etzhayyim.voxelforge.listArtifacts` | query | designId or actor_did でフィルタ、ページング付き artifact list |
+| `app.etzhayyim.voxelforge.coverage` | query | artifact / design / run の総数 + format 内訳 |
 
 ### Forbidden patterns (ADR-2604282300 / ADR-0036 / ADR-0095 準拠)
 

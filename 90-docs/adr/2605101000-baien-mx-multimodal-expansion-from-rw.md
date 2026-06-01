@@ -19,7 +19,7 @@ related:
   - 30-graph/graph-schema/migrations/20260427001000_vector_embedding_project_tables.ts
   - 30-graph/graph-schema/migrations/20260502120000_v_training_text.ts
   - 30-graph/graph-schema/migrations/20260508230000_vertex_3d_blob_catalog.ts
-  - 90-docs/baien/multimodal-reasoning-roadmap.md
+  - doc-baien-multimodal-reasoning-roadmap
 supersedes: []
 superseded_by: []
 ---

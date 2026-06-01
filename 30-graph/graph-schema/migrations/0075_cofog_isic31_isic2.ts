@@ -10,9 +10,9 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                                          | Rows | Source                                    |
  * |-----------------------------------------------------|------|-------------------------------------------|
- * | ai.gftd.apps.cofog.function                         |  188 | UN COFOG (Classification of GFCE, 1999)   |
- * | ai.gftd.apps.open_isic.economic_activity_rev31      |  538 | UNSD ISIC Rev.3.1 (2002 revision)         |
- * | ai.gftd.apps.open_isic.economic_activity_rev2       |  277 | UNSD ISIC Rev.2 (1968, incl. 2 synthetic) |
+ * | app.etzhayyim.apps.cofog.function                         |  188 | UN COFOG (Classification of GFCE, 1999)   |
+ * | app.etzhayyim.apps.open_isic.economic_activity_rev31      |  538 | UNSD ISIC Rev.3.1 (2002 revision)         |
+ * | app.etzhayyim.apps.open_isic.economic_activity_rev2       |  277 | UNSD ISIC Rev.2 (1968, incl. 2 synthetic) |
  *
  * ### COFOG (Classification of the Functions of Government)
  * 188 nodes: 10 divisions / 69 groups / 109 classes.
@@ -45,9 +45,9 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New views
  *
- * - view_cofog_function: projection of ai.gftd.apps.cofog.function
- * - view_isic31_activity: projection of ai.gftd.apps.open_isic.economic_activity_rev31
- * - view_isic2_activity: projection of ai.gftd.apps.open_isic.economic_activity_rev2
+ * - view_cofog_function: projection of app.etzhayyim.apps.cofog.function
+ * - view_isic31_activity: projection of app.etzhayyim.apps.open_isic.economic_activity_rev31
+ * - view_isic2_activity: projection of app.etzhayyim.apps.open_isic.economic_activity_rev2
  *
  * ## Topology integrity (post-apply)
  *
@@ -75,7 +75,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.cofog.function'
+    WHERE collection = 'app.etzhayyim.apps.cofog.function'
   `.execute(db);
 
   await sql`
@@ -90,7 +90,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.open_isic.economic_activity_rev31'
+    WHERE collection = 'app.etzhayyim.apps.open_isic.economic_activity_rev31'
   `.execute(db);
 
   await sql`
@@ -105,7 +105,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.open_isic.economic_activity_rev2'
+    WHERE collection = 'app.etzhayyim.apps.open_isic.economic_activity_rev2'
   `.execute(db);
 
   // ── dim_world_domain ───────────────────────────────────────────────────
@@ -137,9 +137,9 @@ export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_cofog_function`.execute(db);
   await sql`DROP VIEW IF EXISTS view_isic31_activity`.execute(db);
   await sql`DROP VIEW IF EXISTS view_isic2_activity`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.cofog.function'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.open_isic.economic_activity_rev31'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.open_isic.economic_activity_rev2'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.cofog.function'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.open_isic.economic_activity_rev31'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.open_isic.economic_activity_rev2'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain IN ('cofog','isic31','isic2')`.execute(db);
   await sql`DELETE FROM edge_classified_as WHERE system IN ('isic31_isic4','isic31_isic5','isic2_isic31')`.execute(db);
 }

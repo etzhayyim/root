@@ -369,7 +369,7 @@ async def _ss3_encode_upload(state: CompositorState) -> dict[str, Any]:
             conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
             await conn.execute(
                 "UPDATE public.vertex_animeka SET output_cid = %s "
-                "WHERE rkey = %s AND collection = 'ai.gftd.animeka.cut'",
+                "WHERE rkey = %s AND collection = 'app.etzhayyim.animeka.cut'",
                 [output_cid, cut_rkey],
             )
             await conn.close()

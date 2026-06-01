@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govFji.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govFji.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Fiji government.",
-        "operationId": "ai.gftd.govFji.followSiteDeps",
+        "operationId": "app.etzhayyim.govFji.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFji.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govFji.heartbeatTick": {
       "post": {
         "summary": "Run the Fiji government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govFji.heartbeatTick",
+        "operationId": "app.etzhayyim.govFji.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFji.listOrgs": {
+    "/xrpc/app.etzhayyim.govFji.listOrgs": {
       "get": {
         "summary": "List Fiji government organization graph records.",
-        "operationId": "ai.gftd.govFji.listOrgs",
+        "operationId": "app.etzhayyim.govFji.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFji.registerDIDs": {
+    "/xrpc/app.etzhayyim.govFji.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Fiji government organizations.",
-        "operationId": "ai.gftd.govFji.registerDIDs",
+        "operationId": "app.etzhayyim.govFji.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFji.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govFji.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Fiji government organization path to its graph record.",
-        "operationId": "ai.gftd.govFji.resolveOrgPath",
+        "operationId": "app.etzhayyim.govFji.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFji.seedOrgs": {
+    "/xrpc/app.etzhayyim.govFji.seedOrgs": {
       "post": {
         "summary": "Seed initial Fiji government organization records into the graph.",
-        "operationId": "ai.gftd.govFji.seedOrgs",
+        "operationId": "app.etzhayyim.govFji.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFji.shinka": {
+    "/xrpc/app.etzhayyim.govFji.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Fiji government organization update.",
-        "operationId": "ai.gftd.govFji.shinka",
+        "operationId": "app.etzhayyim.govFji.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFji.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govFji.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Fiji government organization changes to graph.",
-        "operationId": "ai.gftd.govFji.syncWetUpdates",
+        "operationId": "app.etzhayyim.govFji.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

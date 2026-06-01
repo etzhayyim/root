@@ -52,7 +52,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Smoke-test autonomous email dispatch planning")
     parser.add_argument("--agent-did", default=os.environ.get("AGENT_DID", "did:web:local.etzhayyim.com"))
     parser.add_argument("--to", required=True)
-    parser.add_argument("--subject", default="GFTD autonomous email smoke")
+    parser.add_argument("--subject", default="etzhayyim autonomous email smoke")
     parser.add_argument("--text", default="hello from autonomous active-inference smoke")
     parser.add_argument(
         "--authority-ref",

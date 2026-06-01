@@ -1,8 +1,8 @@
 import {
   asAgentTool, createKyselyDb, createWorkerExport, withCapabilityTags,
   type HostSDK, nowISO, str, genID, nsid,
-} from "@gftd/magatama-host-sdk";
-import type { Database } from "@gftd/graph-schema";
+} from "@etzhayyim/magatama-host-sdk";
+import type { Database } from "@etzhayyim/graph-schema";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
 import puppeteer, { type Browser, type Page } from "@cloudflare/puppeteer";
@@ -26,13 +26,13 @@ function decodeParams(payload: any): Record<string, any> {
 }
 
 /**
- * ai.gftd.apps.cloudflareBrowserRender — CF Browser Rendering wrapper.
+ * app.etzhayyim.apps.cloudflareBrowserRender — CF Browser Rendering wrapper.
  *
  * Phase 2 (2026-04-20): DO-held chromium via `@cloudflare/puppeteer`.
  * `dispatchOp` forwards ops to the BrowserSessionDO which keeps a single
  * browser/page alive across calls. Alarm sweeps idle sessions at TTL.
  *
- * Called by ai.gftd.apps.playwright as a service binding (CF_BROWSER_RENDER).
+ * Called by app.etzhayyim.apps.playwright as a service binding (CF_BROWSER_RENDER).
  */
 
 const SESSION_TTL_SEC = 5 * 60;
@@ -42,7 +42,7 @@ async function writeRecord(db: Kysely<Database>, collection: string, rkey: strin
   const table = `vertex_${camelToSnake(ACTOR_NSID_NS)}_${camelToSnake(collection)}`;
   const now = new Date();
   const row: Record<string, unknown> = {
-    vertex_id: `at://${ACTOR_DID}/ai.gftd.apps.${ACTOR_NSID_NS}.${collection}/${rkey}`,
+    vertex_id: `at://${ACTOR_DID}/app.etzhayyim.apps.${ACTOR_NSID_NS}.${collection}/${rkey}`,
     _seq: null,
     created_date: now.toISOString().slice(0, 10),
     sensitivity_ord: 100,
@@ -265,7 +265,7 @@ export default createWorkerExport((sdk: HostSDK) => {
   const env = sdk.env as any;
   const db = createKyselyDb(env.HYPERDRIVE) as unknown as Kysely<Database>;
 
-    sdk.app.command(nsid("ai.gftd.apps.cloudflareBrowserRender.createSession"),
+    sdk.app.command(nsid("app.etzhayyim.apps.cloudflareBrowserRender.createSession"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const sessionId = `cf-${genID("cf")}`;
@@ -281,7 +281,7 @@ export default createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("cf-browser", "session"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.cloudflareBrowserRender.closeSession"),
+    sdk.app.command(nsid("app.etzhayyim.apps.cloudflareBrowserRender.closeSession"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const sessionId = str(params?.sessionId ?? "");
@@ -300,7 +300,7 @@ export default createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("cf-browser", "session"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.cloudflareBrowserRender.renderPage"),
+    sdk.app.command(nsid("app.etzhayyim.apps.cloudflareBrowserRender.renderPage"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const url = str(params?.url ?? "");
@@ -355,7 +355,7 @@ export default createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("cf-browser", "render"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.cloudflareBrowserRender.dispatchOp"),
+    sdk.app.command(nsid("app.etzhayyim.apps.cloudflareBrowserRender.dispatchOp"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const sessionId = str(params?.sessionId ?? "");

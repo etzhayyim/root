@@ -7,11 +7,11 @@ topic: ameno-auth
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191407-ameno-browser-viewer-mode.md
-  - 2605191229-ameno-daemon-path-a-bun-langgraph.md
-  - 2605191257-ameno-daemon-path-b-pymagatama-python.md
+  - 2605191407-ameno-browser-viewer-mode
+  - 2605191229-ameno-daemon-path-a-bun-langgraph
+  - 2605191257-ameno-daemon-path-b-pymagatama-python
 related:
-  - 2605191135-ameno-tier2-daemon-residency.md
+V05191135-ameno-tier2-daemon-residency
 ---
 
 # ADR 2605191657: Ameno daemon — did:key Ed25519 challenge-response auth

@@ -20,7 +20,7 @@
 |---|---|---|---|
 | **T0 Device-only** | macOS Keychain, WebAuthn PRF, 1Password master password | Hardware / OS enclave | **Never share.** Human uses them directly. |
 | **T1 Long-lived root** | `GOOGLE_OAUTH_CLIENT_SECRET`, `SS_REPO_SIGNING_KEK`, `CLOUDFLARE_API_TOKEN` | 1Password vault + CF Secrets Store | **Not in chat.** Pipe via `op read` or pre-provisioned env vars. Reference by secret *name*. |
-| **T2 Mid-lived session** | `GFTD_TOKEN` API key (`sk_live_*`), `~/.gftd/auth.json` JWT (90d refresh) | Encrypted at rest on dev box, `op` item | Export to env once per session. Claude references as `$GFTD_TOKEN`. |
+| **T2 Mid-lived session** | `etzhayyim_TOKEN` API key (`sk_live_*`), `~/.gftd/auth.json` JWT (90d refresh) | Encrypted at rest on dev box, `op` item | Export to env once per session. Claude references as `$etzhayyim_TOKEN`. |
 | **T3 Ephemeral scoped** | `gftd agent-token --lxm <nsid> --ttl 60`, OAuth access_token (1h) | In-memory, never persisted | **OK to pass directly.** 60s + single-method scope bounds blast radius. |
 
 ## Canonical flows
@@ -32,16 +32,16 @@
 eval "$(op signin)"
 
 # 2. Export T2 session key so Claude can reference it by name
-export GFTD_TOKEN="$(op read 'op://Dev/gftd-api-key/credential')"
+export etzhayyim_TOKEN="$(op read 'op://Dev/gftd-api-key/credential')"
 ```
 
-Claude never sees the actual token; it runs `curl -H "Authorization: Bearer $GFTD_TOKEN" ...` with the shell variable.
+Claude never sees the actual token; it runs `curl -H "Authorization: Bearer $etzhayyim_TOKEN" ...` with the shell variable.
 
 ### Per-call scoped token (the common case)
 
 ```bash
-AT_TOKEN=$(gftd agent-token --lxm ai.gftd.apps.gmail.syncInbox --ttl 60)
-curl -H "Authorization: Bearer $AT_TOKEN" https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.syncInbox -d '…'
+AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.apps.gmail.syncInbox --ttl 60)
+curl -H "Authorization: Bearer $AT_TOKEN" https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.syncInbox -d '…'
 ```
 
 One NSID per token. One minute lifetime. Caller DID in `iss` — audit trail intact.

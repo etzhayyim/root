@@ -74,13 +74,13 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       d.domain,
       d.app_host,
       CASE
-        WHEN d.app_host = 'ndc' THEN 'ai.gftd.apps.fda.ndc'
-        WHEN d.app_host = 'keiyaku' THEN 'ai.gftd.apps.keiyaku.contract'
-        WHEN d.app_host = 'seizo' THEN 'ai.gftd.apps.seizo.factory_site'
-        WHEN d.app_host = 'serial' THEN 'ai.gftd.apps.serial.mac_prefix'
-        WHEN d.app_host = 'malak' THEN 'ai.gftd.apps.malak.cve'
-        WHEN d.app_host = 'shigotoba' THEN 'ai.gftd.apps.shigotoba.shigotoba'
-        ELSE 'ai.gftd.coverage.bootstrap'
+        WHEN d.app_host = 'ndc' THEN 'app.etzhayyim.apps.fda.ndc'
+        WHEN d.app_host = 'keiyaku' THEN 'app.etzhayyim.apps.keiyaku.contract'
+        WHEN d.app_host = 'seizo' THEN 'app.etzhayyim.apps.seizo.factory_site'
+        WHEN d.app_host = 'serial' THEN 'app.etzhayyim.apps.serial.mac_prefix'
+        WHEN d.app_host = 'malak' THEN 'app.etzhayyim.apps.malak.cve'
+        WHEN d.app_host = 'shigotoba' THEN 'app.etzhayyim.apps.shigotoba.shigotoba'
+        ELSE 'app.etzhayyim.coverage.bootstrap'
       END AS collection,
       d.world_total,
       d.unit,

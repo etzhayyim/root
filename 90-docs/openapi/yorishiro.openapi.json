@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.yorishiro.createYorishiro": {
+    "/xrpc/app.etzhayyim.yorishiro.createYorishiro": {
       "post": {
         "summary": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.etzhayyim.com:{type}:{slug}.",
-        "operationId": "ai.gftd.yorishiro.createYorishiro",
+        "operationId": "app.etzhayyim.yorishiro.createYorishiro",
         "requestBody": {
           "required": true,
           "content": {
@@ -104,10 +104,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yorishiro.listYorishiros": {
+    "/xrpc/app.etzhayyim.yorishiro.listYorishiros": {
       "get": {
         "summary": "List yorishiro anchor entities with optional type/agent filter.",
-        "operationId": "ai.gftd.yorishiro.listYorishiros",
+        "operationId": "app.etzhayyim.yorishiro.listYorishiros",
         "parameters": [
           {
             "name": "type",
@@ -217,10 +217,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yorishiro.flyio.closeAccount": {
+    "/xrpc/app.etzhayyim.yorishiro.flyio.closeAccount": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.yorishiro.flyio.closeAccount",
+        "operationId": "app.etzhayyim.yorishiro.flyio.closeAccount",
         "requestBody": {
           "required": true,
           "content": {
@@ -292,10 +292,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yorishiro.flyio.deleteApp": {
+    "/xrpc/app.etzhayyim.yorishiro.flyio.deleteApp": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.yorishiro.flyio.deleteApp",
+        "operationId": "app.etzhayyim.yorishiro.flyio.deleteApp",
         "requestBody": {
           "required": true,
           "content": {
@@ -355,10 +355,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yorishiro.flyio.deleteOrg": {
+    "/xrpc/app.etzhayyim.yorishiro.flyio.deleteOrg": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.yorishiro.flyio.deleteOrg",
+        "operationId": "app.etzhayyim.yorishiro.flyio.deleteOrg",
         "requestBody": {
           "required": true,
           "content": {
@@ -419,10 +419,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yorishiro.flyio.getAccountInfo": {
+    "/xrpc/app.etzhayyim.yorishiro.flyio.getAccountInfo": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.yorishiro.flyio.getAccountInfo",
+        "operationId": "app.etzhayyim.yorishiro.flyio.getAccountInfo",
         "parameters": [
           {
             "name": "vaultRef",
@@ -461,10 +461,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yorishiro.flyio.getJobStatus": {
+    "/xrpc/app.etzhayyim.yorishiro.flyio.getJobStatus": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.yorishiro.flyio.getJobStatus",
+        "operationId": "app.etzhayyim.yorishiro.flyio.getJobStatus",
         "parameters": [
           {
             "name": "jobId",
@@ -500,10 +500,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yorishiro.flyio.listApps": {
+    "/xrpc/app.etzhayyim.yorishiro.flyio.listApps": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.yorishiro.flyio.listApps",
+        "operationId": "app.etzhayyim.yorishiro.flyio.listApps",
         "parameters": [
           {
             "name": "limit",

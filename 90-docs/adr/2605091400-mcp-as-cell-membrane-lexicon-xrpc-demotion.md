@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-15
 implementation_notes: |
   - media-gamers first impl (2026-05-13): capability_worker=a7m8oocs, 4 tools in vertex_capability, NSID alias in app.ts, profile.tools[] in magatama.jsonld
-  - malak.surveillance dual-wire impl (2026-05-15): 4 chains in `00-contracts/lexicons/ai/gftd/apps/malak/` simultaneously power (a) MCP tools at mcp.etzhayyim.com/mcp and (b) internal XRPC at dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.malak.*. Same lexicon JSON, two wires. SvelteKit `/mcp` route + `bpmn-dispatcher` both derive routing/validation from the lexicon.
+  - malak.surveillance dual-wire impl (2026-05-15): 4 chains in `00-contracts/lexicons/ai/gftd/apps/malak/` simultaneously power (a) MCP tools at mcp.etzhayyim.com/mcp and (b) internal XRPC at dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.malak.*. Same lexicon JSON, two wires. SvelteKit `/mcp` route + `bpmn-dispatcher` both derive routing/validation from the lexicon.
 authoritative_for:
   - MCP as sole external API surface (external = cell membrane)
   - Lexicon = dual-wire contract SSoT (drives MCP tool schema AND internal XRPC contract)
@@ -25,8 +25,8 @@ depends_on:
   - adr-2604231828-appview-domain-separation-bsky-gftd-ai
   - adr-2605131600-malak-orchestration-langgraph-pregel-langserve
 related:
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
-  - adr-2605091600-plasmid-graft-horizontal-acquisition
+  - adr-2604282300
+  - adr-2605091600-plasmid-graft-horizontal-tool-acquisition
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
 supersedes: []
 superseded_by: []
@@ -75,7 +75,7 @@ XRPC + lexicon は、cohort 内 (cytoplasm) の細胞間通信としては
 >
 > Reference implementation: malak.surveillance 4 chains (2026-05-15).
 > Same `bitnestExitPursuit.json` lexicon drives `malak.bitnestExitPursuit`
-> at `mcp.etzhayyim.com/mcp` and `ai.gftd.apps.malak.bitnestExitPursuit` at
+> at `mcp.etzhayyim.com/mcp` and `app.etzhayyim.apps.malak.bitnestExitPursuit` at
 > `dispatcher.etzhayyim.com/xrpc/...`.
 
 ## A. 三層境界
@@ -114,7 +114,7 @@ lexicon JSON は `00-contracts/lexicons/` に置く **first-class contract SSoT*
 - **1 lexicon = 2 wires**。Adding `00-contracts/lexicons/<path>.json` MUST
   surface the capability at both wires (external = MCP, internal = XRPC).
 - `params.name` MUST be the Lexicon NSID, **without translation** for both
-  wires. External MCP clients call `name: "ai.gftd.apps.malak.bitnestExitPursuit"`
+  wires. External MCP clients call `name: "app.etzhayyim.apps.malak.bitnestExitPursuit"`
   (or short alias `malak.bitnestExitPursuit` if registered) — same NSID.
 - 外部 surface でも内部 wire でも、validation source は同じ lexicon JSON。
   drift は禁止。
@@ -148,7 +148,7 @@ partner org / external service との初回接続:
 ## E. 内部 XRPC は維持 (cytoplasmic wire として first-class)
 
 - bsky federation (`app.bsky.*`) は引き続き XRPC + AT Protocol 経由
-- gftd 内部 service (`ai.gftd.apps.*`) も内部 RPC 用 XRPC は維持
+- gftd 内部 service (`app.etzhayyim.apps.*`) も内部 RPC 用 XRPC は維持
 - 内部 caller (CF Worker edge BFF → dispatcher、cohort 内 pod 間、operator CLI) は
   XRPC を直接使ってよい。strict `x-internal-trust` 認証 (`DISPATCHER_AUTH_MODE=strict`) で gate
 - **外部 caller** (Claude desktop, partner AI ecosystem, public API consumer) は MCP のみ。
@@ -169,7 +169,7 @@ MCP router 呼び出しは JSON-RPC 2.0 の `tools/call` を標準形とする�
   "id": "req-001",
   "method": "tools/call",
   "params": {
-    "name": "ai.gftd.apps.shinshi.getCategorySummary",
+    "name": "app.etzhayyim.apps.shinshi.getCategorySummary",
     "arguments": {
       "limit": 5000
     }
@@ -180,7 +180,7 @@ MCP router 呼び出しは JSON-RPC 2.0 の `tools/call` を標準形とする�
 **Tool name rule**:
 
 - `params.name` MUST be the Lexicon NSID, unchanged.
-- Example: `ai.gftd.apps.shinshi.listActresses`.
+- Example: `app.etzhayyim.apps.shinshi.listActresses`.
 - Server-side aliases using `_` or path fragments are non-canonical and may only
   exist as client compatibility shims.
 
@@ -196,7 +196,7 @@ Example `tools/list` entry:
 
 ```json
 {
-  "name": "ai.gftd.apps.shinshi.listActresses",
+  "name": "app.etzhayyim.apps.shinshi.listActresses",
   "description": "List Shinshi character DID identities.",
   "inputSchema": {
     "type": "object",
@@ -238,11 +238,11 @@ Rules:
 For Shinshi category pages, the canonical next read is:
 
 ```text
-ai.gftd.apps.shinshi.getCategorySummary
+app.etzhayyim.apps.shinshi.getCategorySummary
 ```
 
 returning pre-aggregated totals, series, genres, and letter counts from the pod.
-`ai.gftd.apps.shinshi.listActresses` remains a lower-level list tool.
+`app.etzhayyim.apps.shinshi.listActresses` remains a lower-level list tool.
 
 ## H. Wire efficiency decision
 
@@ -307,7 +307,7 @@ agent 実装が MCP に揃った後の roll-back は agent 改修コストが高
 # J. capability_worker Naming Convention (2026-05-13)
 
 `vertex_capability.capability_worker` は MCP adapter が
-`https://{capability_worker}.etzhayyim.com/xrpc/ai.gftd.apps.{capability_worker}.{method}`
+`https://{capability_worker}.etzhayyim.com/xrpc/app.etzhayyim.apps.{capability_worker}.{method}`
 の形式でルーティングするため、**DNS-safe な値 (ハイフン・英数字のみ) が必須**。
 アンダースコアは RFC 1123 hostname として無効。
 
@@ -316,11 +316,11 @@ agent 実装が MCP に揃った後の roll-back は agent 改修コストが高
 アンダースコアを含む app 名 (例: `media_gamers`) は禁止。
 
 **NSID alias pattern** (app.ts 側の対処):
-app 内 NSID prefix が `ai.gftd.apps.media_gamers.*` のように
+app 内 NSID prefix が `app.etzhayyim.apps.media_gamers.*` のように
 アンダースコアを含む場合、Worker の fetch handler に alias を追加する:
 
 ```ts
-const NSID_PREFIX_ALIAS = "ai.gftd.apps.a7m8oocs.";  // nanoid prefix
+const NSID_PREFIX_ALIAS = "app.etzhayyim.apps.a7m8oocs.";  // nanoid prefix
 if (nsid.startsWith(NSID_PREFIX_ALIAS)) {
   nsid = NSID_PREFIX + nsid.slice(NSID_PREFIX_ALIAS.length);
 }
@@ -337,9 +337,9 @@ Worker 内部の `media_gamers` ルーティングロジックに届く。
 
 # Known Issue: atproto.etzhayyim.com MCP router 522 (2026-05-13)
 
-`POST https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` が HTTP 522 を返す。
+`POST https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` が HTTP 522 を返す。
 原因: デプロイ済みの atproto Worker (SvelteKit BFF) の
-`AGENTGATEWAY_MCP_ROUTER_URL` が `https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`
+`AGENTGATEWAY_MCP_ROUTER_URL` が `https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message`
 に設定されており、同一 CF zone 内の自己ループになっている。
 `atproto-canary.etzhayyim.com` (実装側) は `x-internal-trust` ヘッダーなしで
 アクセス不可。この問題は media-gamers とは無関係の既存 infra rot。
@@ -355,10 +355,10 @@ both wires from one lexicon JSON each:
 
 | Lexicon path | MCP tool (external) | XRPC NSID (internal) |
 |---|---|---|
-| `bitnestExitPursuit.json` | `malak.bitnestExitPursuit` at `mcp.etzhayyim.com/mcp` | `ai.gftd.apps.malak.bitnestExitPursuit` at `dispatcher.etzhayyim.com/xrpc/...` |
-| `exportSurveillanceEvidence.json` | `malak.exportSurveillanceEvidence` | `ai.gftd.apps.malak.exportSurveillanceEvidence` |
-| `agencyOutreachFullFlow.json` | `malak.agencyOutreachFullFlow` | `ai.gftd.apps.malak.agencyOutreachFullFlow` |
-| `draftAgencyBriefing.json` | `malak.draftAgencyBriefing` | `ai.gftd.apps.malak.draftAgencyBriefing` |
+| `bitnestExitPursuit.json` | `malak.bitnestExitPursuit` at `mcp.etzhayyim.com/mcp` | `app.etzhayyim.apps.malak.bitnestExitPursuit` at `dispatcher.etzhayyim.com/xrpc/...` |
+| `exportSurveillanceEvidence.json` | `malak.exportSurveillanceEvidence` | `app.etzhayyim.apps.malak.exportSurveillanceEvidence` |
+| `agencyOutreachFullFlow.json` | `malak.agencyOutreachFullFlow` | `app.etzhayyim.apps.malak.agencyOutreachFullFlow` |
+| `draftAgencyBriefing.json` | `malak.draftAgencyBriefing` | `app.etzhayyim.apps.malak.draftAgencyBriefing` |
 
 **Wire diagram**:
 

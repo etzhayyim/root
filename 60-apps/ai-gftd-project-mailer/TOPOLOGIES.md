@@ -13,14 +13,14 @@
   - Reads inbound MIME
   - Resolves/creates email<->DID binding
   - Writes records to PDS collections:
-    - `ai.gftd.apps.mailer.inboundEmail`
-    - `ai.gftd.apps.mailer.emailBinding`
-    - `ai.gftd.apps.mailer.inboundEmailStatus`
+    - `app.etzhayyim.apps.mailer.inboundEmail`
+    - `app.etzhayyim.apps.mailer.emailBinding`
+    - `app.etzhayyim.apps.mailer.inboundEmailStatus`
   - Publishes to projector convo APIs
   - Stores relay state in `EMAIL_STATE` KV
 - `mailer-mcp-component` (appview Worker)
   - Serves static assets
-  - Proxies `ai.gftd.apps.mailer.*` XRPC calls to the BPMN dispatcher
+  - Proxies `app.etzhayyim.apps.mailer.*` XRPC calls to the BPMN dispatcher
   - Falls through non-mailer `/xrpc/*` calls to the PDS origin
 
 ### Trust Boundaries

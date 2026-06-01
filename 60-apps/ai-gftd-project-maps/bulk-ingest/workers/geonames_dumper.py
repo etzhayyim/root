@@ -153,12 +153,12 @@ def _row(fields: list[str]) -> dict | None:
         return None
     label = _classify_geonames(fcl, fcode)
     return {
-        "vertex_id": f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.spot/geonames-{gid}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.spot/geonames-{gid}",
         "rkey": f"geonames-{gid}",
         "repo": "did:web:maps.etzhayyim.com",
         "label": label,
         "did": "did:web:maps.etzhayyim.com",
-        "collection": "ai.gftd.apps.maps.spot",
+        "collection": "app.etzhayyim.apps.maps.spot",
         "name": name,
         "lat": lat,
         "lng": lon,

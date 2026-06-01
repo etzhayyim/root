@@ -1,7 +1,7 @@
 # kagami Cypher Builder — neo4j/cypher-builder 完全互換設計
 
 ## 背景
-現行 `@gftd/kagami-query-builder` の `G` は、Kagami 運用要件（selective WHERE 強制、禁止 predicate、strict mode、`exec/execCached` 直結）を内包している。
+現行 `@etzhayyim/kagami-query-builder` の `G` は、Kagami 運用要件（selective WHERE 強制、禁止 predicate、strict mode、`exec/execCached` 直結）を内包している。
 その結果、次の問題がある。
 
 - `@neo4j/cypher-builder` の API/概念モデルとズレる
@@ -33,12 +33,12 @@
 ## 提案アーキテクチャ
 
 ### 1. Core レイヤー（完全互換）
-新パッケージ: `@gftd/kagami-cypher-builder`
+新パッケージ: `@etzhayyim/kagami-cypher-builder`
 
 - `@neo4j/cypher-builder` を **そのまま再 export**
 - 追加クラス/追加メソッドは原則禁止
 - import 互換:
-  - 推奨: `import Cypher from "@gftd/kagami-cypher-builder"`
+  - 推奨: `import Cypher from "@etzhayyim/kagami-cypher-builder"`
   - 既存 Neo4j サンプル移植時: `import Cypher from "@neo4j/cypher-builder"` と等価
 
 実装方針:
@@ -48,7 +48,7 @@
 - 型定義は upstream 型を直接透過
 
 ### 2. Policy レイヤー（Kagami 制約の分離）
-新モジュール: `@gftd/kagami-cypher-policy`
+新モジュール: `@etzhayyim/kagami-cypher-policy`
 
 責務:
 
@@ -67,11 +67,11 @@ API 例:
 - Neo4j 互換 API を汚さない
 
 ### 3. Runtime レイヤー（実行責務の分離）
-新モジュール: `@gftd/kagami-cypher-runtime`
+新モジュール: `@etzhayyim/kagami-cypher-runtime`
 
 責務:
 
-- `ctx.aiGftdKagamiCypher` / `aiGftdKagamiCypherCached` への送信
+- `ctx.aietzhayyimKagamiCypher` / `aietzhayyimKagamiCypherCached` への送信
 - appId, ttl, observability, retry, timeout
 
 API 例:
@@ -85,7 +85,7 @@ API 例:
 - 互換上必要な期間だけ adapter で旧形式を提供
 
 ### 4. Legacy Adapter（移行用）
-新モジュール: `@gftd/kagami-query-builder-legacy-adapter`
+新モジュール: `@etzhayyim/kagami-query-builder-legacy-adapter`
 
 責務:
 
@@ -114,14 +114,14 @@ API 例:
 ### A. Upstream Contract Test（必須）
 
 - `@neo4j/cypher-builder` 公式ドキュメント例を fixture 化
-- `@gftd/kagami-cypher-builder` で同一コードを実行
+- `@etzhayyim/kagami-cypher-builder` で同一コードを実行
 - `cypher` / `params` が一致することを snapshot 検証
 
 ### B. Differential Test（必須）
 
 - 同じ DSL 入力を
   - `@neo4j/cypher-builder`
-  - `@gftd/kagami-cypher-builder`
+  - `@etzhayyim/kagami-cypher-builder`
  でビルドし、完全一致検証
 
 ### C. Policy Test（必須）
@@ -137,7 +137,7 @@ API 例:
 ## 移行計画
 
 1. Phase 0: 新コア導入
-- `@gftd/kagami-cypher-builder` を追加（re-export only）
+- `@etzhayyim/kagami-cypher-builder` を追加（re-export only）
 - contract/differential test を先に通す
 
 2. Phase 1: 実行・ポリシー分離
@@ -153,7 +153,7 @@ API 例:
 - 置換順は hot path から（feed/search/notification）
 
 5. Phase 4: 旧 API 廃止
-- CI で `@gftd/kagami-query-builder` 新規利用を禁止
+- CI で `@etzhayyim/kagami-query-builder` 新規利用を禁止
 - 最終的に legacy adapter を削除
 
 ## 破壊的変更の管理
@@ -176,7 +176,7 @@ API 例:
 
 ## 受け入れ基準 (DoD)
 
-- `@gftd/kagami-cypher-builder` の API が `@neo4j/cypher-builder` と 1:1
+- `@etzhayyim/kagami-cypher-builder` の API が `@neo4j/cypher-builder` と 1:1
 - 公式サンプル fixture の 100% パス
 - policy/runtime 分離後も既存 SLO（timeout/OOM 再発防止）を維持
 - 旧 `G` は deprecate 状態で動作、段階移行が可能
@@ -194,7 +194,7 @@ export * from "@neo4j/cypher-builder";
 export async function executeCypher(ctx, query, opts) {
   const { cypher, params } = query.build();
   // validateKagamiPolicy({ cypher, params }, opts.policy)
-  return ctx.aiGftdKagamiCypher({ cypher, params, appId: opts.appId });
+  return ctx.aietzhayyimKagamiCypher({ cypher, params, appId: opts.appId });
 }
 ```
 

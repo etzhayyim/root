@@ -39,7 +39,7 @@ function formRow(seed: FormSeed, seq: number) {
     variableMappings?: unknown;
   };
   return {
-    vertexId: `at://${seed.actorDid}/ai.gftd.form.task/${seed.key}`,
+    vertexId: `at://${seed.actorDid}/app.etzhayyim.form.task/${seed.key}`,
     seq,
     ownerDid: seed.actorDid,
     rkey: seed.key,

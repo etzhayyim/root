@@ -14,13 +14,13 @@ const actorId = "sys.mcp.seed.copyright";
 const createdAt = "2026-04-30T15:00:00+09:00";
 
 const nsids = [
-  "ai.gftd.apps.copyright.resolve",
-  "ai.gftd.apps.copyright.list",
-  "ai.gftd.apps.copyright.coverage",
-  "ai.gftd.apps.copyright.ingestCrossref",
-  "ai.gftd.apps.copyright.ingestDatacite",
-  "ai.gftd.apps.copyright.socialCoverageReport",
-  "ai.gftd.apps.copyright.chat",
+  "app.etzhayyim.apps.copyright.resolve",
+  "app.etzhayyim.apps.copyright.list",
+  "app.etzhayyim.apps.copyright.coverage",
+  "app.etzhayyim.apps.copyright.ingestCrossref",
+  "app.etzhayyim.apps.copyright.ingestDatacite",
+  "app.etzhayyim.apps.copyright.socialCoverageReport",
+  "app.etzhayyim.apps.copyright.chat",
 ];
 
 function lexiconPath(nsid: string): string {
@@ -30,7 +30,7 @@ function lexiconPath(nsid: string): string {
 }
 
 function mcpVertexId(nsid: string): string {
-  return `at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
+  return `at://did:web:copyright.etzhayyim.com/app.etzhayyim.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
 }
 
 function stableStringify(value: unknown): string {

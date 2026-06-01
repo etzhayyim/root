@@ -1,5 +1,5 @@
 """
-ai.gftd.agent.gameka.visualCritic — LangGraph visual + perf scoring loop
+app.etzhayyim.agent.gameka.visualCritic — LangGraph visual + perf scoring loop
 for gameka playtests (ADR 2604250900 P4).
 
 Closes the **inner QA loop**: takes 3 headless-WebGPU screenshots + page
@@ -389,7 +389,7 @@ async def task_agent_gameka_visual_critic(
     captureSucceeded: bool = True,
     threadId: str = "",
 ) -> dict:
-    """Entry point registered as `ai.gftd.agent.gameka.visualCritic` in
+    """Entry point registered as `app.etzhayyim.agent.gameka.visualCritic` in
     pymagatama.zeebe_worker_main."""
     initial: VisualState = {
         "specId": specId,

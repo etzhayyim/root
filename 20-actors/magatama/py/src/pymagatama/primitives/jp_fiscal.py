@@ -25,8 +25,8 @@ from pymagatama.db_sync import sync_cursor
 
 
 _OWNER_DID = "did:web:jp-fiscal.etzhayyim.com"
-_COL_UBO = "ai.gftd.apps.jpFiscal.beneficialOwner"
-_COL_CONTRACT = "ai.gftd.apps.jpFiscal.contract"
+_COL_UBO = "app.etzhayyim.apps.jpFiscal.beneficialOwner"
+_COL_CONTRACT = "app.etzhayyim.apps.jpFiscal.contract"
 _EDINET_URL = "https://disclosure.edinet-fsa.go.jp/api/v2/documents.json"
 
 _MINISTRY_URLS: dict[str, str] = {
@@ -78,7 +78,7 @@ async def task_jp_fiscal_ingest_edinet(
     async with aiohttp.ClientSession() as session:
         async with session.get(
             url,
-            headers={"User-Agent": "jp-fiscal.etzhayyim.com/1.0 contact@gftd.co.jp"},
+            headers={"User-Agent": "jp-fiscal.etzhayyim.com/1.0 contact@etzhayyim.com"},
             timeout=aiohttp.ClientTimeout(total=30),
         ) as resp:
             if resp.status != 200:
@@ -180,7 +180,7 @@ async def task_jp_fiscal_ingest_egov_contracts(
             try:
                 async with session.get(
                     url,
-                    headers={"User-Agent": "jp-fiscal.etzhayyim.com/1.0 contact@gftd.co.jp"},
+                    headers={"User-Agent": "jp-fiscal.etzhayyim.com/1.0 contact@etzhayyim.com"},
                     timeout=aiohttp.ClientTimeout(total=20),
                 ) as resp:
                     if resp.status != 200:

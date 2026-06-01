@@ -16,20 +16,20 @@ const ownerDid = "did:web:jpn-jma.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.jpn-jma";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-report-earthquake-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-jma-report-earthquake-v1",
     bpmnProcessId: "jpn_jma_report_earthquake",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-jma/reportEarthquake.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-jma-issue-weather-warning-v1",
     bpmnProcessId: "jpn_jma_issue_weather_warning",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-jma/issueWeatherWarning.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-reportEarthquake-v1",
-    nsid: "ai.gftd.apps.jpnJma.reportEarthquake", bpmnProcessId: "jpn_jma_report_earthquake",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-jma-reportEarthquake-v1",
+    nsid: "app.etzhayyim.apps.jpnJma.reportEarthquake", bpmnProcessId: "jpn_jma_report_earthquake",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1",
-    nsid: "ai.gftd.apps.jpnJma.issueWeatherWarning", bpmnProcessId: "jpn_jma_issue_weather_warning",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-jma-issueWeatherWarning-v1",
+    nsid: "app.etzhayyim.apps.jpnJma.issueWeatherWarning", bpmnProcessId: "jpn_jma_issue_weather_warning",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

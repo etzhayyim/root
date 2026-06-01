@@ -60,7 +60,7 @@ address_label_pursuit (multi-source label batch). What was still missing:
 ## 1. New Pregel: `chain_freeze_request_pursuit`
 
 Module: `20-actors/magatama/py/src/pymagatama/malak/langgraph/chain_freeze_request_pursuit.py`
-NSID: `ai.gftd.apps.malak.chainFreezeRequest`
+NSID: `app.etzhayyim.apps.malak.chainFreezeRequest`
 LangServer route: `POST /invoke/chainFreezeRequest`
 
 ### Topology (6 super-steps; ADR-2605152000 family)

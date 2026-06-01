@@ -1,10 +1,10 @@
 """FastAPI router for deploy-first query XRPC handlers.
 
 NSIDs:
-  ai.gftd.apps.yata.deployQuery
-  ai.gftd.apps.yata.executeDeployedQuery
-  ai.gftd.apps.yata.listDeployedQueries
-  ai.gftd.apps.yata.deleteDeployedQuery
+  app.etzhayyim.apps.yata.deployQuery
+  app.etzhayyim.apps.yata.executeDeployedQuery
+  app.etzhayyim.apps.yata.listDeployedQueries
+  app.etzhayyim.apps.yata.deleteDeployedQuery
 
 Auth: x-internal-trust HMAC (same pattern as bmc/handlers.py).
 The CF Worker validates quota before forwarding here.
@@ -12,7 +12,7 @@ The pod connects to RisingWave via asyncpg for both DDL and queries.
 
 TODO(substrate-boundary): replace RW query execution (db_execute, fetch via asyncpg)
 with AT Protocol storage per ADR-2605172000. Query registry: MST collection
-'ai.gftd.apps.yata.deployedQuery', results cached on IPFS. Update after schema finalized.
+'app.etzhayyim.apps.yata.deployedQuery', results cached on IPFS. Update after schema finalized.
 """
 from __future__ import annotations
 
@@ -80,7 +80,7 @@ def _parse_steps(steps_json: str) -> list[Step]:
 # ── deployQuery ────────────────────────────────────────────────────────
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.deployQuery")
+@router.post("/xrpc/app.etzhayyim.apps.yata.deployQuery")
 async def deploy_query(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -175,7 +175,7 @@ async def deploy_query(
 # ── executeDeployedQuery ────────────────────────────────────────────────
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.executeDeployedQuery")
+@router.post("/xrpc/app.etzhayyim.apps.yata.executeDeployedQuery")
 async def execute_deployed_query(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -245,7 +245,7 @@ async def execute_deployed_query(
 # ── listDeployedQueries ────────────────────────────────────────────────
 
 
-@router.get("/xrpc/ai.gftd.apps.yata.listDeployedQueries")
+@router.get("/xrpc/app.etzhayyim.apps.yata.listDeployedQueries")
 async def list_deployed_queries(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -275,7 +275,7 @@ async def list_deployed_queries(
 # ── deleteDeployedQuery ────────────────────────────────────────────────
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.deleteDeployedQuery")
+@router.post("/xrpc/app.etzhayyim.apps.yata.deleteDeployedQuery")
 async def delete_deployed_query(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),

@@ -61,7 +61,7 @@ media_gamers.translation {
 | **Search fallback** | primary `name` LIKE → 0件なら translation `name` LIKE |
 | **URL** | `/{lang}/game/{slug}` (例: `/en/game/elden-ring`, `/ja/game/elden-ring`) |
 | **SEO** | `<link rel="alternate" hreflang="en">` + `hreflang="ja"` + `hreflang="x-default"` |
-| **i18n.etzhayyim.com 連携** | Follow → ComAtprotoSyncSubscribeRepos で `ai.gftd.i18n.translation_completed` 受信 → translation record 自動作成 |
+| **i18n.etzhayyim.com 連携** | Follow → ComAtprotoSyncSubscribeRepos で `app.etzhayyim.i18n.translation_completed` 受信 → translation record 自動作成 |
 
 ### Translation API
 
@@ -82,34 +82,34 @@ media_gamers.translation {
 
 ## W Protocol Lexicon (CRITICAL)
 
-**全 AT Record は `ai.gftd.apps.media_gamers.*` namespace。** WIT = `gftd:media-gamers@1.0.0` (`wit/media-gamers/package.wit`)。
+**全 AT Record は `app.etzhayyim.apps.media_gamers.*` namespace。** WIT = `gftd:media-gamers@1.0.0` (`wit/media-gamers/package.wit`)。
 
 | Kind | AT Collection NSID | 説明 |
 |---|---|---|
-| `media_gamers.game_title` | `ai.gftd.apps.media_gamers.game_title` | ゲーム作品 (primary lang) |
-| `media_gamers.game_profile` | `ai.gftd.apps.media_gamers.game_profile` | 作品 DID profile |
-| `media_gamers.developer_studio` | `ai.gftd.apps.media_gamers.developer_studio` | 開発会社 |
-| `media_gamers.publisher_company` | `ai.gftd.apps.media_gamers.publisher_company` | パブリッシャー |
-| `media_gamers.game_character` | `ai.gftd.apps.media_gamers.game_character` | キャラクター |
-| `media_gamers.game_platform` | `ai.gftd.apps.media_gamers.game_platform` | プラットフォーム |
-| `media_gamers.guide` | `ai.gftd.apps.media_gamers.guide` | 攻略記事 (primary lang) |
-| `media_gamers.review` | `ai.gftd.apps.media_gamers.review` | レビュー |
-| `media_gamers.franchise_group` | `ai.gftd.apps.media_gamers.franchise_group` | フランチャイズ |
-| `media_gamers.game_event` | `ai.gftd.apps.media_gamers.game_event` | イベント |
-| `media_gamers.translation` | `ai.gftd.apps.media_gamers.translation` | **翻訳 Record (Pattern C)** |
-| `media_gamers.id_contract` | `ai.gftd.apps.media_gamers.id_contract` | **ID 正規化 contract** |
-| `media_gamers.game_work` | `ai.gftd.apps.media_gamers.game_work` | **作品レベル canonical entity** |
-| `media_gamers.game_release` | `ai.gftd.apps.media_gamers.game_release` | **platform/region/edition release** |
-| `media_gamers.game_listing` | `ai.gftd.apps.media_gamers.game_listing` | **store listing / product page** |
-| `media_gamers.game_sku` | `ai.gftd.apps.media_gamers.game_sku` | **physical SKU / GTIN/JAN/EAN/UPC** |
-| `media_gamers.record.gameItem` | `ai.gftd.apps.media_gamers.record.gameItem` | **in-game item (道具 / 素材 / 調理器具 etc.)** |
-| `media_gamers.record.itemRecipe` | `ai.gftd.apps.media_gamers.record.itemRecipe` | **crafting / cooking recipe** |
-| `media_gamers.knowledge.publishGameItem` | `ai.gftd.apps.media_gamers.knowledge.publishGameItem` | **item + optional recipe 登録 procedure** |
-| `media_gamers.knowledge.publishDomainKnowledge` | `ai.gftd.apps.media_gamers.knowledge.publishDomainKnowledge` | **任意 game_slug の domain knowledge 登録 (generic, N-game 対応)** |
-| `media_gamers.record.pokemon` | `ai.gftd.apps.media_gamers.record.pokemon` | **Pokémon pokedex entry (species / form / base_stats / types / habitat)。moves / evolutions は edge 側** |
-| `media_gamers.knowledge.publishPokemon` | `ai.gftd.apps.media_gamers.knowledge.publishPokemon` | **任意 game_slug の pokedex entry 登録 procedure** |
-| `media_gamers.record.translationLink` | `ai.gftd.apps.media_gamers.record.translationLink` | **ADR-0034 social-layer translation linkage** — 1 record per `(sourceUri, lang)` pair。Graph worker `handleCollection()` が typed `vertex_translation_link` (2 URI indexes) に projection。`value_json` parse なし |
-| `media_gamers.translation.listLinks` | `ai.gftd.apps.media_gamers.translation.listLinks` | **ADR-0034 query** — `{anyUri}` → `{sourceUri, sourceLang, links[]}`。yoro post 詳細ページで LangTabs を駆動。`createKyselyDb().selectFrom("vertex_translation_link")` typed Kysely 経由 |
+| `media_gamers.game_title` | `app.etzhayyim.apps.media_gamers.game_title` | ゲーム作品 (primary lang) |
+| `media_gamers.game_profile` | `app.etzhayyim.apps.media_gamers.game_profile` | 作品 DID profile |
+| `media_gamers.developer_studio` | `app.etzhayyim.apps.media_gamers.developer_studio` | 開発会社 |
+| `media_gamers.publisher_company` | `app.etzhayyim.apps.media_gamers.publisher_company` | パブリッシャー |
+| `media_gamers.game_character` | `app.etzhayyim.apps.media_gamers.game_character` | キャラクター |
+| `media_gamers.game_platform` | `app.etzhayyim.apps.media_gamers.game_platform` | プラットフォーム |
+| `media_gamers.guide` | `app.etzhayyim.apps.media_gamers.guide` | 攻略記事 (primary lang) |
+| `media_gamers.review` | `app.etzhayyim.apps.media_gamers.review` | レビュー |
+| `media_gamers.franchise_group` | `app.etzhayyim.apps.media_gamers.franchise_group` | フランチャイズ |
+| `media_gamers.game_event` | `app.etzhayyim.apps.media_gamers.game_event` | イベント |
+| `media_gamers.translation` | `app.etzhayyim.apps.media_gamers.translation` | **翻訳 Record (Pattern C)** |
+| `media_gamers.id_contract` | `app.etzhayyim.apps.media_gamers.id_contract` | **ID 正規化 contract** |
+| `media_gamers.game_work` | `app.etzhayyim.apps.media_gamers.game_work` | **作品レベル canonical entity** |
+| `media_gamers.game_release` | `app.etzhayyim.apps.media_gamers.game_release` | **platform/region/edition release** |
+| `media_gamers.game_listing` | `app.etzhayyim.apps.media_gamers.game_listing` | **store listing / product page** |
+| `media_gamers.game_sku` | `app.etzhayyim.apps.media_gamers.game_sku` | **physical SKU / GTIN/JAN/EAN/UPC** |
+| `media_gamers.record.gameItem` | `app.etzhayyim.apps.media_gamers.record.gameItem` | **in-game item (道具 / 素材 / 調理器具 etc.)** |
+| `media_gamers.record.itemRecipe` | `app.etzhayyim.apps.media_gamers.record.itemRecipe` | **crafting / cooking recipe** |
+| `media_gamers.knowledge.publishGameItem` | `app.etzhayyim.apps.media_gamers.knowledge.publishGameItem` | **item + optional recipe 登録 procedure** |
+| `media_gamers.knowledge.publishDomainKnowledge` | `app.etzhayyim.apps.media_gamers.knowledge.publishDomainKnowledge` | **任意 game_slug の domain knowledge 登録 (generic, N-game 対応)** |
+| `media_gamers.record.pokemon` | `app.etzhayyim.apps.media_gamers.record.pokemon` | **Pokémon pokedex entry (species / form / base_stats / types / habitat)。moves / evolutions は edge 側** |
+| `media_gamers.knowledge.publishPokemon` | `app.etzhayyim.apps.media_gamers.knowledge.publishPokemon` | **任意 game_slug の pokedex entry 登録 procedure** |
+| `media_gamers.record.translationLink` | `app.etzhayyim.apps.media_gamers.record.translationLink` | **ADR-0034 social-layer translation linkage** — 1 record per `(sourceUri, lang)` pair。Graph worker `handleCollection()` が typed `vertex_translation_link` (2 URI indexes) に projection。`value_json` parse なし |
+| `media_gamers.translation.listLinks` | `app.etzhayyim.apps.media_gamers.translation.listLinks` | **ADR-0034 query** — `{anyUri}` → `{sourceUri, sourceLang, links[]}`。yoro post 詳細ページで LangTabs を駆動。`createKyselyDb().selectFrom("vertex_translation_link")` typed Kysely 経由 |
 
 ## ID Normalization Contract
 
@@ -326,7 +326,7 @@ LLM 翻訳 → back-translation → COMET score check
 評価方法:
 1. 各モデルに同一プロンプト (ボス攻略記事) を投入
 2. qwen2.5-coder-32b がクロス評価 (judge)
-3. 結果は `ai.gftd.apps.media_gamers.model_evaluation` record に永続化
+3. 結果は `app.etzhayyim.apps.media_gamers.model_evaluation` record に永続化
 
 **評価軸:**
 
@@ -419,9 +419,9 @@ PyTorch + transformers で NLLB-200-distilled-1.3B をローカル検証:
 
 | Collection | Action |
 |---|---|
-| `ai.gftd.apps.media_gamers.guide` | quality evaluation → translate if score >= 70 |
-| `ai.gftd.apps.media_gamers.translation` | social announce |
-| `ai.gftd.apps.media_gamers.game_title` | event recording |
+| `app.etzhayyim.apps.media_gamers.guide` | quality evaluation → translate if score >= 70 |
+| `app.etzhayyim.apps.media_gamers.translation` | social announce |
+| `app.etzhayyim.apps.media_gamers.game_title` | event recording |
 
 ### Shinka (Layer 3) — joucho 情緒 cadence-driven
 
@@ -461,7 +461,7 @@ gftd deploy       # account-level Worker
 ## API Endpoints
 
 - App: `https://a7m8oocs.etzhayyim.com`
-- XRPC: `https://a7m8oocs.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.{command}`
+- XRPC: `https://a7m8oocs.etzhayyim.com/xrpc/app.etzhayyim.apps.media_gamers.{command}`
 - Route: `https://media-gamers.etzhayyim.com`
 - Health: `https://a7m8oocs.etzhayyim.com/health`
 - Heartbeat: `POST https://a7m8oocs.etzhayyim.com/_heartbeat`
@@ -472,30 +472,30 @@ Claude Code (this chat agent) can trigger commands via `gftd xrpc`:
 
 ```bash
 # Step-by-step seed (run each in order after previous completes)
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedAll -d '{"step":"platforms"}' --app a7m8oocs
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedAll -d '{"step":"developers"}' --app a7m8oocs
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedAll -d '{"step":"publishers"}' --app a7m8oocs
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedAll -d '{"step":"franchises"}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"platforms"}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"developers"}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"publishers"}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"franchises"}' --app a7m8oocs
 
 # Seed games in batches (current seed: 53 total)
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedGames -d '{"offset":0,"limit":10}' --app a7m8oocs
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedGames -d '{"offset":10,"limit":10}' --app a7m8oocs
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedGames -d '{"offset":20,"limit":10}' --app a7m8oocs
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedGames -d '{"offset":30,"limit":10}' --app a7m8oocs
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedGames -d '{"offset":40,"limit":10}' --app a7m8oocs
-gftd xrpc ai.gftd.apps.media_gamers.catalog.seedGames -d '{"offset":50,"limit":10}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":0,"limit":10}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":10,"limit":10}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":20,"limit":10}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":30,"limit":10}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":40,"limit":10}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":50,"limit":10}' --app a7m8oocs
 
 # Register JP release candidates from in-app seed catalog into normalization records
-gftd xrpc ai.gftd.apps.media_gamers.normalization.registerJapanReleasedFromSeed -d '{}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.normalization.registerJapanReleasedFromSeed -d '{}' --app a7m8oocs
 
 # Generate guides for a single game
-gftd xrpc ai.gftd.apps.media_gamers.catalog.generateAll -d '{"slug":"elden-ring"}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.generateAll -d '{"slug":"elden-ring"}' --app a7m8oocs
 
 # Generate guides in batches of 5
-gftd xrpc ai.gftd.apps.media_gamers.catalog.generateAll -d '{"offset":0,"limit":5}' --app a7m8oocs
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.generateAll -d '{"offset":0,"limit":5}' --app a7m8oocs
 
 # Query — check game data
-gftd xrpc ai.gftd.apps.media_gamers.catalog.getGame --app a7m8oocs --json
+gftd xrpc app.etzhayyim.apps.media_gamers.catalog.getGame --app a7m8oocs --json
 ```
 
 `gftd xrpc` source: `70-tools/gftd/gftd/xrpc.go`

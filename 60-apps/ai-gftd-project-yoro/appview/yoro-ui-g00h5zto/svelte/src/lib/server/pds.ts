@@ -66,6 +66,12 @@ export interface PdsThreadResponse {
 // --- Direct XRPC fetch (Worker binding fast path + HTTP fallback) ---
 
 const PDS_BASE = 'https://atproto.etzhayyim.com';
+// Apex substrate front door. Registered etzhayyim actors
+// (did:web:etzhayyim.com:actor:*) — including kotoba-native actors like tsumugi
+// that have NO atproto repo — resolve their profile from the actor registry
+// (KV → kotoba → compiled) served by the apex Worker, not from the PDS. Per
+// ADR-2606013800. The PDS path stays the resolver for human members / agents.
+const APEX_BASE = 'https://etzhayyim.com';
 const PDS_TIMEOUT_MS = 3000;
 
 function withHardTimeout<T>(promise: Promise<T>, timeoutMs = PDS_TIMEOUT_MS): Promise<T> {
@@ -88,16 +94,14 @@ interface PdsServiceBinding {
 	fetch(input: Request | string, init?: RequestInit): Promise<Response>;
 }
 
-async function pdsGet<T>(path: string, params: Record<string, string>, platform?: any): Promise<T | null> {
+async function xrpcGet<T>(base: string, path: string, params: Record<string, string>, doFetch: typeof fetch): Promise<T | null> {
 	const qs = new URLSearchParams(params).toString();
-	const url = `${PDS_BASE}/xrpc/${path}${qs ? `?${qs}` : ''}`;
+	const url = `${base}/xrpc/${path}${qs ? `?${qs}` : ''}`;
 	const init: RequestInit = {
 		method: 'GET',
 		headers: { accept: 'application/json' },
 		signal: AbortSignal.timeout(PDS_TIMEOUT_MS),
 	};
-	const binding = platform?.env?.PDS_SERVICE as PdsServiceBinding | undefined;
-	const doFetch = binding ? binding.fetch.bind(binding) : fetch;
 	try {
 		const res = await withHardTimeout(doFetch(url, init), PDS_TIMEOUT_MS);
 		if (!res.ok) return null;
@@ -105,6 +109,17 @@ async function pdsGet<T>(path: string, params: Record<string, string>, platform?
 	} catch {
 		return null;
 	}
+}
+
+async function pdsGet<T>(path: string, params: Record<string, string>, platform?: any): Promise<T | null> {
+	const binding = platform?.env?.PDS_SERVICE as PdsServiceBinding | undefined;
+	const doFetch = binding ? (binding.fetch.bind(binding) as typeof fetch) : fetch;
+	return xrpcGet<T>(PDS_BASE, path, params, doFetch);
+}
+
+/** Apex actor-registry resolution (plain cross-origin fetch; no PDS binding). */
+async function apexGetProfile(actor: string): Promise<Profile | null> {
+	return xrpcGet<Profile>(APEX_BASE, 'app.bsky.actor.getProfile', { actor }, fetch);
 }
 
 // --- Public API: tiered resolution ---
@@ -115,7 +130,23 @@ export async function resolveHandle(handle: string, platform?: any): Promise<str
 }
 
 export async function getProfile(actor: string, platform?: any): Promise<Profile | null> {
-	return pdsGet<Profile>('app.bsky.actor.getProfile', { actor }, platform);
+	// Registered etzhayyim actor DIDs resolve from the apex actor registry first
+	// (covers kotoba-native actors with no PDS repo, e.g. tsumugi). Additive +
+	// fallback-preserving: anything the registry doesn't know falls through to
+	// the PDS exactly as before. Per ADR-2606013800.
+	const isActorDid = actor.startsWith('did:web:etzhayyim.com:actor:');
+	if (isActorDid) {
+		const viaApex = await apexGetProfile(actor);
+		if (viaApex) return viaApex;
+	}
+	const viaPds = await pdsGet<Profile>('app.bsky.actor.getProfile', { actor }, platform);
+	if (viaPds) return viaPds;
+	// Bare-handle actor fallback (e.g. /profile/tsumugi): try the apex registry
+	// only after the PDS misses, so human-member resolution is never affected.
+	if (!actor.startsWith('did:')) {
+		return apexGetProfile(actor);
+	}
+	return null;
 }
 
 export async function getPostThread(uri: string, platform?: any): Promise<PdsThreadResponse | null> {

@@ -17,13 +17,13 @@
     }
   },
   "dependencies": {
-    "@atproto/api": "^0.13.18"
+    "@atproto/api": "^0.20.7"
   },
   "files": [
     "src"
   ],
   "license": "UNLICENSED",
-  "copyright": "Copyright (c) 2026 gftd.co.jp. All Rights Reserved.",
+  "copyright": "Copyright (c) 2026 etzhayyim.com. All Rights Reserved.",
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com"

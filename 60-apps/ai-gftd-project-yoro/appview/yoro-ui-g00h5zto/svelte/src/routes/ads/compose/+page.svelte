@@ -4,7 +4,7 @@
 	 *
 	 * Creates a campaign (or picks an existing one) and publishes a sponsored
 	 * `app.bsky.feed.post` with self-label `!ad` via the ads worker
-	 * (`ai.gftd.apps.ads.postSponsored`). The post shows up in the yoro feed
+	 * (`app.etzhayyim.apps.ads.postSponsored`). The post shows up in the yoro feed
 	 * ranker pool after the campaign DID is added to SPONSORED_DIDS.
 	 *
 	 * ADR: 90-docs/adr/0039-yoro-ads-integration.md §Sponsored Feed
@@ -47,7 +47,7 @@
 		loading = true;
 		loadError = '';
 		try {
-			const res: any = await atQuery('ai.gftd.apps.ads.listCampaigns', { limit: 100 });
+			const res: any = await atQuery('app.etzhayyim.apps.ads.listCampaigns', { limit: 100 });
 			campaigns = (res?.campaigns ?? []) as Campaign[];
 			if (!selectedCampaignId && campaigns.length) selectedCampaignId = campaigns[0].campaignId;
 		} catch (e: any) {
@@ -61,7 +61,7 @@
 		if (!newName.trim()) return;
 		creatingCampaign = true;
 		try {
-			const res: any = await atProcedure('ai.gftd.apps.ads.createCampaign', {
+			const res: any = await atProcedure('app.etzhayyim.apps.ads.createCampaign', {
 				name: newName.trim(),
 				description: newDescription.trim() || undefined,
 				advertiser: newAdvertiser.trim() || undefined,
@@ -82,7 +82,7 @@
 		posting = true;
 		postError = '';
 		try {
-			const res: any = await atProcedure('ai.gftd.apps.ads.postSponsored', {
+			const res: any = await atProcedure('app.etzhayyim.apps.ads.postSponsored', {
 				campaignId: selectedCampaignId,
 				text: postText.trim(),
 				embedUri: embedUri.trim() || undefined,

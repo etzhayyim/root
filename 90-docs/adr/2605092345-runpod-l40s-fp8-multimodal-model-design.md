@@ -13,7 +13,7 @@ authoritative_for:
   - modality encoder and embedding-model coverage
   - deployment split between vLLM inference (6000 Ada), H100 trainer, embedding workers, and RW lineage
 depends_on:
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2605070700-rw-native-model-training-weight-lineage
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
   - adr-2605092200-continuous-metabolic-training
@@ -366,7 +366,7 @@ Codex attempted to start training from the existing `gftd training` surface:
 - `https://58pvflvw9w6nt3-8003.proxy.runpod.net/healthz` returned `404`, so
   `training_http_server` is not currently exposed/running on the documented
   unified training port.
-- `op` / 1Password was checked against vault `Gftd Japan株式会社`.
+- `op` / 1Password was checked against vault `etzhayyim Japan株式会社`.
   `gftd.runpod/RUNPOD_API_KEY` and `gftd.hf/HF_TOKEN` were present and were
   restored into macOS Keychain as `gftd.runpod/RUNPOD_API_KEY` and
   `gftd.hf/HF_TOKEN` without printing secret values.

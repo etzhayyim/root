@@ -43,16 +43,16 @@ _EXPECTED_GRAPHS = {
 }
 
 _EXPECTED_NSID_MAP = {
-    "ai.gftd.apps.pdColor.health":                       "health",
-    "ai.gftd.apps.pdColor.videoSegmentShots":             "videoSegmentShots",
-    "ai.gftd.apps.pdColor.videoRestoreFrames":            "videoRestoreFrames",
-    "ai.gftd.apps.pdColor.videoColorizeFrames":           "videoColorizeFrames",
-    "ai.gftd.apps.pdColor.videoEnhanceQuality":           "videoEnhanceQuality",
-    "ai.gftd.apps.pdColor.videoEncodePackage":            "videoEncodePackage",
-    "ai.gftd.apps.pdColor.videoMuxLocalizedPackages":     "videoMuxLocalizedPackages",
-    "ai.gftd.apps.pdColor.audioExtractTimedText":         "audioExtractTimedText",
-    "ai.gftd.apps.pdColor.audioGenerateDubbedAudio":      "audioGenerateDubbedAudio",
-    "ai.gftd.apps.pdColor.localizationTranslateSubtitles": "localizationTranslateSubtitles",
+    "app.etzhayyim.apps.pdColor.health":                       "health",
+    "app.etzhayyim.apps.pdColor.videoSegmentShots":             "videoSegmentShots",
+    "app.etzhayyim.apps.pdColor.videoRestoreFrames":            "videoRestoreFrames",
+    "app.etzhayyim.apps.pdColor.videoColorizeFrames":           "videoColorizeFrames",
+    "app.etzhayyim.apps.pdColor.videoEnhanceQuality":           "videoEnhanceQuality",
+    "app.etzhayyim.apps.pdColor.videoEncodePackage":            "videoEncodePackage",
+    "app.etzhayyim.apps.pdColor.videoMuxLocalizedPackages":     "videoMuxLocalizedPackages",
+    "app.etzhayyim.apps.pdColor.audioExtractTimedText":         "audioExtractTimedText",
+    "app.etzhayyim.apps.pdColor.audioGenerateDubbedAudio":      "audioGenerateDubbedAudio",
+    "app.etzhayyim.apps.pdColor.localizationTranslateSubtitles": "localizationTranslateSubtitles",
 }
 
 
@@ -130,5 +130,5 @@ def test_unknown_assistant_404(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/ai.gftd.apps.pdColor.unknownMethod", json={})
+    r = client.post("/xrpc/app.etzhayyim.apps.pdColor.unknownMethod", json={})
     assert r.status_code == 404

@@ -31,6 +31,15 @@ export interface EtzhayyimConfig {
   /** Base L2 RPC URL. Default: `https://mainnet.base.org`. */
   l2RpcUrl?: string;
 
+  /**
+   * yatachain-projection: feed-discover projector DID (ADR-2605231500).
+   * When set, feed read paths (`yoro-rw-free/src/feed.ts` getTimeline /
+   * getDiscoverFeed) consult the cross-DID projection emitted by
+   * mst-projector instead of the single-actor MST. Falls back to the
+   * single-actor read on miss.
+   */
+  projectionDiscoverDid?: string;
+
   /** Address of the anchor contract on Base L2 (ADR-2605171800 Stage 5). */
   anchorContract?: `0x${string}`;
 
@@ -67,7 +76,7 @@ export interface Signer {
 // ─── Write API (replaces SQL INSERT) ────────────────────────────────
 
 export interface WriteOpts<T extends Record<string, unknown>> {
-  /** Lexicon NSID. e.g. `ai.gftd.apps.openIsco.occupation`. */
+  /** Lexicon NSID. e.g. `app.etzhayyim.apps.openIsco.occupation`. */
   collection: string;
 
   /** Record body. Validated against the resolved lexicon shape. */
@@ -108,6 +117,31 @@ export interface WriteReceipt {
    * on-chain anchor tx is async unless `anchorNow: true` was set.
    */
   pendingAnchor: bigint;
+}
+
+// ─── Blob upload API (Tier D — content-addressed IPFS pin) ─────────
+
+export interface UploadBlobOpts {
+  /** Raw bytes to pin. Empty / zero-byte payloads are rejected. */
+  data: Uint8Array | Blob;
+
+  /**
+   * MIME type echoed back in the receipt and used when the caller stores
+   * the resulting CID inside an MST record. Not transmitted to Kubo
+   * (Kubo treats all blob payloads as opaque bytes).
+   */
+  mediaType?: string;
+}
+
+export interface UploadBlobReceipt {
+  /** Content-addressed CID returned by Kubo. */
+  cid: string;
+
+  /** Byte length as reported by Kubo. */
+  sizeBytes: number;
+
+  /** Echoed MIME type (defaults to `application/octet-stream`). */
+  mediaType: string;
 }
 
 // ─── Read API (replaces SQL SELECT) ─────────────────────────────────
@@ -192,6 +226,7 @@ export class Etzhayyim {
       | "anchorContract"
       | "session"
       | "auth"
+      | "projectionDiscoverDid"
     >
   > &
     Pick<
@@ -202,6 +237,7 @@ export class Etzhayyim {
       | "anchorContract"
       | "session"
       | "auth"
+      | "projectionDiscoverDid"
     >;
 
   #pds?: AtpAgent;
@@ -213,6 +249,7 @@ export class Etzhayyim {
       ipfsGateway: config.ipfsGateway ?? "https://ipfs.etzhayyim.com",
       ipfsApiUrl: config.ipfsApiUrl,
       l2RpcUrl: config.l2RpcUrl ?? "https://mainnet.base.org",
+      projectionDiscoverDid: config.projectionDiscoverDid,
       anchorContract: config.anchorContract,
       signer: config.signer,
       session: config.session,
@@ -371,6 +408,40 @@ export class Etzhayyim {
       cid: rec.cid,
       value: rec.value as T,
       blobs: Object.keys(blobs).length > 0 ? blobs : undefined,
+    };
+  }
+
+  /**
+   * Pin raw bytes to IPFS and return the content-addressed CID. Tier D
+   * blob path — callers store the returned CID inside an MST record via
+   * a `payloadKind: "ipfs"` discriminator (ADR-2605231400 §7).
+   *
+   * Independent of `write()` because gsplat / vision / satellite payloads
+   * are produced by long-running jobs whose register-side record lands
+   * minutes later. Splitting the pin from the record write lets the
+   * caller hash the payload before deciding whether to re-upload.
+   */
+  async uploadBlob(opts: UploadBlobOpts): Promise<UploadBlobReceipt> {
+    if (!this.config.ipfsApiUrl) {
+      throw new Error(
+        "[etzhayyim-sdk] uploadBlob(): ipfsApiUrl not configured"
+      );
+    }
+    const sizeProbe =
+      opts.data instanceof Blob ? opts.data.size : opts.data.byteLength;
+    if (sizeProbe === 0) {
+      throw new Error("[etzhayyim-sdk] uploadBlob(): empty payload");
+    }
+    const mediaType =
+      opts.mediaType ??
+      (opts.data instanceof Blob && opts.data.type
+        ? opts.data.type
+        : "application/octet-stream");
+    const pinned = await ipfsModule.pinBlob(this.config.ipfsApiUrl, opts.data);
+    return {
+      cid: pinned.cid,
+      sizeBytes: pinned.size,
+      mediaType,
     };
   }
 
@@ -549,3 +620,12 @@ export {
   type CreateAgentOpts,
   type XrpcOpts,
 } from "./atproto.js";
+export {
+  donate,
+  isAllowedDonationPurpose,
+  mapDonationPurpose,
+  type DonateOpts,
+  type DonateConfig,
+  type DonateResult,
+  type DonatePurpose,
+} from "./donate.js";

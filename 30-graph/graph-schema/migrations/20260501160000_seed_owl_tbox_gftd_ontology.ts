@@ -1,6 +1,6 @@
 import { Kysely, sql } from "kysely";
 
-// GFTD Ontology T-Box seed (ADR-0044 Phase 2).
+// etzhayyim Ontology T-Box seed (ADR-0044 Phase 2).
 //
 // Populates vertex_owl_class / vertex_owl_property / edge_owl_subclass /
 // edge_owl_property_domain / edge_owl_property_range + vertex_shacl_shape
@@ -27,7 +27,7 @@ const PROFILE = "gftd_core_v1";
 const NS = "https://schema.etzhayyim.com/owl#";
 const XSD = "http://www.w3.org/2001/XMLSchema#";
 const RDFS_NS = "http://www.w3.org/2000/01/rdf-schema#";
-const SOURCE = "ai.gftd.apps.owl.seedTbox";
+const SOURCE = "app.etzhayyim.apps.owl.seedTbox";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
@@ -37,8 +37,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // v_rdf_triple.object (which emits "gftd:Actor" etc.)
   const classes = [
     { vid: "gftd:Thing",          iri: `${NS}Thing`,          label: "owl:Thing (root)" },
-    { vid: "gftd:Resource",       iri: `${NS}Resource`,       label: "GFTD Resource" },
-    { vid: "gftd:Actor",          iri: `${NS}Actor`,          label: "GFTD Actor" },
+    { vid: "gftd:Resource",       iri: `${NS}Resource`,       label: "etzhayyim Resource" },
+    { vid: "gftd:Actor",          iri: `${NS}Actor`,          label: "etzhayyim Actor" },
     { vid: "gftd:MagatamaActor",  iri: `${NS}MagatamaActor`,  label: "Magatama Actor (BPMN-resident)" },
     { vid: "gftd:HumanActor",     iri: `${NS}HumanActor`,     label: "Human Actor (natural person)" },
     { vid: "gftd:OrgActor",       iri: `${NS}OrgActor`,       label: "Organisation Actor" },

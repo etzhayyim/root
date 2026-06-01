@@ -1,6 +1,6 @@
 """animeka `updateCutStage` graph — update pipeline stage status on a cut.
 
-NSID: ai.gftd.animeka.updateCutStage
+NSID: app.etzhayyim.animeka.updateCutStage
 Mutates vertex_animeka.stage_status (JSON map) for the given stage key.
 Assignees map is also patched if assigneeDid is supplied.
 """
@@ -64,7 +64,7 @@ async def _node_update(state: _UpdateCutStageState) -> dict[str, Any]:
             # Fetch current stage_status and assignees
             await cur.execute(
                 """SELECT vertex_id, stage_status, assignees FROM vertex_animeka
-                   WHERE collection='ai.gftd.animeka.cut' AND rkey=%s LIMIT 1""",
+                   WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1""",
                 [cut_rkey],
             )
             row = await cur.fetchone()

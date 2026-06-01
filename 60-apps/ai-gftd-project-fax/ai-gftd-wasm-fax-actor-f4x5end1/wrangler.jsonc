@@ -15,16 +15,16 @@
   "vars": {
     "APP_CAPABILITIES": "[\"fax-compose-and-send\",\"fax-confirm-manual-send\",\"fax-render-pdf\",\"fax-upload-document\",\"document-transport\"]",
     "APP_DESCRIPTION": "FAX送受信AIエージェント — text/markdown/HTML を A4 PDF に render し、Dropbox Fax UI への manual-handoff で operator が送信。Mailer actor 経由で Teams 通知。Phaxio API path はコード残置 dead path。MCP-callable: composeAndSend / confirmManualSend / renderPdf / uploadDocument。内容証明・労基署・裁判所等の紙面行政対応。",
-    "APP_DISPLAY_NAME": "FAX Gateway (Gftd Japan)",
-    "APP_EMBED_URL": "https://f4x5end1.gftd.ai/?embed=1",
+    "APP_DISPLAY_NAME": "FAX Gateway (etzhayyim Japan)",
+    "APP_EMBED_URL": "https://f4x5end1.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "f4x5end1",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "CDN_PUBLIC_BASE_URL": "https://fax.gftd.ai/api/blob",
+    "CDN_PUBLIC_BASE_URL": "https://fax.etzhayyim.com/api/blob",
     "DROPBOX_FAX_UI_URL": "https://app.hellofax.com/",
     "FAX_PROVIDER": "manual",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -36,12 +36,12 @@
   ],
   "routes": [
     {
-      "pattern": "f4x5end1.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "f4x5end1.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "fax.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "fax.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

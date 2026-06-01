@@ -4,7 +4,7 @@
 
 ## Architecture
 
-- **Ingest**: Follow photos.etzhayyim.com → on `ai.gftd.apps.photos.photo` create → analyze
+- **Ingest**: Follow photos.etzhayyim.com → on `app.etzhayyim.apps.photos.photo` create → analyze
 - **Face Analysis**: Murakumo VL (qwen3-vl-8b) for apparent age, gender, facial structure, skin condition, expression
 - **Personality Inference**: Big Five traits (openness, conscientiousness, extraversion, agreeableness, neuroticism) from facial features + clothing style
 - **Fashion Classification**: clothing style, color palette, silhouette, era/trend via Murakumo VL
@@ -89,14 +89,14 @@ Cross-link: `MATCH (nc:NinsoProfileCohort)-[:MAPS_TO]->(np:NaturalPersonCohort)`
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.ninso.faceAnalysis` | record | Face analysis result (derived classifications) |
-| `ai.gftd.apps.ninso.personalityInference` | record | Big Five personality inference |
-| `ai.gftd.apps.ninso.styleClassification` | record | Fashion/style classification |
-| `ai.gftd.apps.ninso.profile` | record | Combined profile (face + personality + style) |
-| `ai.gftd.apps.ninso.faceCohort` | record | Face cohort statistics |
-| `ai.gftd.apps.ninso.styleCohort` | record | Style cohort statistics |
-| `ai.gftd.apps.ninso.profileCohort` | record | Combined profile cohort statistics |
-| `ai.gftd.apps.ninso.analysisJob` | record | Analysis job tracking |
+| `app.etzhayyim.apps.ninso.faceAnalysis` | record | Face analysis result (derived classifications) |
+| `app.etzhayyim.apps.ninso.personalityInference` | record | Big Five personality inference |
+| `app.etzhayyim.apps.ninso.styleClassification` | record | Fashion/style classification |
+| `app.etzhayyim.apps.ninso.profile` | record | Combined profile (face + personality + style) |
+| `app.etzhayyim.apps.ninso.faceCohort` | record | Face cohort statistics |
+| `app.etzhayyim.apps.ninso.styleCohort` | record | Style cohort statistics |
+| `app.etzhayyim.apps.ninso.profileCohort` | record | Combined profile cohort statistics |
+| `app.etzhayyim.apps.ninso.analysisJob` | record | Analysis job tracking |
 
 ## SQL Graph Schema
 

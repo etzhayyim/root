@@ -12,7 +12,7 @@ interface Env {
 }
 
 const APP = "compintel";
-const NSID_PREFIX = "ai.gftd.apps.compintel.";
+const NSID_PREFIX = "app.etzhayyim.apps.compintel.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

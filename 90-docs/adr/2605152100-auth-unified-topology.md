@@ -5,7 +5,7 @@ status: active
 doc_type: adr
 topic: auth-topology
 authoritative: true
-last_verified: 2026-05-15 (Phase 3 callsite migration done)
+last_verified: 2026-05-15
 authoritative_for:
   - auth canonical domain (auth.etzhayyim.com)
   - worker split (auth = AuthN, authz = AuthZ)
@@ -17,8 +17,8 @@ related:
   - 90-docs/adr/0010-per-did-signing-key-custody.md
   - 90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md
   - 90-docs/adr/0095-simplified-3layer-identity-rw-vault.md
-  - 90-docs/adr/2604240914-oauth-rs-binding-revocation-introspection.md
-  - 90-docs/adr/2605141700-agent-authentication-api-key-rotation-pattern.md
+  - adr-2604240914-oauth-rs-binding-revocation-introspection
+  - adr-2605141700-agent-authentication-api-key-rotation-pattern
 supersedes:
   - adr-0022-auth-topology-consolidation
   - adr-0023-auth-shannon-optimal-4-layer
@@ -97,10 +97,10 @@ L3  E2E Confidentiality  (orthogonal, Signal X25519)
 ```
 
 `auth.etzhayyim.com` は **OAuth AS ではない**。担当は:
-- `POST /xrpc/ai.gftd.auth.createApiKey` — passkey セッション → sk_live_* 発行
+- `POST /xrpc/app.etzhayyim.auth.createApiKey` — passkey セッション → sk_live_* 発行
 - `GET  /.well-known/did.json` — Worker 自身の did:web document
 - `GET  /sign-in` / `/sign-up` — passkey UI (HTML)
-- `POST /xrpc/ai.gftd.auth.passkeyRegister` / `passkeyAuthenticate`
+- `POST /xrpc/app.etzhayyim.auth.passkeyRegister` / `passkeyAuthenticate`
 
 CLI の `gftd authn signin` は現状 2 つの問題がある (ADR-2605141700):
 1. URL が stale: `authn.etzhayyim.com/oauth/authorize` → `atproto.etzhayyim.com/oauth/authorize` に修正必要
@@ -151,13 +151,13 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 
 | Worker | DNS | NSID prefix |
 |---|---|---|
-| ai-gftd-auth | `auth.etzhayyim.com` | `ai.gftd.auth.*` |
-| ai-gftd-authz | `authz.etzhayyim.com` (+ accounts alias) | `ai.gftd.authz.*` |
+| ai-gftd-auth | `auth.etzhayyim.com` | `app.etzhayyim.auth.*` |
+| ai-gftd-authz | `authz.etzhayyim.com` (+ accounts alias) | `app.etzhayyim.authz.*` |
 | ai-gftd-pds (atproto) | `atproto.etzhayyim.com` | `com.atproto.*` |
 
 **廃止 legacy alias (authz Worker から削除)**:
-- `GET  /xrpc/ai.gftd.auth.getSession` on authz → `ai.gftd.authz.getSession` に rename
-- `POST /xrpc/ai.gftd.auth.linkEmailBegin` / `linkEmailVerify` / `linkOAuthStart` on authz → `ai.gftd.authz.*` に rename
+- `GET  /xrpc/app.etzhayyim.auth.getSession` on authz → `app.etzhayyim.authz.getSession` に rename
+- `POST /xrpc/app.etzhayyim.auth.linkEmailBegin` / `linkEmailVerify` / `linkOAuthStart` on authz → `app.etzhayyim.authz.*` に rename
 
 ---
 
@@ -171,8 +171,8 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 [x] PDS resolveDIDSigningKey: did:web:authn.etzhayyim.com 検出時に env.AUTH_SERVICE.fetch() 経路を維持 (変更不要を確認)
 
 # NSID rename (Lexicon JSON 同時更新必須)
-[ ] authz Worker: ai.gftd.auth.getSession → ai.gftd.authz.getSession (Lexicon JSON + handler)
-[ ] authz Worker: ai.gftd.auth.linkEmail* / linkOAuth* → ai.gftd.authz.* (Lexicon JSON + handler)
+[ ] authz Worker: app.etzhayyim.auth.getSession → app.etzhayyim.authz.getSession (Lexicon JSON + handler)
+[ ] authz Worker: app.etzhayyim.auth.linkEmail* / linkOAuth* → app.etzhayyim.authz.* (Lexicon JSON + handler)
 
 # Phase 3 callsite migration (2026-05-15 完了)
 [x] auth Worker getServiceAuth: _SVC_AUTH_ISS_ALLOWLIST (6 entries) + Option B HMAC gate (magatama のみ)

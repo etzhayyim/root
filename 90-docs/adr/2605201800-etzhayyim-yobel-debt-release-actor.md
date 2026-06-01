@@ -11,19 +11,19 @@ axis: doctrine-runtime
 weight: 0.75
 priority_note: "etzhayyim Mission Charter §1 (構造的労働解放) の **金銭的負債** 局面における doctrinal runtime。bankruptcy.etzhayyim.com (vendor, mandatory legal procedure intelligence) と相補的に、religious-corp 主導の voluntary 集合債務免除 rite を AT MST + Base L2 USDC で実装する。SBT-gated eligibility + Council Lv6+ ratification + transparent on-chain settlement の三条件下で運用される。"
 authoritative_for:
-  - org.etzhayyim.yobel.* lexicon family (transitional NSID: ai.gftd.apps.etzhayyim.yobel.*)
+  - org.etzhayyim.yobel.* lexicon family (transitional NSID: app.etzhayyim.apps.etzhayyim.yobel.*)
   - shmita / yobel / tokusei-rei / Catholic Jubilee / political amnesty rite catalog
   - voluntary creditor opt-in + signedConsent invariant
   - USDC-on-Base-L2 settlement boundary (no fiat)
   - cross-actor fallback to bankruptcy.etzhayyim.com (vendor side, mandatory legal)
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
-  - adr-2605192115-etzhayyim-tithe-public-fund
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - vendor:90-docs/adr/2605201700-yobel-jubilee-shmita-debt-release-actor.md
+  - adr-2605201700-yobel-jubilee-shmita-debt-release-actor
   - vendor:60-apps/ai-gftd-project-bankruptcy/CLAUDE.md
   - vendor:90-docs/adr/0016-legal-cluster-topology.md
   - vendor:90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md
@@ -70,7 +70,7 @@ etzhayyim Mission Charter (ADR-2605192100) は **構造的労働解放** を最�
 | **DID** | `did:web:yobel.etzhayyim.com` (primary) |
 | **Substrate** | AT MST + IPFS + Base L2 (RW-free — vendor の RisingWave は使わない) |
 | **Settlement** | USDC on Base L2 via ERC725 Smart Wallet。fiat / Stripe / 銀行決済 禁止 |
-| **NSID (current)** | `ai.gftd.apps.etzhayyim.yobel.*` (kuniUmi precedent と整合) |
+| **NSID (current)** | `app.etzhayyim.apps.etzhayyim.yobel.*` (kuniUmi precedent と整合) |
 | **NSID (canonical, future)** | `org.etzhayyim.yobel.*` (post-org-rename cutover) |
 | **Runtime** | TS Native + Lexicon Contract |
 | **Charter alignment** | Mission §1 (構造的労働解放) の monetary-debt 局面における doctrinal runtime |
@@ -85,7 +85,7 @@ etzhayyim Mission Charter (ADR-2605192100) は **構造的労働解放** を最�
 | `yobel_50yr` | יובל Jubilee | 49/50 年毎 | Lev 25:8-13 | debt + land tenure + bondage |
 | `tokusei_rei` | 徳政令 | 政治契機 | 室町/鎌倉幕府慣行 | 借券無効化 |
 | `religious_jubilee` | Catholic Holy Year | 25 年毎 | Boniface VIII 1300 + Paul VI 1967 | spiritual / temporal punishment |
-| `political_amnesty` | Modern Amnesty | ad-hoc | 主権者宣言 / 議会決議 | **mass amnesty for natural-person debtors** (e.g. national tax delinquency pardon, post-conflict veteran debt cancellation, individual loan amnesty). NOT sovereign/corporate debt restructuring — that is handled by the sibling [`amnesty.etzhayyim.com`](2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) actor (ADR-2605202000). |
+| `political_amnesty` | Modern Amnesty | ad-hoc | 主権者宣言 / 議会決議 | **mass amnesty for natural-person debtors** (e.g. national tax delinquency pardon, post-conflict veteran debt cancellation, individual loan amnesty). NOT sovereign/corporate debt restructuring — that is handled by the sibling [`amnesty.etzhayyim.com`](/90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) actor (ADR-2605202000). |
 
 ## Invariants (NON-NEGOTIABLE)
 
@@ -112,7 +112,7 @@ Political amnesty rites under yobel handle **mass amnesty for individual debtors
 - Veteran debt cancellation acts
 - Individual loan amnesty under sovereign decree
 
-Examples **out of yobel scope but in [amnesty.etzhayyim.com](2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) scope** (sibling actor, ADR-2605202000):
+Examples **out of yobel scope but in [amnesty.etzhayyim.com](/90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) scope** (sibling actor, ADR-2605202000):
 
 - HIPC / Paris Club sovereign debt restructuring (state-to-state) → `amnesty.sovereign_multilateral` / `amnesty.sovereign_bilateral`
 - Corporate Chapter 11 amnesty (legal person) → `amnesty.corporate_chapter_11`
@@ -159,7 +159,7 @@ vendor 境界 (3-axis split, vendor ADR-2605172400):
 - **Custody** = AT MST + IPFS (etzhayyim substrate)
 - **Settlement** = USDC on Base L2 (etzhayyim substrate)
 
-vendor (Gftd Japan) は **意思決定権なし**。本 actor の出力 (release 記録) を読み取って bankruptcy.etzhayyim.com の case management に紐付ける逆方向参照は許容 (vendor → etzhayyim の read-only consumer)。
+vendor (etzhayyim Japan) は **意思決定権なし**。本 actor の出力 (release 記録) を読み取って bankruptcy.etzhayyim.com の case management に紐付ける逆方向参照は許容 (vendor → etzhayyim の read-only consumer)。
 
 # Consequences
 
@@ -189,11 +189,11 @@ vendor (Gftd Japan) は **意思決定権なし**。本 actor の出力 (release
 
 **B. 5 actor cluster (shmita / yobel / tokusei / jubilee / amnesty を分離)** — 却下。データモデル (debt registration + voluntary opt-in + release tx) はすべて同一。rite type discriminator で 1 actor に統合する方が Shannon-optimal。
 
-**C. vendor 配置 (`ai.gftd.apps.yobel.*`)** — 却下。3-axis split: liability (religious doctrine) / custody (collective ritual records) / settlement (USDC on Base L2, no fiat) すべて etzhayyim clean。
+**C. vendor 配置 (`app.etzhayyim.apps.yobel.*`)** — 却下。3-axis split: liability (religious doctrine) / custody (collective ritual records) / settlement (USDC on Base L2, no fiat) すべて etzhayyim clean。
 
 **D. RW + Hyperdrive 経由実装** — 却下。vendor:ADR-2605172000 etzhayyim substrate boundary により RW は vendor 限定。
 
-**E. canonical NSID で `org.etzhayyim.yobel.*` を本 repo に最初から使う** — 却下 (transitional)。`kuniUmi` precedent が `ai.gftd.apps.etzhayyim.kuniUmi.*` を使っているため、整合性のため transition 期間は `ai.gftd.apps.etzhayyim.yobel.*` で書き、登記後の org-rename cutover で `org.etzhayyim.*` に一括 sed する (220-file cutover script に乗せる)。
+**E. canonical NSID で `org.etzhayyim.yobel.*` を本 repo に最初から使う** — 却下 (transitional)。`kuniUmi` precedent が `app.etzhayyim.apps.etzhayyim.kuniUmi.*` を使っているため、整合性のため transition 期間は `app.etzhayyim.apps.etzhayyim.yobel.*` で書き、登記後の org-rename cutover で `org.etzhayyim.*` に一括 sed する (220-file cutover script に乗せる)。
 
 **F. SBT 不要、誰でも opt-in 可能** — 却下。Charter §1.13 SBT-based identity invariant と整合させるため `enrollDebtor` / `enrollCreditor` は SBT 保有 DID 限定 (verifyEligibility で gate)。
 

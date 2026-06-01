@@ -3,7 +3,7 @@
 
 Reads Phase 3 output (domains_for_classification.jsonl.gz or Cypher batch files),
 creates DID actors (com.atproto.identity.create) and domain metadata records
-(ai.gftd.apps.site.domain) in PDS via XRPC.
+(app.etzhayyim.apps.site.domain) in PDS via XRPC.
 
 DID hierarchy:
   did:web:site.etzhayyim.com                          (APP primary, existing)
@@ -71,8 +71,8 @@ signal.signal(signal.SIGTERM, handle_signal)
 
 
 def get_auth_token() -> str:
-    """Resolve auth token from GFTD_TOKEN env or ~/.gftd/auth.json."""
-    token = os.environ.get("GFTD_TOKEN", "")
+    """Resolve auth token from etzhayyim_TOKEN env or ~/.gftd/auth.json."""
+    token = os.environ.get("etzhayyim_TOKEN", "")
     if token:
         return token
     if AUTH_TOKEN_FILE.exists():
@@ -174,7 +174,7 @@ def inject_domains(domains: list[dict], dry_run: bool, batch_size: int):
     """Create DID actors + site.domain records in PDS for each domain."""
     token = get_auth_token()
     if not token and not dry_run:
-        log.error("No auth token. Run 'gftd auth login' first or set GFTD_TOKEN.")
+        log.error("No auth token. Run 'gftd auth login' first or set etzhayyim_TOKEN.")
         sys.exit(1)
 
     state = load_state()
@@ -251,7 +251,7 @@ def inject_domains(domains: list[dict], dry_run: bool, batch_size: int):
         }
         xrpc_call("com.atproto.repo.createRecord", {
             "repo": SITE_APP_DID,
-            "collection": "ai.gftd.apps.site.domain",
+            "collection": "app.etzhayyim.apps.site.domain",
             "rkey": domain_name,  # use domain as rkey so mv_cc_domain_coverage JOIN matches
             "record": domain_record,
         }, token)
@@ -308,7 +308,7 @@ def load_domains_from_risingwave(limit: int = 0) -> list[dict]:
         SELECT vd.vertex_id, vd.domain, vd.topics
         FROM vertex_domain vd
         LEFT JOIN vertex_actor va
-          ON va.collection = 'ai.gftd.apps.site.domain' AND va.rkey = vd.domain
+          ON va.collection = 'app.etzhayyim.apps.site.domain' AND va.rkey = vd.domain
         WHERE va.rkey IS NULL
           AND vd.domain LIKE '%.%'
           AND vd.domain ~ '^[a-zA-Z0-9]'

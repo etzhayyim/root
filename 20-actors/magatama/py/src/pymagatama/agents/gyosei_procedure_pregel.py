@@ -35,7 +35,7 @@ async def fan_out_procedures(state: GyoseiProcedureState) -> GyoseiProcedureStat
 
 async def start_procedure(state: GyoseiProcedureState) -> GyoseiProcedureState:
     logger.info(f"[gyosei_pregel] Starting procedure for {state.get('current_case_id')}")
-    # MCP: Call ai.gftd.apps.gyosei.startProcedure
+    # MCP: Call app.etzhayyim.apps.gyosei.startProcedure
     state["instance_key"] = 9999
     return state
 
@@ -68,7 +68,7 @@ async def review_gate(state: GyoseiProcedureState) -> str:
 
 async def submit_draft(state: GyoseiProcedureState) -> GyoseiProcedureState:
     logger.info(f"[gyosei_pregel] Submitting draft for {state.get('current_case_id')}")
-    # MCP: Call ai.gftd.apps.gyosei.submitDraft
+    # MCP: Call app.etzhayyim.apps.gyosei.submitDraft
     state["submission_status"] = "submitted"
     return state
 

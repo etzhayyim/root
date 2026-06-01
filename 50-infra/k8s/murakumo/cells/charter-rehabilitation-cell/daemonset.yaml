@@ -14,7 +14,7 @@ metadata:
     etzhayyim.com/leader-hostname: naphtalinomac-mini.local
     etzhayyim.com/trigger: mst-listener
     etzhayyim.com/healthz-port: '13003'
-    etzhayyim.com/listens-to: ai.gftd.apps.etzhayyim.charter-rehabilitation
+    etzhayyim.com/listens-to: app.etzhayyim.apps.etzhayyim.charter-rehabilitation
     etzhayyim.com/adr: '2605192230'
 spec:
   selector:

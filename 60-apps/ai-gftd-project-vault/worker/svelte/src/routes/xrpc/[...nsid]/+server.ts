@@ -21,7 +21,7 @@ function noStore(body: unknown, init?: ResponseInit): Response {
 }
 
 async function getCallerDid(request: Request, env: Env): Promise<string | null> {
-  const authnUrl = (env.AUTHN_URL ?? "https://authn.gftd.ai").replace(/\/$/, "");
+  const authnUrl = (env.AUTHN_URL ?? "https://authn.etzhayyim.com").replace(/\/$/, "");
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 4000);
@@ -200,9 +200,9 @@ export const POST: RequestHandler = async (event) => {
   try { input = await event.request.json() as Record<string, unknown>; } catch { /* empty body ok */ }
 
   switch (nsid) {
-    case "ai.gftd.vault.createVault": return handleCreateVault(db, did, input);
-    case "ai.gftd.vault.putItem":     return handlePutItem(db, did, input);
-    case "ai.gftd.vault.deleteItem":  return handleDeleteItem(db, did, input);
+    case "app.etzhayyim.vault.createVault": return handleCreateVault(db, did, input);
+    case "app.etzhayyim.vault.putItem":     return handlePutItem(db, did, input);
+    case "app.etzhayyim.vault.deleteItem":  return handleDeleteItem(db, did, input);
     default: return noStore({ error: `Unknown method: ${nsid}` }, { status: 404 });
   }
 };
@@ -219,9 +219,9 @@ export const GET: RequestHandler = async (event) => {
   const p = event.url.searchParams;
 
   switch (nsid) {
-    case "ai.gftd.vault.listVaults":  return handleListVaults(db, did);
-    case "ai.gftd.vault.listItems":   return handleListItems(db, did, p.get("vaultId") ?? "");
-    case "ai.gftd.vault.getItem":     return handleGetItem(db, did, p.get("itemId") ?? "", p.get("vaultId") ?? "");
+    case "app.etzhayyim.vault.listVaults":  return handleListVaults(db, did);
+    case "app.etzhayyim.vault.listItems":   return handleListItems(db, did, p.get("vaultId") ?? "");
+    case "app.etzhayyim.vault.getItem":     return handleGetItem(db, did, p.get("itemId") ?? "", p.get("vaultId") ?? "");
     default: return noStore({ error: `Unknown method: ${nsid}` }, { status: 404 });
   }
 };
@@ -230,7 +230,7 @@ export const OPTIONS: RequestHandler = async () =>
   new Response(null, {
     status: 204,
     headers: {
-      "access-control-allow-origin": "https://vault.gftd.ai",
+      "access-control-allow-origin": "https://vault.etzhayyim.com",
       "access-control-allow-methods": "GET,POST,OPTIONS",
       "access-control-allow-headers": "content-type",
     },

@@ -424,7 +424,7 @@ def test_li_warrant_close_dry_run_returns_dict() -> None:
 
 def test_mec_host_register_dry_run_returns_dict() -> None:
     result = asyncio.run(TMEC.task_telecom_mec_host_register(
-        oCloudId="ocloud-001", vendor="GFTD", hostFqdn="mec.host.example.com",
+        oCloudId="ocloud-001", vendor="etzhayyim", hostFqdn="mec.host.example.com",
         edgeZone="tokyo-east", plmnId="44010",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
     ))
@@ -433,7 +433,7 @@ def test_mec_host_register_dry_run_returns_dict() -> None:
 
 def test_mec_host_register_dry_run_ok() -> None:
     result = asyncio.run(TMEC.task_telecom_mec_host_register(
-        oCloudId="ocloud-001", vendor="GFTD", hostFqdn="mec.host.example.com",
+        oCloudId="ocloud-001", vendor="etzhayyim", hostFqdn="mec.host.example.com",
         edgeZone="tokyo-east", plmnId="44010",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
     ))
@@ -442,7 +442,7 @@ def test_mec_host_register_dry_run_ok() -> None:
 
 def test_mec_app_onboard_dry_run_returns_dict() -> None:
     result = asyncio.run(TMEC.task_telecom_mec_app_onboard(
-        vendor="GFTD", name="VideoAnalytics", version="1.0.0",
+        vendor="etzhayyim", name="VideoAnalytics", version="1.0.0",
         appDescriptor="tosca", latencyClass="urllc",
         packageHash="sha256:pkghash",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
@@ -514,7 +514,7 @@ def test_mec_eas_terminate_dry_run_returns_dict() -> None:
 
 def test_nfv_nsd_onboard_dry_run_returns_dict() -> None:
     result = asyncio.run(TNFV.task_telecom_nfv_nsd_onboard(
-        vendor="GFTD", name="5G-Core-NS", version="1.0.0",
+        vendor="etzhayyim", name="5G-Core-NS", version="1.0.0",
         descriptorFormat="tosca", constituentVnfdIds=["vnfd-001"],
         packageHash="sha256:pkghash",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
@@ -524,7 +524,7 @@ def test_nfv_nsd_onboard_dry_run_returns_dict() -> None:
 
 def test_nfv_nsd_onboard_dry_run_ok() -> None:
     result = asyncio.run(TNFV.task_telecom_nfv_nsd_onboard(
-        vendor="GFTD", name="5G-Core-NS", version="1.0.0",
+        vendor="etzhayyim", name="5G-Core-NS", version="1.0.0",
         descriptorFormat="tosca", constituentVnfdIds=["vnfd-001"],
         packageHash="sha256:pkghash",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
@@ -534,7 +534,7 @@ def test_nfv_nsd_onboard_dry_run_ok() -> None:
 
 def test_nfv_vnfd_onboard_dry_run_returns_dict() -> None:
     result = asyncio.run(TNFV.task_telecom_nfv_vnfd_onboard(
-        vendor="GFTD", name="UPF-VNF", version="1.0.0",
+        vendor="etzhayyim", name="UPF-VNF", version="1.0.0",
         vnfKind="container_cnf", descriptorFormat="helm",
         deploymentFlavors=["small"],
         packageHash="sha256:vnfdhash",
@@ -655,7 +655,7 @@ def test_npn_pni_provision_dry_run_returns_dict() -> None:
 
 def test_ntn_satellite_register_dry_run_returns_dict() -> None:
     result = asyncio.run(TNTN.task_telecom_ntn_satellite_register(
-        operatorOrgId="op-001", displayName="GFTD-SAT-1",
+        operatorOrgId="op-001", displayName="etzhayyim-SAT-1",
         orbitClass="leo", frequencyBands=["Ka"],
         serviceModes=["broadband_ntn"],
         launchedAt="2026-01-01T00:00:00Z",
@@ -666,7 +666,7 @@ def test_ntn_satellite_register_dry_run_returns_dict() -> None:
 
 def test_ntn_satellite_register_dry_run_ok() -> None:
     result = asyncio.run(TNTN.task_telecom_ntn_satellite_register(
-        operatorOrgId="op-001", displayName="GFTD-SAT-1",
+        operatorOrgId="op-001", displayName="etzhayyim-SAT-1",
         orbitClass="leo", frequencyBands=["Ka"],
         serviceModes=["broadband_ntn"],
         launchedAt="2026-01-01T00:00:00Z",
@@ -783,7 +783,7 @@ def test_optical_alarm_record_dry_run_returns_dict() -> None:
 
 def test_oran_smo_register_dry_run_returns_dict() -> None:
     result = asyncio.run(TORAN.task_telecom_oran_smo_register(
-        vendor="GFTD", releaseVersion="O-RAN 1.0",
+        vendor="etzhayyim", releaseVersion="O-RAN 1.0",
         plmnId="44010", nonRtRicEndpoint="https://nonrtric.example.com",
         o1Endpoint="https://o1.example.com",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
@@ -793,7 +793,7 @@ def test_oran_smo_register_dry_run_returns_dict() -> None:
 
 def test_oran_smo_register_dry_run_ok() -> None:
     result = asyncio.run(TORAN.task_telecom_oran_smo_register(
-        vendor="GFTD", releaseVersion="O-RAN 1.0",
+        vendor="etzhayyim", releaseVersion="O-RAN 1.0",
         plmnId="44010", nonRtRicEndpoint="https://nonrtric.example.com",
         o1Endpoint="https://o1.example.com",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
@@ -803,7 +803,7 @@ def test_oran_smo_register_dry_run_ok() -> None:
 
 def test_oran_rapp_onboard_dry_run_returns_dict() -> None:
     result = asyncio.run(TORAN.task_telecom_oran_rapp_onboard(
-        smoId="smo-001", vendor="GFTD", name="QoS-rApp", version="1.0.0",
+        smoId="smo-001", vendor="etzhayyim", name="QoS-rApp", version="1.0.0",
         packageHash="sha256:rapphash",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
     ))
@@ -812,7 +812,7 @@ def test_oran_rapp_onboard_dry_run_returns_dict() -> None:
 
 def test_oran_xapp_deploy_dry_run_returns_dict() -> None:
     result = asyncio.run(TORAN.task_telecom_oran_xapp_deploy(
-        nearRtRicId="ric-001", vendor="GFTD", name="TS-xApp", version="1.0.0",
+        nearRtRicId="ric-001", vendor="etzhayyim", name="TS-xApp", version="1.0.0",
         packageHash="sha256:xapphash",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
     ))
@@ -1100,7 +1100,7 @@ def test_wlan_rcoi_register_dry_run_ok() -> None:
 def test_wlan_venue_register_dry_run_returns_dict() -> None:
     result = asyncio.run(TWLAN.task_telecom_wlan_venue_register(
         venueName="Tokyo Station", venueGroup="business",
-        venueType="office", jurisdiction="JP", ssid="GFTD-WIFI",
+        venueType="office", jurisdiction="JP", ssid="etzhayyim-WIFI",
         advertisedRcoiIds=["rcoi-001"], osuKind="none",
         observedAt="2026-01-01T00:00:00Z", dryRun=True,
     ))

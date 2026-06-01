@@ -1,5 +1,5 @@
 """
-open-patent generation primitives (ai.gftd.apps.openPatent.*).
+open-patent generation primitives (app.etzhayyim.apps.openPatent.*).
 
 Reads from vertex_open_patent_patent corpus (ingested by patent.etzhayyim.com via AT
 firehose — open-patent never calls external APIs directly).
@@ -30,9 +30,9 @@ INVENTOR_DID = f"{OWNER_DID}:actor:inventor"
 ANALYST_DID = f"{OWNER_DID}:actor:analyst"
 
 # ── LLM ───────────────────────────────────────────────────────────────
-_LLM_URL = os.environ.get("GFTD_LLM_URL", "https://murakumo.etzhayyim.com/v1/chat/completions")
-_LLM_KEY = os.environ.get("GFTD_LLM_API_KEY", "sk-murakumo-local")
-_LLM_MODEL = os.environ.get("OPEN_PATENT_LLM_MODEL", os.environ.get("GFTD_LLM_MODEL", "qwen3-30b"))
+_LLM_URL = os.environ.get("etzhayyim_LLM_URL", "https://murakumo.etzhayyim.com/v1/chat/completions")
+_LLM_KEY = os.environ.get("etzhayyim_LLM_API_KEY", "sk-murakumo-local")
+_LLM_MODEL = os.environ.get("OPEN_PATENT_LLM_MODEL", os.environ.get("etzhayyim_LLM_MODEL", "qwen3-30b"))
 
 
 async def _llm(prompt: str, *, temperature: float = 0.4, max_tokens: int = 2048) -> str:
@@ -59,12 +59,12 @@ def _now_iso() -> str:
 
 def _seed_vid(tech_domain: str, title: str) -> str:
     h = hashlib.sha256(f"seed:{tech_domain}:{title}".encode()).hexdigest()[:20]
-    return f"at://{INVENTOR_DID}/ai.gftd.apps.openPatent.inventionSeed/{h}"
+    return f"at://{INVENTOR_DID}/app.etzhayyim.apps.openPatent.inventionSeed/{h}"
 
 
 def _report_vid(seed_vid: str) -> str:
     h = hashlib.sha256(f"report:{seed_vid}".encode()).hexdigest()[:20]
-    return f"at://{ANALYST_DID}/ai.gftd.apps.openPatent.noveltyReport/{h}"
+    return f"at://{ANALYST_DID}/app.etzhayyim.apps.openPatent.noveltyReport/{h}"
 
 
 # ── Primitive 1: gather_tech_trends ───────────────────────────────────

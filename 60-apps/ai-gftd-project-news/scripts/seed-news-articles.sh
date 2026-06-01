@@ -19,7 +19,7 @@ CREATE_URL="$XRPC_BASE/com.atproto.repo.createRecord"
 ATPROTO_IDENTIFIER="${ATPROTO_IDENTIFIER:-}"
 ATPROTO_PASSWORD="${ATPROTO_PASSWORD:-}"
 ATPROTO_REPO="${ATPROTO_REPO:-}"
-COLLECTION="${ATPROTO_COLLECTION:-ai.gftd.apps.news.article}"
+COLLECTION="${ATPROTO_COLLECTION:-app.etzhayyim.apps.news.article}"
 
 if [ ! -d "$CONTENT_DIR" ]; then
   echo "ERROR: Content directory not found: $CONTENT_DIR"

@@ -54,7 +54,7 @@ const SIGNER_KEY =
 // Any valid v1-dag-cbor CID would work; this one is checked in.
 const FIXTURE = {
   uri: "at://did:web:pinner.etzhayyim.com/app.etzhayyim.substrate.ipfsPin/3a",
-  shardKey: "ai.gftd.apps.threads.post",
+  shardKey: "app.etzhayyim.apps.threads.post",
   rootCid: "bafyreigh2akiscaildc7obb6q3vbiqd5gukvvr44e7lsdgowf2c5sb6e44",
   carCid: "bafyreigh2akiscaildc7obb6q3vbiqd5gukvvr44e7lsdgowf2c5sb6e44",
   byteSize: 4096,

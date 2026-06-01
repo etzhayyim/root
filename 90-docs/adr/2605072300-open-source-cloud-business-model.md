@@ -13,7 +13,7 @@ authoritative_for:
   - OSS go-to-market strategy
 related:
   - adr-2605071200-myco-yeast-artificial-organism-jp-naming
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0018-pii-tier3-cohort-first
 supersedes: []
@@ -195,7 +195,7 @@ OSS ──────────────────┼──────�
 
 - Enterprise の PII 分離要件は ADR-0018 (PII Tier 3 cohort-first) に準拠
 - オンプレ版でも Vault Zero-Knowledge Invariant (CLAUDE.md root rule) は維持
-- Stripe 連携は `ai.gftd.apps.stripe.*` XRPC として実装 (直接 SDK call 禁止)
+- Stripe 連携は `app.etzhayyim.apps.stripe.*` XRPC として実装 (直接 SDK call 禁止)
 
 ## Alternatives Considered
 

@@ -47,8 +47,8 @@ import {
   type TransferOutput,
 } from "./types.js";
 
-const ACCOUNT_COLLECTION = "ai.gftd.apps.openBanking.account";
-const LEDGER_COLLECTION = "ai.gftd.apps.openBanking.ledger";
+const ACCOUNT_COLLECTION = "app.etzhayyim.apps.openBanking.account";
+const LEDGER_COLLECTION = "app.etzhayyim.apps.openBanking.ledger";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

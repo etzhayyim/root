@@ -1,5 +1,5 @@
 ---
-id: adr-0007-repo-error-visibility-policy
+id: repo-error-visibility-policy
 title: "ADR-0007: API / Worker のエラーは必ず 4xx/5xx で可視化する。Fallback / fail-open 禁止"
 status: active
 doc_type: adr

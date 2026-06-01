@@ -18,7 +18,13 @@
 
 	const shinka = useShinkaInference();
 	const embedding = useEmbedding();
-	const BSKY_XRPC_BASE = 'https://bsky.etzhayyim.com/xrpc';
+	// Reads resolve through the apex substrate path (same-origin /xrpc →
+	// etzhayyim-did-web → yoro-xrpc-adapter over MST/IPFS/L2), per ADR-2605172000
+	// and the Candidate-C topology. The legacy AppView host bsky.etzhayyim.com is
+	// decommissioned (its ai-gftd-appview binding was force-deleted) — do NOT
+	// route reads there. app.bsky.actor.searchActors is aliased to
+	// app.etzhayyim.yoro.actor.searchActors by the apex Worker.
+	const BSKY_XRPC_BASE = '/xrpc';
 
 	let { data } = $props();
 

@@ -35,7 +35,7 @@ import {
   type StatsGroupBy,
 } from "./types.js";
 
-const MANUFACTURER_COLLECTION = "com.etzhayyim.apps.tsukuru.manufacturer";
+const MANUFACTURER_COLLECTION = "app.etzhayyim.apps.tsukuru.manufacturer";
 
 /**
  * Register a new manufacturer. Uses slug as rkey so re-registration

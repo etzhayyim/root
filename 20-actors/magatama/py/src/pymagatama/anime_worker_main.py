@@ -5,16 +5,16 @@ Subscribes to Zeebe job types matching the BPMN service tasks in
 60-apps/ai-gftd-project-anime/bpmn/ingest-anime.bpmn.
 
 Job types:
-  ai.gftd.apps.anime.createTitle      — persist new anime title
-  ai.gftd.apps.anime.createSeason     — persist season under a title
-  ai.gftd.apps.anime.createEpisode    — persist episode under a season
-  ai.gftd.apps.anime.createSchedule   — persist broadcast schedule slot
-  ai.gftd.apps.anime.submitReview     — persist viewer review
-  ai.gftd.apps.anime.listTitles       — query title list
-  ai.gftd.apps.anime.getTitle         — query single title with seasons
-  ai.gftd.apps.anime.listEpisodes     — query episodes for a season
-  ai.gftd.apps.anime.searchTitles     — keyword + genre search
-  ai.gftd.apps.anime.listSchedules    — query broadcast schedules
+  app.etzhayyim.apps.anime.createTitle      — persist new anime title
+  app.etzhayyim.apps.anime.createSeason     — persist season under a title
+  app.etzhayyim.apps.anime.createEpisode    — persist episode under a season
+  app.etzhayyim.apps.anime.createSchedule   — persist broadcast schedule slot
+  app.etzhayyim.apps.anime.submitReview     — persist viewer review
+  app.etzhayyim.apps.anime.listTitles       — query title list
+  app.etzhayyim.apps.anime.getTitle         — query single title with seasons
+  app.etzhayyim.apps.anime.listEpisodes     — query episodes for a season
+  app.etzhayyim.apps.anime.searchTitles     — keyword + genre search
+  app.etzhayyim.apps.anime.listSchedules    — query broadcast schedules
 
 Run inside cluster:
     python -m pymagatama.anime_worker_main
@@ -93,11 +93,11 @@ async def task_create_title(
                 source_type, org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23)
             """,
-            _vid("ai.gftd.apps.anime.title", id_),
+            _vid("app.etzhayyim.apps.anime.title", id_),
             int(time.time() * 1000), now[:10], 0,
             "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
-            "ai.gftd.apps.anime.title", status,
+            "app.etzhayyim.apps.anime.title", status,
             id_, title, title_ja, genre, tags, synopsis, studio, source_type,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
@@ -130,11 +130,11 @@ async def task_create_season(
                 org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
             """,
-            _vid("ai.gftd.apps.anime.season", id_),
+            _vid("app.etzhayyim.apps.anime.season", id_),
             int(time.time() * 1000), now[:10], 0,
             "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
-            "ai.gftd.apps.anime.season", "active",
+            "app.etzhayyim.apps.anime.season", "active",
             id_, title_id, season_num, year, cour, episode_count,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
@@ -167,11 +167,11 @@ async def task_create_episode(
                 org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
             """,
-            _vid("ai.gftd.apps.anime.episode", id_),
+            _vid("app.etzhayyim.apps.anime.episode", id_),
             int(time.time() * 1000), now[:10], 0,
             "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
-            "ai.gftd.apps.anime.episode", "aired",
+            "app.etzhayyim.apps.anime.episode", "aired",
             id_, season_id, episode_num, title, air_date, duration_sec,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
@@ -207,11 +207,11 @@ async def task_create_schedule(
                 org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23)
             """,
-            _vid("ai.gftd.apps.anime.schedule", id_),
+            _vid("app.etzhayyim.apps.anime.schedule", id_),
             int(time.time() * 1000), now[:10], 0,
             "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
-            "ai.gftd.apps.anime.schedule", "active",
+            "app.etzhayyim.apps.anime.schedule", "active",
             id_, title_id, season_id or "", channel, day_of_week,
             time_slot, start_date, end_date,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
@@ -244,11 +244,11 @@ async def task_submit_review(
                 org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)
             """,
-            _vid("ai.gftd.apps.anime.review", id_),
+            _vid("app.etzhayyim.apps.anime.review", id_),
             int(time.time() * 1000), now[:10], 0,
             reviewer_did or "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", reviewer_did or "did:web:anime.etzhayyim.com",
-            "ai.gftd.apps.anime.review", "published",
+            "app.etzhayyim.apps.anime.review", "published",
             id_, title_id, reviewer_did, max(0, min(10, rating)), body,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
@@ -389,16 +389,16 @@ async def run_worker() -> None:
     worker = LangServerWorker(channel)
 
     registrations = {
-        "ai.gftd.apps.anime.createTitle":    task_create_title,
-        "ai.gftd.apps.anime.createSeason":   task_create_season,
-        "ai.gftd.apps.anime.createEpisode":  task_create_episode,
-        "ai.gftd.apps.anime.createSchedule": task_create_schedule,
-        "ai.gftd.apps.anime.submitReview":   task_submit_review,
-        "ai.gftd.apps.anime.listTitles":     task_list_titles,
-        "ai.gftd.apps.anime.getTitle":       task_get_title,
-        "ai.gftd.apps.anime.listEpisodes":   task_list_episodes,
-        "ai.gftd.apps.anime.searchTitles":   task_search_titles,
-        "ai.gftd.apps.anime.listSchedules":  task_list_schedules,
+        "app.etzhayyim.apps.anime.createTitle":    task_create_title,
+        "app.etzhayyim.apps.anime.createSeason":   task_create_season,
+        "app.etzhayyim.apps.anime.createEpisode":  task_create_episode,
+        "app.etzhayyim.apps.anime.createSchedule": task_create_schedule,
+        "app.etzhayyim.apps.anime.submitReview":   task_submit_review,
+        "app.etzhayyim.apps.anime.listTitles":     task_list_titles,
+        "app.etzhayyim.apps.anime.getTitle":       task_get_title,
+        "app.etzhayyim.apps.anime.listEpisodes":   task_list_episodes,
+        "app.etzhayyim.apps.anime.searchTitles":   task_search_titles,
+        "app.etzhayyim.apps.anime.listSchedules":  task_list_schedules,
     }
 
     for task_type, fn in registrations.items():

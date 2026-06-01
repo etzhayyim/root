@@ -16,7 +16,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   // Helper to build a canonical vertex_id for a yoro app registration
   const vid = (id: string) =>
-    `at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/${id}`;
+    `at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/${id}`;
 
   type Row = {
     vertex_id: string;
@@ -40,7 +40,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   const sys = 'system';
   const org = 'organization';
   const OWNER = 'did:web:yoro.etzhayyim.com';
-  const COL = 'ai.gftd.apps.yoro.appRegistry';
+  const COL = 'app.etzhayyim.apps.yoro.appRegistry';
   const base = {
     status: 'active',
     sensitivity: 'public',
@@ -76,7 +76,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   const rows: Row[] = [
     // ── Orgs ──
-    row('gftd', 'GFTD', '🌐', 'Orgs', 'https://etzhayyim.com', 'etzhayyim.com', 'GFTD portal'),
+    row('gftd', 'etzhayyim', '🌐', 'Orgs', 'https://etzhayyim.com', 'etzhayyim.com', 'etzhayyim portal'),
 
     // ── Security ──
     row('kiyome', 'Kiyome', '🔍', 'Services', 'https://smishing.etzhayyim.com', 'smishing.etzhayyim.com:actor:kiyome', 'SMS phishing analysis & threat intelligence'),

@@ -149,7 +149,7 @@ Society6 における飲食店の食品安全・防カビ対策を、AI三権分
 
 #### 第14条（法令 ID）
 
-- **法令 ID**: `GFTD-LEG-2026-FOOD-MOLD-001`
+- **法令 ID**: `etzhayyim-LEG-2026-FOOD-MOLD-001`
 - **COFOG 主管**: `07.4`（Public Health Services）
 - **COFOG 共管**: `04.7.2`（Hotels and Restaurants）, `05.3`（Pollution Abatement）
 - **LegislationContract ハッシュ**: 登録時に自動生成
@@ -385,7 +385,7 @@ interface mold-prevention {
 {
   "@context": ["https://schema.org", {"cofog": "https://unstats.un.org/unsd/classifications/Econ/COFOG#"}],
   "@type": "Legislation",
-  "identifier": "GFTD-LEG-2026-FOOD-MOLD-001",
+  "identifier": "etzhayyim-LEG-2026-FOOD-MOLD-001",
   "name": "Food Establishment Mold Prevention Act",
   "name:ja": "飲食店防カビ法",
   "legislationType": "Act",
@@ -397,13 +397,13 @@ interface mold-prevention {
     "identifier": "society6-legislative-assembly"
   },
   "hasPart": [
-    {"@type": "Legislation", "name": "Part I: 飲食店防カビ法", "identifier": "GFTD-LEG-2026-FOOD-MOLD-001-P1"},
-    {"@type": "Legislation", "name": "Part II: 防カビ支援ファンド", "identifier": "GFTD-LEG-2026-FOOD-MOLD-001-P2"}
+    {"@type": "Legislation", "name": "Part I: 飲食店防カビ法", "identifier": "etzhayyim-LEG-2026-FOOD-MOLD-001-P1"},
+    {"@type": "Legislation", "name": "Part II: 防カビ支援ファンド", "identifier": "etzhayyim-LEG-2026-FOOD-MOLD-001-P2"}
   ],
   "funding": {
     "@type": "MonetaryGrant",
     "name": "Mold Prevention Support Fund (MPSF)",
-    "identifier": "GFTD-FUND-2026-MPSF-001",
+    "identifier": "etzhayyim-FUND-2026-MPSF-001",
     "amount": {"@type": "MonetaryAmount", "currency": "GCC", "value": 100000},
     "funder": {"@type": "GovernmentOrganization", "name": "Society6 Treasury"}
   }

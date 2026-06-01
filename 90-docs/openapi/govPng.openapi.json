@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govPng.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govPng.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Papua New Guinea government.",
-        "operationId": "ai.gftd.govPng.followSiteDeps",
+        "operationId": "app.etzhayyim.govPng.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPng.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govPng.heartbeatTick": {
       "post": {
         "summary": "Run the Papua New Guinea government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govPng.heartbeatTick",
+        "operationId": "app.etzhayyim.govPng.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPng.listOrgs": {
+    "/xrpc/app.etzhayyim.govPng.listOrgs": {
       "get": {
         "summary": "List Papua New Guinea government organization graph records.",
-        "operationId": "ai.gftd.govPng.listOrgs",
+        "operationId": "app.etzhayyim.govPng.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPng.registerDIDs": {
+    "/xrpc/app.etzhayyim.govPng.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Papua New Guinea government organizations.",
-        "operationId": "ai.gftd.govPng.registerDIDs",
+        "operationId": "app.etzhayyim.govPng.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPng.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govPng.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Papua New Guinea government organization path to its graph record.",
-        "operationId": "ai.gftd.govPng.resolveOrgPath",
+        "operationId": "app.etzhayyim.govPng.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPng.seedOrgs": {
+    "/xrpc/app.etzhayyim.govPng.seedOrgs": {
       "post": {
         "summary": "Seed initial Papua New Guinea government organization records into the graph.",
-        "operationId": "ai.gftd.govPng.seedOrgs",
+        "operationId": "app.etzhayyim.govPng.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPng.shinka": {
+    "/xrpc/app.etzhayyim.govPng.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Papua New Guinea government organization update.",
-        "operationId": "ai.gftd.govPng.shinka",
+        "operationId": "app.etzhayyim.govPng.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPng.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govPng.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Papua New Guinea government organization changes to graph.",
-        "operationId": "ai.gftd.govPng.syncWetUpdates",
+        "operationId": "app.etzhayyim.govPng.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

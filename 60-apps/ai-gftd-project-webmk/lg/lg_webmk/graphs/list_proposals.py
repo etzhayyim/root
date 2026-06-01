@@ -1,6 +1,6 @@
 """webmk `list_proposals` graph — paginated proposal list.
 
-NSID: ai.gftd.apps.webmk.listProposals
+NSID: app.etzhayyim.apps.webmk.listProposals
 """
 
 from __future__ import annotations

@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-waterTreatment:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-waterTreatment:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:waterTreatment',
                  10000,
                  0.6,
@@ -36,7 +36,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-sewageTreatment:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-sewageTreatment:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:sewageTreatment',
                  10000,
                  0.6,
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-navalBase:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-navalBase:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:navalBase',
                  500,
                  0.7,
@@ -66,7 +66,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-operaHouse:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-operaHouse:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:operaHouse',
                  1500,
                  0.7,
@@ -81,7 +81,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-concertHall:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-concertHall:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:concertHall',
                  5000,
                  0.7,
@@ -96,7 +96,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-restAreaWd:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-restAreaWd:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:restAreaWd',
                  20000,
                  0.6,
@@ -111,7 +111,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-tollPlaza:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-tollPlaza:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:tollPlaza',
                  10000,
                  0.6,
@@ -126,7 +126,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-lighthouseWd2:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-lighthouseWd2:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:lighthouseWd2',
                  5000,
                  0.6,
@@ -141,7 +141,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-miningSite:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-miningSite:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:miningSite',
                  30000,
                  0.6,
@@ -156,7 +156,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-museumShip:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-museumShip:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:museumShip',
                  300,
                  0.7,

@@ -1,0 +1,83 @@
+# giemon-factory-r0 — e7m-sim scene: Giemon robot manufacturing plant
+#
+# ADR-2606010030. The FACTORY that builds the giemon robot line (arm6 +
+# kabitori), designed end-to-end in kami-engine (geometry + kami-genesis
+# physics) + kotoba Datomic (建材 + 建築手順 EAVT datoms). Indoor light-assembly
+# carve-out (sibling of makura-r1-INDOOR-CARVEOUT) — a single 80 m × 50 m bay,
+# NOT an outdoor geo-projected site, so the runtime scene is the hand-authored
+# `factory.scene.json` (no OSM / Overture / SRTM layers).
+#
+# Three modeled layers (all in this stack, none outside it):
+#   1. Building shell  (建材)      → building.edn groups A-E  → factory.cdx.json SBOM
+#   2. Production hardware (設備)  → building.edn group  F    → machines + robot cells
+#   3. Construction procedure (建築手順) → construction.edn 4D steps → construction.order.json
+# All three ingest into kotoba as EAVT datoms (kotoba_ingest.json, ADR-2605312345).
+
+adr: ADR-2606010030
+phase: R0
+sim_consumer: kami-app-giemon-factory
+nv_compat_target: isaacsim.core.api.World
+
+world:
+  crs: "local-ENU"                # indoor carve-out — no geographic projection
+  bbox_m: [-40.0, -25.0, 40.0, 25.0]   # 80 m (flow axis) × 50 m
+  runtime_scene: ./factory.scene.json
+  layers:
+    - kind: building_shell        # 建材 — perimeter walls + structural columns + roof beams
+      source: ./building.edn       # groups A-foundation / B-steel-frame / C-roof / D-cladding / E-mep
+      material: "kami-pbrt:Concrete_Grey + kami-pbrt:Steel"
+    - kind: production_hardware   # 設備 — CNC / lathe / CMM / benches / racks / conveyor
+      source: ./building.edn       # group F-equipment
+      material: "kami-pbrt:Steel"
+    - kind: construction_sequence # 建築手順 — 4D施工 (ordered, deps, consumes, reveals)
+      source: ./construction.edn
+      baked: ./construction.order.json
+
+# Production flow zones (-X receiving → +X shipping)
+zones:
+  - { id: zone_recv, label: "受入 Receiving",  x_m: [-40, -24] }
+  - { id: zone_mach, label: "機械加工 Machining", x_m: [-24, -8] }
+  - { id: zone_asm,  label: "組立 Assembly",   x_m: [-8, 12] }
+  - { id: zone_insp, label: "検査 Inspection", x_m: [12, 24] }
+  - { id: zone_ship, label: "出荷 Shipping",   x_m: [24, 40] }
+
+# Robot work-cells = the giemon arm6 product, deployed back into its own factory.
+work_cells:
+  urdf: ../giemon_arm6/giemon_arm6.urdf
+  base: fixed                     # tabletop manipulator anchored at cell origin
+  count: 4                        # 3 assembly + 1 inspection
+  motion: idle-work-cycle         # scripted joint torque program
+
+scene:
+  num_envs: 1                     # single plant (not a parallel-rollout RL scene)
+  gravity: [0.0, 0.0, -9.81]
+  dt: 0.004166667                 # 240 Hz physics (1/240) — same as giemon arm sim
+  decimation: 4
+
+# Free-roaming AGV carts exercise the floating-base + obstacle-collision path
+# (shibuya-class 4-DOF agent vs walls/columns/machines as Obstacle::Aabb).
+agvs:
+  count: 2
+  dof: 4                          # x, y, z prismatic + yaw continuous
+  collides_with: [walls, columns, machines]
+
+charter:
+  max_tier: A
+  charter_rider_scan: required
+  pii_filter: not_applicable
+  replication_min: 2
+  physics_backend: kami-genesis
+  render_backend: kami-pbrt
+  inference_substrate: murakumo-only
+  sourcing: representative        # 建材/設備 manufacturer/MPN are R0 design examples, NOT a procurement or building-permit decision
+
+# Constitutional non-goals (see ADR-2606010030 §Non-goals)
+non_goals:
+  - "No mega-press / ≥7500 t HPDC clamping (N1, ADR-2605261200) — light-assembly + bench machines only."
+  - "No FEM/structural analysis — columns/beams are rigid AABB geometry + a 建材 ledger, not a solved structure."
+  - "No MEP/HVAC/electrical CFD or load-flow — MEP is a 建材 line item + schedule step only, not simulated."
+  - "Tabletop arm cells cannot reach the factory walls; obstacle-collision is exercised by the AGV carts."
+
+budget:
+  phase: R0
+  gpu_hr_eq_per_day_max: 0.0      # design + WASM viewer only; no training

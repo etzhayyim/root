@@ -19,10 +19,10 @@ from typing import Any
 
 
 NSIDS = {
-    "source": "ai.gftd.apps.realEstate.registerSource",
-    "property": "ai.gftd.apps.realEstate.registerProperty",
-    "listing": "ai.gftd.apps.realEstate.publishListing",
-    "transaction": "ai.gftd.apps.realEstate.recordTransaction",
+    "source": "app.etzhayyim.apps.realEstate.registerSource",
+    "property": "app.etzhayyim.apps.realEstate.registerProperty",
+    "listing": "app.etzhayyim.apps.realEstate.publishListing",
+    "transaction": "app.etzhayyim.apps.realEstate.recordTransaction",
 }
 
 

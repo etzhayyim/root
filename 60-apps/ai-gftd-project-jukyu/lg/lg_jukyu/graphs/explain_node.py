@@ -1,6 +1,6 @@
 """jukyu `explainNode` graph — node + upstream chain (50) + balance (10).
 
-NSID: ai.gftd.apps.jukyu.explainNode
+NSID: app.etzhayyim.apps.jukyu.explainNode
 Required: nodeCode.
 """
 

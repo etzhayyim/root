@@ -17,9 +17,9 @@ rights, communities, or underused capacity.
 - Discovery task: `news.socialArbitrage.discover`
 - LangGraph task: `news.socialArbitrage.draft`
 - RSS pipeline tasks: `news.rss.resolveSources`, `news.rss.ingestSource`
-- Thin edge publish path: `ai.gftd.apps.news.analyzeIntel` then
-  `ai.gftd.apps.news.publishIntel`
-- Thin RSS write path: `ai.gftd.apps.news.commitArticle`
+- Thin edge publish path: `app.etzhayyim.apps.news.analyzeIntel` then
+  `app.etzhayyim.apps.news.publishIntel`
+- Thin RSS write path: `app.etzhayyim.apps.news.commitArticle`
 - Public actor: `did:web:news.etzhayyim.com`
 - Writer DID: `did:web:news.etzhayyim.com:writer:social-arbitrage`
 

@@ -9,16 +9,16 @@ import { sql } from "kysely";
  * (ADR-2605080000 §D10 P3.2.5).
  *
  * 5 new BPMN process_def + 5 new XRPC bindings, all keyed off the
- * `ai.gftd.apps.yata.{multipartInit,multipartPart,multipartComplete,
+ * `app.etzhayyim.apps.yata.{multipartInit,multipartPart,multipartComplete,
  * multipartAbort,listObjects}` lexicons.  All XRPC-bound (no timer-start).
  *
  * Process / NSID                                  Trigger
  * ---------------------------------------------------------
- * yata_multipart_init      ai.gftd.apps.yata.multipartInit
- * yata_multipart_part      ai.gftd.apps.yata.multipartPart
- * yata_multipart_complete  ai.gftd.apps.yata.multipartComplete
- * yata_multipart_abort     ai.gftd.apps.yata.multipartAbort
- * yata_list_objects        ai.gftd.apps.yata.listObjects
+ * yata_multipart_init      app.etzhayyim.apps.yata.multipartInit
+ * yata_multipart_part      app.etzhayyim.apps.yata.multipartPart
+ * yata_multipart_complete  app.etzhayyim.apps.yata.multipartComplete
+ * yata_multipart_abort     app.etzhayyim.apps.yata.multipartAbort
+ * yata_list_objects        app.etzhayyim.apps.yata.listObjects
  */
 
 type P = { vertexId: string; bpmnProcessId: string; sourcePath: string; ownerDid: string };
@@ -33,38 +33,38 @@ const ownerDid     = "did:web:yatabase.etzhayyim.com";
 const actorTag     = "sys.bpmn.seed.yata.multipart";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-multipart-init-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-multipart-init-v1",
     bpmnProcessId: "yata_multipart_init",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/multipartInit.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-multipart-part-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-multipart-part-v1",
     bpmnProcessId: "yata_multipart_part",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/multipartPart.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-multipart-complete-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-multipart-complete-v1",
     bpmnProcessId: "yata_multipart_complete",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/multipartComplete.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-multipart-abort-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-multipart-abort-v1",
     bpmnProcessId: "yata_multipart_abort",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/multipartAbort.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-list-objects-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-list-objects-v1",
     bpmnProcessId: "yata_list_objects",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/listObjects.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-multipartInit-v1",
-    nsid: "ai.gftd.apps.yata.multipartInit",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-multipartInit-v1",
+    nsid: "app.etzhayyim.apps.yata.multipartInit",
     bpmnProcessId: "yata_multipart_init", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-multipartPart-v1",
-    nsid: "ai.gftd.apps.yata.multipartPart",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-multipartPart-v1",
+    nsid: "app.etzhayyim.apps.yata.multipartPart",
     bpmnProcessId: "yata_multipart_part", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-multipartComplete-v1",
-    nsid: "ai.gftd.apps.yata.multipartComplete",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-multipartComplete-v1",
+    nsid: "app.etzhayyim.apps.yata.multipartComplete",
     bpmnProcessId: "yata_multipart_complete", ownerDid, resultTimeoutMs: 120_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-multipartAbort-v1",
-    nsid: "ai.gftd.apps.yata.multipartAbort",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-multipartAbort-v1",
+    nsid: "app.etzhayyim.apps.yata.multipartAbort",
     bpmnProcessId: "yata_multipart_abort", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-listObjects-v1",
-    nsid: "ai.gftd.apps.yata.listObjects",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-listObjects-v1",
+    nsid: "app.etzhayyim.apps.yata.listObjects",
     bpmnProcessId: "yata_list_objects", ownerDid, resultTimeoutMs: 30_000 },
 ];
 

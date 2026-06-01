@@ -318,4 +318,83 @@ def scan(
     }
 
 
-__all__ = ["scan"]
+def scan_text(text: str, *, label: str = "<text>", sample_rows: int = 10_000) -> dict:
+    """Scan an in-memory string for Charter Rider §2(a)..(h) signals.
+
+    Pure + dependency-free (no file I/O, no tempfile, no normalizer) — the
+    lightweight path for gating a record/observation at ingest time (G1).
+    Returns the same dict shape as :func:`scan` (``passed`` / ``violations`` /
+    ``note``). Line-oriented and capped at ``sample_rows`` lines.
+    """
+    stats = _RunStats()
+    stats.sampled_files = 1
+    for i, line in enumerate(text.splitlines(), start=1):
+        if i > sample_rows:
+            break
+        stats.sampled_lines += 1
+        for rule in _RULES:
+            if not rule.pattern.search(line):
+                continue
+            if rule.allow_context and rule.allow_context.search(line):
+                stats.false_positives += 1
+                continue
+            snippet = line.strip()
+            if len(snippet) > 200:
+                snippet = snippet[:197] + "..."
+            stats.findings.append(_Finding(
+                path=label,
+                category_code=rule.code,
+                category_label=rule.label,
+                line_no=i,
+                snippet=snippet,
+            ))
+    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return {
+        "passed": not stats.findings,
+        "at": now,
+        "sampled": stats.sampled_files,
+        "violations": [f.as_dict() for f in stats.findings],
+        "note": (
+            f"scanned {stats.sampled_lines} lines; {len(stats.findings)} hits, "
+            f"{stats.false_positives} demoted by allow-context"
+        ),
+    }
+
+
+def is_clean(text: str) -> bool:
+    """True if ``text`` shows no Charter Rider §2 violation (allow-context aware)."""
+    return scan_text(text)["passed"]
+
+
+def scan_with_normalization(text: str) -> dict:
+    """Normalize input text and scan it for violations.
+
+    Returns the same dict shape as `scan()`, but operates on a single string
+    after applying adversarial normalization (NFKC, de-obfuscation).
+    """
+    import tempfile
+    from pymagatama.organism.adversarial.normalizer import normalize_input
+
+    # 1. Normalize
+    res = normalize_input(text)
+
+    # 2. Write to temp file to reuse existing line-oriented `scan`
+    with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".txt", delete=False) as f:
+        f.write(res.normalized)
+        temp_path = Path(f.name)
+
+    try:
+        # 3. Scan the normalized text
+        scan_res = scan([temp_path], kind="normalized_text")
+        # Add normalization context if suspicious
+        if res.suspicious:
+            scan_res["note"] = f"[SUSPICIOUS INPUT DETECTED] {scan_res['note']}"
+            scan_res["suspicious"] = True
+            scan_res["normalization_transforms"] = res.transforms
+        return scan_res
+    finally:
+        if temp_path.exists():
+            temp_path.unlink()
+
+
+__all__ = ["scan", "scan_text", "is_clean", "scan_with_normalization"]

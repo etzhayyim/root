@@ -168,7 +168,7 @@ class GovernancePort:
 
 @dataclass
 class PdsPort:
-    """Writes AT records via the PDS (ai.gftd.apps.payment.* collections)."""
+    """Writes AT records via the PDS (app.etzhayyim.apps.payment.* collections)."""
 
     create_record: Any          # (*, collection: str, record: dict) -> at-uri
 

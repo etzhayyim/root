@@ -1,4 +1,4 @@
-# @gftd/magatama-host-sdk
+# @etzhayyim/magatama-host-sdk
 
 Magatama host runtime SDK for Worker-hosted apps.
 
@@ -50,10 +50,10 @@ This avoids unknown write-buffer event types for OCEL emission.
 Write-dispatch mappings were updated to reduce legacy PDS errors:
 
 - `cypher-query`:
-  - from `ai.gftd.graph.query`
-  - to `ai.gftd.kagami.graph.query`
+  - from `app.etzhayyim.graph.query`
+  - to `app.etzhayyim.kagami.graph.query`
 - `cypher-write`:
-  - from `ai.gftd.graph.write` (legacy, removed)
-  - to `ai.gftd.kagami.graph.query` (authenticated write, unified)
+  - from `app.etzhayyim.graph.write` (legacy, removed)
+  - to `app.etzhayyim.kagami.graph.query` (authenticated write, unified)
 - `anomaly-emit-event`:
-  - legacy `ai.gftd.audit.emitEvent` dispatch removed (best-effort no-op)
+  - legacy `app.etzhayyim.audit.emitEvent` dispatch removed (best-effort no-op)

@@ -20,7 +20,6 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172300-etzhayyim-bi-asset-substrate
 related:
-  - 
 supersedes: []
 superseded_by: []
 ---

@@ -109,7 +109,7 @@ const CITES: Cite[] = [
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── case records ────────────────────────────────────────────────────────────
   for (const c of CASES) {
-    const vid = `at://did:web:hanrei.etzhayyim.com/ai.gftd.apps.hanrei.caseRecord/${c.rkey}`;
+    const vid = `at://did:web:hanrei.etzhayyim.com/app.etzhayyim.apps.hanrei.caseRecord/${c.rkey}`;
     await sql`
       INSERT INTO vertex_hanrei_case_record
         (vertex_id, rkey, title, case_number, court_id, decision_date,
@@ -124,8 +124,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── clause→hanrei cite edges via edge_cites ─────────────────────────────────
   for (const cite of CITES) {
-    const srcVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contractClause/${cite.clauseCid}`;
-    const dstVid = `at://did:web:hanrei.etzhayyim.com/ai.gftd.apps.hanrei.caseRecord/${cite.caseRkey}`;
+    const srcVid = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contractClause/${cite.clauseCid}`;
+    const dstVid = `at://did:web:hanrei.etzhayyim.com/app.etzhayyim.apps.hanrei.caseRecord/${cite.caseRkey}`;
     const edgeId = `edge:${cite.clauseCid}:cites:hanrei--${cite.caseRkey}`;
     const label = `判例 ${cite.caseRkey} — ${cite.paragraph}`;
     await sql`
@@ -162,7 +162,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     await sql`DELETE FROM edge_cites WHERE edge_id = ${edgeId}`.execute(db);
   }
   for (const c of CASES) {
-    const vid = `at://did:web:hanrei.etzhayyim.com/ai.gftd.apps.hanrei.caseRecord/${c.rkey}`;
+    const vid = `at://did:web:hanrei.etzhayyim.com/app.etzhayyim.apps.hanrei.caseRecord/${c.rkey}`;
     await sql`DELETE FROM vertex_hanrei_case_record WHERE vertex_id = ${vid}`.execute(db);
   }
 }

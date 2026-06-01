@@ -15,8 +15,8 @@ authoritative_for:
 related:
   - 0022-auth-topology-consolidation
   - 0023-auth-shannon-optimal-4-layer
-  - 2604231821-atproto-oauth-wire-format-snake-case
-  - 2604240914-oauth-rs-binding-revocation-introspection
+  - adr-2604231821-atproto-oauth-wire-format-snake-case
+  - adr-2604240914-oauth-rs-binding-revocation-introspection
 supersedes: []
 superseded_by: []
 ---
@@ -61,11 +61,11 @@ ADR fixes that gap and pins a CLI bug for follow-up.
 | Agent class | Auth | Lifetime | Renewal trigger |
 |---|---|---|---|
 | Claude Code session | `sk_live_*` from `~/.gftd/auth.json` or `gftd.auth/api_key` Keychain | ~1 y (server-configured) | Human passkey ceremony |
-| CI job | `GFTD_TOKEN` env (sk_live_*) | matched to scoped need | Manual rotation |
+| CI job | `etzhayyim_TOKEN` env (sk_live_*) | matched to scoped need | Manual rotation |
 | Heartbeat / cron pod | ES256 Service Auth JWT minted from app DID | 60 s scoped | per-invocation via `getServiceAuth` |
 | Internal binding | `x-magatama-verified: true` HMAC | per-request | n/a (service binding) |
 
-`ai.gftd.auth.createApiKey` accepts **only** a fresh authn.etzhayyim.com session
+`app.etzhayyim.auth.createApiKey` accepts **only** a fresh authn.etzhayyim.com session
 (passkey-bound cookies) — **not** Clerk `oat_*`, **not** Clerk `id_token`,
 **not** sk_test_, **not** prior sk_live_. This is by design: API key
 creation is a privileged self-rotation that must be human-presence

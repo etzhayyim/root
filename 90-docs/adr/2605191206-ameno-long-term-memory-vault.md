@@ -7,12 +7,12 @@ topic: ameno-memory-vault
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191120-ameno-embedding-surprise-tier-c.md
-  - 2605191129-ameno-browser-tool-use-react.md
-  - 2605191135-ameno-tier2-daemon-residency.md
-  - 2605181100-mst-encrypted-records-signal-keywrap.md
+  - 2605191120-ameno-embedding-surprise-tier-c
+  - 2605191129-ameno-browser-tool-use-react
+  - 2605191135-ameno-tier2-daemon-residency
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
-  - 2605172000-etzhayyim-rw-free-substrate.md
+  - adr-2605172000-etzhayyim-rw-free-substrate
 ---
 
 # ADR 2605191206: Ameno long-term encrypted memory vault — IndexedDB + AES-GCM + MiniLM index

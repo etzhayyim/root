@@ -36,10 +36,10 @@ import {
   type SynthesizeOutput,
 } from "./types.js";
 
-const ABSORB_COLLECTION = "ai.gftd.ki.absorb";
-const SYNTHESIS_COLLECTION = "ai.gftd.ki.synthesis";
-const BLOOM_COLLECTION = "ai.gftd.ki.bloom";
-const RING_COLLECTION = "ai.gftd.ki.ring";
+const ABSORB_COLLECTION = "app.etzhayyim.ki.absorb";
+const SYNTHESIS_COLLECTION = "app.etzhayyim.ki.synthesis";
+const BLOOM_COLLECTION = "app.etzhayyim.ki.bloom";
+const RING_COLLECTION = "app.etzhayyim.ki.ring";
 
 const PAGE_LIMIT = 100;
 const RING_DEFAULT_MAX_SCAN = 5_000;
@@ -332,7 +332,7 @@ export async function mapRoute(
   }
   const rkey = `route-${input.routeId}`;
   const existing = await e
-    .read({ collection: "ai.gftd.ki.route", rkey })
+    .read({ collection: "app.etzhayyim.ki.route", rkey })
     .catch(() => ({ records: [] }));
   if (existing.records[0]?.value) {
     return {
@@ -350,12 +350,12 @@ export async function mapRoute(
     createdAt: now,
   };
   await e.write({
-    collection: "ai.gftd.ki.route",
+    collection: "app.etzhayyim.ki.route",
     record,
     rkey,
   });
   // Construct URI
-  const routeUri = `at://did:web:ki.etzhayyim.com/ai.gftd.ki.route/${rkey}`;
+  const routeUri = `at://did:web:ki.etzhayyim.com/app.etzhayyim.ki.route/${rkey}`;
   return {
     status: "mapped",
     routeUri,

@@ -51,7 +51,7 @@ SDR qualifier: "Is there a named regulation your CRM is audited against every ye
 | In-house GPU cluster announced (press, board filing) | 3 | Financial Times, Nikkei, press release |
 | Azure OpenAI regional deployment public | 3 | Azure customer reference, Microsoft case study |
 | Anthropic / OpenAI enterprise contract public | 3 | Vendor customer page, press release |
-| Murakumo (GFTD internal) customer | 5 | Our own records |
+| Murakumo (etzhayyim internal) customer | 5 | Our own records |
 | Internal fine-tuned model product launched externally | 2 | Product page referencing their own LLM |
 | Job ads for "ML Platform", "LLM Ops", "GenAI Engineer" >3 openings | 2 | LinkedIn, Indeed, local job boards |
 | RFP public for LLM vendor | 3 | Gov procurement portals, IR-filed RFP |

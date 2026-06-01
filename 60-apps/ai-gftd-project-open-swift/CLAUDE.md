@@ -8,12 +8,12 @@ DID-addressed interbank wire-transfer messaging — companion to
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.openSwift.registerInstitution` | procedure | register a participant institution (BIC + DID) |
-| `ai.gftd.apps.openSwift.listInstitutions` | query | participant directory |
-| `ai.gftd.apps.openSwift.sendCustomerCreditTransfer` | procedure | submit a pacs.008-equivalent FI→FI customer credit transfer |
-| `ai.gftd.apps.openSwift.acknowledgeMessage` | procedure | beneficiary FI ACK / NACK (pacs.002 / camt.029-equivalent) |
-| `ai.gftd.apps.openSwift.getMessage` | query | message detail (status + audit trail) |
-| `ai.gftd.apps.openSwift.listMessages` | query | messages by institution / direction / status / since |
+| `app.etzhayyim.apps.openSwift.registerInstitution` | procedure | register a participant institution (BIC + DID) |
+| `app.etzhayyim.apps.openSwift.listInstitutions` | query | participant directory |
+| `app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer` | procedure | submit a pacs.008-equivalent FI→FI customer credit transfer |
+| `app.etzhayyim.apps.openSwift.acknowledgeMessage` | procedure | beneficiary FI ACK / NACK (pacs.002 / camt.029-equivalent) |
+| `app.etzhayyim.apps.openSwift.getMessage` | query | message detail (status + audit trail) |
+| `app.etzhayyim.apps.openSwift.listMessages` | query | messages by institution / direction / status / since |
 
 ## Architecture
 

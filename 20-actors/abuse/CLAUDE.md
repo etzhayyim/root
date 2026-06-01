@@ -13,27 +13,27 @@ Phishing / malware / brand-impersonation takedown coordination. Gathers intel (w
 | executionTier | **T1** (MCP-Compose pipeline via PDS Shared Executor — no standalone Worker) |
 | UI | `appview` (iframe card UI, `/reports` list) |
 | Transport | XRPC (external) + MCP tools/list (agent discovery) |
-| Dispatch | `mailer.etzhayyim.com` XRPC `ai.gftd.apps.mailer.sendEmail` (Resend-backed) |
+| Dispatch | `mailer.etzhayyim.com` XRPC `app.etzhayyim.apps.mailer.sendEmail` (Resend-backed) |
 
-## Lexicon Namespace: `ai.gftd.apps.abuse.*`
+## Lexicon Namespace: `app.etzhayyim.apps.abuse.*`
 
 | NSID | Type | Purpose |
 |---|---|---|
-| `ai.gftd.apps.abuse.gatherIntel` | procedure | Run dns + whois + reverse-ip + wayback + asn on a target (domain or IP). Writes `vertex_yabai_entity` + `vertex_yabai_evidence`. |
-| `ai.gftd.apps.abuse.submitReport` | procedure | Draft abuse report(s) for a domain, routing to registrar + hosting + brand owner + CERT. Returns list of draft IDs. |
-| `ai.gftd.apps.abuse.sendReport` | procedure | Dispatch a queued draft via mailer.etzhayyim.com (Resend). Updates status `draft → sent`. |
-| `ai.gftd.apps.abuse.markSent` | procedure | Manual override: mark draft as `sent` (if dispatched out-of-band). |
-| `ai.gftd.apps.abuse.listReports` | query | List reports filtered by domain / status / target_type. |
-| `ai.gftd.apps.abuse.getReport` | query | Fetch single report by rkey (full EML body). |
-| `ai.gftd.apps.abuse.listTargets` | query | List known abuse contacts (registrar / hosting / brand / cert). |
-| `ai.gftd.apps.abuse.registerTarget` | procedure | Add new abuse contact. |
+| `app.etzhayyim.apps.abuse.gatherIntel` | procedure | Run dns + whois + reverse-ip + wayback + asn on a target (domain or IP). Writes `vertex_yabai_entity` + `vertex_yabai_evidence`. |
+| `app.etzhayyim.apps.abuse.submitReport` | procedure | Draft abuse report(s) for a domain, routing to registrar + hosting + brand owner + CERT. Returns list of draft IDs. |
+| `app.etzhayyim.apps.abuse.sendReport` | procedure | Dispatch a queued draft via mailer.etzhayyim.com (Resend). Updates status `draft → sent`. |
+| `app.etzhayyim.apps.abuse.markSent` | procedure | Manual override: mark draft as `sent` (if dispatched out-of-band). |
+| `app.etzhayyim.apps.abuse.listReports` | query | List reports filtered by domain / status / target_type. |
+| `app.etzhayyim.apps.abuse.getReport` | query | Fetch single report by rkey (full EML body). |
+| `app.etzhayyim.apps.abuse.listTargets` | query | List known abuse contacts (registrar / hosting / brand / cert). |
+| `app.etzhayyim.apps.abuse.registerTarget` | procedure | Add new abuse contact. |
 
 ## Data Model (reuses yabai graph — no new tables)
 
 Abuse reports use `vertex_yabai_entity` with `entity_type='abuse_report'`:
 
 ```
-vertex_id       = at://did:web:yabai.etzhayyim.com/ai.gftd.apps.yabai.entity/abuse-{domain}-{target_type}-{target_sanitized}
+vertex_id       = at://did:web:yabai.etzhayyim.com/app.etzhayyim.apps.yabai.entity/abuse-{domain}-{target_type}-{target_sanitized}
 entity_type     = 'abuse_report'
 canonical_name  = target email (abuse@...)
 aliases         = target_type (registrar | hosting | brand | cert)
@@ -72,7 +72,7 @@ Each target also has a corresponding yabai sub-DID:
 ## Pipeline (submitReport flow)
 
 ```
-XRPC ai.gftd.apps.abuse.submitReport {domain, brandHint?}
+XRPC app.etzhayyim.apps.abuse.submitReport {domain, brandHint?}
   1. graph.query      — fetch yabai entity for phishing-url DID (validation)
   2. graph.query      — look up registrar + hosting from evidence record
   3. graph.query      — look up brand owner by typosquat pattern match
@@ -85,9 +85,9 @@ XRPC ai.gftd.apps.abuse.submitReport {domain, brandHint?}
 ## Dispatch (sendReport flow)
 
 ```
-XRPC ai.gftd.apps.abuse.sendReport {reportId}
+XRPC app.etzhayyim.apps.abuse.sendReport {reportId}
   1. graph.query      — fetch draft (vertex_yabai_entity.abuse_report)
-  2. mailer.sendEmail — POST /xrpc/ai.gftd.apps.mailer.sendEmail {to, subject, text, from: 'abuse-report@etzhayyim.com'}
+  2. mailer.sendEmail — POST /xrpc/app.etzhayyim.apps.mailer.sendEmail {to, subject, text, from: 'abuse-report@etzhayyim.com'}
                          mailer internally uses Resend API
   3. graph.write      — UPDATE source='takedown-sent', append sent_at to props
   4. derive:social    — "Takedown dispatched: {domain} → {target_email} (Resend message-id: {id})"
@@ -96,12 +96,12 @@ XRPC ai.gftd.apps.abuse.sendReport {reportId}
 
 ## Required Mailer Enhancement
 
-mailer.etzhayyim.com must expose `ai.gftd.apps.mailer.sendEmail`:
+mailer.etzhayyim.com must expose `app.etzhayyim.apps.mailer.sendEmail`:
 
 ```json
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mailer.sendEmail",
+  "id": "app.etzhayyim.apps.mailer.sendEmail",
   "defs": {"main": {"type": "procedure",
     "input": {"encoding": "application/json", "schema": {"type":"object",
       "properties": {"to":{"type":"string"},"subject":{"type":"string"},"text":{"type":"string"},"html":{"type":"string"},"from":{"type":"string"}},
@@ -130,7 +130,7 @@ All 8 abuse XRPC methods auto-register as MCP tools via `vertex_capability` inse
 
 ## Follow-based Input (reactive)
 
-Follows `yabai.etzhayyim.com`. On new `ai.gftd.apps.yabai.flag` commit with `flag_type LIKE 'phishing-%'`:
+Follows `yabai.etzhayyim.com`. On new `app.etzhayyim.apps.yabai.flag` commit with `flag_type LIKE 'phishing-%'`:
 - auto-run `gatherIntel` if not yet enriched
 - enqueue `submitReport` as draft (no auto-send)
 

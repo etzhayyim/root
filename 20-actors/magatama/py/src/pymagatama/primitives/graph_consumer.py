@@ -20,7 +20,7 @@ from pymagatama import rw_schema
 
 
 GRAPH_DID = "did:web:graph.etzhayyim.com"
-CONSUME_TICK_COLLECTION = "ai.gftd.apps.graph.consumeTick"
+CONSUME_TICK_COLLECTION = "app.etzhayyim.apps.graph.consumeTick"
 DEFAULT_TIMEOUT_SEC = 30.0
 
 # Process-scoped memory cursor — avoids cold-start DB round-trip on every tick.
@@ -177,7 +177,7 @@ def _handle_collection(
             "dst_vid": subj if isinstance(subj, str) else None,
         })]
 
-    if collection == "ai.gftd.apps.media_gamers.record.translationLink":
+    if collection == "app.etzhayyim.apps.media_gamers.record.translationLink":
         return [("vertex_translation_link", {
             **base,
             "vertex_id": vid, "rkey": rkey, "repo": repo,

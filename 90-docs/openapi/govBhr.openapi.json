@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govBhr.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govBhr.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Bahrain government.",
-        "operationId": "ai.gftd.govBhr.followSiteDeps",
+        "operationId": "app.etzhayyim.govBhr.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBhr.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govBhr.heartbeatTick": {
       "post": {
         "summary": "Run the Bahrain government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govBhr.heartbeatTick",
+        "operationId": "app.etzhayyim.govBhr.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBhr.listOrgs": {
+    "/xrpc/app.etzhayyim.govBhr.listOrgs": {
       "get": {
         "summary": "List Bahrain government organization graph records.",
-        "operationId": "ai.gftd.govBhr.listOrgs",
+        "operationId": "app.etzhayyim.govBhr.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBhr.registerDIDs": {
+    "/xrpc/app.etzhayyim.govBhr.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Bahrain government organizations.",
-        "operationId": "ai.gftd.govBhr.registerDIDs",
+        "operationId": "app.etzhayyim.govBhr.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBhr.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govBhr.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Bahrain government organization path to its graph record.",
-        "operationId": "ai.gftd.govBhr.resolveOrgPath",
+        "operationId": "app.etzhayyim.govBhr.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBhr.seedOrgs": {
+    "/xrpc/app.etzhayyim.govBhr.seedOrgs": {
       "post": {
         "summary": "Seed initial Bahrain government organization records into the graph.",
-        "operationId": "ai.gftd.govBhr.seedOrgs",
+        "operationId": "app.etzhayyim.govBhr.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBhr.shinka": {
+    "/xrpc/app.etzhayyim.govBhr.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Bahrain government organization update.",
-        "operationId": "ai.gftd.govBhr.shinka",
+        "operationId": "app.etzhayyim.govBhr.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBhr.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govBhr.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Bahrain government organization changes to graph.",
-        "operationId": "ai.gftd.govBhr.syncWetUpdates",
+        "operationId": "app.etzhayyim.govBhr.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

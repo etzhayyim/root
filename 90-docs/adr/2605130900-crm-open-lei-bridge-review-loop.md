@@ -12,10 +12,10 @@ authoritative_for:
   - Open LEI MCP review and evidence workflow
   - LangGraph-assisted LEI human review queue
 related:
-  - 90-docs/adr/2604281830-open-sales-crm-actor.md
-  - 90-docs/adr/2605102000-hubspot-crm-ingest.md
-  - 90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md
-  - 90-docs/adr/2605080400-alembic-scope-contract.md
+  - adr-2604281830-open-sales-crm-actor
+  - hubspot-crm-ingest
+  - adr-2605080600-langgraph-server-granian-l3-runtime
+  - adr-2605080400-alembic-scope-contract
 ---
 
 # ADR-2605130900 - CRM Open LEI Bridge Review Loop

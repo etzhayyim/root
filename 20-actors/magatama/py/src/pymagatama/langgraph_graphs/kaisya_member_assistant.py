@@ -38,21 +38,21 @@ _OWNER_DID = "did:web:bpmn.etzhayyim.com"
 
 # UPN → member DID resolution table (extend as new members onboard)
 _UPN_TO_DID: dict[str, str] = {
-    "j-kawasaki@gftd.co":  "did:web:j-kawasaki.etzhayyim.com",
-    "j.kawasaki@gftd.co":  "did:web:j-kawasaki.etzhayyim.com",
-    "a-nakamura@gftd.co":  "did:web:a-nakamura.etzhayyim.com",
-    "a.nakamura@gftd.co":  "did:web:a-nakamura.etzhayyim.com",
-    "k-bakshi@gftd.co":    "did:web:k-bakshi.etzhayyim.com",
-    "k.bakshi@gftd.co":    "did:web:k-bakshi.etzhayyim.com",
-    "t-chikada@gftd.co":   "did:web:t-chikada.etzhayyim.com",
-    "t.chikada@gftd.co":   "did:web:t-chikada.etzhayyim.com",
-    "f-tanaka@gftd.co":    "did:web:f-tanaka.etzhayyim.com",
-    "f.tanaka@gftd.co":    "did:web:f-tanaka.etzhayyim.com",
-    "y-nishino@gftd.co":   "did:web:y-nishino.etzhayyim.com",
-    "y.nishino@gftd.co":   "did:web:y-nishino.etzhayyim.com",
-    "t-ichihara@gftd.co":  "did:web:t-ichihara.etzhayyim.com",
-    "k-takahashi@gftd.co": "did:web:k-takahashi.etzhayyim.com",
-    "n-takahashi@gftd.co": "did:web:n-takahashi.etzhayyim.com",
+    "j-kawasaki@etzhayyim.com":  "did:web:j-kawasaki.etzhayyim.com",
+    "j.kawasaki@etzhayyim.com":  "did:web:j-kawasaki.etzhayyim.com",
+    "a-nakamura@etzhayyim.com":  "did:web:a-nakamura.etzhayyim.com",
+    "a.nakamura@etzhayyim.com":  "did:web:a-nakamura.etzhayyim.com",
+    "k-bakshi@etzhayyim.com":    "did:web:k-bakshi.etzhayyim.com",
+    "k.bakshi@etzhayyim.com":    "did:web:k-bakshi.etzhayyim.com",
+    "t-chikada@etzhayyim.com":   "did:web:t-chikada.etzhayyim.com",
+    "t.chikada@etzhayyim.com":   "did:web:t-chikada.etzhayyim.com",
+    "f-tanaka@etzhayyim.com":    "did:web:f-tanaka.etzhayyim.com",
+    "f.tanaka@etzhayyim.com":    "did:web:f-tanaka.etzhayyim.com",
+    "y-nishino@etzhayyim.com":   "did:web:y-nishino.etzhayyim.com",
+    "y.nishino@etzhayyim.com":   "did:web:y-nishino.etzhayyim.com",
+    "t-ichihara@etzhayyim.com":  "did:web:t-ichihara.etzhayyim.com",
+    "k-takahashi@etzhayyim.com": "did:web:k-takahashi.etzhayyim.com",
+    "n-takahashi@etzhayyim.com": "did:web:n-takahashi.etzhayyim.com",
 }
 
 
@@ -103,7 +103,7 @@ def _now_iso() -> str:
 def _vid(kind: str) -> str:
     import datetime as _dt
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{_OWNER_DID}/ai.gftd.apps.kaisya.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{_OWNER_DID}/app.etzhayyim.apps.kaisya.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _llm_chat(system: str, user: str, max_tokens: int = 1200) -> str:
@@ -161,7 +161,7 @@ def _db_insert_audit(member_did: str, action: str, payload: dict) -> None:
             {
                 "vid":  str(uuid.uuid4()),
                 "repo": _KAISYA_DID,
-                "col":  "ai.gftd.apps.kaisya.memberChat",
+                "col":  "app.etzhayyim.apps.kaisya.memberChat",
                 "rkey": f"chat-{ts_ms}",
                 "act":  "create",
                 "ts":   ts_ms,

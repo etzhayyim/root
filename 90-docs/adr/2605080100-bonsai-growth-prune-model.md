@@ -166,13 +166,13 @@ GROUP BY ge.actor_did, ge.parent_did, ge.growth_type,
 
 ```
 will sporulate (cascade):
-  ├─ actor:  ai.gftd.apps.foo.*       age=12d  η=0.43  ← 低η
+  ├─ actor:  app.etzhayyim.apps.foo.*       age=12d  η=0.43  ← 低η
   ├─ table:  vertex_foo_entity        rows=2,341
   ├─ mv:     mv_foo_summary           (will suspend refresh)
   └─ bpmn:   foo-classify.bpmn       active_instances=0
 
 dependents NOT in cascade (η > 0.6, skip):
-  └─ actor:  ai.gftd.apps.bar.*       age=30d  η=0.71  ← 健全
+  └─ actor:  app.etzhayyim.apps.bar.*       age=30d  η=0.71  ← 健全
 
 confirm? [y/N]
 ```

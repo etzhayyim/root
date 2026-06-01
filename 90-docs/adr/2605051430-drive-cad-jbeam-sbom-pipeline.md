@@ -88,7 +88,7 @@ Add one new crate `kami-cad-import` between `kami-cad` (BREP kernel + assembly) 
 | **Part graph data model** | `kami-cad-import::part` (NEW) | `VehiclePart`, `Hardpoint`, `VehicleAssembly`, `MaterialDensity` |
 | **STEP / glTF → VehicleAssembly adapter** | `kami-cad-import::ingest::{step, gltf, scad}` (NEW) | Phase 1 PoC ships `scad` only; STEP / glTF stubs in Phase 1.1 |
 | **VehicleAssembly → JBeam JSON** | `kami-cad-import::jbeam_emit` (NEW) | AABB-corner sampling + hardpoint-driven beam topology |
-| **VehicleAssembly → CycloneDX 1.5** | `kami-cad-import::sbom` (NEW) | CDX `type: "device"` per part, `purl`, `cpe`, `evidence`, GFTD `properties` |
+| **VehicleAssembly → CycloneDX 1.5** | `kami-cad-import::sbom` (NEW) | CDX `type: "device"` per part, `purl`, `cpe`, `evidence`, etzhayyim `properties` |
 | Soft-body sim consumer | `kami-vehicle::jbeam::load` (existing, unchanged) | reads JSON output of `jbeam_emit` |
 | SBOM consumer | `sbom.etzhayyim.com` (existing) | already ingests CycloneDX → `SbomComponent` graph → CVE match |
 

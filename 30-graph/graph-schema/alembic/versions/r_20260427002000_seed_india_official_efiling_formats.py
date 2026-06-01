@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/ai.gftd.apps.ind.efiling.format/ind.itr1.eriSubmitFlow.v1_1',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/app.etzhayyim.apps.ind.efiling.format/ind.itr1.eriSubmitFlow.v1_1',
                  20260427002000,
                  'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'ind.itr1.eriSubmitFlow.v1_1',
@@ -111,7 +111,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/ai.gftd.apps.ind.efiling.format/ind.itr1.prefillSchema.v6_5',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/app.etzhayyim.apps.ind.efiling.format/ind.itr1.prefillSchema.v6_5',
                  20260427002001,
                  'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'ind.itr1.prefillSchema.v6_5',
@@ -149,7 +149,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/ai.gftd.apps.ind.efiling.format/ind.gstr3b.gspFramework.v3',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/app.etzhayyim.apps.ind.efiling.format/ind.gstr3b.gspFramework.v3',
                  20260427002002,
                  'did:web:ind-union.etzhayyim.com:cbic:gstr3b',
                  'ind.gstr3b.gspFramework.v3',
@@ -173,7 +173,7 @@ UP = [{'sql': '\n'
                  'section"},{"internal":"arn","official":"Acknowledgement Reference '
                  'Number"}],"notes":["Detailed GSTR-3B API payload is provider/GSP contract '
                  'material and must be supplied by the configured authorized_gsp adapter.","This '
-                 'manifest records the official GSP framework boundary and keeps GFTD '
+                 'manifest records the official GSP framework boundary and keeps etzhayyim '
                  'provider-agnostic."],"liveFilingGate":"ind.efiling.submit with '
                  'providerKind=gsp_api or authorized_gsp"}',
                  '2026-04-26']},
@@ -198,7 +198,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/ai.gftd.apps.ind.efiling.format/ind.epfo.ecrFile.forEmployers',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/app.etzhayyim.apps.ind.efiling.format/ind.epfo.ecrFile.forEmployers',
                  20260427002003,
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'ind.epfo.ecrFile.forEmployers',
@@ -277,7 +277,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/ai.gftd.apps.ind.efiling.format/ind.esic.monthlyContribution.portal',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/app.etzhayyim.apps.ind.efiling.format/ind.esic.monthlyContribution.portal',
                  20260427002004,
                  'did:web:ind-payroll.etzhayyim.com:esic',
                  'ind.esic.monthlyContribution.portal',

@@ -48,7 +48,7 @@ INSERT INTO vertex_ip_address (vertex_id, created_date, ...) VALUES (...);
 ### Kysely パターン (app.ts)
 
 ```typescript
-import { createKyselyDb } from "@gftd/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
 
 // Read — dashboard counts
 const db = createKyselyDb();
@@ -66,7 +66,7 @@ const jobs = await db.selectFrom("vertex_collector_run")
   .execute();
 
 // Write — via PDS (Design E Tier 2)
-await sdk.pds.createRecord("ai.gftd.apps.collector.dnsObservation", record);
+await sdk.pds.createRecord("app.etzhayyim.apps.collector.dnsObservation", record);
 ```
 
 ### Graph Model
@@ -172,16 +172,16 @@ gftd deploy   # gftd build は不要 (TS Native)
 
 ```bash
 # DNS (RDAP + DoH)
-curl -s -X POST https://c0ll3ct1.etzhayyim.com/xrpc/ai.gftd.apps.collector.collectNetintelDns \
+curl -s -X POST https://c0ll3ct1.etzhayyim.com/xrpc/app.etzhayyim.apps.collector.collectNetintelDns \
   -H "Content-Type: application/json" -H "Authorization: Bearer $(gftd authn token)" \
   -d '{"domain":"cloudflare.com"}' | jq '{domain,registrar,dnssec,a:.records.a}'
 
 # BTC (sync 完了後に real data)
-curl -s -X POST https://c0ll3ct1.etzhayyim.com/xrpc/ai.gftd.apps.collector.collectBlockchainBtc \
+curl -s -X POST https://c0ll3ct1.etzhayyim.com/xrpc/app.etzhayyim.apps.collector.collectBlockchainBtc \
   -H "Content-Type: application/json" -H "Authorization: Bearer $(gftd authn token)" \
   -d '{"address":"1A1zP1eP5QGefi2DMPTfTL5SLmv7Divf"}' | jq .
 
 # Dashboard
-curl -s -X POST https://c0ll3ct1.etzhayyim.com/xrpc/ai.gftd.apps.collector.getDashboard \
+curl -s -X POST https://c0ll3ct1.etzhayyim.com/xrpc/app.etzhayyim.apps.collector.getDashboard \
   -H "Authorization: Bearer $(gftd authn token)" | jq .
 ```

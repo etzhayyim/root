@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// pokedex.mjs — PokeAPI → ai.gftd.apps.media_gamers.knowledge.publishPokemon
+// pokedex.mjs — PokeAPI → app.etzhayyim.apps.media_gamers.knowledge.publishPokemon
 //
 // Switched from Serebii HTML scraping to PokeAPI REST (JSON) in 2026-04-20:
 // Serebii pokedex-swsh now uses slug redirects + a single HTML page contains the
@@ -7,7 +7,7 @@
 // canonical structured source for names/types/stats/abilities/heights/weights.
 //
 // Usage:
-//   GFTD_TOKEN=$(gftd agent-token --lxm ai.gftd.apps.media_gamers.knowledge.publishPokemon) \
+//   etzhayyim_TOKEN=$(gftd agent-token --lxm app.etzhayyim.apps.media_gamers.knowledge.publishPokemon) \
 //     node 70-tools/scripts/media-gamers-ingest/pokedex.mjs \
 //     --game pokemon-legends-z-a \
 //     --start 1 --end 151 \
@@ -19,7 +19,7 @@ import {
 } from "./lib.mjs";
 import { setTimeout as delay } from "node:timers/promises";
 
-const NSID = "ai.gftd.apps.media_gamers.knowledge.publishPokemon";
+const NSID = "app.etzhayyim.apps.media_gamers.knowledge.publishPokemon";
 const POKEAPI_BASE = process.env.POKEAPI_BASE || "https://pokeapi.co/api/v2/pokemon";
 const POKEAPI_DELAY_MS = 300; // ~3 req/s against public PokeAPI (polite)
 

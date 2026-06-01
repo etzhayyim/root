@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govChl.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govChl.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Chile government.",
-        "operationId": "ai.gftd.govChl.followSiteDeps",
+        "operationId": "app.etzhayyim.govChl.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChl.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govChl.heartbeatTick": {
       "post": {
         "summary": "Run the Chile government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govChl.heartbeatTick",
+        "operationId": "app.etzhayyim.govChl.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChl.listOrgs": {
+    "/xrpc/app.etzhayyim.govChl.listOrgs": {
       "get": {
         "summary": "List Chile government organization graph records.",
-        "operationId": "ai.gftd.govChl.listOrgs",
+        "operationId": "app.etzhayyim.govChl.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChl.registerDIDs": {
+    "/xrpc/app.etzhayyim.govChl.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Chile government organizations.",
-        "operationId": "ai.gftd.govChl.registerDIDs",
+        "operationId": "app.etzhayyim.govChl.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChl.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govChl.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Chile government organization path to its graph record.",
-        "operationId": "ai.gftd.govChl.resolveOrgPath",
+        "operationId": "app.etzhayyim.govChl.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChl.seedOrgs": {
+    "/xrpc/app.etzhayyim.govChl.seedOrgs": {
       "post": {
         "summary": "Seed initial Chile government organization records into the graph.",
-        "operationId": "ai.gftd.govChl.seedOrgs",
+        "operationId": "app.etzhayyim.govChl.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChl.shinka": {
+    "/xrpc/app.etzhayyim.govChl.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Chile government organization update.",
-        "operationId": "ai.gftd.govChl.shinka",
+        "operationId": "app.etzhayyim.govChl.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChl.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govChl.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Chile government organization changes to graph.",
-        "operationId": "ai.gftd.govChl.syncWetUpdates",
+        "operationId": "app.etzhayyim.govChl.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

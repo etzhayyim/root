@@ -13,9 +13,9 @@ import {
   nowISO,
   withCapabilityTags,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
-const NS = "ai.gftd.apps.sharemouse";
+const NS = "app.etzhayyim.apps.sharemouse";
 
 /** Register a peer device with its screen geometries. */
 async function cmdRegisterPeer(

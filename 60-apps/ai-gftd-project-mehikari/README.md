@@ -15,7 +15,7 @@ Phase 0 (法務 / プロトタイプ)。本 Worker は法務クリア前は depl
 ## Operating entity
 
 - 運営 = etzhayyim (operating entity)
-- 開発受託 = Gftd Japan株式会社 (vendor)
+- 開発受託 = etzhayyim Japan株式会社 (vendor)
 
 ## Domains
 

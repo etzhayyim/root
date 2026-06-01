@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Get a discover feed of diverse posts. GFTD/Yoro extension.",
+      "description": "Get a discover feed of diverse posts. etzhayyim/Yoro extension.",
       "parameters": {
         "type": "params",
         "properties": {

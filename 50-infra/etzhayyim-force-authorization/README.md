@@ -44,19 +44,19 @@ All force-related activity must satisfy:
 
 ```
 [R&D phase]
-  → ai.gftd.apps.etzhayyim.force-rd-proposal (open-source design proposal)
+  → app.etzhayyim.apps.etzhayyim.force-rd-proposal (open-source design proposal)
   → 通常 governance vote (33% quorum)
   → if approved: design committed to 60-apps/etzhayyim-transparent-force-rd/
-  → ai.gftd.apps.etzhayyim.force-rd-publication
+  → app.etzhayyim.apps.etzhayyim.force-rd-publication
 [Authorization phase — force 行使]
-  → ai.gftd.apps.etzhayyim.force-authorization-proposal
+  → app.etzhayyim.apps.etzhayyim.force-authorization-proposal
   → 1 SBT = 1 vote (50% quorum + 67% supermajority, 72h or 24h emergency)
   → ForceAuthorization.propose() → ForceAuthorization.execute()
 [Execution phase]
   → on-chain force-log emitted
-  → ai.gftd.apps.etzhayyim.force-log MST record
+  → app.etzhayyim.apps.etzhayyim.force-log MST record
 [After-action review]
-  → ai.gftd.apps.etzhayyim.force-after-action (30 days)
+  → app.etzhayyim.apps.etzhayyim.force-after-action (30 days)
   → Council Lv6+ ≥3 sign-off
 ```
 

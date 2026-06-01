@@ -12,10 +12,10 @@ authoritative_for:
   - mst-projector wiring for server-side filter
   - charter compliance gate in evolution path
 related:
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605215400-etzhayyim-shinka-evolution-witness-min.md
-  - 2605192230-etzhayyim-three-tier-enforcement-implementation.md
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture.md
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605215400-evolution-witness-min
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 supersedes: []
 superseded_by: []
 ---
@@ -47,7 +47,7 @@ Each cell is a LangGraph Pregel node with input schema (message class) and runna
 
 **Real impl**: `shinka_murakumo.py::KarmaHegemonObservationCell`
 
-- Aggregates witness signals from yoro social records, transaction records (`ai.gftd.apps.etzhayyim.donation.*`), and fellowship records (`ai.gftd.apps.etzhayyim.fellowship.*`)
+- Aggregates witness signals from yoro social records, transaction records (`app.etzhayyim.apps.etzhayyim.donation.*`), and fellowship records (`app.etzhayyim.apps.etzhayyim.fellowship.*`)
 - Returns signal object with weighted social score, transaction frequency, fellowship engagement hours
 - Caches results for 24h to avoid re-ingestion thrashing
 
@@ -63,7 +63,7 @@ Each cell is a LangGraph Pregel node with input schema (message class) and runna
 - If `current_level < 6`, directly return `new_level`
 - If advancing to Lv6, query `mst.get_council_lv6_dids()` (MST records of `app.etzhayyim.council.member`) and require ≥2 dids to vote approval (§3 per ADR-2605215400)
 - If advancing to Lv7, start 30-day appeal window; return `status="pending"` during window, `status="valid"` after window with no objections, `status="invalid"` if any objection filed (per ADR-2605215400 §4)
-- For all levels, call `_check_charter_compliance(adherent_did)` to query `ai.gftd.apps.etzhayyim.charter-compliance` records; if `status="non-aligned"`, reject advancement with explicit reason citing ADR-2605192230 rehabilitation path
+- For all levels, call `_check_charter_compliance(adherent_did)` to query `app.etzhayyim.apps.etzhayyim.charter-compliance` records; if `status="non-aligned"`, reject advancement with explicit reason citing ADR-2605192230 rehabilitation path
 - Return complete result for emission
 
 ### §4 EvolutionEmission Cell
@@ -103,7 +103,7 @@ All §1-5 deliverables complete:
 | MST/IPFS/L2 write path via @etzhayyim/sdk | ✅ via etzhayyim_sdk.pds + ipfs + l2 (all real impl) |
 | 3-tier Lv1-7 validation logic | ✅ per ADR-2605215400 canonical thresholds |
 | Lv7 30-day public objection window | ✅ via mst.council_objections() + EVOLUTION_APPEAL_DAYS |
-| Charter Compliance gate | ✅ via `_check_charter_compliance()` query of `ai.gftd.apps.etzhayyim.charter-compliance` |
+| Charter Compliance gate | ✅ via `_check_charter_compliance()` query of `app.etzhayyim.apps.etzhayyim.charter-compliance` |
 | Council Lv6 DID registry binding | ✅ via `mst.get_council_lv6_dids()` (live query) + `COUNCIL_LV6_DIDS` hardcoded fallback (until RFP close 2026-06-19 populates real records) |
 | fleet.toml placement on levi + simeon | ✅ |
 | cell-runner spawn from cells.toml | ✅ |

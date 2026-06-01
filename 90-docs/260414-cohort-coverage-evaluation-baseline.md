@@ -63,7 +63,7 @@ APQC PCF L1 13 process area × 代表 role × locale=jp で seed:
 
 ### Posterior
 
-- 現時点 accretion `ai.gftd.cohort.evidence` 未投入 → posterior baseline は N/A
+- 現時点 accretion `app.etzhayyim.cohort.evidence` 未投入 → posterior baseline は N/A
 - 配線先: RisingWave streaming MV `identity_posterior_mv` (未実装) + Murakumo LLM-as-judge
 - Fission 条件 (ADR-0026 §1 Phase C): `posterior > 0.95` AND `judgeAgreement === true`
 - Iteration 2 で MV DDL + judge prompt template を起票
@@ -75,7 +75,7 @@ APQC PCF L1 13 process area × 代表 role × locale=jp で seed:
 
 ## Process Mining (OCEL 2.0) 配線計画
 
-ADR-0025 Kyber projector の `ai.gftd.apqc.apqcEvent` を cohort lifecycle に流用:
+ADR-0025 Kyber projector の `app.etzhayyim.apqc.apqcEvent` を cohort lifecycle に流用:
 
 | Lifecycle Phase | OCEL eventType | object types |
 |---|---|---|
@@ -89,7 +89,7 @@ ADR-0025 Kyber projector の `ai.gftd.apqc.apqcEvent` を cohort lifecycle に�
 cohort ↔ L1 actor DID の対応表は cohort_actors.segment_hash の `pcfL1` prefix で導出可能。
 
 **次 iteration TODO**:
-1. `ai.gftd.cohort.evidence` write → `onCommit` hook で `apqcEvent` 自動 emit
+1. `app.etzhayyim.cohort.evidence` write → `onCommit` hook で `apqcEvent` 自動 emit
 2. posterior streaming MV `identity_posterior_mv` の RisingWave DDL
 3. k reevaluation scheduler task の Path F 登録
 4. locale=en / vertical overlay による cohort 拡張
@@ -194,7 +194,7 @@ onCommit handler pseudocode (次 iter 実装):
 
 ```typescript
 async function onCohortEvidenceCommit(commit, sdk) {
-  if (commit.collection !== 'ai.gftd.cohort.evidence') return;
+  if (commit.collection !== 'app.etzhayyim.cohort.evidence') return;
   const { cohortDid, evidenceHash, posterior, judgeAgreement } = commit.record;
   const cohort = await lookupCohort(cohortDid); // from deps.toml [[cohort_actors]]
   const l1Slug = parseSegmentHash(cohort.segment_hash).pcfL1; // e.g. "3-market-sell"
@@ -202,7 +202,7 @@ async function onCohortEvidenceCommit(commit, sdk) {
   await sdk.pds.dispatch({
     type: 'com.atproto.repo.createRecord',
     did: apqcDid,
-    collection: 'ai.gftd.apqc.apqcEvent',
+    collection: 'app.etzhayyim.apqc.apqcEvent',
     record: {
       ocelEventId: evidenceHash,
       eventType: posterior > 0.95 && judgeAgreement
@@ -331,7 +331,7 @@ cohort.ts の全 3 export について:
 fission 後の individual actor が cohort から derive されたことを graph に保持する経路が確定:
 
 1. genesis: `vertex_cohort_actor` に kind='cohort', derived_from=NULL で insert
-2. evidence accrual: `vertex_repo_record` WHERE collection='ai.gftd.cohort.evidence'
+2. evidence accrual: `vertex_repo_record` WHERE collection='app.etzhayyim.cohort.evidence'
 3. fission trigger: `mv_cohort_identity_posterior.fission_ready_count ≥ 1`
 4. fission procedure: 新 did:plc mint + `vertex_cohort_actor` に kind='fissioned', derived_from=<parent_cohort_did>
 
@@ -350,7 +350,7 @@ fission 後の individual actor が cohort から derive されたことを grap
 1. scheduler.ts に `kind=cohortKReevaluate` dispatch 分岐追加 + test
 2. `onCommit` handler: evidence commit → deriveCohortEventType → apqc projector emit
 3. en locale × industry overlay 5 件 (mfg-en, bank-en, hc-en, retail-en, pharma-en)
-4. `ai.gftd.cohort.seed` procedure の実装 (pds handler) — `vertex_cohort_actor` INSERT
+4. `app.etzhayyim.cohort.seed` procedure の実装 (pds handler) — `vertex_cohort_actor` INSERT
 5. `gftd cohort seed --segment` CLI skeleton
 
 # Iteration 6 — 2026-04-14
@@ -386,7 +386,7 @@ watchdog 発火経路 (full):
       → SELECT * FROM mv_cohort_k_drift WHERE k_proxy < 50 AND evidence_count > 0
       → UPDATE vertex_cohort_actor SET fission_enabled = false WHERE cohort_did IN (...)
       → return ocelEvents[]
-    → for each event: PDS write ai.gftd.apqc.apqcEvent (per-L1 DID via segment lookup)
+    → for each event: PDS write app.etzhayyim.apqc.apqcEvent (per-L1 DID via segment lookup)
 ```
 
 scheduler.ts は generic に保ち、cohort-specific policy は `cohort-watchdog.ts` に分離 (Shannon η: scheduler は分岐ゼロ追加で 1.0 維持)。
@@ -405,8 +405,8 @@ scheduler.ts は generic に保ち、cohort-specific policy は `cohort-watchdog
 ## 次 iteration TODO
 
 1. PDS cron handler 統合: `evaluateCronTriggers` → for each msg → `parseCohortAction` → `runCohortKReevaluate` → apqcEvent emit
-2. `onCommit` handler: ai.gftd.cohort.evidence write 検出 → deriveCohortEventType → apqcEvent emit
-3. `ai.gftd.cohort.seed` PDS procedure 実装 (vertex_cohort_actor INSERT)
+2. `onCommit` handler: app.etzhayyim.cohort.evidence write 検出 → deriveCohortEventType → apqcEvent emit
+3. `app.etzhayyim.cohort.seed` PDS procedure 実装 (vertex_cohort_actor INSERT)
 4. cohort coverage: seniority dimension (junior/mid/senior) 追加
 5. staging cluster で 0034-0036 batch apply
 
@@ -443,32 +443,32 @@ ctx.waitUntil(runCohortWatchdogTick(env).catch(log('runCohortWatchdogTick')));
 1. `evaluateCronTriggers(env)` → ProactiveMessage[]
 2. for each msg: `parseCohortAction(msg.text)` → null なら skip
 3. match: `runCohortKReevaluate(env)` → violations / ocelEvents
-4. violations > 0: console.log + OCEL datapoint (`ai.gftd.cohort.kReevaluated`)
+4. violations > 0: console.log + OCEL datapoint (`app.etzhayyim.cohort.kReevaluated`)
 
 **重要**: scheduler.ts は無改変。app.ts 側で generic message stream を filter する形に統一。
 
 ## OCEL Datapoint (Analytics surface)
 
 ```
-index: "ai.gftd.cohort.kReevaluated"
-blobs: ["ai.gftd.cohort.kReevaluated", "cron", "internal", "SCHEDULED", "", "", "", ""]
+index: "app.etzhayyim.cohort.kReevaluated"
+blobs: ["app.etzhayyim.cohort.kReevaluated", "cron", "internal", "SCHEDULED", "", "", "", ""]
 doubles: [scanned_count, violations_count]
 ```
 
-`/xrpc/ai.gftd.pds.getOcel?index=ai.gftd.cohort.kReevaluated` で analytics クエリ可能。
+`/xrpc/app.etzhayyim.pds.getOcel?index=app.etzhayyim.cohort.kReevaluated` で analytics クエリ可能。
 
 ## Risk
 
-- apqc projector への OCEL event emit (`ai.gftd.apqc.apqcEvent` write) は未実装 (runCohortWatchdogTick 内は OCEL datapoint のみ)
+- apqc projector への OCEL event emit (`app.etzhayyim.apqc.apqcEvent` write) は未実装 (runCohortWatchdogTick 内は OCEL datapoint のみ)
 - `onCommit` handler (evidence commit → apqcEvent) も未実装
 - migration 0034-0036 は staging 未 apply
 
 ## 次 iteration TODO
 
 1. `runCohortWatchdogTick` の `result.ocelEvents` を apqc projector (`did:web:kyber-projector.etzhayyim.com:apqc:{L1}`) に forward する
-2. evidence commit handler: `handleCommit` で `collection === 'ai.gftd.cohort.evidence'` 検出 → apqc projector emit
-3. `ai.gftd.cohort.seed` PDS procedure 実装
-4. lexicon `ai.gftd.cohort.listCohorts` (query) の仕様化
+2. evidence commit handler: `handleCommit` で `collection === 'app.etzhayyim.cohort.evidence'` 検出 → apqc projector emit
+3. `app.etzhayyim.cohort.seed` PDS procedure 実装
+4. lexicon `app.etzhayyim.cohort.listCohorts` (query) の仕様化
 5. apply migration 0034-0036 to staging
 
 # Iteration 9 — 2026-04-14
@@ -491,7 +491,7 @@ watchdog の OCEL stream:
 - 集約 1 行: `[scanned, violations]` (既存)
 - **per-event 行 (新規)**: `[kProxy, 1]` + blobs に `cohortDid / apqcL1 / apqcDid` 同梱
 
-`/xrpc/ai.gftd.pds.getOcel?index=ai.gftd.cohort.kReevaluated` で `apqcL1` by bucket 集計が可能。Kyber projector 側の `did:web:kyber-projector.etzhayyim.com:apqc:{L1}` に対する record write は次 iter。
+`/xrpc/app.etzhayyim.pds.getOcel?index=app.etzhayyim.cohort.kReevaluated` で `apqcL1` by bucket 集計が可能。Kyber projector 側の `did:web:kyber-projector.etzhayyim.com:apqc:{L1}` に対する record write は次 iter。
 
 ## Cohort Total N=54 (unchanged)
 
@@ -501,13 +501,13 @@ Iter 8 で追加した seniority 3 cohort を含む。
 
 - apqc projector への `createRecord` 実 call (PDS-internal XRPC) は未実装。現状は OCEL index にのみ流れる
 - `onCommit` evidence handler は未実装 (fission_ready 遷移の OCEL emit がまだない)
-- `ai.gftd.cohort.seed` PDS procedure も未実装
+- `app.etzhayyim.cohort.seed` PDS procedure も未実装
 
 ## 次 iteration TODO
 
 1. apqc projector への XRPC `createRecord` forward を cohort-watchdog に実装 (PDS 内部 XRPC fetch)
-2. `handleCommit` に `collection === 'ai.gftd.cohort.evidence'` 分岐 + `deriveCohortEventType()` 呼び出し
-3. `ai.gftd.cohort.seed` procedure 実装 (`vertex_cohort_actor` INSERT 経路)
+2. `handleCommit` に `collection === 'app.etzhayyim.cohort.evidence'` 分岐 + `deriveCohortEventType()` 呼び出し
+3. `app.etzhayyim.cohort.seed` procedure 実装 (`vertex_cohort_actor` INSERT 経路)
 4. cohort coverage: `seniority=senior` を L3 / L9 / L11 にも展開 (3 entries)
 5. Iteration history doc を production 採番 (0052-0054) に整合させる cleanup
 
@@ -517,7 +517,7 @@ Iter 8 で追加した seniority 3 cohort を含む。
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts` | `forwardOcelToApqc()` 新規 — PDS-internal XRPC fetch で `com.atproto.repo.createRecord` を `ai.gftd.apqc.apqcEvent` に打つ |
+| `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts` | `forwardOcelToApqc()` 新規 — PDS-internal XRPC fetch で `com.atproto.repo.createRecord` を `app.etzhayyim.apqc.apqcEvent` に打つ |
 | `50-infra/cloudflare/workers/atproto/src/app.ts` | `runCohortWatchdogTick` で各 OCEL event を projector に forward、成功数を log |
 | `deps.toml` | +3 cohort (seniority=senior on L3 / L9 / L11) |
 
@@ -541,7 +541,7 @@ cron match → parseCohortAction → runCohortKReevaluate (JOIN 済み)
       env.OCEL.writeDataPoint (analytics)
       forwardOcelToApqc (projector AT Record write)
          → POST https://atproto.etzhayyim.com/xrpc/com.atproto.repo.createRecord
-         → collection: ai.gftd.apqc.apqcEvent
+         → collection: app.etzhayyim.apqc.apqcEvent
          → did: did:web:kyber-projector.etzhayyim.com:apqc:{L1}
          → record: { ocelEventId, apqcCode, eventType, caseId=cohortDid, ... }
   → 結果 log: "forwarded N/M to apqc projector"
@@ -553,15 +553,15 @@ cron match → parseCohortAction → runCohortKReevaluate (JOIN 済み)
 
 - projector の XRPC write は PDS-internal fetch で行うが auth header なし (trusted intra-pds path)。本番で 401 が出る場合は `gftd agent-token --lxm com.atproto.repo.createRecord` で JWT 取得経路を入れる必要
 - `onCommit` handler (evidence commit → projector emit) は依然未実装
-- `ai.gftd.cohort.seed` procedure も依然未実装
+- `app.etzhayyim.cohort.seed` procedure も依然未実装
 
 ## 次 iteration TODO
 
 1. `forwardOcelToApqc` に Service Auth JWT 付与 (ADR-0022 agent-token 経由)
 2. evidence onCommit handler 実装 (projector への evidence.accrued / fissionReady 通知)
-3. `ai.gftd.cohort.seed` PDS procedure 実装 + lexicon attach
+3. `app.etzhayyim.cohort.seed` PDS procedure 実装 + lexicon attach
 4. cohort coverage: en locale × seniority overlay (6 entries)
-5. live monitoring: `/xrpc/ai.gftd.pds.getOcel?index=ai.gftd.cohort.kReevaluated` で 1 週間の volume を可視化
+5. live monitoring: `/xrpc/app.etzhayyim.pds.getOcel?index=app.etzhayyim.cohort.kReevaluated` で 1 週間の volume を可視化
 
 # Iteration 11 — 2026-04-14
 
@@ -598,7 +598,7 @@ locale × seniority matrix が jp/en 両言語で senior 確保。
 
 ## Evaluation — Seed Procedure Readiness
 
-`ai.gftd.cohort.seed` の全実装 prerequisite が揃った:
+`app.etzhayyim.cohort.seed` の全実装 prerequisite が揃った:
 - ✅ lexicon `seed.json` (Iter 1)
 - ✅ vertex_cohort_actor table (Iter 5 → prod 0053)
 - ✅ segment_hash parser (Iter 4)
@@ -613,10 +613,10 @@ locale × seniority matrix が jp/en 両言語で senior 確保。
 
 ## 次 iteration TODO
 
-1. `sdk.app.command(nsid('ai.gftd.cohort.seed'), ...)` 実装 (50-infra/cloudflare/workers/atproto/src/handlers/cohort.ts 新規)
+1. `sdk.app.command(nsid('app.etzhayyim.cohort.seed'), ...)` 実装 (50-infra/cloudflare/workers/atproto/src/handlers/cohort.ts 新規)
 2. `gftd cohort seed --segment <json>` CLI skeleton (70-tools/cmd/gftd/cohort/)
 3. `forwardOcelToApqc` に ADR-0022 agent-token 経由の Authorization header を追加
-4. evidence onCommit: `collection === 'ai.gftd.cohort.evidence'` 分岐
+4. evidence onCommit: `collection === 'app.etzhayyim.cohort.evidence'` 分岐
 5. migration 0055: `deps.toml [[cohort_actors]]` から `vertex_cohort_actor` への bootstrap insert
 
 # Iteration 12 — 2026-04-14
@@ -657,13 +657,13 @@ handler 関数は完成、XRPC dispatch 登録のみ残。
 handleCohortSeed が完了すると `cohort.genesis` event が projector に流れる:
 
 ```
-POST /xrpc/ai.gftd.cohort.seed
+POST /xrpc/app.etzhayyim.cohort.seed
   {segmentJsonld, kAnonymity: 50}
   → handleCohortSeed(env, input)
     → INSERT vertex_cohort_actor
     → forwardOcelToApqc({eventType: 'cohort.genesis', apqcDid: did:web:kyber-projector.etzhayyim.com:apqc:3-market-sell})
       → POST /xrpc/com.atproto.repo.createRecord
-        collection: ai.gftd.apqc.apqcEvent
+        collection: app.etzhayyim.apqc.apqcEvent
         record: {ocelEventId, apqcCode:'3-market-sell', eventType:'cohort.genesis', caseId:cohort_did, ...}
   → return {did, handle, signatureUri, genesisAt}
 ```
@@ -676,7 +676,7 @@ POST /xrpc/ai.gftd.cohort.seed
 
 ## 次 iteration TODO
 
-1. `handlers/gftd/index.ts` で `handleCohortSeed` を `ai.gftd.cohort.seed` NSID 分岐に登録
+1. `handlers/gftd/index.ts` で `handleCohortSeed` を `app.etzhayyim.cohort.seed` NSID 分岐に登録
 2. `gftd cohort seed --segment <json>` CLI subcommand (70-tools/cmd/gftd/cohort.go or ts)
 3. `forwardOcelToApqc` に `gftd agent-token --lxm com.atproto.repo.createRecord` 経由の Authorization 取得
 4. en × L7/L12 senior overlay (+2)
@@ -688,7 +688,7 @@ POST /xrpc/ai.gftd.cohort.seed
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `ai.gftd.cohort.seed` NSID を `XRPC_PLATFORM_WRITE_METHODS` に追加、dispatch switch に `case "ai.gftd.cohort.seed"` を新設 (dynamic import で cohort.ts 呼び出し) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `app.etzhayyim.cohort.seed` NSID を `XRPC_PLATFORM_WRITE_METHODS` に追加、dispatch switch に `case "app.etzhayyim.cohort.seed"` を新設 (dynamic import で cohort.ts 呼び出し) |
 | `deps.toml` | +2 cohort (en L7/L12 senior) |
 
 ## Cohort Total N=65
@@ -713,12 +713,12 @@ senior tier jp/en 両対応が 7 L1 に到達 (IT/sales/finance/risk/HR/ER × jp
 | PLATFORM_WRITE_METHODS entry | ✅ |
 | gftd CLI skeleton | ⏳ |
 
-POST `/xrpc/ai.gftd.cohort.seed` が reachable (要 auth)。
+POST `/xrpc/app.etzhayyim.cohort.seed` が reachable (要 auth)。
 
 ## Request Shape
 
 ```bash
-curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.cohort.seed \
+curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.cohort.seed \
   -H "Authorization: Bearer <JWT>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -727,7 +727,7 @@ curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.cohort.seed \
   }'
 # → 200
 # { "did":"did:plc:pending-<nano8>", "handle":"cohort-<nano8>.etzhayyim.com",
-#   "signatureUri":"at://cohort-<nano8>.etzhayyim.com/ai.gftd.cohort.signature/self",
+#   "signatureUri":"at://cohort-<nano8>.etzhayyim.com/app.etzhayyim.cohort.signature/self",
 #   "genesisAt":"2026-04-14T..." }
 ```
 
@@ -742,7 +742,7 @@ curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.cohort.seed \
 2. `forwardOcelToApqc` Service Auth wrapping
 3. onCommit handler (evidence → projector)
 4. migration 0055 draft: [[cohort_actors]] toml → vertex_cohort_actor bootstrap INSERT
-5. `ai.gftd.cohort.listCohorts` query NSID + lexicon
+5. `app.etzhayyim.cohort.listCohorts` query NSID + lexicon
 
 # Iteration 14 — 2026-04-14
 
@@ -760,8 +760,8 @@ curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.cohort.seed \
 gftd authn signin
 
 # Minted per-call scoped auth:
-AT_TOKEN=$(gftd agent-token --lxm ai.gftd.cohort.seed --ttl 60)
-GFTD_TOKEN=$AT_TOKEN gftd cohort seed \
+AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.cohort.seed --ttl 60)
+etzhayyim_TOKEN=$AT_TOKEN gftd cohort seed \
   --segment '{"pcfL1":"3-market-sell","role":"salesRep","locale":"jp"}' \
   --k 50
 
@@ -769,7 +769,7 @@ GFTD_TOKEN=$AT_TOKEN gftd cohort seed \
 # cohort genesis:
 #   did:          did:plc:pending-<nano8>
 #   handle:       cohort-<nano8>.etzhayyim.com
-#   signatureUri: at://cohort-<nano8>.etzhayyim.com/ai.gftd.cohort.signature/self
+#   signatureUri: at://cohort-<nano8>.etzhayyim.com/app.etzhayyim.cohort.signature/self
 #   genesisAt:    2026-04-14T...
 ```
 
@@ -804,7 +804,7 @@ ADR-0026 Phase A (genesis) が E2E 完結。CLI → XRPC → handler → graph w
 1. migration 0055: `deps.toml [[cohort_actors]]` の 65 entry を `vertex_cohort_actor` へ bootstrap INSERT (idempotent)
 2. onCommit handler (evidence → deriveCohortEventType → forwardOcelToApqc)
 3. `forwardOcelToApqc` の JWT 付与 (ADR-0022 agent-token API or identity: internal service binding)
-4. `ai.gftd.cohort.listCohorts` query NSID 仕様化
+4. `app.etzhayyim.cohort.listCohorts` query NSID 仕様化
 5. bulk seed automation: `gftd cohort seed-all --from deps.toml`
 
 # Iteration 15 — 2026-04-15
@@ -823,8 +823,8 @@ ADR-0026 Phase A (genesis) が E2E 完結。CLI → XRPC → handler → graph w
 gftd cohort bootstrap --deps deps.toml
 
 # Apply (limited batch for safety)
-AT_TOKEN=$(gftd agent-token --lxm ai.gftd.cohort.seed --ttl 600) \
-  GFTD_TOKEN=$AT_TOKEN gftd cohort bootstrap --dry-run=false --limit 10 -v
+AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.cohort.seed --ttl 600) \
+  etzhayyim_TOKEN=$AT_TOKEN gftd cohort bootstrap --dry-run=false --limit 10 -v
 ```
 
 ## Cohort Total N=65 in deps.toml
@@ -844,14 +844,14 @@ bootstrap 完了後、`vertex_cohort_actor` にも N=65 row が存在する状�
 ## Risk / Open Items
 
 - bootstrap は idempotent **ではない**: 毎回新 nano でも新 row が増える。次 iter で handler 側に `segment_hash` UNIQUE constraint or SELECT-before-INSERT を追加する必要
-- listCohorts query の PDS handler (handlers/gftd/index.ts で `case "ai.gftd.cohort.listCohorts"`) は未実装
+- listCohorts query の PDS handler (handlers/gftd/index.ts で `case "app.etzhayyim.cohort.listCohorts"`) は未実装
 - 診断警告は全て pre-existing (本 iter 由来なし)
 
 ## 次 iteration TODO
 
 1. `handleCohortSeed` に idempotency: 同一 segment_hash の cohort が既存なら既存 did/handle を返す
 2. `handleCohortList` 実装 + `XRPC_PLATFORM_READ_METHODS` 登録
-3. onCommit handler (ai.gftd.cohort.evidence)
+3. onCommit handler (app.etzhayyim.cohort.evidence)
 4. Murakumo agent に cohort.seed tool を登録 → LLM が demographic から自動 seed
 5. 再び cohort 登録拡張: seniority × locale × industry 3 軸の cross-product 網羅計画
 
@@ -862,16 +862,16 @@ bootstrap 完了後、`vertex_cohort_actor` にも N=65 row が存在する状�
 | File | 変更 |
 |---|---|
 | `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortSeed` に idempotency 追加 (segment_hash + kind='cohort' で SELECT-before-INSERT); 新規 `handleCohortList(input)` 実装 (kind/pcfL1/locale/fissionEnabled filter + limit/offset pagination) |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `case "ai.gftd.cohort.listCohorts"` dispatch 追加; `XRPC_PLATFORM_READ_METHODS` に NSID 追加 |
+| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `case "app.etzhayyim.cohort.listCohorts"` dispatch 追加; `XRPC_PLATFORM_READ_METHODS` に NSID 追加 |
 | `70-tools/gftd/gftd/cohort.go` | `gftd cohort list` subcommand 実装 (--kind / --pcfL1 / --locale / --limit / --offset / --json) |
 
 ## Phase A E2E 完成
 
 | Op | CLI | XRPC | Handler | 状態 |
 |---|---|---|---|---|
-| Genesis (idempotent) | `gftd cohort seed` | POST ai.gftd.cohort.seed | handleCohortSeed | ✅ |
+| Genesis (idempotent) | `gftd cohort seed` | POST app.etzhayyim.cohort.seed | handleCohortSeed | ✅ |
 | Bootstrap from toml | `gftd cohort bootstrap` | (POST xN) | (同上) | ✅ |
-| List / query | `gftd cohort list` | GET ai.gftd.cohort.listCohorts | handleCohortList | ✅ |
+| List / query | `gftd cohort list` | GET app.etzhayyim.cohort.listCohorts | handleCohortList | ✅ |
 
 ## Evaluation — Idempotency
 
@@ -900,7 +900,7 @@ gftd cohort list --locale en --json | jq '.cohorts | length'
 ## 次 iteration TODO
 
 1. idempotent hit 時の OCEL 重複抑止 (既存ヒットで `cohort.genesis` emit せず early return)
-2. onCommit handler (ai.gftd.cohort.evidence commit → projector emit)
+2. onCommit handler (app.etzhayyim.cohort.evidence commit → projector emit)
 3. Murakumo agent tool 登録 (LLM drives `gftd cohort seed` via function call)
 4. `gftd cohort fission --cohort <did>` stub (Phase C trigger API)
 5. listCohorts に accurate total count option (`--count true` で二次 SELECT count(*))
@@ -938,16 +938,16 @@ gftd cohort fission --cohort did:plc:... --posterior 0.97 --judge=true \
 
 ## Risk / Open Items
 
-- Phase C handler は ai.gftd.cohort.fission lexicon + handleCohortFission 実装が必要
+- Phase C handler は app.etzhayyim.cohort.fission lexicon + handleCohortFission 実装が必要
 - onCommit は spec 止まり (commit dispatcher 本体への insert は次 iter)
 - `forwardOcelToApqc` の引数 `kProxy` が posterior/k_proxy の overload になっており、rename 推奨
 
 ## 次 iteration TODO
 
-1. `handleCohortFission(env, input)` 実装 + dispatch wiring + `ai.gftd.cohort.fission` PLATFORM_WRITE_METHODS 登録
+1. `handleCohortFission(env, input)` 実装 + dispatch wiring + `app.etzhayyim.cohort.fission` PLATFORM_WRITE_METHODS 登録
 2. onCommit dispatcher に cohort.evidence 分岐を追加 (handlers/feed.ts or handlers/infra.ts の commit hook)
 3. `forwardOcelToApqc` の引数 `kProxy → numericPayload` rename + OcelEventType 毎の意味付け doc
-4. `ai.gftd.cohort.fission` lexicon を seed.json 同様にリファイン (既存) — rkey scheme 確認
+4. `app.etzhayyim.cohort.fission` lexicon を seed.json 同様にリファイン (既存) — rkey scheme 確認
 5. Murakumo agent に `cohort.seed` を tool 登録 (`20-actors/magatama/sdk/magatama-host-sdk/src/llm-tools.ts` 等)
 
 # Iteration 18 — 2026-04-15
@@ -958,7 +958,7 @@ gftd cohort fission --cohort did:plc:... --posterior 0.97 --judge=true \
 |---|---|
 | `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts` | `forwardOcelToApqc` 引数 `kProxy → numericPayload` rename + 意味付け JSDoc。既存 `kProxy` は `CohortKDriftResult.ocelEvents` の legacy field として temporary 保持 |
 | `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortFission(env, input)` 実装 — cohort lookup + fission_enabled 検証 + 子 actor INSERT (kind='fissioned', derived_from=parent) + `cohort.fission` OCEL emit |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `case "ai.gftd.cohort.fission"` dispatch + PLATFORM_WRITE_METHODS 登録 |
+| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `case "app.etzhayyim.cohort.fission"` dispatch + PLATFORM_WRITE_METHODS 登録 |
 
 ## Phase C (Fission) E2E 完成
 
@@ -968,7 +968,7 @@ gftd cohort fission --cohort did:plc:pending-abc \
   --posterior 0.97 --judge=true \
   --evidence at://...,at://...
 
-# → POST /xrpc/ai.gftd.cohort.fission
+# → POST /xrpc/app.etzhayyim.cohort.fission
 # → handleCohortFission:
 #    1. Validate gate (posterior>=0.95 AND judge=true AND evidence[]>=1)
 #    2. SELECT vertex_cohort_actor WHERE cohort_did=? AND kind='cohort'
@@ -982,7 +982,7 @@ gftd cohort fission --cohort did:plc:pending-abc \
   "individualDid": "did:plc:pending-<nano>",
   "individualHandle": "agent-<nano>.etzhayyim.com",
   "derivedFrom": "did:plc:pending-abc",
-  "lineageArchiveUri": "at://agent-<nano>.etzhayyim.com/ai.gftd.cohort.fissionLineage/self",
+  "lineageArchiveUri": "at://agent-<nano>.etzhayyim.com/app.etzhayyim.cohort.fissionLineage/self",
   "fissionAt": "2026-04-15T..."
 }
 ```
@@ -1018,9 +1018,9 @@ gftd cohort fission --cohort did:plc:pending-abc \
 
 ## 次 iteration TODO
 
-1. commit dispatcher (handlers/feed.ts or similar) に `ai.gftd.cohort.evidence` 分岐を insert
+1. commit dispatcher (handlers/feed.ts or similar) に `app.etzhayyim.cohort.evidence` 分岐を insert
 2. `forwardOcelToApqc` legacy `kProxy` field 削除 (app.ts 側 writeDataPoint も更新)
-3. `ai.gftd.cohort.fissionLineage` record lexicon 定義
+3. `app.etzhayyim.cohort.fissionLineage` record lexicon 定義
 4. `gftd cohort lineage --did <fissioned>` CLI で derived_from chain を辿る
 5. Murakumo agent tool registration
 
@@ -1070,10 +1070,10 @@ chain が長い = 繰り返し分裂した actor、短い = 1 回のみ fission�
 
 ## 次 iteration TODO
 
-1. `handleCohortFission` 内で `ai.gftd.cohort.fissionLineage` record を `did=individualDid, rkey='self'` で write (persistence 完成)
+1. `handleCohortFission` 内で `app.etzhayyim.cohort.fissionLineage` record を `did=individualDid, rkey='self'` で write (persistence 完成)
 2. onCommit evidence handler insert (本番 commit pipeline に evidence → projector OCEL の branch を追加)
 3. Murakumo agent tool registration (`cohort.seed` + `cohort.fission` を LLM callable に)
-4. `ai.gftd.cohort.listEvidence --cohort <did>` query lexicon (分析 surface 拡張)
+4. `app.etzhayyim.cohort.listEvidence --cohort <did>` query lexicon (分析 surface 拡張)
 5. `gftd cohort forest --pcfL1 <slug>` — L1 毎の cohort→fissioned tree を ascii 出力
 
 # Iteration 20 — 2026-04-15
@@ -1082,25 +1082,25 @@ chain が長い = 繰り返し分裂した actor、短い = 1 回のみ fission�
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortFission` に `ai.gftd.cohort.fissionLineage` record write (PDS XRPC fetch, individualDid 名義) 追加。`handleCohortListEvidence(env, input)` 新規 — cohort_did + optional minPosterior/judgeAgreement filter で vertex_repo_record を read |
+| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortFission` に `app.etzhayyim.cohort.fissionLineage` record write (PDS XRPC fetch, individualDid 名義) 追加。`handleCohortListEvidence(env, input)` 新規 — cohort_did + optional minPosterior/judgeAgreement filter で vertex_repo_record を read |
 | `00-contracts/lexicons/ai/gftd/cohort/listEvidence.json` | 新規 query lexicon (required: cohortDid) |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `case "ai.gftd.cohort.listEvidence"` dispatch + PLATFORM_READ 登録 |
+| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `case "app.etzhayyim.cohort.listEvidence"` dispatch + PLATFORM_READ 登録 |
 
 ## API Surface (cohort cluster)
 
 | NSID | Method | Description |
 |---|---|---|
-| `ai.gftd.cohort.seed` | POST | Phase A genesis (idempotent by segment_hash) |
-| `ai.gftd.cohort.fission` | POST | Phase C fission (+ auto lineage record) |
-| `ai.gftd.cohort.listCohorts` | GET | Actor列挙 (kind/pcfL1/locale/fission filter) |
-| `ai.gftd.cohort.listEvidence` | GET | Evidence列挙 (cohort_did scoped, posterior filter) |
+| `app.etzhayyim.cohort.seed` | POST | Phase A genesis (idempotent by segment_hash) |
+| `app.etzhayyim.cohort.fission` | POST | Phase C fission (+ auto lineage record) |
+| `app.etzhayyim.cohort.listCohorts` | GET | Actor列挙 (kind/pcfL1/locale/fission filter) |
+| `app.etzhayyim.cohort.listEvidence` | GET | Evidence列挙 (cohort_did scoped, posterior filter) |
 
 ## Process Mining — Evidence analytics
 
 ```bash
 # 特定 cohort の fission-ready evidence 件数
 curl -H "Authorization: Bearer $AT_TOKEN" \
-  "https://atproto.etzhayyim.com/xrpc/ai.gftd.cohort.listEvidence?cohortDid=did:plc:pending-abc&minPosterior=0.95&judgeAgreement=true"
+  "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.cohort.listEvidence?cohortDid=did:plc:pending-abc&minPosterior=0.95&judgeAgreement=true"
 
 # → posterior ≥ 0.95 かつ judge agreed な evidence row を列挙
 #    これが >= 1 かつ fission_enabled=true なら `gftd cohort fission` を発火できる
@@ -1110,7 +1110,7 @@ curl -H "Authorization: Bearer $AT_TOKEN" \
 
 `handleCohortFission` 成功時に:
 1. `vertex_cohort_actor` row INSERT (kind='fissioned', derived_from=parent) — graph side
-2. `ai.gftd.cohort.fissionLineage` AT Record self rkey で write — repo side (federable)
+2. `app.etzhayyim.cohort.fissionLineage` AT Record self rkey で write — repo side (federable)
 3. `cohort.fission` OCEL event emit — projector 側
 
 三重記録で fission イベントが watch/query/federation いずれ経由でも追跡可能。
@@ -1180,7 +1180,7 @@ done
 
 ## 次 iteration TODO
 
-1. onCommit dispatcher insert (ai.gftd.cohort.evidence branch)
+1. onCommit dispatcher insert (app.etzhayyim.cohort.evidence branch)
 2. write-outbox retry for lineage record
 3. Murakumo agent tool registration (cohort.seed + cohort.fission)
 4. `gftd cohort stats` — per-L1 aggregate (cohort count / fissioned count / avg posterior / k-drift rate)
@@ -2187,7 +2187,7 @@ seed (Phase A)
   → edge_cohort_routes_to (cohort_did → did:web:kyber-projector...:apqc:{L1})  ★new
   → forwardOcelToApqc (genesis)
        ↓
-[evidence write to ai.gftd.cohort.evidence — Phase B, onCommit pending]
+[evidence write to app.etzhayyim.cohort.evidence — Phase B, onCommit pending]
   → vertex_repo_record (cohort_did, evidence_hash, posterior, judge_agreement)
   → edge_cohort_evidence_about (evidence_hash → cohort_did)  ★ (handler 未配線)
   → mv_cohort_identity_posterior + mv_cohort_k_drift 自動更新
@@ -2230,10 +2230,10 @@ gftd cohort emit --cohort did:plc:pending-xxx \
   --payload "scraped:posts:42" \
   --posterior 0.78 --judge=false
 
-→ POST /xrpc/ai.gftd.cohort.emitEvidence
+→ POST /xrpc/app.etzhayyim.cohort.emitEvidence
 → handleCohortEmitEvidence:
    1. evidenceHash = sha256(cohort|kind|payload|ts)
-   2. INSERT vertex_repo_record (collection='ai.gftd.cohort.evidence', cohort_did, posterior, ...)
+   2. INSERT vertex_repo_record (collection='app.etzhayyim.cohort.evidence', cohort_did, posterior, ...)
    3. INSERT edge_cohort_evidence_about (evidence_hash → cohort_did)
 → MV auto-update:
    - mv_cohort_identity_posterior  (cohort_did → AVG/MAX posterior, fission_ready_count)
@@ -2371,7 +2371,7 @@ mv_cohort_lineage_depth が 0056 migration 適用後に streaming で自動更�
 | File | 変更 |
 |---|---|
 | `70-tools/gftd/CLAUDE.md` | `gftd cohort` セクションに `emit` + `lineage-stats` 行を追加 (16 subcommand 表完成) |
-| `deps.toml` | `[[conventions]]` に "ai.gftd.cohort.* lifecycle" entry 追加 (sources 14 file + adr link) |
+| `deps.toml` | `[[conventions]]` に "app.etzhayyim.cohort.* lifecycle" entry 追加 (sources 14 file + adr link) |
 | `CLAUDE.md` (root) | Key Conventions table に **Agent-Only Reverse Identity Topology (ADR-0026, active)** 行を追加 |
 
 ## Discovery Surface 完成
@@ -2443,7 +2443,7 @@ Iter 1 (ADR draft) → Iter 50 (active 化 + drift audit spec) までの累計�
 | File | 変更 |
 |---|---|
 | `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts` | `runCohortLineageAudit(env)` 新規 — 3 SQL check (edgeMissing / orphanEdge / parentMismatch) を Kysely で実装。`CohortLineageAuditResult` 返却 |
-| `50-infra/cloudflare/workers/atproto/src/app.ts` | `runCohortWatchdogTick` の triggered branch 末尾で audit を呼出、drift > 0 で OCEL `ai.gftd.cohort.lineageDrift` index に emit |
+| `50-infra/cloudflare/workers/atproto/src/app.ts` | `runCohortWatchdogTick` の triggered branch 末尾で audit を呼出、drift > 0 で OCEL `app.etzhayyim.cohort.lineageDrift` index に emit |
 
 ## Watchdog 統合フロー (full)
 
@@ -2460,12 +2460,12 @@ cron tick (7 */6 * * *)
 ## OCEL Schema
 
 ```
-index: ai.gftd.cohort.lineageDrift
-blobs: ['ai.gftd.cohort.lineageDrift', 'cron', 'internal', 'SCHEDULED', '', '', '', '']
+index: app.etzhayyim.cohort.lineageDrift
+blobs: ['app.etzhayyim.cohort.lineageDrift', 'cron', 'internal', 'SCHEDULED', '', '', '', '']
 doubles: [edgeMissing, orphanEdge, parentMismatch]
 ```
 
-`/xrpc/ai.gftd.pds.getOcel?index=ai.gftd.cohort.lineageDrift` で時系列 query 可能。
+`/xrpc/app.etzhayyim.pds.getOcel?index=app.etzhayyim.cohort.lineageDrift` で時系列 query 可能。
 
 ## 次 iteration TODO
 
@@ -2561,7 +2561,7 @@ ADR-0027 は別件 (recruit-talent-public-feed-first) で確保済みのため�
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/app.ts` | `runCohortWatchdogTick` 内の audit 結果処理を強化: orphanEdge / parentMismatch > 0 で `console.error` (CRITICAL) + 別 OCEL index `ai.gftd.cohort.lineageInvariantViolation` emit |
+| `50-infra/cloudflare/workers/atproto/src/app.ts` | `runCohortWatchdogTick` 内の audit 結果処理を強化: orphanEdge / parentMismatch > 0 で `console.error` (CRITICAL) + 別 OCEL index `app.etzhayyim.cohort.lineageInvariantViolation` emit |
 | `CLAUDE.md` (root) | Key Conventions に **ADR-0028 (proposed) Cohort MV Sharding** 行を追加。CLI subcommand 数を 17 に更新 |
 
 ## Severity Stratification
@@ -2573,8 +2573,8 @@ ADR-0027 は別件 (recruit-talent-public-feed-first) で確保済みのため�
 | `parentMismatch` | **CRITICAL** | manual review (parent reassignment 不可) |
 
 OCEL 2 index に分離:
-- `ai.gftd.cohort.lineageDrift` — 全 audit 結果 (常時 emit)
-- `ai.gftd.cohort.lineageInvariantViolation` — orphan/mismatch のみ (CRITICAL)
+- `app.etzhayyim.cohort.lineageDrift` — 全 audit 結果 (常時 emit)
+- `app.etzhayyim.cohort.lineageInvariantViolation` — orphan/mismatch のみ (CRITICAL)
 
 ## Discovery Surface (再確認)
 
@@ -2607,7 +2607,7 @@ OCEL 2 index に分離:
 |---|---|
 | **cohort-count** | `[[cohort_actors]]` 数を `$GITHUB_OUTPUT` に書き、segment_hash の必須 key (pcfL1/role/locale) 欠落を検出 + ADR-0028 Phase trigger 閾値 (5K/500K) で warning/error |
 | **cohort-go-tests** | `go test -run 'TestParseSegmentKV\|...' -v .` |
-| **cohort-lexicon-validate** | 全 ai.gftd.cohort.*.json を python json.load で parse |
+| **cohort-lexicon-validate** | 全 app.etzhayyim.cohort.*.json を python json.load で parse |
 
 ## Weekly Cron
 
@@ -2840,7 +2840,7 @@ Iter 50→60 で「実装完成 → governance 化 + scaling 戦略 + critical r
 ## Tool Schema 安全策
 
 - `cohort_fission` の posterior min 0.95 + judgeAgreement const true で LLM 誤発火を schema-level に防止
-- 全 tool call は OCEL `ai.gftd.cohort.llmToolCall` に emit (将来)
+- 全 tool call は OCEL `app.etzhayyim.cohort.llmToolCall` に emit (将来)
 
 ## Bootstrap Loop (agent-driven 自己拡張)
 
@@ -2879,7 +2879,7 @@ list → gap → seed → evidence → fission → snapshot diff → repeat
 ## Bootstrap Loop が runnable に
 
 ```typescript
-import { cohortToolSpecs, cohortToolDispatch } from '@gftd/magatama-host-sdk/llm-tools-cohort';
+import { cohortToolSpecs, cohortToolDispatch } from '@etzhayyim/magatama-host-sdk/llm-tools-cohort';
 
 await llm.agentReact({
   task: 'Grow cohort fleet to 1000 by filling locale=zh gap',
@@ -2921,7 +2921,7 @@ await llm.agentReact({
 
 | File | 変更 |
 |---|---|
-| `20-actors/magatama/sdk/magatama-host-sdk/src/index.ts` | cohort utilities + LLM tool registry を `@gftd/magatama-host-sdk` の public API surface に export — `parseSegmentHash`/`apqcL1DidFromSegment`/`deriveCohortEventType` + `cohortToolSpecs`/`cohortToolDispatch`/`cohortToolNsid` |
+| `20-actors/magatama/sdk/magatama-host-sdk/src/index.ts` | cohort utilities + LLM tool registry を `@etzhayyim/magatama-host-sdk` の public API surface に export — `parseSegmentHash`/`apqcL1DidFromSegment`/`deriveCohortEventType` + `cohortToolSpecs`/`cohortToolDispatch`/`cohortToolNsid` |
 
 ## Public API
 
@@ -2935,7 +2935,7 @@ import {
   cohortToolSpecs,
   cohortToolDispatch,
   cohortToolNsid,
-} from '@gftd/magatama-host-sdk';
+} from '@etzhayyim/magatama-host-sdk';
 ```
 
 これにより全 app が ADR-0026 cohort lifecycle を host-sdk import 1 行で利用可能。
@@ -2944,7 +2944,7 @@ import {
 
 | 場所 | export |
 |---|---|
-| `@gftd/magatama-host-sdk` (TS package) | cohort/llm-tools-cohort utilities (本 iter) |
+| `@etzhayyim/magatama-host-sdk` (TS package) | cohort/llm-tools-cohort utilities (本 iter) |
 | root CLAUDE.md Key Conventions | ADR-0026/0028 行 |
 | deps.toml [[critical_rules]] | R1-R10 |
 | deps.toml [[conventions]] | sources 14 file |
@@ -2975,11 +2975,11 @@ import {
 ## Integration Pattern (1-liner)
 
 ```typescript
-import { agentReact, cohortToolSpecs, createCohortToolHandler } from '@gftd/magatama-host-sdk';
+import { agentReact, cohortToolSpecs, createCohortToolHandler } from '@etzhayyim/magatama-host-sdk';
 
 const cohortHandler = createCohortToolHandler({
   pdsBaseUrl: 'https://atproto.etzhayyim.com',
-  bearerToken: process.env.GFTD_TOKEN!,
+  bearerToken: process.env.etzhayyim_TOKEN!,
 });
 
 await agentReact({

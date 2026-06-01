@@ -11,8 +11,8 @@ authoritative_for:
   - mitama-udf-pool-worker-suspension
   - helmfile-owned-raw-resource-adoption
 related:
-  - adr-2605142000
-  - adr-2605131900
+  - buildx-remote-build-only
+  - adr-2605131900-organism-mcp-xrpc-proxy-phase-h
 supersedes: []
 superseded_by: []
 ---

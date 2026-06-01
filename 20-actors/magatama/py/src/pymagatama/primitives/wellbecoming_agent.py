@@ -44,9 +44,9 @@ except ImportError:
 # ── Constants ─────────────────────────────────────────────────────────
 
 DEFAULT_REPO = "did:web:bpmn.etzhayyim.com"
-COLLECTION_MESSAGE = "ai.gftd.convo.message"
-COLLECTION_REPORT  = "ai.gftd.apps.wellbecoming.proactiveMessage"
-COLLECTION_ALERT   = "ai.gftd.apps.wellbecoming.floorAlert"
+COLLECTION_MESSAGE = "app.etzhayyim.convo.message"
+COLLECTION_REPORT  = "app.etzhayyim.apps.wellbecoming.proactiveMessage"
+COLLECTION_ALERT   = "app.etzhayyim.apps.wellbecoming.floorAlert"
 
 SEPARATION_AT_RISK_THRESHOLD: float = float(
     os.environ.get("WB_AT_RISK_THRESHOLD", "-0.3")

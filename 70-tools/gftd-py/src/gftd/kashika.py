@@ -324,7 +324,7 @@ def _downtime_per_year(avail: float) -> str:
               help="Output SVG (writes to stdout or --output)")
 @click.option("--output", "-o", default=None)
 def kashika_sla(json_out: bool, svg_out: bool, output: str | None) -> None:
-    """99.999% SLA design analysis for GFTD platform components."""
+    """99.999% SLA design analysis for etzhayyim platform components."""
     target_label = f"{_TARGET_SLA * 100:.4f}%"
     downtime_target = _downtime_per_year(_TARGET_SLA)
 
@@ -352,7 +352,7 @@ def kashika_sla(json_out: bool, svg_out: bool, output: str | None) -> None:
         return
 
     lines = [
-        f"GFTD Platform SLA Analysis",
+        f"etzhayyim Platform SLA Analysis",
         f"  Target: {target_label}  Max downtime: {downtime_target}/year",
         "",
         f"{'COMPONENT':<32}  {'LAYER':<10}  {'AVAIL':<8}  {'EFF_AVAIL':<10}  SPOF  DOWNTIME/yr",

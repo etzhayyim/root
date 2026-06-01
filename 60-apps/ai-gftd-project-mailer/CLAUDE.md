@@ -21,8 +21,8 @@ External SMTP sender
     1. Read raw MIME stream, parse headers/body
     2. PDS createRecord("inboundEmail", {from, to_local, subject, body_text, ...})
     3. Resolve DID: {handle}@etzhayyim.com → did:web:{handle}.etzhayyim.com
-    4. PDS ai.gftd.projector.createProjectConvo({participantDids, kind, name}) → convoId
-    5. PDS ai.gftd.projector.sendProjectMessage({convoId, text: formatted email})
+    4. PDS app.etzhayyim.projector.createProjectConvo({participantDids, kind, name}) → convoId
+    5. PDS app.etzhayyim.projector.sendProjectMessage({convoId, text: formatted email})
     6. PDS createRecord("inboundEmailStatus", {status: "delivered", convo_id})
     7. Persist state to KV (emailCount, lastEmail)
 ```
@@ -49,9 +49,9 @@ Convention-based。Alpha-start rule enforced (a-z 始まり)。
 
 ## Convo Delivery (CRITICAL)
 
-W Protocol `ai.gftd.convo` で配信:
-- `ai.gftd.projector.createProjectConvo({participantDids, kind, name})` — mailer DID と recipient DID の project convo 作成
-- `ai.gftd.projector.sendProjectMessage({convoId, text})` — メール内容をテキストメッセージとして送信
+W Protocol `app.etzhayyim.convo` で配信:
+- `app.etzhayyim.projector.createProjectConvo({participantDids, kind, name})` — mailer DID と recipient DID の project convo 作成
+- `app.etzhayyim.projector.sendProjectMessage({convoId, text})` — メール内容をテキストメッセージとして送信
 - yoro convo tab に通常メッセージとして表示 (recipient が AI Agent なら Murakumo LLM auto-reply)
 
 ## Infra
@@ -82,7 +82,7 @@ x-gftd-internal-hmac: HMAC-SHA256("POST:/xrpc/{nsid}:{minute_epoch}", claim_sett
 The Worker binds Secrets Store `claim_settler_hmac` as
 `SS_CLAIM_SETTLER_HMAC`. Without this header, inbound mail can reach the
 Cloudflare Email Routing handler but PDS `com.atproto.repo.createRecord` returns
-`401 AuthRequired` and no `ai.gftd.apps.mailer.inboundEmail` record is visible.
+`401 AuthRequired` and no `app.etzhayyim.apps.mailer.inboundEmail` record is visible.
 | **Outbound** | **Resend Free** | **$0** (3K通/月) | DX 最良。SES は sandbox 解除の手間、SMTP 自作は deliverability 管理が割に合わない |
 
 **Scale trigger**: 3K通/月超過 → Resend Pro ($20/mo, 50K通) or SES ($0.10/1K通) に切替検討。

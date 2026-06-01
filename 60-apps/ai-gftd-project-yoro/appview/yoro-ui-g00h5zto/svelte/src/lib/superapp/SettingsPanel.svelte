@@ -27,10 +27,10 @@
 {:else}
 	<div class="mx-auto flex w-full max-w-[600px] flex-col gap-4 p-4">
 		<div class="h-6 w-32 animate-pulse rounded bg-gftd-hover"></div>
-		<div class="h-40 animate-pulse rounded-2xl border border-gftd-border bg-gftd-card"></div>
-		<div class="h-40 animate-pulse rounded-2xl border border-gftd-border bg-gftd-card"></div>
+		<div class="h-40 animate-pulse rounded-2xl border border-etzhayyim-border bg-gftd-card"></div>
+		<div class="h-40 animate-pulse rounded-2xl border border-etzhayyim-border bg-gftd-card"></div>
 		{#if loaded}
-			<div class="text-[12px] text-gftd-muted">Loading settings…</div>
+			<div class="text-[12px] text-etzhayyim-muted">Loading settings…</div>
 		{/if}
 	</div>
 {/if}

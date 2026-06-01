@@ -17,7 +17,7 @@ axis: security
 weight: 0.80
 depends_on:
   - adr-2605190100-defense-cluster-topology
-  - adr-2604261100-rego-policy-authorization
+  - adr-2604261100-rego-dmn-policy-decision-layers
 related:
   - adr-0018-pii-tier3-cohort-first
   - adr-0048-risingwave-vultr-b2-primary
@@ -59,7 +59,7 @@ IRP の詳細手順書は `90-docs/irp/` に別途置く。
 ### 2. Incident Commander (IC) 制度
 
 IC は **etzhayyim 運営主体の意思決定権者** が担う。
-Gftd Japan (vendor) は IC になれない (Operating Entity Boundary — CLAUDE.md)。
+etzhayyim Japan (vendor) は IC になれない (Operating Entity Boundary — CLAUDE.md)。
 
 | ロール | 権限 | P0/P1 時 |
 |---|---|---|

@@ -2,7 +2,7 @@
 
 Python runtime SDK for mitama reactive agents (Mode A per [ADR-0049](../../../90-docs/adr/0049-python-udf-shared-pool-runtime.md)).
 
-Counterpart to `@gftd/magatama-host-sdk` (TS, used by CF Worker Mode B / interactive actors).
+Counterpart to `@etzhayyim/magatama-host-sdk` (TS, used by CF Worker Mode B / interactive actors).
 
 ## Topology
 
@@ -29,7 +29,7 @@ python -m pymagatama.server    # binds :8815 arrow-flight, :9090 prometheus
 from pymagatama import udf
 
 @udf(
-    nsid="ai.gftd.apps.yabai.classify",
+    nsid="app.etzhayyim.apps.yabai.classify",
     io_threads=100,
     agent_tool="Classify an email for BEC/phishing signals",
 )

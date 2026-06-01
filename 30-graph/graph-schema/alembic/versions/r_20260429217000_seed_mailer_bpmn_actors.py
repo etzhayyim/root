@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-health-v1',
                  'did:web:mailer.etzhayyim.com',
                  'mailer_health',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -35,7 +35,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_mailer_health" '
                  'targetNamespace="https://etzhayyim.com/bpmn/mailer" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="mailer_health" name="mailer health" '
-                 'isExecutable="true"><bpmn:documentation>{ "nsid": "ai.gftd.apps.mailer.health", '
+                 'isExecutable="true"><bpmn:documentation>{ "nsid": "app.etzhayyim.apps.mailer.health", '
                  '"version": 1, "resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -50,7 +50,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -65,9 +65,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-health-v1',
                  'did:web:mailer.etzhayyim.com',
-                 'ai.gftd.apps.mailer.health',
+                 'app.etzhayyim.apps.mailer.health',
                  'mailer_health',
                  30000,
                  '',
@@ -76,7 +76,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -92,7 +92,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-list-emails-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-list-emails-v1',
                  'did:web:mailer.etzhayyim.com',
                  'mailer_list_emails',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -102,7 +102,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/mailer" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="mailer_list_emails" name="mailer '
                  'listEmails" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.mailer.listEmails", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.mailer.listEmails", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -117,7 +117,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-list-emails-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-list-emails-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -132,9 +132,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-listEmails-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-listEmails-v1',
                  'did:web:mailer.etzhayyim.com',
-                 'ai.gftd.apps.mailer.listEmails',
+                 'app.etzhayyim.apps.mailer.listEmails',
                  'mailer_list_emails',
                  30000,
                  '',
@@ -143,7 +143,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-listEmails-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-listEmails-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -159,7 +159,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-list-bindings-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-list-bindings-v1',
                  'did:web:mailer.etzhayyim.com',
                  'mailer_list_bindings',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -169,7 +169,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/mailer" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="mailer_list_bindings" name="mailer '
                  'listBindings" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.mailer.listBindings", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.mailer.listBindings", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -184,7 +184,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-list-bindings-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-list-bindings-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -199,9 +199,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-listBindings-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-listBindings-v1',
                  'did:web:mailer.etzhayyim.com',
-                 'ai.gftd.apps.mailer.listBindings',
+                 'app.etzhayyim.apps.mailer.listBindings',
                  'mailer_list_bindings',
                  30000,
                  '',
@@ -210,7 +210,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-listBindings-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-listBindings-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -226,7 +226,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-stats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-stats-v1',
                  'did:web:mailer.etzhayyim.com',
                  'mailer_stats',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -234,7 +234,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_mailer_stats" '
                  'targetNamespace="https://etzhayyim.com/bpmn/mailer" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="mailer_stats" name="mailer stats" '
-                 'isExecutable="true"><bpmn:documentation>{ "nsid": "ai.gftd.apps.mailer.stats", '
+                 'isExecutable="true"><bpmn:documentation>{ "nsid": "app.etzhayyim.apps.mailer.stats", '
                  '"version": 1, "resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -249,7 +249,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-stats-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-stats-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -264,9 +264,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-stats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-stats-v1',
                  'did:web:mailer.etzhayyim.com',
-                 'ai.gftd.apps.mailer.stats',
+                 'app.etzhayyim.apps.mailer.stats',
                  'mailer_stats',
                  30000,
                  '',
@@ -275,7 +275,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-stats-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-stats-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -291,7 +291,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-send-email-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-send-email-v1',
                  'did:web:mailer.etzhayyim.com',
                  'mailer_send_email',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -301,7 +301,7 @@ UP = [{'sql': '\n'
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process '
                  'id="mailer_send_email" name="mailer sendEmail" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.mailer.sendEmail", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.mailer.sendEmail", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -316,7 +316,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-send-email-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-send-email-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -331,9 +331,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-sendEmail-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-sendEmail-v1',
                  'did:web:mailer.etzhayyim.com',
-                 'ai.gftd.apps.mailer.sendEmail',
+                 'app.etzhayyim.apps.mailer.sendEmail',
                  'mailer_send_email',
                  120000,
                  'vertex_mailer_outbound_email',
@@ -342,7 +342,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-sendEmail-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-sendEmail-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -358,7 +358,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-provision-mailbox-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-provision-mailbox-v1',
                  'did:web:mailer.etzhayyim.com',
                  'mailer_provision_mailbox',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -368,7 +368,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/mailer" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="mailer_provision_mailbox" name="mailer '
                  'provisionMailbox" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.mailer.provisionMailbox", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.mailer.provisionMailbox", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -384,7 +384,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-provision-mailbox-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-provision-mailbox-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -399,9 +399,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-provisionMailbox-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-provisionMailbox-v1',
                  'did:web:mailer.etzhayyim.com',
-                 'ai.gftd.apps.mailer.provisionMailbox',
+                 'app.etzhayyim.apps.mailer.provisionMailbox',
                  'mailer_provision_mailbox',
                  120000,
                  'vertex_mailer_email_binding',
@@ -410,7 +410,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-provisionMailbox-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-provisionMailbox-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -426,7 +426,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-handle-commit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-handle-commit-v1',
                  'did:web:mailer.etzhayyim.com',
                  'mailer_handle_commit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -436,7 +436,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/mailer" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="mailer_handle_commit" name="mailer '
                  'handleCommit" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.mailer.handleCommit", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.mailer.handleCommit", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -451,7 +451,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-handle-commit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-handle-commit-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -466,9 +466,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-handleCommit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-handleCommit-v1',
                  'did:web:mailer.etzhayyim.com',
-                 'ai.gftd.apps.mailer.handleCommit',
+                 'app.etzhayyim.apps.mailer.handleCommit',
                  'mailer_handle_commit',
                  30000,
                  '',
@@ -477,7 +477,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-handleCommit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-handleCommit-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -493,7 +493,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-heartbeat-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-heartbeat-v1',
                  'did:web:mailer.etzhayyim.com',
                  'mailer_heartbeat',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -503,7 +503,7 @@ UP = [{'sql': '\n'
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process '
                  'id="mailer_heartbeat" name="mailer heartbeat" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.mailer.heartbeat", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.mailer.heartbeat", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -518,7 +518,7 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-heartbeat-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-heartbeat-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -533,9 +533,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-heartbeat-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-heartbeat-v1',
                  'did:web:mailer.etzhayyim.com',
-                 'ai.gftd.apps.mailer.heartbeat',
+                 'app.etzhayyim.apps.mailer.heartbeat',
                  'mailer_heartbeat',
                  30000,
                  '',
@@ -544,40 +544,40 @@ UP = [{'sql': '\n'
                  'did:web:mailer.etzhayyim.com',
                  'sys.bpmn.seed.mailer',
                  'did:web:mailer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-heartbeat-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-heartbeat-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-listEmails-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-listEmails-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-list-emails-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-list-emails-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-listBindings-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-listBindings-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-list-bindings-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-list-bindings-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-stats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-stats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-stats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-stats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-sendEmail-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-sendEmail-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-send-email-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-send-email-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-provisionMailbox-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-provisionMailbox-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-provision-mailbox-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-provision-mailbox-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-handleCommit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-handleCommit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-handle-commit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-handle-commit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mailer-heartbeat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-heartbeat-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mailer-heartbeat-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-heartbeat-v1']}]
 
 
 def upgrade() -> None:

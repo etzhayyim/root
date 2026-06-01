@@ -40,9 +40,9 @@ export async function getUserAuthInfo(): Promise<UserAuthInfo> {
 		const client = await clerkClient();
 		const user = await client.users.getUser(userId);
 
-		// システム管理者チェック（@gftd.co.jp ドメイン）
+		// システム管理者チェック（@etzhayyim.com ドメイン）
 		const isSystemAdmin = user.emailAddresses?.some((email) =>
-			email.emailAddress?.includes("@gftd.co.jp")
+			email.emailAddress?.includes("@etzhayyim.com")
 		) ?? false;
 
 		const publicMetadata = user.publicMetadata as Record<string, unknown> | undefined;
@@ -95,7 +95,7 @@ export async function getUserAuthInfo(): Promise<UserAuthInfo> {
  * ユーザータイプを判定（未設定の場合は他の情報から推測）
  * 
  * 優先順位:
- * 1. システム管理者（@gftd.co.jp ドメイン）
+ * 1. システム管理者（@etzhayyim.com ドメイン）
  * 2. 明示的に設定されたuserType（agency, agencyRecruiter, corporateRecruiter, jobSeeker）はそのまま保持
  * 3. userType未設定で組織メンバーシップがある場合は agencyRecruiter（招待経由の新規ユーザー）
  * 4. recruiterRole から推測

@@ -247,7 +247,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.kiyome.submitClearance")
+    @worker.task(task_type="app.etzhayyim.apps.kiyome.submitClearance")
     async def task_submit_clearance(**kwargs):
         return await asyncio.to_thread(
             _submit_clearance_sync,
@@ -258,7 +258,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kiyome.listClearances")
+    @worker.task(task_type="app.etzhayyim.apps.kiyome.listClearances")
     async def task_list_clearances(**kwargs):
         return await asyncio.to_thread(
             _list_clearances_sync,
@@ -268,7 +268,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kiyome.approveClearance")
+    @worker.task(task_type="app.etzhayyim.apps.kiyome.approveClearance")
     async def task_approve_clearance(**kwargs):
         return await asyncio.to_thread(
             _approve_clearance_sync,
@@ -277,7 +277,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kiyome.rejectClearance")
+    @worker.task(task_type="app.etzhayyim.apps.kiyome.rejectClearance")
     async def task_reject_clearance(**kwargs):
         return await asyncio.to_thread(
             _reject_clearance_sync,
@@ -286,7 +286,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kiyome.createAuditLog")
+    @worker.task(task_type="app.etzhayyim.apps.kiyome.createAuditLog")
     async def task_create_audit_log(**kwargs):
         return await asyncio.to_thread(
             _create_audit_log_sync,
@@ -297,7 +297,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kiyome.listAuditLogs")
+    @worker.task(task_type="app.etzhayyim.apps.kiyome.listAuditLogs")
     async def task_list_audit_logs(**kwargs):
         return await asyncio.to_thread(
             _list_audit_logs_sync,
@@ -307,7 +307,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kiyome.getComplianceStatus")
+    @worker.task(task_type="app.etzhayyim.apps.kiyome.getComplianceStatus")
     async def task_get_compliance_status(**kwargs):
         return await asyncio.to_thread(
             _get_compliance_status_sync,
@@ -315,7 +315,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kiyome.runPurification")
+    @worker.task(task_type="app.etzhayyim.apps.kiyome.runPurification")
     async def task_run_purification(**kwargs):
         return await asyncio.to_thread(
             _run_purification_sync,

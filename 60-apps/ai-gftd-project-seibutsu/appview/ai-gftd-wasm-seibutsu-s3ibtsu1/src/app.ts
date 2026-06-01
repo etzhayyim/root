@@ -11,7 +11,7 @@ import {
   genID,
   nsid,
   parseLexiconInput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const APP_SLUG = "seibutsu";
 let actorDID = "";
@@ -121,7 +121,7 @@ async function resolveLineage(did: string, max = 16): Promise<JsonRow[]> {
 // ── Commands ──
 
 async function cmdGetProfile(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.seibutsu.getProfile", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.seibutsu.getProfile", body);
   const did = str(args.did ?? "");
   if (!did) return { error: "did required" };
   const taxon = await getTaxonByDid(did);
@@ -132,7 +132,7 @@ async function cmdGetProfile(_sdk: HostSDK, body: Uint8Array): Promise<unknown> 
 }
 
 async function cmdRenderProfile(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.seibutsu.renderProfile", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.seibutsu.renderProfile", body);
   const did = str(args.did ?? "");
   if (!did) return { error: "did required" };
   const taxon = await getTaxonByDid(did);
@@ -156,14 +156,14 @@ async function cmdRenderProfile(_sdk: HostSDK, body: Uint8Array): Promise<unknow
 }
 
 async function cmdRegisterTaxon(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.seibutsu.taxon", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.seibutsu.taxon", body);
   const did = str(args.did ?? "");
   const rank = str(args.rank ?? "");
   const scientificName = str(args.scientificName ?? "");
   if (!did || !rank || !scientificName) return { error: "did, rank, scientificName required" };
   const rkey = str(args.did ?? "") || genID("taxon");
   await db().insertInto("vertex_seibutsu_taxon" as any).values({
-    vertex_id: `at://${actorDID || "did:web:seibutsu.etzhayyim.com"}/ai.gftd.apps.seibutsu.taxon/${rkey}`,
+    vertex_id: `at://${actorDID || "did:web:seibutsu.etzhayyim.com"}/app.etzhayyim.apps.seibutsu.taxon/${rkey}`,
     sensitivity_ord: 2,
     owner_did: actorDID || "did:web:seibutsu.etzhayyim.com",
     did,
@@ -176,12 +176,12 @@ async function cmdRegisterTaxon(_sdk: HostSDK, body: Uint8Array): Promise<unknow
 }
 
 async function cmdDeriveTraits(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.seibutsu.traits", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.seibutsu.traits", body);
   const taxonDid = str(args.taxonDid ?? "");
   if (!taxonDid) return { error: "taxonDid required" };
   const rkey = taxonDid.replace(/[^a-z0-9-]/gi, "-");
   await db().insertInto("vertex_seibutsu_traits" as any).values({
-    vertex_id: `at://${actorDID || "did:web:seibutsu.etzhayyim.com"}/ai.gftd.apps.seibutsu.traits/${rkey}`,
+    vertex_id: `at://${actorDID || "did:web:seibutsu.etzhayyim.com"}/app.etzhayyim.apps.seibutsu.traits/${rkey}`,
     sensitivity_ord: 2,
     owner_did: actorDID || "did:web:seibutsu.etzhayyim.com",
     taxon_did: taxonDid,
@@ -192,13 +192,13 @@ async function cmdDeriveTraits(_sdk: HostSDK, body: Uint8Array): Promise<unknown
 }
 
 async function cmdIngestObservation(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.seibutsu.observation", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.seibutsu.observation", body);
   const taxonDid = str(args.taxonDid ?? "");
   const observerDid = str(args.observerDid ?? "");
   if (!taxonDid || !observerDid) return { error: "taxonDid, observerDid required" };
   const id = genID("obs");
   await db().insertInto("vertex_seibutsu_observation" as any).values({
-    vertex_id: `at://${actorDID || "did:web:seibutsu.etzhayyim.com"}/ai.gftd.apps.seibutsu.observation/${id}`,
+    vertex_id: `at://${actorDID || "did:web:seibutsu.etzhayyim.com"}/app.etzhayyim.apps.seibutsu.observation/${id}`,
     sensitivity_ord: 2,
     owner_did: actorDID || "did:web:seibutsu.etzhayyim.com",
     id,
@@ -220,11 +220,11 @@ function handleComAtprotoSyncSubscribeReposCommit(
   if (commit.action !== "create") return { ok: true, detail: "skip non-create" };
   const collection = str(commit.collection ?? "");
   switch (collection) {
-    case "ai.gftd.apps.seibutsu.taxon":
+    case "app.etzhayyim.apps.seibutsu.taxon":
       return { ok: true, detail: "taxon registered (derive: optional researcher-bio-gene lookup)" };
-    case "ai.gftd.apps.seibutsu.traits":
+    case "app.etzhayyim.apps.seibutsu.traits":
       return { ok: true, detail: "traits stored (derive: stream-taxa cache invalidate)" };
-    case "ai.gftd.apps.seibutsu.observation":
+    case "app.etzhayyim.apps.seibutsu.observation":
       return { ok: true, detail: "observation ingested (derive: app.bsky.feed.post sighting)" };
     default:
       return { ok: true, detail: "commit accepted" };
@@ -236,24 +236,24 @@ export { handleComAtprotoSyncSubscribeReposCommit };
 export default createWorkerExport((sdk) => {
   actorDID = sdk.pds.selfRepo ?? "";
   sdk.app
-    .command(nsid("ai.gftd.apps.seibutsu.getProfile"), (_, b) => cmdGetProfile(sdk, b),
+    .command(nsid("app.etzhayyim.apps.seibutsu.getProfile"), (_, b) => cmdGetProfile(sdk, b),
       asAgentTool("Resolve a taxon DID to taxon record + traits + parent lineage"),
       withCapabilityTags("query", "bio", "taxonomy"),
     )
-    .command(nsid("ai.gftd.apps.seibutsu.renderProfile"), (_, b) => cmdRenderProfile(sdk, b),
+    .command(nsid("app.etzhayyim.apps.seibutsu.renderProfile"), (_, b) => cmdRenderProfile(sdk, b),
       asAgentTool("Resolve a taxon DID to a kami-vegetation TaxonomicProfile JSON for engine ingestion"),
       withCapabilityTags("query", "bio", "engine"),
     )
-    .command(nsid("ai.gftd.apps.seibutsu.taxon"), (_, b) => cmdRegisterTaxon(sdk, b),
+    .command(nsid("app.etzhayyim.apps.seibutsu.taxon"), (_, b) => cmdRegisterTaxon(sdk, b),
       asAgentTool("Register a biological taxon as an actor record (rank, scientific name, parent DID, GBIF/NCBI/Wikidata refs)"),
       withCapabilityTags("write", "bio", "taxonomy"),
       withOCELEvent("seibutsu.taxon.register"),
     )
-    .command(nsid("ai.gftd.apps.seibutsu.traits"), (_, b) => cmdDeriveTraits(sdk, b),
+    .command(nsid("app.etzhayyim.apps.seibutsu.traits"), (_, b) => cmdDeriveTraits(sdk, b),
       asAgentTool("Store procedural-generation traits for a taxon (kami-vegetation TaxonomicProfile mirror)"),
       withCapabilityTags("write", "bio", "engine"),
     )
-    .command(nsid("ai.gftd.apps.seibutsu.observation"), (_, b) => cmdIngestObservation(sdk, b),
+    .command(nsid("app.etzhayyim.apps.seibutsu.observation"), (_, b) => cmdIngestObservation(sdk, b),
       asAgentTool("Ingest an individual organism observation (geo-h3, observer DID, image)"),
       withCapabilityTags("write", "bio", "observation"),
       withOCELEvent("seibutsu.observation.ingest"),

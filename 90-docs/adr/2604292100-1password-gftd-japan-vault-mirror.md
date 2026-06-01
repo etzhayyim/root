@@ -1,6 +1,6 @@
 ---
 id: 2604292100-1password-gftd-japan-vault-mirror
-title: 1Password "Gftd Japan株式会社" vault as the org-share mirror of gftd.* Keychain credentials
+title: 1Password "etzhayyim Japan株式会社" vault as the org-share mirror of gftd.* Keychain credentials
 status: active
 doc_type: adr
 topic: credential-distribution
@@ -10,7 +10,7 @@ authoritative_for:
   - 1Password vault layout for gftd.* operator credentials
   - keychain → 1Password mirror policy
 related:
-  - 2604231811-atproto-extension-service-layers
+  - adr-2604231811-atproto-extension-service-layers
 supersedes: []
 superseded_by: []
 ---
@@ -34,7 +34,7 @@ for one-off secrets (e.g. `ai-gftd-pds-repo-signing-kek-adr0010` per
 day-to-day `gftd.{provider}/{KEY_NAME}` set the operator already keeps in
 Keychain.
 
-The "Gftd Japan株式会社" 1Password vault (id `dk3qlcuqumtoml2oaxrs5mwiji`)
+The "etzhayyim Japan株式会社" 1Password vault (id `dk3qlcuqumtoml2oaxrs5mwiji`)
 already contained ~50 `gftd.*/...`-titled items — a partial mirror that grew
 organically. As of 2026-04-28 the live Keychain held 9 services × 14 accounts
 under `gftd.*`, and the partial mirror diverged: 4 vault items existed as
@@ -42,7 +42,7 @@ empty title-only stubs, 10 keychain entries had no vault counterpart at all.
 
 # Decision
 
-Adopt 1Password "Gftd Japan株式会社" (`dk3qlcuqumtoml2oaxrs5mwiji`) as the
+Adopt 1Password "etzhayyim Japan株式会社" (`dk3qlcuqumtoml2oaxrs5mwiji`) as the
 **human/operator-facing share view** of every `gftd.*` Generic Password the
 operator stores in macOS Keychain.
 
@@ -57,8 +57,8 @@ operator stores in macOS Keychain.
     1Password.
   - `vault.etzhayyim.com` remains the *workload* org-share path (zero-knowledge,
     ECIES, programmatic access by Workers / pyzeebe).
-  - 1Password "Gftd Japan株式会社" is **operator UI only** — readable in
-    the desktop app, browser extension, and `op` CLI by Gftd Japan members
+  - 1Password "etzhayyim Japan株式会社" is **operator UI only** — readable in
+    the desktop app, browser extension, and `op` CLI by etzhayyim Japan members
     who already have access to that vault. It is not a runtime read source.
 - **Mirror direction is one-way (Keychain → 1Password)**. If a value
   changes, update Keychain first; the next mirror run propagates. Do not

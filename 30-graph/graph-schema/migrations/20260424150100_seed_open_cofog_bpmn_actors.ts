@@ -16,19 +16,19 @@ const ownerDid = "did:web:open-cofog.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-cofog";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cofog-record-expenditure-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cofog-record-expenditure-v1",
     bpmnProcessId: "open_cofog_record_expenditure",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-cofog/recordExpenditure.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cofog-record-concordance-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cofog-record-concordance-v1",
     bpmnProcessId: "open_cofog_record_concordance",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-cofog/recordConcordance.bpmn", ownerDid },
 ];
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cofog-recordExpenditure-v1",
-    nsid: "ai.gftd.apps.openCofog.recordExpenditure", bpmnProcessId: "open_cofog_record_expenditure",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cofog-recordExpenditure-v1",
+    nsid: "app.etzhayyim.apps.openCofog.recordExpenditure", bpmnProcessId: "open_cofog_record_expenditure",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cofog-recordConcordance-v1",
-    nsid: "ai.gftd.apps.openCofog.recordConcordance", bpmnProcessId: "open_cofog_record_concordance",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cofog-recordConcordance-v1",
+    nsid: "app.etzhayyim.apps.openCofog.recordConcordance", bpmnProcessId: "open_cofog_record_concordance",
     ownerDid, resultTimeoutMs: 15000 },
 ];
 

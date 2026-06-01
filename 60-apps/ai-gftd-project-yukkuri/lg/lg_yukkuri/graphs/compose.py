@@ -1,6 +1,6 @@
 """yukkuri `compose` graph — topic → video enqueue (status: queued).
 
-NSID: ai.gftd.apps.yukkuri.compose
+NSID: app.etzhayyim.apps.yukkuri.compose
 
 Creates a vertex_yukkuri_video row with status='queued'.
 The CF Worker onCommit handler picks this up and calls generate_script.
@@ -55,7 +55,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     outline = (state.get("outline") or "").strip() or None
     owner_did = state.get("owner_did") or _APP_DID
     rkey = f"video-{secrets.token_hex(6)}"
-    vertex_id = f"at://{_REPO}/ai.gftd.apps.yukkuri.video/{rkey}"
+    vertex_id = f"at://{_REPO}/app.etzhayyim.apps.yukkuri.video/{rkey}"
     created_at = datetime.now(tz=timezone.utc).isoformat()
     title = f"ゆっくり実況: {topic[:48]}"
     try:

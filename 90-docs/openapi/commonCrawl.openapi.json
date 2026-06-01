@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.commonCrawl.getSegment": {
+    "/xrpc/app.etzhayyim.commonCrawl.getSegment": {
       "get": {
         "summary": "Get a Common Crawl ingest segment by ingestId or crawlId+segmentId.",
-        "operationId": "ai.gftd.commonCrawl.getSegment",
+        "operationId": "app.etzhayyim.commonCrawl.getSegment",
         "parameters": [
           {
             "name": "ingestId",
@@ -97,10 +97,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.commonCrawl.ingestSegment": {
+    "/xrpc/app.etzhayyim.commonCrawl.ingestSegment": {
       "post": {
         "summary": "Ingest a Common Crawl WAT/WARC segment → DID property graph (Rust rayon, RisingWave Iceberg). Tracks crawl-NN-YYYY/segment-MMMM ingest progress.",
-        "operationId": "ai.gftd.commonCrawl.ingestSegment",
+        "operationId": "app.etzhayyim.commonCrawl.ingestSegment",
         "requestBody": {
           "required": true,
           "content": {
@@ -175,10 +175,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.commonCrawl.listIngestSegments": {
+    "/xrpc/app.etzhayyim.commonCrawl.listIngestSegments": {
       "get": {
         "summary": "List Common Crawl ingest segments with optional crawl/format/domain filter.",
-        "operationId": "ai.gftd.commonCrawl.listIngestSegments",
+        "operationId": "app.etzhayyim.commonCrawl.listIngestSegments",
         "parameters": [
           {
             "name": "crawlId",

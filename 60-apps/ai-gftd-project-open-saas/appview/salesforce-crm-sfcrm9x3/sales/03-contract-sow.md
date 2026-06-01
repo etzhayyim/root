@@ -8,12 +8,12 @@ Template is splittable into three instruments so procurement / legal can route i
 
 ## A. Master Services Agreement (MSA) — open-salesforce
 
-**Parties.** GFTD Co., Jp. ("Provider") and `<Customer legal name>` ("Customer").
+**Parties.** etzhayyim Co., Jp. ("Provider") and `<Customer legal name>` ("Customer").
 
 **1. Definitions**
-- **Tenant DID**: the `did:web:<slug>.opensaas.etzhayyim.com` identifier provisioned for Customer. Controls all Customer data written to `ai.gftd.apps.opensaas.salesforce.*` collections.
+- **Tenant DID**: the `did:web:<slug>.opensaas.etzhayyim.com` identifier provisioned for Customer. Controls all Customer data written to `app.etzhayyim.apps.opensaas.salesforce.*` collections.
 - **Seat DID**: a path-based DID `did:web:<slug>.opensaas.etzhayyim.com:seat:<role>-<nn>`. One per named human user.
-- **Tier-1 Data**: records under `ai.gftd.apps.opensaas.salesforce.{account,contact,lead,opportunity,case,activity}`. Public within the tenant, federation-ready.
+- **Tier-1 Data**: records under `app.etzhayyim.apps.opensaas.salesforce.{account,contact,lead,opportunity,case,activity}`. Public within the tenant, federation-ready.
 - **Tier-3 Data**: raw PII + exact financials stored in per-tenant Preferences vault (AES-KW + device-key-unwrapped). Never present in Tier-1 AT records.
 - **Content-addressed activity**: `activity` records emitted by the PDS commit pipeline `derive` rule. Each row is cryptographically tied to the `opportunity` / `case` / `lead` commit that caused it.
 
@@ -28,7 +28,7 @@ Template is splittable into three instruments so procurement / legal can route i
 **6. Security.**
 - Seat authentication: WebAuthn passkey only. No password fallback.
 - Secrets (Salesforce import credentials, SAP webhook tokens, Murakumo API keys): `gftd vault` zero-knowledge store, never in env vars.
-- Audit log: every XRPC call hits the append-only `ai.gftd.audit.*` stream, retention 7y, exportable as OCEL 2.0.
+- Audit log: every XRPC call hits the append-only `app.etzhayyim.audit.*` stream, retention 7y, exportable as OCEL 2.0.
 
 **7. Uptime.** 99.5% monthly for `https://salesforce.opensaas.etzhayyim.com/`. Service credit: 5% of monthly fee per 1% miss, capped at 50%. Scheduled maintenance windows (Sun 02:00–04:00 local) excluded.
 

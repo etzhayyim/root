@@ -13,7 +13,7 @@ authoritative_for:
   - DigitalOcean GPU Droplet full SKU lineup (1× / 8× / 12-mo reserved)
 related:
   - adr-2605110100-vultr-a40-third-2node-consolidation
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
   - adr-2605092200-continuous-metabolic-training
   - adr-2605092300-fp8-train-inference-colocation
@@ -28,7 +28,7 @@ Research input — does not supersede an existing ADR. Feeds:
 - **2605092000–2605092300** (Bonsai cultivar / FP8 colocation / continuous metabolic training)
 - **2605010000** (RunPod 6000 Ada unified pod)
 
-Operating Entity: etzhayyim. Vendor: Gftd Japan株式会社.
+Operating Entity: etzhayyim. Vendor: etzhayyim Japan株式会社.
 
 ## 0. Source data persistence
 

@@ -22,10 +22,10 @@ const actorId   = "did:web:commoncrawl.etzhayyim.com";
 const createdAt = "2026-05-03T10:00:00Z";
 
 const PROCESS_ID  = "common_crawl_extract_entities";
-const NSID        = "ai.gftd.apps.commonCrawl.extractEntities";
+const NSID        = "app.etzhayyim.apps.commonCrawl.extractEntities";
 const BPMN_PATH   = "00-contracts/bpmn/ai/gftd/common-crawl/extractEntities.bpmn";
-const PROCESS_VID = `at://${actorId}/ai.gftd.apps.bpmn.processDef/common-crawl-extract-entities-v1`;
-const BINDING_VID = `at://${actorId}/ai.gftd.apps.bpmn.binding/common-crawl-extract-entities-v1`;
+const PROCESS_VID = `at://${actorId}/app.etzhayyim.apps.bpmn.processDef/common-crawl-extract-entities-v1`;
+const BINDING_VID = `at://${actorId}/app.etzhayyim.apps.bpmn.binding/common-crawl-extract-entities-v1`;
 
 const BPMN_FILE = path.resolve(repoRoot, BPMN_PATH);
 

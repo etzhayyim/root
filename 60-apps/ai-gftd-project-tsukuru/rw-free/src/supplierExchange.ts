@@ -37,7 +37,7 @@ export function normalizePackage(
 ): NormalizePackageOutput {
   return {
     status: "ok",
-    schema: "com.etzhayyim.apps.tsukuru.supplierExchange.v1",
+    schema: "app.etzhayyim.apps.tsukuru.supplierExchange.v1",
     packageId: input.packageId ?? `pkg-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     supplierDid: input.supplierDid,
@@ -67,6 +67,6 @@ export function validatePackage(
     status: issues.length === 0 ? "valid" : "invalid",
     packageId: input.packageId,
     issues,
-    schema: "com.etzhayyim.apps.tsukuru.supplierExchange.v1",
+    schema: "app.etzhayyim.apps.tsukuru.supplierExchange.v1",
   };
 }

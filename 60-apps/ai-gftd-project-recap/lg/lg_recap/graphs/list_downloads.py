@@ -1,6 +1,6 @@
 """recap `listDownloads` graph -- paginated download history.
 
-NSID: ai.gftd.apps.recap.listDownloads
+NSID: app.etzhayyim.apps.recap.listDownloads
 """
 from __future__ import annotations
 

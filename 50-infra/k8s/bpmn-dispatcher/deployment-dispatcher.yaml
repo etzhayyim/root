@@ -30,7 +30,7 @@ metadata:
   labels:
     app.kubernetes.io/name: bpmn-dispatcher
     app.kubernetes.io/component: bpmn-actor-frontend
-    gftd.ai/adr: "0049"
+    etzhayyim.com/adr: "0049"
 spec:
   replicas: 1
   selector:
@@ -40,7 +40,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: bpmn-dispatcher
-        gftd.ai/adr: "0049"
+        etzhayyim.com/adr: "0049"
     spec:
       imagePullSecrets:
         - name: ghcr-pull

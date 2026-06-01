@@ -9,7 +9,7 @@
  * Usage:
  *   pnpm tsx src/create.ts --text="Hello, world."
  *   pnpm tsx src/create.ts --text="reply text" \
- *     --replyRootUri=at://did:web:.../ai.gftd.apps.threads.post/abc \
+ *     --replyRootUri=at://did:web:.../app.etzhayyim.apps.threads.post/abc \
  *     --replyRootCid=bafy... \
  *     --replyParentUri=at://... \
  *     --replyParentCid=bafy...
@@ -19,7 +19,7 @@
 import { Etzhayyim } from "@etzhayyim/sdk";
 import { buildPostRecord, type ReplyRef } from "./types.js";
 
-const COLLECTION = "ai.gftd.apps.threads.post";
+const COLLECTION = "app.etzhayyim.apps.threads.post";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_WRITER_DID ?? "did:web:etzhayyim.com",

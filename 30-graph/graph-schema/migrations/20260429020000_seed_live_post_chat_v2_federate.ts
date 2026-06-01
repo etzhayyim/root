@@ -42,9 +42,9 @@ const ownerDid = "did:web:live.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.live.v2";
 
 const procVertexIdV2 =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-post-chat-v2";
 const bindingVertexId =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-postChat-v1";
 const sourcePath = "00-contracts/bpmn/ai/gftd/apps/live/postChat.bpmn";
 
 export async function up(db: Kysely<unknown>): Promise<void> {

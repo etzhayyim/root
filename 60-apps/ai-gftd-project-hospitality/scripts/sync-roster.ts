@@ -11,8 +11,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // NOTE: host SDK import paths resolve in Worker runtime; here typed loosely for CLI run.
-// import type { GftdSdk } from "@gftd/magatama-host-sdk";
-type GftdSdk = {
+// import type { etzhayyimSdk } from "@etzhayyim/magatama-host-sdk";
+type etzhayyimSdk = {
   did: { create: (path: string, doc: unknown) => Promise<{ did: string }>; list: () => Promise<string[]> };
   pds: { dispatch: (req: unknown) => Promise<unknown> };
 };
@@ -86,7 +86,7 @@ async function verifyLeiAgainstGleif(lei: string, name: string): Promise<boolean
   }
 }
 
-export async function syncRoster(sdk: GftdSdk, opts: { dryRun?: boolean; verifyLei?: boolean } = {}): Promise<{ registered: number; skipped: number; profiles: number; leiBridges: number }> {
+export async function syncRoster(sdk: etzhayyimSdk, opts: { dryRun?: boolean; verifyLei?: boolean } = {}): Promise<{ registered: number; skipped: number; profiles: number; leiBridges: number }> {
   const rows = sortReverseTopo(loadRoster());
   const existing = new Set(await sdk.did.list());
   let registered = 0;
@@ -138,7 +138,7 @@ export async function syncRoster(sdk: GftdSdk, opts: { dryRun?: boolean; verifyL
       await sdk.pds.dispatch({
         type: "com.atproto.repo.createRecord",
         did: row.did,
-        collection: "ai.gftd.apps.hospitality.leiBridge",
+        collection: "app.etzhayyim.apps.hospitality.leiBridge",
         record: {
           actorDid: row.did,
           lei: row.lei,

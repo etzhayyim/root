@@ -11,7 +11,7 @@ authoritative_for:
   - vultr-vke-blockchain-nodes
   - blockchain-b2-cold-storage-boundary
 related:
-  - 90-docs/260425-blockchain-node-vultr-b2-zeebe-ingest-design.md
+  - blockchain-node-vultr-b2-zeebe-ingest-design-260425
   - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
   - 90-docs/adr/0094-risingwave-stable-three-node-topology.md
 supersedes: []

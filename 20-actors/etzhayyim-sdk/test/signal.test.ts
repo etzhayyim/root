@@ -1,184 +1,84 @@
-/**
- * Unit tests for `@etzhayyim/sdk/signal` — real libsignal round-trip.
- *
- * Two-party (Alice → Bob) wrap/unwrap. Verifies that:
- *   - generateLocalIdentity produces a publishable bundle with the right
- *     fields,
- *   - establishSession + wrapKey from Alice produces a PreKey-type
- *     CiphertextMessage on first contact,
- *   - Bob can decrypt it back to the original symmetric key,
- *   - subsequent messages flip to Whisper type,
- *   - the deterministic sessionIdOf matches both directions of computation.
- */
+import { describe, it, expect, beforeEach } from 'vitest';
+import { establishSession, wrapKey, unwrapKey, _clearSessions } from '../src/signal';
+import { randomBytes } from '@noble/hashes/utils';
 
-import {describe, it, expect, beforeAll} from "vitest";
-import {
-  establishSession,
-  generateLocalIdentity,
-  sessionIdOf,
-  unwrapKey,
-  wrapKey,
-  type LocalIdentityBundle,
-} from "../src/signal.js";
-
-describe("signal — libsignal round-trip (Alice → Bob)", () => {
-  const ALICE = "did:test:alice";
-  const BOB = "did:test:bob";
-
-  let alice: LocalIdentityBundle;
-  let bob: LocalIdentityBundle;
-
-  beforeAll(async () => {
-    alice = await generateLocalIdentity({signedPreKeyId: 1});
-    bob = await generateLocalIdentity({signedPreKeyId: 1});
+describe('@etzhayyim/sdk: signal', () => {
+  beforeEach(() => {
+    _clearSessions();
   });
 
-  it("generateLocalIdentity yields the publishable bundle shape", () => {
-    expect(alice.publishable.signalIdentityKey).toBeInstanceOf(Uint8Array);
-    expect(alice.publishable.signalIdentityKey.length).toBeGreaterThan(0);
-    expect(alice.publishable.signalRegistrationId).toBeGreaterThanOrEqual(1);
-    expect(alice.publishable.signalRegistrationId).toBeLessThan(1 << 14);
-    expect(alice.publishable.signedPreKey).toBeInstanceOf(Uint8Array);
-    expect(alice.publishable.signedPreKeyId).toBe(1);
-    expect(alice.publishable.signedPreKeySignature).toBeInstanceOf(Uint8Array);
+  const senderDid = 'did:example:sender';
+  const recipientDid = 'did:example:recipient';
+
+  it('should perform a successful wrapKey/unwrapKey roundtrip', () => {
+    const session = establishSession({ senderDid, recipientDid });
+    const plaintext = 'This is a secret message for key wrapping.';
+
+    const { ciphertext } = wrapKey({ session, plaintext });
+    const decrypted = unwrapKey({ session, ciphertext });
+
+    expect(decrypted).toBe(plaintext);
   });
 
-  it("sessionIdOf is deterministic and direction-sensitive", () => {
-    expect(sessionIdOf(ALICE, BOB)).toBe(sessionIdOf(ALICE, BOB));
-    expect(sessionIdOf(ALICE, BOB)).not.toBe(sessionIdOf(BOB, ALICE));
-    expect(sessionIdOf(ALICE, BOB).length).toBe(32);
+  it('should throw an error when unwrapping with a different session', () => {
+    const session1 = establishSession({ senderDid, recipientDid });
+    const session2 = establishSession({ senderDid, recipientDid });
+    const plaintext = 'This should not be decryptable.';
+
+    const { ciphertext } = wrapKey({ session: session1, plaintext });
+
+    // Noble ciphers will throw on AEAD tag mismatch
+    expect(() => {
+      unwrapKey({ session: session2, ciphertext });
+    }).toThrow();
   });
 
-  it("Alice wraps a symmetric key that Bob unwraps to the same bytes", async () => {
-    const aliceToBob = await establishSession({
-      senderDid: ALICE,
-      recipientDid: BOB,
-      recipientIdentity: bob.publishable,
-      senderStores: alice.stores,
-    });
-    expect(aliceToBob.sessionId).toBe(sessionIdOf(ALICE, BOB));
+  it('should correctly handle an empty plaintext string', () => {
+    const session = establishSession({ senderDid, recipientDid });
+    const plaintext = '';
 
-    const symKey = new Uint8Array(32);
-    for (let i = 0; i < 32; i++) symKey[i] = i;
+    const { ciphertext } = wrapKey({ session, plaintext });
+    const decrypted = unwrapKey({ session, ciphertext });
 
-    const wrapped = await wrapKey({
-      session: aliceToBob,
-      symmetricKey: symKey,
-      senderStores: alice.stores,
-    });
-    expect(wrapped.ciphertext.length).toBeGreaterThan(32); // libsignal envelope > raw key
-    expect(wrapped.signalSessionId).toBe(aliceToBob.sessionId);
-    // First send is PreKey (type 3) because Bob's session hasn't bootstrapped yet.
-    expect(wrapped.messageType).toBe(3);
-
-    // Bob's view of the session is the reverse direction.
-    const bobReceives = {
-      sessionId: sessionIdOf(ALICE, BOB),
-      senderDid: ALICE,
-      recipientDid: BOB,
-    };
-    const unwrapped = await unwrapKey({
-      session: bobReceives,
-      ciphertext: wrapped.ciphertext,
-      messageType: wrapped.messageType,
-      recipientStores: bob.stores,
-    });
-    expect(Array.from(unwrapped)).toEqual(Array.from(symKey));
+    expect(decrypted).toBe(plaintext);
   });
 
-  it("second send Alice → Bob still round-trips (one-way PreKey stays type 3)", async () => {
-    // In the Signal protocol the sender keeps sending PreKey-type messages
-    // until the recipient replies (otherwise the sender cannot be sure the
-    // recipient has the session). Once Bob replies once, Alice's next
-    // sends would be Whisper. For one-way key-wrap delivery (our use case
-    // — recipients enumerate keyWraps in their own PDS, they don't write
-    // back) every send remains type 3, which is fine.
-    const session = {
-      sessionId: sessionIdOf(ALICE, BOB),
-      senderDid: ALICE,
-      recipientDid: BOB,
-    };
-    const symKey2 = new Uint8Array(32).fill(0xaa);
+  it('should correctly handle plaintext with unicode characters', () => {
+    const session = establishSession({ senderDid, recipientDid });
+    const plaintext = 'こんにちは、世界！ (Hello, World!) 😃';
 
-    const wrapped = await wrapKey({
-      session,
-      symmetricKey: symKey2,
-      senderStores: alice.stores,
-    });
-    expect(wrapped.messageType).toBe(3);
+    const { ciphertext } = wrapKey({ session, plaintext });
+    const decrypted = unwrapKey({ session, ciphertext });
 
-    const unwrapped = await unwrapKey({
-      session,
-      ciphertext: wrapped.ciphertext,
-      messageType: wrapped.messageType,
-      recipientStores: bob.stores,
-    });
-    expect(Array.from(unwrapped)).toEqual(Array.from(symKey2));
+    expect(decrypted).toBe(plaintext);
   });
 
-  it("Whisper round-trip after Bob ratchets back", async () => {
-    // Bob now sends a PreKey-back to Alice to ratchet the session. Alice's
-    // subsequent send to Bob should switch to Whisper (type 2).
-    const bobToAlice = await establishSession({
-      senderDid: BOB,
-      recipientDid: ALICE,
-      recipientIdentity: alice.publishable,
-      senderStores: bob.stores,
-    });
-    const bobReply = await wrapKey({
-      session: bobToAlice,
-      symmetricKey: new Uint8Array(32).fill(0x42),
-      senderStores: bob.stores,
-    });
-    await unwrapKey({
-      session: {
-        sessionId: sessionIdOf(BOB, ALICE),
-        senderDid: BOB,
-        recipientDid: ALICE,
-      },
-      ciphertext: bobReply.ciphertext,
-      messageType: bobReply.messageType,
-      recipientStores: alice.stores,
-    });
+  it('should correctly handle a large (16KB) plaintext', () => {
+    const session = establishSession({ senderDid, recipientDid });
+    const largeString = Buffer.from(randomBytes(16 * 1024)).toString('base64');
 
-    // Now Alice → Bob ratchets to Whisper.
-    const aliceAgain = await wrapKey({
-      session: {
-        sessionId: sessionIdOf(ALICE, BOB),
-        senderDid: ALICE,
-        recipientDid: BOB,
-      },
-      symmetricKey: new Uint8Array(32).fill(0xbb),
-      senderStores: alice.stores,
-    });
-    expect(aliceAgain.messageType).toBe(2);
-    const unwrapped = await unwrapKey({
-      session: {
-        sessionId: sessionIdOf(ALICE, BOB),
-        senderDid: ALICE,
-        recipientDid: BOB,
-      },
-      ciphertext: aliceAgain.ciphertext,
-      messageType: aliceAgain.messageType,
-      recipientStores: bob.stores,
-    });
-    expect(Array.from(unwrapped)).toEqual(
-      Array.from(new Uint8Array(32).fill(0xbb))
-    );
+    const { ciphertext } = wrapKey({ session, plaintext: largeString });
+    const decrypted = unwrapKey({ session, ciphertext });
+
+    expect(decrypted).toBe(largeString);
   });
 
-  it("rejects establishSession when recipientIdentity is missing signed prekey", async () => {
-    await expect(
-      establishSession({
-        senderDid: ALICE,
-        recipientDid: "did:test:carol",
-        recipientIdentity: {
-          signalIdentityKey: new Uint8Array(32),
-          signalRegistrationId: 42,
-          // signedPreKey omitted on purpose
-        },
-        senderStores: alice.stores,
-      })
-    ).rejects.toThrow(/signedPreKey/);
+  it('should throw when unwrapping with an invalid session handle', () => {
+    const session = establishSession({ senderDid, recipientDid });
+    const { ciphertext } = wrapKey({ session, plaintext: 'test' });
+
+    expect(() => {
+      unwrapKey({ session: 'invalid-session-handle', ciphertext });
+    }).toThrow('Invalid session handle');
+  });
+
+  it('should throw when wrapping with an invalid session handle', () => {
+    expect(() => {
+      wrapKey({
+        session: 'invalid-session-handle',
+        plaintext: 'test',
+      });
+    }).toThrow('Invalid session handle');
   });
 });
+

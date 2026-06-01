@@ -12,18 +12,18 @@ Data Center operations actor scaffold.
 
 ## Lexicons
 
-- `ai.gftd.apps.dataCenterOps.infrastructure.getFacility`
-- `ai.gftd.apps.dataCenterOps.infrastructure.listFacilities`
-- `ai.gftd.apps.dataCenterOps.infrastructure.listRacks`
-- `ai.gftd.apps.dataCenterOps.infrastructure.getPowerZones`
-- `ai.gftd.apps.dataCenterOps.infrastructure.getSlaSummary`
-- `ai.gftd.apps.dataCenterOps.dependency.seedBaseline`
-- `ai.gftd.apps.dataCenterOps.dependency.collectGlobal`
-- `ai.gftd.apps.dataCenterOps.dependency.listNodes`
-- `ai.gftd.apps.dataCenterOps.dependency.listEdges`
-- `ai.gftd.apps.dataCenterOps.dependency.getReverseTopo`
-- `ai.gftd.apps.dataCenterOps.health`
-- `ai.gftd.apps.dataCenterOps.coverage.get`
+- `app.etzhayyim.apps.dataCenterOps.infrastructure.getFacility`
+- `app.etzhayyim.apps.dataCenterOps.infrastructure.listFacilities`
+- `app.etzhayyim.apps.dataCenterOps.infrastructure.listRacks`
+- `app.etzhayyim.apps.dataCenterOps.infrastructure.getPowerZones`
+- `app.etzhayyim.apps.dataCenterOps.infrastructure.getSlaSummary`
+- `app.etzhayyim.apps.dataCenterOps.dependency.seedBaseline`
+- `app.etzhayyim.apps.dataCenterOps.dependency.collectGlobal`
+- `app.etzhayyim.apps.dataCenterOps.dependency.listNodes`
+- `app.etzhayyim.apps.dataCenterOps.dependency.listEdges`
+- `app.etzhayyim.apps.dataCenterOps.dependency.getReverseTopo`
+- `app.etzhayyim.apps.dataCenterOps.health`
+- `app.etzhayyim.apps.dataCenterOps.coverage.get`
 
 Lexicon files are under `00-contracts/lexicons/ai/gftd/apps/dataCenterOps/`.
 

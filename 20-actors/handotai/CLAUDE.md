@@ -174,7 +174,7 @@ gftd deploy
 
 # Seed articles
 for i in $(seq 0 79); do
-  curl -s -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.apps.handotai.seedArticles \
+  curl -s -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.handotai.seedArticles \
     -H "Content-Type: application/json" -d "{\"i\":$i}"
   sleep 2
 done

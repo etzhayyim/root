@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govSvn.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govSvn.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Slovenia government.",
-        "operationId": "ai.gftd.govSvn.followSiteDeps",
+        "operationId": "app.etzhayyim.govSvn.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvn.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govSvn.heartbeatTick": {
       "post": {
         "summary": "Run the Slovenia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govSvn.heartbeatTick",
+        "operationId": "app.etzhayyim.govSvn.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvn.listOrgs": {
+    "/xrpc/app.etzhayyim.govSvn.listOrgs": {
       "get": {
         "summary": "List Slovenia government organization graph records.",
-        "operationId": "ai.gftd.govSvn.listOrgs",
+        "operationId": "app.etzhayyim.govSvn.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvn.registerDIDs": {
+    "/xrpc/app.etzhayyim.govSvn.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Slovenia government organizations.",
-        "operationId": "ai.gftd.govSvn.registerDIDs",
+        "operationId": "app.etzhayyim.govSvn.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvn.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govSvn.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Slovenia government organization path to its graph record.",
-        "operationId": "ai.gftd.govSvn.resolveOrgPath",
+        "operationId": "app.etzhayyim.govSvn.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvn.seedOrgs": {
+    "/xrpc/app.etzhayyim.govSvn.seedOrgs": {
       "post": {
         "summary": "Seed initial Slovenia government organization records into the graph.",
-        "operationId": "ai.gftd.govSvn.seedOrgs",
+        "operationId": "app.etzhayyim.govSvn.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvn.shinka": {
+    "/xrpc/app.etzhayyim.govSvn.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Slovenia government organization update.",
-        "operationId": "ai.gftd.govSvn.shinka",
+        "operationId": "app.etzhayyim.govSvn.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSvn.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govSvn.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Slovenia government organization changes to graph.",
-        "operationId": "ai.gftd.govSvn.syncWetUpdates",
+        "operationId": "app.etzhayyim.govSvn.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

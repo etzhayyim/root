@@ -24,77 +24,77 @@ const seeds: Seed[] = [
     project: "open-patent",
     proc: "summarizeSeiyakuStartProgress",
     bpmnProcessId: "open_patent_summarize_seiyaku_start_progress",
-    nsid: "ai.gftd.apps.openPatent.summarizeSeiyakuStartProgress",
+    nsid: "app.etzhayyim.apps.openPatent.summarizeSeiyakuStartProgress",
     resultTimeoutMs: 30000,
   },
   {
     project: "open-patent",
     proc: "acknowledgeSeiyakuBatchStart",
     bpmnProcessId: "open_patent_acknowledge_seiyaku_batch_start",
-    nsid: "ai.gftd.apps.openPatent.acknowledgeSeiyakuBatchStart",
+    nsid: "app.etzhayyim.apps.openPatent.acknowledgeSeiyakuBatchStart",
     resultTimeoutMs: 30000,
   },
   {
     project: "open-patent",
     proc: "queueSeiyakuBatchStart",
     bpmnProcessId: "open_patent_queue_seiyaku_batch_start",
-    nsid: "ai.gftd.apps.openPatent.queueSeiyakuBatchStart",
+    nsid: "app.etzhayyim.apps.openPatent.queueSeiyakuBatchStart",
     resultTimeoutMs: 30000,
   },
   {
     project: "open-patent",
     proc: "validateSeiyakuBatchDraft",
     bpmnProcessId: "open_patent_validate_seiyaku_batch_draft",
-    nsid: "ai.gftd.apps.openPatent.validateSeiyakuBatchDraft",
+    nsid: "app.etzhayyim.apps.openPatent.validateSeiyakuBatchDraft",
     resultTimeoutMs: 30000,
   },
   {
     project: "open-patent",
     proc: "prepareSeiyakuBatchDraft",
     bpmnProcessId: "open_patent_prepare_seiyaku_batch_draft",
-    nsid: "ai.gftd.apps.openPatent.prepareSeiyakuBatchDraft",
+    nsid: "app.etzhayyim.apps.openPatent.prepareSeiyakuBatchDraft",
     resultTimeoutMs: 30000,
   },
   {
     project: "open-patent",
     proc: "handoffGenericCandidateToSeiyaku",
     bpmnProcessId: "open_patent_handoff_generic_candidate_to_seiyaku",
-    nsid: "ai.gftd.apps.openPatent.handoffGenericCandidateToSeiyaku",
+    nsid: "app.etzhayyim.apps.openPatent.handoffGenericCandidateToSeiyaku",
     resultTimeoutMs: 30000,
   },
   {
     project: "open-patent",
     proc: "recordDrugRegulatoryBlocker",
     bpmnProcessId: "open_patent_record_drug_regulatory_blocker",
-    nsid: "ai.gftd.apps.openPatent.recordDrugRegulatoryBlocker",
+    nsid: "app.etzhayyim.apps.openPatent.recordDrugRegulatoryBlocker",
     resultTimeoutMs: 30000,
   },
   {
     project: "open-patent",
     proc: "runExpiredDrugPatentPipeline",
     bpmnProcessId: "open_patent_run_expired_drug_patent_pipeline",
-    nsid: "ai.gftd.apps.openPatent.runExpiredDrugPatentPipeline",
+    nsid: "app.etzhayyim.apps.openPatent.runExpiredDrugPatentPipeline",
     resultTimeoutMs: 120000,
   },
   {
     project: "open-patent",
     proc: "collectExpiredDrugPatentBacklog",
     bpmnProcessId: "open_patent_collect_expired_drug_patent_backlog",
-    nsid: "ai.gftd.apps.openPatent.collectExpiredDrugPatentBacklog",
+    nsid: "app.etzhayyim.apps.openPatent.collectExpiredDrugPatentBacklog",
     resultTimeoutMs: 60000,
   },
   {
     project: "open-patent",
     proc: "screenExpiredDrugPatent",
     bpmnProcessId: "open_patent_screen_expired_drug_patent",
-    nsid: "ai.gftd.apps.openPatent.screenExpiredDrugPatent",
+    nsid: "app.etzhayyim.apps.openPatent.screenExpiredDrugPatent",
     resultTimeoutMs: 30000,
   },
   {
     project: "open-patent",
     proc: "startGenericManufacturingCandidate",
     bpmnProcessId: "open_patent_start_generic_manufacturing_candidate",
-    nsid: "ai.gftd.apps.openPatent.startGenericManufacturingCandidate",
+    nsid: "app.etzhayyim.apps.openPatent.startGenericManufacturingCandidate",
     resultTimeoutMs: 30000,
   },
 ];
@@ -112,11 +112,11 @@ function slug(proc: string): string {
 }
 
 function processVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${seed.project}-${slug(seed.proc)}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${seed.project}-${slug(seed.proc)}-v1`;
 }
 
 function bindingVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
 }
 
 async function createTables(db: Kysely<unknown>): Promise<void> {

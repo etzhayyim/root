@@ -111,12 +111,12 @@ async def task_otakiage_item_submit(  # noqa: PLR0913 — XRPC arity
     modeHint: str = "",
     **_: Any,
 ) -> dict[str, Any]:
-    """ai.gftd.apps.otakiage.submitItem — register a new item, auto reuse_open."""
+    """app.etzhayyim.apps.otakiage.submitItem — register a new item, auto reuse_open."""
     if not ownerDid or not category or not title:
         return {"ok": False, "state": "submitted", "error": "ownerDid/category/title required"}
     mode = _category_to_mode(category, modeHint or None)
     rkey = _content_addressed_rkey(ownerDid, category, title, str(time.time_ns()))
-    item_uri = f"at://{ownerDid}/ai.gftd.apps.otakiage.item/{rkey}"
+    item_uri = f"at://{ownerDid}/app.etzhayyim.apps.otakiage.item/{rkey}"
     photos_json = json.dumps(list(photoBlobKeys or []))
     state = "reuse_open"  # auto-transition: submitted → reuse_open
     now = _now_iso()
@@ -167,11 +167,11 @@ async def task_otakiage_reuse_request_submit(  # noqa: PLR0913
     preferredHandoverDate: str = "",
     **_: Any,
 ) -> dict[str, Any]:
-    """ai.gftd.apps.otakiage.requestReuse."""
+    """app.etzhayyim.apps.otakiage.requestReuse."""
     if not itemUri or not requesterDid:
         return {"ok": False, "error": "itemUri/requesterDid required"}
     rkey = _content_addressed_rkey(itemUri, requesterDid, str(time.time_ns()))
-    request_uri = f"at://{requesterDid}/ai.gftd.apps.otakiage.reuseRequest/{rkey}"
+    request_uri = f"at://{requesterDid}/app.etzhayyim.apps.otakiage.reuseRequest/{rkey}"
     now = _now_iso()
     today = _today().isoformat()
     # Phase 1: distance approximation = 0 if both cells set, else NULL.
@@ -257,11 +257,11 @@ async def task_otakiage_handover_confirm(  # noqa: PLR0913
     skipSocialAnnounce: bool = False,
     **_: Any,
 ) -> dict[str, Any]:
-    """ai.gftd.apps.otakiage.confirmHandover — terminal: state → handed_over."""
+    """app.etzhayyim.apps.otakiage.confirmHandover — terminal: state → handed_over."""
     if not itemUri or not donorDid or not recipientDid:
         return {"ok": False, "error": "itemUri/donorDid/recipientDid required"}
     rkey = _content_addressed_rkey(itemUri, recipientDid, str(time.time_ns()))
-    handover_uri = f"at://{donorDid}/ai.gftd.apps.otakiage.handover/{rkey}"
+    handover_uri = f"at://{donorDid}/app.etzhayyim.apps.otakiage.handover/{rkey}"
     now = _now_iso()
     today = _today().isoformat()
     cancelled = 0
@@ -325,7 +325,7 @@ async def task_otakiage_ritual_request(
     skipReuse: bool = False,
     **_: Any,
 ) -> dict[str, Any]:
-    """ai.gftd.apps.otakiage.requestRitual — state → ritual_pending.
+    """app.etzhayyim.apps.otakiage.requestRitual — state → ritual_pending.
 
     Rejected for kagu/kaden (mode=reuse_only).
     """
@@ -387,7 +387,7 @@ async def task_otakiage_ritual_issue_certificate(
     displayText: str = "",
     **_: Any,
 ) -> dict[str, Any]:
-    """ai.gftd.apps.otakiage.issueCertificate — terminal: ritual_pending items → ritualized."""
+    """app.etzhayyim.apps.otakiage.issueCertificate — terminal: ritual_pending items → ritualized."""
     if not matsuriUri:
         return {"ok": False, "error": "matsuriUri required"}
     now = _now_iso()
@@ -426,15 +426,15 @@ async def task_otakiage_ritual_issue_certificate(
         # Build ritual + certificate URIs
         ritual_rkey = _content_addressed_rkey(matsuriUri, ceremony_at, "ritual")
         cert_rkey = _content_addressed_rkey(matsuriUri, ceremony_at, "certificate")
-        ritual_uri = f"at://{PATH_DID_RITUAL}/ai.gftd.apps.otakiage.ritual/{ritual_rkey}"
-        cert_uri = f"at://{PATH_DID_RITUAL}/ai.gftd.apps.otakiage.certificate/{cert_rkey}"
+        ritual_uri = f"at://{PATH_DID_RITUAL}/app.etzhayyim.apps.otakiage.ritual/{ritual_rkey}"
+        cert_uri = f"at://{PATH_DID_RITUAL}/app.etzhayyim.apps.otakiage.certificate/{cert_rkey}"
 
         # Compose certificate JSON (Phase 1 = AT Record JSON only, Phase 2 = ERC725 anchor)
         if not displayText:
             parts = [f"{n} 体" if c in {"nuigurumi", "ningyo"} else f"{n} 点" for c, n in breakdown.items()]
             displayText = f"{matsuri_name} にて {', '.join(parts) or '物品'} を謹んでお焚き上げいたしました"
         cert_json = {
-            "$type": "ai.gftd.apps.otakiage.certificate",
+            "$type": "app.etzhayyim.apps.otakiage.certificate",
             "ritualUri": ritual_uri,
             "itemUris": item_uris,
             "donorDids": donor_dids,
@@ -557,11 +557,11 @@ async def task_otakiage_matsuri_schedule_submit(  # noqa: PLR0913
     description: str = "",
     **_: Any,
 ) -> dict[str, Any]:
-    """ai.gftd.apps.otakiage.scheduleMatsuri."""
+    """app.etzhayyim.apps.otakiage.scheduleMatsuri."""
     if not name or not scheduledDate or not categoryScope:
         return {"ok": False, "error": "name/scheduledDate/categoryScope required"}
     rkey = _content_addressed_rkey(name, scheduledDate, str(uuid.uuid4()))
-    matsuri_uri = f"at://{PATH_DID_MATSURI}/ai.gftd.apps.otakiage.matsuri/matsuri-{rkey}"
+    matsuri_uri = f"at://{PATH_DID_MATSURI}/app.etzhayyim.apps.otakiage.matsuri/matsuri-{rkey}"
     now = _now_iso()
     today = _today().isoformat()
     with sync_cursor() as cur:
@@ -622,7 +622,7 @@ async def task_otakiage_matsuri_seed_next_month(**_: Any) -> dict[str, Any]:
     with sync_cursor() as cur:
         for slug, scope, dom in template:
             sched_date = date(next_month.year, next_month.month, dom).isoformat()
-            vertex_id = f"at://{PATH_DID_MATSURI}/ai.gftd.apps.otakiage.matsuri/matsuri-{slug}-{yyyymm}"
+            vertex_id = f"at://{PATH_DID_MATSURI}/app.etzhayyim.apps.otakiage.matsuri/matsuri-{slug}-{yyyymm}"
             matsuri_id = f"matsuri-{slug}-{yyyymm}"
             cur.execute(
                 "SELECT 1 FROM vertex_otakiage_matsuri WHERE vertex_id = %s LIMIT 1",
@@ -687,7 +687,7 @@ async def task_otakiage_certificate_anchor(  # noqa: PLR0913
     force: bool = False,
     **_: Any,
 ) -> dict[str, Any]:
-    """ai.gftd.apps.otakiage.anchorCertificate — Phase 2b1 = queue only.
+    """app.etzhayyim.apps.otakiage.anchorCertificate — Phase 2b1 = queue only.
 
     1. Validate certificate exists.
     2. Compute content_hash = sha256(certificate_json) — stable token URI base.
@@ -841,7 +841,7 @@ async def task_otakiage_agent_chat(  # noqa: PLR0913
     maxTurns: int = 10,
     **_: Any,
 ) -> dict[str, Any]:
-    """ai.gftd.apps.otakiage.agentChat — invoke LangGraph (otakiage.agent.chat.v1).
+    """app.etzhayyim.apps.otakiage.agentChat — invoke LangGraph (otakiage.agent.chat.v1).
 
     See `pymagatama/agents/otakiage_agent.py` for the graph definition.
     Multi-turn conversation: load_history → parse_intent → branch

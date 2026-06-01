@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="P_COK" targetNamespace="http://etzhayyim.com/gov/COK/transport">
+  <bpmn:process id="Process_COK_transport" isExecutable="true">
+    <bpmn:startEvent id="S" name="Start"/>
+    <bpmn:task id="T" name="Process"/>
+    <bpmn:endEvent id="E" name="End"/>
+  </bpmn:process>
+</bpmn:definitions>

@@ -17,7 +17,7 @@
     "build": "node scripts/build-bundle.mjs"
   },
   "dependencies": {
-    "@atproto/lexicon": "^0.4.14"
+    "@atproto/lexicon": "^0.7.1"
   },
   "files": [
     "src"

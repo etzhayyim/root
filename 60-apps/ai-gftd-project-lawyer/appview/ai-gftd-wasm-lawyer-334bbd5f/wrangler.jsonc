@@ -4,18 +4,18 @@
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat","nodejs_als"],
-  "alias": { "@gftd/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts", "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js", "@gftd/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts", "@gftd/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts", "@gftd/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts", "@gftd/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts", "@gftd/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts", "@cloudflare/puppeteer": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/@cloudflare+puppeteer@0.0.14_bufferutil@4.1.0_utf-8-validate@5.0.10/node_modules/@cloudflare/puppeteer/lib/esm/puppeteer/puppeteer-cloudflare.js" },
+  "alias": { "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts", "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js", "@etzhayyim/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts", "@etzhayyim/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts", "@etzhayyim/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts", "@etzhayyim/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts", "@etzhayyim/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts", "@cloudflare/puppeteer": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/@cloudflare+puppeteer@0.0.14_bufferutil@4.1.0_utf-8-validate@5.0.10/node_modules/@cloudflare/puppeteer/lib/esm/puppeteer/puppeteer-cloudflare.js" },
   "vars": {
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"lawfirm-lexicon-delegation\",\"matter-management\",\"external-counsel-consent\",\"document-vault\",\"hearing-scheduling\",\"case-closure\",\"conflict-scan\",\"recursive-did-minting\",\"lawyer-dashboard\",\"grant-acceptance\",\"work-note-logging\",\"ai-document-drafting\",\"isco-2611-review-gate\"]",
-    "APP_DESCRIPTION": "Gftd Japan 専属 law firm — ADR-0029 recursive did:gftd identity、lawfirm.gftd.ai lexicon 共有、JP jurisdiction focus。",
-    "APP_DISPLAY_NAME": "Gftd Lawyer",
-    "APP_EMBED_URL": "https://l334bbd5f.gftd.ai/?embed=1",
+    "APP_DESCRIPTION": "etzhayyim Japan 専属 law firm — ADR-0029 recursive did:gftd identity、lawfirm.etzhayyim.com lexicon 共有、JP jurisdiction focus。",
+    "APP_DISPLAY_NAME": "etzhayyim Lawyer",
+    "APP_EMBED_URL": "https://l334bbd5f.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "ts-native",
     "APP_NANOID": "l334bbd5f",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "DISPATCHER_URL": "https://dispatcher.gftd.ai",
-    "FIRM_DID_HINT": "did:web:lawyer.gftd.ai"
+    "DISPATCHER_URL": "https://dispatcher.etzhayyim.com",
+    "FIRM_DID_HINT": "did:web:lawyer.etzhayyim.com"
   },
   "r2_buckets": [
     { "binding": "YATA_R2", "bucket_name": "ai-gftd-cache" },
@@ -58,7 +58,7 @@
     { "type": "CompiledWasm", "globs": ["**/*.wasm"] }
   ],
   "routes": [
-    { "pattern": "l334bbd5f.gftd.ai/*", "zone_name": "gftd.ai" },
-    { "pattern": "lawyer.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "l334bbd5f.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "lawyer.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

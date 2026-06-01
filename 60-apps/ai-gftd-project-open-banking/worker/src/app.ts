@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
+// Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 // ai-gftd-project-open-banking — core banking MVP (CF Worker + D1)
 //
-// 5 XRPC methods under ai.gftd.apps.openBanking.*:
+// 5 XRPC methods under app.etzhayyim.apps.openBanking.*:
 //   createAccount  (procedure)
 //   getAccount     (query)
 //   listAccounts   (query)
@@ -21,13 +21,13 @@
 // testing (see CLAUDE.md §Local Dev).
 //
 // This file is the sole entrypoint (single-file principle). For monorepo
-// TS Native migration, swap the router with @gftd/magatama-host-sdk
+// TS Native migration, swap the router with @etzhayyim/magatama-host-sdk
 // createWorkerExport() and register commands via sdk.app.command().
 //
 // DoDAF v2.02 integration: GET /dodaf → index of deployed views,
 // GET /dodaf/{viewId} → view body. BPMN under /bpmn, DMN under /dmn, Camunda
 // forms under /forms. At cold start, dodafv2 views + Camunda forms are
-// pushed to PDS registries (ai.gftd.dodafv2.deployView / ai.gftd.form.register).
+// pushed to PDS registries (app.etzhayyim.dodafv2.deployView / app.etzhayyim.form.register).
 
 import AV1 from "../../dodaf/AV-1.json";
 import OV1 from "../../dodaf/OV-1.json";
@@ -394,11 +394,11 @@ export default {
           did: env.PRIMARY_DID,
           handle: env.APP_HANDLE,
           xrpc: [
-            "ai.gftd.apps.openBanking.createAccount",
-            "ai.gftd.apps.openBanking.getAccount",
-            "ai.gftd.apps.openBanking.listAccounts",
-            "ai.gftd.apps.openBanking.transfer",
-            "ai.gftd.apps.openBanking.listTransactions",
+            "app.etzhayyim.apps.openBanking.createAccount",
+            "app.etzhayyim.apps.openBanking.getAccount",
+            "app.etzhayyim.apps.openBanking.listAccounts",
+            "app.etzhayyim.apps.openBanking.transfer",
+            "app.etzhayyim.apps.openBanking.listTransactions",
           ],
           dodaf: Object.keys(DODAF_VIEWS),
           forms: Object.keys(FORMS),
@@ -437,11 +437,11 @@ export default {
 
       if (req.method === "GET") {
         switch (nsid) {
-          case "ai.gftd.apps.openBanking.getAccount":
+          case "app.etzhayyim.apps.openBanking.getAccount":
             return await getAccount(env, url.searchParams);
-          case "ai.gftd.apps.openBanking.listAccounts":
+          case "app.etzhayyim.apps.openBanking.listAccounts":
             return await listAccounts(env, url.searchParams);
-          case "ai.gftd.apps.openBanking.listTransactions":
+          case "app.etzhayyim.apps.openBanking.listTransactions":
             return await listTransactions(env, url.searchParams);
           default:
             return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
@@ -451,9 +451,9 @@ export default {
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "ai.gftd.apps.openBanking.createAccount":
+          case "app.etzhayyim.apps.openBanking.createAccount":
             return await createAccount(env, body);
-          case "ai.gftd.apps.openBanking.transfer":
+          case "app.etzhayyim.apps.openBanking.transfer":
             return await transfer(env, body);
           default:
             return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);

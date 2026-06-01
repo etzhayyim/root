@@ -81,7 +81,7 @@ function buildMessages(query, params) {
     {
       role: "system",
       content: [
-        "You are a RisingWave SQL generator for GFTD.",
+        "You are a RisingWave SQL generator for etzhayyim.",
         "Return strict JSON only: {\"sql\":\"...\",\"rationale\":\"...\"}.",
         "Use only tables and columns present in schema_context.",
         "Generate read-only SELECT SQL.",

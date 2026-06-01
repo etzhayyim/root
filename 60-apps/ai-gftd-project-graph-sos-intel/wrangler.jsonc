@@ -10,12 +10,12 @@
     "APP_CAPABILITIES": "null",
     "APP_DESCRIPTION": "Graph System-of-Systems intelligence actor. Continuously inventories vertex, edge, MV, and idx topology; writes auditable snapshots and findings.",
     "APP_DISPLAY_NAME": "Graph SoS Intel",
-    "APP_EMBED_URL": "https://gs0s1nt7.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://gs0s1nt7.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "gs0s1nt7",
     "APP_PERFORMER_TYPE": "",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -27,8 +27,8 @@
   ],
   "routes": [
     {
-      "pattern": "gs0s1nt7.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "gs0s1nt7.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

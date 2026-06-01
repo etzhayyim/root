@@ -1,5 +1,5 @@
 /**
- * @gftd/ameno/inference — Browser-side LLM runtime built on `@huggingface/transformers`.
+ * @etzhayyim/ameno/inference — Browser-side LLM runtime built on `@huggingface/transformers`.
  *
  * Authoritative for the transformers.js / ONNX kernel path in ameno
  * (svelte/src/lib/inference.ts is a re-export). The MediaPipe LiteRT kernel
@@ -18,7 +18,17 @@ import {
   type PreTrainedModel,
 } from "@huggingface/transformers";
 
-export type InferenceDevice = "webgpu" | "wasm" | "cpu";
+/**
+ * Inference device identifier passed to transformers.js.
+ *
+ * `'webnn'` is the NPU fast path added by ADR-2605252100 — the
+ * browser maps it to CoreML / DirectML / NNAPI / QNN delegate
+ * depending on the platform. Detection + backend routing live in
+ * `./inference/webnn.ts`; this union extension is the only change to
+ * the existing API surface. `'webgpu'` remains the universal
+ * fallback (Safari has no WebNN signal as of 2026-05-25).
+ */
+export type InferenceDevice = "webnn" | "webgpu" | "wasm" | "cpu";
 
 /** dtypes accepted by transformers.js v3. */
 export type InferenceDtype =
@@ -147,6 +157,16 @@ export async function loadModel(
   const meta = MODELS[modelId];
   if (!meta) throw new Error(`Unknown model: ${modelId}`);
   const device = deviceOverride ?? meta.defaultDevice;
+  if (device === "webnn") {
+    // ADR-2605252100 R0: the WebNN inference path is contract-only
+    // until R1 wires the ONNX Runtime Web WebNN EP. Detection
+    // (`detectWebnnSupport`) + backend selection (`selectInferenceBackend`)
+    // are usable today; actual dispatch is R1. Mirrors the
+    // train/kernels.ts dispatch-wrapper pattern.
+    throw new Error(
+      "loadModel: device='webnn' is R0 contract-only. Wire `onnxruntime-web/webnn` EP in R1 (see ADR-2605252100 §3). Use 'webgpu' for now.",
+    );
+  }
   if (session?.modelId === modelId && session.device === device) {
     onProgress(100);
     return;

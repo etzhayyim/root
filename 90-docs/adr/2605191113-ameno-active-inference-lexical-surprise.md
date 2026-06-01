@@ -7,9 +7,9 @@ topic: ameno-active-inference
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191000-ameno-browser-pregel-reflection.md
+  - 2605191000-ameno-browser-pregel-reflection
 related:
-  - 2605190824-ameno-mediapipe-llm-browser-runtime.md
+V05190824-ameno-mediapipe-llm-browser-runtime
 ---
 
 # ADR 2605191113: Ameno active inference loop — lexical surprise + predict-next node

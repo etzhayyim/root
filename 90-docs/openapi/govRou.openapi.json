@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govRou.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govRou.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Romania government.",
-        "operationId": "ai.gftd.govRou.followSiteDeps",
+        "operationId": "app.etzhayyim.govRou.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRou.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govRou.heartbeatTick": {
       "post": {
         "summary": "Run the Romania government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govRou.heartbeatTick",
+        "operationId": "app.etzhayyim.govRou.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRou.listOrgs": {
+    "/xrpc/app.etzhayyim.govRou.listOrgs": {
       "get": {
         "summary": "List Romania government organization graph records.",
-        "operationId": "ai.gftd.govRou.listOrgs",
+        "operationId": "app.etzhayyim.govRou.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRou.registerDIDs": {
+    "/xrpc/app.etzhayyim.govRou.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Romania government organizations.",
-        "operationId": "ai.gftd.govRou.registerDIDs",
+        "operationId": "app.etzhayyim.govRou.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRou.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govRou.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Romania government organization path to its graph record.",
-        "operationId": "ai.gftd.govRou.resolveOrgPath",
+        "operationId": "app.etzhayyim.govRou.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRou.seedOrgs": {
+    "/xrpc/app.etzhayyim.govRou.seedOrgs": {
       "post": {
         "summary": "Seed initial Romania government organization records into the graph.",
-        "operationId": "ai.gftd.govRou.seedOrgs",
+        "operationId": "app.etzhayyim.govRou.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRou.shinka": {
+    "/xrpc/app.etzhayyim.govRou.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Romania government organization update.",
-        "operationId": "ai.gftd.govRou.shinka",
+        "operationId": "app.etzhayyim.govRou.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRou.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govRou.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Romania government organization changes to graph.",
-        "operationId": "ai.gftd.govRou.syncWetUpdates",
+        "operationId": "app.etzhayyim.govRou.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

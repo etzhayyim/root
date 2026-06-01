@@ -19,12 +19,12 @@
     "APP_TEMPLATE": "ts-thin-edge-yoro",
     "APP_UI_TYPE": "yoro",
     "APP_VERSION": "0.1.0",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "v3h1cl01.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "v3h1cl01.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

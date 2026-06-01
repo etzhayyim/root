@@ -3,7 +3,7 @@
  *
  * Wires the rw-free reference impl (9 pure TS functions) into a deployable
  * CF Worker that exposes each function as an XRPC endpoint at
- * https://houki.etzhayyim.com/xrpc/ai.gftd.houki.<cmd>
+ * https://houki.etzhayyim.com/xrpc/app.etzhayyim.houki.<cmd>
  *
  * Per ADR-2605210000 first execution-layer demonstration. Instantiates the
  * Etzhayyim SDK from env bindings (PDS_URL + session), calls the rw-free
@@ -30,7 +30,7 @@ interface Env {
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "ai.gftd.houki";
+const NSID_BASE = "app.etzhayyim.houki";
 
 interface RouteConfig {
   method: "POST" | "GET";

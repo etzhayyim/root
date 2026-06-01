@@ -43,7 +43,7 @@ _SAFE_NSID_PREFIXES = (
     "com.atproto.sync.getLatestCommit",
     "com.atproto.server.getSession",
     "app.bsky.",
-    "ai.gftd.yoro.",
+    "app.etzhayyim.yoro.",
 )
 
 

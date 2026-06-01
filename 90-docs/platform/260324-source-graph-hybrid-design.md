@@ -12,8 +12,8 @@ authoritative_for:
   - gftd source-graph CLI
 related:
   - 260319-magatama-wit-dodaf-nist-coverage
-  - 260324-news-wrpc-stream-reactive-design
-  - 260323-authority-chain-compliance-design
+  - 260324-source-graph-hybrid-design
+  - 260323-yoro-human-credit-economy-design
 supersedes: []
 superseded_by: []
 ---

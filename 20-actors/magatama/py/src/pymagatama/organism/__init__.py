@@ -3,7 +3,7 @@
 Per ADR-2605232345 (UNSPSC actor as ecosystem organism).
 
 Python port of the TS heartbeat-cadence pattern in
-``@gftd/magatama-host-sdk/src/heartbeat-cadence.ts``. Wraps a UNSPSC
+``@etzhayyim/magatama-host-sdk/src/heartbeat-cadence.ts``. Wraps a UNSPSC
 LangGraph code (from ``pymagatama.langgraph_graphs.unispsc_agents``) into
 a tick-able organism with joucho 情緒 mood, InboxBuffer, FollowerReward,
 Shannon content diversity, and Shinka post emission.
@@ -32,11 +32,16 @@ from pymagatama.organism.joucho import (
     mood_to_cadence,
 )
 from pymagatama.organism.kaizen import (
+    CharterFalsePositiveRateRule,
     KaizenObserver,
     KaizenProposal,
     KaizenRule,
+    LeakAttempt,
     Observation,
     RULE_REGISTRY,
+    SensorHealth,
+    StaleSensorPinRule,
+    TierCLeakBackstopRule,
     register_rule,
 )
 from pymagatama.organism.post_sink import (
@@ -53,6 +58,7 @@ from pymagatama.organism.unispsc_organism import (
 
 __all__ = [
     "CadenceState",
+    "CharterFalsePositiveRateRule",
     "ContentSource",
     "FollowerReward",
     "FollowerSnapshot",
@@ -64,6 +70,7 @@ __all__ = [
     "KaizenObserver",
     "KaizenProposal",
     "KaizenRule",
+    "LeakAttempt",
     "LoggerPostSink",
     "Mood",
     "NdjsonQueuePostSink",
@@ -72,6 +79,9 @@ __all__ = [
     "OrganismTickResult",
     "PostSink",
     "RULE_REGISTRY",
+    "SensorHealth",
+    "StaleSensorPinRule",
+    "TierCLeakBackstopRule",
     "UnispscOrganism",
     "apply_stress_scaling",
     "determine_mood",

@@ -23,7 +23,7 @@ depends_on:
   - adr-0095-simplified-3layer-identity-rw-vault
   - adr-0056-bpmn-as-actor
 related:
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0018-pii-tier3-cohort-first
   - adr-0026-agent-only-reverse-identity-topology
@@ -66,7 +66,7 @@ separation healing) を通過した候補のみに適用される。η と同じ
 
 | 軸 | 何を実装するか | SSoT |
 |---|---|---|
-| **S — 情報面積** | `ai.gftd.market.*` 5 NSID の market lane を分離。Lexicon JSON に `priceUnit` / `settlementCurrency` / `issuer` field を追加 | `00-contracts/lexicons/ai/gftd/market/` |
+| **S — 情報面積** | `app.etzhayyim.market.*` 5 NSID の market lane を分離。Lexicon JSON に `priceUnit` / `settlementCurrency` / `issuer` field を追加 | `00-contracts/lexicons/ai/gftd/market/` |
 | **\|A\|² — 振幅²** | commercial event を 5-tuple `(issuer did:erc725, lxm, quantity, unit_price, settlement_tx_hash)` に拡張。`generic.audit.emit` payload に anchor | `vertex_market_settlement` schema |
 | **∇φ — 需要勾配** | `vacuum_score = external_demand_signal − internal_supply_published` を 1 narrow MV で daily 集計 | `mv_market_vacuum_score` |
 | **Q — 流量** | BPMN に `generic.settlement.bundle` task type を 1 つ追加。N event → 1 ERC-4337 UserOp aggregator | `etzhayyim-root/00-contracts/bpmn/ai/gftd/generic/settlementBundle.bpmn` |
@@ -78,19 +78,19 @@ consent-gated の boundary を侵すため不可。
 
 | Lane | NSID | 提供 | issuer DID |
 |---|---|---|---|
-| Vault credential share | `ai.gftd.market.publishOffer` (lane=vault) | zero-knowledge secret share | `did:erc725:gftd:260425:vault` |
-| Sashiosae intake | `ai.gftd.market.publishOffer` (lane=sashiosae) | 差押 read-only aggregator | `did:erc725:gftd:260425:sashiosae` |
-| Lawfirm India intake | `ai.gftd.market.publishOffer` (lane=lawfirm) | 22 言語 intake + auto-route | `did:erc725:gftd:260425:lawfirm` |
-| BPMN dispatch | `ai.gftd.market.publishOffer` (lane=bpmn) | BPMN-as-service (ADR-0056) | `did:erc725:gftd:260425:bpmn` |
-| Murakumo inference | `ai.gftd.market.publishOffer` (lane=murakumo) | on-prem MLX fleet | `did:erc725:gftd:260425:murakumo` |
+| Vault credential share | `app.etzhayyim.market.publishOffer` (lane=vault) | zero-knowledge secret share | `did:erc725:gftd:260425:vault` |
+| Sashiosae intake | `app.etzhayyim.market.publishOffer` (lane=sashiosae) | 差押 read-only aggregator | `did:erc725:gftd:260425:sashiosae` |
+| Lawfirm India intake | `app.etzhayyim.market.publishOffer` (lane=lawfirm) | 22 言語 intake + auto-route | `did:erc725:gftd:260425:lawfirm` |
+| BPMN dispatch | `app.etzhayyim.market.publishOffer` (lane=bpmn) | BPMN-as-service (ADR-0056) | `did:erc725:gftd:260425:bpmn` |
+| Murakumo inference | `app.etzhayyim.market.publishOffer` (lane=murakumo) | on-prem MLX fleet | `did:erc725:gftd:260425:murakumo` |
 
 5 NSID:
 
-1. `ai.gftd.market.listOffer` (query) — published lane の listing を引く
-2. `ai.gftd.market.publishOffer` (procedure) — typed contract + price で lane を出す
-3. `ai.gftd.market.quotePrice` (query) — quantity に対する spot price を返す
-4. `ai.gftd.market.settleInvoice` (procedure) — invoice → ERC-4337 UserOp を bundle queue に enqueue
-5. `ai.gftd.market.observeDemand` (procedure) — unknown NSID 4xx / classifier gray / FraudSignal 重複を vacuum signal として記録
+1. `app.etzhayyim.market.listOffer` (query) — published lane の listing を引く
+2. `app.etzhayyim.market.publishOffer` (procedure) — typed contract + price で lane を出す
+3. `app.etzhayyim.market.quotePrice` (query) — quantity に対する spot price を返す
+4. `app.etzhayyim.market.settleInvoice` (procedure) — invoice → ERC-4337 UserOp を bundle queue に enqueue
+5. `app.etzhayyim.market.observeDemand` (procedure) — unknown NSID 4xx / classifier gray / FraudSignal 重複を vacuum signal として記録
 
 ## 3. Mokuteki 統合 (目的関数の上位 gate)
 
@@ -137,10 +137,10 @@ Shannon η (Rank 6, weight 0.45) と同 tier。η は per-decision 効率、
 
 ## 5. 禁止事項
 
-- 5 lane (公開 surface) 以外の **externally callable** `ai.gftd.market.*` NSID
+- 5 lane (公開 surface) 以外の **externally callable** `app.etzhayyim.market.*` NSID
   を増やす (ADR 改定が必要)。**internal BPMN-only NSID は許容**:
-  `ai.gftd.market.settlementBundle` (Q axis bundling) と
-  `ai.gftd.market.internetDemandPoll` (∇φ axis ingestion) は
+  `app.etzhayyim.market.settlementBundle` (Q axis bundling) と
+  `app.etzhayyim.market.internetDemandPoll` (∇φ axis ingestion) は
   externally callable な surface には属さず、binding allowlist で
   vertex_market_settlement / vertex_market_demand_signal にのみ書き込む。
 - `vertex_market_settlement` に PII を入れる (ADR-0018 Tier 3 違反)
@@ -207,7 +207,7 @@ Shannon η (Rank 6, weight 0.45) と同 tier。η は per-decision 効率、
 ## 7.3 Implementation
 
 - BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/generic/chainDemandPoll.bpmn`
-  (NSID `ai.gftd.market.chainDemandPoll`, R/PT30M timer-start, allowlist `vertex_market_demand_signal`)
+  (NSID `app.etzhayyim.market.chainDemandPoll`, R/PT30M timer-start, allowlist `vertex_market_demand_signal`)
 - Standalone: `70-tools/scripts/cron/market-chain-demand-poll.py`
   (host cron until K8s sidecar lands)
 - `demand_hash` = `sha256("chain"|src|oid)`, time-bucketed per 30 min so re-runs PK-upsert (no dup).

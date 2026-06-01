@@ -50,8 +50,8 @@ const seeds: Seed[] = [
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${s.actor}/${s.op}.bpmn`;
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${s.actor}-${s.slug}-v2`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${s.actor}-${s.op}-v2`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${s.actor}-${s.slug}-v2`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${s.actor}-${s.op}-v2`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const existingProcesses = new Set(
@@ -96,7 +96,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
           sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did
         )
         VALUES (
-          ${bindingVertexId(s)}, ${ownerDid}, ${`ai.gftd.apps.${s.actor}.${s.op}`}, ${s.processId}, 2,
+          ${bindingVertexId(s)}, ${ownerDid}, ${`app.etzhayyim.apps.${s.actor}.${s.op}`}, ${s.processId}, 2,
           CAST(${s.timeoutMs} AS integer), ${s.writeTableAllowlist}, 'active', ${createdAt},
           100, ${ownerDid}, ${ownerDid}, ${actorId}, ${actorDid}, 'anon'
         )

@@ -67,7 +67,7 @@ def test_osm_title_empty_html_returns_empty() -> None:
 def test_osm_channel_vid_format() -> None:
     vid = OSM._channel_vid("telegram", "ch-123")
     assert "at://" in vid
-    assert "ai.gftd.apps.osMessaging.openChannel" in vid
+    assert "app.etzhayyim.apps.osMessaging.openChannel" in vid
     assert "telegram-ch-123" in vid
 
 
@@ -81,7 +81,7 @@ def test_osm_channel_vid_deterministic() -> None:
 
 def test_osm_message_vid_format() -> None:
     vid = OSM._message_vid("line", "msg-001")
-    assert "ai.gftd.apps.osMessaging.openMessage" in vid
+    assert "app.etzhayyim.apps.osMessaging.openMessage" in vid
     assert "line-msg-001" in vid
 
 
@@ -89,7 +89,7 @@ def test_osm_message_vid_format() -> None:
 
 def test_osm_run_vid_format() -> None:
     vid = OSM._run_vid("run-abc")
-    assert "ai.gftd.apps.osMessaging.openScraperRun" in vid
+    assert "app.etzhayyim.apps.osMessaging.openScraperRun" in vid
     assert "run-abc" in vid
 
 

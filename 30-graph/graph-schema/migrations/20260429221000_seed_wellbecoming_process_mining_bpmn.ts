@@ -17,7 +17,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     "utf-8",
   );
   const now = "2026-04-29T22:10:00Z";
-  const vertexId = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-process-mining-v1";
+  const vertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-process-mining-v1";
   const ownerDid = "did:web:bpmn.etzhayyim.com";
   const size = Buffer.byteLength(bpmnXml, "utf8");
 

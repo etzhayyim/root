@@ -15,21 +15,21 @@ const PDS = process.env.PDS ?? "https://atproto.etzhayyim.com";
 const ROOT_DID = process.env.ROOT_DID ?? "did:plc:y3nnbwowvrtamshornglr7fa";
 const PROJECT_ID = "seibutsu";
 
-// ADR-0023 P4: use GFTD_TOKEN (sk_live_*) Bearer instead of spoofable
-// x-magatama-verified header. Required: `export GFTD_TOKEN=$(gftd auth token)`
+// ADR-0023 P4: use etzhayyim_TOKEN (sk_live_*) Bearer instead of spoofable
+// x-magatama-verified header. Required: `export etzhayyim_TOKEN=$(gftd auth token)`
 // before running this script.
-const GFTD_TOKEN = process.env.GFTD_TOKEN;
-if (!GFTD_TOKEN) {
-  throw new Error("GFTD_TOKEN env var required — run `export GFTD_TOKEN=$(gftd auth token)` first");
+const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
+if (!etzhayyim_TOKEN) {
+  throw new Error("etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first");
 }
 const HEADERS = {
   "Content-Type": "application/json",
-  "Authorization": `Bearer ${GFTD_TOKEN}`,
+  "Authorization": `Bearer ${etzhayyim_TOKEN}`,
   "x-gftd-org-id": "anon",
 };
 
 async function actorCreate(did: string, displayName: string, description: string): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/ai.gftd.actor.create`, {
+  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.actor.create`, {
     method: "POST",
     headers: HEADERS,
     body: JSON.stringify({ did, projectId: PROJECT_ID, displayName, description, hasWorker: false }),
@@ -73,13 +73,13 @@ async function main(): Promise<void> {
 
     await actorCreate(taxon.did, taxon.scientificName, `${taxon.rank}: ${taxon.scientificName} (${taxon.commonName ?? "—"})`);
 
-    await createRecord(ROOT_DID, "ai.gftd.apps.seibutsu.taxon", rkey, {
+    await createRecord(ROOT_DID, "app.etzhayyim.apps.seibutsu.taxon", rkey, {
       ...taxon,
       createdAt: new Date().toISOString(),
       orgId: "anon", userId: "anon", actorId: PROJECT_ID,
     });
 
-    await createRecord(ROOT_DID, "ai.gftd.apps.seibutsu.traits", rkey, {
+    await createRecord(ROOT_DID, "app.etzhayyim.apps.seibutsu.traits", rkey, {
       taxonDid: taxon.did,
       ...traits,
       createdAt: new Date().toISOString(),

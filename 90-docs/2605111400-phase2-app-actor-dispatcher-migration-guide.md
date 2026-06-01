@@ -12,9 +12,9 @@ authoritative_for:
   - server-side-handler-placement
   - yatabase-migration-tracking
 related:
-  - 90-docs/adr/2605111200-cf-worker-edge-only-no-rw-connection.md
-  - 90-docs/adr/2605111300-pds-to-pod-bun-container.md
-  - 90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md
+  - adr-2605111200-cf-worker-edge-only-no-rw-connection
+  - adr-2605111300-pds-to-pod-bun-container
+  - adr-2605080600-langgraph-server-granian-l3-runtime
 ---
 
 # Phase 2 migration guide — App actor DB callsite
@@ -26,7 +26,7 @@ ADR-2605111200 / -2605111300 が完了したあと、`60-apps/` 配下の **99 �
 ### Before (Phase 1 throws)
 
 ```ts
-import { createKyselyDb } from "@gftd/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
 
 // Write
 const db = createKyselyDb(sdk.env.HYPERDRIVE);
@@ -45,11 +45,11 @@ const row = await db.selectFrom("vertex_<actor>_<kind>" as any)
 
 ```ts
 // Worker side: 純粋に dispatch だけ。env.HYPERDRIVE は触らない。
-await sdk.pds.xrpc("ai.gftd.apps.<actor>.<methodName>", {
+await sdk.pds.xrpc("app.etzhayyim.apps.<actor>.<methodName>", {
   /* same payload — server がそのまま vertex_<actor>_<kind> に INSERT */
 });
 
-const result = await sdk.pds.xrpc("ai.gftd.apps.<actor>.get<Kind>", { rkey });
+const result = await sdk.pds.xrpc("app.etzhayyim.apps.<actor>.get<Kind>", { rkey });
 const row = (result as { row?: unknown })?.row;
 ```
 
@@ -57,13 +57,13 @@ const row = (result as { row?: unknown })?.row;
 
 | 操作 | NSID パターン | 例 |
 |---|---|---|
-| 単一 row write | `ai.gftd.apps.<actor>.put<Kind>` | `ai.gftd.dns.putTransferStep` |
-| 単一 row upsert | `ai.gftd.apps.<actor>.upsert<Kind>` | `ai.gftd.apps.yatabase.upsertLead` |
-| 単一 row read by rkey/key | `ai.gftd.apps.<actor>.get<Kind>` | `ai.gftd.apps.yatabase.getLead` |
-| List/query | `ai.gftd.apps.<actor>.list<Kind>` | `ai.gftd.apps.yatabase.listLeads` |
-| Delete | `ai.gftd.apps.<actor>.delete<Kind>` | `ai.gftd.apps.yatabase.deleteLead` |
-| Event emit (audit / metering) | `ai.gftd.apps.<actor>.emit<Event>` | `ai.gftd.apps.yatabase.emitBillingEvent` |
-| Custom domain op (multi-row / transactional) | `ai.gftd.apps.<actor>.<verb>` | `ai.gftd.apps.yatabase.signupOrg` |
+| 単一 row write | `app.etzhayyim.apps.<actor>.put<Kind>` | `app.etzhayyim.dns.putTransferStep` |
+| 単一 row upsert | `app.etzhayyim.apps.<actor>.upsert<Kind>` | `app.etzhayyim.apps.yatabase.upsertLead` |
+| 単一 row read by rkey/key | `app.etzhayyim.apps.<actor>.get<Kind>` | `app.etzhayyim.apps.yatabase.getLead` |
+| List/query | `app.etzhayyim.apps.<actor>.list<Kind>` | `app.etzhayyim.apps.yatabase.listLeads` |
+| Delete | `app.etzhayyim.apps.<actor>.delete<Kind>` | `app.etzhayyim.apps.yatabase.deleteLead` |
+| Event emit (audit / metering) | `app.etzhayyim.apps.<actor>.emit<Event>` | `app.etzhayyim.apps.yatabase.emitBillingEvent` |
+| Custom domain op (multi-row / transactional) | `app.etzhayyim.apps.<actor>.<verb>` | `app.etzhayyim.apps.yatabase.signupOrg` |
 
 NSID は 3〜4 セグメント。短縮禁止 (root CLAUDE.md §LLM Coding Guardrails)。
 
@@ -94,20 +94,20 @@ dispatcher は `vertex_bpmn_lexicon_binding[nsid]` で route 先を決める (AD
 
 | 旧 callsite | 新 NSID | payload shape |
 |---|---|---|
-| `db.insertInto("vertex_dns_transfer_step")...values(stepRow)` (line 50) | `ai.gftd.dns.putTransferStep` | `{vertex_id, transferRequestUri, step, status, actorDid, occurredAt, errorMessage?, bindZoneFileUri?, cfTransferId?}` |
-| `db.selectFrom("vertex_ai_gftd_apps_dns_transferRequest")...where("rkey","=",rkey)` (line 73) | `ai.gftd.dns.getTransferRequest` | `{rkey}` → `{request?: {domain, status, ...}}` |
-| `db.insertInto("vertex_dns_transfer_outcome")...values(outcomeRow)` (line 137) | `ai.gftd.dns.putTransferOutcome` | `{vertex_id, transferRequestUri, domain, result, zoneDid?, cloudflareZoneId?, failureReason?, completedAt}` |
+| `db.insertInto("vertex_dns_transfer_step")...values(stepRow)` (line 50) | `app.etzhayyim.dns.putTransferStep` | `{vertex_id, transferRequestUri, step, status, actorDid, occurredAt, errorMessage?, bindZoneFileUri?, cfTransferId?}` |
+| `db.selectFrom("vertex_ai_gftd_apps_dns_transferRequest")...where("rkey","=",rkey)` (line 73) | `app.etzhayyim.dns.getTransferRequest` | `{rkey}` → `{request?: {domain, status, ...}}` |
+| `db.insertInto("vertex_dns_transfer_outcome")...values(outcomeRow)` (line 137) | `app.etzhayyim.dns.putTransferOutcome` | `{vertex_id, transferRequestUri, domain, result, zoneDid?, cloudflareZoneId?, failureReason?, completedAt}` |
 
 ### Diff (mechanical)
 
 ```diff
-- import { createKyselyDb, createWorkerExport, nowISO, type HostSDK } from "@gftd/magatama-host-sdk";
-+ import { createWorkerExport, nowISO, type HostSDK } from "@gftd/magatama-host-sdk";
+- import { createKyselyDb, createWorkerExport, nowISO, type HostSDK } from "@etzhayyim/magatama-host-sdk";
++ import { createWorkerExport, nowISO, type HostSDK } from "@etzhayyim/magatama-host-sdk";
 
   async function emitStep(sdk: HostSDK, transferRequestUri: string, step: StepName, status: ..., extra: ... = {}) {
     const rkey = `${step}-${Date.now().toString(36)}`;
 -   await createKyselyDb().insertInto("vertex_dns_transfer_step" as any).values({
--     vertex_id: `at://${SQ_EXPORTER_DID}/ai.gftd.dns.transferStep/${rkey}`,
+-     vertex_id: `at://${SQ_EXPORTER_DID}/app.etzhayyim.dns.transferStep/${rkey}`,
 -     sensitivity_ord: 2, owner_did: SQ_EXPORTER_DID,
 -     transfer_request_uri: transferRequestUri,
 -     step, status, actor_did: SQ_EXPORTER_DID, occurred_at: nowISO(),
@@ -115,7 +115,7 @@ dispatcher は `vertex_bpmn_lexicon_binding[nsid]` で route 先を決める (AD
 -     ...(extra.bindZoneFileUri !== undefined ? { bind_zone_file_uri: extra.bindZoneFileUri } : {}),
 -     ...(extra.cfTransferId !== undefined ? { cf_transfer_id: extra.cfTransferId } : {}),
 -   }).execute();
-+   await sdk.pds.xrpc("ai.gftd.dns.putTransferStep", {
++   await sdk.pds.xrpc("app.etzhayyim.dns.putTransferStep", {
 +     rkey,
 +     transferRequestUri,
 +     step,
@@ -137,27 +137,27 @@ dispatcher は `vertex_bpmn_lexicon_binding[nsid]` で route 先を決める (AD
 
 | File | refs | lines | tables touched | 推奨 NSID prefix |
 |---|---:|---:|---|---|
-| `agents/chikada.ts` | 3 | 173 | vertex_audit_log | `ai.gftd.apps.yatabase.chikada.*` |
-| `agents/nishino.ts` | 3 | 312 | vertex_api_key, vertex_billing_event, vertex_email_outbox, vertex_lead | `ai.gftd.apps.yatabase.nishino.*` |
-| `agents/registry.ts` | 2 | 311 | vertex_lead, vertex_yata_agent_run, vertex_yata_qa_run | `ai.gftd.apps.yatabase.registry.*` |
-| `agents/sakamoto.ts` | 3 | 212 | vertex_email_outbox | `ai.gftd.apps.yatabase.sakamoto.*` |
-| `agents/tanaka.ts` | 3 | 241 | vertex_audit_log, vertex_billing_event, vertex_email_outbox, vertex_yata_qa_run | `ai.gftd.apps.yatabase.tanaka.*` |
-| `audit-log.ts` | 4 | 178 | vertex_audit_log | `ai.gftd.apps.yatabase.emitAuditLog`, `listAuditLog` |
-| `auth-signup.ts` | 7 | 262 | vertex_api_key, vertex_demo | `ai.gftd.apps.yatabase.signup`, `issueApiKey` |
-| `billing-stripe.ts` | 4 | 406 | vertex_billing_event, vertex_org_plan | `ai.gftd.apps.yatabase.emitBillingEvent`, `getOrgPlan` |
-| `data-rights.ts` | 4 | 307 | vertex_api_key, vertex_billing_event, vertex_org_plan, vertex_yata_blob | `ai.gftd.apps.yatabase.exportUserData`, `purgeUserData` |
-| `email-outbox.ts` | 3 | 619 | vertex_email_outbox | `ai.gftd.apps.yatabase.queueEmail`, `markEmailDelivered` |
-| `hyperdrive-reads.ts` | 3 | 258 | vertex_yata_blob, vertex_yata_bucket | `ai.gftd.apps.yatabase.list<*>` (read helpers) |
-| `invoice.ts` | 3 | 399 | vertex_billing_event | `ai.gftd.apps.yatabase.generateInvoice`, `listInvoices` |
-| `leads.ts` | 4 | 704 | vertex_lead | `ai.gftd.apps.yatabase.upsertLead`, `listLeads`, `getLead`, `deleteLead` |
-| `metering.ts` | 4 | 197 | vertex_billing_event | `ai.gftd.apps.yatabase.recordUsage`, `getUsage` |
-| `org-members.ts` | 4 | 309 | vertex_api_key | `ai.gftd.apps.yatabase.addMember`, `removeMember`, `listMembers` |
-| `plan-quota.ts` | 3 | 262 | vertex_billing_event, vertex_org_plan | `ai.gftd.apps.yatabase.getQuota`, `enforceQuota` |
-| `public-acl.ts` | 2 | 157 | vertex_yata_bucket | `ai.gftd.apps.yatabase.setBucketAcl`, `getBucketAcl` |
-| `s3-sigv4.ts` | 3 | 442 | vertex_api_key | `ai.gftd.apps.yatabase.signS3Request` |
-| `schema-describe.ts` | 4 | 134 | (introspection) | `ai.gftd.apps.yatabase.describeSchema` |
-| `status.ts` | 4 | 287 | vertex_yata_agent_run, vertex_yata_qa_run | `ai.gftd.apps.yatabase.status` |
-| `team.ts` | 4 | 225 | vertex_yata_agent_run | `ai.gftd.apps.yatabase.team` |
+| `agents/chikada.ts` | 3 | 173 | vertex_audit_log | `app.etzhayyim.apps.yatabase.chikada.*` |
+| `agents/nishino.ts` | 3 | 312 | vertex_api_key, vertex_billing_event, vertex_email_outbox, vertex_lead | `app.etzhayyim.apps.yatabase.nishino.*` |
+| `agents/registry.ts` | 2 | 311 | vertex_lead, vertex_yata_agent_run, vertex_yata_qa_run | `app.etzhayyim.apps.yatabase.registry.*` |
+| `agents/sakamoto.ts` | 3 | 212 | vertex_email_outbox | `app.etzhayyim.apps.yatabase.sakamoto.*` |
+| `agents/tanaka.ts` | 3 | 241 | vertex_audit_log, vertex_billing_event, vertex_email_outbox, vertex_yata_qa_run | `app.etzhayyim.apps.yatabase.tanaka.*` |
+| `audit-log.ts` | 4 | 178 | vertex_audit_log | `app.etzhayyim.apps.yatabase.emitAuditLog`, `listAuditLog` |
+| `auth-signup.ts` | 7 | 262 | vertex_api_key, vertex_demo | `app.etzhayyim.apps.yatabase.signup`, `issueApiKey` |
+| `billing-stripe.ts` | 4 | 406 | vertex_billing_event, vertex_org_plan | `app.etzhayyim.apps.yatabase.emitBillingEvent`, `getOrgPlan` |
+| `data-rights.ts` | 4 | 307 | vertex_api_key, vertex_billing_event, vertex_org_plan, vertex_yata_blob | `app.etzhayyim.apps.yatabase.exportUserData`, `purgeUserData` |
+| `email-outbox.ts` | 3 | 619 | vertex_email_outbox | `app.etzhayyim.apps.yatabase.queueEmail`, `markEmailDelivered` |
+| `hyperdrive-reads.ts` | 3 | 258 | vertex_yata_blob, vertex_yata_bucket | `app.etzhayyim.apps.yatabase.list<*>` (read helpers) |
+| `invoice.ts` | 3 | 399 | vertex_billing_event | `app.etzhayyim.apps.yatabase.generateInvoice`, `listInvoices` |
+| `leads.ts` | 4 | 704 | vertex_lead | `app.etzhayyim.apps.yatabase.upsertLead`, `listLeads`, `getLead`, `deleteLead` |
+| `metering.ts` | 4 | 197 | vertex_billing_event | `app.etzhayyim.apps.yatabase.recordUsage`, `getUsage` |
+| `org-members.ts` | 4 | 309 | vertex_api_key | `app.etzhayyim.apps.yatabase.addMember`, `removeMember`, `listMembers` |
+| `plan-quota.ts` | 3 | 262 | vertex_billing_event, vertex_org_plan | `app.etzhayyim.apps.yatabase.getQuota`, `enforceQuota` |
+| `public-acl.ts` | 2 | 157 | vertex_yata_bucket | `app.etzhayyim.apps.yatabase.setBucketAcl`, `getBucketAcl` |
+| `s3-sigv4.ts` | 3 | 442 | vertex_api_key | `app.etzhayyim.apps.yatabase.signS3Request` |
+| `schema-describe.ts` | 4 | 134 | (introspection) | `app.etzhayyim.apps.yatabase.describeSchema` |
+| `status.ts` | 4 | 287 | vertex_yata_agent_run, vertex_yata_qa_run | `app.etzhayyim.apps.yatabase.status` |
+| `team.ts` | 4 | 225 | vertex_yata_agent_run | `app.etzhayyim.apps.yatabase.team` |
 
 **Estimated work**: ~70 call sites total, ~21 new NSID lexicons, ~21 server-side handlers (pymagatama primitives or LangGraph nodes). 推定 2-3 day-PR per a small team of 1-2 developers.
 

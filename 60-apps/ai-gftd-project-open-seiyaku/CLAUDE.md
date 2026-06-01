@@ -25,14 +25,14 @@ point for the OSS-facing design surface.
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.openSeiyaku.startBatchRecord` | procedure | start a new manufacturing batch workflow |
-| `ai.gftd.apps.openSeiyaku.submitBatchDraft` | procedure | save encrypted confidential batch draft |
-| `ai.gftd.apps.openSeiyaku.amendBatchRecord` | procedure | raise amendment / deviation workflow |
-| `ai.gftd.apps.openSeiyaku.reviewBatch` | procedure | QA verdict with checklist |
-| `ai.gftd.apps.openSeiyaku.finalizeBatch` | procedure | mark the batch released / rejected |
-| `ai.gftd.apps.openSeiyaku.getBatchRecord` | query | fetch one batch record (RBAC gated) |
-| `ai.gftd.apps.openSeiyaku.listForPlant` | query | plant / org batch list |
-| `ai.gftd.apps.openSeiyaku.purge` | procedure | retention purge for confidential payloads |
+| `app.etzhayyim.apps.openSeiyaku.startBatchRecord` | procedure | start a new manufacturing batch workflow |
+| `app.etzhayyim.apps.openSeiyaku.submitBatchDraft` | procedure | save encrypted confidential batch draft |
+| `app.etzhayyim.apps.openSeiyaku.amendBatchRecord` | procedure | raise amendment / deviation workflow |
+| `app.etzhayyim.apps.openSeiyaku.reviewBatch` | procedure | QA verdict with checklist |
+| `app.etzhayyim.apps.openSeiyaku.finalizeBatch` | procedure | mark the batch released / rejected |
+| `app.etzhayyim.apps.openSeiyaku.getBatchRecord` | query | fetch one batch record (RBAC gated) |
+| `app.etzhayyim.apps.openSeiyaku.listForPlant` | query | plant / org batch list |
+| `app.etzhayyim.apps.openSeiyaku.purge` | procedure | retention purge for confidential payloads |
 
 ## Design Notes
 

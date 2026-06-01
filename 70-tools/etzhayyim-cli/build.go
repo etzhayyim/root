@@ -53,7 +53,7 @@ func runBuild(args []string) error {
 	}
 
 	// Read gftd.json for build defaults (optional — flags override)
-	if cfg, err := readGFTDJSON(compDir); err == nil {
+	if cfg, err := readetzhayyimJSON(compDir); err == nil {
 		if *witWorld == defaultWITWorld && cfg.WITWorld != "" {
 			*witWorld = cfg.WITWorld
 		}

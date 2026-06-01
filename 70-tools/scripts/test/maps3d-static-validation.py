@@ -83,7 +83,7 @@ def check_lexicons(r: Result) -> set[str]:
             r.fail(f"{p.name}: invalid JSON ({e})")
             continue
         nsid = doc.get("id")
-        expected = f"ai.gftd.apps.maps3d.{p.stem}"
+        expected = f"app.etzhayyim.apps.maps3d.{p.stem}"
         if doc.get("lexicon") != 1:
             r.fail(f"{p.name}: lexicon != 1")
             continue
@@ -192,7 +192,7 @@ def check_bpmn(r: Result, lexicon_nsids: set[str]) -> tuple[set[str], set[str]]:
             if not t:
                 continue
             if t.startswith("maps3d."):
-                bpmn_nsids.add(f"ai.gftd.apps.{t}")
+                bpmn_nsids.add(f"app.etzhayyim.apps.{t}")
             elif t.startswith("generic."):
                 generic_types.add(t)
             else:
@@ -210,13 +210,13 @@ def check_bpmn(r: Result, lexicon_nsids: set[str]) -> tuple[set[str], set[str]]:
     # Lexicon NSIDs that are NOT referenced by the BPMN are fine if they
     # describe inner-task contracts only (not BPMN entry points). We
     # list them as informational but never fail on them.
-    not_in_bpmn = lexicon_nsids - bpmn_nsids - {"ai.gftd.apps.maps3d.processTile"}
+    not_in_bpmn = lexicon_nsids - bpmn_nsids - {"app.etzhayyim.apps.maps3d.processTile"}
     if not_in_bpmn:
         for n in sorted(not_in_bpmn):
             # processTile is the BPMN entry, not a task type, so its
             # `type` attribute won't match.  Inner NSIDs SHOULD be in
             # the BPMN if they correspond to service tasks.  Diagnose.
-            short = n.removeprefix("ai.gftd.apps.")
+            short = n.removeprefix("app.etzhayyim.apps.")
             r.fail(f"Lexicon {n} has no BPMN service task (orphan) — expected `type=\"{short}\"` somewhere")
 
     return bpmn_nsids, generic_types
@@ -273,7 +273,7 @@ def check_workers(r: Result, lexicon_nsids: set[str], bpmn_nsids: set[str]) -> N
             handlers.setdefault(t, []).append(p.name)
 
     # Every BPMN maps3d task must be handled by exactly one worker.
-    expected = {n.removeprefix("ai.gftd.apps.") for n in bpmn_nsids}
+    expected = {n.removeprefix("app.etzhayyim.apps.") for n in bpmn_nsids}
     for t in sorted(expected):
         owners = handlers.get(t, [])
         if not owners:
@@ -285,7 +285,7 @@ def check_workers(r: Result, lexicon_nsids: set[str], bpmn_nsids: set[str]) -> N
 
     # Every worker task must have a matching lexicon JSON.
     for t, owners in sorted(handlers.items()):
-        nsid = f"ai.gftd.apps.{t}"
+        nsid = f"app.etzhayyim.apps.{t}"
         if nsid not in lexicon_nsids:
             r.fail(
                 f"worker {owners[0]} registers `{t}` but no lexicon JSON "
@@ -307,7 +307,7 @@ def check_migration(r: Result) -> None:
         ("CREATE TABLE", "vertex_langgraph_state"),
         # BPMN registry.
         ("INSERT INTO vertex_bpmn_process_def", "maps3d_process_tile"),
-        ("INSERT INTO vertex_bpmn_lexicon_binding", "ai.gftd.apps.maps3d.processTile"),
+        ("INSERT INTO vertex_bpmn_lexicon_binding", "app.etzhayyim.apps.maps3d.processTile"),
     ]
     for keyword, marker in expected:
         # Loose match — keyword + marker on same logical statement.

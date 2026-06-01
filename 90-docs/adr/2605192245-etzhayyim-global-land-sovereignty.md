@@ -160,11 +160,11 @@ LandRegistry.donate(
 
 #### Step 5 — AT Record
 
-PDS に `ai.gftd.apps.etzhayyim.land-donation` record を書き込む:
+PDS に `app.etzhayyim.apps.etzhayyim.land-donation` record を書き込む:
 
 ```json
 {
-  "$type": "ai.gftd.apps.etzhayyim.land-donation",
+  "$type": "app.etzhayyim.apps.etzhayyim.land-donation",
   "oathText": "...full oath...",
   "oathHash": "0x...",
   "didSignature": "...",
@@ -293,7 +293,7 @@ ADR-2605172600 の 7-level ladder の **Lv5 護 (go / Steward)** が、土地 do
 
 ### 5.1 Steward Duties
 
-- **境界維持**: 寄付土地の境界の現地視察、年 1 回以上 → `ai.gftd.apps.etzhayyim.land-attestation` で attestation
+- **境界維持**: 寄付土地の境界の現地視察、年 1 回以上 → `app.etzhayyim.apps.etzhayyim.land-attestation` で attestation
 - **biodiversity attestation**: 生物多様性 (動植物 species census) を年 1 回 record (Wellbecoming §1.10 と整合)
 - **openness**: 寄付土地は etzhayyim 構成員に対して reasonable access (religious gathering / 黙想 / educational visit) を提供する義務
 - **non-extraction**: 商業的搾取 (露天掘り / clear-cut logging / 大規模 monoculture) を禁止 — Charter Rider §2(d) と同 spirit
@@ -311,7 +311,7 @@ stewardship duty 履行の対価として、steward は Kisha-Stream の **Pheno
 
 ```
 [争点提起]
-  → ai.gftd.apps.etzhayyim.land-dispute record 提出
+  → app.etzhayyim.apps.etzhayyim.land-dispute record 提出
   → Council Lv6+ deliberation
   → Council Lv6+ 3 名以上の attestation で resolution
   → LandRegistry.resolveDispute(landId, Status, councilSigs)

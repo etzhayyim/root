@@ -1,5 +1,5 @@
 """
-ai.gftd.agent.plan — LangGraph ingest planner (Phase D pilot).
+app.etzhayyim.agent.plan — LangGraph ingest planner (Phase D pilot).
 
 Three-node StateGraph:
 
@@ -23,7 +23,7 @@ Input variables (Zeebe → LangGraph state):
 Output variables (LangGraph state → Zeebe):
     branch         — one of "fast" / "thorough" / "skip"
     nextTool       — NSID of the tool the caller should invoke next
-                     (e.g. "ai.gftd.apps.yabai.trackPhishingInfra")
+                     (e.g. "app.etzhayyim.apps.yabai.trackPhishingInfra")
     confidence     — 0.0 - 1.0 (LLM-reported)
     reason         — <=200 char human rationale
     planLatencyMs  — wall clock of the LLM call
@@ -80,12 +80,12 @@ Output ONE minified JSON object with these EXACT four keys:
 BRANCH SEMANTICS:
   fast      — cheap per-row primitive enough. Row already has a vertex_id
               + recent probed_at (<7d), or a trivial single-field enrichment.
-              nextTool: "generic.db.insert" or "ai.gftd.apps.dns.resolve".
+              nextTool: "generic.db.insert" or "app.etzhayyim.apps.dns.resolve".
   thorough  — full multi-step enrichment actor. Examples: phishing domain
               with unknown TLS + unknown ASN, unseen legal entity needing
               GLEIF + registrar + jurisdiction lookup.
-              nextTool: "ai.gftd.apps.yabai.trackPhishingInfra" or
-              "ai.gftd.apps.yabai.enrichLegalEntity".
+              nextTool: "app.etzhayyim.apps.yabai.trackPhishingInfra" or
+              "app.etzhayyim.apps.yabai.enrichLegalEntity".
   skip      — stale, duplicate, out-of-scope, or cost exceeds signal.
               nextTool MUST be "".
 
@@ -160,7 +160,7 @@ def _audit_plan(state: PlanState) -> PlanState:
     auditable alongside the BPMN flow. Mirrors `generic.audit.emit`."""
     ts_ms = int(time.time() * 1000)
     rkey = f"plan-{ts_ms}"
-    vertex_id = f"did:web:langgraph.etzhayyim.com:ai.gftd.agent.plan:{rkey}:create"
+    vertex_id = f"did:web:langgraph.etzhayyim.com:app.etzhayyim.agent.plan:{rkey}:create"
     created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     payload = {
         "branch": state.get("branch"),
@@ -182,7 +182,7 @@ def _audit_plan(state: PlanState) -> PlanState:
         with sync_cursor() as cur:
             cur.execute(sql_text, (
                 vertex_id, ts_ms, "did:web:langgraph.etzhayyim.com",
-                "ai.gftd.agent.plan", rkey, "create",
+                "app.etzhayyim.agent.plan", rkey, "create",
                 json.dumps(payload, ensure_ascii=False),
                 ts_ms, created_at,
                 vertex_id,
@@ -215,7 +215,7 @@ plan_graph = _build_graph()
 
 async def task_agent_plan(context: dict | None = None, taskHint: str = "",
                           threadId: str = "", budgetMs: int = 5000) -> dict:
-    """Entry point registered as `ai.gftd.agent.plan` in
+    """Entry point registered as `app.etzhayyim.agent.plan` in
     pymagatama.zeebe_worker_main. The BPMN caller passes `context` (as a
     FEEL context literal → dict), optional `taskHint`, and a `threadId`
     (business key or instance key). Returns the flat state dict.

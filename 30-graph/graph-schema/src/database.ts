@@ -1,6 +1,6 @@
 /* eslint-disable */
 /**
- * Kysely-compatible database types for the GFTD graph DB (RisingWave).
+ * Kysely-compatible database types for the etzhayyim graph DB (RisingWave).
  *
  * GENERATED FILE - do not edit by hand.
  * Regenerate with: DATABASE_URL=... pnpm db:gen

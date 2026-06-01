@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-04-29T08:45:54.569Z",
-  "nsid": "ai.gftd.apps.yoro.actorQualityEnrich",
+  "nsid": "app.etzhayyim.apps.yoro.actorQualityEnrich",
   "sinceHours": 24,
   "observableEventModel": [
     "candidate.selected",

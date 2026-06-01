@@ -5,10 +5,10 @@
 // in-process actor callers share identical input/output schemas.
 //
 // The handler body delegates to the per-taxonomy actor wrapper authored in
-// ADR-2605180900 Phase 6 (`@gftd/magatama-host-sdk`).
+// ADR-2605180900 Phase 6 (`@etzhayyim/magatama-host-sdk`).
 
 import { z } from "zod";
-import type { IsicActor, UnispscActor } from "@gftd/magatama-host-sdk";
+import type { IsicActor, UnispscActor } from "@etzhayyim/magatama-host-sdk";
 
 // ───── Shared shapes ─────────────────────────────────────────────────────────
 

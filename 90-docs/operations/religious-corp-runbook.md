@@ -7,8 +7,8 @@ topic: murakumo-operations
 authoritative: true
 last_verified: 2026-05-21
 related:
-  - adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
-  - adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md
+V05191346-etzhayyim-vultr-free-murakumo-control-plane
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - 50-infra/murakumo/fleet.toml
   - 50-infra/cluster/murakumo/cell-runner/cells.toml
 ---

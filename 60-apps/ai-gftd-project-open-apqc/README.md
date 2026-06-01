@@ -15,7 +15,7 @@ the catalog data + projector spec from vendor.
 - APQC PCF reference catalog (13 L1 + L2/L3/L4/L5 process taxonomy)
 - BPMN 2.0 task catalog mapping
 - PCF → BPMN projection spec
-- `ai.gftd.apqc.*` lexicons (see `../../00-contracts/lexicons/ai/gftd/apqc/`)
+- `app.etzhayyim.apqc.*` lexicons (see `../../00-contracts/lexicons/ai/gftd/apqc/`)
 
 ## Out of scope (stays vendor)
 

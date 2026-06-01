@@ -23,7 +23,7 @@
         "properties": {
           "shardKey": {
             "type": "string",
-            "description": "Collection NSID this anchor covers, copied from the originating ipfsPin record. e.g. `ai.gftd.apps.threads.post`."
+            "description": "Collection NSID this anchor covers, copied from the originating ipfsPin record. e.g. `app.etzhayyim.apps.threads.post`."
           },
           "rootCid": {
             "type": "string",

@@ -29,8 +29,8 @@ const TALENT_DID = "did:web:talent.etzhayyim.com";
 const SOURCE = "bls-oes";
 const LICENSE = "public-domain";
 const HOMEPAGE = "https://www.bls.gov/oes/";
-const BLS_COLLECTION = "ai.gftd.apps.recruit.occupationBls";
-const COHORT_COLLECTION = "ai.gftd.apps.talent.talentCohort";
+const BLS_COLLECTION = "app.etzhayyim.apps.recruit.occupationBls";
+const COHORT_COLLECTION = "app.etzhayyim.apps.talent.talentCohort";
 
 const args = process.argv.slice(2);
 const getArg = (k, d) => { const i = args.indexOf(`--${k}`); return i === -1 ? d : args[i + 1] ?? d; };

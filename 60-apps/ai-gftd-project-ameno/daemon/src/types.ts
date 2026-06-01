@@ -1,7 +1,7 @@
 /**
  * Shared message + stats types for the ameno daemon graph.
  *
- * Intentionally identical to the svelte appview's `@gftd/ameno/inference`
+ * Intentionally identical to the svelte appview's `@etzhayyim/ameno/inference`
  * types so that node implementations can be cloned with minimal edits.
  */
 export interface ChatMessage {

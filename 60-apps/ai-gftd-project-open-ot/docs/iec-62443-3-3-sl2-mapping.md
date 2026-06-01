@@ -20,7 +20,7 @@ This matrix is **draft 2026-05-21**; final acceptance requires the external indu
 |---|---|---|---|
 | SR 1.1 | Human user identification | atproto DID + WebAuthn passkey per ADR-2605172700 | ✅ |
 | SR 1.2 | Software process / device identification | path-based DID (`did:web:etzhayyim.com:openot:device:<serial>`) | ✅ |
-| SR 1.3 | Account management | atproto records under `ai.gftd.apps.openOt` Lexicons | ✅ |
+| SR 1.3 | Account management | atproto records under `app.etzhayyim.apps.openOt` Lexicons | ✅ |
 | SR 1.4 | Identifier management | DID is the identifier; identifier rotation = new DID record | ✅ |
 | SR 1.5 | Authenticator management | Ed25519 key per device; key generation in TF-M secure storage | ⏳ Mimi Rev-1 |
 | SR 1.6 | Wireless authentication management | not applicable to MVP (no wireless field protocols per SPEC §11) | — |
@@ -101,7 +101,7 @@ This matrix is **draft 2026-05-21**; final acceptance requires the external indu
 | SR 7.5 | Emergency power | not in scope of open-ot software stack; deployment-site responsibility | — |
 | SR 7.6 | Network and security configurations | configuration is atproto records; revision history is the audit trail | ✅ |
 | SR 7.7 | Least functionality | each cell exposes only `_init` + `_tick` symbols; no ambient runtime | ✅ |
-| SR 7.8 | Control system component inventory | atproto records under `ai.gftd.apps.openOt.pinModule` list all deployed CIDs | ✅ |
+| SR 7.8 | Control system component inventory | atproto records under `app.etzhayyim.apps.openOt.pinModule` list all deployed CIDs | ✅ |
 
 ## Summary
 

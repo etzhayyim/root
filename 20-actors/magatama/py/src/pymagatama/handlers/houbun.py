@@ -3,10 +3,10 @@ ADR-0052 houbun.etzhayyim.com — statute / regulation / treaty ingest on the
 shared UDF pool.
 
 Handlers:
-- `ai.gftd.apps.houbun.ingestStatuteJpn`  (Phase 1, JPN e-Gov, live)
-- `ai.gftd.apps.houbun.ingestStatuteUsa`  (Phase 2, USA GovInfo CFR/USC)
-- `ai.gftd.apps.houbun.ingestEurLex`      (Phase 2, EU EUR-Lex SPARQL)
-- `ai.gftd.apps.houbun.ingestTreatyUn`    (Phase 2, UN Treaty Collection)
+- `app.etzhayyim.apps.houbun.ingestStatuteJpn`  (Phase 1, JPN e-Gov, live)
+- `app.etzhayyim.apps.houbun.ingestStatuteUsa`  (Phase 2, USA GovInfo CFR/USC)
+- `app.etzhayyim.apps.houbun.ingestEurLex`      (Phase 2, EU EUR-Lex SPARQL)
+- `app.etzhayyim.apps.houbun.ingestTreatyUn`    (Phase 2, UN Treaty Collection)
 
 Design notes:
 - The article DID is content-addressed via blake2b-48 over
@@ -143,7 +143,7 @@ async def _write_statute_row(
     """Returns (statute_vertex_id, inserted)."""
     path_did = JPN_PATH_DID if source == "e-gov" else f"{ACTOR_DID}:{jurisdiction}:{source}"
     rkey = statute_id
-    vertex_id = f"at://{path_did}/ai.gftd.apps.houbun.statute/{rkey}"
+    vertex_id = f"at://{path_did}/app.etzhayyim.apps.houbun.statute/{rkey}"
     now_iso = datetime.now(timezone.utc).isoformat()
     result = await pool.fetchval(
         _INSERT_STATUTE,
@@ -190,7 +190,7 @@ async def _write_article_row(
     article_did_str = _article_did(jurisdiction, statute_id, article_no, amended_at or "")
     blake_hash = article_did_str.rsplit(":", 1)[-1]
     rkey = blake_hash
-    vertex_id = f"at://{article_did_str}/ai.gftd.apps.houbun.article/{rkey}"
+    vertex_id = f"at://{article_did_str}/app.etzhayyim.apps.houbun.article/{rkey}"
     now_iso = datetime.now(timezone.utc).isoformat()
 
     ins = await pool.fetchval(
@@ -447,7 +447,7 @@ async def _ingest_one(session: Any, pool: Any, law_id: str) -> dict[str, int]:
 
 
 @udf(
-    nsid="ai.gftd.apps.houbun.ingestStatuteJpn",
+    nsid="app.etzhayyim.apps.houbun.ingestStatuteJpn",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -480,7 +480,7 @@ async def ingest_statute_jpn(params_json: str) -> str:
     if not law_id and not since:
         return json.dumps({"error": "lawId or since required"})
 
-    ctx = Context(nsid="ai.gftd.apps.houbun.ingestStatuteJpn")
+    ctx = Context(nsid="app.etzhayyim.apps.houbun.ingestStatuteJpn")
 
     agg = {
         "statutesFetched": 0,
@@ -583,7 +583,7 @@ async def _ingest_one_usa_title(
 
 
 @udf(
-    nsid="ai.gftd.apps.houbun.ingestStatuteUsa",
+    nsid="app.etzhayyim.apps.houbun.ingestStatuteUsa",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -616,7 +616,7 @@ async def ingest_statute_usa(params_json: str) -> str:
     raw_limit = int(params.get("limit") or 50)
     limit = max(1, min(500, raw_limit))
 
-    ctx = Context(nsid="ai.gftd.apps.houbun.ingestStatuteUsa")
+    ctx = Context(nsid="app.etzhayyim.apps.houbun.ingestStatuteUsa")
     agg = {
         "statutesFetched": 0,
         "statutesInserted": 0,
@@ -774,7 +774,7 @@ async def _ingest_one_eurlex(pool: Any, binding: dict[str, Any]) -> dict[str, in
 
 
 @udf(
-    nsid="ai.gftd.apps.houbun.ingestEurLex",
+    nsid="app.etzhayyim.apps.houbun.ingestEurLex",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -806,7 +806,7 @@ async def ingest_eur_lex(params_json: str) -> str:
     if not celex and not since:
         return json.dumps({"error": "celex or since required"})
 
-    ctx = Context(nsid="ai.gftd.apps.houbun.ingestEurLex")
+    ctx = Context(nsid="app.etzhayyim.apps.houbun.ingestEurLex")
     agg = {"statutesFetched": 0, "statutesInserted": 0, "errors": 0}
 
     query = _eurlex_query_single(celex) if celex else _eurlex_query_delta(since, act_type, limit)
@@ -857,7 +857,7 @@ async def _write_treaty_row(pool: Any, row: dict[str, Any]) -> bool:
     un_reg = row.get("un_reg_no") or row.get("source_record_id") or "unknown"
     rkey = re.sub(r"[^a-zA-Z0-9]+", "-", str(un_reg)).strip("-").lower()[:64] or "unknown"
     path_did = f"{ACTOR_DID}:int:un-treaty"
-    vertex_id = f"at://{path_did}/ai.gftd.apps.houbun.treaty/{rkey}"
+    vertex_id = f"at://{path_did}/app.etzhayyim.apps.houbun.treaty/{rkey}"
     now_iso = datetime.now(timezone.utc).isoformat()
     parties = row.get("parties") or []
     parties_json = json.dumps(parties) if parties else None
@@ -897,7 +897,7 @@ async def _fetch_un_treaty_records(
 
 
 @udf(
-    nsid="ai.gftd.apps.houbun.ingestTreatyUn",
+    nsid="app.etzhayyim.apps.houbun.ingestTreatyUn",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -929,7 +929,7 @@ async def ingest_treaty_un(params_json: str) -> str:
     if not un_reg_no and not since:
         return json.dumps({"error": "unRegNo or since required"})
 
-    ctx = Context(nsid="ai.gftd.apps.houbun.ingestTreatyUn")
+    ctx = Context(nsid="app.etzhayyim.apps.houbun.ingestTreatyUn")
     agg = {"treatiesFetched": 0, "treatiesInserted": 0, "errors": 0}
 
     async with aiohttp.ClientSession(

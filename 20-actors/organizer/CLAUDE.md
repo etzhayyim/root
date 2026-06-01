@@ -26,19 +26,19 @@
 | Tier | 用途 | 関数 | Collection NSID |
 |---|---|---|---|
 | **1 Social** | 整理完了通知 | `AppBskyFeedPost(vaultDID, text)` | `app.bsky.feed.post` |
-| **2 Domain** | item/classification/tag/collection/rule | `ComAtprotoRepoCreateRecord(kind, payload)` | `ai.gftd.apps.organizer.*` |
+| **2 Domain** | item/classification/tag/collection/rule | `ComAtprotoRepoCreateRecord(kind, payload)` | `app.etzhayyim.apps.organizer.*` |
 | **3 State** | 表示設定、AI preferences | `Preferences()` | server-side |
 
 ## Domain Record Types (Tier 2, camelCase) `[DESIGN]`
 
 | Kind | NSID | 内容 |
 |---|---|---|
-| `item` | `ai.gftd.apps.organizer.item` | アップロードアイテム (blob_ref, filename, content_type, size, blake3, vault_did) |
-| `classification` | `ai.gftd.apps.organizer.classification` | AI 分類結果 (item_rkey, category, subcategory, labels[], confidence, model) |
-| `tag` | `ai.gftd.apps.organizer.tag` | タグ (item_rkey, name, source: "ai"/"manual") |
-| `collection` | `ai.gftd.apps.organizer.collection` | コレクション定義 (name, description, visibility, auto_rules[]) |
-| `collection_item` | `ai.gftd.apps.organizer.collection_item` | コレクション↔アイテム関連 |
-| `organize_rule` | `ai.gftd.apps.organizer.organize_rule` | 自動整理ルール (condition, action, priority) |
+| `item` | `app.etzhayyim.apps.organizer.item` | アップロードアイテム (blob_ref, filename, content_type, size, blake3, vault_did) |
+| `classification` | `app.etzhayyim.apps.organizer.classification` | AI 分類結果 (item_rkey, category, subcategory, labels[], confidence, model) |
+| `tag` | `app.etzhayyim.apps.organizer.tag` | タグ (item_rkey, name, source: "ai"/"manual") |
+| `collection` | `app.etzhayyim.apps.organizer.collection` | コレクション定義 (name, description, visibility, auto_rules[]) |
+| `collection_item` | `app.etzhayyim.apps.organizer.collection_item` | コレクション↔アイテム関連 |
+| `organize_rule` | `app.etzhayyim.apps.organizer.organize_rule` | 自動整理ルール (condition, action, priority) |
 
 ## Subscription Discovery Pipeline (mailer → organizer → kaiyaku) `[DESIGN]`
 
@@ -64,9 +64,9 @@ mailer.etzhayyim.com (inboundEmail record, Follow-based input)
 
 | Kind | NSID | 内容 |
 |---|---|---|
-| `subscriptionItem` | `ai.gftd.apps.organizer.subscriptionItem` | 検出したサブスク (sender, serviceName, amount, currency, billingCycle, firstSeenAt, lastSeenAt, emailCount) |
-| `subscriptionAnalysis` | `ai.gftd.apps.organizer.subscriptionAnalysis` | 分析結果 (subscriptionItemRkey, usageScore, costPerMonth, recommendation: "keep"/"review"/"cancel", reason) |
-| `subscriptionReviewJob` | `ai.gftd.apps.organizer.subscriptionReviewJob` | ユーザーへのレビュー依頼ジョブ (status: "pending"/"reviewed"/"actioned", userDecision) |
+| `subscriptionItem` | `app.etzhayyim.apps.organizer.subscriptionItem` | 検出したサブスク (sender, serviceName, amount, currency, billingCycle, firstSeenAt, lastSeenAt, emailCount) |
+| `subscriptionAnalysis` | `app.etzhayyim.apps.organizer.subscriptionAnalysis` | 分析結果 (subscriptionItemRkey, usageScore, costPerMonth, recommendation: "keep"/"review"/"cancel", reason) |
+| `subscriptionReviewJob` | `app.etzhayyim.apps.organizer.subscriptionReviewJob` | ユーザーへのレビュー依頼ジョブ (status: "pending"/"reviewed"/"actioned", userDecision) |
 
 ### Subscription Graph Schema
 
@@ -85,7 +85,7 @@ mailer.etzhayyim.com (inboundEmail record, Follow-based input)
 
 ```
 mailer inboundEmail commit → handleComAtprotoSyncSubscribeReposCommit
-  → collection == "ai.gftd.apps.mailer.inboundEmail"
+  → collection == "app.etzhayyim.apps.mailer.inboundEmail"
     → Murakumo LLM 分類:
       - subject/body パターン: "ご利用明細", "自動更新", "subscription", "invoice", "receipt"
       - 抽出: serviceName, amount, currency, billingCycle
@@ -138,8 +138,8 @@ interface subscription-discovery {
 
 ## Reactive Pipeline (ComAtprotoSyncSubscribeRepos) `[DESIGN]`
 
-- `ai.gftd.apps.organizer.item` create → Murakumo vision/NLP auto-classify → classification + tag + collection auto-assign
-- `ai.gftd.apps.organizer.classification` create → パターン分析 → organize_rule 提案
+- `app.etzhayyim.apps.organizer.item` create → Murakumo vision/NLP auto-classify → classification + tag + collection auto-assign
+- `app.etzhayyim.apps.organizer.classification` create → パターン分析 → organize_rule 提案
 
 ## Sensitivity & Governance `[DESIGN]`
 

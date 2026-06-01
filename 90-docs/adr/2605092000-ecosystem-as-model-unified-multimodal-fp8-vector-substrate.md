@@ -18,7 +18,7 @@ priority_note: "CRITICAL — The ecosystem IS the model. Train/inference unified
 depends_on:
   - adr-2605091300-bonsai-cultivar-layer-above-myco-yeast
   - adr-2605071200-myco-yeast-artificial-organism-jp-naming
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2605082000-langgraph-graph-definition-as-data
 related:
   - adr-0044-risingwave-udf-language-strategy

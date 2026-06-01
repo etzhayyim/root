@@ -8,16 +8,16 @@ authoritative: true
 last_verified: "2026-05-15"
 supersedes: []
 related:
-  - adr-2605111200
-  - adr-2605111300
+  - adr-2605111200-cf-worker-edge-only-no-rw-connection
+  - adr-2605111300-pds-to-pod-bun-container
 ---
 
 # ADR-2605151600: maps CF Worker → LangServer Direct Call (amends ADR-2605111200)
 
-**Date**: 2026-05-15  
-**Status**: Accepted  
-**Amends**: ADR-2605111200 (CF Worker Edge-Only; No RW Connection)  
-**Supersedes**: Nothing  
+**Date**: 2026-05-15
+**Status**: Accepted
+**Amends**: ADR-2605111200 (CF Worker Edge-Only; No RW Connection)
+**Supersedes**: Nothing
 
 ## Context
 
@@ -27,14 +27,14 @@ ADR-2605111200 defines the read path as:
 
 The BPMN dispatcher is a deprecated execution path (ADR-2604282300, CLAUDE.md infra layer rules). The `maps-read-langserver` K8s pod (`pymagatama.worker_api`, port 8081) already handles these NSIDs directly:
 
-- `ai.gftd.apps.maps.getDashboard`
-- `ai.gftd.apps.maps.listLiveAircraft`
-- `ai.gftd.apps.maps.listLiveSatellites`
-- `ai.gftd.apps.maps.getWorldMonitorDashboard`
-- `ai.gftd.apps.maps.listIntelEvents`
-- `ai.gftd.apps.maps.getRiskSnapshot`
-- `ai.gftd.apps.maps.getLatestBrief`
-- `ai.gftd.apps.maps.listIntelAlerts`
+- `app.etzhayyim.apps.maps.getDashboard`
+- `app.etzhayyim.apps.maps.listLiveAircraft`
+- `app.etzhayyim.apps.maps.listLiveSatellites`
+- `app.etzhayyim.apps.maps.getWorldMonitorDashboard`
+- `app.etzhayyim.apps.maps.listIntelEvents`
+- `app.etzhayyim.apps.maps.getRiskSnapshot`
+- `app.etzhayyim.apps.maps.getLatestBrief`
+- `app.etzhayyim.apps.maps.listIntelAlerts`
 
 The pod was only reachable within the K8s cluster (ClusterIP Service). The CF Worker at `maps.etzhayyim.com` was calling through `dispatcher.etzhayyim.com` as a workaround.
 

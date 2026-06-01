@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.gameka.generateGame": {
+    "/xrpc/app.etzhayyim.gameka.generateGame": {
       "post": {
-        "summary": "ai.gftd.gameka.generateGame",
-        "operationId": "ai.gftd.gameka.generateGame",
+        "summary": "app.etzhayyim.gameka.generateGame",
+        "operationId": "app.etzhayyim.gameka.generateGame",
         "requestBody": {
           "required": true,
           "content": {
@@ -75,10 +75,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.gameka.playtestGame": {
+    "/xrpc/app.etzhayyim.gameka.playtestGame": {
       "post": {
         "summary": "Headless WebGPU playtest of a built kami-app artifact, scored by visual + perf critics. Closes the QA loop by deriving publishGame on pass, or proposeGame (revise) on fail with priorSpecs feedback.",
-        "operationId": "ai.gftd.gameka.playtestGame",
+        "operationId": "app.etzhayyim.gameka.playtestGame",
         "requestBody": {
           "required": true,
           "content": {
@@ -154,10 +154,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.gameka.proposeGame": {
+    "/xrpc/app.etzhayyim.gameka.proposeGame": {
       "post": {
-        "summary": "ai.gftd.gameka.proposeGame",
-        "operationId": "ai.gftd.gameka.proposeGame",
+        "summary": "app.etzhayyim.gameka.proposeGame",
+        "operationId": "app.etzhayyim.gameka.proposeGame",
         "requestBody": {
           "required": true,
           "content": {
@@ -247,10 +247,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.gameka.publishGame": {
+    "/xrpc/app.etzhayyim.gameka.publishGame": {
       "post": {
         "summary": "Mint a per-game sub-DID, write a gameTitle record, and post the launch announcement as the sub-DID. Triggered by playtestGame on outcome='pass'.",
-        "operationId": "ai.gftd.gameka.publishGame",
+        "operationId": "app.etzhayyim.gameka.publishGame",
         "requestBody": {
           "required": true,
           "content": {
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.gameka.tickStudio": {
+    "/xrpc/app.etzhayyim.gameka.tickStudio": {
       "post": {
         "summary": "Autonomous studio tick — timer-started (R/PT2H), no XRPC caller. Scans media-gamers trends, builds a brief via LLM, and derives proposeGame when tick_live_mode=true. During the 14-day soak (tick_live_mode=false), only audit is emitted.",
-        "operationId": "ai.gftd.gameka.tickStudio",
+        "operationId": "app.etzhayyim.gameka.tickStudio",
         "requestBody": {
           "required": true,
           "content": {

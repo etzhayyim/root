@@ -10,10 +10,10 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-27T12:00:00Z";
 const ownerDid = "did:web:business-person.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.business-person";
-const processVertexId = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-person-collectPublicRoles-v1";
-const bindingVertexId = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/businessPerson-collectPublicRoles-v1";
+const processVertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-collectPublicRoles-v1";
+const bindingVertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/businessPerson-collectPublicRoles-v1";
 const bpmnProcessId = "business_person_collect_public_roles";
-const nsid = "ai.gftd.apps.businessPerson.collectPublicRoles";
+const nsid = "app.etzhayyim.apps.businessPerson.collectPublicRoles";
 const sourcePath = "00-contracts/bpmn/ai/gftd/business-person/collectPublicRoles.bpmn";
 
 function readContract(relPath: string): string {

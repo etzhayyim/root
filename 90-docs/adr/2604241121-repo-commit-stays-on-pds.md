@@ -23,7 +23,7 @@ superseded_by: []
 
 # Context
 
-ADR-2604241038 Phase δ splits `chat.bsky.convo.*` and `ai.gftd.signal.*`
+ADR-2604241038 Phase δ splits `chat.bsky.convo.*` and `app.etzhayyim.signal.*`
 off the PDS into dedicated Workers (`chat.etzhayyim.com`, `signal.etzhayyim.com`).
 Phase δ2 / δ3 migrated the **read** handlers (`listConvos`, `getConvo*`,
 `getMessages`, `listDevices`, `getPrekeyBundle*`, `getIdentityFingerprint`)
@@ -58,7 +58,7 @@ conditions under which it could ever be revisited.
   - `chat.bsky.convo.sendMessage` / `acceptConvo` / `leaveConvo` /
     `muteConvo` / `unmuteConvo` / `updateRead` / etc. (via
     `ctx.comAtprotoRepoCreateRecord`)
-  - `ai.gftd.signal.registerPrekeys` / `replenishOtpks` /
+  - `app.etzhayyim.signal.registerPrekeys` / `replenishOtpks` /
     `ensureDevice` / `setEncryption` / etc.
   - Anything the client SDK encodes as "create a record in the user's
     repo, firehose it, persist the MST block"
@@ -69,11 +69,11 @@ conditions under which it could ever be revisited.
   (ADR-2604231828)
 - `chat.bsky.convo.*` reads + non-commit state (read receipts, typing
   indicators if they don't get materialized as repo records)
-- `ai.gftd.signal.*` key lookups + device metadata reads
-- `ai.gftd.vault.*` — isolated ciphertext store, no AT repo
+- `app.etzhayyim.signal.*` key lookups + device metadata reads
+- `app.etzhayyim.vault.*` — isolated ciphertext store, no AT repo
   involvement (ADR-2604231811 Layer 12)
 - Domain data writes that ADR-0036 routes directly to Hyperdrive
-  bypassing PDS: `ai.gftd.apps.<actor>.<kind>` collection writes that
+  bypassing PDS: `app.etzhayyim.apps.<actor>.<kind>` collection writes that
   live in `vertex_<actor>_<kind>` typed tables, not AT records
 
 # Why
@@ -164,7 +164,7 @@ don't quietly violate it.
   even when a downstream Worker is deployed with the write surface
   stubbed out.
 
-- Actor Workers (`ai.gftd.apps.<actor>.*` via `pipethroughActorWorker`)
+- Actor Workers (`app.etzhayyim.apps.<actor>.*` via `pipethroughActorWorker`)
   own their *domain* writes via ADR-0036 Hyperdrive-direct INSERT into
   `vertex_<actor>_<kind>` typed tables. These are **not** AT repo
   commits — they don't land in `vertex_repo_commit`, aren't

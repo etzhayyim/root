@@ -34,6 +34,87 @@ PROCESS_DEPENDENCIES: list[dict[str, Any]] = [
     {"id": "dep-installation-maintenance", "from": "installation", "to": "maintenance", "records": ["digital-twin.stateSnapshot", "qms.acceptanceReport", "cmms.asset"], "gate": "commissioned asset accepted into service"},
 ]
 
+TELECOM_ROBOTICS_MEDIA: list[dict[str, Any]] = [
+    {
+        "medium": "cellular-ran",
+        "roboticsScope": "cell-site survey, mast/antenna install, RAN node commissioning, KPI walk/drive test",
+        "designCoverage": "schema",
+        "implementationCoverage": "planning-runtime",
+        "telecomSchemas": ["vertex_telecom_cell_site", "vertex_telecom_ran_node", "vertex_telecom_kpi_sample"],
+        "robotAssets": ["site-survey-ugv", "mast-climb-assist", "rf-test-drone"],
+        "gaps": ["no gNB/eNB PHY/MAC implementation", "no SDR control loop"],
+    },
+    {
+        "medium": "satellite-ntn",
+        "roboticsScope": "earth-station inspection, antenna alignment, contact-window telemetry capture",
+        "designCoverage": "schema",
+        "implementationCoverage": "planning-runtime",
+        "telecomSchemas": ["vertex_telecom_ntn_satellite", "vertex_telecom_ntn_earth_station", "vertex_telecom_ntn_contact"],
+        "robotAssets": ["dish-alignment-robot", "roof-inspection-drone"],
+        "gaps": ["no modem waveform implementation", "no orbit propagation runtime in robotics primitive"],
+    },
+    {
+        "medium": "optical-fiber",
+        "roboticsScope": "fiber span inspection, ROADM rack service, OTDR evidence capture",
+        "designCoverage": "schema",
+        "implementationCoverage": "planning-runtime",
+        "telecomSchemas": ["vertex_telecom_optical_fiber_span", "vertex_telecom_optical_roadm", "vertex_telecom_optical_pm_event"],
+        "robotAssets": ["rack-service-arm", "fiber-inspection-robot"],
+        "gaps": [],
+    },
+    {
+        "medium": "submarine-cable",
+        "roboticsScope": "ROV survey, cable fault localization, repair-fleet dispatch package",
+        "designCoverage": "schema",
+        "implementationCoverage": "planning-runtime",
+        "telecomSchemas": [
+            "vertex_telecom_submarine_cable_system",
+            "vertex_telecom_submarine_landing_station",
+            "vertex_telecom_submarine_repeater",
+            "vertex_telecom_submarine_route_segment",
+            "vertex_telecom_submarine_repair_event",
+        ],
+        "robotAssets": ["rov-survey", "cable-deck-handling-robot"],
+        "gaps": ["no wet-plant control loop or repair-vessel runtime integration"],
+    },
+    {
+        "medium": "wlan-passpoint",
+        "roboticsScope": "venue survey, AP placement validation, roaming/session test",
+        "designCoverage": "schema",
+        "implementationCoverage": "planning-runtime",
+        "telecomSchemas": ["vertex_telecom_wlan_venue", "vertex_telecom_wlan_anqp_query", "vertex_telecom_wlan_session", "vertex_telecom_wlan_mesh_node", "vertex_telecom_wlan_mesh_link"],
+        "robotAssets": ["indoor-survey-robot", "wifi-test-handset-rig"],
+        "gaps": ["802.11s/HWMP radio stack is modeled, not implemented"],
+    },
+    {
+        "medium": "bluetooth-ble",
+        "roboticsScope": "short-range peripheral survey and actuator/proximity telemetry capture",
+        "designCoverage": "schema",
+        "implementationCoverage": "planning-runtime",
+        "telecomSchemas": ["vertex_telecom_bluetooth_device", "vertex_telecom_bluetooth_mesh_node", "vertex_telecom_bluetooth_observation"],
+        "robotAssets": ["ble-beacon-survey-robot"],
+        "gaps": ["Bluetooth Mesh transport is modeled, not implemented"],
+    },
+    {
+        "medium": "neutron-communication",
+        "roboticsScope": "hazard-gated lab experiment placeholder only",
+        "designCoverage": "out-of-scope",
+        "implementationCoverage": "none",
+        "telecomSchemas": [],
+        "robotAssets": [],
+        "gaps": ["no telecom design", "no implementation", "requires separate safety and physics ADR"],
+    },
+    {
+        "medium": "libp2p-tailmesh",
+        "roboticsScope": "robot command/control overlay and field telemetry backhaul over existing actor mesh",
+        "designCoverage": "implemented-overlay",
+        "implementationCoverage": "implemented-overlay",
+        "telecomSchemas": [],
+        "robotAssets": ["any-networked-robot"],
+        "gaps": ["not a radio PHY or carrier network implementation"],
+    },
+]
+
 
 def _selected_forms(processes: Any) -> list[dict[str, Any]]:
     if not isinstance(processes, list) or not processes:
@@ -199,12 +280,92 @@ def robotics_telemetry_schema(*, schema_id: str = "robotics-telemetry-v1") -> di
                 {"topic": "robotics.safety.event", "requiredFields": ["assetId", "severity", "event", "timestamp"], "retention": "audit-7y"},
                 {"topic": "robotics.transport.handoff", "requiredFields": ["shipmentId", "from", "to", "custodyScan", "timestamp"], "retention": "audit-7y"},
                 {"topic": "robotics.quality.release", "requiredFields": ["requestId", "decision", "inspectionRef", "timestamp"], "retention": "audit-7y"},
+                {"topic": "robotics.network.link", "requiredFields": ["assetId", "medium", "linkId", "state", "timestamp"], "retention": "audit-7y"},
+                {"topic": "robotics.rf.survey", "requiredFields": ["assetId", "medium", "siteId", "measurement", "timestamp"], "retention": "audit-7y"},
+                {"topic": "robotics.telecom.commissioning", "requiredFields": ["missionId", "siteId", "medium", "decision", "timestamp"], "retention": "audit-7y"},
             ],
             "stateEnums": {
                 "missionState": ["planned", "simulated", "approved", "running", "paused", "completed", "failed"],
                 "safetySeverity": ["info", "warning", "stop", "estop"],
                 "approvalDecision": ["approve", "reject", "hold"],
             },
+        }
+    }
+
+
+def _selected_telecom_media(media: Any) -> list[dict[str, Any]]:
+    if not isinstance(media, list) or not media:
+        return TELECOM_ROBOTICS_MEDIA
+    selected = {str(item).strip().lower() for item in media if str(item).strip()}
+    return [entry for entry in TELECOM_ROBOTICS_MEDIA if entry["medium"] in selected]
+
+
+def robotics_telecom_coverage(*, media: Any = None) -> dict[str, Any]:
+    entries = _selected_telecom_media(media)
+    return {
+        "roboticsTelecomCoverage": {
+            "coverageId": f"robotics-telecom-coverage-{_stamp()}",
+            "media": entries,
+            "implementedOverlay": [entry["medium"] for entry in entries if entry["implementationCoverage"] == "implemented-overlay"],
+            "planningRuntime": [entry["medium"] for entry in entries if entry["implementationCoverage"] == "planning-runtime"],
+            "coverageGaps": [
+                {"medium": entry["medium"], "gaps": entry["gaps"]}
+                for entry in entries
+                if entry["gaps"]
+            ],
+        }
+    }
+
+
+def robotics_network_deployment_plan(
+    *,
+    request_id: str = "robotics-network-request",
+    site_id: str = "telecom-site",
+    media: Any = None,
+    robot_fleet_id: str = "network-hardware-robotics",
+) -> dict[str, Any]:
+    selected = _selected_telecom_media(media)
+    missions = []
+    for index, entry in enumerate(selected, start=1):
+        missions.append({
+            "id": f"{request_id}-mission-{index}",
+            "medium": entry["medium"],
+            "robotAssets": entry["robotAssets"],
+            "scope": entry["roboticsScope"],
+            "telecomSchemas": entry["telecomSchemas"],
+            "commands": [
+                {"id": "precheck", "command": "validate-safety-envelope", "params": {"approvalRequired": True}},
+                {"id": "survey", "command": "capture-network-or-rf-evidence", "params": {"siteId": site_id, "medium": entry["medium"]}},
+                {"id": "commission", "command": "record-telecom-commissioning-decision", "params": {"schemas": entry["telecomSchemas"]}},
+            ],
+            "status": "blocked" if entry["implementationCoverage"] == "none" else "review",
+        })
+    blockers = [
+        f"{entry['medium']}: {gap}"
+        for entry in selected
+        for gap in entry["gaps"]
+        if entry["designCoverage"] in {"gap", "out-of-scope"} or entry["medium"] in {"neutron-communication"}
+    ]
+    return {
+        "roboticsNetworkDeploymentPlan": {
+            "requestId": request_id,
+            "siteId": site_id,
+            "robotFleetId": robot_fleet_id,
+            "missions": missions,
+            "telemetryTopics": ["robotics.network.link", "robotics.rf.survey", "robotics.telecom.commissioning"],
+            "bpmnProcesses": [
+                "00-contracts/bpmn/ai/gftd/robotics/observeRoboticsMission.bpmn",
+                "00-contracts/bpmn/ai/gftd/telecom/registerCellSite.bpmn",
+                "00-contracts/bpmn/ai/gftd/telecom/registerRanNode.bpmn",
+                "00-contracts/bpmn/ai/gftd/telecom/auditPerformanceCounters.bpmn",
+            ],
+            "approvalGates": [
+                "human approval before robot motion",
+                "RF/legal spectrum authorization attached before active emission",
+                "site commissioning evidence accepted before service handoff",
+            ],
+            "blockers": blockers,
+            "status": "blocked" if blockers else "review",
         }
     }
 
@@ -797,6 +958,19 @@ def task_telemetry_schema(**kwargs: Any) -> dict[str, Any]:
     return robotics_telemetry_schema(schema_id=str(kwargs.get("schemaId") or "robotics-telemetry-v1"))
 
 
+def task_telecom_coverage(**kwargs: Any) -> dict[str, Any]:
+    return robotics_telecom_coverage(media=kwargs.get("media"))
+
+
+def task_network_deployment_plan(**kwargs: Any) -> dict[str, Any]:
+    return robotics_network_deployment_plan(
+        request_id=str(kwargs.get("requestId") or "robotics-network-request"),
+        site_id=str(kwargs.get("siteId") or "telecom-site"),
+        media=kwargs.get("media"),
+        robot_fleet_id=str(kwargs.get("robotFleetId") or "network-hardware-robotics"),
+    )
+
+
 def task_mission_simulate(**kwargs: Any) -> dict[str, Any]:
     return robotics_mission_simulate(
         mission=kwargs.get("roboticsMission") or kwargs.get("mission"),
@@ -973,6 +1147,8 @@ def register(worker: Any, timeout_ms: int = 180_000) -> None:
     worker.task(task_type="robotics.sales.plan", single_value=False, timeout_ms=timeout_ms)(task_sales_plan)
     worker.task(task_type="robotics.mission.plan", single_value=False, timeout_ms=timeout_ms)(task_mission_plan)
     worker.task(task_type="robotics.telemetry.schema", single_value=False, timeout_ms=timeout_ms)(task_telemetry_schema)
+    worker.task(task_type="robotics.telecom.coverage", single_value=False, timeout_ms=timeout_ms)(task_telecom_coverage)
+    worker.task(task_type="robotics.network.deployment.plan", single_value=False, timeout_ms=timeout_ms)(task_network_deployment_plan)
     worker.task(task_type="robotics.mission.simulate", single_value=False, timeout_ms=timeout_ms)(task_mission_simulate)
     worker.task(task_type="robotics.approval.record", single_value=False, timeout_ms=timeout_ms)(task_approval_record)
     worker.task(task_type="robotics.telemetry.ingest", single_value=False, timeout_ms=timeout_ms)(task_telemetry_ingest)

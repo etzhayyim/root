@@ -14,14 +14,14 @@ const SEED_OWNER_DID = "did:web:lawfirm.etzhayyim.com";
 const SEED_ACTOR_TAG = "sys.bpmn.seed.lawfirm";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-tenant-bootstrap-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-tenant-bootstrap-v1",
   bpmnProcessId: "lawfirm_tenant_bootstrap",
   sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/tenantBootstrap.bpmn",
 };
 
 const BINDING = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-tenant-bootstrap-xrpc-v1",
-  nsid: "ai.gftd.apps.lawfirm.tenantBootstrap",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-tenant-bootstrap-xrpc-v1",
+  nsid: "app.etzhayyim.apps.lawfirm.tenantBootstrap",
   bpmnProcessId: "lawfirm_tenant_bootstrap",
   resultTimeoutMs: 30_000,
 };
@@ -30,7 +30,7 @@ const BINDING = {
  * Seed: tenantBootstrap BPMN process_def + lexicon binding.
  *
  * Closes the lexicon → BPMN → primitive chain:
- *   ai.gftd.apps.lawfirm.tenantBootstrap (lexicon)
+ *   app.etzhayyim.apps.lawfirm.tenantBootstrap (lexicon)
  *     → vertex_bpmn_lexicon_binding (this seed)
  *       → vertex_bpmn_process_def: lawfirm_tenant_bootstrap (this seed)
  *         → BPMN serviceTask type: lawfirm.tenant.bootstrap

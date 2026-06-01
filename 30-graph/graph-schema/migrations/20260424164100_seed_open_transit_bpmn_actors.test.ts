@@ -27,8 +27,8 @@ describe("Seed open-transit BPMN actors migration", () => {
     expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-transit/reportDelay.bpmn"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openTransit.defineRoute"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openTransit.reportDelay"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openTransit.defineRoute"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openTransit.reportDelay"');
   });
   it("uses open-transit-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-transit"');

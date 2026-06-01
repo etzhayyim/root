@@ -4,13 +4,13 @@
 Validates:
   1. Lexicons synced to vertex_mcp_tool_def (4 new tools visible)
   2. BPMN files synced to vertex_bpmn_process_def (2 new processes)
-  3. /xrpc/ai.gftd.apps.mangaka.generateEpisode kicks BPMN
+  3. /xrpc/app.etzhayyim.apps.mangaka.generateEpisode kicks BPMN
   4. Process completes within 10 min (76-panel render)
   5. vertex_mangaka has 1 work + 20 pages
   6. mv_mangaka_process_trace has ~6 audit events (one per phase)
   7. /mcp tools/list exposes the 4 new tools
-  8. /xrpc/ai.gftd.apps.mangaka.getProcessTrace returns the same OCEL trace
-  9. /xrpc/ai.gftd.apps.mangaka.getEpisode returns work + 20 pages
+  8. /xrpc/app.etzhayyim.apps.mangaka.getProcessTrace returns the same OCEL trace
+  9. /xrpc/app.etzhayyim.apps.mangaka.getEpisode returns work + 20 pages
 
 Usage:
     RW_URL=postgresql://root@localhost:4566/dev python manga-actor-integration.py
@@ -41,10 +41,10 @@ MANGAKA_URL = os.environ.get("MANGAKA_URL", "https://mangaka.etzhayyim.com")
 RW_URL = os.environ.get("RW_URL", "")
 
 EXPECTED_TOOLS = {
-    "ai.gftd.apps.mangaka.generateEpisode",
-    "ai.gftd.apps.mangaka.getEpisode",
-    "ai.gftd.apps.mangaka.listEpisodes",
-    "ai.gftd.apps.mangaka.getProcessTrace",
+    "app.etzhayyim.apps.mangaka.generateEpisode",
+    "app.etzhayyim.apps.mangaka.getEpisode",
+    "app.etzhayyim.apps.mangaka.listEpisodes",
+    "app.etzhayyim.apps.mangaka.getProcessTrace",
 }
 EXPECTED_BPMN = {"mangaka_generate_episode", "mangaka_episode_autopilot"}
 EXPECTED_PHASES = 6  # script / panels / balloons / pages / domain / post
@@ -130,7 +130,7 @@ def test_3_4_5_kick_and_wait() -> tuple[str, str] | None:
         "genre": "shojo",
         "setting": "abandoned subway tunnel",
     }
-    status, body = http_post(f"{DISPATCHER_URL}/xrpc/ai.gftd.apps.mangaka.generateEpisode", payload)
+    status, body = http_post(f"{DISPATCHER_URL}/xrpc/app.etzhayyim.apps.mangaka.generateEpisode", payload)
     if status != 200:
         check("kick generateEpisode", False, f"HTTP {status}: {body}")
         return None
@@ -209,7 +209,7 @@ def test_7_mcp_tools_list() -> None:
 def test_8_get_process_trace(episode_uri: str) -> None:
     print("\n[8/9] /xrpc/...getProcessTrace returns OCEL trace")
     status, body = http_post(
-        f"{MANGAKA_URL}/xrpc/ai.gftd.apps.mangaka.getProcessTrace",
+        f"{MANGAKA_URL}/xrpc/app.etzhayyim.apps.mangaka.getProcessTrace",
         {"episodeUri": episode_uri},
     )
     if status != 200:
@@ -224,7 +224,7 @@ def test_8_get_process_trace(episode_uri: str) -> None:
 def test_9_get_episode(episode_uri: str) -> None:
     print("\n[9/9] /xrpc/...getEpisode returns work + 20 pages")
     status, body = http_post(
-        f"{MANGAKA_URL}/xrpc/ai.gftd.apps.mangaka.getEpisode",
+        f"{MANGAKA_URL}/xrpc/app.etzhayyim.apps.mangaka.getEpisode",
         {"episodeUri": episode_uri},
     )
     if status != 200:

@@ -1,8 +1,8 @@
 """yukkuri `composeScene` graph — per-scene composite (BG + L立ち絵 + R立ち絵).
 
-NSID: ai.gftd.apps.yukkuri.composeScene
+NSID: app.etzhayyim.apps.yukkuri.composeScene
 
-Actor: did:web:yukkuri.gftd.ai:actor:editor
+Actor: did:web:yukkuri.etzhayyim.com:actor:editor
 
 For each scene we already have:
   - one `background` asset (from generateVisual)
@@ -44,13 +44,13 @@ _log = logging.getLogger(__name__)
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _COMFY_TIMEOUT = int(os.environ.get("COMFY_TIMEOUT_SEC", "180"))
 _PDS_BLOB_URL = os.environ.get(
-    "PDS_BLOB_URL", "https://atproto.gftd.ai/xrpc/com.atproto.repo.uploadBlob",
+    "PDS_BLOB_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob",
 )
 _PDS_BLOB_FETCH = os.environ.get(
-    "PDS_BLOB_FETCH_URL", "https://atproto.gftd.ai/xrpc/com.atproto.sync.getBlob",
+    "PDS_BLOB_FETCH_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.sync.getBlob",
 )
 _EDITOR_DID = os.environ.get(
-    "YUKKURI_EDITOR_DID", "did:web:yukkuri.gftd.ai:actor:editor",
+    "YUKKURI_EDITOR_DID", "did:web:yukkuri.etzhayyim.com:actor:editor",
 )
 
 

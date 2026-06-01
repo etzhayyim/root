@@ -154,7 +154,7 @@ async function fetchSite(url) {
     const resp = await fetch(url, {
       signal: ac.signal,
       headers: {
-        "User-Agent": "GFTD/1.0 government local variation audit (+https://etzhayyim.com)",
+        "User-Agent": "etzhayyim/1.0 government local variation audit (+https://etzhayyim.com)",
         "Accept": "text/html,application/xhtml+xml",
       },
       redirect: "follow",
@@ -180,7 +180,7 @@ async function loadMunicipalities() {
 
 async function insertLanguage(client, m, lang, sourceUrl) {
   const formKey = "local-site";
-  const vertexId = `at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.formLanguageVariant/ind-${m.municipality_code}-${slug(lang.locale)}`;
+  const vertexId = `at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.formLanguageVariant/ind-${m.municipality_code}-${slug(lang.locale)}`;
   await client.query(`DELETE FROM vertex_gov_form_language_variant WHERE vertex_id = $1`, [vertexId]);
   await client.query(
     `INSERT INTO vertex_gov_form_language_variant (
@@ -217,7 +217,7 @@ async function insertLanguage(client, m, lang, sourceUrl) {
 
 async function insertProcedure(client, m, p, sourceUrl, languages) {
   const procedureKey = `ind.local.${slug(p.kind)}`;
-  const vertexId = `at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.procedureVariant/ind-${m.municipality_code}-${slug(p.kind)}-${hash(sourceUrl)}`;
+  const vertexId = `at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.procedureVariant/ind-${m.municipality_code}-${slug(p.kind)}-${hash(sourceUrl)}`;
   const evidenceUrls = p.evidenceLinks.map((l) => l.href);
   await client.query(`DELETE FROM vertex_gov_procedure_variant WHERE vertex_id = $1`, [vertexId]);
   await client.query(
@@ -263,7 +263,7 @@ async function insertProcedure(client, m, p, sourceUrl, languages) {
 }
 
 async function markGap(client, m, status, reason) {
-  const vertexId = `at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.localVariationGap/ind-${m.municipality_code}`;
+  const vertexId = `at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.localVariationGap/ind-${m.municipality_code}`;
   await client.query(
     `DELETE FROM vertex_gov_local_variation_gap WHERE vertex_id = $1`,
     [vertexId],

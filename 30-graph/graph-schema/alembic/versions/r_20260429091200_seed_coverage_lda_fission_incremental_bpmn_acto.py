@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferFission-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferFission-v1',
                  'did:web:coverage.etzhayyim.com',
                  'coverage_infer_fission_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -34,7 +34,7 @@ UP = [{'sql': '\n'
                  'ADR-0026).\n'
                  '\n'
                  '  Reads fission-eligible latent entities (existence_probability >= 0.95) and\n'
-                 '  calls ai.gftd.cohort.fission to promote them into observable individual '
+                 '  calls app.etzhayyim.cohort.fission to promote them into observable individual '
                  'actors\n'
                  '  via the ADR-0026 cohort fission gate.\n'
                  '\n'
@@ -47,18 +47,18 @@ UP = [{'sql': '\n'
                  '(edge_entity_evidence)\n'
                  '    3. generic.db.select   — read cohort link (edge_entity_cohort_link → '
                  'cohortDid)\n'
-                 '    4. generic.xrpc.invoke — ai.gftd.cohort.fission (posterior, judgeAgreement, '
+                 '    4. generic.xrpc.invoke — app.etzhayyim.cohort.fission (posterior, judgeAgreement, '
                  'evidenceUris)\n'
                  "    5. generic.db.insert   — mark entity status = 'fissioned'\n"
                  '    6. generic.audit.emit  — OCEL summary\n'
                  '\n'
                  '  Trigger:\n'
                  '    timer-start R/P7D (weekly, after inferLdaEntities) AND XRPC '
-                 '(`ai.gftd.apps.coverage.inferFission`).\n'
+                 '(`app.etzhayyim.apps.coverage.inferFission`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-fission-v1\n'
-                 '  NSID:      ai.gftd.apps.coverage.inferFission\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-infer-fission-v1\n'
+                 '  NSID:      app.etzhayyim.apps.coverage.inferFission\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -71,7 +71,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.coverage.inferFission", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.coverage.inferFission", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -184,13 +184,13 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_ReadCohortLink" '
                  'targetRef="Task_CallFission"/>\n'
                  '\n'
-                 '    <!-- Step 4: Call ai.gftd.cohort.fission (ADR-0026 gate: posterior >= 0.95, '
+                 '    <!-- Step 4: Call app.etzhayyim.cohort.fission (ADR-0026 gate: posterior >= 0.95, '
                  'judgeAgreement=true) -->\n'
                  '    <bpmn:serviceTask id="Task_CallFission" name="call cohort fission">\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.xrpc.invoke"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.cohort.fission&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.cohort.fission&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="=if (count(candidates) > 0 and count(cohortLinks) '
                  '> 0) then {\n'
@@ -302,7 +302,7 @@ UP = [{'sql': '\n'
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferFission-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferFission-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -316,16 +316,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferFission-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferFission-v1',
                  'did:web:coverage.etzhayyim.com',
-                 'ai.gftd.apps.coverage.inferFission',
+                 'app.etzhayyim.apps.coverage.inferFission',
                  'coverage_infer_fission_v1',
                  120000,
                  '2026-04-29T09:08:00Z',
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferFission-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferFission-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -339,7 +339,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaIncremental-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaIncremental-v1',
                  'did:web:coverage.etzhayyim.com',
                  'coverage_infer_lda_incremental_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -373,11 +373,11 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Trigger:\n'
                  '    timer-start R/P1D (daily) AND XRPC '
-                 '(`ai.gftd.apps.coverage.inferLdaIncremental`).\n'
+                 '(`app.etzhayyim.apps.coverage.inferLdaIncremental`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-incremental-v1\n'
-                 '  NSID:      ai.gftd.apps.coverage.inferLdaIncremental\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-incremental-v1\n'
+                 '  NSID:      app.etzhayyim.apps.coverage.inferLdaIncremental\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -390,7 +390,7 @@ UP = [{'sql': '\n'
                  'incremental" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.coverage.inferLdaIncremental", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.coverage.inferLdaIncremental", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -626,7 +626,7 @@ UP = [{'sql': '\n'
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaIncremental-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaIncremental-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -640,25 +640,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaIncremental-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaIncremental-v1',
                  'did:web:coverage.etzhayyim.com',
-                 'ai.gftd.apps.coverage.inferLdaIncremental',
+                 'app.etzhayyim.apps.coverage.inferLdaIncremental',
                  'coverage_infer_lda_incremental_v1',
                  300000,
                  '2026-04-29T09:08:00Z',
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaIncremental-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaIncremental-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferFission-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferFission-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferFission-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferFission-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaIncremental-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaIncremental-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaIncremental-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaIncremental-v1']}]
 
 
 def upgrade() -> None:

@@ -21,8 +21,8 @@ related:
   - adr-0056-bpmn-as-actor
   - adr-0087-magatama-mcp-tool-facade
   - adr-0095-simplified-3layer-identity-rw-vault
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2604282300
+  - adr-2605010000
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
 supersedes: []
 superseded_by: []
@@ -198,7 +198,7 @@ Side rails:
 
 **API surface**:
 - S3-compat REST: `https://<bucket>.obj.etzhayyim.com/<key>` (subdomain) + `https://obj.etzhayyim.com/<bucket>/<key>` (path)
-- Native XRPC: `ai.gftd.apps.obj.{createBucket, putObject, getObject, listObjects, presignUrl, searchByEmbedding, listByTag, shareBucket, ...}`
+- Native XRPC: `app.etzhayyim.apps.obj.{createBucket, putObject, getObject, listObjects, presignUrl, searchByEmbedding, listByTag, shareBucket, ...}`
 - AWS SigV4 mapping: access key id = `gftd_<key_id>`, secret = `sk_obj_<...>`
 
 ## D5. 製品 3: yata Rust crate (canonical SDK)
@@ -362,7 +362,7 @@ yatabase.etzhayyim.com (CF Worker, edge)
   ├─ /sparql                      → SPARQL translator
   ├─ /storage/v1/object/{b}/{k}   → Supabase-compat REST
   ├─ /s3/{b}/{k}                  → AWS SigV4 (boto3 / mc 互換)
-  ├─ /xrpc/ai.gftd.apps.yata.*    → unified XRPC
+  ├─ /xrpc/app.etzhayyim.apps.yata.*    → unified XRPC
   └─ /mcp                         → MCP Streamable HTTP
        ↓
    Per-tenant RW database `yata_<sha256(did)[:16]>`
@@ -410,7 +410,7 @@ Overage (D1 と整合):
 
 D9 の `sk_live_obj_*` は **不採用 (P3 着手時に削除)**。`sk_live_yata_*` 1 本に統合。
 P2 で実装した `enforceApiKeyProductScope` の `'obj'` 分岐は dead code として残るが、
-発行はされない。`sk_live_yata_*` で `/storage/v1/*` も `/xrpc/ai.gftd.apps.yata.*` も全て通る。
+発行はされない。`sk_live_yata_*` で `/storage/v1/*` も `/xrpc/app.etzhayyim.apps.yata.*` も全て通る。
 
 ### S3 互換 wire 仕様
 
@@ -509,7 +509,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
 | S1 | `/storage/v1/object/{b}/{k}` (Supabase REST) | blob put/get/list/sign | `sk_live_yata_*` / atproto JWT | pyzeebe → B2/Vultr OS/R2 | P3 ✅ |
 | S2 | `/s3/{b}/{k}` (AWS SigV4) | boto3 / mc 互換 | SigV4 (`access_key=gftd_<keyId>`) | 同上 | P3.2 |
 | S3 | `/sparql` (SPARQL 1.1) | RDF SELECT/CONSTRUCT/ASK | 同 S1 | RW :4566 + `v_rdf_triple` VIEW | P4 ✅ |
-| S4 | `/xrpc/ai.gftd.apps.yata.*` | native XRPC (cytoplasmic) | 同 S1 | dispatcher → pyzeebe / Hyperdrive | P4 ✅ |
+| S4 | `/xrpc/app.etzhayyim.apps.yata.*` | native XRPC (cytoplasmic) | 同 S1 | dispatcher → pyzeebe / Hyperdrive | P4 ✅ |
 | S5 | `/pg` (PG protocol :5432) | psql / ORM read-only | role-mapped session | Vultr LB → PgBouncer → RW :4566 | P4 |
 | S6 | **`/cypher`** (openCypher HTTP) | Neo4j-style graph query | 同 S1 | `kagami-cypher-compiler` → SQL/PGQ → RW | **P3.5 (new)** |
 | S7 | **`bolt.yatabase.etzhayyim.com:7687`** (Bolt v4) | Neo4j driver / cypher-shell 互換 | Bolt HELLO + `sk_live_yata_*` | `yata-bolt` pool (Vultr VKE LAX, K8s LB L4) | **P3.6 (new)** |
@@ -528,7 +528,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
 |---|---|
 | **MCP `/mcp` のみが外部 AI / 外部 principal 向け sole surface** | ADR-2605091400 |
 | Cypher / Bolt / Realtime / REST / GraphQL は internal cytoplasmic XRPC を ecosystem ツール向けに wire 互換包装したもの。新 lexicon は導入しない | ADR-2605091400 + 本 ADR §D4 |
-| Domain write は Hyperdrive direct (ADR-0036)。`com.atproto.repo.createRecord` を `ai.gftd.apps.yata.*` で使わない | ADR-0036 + 60-apps/ai-gftd-project-yatabase/CLAUDE.md |
+| Domain write は Hyperdrive direct (ADR-0036)。`com.atproto.repo.createRecord` を `app.etzhayyim.apps.yata.*` で使わない | ADR-0036 + 60-apps/ai-gftd-project-yatabase/CLAUDE.md |
 | Tenant 境界は `yata_<sha256(did)[:16]>` per-org RW DB + per-org PG ROLE | 本 ADR §D8 |
 | RW OLTP 制約 (`ON CONFLICT` 不可、tx 不可、`UNIQUE` 不可、strict serializability 不可) は **全 surface で同様に開示**。PostgREST / GraphQL の wire response にも `Sql-Constraint-Mode: rw-eventual` ヘッダで明示 | 90-docs/260424-bsky-compat-risingwave-split.md |
 | Auth は **atproto OAuth が canonical**。GoTrue 互換 shim (S11) は token mint だけ担当、内部 JWT は ES256 atproto session | ADR-2604231821 + 本 ADR §D8 |
@@ -925,7 +925,7 @@ Accept: text/event-stream, application/json
 
 ### Tool surface (auto-generated from XRPC + L4 registry)
 
-`ai.gftd.apps.yata.*` lexicon の `func` 全件 + `magatama.jsonld profile.capabilities`
+`app.etzhayyim.apps.yata.*` lexicon の `func` 全件 + `magatama.jsonld profile.capabilities`
 が自動で MCP tool になる (root rule + ADR-0087 magatama MCP facade と同方式)。
 
 | Tool category | tool name 例 | underlying XRPC |
@@ -953,11 +953,11 @@ Accept: text/event-stream, application/json
 
 ### Internal-only XRPC ban (cell-membrane 適用)
 
-ADR-2605091400 に従い、**外部 AI agent は XRPC `/xrpc/ai.gftd.apps.yata.*` を
+ADR-2605091400 に従い、**外部 AI agent は XRPC `/xrpc/app.etzhayyim.apps.yata.*` を
 直接叩かない**。XRPC は cytoplasmic (S4) 内部通信専用。客の AI integration は
 全部 MCP を通す。違反検知:
 
-- `Authorization: Bearer sk_live_yata_*` で `/xrpc/ai.gftd.apps.yata.*` を叩いた
+- `Authorization: Bearer sk_live_yata_*` で `/xrpc/app.etzhayyim.apps.yata.*` を叩いた
   request は受理するが、response header `Deprecation: true` + `Sunset: 2026-12-31`
   + `Link: </mcp>; rel="successor-version"` を必ず付ける
 - 2026-12-31 以降は `sk_live_yata_*` の XRPC direct access は **403 Forbidden**
@@ -1222,7 +1222,7 @@ yatabase の MV / SQL query で十分カバー。分離は粗利を稀釈する�
 
 | Phase | 期間 | 成果物 |
 |---|---|---|
-| **P1: Billing 基盤** | M1-M2 | `vertex_billing_event` + 5 MV + 8 lexicons (`ai.gftd.apps.billing.*`) + 5 BPMN actors + `mitama-billing-pool` helm |
+| **P1: Billing 基盤** | M1-M2 | `vertex_billing_event` + 5 MV + 8 lexicons (`app.etzhayyim.apps.billing.*`) + 5 BPMN actors + `mitama-billing-pool` helm |
 | **P2: API key 製品別 prefix** | M2 | authn/authz Worker 拡張で `sk_live_yata_*` / `sk_live_obj_*` / 汎用 `sk_live_*` を分離、ROLE binding |
 | **P3: obj.etzhayyim.com MVP** | M2-M3 | `obj.etzhayyim.com` Worker (S3-compat REST + XRPC) + B2 backend + per-org bucket provisioning + tier policy + metering |
 | **P4: yatabase.etzhayyim.com MVP** | M3 | `yatabase.etzhayyim.com` Worker + multi-tenant DB provisioning + SQL/PGQ pass-through + SPARQL translator + XRPC + MCP |
@@ -1294,7 +1294,7 @@ rust-version = "1.78"
 license      = "Apache-2.0 OR MIT"
 repository   = "https://github.com/etzhayyim/yata"
 homepage     = "https://yatabase.etzhayyim.com"
-authors      = ["etzhayyim <jun@gftd.group>"]
+authors      = ["etzhayyim <jun@etzhayyim.com>"]
 
 [workspace.dependencies]
 tokio          = { version = "1", features = ["full"] }
@@ -1334,7 +1334,7 @@ export default {
     if (req.url.pathname === "/cypher") {
       return handleCypher(req, env, dbName, org);  // Phase 2
     }
-    if (req.url.pathname.startsWith("/xrpc/ai.gftd.apps.yata.")) {
+    if (req.url.pathname.startsWith("/xrpc/app.etzhayyim.apps.yata.")) {
       return handleXrpc(req, env, dbName, org);
     }
     if (req.url.pathname === "/mcp") {

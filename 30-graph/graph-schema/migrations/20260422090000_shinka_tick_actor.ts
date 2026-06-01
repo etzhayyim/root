@@ -4,7 +4,7 @@ import { sql } from "kysely";
 /**
  * ADR-0049 Phase C — register `shinka_tick_actor` external Python UDF.
  *
- * Delegates to `ai.gftd.apps.shinka.tickActor` on the mitama-udf pool.
+ * Delegates to `app.etzhayyim.apps.shinka.tickActor` on the mitama-udf pool.
  * The underlying LangGraph traversal lives in
  * `20-actors/magatama/py/src/pymagatama/shinka/__init__.py` and implements
  * the per-DID kyumei-shinka-autonomy rule (90-docs/rules/compliance/).
@@ -26,7 +26,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     CREATE FUNCTION shinka_tick_actor(VARCHAR)
       RETURNS VARCHAR
-      AS 'ai.gftd.apps.shinka.tickActor'
+      AS 'app.etzhayyim.apps.shinka.tickActor'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 }

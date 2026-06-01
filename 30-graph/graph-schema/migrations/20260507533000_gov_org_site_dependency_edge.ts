@@ -41,7 +41,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       SELECT
         vertex_id,
         record_key,
-        'at://' || owner_did || '/ai.gftd.apps.states.govOrg/' || COALESCE(value_json::jsonb ->> 'path', ''),
+        'at://' || owner_did || '/app.etzhayyim.apps.states.govOrg/' || COALESCE(value_json::jsonb ->> 'path', ''),
         COALESCE(value_json::jsonb ->> 'siteDid', ''),
         COALESCE(value_json::jsonb ->> 'path', ''),
         value_json::jsonb ->> 'siteNanoid',
@@ -56,7 +56,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         owner_did,
         CAST(sensitivity_ord AS integer)
       FROM vertex_gov_record
-      WHERE record_kind = 'ai.gftd.apps.states.govOrgSiteDep'
+      WHERE record_kind = 'app.etzhayyim.apps.states.govOrgSiteDep'
       ON CONFLICT (edge_id) DO NOTHING
     `.execute(db);
   }

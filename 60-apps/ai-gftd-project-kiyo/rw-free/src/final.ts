@@ -30,9 +30,9 @@ import {
   type PaperStatus,
 } from "./types.js";
 
-const PAPER_COLLECTION = "ai.gftd.kiyo.paper";
-const REVIEW_COLLECTION = "ai.gftd.kiyo.review";
-const ENDORSEMENT_COLLECTION = "ai.gftd.kiyo.endorsement";
+const PAPER_COLLECTION = "app.etzhayyim.kiyo.paper";
+const REVIEW_COLLECTION = "app.etzhayyim.kiyo.review";
+const ENDORSEMENT_COLLECTION = "app.etzhayyim.kiyo.endorsement";
 
 const IPFS_GATEWAY = "https://ipfs.etzhayyim.com/ipfs/";
 const DEFAULT_MAX_SCAN = 10_000;

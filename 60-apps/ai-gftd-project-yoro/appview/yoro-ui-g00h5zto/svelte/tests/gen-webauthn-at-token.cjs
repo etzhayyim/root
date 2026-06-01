@@ -9,7 +9,7 @@ try {
 }
 
 const DEFAULT_OUT = path.resolve(process.cwd(), '../../../../../tmp/e2e/yoro-at-token.json');
-const RETURN_TO = 'https://yoro.etzhayyim.com/profile/did:web:a7m8oocs.gftd.ai.writer.llm';
+const RETURN_TO = 'https://yoro.etzhayyim.com/profile/did:web:a7m8oocs.etzhayyim.com.writer.llm';
 
 function argValue(name) {
   const i = process.argv.indexOf(name);
@@ -46,7 +46,7 @@ function log(...args) {
     authenticatorId = String(added.authenticatorId || '');
 
     // Create account with passkey and handoff to yoro.
-    await page.goto(`https://auth.gftd.ai/sign-up?returnTo=${encodeURIComponent(RETURN_TO)}`, {
+    await page.goto(`https://auth.etzhayyim.com/sign-up?returnTo=${encodeURIComponent(RETURN_TO)}`, {
       waitUntil: 'domcontentloaded',
       timeout: 60_000,
     });

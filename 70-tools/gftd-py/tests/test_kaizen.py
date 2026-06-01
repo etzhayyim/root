@@ -45,13 +45,13 @@ def test_score_app_ignores_generic_labels():
 
 
 def test_score_app_detects_collection_kinds():
-    content = 'ai.gftd.apps.myapp.invoice'
+    content = 'app.etzhayyim.apps.myapp.invoice'
     r = _score_app(content, "", "", "myapp")
     assert "invoice" in r.collection_kinds
 
 
 def test_score_app_ignores_generic_kinds():
-    content = 'ai.gftd.apps.myapp.record'
+    content = 'app.etzhayyim.apps.myapp.record'
     r = _score_app(content, "", "", "myapp")
     assert "record" not in r.collection_kinds
 
@@ -67,8 +67,8 @@ def test_score_app_grade_s_high_score():
         'MATCH (n:Invoice) RETURN n',
         'MATCH (n:LineItem) RETURN n',
         'MATCH (n:Payment) RETURN n',
-        'ai.gftd.apps.myapp.invoice',
-        'ai.gftd.apps.myapp.payment',
+        'app.etzhayyim.apps.myapp.invoice',
+        'app.etzhayyim.apps.myapp.payment',
         'function cmdProcessPayment() {}',
         'function cmdGenerateInvoice() {}',
         'function cmdVoidInvoice() {}',
@@ -111,7 +111,7 @@ def test_score_app_score_capped_at_100():
     content = '\n'.join([
         'MATCH (n:A) RETURN n', 'MATCH (n:B) RETURN n', 'MATCH (n:C) RETURN n',
         'MATCH (n:D) RETURN n', 'MATCH (n:E) RETURN n',
-        'ai.gftd.apps.myapp.a', 'ai.gftd.apps.myapp.b',
+        'app.etzhayyim.apps.myapp.a', 'app.etzhayyim.apps.myapp.b',
         'function cmdA() {}', 'function cmdB() {}', 'function cmdC() {}',
         'if (x) { a(); }', 'if (y) { b(); }', 'if (z) { c(); }',
         'interface IFoo { id: string; }', 'interface IBar { val: number; }',
@@ -159,7 +159,7 @@ def test_collect_single_app(tmp_path):
     app_dir = project_dir / "appview" / "ai-gftd-wasm-billing-abc12345"
     (app_dir / "src").mkdir(parents=True)
     (app_dir / "src" / "app.ts").write_text(
-        'MATCH (n:Invoice) RETURN n\nai.gftd.apps.billing.invoice\nfunction cmdProcessPayment() {}\n'
+        'MATCH (n:Invoice) RETURN n\napp.etzhayyim.apps.billing.invoice\nfunction cmdProcessPayment() {}\n'
     )
     (app_dir / "magatama.jsonld").write_text(json.dumps({
         "nanoid": "abc12345",
@@ -245,7 +245,7 @@ def test_cli_kaizen_with_real_app(tmp_path):
     app_dir = project_dir / "src"
     app_dir.mkdir(parents=True)
     (app_dir / "app.ts").write_text(
-        'MATCH (n:Invoice)\nai.gftd.apps.billing.invoice\nfunction cmdPayBill() {}\nif (x > 0) { pay(); }\n'
+        'MATCH (n:Invoice)\napp.etzhayyim.apps.billing.invoice\nfunction cmdPayBill() {}\nif (x > 0) { pay(); }\n'
     )
     runner = CliRunner()
     result = runner.invoke(main, ["kaizen", "--json", "--apps",
@@ -297,44 +297,44 @@ def test_kaizen_logs_percentile_multiple():
 def test_kaizen_logs_aggregate_events():
     from gftd.kaizen import _aggregate_events
     events = [
-        {"method": "ai.gftd.foo.bar", "status": 200, "ms": 100},
-        {"method": "ai.gftd.foo.bar", "status": 500, "ms": 2000},
-        {"method": "ai.gftd.baz.qux", "status": 200, "ms": 50},
+        {"method": "app.etzhayyim.foo.bar", "status": 200, "ms": 100},
+        {"method": "app.etzhayyim.foo.bar", "status": 500, "ms": 2000},
+        {"method": "app.etzhayyim.baz.qux", "status": 200, "ms": 50},
     ]
     stats = _aggregate_events(events)
-    assert stats["ai.gftd.foo.bar"]["count"] == 2
-    assert stats["ai.gftd.foo.bar"]["errors"] == 1
-    assert stats["ai.gftd.baz.qux"]["count"] == 1
-    assert stats["ai.gftd.baz.qux"]["errors"] == 0
+    assert stats["app.etzhayyim.foo.bar"]["count"] == 2
+    assert stats["app.etzhayyim.foo.bar"]["errors"] == 1
+    assert stats["app.etzhayyim.baz.qux"]["count"] == 1
+    assert stats["app.etzhayyim.baz.qux"]["errors"] == 0
 
 
 def test_kaizen_logs_build_findings_slow():
     from gftd.kaizen import _build_findings
     events = [
-        {"method": "ai.gftd.slow.query", "status": 200, "ms": 1200},
-        {"method": "ai.gftd.slow.query", "status": 200, "ms": 1500},
-        {"method": "ai.gftd.fast.query", "status": 200, "ms": 50},
+        {"method": "app.etzhayyim.slow.query", "status": 200, "ms": 1200},
+        {"method": "app.etzhayyim.slow.query", "status": 200, "ms": 1500},
+        {"method": "app.etzhayyim.fast.query", "status": 200, "ms": 50},
     ]
     findings = _build_findings(events, {}, top=5, p99_threshold=500,
                                err_rate_threshold=1.0, show_events=10)
     assert findings["total_requests"] == 3
     slow = findings["slow_queries"]
-    assert any(q["method"] == "ai.gftd.slow.query" for q in slow)
-    assert not any(q["method"] == "ai.gftd.fast.query" for q in slow)
+    assert any(q["method"] == "app.etzhayyim.slow.query" for q in slow)
+    assert not any(q["method"] == "app.etzhayyim.fast.query" for q in slow)
 
 
 def test_kaizen_logs_build_findings_errors():
     from gftd.kaizen import _build_findings
     events = [
-        {"method": "ai.gftd.broken", "status": 500, "ms": 100},
-        {"method": "ai.gftd.broken", "status": 500, "ms": 100},
-        {"method": "ai.gftd.ok", "status": 200, "ms": 100},
+        {"method": "app.etzhayyim.broken", "status": 500, "ms": 100},
+        {"method": "app.etzhayyim.broken", "status": 500, "ms": 100},
+        {"method": "app.etzhayyim.ok", "status": 200, "ms": 100},
     ]
     findings = _build_findings(events, {}, top=5, p99_threshold=500,
                                err_rate_threshold=1.0, show_events=10)
     err_q = findings["error_queries"]
-    assert any(q["method"] == "ai.gftd.broken" for q in err_q)
-    broken = next(q for q in err_q if q["method"] == "ai.gftd.broken")
+    assert any(q["method"] == "app.etzhayyim.broken" for q in err_q)
+    broken = next(q for q in err_q if q["method"] == "app.etzhayyim.broken")
     assert broken["errRate"] == 100.0
     assert len(findings["recent_error_events"]) == 2
 
@@ -344,9 +344,9 @@ def test_kaizen_logs_with_mocked_ocel():
     from gftd.kaizen import _load_ocel
     mock_data = {
         "events": [
-            {"method": "ai.gftd.apps.foo.bar", "status": 200, "ms": 120, "ts": "2026-05-15T00:00:00Z"},
-            {"method": "ai.gftd.apps.foo.bar", "status": 500, "ms": 8000, "ts": "2026-05-15T00:00:01Z"},
-            {"method": "ai.gftd.apps.baz.qux", "status": 200, "ms": 40, "ts": "2026-05-15T00:00:02Z"},
+            {"method": "app.etzhayyim.apps.foo.bar", "status": 200, "ms": 120, "ts": "2026-05-15T00:00:00Z"},
+            {"method": "app.etzhayyim.apps.foo.bar", "status": 500, "ms": 8000, "ts": "2026-05-15T00:00:01Z"},
+            {"method": "app.etzhayyim.apps.baz.qux", "status": 200, "ms": 40, "ts": "2026-05-15T00:00:02Z"},
         ],
         "aggregates": {},
     }
@@ -362,7 +362,7 @@ def test_kaizen_logs_json_with_mocked_ocel():
     """kaizen logs --json produces valid JSON."""
     mock_data = {
         "events": [
-            {"method": "ai.gftd.apps.foo.bar", "status": 200, "ms": 600, "ts": "2026-05-15T00:00:00Z"},
+            {"method": "app.etzhayyim.apps.foo.bar", "status": 200, "ms": 600, "ts": "2026-05-15T00:00:00Z"},
         ],
         "aggregates": {},
     }

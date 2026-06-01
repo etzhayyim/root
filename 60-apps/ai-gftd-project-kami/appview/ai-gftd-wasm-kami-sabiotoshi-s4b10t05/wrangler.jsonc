@@ -19,7 +19,7 @@
     "APP_DISPLAY_NAME": "Sabi-Otoshi!!",
     "APP_EMBED_URL": "sabiotoshi-game.htm",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "APP_NANOID": "s4b10t05",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"
@@ -34,12 +34,12 @@
   ],
   "routes": [
     {
-      "pattern": "s4b10t05.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "s4b10t05.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "sabiotoshi-kami.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "sabiotoshi-kami.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

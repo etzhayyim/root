@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Open3D quadric-decimation + saturated vertex-color export to GLB. Reduces COLMAP raw mesh (50K-300K triangles) to ~5K triangles per tile so the kami-app-maps3d MeshTileAdapter can stream and upload to GPU without frame spikes. Per-vertex colors are saturated (factor 1.3, clamped) to bias the rendering toward Nintendo-style cel-shading rather than photoreal blur. Optionally segments the mesh by OSM building footprint so each building gets its own GLB + vertex_spatial Building row.",
+      "description": "Open3D quadric-decimation + saturated vertex-color export to GLB. Reduces COLMAP raw mesh (50K-300K triangles) to ~5K triangles per tile so the kami-app-maps3d MeshTileAdapter can stream and upload to GPU without frame spikes. Per-vertex colors are saturated (factor 1.3, clamped) to bias the rendering toward Nintendo-style cel-shading rather than photoreal blur. Optionally segments the mesh by OSM building footprint so each building gets its own GLB + LanceDB spatial Building row (etzhayyim substrate per ADR-2605172000). PORT-adapted per ADR-2605214000 §2.",
       "input": {
         "encoding": "application/json",
         "schema": {

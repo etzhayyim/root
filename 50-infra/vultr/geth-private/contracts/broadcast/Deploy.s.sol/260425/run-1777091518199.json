@@ -28,7 +28,7 @@
     {
       "hash": "0x0a99b829a55d9deb0213d3c8dbd556e96ee7a377f8e2bb978921149c01652f27",
       "transactionType": "CREATE",
-      "contractName": "GftdActorAccount",
+      "contractName": "etzhayyimActorAccount",
       "contractAddress": "0xfd0a3ed845635dd8e316baa8e69cc1c9d1f9f400",
       "function": null,
       "arguments": [
@@ -68,7 +68,7 @@
     {
       "hash": "0x940bb70deaf01b2fb5fc657503fa2cff9e6d254a4a82ebe1e303f170437e0b77",
       "transactionType": "CREATE",
-      "contractName": "GftdActorRegistry",
+      "contractName": "etzhayyimActorRegistry",
       "contractAddress": "0xc097cc8f6dfa6f3a539b0de36e9bb550b9aa7025",
       "function": null,
       "arguments": [
@@ -92,7 +92,7 @@
       "contractAddress": "0x8e9a5162b2800e0d19acc1708a531a3954900e21",
       "function": null,
       "arguments": [
-        "GFTD Compute Credit",
+        "etzhayyim Compute Credit",
         "GCC",
         "18",
         "1000000000000000000000000000",

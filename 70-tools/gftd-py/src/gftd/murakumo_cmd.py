@@ -39,7 +39,7 @@ def murakumo_status(pds: str | None, json_out: bool) -> None:
     """Fleet health and model availability."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.murakumo.getStatus",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.murakumo.getStatus",
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -61,7 +61,7 @@ def murakumo_list(pds: str | None, json_out: bool) -> None:
     """List all fleet pods."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.murakumo.listPods",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.murakumo.listPods",
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -87,7 +87,7 @@ def murakumo_infer(prompt: str, model: str, pds: str | None, json_out: bool) -> 
     if model:
         payload["model"] = model
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/ai.gftd.murakumo.infer",
+        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.murakumo.infer",
                           json=payload, headers=_auth_headers(), timeout=120)
         resp.raise_for_status()
         data = resp.json()
@@ -106,7 +106,7 @@ def murakumo_route(pds: str | None, json_out: bool) -> None:
     """Show current routing configuration (full update requires Go binary)."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.murakumo.getRouting",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.murakumo.getRouting",
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -357,21 +357,21 @@ def murakumo_models_apply(dry_run: bool, target: str, only_mini: str) -> None:
 # ── murakumo plan ──────────────────────────────────────────────────────────
 
 _MURAKUMO_STEPS = [
-    {"command": "plan", "nsid": "ai.gftd.murakumo.planPipeline",
+    {"command": "plan", "nsid": "app.etzhayyim.murakumo.planPipeline",
      "purpose": "Show the canonical Hayate V6 data/train/inference pipeline steps."},
-    {"command": "graph-extract", "nsid": "ai.gftd.murakumo.graphExtract",
+    {"command": "graph-extract", "nsid": "app.etzhayyim.murakumo.graphExtract",
      "purpose": "Extract entities/relations from did_domains with Qwen4B worker."},
-    {"command": "graph-ingest", "nsid": "ai.gftd.murakumo.graphIngest",
+    {"command": "graph-ingest", "nsid": "app.etzhayyim.murakumo.graphIngest",
      "purpose": "Register graph entities as DID nodes and store into LanceDB."},
-    {"command": "coverage-export", "nsid": "ai.gftd.murakumo.coverageExport",
+    {"command": "coverage-export", "nsid": "app.etzhayyim.murakumo.coverageExport",
      "purpose": "Export coverage domains from yata/PDS into coverage_domains npy."},
-    {"command": "fleet-plan", "nsid": "ai.gftd.murakumo.fleetPlan",
+    {"command": "fleet-plan", "nsid": "app.etzhayyim.murakumo.fleetPlan",
      "purpose": "Generate slot allocation plan for Hayate V6 fleet training."},
-    {"command": "train-experts", "nsid": "ai.gftd.murakumo.trainExperts",
+    {"command": "train-experts", "nsid": "app.etzhayyim.murakumo.trainExperts",
      "purpose": "Run phase-2 expert training and persist bf16/int8 experts."},
-    {"command": "eval", "nsid": "ai.gftd.murakumo.evalV6",
+    {"command": "eval", "nsid": "app.etzhayyim.murakumo.evalV6",
      "purpose": "Run Hayate V6 benchmark/eval for regression checks."},
-    {"command": "optimize", "nsid": "ai.gftd.murakumo.optimizeCycle",
+    {"command": "optimize", "nsid": "app.etzhayyim.murakumo.optimizeCycle",
      "purpose": "Run one efficient optimization cycle (ingest → score → chunk-train → eval)."},
 ]
 
@@ -383,18 +383,18 @@ def murakumo_plan(json_out: bool) -> None:
     if json_out:
         click.echo(json.dumps({"steps": _MURAKUMO_STEPS}, ensure_ascii=False, indent=2))
         return
-    click.echo("Murakumo Pipeline (ai.gftd.murakumo.*)")
+    click.echo("Murakumo Pipeline (app.etzhayyim.murakumo.*)")
     for i, s in enumerate(_MURAKUMO_STEPS, 1):
         click.echo(f"{i}. gftd murakumo {s['command']}")
         click.echo(f"   NSID: {s['nsid']}")
         click.echo(f"   {s['purpose']}")
-    click.echo(f"{len(_MURAKUMO_STEPS)+1}. gftd murakumo xrpc --nsid ai.gftd.murakumo.runPipeline --payload-file run.json")
+    click.echo(f"{len(_MURAKUMO_STEPS)+1}. gftd murakumo xrpc --nsid app.etzhayyim.murakumo.runPipeline --payload-file run.json")
 
 
 # ── murakumo xrpc ─────────────────────────────────────────────────────────
 
 @murakumo.command("xrpc")
-@click.option("--nsid", required=True, help="NSID (e.g. ai.gftd.murakumo.graphExtract)")
+@click.option("--nsid", required=True, help="NSID (e.g. app.etzhayyim.murakumo.graphExtract)")
 @click.option("--payload", default="{}", help="Inline JSON payload")
 @click.option("--payload-file", "payload_file", default=None, help="Path to JSON payload file")
 @click.option("--pds", default=None, help="PDS base URL")
@@ -514,7 +514,7 @@ def murakumo_fleet_jotai(pds: str | None, limit: int, json_out: bool) -> None:
     pds_url = (pds or _resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.murakumo.fleetStatus",
+            f"{pds_url}/xrpc/app.etzhayyim.murakumo.fleetStatus",
             params={"limit": limit},
             headers=_auth_headers(),
             timeout=15,
@@ -560,7 +560,7 @@ def murakumo_fleet_versions(pds: str | None, json_out: bool) -> None:
     pds_url = (pds or _resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.murakumo.workerVersions",
+            f"{pds_url}/xrpc/app.etzhayyim.murakumo.workerVersions",
             headers=_auth_headers(),
             timeout=15,
         )
@@ -835,7 +835,7 @@ def murakumo_train_experts(
     label: str, n_labels: int, label_start: int, epochs: int, slots_per: int,
     device: str, pds: str | None, json_out: bool,
 ) -> None:
-    """Submit expert training job via XRPC (ai.gftd.murakumo.trainExperts)."""
+    """Submit expert training job via XRPC (app.etzhayyim.murakumo.trainExperts)."""
     from .projector import resolve_pds as _resolve_pds
     pds_url = (pds or _resolve_pds()).rstrip("/")
     payload = {
@@ -848,7 +848,7 @@ def murakumo_train_experts(
     }
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/ai.gftd.murakumo.trainExperts",
+            f"{pds_url}/xrpc/app.etzhayyim.murakumo.trainExperts",
             json=payload,
             headers=_auth_headers(),
             timeout=60,

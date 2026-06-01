@@ -24,7 +24,7 @@ from gftd.workspace import workspace
 # ── lint ───────────────────────────────────────────────────────────────────────
 
 def test_lint_nsid_regression_no_violations(tmp_path):
-    (tmp_path / "app.ts").write_text('const nsid_real = "ai.gftd.apps.billing.invoice";\n')
+    (tmp_path / "app.ts").write_text('const nsid_real = "app.etzhayyim.apps.billing.invoice";\n')
     r = _lint_rule(tmp_path, "nsid-regression")
     assert r.ok
 
@@ -267,7 +267,7 @@ did = "did:web:adr.etzhayyim.com"
     (tmp_path / "deps.toml").write_text(actors_toml)
     import os
     env_backup = {k: os.environ.pop(k, None)
-                  for k in ("CLOUDFLARE_API_TOKEN", "CF_API_TOKEN", "GFTD_CLOUDFLARE_API_TOKEN")}
+                  for k in ("CLOUDFLARE_API_TOKEN", "CF_API_TOKEN", "etzhayyim_CLOUDFLARE_API_TOKEN")}
     try:
         runner = CliRunner()
         result = runner.invoke(main, [
@@ -363,7 +363,7 @@ def test_nono_load_manifests_single(tmp_path):
         "nanoid": "abc12345",
         "name": "clock-worker",
         "bindings": ["clock"],
-        "skills": [{"nsid": "ai.gftd.nono.clock.getTime", "description": "get time"}],
+        "skills": [{"nsid": "app.etzhayyim.nono.clock.getTime", "description": "get time"}],
     }))
     manifests = _load_manifests(tmp_path)
     assert len(manifests) == 1
@@ -1069,7 +1069,7 @@ def test_apps_coverage_no_pds(tmp_path):
     import os
     runner = CliRunner()
     env = {k: v for k, v in os.environ.items()}
-    env["GFTD_PDS_URL"] = "http://127.0.0.1:19999"
+    env["etzhayyim_PDS_URL"] = "http://127.0.0.1:19999"
     result = runner.invoke(main, ["apps", "coverage", "testnanoid",
                                    "--pds", "http://127.0.0.1:19999"],
                             catch_exceptions=True)
@@ -1123,7 +1123,7 @@ def test_apps_coverage_static_score(tmp_path):
     src_dir.mkdir(parents=True)
     (src_dir / "app.ts").write_text(
         'sdk.app.command("test", ...) vertex_orders vertex_invoices '
-        '"ai.gftd.apps.myapp.orders" if (x > 0) when (active) require(auth)'
+        '"app.etzhayyim.apps.myapp.orders" if (x > 0) when (active) require(auth)'
     )
     score, sql_labels, collections, _, biz_rules, _ = _score_domain_static(str(app_dir), "myapp")
     assert score > 0
@@ -1934,7 +1934,7 @@ def test_kosei_stack_with_app(tmp_path):
         "name": "test-actor",
         "performerType": "software",
         "guestLanguage": "typescript",
-        "subscribeRepos": {"collections": ["ai.gftd.test.item"]},
+        "subscribeRepos": {"collections": ["app.etzhayyim.test.item"]},
         "evolver": {"enabled": True},
     }
     (app_dir / "magatama.jsonld").write_text(_json.dumps(manifest))
@@ -2288,7 +2288,7 @@ def test_deps_governance_wit_with_files(tmp_path):
     src_dir = tmp_path / "src"
     src_dir.mkdir()
     (src_dir / "app.ts").write_text(
-        'sdk.app.command("ai.gftd.apps.test.run", async (ctx, body) => {});\n'
+        'sdk.app.command("app.etzhayyim.apps.test.run", async (ctx, body) => {});\n'
     )
     (tmp_path / "magatama.jsonld").write_text(json.dumps({
         "runtime": "worker",
@@ -3304,7 +3304,7 @@ def test_kashika_sla_text_output():
     runner = CliRunner()
     result = runner.invoke(main, ["kashika", "sla"])
     assert result.exit_code == 0
-    assert "GFTD Platform SLA" in result.output
+    assert "etzhayyim Platform SLA" in result.output
     assert "CF Workers" in result.output
 
 

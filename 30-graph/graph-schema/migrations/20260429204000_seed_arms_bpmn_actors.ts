@@ -15,22 +15,22 @@ const actorId = "sys.bpmn.seed.arms";
 const project = "arms";
 
 const seeds: Seed[] = [
-  { slug: "register-firearm", processId: "arms_register_firearm", nsid: "ai.gftd.apps.arms.registerFirearm", sourcePath: "00-contracts/bpmn/ai/gftd/arms/registerFirearm.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_firearm,vertex_arms_firearm_pii,edge_arms_firearm_to_holder" },
-  { slug: "authenticate-holder", processId: "arms_authenticate_holder", nsid: "ai.gftd.apps.arms.authenticateHolder", sourcePath: "00-contracts/bpmn/ai/gftd/arms/authenticateHolder.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_auth_session" },
-  { slug: "verify-auth-challenge", processId: "arms_verify_auth_challenge", nsid: "ai.gftd.apps.arms.verifyAuthChallenge", sourcePath: "00-contracts/bpmn/ai/gftd/arms/verifyAuthChallenge.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_auth_session" },
-  { slug: "issue-permit", processId: "arms_issue_permit", nsid: "ai.gftd.apps.arms.issuePermit", sourcePath: "00-contracts/bpmn/ai/gftd/arms/issuePermit.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_permit,vertex_arms_permit_pii" },
-  { slug: "transfer-custody", processId: "arms_transfer_custody", nsid: "ai.gftd.apps.arms.transferCustody", sourcePath: "00-contracts/bpmn/ai/gftd/arms/transferCustody.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_custody_event,edge_arms_firearm_to_holder,edge_arms_firearm_to_permit" },
-  { slug: "check-out-firearm", processId: "arms_check_out_firearm", nsid: "ai.gftd.apps.arms.checkOutFirearm", sourcePath: "00-contracts/bpmn/ai/gftd/arms/checkOutFirearm.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_custody_event,vertex_arms_firearm" },
-  { slug: "check-in-firearm", processId: "arms_check_in_firearm", nsid: "ai.gftd.apps.arms.checkInFirearm", sourcePath: "00-contracts/bpmn/ai/gftd/arms/checkInFirearm.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_custody_event,vertex_arms_firearm" },
-  { slug: "report-incident", processId: "arms_report_incident", nsid: "ai.gftd.apps.arms.reportIncident", sourcePath: "00-contracts/bpmn/ai/gftd/arms/reportIncident.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_custody_event,vertex_open_defence_event,vertex_arms_firearm" },
-  { slug: "get-firearm", processId: "arms_get_firearm", nsid: "ai.gftd.apps.arms.getFirearm", sourcePath: "00-contracts/bpmn/ai/gftd/arms/getFirearm.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "list-firearms", processId: "arms_list_firearms", nsid: "ai.gftd.apps.arms.listFirearms", sourcePath: "00-contracts/bpmn/ai/gftd/arms/listFirearms.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "list-permits", processId: "arms_list_permits", nsid: "ai.gftd.apps.arms.listPermits", sourcePath: "00-contracts/bpmn/ai/gftd/arms/listPermits.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "get-audit-log", processId: "arms_get_audit_log", nsid: "ai.gftd.apps.arms.getAuditLog", sourcePath: "00-contracts/bpmn/ai/gftd/arms/getAuditLog.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "register-firearm", processId: "arms_register_firearm", nsid: "app.etzhayyim.apps.arms.registerFirearm", sourcePath: "00-contracts/bpmn/ai/gftd/arms/registerFirearm.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_firearm,vertex_arms_firearm_pii,edge_arms_firearm_to_holder" },
+  { slug: "authenticate-holder", processId: "arms_authenticate_holder", nsid: "app.etzhayyim.apps.arms.authenticateHolder", sourcePath: "00-contracts/bpmn/ai/gftd/arms/authenticateHolder.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_auth_session" },
+  { slug: "verify-auth-challenge", processId: "arms_verify_auth_challenge", nsid: "app.etzhayyim.apps.arms.verifyAuthChallenge", sourcePath: "00-contracts/bpmn/ai/gftd/arms/verifyAuthChallenge.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_auth_session" },
+  { slug: "issue-permit", processId: "arms_issue_permit", nsid: "app.etzhayyim.apps.arms.issuePermit", sourcePath: "00-contracts/bpmn/ai/gftd/arms/issuePermit.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_permit,vertex_arms_permit_pii" },
+  { slug: "transfer-custody", processId: "arms_transfer_custody", nsid: "app.etzhayyim.apps.arms.transferCustody", sourcePath: "00-contracts/bpmn/ai/gftd/arms/transferCustody.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_custody_event,edge_arms_firearm_to_holder,edge_arms_firearm_to_permit" },
+  { slug: "check-out-firearm", processId: "arms_check_out_firearm", nsid: "app.etzhayyim.apps.arms.checkOutFirearm", sourcePath: "00-contracts/bpmn/ai/gftd/arms/checkOutFirearm.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_custody_event,vertex_arms_firearm" },
+  { slug: "check-in-firearm", processId: "arms_check_in_firearm", nsid: "app.etzhayyim.apps.arms.checkInFirearm", sourcePath: "00-contracts/bpmn/ai/gftd/arms/checkInFirearm.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_custody_event,vertex_arms_firearm" },
+  { slug: "report-incident", processId: "arms_report_incident", nsid: "app.etzhayyim.apps.arms.reportIncident", sourcePath: "00-contracts/bpmn/ai/gftd/arms/reportIncident.bpmn", timeoutMs: 60000, writeTableAllowlist: "vertex_arms_custody_event,vertex_open_defence_event,vertex_arms_firearm" },
+  { slug: "get-firearm", processId: "arms_get_firearm", nsid: "app.etzhayyim.apps.arms.getFirearm", sourcePath: "00-contracts/bpmn/ai/gftd/arms/getFirearm.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "list-firearms", processId: "arms_list_firearms", nsid: "app.etzhayyim.apps.arms.listFirearms", sourcePath: "00-contracts/bpmn/ai/gftd/arms/listFirearms.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "list-permits", processId: "arms_list_permits", nsid: "app.etzhayyim.apps.arms.listPermits", sourcePath: "00-contracts/bpmn/ai/gftd/arms/listPermits.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "get-audit-log", processId: "arms_get_audit_log", nsid: "app.etzhayyim.apps.arms.getAuditLog", sourcePath: "00-contracts/bpmn/ai/gftd/arms/getAuditLog.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

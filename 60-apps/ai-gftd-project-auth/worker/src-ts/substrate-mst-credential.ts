@@ -6,7 +6,7 @@
  *
  * Auth credentials (passkey, OAuth link, email magic-link verifier, SMS
  * OTP) MUST land on the auth tenant PDS as `app.etzhayyim.encrypted.record`
- * envelopes whose plaintext body matches the `ai.gftd.auth.credential`
+ * envelopes whose plaintext body matches the `app.etzhayyim.auth.credential`
  * lexicon (see `00-contracts/lexicons/ai/gftd/auth/credential.json`).
  *
  * The existing D1 tables (`vertex_gftd_auth_credential` etc.) remain in
@@ -31,7 +31,7 @@ import {
   type StandaloneReadDeps,
 } from "@etzhayyim/sdk/encrypted";
 
-// ─── Plaintext credential shape (mirrors ai.gftd.auth.credential) ──
+// ─── Plaintext credential shape (mirrors app.etzhayyim.auth.credential) ──
 
 export type AuthCredentialKind = "passkey" | "oauthLink" | "emailLink" | "smsOtp";
 
@@ -76,7 +76,7 @@ export interface AuthCredentialRecord {
 // ─── Public API ────────────────────────────────────────────────────
 
 const COLLECTION_ENVELOPE = "app.etzhayyim.encrypted.record";
-const INNER_TYPE = "ai.gftd.auth.credential";
+const INNER_TYPE = "app.etzhayyim.auth.credential";
 
 /**
  * Persist an auth credential to the auth tenant PDS as an encrypted MST

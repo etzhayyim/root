@@ -3,8 +3,8 @@ pragma solidity 0.8.23;
 
 import {Script, console} from "forge-std/Script.sol";
 
-import {GftdAgentRegistry} from "../src/GftdAgentRegistry.sol";
-import {GftdRootIdentityRegistry} from "../src/GftdRootIdentityRegistry.sol";
+import {etzhayyimAgentRegistry} from "../src/etzhayyimAgentRegistry.sol";
+import {etzhayyimRootIdentityRegistry} from "../src/etzhayyimRootIdentityRegistry.sol";
 
 /// @title Incremental deploy — ERC725/ERC-8004 agent runtime registries
 contract DeployAgentRuntimeRegistries is Script {
@@ -14,11 +14,11 @@ contract DeployAgentRuntimeRegistries is Script {
 
         vm.startBroadcast(deployerPk);
 
-        GftdRootIdentityRegistry rootRegistry = new GftdRootIdentityRegistry(deployer);
-        console.log("GftdRootIdentityRegistry:", address(rootRegistry));
+        etzhayyimRootIdentityRegistry rootRegistry = new etzhayyimRootIdentityRegistry(deployer);
+        console.log("etzhayyimRootIdentityRegistry:", address(rootRegistry));
 
-        GftdAgentRegistry agentRegistry = new GftdAgentRegistry(deployer);
-        console.log("GftdAgentRegistry:       ", address(agentRegistry));
+        etzhayyimAgentRegistry agentRegistry = new etzhayyimAgentRegistry(deployer);
+        console.log("etzhayyimAgentRegistry:       ", address(agentRegistry));
 
         vm.stopBroadcast();
 

@@ -3,18 +3,18 @@ name = "lg-pd-color"
 version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi>=0.115",
+    "fastapi>=0.136.3",
     "uvicorn[standard]>=0.30",
-    "langgraph>=0.2.50",
-    "langchain-core>=0.3.0",
+    "langgraph>=1.2.2",
+    "langchain-core>=1.4.0",
     "httpx>=0.27.0",
     "pymagatama",
-    "pydantic>=2.7.0",
+    "pydantic>=2.13.4",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pyright>=1.1.300",
+    "pyright>=1.1.409",
 ]
 
 [build-system]

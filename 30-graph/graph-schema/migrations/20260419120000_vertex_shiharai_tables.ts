@@ -11,7 +11,7 @@ import { Kysely, sql } from 'kysely';
  *
  * Columns align with records emitted by
  *   60-apps/ai-gftd-project-shiharai/appview/ai-gftd-wasm-shiharai-sh1h4r41/src/app.ts
- * via collection NSIDs ai.gftd.apps.shiharai.{bill,payment,biller,recurring,
+ * via collection NSIDs app.etzhayyim.apps.shiharai.{bill,payment,biller,recurring,
  * job,jobResult}.
  *
  * Credential material is NEVER stored server-side. vault.etzhayyim.com wraps

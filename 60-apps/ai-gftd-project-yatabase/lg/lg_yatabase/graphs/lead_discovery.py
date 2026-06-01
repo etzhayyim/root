@@ -172,7 +172,7 @@ async def search_github(state: LeadDiscoveryState) -> LeadDiscoveryState:
 async def search_reddit(state: LeadDiscoveryState) -> LeadDiscoveryState:
     leads: list[dict] = []
     seen_urls: set[str] = set()
-    headers = {"User-Agent": "yatabase-lead-discovery/1.0 (bot; contact@gftd.co.jp)"}
+    headers = {"User-Agent": "yatabase-lead-discovery/1.0 (bot; contact@etzhayyim.com)"}
     for sub in _REDDIT_SUBREDDITS:
         for kw in _REDDIT_KEYWORDS[:2]:  # limit calls: 2 kw × 3 subs = 6 requests
             try:
@@ -341,7 +341,7 @@ async def report(state: LeadDiscoveryState) -> LeadDiscoveryState:
                 "lead-discovery-report",
                 f"yatabase Lead Discovery {run_date}",
                 summary,
-                "jun@gftd.group",
+                "jun@etzhayyim.com",
                 "queued-no-recipient",
                 datetime.now(timezone.utc),
             )

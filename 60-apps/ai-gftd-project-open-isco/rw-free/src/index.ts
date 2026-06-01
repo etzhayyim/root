@@ -7,7 +7,7 @@ export type { Occupation } from "./types.js";
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { Occupation } from "./types.js";
 
-const COLLECTION = "ai.gftd.apps.openIsco.occupation";
+const COLLECTION = "app.etzhayyim.apps.openIsco.occupation";
 
 function defaultClient() {
   return new Etzhayyim({

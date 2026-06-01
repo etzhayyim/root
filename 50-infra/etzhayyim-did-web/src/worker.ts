@@ -5,9 +5,23 @@ import {
   UNISPSC_TOTAL_COUNT,
 } from "./registry/unispsc-handles.gen";
 import {
+  INFRA_ACTORS,
   INFRA_ACTOR_HANDLES,
   getInfraActor,
 } from "./registry/infra-actors";
+import {
+  actorHandleFromParam,
+  coerceActorRecord,
+  compiledActorRecord,
+  toDidDoc,
+  toGetProfileView,
+  COMPILED_ACTOR_HANDLES,
+  type ActorRecord,
+} from "./registry/actor-profiles";
+import { fetchKotobaActorRecord } from "./kotoba";
+import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
+import { verifyCarToBytes } from "./car";
+import { fetchOnChainVm } from "./erc725";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -39,10 +53,271 @@ import {
  * Excluded from proxy (always served locally by this Worker):
  *   - /.well-known/did.json                — entity DID Document
  *   - /actor/<handle>/did.json             — per-actor DID Document
+ *   - /actors                              — actor registry index (HTML, human-facing)
+ *   - /.well-known/actors.json             — actor registry (machine-readable)
+ *   - /donate                              — donation declaration (HTML, ADR-2606012100)
+ *   - /.well-known/donation.json           — donation policy (machine-readable)
  *   - future: /.well-known/atproto-did, /.well-known/security.txt, etc.
  */
 
 const UPSTREAM_HOST = "yoro.etzhayyim.com";
+
+// ─── Donation policy (ADR-2606012100) ──────────────────────────────────────
+//
+// etzhayyim is a 宗教法人 operated ONLY on donation (non_profit_only +
+// donation_only constitutional constants, ADR-2605192100 §2 / ADR-2605192115).
+// This Worker serves the public declaration locally (cookie-free, tracker-free)
+// at two routes — the human page `/donate` and the machine policy
+// `/.well-known/donation.json` — satisfying the ADR-2605192115 §6 public-proof
+// requirement on the always-on apex surface (alongside the DID document).
+//
+// Two donation media: CASH (USDC via TitheRouter, 90/10 split) and in-kind
+// COMPUTE (joining the Murakumo mesh + kotoba substrate as a donated node).
+// Compute donation is uncompensated, non-titheable, and grants the donor
+// nothing (anti-class G4). See ADR-2606012100.
+const DONATION_POLICY = {
+  entity: "etzhayyim",
+  entityDid: "did:web:etzhayyim.com",
+  form: "宗教法人 (任意団体 / unincorporated religious voluntary association)",
+  fundedBy: "donation-only",
+  invariants: {
+    nonProfitOnly: true,
+    donationOnly: true,
+    advertising: "none",
+    sells: "nothing",
+    adherentCashStipend: 0, // Basic High Income N1: cashStipendUsd ≡ 0 (ADR-2605301020)
+    tracking: "none",
+    cookies: "none",
+  },
+  media: [
+    {
+      medium: "cash",
+      asset: "USDC",
+      rail: "TitheRouter.donate() on Base L2",
+      split: "90% recipient program / 10% Public Fund (ADR-2605192130)",
+      purposes: ["donation", "kisha", "grant"],
+      status: "Base L2 testnet pending Council (CLAUDE.md §Live governance)",
+    },
+    {
+      medium: "compute",
+      kind: "in-kind",
+      titheable: false,
+      compensated: false,
+      grantsBenefit: false,
+      bestEffort: true,
+      description:
+        "Donate compute/storage to the Murakumo mesh + kotoba substrate as a donated first-party node. Uncompensated gift; earns the donor nothing (anti-class). Murakumo-only — never commercial GPU rental.",
+      nodes: [
+        {
+          class: "ameno",
+          how: "Open a consent-gated browser tab; WebGPU/WebNN inference on frozen baien edge models. Zero install (WASM-32, iPhone 12+ / Android 4GB).",
+          gates: ["consent-only", "device-power-budget", "frozen-edge-models"],
+        },
+        {
+          class: "e7m",
+          how: "`e7m node join` — register a laptop/workstation as an Ollama (gemma3:4b) / WASM inference node.",
+          gates: ["donor-held-key", "murakumo-mesh-only"],
+        },
+        {
+          class: "kotoba",
+          how: "Run a kotoba pod (IPFS block backend + Datom replication, optional Ollama) joining the substrate.",
+          gates: ["donor-hardware", "best-effort"],
+        },
+      ],
+      enrollment: "R0 design; live external mesh-enrollment gated on Council + operator (ADR-2606012100 §6 G9)",
+    },
+  ],
+  adr: ["2606012100", "2605192115", "2605192130", "2605215000", "2605301020", "2605241900"],
+  references: {
+    page: "https://etzhayyim.com/donate",
+    didDocument: "https://etzhayyim.com/.well-known/did.json",
+    repo: "https://github.com/etzhayyim/root",
+  },
+} as const;
+
+// Static, dependency-free, cookie-free. No external resource, no inline script
+// (Charter Rider §2(c) — the page itself must not track). Information about
+// etzhayyim's own religious activity = not advertising (ADR-2605192115 §1.2).
+const DONATE_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donate · etzhayyim</title>
+<meta name="description" content="etzhayyim is a religious corp operated only on donation. Give money or compute.">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:48rem;padding:2.5rem 1.25rem;margin-inline:auto}
+h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
+.sub{opacity:.7;margin:0 0 2rem}
+h2{font-size:1.15rem;margin:2rem 0 .5rem;border-bottom:1px solid currentColor;padding-bottom:.25rem}
+.card{border:1px solid color-mix(in srgb,currentColor 25%,transparent);border-radius:.6rem;padding:1rem 1.1rem;margin:.75rem 0}
+.tag{display:inline-block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;opacity:.65;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin-right:.4rem}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:color-mix(in srgb,currentColor 10%,transparent);padding:.1rem .35rem;border-radius:.3rem}
+ul{margin:.4rem 0 .4rem 1.1rem;padding:0}
+footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
+a{color:inherit}
+</style>
+</head>
+<body>
+<h1>etzhayyim is operated <em>only</em> on donation.</h1>
+<p class="sub">A 宗教法人 (unincorporated religious association). We take no advertising, sell nothing, and never pay any member cash. You can give <strong>money</strong> or <strong>compute</strong>.</p>
+
+<h2>Give money</h2>
+<div class="card">
+<span class="tag">USDC</span><span class="tag">Base L2</span>
+<p>Donations settle on-chain through <strong>TitheRouter</strong>: 90% to the recipient program, 10% auto-split to the Public Fund. No fiat processor, no fees skimmed by middlemen.</p>
+<p style="opacity:.7;margin:.25rem 0 0">Status: Base L2 testnet pending Council ratification — on-chain donate address published here when live.</p>
+</div>
+
+<h2>Give compute</h2>
+<p>Our inference runs on the <strong>Murakumo mesh</strong> only — we deliberately do <em>not</em> rent commercial GPUs. So the most valuable gift you can make is your own compute. It is an <strong>uncompensated gift</strong>: it earns you nothing, buys no benefit, and is never required.</p>
+
+<div class="card">
+<span class="tag">ameno</span><span class="tag">browser · zero install</span>
+<p>Open a consent-gated tab and your browser runs inference (WebGPU/WebNN) on frozen edge models — on a phone (iPhone 12+ / Android 4GB) or laptop. Runs only while the tab is open and you've opted in; respects a battery/thermal budget.</p>
+</div>
+
+<div class="card">
+<span class="tag">e7m</span><span class="tag">CLI</span>
+<p>Donate a laptop or workstation as a mesh node: <code>e7m node join</code> (and <code>e7m node leave</code> to stop). You hold your own key; we hold none.</p>
+</div>
+
+<div class="card">
+<span class="tag">kotoba</span><span class="tag">pod · storage</span>
+<p>Run a kotoba pod to contribute substrate durability — IPFS block storage and Datom replication (with optional inference). Your hardware, your keys.</p>
+</div>
+
+<p style="opacity:.75">Compute you donate joins the Murakumo fleet as a first-party node — never a commercial cloud. It is valued (imputed, for transparency only) but no money ever moves to or from you, and donating more grants you no priority. Live enrollment for external nodes is being rolled out under Council oversight.</p>
+
+<footer>
+Machine-readable policy: <a href="/.well-known/donation.json">/.well-known/donation.json</a> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a><br>
+Design: ADR-2606012100 · non-profit / donation-only / ad-free / no-adherent-cash are constitutional invariants.
+</footer>
+</body>
+</html>
+`;
+
+// ─── Actor registry index (/actors + /.well-known/actors.json) ─────────────
+//
+// The apex surface lists every actor whose DID resolves at
+// `/actor/<handle>/did.json`. INFRA_ACTORS (registry/infra-actors.ts) is the
+// single source of truth — adding an actor there makes it both DID-resolvable
+// AND appear here, with no second edit. Two media, mirroring /donate:
+//   - `/actors`               human page (static HTML, cookie-free, no script)
+//   - /.well-known/actors.json machine policy (the registry, JSON)
+//
+// Glyphed entries (紡ぎ / 綿津綱 …) are the named Tier-B / knowledge-graph
+// actors; un-glyphed entries are the substrate plumbing service DIDs.
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function buildActorsJson() {
+  const actors = Object.entries(INFRA_ACTORS).map(([handle, e]) => ({
+    handle,
+    did: `did:web:etzhayyim.com:actor:${handle}`,
+    didDocument: `https://etzhayyim.com/actor/${handle}/did.json`,
+    glyph: e.glyph ?? null,
+    displayName: e.displayName ?? null,
+    kind: e.glyph ? "actor" : "substrate-service",
+    description: e.description,
+    primaryLexicon: e.primaryLexicon ?? null,
+    primarySchema: e.primarySchema ?? null,
+    adr: e.adrs,
+  }));
+  return {
+    entity: "etzhayyim",
+    entityDid: "did:web:etzhayyim.com",
+    count: actors.length,
+    note: "Actors whose DID resolves at /actor/<handle>/did.json. INFRA_ACTORS (registry/infra-actors.ts) is the single source of truth. Free-form member/council handles also resolve but are not enumerated here.",
+    page: "https://etzhayyim.com/actors",
+    adr: ["2605241800", "2605212030"],
+    actors,
+  };
+}
+
+function renderActorCard(handle: string): string {
+  const e = INFRA_ACTORS[handle];
+  const title = e.glyph
+    ? `<span class="glyph">${escapeHtml(e.glyph)}</span> <code>${escapeHtml(handle)}</code>`
+    : `<code>${escapeHtml(handle)}</code>`;
+  const name = e.displayName
+    ? `<p class="name">${escapeHtml(e.displayName)}</p>`
+    : "";
+  const lex = e.primaryLexicon
+    ? `<span class="tag">${escapeHtml(e.primaryLexicon)}</span>`
+    : "";
+  const schema = e.primarySchema
+    ? `<span class="tag">kotoba EDN</span>`
+    : "";
+  const adrs = e.adrs
+    .map((a) => `<span class="tag">ADR-${escapeHtml(a)}</span>`)
+    .join("");
+  return `<div class="card">
+<h3>${title}</h3>
+${name}
+<p>${escapeHtml(e.description)}</p>
+<p class="meta">${lex}${schema}${adrs}</p>
+<p class="did"><a href="/actor/${escapeHtml(handle)}/did.json">did:web:etzhayyim.com:actor:${escapeHtml(handle)}</a></p>
+</div>`;
+}
+
+function buildActorsHtml(): string {
+  const handles = Object.keys(INFRA_ACTORS);
+  const named = handles.filter((h) => INFRA_ACTORS[h].glyph);
+  const infra = handles.filter((h) => !INFRA_ACTORS[h].glyph);
+  const namedCards = named.map(renderActorCard).join("\n");
+  const infraCards = infra.map(renderActorCard).join("\n");
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Actors · etzhayyim</title>
+<meta name="description" content="Actors registered on etzhayyim — each resolves a did:web DID and is kotoba-native.">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:52rem;padding:2.5rem 1.25rem;margin-inline:auto}
+h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
+.sub{opacity:.7;margin:0 0 2rem}
+h2{font-size:1.15rem;margin:2.25rem 0 .5rem;border-bottom:1px solid currentColor;padding-bottom:.25rem}
+h3{font-size:1.05rem;margin:0 0 .15rem;font-weight:600}
+.glyph{font-size:1.2em}
+.name{opacity:.85;margin:.1rem 0 .5rem;font-size:.95rem}
+.card{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:.6rem;padding:1rem 1.1rem;margin:.75rem 0}
+.meta{margin:.6rem 0 .4rem;line-height:2}
+.tag{display:inline-block;font-size:.72rem;letter-spacing:.03em;opacity:.7;border:1px solid currentColor;border-radius:1rem;padding:.05rem .55rem;margin:0 .35rem .15rem 0}
+.did{margin:.4rem 0 0;font-size:.82rem;opacity:.75}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:color-mix(in srgb,currentColor 10%,transparent);padding:.1rem .35rem;border-radius:.3rem}
+footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
+a{color:inherit}
+</style>
+</head>
+<body>
+<h1>Actors on etzhayyim</h1>
+<p class="sub">Each actor resolves a <code>did:web:etzhayyim.com:actor:&lt;handle&gt;</code> DID and is kotoba-native (state lives in the kotoba Datom log; inference is Murakumo-only). Below is the registry — the same data is machine-readable at <a href="/.well-known/actors.json">/.well-known/actors.json</a>.</p>
+
+<h2>Knowledge-graph &amp; Tier-B actors</h2>
+${namedCards}
+
+<h2>Substrate service DIDs</h2>
+${infraCards}
+
+<footer>
+Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
+Per ADR-2605241800 (single did-web Worker) + ADR-2605212030. Free-form member/council handles also resolve but are not listed here.
+</footer>
+</body>
+</html>
+`;
+}
 
 // Service binding name — populated from wrangler.toml [[services]] block.
 interface Env {
@@ -50,13 +325,24 @@ interface Env {
   // Substrate-side XRPC adapter (rw-free reference impl). Service binding
   // to `yoro-xrpc-adapter` — bypasses the public HTTP hop and CF Bot
   // Management. Per ADR-2605172000: reads MUST resolve through MST/IPFS/L2,
-  // never through the gftd.ai PDS+AppView+RisingWave chain.
+  // never through the etzhayyim.com PDS+AppView+RisingWave chain.
   YORO_XRPC?: Fetcher;
   // Phase α P1 (ADR-2605212030): chain config for per-actor DID resolution.
   // Set in wrangler.toml [vars] once EtzhayyimAuthz is deployed to Base Sepolia.
   AUTHZ_CONTRACT_ADDRESS?: string;
   BASE_RPC_URL?: string;
   CHAIN_ID?: string;
+  // Actor-profile dynamic issuance (ADR-2606013800). KV holds materialized
+  // ActorRecord JSON per actor (`actor:<handle>`), refreshed by the publisher
+  // from the kotoba `actors-v1` graph. KOTOBA_ENDPOINT is the best-effort pull
+  // fallback when KV misses. Both optional — absent → compiled INFRA_ACTORS
+  // fallback keeps did:web resolution live.
+  ACTOR_KV?: KVNamespace;
+  KOTOBA_ENDPOINT?: string;
+  // Trustless IPFS gateway (ADR-2606014600). Comma-separated upstream gateway
+  // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
+  // bytes are CID-verified before serving, so these are UNTRUSTED upstreams.
+  IPFS_GATEWAYS?: string;
   // Per-NSID-family XRPC upstream origins (populated from wrangler.toml [vars]).
   // New actors are added here, NOT as new subdomains — this Worker is the
   // single etzhayyim.com endpoint per ADR-2605212030 §D2.
@@ -66,38 +352,38 @@ interface Env {
   XRPC_BSKY_UPSTREAM?: string;
   XRPC_ATPROTO_UPSTREAM?: string;
   XRPC_CHAT_UPSTREAM?: string;
-  XRPC_GFTD_UPSTREAM?: string;
+  XRPC_etzhayyim_UPSTREAM?: string;
 }
 
 // ─── Substrate NSID alias map ──────────────────────────────────────────
 //
 // Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
 // MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
-// rw-free reference impl under the `ai.gftd.yoro.*` NSID family). The
+// rw-free reference impl under the `app.etzhayyim.yoro.*` NSID family). The
 // yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
 // this Worker rewrites them to the substrate-side equivalent before
 // dispatching through the service binding.
 //
-// Reads enumerated here SHORT-CIRCUIT the gftd.ai PDS proxy below.
+// Reads enumerated here SHORT-CIRCUIT the etzhayyim.com PDS proxy below.
 // Writes (createRecord, like, repost, follow, etc.) still flow through
 // the legacy path until the rw-free write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
-  "app.bsky.feed.getTimeline":     "ai.gftd.yoro.feed.getTimeline",
-  "app.bsky.feed.getDiscoverFeed": "ai.gftd.yoro.feed.getDiscoverFeed",
-  "app.bsky.feed.getAuthorFeed":   "ai.gftd.yoro.feed.getAuthorFeed",
-  "app.bsky.feed.getPostThread":   "ai.gftd.yoro.feed.getPostThread",
-  "app.bsky.actor.getProfile":     "ai.gftd.yoro.actor.getProfile",
-  "app.bsky.actor.searchActors":   "ai.gftd.yoro.actor.searchActors",
-  "app.bsky.graph.getFollowers":   "ai.gftd.yoro.graph.getFollowers",
-  "app.bsky.graph.getFollows":     "ai.gftd.yoro.graph.getFollows",
+  "app.bsky.feed.getTimeline":     "app.etzhayyim.yoro.feed.getTimeline",
+  "app.bsky.feed.getDiscoverFeed": "app.etzhayyim.yoro.feed.getDiscoverFeed",
+  "app.bsky.feed.getAuthorFeed":   "app.etzhayyim.yoro.feed.getAuthorFeed",
+  "app.bsky.feed.getPostThread":   "app.etzhayyim.yoro.feed.getPostThread",
+  "app.bsky.actor.getProfile":     "app.etzhayyim.yoro.actor.getProfile",
+  "app.bsky.actor.searchActors":   "app.etzhayyim.yoro.actor.searchActors",
+  "app.bsky.graph.getFollowers":   "app.etzhayyim.yoro.graph.getFollowers",
+  "app.bsky.graph.getFollows":     "app.etzhayyim.yoro.graph.getFollows",
 };
 
 // Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
 // NSID families already in their canonical rw-free shape (no app.bsky.* →
-// ai.gftd.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
+// app.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
 const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
-  "ai.gftd.apps.unispsc.",
+  "app.etzhayyim.apps.unispsc.",
 ];
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
@@ -113,15 +399,15 @@ interface NsidRoute {
 }
 
 const XRPC_ROUTES: NsidRoute[] = [
-  { prefix: "ai.gftd.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
+  { prefix: "app.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
   // AT Protocol / Bluesky read+write (PDS handles both write paths and
   // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
   // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
   { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
-  // GFTD platform extensions (convo, signal, kagami, projector, mcp, rtc).
-  { prefix: "ai.gftd.",              upstream: "XRPC_GFTD_UPSTREAM" },
+  // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
+  { prefix: "app.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
 ];
 
 function findXrpcRoute(nsid: string): NsidRoute | null {
@@ -170,7 +456,7 @@ async function proxyXrpc(
     // content-length will be set by fetch from the new body; remove any stale value.
     fwd.delete("content-length");
   }
-  fwd.delete("host");
+  stripIncomingCookies(fwd);
   fwd.set("x-forwarded-host", "etzhayyim.com");
   fwd.set("x-forwarded-proto", "https");
   fwd.set("x-forwarded-method", request.method);
@@ -190,10 +476,8 @@ async function proxyXrpc(
     for (const h of STRIPPED_RESPONSE_HEADERS) respHeaders.delete(h);
     respHeaders.set("x-proxied-by", "etzhayyim-did-web");
     respHeaders.set("x-proxied-upstream", upstream);
-    respHeaders.set(
-      "strict-transport-security",
-      "max-age=31536000; includeSubDomains",
-    );
+    respHeaders.set("x-etzhayyim-no-cookie", "1");
+    applyApexSecurityHeaders(respHeaders, target.pathname);
     return new Response(upstreamResp.body, {
       status: upstreamResp.status,
       statusText: upstreamResp.statusText,
@@ -301,9 +585,10 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       kind: infraActor ? "infra-actor" : registered ? "unispsc-actor" : "free-form",
       description: infraActor?.description,
       primaryLexicon: infraActor?.primaryLexicon,
+      primarySchema: infraActor?.primarySchema,
       registry: registered
         ? {
-            lexicon: "ai.gftd.apps.unispsc",
+            lexicon: "app.etzhayyim.apps.unispsc",
             generatedAt: UNISPSC_GENERATED_AT,
             totalCount: UNISPSC_TOTAL_COUNT,
           }
@@ -315,16 +600,135 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
   };
 }
 
-// Headers we strip from the upstream response before sending to the client.
-// `set-cookie` is dropped because the cookie domain would be wrong
-// (yoro.etzhayyim.com), and we don't want cross-domain cookie shenanigans.
+// ─── Actor record resolution (ADR-2606013800) ─────────────────────────────
+//
+// 3-tier, fail-open. KV (publisher-materialized from kotoba) → kotoba pull →
+// compiled INFRA_ACTORS. Returns null only for handles that are not registered
+// actors at all (free-form member/council handles), in which case the caller
+// falls back to buildPerActorDidDoc.
+async function resolveActorRecord(
+  handle: string,
+  env: Env,
+  ctx: ExecutionContext,
+): Promise<ActorRecord | null> {
+  const rec = await resolveActorRecordTiered(handle, env, ctx);
+  if (!rec) return null;
+  // verificationMethod is a MIRROR of the on-chain ERC725 active key, never
+  // server-minted (ADR-2605231525). Gated + best-effort: enrich only when both
+  // chain env vars are set and the record has no vm yet (ADR-2606015200).
+  if (env.AUTHZ_CONTRACT_ADDRESS && env.BASE_RPC_URL && rec.vm.length === 0) {
+    const vm = await fetchOnChainVm(env, handle, rec.did);
+    if (vm.length) return { ...rec, vm: vm as unknown as ActorRecord["vm"] };
+  }
+  return rec;
+}
+
+async function resolveActorRecordTiered(
+  handle: string,
+  env: Env,
+  ctx: ExecutionContext,
+): Promise<ActorRecord | null> {
+  // 1) KV snapshot — fast, origin-independent.
+  if (env.ACTOR_KV) {
+    try {
+      const raw = (await env.ACTOR_KV.get(`actor:${handle}`, "json")) as
+        | Record<string, unknown>
+        | null;
+      const rec = raw ? coerceActorRecord(raw, "kv") : null;
+      if (rec) return rec;
+    } catch {
+      /* KV unavailable → fall through */
+    }
+  }
+
+  // 2) kotoba pull — first-class canonical state; cache the hit into KV.
+  const fromKotoba = await fetchKotobaActorRecord(env, handle);
+  if (fromKotoba) {
+    if (env.ACTOR_KV) {
+      ctx.waitUntil(
+        env.ACTOR_KV.put(`actor:${handle}`, JSON.stringify(fromKotoba), {
+          expirationTtl: 300,
+        }).catch(() => {}),
+      );
+    }
+    return fromKotoba;
+  }
+
+  // 3) compiled fallback — INFRA_ACTORS (null for non-registered handles).
+  return compiledActorRecord(handle);
+}
+
+// Content-addressed → immutable; cache hard. `x-etzhayyim-cid-verified` proves
+// the bytes were re-hashed against the CID before serving (trustless).
+function ipfsHeaders(
+  cid: string,
+  len: number,
+  contentType: string,
+): Record<string, string> {
+  return {
+    "content-type": contentType,
+    "content-length": String(len),
+    "cache-control": "public, max-age=31536000, immutable",
+    "access-control-allow-origin": "*",
+    "x-content-type-options": "nosniff",
+    "x-etzhayyim-cid": cid,
+    "x-etzhayyim-cid-verified": "sha256",
+    "x-etzhayyim-no-cookie": "1",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+  };
+}
+
+// Minimal content-type sniff: WASM magic `\0asm`, else octet-stream.
+function detectCt(buf: ArrayBuffer): string {
+  const b = new Uint8Array(buf, 0, Math.min(4, buf.byteLength));
+  if (b[0] === 0x00 && b[1] === 0x61 && b[2] === 0x73 && b[3] === 0x6d) {
+    return "application/wasm";
+  }
+  return "application/octet-stream";
+}
+
+const ACTOR_JSON_HEADERS: Record<string, string> = {
+  "content-type": "application/json; charset=utf-8",
+  "cache-control": "public, max-age=60, must-revalidate",
+  "access-control-allow-origin": "*",
+  "x-content-type-options": "nosniff",
+  "strict-transport-security": "max-age=31536000; includeSubDomains",
+  "x-etzhayyim-no-cookie": "1",
+};
+
+// Headers we strip from the upstream response. `set-cookie` is dropped because
+// etzhayyim.com is a cookie-free zone by constitutional design — see
+// /CHARTER-RIDER.md §2(c) (no surveillance / trackers) + ADR-2605172000
+// (RW-free substrate, identity = DID + WebAuthn, not cookies).
 const STRIPPED_RESPONSE_HEADERS = new Set([
   "set-cookie",
-  "content-security-policy",      // upstream CSP may reference yoro.etzhayyim.com
+  "content-security-policy",
   "content-security-policy-report-only",
-  "strict-transport-security",    // we set our own
+  "strict-transport-security",
   "alt-svc",
 ]);
+
+// Outgoing-request headers to strip. `cookie` dropped so upstream never sees
+// browser cookies that leaked in from a sibling subdomain.
+const STRIPPED_REQUEST_HEADERS = ["cookie", "host"] as const;
+
+const PERMISSIONS_POLICY = "interest-cohort=(), browsing-topics=()";
+
+// `"cookies"` only — we don't wipe localStorage / OPFS / IndexedDB that the
+// yoro SPA depends on.
+const CLEAR_COOKIE_PATHS = new Set(["/", "/privacy"]);
+
+function applyApexSecurityHeaders(headers: Headers, pathname: string): void {
+  headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+  headers.set("permissions-policy", PERMISSIONS_POLICY);
+  if (CLEAR_COOKIE_PATHS.has(pathname)) {
+    headers.set("clear-site-data", '"cookies"');
+  }
+}
+
+function stripIncomingCookies(headers: Headers): void {
+  for (const h of STRIPPED_REQUEST_HEADERS) headers.delete(h);
+}
 
 function buildUpstreamRequest(request: Request): Request {
   const upstreamUrl = new URL(request.url);
@@ -333,7 +737,7 @@ function buildUpstreamRequest(request: Request): Request {
   upstreamUrl.port = "";
 
   const fwdHeaders = new Headers(request.headers);
-  fwdHeaders.delete("host");
+  stripIncomingCookies(fwdHeaders);
   fwdHeaders.set("x-forwarded-host", "etzhayyim.com");
   fwdHeaders.set("x-forwarded-proto", "https");
 
@@ -345,20 +749,16 @@ function buildUpstreamRequest(request: Request): Request {
   });
 }
 
-function rewriteUpstreamResponse(upstream: Response): Response {
+function rewriteUpstreamResponse(upstream: Response, pathname: string): Response {
   const headers = new Headers(upstream.headers);
   for (const h of STRIPPED_RESPONSE_HEADERS) headers.delete(h);
 
-  // Our own HSTS — long max-age, includeSubDomains so did:web subdomain
-  // resolution stays HTTPS-only.
-  headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+  applyApexSecurityHeaders(headers, pathname);
 
-  // Mark proxy hop so debugging is easier.
   headers.set("x-proxied-by", "etzhayyim-did-web");
   headers.set("x-proxied-upstream", UPSTREAM_HOST);
+  headers.set("x-etzhayyim-no-cookie", "1");
 
-  // If upstream returned a redirect with a yoro.etzhayyim.com Location, rewrite it
-  // to keep the user on etzhayyim.com.
   const loc = headers.get("location");
   if (loc) {
     try {
@@ -380,7 +780,11 @@ function rewriteUpstreamResponse(upstream: Response): Response {
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
     const url = new URL(request.url);
 
     // ──────────────────────────────────────────────────────────────────
@@ -401,6 +805,107 @@ export default {
           "access-control-allow-origin": "*",
           "x-content-type-options": "nosniff",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 1b) Donation declaration (ADR-2606012100) — served locally, cookie-
+    //     free, no upstream call. `/donate` = human page; the machine
+    //     policy lives at `/.well-known/donation.json`. Both state that
+    //     etzhayyim is donation-funded and describe cash + in-kind compute
+    //     (ameno / e7m / kotoba) giving. GET/HEAD only.
+    // ──────────────────────────────────────────────────────────────────
+    if (url.pathname === "/.well-known/donation.json") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(JSON.stringify(DONATION_POLICY, null, 2) + "\n", {
+        status: 200,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+    if (url.pathname === "/donate" || url.pathname === "/donate/") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(DONATE_HTML, {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          // No external resource, no inline script, no cookie (Charter Rider §2(c)).
+          "content-security-policy":
+            "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 1c) Actor registry index — `/actors` (human HTML) +
+    //     `/.well-known/actors.json` (machine). Served locally, cookie-free,
+    //     no upstream call. INFRA_ACTORS is the single source of truth, so
+    //     this list updates whenever an actor is registered. GET/HEAD only.
+    // ──────────────────────────────────────────────────────────────────
+    if (url.pathname === "/.well-known/actors.json") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(JSON.stringify(buildActorsJson(), null, 2) + "\n", {
+        status: 200,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+    if (url.pathname === "/actors" || url.pathname === "/actors/") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      return new Response(buildActorsHtml(), {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          // No external resource, no inline script, no cookie (Charter Rider §2(c)).
+          "content-security-policy":
+            "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
         },
       });
     }
@@ -431,7 +936,7 @@ export default {
             JSON.stringify({
               error: "HandleNotInRegistry",
               message: `handle '${handle}' matches a namespaced registry shape but is not registered`,
-              registry: "ai.gftd.apps.unispsc",
+              registry: "app.etzhayyim.apps.unispsc",
               registryTotalCount: UNISPSC_TOTAL_COUNT,
             }),
             {
@@ -443,7 +948,11 @@ export default {
             },
           );
         }
-        const doc = buildPerActorDidDoc(handle, env);
+        // Dynamic issuance (ADR-2606013800): resolve the canonical ActorRecord
+        // (KV → kotoba → compiled) and map it to the DID doc. Free-form handles
+        // (not registered actors) get null → legacy buildPerActorDidDoc scaffold.
+        const rec = await resolveActorRecord(handle, env, ctx);
+        const doc = rec ? toDidDoc(rec, env) : buildPerActorDidDoc(handle, env);
         return new Response(JSON.stringify(doc, null, 2) + "\n", {
           status: 200,
           headers: {
@@ -454,8 +963,157 @@ export default {
             "access-control-allow-origin": "*",
             "x-content-type-options": "nosniff",
             "strict-transport-security": "max-age=31536000; includeSubDomains",
+            "permissions-policy": PERMISSIONS_POLICY,
+            "x-etzhayyim-no-cookie": "1",
+            "x-etzhayyim-actor-source": rec?.source ?? "scaffold",
           },
         });
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 2b) Per-actor profile (REST) — `/actor/<handle>/profile.json`.
+    //     app.bsky.actor.getProfile view for the actor, same ActorRecord
+    //     source as the DID doc. Convenience surface for curl / clients that
+    //     prefer REST over XRPC. Per ADR-2606013800.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const m = url.pathname.match(/^\/actor\/([^/]+)\/profile\.json$/);
+      if (m) {
+        if (request.method !== "GET" && request.method !== "HEAD") {
+          return new Response("Method Not Allowed", {
+            status: 405,
+            headers: { allow: "GET, HEAD" },
+          });
+        }
+        const handle = decodeURIComponent(m[1]).toLowerCase();
+        if (!HANDLE_REGEX.test(handle)) {
+          return new Response(
+            JSON.stringify({ error: "HandleInvalid" }),
+            { status: 400, headers: ACTOR_JSON_HEADERS },
+          );
+        }
+        const rec = await resolveActorRecord(handle, env, ctx);
+        if (!rec) {
+          return new Response(
+            JSON.stringify({
+              error: "ProfileNotFound",
+              message: `'${handle}' is not a registered actor; profiles for free-form handles resolve via the PDS, not the actor registry`,
+            }),
+            { status: 404, headers: ACTOR_JSON_HEADERS },
+          );
+        }
+        return new Response(JSON.stringify(toGetProfileView(rec), null, 2) + "\n", {
+          status: 200,
+          headers: { ...ACTOR_JSON_HEADERS, "x-etzhayyim-actor-source": rec.source },
+        });
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 2c) Trustless IPFS gateway — `/ipfs/<cid>` (ADR-2606014600).
+    //     Fetches the content-addressed bytes from configurable upstream
+    //     gateways and VERIFIES they hash to the requested CID before serving,
+    //     so the upstream gateway never has to be trusted — the CID is the
+    //     trust anchor (no server key, ADR-2605231525). This is where the
+    //     browser (ameno) / loader fetches an actor's WASM component
+    //     (ADR-2606014500). Raw single-block CIDs (`bafkrei…`, compact edge
+    //     actors) are verified; multi-block UnixFS CIDs (`bafy…`, large
+    //     componentize-py actors) are not verifiable here → 501 (T2 mesh tier).
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const m = url.pathname.match(/^\/ipfs\/([A-Za-z0-9]+)$/);
+      if (m) {
+        if (request.method !== "GET" && request.method !== "HEAD") {
+          return new Response("Method Not Allowed", {
+            status: 405,
+            headers: { allow: "GET, HEAD" },
+          });
+        }
+        const cid = m[1];
+        const raw = isRawCidV1(cid);
+        const dagpb = isDagPbCidV1(cid);
+        if (!raw && !dagpb) {
+          return new Response(
+            JSON.stringify({
+              error: "CidNotVerifiable",
+              message:
+                "trustless gateway supports CIDv1 with sha2-256 only: raw single-block (bafkrei…) verified directly, dag-pb UnixFS (bafybei…) verified via CAR. Other CIDs need a full IPFS node.",
+              cid,
+            }),
+            { status: 501, headers: ACTOR_JSON_HEADERS },
+          );
+        }
+        const gateways = (
+          env.IPFS_GATEWAYS ||
+          "https://{cid}.ipfs.dweb.link,https://ipfs.io/ipfs/{cid}"
+        )
+          .split(",")
+          .map((g) => g.trim())
+          .filter(Boolean);
+        let lastErr = "no gateway configured";
+        for (const tmpl of gateways) {
+          const base = tmpl.includes("{cid}")
+            ? tmpl.replace("{cid}", cid)
+            : `${tmpl.replace(/\/$/, "")}/ipfs/${cid}`;
+          // dag-pb: ask the gateway for a verifiable CAR; raw: the block itself.
+          const upstream = dagpb
+            ? `${base}${base.includes("?") ? "&" : "?"}format=car`
+            : base;
+          try {
+            const res = await fetch(upstream, {
+              headers: {
+                accept: dagpb
+                  ? "application/vnd.ipld.car"
+                  : "application/octet-stream",
+              },
+              signal: AbortSignal.timeout(dagpb ? 20000 : 8000),
+            });
+            if (!res.ok) {
+              lastErr = `upstream ${res.status}`;
+              continue;
+            }
+            const raw_buf = await res.arrayBuffer();
+            let out: ArrayBuffer;
+            if (dagpb) {
+              try {
+                // verifyCarToBytes re-hashes every block + walks the DAG from
+                // the requested root, so the untrusted gateway can't substitute.
+                const bytes = await verifyCarToBytes(
+                  cid,
+                  new Uint8Array(raw_buf),
+                );
+                out = bytes.buffer.slice(
+                  bytes.byteOffset,
+                  bytes.byteOffset + bytes.byteLength,
+                ) as ArrayBuffer;
+              } catch (ve) {
+                lastErr = `car verify failed: ${ve instanceof Error ? ve.message : ve}`;
+                continue; // never serve unverified bytes
+              }
+            } else {
+              if (!(await verifyRawCid(cid, raw_buf))) {
+                lastErr = "cid mismatch (untrusted gateway content rejected)";
+                continue;
+              }
+              out = raw_buf;
+            }
+            const hdrs = {
+              ...ipfsHeaders(cid, out.byteLength, detectCt(out)),
+              "x-etzhayyim-cid-verified": dagpb ? "car-dag-pb" : "sha256",
+            };
+            return new Response(
+              request.method === "HEAD" ? null : out,
+              { status: 200, headers: hdrs },
+            );
+          } catch (e) {
+            lastErr = e instanceof Error ? e.message : "fetch failed";
+          }
+        }
+        return new Response(
+          JSON.stringify({ error: "IpfsUnavailable", message: lastErr, cid }),
+          { status: 502, headers: ACTOR_JSON_HEADERS },
+        );
       }
     }
 
@@ -467,13 +1125,49 @@ export default {
     //
     //    Substrate short-circuit: if the NSID has a rw-free equivalent
     //    (see SUBSTRATE_NSID_ALIASES) and the YORO_XRPC service binding
-    //    is configured, route to the adapter instead of the gftd.ai
+    //    is configured, route to the adapter instead of the etzhayyim.com
     //    upstream. Per ADR-2605172000, reads MUST resolve through MST.
     // ──────────────────────────────────────────────────────────────────
     {
       const m = url.pathname.match(/^\/xrpc\/([A-Za-z0-9._-]+)$/);
       if (m) {
         const nsid = m[1];
+
+        // ── Actor-profile short-circuit (ADR-2606013800) ──────────────────
+        // getProfile for a REGISTERED actor resolves from the actor registry
+        // (KV → kotoba → compiled), NOT the PDS/substrate. Gated on the actor
+        // being a known actor so human-member profiles are never hijacked:
+        //  - a `did:web:etzhayyim.com:actor:<h>` param is unambiguously an actor
+        //  - a bare/handle param only short-circuits when `<h>` is a compiled
+        //    actor; everything else falls through to substrate routing.
+        if (
+          (nsid === "app.bsky.actor.getProfile" ||
+            nsid === "app.etzhayyim.actor.getProfile") &&
+          (request.method === "GET" || request.method === "HEAD")
+        ) {
+          const actorParam = url.searchParams.get("actor") ?? "";
+          const isActorDid = actorParam.startsWith(
+            "did:web:etzhayyim.com:actor:",
+          );
+          const handle = actorHandleFromParam(actorParam);
+          if (handle && (isActorDid || COMPILED_ACTOR_HANDLES.has(handle))) {
+            const rec = await resolveActorRecord(handle, env, ctx);
+            if (rec) {
+              return new Response(
+                JSON.stringify(toGetProfileView(rec)) + "\n",
+                {
+                  status: 200,
+                  headers: {
+                    ...ACTOR_JSON_HEADERS,
+                    "x-etzhayyim-actor-source": rec.source,
+                    "permissions-policy": PERMISSIONS_POLICY,
+                  },
+                },
+              );
+            }
+          }
+          // not a registered actor → fall through to substrate alias routing.
+        }
 
         const aliasedNsid = SUBSTRATE_NSID_ALIASES[nsid];
         const passthrough =
@@ -484,7 +1178,7 @@ export default {
           const substrateUrl = new URL(request.url);
           substrateUrl.pathname = `/xrpc/${substrateNsid}`;
           const fwd = new Headers(request.headers);
-          fwd.delete("host");
+          stripIncomingCookies(fwd);
           fwd.set("x-forwarded-host", "etzhayyim.com");
           fwd.set("x-forwarded-proto", "https");
           fwd.set("x-etzhayyim-nsid", nsid);
@@ -506,10 +1200,8 @@ export default {
             respHeaders.set("x-proxied-by", "etzhayyim-did-web");
             respHeaders.set("x-proxied-upstream", "service:yoro-xrpc-adapter");
             respHeaders.set("x-etzhayyim-substrate", "mst-ipfs-l2");
-            respHeaders.set(
-              "strict-transport-security",
-              "max-age=31536000; includeSubDomains",
-            );
+            respHeaders.set("x-etzhayyim-no-cookie", "1");
+            applyApexSecurityHeaders(respHeaders, substrateUrl.pathname);
             return new Response(upstreamResp.body, {
               status: upstreamResp.status,
               statusText: upstreamResp.statusText,
@@ -576,7 +1268,7 @@ export default {
     // ──────────────────────────────────────────────────────────────────
     try {
       const upstream = await env.YORO.fetch(buildUpstreamRequest(request));
-      return rewriteUpstreamResponse(upstream);
+      return rewriteUpstreamResponse(upstream, url.pathname);
     } catch (err) {
       return new Response(
         `Service binding fetch to magatama-yoro failed: ${err instanceof Error ? err.message : String(err)}`,

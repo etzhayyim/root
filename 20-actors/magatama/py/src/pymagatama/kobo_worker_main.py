@@ -74,8 +74,8 @@ async def task_bud_agent(
         store = select_belief_store()
         rec = KoboBuddingRecord(
             edge_id=edge_id,
-            src_vid=f"at://{KOBO_DID}/ai.gftd.apps.kobo.agent/{parentDid.split(':')[-1]}",
-            dst_vid=childVertexId or f"at://{KOBO_DID}/ai.gftd.apps.kobo.agent/{childDid.split(':')[-1]}",
+            src_vid=f"at://{KOBO_DID}/app.etzhayyim.apps.kobo.agent/{parentDid.split(':')[-1]}",
+            dst_vid=childVertexId or f"at://{KOBO_DID}/app.etzhayyim.apps.kobo.agent/{childDid.split(':')[-1]}",
             relation_kind="kobo_budding",
             value_json=json.dumps({"callerDid": callerDid, "childRole": childRole}),
             created_at=now,
@@ -119,7 +119,7 @@ async def task_sporulate(
         return {"error": "agentDid required"}
 
     spore_id = sporeVertexId.split("/")[-1] if sporeVertexId else _uid("spore")
-    spore_vid = sporeVertexId or f"at://{HOUSHI_DID}/ai.gftd.apps.houshi.spore/{spore_id}"
+    spore_vid = sporeVertexId or f"at://{HOUSHI_DID}/app.etzhayyim.apps.houshi.spore/{spore_id}"
     now = _now()
     spore_hash = hashlib.sha256((blobCbor or agentDid).encode()).hexdigest()[:32]
 

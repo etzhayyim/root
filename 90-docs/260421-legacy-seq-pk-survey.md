@@ -8,7 +8,7 @@ authoritative: false
 last_verified: 2026-04-21
 related:
   - 90-docs/adr/0041-pds-commit-content-addressed-pk.md
-  - 90-docs/260421-pds-throughput-tuning.md
+V0421-pds-throughput-tuning
 ---
 
 # Survey: remaining seq-based PK patterns (post ADR-0041)

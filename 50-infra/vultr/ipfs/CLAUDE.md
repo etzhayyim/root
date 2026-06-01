@@ -111,7 +111,7 @@ curl -sS -X POST 'https://ipfs.etzhayyim.com/api/v0/pin/add?arg=bafy...' -w "\n%
 BODY="$(printf 'arg=bafy...&recursive=true' )"
 SIG=$(printf '%s' "$BODY" | openssl dgst -sha256 -hmac "$(security find-generic-password -s gftd.cloudflare -a IPFS_HMAC -w)" -binary | xxd -p -c 999)
 curl -sS -X POST 'https://ipfs.etzhayyim.com/api/v0/pin/add' \
-  -H "X-Gftd-Ipfs-Auth: $SIG" \
+  -H "X-etzhayyim-Ipfs-Auth: $SIG" \
   -H "content-type: application/x-www-form-urlencoded" \
   -d "$BODY"
 ```

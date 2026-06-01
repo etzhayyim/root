@@ -1,10 +1,10 @@
 {
   "name": "cpc-cpc2p1-core",
   "version": "1.0.0",
-  "description": "cpc.gftd.ai — UN CPC Ver.2.1 Core Component",
+  "description": "cpc.etzhayyim.com — UN CPC Ver.2.1 Core Component",
   "main": "src/app.ts",
   "type": "module",
   "dependencies": {
-    "@gftd/magatama-host-sdk": "workspace:*"
+    "@etzhayyim/magatama-host-sdk": "workspace:*"
   }
 }

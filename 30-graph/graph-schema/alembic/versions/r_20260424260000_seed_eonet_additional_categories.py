@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-seaLakeIce:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/eonet-seaLakeIce:SpatialEvent',
                  'did:web:maps.etzhayyim.com:eonet:seaLakeIce',
                  'SpatialEvent',
                  50,
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-snow:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/eonet-snow:SpatialEvent',
                  'did:web:maps.etzhayyim.com:eonet:snow',
                  'SpatialEvent',
                  20,
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-dustHaze:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/eonet-dustHaze:SpatialEvent',
                  'did:web:maps.etzhayyim.com:eonet:dustHaze',
                  'SpatialEvent',
                  30,
@@ -72,7 +72,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-tempExtremes:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/eonet-tempExtremes:SpatialEvent',
                  'did:web:maps.etzhayyim.com:eonet:tempExtremes',
                  'SpatialEvent',
                  20,
@@ -89,7 +89,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/eonet-earthquakes:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/eonet-earthquakes:SpatialEvent',
                  'did:web:maps.etzhayyim.com:eonet:earthquakes',
                  'SpatialEvent',
                  100,

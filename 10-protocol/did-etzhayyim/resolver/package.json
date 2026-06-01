@@ -6,13 +6,13 @@
   },
   "dependencies": {
     "@etzhayyim/did-etzhayyim": "workspace:*",
-    "@gftd/magatama-host-sdk": "workspace:*",
-    "kysely": "^0.27.4",
+    "@etzhayyim/magatama-host-sdk": "workspace:*",
+    "kysely": "^0.29.2",
     "pg": "^8.20.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260411.1",
-    "typescript": "^5.9.3",
-    "wrangler": "^4.81.1"
+    "@cloudflare/workers-types": "^4.20260601.1",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.95.0"
   }
 }

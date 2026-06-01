@@ -9,8 +9,8 @@ authoritative_for:
   - well-becoming-formal-model
   - karma-edge-primary-spirit-in-physic
 related:
-  - 90-docs/adr/2604291800-well-becoming-formal-model.md
-  - 90-docs/adr/2604291800-well-becoming-spirit-objective-function.md
+  - adr-2604291800-well-becoming-formal-model
+  - adr-2604291800-well-becoming-spirit-objective-function
 last_verified: 2026-05-08
 ---
 

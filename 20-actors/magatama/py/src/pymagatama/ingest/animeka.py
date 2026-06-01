@@ -166,14 +166,14 @@ def create_work(**req: Any) -> dict[str, Any]:
         "fps": int(req.get("fps") or 24),
         "coverCid": _str(req.get("coverCid")),
     }
-    out = _write("ai.gftd.apps.animeka.work", work_id, record)
+    out = _write("app.etzhayyim.apps.animeka.work", work_id, record)
     return {"ok": True, "id": work_id, **out, "did": f"{ACTOR_DID}:work:{record['slug']}", "title": record["title"], "status": record["status"]}
 
 
 def list_works(limit: int = 50, offset: int = 0, status: str = "", **_: Any) -> dict[str, Any]:
     where = {"status": status} if status else {}
-    items = _list("ai.gftd.apps.animeka.work", where, limit=limit, offset=offset)
-    return {"ok": True, "items": items, "total": _count("ai.gftd.apps.animeka.work", where), "offset": offset, "limit": limit}
+    items = _list("app.etzhayyim.apps.animeka.work", where, limit=limit, offset=offset)
+    return {"ok": True, "items": items, "total": _count("app.etzhayyim.apps.animeka.work", where), "offset": offset, "limit": limit}
 
 
 def add_episode(**req: Any) -> dict[str, Any]:
@@ -190,23 +190,23 @@ def add_episode(**req: Any) -> dict[str, Any]:
         "status": "planning",
         "thumbCid": _str(req.get("thumbCid")),
     }
-    out = _write("ai.gftd.apps.animeka.episode", episode_id, record)
+    out = _write("app.etzhayyim.apps.animeka.episode", episode_id, record)
     return {"ok": True, **out, "convoId": convo_id}
 
 
 def list_episodes(workId: str = "", status: str = "", limit: int = 50, offset: int = 0, **_: Any) -> dict[str, Any]:
     where = {k: v for k, v in {"work_id": workId, "status": status}.items() if v}
-    items = _list("ai.gftd.apps.animeka.episode", where, order="episode_num", desc=False, limit=limit, offset=offset)
-    return {"ok": True, "items": items, "total": _count("ai.gftd.apps.animeka.episode", where), "offset": offset, "limit": limit}
+    items = _list("app.etzhayyim.apps.animeka.episode", where, order="episode_num", desc=False, limit=limit, offset=offset)
+    return {"ok": True, "items": items, "total": _count("app.etzhayyim.apps.animeka.episode", where), "offset": offset, "limit": limit}
 
 
 def publish_episode(episodeId: str = "", status: str = "published", **req: Any) -> dict[str, Any]:
     if not episodeId:
         return {"ok": False, "error": "episodeId required"}
     rkey = episodeId.rsplit("/", 1)[-1]
-    existing = _get("ai.gftd.apps.animeka.episode", rkey) or {}
+    existing = _get("app.etzhayyim.apps.animeka.episode", rkey) or {}
     record = {**existing, "status": status, "masterCid": _str(req.get("masterCid")), "thumbCid": _str(req.get("thumbCid")), "title": _str(req.get("titleJP") or existing.get("title") or f"Episode {rkey}")}
-    out = _write("ai.gftd.apps.animeka.episode", rkey, record)
+    out = _write("app.etzhayyim.apps.animeka.episode", rkey, record)
     return {"ok": True, "episodeId": rkey, "status": status, "emitted": 0, "postUri": out["uri"], "episodeUri": out["uri"], "domainWriteOk": True}
 
 
@@ -226,14 +226,14 @@ def add_cut(**req: Any) -> dict[str, Any]:
         "assignees": {},
         "priority": "normal",
     }
-    out = _write("ai.gftd.apps.animeka.cut", cut_id, record)
+    out = _write("app.etzhayyim.apps.animeka.cut", cut_id, record)
     return {"ok": True, **out, "did": f"{ACTOR_DID}:cut:{cut_id}", "cutNum": record["cutNum"]}
 
 
 def list_cuts(episodeId: str = "", sceneId: str = "", priority: str = "", limit: int = 100, offset: int = 0, **_: Any) -> dict[str, Any]:
     where = {k: v for k, v in {"episode_id": episodeId, "scene_id": sceneId, "priority": priority}.items() if v}
-    items = _list("ai.gftd.apps.animeka.cut", where, order="cut_num", desc=False, limit=limit, offset=offset)
-    return {"ok": True, "items": items, "total": _count("ai.gftd.apps.animeka.cut", where), "offset": offset, "limit": limit}
+    items = _list("app.etzhayyim.apps.animeka.cut", where, order="cut_num", desc=False, limit=limit, offset=offset)
+    return {"ok": True, "items": items, "total": _count("app.etzhayyim.apps.animeka.cut", where), "offset": offset, "limit": limit}
 
 
 def get_cut(cutId: str = "", **_: Any) -> dict[str, Any]:
@@ -245,10 +245,10 @@ def get_cut(cutId: str = "", **_: Any) -> dict[str, Any]:
         "inbetweens": "inbetween", "colorTraces": "colorTrace", "backgrounds": "background",
         "composites": "composite", "soundCues": "soundCue", "retakes": "retake",
     }
-    out: dict[str, Any] = {"ok": True, "cut": _get("ai.gftd.apps.animeka.cut", rkey)}
+    out: dict[str, Any] = {"ok": True, "cut": _get("app.etzhayyim.apps.animeka.cut", rkey)}
     for key, suffix in collections.items():
         order = "frame_num" if key in {"keyframes", "inbetweens", "colorTraces"} else "created_at"
-        out[key] = _list(f"ai.gftd.apps.animeka.{suffix}", {"cut_id": rkey}, order=order, desc=False, limit=500)
+        out[key] = _list(f"app.etzhayyim.apps.animeka.{suffix}", {"cut_id": rkey}, order=order, desc=False, limit=500)
     return out
 
 
@@ -256,14 +256,14 @@ def update_cut_stage(cutId: str = "", stage: str = "", status: str = "", assigne
     if not cutId or not stage:
         return {"ok": False, "error": "cutId + stage required"}
     rkey = cutId.rsplit("/", 1)[-1]
-    existing = _get("ai.gftd.apps.animeka.cut", rkey) or {}
+    existing = _get("app.etzhayyim.apps.animeka.cut", rkey) or {}
     stage_status = _parse_map(existing.get("stage_status") or existing.get("stageStatus"))
     assignees = _parse_map(existing.get("assignees"))
     if status:
         stage_status[stage] = status
     if assigneeDid:
         assignees[stage] = assigneeDid
-    _write("ai.gftd.apps.animeka.cut", rkey, {**existing, "stageStatus": stage_status, "assignees": assignees})
+    _write("app.etzhayyim.apps.animeka.cut", rkey, {**existing, "stageStatus": stage_status, "assignees": assignees})
     return {"ok": True, "cutId": rkey, "stage": stage, "status": status, "derivedCount": 0}
 
 
@@ -283,7 +283,7 @@ def submit_retake(**req: Any) -> dict[str, Any]:
     retake_id = gen_id("rt")
     cut_id = _str(req.get("cutId")).rsplit("/", 1)[-1]
     stage = _str(req.get("stage"))
-    out = _write("ai.gftd.apps.animeka.retake", retake_id, {
+    out = _write("app.etzhayyim.apps.animeka.retake", retake_id, {
         "targetUri": _str(req.get("targetUri")),
         "cutId": cut_id,
         "retakeId": retake_id,
@@ -296,8 +296,8 @@ def submit_retake(**req: Any) -> dict[str, Any]:
     })
     if cut_id:
         update_cut_stage(cutId=cut_id, stage=stage, status="retake")
-        existing = _get("ai.gftd.apps.animeka.cut", cut_id) or {}
-        _write("ai.gftd.apps.animeka.cut", cut_id, {**existing, "priority": "retake"})
+        existing = _get("app.etzhayyim.apps.animeka.cut", cut_id) or {}
+        _write("app.etzhayyim.apps.animeka.cut", cut_id, {**existing, "priority": "retake"})
     return {"ok": True, **out}
 
 
@@ -305,13 +305,13 @@ def resolve_retake(retakeId: str = "", status: str = "resolved", resolvedByUri: 
     if not retakeId:
         return {"ok": False, "error": "retakeId required"}
     rkey = retakeId.rsplit("/", 1)[-1]
-    existing = _get("ai.gftd.apps.animeka.retake", rkey) or {}
-    _write("ai.gftd.apps.animeka.retake", rkey, {**existing, "status": status, "resolvedByUri": resolvedByUri})
+    existing = _get("app.etzhayyim.apps.animeka.retake", rkey) or {}
+    _write("app.etzhayyim.apps.animeka.retake", rkey, {**existing, "status": status, "resolvedByUri": resolvedByUri})
     cut_id = _str(existing.get("cut_id") or existing.get("cutId"))
     cut_priority = "normal"
-    if cut_id and status == "resolved" and _count("ai.gftd.apps.animeka.retake", {"cut_id": cut_id, "status": "open"}) == 0:
-        cut = _get("ai.gftd.apps.animeka.cut", cut_id) or {}
-        _write("ai.gftd.apps.animeka.cut", cut_id, {**cut, "priority": "normal"})
+    if cut_id and status == "resolved" and _count("app.etzhayyim.apps.animeka.retake", {"cut_id": cut_id, "status": "open"}) == 0:
+        cut = _get("app.etzhayyim.apps.animeka.cut", cut_id) or {}
+        _write("app.etzhayyim.apps.animeka.cut", cut_id, {**cut, "priority": "normal"})
     elif cut_id:
         cut_priority = "retake"
     return {"ok": True, "retakeId": rkey, "status": status, "cutPriority": cut_priority}
@@ -319,8 +319,8 @@ def resolve_retake(retakeId: str = "", status: str = "resolved", resolvedByUri: 
 
 def list_retakes(episodeId: str = "", cutId: str = "", stage: str = "", status: str = "", assignee: str = "", limit: int = 50, offset: int = 0, **_: Any) -> dict[str, Any]:
     where = {k: v for k, v in {"episode_id": episodeId, "cut_id": cutId, "stage": stage, "status": status, "author": assignee}.items() if v}
-    items = _list("ai.gftd.apps.animeka.retake", where, limit=limit, offset=offset)
-    return {"ok": True, "items": items, "total": _count("ai.gftd.apps.animeka.retake", where), "offset": offset, "limit": limit}
+    items = _list("app.etzhayyim.apps.animeka.retake", where, limit=limit, offset=offset)
+    return {"ok": True, "items": items, "total": _count("app.etzhayyim.apps.animeka.retake", where), "offset": offset, "limit": limit}
 
 
 def health(**_: Any) -> dict[str, Any]:

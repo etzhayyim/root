@@ -26,8 +26,8 @@ const seeds: Seed[] = [
   { slug: "card-action", op: "cardAction", processId: "outlook_card_action", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/cardAction.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/outlook-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/outlook-${s.op}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {
@@ -56,7 +56,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did
       )
       SELECT
-        ${bindingVertexId(s)}, ${ownerDid}, ${`ai.gftd.apps.outlook.${s.op}`}, ${s.processId}, 1,
+        ${bindingVertexId(s)}, ${ownerDid}, ${`app.etzhayyim.apps.outlook.${s.op}`}, ${s.processId}, 1,
         CAST(${s.timeoutMs} AS integer), ${s.writeTableAllowlist}, 'active', ${createdAt},
         1, ${ownerDid}, ${ownerDid}, ${actorId}, ${ownerDid}, 'anon'
       WHERE NOT EXISTS (

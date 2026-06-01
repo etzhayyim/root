@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.hakkou.getFerment": {
+    "/xrpc/app.etzhayyim.hakkou.getFerment": {
       "get": {
         "summary": "Get the status and result of a fermentation job from vertex_hakkou_ferment.",
-        "operationId": "ai.gftd.hakkou.getFerment",
+        "operationId": "app.etzhayyim.hakkou.getFerment",
         "parameters": [
           {
             "name": "fermentVertexId",
@@ -83,10 +83,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.hakkou.startFerment": {
+    "/xrpc/app.etzhayyim.hakkou.startFerment": {
       "post": {
         "summary": "Start a fermentation job in the hakkou pipeline. Accepts raw input and enqueues it for irreversible transformation into structured knowledge (ethanol) + audit trail (CO2). Triggers hakkou BPMN ferment-pipeline.bpmn.",
-        "operationId": "ai.gftd.hakkou.startFerment",
+        "operationId": "app.etzhayyim.hakkou.startFerment",
         "requestBody": {
           "required": true,
           "content": {

@@ -95,9 +95,9 @@
       import { createConnectTransport } from "https://esm.sh/@connectrpc/connect-web@1.6.1";
       import { Message, MethodKind, proto3 } from "https://esm.sh/@bufbuild/protobuf@1.10.0";
 
-      const MCP_BASE = window.location.hostname === "tasklist.gftd.ai"
-        ? "https://1.gftd.ai"
-        : (window.localStorage.getItem("TASKLIST_MCP_BASE") || "https://1.gftd.ai");
+      const MCP_BASE = window.location.hostname === "tasklist.etzhayyim.com"
+        ? "https://1.etzhayyim.com"
+        : (window.localStorage.getItem("TASKLIST_MCP_BASE") || "https://1.etzhayyim.com");
       const DECIDER = window.localStorage.getItem("TASKLIST_DECIDER") || "tasklist-human";
 
       let statusFilter = "requested";
@@ -285,7 +285,7 @@
       }
 
       async function decide(approvalId, decision) {
-        const note = decision === "approved" ? "approved from tasklist.gftd.ai" : "denied from tasklist.gftd.ai";
+        const note = decision === "approved" ? "approved from tasklist.etzhayyim.com" : "denied from tasklist.etzhayyim.com";
         await callTool("approvals.decide", {
           approval_id: approvalId,
           decision,

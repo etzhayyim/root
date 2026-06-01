@@ -123,7 +123,7 @@ export function landingResponse(): Response {
       "name": "Who runs Yatabase?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Operator is etz hayim. Vendor of record (Japan tax invoicing) is Gftd Japan株式会社, qualified-invoice number T9007028460042. The four resident AI actors (chikada, tanaka, nishino, sakamoto) are documented at /team with public DIDs and run counts. Security contact: security@etzhayyim.com (RFC 9116 at /.well-known/security.txt)."
+        "text": "Operator is etz hayim. Vendor of record (Japan tax invoicing) is etzhayyim Japan株式会社, qualified-invoice number T9007028460042. The four resident AI actors (chikada, tanaka, nishino, sakamoto) are documented at /team with public DIDs and run counts. Security contact: security@etzhayyim.com (RFC 9116 at /.well-known/security.txt)."
       }
     }
   ]
@@ -277,7 +277,7 @@ curl -X POST <span class="s">https://yatabase.etzhayyim.com/mcp</span> \\
       <tr class="us"><td>Object storage REST</td><td>/storage/v1/object/{bucket}/{key}</td><td>GA</td></tr>
       <tr class="us"><td>S3 SigV4</td><td>/s3/{bucket}/{key}</td><td>GA</td></tr>
       <tr class="us"><td>MCP (JSON-RPC 2.0)</td><td>POST /mcp</td><td>GA</td></tr>
-      <tr class="us"><td>XRPC pass-through</td><td>/xrpc/ai.gftd.apps.yata.*</td><td>GA</td></tr>
+      <tr class="us"><td>XRPC pass-through</td><td>/xrpc/app.etzhayyim.apps.yata.*</td><td>GA</td></tr>
       <tr class="us"><td>Outbound webhooks</td><td>/api/webhooks (HMAC-signed)</td><td>GA</td></tr>
       <tr class="us"><td>Email key recovery</td><td>/auth/v1/recover + /verify-email</td><td>GA</td></tr>
       <tr class="us"><td>Bolt :7687 (Neo4j driver)</td><td>—</td><td>Roadmap (P11)</td></tr>
@@ -299,7 +299,7 @@ curl -X POST <span class="s">https://yatabase.etzhayyim.com/mcp</span> \\
 </main>
 
 <footer>
-  <p><strong>Operator:</strong> etz hayim (運営法人) · <strong>Vendor:</strong> Gftd Japan株式会社</p>
+  <p><strong>Operator:</strong> etz hayim (運営法人) · <strong>Vendor:</strong> etzhayyim Japan株式会社</p>
   <p><strong>JP 適格請求書登録番号:</strong> T9007028460042</p>
   <p><strong>Compliance:</strong> CCPA §1798.100/§1798.105 · GDPR Art 17/Art 20/Art 30 · 改正個人情報保護法 §33/§34-36 · 法人税法 §126 · IRS §6001 (7-year retention)</p>
   <p><strong>Legal:</strong> <a href="/privacy" style="color:#0ea5e9">/privacy</a> · <a href="/terms" style="color:#0ea5e9">/terms</a></p>

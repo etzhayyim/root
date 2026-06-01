@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govJor.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govJor.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Jordan government.",
-        "operationId": "ai.gftd.govJor.followSiteDeps",
+        "operationId": "app.etzhayyim.govJor.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJor.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govJor.heartbeatTick": {
       "post": {
         "summary": "Run the Jordan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govJor.heartbeatTick",
+        "operationId": "app.etzhayyim.govJor.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJor.listOrgs": {
+    "/xrpc/app.etzhayyim.govJor.listOrgs": {
       "get": {
         "summary": "List Jordan government organization graph records.",
-        "operationId": "ai.gftd.govJor.listOrgs",
+        "operationId": "app.etzhayyim.govJor.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJor.registerDIDs": {
+    "/xrpc/app.etzhayyim.govJor.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Jordan government organizations.",
-        "operationId": "ai.gftd.govJor.registerDIDs",
+        "operationId": "app.etzhayyim.govJor.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJor.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govJor.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Jordan government organization path to its graph record.",
-        "operationId": "ai.gftd.govJor.resolveOrgPath",
+        "operationId": "app.etzhayyim.govJor.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJor.seedOrgs": {
+    "/xrpc/app.etzhayyim.govJor.seedOrgs": {
       "post": {
         "summary": "Seed initial Jordan government organization records into the graph.",
-        "operationId": "ai.gftd.govJor.seedOrgs",
+        "operationId": "app.etzhayyim.govJor.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJor.shinka": {
+    "/xrpc/app.etzhayyim.govJor.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Jordan government organization update.",
-        "operationId": "ai.gftd.govJor.shinka",
+        "operationId": "app.etzhayyim.govJor.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJor.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govJor.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Jordan government organization changes to graph.",
-        "operationId": "ai.gftd.govJor.syncWetUpdates",
+        "operationId": "app.etzhayyim.govJor.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

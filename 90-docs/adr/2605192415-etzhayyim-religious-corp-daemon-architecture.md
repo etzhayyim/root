@@ -26,14 +26,14 @@ depends_on:
   - adr-2605192345-etzhayyim-steward-succession
   - adr-2605192400-etzhayyim-eros-gore-council-judging
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605171300-open-unispsc-generative-agent-fleet
-  - adr-2605191229-ameno-daemon-path-a-bun-langgraph
-  - adr-2605191257-ameno-daemon-path-b-pymagatama-python
-  - adr-2605191346-etzhayyim-vultr-free-murakumo-control-plane
-  - adr-2605191559-ameno-mst-checkpointer-stage-2-activation
-  - adr-2605191603-ameno-swarm-leader-election
-  - adr-2605191524-ameno-multi-tab-swarm-broadcast
-  - adr-2605182312-local-bring-up-murakumo-gemma4
+  - 2605171300
+  - 2605191229-ameno-daemon-path-a-bun-langgraph
+  - 2605191257-ameno-daemon-path-b-pymagatama-python
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - 2605191559-ameno-mst-checkpointer-stage-2-activation
+  - 2605191603-ameno-swarm-leader-election
+  - 2605191524-ameno-multi-tab-swarm-broadcast
+  - 2605182312-local-bring-up-murakumo-gemma4
 related: []
 supersedes: []
 superseded_by: []
@@ -86,7 +86,7 @@ superseded_by: []
 
 | Cell | Tier | 入力 | 出力 | 起動 trigger |
 |---|---|---|---|---|
-| **CharterAttestationRequestCell** | B | `ai.gftd.apps.etzhayyim.charter-attestation-request` MST event | Council Lv6+ への deliberation 要請 + LLM pre-analysis | MST listener (continuous) |
+| **CharterAttestationRequestCell** | B | `app.etzhayyim.apps.etzhayyim.charter-attestation-request` MST event | Council Lv6+ への deliberation 要請 + LLM pre-analysis | MST listener (continuous) |
 | **CharterAttestationFinalizationCell** | B | Council Lv6+ ≥3 signatures + 30 日 appeal window 経過 | `ChartersComplianceRegistry.attestNonAligned()` tx + status finalize | timer + MST listener |
 | **CharterRehabilitationCell** | B | `charter-rehabilitation` record + Council ≥3 signatures | `ChartersComplianceRegistry.rehabilitate()` tx + status update | MST listener |
 
@@ -341,7 +341,7 @@ quarterly:
   2. magatama cell rotate-key --cell-all --council-sigs ...
   3. 全 cell が同時に new key で sign 開始
   4. 旧 key は 30 日 grace period 後 invalidate
-  5. rotation record は `ai.gftd.apps.etzhayyim.cell-key-rotation` で永続化
+  5. rotation record は `app.etzhayyim.apps.etzhayyim.cell-key-rotation` で永続化
 ```
 
 これは ADR-2605172300 §3.1 の cell-key rotation pattern を全 religious-corp cell に拡張。
@@ -382,7 +382,7 @@ Murakumo 10-node fleet で 10 年想定 (10万構成員 + 100万件 attestation)
 - **healthz** endpoint (HTTP) — uptime / last_invocation / checkpoint_lag
 - **prometheus metrics** — invocation count / latency / error rate (Murakumo Prometheus stack 上)
 - **swarm heartbeat** (ADR-2605191603) — leader liveness
-- **AT Record audit log** — すべての cell action は `ai.gftd.apps.etzhayyim.cell-action` record として MST に書く
+- **AT Record audit log** — すべての cell action は `app.etzhayyim.apps.etzhayyim.cell-action` record として MST に書く
 
 monitoring dashboard は `60-apps/etzhayyim-cell-fleet-dashboard/` (新規) で svelte SPA。
 

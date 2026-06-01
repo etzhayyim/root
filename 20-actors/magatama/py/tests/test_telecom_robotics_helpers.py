@@ -138,18 +138,18 @@ def test_require_raises_on_empty_string() -> None:
 def test_vid_subscriber_shape() -> None:
     vid = TC._vid_subscriber("sub-001")
     assert "at://did:web:telecom.etzhayyim.com" in vid
-    assert "ai.gftd.apps.telecom.subscriber" in vid
+    assert "app.etzhayyim.apps.telecom.subscriber" in vid
     assert "sub-001" in vid
 
 
 def test_vid_sim_shape() -> None:
     vid = TC._vid_sim("sim-abc")
-    assert "ai.gftd.apps.telecom.sim" in vid
+    assert "app.etzhayyim.apps.telecom.sim" in vid
 
 
 def test_vid_service_shape() -> None:
     vid = TC._vid_service("svc-xyz")
-    assert "ai.gftd.apps.telecom.service" in vid
+    assert "app.etzhayyim.apps.telecom.service" in vid
 
 
 # ─── telecom: _caller and _audit ─────────────────────────────────────────────
@@ -222,6 +222,39 @@ def test_dependency_projection_empty_processes() -> None:
     result = RB._dependency_projection([])
     assert isinstance(result["dependencies"], list)
     assert isinstance(result["missingPrerequisites"], list)
+
+
+# ─── robotics: telecom network coverage ─────────────────────────────────────
+
+def test_robotics_telecom_coverage_contains_satellite_and_gaps() -> None:
+    result = RB.robotics_telecom_coverage(media=["satellite-ntn", "bluetooth-ble"])
+    coverage = result["roboticsTelecomCoverage"]
+    media = {entry["medium"] for entry in coverage["media"]}
+    assert "satellite-ntn" in media
+    assert "bluetooth-ble" in media
+    assert any(gap["medium"] == "bluetooth-ble" for gap in coverage["coverageGaps"])
+
+
+def test_robotics_network_deployment_plan_blocks_neutron() -> None:
+    result = RB.robotics_network_deployment_plan(media=["neutron-communication"])
+    plan = result["roboticsNetworkDeploymentPlan"]
+    assert plan["status"] == "blocked"
+    assert plan["missions"][0]["status"] == "blocked"
+
+
+def test_robotics_network_deployment_plan_bluetooth_has_schema() -> None:
+    result = RB.robotics_network_deployment_plan(media=["bluetooth-ble"])
+    plan = result["roboticsNetworkDeploymentPlan"]
+    assert plan["status"] == "review"
+    assert "vertex_telecom_bluetooth_device" in plan["missions"][0]["telecomSchemas"]
+
+
+def test_robotics_network_deployment_plan_ran_is_review() -> None:
+    result = RB.robotics_network_deployment_plan(media=["cellular-ran"], site_id="site-001")
+    plan = result["roboticsNetworkDeploymentPlan"]
+    assert plan["siteId"] == "site-001"
+    assert plan["status"] == "review"
+    assert plan["missions"][0]["medium"] == "cellular-ran"
 
 
 # ─── robotics: robotics_transport_plan ───────────────────────────────────────

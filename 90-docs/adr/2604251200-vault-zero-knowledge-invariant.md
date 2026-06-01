@@ -40,7 +40,7 @@ Knowledge Invariant" を ADR 化し、不変条件と禁止事項を確定する
 **Forbidden on server**: plaintext value, raw vaultKey, raw memberDeviceKey,
 unwrapped item key。これらが Worker memory に存在するのは唯一 §D2 の例外のみ。
 
-## D2. ephemeralVaultKey exception (`ai.gftd.vault.injectWorkerSecret`)
+## D2. ephemeralVaultKey exception (`app.etzhayyim.vault.injectWorkerSecret`)
 
 CF Workers Secret 注入のために 1 回だけ caller が unwrap 済み vaultKey
 (`ephemeralVaultKey`) を server に渡す。Server は `wrangler secret put` 完了
@@ -70,7 +70,7 @@ field を強制除去する:
 ## D5. Public AT Record gate
 
 `com.atproto.repo.createRecord` で wrapped key / ciphertext を含む record を
-public collection に書く操作は禁止。`ai.gftd.vault.*` collection は federable
+public collection に書く操作は禁止。`app.etzhayyim.vault.*` collection は federable
 gate (ADR-0085) で firehose から除外する。
 
 # Consequences

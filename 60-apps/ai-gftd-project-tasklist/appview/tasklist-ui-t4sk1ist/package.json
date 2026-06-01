@@ -7,6 +7,6 @@
     "build": "pnpm --dir svelte build"
   },
   "dependencies": {
-    "@gftd/magatama-host-sdk": "workspace:*"
+    "@etzhayyim/magatama-host-sdk": "workspace:*"
   }
 }

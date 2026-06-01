@@ -38,7 +38,7 @@ const rssBpmn = read("etzhayyim-root/00-contracts/bpmn/ai/gftd/news/rssIngest.bp
 const socialBpmn = read("etzhayyim-root/00-contracts/bpmn/ai/gftd/news/socialArbitrageIntel.bpmn");
 
 includesAll("TS edge commands", appTs, [
-  'nsid("ai.gftd.apps.news.commitArticle")',
+  'nsid("app.etzhayyim.apps.news.commitArticle")',
   'processId: "news_rss_ingest"',
   'movedToZeebe: true',
   'pipeline: "zeebe-python-rss"',
@@ -93,7 +93,7 @@ includesAll("Social arbitrage BPMN contract", socialBpmn, [
   'id="news_social_arbitrage_intel"',
   'type="news.socialArbitrage.discover"',
   'type="news.socialArbitrage.draft"',
-  'type="xrpc.ai.gftd.apps.news.analyzeIntel"',
+  'type="xrpc.app.etzhayyim.apps.news.analyzeIntel"',
   'type="generic.audit.emit"',
 ]);
 
@@ -158,8 +158,8 @@ ok("article socialPost stays in post budget", articlePost.length <= 300);
 
 const bindings = manifest.bindings.map((binding) => `${binding.bpmnProcessId}:${binding.nsid}`);
 includesAll("BPMN coverage manifest", bindings.join("\n"), [
-  "news_rss_ingest:ai.gftd.apps.news.rssIngest",
-  "news_social_arbitrage_intel:ai.gftd.apps.news.socialArbitrageIntel",
+  "news_rss_ingest:app.etzhayyim.apps.news.rssIngest",
+  "news_social_arbitrage_intel:app.etzhayyim.apps.news.socialArbitrageIntel",
 ]);
 
 const failed = checks.filter((check) => !check.ok);

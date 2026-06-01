@@ -21,15 +21,15 @@ describe("Oil Trading Actor Manifest", () => {
   });
   it("subscribes to oilShipping.cargo", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("ai.gftd.apps.oilShipping.cargo");
+    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.oilShipping.cargo");
   });
   it("xrpc covers trades, offtakes, benchmark exposure, health", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("ai.gftd.apps.oilTrading.book.getTrade");
-    expect(nsids).toContain("ai.gftd.apps.oilTrading.book.listTrades");
-    expect(nsids).toContain("ai.gftd.apps.oilTrading.book.listOfftakes");
-    expect(nsids).toContain("ai.gftd.apps.oilTrading.analytics.getBenchmarkExposure");
-    expect(nsids).toContain("ai.gftd.apps.oilTrading.health");
+    expect(nsids).toContain("app.etzhayyim.apps.oilTrading.book.getTrade");
+    expect(nsids).toContain("app.etzhayyim.apps.oilTrading.book.listTrades");
+    expect(nsids).toContain("app.etzhayyim.apps.oilTrading.book.listOfftakes");
+    expect(nsids).toContain("app.etzhayyim.apps.oilTrading.analytics.getBenchmarkExposure");
+    expect(nsids).toContain("app.etzhayyim.apps.oilTrading.health");
   });
   it("4 actor paths", () => { expect(m.actors).toHaveLength(4); });
 });

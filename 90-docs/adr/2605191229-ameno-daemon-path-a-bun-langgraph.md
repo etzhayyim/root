@@ -7,11 +7,11 @@ topic: ameno-headless-daemon
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191135-ameno-tier2-daemon-residency.md
-  - 2605191000-ameno-browser-pregel-reflection.md
-  - 2605191129-ameno-browser-tool-use-react.md
+  - 2605191135-ameno-tier2-daemon-residency
+  - 2605191000-ameno-browser-pregel-reflection
+  - 2605191129-ameno-browser-tool-use-react
 related:
-  - 2605182312-local-bring-up-murakumo-gemma4.md
+V05182312-local-bring-up-murakumo-gemma4
 ---
 
 # ADR 2605191229: Ameno headless daemon (Path A) — Bun/Node + Hono + LangGraph + Ollama
@@ -35,7 +35,7 @@ Path B(Python pymagatama port)は別 ADR(後続)で扱う。本 ADR は **Path A
 
 ## Decision
 
-**`@gftd/ameno-daemon` を `60-apps/ai-gftd-project-ameno/daemon/` に新設する。**
+**`@etzhayyim/ameno-daemon` を `60-apps/ai-gftd-project-ameno/daemon/` に新設する。**
 
 ### v0.1 スコープ
 
@@ -81,7 +81,7 @@ GET  /threads/:thread_id/state      → current checkpointed state
 ## Consequences
 
 - ameno が **tab を超えた 常駐化 path** を獲得。Murakumo Tier 1 と並んで「いつでも稼働中の Tier-2 worker host」が成立
-- `@gftd/ameno-daemon` は **既存 svelte の graph.ts / tools.ts を 90% 流用** — 重複コードはあるが、Path B (Python port) で正本化されるまでの一時冗長として許容
+- `@etzhayyim/ameno-daemon` は **既存 svelte の graph.ts / tools.ts を 90% 流用** — 重複コードはあるが、Path B (Python port) で正本化されるまでの一時冗長として許容
 - Ollama 前提なのは Tier 1 Murakumo と同じ前提(Murakumo もローカル LLM = MLX/Ollama)。fleet 全体で一貫
 - 起動は `launchctl load ~/Library/LaunchAgents/com.etzhayyim.ameno-daemon.plist` のみ。fixed port 12480(`a-m-n-o` の数字読み)
 - 後続 ADR で:

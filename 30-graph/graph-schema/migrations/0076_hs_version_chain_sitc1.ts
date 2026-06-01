@@ -10,10 +10,10 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                          | Rows | Source                              |
  * |-------------------------------------|------|-------------------------------------|
- * | ai.gftd.apps.hs.commodity2007       | 6,373 | UN Comtrade H3.json (HS 2007)      |
- * | ai.gftd.apps.hs.commodity2002       | 6,569 | UN Comtrade H2.json (HS 2002)      |
- * | ai.gftd.apps.hs.commodity1996       | 6,474 | UN Comtrade H1.json (HS 1996)      |
- * | ai.gftd.apps.sitc.commodity_rev1    | 2,784 | UN Comtrade S1.json (SITC Rev.1)   |
+ * | app.etzhayyim.apps.hs.commodity2007       | 6,373 | UN Comtrade H3.json (HS 2007)      |
+ * | app.etzhayyim.apps.hs.commodity2002       | 6,569 | UN Comtrade H2.json (HS 2002)      |
+ * | app.etzhayyim.apps.hs.commodity1996       | 6,474 | UN Comtrade H1.json (HS 1996)      |
+ * | app.etzhayyim.apps.sitc.commodity_rev1    | 2,784 | UN Comtrade S1.json (SITC Rev.1)   |
  *
  * ### HS version chain (complete: 1996 → 2022)
  * HS 1996 (H1) → HS 2002 (H2) → HS 2007 (H3) → HS 2012 (H5) → HS 2017 (H4) → HS 2022 (H6)
@@ -39,10 +39,10 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New views
  *
- * - view_hs2007_commodity: projection of ai.gftd.apps.hs.commodity2007
- * - view_hs2002_commodity: projection of ai.gftd.apps.hs.commodity2002
- * - view_hs1996_commodity: projection of ai.gftd.apps.hs.commodity1996
- * - view_sitc1_commodity: projection of ai.gftd.apps.sitc.commodity_rev1
+ * - view_hs2007_commodity: projection of app.etzhayyim.apps.hs.commodity2007
+ * - view_hs2002_commodity: projection of app.etzhayyim.apps.hs.commodity2002
+ * - view_hs1996_commodity: projection of app.etzhayyim.apps.hs.commodity1996
+ * - view_sitc1_commodity: projection of app.etzhayyim.apps.sitc.commodity_rev1
  *
  * ## Topology integrity (post-apply)
  *
@@ -73,7 +73,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'  AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity2007'
+    WHERE collection = 'app.etzhayyim.apps.hs.commodity2007'
   `.execute(db);
 
   await sql`
@@ -87,7 +87,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'  AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity2002'
+    WHERE collection = 'app.etzhayyim.apps.hs.commodity2002'
   `.execute(db);
 
   await sql`
@@ -101,7 +101,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'  AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity1996'
+    WHERE collection = 'app.etzhayyim.apps.hs.commodity1996'
   `.execute(db);
 
   await sql`
@@ -115,7 +115,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.sitc.commodity_rev1'
+    WHERE collection = 'app.etzhayyim.apps.sitc.commodity_rev1'
   `.execute(db);
 
   // ── dim_world_domain ───────────────────────────────────────────────────
@@ -154,10 +154,10 @@ export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_hs2002_commodity`.execute(db);
   await sql`DROP VIEW IF EXISTS view_hs1996_commodity`.execute(db);
   await sql`DROP VIEW IF EXISTS view_sitc1_commodity`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.hs.commodity2007'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.hs.commodity2002'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.hs.commodity1996'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.sitc.commodity_rev1'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.hs.commodity2007'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.hs.commodity2002'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.hs.commodity1996'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.sitc.commodity_rev1'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain IN ('hs2007','hs2002','hs1996','sitc1')`.execute(db);
   await sql`DELETE FROM edge_classified_as WHERE system IN ('hs07_hs12','hs02_hs07','hs96_hs02','sitc1_sitc2')`.execute(db);
 }

@@ -126,7 +126,7 @@
   onMount(async () => {
     try {
       const [worldResp, testCovResp, bpmnCovResp] = await Promise.all([
-        fetch("/xrpc/ai.gftd.apps.coverage.getWorldCoverage"),
+        fetch("/xrpc/app.etzhayyim.apps.coverage.getWorldCoverage"),
         fetch("/test-coverage/latest.json"),
         fetch("/bpmn-coverage/latest.json"),
       ]);

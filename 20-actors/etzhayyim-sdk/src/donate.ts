@@ -137,7 +137,7 @@ export async function donate(opts: DonateOpts, cfg: DonateConfig): Promise<Donat
       to: opts.to,
       amount: amountUsdc,
       reason: {
-        collection: "ai.gftd.apps.payment.sent",
+        collection: "app.etzhayyim.apps.payment.sent",
         // mapDonationPurpose collapses v0.2 purposes onto v0.1 PaymentPurpose
         // ("donation" placeholder) until pay.ts widens its enum (v0.3 TODO).
         purpose: mapDonationPurpose(opts.purpose) as

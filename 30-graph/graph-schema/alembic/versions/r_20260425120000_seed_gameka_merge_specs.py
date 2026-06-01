@@ -41,7 +41,7 @@ UP = [{'sql': '\n'
          '        $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameSpec/spec-merge-grid-2048',
+  'parameters': ['at://did:web:gameka.etzhayyim.com/app.etzhayyim.apps.gameka.gameSpec/spec-merge-grid-2048',
                  'did:web:gameka.etzhayyim.com',
                  'spec-merge-grid-2048',
                  'did:web:gameka.etzhayyim.com',
@@ -96,7 +96,7 @@ UP = [{'sql': '\n'
          '        $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameSpec/spec-merge-drop-suika',
+  'parameters': ['at://did:web:gameka.etzhayyim.com/app.etzhayyim.apps.gameka.gameSpec/spec-merge-drop-suika',
                  'did:web:gameka.etzhayyim.com',
                  'spec-merge-drop-suika',
                  'did:web:gameka.etzhayyim.com',
@@ -153,7 +153,7 @@ UP = [{'sql': '\n'
          '        $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameSpec/spec-merge-field-triple',
+  'parameters': ['at://did:web:gameka.etzhayyim.com/app.etzhayyim.apps.gameka.gameSpec/spec-merge-field-triple',
                  'did:web:gameka.etzhayyim.com',
                  'spec-merge-field-triple',
                  'did:web:gameka.etzhayyim.com',

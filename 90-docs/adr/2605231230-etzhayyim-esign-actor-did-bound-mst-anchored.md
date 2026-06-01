@@ -16,17 +16,17 @@ authoritative_for:
   - religious-corp native document signing protocol (DID + WebAuthn + MST + IPFS + Base L2 anchor)
   - separation between gftd lawfirm DocuSign passthrough and etzhayyim native esign
 depends_on:
-  - 2605170900-religious-corp-adr-canonical-home
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605172600-etzhayyim-membership-ritual
-  - 2605180600-lawyer-attorney-portal-design
-  - 2605181100-mst-encrypted-records-signal-keywrap
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192115-etzhayyim-non-profit-donation-only-no-ads
-  - 2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605170900-etzhayyim-root-adr-canonical-home
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172600-etzhayyim-membership-ritual
+  - adr-2605180600-lawyer-attorney-portal-design
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 2605222330-etzhayyim-com-substrate-violation-transition-window
+  - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
 supersedes: []
 superseded_by: []
 ---
@@ -51,7 +51,7 @@ superseded_by: []
 |---|---|---|---|
 | Zeebe task `lawfirm.esign.request` / `lawfirm.esign.webhook` | `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` | gftd vendor (`did:web:lawfirm.etzhayyim.com`) | DocuSign REST 実装 + Adobe/Razorpay stub。`vertex_lawfirm_esign_request` (RisingWave) に書込 |
 | KPI MV | `20-actors/magatama/py/sqlmesh/models/mv_lawfirm_esign_active.sql` | gftd vendor (RLS-gated CEO/COO/CLO) | Hyperdrive + RisingWave projection |
-| ADR-2605180600 §"Future Work" の `ai.gftd.apps.lawfirm.eSignRequest` lexicon | (記載のみ) | gftd vendor lexicon namespace | 未作成。ADR 本文に "deferred" と記載 |
+| ADR-2605180600 §"Future Work" の `app.etzhayyim.apps.lawfirm.eSignRequest` lexicon | (記載のみ) | gftd vendor lexicon namespace | 未作成。ADR 本文に "deferred" と記載 |
 
 religious-corp 側 (`app.etzhayyim.esign.*`) には actor / lexicon / cell / smart
 contract のいずれも存在しない。
@@ -187,7 +187,7 @@ centralized OAuth / email magic-link / SMS OTP は不採用。**DID + passkey �
 | Council 議決 (Bootstrap Council 5 seats) | **`etzhayyim-esign` 必須** (ADR-2605192300) |
 
 両者は **lexicon namespace で分離** (`app.etzhayyim.esign.*` vs
-`ai.gftd.apps.lawfirm.eSign*`) し、データもそれぞれ MST / Hyperdrive に分かれる。
+`app.etzhayyim.apps.lawfirm.eSign*`) し、データもそれぞれ MST / Hyperdrive に分かれる。
 cross-call は禁止。
 
 ### 9. Deployment 段階
@@ -279,7 +279,7 @@ declined / expired) で 1 record に詰めると mutation が増え、MST の im
 原則と衝突する。envelope と signature を分離し、event を append-only にする
 本 ADR の構成が AT Protocol record 設計と整合する。
 
-### E. 既存 `ai.gftd.apps.lawfirm.eSignRequest` lexicon を流用 (vendor namespace)
+### E. 既存 `app.etzhayyim.apps.lawfirm.eSignRequest` lexicon を流用 (vendor namespace)
 
 却下。lexicon namespace は **substrate boundary の SSoT** であり、gftd vendor
 namespace に religious-corp 文書を流すと、後段の RisingWave projection / RLS /

@@ -35,7 +35,7 @@
 - 制御基板: ローム / 東芝ドライバIC使用、国内基板メーカー製造
 - 電源: パナソニック18650セル
 - 都市鉱山セル: e-waste 受入、RGB-D/XRF 検査、低信頼度レビュー、Li-ion 隔離、混合 PCB / 銅アルミ / 希土類磁石の自動選別
-- 都市鉱山監査: `ai.gftd.apps.toshiKozan.registerEwasteStream` に接続する ROS2 audit event を公開
+- 都市鉱山監査: `app.etzhayyim.apps.toshiKozan.registerEwasteStream` に接続する ROS2 audit event を公開
 
 ## SSoT
 

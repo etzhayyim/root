@@ -159,7 +159,7 @@ async fn main() -> Result<()> {
                 assistant_id: assistant_id.clone(),
                 run_id: run_id.clone(),
                 command_id: "cmd-call-zome-smoke-20260509".to_string(),
-                lexicon_nsid: "ai.gftd.agentRuntime.graphRun.completed".to_string(),
+                lexicon_nsid: "app.etzhayyim.agentRuntime.graphRun.completed".to_string(),
                 input_cid: "cid://input/holochain-langgraph-echo-smoke".to_string(),
                 output_cid: Some("cid://output/holochain-langgraph-echo-smoke".to_string()),
                 occurred_at: "2026-05-09T18:00:02+09:00".to_string(),

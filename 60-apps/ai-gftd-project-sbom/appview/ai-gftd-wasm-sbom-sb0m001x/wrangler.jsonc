@@ -10,12 +10,12 @@
     "APP_ACTOR_HANDLE": "sbom",
     "APP_CAPABILITIES": "[\"sbom-ingest\",\"vehicle-bom-ingest\",\"cdx-validation\",\"vuln-match-stub\"]",
     "APP_DESCRIPTION": "Software + hardware Bill of Materials registry. CycloneDX 1.5 default. [AI Agent — unofficial, not affiliated with the real organization]",
-    "APP_DISPLAY_NAME": "GFTD SBOM",
+    "APP_DISPLAY_NAME": "etzhayyim SBOM",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "sb0m001x",
     "APP_PERFORMER_TYPE": "",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {

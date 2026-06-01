@@ -17,22 +17,22 @@ const entries = [
   {
     proc: "scoreInfluence",
     bpmnProcessId: "business_person_score_influence",
-    nsid: "ai.gftd.apps.businessPerson.scoreInfluence",
+    nsid: "app.etzhayyim.apps.businessPerson.scoreInfluence",
     resultTimeoutMs: 60000,
   },
   {
     proc: "enrichCareerLLM",
     bpmnProcessId: "business_person_enrich_career_llm",
-    nsid: "ai.gftd.apps.businessPerson.enrichCareerLLM",
+    nsid: "app.etzhayyim.apps.businessPerson.enrichCareerLLM",
     resultTimeoutMs: 120000,
   },
 ] as const;
 
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVid = (proc: string) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(proc)}-v1`;
 const bindingVid = (proc: string) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${proc}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const e of entries) {

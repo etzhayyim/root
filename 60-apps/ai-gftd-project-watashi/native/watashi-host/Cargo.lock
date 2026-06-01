@@ -768,9 +768,15 @@ name = "glam"
 version = "0.29.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8babf46d4c1c9d92deac9f7be466f76dfc4482b6452fc5024b5e8daf6ffeb3ee"
+
+[[package]]
+name = "glam"
+version = "0.33.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8fb167719045debebe9f532320accc7b5c993c5a3b813f5696a11d5ca7bdc57b"
 dependencies = [
  "bytemuck",
- "serde",
+ "serde_core",
 ]
 
 [[package]]
@@ -1177,7 +1183,7 @@ name = "kami-core"
 version = "0.1.0"
 dependencies = [
  "bytemuck",
- "glam",
+ "glam 0.33.0",
  "hecs",
  "log",
  "serde",
@@ -1187,7 +1193,7 @@ dependencies = [
 name = "kami-devtools"
 version = "0.1.0"
 dependencies = [
- "glam",
+ "glam 0.33.0",
  "kami-input",
  "serde",
  "serde_json",
@@ -1197,7 +1203,7 @@ dependencies = [
 name = "kami-input"
 version = "0.1.0"
 dependencies = [
- "glam",
+ "glam 0.33.0",
 ]
 
 [[package]]
@@ -1223,7 +1229,7 @@ dependencies = [
  "ab_glyph",
  "bytemuck",
  "cc",
- "glam",
+ "glam 0.33.0",
  "log",
  "rustybuzz",
  "unicode-bidi",
@@ -1235,7 +1241,7 @@ name = "kami-ui-gpu"
 version = "0.1.0"
 dependencies = [
  "bytemuck",
- "glam",
+ "glam 0.33.0",
 ]
 
 [[package]]
@@ -1334,7 +1340,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "bytemuck",
- "glam",
+ "glam 0.33.0",
  "kami-devtools",
  "kami-input",
  "kami-text",
@@ -1624,11 +1630,11 @@ checksum = "b4596b6d070b27117e987119b4dac604f3c58cfb0b191112e24771b2faeac1a6"
 
 [[package]]
 name = "png"
-version = "0.17.16"
+version = "0.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526"
+checksum = "60769b8b31b2a9f263dae2776c37b1b28ae246943cf719eb6946a1db05128a61"
 dependencies = [
- "bitflags 1.3.2",
+ "bitflags 2.11.0",
  "crc32fast",
  "fdeflate",
  "flate2",
@@ -2640,7 +2646,7 @@ dependencies = [
  "base64",
  "bytemuck",
  "env_logger",
- "glam",
+ "glam 0.29.3",
  "hostname",
  "kami-bridge",
  "kami-input",

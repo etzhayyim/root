@@ -44,7 +44,7 @@
     const t0 = Date.now();
 
     try {
-      const resp = await fetch('/xrpc/ai.gftd.mangaka.realtimeDraw', {
+      const resp = await fetch('/xrpc/app.etzhayyim.mangaka.realtimeDraw', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({

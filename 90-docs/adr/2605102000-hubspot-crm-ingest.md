@@ -36,10 +36,10 @@ did:web:hubspot.etzhayyim.com) that polls HubSpot CRM v3 REST API and writes eac
 to `vertex_hubspot_*` via Hyperdrive direct per ADR-0036. Surface 4 NSIDs over
 XRPC + auto-published MCP:
 
-- `ai.gftd.apps.hubspot.syncObjectType` — incremental sync for one object type
-- `ai.gftd.apps.hubspot.syncAll` — fan-out over all 8 types (cron entrypoint)
-- `ai.gftd.apps.hubspot.listObjects` — read-side projection
-- `ai.gftd.apps.hubspot.getSyncStatus` — sync cursor inspection
+- `app.etzhayyim.apps.hubspot.syncObjectType` — incremental sync for one object type
+- `app.etzhayyim.apps.hubspot.syncAll` — fan-out over all 8 types (cron entrypoint)
+- `app.etzhayyim.apps.hubspot.listObjects` — read-side projection
+- `app.etzhayyim.apps.hubspot.getSyncStatus` — sync cursor inspection
 
 ## Object coverage (8 types)
 

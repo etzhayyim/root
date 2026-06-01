@@ -33,13 +33,13 @@ lg/
 │   ├── cron.py                          # APScheduler (autopilot cron every 15 min)
 │   ├── server.py                        # FastAPI: /runs /xrpc/{nsid} /ok /health
 │   └── graphs/
-│       ├── health.py                    # ✅ ai.gftd.animeka.health     (P3a)
-│       ├── list_works.py                # ✅ ai.gftd.animeka.listWorks  (P3a)
-│       ├── agent_chat.py                # ✅ ai.gftd.animeka.chat       (P3a, blocked by vLLM upstream)
-│       ├── autopilot.py                 # ✅ ai.gftd.animeka.autopilot  (P3d)
-│       ├── cut_runner.py                # ✅ ai.gftd.animeka.cutRunner  (P3d)
-│       ├── auto_trace_cut.py            # ✅ ai.gftd.animeka.autoTraceCut (P3d)
-│       └── breakdown_scene.py           # ✅ ai.gftd.animeka.breakdownScene (P3d)
+│       ├── health.py                    # ✅ app.etzhayyim.animeka.health     (P3a)
+│       ├── list_works.py                # ✅ app.etzhayyim.animeka.listWorks  (P3a)
+│       ├── agent_chat.py                # ✅ app.etzhayyim.animeka.chat       (P3a, blocked by vLLM upstream)
+│       ├── autopilot.py                 # ✅ app.etzhayyim.animeka.autopilot  (P3d)
+│       ├── cut_runner.py                # ✅ app.etzhayyim.animeka.cutRunner  (P3d)
+│       ├── auto_trace_cut.py            # ✅ app.etzhayyim.animeka.autoTraceCut (P3d)
+│       └── breakdown_scene.py           # ✅ app.etzhayyim.animeka.breakdownScene (P3d)
 └── tests/
     └── test_smoke.py                    # ✅ 16 smoke tests (P4)
 ```
@@ -75,29 +75,29 @@ lg/
 
 | NSID | assistant_id | graph file | status |
 |---|---|---|---|
-| `ai.gftd.animeka.health` | `health` | health.py | ✅ |
-| `ai.gftd.animeka.listWorks` | `list_works` | list_works.py | ✅ |
-| `ai.gftd.animeka.chat` | `agent_chat` | agent_chat.py | ✅ (vLLM upstream) |
-| `ai.gftd.animeka.generateScript` | `generate_script` | generate_script.py | ✅ P3b |
-| `ai.gftd.animeka.generateStoryboard` | `generate_storyboard` | generate_storyboard.py | ✅ P3b |
-| `ai.gftd.animeka.generateLayout` | `generate_layout` | generate_layout.py | ✅ P3b |
-| `ai.gftd.animeka.generateKeyframe` | `generate_keyframe` | generate_keyframe.py | ✅ P3b |
-| `ai.gftd.animeka.generateInbetween` | `generate_inbetween` | generate_inbetween.py | ✅ P3b |
-| `ai.gftd.animeka.generateBackground` | `generate_background` | generate_background.py | ✅ P3b |
-| `ai.gftd.animeka.designColorModel` | `design_color_model` | design_color_model.py | ✅ P3b |
-| `ai.gftd.animeka.createWork` | `create_work` | create_work.py | ✅ P3c |
-| `ai.gftd.animeka.addEpisode` | `add_episode` | add_episode.py | ✅ P3c |
-| `ai.gftd.animeka.addCut` | `add_cut` | add_cut.py | ✅ P3c |
-| `ai.gftd.animeka.getCut` | `get_cut` | get_cut.py | ✅ P3c |
-| `ai.gftd.animeka.listEpisodes` | `list_episodes` | list_episodes.py | ✅ P3c |
-| `ai.gftd.animeka.listRetakes` | `list_retakes` | list_retakes.py | ✅ P3c |
-| `ai.gftd.animeka.submitRetake` | `submit_retake` | submit_retake.py | ✅ P3c |
-| `ai.gftd.animeka.resolveRetake` | `resolve_retake` | resolve_retake.py | ✅ P3c |
-| `ai.gftd.animeka.updateCutStage` | `update_cut_stage` | update_cut_stage.py | ✅ P3c |
-| `ai.gftd.animeka.autopilot` | `autopilot` | autopilot.py | ✅ P3d |
-| `ai.gftd.animeka.cutRunner` | `cut_runner` | cut_runner.py | ✅ P3d |
-| `ai.gftd.animeka.autoTraceCut` | `auto_trace_cut` | auto_trace_cut.py | ✅ P3d |
-| `ai.gftd.animeka.breakdownScene` | `breakdown_scene` | breakdown_scene.py | ✅ P3d |
-| `ai.gftd.animeka.generateAudio` | `generate_audio` | generate_audio.py | ✅ P4 |
-| `ai.gftd.animeka.assembleEpisode` | `assemble_episode` | assemble_episode.py | ✅ P4 |
-| `ai.gftd.animeka.publishEpisode` | `publish_episode` | publish_episode.py | ✅ P5 |
+| `app.etzhayyim.animeka.health` | `health` | health.py | ✅ |
+| `app.etzhayyim.animeka.listWorks` | `list_works` | list_works.py | ✅ |
+| `app.etzhayyim.animeka.chat` | `agent_chat` | agent_chat.py | ✅ (vLLM upstream) |
+| `app.etzhayyim.animeka.generateScript` | `generate_script` | generate_script.py | ✅ P3b |
+| `app.etzhayyim.animeka.generateStoryboard` | `generate_storyboard` | generate_storyboard.py | ✅ P3b |
+| `app.etzhayyim.animeka.generateLayout` | `generate_layout` | generate_layout.py | ✅ P3b |
+| `app.etzhayyim.animeka.generateKeyframe` | `generate_keyframe` | generate_keyframe.py | ✅ P3b |
+| `app.etzhayyim.animeka.generateInbetween` | `generate_inbetween` | generate_inbetween.py | ✅ P3b |
+| `app.etzhayyim.animeka.generateBackground` | `generate_background` | generate_background.py | ✅ P3b |
+| `app.etzhayyim.animeka.designColorModel` | `design_color_model` | design_color_model.py | ✅ P3b |
+| `app.etzhayyim.animeka.createWork` | `create_work` | create_work.py | ✅ P3c |
+| `app.etzhayyim.animeka.addEpisode` | `add_episode` | add_episode.py | ✅ P3c |
+| `app.etzhayyim.animeka.addCut` | `add_cut` | add_cut.py | ✅ P3c |
+| `app.etzhayyim.animeka.getCut` | `get_cut` | get_cut.py | ✅ P3c |
+| `app.etzhayyim.animeka.listEpisodes` | `list_episodes` | list_episodes.py | ✅ P3c |
+| `app.etzhayyim.animeka.listRetakes` | `list_retakes` | list_retakes.py | ✅ P3c |
+| `app.etzhayyim.animeka.submitRetake` | `submit_retake` | submit_retake.py | ✅ P3c |
+| `app.etzhayyim.animeka.resolveRetake` | `resolve_retake` | resolve_retake.py | ✅ P3c |
+| `app.etzhayyim.animeka.updateCutStage` | `update_cut_stage` | update_cut_stage.py | ✅ P3c |
+| `app.etzhayyim.animeka.autopilot` | `autopilot` | autopilot.py | ✅ P3d |
+| `app.etzhayyim.animeka.cutRunner` | `cut_runner` | cut_runner.py | ✅ P3d |
+| `app.etzhayyim.animeka.autoTraceCut` | `auto_trace_cut` | auto_trace_cut.py | ✅ P3d |
+| `app.etzhayyim.animeka.breakdownScene` | `breakdown_scene` | breakdown_scene.py | ✅ P3d |
+| `app.etzhayyim.animeka.generateAudio` | `generate_audio` | generate_audio.py | ✅ P4 |
+| `app.etzhayyim.animeka.assembleEpisode` | `assemble_episode` | assemble_episode.py | ✅ P4 |
+| `app.etzhayyim.animeka.publishEpisode` | `publish_episode` | publish_episode.py | ✅ P5 |

@@ -27,8 +27,8 @@ describe("Seed open-hs BPMN actors migration", () => {
     expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-hs/recordConcordance.bpmn"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openHs.classifyShipment"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openHs.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openHs.classifyShipment"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openHs.recordConcordance"');
   });
   it("uses open-hs-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-hs"');

@@ -81,7 +81,7 @@ fn parse_args(args: &[String]) -> (String, Vec<String>) {
         }
     }
 
-    if std::env::var("GFTD_MURAKUMO_VERBOSE").is_ok() {
+    if std::env::var("etzhayyim_MURAKUMO_VERBOSE").is_ok() {
         VERBOSE.store(true, Ordering::Relaxed);
     }
 
@@ -135,21 +135,21 @@ commands:
   health           Show control plane health + version
   version          Print version
 
-modes (GFTD_PROVIDER_MODE):
+modes (etzhayyim_PROVIDER_MODE):
   worker     Native compute worker + MLX inference (default)
   inference  MLX inference only (no task dispatch)
 
 env:
-  GFTD_MURAKUMO              Control plane (default: https://murakumo.etzhayyim.com)
-  GFTD_PROVIDER_MODE         Mode: worker|inference
-  GFTD_MURAKUMO_HTTP_TIMEOUT Connect timeout (default: 90s)
-  GFTD_MURAKUMO_VERBOSE      Enable trace logs
-  GFTD_NATS_URL              NATS URL (optional)
-  GFTD_QUIC_GATEWAY_ADDR     QUIC gateway address (optional)
+  etzhayyim_MURAKUMO              Control plane (default: https://murakumo.etzhayyim.com)
+  etzhayyim_PROVIDER_MODE         Mode: worker|inference
+  etzhayyim_MURAKUMO_HTTP_TIMEOUT Connect timeout (default: 90s)
+  etzhayyim_MURAKUMO_VERBOSE      Enable trace logs
+  etzhayyim_NATS_URL              NATS URL (optional)
+  etzhayyim_QUIC_GATEWAY_ADDR     QUIC gateway address (optional)
 
 examples:
   curl -fsSL https://murakumo.etzhayyim.com/install.sh | sh
-  GFTD_PROVIDER_MODE=inference curl -fsSL https://murakumo.etzhayyim.com/install.sh | sh
+  etzhayyim_PROVIDER_MODE=inference curl -fsSL https://murakumo.etzhayyim.com/install.sh | sh
   gftd-murakumo daemon --verbose
   gftd-murakumo join
   gftd-murakumo sync

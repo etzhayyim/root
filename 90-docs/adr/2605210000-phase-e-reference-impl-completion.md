@@ -7,7 +7,7 @@
 
 ## Context
 
-[ADR-2605203000](2605203000-rw-free-write-target-options.md) defined the Option B PDS XRPC pattern (`@etzhayyim/sdk e.write()`) replacing vendor's `createKyselyDb` direct-write pattern, per the [ADR-2605172000](2605172000-etzhayyim-rw-free-substrate.md) RW-free substrate mandate.
+[ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) defined the Option B PDS XRPC pattern (`@etzhayyim/sdk e.write()`) replacing vendor's `createKyselyDb` direct-write pattern, per the [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) RW-free substrate mandate.
 
 This ADR records the **scaffold-layer completion** of that migration — every actor in `etzhayyim/root/60-apps/` that has lexicons under `00-contracts/lexicons/ai/gftd/<actor>/` now has a `rw-free/` reference implementation.
 
@@ -144,8 +144,8 @@ Lesson learned: agent self-reports must be verified via `gh pr view <N> --json m
 
 ## Related
 
-- [ADR-2605203000](2605203000-rw-free-write-target-options.md) — Phase E write-target options (foundation)
-- [ADR-2605172000](2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate (substrate mandate)
-- [ADR-2605172400](2605172400-etzhayyim-vendor-three-axis-split-rule.md) — 3-axis OR-test (vendor/etzhayyim boundary)
-- [ADR-2605152100](2605152100-etzhayyim-github-org-boundary.md) — GitHub org split (this repo's scope)
+- [ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E write-target options (foundation)
+- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate (substrate mandate)
+- [ADR-2605172400](/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md) — 3-axis OR-test (vendor/etzhayyim boundary)
+- [ADR-2605152100](/90-docs/adr/2605152100-etzhayyim-github-org-boundary.md) — GitHub org split (this repo's scope)
 - `90-docs/260323-authority-chain-compliance-design.md` — Authority chain composition

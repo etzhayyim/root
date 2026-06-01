@@ -4,7 +4,7 @@ MCP (Model Context Protocol) server exposing the UNSPSC + ISIC LangGraph
 Pregel agent fleets as 9 tools, per **ADR-2605180900 Phase 8**.
 
 Wraps the per-taxonomy actor wrappers from
-`@gftd/magatama-host-sdk/langserver-actor` (Phase 6) and re-emits them
+`@etzhayyim/magatama-host-sdk/langserver-actor` (Phase 6) and re-emits them
 through the official `@modelcontextprotocol/sdk`. The same tool surface
 serves both stdio transport (desktop hosts like Claude Desktop / Codex
 CLI / Cursor) and Streamable HTTP transport (in-cluster service mesh).
@@ -61,7 +61,7 @@ import {
 import {
   createIsicActor,
   createUnispscActor,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 
 const unispsc = createUnispscActor({ endpoint: process.env.LG_UNISPSC_ENDPOINT! });
@@ -100,4 +100,4 @@ Test Files  2 passed (2)
 - **Lexicon-first**: the 9 tool input schemas match the 9 lexicons authored
   in Phase 1.
 - **Legacy NSID retention** (ADR-2605172900): protocol identifiers under
-  the legacy `ai.gftd.*` namespace preserved.
+  the legacy `app.etzhayyim.*` namespace preserved.

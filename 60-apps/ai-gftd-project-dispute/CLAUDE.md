@@ -25,12 +25,12 @@ did:web:dispute.etzhayyim.com:counsel:{counsel_id}     # 顧問弁護士
 
 | Collection | Description |
 |---|---|
-| `ai.gftd.apps.dispute.caseRecord` | 紛争ケースメタデータ |
-| `ai.gftd.apps.dispute.evidence` | 証拠 (メール, 振込記録, 契約書) — Blake3 hash |
-| `ai.gftd.apps.dispute.payment` | 支払済証憑 (銀行振込明細, 請求書) |
-| `ai.gftd.apps.dispute.threat` | 恫喝・脅迫記録 (分類 + severity + 法的根拠) |
-| `ai.gftd.apps.dispute.response` | 対応記録 (送付済み回答, 内容証明) |
-| `ai.gftd.apps.dispute.timeline` | 時系列イベントログ (裁判用) |
+| `app.etzhayyim.apps.dispute.caseRecord` | 紛争ケースメタデータ |
+| `app.etzhayyim.apps.dispute.evidence` | 証拠 (メール, 振込記録, 契約書) — Blake3 hash |
+| `app.etzhayyim.apps.dispute.payment` | 支払済証憑 (銀行振込明細, 請求書) |
+| `app.etzhayyim.apps.dispute.threat` | 恫喝・脅迫記録 (分類 + severity + 法的根拠) |
+| `app.etzhayyim.apps.dispute.response` | 対応記録 (送付済み回答, 内容証明) |
+| `app.etzhayyim.apps.dispute.timeline` | 時系列イベントログ (裁判用) |
 
 ## Commands
 

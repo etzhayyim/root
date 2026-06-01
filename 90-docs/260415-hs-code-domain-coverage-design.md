@@ -10,23 +10,23 @@ authoritative_for:
   - hs-actor-path-did-model
 last_verified: 2026-04-15
 related:
-  - 260324-isin-coverage-social-evolution-design
-  - 260413-domain-coverage-kysely-mv-design
-  - 260414-global-legal-entity-data-sources-design
+  - 260324-isin-coverage-social-evolution
+  - f-plan-lexicon-as-contract
+  - doc-260414-risingwave-premium-32gb-scale-up
 ---
 
 # HS Code Domain Coverage Design
 
 ## Goal
 
-`ai-gftd-project-code-hs` を、Harmonized System (HS) code に基づく **国際貿易品目分類の基盤 project** として定義する。  
+`ai-gftd-project-code-hs` を、Harmonized System (HS) code に基づく **国際貿易品目分類の基盤 project** として定義する。
 この project は単なるコード辞書ではなく、以下 3 層を一体で扱う。
 
-1. **actor coverage**  
+1. **actor coverage**
    HS を使って何を判断・記録する actor が必要か
-2. **path DID coverage**  
+2. **path DID coverage**
    どの分類階層を DID 化して social / write / lineage の境界にするか
-3. **domain coverage**  
+3. **domain coverage**
    GTIN, CPC, ISIC, legal-entity, states, trade-flow をどう接続するか
 
 ## Positioning
@@ -47,7 +47,7 @@ HS はこの repo において次の位置に置く。
 `ai-gftd-project-code-hs` は **1 app × multi-DID** を基本とする。
 
 - primary DID: `did:web:hs.etzhayyim.com`
-- NSID prefix: `ai.gftd.apps.hs.*`
+- NSID prefix: `app.etzhayyim.apps.hs.*`
 - performerType: `service`
 - execution tier: `T1`
 
@@ -175,12 +175,12 @@ write の主境界は以下とする。
 
 | Collection | NSID | Writer DID |
 |---|---|---|
-| taxonomy node | `ai.gftd.apps.hs.node` | primary DID |
-| concordance | `ai.gftd.apps.hs.concordance` | primary DID |
-| trade evidence | `ai.gftd.apps.hs.tradeEvidence` | heading/subheading DID |
-| policy overlay | `ai.gftd.apps.hs.policyOverlay` | country DID |
-| coverage report | `ai.gftd.apps.hs.coverageReport` | chapter/heading/subheading DID |
-| revision delta | `ai.gftd.apps.hs.revisionDelta` | revision DID |
+| taxonomy node | `app.etzhayyim.apps.hs.node` | primary DID |
+| concordance | `app.etzhayyim.apps.hs.concordance` | primary DID |
+| trade evidence | `app.etzhayyim.apps.hs.tradeEvidence` | heading/subheading DID |
+| policy overlay | `app.etzhayyim.apps.hs.policyOverlay` | country DID |
+| coverage report | `app.etzhayyim.apps.hs.coverageReport` | chapter/heading/subheading DID |
+| revision delta | `app.etzhayyim.apps.hs.revisionDelta` | revision DID |
 
 ## Query Surface
 
@@ -188,12 +188,12 @@ write の主境界は以下とする。
 
 | NSID | Purpose |
 |---|---|
-| `ai.gftd.apps.hs.getNode` | code から taxonomy node 取得 |
-| `ai.gftd.apps.hs.getChildren` | 子ノード一覧 |
-| `ai.gftd.apps.hs.resolveConcordance` | GTIN/CPC/ISIC から HS 推定 |
-| `ai.gftd.apps.hs.getCoverage` | coverage snapshot |
-| `ai.gftd.apps.hs.getPolicyOverlay` | 国別 tariff / restriction 概要 |
-| `ai.gftd.apps.hs.health` | actor health |
+| `app.etzhayyim.apps.hs.getNode` | code から taxonomy node 取得 |
+| `app.etzhayyim.apps.hs.getChildren` | 子ノード一覧 |
+| `app.etzhayyim.apps.hs.resolveConcordance` | GTIN/CPC/ISIC から HS 推定 |
+| `app.etzhayyim.apps.hs.getCoverage` | coverage snapshot |
+| `app.etzhayyim.apps.hs.getPolicyOverlay` | 国別 tariff / restriction 概要 |
+| `app.etzhayyim.apps.hs.health` | actor health |
 
 ## Revision Strategy
 

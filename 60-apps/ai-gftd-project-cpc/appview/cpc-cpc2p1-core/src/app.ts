@@ -10,7 +10,7 @@ import {
   nowISO,
   nsid,
   createKyselyDb,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 type SectionInfo = {
   code: number;
@@ -348,10 +348,10 @@ async function cmdRegisterToPds(_sdk: HostSDK, body: Uint8Array): Promise<Uint8A
     const db = createKyselyDb();
     const now = nowISO();
     for (const p of targets) {
-      const did = `did:web:cpc.gftd.ai`;
+      const did = `did:web:cpc.etzhayyim.com`;
       const rkey = p.code;
       await (db.insertInto("vertex_cpc_product" as any).values({
-        vertex_id: `at://${did}/ai.gftd.apps.cpc.product/${rkey}`,
+        vertex_id: `at://${did}/app.etzhayyim.apps.cpc.product/${rkey}`,
         sensitivity_ord: 2,
         owner_did: did,
         actor_did: did,
@@ -422,7 +422,7 @@ function cmdWave(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 export async function runHeartbeat(): Promise<{ ok: boolean; actions: Array<Record<string, unknown>> }> {
   const actions: Array<Record<string, unknown>> = [];
-  const cadence = await resolveHeartbeatCadence("did:web:cpc.gftd.ai", cadenceState, inbox);
+  const cadence = await resolveHeartbeatCadence("did:web:cpc.etzhayyim.com", cadenceState, inbox);
   actions.push({ action: "cadenceResolved", mood: cadence.mood, reason: cadence.reason, ts: nowISO() });
   actions.push({ action: "statsSnapshot", payload: JSON.parse(new TextDecoder().decode(cmdStats())) });
   return { ok: true, actions };
@@ -433,55 +433,55 @@ export default createWorkerExport((sdk) => {
 
   sdk.app
     .command(
-      nsid("ai.gftd.apps.cpc.catalog.listSections"),
+      nsid("app.etzhayyim.apps.cpc.catalog.listSections"),
       (_ctx, body) => cmdListSections(body),
       asAgentTool("List CPC sections"),
       withCapabilityTags("cpc", "catalog"),
     )
     .command(
-      nsid("ai.gftd.apps.cpc.catalog.listDivisions"),
+      nsid("app.etzhayyim.apps.cpc.catalog.listDivisions"),
       (_ctx, body) => cmdListDivisions(body),
       asAgentTool("List CPC divisions"),
       withCapabilityTags("cpc", "catalog"),
     )
     .command(
-      nsid("ai.gftd.apps.cpc.catalog.getProduct"),
+      nsid("app.etzhayyim.apps.cpc.catalog.getProduct"),
       (_ctx, body) => cmdGetProduct(body),
       asAgentTool("Get CPC product by code"),
       withCapabilityTags("cpc", "catalog"),
     )
     .command(
-      nsid("ai.gftd.apps.cpc.catalog.searchProducts"),
+      nsid("app.etzhayyim.apps.cpc.catalog.searchProducts"),
       (_ctx, body) => cmdSearchProducts(body),
       asAgentTool("Search CPC products"),
       withCapabilityTags("cpc", "catalog", "query"),
     )
     .command(
-      nsid("ai.gftd.apps.cpc.concordance.get"),
+      nsid("app.etzhayyim.apps.cpc.concordance.get"),
       (_ctx, body) => cmdGetConcordance(body),
       asAgentTool("Get CPC concordance to ISIC/HS"),
       withCapabilityTags("cpc", "concordance"),
     )
     .command(
-      nsid("ai.gftd.apps.cpc.process.resolveManufacturingProcess"),
+      nsid("app.etzhayyim.apps.cpc.process.resolveManufacturingProcess"),
       (_ctx, body) => cmdResolveManufacturingProcess(body),
       asAgentTool("Resolve manufacturing process for CPC code"),
       withCapabilityTags("cpc", "manufacturing", "process"),
     )
     .command(
-      nsid("ai.gftd.apps.cpc.registry.registerToPds"),
+      nsid("app.etzhayyim.apps.cpc.registry.registerToPds"),
       (_ctx, body) => cmdRegisterToPds(sdk, body),
       asAgentTool("Register CPC products to graph"),
       withCapabilityTags("cpc", "registry"),
     )
     .command(
-      nsid("ai.gftd.apps.cpc.stats"),
+      nsid("app.etzhayyim.apps.cpc.stats"),
       () => cmdStats(),
       asAgentTool("Get CPC component coverage stats"),
       withCapabilityTags("cpc", "analytics"),
     )
     .command(
-      nsid("ai.gftd.apps.cpc.wave"),
+      nsid("app.etzhayyim.apps.cpc.wave"),
       (_ctx, body) => cmdWave(sdk, body),
       asAgentTool("Post CPC social wave"),
       withCapabilityTags("cpc", "social"),

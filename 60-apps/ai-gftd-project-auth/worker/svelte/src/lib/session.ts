@@ -12,7 +12,7 @@ export interface SessionIdentity {
   handle: string;
 }
 
-const ISS = "https://auth.gftd.ai";
+const ISS = "https://auth.etzhayyim.com";
 const ACCESS_TOKEN_EXPIRY_SECS = 7 * 24 * 3600;
 const REFRESH_TOKEN_EXPIRY_SECS = 90 * 24 * 3600;
 const COOKIE_NAME = "gftd_session";
@@ -105,11 +105,11 @@ export async function refreshSession(secret: string, refreshToken: string): Prom
 }
 
 export function sessionCookie(jwt: string): string {
-  return `${COOKIE_NAME}=${jwt}; Domain=.gftd.ai; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=${ACCESS_TOKEN_EXPIRY_SECS}`;
+  return `${COOKIE_NAME}=${jwt}; Domain=.etzhayyim.com; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=${ACCESS_TOKEN_EXPIRY_SECS}`;
 }
 
 export function clearSessionCookie(): string {
-  return `${COOKIE_NAME}=; Domain=.gftd.ai; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0`;
+  return `${COOKIE_NAME}=; Domain=.etzhayyim.com; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0`;
 }
 
 export function extractSessionToken(request: Request): string | null {

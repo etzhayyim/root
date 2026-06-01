@@ -12,7 +12,7 @@ import {
   str,
   withCapabilityTags,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 let appId = "";
 
@@ -60,11 +60,11 @@ const OFFICES_SEED: OfficeSeed[] = [
 // ───────────────────────── write helper ─────────────────────────
 
 function write(sdk: HostSDK, kind: string, rec: Record<string, unknown>): void {
-  const collection = `ai.gftd.apps.roukisho.${kind}`;
+  const collection = `app.etzhayyim.apps.roukisho.${kind}`;
   const enriched = {
     ...rec,
     createdAt: nowISO(),
-    org_id: "gftd.co.jp",
+    org_id: "etzhayyim.com",
     user_id: "anon",
     actor_id: appId,
   };
@@ -142,10 +142,10 @@ export default createWorkerExport((sdk) => {
   appId = sdk.pds.selfNanoid ?? "r0uk15h0";
 
   sdk.app
-    .query(nsid("ai.gftd.apps.roukisho.listOffices"), async (_c, b) => cmdListOffices(sdk, b))
-    .query(nsid("ai.gftd.apps.roukisho.getOffice"), async (_c, b) => cmdGetOffice(sdk, b))
-    .command(nsid("ai.gftd.apps.roukisho.recordCommunication"), async (_c, b) => cmdRecordCommunication(sdk, b),
+    .query(nsid("app.etzhayyim.apps.roukisho.listOffices"), async (_c, b) => cmdListOffices(sdk, b))
+    .query(nsid("app.etzhayyim.apps.roukisho.getOffice"), async (_c, b) => cmdGetOffice(sdk, b))
+    .command(nsid("app.etzhayyim.apps.roukisho.recordCommunication"), async (_c, b) => cmdRecordCommunication(sdk, b),
       asAgentTool("Record inbound/outbound communication (phone/fax/mail/visit) with a 労基署. Scoped by caseId."),
       withCapabilityTags("roukisho", "communication", "audit"))
-    .query(nsid("ai.gftd.apps.roukisho.listCommunications"), async (_c, b) => cmdListCommunications(sdk, b));
+    .query(nsid("app.etzhayyim.apps.roukisho.listCommunications"), async (_c, b) => cmdListCommunications(sdk, b));
 });

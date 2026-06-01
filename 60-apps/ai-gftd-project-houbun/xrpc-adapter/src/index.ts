@@ -3,7 +3,7 @@
  *
  * Wires the rw-free reference impl (statute/treaty/amendment legal text management)
  * into a deployable CF Worker that exposes each function as an XRPC endpoint
- * at https://houbun.etzhayyim.com/xrpc/ai.gftd.apps.houbun.<cmd>
+ * at https://houbun.etzhayyim.com/xrpc/app.etzhayyim.apps.houbun.<cmd>
  */
 
 import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
@@ -19,7 +19,7 @@ interface Env {
 
 type Handler = (e: any, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "ai.gftd.apps.houbun";
+const NSID_BASE = "app.etzhayyim.apps.houbun";
 
 interface RouteConfig {
   method: "POST" | "GET";

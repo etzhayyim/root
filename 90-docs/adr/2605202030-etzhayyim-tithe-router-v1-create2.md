@@ -19,7 +19,7 @@ depends_on:
   - adr-2605192130-etzhayyim-tithe-redistribution
   - adr-2605192100-etzhayyim-mission-charter
 related:
-  - 2605192230-etzhayyim-three-tier-enforcement-implementation.md
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
 supersedes: []
 superseded_by: []
 ---
@@ -137,15 +137,15 @@ contract TitheRouterV1 {
     IConstitution public immutable constitution;
     IChartersComplianceRegistry public immutable charters;
     // publicFund immutable は削除
-    
+
     bytes32 public constant PUBLIC_FUND_ADDRESS_KEY = keccak256("public_fund.safe_address");
-    
+
     constructor(IERC20 _usdc, IConstitution _constitution, IChartersComplianceRegistry _charters) {
         usdc = _usdc;
         constitution = _constitution;
         charters = _charters;
     }
-    
+
     function route(address recipient, uint256 grossAmount, bytes32 purpose) external {
         // ... gate checks ...
         address publicFund = address(uint160(uint256(constitution.getMutable(PUBLIC_FUND_ADDRESS_KEY))));
@@ -241,7 +241,7 @@ Pro: v0 SDK call は変更不要、v1 は新機能のみ。Con: SDK で両方 ma
 
 1. **CREATE2 salt schema の forward compatibility** — v2 / v3 で salt 計算 algorithm を変えるか?
 2. **bytecode 変更時の address 変更** — TitheRouter v1.1 (microfix) が v1 と異なる address になる。Mitigation: Constitution.setMutable で v1.1 address に切り替え (v1 contract は永続放置)
-3. **v0 deprecation Council attestation の specific Lexicon** — `ai.gftd.apps.etzhayyim.contract-deprecation` future Lexicon が必要
+3. **v0 deprecation Council attestation の specific Lexicon** — `app.etzhayyim.apps.etzhayyim.contract-deprecation` future Lexicon が必要
 4. **mainnet timing** — v1 を mainnet 初回 deploy にするか、v0 mainnet → 6ヶ月後 v1 migration にするか。Decision (本 ADR): mainnet 初回は v0 (simpler operational), 6ヶ月後 v1 (mature)
 
 # References

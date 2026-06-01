@@ -17,7 +17,7 @@
       "standards": ["AT Protocol XRPC", "DoDAF v2.02", "BPMN 2.0", "DMN 1.3", "Camunda Forms", "DOT 49 CFR 192-aligned leak grading"]
     },
     "toolsAndMethods": [
-      "XRPC Lexicons for external contracts (ai.gftd.apps.openGas.*)",
+      "XRPC Lexicons for external contracts (app.etzhayyim.apps.openGas.*)",
       "BPMN 2.0 for process definition (definePipeSegment, reportLeak)",
       "DMN 1.3 for decision rules (leakClass)",
       "Camunda Forms for human-task UI"

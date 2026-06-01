@@ -789,7 +789,7 @@ async def task_shinshi_coverage_find_incomplete(
     sql = (
         "WITH model_repos AS ("
         "  SELECT DISTINCT repo FROM vertex_repo_record "
-        "  WHERE collection = 'ai.gftd.apps.shinshi.modelProfile' "
+        "  WHERE collection = 'app.etzhayyim.apps.shinshi.modelProfile' "
         "    AND repo LIKE %s"
         "), "
         "scene_counts AS ("
@@ -817,7 +817,7 @@ async def task_shinshi_coverage_find_incomplete(
                 "SELECT count(*) FROM ("
                 "  SELECT m.repo FROM ("
                 "    SELECT DISTINCT repo FROM vertex_repo_record "
-                "    WHERE collection = 'ai.gftd.apps.shinshi.modelProfile' "
+                "    WHERE collection = 'app.etzhayyim.apps.shinshi.modelProfile' "
                 "      AND repo LIKE %s"
                 "  ) m "
                 "  LEFT JOIN ("

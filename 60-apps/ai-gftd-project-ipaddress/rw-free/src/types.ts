@@ -18,7 +18,7 @@
 
 export type Rir = "apnic" | "arin" | "ripe" | "lacnic" | "afrinic";
 
-/** Record body for `ai.gftd.apps.ipaddress.asn`. */
+/** Record body for `app.etzhayyim.apps.ipaddress.asn`. */
 export interface AsnRecord {
   did: string;
   number: number;

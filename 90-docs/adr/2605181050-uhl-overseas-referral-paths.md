@@ -18,7 +18,7 @@ depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605181040-uhl-medical-institution-registry
 related:
-  - 2605181060-otarmeni-access-path.md
+  - adr-2605181060-otarmeni-access-path
 supersedes: []
 superseded_by: []
 ---

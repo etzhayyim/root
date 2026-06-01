@@ -2,8 +2,8 @@
  * kiyo rw-free — barrel.
  *
  * Per ADR-2605203000 Option B Phase E reference implementation.
- * Per ADR-2604300000 kiyo: research archive (紀要) on the etzhayyim
- * substrate. paper_id = `kiyo:{YYYY}:{TID}`.
+ * Per `60-apps/ai-gftd-project-kiyo/CLAUDE.md` kiyo: research archive
+ * (紀要) on the etzhayyim substrate. paper_id = `kiyo:{YYYY}:{TID}`.
  *
  * Slice 1: 6 of 12 lexicons ported.
  *   submitPaper + getPaper + listPapers + listByAuthor +

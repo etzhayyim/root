@@ -11,8 +11,8 @@ const sourcePath = "00-contracts/bpmn/ai/gftd/flight-offer/sourceHealth.bpmn";
 const xml = () => readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
 
 const slug = "flight-offer-source-health-v1";
-const processVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${slug}`;
-const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${slug}`;
+const processVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${slug}`;
+const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${slug}`;
 const ownerDid = "did:web:flight-offer.etzhayyim.com";
 const createdAt = "2026-04-27T16:02:00Z";
 const actorTag = "sys.bpmn.seed.flight-offer";
@@ -36,7 +36,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,
       result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id, actor_id
     )
-    SELECT ${bindingVertexId}, ${ownerDid}, 'ai.gftd.apps.flightOffer.sourceHealth',
+    SELECT ${bindingVertexId}, ${ownerDid}, 'app.etzhayyim.apps.flightOffer.sourceHealth',
            'flight_offer_source_health', 1, CAST(10000 AS integer), 'active',
            ${createdAt}, 1, ${ownerDid}, ${ownerDid}, ${actorTag}
     WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${bindingVertexId})

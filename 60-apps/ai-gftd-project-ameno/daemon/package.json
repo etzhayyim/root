@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/ameno-daemon",
+  "name": "@etzhayyim/ameno-daemon",
   "version": "0.1.0",
   "description": "Ameno headless system-resident daemon. Tier-2 worker host running the same LangGraph (reflection + active inference + ReAct tools) as the browser appview, but server-side via Ollama. ADR-2605191229.",
   "license": "Apache-2.0",

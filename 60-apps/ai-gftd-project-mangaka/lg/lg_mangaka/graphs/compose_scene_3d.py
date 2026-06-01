@@ -109,7 +109,7 @@ class _State(TypedDict, total=False):
 
 
 def _vid(coll: str, rkey: str) -> str:
-    return f"at://{_APP_DID}/ai.gftd.mangaka.{coll}/{rkey}"
+    return f"at://{_APP_DID}/app.etzhayyim.mangaka.{coll}/{rkey}"
 
 
 # -----------------------------------------------------------------------------
@@ -249,7 +249,7 @@ async def _step_pose_characters(state: _State) -> dict[str, Any]:
 def _step_place_scene(state: _State) -> dict[str, Any]:
     """Compose a kami-mangaka-scene JSON-LD descriptor.
 
-    Delegates to `tools.tool_place_scene` (lexicon ai.gftd.mangaka.tools.placeScene)
+    Delegates to `tools.tool_place_scene` (lexicon app.etzhayyim.mangaka.tools.placeScene)
     so the LangGraph node and the future MCP `mcp_tool` resolver share the
     same body. Pure CPU.
     """
@@ -345,7 +345,7 @@ async def _step_simulate_one(payload: dict[str, Any]) -> dict[str, Any]:
     """Per-character spring-bone + cloth settle. Returns merged into `sim_result`.
 
     Delegates to `tools.tool_simulate_character`
-    (lexicon ai.gftd.mangaka.tools.simulateCharacter). GPU-side settling
+    (lexicon app.etzhayyim.mangaka.tools.simulateCharacter). GPU-side settling
     via the kami-mangaka-scene PyO3 wheel happens in the render step.
     """
     out = await _tools.tool_simulate_character(
@@ -420,7 +420,7 @@ def _try_real_render(state: _State, angles: int) -> list[dict[str, Any]] | None:
         if env:
             scene.set_background_json(json.dumps(env))
         # P3 ships sky+silhouette renders; full character VRM upload lands in
-        # P3.1 alongside ai.gftd.mangaka.character.vrmBlobKey ingestion.
+        # P3.1 alongside app.etzhayyim.mangaka.character.vrmBlobKey ingestion.
         opts_json = json.dumps(
             {"width": 1024, "height": 1448, "passes": 0b0111, "seed": int(state.get("sim_seed") or 0)}
         )
@@ -677,7 +677,7 @@ def _route_after_critique(state: _State) -> str:
 # -----------------------------------------------------------------------------
 async def _step_persist(state: _State) -> dict[str, Any]:
     """Delegates to `tools.tool_persist_scene_3d`
-    (lexicon ai.gftd.mangaka.tools.persistScene3d). RisingWave INSERT
+    (lexicon app.etzhayyim.mangaka.tools.persistScene3d). RisingWave INSERT
     must run on a pod (ADR-2605111200) — never inside the CF Worker.
 
     Also fans out one `tool_persist_hume_emotion_observation` call per render

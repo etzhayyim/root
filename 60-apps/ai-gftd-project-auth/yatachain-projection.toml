@@ -6,7 +6,7 @@
 #
 # Canonical state lives on:
 #   - app.etzhayyim.encrypted.record envelopes (innerType =
-#     ai.gftd.auth.credential) in the auth tenant PDS (MST).
+#     app.etzhayyim.auth.credential) in the auth tenant PDS (MST).
 #     XChaCha20-Poly1305 + Signal-wrapped per-recipient keys.
 #     Per ADR-2605181100.
 #   - DID Documents (did:web:authn.etzhayyim.com:user:*) — published by
@@ -35,7 +35,7 @@ source_collections = [
   "app.etzhayyim.encrypted.keyWrap",     # Signal per-recipient key wrap
   "app.etzhayyim.encrypted.signalIdentity",  # sender Signal identity advertisement
   "app.etzhayyim.encrypted.tombstone",   # explicit revocation
-  "ai.gftd.auth.credential",             # inner-type plaintext shape (see 00-contracts)
+  "app.etzhayyim.auth.credential",             # inner-type plaintext shape (see 00-contracts)
 ]
 
 projection_tables = [
@@ -57,7 +57,7 @@ storage_substrates = [
 
 # Empty D1 + KV. The rebuild runbook subscribes to com.atproto.sync.subscribeRepos
 # for the auth tenant PDS, decrypts each app.etzhayyim.encrypted.record envelope
-# whose innerType is ai.gftd.auth.credential, projects the plaintext into the
+# whose innerType is app.etzhayyim.auth.credential, projects the plaintext into the
 # D1 row shape (vertex_gftd_auth_credential / linked / invite / otp), and
 # replays tombstone envelopes as soft-deletes.
 rebuild_estimated_minutes = 30

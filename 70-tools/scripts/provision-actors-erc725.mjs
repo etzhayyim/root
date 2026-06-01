@@ -6,7 +6,7 @@
  * For each actor:
  *   1. POST /internal/provision-root-identity with
  *      { stableId: "actor:<name>", label: <name>, facadeDids: [did:web] }
- *   2. authz deploys GftdRootIdentity on chain 260425 and links the
+ *   2. authz deploys etzhayyimRootIdentity on chain 260425 and links the
  *      did:web facade so resolveFacade(keccak256(did:web)) → ERC725 root.
  *   3. Logs (did:web → did:erc725, identityAddress, txHash).
  *

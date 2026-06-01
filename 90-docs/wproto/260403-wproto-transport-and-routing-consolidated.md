@@ -15,7 +15,7 @@ related:
   - w-protocol-at-superset
 supersedes:
   - wrpc-stream-native
-  - 260324-wrpc-wit-binding-generation
+  - 260324-source-graph-hybrid-design
   - xrpc-cqrs-service-proxy
 superseded_by: []
 ---
@@ -36,7 +36,7 @@ W Protocol の transport/binding/routing を 1 つの正本に集約し、重複
 
 1. Stream transport は wRPC stream-native を標準とする。
 2. binding は WIT を SSoT として自動生成する。
-3. routing は `com.atproto.repo.*` を PDS direct、`ai.gftd.apps.*` を service proxy とする。
+3. routing は `com.atproto.repo.*` を PDS direct、`app.etzhayyim.apps.*` を service proxy とする。
 
 ## Transport Baseline
 
@@ -58,7 +58,7 @@ W Protocol の transport/binding/routing を 1 つの正本に集約し、重複
 | `com.atproto.repo.*` | PDS direct | write authority / canonical CRUD |
 | `com.atproto.sync.*` | PDS direct | sync and firehose |
 | `app.bsky.*` | PDS direct (repo policy scope) | AT standard query surface |
-| `ai.gftd.apps.*` | service proxy -> app worker | app domain query logic |
+| `app.etzhayyim.apps.*` | service proxy -> app worker | app domain query logic |
 
 ## Migration Rule
 

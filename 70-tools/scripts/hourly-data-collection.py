@@ -43,8 +43,8 @@ DB_CONFIG = {
 }
 
 REPO              = "did:plc:gftd-collector"
-PATENT_COLLECTION = "ai.gftd.apps.patent.patent"
-DNS_COLLECTION    = "ai.gftd.apps.dns.observation"
+PATENT_COLLECTION = "app.etzhayyim.apps.patent.patent"
+DNS_COLLECTION    = "app.etzhayyim.apps.dns.observation"
 
 PATENT_LIMIT    = 3000   # target rows per run from OpenAlex
 DNS_LIMIT       = 500    # domains from Umbrella list per run
@@ -128,7 +128,7 @@ def collect_patents(cursor: str, limit: int = 3000) -> tuple[list[dict], str]:
                     "select":  "id,title,publication_date,authorships,biblio,doi,keywords",
                 },
                 headers={
-                    "User-Agent": f"GftdCollector/1.0 (mailto:{OPENALEX_MAILTO})",
+                    "User-Agent": f"etzhayyimCollector/1.0 (mailto:{OPENALEX_MAILTO})",
                     "Accept": "application/json",
                 },
                 timeout=30,
@@ -242,7 +242,7 @@ def _doh_lookup(rank_domain: tuple[int, str]) -> dict:
             DOH_URL,
             params={"name": domain, "type": "A"},
             headers={"Accept": "application/dns-json",
-                     "User-Agent": "GftdCollector/1.0"},
+                     "User-Agent": "etzhayyimCollector/1.0"},
             timeout=8,
         )
         if r.status_code == 200:

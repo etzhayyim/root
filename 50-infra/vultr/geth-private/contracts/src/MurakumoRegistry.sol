@@ -28,7 +28,7 @@ contract MurakumoRegistry {
         bytes32 operatorDid;
         // Address that receives stake refunds on unregister and earnings
         // routed by `MurakumoEscrow`. Recommended: the operator's smart
-        // account (GftdActorRegistry.actorByDid).
+        // account (etzhayyimActorRegistry.actorByDid).
         address payoutAddress;
         uint256 stake;
         // Capability bitfield — encoding chosen by off-chain code (e.g.

@@ -7,7 +7,7 @@
  *   vendor (RW + Stripe)               → etzhayyim (PDS + escrow settle)
  *   ───────────────────────────────       ──────────────────────────────────
  *   recordWrite(sdk,                   → e.write({ collection, record })
- *     "com.etzhayyim.apps.tsukuru.qualityInspection",
+ *     "app.etzhayyim.apps.tsukuru.qualityInspection",
  *     {...})
  *   if (result === "pass") update      → if (settlementTriggered):
  *     productionOrder.status="passed"     1. settle escrow via SDK pay()
@@ -86,7 +86,7 @@ export async function submitInspection(
   };
 
   const writeReceipt = await e.write({
-    collection: "com.etzhayyim.apps.tsukuru.qualityInspection",
+    collection: "app.etzhayyim.apps.tsukuru.qualityInspection",
     record: record as unknown as Record<string, unknown>,
   });
   const inspectionUri = writeReceipt.uri;
@@ -115,7 +115,7 @@ export async function submitInspection(
     };
   }
   const orderRead = await e.read<ProductionOrderRecord>({
-    collection: "com.etzhayyim.apps.tsukuru.productionOrder",
+    collection: "app.etzhayyim.apps.tsukuru.productionOrder",
     rkey: orderRkey,
   });
   const order = orderRead.records[0]?.value;
@@ -169,7 +169,7 @@ export async function submitInspection(
     // Step 6: bind paymentSentUri to inspection + productionOrder.
     await markOrderPassed(e, order, orderRkey, inspectionUri, paymentSentUri);
     await e.write({
-      collection: "com.etzhayyim.apps.tsukuru.qualityInspection",
+      collection: "app.etzhayyim.apps.tsukuru.qualityInspection",
       record: {
         ...record,
         paymentSentUri,
@@ -210,7 +210,7 @@ async function markOrderPassed(
     paymentSentUri: paymentSentUri ?? order.paymentSentUri,
   };
   await e.write({
-    collection: "com.etzhayyim.apps.tsukuru.productionOrder",
+    collection: "app.etzhayyim.apps.tsukuru.productionOrder",
     record: updated as unknown as Record<string, unknown>,
     rkey: orderRkey,
   });
@@ -232,7 +232,7 @@ export async function getInspections(
 ): Promise<GetInspectionsOutput> {
   const limit = Math.min(input.limit ?? 50, 100);
   const resp = await e.read<QualityInspectionRecord>({
-    collection: "com.etzhayyim.apps.tsukuru.qualityInspection",
+    collection: "app.etzhayyim.apps.tsukuru.qualityInspection",
     cursor: input.cursor,
     limit,
   });

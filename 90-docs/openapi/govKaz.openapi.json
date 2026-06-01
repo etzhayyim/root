@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govKaz.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govKaz.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Kazakhstan government.",
-        "operationId": "ai.gftd.govKaz.followSiteDeps",
+        "operationId": "app.etzhayyim.govKaz.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKaz.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govKaz.heartbeatTick": {
       "post": {
         "summary": "Run the Kazakhstan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govKaz.heartbeatTick",
+        "operationId": "app.etzhayyim.govKaz.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKaz.listOrgs": {
+    "/xrpc/app.etzhayyim.govKaz.listOrgs": {
       "get": {
         "summary": "List Kazakhstan government organization graph records.",
-        "operationId": "ai.gftd.govKaz.listOrgs",
+        "operationId": "app.etzhayyim.govKaz.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKaz.registerDIDs": {
+    "/xrpc/app.etzhayyim.govKaz.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Kazakhstan government organizations.",
-        "operationId": "ai.gftd.govKaz.registerDIDs",
+        "operationId": "app.etzhayyim.govKaz.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKaz.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govKaz.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Kazakhstan government organization path to its graph record.",
-        "operationId": "ai.gftd.govKaz.resolveOrgPath",
+        "operationId": "app.etzhayyim.govKaz.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKaz.seedOrgs": {
+    "/xrpc/app.etzhayyim.govKaz.seedOrgs": {
       "post": {
         "summary": "Seed initial Kazakhstan government organization records into the graph.",
-        "operationId": "ai.gftd.govKaz.seedOrgs",
+        "operationId": "app.etzhayyim.govKaz.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKaz.shinka": {
+    "/xrpc/app.etzhayyim.govKaz.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Kazakhstan government organization update.",
-        "operationId": "ai.gftd.govKaz.shinka",
+        "operationId": "app.etzhayyim.govKaz.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKaz.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govKaz.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Kazakhstan government organization changes to graph.",
-        "operationId": "ai.gftd.govKaz.syncWetUpdates",
+        "operationId": "app.etzhayyim.govKaz.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

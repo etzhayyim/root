@@ -112,7 +112,7 @@ def test_stable_run_id_includes_input_json() -> None:
 def test_run_vertex_id_format() -> None:
     vid = run_vertex_id("my-run-id")
     assert vid.startswith("at://")
-    assert "ai.gftd.apps.ingest.run" in vid
+    assert "app.etzhayyim.apps.ingest.run" in vid
 
 
 def test_run_vertex_id_contains_slug() -> None:
@@ -125,7 +125,7 @@ def test_run_vertex_id_contains_slug() -> None:
 def test_cursor_vertex_id_format() -> None:
     vid = cursor_vertex_id("houbun", "gov-jpn", "default")
     assert vid.startswith("at://")
-    assert "ai.gftd.apps.ingest.cursor" in vid
+    assert "app.etzhayyim.apps.ingest.cursor" in vid
 
 
 def test_cursor_vertex_id_includes_family() -> None:
@@ -144,7 +144,7 @@ def test_cursor_vertex_id_two_families_differ() -> None:
 def test_artifact_vertex_id_format() -> None:
     vid = artifact_vertex_id("run-abc", "json", "s3://bucket/key")
     assert vid.startswith("at://")
-    assert "ai.gftd.apps.ingest.artifact" in vid
+    assert "app.etzhayyim.apps.ingest.artifact" in vid
 
 
 def test_artifact_vertex_id_deterministic() -> None:

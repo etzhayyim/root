@@ -11,7 +11,7 @@ authoritative_for:
   - vertex_vessel / vertex_vessel_position / vertex_vessel_voyage schema
   - aisstream.io WebSocket consumer Deployment
   - aismarine BPMN actors (consumer / voyage-detector / master-refresh / density-refresh)
-  - ai.gftd.apps.maps.aismarine.* XRPC surface
+  - app.etzhayyim.apps.maps.aismarine.* XRPC surface
   - kami-geo vessel rendering layer
 related:
   - adr-0017-maritime-energy-cluster-topology
@@ -21,8 +21,8 @@ related:
   - adr-0056-bpmn-as-actor
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-2604280900-maps-transit-pipeline-gtfs-rt
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
-  - adr-2604241342-risingwave-migration-failure-modes
+  - adr-2604282300
+  - adr-2604241342-risingwave-out-of-band-migration-pattern
 ---
 
 # ADR-2605011500 — Maps AIS Marine Vessel Tracking Pipeline
@@ -70,10 +70,10 @@ Add to existing `maps-ui-uqpel6i6` Worker (no new Worker, ADR-2604282300):
 
 | NSID | Read/Write | Backing |
 |---|---|---|
-| `ai.gftd.apps.maps.aismarine.queryVesselsBbox` | read | `mv_vessel_latest_position` SELECT with `lat BETWEEN` + `lon BETWEEN` + optional `type_class IN (...)`, returns GeoJSON FeatureCollection |
-| `ai.gftd.apps.maps.aismarine.getVesselDetail` | read | `vertex_vessel` + last 24h `vertex_vessel_position` ORDER BY ts_ms DESC LIMIT 500 + active `vertex_vessel_voyage` |
-| `ai.gftd.apps.maps.aismarine.searchVessels` | read | prefix SELECT on `vertex_vessel.name` / MMSI / IMO |
-| `ai.gftd.apps.maps.aismarine.getVesselDensityTile` | read | `mv_vessel_density_h3_r6` filtered by H3 cells covering bbox |
+| `app.etzhayyim.apps.maps.aismarine.queryVesselsBbox` | read | `mv_vessel_latest_position` SELECT with `lat BETWEEN` + `lon BETWEEN` + optional `type_class IN (...)`, returns GeoJSON FeatureCollection |
+| `app.etzhayyim.apps.maps.aismarine.getVesselDetail` | read | `vertex_vessel` + last 24h `vertex_vessel_position` ORDER BY ts_ms DESC LIMIT 500 + active `vertex_vessel_voyage` |
+| `app.etzhayyim.apps.maps.aismarine.searchVessels` | read | prefix SELECT on `vertex_vessel.name` / MMSI / IMO |
+| `app.etzhayyim.apps.maps.aismarine.getVesselDensityTile` | read | `mv_vessel_density_h3_r6` filtered by H3 cells covering bbox |
 
 All four use `createKyselyDb(env.HYPERDRIVE)` (ADR-0036 read path). No PDS pipethrough.
 

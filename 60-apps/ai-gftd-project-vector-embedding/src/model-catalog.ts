@@ -1,4 +1,4 @@
-import { GFTD_MM_768_SPACE_ID, type Modality } from "./embedding-768.js";
+import { etzhayyim_MM_768_SPACE_ID, type Modality } from "./embedding-768.js";
 
 export type ProjectionKind =
   | "identity-768"
@@ -68,5 +68,5 @@ export function assertModelSupportsModality(model: EmbeddingModelSpec, modality:
 }
 
 export function embeddingSpaceId(): string {
-  return GFTD_MM_768_SPACE_ID;
+  return etzhayyim_MM_768_SPACE_ID;
 }

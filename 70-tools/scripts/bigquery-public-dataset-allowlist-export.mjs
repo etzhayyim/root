@@ -190,7 +190,7 @@ async function main() {
   };
 
   const manifest = {
-    schema: "ai.gftd.bigquery.public_dataset_allowlist.v1",
+    schema: "app.etzhayyim.bigquery.public_dataset_allowlist.v1",
     generated_at: generatedAt,
     provider: PROVIDER,
     notes: [

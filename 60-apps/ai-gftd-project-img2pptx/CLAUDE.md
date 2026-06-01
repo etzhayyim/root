@@ -23,18 +23,18 @@
 
 | NSID | description |
 |---|---|
-| `ai.gftd.apps.img2pptx.conversion` | 変換ジョブメタデータ (sourceBlake3, outputBlobRef, slideCount, shapeCount, status) |
-| `ai.gftd.apps.img2pptx.slide` | 生成スライド (slideIndex, shapes, imageBlobRef) |
+| `app.etzhayyim.apps.img2pptx.conversion` | 変換ジョブメタデータ (sourceBlake3, outputBlobRef, slideCount, shapeCount, status) |
+| `app.etzhayyim.apps.img2pptx.slide` | 生成スライド (slideIndex, shapes, imageBlobRef) |
 
 ## MCP Tools (AsAgentTool)
 
 | command NSID | MCP tool name | description |
 |---|---|---|
-| `ai.gftd.apps.img2pptx.convertImage` | `convertImage` | 画像 → .pptx 変換 (image shape + optional vector trace) |
-| `ai.gftd.apps.img2pptx.convertSvg` | `convertSvg` | SVG → PPTX DrawingML shape 変換 |
-| `ai.gftd.apps.img2pptx.createPresentation` | `createPresentation` | 複数画像 → multi-slide .pptx 生成 |
-| `ai.gftd.apps.img2pptx.listConversions` | `listConversions` | 変換履歴一覧 |
-| `ai.gftd.apps.img2pptx.getConversion` | `getConversion` | 変換結果の詳細取得 |
+| `app.etzhayyim.apps.img2pptx.convertImage` | `convertImage` | 画像 → .pptx 変換 (image shape + optional vector trace) |
+| `app.etzhayyim.apps.img2pptx.convertSvg` | `convertSvg` | SVG → PPTX DrawingML shape 変換 |
+| `app.etzhayyim.apps.img2pptx.createPresentation` | `createPresentation` | 複数画像 → multi-slide .pptx 生成 |
+| `app.etzhayyim.apps.img2pptx.listConversions` | `listConversions` | 変換履歴一覧 |
+| `app.etzhayyim.apps.img2pptx.getConversion` | `getConversion` | 変換結果の詳細取得 |
 
 ## PPTX Generation Strategy
 
@@ -61,13 +61,13 @@ Shape types:
 | Tier | action |
 |---|---|
 | Tier 1 Social | `app.bsky.feed.post` — "Generated: {title} ({slideCount} slides, {shapeCount} shapes)" |
-| Tier 2 Domain | `ai.gftd.apps.img2pptx.conversion` / `.slide` records |
+| Tier 2 Domain | `app.etzhayyim.apps.img2pptx.conversion` / `.slide` records |
 | Tier 3 State | conversion progress, per-user history (Preferences) |
 
 ## Reactive Pipeline
 
 `handleComAtprotoSyncSubscribeReposCommit`:
-- `ai.gftd.apps.img2pptx.conversion` create → track conversion status
+- `app.etzhayyim.apps.img2pptx.conversion` create → track conversion status
 
 ## Prohibited
 

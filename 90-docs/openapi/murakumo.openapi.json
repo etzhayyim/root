@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.murakumo.trainExperts": {
+    "/xrpc/app.etzhayyim.murakumo.trainExperts": {
       "post": {
-        "summary": "ai.gftd.murakumo.trainExperts",
-        "operationId": "ai.gftd.murakumo.trainExperts",
+        "summary": "app.etzhayyim.murakumo.trainExperts",
+        "operationId": "app.etzhayyim.murakumo.trainExperts",
         "requestBody": {
           "required": true,
           "content": {

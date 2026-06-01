@@ -45,7 +45,7 @@ did:web:houki.etzhayyim.com:rulebundle:{bundleId-slug}   — RuleBundle (future)
 | Vendor (`houki.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
-| `db.insertInto("vertex_houki_document").values({...}).execute()` | `e.write({ collection: "ai.gftd.houki.document", record, rkey })` |
+| `db.insertInto("vertex_houki_document").values({...}).execute()` | `e.write({ collection: "app.etzhayyim.houki.document", record, rkey })` |
 | `db.selectFrom("vertex_houki_document").where("doc_id","=",id).execute()` | `e.read({ collection, rkey: \`document-${idSlug(id)}\` })` |
 
 ## Usage

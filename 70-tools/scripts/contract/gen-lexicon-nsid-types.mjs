@@ -156,7 +156,7 @@ function generate() {
   permissionSet.sort();
 
   // LEXICON_NSID frozen record — keyed by the NSID string itself for zero cognitive overhead.
-  // Consumers write LEXICON_NSID["ai.gftd.apps.oshikatsu.tip"] and get compile-time verification.
+  // Consumers write LEXICON_NSID["app.etzhayyim.apps.oshikatsu.tip"] and get compile-time verification.
   const allXrpcNsids = [...new Set([...query, ...procedure])].sort();
 
   const lines = [];
@@ -195,7 +195,7 @@ function generate() {
   lines.push("");
   lines.push("// ── LEXICON_NSID frozen record ──");
   lines.push("// Typed string constants for auto-completion. Usage:");
-  lines.push("//   sdk.app.lexiconCommand(LEXICON_NSID[\"ai.gftd.apps.foo.bar\"], handler)");
+  lines.push("//   sdk.app.lexiconCommand(LEXICON_NSID[\"app.etzhayyim.apps.foo.bar\"], handler)");
   lines.push("// The key IS the value, so no cognitive transformation is needed.");
   lines.push("");
   lines.push("export const LEXICON_NSID = {");
@@ -208,7 +208,7 @@ function generate() {
   lines.push("");
   lines.push("// ── nsid() tagged helper ──");
   lines.push("// Enforces that the NSID exists at call site. Usage:");
-  lines.push("//   sdk.app.command(nsid(\"ai.gftd.apps.foo.bar\"), handler) // typo → compile error");
+  lines.push("//   sdk.app.command(nsid(\"app.etzhayyim.apps.foo.bar\"), handler) // typo → compile error");
   lines.push("");
   lines.push("export function nsid<N extends LexiconNsid>(n: N): N {");
   lines.push("\treturn n;");
@@ -217,9 +217,9 @@ function generate() {
   lines.push("// ── Per-NSID input / output type maps (F-Plan F2, 2026-04-13) ──");
   lines.push("// Handler can be declared as:");
   lines.push("//   async (ctx, body) => {");
-  lines.push("//     const input = decodeJson<LexiconInput<\"ai.gftd.apps.foo.bar\">>(body);");
+  lines.push("//     const input = decodeJson<LexiconInput<\"app.etzhayyim.apps.foo.bar\">>(body);");
   lines.push("//     ...");
-  lines.push("//     return {} as LexiconOutput<\"ai.gftd.apps.foo.bar\">;");
+  lines.push("//     return {} as LexiconOutput<\"app.etzhayyim.apps.foo.bar\">;");
   lines.push("//   }");
   lines.push("// eliminating manual schema duplication in handler bodies.");
   lines.push("");

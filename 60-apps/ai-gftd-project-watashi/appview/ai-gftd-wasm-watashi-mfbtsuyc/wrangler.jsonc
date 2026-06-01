@@ -17,12 +17,12 @@
     "APP_CAPABILITIES": "[\"peer-discovery\",\"screen-config\",\"clipboard-relay\"]",
     "APP_DESCRIPTION": "Cross-platform mouse/keyboard sharing — cursor ferry between screens",
     "APP_DISPLAY_NAME": "Watashi (渡し)",
-    "APP_EMBED_URL": "https://mfbtsuyc.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://mfbtsuyc.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "mfbtsuyc",
     "APP_PERFORMER_TYPE": "",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -34,8 +34,8 @@
   ],
   "routes": [
     {
-      "pattern": "mfbtsuyc.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "mfbtsuyc.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

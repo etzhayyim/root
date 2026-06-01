@@ -60,7 +60,27 @@ def _open_store(agent_did: str) -> Any | None:
             from pathlib import Path
 
             Path(env_dir).mkdir(parents=True, exist_ok=True)
-            store = AtIpfsLocalBeliefStore(db_path=f"{env_dir}/{_sanitize_did(agent_did)}.db")
+            # Publish callback (best-effort) sends each observation to the AT
+            # PDS so downstream mst-projector + ipfs-pinner + anchor-cron pick
+            # it up — making the record public + IPFS-content-addressed +
+            # L2-anchored per ADR-2605231400 yatachain composition. If the
+            # PDS endpoint env is unset (or auth fails / network error) the
+            # callback returns None and the store stays local-SQLite-only.
+            from pymagatama.unispsc_capabilities.pds_publish import (
+                make_publish_callback,
+            )
+
+            publish_cb = make_publish_callback()
+            store = AtIpfsLocalBeliefStore(
+                db_path=f"{env_dir}/{_sanitize_did(agent_did)}.db",
+                publish=publish_cb,
+            )
+            if publish_cb is not None:
+                LOG.info(
+                    "unispsc-capabilities: belief store armed with PDS publish "
+                    "(observations will be committed to AT + IPFS + L2 anchor "
+                    "pipeline downstream)"
+                )
         except Exception as e:  # noqa: BLE001
             LOG.warning(
                 "unispsc-capabilities: cannot open belief store at %s (%s); disabling",
@@ -106,8 +126,18 @@ def _record_observation(
     from pymagatama.primitives.active_inference_substrate import ObservationRecord
 
     log_tail = (result.get("log") or [])[-5:]
+    # Store the user-meaningful inner input (`payload["input"]`), not the
+    # whole wire-level payload (which contains wrapper-injected fields like
+    # `_prior_observations` / `_prior_consensus`). This keeps prior_input
+    # shape identical to current_input so the loose-match in
+    # `_compute_prior_consensus` actually finds matches.
+    inner_input = (
+        input_payload.get("input")
+        if isinstance(input_payload, dict) and "input" in input_payload
+        else input_payload
+    )
     obs_payload = {
-        "input": input_payload,
+        "input": inner_input,
         "log_tail": log_tail,
         "result": result.get("result"),
         "elapsed_ms": elapsed_ms,
@@ -129,6 +159,81 @@ def _record_observation(
         return None
 
 
+def _compute_prior_consensus(
+    priors: list[dict[str, Any]],
+    current_input: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Aggregate prior observations into a learning signal the inner graph
+    can optionally consult.
+
+    Returns a dict with:
+      - `outcome_count`: total priors with a non-null `result.status` field
+      - `dominant_status`: the most frequent prior `result.status` (or None)
+      - `dominant_count`: how many priors carried the dominant status
+      - `confidence_permille`: dominant_count / outcome_count * 1000 (0-1000)
+      - `input_matches`: subset of priors whose `input` field matches
+        `current_input` on at least one key/value pair (loose-match)
+      - `input_match_count`: len(input_matches)
+
+    Cells can read `_prior_consensus` from their State (TypedDict extra fields
+    are kept by LangGraph during execution) to short-circuit, boost
+    confidence, or branch on prior-informed routing — purely opt-in.
+    """
+    from collections import Counter
+
+    if not priors:
+        return {
+            "outcome_count": 0,
+            "dominant_status": None,
+            "dominant_count": 0,
+            "confidence_permille": 0,
+            "input_match_count": 0,
+        }
+
+    statuses: list[str] = []
+    for p in priors:
+        payload = p.get("payload") or {}
+        result = (payload.get("result") or {}) if isinstance(payload.get("result"), dict) else {}
+        status = result.get("status")
+        if isinstance(status, str):
+            statuses.append(status)
+
+    if not statuses:
+        return {
+            "outcome_count": 0,
+            "dominant_status": None,
+            "dominant_count": 0,
+            "confidence_permille": 0,
+            "input_match_count": 0,
+        }
+
+    counter = Counter(statuses)
+    dominant_status, dominant_count = counter.most_common(1)[0]
+    outcome_count = len(statuses)
+    confidence = int((dominant_count * 1000) // outcome_count)
+
+    # Loose input match — at least one (key, value) pair from current_input
+    # matches the prior's recorded input.
+    input_match_count = 0
+    if isinstance(current_input, dict) and current_input:
+        for p in priors:
+            prior_input = ((p.get("payload") or {}).get("input") or {})
+            if not isinstance(prior_input, dict):
+                continue
+            for k, v in current_input.items():
+                if k in prior_input and prior_input[k] == v:
+                    input_match_count += 1
+                    break
+
+    return {
+        "outcome_count": outcome_count,
+        "dominant_status": dominant_status,
+        "dominant_count": dominant_count,
+        "confidence_permille": confidence,
+        "input_match_count": input_match_count,
+    }
+
+
 async def invoke_with_capability(
     code: str,
     graph: Any,
@@ -138,8 +243,9 @@ async def invoke_with_capability(
     prior_limit: int = 5,
 ) -> dict[str, Any]:
     """Run perceive → inner-graph → record. Augments response with
-    `_observation_uri` and `_prior_count`. Belief-store failures degrade
-    to pass-through.
+    `_observation_uri`, `_prior_count`, and `_prior_consensus` (learning
+    signal aggregated from past observations). Belief-store failures
+    degrade to pass-through.
     """
     import asyncio
     import time
@@ -152,7 +258,17 @@ async def invoke_with_capability(
     if store is not None:
         prior = _read_prior(store, agent_did, prior_limit)
 
-    inner_payload = {**payload, "_prior_observations": prior} if prior else payload
+    # Compute the learning signal (dominant past outcome + confidence) so
+    # the inner graph can opt-in to prior-informed routing via the
+    # `_prior_consensus` State field. Cells that ignore it run exactly as
+    # they would without Stage D wrapping.
+    consensus = _compute_prior_consensus(prior, payload.get("input") if isinstance(payload, dict) else None)
+
+    inner_payload = (
+        {**payload, "_prior_observations": prior, "_prior_consensus": consensus}
+        if prior
+        else {**payload, "_prior_consensus": consensus} if isinstance(payload, dict) else payload
+    )
 
     result = await asyncio.wait_for(graph.ainvoke(inner_payload), timeout=timeout_s)
 
@@ -170,6 +286,7 @@ async def invoke_with_capability(
     if isinstance(result, dict):
         result.setdefault("_observation_uri", observation_uri)
         result.setdefault("_prior_count", len(prior))
+        result.setdefault("_prior_consensus", consensus)
     return result
 
 

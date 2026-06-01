@@ -16,13 +16,13 @@ known operational gotchas before they bite during a live rollout.
 
 ## Prerequisites
 
-- 1Password: signed in (`op signin`); Vault `Gftd Japan株式会社` reachable.
+- 1Password: signed in (`op signin`); Vault `etzhayyim Japan株式会社` reachable.
 - macOS Keychain: `gftd.rw / KAISYA_URL` present (read-only RW); root
   URL pulled from 1Password by the schema loader.
 - kubectl context: Vultr VKE `a61d513b-…` (lax). Verify with
   `kubectl get nodes -o wide` — should list `risingwave-pool-58gb-*` plus
   pool members for `mitama-udf`.
-- Wrangler: `npx wrangler whoami` returns the Gftd CF account.
+- Wrangler: `npx wrangler whoami` returns the etzhayyim CF account.
 - ghcr: `gh auth token | docker login ghcr.io -u $(gh api user -q .login) --password-stdin`.
 - Repo at the head with the Phase 5c commit (`a59a22265a4`) or later.
 
@@ -122,7 +122,7 @@ kubectl -n mitama-udf exec "$POD" -- curl -sS http://localhost:8081/healthz
 kubectl -n mitama-udf exec "$POD" -- curl -sS http://localhost:8081/readyz
 # subscribeBriefs handler — must emit `event: ready` within 6s.
 kubectl -n mitama-udf exec "$POD" -- timeout 8 curl -sS -N \
-  'http://localhost:8081/xrpc/ai.gftd.apps.ameno.subscribeBriefs?maxEvents=1&idleTimeoutSec=6' \
+  'http://localhost:8081/xrpc/app.etzhayyim.apps.ameno.subscribeBriefs?maxEvents=1&idleTimeoutSec=6' \
   -H 'accept: text/event-stream' | head -5
 ```
 
@@ -145,7 +145,7 @@ helm -n mitama-udf upgrade --reuse-values bpmn-dispatcher \
 kubectl -n mitama-udf rollout status deploy/bpmn-dispatcher --timeout=120s
 
 # Sanity: dispatcher must route ameno saveResult to the langserver.
-curl -sS https://dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.ameno.listHistory \
+curl -sS https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.ameno.listHistory \
   --get --data-urlencode 'actorDid=did:web:ameno-smoke.etzhayyim.com' \
   --data-urlencode 'limit=1' | head -200
 ```
@@ -166,7 +166,7 @@ cd -
 
 # Confirm one routed NSID is live before continuing.
 curl -sS -o /dev/null -w '%{http_code}\n' \
-  https://atproto.etzhayyim.com/xrpc/ai.gftd.apps.ameno.cardHome
+  https://atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.ameno.cardHome
 ```
 
 `cardHome` is local-only on the ameno worker, so it should return 200

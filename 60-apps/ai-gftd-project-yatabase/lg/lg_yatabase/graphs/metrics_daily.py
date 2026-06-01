@@ -254,7 +254,7 @@ async def report(state: MetricsDailyState) -> MetricsDailyState:
             "metrics-daily-report",
             f"yatabase Metrics Daily {run_date}",
             summary,
-            "jun@gftd.group",
+            "jun@etzhayyim.com",
             "queued-no-recipient",
             datetime.now(timezone.utc),
         )

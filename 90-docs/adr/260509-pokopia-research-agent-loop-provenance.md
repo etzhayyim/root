@@ -3,6 +3,7 @@ id: adr-260509-pokopia-research-agent-loop-provenance
 title: Pokopia Research Agent Loop Provenance
 status: active
 doc_type: adr
+topic: pokopia-research-agent-loop-provenance
 date: 2026-05-09
 implemented_date: 2026-05-16
 ---
@@ -344,7 +345,7 @@ Supersteps:
 The 2026-05-09 run saved:
 
 - item vertex: `did:gftd:gameitem:pokemon-pokopia:chigo-berry`
-- document: `at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/pokemon-pokopia-chigo-berry`
+- document: `at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-chigo-berry`
 - chunks:
   - acquisition/location
   - farming/restoration

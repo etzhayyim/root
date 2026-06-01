@@ -40,7 +40,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = fs.readFileSync(path.resolve(repoRoot, sourcePath), "utf-8");
   const byteSize = Buffer.byteLength(xml, "utf8");
   const vertexId =
-    "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1";
+    "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1";
 
   await sql`
     INSERT INTO vertex_bpmn_process_def
@@ -71,6 +71,6 @@ export async function down(db: Kysely<unknown>): Promise<void> {
   }
   await sql`
     DELETE FROM vertex_bpmn_process_def
-    WHERE vertex_id = 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1'
+    WHERE vertex_id = 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1'
   `.execute(db);
 }

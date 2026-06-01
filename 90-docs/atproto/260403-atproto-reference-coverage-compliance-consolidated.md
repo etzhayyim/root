@@ -65,7 +65,7 @@ Namespace 別の詳細列挙は、実装コード生成/検証の入力と同期
 
 - Write authority: `com.atproto.repo.*` (PDS)
 - Sync/firehose: `com.atproto.sync.*` (PDS)
-- Domain query: `ai.gftd.apps.*` service proxy 経由
+- Domain query: `app.etzhayyim.apps.*` service proxy 経由
 
 ## Superseded Docs
 

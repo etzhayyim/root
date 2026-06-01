@@ -26,7 +26,7 @@ class TargetFormat(str, enum.Enum):
 
 
 class GenerateInput(BaseModel):
-    """Body of `ai.gftd.apps.voxelforge.generate` (Pydantic-validated).
+    """Body of `app.etzhayyim.apps.voxelforge.generate` (Pydantic-validated).
 
     The CF Worker forwards the parsed JSON body verbatim; this model is
     the canonical wire-format contract.

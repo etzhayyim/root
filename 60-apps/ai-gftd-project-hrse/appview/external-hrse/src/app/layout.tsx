@@ -22,13 +22,13 @@ const AuthDebugPanel = dynamicImport(
 );
 
 export const metadata: Metadata = {
-	title: "Gftd HRSE",
+	title: "etzhayyim HRSE",
 	description:
 		"サイバーセキュリティ特化型フリーランスマッチングプラットフォーム",
 	appleWebApp: {
 		capable: true,
 		statusBarStyle: "default",
-		title: "Gftd HRSE",
+		title: "etzhayyim HRSE",
 	},
 	formatDetection: {
 		telephone: false,

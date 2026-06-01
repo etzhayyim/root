@@ -31,7 +31,7 @@
 - ヘルスチェック: `/healthz`, `/readyz`
 - 認証コンテキスト:
   - `Authorization: Bearer <JWT>` (payload の `org_id`, `user_id` 利用)
-  - または `X-GFTD-ORG-ID`, `X-GFTD-USER-ID`
+  - または `X-etzhayyim-ORG-ID`, `X-etzhayyim-USER-ID`
 
 ## magatama runtime 配備
 

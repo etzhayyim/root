@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-research-topic-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-research-topic-v1',
                  'did:web:lifehack.etzhayyim.com',
                  'lifehack_research_topic',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -117,7 +117,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.lifehack.researchTopic&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.lifehack.researchTopic&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;topicCount&quot;: count(topicIds), '
                  '&quot;insertedCount&quot;: insertedCount }" target="attributes"/>\n'
@@ -141,7 +141,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-research-topic-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-research-topic-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -149,7 +149,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-daily-dust-post-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-daily-dust-post-v1',
                  'did:web:lifehack.etzhayyim.com',
                  'lifehack_daily_dust_post',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -168,7 +168,7 @@ UP = [{'sql': '\n'
                  '    7. generic.audit.emit              OCEL trail\n'
                  '\n'
                  '  Cron: 0 0 0 * * ?  (00:00 UTC = 09:00 JST). Manual override: XRPC\n'
-                 '  ai.gftd.apps.lifehack.dailyDustPost.\n'
+                 '  app.etzhayyim.apps.lifehack.dailyDustPost.\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -182,7 +182,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.lifehack.dailyDustPost", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.lifehack.dailyDustPost", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -302,7 +302,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.lifehack.dailyDustPost&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.lifehack.dailyDustPost&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;tipId&quot;: tipId, &quot;topicId&quot;: '
                  'topicId, &quot;bskyUri&quot;: bskyUri }" target="attributes"/>\n'
@@ -322,7 +322,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.lifehack.dailyDustPost.skip&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.lifehack.dailyDustPost.skip&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;topicId&quot;: topicId }" '
                  'target="attributes"/>\n'
@@ -348,7 +348,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-daily-dust-post-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-daily-dust-post-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -356,7 +356,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-static-alert-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-static-alert-v1',
                  'did:web:lifehack.etzhayyim.com',
                  'lifehack_static_alert',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -466,7 +466,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.lifehack.staticAlert&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.lifehack.staticAlert&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;riskCellCount&quot;: riskCellCount, '
                  '&quot;minHumidity&quot;: minHumidity, &quot;bskyUri&quot;: bskyUri }" '
@@ -487,7 +487,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.lifehack.staticAlert.noop&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.lifehack.staticAlert.noop&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;avgHumidity&quot;: avgHumidity }" '
                  'target="attributes"/>\n'
@@ -513,7 +513,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-static-alert-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-static-alert-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -521,12 +521,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-submit-tip-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-submit-tip-v1',
                  'did:web:lifehack.etzhayyim.com',
                  'lifehack_submit_tip',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  lifehack.etzhayyim.com — submitTip workflow (XRPC ai.gftd.apps.lifehack.submitTip).\n'
+                 '  lifehack.etzhayyim.com — submitTip workflow (XRPC app.etzhayyim.apps.lifehack.submitTip).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. lifehack.tip.validateAuthority   sourceUrl + sourceAuthority sanity\n'
@@ -546,7 +546,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.lifehack.submitTip", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.lifehack.submitTip", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -623,7 +623,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.lifehack.submitTip&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.lifehack.submitTip&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;tipId&quot;: tipId, '
                  '&quot;effectivenessScore&quot;: effectivenessScore }" target="attributes"/>\n'
@@ -647,7 +647,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-submit-tip-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-submit-tip-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -655,12 +655,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-recommend-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-recommend-v1',
                  'did:web:lifehack.etzhayyim.com',
                  'lifehack_recommend',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  lifehack.etzhayyim.com — recommend (XRPC ai.gftd.apps.lifehack.recommend).\n'
+                 '  lifehack.etzhayyim.com — recommend (XRPC app.etzhayyim.apps.lifehack.recommend).\n'
                  '\n'
                  '  Read-only synthesis: top tips for a topic, with attached product\n'
                  '  recommendations.  No DB write, no social post.\n'
@@ -677,7 +677,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.lifehack.recommend", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.lifehack.recommend", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -713,7 +713,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.lifehack.recommend&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.lifehack.recommend&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;topicId&quot;: topicId, '
                  '&quot;tipsReturned&quot;: count(tips) }" target="attributes"/>\n'
@@ -737,7 +737,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-recommend-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-recommend-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -745,12 +745,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-agent-loop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-agent-loop-v1',
                  'did:web:lifehack.etzhayyim.com',
                  'lifehack_agent_loop',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  lifehack.etzhayyim.com — agentLoop (XRPC ai.gftd.apps.lifehack.agentLoop).\n'
+                 '  lifehack.etzhayyim.com — agentLoop (XRPC app.etzhayyim.apps.lifehack.agentLoop).\n'
                  '\n'
                  '  Path F unified agent loop entry (ADR 260413). The pyzeebe handler\n'
                  '  lifehack.agent.chat:\n'
@@ -771,7 +771,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.lifehack.agentLoop", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.lifehack.agentLoop", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -807,7 +807,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.lifehack.agentLoop&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.lifehack.agentLoop&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;model&quot;: model, '
                  '&quot;latencyMs&quot;: latencyMs, &quot;topicsUsed&quot;: topicsUsed, '
@@ -832,7 +832,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-agent-loop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-agent-loop-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -840,13 +840,13 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-submit-environment-reading-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-submit-environment-reading-v1',
                  'did:web:lifehack.etzhayyim.com',
                  'lifehack_submit_environment_reading',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  lifehack.etzhayyim.com — submitEnvironmentReading\n'
-                 '  (XRPC ai.gftd.apps.lifehack.submitEnvironmentReading).\n'
+                 '  (XRPC app.etzhayyim.apps.lifehack.submitEnvironmentReading).\n'
                  '\n'
                  '  Single-step persist into vertex_lifehack_environment_reading.  Feeds\n'
                  '  mv_lifehack_static_risk_now → staticAlert BPMN.\n'
@@ -863,7 +863,7 @@ UP = [{'sql': '\n'
                  'environment reading" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.lifehack.submitEnvironmentReading", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.lifehack.submitEnvironmentReading", "version": 1, '
                  '"resultTimeoutMs": 15000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -901,7 +901,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.lifehack.submitEnvironmentReading&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.lifehack.submitEnvironmentReading&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;readingId&quot;: readingId, '
                  '&quot;staticRisk&quot;: staticRisk }" target="attributes"/>\n'
@@ -925,7 +925,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-submit-environment-reading-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-submit-environment-reading-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -933,12 +933,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-coverage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-coverage-v1',
                  'did:web:lifehack.etzhayyim.com',
                  'lifehack_coverage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  lifehack.etzhayyim.com — coverage (XRPC ai.gftd.apps.lifehack.coverage).\n'
+                 '  lifehack.etzhayyim.com — coverage (XRPC app.etzhayyim.apps.lifehack.coverage).\n'
                  '\n'
                  '  Read-only single-task snapshot. Used by soak monitors / dashboard.\n'
                  '-->\n'
@@ -954,7 +954,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.lifehack.coverage", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.lifehack.coverage", "version": 1, '
                  '"resultTimeoutMs": 15000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -995,7 +995,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-coverage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-coverage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1003,16 +1003,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-dailyDustPost-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-dailyDustPost-v1',
                  'did:web:lifehack.etzhayyim.com',
-                 'ai.gftd.apps.lifehack.dailyDustPost',
+                 'app.etzhayyim.apps.lifehack.dailyDustPost',
                  'lifehack_daily_dust_post',
                  60000,
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-dailyDustPost-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-dailyDustPost-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1020,16 +1020,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-submitTip-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-submitTip-v1',
                  'did:web:lifehack.etzhayyim.com',
-                 'ai.gftd.apps.lifehack.submitTip',
+                 'app.etzhayyim.apps.lifehack.submitTip',
                  'lifehack_submit_tip',
                  60000,
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-submitTip-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-submitTip-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1037,16 +1037,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-recommend-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-recommend-v1',
                  'did:web:lifehack.etzhayyim.com',
-                 'ai.gftd.apps.lifehack.recommend',
+                 'app.etzhayyim.apps.lifehack.recommend',
                  'lifehack_recommend',
                  30000,
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-recommend-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-recommend-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1054,16 +1054,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-agentLoop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-agentLoop-v1',
                  'did:web:lifehack.etzhayyim.com',
-                 'ai.gftd.apps.lifehack.agentLoop',
+                 'app.etzhayyim.apps.lifehack.agentLoop',
                  'lifehack_agent_loop',
                  60000,
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-agentLoop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-agentLoop-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1071,16 +1071,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1',
                  'did:web:lifehack.etzhayyim.com',
-                 'ai.gftd.apps.lifehack.submitEnvironmentReading',
+                 'app.etzhayyim.apps.lifehack.submitEnvironmentReading',
                  'lifehack_submit_environment_reading',
                  15000,
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1088,45 +1088,45 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-coverage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-coverage-v1',
                  'did:web:lifehack.etzhayyim.com',
-                 'ai.gftd.apps.lifehack.coverage',
+                 'app.etzhayyim.apps.lifehack.coverage',
                  'lifehack_coverage',
                  15000,
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.bpmn.seed.lifehack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-coverage-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-coverage-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-dailyDustPost-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-dailyDustPost-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-submitTip-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-submitTip-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-recommend-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-recommend-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-agentLoop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-agentLoop-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lifehack-coverage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-coverage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-research-topic-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-research-topic-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-daily-dust-post-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-daily-dust-post-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-static-alert-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-static-alert-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-submit-tip-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-submit-tip-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-recommend-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-recommend-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-agent-loop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-agent-loop-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-submit-environment-reading-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-submit-environment-reading-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lifehack-coverage-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-coverage-v1']}]
 
 
 def upgrade() -> None:

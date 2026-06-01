@@ -212,7 +212,7 @@ async def call_gemma4_ocr(
         "max_tokens": 4000,
     }
     headers = {"Content-Type": "application/json", "x-magatama-verified": "true"}
-    token = os.environ.get("LLM_GFTD_BEARER", "")
+    token = os.environ.get("LLM_etzhayyim_BEARER", "")
     if token:
         headers["Authorization"] = f"Bearer {token}"
     async with httpx.AsyncClient(timeout=180, follow_redirects=True) as client:

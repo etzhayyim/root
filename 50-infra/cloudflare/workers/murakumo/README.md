@@ -8,7 +8,7 @@ This worker MUST use `@etzhayyim/sdk` as the only durable-state client. Prohibit
 
 - `@atproto/api` (use `@etzhayyim/sdk` PDS verbs)
 - `viem` (use `@etzhayyim/sdk` L2 verbs)
-- `kysely`, `@gftd/magatama-host-sdk`, anything `risingwave` / `hyperdrive` flavored
+- `kysely`, `@etzhayyim/magatama-host-sdk`, anything `risingwave` / `hyperdrive` flavored
 
 No HYPERDRIVE binding in `wrangler.jsonc`.
 
@@ -43,7 +43,7 @@ The job state machine is event-sourced. Reading a job: `getRecord(inferenceJob, 
 | GET | `/v1/jobs` | required | Recent jobs |
 | POST | `/v1/jobs` | required | Enqueue async job |
 | GET | `/v1/jobs/:id` | required | Poll job status |
-| POST | `/xrpc/ai.gftd.apps.murakumo.cronTick` | none | Zeebe cron tick → fleet health refresh |
+| POST | `/xrpc/app.etzhayyim.apps.murakumo.cronTick` | none | Zeebe cron tick → fleet health refresh |
 | GET | `/internal/capacity` | none | Capacity summary |
 
 ## Auth tiers

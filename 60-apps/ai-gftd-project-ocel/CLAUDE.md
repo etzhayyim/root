@@ -6,11 +6,11 @@ performerType: `system` (observability infrastructure)
 
 ## Runtime
 
-**TS Native + `@gftd/magatama-host-sdk`**。Single-file: `wasm/ocel-core-component/src/app.ts`。
+**TS Native + `@etzhayyim/magatama-host-sdk`**。Single-file: `wasm/ocel-core-component/src/app.ts`。
 
 | 項目 | 値 |
 |---|---|
-| Language | TS Native (`@gftd/magatama-host-sdk`) |
+| Language | TS Native (`@etzhayyim/magatama-host-sdk`) |
 | Architecture | **wRPC stream-native reactive** (Design E) |
 | UI mode | `appview` (Protocol Canvas card) |
 | Input | `ComAtprotoSyncSubscribeRepos` — PDS commit stream (profile/auth/deploy/social events) |
@@ -47,9 +47,9 @@ performerType: `system` (observability infrastructure)
 
 | Kind | AT Lexicon NSID | Description |
 |---|---|---|
-| `ocel_event` | `ai.gftd.apps.ocel.event` | OCEL v2 event record |
-| `ocel_object_type` | `ai.gftd.apps.ocel.object_type` | Object type definition |
-| `ocel_process_model` | `ai.gftd.apps.ocel.process_model` | DFG + variant model |
+| `ocel_event` | `app.etzhayyim.apps.ocel.event` | OCEL v2 event record |
+| `ocel_object_type` | `app.etzhayyim.apps.ocel.object_type` | Object type definition |
+| `ocel_process_model` | `app.etzhayyim.apps.ocel.process_model` | DFG + variant model |
 
 ## Process Mining Algorithms `[DESIGN]`
 
@@ -85,8 +85,8 @@ yoro.etzhayyim.com `/activities` consumes `OcelEvent` graph label alongside Blue
 
 | XRPC (yoro side) | Source from OCEL |
 |---|---|
-| `ai.gftd.yoro.activity.listActivities` | `OcelEvent` label → `deploy:*`, `record:*`, `profile:*`, `auth:*` activities |
-| `ai.gftd.yoro.activity.getActivityTrace` | `OcelEvent` label filtered by objectType + objectId |
+| `app.etzhayyim.yoro.activity.listActivities` | `OcelEvent` label → `deploy:*`, `record:*`, `profile:*`, `auth:*` activities |
+| `app.etzhayyim.yoro.activity.getActivityTrace` | `OcelEvent` label filtered by objectType + objectId |
 
 ## SQL Process Mining Queries `[DESIGN]`
 

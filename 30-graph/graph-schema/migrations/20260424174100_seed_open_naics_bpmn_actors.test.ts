@@ -25,8 +25,8 @@ describe("Seed open-naics BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_naics_record_concordance"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openNaics.classifyEntity"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openNaics.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openNaics.classifyEntity"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openNaics.recordConcordance"');
   });
   it("uses open-naics-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-naics');

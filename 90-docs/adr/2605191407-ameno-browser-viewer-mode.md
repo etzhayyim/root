@@ -7,13 +7,13 @@ topic: ameno-viewer-mode
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191000-ameno-browser-pregel-reflection.md
-  - 2605191229-ameno-daemon-path-a-bun-langgraph.md
-  - 2605191257-ameno-daemon-path-b-pymagatama-python.md
-  - 2605191135-ameno-tier2-daemon-residency.md
+  - 2605191000-ameno-browser-pregel-reflection
+  - 2605191229-ameno-daemon-path-a-bun-langgraph
+  - 2605191257-ameno-daemon-path-b-pymagatama-python
+  - 2605191135-ameno-tier2-daemon-residency
 related:
-  - 2605190824-ameno-mediapipe-llm-browser-runtime.md
-  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
+V05190824-ameno-mediapipe-llm-browser-runtime
+V05191346-etzhayyim-vultr-free-murakumo-control-plane
 ---
 
 # ADR 2605191407: Ameno browser viewer mode — svelte appview as thin client over daemon SSE

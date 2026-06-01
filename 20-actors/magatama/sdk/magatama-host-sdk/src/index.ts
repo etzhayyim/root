@@ -1,4 +1,4 @@
-// index.ts — Main entry point for @gftd/magatama-host-sdk.
+// index.ts — Main entry point for @etzhayyim/magatama-host-sdk.
 //
 // TS Native + Lexicon Contract runtime.
 // Routing: Hono default SmartRouter (RegExpRouter + TrieRouter).
@@ -35,7 +35,7 @@ export interface HostSDKConfig {
   hostOverrides?: Partial<HostImports>;
   /**
    * ADR-0042: opt-in MCP + OpenAPI tool facade. Per-actor `src/app.ts` imports
-   * its generated manifest from `@gftd/magatama-host-sdk/generated/tool-manifest/<app>`
+   * its generated manifest from `@etzhayyim/magatama-host-sdk/generated/tool-manifest/<app>`
    * and passes it here. When omitted, `/mcp` and `/.well-known/openapi.json`
    * are not registered (no bundle cost, no behaviour change).
    */
@@ -171,7 +171,7 @@ export function createHostSDK(config: HostSDKConfig): HostSDK {
     : baseImports;
 
   // Wire the Lexicon-typed host client to this SDK's host implementation.
-  // App code can import typed ai.gftd.host.* helpers and they resolve in-process
+  // App code can import typed app.etzhayyim.host.* helpers and they resolve in-process
   // through the dispatcher instead of going over HTTP.
   //
   // Optional host capabilities (e.g. m365) auto-construct from env vars when all
@@ -470,8 +470,8 @@ export type { HeartbeatCadence, CadenceState, JouchoScores, InboxBuffer, Inbound
 export { DEFAULT_CHARACTER_DEF, buildCharacterExtractionPrompt, buildCharacterPreviewScene } from "./kami-character-maker.js";
 export type { CharacterDef, FaceShapeParams, EyeParams as CharEyeParams, NoseParams, MouthParams as CharMouthParams, BrowParams, SkinParams, HairPreset, HairParams as CharHairParams, ClothingPreset, ClothingParams, BodyParams as CharBodyParams } from "./kami-character-maker.js";
 
-// F-Plan 2026-04-13: Lexicon-typed host capability client (generated from ai.gftd.host.* lexicons).
-// Apps can `import { secretsGet, invokeCall, configGet, ... } from "@gftd/magatama-host-sdk"`
+// F-Plan 2026-04-13: Lexicon-typed host capability client (generated from app.etzhayyim.host.* lexicons).
+// Apps can `import { secretsGet, invokeCall, configGet, ... } from "@etzhayyim/magatama-host-sdk"`
 // instead of using the legacy `sdk.hostImports.*` pattern. The dispatcher is auto-wired by
 // createHostSDK() / createWorkerExport() — no manual setup needed.
 export {
@@ -487,10 +487,10 @@ export * as hostClient from "./generated/host-client.js";
 // input/output shapes without manual schema duplication.
 //
 // Usage:
-//   import { nsid, LEXICON_NSID, type LexiconInput, type LexiconOutput } from "@gftd/magatama-host-sdk";
-//   sdk.app.command(nsid("ai.gftd.apps.foo.bar"), async (ctx, body) => {
-//     const input = decodeJson<LexiconInput<"ai.gftd.apps.foo.bar">>(body, {} as any);
-//     const output: LexiconOutput<"ai.gftd.apps.foo.bar"> = { ok: true };
+//   import { nsid, LEXICON_NSID, type LexiconInput, type LexiconOutput } from "@etzhayyim/magatama-host-sdk";
+//   sdk.app.command(nsid("app.etzhayyim.apps.foo.bar"), async (ctx, body) => {
+//     const input = decodeJson<LexiconInput<"app.etzhayyim.apps.foo.bar">>(body, {} as any);
+//     const output: LexiconOutput<"app.etzhayyim.apps.foo.bar"> = { ok: true };
 //     return JSON.stringify(output);
 //   });
 export { LEXICON_NSID, nsid, LEXICON_INPUT_SCHEMA } from "./generated/lexicon-nsid-types.js";
@@ -504,12 +504,12 @@ export {
   isDidWeb,
   isDidPlc,
   isDidPkh,
-  isDidGftd,
-  didGftdDepth,
-  didGftdParent,
-  didGftdRoot,
-  assertDidGftdDepth,
-  assertDidPrincipalOrGftdDepth,
+  isDidetzhayyim,
+  didetzhayyimDepth,
+  didetzhayyimParent,
+  didetzhayyimRoot,
+  assertDidetzhayyimDepth,
+  assertDidPrincipalOretzhayyimDepth,
   DidParseError,
 } from "./did.js";
 export type { DidMethod, ParsedDid } from "./did.js";
@@ -700,7 +700,7 @@ export interface CapabilityContext {
  * stateless MCP tools. Actor DIDs are managed by PDS records and Hyperdrive-backed Kysely state.
  *
  * On first request, auto-registers tools in the Tool graph via
- * ai.gftd.tool.registerBatch XRPC.
+ * app.etzhayyim.tool.registerBatch XRPC.
  *
  * @example
  * ```typescript
@@ -746,7 +746,7 @@ export function createCapabilityWorker(config: {
             inputSchema: def.inputSchema ?? { type: "object" },
             tags: def.tags ?? [],
           }));
-          const regPromise = _sdk.pds.xrpc("ai.gftd.tool.registerBatch", {
+          const regPromise = _sdk.pds.xrpc("app.etzhayyim.tool.registerBatch", {
             capabilityWorker: nanoid,
             tools: toolDefs,
           }).catch((e: any) => console.warn(`[capability-worker] tool registration failed: ${e?.message ?? e}`));
@@ -781,7 +781,7 @@ export function createCapabilityWorker(config: {
         });
       }
 
-      // XRPC tool dispatch: /xrpc/ai.gftd.apps.{nanoid}.{method}
+      // XRPC tool dispatch: /xrpc/app.etzhayyim.apps.{nanoid}.{method}
       if (url.pathname.startsWith("/xrpc/")) {
         const nsid = url.pathname.slice(6);
         // Extract method name from NSID (last segment)
@@ -805,7 +805,7 @@ export function createCapabilityWorker(config: {
         const capCtx: CapabilityContext = {
           query: async (statement, params) => {
             if (!_sdk?.pds) return [];
-            const result = await _sdk.pds.xrpc("ai.gftd.kagami.sql", { statement, params });
+            const result = await _sdk.pds.xrpc("app.etzhayyim.kagami.sql", { statement, params });
             return Array.isArray(result) ? result : ((result as any)?.rows ?? []);
           },
           write: async (collection, record) => {
@@ -818,7 +818,7 @@ export function createCapabilityWorker(config: {
           },
           llm: async (messages, opts) => {
             if (!_sdk?.pds) throw new Error("PDS not available");
-            return _sdk.pds.xrpc("ai.gftd.llm.converse", { messages, ...opts }) as any;
+            return _sdk.pds.xrpc("app.etzhayyim.llm.converse", { messages, ...opts }) as any;
           },
           env,
         };

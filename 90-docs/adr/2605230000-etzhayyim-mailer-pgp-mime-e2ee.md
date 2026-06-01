@@ -16,7 +16,7 @@ authoritative_for:
   - pymagatama.ingest.mailer (PGP send path)
   - vertex_mailer_pgp_key (DB table)
 depends_on:
-  - adr-2605080300  # SQLAlchemy / Alembic migrations
+  - adr-2605080300-sqlalchemy-core-usage-contract  # SQLAlchemy / Alembic migrations
 related: []
 supersedes: []
 superseded_by: []

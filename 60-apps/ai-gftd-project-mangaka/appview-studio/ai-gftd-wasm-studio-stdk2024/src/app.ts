@@ -7,14 +7,14 @@
 //   POST /mcp                           — JSON-RPC 2.0 MCP server (5 tools)
 //   *                                   — Svelte SPA via ASSETS binding
 //
-// MCP tools (ai.gftd.apps.studio.*):
+// MCP tools (app.etzhayyim.apps.studio.*):
 //   listGraphs    — registered LangGraph graphs (proxy /assistants/search)
 //   getGraphDag   — nodes+edges for a graph (proxy /assistants/{}/graph)
 //   runGraph      — invoke graph, return collected stage updates + image previews
 //   mintApiKey    — sk_live_* via auth_mint_api_key Pregel (RW-side INSERT)
 //   restartStudio — kill self → k8s replicaSet respawns (graceful reload)
 //
-// Auth: CF Access (Zero Trust SSO, @gftd.co.jp / Microsoft Entra) gates the
+// Auth: CF Access (Zero Trust SSO, @etzhayyim.com / Microsoft Entra) gates the
 // entire studio.etzhayyim.com hostname. By the time we see a request, CF has
 // validated the user. We read Cf-Access-Authenticated-User-Email to attribute
 // MCP tool calls (passed into mintApiKey for owner_did derivation).

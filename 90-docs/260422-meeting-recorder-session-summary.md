@@ -1,6 +1,6 @@
 # meeting-recorder — 2026-04-22 セッション統合サマリ
 
-Gftd Japan の AI agent が user 代理で Microsoft Teams / Google Meet / Zoom meeting に参加し、音声・動画・transcript を記録する recorder actor の **設計 → 実装 → 検証** を 1 session で完了。次 session 引き継ぎ用。
+etzhayyim Japan の AI agent が user 代理で Microsoft Teams / Google Meet / Zoom meeting に参加し、音声・動画・transcript を記録する recorder actor の **設計 → 実装 → 検証** を 1 session で完了。次 session 引き継ぎ用。
 
 ## Final Status
 
@@ -45,7 +45,7 @@ Gftd Japan の AI agent が user 代理で Microsoft Teams / Google Meet / Zoom 
 |---|---|---|---|
 | did:web | ✅ | ✅ (Phase 4) | `/.well-known/did.json` or `/<path>/did.json` |
 | did:plc | ✅ | — | `https://plc.directory/{did}` (override: `DID_PLC_RESOLVER`) |
-| did:gftd (ADR-0029) | ✅ | ✅ | `https://did.etzhayyim.com/1.0/identifiers/{did}` (override: `DID_GFTD_RESOLVER`) |
+| did:gftd (ADR-0029) | ✅ | ✅ | `https://did.etzhayyim.com/1.0/identifiers/{did}` (override: `DID_etzhayyim_RESOLVER`) |
 
 ### Worker ↔ Container auth (ADR-0022 準拠)
 
@@ -73,7 +73,7 @@ a2d58dd364b feat: add contracts actor wiring and meeting recorder updates
 
 ## Verified (live smoke, wrangler dev + tsx container)
 
-### Consent gate (`POST /xrpc/ai.gftd.apps.meetingRecorder.joinMeeting`)
+### Consent gate (`POST /xrpc/app.etzhayyim.apps.meetingRecorder.joinMeeting`)
 
 | test | result |
 |---|---|
@@ -173,7 +173,7 @@ deps.toml
 
 ### Phase 4+ (security hardening)
 
-7. **Signal X25519 shared-secret bootstrap** (`transcript-pipeline.ts`): 現在は dev key fallback (sessionDid hash)。`ai.gftd.signal.getPrekeyBundle` + HKDF に置換、container が onBehalfOfDid の prekey を pull して session 限りの秘密を導出
+7. **Signal X25519 shared-secret bootstrap** (`transcript-pipeline.ts`): 現在は dev key fallback (sessionDid hash)。`app.etzhayyim.signal.getPrekeyBundle` + HKDF に置換、container が onBehalfOfDid の prekey を pull して session 限りの秘密を導出
 8. **did:gftd + did:plc multibase JWK 両対応** は完了 (Phase 4)。`did:key` method 対応は別 ADR で検討
 
 ## Smoke をもう一度流す手順 (mock-path, 次 session 用)

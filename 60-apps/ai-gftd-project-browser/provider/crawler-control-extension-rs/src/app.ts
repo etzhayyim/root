@@ -11,7 +11,7 @@ import {
   withCapabilityTags,
   withOCELEvent,
   resolveHeartbeatCadence, createCadenceState, createInboxBuffer, nowISO, str, llmAsk, type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
@@ -21,9 +21,9 @@ let appId = "";
 const writerDID = "";
 
 /** AT Protocol collection for crawler control scope records */
-const DOMAIN_COLLECTION = "ai.gftd.apps.crawler.controlScope";
+const DOMAIN_COLLECTION = "app.etzhayyim.apps.crawler.controlScope";
 /** AT Protocol collection for crawler control override events */
-const EVENT_COLLECTION = "ai.gftd.apps.crawler.controlOverride";
+const EVENT_COLLECTION = "app.etzhayyim.apps.crawler.controlOverride";
 
 // Layer 3: Shinka (Social Evolution) — joucho cadence
 const shinkaEnabled = true;

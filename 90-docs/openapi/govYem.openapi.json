@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govYem.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govYem.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Yemen government.",
-        "operationId": "ai.gftd.govYem.followSiteDeps",
+        "operationId": "app.etzhayyim.govYem.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govYem.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govYem.heartbeatTick": {
       "post": {
         "summary": "Run the Yemen government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govYem.heartbeatTick",
+        "operationId": "app.etzhayyim.govYem.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govYem.listOrgs": {
+    "/xrpc/app.etzhayyim.govYem.listOrgs": {
       "get": {
         "summary": "List Yemen government organization graph records.",
-        "operationId": "ai.gftd.govYem.listOrgs",
+        "operationId": "app.etzhayyim.govYem.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govYem.registerDIDs": {
+    "/xrpc/app.etzhayyim.govYem.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Yemen government organizations.",
-        "operationId": "ai.gftd.govYem.registerDIDs",
+        "operationId": "app.etzhayyim.govYem.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govYem.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govYem.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Yemen government organization path to its graph record.",
-        "operationId": "ai.gftd.govYem.resolveOrgPath",
+        "operationId": "app.etzhayyim.govYem.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govYem.seedOrgs": {
+    "/xrpc/app.etzhayyim.govYem.seedOrgs": {
       "post": {
         "summary": "Seed initial Yemen government organization records into the graph.",
-        "operationId": "ai.gftd.govYem.seedOrgs",
+        "operationId": "app.etzhayyim.govYem.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govYem.shinka": {
+    "/xrpc/app.etzhayyim.govYem.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Yemen government organization update.",
-        "operationId": "ai.gftd.govYem.shinka",
+        "operationId": "app.etzhayyim.govYem.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govYem.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govYem.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Yemen government organization changes to graph.",
-        "operationId": "ai.gftd.govYem.syncWetUpdates",
+        "operationId": "app.etzhayyim.govYem.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/owl-reasoner-batch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/owl-reasoner-batch-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'owl_reasoner_batch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -189,10 +189,10 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.owl-reasoner',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/owl-reasoner-batch-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/owl-reasoner-batch-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/owl-reasoner-batch-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/owl-reasoner-batch-v1']}]
 
 
 def upgrade() -> None:

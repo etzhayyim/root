@@ -32,9 +32,9 @@ import {
   type VulnSeverity,
 } from "./types.js";
 
-const COMPONENT_COLLECTION = "ai.gftd.apps.sbom.component";
-const VULN_MATCH_COLLECTION = "ai.gftd.apps.sbom.vulnMatch";
-const PATCH_POLICY_COLLECTION = "ai.gftd.apps.sbom.patchPolicy";
+const COMPONENT_COLLECTION = "app.etzhayyim.apps.sbom.component";
+const VULN_MATCH_COLLECTION = "app.etzhayyim.apps.sbom.vulnMatch";
+const PATCH_POLICY_COLLECTION = "app.etzhayyim.apps.sbom.patchPolicy";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

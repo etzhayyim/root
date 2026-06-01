@@ -56,7 +56,7 @@ def _now() -> str:
 
 def _vertex_id(source_id: str, canonical_uri: str) -> str:
     return (
-        f"at://{OWNER_DID}/ai.gftd.apps.legal-corpus.document/"
+        f"at://{OWNER_DID}/app.etzhayyim.apps.legal-corpus.document/"
         f"{source_id}:{canonical_uri}"
     )
 

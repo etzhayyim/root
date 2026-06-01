@@ -1,4 +1,4 @@
-"""Seed ai.gftd.tools.sql.exec generic write primitive (ADR-2605082000 §2)."""
+"""Seed app.etzhayyim.tools.sql.exec generic write primitive (ADR-2605082000 §2)."""
 from __future__ import annotations
 from pathlib import Path
 from alembic import op

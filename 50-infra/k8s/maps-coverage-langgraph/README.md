@@ -22,7 +22,7 @@
 CronJob (curl) → bpmn-dispatcher → legacy broker worker → batchCoverageCycle
 ```
 
-2026-05-10 17:59 UTC 以降、`ai.gftd.apps.maps.batchCoverageCycle` の lexicon binding が dispatcher cache から消えて 404。`maps-coverage-stats-ticker` も同様。
+2026-05-10 17:59 UTC 以降、`app.etzhayyim.apps.maps.batchCoverageCycle` の lexicon binding が dispatcher cache から消えて 404。`maps-coverage-stats-ticker` も同様。
 
 ## 新フロー
 

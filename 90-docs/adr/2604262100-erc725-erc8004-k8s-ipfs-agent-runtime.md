@@ -89,8 +89,8 @@ Persistence:
 
 | Contract                   | Standard shape                     | Role                                                                                              |
 | -------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `GftdRootIdentity`         | ERC725X/ERC725Y-compatible         | Root identity for actor/org/agent/account authority. Stores compact claim keys and pointers only. |
-| `GftdRootIdentityRegistry` | platform registry                  | Maps `rootDidHash` and facade DID hashes to ERC725 identity address.                              |
+| `etzhayyimRootIdentity`         | ERC725X/ERC725Y-compatible         | Root identity for actor/org/agent/account authority. Stores compact claim keys and pointers only. |
+| `etzhayyimRootIdentityRegistry` | platform registry                  | Maps `rootDidHash` and facade DID hashes to ERC725 identity address.                              |
 | `AgentIdentityRegistry`    | ERC-8004 identity registry shape   | ERC-721-style agent identity. `agentURI` points to IPFS registration JSON.                        |
 | `AgentValidationRegistry`  | ERC-8004 validation registry shape | Records validator, validation request hash, result hash, and validation CID.                      |
 | `AgentReputationRegistry`  | ERC-8004 reputation registry shape | Records reputation claims and aggregate roots. Detailed scoring lives offchain.                   |
@@ -162,7 +162,7 @@ schema and must not be used for new public actor registrations.
         "method": "oauth2-dpop",
         "issuer": "https://authn.etzhayyim.com",
         "resource": "https://agent.example.etzhayyim.com/mcp",
-        "scopes": ["ai.gftd.agent.invoke"]
+        "scopes": ["app.etzhayyim.agent.invoke"]
       }
     },
     {
@@ -327,8 +327,8 @@ schemas, k8s annotations, Cloudflare discovery documents, and `gftd` CLI.
 
 Implemented:
 
-- `GftdRootIdentity` and `GftdRootIdentityRegistry` deployed on chain `260425`.
-- `GftdAgentRegistry` deployed on chain `260425` at
+- `etzhayyimRootIdentity` and `etzhayyimRootIdentityRegistry` deployed on chain `260425`.
+- `etzhayyimAgentRegistry` deployed on chain `260425` at
   `0xcA3480edDAfa39c9377B83eEB18291286C8Cb865`.
 - Public schemas:
   - `00-contracts/schemas/agent-runtime-registration.schema.json`
@@ -344,12 +344,12 @@ Implemented:
   through the HMAC-protected Kubo API.
 - `gftd agent-runtime register`: derives `rootDidHash`, owner, and
   `metadataHash`, then dry-runs or submits
-  `GftdAgentRegistry.registerAgent(bytes32,address,string,bytes32)` through
+  `etzhayyimAgentRegistry.registerAgent(bytes32,address,string,bytes32)` through
   `cast send`.
 - `gftd agent-runtime publish-agent`: one-shot pipeline that renders the public
   k8s runtime manifest, publishes it to IPFS, renders the ERC-8004 agent
   registration JSON with the runtime CID, publishes that registration JSON to
-  IPFS, and optionally registers its `agentURI` on `GftdAgentRegistry`. It
+  IPFS, and optionally registers its `agentURI` on `etzhayyimAgentRegistry`. It
   defaults to dry-run, writes to IPFS with `--dry-run=false`, and only submits
   the chain transaction when `--submit-chain` is also set.
 - `.well-known` discovery from Cloudflare Workers advertises the
@@ -360,7 +360,7 @@ Updated 2026-04-27:
 - `did:web:yoro.etzhayyim.com` is linked as an AT facade for the canonical ERC725
   root DID
   `did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`.
-- `GftdRootIdentityRegistry` has the canonical `keccak256(utf8(rootDid))`
+- `etzhayyimRootIdentityRegistry` has the canonical `keccak256(utf8(rootDid))`
   registered for that root identity address, and the facade link points to
   that canonical root hash.
 - RisingWave projection sync is performed by
@@ -449,8 +449,8 @@ Runtime MCP calls use one of:
 | Auth method          | Use                                                           |
 | -------------------- | ------------------------------------------------------------- |
 | `oauth2-dpop`        | external MCP clients and user-facing tools                    |
-| `service-auth-es256` | internal GFTD service-to-service calls                        |
-| `cacao`              | portable delegated capability crossing GFTD boundary          |
+| `service-auth-es256` | internal etzhayyim service-to-service calls                        |
+| `cacao`              | portable delegated capability crossing etzhayyim boundary          |
 | `none`               | read-only public tools only, must be explicitly marked public |
 
 OAuth tokens remain offchain. ERC725 stores only subject hashes, linked method
@@ -501,7 +501,7 @@ Public trust is built from four layers:
 3. IPFS-pinned artifact and public runtime manifest CIDs.
 4. Runtime receipts and checkpoints in `ActorRuntimeRegistry`.
 
-## Relationship To Current GFTD Architecture
+## Relationship To Current etzhayyim Architecture
 
 This ADR does not replace the Shannon 8-layer architecture. It publishes it.
 
@@ -522,7 +522,7 @@ discovery and trust projection.
 
 ## Positive
 
-- GFTD gets a standards-aligned public agent discovery surface without moving
+- etzhayyim gets a standards-aligned public agent discovery surface without moving
   runtime execution into EVM.
 - ERC725 becomes the durable authority root for actor/org/agent identities.
 - MCP endpoint publication has a single public document, backed by onchain
@@ -561,7 +561,7 @@ discovery and trust projection.
 ## Olas-style service registry as primary runtime
 
 Rejected for now. Olas is close in spirit, but its Open Autonomy/Tendermint
-service model overlaps with the existing Zeebe orchestration layer. GFTD should
+service model overlaps with the existing Zeebe orchestration layer. etzhayyim should
 publish Zeebe/Python workers through ERC-8004 rather than adopting a second
 service lifecycle runtime.
 
@@ -585,9 +585,9 @@ pointers only.
 
 # Implementation Plan
 
-1. Done: define `GftdRootIdentity` ERC725 key schema and root identity registry.
+1. Done: define `etzhayyimRootIdentity` ERC725 key schema and root identity registry.
 2. Done: add ERC-8004-compatible identity/validation/reputation registry contracts
-   through `GftdAgentRegistry`.
+   through `etzhayyimAgentRegistry`.
 3. Done: add an `agent-runtime-registration` JSON schema and redacted k8s public
    manifest schema.
 4. Done for explicit CLI: add `gftd agent-runtime render|publish|publish-agent`

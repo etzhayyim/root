@@ -12,7 +12,7 @@
   async function refresh() {
     ui.loading = true;
     try {
-      ui.setResult(await callXrpc('ai.gftd.apps.kyber.dashboard', { period: periodYM() }));
+      ui.setResult(await callXrpc('app.etzhayyim.apps.kyber.dashboard', { period: periodYM() }));
     } finally {
       ui.loading = false;
     }
@@ -28,8 +28,8 @@
       <Badge value="AT Protocol" />
       <Badge value="Design E · 3-Tier Write" />
     </div>
-    <h2 class="text-xl font-semibold text-gftd-text">Corporate ERP Intelligence</h2>
-    <p class="text-sm text-gftd-secondary">
+    <h2 class="text-xl font-semibold text-etzhayyim-text">Corporate ERP Intelligence</h2>
+    <p class="text-sm text-etzhayyim-secondary">
       1 PDS gateway · 5 department DIDs · 18 XRPC commands · integrated with projector / calendar / drive / mailer.
     </p>
     <div class="mt-2">
@@ -48,11 +48,11 @@
               {t.short}
             </div>
             <div>
-              <h3 class="text-sm font-semibold text-gftd-text">{t.label}</h3>
-              <p class="text-xs text-gftd-muted">ai.gftd.apps.{t.id}.*</p>
+              <h3 class="text-sm font-semibold text-etzhayyim-text">{t.label}</h3>
+              <p class="text-xs text-etzhayyim-muted">app.etzhayyim.apps.{t.id}.*</p>
             </div>
           </div>
-          <p class="text-xs text-gftd-secondary leading-relaxed">{t.description}</p>
+          <p class="text-xs text-etzhayyim-secondary leading-relaxed">{t.description}</p>
           <div class="mt-auto">
             <Button size="sm" variant="outline" onclick={() => onSelect(t.id)}>Open</Button>
           </div>

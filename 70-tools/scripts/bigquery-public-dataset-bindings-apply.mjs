@@ -18,14 +18,14 @@
  *     "target_vertex_label": "vertex_air_quality_observation",
  *     "ingest_mode": "self_ingest",
  *     "scan_budget_tib": 0.1,
- *     "approved_by": "did:web:etzhayyim.com/jun@gftd.group",
+ *     "approved_by": "did:web:etzhayyim.com/jun@etzhayyim.com",
  *     "rationale": "EPA US-Public-Domain; partition_delta refresh" }
  *
  *   { "kind": "training_task",
  *     "dataset_id": "bigquery-public-data:epa_historical_air_quality",
  *     "training_task": "training.llm.text.curation",
  *     "license": "US-Public-Domain",
- *     "approved_by": "did:web:etzhayyim.com/jun@gftd.group",
+ *     "approved_by": "did:web:etzhayyim.com/jun@etzhayyim.com",
  *     "rationale": "License + PII clear; safe for text training" }
  *
  * Persistence: record-log semantics. Same `edge_id` re-INSERT = upsert.

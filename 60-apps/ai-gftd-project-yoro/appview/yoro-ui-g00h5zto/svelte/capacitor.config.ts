@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'ai.gftd.yoro',
+  appId: 'app.etzhayyim.yoro',
   appName: 'YORO',
   webDir: 'build',
   server: {

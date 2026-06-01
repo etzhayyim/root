@@ -20,9 +20,9 @@
       "@etzhayyim/design-system": ["./src/typecheck-shims/design-system.d.ts"],
       "@etzhayyim/design-system/audio": ["./src/typecheck-shims/design-system-audio.d.ts"],
       "@etzhayyim/design-system/motion": ["./src/typecheck-shims/design-system-motion.d.ts"],
-      "@gftd/ameno/inference": ["./src/typecheck-shims/ameno-inference.d.ts"],
-      "@gftd/ameno/lora-runtime": ["./src/typecheck-shims/ameno-lora-runtime.d.ts"],
-      "@gftd/ameno/rag-lora": ["./src/typecheck-shims/ameno-rag-lora.d.ts"],
+      "@etzhayyim/ameno/inference": ["./src/typecheck-shims/ameno-inference.d.ts"],
+      "@etzhayyim/ameno/lora-runtime": ["./src/typecheck-shims/ameno-lora-runtime.d.ts"],
+      "@etzhayyim/ameno/rag-lora": ["./src/typecheck-shims/ameno-rag-lora.d.ts"],
       "$lib/auth/passkey": ["./src/typecheck-shims/auth-passkey.d.ts"],
       "kysely": ["./src/typecheck-shims/kysely.d.ts"]
     }

@@ -168,20 +168,20 @@ consDID, _ := magatama.DIDCreate("conservation:ibis-reintroduction", map[string]
 
 ## W Protocol Lexicon (CRITICAL)
 
-**全 AT Record は `ai.gftd.apps.anima.*` namespace。** WIT = `gftd:anima@1.0.0` (`wit/anima/package.wit`)。
+**全 AT Record は `app.etzhayyim.apps.anima.*` namespace。** WIT = `gftd:anima@1.0.0` (`wit/anima/package.wit`)。
 
 | Kind (W Protocol) | AT Collection NSID | WIT Source | 説明 |
 |---|---|---|---|
-| `anima.species` | `ai.gftd.apps.anima.species` | `taxonomy` | 生物種 (分類学) |
-| `anima.breed` | `ai.gftd.apps.anima.breed` | `breed` | 品種 (ペット/家畜) |
-| `anima.cohort_animal` | `ai.gftd.apps.anima.cohort_animal` | `cohort` | **コホート動物** (統計的個体群、1 DID per cohort) |
-| `anima.individual_linkage` | `ai.gftd.apps.anima.individual_linkage` | `cohort` | 個体 identity linkage (Phase 2: microchip/pedigree → cohort) |
-| `anima.adoption` | `ai.gftd.apps.anima.adoption` | `cohort` | 譲渡記録 (cohort or individual) |
-| `anima.shelter` | `ai.gftd.apps.anima.shelter` | `shelter` | シェルター/保護施設 |
-| `anima.medical_event` | `ai.gftd.apps.anima.medical_event` | `veterinary` | 医療記録 (診察/手術/ワクチン) |
-| `anima.health_condition` | `ai.gftd.apps.anima.health_condition` | `veterinary` | 健康状態 (慢性疾患等) |
-| `anima.conservation_program` | `ai.gftd.apps.anima.conservation_program` | `conservation` | 保全プログラム |
-| `anima.observation` | `ai.gftd.apps.anima.observation` | `conservation` | 野生動物観察記録 |
+| `anima.species` | `app.etzhayyim.apps.anima.species` | `taxonomy` | 生物種 (分類学) |
+| `anima.breed` | `app.etzhayyim.apps.anima.breed` | `breed` | 品種 (ペット/家畜) |
+| `anima.cohort_animal` | `app.etzhayyim.apps.anima.cohort_animal` | `cohort` | **コホート動物** (統計的個体群、1 DID per cohort) |
+| `anima.individual_linkage` | `app.etzhayyim.apps.anima.individual_linkage` | `cohort` | 個体 identity linkage (Phase 2: microchip/pedigree → cohort) |
+| `anima.adoption` | `app.etzhayyim.apps.anima.adoption` | `cohort` | 譲渡記録 (cohort or individual) |
+| `anima.shelter` | `app.etzhayyim.apps.anima.shelter` | `shelter` | シェルター/保護施設 |
+| `anima.medical_event` | `app.etzhayyim.apps.anima.medical_event` | `veterinary` | 医療記録 (診察/手術/ワクチン) |
+| `anima.health_condition` | `app.etzhayyim.apps.anima.health_condition` | `veterinary` | 健康状態 (慢性疾患等) |
+| `anima.conservation_program` | `app.etzhayyim.apps.anima.conservation_program` | `conservation` | 保全プログラム |
+| `anima.observation` | `app.etzhayyim.apps.anima.observation` | `conservation` | 野生動物観察記録 |
 
 ## SQL Graph Schema
 

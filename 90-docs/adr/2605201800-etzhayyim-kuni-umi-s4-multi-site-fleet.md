@@ -25,8 +25,8 @@ depends_on:
   - adr-2605201500-etzhayyim-kuni-umi-s1-solo-survey
   - adr-2605201600-etzhayyim-kuni-umi-s2-community-microgrid
   - adr-2605201700-etzhayyim-kuni-umi-s3-multi-utility
-  - adr-2605182312-local-bring-up-murakumo-gemma4
-  - adr-2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - 2605182312-local-bring-up-murakumo-gemma4
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605192245-etzhayyim-global-land-sovereignty
@@ -152,7 +152,7 @@ def constitutional_filter(state: FleetRebalanceState) -> FleetRebalanceState:
 def emit_migration_proposals(state: FleetRebalanceState) -> FleetRebalanceState:
     for migration in state["pending_migrations"]:
         sdk.mst.write(
-            nsid="ai.gftd.apps.etzhayyim.kuniUmi.fleetMigrationProposal",  # NEW lexicon
+            nsid="app.etzhayyim.apps.etzhayyim.kuniUmi.fleetMigrationProposal",  # NEW lexicon
             record=migration.to_record(),
         )
     return state

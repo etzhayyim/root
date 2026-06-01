@@ -18,7 +18,7 @@ authoritative_for:
 depends_on:
   - adr-2605152100-etzhayyim-github-org-boundary
 related:
-  - adr-2604262145-erc725-facade-did
+  - adr-2604262145-erc8004-protocol-root-atproto-profile
   - adr-2604251830-shannon-optimal-layered-architecture
 supersedes: []
 superseded_by: []
@@ -50,7 +50,7 @@ through licensed or otherwise authorized telecom operators in each jurisdiction.
 Existing vendor-side telecom actors already include IMS/SIP concepts such as
 `establishVoiceCall` and `bridgeVoiceToInterconnect`. Those remain useful, but
 the open fabric needs a principal-owned protocol root in `etzhayyim/root` so it
-does not become a Gftd Japan proprietary carrier product by default.
+does not become a etzhayyim Japan proprietary carrier product by default.
 
 # Decision
 

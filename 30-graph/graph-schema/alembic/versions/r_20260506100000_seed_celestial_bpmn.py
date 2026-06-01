@@ -22,7 +22,7 @@ UP = [{'sql': '\n'
          '           1, $8, $9, $10\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1',
                  'did:web:maps.etzhayyim.com',
                  'maps_ingest_celestial_catalogs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -33,7 +33,7 @@ UP = [{'sql': '\n'
                  '    1. celestial.hyg.refresh — naked-eye stars (mag ≤ 6.5)\n'
                  '    2. celestial.ngc.refresh — galaxies / nebulae / clusters\n'
                  '\n'
-                 '  ai.gftd.apps.maps.ingestCelestialCatalogs.\n'
+                 '  app.etzhayyim.apps.maps.ingestCelestialCatalogs.\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -47,7 +47,7 @@ UP = [{'sql': '\n'
                  'catalogs" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.maps.ingestCelestialCatalogs", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.maps.ingestCelestialCatalogs", "version": 1, '
                  '"resultTimeoutMs": 1800000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -103,7 +103,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.maps.ingestCelestialCatalogs&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.maps.ingestCelestialCatalogs&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;hygIngested&quot;: hygIngested, '
                  '&quot;ngcIngested&quot;: ngcIngested, &quot;messierCount&quot;: messierCount }" '
@@ -127,7 +127,7 @@ UP = [{'sql': '\n'
                  'did:web:maps.etzhayyim.com',
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-celestial',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -139,9 +139,9 @@ UP = [{'sql': '\n'
          "           $8, $9, $10, $11, 'anon'\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1',
                  'did:web:maps.etzhayyim.com',
-                 'ai.gftd.apps.maps.ingestCelestialCatalogs',
+                 'app.etzhayyim.apps.maps.ingestCelestialCatalogs',
                  'maps_ingest_celestial_catalogs',
                  1800000,
                  'vertex_celestial_catalog,vertex_celestial_object',
@@ -150,12 +150,12 @@ UP = [{'sql': '\n'
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-celestial',
                  'did:web:maps.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1']}]
 
 
 def upgrade() -> None:

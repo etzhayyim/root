@@ -15,7 +15,7 @@ interface Env {
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "ai.gftd.ocel";
+const NSID_BASE = "app.etzhayyim.ocel";
 
 interface RouteConfig {
   method: "POST" | "GET";

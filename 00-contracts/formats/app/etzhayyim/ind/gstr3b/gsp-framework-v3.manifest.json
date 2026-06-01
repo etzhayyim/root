@@ -1,0 +1,23 @@
+{
+  "formatKey": "ind.gstr3b.gspFramework.v3",
+  "jurisdiction": "gstr3b",
+  "actorDid": "did:web:ind-union.etzhayyim.com:cbic:gstr3b",
+  "formatKind": "official_provider_framework",
+  "officialSourceUrl": "https://www.gstn.org.in/assets/mainDashboard/Pdf/GSP_Implementation_Framework_V_3.0.pdf",
+  "lastVerified": "2026-04-26",
+  "status": "provider_required",
+  "internalFormKeys": ["gstr3b-form-v1", "gstr3b-review-v1", "gstr3b-amend-v1"],
+  "fieldMap": [
+    { "internal": "applicant.gstin", "official": "GSTIN" },
+    { "internal": "taxPeriod", "official": "return period" },
+    { "internal": "supplies.*", "official": "GSTR-3B outward and inward supply sections" },
+    { "internal": "itc.*", "official": "GSTR-3B ITC section" },
+    { "internal": "taxPayment.*", "official": "GSTR-3B payment/ledger section" },
+    { "internal": "arn", "official": "Acknowledgement Reference Number" }
+  ],
+  "notes": [
+    "Detailed GSTR-3B API payload is provider/GSP contract material and must be supplied by the configured authorized_gsp adapter.",
+    "This manifest records the official GSP framework boundary and keeps etzhayyim provider-agnostic."
+  ],
+  "liveFilingGate": "ind.efiling.submit with providerKind=gsp_api or authorized_gsp"
+}

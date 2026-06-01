@@ -22,7 +22,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.lawfirmAdmin.createCase")
+    @worker.task(task_type="app.etzhayyim.apps.lawfirmAdmin.createCase")
     async def task_create_case(**kwargs):
         title = kwargs.get("title", "")
         client_id = kwargs.get("clientId", "")
@@ -50,7 +50,7 @@ async def run_worker():
 
         return {"caseId": case_id, "status": "open", "createdAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.lawfirmAdmin.updateCase")
+    @worker.task(task_type="app.etzhayyim.apps.lawfirmAdmin.updateCase")
     async def task_update_case(**kwargs):
         case_id = kwargs.get("caseId", "")
         status = kwargs.get("status", "")
@@ -69,7 +69,7 @@ async def run_worker():
 
         return {"caseId": case_id, "status": status, "updatedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.lawfirmAdmin.listCases")
+    @worker.task(task_type="app.etzhayyim.apps.lawfirmAdmin.listCases")
     async def task_list_cases(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -94,7 +94,7 @@ async def run_worker():
 
         return {"cases": [dict(r) for r in rows], "total": total or 0, "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.lawfirmAdmin.getCase")
+    @worker.task(task_type="app.etzhayyim.apps.lawfirmAdmin.getCase")
     async def task_get_case(**kwargs):
         case_id = kwargs.get("caseId", "")
 
@@ -111,7 +111,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.lawfirmAdmin.createClient")
+    @worker.task(task_type="app.etzhayyim.apps.lawfirmAdmin.createClient")
     async def task_create_client(**kwargs):
         name = kwargs.get("name", "")
         email = kwargs.get("email", "")
@@ -139,7 +139,7 @@ async def run_worker():
 
         return {"clientId": client_id, "status": "active", "createdAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.lawfirmAdmin.updateClient")
+    @worker.task(task_type="app.etzhayyim.apps.lawfirmAdmin.updateClient")
     async def task_update_client(**kwargs):
         client_id = kwargs.get("clientId", "")
         name = kwargs.get("name", "")
@@ -158,7 +158,7 @@ async def run_worker():
 
         return {"clientId": client_id, "updatedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.lawfirmAdmin.listClients")
+    @worker.task(task_type="app.etzhayyim.apps.lawfirmAdmin.listClients")
     async def task_list_clients(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -175,7 +175,7 @@ async def run_worker():
 
         return {"clients": [dict(r) for r in rows], "total": total or 0, "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.lawfirmAdmin.getClient")
+    @worker.task(task_type="app.etzhayyim.apps.lawfirmAdmin.getClient")
     async def task_get_client(**kwargs):
         client_id = kwargs.get("clientId", "")
 

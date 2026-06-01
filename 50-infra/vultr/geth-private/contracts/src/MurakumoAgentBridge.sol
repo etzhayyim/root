@@ -4,17 +4,17 @@ pragma solidity 0.8.23;
 /// @title MurakumoAgentBridge
 ///
 /// @notice Bidirectional binding between a `MurakumoRegistry` operator
-///         (`bytes32 operatorDid`) and a `GftdAgentRegistry` ERC-8004 token
+///         (`bytes32 operatorDid`) and a `etzhayyimAgentRegistry` ERC-8004 token
 ///         (`uint256 agentTokenId`). External agent-discovery callers
 ///         (LangGraph, OpenAI Apps SDK, Claude Desktop, A2A peers) can
 ///         resolve a single contract view to learn (a) the agent's IPFS
 ///         agentURI and (b) the inference operator's stake / endpoint, in
-///         one round trip — without per-system knowledge of GFTD's internal
+///         one round trip — without per-system knowledge of etzhayyim's internal
 ///         registry topology.
 ///
 /// @dev    Stateless bridge — no escrow, no slash. Authoritative state lives
 ///         in `MurakumoRegistry` (stake/endpoint/active) and
-///         `GftdAgentRegistry` (agentURI/owner/reputation). The bridge only
+///         `etzhayyimAgentRegistry` (agentURI/owner/reputation). The bridge only
 ///         joins them. ADR-2604271400.
 interface IMurakumoRegistry {
     struct Operator {
@@ -30,7 +30,7 @@ interface IMurakumoRegistry {
     function payoutAddressOf(bytes32 operatorDid) external view returns (address);
 }
 
-interface IGftdAgentRegistry {
+interface IetzhayyimAgentRegistry {
     struct Agent {
         uint256 tokenId;
         bytes32 rootDidHash;
@@ -49,7 +49,7 @@ interface IGftdAgentRegistry {
 
 contract MurakumoAgentBridge {
     IMurakumoRegistry public immutable murakumo;
-    IGftdAgentRegistry public immutable agents;
+    IetzhayyimAgentRegistry public immutable agents;
     address public owner;
 
     mapping(bytes32 operatorDid => uint256 agentTokenId) public agentByOperator;
@@ -72,7 +72,7 @@ contract MurakumoAgentBridge {
         _;
     }
 
-    constructor(IMurakumoRegistry murakumo_, IGftdAgentRegistry agents_, address owner_) {
+    constructor(IMurakumoRegistry murakumo_, IetzhayyimAgentRegistry agents_, address owner_) {
         murakumo = murakumo_;
         agents = agents_;
         owner = owner_ == address(0) ? msg.sender : owner_;

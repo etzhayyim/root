@@ -174,7 +174,7 @@ console.log(`  Size: ${(docJson.length / 1024).toFixed(0)}KB`);
 
 // Find project
 console.log("\n=== Finding project ===");
-const projects = await xrpc("ai.gftd.mangaka.listProjects", { limit: 10 });
+const projects = await xrpc("app.etzhayyim.mangaka.listProjects", { limit: 10 });
 let convoId = "";
 if (projects.items) {
   const ghProject = projects.items.find((p: any) =>
@@ -186,7 +186,7 @@ if (projects.items) {
   }
 }
 if (!convoId) {
-  const newP = await xrpc("ai.gftd.mangaka.createProject", {
+  const newP = await xrpc("app.etzhayyim.mangaka.createProject", {
     name: "Ghost Hacker: 260123-jump",
     description: "Cybersecurity manga — arc0-1 import",
     projectType: "manga-series",
@@ -199,7 +199,7 @@ doc.convoId = convoId;
 
 // Save document
 console.log("\n=== Saving document ===");
-const saveResult = await xrpc("ai.gftd.mangaka.saveDocument", {
+const saveResult = await xrpc("app.etzhayyim.mangaka.saveDocument", {
   docId,
   name: doc.name,
   document: JSON.stringify(doc),

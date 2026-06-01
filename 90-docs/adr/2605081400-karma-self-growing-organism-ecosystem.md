@@ -22,9 +22,9 @@ depends_on:
   - adr-0056-bpmn-as-actor
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-2604291800-well-becoming-spirit-objective-function
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
 related:
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-0095-simplified-3layer-identity-rw-vault
   - adr-0074-ethereum-identity-bridge-cacao-webauthn
 supersedes: []

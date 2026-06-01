@@ -11,7 +11,7 @@ authoritative_for:
   - backblaze-b2-billing-critical
 related:
   - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
-  - 90-docs/adr/2605181400-bpmn-extract-to-etzhayyim-root.md
+  - adr-2605181400-bpmn-extract-to-etzhayyim-root
   - _working/etzhayyim-revenue/DECISION-LOG.md
   - _working/etzhayyim-revenue/stream-a-activation-runbook.md
 supersedes: []
@@ -78,7 +78,7 @@ Blast radius:
 - RW MV refresh stalls (SST checkpoint 不可)
 - vertex_repo_record / vertex_repo_commit append-only log halts
 - AT Protocol PDS reads degrade to in-memory cache only
-- All XRPC `ai.gftd.apps.*` query methods 500 once cache evicts
+- All XRPC `app.etzhayyim.apps.*` query methods 500 once cache evicts
 - BPMN dispatcher (replicas=0) 無影響
 - lawfirm.etzhayyim.com SPA (HTML/SPA only) 無影響
 

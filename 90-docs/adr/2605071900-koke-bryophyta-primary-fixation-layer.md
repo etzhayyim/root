@@ -10,7 +10,7 @@ authoritative_for:
   - koke ecosystem member design
   - primary fixation layer in myco-yeast artificial organism
 related:
-  - adr-2605071200
+  - adr-2605071200-myco-yeast-artificial-organism-jp-naming
 supersedes: []
 superseded_by: []
 ---

@@ -20,7 +20,7 @@ from pymagatama.db_sync import sync_cursor
 
 
 MAGATAMA_DID = "did:web:magatama.etzhayyim.com"
-ORGANIZER_RUN_COLLECTION = "ai.gftd.apps.magatama.organizerRun"
+ORGANIZER_RUN_COLLECTION = "app.etzhayyim.apps.magatama.organizerRun"
 DEFAULT_TIMEOUT_SEC = 60.0
 
 

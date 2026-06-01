@@ -36,8 +36,7 @@ import {
   establishSession,
   unwrapKey,
   wrapKey,
-  type LocalStores,
-  type SignalSession,
+  type SessionHandle,
 } from "./signal.js";
 
 const COLLECTION_RECORD = "app.etzhayyim.encrypted.record";
@@ -206,7 +205,6 @@ interface KeyWrapLex {
   sender: string;
   recipient: string;
   ciphertext: Uint8Array;
-  messageType: number;
   signalSessionId: string;
   /** AT URI of the encrypted envelope this wrap unlocks. */
   recordUri: string;
@@ -220,8 +218,6 @@ export interface StandaloneWriteDeps {
   agent: AtpAgent;
   /** Sender's DID. */
   senderDid: string;
-  /** Sender's libsignal local stores (from `signal.generateLocalIdentity`). */
-  senderStores: LocalStores;
   /** Resolver for recipient identities. See `RecipientIdentityResolver`. */
   resolveRecipientIdentity: RecipientIdentityResolver;
 }
@@ -310,19 +306,21 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
       continue;
     }
 
-    let session: SignalSession;
-    let wrap: Awaited<ReturnType<typeof wrapKey>>;
+    let session: SessionHandle;
+    let wrap: ReturnType<typeof wrapKey>;
     try {
-      session = await establishSession({
+      // R1.0 (ADR-2605181100): the recipient identity is resolved + DID-bound
+      // above for authenticity; the key-wrap itself uses the placeholder
+      // in-memory XChaCha20 session (signal.ts R1.0), not the recipient's
+      // published prekey bundle. The symKey is base64-wrapped through the
+      // session. Cross-party key agreement is a future (R2) signal.ts concern.
+      session = establishSession({
         senderDid: deps.senderDid,
         recipientDid,
-        recipientIdentity: resolved.publishable,
-        senderStores: deps.senderStores,
       });
-      wrap = await wrapKey({
+      wrap = wrapKey({
         session,
-        symmetricKey: symKey,
-        senderStores: deps.senderStores,
+        plaintext: Buffer.from(symKey).toString("base64"),
       });
     } catch (err) {
       skipped.push({
@@ -338,7 +336,6 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
       sender: deps.senderDid,
       recipient: recipientDid,
       ciphertext: wrap.ciphertext,
-      messageType: wrap.messageType,
       signalSessionId: wrap.signalSessionId,
       recordUri: envelopeReceipt.uri,
       createdAt: envelope.createdAt,
@@ -371,8 +368,6 @@ export interface StandaloneReadDeps {
   agent: AtpAgent;
   /** Self DID — the recipient enumerating their own keyWrap collection. */
   selfDid: string;
-  /** Self's libsignal local stores. */
-  selfStores: LocalStores;
   /**
    * Resolver to fetch a sender's envelope record. The envelope lives in the
    * sender's PDS (not the recipient's), so callers with a multi-PDS view
@@ -432,16 +427,13 @@ export async function encryptedReadStandalone<T>(
     // 2. Unwrap the symmetric key via Signal session.
     let symKey: Uint8Array;
     try {
-      symKey = await unwrapKey({
-        session: {
-          sessionId: kw.signalSessionId,
-          senderDid: kw.sender,
-          recipientDid: deps.selfDid,
-        },
+      // R1.0: unwrap via the in-memory XChaCha20 session (same-process model;
+      // see write-path note). Returns the base64 of the envelope symKey.
+      const symKeyB64 = unwrapKey({
+        session: kw.signalSessionId,
         ciphertext: ensureBytes(kw.ciphertext),
-        messageType: kw.messageType,
-        recipientStores: deps.selfStores,
       });
+      symKey = Uint8Array.from(Buffer.from(symKeyB64, "base64"));
     } catch (err) {
       failed.push({
         uri: kwRecord.uri,
@@ -581,15 +573,14 @@ import type {Etzhayyim} from "./index.js";
 export async function encryptedWrite<T extends Record<string, unknown>>(
   e: Etzhayyim & {
     pdsAgent?: AtpAgent;
-    signalStores?: LocalStores;
     resolveRecipientIdentity?: RecipientIdentityResolver;
   },
   opts: EncryptedWriteOpts<T>
 ): Promise<EncryptedWriteReceipt> {
-  if (!e.pdsAgent || !e.signalStores || !e.resolveRecipientIdentity) {
+  if (!e.pdsAgent || !e.resolveRecipientIdentity) {
     throw new Error(
       "[etzhayyim-sdk/encrypted] Etzhayyim instance missing pdsAgent / " +
-        "signalStores / resolveRecipientIdentity. Configure these on the " +
+        "resolveRecipientIdentity. Configure these on the " +
         "instance, or use encryptedWriteStandalone() directly."
     );
   }
@@ -597,7 +588,6 @@ export async function encryptedWrite<T extends Record<string, unknown>>(
     {
       agent: e.pdsAgent,
       senderDid: e.config.did,
-      senderStores: e.signalStores,
       resolveRecipientIdentity: e.resolveRecipientIdentity,
     },
     opts
@@ -607,15 +597,14 @@ export async function encryptedWrite<T extends Record<string, unknown>>(
 export async function encryptedRead<T>(
   e: Etzhayyim & {
     pdsAgent?: AtpAgent;
-    signalStores?: LocalStores;
     fetchEnvelope?: StandaloneReadDeps["fetchEnvelope"];
   },
   opts: EncryptedReadOpts
 ): Promise<EncryptedReadResponse<T>> {
-  if (!e.pdsAgent || !e.signalStores) {
+  if (!e.pdsAgent) {
     throw new Error(
-      "[etzhayyim-sdk/encrypted] Etzhayyim instance missing pdsAgent / " +
-        "signalStores. Configure these on the instance, or use " +
+      "[etzhayyim-sdk/encrypted] Etzhayyim instance missing pdsAgent. " +
+        "Configure it on the instance, or use " +
         "encryptedReadStandalone() directly."
     );
   }
@@ -623,7 +612,6 @@ export async function encryptedRead<T>(
     {
       agent: e.pdsAgent,
       selfDid: e.config.did,
-      selfStores: e.signalStores,
       fetchEnvelope: e.fetchEnvelope,
     },
     opts

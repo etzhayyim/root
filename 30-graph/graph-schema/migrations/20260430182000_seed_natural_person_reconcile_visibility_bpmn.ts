@@ -15,13 +15,13 @@ const project = "natural-person";
 const seed = {
   proc: "reconcileVisibility",
   bpmnProcessId: "natural_person_reconcile_visibility_v1",
-  nsid: "ai.gftd.apps.naturalPerson.reconcileVisibility",
+  nsid: "app.etzhayyim.apps.naturalPerson.reconcileVisibility",
   sourcePath: "00-contracts/bpmn/ai/gftd/natural-person/reconcileVisibility.bpmn",
   resultTimeoutMs: 300000,
 };
 
-const processVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-reconcile-visibility-v1`;
-const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${seed.proc}-v1`;
+const processVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-reconcile-visibility-v1`;
+const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${seed.proc}-v1`;
 
 function readContract(relPath: string): string {
   return readFileSync(path.resolve(repoRoot, relPath), "utf8");

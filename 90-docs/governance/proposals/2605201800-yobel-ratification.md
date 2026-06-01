@@ -9,10 +9,10 @@ last_verified: 2026-05-20
 proposal_kind: actor-charter-binding
 ratification_target: adr-2605201800-etzhayyim-yobel-debt-release-actor
 related:
-  - 90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md
-  - 90-docs/adr/2605192100-etzhayyim-mission-charter.md
-  - 90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md
-  - 90-docs/adr/2605192230-etzhayyim-three-tier-enforcement-implementation.md
+  - adr-2605201800-etzhayyim-yobel-debt-release-actor
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
 voting_window_start: 2026-05-21T00:00:00Z
 voting_window_end: 2026-06-20T00:00:00Z
 ---
@@ -74,7 +74,7 @@ Upon approval:
 - Any individual rite declaration (requires its own per-rite ratification)
 - Pre-deployment changes to the contract source (requires a new ADR amendment)
 - Tax advice from the yobel actor (delegated to vendor:lawfirm.etzhayyim.com per 3-axis split)
-- Vendor (Gftd Japan) write access to `YobelRiteRegistry` (consumer-only per ADR-2605172400)
+- Vendor (etzhayyim Japan) write access to `YobelRiteRegistry` (consumer-only per ADR-2605172400)
 
 ## Risk surface + mitigations
 
@@ -109,7 +109,7 @@ Once 5 Lv6+ + 1 Lv9 chair are committed:
    )
    ```
 2. The off-chain signature set is enveloped (XChaCha20-Poly1305 per ADR-2605181100) to the Lv9 chair + Public Fund auditor DIDs
-3. Council secretary publishes the encrypted set as an MST record under `ai.gftd.apps.etzhayyim.governance.councilRatification`
+3. Council secretary publishes the encrypted set as an MST record under `app.etzhayyim.apps.etzhayyim.governance.councilRatification`
 
 ### Step 3 — On-chain witness
 

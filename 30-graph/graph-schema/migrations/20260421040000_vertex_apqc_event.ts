@@ -5,7 +5,7 @@ import { sql } from "kysely";
 // tier: C
 
 /**
- * vertex_apqc_event — typed storage for ai.gftd.apps.apqc.apqcEvent
+ * vertex_apqc_event — typed storage for app.etzhayyim.apps.apqc.apqcEvent
  * OCEL 2.0 event records.
  *
  * ADR-0045 Phase 5a (2026-04-21): the projector flow runner

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
+// Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 // ai-gftd-project-open-denki — smart-grid network design + operations
 //
-// 12 XRPC under ai.gftd.apps.openDenki.*:
+// 12 XRPC under app.etzhayyim.apps.openDenki.*:
 //   defineGenerationNode   (proc)   thermal / hydro / solar / wind / nuclear / storage
 //   defineSubstation       (proc)   HV/MV/LV transformer substation
 //   defineFeeder           (proc)   distribution feeder (substation → delivery points)
@@ -502,18 +502,18 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "ai.gftd.apps.openDenki.defineGenerationNode",
-            "ai.gftd.apps.openDenki.defineSubstation",
-            "ai.gftd.apps.openDenki.defineFeeder",
-            "ai.gftd.apps.openDenki.registerSmartMeter",
-            "ai.gftd.apps.openDenki.recordMeterReading",
-            "ai.gftd.apps.openDenki.reportFault",
-            "ai.gftd.apps.openDenki.recordDemandResponse",
-            "ai.gftd.apps.openDenki.recordRenewableOutput",
-            "ai.gftd.apps.openDenki.getNode",
-            "ai.gftd.apps.openDenki.listFeeders",
-            "ai.gftd.apps.openDenki.listFaults",
-            "ai.gftd.apps.openDenki.listReadings",
+            "app.etzhayyim.apps.openDenki.defineGenerationNode",
+            "app.etzhayyim.apps.openDenki.defineSubstation",
+            "app.etzhayyim.apps.openDenki.defineFeeder",
+            "app.etzhayyim.apps.openDenki.registerSmartMeter",
+            "app.etzhayyim.apps.openDenki.recordMeterReading",
+            "app.etzhayyim.apps.openDenki.reportFault",
+            "app.etzhayyim.apps.openDenki.recordDemandResponse",
+            "app.etzhayyim.apps.openDenki.recordRenewableOutput",
+            "app.etzhayyim.apps.openDenki.getNode",
+            "app.etzhayyim.apps.openDenki.listFeeders",
+            "app.etzhayyim.apps.openDenki.listFaults",
+            "app.etzhayyim.apps.openDenki.listReadings",
           ],
           dmn: ["openDenki.faultSeverity"],
           compliance: ["iec-61968-cim", "iec-61970-cim"],
@@ -523,24 +523,24 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "ai.gftd.apps.openDenki.getNode":      return await getNode(env, url.searchParams);
-          case "ai.gftd.apps.openDenki.listFeeders":  return await listFeeders(env, url.searchParams);
-          case "ai.gftd.apps.openDenki.listFaults":   return await listFaults(env, url.searchParams);
-          case "ai.gftd.apps.openDenki.listReadings": return await listReadings(env, url.searchParams);
+          case "app.etzhayyim.apps.openDenki.getNode":      return await getNode(env, url.searchParams);
+          case "app.etzhayyim.apps.openDenki.listFeeders":  return await listFeeders(env, url.searchParams);
+          case "app.etzhayyim.apps.openDenki.listFaults":   return await listFaults(env, url.searchParams);
+          case "app.etzhayyim.apps.openDenki.listReadings": return await listReadings(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "ai.gftd.apps.openDenki.defineGenerationNode":  return await defineGenerationNode(env, body);
-          case "ai.gftd.apps.openDenki.defineSubstation":      return await defineSubstation(env, body);
-          case "ai.gftd.apps.openDenki.defineFeeder":          return await defineFeeder(env, body);
-          case "ai.gftd.apps.openDenki.registerSmartMeter":    return await registerSmartMeter(env, body);
-          case "ai.gftd.apps.openDenki.recordMeterReading":    return await recordMeterReading(env, body);
-          case "ai.gftd.apps.openDenki.reportFault":           return await reportFault(env, body);
-          case "ai.gftd.apps.openDenki.recordDemandResponse":  return await recordDemandResponse(env, body);
-          case "ai.gftd.apps.openDenki.recordRenewableOutput": return await recordRenewableOutput(env, body);
+          case "app.etzhayyim.apps.openDenki.defineGenerationNode":  return await defineGenerationNode(env, body);
+          case "app.etzhayyim.apps.openDenki.defineSubstation":      return await defineSubstation(env, body);
+          case "app.etzhayyim.apps.openDenki.defineFeeder":          return await defineFeeder(env, body);
+          case "app.etzhayyim.apps.openDenki.registerSmartMeter":    return await registerSmartMeter(env, body);
+          case "app.etzhayyim.apps.openDenki.recordMeterReading":    return await recordMeterReading(env, body);
+          case "app.etzhayyim.apps.openDenki.reportFault":           return await reportFault(env, body);
+          case "app.etzhayyim.apps.openDenki.recordDemandResponse":  return await recordDemandResponse(env, body);
+          case "app.etzhayyim.apps.openDenki.recordRenewableOutput": return await recordRenewableOutput(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

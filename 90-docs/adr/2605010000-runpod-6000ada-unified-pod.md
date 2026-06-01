@@ -14,8 +14,8 @@ authoritative_for:
 related:
   - adr-2604282100  # LLM benchmark gemma4 default
   - adr-2604292130  # llm.etzhayyim.com runpod pass-through
-  - adr-2605080600  # resident LangGraph organism actors may use Murakumo as L8 somatic inference
-  - adr-2604231328  # animeka 12-stage pipeline
+  - adr-2605080600-langgraph-server-granian-l3-runtime  # resident LangGraph organism actors may use Murakumo as L8 somatic inference
+  - adr-2604231328-animeka-bpmn-l40s-pipeline  # animeka 12-stage pipeline
   - adr-2604281600  # shinshi melina pipeline
   - adr-2605211000  # supersedes this ADR for LLM text inference path
 supersedes: []
@@ -30,7 +30,7 @@ notes: |
   2026-05-21 partial supersession: LLM text inference path is superseded by
   ADR-2605211000 (Vultr A16-16Q keiei-llm-pool). This ADR remains authoritative
   for ComfyUI / SDXL / video generation (RunPod Secure pod, when supply restores).
-  LLM_CHAT_COMPLETIONS_URL and GFTD_LLM_URL in zeebe-worker now point to
+  LLM_CHAT_COMPLETIONS_URL and etzhayyim_LLM_URL in zeebe-worker now point to
   keiei-litellm in-cluster — do NOT revert to RunPod pod URL on pod restore.
 ---
 
@@ -82,7 +82,7 @@ as the **L8 Somatic Inference Layer** when all conditions hold:
   LangGraph thread + RisingWave
 - Murakumo is used only as an OpenAI-compatible inference organ, not as the
   authoritative actor subject
-- the route is explicit (`LLAMA_BASE_URL` / `GFTD_LLM_URL`) and observable
+- the route is explicit (`LLAMA_BASE_URL` / `etzhayyim_LLM_URL`) and observable
 - there is no silent fallback from RunPod to Murakumo for animeka / mangaka /
   shinshi / generic production GenAI paths
 
@@ -147,7 +147,7 @@ Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-gftd, $0.77/hr)  ← 未払�
 
 ```
 animeka.etzhayyim.com (thin CF Worker b7b7f6b2)
-  → dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.* (HTTPS via CF)
+  → dispatcher.etzhayyim.com/xrpc/app.etzhayyim.animeka.* (HTTPS via CF)
     → bpmn-dispatcher (mitama-udf VKE) → Zeebe broker
       → zeebe-worker pod (pymagatama:0.3.11-amd64)
         → generic.llm.chat / generic.llm.json handler
@@ -160,7 +160,7 @@ animeka.etzhayyim.com (thin CF Worker b7b7f6b2)
 shinshi.etzhayyim.com (CF Worker 0df83283)
   → seedScenesWithImagesReal (photoreal SDXL)
     → COMFY_POD_URL = https://<NEW_ID>-8188.proxy.runpod.net  ← DOWN
-  → ai.gftd.apps.shinshi.generateVideo (Wan video)
+  → app.etzhayyim.apps.shinshi.generateVideo (Wan video)
     → dispatcher.etzhayyim.com → Zeebe → shinshi.video.render
 ```
 
@@ -239,7 +239,7 @@ security add-generic-password -s "gftd.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/
 
 3. **`runpod-podid-update-checklist`** (priority 6.0, NEW): pod 再作成時に sed 一括更新する箇所:
    - `50-infra/cloudflare/workers/comfyui/wrangler.jsonc` `UPSTREAM_URL` → `wrangler deploy`
-   - `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` `LLM_CHAT_COMPLETIONS_URL` + `GFTD_LLM_URL` → `helm upgrade --reuse-values` + `kubectl rollout restart deploy/zeebe-worker`
+   - `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` `LLM_CHAT_COMPLETIONS_URL` + `etzhayyim_LLM_URL` → `helm upgrade --reuse-values` + `kubectl rollout restart deploy/zeebe-worker`
    - `60-apps/ai-gftd-project-shinshi/.../wrangler.jsonc` `COMFY_POD_URL` (+ src/app.ts default fallback) → `gftd deploy`
    - watchdog plist `~/Library/LaunchAgents/com.gftd.runpod-comfyui.plist` は **bootout 維持** (旧 GPU_TYPE_ID で 4090 auto-respawn する)
 
@@ -291,7 +291,7 @@ security add-generic-password -s "gftd.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/
 
 # Open follow-ups (deps.toml [[migrations]] 別エントリ)
 
-1. **`animeka-chat-zeebe-pickup-2605010000`** (open, severity medium): `ai.gftd.animeka.chat` の `generic.llm.chat` job が Zeebe broker queue で pickup されない (CF Worker 25s timeout)。LLM URL とは独立、Zeebe / pyzeebe handler の signature 問題の可能性。
+1. **`animeka-chat-zeebe-pickup-2605010000`** (open, severity medium): `app.etzhayyim.animeka.chat` の `generic.llm.chat` job が Zeebe broker queue で pickup されない (CF Worker 25s timeout)。LLM URL とは独立、Zeebe / pyzeebe handler の signature 問題の可能性。
 
 2. **`shinshi-photoreal-post-auth-2605010000`** (open, severity low): photoreal 画像生成 + blob upload は OK だが、最終的な AT Record post (`app.bsky.feed.post` as path-DID) で 401。`sdk.pds.dispatch` 経由に切替か Service Auth JWT 手動付与で修復可。
 

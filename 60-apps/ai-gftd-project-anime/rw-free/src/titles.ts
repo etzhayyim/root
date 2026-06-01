@@ -25,8 +25,8 @@ import {
   type TitleView,
 } from "./types.js";
 
-const TITLE_COLLECTION = "ai.gftd.anime.title";
-const SEASON_COLLECTION = "ai.gftd.anime.season";
+const TITLE_COLLECTION = "app.etzhayyim.anime.title";
+const SEASON_COLLECTION = "app.etzhayyim.anime.season";
 
 function isTitleId(id: string): boolean {
   return /^[a-z0-9-]{1,32}$/i.test(id);

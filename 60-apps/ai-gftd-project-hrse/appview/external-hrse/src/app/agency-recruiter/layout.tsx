@@ -29,9 +29,9 @@ export default function AgencyRecruiterLayout({
 		// ユーザータイプをチェック
 		const metadata = getUserMetadata(user.publicMetadata as Record<string, unknown>);
 		
-		// システム管理者（@gftd.co.jp）の場合は常にアクセス可能
+		// システム管理者（@etzhayyim.com）の場合は常にアクセス可能
 		const isSystemAdmin = user.emailAddresses?.some(
-			(email) => email.emailAddress?.includes("@gftd.co.jp")
+			(email) => email.emailAddress?.includes("@etzhayyim.com")
 		);
 
 		if (!isSystemAdmin && metadata.userType !== "agency_recruiter") {

@@ -150,6 +150,72 @@ def mood_to_cadence(mood: Mood) -> MoodCadence:
     )
 
 
+def apply_sensor_delta(
+    scores: JouchoScores,
+    *,
+    tier_a_obs_count: int = 0,
+    tier_c_obs_count: int = 0,
+    leak_attempts: int = 0,
+    multi_modal_deltas: list["JouchoDelta"] | None = None,
+) -> JouchoScores:
+    """Map a tick's sensor activity into a small joucho delta.
+
+    Per ADR-2605262400 §4.3 Wave-2. The hot-path sensor poll yields
+    SensorObservations into the organism's bounded ring; this function
+    translates the per-tick *new* counts into incremental 5-axis
+    deltas. Deltas are deliberately small (±1..6) so a single tick
+    can't slam the organism into a non-neutral mood unilaterally —
+    persistent perception over many ticks shifts the trajectory.
+
+    Rules (Wave-2 minimum viable):
+      - **tier-A observations** raise ``focus`` (kyumei-koji mode —
+        the organism is engaged with public-domain world data) and
+        very mildly raise ``calm`` (steady stream of facts grounds).
+        Saturates after ~20 obs/tick to avoid runaway.
+      - **tier-C observations** raise ``focus`` half as much (Tier C
+        is more sensitive, the organism is "more careful").
+      - **leak attempts** (R9 backstop pre-fires) raise ``stress``
+        sharply (+10 each, capped). Even 1 leak is alarming.
+      - **multi_modal_deltas** (R1 multi-modal): single observation
+        deltas are capped at ±30 to prevent extreme emotion shifts.
+
+    All deltas are clamped to [0, 100] per axis.
+    """
+    sat = min(20, tier_a_obs_count)  # saturating at 20 tier-A obs
+    focus_delta = sat // 4  # 0..5
+    focus_delta += min(10, tier_c_obs_count) // 5  # 0..2 from tier-C
+    calm_delta = sat // 8  # 0..2
+    joy_delta = 0
+    gratitude_delta = 0
+
+    stress_delta = min(40, leak_attempts * 10)  # +10/leak, cap 40
+
+    if multi_modal_deltas:
+        cap = 30
+        for md in multi_modal_deltas:
+            # kanjou -> joy
+            joy_delta += max(-cap, min(cap, md.kanjou))
+            # kakushin -> calm
+            calm_delta += max(-cap, min(cap, md.kakushin))
+            # yokkyu -> stress
+            stress_delta += max(-cap, min(cap, md.yokkyu))
+            # seimei -> gratitude
+            gratitude_delta += max(-cap, min(cap, md.seimei))
+            # kankaku -> focus
+            focus_delta += max(-cap, min(cap, md.kankaku))
+
+    def _clamp(v: int) -> int:
+        return max(0, min(100, v))
+
+    return JouchoScores(
+        joy=_clamp(scores.joy + joy_delta),
+        calm=_clamp(scores.calm + calm_delta),
+        stress=_clamp(scores.stress + stress_delta),
+        gratitude=_clamp(scores.gratitude + gratitude_delta),
+        focus=_clamp(scores.focus + focus_delta),
+    )
+
+
 def apply_stress_scaling(cadence: MoodCadence, stress: int) -> MoodCadence:
     """Stress ≥50 stretches post + engage cooldowns linearly."""
     if stress < 50:
@@ -174,6 +240,7 @@ __all__ = [
     "JouchoScores",
     "Mood",
     "MoodCadence",
+    "apply_sensor_delta",
     "apply_stress_scaling",
     "determine_mood",
     "mood_to_cadence",

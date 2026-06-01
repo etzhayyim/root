@@ -8,7 +8,7 @@ const TARGET_ARG = process.argv.find((arg) => arg.startsWith("--target="));
 const TARGET_FILTER = TARGET_ARG ? TARGET_ARG.slice("--target=".length) : "";
 const SVELTEKIT_MAIN = "svelte/.svelte-kit/cloudflare/_worker.js";
 const SVELTEKIT_ASSETS = "./svelte/.svelte-kit/cloudflare/client";
-const MCP_ROUTER_URL = "https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message";
+const MCP_ROUTER_URL = "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message";
 
 function walk(dir, out = []) {
   if (!fs.existsSync(dir)) return out;
@@ -100,7 +100,7 @@ function updateOuterPackage(dir) {
   };
   for (const key of ["dependencies", "devDependencies"]) {
     if (!pkg[key]) continue;
-    for (const dep of ["hono", "@hono/node-server", "@gftd/magatama-host-sdk", "kysely", "pg"]) delete pkg[key][dep];
+    for (const dep of ["hono", "@hono/node-server", "@etzhayyim/magatama-host-sdk", "kysely", "pg"]) delete pkg[key][dep];
     if (Object.keys(pkg[key]).length === 0) delete pkg[key];
   }
   return JSON.stringify(pkg) !== before ? writeJson(file, pkg) : false;

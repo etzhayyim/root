@@ -1,8 +1,8 @@
 import {
   asAgentTool, createKyselyDb, createWorkerExport, withCapabilityTags,
   type HostSDK, nowISO, str, genID, nsid,
-} from "@gftd/magatama-host-sdk";
-import type { Database } from "@gftd/graph-schema";
+} from "@etzhayyim/magatama-host-sdk";
+import type { Database } from "@etzhayyim/graph-schema";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
 import { runEngine, stopEngine, extractTimerDurations, type EngineResult } from "./engine.js";
@@ -22,7 +22,7 @@ function decodeParams(payload: any): Record<string, any> {
 }
 
 /**
- * ai.gftd.apps.bpmn — BPMN 2.0 registry + executor.
+ * app.etzhayyim.apps.bpmn — BPMN 2.0 registry + executor.
  *
  * Phase 1 (this file): subset runtime — serviceTask / sequenceFlow /
  * exclusiveGateway / timer / message / user / error. No subprocess, DMN,
@@ -72,13 +72,13 @@ interface BpmnJson {
 }
 
 // Worker-direct Hyperdrive write per ADR-0036. Domain records bypass PDS
-// commit pipeline; synchronous SQL INSERT, 1-RTT, typed via @gftd/graph-schema.
+// commit pipeline; synchronous SQL INSERT, 1-RTT, typed via @etzhayyim/graph-schema.
 // Fire-and-forget (the SDK keeps the promise alive via ctx.waitUntil drain).
 async function writeRecord(db: Kysely<Database>, collection: string, rkey: string, value: Record<string, unknown>): Promise<void> {
   const table = `vertex_${ACTOR_NAME}_${camelToSnake(collection)}`;
   const now = new Date();
   const row: Record<string, unknown> = {
-    vertex_id: `at://${ACTOR_DID}/ai.gftd.apps.${ACTOR_NAME}.${collection}/${rkey}`,
+    vertex_id: `at://${ACTOR_DID}/app.etzhayyim.apps.${ACTOR_NAME}.${collection}/${rkey}`,
     _seq: null,
     created_date: now.toISOString().slice(0, 10),
     sensitivity_ord: 100,
@@ -112,7 +112,7 @@ function camelToSnake(s: string): string {
 
 /**
  * OCEL 2.0-inspired activity event record emitted to PDS → kyber-projector.
- * Collection: ai.gftd.apps.bpmn.activityEvent.
+ * Collection: app.etzhayyim.apps.bpmn.activityEvent.
  *   ocelEventType  — "start" | "complete" | "error" | "signal" | "timeout"
  *   ocelTime       — ISO-8601 occurrence
  *   instanceId     — process instance (OCEL object ref)
@@ -266,7 +266,7 @@ async function writeRecordFromCron(env: any, collection: string, rkey: string, v
   const table = `vertex_${ACTOR_NAME}_${camelToSnake(collection)}`;
   const now = new Date();
   const row: Record<string, unknown> = {
-    vertex_id: `at://${ACTOR_DID}/ai.gftd.apps.${ACTOR_NAME}.${collection}/${rkey}`,
+    vertex_id: `at://${ACTOR_DID}/app.etzhayyim.apps.${ACTOR_NAME}.${collection}/${rkey}`,
     _seq: null,
     created_date: now.toISOString().slice(0, 10),
     sensitivity_ord: 100,
@@ -370,7 +370,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
   const env = sdk.env as any;
   const db = createKyselyDb(env.HYPERDRIVE) as unknown as Kysely<Database>;
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.compileJsonToXml"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.compileJsonToXml"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const json = params?.json as BpmnJson | undefined;
@@ -386,7 +386,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("bpmn", "compile"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.validateXml"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.validateXml"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const xml = str(params?.xml ?? "");
@@ -404,7 +404,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("bpmn", "validate"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.deployProcess"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.deployProcess"),
       async (ctx, _p: any) => {
         const params = decodeParams(_p);
         const json = params?.json as BpmnJson | undefined;
@@ -438,7 +438,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("bpmn", "deploy"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.startInstance"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.startInstance"),
       async (ctx, _p: any) => {
         const params = decodeParams(_p);
         const processId = str(params?.processId ?? "");
@@ -521,7 +521,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("bpmn", "instance", "start"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.signalInstance"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.signalInstance"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const instanceId = str(params?.instanceId ?? "");
@@ -597,7 +597,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("bpmn", "signal"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.getInstanceState"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.getInstanceState"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const instanceId = str(params?.instanceId ?? "");
@@ -620,7 +620,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("bpmn", "instance", "status"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.getActivityLog"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.getActivityLog"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const instanceId = str(params?.instanceId ?? "");
@@ -636,7 +636,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("bpmn", "ocel", "log"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.cancelInstance"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.cancelInstance"),
       async (ctx, _p: any) => {
         const params = decodeParams(_p);
         const instanceId = str(params?.instanceId ?? "");
@@ -705,7 +705,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("bpmn", "instance", "cancel", "destructive"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.listProcesses"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.listProcesses"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const limit = Math.min(Number(params?.limit ?? 50), 200);
@@ -720,7 +720,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("bpmn", "process", "list"),
     );
 
-    sdk.app.command(nsid("ai.gftd.apps.bpmn.listInstances"),
+    sdk.app.command(nsid("app.etzhayyim.apps.bpmn.listInstances"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const processId = str(params?.processId ?? "");

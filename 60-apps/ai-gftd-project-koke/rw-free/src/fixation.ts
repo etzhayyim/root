@@ -25,9 +25,9 @@ import {
   type ListOffsetsOutput,
 } from "./types.js";
 
-const BATCH_COLLECTION = "ai.gftd.koke.batch";
-const RELEASE_COLLECTION = "ai.gftd.koke.release";
-const OFFSET_COLLECTION = "ai.gftd.koke.offset";
+const BATCH_COLLECTION = "app.etzhayyim.koke.batch";
+const RELEASE_COLLECTION = "app.etzhayyim.koke.release";
+const OFFSET_COLLECTION = "app.etzhayyim.koke.offset";
 
 export async function registerCarbon(
   e: Etzhayyim,

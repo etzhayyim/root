@@ -40,8 +40,8 @@ createSequence XRPC
                     → outreach.create_sponsor_slot (optional ads.etzhayyim.com)
 ```
 
-Reply detection: `subscribeRepos` on `ai.gftd.apps.gmail.message` +
-`ai.gftd.apps.m365Ingest.email`. Worker correlates thread to active LangServer instance.
+Reply detection: `subscribeRepos` on `app.etzhayyim.apps.gmail.message` +
+`app.etzhayyim.apps.m365Ingest.email`. Worker correlates thread to active LangServer instance.
 
 ## PII Policy (ADR-0018)
 

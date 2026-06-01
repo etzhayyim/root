@@ -15,7 +15,7 @@
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { ProcessCategory } from "./types.js";
 
-const COLLECTION = "ai.gftd.apqc.processCategory";
+const COLLECTION = "app.etzhayyim.apqc.processCategory";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_READER_DID ?? "did:web:etzhayyim.com",

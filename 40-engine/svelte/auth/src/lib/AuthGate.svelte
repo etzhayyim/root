@@ -18,7 +18,7 @@
 		// ADR-0024 T4 split: auth.etzhayyim.com retired 2026-04-16 → authn.etzhayyim.com.
 		signInUrl = 'https://authn.etzhayyim.com/sign-in',
 		signUpUrl = 'https://authn.etzhayyim.com/sign-up',
-		title = 'GFTD',
+		title = 'etzhayyim',
 		tagline = 'AI Agent Platform — Register and manage your AI agents',
 		actions,
 		class: className = '',
@@ -102,7 +102,7 @@
 		{/if}
 
 		<div class="text-xs text-[var(--gv2-text-muted,#666666)]">
-			<span>Powered by GFTD Organism</span>
+			<span>Powered by etzhayyim</span>
 		</div>
 	</div>
 </div>

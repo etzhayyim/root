@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.anime.createEpisode": {
+    "/xrpc/app.etzhayyim.anime.createEpisode": {
       "post": {
         "summary": "Register an episode under an anime season.",
-        "operationId": "ai.gftd.anime.createEpisode",
+        "operationId": "app.etzhayyim.anime.createEpisode",
         "requestBody": {
           "required": true,
           "content": {
@@ -72,10 +72,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.anime.createSchedule": {
+    "/xrpc/app.etzhayyim.anime.createSchedule": {
       "post": {
         "summary": "Register a broadcast schedule slot for an anime title.",
-        "operationId": "ai.gftd.anime.createSchedule",
+        "operationId": "app.etzhayyim.anime.createSchedule",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.anime.createSeason": {
+    "/xrpc/app.etzhayyim.anime.createSeason": {
       "post": {
         "summary": "Register a season under an anime title.",
-        "operationId": "ai.gftd.anime.createSeason",
+        "operationId": "app.etzhayyim.anime.createSeason",
         "requestBody": {
           "required": true,
           "content": {
@@ -202,10 +202,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.anime.createTitle": {
+    "/xrpc/app.etzhayyim.anime.createTitle": {
       "post": {
         "summary": "Register a new anime title.",
-        "operationId": "ai.gftd.anime.createTitle",
+        "operationId": "app.etzhayyim.anime.createTitle",
         "requestBody": {
           "required": true,
           "content": {
@@ -273,10 +273,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.anime.getTitle": {
+    "/xrpc/app.etzhayyim.anime.getTitle": {
       "get": {
         "summary": "Get an anime title by ID including its seasons.",
-        "operationId": "ai.gftd.anime.getTitle",
+        "operationId": "app.etzhayyim.anime.getTitle",
         "parameters": [
           {
             "name": "id",
@@ -315,10 +315,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.anime.listEpisodes": {
+    "/xrpc/app.etzhayyim.anime.listEpisodes": {
       "get": {
         "summary": "List episodes for a season.",
-        "operationId": "ai.gftd.anime.listEpisodes",
+        "operationId": "app.etzhayyim.anime.listEpisodes",
         "parameters": [
           {
             "name": "season_id",
@@ -376,10 +376,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.anime.listSchedules": {
+    "/xrpc/app.etzhayyim.anime.listSchedules": {
       "get": {
         "summary": "List broadcast schedules with optional filters by title and day of week.",
-        "operationId": "ai.gftd.anime.listSchedules",
+        "operationId": "app.etzhayyim.anime.listSchedules",
         "parameters": [
           {
             "name": "title_id",
@@ -445,10 +445,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.anime.listTitles": {
+    "/xrpc/app.etzhayyim.anime.listTitles": {
       "get": {
         "summary": "List anime titles with optional genre and status filters.",
-        "operationId": "ai.gftd.anime.listTitles",
+        "operationId": "app.etzhayyim.anime.listTitles",
         "parameters": [
           {
             "name": "genre",
@@ -514,10 +514,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.anime.searchTitles": {
+    "/xrpc/app.etzhayyim.anime.searchTitles": {
       "get": {
         "summary": "Search anime titles by keyword across title, tags, and synopsis.",
-        "operationId": "ai.gftd.anime.searchTitles",
+        "operationId": "app.etzhayyim.anime.searchTitles",
         "parameters": [
           {
             "name": "q",
@@ -586,10 +586,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.anime.submitReview": {
+    "/xrpc/app.etzhayyim.anime.submitReview": {
       "post": {
         "summary": "Submit a viewer review for an anime title.",
-        "operationId": "ai.gftd.anime.submitReview",
+        "operationId": "app.etzhayyim.anime.submitReview",
         "requestBody": {
           "required": true,
           "content": {

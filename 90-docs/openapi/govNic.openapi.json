@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govNic.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govNic.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Nicaragua government.",
-        "operationId": "ai.gftd.govNic.followSiteDeps",
+        "operationId": "app.etzhayyim.govNic.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNic.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govNic.heartbeatTick": {
       "post": {
         "summary": "Run the Nicaragua government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govNic.heartbeatTick",
+        "operationId": "app.etzhayyim.govNic.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNic.listOrgs": {
+    "/xrpc/app.etzhayyim.govNic.listOrgs": {
       "get": {
         "summary": "List Nicaragua government organization graph records.",
-        "operationId": "ai.gftd.govNic.listOrgs",
+        "operationId": "app.etzhayyim.govNic.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNic.registerDIDs": {
+    "/xrpc/app.etzhayyim.govNic.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Nicaragua government organizations.",
-        "operationId": "ai.gftd.govNic.registerDIDs",
+        "operationId": "app.etzhayyim.govNic.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNic.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govNic.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Nicaragua government organization path to its graph record.",
-        "operationId": "ai.gftd.govNic.resolveOrgPath",
+        "operationId": "app.etzhayyim.govNic.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNic.seedOrgs": {
+    "/xrpc/app.etzhayyim.govNic.seedOrgs": {
       "post": {
         "summary": "Seed initial Nicaragua government organization records into the graph.",
-        "operationId": "ai.gftd.govNic.seedOrgs",
+        "operationId": "app.etzhayyim.govNic.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNic.shinka": {
+    "/xrpc/app.etzhayyim.govNic.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Nicaragua government organization update.",
-        "operationId": "ai.gftd.govNic.shinka",
+        "operationId": "app.etzhayyim.govNic.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govNic.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govNic.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Nicaragua government organization changes to graph.",
-        "operationId": "ai.gftd.govNic.syncWetUpdates",
+        "operationId": "app.etzhayyim.govNic.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -14,7 +14,7 @@
 
   function parsePath() {
     const { pathname } = window.location;
-    // /at/{authority}/ai.gftd.animeka.cut/{rkey} → cut detail
+    // /at/{authority}/app.etzhayyim.animeka.cut/{rkey} → cut detail
     const atMatch = pathname.match(/^\/at\/([^/]+)\/ai\.gftd\.apps\.animeka\.([^/]+)\/([^/]+)$/);
     if (atMatch) {
       const [, authority, collection, rkey] = atMatch;

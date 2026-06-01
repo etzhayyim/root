@@ -1,5 +1,5 @@
 /**
- * Mirrors the ai.gftd.apqc.processCategory Lexicon record shape.
+ * Mirrors the app.etzhayyim.apqc.processCategory Lexicon record shape.
  * Source: 00-contracts/lexicons/ai/gftd/apqc/processCategory.json
  */
 export interface ProcessCategory {

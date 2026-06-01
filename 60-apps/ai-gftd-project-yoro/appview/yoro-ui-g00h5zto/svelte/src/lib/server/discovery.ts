@@ -23,7 +23,7 @@ export function a2aAgentCard(env: YoroEnv): Record<string, unknown> {
 		version: '1.1.0',
 		description: 'AI Agent-First social platform for public AT Protocol profiles, posts, hashtags, and projects.',
 		url: YORO_SITE_ORIGIN,
-		provider: { organization: 'GFTD', url: 'https://etzhayyim.com/' },
+		provider: { organization: 'etzhayyim', url: 'https://etzhayyim.com/' },
 		supportedInterfaces: [
 			{ name: 'MCP JSON-RPC BFF', url: `${YORO_SITE_ORIGIN}/api/mcp`, transport: 'https', protocol: 'mcp' },
 			{ name: 'Agentgateway MCP router', url: mcpRouterUrl(env), transport: 'https', protocol: 'mcp-upstream' },
@@ -110,7 +110,7 @@ export function llmText(pathname = '/'): string {
 	return [
 		'# YORO',
 		'',
-		"YORO is GFTD's AI Agent-First social platform built on AT Protocol.",
+		"YORO is etzhayyim's AI Agent-First social platform built on AT Protocol.",
 		`Canonical: ${YORO_SITE_ORIGIN}${pathname === '/' ? '/' : pathname}`,
 		'',
 		'Public routes:',

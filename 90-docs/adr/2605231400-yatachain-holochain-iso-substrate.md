@@ -1,7 +1,7 @@
 ---
 id: adr-2605231400-yatachain-holochain-iso-substrate
-title: "ADR-2605231400: yatachain — Holochain-isomorphic substrate over LangGraph + IPFS + atproto"
-status: proposed
+title: "ADR-2605231400: yatachain — Holochain-isomorphic substrate over LangGraph + IPFS + atproto (SUPERSEDED by 2605262130)"
+status: superseded
 doc_type: adr
 topic: yatachain-substrate
 authoritative: true
@@ -14,16 +14,17 @@ authoritative_for:
   - "Holochain-iso reference architecture name"
   - "validation membrane + witness quorum spec"
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605172100-etzhayyim-rw-free-substrate-payment
-  - 2605181100-app-etzhayyim-encrypted-records
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172100-etzhayyim-payments-on-chain-only
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - 2605171800-mst-projector-stage-pipeline
-  - 2605222330-etzhayyim-com-substrate-violation-transition-window
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
 supersedes: []
-superseded_by: []
+superseded_by:
+  - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605231400: yatachain — Holochain-isomorphic substrate over LangGraph + IPFS + atproto

@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-collect-recall-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-collect-recall-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_collectRecall',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -36,7 +36,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_collectRecall" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_collectRecall" '
                  'name="vin collectRecall" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.collectRecall", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.collectRecall", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-collect-recall-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-collect-recall-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -66,9 +66,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-collect-recall-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-collect-recall-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.collectRecall',
+                 'app.etzhayyim.apps.vin.collectRecall',
                  'vin_collectRecall',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -76,7 +76,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-collect-recall-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-collect-recall-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -92,7 +92,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-debug-pds-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-debug-pds-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_debugPds',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -100,7 +100,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_vin_debugPds" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_debugPds" '
                  'name="vin debugPds" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.debugPds", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.debugPds", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -115,7 +115,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-debug-pds-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-debug-pds-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -130,9 +130,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-debug-pds-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-debug-pds-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.debugPds',
+                 'app.etzhayyim.apps.vin.debugPds',
                  'vin_debugPds',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -140,7 +140,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-debug-pds-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-debug-pds-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -156,7 +156,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-decode-vin-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-decode-vin-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_decodeVin',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -164,7 +164,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_vin_decodeVin" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_decodeVin" '
                  'name="vin decodeVin" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.decodeVin", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.decodeVin", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -179,7 +179,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-decode-vin-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-decode-vin-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -194,9 +194,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-decode-vin-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-decode-vin-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.decodeVin',
+                 'app.etzhayyim.apps.vin.decodeVin',
                  'vin_decodeVin',
                  'vertex_vin_vehicle',
                  '2026-04-30T22:01:00+09:00',
@@ -204,7 +204,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-decode-vin-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-decode-vin-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -220,7 +220,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-example-method-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-example-method-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_exampleMethod',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -229,7 +229,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_exampleMethod" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_exampleMethod" '
                  'name="vin exampleMethod" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.exampleMethod", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.exampleMethod", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -244,7 +244,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-example-method-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-example-method-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -259,9 +259,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-example-method-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-example-method-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.exampleMethod',
+                 'app.etzhayyim.apps.vin.exampleMethod',
                  'vin_exampleMethod',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-example-method-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-example-method-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -285,7 +285,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-manufacturer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-manufacturer-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_getManufacturer',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -295,7 +295,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_getManufacturer" name="vin getManufacturer" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.getManufacturer", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.getManufacturer", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -310,7 +310,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-manufacturer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-manufacturer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -325,9 +325,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-manufacturer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-manufacturer-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.getManufacturer',
+                 'app.etzhayyim.apps.vin.getManufacturer',
                  'vin_getManufacturer',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -335,7 +335,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-manufacturer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-manufacturer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -351,7 +351,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-plant-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-plant-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_getPlant',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -359,7 +359,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_vin_getPlant" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_getPlant" '
                  'name="vin getPlant" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.getPlant", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.getPlant", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -374,7 +374,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-plant-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-plant-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -389,9 +389,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-plant-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-plant-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.getPlant',
+                 'app.etzhayyim.apps.vin.getPlant',
                  'vin_getPlant',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -399,7 +399,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-plant-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-plant-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,7 +415,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-shipment-flow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-shipment-flow-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_getShipmentFlow',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -425,7 +425,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_getShipmentFlow" name="vin getShipmentFlow" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.getShipmentFlow", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.getShipmentFlow", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -440,7 +440,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-shipment-flow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-shipment-flow-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -455,9 +455,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-shipment-flow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-shipment-flow-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.getShipmentFlow',
+                 'app.etzhayyim.apps.vin.getShipmentFlow',
                  'vin_getShipmentFlow',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -465,7 +465,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-shipment-flow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-shipment-flow-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -481,7 +481,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-vehicle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-vehicle-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_getVehicle',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -490,7 +490,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_getVehicle" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_getVehicle" '
                  'name="vin getVehicle" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.getVehicle", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.getVehicle", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -505,7 +505,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-vehicle-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-vehicle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -520,9 +520,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-vehicle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-vehicle-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.getVehicle',
+                 'app.etzhayyim.apps.vin.getVehicle',
                  'vin_getVehicle',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -530,7 +530,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-vehicle-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-vehicle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -546,7 +546,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-vehicle-history-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-vehicle-history-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_getVehicleHistory',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -556,7 +556,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_getVehicleHistory" name="vin getVehicleHistory" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.getVehicleHistory", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.getVehicleHistory", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -571,7 +571,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-vehicle-history-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-vehicle-history-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -586,9 +586,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-vehicle-history-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-vehicle-history-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.getVehicleHistory',
+                 'app.etzhayyim.apps.vin.getVehicleHistory',
                  'vin_getVehicleHistory',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -596,7 +596,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-vehicle-history-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-vehicle-history-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -612,7 +612,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-ingest-shipment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-ingest-shipment-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_ingestShipment',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -621,7 +621,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_ingestShipment" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_ingestShipment" '
                  'name="vin ingestShipment" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.ingestShipment", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.ingestShipment", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -636,7 +636,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-ingest-shipment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-ingest-shipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -651,9 +651,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-ingest-shipment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-ingest-shipment-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.ingestShipment',
+                 'app.etzhayyim.apps.vin.ingestShipment',
                  'vin_ingestShipment',
                  'vertex_vin_shipment_volume',
                  '2026-04-30T22:01:00+09:00',
@@ -661,7 +661,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-ingest-shipment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-ingest-shipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -677,7 +677,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-cohort-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-cohort-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_listCohort',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -686,7 +686,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_listCohort" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_listCohort" '
                  'name="vin listCohort" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.listCohort", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.listCohort", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -701,7 +701,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-cohort-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-cohort-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -716,9 +716,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-cohort-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-cohort-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.listCohort',
+                 'app.etzhayyim.apps.vin.listCohort',
                  'vin_listCohort',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -726,7 +726,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-cohort-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-cohort-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -742,7 +742,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-jurisdictions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-jurisdictions-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_listJurisdictions',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -752,7 +752,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_listJurisdictions" name="vin listJurisdictions" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.listJurisdictions", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.listJurisdictions", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -767,7 +767,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-jurisdictions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-jurisdictions-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -782,9 +782,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-jurisdictions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-jurisdictions-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.listJurisdictions',
+                 'app.etzhayyim.apps.vin.listJurisdictions',
                  'vin_listJurisdictions',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -792,7 +792,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-jurisdictions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-jurisdictions-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -808,7 +808,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-manufacturers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-manufacturers-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_listManufacturers',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -818,7 +818,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_listManufacturers" name="vin listManufacturers" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.listManufacturers", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.listManufacturers", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -833,7 +833,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-manufacturers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-manufacturers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -848,9 +848,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-manufacturers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-manufacturers-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.listManufacturers',
+                 'app.etzhayyim.apps.vin.listManufacturers',
                  'vin_listManufacturers',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -858,7 +858,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-manufacturers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-manufacturers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -874,7 +874,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-plants-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-plants-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_listPlants',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -883,7 +883,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_listPlants" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_listPlants" '
                  'name="vin listPlants" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.listPlants", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.listPlants", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -898,7 +898,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-plants-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-plants-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -913,9 +913,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-plants-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-plants-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.listPlants',
+                 'app.etzhayyim.apps.vin.listPlants',
                  'vin_listPlants',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -923,7 +923,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-plants-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-plants-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -939,7 +939,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-shipment-cohorts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-shipment-cohorts-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_listShipmentCohorts',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -949,7 +949,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_listShipmentCohorts" name="vin listShipmentCohorts" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.listShipmentCohorts", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.listShipmentCohorts", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -964,7 +964,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-shipment-cohorts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-shipment-cohorts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -979,9 +979,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-shipment-cohorts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-shipment-cohorts-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.listShipmentCohorts',
+                 'app.etzhayyim.apps.vin.listShipmentCohorts',
                  'vin_listShipmentCohorts',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -989,7 +989,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-shipment-cohorts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-shipment-cohorts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1005,7 +1005,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-vehicle-types-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-vehicle-types-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_listVehicleTypes',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1015,7 +1015,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_listVehicleTypes" name="vin listVehicleTypes" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.listVehicleTypes", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.listVehicleTypes", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1030,7 +1030,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-vehicle-types-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-vehicle-types-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1045,9 +1045,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-vehicle-types-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-vehicle-types-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.listVehicleTypes',
+                 'app.etzhayyim.apps.vin.listVehicleTypes',
                  'vin_listVehicleTypes',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -1055,7 +1055,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-vehicle-types-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-vehicle-types-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1071,7 +1071,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-vehicles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-vehicles-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_listVehicles',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1080,7 +1080,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_listVehicles" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_listVehicles" '
                  'name="vin listVehicles" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.listVehicles", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.listVehicles", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1095,7 +1095,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-vehicles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-vehicles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1110,9 +1110,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-vehicles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-vehicles-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.listVehicles',
+                 'app.etzhayyim.apps.vin.listVehicles',
                  'vin_listVehicles',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -1120,7 +1120,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-vehicles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-vehicles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1136,7 +1136,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-lookup-plate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-lookup-plate-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_lookupPlate',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1145,7 +1145,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_lookupPlate" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_lookupPlate" '
                  'name="vin lookupPlate" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.lookupPlate", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.lookupPlate", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1160,7 +1160,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-lookup-plate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-lookup-plate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1175,9 +1175,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-lookup-plate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-lookup-plate-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.lookupPlate',
+                 'app.etzhayyim.apps.vin.lookupPlate',
                  'vin_lookupPlate',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -1185,7 +1185,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-lookup-plate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-lookup-plate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1201,7 +1201,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-register-cohort-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-register-cohort-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_registerCohort',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1210,7 +1210,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_registerCohort" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_registerCohort" '
                  'name="vin registerCohort" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.registerCohort", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.registerCohort", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1225,7 +1225,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-register-cohort-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-register-cohort-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1240,9 +1240,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-register-cohort-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-register-cohort-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.registerCohort',
+                 'app.etzhayyim.apps.vin.registerCohort',
                  'vin_registerCohort',
                  'vertex_vin_cohort_registration',
                  '2026-04-30T22:01:00+09:00',
@@ -1250,7 +1250,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-register-cohort-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-register-cohort-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1266,7 +1266,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-register-plate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-register-plate-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_registerPlate',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1275,7 +1275,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_registerPlate" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_registerPlate" '
                  'name="vin registerPlate" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.registerPlate", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.registerPlate", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1290,7 +1290,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-register-plate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-register-plate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1305,9 +1305,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-register-plate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-register-plate-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.registerPlate',
+                 'app.etzhayyim.apps.vin.registerPlate',
                  'vin_registerPlate',
                  'vertex_vin_license_plate',
                  '2026-04-30T22:01:00+09:00',
@@ -1315,7 +1315,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-register-plate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-register-plate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1331,7 +1331,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-search-vehicles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-search-vehicles-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_searchVehicles',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1340,7 +1340,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_searchVehicles" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_searchVehicles" '
                  'name="vin searchVehicles" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.searchVehicles", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.searchVehicles", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1355,7 +1355,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-search-vehicles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-search-vehicles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1370,9 +1370,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-search-vehicles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-search-vehicles-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.searchVehicles',
+                 'app.etzhayyim.apps.vin.searchVehicles',
                  'vin_searchVehicles',
                  '',
                  '2026-04-30T22:01:00+09:00',
@@ -1380,7 +1380,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-search-vehicles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-search-vehicles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1396,7 +1396,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-jurisdictions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-jurisdictions-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_seedJurisdictions',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1406,7 +1406,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_seedJurisdictions" name="vin seedJurisdictions" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.seedJurisdictions", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.seedJurisdictions", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1421,7 +1421,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-jurisdictions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-jurisdictions-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1436,9 +1436,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-jurisdictions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-jurisdictions-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.seedJurisdictions',
+                 'app.etzhayyim.apps.vin.seedJurisdictions',
                  'vin_seedJurisdictions',
                  'vertex_vin_jurisdiction_registry',
                  '2026-04-30T22:01:00+09:00',
@@ -1446,7 +1446,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-jurisdictions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-jurisdictions-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1462,7 +1462,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-manufacturers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-manufacturers-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_seedManufacturers',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1472,7 +1472,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_seedManufacturers" name="vin seedManufacturers" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.seedManufacturers", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.seedManufacturers", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1487,7 +1487,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-manufacturers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-manufacturers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1502,9 +1502,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-manufacturers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-manufacturers-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.seedManufacturers',
+                 'app.etzhayyim.apps.vin.seedManufacturers',
                  'vin_seedManufacturers',
                  'vertex_vin_manufacturer',
                  '2026-04-30T22:01:00+09:00',
@@ -1512,7 +1512,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-manufacturers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-manufacturers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1528,7 +1528,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-production-lines-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-production-lines-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_seedProductionLines',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1538,7 +1538,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_seedProductionLines" name="vin seedProductionLines" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.seedProductionLines", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.seedProductionLines", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1553,7 +1553,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-production-lines-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-production-lines-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1568,9 +1568,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-production-lines-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-production-lines-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.seedProductionLines',
+                 'app.etzhayyim.apps.vin.seedProductionLines',
                  'vin_seedProductionLines',
                  'vertex_vin_production_line',
                  '2026-04-30T22:01:00+09:00',
@@ -1578,7 +1578,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-production-lines-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-production-lines-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1594,7 +1594,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-production-plants-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-production-plants-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_seedProductionPlants',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1604,7 +1604,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_seedProductionPlants" name="vin seedProductionPlants" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.seedProductionPlants", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.seedProductionPlants", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1619,7 +1619,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-production-plants-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-production-plants-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1634,9 +1634,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-production-plants-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-production-plants-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.seedProductionPlants',
+                 'app.etzhayyim.apps.vin.seedProductionPlants',
                  'vin_seedProductionPlants',
                  'vertex_vin_production_plant',
                  '2026-04-30T22:01:00+09:00',
@@ -1644,7 +1644,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-production-plants-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-production-plants-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1660,7 +1660,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-vehicle-types-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-vehicle-types-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_seedVehicleTypes',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1670,7 +1670,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process '
                  'id="vin_seedVehicleTypes" name="vin seedVehicleTypes" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.seedVehicleTypes", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.seedVehicleTypes", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1685,7 +1685,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-vehicle-types-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-vehicle-types-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1700,9 +1700,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-vehicle-types-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-vehicle-types-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.seedVehicleTypes',
+                 'app.etzhayyim.apps.vin.seedVehicleTypes',
                  'vin_seedVehicleTypes',
                  'vertex_vin_vehicle_type',
                  '2026-04-30T22:01:00+09:00',
@@ -1710,7 +1710,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-vehicle-types-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-vehicle-types-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1726,7 +1726,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-wmi-codes-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-wmi-codes-v1',
                  'did:web:vin.etzhayyim.com',
                  'vin_seedWmiCodes',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1735,7 +1735,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_vin_seedWmiCodes" '
                  'targetNamespace="https://etzhayyim.com/bpmn/vin"><bpmn:process id="vin_seedWmiCodes" '
                  'name="vin seedWmiCodes" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vin.seedWmiCodes", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vin.seedWmiCodes", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1750,7 +1750,7 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-wmi-codes-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-wmi-codes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1765,9 +1765,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-wmi-codes-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-wmi-codes-v1',
                  'did:web:vin.etzhayyim.com',
-                 'ai.gftd.apps.vin.seedWmiCodes',
+                 'app.etzhayyim.apps.vin.seedWmiCodes',
                  'vin_seedWmiCodes',
                  'vertex_vin_wmi_code',
                  '2026-04-30T22:01:00+09:00',
@@ -1775,116 +1775,116 @@ UP = [{'sql': '\n'
                  'did:web:vin.etzhayyim.com',
                  'sys.bpmn.seed.vin',
                  'did:web:vin.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-wmi-codes-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-wmi-codes-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-collect-recall-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-collect-recall-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-collect-recall-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-collect-recall-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-debug-pds-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-debug-pds-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-debug-pds-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-debug-pds-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-decode-vin-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-decode-vin-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-decode-vin-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-decode-vin-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-example-method-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-example-method-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-example-method-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-example-method-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-manufacturer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-manufacturer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-manufacturer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-manufacturer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-plant-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-plant-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-plant-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-plant-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-shipment-flow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-shipment-flow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-shipment-flow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-shipment-flow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-vehicle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-vehicle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-vehicle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-vehicle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-get-vehicle-history-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-get-vehicle-history-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-get-vehicle-history-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-get-vehicle-history-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-ingest-shipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-ingest-shipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-ingest-shipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-ingest-shipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-cohort-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-cohort-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-cohort-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-cohort-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-jurisdictions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-jurisdictions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-jurisdictions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-jurisdictions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-manufacturers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-manufacturers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-manufacturers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-manufacturers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-plants-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-plants-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-plants-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-plants-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-shipment-cohorts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-shipment-cohorts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-shipment-cohorts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-shipment-cohorts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-vehicle-types-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-vehicle-types-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-vehicle-types-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-vehicle-types-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-list-vehicles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-list-vehicles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-list-vehicles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-list-vehicles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-lookup-plate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-lookup-plate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-lookup-plate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-lookup-plate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-register-cohort-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-register-cohort-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-register-cohort-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-register-cohort-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-register-plate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-register-plate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-register-plate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-register-plate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-search-vehicles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-search-vehicles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-search-vehicles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-search-vehicles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-jurisdictions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-jurisdictions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-jurisdictions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-jurisdictions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-manufacturers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-manufacturers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-manufacturers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-manufacturers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-production-lines-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-production-lines-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-production-lines-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-production-lines-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-production-plants-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-production-plants-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-production-plants-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-production-plants-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-vehicle-types-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-vehicle-types-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-vehicle-types-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-vehicle-types-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vin-seed-wmi-codes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-seed-wmi-codes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vin-seed-wmi-codes-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-seed-wmi-codes-v1']}]
 
 
 def upgrade() -> None:

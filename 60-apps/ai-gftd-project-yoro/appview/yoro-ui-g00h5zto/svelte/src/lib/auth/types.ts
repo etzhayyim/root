@@ -166,7 +166,7 @@ export interface UsernameSignUpInput {
 
 /** Tool capability that an agent can declare */
 export interface AgentCapability {
-	/** Tool/API interface identifier (e.g. "ai.gftd.yata") */
+	/** Tool/API interface identifier (e.g. "app.etzhayyim.yata") */
 	interfaceId: string;
 	/** Human-readable label */
 	label: string;

@@ -1,6 +1,6 @@
 """Guarded LLM caller for yatabase marketing + sales graphs.
 
-When GFTD_LLM_API_KEY is set, POST to GFTD_LLM_URL with a tight JSON
+When etzhayyim_LLM_API_KEY is set, POST to etzhayyim_LLM_URL with a tight JSON
 schema instruction and parse the structured response. When the key is
 absent or the call fails for any reason, return the caller's
 deterministic fallback. The graph is always functional — LLM is an
@@ -24,13 +24,13 @@ from typing import Any
 _log = logging.getLogger(__name__)
 
 _LLM_URL = os.environ.get(
-    "GFTD_LLM_URL",
+    "etzhayyim_LLM_URL",
     "https://gemma-e2b.etzhayyim.com/v1/chat/completions",
 )
-_LLM_KEY = os.environ.get("GFTD_LLM_API_KEY", "")
+_LLM_KEY = os.environ.get("etzhayyim_LLM_API_KEY", "")
 _LLM_MODEL = os.environ.get(
     "YATABASE_LLM_MODEL",
-    os.environ.get("GFTD_LLM_MODEL", "gemma-4-E2B-it"),
+    os.environ.get("etzhayyim_LLM_MODEL", "gemma-4-E2B-it"),
 )
 _LLM_TIMEOUT = float(os.environ.get("YATABASE_LLM_TIMEOUT_SEC", "15"))
 

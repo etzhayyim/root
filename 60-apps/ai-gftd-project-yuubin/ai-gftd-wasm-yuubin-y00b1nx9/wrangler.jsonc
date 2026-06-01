@@ -16,16 +16,16 @@
     "APP_CAPABILITIES": "[\"yuubin-compose-and-post\",\"yuubin-submit-naiyo-shomei\",\"yuubin-submit-letterpack\",\"yuubin-upload-document\",\"yuubin-get-status\",\"yuubin-list-submissions\",\"document-transport\"]",
     "APP_DESCRIPTION": "日本郵便 Web ゆうびん / e内容証明 / レターパック自動投函 AI エージェント — Word/PDF を自動アップロード、宛先入力、決済確認、申込番号回収を puppeteer で自動化。司法書類 (裁判所申立・差押命令申立等) の自前郵送を fax actor と棲み分け。MCP-callable: composeAndPost / submitNaiyoShomei / submitLetterpack / uploadDocument / getStatus / listSubmissions。",
     "APP_DISPLAY_NAME": "YUUBIN Gateway (Web ゆうびん 自動化)",
-    "APP_EMBED_URL": "https://y00b1nx9.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://y00b1nx9.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "y00b1nx9",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "CDN_PUBLIC_BASE_URL": "https://yuubin.gftd.ai/api/blob",
+    "CDN_PUBLIC_BASE_URL": "https://yuubin.etzhayyim.com/api/blob",
     "ENAIYO_URL": "https://webyubin.jpi.post.japanpost.jp/webyubin/kad/DYFR010.do",
     "WEBYUBIN_LOGIN_URL": "https://webyubin.jpi.post.japanpost.jp/",
     "YUUBIN_PROVIDER": "manual",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -37,12 +37,12 @@
   ],
   "routes": [
     {
-      "pattern": "y00b1nx9.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "y00b1nx9.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "yuubin.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "yuubin.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

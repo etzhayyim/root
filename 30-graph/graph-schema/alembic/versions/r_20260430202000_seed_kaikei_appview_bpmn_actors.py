@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-get-trial-balance-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-get-trial-balance-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_get_trial_balance',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_get_trial_balance" name="kaikei getTrialBalance" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.getTrialBalance", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.kaikei.getTrialBalance", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-get-trial-balance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-get-trial-balance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-getTrialBalance-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-getTrialBalance-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.getTrialBalance',
+                 'app.etzhayyim.apps.kaikei.getTrialBalance',
                  'kaikei_get_trial_balance',
                  30000,
                  '',
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-getTrialBalance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-getTrialBalance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-list-journal-entries-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-list-journal-entries-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_list_journal_entries',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_list_journal_entries" name="kaikei listJournalEntries" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.listJournalEntries", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.kaikei.listJournalEntries", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -119,7 +119,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-list-journal-entries-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-list-journal-entries-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,9 +134,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-listJournalEntries-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-listJournalEntries-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.listJournalEntries',
+                 'app.etzhayyim.apps.kaikei.listJournalEntries',
                  'kaikei_list_journal_entries',
                  30000,
                  '',
@@ -145,7 +145,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-listJournalEntries-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-listJournalEntries-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-list-accounts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-list-accounts-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_list_accounts',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -171,7 +171,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_list_accounts" name="kaikei listAccounts" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.listAccounts", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.kaikei.listAccounts", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -186,7 +186,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-list-accounts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-list-accounts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -201,9 +201,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-listAccounts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-listAccounts-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.listAccounts',
+                 'app.etzhayyim.apps.kaikei.listAccounts',
                  'kaikei_list_accounts',
                  30000,
                  '',
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-listAccounts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-listAccounts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -228,7 +228,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-get-monthly-summary-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-get-monthly-summary-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_get_monthly_summary',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -238,7 +238,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_get_monthly_summary" name="kaikei getMonthlySummary" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.getMonthlySummary", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.kaikei.getMonthlySummary", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -253,7 +253,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-get-monthly-summary-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-get-monthly-summary-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -268,9 +268,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-getMonthlySummary-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-getMonthlySummary-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.getMonthlySummary',
+                 'app.etzhayyim.apps.kaikei.getMonthlySummary',
                  'kaikei_get_monthly_summary',
                  30000,
                  '',
@@ -279,7 +279,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-getMonthlySummary-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-getMonthlySummary-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -295,7 +295,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-pf-payable-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-pf-payable-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_record_pf_payable',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_record_pf_payable" name="kaikei recordPfPayable" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.recordPfPayable", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kaikei.recordPfPayable", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -320,7 +320,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-pf-payable-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-pf-payable-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -335,9 +335,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordPfPayable-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordPfPayable-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.recordPfPayable',
+                 'app.etzhayyim.apps.kaikei.recordPfPayable',
                  'kaikei_record_pf_payable',
                  120000,
                  'vertex_atrecord_kaikei_journal_entry',
@@ -346,7 +346,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordPfPayable-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordPfPayable-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -362,7 +362,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-esi-payable-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-esi-payable-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_record_esi_payable',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -372,7 +372,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_record_esi_payable" name="kaikei recordEsiPayable" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.recordEsiPayable", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kaikei.recordEsiPayable", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -387,7 +387,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-esi-payable-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-esi-payable-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -402,9 +402,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordEsiPayable-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordEsiPayable-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.recordEsiPayable',
+                 'app.etzhayyim.apps.kaikei.recordEsiPayable',
                  'kaikei_record_esi_payable',
                  120000,
                  'vertex_atrecord_kaikei_journal_entry',
@@ -413,7 +413,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordEsiPayable-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordEsiPayable-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -429,7 +429,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-gst-payable-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-gst-payable-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_record_gst_payable',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -439,7 +439,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_record_gst_payable" name="kaikei recordGstPayable" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.recordGstPayable", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kaikei.recordGstPayable", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -454,7 +454,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-gst-payable-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-gst-payable-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -469,9 +469,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordGstPayable-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordGstPayable-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.recordGstPayable',
+                 'app.etzhayyim.apps.kaikei.recordGstPayable',
                  'kaikei_record_gst_payable',
                  120000,
                  'vertex_atrecord_kaikei_journal_entry',
@@ -480,7 +480,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordGstPayable-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordGstPayable-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -496,7 +496,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-advance-tax-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-advance-tax-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_record_advance_tax',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -506,7 +506,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_record_advance_tax" name="kaikei recordAdvanceTax" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.recordAdvanceTax", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kaikei.recordAdvanceTax", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -521,7 +521,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-advance-tax-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-advance-tax-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -536,9 +536,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordAdvanceTax-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordAdvanceTax-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.recordAdvanceTax',
+                 'app.etzhayyim.apps.kaikei.recordAdvanceTax',
                  'kaikei_record_advance_tax',
                  120000,
                  'vertex_atrecord_kaikei_journal_entry',
@@ -547,7 +547,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordAdvanceTax-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordAdvanceTax-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -563,7 +563,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-recompute-withholding-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-recompute-withholding-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_recompute_withholding',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -573,7 +573,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_recompute_withholding" name="kaikei recomputeWithholding" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.recomputeWithholding", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.kaikei.recomputeWithholding", "version": 1, "resultTimeoutMs": '
                  '120000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -588,7 +588,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-recompute-withholding-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-recompute-withholding-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -603,9 +603,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recomputeWithholding-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recomputeWithholding-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.recomputeWithholding',
+                 'app.etzhayyim.apps.kaikei.recomputeWithholding',
                  'kaikei_recompute_withholding',
                  120000,
                  'vertex_atrecord_kaikei_journal_entry',
@@ -614,7 +614,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recomputeWithholding-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recomputeWithholding-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -630,7 +630,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-map-account-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-map-account-v1',
                  'did:web:kaikei.etzhayyim.com',
                  'kaikei_map_account',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -640,7 +640,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kaikei"><bpmn:process '
                  'id="kaikei_map_account" name="kaikei mapAccount" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kaikei.mapAccount", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kaikei.mapAccount", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -655,7 +655,7 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-map-account-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-map-account-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -670,9 +670,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-mapAccount-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-mapAccount-v1',
                  'did:web:kaikei.etzhayyim.com',
-                 'ai.gftd.apps.kaikei.mapAccount',
+                 'app.etzhayyim.apps.kaikei.mapAccount',
                  'kaikei_map_account',
                  120000,
                  'vertex_atrecord_kaikei_account',
@@ -681,48 +681,48 @@ UP = [{'sql': '\n'
                  'did:web:kaikei.etzhayyim.com',
                  'sys.bpmn.seed.kaikei-appview',
                  'did:web:kaikei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-mapAccount-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-mapAccount-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-getTrialBalance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-getTrialBalance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-get-trial-balance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-get-trial-balance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-listJournalEntries-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-listJournalEntries-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-list-journal-entries-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-list-journal-entries-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-listAccounts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-listAccounts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-list-accounts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-list-accounts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-getMonthlySummary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-getMonthlySummary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-get-monthly-summary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-get-monthly-summary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordPfPayable-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordPfPayable-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-pf-payable-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-pf-payable-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordEsiPayable-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordEsiPayable-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-esi-payable-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-esi-payable-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordGstPayable-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordGstPayable-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-gst-payable-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-gst-payable-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recordAdvanceTax-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recordAdvanceTax-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-record-advance-tax-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-record-advance-tax-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-recomputeWithholding-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-recomputeWithholding-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-recompute-withholding-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-recompute-withholding-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaikei-mapAccount-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-mapAccount-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaikei-map-account-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-map-account-v1']}]
 
 
 def upgrade() -> None:

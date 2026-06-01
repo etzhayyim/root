@@ -116,8 +116,8 @@
 <div class="mx-auto w-full max-w-5xl space-y-6 px-6 py-10">
 	<div class="flex flex-wrap items-end justify-between gap-3">
 		<div>
-			<h1 class="text-2xl font-semibold text-gftd-text">Billing & usage</h1>
-			<p class="mt-1 text-sm text-gftd-secondary">
+			<h1 class="text-2xl font-semibold text-etzhayyim-text">Billing & usage</h1>
+			<p class="mt-1 text-sm text-etzhayyim-secondary">
 				Plan from <code>/api/plan</code>, usage from <code>/api/usage</code>. KV-mirrored so it
 				stays available even when RW is in recovery.
 			</p>
@@ -142,11 +142,11 @@
 	{/if}
 
 	{#if donateOpen}
-		<div class="rounded-2xl border border-gftd-border bg-gftd-card p-6">
+		<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-6">
 			<div class="flex items-start justify-between">
 				<div>
-					<h2 class="text-lg font-medium text-gftd-text">USDC donation (Base L2)</h2>
-					<p class="mt-1 text-sm text-gftd-secondary">
+					<h2 class="text-lg font-medium text-etzhayyim-text">USDC donation (Base L2)</h2>
+					<p class="mt-1 text-sm text-etzhayyim-secondary">
 						Per Charter Rider §2 (<a class="underline" href="https://github.com/etzhayyim/root/blob/main/CHARTER-RIDER.md" target="_blank" rel="noreferrer">link</a>),
 						paid tiers are SBT↔SBT-bound internal-subscriptions funded by a USDC donation on Base L2.
 						The plan flip happens after ChartersComplianceRegistry attestation hits <code>/webhook/usdc</code>.
@@ -156,19 +156,19 @@
 			</div>
 
 			<div class="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
-				<label class="text-sm text-gftd-secondary">
+				<label class="text-sm text-etzhayyim-secondary">
 					Amount (USDC)
 					<input
 						type="text"
-						class="mt-1 w-full rounded-md border border-gftd-border bg-black/30 px-3 py-2 font-mono text-gftd-text"
+						class="mt-1 w-full rounded-md border border-etzhayyim-border bg-black/30 px-3 py-2 font-mono text-etzhayyim-text"
 						bind:value={donateAmount}
 						placeholder="33.00"
 					/>
 				</label>
-				<label class="text-sm text-gftd-secondary">
+				<label class="text-sm text-etzhayyim-secondary">
 					Purpose
 					<select
-						class="mt-1 w-full rounded-md border border-gftd-border bg-black/30 px-3 py-2 text-gftd-text"
+						class="mt-1 w-full rounded-md border border-etzhayyim-border bg-black/30 px-3 py-2 text-etzhayyim-text"
 						bind:value={donatePurpose}
 					>
 						<option value="donation">donation (unrestricted)</option>
@@ -180,11 +180,11 @@
 						<option value="internal-promo">internal-promo (promotional SBT mint)</option>
 					</select>
 				</label>
-				<label class="text-sm text-gftd-secondary md:col-span-2">
+				<label class="text-sm text-etzhayyim-secondary md:col-span-2">
 					Memo (optional, ≤280 chars)
 					<input
 						type="text"
-						class="mt-1 w-full rounded-md border border-gftd-border bg-black/30 px-3 py-2 text-gftd-text"
+						class="mt-1 w-full rounded-md border border-etzhayyim-border bg-black/30 px-3 py-2 text-etzhayyim-text"
 						bind:value={donateMemo}
 						maxlength="280"
 					/>
@@ -213,12 +213,12 @@
 	{/if}
 
 	<!-- Plan card -->
-	<div class="rounded-2xl border border-gftd-border bg-gftd-card p-6">
+	<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-6">
 		<div class="flex items-start justify-between">
 			<div>
-				<p class="text-sm uppercase tracking-wider text-gftd-muted">Current plan</p>
-				<p class="mt-2 text-3xl font-semibold text-gftd-text">{$plan?.plan ?? 'free'}</p>
-				<p class="mt-1 text-sm text-gftd-secondary">
+				<p class="text-sm uppercase tracking-wider text-etzhayyim-muted">Current plan</p>
+				<p class="mt-2 text-3xl font-semibold text-etzhayyim-text">{$plan?.plan ?? 'free'}</p>
+				<p class="mt-1 text-sm text-etzhayyim-secondary">
 					{$plan?.status ?? 'active'} ·
 					{$plan?.billing_period_end
 						? `renews ${new Date($plan.billing_period_end).toLocaleDateString()}`
@@ -232,8 +232,8 @@
 	</div>
 
 	<!-- Usage 24h -->
-	<div class="rounded-2xl border border-gftd-border bg-gftd-card p-6">
-		<h2 class="text-lg font-medium text-gftd-text">Usage (24h)</h2>
+	<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-6">
+		<h2 class="text-lg font-medium text-etzhayyim-text">Usage (24h)</h2>
 		{#if loading}
 			<div class="mt-4 space-y-3">
 				{#each [1, 2, 3] as _}
@@ -254,11 +254,11 @@
 					{#if v}
 						<div>
 							<div class="flex items-end justify-between text-sm">
-								<dt class="font-mono text-gftd-text">{m}</dt>
-								<dd class="text-gftd-secondary">
+								<dt class="font-mono text-etzhayyim-text">{m}</dt>
+								<dd class="text-etzhayyim-secondary">
 									{v.totalQty.toLocaleString()}
 									{#if quota(m)}
-										<span class="text-gftd-muted">/ {quota(m).toLocaleString()}</span>
+										<span class="text-etzhayyim-muted">/ {quota(m).toLocaleString()}</span>
 									{/if}
 								</dd>
 							</div>
@@ -286,15 +286,15 @@
 
 	<!-- Usage 30d -->
 	{#if usage30 && Object.keys(usage30).length > 0}
-		<div class="rounded-2xl border border-gftd-border bg-gftd-card p-6">
-			<h2 class="text-lg font-medium text-gftd-text">Usage (30d total)</h2>
+		<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-6">
+			<h2 class="text-lg font-medium text-etzhayyim-text">Usage (30d total)</h2>
 			<dl class="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
 				{#each METRIC_ORDER as m}
 					{@const v = usage30[m]}
 					{#if v}
-						<div class="rounded-lg border border-gftd-border bg-black/20 p-3">
-							<dt class="text-xs font-mono text-gftd-muted">{m}</dt>
-							<dd class="mt-1 text-lg font-semibold text-gftd-text">
+						<div class="rounded-lg border border-etzhayyim-border bg-black/20 p-3">
+							<dt class="text-xs font-mono text-etzhayyim-muted">{m}</dt>
+							<dd class="mt-1 text-lg font-semibold text-etzhayyim-text">
 								{v.totalQty.toLocaleString()}
 							</dd>
 						</div>

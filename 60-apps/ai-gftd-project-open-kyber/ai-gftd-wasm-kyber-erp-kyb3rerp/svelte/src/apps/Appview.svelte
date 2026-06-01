@@ -4,22 +4,22 @@
   import { ui } from '../lib/store.svelte';
 
   const nsid = {
-    dashboard: 'ai.gftd.apps.kyber.dashboard',
-    listInvoices: 'ai.gftd.apps.kyber.listInvoices',
-    createInvoice: 'ai.gftd.apps.kyber.createInvoice',
-    listEmployees: 'ai.gftd.apps.kyber.listEmployees',
-    registerEmployee: 'ai.gftd.apps.kyber.registerEmployee',
-    listPurchaseOrders: 'ai.gftd.apps.kyber.listPurchaseOrders',
-    createPurchaseOrder: 'ai.gftd.apps.kyber.createPurchaseOrder',
-    listIntegrationCatalog: 'ai.gftd.apps.kyber.listIntegrationCatalog',
-    syncIntegrationCatalog: 'ai.gftd.apps.kyber.syncIntegrationCatalog',
+    dashboard: 'app.etzhayyim.apps.kyber.dashboard',
+    listInvoices: 'app.etzhayyim.apps.kyber.listInvoices',
+    createInvoice: 'app.etzhayyim.apps.kyber.createInvoice',
+    listEmployees: 'app.etzhayyim.apps.kyber.listEmployees',
+    registerEmployee: 'app.etzhayyim.apps.kyber.registerEmployee',
+    listPurchaseOrders: 'app.etzhayyim.apps.kyber.listPurchaseOrders',
+    createPurchaseOrder: 'app.etzhayyim.apps.kyber.createPurchaseOrder',
+    listIntegrationCatalog: 'app.etzhayyim.apps.kyber.listIntegrationCatalog',
+    syncIntegrationCatalog: 'app.etzhayyim.apps.kyber.syncIntegrationCatalog',
     // APQC/BPMN projector (ADR-0025). Kyber ERP side:
-    initApqcProjector: 'ai.gftd.apps.kyber.initApqcProjector',
+    initApqcProjector: 'app.etzhayyim.apps.kyber.initApqcProjector',
     // kyber-projector side (proxied via PDS pipethrough):
-    listApqcActors: 'ai.gftd.kyber.projector.listApqcActors',
-    listBpmnTasks: 'ai.gftd.kyber.projector.listBpmnTasks',
-    runBpmnTask: 'ai.gftd.kyber.projector.runBpmnTask',
-    getApqcCoverage: 'ai.gftd.kyber.projector.getApqcCoverage'
+    listApqcActors: 'app.etzhayyim.kyber.projector.listApqcActors',
+    listBpmnTasks: 'app.etzhayyim.kyber.projector.listBpmnTasks',
+    runBpmnTask: 'app.etzhayyim.kyber.projector.runBpmnTask',
+    getApqcCoverage: 'app.etzhayyim.kyber.projector.getApqcCoverage'
   } as const;
 
   type Section = 'finance' | 'people' | 'procurement' | 'apqc';
@@ -144,24 +144,24 @@
       <button
         type="button"
         class="rounded-full border px-3 py-1.5 text-xs font-semibold transition"
-        class:border-gftd-border={section !== s}
-        class:text-gftd-secondary={section !== s}
+        class:border-etzhayyim-border={section !== s}
+        class:text-etzhayyim-secondary={section !== s}
         class:border-transparent={section === s}
-        class:bg-gftd-accent={section === s}
+        class:bg-etzhayyim-accent={section === s}
         class:text-white={section === s}
         onclick={() => (section = s)}
       >
         #{s}
       </button>
     {/each}
-    <span class="ml-auto text-xs text-gftd-muted">{sectionMeta[section].desc}</span>
+    <span class="ml-auto text-xs text-etzhayyim-muted">{sectionMeta[section].desc}</span>
   </div>
 
   <div class="grid gap-4 md:grid-cols-2">
     <Card>
       <div class="p-4 flex flex-col gap-3">
         <div class="flex items-center justify-between">
-          <h3 class="text-sm font-semibold text-gftd-text">Quick Queries</h3>
+          <h3 class="text-sm font-semibold text-etzhayyim-text">Quick Queries</h3>
           <Badge value="XRPC" variant="accent" />
         </div>
         <div class="flex flex-wrap gap-2">
@@ -178,7 +178,7 @@
           <Button size="sm" variant="outline"
             onclick={() => run(nsid.syncIntegrationCatalog, { includeApqc: true })}>Sync</Button>
         </div>
-        <p class="text-xs text-gftd-muted">
+        <p class="text-xs text-etzhayyim-muted">
           period={periodYM()} · dept DIDs: accounting / hr / procurement / inventory / sales
         </p>
       </div>
@@ -187,16 +187,16 @@
     {#if section === 'finance'}
       <Card>
         <div class="p-4 flex flex-col gap-3">
-          <h3 class="text-sm font-semibold text-gftd-text">Create Invoice</h3>
+          <h3 class="text-sm font-semibold text-etzhayyim-text">Create Invoice</h3>
           <div class="flex flex-col gap-2">
-            <span class="text-xs text-gftd-secondary">Direction</span>
+            <span class="text-xs text-etzhayyim-secondary">Direction</span>
             <Select bind:value={direction}>
               <option value="receivable">receivable (AR)</option>
               <option value="payable">payable (AP)</option>
             </Select>
-            <span class="text-xs text-gftd-secondary">Counterparty</span>
+            <span class="text-xs text-etzhayyim-secondary">Counterparty</span>
             <Input bind:value={counterparty} blockSize="md" placeholder="counterparty" />
-            <span class="text-xs text-gftd-secondary">Items (JSON)</span>
+            <span class="text-xs text-etzhayyim-secondary">Items (JSON)</span>
             <Textarea bind:value={itemJson} rows={4} />
           </div>
           <div>
@@ -209,7 +209,7 @@
     {#if section === 'people'}
       <Card>
         <div class="p-4 flex flex-col gap-3">
-          <h3 class="text-sm font-semibold text-gftd-text">Register Employee</h3>
+          <h3 class="text-sm font-semibold text-etzhayyim-text">Register Employee</h3>
           <Input bind:value={employeeName} blockSize="md" placeholder="name" />
           <Input bind:value={employeeDept} blockSize="md" placeholder="department" />
           <Input bind:value={employeePos} blockSize="md" placeholder="position" />
@@ -231,7 +231,7 @@
     {#if section === 'procurement'}
       <Card>
         <div class="p-4 flex flex-col gap-3">
-          <h3 class="text-sm font-semibold text-gftd-text">Create Purchase Order</h3>
+          <h3 class="text-sm font-semibold text-etzhayyim-text">Create Purchase Order</h3>
           <Input bind:value={poVendor} blockSize="md" placeholder="vendor" />
           <Textarea bind:value={poItems} rows={4} />
           <div>
@@ -245,7 +245,7 @@
       <Card>
         <div class="p-4 flex flex-col gap-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-semibold text-gftd-text">APQC / BPMN Projector</h3>
+            <h3 class="text-sm font-semibold text-etzhayyim-text">APQC / BPMN Projector</h3>
             <Badge value="ADR-0025" variant="accent" />
           </div>
           <div class="flex flex-wrap gap-2">
@@ -258,9 +258,9 @@
             <Button size="sm" variant="outline" onclick={loadApqcCoverage}>Refresh Coverage</Button>
           </div>
           <div class="flex flex-col gap-2">
-            <span class="text-xs text-gftd-secondary">OCEL period (from/to)</span>
+            <span class="text-xs text-etzhayyim-secondary">OCEL period (from/to)</span>
             <Input bind:value={apqcPeriod} blockSize="md" placeholder="2026-01-01/2026-12-31" />
-            <span class="text-xs text-gftd-secondary">BPMN taskId to run</span>
+            <span class="text-xs text-etzhayyim-secondary">BPMN taskId to run</span>
             <Input bind:value={bpmnRunTaskId} blockSize="md" placeholder="bpmn-9-journal-post" />
             <div>
               <Button size="sm" variant="solid-fill"
@@ -269,7 +269,7 @@
               </Button>
             </div>
           </div>
-          <p class="text-xs text-gftd-muted">
+          <p class="text-xs text-etzhayyim-muted">
             Projector: <code>did:web:kyber-projector.etzhayyim.com</code> · 13 L1 path DIDs · 183 sub-processes · 28 BPMN bindings
           </p>
         </div>
@@ -279,7 +279,7 @@
         <Card>
           <div class="p-4 flex flex-col gap-3">
             <div class="flex items-center justify-between">
-              <h3 class="text-sm font-semibold text-gftd-text">Coverage</h3>
+              <h3 class="text-sm font-semibold text-etzhayyim-text">Coverage</h3>
               <div class="flex gap-2">
                 <Chip label={`L1 ${apqcCoverage.registeredL1}/${apqcCoverage.totalL1}`} />
                 <Chip label={`Sub ${apqcCoverage.registeredSubProcesses}/${apqcCoverage.totalSubProcesses}`} />
@@ -288,7 +288,7 @@
             </div>
             <div class="overflow-x-auto">
               <table class="w-full text-xs">
-                <thead class="text-gftd-secondary">
+                <thead class="text-etzhayyim-secondary">
                   <tr>
                     <th class="text-left py-1 pr-3">Code</th>
                     <th class="text-left py-1 pr-3">L1 Domain</th>
@@ -300,7 +300,7 @@
                 </thead>
                 <tbody>
                   {#each apqcCoverage.byL1 as row (row.apqcCode)}
-                    <tr class="border-t border-gftd-border">
+                    <tr class="border-t border-etzhayyim-border">
                       <td class="py-1 pr-3 font-mono">{row.apqcCode}</td>
                       <td class="py-1 pr-3">{row.name}</td>
                       <td class="py-1 pr-3 text-right">{row.subProcesses}</td>

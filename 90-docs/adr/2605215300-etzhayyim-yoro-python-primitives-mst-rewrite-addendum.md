@@ -11,9 +11,9 @@ authoritative_for:
   - 40/40 function porting to etzhayyim_sdk primitives
   - vendor-only carve-out for _fetch_diet_speech_rows
 related:
-  - 2605171900-yoro-migration-to-etzhayyim.md
-  - 2605172000-etzhayyim-rw-free-substrate.md
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
+  - adr-2605171900-yoro-migration-to-etzhayyim
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 supersedes: []
 superseded_by: []
 ---
@@ -55,7 +55,7 @@ Original: vendor-exclusive RW table with no AT lexicon equivalent. Diet speech t
 
 ### §4 Actor Quality Inspection (M4–M5)
 
-**Functions**: 
+**Functions**:
 - `task_yoro_actor_quality_inspect` (M4)
 - `task_yoro_actor_quality_verify` (M4)
 - `task_yoro_actor_quality_enrich_profile` (M5)

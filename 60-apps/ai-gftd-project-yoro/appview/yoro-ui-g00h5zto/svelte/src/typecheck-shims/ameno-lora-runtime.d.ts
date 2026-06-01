@@ -1,4 +1,4 @@
-declare module '@gftd/ameno/lora-runtime' {
+declare module '@etzhayyim/ameno/lora-runtime' {
   export type AdapterMergeSpec = any;
   export type LoadedLoraAdapter = any;
 

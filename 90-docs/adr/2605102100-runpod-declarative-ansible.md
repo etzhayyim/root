@@ -11,10 +11,10 @@ authoritative_for:
   - Secret resolution path for RunPod env vars
   - Pod naming → manifest → API state SSoT chain
 depends_on:
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2605092345-runpod-l40s-fp8-multimodal-model-design
 related:
-  - 50-infra/runpod/ansible/README.md
+  - wellbecoming-karma-lean-proofs
   - 60-apps/ai-gftd-project-comfyui/ansible/        # earlier L40S precedent
 supersedes: []
 superseded_by: []
@@ -125,7 +125,7 @@ Optional metadata (for `deps.toml` cross-references and audit):
 - The single RunPod API key is read once via the local `op` CLI in
   `group_vars/all.yaml`. URI uses the **vault id**, not the vault
   name — `op read` rejects CJK characters in secret references and
-  the vault is named `Gftd Japan株式会社`. The vault id
+  the vault is named `etzhayyim Japan株式会社`. The vault id
   `dk3qlcuqumtoml2oaxrs5mwiji` is exposed as `op_vault_id` so every
   manifest can build URIs like
   `op://dk3qlcuqumtoml2oaxrs5mwiji/gftd.runpod/RUNPOD_API_KEY/password`.
@@ -228,7 +228,7 @@ Implemented 2026-05-10:
 end apply against live RunPod is gated on:
 
 1. The operator's `op` session being authenticated to the
-   `Gftd Japan株式会社` vault (vault id
+   `etzhayyim Japan株式会社` vault (vault id
    `dk3qlcuqumtoml2oaxrs5mwiji`).
 2. `op://dk3qlcuqumtoml2oaxrs5mwiji/gftd.runpod-training/AUTH_TOKEN/password`
    existing — **still missing as of session-close 2026-05-10**.
@@ -245,7 +245,7 @@ After a successful apply, copy the assigned pod id into
 
 # References
 
-- 50-infra/runpod/ansible/README.md
+- wellbecoming-karma-lean-proofs
 - 60-apps/ai-gftd-project-comfyui/ansible/ (L40S Ansible precedent)
 - ADR 2605010000 (6000 Ada unified pod)
 - ADR 2605092345 (H100 training pod)

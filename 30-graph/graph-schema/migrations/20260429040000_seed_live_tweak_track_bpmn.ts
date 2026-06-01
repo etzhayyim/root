@@ -1,6 +1,6 @@
 // Phase D2a — register the per-track edit BPMN flow.
 //
-// `dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.live.tweakTrack` becomes the
+// `dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.live.tweakTrack` becomes the
 // performer's per-track edit surface: change one track's BPM / dance
 // / audio preset / cue list without re-publishing the whole setlist.
 // Targets the `vertex_live_track` table introduced in 20260429030000
@@ -9,7 +9,7 @@
 // matter).
 //
 // PK convention:
-//   at://<callerDid>/ai.gftd.apps.live.track/<roomSlug>-<position>
+//   at://<callerDid>/app.etzhayyim.apps.live.track/<roomSlug>-<position>
 // Same PK on re-insert → RisingWave overwrites (canonical RW upsert).
 
 import { readFileSync } from "node:fs";
@@ -26,12 +26,12 @@ const ownerDid = "did:web:live.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.live.tweakTrack";
 
 const procVertexId =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-tweak-track-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-tweakTrack-v1";
 const sourcePath = "00-contracts/bpmn/ai/gftd/apps/live/tweakTrack.bpmn";
 const bpmnProcessId = "live_tweak_track";
-const nsid = "ai.gftd.apps.live.tweakTrack";
+const nsid = "app.etzhayyim.apps.live.tweakTrack";
 const resultTimeoutMs = 8_000;
 
 export async function up(db: Kysely<unknown>): Promise<void> {

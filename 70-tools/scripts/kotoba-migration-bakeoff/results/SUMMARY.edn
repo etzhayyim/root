@@ -1,0 +1,170 @@
+;; kotoba py-WASM migration BAKE-OFF — cumulative results
+;; 2026-05-31 · agentic CLI orchestration (each contender = full coding-agent loop,
+;; build-error self-repair). harness: bakeoff_cli.py · corpus: 5 complexity-stratified cells.
+;; raw per-round: cli-results.edn · cli-results-r2-claude-gemini3.edn
+{:date "2026-05-31"
+ :corpus-cells 5
+ :metric-note "build/structural = objective gates; judge = claude-haiku 1-5 (single judge, noisy); USD only where the CLI reports it; gemma cost = wall-s (local, $0)."
+
+ ;; ── ROUND 1: claude-haiku-4-5 vs gemini-2.5-flash (5 cells each) ───────────
+ :round1
+ {:claude-haiku-4-5 {:build 1.0 :struct 1.0 :avg-judge 2.8 :total-usd 0.4697 :wall-s 136.8 :usd-per-cell 0.094}
+  :gemini-2.5-flash {:build 1.0 :struct 1.0 :avg-judge 3.6 :total-usd nil :wall-s 127.9 :usd-per-cell nil}
+  :takeaway "gemini-2.5-flash led on judge (3.6>2.8); both 100% build. Concise (gemini) vs verbose (claude)."}
+
+ ;; ── ROUND 2: claude-haiku-4-5 vs gemini-3-flash-preview (5 cells each) ─────
+ ;;   user asked for gemini 3.1; 3.1-flash/3.1-pro return 404 on this account.
+ ;;   Available Gemini-3 = gemini-3-flash-preview / gemini-3-pro-preview. Used flash-preview.
+ :round2
+ {:claude-haiku-4-5      {:build 1.0 :struct 1.0 :avg-judge 2.8 :total-usd 0.535 :wall-s 134.7 :usd-per-cell 0.107}
+  :gemini-3-flash-preview {:build 1.0 :struct 1.0 :avg-judge 2.8 :total-usd nil :wall-s 142.0 :usd-per-cell nil}
+  :per-cell-judge {:service-request {:claude 4 :gemini 3}
+                   :final-sign-off  {:claude 4 :gemini 4}
+                   :safety-monitoring {:claude 2 :gemini 3}
+                   :wafer-processing  {:claude 2 :gemini 2}
+                   :elv-body-shred    {:claude 2 :gemini 2}}
+  :surprise "gemini-3-flash-preview judge 2.8 < gemini-2.5-flash 3.6 (round 1). Newer != better here;
+             dropped to 2 on the 2 hardest cells. Strong signal that single-judge n=5 is NOISY —
+             do NOT over-read 1-point deltas. Both still 100% build."}
+
+ ;; ── ROUND 3: gemma-4-26B-A4B-it (local, llama-server CPU) ─────────────────
+ :round3-gemma
+ {:status :done                         ; 2 representative cells (service-request + elv-body-shred)
+  :model "gemma-4-26B-A4B-it-UD-Q3_K_M.gguf (12.7GB, Unsloth Dynamic Q3_K_M)"
+  :serve "llama-server :8090 -ngl 0 (CPU; ADR-2605253000 notes Metal MoE offload crashes)"
+  :measured-speed "~5-9 tok/s generation; gemma4 emits reasoning_content(thinking) + content"
+  :scope-limit "ONLY 2 of 5 cells run (EXPLICIT, not silent) — gemma is far slower than cloud CLIs."
+
+  ;; the quality verdict — split by mode, this is the substantive finding
+  :quality
+  {:single-shot-thinking-off
+   {:verdict :GOOD
+    :evidence "direct generation of service-request: faithful to original logic (init->process,
+               utility_state, completionPct 0->100 all preserved), structurally valid, buildable, 481 tok / 145s.
+               Comparable to claude/gemini first-shot. (My earlier 'low-fidelity/renamed' claim was WRONG —
+               the original cell is genuinely a generic Cell template; gemma was faithful.)"}
+   :thinking-on-default
+   {:verdict :BROKEN
+    :evidence "emits 2000+ reasoning tokens before any code, exhausts max_tokens -> EMPTY content ->
+               empty agent.py. ~20 min/call. Heaviness directly causes output failure, not just latency."}
+   :agentic-self-repair
+   {:verdict :FRAGILE
+    :evidence "in the build-error feedback loop, by iter 4 gemma DERAILED: instead of fixing the port it wrote a
+               META-script (import os/subprocess + the port embedded as a STRING literal + try/except wrapper),
+               which fails structurally. It does NOT converge the way claude/gemini self-repair do.
+               See results/gemma-evidence/service-request-iter4-derailed.py"}}
+
+  :rollup-2cell {:build-pass 0.0 :struct-ok 0.0 :judge 2.0 :wall-s 840.5 :usd 0.0
+                 :note "0% build under the agentic loop — but this measures self-repair robustness, NOT raw
+                        generation quality (which is fine single-shot). elv-body-shred errored on a server
+                        connection drop (separate instability)."}
+
+  :driver-asymmetry "gemma is NOT a CLI agent; the harness supplies its agentic loop. claude/gemini drive their
+                     own tools autonomously. So gemma's loop-failure is partly harness-mediated — but the derailing
+                     behavior (meta-scripting instead of fixing) is gemma's own."
+
+  :bottom-line "gemma-4-26B is NOT 'just heavy'. Raw quality (thinking off, single-shot) competes with claude/gemini.
+                But for the REQUESTED use case (1-by-1 agentic self-repair), it fails on three axes: thinking-runaway,
+                CPU latency (5-7x slower), and poor convergence under build-error feedback. Viable only as a
+                single-shot generator with an EXTERNAL build/verify harness, not as an autonomous agent."}
+
+ ;; ── ROUND 4: invoke-equivalence gate (the REAL quality gate) ──────────────
+ ;;   build-pass != runtime-correct. Deploy agent.wasm to live :8077, invoke with the
+ ;;   same input as the original cell's solve(), compare output state dicts.
+ ;;   harness: invoke_equiv.py · raw: results/invoke-equiv.json
+ :round4-invoke-equiv
+ {:status :done
+  :scope "2 no-relative-import cells (service-request, final-sign-off) x claude + gemini"
+  :contract "POST :8077/mcp kotoba_wasm_run {wasm_b64, agent_did, program_cid, ctx_cbor_b64};
+             ctx CBOR {graph, session_cid, args:{input, thread_id}}; out at result.content[0].text
+             (JSON str) -> output_cbor_b64 -> CBOR {ok: json_str}. Auth = JWT, exp-only (no sig)."
+  :results {:service-request {:claude :EQUIV :gemini :EQUIV}     ; both runtime-correct
+            :final-sign-off  {:claude :MISMATCH :gemini :MISMATCH}}
+  :the-find "final-sign-off: BOTH models' ports are runtime-WRONG in one subtle way that build-pass,
+             structural-check AND the LLM-judge ALL MISSED — the WASM output carries an EXTRA top-level
+             `projectId` key. Cause: the port declares StateGraph(SignOffStateDict) with projectId as a
+             typed channel, so the input field persists into the output state; the ORIGINAL uses
+             StateGraph(dict) which drops it. This is exactly why invoke-equivalence is the real gate."
+  :systematic "Same defect in BOTH claude and gemini → NOT a model differentiator; it's an artifact of the
+               migration CONTRACT. Actionable prompt fix: instruct ports to mirror the original's state
+               schema (don't promote input keys into the typed TypedDict output) OR accept benign
+               passthrough via a normalized comparison."
+  :infra-bug-found "The running :8077 binary caches the compiled program by AGENT_DID, not program_cid —
+                    the ADR-2605310200 fix is in SOURCE but NOT in the deployed binary. Symptom: every
+                    invoke with the same DID returned the FIRST wasm's output. Worked around in invoke_equiv.py
+                    with a unique agent_did per wasm; the deployed kotoba binary should be rebuilt."}
+
+ ;; ── ROUND 5: hardening items 1-4 (post-gemini-selection) ──────────────────
+ :round5-hardening
+ {:item1-prompt-fix
+  {:status :done-with-deeper-find
+   :did "added a StateGraph(dict) rule to the migration prompt; re-migrated final-sign-off (gemini)
+         — source now uses StateGraph(dict) not a TypedDict."
+   :real-root-cause "The projectId leak is NOT a prompt/port issue. kotoba_langgraph/graph.py:175
+                     `_apply_update(state, input_state, schema)` merges the FULL input dict into state
+                     and never drops unwritten channels — unlike real langgraph (which keeps only
+                     declared/written channels). So the WASM retains projectId even with StateGraph(dict)."
+   :resolution "invoke_equiv.py now reports TWO verdicts: strict (byte-exact) and
+                equivalence-modulo-input-passthrough (all gold keys match AND extra keys ⊆ input keys).
+                Result: 2/4 strict, 4/4 modulo-input. The only divergence is the documented substrate
+                quirk, not a model defect."
+   :substrate-fix-LANDED
+   {:where "40-engine/kotoba/py/kotoba_langgraph/graph.py (kotoba submodule)"
+    :what "added _declared_channels() + _prune_dynamic_channels(); invoke()/stream() now track
+           node-written keys and, for dynamic StateGraph(dict) graphs, DROP input-only keys that no
+           node writes — matching real langgraph. Typed-schema graphs keep declared channels (parity)."
+    :tests "py/tests/test_dynamic_channels.py (4 new, green); full suite 100 passed (1 pre-existing
+            asyncio-plugin failure, unrelated)."
+    :result "after the substrate fix + #1 prompt fix + rebuild, ALL functional-cell ports are now
+             STRICT-equivalent to their originals: invoke-equiv = 4/4 STRICT (service-request +
+             final-sign-off, x claude + gemini). The projectId divergence is fully resolved."
+    :followup "commit the kotoba submodule change + bump the parent submodule pointer."}}
+
+  :item2-binary-rebuild
+  {:status :done-verified
+   :did "rebuilt kotoba CLI (cargo build --release -p kotoba-cli --features kotoba-server/wasm-runtime),
+         installed to ~/.local/bin/kotoba (old → kotoba.bak-precachefix), launchctl kickstart -k."
+   :verified "same agent_did + unique program_cid: 2nd deploy (final-sign-off) now returns signoff_state
+              (NOT the cached service-request utility_state). ADR-2605310200 program_cid cache-key is LIVE.
+              The unique-agent_did workaround in invoke_equiv.py is no longer required (kept harmlessly)."}
+
+  :item3-relimport-extension
+  {:status :done-with-honest-limit
+   :did "invoke_equiv.host_reference extended to import relative-import cells as packages
+         (from .state_machine resolves)."
+   :the-wall "the 3 rel-import cells (safety-monitoring/wadachi, wafer-processing/silicon,
+              elv-body-shred/hodoki) are R0 SCAFFOLDS whose originals RAISE on execution
+              ('R0 scaffold: activate via Council ADR post-ratification'). No runtime gold exists →
+              invoke-equivalence is N/A for R0-scaffold cells until ratified. Only the 2 functional
+              gov/infra cells (service-request, final-sign-off) are equivalence-testable today."}
+
+  :item4-codex
+  {:status :deferred
+   :reason "codex (gpt-5.5) still usage-limited at run time ('try again at 23:16'). Rerun:
+            bakeoff_cli.py --clis codex once credits reset."}}
+
+ ;; ── overall, cross-round ──────────────────────────────────────────────────
+ :cross-round
+ {:hard-gate "build-pass = 1.0 for claude-haiku, gemini-2.5-flash, AND gemini-3-flash on all 5 cells.
+              On the objective bar, all three commercial-CLI agents are equivalent (100%)."
+  :discriminators-remaining #{:invoke-equivalence-not-yet-measured  ; built != runtime-correct
+                              :judge-too-noisy-single-shot
+                              :gemini-usd-unavailable
+                              :n-too-small}
+  :provisional-ranking "claude-haiku and gemini(either) are both viable autonomous agents (100% build, self-repair OK);
+                        judge can't separate them reliably at n=5. claude wins on cost-measurability ($0.094-0.107/cell)
+                        + tool autonomy; gemini wins on no-metered-cost (current quota) + concision.
+                        gemma-4-26B is NOT viable as an autonomous agent (thinking-runaway + 5-7x latency + derails
+                        under build-error feedback) — usable only single-shot behind an external harness."
+  :decision :HOLD
+  :invoke-equiv-built "DONE — invoke_equiv.py runs against live :8077; immediately surfaced a subtle
+                       runtime defect (extra projectId) that build/structural/judge all missed, plus a
+                       deployed-binary cache bug. The gate is now the primary discriminator."
+  :to-finalize ["FIX migration prompt: ports must not promote input keys into the typed output schema
+                 (the systematic final-sign-off projectId defect) — then re-run invoke-equiv to green"
+                "rebuild + redeploy the kotoba :8077 binary so program_cid cache-key (ADR-2605310200) lands"
+                "extend invoke-equiv to the relative-import cells (host-ref needs package-context import)"
+                "run codex (gpt-5.5) after usage reset ~23:16"
+                "cross-judge (let gemini judge too) to de-bias"
+                "widen corpus to 15-20 cells for statistical firmness"
+                "if gemma is wanted in-pipeline: use it single-shot + claude/gemini does the agentic verify/repair"]}}

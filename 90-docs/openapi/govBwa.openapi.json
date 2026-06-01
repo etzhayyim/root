@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govBwa.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govBwa.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Botswana government.",
-        "operationId": "ai.gftd.govBwa.followSiteDeps",
+        "operationId": "app.etzhayyim.govBwa.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBwa.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govBwa.heartbeatTick": {
       "post": {
         "summary": "Run the Botswana government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govBwa.heartbeatTick",
+        "operationId": "app.etzhayyim.govBwa.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBwa.listOrgs": {
+    "/xrpc/app.etzhayyim.govBwa.listOrgs": {
       "get": {
         "summary": "List Botswana government organization graph records.",
-        "operationId": "ai.gftd.govBwa.listOrgs",
+        "operationId": "app.etzhayyim.govBwa.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBwa.registerDIDs": {
+    "/xrpc/app.etzhayyim.govBwa.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Botswana government organizations.",
-        "operationId": "ai.gftd.govBwa.registerDIDs",
+        "operationId": "app.etzhayyim.govBwa.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBwa.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govBwa.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Botswana government organization path to its graph record.",
-        "operationId": "ai.gftd.govBwa.resolveOrgPath",
+        "operationId": "app.etzhayyim.govBwa.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBwa.seedOrgs": {
+    "/xrpc/app.etzhayyim.govBwa.seedOrgs": {
       "post": {
         "summary": "Seed initial Botswana government organization records into the graph.",
-        "operationId": "ai.gftd.govBwa.seedOrgs",
+        "operationId": "app.etzhayyim.govBwa.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBwa.shinka": {
+    "/xrpc/app.etzhayyim.govBwa.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Botswana government organization update.",
-        "operationId": "ai.gftd.govBwa.shinka",
+        "operationId": "app.etzhayyim.govBwa.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBwa.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govBwa.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Botswana government organization changes to graph.",
-        "operationId": "ai.gftd.govBwa.syncWetUpdates",
+        "operationId": "app.etzhayyim.govBwa.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

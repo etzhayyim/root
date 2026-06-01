@@ -14,14 +14,14 @@ const PDS = 'https://atproto.etzhayyim.com';
 const ROOT_DID = 'did:web:fund.etzhayyim.com';
 const PROJECT_ID = 'fm';
 
-const GFTD_TOKEN = process.env.GFTD_TOKEN;
-if (!GFTD_TOKEN) {
-  throw new Error('GFTD_TOKEN env var required — run `export GFTD_TOKEN=$(gftd auth token)` first');
+const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
+if (!etzhayyim_TOKEN) {
+  throw new Error('etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first');
 }
 
 const INTERNAL_HEADERS = {
   'Content-Type': 'application/json',
-  'Authorization': `Bearer ${GFTD_TOKEN}`,
+  'Authorization': `Bearer ${etzhayyim_TOKEN}`,
   'x-gftd-org-id': 'anon',
 };
 
@@ -52,7 +52,7 @@ async function putRecord(collection: string, id: string, record: Record<string, 
 }
 
 async function actorCreate(did: string, displayName: string, description: string): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/ai.gftd.actor.create`, {
+  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.actor.create`, {
     method: 'POST',
     headers: INTERNAL_HEADERS,
     body: JSON.stringify({ did, projectId: PROJECT_ID, displayName, description, hasWorker: false }),
@@ -411,7 +411,7 @@ async function main(): Promise<void> {
   await actorCreate(ROOT_DID, 'Fund Management', 'Baseline investment fund registry for world coverage and fund graph bootstrapping');
 
   for (const fund of FUNDS) {
-    await putRecord('ai.gftd.apps.fund.fund', fund.fundId, {
+    await putRecord('app.etzhayyim.apps.fund.fund', fund.fundId, {
       ...fund,
       ownerDid: ROOT_DID,
       status: 'active',
@@ -421,7 +421,7 @@ async function main(): Promise<void> {
   }
 
   for (const manager of MANAGERS) {
-    await putRecord('ai.gftd.apps.fund.manager', manager.managerId, {
+    await putRecord('app.etzhayyim.apps.fund.manager', manager.managerId, {
       ...manager,
       ownerDid: ROOT_DID,
       sourceLicense: 'public-web',
@@ -430,7 +430,7 @@ async function main(): Promise<void> {
   }
 
   for (const investor of INVESTORS) {
-    await putRecord('ai.gftd.apps.fund.investor', investor.investorId, {
+    await putRecord('app.etzhayyim.apps.fund.investor', investor.investorId, {
       ...investor,
       ownerDid: ROOT_DID,
       sourceLicense: 'public-web',
@@ -439,7 +439,7 @@ async function main(): Promise<void> {
   }
 
   for (const investee of INVESTEES) {
-    await putRecord('ai.gftd.apps.fund.investee', investee.investeeId, {
+    await putRecord('app.etzhayyim.apps.fund.investee', investee.investeeId, {
       ...investee,
       ownerDid: ROOT_DID,
       sourceLicense: 'public-web',
@@ -448,7 +448,7 @@ async function main(): Promise<void> {
   }
 
   for (const metric of METRICS) {
-    await putRecord('ai.gftd.apps.fund.metric', metric.metricId, {
+    await putRecord('app.etzhayyim.apps.fund.metric', metric.metricId, {
       ...metric,
       ownerDid: ROOT_DID,
       createdAt: isoNow(),
@@ -456,7 +456,7 @@ async function main(): Promise<void> {
   }
 
   for (const commitment of COMMITMENTS) {
-    await putRecord('ai.gftd.apps.fund.commitment', commitment.commitmentId, {
+    await putRecord('app.etzhayyim.apps.fund.commitment', commitment.commitmentId, {
       ...commitment,
       ownerDid: ROOT_DID,
       distributedAmount: 0,

@@ -6,7 +6,7 @@ site.etzhayyim.com が収集した WET/WAT/WebP スナップショットを時�
 
 - **Read-only viewer**: site.etzhayyim.com の既存データ (WET/WAT/screenshot) を SQL query で読み取り表示
 - **DID**: `did:web:gyotaku.etzhayyim.com` (1 primary DID, sub-DID なし)
-- **Data source**: site.etzhayyim.com の AT Record (`ai.gftd.apps.site.wet`, `ai.gftd.apps.site.wat`, `ai.gftd.apps.site.screenshot`)
+- **Data source**: site.etzhayyim.com の AT Record (`app.etzhayyim.apps.site.wet`, `app.etzhayyim.apps.site.wat`, `app.etzhayyim.apps.site.screenshot`)
 
 ## UI
 
@@ -20,8 +20,8 @@ Wayback Machine スタイル:
 
 | Command | NSID | Purpose |
 |---|---|---|
-| `search-snapshots` | `ai.gftd.apps.gyotaku.searchSnapshots` | URL/ドメイン/キーワードでスナップショット検索 |
-| `list-domains` | `ai.gftd.apps.gyotaku.listDomains` | crawl 済みドメイン一覧 |
-| `get-snapshot` | `ai.gftd.apps.gyotaku.getSnapshot` | 特定 URL+timestamp のスナップショット詳細取得 |
-| `get-timeline` | `ai.gftd.apps.gyotaku.getTimeline` | 特定 URL の全スナップショットタイムライン |
-| `get-stats` | `ai.gftd.apps.gyotaku.getStats` | アーカイブ統計 (総ドメイン数、ページ数、WET/WAT/SS 数) |
+| `search-snapshots` | `app.etzhayyim.apps.gyotaku.searchSnapshots` | URL/ドメイン/キーワードでスナップショット検索 |
+| `list-domains` | `app.etzhayyim.apps.gyotaku.listDomains` | crawl 済みドメイン一覧 |
+| `get-snapshot` | `app.etzhayyim.apps.gyotaku.getSnapshot` | 特定 URL+timestamp のスナップショット詳細取得 |
+| `get-timeline` | `app.etzhayyim.apps.gyotaku.getTimeline` | 特定 URL の全スナップショットタイムライン |
+| `get-stats` | `app.etzhayyim.apps.gyotaku.getStats` | アーカイブ統計 (総ドメイン数、ページ数、WET/WAT/SS 数) |

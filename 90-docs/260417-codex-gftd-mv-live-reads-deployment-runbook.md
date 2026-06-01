@@ -299,9 +299,9 @@ psql "$DATABASE_URL" -c "SELECT schemaname, tablename, n_live_tup FROM pg_stat_u
 ```bash
 # Test 3 sample endpoints with new schema
 endpoints=(
-  "ai.gftd.apps.maps.getJobStatus"
-  "ai.gftd.legalEntity.companyFact"
-  "ai.gftd.ongakuka.listTracks"
+  "app.etzhayyim.apps.maps.getJobStatus"
+  "app.etzhayyim.legalEntity.companyFact"
+  "app.etzhayyim.ongakuka.listTracks"
 )
 
 for nsid in "${endpoints[@]}"; do
@@ -309,7 +309,7 @@ for nsid in "${endpoints[@]}"; do
   
   # Call via XRPC (example; adjust for your test harness)
   curl -s "https://atproto.etzhayyim.com/xrpc/$nsid?limit=1" \
-    -H "Authorization: Bearer $GFTD_TEST_TOKEN" | jq . | head -10
+    -H "Authorization: Bearer $etzhayyim_TEST_TOKEN" | jq . | head -10
   
   echo "---"
 done
@@ -365,7 +365,7 @@ curl -s "https://maps-collection-staging.etzhayyim.com/_app/meta" | jq .
 
 # Test job listing (should use new vertex_maps_job schema)
 curl -s "https://maps-collection-staging.etzhayyim.com/jobs/list?status=active&limit=10" \
-  -H "Authorization: Bearer $GFTD_TEST_TOKEN" | jq '.jobs[] | {id, status, progress_pct}'
+  -H "Authorization: Bearer $etzhayyim_TEST_TOKEN" | jq '.jobs[] | {id, status, progress_pct}'
 ```
 
 #### 3.4 Performance Sanity Check
@@ -571,15 +571,15 @@ EOF
 ```bash
 # Test each new app
 test_cases=(
-  "ai.gftd.apps.maps.getJobStatus?jobId=test-job-1"
-  "ai.gftd.legalEntity.listCompanies?limit=1"
-  "ai.gftd.ongakuka.listTracks?limit=1"
+  "app.etzhayyim.apps.maps.getJobStatus?jobId=test-job-1"
+  "app.etzhayyim.legalEntity.listCompanies?limit=1"
+  "app.etzhayyim.ongakuka.listTracks?limit=1"
 )
 
 for endpoint in "${test_cases[@]}"; do
   echo "Testing: $endpoint"
   curl -s "https://atproto.etzhayyim.com/xrpc/${endpoint}" \
-    -H "Authorization: Bearer $GFTD_PROD_TOKEN" | jq '.error // .records | length' | head -5
+    -H "Authorization: Bearer $etzhayyim_PROD_TOKEN" | jq '.error // .records | length' | head -5
   echo "---"
 done
 ```
@@ -598,7 +598,7 @@ ORDER BY pct DESC;
 -- Check new lexicon usage
 SELECT collection, COUNT(*) as record_count 
 FROM vertex_repo_record
-WHERE collection LIKE 'ai.gftd.apps.%' 
+WHERE collection LIKE 'app.etzhayyim.apps.%' 
   AND (collection LIKE '%.orbital%' 
     OR collection LIKE '%.flight%' 
     OR collection LIKE '%.company%')
@@ -694,12 +694,12 @@ aws s3 cp /tmp/incident.txt s3://gftd-incidents/$(date +%Y/%m/%d)/
 # Staging
 export DATABASE_URL="postgresql://gftd_user:${RW_STAGING_PASSWORD}@risingwave-staging.etzhayyim.com:4566/gftd"
 export RW_HOST=risingwave-staging.etzhayyim.com
-export GFTD_TEST_TOKEN="<staging-bearer-token>"
+export etzhayyim_TEST_TOKEN="<staging-bearer-token>"
 
 # Production
 export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/gftd"
 export RW_HOST=risingwave.etzhayyim.com
-export GFTD_PROD_TOKEN="<prod-bearer-token>"
+export etzhayyim_PROD_TOKEN="<prod-bearer-token>"
 ```
 
 ### Critical RW System Params (Already Set in Phase 1.2)
