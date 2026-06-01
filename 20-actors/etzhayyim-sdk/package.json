@@ -82,8 +82,8 @@
   },
   "dependencies": {
     "@atproto/api": "^0.13.0",
-    "@atproto/common": "^0.5.16",
-    "@atproto/repo": "^0.9.1",
+    "@atproto/common": "^0.6.1",
+    "@atproto/repo": "^0.10.0",
     "@ipld/car": "^5.4.6",
     "@ipld/dag-cbor": "^10.0.1",
     "@msgpack/msgpack": "^3.1.3",
@@ -94,12 +94,12 @@
     "viem": "^2.21.0"
   },
   "optionalDependencies": {
-    "@signalapp/libsignal-client": "^0.55.0"
+    "@signalapp/libsignal-client": "^0.94.3"
   },
   "devDependencies": {
     "@types/node": "^25.8.0",
-    "typescript": "^5.6.0",
-    "vitest": "^2.0.0"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
   },
   "repository": {
     "type": "git",

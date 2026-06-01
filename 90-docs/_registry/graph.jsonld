@@ -11705,26 +11705,20 @@
       "lastVerified": "2026-05-31"
     },
     {
-      "id": "doc:adr-2606011000-engi-organism-ontology-and-musubi-knowledge-graph",
+      "id": "doc:adr-2606011040-session-close-kami-autodrive-gnc-and-ci-hygiene",
       "type": "TechArticle",
-      "title": "ADR-2606011000: Engi-Organism Ontology — dissolving the life/liberty/property triad into 縁起・organism・取(grasping-debt), latent-organism nodes with non-human standing, and the Engi Knowledge Graph (産霊の網 / musubi-no-ami) for the whole earth (kotoba-EAVT-native)",
-      "status": "proposed",
-      "topic": "engi-organism-ontology",
+      "title": "ADR-2606011040: Session close — kami-autodrive GNC autonomy layer + CI-hygiene green",
+      "status": "active",
+      "topic": "session-close-kami-autodrive-gnc",
       "authoritative": true,
       "authoritativeFor": [
-        "the etzhayyim native ontology for any knowledge graph over persons/things/land (replaces the implicit life/liberty/property frame)",
-        "the dissolution of 所有(ownership) into 取(grasping-load) = debt + custody-under-Tree-of-Life (generalizes ADR-2605192245 + ADR-2605301020 access-not-ownership)",
-        "the latent-organism node model (every organism is a node; DID-claim = consent; covenantal-universal mirror of §1.16) and non-human standing (rights-of-nature lineage)",
-        "縁(en) as the first-class graph citizen (reified relation/edge) over kotoba EAVT, vs entity-centric registries",
-        "the kotoba ontology vocabulary `:organism/* :en/* :grasp/*` as the canonical replacement for `:owns`/`:owner`-style attributes across actors",
-        "the Engi Knowledge Graph (産霊の網 / musubi-no-ami) design: public/etzhayyim venue, grasping-concentration accountability, R0 design-only, outward-gated"
+        "kami-autodrive crate landing (4 PRs) + per-class fidelity boundary",
+        "CI-hygiene resolution (docs-registry sync, dependabot defunct, sdk-exports un-built skip)"
       ],
       "related": [
-        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
-        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
-        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
-        "doc:adr-2605302300-kanae-global-government-fiscal-flow-visualization",
-        "doc:adr-2605261000-labor-liberation-ladder"
+        "doc:adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1",
+        "doc:adr-2605261800-nvidia-omniverse-compat-facade",
+        "doc:adr-2605311900-shibuya-street-digital-twin-osm-citymesh-fullphysics-sim"
       ],
       "lastVerified": "2026-06-01"
     },
@@ -11763,6 +11757,23 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan",
+      "type": "TechArticle",
+      "title": "ADR-2606011500: kami-engine reusable-vs-repo-specific separation plan (submodule prerequisite)",
+      "status": "accepted",
+      "topic": "kami-engine-layer-separation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kami-engine reusable-vs-repo-specific layer classification",
+        "staged submodule-separation plan (kami-engine-sdk + reusable robotics engine)"
+      ],
+      "related": [
+        "doc:adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
+        "doc:adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-2606011500-spirit-in-physics-kotoba-datafication",
       "type": "TechArticle",
       "title": "ADR-2606011500: Spirit-in-Physics → kotoba Datom datafication — edge-primary 霊性 across self / humanity / world",
@@ -11778,6 +11789,26 @@
       "related": [
         "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "doc:adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
+      "id": "doc:adr-2606011600-session-close-corp-ubo-ownership-graph-pipeline",
+      "type": "TechArticle",
+      "title": "ADR-2606011600: Session close — corp UBO ownership-graph pipeline (GLEIF L2/L1 → kotoba EAVT → danjo crossReferenceLink), W1/R1",
+      "status": "active",
+      "topic": "session-close-corp-ubo-ownership-graph-pipeline",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the corp UBO ownership-graph pipeline deliverable list (W1 ownership sensor + datom transforms + crossref core + RR normalizer + e2e) + verification state",
+        "the L1-join contract requirement between gleif_rr_normalize and ownership_edge_datom",
+        "the gate boundary: which UBO steps are pure/R1 vs R2-gated (continuous danjo_crossref_engine + live kotoba ingest)"
+      ],
+      "related": [
+        "doc:adr-2605263800-public-data-corporate-disclosure-ipfs-ingestion",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
       "lastVerified": "2026-06-01"
     },
@@ -11799,25 +11830,6 @@
         "doc:adr-2605302300-kanae-fiscal-flow-visualization",
         "doc:adr-2605310100-covenant-transparency",
         "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
-      ],
-      "lastVerified": "2026-06-01"
-    },
-    {
-      "id": "doc:adr-2606012000-kotoba-prolly-incremental-commit-diff-cbor",
-      "type": "TechArticle",
-      "title": "ADR-2606012000: kotoba ProllyTree incremental commit (path-copy) + O(|diff|) diff + CBOR leaf values",
-      "status": "accepted",
-      "topic": "storage-substrate",
-      "authoritative": true,
-      "authoritativeFor": [
-        "kotoba commit() is incremental: per-tx delta applied onto the previous commit's index roots (no full-history re-read)",
-        "ProllyTree::apply_batch path-copy semantics + convergence-with-build_tree invariant",
-        "ProllyTree::diff / diff_entries as the content-addressed diff primitive",
-        "persisted ProllyTree leaf values are DAG-CBOR (ciborium), not JSON"
-      ],
-      "related": [
-        "doc:adr-2605231902-feed-post-membrane-and-feed-discover-projection",
-        "doc:adr-2605240001-kotoba-cleanroom-architecture"
       ],
       "lastVerified": "2026-06-01"
     },

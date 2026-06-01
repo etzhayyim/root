@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "@etzhayyim/magatama-host-sdk": "workspace:*",
-    "hono": "^4.12.12"
+    "hono": "^4.12.23"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240821.0",
-    "typescript": "^5.6.0",
-    "wrangler": "^4.0.0"
+    "@cloudflare/workers-types": "^4.20260601.1",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.95.0"
   }
 }

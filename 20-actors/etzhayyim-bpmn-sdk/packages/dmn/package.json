@@ -21,12 +21,12 @@
     "test": "vitest run -c ../../vitest.config.ts"
   },
   "dependencies": {
-    "dmn-js": "^17.4.0"
+    "dmn-js": "^17.8.1"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "vitest": "^1.6.0",
-    "rimraf": "^5.0.5"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7",
+    "rimraf": "^6.1.3"
   },
   "publishConfig": {
     "access": "public",
