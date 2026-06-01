@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@effect/schema": "^0.75.5",
-    "@bpmn-io/form-js": "^1.14.1"
+    "@bpmn-io/form-js": "^1.21.3"
   },
   "devDependencies": {
     "typescript": "^6.0.3",
