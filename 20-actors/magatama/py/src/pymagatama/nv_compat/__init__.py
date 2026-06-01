@@ -9,7 +9,7 @@ Canonical implementations are in 40-engine/kami-engine/kami-* (Rust + WebGPU
 + WASM). Pure-Python equivalents in this namespace track the Rust contracts
 formula-for-formula and are intended for Pyodide / native CPython use; the
 formulas are unit-tested against the Rust crates via parallel test fixtures
-(70-tools/e7m-sim/scenes/cartpole/).
+(40-engine/kami-engine/fixtures/cartpole/).
 
 Trademark notice: NVIDIA®, Omniverse®, Isaac®, OptiX®, RTX®, Nucleus®,
 DriveSim®, PhysX® are trademarks of NVIDIA Corporation. This project is not
