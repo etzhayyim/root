@@ -160,12 +160,30 @@ on `feat/social-security-for-humanity`; this work never touched it). A local
   are emitted; unmapped kinds are skipped (e.g. before #564 added
   `entity-control-edge`, control edges were skipped rather than mis-mapped).
 
+# Status update (2026-06-01, landed)
+
+All seven PRs are now **merged to `main`**: the five components
+(#309/#312/#564/#649/#650), the integration/e2e PR (#652), and this ADR's
+registration (#654). Two follow-through notes:
+
+- **Stale-base rebase.** #652 and #654 were authored off an earlier `main`;
+  by merge time `main` had advanced (added `90-docs/_registry/*`,
+  ADR-2606011500), so both showed phantom conflicts. They were rebuilt on the
+  current `main` to a clean net-new diff — #652 = the e2e test only (re-run
+  **1 passed** against the *merged* component modules, confirming real
+  composition, not just against the integration branch), #654 = this ADR +
+  one `deps.toml` entry (tomllib-validated, 255 ADRs, id unique). Then merged
+  (no branch protection; `lint-and-test` green; only the unrelated
+  `build-and-push` container job was pending).
+- The gate boundary above is unchanged: live kotoba ingest + continuous
+  `danjo_crossref_engine` remain R2-gated and NOT in `main`.
+
 # References
 
 - ADR-2605263800 — global corporate-disclosure ingestion (`CorpOwnershipSensor` / `LeiSensor` / Lexicons)
 - ADR-2605301600 — danjo public-accountability oversight (crossReferenceLink, R-ladder, R2 gate)
 - ADR-2605302300 — kanae global fiscal-flow visualization (reads `corp.{leiReference,ownershipEdge}`)
 - ADR-2605312345 — kotoba Datom log = first-class canonical state (EAVT ingest target)
-- PRs: #309, #312, #564 (merged), #649, #650, #652
+- PRs: #309, #312, #564, #649, #650, #652 (**all merged to `main` 2026-06-01**) + #654 (this ADR's first cut)
 - Lexicons: `00-contracts/lexicons/app/etzhayyim/corp/{ownershipEdge,leiReference}.json`, `app/etzhayyim/danjo/crossReferenceLink.json`
 - Tests: `20-actors/magatama/py/tests/sensors/test_{w1_corp_gov_sensors,corp_ownership_edge_datom,ownership_crossref,gleif_rr_normalize,lei_reference_datom,corp_ubo_pipeline_e2e}.py`
