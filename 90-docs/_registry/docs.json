@@ -18477,6 +18477,126 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606013000-session-close-watatsuna-submarine-cable-kg.md",
+      "id": "adr-2606013000-session-close-watatsuna-submarine-cable-kg",
+      "title": "ADR-2606013000: Session close — watatsuna 綿津綱 world submarine-cable knowledge graph (R0+R1+R2) + watatsumi cable-laying robotics",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-watatsuna-submarine-cable-kg",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "adr-2605252200-watatsumi-civilian-submersible-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606012600-watatsuna-submarine-cable-knowledge-graph-and-watatsumi-cable-laying-robotics"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606013100-sarutahiko-truck-factory-full-robotics-and-loader.md",
+      "id": "adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+      "title": "ADR-2606013100: sarutahiko (猿田彦) truck assembly plant — full-robotics 4D-BIM design + 積込ロボット (giemon-factory pattern, R0 design)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "sarutahiko-truck-factory-full-robotics-and-loader",
+      "authoritative": true,
+      "authoritative_for": [
+        "sarutahiko Class-8 truck assembly plant design (layout + 建材 + 全MEP + 外構 + 出荷ヤード + 4D 建築手順)",
+        "truck-line production-robot roster (arm6 cells + part-AGV + 積込ロボット loading robot) and its kami-genesis simulation",
+        "reuse of the giemon-factory-r0 4D-BIM toolchain (ADR-2606010030) for a heavy-truck plant",
+        "kami-app-sarutahiko-factory crate (3 WASM entries) + sarutahiko-factory-r0 scene SSoT"
+      ],
+      "related": [
+        "adr-2605242000-roso-pattern-frontier-distill"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
+        "adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605311800-kami-genesis-3d-spatial-and-contact",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606013200-yoro-kotoba-feed-readpath-migration.md",
+      "id": "adr-2606013200-yoro-kotoba-feed-readpath-migration",
+      "title": "ADR-2606013200: yoro feed read-path migration to kotoba Datom log (Phase 2.5) + public yoro-social graph",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "yoro-feed-kotoba-readpath",
+      "authoritative": true,
+      "authoritative_for": [
+        "yoro-appview-feed-read-backend",
+        "yoro-social-kotoba-graph-schema"
+      ],
+      "related": [
+        "00-contracts/schemas/yoro-feed-ontology.kotoba.edn",
+        "60-apps/ai-gftd-project-yoro/rw-free/src/kotoba.ts"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "adr-2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606013400-funadaiku-zero-emission-cargo-shipbuilding-r0.md",
+      "id": "adr-2606013400-funadaiku-zero-emission-cargo-shipbuilding-r0",
+      "title": "ADR-2606013400: funadaiku 船大工 — zero-emission (wind + solar + hydrogen) autonomous cargo-ship building Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "funadaiku-zero-emission-cargo-shipbuilding",
+      "authoritative": true,
+      "authoritative_for": [
+        "funadaiku actor (zero-emission autonomous cargo shipbuilding)",
+        "Nagi 凪 class coastal zero-emission cargo carrier reference design",
+        "app.etzhayyim.funadaiku.* lexicons",
+        "funadaiku shipyard plant (kami-engine + kotoba EAVT)"
+      ],
+      "related": [
+        "adr-2606012600-watatsuna-submarine-cable-knowledge-graph-and-watatsumi-cable-laying-robotics",
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605261100-hikari-energy-tier-b-actor-r0",
+        "adr-2606012100-okaimono-provisioning-commons-actor",
+        "adr-2605301020-basic-high-income-doctrine"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+        "adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+        "adr-2605242000-etzhayyim-wadachi-autonomous-mobility-rd",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
