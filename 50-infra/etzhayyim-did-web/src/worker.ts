@@ -19,7 +19,9 @@ import {
   type ActorRecord,
 } from "./registry/actor-profiles";
 import { fetchKotobaActorRecord } from "./kotoba";
-import { isRawCidV1, verifyRawCid } from "./cid";
+import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
+import { verifyCarToBytes } from "./car";
+import { fetchOnChainVm } from "./erc725";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -609,6 +611,23 @@ async function resolveActorRecord(
   env: Env,
   ctx: ExecutionContext,
 ): Promise<ActorRecord | null> {
+  const rec = await resolveActorRecordTiered(handle, env, ctx);
+  if (!rec) return null;
+  // verificationMethod is a MIRROR of the on-chain ERC725 active key, never
+  // server-minted (ADR-2605231525). Gated + best-effort: enrich only when both
+  // chain env vars are set and the record has no vm yet (ADR-2606015200).
+  if (env.AUTHZ_CONTRACT_ADDRESS && env.BASE_RPC_URL && rec.vm.length === 0) {
+    const vm = await fetchOnChainVm(env, handle, rec.did);
+    if (vm.length) return { ...rec, vm: vm as unknown as ActorRecord["vm"] };
+  }
+  return rec;
+}
+
+async function resolveActorRecordTiered(
+  handle: string,
+  env: Env,
+  ctx: ExecutionContext,
+): Promise<ActorRecord | null> {
   // 1) KV snapshot — fast, origin-independent.
   if (env.ACTOR_KV) {
     try {
@@ -1012,12 +1031,14 @@ export default {
           });
         }
         const cid = m[1];
-        if (!isRawCidV1(cid)) {
+        const raw = isRawCidV1(cid);
+        const dagpb = isDagPbCidV1(cid);
+        if (!raw && !dagpb) {
           return new Response(
             JSON.stringify({
               error: "CidNotVerifiable",
               message:
-                "this trustless gateway serves only raw single-block CIDv1 (bafkrei…); multi-block UnixFS CIDs need a full IPFS node (T2 donated-mesh tier)",
+                "trustless gateway supports CIDv1 with sha2-256 only: raw single-block (bafkrei…) verified directly, dag-pb UnixFS (bafybei…) verified via CAR. Other CIDs need a full IPFS node.",
               cid,
             }),
             { status: 501, headers: ACTOR_JSON_HEADERS },
@@ -1032,33 +1053,59 @@ export default {
           .filter(Boolean);
         let lastErr = "no gateway configured";
         for (const tmpl of gateways) {
-          const upstream = tmpl.includes("{cid}")
+          const base = tmpl.includes("{cid}")
             ? tmpl.replace("{cid}", cid)
             : `${tmpl.replace(/\/$/, "")}/ipfs/${cid}`;
+          // dag-pb: ask the gateway for a verifiable CAR; raw: the block itself.
+          const upstream = dagpb
+            ? `${base}${base.includes("?") ? "&" : "?"}format=car`
+            : base;
           try {
             const res = await fetch(upstream, {
-              headers: { accept: "application/octet-stream" },
-              signal: AbortSignal.timeout(8000),
+              headers: {
+                accept: dagpb
+                  ? "application/vnd.ipld.car"
+                  : "application/octet-stream",
+              },
+              signal: AbortSignal.timeout(dagpb ? 20000 : 8000),
             });
             if (!res.ok) {
               lastErr = `upstream ${res.status}`;
               continue;
             }
-            const buf = await res.arrayBuffer();
-            if (!(await verifyRawCid(cid, buf))) {
-              lastErr = "cid mismatch (untrusted gateway content rejected)";
-              continue; // try the next gateway — never serve unverified bytes
+            const raw_buf = await res.arrayBuffer();
+            let out: ArrayBuffer;
+            if (dagpb) {
+              try {
+                // verifyCarToBytes re-hashes every block + walks the DAG from
+                // the requested root, so the untrusted gateway can't substitute.
+                const bytes = await verifyCarToBytes(
+                  cid,
+                  new Uint8Array(raw_buf),
+                );
+                out = bytes.buffer.slice(
+                  bytes.byteOffset,
+                  bytes.byteOffset + bytes.byteLength,
+                ) as ArrayBuffer;
+              } catch (ve) {
+                lastErr = `car verify failed: ${ve instanceof Error ? ve.message : ve}`;
+                continue; // never serve unverified bytes
+              }
+            } else {
+              if (!(await verifyRawCid(cid, raw_buf))) {
+                lastErr = "cid mismatch (untrusted gateway content rejected)";
+                continue;
+              }
+              out = raw_buf;
             }
-            if (request.method === "HEAD") {
-              return new Response(null, {
-                status: 200,
-                headers: ipfsHeaders(cid, buf.byteLength, detectCt(buf)),
-              });
-            }
-            return new Response(buf, {
-              status: 200,
-              headers: ipfsHeaders(cid, buf.byteLength, detectCt(buf)),
-            });
+            const hdrs = {
+              ...ipfsHeaders(cid, out.byteLength, detectCt(out)),
+              "x-etzhayyim-cid-verified": dagpb ? "car-dag-pb" : "sha256",
+            };
+            return new Response(
+              request.method === "HEAD" ? null : out,
+              { status: 200, headers: hdrs },
+            );
           } catch (e) {
             lastErr = e instanceof Error ? e.message : "fetch failed";
           }

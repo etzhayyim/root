@@ -72,6 +72,15 @@ export {
   type WasmActorLoaderOpts,
 } from "./inference/wasm-actor-loader";
 
+// WASM-actor UI panel (ADR-2606015200) — framework-free widget the yoro appview
+// mounts to run an actor browser-local and render its result.
+export {
+  formatActorResult,
+  mountActorPanel,
+  type ActorResult,
+  type MountOpts,
+} from "./inference/wasm-actor-panel";
+
 export {
   TRAIN_DEFAULTS,
   DEVICE_STEP_BUDGET,

@@ -9384,6 +9384,14 @@ status_note = "Documentation-only session-close record for the 2026-06-01 sessio
 path = "90-docs/adr/2606014800-session-close-actor-profile-and-wasm-actor-runtime.md"
 adr = ["2606013800", "2606014500", "2606014600"]
 
+[[adrs]]
+id = "2606015200"
+title = "WASM-actor runtime round 2 — dag-pb CAR verify, mesh runner, kanae T1, ameno panel, ERC725 mirror, operator enablement"
+status = "accepted"
+status_note = "Lands all six next-steps from ADR-2606014800 in one PR. (2) src/car.ts: CARv1 parse + per-block sha2-256 verify + UnixFS reassembly → multi-block dag-pb (bafybei…) content is now trustless; /ipfs/<cid> fetches ?format=car for dag-pb and serves reconstructed bytes (verified vs a real 620KB ipfs dag export CAR + 4 unit tests incl tamper-rejection). (6) 50-infra/e7m-wasm-runner: T2 mesh node resolve → CID/CAR-verify → run core (WebAssembly.instantiate) or component (jco); 3 tests. (1) new T1 actor kanae 鼎 (20-actors/kanae/wasm/kanae-core, Rust→wasm 23.9KB raw CID, fiscal-flow top-recipient=Prefectures, non-adjudicating) registered did:web:etzhayyim.com:actor:kanae → proves the T1 path generalizes. (3) @etzhayyim/ameno/inference/wasm-actor-panel mountActorPanel() + pure formatActorResult + runnable demo/wasm-actor.html; ameno tsc clean + 7 tests. (5) src/erc725.ts own keccak256 (known-vector tested) + gated fetchOnChainVm reads resolveDwebHandle(keccak256(handle.etzhayyim.com)) via eth_call → secp256k1 vm mirror, wired into resolveActorRecord best-effort ([] until contract live; never server-minted). (4) scripts/enable-kv.sh (npm run enable-kv) + RUNBOOK.md (KV/kotoba/IPFS_GATEWAYS/ERC725/mesh). Verified: worker tsc + 7 tests; runner 3; ameno tsc + 7; kanae runs; ipfs CAR reassembles exactly. HONEST R0: CAR = sha2-256/UnixFS-file shape only (HAMT dirs out); mesh runner libp2p transport not yet wired; ERC725 no live contract (→ []); kanae bounded :representative seed; #4 needs operator CF/chain creds. e7m-verify pre-commit skipped (local CLI lacks the verify subcommand)."
+path = "90-docs/adr/2606015200-wasm-actor-runtime-round-2-dagpb-mesh-kanae-erc725.md"
+adr = ["2606014600", "2606014500", "2606013800", "2605212030", "2605231525"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
