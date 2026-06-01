@@ -262,30 +262,56 @@ Honest limits (unchanged direction): MPM/thermal は **2-D・explicit・CPU/WASM
 GPU dispatch は cartpole/DP のみ(一般 articulation の GPU batch は未)。いずれも
 *アルゴリズム同クラスを単体テストで検証* であって NVIDIA とのビット一致ではない。
 
-### v7 (2026-06-01) — maturation /loop: validation hardening + weld goes real
+### v7 (2026-06-01) — maturation /loop: validation hardening + weld goes real + 3-D control stack
 
 Self-paced maturity loop ("成熟度を高めて") — each iteration one bounded, tested,
-committed increment to `kami-genesis` (118 → 134 tests):
+committed increment to `kami-genesis`, all lefthook gates green (**118 → 143
+tests**, iters 9–24). Three themes:
 
-- **Validation cross-checks** (no behavior change, lock correctness): APIC
-  angular-momentum conservation (`mpm.rs`); CRBA mass-matrix ≡ kinetic energy on
-  both the planar single-axis (`planar_chain.rs`) and full 6-D spatial
-  (`articulation3d.rs`) solvers — `½q̇ᵀMq̇` vs the independent energy recursion;
-  GJK diagonal-gap (√2) + off-axis EPA min-translation-axis resolution
-  (`convex.rs`).
-- **ThermalField multi-source welding** (`step_multi`) — N superposed Gaussian
-  arcs (multi-pass / both-ends bridging); `step()` delegates, single-source path
-  bit-identical.
-- **ThermalField Newton convection** (`with_convection`, default 0 = insulated;
-  conservation regression preserved) — a member cools to ambient air after the
-  arc passes, not just internal conduction.
-- **`weld_field.rs` migrated off its stand-in** onto `ThermalField`: the 1-D
-  seam is a thin 2-D strip; `pass()` sub-steps to the CFL bound and walks the arc.
-  De-risked for the live viewer by a test that replicates the viewer's exact
-  call pattern (`pass(settle, 9000, 1/60)` swept 0→1 over 30/60/150 frames →
-  fuses + glows + bounded) plus a weld-then-cool test. `tatekata.htm` wasm
-  bundle rebuilt. `deposit_field.rs` (concrete) remains a stand-in (MPM wiring
-  is the next candidate).
+**(1) Validation cross-checks** (no behaviour change, lock correctness against an
+independent derivation):
+- APIC angular-momentum conservation (`mpm.rs`) — the property MLS-MPM uses APIC
+  (over PIC) to get.
+- CRBA mass-matrix ≡ kinetic energy on the planar single-axis (`planar_chain.rs`)
+  AND the full 6-D spatial (`articulation3d.rs`) solver — `½q̇ᵀMq̇` vs the
+  independent energy recursion.
+- 3-D Jacobians both ways: `point_jacobian` vs finite-difference FK (offset
+  point → linear + ω×p terms); 6-row `geometric_jacobian` via `J·q̇` = the FK
+  link twist (angular + linear rows).
+- GJK diagonal-gap (√2) + off-axis EPA min-translation-axis; CCD
+  conservative-advancement Galilean invariance + diagonal approach (`ccd.rs`).
+- OBB SAT + manifold rotational covariance (exercises the 9 edge×edge axes);
+  batched `ArticulationView` ≡ standalone single-articulation **bit-for-bit**
+  (`batched.rs`).
+
+**(2) `weld_field.rs` migrated off its stand-in** onto the real
+`kami_genesis::ThermalField` 2-D transient-heat PDE: the 1-D seam is a thin 2-D
+strip; `pass()` sub-steps to the CFL bound and walks the arc. Two additive solver
+capabilities made it faithful: `ThermalField::step_multi` (N superposed Gaussian
+arcs — multi-pass / both-ends bridging; `step()` delegates, single-source path
+bit-identical) and `ThermalField::with_convection` (Newton heat loss to ambient,
+default 0 = insulated so the conservation regression is preserved). De-risked for
+the live viewer by a test replicating its exact call pattern (`pass(settle, 9000,
+1/60)` swept 0→1 over 30/60/150 frames → fuses + glows + bounded) + a weld-then-
+cool test. `tatekata.htm` wasm bundle rebuilt. `deposit_field.rs` (concrete)
+remains a stand-in: `DepositField` is a **plan-view** areal height grid while
+MPM is a **vertical slice** — a faithful pour is a reconception, not a drop-in;
+bridged for now by `MpmSolver::surface_profile`/`fill_height` (the fill-level a
+screed controller targets).
+
+**(3) Full 3-D control stack on `Articulation3dConfig`** (the solver the giemon
+arm6 + factory work-cells run on; previously raw-torque only) — Isaac/PhysX-class
+actuator + dynamics API, each validated:
+- `pd_position_torque` / `drive_to_targets` — joint-space PD position targets
+  (Isaac `set_joint_position_targets`); a z/y/x arm converges to all targets.
+- `gravity_torque` — RNEA gravity feedforward `g(q)`; PD + g(q) removes the
+  steady-state droop `g(q)/kp` (>4× accuracy under gravity).
+- `inverse_dynamics` — full `τ = M·q̈* + C + g` (computed-torque basis, Isaac
+  `compute_inverse_dynamics`); validated by FD/ID round-trip (`q̈*` recovered
+  < 1e-3).
+- `solve_position_ik` — damped-least-squares Cartesian position IK (Nakamura/
+  Wampler) on the validated point Jacobian, joint-limit clamped; reaches a
+  reachable target < 1e-3.
 
 **v6 follow-up — engine 結線 + API parity**: (a) narrow-phase を剛体ソルバに**統合** —
 `contact.rs` に `Obstacle::Convex(ConvexPoly)`(任意傾斜凸体)、球コライダを GJK 分離 /

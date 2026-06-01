@@ -5345,9 +5345,10 @@ description = "OpenUSD canonical impl — USDA mini-parser at R1.1, tinyusdz bin
 
 [[modules]]
 path = "40-engine/kami-engine/kami-genesis"
-adr = "ADR-2605261800"
+adr = "ADR-2606010030"
 kind = "physics-backend-bind"
-status = "r1.0-path-reservation"
+status = "r2-control-stack-matured"
+status_note = "Matured well beyond the r1.0-path-reservation via the /loop maturation wave (ADR-2606010030 v6+v7, 2026-05-31..06-01). Clean-room (no NVIDIA code) PhysX/Isaac-class subsystems, all unit-validated against independent derivations — 143 native tests green, wasm32 build green. SUBSYSTEMS: (a) 3-D reduced-coordinate articulated dynamics (Featherstone RNEA + CRBA + LDLᵀ, arbitrary-axis revolute/prismatic) cross-checked vs the planar solver + energy conservation + CRBA≡KE on planar AND spatial paths; (b) full 3-D control stack on Articulation3dConfig — pd_position_torque/drive_to_targets (Isaac set_joint_position_targets), gravity_torque (RNEA g(q) feedforward), inverse_dynamics (τ=M·q̈*+C+g, computed-torque, FD/ID round-trip validated), solve_position_ik (damped-least-squares Cartesian IK on the FD-validated point Jacobian); (c) narrow-phase GJK distance + EPA penetration + CCD conservative-advancement (Galilean-invariant) + OBB SAT/manifold (rotationally covariant, 9 edge×edge axes); (d) MLS-MPM continuum (APIC angular+linear momentum conservation, Drucker-Prager granular, surface_profile/fill_height pour readout); (e) ThermalField transient-heat PDE (analytic steady-state, multi-source welding, Newton convection) — now the REAL backend of tatekata weld_field (no longer a stand-in); (f) Isaac-parity batched ArticulationView ([num_envs,n_dof], bit-for-bit vs standalone) + PhysX Px* facade. HONEST limits unchanged: MPM/thermal are 2-D/explicit/CPU/f32; general-articulation GPU batch still planar-only (cartpole/DP have real Metal compute dispatch); deposit_field (concrete) still a plan-view stand-in pending a vertical-slice MPM pour reconception. Original R1.1 G5 gate (Cartpole reward +/-10% vs Isaac, 1000 episodes) remains the headline scorecard target."
 description = "Genesis (Apache-2.0) physics backend bind — 5 solvers (rigid/MPM/SPH/FEM/PBD) via Taichi -> wgpu. isaacsim.core.api articulation API-compat target. R1.1 deliverable = Cartpole reward curve +/-10% vs Isaac Sim baseline (1000 episodes)."
 
 [[modules]]
