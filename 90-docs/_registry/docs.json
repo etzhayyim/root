@@ -18570,6 +18570,37 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606014500-one-worker-wasm-actor-model.md",
+      "id": "adr-2606014500-one-worker-wasm-actor-model",
+      "title": "ADR-2606014500: One Worker, many WASM actors — actors as content-addressed WASM on IPFS, executed browser-local",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "one-worker-wasm-actor-model",
+      "authoritative": true,
+      "authoritative_for": [
+        "wasm-actor-execution-model",
+        "actor-transport-ipfs-libp2p",
+        "per-actor-host-retirement"
+      ],
+      "related": [
+        "2606011800",
+        "2606012100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605241800",
+        "2606013800",
+        "2605241900",
+        "2605231525",
+        "2605215000",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

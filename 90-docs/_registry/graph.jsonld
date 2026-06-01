@@ -11986,6 +11986,24 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606014500-one-worker-wasm-actor-model",
+      "type": "TechArticle",
+      "title": "ADR-2606014500: One Worker, many WASM actors — actors as content-addressed WASM on IPFS, executed browser-local",
+      "status": "accepted",
+      "topic": "one-worker-wasm-actor-model",
+      "authoritative": true,
+      "authoritativeFor": [
+        "wasm-actor-execution-model",
+        "actor-transport-ipfs-libp2p",
+        "per-actor-host-retirement"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606012100"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

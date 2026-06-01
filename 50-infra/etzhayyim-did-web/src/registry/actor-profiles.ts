@@ -54,6 +54,11 @@ export interface ActorRecord {
   readonly adr: readonly string[];
   readonly service: readonly ActorServiceEntry[];
   readonly vm: readonly ActorVerificationMethod[];
+  /** IPFS CID of the actor's content-addressed WASM component (kotoba WASM).
+   *  When present, the DID doc carries an `EtzhayyimWasmComponent` service and
+   *  the browser (ameno) / donated mesh node fetches + executes it locally —
+   *  NO per-actor server. Per ADR-2606014500. */
+  readonly wasmCid?: string;
   readonly createdAt?: string;
   readonly source: ActorSource;
 }
@@ -102,6 +107,7 @@ export function compiledActorRecord(handle: string): ActorRecord | null {
     adr: [...e.adrs],
     service: e.service as readonly ActorServiceEntry[],
     vm: [],
+    wasmCid: e.wasmCid,
     source: "compiled",
   };
 }
@@ -139,6 +145,7 @@ export function coerceActorRecord(
       ? (o.service as ActorServiceEntry[])
       : [],
     vm: Array.isArray(o.vm) ? (o.vm as ActorVerificationMethod[]) : [],
+    wasmCid: str("wasmCid"),
     createdAt: str("createdAt"),
     source,
   };
@@ -171,6 +178,21 @@ export function toDidDoc(
       `did:erc725:base:${env.AUTHZ_CONTRACT_ADDRESS}#__rootId-pending-chain-lookup__`,
     );
   }
+  // The actor's executable face: a content-addressed WASM component on IPFS.
+  // Listed FIRST so a resolver prefers local execution (browser/donated mesh)
+  // over any network transport — the "one Worker, many WASM actors" model
+  // (ADR-2606014500). NO per-actor server.
+  const service: Record<string, unknown>[] = [];
+  if (rec.wasmCid) {
+    service.push({
+      id: `${pathBasedDid}#wasm`,
+      type: "EtzhayyimWasmComponent",
+      serviceEndpoint: `ipfs://${rec.wasmCid}`,
+      "x-exec": "browser-local|donated-mesh",
+      "x-runtime": "kotoba-wasm",
+    });
+  }
+  service.push(...rec.service.map((s) => ({ ...s })));
   return {
     "@context": [
       "https://www.w3.org/ns/did/v1",
@@ -179,13 +201,15 @@ export function toDidDoc(
     id: pathBasedDid,
     alsoKnownAs,
     verificationMethod: rec.vm.map((v) => ({ ...v })),
-    service: rec.service.map((s) => ({ ...s })),
+    service,
     _meta: {
-      adr: ["2605212030", "2605241800", "2606013800", ...rec.adr],
+      adr: ["2605212030", "2605241800", "2606013800", "2606014500", ...rec.adr],
       source: rec.source,
       kind: rec.kind,
       status: rec.status,
       glyph: rec.glyph,
+      wasmCid: rec.wasmCid ?? null,
+      execModel: rec.wasmCid ? "wasm-local (browser/donated-mesh)" : "service",
       primaryLexicon: rec.primaryLexicon,
       primarySchema: rec.primarySchema,
       note:
@@ -227,6 +251,7 @@ export function toGetProfileView(rec: ActorRecord): Record<string, unknown> {
       adr: rec.adr,
       primaryLexicon: rec.primaryLexicon ?? null,
       primarySchema: rec.primarySchema ?? null,
+      wasmComponent: rec.wasmCid ? `ipfs://${rec.wasmCid}` : null,
       didDocument: `https://etzhayyim.com/actor/${rec.handle}/did.json`,
       source: rec.source,
     },

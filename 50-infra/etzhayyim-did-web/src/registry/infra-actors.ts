@@ -40,6 +40,11 @@ export interface InfraActorEntry {
   readonly glyph?: string;
   /** Short human display name for the `/actors` index. Display-only. */
   readonly displayName?: string;
+  /** IPFS CID of the actor's content-addressed WASM component. When present,
+   *  the DID doc carries an `EtzhayyimWasmComponent` service and the actor runs
+   *  browser-local (ameno) / on a donated mesh node — no per-actor server.
+   *  Per ADR-2606014500. */
+  readonly wasmCid?: string;
 }
 
 
@@ -65,12 +70,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
-      {
-        id: "did:web:etzhayyim.com:actor:pinner#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://pinner.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
-      },
     ],
     adrs: ["2605171800"],
   },
@@ -84,12 +83,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
-      {
-        id: "did:web:etzhayyim.com:actor:esign#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://esign.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
-      },
     ],
     adrs: ["2605231230"],
   },
@@ -102,12 +95,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         id: "did:web:etzhayyim.com:actor:audit#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
-      },
-      {
-        id: "did:web:etzhayyim.com:actor:audit#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://audit.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
       },
     ],
     adrs: ["2605231700", "2605231900"],
@@ -137,12 +124,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         "x-rationale":
           "DNS-anchored fallback so cold clients can bootstrap before joining the DHT",
       },
-      {
-        id: "did:web:etzhayyim.com:actor:dataset-pinner#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://dataset-pinner.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
-      },
     ],
     adrs: ["2605241500", "2605241800"],
   },
@@ -168,12 +149,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
-      {
-        id: "did:web:etzhayyim.com:actor:anchorer#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://anchorer.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
-      },
     ],
     adrs: ["2605171800"],
   },
@@ -185,12 +160,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         id: "did:web:etzhayyim.com:actor:projector#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
-      },
-      {
-        id: "did:web:etzhayyim.com:actor:projector#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://projector.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
       },
     ],
     adrs: ["2605171800"],
@@ -204,12 +173,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         id: "did:web:etzhayyim.com:actor:karute#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
-      },
-      {
-        id: "did:web:etzhayyim.com:actor:karute#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://karute.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
       },
     ],
     adrs: ["2605231100", "2605231900"],
@@ -242,6 +205,9 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     // No atproto lexicon: tsumugi emits kotoba EDN directly into the Datom log.
     primarySchema:
       "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)",
+    // Content-addressed WASM actor (20-actors/tsumugi/wasm/tsumugi-core) — runs
+    // browser-local (ameno) / donated mesh, NO per-actor server (ADR-2606014500).
+    wasmCid: "bafkreidfttpqimwnx4i5a3rswum3orcg3qfa3q7fwts6axgqtcpuokddfi",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tsumugi#atproto_pds",
