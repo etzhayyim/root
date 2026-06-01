@@ -27,6 +27,8 @@
               "entity-ubo-edge",
               "entity-officer-edge",
               "entity-parent-subsidiary-edge",
+              "entity-control-edge",
+              "entity-direct-shareholder-edge",
               "award-references-appropriation",
               "statement-references-program",
               "authority-awards-to-entity"
