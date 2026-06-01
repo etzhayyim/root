@@ -18601,6 +18601,37 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606014600-wasm-actor-runtime-gateway-and-componentize.md",
+      "id": "adr-2606014600-wasm-actor-runtime-gateway-and-componentize",
+      "title": "ADR-2606014600: WASM-actor runtime — trustless IPFS gateway, ameno loader, componentize-py actors",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "wasm-actor-runtime-gateway-and-componentize",
+      "authoritative": true,
+      "authoritative_for": [
+        "trustless-ipfs-gateway",
+        "ameno-wasm-actor-loader",
+        "componentize-py-actor-tier"
+      ],
+      "related": [
+        "2606011800",
+        "2606012600",
+        "2605252100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606014500",
+        "2606013800",
+        "2605231525",
+        "2605215000",
+        "2605241900"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

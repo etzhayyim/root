@@ -15,6 +15,7 @@
  */
 
 import { INFRA_ACTORS, getInfraActor } from "./infra-actors";
+import { isRawCidV1 } from "../cid";
 
 export interface ActorServiceEntry {
   readonly id: string;
@@ -184,11 +185,16 @@ export function toDidDoc(
   // (ADR-2606014500). NO per-actor server.
   const service: Record<string, unknown>[] = [];
   if (rec.wasmCid) {
+    // raw single-block CID (compact Rust/AS actor) → browser-local + mesh;
+    // multi-block dag-pb CID (large componentize-py actor) → mesh only (a full
+    // IPFS node verifies/loads it; not browser-local). Per ADR-2606014600/700.
+    const raw = isRawCidV1(rec.wasmCid);
     service.push({
       id: `${pathBasedDid}#wasm`,
       type: "EtzhayyimWasmComponent",
       serviceEndpoint: `ipfs://${rec.wasmCid}`,
-      "x-exec": "browser-local|donated-mesh",
+      "x-exec": raw ? "browser-local|donated-mesh" : "donated-mesh",
+      "x-cid-codec": raw ? "raw" : "dag-pb",
       "x-runtime": "kotoba-wasm",
     });
   }

@@ -19,6 +19,7 @@ import {
   type ActorRecord,
 } from "./registry/actor-profiles";
 import { fetchKotobaActorRecord } from "./kotoba";
+import { isRawCidV1, verifyRawCid } from "./cid";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -336,6 +337,10 @@ interface Env {
   // fallback keeps did:web resolution live.
   ACTOR_KV?: KVNamespace;
   KOTOBA_ENDPOINT?: string;
+  // Trustless IPFS gateway (ADR-2606014600). Comma-separated upstream gateway
+  // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
+  // bytes are CID-verified before serving, so these are UNTRUSTED upstreams.
+  IPFS_GATEWAYS?: string;
   // Per-NSID-family XRPC upstream origins (populated from wrangler.toml [vars]).
   // New actors are added here, NOT as new subdomains — this Worker is the
   // single etzhayyim.com endpoint per ADR-2605212030 §D2.
@@ -632,6 +637,35 @@ async function resolveActorRecord(
 
   // 3) compiled fallback — INFRA_ACTORS (null for non-registered handles).
   return compiledActorRecord(handle);
+}
+
+// Content-addressed → immutable; cache hard. `x-etzhayyim-cid-verified` proves
+// the bytes were re-hashed against the CID before serving (trustless).
+function ipfsHeaders(
+  cid: string,
+  len: number,
+  contentType: string,
+): Record<string, string> {
+  return {
+    "content-type": contentType,
+    "content-length": String(len),
+    "cache-control": "public, max-age=31536000, immutable",
+    "access-control-allow-origin": "*",
+    "x-content-type-options": "nosniff",
+    "x-etzhayyim-cid": cid,
+    "x-etzhayyim-cid-verified": "sha256",
+    "x-etzhayyim-no-cookie": "1",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+  };
+}
+
+// Minimal content-type sniff: WASM magic `\0asm`, else octet-stream.
+function detectCt(buf: ArrayBuffer): string {
+  const b = new Uint8Array(buf, 0, Math.min(4, buf.byteLength));
+  if (b[0] === 0x00 && b[1] === 0x61 && b[2] === 0x73 && b[3] === 0x6d) {
+    return "application/wasm";
+  }
+  return "application/octet-stream";
 }
 
 const ACTOR_JSON_HEADERS: Record<string, string> = {
@@ -954,6 +988,85 @@ export default {
           status: 200,
           headers: { ...ACTOR_JSON_HEADERS, "x-etzhayyim-actor-source": rec.source },
         });
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 2c) Trustless IPFS gateway — `/ipfs/<cid>` (ADR-2606014600).
+    //     Fetches the content-addressed bytes from configurable upstream
+    //     gateways and VERIFIES they hash to the requested CID before serving,
+    //     so the upstream gateway never has to be trusted — the CID is the
+    //     trust anchor (no server key, ADR-2605231525). This is where the
+    //     browser (ameno) / loader fetches an actor's WASM component
+    //     (ADR-2606014500). Raw single-block CIDs (`bafkrei…`, compact edge
+    //     actors) are verified; multi-block UnixFS CIDs (`bafy…`, large
+    //     componentize-py actors) are not verifiable here → 501 (T2 mesh tier).
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const m = url.pathname.match(/^\/ipfs\/([A-Za-z0-9]+)$/);
+      if (m) {
+        if (request.method !== "GET" && request.method !== "HEAD") {
+          return new Response("Method Not Allowed", {
+            status: 405,
+            headers: { allow: "GET, HEAD" },
+          });
+        }
+        const cid = m[1];
+        if (!isRawCidV1(cid)) {
+          return new Response(
+            JSON.stringify({
+              error: "CidNotVerifiable",
+              message:
+                "this trustless gateway serves only raw single-block CIDv1 (bafkrei…); multi-block UnixFS CIDs need a full IPFS node (T2 donated-mesh tier)",
+              cid,
+            }),
+            { status: 501, headers: ACTOR_JSON_HEADERS },
+          );
+        }
+        const gateways = (
+          env.IPFS_GATEWAYS ||
+          "https://{cid}.ipfs.dweb.link,https://ipfs.io/ipfs/{cid}"
+        )
+          .split(",")
+          .map((g) => g.trim())
+          .filter(Boolean);
+        let lastErr = "no gateway configured";
+        for (const tmpl of gateways) {
+          const upstream = tmpl.includes("{cid}")
+            ? tmpl.replace("{cid}", cid)
+            : `${tmpl.replace(/\/$/, "")}/ipfs/${cid}`;
+          try {
+            const res = await fetch(upstream, {
+              headers: { accept: "application/octet-stream" },
+              signal: AbortSignal.timeout(8000),
+            });
+            if (!res.ok) {
+              lastErr = `upstream ${res.status}`;
+              continue;
+            }
+            const buf = await res.arrayBuffer();
+            if (!(await verifyRawCid(cid, buf))) {
+              lastErr = "cid mismatch (untrusted gateway content rejected)";
+              continue; // try the next gateway — never serve unverified bytes
+            }
+            if (request.method === "HEAD") {
+              return new Response(null, {
+                status: 200,
+                headers: ipfsHeaders(cid, buf.byteLength, detectCt(buf)),
+              });
+            }
+            return new Response(buf, {
+              status: 200,
+              headers: ipfsHeaders(cid, buf.byteLength, detectCt(buf)),
+            });
+          } catch (e) {
+            lastErr = e instanceof Error ? e.message : "fetch failed";
+          }
+        }
+        return new Response(
+          JSON.stringify({ error: "IpfsUnavailable", message: lastErr, cid }),
+          { status: 502, headers: ACTOR_JSON_HEADERS },
+        );
       }
     }
 

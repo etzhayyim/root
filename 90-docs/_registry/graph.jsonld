@@ -12004,6 +12004,25 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606014600-wasm-actor-runtime-gateway-and-componentize",
+      "type": "TechArticle",
+      "title": "ADR-2606014600: WASM-actor runtime — trustless IPFS gateway, ameno loader, componentize-py actors",
+      "status": "accepted",
+      "topic": "wasm-actor-runtime-gateway-and-componentize",
+      "authoritative": true,
+      "authoritativeFor": [
+        "trustless-ipfs-gateway",
+        "ameno-wasm-actor-loader",
+        "componentize-py-actor-tier"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606012600",
+        "doc:2605252100"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

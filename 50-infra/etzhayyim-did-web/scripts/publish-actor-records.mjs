@@ -155,14 +155,17 @@ function toDidDoc(rec, authzContract) {
   else if (authzContract)
     alsoKnownAs.push(`did:erc725:base:${authzContract}#__rootId-pending-chain-lookup__`);
   const service = [];
-  if (rec.wasmCid)
+  if (rec.wasmCid) {
+    const raw = /^bafkrei[a-z2-7]{52}$/.test(rec.wasmCid); // raw single-block CIDv1
     service.push({
       id: `${did}#wasm`,
       type: "EtzhayyimWasmComponent",
       serviceEndpoint: `ipfs://${rec.wasmCid}`,
-      "x-exec": "browser-local|donated-mesh",
+      "x-exec": raw ? "browser-local|donated-mesh" : "donated-mesh",
+      "x-cid-codec": raw ? "raw" : "dag-pb",
       "x-runtime": "kotoba-wasm",
     });
+  }
   service.push(...rec.service.map((s) => ({ ...s })));
   return {
     "@context": [

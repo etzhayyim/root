@@ -26,6 +26,10 @@
       "types": "./src/inference/bitnet-bridge.ts",
       "import": "./src/inference/bitnet-bridge.ts"
     },
+    "./inference/wasm-actor-loader": {
+      "types": "./src/inference/wasm-actor-loader.ts",
+      "import": "./src/inference/wasm-actor-loader.ts"
+    },
     "./lora-runtime": {
       "types": "./src/lora-runtime.ts",
       "import": "./src/lora-runtime.ts"
