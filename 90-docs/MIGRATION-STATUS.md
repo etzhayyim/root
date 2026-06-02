@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 97 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 37 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 51 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 36 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 52 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 37 apps** (C + D = 0 + 37; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 36 apps** (C + D = 0 + 36; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -71,7 +71,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (51)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (52)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -476,6 +476,19 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   attached memos). Transfer records + balances are confidential financial state,
   never a public registry (carry-forward test fails). Same financial family as
   `harai` / `credits` / `shiharai`. No rw-free built.
+- **yabai** (Bucket D → V) — axes: **Custody (AML/sanctions screened-entity data +
+  IP access-surveillance logs) + Liability (AML/反社 risk scoring + enforcement,
+  善管注意義務) + Infra/compute (risk-scoring UDF + threat-intel ingest)**. Risk
+  Intelligence Platform (`yabai.etzhayyim.com`): AML / sanctions / 反社
+  (anti-social forces) risk scoring + IP access filtering/WAF + cyber threat-intel
+  (CVE/MITRE/malware/IOC/phishing/STIX/BGP/TLS, WHOIS/DNS/ASN/GeoIP). Tables
+  include YabaiRisk / YabaiAlert / YabaiEnforcement / YabaiAuditLog +
+  IntelAccessLog / IntelSession / IntelDevice / CfHttpRequestLog (surveillance
+  access logs). Records are confidential compliance/surveillance state, not a
+  public registry (carry-forward test fails). The public CTI catalog is already
+  covered by the separate `threat-intelligence` app (Bucket A); yabai's distinct
+  function is the AML/risk-scoring/enforcement/access-surveillance core. No
+  rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -503,7 +516,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (37, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (36, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -512,8 +525,8 @@ These are mechanical import-removal chores on already-migrated/vendor apps, not
 > `etzhayyim/root` project. Nothing to migrate to etzhayyim-front; by definition
 > gftdcojp IS the vendor side. Dropped from the backlog (TRANSFORM 25→24, D 55→54).
 
-**TRANSFORM-pending (7)**:
-yabai, yatabase
+**TRANSFORM-pending (6)**:
+yatabase
 
 **Ad-pixel codemod complete (26)**: animeka*, briefing*, communicator,
 email-service-adapter*, external-service-adapter, facebook, fax*,
