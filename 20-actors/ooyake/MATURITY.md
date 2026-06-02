@@ -100,3 +100,53 @@ error of the global universe (~195 states × thousands each). This ingest covers
 **highest-tier official backbone** (every prefecture + every designated city + every Tokyo
 special ward); the long tail of 765 cities / 716 towns / 156 villages is the next
 authoritative-dataset bundle, not fabricated here (G5).
+
+## Update 2026-06-02 (consolidated) — current state of the atlas
+
+Supersedes the R0 "proof-of-model" framing above for the live numbers. The gov-atlas
+graph (`gov-atlas-v1`, operator-local kotoba node) + the public index now hold:
+
+| Vocabulary | Count | Note |
+|---|---|---|
+| `:gov.unit/*` | **772** across **178 jurisdictions** | 177 country + 47 prefecture + 23 ward + 504 municipality + 14 ministry + 4 agency + 1 bureau + 1 division + 1 supranational |
+| `:gov.address/*` | 17 (JP) | |
+| `:gov.window/*` | 3 (JP) | |
+| `:gov.form/*` | 5 (→ chigiri) | |
+| `:gov.procedure/*` | 6 (→ toritsugi-ref) | full toritsugi R0 set (6/6) |
+| `:gov.bpmn/*` | 3 (`:model-only`) | |
+
+**Sourcing (G5)**: `representative` 654 / **`authoritative` 118**. The 118 = the JP
+official-code backbone (47 都道府県 ISO 3166-2:JP + 71 市区町村 全国地方公共団体コード),
+promoted under `BOOTSTRAP-ATTESTATION-reconcile-live.md` (Seat 1 Lv7 provisional;
+**re-ratify at Council 3-of-5**). 153/177 country units carry a real English name
+(from lea NCB records); 24 remain ISO3-code stubs.
+
+**Toolchain (all offline-runnable + tested)**: `ingest_records.py`,
+`ingest_jp_local.py`, `ingest_states_global.py`, `promote_authoritative.py`,
+`cells/reconcile/cell.py` (bundled mode + 5 tests), `gov_atlas_client.py` (shared read
+API + 7 tests), `validate_atlas.py` (integrity, 772/772 parent-refs resolve),
+`resolve_for_toritsugi.py` (toritsugi 6/6).
+
+**Integration (read-side SSoT consumed)**: `GovAtlas` client (getUnit / resolvePath /
+findService / searchUnits / by_level / by_jurisdiction / resolve_procedure) is the one
+API danjo / kanae / tsumugi / toritsugi / himotoki use. toritsugi 6/6 procedures
+resolve to 所管 + 窓口 + 住所 + 書式 + 根拠法令.
+
+**Public surface (LIVE)**: `etzhayyim.com/actor/ooyake/did.json` (KV) ·
+`/.well-known/gov-units.json` (772 units) · `/gov` (human search) · `/.well-known/actors.json`.
+
+**Maturity axes (self-assessed)**: substrate/schema 95 🟢 · actor liveness 90 🟢 ·
+tooling 88 🟢 · public discovery 🟢 · **data breadth ~30 🟡** (178 countries, but
+backbone/major-city tier only) · **data authority ~25 🟡** (118/772 authoritative,
+provisional/bootstrap).
+
+**Honest pending (gated or env-blocked, NOT done — no silent truncation, G5)**:
+
+- Full JP **1,718-municipality long tail** + per-country full authoritative coverage →
+  needs `reconcile` **live mode** (G4 + **Council 3-of-5**; bootstrap attestation covers
+  only the already-bundled official-code tiers).
+- Country-name enrichment (153 names) **deployed to the public `gov-units.json`** →
+  pending a healthy `wrangler` deploy (env tooling exit-194 on 2026-06-02 session).
+- `/search` (yoro) surfacing gov units → pending a yoro Pages deploy.
+- `kotoba commit` IPFS cold-tier seal → operator cadence (WAL-durable meanwhile).
+- Live `:authoritative` promotion is **provisional** until Council re-ratifies.
