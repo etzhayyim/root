@@ -12138,6 +12138,55 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606021200",
+      "type": "TechArticle",
+      "title": "ADR-2606021200: himawari (向日葵) — Solar PV Module Manufacturing + Loading + Outbound + Procurement Tier-B Actor R0 Scaffold",
+      "status": "proposed",
+      "topic": "himawari-solar-pv-manufacturing",
+      "authoritative": true,
+      "authoritativeFor": [
+        "himawari actor charter (R0)",
+        "solar-grade crystalline-silicon PV module manufacturing constitutional gates G1..G14",
+        "end-to-end manufacture → loading → outbound → procurement composition for the energy supply chain"
+      ],
+      "related": [
+        "doc:adr-2605261100-hikari-energy-tier-b-actor-r0",
+        "doc:adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+        "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+        "doc:adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+        "doc:adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte",
+        "doc:adr-2606012100-okaimono-provisioning-commons-actor",
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606021400",
+      "type": "TechArticle",
+      "title": "ADR-2606021400: 通関係 (つうかんがかり / tsuukan) — Customs/Tariff/通関 Clearance Orchestration Tier-B Actor R0 (Capability-Gap Resolution)",
+      "status": "proposed",
+      "topic": "tsuukan-customs-clearance-orchestration",
+      "authoritative": true,
+      "authoritativeFor": [
+        "customs/tariff/通関 clearance orchestration capability-gap resolution (R0 decision)",
+        "tsuukan actor charter sketch (proposed; NOT yet scaffolded — Council-gated)",
+        "app.etzhayyim.customsClearing lexicon namespace reservation"
+      ],
+      "related": [
+        "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "doc:adr-2606013400-funadaiku-zero-emission-cargo-ship-building",
+        "doc:adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+        "doc:adr-2606012100-okaimono-provisioning-commons-actor",
+        "doc:adr-2605262700-chigiri-legal-procedure-substrate",
+        "doc:adr-2605312030-toritsugi-citizen-government-procedure-concierge",
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
