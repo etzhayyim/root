@@ -1,7 +1,7 @@
 ---
 id: adr-2606021730-latent-entity-kotoba-datomic-refactor
 title: "ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor"
-status: proposed
+status: active
 doc_type: adr
 topic: latent-entity-kotoba-refactor
 authoritative: true
@@ -9,7 +9,7 @@ last_verified: 2026-06-02
 priority: 4.0
 axis: substrate
 weight: 0.40
-priority_note: "P0 schema shipped; P1 resolver designed; P2–P3 deferred; honest R0"
+priority_note: "P0–P3 landed (PR #790: schema + resolve + topics + fission_gate, tests green); P9/P10 RW removal completed (PR #798); P2-full LDA-Pregel + P3 covenant-exec deferred; honest R0 fixture-mode"
 authoritative_for:
   - latent-entity statistical resolution design — kotoba-EAVT canonical form
 depends_on:
@@ -29,7 +29,7 @@ superseded_by: []
 
 # ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor
 
-**Status**: proposed
+**Status**: active — P0–P3 landed in PR #790 (schema + resolve.py + topics.py + fission_gate.py, tests green); P9/P10 RisingWave removal completed in PR #798. Constitutional ontology clauses remain a proposed scaffold pending Council Lv7+ (§D1–§D4); live ingest is G7 operator-gated. P2-full (LDA as Pregel/Murakumo) and P3 covenant-claim execution deferred.
 **Date**: 2026-06-02 JST
 **Deciders**: Jun Kawasaki
 

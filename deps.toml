@@ -9525,3 +9525,13 @@ enrollment = "R0 design; live external mesh-enrollment gated on Council + operat
 ameno = "browser WebGPU/WebNN inference on frozen baien edge models (zero install, WASM-32, iPhone 12+ / Android 4GB)"
 e7m = "e7m node join — laptop/workstation as Ollama (gemma3:4b) / WASM node"
 kotoba = "kotoba pod — IPFS block backend + Datom replication (optional Ollama)"
+
+# ─── RisingWave→kotoba latent-entity statistical resolution refactor ──
+
+[[adrs]]
+id = "2606021730"
+title = "Latent Entity Statistical Resolution — RisingWave → kotoba-EAVT (Datomic) Refactor"
+status = "active"
+status_note = "Ports the latent-entity / LDA statistical entity-resolution stack (existence_probability, k_evidence_count, viewpoint_consensus, fission gates) off RisingWave (prohibited per ADR-2605262130 / 2605312345) onto the kotoba Datom log. P0 schema 00-contracts/schemas/latent-entity-ontology.kotoba.edn (:latent/* :en/evidence-* :topic/* :cohort/*, extends engi-organism-ontology). P1 20-actors/tsumugi/methods/resolve.py = existence computed ON READ via noisy-OR over incident :en/evidence edges, method-versioned (latent-resolve/v1-noisy-or), byte-deterministic — NO stored per-soul truth-score (G2 edge-primary / N1). P2 topics.py = :topic/* + :en/kind :topic-binding (R0 viewpoint-cluster; full LDA Gibbs as Pregel cell over kotoba-kqe + Murakumo embed deferred = P2-full). P3 fission_gate.py = observer-only covenant-claim proposals; --execute REFUSED; real fission = §D5 covenant claim (悔い改め・バプテスマ・得度), Council Lv7+ unanimity, NO DID minted, NO server key (ADR-2605231525). Four constitutional reconciliations the RW design violated: G2/N1 (computed-on-read, not stored), G1 power-only (natural persons only as :cohort/* aggregates — the 'tens of billions latent persons' universe NOT ported), 非終末論 (:latent/frontier has no terminal :fissioned/:suppressed; fission recorded only as :organism/claimed? true in as-of history), no-server-key. P0–P3 landed PR #790 (tests test_resolve/test_topics/test_fission_gate green, deterministic). P9/P10 RW removal completed PR #798. HONEST R0: fixture mode only; live ingest G7 Council+operator gated; P2-full LDA-Pregel + P3 covenant-claim execution deferred."
+path = "90-docs/adr/2606021730-latent-entity-kotoba-datomic-refactor.md"
+adr = ["2606021730", "2606011000", "2606011800", "2605262130", "2605312345", "2605231525", "2605215000"]
