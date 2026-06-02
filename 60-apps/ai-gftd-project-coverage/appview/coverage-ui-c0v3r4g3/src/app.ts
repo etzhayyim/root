@@ -165,7 +165,7 @@ export default createWorkerExport((sdk) => {
   });
 
   sdk.app.query(nsid("com.etzhayyim.apps.coverage.getEntityEvidence"), async (_ctx, body) => {
-    // Phase 3: kotoba evidence-edge query (G2 edge-primary)
+    // Phase 3: kotoba evidence-edge query + entity join (G2 edge-primary)
     const args = body as Record<string, unknown>;
     const entityVid = String(args.entityVid ?? "");
     if (!entityVid) return { error: "entityVid required" };
@@ -173,11 +173,9 @@ export default createWorkerExport((sdk) => {
 
     // HONEST R0: Fixture mode (kotoba endpoint operator-gated at G14)
     const kotobaClient = createKotobaClientAdapter((sdk.env as any).KOTOBA_ENDPOINT);
-    const { evidence } = await queryEntityEvidence(kotobaClient, entityVid, limit);
+    const { entity, evidence } = await queryEntityEvidence(kotobaClient, entityVid, limit);
 
-    // TODO (P3 Phase 2): fetch entity record alongside evidence using kotobaClient.kqe_aev()
-    // For now return evidence only, entity null
-    return { entity: null, evidence };
+    return { entity, evidence };
   });
 
   sdk.app.query(nsid("com.etzhayyim.apps.coverage.getViewpointStats"), async (_ctx, _body) => {

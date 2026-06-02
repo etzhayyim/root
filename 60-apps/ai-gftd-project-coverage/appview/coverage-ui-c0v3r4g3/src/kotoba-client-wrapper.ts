@@ -79,28 +79,45 @@ export async function queryLatentEntities(
   };
 }
 
-// Phase 3: Implement queryEntityEvidence using kotoba kqe queries
-// Replaces RisingWave `edge_entity_evidence` query.
+// Phase 3: Implement queryEntityEvidence using kotoba kqe queries (EAVT mode)
+// Replaces RisingWave `edge_entity_evidence` query + entity join.
 export async function queryEntityEvidence(
   kotobaClient: any,
   entityVid: string,
   limit: number = 50
-): Promise<{ evidence: EvidenceRow[]; count: number }> {
+): Promise<{ entity: LatentEntityRow | null; evidence: EvidenceRow[] }> {
   limit = Math.min(limit, 200);
 
   // HONEST R0: Fixture mode
-  // Live query would be:
+  // Live queries would be:
+  // 1. Fetch entity record by vertex_id
+  // const entityEavt = await kotobaClient.kqe_aev(
+  //   e => e.entity === `:latent/entity:${entityVid}`,
+  //   { limit: 1 }
+  // );
+  // const entity: LatentEntityRow | null = entityEavt[0] ? {
+  //   vertex_id: entityVid,
+  //   entity_kind: entityEavt.find(e => e.a === `:latent/entity-kind`)?.v,
+  //   canonical_label: entityEavt.find(e => e.a === `:latent/label`)?.v,
+  //   existence_probability: noisy_or_aggregate(await evidence_for(entityVid)),
+  //   k_evidence_count: (await evidence_for(entityVid)).length,
+  //   viewpoint_consensus: entityEavt.find(e => e.a === `:latent/consensus`)?.v ?? 0,
+  //   fission_eligible: entityEavt.find(e => e.a === `:latent/fission-eligible`)?.v === true,
+  //   status: entityEavt.find(e => e.a === `:latent/status`)?.v ?? "active",
+  //   created_at: entityEavt.find(e => e.a === `:latent/created-at`)?.v,
+  // } : null;
+
+  // 2. Fetch evidence edges by dst_vid
   // const evidence = await kotobaClient.kqe_avet(
   //   `:en/evidence`,
-  //   { filters: [{ dst: entityVid }], limit }
+  //   { filters: [{ v: entityVid }], limit }
   // );
-  // return { evidence, count: evidence.length };
 
-  return { evidence: [], count: 0 };
+  return { entity: null, evidence: [] };
 }
 
 // Phase 4: Implement getViewpointStats using kotoba EAVT aggregates
-// Replaces RisingWave `vertex_lda_viewpoint` + `vertex_latent_entity` GROUP BY queries.
+// Replaces RisingWave `vertex_lda_viewpoint` + `vertex_latent_entity` GROUP BY queries (Murakumo-only aggregation).
 export async function getViewpointStats(
   kotobaClient: any
 ): Promise<{
@@ -110,7 +127,30 @@ export async function getViewpointStats(
   // HONEST R0: Fixture mode
   // Live queries would:
   // 1. Fetch all :topic/* entities (viewpoints) filtered by active=true
-  // 2. Aggregate :latent/* entities by :latent/entity-kind, computing avg existence + fission-ready count
+  // const viewpointEavt = await kotobaClient.kqe_aevt(
+  //   a => a.startsWith(":topic/"),
+  //   { filters: [{ a: ":topic/active", v: true }] }
+  // );
+  // const viewpoints = groupBy(viewpointEavt, 'e').map(group => ({
+  //   vertex_id: group[0].e,
+  //   viewpoint_kind: group.find(r => r.a === ":topic/kind")?.v,
+  //   description: group.find(r => r.a === ":topic/description")?.v,
+  //   signal_vocab_size: parseInt(group.find(r => r.a === ":topic/vocab-size")?.v ?? "0"),
+  //   active: true,
+  //   created_at: group.find(r => r.a === ":topic/created-at")?.v,
+  // }));
+
+  // 2. Aggregate :latent/* entities by :latent/entity-kind via Murakumo LLM (ADR-2605215000)
+  // const entityKinds = [...new Set(entities.map(e => e.entity_kind))];
+  // const entityStats: EntityStats[] = entityKinds.map(kind => {
+  //   const kindEntities = entities.filter(e => e.entity_kind === kind);
+  //   return {
+  //     entity_kind: kind,
+  //     total: kindEntities.length,
+  //     avg_probability: mean(kindEntities.map(e => noisy_or_aggregate(evidence_for(e.vertex_id)))),
+  //     fission_ready_count: kindEntities.filter(e => e.fission_eligible).length,
+  //   };
+  // });
 
   return {
     viewpoints: [],
