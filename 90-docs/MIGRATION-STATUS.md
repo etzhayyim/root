@@ -15,7 +15,7 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 8 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 74 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 75 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (74)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (75)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -110,6 +110,13 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   **auth**; the `/manage` UX could front (c) but there is no registry layer to
   build, so disposition = Bucket V. did:web/did:plc/passkey issuance stays
   etzhayyim-exclusive (in `auth`, tracked separately), not here.
+- **air-book** — axes: **Custody + Settlement + Liability**. Airline reservations
+  & ticketing: PNR creation (`createPnr`), booking confirmation, ticket issuance
+  (`issueTicket`), seat assignment, ancillary services, cancellation/reprotection
+  (`reprotectPassenger`), and BSP settlement (`settleBsp`). PNR = passenger PII
+  custody; BSP/ticketing = IATA fiat settlement (merchant-of-record); ticketing +
+  reprotection = fulfillment / 善管注意義務 liability. No public catalog to front
+  (flight *search* is the separate `flight-offer`, already migrated) ⇒ stays gftd.
 - **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
   is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
   passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
