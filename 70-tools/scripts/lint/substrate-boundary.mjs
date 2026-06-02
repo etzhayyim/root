@@ -68,6 +68,7 @@ const allowedPrefixes = [
   "30-graph/graph-schema/alembic/",            // Alembic SQLAlchemy migrations
   "30-graph/graph-schema/sql_migrations/",     // raw SQL bodies for Alembic
   "30-graph/graph-schema/sqlmesh/",            // SQLMesh derived views/materializations
+  "30-graph/graph-schema/scripts/",            // one-shot DDL/INSERT apply scripts (same substrate-migration category)
   // Operator-only CLIs that bootstrap the substrate. They live in 70-tools/
   // and are run from a developer machine, never deployed. Same category
   // as 50-infra/mst-projector/emit.ts which uses @atproto/api directly.
