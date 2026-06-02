@@ -12,12 +12,12 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | Bucket | Count | Meaning |
 |--------|------:|---------|
 | **A — DONE** | 82 | has a `rw-free/` on-chain reference impl |
-| **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 14 | still imports prohibited substrate → the real active backlog |
+| **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
+| **C — NEEDS-CODEMOD** | 13 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 | **V — VENDOR-RESIDENT** | 29 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 69 apps** (C + D = 14 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 68 apps** (C + D = 13 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -248,14 +248,20 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
 
-## Bucket C — NEEDS-CODEMOD (14) — active backlog
+## Bucket C — NEEDS-CODEMOD (13) — active backlog
+
+> **False-positive removed**: `open-ot` (WASM-PLC OSS spec, Apache-2.0) was
+> labelled "(RW)" but is spec + Rust crates only — no TS app, no AT collections,
+> no prohibited-substrate imports in any code file. Nothing to migrate and no
+> regulated function → reclassified to Bucket B (clean).
+
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-open-ot (RW), open-patent (RW),
+open-patent (RW),
 os-messaging, patent (RW), pptx,
 public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
