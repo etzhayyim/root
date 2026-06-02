@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 102 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 13 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 70 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 12 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 71 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 13 apps** (C + D = 0 + 13; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 12 apps** (C + D = 0 + 12; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -76,7 +76,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (70)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (71)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -653,6 +653,15 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   promoteRank). Per-person evaluation/trust PII, computed (carry-forward test
   fails — no external authority); the COFOG open-data layer is already migrated
   separately as `open-cofog` (Bucket A). No rw-free built.
+- **x** (Bucket D / ad-pixel → V) — axes: **Custody (collected X profiles +
+  follower-graph + tweets + private timeline = social PII / surveillance
+  aggregation) + Liability (X sync/scrape, ToS)**. X (Twitter) Intelligence
+  Platform (`x.etzhayyim.com`): x-sync / profile-collection / follower-graph /
+  tweet-collection / timeline-analysis — collects/mirrors X data. Unlike `github`
+  (public open-source, redistributable open-data → fronted), X data is ToS-
+  restricted and collecting individuals' follower-graphs + personalized timelines
+  is social-PII surveillance (carry-forward test fails). Same Intelligence-
+  Platform family as `facebook`. No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -680,7 +689,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (13, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (12, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -695,11 +704,14 @@ robot / scheduler / shiharai / tia / web4 / webpage / wire / worlds / yabai /
 yatabase) have been migrated (A) or judged vendor-resident (V). Only the
 **ad-pixel codemod (26)** + **substrate-boundary (6)** sublists remain in Bucket D.
 
-**Ad-pixel codemod complete (un-resolved tail)**:
-x
-(\* names animeka/briefing/communicator/email-service-adapter*/fax* already
-resolved: animeka/mangaka in A; briefing/communicator in V; email-service-adapter/fax
-tracked as legacy codemod-only. `*` = also in Bucket C list.)
+**Ad-pixel codemod complete (un-resolved tail)** — RESOLVED (all 28 classified):
+every ad-pixel app is migrated (A) or judged vendor-resident (V). The (a)/(c)
+fronts were github / live / media-gamers / news / newsletter; the (b) vendor-
+resident were communicator / external-service-adapter / facebook /
+game-play-uploader / gmail / meet / meeting-recorder / messenger / microsoft /
+microsoft-graph / ongakuka / outreach / phone / recap / ses / society6 / x
+(plus animeka/mangaka already in A; briefing already in V; email-service-adapter/fax
+legacy codemod-only).
 
 **Substrate-boundary violation flagged (6)**: cloudflare-browser-render, insatsu,
 open-jpn-mynumber, playwright, repository, site
