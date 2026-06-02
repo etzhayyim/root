@@ -19201,6 +19201,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606023000-session-close-civic-concierge-worldwide-coverage-and-r1-cores.md",
+      "id": "adr-2606023000",
+      "title": "ADR-2606023000: Session close — civic-concierge worldwide registry coverage + R1 pure compute cores/resolvers",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-civic-concierge-worldwide-coverage-and-r1-cores",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "adr-2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0",
+        "adr-2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0",
+        "adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0",
+        "adr-2606022600-session-close-r0-actor-coverage-sweep-and-organism-axis-convention"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605312030 (toritsugi) · ADR-2605312500 (kurashimori) · ADR-2605312400 (moushibumi)",
+        "ADR-2605302130 (himotoki) · ADR-2605262700 (chigiri) · ADR-2605263400 (musubi)"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

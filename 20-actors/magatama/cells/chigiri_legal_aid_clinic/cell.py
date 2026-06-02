@@ -31,6 +31,10 @@ INFERENCE DISCIPLINE (ADR-2605215000):
 
 Murakumo node: judah (leader), levi (mediation pair for Lane B handoff)
 Storage: legalAidMatter records → kotoba EAVT (app.etzhayyim.chigiri.legalAidMatter)
+
+R1 note: the PURE, independently-importable referral-resolver core (a registry
+query, NO advice / NO eligibility) lives in the sibling module
+``referral_match.py``; landing/testing it does not activate this cell.
 """
 
 from __future__ import annotations

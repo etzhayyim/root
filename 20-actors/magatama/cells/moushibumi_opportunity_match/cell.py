@@ -14,7 +14,10 @@ ONLY in app.etzhayyim.encrypted.* (never inline); G12 data-minimization (no
 opinion-profiling); Murakumo-only inference (ADR-2605215000).
 Output Lexicon(s): app.etzhayyim.moushibumi.participationMatch.
 
-R0 scaffold — import-time RuntimeError until R1.
+R0 scaffold — import-time RuntimeError until R1. The PURE, tested R1
+participation-opportunity resolver lives in the sibling module
+``opportunity_resolver.py`` (importable WITHOUT this gated wrapper); landing it
+does NOT activate this cell — the activation gate below remains the sole switch.
 """
 
 from __future__ import annotations

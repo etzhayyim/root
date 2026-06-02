@@ -12376,6 +12376,24 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606023000",
+      "type": "TechArticle",
+      "title": "ADR-2606023000: Session close — civic-concierge worldwide registry coverage + R1 pure compute cores/resolvers",
+      "status": "active",
+      "topic": "session-close-civic-concierge-worldwide-coverage-and-r1-cores",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "doc:adr-2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0",
+        "doc:adr-2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0",
+        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "doc:adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0",
+        "doc:adr-2606022600-session-close-r0-actor-coverage-sweep-and-organism-axis-convention"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
