@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 97 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 34 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 54 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 33 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 55 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 34 apps** (C + D = 0 + 34; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 33 apps** (C + D = 0 + 33; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -71,7 +71,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (54)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (55)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -509,6 +509,14 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   gated for high-risk). Records are private per-user conversation state, not
   open-data (carry-forward test fails). Same messaging/comms-orchestration family
   as `mailer` / `microsoft` / `outreach`. No rw-free built.
+- **external-service-adapter** (Bucket D / ad-pixel → V) — axes: **Infra
+  (provider-native execution adapter) + Custody (provider credentials /
+  integration config) + Settlement (affiliate-revenue paths)**. A thin adapter/
+  integration layer that executes external-service API calls (commerce /
+  communication / media) on behalf of other apps (e.g. `communicator` uses it for
+  "provider-native execution"). No product surface — pure integration plumbing,
+  not open-data (carry-forward test fails). Same adapter/integration-infra family
+  as `yorishiro` / `hub`. No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -536,7 +544,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (34, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (33, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -551,7 +559,7 @@ robot / scheduler / shiharai / tia / web4 / webpage / wire / worlds / yabai /
 yatabase) have been migrated (A) or judged vendor-resident (V). Only the
 **ad-pixel codemod (26)** + **substrate-boundary (6)** sublists remain in Bucket D.
 
-**Ad-pixel codemod complete (un-resolved tail)**: external-service-adapter,
+**Ad-pixel codemod complete (un-resolved tail)**:
 facebook, game-play-uploader, github, gmail, live, mailer, media-gamers, meet,
 meeting-recorder, messenger, microsoft, microsoft-graph, news, newsletter,
 ongakuka, outreach, phone, recap, ses, society6, x
