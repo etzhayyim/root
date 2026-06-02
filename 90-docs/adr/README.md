@@ -32,6 +32,9 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 
 | ID | Title | Status | Date |
 |---|---|---|---|
+| [2606022600](./2606022600-session-close-himawari-r0.1-maturation.md) | Session close — himawari (向日葵) solar-PV actor R0 → R0.1 maturation (7 cell solvers implemented, 109 tests, lexicon-conformant emits, kotoba-WASM deploy scaffold) + clean main-based PR #748 | active | 2026-06-02 |
+| [2606021400](./2606021400-tsuukan-customs-clearance-orchestration-r0.md) | tsuukan (通関係) — Customs / Tariff / 通関 Clearance Orchestration Tier-B Actor R0 (capability-gap resolution; wraps open-customs-clearance BPMN; consumed by himawari outbound_logistics; UPL-bounded, NOT a licensed 通関業者) | proposed | 2026-06-02 |
+| [2606021200](./2606021200-himawari-solar-pv-manufacturing-r0.md) | himawari (向日葵) — Solar PV Module Manufacturing + Loading + Outbound + Procurement Tier-B Actor (R0 charter / R0.1 cells implemented; closes hikari §G2 via first-party on-chain feedstock provenance) | proposed | 2026-06-02 |
 | [2605170900](./2605170900-etzhayyim-root-adr-canonical-home.md) | etzhayyim/root as canonical home for religious-corp open ADRs | active | 2026-05-17 |
 | [2605171300](./2605171300-open-unispsc-generative-agent-fleet.md) | Open-UNSPSC Generative Agent Fleet using OpenRouter and Local Fallback (18,345 agents) | accepted | 2026-05-17 |
 | [2605171800](./2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) | Artificial Organism Ecosystem — LangGraph Pregel → PostgresSaver → atproto MST → IPFS → Base L2 anchor pipeline | proposed | 2026-05-17 |
