@@ -193,7 +193,7 @@ const VERTEX_TABLE_MAP: Record<string, string> = {
   'KyberDept': 'vertex_kyber_dept',
   'OfficeDocument': 'vertex_office_document',
   'OfficeChunk': 'vertex_office_chunk',
-  // mailer relay (app.etzhayyim.apps.mailer.*): CF Email Routing inbound + Resend outbound
+  // mailer relay (com.etzhayyim.apps.mailer.*): CF Email Routing inbound + Resend outbound
   'MailerInboundEmail': 'vertex_mailer_inbound_email',
   'MailerEmailBinding': 'vertex_mailer_email_binding',
   'MailerInboundEmailStatus': 'vertex_mailer_inbound_email_status',

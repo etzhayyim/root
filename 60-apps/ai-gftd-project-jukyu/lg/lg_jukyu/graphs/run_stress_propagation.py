@@ -1,6 +1,6 @@
 """jukyu `runStressPropagation` graph — Pregel equilibrium propagation.
 
-NSID: app.etzhayyim.apps.jukyu.runStressPropagation
+NSID: com.etzhayyim.apps.jukyu.runStressPropagation
 Graph: jukyu_global_equilibrium_v1
 
 7 supersteps per JUKYU_DESIGN.md:
@@ -422,7 +422,7 @@ async def _node_write_signals(state: _State) -> dict[str, Any]:
                     continue
                 severity = "critical" if risk >= 0.8 else "high" if risk >= 0.6 else "medium" if risk >= 0.4 else "low"
                 signal_id = f"jukyu-signal:{time.strftime('%Y%m%d')}:{ce.get('companyDid','?')[:30]}:{run_id[-8:]}"
-                vertex_id = f"at://jukyu001.etzhayyim.com/app.etzhayyim.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
+                vertex_id = f"at://jukyu001.etzhayyim.com/com.etzhayyim.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
 
                 # Delete then insert (RW no ON CONFLICT)
                 await cur.execute(
@@ -448,7 +448,7 @@ async def _node_write_signals(state: _State) -> dict[str, Any]:
                 )
 
                 # Also upsert company exposure record
-                ce_vertex_id = f"at://jukyu001.etzhayyim.com/app.etzhayyim.apps.jukyu.companyExposure/{uuid.uuid4().hex[:12]}"
+                ce_vertex_id = f"at://jukyu001.etzhayyim.com/com.etzhayyim.apps.jukyu.companyExposure/{uuid.uuid4().hex[:12]}"
                 await cur.execute(
                     "DELETE FROM vertex_jukyu_company_exposure WHERE company_did = %s AND run_id = %s",
                     (ce.get("companyDid"), run_id),

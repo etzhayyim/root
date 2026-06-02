@@ -36,22 +36,22 @@
       {
         "name": "media-gamers.health",
         "description": "Health check for media-gamers LangGraph service",
-        "nsid": "ai.gftd.apps.a7m8oocs.health"
+        "nsid": "com.etzhayyim.apps.a7m8oocs.health"
       },
       {
         "name": "media-gamers.ingestCharts",
         "description": "Ingest and process game chart data for media-gamers analytics",
-        "nsid": "ai.gftd.apps.a7m8oocs.ingestCharts"
+        "nsid": "com.etzhayyim.apps.a7m8oocs.ingestCharts"
       },
       {
         "name": "media-gamers.generateGuide",
         "description": "Generate a game guide article using LangGraph for media-gamers",
-        "nsid": "ai.gftd.apps.a7m8oocs.generateGuide"
+        "nsid": "com.etzhayyim.apps.a7m8oocs.generateGuide"
       },
       {
         "name": "media-gamers.autopilot",
         "description": "Run the media-gamers autopilot LangGraph agent for autonomous content generation",
-        "nsid": "ai.gftd.apps.a7m8oocs.autopilot"
+        "nsid": "com.etzhayyim.apps.a7m8oocs.autopilot"
       }
     ]
   },
@@ -80,9 +80,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.mediaUgamers.media_gamers_entity",
-        "ai.gftd.apps.mediaUgamers.media_gamers_event",
-        "ai.gftd.apps.mediaUgamers.media_gamers_report"
+        "com.etzhayyim.apps.mediaUgamers.media_gamers_entity",
+        "com.etzhayyim.apps.mediaUgamers.media_gamers_event",
+        "com.etzhayyim.apps.mediaUgamers.media_gamers_report"
       ]
     }
   },

@@ -13,11 +13,11 @@ import { sql } from "kysely";
  *
  * verifyApiKey() returns product_scope alongside owner_did + scopes;
  * the auth layer enforces NSID-prefix gating:
- *   product_scope='yata' → app.etzhayyim.apps.yata.* + app.etzhayyim.apps.billing.* read
- *   product_scope='obj'  → app.etzhayyim.apps.obj.*  + app.etzhayyim.apps.billing.* read
+ *   product_scope='yata' → com.etzhayyim.apps.yata.* + com.etzhayyim.apps.billing.* read
+ *   product_scope='obj'  → com.etzhayyim.apps.obj.*  + com.etzhayyim.apps.billing.* read
  *   product_scope=NULL   → all NSIDs (legacy + admin + cross-product)
  *
- * Read path is scoped: a yata key calling /xrpc/app.etzhayyim.apps.obj.* is
+ * Read path is scoped: a yata key calling /xrpc/com.etzhayyim.apps.obj.* is
  * 403, and vice versa. Billing read is always allowed (callers need
  * to query their own usage / invoices).
  */

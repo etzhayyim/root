@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govGuy.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govGuy.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Guyana government.",
-        "operationId": "app.etzhayyim.govGuy.followSiteDeps",
+        "operationId": "com.etzhayyim.govGuy.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGuy.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govGuy.heartbeatTick": {
       "post": {
         "summary": "Run the Guyana government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govGuy.heartbeatTick",
+        "operationId": "com.etzhayyim.govGuy.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGuy.listOrgs": {
+    "/xrpc/com.etzhayyim.govGuy.listOrgs": {
       "get": {
         "summary": "List Guyana government organization graph records.",
-        "operationId": "app.etzhayyim.govGuy.listOrgs",
+        "operationId": "com.etzhayyim.govGuy.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGuy.registerDIDs": {
+    "/xrpc/com.etzhayyim.govGuy.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Guyana government organizations.",
-        "operationId": "app.etzhayyim.govGuy.registerDIDs",
+        "operationId": "com.etzhayyim.govGuy.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGuy.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govGuy.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Guyana government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govGuy.resolveOrgPath",
+        "operationId": "com.etzhayyim.govGuy.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGuy.seedOrgs": {
+    "/xrpc/com.etzhayyim.govGuy.seedOrgs": {
       "post": {
         "summary": "Seed initial Guyana government organization records into the graph.",
-        "operationId": "app.etzhayyim.govGuy.seedOrgs",
+        "operationId": "com.etzhayyim.govGuy.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGuy.shinka": {
+    "/xrpc/com.etzhayyim.govGuy.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Guyana government organization update.",
-        "operationId": "app.etzhayyim.govGuy.shinka",
+        "operationId": "com.etzhayyim.govGuy.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGuy.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govGuy.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Guyana government organization changes to graph.",
-        "operationId": "app.etzhayyim.govGuy.syncWetUpdates",
+        "operationId": "com.etzhayyim.govGuy.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

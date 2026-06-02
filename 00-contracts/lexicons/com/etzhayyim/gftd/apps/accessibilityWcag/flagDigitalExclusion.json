@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.accessibilityWcag.flagDigitalExclusion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Digital exclusion / no-keyboard / cognitive load / dark mode (bridges biometricStandards.flagInclusionGap + crpd-disability + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "auditVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "auditVid": {
+              "type": "string",
+              "description": "bridges recordConformance"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "no_keyboard",
+                "cognitive_load",
+                "captcha_fails",
+                "screen_reader_broken",
+                "low_contrast",
+                "autoplay_video",
+                "small_touch",
+                "timeout_short",
+                "focus_lost",
+                "dark_mode_fails",
+                "ttf_tab"
+              ]
+            },
+            "criticalFlowFail": {
+              "type": "boolean"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

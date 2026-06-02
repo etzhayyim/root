@@ -12,7 +12,7 @@
 #       --recipe 70-tools/baien-moemoekyun-train/recipes/tier-a-netreg-foundations.toml
 #
 # Datasets MUST already be staged + DataLad-saved + IPFS-pinned + have
-# a corresponding `app.etzhayyim.substrate.datasetPin` record before
+# a corresponding `com.etzhayyim.substrate.datasetPin` record before
 # the assembler will accept them (G13 in ADR-2605262400).
 
 target_artifact = "baien-server-netreg-foundations-v1"
@@ -32,7 +32,7 @@ GeoLite2-derived rows carry SA propagation in their per-row license tag.
 
 [[source]]
 subdataset    = "netreg/rir-delegated/apnic"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_APNIC"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_APNIC"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
@@ -41,7 +41,7 @@ description   = "APNIC daily delegated stats — Asia-Pacific IPv4/IPv6/ASN allo
 
 [[source]]
 subdataset    = "netreg/rir-delegated/arin"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_ARIN"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_ARIN"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
@@ -50,7 +50,7 @@ description   = "ARIN daily delegated stats — North America IPv4/IPv6/ASN allo
 
 [[source]]
 subdataset    = "netreg/rir-delegated/ripe"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RIPE"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RIPE"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
@@ -59,7 +59,7 @@ description   = "RIPE daily delegated stats — Europe/Middle East IPv4/IPv6/ASN
 
 [[source]]
 subdataset    = "netreg/rir-delegated/afrinic"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_AFRINIC"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_AFRINIC"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
@@ -68,7 +68,7 @@ description   = "AFRINIC daily delegated stats — Africa IPv4/IPv6/ASN allocati
 
 [[source]]
 subdataset    = "netreg/rir-delegated/lacnic"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_LACNIC"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_LACNIC"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
@@ -77,7 +77,7 @@ description   = "LACNIC daily delegated stats — Latin America/Caribbean IPv4/I
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA_ROOT"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA_ROOT"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -86,7 +86,7 @@ description   = "IANA root zone — TLD ⇒ authoritative NS delegation at the t
 
 [[source]]
 subdataset    = "netreg/geolite2/geolite2-country"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_GEOLITE2_COUNTRY"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_GEOLITE2_COUNTRY"
 shard_glob    = "*.mmdb"
 tier          = "A"
 license       = "CC-BY-SA-4.0"

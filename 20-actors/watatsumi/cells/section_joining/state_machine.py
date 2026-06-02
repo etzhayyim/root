@@ -90,7 +90,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     sj.phase = SectionJoiningPhase.ATTESTATION_EMITTED
     sj.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.watatsumi.sectionJoiningAttestation",
+        "$type": "com.etzhayyim.watatsumi.sectionJoiningAttestation",
         "craftId": sj.craftId,
         "sectionPairs": sj.sectionPairs,
         "multiPassDetails": sj.multiPassDetails,

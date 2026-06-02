@@ -43,7 +43,7 @@ async def _verify_trust(request: Request, x_internal_trust: str | None) -> bytes
     raise HTTPException(status_code=401, detail="x-internal-trust mismatch")
 
 
-@router.post("/xrpc/app.etzhayyim.apps.yata.outboxList")
+@router.post("/xrpc/com.etzhayyim.apps.yata.outboxList")
 async def outbox_list(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -59,7 +59,7 @@ async def outbox_list(
     return JSONResponse(content=result)
 
 
-@router.post("/xrpc/app.etzhayyim.apps.yata.outboxApprove")
+@router.post("/xrpc/com.etzhayyim.apps.yata.outboxApprove")
 async def outbox_approve(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -73,7 +73,7 @@ async def outbox_approve(
     return JSONResponse(content=result)
 
 
-@router.post("/xrpc/app.etzhayyim.apps.yata.outboxReject")
+@router.post("/xrpc/com.etzhayyim.apps.yata.outboxReject")
 async def outbox_reject(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),

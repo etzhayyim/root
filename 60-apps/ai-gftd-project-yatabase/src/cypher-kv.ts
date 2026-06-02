@@ -1,6 +1,6 @@
 // cypher-kv.ts — Workers KV-backed Cypher engine (P64, 2026-05-12).
 //
-// Until the lg-yatabase pod ships app.etzhayyim.apps.yata.runCypher, this
+// Until the lg-yatabase pod ships com.etzhayyim.apps.yata.runCypher, this
 // module serves simple `CREATE` and `MATCH` queries against the
 // YATABASE_AUTH_CACHE KV namespace. Per-org node store with label index.
 //

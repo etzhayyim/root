@@ -1,5 +1,5 @@
 /**
- * Wikidata SPARQL → app.etzhayyim.maps.legalEntity bulk ingest.
+ * Wikidata SPARQL → com.etzhayyim.maps.legalEntity bulk ingest.
  *
  * Connects the Phase 1 Tier A source DID
  * `did:web:maps.etzhayyim.com:registry:wikidata` to the Phase 3 Tier B

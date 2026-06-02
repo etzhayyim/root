@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneSoc.registerChipDesign",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register an open smartphone SoC/chip design",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chipId", "chipName", "isa", "processNodeNm", "openSourceRtl"],
+          "properties": {
+            "chipId": { "type": "string" },
+            "chipName": { "type": "string" },
+            "isa": { "type": "string", "knownValues": ["riscv", "arm", "mips", "other"] },
+            "processNodeNm": { "type": "integer", "description": "Process node in nanometers" },
+            "dieAreaMm2": { "type": "number" },
+            "transistorCountB": { "type": "number", "description": "Transistor count in billions" },
+            "openSourceRtl": { "type": "boolean" },
+            "rtlLicense": { "type": "string" },
+            "fabDid": { "type": "string", "format": "did" },
+            "tapeOutDate": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

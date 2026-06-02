@@ -12,7 +12,7 @@ interface Env {
 }
 
 const APP = "outreach";
-const NSID_PREFIX = "app.etzhayyim.apps.outreach.";
+const NSID_PREFIX = "com.etzhayyim.apps.outreach.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -25,7 +25,7 @@ export default {
         nanoid: env.APP_NANOID ?? "otch0001",
         execution: "edge-bpmn+langgraph-langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/outreach_worker_main.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/outreach",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
         integrations: ["ads.etzhayyim.com", "resend", "gmail", "m365Ingest"],
         pii: "Tier 3 (sensitivity_ord=3, ADR-0018)",

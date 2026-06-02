@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cbamExtension.flagDisputeNotification",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "WTO / GATT XX dispute over CBAM or equivalent (bridges wto-dispute + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "disputeId",
+            "extensionVid",
+            "complainantIso3",
+            "claimBasis",
+            "filedAt"
+          ],
+          "properties": {
+            "disputeId": {
+              "type": "string"
+            },
+            "extensionVid": {
+              "type": "string",
+              "description": "bridges registerScopeExpansion"
+            },
+            "complainantIso3": {
+              "type": "string"
+            },
+            "claimBasis": {
+              "type": "string",
+              "enum": [
+                "mfn",
+                "national_treatment",
+                "subsidy",
+                "technical_barriers",
+                "gatt_xx_exception"
+              ]
+            },
+            "wtoDisputeVid": {
+              "type": "string",
+              "description": "bridges open-wto-dispute"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

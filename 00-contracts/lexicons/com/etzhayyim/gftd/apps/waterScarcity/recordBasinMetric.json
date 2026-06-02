@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.waterScarcity.recordBasinMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Transboundary basin water stress (WRI Aqueduct / FAO AQUASTAT — bridges cofog + agri-food-security)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "basinName",
+            "ripariansIso3",
+            "baselineWaterStress",
+            "measuredYear"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "basinName": {
+              "type": "string"
+            },
+            "ripariansIso3": {
+              "type": "string",
+              "description": "comma-separated ISO 3166-1 alpha-3"
+            },
+            "baselineWaterStress": {
+              "type": "number",
+              "description": "WRI 0-5 scale"
+            },
+            "droughtRisk": {
+              "type": "number"
+            },
+            "regulatoryInstrument": {
+              "type": "string",
+              "description": "treaty / convention name"
+            },
+            "agriHarvestVid": {
+              "type": "string",
+              "description": "bridges open-agri-food-security"
+            },
+            "measuredYear": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "stressTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium_low",
+                "medium_high",
+                "high",
+                "extreme"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

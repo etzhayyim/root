@@ -17,7 +17,7 @@ contract etzhayyimAgentRegistryTest is Test {
     bytes32 constant DID_A = keccak256("did:web:etzhayyim.com:actor:dataset-pinner");
     bytes32 constant DID_B = keccak256("did:web:etzhayyim.com:actor:pinner");
     bytes32 constant SCOPE_NONE = bytes32(0);
-    bytes32 constant SCOPE_DATASETPIN = keccak256("app.etzhayyim.apps.substrate.datasetPin");
+    bytes32 constant SCOPE_DATASETPIN = keccak256("com.etzhayyim.apps.substrate.datasetPin");
 
     string constant URI_A = "ipfs://bafybeigdataset/agent.json";
     string constant URI_A_V2 = "ipfs://bafybeigdatasetv2/agent.json";

@@ -18,9 +18,9 @@ function readBpmn(relativePath: string): string {
 const PROCESS_DEFS = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-master-routine-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-master-routine-v1",
     bpmnProcessId: "kaisya_master_routine",
-    sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/masterRoutine.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/kaisya/masterRoutine.bpmn",
   },
 ] as const;
 

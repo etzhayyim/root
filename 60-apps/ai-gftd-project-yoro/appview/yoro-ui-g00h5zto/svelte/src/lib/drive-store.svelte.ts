@@ -5,7 +5,7 @@
 
 	import { createRecord, listRecords, deleteRecord, getCurrentDID } from '$lib/atproto-agent';
 
-const COLLECTION = 'app.etzhayyim.apps.yoro.driveItem';
+const COLLECTION = 'com.etzhayyim.apps.yoro.driveItem';
 
 export interface DriveItem {
 	rkey: string;

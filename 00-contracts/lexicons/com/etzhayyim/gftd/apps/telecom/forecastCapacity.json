@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.forecastCapacity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OSS NMS — record a capacity forecast for a scope+metric. Sets breachPredicted=true when forecastValue exceeds capacityLimit; designed for timer-start (R/PT24H or R/P7D).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["scopeKind", "scopeVid", "metric", "currentValue", "forecastValue", "forecastHorizonDays", "capacityLimit", "modelKind", "observedAt"],
+          "properties": {
+            "forecastId": { "type": "string" },
+            "scopeKind": { "type": "string", "enum": ["cellSite", "ranNode", "nfInstance", "service", "transport", "spectrum"] },
+            "scopeVid": { "type": "string" },
+            "metric": { "type": "string" },
+            "currentValue": { "type": "number" },
+            "forecastValue": { "type": "number" },
+            "forecastHorizonDays": { "type": "integer" },
+            "capacityLimit": { "type": "number" },
+            "modelKind": { "type": "string", "enum": ["linear", "arima", "prophet", "lstm", "manual"] },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "forecastId": { "type": "string" },
+          "breachPredicted": { "type": "boolean" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

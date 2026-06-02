@@ -32,9 +32,9 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openSwift.institution",
-        "ai.gftd.apps.openSwift.message",
-        "ai.gftd.apps.openSwift.acknowledgement"
+        "com.etzhayyim.apps.openSwift.institution",
+        "com.etzhayyim.apps.openSwift.message",
+        "com.etzhayyim.apps.openSwift.acknowledgement"
       ]
     }
   },

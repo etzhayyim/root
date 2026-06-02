@@ -3,7 +3,7 @@
 //
 // Per ADR-2605111200 the CF Worker is edge-only and cannot call
 // createKyselyDb. All vertex_api_key INSERTs now route through
-// `/xrpc/app.etzhayyim.apps.yata.{signup,invite,revoke}` on the pod side.
+// `/xrpc/com.etzhayyim.apps.yata.{signup,invite,revoke}` on the pod side.
 // This file is a thin wrapper around the same forwardBmc HMAC pattern;
 // kept separate so the auth NSIDs are colocated with the auth-signup
 // handler that calls them.
@@ -51,7 +51,7 @@ export async function forwardSignup(
   return forwardBmc(
     env,
     "POST",
-    "app.etzhayyim.apps.yata.signup",
+    "com.etzhayyim.apps.yata.signup",
     body as Record<string, unknown>,
     traceId ? { ...ANON_IDENTITY, traceId } : ANON_IDENTITY,
     { timeoutMs: 30_000 },
@@ -63,7 +63,7 @@ export async function forwardInvite(
   body: { name: string; email?: string },
   identity: ForwardIdentity,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "POST", "app.etzhayyim.apps.yata.invite", body as Record<string, unknown>, identity, {
+  return forwardBmc(env, "POST", "com.etzhayyim.apps.yata.invite", body as Record<string, unknown>, identity, {
     timeoutMs: 20_000,
   });
 }
@@ -73,7 +73,7 @@ export async function forwardRevoke(
   body: { vertex_id: string },
   identity: ForwardIdentity,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "POST", "app.etzhayyim.apps.yata.revoke", body as Record<string, unknown>, identity, {
+  return forwardBmc(env, "POST", "com.etzhayyim.apps.yata.revoke", body as Record<string, unknown>, identity, {
     timeoutMs: 20_000,
   });
 }

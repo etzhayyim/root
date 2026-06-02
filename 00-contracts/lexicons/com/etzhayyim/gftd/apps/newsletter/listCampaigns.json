@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.newsletter.listCampaigns",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List newsletter campaigns.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "status": { "type": "string" },
+          "limit":  { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["campaigns", "total", "offset", "limit"],
+          "properties": {
+            "campaigns": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["campaignId", "name", "status", "createdAt"],
+                "properties": {
+                  "campaignId":     { "type": "string" },
+                  "name":           { "type": "string" },
+                  "topic":          { "type": "string" },
+                  "cohortName":     { "type": "string" },
+                  "status":         { "type": "string" },
+                  "qualityScore":   { "type": "number" },
+                  "recipientCount": { "type": "integer" },
+                  "openCount":      { "type": "integer" },
+                  "sentAt":         { "type": "string" },
+                  "createdAt":      { "type": "string" }
+                }
+              }
+            },
+            "total":  { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

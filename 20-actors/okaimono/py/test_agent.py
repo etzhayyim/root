@@ -275,7 +275,7 @@ def test_seal_encrypted_never_leaks_plaintext():
     env = agent.seal_encrypted({"pan": "4111111111111111", "cvv": "123", "name": "A B"}, MEMBER)
     blob = repr(env)
     assert "4111111111111111" not in blob and "123" not in blob and "A B" not in blob
-    assert env["envelopeRef"].startswith("app.etzhayyim.encrypted:")
+    assert env["envelopeRef"].startswith("com.etzhayyim.encrypted:")
     assert env["sealedFields"] == ["cvv", "name", "pan"]  # field NAMES only, no values
 
 

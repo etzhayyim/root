@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.handotai.seedArticles",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "i": {
+              "type": "number"
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "max": {
+              "type": "number"
+            },
+            "i": {
+              "type": "string"
+            },
+            "aid": {
+              "type": "integer"
+            },
+            "writerDid": {
+              "type": "integer"
+            },
+            "posted": {
+              "type": "boolean"
+            },
+            "postText": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

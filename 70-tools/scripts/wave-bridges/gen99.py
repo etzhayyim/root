@@ -9,7 +9,7 @@ import json, os, pathlib, textwrap
 
 ROOT = pathlib.Path("/Users/junkawasaki/github/etzhayyim/root")
 BPMN_ROOT = ROOT / "00-contracts/bpmn/ai/gftd"
-LEX_ROOT = ROOT / "00-contracts/lexicons/ai/gftd/apps"
+LEX_ROOT = ROOT / "00-contracts/lexicons/com/etzhayyim/apps"
 
 # Each entry: (bpmn_dir_slug, lex_app_camel, method, target_table, group_col, group_val,
 #             action_kind_col, action_kind_val, action_id_col, issued_at_col, description)
@@ -126,7 +126,7 @@ for (slug, lex_app, method, table, group_col, group_val,
     }
     lex = {
         "lexicon": 1,
-        "id": f"app.etzhayyim.apps.{lex_app}.{method}",
+        "id": f"com.etzhayyim.apps.{lex_app}.{method}",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -154,7 +154,7 @@ for (slug, lex_app, method, table, group_col, group_val,
     lex_dir.mkdir(parents=True, exist_ok=True)
     (lex_dir / f"{method}.json").write_text(json.dumps(lex, indent=2, ensure_ascii=False))
 
-    nsid = f"app.etzhayyim.apps.{lex_app}.{method}"
+    nsid = f"com.etzhayyim.apps.{lex_app}.{method}"
     bind_lines.append(
         f"('binding:{nsid}','{nsid}','{proc}',1,'active',now())"
     )

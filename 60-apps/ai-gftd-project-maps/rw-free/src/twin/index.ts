@@ -53,9 +53,9 @@ export {
   isValidConfidence,
 } from "./types.js";
 
-const COLLECTION_DEVICE_BINDING = "app.etzhayyim.maps.deviceBinding";
-const COLLECTION_TWIN_STATE = "app.etzhayyim.maps.twinState";
-const COLLECTION_SENSOR_ALERT = "app.etzhayyim.maps.sensorAlert";
+const COLLECTION_DEVICE_BINDING = "com.etzhayyim.maps.deviceBinding";
+const COLLECTION_TWIN_STATE = "com.etzhayyim.maps.twinState";
+const COLLECTION_SENSOR_ALERT = "com.etzhayyim.maps.sensorAlert";
 
 /** Minimal write-capable surface, mirrors the rest of the rw-free package. */
 export interface TwinClient {

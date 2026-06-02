@@ -28,7 +28,7 @@ async function ensurePathDids(sdk: HostSDK): Promise<void> {
   pathDidsReady = true;
 }
 
-// ── app.etzhayyim.apps.cad.importCadFile ──
+// ── com.etzhayyim.apps.cad.importCadFile ──
 async function cmdImportCadFile(sdk: HostSDK, env: Record<string, unknown>, body: Uint8Array): Promise<string> {
   const input = decodeJson(body, {
     workspaceId: "",
@@ -83,7 +83,7 @@ async function cmdImportCadFile(sdk: HostSDK, env: Record<string, unknown>, body
   }
 }
 
-// ── app.etzhayyim.apps.cad.getRevisionScene ──
+// ── com.etzhayyim.apps.cad.getRevisionScene ──
 async function qGetRevisionScene(_sdk: HostSDK, body: Uint8Array): Promise<string> {
   const input = decodeJson(body, {
     revisionId: "", representation: "shaded", lod: "medium", includeMeshBlobRefs: true,
@@ -103,7 +103,7 @@ async function qGetRevisionScene(_sdk: HostSDK, body: Uint8Array): Promise<strin
   });
 }
 
-// ── app.etzhayyim.apps.cad.addAnchoredComment ──
+// ── com.etzhayyim.apps.cad.addAnchoredComment ──
 async function cmdAddAnchoredComment(sdk: HostSDK, body: Uint8Array): Promise<string> {
   const input = decodeJson(body, {
     revisionId: "", partOccurrencePath: "",
@@ -120,13 +120,13 @@ async function cmdAddAnchoredComment(sdk: HostSDK, body: Uint8Array): Promise<st
   const _reviewer = REVIEWER_DID;
   // TODO: Hyperdrive INSERT vertex_cad_comment.
   return JSON.stringify({
-    commentUri: `at://${PRIMARY_DID}/app.etzhayyim.apps.cad.comment/${rkey}`,
+    commentUri: `at://${PRIMARY_DID}/com.etzhayyim.apps.cad.comment/${rkey}`,
     rkey,
     createdAt,
   });
 }
 
-// ── app.etzhayyim.apps.cad.listComments ──
+// ── com.etzhayyim.apps.cad.listComments ──
 async function qListComments(_sdk: HostSDK, body: Uint8Array): Promise<string> {
   const input = decodeJson(body, {
     revisionId: "", partOccurrencePath: "", status: "open",
@@ -138,7 +138,7 @@ async function qListComments(_sdk: HostSDK, body: Uint8Array): Promise<string> {
   return JSON.stringify({ items: [], total: 0, offset, limit, note: "Phase 1 stub" });
 }
 
-// ── app.etzhayyim.apps.cad.requestExport ──
+// ── com.etzhayyim.apps.cad.requestExport ──
 async function cmdRequestExport(sdk: HostSDK, env: Record<string, unknown>, body: Uint8Array): Promise<string> {
   const input = decodeJson(body, {
     revisionId: "", target: "step", units: "millimetre",
@@ -174,36 +174,36 @@ async function cmdHealth(): Promise<string> {
 export default createWorkerExport((sdk) => {
   const env = (sdk as unknown as { env?: Record<string, unknown> }).env ?? {};
   sdk.app.command(
-    nsid("app.etzhayyim.apps.cad.importCadFile"),
+    nsid("com.etzhayyim.apps.cad.importCadFile"),
     async (_ctx: unknown, body: Uint8Array) => cmdImportCadFile(sdk, env, body),
     asAgentTool("Import a CAD file (STEP/IGES/BREP/STL/OBJ/glTF) into a workspace; returns a job id."),
     withCapabilityTags("write", "cad", "import"),
   );
   sdk.app.query(
-    nsid("app.etzhayyim.apps.cad.getRevisionScene"),
+    nsid("com.etzhayyim.apps.cad.getRevisionScene"),
     async (_ctx: unknown, body: Uint8Array) => qGetRevisionScene(sdk, body),
     asAgentTool("Return a scene-graph projection of a CAD revision for WebGPU rendering."),
     withCapabilityTags("read", "cad", "scene"),
   );
   sdk.app.command(
-    nsid("app.etzhayyim.apps.cad.addAnchoredComment"),
+    nsid("com.etzhayyim.apps.cad.addAnchoredComment"),
     async (_ctx: unknown, body: Uint8Array) => cmdAddAnchoredComment(sdk, body),
     asAgentTool("Add an anchored review comment to a face/edge/vertex on a CAD revision."),
     withCapabilityTags("write", "cad", "comment"),
   );
   sdk.app.query(
-    nsid("app.etzhayyim.apps.cad.listComments"),
+    nsid("com.etzhayyim.apps.cad.listComments"),
     async (_ctx: unknown, body: Uint8Array) => qListComments(sdk, body),
     asAgentTool("List anchored comments on a CAD revision."),
     withCapabilityTags("read", "cad", "comments"),
   );
   sdk.app.command(
-    nsid("app.etzhayyim.apps.cad.requestExport"),
+    nsid("com.etzhayyim.apps.cad.requestExport"),
     async (_ctx: unknown, body: Uint8Array) => cmdRequestExport(sdk, env, body),
     asAgentTool("Enqueue a STEP/IGES/glTF/STL/PDF/DXF/OBJ export job."),
     withCapabilityTags("write", "cad", "export"),
   );
-  sdk.app.command(nsid("app.etzhayyim.apps.cad.health"), async () => cmdHealth());
+  sdk.app.command(nsid("com.etzhayyim.apps.cad.health"), async () => cmdHealth());
 
   // ── Internal callback: cad-job container → Worker ───────────────────
   // Mirrors bim/_internal/jobs/complete. Container POSTs catalog +
@@ -290,7 +290,7 @@ async function ingestCadCatalog(env: Record<string, unknown>, body: CadJobComple
   let inserted = 0;
   let idx = 0;
   for (const part of body.catalog.parts ?? []) {
-    const featureId = `at://${owner}/app.etzhayyim.apps.cad.feature/${genID()}`;
+    const featureId = `at://${owner}/com.etzhayyim.apps.cad.feature/${genID()}`;
     try {
       await sql`
         INSERT INTO vertex_cad_feature (

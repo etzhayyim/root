@@ -17,7 +17,7 @@
     "APP_NANOID": "mhk7r2vq",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     "OPERATING_ENTITY": "amanomibashira",
     "VENDOR": "etzhayyim Japan株式会社",
     "AUDIT_RETENTION_YEARS": "7",

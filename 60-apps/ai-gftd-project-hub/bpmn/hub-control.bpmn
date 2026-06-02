@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-re-1" sourceRef="start-register-endpoint" targetRef="task-register-endpoint"/>
     <bpmn:serviceTask id="task-register-endpoint" name="Register Endpoint">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.hub.registerEndpoint"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.hub.registerEndpoint"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-re-2" sourceRef="task-register-endpoint" targetRef="end-register-endpoint"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-le-1" sourceRef="start-list-endpoints" targetRef="task-list-endpoints"/>
     <bpmn:serviceTask id="task-list-endpoints" name="List Endpoints">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.hub.listEndpoints"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.hub.listEndpoints"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-le-2" sourceRef="task-list-endpoints" targetRef="end-list-endpoints"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-rr-1" sourceRef="start-route-request" targetRef="task-route-request"/>
     <bpmn:serviceTask id="task-route-request" name="Route Request">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.hub.routeRequest"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.hub.routeRequest"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-rr-2" sourceRef="task-route-request" targetRef="end-route-request"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-grs-1" sourceRef="start-get-route-status" targetRef="task-get-route-status"/>
     <bpmn:serviceTask id="task-get-route-status" name="Get Route Status">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.hub.getRouteStatus"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.hub.getRouteStatus"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-grs-2" sourceRef="task-get-route-status" targetRef="end-get-route-status"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-cw-1" sourceRef="start-create-webhook" targetRef="task-create-webhook"/>
     <bpmn:serviceTask id="task-create-webhook" name="Create Webhook">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.hub.createWebhook"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.hub.createWebhook"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cw-2" sourceRef="task-create-webhook" targetRef="end-create-webhook"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-lw-1" sourceRef="start-list-webhooks" targetRef="task-list-webhooks"/>
     <bpmn:serviceTask id="task-list-webhooks" name="List Webhooks">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.hub.listWebhooks"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.hub.listWebhooks"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lw-2" sourceRef="task-list-webhooks" targetRef="end-list-webhooks"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-tc-1" sourceRef="start-test-connection" targetRef="task-test-connection"/>
     <bpmn:serviceTask id="task-test-connection" name="Test Connection">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.hub.testConnection"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.hub.testConnection"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-tc-2" sourceRef="task-test-connection" targetRef="end-test-connection"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-gm-1" sourceRef="start-get-metrics" targetRef="task-get-metrics"/>
     <bpmn:serviceTask id="task-get-metrics" name="Get Metrics">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.hub.getMetrics"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.hub.getMetrics"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gm-2" sourceRef="task-get-metrics" targetRef="end-get-metrics"/>

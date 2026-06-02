@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.otakiage.confirmHandover",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "譲渡完了を確定。寄贈者 (item.ownerDid) のみ呼べる。reuse_request を一つ選んで handed_over に遷移、他の pending request は cancelled。完了後に handover record を INSERT、socialAnnounce BPMN を内部発火 (T1 social derive、PII 除去 + H3 res-3 まで丸める)。state machine の terminal の 1 つ。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["itemUri", "reuseRequestUri", "donorDid", "recipientDid"],
+          "properties": {
+            "itemUri": {"type": "string"},
+            "reuseRequestUri": {"type": "string", "description": "選ばれた reuse_request の URI"},
+            "donorDid": {"type": "string", "description": "= item.ownerDid (再確認)"},
+            "recipientDid": {"type": "string", "description": "= reuse_request.requesterDid (再確認)"},
+            "handoverPhotoBlobKey": {"type": "string", "description": "受け渡し写真 (任意)"},
+            "gratitudeText": {"type": "string", "maxLength": 1000, "description": "謝辞テキスト (任意、social derive で集計のみ参照)"},
+            "skipSocialAnnounce": {"type": "boolean", "default": false, "description": "true なら T1 social post を抑止 (privacy 配慮)"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "handoverUri", "itemState"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "handoverUri": {"type": "string"},
+            "itemState": {"type": "string", "enum": ["handed_over"]},
+            "cancelledReuseRequests": {"type": "integer", "description": "他の pending reuse_request 自動 cancel 件数"},
+            "socialAnnounceQueued": {"type": "boolean"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

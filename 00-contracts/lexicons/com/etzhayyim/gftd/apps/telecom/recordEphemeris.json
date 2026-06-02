@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordEphemeris",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NTN — record an ephemeris snapshot for a satellite (TLE / OMM / SP3 / 3GPP-NTN). Body persisted via vault://+sha256.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["satelliteId", "sourceKind", "epochAt", "payloadFormat", "payloadHash", "observedAt"],
+          "properties": {
+            "ephemerisId": { "type": "string" },
+            "satelliteId": { "type": "string" },
+            "sourceKind": { "type": "string", "enum": ["operator", "celestrak", "spacetrack", "leolabs", "norad", "internal"] },
+            "sourceProvider": { "type": "string" },
+            "epochAt": { "type": "string", "format": "datetime" },
+            "payloadFormat": { "type": "string", "enum": ["tle", "omm_xml", "omm_kvn", "sp3", "ccsds_oem", "3gpp_ntn"] },
+            "payloadHash": { "type": "string" },
+            "payloadRef": { "type": "string" },
+            "payloadSize": { "type": "integer" },
+            "validUntil": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "ephemerisId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

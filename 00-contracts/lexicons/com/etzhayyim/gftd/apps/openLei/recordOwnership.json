@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openLei.recordOwnership",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record an LEI-to-LEI ownership relationship (direct or ultimate parent). Starts BPMN open_lei_record_ownership.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["parentLei","childLei","relationshipType"],
+          "properties": {
+            "parentLei":              { "type": "string" },
+            "childLei":               { "type": "string" },
+            "relationshipType":       { "type": "string", "enum": ["direct","ultimate"] },
+            "ownershipPct":           { "type": "number" },
+            "relationshipPeriodStart":{ "type": "string", "format": "date" },
+            "relationshipPeriodEnd":  { "type": "string", "format": "date" },
+            "confidence":             { "type": "number" },
+            "source":                 { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 # himawari (向日葵) — Solar PV Module Manufacturing Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:himawari`
-**Namespace**: `app.etzhayyim.himawari.*`
+**Namespace**: `com.etzhayyim.himawari.*`
 **ADR**: ADR-2606021200 (R0 scaffold)
 **Status**: R0.1 (2026-06-02) — all 7 cell solvers + 7 lexicons **implemented** (88 pure-logic tests green; import smoke clean). NOT operationally activated: no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization, deterministic-digest CIDs (not real IPFS/Base-L2 anchors). Gated upstream by the R1 activation conditions below.
 **Parent ADR**: ADR-2605261000 (Liberation Ladder — feeds L2 Sustenance energy gate via hikari)
@@ -60,7 +60,7 @@ These three cells are the explicit "compose-not-clone" seams; the helpers/actors
 
 - **`supply_procurement` → okaimono + giemon (調達).** Routes each feedstock/consumable need through okaimono's commons-first ring ordering: `recycled-kerf` → commons (closed-loop), internal Ring-1 producers (kanayama/hikari) → internal via okaimono `check_sbt_eligibility` + `build_settlement_intent` (so the SBT↔SBT carve-out and the exact 10% TitheRouter split `gross == tithe + payout` are inherited; intent-only until an operator ref is present), else external operator-gated purchase handoff (no internal value inflow, no tithe). Emits a CycloneDX 1.5 SBOM projected to kotoba `:cdx/*` via the giemon `cyclonedx_to_ingest` bridge (ADR-2605312330, purl = CVE/recall join key) and a per-lot `polysiliconProvenanceAttestation` (XUAR-exclusion + §2(g) audit). G2 feedstock guards (N1 solar-grade-only, N6 no-XUAR) refuse before any order is built. Helper import is path-resolved relative to the cell file (cwd-independent); degrades to inline-equivalent logic if okaimono/giemon are absent.
 - **`panel_loading` → sarutahiko F10 (積込).** Mirrors the authoritative Rust `LoadPhase` enum (`ToPick/Carry/Lower/Done`) from the sarutahiko factory engine, consumes the loader's reported terminal phase, rejects invented phases, palletizes serials at tray capacity. Default `loaderRobotDid` points at the sarutahiko F10 lineage (does not mint a himawari one). G12 refuses non-internal carriers; G7 always content-addresses the displaced-manual-task manifest.
-- **`outbound_logistics` → kami-autodrive + customs + funadaiku (輸送).** 5-node pipeline `init → bind_carrier → customs_clear → plan_route → emit_manifest`. Selects a real kami-autodrive `VehicleClass` (`car/ship/drone/aircraft`); marine maps to the `ship` class (funadaiku/funamori R3+ seam). Cross-border legs build the input to the existing `app.etzhayyim.apps.customsClearance.lodgeDeclaration` against the `open-customs-clearance` BPMN (engine reused, not forked); domestic legs record `required: false`. G13/G12/N10: refuses any consignee not under `did:web:etzhayyim.com:hikari*`; sets `telemetryEncrypted=true`, `weaponizationPayload=false`.
+- **`outbound_logistics` → kami-autodrive + customs + funadaiku (輸送).** 5-node pipeline `init → bind_carrier → customs_clear → plan_route → emit_manifest`. Selects a real kami-autodrive `VehicleClass` (`car/ship/drone/aircraft`); marine maps to the `ship` class (funadaiku/funamori R3+ seam). Cross-border legs build the input to the existing `com.etzhayyim.apps.customsClearance.lodgeDeclaration` against the `open-customs-clearance` BPMN (engine reused, not forked); domestic legs record `required: false`. G13/G12/N10: refuses any consignee not under `did:web:etzhayyim.com:hikari*`; sets `telemetryEncrypted=true`, `weaponizationPayload=false`.
 
 ## Constitutional Gates (G1–G14)
 

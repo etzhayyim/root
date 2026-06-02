@@ -14,7 +14,7 @@
  * ║                                                                       ║
  * ║  Why superseded (religious-corp substrate-fit):                       ║
  * ║    - DataLad subdataset + IPFS-pin storage (NOT RisingWave)           ║
- * ║    - app.etzhayyim.corp.{registryAttestation,disclosureAttestation,   ║
+ * ║    - com.etzhayyim.corp.{registryAttestation,disclosureAttestation,   ║
  * ║      filingEvent} Lexicon records (NOT vertex_* PG tables)            ║
  * ║    - Passive-only invariant per ADR-2605262400 §7 (no full live API   ║
  * ║      enumeration; uses SEC quarterly-index bulk archive only)         ║
@@ -180,7 +180,7 @@ function buildRecentFilings(submissions, companyDid, cik) {
       vertex_id: `filing:edgar:${cik}:${accessionCompact}`,
       rkey: accessionCompact.slice(0, 63),
       repo: COLLECTOR_DID,
-      label: "app.etzhayyim.apps.legalEntity.companyFiling",
+      label: "com.etzhayyim.apps.legalEntity.companyFiling",
       company_did: companyDid,
       filing_source: "sec_edgar",
       filing_type: form,
@@ -279,7 +279,7 @@ function buildFacts(companyFacts, companyDid, cik) {
           vertex_id: `fact:edgar:${cik}:${spec.canonical}:${accessionCompact || end || out.length}`,
           rkey: `${spec.canonical}-${accessionCompact || end}`.replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 63),
           repo: COLLECTOR_DID,
-          label: "app.etzhayyim.apps.legalEntity.companyFact",
+          label: "com.etzhayyim.apps.legalEntity.companyFact",
           company_did: companyDid,
           filing_did: filingDid,
           fact_namespace: spec.namespace,
@@ -377,7 +377,7 @@ async function buildEmployeeFallbackFact(submissions, companyDid, cik, existingF
         vertex_id: `fact:edgar:${cik}:employee_count:${accessionCompact || isoDate || "fallback"}`,
         rkey: `employee_count-${accessionCompact || isoDate || "fallback"}`.replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 63),
         repo: COLLECTOR_DID,
-        label: "app.etzhayyim.apps.legalEntity.companyFact",
+        label: "com.etzhayyim.apps.legalEntity.companyFact",
         company_did: companyDid,
         filing_did: accessionCompact ? `filing:edgar:${cik}:${accessionCompact}` : null,
         fact_namespace: "sec-text",

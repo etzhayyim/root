@@ -92,7 +92,7 @@
  {:db/ident :need/member-did
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "DID of consenting member (G1); detail held encrypted app.etzhayyim.encrypted.* (G9)"}
+  :db/doc "DID of consenting member (G1); detail held encrypted com.etzhayyim.encrypted.* (G9)"}
  {:db/ident :need/text
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one

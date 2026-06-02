@@ -15,32 +15,32 @@ const ACTOR_ID = "sys.bpmn.seed.agent-active-inference";
 const ENTRIES = [
   {
     processVid:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-active-inference-tick-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-active-inference-tick-v1",
     bindingVid:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1",
     bpmnProcessId: "agent_active_inference_tick",
-    nsid: "app.etzhayyim.apps.agent.activeInferenceTick",
-    sourcePath: "00-contracts/bpmn/ai/gftd/agent/activeInferenceTick.bpmn",
+    nsid: "com.etzhayyim.apps.agent.activeInferenceTick",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/agent/activeInferenceTick.bpmn",
     writeTableAllowlist: "vertex_agent_active_inference_tick",
   },
   {
     processVid:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-homeostasis-watch-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-homeostasis-watch-v1",
     bindingVid:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1",
     bpmnProcessId: "agent_homeostasis_watch",
-    nsid: "app.etzhayyim.apps.agent.recordHomeostasis",
-    sourcePath: "00-contracts/bpmn/ai/gftd/agent/homeostasisWatch.bpmn",
+    nsid: "com.etzhayyim.apps.agent.recordHomeostasis",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/agent/homeostasisWatch.bpmn",
     writeTableAllowlist: "vertex_agent_homeostasis_snapshot",
   },
   {
     processVid:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1",
     bindingVid:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1",
     bpmnProcessId: "agent_realworld_effect_dispatch",
-    nsid: "app.etzhayyim.apps.agent.classifyRealWorldEffect",
-    sourcePath: "00-contracts/bpmn/ai/gftd/agent/realWorldEffectDispatch.bpmn",
+    nsid: "com.etzhayyim.apps.agent.classifyRealWorldEffect",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/agent/realWorldEffectDispatch.bpmn",
     writeTableAllowlist: "vertex_agent_realworld_effect",
   },
 ];

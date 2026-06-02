@@ -54,7 +54,7 @@
       conflictChecks = ccs;
       const latest = ccs.at(0);
       if (latest && firmDid) {
-        lastConflictCheckRef = `at://${firmDid}/app.etzhayyim.apps.lawfirm.conflictCheck/${latest.rkey}`;
+        lastConflictCheckRef = `at://${firmDid}/com.etzhayyim.apps.lawfirm.conflictCheck/${latest.rkey}`;
       }
     } finally {
       loading = false;
@@ -95,7 +95,7 @@
   function onConflictClosed(res?: { rkey: string; result: ConflictResult; wallId?: string }) {
     showConflict = false;
     if (res && firmDid) {
-      lastConflictCheckRef = `at://${firmDid}/app.etzhayyim.apps.lawfirm.conflictCheck/${res.rkey}`;
+      lastConflictCheckRef = `at://${firmDid}/com.etzhayyim.apps.lawfirm.conflictCheck/${res.rkey}`;
       load();
     }
   }

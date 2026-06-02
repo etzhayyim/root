@@ -100,7 +100,7 @@
         },
         {
           "args": {
-            "template": "CREATE (h:KakakuPriceHistory {repo: $did, collection: 'ai.gftd.apps.kakaku.priceHistory', product_id: $input.record.productId, merchant_id: $input.record.merchantId, offer_id: $input.record.offerId, price: $input.record.price, shipping_fee: $input.record.shippingFee, total_price: $input.record.totalPrice, availability: $input.record.availability, observed_at: $input.record.observedAt, source_url: $input.record.productUrl, status: 'active'})"
+            "template": "CREATE (h:KakakuPriceHistory {repo: $did, collection: 'com.etzhayyim.apps.kakaku.priceHistory', product_id: $input.record.productId, merchant_id: $input.record.merchantId, offer_id: $input.record.offerId, price: $input.record.price, shipping_fee: $input.record.shippingFee, total_price: $input.record.totalPrice, availability: $input.record.availability, observed_at: $input.record.observedAt, source_url: $input.record.productUrl, status: 'active'})"
           },
           "fn": "graph.write",
           "id": "writeHistory"
@@ -126,7 +126,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.kakaku.offer"
+          "com.etzhayyim.apps.kakaku.offer"
         ],
         "type": "subscribeRepos"
       }
@@ -143,7 +143,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.kakaku.matchCandidate"
+          "com.etzhayyim.apps.kakaku.matchCandidate"
         ],
         "type": "subscribeRepos"
       }
@@ -178,7 +178,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.kakaku.compareOffers",
+        "nsid": "com.etzhayyim.apps.kakaku.compareOffers",
         "type": "xrpc"
       }
     },
@@ -204,7 +204,7 @@
             "params": {
               "actorName": "kakaku",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.kakaku.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.kakaku.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "k4k4kux1",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -241,8 +241,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -255,11 +255,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.kakaku.product",
-        "ai.gftd.apps.kakaku.merchant",
-        "ai.gftd.apps.kakaku.offer",
-        "ai.gftd.apps.kakaku.priceHistory",
-        "ai.gftd.apps.kakaku.matchCandidate"
+        "com.etzhayyim.apps.kakaku.product",
+        "com.etzhayyim.apps.kakaku.merchant",
+        "com.etzhayyim.apps.kakaku.offer",
+        "com.etzhayyim.apps.kakaku.priceHistory",
+        "com.etzhayyim.apps.kakaku.matchCandidate"
       ]
     }
   },

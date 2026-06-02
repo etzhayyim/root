@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.generateEpisode",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Generate a 20-page manga episode for a given character. Kicks the BPMN process com.etzhayyim.apps.bpmn.generateEpisode which orchestrates: LLM script (20 pages × 3-5 panels with dialogue) → ComfyUI panel render (~76 panels) → Pillow speech-balloon overlay → page composition (3-7 panel grids) → multi-record write (1 work + 20 pages) → social post (recordWithMedia + facets) → OCEL audit emit at each phase. Returns the new episode (work) AT URI plus the BPMN process instance key for status tracking.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["charSlug", "charName", "appearance", "genre"],
+          "properties": {
+            "charSlug": {
+              "type": "string",
+              "description": "Character slug (kebab-case, e.g. rei-ayanami-evangelion). Maps to did:web:sh1n5h1x.etzhayyim.com:{slug} as protagonist DID."
+            },
+            "charName": {
+              "type": "string",
+              "description": "Display name shown in the post (e.g. Rei)."
+            },
+            "appearance": {
+              "type": "string",
+              "description": "Visual descriptor tags fed to SDXL prompt (e.g. 'blue hair red eyes pale skin school uniform')."
+            },
+            "genre": {
+              "type": "string",
+              "enum": ["shonen", "shojo", "seinen"],
+              "default": "shonen",
+              "description": "Manga genre — controls art-style tags + dialogue register."
+            },
+            "setting": {
+              "type": "string",
+              "description": "Optional scene setting (e.g. 'rainy alley at night'). If omitted, randomly picked from a curated set."
+            },
+            "checkpoint": {
+              "type": "string",
+              "default": "wai-nsfw-illustrious-v60.safetensors",
+              "description": "ComfyUI checkpoint name (must be in pod allowlist)."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["episodeUri", "processInstanceKey"],
+          "properties": {
+            "episodeUri": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "AT URI of the created com.etzhayyim.apps.mangaka.work record."
+            },
+            "processInstanceKey": {
+              "type": "string",
+              "description": "Zeebe process instance key — use com.etzhayyim.apps.mangaka.getProcessTrace to inspect."
+            },
+            "postUri": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "AT URI of the published app.bsky.feed.post."
+            },
+            "pageCount": { "type": "integer" },
+            "panelCount": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ Pure-logic tests over PanelLoadingCell.solve; no kotoba host bindings required
 invariants of the 積込 cell, which COMPOSES the sarutahiko F10 LoaderRobot
 (ADR-2606013100) and does NOT re-implement loader physics:
 
-  - emits an app.etzhayyim.himawari.loadingRecord with all required fields
+  - emits an com.etzhayyim.himawari.loadingRecord with all required fields
   - palletizes module serials at the loader tray capacity (pure arithmetic)
   - G12: refuses a non-internal carrier (internal hikari install only)
   - G7: logs displaced human tasks to a Liberation-Metric CID (never omitted)
@@ -29,7 +29,7 @@ PanelLoadingCell = _mod.PanelLoadingCell
 # Matching lexicon for the conformance test (load required + #def shapes from SSoT).
 _LEXICON_PATH = (
     pathlib.Path(__file__).resolve().parents[4]
-    / "00-contracts/lexicons/app/etzhayyim/himawari/loadingRecord.json"
+    / "00-contracts/lexicons/com/etzhayyim/himawari/loadingRecord.json"
 )
 
 
@@ -62,7 +62,7 @@ def test_emits_loading_record_with_required_fields():
     out = PanelLoadingCell().solve(_base_state())
     rec = out["loadingRecord"]
     assert rec is not None
-    assert rec["$type"] == "app.etzhayyim.himawari.loadingRecord"
+    assert rec["$type"] == "com.etzhayyim.himawari.loadingRecord"
     for field in ("loadingId", "moduleSerials", "carrierDid", "loaderRobotDid"):
         assert field in rec and rec[field], f"required lexicon field {field} missing/empty"
     assert rec["moduleSerials"][0] == "HMW-MOD-0001"

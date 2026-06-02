@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.jurisdictionPolicy",
+  "description": "Declarative, versioned per-jurisdiction legal-services policy row, seeding the routing table of ADR-2605302200 §D4. One record per ISO jurisdiction encodes the restricting statute, the regulatory family that determines what makes free legal aid lawful there, whether the lane is enabled, and the hard monopoly carve-out (always: no litigation/court representation without a duly-authorised advocate). `enableState` gates real matters: only `enabled` jurisdictions may open a legalAidMatter; `verify-required` jurisdictions (US-state granularity, Austria out-of-court scope) are documented but NOT activated. Method is open per Charter Rider (published, auditable, mirrors danjo G6). The supervising-counsel requirement (G16) applies in every enabled jurisdiction regardless of family — it is the strictest common denominator.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "jurisdiction",
+          "restrictingStatute",
+          "regulatoryFamily",
+          "freeAdviceLawfulAlone",
+          "enableState",
+          "hardMonopolyCarveOut",
+          "updatedAt"
+        ],
+        "properties": {
+          "jurisdiction": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "ISO jurisdiction (country or country-subdivision), e.g. jpn / fra / us-ca."
+          },
+          "restrictingStatute": {
+            "type": "string",
+            "description": "e.g. 'Bengoshi-ho s.72' / 'RDG s.6' / 'Loi 71-1130 art.54' / 'LSA 2007' / 'Model Rule 5.5' / '변호사법 s.109' / 'LPUL s.10' / 'LSO By-Law 4' / 'RAO Winkelschreiberei' / 'BGFA'."
+          },
+          "regulatoryFamily": {
+            "type": "string",
+            "knownValues": ["compensation", "licensure", "activity"],
+            "description": "compensation = free advice lawful alone (JP/FR/KR/AU); licensure = free insufficient, counsel required (DE/US/CA-ON/AT); activity = advice unreserved (UK/CH out-of-court)."
+          },
+          "freeAdviceLawfulAlone": {
+            "type": "boolean",
+            "description": "Whether zero-compensation alone (without the G16 counsel overlay) would lawfully open free advice. Informational — the gate still requires G16."
+          },
+          "enableState": {
+            "type": "string",
+            "knownValues": ["enabled", "verify-required"],
+            "description": "enabled = legalAidMatter may open; verify-required = documented but NOT activated (US-state granularity, AT out-of-court scope)."
+          },
+          "hardMonopolyCarveOut": {
+            "type": "string",
+            "description": "Always present: the activity reserved to advocates regardless of fee (e.g. 'court representation / litigation'). Out of scope for the lane."
+          },
+          "criminalFlag": {
+            "type": "string",
+            "description": "Optional jurisdiction-specific criminal constraint, e.g. 'FR judge-analytics loi 2019-222 art.33' (cross-ref G19)."
+          },
+          "sourceRecordCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Provenance CIDs for the legality determination (open method, G6)."
+          },
+          "updatedAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}

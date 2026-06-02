@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govAgo.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govAgo.followSiteDeps": {
       "post": {
         "summary": "Create graph-visible site dependency follow records for Angola government organizations.",
-        "operationId": "app.etzhayyim.govAgo.followSiteDeps",
+        "operationId": "com.etzhayyim.govAgo.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAgo.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govAgo.heartbeatTick": {
       "post": {
         "summary": "Run the Angola government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govAgo.heartbeatTick",
+        "operationId": "com.etzhayyim.govAgo.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -143,10 +143,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAgo.ingestOfficialSources": {
+    "/xrpc/com.etzhayyim.govAgo.ingestOfficialSources": {
       "post": {
         "summary": "Queue official Angola government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "app.etzhayyim.govAgo.ingestOfficialSources",
+        "operationId": "com.etzhayyim.govAgo.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAgo.listOrgs": {
+    "/xrpc/com.etzhayyim.govAgo.listOrgs": {
       "get": {
         "summary": "List Angola government organizations by tier.",
-        "operationId": "app.etzhayyim.govAgo.listOrgs",
+        "operationId": "com.etzhayyim.govAgo.listOrgs",
         "parameters": [
           {
             "name": "orgTier",
@@ -297,10 +297,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAgo.registerDIDs": {
+    "/xrpc/com.etzhayyim.govAgo.registerDIDs": {
       "post": {
         "summary": "Register graph-visible DID records for Angola government organizations.",
-        "operationId": "app.etzhayyim.govAgo.registerDIDs",
+        "operationId": "com.etzhayyim.govAgo.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAgo.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govAgo.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Angola government organization path to its actor DID and display metadata.",
-        "operationId": "app.etzhayyim.govAgo.resolveOrgPath",
+        "operationId": "com.etzhayyim.govAgo.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -398,10 +398,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAgo.seedOrgs": {
+    "/xrpc/com.etzhayyim.govAgo.seedOrgs": {
       "post": {
         "summary": "Seed Angola central ministry and province organization rows into the graph.",
-        "operationId": "app.etzhayyim.govAgo.seedOrgs",
+        "operationId": "com.etzhayyim.govAgo.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -448,10 +448,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAgo.shinka": {
+    "/xrpc/com.etzhayyim.govAgo.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Angola government organization update.",
-        "operationId": "app.etzhayyim.govAgo.shinka",
+        "operationId": "com.etzhayyim.govAgo.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -502,10 +502,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAgo.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govAgo.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated Angola government organization content.",
-        "operationId": "app.etzhayyim.govAgo.syncWetUpdates",
+        "operationId": "com.etzhayyim.govAgo.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

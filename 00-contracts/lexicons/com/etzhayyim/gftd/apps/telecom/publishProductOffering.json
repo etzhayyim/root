@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.publishProductOffering",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish or update a product offering in the TMF620 Product Catalog. Creates a vertex_telecom_tmf_product_offering record.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["offeringId", "name", "lifecycleStatus"],
+          "properties": {
+            "offeringId": { "type": "string" },
+            "name": { "type": "string" },
+            "description": { "type": "string" },
+            "lifecycleStatus": { "type": "string", "enum": ["In Study", "In Design", "In Test", "Active", "Launched", "Retired", "Obsolete", "Rejected"] },
+            "productSpecId": { "type": "string" },
+            "categoryIds": { "type": "array", "items": { "type": "string" } },
+            "channelIds": { "type": "array", "items": { "type": "string" } },
+            "marketIds": { "type": "array", "items": { "type": "string" } },
+            "priceRef": { "type": "string" },
+            "validFromAt": { "type": "string", "format": "datetime" },
+            "validToAt": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "offeringId": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -26,7 +26,7 @@ UP = [{'sql': '\n'
                  '<!--\n'
                  '  Timer-start BPMN — daily cleanup of vertex_flight_offer_source_run.\n'
                  '  Default retention 90d. Also addressable via XRPC '
-                 'app.etzhayyim.apps.flightOffer.cleanupRuns\n'
+                 'com.etzhayyim.apps.flightOffer.cleanupRuns\n'
                  '  for ad-hoc / manual purges.\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -41,7 +41,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.flightOffer.cleanupRuns", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.flightOffer.cleanupRuns", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -108,14 +108,14 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3520,
-                 '00-contracts/bpmn/ai/gftd/flight-offer/cleanupRuns.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-cleanup-runs-v1']},
+                 '00-contracts/bpmn/com/etzhayyim/flight-offer/cleanupRuns.bpmn',
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/flight-offer-cleanup-runs-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET result_timeout_ms = 300000\n'
          '      WHERE nsid = $1\n'
          '    ',
-  'parameters': ['app.etzhayyim.apps.flightOffer.cleanupRuns']},
+  'parameters': ['com.etzhayyim.apps.flightOffer.cleanupRuns']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -141,9 +141,9 @@ UP = [{'sql': '\n'
                  '  Within this poll, the alert row is written to vertex_flight_offer_alert\n'
                  '  (downstream consumers can subscribe).\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.flightOffer.pollWatchlist\n'
+                 '  NSID: com.etzhayyim.apps.flightOffer.pollWatchlist\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.flightOffer.pollWatchlist", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.flightOffer.pollWatchlist", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -228,14 +228,14 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4304,
-                 '00-contracts/bpmn/ai/gftd/flight-offer/pollWatchlist.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
+                 '00-contracts/bpmn/com/etzhayyim/flight-offer/pollWatchlist.bpmn',
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET result_timeout_ms = 300000\n'
          '      WHERE nsid = $1\n'
          '    ',
-  'parameters': ['app.etzhayyim.apps.flightOffer.pollWatchlist']}]
+  'parameters': ['com.etzhayyim.apps.flightOffer.pollWatchlist']}]
 
 DOWN = [{'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
@@ -244,13 +244,13 @@ DOWN = [{'sql': '\n'
          '          deployed_zeebe_key = NULL\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-cleanup-runs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/flight-offer-cleanup-runs-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET result_timeout_ms = 10000\n'
          '      WHERE nsid = $1\n'
          '    ',
-  'parameters': ['app.etzhayyim.apps.flightOffer.cleanupRuns']},
+  'parameters': ['com.etzhayyim.apps.flightOffer.cleanupRuns']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1,\n'
@@ -258,13 +258,13 @@ DOWN = [{'sql': '\n'
          '          deployed_zeebe_key = NULL\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET result_timeout_ms = 10000\n'
          '      WHERE nsid = $1\n'
          '    ',
-  'parameters': ['app.etzhayyim.apps.flightOffer.pollWatchlist']}]
+  'parameters': ['com.etzhayyim.apps.flightOffer.pollWatchlist']}]
 
 
 def upgrade() -> None:

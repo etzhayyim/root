@@ -25,8 +25,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.slides.account",
-        "ai.gftd.apps.slides.syncJob"
+        "com.etzhayyim.apps.slides.account",
+        "com.etzhayyim.apps.slides.syncJob"
       ]
     }
   }

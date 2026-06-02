@@ -34,7 +34,7 @@ _LEXICON_PATH = (
     pathlib.Path(__file__).resolve().parents[4]
     / "00-contracts"
     / "lexicons"
-    / "app"
+    / "com"
     / "etzhayyim"
     / "himawari"
     / "outboundManifest.json"
@@ -72,7 +72,7 @@ def _base_state(**overrides):
 def test_happy_path_emits_outbound_manifest():
     out = OutboundLogisticsCell().solve(_base_state())
     rec = out["outboundManifest"]
-    assert rec["$type"] == "app.etzhayyim.himawari.outboundManifest"
+    assert rec["$type"] == "com.etzhayyim.himawari.outboundManifest"
     assert rec["manifestId"] == "himawari:obm:0001"
     assert rec["moduleSerials"] == ["HMW-2606-0001", "HMW-2606-0002"]
     assert out["outbound_state"]["completionPct"] == 100
@@ -115,7 +115,7 @@ def test_g13_telemetry_encrypted_and_no_weaponization():
     rec = OutboundLogisticsCell().solve(_base_state())["outboundManifest"]
     assert rec["telemetryEncrypted"] is True
     assert rec["weaponizationPayload"] is False
-    assert rec["routeRequest"]["telemetryChannel"].startswith("app.etzhayyim.encrypted")
+    assert rec["routeRequest"]["telemetryChannel"].startswith("com.etzhayyim.encrypted")
     assert rec["destinationKind"] == "hikari-install-site"
 
 
@@ -129,8 +129,8 @@ def test_cross_border_wires_existing_customs_bpmn():
     rec = OutboundLogisticsCell().solve(st)["outboundManifest"]
     customs = rec["customs"]
     # MUST reuse the REAL existing engine namespace, not the non-existent
-    # app.etzhayyim.apps.customsClearance.* path nor a parallel fork.
-    assert customs["engine"] == "app.etzhayyim.gftd.apps.customsClearance"
+    # com.etzhayyim.apps.customsClearance.* path nor a parallel fork.
+    assert customs["engine"] == "com.etzhayyim.gftd.apps.customsClearance"
     assert "open-customs-clearance" in customs["bpmn"]
     decl = customs["lodgeDeclaration"]
     # conforms to the real lodgeDeclaration lexicon required fields.

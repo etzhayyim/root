@@ -1,5 +1,5 @@
 /**
- * GeoNames TSV → app.etzhayyim.maps.feature bulk ingest.
+ * GeoNames TSV → com.etzhayyim.maps.feature bulk ingest.
  *
  * Sibling of `registry/wikidata-ingest.ts` for the spatial-feature
  * registry. Connects the Phase 1 Tier A source DID

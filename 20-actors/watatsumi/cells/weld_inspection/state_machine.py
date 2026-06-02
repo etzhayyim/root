@@ -98,7 +98,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     wi.phase = WeldInspectionPhase.RECORD_EMITTED
     wi.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.watatsumi.weldInspectionRecord",
+        "$type": "com.etzhayyim.watatsumi.weldInspectionRecord",
         "craftId": wi.craftId,
         "sectionIndex": wi.sectionIndex,
         "rtResults": wi.rtResults,

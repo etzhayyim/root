@@ -12,13 +12,13 @@
         "platform": "Cloudflare Workers",
         "entrypoint": "worker/src/app.ts",
         "interfaces": [
-          { "id": "if.xrpc.defineLine",     "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openRail.defineLine" },
-          { "id": "if.xrpc.getLine",        "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openRail.getLine" },
-          { "id": "if.xrpc.listLines",      "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openRail.listLines" },
-          { "id": "if.xrpc.scheduleTrain",  "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openRail.scheduleTrain" },
-          { "id": "if.xrpc.listTrainRuns",  "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openRail.listTrainRuns" },
-          { "id": "if.xrpc.reportIncident", "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openRail.reportIncident" },
-          { "id": "if.xrpc.listIncidents",  "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openRail.listIncidents" }
+          { "id": "if.xrpc.defineLine",     "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openRail.defineLine" },
+          { "id": "if.xrpc.getLine",        "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openRail.getLine" },
+          { "id": "if.xrpc.listLines",      "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openRail.listLines" },
+          { "id": "if.xrpc.scheduleTrain",  "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openRail.scheduleTrain" },
+          { "id": "if.xrpc.listTrainRuns",  "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openRail.listTrainRuns" },
+          { "id": "if.xrpc.reportIncident", "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openRail.reportIncident" },
+          { "id": "if.xrpc.listIncidents",  "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openRail.listIncidents" }
         ]
       },
       {

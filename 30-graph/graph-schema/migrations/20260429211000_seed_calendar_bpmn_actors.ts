@@ -15,22 +15,22 @@ const actorId = "sys.bpmn.seed.calendar";
 const project = "calendar";
 
 const seeds: Seed[] = [
-  { slug: "create-event", processId: "calendar_create_event", nsid: "app.etzhayyim.apps.calendar.createEvent", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/createEvent.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_event,vertex_calendar_invitation" },
-  { slug: "update-event", processId: "calendar_update_event", nsid: "app.etzhayyim.apps.calendar.updateEvent", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/updateEvent.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_event" },
-  { slug: "delete-event", processId: "calendar_delete_event", nsid: "app.etzhayyim.apps.calendar.deleteEvent", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/deleteEvent.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_event" },
-  { slug: "list-events", processId: "calendar_list_events", nsid: "app.etzhayyim.apps.calendar.listEvents", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/listEvents.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "get-event", processId: "calendar_get_event", nsid: "app.etzhayyim.apps.calendar.getEvent", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/getEvent.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "create-recurring", processId: "calendar_create_recurring", nsid: "app.etzhayyim.apps.calendar.createRecurring", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/createRecurring.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_event,vertex_calendar_invitation" },
-  { slug: "rsvp", processId: "calendar_rsvp", nsid: "app.etzhayyim.apps.calendar.rsvp", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/rsvp.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_rsvp,vertex_calendar_invitation" },
-  { slug: "list-invitations", processId: "calendar_list_invitations", nsid: "app.etzhayyim.apps.calendar.listInvitations", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/listInvitations.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "connect-account", processId: "calendar_connect_account", nsid: "app.etzhayyim.apps.calendar.connectAccount", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/connectAccount.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "oauth-callback", processId: "calendar_oauth_callback", nsid: "app.etzhayyim.apps.calendar.oauthCallback", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/oauthCallback.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_gcal_oauth_token,vertex_gcal_account" },
-  { slug: "sync-from-google", processId: "calendar_sync_from_google", nsid: "app.etzhayyim.apps.calendar.syncFromGoogle", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/syncFromGoogle.bpmn", timeoutMs: 180000, writeTableAllowlist: "vertex_gcal_oauth_token,vertex_gcal_account,vertex_gcal_event,vertex_gcal_attendee" },
-  { slug: "cron-tick", processId: "calendar_cron_tick", nsid: "app.etzhayyim.apps.calendar.cronTick", sourcePath: "00-contracts/bpmn/ai/gftd/calendar/cronTick.bpmn", timeoutMs: 180000, writeTableAllowlist: "vertex_gcal_oauth_token,vertex_gcal_event,vertex_gcal_attendee" },
+  { slug: "create-event", processId: "calendar_create_event", nsid: "com.etzhayyim.apps.calendar.createEvent", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/createEvent.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_event,vertex_calendar_invitation" },
+  { slug: "update-event", processId: "calendar_update_event", nsid: "com.etzhayyim.apps.calendar.updateEvent", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/updateEvent.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_event" },
+  { slug: "delete-event", processId: "calendar_delete_event", nsid: "com.etzhayyim.apps.calendar.deleteEvent", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/deleteEvent.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_event" },
+  { slug: "list-events", processId: "calendar_list_events", nsid: "com.etzhayyim.apps.calendar.listEvents", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/listEvents.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "get-event", processId: "calendar_get_event", nsid: "com.etzhayyim.apps.calendar.getEvent", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/getEvent.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "create-recurring", processId: "calendar_create_recurring", nsid: "com.etzhayyim.apps.calendar.createRecurring", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/createRecurring.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_event,vertex_calendar_invitation" },
+  { slug: "rsvp", processId: "calendar_rsvp", nsid: "com.etzhayyim.apps.calendar.rsvp", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/rsvp.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_calendar_rsvp,vertex_calendar_invitation" },
+  { slug: "list-invitations", processId: "calendar_list_invitations", nsid: "com.etzhayyim.apps.calendar.listInvitations", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/listInvitations.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "connect-account", processId: "calendar_connect_account", nsid: "com.etzhayyim.apps.calendar.connectAccount", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/connectAccount.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "oauth-callback", processId: "calendar_oauth_callback", nsid: "com.etzhayyim.apps.calendar.oauthCallback", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/oauthCallback.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_gcal_oauth_token,vertex_gcal_account" },
+  { slug: "sync-from-google", processId: "calendar_sync_from_google", nsid: "com.etzhayyim.apps.calendar.syncFromGoogle", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/syncFromGoogle.bpmn", timeoutMs: 180000, writeTableAllowlist: "vertex_gcal_oauth_token,vertex_gcal_account,vertex_gcal_event,vertex_gcal_attendee" },
+  { slug: "cron-tick", processId: "calendar_cron_tick", nsid: "com.etzhayyim.apps.calendar.cronTick", sourcePath: "00-contracts/bpmn/com/etzhayyim/calendar/cronTick.bpmn", timeoutMs: 180000, writeTableAllowlist: "vertex_gcal_oauth_token,vertex_gcal_event,vertex_gcal_attendee" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

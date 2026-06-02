@@ -4,17 +4,17 @@ Per ADR-2605312030 (取次 toritsugi — citizen-facing government-procedure
 concierge).
 
 Purpose: proactively match a CONSENTING member's OWN life-event/profile against
-the available 制度/給付/手続き and raise an `app.etzhayyim.toritsugi.benefitMatch`
+the available 制度/給付/手続き and raise an `com.etzhayyim.toritsugi.benefitMatch`
 ("you may be eligible for X" — the LINE-公式アカウント notify role). A soft
 signal only, NEVER an adjudication of eligibility.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G3 consent-gated + OWN-data-only
 (never a third party; member-initiated consent + Adherent-SBT/DID binding),
 G5 no eligibility/legal determination (soft signal → guide → chigiri/licensed),
-G6 any member PII used lands ONLY in app.etzhayyim.encrypted.* (ADR-2605181100;
+G6 any member PII used lands ONLY in com.etzhayyim.encrypted.* (ADR-2605181100;
 never inline PII), G8 no fabricated entitlement (cite the criterion + legalBasis),
 G12 data-minimization, Murakumo-only inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.toritsugi.benefitMatch.
+Output Lexicon(s): com.etzhayyim.toritsugi.benefitMatch.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

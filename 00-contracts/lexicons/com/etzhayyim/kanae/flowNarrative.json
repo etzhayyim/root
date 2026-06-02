@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kanae.flowNarrative",
+  "description": "Murakumo-LLM-generated FACTUAL narrative of a kanae fundFlowEdge subgraph, produced by kanae_flow_narrative. R0 skeleton per ADR-2605302300 §3/§4. CONSTITUTIONAL: the narrative states FACTUAL flow descriptions only (what flowed, from/to which authority/jurisdiction, in what amount/period, citing sources) — it MUST NOT assert that a crime / 不正 / violation occurred (G4 UPL-equivalent). `nonAdjudicatingNotice` is required and MUST be true. `sourceRecordCids` MUST contain ≥2 upstream record CIDs (G5). `methodNoteCid` is required (G6). `murakumoInferenceAttestation` is REQUIRED (G7) — it records the Murakumo node + model that produced the text; a vendor-LLM origin (OpenAI / Anthropic-direct / Vertex / RunPod) is unrepresentable at the schema layer. Legal characterization routes to external counsel via chigiri + Public Fund (Council Lv6+).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "sourceCellDid",
+          "subgraphFundFlowEdgeCids",
+          "narrative",
+          "sourceRecordCids",
+          "methodNoteCid",
+          "nonAdjudicatingNotice",
+          "murakumoInferenceAttestation",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "sourceCellDid": {"type": "string", "format": "did", "description": "DID of kanae_flow_narrative"},
+          "subgraphFundFlowEdgeCids": {
+            "type": "array",
+            "minLength": 1,
+            "items": {"type": "string"},
+            "description": "The fundFlowEdge record CIDs the narrative describes"
+          },
+          "narrative": {
+            "type": "string",
+            "maxLength": 8000,
+            "description": "FACTUAL natural-language description of the flow subgraph; passes PII filter (G9) + Charter Rider scan (G1). MUST NOT contain legal-conclusion language or any assertion of crime / 不正 / violation."
+          },
+          "jurisdiction": {"type": "string", "maxLength": 8},
+          "period": {"type": "string"},
+          "sourceRecordCids": {
+            "type": "array",
+            "minLength": 2,
+            "items": {"type": "string"},
+            "description": "≥2 upstream gov.dataset.* / danjo record CIDs grounding the narrative (G5)"
+          },
+          "methodNoteCid": {
+            "type": "string",
+            "description": "kanae.methodNote record CID for the narrative-prompt heuristic (G6)"
+          },
+          "nonAdjudicatingNotice": {
+            "type": "boolean",
+            "const": true,
+            "description": "MUST be true. Asserts this is a factual flow description, NOT a legal verdict (G4)."
+          },
+          "murakumoInferenceAttestation": {
+            "type": "ref",
+            "ref": "#murakumoAttestation",
+            "description": "REQUIRED (G7). Records the Murakumo node + model. A vendor-LLM origin is unrepresentable."
+          },
+          "carriedCaveats": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "knownFalsePositiveModes carried from the assembly + narrative methodNotes (transparency; prevents over-claiming)"
+          },
+          "stateAlignedFlag": {"type": "boolean", "default": false, "description": "Pass-through from source edges (G13)"},
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    },
+    "murakumoAttestation": {
+      "type": "object",
+      "description": "Proof that the narrative was produced on the Murakumo fleet (ADR-2605215000), NOT a vendor LLM. G7 structural.",
+      "required": ["inferenceSubstrate", "node", "model"],
+      "properties": {
+        "inferenceSubstrate": {
+          "type": "string",
+          "const": "murakumo",
+          "description": "MUST be 'murakumo'. Any other value (openai / anthropic-direct / vertex / runpod / bedrock) is unrepresentable (G7 + Substrate boundary GPU row)."
+        },
+        "node": {
+          "type": "string",
+          "description": "Murakumo node, e.g. gad (LiteLLM 127.0.0.1:4000 / EVO-X2 LAN 192.168.1.70 / per-node Ollama)"
+        },
+        "model": {"type": "string", "description": "e.g. gemma3:4b or the fleet-default model id"},
+        "inferenceAt": {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

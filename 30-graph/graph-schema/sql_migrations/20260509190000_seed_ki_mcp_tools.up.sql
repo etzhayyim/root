@@ -6,7 +6,7 @@
 -- but only 4 are tool calls. `skip_bloom` is a constant-return identity node
 -- (no I/O, returns {"bloomSkipped": true, "bloomId": null}) and is NOT seeded
 -- here — the v2 topology keeps it as py_primitive with lint-py-primitive-ok
--- until a generic `ai.gftd.tools.const.echo` MCP tool is introduced.
+-- until a generic `com.etzhayyim.tools.const.echo` MCP tool is introduced.
 
 INSERT INTO vertex_mcp_tool_def
   (vertex_id, _seq, sensitivity_ord,
@@ -15,44 +15,44 @@ INSERT INTO vertex_mcp_tool_def
    visibility, version, enabled, source_path,
    org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:ki.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-ki-absorb',
+  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-ki-absorb',
    0, 0,
-   'ai.gftd.apps.ki.absorb', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.apps.ki.absorb', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
    'Absorb a source vertex into ki for vertical synthesis.',
    '{"type":"object","properties":{"sourceVertexId":{"type":"string"},"inputKind":{"type":"string"},"contentSnippet":{"type":"string"}}}',
    '{"type":"object","properties":{"absorbId":{"type":"string"},"status":{"type":"string"},"error":{"type":"string"}}}',
    'public', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/ki/absorb.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/ki/absorb.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
 
-  ('at://did:web:ki.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-ki-synthesize',
+  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-ki-synthesize',
    0, 0,
-   'ai.gftd.apps.ki.synthesize', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.apps.ki.synthesize', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
    'Synthesize an absorbed input into a structured artifact.',
    '{"type":"object","properties":{"absorbId":{"type":"string"}}}',
    '{"type":"object","properties":{"artifactId":{"type":"string"},"synthesis":{"type":"string"},"confidence":{"type":"number"},"error":{"type":"string"}}}',
    'public', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/ki/synthesize.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/ki/synthesize.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
 
-  ('at://did:web:ki.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-ki-bloom',
+  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-ki-bloom',
    0, 0,
-   'ai.gftd.apps.ki.bloom', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.apps.ki.bloom', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
    'Publish a synthesized artifact (bloom).',
    '{"type":"object","properties":{"artifactId":{"type":"string"}}}',
    '{"type":"object","properties":{"bloomId":{"type":"string"},"publishedAt":{"type":"string"},"error":{"type":"string"}}}',
    'public', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/ki/bloom.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/ki/bloom.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
 
-  ('at://did:web:ki.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-ki-ring',
+  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-ki-ring',
    0, 0,
-   'ai.gftd.apps.ki.ring', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.apps.ki.ring', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
    'Snapshot a ring (periodic aggregation marker) at the end of the cycle.',
    '{"type":"object","properties":{"period":{"type":"string"}}}',
    '{"type":"object","properties":{"ringId":{"type":"string"},"snapshotCount":{"type":"integer"},"error":{"type":"string"}}}',
    'public', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/ki/ring.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/ki/ring.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z');
 
 FLUSH;

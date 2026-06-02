@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.complianceMonitor.flagBreachOfTerms",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Material breach of DPA / monitor-identified failure (bridges enforcementAction.flagCorporateResolution + fcpa + esg-controversy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "breachId",
+            "reportVid",
+            "breachKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "breachId": {
+              "type": "string"
+            },
+            "reportVid": {
+              "type": "string",
+              "description": "bridges recordMonitorReport"
+            },
+            "breachKind": {
+              "type": "string",
+              "enum": [
+                "new_misconduct",
+                "cooperation_failure",
+                "record_keeping",
+                "reporting_defect",
+                "compliance_culture",
+                "tone_at_top",
+                "recidivism",
+                "cover_up",
+                "monitor_interference"
+              ]
+            },
+            "extensionSought": {
+              "type": "boolean"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

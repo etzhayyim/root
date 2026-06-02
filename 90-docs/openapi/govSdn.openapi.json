@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govSdn.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govSdn.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Sudan government.",
-        "operationId": "app.etzhayyim.govSdn.followSiteDeps",
+        "operationId": "com.etzhayyim.govSdn.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSdn.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govSdn.heartbeatTick": {
       "post": {
         "summary": "Run the Sudan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govSdn.heartbeatTick",
+        "operationId": "com.etzhayyim.govSdn.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSdn.listOrgs": {
+    "/xrpc/com.etzhayyim.govSdn.listOrgs": {
       "get": {
         "summary": "List Sudan government organization graph records.",
-        "operationId": "app.etzhayyim.govSdn.listOrgs",
+        "operationId": "com.etzhayyim.govSdn.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSdn.registerDIDs": {
+    "/xrpc/com.etzhayyim.govSdn.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Sudan government organizations.",
-        "operationId": "app.etzhayyim.govSdn.registerDIDs",
+        "operationId": "com.etzhayyim.govSdn.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSdn.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govSdn.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Sudan government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govSdn.resolveOrgPath",
+        "operationId": "com.etzhayyim.govSdn.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSdn.seedOrgs": {
+    "/xrpc/com.etzhayyim.govSdn.seedOrgs": {
       "post": {
         "summary": "Seed initial Sudan government organization records into the graph.",
-        "operationId": "app.etzhayyim.govSdn.seedOrgs",
+        "operationId": "com.etzhayyim.govSdn.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSdn.shinka": {
+    "/xrpc/com.etzhayyim.govSdn.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Sudan government organization update.",
-        "operationId": "app.etzhayyim.govSdn.shinka",
+        "operationId": "com.etzhayyim.govSdn.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSdn.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govSdn.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Sudan government organization changes to graph.",
-        "operationId": "app.etzhayyim.govSdn.syncWetUpdates",
+        "operationId": "com.etzhayyim.govSdn.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

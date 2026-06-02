@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.houbun.amendmentEvent",
+  "description": "Record of a single amendment / repeal / insertion applied to a statute article. `supersedesArticleDid` points at the prior-version article DID; the new version is addressable as a separate `com.etzhayyim.apps.houbun.article` record (new blake3 hash). See ADR-0052.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "statuteRef",
+          "op",
+          "effectiveDate",
+          "createdAt"
+        ],
+        "properties": {
+          "statuteRef": { "type": "string", "description": "AT URI of the affected statute record." },
+          "articleRef": { "type": "string", "description": "AT URI of the new (post-amendment) article record. Omitted for whole-statute repeals." },
+          "supersedesArticleDid": { "type": "string", "description": "Article DID being replaced. NULL for pure insertions." },
+          "op": { "type": "string", "knownValues": ["insert", "modify", "delete", "repeal"] },
+          "amendingStatuteRef": { "type": "string", "description": "AT URI of the statute that enacted this amendment, if available." },
+          "effectiveDate": { "type": "string", "format": "date" },
+          "diffUri": { "type": "string", "format": "uri", "description": "Optional pointer to a unified diff / HTML diff published by the source." },
+          "note": { "type": "string" },
+          "props": { "type": "string", "description": "Opaque JSON string for source-specific metadata." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

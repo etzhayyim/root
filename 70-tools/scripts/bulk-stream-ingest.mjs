@@ -31,7 +31,7 @@ const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/3
 
 const RW_CONN = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
-const COLLECTION = "app.etzhayyim.apps.legalEntity.legalEntity";
+const COLLECTION = "com.etzhayyim.apps.legalEntity.legalEntity";
 
 // ── CLI args ─────────────────────────────────────────────────────────────────
 

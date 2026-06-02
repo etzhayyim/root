@@ -15,14 +15,14 @@ import { Kysely, sql } from 'kysely';
  * RLS 3-col (org_id/user_id/actor_id) + created_at required on every table.
  *
  * Collection NSIDs emitted by per-service apps:
- *   app.etzhayyim.apps.calendar.{account,calendar,event,attendee,reminder,watchChannel,syncJob}
- *   app.etzhayyim.apps.drive.{account,file,folder,permission,revision,watchChannel,syncJob}
- *   app.etzhayyim.apps.contacts.{account,contact,contactGroup,syncJob}
- *   app.etzhayyim.apps.tasks.{account,taskList,task,syncJob}
- *   app.etzhayyim.apps.docs.{account,document,revision,syncJob}
- *   app.etzhayyim.apps.sheets.{account,spreadsheet,sheet,syncJob}
- *   app.etzhayyim.apps.slides.{account,presentation,slide,syncJob}
- *   app.etzhayyim.apps.meet.{account,conference,participant,recording,syncJob}
+ *   com.etzhayyim.apps.calendar.{account,calendar,event,attendee,reminder,watchChannel,syncJob}
+ *   com.etzhayyim.apps.drive.{account,file,folder,permission,revision,watchChannel,syncJob}
+ *   com.etzhayyim.apps.contacts.{account,contact,contactGroup,syncJob}
+ *   com.etzhayyim.apps.tasks.{account,taskList,task,syncJob}
+ *   com.etzhayyim.apps.docs.{account,document,revision,syncJob}
+ *   com.etzhayyim.apps.sheets.{account,spreadsheet,sheet,syncJob}
+ *   com.etzhayyim.apps.slides.{account,presentation,slide,syncJob}
+ *   com.etzhayyim.apps.meet.{account,conference,participant,recording,syncJob}
  *
  * Private text fields (title, description, body_preview, note, content) are
  * Signal-encrypted (`signal:v1:{ciphertext}`) at write time by the PDS pipeline.

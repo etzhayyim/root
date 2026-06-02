@@ -303,7 +303,7 @@ INSERT INTO vertex_yoro_browsing_history (
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.yoro.browsingHistory'
+    WHERE collection = 'com.etzhayyim.apps.yoro.browsingHistory'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_yoro_koji_discovery (
@@ -323,7 +323,7 @@ INSERT INTO vertex_yoro_koji_discovery (
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.yoro.kojiDiscovery'
+    WHERE collection = 'com.etzhayyim.apps.yoro.kojiDiscovery'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_yoro_kyumei_validation (
@@ -342,7 +342,7 @@ INSERT INTO vertex_yoro_kyumei_validation (
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.yoro.kyumeiValidation'
+    WHERE collection = 'com.etzhayyim.apps.yoro.kyumeiValidation'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_yoro_shinka_evolution (
@@ -361,7 +361,7 @@ INSERT INTO vertex_yoro_shinka_evolution (
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.yoro.shinkaEvolution'
+    WHERE collection = 'com.etzhayyim.apps.yoro.shinkaEvolution'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_yoro_hinshitsu_assessment (
@@ -381,7 +381,7 @@ INSERT INTO vertex_yoro_hinshitsu_assessment (
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.yoro.hinshitsuAssessment'
+    WHERE collection = 'com.etzhayyim.apps.yoro.hinshitsuAssessment'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_yoro_shinka_knowledge (
@@ -400,7 +400,7 @@ INSERT INTO vertex_yoro_shinka_knowledge (
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.yoro.shinkaKnowledge'
+    WHERE collection = 'com.etzhayyim.apps.yoro.shinkaKnowledge'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_dojo_step_completed_event (
@@ -414,7 +414,7 @@ INSERT INTO vertex_dojo_step_completed_event (
       'dojo',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.dojo.step_completed_event'
+    WHERE collection = 'com.etzhayyim.apps.dojo.step_completed_event'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_joucho_review (
@@ -428,7 +428,7 @@ INSERT INTO vertex_joucho_review (
       'joucho',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.joucho.review'
+    WHERE collection = 'com.etzhayyim.apps.joucho.review'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_state_profile (
@@ -446,7 +446,7 @@ INSERT INTO vertex_state_profile (
       'states',
       1
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.states.stateProfile'
+    WHERE collection = 'com.etzhayyim.apps.states.stateProfile'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_agent_governance_rule (
@@ -464,7 +464,7 @@ INSERT INTO vertex_agent_governance_rule (
       'agent-governance',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.agent.governanceRule'
+    WHERE collection = 'com.etzhayyim.agent.governanceRule'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO vertex_agent_role_binding (
@@ -482,7 +482,7 @@ INSERT INTO vertex_agent_role_binding (
       'agent-governance',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.agent.roleBinding'
+    WHERE collection = 'com.etzhayyim.agent.roleBinding'
     ON CONFLICT (vertex_id) DO NOTHING;
 
 INSERT INTO edge_yoro_actor_browsing_history (edge_id, src_vid, dst_vid, relation, created_at, owner_did, actor_id, sensitivity_ord)

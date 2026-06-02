@@ -10,9 +10,9 @@ import { sql } from "kysely";
  * Replaces `catch_all_vertex` + `props::jsonb` JSON-scan reads with typed projections.
  * Graph-worker convention fallback (`nsidToConventionTable` in
  * 50-infra/cloudflare/workers/graph/worker.ts L340) maps
- * `app.etzhayyim.apps.hc.<entity>` → `vertex_hc_<snake_case(entity)>`.
+ * `com.etzhayyim.apps.hc.<entity>` → `vertex_hc_<snake_case(entity)>`.
  * All existing hc writers (`sdk.pds.dispatch({ type: "com.atproto.repo.createRecord",
- * collection: "app.etzhayyim.apps.hc.<entity>" })`) now land in these typed tables
+ * collection: "com.etzhayyim.apps.hc.<entity>" })`) now land in these typed tables
  * instead of being skipped with "convention table not found" warnings.
  *
  * Design (ADR-0036 worker-direct Hyperdrive, ADR-0051 game-play-uploader):

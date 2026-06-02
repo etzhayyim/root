@@ -107,11 +107,11 @@ VALUES
 INSERT INTO vertex_langgraph_deployment
   (vertex_id, _seq, sensitivity_ord, nsid, assistant_id, version, status, replicas, updated_at)
 VALUES
-  ('langgraph.kafun.research.v1', 0, 0, 'ai.gftd.apps.kafun.agent.research',
+  ('langgraph.kafun.research.v1', 0, 0, 'com.etzhayyim.apps.kafun.agent.research',
    'kafun.research.v1', 1, 'active', 1, '2026-05-10T00:00:00Z'),
-  ('langgraph.kafun.think.v1',    0, 0, 'ai.gftd.apps.kafun.agent.think',
+  ('langgraph.kafun.think.v1',    0, 0, 'com.etzhayyim.apps.kafun.agent.think',
    'kafun.think.v1',    1, 'active', 1, '2026-05-10T00:00:00Z'),
-  ('langgraph.kafun.tick.v1',     0, 0, 'ai.gftd.apps.kafun.agent.tick',
+  ('langgraph.kafun.tick.v1',     0, 0, 'com.etzhayyim.apps.kafun.agent.tick',
    'kafun.tick.v1',     1, 'active', 1, '2026-05-10T00:00:00Z');
 
 -- bpmn-dispatcher → langgraph routing (NSID → assistant_id).
@@ -120,18 +120,18 @@ INSERT INTO vertex_bpmn_lexicon_binding
    result_timeout_ms, status, created_at, sensitivity_ord,
    org_id, user_id, actor_id, routing_target)
 VALUES
-  ('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kafun-research-langgraph-v1',
-   'did:web:bpmn.etzhayyim.com', 'ai.gftd.apps.kafun.agent.research',
+  ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/kafun-research-langgraph-v1',
+   'did:web:bpmn.etzhayyim.com', 'com.etzhayyim.apps.kafun.agent.research',
    'kafun.research.v1', 1, CAST(180000 AS integer), 'active',
    '2026-05-10T00:00:00Z', 1,
    'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'langgraph'),
-  ('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kafun-think-langgraph-v1',
-   'did:web:bpmn.etzhayyim.com', 'ai.gftd.apps.kafun.agent.think',
+  ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/kafun-think-langgraph-v1',
+   'did:web:bpmn.etzhayyim.com', 'com.etzhayyim.apps.kafun.agent.think',
    'kafun.think.v1', 1, CAST(180000 AS integer), 'active',
    '2026-05-10T00:00:00Z', 1,
    'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'langgraph'),
-  ('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/kafun-tick-langgraph-v1',
-   'did:web:bpmn.etzhayyim.com', 'ai.gftd.apps.kafun.agent.tick',
+  ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/kafun-tick-langgraph-v1',
+   'did:web:bpmn.etzhayyim.com', 'com.etzhayyim.apps.kafun.agent.tick',
    'kafun.tick.v1', 1, CAST(180000 AS integer), 'active',
    '2026-05-10T00:00:00Z', 1,
    'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', 'langgraph');

@@ -34,7 +34,7 @@ PolysiliconRefineCell = _mod.PolysiliconRefineCell
 # reached by ascending from 20-actors/himawari/cells/polysilicon_refine/.
 _LEXICON_PATH = (
     pathlib.Path(__file__).resolve().parents[4]
-    / "00-contracts/lexicons/app/etzhayyim/himawari/polysiliconProvenanceAttestation.json"
+    / "00-contracts/lexicons/com/etzhayyim/himawari/polysiliconProvenanceAttestation.json"
 )
 
 # A fully clean, accept-eligible lot.
@@ -115,7 +115,7 @@ def test_requires_two_attesting_robots():
 def test_provenance_record_matches_lexicon_shape():
     out = _solve({})
     prov = out["provenance"]
-    assert prov["$type"] == "app.etzhayyim.himawari.polysiliconProvenanceAttestation"
+    assert prov["$type"] == "com.etzhayyim.himawari.polysiliconProvenanceAttestation"
     for required in (
         "lotId", "recordedAt", "feedstockGrade", "originRegionAttestationCid",
         "supplierDid", "sourcingAuditCid", "chainOfCustody", "attestingEngineerDid",

@@ -5,7 +5,7 @@ L5 routing-around trust-level evaluation and public attestation.
 
 Per ADR-2605260000, this cell evaluates the trust level of a DID-based identity:
   1. evaluate_trust_level: Assess based on authentication method (WebAuthn-only → L1, WebAuthn+MyNumber → L2)
-  2. emit_attestation: Create public `app.etzhayyim.gov.procedure.auth.didTrustAttestation` record
+  2. emit_attestation: Create public `com.etzhayyim.gov.procedure.auth.didTrustAttestation` record
 
 This cell is R0 scaffold with import-time RuntimeError until Council activation.
 Council gate: COUNCIL_ATTESTATION_TX_HASH (Base L2 multisig Tx).
@@ -14,7 +14,7 @@ The resulting attestation is **public** and contains no PII (only trust level, t
 All encrypted credentials remain private in credentialBinding records + XChaCha20 keyWrap.
 
 Emits:
-  - app.etzhayyim.gov.procedure.auth.didTrustAttestation (public, unsigned or Council-signed)
+  - com.etzhayyim.gov.procedure.auth.didTrustAttestation (public, unsigned or Council-signed)
 """
 
 from typing import Any, Dict
@@ -102,7 +102,7 @@ async def _emit_attestation(
          }
       3. If attestor_did is Council-delegated (contains 'council' in DID path):
          - Sign record with attestor's signing key (or Council multisig)
-      4. Emit to MST: app.etzhayyim.gov.procedure.auth.didTrustAttestation
+      4. Emit to MST: com.etzhayyim.gov.procedure.auth.didTrustAttestation
       5. Return {attested_tid, sig, expiry_unix}
 
     Per ADR-2605181100 + ADR-2605260000:

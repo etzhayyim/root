@@ -122,7 +122,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vessel.portCall"
+          "com.etzhayyim.apps.vessel.portCall"
         ],
         "type": "subscribeRepos"
       }
@@ -138,7 +138,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.crew.management.getSeafarer",
+        "nsid": "com.etzhayyim.apps.crew.management.getSeafarer",
         "type": "xrpc"
       }
     },
@@ -153,7 +153,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.crew.management.searchSeafarers",
+        "nsid": "com.etzhayyim.apps.crew.management.searchSeafarers",
         "type": "xrpc"
       }
     },
@@ -168,7 +168,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.crew.management.listCertificates",
+        "nsid": "com.etzhayyim.apps.crew.management.listCertificates",
         "type": "xrpc"
       }
     },
@@ -183,7 +183,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.crew.management.listExpiringCertificates",
+        "nsid": "com.etzhayyim.apps.crew.management.listExpiringCertificates",
         "type": "xrpc"
       }
     },
@@ -198,7 +198,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.crew.management.getCrewManifest",
+        "nsid": "com.etzhayyim.apps.crew.management.getCrewManifest",
         "type": "xrpc"
       }
     },
@@ -213,7 +213,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.crew.management.listCrewChanges",
+        "nsid": "com.etzhayyim.apps.crew.management.listCrewChanges",
         "type": "xrpc"
       }
     },
@@ -228,7 +228,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.crew.health",
+        "nsid": "com.etzhayyim.apps.crew.health",
         "type": "xrpc"
       }
     },
@@ -254,7 +254,7 @@
             "params": {
               "actorName": "crew",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.crew.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.crew.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "cr3w0001",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -292,7 +292,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.crew.coverage.get",
+        "nsid": "com.etzhayyim.apps.crew.coverage.get",
         "type": "xrpc"
       }
     }
@@ -311,8 +311,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -325,12 +325,12 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.crew.seafarer",
-        "ai.gftd.apps.crew.stcwCertificate",
-        "ai.gftd.apps.crew.crewManifest",
-        "ai.gftd.apps.crew.crewChange",
-        "ai.gftd.apps.vessel.voyage",
-        "ai.gftd.apps.vessel.portCall"
+        "com.etzhayyim.apps.crew.seafarer",
+        "com.etzhayyim.apps.crew.stcwCertificate",
+        "com.etzhayyim.apps.crew.crewManifest",
+        "com.etzhayyim.apps.crew.crewChange",
+        "com.etzhayyim.apps.vessel.voyage",
+        "com.etzhayyim.apps.vessel.portCall"
       ]
     }
   },

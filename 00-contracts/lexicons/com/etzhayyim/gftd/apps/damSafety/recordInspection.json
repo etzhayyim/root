@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.damSafety.recordInspection",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ICOLD / USACE / state dam safety inspection (bridges transboundaryRiver.flagRiparianDispute + infra-file + coastal-slr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "inspectionId",
+            "damId",
+            "jurisdiction",
+            "damKind",
+            "inspectedAt"
+          ],
+          "properties": {
+            "inspectionId": {
+              "type": "string"
+            },
+            "damId": {
+              "type": "string"
+            },
+            "jurisdiction": {
+              "type": "string",
+              "enum": [
+                "usace",
+                "ferc",
+                "state_dso",
+                "icold_bulletin",
+                "icold_q99",
+                "bnaf_bureau_reclamation",
+                "eu_directive",
+                "china_mwr",
+                "in_dsa",
+                "br_ana",
+                "egy_egyptian_res",
+                "intl_rcc"
+              ]
+            },
+            "damKind": {
+              "type": "string",
+              "enum": [
+                "concrete_gravity",
+                "concrete_arch",
+                "earth_fill",
+                "rock_fill",
+                "buttress",
+                "hydropower",
+                "irrigation",
+                "flood_control",
+                "tailings",
+                "levee",
+                "offstream_storage",
+                "pumped_storage"
+              ]
+            },
+            "riparianDisputeVid": {
+              "type": "string",
+              "description": "bridges transboundaryRiver.flagRiparianDispute"
+            },
+            "inspectedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

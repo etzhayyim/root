@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.imfArticleIv.recordConsultation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IMF Article IV / WEO / FSAP surveillance (bridges emFxReserves.flagReserveAdequacy + sovereign-debt + imf-sdr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "consultationId",
+            "memberCountryIso3",
+            "surveillanceKind",
+            "concludedAt"
+          ],
+          "properties": {
+            "consultationId": {
+              "type": "string"
+            },
+            "memberCountryIso3": {
+              "type": "string"
+            },
+            "surveillanceKind": {
+              "type": "string",
+              "enum": [
+                "article_iv",
+                "fsap",
+                "weo_update",
+                "global_financial_stability",
+                "external_sector_report",
+                "spillover_report",
+                "weo_focus"
+              ]
+            },
+            "reserveAdequacyVid": {
+              "type": "string",
+              "description": "bridges emFxReserves.flagReserveAdequacy"
+            },
+            "staffView": {
+              "type": "string",
+              "enum": [
+                "clean_bill",
+                "caveats",
+                "risks_elevated",
+                "risks_tilted_downside",
+                "critical_imbalance"
+              ]
+            },
+            "concludedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

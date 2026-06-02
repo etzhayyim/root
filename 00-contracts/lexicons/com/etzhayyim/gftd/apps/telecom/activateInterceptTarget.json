@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.activateInterceptTarget",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "LICF/LIPF (X1) — activate interception against a target identifier under an existing warrant. Identifier value persisted only as sha256 hash; raw value out-of-band.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["warrantId", "identifierKind", "identifierValue", "licfNfId", "x1ProvisionedAt"],
+          "properties": {
+            "targetId": { "type": "string" },
+            "warrantId": { "type": "string" },
+            "identifierKind": { "type": "string", "enum": ["msisdn", "imsi", "supi", "impu", "impi", "ipv4", "ipv6", "email", "imei"] },
+            "identifierValue": { "type": "string" },
+            "licfNfId": { "type": "string" },
+            "lipfNfId": { "type": "string" },
+            "x1ProvisionedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "targetId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

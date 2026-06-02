@@ -47,7 +47,7 @@
  *
  * All PDS writes use Bearer token from `getSessionToken()` (Passkey session).
  * Results are indexed in yata SQL as `:KojiDiscovery`, `:KyumeiValidation`,
- * etc. Credit transactions are written as `app.etzhayyim.apps.credits.creditTransaction`.
+ * etc. Credit transactions are written as `com.etzhayyim.apps.credits.creditTransaction`.
  *
  * ## Lifecycle
  *
@@ -392,7 +392,7 @@ async function sendProjectLogMessage(text: string, signal?: AbortSignal): Promis
 	if (!text.trim()) return;
 	const convoId = await ensureEvolutionProjectConvo(false, signal);
 	if (!convoId) return;
-	await xrpcProcedure('app.etzhayyim.projector.sendProjectMessage', { convoId, text }, signal);
+	await xrpcProcedure('com.etzhayyim.projector.sendProjectMessage', { convoId, text }, signal);
 }
 
 async function ensureEvolutionProjectConvo(forceNew = false, signal?: AbortSignal): Promise<string | null> {
@@ -407,7 +407,7 @@ async function ensureEvolutionProjectConvo(forceNew = false, signal?: AbortSigna
 		return stored;
 	}
 	try {
-		const parsed = await xrpcProcedure<Record<string, unknown>>('app.etzhayyim.projector.newProjectConvo', {
+		const parsed = await xrpcProcedure<Record<string, unknown>>('com.etzhayyim.projector.newProjectConvo', {
 			name: buildEvolutionProjectName(),
 			kind: 'channel',
 			description: 'Evolution inference project log stream',
@@ -416,7 +416,7 @@ async function ensureEvolutionProjectConvo(forceNew = false, signal?: AbortSigna
 		if (!convoId) return null;
 		_projectConvoId = convoId;
 		setStoredEvolutionProjectConvoId(convoId);
-		await xrpcProcedure('app.etzhayyim.projector.sendProjectMessage', {
+		await xrpcProcedure('com.etzhayyim.projector.sendProjectMessage', {
 			convoId,
 			text: '[Evolution] project created. Inference logs and task results will stream here.',
 		}, signal).catch((error) => {
@@ -436,12 +436,12 @@ async function ensureActorMemberInProject(actorDid: string, actorName: string, s
 	const convoId = await ensureEvolutionProjectConvo(false, signal);
 	if (!convoId) return;
 	try {
-		await xrpcProcedure('app.etzhayyim.projector.addConvoMember', {
+		await xrpcProcedure('com.etzhayyim.projector.addConvoMember', {
 			convoId,
 			memberDid: actorDid,
 			role: 'member',
 		}, signal);
-		await xrpcProcedure('app.etzhayyim.projector.sendProjectMessage', {
+		await xrpcProcedure('com.etzhayyim.projector.sendProjectMessage', {
 			convoId,
 			text: `[System] actor joined project member list: ${actorName} (${actorDid})`,
 		}, signal).catch((error) => {
@@ -550,7 +550,7 @@ async function restoreFromGraph(): Promise<void> {
 
 	// archived: kagami Cypher endpoint removed 2026-04-14 — graph stats / recent results
 	// restore now rely on localStorage only (see restoreStatsFromStorage() above).
-	// TODO(evolution): migrate to SQL-backed app.etzhayyim.kagami.sql with Kysely SELECT once
+	// TODO(evolution): migrate to SQL-backed com.etzhayyim.kagami.sql with Kysely SELECT once
 	// vertex_{koji_discovery,kyumei_validation,shinka_evolution,hinshitsu_assessment,shinka_knowledge}
 	// tables land in @etzhayyim/graph-schema.
 
@@ -695,7 +695,7 @@ async function fetchActorEvidence(actorDid: string, signal: AbortSignal): Promis
 	`;
 	// archived: kagami Cypher per-label evolution evidence fetch removed 2026-04-14.
 	// Only the profile fetch remains; evolution rows are empty until SQL migration lands.
-	const relRes = await fetch(`${PDS}/xrpc/app.etzhayyim.kagami.sql`, {
+	const relRes = await fetch(`${PDS}/xrpc/com.etzhayyim.kagami.sql`, {
 		method: 'POST', headers, credentials: 'include', signal,
 		body: JSON.stringify({ statement: profileQuery, parameters: { did: actorDid } }),
 	}).catch((error) => {
@@ -930,11 +930,11 @@ async function inferShinkaKnowledge(
 
 /** Collection names for each task type. */
 const COLLECTIONS: Record<EvolutionTaskType, string> = {
-	koji: 'app.etzhayyim.apps.yoro.kojiDiscovery',
-	kyumei: 'app.etzhayyim.apps.yoro.kyumeiValidation',
-	shinka: 'app.etzhayyim.apps.yoro.shinkaEvolution',
-	hinshitsu: 'app.etzhayyim.apps.yoro.hinshitsuAssessment',
-	shinkaKnowledge: 'app.etzhayyim.apps.yoro.shinkaKnowledge',
+	koji: 'com.etzhayyim.apps.yoro.kojiDiscovery',
+	kyumei: 'com.etzhayyim.apps.yoro.kyumeiValidation',
+	shinka: 'com.etzhayyim.apps.yoro.shinkaEvolution',
+	hinshitsu: 'com.etzhayyim.apps.yoro.hinshitsuAssessment',
+	shinkaKnowledge: 'com.etzhayyim.apps.yoro.shinkaKnowledge',
 };
 
 const SOCIAL_POST_COOLDOWN_MS = 2 * 60 * 60 * 1000;
@@ -1075,7 +1075,7 @@ async function publishEvolutionSocialPost(
  * Persist an evolution task result to PDS and earn credits.
  *
  * Writes the result as an AT Record to the task-type-specific collection
- * (e.g. `app.etzhayyim.apps.yoro.kojiDiscovery`), then writes a credit
+ * (e.g. `com.etzhayyim.apps.yoro.kojiDiscovery`), then writes a credit
  * transaction record. For `shinkaKnowledge`, additionally writes actor
  * description update, sub-DID creation, and knowledge edge records.
  *
@@ -1118,7 +1118,7 @@ async function persistResult(
 		if (taskType === 'shinkaKnowledge' && result.type === 'shinkaKnowledge') {
 			const sk = result.data as ShinkaKnowledgeResult;
 			if (sk.domainSummary) {
-				await fetch(`${PDS}/xrpc/app.etzhayyim.actor.update`, {
+				await fetch(`${PDS}/xrpc/com.etzhayyim.actor.update`, {
 					method: 'POST', headers, credentials: 'include', signal,
 					body: JSON.stringify({ did: sk.actorDid, description: sk.domainSummary }),
 				}).catch((error) => {
@@ -1157,7 +1157,7 @@ async function persistResult(
 					method: 'POST', headers, credentials: 'include', signal,
 					body: JSON.stringify({
 						repo: sk.actorDid,
-						collection: 'app.etzhayyim.actor.knowledgeEdge',
+						collection: 'com.etzhayyim.actor.knowledgeEdge',
 						record: { from: edge.from, relation: edge.relation, to: edge.to, createdAt: now },
 					}),
 				}).catch((error) => {
@@ -1179,7 +1179,7 @@ async function persistResult(
 			credentials: 'include',
 			signal,
 			body: JSON.stringify({
-				collection: 'app.etzhayyim.apps.credits.creditTransaction',
+				collection: 'com.etzhayyim.apps.credits.creditTransaction',
 				record: {
 					type: 'earn',
 					amount: CREDIT_REWARDS[taskType],
@@ -1461,7 +1461,7 @@ async function selfGenerateTasks(): Promise<void> {
 
 		// ── Tier 1: kagami SQL graph — actors (OPTIONAL MATCH unsupported, fetch profiles) ──
 		const gqHeaders = await authHeaders();
-		const graphRes = await fetch(`${PDS}/xrpc/app.etzhayyim.kagami.sql`, {
+		const graphRes = await fetch(`${PDS}/xrpc/com.etzhayyim.kagami.sql`, {
 			method: 'POST',
 			headers: gqHeaders,
 			credentials: 'include',

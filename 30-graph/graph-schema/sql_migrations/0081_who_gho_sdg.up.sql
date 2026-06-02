@@ -5,7 +5,7 @@ CREATE VIEW IF NOT EXISTS view_who_gho_indicator AS
       value_json::jsonb->>'group' AS indicator_group,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.who.gho_indicator';
+    WHERE collection = 'com.etzhayyim.apps.who.gho_indicator';
 
 CREATE VIEW IF NOT EXISTS view_sdg_indicator AS
     SELECT
@@ -18,7 +18,7 @@ CREATE VIEW IF NOT EXISTS view_sdg_indicator AS
       value_json::jsonb->>'parent' AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.sdg.indicator';
+    WHERE collection = 'com.etzhayyim.apps.sdg.indicator';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('who_gho', 'gho.etzhayyim.com', 3057, 'health indicators', 'healthcare');

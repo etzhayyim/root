@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govPer.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govPer.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Peru government.",
-        "operationId": "app.etzhayyim.govPer.followSiteDeps",
+        "operationId": "com.etzhayyim.govPer.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPer.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govPer.heartbeatTick": {
       "post": {
         "summary": "Run the Peru government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govPer.heartbeatTick",
+        "operationId": "com.etzhayyim.govPer.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPer.listOrgs": {
+    "/xrpc/com.etzhayyim.govPer.listOrgs": {
       "get": {
         "summary": "List Peru government organization graph records.",
-        "operationId": "app.etzhayyim.govPer.listOrgs",
+        "operationId": "com.etzhayyim.govPer.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPer.registerDIDs": {
+    "/xrpc/com.etzhayyim.govPer.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Peru government organizations.",
-        "operationId": "app.etzhayyim.govPer.registerDIDs",
+        "operationId": "com.etzhayyim.govPer.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPer.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govPer.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Peru government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govPer.resolveOrgPath",
+        "operationId": "com.etzhayyim.govPer.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPer.seedOrgs": {
+    "/xrpc/com.etzhayyim.govPer.seedOrgs": {
       "post": {
         "summary": "Seed initial Peru government organization records into the graph.",
-        "operationId": "app.etzhayyim.govPer.seedOrgs",
+        "operationId": "com.etzhayyim.govPer.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPer.shinka": {
+    "/xrpc/com.etzhayyim.govPer.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Peru government organization update.",
-        "operationId": "app.etzhayyim.govPer.shinka",
+        "operationId": "com.etzhayyim.govPer.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPer.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govPer.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Peru government organization changes to graph.",
-        "operationId": "app.etzhayyim.govPer.syncWetUpdates",
+        "operationId": "com.etzhayyim.govPer.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

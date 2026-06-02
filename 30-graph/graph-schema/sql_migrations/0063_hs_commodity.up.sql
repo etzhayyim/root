@@ -9,6 +9,6 @@ CREATE VIEW IF NOT EXISTS view_hs_commodity AS
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity';
+    WHERE collection = 'com.etzhayyim.apps.hs.commodity';
 
 UPDATE dim_world_domain SET world_total = 6705 WHERE domain = 'hs';

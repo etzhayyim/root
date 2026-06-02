@@ -10,8 +10,8 @@
     <bpmn:userTask id="Task_CollectLinkForm" name="Collect link form"
                    camunda:formKey="openNetwork.defineLink.v1"/>
     <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectLinkForm" targetRef="Task_DefineLink"/>
-    <bpmn:serviceTask id="Task_DefineLink" name="ai.gftd.apps.openNetwork.defineLink"
-                      camunda:topic="ai.gftd.apps.openNetwork.defineLink"/>
+    <bpmn:serviceTask id="Task_DefineLink" name="com.etzhayyim.apps.openNetwork.defineLink"
+                      camunda:topic="com.etzhayyim.apps.openNetwork.defineLink"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_DefineLink" targetRef="EndEvent_Defined"/>
     <bpmn:endEvent id="EndEvent_Defined" name="Link defined"/>
   </bpmn:process>

@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.vehicle.describe",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Describe the automotive manufacturing graph contract, BPMN package, migration, seed, vertex types, and edge types.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "app": { "type": "string" },
+            "nanoid": { "type": "string" },
+            "did": { "type": "string" },
+            "bpmn": { "type": "string" },
+            "graphMigration": { "type": "string" },
+            "graphSeed": { "type": "string" },
+            "vertexTypes": { "type": "array", "items": { "type": "string" } },
+            "edgeTypes": { "type": "array", "items": { "type": "string" } },
+            "updatedAt": { "type": "string" }
+          },
+          "required": ["app", "vertexTypes", "edgeTypes"]
+        }
+      }
+    }
+  }
+}

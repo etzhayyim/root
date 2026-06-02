@@ -34,7 +34,7 @@ describe('karute-phi-plaintext-guard', () => {
   it('flags direct PDS createRecord for karute inner type', () => {
     const p = writeFx('bad-create.ts', `
       await agent.com.atproto.repo.createRecord({
-        collection: "app.etzhayyim.karute.soapNote",
+        collection: "com.etzhayyim.karute.soapNote",
         record: { subjective: "PHI" }
       });
     `);
@@ -46,7 +46,7 @@ describe('karute-phi-plaintext-guard', () => {
   it('flags $type literal with karute inner type', () => {
     const p = writeFx('bad-type.ts', `
       const doc = {
-        $type: "app.etzhayyim.karute.patient",
+        $type: "com.etzhayyim.karute.patient",
         name: { family: "Y" }
       };
     `);
@@ -57,7 +57,7 @@ describe('karute-phi-plaintext-guard', () => {
   it('allows encryptedWrite with innerType', () => {
     const p = writeFx('good-encrypted.ts', `
       await sdk.encryptedWrite({
-        innerType: "app.etzhayyim.karute.observation",
+        innerType: "com.etzhayyim.karute.observation",
         recipients: [],
         record: { code: "8480-6" }
       });
@@ -68,7 +68,7 @@ describe('karute-phi-plaintext-guard', () => {
 
   it('respects inline allow', () => {
     const p = writeFx('allowed.ts', `
-      const x = { collection: "app.etzhayyim.karute.encounter" }; // phi-guard: allow
+      const x = { collection: "com.etzhayyim.karute.encounter" }; // phi-guard: allow
     `);
     const r = runGuard(p);
     expect(r.code).toBe(0);

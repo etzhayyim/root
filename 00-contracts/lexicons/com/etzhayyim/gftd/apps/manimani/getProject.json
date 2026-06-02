@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.manimani.getProject",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch a single project (by slug or vertex_id) with its most recent artifacts. RLS-scoped to caller's actor_did. Per ADR-2605080800.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "description": "vertex_manimani_project.vertex_id. Mutually exclusive with slug."
+          },
+          "slug": {
+            "type": "string",
+            "description": "Project slug (kebab-case, actor-scoped). Mutually exclusive with projectId."
+          },
+          "limit": {
+            "type": "integer",
+            "default": 50,
+            "minimum": 1,
+            "maximum": 200,
+            "description": "Max recent artifacts to return."
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["project", "artifacts"],
+          "properties": {
+            "project": {
+              "type": "object",
+              "required": ["vertexId", "projectDid", "slug", "title", "kind", "status"],
+              "properties": {
+                "vertexId": { "type": "string" },
+                "projectDid": { "type": "string" },
+                "slug": { "type": "string" },
+                "title": { "type": "string" },
+                "kind": { "type": "string", "enum": ["knowledge", "task", "memo", "unsorted"] },
+                "initialTagsCsv": { "type": "string" },
+                "intakeCount": { "type": "integer" },
+                "lastIntakeAt": { "type": "string" },
+                "status": { "type": "string", "enum": ["active", "dormant", "archived"] },
+                "createdAt": { "type": "string" }
+              }
+            },
+            "artifacts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["vertexId", "intakeVertexId", "artifactKind", "createdAt"],
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "intakeVertexId": { "type": "string" },
+                  "runVertexId": { "type": "string" },
+                  "artifactKind": {
+                    "type": "string",
+                    "enum": ["facts_jsonl", "todos_jsonl", "summary_text", "raw_passthrough", "error"]
+                  },
+                  "content": { "type": "string" },
+                  "modelId": { "type": "string" },
+                  "errorText": { "type": "string" },
+                  "createdAt": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "InvalidInput", "description": "Both projectId and slug set, or neither." },
+        { "name": "NotFound", "description": "Project not found in actor scope." }
+      ]
+    }
+  }
+}

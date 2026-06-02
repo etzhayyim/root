@@ -1,0 +1,109 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cyberIncident.reportIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Cyber incident 報告 (NIS2 24h + IMO MSC-FAL.1)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "impactType",
+            "detectedAt",
+            "reportedAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "victimOrgId": {
+              "type": "string"
+            },
+            "sector": {
+              "type": "string",
+              "description": "maritime/energy/finance/health/govt/retail/manufacturing"
+            },
+            "attackVector": {
+              "type": "string",
+              "enum": [
+                "phishing",
+                "supply-chain",
+                "ransomware",
+                "ddos",
+                "insider",
+                "zero-day",
+                "misconfiguration"
+              ]
+            },
+            "impactType": {
+              "type": "string",
+              "enum": [
+                "data-breach",
+                "service-disruption",
+                "ransomware",
+                "wiper",
+                "espionage",
+                "financial-fraud"
+              ]
+            },
+            "affectedSystems": {
+              "type": "string"
+            },
+            "dataExposed": {
+              "type": "boolean"
+            },
+            "ransomDemandedUsd": {
+              "type": "number"
+            },
+            "casualties": {
+              "type": "integer"
+            },
+            "detectedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "requireRegulatoryNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

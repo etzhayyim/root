@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.llm.route",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Intent classification via LLM tool_choice=required. Returns tool name, does not execute.",
+      "x-hostImportsMethod": "agentRoute",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "inputJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "inputJson"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "toolName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "toolName"
+          ]
+        }
+      }
+    }
+  }
+}

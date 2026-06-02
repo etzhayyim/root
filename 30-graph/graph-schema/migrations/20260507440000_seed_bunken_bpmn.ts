@@ -22,14 +22,14 @@ const procs = ["collectFromCdx", "fetchCdxBatch", "enrichBatch", "collectFromNdl
 const seeds: Seed[] = procs.map((proc) => ({
   proc,
   bpmnProcessId: `bunken_${snake(proc)}`,
-  nsid: `app.etzhayyim.apps.bunken.${proc}`,
+  nsid: `com.etzhayyim.apps.bunken.${proc}`,
   resultTimeoutMs: 60000,
   writeTableAllowlist: writeProcs.has(proc) ? writeAllowlist : "",
 }));
 
-const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/bunken/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bunken-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bunken-${slug(s.proc)}-v1`;
+const bpmnPath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/bunken/${s.proc}.bpmn`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/bunken-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/bunken-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

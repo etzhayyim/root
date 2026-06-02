@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cyberSoc.recordIncidentResponse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IR workflow + MTTR",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "irId",
+            "startedAt"
+          ],
+          "properties": {
+            "irId": {
+              "type": "string"
+            },
+            "alertVid": {
+              "type": "string"
+            },
+            "playbook": {
+              "type": "string"
+            },
+            "mttrMinutes": {
+              "type": "number"
+            },
+            "containmentAchieved": {
+              "type": "boolean"
+            },
+            "eradicationAchieved": {
+              "type": "boolean"
+            },
+            "startedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "closedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "effectivenessTier": {
+              "type": "string",
+              "enum": [
+                "ineffective",
+                "delayed",
+                "acceptable",
+                "effective",
+                "excellent"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

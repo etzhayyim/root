@@ -15,7 +15,7 @@ Usage::
     from etzhayyim_sdk import mst
 
     records = await mst.query(
-        "app.etzhayyim.apps.etzhayyim.shinka.evolutionEvent",
+        "com.etzhayyim.apps.etzhayyim.shinka.evolutionEvent",
         did="did:plc:abc123",
         limit=10,
     )

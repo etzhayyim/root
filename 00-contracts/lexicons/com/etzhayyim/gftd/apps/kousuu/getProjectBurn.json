@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kousuu.getProjectBurn",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Project burn-rate dashboard. Reads mv_kousuu_project_burn (actual vs budget hours grouped by month). Optionally multiplies actualHours by encrypted costRate to compute actualCost — only available to callers with PII Tier 3 consent.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "projectDid":      { "type": "string", "format": "did" },
+          "customerDid":     { "type": "string", "format": "did" },
+          "periodFromMonth": { "type": "string", "description": "YYYY-MM inclusive" },
+          "periodToMonth":   { "type": "string", "description": "YYYY-MM inclusive" },
+          "includeCost":     { "type": "boolean", "default": false, "description": "Requires Tier 3 consent; returns decrypted cost totals" },
+          "limit":           { "type": "integer", "minimum": 1, "maximum": 500, "default": 100 },
+          "cursor":          { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["rows"],
+          "properties": {
+            "rows":   { "type": "array", "items": { "type": "object" } },
+            "cursor": { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "ConsentRequired", "description": "includeCost=true but caller lacks PII Tier 3 consent" }
+      ]
+    }
+  }
+}

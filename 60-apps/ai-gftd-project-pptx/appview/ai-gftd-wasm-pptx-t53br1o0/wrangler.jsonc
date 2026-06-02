@@ -19,7 +19,7 @@
     "APP_DISPLAY_NAME": "PPTX Editor",
     "APP_EMBED_URL": "https://t53br1o0.etzhayyim.com/embed",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     "APP_NANOID": "t53br1o0",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"

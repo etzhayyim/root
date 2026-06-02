@@ -89,11 +89,11 @@
     demand: '#facc15',
   };
 
-  fetch('/xrpc/app.etzhayyim.apps.rareEarth.coverage.listActors')
+  fetch('/xrpc/com.etzhayyim.apps.rareEarth.coverage.listActors')
     .then((res) => res.json())
     .then((payload) => payload.actors)
     .then((actors: Actor[]) =>
-      fetch('/xrpc/app.etzhayyim.apps.rareEarth.coverage.listFlows')
+      fetch('/xrpc/com.etzhayyim.apps.rareEarth.coverage.listFlows')
         .then((res) => res.json())
         .then((payload) => payload.flows)
         .then((flows: Flow[]) => ({ actors, flows }))

@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.carbonTax.recordTaxInstrument",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Carbon tax / ETS-equivalent (World Bank CPD / OECD ETS / I4CE — bridges eu-cbam + climate-carbon-market + sovereign-debt + global-tax)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "instrumentId",
+            "jurisdictionIso3",
+            "instrumentKind",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "instrumentId": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "instrumentKind": {
+              "type": "string",
+              "enum": [
+                "carbon_tax",
+                "ets_cap_trade",
+                "fuel_tax_equiv",
+                "power_sector_carbon_charge",
+                "hybrid"
+              ]
+            },
+            "coverageSectors": {
+              "type": "string",
+              "description": "comma"
+            },
+            "priceUsdTonneCo2e": {
+              "type": "number"
+            },
+            "coverageShareGhgPct": {
+              "type": "number"
+            },
+            "revenueUseCodes": {
+              "type": "string",
+              "description": "comma: general_budget,climate_specific,green_fund,tax_reform,transfers_low_income,debt_reduction"
+            },
+            "effectiveFrom": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "ambitionTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high_ambition"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

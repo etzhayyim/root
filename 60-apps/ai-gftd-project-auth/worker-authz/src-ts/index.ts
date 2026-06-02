@@ -6,7 +6,7 @@
  * AuthN (passkey/session issuance/DID): → authn.etzhayyim.com (AUTHN_SERVICE binding).
  *
  * Routes: authz.etzhayyim.com/*, accounts.etzhayyim.com/* (absorbed, 301 not needed — same Worker)
- * XRPC NSIDs: app.etzhayyim.authz.*
+ * XRPC NSIDs: com.etzhayyim.authz.*
  */
 
 import { Hono } from "hono";
@@ -641,7 +641,7 @@ async function syncAuthMethodToGraph(env: Env, accountDid: string, provider: str
     // is intentionally zero-npm and has no HYPERDRIVE binding. The call is
     // non-fatal (see .catch below) so sync failures never block auth.
     const now = nowIso();
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify({
@@ -1300,7 +1300,7 @@ async function handleGetActorAccount(request: Request, env: Env): Promise<Respon
 const _ACTOR_BY_DID_SEL = selector("actorByDid(bytes32)");
 
 /**
- * GET /xrpc/app.etzhayyim.authz.getActorTokenBalance?did={did}
+ * GET /xrpc/com.etzhayyim.authz.getActorTokenBalance?did={did}
  *
  * Public endpoint — no session required. Looks up the caller's (or any DID's)
  * smart-account address on-chain via etzhayyimActorRegistry, then reads the GCC
@@ -1363,7 +1363,7 @@ async function handleActivateActorAccount(request: Request, env: Env): Promise<R
 }
 
 /**
- * POST /xrpc/app.etzhayyim.authz.switchActiveDid
+ * POST /xrpc/com.etzhayyim.authz.switchActiveDid
  * Body: { activeDid }
  * Proxies to authn (AUTHN_SERVICE) which re-issues the session JWT with the
  * new activeDid. Set-Cookie header is forwarded back so the browser picks up
@@ -1376,7 +1376,7 @@ async function handleSwitchActiveDidProxy(request: Request, env: Env): Promise<R
   catch (error) { return jsonErr(401, "AuthRequired", error instanceof Error ? error.message : "auth required"); }
 
   const bodyText = await request.text();
-  const upstream = await env.AUTHN_SERVICE.fetch("https://authn.etzhayyim.com/xrpc/app.etzhayyim.auth.switchActiveDid", {
+  const upstream = await env.AUTHN_SERVICE.fetch("https://authn.etzhayyim.com/xrpc/com.etzhayyim.auth.switchActiveDid", {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -1457,7 +1457,7 @@ function rootRequiredResponse(error: unknown): Response | null {
 }
 
 /**
- * POST /xrpc/app.etzhayyim.authz.orgCreate
+ * POST /xrpc/com.etzhayyim.authz.orgCreate
  * Body: { name, domain?, orgType? }
  * Creates (or upgrades) the caller's account DID as an org.
  * Account = Actor = Org (CLAUDE.md §CRITICAL). Personal accounts are already orgs.
@@ -1508,7 +1508,7 @@ async function handleOrgCreate(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * GET /xrpc/app.etzhayyim.authz.orgInfo?orgDid=...
+ * GET /xrpc/com.etzhayyim.authz.orgInfo?orgDid=...
  */
 async function handleOrgInfo(request: Request, env: Env): Promise<Response> {
   if (!env.AUTH_DB) return jsonErr(503, "ConfigError", "AUTH_DB required");
@@ -1543,7 +1543,7 @@ async function handleOrgInfo(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * GET /xrpc/app.etzhayyim.authz.orgMembers?orgDid=&offset=&limit=
+ * GET /xrpc/com.etzhayyim.authz.orgMembers?orgDid=&offset=&limit=
  */
 async function handleOrgMembers(request: Request, env: Env): Promise<Response> {
   if (!env.AUTH_DB) return jsonErr(503, "ConfigError", "AUTH_DB required");
@@ -1586,7 +1586,7 @@ async function handleOrgMembers(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * POST /xrpc/app.etzhayyim.authz.orgInvite
+ * POST /xrpc/com.etzhayyim.authz.orgInvite
  * Body: { orgDid, email, role? }
  * Sends an invite (HMAC token). Must be org owner or admin.
  */
@@ -1644,7 +1644,7 @@ async function handleOrgInvite(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * POST /xrpc/app.etzhayyim.authz.orgInviteAccept
+ * POST /xrpc/com.etzhayyim.authz.orgInviteAccept
  * Body: { token }
  * Accepts an org invite. Caller's DID becomes a member.
  */
@@ -1694,7 +1694,7 @@ async function handleOrgInviteAccept(request: Request, env: Env): Promise<Respon
 }
 
 /**
- * POST /xrpc/app.etzhayyim.authz.orgMemberRemove
+ * POST /xrpc/com.etzhayyim.authz.orgMemberRemove
  * Body: { orgDid, memberDid }
  * Owner/admin removes a member. Cannot remove the owner.
  */
@@ -1735,7 +1735,7 @@ async function handleOrgMemberRemove(request: Request, env: Env): Promise<Respon
 }
 
 /**
- * POST /xrpc/app.etzhayyim.authz.orgMemberRoleUpdate
+ * POST /xrpc/com.etzhayyim.authz.orgMemberRoleUpdate
  * Body: { orgDid?, memberDid, role }  role ∈ {member, admin}
  * Owner/admin updates a non-owner member's role. Owners cannot be demoted here
  * (use orgTransferOwnership instead).
@@ -1784,7 +1784,7 @@ async function handleOrgMemberRoleUpdate(request: Request, env: Env): Promise<Re
 }
 
 /**
- * POST /xrpc/app.etzhayyim.authz.orgTransferOwnership
+ * POST /xrpc/com.etzhayyim.authz.orgTransferOwnership
  * Body: { orgDid?, newOwnerDid }
  * Current owner transfers ownership to another active member. The old owner
  * becomes 'admin'. New owner inherits 'owner'. vertex_gftd_auth_org.owner_did
@@ -1837,7 +1837,7 @@ async function handleOrgTransferOwnership(request: Request, env: Env): Promise<R
 }
 
 /**
- * POST /xrpc/app.etzhayyim.authz.orgLeave
+ * POST /xrpc/com.etzhayyim.authz.orgLeave
  * Body: { orgDid }
  */
 async function handleOrgLeave(request: Request, env: Env): Promise<Response> {
@@ -1870,7 +1870,7 @@ async function handleOrgLeave(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * GET /xrpc/app.etzhayyim.authz.orgList?offset=&limit=
+ * GET /xrpc/com.etzhayyim.authz.orgList?offset=&limit=
  * Returns orgs the caller belongs to.
  */
 async function handleOrgList(request: Request, env: Env): Promise<Response> {
@@ -1909,7 +1909,7 @@ async function handleOrgList(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * POST /xrpc/app.etzhayyim.authz.orgUpdate
+ * POST /xrpc/com.etzhayyim.authz.orgUpdate
  * Body: { orgDid?, name?, domain?, orgType? }
  * Owner/admin updates org metadata. Only provided fields are changed.
  */
@@ -2617,33 +2617,33 @@ app.get("/invite/:token", (c) => {
   return Response.redirect(`https://${url.hostname}/manage?invite=${encodeURIComponent(token)}`, 302);
 });
 
-// XRPC — authz endpoints (app.etzhayyim.authz.*)
-app.get("/xrpc/app.etzhayyim.authz.getSession", (c) => handleGetSession(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.linkEmailBegin", (c) => handleLinkEmailBegin(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.linkEmailVerify", (c) => handleLinkEmailVerify(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.linkOAuthStart", (c) => handleLinkOAuthStart(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.unlinkMethod", (c) => handleUnlinkMethod(c.req.raw, c.env));
+// XRPC — authz endpoints (com.etzhayyim.authz.*)
+app.get("/xrpc/com.etzhayyim.authz.getSession", (c) => handleGetSession(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.linkEmailBegin", (c) => handleLinkEmailBegin(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.linkEmailVerify", (c) => handleLinkEmailVerify(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.linkOAuthStart", (c) => handleLinkOAuthStart(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.unlinkMethod", (c) => handleUnlinkMethod(c.req.raw, c.env));
 // ADR-0074 Phase 2-B — read smart-account address for the signed-in actor.
-app.get("/xrpc/app.etzhayyim.authz.getActorAccount", (c) => handleGetActorAccount(c.req.raw, c.env));
+app.get("/xrpc/com.etzhayyim.authz.getActorAccount", (c) => handleGetActorAccount(c.req.raw, c.env));
 // Public GCC balance lookup by DID (no auth required).
-app.get("/xrpc/app.etzhayyim.authz.getActorTokenBalance", (c) => handleGetActorTokenBalance(c.req.raw, c.env));
+app.get("/xrpc/com.etzhayyim.authz.getActorTokenBalance", (c) => handleGetActorTokenBalance(c.req.raw, c.env));
 // ADR-0074 Phase 2-B.2 — activate (deploy proxy) the caller's smart account.
-app.post("/xrpc/app.etzhayyim.authz.activateActorAccount", (c) => handleActivateActorAccount(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.activateActorAccount", (c) => handleActivateActorAccount(c.req.raw, c.env));
 // ADR-0074 Phase 1 — Ethereum (private chain) link as authenticated linked method.
-app.post("/xrpc/app.etzhayyim.authz.linkEthereumBegin", (c) => handleLinkEthereumBegin(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.linkEthereumVerify", (c) => handleLinkEthereumVerify(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.linkEthereumBegin", (c) => handleLinkEthereumBegin(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.linkEthereumVerify", (c) => handleLinkEthereumVerify(c.req.raw, c.env));
 // Multi-device WebAuthn — adds another passkey to the same account.
-app.post("/xrpc/app.etzhayyim.authz.linkPasskeyAdditionalBegin", (c) => handleLinkPasskeyAdditionalBegin(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.linkPasskeyAdditionalVerify", (c) => handleLinkPasskeyAdditionalVerify(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.switchActiveDid", (c) => handleSwitchActiveDidProxy(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.linkPasskeyAdditionalBegin", (c) => handleLinkPasskeyAdditionalBegin(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.linkPasskeyAdditionalVerify", (c) => handleLinkPasskeyAdditionalVerify(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.switchActiveDid", (c) => handleSwitchActiveDidProxy(c.req.raw, c.env));
 
 // ADR-2604261717 Phase 1 — staked claim attestation
-app.post("/xrpc/app.etzhayyim.claim.postStakedAttestation",         (c) => handlePostStakedAttestation(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.claim.challengeStakedAttestation",    (c) => handleChallengeStakedAttestation(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.claim.settleStakedAttestation",       (c) => handleSettleStakedAttestation(c.req.raw, c.env));
-app.get("/xrpc/app.etzhayyim.claim.getStakedAttestation",           (c) => handleGetStakedAttestation(c.req.raw, c.env));
-app.get("/xrpc/app.etzhayyim.claim.listStakedAttestations",         (c) => handleListStakedAttestations(c.req.raw, c.env));
-app.get("/xrpc/app.etzhayyim.claim.lookupStakedAttestations",       (c) => handleLookupStakedAttestations(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.claim.postStakedAttestation",         (c) => handlePostStakedAttestation(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.claim.challengeStakedAttestation",    (c) => handleChallengeStakedAttestation(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.claim.settleStakedAttestation",       (c) => handleSettleStakedAttestation(c.req.raw, c.env));
+app.get("/xrpc/com.etzhayyim.claim.getStakedAttestation",           (c) => handleGetStakedAttestation(c.req.raw, c.env));
+app.get("/xrpc/com.etzhayyim.claim.listStakedAttestations",         (c) => handleListStakedAttestations(c.req.raw, c.env));
+app.get("/xrpc/com.etzhayyim.claim.lookupStakedAttestations",       (c) => handleLookupStakedAttestations(c.req.raw, c.env));
 // ADR-2604261717 yabai auto-challenger — internal-only, HMAC-gated.
 // Called by `claim-consumer.challengerTick` after Murakumo classifies a
 // pending claim as fraud-likely. NOT under /xrpc to make the
@@ -2656,18 +2656,18 @@ app.post("/internal/claim-unchallenged-sweep",             (c) => handleClaimUnc
 // an ERC725 root identity contract on chain 260425. HMAC-gated.
 app.post("/internal/provision-root-identity",              (c) => handleProvisionRootIdentity(c.req.raw, c.env));
 
-// Org management (app.etzhayyim.authz.org*)
-app.post("/xrpc/app.etzhayyim.authz.orgCreate", (c) => handleOrgCreate(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.orgUpdate", (c) => handleOrgUpdate(c.req.raw, c.env));
-app.get("/xrpc/app.etzhayyim.authz.orgInfo", (c) => handleOrgInfo(c.req.raw, c.env));
-app.get("/xrpc/app.etzhayyim.authz.orgMembers", (c) => handleOrgMembers(c.req.raw, c.env));
-app.get("/xrpc/app.etzhayyim.authz.orgList", (c) => handleOrgList(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.orgInvite", (c) => handleOrgInvite(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.orgInviteAccept", (c) => handleOrgInviteAccept(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.orgMemberRemove", (c) => handleOrgMemberRemove(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.orgMemberRoleUpdate", (c) => handleOrgMemberRoleUpdate(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.orgTransferOwnership", (c) => handleOrgTransferOwnership(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.authz.orgLeave", (c) => handleOrgLeave(c.req.raw, c.env));
+// Org management (com.etzhayyim.authz.org*)
+app.post("/xrpc/com.etzhayyim.authz.orgCreate", (c) => handleOrgCreate(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.orgUpdate", (c) => handleOrgUpdate(c.req.raw, c.env));
+app.get("/xrpc/com.etzhayyim.authz.orgInfo", (c) => handleOrgInfo(c.req.raw, c.env));
+app.get("/xrpc/com.etzhayyim.authz.orgMembers", (c) => handleOrgMembers(c.req.raw, c.env));
+app.get("/xrpc/com.etzhayyim.authz.orgList", (c) => handleOrgList(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.orgInvite", (c) => handleOrgInvite(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.orgInviteAccept", (c) => handleOrgInviteAccept(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.orgMemberRemove", (c) => handleOrgMemberRemove(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.orgMemberRoleUpdate", (c) => handleOrgMemberRoleUpdate(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.orgTransferOwnership", (c) => handleOrgTransferOwnership(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.authz.orgLeave", (c) => handleOrgLeave(c.req.raw, c.env));
 
 // OAuth link callbacks.
 app.get("/oauth/link/google/callback", (c) => handleOAuthLinkCallback(c.req.raw, c.env, "google"));

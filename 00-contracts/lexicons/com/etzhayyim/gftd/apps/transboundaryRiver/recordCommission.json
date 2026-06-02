@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.transboundaryRiver.recordCommission",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Transboundary river / UN Watercourses Conv 1997 / treaty commission (bridges waterStewardship.flagBasinStress + land-tenure + biodiversity-gbf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "commissionId",
+            "basinName",
+            "riparianCountriesIso3",
+            "regimeKind",
+            "establishedAt"
+          ],
+          "properties": {
+            "commissionId": {
+              "type": "string"
+            },
+            "basinName": {
+              "type": "string"
+            },
+            "riparianCountriesIso3": {
+              "type": "string"
+            },
+            "regimeKind": {
+              "type": "string",
+              "enum": [
+                "un_watercourses_1997",
+                "helsinki_rules_1966",
+                "berlin_rules_2004",
+                "bilateral_treaty",
+                "commission_standing",
+                "icj_jurisdiction",
+                "coop_framework",
+                "mekong_1995",
+                "nile_cfa",
+                "indus_iwt",
+                "rhine_stephen"
+              ]
+            },
+            "basinStressVid": {
+              "type": "string",
+              "description": "bridges waterStewardship.flagBasinStress"
+            },
+            "establishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

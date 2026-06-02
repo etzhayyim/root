@@ -16,15 +16,15 @@ const CREATED_AT = "2026-05-07T23:00:00Z";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 const PROCESS_VID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1";
 const BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(
     path.resolve(
       repoRoot,
-      "00-contracts/bpmn/ai/gftd/wellbecoming/beliefRestoringCapture.bpmn",
+      "00-contracts/bpmn/com/etzhayyim/wellbecoming/beliefRestoringCapture.bpmn",
     ),
     "utf8",
   );
@@ -38,7 +38,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       ${PROCESS_VID}, ${OWNER_DID},
       'wellbecoming_belief_restoring_capture', 1,
       ${xml}, CAST(${size} AS integer),
-      '00-contracts/bpmn/ai/gftd/wellbecoming/beliefRestoringCapture.bpmn',
+      '00-contracts/bpmn/com/etzhayyim/wellbecoming/beliefRestoringCapture.bpmn',
       'active', ${CREATED_AT}, 1,
       ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.wellbecoming'
     WHERE NOT EXISTS (
@@ -53,7 +53,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       ${BINDING_VID}, ${OWNER_DID},
       'wellbecoming_belief_restoring_capture',
-      'app.etzhayyim.apps.wellbecoming.beliefRestoringCapture',
+      'com.etzhayyim.apps.wellbecoming.beliefRestoringCapture',
       ${CREATED_AT}, 1,
       ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.wellbecoming'
     WHERE NOT EXISTS (

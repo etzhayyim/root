@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kyber.projector.listProcesses",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Compatibility query for APQC/BPMN processes. In kyber-projector, a process maps to one BPMN task binding.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "groupId": { "type": "string", "description": "Alias of apqcCode" },
+          "apqcCode": { "type": "string" },
+          "taskType": { "type": "string" },
+          "kyberCollection": { "type": "string" },
+          "offset": { "type": "integer", "default": 0 },
+          "limit": { "type": "integer", "default": 100 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "processes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "processId": { "type": "string" },
+                  "taskId": { "type": "string" },
+                  "groupId": { "type": "string" },
+                  "apqcCode": { "type": "string" },
+                  "actorDid": { "type": "string" },
+                  "taskType": { "type": "string" },
+                  "name": { "type": "string" },
+                  "title": { "type": "string" },
+                  "ocelEventType": { "type": "string" },
+                  "kyberCollection": { "type": "string" },
+                  "status": { "type": "string" }
+                },
+                "required": ["processId", "groupId", "name", "status"]
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          },
+          "required": ["ok", "processes", "total", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

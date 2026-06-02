@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.blueCarbonMrv.recordStockEstimate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Blue carbon stock estimate (mangrove / seagrass / saltmarsh — bridges peat-wetland + coastal-slr + climate-carbon-market + bbnj-highseas)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "estimateId",
+            "habitatType",
+            "countryIso3",
+            "areaHectares",
+            "measuredYear",
+            "recordedAt"
+          ],
+          "properties": {
+            "estimateId": {
+              "type": "string"
+            },
+            "habitatType": {
+              "type": "string",
+              "enum": [
+                "mangrove",
+                "seagrass",
+                "saltmarsh",
+                "tidal_flat"
+              ]
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "areaHectares": {
+              "type": "number"
+            },
+            "organicCarbonDensityTonnesHa": {
+              "type": "number"
+            },
+            "methodology": {
+              "type": "string",
+              "enum": [
+                "ipcc_2013_wetlands",
+                "verra_vm0033",
+                "gs_blue_natural_capital",
+                "plan_vivo"
+              ]
+            },
+            "remoteSensingPlatform": {
+              "type": "string",
+              "enum": [
+                "landsat",
+                "sentinel",
+                "planet",
+                "drone",
+                "field"
+              ]
+            },
+            "measuredYear": {
+              "type": "integer"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

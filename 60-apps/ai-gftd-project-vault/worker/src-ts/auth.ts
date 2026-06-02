@@ -1,7 +1,7 @@
 // auth.ts — caller DID extraction + vault role checks.
 //
 // Trust chain:
-//   1. Bearer JWT in Authorization header → AUTH_SERVICE /xrpc/app.etzhayyim.auth.authenticate
+//   1. Bearer JWT in Authorization header → AUTH_SERVICE /xrpc/com.etzhayyim.auth.authenticate
 //      returns { level: "session"|"internal", did, lxm? }
 //   2. Service binding caller (level=internal) bypasses session check.
 //   3. Vault role (owner|admin|reader) is enforced per NSID against vault_members.
@@ -31,7 +31,7 @@ export async function authenticate(req: Request, env: { AUTH_SERVICE: Fetcher; V
   }
   // Delegate verification to AUTH_SERVICE (handles AT session HS256 + ES256 Service Auth + API key).
   const activeDid = req.headers.get("x-active-did");
-  const verifyRes = await env.AUTH_SERVICE.fetch("https://authn.etzhayyim.com/xrpc/app.etzhayyim.auth.authenticate", {
+  const verifyRes = await env.AUTH_SERVICE.fetch("https://authn.etzhayyim.com/xrpc/com.etzhayyim.auth.authenticate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

@@ -1,7 +1,7 @@
 ;; himawari 向日葵 — kotoba EAVT schema (deploy / PDS write-path projection)
 ;; ADR-2606021200
 ;;
-;; Projects the seven app.etzhayyim.himawari.* lexicon records (manifest.jsonld
+;; Projects the seven com.etzhayyim.himawari.* lexicon records (manifest.jsonld
 ;; :lexiconNamespaces) into kotoba Datom attributes. This is the canonical EAVT
 ;; shape the PDS write path (ai.gftd.apps.kotobase.kg.ingest, gated by an operator
 ;; session PoP per ADR-2606015000) materializes records into. All state is kotoba

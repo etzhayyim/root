@@ -157,7 +157,7 @@ async function syncFlows(db: Kysely<unknown>, budgetBookVertexId: string, rows: 
         confidence, created_at
       ) VALUES (
         ${edgeId}, ${createdDate}, 1, 'did:web:gov-jpn.etzhayyim.com:mof',
-        ${budgetBookVertexId}, ${row.vertex_id}, 'appropriation', 'app.etzhayyim.apps.jpFiscal.appropriation',
+        ${budgetBookVertexId}, ${row.vertex_id}, 'appropriation', 'com.etzhayyim.apps.jpFiscal.appropriation',
         'did:web:gov-jpn.etzhayyim.com:treasury', ${row.ministry_did}, ${row.amount_jpy}, ${row.fiscal_year},
         ${row.program_code}, NULL, NULL, NULL,
         ${row.ministry_did}, ${row.program_name}, 'government_ministry', NULL,

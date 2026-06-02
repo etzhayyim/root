@@ -1,6 +1,6 @@
 """webmk `health` graph — RW probe + liveness.
 
-NSID: app.etzhayyim.apps.webmk.health
+NSID: com.etzhayyim.apps.webmk.health
 """
 
 from __future__ import annotations

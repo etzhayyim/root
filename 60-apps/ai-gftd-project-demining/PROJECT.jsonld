@@ -47,7 +47,7 @@
   "hasPart": [
     { "@type": "CreativeWork", "name": "Classification crosswalk", "url": "classifications.jsonld" },
     { "@type": "CreativeWork", "name": "Actor manifest", "url": "../../20-actors/demining/actor-manifest.jsonld" },
-    { "@type": "CreativeWork", "name": "Lexicon contracts", "url": "../../00-contracts/lexicons/ai/gftd/apps/demining/" }
+    { "@type": "CreativeWork", "name": "Lexicon contracts", "url": "../../00-contracts/lexicons/com/etzhayyim/apps/demining/" }
   ],
   "performers": [
     { "@type": "Service", "name": "Demining Coordinator Actor", "identifier": "did:web:demining.etzhayyim.com" },

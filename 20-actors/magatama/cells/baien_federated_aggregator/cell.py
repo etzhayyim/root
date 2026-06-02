@@ -19,7 +19,7 @@ feeds that node from the lexicon firehose.
 Planned topology (R2+, NOT compiled in R0):
 
     START
-      -> subscribe_firehose       # app.etzhayyim.baien.distributedTrainDelta
+      -> subscribe_firehose       # com.etzhayyim.baien.distributedTrainDelta
       -> filter_round              # match iter + baseModelCid (G10)
       -> verify_sbt                # Adherent SBT holder check (G7)
       -> verify_signature          # ES256 against DID-resolved key (G4)

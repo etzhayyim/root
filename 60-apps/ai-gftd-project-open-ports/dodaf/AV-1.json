@@ -17,7 +17,7 @@
       "standards": ["AT Protocol XRPC", "DoDAF v2.02", "BPMN 2.0", "DMN 1.3", "Camunda Forms", "UN/LOCODE", "IMO ship identification", "ISO 6346 container ID", "IMO IMDG (dangerous goods)"]
     },
     "toolsAndMethods": [
-      "XRPC Lexicons (app.etzhayyim.apps.openPorts.*)",
+      "XRPC Lexicons (com.etzhayyim.apps.openPorts.*)",
       "BPMN 2.0 (scheduleVesselCall, reportPortIncident)",
       "DMN 1.3 (incidentSeverity)",
       "Camunda Forms"

@@ -5,14 +5,14 @@ interface Env { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | S
 
 const APP = "wallet";
 const ACTOR = "did:web:wallet.etzhayyim.com";
-const CREDIT_PREFIX = "app.etzhayyim.apps.credits.";
-const WALLET_PREFIX = "app.etzhayyim.apps.wallet.";
+const CREDIT_PREFIX = "com.etzhayyim.apps.credits.";
+const WALLET_PREFIX = "com.etzhayyim.apps.wallet.";
 
 const WALLET_TO_CREDITS: Record<string, string> = {
-  "app.etzhayyim.apps.wallet.checkSpendAllowed": "app.etzhayyim.apps.credits.checkSpendAllowed",
-  "app.etzhayyim.apps.wallet.spendCredits": "app.etzhayyim.apps.credits.spendCredits",
-  "app.etzhayyim.apps.wallet.rewardFromCompute": "app.etzhayyim.apps.credits.rewardFromCompute",
-  "app.etzhayyim.apps.wallet.rewardFromHC": "app.etzhayyim.apps.credits.rewardFromHC",
+  "com.etzhayyim.apps.wallet.checkSpendAllowed": "com.etzhayyim.apps.credits.checkSpendAllowed",
+  "com.etzhayyim.apps.wallet.spendCredits": "com.etzhayyim.apps.credits.spendCredits",
+  "com.etzhayyim.apps.wallet.rewardFromCompute": "com.etzhayyim.apps.credits.rewardFromCompute",
+  "com.etzhayyim.apps.wallet.rewardFromHC": "com.etzhayyim.apps.credits.rewardFromHC",
 };
 
 export default {
@@ -25,7 +25,7 @@ export default {
         nanoid: env.APP_NANOID ?? "wt1e2f3g",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/credits.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/credits",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/credits",
       });
     }
 

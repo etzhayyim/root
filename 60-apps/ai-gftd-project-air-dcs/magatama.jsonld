@@ -24,7 +24,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.apps.airDcs.operationalEvent"]
+      "collections": ["com.etzhayyim.apps.airDcs.operationalEvent"]
     }
   }
 }

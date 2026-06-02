@@ -814,7 +814,7 @@ async function handleRevokeToken(request: Request, env: Env): Promise<Response> 
     // One row keyed on jti (unchanged) — carries the family `sid` too so the
     // RS check can match either column without a second INSERT.
     if (jti) {
-      const vertexId = `at://did:web:authn.etzhayyim.com/app.etzhayyim.auth.revokedSession/${jti}`;
+      const vertexId = `at://did:web:authn.etzhayyim.com/com.etzhayyim.auth.revokedSession/${jti}`;
       await env.KEYS_DB.prepare(
         "INSERT OR IGNORE INTO vertex_gftd_key_revoked_session (vertex_id, sensitivity_ord, owner_did, jti, did, revoked_at, sid) VALUES (?, 3, ?, ?, ?, ?, ?)",
       ).bind(vertexId, did, jti, did, revokedAt, sid || null).run();
@@ -823,7 +823,7 @@ async function handleRevokeToken(request: Request, env: Env): Promise<Response> 
     // caught on lookup even when the revoked_at request only carried one
     // jti. RFC 7009 §2.1 SHOULD cascade.
     if (sid) {
-      const sidVertexId = `at://did:web:authn.etzhayyim.com/app.etzhayyim.auth.revokedFamily/${sid}`;
+      const sidVertexId = `at://did:web:authn.etzhayyim.com/com.etzhayyim.auth.revokedFamily/${sid}`;
       await env.KEYS_DB.prepare(
         "INSERT OR IGNORE INTO vertex_gftd_key_revoked_session (vertex_id, sensitivity_ord, owner_did, jti, did, revoked_at, sid) VALUES (?, 3, ?, ?, ?, ?, ?)",
       ).bind(sidVertexId, did, jti || `family:${sid}`, did, revokedAt, sid).run();
@@ -880,7 +880,7 @@ async function handleRefreshSession(request: Request, env: Env): Promise<Respons
 }
 
 /**
- * POST /xrpc/app.etzhayyim.auth.switchActiveDid
+ * POST /xrpc/com.etzhayyim.auth.switchActiveDid
  * Body: { activeDid }
  * Re-issues the session JWT with a different activeDid (sub-actor persona).
  * The requested DID must equal the accountDid or start with "{accountDid}:".
@@ -1100,7 +1100,7 @@ async function mintBootstrapApiKey(env: Env, accountDid: string): Promise<string
 async function buildPdsApiKeyProxyHeaders(
   env: Env,
   accountDid: string,
-  lxm: "app.etzhayyim.auth.listApiKeys" | "app.etzhayyim.auth.revokeApiKey",
+  lxm: "com.etzhayyim.auth.listApiKeys" | "com.etzhayyim.auth.revokeApiKey",
 ): Promise<Record<string, string>> {
   const privateKeyB64 = getVar(env, "SS_SERVICE_AUTH_PRIVATE_KEY");
   const publicKeyB64 = getVar(env, "SS_AUTH_PUBLIC_KEY_B64");
@@ -1125,7 +1125,7 @@ async function buildPdsApiKeyProxyHeaders(
   return headers;
 }
 
-/** Handle app.etzhayyim.auth.createApiKey locally using KEYS_DB D1. */
+/** Handle com.etzhayyim.auth.createApiKey locally using KEYS_DB D1. */
 async function handleCreateApiKeyLocal(request: Request, env: Env): Promise<Response> {
   if (!env.KEYS_DB) return jsonErr(503, "ConfigError", "KEYS_DB is required");
   try {
@@ -1169,7 +1169,7 @@ async function handleInternalVerifyApiKey(request: Request, env: Env): Promise<R
 async function proxyApiKeyManagement(
   request: Request,
   env: Env,
-  nsid: "app.etzhayyim.auth.listApiKeys" | "app.etzhayyim.auth.revokeApiKey",
+  nsid: "com.etzhayyim.auth.listApiKeys" | "com.etzhayyim.auth.revokeApiKey",
 ): Promise<Response> {
   if (!env.PDS_SERVICE || typeof env.PDS_SERVICE.fetch !== "function") {
     return jsonErr(503, "ConfigError", "PDS_SERVICE is required");
@@ -1393,7 +1393,7 @@ async function queryIdentityGraphRow(env: Env, did: string): Promise<Record<stri
   if (!env.PDS_SERVICE) return null;
   try {
     const resp = await env.PDS_SERVICE.fetch(
-      `https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.query?table=vertex_gftd_identity&did=${encodeURIComponent(did)}`,
+      `https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.query?table=vertex_gftd_identity&did=${encodeURIComponent(did)}`,
       { headers: { "x-magatama-verified": "true" } },
     );
     if (!resp.ok) return null;
@@ -1749,7 +1749,7 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
         created_at: now,
       }],
     };
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -1820,7 +1820,7 @@ async function syncAuthMethodToetzhayyimIdentity(env: Env, accountDid: string, p
         linked_at: now,
       }],
     };
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -2266,7 +2266,7 @@ async function resolveSecret(source: unknown): Promise<string> {
 // purpose='internal-subscription' via @etzhayyim/sdk donate(); see the
 // donate flow on the yatabase Studio / yoro membership UI.
 //
-// The legacy XRPC surface app.etzhayyim.auth.createSetupIntent is permanently
+// The legacy XRPC surface com.etzhayyim.auth.createSetupIntent is permanently
 // removed below (route is unregistered, not stubbed). Clients still
 // calling it will receive the Worker's 404 fallback.
 //
@@ -2388,8 +2388,8 @@ async function createPasskeyAccount(env: Env): Promise<{
           controller_did: accountetzhayyim.did,
           actor_score: 25,
           rbac_roles: '["owner"]',
-          rbac_grants: '["app.etzhayyim.apps.*"]',
-          capability_scopes: '["app.etzhayyim.apps.*"]',
+          rbac_grants: '["com.etzhayyim.apps.*"]',
+          capability_scopes: '["com.etzhayyim.apps.*"]',
           consent_model: "gnap-vp",
           pii_tier: 3,
           public_key_multibase: accountetzhayyim.publicKeyMultibase,
@@ -2409,7 +2409,7 @@ async function createPasskeyAccount(env: Env): Promise<{
           actor_score: 25,
           rbac_roles: "[]",
           rbac_grants: "[]",
-          capability_scopes: '["app.etzhayyim.apps.*.query"]',
+          capability_scopes: '["com.etzhayyim.apps.*.query"]',
           consent_model: "gnap-vp",
           pii_tier: 1,
           public_key_multibase: activeetzhayyim.publicKeyMultibase,
@@ -2442,7 +2442,7 @@ async function createPasskeyAccount(env: Env): Promise<{
       ],
     };
     // Fire-and-forget: graph write is async projection, not auth-critical
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -2616,7 +2616,7 @@ async function sessionAwareUiRoute(request: Request, env: Env): Promise<Response
   if (pathname === "/manage") {
     return Response.redirect("https://accounts.etzhayyim.com/manage", 302);
   }
-  if (pathname === "/xrpc/app.etzhayyim.auth.getSession" || pathname === "/xrpc/app.etzhayyim.authz.getSession") {
+  if (pathname === "/xrpc/com.etzhayyim.auth.getSession" || pathname === "/xrpc/com.etzhayyim.authz.getSession") {
     if (sessionValid && sessionAccount) {
       return json({
         ok: true,
@@ -2714,7 +2714,7 @@ app.get("/users/:id/did.json", async (c) => {
     },
   });
 });
-app.get("/xrpc/app.etzhayyim.auth.getConfig", async (c) =>
+app.get("/xrpc/com.etzhayyim.auth.getConfig", async (c) =>
   // Charter Rider §2 (ADR-2605192115): Stripe is permanently removed.
   // `stripePk: ""` is kept in the response shape only for backward-compat
   // with older Svelte builds that destructure it; new clients should ignore.
@@ -2731,8 +2731,8 @@ const sessionAwarePaths = [
   "/sign-up", "/sign-up/",
   "/manage", "/manage/",
   "/oauth", "/oauth/", "/oauth/authorize",
-  "/xrpc/app.etzhayyim.auth.getSession",
-  "/xrpc/app.etzhayyim.authz.getSession",
+  "/xrpc/com.etzhayyim.auth.getSession",
+  "/xrpc/com.etzhayyim.authz.getSession",
 ];
 for (const p of sessionAwarePaths) {
   app.get(p, async (c) => {
@@ -2746,10 +2746,10 @@ for (const p of sessionAwarePaths) {
 }
 
 // XRPC POST — delegate to existing handler functions (unchanged business logic).
-app.post("/xrpc/app.etzhayyim.auth.authenticate", (c) => handleAuthenticate(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.authenticate", (c) => handleAuthenticate(c.req.raw, c.env));
 app.post("/xrpc/com.atproto.server.createSession", (c) => handleCreateSession(c.req.raw, c.env));
 app.post("/xrpc/com.atproto.server.refreshSession", (c) => handleRefreshSession(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.switchActiveDid", (c) => handleSwitchActiveDid(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.switchActiveDid", (c) => handleSwitchActiveDid(c.req.raw, c.env));
 
 app.post("/xrpc/com.atproto.server.deleteSession", async (c) => {
   const request = c.req.raw;
@@ -2808,34 +2808,34 @@ app.get("/xrpc/com.atproto.server.getSession", async (c) => {
 app.post("/xrpc/com.atproto.identity.resolveDid", (c) => handleResolveDid(c.req.raw));
 app.post("/xrpc/com.atproto.identity.createDid", (c) => handleCreateDid(c.req.raw, c.env));
 app.post("/xrpc/com.atproto.server.getServiceAuth", (c) => handleGetServiceAuth(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.createAgentSession", (c) => handleCreateAgentSession(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.rotateAgentKey", (c) => handleRotateAgentKey(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.listAgentKeys", async (c) =>
+app.post("/xrpc/com.etzhayyim.auth.createAgentSession", (c) => handleCreateAgentSession(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.rotateAgentKey", (c) => handleRotateAgentKey(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.listAgentKeys", async (c) =>
   json({ did: (await parseJson<{ did: string }>(c.req.raw)).did, keys: [] }),
 );
-app.post("/xrpc/app.etzhayyim.auth.createApiKey", (c) => handleCreateApiKeyLocal(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.listApiKeys", (c) => proxyApiKeyManagement(c.req.raw, c.env, "app.etzhayyim.auth.listApiKeys"));
-app.post("/xrpc/app.etzhayyim.auth.revokeApiKey", (c) => proxyApiKeyManagement(c.req.raw, c.env, "app.etzhayyim.auth.revokeApiKey"));
+app.post("/xrpc/com.etzhayyim.auth.createApiKey", (c) => handleCreateApiKeyLocal(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.listApiKeys", (c) => proxyApiKeyManagement(c.req.raw, c.env, "com.etzhayyim.auth.listApiKeys"));
+app.post("/xrpc/com.etzhayyim.auth.revokeApiKey", (c) => proxyApiKeyManagement(c.req.raw, c.env, "com.etzhayyim.auth.revokeApiKey"));
 app.post("/internal/verify-api-key", (c) => handleInternalVerifyApiKey(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.passkeyBeginRegister", (c) => handlePasskeyBeginRegister(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.passkeyVerifyRegister", (c) => handlePasskeyVerifyRegister(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.passkeyBeginAuth", () => handlePasskeyBeginAuth());
-app.post("/xrpc/app.etzhayyim.auth.passkeyVerifyAuth", (c) => handlePasskeyVerifyAuth(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.smsOtpSend", (c) => handleSmsOtpSend(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.smsOtpVerify", (c) => handleSmsOtpVerify(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.esimProvision", (c) => handleEsimProvision(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.verifyDpop", (c) => handleVerifyDpop(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.createPlcAlias", (c) => handleCreatePlcAlias(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.resolveExternalDid", (c) => handleResolveExternalDid(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.resolveetzhayyimDid", (c) => handleResolveetzhayyimDid(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.mintChildDid", (c) => handleMintChildDid(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.passkeyBeginRegister", (c) => handlePasskeyBeginRegister(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.passkeyVerifyRegister", (c) => handlePasskeyVerifyRegister(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.passkeyBeginAuth", () => handlePasskeyBeginAuth());
+app.post("/xrpc/com.etzhayyim.auth.passkeyVerifyAuth", (c) => handlePasskeyVerifyAuth(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.smsOtpSend", (c) => handleSmsOtpSend(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.smsOtpVerify", (c) => handleSmsOtpVerify(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.esimProvision", (c) => handleEsimProvision(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.verifyDpop", (c) => handleVerifyDpop(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.createPlcAlias", (c) => handleCreatePlcAlias(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.resolveExternalDid", (c) => handleResolveExternalDid(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.resolveetzhayyimDid", (c) => handleResolveetzhayyimDid(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.mintChildDid", (c) => handleMintChildDid(c.req.raw, c.env));
 
-// Linked methods live on authz Worker — redirect legacy app.etzhayyim.auth.* paths to canonical app.etzhayyim.authz.*.
+// Linked methods live on authz Worker — redirect legacy com.etzhayyim.auth.* paths to canonical com.etzhayyim.authz.*.
 const authzRedirectMap: Record<string, string> = {
-  "/xrpc/app.etzhayyim.auth.linkEmailBegin":  "/xrpc/app.etzhayyim.authz.linkEmailBegin",
-  "/xrpc/app.etzhayyim.auth.linkEmailVerify": "/xrpc/app.etzhayyim.authz.linkEmailVerify",
-  "/xrpc/app.etzhayyim.auth.linkOAuthStart":  "/xrpc/app.etzhayyim.authz.linkOAuthStart",
-  "/xrpc/app.etzhayyim.auth.unlinkMethod":    "/xrpc/app.etzhayyim.authz.unlinkMethod",
+  "/xrpc/com.etzhayyim.auth.linkEmailBegin":  "/xrpc/com.etzhayyim.authz.linkEmailBegin",
+  "/xrpc/com.etzhayyim.auth.linkEmailVerify": "/xrpc/com.etzhayyim.authz.linkEmailVerify",
+  "/xrpc/com.etzhayyim.auth.linkOAuthStart":  "/xrpc/com.etzhayyim.authz.linkOAuthStart",
+  "/xrpc/com.etzhayyim.auth.unlinkMethod":    "/xrpc/com.etzhayyim.authz.unlinkMethod",
 };
 for (const [oldPath, newPath] of Object.entries(authzRedirectMap)) {
   app.post(oldPath, (c) => {
@@ -2865,8 +2865,8 @@ app.post("/rpc/check-revoked", (c) => handleCheckRevoked(c.req.raw, c.env));
 // branches on `valid` so it can leave anonymous traffic flowing.
 app.post("/rpc/verify-session", (c) => handleVerifySession(c.req.raw, c.env));
 app.post("/webhook/telnyx", (c) => handleTelnyxWebhook(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.createGuestAccount", (c) => handleCreateGuestAccount(c.req.raw, c.env));
-// Charter Rider §2 (ADR-2605192115): app.etzhayyim.auth.createSetupIntent removed.
+app.post("/xrpc/com.etzhayyim.auth.createGuestAccount", (c) => handleCreateGuestAccount(c.req.raw, c.env));
+// Charter Rider §2 (ADR-2605192115): com.etzhayyim.auth.createSetupIntent removed.
 // Replacement is the USDC donation flow (purpose='internal-subscription').
 
 // Fallback: static assets for unmatched GET (Svelte CSR build).

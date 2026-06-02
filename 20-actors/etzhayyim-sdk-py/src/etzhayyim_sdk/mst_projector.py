@@ -13,7 +13,7 @@ Usage::
     from etzhayyim_sdk import mst_projector
 
     result = await mst_projector.query_by_collection(
-        "app.etzhayyim.shinka.heartbeat", limit=100
+        "com.etzhayyim.shinka.heartbeat", limit=100
     )
     for record in result["records"]:
         ...
@@ -83,7 +83,7 @@ async def _call(nsid: str, body: dict[str, Any]) -> dict[str, Any]:
     """POST to ``/xrpc/<nsid>`` with JSON *body*, return parsed response.
 
     Args:
-        nsid: NSID of the endpoint (e.g. ``app.etzhayyim.mstProjector.queryByCollection``).
+        nsid: NSID of the endpoint (e.g. ``com.etzhayyim.mstProjector.queryByCollection``).
         body: Request payload that matches the lexicon input schema.
 
     Returns:
@@ -127,7 +127,7 @@ async def query_by_collection(
     """Query all records in *collection*.
 
     Args:
-        collection: AT Protocol collection NSID (e.g. ``app.etzhayyim.shinka.heartbeat``).
+        collection: AT Protocol collection NSID (e.g. ``com.etzhayyim.shinka.heartbeat``).
         limit:      Maximum records to return per page (1–1000, default 50).
         cursor:     Opaque pagination cursor returned by a previous call; omit
                     for the first page.
@@ -141,7 +141,7 @@ async def query_by_collection(
     payload: dict[str, Any] = {"collection": collection, "limit": limit}
     if cursor is not None:
         payload["cursor"] = cursor
-    return await _call("app.etzhayyim.mstProjector.queryByCollection", payload)
+    return await _call("com.etzhayyim.mstProjector.queryByCollection", payload)
 
 
 async def query_by_did(
@@ -168,7 +168,7 @@ async def query_by_did(
         payload["collection"] = collection
     if cursor is not None:
         payload["cursor"] = cursor
-    return await _call("app.etzhayyim.mstProjector.queryByDid", payload)
+    return await _call("com.etzhayyim.mstProjector.queryByDid", payload)
 
 
 async def query_by_field(
@@ -191,7 +191,7 @@ async def query_by_field(
         ``{"records": [...]}``
     """
     return await _call(
-        "app.etzhayyim.mstProjector.queryByField",
+        "com.etzhayyim.mstProjector.queryByField",
         {
             "collection": collection,
             "fieldName": field_name,
@@ -211,6 +211,6 @@ async def count_by_collection(collection: str) -> dict[str, Any]:
         ``{"count": int, "asOf": str}`` — asOf is an ISO 8601 UTC timestamp.
     """
     return await _call(
-        "app.etzhayyim.mstProjector.countByCollection",
+        "com.etzhayyim.mstProjector.countByCollection",
         {"collection": collection},
     )

@@ -34,12 +34,12 @@ let appId = "";
 //   ZMap/Masscan scheduler (daily, full /8 block sweeps)
 //     Results → s3://gftd-intel/scans/{date}/{cidr}.ndjson → batch push to ingestScanResult
 //   BGP feed processor (RouteViews + RIPE RIS bgpdump)
-//     Results → POST /xrpc/app.etzhayyim.apps.ipaddress.collectRirDelegations
+//     Results → POST /xrpc/com.etzhayyim.apps.ipaddress.collectRirDelegations
 //
 // Cloudflare Container (short-lived TCP scan, cost-efficient):
 //   Polls getScanJobs?status=queued every 60s
 //   Runs ZMap/Masscan for specific CIDR → banner grab → TLS extract
-//   Results → POST /xrpc/app.etzhayyim.apps.ipaddress.ingestScanResult
+//   Results → POST /xrpc/com.etzhayyim.apps.ipaddress.ingestScanResult
 //   Status → PATCH scanJob to "completed"
 //
 // S3/R2 raw storage (s3://gftd-intel/):
@@ -113,15 +113,15 @@ function normalizeTypedRow(row: AnyRow | null | undefined): AnyRow {
 
 function tableForCollection(collection: string): string {
   switch (collection) {
-    case "app.etzhayyim.apps.ipaddress.ipAddress":
+    case "com.etzhayyim.apps.ipaddress.ipAddress":
       return "vertex_ip_address";
-    case "app.etzhayyim.apps.ipaddress.ipRange":
+    case "com.etzhayyim.apps.ipaddress.ipRange":
       return "vertex_ipaddress_range";
-    case "app.etzhayyim.apps.ipaddress.asn":
+    case "com.etzhayyim.apps.ipaddress.asn":
       return "vertex_ipaddress_asn";
-    case "app.etzhayyim.apps.ipaddress.scanJob":
+    case "com.etzhayyim.apps.ipaddress.scanJob":
       return "vertex_ipaddress_scan_job";
-    case "app.etzhayyim.apps.ipaddress.scanResult":
+    case "com.etzhayyim.apps.ipaddress.scanResult":
       return "vertex_scan_result";
     default:
       throw new Error(`No typed table for collection ${collection}`);
@@ -152,7 +152,7 @@ async function getFirstByCollection(
 }
 
 function write(sdk: HostSDK, collection: string, rec: Record<string, unknown>): void {
-  const nsid = `app.etzhayyim.apps.ipaddress.${collection}`;
+  const nsid = `com.etzhayyim.apps.ipaddress.${collection}`;
   const pds = sdk.pds as unknown as {
     createRecord?: (collection: string, record: Record<string, unknown>) => unknown;
     dispatch?: (msg: { type: string; payload: unknown }) => unknown;
@@ -518,7 +518,7 @@ function hostsToCidr(start: string, hosts: number): string {
 
 async function cmdCollectScan(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
   // Creates a scan job in SQL. CF Container / Linode polls for "queued" jobs
-  // via GET /xrpc/app.etzhayyim.apps.ipaddress.getScanJobs?status=queued
+  // via GET /xrpc/com.etzhayyim.apps.ipaddress.getScanJobs?status=queued
   const req = decodeJson<{
     cidr?: string;        // e.g. "103.21.244.0/22"
     ports?: number[];     // e.g. [80, 443, 22, 25]
@@ -548,7 +548,7 @@ async function cmdCollectScan(sdk: HostSDK, payload: Uint8Array): Promise<unknow
 async function cmdGetScanJobs(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
   const req = decodeJson<{ status?: string; limit?: number }>(payload, {});
   const limit = Math.min(req.limit ?? 50, 100);
-  const rows = await listByCollection("app.etzhayyim.apps.ipaddress.scanJob", (query) => {
+  const rows = await listByCollection("com.etzhayyim.apps.ipaddress.scanJob", (query) => {
     let next = query;
     if (req.status) next = next.where("status", "=", req.status);
     return next.orderBy("created_at", "desc").limit(limit);
@@ -604,7 +604,7 @@ async function cmdIngestScanResult(sdk: HostSDK, payload: Uint8Array): Promise<u
   });
 
   // Ensure IPAddress node exists for the scanned host
-  const existing = await getFirstByCollection("app.etzhayyim.apps.ipaddress.ipAddress", (query) =>
+  const existing = await getFirstByCollection("com.etzhayyim.apps.ipaddress.ipAddress", (query) =>
     query.where("node_id", "=", `ip:${req.ip}`),
   );
   if (!existing) {
@@ -623,7 +623,7 @@ async function cmdGetScanResults(sdk: HostSDK, payload: Uint8Array): Promise<unk
   const req = decodeJson<{ ip?: string; port?: number; limit?: number; offset?: number }>(payload, {});
   const limit = Math.min(req.limit ?? 50, 100);
   const offset = req.offset ?? 0;
-  const rows = await listByCollection("app.etzhayyim.apps.ipaddress.scanResult", (query) => {
+  const rows = await listByCollection("com.etzhayyim.apps.ipaddress.scanResult", (query) => {
     let next = query;
     if (req.ip) next = next.where("ip", "=", req.ip);
     if (req.port) next = next.where("port", "=", req.port);
@@ -636,10 +636,10 @@ async function cmdGetAsn(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
   const req = decodeJson<{ asn?: number; name?: string }>(payload, {});
   if (!req.asn && !req.name) return { error: "asn or name required" };
   const rows = req.asn
-    ? await listByCollection("app.etzhayyim.apps.ipaddress.asn", (query) =>
+    ? await listByCollection("com.etzhayyim.apps.ipaddress.asn", (query) =>
         query.where("number", "=", req.asn).limit(1),
       )
-    : await listByCollection("app.etzhayyim.apps.ipaddress.asn", (query) =>
+    : await listByCollection("com.etzhayyim.apps.ipaddress.asn", (query) =>
         query.where("name", "ilike", `%${str(req.name ?? "").trim()}%`).limit(10),
       );
   return { asns: rows };
@@ -649,7 +649,7 @@ async function cmdListAsns(sdk: HostSDK, payload: Uint8Array): Promise<unknown> 
   const req = decodeJson<{ rir?: string; country?: string; limit?: number; offset?: number }>(payload, {});
   const limit = Math.min(req.limit ?? 50, 100);
   const offset = req.offset ?? 0;
-  const rows = await listByCollection("app.etzhayyim.apps.ipaddress.asn", (query) => {
+  const rows = await listByCollection("com.etzhayyim.apps.ipaddress.asn", (query) => {
     let next = query;
     if (req.rir) next = next.where("rir", "=", req.rir);
     if (req.country) next = next.where("country", "=", req.country);
@@ -705,7 +705,7 @@ async function cmdGetIpReputation(sdk: HostSDK, payload: Uint8Array): Promise<un
   if (!ip) return { error: "ip required" };
 
   try {
-    const res = await fetch(`https://yabai.etzhayyim.com/xrpc/app.etzhayyim.apps.yabai.getIpRisk`, {
+    const res = await fetch(`https://yabai.etzhayyim.com/xrpc/com.etzhayyim.apps.yabai.getIpRisk`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ip }),
@@ -719,10 +719,10 @@ async function cmdGetIpReputation(sdk: HostSDK, payload: Uint8Array): Promise<un
 
 async function cmdGetRirStats(sdk: HostSDK, _payload: Uint8Array): Promise<unknown> {
   const [ipRanges, asns, ips, scans] = await Promise.all([
-    listByCollection("app.etzhayyim.apps.ipaddress.ipRange"),
-    listByCollection("app.etzhayyim.apps.ipaddress.asn"),
-    listByCollection("app.etzhayyim.apps.ipaddress.ipAddress"),
-    listByCollection("app.etzhayyim.apps.ipaddress.scanResult"),
+    listByCollection("com.etzhayyim.apps.ipaddress.ipRange"),
+    listByCollection("com.etzhayyim.apps.ipaddress.asn"),
+    listByCollection("com.etzhayyim.apps.ipaddress.ipAddress"),
+    listByCollection("com.etzhayyim.apps.ipaddress.scanResult"),
   ]);
 
   const rangesByRir: Record<string, number> = {};
@@ -771,9 +771,9 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
   if (commit.action !== "create") return { ok: true };
 
   // yabai Follow: when yabai creates an entity for an IP, auto-enrich with full analysis
-  if (commit.collection === "app.etzhayyim.apps.yabai.entity") {
+  if (commit.collection === "com.etzhayyim.apps.yabai.entity") {
     try {
-      const row = await getFirstByCollection("app.etzhayyim.apps.yabai.entity", (query) =>
+      const row = await getFirstByCollection("com.etzhayyim.apps.yabai.entity", (query) =>
         query.where("rkey", "=", commit.rkey ?? "").where("entity_type", "=", "IPAddress"),
       );
       if (row) {
@@ -784,9 +784,9 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
   }
 
   // malak Follow: when malak creates infrastructure record, analyze the IP
-  if (commit.collection === "app.etzhayyim.apps.malak.actorInfrastructure") {
+  if (commit.collection === "com.etzhayyim.apps.malak.actorInfrastructure") {
     try {
-      const row = await getFirstByCollection("app.etzhayyim.apps.malak.actorInfrastructure", (query) =>
+      const row = await getFirstByCollection("com.etzhayyim.apps.malak.actorInfrastructure", (query) =>
         query.where("rkey", "=", commit.rkey ?? "").where("type", "=", "ip"),
       );
       if (row) {
@@ -814,36 +814,36 @@ export default createWorkerExport((sdk) => {
   appId = sdk.pds.selfNanoid ?? "";
   sdk.app
     // IP analysis
-    .command("app.etzhayyim.apps.ipaddress.analyzeIp", (_, b) => cmdAnalyzeIp(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.analyzeIp", (_, b) => cmdAnalyzeIp(sdk, b),
       asAgentTool("Full IP analysis: GeoIP + WHOIS RDAP + PTR + ASN"), withCapabilityTags("ip", "analyze"), withOCELEvent("collector.run"))
-    .command("app.etzhayyim.apps.ipaddress.lookupIp", (_, b) => cmdAnalyzeIp(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.lookupIp", (_, b) => cmdAnalyzeIp(sdk, b),
       asAgentTool("Lookup IP address with enrichment"), withCapabilityTags("ip", "lookup"))
-    .command("app.etzhayyim.apps.ipaddress.reverseDns", (_, b) => cmdReverseDns(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.reverseDns", (_, b) => cmdReverseDns(sdk, b),
       asAgentTool("Reverse DNS (PTR) lookup for IP"), withCapabilityTags("dns", "ptr"))
-    .command("app.etzhayyim.apps.ipaddress.getIpReputation", (_, b) => cmdGetIpReputation(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.getIpReputation", (_, b) => cmdGetIpReputation(sdk, b),
       asAgentTool("Get IP reputation from yabai risk engine"), withCapabilityTags("ip", "reputation"))
     // RIR collection
-    .command("app.etzhayyim.apps.ipaddress.collectRirDelegations", (_, b) => cmdCollectRirDelegations(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.collectRirDelegations", (_, b) => cmdCollectRirDelegations(sdk, b),
       asAgentTool("Collect RIR delegation files (APNIC/RIPE/ARIN/LACNIC/AFRINIC)"), withCapabilityTags("rir", "collect"), withOCELEvent("collector.run"))
     // ASN management
-    .command("app.etzhayyim.apps.ipaddress.getAsn", (_, b) => cmdGetAsn(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.getAsn", (_, b) => cmdGetAsn(sdk, b),
       asAgentTool("Get ASN details"), withCapabilityTags("asn", "query"))
-    .command("app.etzhayyim.apps.ipaddress.listAsns", (_, b) => cmdListAsns(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.listAsns", (_, b) => cmdListAsns(sdk, b),
       asAgentTool("List ASNs with optional RIR/country filter"), withCapabilityTags("asn", "query"))
-    .command("app.etzhayyim.apps.ipaddress.seedAsns", (_, b) => cmdSeedAsns(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.seedAsns", (_, b) => cmdSeedAsns(sdk, b),
       asAgentTool("Seed well-known ASNs (Cloudflare, Google, AWS, NTT, etc.)"), withCapabilityTags("asn", "seed"))
     // Scan orchestration (job queue for CF Container / Linode)
-    .command("app.etzhayyim.apps.ipaddress.collectScan", (_, b) => cmdCollectScan(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.collectScan", (_, b) => cmdCollectScan(sdk, b),
       asAgentTool("Create scan job for CF Container or Linode (ZMap/Masscan)"), withCapabilityTags("scan", "queue"))
-    .command("app.etzhayyim.apps.ipaddress.getScanJobs", (_, b) => cmdGetScanJobs(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.getScanJobs", (_, b) => cmdGetScanJobs(sdk, b),
       asAgentTool("List scan jobs (polled by CF Container / Linode)"), withCapabilityTags("scan", "query"))
-    .command("app.etzhayyim.apps.ipaddress.ingestScanResult", (_, b) => cmdIngestScanResult(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.ingestScanResult", (_, b) => cmdIngestScanResult(sdk, b),
       asAgentTool("Ingest port scan result from CF Container or Linode"), withCapabilityTags("scan", "ingest"))
-    .command("app.etzhayyim.apps.ipaddress.getScanResults", (_, b) => cmdGetScanResults(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.getScanResults", (_, b) => cmdGetScanResults(sdk, b),
       asAgentTool("Query stored scan results"), withCapabilityTags("scan", "query"))
     // Stats
-    .command("app.etzhayyim.apps.ipaddress.getRirStats", (_, b) => cmdGetRirStats(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.getRirStats", (_, b) => cmdGetRirStats(sdk, b),
       asAgentTool("Get RIR delegation and coverage statistics"), withCapabilityTags("rir", "stats"))
-    .command("app.etzhayyim.apps.ipaddress.registerEntityProfiles", (_, b) => cmdRegisterEntityProfiles(sdk, b),
+    .command("com.etzhayyim.apps.ipaddress.registerEntityProfiles", (_, b) => cmdRegisterEntityProfiles(sdk, b),
       asAgentTool("Register governance DID hierarchy (ITU → ICANN → RIR → NIR)"), withCapabilityTags("did", "governance"));
 });

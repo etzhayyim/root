@@ -55,9 +55,9 @@ service = "yoro-xrpc-adapter"
 # fallback — now routed through the SAME toDidDoc/toGetProfileView mappers, so
 # behaviour is identical; KV just promotes kotoba to live source of truth.
 #
-# [[kv_namespaces]]
-# binding = "ACTOR_KV"
-# id = "REPLACE_WITH_wrangler_kv_namespace_create_OUTPUT"
+[[kv_namespaces]]
+binding = "ACTOR_KV"
+id = "d33de8e083874cf5b8e2dbdb637ccdb4"
 
 [vars]
 XRPC_UNISPSC_UPSTREAM = ""
@@ -66,6 +66,11 @@ XRPC_UNISPSC_UPSTREAM = ""
 # Murakumo-mesh-internal today). Empty → Worker skips the pull and uses KV /
 # compiled. NEVER a commercial endpoint — kotoba substrate only (ADR-2605215000).
 KOTOBA_ENDPOINT = ""
+# Trustless IPFS gateway (ADR-2606014600) — UNTRUSTED upstream gateways for
+# GET /ipfs/<cid>; fetched bytes are CID-verified (sha256→CIDv1) before serving.
+# Comma-separated; `{cid}` substituted, else `<gw>/ipfs/<cid>`. Default (empty)
+# uses dweb.link + ipfs.io. Point at the etzhayyim kotoba/IPFS pin once live.
+IPFS_GATEWAYS = ""
 # AT Protocol / Bluesky stack — target the etzhayyim.com subdomain (handled by
 # etzhayyim-xrpc-proxy worker, which forwards via service binding to the
 # upstream ai-gftd-pds / ai-gftd-appview workers without hitting the

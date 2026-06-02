@@ -3,7 +3,7 @@
   "formKey": "openPorts.reportIncident.v1",
   "name": "Report Port Incident",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openPorts.reportIncident",
+  "lexiconRef": "com.etzhayyim.apps.openPorts.reportIncident",
   "components": [
     { "key": "portDid", "label": "Port DID", "type": "textfield",
       "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },

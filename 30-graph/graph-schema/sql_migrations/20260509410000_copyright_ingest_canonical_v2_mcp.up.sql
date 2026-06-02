@@ -17,29 +17,29 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-fetchCrossref',
-   0, 0, 'ai.gftd.apps.copyright.fetchCrossref', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-fetchCrossref',
+   0, 0, 'com.etzhayyim.apps.copyright.fetchCrossref', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright fetch Crossref (shelf-stocked, py_primitive grandfather in v2).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/copyright/fetchCrossref.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/copyright/fetchCrossref.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-insertCrossref',
-   0, 0, 'ai.gftd.apps.copyright.insertCrossref', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-insertCrossref',
+   0, 0, 'com.etzhayyim.apps.copyright.insertCrossref', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright insert Crossref rows (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/copyright/insertCrossref.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/copyright/insertCrossref.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-fetchDatacite',
-   0, 0, 'ai.gftd.apps.copyright.fetchDatacite', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-fetchDatacite',
+   0, 0, 'com.etzhayyim.apps.copyright.fetchDatacite', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright fetch DataCite (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/copyright/fetchDatacite.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/copyright/fetchDatacite.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-insertDatacite',
-   0, 0, 'ai.gftd.apps.copyright.insertDatacite', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-insertDatacite',
+   0, 0, 'com.etzhayyim.apps.copyright.insertDatacite', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright insert DataCite rows (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/copyright/insertDatacite.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/copyright/insertDatacite.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z');
 
 INSERT INTO vertex_langgraph_assistant
@@ -63,8 +63,8 @@ VALUES
   ('copyright_ingest.v2:insert_datacite', 0, 0, 'copyright_ingest.v2', 'insert_datacite',
    'py_primitive', 'pymagatama.langgraph_graphs.copyright_ingest:insert_datacite', NULL, '2026-05-09T00:00:00Z'), -- lint-py-primitive-ok
   ('copyright_ingest.v2:emit_audit', 0, 0, 'copyright_ingest.v2', 'emit_audit',
-   'mcp_tool', 'mcp://ai.gftd.tools.audit.emit',
-   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:copyright.etzhayyim.com","collection":"ai.gftd.apps.copyright.audit","action":"ingest"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.tools.audit.emit',
+   '{"input_keys":[],"result_key":"auditOut","args":{"name":"com.etzhayyim.tools.audit.emit","repo":"did:web:copyright.etzhayyim.com","collection":"com.etzhayyim.apps.copyright.audit","action":"ingest"}}',
    '2026-05-09T00:00:00Z');
 
 UPDATE vertex_langgraph_assistant SET superseded_by = 'copyright_ingest.v2'

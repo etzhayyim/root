@@ -7,11 +7,11 @@ interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const APP = "kamiEng";
 const NSID_PREFIXES = [
-  "app.etzhayyim.apps.kami.eda.",
-  "app.etzhayyim.apps.kami.cad.",
-  "app.etzhayyim.apps.kami.cam.",
-  "app.etzhayyim.apps.kami.rtl.",
-  "app.etzhayyim.apps.kami.cae.",
+  "com.etzhayyim.apps.kami.eda.",
+  "com.etzhayyim.apps.kami.cad.",
+  "com.etzhayyim.apps.kami.cam.",
+  "com.etzhayyim.apps.kami.rtl.",
+  "com.etzhayyim.apps.kami.cae.",
 ];
 
 export default {
@@ -24,7 +24,7 @@ export default {
         nanoid: env.APP_NANOID ?? "k4m13ng1",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/kami_eng.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/kamiEng",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kamiEng",
       });
     }
     const nsid = url.pathname.startsWith("/xrpc/") ? url.pathname.slice("/xrpc/".length) : "";

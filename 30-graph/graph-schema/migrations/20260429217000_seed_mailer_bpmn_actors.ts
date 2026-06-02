@@ -14,18 +14,18 @@ const createdAt = "2026-04-29T22:10:00+09:00";
 const actorId = "sys.bpmn.seed.mailer";
 
 const seeds: Seed[] = [
-  { slug: "health", op: "health", processId: "mailer_health", sourcePath: "00-contracts/bpmn/ai/gftd/mailer/health.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "list-emails", op: "listEmails", processId: "mailer_list_emails", sourcePath: "00-contracts/bpmn/ai/gftd/mailer/listEmails.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "list-bindings", op: "listBindings", processId: "mailer_list_bindings", sourcePath: "00-contracts/bpmn/ai/gftd/mailer/listBindings.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "stats", op: "stats", processId: "mailer_stats", sourcePath: "00-contracts/bpmn/ai/gftd/mailer/stats.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "send-email", op: "sendEmail", processId: "mailer_send_email", sourcePath: "00-contracts/bpmn/ai/gftd/mailer/sendEmail.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_mailer_outbound_email" },
-  { slug: "provision-mailbox", op: "provisionMailbox", processId: "mailer_provision_mailbox", sourcePath: "00-contracts/bpmn/ai/gftd/mailer/provisionMailbox.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_mailer_email_binding" },
-  { slug: "handle-commit", op: "handleCommit", processId: "mailer_handle_commit", sourcePath: "00-contracts/bpmn/ai/gftd/mailer/handleCommit.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "heartbeat", op: "heartbeat", processId: "mailer_heartbeat", sourcePath: "00-contracts/bpmn/ai/gftd/mailer/heartbeat.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "health", op: "health", processId: "mailer_health", sourcePath: "00-contracts/bpmn/com/etzhayyim/mailer/health.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "list-emails", op: "listEmails", processId: "mailer_list_emails", sourcePath: "00-contracts/bpmn/com/etzhayyim/mailer/listEmails.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "list-bindings", op: "listBindings", processId: "mailer_list_bindings", sourcePath: "00-contracts/bpmn/com/etzhayyim/mailer/listBindings.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "stats", op: "stats", processId: "mailer_stats", sourcePath: "00-contracts/bpmn/com/etzhayyim/mailer/stats.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "send-email", op: "sendEmail", processId: "mailer_send_email", sourcePath: "00-contracts/bpmn/com/etzhayyim/mailer/sendEmail.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_mailer_outbound_email" },
+  { slug: "provision-mailbox", op: "provisionMailbox", processId: "mailer_provision_mailbox", sourcePath: "00-contracts/bpmn/com/etzhayyim/mailer/provisionMailbox.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_mailer_email_binding" },
+  { slug: "handle-commit", op: "handleCommit", processId: "mailer_handle_commit", sourcePath: "00-contracts/bpmn/com/etzhayyim/mailer/handleCommit.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "heartbeat", op: "heartbeat", processId: "mailer_heartbeat", sourcePath: "00-contracts/bpmn/com/etzhayyim/mailer/heartbeat.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mailer-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mailer-${s.op}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mailer-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mailer-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {
@@ -54,7 +54,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did
       )
       SELECT
-        ${bindingVertexId(s)}, ${ownerDid}, ${`app.etzhayyim.apps.mailer.${s.op}`}, ${s.processId}, 1,
+        ${bindingVertexId(s)}, ${ownerDid}, ${`com.etzhayyim.apps.mailer.${s.op}`}, ${s.processId}, 1,
         CAST(${s.timeoutMs} AS integer), ${s.writeTableAllowlist}, 'active', ${createdAt},
         1, ${ownerDid}, ${ownerDid}, ${actorId}, ${ownerDid}, 'anon'
       WHERE NOT EXISTS (

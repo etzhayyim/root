@@ -63,7 +63,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.talent.listOccupations"
+        "nsid": "com.etzhayyim.apps.talent.listOccupations"
       },
       "steps": [
         {
@@ -78,7 +78,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.talent.getCohortStats"
+        "nsid": "com.etzhayyim.apps.talent.getCohortStats"
       },
       "steps": [
         {
@@ -93,7 +93,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.talent.registerSelf"
+        "nsid": "com.etzhayyim.apps.talent.registerSelf"
       },
       "steps": [
         {
@@ -146,7 +146,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.talent.forgetSelf"
+        "nsid": "com.etzhayyim.apps.talent.forgetSelf"
       },
       "steps": [
         {
@@ -164,7 +164,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.talent.stats"
+        "nsid": "com.etzhayyim.apps.talent.stats"
       },
       "steps": [
         {
@@ -223,8 +223,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -237,8 +237,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.talent.talentCohort",
-        "ai.gftd.apps.talent.talentProfile"
+        "com.etzhayyim.apps.talent.talentCohort",
+        "com.etzhayyim.apps.talent.talentProfile"
       ]
     }
   },

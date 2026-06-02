@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneModem.recordTypeApproval",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a regulatory type approval (FCC/CE/TELEC/JATE) for a modem",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["modemDid", "authority", "certificateNo", "jurisdictionIso3", "approvedAt", "ratApproved"],
+          "properties": {
+            "modemDid": { "type": "string", "format": "did" },
+            "authority": { "type": "string", "knownValues": ["fcc", "ce", "telec", "jate", "anatel", "trai", "ofcom", "other"] },
+            "certificateNo": { "type": "string" },
+            "jurisdictionIso3": { "type": "string" },
+            "approvedAt": { "type": "string" },
+            "ratApproved": { "type": "array", "items": { "type": "string" } },
+            "expiryDate": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": { "vertexId": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

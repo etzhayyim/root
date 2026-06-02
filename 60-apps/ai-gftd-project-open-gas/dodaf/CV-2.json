@@ -9,31 +9,31 @@
       {
         "id": "cap.networkDesign", "name": "Network design",
         "children": [
-          { "id": "cap.regulatorDefine", "name": "Define regulator", "realisedBy": "app.etzhayyim.apps.openGas.defineRegulator" },
-          { "id": "cap.segmentDefine",   "name": "Define pipe segment", "realisedBy": "app.etzhayyim.apps.openGas.definePipeSegment" },
-          { "id": "cap.nodeQuery",       "name": "Query node",        "realisedBy": "app.etzhayyim.apps.openGas.getNode" },
-          { "id": "cap.segmentList",     "name": "List segments",     "realisedBy": "app.etzhayyim.apps.openGas.listSegments" }
+          { "id": "cap.regulatorDefine", "name": "Define regulator", "realisedBy": "com.etzhayyim.apps.openGas.defineRegulator" },
+          { "id": "cap.segmentDefine",   "name": "Define pipe segment", "realisedBy": "com.etzhayyim.apps.openGas.definePipeSegment" },
+          { "id": "cap.nodeQuery",       "name": "Query node",        "realisedBy": "com.etzhayyim.apps.openGas.getNode" },
+          { "id": "cap.segmentList",     "name": "List segments",     "realisedBy": "com.etzhayyim.apps.openGas.listSegments" }
         ]
       },
       {
         "id": "cap.metering", "name": "Metering",
         "children": [
-          { "id": "cap.readingIngest", "name": "Ingest reading", "realisedBy": "app.etzhayyim.apps.openGas.recordReading" }
+          { "id": "cap.readingIngest", "name": "Ingest reading", "realisedBy": "com.etzhayyim.apps.openGas.recordReading" }
         ]
       },
       {
         "id": "cap.integrity", "name": "Integrity / leaks",
         "children": [
-          { "id": "cap.leakReport", "name": "Report leak", "realisedBy": "app.etzhayyim.apps.openGas.reportLeak" },
+          { "id": "cap.leakReport", "name": "Report leak", "realisedBy": "com.etzhayyim.apps.openGas.reportLeak" },
           { "id": "cap.leakClass",  "name": "Class decisioning (DOT 1/2/3)", "realisedBy": "openGas.leakClass (DMN)" },
-          { "id": "cap.leakList",   "name": "List leaks", "realisedBy": "app.etzhayyim.apps.openGas.listLeaks" }
+          { "id": "cap.leakList",   "name": "List leaks", "realisedBy": "com.etzhayyim.apps.openGas.listLeaks" }
         ]
       },
       {
         "id": "cap.pressure", "name": "Pressure surveillance",
         "children": [
-          { "id": "cap.pressureLog",  "name": "Record pressure log", "realisedBy": "app.etzhayyim.apps.openGas.recordPressureLog" },
-          { "id": "cap.pressureList", "name": "List pressure logs",  "realisedBy": "app.etzhayyim.apps.openGas.listPressureLogs" }
+          { "id": "cap.pressureLog",  "name": "Record pressure log", "realisedBy": "com.etzhayyim.apps.openGas.recordPressureLog" },
+          { "id": "cap.pressureList", "name": "List pressure logs",  "realisedBy": "com.etzhayyim.apps.openGas.listPressureLogs" }
         ]
       }
     ]

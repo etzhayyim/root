@@ -9,7 +9,7 @@ CREATE VIEW IF NOT EXISTS view_hs2012_commodity AS
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity2012';
+    WHERE collection = 'com.etzhayyim.apps.hs.commodity2012';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('hs2012', 'hs2012.etzhayyim.com', 6529, 'products', 'trade');

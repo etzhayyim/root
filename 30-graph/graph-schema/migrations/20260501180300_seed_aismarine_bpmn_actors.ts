@@ -37,37 +37,37 @@ const seeds: Seed[] = [
   {
     proc: "aisStreamConsumer",
     bpmnProcessId: "maps_aismarine_consumer",
-    nsid: "app.etzhayyim.apps.maps.aismarine.aisStreamConsumer",
+    nsid: "com.etzhayyim.apps.maps.aismarine.aisStreamConsumer",
     resultTimeoutMs: 30_000,
   },
   {
     proc: "voyageDetector",
     bpmnProcessId: "maps_aismarine_voyage_detector",
-    nsid: "app.etzhayyim.apps.maps.aismarine.voyageDetector",
+    nsid: "com.etzhayyim.apps.maps.aismarine.voyageDetector",
     resultTimeoutMs: 240_000,
   },
   {
     proc: "refreshVesselMaster",
     bpmnProcessId: "maps_aismarine_refresh_vessel_master",
-    nsid: "app.etzhayyim.apps.maps.aismarine.refreshVesselMaster",
+    nsid: "com.etzhayyim.apps.maps.aismarine.refreshVesselMaster",
     resultTimeoutMs: 240_000,
   },
   {
     proc: "refreshVesselDensity",
     bpmnProcessId: "maps_aismarine_refresh_vessel_density",
-    nsid: "app.etzhayyim.apps.maps.aismarine.refreshVesselDensity",
+    nsid: "com.etzhayyim.apps.maps.aismarine.refreshVesselDensity",
     resultTimeoutMs: 30_000,
   },
 ];
 
 const sourcePath = (s: Seed) =>
-  `00-contracts/bpmn/ai/gftd/${project}/${subdir}/${s.proc}.bpmn`;
+  `00-contracts/bpmn/com/etzhayyim/${project}/${subdir}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-aismarine-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-aismarine-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-aismarine-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-aismarine-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

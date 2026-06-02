@@ -65,10 +65,10 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.canvas.board",
-        "ai.gftd.apps.canvas.element",
-        "ai.gftd.apps.canvas.layer",
-        "ai.gftd.apps.canvas.template"
+        "com.etzhayyim.apps.canvas.board",
+        "com.etzhayyim.apps.canvas.element",
+        "com.etzhayyim.apps.canvas.layer",
+        "com.etzhayyim.apps.canvas.template"
       ]
     }
   },

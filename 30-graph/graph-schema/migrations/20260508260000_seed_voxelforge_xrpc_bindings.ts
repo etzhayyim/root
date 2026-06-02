@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 /**
  * ADR-2605080700 — seed 4 ``vertex_bpmn_lexicon_binding`` rows so
- * ``bpmn-dispatcher`` routes ``app.etzhayyim.apps.voxelforge.*`` to the
+ * ``bpmn-dispatcher`` routes ``com.etzhayyim.apps.voxelforge.*`` to the
  * voxelforge LangGraph Server pod.
  *
  * No corresponding ``vertex_bpmn_process_def`` rows are created —
@@ -20,13 +20,13 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
   const url = "http://voxelforge-langgraph.mitama-udf.svc.cluster.local:8000";
   const rows: Array<{ nsid: string; processId: string; timeoutMs: number }> = [
-    { nsid: "app.etzhayyim.apps.voxelforge.generate", processId: "voxelforge_generate", timeoutMs: 30_000 },
-    { nsid: "app.etzhayyim.apps.voxelforge.getRun", processId: "voxelforge_get_run", timeoutMs: 5_000 },
-    { nsid: "app.etzhayyim.apps.voxelforge.listArtifacts", processId: "voxelforge_list_artifacts", timeoutMs: 5_000 },
-    { nsid: "app.etzhayyim.apps.voxelforge.coverage", processId: "voxelforge_coverage", timeoutMs: 5_000 },
+    { nsid: "com.etzhayyim.apps.voxelforge.generate", processId: "voxelforge_generate", timeoutMs: 30_000 },
+    { nsid: "com.etzhayyim.apps.voxelforge.getRun", processId: "voxelforge_get_run", timeoutMs: 5_000 },
+    { nsid: "com.etzhayyim.apps.voxelforge.listArtifacts", processId: "voxelforge_list_artifacts", timeoutMs: 5_000 },
+    { nsid: "com.etzhayyim.apps.voxelforge.coverage", processId: "voxelforge_coverage", timeoutMs: 5_000 },
   ];
   for (const r of rows) {
-    const vid = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${r.nsid}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${r.nsid}`;
     await sql`
       INSERT INTO vertex_bpmn_lexicon_binding (
         vertex_id, sensitivity_ord, owner_did,
@@ -45,10 +45,10 @@ export async function down(db: Kysely<unknown>): Promise<void> {
   await sql`
     DELETE FROM vertex_bpmn_lexicon_binding
     WHERE nsid IN (
-      'app.etzhayyim.apps.voxelforge.generate',
-      'app.etzhayyim.apps.voxelforge.getRun',
-      'app.etzhayyim.apps.voxelforge.listArtifacts',
-      'app.etzhayyim.apps.voxelforge.coverage'
+      'com.etzhayyim.apps.voxelforge.generate',
+      'com.etzhayyim.apps.voxelforge.getRun',
+      'com.etzhayyim.apps.voxelforge.listArtifacts',
+      'com.etzhayyim.apps.voxelforge.coverage'
     )
   `.execute(db);
 }

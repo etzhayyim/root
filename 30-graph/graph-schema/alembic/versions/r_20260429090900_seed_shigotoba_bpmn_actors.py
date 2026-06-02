@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shigotoba-ingestJobs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shigotoba-ingestJobs-v1',
                  'did:web:shigotoba.etzhayyim.com',
                  'shigotoba_ingest_jobs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -83,12 +83,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2285,
-                 '00-contracts/bpmn/ai/gftd/shigotoba/ingestJobs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shigotoba/ingestJobs.bpmn',
                  '2026-04-29T09:09:00Z',
                  'did:web:shigotoba.etzhayyim.com',
                  'did:web:shigotoba.etzhayyim.com',
                  'sys.bpmn.seed.shigotoba',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shigotoba-ingestJobs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shigotoba-ingestJobs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -102,16 +102,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shigotoba-ingestJobs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shigotoba-ingestJobs-v1',
                  'did:web:shigotoba.etzhayyim.com',
-                 'app.etzhayyim.apps.shigotoba.ingestJobs',
+                 'com.etzhayyim.apps.shigotoba.ingestJobs',
                  'shigotoba_ingest_jobs',
                  600000,
                  '2026-04-29T09:09:00Z',
                  'did:web:shigotoba.etzhayyim.com',
                  'did:web:shigotoba.etzhayyim.com',
                  'sys.bpmn.seed.shigotoba',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shigotoba-ingestJobs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shigotoba-ingestJobs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -125,7 +125,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shigotoba-summarize-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shigotoba-summarize-v1',
                  'did:web:shigotoba.etzhayyim.com',
                  'shigotoba_summarize',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -213,12 +213,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3820,
-                 '00-contracts/bpmn/ai/gftd/shigotoba/summarize.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shigotoba/summarize.bpmn',
                  '2026-04-29T09:09:00Z',
                  'did:web:shigotoba.etzhayyim.com',
                  'did:web:shigotoba.etzhayyim.com',
                  'sys.bpmn.seed.shigotoba',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shigotoba-summarize-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shigotoba-summarize-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -232,25 +232,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shigotoba-summarize-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shigotoba-summarize-v1',
                  'did:web:shigotoba.etzhayyim.com',
-                 'app.etzhayyim.apps.shigotoba.summarize',
+                 'com.etzhayyim.apps.shigotoba.summarize',
                  'shigotoba_summarize',
                  180000,
                  '2026-04-29T09:09:00Z',
                  'did:web:shigotoba.etzhayyim.com',
                  'did:web:shigotoba.etzhayyim.com',
                  'sys.bpmn.seed.shigotoba',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shigotoba-summarize-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shigotoba-summarize-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shigotoba-ingestJobs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shigotoba-ingestJobs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shigotoba-ingestJobs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shigotoba-ingestJobs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shigotoba-summarize-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shigotoba-summarize-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shigotoba-summarize-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shigotoba-summarize-v1']}]
 
 
 def upgrade() -> None:

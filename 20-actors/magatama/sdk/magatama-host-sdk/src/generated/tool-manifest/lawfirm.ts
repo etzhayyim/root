@@ -89,7 +89,7 @@ export const InputScheduleHearing = z.object({ matterDid: z.string(), courtId: z
 
 export const OutputScheduleHearing = z.object({ hearingDid: z.string(), uri: z.string(), saibanJikenRef: z.string(), materialHashProof: z.string().optional() }).openapi("LawfirmScheduleHearingOutput");
 
-export const InputSubmitFiling = z.object({ caseDid: z.string(), filingType: z.enum(["plaint", "complaint", "vakalatnama", "written-statement", "rejoinder", "interim-application", "appeal", "review", "writ-petition", "evidence-affidavit", "exhibit"] as const), courtDid: z.string(), vaultItemId: z.string().describe("app.etzhayyim.vault.* item id holding ciphertext PDF/scan"), filedAt: z.string().datetime({ offset: true }).optional(), feeAmount: z.number().optional(), feeCurrency: z.string().default("INR").optional(), lang: z.string().describe("Filing language (court of record requires en/hi or state language)").optional() }).openapi("LawfirmSubmitFilingInput");
+export const InputSubmitFiling = z.object({ caseDid: z.string(), filingType: z.enum(["plaint", "complaint", "vakalatnama", "written-statement", "rejoinder", "interim-application", "appeal", "review", "writ-petition", "evidence-affidavit", "exhibit"] as const), courtDid: z.string(), vaultItemId: z.string().describe("com.etzhayyim.vault.* item id holding ciphertext PDF/scan"), filedAt: z.string().datetime({ offset: true }).optional(), feeAmount: z.number().optional(), feeCurrency: z.string().default("INR").optional(), lang: z.string().describe("Filing language (court of record requires en/hi or state language)").optional() }).openapi("LawfirmSubmitFilingInput");
 
 export const OutputSubmitFiling = z.object({ did: z.string(), uri: z.string(), filingNumber: z.string().optional(), ackAt: z.string().datetime({ offset: true }).optional() }).openapi("LawfirmSubmitFilingOutput");
 
@@ -121,7 +121,7 @@ export const OutputUploadDocument = z.object({ documentDid: z.string(), uri: z.s
 
 export const RouteAcceptExternalCounsel = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.acceptExternalCounsel",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.acceptExternalCounsel",
 	operationId: "ai_gftd_apps_lawfirm_acceptExternalCounsel",
 	tags: ["lawfirm"],
 	summary: "External counsel accepts an externalCounselGrant. Caller must authenticate as granteeDid. Server flips grant status from 'invited' → 'accepted' and vault-wraps the matter document keys for the grantee (ECIES X25519+HKDF+AES-KW).",
@@ -140,7 +140,7 @@ export const RouteAcceptExternalCounsel = createRoute({
 
 export const RouteCloseMatter = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.closeMatter",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.closeMatter",
 	operationId: "ai_gftd_apps_lawfirm_closeMatter",
 	tags: ["lawfirm"],
 	summary: "Close a matter. Server (1) checks no open hearings / unpaid invoices / pending-review documents, (2) revokes all active externalCounselGrant under the matter (ADR-0029 cascade), (3) sets matter.status='closed' + closedAt, (4) optional final report derive.",
@@ -159,7 +159,7 @@ export const RouteCloseMatter = createRoute({
 
 export const RouteCreateCase = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.createCase",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.createCase",
 	operationId: "ai_gftd_apps_lawfirm_createCase",
 	tags: ["lawfirm"],
 	summary: "Open a new client matter at lawfirm.etzhayyim.com. Routes to service cohort actor did:web:lawfirm.etzhayyim.com:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
@@ -178,10 +178,10 @@ export const RouteCreateCase = createRoute({
 
 export const RouteCreateMatter = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.createMatter",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.createMatter",
 	operationId: "ai_gftd_apps_lawfirm_createMatter",
 	tags: ["lawfirm"],
-	summary: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:gftd:{firm}:{matterHash}) via app.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/app.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
+	summary: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:gftd:{firm}:{matterHash}) via com.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/com.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
 	request: { body: { content: { "application/json": { schema: InputCreateMatter } }, required: true } },
 	responses: {
 		200: {
@@ -197,7 +197,7 @@ export const RouteCreateMatter = createRoute({
 
 export const RouteGetCaseStatus = createRoute({
 	method: "get",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.getCaseStatus",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.getCaseStatus",
 	operationId: "ai_gftd_apps_lawfirm_getCaseStatus",
 	tags: ["lawfirm"],
 	summary: "Fetch latest status + event timeline for a case. Reads from RisingWave streaming MV (graphar.vertex_lawfirmCase + edge_caseEvent).",
@@ -216,10 +216,10 @@ export const RouteGetCaseStatus = createRoute({
 
 export const RouteInviteExternalCounsel = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.inviteExternalCounsel",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.inviteExternalCounsel",
 	operationId: "ai_gftd_apps_lawfirm_inviteExternalCounsel",
 	tags: ["lawfirm"],
-	summary: "Invite an external bengoshi (possibly from a different firm) to collaborate on a specific matter. Server: (1) runs conflict scan against matter counterparties, (2) mints a grant DID via app.etzhayyim.auth.mintChildDid under matterDid, (3) writes externalCounselGrant record in 'invited' status, (4) sends W Protocol DM with consent.request card. Ethical wall enforced at hash-prefix level (ADR-0029).",
+	summary: "Invite an external bengoshi (possibly from a different firm) to collaborate on a specific matter. Server: (1) runs conflict scan against matter counterparties, (2) mints a grant DID via com.etzhayyim.auth.mintChildDid under matterDid, (3) writes externalCounselGrant record in 'invited' status, (4) sends W Protocol DM with consent.request card. Ethical wall enforced at hash-prefix level (ADR-0029).",
 	request: { body: { content: { "application/json": { schema: InputInviteExternalCounsel } }, required: true } },
 	responses: {
 		200: {
@@ -235,10 +235,10 @@ export const RouteInviteExternalCounsel = createRoute({
 
 export const RouteIssueInvoice = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.issueInvoice",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.issueInvoice",
 	operationId: "ai_gftd_apps_lawfirm_issueInvoice",
 	tags: ["lawfirm"],
-	summary: "Generate an invoice from approved timeEntry records for a matter over a period. Server (1) selects timeEntry where status='approved' AND matter+period match, (2) mints invoiceDid via app.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=invoicePdfCid), (3) writes invoice record status='draft', (4) flips selected timeEntry status='billed' with invoiceRef. PDF rendering is optional and asynchronous.",
+	summary: "Generate an invoice from approved timeEntry records for a matter over a period. Server (1) selects timeEntry where status='approved' AND matter+period match, (2) mints invoiceDid via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=invoicePdfCid), (3) writes invoice record status='draft', (4) flips selected timeEntry status='billed' with invoiceRef. PDF rendering is optional and asynchronous.",
 	request: { body: { content: { "application/json": { schema: InputIssueInvoice } }, required: true } },
 	responses: {
 		200: {
@@ -254,7 +254,7 @@ export const RouteIssueInvoice = createRoute({
 
 export const RouteListCases = createRoute({
 	method: "get",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.listCases",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.listCases",
 	operationId: "ai_gftd_apps_lawfirm_listCases",
 	tags: ["lawfirm"],
 	summary: "List cases scoped by cohort / geo / lang / domain. Default 50, max 200.",
@@ -273,7 +273,7 @@ export const RouteListCases = createRoute({
 
 export const RouteListConflictChecks = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.listConflictChecks",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.listConflictChecks",
 	operationId: "ai_gftd_apps_lawfirm_listConflictChecks",
 	tags: ["lawfirm"],
 	summary: "List conflict-of-interest scan history for a matter. Reads view_lawfirm_conflict_findings. Ordered by scannedAt DESC so the first row is the most recent scan (used by the UI to surface the current header badge).",
@@ -292,7 +292,7 @@ export const RouteListConflictChecks = createRoute({
 
 export const RouteListGrants = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.listGrants",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.listGrants",
 	operationId: "ai_gftd_apps_lawfirm_listGrants",
 	tags: ["lawfirm"],
 	summary: "List external counsel grants (optionally filtered by matterDid). Reads view_lawfirm_external_counsel_access — joins grant identity with parent matter revocation cascade (ADR-0029).",
@@ -311,7 +311,7 @@ export const RouteListGrants = createRoute({
 
 export const RouteListInvoices = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.listInvoices",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.listInvoices",
 	operationId: "ai_gftd_apps_lawfirm_listInvoices",
 	tags: ["lawfirm"],
 	summary: "List invoices for a matter (or firm-wide). Reads view_lawfirm_invoice_ageing which surfaces subtotal/tax/total, dueAt, status, and a derived ageing bucket (current / dueSoon / overdue30 / overdue60 / overdue90).",
@@ -330,7 +330,7 @@ export const RouteListInvoices = createRoute({
 
 export const RouteListMatters = createRoute({
 	method: "get",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.listMatters",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.listMatters",
 	operationId: "ai_gftd_apps_lawfirm_listMatters",
 	tags: ["lawfirm"],
 	summary: "List law firm matters with offset/limit pagination, optional filters.",
@@ -349,7 +349,7 @@ export const RouteListMatters = createRoute({
 
 export const RouteRecordTimeEntry = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.recordTimeEntry",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.recordTimeEntry",
 	operationId: "ai_gftd_apps_lawfirm_recordTimeEntry",
 	tags: ["lawfirm"],
 	summary: "Record a billable time entry against a matter (タイムシート).",
@@ -368,7 +368,7 @@ export const RouteRecordTimeEntry = createRoute({
 
 export const RouteRegisterLawfirm = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.registerLawfirm",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.registerLawfirm",
 	operationId: "ai_gftd_apps_lawfirm_registerLawfirm",
 	tags: ["lawfirm"],
 	summary: "Register a law firm. Path-based DID: did:web:lawfirm.etzhayyim.com:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
@@ -387,7 +387,7 @@ export const RouteRegisterLawfirm = createRoute({
 
 export const RouteRequestConsult = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.requestConsult",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.requestConsult",
 	operationId: "ai_gftd_apps_lawfirm_requestConsult",
 	tags: ["lawfirm"],
 	summary: "Initial intake. Routes through triage cohort → service cohort (ADR-0026). No PII in AT Repo; PII to Preferences tier 3.",
@@ -406,7 +406,7 @@ export const RouteRequestConsult = createRoute({
 
 export const RouteRespondConsult = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.respondConsult",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.respondConsult",
 	operationId: "ai_gftd_apps_lawfirm_respondConsult",
 	tags: ["lawfirm"],
 	summary: "Lawyer / agent response to a consult. Field-level encrypted (signal:v1:) — attorney-client privilege.",
@@ -425,7 +425,7 @@ export const RouteRespondConsult = createRoute({
 
 export const RouteRevokeExternalCounsel = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.revokeExternalCounsel",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.revokeExternalCounsel",
 	operationId: "ai_gftd_apps_lawfirm_revokeExternalCounsel",
 	tags: ["lawfirm"],
 	summary: "Terminate an external counsel grant. Sets vertex_gftd_identity.revoked_at on the grant DID — ADR-0029 ancestor cascade automatically invalidates all descendants (sessions, per-document capabilities). Vault document keys for the grantee become unwrap-impossible. Revocation is irreversible.",
@@ -444,7 +444,7 @@ export const RouteRevokeExternalCounsel = createRoute({
 
 export const RouteRunConflictCheck = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.runConflictCheck",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.runConflictCheck",
 	operationId: "ai_gftd_apps_lawfirm_runConflictCheck",
 	tags: ["lawfirm"],
 	summary: "Run a conflict-of-interest scan and write a conflictCheck record. Two modes:\n  - matterIntake: evaluate a prospective matter's counterparties against the firm's active matter portfolio + prior representation history.\n  - externalCounselInvite: verify a candidate grantee DID does not belong to a counterparty org (reverse scan).\nThe returned result may be {clear, disclosureRequired, waivable, blocked}. When blocked the caller MUST NOT advance matter.status past 'conflictCheck' or proceed with inviteExternalCounsel.",
@@ -463,10 +463,10 @@ export const RouteRunConflictCheck = createRoute({
 
 export const RouteScheduleHearing = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.scheduleHearing",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.scheduleHearing",
 	operationId: "ai_gftd_apps_lawfirm_scheduleHearing",
 	tags: ["lawfirm"],
-	summary: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:gftd:{firm}:{matter}:{hearing} via app.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
+	summary: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:gftd:{firm}:{matter}:{hearing} via com.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
 	request: { body: { content: { "application/json": { schema: InputScheduleHearing } }, required: true } },
 	responses: {
 		200: {
@@ -482,7 +482,7 @@ export const RouteScheduleHearing = createRoute({
 
 export const RouteSubmitFiling = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.submitFiling",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.submitFiling",
 	operationId: "ai_gftd_apps_lawfirm_submitFiling",
 	tags: ["lawfirm"],
 	summary: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.etzhayyim.com). AT Repo holds metadata + Vault item id only.",
@@ -501,7 +501,7 @@ export const RouteSubmitFiling = createRoute({
 
 export const RouteTrackFiling = createRoute({
 	method: "get",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.trackFiling",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.trackFiling",
 	operationId: "ai_gftd_apps_lawfirm_trackFiling",
 	tags: ["lawfirm"],
 	summary: "Track court filing status (registry acceptance, defect notice, listing, hearing date).",
@@ -520,7 +520,7 @@ export const RouteTrackFiling = createRoute({
 
 export const RouteTranslateFromLang = createRoute({
 	method: "get",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.translateFromLang",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.translateFromLang",
 	operationId: "ai_gftd_apps_lawfirm_translateFromLang",
 	tags: ["lawfirm"],
 	summary: "Translate a regional-language text into en (court of record) or hi. Inverse of translateToLang.",
@@ -539,7 +539,7 @@ export const RouteTranslateFromLang = createRoute({
 
 export const RouteTranslateToLang = createRoute({
 	method: "get",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.translateToLang",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.translateToLang",
 	operationId: "ai_gftd_apps_lawfirm_translateToLang",
 	tags: ["lawfirm"],
 	summary: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.etzhayyim.com:lang:{targetLang} actor (Murakumo MLX backend).",
@@ -558,10 +558,10 @@ export const RouteTranslateToLang = createRoute({
 
 export const RouteUpdateCase = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.updateCase",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.updateCase",
 	operationId: "ai_gftd_apps_lawfirm_updateCase",
 	tags: ["lawfirm"],
-	summary: "Append a status transition or note to an existing case. Write-only derived (260407): handler writes app.etzhayyim.apps.lawfirm.caseEvent record; downstream notification + projector derive from magatama.jsonld rule.",
+	summary: "Append a status transition or note to an existing case. Write-only derived (260407): handler writes com.etzhayyim.apps.lawfirm.caseEvent record; downstream notification + projector derive from magatama.jsonld rule.",
 	request: { body: { content: { "application/json": { schema: InputUpdateCase } }, required: true } },
 	responses: {
 		200: {
@@ -577,7 +577,7 @@ export const RouteUpdateCase = createRoute({
 
 export const RouteUpdateMatterStatus = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.updateMatterStatus",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.updateMatterStatus",
 	operationId: "ai_gftd_apps_lawfirm_updateMatterStatus",
 	tags: ["lawfirm"],
 	summary: "Transition a matter's lifecycle status. Enforces allowed transitions:\n  intake          → conflictCheck / engaged / withdrawn\n  conflictCheck   → engaged (requires conflictCheck.result IN {clear, disclosureRequired, waivable}) / withdrawn\n  engaged         → filed / closed (settled) / archived\n  filed           → hearing / judgment / withdrawn\n  hearing         → trial / judgment / conciliated\n  trial           → judgment\n  judgment        → appeal / execution / closed\n  appeal          → judgment / closed\n  execution       → closed\nReverse transitions are rejected. Use closeMatter for the terminal close flow (which performs open-blocker checks + grant cascade revoke).",
@@ -596,10 +596,10 @@ export const RouteUpdateMatterStatus = createRoute({
 
 export const RouteUploadDocument = createRoute({
 	method: "post",
-	path: "/xrpc/app.etzhayyim.apps.lawfirm.uploadDocument",
+	path: "/xrpc/com.etzhayyim.apps.lawfirm.uploadDocument",
 	operationId: "ai_gftd_apps_lawfirm_uploadDocument",
 	tags: ["lawfirm"],
-	summary: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:gftd:{firm}:{matter}:{doc} via app.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
+	summary: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:gftd:{firm}:{matter}:{doc} via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
 	request: { body: { content: { "application/json": { schema: InputUploadDocument } }, required: true } },
 	responses: {
 		200: {
@@ -618,32 +618,32 @@ export const RouteUploadDocument = createRoute({
 export const ROUTES = [RouteAcceptExternalCounsel, RouteCloseMatter, RouteCreateCase, RouteCreateMatter, RouteGetCaseStatus, RouteInviteExternalCounsel, RouteIssueInvoice, RouteListCases, RouteListConflictChecks, RouteListGrants, RouteListInvoices, RouteListMatters, RouteRecordTimeEntry, RouteRegisterLawfirm, RouteRequestConsult, RouteRespondConsult, RouteRevokeExternalCounsel, RouteRunConflictCheck, RouteScheduleHearing, RouteSubmitFiling, RouteTrackFiling, RouteTranslateFromLang, RouteTranslateToLang, RouteUpdateCase, RouteUpdateMatterStatus, RouteUploadDocument] as const;
 
 export const ROUTE_BY_NSID = {
-	"app.etzhayyim.apps.lawfirm.acceptExternalCounsel": RouteAcceptExternalCounsel,
-	"app.etzhayyim.apps.lawfirm.closeMatter": RouteCloseMatter,
-	"app.etzhayyim.apps.lawfirm.createCase": RouteCreateCase,
-	"app.etzhayyim.apps.lawfirm.createMatter": RouteCreateMatter,
-	"app.etzhayyim.apps.lawfirm.getCaseStatus": RouteGetCaseStatus,
-	"app.etzhayyim.apps.lawfirm.inviteExternalCounsel": RouteInviteExternalCounsel,
-	"app.etzhayyim.apps.lawfirm.issueInvoice": RouteIssueInvoice,
-	"app.etzhayyim.apps.lawfirm.listCases": RouteListCases,
-	"app.etzhayyim.apps.lawfirm.listConflictChecks": RouteListConflictChecks,
-	"app.etzhayyim.apps.lawfirm.listGrants": RouteListGrants,
-	"app.etzhayyim.apps.lawfirm.listInvoices": RouteListInvoices,
-	"app.etzhayyim.apps.lawfirm.listMatters": RouteListMatters,
-	"app.etzhayyim.apps.lawfirm.recordTimeEntry": RouteRecordTimeEntry,
-	"app.etzhayyim.apps.lawfirm.registerLawfirm": RouteRegisterLawfirm,
-	"app.etzhayyim.apps.lawfirm.requestConsult": RouteRequestConsult,
-	"app.etzhayyim.apps.lawfirm.respondConsult": RouteRespondConsult,
-	"app.etzhayyim.apps.lawfirm.revokeExternalCounsel": RouteRevokeExternalCounsel,
-	"app.etzhayyim.apps.lawfirm.runConflictCheck": RouteRunConflictCheck,
-	"app.etzhayyim.apps.lawfirm.scheduleHearing": RouteScheduleHearing,
-	"app.etzhayyim.apps.lawfirm.submitFiling": RouteSubmitFiling,
-	"app.etzhayyim.apps.lawfirm.trackFiling": RouteTrackFiling,
-	"app.etzhayyim.apps.lawfirm.translateFromLang": RouteTranslateFromLang,
-	"app.etzhayyim.apps.lawfirm.translateToLang": RouteTranslateToLang,
-	"app.etzhayyim.apps.lawfirm.updateCase": RouteUpdateCase,
-	"app.etzhayyim.apps.lawfirm.updateMatterStatus": RouteUpdateMatterStatus,
-	"app.etzhayyim.apps.lawfirm.uploadDocument": RouteUploadDocument,
+	"com.etzhayyim.apps.lawfirm.acceptExternalCounsel": RouteAcceptExternalCounsel,
+	"com.etzhayyim.apps.lawfirm.closeMatter": RouteCloseMatter,
+	"com.etzhayyim.apps.lawfirm.createCase": RouteCreateCase,
+	"com.etzhayyim.apps.lawfirm.createMatter": RouteCreateMatter,
+	"com.etzhayyim.apps.lawfirm.getCaseStatus": RouteGetCaseStatus,
+	"com.etzhayyim.apps.lawfirm.inviteExternalCounsel": RouteInviteExternalCounsel,
+	"com.etzhayyim.apps.lawfirm.issueInvoice": RouteIssueInvoice,
+	"com.etzhayyim.apps.lawfirm.listCases": RouteListCases,
+	"com.etzhayyim.apps.lawfirm.listConflictChecks": RouteListConflictChecks,
+	"com.etzhayyim.apps.lawfirm.listGrants": RouteListGrants,
+	"com.etzhayyim.apps.lawfirm.listInvoices": RouteListInvoices,
+	"com.etzhayyim.apps.lawfirm.listMatters": RouteListMatters,
+	"com.etzhayyim.apps.lawfirm.recordTimeEntry": RouteRecordTimeEntry,
+	"com.etzhayyim.apps.lawfirm.registerLawfirm": RouteRegisterLawfirm,
+	"com.etzhayyim.apps.lawfirm.requestConsult": RouteRequestConsult,
+	"com.etzhayyim.apps.lawfirm.respondConsult": RouteRespondConsult,
+	"com.etzhayyim.apps.lawfirm.revokeExternalCounsel": RouteRevokeExternalCounsel,
+	"com.etzhayyim.apps.lawfirm.runConflictCheck": RouteRunConflictCheck,
+	"com.etzhayyim.apps.lawfirm.scheduleHearing": RouteScheduleHearing,
+	"com.etzhayyim.apps.lawfirm.submitFiling": RouteSubmitFiling,
+	"com.etzhayyim.apps.lawfirm.trackFiling": RouteTrackFiling,
+	"com.etzhayyim.apps.lawfirm.translateFromLang": RouteTranslateFromLang,
+	"com.etzhayyim.apps.lawfirm.translateToLang": RouteTranslateToLang,
+	"com.etzhayyim.apps.lawfirm.updateCase": RouteUpdateCase,
+	"com.etzhayyim.apps.lawfirm.updateMatterStatus": RouteUpdateMatterStatus,
+	"com.etzhayyim.apps.lawfirm.uploadDocument": RouteUploadDocument,
 } as const;
 
 // ── MCP tools/list (raw JSON Schema, per MCP spec) ──
@@ -651,7 +651,7 @@ export const ROUTE_BY_NSID = {
 export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 [
 	{
-		name: "app.etzhayyim.apps.lawfirm.acceptExternalCounsel",
+		name: "com.etzhayyim.apps.lawfirm.acceptExternalCounsel",
 		description: "External counsel accepts an externalCounselGrant. Caller must authenticate as granteeDid. Server flips grant status from 'invited' → 'accepted' and vault-wraps the matter document keys for the grantee (ECIES X25519+HKDF+AES-KW).",
 		inputSchema: {
 			type: "object",
@@ -672,7 +672,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.closeMatter",
+		name: "com.etzhayyim.apps.lawfirm.closeMatter",
 		description: "Close a matter. Server (1) checks no open hearings / unpaid invoices / pending-review documents, (2) revokes all active externalCounselGrant under the matter (ADR-0029 cascade), (3) sets matter.status='closed' + closedAt, (4) optional final report derive.",
 		inputSchema: {
 			type: "object",
@@ -710,7 +710,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.createCase",
+		name: "com.etzhayyim.apps.lawfirm.createCase",
 		description: "Open a new client matter at lawfirm.etzhayyim.com. Routes to service cohort actor did:web:lawfirm.etzhayyim.com:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
 		inputSchema: {
 			type: "object",
@@ -777,8 +777,8 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.createMatter",
-		description: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:gftd:{firm}:{matterHash}) via app.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/app.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
+		name: "com.etzhayyim.apps.lawfirm.createMatter",
+		description: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:gftd:{firm}:{matterHash}) via com.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/com.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -891,7 +891,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.getCaseStatus",
+		name: "com.etzhayyim.apps.lawfirm.getCaseStatus",
 		description: "Fetch latest status + event timeline for a case. Reads from RisingWave streaming MV (graphar.vertex_lawfirmCase + edge_caseEvent).",
 		inputSchema: {
 			type: "object",
@@ -911,8 +911,8 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.inviteExternalCounsel",
-		description: "Invite an external bengoshi (possibly from a different firm) to collaborate on a specific matter. Server: (1) runs conflict scan against matter counterparties, (2) mints a grant DID via app.etzhayyim.auth.mintChildDid under matterDid, (3) writes externalCounselGrant record in 'invited' status, (4) sends W Protocol DM with consent.request card. Ethical wall enforced at hash-prefix level (ADR-0029).",
+		name: "com.etzhayyim.apps.lawfirm.inviteExternalCounsel",
+		description: "Invite an external bengoshi (possibly from a different firm) to collaborate on a specific matter. Server: (1) runs conflict scan against matter counterparties, (2) mints a grant DID via com.etzhayyim.auth.mintChildDid under matterDid, (3) writes externalCounselGrant record in 'invited' status, (4) sends W Protocol DM with consent.request card. Ethical wall enforced at hash-prefix level (ADR-0029).",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -971,8 +971,8 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.issueInvoice",
-		description: "Generate an invoice from approved timeEntry records for a matter over a period. Server (1) selects timeEntry where status='approved' AND matter+period match, (2) mints invoiceDid via app.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=invoicePdfCid), (3) writes invoice record status='draft', (4) flips selected timeEntry status='billed' with invoiceRef. PDF rendering is optional and asynchronous.",
+		name: "com.etzhayyim.apps.lawfirm.issueInvoice",
+		description: "Generate an invoice from approved timeEntry records for a matter over a period. Server (1) selects timeEntry where status='approved' AND matter+period match, (2) mints invoiceDid via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=invoicePdfCid), (3) writes invoice record status='draft', (4) flips selected timeEntry status='billed' with invoiceRef. PDF rendering is optional and asynchronous.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -1052,7 +1052,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.listCases",
+		name: "com.etzhayyim.apps.lawfirm.listCases",
 		description: "List cases scoped by cohort / geo / lang / domain. Default 50, max 200.",
 		inputSchema: {
 			type: "object",
@@ -1086,7 +1086,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.listConflictChecks",
+		name: "com.etzhayyim.apps.lawfirm.listConflictChecks",
 		description: "List conflict-of-interest scan history for a matter. Reads view_lawfirm_conflict_findings. Ordered by scannedAt DESC so the first row is the most recent scan (used by the UI to surface the current header badge).",
 		inputSchema: {
 			type: "object",
@@ -1130,7 +1130,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.listGrants",
+		name: "com.etzhayyim.apps.lawfirm.listGrants",
 		description: "List external counsel grants (optionally filtered by matterDid). Reads view_lawfirm_external_counsel_access — joins grant identity with parent matter revocation cascade (ADR-0029).",
 		inputSchema: {
 			type: "object",
@@ -1160,7 +1160,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.listInvoices",
+		name: "com.etzhayyim.apps.lawfirm.listInvoices",
 		description: "List invoices for a matter (or firm-wide). Reads view_lawfirm_invoice_ageing which surfaces subtotal/tax/total, dueAt, status, and a derived ageing bucket (current / dueSoon / overdue30 / overdue60 / overdue90).",
 		inputSchema: {
 			type: "object",
@@ -1209,7 +1209,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.listMatters",
+		name: "com.etzhayyim.apps.lawfirm.listMatters",
 		description: "List law firm matters with offset/limit pagination, optional filters.",
 		inputSchema: {
 			type: "object",
@@ -1253,7 +1253,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.recordTimeEntry",
+		name: "com.etzhayyim.apps.lawfirm.recordTimeEntry",
 		description: "Record a billable time entry against a matter (タイムシート).",
 		inputSchema: {
 			type: "object",
@@ -1301,7 +1301,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.registerLawfirm",
+		name: "com.etzhayyim.apps.lawfirm.registerLawfirm",
 		description: "Register a law firm. Path-based DID: did:web:lawfirm.etzhayyim.com:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
 		inputSchema: {
 			type: "object",
@@ -1356,7 +1356,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.requestConsult",
+		name: "com.etzhayyim.apps.lawfirm.requestConsult",
 		description: "Initial intake. Routes through triage cohort → service cohort (ADR-0026). No PII in AT Repo; PII to Preferences tier 3.",
 		inputSchema: {
 			type: "object",
@@ -1395,7 +1395,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.respondConsult",
+		name: "com.etzhayyim.apps.lawfirm.respondConsult",
 		description: "Lawyer / agent response to a consult. Field-level encrypted (signal:v1:) — attorney-client privilege.",
 		inputSchema: {
 			type: "object",
@@ -1434,7 +1434,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.revokeExternalCounsel",
+		name: "com.etzhayyim.apps.lawfirm.revokeExternalCounsel",
 		description: "Terminate an external counsel grant. Sets vertex_gftd_identity.revoked_at on the grant DID — ADR-0029 ancestor cascade automatically invalidates all descendants (sessions, per-document capabilities). Vault document keys for the grantee become unwrap-impossible. Revocation is irreversible.",
 		inputSchema: {
 			type: "object",
@@ -1465,7 +1465,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.runConflictCheck",
+		name: "com.etzhayyim.apps.lawfirm.runConflictCheck",
 		description: "Run a conflict-of-interest scan and write a conflictCheck record. Two modes:\n  - matterIntake: evaluate a prospective matter's counterparties against the firm's active matter portfolio + prior representation history.\n  - externalCounselInvite: verify a candidate grantee DID does not belong to a counterparty org (reverse scan).\nThe returned result may be {clear, disclosureRequired, waivable, blocked}. When blocked the caller MUST NOT advance matter.status past 'conflictCheck' or proceed with inviteExternalCounsel.",
 		inputSchema: {
 			type: "object",
@@ -1506,8 +1506,8 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.scheduleHearing",
-		description: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:gftd:{firm}:{matter}:{hearing} via app.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
+		name: "com.etzhayyim.apps.lawfirm.scheduleHearing",
+		description: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:gftd:{firm}:{matter}:{hearing} via com.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -1564,7 +1564,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.submitFiling",
+		name: "com.etzhayyim.apps.lawfirm.submitFiling",
 		description: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.etzhayyim.com). AT Repo holds metadata + Vault item id only.",
 		inputSchema: {
 			type: "object",
@@ -1601,7 +1601,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				},
 				vaultItemId: {
 					type: "string",
-					description: "app.etzhayyim.vault.* item id holding ciphertext PDF/scan",
+					description: "com.etzhayyim.vault.* item id holding ciphertext PDF/scan",
 				},
 				filedAt: {
 					type: "string",
@@ -1622,7 +1622,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.trackFiling",
+		name: "com.etzhayyim.apps.lawfirm.trackFiling",
 		description: "Track court filing status (registry acceptance, defect notice, listing, hearing date).",
 		inputSchema: {
 			type: "object",
@@ -1638,7 +1638,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.translateFromLang",
+		name: "com.etzhayyim.apps.lawfirm.translateFromLang",
 		description: "Translate a regional-language text into en (court of record) or hi. Inverse of translateToLang.",
 		inputSchema: {
 			type: "object",
@@ -1665,7 +1665,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.translateToLang",
+		name: "com.etzhayyim.apps.lawfirm.translateToLang",
 		description: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.etzhayyim.com:lang:{targetLang} actor (Murakumo MLX backend).",
 		inputSchema: {
 			type: "object",
@@ -1701,8 +1701,8 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.updateCase",
-		description: "Append a status transition or note to an existing case. Write-only derived (260407): handler writes app.etzhayyim.apps.lawfirm.caseEvent record; downstream notification + projector derive from magatama.jsonld rule.",
+		name: "com.etzhayyim.apps.lawfirm.updateCase",
+		description: "Append a status transition or note to an existing case. Write-only derived (260407): handler writes com.etzhayyim.apps.lawfirm.caseEvent record; downstream notification + projector derive from magatama.jsonld rule.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -1745,7 +1745,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.updateMatterStatus",
+		name: "com.etzhayyim.apps.lawfirm.updateMatterStatus",
 		description: "Transition a matter's lifecycle status. Enforces allowed transitions:\n  intake          → conflictCheck / engaged / withdrawn\n  conflictCheck   → engaged (requires conflictCheck.result IN {clear, disclosureRequired, waivable}) / withdrawn\n  engaged         → filed / closed (settled) / archived\n  filed           → hearing / judgment / withdrawn\n  hearing         → trial / judgment / conciliated\n  trial           → judgment\n  judgment        → appeal / execution / closed\n  appeal          → judgment / closed\n  execution       → closed\nReverse transitions are rejected. Use closeMatter for the terminal close flow (which performs open-blocker checks + grant cascade revoke).",
 		inputSchema: {
 			type: "object",
@@ -1788,8 +1788,8 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 		},
 	},
 	{
-		name: "app.etzhayyim.apps.lawfirm.uploadDocument",
-		description: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:gftd:{firm}:{matter}:{doc} via app.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
+		name: "com.etzhayyim.apps.lawfirm.uploadDocument",
+		description: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:gftd:{firm}:{matter}:{doc} via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -1855,7 +1855,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 [
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.acceptExternalCounsel",
+		nsid: "com.etzhayyim.apps.lawfirm.acceptExternalCounsel",
 		description: "External counsel accepts an externalCounselGrant. Caller must authenticate as granteeDid. Server flips grant status from 'invited' → 'accepted' and vault-wraps the matter document keys for the grantee (ECIES X25519+HKDF+AES-KW).",
 		inputSchema: {
 			type: "object",
@@ -1903,7 +1903,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.closeMatter",
+		nsid: "com.etzhayyim.apps.lawfirm.closeMatter",
 		description: "Close a matter. Server (1) checks no open hearings / unpaid invoices / pending-review documents, (2) revokes all active externalCounselGrant under the matter (ADR-0029 cascade), (3) sets matter.status='closed' + closedAt, (4) optional final report derive.",
 		inputSchema: {
 			type: "object",
@@ -1969,7 +1969,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.createCase",
+		nsid: "com.etzhayyim.apps.lawfirm.createCase",
 		description: "Open a new client matter at lawfirm.etzhayyim.com. Routes to service cohort actor did:web:lawfirm.etzhayyim.com:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
 		inputSchema: {
 			type: "object",
@@ -2063,8 +2063,8 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.createMatter",
-		description: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:gftd:{firm}:{matterHash}) via app.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/app.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
+		nsid: "com.etzhayyim.apps.lawfirm.createMatter",
+		description: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:gftd:{firm}:{matterHash}) via com.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/com.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -2204,7 +2204,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.getCaseStatus",
+		nsid: "com.etzhayyim.apps.lawfirm.getCaseStatus",
 		description: "Fetch latest status + event timeline for a case. Reads from RisingWave streaming MV (graphar.vertex_lawfirmCase + edge_caseEvent).",
 		inputSchema: {
 			type: "object",
@@ -2272,8 +2272,8 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "query",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.inviteExternalCounsel",
-		description: "Invite an external bengoshi (possibly from a different firm) to collaborate on a specific matter. Server: (1) runs conflict scan against matter counterparties, (2) mints a grant DID via app.etzhayyim.auth.mintChildDid under matterDid, (3) writes externalCounselGrant record in 'invited' status, (4) sends W Protocol DM with consent.request card. Ethical wall enforced at hash-prefix level (ADR-0029).",
+		nsid: "com.etzhayyim.apps.lawfirm.inviteExternalCounsel",
+		description: "Invite an external bengoshi (possibly from a different firm) to collaborate on a specific matter. Server: (1) runs conflict scan against matter counterparties, (2) mints a grant DID via com.etzhayyim.auth.mintChildDid under matterDid, (3) writes externalCounselGrant record in 'invited' status, (4) sends W Protocol DM with consent.request card. Ethical wall enforced at hash-prefix level (ADR-0029).",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -2356,8 +2356,8 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.issueInvoice",
-		description: "Generate an invoice from approved timeEntry records for a matter over a period. Server (1) selects timeEntry where status='approved' AND matter+period match, (2) mints invoiceDid via app.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=invoicePdfCid), (3) writes invoice record status='draft', (4) flips selected timeEntry status='billed' with invoiceRef. PDF rendering is optional and asynchronous.",
+		nsid: "com.etzhayyim.apps.lawfirm.issueInvoice",
+		description: "Generate an invoice from approved timeEntry records for a matter over a period. Server (1) selects timeEntry where status='approved' AND matter+period match, (2) mints invoiceDid via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=invoicePdfCid), (3) writes invoice record status='draft', (4) flips selected timeEntry status='billed' with invoiceRef. PDF rendering is optional and asynchronous.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -2479,7 +2479,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.listCases",
+		nsid: "com.etzhayyim.apps.lawfirm.listCases",
 		description: "List cases scoped by cohort / geo / lang / domain. Default 50, max 200.",
 		inputSchema: {
 			type: "object",
@@ -2551,7 +2551,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "query",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.listConflictChecks",
+		nsid: "com.etzhayyim.apps.lawfirm.listConflictChecks",
 		description: "List conflict-of-interest scan history for a matter. Reads view_lawfirm_conflict_findings. Ordered by scannedAt DESC so the first row is the most recent scan (used by the UI to surface the current header badge).",
 		inputSchema: {
 			type: "object",
@@ -2622,7 +2622,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.listGrants",
+		nsid: "com.etzhayyim.apps.lawfirm.listGrants",
 		description: "List external counsel grants (optionally filtered by matterDid). Reads view_lawfirm_external_counsel_access — joins grant identity with parent matter revocation cascade (ADR-0029).",
 		inputSchema: {
 			type: "object",
@@ -2713,7 +2713,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.listInvoices",
+		nsid: "com.etzhayyim.apps.lawfirm.listInvoices",
 		description: "List invoices for a matter (or firm-wide). Reads view_lawfirm_invoice_ageing which surfaces subtotal/tax/total, dueAt, status, and a derived ageing bucket (current / dueSoon / overdue30 / overdue60 / overdue90).",
 		inputSchema: {
 			type: "object",
@@ -2789,7 +2789,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.listMatters",
+		nsid: "com.etzhayyim.apps.lawfirm.listMatters",
 		description: "List law firm matters with offset/limit pagination, optional filters.",
 		inputSchema: {
 			type: "object",
@@ -2883,7 +2883,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "query",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.recordTimeEntry",
+		nsid: "com.etzhayyim.apps.lawfirm.recordTimeEntry",
 		description: "Record a billable time entry against a matter (タイムシート).",
 		inputSchema: {
 			type: "object",
@@ -2944,7 +2944,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.registerLawfirm",
+		nsid: "com.etzhayyim.apps.lawfirm.registerLawfirm",
 		description: "Register a law firm. Path-based DID: did:web:lawfirm.etzhayyim.com:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
 		inputSchema: {
 			type: "object",
@@ -3017,7 +3017,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.requestConsult",
+		nsid: "com.etzhayyim.apps.lawfirm.requestConsult",
 		description: "Initial intake. Routes through triage cohort → service cohort (ADR-0026). No PII in AT Repo; PII to Preferences tier 3.",
 		inputSchema: {
 			type: "object",
@@ -3081,7 +3081,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.respondConsult",
+		nsid: "com.etzhayyim.apps.lawfirm.respondConsult",
 		description: "Lawyer / agent response to a consult. Field-level encrypted (signal:v1:) — attorney-client privilege.",
 		inputSchema: {
 			type: "object",
@@ -3138,7 +3138,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.revokeExternalCounsel",
+		nsid: "com.etzhayyim.apps.lawfirm.revokeExternalCounsel",
 		description: "Terminate an external counsel grant. Sets vertex_gftd_identity.revoked_at on the grant DID — ADR-0029 ancestor cascade automatically invalidates all descendants (sessions, per-document capabilities). Vault document keys for the grantee become unwrap-impossible. Revocation is irreversible.",
 		inputSchema: {
 			type: "object",
@@ -3190,7 +3190,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.runConflictCheck",
+		nsid: "com.etzhayyim.apps.lawfirm.runConflictCheck",
 		description: "Run a conflict-of-interest scan and write a conflictCheck record. Two modes:\n  - matterIntake: evaluate a prospective matter's counterparties against the firm's active matter portfolio + prior representation history.\n  - externalCounselInvite: verify a candidate grantee DID does not belong to a counterparty org (reverse scan).\nThe returned result may be {clear, disclosureRequired, waivable, blocked}. When blocked the caller MUST NOT advance matter.status past 'conflictCheck' or proceed with inviteExternalCounsel.",
 		inputSchema: {
 			type: "object",
@@ -3272,8 +3272,8 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.scheduleHearing",
-		description: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:gftd:{firm}:{matter}:{hearing} via app.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
+		nsid: "com.etzhayyim.apps.lawfirm.scheduleHearing",
+		description: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:gftd:{firm}:{matter}:{hearing} via com.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -3355,7 +3355,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.submitFiling",
+		nsid: "com.etzhayyim.apps.lawfirm.submitFiling",
 		description: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.etzhayyim.com). AT Repo holds metadata + Vault item id only.",
 		inputSchema: {
 			type: "object",
@@ -3392,7 +3392,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				},
 				vaultItemId: {
 					type: "string",
-					description: "app.etzhayyim.vault.* item id holding ciphertext PDF/scan",
+					description: "com.etzhayyim.vault.* item id holding ciphertext PDF/scan",
 				},
 				filedAt: {
 					type: "string",
@@ -3438,7 +3438,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.trackFiling",
+		nsid: "com.etzhayyim.apps.lawfirm.trackFiling",
 		description: "Track court filing status (registry acceptance, defect notice, listing, hearing date).",
 		inputSchema: {
 			type: "object",
@@ -3494,7 +3494,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "query",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.translateFromLang",
+		nsid: "com.etzhayyim.apps.lawfirm.translateFromLang",
 		description: "Translate a regional-language text into en (court of record) or hi. Inverse of translateToLang.",
 		inputSchema: {
 			type: "object",
@@ -3543,7 +3543,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "query",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.translateToLang",
+		nsid: "com.etzhayyim.apps.lawfirm.translateToLang",
 		description: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.etzhayyim.com:lang:{targetLang} actor (Murakumo MLX backend).",
 		inputSchema: {
 			type: "object",
@@ -3602,8 +3602,8 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "query",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.updateCase",
-		description: "Append a status transition or note to an existing case. Write-only derived (260407): handler writes app.etzhayyim.apps.lawfirm.caseEvent record; downstream notification + projector derive from magatama.jsonld rule.",
+		nsid: "com.etzhayyim.apps.lawfirm.updateCase",
+		description: "Append a status transition or note to an existing case. Write-only derived (260407): handler writes com.etzhayyim.apps.lawfirm.caseEvent record; downstream notification + projector derive from magatama.jsonld rule.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -3664,7 +3664,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.updateMatterStatus",
+		nsid: "com.etzhayyim.apps.lawfirm.updateMatterStatus",
 		description: "Transition a matter's lifecycle status. Enforces allowed transitions:\n  intake          → conflictCheck / engaged / withdrawn\n  conflictCheck   → engaged (requires conflictCheck.result IN {clear, disclosureRequired, waivable}) / withdrawn\n  engaged         → filed / closed (settled) / archived\n  filed           → hearing / judgment / withdrawn\n  hearing         → trial / judgment / conciliated\n  trial           → judgment\n  judgment        → appeal / execution / closed\n  appeal          → judgment / closed\n  execution       → closed\nReverse transitions are rejected. Use closeMatter for the terminal close flow (which performs open-blocker checks + grant cascade revoke).",
 		inputSchema: {
 			type: "object",
@@ -3732,8 +3732,8 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 		method: "procedure",
 	},
 	{
-		nsid: "app.etzhayyim.apps.lawfirm.uploadDocument",
-		description: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:gftd:{firm}:{matter}:{doc} via app.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
+		nsid: "com.etzhayyim.apps.lawfirm.uploadDocument",
+		description: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:gftd:{firm}:{matter}:{doc} via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
 		inputSchema: {
 			type: "object",
 			required: [

@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.redelivery.redeliveryEntity",
-        "ai.gftd.apps.redelivery.redeliveryEvent",
-        "ai.gftd.apps.redelivery.redeliveryReport"
+        "com.etzhayyim.apps.redelivery.redeliveryEntity",
+        "com.etzhayyim.apps.redelivery.redeliveryEvent",
+        "com.etzhayyim.apps.redelivery.redeliveryReport"
       ]
     }
   },

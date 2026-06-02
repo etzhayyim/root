@@ -145,7 +145,7 @@ class ShinkaStatus:
     error: str = ""
 
 
-_RE_COLLECTION = re.compile(r'["\']((ai\.gftd\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["\']')
+_RE_COLLECTION = re.compile(r'["\']((com\.etzhayyim\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["\']')
 _RE_PATH_DECL = re.compile(r'path:\s*"([^"]+)"')
 
 
@@ -248,7 +248,7 @@ def _normalize_domain_lookup(v: str) -> str:
 
 
 def _extract_collection_literals(src: str, ns_candidates: list[str]) -> list[str]:
-    prefixes = [f"app.etzhayyim.apps.{_normalize_domain_lookup(ns)}." for ns in ns_candidates if ns]
+    prefixes = [f"com.etzhayyim.apps.{_normalize_domain_lookup(ns)}." for ns in ns_candidates if ns]
     seen: set[str] = set()
     out: list[str] = []
     for m in _RE_COLLECTION.finditer(src):
@@ -633,7 +633,7 @@ def monitor_vote(pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.governance.listVotes",
+            f"{pds_url}/xrpc/com.etzhayyim.governance.listVotes",
             headers=_auth_headers(), timeout=30,
         )
         resp.raise_for_status()

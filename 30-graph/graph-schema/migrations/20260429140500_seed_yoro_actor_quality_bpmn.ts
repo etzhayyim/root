@@ -10,11 +10,11 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const createdAt = "2026-04-29T14:05:00Z";
 const ownerDid = "did:web:yoro.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.yoro";
-const sourcePath = "00-contracts/bpmn/ai/gftd/yoro/actorQualityEnrich.bpmn";
+const sourcePath = "00-contracts/bpmn/com/etzhayyim/yoro/actorQualityEnrich.bpmn";
 const bpmnProcessId = "yoro_actor_quality_enrich";
-const nsid = "app.etzhayyim.apps.yoro.actorQualityEnrich";
-const processVertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yoro-actor-quality-enrich-v1";
-const bindingVertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yoro-actor-quality-enrich-v1";
+const nsid = "com.etzhayyim.apps.yoro.actorQualityEnrich";
+const processVertexId = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yoro-actor-quality-enrich-v1";
+const bindingVertexId = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yoro-actor-quality-enrich-v1";
 
 function readContract(): string {
   return readFileSync(path.resolve(repoRoot, sourcePath), "utf8");

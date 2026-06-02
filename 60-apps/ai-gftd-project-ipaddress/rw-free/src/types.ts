@@ -2,7 +2,7 @@
  * ipaddress rw-free — record types.
  *
  * Per ADR-2605203000 Option B (PDS XRPC). Mirrors the bootstrap
- * lexicons at 00-contracts/lexicons/ai/gftd/apps/ipaddress/* — those
+ * lexicons at 00-contracts/lexicons/com/etzhayyim/apps/ipaddress/* — those
  * are still `x-bootstrap` stubs; tightening follows in the next slice
  * alongside more command ports.
  *
@@ -18,7 +18,7 @@
 
 export type Rir = "apnic" | "arin" | "ripe" | "lacnic" | "afrinic";
 
-/** Record body for `app.etzhayyim.apps.ipaddress.asn`. */
+/** Record body for `com.etzhayyim.apps.ipaddress.asn`. */
 export interface AsnRecord {
   did: string;
   number: number;

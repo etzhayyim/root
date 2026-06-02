@@ -126,7 +126,7 @@ This aligns with B2B norms (manufacturers regularly get paid Net-30 after delive
 
 Two lexicons updated from `x-bootstrap: true` auto-generated stubs to proper schemas in the same PR as this ADR:
 
-### `app.etzhayyim.apps.tsukuru.productionOrder.createProductionOrder`
+### `com.etzhayyim.apps.tsukuru.productionOrder.createProductionOrder`
 
 Old (bootstrap):
 ```json
@@ -149,7 +149,7 @@ New:
 
 Also adds `escrowIntentUri`, `estimatedCompletion`, etc. to the output schema.
 
-### `app.etzhayyim.apps.tsukuru.productionOrder.cancelProductionOrder`
+### `com.etzhayyim.apps.tsukuru.productionOrder.cancelProductionOrder`
 
 Old (bootstrap):
 ```json

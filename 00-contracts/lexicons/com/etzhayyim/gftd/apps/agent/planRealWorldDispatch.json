@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.agent.planRealWorldDispatch",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Convert a classified real-world effect into an autonomous channel task plan when scoped capability, policy, budget, and payload hash checks pass.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "realWorldEffect": {
+              "type": "object",
+              "description": "vertex_agent_realworld_effect row or equivalent object"
+            },
+            "payload": {
+              "type": "object",
+              "description": "Original payload whose hash must match realWorldEffect.payload_hash"
+            },
+            "autonomousAuthorityRef": {
+              "type": "string",
+              "description": "Scoped capability reference for autonomous operation"
+            },
+            "policyRef": {
+              "type": "string",
+              "description": "Policy-as-code reference that authorized this channel/effect class"
+            },
+            "policy": {
+              "type": "object",
+              "description": "Optional inline policy constraints for autonomous dispatch"
+            },
+            "budgetRef": {
+              "type": "string",
+              "description": "Budget or quote reference for financial/physical effects"
+            },
+            "mode": {
+              "type": "string",
+              "enum": ["autonomous", "live"],
+              "default": "autonomous"
+            }
+          },
+          "required": ["realWorldEffect", "payload", "policyRef"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "dispatchAllowed": { "type": "boolean" },
+            "dispatchPlanId": { "type": "string" },
+            "blockers": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "channel": { "type": "string" },
+            "effectClass": { "type": "string" },
+            "taskType": { "type": "string" },
+            "nsid": { "type": "string" },
+            "channelPayload": { "type": "object" },
+            "payloadHash": { "type": "string" },
+            "authorityRef": { "type": "string" },
+            "policyRef": { "type": "string" },
+            "budgetRef": { "type": "string" },
+            "receiptExpectation": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

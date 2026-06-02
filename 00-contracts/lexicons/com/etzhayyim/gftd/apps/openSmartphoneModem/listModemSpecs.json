@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneModem.listModemSpecs",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List registered modem specifications",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "openSourceFw": { "type": "boolean" },
+          "ratSupport": { "type": "string", "description": "Filter by RAT support (e.g. 5g-nr)" },
+          "limit": { "type": "integer", "default": 50, "maximum": 200 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["modems", "total"],
+          "properties": {
+            "modems": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["vertexId", "modemId", "chipName", "openSourceFw"],
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "modemId": { "type": "string" },
+                  "chipName": { "type": "string" },
+                  "ratSupport": { "type": "string" },
+                  "openSourceFw": { "type": "boolean" },
+                  "status": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

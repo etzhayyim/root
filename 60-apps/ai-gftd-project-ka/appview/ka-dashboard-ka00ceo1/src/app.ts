@@ -5,7 +5,7 @@ interface Env { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | S
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const APP = "ka";
-const NSID_PREFIX = "app.etzhayyim.apps.ka.";
+const NSID_PREFIX = "com.etzhayyim.apps.ka.";
 const API_TO_OP: Record<string, string> = {
   "/api/dashboard": "getDashboard",
   "/api/goals": "getGoals",
@@ -33,7 +33,7 @@ export default {
         nanoid: env.APP_NANOID ?? "ka00ceo1",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/ka.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/ka",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/ka",
       });
     }
     if (url.pathname === "/" || url.pathname === "/index.html") return htmlShell();

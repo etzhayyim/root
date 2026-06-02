@@ -66,7 +66,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hc.listHc",
+        "nsid": "com.etzhayyim.apps.hc.listHc",
         "type": "xrpc"
       }
     },
@@ -81,7 +81,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hc.searchHc",
+        "nsid": "com.etzhayyim.apps.hc.searchHc",
         "type": "xrpc"
       }
     },
@@ -89,7 +89,7 @@
       "steps": [
         {
           "args": {
-            "template": "CREATE (t:Task {did: $did, val: $input.record, status: 'active', repo: $did, collection: 'ai.gftd.apps.hc.task'})"
+            "template": "CREATE (t:Task {did: $did, val: $input.record, status: 'active', repo: $did, collection: 'com.etzhayyim.apps.hc.task'})"
           },
           "fn": "graph.write",
           "id": "create"
@@ -116,7 +116,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hc.createHc",
+        "nsid": "com.etzhayyim.apps.hc.createHc",
         "type": "xrpc"
       }
     },
@@ -124,14 +124,14 @@
       "steps": [
         {
           "args": {
-            "template": "CREATE (sp:HcSpApplication {did: $did, legalName: $input.legalName, countryIso3: $input.countryIso3, category: $input.category, status: 'pendingKyc', repo: $did, collection: 'ai.gftd.apps.hc.spApplication'})"
+            "template": "CREATE (sp:HcSpApplication {did: $did, legalName: $input.legalName, countryIso3: $input.countryIso3, category: $input.category, status: 'pendingKyc', repo: $did, collection: 'com.etzhayyim.apps.hc.spApplication'})"
           },
           "fn": "graph.write",
           "id": "writeSp"
         },
         {
           "args": {
-            "template": "CREATE (t:Task {did: $did, title: 'KYC/KYB Review: ' + $input.legalName, category: 'sp-kyc-review', difficulty: 'medium', status: 'published', repo: $did, collection: 'ai.gftd.apps.hc.task'})"
+            "template": "CREATE (t:Task {did: $did, title: 'KYC/KYB Review: ' + $input.legalName, category: 'sp-kyc-review', difficulty: 'medium', status: 'published', repo: $did, collection: 'com.etzhayyim.apps.hc.task'})"
           },
           "depends_on": [],
           "fn": "graph.write",
@@ -159,7 +159,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hc.createSpApplication",
+        "nsid": "com.etzhayyim.apps.hc.createSpApplication",
         "type": "xrpc"
       }
     },
@@ -174,7 +174,7 @@
         },
         {
           "args": {
-            "template": "MERGE (a:HcSpAction {did: $did}) SET a.action = $checkResult.text, a.repo = $did, a.collection = 'ai.gftd.apps.hc.spAction'"
+            "template": "MERGE (a:HcSpAction {did: $did}) SET a.action = $checkResult.text, a.repo = $did, a.collection = 'com.etzhayyim.apps.hc.spAction'"
           },
           "fn": "graph.write",
           "id": "writeAction"
@@ -192,7 +192,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.hc.spVerification"
+          "com.etzhayyim.apps.hc.spVerification"
         ],
         "type": "subscribeRepos"
       }
@@ -232,7 +232,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.hc.spAudit"
+          "com.etzhayyim.apps.hc.spAudit"
         ],
         "type": "subscribeRepos"
       }
@@ -255,7 +255,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hc.summarizeHc",
+        "nsid": "com.etzhayyim.apps.hc.summarizeHc",
         "type": "xrpc"
       }
     },
@@ -322,7 +322,7 @@
             "params": {
               "actorName": "hc",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.hc.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.hc.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "hc0mp7ng",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -380,7 +380,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hc.coverage.get",
+        "nsid": "com.etzhayyim.apps.hc.coverage.get",
         "type": "xrpc"
       }
     }
@@ -402,8 +402,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -416,11 +416,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.hc.task",
-        "ai.gftd.apps.hc.spApplication",
-        "ai.gftd.apps.hc.spVerification",
-        "ai.gftd.apps.hc.spAudit",
-        "ai.gftd.apps.tsukuru.manufacturer"
+        "com.etzhayyim.apps.hc.task",
+        "com.etzhayyim.apps.hc.spApplication",
+        "com.etzhayyim.apps.hc.spVerification",
+        "com.etzhayyim.apps.hc.spAudit",
+        "com.etzhayyim.apps.tsukuru.manufacturer"
       ]
     }
   },

@@ -10,8 +10,8 @@
     <bpmn:userTask id="Task_CollectForm" name="Collect institution form"
                    camunda:formKey="openSwift.registerInstitution.v1"/>
     <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectForm" targetRef="Task_Persist"/>
-    <bpmn:serviceTask id="Task_Persist" name="ai.gftd.apps.openSwift.registerInstitution"
-                      camunda:topic="ai.gftd.apps.openSwift.registerInstitution"/>
+    <bpmn:serviceTask id="Task_Persist" name="com.etzhayyim.apps.openSwift.registerInstitution"
+                      camunda:topic="com.etzhayyim.apps.openSwift.registerInstitution"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_Persist" targetRef="EndEvent_Done"/>
     <bpmn:endEvent id="EndEvent_Done" name="Institution registered"/>
   </bpmn:process>

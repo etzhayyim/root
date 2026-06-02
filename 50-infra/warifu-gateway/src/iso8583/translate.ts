@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // etzhayyim Charter Compliance Rider v2.0 applies (see /CHARTER-RIDER.md).
 //
-// Surface B — ISO 8583 (card-present / EMV terminal) → app.etzhayyim.card.* (ADR-2605302000).
+// Surface B — ISO 8583 (card-present / EMV terminal) → com.etzhayyim.card.* (ADR-2605302000).
 // R0 scope: message/field map only (see ../iso8583-map.md). Physical terminal acceptance needs a
 // BIN/acquirer membership and is deferred to R2+.
 //

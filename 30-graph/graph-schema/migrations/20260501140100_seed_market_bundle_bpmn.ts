@@ -29,11 +29,11 @@ interface BpmnSeed {
 
 const seeds: BpmnSeed[] = [
   {
-    processVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/market-settlementBundle-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/market-settlementBundle-v1",
     processId: "market_settlement_bundle",
-    nsid: "app.etzhayyim.market.settlementBundle",
-    sourcePath: "00-contracts/bpmn/ai/gftd/generic/settlementBundle.bpmn",
+    nsid: "com.etzhayyim.market.settlementBundle",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/generic/settlementBundle.bpmn",
     resultTimeoutMs: 120_000,
     writeTableAllowlist: "vertex_market_settlement",
   },

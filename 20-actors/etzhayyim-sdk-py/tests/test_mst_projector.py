@@ -109,7 +109,7 @@ async def test_query_by_collection_happy() -> None:
     }
     _inject(_json_handler(200, server_body))
     result = await mst_projector.query_by_collection(
-        "app.etzhayyim.test.record", limit=10
+        "com.etzhayyim.test.record", limit=10
     )
     assert len(result["records"]) == 2
     assert result["cursor"] == "2"
@@ -122,7 +122,7 @@ async def test_query_by_collection_no_cursor() -> None:
     from etzhayyim_sdk import mst_projector
 
     _inject(_json_handler(200, {"records": [], "cursor": None}))
-    result = await mst_projector.query_by_collection("app.etzhayyim.test.record")
+    result = await mst_projector.query_by_collection("com.etzhayyim.test.record")
     assert result["records"] == []
     assert result["cursor"] is None
 
@@ -148,13 +148,13 @@ async def test_query_by_did_with_filter() -> None:
     )
     result = await mst_projector.query_by_did(
         "did:plc:alice",
-        collection="app.etzhayyim.test.record",
+        collection="com.etzhayyim.test.record",
         limit=20,
     )
     assert len(result["records"]) == 1
     assert result["records"][0]["did"] == "did:plc:alice"
     # Verify request payload has collection field
-    assert captured_bodies[0]["collection"] == "app.etzhayyim.test.record"
+    assert captured_bodies[0]["collection"] == "com.etzhayyim.test.record"
     assert captured_bodies[0]["did"] == "did:plc:alice"
     assert captured_bodies[0]["limit"] == 20
 
@@ -198,7 +198,7 @@ async def test_query_by_field_happy() -> None:
         )
     )
     result = await mst_projector.query_by_field(
-        "app.etzhayyim.test.record", "status", "published", limit=5
+        "com.etzhayyim.test.record", "status", "published", limit=5
     )
     assert len(result["records"]) == 2
     # Verify wire format uses camelCase
@@ -217,7 +217,7 @@ async def test_count_by_collection_happy() -> None:
 
     server_body = {"count": 42, "asOf": "2026-05-21T00:00:00Z"}
     _inject(_json_handler(200, server_body))
-    result = await mst_projector.count_by_collection("app.etzhayyim.test.record")
+    result = await mst_projector.count_by_collection("com.etzhayyim.test.record")
     assert result["count"] == 42
     assert result["asOf"] == "2026-05-21T00:00:00Z"
 
@@ -233,7 +233,7 @@ async def test_network_error_raises() -> None:
 
     _inject(_error_handler())
     with pytest.raises(MstProjectorNetworkError, match="network error"):
-        await mst_projector.query_by_collection("app.etzhayyim.test.record")
+        await mst_projector.query_by_collection("com.etzhayyim.test.record")
 
 
 @pytest.mark.asyncio
@@ -244,7 +244,7 @@ async def test_server_error_500() -> None:
 
     _inject(_json_handler(500, {"error": "InternalError", "message": "oops"}))
     with pytest.raises(MstProjectorServerError, match="HTTP 500"):
-        await mst_projector.query_by_collection("app.etzhayyim.test.record")
+        await mst_projector.query_by_collection("com.etzhayyim.test.record")
 
 
 @pytest.mark.asyncio
@@ -279,7 +279,7 @@ async def test_base_url_env_var_override() -> None:
         os.environ,
         {"ETZHAYYIM_MST_PROJECTOR_URL": "http://my-projector.local:9999"},
     ):
-        await mst_projector.query_by_collection("app.etzhayyim.test.record")
+        await mst_projector.query_by_collection("com.etzhayyim.test.record")
 
     assert len(captured_urls) == 1
     assert captured_urls[0].startswith("http://my-projector.local:9999/")

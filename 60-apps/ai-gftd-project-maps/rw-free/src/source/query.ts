@@ -1,5 +1,5 @@
 /**
- * Query: MST scan via @etzhayyim/sdk.read() over app.etzhayyim.maps.source.
+ * Query: MST scan via @etzhayyim/sdk.read() over com.etzhayyim.maps.source.
  *
  * Replaces the RW query path (`createKyselyDb(...).selectFrom("vertex_maps_source")...`)
  * with a direct PDS read. Sources use rkey == slug so:
@@ -21,7 +21,7 @@
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { MapsSource } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.maps.source";
+const COLLECTION = "com.etzhayyim.maps.source";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_READER_DID ?? "did:web:maps.etzhayyim.com",

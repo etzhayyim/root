@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.rightToRepair.flagRepairabilityIndex",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Repairability Index filing (FR AGEC / ESPR DPP — bridges textile-circularity + battery-passport + antitrust-dma)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "indexId",
+            "productCategory",
+            "indexValue",
+            "reportedAt"
+          ],
+          "properties": {
+            "indexId": {
+              "type": "string"
+            },
+            "productLei": {
+              "type": "string"
+            },
+            "productCategory": {
+              "type": "string"
+            },
+            "regulationVid": {
+              "type": "string",
+              "description": "bridges recordRegulation"
+            },
+            "indexValue": {
+              "type": "number",
+              "description": "0-10 repairability index"
+            },
+            "disassemblyScore": {
+              "type": "number"
+            },
+            "partsAvailabilityScore": {
+              "type": "number"
+            },
+            "priceOfPartsPct": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "repairabilityTier": {
+              "type": "string",
+              "enum": [
+                "very_low",
+                "low",
+                "moderate",
+                "high"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@ Purpose: compute the per-adherent **imputed income** (FLOW) — the market-equiv
 annual value of the in-kind services an adherent consumed — using the open,
 method-versioned reference tables under ``20-actors/toritate/valuation/`` (e.g.
 ``v1-retail-equiv``). Feeds the aggregate ``basicHighIncome`` block of
-``app.etzhayyim.liberation.metricReport`` (via ``basic_high_income_aggregate``).
+``com.etzhayyim.liberation.metricReport`` (via ``basic_high_income_aggregate``).
 
 Constitutional ceiling (CRITICAL — IMMUTABLE):
   - NO CASH (ADR-2605261000 §5 N1): output is an imputed FIGURE; ``cashStipendUsdMicros``
@@ -17,7 +17,7 @@ Constitutional ceiling (CRITICAL — IMMUTABLE):
     per-adherent (no leaderboard → no class formation).
   - Murakumo-only inference (ADR-2605215000) for any model-assisted valuation.
   - 100% on-chain transparency (toritate G3/G4); valuation tables are open + citable.
-Output Lexicon(s): aggregated into app.etzhayyim.liberation.metricReport.basicHighIncome.
+Output Lexicon(s): aggregated into com.etzhayyim.liberation.metricReport.basicHighIncome.
 Murakumo node: gad (toritate accounting tribe, per ADR-2605262900).
 
 R0 scaffold — import-time RuntimeError until R1.

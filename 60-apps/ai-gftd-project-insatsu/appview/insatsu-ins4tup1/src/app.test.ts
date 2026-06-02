@@ -112,33 +112,33 @@ describe("insatsu command registration", () => {
     const sdk = createSdk();
     setupCallback!(sdk);
     const nsids = sdk.app.command.mock.calls.map((call: unknown[]) => call[0]);
-    expect(nsids).toContain("app.etzhayyim.apps.insatsu.printPartner.registerPrintPartner");
-    expect(nsids).toContain("app.etzhayyim.apps.insatsu.printPartner.getPrintPartner");
-    expect(nsids).toContain("app.etzhayyim.apps.insatsu.printPartner.listPrintPartners");
-    expect(nsids).toContain("app.etzhayyim.apps.insatsu.printMailJob.quotePrintMailJob");
-    expect(nsids).toContain("app.etzhayyim.apps.insatsu.printMailJob.createPrintMailJob");
-    expect(nsids).toContain("app.etzhayyim.apps.insatsu.printMailJob.getPrintMailJob");
-    expect(nsids).toContain("app.etzhayyim.apps.insatsu.printMailJob.listPrintMailJobs");
+    expect(nsids).toContain("com.etzhayyim.apps.insatsu.printPartner.registerPrintPartner");
+    expect(nsids).toContain("com.etzhayyim.apps.insatsu.printPartner.getPrintPartner");
+    expect(nsids).toContain("com.etzhayyim.apps.insatsu.printPartner.listPrintPartners");
+    expect(nsids).toContain("com.etzhayyim.apps.insatsu.printMailJob.quotePrintMailJob");
+    expect(nsids).toContain("com.etzhayyim.apps.insatsu.printMailJob.createPrintMailJob");
+    expect(nsids).toContain("com.etzhayyim.apps.insatsu.printMailJob.getPrintMailJob");
+    expect(nsids).toContain("com.etzhayyim.apps.insatsu.printMailJob.listPrintMailJobs");
   });
 });
 
 describe("print partners", () => {
   it("returns seeded partner by slug", async () => {
-    const handler = getHandler("app.etzhayyim.apps.insatsu.printPartner.getPrintPartner")!;
+    const handler = getHandler("com.etzhayyim.apps.insatsu.printPartner.getPrintPartner")!;
     const result = await dec(handler(null, enc({ slug: "tokyo-printpost" })));
     expect(result.partnerDid).toBe("did:web:insatsu.etzhayyim.com:partner:tokyo-printpost");
     expect(result.downstreamActorDid).toBe("did:web:yuubin.etzhayyim.com");
   });
 
   it("lists seeded APAC partners", async () => {
-    const handler = getHandler("app.etzhayyim.apps.insatsu.printPartner.listPrintPartners")!;
+    const handler = getHandler("com.etzhayyim.apps.insatsu.printPartner.listPrintPartners")!;
     const result = await dec(handler(null, enc({ region: "APAC" })));
     expect(result.total).toBeGreaterThanOrEqual(2);
     expect((result.items as Record<string, unknown>[]).some((item) => item.slug === "tokyo-printpost")).toBe(true);
   });
 
   it("registers a dynamic partner", async () => {
-    const handler = getHandler("app.etzhayyim.apps.insatsu.printPartner.registerPrintPartner")!;
+    const handler = getHandler("com.etzhayyim.apps.insatsu.printPartner.registerPrintPartner")!;
     const result = await dec(handler(null, enc({
       slug: "paris-mail-factory",
       display_name: "Paris Mail Factory",
@@ -153,7 +153,7 @@ describe("print partners", () => {
 
 describe("print mail jobs", () => {
   it("quotes Japan route via yuubin handoff", async () => {
-    const handler = getHandler("app.etzhayyim.apps.insatsu.printMailJob.quotePrintMailJob")!;
+    const handler = getHandler("com.etzhayyim.apps.insatsu.printMailJob.quotePrintMailJob")!;
     const result = await dec(handler(null, enc({
       destination_country: "JPN",
       page_count: 4,
@@ -168,8 +168,8 @@ describe("print mail jobs", () => {
   });
 
   it("creates Japan job and invokes yuubin", async () => {
-    invokeResponses["did:web:yuubin.etzhayyim.com:app.etzhayyim.apps.yuubin.composeAndPost"] = JSON.stringify({ ok: true, txId: "post_123" });
-    const handler = getHandler("app.etzhayyim.apps.insatsu.printMailJob.createPrintMailJob")!;
+    invokeResponses["did:web:yuubin.etzhayyim.com:com.etzhayyim.apps.yuubin.composeAndPost"] = JSON.stringify({ ok: true, txId: "post_123" });
+    const handler = getHandler("com.etzhayyim.apps.insatsu.printMailJob.createPrintMailJob")!;
     const result = await dec(handler(null, enc({
       document_url: "https://cdn.example.com/doc.pdf",
       destination_country: "JPN",
@@ -186,14 +186,14 @@ describe("print mail jobs", () => {
     expect(result.status).toBe("dispatched");
     expect(result.downstreamActorDid).toBe("did:web:yuubin.etzhayyim.com");
     expect(invokeCalls).toHaveLength(1);
-    expect(invokeCalls[0].method).toBe("app.etzhayyim.apps.yuubin.composeAndPost");
+    expect(invokeCalls[0].method).toBe("com.etzhayyim.apps.yuubin.composeAndPost");
     expect(insertCalls.some((call) => call.table === "vertex_insatsu_print_mail_job")).toBe(true);
     expect(insertCalls.some((call) => call.table === "edge_insatsu_partner_mail_job")).toBe(true);
     expect(insertCalls.some((call) => call.table === "edge_insatsu_job_downstream_actor")).toBe(true);
   });
 
   it("creates non-Japan job without downstream invoke", async () => {
-    const handler = getHandler("app.etzhayyim.apps.insatsu.printMailJob.createPrintMailJob")!;
+    const handler = getHandler("com.etzhayyim.apps.insatsu.printMailJob.createPrintMailJob")!;
     const result = await dec(handler(null, enc({
       document_url: "https://cdn.example.com/de.pdf",
       destination_country: "DEU",
@@ -217,7 +217,7 @@ describe("print mail jobs", () => {
       status: "queued",
       partnerDid: "did:web:insatsu.etzhayyim.com:partner:berlin-direct-mail",
     }]];
-    const handler = getHandler("app.etzhayyim.apps.insatsu.printMailJob.getPrintMailJob")!;
+    const handler = getHandler("com.etzhayyim.apps.insatsu.printMailJob.getPrintMailJob")!;
     const result = await dec(handler(null, enc({ job_id: "pmj_abc" })));
     expect(result.jobId).toBe("pmj_abc");
     expect(result.status).toBe("queued");

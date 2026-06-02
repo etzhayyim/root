@@ -89,9 +89,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.shomeisyashin.shomeisyashinEntity",
-        "ai.gftd.apps.shomeisyashin.shomeisyashinEvent",
-        "ai.gftd.apps.shomeisyashin.shomeisyashinReport"
+        "com.etzhayyim.apps.shomeisyashin.shomeisyashinEntity",
+        "com.etzhayyim.apps.shomeisyashin.shomeisyashinEvent",
+        "com.etzhayyim.apps.shomeisyashin.shomeisyashinReport"
       ]
     }
   },

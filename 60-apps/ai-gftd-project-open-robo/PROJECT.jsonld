@@ -69,7 +69,7 @@
       "@type": "LinkRole",
       "name": "toshiKozan material stream contract",
       "description": "Urban mining e-waste stream records used by robotic sort audit events",
-      "url": "https://github.com/etzhayyim/etzhayyim-root/tree/main/00-contracts/lexicons/ai/gftd/apps/toshiKozan",
+      "url": "https://github.com/etzhayyim/etzhayyim-root/tree/main/00-contracts/lexicons/com/etzhayyim/apps/toshiKozan",
       "linkRelationship": "toshi_kozan_ewaste_stream.v1",
       "additionalType": "productRef=ai-gftd-project-open-robo"
     }

@@ -20,7 +20,7 @@ UP = [{'sql': '\n'
          "'active', $11, $12, $13, $14\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_tld WHERE vertex_id = $15)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law',
                  'did:web:domain.etzhayyim.com',
                  '.law',
                  'GoDaddy Registry (Registry Services, LLC)',
@@ -41,7 +41,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_tld (vertex_id, owner_did, sensitivity_ord, tld, operator, '
          'restricted, eligibility_summary, eligibility_policy_url, verification_required, '
@@ -50,7 +50,7 @@ UP = [{'sql': '\n'
          "'active', $11, $12, $13, $14\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_tld WHERE vertex_id = $15)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/lawyer',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/lawyer',
                  'did:web:domain.etzhayyim.com',
                  '.lawyer',
                  'Identity Digital (formerly Donuts/Afilias)',
@@ -66,7 +66,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/lawyer']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/lawyer']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_tld (vertex_id, owner_did, sensitivity_ord, tld, operator, '
          'restricted, eligibility_summary, eligibility_policy_url, verification_required, '
@@ -75,7 +75,7 @@ UP = [{'sql': '\n'
          "'active', $11, $12, $13, $14\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_tld WHERE vertex_id = $15)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/legal',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/legal',
                  'did:web:domain.etzhayyim.com',
                  '.legal',
                  'Identity Digital',
@@ -89,7 +89,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/legal']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/legal']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_tld (vertex_id, owner_did, sensitivity_ord, tld, operator, '
          'restricted, eligibility_summary, eligibility_policy_url, verification_required, '
@@ -98,7 +98,7 @@ UP = [{'sql': '\n'
          "'active', $11, $12, $13, $14\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_tld WHERE vertex_id = $15)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/attorney',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/attorney',
                  'did:web:domain.etzhayyim.com',
                  '.attorney',
                  'Identity Digital',
@@ -112,7 +112,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/attorney']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/attorney']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/cloudflare',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/cloudflare',
                  'did:web:domain.etzhayyim.com',
                  'cloudflare',
                  'Cloudflare Registrar',
@@ -134,7 +134,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/cloudflare']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/cloudflare']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -143,7 +143,7 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/namecheap',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/namecheap',
                  'did:web:domain.etzhayyim.com',
                  'namecheap',
                  'Namecheap',
@@ -156,7 +156,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/namecheap']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/namecheap']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -165,7 +165,7 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/godaddy',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/godaddy',
                  'did:web:domain.etzhayyim.com',
                  'godaddy',
                  'GoDaddy',
@@ -177,7 +177,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/godaddy']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/godaddy']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -186,7 +186,7 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/eurodns',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/eurodns',
                  'did:web:domain.etzhayyim.com',
                  'eurodns',
                  'EuroDNS',
@@ -198,7 +198,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/eurodns']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/eurodns']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -207,7 +207,7 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/dynadot',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/dynadot',
                  'did:web:domain.etzhayyim.com',
                  'dynadot',
                  'Dynadot',
@@ -218,7 +218,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/dynadot']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/dynadot']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -227,7 +227,7 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/join-law',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/join-law',
                  'did:web:domain.etzhayyim.com',
                  'join-law',
                  'Join.Law',
@@ -240,7 +240,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/join-law']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/join-law']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, '
          'registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, '
@@ -249,7 +249,7 @@ UP = [{'sql': '\n'
          '$11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_registrar WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/squarespace',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/squarespace',
                  'did:web:domain.etzhayyim.com',
                  'squarespace',
                  'Squarespace Domains (formerly Google Domains)',
@@ -261,7 +261,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/squarespace']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/squarespace']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_legal_regulator (vertex_id, owner_did, sensitivity_ord, '
          'regulator_slug, name, jurisdiction, kind, public_register_url, notes, status, '
@@ -270,7 +270,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_legal_regulator WHERE vertex_id = '
          '$13)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/jfba',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/jfba',
                  'did:web:domain.etzhayyim.com',
                  'jfba',
                  'Japan Federation of Bar Associations (日本弁護士連合会 / 日弁連)',
@@ -285,7 +285,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/jfba']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/jfba']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_legal_regulator (vertex_id, owner_did, sensitivity_ord, '
          'regulator_slug, name, jurisdiction, kind, public_register_url, notes, status, '
@@ -294,7 +294,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_legal_regulator WHERE vertex_id = '
          '$13)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/aba-state-bars',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/aba-state-bars',
                  'did:web:domain.etzhayyim.com',
                  'aba-state-bars',
                  'US State Bar Associations (admitted via state supreme courts; ABA accreditation)',
@@ -307,7 +307,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/aba-state-bars']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/aba-state-bars']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_legal_regulator (vertex_id, owner_did, sensitivity_ord, '
          'regulator_slug, name, jurisdiction, kind, public_register_url, notes, status, '
@@ -316,7 +316,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_legal_regulator WHERE vertex_id = '
          '$13)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/sra-england-wales',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/sra-england-wales',
                  'did:web:domain.etzhayyim.com',
                  'sra-england-wales',
                  'Solicitors Regulation Authority (SRA, England & Wales)',
@@ -328,7 +328,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/sra-england-wales']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/sra-england-wales']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_legal_regulator (vertex_id, owner_did, sensitivity_ord, '
          'regulator_slug, name, jurisdiction, kind, public_register_url, notes, status, '
@@ -337,7 +337,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_legal_regulator WHERE vertex_id = '
          '$13)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/iba',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/iba',
                  'did:web:domain.etzhayyim.com',
                  'iba',
                  'International Bar Association (IBA)',
@@ -350,7 +350,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/iba']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/iba']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -360,7 +360,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-jp-bengoshi',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-jp-bengoshi',
                  'did:web:domain.etzhayyim.com',
                  '.law',
                  'JP',
@@ -380,7 +380,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-jp-bengoshi']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-jp-bengoshi']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -390,7 +390,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-jp-gaikokuho-jimu-bengoshi',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-jp-gaikokuho-jimu-bengoshi',
                  'did:web:domain.etzhayyim.com',
                  '.law',
                  'JP',
@@ -408,7 +408,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-jp-gaikokuho-jimu-bengoshi']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-jp-gaikokuho-jimu-bengoshi']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -418,7 +418,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-jp-bengoshi-houjin',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-jp-bengoshi-houjin',
                  'did:web:domain.etzhayyim.com',
                  '.law',
                  'JP',
@@ -435,7 +435,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-jp-bengoshi-houjin']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-jp-bengoshi-houjin']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -445,7 +445,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-uk-solicitor',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-uk-solicitor',
                  'did:web:domain.etzhayyim.com',
                  '.law',
                  'GB-EAW',
@@ -462,7 +462,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-uk-solicitor']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-uk-solicitor']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -472,7 +472,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-us-bar',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-us-bar',
                  'did:web:domain.etzhayyim.com',
                  '.law',
                  'US',
@@ -490,7 +490,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-us-bar']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-us-bar']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -500,7 +500,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-non-practicing-corp',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-non-practicing-corp',
                  'did:web:domain.etzhayyim.com',
                  '.law',
                  'JP',
@@ -519,7 +519,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/law-non-practicing-corp']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/law-non-practicing-corp']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -529,7 +529,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/lawyer-jp-open',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/lawyer-jp-open',
                  'did:web:domain.etzhayyim.com',
                  '.lawyer',
                  'JP',
@@ -545,7 +545,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/lawyer-jp-open']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/lawyer-jp-open']},
  {'sql': '\n'
          '    INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, '
          'tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, '
@@ -555,7 +555,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_domain_eligibility_advice WHERE vertex_id = '
          '$16)\n'
          '  ',
-  'parameters': ['at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/legal-jp-open',
+  'parameters': ['at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/legal-jp-open',
                  'did:web:domain.etzhayyim.com',
                  '.legal',
                  'JP',
@@ -570,7 +570,7 @@ UP = [{'sql': '\n'
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.eligibilityAdvice/legal-jp-open']},
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.eligibilityAdvice/legal-jp-open']},
  {'sql': '\n'
          '    INSERT INTO edge_domain_registrar_supports_tld (edge_id, owner_did, sensitivity_ord, '
          'src_vid, dst_vid, registrar_slug, tld, verified_at, handles_verification, notes, '
@@ -581,8 +581,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:namecheap:law',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/namecheap',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/namecheap',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law',
                  'namecheap',
                  '.law',
                  '2026-05-07T23:00:00Z',
@@ -603,8 +603,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:godaddy:law',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/godaddy',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/godaddy',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law',
                  'godaddy',
                  '.law',
                  '2026-05-07T23:00:00Z',
@@ -625,8 +625,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:eurodns:law',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/eurodns',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/eurodns',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law',
                  'eurodns',
                  '.law',
                  '2026-05-07T23:00:00Z',
@@ -647,8 +647,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:dynadot:law',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/dynadot',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/dynadot',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law',
                  'dynadot',
                  '.law',
                  '2026-05-07T23:00:00Z',
@@ -669,8 +669,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:join-law:law',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/join-law',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/join-law',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law',
                  'join-law',
                  '.law',
                  '2026-05-07T23:00:00Z',
@@ -691,8 +691,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:namecheap:lawyer',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/namecheap',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/lawyer',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/namecheap',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/lawyer',
                  'namecheap',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
@@ -713,8 +713,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:godaddy:lawyer',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/godaddy',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/lawyer',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/godaddy',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/lawyer',
                  'godaddy',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
@@ -735,8 +735,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:eurodns:lawyer',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/eurodns',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/lawyer',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/eurodns',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/lawyer',
                  'eurodns',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
@@ -757,8 +757,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:dynadot:lawyer',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/dynadot',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/lawyer',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/dynadot',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/lawyer',
                  'dynadot',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
@@ -779,8 +779,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:squarespace:lawyer',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/squarespace',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/lawyer',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/squarespace',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/lawyer',
                  'squarespace',
                  '.lawyer',
                  '2026-05-07T23:00:00Z',
@@ -801,8 +801,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:namecheap:legal',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/namecheap',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/legal',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/namecheap',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/legal',
                  'namecheap',
                  '.legal',
                  '2026-05-07T23:00:00Z',
@@ -823,8 +823,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:godaddy:legal',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/godaddy',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/legal',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/godaddy',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/legal',
                  'godaddy',
                  '.legal',
                  '2026-05-07T23:00:00Z',
@@ -845,8 +845,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:eurodns:legal',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/eurodns',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/legal',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/eurodns',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/legal',
                  'eurodns',
                  '.legal',
                  '2026-05-07T23:00:00Z',
@@ -867,8 +867,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:squarespace:legal',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/squarespace',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/legal',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/squarespace',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/legal',
                  'squarespace',
                  '.legal',
                  '2026-05-07T23:00:00Z',
@@ -889,8 +889,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:namecheap:attorney',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/namecheap',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/attorney',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/namecheap',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/attorney',
                  'namecheap',
                  '.attorney',
                  '2026-05-07T23:00:00Z',
@@ -911,8 +911,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:supports:godaddy:attorney',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.registrar/godaddy',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/attorney',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.registrar/godaddy',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/attorney',
                  'godaddy',
                  '.attorney',
                  '2026-05-07T23:00:00Z',
@@ -932,8 +932,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:accepts:law:jfba',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/jfba',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/jfba',
                  '.law',
                  'jfba',
                  "Policy §1.1 jurisdiction-neutral 'recognized accredited body' wording covers "
@@ -952,8 +952,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:accepts:law:aba-state-bars',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/aba-state-bars',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/aba-state-bars',
                  '.law',
                  'aba-state-bars',
                  'Policy §1.1 covers US state bars (each is an authorized government authority via '
@@ -972,8 +972,8 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['edge:domain:accepts:law:sra-england-wales',
                  'did:web:domain.etzhayyim.com',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.tld/law',
-                 'at://did:web:domain.etzhayyim.com/app.etzhayyim.apps.domain.legalRegulator/sra-england-wales',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.tld/law',
+                 'at://did:web:domain.etzhayyim.com/com.etzhayyim.apps.domain.legalRegulator/sra-england-wales',
                  '.law',
                  'sra-england-wales',
                  'Policy §1.1 covers SRA as statutory Legal Regulator.',
@@ -989,12 +989,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-eligibility-check-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-eligibility-check-v1',
                  'did:web:domain.etzhayyim.com',
                  'domain_eligibility_check',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  domain.etzhayyim.com eligibilityCheck (XRPC app.etzhayyim.apps.domain.eligibilityCheck).\n'
+                 '  domain.etzhayyim.com eligibilityCheck (XRPC com.etzhayyim.apps.domain.eligibilityCheck).\n'
                  '\n'
                  '  Resolves (tld, jurisdiction, actorKind) against '
                  'vertex_domain_eligibility_advice\n'
@@ -1012,7 +1012,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.domain.eligibilityCheck", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.domain.eligibilityCheck", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -1054,7 +1054,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:domain.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.domain.eligibilityCheck&quot;" target="eventType"/>\n'
+                 'source="=&quot;com.etzhayyim.apps.domain.eligibilityCheck&quot;" target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;tld&quot;: tld, '
                  '&quot;jurisdiction&quot;: jurisdiction, &quot;actorKind&quot;: actorKind, '
                  '&quot;eligible&quot;: eligible }" target="attributes"/>\n'
@@ -1073,12 +1073,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3389,
-                 '00-contracts/bpmn/ai/gftd/domain/eligibilityCheck.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/domain/eligibilityCheck.bpmn',
                  '2026-05-07T23:00:00Z',
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-eligibility-check-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-eligibility-check-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1086,12 +1086,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-register-assist-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-register-assist-v1',
                  'did:web:domain.etzhayyim.com',
                  'domain_register_assist',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  domain.etzhayyim.com registerAssist (XRPC app.etzhayyim.apps.domain.registerAssist).\n'
+                 '  domain.etzhayyim.com registerAssist (XRPC com.etzhayyim.apps.domain.registerAssist).\n'
                  '\n'
                  '  Single-task BPMN: domain.register.assist runs eligibility check + registrar\n'
                  '  recommendation + draft ledger INSERT in one primitive (the ledger write\n'
@@ -1109,7 +1109,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.domain.registerAssist", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.domain.registerAssist", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -1159,7 +1159,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:domain.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.domain.registerAssist&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.domain.registerAssist&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;domainName&quot;: domainName, '
                  '&quot;tld&quot;: tld, &quot;registrantDid&quot;: registrantDid, '
@@ -1180,12 +1180,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3992,
-                 '00-contracts/bpmn/ai/gftd/domain/registerAssist.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/domain/registerAssist.bpmn',
                  '2026-05-07T23:00:00Z',
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-register-assist-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-register-assist-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1193,7 +1193,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-refresh-tld-catalog-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-refresh-tld-catalog-v1',
                  'did:web:domain.etzhayyim.com',
                  'domain_refresh_tld_catalog',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1251,7 +1251,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:domain.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.domain.refreshTldCatalog&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.domain.refreshTldCatalog&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;tldsChecked&quot;: tldsChecked, '
                  '&quot;tldsUpdated&quot;: tldsUpdated }" target="attributes"/>\n'
@@ -1270,12 +1270,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2894,
-                 '00-contracts/bpmn/ai/gftd/domain/refreshTldCatalog.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/domain/refreshTldCatalog.bpmn',
                  '2026-05-07T23:00:00Z',
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-refresh-tld-catalog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-refresh-tld-catalog-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1283,16 +1283,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/domain-eligibilityCheck-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/domain-eligibilityCheck-v1',
                  'did:web:domain.etzhayyim.com',
-                 'app.etzhayyim.apps.domain.eligibilityCheck',
+                 'com.etzhayyim.apps.domain.eligibilityCheck',
                  'domain_eligibility_check',
                  30000,
                  '2026-05-07T23:00:00Z',
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/domain-eligibilityCheck-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/domain-eligibilityCheck-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1300,27 +1300,27 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/domain-registerAssist-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/domain-registerAssist-v1',
                  'did:web:domain.etzhayyim.com',
-                 'app.etzhayyim.apps.domain.registerAssist',
+                 'com.etzhayyim.apps.domain.registerAssist',
                  'domain_register_assist',
                  30000,
                  '2026-05-07T23:00:00Z',
                  'did:web:domain.etzhayyim.com',
                  'did:web:domain.etzhayyim.com',
                  'sys.bpmn.seed.domain',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/domain-registerAssist-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/domain-registerAssist-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/domain-eligibilityCheck-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/domain-eligibilityCheck-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/domain-registerAssist-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/domain-registerAssist-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-eligibility-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-eligibility-check-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-register-assist-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-register-assist-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-refresh-tld-catalog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-refresh-tld-catalog-v1']},
  {'sql': 'DELETE FROM edge_domain_tld_accepts_regulator WHERE owner_did = $1',
   'parameters': ['did:web:domain.etzhayyim.com']},
  {'sql': 'DELETE FROM edge_domain_registrar_supports_tld WHERE owner_did = $1',

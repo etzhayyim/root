@@ -6,7 +6,7 @@
     ?lat=35.6812&lng=139.7671
 
   The WASM world is local-meters around the anchor; buildings are streamed
-  from `ai.gftd.apps.maps.getChunk` every 4 s as the player moves.
+  from `com.etzhayyim.apps.maps.getChunk` every 4 s as the player moves.
 
   When embedded in the main map as an iframe, clicking "Exit" posts
   { type: 'exit-walk' } to window.parent so App.svelte can restore the 2D view.
@@ -141,7 +141,7 @@ function worldToLngLat(x, z) {
 
 // ── XRPC client (POST, matching XrpcHttpClient default in api.ts) ────────────
 async function getChunk(params) {
-  const res = await fetch('/xrpc/ai.gftd.apps.maps.getChunk', {
+  const res = await fetch('/xrpc/com.etzhayyim.apps.maps.getChunk', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     credentials: 'same-origin',
@@ -152,7 +152,7 @@ async function getChunk(params) {
 }
 
 async function getChunkModels(params) {
-  const res = await fetch('/xrpc/ai.gftd.apps.maps.getChunkModels', {
+  const res = await fetch('/xrpc/com.etzhayyim.apps.maps.getChunkModels', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     credentials: 'same-origin',
@@ -320,7 +320,7 @@ async function fetchAndPushMeshTiles() {
     const ll = worldToLngLat(h.x, h.z);
     const centre = latLngToCell(ll.lat, ll.lng, 12);
     const cells = gridDisk(centre, 4);
-    const url = new URL('/xrpc/ai.gftd.apps.maps3d.listProcessedTiles', location.origin);
+    const url = new URL('/xrpc/com.etzhayyim.apps.maps3d.listProcessedTiles', location.origin);
     url.searchParams.set('h3Cells', JSON.stringify(cells));
     const res = await fetch(url.toString(), { credentials: 'same-origin' });
     if (!res.ok) return;

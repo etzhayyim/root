@@ -24,8 +24,15 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[3]
 ALL_SH = REPO_ROOT / "70-tools/scripts/audit/all.sh"
 
-# Iter-52 closure baseline + iter-57/61 perf-win baseline.
-EXPECTED_TOTAL_FINDINGS = 25
+# Rollup baseline. Was 25 at iter-52 closure (2026-05-27); re-baselined to 7
+# on 2026-06-01 after a week of cleanup legitimately resolved the other
+# findings (every non-subrepo audit now reports 0 — dependabot / sdk-exports /
+# convention-drift / manifests / lexicons all clean). The remaining 7 are
+# entirely "stale subrepo upstream URLs" (the gftd→etzhayyim 404 .gitrepo
+# remotes), matching test_subrepo_scripts.EXPECTED_STALE_URLS = 7. Fixing
+# those will drop this to 0 and intentionally fail this test for a conscious
+# re-baseline.
+EXPECTED_TOTAL_FINDINGS = 7
 PERF_BUDGET_S = 5.0      # iter-61 actual ~1.1 s; 4.5x headroom for CI
 TEST_MODE_BUDGET_S = 20.0  # iter-66 pytest ~8 s; --all combined ~10 s; headroom
 

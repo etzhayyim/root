@@ -274,7 +274,7 @@ export class XrpcClient {
   }
 
   async governanceRegisterManifest(manifestJson: string): Promise<void> {
-    await this.rpc("app.etzhayyim.governance.registerManifest", { manifestJson });
+    await this.rpc("com.etzhayyim.governance.registerManifest", { manifestJson });
   }
 
   // ── CDN (R2 direct) ──
@@ -370,11 +370,11 @@ export class XrpcClient {
 
   // ── Domain shorthand ──
   // xrpc.domain("handotai").create("article", {...})
-  // → com.atproto.repo.createRecord { collection: "app.etzhayyim.apps.handotai.article", record }
+  // → com.atproto.repo.createRecord { collection: "com.etzhayyim.apps.handotai.article", record }
 
   domain(app: string) {
     const self = this;
-    const col = (type: string) => `app.etzhayyim.apps.${app}.${type}`;
+    const col = (type: string) => `com.etzhayyim.apps.${app}.${type}`;
     return {
       create: <T = unknown>(type: string, record: T, rkey?: string) =>
         self.createRecord(col(type), record, rkey),
@@ -391,7 +391,7 @@ export class XrpcClient {
 
       // Direct NSID call (for app-specific query/procedure methods)
       call: <R = unknown>(method: string, params?: Record<string, unknown>) =>
-        self.xrpc<R>(`app.etzhayyim.apps.${app}.${method}`, params ?? {}),
+        self.xrpc<R>(`com.etzhayyim.apps.${app}.${method}`, params ?? {}),
     };
   }
 
@@ -486,7 +486,7 @@ export class XrpcClient {
 
   /** Invoke a method on another agent via PDS gateway. */
   async invoke(target: string, method: string, params: Record<string, unknown> = {}): Promise<unknown> {
-    return this.xrpc("app.etzhayyim.pds.invoke", { target, method, params: JSON.stringify(params) });
+    return this.xrpc("com.etzhayyim.pds.invoke", { target, method, params: JSON.stringify(params) });
   }
 
   // ── Generic XRPC call ──

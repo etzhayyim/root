@@ -1,6 +1,6 @@
 """animeka `breakdownScene` graph — LLM scene → numbered cut records.
 
-NSID: app.etzhayyim.animeka.breakdownScene
+NSID: com.etzhayyim.animeka.breakdownScene
 
 Given a scene description (or script body) and an episode_id, uses LLM
 to break the scene into N cuts with shot type, duration, and camera notes.
@@ -120,7 +120,7 @@ async def _node_insert_cuts(state: _State) -> dict[str, Any]:
         try:
             for spec in (state["breakdown"] or []):
                 rkey = f"cut-{secrets.token_hex(4)}"
-                vertex_id = f"at://{_REPO}/app.etzhayyim.animeka.cut/{rkey}"
+                vertex_id = f"at://{_REPO}/com.etzhayyim.animeka.cut/{rkey}"
                 cut_num = int(spec.get("cutNum") or len(cut_ids) + 1)
                 duration = int(spec.get("durationFrames") or 48)
                 camera_note = str(spec.get("cameraNote") or "")[:255]
@@ -138,7 +138,7 @@ async def _node_insert_cuts(state: _State) -> dict[str, Any]:
                        vertex_id, repo, rkey, collection, kind, owner_did,
                        episode_id, scene_id, cut_num, duration_frames, fps,
                        camera_mode, camera_note, stage_status, status, created_at)
-                       VALUES (%s,%s,%s,'app.etzhayyim.animeka.cut','cut',%s,
+                       VALUES (%s,%s,%s,'com.etzhayyim.animeka.cut','cut',%s,
                                %s,%s,%s,%s,%s,%s,%s,%s,'pending',%s)""",
                     [vertex_id, _REPO, rkey, _APP_DID,
                      episode_id, scene_id, cut_num, duration, fps,

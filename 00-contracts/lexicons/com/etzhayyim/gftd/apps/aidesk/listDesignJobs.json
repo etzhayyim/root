@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.aidesk.listDesignJobs",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List design jobs for a given actor, with optional status filter.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "actorDid": { "type": "string" },
+          "status":   { "type": "string", "enum": ["queued", "running", "done", "failed"] },
+          "limit":    { "type": "integer", "default": 50, "maximum": 200 },
+          "offset":   { "type": "integer", "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "jobs":   { "type": "array", "items": { "type": "unknown" } },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

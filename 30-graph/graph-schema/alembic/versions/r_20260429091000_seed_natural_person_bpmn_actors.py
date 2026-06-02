@@ -25,19 +25,19 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-generateCohortBatch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-generateCohortBatch-v1',
                  'did:web:natural-person.etzhayyim.com',
                  'natural_person_generate_cohort_batch_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  naturalPerson.generateCohortBatch — daily batch cohort generation\n'
-                 '  Calls app.etzhayyim.apps.naturalPerson.generateCohortProfiles to cross-tabulate\n'
+                 '  Calls com.etzhayyim.apps.naturalPerson.generateCohortProfiles to cross-tabulate\n'
                  '  country × era × gender × income-decile cohorts with dml_rate_limit to\n'
                  '  protect RisingWave from bulk-insert overload (ADR-0048 convention).\n'
                  '\n'
                  '  Trigger:\n'
                  '    timer-start R/P1D (every day) AND XRPC '
-                 '(app.etzhayyim.apps.naturalPerson.generateCohortBatch).\n'
+                 '(com.etzhayyim.apps.naturalPerson.generateCohortBatch).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. generic.db.select  — read current cohort count + last run watermark\n'
@@ -47,8 +47,8 @@ UP = [{'sql': '\n'
                  '    5. generic.audit.emit — OCEL event (cohortsGenerated, sources, duration)\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-generate-cohort-batch-v1\n'
-                 '  NSID:      app.etzhayyim.apps.naturalPerson.generateCohortBatch\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-generate-cohort-batch-v1\n'
+                 '  NSID:      com.etzhayyim.apps.naturalPerson.generateCohortBatch\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -115,7 +115,7 @@ UP = [{'sql': '\n'
                  'vertex_natural_person_cohort_person (vertex_id, created_date, sensitivity_ord, '
                  'owner_did, rkey, repo, cohort_hash, vital_status, era, data_classification, '
                  'created_at, org_id, user_id, actor_id) SELECT '
-                 '&apos;at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/batch-&apos; '
+                 '&apos;at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.cohortPerson/batch-&apos; '
                  '|| NOW()::TEXT, CURRENT_DATE, 100, &apos;did:web:natural-person.etzhayyim.com&apos;, '
                  '&apos;batch-generated&apos;, &apos;did:web:natural-person.etzhayyim.com&apos;, '
                  '&apos;batch-placeholder&apos;, &apos;alive&apos;, &apos;modern&apos;, '
@@ -191,12 +191,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  7414,
-                 '00-contracts/bpmn/ai/gftd/natural-person/generateCohortBatch.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/natural-person/generateCohortBatch.bpmn',
                  '2026-04-29T09:06:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-generateCohortBatch-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-generateCohortBatch-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -210,21 +210,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/natural-person-generateCohortBatch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/natural-person-generateCohortBatch-v1',
                  'did:web:natural-person.etzhayyim.com',
-                 'app.etzhayyim.apps.naturalPerson.generateCohortBatch',
+                 'com.etzhayyim.apps.naturalPerson.generateCohortBatch',
                  'natural_person_generate_cohort_batch_v1',
                  300000,
                  '2026-04-29T09:06:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/natural-person-generateCohortBatch-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/natural-person-generateCohortBatch-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/natural-person-generateCohortBatch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/natural-person-generateCohortBatch-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-generateCohortBatch-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-generateCohortBatch-v1']}]
 
 
 def upgrade() -> None:

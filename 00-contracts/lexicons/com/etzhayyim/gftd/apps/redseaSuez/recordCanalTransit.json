@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.redseaSuez.recordCanalTransit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "スエズ運河通過",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "transitId",
+            "imo",
+            "direction",
+            "enteredAt"
+          ],
+          "properties": {
+            "transitId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "direction": {
+              "type": "string",
+              "enum": [
+                "northbound",
+                "southbound"
+              ]
+            },
+            "convoyId": {
+              "type": "string"
+            },
+            "scnBooked": {
+              "type": "boolean"
+            },
+            "suezTollUsd": {
+              "type": "number"
+            },
+            "enteredAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "clearedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

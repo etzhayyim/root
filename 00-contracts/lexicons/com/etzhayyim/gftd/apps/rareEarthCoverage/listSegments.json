@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.rareEarthCoverage.listSegments",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List rare earth supply chain segments with offset/limit pagination, optional filters.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "segment": { "type": "string" },
+          "country": { "type": "string" },
+          "element": { "type": "string", "description": "filter by RE element (nd/pr/dy/tb/sm/eu/gd/y/ce/la/sc)" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["segments", "total", "offset", "limit"],
+          "properties": {
+            "segments": { "type": "array", "items": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "segment": { "type": "string" }, "country": { "type": "string" }, "elements": { "type": "array", "items": { "type": "string" } }, "annualOutputTonnes": { "type": "number" } } } },
+            "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

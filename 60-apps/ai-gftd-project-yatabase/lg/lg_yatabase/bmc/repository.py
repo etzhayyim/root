@@ -10,7 +10,7 @@ Honours:
 
 TODO(substrate-boundary): replace all RW queries with AT Protocol MST writes
 per ADR-2605172000. append_state/append_hypothesis/append_iteration become
-e.write({collection: 'app.etzhayyim.apps.yata.bmc.state', ...}). Read paths use
+e.write({collection: 'com.etzhayyim.apps.yata.bmc.state', ...}). Read paths use
 e.read() with MST prefix scans. Record-log semantics naturally enforce by
 MST immutability.
 """

@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-alert-create-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-alert-create-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_alert_create',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:startEvent id="start" />\n'
                  '    <bpmn:serviceTask id="task" name="alertCreate">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.alertCreate" /></bpmn:extensionElements>\n'
+                 'type="xrpc.com.etzhayyim.apps.handotai.alertCreate" /></bpmn:extensionElements>\n'
                  '    </bpmn:serviceTask>\n'
                  '    <bpmn:endEvent id="end" />\n'
                  '    <bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
@@ -47,13 +47,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  743,
-                 '00-contracts/bpmn/ai/gftd/handotai/alertCreate.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/alertCreate.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-alert-create-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-alert-create-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -68,9 +68,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-alert-create-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-alert-create-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.alertCreate',
+                 'com.etzhayyim.apps.handotai.alertCreate',
                  'handotai_alert_create',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -79,7 +79,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-alert-create-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-alert-create-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -95,7 +95,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-alert-delete-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-alert-delete-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_alert_delete',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -105,20 +105,20 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="handotai_alert_delete" isExecutable="true">\n'
                  '    <bpmn:startEvent id="start" /><bpmn:serviceTask id="task" '
                  'name="alertDelete"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.alertDelete" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.alertDelete" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" />\n'
                  '    <bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" />\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  716,
-                 '00-contracts/bpmn/ai/gftd/handotai/alertDelete.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/alertDelete.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-alert-delete-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-alert-delete-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -133,9 +133,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-alert-delete-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-alert-delete-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.alertDelete',
+                 'com.etzhayyim.apps.handotai.alertDelete',
                  'handotai_alert_delete',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -144,7 +144,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-alert-delete-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-alert-delete-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -160,7 +160,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-alert-list-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-alert-list-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_alert_list',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -170,19 +170,19 @@ UP = [{'sql': '\n'
                  'id="handotai_alert_list" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="alertList"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.alertList" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.alertList" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  693,
-                 '00-contracts/bpmn/ai/gftd/handotai/alertList.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/alertList.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-alert-list-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-alert-list-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -197,9 +197,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-alert-list-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-alert-list-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.alertList',
+                 'com.etzhayyim.apps.handotai.alertList',
                  'handotai_alert_list',
                  30000,
                  '',
@@ -208,7 +208,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-alert-list-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-alert-list-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -224,7 +224,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-backfill-writer-posts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-backfill-writer-posts-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_backfill_writer_posts',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -234,19 +234,19 @@ UP = [{'sql': '\n'
                  'id="handotai_backfill_writer_posts" isExecutable="true"><bpmn:startEvent '
                  'id="start" /><bpmn:serviceTask id="task" '
                  'name="backfillWriterPosts"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.backfillWriterPosts" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.backfillWriterPosts" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  724,
-                 '00-contracts/bpmn/ai/gftd/handotai/backfillWriterPosts.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/backfillWriterPosts.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-backfill-writer-posts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-backfill-writer-posts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -261,9 +261,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-backfill-writer-posts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-backfill-writer-posts-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.backfillWriterPosts',
+                 'com.etzhayyim.apps.handotai.backfillWriterPosts',
                  'handotai_backfill_writer_posts',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -272,7 +272,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-backfill-writer-posts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-backfill-writer-posts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -288,7 +288,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-crawl-trigger-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-crawl-trigger-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_crawl_trigger',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -298,19 +298,19 @@ UP = [{'sql': '\n'
                  'id="handotai_crawl_trigger" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="crawlTrigger"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.crawlTrigger" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.crawlTrigger" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  702,
-                 '00-contracts/bpmn/ai/gftd/handotai/crawlTrigger.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/crawlTrigger.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-crawl-trigger-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-crawl-trigger-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -325,9 +325,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-crawl-trigger-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-crawl-trigger-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.crawlTrigger',
+                 'com.etzhayyim.apps.handotai.crawlTrigger',
                  'handotai_crawl_trigger',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -336,7 +336,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-crawl-trigger-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-crawl-trigger-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -352,7 +352,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-article-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-article-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_get_article',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -362,19 +362,19 @@ UP = [{'sql': '\n'
                  'id="handotai_get_article" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="getArticle"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.getArticle" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.getArticle" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  696,
-                 '00-contracts/bpmn/ai/gftd/handotai/getArticle.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/getArticle.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-article-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-article-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -389,9 +389,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-article-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-article-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.getArticle',
+                 'com.etzhayyim.apps.handotai.getArticle',
                  'handotai_get_article',
                  30000,
                  '',
@@ -400,7 +400,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-article-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-article-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -416,7 +416,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-daily-digest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-daily-digest-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_get_daily_digest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -426,19 +426,19 @@ UP = [{'sql': '\n'
                  'id="handotai_get_daily_digest" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="getDailyDigest"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.getDailyDigest" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.getDailyDigest" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  709,
-                 '00-contracts/bpmn/ai/gftd/handotai/getDailyDigest.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/getDailyDigest.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-daily-digest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-daily-digest-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -453,9 +453,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-daily-digest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-daily-digest-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.getDailyDigest',
+                 'com.etzhayyim.apps.handotai.getDailyDigest',
                  'handotai_get_daily_digest',
                  30000,
                  '',
@@ -464,7 +464,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-daily-digest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-daily-digest-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -480,7 +480,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-subscription-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-subscription-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_get_subscription',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -490,19 +490,19 @@ UP = [{'sql': '\n'
                  'id="handotai_get_subscription" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="getSubscription"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.getSubscription" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.getSubscription" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  711,
-                 '00-contracts/bpmn/ai/gftd/handotai/getSubscription.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/getSubscription.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-subscription-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-subscription-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -517,9 +517,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-subscription-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-subscription-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.getSubscription',
+                 'com.etzhayyim.apps.handotai.getSubscription',
                  'handotai_get_subscription',
                  30000,
                  '',
@@ -528,7 +528,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-subscription-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-subscription-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -544,7 +544,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-weekly-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-weekly-report-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_get_weekly_report',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -554,19 +554,19 @@ UP = [{'sql': '\n'
                  'id="handotai_get_weekly_report" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="getWeeklyReport"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.getWeeklyReport" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.getWeeklyReport" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  712,
-                 '00-contracts/bpmn/ai/gftd/handotai/getWeeklyReport.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/getWeeklyReport.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-weekly-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-weekly-report-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -581,9 +581,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-weekly-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-weekly-report-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.getWeeklyReport',
+                 'com.etzhayyim.apps.handotai.getWeeklyReport',
                  'handotai_get_weekly_report',
                  30000,
                  '',
@@ -592,7 +592,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-weekly-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-weekly-report-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -608,7 +608,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-handle-daily-evolution-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-handle-daily-evolution-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_handle_daily_evolution',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -618,19 +618,19 @@ UP = [{'sql': '\n'
                  'id="handotai_handle_daily_evolution" isExecutable="true"><bpmn:startEvent '
                  'id="start" /><bpmn:serviceTask id="task" '
                  'name="handleDailyEvolution"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.handleDailyEvolution" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.handleDailyEvolution" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  727,
-                 '00-contracts/bpmn/ai/gftd/handotai/handleDailyEvolution.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/handleDailyEvolution.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-handle-daily-evolution-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-handle-daily-evolution-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -645,9 +645,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-handle-daily-evolution-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-handle-daily-evolution-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.handleDailyEvolution',
+                 'com.etzhayyim.apps.handotai.handleDailyEvolution',
                  'handotai_handle_daily_evolution',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -656,7 +656,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-handle-daily-evolution-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-handle-daily-evolution-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -672,7 +672,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-list-articles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-list-articles-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_list_articles',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -682,19 +682,19 @@ UP = [{'sql': '\n'
                  'id="handotai_list_articles" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="listArticles"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.listArticles" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.listArticles" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  702,
-                 '00-contracts/bpmn/ai/gftd/handotai/listArticles.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/listArticles.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-list-articles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-list-articles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -709,9 +709,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-list-articles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-list-articles-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.listArticles',
+                 'com.etzhayyim.apps.handotai.listArticles',
                  'handotai_list_articles',
                  30000,
                  '',
@@ -720,7 +720,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-list-articles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-list-articles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -736,7 +736,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-list-semi-entities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-list-semi-entities-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_list_semi_entities',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -746,19 +746,19 @@ UP = [{'sql': '\n'
                  'id="handotai_list_semi_entities" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="listSemiEntities"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.listSemiEntities" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.listSemiEntities" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  715,
-                 '00-contracts/bpmn/ai/gftd/handotai/listSemiEntities.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/listSemiEntities.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-list-semi-entities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-list-semi-entities-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -773,9 +773,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-list-semi-entities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-list-semi-entities-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.listSemiEntities',
+                 'com.etzhayyim.apps.handotai.listSemiEntities',
                  'handotai_list_semi_entities',
                  30000,
                  '',
@@ -784,7 +784,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-list-semi-entities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-list-semi-entities-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -800,7 +800,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-register-semi-entities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-register-semi-entities-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_register_semi_entities',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -810,19 +810,19 @@ UP = [{'sql': '\n'
                  'id="handotai_register_semi_entities" isExecutable="true"><bpmn:startEvent '
                  'id="start" /><bpmn:serviceTask id="task" '
                  'name="registerSemiEntities"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.registerSemiEntities" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.registerSemiEntities" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  727,
-                 '00-contracts/bpmn/ai/gftd/handotai/registerSemiEntities.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/registerSemiEntities.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-register-semi-entities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-register-semi-entities-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -837,9 +837,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-register-semi-entities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-register-semi-entities-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.registerSemiEntities',
+                 'com.etzhayyim.apps.handotai.registerSemiEntities',
                  'handotai_register_semi_entities',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -848,7 +848,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-register-semi-entities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-register-semi-entities-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -864,7 +864,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-register-writer-profiles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-register-writer-profiles-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_register_writer_profiles',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -874,19 +874,19 @@ UP = [{'sql': '\n'
                  'id="handotai_register_writer_profiles" isExecutable="true"><bpmn:startEvent '
                  'id="start" /><bpmn:serviceTask id="task" '
                  'name="registerWriterProfiles"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.registerWriterProfiles" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.registerWriterProfiles" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  733,
-                 '00-contracts/bpmn/ai/gftd/handotai/registerWriterProfiles.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/registerWriterProfiles.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-register-writer-profiles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-register-writer-profiles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -901,9 +901,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-register-writer-profiles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-register-writer-profiles-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.registerWriterProfiles',
+                 'com.etzhayyim.apps.handotai.registerWriterProfiles',
                  'handotai_register_writer_profiles',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -912,7 +912,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-register-writer-profiles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-register-writer-profiles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -928,7 +928,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-report-generate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-report-generate-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_report_generate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -938,19 +938,19 @@ UP = [{'sql': '\n'
                  'id="handotai_report_generate" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="reportGenerate"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.reportGenerate" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.reportGenerate" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  708,
-                 '00-contracts/bpmn/ai/gftd/handotai/reportGenerate.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/reportGenerate.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-report-generate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-report-generate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -965,9 +965,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-report-generate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-report-generate-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.reportGenerate',
+                 'com.etzhayyim.apps.handotai.reportGenerate',
                  'handotai_report_generate',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -976,7 +976,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-report-generate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-report-generate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -992,7 +992,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-search-articles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-search-articles-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_search_articles',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1002,19 +1002,19 @@ UP = [{'sql': '\n'
                  'id="handotai_search_articles" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="searchArticles"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.searchArticles" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.searchArticles" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  708,
-                 '00-contracts/bpmn/ai/gftd/handotai/searchArticles.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/searchArticles.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-search-articles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-search-articles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1029,9 +1029,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-search-articles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-search-articles-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.searchArticles',
+                 'com.etzhayyim.apps.handotai.searchArticles',
                  'handotai_search_articles',
                  30000,
                  '',
@@ -1040,7 +1040,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-search-articles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-search-articles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1056,7 +1056,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-seed-articles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-seed-articles-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_seed_articles',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1066,19 +1066,19 @@ UP = [{'sql': '\n'
                  'id="handotai_seed_articles" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="seedArticles"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.seedArticles" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.seedArticles" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  702,
-                 '00-contracts/bpmn/ai/gftd/handotai/seedArticles.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/seedArticles.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-seed-articles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-seed-articles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1093,9 +1093,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-seed-articles-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-seed-articles-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.seedArticles',
+                 'com.etzhayyim.apps.handotai.seedArticles',
                  'handotai_seed_articles',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -1104,7 +1104,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-seed-articles-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-seed-articles-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1120,7 +1120,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-source-add-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-source-add-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_source_add',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1130,19 +1130,19 @@ UP = [{'sql': '\n'
                  'id="handotai_source_add" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="sourceAdd"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.sourceAdd" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.sourceAdd" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  693,
-                 '00-contracts/bpmn/ai/gftd/handotai/sourceAdd.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/sourceAdd.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-source-add-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-source-add-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1157,9 +1157,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-source-add-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-source-add-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.sourceAdd',
+                 'com.etzhayyim.apps.handotai.sourceAdd',
                  'handotai_source_add',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -1168,7 +1168,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-source-add-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-source-add-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1184,7 +1184,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-source-list-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-source-list-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_source_list',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1194,19 +1194,19 @@ UP = [{'sql': '\n'
                  'id="handotai_source_list" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="sourceList"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.sourceList" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.sourceList" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  696,
-                 '00-contracts/bpmn/ai/gftd/handotai/sourceList.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/sourceList.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-source-list-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-source-list-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1221,9 +1221,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-source-list-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-source-list-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.sourceList',
+                 'com.etzhayyim.apps.handotai.sourceList',
                  'handotai_source_list',
                  30000,
                  '',
@@ -1232,7 +1232,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-source-list-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-source-list-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1248,7 +1248,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-subscribe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-subscribe-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_subscribe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1258,19 +1258,19 @@ UP = [{'sql': '\n'
                  'id="handotai_subscribe" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="subscribe"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.subscribe" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.subscribe" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  692,
-                 '00-contracts/bpmn/ai/gftd/handotai/subscribe.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/subscribe.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-subscribe-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-subscribe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1285,9 +1285,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-subscribe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-subscribe-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.subscribe',
+                 'com.etzhayyim.apps.handotai.subscribe',
                  'handotai_subscribe',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -1296,7 +1296,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-subscribe-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-subscribe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1312,7 +1312,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-translate-article-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-translate-article-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_translate_article',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1322,19 +1322,19 @@ UP = [{'sql': '\n'
                  'id="handotai_translate_article" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="translateArticle"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.translateArticle" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.translateArticle" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  714,
-                 '00-contracts/bpmn/ai/gftd/handotai/translateArticle.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/translateArticle.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-translate-article-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-translate-article-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1349,9 +1349,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-translate-article-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-translate-article-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.translateArticle',
+                 'com.etzhayyim.apps.handotai.translateArticle',
                  'handotai_translate_article',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -1360,7 +1360,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-translate-article-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-translate-article-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1376,7 +1376,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-update-translation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-update-translation-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_update_translation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1386,19 +1386,19 @@ UP = [{'sql': '\n'
                  'id="handotai_update_translation" isExecutable="true"><bpmn:startEvent id="start" '
                  '/><bpmn:serviceTask id="task" '
                  'name="updateTranslation"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.updateTranslation" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.updateTranslation" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  717,
-                 '00-contracts/bpmn/ai/gftd/handotai/updateTranslation.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/updateTranslation.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-update-translation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-update-translation-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1413,9 +1413,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-update-translation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-update-translation-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.updateTranslation',
+                 'com.etzhayyim.apps.handotai.updateTranslation',
                  'handotai_update_translation',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -1424,7 +1424,7 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-update-translation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-update-translation-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1440,7 +1440,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-wave-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-wave-v1',
                  'did:web:handotai.etzhayyim.com',
                  'handotai_wave',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1449,19 +1449,19 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/handotai"><bpmn:process id="handotai_wave" '
                  'isExecutable="true"><bpmn:startEvent id="start" /><bpmn:serviceTask id="task" '
                  'name="wave"><bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.handotai.wave" '
+                 'type="xrpc.com.etzhayyim.apps.handotai.wave" '
                  '/></bpmn:extensionElements></bpmn:serviceTask><bpmn:endEvent id="end" '
                  '/><bpmn:sequenceFlow id="flow_start_task" sourceRef="start" targetRef="task" '
                  '/><bpmn:sequenceFlow id="flow_task_end" sourceRef="task" targetRef="end" '
                  '/></bpmn:process></bpmn:definitions>\n',
                  677,
-                 '00-contracts/bpmn/ai/gftd/handotai/wave.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/handotai/wave.bpmn',
                  '2026-05-07T01:45:00Z',
                  'did:web:handotai.etzhayyim.com',
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-wave-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-wave-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1476,9 +1476,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-wave-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-wave-v1',
                  'did:web:handotai.etzhayyim.com',
-                 'app.etzhayyim.apps.handotai.wave',
+                 'com.etzhayyim.apps.handotai.wave',
                  'handotai_wave',
                  30000,
                  'vertex_handotai_alert,vertex_handotai_article,vertex_handotai_collection_job,vertex_handotai_digest,vertex_handotai_report,vertex_handotai_semi_entity,vertex_handotai_source,vertex_handotai_subscription,edge_handotai_article_entity,edge_handotai_source_article,edge_handotai_subscription_entity,vertex_repo_record',
@@ -1487,100 +1487,100 @@ UP = [{'sql': '\n'
                  'did:web:handotai.etzhayyim.com',
                  'sys.bpmn.seed.handotai',
                  'did:web:handotai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-wave-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-wave-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-alert-create-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-alert-create-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-alert-create-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-alert-create-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-alert-delete-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-alert-delete-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-alert-delete-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-alert-delete-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-alert-list-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-alert-list-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-alert-list-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-alert-list-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-backfill-writer-posts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-backfill-writer-posts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-backfill-writer-posts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-backfill-writer-posts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-crawl-trigger-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-crawl-trigger-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-crawl-trigger-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-crawl-trigger-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-article-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-article-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-article-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-article-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-daily-digest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-daily-digest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-daily-digest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-daily-digest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-subscription-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-subscription-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-subscription-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-subscription-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-get-weekly-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-get-weekly-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-get-weekly-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-get-weekly-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-handle-daily-evolution-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-handle-daily-evolution-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-handle-daily-evolution-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-handle-daily-evolution-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-list-articles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-list-articles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-list-articles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-list-articles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-list-semi-entities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-list-semi-entities-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-list-semi-entities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-list-semi-entities-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-register-semi-entities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-register-semi-entities-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-register-semi-entities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-register-semi-entities-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-register-writer-profiles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-register-writer-profiles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-register-writer-profiles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-register-writer-profiles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-report-generate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-report-generate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-report-generate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-report-generate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-search-articles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-search-articles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-search-articles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-search-articles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-seed-articles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-seed-articles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-seed-articles-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-seed-articles-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-source-add-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-source-add-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-source-add-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-source-add-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-source-list-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-source-list-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-source-list-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-source-list-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-subscribe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-subscribe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-subscribe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-subscribe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-translate-article-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-translate-article-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-translate-article-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-translate-article-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-update-translation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-update-translation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-update-translation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-update-translation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/handotai-wave-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/handotai-wave-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/handotai-wave-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/handotai-wave-v1']}]
 
 
 def upgrade() -> None:

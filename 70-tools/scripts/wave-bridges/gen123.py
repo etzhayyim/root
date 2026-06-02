@@ -7,7 +7,7 @@ import json, pathlib
 
 ROOT = pathlib.Path("/Users/junkawasaki/github/etzhayyim/root")
 BPMN_ROOT = ROOT / "00-contracts/bpmn/ai/gftd"
-LEX_ROOT = ROOT / "00-contracts/lexicons/ai/gftd/apps"
+LEX_ROOT = ROOT / "00-contracts/lexicons/com/etzhayyim/apps"
 
 # (slug, lex_app, method, target_table, group_col, group_val,
 #  ak_col, ak_val, aid_col, iat_col, desc)
@@ -153,7 +153,7 @@ for (slug, lex_app, method, table, group_col, group_val,
 
     lex = {
         "lexicon": 1,
-        "id": f"app.etzhayyim.apps.{lex_app}.{method}",
+        "id": f"com.etzhayyim.apps.{lex_app}.{method}",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -186,7 +186,7 @@ for (slug, lex_app, method, table, group_col, group_val,
     lex_dir.mkdir(parents=True, exist_ok=True)
     (lex_dir / f"{method}.json").write_text(json.dumps(lex, indent=2, ensure_ascii=False))
 
-    nsid = f"app.etzhayyim.apps.{lex_app}.{method}"
+    nsid = f"com.etzhayyim.apps.{lex_app}.{method}"
     bind_lines.append(f"('binding:{nsid}','{nsid}','{proc}',1,'active',now())")
 
 with open("/tmp/wave13/bind123.sql", "w") as f:

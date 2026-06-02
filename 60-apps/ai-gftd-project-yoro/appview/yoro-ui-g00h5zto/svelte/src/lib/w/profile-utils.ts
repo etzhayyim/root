@@ -20,7 +20,7 @@ export interface ESimProfile {
 
 export async function fetchEsimProfile(): Promise<ESimProfile | null> {
 	try {
-		const result = await atProcedure<{ rows?: Record<string, unknown>[] }>('app.etzhayyim.apps.celler.getEsimProfile', {});
+		const result = await atProcedure<{ rows?: Record<string, unknown>[] }>('com.etzhayyim.apps.celler.getEsimProfile', {});
 		if (result?.rows?.[0]) {
 			const row = result.rows[0];
 			return {
@@ -62,8 +62,8 @@ export interface IssuingBalance {
 export async function fetchCards(): Promise<{ cards: IssuingCard[]; balance: IssuingBalance | null }> {
 	try {
 		const [cardsResult, balanceResult] = await Promise.all([
-			atProcedure<{ data?: any[] }>('app.etzhayyim.apps.cards.listCards', { limit: 25 }),
-			atProcedure<{ issuingAvailable?: Array<{ amount: number; currency: string }> }>('app.etzhayyim.apps.cards.getBalance', {}),
+			atProcedure<{ data?: any[] }>('com.etzhayyim.apps.cards.listCards', { limit: 25 }),
+			atProcedure<{ issuingAvailable?: Array<{ amount: number; currency: string }> }>('com.etzhayyim.apps.cards.getBalance', {}),
 		]);
 		const rawCards = cardsResult?.data ?? (cardsResult as any)?.items ?? [];
 			const cards: IssuingCard[] = rawCards.map((c: any) => ({
@@ -91,7 +91,7 @@ export async function fetchCards(): Promise<{ cards: IssuingCard[]; balance: Iss
 
 export async function freezeCard(cardId: string): Promise<boolean> {
 	try {
-		await atProcedure('app.etzhayyim.apps.cards.freezeCard', { 'cardId': cardId });
+		await atProcedure('com.etzhayyim.apps.cards.freezeCard', { 'cardId': cardId });
 		return true;
 	} catch (e) {
 		console.warn('freezeCard failed', e);
@@ -101,7 +101,7 @@ export async function freezeCard(cardId: string): Promise<boolean> {
 
 export async function unfreezeCard(cardId: string): Promise<boolean> {
 	try {
-		await atProcedure('app.etzhayyim.apps.cards.unfreezeCard', { 'cardId': cardId });
+		await atProcedure('com.etzhayyim.apps.cards.unfreezeCard', { 'cardId': cardId });
 		return true;
 	} catch (e) {
 		console.warn('unfreezeCard failed', e);
@@ -117,8 +117,8 @@ export async function fetchActorScores(actorDid: string): Promise<ActorScores | 
 		if (!normalizedDid) return undefined;
 		const scores: ActorScores = {};
 		const [dojoProfileRes, jouchoReviewsRes] = await Promise.allSettled([
-			atProcedure<Record<string, unknown>>('app.etzhayyim.apps.dojo.getXpProfile', { did: normalizedDid }).catch((_err: unknown) => null),
-			listRecords(normalizedDid, 'app.etzhayyim.apps.joucho.review', { limit: 100 }).catch((_err: unknown) => null),
+			atProcedure<Record<string, unknown>>('com.etzhayyim.apps.dojo.getXpProfile', { did: normalizedDid }).catch((_err: unknown) => null),
+			listRecords(normalizedDid, 'com.etzhayyim.apps.joucho.review', { limit: 100 }).catch((_err: unknown) => null),
 		]);
 
 		const dojoProfile = dojoProfileRes.status === 'fulfilled' ? dojoProfileRes.value : null;

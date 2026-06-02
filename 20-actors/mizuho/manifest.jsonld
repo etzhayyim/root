@@ -109,11 +109,11 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.mizuho.waterQualityAttestation",
-    "app.etzhayyim.mizuho.wastewaterDischargeAttestation",
-    "app.etzhayyim.mizuho.waterSupplySourceRegistry",
-    "app.etzhayyim.mizuho.waterContaminationIncident",
-    "app.etzhayyim.mizuho.silenMizuhoReview"
+    "com.etzhayyim.mizuho.waterQualityAttestation",
+    "com.etzhayyim.mizuho.wastewaterDischargeAttestation",
+    "com.etzhayyim.mizuho.waterSupplySourceRegistry",
+    "com.etzhayyim.mizuho.waterContaminationIncident",
+    "com.etzhayyim.mizuho.silenMizuhoReview"
   ],
   "constitutionalGates": {
     "description": "12 immutable gates per ADR-2605263100. Council Lv6+ supermajority + new ADR to amend.",

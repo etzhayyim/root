@@ -16,8 +16,8 @@
                            camunda:decisionRef="openRail.incidentSeverity"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_ClassifySeverity" targetRef="Task_PersistIncident"/>
 
-    <bpmn:serviceTask id="Task_PersistIncident" name="ai.gftd.apps.openRail.reportIncident"
-                      camunda:topic="ai.gftd.apps.openRail.reportIncident"/>
+    <bpmn:serviceTask id="Task_PersistIncident" name="com.etzhayyim.apps.openRail.reportIncident"
+                      camunda:topic="com.etzhayyim.apps.openRail.reportIncident"/>
     <bpmn:sequenceFlow id="f4" sourceRef="Task_PersistIncident" targetRef="Gateway_GovReport"/>
 
     <bpmn:exclusiveGateway id="Gateway_GovReport" name="Gov report required?" default="f5b"/>

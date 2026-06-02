@@ -83,15 +83,15 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.briefing.briefingEntity",
-        "ai.gftd.apps.briefing.briefingEvent",
-        "ai.gftd.apps.briefing.briefingReport",
-        "ai.gftd.apps.briefing.briefingRoom",
-        "ai.gftd.apps.briefing.briefingParticipant",
-        "ai.gftd.apps.briefing.briefingPosition",
-        "ai.gftd.apps.briefing.briefingData",
-        "ai.gftd.apps.briefing.briefingRecording",
-        "ai.gftd.apps.briefing.briefingTranscript"
+        "com.etzhayyim.apps.briefing.briefingEntity",
+        "com.etzhayyim.apps.briefing.briefingEvent",
+        "com.etzhayyim.apps.briefing.briefingReport",
+        "com.etzhayyim.apps.briefing.briefingRoom",
+        "com.etzhayyim.apps.briefing.briefingParticipant",
+        "com.etzhayyim.apps.briefing.briefingPosition",
+        "com.etzhayyim.apps.briefing.briefingData",
+        "com.etzhayyim.apps.briefing.briefingRecording",
+        "com.etzhayyim.apps.briefing.briefingTranscript"
       ]
     }
   },

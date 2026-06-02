@@ -124,7 +124,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     fb.robotSignatures = mock_sigs
     fb.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.makura.foamBatchAttestation",
+        "$type": "com.etzhayyim.makura.foamBatchAttestation",
         "section": "final",
         "batchId": fb.batchId,
         "streams": fb.streams,

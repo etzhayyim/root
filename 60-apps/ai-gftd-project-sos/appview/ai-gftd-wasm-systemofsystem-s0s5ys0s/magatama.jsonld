@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.sos.sosEntity",
-        "ai.gftd.apps.sos.sosEvent",
-        "ai.gftd.apps.sos.sosReport"
+        "com.etzhayyim.apps.sos.sosEntity",
+        "com.etzhayyim.apps.sos.sosEvent",
+        "com.etzhayyim.apps.sos.sosReport"
       ]
     }
   },

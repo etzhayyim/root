@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneOs.recordHalDriver",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a HAL (Hardware Abstraction Layer) driver for an OS build",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["driverId", "osDid", "driverType"],
+          "properties": {
+            "driverId": { "type": "string" },
+            "osDid": { "type": "string", "format": "did" },
+            "socDid": { "type": "string", "format": "did" },
+            "sensorDid": { "type": "string", "format": "did" },
+            "driverType": { "type": "string", "knownValues": ["audio", "camera", "gpu", "modem", "fingerprint", "display", "sensors", "nfc", "bluetooth", "wifi", "other"] },
+            "upstreamStatus": { "type": "string", "knownValues": ["mainlined", "staging", "vendor-only", "unknown"] },
+            "vendorBlobsRequired": { "type": "boolean" },
+            "license": { "type": "string" },
+            "version": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": { "vertexId": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

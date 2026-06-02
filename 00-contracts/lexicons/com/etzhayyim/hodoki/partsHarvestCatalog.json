@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hodoki.partsHarvestCatalog",
+  "description": "CONSTITUTIONAL FIRST: RIGHT-TO-REPAIR INVARIANT (G12). Public IPFS-pinned parts catalog with VIN provenance + part DID + condition grade + bilingual description. Every harvested part is published; no proprietary lock-in; no anti-disassembly DRM tolerated. §2(e) anti-gatekeeping operationalized at vehicle scale. Per ADR-2605261215 L3a (G4 + G12).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "vinProvenance": {"type": "string", "minLength": 17, "maxLength": 17},
+          "parts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "partId": {"type": "string"},
+                "partDid": {"type": "string"},
+                "vinProvenance": {"type": "string"},
+                "descriptionJa": {"type": "string"},
+                "descriptionEn": {"type": "string"},
+                "massKg": {"type": "number"},
+                "conditionGrade": {"type": "string", "knownValues": ["A", "B", "C", "D", "A-wiped", "B-wiped"]}
+              },
+              "required": ["partId", "partDid", "vinProvenance", "descriptionJa", "descriptionEn", "conditionGrade"]
+            }
+          },
+          "publication": {
+            "type": "object",
+            "properties": {
+              "catalogCid": {"type": "string"},
+              "languagesPresent": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+              "g4BilingualMet": {"type": "boolean", "const": true},
+              "g12RightToRepairInvariant": {"type": "boolean", "const": true},
+              "g12PublicDiscovery": {"type": "boolean", "const": true},
+              "g12NoProprietaryLockIn": {"type": "boolean", "const": true},
+              "g12NoDrmCircumvention": {"type": "boolean", "const": true},
+              "partCount": {"type": "integer"},
+              "totalReusableMassKg": {"type": "number"}
+            },
+            "required": ["catalogCid", "g4BilingualMet", "g12RightToRepairInvariant", "g12PublicDiscovery", "g12NoProprietaryLockIn", "g12NoDrmCircumvention"]
+          },
+          "g12Compliant": {"type": "boolean", "const": true},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "vinProvenance", "parts", "publication", "g12Compliant", "attestingRobots"]
+      }
+    }
+  }
+}

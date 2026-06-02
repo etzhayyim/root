@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govCmr.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govCmr.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Cameroon government.",
-        "operationId": "app.etzhayyim.govCmr.followSiteDeps",
+        "operationId": "com.etzhayyim.govCmr.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCmr.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govCmr.heartbeatTick": {
       "post": {
         "summary": "Run the Cameroon government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govCmr.heartbeatTick",
+        "operationId": "com.etzhayyim.govCmr.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCmr.listOrgs": {
+    "/xrpc/com.etzhayyim.govCmr.listOrgs": {
       "get": {
         "summary": "List Cameroon government organization graph records.",
-        "operationId": "app.etzhayyim.govCmr.listOrgs",
+        "operationId": "com.etzhayyim.govCmr.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCmr.registerDIDs": {
+    "/xrpc/com.etzhayyim.govCmr.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Cameroon government organizations.",
-        "operationId": "app.etzhayyim.govCmr.registerDIDs",
+        "operationId": "com.etzhayyim.govCmr.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCmr.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govCmr.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Cameroon government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govCmr.resolveOrgPath",
+        "operationId": "com.etzhayyim.govCmr.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCmr.seedOrgs": {
+    "/xrpc/com.etzhayyim.govCmr.seedOrgs": {
       "post": {
         "summary": "Seed initial Cameroon government organization records into the graph.",
-        "operationId": "app.etzhayyim.govCmr.seedOrgs",
+        "operationId": "com.etzhayyim.govCmr.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCmr.shinka": {
+    "/xrpc/com.etzhayyim.govCmr.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Cameroon government organization update.",
-        "operationId": "app.etzhayyim.govCmr.shinka",
+        "operationId": "com.etzhayyim.govCmr.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCmr.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govCmr.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Cameroon government organization changes to graph.",
-        "operationId": "app.etzhayyim.govCmr.syncWetUpdates",
+        "operationId": "com.etzhayyim.govCmr.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

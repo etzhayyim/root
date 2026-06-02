@@ -101,7 +101,7 @@
   <button type="submit" class="submit" disabled={submitting}>
     {submitting ? '送信中…' : '記録 (暗号化送信)'}
   </button>
-  <div class="footnote">送信時に各バイタルが個別 Observation record として `app.etzhayyim.encrypted.record` envelope に保存されます。</div>
+  <div class="footnote">送信時に各バイタルが個別 Observation record として `com.etzhayyim.encrypted.record` envelope に保存されます。</div>
 </form>
 
 <style>

@@ -11,7 +11,7 @@ Wave-4 admits a TLD only when **both** gates are satisfied:
      ``~/.etzhayyim/source-acceptance/czds-<tld>.toml`` (mirrors the
      ADR-2605262400 W3 acceptance gate pattern).
   2. **Per-TLD Council attestation Lexicon record** at
-     ``app.etzhayyim.substrate.tldCouncilAttestation`` with
+     ``com.etzhayyim.substrate.tldCouncilAttestation`` with
      ``status = 'approved'`` and ``tld == <tld>``.
 
 The Lexicon resolution is parameterized via the
@@ -46,7 +46,7 @@ _DEFAULT_BASE = "https://czds-api.icann.org"
 
 
 class CzdsTldAttestationResolver(Protocol):
-    """Resolves the per-TLD ``app.etzhayyim.substrate.tldCouncilAttestation``
+    """Resolves the per-TLD ``com.etzhayyim.substrate.tldCouncilAttestation``
     Lexicon record."""
 
     def latest_approved(self, tld: str) -> dict | None:  # pragma: no cover
@@ -119,13 +119,13 @@ def fetch(staging_dir: Path, opts: CzdsFetchOpts) -> FetchResult:
         raise CzdsTldNotAttested(
             f"No CzdsTldAttestationResolver supplied. Per ADR-2605262400 W4 "
             f"the per-TLD Council attestation record at "
-            f"app.etzhayyim.substrate.tldCouncilAttestation MUST be "
+            f"com.etzhayyim.substrate.tldCouncilAttestation MUST be "
             f"resolved before any CZDS fetch."
         )
     record = resolver.latest_approved(tld)
     if record is None:
         raise CzdsTldNotAttested(
-            f"No approved app.etzhayyim.substrate.tldCouncilAttestation "
+            f"No approved com.etzhayyim.substrate.tldCouncilAttestation "
             f"record for TLD '{tld}'. Per ADR-2605262400 W4, the Council "
             f"MUST vote (Lv6+ ≥4/7) before any CZDS fetch on this TLD."
         )

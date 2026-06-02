@@ -194,7 +194,7 @@
 				if (typeof actorResult.bpmnCount === 'number') actorData.bpmnCount = actorResult.bpmnCount;
 				if (actorResult.dataSourceRef) actorData.dataSourceRef = actorResult.dataSourceRef;
 				// Fallback: if getProfile did not surface gov fields, query
-				// app.etzhayyim.apps.states.stateProfile records directly from graph.
+				// com.etzhayyim.apps.states.stateProfile records directly from graph.
 				if (!actorData.addresses && !actorData.procedures) {
 					try {
 						// Derive ISO-3 code from did path. 2 supported shapes:
@@ -436,7 +436,7 @@
 		gccSmartAccount = null;
 		try {
 			const res = await fetch(
-				`https://authz.etzhayyim.com/xrpc/app.etzhayyim.authz.getActorTokenBalance?did=${encodeURIComponent(actorDid)}`,
+				`https://authz.etzhayyim.com/xrpc/com.etzhayyim.authz.getActorTokenBalance?did=${encodeURIComponent(actorDid)}`,
 				{ signal: AbortSignal.timeout(5000) },
 			);
 			if (!res.ok) return;
@@ -452,7 +452,7 @@
 		esimProvisioning = true;
 		esimError = '';
 		try {
-			const result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.celler.provisionEsim', {
+			const result = await atProcedure<Record<string, unknown>>('com.etzhayyim.apps.celler.provisionEsim', {
 				did,
 				dataPlan: 'starter',
 			});
@@ -484,7 +484,7 @@
 	async function activateEsim() {
 		if (!esimProfile?.iccid) return;
 		try {
-			await atProcedure('app.etzhayyim.apps.celler.activateEsim', { iccid: esimProfile.iccid });
+			await atProcedure('com.etzhayyim.apps.celler.activateEsim', { iccid: esimProfile.iccid });
 			esimProfile = { ...esimProfile, status: 'enabled' };
 		} catch (e) {
 			console.warn('activateEsim failed', e);
@@ -494,7 +494,7 @@
 	async function suspendEsim() {
 		if (!esimProfile?.iccid) return;
 		try {
-			await atProcedure('app.etzhayyim.apps.celler.suspendEsim', { iccid: esimProfile.iccid });
+			await atProcedure('com.etzhayyim.apps.celler.suspendEsim', { iccid: esimProfile.iccid });
 			esimProfile = { ...esimProfile, status: 'disabled' };
 		} catch (e) {
 			console.warn('suspendEsim failed', e);
@@ -504,7 +504,7 @@
 	async function fetchAiPolicy() {
 		aiPolicyLoading = true;
 		try {
-			const result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.celler.getAiResponsePolicy', {});
+			const result = await atProcedure<Record<string, unknown>>('com.etzhayyim.apps.celler.getAiResponsePolicy', {});
 				if (result) {
 					aiPolicy = {
 						mode: (String(result.mode ?? 'always_ai')) as AIResponsePolicy['mode'],
@@ -523,7 +523,7 @@
 	async function saveAiPolicy() {
 		aiPolicySaving = true;
 		try {
-			await atProcedure('app.etzhayyim.apps.celler.setAiResponsePolicy', aiPolicy);
+			await atProcedure('com.etzhayyim.apps.celler.setAiResponsePolicy', aiPolicy);
 		} catch (e) {
 			console.warn('saveAiPolicy failed', e);
 		} finally {
@@ -534,7 +534,7 @@
 	async function fetchAiCalls() {
 		aiCallsLoading = true;
 		try {
-			const result = await atProcedure<{ calls?: Record<string, unknown>[] }>('app.etzhayyim.apps.celler.listAiCalls', { limit: 10 });
+			const result = await atProcedure<{ calls?: Record<string, unknown>[] }>('com.etzhayyim.apps.celler.listAiCalls', { limit: 10 });
 			aiCalls = (result?.calls ?? []).map((c: Record<string, unknown>) => ({
 				callId: String(c.callId ?? ''),
 				callerE164: String(c.callerE164 ?? ''),

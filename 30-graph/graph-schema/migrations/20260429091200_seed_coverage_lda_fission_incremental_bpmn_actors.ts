@@ -25,15 +25,15 @@ const seeds: Seed[] = [
   {
     proc: "inferFission",
     bpmnProcessId: "coverage_infer_fission_v1",
-    nsid: "app.etzhayyim.apps.coverage.inferFission",
-    sourcePath: "00-contracts/bpmn/ai/gftd/coverage/inferFission.bpmn",
+    nsid: "com.etzhayyim.apps.coverage.inferFission",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/coverage/inferFission.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "inferLdaIncremental",
     bpmnProcessId: "coverage_infer_lda_incremental_v1",
-    nsid: "app.etzhayyim.apps.coverage.inferLdaIncremental",
-    sourcePath: "00-contracts/bpmn/ai/gftd/coverage/inferLdaIncremental.bpmn",
+    nsid: "com.etzhayyim.apps.coverage.inferLdaIncremental",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/coverage/inferLdaIncremental.bpmn",
     resultTimeoutMs: 300000,
   },
 ];
@@ -43,9 +43,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

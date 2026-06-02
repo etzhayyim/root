@@ -8,21 +8,21 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     UPDATE vertex_bpmn_lexicon_binding
     SET write_table_allowlist = REPLACE(write_table_allowlist, ',vertex_repo_record', '')
-    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')
+    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'com.etzhayyim.gov%')
       AND write_table_allowlist LIKE '%,vertex_repo_record%'
   `.execute(db);
 
   await sql`
     UPDATE vertex_bpmn_lexicon_binding
     SET write_table_allowlist = REPLACE(write_table_allowlist, 'vertex_repo_record,', '')
-    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')
+    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'com.etzhayyim.gov%')
       AND write_table_allowlist LIKE '%vertex_repo_record,%'
   `.execute(db);
 
   await sql`
     UPDATE vertex_bpmn_lexicon_binding
     SET write_table_allowlist = ''
-    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')
+    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'com.etzhayyim.gov%')
       AND write_table_allowlist = 'vertex_repo_record'
   `.execute(db);
 
@@ -34,7 +34,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
           WHEN COALESCE(write_table_allowlist, '') = '' THEN ${table}
           ELSE write_table_allowlist || ',' || ${table}
         END
-      WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')
+      WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'com.etzhayyim.gov%')
         AND COALESCE(write_table_allowlist, '') NOT LIKE ${`%${table}%`}
     `.execute(db);
   }
@@ -48,6 +48,6 @@ export async function down(db: Kysely<unknown>): Promise<void> {
         WHEN write_table_allowlist LIKE '%vertex_repo_record%' THEN write_table_allowlist
         ELSE write_table_allowlist || ',vertex_repo_record'
       END
-    WHERE actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%'
+    WHERE actor_id LIKE 'gov-%' OR nsid LIKE 'com.etzhayyim.gov%'
   `.execute(db);
 }

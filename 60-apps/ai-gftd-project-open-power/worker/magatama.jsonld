@@ -34,10 +34,10 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openPower.node",
-        "ai.gftd.apps.openPower.feeder",
-        "ai.gftd.apps.openPower.meterReading",
-        "ai.gftd.apps.openPower.outage"
+        "com.etzhayyim.apps.openPower.node",
+        "com.etzhayyim.apps.openPower.feeder",
+        "com.etzhayyim.apps.openPower.meterReading",
+        "com.etzhayyim.apps.openPower.outage"
       ]
     }
   },

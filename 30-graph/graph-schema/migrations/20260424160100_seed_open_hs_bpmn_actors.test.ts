@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-hs/classifyShipment.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-hs/classifyShipment.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-hs/recordConcordance.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-hs/recordConcordance.bpmn"),
   "utf-8",
 );
 
@@ -21,14 +21,14 @@ describe("Seed open-hs BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-hs-classify-shipment-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_hs_classify_shipment"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-hs/classifyShipment.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-hs/classifyShipment.bpmn"');
     expect(migrationSource).toContain("open-hs-record-concordance-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_hs_record_concordance"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-hs/recordConcordance.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-hs/recordConcordance.bpmn"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openHs.classifyShipment"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openHs.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openHs.classifyShipment"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openHs.recordConcordance"');
   });
   it("uses open-hs-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-hs"');

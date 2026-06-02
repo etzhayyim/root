@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cyberVuln.recordCveDisclosure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CVE 開示 (NVD/CVSS v3)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "cveId",
+            "product",
+            "cvssV3Score",
+            "publishedAt"
+          ],
+          "properties": {
+            "cveId": {
+              "type": "string",
+              "description": "CVE-YYYY-NNNNN"
+            },
+            "product": {
+              "type": "string"
+            },
+            "vendor": {
+              "type": "string"
+            },
+            "cvssV3Score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            },
+            "cvssV3Vector": {
+              "type": "string"
+            },
+            "exploitAvailable": {
+              "type": "boolean"
+            },
+            "inTheWild": {
+              "type": "boolean"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "requireEmergencyPatch": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

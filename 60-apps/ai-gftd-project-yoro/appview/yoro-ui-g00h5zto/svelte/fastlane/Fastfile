@@ -19,7 +19,7 @@ platform :ios do
   lane :create_app do
     api_key = asc_api_key
     produce(
-      app_identifier: "ai.gftd.yoro",
+      app_identifier: "com.etzhayyim.yoro",
       app_name:       "YORO",
       team_id:        "U7W6HNNJCS"
     )
@@ -47,8 +47,8 @@ platform :ios do
       path:                  File.expand_path("../ios/App/App.xcodeproj", __dir__),
       team_id:               "U7W6HNNJCS",
       code_sign_identity:    "Apple Distribution",
-      profile_name:          "match AppStore ai.gftd.yoro",
-      bundle_identifier:     "ai.gftd.yoro"
+      profile_name:          "match AppStore com.etzhayyim.yoro",
+      bundle_identifier:     "com.etzhayyim.yoro"
     )
     workspace_path = File.expand_path("../ios/App/App.xcworkspace", __dir__)
     build_app(
@@ -188,7 +188,7 @@ platform :android do
     build
     apk_path = File.expand_path("../android/app/build/outputs/apk/release/app-release.apk", __dir__)
     adb(command: "install -r #{apk_path}")
-    adb(command: "shell am start -n ai.gftd.yoro/.MainActivity")
+    adb(command: "shell am start -n com.etzhayyim.yoro/.MainActivity")
   end
 
   AAB_PATH = File.expand_path("../android/app/build/outputs/bundle/release/app-release.aab", __dir__)
@@ -200,7 +200,7 @@ platform :android do
       track:            "internal",
       aab:              AAB_PATH,
       json_key:         PLAY_KEY_PATH,
-      package_name:     "ai.gftd.yoro",
+      package_name:     "com.etzhayyim.yoro",
       skip_upload_apk:  true,
       release_status:   "draft"
     )
@@ -213,7 +213,7 @@ platform :android do
       track:            "production",
       aab:              AAB_PATH,
       json_key:         PLAY_KEY_PATH,
-      package_name:     "ai.gftd.yoro",
+      package_name:     "com.etzhayyim.yoro",
       skip_upload_apk:  true
     )
   end
@@ -224,7 +224,7 @@ platform :android do
       track:                    "internal",
       track_promote_to:         "production",
       json_key:                 PLAY_KEY_PATH,
-      package_name:             "ai.gftd.yoro",
+      package_name:             "com.etzhayyim.yoro",
       skip_upload_changelogs:   true
     )
   end

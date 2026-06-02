@@ -14,7 +14,7 @@ metadata:
     etzhayyim.com/leader-hostname: levinomac-mini.local
     etzhayyim.com/trigger: continuous + super-step boundary + event-driven
     etzhayyim.com/healthz-port: '13021'
-    etzhayyim.com/listens-to: app.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent
+    etzhayyim.com/listens-to: com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent
     etzhayyim.com/adr: 2605201400,2605192230,2605192315,2605191657
 spec:
   selector:

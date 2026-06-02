@@ -10,7 +10,7 @@ import didDoc from "../did.json";
  * Identity of the off-chain actor that consumes mst-projector CAR
  * files from a shared volume, pins them to ≥1 IPFS providers (Kubo /
  * Pinata / Web3.Storage / Filecoin via Storacha), and emits
- * `app.etzhayyim.substrate.ipfsPin` records to PDS. See
+ * `com.etzhayyim.substrate.ipfsPin` records to PDS. See
  * 50-infra/ipfs-pinner/ for the runtime.
  *
  * AT-Protocol clients resolve this DID via `/.well-known/did.json`.

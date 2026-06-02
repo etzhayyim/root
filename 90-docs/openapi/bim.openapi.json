@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.apps.bim.annotateElement": {
+    "/xrpc/com.etzhayyim.apps.bim.annotateElement": {
       "post": {
         "summary": "Attach a review annotation (comment, BCF-style issue, approval state) to a specific element (wall / slab / door / ...). Stored as a domain record via Hyperdrive (vertex_bim_annotation per ADR-0036). BCF-compatible viewpoint (camera + selection) is recorded for click-to-recenter.",
-        "operationId": "app.etzhayyim.apps.bim.annotateElement",
+        "operationId": "com.etzhayyim.apps.bim.annotateElement",
         "requestBody": {
           "required": true,
           "content": {
@@ -135,10 +135,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.bim.getStoreyScene": {
+    "/xrpc/com.etzhayyim.apps.bim.getStoreyScene": {
       "get": {
         "summary": "Return a scene-graph projection of a single storey (IfcBuildingStorey) — the primary LOD unit for `bim.etzhayyim.com`. Includes contained spaces, elements (walls/slabs/columns/...), materials, and selectable element ids for anchored annotations. Consumed by kami-app-bim (run_bim_v2) or any Threlte client.",
-        "operationId": "app.etzhayyim.apps.bim.getStoreyScene",
+        "operationId": "com.etzhayyim.apps.bim.getStoreyScene",
         "parameters": [
           {
             "name": "storeyId",
@@ -282,10 +282,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.bim.importIfc": {
+    "/xrpc/com.etzhayyim.apps.bim.importIfc": {
       "post": {
-        "summary": "Import an IFC STEP / IFC XML / IFC ZIP into a project. Heavy parsing (entities, geometry, psets) runs asynchronously in the CF Container job service; tessellation caches are written to B2 (Backblaze B2 S3-compatible) under `bim/meshes/{sha256}`. Returns a jobId; subscribe to app.etzhayyim.apps.bim.importJobEvent commits for progress.",
-        "operationId": "app.etzhayyim.apps.bim.importIfc",
+        "summary": "Import an IFC STEP / IFC XML / IFC ZIP into a project. Heavy parsing (entities, geometry, psets) runs asynchronously in the CF Container job service; tessellation caches are written to B2 (Backblaze B2 S3-compatible) under `bim/meshes/{sha256}`. Returns a jobId; subscribe to com.etzhayyim.apps.bim.importJobEvent commits for progress.",
+        "operationId": "com.etzhayyim.apps.bim.importIfc",
         "requestBody": {
           "required": true,
           "content": {
@@ -381,10 +381,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.bim.listSpaces": {
+    "/xrpc/com.etzhayyim.apps.bim.listSpaces": {
       "get": {
         "summary": "List IfcSpace entities in a project or storey (room schedule). Useful for room-pick navigation, occupancy dashboards, and area take-offs. Paginated per 60-apps rules.",
-        "operationId": "app.etzhayyim.apps.bim.listSpaces",
+        "operationId": "com.etzhayyim.apps.bim.listSpaces",
         "parameters": [
           {
             "name": "projectId",
@@ -522,10 +522,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.bim.requestExport": {
+    "/xrpc/com.etzhayyim.apps.bim.requestExport": {
       "post": {
         "summary": "Enqueue an export of a BIM revision (IFC STEP / IFC XML / glTF / BCF / Excel schedule). Heavy conversion runs in the CF Container job service. Returns jobId; the finished blob appears in B2 (Backblaze B2 S3-compatible) under `bim/exports/{sha256}` and is referenced by the job's completion commit.",
-        "operationId": "app.etzhayyim.apps.bim.requestExport",
+        "operationId": "com.etzhayyim.apps.bim.requestExport",
         "requestBody": {
           "required": true,
           "content": {

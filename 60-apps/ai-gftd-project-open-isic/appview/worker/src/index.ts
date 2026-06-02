@@ -1,6 +1,6 @@
 // AppView Worker for the ISIC Rev. 4 langserver. ADR-2605180900 Phase 7.
 //
-// Mounts `/xrpc/app.etzhayyim.apps.isic.*` at isic.etzhayyim.com and proxies to
+// Mounts `/xrpc/com.etzhayyim.apps.isic.*` at isic.etzhayyim.com and proxies to
 // the in-cluster lg-open-isic langserver. The handler library lives in
 // @etzhayyim/magatama-host-sdk/langserver-xrpc-handler.
 

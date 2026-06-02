@@ -9,7 +9,7 @@ CREATE VIEW IF NOT EXISTS view_atc_substance AS
       value_json::jsonb->>'adm_r'  AS adm_r,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.atc.substance';
+    WHERE collection = 'com.etzhayyim.apps.atc.substance';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('atc', 'atc.etzhayyim.com', 6440, 'drug substances', 'pharma');

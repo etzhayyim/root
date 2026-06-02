@@ -55,7 +55,7 @@ async function xrpcProcedure<T = unknown>(
   return (await resp.json()) as T;
 }
 
-// ── Typed wrappers for app.etzhayyim.apps.yadoya.* ──
+// ── Typed wrappers for com.etzhayyim.apps.yadoya.* ──
 
 export interface YadoyaHotel {
   vertex_id: string;
@@ -109,14 +109,14 @@ export interface SearchHotelsParams {
 
 export function searchHotels(params: SearchHotelsParams = {}) {
   return xrpcQuery<{ hotels: YadoyaHotel[]; total: number; cursor?: string }>(
-    'app.etzhayyim.apps.yadoya.searchHotels',
+    'com.etzhayyim.apps.yadoya.searchHotels',
     params as Record<string, string | number | undefined>,
   );
 }
 
 export function listHotels(params: { region?: string; chainDid?: string; limit?: number; offset?: number } = {}) {
   return xrpcQuery<{ hotels: YadoyaHotel[]; total: number; offset: number; limit: number }>(
-    'app.etzhayyim.apps.yadoya.listHotels',
+    'com.etzhayyim.apps.yadoya.listHotels',
     params as Record<string, string | number | undefined>,
   );
 }
@@ -135,7 +135,7 @@ export interface CreateReservationInput {
 
 export function createReservation(input: CreateReservationInput, bearer?: string) {
   return xrpcProcedure<{ reservationId: string; uri: string; status: 'pending' | 'confirmed' | 'duplicate' }>(
-    'app.etzhayyim.apps.yadoya.createReservation',
+    'com.etzhayyim.apps.yadoya.createReservation',
     input as unknown as Record<string, unknown>,
     { bearer },
   );
@@ -143,7 +143,7 @@ export function createReservation(input: CreateReservationInput, bearer?: string
 
 export function getReservation(reservationId: string) {
   return xrpcQuery<{ reservation: YadoyaReservation }>(
-    'app.etzhayyim.apps.yadoya.getReservation',
+    'com.etzhayyim.apps.yadoya.getReservation',
     { reservationId },
   );
 }
@@ -160,7 +160,7 @@ export function confirmReservation(
   bearer?: string,
 ) {
   return xrpcProcedure<ConfirmReservationOutput>(
-    'app.etzhayyim.apps.yadoya.confirmReservation',
+    'com.etzhayyim.apps.yadoya.confirmReservation',
     input as unknown as Record<string, unknown>,
     { bearer },
   );
@@ -168,7 +168,7 @@ export function confirmReservation(
 
 export function cancelReservation(reservationId: string, reason?: string, bearer?: string) {
   return xrpcProcedure<{ reservationId: string; status: 'cancelled' | 'already-cancelled' }>(
-    'app.etzhayyim.apps.yadoya.cancelReservation',
+    'com.etzhayyim.apps.yadoya.cancelReservation',
     { reservationId, reason },
     { bearer },
   );

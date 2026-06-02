@@ -52,7 +52,7 @@ async function write(_sdk: HostSDK, kind: string, rec: Record<string, unknown>):
   const table = tableMap[kind] ?? `vertex_hr_${camelToSnake(kind)}`;
   const ownerDid = actorDID || "did:web:mdtpqjc8.etzhayyim.com";
   const rkey = str(rec.employeeId ?? rec.positionId ?? rec.skillId ?? rec.assignmentId ?? rec.evaluationId ?? rec.enrollmentId ?? "") || genID();
-  const vertex_id = `at://${ownerDid}/app.etzhayyim.app.kyber.hr.${kind}/${rkey}`;
+  const vertex_id = `at://${ownerDid}/com.etzhayyim.app.kyber.hr.${kind}/${rkey}`;
   const snakeRec = Object.fromEntries(Object.entries(rec).map(([k, v]) => [camelToSnake(k), v]));
   await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
 }
@@ -116,7 +116,7 @@ function cmdDescribe(): Record<string, unknown> {
 // ─── HR: Employee Management ───
 
 async function cmdRegisterEmployee(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.registerEmployee", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.registerEmployee", body);
   const fullName = str(args.fullName ?? "");
   const department = str(args.department ?? "");
   const role = str(args.role ?? "");
@@ -178,7 +178,7 @@ async function cmdRegisterEmployee(sdk: HostSDK, body: Uint8Array): Promise<Reco
 }
 
 async function cmdUpdateEmployeeStatus(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.updateEmployeeStatus", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.updateEmployeeStatus", body);
   const employeeId = str(args.employeeId ?? "");
   const newStatus = str(args.status ?? "") as "active" | "on_leave" | "terminated" | "retired";
   const reason = str(args.reason ?? "");
@@ -221,7 +221,7 @@ async function cmdUpdateEmployeeStatus(sdk: HostSDK, body: Uint8Array): Promise<
 }
 
 async function cmdListEmployees(_sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.listEmployees", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.listEmployees", body);
   const limit = Number(args.limit ?? 50);
   const offset = Number(args.offset ?? 0);
   // TODO(kyber-hr): vertex_hr_employee not in @etzhayyim/graph-schema — reads return empty
@@ -232,7 +232,7 @@ async function cmdListEmployees(_sdk: HostSDK, body: Uint8Array): Promise<Record
 // ─── Position Management ───
 
 async function cmdCreatePosition(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.createPosition", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.createPosition", body);
   const title = str(args.title ?? "");
   const department = str(args.department ?? "");
   const level = str(args.level ?? "staff") as "intern" | "staff" | "senior" | "lead" | "manager" | "director" | "executive";
@@ -282,7 +282,7 @@ async function cmdListPositions(_sdk: HostSDK, _body: Uint8Array): Promise<Recor
 // ─── Skill / Competency Management ───
 
 async function cmdRegisterSkill(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.registerSkill", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.registerSkill", body);
   const name = str(args.name ?? "");
   const category = str(args.category ?? "technical") as "technical" | "leadership" | "communication" | "analytical" | "domain";
   const description = str(args.description ?? "");
@@ -310,7 +310,7 @@ async function cmdRegisterSkill(sdk: HostSDK, body: Uint8Array): Promise<Record<
 }
 
 async function cmdAssignSkill(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.assignSkill", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.assignSkill", body);
   const employeeId = str(args.employeeId ?? "");
   const skillId = str(args.skillId ?? "");
   const proficiency = Number(args.proficiency ?? 1);
@@ -344,7 +344,7 @@ async function cmdAssignSkill(sdk: HostSDK, body: Uint8Array): Promise<Record<st
 }
 
 async function cmdSkillGapAnalysis(_sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.skillGapAnalysis", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.skillGapAnalysis", body);
   const positionId = str(args.positionId ?? "");
   const employeeId = str(args.employeeId ?? "");
 
@@ -400,7 +400,7 @@ async function cmdSkillGapAnalysis(_sdk: HostSDK, body: Uint8Array): Promise<Rec
 // ─── Performance Evaluation ───
 
 async function cmdCreateEvaluation(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.createEvaluation", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.createEvaluation", body);
   const employeeId = str(args.employeeId ?? "");
   const evaluatorId = str(args.evaluatorId ?? "");
   const period = str(args.period ?? "");
@@ -472,7 +472,7 @@ async function cmdListEvaluations(_sdk: HostSDK, _body: Uint8Array): Promise<Rec
 // ─── Training & Development ───
 
 async function cmdEnrollTraining(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.enrollTraining", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.enrollTraining", body);
   const employeeId = str(args.employeeId ?? "");
   const programName = str(args.programName ?? "");
   const skillIds = (args.skillIds ?? []) as string[];
@@ -516,7 +516,7 @@ async function cmdEnrollTraining(sdk: HostSDK, body: Uint8Array): Promise<Record
 }
 
 async function cmdCompleteTraining(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("app.etzhayyim.app.kyber.hr.completeTraining", body);
+  const args = parseLexiconInput("com.etzhayyim.app.kyber.hr.completeTraining", body);
   const enrollmentId = str(args.enrollmentId ?? "");
   const score = Number(args.score ?? 0);
   const certificateId = str(args.certificateId ?? "");
@@ -583,22 +583,22 @@ export function handleComAtprotoSyncSubscribeReposCommit(
 
   const collection = str(commit.collection ?? "");
 
-  if (collection === "app.etzhayyim.app.kyber.hr.employee") {
+  if (collection === "com.etzhayyim.app.kyber.hr.employee") {
     inbox.inboundCommits.push({ collection, action: "create", ts: Date.now() });
     return { ok: true, detail: `employee: ${collection}` };
   }
-  if (collection === "app.etzhayyim.app.kyber.hr.evaluation") {
+  if (collection === "com.etzhayyim.app.kyber.hr.evaluation") {
     inbox.inboundCommits.push({ collection, action: "create", ts: Date.now() });
     return { ok: true, detail: `evaluation: ${collection}` };
   }
-  if (collection === "app.etzhayyim.app.kyber.hr.training") {
+  if (collection === "com.etzhayyim.app.kyber.hr.training") {
     inbox.inboundCommits.push({ collection, action: "create", ts: Date.now() });
     return { ok: true, detail: `training: ${collection}` };
   }
-  if (collection === "app.etzhayyim.app.kyber.hr.position") {
+  if (collection === "com.etzhayyim.app.kyber.hr.position") {
     return { ok: true, detail: `position: ${collection}` };
   }
-  if (collection === "app.etzhayyim.app.kyber.hr.skill") {
+  if (collection === "com.etzhayyim.app.kyber.hr.skill") {
     return { ok: true, detail: `skill: ${collection}` };
   }
 
@@ -638,33 +638,33 @@ function configureApp(sdk: HostSDK): void {
   if (configuredApps.has(app as object)) return;
 
   app
-    .command(nsid("app.etzhayyim.app.kyber.hr.health"), async () => cmdHealth(), asAgentTool("Kyber HR health check"), withCapabilityTags("diagnostics", "hr"))
-    .command(nsid("app.etzhayyim.app.kyber.hr.describe"), async () => cmdDescribe(), asAgentTool("Describe Kyber HR capabilities"), withCapabilityTags("meta", "hr"));
+    .command(nsid("com.etzhayyim.app.kyber.hr.health"), async () => cmdHealth(), asAgentTool("Kyber HR health check"), withCapabilityTags("diagnostics", "hr"))
+    .command(nsid("com.etzhayyim.app.kyber.hr.describe"), async () => cmdDescribe(), asAgentTool("Describe Kyber HR capabilities"), withCapabilityTags("meta", "hr"));
 
   app
-    .command(nsid("app.etzhayyim.app.kyber.hr.registerEmployee"), async (_ctx, body) => cmdRegisterEmployee(sdk, body), asAgentTool("Register new employee with probation and leave tracking"), withCapabilityTags("hr", "employee", "talent"))
-    .command(nsid("app.etzhayyim.app.kyber.hr.updateEmployeeStatus"), async (_ctx, body) => cmdUpdateEmployeeStatus(sdk, body), asAgentTool("Update employee status (active/on_leave/terminated/retired)"), withCapabilityTags("hr", "employee", "lifecycle"))
-    .command(nsid("app.etzhayyim.app.kyber.hr.listEmployees"), async (_ctx, body) => cmdListEmployees(sdk, body), asAgentTool("List employees by department and status"), withCapabilityTags("hr", "employee", "query"));
+    .command(nsid("com.etzhayyim.app.kyber.hr.registerEmployee"), async (_ctx, body) => cmdRegisterEmployee(sdk, body), asAgentTool("Register new employee with probation and leave tracking"), withCapabilityTags("hr", "employee", "talent"))
+    .command(nsid("com.etzhayyim.app.kyber.hr.updateEmployeeStatus"), async (_ctx, body) => cmdUpdateEmployeeStatus(sdk, body), asAgentTool("Update employee status (active/on_leave/terminated/retired)"), withCapabilityTags("hr", "employee", "lifecycle"))
+    .command(nsid("com.etzhayyim.app.kyber.hr.listEmployees"), async (_ctx, body) => cmdListEmployees(sdk, body), asAgentTool("List employees by department and status"), withCapabilityTags("hr", "employee", "query"));
 
   app
-    .command(nsid("app.etzhayyim.app.kyber.hr.createPosition"), async (_ctx, body) => cmdCreatePosition(sdk, body), asAgentTool("Create job position with required skills and salary range"), withCapabilityTags("hr", "position", "talent"))
-    .command(nsid("app.etzhayyim.app.kyber.hr.listPositions"), async (_ctx, body) => cmdListPositions(sdk, body), asAgentTool("List open positions by department"), withCapabilityTags("hr", "position", "query"));
+    .command(nsid("com.etzhayyim.app.kyber.hr.createPosition"), async (_ctx, body) => cmdCreatePosition(sdk, body), asAgentTool("Create job position with required skills and salary range"), withCapabilityTags("hr", "position", "talent"))
+    .command(nsid("com.etzhayyim.app.kyber.hr.listPositions"), async (_ctx, body) => cmdListPositions(sdk, body), asAgentTool("List open positions by department"), withCapabilityTags("hr", "position", "query"));
 
   app
-    .command(nsid("app.etzhayyim.app.kyber.hr.registerSkill"), async (_ctx, body) => cmdRegisterSkill(sdk, body), asAgentTool("Register skill/competency definition"), withCapabilityTags("hr", "skill", "competency"))
-    .command(nsid("app.etzhayyim.app.kyber.hr.assignSkill"), async (_ctx, body) => cmdAssignSkill(sdk, body), asAgentTool("Assign skill proficiency to employee"), withCapabilityTags("hr", "skill", "talent"))
-    .command(nsid("app.etzhayyim.app.kyber.hr.skillGapAnalysis"), async (_ctx, body) => cmdSkillGapAnalysis(sdk, body), asAgentTool("Analyze skill gaps between employee and position requirements"), withCapabilityTags("hr", "skill", "analytics"));
+    .command(nsid("com.etzhayyim.app.kyber.hr.registerSkill"), async (_ctx, body) => cmdRegisterSkill(sdk, body), asAgentTool("Register skill/competency definition"), withCapabilityTags("hr", "skill", "competency"))
+    .command(nsid("com.etzhayyim.app.kyber.hr.assignSkill"), async (_ctx, body) => cmdAssignSkill(sdk, body), asAgentTool("Assign skill proficiency to employee"), withCapabilityTags("hr", "skill", "talent"))
+    .command(nsid("com.etzhayyim.app.kyber.hr.skillGapAnalysis"), async (_ctx, body) => cmdSkillGapAnalysis(sdk, body), asAgentTool("Analyze skill gaps between employee and position requirements"), withCapabilityTags("hr", "skill", "analytics"));
 
   app
-    .command(nsid("app.etzhayyim.app.kyber.hr.createEvaluation"), async (_ctx, body) => cmdCreateEvaluation(sdk, body), asAgentTool("Create performance evaluation with multi-dimensional scoring"), withCapabilityTags("hr", "evaluation", "performance"))
-    .command(nsid("app.etzhayyim.app.kyber.hr.listEvaluations"), async (_ctx, body) => cmdListEvaluations(sdk, body), asAgentTool("List evaluations by employee or period"), withCapabilityTags("hr", "evaluation", "query"));
+    .command(nsid("com.etzhayyim.app.kyber.hr.createEvaluation"), async (_ctx, body) => cmdCreateEvaluation(sdk, body), asAgentTool("Create performance evaluation with multi-dimensional scoring"), withCapabilityTags("hr", "evaluation", "performance"))
+    .command(nsid("com.etzhayyim.app.kyber.hr.listEvaluations"), async (_ctx, body) => cmdListEvaluations(sdk, body), asAgentTool("List evaluations by employee or period"), withCapabilityTags("hr", "evaluation", "query"));
 
   app
-    .command(nsid("app.etzhayyim.app.kyber.hr.enrollTraining"), async (_ctx, body) => cmdEnrollTraining(sdk, body), asAgentTool("Enroll employee in training program"), withCapabilityTags("hr", "training", "development"))
-    .command(nsid("app.etzhayyim.app.kyber.hr.completeTraining"), async (_ctx, body) => cmdCompleteTraining(sdk, body), asAgentTool("Record training completion with score and certificate"), withCapabilityTags("hr", "training", "development"));
+    .command(nsid("com.etzhayyim.app.kyber.hr.enrollTraining"), async (_ctx, body) => cmdEnrollTraining(sdk, body), asAgentTool("Enroll employee in training program"), withCapabilityTags("hr", "training", "development"))
+    .command(nsid("com.etzhayyim.app.kyber.hr.completeTraining"), async (_ctx, body) => cmdCompleteTraining(sdk, body), asAgentTool("Record training completion with score and certificate"), withCapabilityTags("hr", "training", "development"));
 
   app
-    .command(nsid("app.etzhayyim.app.kyber.hr.coverageStats"), async () => cmdCoverageStats(), asAgentTool("Kyber HR coverage statistics"), withCapabilityTags("coverage", "stats", "hr"));
+    .command(nsid("com.etzhayyim.app.kyber.hr.coverageStats"), async () => cmdCoverageStats(), asAgentTool("Kyber HR coverage statistics"), withCapabilityTags("coverage", "stats", "hr"));
 
   configuredApps.add(app as object);
 }

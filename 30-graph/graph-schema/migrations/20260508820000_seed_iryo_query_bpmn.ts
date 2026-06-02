@@ -11,10 +11,10 @@ import { sql } from "kysely";
  * delegate to the iryo.coverage.snapshot / iryo.bed.occupancySnapshot /
  * iryo.encounter.list / iryo.claim.get pyzeebe primitives.
  *
- *   app.etzhayyim.apps.iryo.coverage          → iryo_coverage
- *   app.etzhayyim.apps.iryo.getBedOccupancy   → iryo_get_bed_occupancy
- *   app.etzhayyim.apps.iryo.listEncounters    → iryo_list_encounters
- *   app.etzhayyim.apps.iryo.getDrgClaim       → iryo_get_drg_claim
+ *   com.etzhayyim.apps.iryo.coverage          → iryo_coverage
+ *   com.etzhayyim.apps.iryo.getBedOccupancy   → iryo_get_bed_occupancy
+ *   com.etzhayyim.apps.iryo.listEncounters    → iryo_list_encounters
+ *   com.etzhayyim.apps.iryo.getDrgClaim       → iryo_get_drg_claim
  *
  * Pure read path — no domain mutation. resultTimeoutMs=15000 (queries
  * are < 1 RTT against RW).
@@ -32,32 +32,32 @@ const ownerDid = "did:web:iryo.etzhayyim.com:hospital";
 const actorTag = "sys.bpmn.seed.iryo.query";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/iryo-coverage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/iryo-coverage-v1",
     bpmnProcessId: "iryo_coverage",
-    sourcePath: "00-contracts/bpmn/ai/gftd/iryo/coverage.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/iryo-get-bed-occupancy-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/iryo/coverage.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/iryo-get-bed-occupancy-v1",
     bpmnProcessId: "iryo_get_bed_occupancy",
-    sourcePath: "00-contracts/bpmn/ai/gftd/iryo/getBedOccupancy.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/iryo-list-encounters-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/iryo/getBedOccupancy.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/iryo-list-encounters-v1",
     bpmnProcessId: "iryo_list_encounters",
-    sourcePath: "00-contracts/bpmn/ai/gftd/iryo/listEncounters.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/iryo-get-drg-claim-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/iryo/listEncounters.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/iryo-get-drg-claim-v1",
     bpmnProcessId: "iryo_get_drg_claim",
-    sourcePath: "00-contracts/bpmn/ai/gftd/iryo/getDrgClaim.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/iryo/getDrgClaim.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/iryo-coverage-v1",
-    nsid: "app.etzhayyim.apps.iryo.coverage",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/iryo-coverage-v1",
+    nsid: "com.etzhayyim.apps.iryo.coverage",
     bpmnProcessId: "iryo_coverage", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/iryo-getBedOccupancy-v1",
-    nsid: "app.etzhayyim.apps.iryo.getBedOccupancy",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/iryo-getBedOccupancy-v1",
+    nsid: "com.etzhayyim.apps.iryo.getBedOccupancy",
     bpmnProcessId: "iryo_get_bed_occupancy", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/iryo-listEncounters-v1",
-    nsid: "app.etzhayyim.apps.iryo.listEncounters",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/iryo-listEncounters-v1",
+    nsid: "com.etzhayyim.apps.iryo.listEncounters",
     bpmnProcessId: "iryo_list_encounters", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/iryo-getDrgClaim-v1",
-    nsid: "app.etzhayyim.apps.iryo.getDrgClaim",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/iryo-getDrgClaim-v1",
+    nsid: "com.etzhayyim.apps.iryo.getDrgClaim",
     bpmnProcessId: "iryo_get_drg_claim", ownerDid, resultTimeoutMs: 15_000 },
 ];
 

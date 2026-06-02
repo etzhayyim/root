@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneOs.trackOtaRelease",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Track an OTA (Over-the-Air) OS update release",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["otaId", "osDid", "toVersion", "patchLevel"],
+          "properties": {
+            "otaId": { "type": "string" },
+            "osDid": { "type": "string", "format": "did" },
+            "fromVersion": { "type": "string" },
+            "toVersion": { "type": "string" },
+            "patchLevel": { "type": "string", "description": "YYYY-MM-DD format Android security patch level" },
+            "releaseNotesUrl": { "type": "string", "format": "uri" },
+            "cveFixes": { "type": "array", "items": { "type": "string" } },
+            "otaSizeMb": { "type": "number" },
+            "signed": { "type": "boolean" },
+            "releaseDate": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": { "vertexId": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

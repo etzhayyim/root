@@ -71,11 +71,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.roukisho.office",
-        "ai.gftd.apps.roukisho.communication",
-        "ai.gftd.apps.fax.faxTx",
-        "ai.gftd.apps.fax.faxTxUpdate",
-        "ai.gftd.apps.lawfirm.brief",
+        "com.etzhayyim.apps.roukisho.office",
+        "com.etzhayyim.apps.roukisho.communication",
+        "com.etzhayyim.apps.fax.faxTx",
+        "com.etzhayyim.apps.fax.faxTxUpdate",
+        "com.etzhayyim.apps.lawfirm.brief",
         "app.bsky.feed.post",
         "app.bsky.graph.follow"
       ]

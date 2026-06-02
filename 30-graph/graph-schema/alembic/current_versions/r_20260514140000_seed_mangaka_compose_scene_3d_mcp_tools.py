@@ -3,7 +3,7 @@
 P8 of ADR-2605141200. Registers loadPanelPlan / resolveAssets / placeScene /
 simulateCharacter / renderKeyframes / persistScene3d so the LangGraph
 topology resolver (pymagatama.langgraph_node_resolvers._resolve_mcp_nsid)
-can route mcp://app.etzhayyim.apps.mangaka.tools.* to mangaka.etzhayyim.com/xrpc.
+can route mcp://com.etzhayyim.apps.mangaka.tools.* to mangaka.etzhayyim.com/xrpc.
 
 Phase A (current): `compose_scene_3d` runs via py_factory + in-tree
 delegation to `lg_mangaka.tools`. These rows are inert until Phase C

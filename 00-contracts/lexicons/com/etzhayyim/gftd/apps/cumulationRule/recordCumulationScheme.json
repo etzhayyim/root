@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cumulationRule.recordCumulationScheme",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FTA cumulation scheme (bilateral / diagonal / full — bridges rulesOfOrigin.flagRooFraud + customs-declaration + trade-remedy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "schemeId",
+            "cumulationKind",
+            "partnersIso3",
+            "enteredForceAt"
+          ],
+          "properties": {
+            "schemeId": {
+              "type": "string"
+            },
+            "cumulationKind": {
+              "type": "string",
+              "enum": [
+                "bilateral",
+                "diagonal",
+                "full",
+                "extended",
+                "pem_convention",
+                "sadc_tripartite",
+                "asean_plus_one",
+                "cptpp_cum",
+                "ftaap",
+                "across_agreements",
+                "regional_value"
+              ]
+            },
+            "partnersIso3": {
+              "type": "string"
+            },
+            "eligibleSectors": {
+              "type": "string"
+            },
+            "rooFraudVid": {
+              "type": "string",
+              "description": "bridges rulesOfOrigin.flagRooFraud"
+            },
+            "enteredForceAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

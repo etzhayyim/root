@@ -12,7 +12,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/kami_eng.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/kamiEng"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kamiEng"
   },
   "profile": {
     "displayName": "KAMI Engineering",
@@ -29,7 +29,7 @@
   ],
   "triggers": {
     "subscribeRepos": {
-      "collections": ["app.bsky.feed.post","app.bsky.feed.like","app.bsky.graph.follow","ai.gftd.apps.kami.eng.project","ai.gftd.apps.kami.eda.schematic","ai.gftd.apps.kami.cad.model","ai.gftd.apps.kami.cam.job","ai.gftd.apps.kami.rtl.module","ai.gftd.apps.kami.cae.analysis","ai.gftd.apps.mine.mine","ai.gftd.apps.mine.mineral","ai.gftd.apps.mine.extraction_record"]
+      "collections": ["app.bsky.feed.post","app.bsky.feed.like","app.bsky.graph.follow","com.etzhayyim.apps.kami.eng.project","com.etzhayyim.apps.kami.eda.schematic","com.etzhayyim.apps.kami.cad.model","com.etzhayyim.apps.kami.cam.job","com.etzhayyim.apps.kami.rtl.module","com.etzhayyim.apps.kami.cae.analysis","com.etzhayyim.apps.mine.mine","com.etzhayyim.apps.mine.mineral","com.etzhayyim.apps.mine.extraction_record"]
     }
   },
   "space": {

@@ -19,7 +19,7 @@ async function readJsonSafe(res: Response): Promise<Record<string, unknown> | nu
 
 When('I time creating a channel named {string}', async ({ apiState, apiBase }, name: string) => {
 	const start = Date.now();
-	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.createConvo', { name, kind: 'public' });
+	const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.createConvo', { name, kind: 'public' });
 	apiState.lastResponseTime = Date.now() - start;
 	apiState.lastResponse = res;
 	apiState.lastBody = await readJsonSafe(res);
@@ -34,7 +34,7 @@ When(
 	'I time sending a message {string} to the created channel',
 	async ({ apiState, apiBase }, message: string) => {
 		const start = Date.now();
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.send', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.send', {
 			convoId: apiState.createdConvoId,
 			body: message,
 		});
@@ -45,7 +45,7 @@ When(
 );
 
 When('I list channels with limit {int}', async ({ apiState, apiBase }, limit: number) => {
-	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.listPublicConvos', { limit });
+	const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.listPublicConvos', { limit });
 	apiState.lastResponse = res;
 	apiState.lastBody = await readJsonSafe(res);
 });

@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          '       org_id, user_id, actor_id, routing_target)\n'
          '    SELECT\n'
          '      $1, $2,\n'
-         "      'app.etzhayyim.apps.ki.synthesize',\n"
+         "      'com.etzhayyim.apps.ki.synthesize',\n"
          "      'ki.synthesize.v1',\n"
          '      1,\n'
          '      CAST(120000 AS integer),\n'
@@ -30,16 +30,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $7\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '2026-05-08T09:30:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1']}]
 
 
 def upgrade() -> None:

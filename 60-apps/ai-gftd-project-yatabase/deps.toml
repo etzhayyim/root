@@ -80,8 +80,8 @@ authenticated = [
   "/api/invoice?month=YYYY-MM",
   "/api/export",
   "/api/account/delete",
-  "/xrpc/app.etzhayyim.apps.yata.*",
-  "/xrpc/app.etzhayyim.apps.billing.*",
+  "/xrpc/com.etzhayyim.apps.yata.*",
+  "/xrpc/com.etzhayyim.apps.billing.*",
 ]
 
 [product.studio_panes]
@@ -350,7 +350,7 @@ P53 = "Round-robin hypothesis selection + Murakumo timeout/trace tuning (shipped
 P54 = "Real-data BMC convergence (verified live 2026-05-11). 10 iteration rows + 10 decision rows persisted in production. 2 hypotheses converged to 'persevere completed' on real data: H1-cursor-mcp-listing (71 yatabase tenants signed up in last 30d, threshold 25), H3-html-welcome-day7-activation (473 api_request events in 30d, threshold 150). 1 decision authored by agent:llm-murakumo. The remaining 3 active hypotheses test revenue + signup velocity (H4 at 0 Stripe subs reflects the actual operator-gated state: no paid customers yet)."
 P50 = "Resident BMC iteration loop in CF Worker (shipped 2026-05-11). src/bmc-iterate.ts: runBmcIteration(env) — load BMC head → pick oldest active hypothesis → dispatch on metric_query prefix (sql:vertex_signup_count_window / sql:vertex_billing_event_metric_sum / sql:vertex_lead_count_by_status / sql:vertex_lead_count_by_source / sql:vertex_org_plan_count_by_tier / sql:vertex_audit_log_referrer_funnel / external:stripe_subscriptions) → evaluate pass/deadline/min_sample → decide (deterministic v1: persevere/pivot/kill/extend with 3-strike kill rule) → record iteration + decision rows → flip hypothesis status to 'completed' on terminal decision. 4th cron 15 */6 * * * added to wrangler triggers via yatabase-deploy.sh. POST /_bmc/iterate manual fire endpoint. Studio 'Iterate now' button shows per-step result inline. Verified live: v1 BMC seeded (9 blocks × 4-6 bullets), 5 hypotheses ingested, H1 activated, iterate fired → measured 71 yatabase signups vs threshold 25, decision=persevere, iteration row + decision row persisted (bmc:iter:fcf… / bmc:dec:be3fa…). Loop will fire every 6h at :15 in production."
 P47 = "BMC iteration framework (shipped 2026-05-11). Lean Build-Measure-Learn loop anchored to the 9-block Business Model Canvas. Data model: 4 append-only RW tables (vertex_bmc_state / vertex_bmc_hypothesis / vertex_bmc_iteration / vertex_bmc_decision). Worker admin endpoints: /_bmc/bootstrap / state / hypotheses / iterations / decisions / decide (all admin-keyed). LangGraph: lg-yatabase bmc_iteration graph (6 nodes: load_bmc_state → pick_hypothesis → measure → evaluate → decide → update_bmc) registered in langgraph.json, cron `0 7 * * *`. Studio: 15th sidebar pane 'BMC (admin)' renders 9-block canvas grid + hypothesis backlog + iteration history + decision wall. Operator one-shot seed: 70-tools/scripts/yatabase-bmc-seed.sh writes v1 canvas + 5 measurable hypotheses (H1 MCP listing / H2 comparison-quickstart CTR / H3 HTML welcome / H4 free→paid conversion / H5 anonymous-signup velocity). Iteration cadence: daily measurement, weekly decision."
-P55 = "BMC writer cut-over to lg-yatabase pod (shipped 2026-05-12, aligns with ADR-2605111200 §CF Worker = Edge-Only — RisingWave 接続は K8s Pod のみ which supersedes ADR-0081). Single-writer principle: all vertex_bmc_* / edge_bmc_* / mv_bmc_* writes live in the Granian pod (mitama-yata-pool); yatabase CF Worker drops Hyperdrive for BMC and becomes a thin HMAC forwarder via src/bmc-forward.ts. Schema migrated to alembic SSoT (r_20260512000000_bmc_lean_iteration): 6 vertex (added vertex_bmc_hypothesis_event + vertex_bmc_metric_sample) + 5 edge (state_supersedes / hypothesis_in_block / iteration_of_hypothesis / decision_of_iteration / pivot_applied_to_state) + 4 streaming MV (state_head / hypothesis_status / iteration_latest / block_health). UPDATE eliminated — hypothesis status is now DISTINCT ON event log. XRPC surface flattened to app.etzhayyim.apps.yata.bmc{Verb} (9 Lexicon JSON). Worker cron `15 */6 * * *` retired; pod cron `0 7 * * *` is the sole scheduler. Concurrency: pg_advisory_xact_lock per-org. LLM provider order unchanged (Murakumo → OpenRouter → deterministic)."
+P55 = "BMC writer cut-over to lg-yatabase pod (shipped 2026-05-12, aligns with ADR-2605111200 §CF Worker = Edge-Only — RisingWave 接続は K8s Pod のみ which supersedes ADR-0081). Single-writer principle: all vertex_bmc_* / edge_bmc_* / mv_bmc_* writes live in the Granian pod (mitama-yata-pool); yatabase CF Worker drops Hyperdrive for BMC and becomes a thin HMAC forwarder via src/bmc-forward.ts. Schema migrated to alembic SSoT (r_20260512000000_bmc_lean_iteration): 6 vertex (added vertex_bmc_hypothesis_event + vertex_bmc_metric_sample) + 5 edge (state_supersedes / hypothesis_in_block / iteration_of_hypothesis / decision_of_iteration / pivot_applied_to_state) + 4 streaming MV (state_head / hypothesis_status / iteration_latest / block_health). UPDATE eliminated — hypothesis status is now DISTINCT ON event log. XRPC surface flattened to com.etzhayyim.apps.yata.bmc{Verb} (9 Lexicon JSON). Worker cron `15 */6 * * *` retired; pod cron `0 7 * * *` is the sole scheduler. Concurrency: pg_advisory_xact_lock per-org. LLM provider order unchanged (Murakumo → OpenRouter → deterministic)."
 
 [product.lean_cycles.cycle_20260511_01]
 # 1h Build-Measure-Learn cycle, operator-triggered. Fires +
@@ -438,7 +438,7 @@ files_added = [
   "lg/lg_yatabase/auth/__init__.py    — module docstring",
   "lg/lg_yatabase/auth/models.py      — SignupInput/InviteInput/RevokeInput Pydantic v2 shapes",
   "lg/lg_yatabase/auth/repository.py  — signup_anonymous / invite_member / revoke_key INSERT-only writes mirroring legacy Worker row shape",
-  "lg/lg_yatabase/auth/handlers.py    — POST /xrpc/app.etzhayyim.apps.yata.{signup,invite,revoke} with x-internal-trust HMAC verify",
+  "lg/lg_yatabase/auth/handlers.py    — POST /xrpc/com.etzhayyim.apps.yata.{signup,invite,revoke} with x-internal-trust HMAC verify",
 ]
 files_changed = [
   "lg/lg_yatabase/server.py           — added AUTH_ROUTER import + include_router after BMC_ROUTER",
@@ -453,8 +453,8 @@ operator_runbook = """
      kubectl -n mitama-yata-pool set image deployment/lg-yatabase \\
        lg-yatabase=ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64
      kubectl -n mitama-yata-pool rollout status deployment/lg-yatabase
-3. Confirm pod exposes /xrpc/app.etzhayyim.apps.yata.signup:
-     curl -X POST https://lg-yatabase.etzhayyim.com/xrpc/app.etzhayyim.apps.yata.signup \\
+3. Confirm pod exposes /xrpc/com.etzhayyim.apps.yata.signup:
+     curl -X POST https://lg-yatabase.etzhayyim.com/xrpc/com.etzhayyim.apps.yata.signup \\
        -H 'x-internal-trust: $(echo -n "{}" | openssl dgst -sha256 -hmac "$DISPATCHER_INTERNAL_SECRET" | cut -d= -f2)' \\
        -H 'content-type: application/json' -d '{}'
 4. Wire the Worker to forward (one secret push):
@@ -488,7 +488,7 @@ files_added = [
   "lg/lg_yatabase/leads/__init__.py",
   "lg/lg_yatabase/leads/models.py    — Pydantic v2 inputs",
   "lg/lg_yatabase/leads/repository.py — INSERT + targeted UPDATE writes against vertex_lead",
-  "lg/lg_yatabase/leads/handlers.py   — POST /xrpc/app.etzhayyim.apps.yata.lead{Ingest,List,Get,SetOutreachStatus,SetContactEmail,SetEnrichment,MarkDrafted,Ready,Sendable,NeedsEnrichment} with x-internal-trust HMAC",
+  "lg/lg_yatabase/leads/handlers.py   — POST /xrpc/com.etzhayyim.apps.yata.lead{Ingest,List,Get,SetOutreachStatus,SetContactEmail,SetEnrichment,MarkDrafted,Ready,Sendable,NeedsEnrichment} with x-internal-trust HMAC",
 ]
 files_changed = [
   "lg/lg_yatabase/server.py — included LEADS_ROUTER after AUTH_ROUTER",
@@ -573,7 +573,7 @@ done = [
   "Built + pushed ghcr.io/etzhayyim/pymagatama:p59b-af419fe080c-amd64 (multiarch BuildKit, ~5 min including PyTorch CPU wheel).",
   "kubectl set image deployment/bpmn-dispatcher dispatcher=...:p59b-...",
   "CF tunnel ingress v17: dropped the yata-specific path so it falls through to the bpmn-dispatcher catch-all where the proxy fires.",
-  "Smoke verified: POST /auth/v1/signup returns 200 with apiKey + orgDid + tenantName + AWS creds. Pod log confirms /xrpc/app.etzhayyim.apps.yata.signup hit lg-yatabase via the proxy.",
+  "Smoke verified: POST /auth/v1/signup returns 200 with apiKey + orgDid + tenantName + AWS creds. Pod log confirms /xrpc/com.etzhayyim.apps.yata.signup hit lg-yatabase via the proxy.",
 ]
 remaining_for_full_journey = [
   "Bearer-auth verification for the leads/cypher/storage XRPC endpoints currently returns 401 — the Worker's `auth-middleware` (src/app.ts) needs to delegate to the pod's identity resolver for product-scoped API keys (sk_live_yata_*). This is unrelated to the cloudflared bug.",
@@ -592,9 +592,9 @@ ended_at = "2026-05-11T06:22Z"
 status = "blocked_on_cluster_network"
 result = "All code is shipped. Cloudflared on this VKE intermittently/persistently fails to dial origin services in the mitama-udf namespace with `dial tcp ... i/o timeout` regardless of FQDN / svc IP / pod IP / hostNetwork / externalIPs. Other tunnels (geth-rpc, ipfs, keiei-llm) work fine on the same node. Reproducible from a known-good state by simply rolling either bpmn-dispatcher or cloudflared."
 done = [
-  "Pod-side: lg_yatabase.auth.repository.resolve_api_key_by_hash + POST /xrpc/app.etzhayyim.apps.yata.authResolveApiKey handler with same HMAC trust.",
+  "Pod-side: lg_yatabase.auth.repository.resolve_api_key_by_hash + POST /xrpc/com.etzhayyim.apps.yata.authResolveApiKey handler with same HMAC trust.",
   "Built + pushed ghcr.io/etzhayyim/lg-yatabase:0.0.3-amd64 (with the new XRPC route).",
-  "Built + pushed ghcr.io/etzhayyim/pymagatama:p60-e92278c5a99-amd64 (broadened LG_YATABASE_PROXY_PREFIXES to all app.etzhayyim.apps.yata.*).",
+  "Built + pushed ghcr.io/etzhayyim/pymagatama:p60-e92278c5a99-amd64 (broadened LG_YATABASE_PROXY_PREFIXES to all com.etzhayyim.apps.yata.*).",
   "Worker: yatabase Worker resolveAuthContext now resolves sk_live_yata_* via the dispatcher proxy (HMAC-signed body); ES256 JWT / session tokens still fall through to PDS getSession.",
   "Deployed: bpmn-dispatcher rolling to p60-... ; lg-yatabase still on 0.0.2 (the new 0.0.3 was built but rollout deferred pending cluster connectivity).",
   "Yatabase Worker re-deployed with new auth path.",
@@ -653,7 +653,7 @@ verified during cycle_03's brief working window:
    mitama-udf, but resets Calico Felix state).
 2. After node recycle, cloudflared-bpmn-dispatcher pods land fresh and
    should be able to dial origin again. Re-run POST /auth/v1/signup
-   and POST /xrpc/app.etzhayyim.apps.yata.leadList?limit=1 with an
+   and POST /xrpc/com.etzhayyim.apps.yata.leadList?limit=1 with an
    sk_live_yata_* key to confirm end-to-end.
 3. If still broken: replace cloudflared with a generic Ingress
    (nginx-ingress-controller or contour) bound to the same dispatcher
@@ -726,11 +726,11 @@ overall_status = "code-complete; blocked on cluster-network infrastructure (clou
 date = "2026-05-11"
 code_shipped = [
   "Pod: lg_yatabase auth/handlers.py + auth/repository.py (signup, invite, revoke, authResolveApiKey). Pod image ghcr.io/etzhayyim/lg-yatabase:0.0.3-amd64 built+pushed.",
-  "Dispatcher: pymagatama dispatcher_main.py auth_middleware accepts HMAC-SHA256(body, secret); LG_YATABASE_PROXY_PREFIXES routes all app.etzhayyim.apps.yata.* to lg-yatabase pod over cluster networking. Image ghcr.io/etzhayyim/pymagatama:p60-e92278c5a99-amd64 built+pushed and deployed.",
+  "Dispatcher: pymagatama dispatcher_main.py auth_middleware accepts HMAC-SHA256(body, secret); LG_YATABASE_PROXY_PREFIXES routes all com.etzhayyim.apps.yata.* to lg-yatabase pod over cluster networking. Image ghcr.io/etzhayyim/pymagatama:p60-e92278c5a99-amd64 built+pushed and deployed.",
   "Worker: yatabase src/app.ts resolveAuthContext resolves sk_live_yata_* via the dispatcher proxy (HMAC-signed). Deployed (deploy id f5447a64-add9-4e3c-acba-7fa0e55a0cb9).",
   "Tunnel: cloudflared ingress rule yata.* → lg-yatabase removed; falls through to bpmn-dispatcher catch-all which proxies to the pod.",
 ]
-data_path = "Worker (CF Edge) → CF Tunnel → cloudflared pod → bpmn-dispatcher pod → /xrpc/app.etzhayyim.apps.yata.{signup,invite,revoke,authResolveApiKey,lead*,bmc*} → _proxy_to_lg_yatabase → lg-yatabase Granian pod → INSERT/SELECT graphar.vertex_api_key (RisingWave)"
+data_path = "Worker (CF Edge) → CF Tunnel → cloudflared pod → bpmn-dispatcher pod → /xrpc/com.etzhayyim.apps.yata.{signup,invite,revoke,authResolveApiKey,lead*,bmc*} → _proxy_to_lg_yatabase → lg-yatabase Granian pod → INSERT/SELECT graphar.vertex_api_key (RisingWave)"
 verified_working = "Briefly during cycle_03 the full path returned 200 with apiKey + orgDid + tenantName + AWS creds + persisted vertex_api_key rows in RisingWave."
 remaining_blocker = """
 The cloudflared 2024.12.2 / 2025.4.0 docker images on this Vultr VKE cluster have a Go pure-Go DNS resolver bug that prevents UDP egress to the cluster DNS service (10.96.0.10) from cloudflared's network namespace specifically. Every fresh non-cloudflared pod on the same node, in the same namespace, with the same dnsPolicy works flawlessly. Cluster ops attempted exhaustively (see cycles 02-06).
@@ -746,7 +746,7 @@ recommendation_to_operator = """
 [product.deployment.runtime_state_2026_05_11]
 node_pools = "risingwave-pool-58gb (1 × vhf-16c-58gb, the original cluster compute) + edge-pool (1 × vhf-2c-4gb, $24/mo, added during cycle_06 for cloudflared workloads — was supposed to be the fresh node to fix the bug; the bug followed cloudflared anyway)"
 cloudflared_deployments = "y4t4b4se-tunnel in mitama-udf pinned to edge-pool (broken egress); cloudflared-geth-rpc in geth-private serving geth-origin.etzhayyim.com (still works for its own same-namespace targets)"
-lg_yatabase = "lg-yatabase Deployment in mitama-udf serves /xrpc/app.etzhayyim.apps.yata.* via Granian; image 0.0.2-amd64 currently running (0.0.3-amd64 with authResolveApiKey was built but rollout deferred while cluster network is broken)"
+lg_yatabase = "lg-yatabase Deployment in mitama-udf serves /xrpc/com.etzhayyim.apps.yata.* via Granian; image 0.0.2-amd64 currently running (0.0.3-amd64 with authResolveApiKey was built but rollout deferred while cluster network is broken)"
 yatabase_worker = "magatama-y4t4b4se on yatabase.etzhayyim.com/* — version f5447a64-add9-4e3c-acba-7fa0e55a0cb9; auth-middleware redirects sk_live_yata_* through dispatcher proxy"
 bpmn_dispatcher = "deployment/bpmn-dispatcher in mitama-udf running ghcr.io/etzhayyim/pymagatama:p60-e92278c5a99-amd64 (with yata-proxy + HMAC auth support); externalIPs [149.28.89.211] restored on the Service"
 
@@ -817,7 +817,7 @@ done = [
   "Rotated DISPATCHER_INTERNAL_SECRET via `wrangler secret put DISPATCHER_INTERNAL_SECRET` on magatama-y4t4b4se Worker so HMAC matches the bpmn-dispatcher / lg-yatabase side. Also set LG_YATABASE_URL=https://dispatcher.etzhayyim.com (CF tunnel egress now superseded by nginx-ingress from cycle_07).",
   "Updated CF Tunnel `bpmn-dispatcher` config via API (v5..v21) — initially added direct lg-yatabase route, then reverted to Option A (cycle_07 nginx-ingress + dispatcher proxy `_proxy_to_lg_yatabase`) per the project's chosen topology. Final tunnel rules: shinshi → lg-shinshi, default → bpmn-dispatcher, 404 catch-all.",
   "Restarted risingwave-meta-0 after manual snapshot backup (rw-meta-backup-prestart-1778485235 Job) — meta recovered cleanly with 0 background DDL jobs, but DDL coordination still hangs (no longer with `cluster is bootstrapping` fast-fail).",
-  "Validated lg-yatabase pod end-to-end via kubectl port-forward 18001:8000 — /health 200, /graphs lists 4 graphs (health/marketing/sales/bmc_iteration), HMAC verify on /xrpc/app.etzhayyim.apps.yata.bmcGetState passes, asyncpg pool connects to RW PG :4566, repository reaches `mv_bmc_state_head` SELECT — only failure is the MV does not exist (schema not applied).",
+  "Validated lg-yatabase pod end-to-end via kubectl port-forward 18001:8000 — /health 200, /graphs lists 4 graphs (health/marketing/sales/bmc_iteration), HMAC verify on /xrpc/com.etzhayyim.apps.yata.bmcGetState passes, asyncpg pool connects to RW PG :4566, repository reaches `mv_bmc_state_head` SELECT — only failure is the MV does not exist (schema not applied).",
 ]
 remaining_issue = """
 RW compactor (risingwave-compactor-6b4954866b-s97hz) crashlooping with
@@ -842,7 +842,7 @@ is additive and the pod re-imports tables.py lazily).
 artifacts = [
   "30-graph/graph-schema/alembic/current_versions/r_20260512000000_bmc_lean_iteration.py — alembic SSoT",
   "30-graph/graph-schema/sql_migrations/20260512000000_bmc_lean_iteration.{up,down}.sql — 6 vertex / 5 edge / 4 MV + grants",
-  "00-contracts/lexicons/ai/gftd/apps/yata/bmc{GetState,AppendState,ListHypotheses,AddHypothesis,SetHypothesisStatus,Iterate,ListIterations,ListDecisions,BlockHealth}.json — 9 Lexicon JSON, bundled into lex registry, atproto Worker redeployed (ai-gftd-pds-2603241700 v21fc6e20).",
+  "00-contracts/lexicons/com/etzhayyim/apps/yata/bmc{GetState,AppendState,ListHypotheses,AddHypothesis,SetHypothesisStatus,Iterate,ListIterations,ListDecisions,BlockHealth}.json — 9 Lexicon JSON, bundled into lex registry, atproto Worker redeployed (ai-gftd-pds-2603241700 v21fc6e20).",
   "60-apps/ai-gftd-project-yatabase/src/bmc-forward.ts — HMAC-signing thin proxy, replaces deleted bmc.ts + bmc-iterate.ts in the Worker.",
   "60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/bmc/{db,models,repository,handlers}.py — pod-side BMC module (~1k lines), single writer for vertex_bmc_*.",
   "60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/graphs/bmc_iteration.py — STUB nodes replaced with repository-backed async implementations.",
@@ -918,9 +918,9 @@ result = """
 yatabase.etzhayyim.com is LIVE end-to-end as a paying service:
 
   POST /auth/v1/signup              → 200 OK { apiKey, orgDid, tenantName, awsAccessKeyId, awsSecretAccessKey }
-  GET  /xrpc/app.etzhayyim.apps.yata.leadList?limit=2      → 200 OK { count, leads[] }
-  GET  /xrpc/app.etzhayyim.apps.yata.leadSendable          → 200 OK { count, leads[] }
-  GET  /xrpc/app.etzhayyim.apps.yata.leadNeedsEnrichment   → 200 OK { count, leads[] }
+  GET  /xrpc/com.etzhayyim.apps.yata.leadList?limit=2      → 200 OK { count, leads[] }
+  GET  /xrpc/com.etzhayyim.apps.yata.leadSendable          → 200 OK { count, leads[] }
+  GET  /xrpc/com.etzhayyim.apps.yata.leadNeedsEnrichment   → 200 OK { count, leads[] }
   /, /docs, /studio, /comparison, /quickstart, /openapi.json, /.well-known/*  → 200 OK
 
 Latency: signup 1.3s cold / 200-600ms warm (KV cache fed at mint-time);
@@ -939,7 +939,7 @@ P62_landings = [
 
 [product.lean_cycles.cycle_20260512_01_known_limitations]
 admin_bmc_surface_500 = """
-/xrpc/app.etzhayyim.apps.yata.bmc{GetState,List{Hypotheses,Iterations,Decisions},BlockHealth} return 500 because the MVs they depend on don't exist in this RW instance and the underlying base tables (`vertex_bmc_state`, `vertex_bmc_hypothesis`, `vertex_bmc_iteration`, `vertex_bmc_decision`) were created with a different schema (missing `org_did`, plus the upstream `vertex_bmc_hypothesis_event` doesn't exist at all). Operator action required:
+/xrpc/com.etzhayyim.apps.yata.bmc{GetState,List{Hypotheses,Iterations,Decisions},BlockHealth} return 500 because the MVs they depend on don't exist in this RW instance and the underlying base tables (`vertex_bmc_state`, `vertex_bmc_hypothesis`, `vertex_bmc_iteration`, `vertex_bmc_decision`) were created with a different schema (missing `org_did`, plus the upstream `vertex_bmc_hypothesis_event` doesn't exist at all). Operator action required:
   1. Run 30-graph/graph-schema/sql_migrations/20260512000000_bmc_lean_iteration.up.sql (which CREATEs vertex_bmc_hypothesis_event + adds org_did) against this RW cluster.
   2. After base tables are aligned, the four mv_bmc_* MVs in the same migration will succeed.
 The customer-facing service does NOT depend on these BMC dashboard surfaces — they are operator-only (Studio left-pane health rollups). 0 customer-impact.
@@ -991,12 +991,12 @@ upstream RW barrier-coordinator recovery work that other teams own.
 remaining_soft = """
 4 SOFT failures (not in scope for P63):
   - /cypher CREATE/MATCH (Yatabase.DispatcherError dispatcher 404)
-  - /mcp tools/call yata.graph.cypher (same — app.etzhayyim.apps.yata.runCypher not on pod)
+  - /mcp tools/call yata.graph.cypher (same — com.etzhayyim.apps.yata.runCypher not on pod)
   - /storage/v1/object/... PUT (dispatcher 404)
 
 These need matching NSID handlers on the lg-yatabase pod:
-  - app.etzhayyim.apps.yata.runCypher
-  - app.etzhayyim.apps.yata.storage{Put,Get,Delete,List,Sign}
+  - com.etzhayyim.apps.yata.runCypher
+  - com.etzhayyim.apps.yata.storage{Put,Get,Delete,List,Sign}
 The dispatcher proxy + Worker forwarder are already in place; only the
 pod-side FastAPI handlers + repository code are missing.
 """
@@ -1045,8 +1045,8 @@ p64_wiring = [
 graduation_path = """
 The KV-fallback layer is transparent to the customer-facing API shape.
 When the lg-yatabase pod ships the matching XRPC handlers:
-  - app.etzhayyim.apps.yata.runCypher    (returns Neo4j-shape rows/columns)
-  - app.etzhayyim.apps.yata.{putObject,getObject,deleteObject,listObject,signObject}
+  - com.etzhayyim.apps.yata.runCypher    (returns Neo4j-shape rows/columns)
+  - com.etzhayyim.apps.yata.{putObject,getObject,deleteObject,listObject,signObject}
 …the dispatcher proxy already in place will route traffic there
 without any Worker change. The KV fallback only fires when the
 dispatcher returns 404, so it disappears automatically once the pod is
@@ -1098,7 +1098,7 @@ in front of RW). yatabase-customer-journey.mjs passes 12/12 GREEN.
 
 durable_path_graduation = """
 Both /cypher and /storage have transparent KV→pod fallback. When the
-lg-yatabase pod gains app.etzhayyim.apps.yata.{runCypher,putObject,getObject}
+lg-yatabase pod gains com.etzhayyim.apps.yata.{runCypher,putObject,getObject}
 handlers, the KV path becomes dormant automatically:
 
   • dispatchYataXrpc gets a non-404 → KV fallback is never invoked.
@@ -1136,9 +1136,9 @@ Verified production sweep:
     /api/export      200 (KV-cached apiKeys index)
 
   XRPC
-    /xrpc/app.etzhayyim.apps.yata.leadList            200
-    /xrpc/app.etzhayyim.apps.yata.leadSendable        200
-    /xrpc/app.etzhayyim.apps.yata.leadNeedsEnrichment 200
+    /xrpc/com.etzhayyim.apps.yata.leadList            200
+    /xrpc/com.etzhayyim.apps.yata.leadSendable        200
+    /xrpc/com.etzhayyim.apps.yata.leadNeedsEnrichment 200
 
   Plus 12/12 customer-journey GREEN: signup → cypher → MCP →
   storage → stripe → plan flip → usage → export → delete.
@@ -1163,8 +1163,8 @@ production_endpoints_200 = [
   "/storage/v1/object/{bucket}/{key}",
   "/storage/v1/bucket", "/storage/v1/object/list/{bucket}",
   "/webhook/stripe",
-  "/xrpc/app.etzhayyim.apps.yata.lead{List,Sendable,NeedsEnrichment}",
-  "/xrpc/app.etzhayyim.apps.yata.{signup,invite,revoke,authResolveApiKey}",
+  "/xrpc/com.etzhayyim.apps.yata.lead{List,Sendable,NeedsEnrichment}",
+  "/xrpc/com.etzhayyim.apps.yata.{signup,invite,revoke,authResolveApiKey}",
 ]
 
 [product.lean_cycles.cycle_20260512_06_production_polish]
@@ -1313,7 +1313,7 @@ remaining 2 "FAILs" are correct 4xx responses to invalid input — not
 server bugs).
 
   1. POST /sparql graceful stub (closes one real surface FAIL):
-       - Before: forwarded to app.etzhayyim.apps.yata.runSparql on the
+       - Before: forwarded to com.etzhayyim.apps.yata.runSparql on the
          lg-yatabase pod, which 404s → opaque dispatcher 404 leaks to
          customers.
        - After: when the pod returns 404, the Worker now responds with

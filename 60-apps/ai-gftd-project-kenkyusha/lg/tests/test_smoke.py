@@ -98,5 +98,5 @@ def test_unknown_graph_404(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/app.etzhayyim.apps.kenkyusha.unknownMethod", json={})
+    r = client.post("/xrpc/com.etzhayyim.apps.kenkyusha.unknownMethod", json={})
     assert r.status_code == 404

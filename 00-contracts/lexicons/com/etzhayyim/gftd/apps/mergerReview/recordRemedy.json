@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mergerReview.recordRemedy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Merger clearance remedy / commitment",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "remedyId",
+            "notificationVid",
+            "remedyKind",
+            "outcome",
+            "decidedAt"
+          ],
+          "properties": {
+            "remedyId": {
+              "type": "string"
+            },
+            "notificationVid": {
+              "type": "string",
+              "description": "bridges notifyTransaction"
+            },
+            "remedyKind": {
+              "type": "string",
+              "enum": [
+                "divestiture",
+                "licensing",
+                "firewall",
+                "conduct",
+                "interoperability",
+                "carve_out",
+                "monitoring_trustee",
+                "behavioural"
+              ]
+            },
+            "outcome": {
+              "type": "string",
+              "enum": [
+                "cleared_unconditional",
+                "cleared_with_remedies",
+                "prohibited",
+                "withdrawn",
+                "referred"
+              ]
+            },
+            "remedyScopeDescription": {
+              "type": "string"
+            },
+            "decidedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

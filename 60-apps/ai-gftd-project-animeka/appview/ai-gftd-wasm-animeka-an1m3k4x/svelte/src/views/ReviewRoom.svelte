@@ -60,7 +60,7 @@
     loadingPlaylist = true;
     try {
       const resp = await atQuery<{ items?: Record<string, unknown>[] }>(
-        'app.etzhayyim.animeka.listCuts',
+        'com.etzhayyim.animeka.listCuts',
         { limit: 500 }
       );
       playlist = (resp.items ?? [])
@@ -81,7 +81,7 @@
     try {
       const params: Record<string, unknown> = { status: 'open', limit: 200 };
       if (episodeId && episodeId !== 'latest') params.episodeId = episodeId;
-      const resp = await atQuery<{ items: Retake[] }>('app.etzhayyim.animeka.listRetakes', params);
+      const resp = await atQuery<{ items: Retake[] }>('com.etzhayyim.animeka.listRetakes', params);
       retakes = resp.items ?? [];
     } catch { retakes = []; }
     loadingRetakes = false;
@@ -128,7 +128,7 @@
 
   async function resolve(r: Retake) {
     if (!r.rkey) return;
-    await atProcedure('app.etzhayyim.animeka.resolveRetake', { retakeId: r.rkey, status: 'resolved' });
+    await atProcedure('com.etzhayyim.animeka.resolveRetake', { retakeId: r.rkey, status: 'resolved' });
     await loadRetakes();
   }
 
@@ -136,8 +136,8 @@
     if (!current || !retakeComment.trim()) return;
     submitting = true;
     try {
-      await atProcedure('app.etzhayyim.animeka.submitRetake', {
-        target_uri: `at://anonymous/app.etzhayyim.animeka.cut/${current.rkey}`,
+      await atProcedure('com.etzhayyim.animeka.submitRetake', {
+        target_uri: `at://anonymous/com.etzhayyim.animeka.cut/${current.rkey}`,
         cut_id: current.rkey,
         stage: retakeStage,
         severity: retakeSeverity,

@@ -54,11 +54,11 @@
   "tokenCustomMintForbidden": "ADR-2605172100 Alt C — no custom token; settlement always via canonical Base L2 stablecoins",
   "form": "Adherent-SBT-gated on-chain pool family (KawaseYuiPool<stable> per stable); NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock",
   "lexiconReadAccess": {
-    "app.etzhayyim.kawase.*": "OWN — 8 Lexicons (depositAttestation / withdrawIntent / matchExecution / fxRateAttestation / poolStateReport / rebalanceAttestation / jurisdictionAttestation / silenKawaseReview)",
-    "app.etzhayyim.chigiri.ipLicenseClaim": "READ-ONLY — kawase_jurisdiction_compliance cell consumes for G14 multi-juris analysis",
-    "app.etzhayyim.chigiri.taxReceipt": "READ-ONLY — multi-juris tax-reporting position per active jurisdiction",
-    "app.etzhayyim.toritate.ledgerEntry": "WRITE — kawase-mutual-aid purpose entries for every flow; toritate aggregates",
-    "app.etzhayyim.kotoba.economy.usageRecord": "WRITE — per pool_match cell tick mKOTO debit (operator DID)"
+    "com.etzhayyim.kawase.*": "OWN — 8 Lexicons (depositAttestation / withdrawIntent / matchExecution / fxRateAttestation / poolStateReport / rebalanceAttestation / jurisdictionAttestation / silenKawaseReview)",
+    "com.etzhayyim.chigiri.ipLicenseClaim": "READ-ONLY — kawase_jurisdiction_compliance cell consumes for G14 multi-juris analysis",
+    "com.etzhayyim.chigiri.taxReceipt": "READ-ONLY — multi-juris tax-reporting position per active jurisdiction",
+    "com.etzhayyim.toritate.ledgerEntry": "WRITE — kawase-mutual-aid purpose entries for every flow; toritate aggregates",
+    "com.etzhayyim.kotoba.economy.usageRecord": "WRITE — per pool_match cell tick mKOTO debit (operator DID)"
   },
   "uplProhibition": null,
   "scope": {

@@ -145,7 +145,7 @@ function registerEntityDids(sdk: HostSDK): void {
 // --- Commands ---
 
 async function cmdListJobPostings(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.shigotoba.listJobPostings", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.shigotoba.listJobPostings", body);
   const limit = Math.min(Number(args.limit) || 50, 200);
   const offset = Number(args.offset) || 0;
   const rows = await listRows("JobPosting", limit, offset);
@@ -153,14 +153,14 @@ async function cmdListJobPostings(sdk: HostSDK, body: Uint8Array): Promise<unkno
 }
 
 async function cmdGetJobPosting(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.shigotoba.getJobPosting", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.shigotoba.getJobPosting", body);
   const id = str(args.id ?? "");
   if (!id) return { error: "id required" };
   return await getRowById("JobPosting", id) ?? { error: "not found" };
 }
 
 async function cmdSearchJobPostings(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.shigotoba.searchJobPostings", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.shigotoba.searchJobPostings", body);
   const q = str(args.q ?? "");
   const limit = Math.min(Number(args.limit) || 20, 100);
   if (!q) return { items: [] };
@@ -180,7 +180,7 @@ async function cmdSearchJobPostings(sdk: HostSDK, body: Uint8Array): Promise<unk
 }
 
 async function cmdListCompanies(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.shigotoba.listCompanies", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.shigotoba.listCompanies", body);
   const limit = Math.min(Number(args.limit) || 50, 200);
   const offset = Number(args.offset) || 0;
   const rows = await listRows("CompanyProfile", limit, offset, "name", true);
@@ -227,7 +227,7 @@ async function proxyStage(sdk: HostSDK, stageNsid: string, body: Uint8Array): Pr
 }
 
 function cmdWave(sdk: HostSDK, body: Uint8Array): unknown {
-  const args = parseLexiconInput("app.etzhayyim.apps.shigotoba.wave", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.shigotoba.wave", body);
   const msg = str(args.message ?? "Hello");
   return { ok: true, agent: "Shigotoba Jobs", nanoid: appId };
 }
@@ -246,13 +246,13 @@ function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtpro
   const collection = str(commit.collection ?? "");
   const record = commit.record as Record<string, unknown> | undefined;
 
-  if (collection === "app.etzhayyim.apps.shigotoba.collectionJob" && record) return { ok: true, detail: "collectionJob accepted" };
+  if (collection === "com.etzhayyim.apps.shigotoba.collectionJob" && record) return { ok: true, detail: "collectionJob accepted" };
 
-  if (collection === "app.etzhayyim.apps.shigotoba.jobPosting") {
+  if (collection === "com.etzhayyim.apps.shigotoba.jobPosting") {
     return { ok: true, detail: "jobPosting persisted" };
   }
 
-  if (collection === "app.etzhayyim.apps.shigotoba.companyProfile") {
+  if (collection === "com.etzhayyim.apps.shigotoba.companyProfile") {
     return { ok: true, detail: "companyProfile persisted" };
   }
 
@@ -308,7 +308,7 @@ async function cmdStatsShigotoba(sdk: HostSDK, body: Uint8Array): Promise<unknow
 }
 
 async function cmdExportShigotoba(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.shigotoba.export", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.shigotoba.export", body);
   const fmt = str(args.format ?? "json");
   const lim = Math.min(Number(args.limit) || 100, 1000);
   const rows = await getDb()
@@ -336,7 +336,7 @@ function cmdDescribeShigotoba(sdk: HostSDK, _body: Uint8Array): unknown {
 }
 
 async function cmdAuditShigotoba(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.shigotoba.audit", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.shigotoba.audit", body);
   const since = str(args.since ?? "");
   const lim = Math.min(Number(args.limit) || 50, 200);
   let query: any = getDb()
@@ -398,56 +398,56 @@ export default createWorkerExport((sdk) => {
   actorDID = sdk.pds.selfRepo ?? "";
   registerEntityDids(sdk);
   sdk.app
-      .command(nsid("app.etzhayyim.apps.shigotoba.listJobPostings"), (ctx, body) => cmdListJobPostings(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.listJobPostings"), (ctx, body) => cmdListJobPostings(sdk, body),
       asAgentTool("List job postings from shigotoba.etzhayyim.com"),
       withCapabilityTags('query', 'shigotoba', 'jobs'),
       withOCELEvent("governance.audit"),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.getJobPosting"), (ctx, body) => cmdGetJobPosting(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.getJobPosting"), (ctx, body) => cmdGetJobPosting(sdk, body),
       asAgentTool("Get job posting by ID"),
       withCapabilityTags('query', 'shigotoba', 'jobs'),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.searchJobPostings"), (ctx, body) => cmdSearchJobPostings(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.searchJobPostings"), (ctx, body) => cmdSearchJobPostings(sdk, body),
       asAgentTool("Search job postings by keyword"),
       withCapabilityTags('search', 'shigotoba', 'jobs'),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.listCompanies"), (ctx, body) => cmdListCompanies(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.listCompanies"), (ctx, body) => cmdListCompanies(sdk, body),
       asAgentTool("List companies with job postings"),
       withCapabilityTags('query', 'shigotoba', 'companies'),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.ingestJobs"), (_ctx, body) => proxyStage(sdk, "app.etzhayyim.apps.shigotoba.ingestJobs", body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.ingestJobs"), (_ctx, body) => proxyStage(sdk, "com.etzhayyim.apps.shigotoba.ingestJobs", body),
       asAgentTool("Trigger LangServer job ingestion from public APIs"),
       withCapabilityTags('pipeline', 'shigotoba', 'ingest', 'bpmn'),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.wave"), (ctx, body) => cmdWave(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.wave"), (ctx, body) => cmdWave(sdk, body),
       asAgentTool("Respond to wave greeting"),
       withCapabilityTags('social', 'greeting'),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.stats"), (ctx, body) => cmdStatsShigotoba(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.stats"), (ctx, body) => cmdStatsShigotoba(sdk, body),
       asAgentTool("Job posting statistics"),
       withCapabilityTags("analytics", "shigotoba"),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.export"), (ctx, body) => cmdExportShigotoba(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.export"), (ctx, body) => cmdExportShigotoba(sdk, body),
       asAgentTool("Export job posting data"),
       withCapabilityTags("export", "shigotoba"),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.health"), (ctx, body) => cmdHealthShigotoba(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.health"), (ctx, body) => cmdHealthShigotoba(sdk, body),
       asAgentTool("Health check"),
       withCapabilityTags("diagnostics", "shigotoba"),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.describe"), (ctx, body) => cmdDescribeShigotoba(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.describe"), (ctx, body) => cmdDescribeShigotoba(sdk, body),
       asAgentTool("Describe capabilities"),
       withCapabilityTags("meta", "shigotoba"),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.summarize"), (_ctx, body) => proxyStage(sdk, "app.etzhayyim.apps.shigotoba.summarize", body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.summarize"), (_ctx, body) => proxyStage(sdk, "com.etzhayyim.apps.shigotoba.summarize", body),
       asAgentTool("AI summary of job market data via BPMN"),
       withCapabilityTags("ai", "shigotoba", "bpmn"),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.audit"), (ctx, body) => cmdAuditShigotoba(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.audit"), (ctx, body) => cmdAuditShigotoba(sdk, body),
       asAgentTool("Audit log for job postings"),
       withCapabilityTags("audit", "shigotoba"),
       )
-      .command(nsid("app.etzhayyim.apps.shigotoba.dataSources"), (ctx, body) => cmdDataSources(sdk, body),
+      .command(nsid("com.etzhayyim.apps.shigotoba.dataSources"), (ctx, body) => cmdDataSources(sdk, body),
       asAgentTool("Data source status and metrics"),
       withCapabilityTags("diagnostics", "shigotoba", "sources"),
       );

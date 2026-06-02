@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.aismarine.getVesselDensityTile",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return aggregated vessel density inside a bbox, suitable for low-zoom heatmap rendering. ADR-2605011500. Phase 1: backed by mv_vessel_density_grid (0.1° lat/lon grid ~11km equator) — RisingWave 2.8.1 has no h3_lat_lng_to_cell builtin, so true H3 res-6 is deferred to Phase 2 (Python/Rust UDF wrapping h3o). The h3Resolution param is accepted for forward-compat but currently ignored; cellSchema in the response indicates which rendering path to use.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "bbox": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minLength": 4,
+            "maxLength": 4
+          },
+          "h3Resolution": { "type": "integer", "description": "Reserved for Phase 2 (true H3). Accepted but ignored in Phase 1 grid mode. Default 5." },
+          "windowMinutes": { "type": "integer", "description": "Time window. Phase 1 supports 15, 30, 60, 240, 1440 (minutes). Default 60." },
+          "types": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional vessel_type_class filter."
+          }
+        },
+        "required": ["bbox"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cells", "cellSchema"],
+          "properties": {
+            "cells": {
+              "type": "unknown",
+              "description": "Array of cell rows. Phase 1 (cellSchema='grid_0p1deg'): { cell_id:string, lat_bin:number, lon_bin:number, vessel_count, hit_count, byClass: { [type_class]: { vessel_count, hit_count } } }. lat_bin/lon_bin = south-west corner of the 0.1°×0.1° cell. Phase 2 (cellSchema='h3_r6'): { cell_id:string (H3 hex), vessel_count, hit_count, byClass }."
+            },
+            "cellSchema": { "type": "string", "description": "'grid_0p1deg' (Phase 1) or 'h3_r6' (Phase 2). Tells the client how to render cell_id." },
+            "windowMinutes": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

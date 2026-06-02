@@ -37,7 +37,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/kami_ketsu_gorilla.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/kamiKetsuGorilla"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kamiKetsuGorilla"
   },
   "playUrl": "ketsu-game.htm",
   "profile": {
@@ -93,9 +93,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.kami.kamiEntity",
-        "ai.gftd.apps.kami.kamiEvent",
-        "ai.gftd.apps.kami.kamiReport"
+        "com.etzhayyim.apps.kami.kamiEntity",
+        "com.etzhayyim.apps.kami.kamiEvent",
+        "com.etzhayyim.apps.kami.kamiReport"
       ]
     }
   },

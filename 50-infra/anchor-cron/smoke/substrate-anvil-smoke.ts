@@ -53,8 +53,8 @@ const SIGNER_KEY =
 // two-record fixture (see 50-infra/mst-projector/src/mst.test.ts).
 // Any valid v1-dag-cbor CID would work; this one is checked in.
 const FIXTURE = {
-  uri: "at://did:web:pinner.etzhayyim.com/app.etzhayyim.substrate.ipfsPin/3a",
-  shardKey: "app.etzhayyim.apps.threads.post",
+  uri: "at://did:web:pinner.etzhayyim.com/com.etzhayyim.substrate.ipfsPin/3a",
+  shardKey: "com.etzhayyim.apps.threads.post",
   rootCid: "bafyreigh2akiscaildc7obb6q3vbiqd5gukvvr44e7lsdgowf2c5sb6e44",
   carCid: "bafyreigh2akiscaildc7obb6q3vbiqd5gukvvr44e7lsdgowf2c5sb6e44",
   byteSize: 4096,

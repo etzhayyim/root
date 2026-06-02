@@ -15,7 +15,7 @@ interface ExportedHandler<E> {
   fetch(req: Request, env: E): Promise<Response>;
 }
 
-const NSID_PREFIX = "app.etzhayyim.apps.aidesk.";
+const NSID_PREFIX = "com.etzhayyim.apps.aidesk.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -30,8 +30,8 @@ export default {
         model: "ADSKAILab/Zero-To-CAD-Qwen3-VL-2B",
         licenseTier: "apache2",
         businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/aidesk.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/aidesk",
-        tsukuruIntegration: "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/aidesk",
+        tsukuruIntegration: "com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
       });
     }
 

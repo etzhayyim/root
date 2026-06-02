@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.research.gpuPriceCompare": {
+    "/xrpc/com.etzhayyim.research.gpuPriceCompare": {
       "get": {
         "summary": "Cross-provider GPU $/hr comparison. Returns price per GPU and per-provider cheapest from the research dataset (Vultr Cloud/BM, RunPod Secure, DigitalOcean). SSoT = public.mv_research_gpu_price_compare (ADR-2605110227).",
-        "operationId": "app.etzhayyim.research.gpuPriceCompare",
+        "operationId": "com.etzhayyim.research.gpuPriceCompare",
         "parameters": [
           {
             "name": "model",
@@ -147,10 +147,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.research.listAdrs": {
+    "/xrpc/com.etzhayyim.research.listAdrs": {
       "get": {
         "summary": "List repository ADRs from the parsed-frontmatter graph (public.vertex_research_adr). Returned rows include id, title, status, topic, last_verified, related_count, supersedes_count. SSoT = public.mv_research_adr_graph (ADR-2605110227 §3.1; ingested via 70-tools/scripts/research/extract-adr-frontmatter.py).",
-        "operationId": "app.etzhayyim.research.listAdrs",
+        "operationId": "com.etzhayyim.research.listAdrs",
         "parameters": [
           {
             "name": "status",

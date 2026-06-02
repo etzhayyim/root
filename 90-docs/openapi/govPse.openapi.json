@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govPse.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govPse.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Palestine government.",
-        "operationId": "app.etzhayyim.govPse.followSiteDeps",
+        "operationId": "com.etzhayyim.govPse.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPse.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govPse.heartbeatTick": {
       "post": {
         "summary": "Run the Palestine government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govPse.heartbeatTick",
+        "operationId": "com.etzhayyim.govPse.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPse.listOrgs": {
+    "/xrpc/com.etzhayyim.govPse.listOrgs": {
       "get": {
         "summary": "List Palestine government organization graph records.",
-        "operationId": "app.etzhayyim.govPse.listOrgs",
+        "operationId": "com.etzhayyim.govPse.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPse.registerDIDs": {
+    "/xrpc/com.etzhayyim.govPse.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Palestine government organizations.",
-        "operationId": "app.etzhayyim.govPse.registerDIDs",
+        "operationId": "com.etzhayyim.govPse.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPse.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govPse.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Palestine government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govPse.resolveOrgPath",
+        "operationId": "com.etzhayyim.govPse.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPse.seedOrgs": {
+    "/xrpc/com.etzhayyim.govPse.seedOrgs": {
       "post": {
         "summary": "Seed initial Palestine government organization records into the graph.",
-        "operationId": "app.etzhayyim.govPse.seedOrgs",
+        "operationId": "com.etzhayyim.govPse.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPse.shinka": {
+    "/xrpc/com.etzhayyim.govPse.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Palestine government organization update.",
-        "operationId": "app.etzhayyim.govPse.shinka",
+        "operationId": "com.etzhayyim.govPse.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPse.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govPse.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Palestine government organization changes to graph.",
-        "operationId": "app.etzhayyim.govPse.syncWetUpdates",
+        "operationId": "com.etzhayyim.govPse.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

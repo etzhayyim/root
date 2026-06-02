@@ -69,7 +69,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = ReviewPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.yamabiko.silenRailReview",
+        "$type": "com.etzhayyim.yamabiko.silenRailReview",
         "reviewSubjectId": s.reviewSubjectId,
         "scope": s.scope,
         "councilSafeAddress": s.councilSafeAddress,

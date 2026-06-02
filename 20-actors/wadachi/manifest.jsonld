@@ -12,9 +12,9 @@
     {"name": "telemetry_log", "murakumoNode": "sora"}
   ],
   "lexicons": [
-    "app.etzhayyim.wadachi.deliveryRoute",
-    "app.etzhayyim.wadachi.trajectoryPlan",
-    "app.etzhayyim.wadachi.missionCompleteRecord"
+    "com.etzhayyim.wadachi.deliveryRoute",
+    "com.etzhayyim.wadachi.trajectoryPlan",
+    "com.etzhayyim.wadachi.missionCompleteRecord"
   ],
   "constitutionalGates": [
     {"gate": "G1", "requirement": "Firmware open-source (no proprietary vehicle control)"},

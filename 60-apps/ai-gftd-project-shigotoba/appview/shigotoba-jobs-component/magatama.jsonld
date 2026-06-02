@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.shigotoba.jobPosting",
-        "ai.gftd.apps.shigotoba.companyProfile",
-        "ai.gftd.apps.shigotoba.collectionJob"
+        "com.etzhayyim.apps.shigotoba.jobPosting",
+        "com.etzhayyim.apps.shigotoba.companyProfile",
+        "com.etzhayyim.apps.shigotoba.collectionJob"
       ]
     }
   },

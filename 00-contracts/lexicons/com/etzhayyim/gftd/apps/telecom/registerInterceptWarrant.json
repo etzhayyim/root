@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerInterceptWarrant",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Lawful Intercept (CALEA / ETSI LI / 3GPP TS 33.127) — register a warrant authorizing intercept against named identifiers. warrantDocumentRef is a vault:// pointer; warrant body never persisted in graph.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["jurisdiction", "lawAuthorityId", "warrantNumber", "warrantKind", "interceptScope", "validFrom", "validUntil", "lemfId"],
+          "properties": {
+            "warrantId": { "type": "string" },
+            "jurisdiction": { "type": "string" },
+            "lawAuthorityId": { "type": "string" },
+            "warrantNumber": { "type": "string" },
+            "warrantKind": { "type": "string", "enum": ["court_order", "national_security", "emergency", "administrative"] },
+            "interceptScope": { "type": "string", "enum": ["iri_only", "cc_only", "iri_and_cc"] },
+            "validFrom": { "type": "string", "format": "datetime" },
+            "validUntil": { "type": "string", "format": "datetime" },
+            "lemfId": { "type": "string" },
+            "warrantDocumentRef": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "warrantId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

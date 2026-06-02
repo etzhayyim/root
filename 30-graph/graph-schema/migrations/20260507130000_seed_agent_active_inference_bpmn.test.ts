@@ -9,15 +9,15 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const activeInferenceTick = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/agent/activeInferenceTick.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/agent/activeInferenceTick.bpmn"),
   "utf-8",
 );
 const homeostasisWatch = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/agent/homeostasisWatch.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/agent/homeostasisWatch.bpmn"),
   "utf-8",
 );
 const realWorldEffectDispatch = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/agent/realWorldEffectDispatch.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/agent/realWorldEffectDispatch.bpmn"),
   "utf-8",
 );
 
@@ -26,31 +26,31 @@ describe("Seed agent active inference BPMN migration", () => {
     expect(migrationSource).toContain("agent-active-inference-tick-v1");
     expect(migrationSource).toContain('bpmnProcessId: "agent_active_inference_tick"');
     expect(migrationSource).toContain(
-      'sourcePath: "00-contracts/bpmn/ai/gftd/agent/activeInferenceTick.bpmn"',
+      'sourcePath: "00-contracts/bpmn/com/etzhayyim/agent/activeInferenceTick.bpmn"',
     );
 
     expect(migrationSource).toContain("agent-homeostasis-watch-v1");
     expect(migrationSource).toContain('bpmnProcessId: "agent_homeostasis_watch"');
     expect(migrationSource).toContain(
-      'sourcePath: "00-contracts/bpmn/ai/gftd/agent/homeostasisWatch.bpmn"',
+      'sourcePath: "00-contracts/bpmn/com/etzhayyim/agent/homeostasisWatch.bpmn"',
     );
 
     expect(migrationSource).toContain("agent-realworld-effect-dispatch-v1");
     expect(migrationSource).toContain('bpmnProcessId: "agent_realworld_effect_dispatch"');
     expect(migrationSource).toContain(
-      'sourcePath: "00-contracts/bpmn/ai/gftd/agent/realWorldEffectDispatch.bpmn"',
+      'sourcePath: "00-contracts/bpmn/com/etzhayyim/agent/realWorldEffectDispatch.bpmn"',
     );
   });
 
   it("binds the expected agent NSIDs and write allowlists", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.agent.activeInferenceTick"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.agent.activeInferenceTick"');
     expect(migrationSource).toContain('writeTableAllowlist: "vertex_agent_active_inference_tick"');
 
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.agent.recordHomeostasis"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.agent.recordHomeostasis"');
     expect(migrationSource).toContain('writeTableAllowlist: "vertex_agent_homeostasis_snapshot"');
 
     expect(migrationSource).toContain(
-      'nsid: "app.etzhayyim.apps.agent.classifyRealWorldEffect"',
+      'nsid: "com.etzhayyim.apps.agent.classifyRealWorldEffect"',
     );
     expect(migrationSource).toContain('writeTableAllowlist: "vertex_agent_realworld_effect"');
   });

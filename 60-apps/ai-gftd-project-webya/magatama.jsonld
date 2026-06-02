@@ -30,7 +30,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.apps.webya.site"]
+      "collections": ["com.etzhayyim.apps.webya.site"]
     }
   }
 }

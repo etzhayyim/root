@@ -16,16 +16,16 @@ const actorId = "sys.bpmn.seed.credits";
 const ledgerTables = "vertex_credit_wallet,vertex_credit_transaction,vertex_credits_af_event,vertex_credits_public_fund_allocation,vertex_credits_spend_failure";
 
 const seeds: Seed[] = [
-  { slug: "check-spend-allowed", op: "checkSpendAllowed", processId: "credits_check_spend_allowed", sourcePath: "00-contracts/bpmn/ai/gftd/credits/checkSpendAllowed.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "spend-credits", op: "spendCredits", processId: "credits_spend_credits", sourcePath: "00-contracts/bpmn/ai/gftd/credits/spendCredits.bpmn", timeoutMs: 30000, writeTableAllowlist: ledgerTables },
-  { slug: "reward-from-compute", op: "rewardFromCompute", processId: "credits_reward_from_compute", sourcePath: "00-contracts/bpmn/ai/gftd/credits/rewardFromCompute.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_credit_wallet,vertex_credit_transaction,vertex_credits_af_event" },
-  { slug: "reward-from-hc", op: "rewardFromHC", processId: "credits_reward_from_hc", sourcePath: "00-contracts/bpmn/ai/gftd/credits/rewardFromHC.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_credit_wallet,vertex_credit_transaction,vertex_credits_af_event" },
-  { slug: "process-commit-spend", op: "processCommitSpend", processId: "credits_process_commit_spend", sourcePath: "00-contracts/bpmn/ai/gftd/credits/processCommitSpend.bpmn", timeoutMs: 30000, writeTableAllowlist: ledgerTables },
-  { slug: "heartbeat", op: "heartbeat", processId: "credits_heartbeat", sourcePath: "00-contracts/bpmn/ai/gftd/credits/heartbeat.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "check-spend-allowed", op: "checkSpendAllowed", processId: "credits_check_spend_allowed", sourcePath: "00-contracts/bpmn/com/etzhayyim/credits/checkSpendAllowed.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "spend-credits", op: "spendCredits", processId: "credits_spend_credits", sourcePath: "00-contracts/bpmn/com/etzhayyim/credits/spendCredits.bpmn", timeoutMs: 30000, writeTableAllowlist: ledgerTables },
+  { slug: "reward-from-compute", op: "rewardFromCompute", processId: "credits_reward_from_compute", sourcePath: "00-contracts/bpmn/com/etzhayyim/credits/rewardFromCompute.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_credit_wallet,vertex_credit_transaction,vertex_credits_af_event" },
+  { slug: "reward-from-hc", op: "rewardFromHC", processId: "credits_reward_from_hc", sourcePath: "00-contracts/bpmn/com/etzhayyim/credits/rewardFromHC.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_credit_wallet,vertex_credit_transaction,vertex_credits_af_event" },
+  { slug: "process-commit-spend", op: "processCommitSpend", processId: "credits_process_commit_spend", sourcePath: "00-contracts/bpmn/com/etzhayyim/credits/processCommitSpend.bpmn", timeoutMs: 30000, writeTableAllowlist: ledgerTables },
+  { slug: "heartbeat", op: "heartbeat", processId: "credits_heartbeat", sourcePath: "00-contracts/bpmn/com/etzhayyim/credits/heartbeat.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/credits-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/credits-${s.op}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/credits-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/credits-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {
@@ -54,7 +54,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did
       )
       SELECT
-        ${bindingVertexId(s)}, ${ownerDid}, ${`app.etzhayyim.apps.credits.${s.op}`}, ${s.processId}, 1,
+        ${bindingVertexId(s)}, ${ownerDid}, ${`com.etzhayyim.apps.credits.${s.op}`}, ${s.processId}, 1,
         CAST(${s.timeoutMs} AS integer), ${s.writeTableAllowlist}, 'active', ${createdAt},
         1, ${ownerDid}, ${ownerDid}, ${actorId}, ${ownerDid}, 'anon'
       WHERE NOT EXISTS (

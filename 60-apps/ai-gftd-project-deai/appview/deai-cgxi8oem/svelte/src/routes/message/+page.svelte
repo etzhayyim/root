@@ -31,7 +31,7 @@
   $: partnerSpiritType = ($page.url.searchParams.get("spirit") as SpiritType) ?? null;
 
   onMount(async () => {
-    selfDid = localStorage.getItem("deai-cohort-did") ?? "did:web:deapp.etzhayyim.ai:demo";
+    selfDid = localStorage.getItem("deai-cohort-did") ?? "did:web:decom.etzhayyim.ai:demo";
     // Try to infer partner spirit type from stored matches
     if (!partnerSpiritType) {
       // default fallback for demo

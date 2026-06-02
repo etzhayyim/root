@@ -18,7 +18,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_jp_fiscal_record_document_coverage AS
       e.confidence AS record_evidence_confidence
     FROM (
       SELECT
-        'ai.gftd.apps.jpFiscal.budgetBook' AS collection,
+        'com.etzhayyim.apps.jpFiscal.budgetBook' AS collection,
         vertex_id,
         fiscal_year,
         account_type,
@@ -30,7 +30,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_jp_fiscal_record_document_coverage AS
       FROM vertex_jp_fiscal_budget_book
       UNION ALL
       SELECT
-        'ai.gftd.apps.jpFiscal.appropriation' AS collection,
+        'com.etzhayyim.apps.jpFiscal.appropriation' AS collection,
         vertex_id,
         fiscal_year,
         account_type,

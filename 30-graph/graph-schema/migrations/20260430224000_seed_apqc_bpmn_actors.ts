@@ -16,26 +16,26 @@ const ownerDid = "did:web:kyber-projector.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.apqc";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apqc-materialize-subprocesses-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/apqc-materialize-subprocesses-v1",
     bpmnProcessId: "apqc_materialize_subprocesses",
-    sourcePath: "00-contracts/bpmn/ai/gftd/apqc/materializeSubprocesses.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apqc-emit-event-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/apqc/materializeSubprocesses.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/apqc-emit-event-v1",
     bpmnProcessId: "apqc_emit_event",
-    sourcePath: "00-contracts/bpmn/ai/gftd/apqc/emitEvent.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apqc-coverage-snapshot-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/apqc/emitEvent.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/apqc-coverage-snapshot-v1",
     bpmnProcessId: "apqc_coverage_snapshot",
-    sourcePath: "00-contracts/bpmn/ai/gftd/apqc/coverageSnapshot.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/apqc/coverageSnapshot.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apqc-materializeSubprocesses-v1",
-    nsid: "app.etzhayyim.apps.apqc.materializeSubprocesses", bpmnProcessId: "apqc_materialize_subprocesses",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/apqc-materializeSubprocesses-v1",
+    nsid: "com.etzhayyim.apps.apqc.materializeSubprocesses", bpmnProcessId: "apqc_materialize_subprocesses",
     ownerDid, resultTimeoutMs: 60000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apqc-emitEvent-v1",
-    nsid: "app.etzhayyim.apps.apqc.emitEvent", bpmnProcessId: "apqc_emit_event",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/apqc-emitEvent-v1",
+    nsid: "com.etzhayyim.apps.apqc.emitEvent", bpmnProcessId: "apqc_emit_event",
     ownerDid, resultTimeoutMs: 60000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apqc-coverageSnapshot-v1",
-    nsid: "app.etzhayyim.apps.apqc.coverageSnapshot", bpmnProcessId: "apqc_coverage_snapshot",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/apqc-coverageSnapshot-v1",
+    nsid: "com.etzhayyim.apps.apqc.coverageSnapshot", bpmnProcessId: "apqc_coverage_snapshot",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

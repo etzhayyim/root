@@ -154,14 +154,14 @@ describe("Vessel Actor Manifest", () => {
 
     it("position pipeline subscribes to vesselPosition collection", () => {
       const posPipeline = subPipelines.find((p: any) =>
-        p.trigger.collections.includes("app.etzhayyim.apps.vessel.vesselPosition")
+        p.trigger.collections.includes("com.etzhayyim.apps.vessel.vesselPosition")
       );
       expect(posPipeline).toBeDefined();
     });
 
     it("portCall pipeline invokes port.etzhayyim.com via agent.invoke", () => {
       const callPipeline = subPipelines.find((p: any) =>
-        p.trigger.collections.includes("app.etzhayyim.apps.vessel.portCall")
+        p.trigger.collections.includes("com.etzhayyim.apps.vessel.portCall")
       );
       expect(callPipeline).toBeDefined();
       const invokeStep = callPipeline.steps.find((s: any) => s.fn === "agent.invoke");
@@ -179,18 +179,18 @@ describe("Vessel Actor Manifest", () => {
 
     it("covers key vessel NSID endpoints", () => {
       const nsids = xrpcPipelines.map((p: any) => p.trigger.nsid);
-      expect(nsids).toContain("app.etzhayyim.apps.vessel.registry.getShip");
-      expect(nsids).toContain("app.etzhayyim.apps.vessel.registry.listShips");
-      expect(nsids).toContain("app.etzhayyim.apps.vessel.registry.searchShips");
-      expect(nsids).toContain("app.etzhayyim.apps.vessel.tracking.getVesselPosition");
-      expect(nsids).toContain("app.etzhayyim.apps.vessel.tracking.listVesselsInArea");
-      expect(nsids).toContain("app.etzhayyim.apps.vessel.voyage.getVesselChain");
-      expect(nsids).toContain("app.etzhayyim.apps.vessel.getDashboard");
-      expect(nsids).toContain("app.etzhayyim.apps.vessel.health");
+      expect(nsids).toContain("com.etzhayyim.apps.vessel.registry.getShip");
+      expect(nsids).toContain("com.etzhayyim.apps.vessel.registry.listShips");
+      expect(nsids).toContain("com.etzhayyim.apps.vessel.registry.searchShips");
+      expect(nsids).toContain("com.etzhayyim.apps.vessel.tracking.getVesselPosition");
+      expect(nsids).toContain("com.etzhayyim.apps.vessel.tracking.listVesselsInArea");
+      expect(nsids).toContain("com.etzhayyim.apps.vessel.voyage.getVesselChain");
+      expect(nsids).toContain("com.etzhayyim.apps.vessel.getDashboard");
+      expect(nsids).toContain("com.etzhayyim.apps.vessel.health");
     });
 
     it("getVesselChain has 5 parallel graph queries", () => {
-      const chain = xrpcPipelines.find((p: any) => p.trigger.nsid === "app.etzhayyim.apps.vessel.voyage.getVesselChain");
+      const chain = xrpcPipelines.find((p: any) => p.trigger.nsid === "com.etzhayyim.apps.vessel.voyage.getVesselChain");
       expect(chain.steps).toHaveLength(5);
       expect(chain.steps.every((s: any) => s.fn === "graph.query")).toBe(true);
     });
@@ -211,12 +211,12 @@ describe("Vessel Actor Manifest", () => {
 
   it("triggers.subscribeRepos covers vessel + cross-app collections", () => {
     const cols = manifest.triggers.subscribeRepos.collections;
-    expect(cols).toContain("app.etzhayyim.apps.vessel.ship");
-    expect(cols).toContain("app.etzhayyim.apps.vessel.vesselPosition");
-    expect(cols).toContain("app.etzhayyim.apps.vessel.voyage");
-    expect(cols).toContain("app.etzhayyim.apps.vessel.portCall");
-    expect(cols).toContain("app.etzhayyim.apps.maps.port");         // cross-app
-    expect(cols).toContain("app.etzhayyim.legalEntity.entity"); // cross-app
+    expect(cols).toContain("com.etzhayyim.apps.vessel.ship");
+    expect(cols).toContain("com.etzhayyim.apps.vessel.vesselPosition");
+    expect(cols).toContain("com.etzhayyim.apps.vessel.voyage");
+    expect(cols).toContain("com.etzhayyim.apps.vessel.portCall");
+    expect(cols).toContain("com.etzhayyim.apps.maps.port");         // cross-app
+    expect(cols).toContain("com.etzhayyim.legalEntity.entity"); // cross-app
   });
 
   // --- Actors (Multi-DID) ---

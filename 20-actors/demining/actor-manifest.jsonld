@@ -31,7 +31,7 @@
   "pipelines": [
     {
       "id": "survey-to-social",
-      "trigger": { "type": "subscribeRepos", "collections": ["ai.gftd.apps.demining.surveyRecord"] },
+      "trigger": { "type": "subscribeRepos", "collections": ["com.etzhayyim.apps.demining.surveyRecord"] },
       "steps": [
         {
           "id": "validateScope",
@@ -60,7 +60,7 @@
     },
     {
       "id": "land-release-to-public",
-      "trigger": { "type": "subscribeRepos", "collections": ["ai.gftd.apps.demining.landReleaseDecision"] },
+      "trigger": { "type": "subscribeRepos", "collections": ["com.etzhayyim.apps.demining.landReleaseDecision"] },
       "steps": [
         {
           "id": "demoteTier",
@@ -81,7 +81,7 @@
     },
     {
       "id": "eore-session",
-      "trigger": { "type": "subscribeRepos", "collections": ["ai.gftd.apps.demining.eoreSession"] },
+      "trigger": { "type": "subscribeRepos", "collections": ["com.etzhayyim.apps.demining.eoreSession"] },
       "steps": [
         {
           "id": "recordSession",

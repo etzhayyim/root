@@ -9,11 +9,11 @@ Purpose: open/validate an authorized caseMandate (authorizationRef + authority s
 Constitutional ceiling (CRITICAL - IMMUTABLE): AUTHORIZED-INVESTIGATION-ONLY
 (caseMandate anchor required; no case -> Phase 0 dry-run) + OPEN-SOURCE (no
 proprietary chain-analysis as system of record) + ON-CHAIN-MONITORABLE
-(Transparent Force, Charter SS1.12) + PII-ENCRYPTED (app.etzhayyim.encrypted.*,
+(Transparent Force, Charter SS1.12) + PII-ENCRYPTED (com.etzhayyim.encrypted.*,
 ADR-2605181100) + EVIDENCE-ONLY / NO ENFORCEMENT (yabai + Council enforce) +
 NO PLATFORM-HELD KEY (ADR-2605231525) + Murakumo-only inference (ADR-2605215000)
 + kotoba-only store (ADR-2605262130). Gates: G3 (authorized-investigation-only) + G5 (transparent-force log).
-Output Lexicon(s): app.etzhayyim.tadori.caseMandate.
+Output Lexicon(s): com.etzhayyim.tadori.caseMandate.
 
 R0 scaffold - import-time RuntimeError until T1.
 """

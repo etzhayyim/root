@@ -36,17 +36,17 @@ const ownerDid = "did:web:lawyer.etzhayyim.com";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawyer-health-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawyer-health-v1",
     bpmnProcessId: "lawyer_health",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lawyer/health.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lawyer/health.bpmn",
     ownerDid,
   },
 ];
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawyer-health-v1",
-    nsid: "app.etzhayyim.apps.lawyer.health",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawyer-health-v1",
+    nsid: "com.etzhayyim.apps.lawyer.health",
     bpmnProcessId: "lawyer_health",
     ownerDid,
     resultTimeoutMs: 5000,

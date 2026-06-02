@@ -43,13 +43,19 @@ coverage: 28.6% authoritative (8/28) — rest honestly :representative
 This is a deterministic OFFLINE demo against a bundled reference; **live fetch of
 Wikidata / 行政機関コード / GeoNames is G4 + Council + operator gated** and is NOT run.
 
+The reconcile logic is now a real cell: `cells/reconcile/cell.py` (`ReconcileCell`)
+with `mode="bundled"` (runnable, the above) and `mode="live"` (raises, G4-gated).
+`scripts/reconcile.py` is the thin CLI over it. Unit tests:
+`cells/reconcile/test_reconcile_cell.py` — **5 passed** (promotion set, no-conflict
+remainder, bundled-ok, live-gated, unknown-mode-rejected).
+
 ## What is NOT done (by design at R0)
 
 | Question | Status |
 |---|---|
 | All world governments enumerated? | **NO** — 28 units (proof-of-model). The world has ~195 countries × thousands of units each. |
 | Any `:authoritative` row in the seed? | **NO** — every seed row is `:representative` / `:unverified-seed`. The `reconcile.py` demo can promote 8/28 against the bundled reference, but that is a demo, not committed seed state or live ingest. |
-| Cells running? | **NO** — 6 cells path-reserved, none deployed. |
+| Cells running? | **PARTIAL** — `reconcile` (bundled mode) is implemented + unit-tested (5 passed); the other 5 cells are path-reserved scaffolds. `reconcile` live mode + all ingest/serve cells are gated. |
 | Per-unit DID served? | **NO** — scheme defined; dynamic did.json serving is R2. |
 | `findService` live? | **NO** — lexicon + BPMN defined; serving is R1/R2. |
 | `/actors` search surfaces gov units? | **NO** — R1 (after `atlas_serve` + reconcile). |
@@ -67,3 +73,30 @@ Coverage score remains governed by ADR-2605250680 (49.18/100 baseline). ooyake R
 moves the **schema/substrate** axis to green; the **data/coverage** axis stays red
 until R1 authoritative ingest. **No silent truncation**: this file is the
 canonical honest record (G5).
+
+## Update 2026-06-02 — JP local-government breadth ingest
+
+`deploy/ingest_jp_local.py` projected the bundled official-code dataset
+(`60-apps/ai-gftd-project-states/data/gov/jpn/{prefecture,municipality}.ndjson`;
+全国地方公共団体コード / 地方自治法) into `:gov.unit` and ingested it into the live
+`gov-atlas-v1` kotoba graph (operator-local):
+
+- **47 prefectures** (都道府県, codes 01–47, with `iso3166-2:JP-NN` + `jp-jichitai:NN`)
+- **71 municipalities** — 20 designated cities (政令指定都市) + 23 Tokyo special wards
+  (特別区, level `:ward`) + 28 prefectural capitals/major cities, each with its
+  6-/5-digit 全国地方公共団体コード as `:gov.unit/external-code`
+- 118 units / ~2006 datoms; 200 ok in 2 batches. `gov.jpn.pref.13` (東京都) and
+  `gov.jpn.city.13104` (新宿区) merged with the prior hand-seed by id (no duplicate).
+
+Distinct `:gov.unit` in `gov-atlas-v1` after this ingest: **~144** (28 prior + 118
+JP-local − 2 overlaps). All JP-local rows ship `:sourcing :representative` /
+`:verification-status :unverified-seed` (G5) — they carry official codes + official
+`provenance` URLs but are a curated bundle, not an ooyake-reconcile live-verified
+fetch; the `reconcile` cell (live mode, G4-gated) promotes them to `:authoritative`.
+
+Honest scope note: ~144 units is still a small fraction of Japan's full local universe
+(47 prefectures + 1,718 municipalities + countless bureaus/divisions/窓口) and a rounding
+error of the global universe (~195 states × thousands each). This ingest covers the
+**highest-tier official backbone** (every prefecture + every designated city + every Tokyo
+special ward); the long tail of 765 cities / 716 towns / 156 villages is the next
+authoritative-dataset bundle, not fabricated here (G5).

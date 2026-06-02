@@ -15,10 +15,14 @@ import {
   compiledActorRecord,
   toDidDoc,
   toGetProfileView,
+  didDocCid,
   COMPILED_ACTOR_HANDLES,
   type ActorRecord,
 } from "./registry/actor-profiles";
 import { fetchKotobaActorRecord } from "./kotoba";
+import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
+import { verifyCarToBytes } from "./car";
+import { fetchOnChainVm } from "./erc725";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -239,6 +243,32 @@ function buildActorsJson() {
   };
 }
 
+// Attach the content-addressed DID-doc CID per actor so a client can retrieve +
+// verify each did.json from any IPFS gateway (`didDocumentIpfs`), not just over
+// TLS. The handle→CID binding stays anchored here (TLS) — IPFS makes the bytes
+// tamper-evident + mirrorable (ADR-2606015400).
+async function buildActorsJsonWithCids(env: DidDocEnvLite) {
+  const base = buildActorsJson();
+  const actors = await Promise.all(
+    base.actors.map(async (a) => {
+      const rec = compiledActorRecord(a.handle);
+      if (!rec) return a;
+      const cid = await didDocCid(rec, env);
+      return {
+        ...a,
+        didDocumentCid: cid,
+        didDocumentIpfs: `ipfs://${cid}`,
+        didDocumentGateway: `https://etzhayyim.com/ipfs/${cid}`,
+      };
+    }),
+  );
+  return { ...base, didResolution: "did:web (TLS) + IPFS (content-addressed)", actors };
+}
+
+interface DidDocEnvLite {
+  readonly AUTHZ_CONTRACT_ADDRESS?: string;
+}
+
 function renderActorCard(handle: string): string {
   const e = INFRA_ACTORS[handle];
   const title = e.glyph
@@ -316,92 +346,6 @@ Per ADR-2605241800 (single did-web Worker) + ADR-2605212030. Free-form member/co
 `;
 }
 
-// Browser-based actors page (ADR-2606013600): the actor registry + every actor
-// referenced from it are rendered **in the browser by the kotoba wasm read
-// engine** — no server query for the actor data. The page loads the same-origin
-// kotoba-wasm bundle (`/kotoba/*`, proxied to yoro static), pulls the registry
-// (`/.well-known/actors.json`, INFRA_ACTORS SSoT), hydrates an in-page
-// `KotobaNode`, and answers search/render via `node.searchActors()`. Cookie-free,
-// no external resource, no tracker (Charter Rider §2(c)); only same-origin
-// script + wasm + fetch.
-function buildActorsBrowserHtml(): string {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Actors · etzhayyim (browser-native)</title>
-<meta name="description" content="The etzhayyim actor registry, rendered in your browser by the kotoba wasm read engine.">
-<style>
-:root{color-scheme:light dark}
-*{box-sizing:border-box}
-body{margin:0;font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;max-width:52rem;padding:2.5rem 1.25rem;margin-inline:auto}
-h1{font-size:1.6rem;line-height:1.25;margin:0 0 .25rem}
-.sub{opacity:.7;margin:0 0 1.25rem}
-#q{font:inherit;width:100%;padding:.55rem .8rem;border:1px solid color-mix(in srgb,currentColor 30%,transparent);border-radius:.5rem;background:transparent;color:inherit}
-#status{font-size:.82rem;opacity:.7;margin:.6rem 0 1rem}
-.card{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:.6rem;padding:.9rem 1.05rem;margin:.6rem 0}
-h3{font-size:1.05rem;margin:0 0 .3rem}
-.desc{margin:.2rem 0 .5rem;font-size:.92rem;opacity:.9}
-.did{margin:0;font-size:.8rem;opacity:.75}
-a{color:inherit}
-footer{margin-top:2.5rem;font-size:.85rem;opacity:.7}
-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em}
-</style>
-</head>
-<body>
-<h1>Actors on etzhayyim</h1>
-<p class="sub">This registry and every actor in it are rendered <strong>in your browser</strong> by the kotoba wasm read engine — the actor data is queried client-side, not fetched per-search from a server.</p>
-<input id="q" placeholder="search actors… (try: tsumugi, submarine, 綿津綱)" autocomplete="off">
-<p id="status">loading the in-browser kotoba node…</p>
-<div id="list"></div>
-<footer>
-Rendered by <code>kotoba-wasm</code> (in-browser Datom read engine, ADR-2606013600) over the registry at <a href="/.well-known/actors.json">/.well-known/actors.json</a>. Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a>
-</footer>
-<script type="module">
-import init, { KotobaNode } from '/kotoba/kotoba_wasm.js';
-const listEl = document.getElementById('list');
-const statusEl = document.getElementById('status');
-function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-async function main(){
-  await init();
-  const node = new KotobaNode();
-  statusEl.textContent = 'loading registry…';
-  const reg = await (await fetch('/.well-known/actors.json')).json();
-  const datoms = [];
-  for (const a of (reg.actors || [])) {
-    const e = 'bafy-' + a.handle;
-    const name = a.displayName || a.glyph || a.handle;
-    datoms.push({ e: e, a: ':yoro.profile/did', v_edn: JSON.stringify(a.did) });
-    datoms.push({ e: e, a: ':yoro.profile/handle', v_edn: JSON.stringify(a.handle) });
-    datoms.push({ e: e, a: ':yoro.profile/displayName', v_edn: JSON.stringify(name) });
-    datoms.push({ e: e, a: ':yoro.profile/description', v_edn: JSON.stringify(a.description || '') });
-  }
-  node.loadDatoms(JSON.stringify(datoms));
-  function handleOf(did){ return (did || '').replace(/^did:web:etzhayyim.com:actor:/, '').replace(/^did:web:etzhayyim.com$/, ''); }
-  function render(q){
-    const res = JSON.parse(node.searchActors(q || ''));
-    statusEl.textContent = res.actors.length + ' actor(s) — queried in-browser by the kotoba wasm node (no server round-trip)';
-    let html = '';
-    for (const a of res.actors) {
-      const h = handleOf(a.did);
-      const link = h ? ('/actor/' + esc(h) + '/did.json') : '/.well-known/did.json';
-      html += '<div class="card"><h3>' + esc(a.displayName || a.handle) + '</h3>'
-        + '<p class="desc">' + esc(a.description) + '</p>'
-        + '<p class="did"><a href="' + link + '">' + esc(a.did) + '</a></p></div>';
-    }
-    listEl.innerHTML = html;
-  }
-  document.getElementById('q').addEventListener('input', function(ev){ render(ev.target.value); });
-  render('');
-}
-main().catch(function(e){ statusEl.textContent = 'failed to load the in-browser node: ' + e; });
-</script>
-</body>
-</html>
-`;
-}
-
 // Service binding name — populated from wrangler.toml [[services]] block.
 interface Env {
   YORO: Fetcher;
@@ -422,6 +366,10 @@ interface Env {
   // fallback keeps did:web resolution live.
   ACTOR_KV?: KVNamespace;
   KOTOBA_ENDPOINT?: string;
+  // Trustless IPFS gateway (ADR-2606014600). Comma-separated upstream gateway
+  // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
+  // bytes are CID-verified before serving, so these are UNTRUSTED upstreams.
+  IPFS_GATEWAYS?: string;
   // Per-NSID-family XRPC upstream origins (populated from wrangler.toml [vars]).
   // New actors are added here, NOT as new subdomains — this Worker is the
   // single etzhayyim.com endpoint per ADR-2605212030 §D2.
@@ -438,7 +386,7 @@ interface Env {
 //
 // Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
 // MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
-// rw-free reference impl under the `app.etzhayyim.yoro.*` NSID family). The
+// rw-free reference impl under the `com.etzhayyim.yoro.*` NSID family). The
 // yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
 // this Worker rewrites them to the substrate-side equivalent before
 // dispatching through the service binding.
@@ -448,21 +396,21 @@ interface Env {
 // the legacy path until the rw-free write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
-  "app.bsky.feed.getTimeline":     "app.etzhayyim.yoro.feed.getTimeline",
-  "app.bsky.feed.getDiscoverFeed": "app.etzhayyim.yoro.feed.getDiscoverFeed",
-  "app.bsky.feed.getAuthorFeed":   "app.etzhayyim.yoro.feed.getAuthorFeed",
-  "app.bsky.feed.getPostThread":   "app.etzhayyim.yoro.feed.getPostThread",
-  "app.bsky.actor.getProfile":     "app.etzhayyim.yoro.actor.getProfile",
-  "app.bsky.actor.searchActors":   "app.etzhayyim.yoro.actor.searchActors",
-  "app.bsky.graph.getFollowers":   "app.etzhayyim.yoro.graph.getFollowers",
-  "app.bsky.graph.getFollows":     "app.etzhayyim.yoro.graph.getFollows",
+  "app.bsky.feed.getTimeline":     "com.etzhayyim.yoro.feed.getTimeline",
+  "app.bsky.feed.getDiscoverFeed": "com.etzhayyim.yoro.feed.getDiscoverFeed",
+  "app.bsky.feed.getAuthorFeed":   "com.etzhayyim.yoro.feed.getAuthorFeed",
+  "app.bsky.feed.getPostThread":   "com.etzhayyim.yoro.feed.getPostThread",
+  "app.bsky.actor.getProfile":     "com.etzhayyim.yoro.actor.getProfile",
+  "app.bsky.actor.searchActors":   "com.etzhayyim.yoro.actor.searchActors",
+  "app.bsky.graph.getFollowers":   "com.etzhayyim.yoro.graph.getFollowers",
+  "app.bsky.graph.getFollows":     "com.etzhayyim.yoro.graph.getFollows",
 };
 
 // Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
 // NSID families already in their canonical rw-free shape (no app.bsky.* →
-// app.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
+// com.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
 const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
-  "app.etzhayyim.apps.unispsc.",
+  "com.etzhayyim.apps.unispsc.",
 ];
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
@@ -478,7 +426,7 @@ interface NsidRoute {
 }
 
 const XRPC_ROUTES: NsidRoute[] = [
-  { prefix: "app.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
+  { prefix: "com.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
   // AT Protocol / Bluesky read+write (PDS handles both write paths and
   // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
   // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
@@ -486,7 +434,7 @@ const XRPC_ROUTES: NsidRoute[] = [
   { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
   // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
-  { prefix: "app.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
+  { prefix: "com.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
 ];
 
 function findXrpcRoute(nsid: string): NsidRoute | null {
@@ -667,7 +615,7 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       primarySchema: infraActor?.primarySchema,
       registry: registered
         ? {
-            lexicon: "app.etzhayyim.apps.unispsc",
+            lexicon: "com.etzhayyim.apps.unispsc",
             generatedAt: UNISPSC_GENERATED_AT,
             totalCount: UNISPSC_TOTAL_COUNT,
           }
@@ -686,6 +634,23 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
 // actors at all (free-form member/council handles), in which case the caller
 // falls back to buildPerActorDidDoc.
 async function resolveActorRecord(
+  handle: string,
+  env: Env,
+  ctx: ExecutionContext,
+): Promise<ActorRecord | null> {
+  const rec = await resolveActorRecordTiered(handle, env, ctx);
+  if (!rec) return null;
+  // verificationMethod is a MIRROR of the on-chain ERC725 active key, never
+  // server-minted (ADR-2605231525). Gated + best-effort: enrich only when both
+  // chain env vars are set and the record has no vm yet (ADR-2606015200).
+  if (env.AUTHZ_CONTRACT_ADDRESS && env.BASE_RPC_URL && rec.vm.length === 0) {
+    const vm = await fetchOnChainVm(env, handle, rec.did);
+    if (vm.length) return { ...rec, vm: vm as unknown as ActorRecord["vm"] };
+  }
+  return rec;
+}
+
+async function resolveActorRecordTiered(
   handle: string,
   env: Env,
   ctx: ExecutionContext,
@@ -718,6 +683,35 @@ async function resolveActorRecord(
 
   // 3) compiled fallback — INFRA_ACTORS (null for non-registered handles).
   return compiledActorRecord(handle);
+}
+
+// Content-addressed → immutable; cache hard. `x-etzhayyim-cid-verified` proves
+// the bytes were re-hashed against the CID before serving (trustless).
+function ipfsHeaders(
+  cid: string,
+  len: number,
+  contentType: string,
+): Record<string, string> {
+  return {
+    "content-type": contentType,
+    "content-length": String(len),
+    "cache-control": "public, max-age=31536000, immutable",
+    "access-control-allow-origin": "*",
+    "x-content-type-options": "nosniff",
+    "x-etzhayyim-cid": cid,
+    "x-etzhayyim-cid-verified": "sha256",
+    "x-etzhayyim-no-cookie": "1",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+  };
+}
+
+// Minimal content-type sniff: WASM magic `\0asm`, else octet-stream.
+function detectCt(buf: ArrayBuffer): string {
+  const b = new Uint8Array(buf, 0, Math.min(4, buf.byteLength));
+  if (b[0] === 0x00 && b[1] === 0x61 && b[2] === 0x73 && b[3] === 0x6d) {
+    return "application/wasm";
+  }
+  return "application/octet-stream";
 }
 
 const ACTOR_JSON_HEADERS: Record<string, string> = {
@@ -907,13 +901,115 @@ export default {
           headers: { allow: "GET, HEAD" },
         });
       }
-      return new Response(JSON.stringify(buildActorsJson(), null, 2) + "\n", {
+      return new Response(JSON.stringify(await buildActorsJsonWithCids(env), null, 2) + "\n", {
         status: 200,
         headers: {
           "content-type": "application/json; charset=utf-8",
           "cache-control": "public, max-age=300, must-revalidate",
           "access-control-allow-origin": "*",
           "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+    // gov-atlas machine-readable index — `/.well-known/gov-units.json`.
+    // Served from ACTOR_KV (`gov-atlas:index`), generated offline by
+    // scripts/gen-gov-atlas-index.mjs from the ooyake seeds + the
+    // ai-gftd-project-states real-named municipality dataset (synthetic tiers
+    // excluded, G5). Observational mirror + civic wayfinding, never a target-list
+    // (G3/G10). Per ADR-2606021600. GET/HEAD only.
+    if (url.pathname === "/.well-known/gov-units.json") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      let body = '{"error":"gov-atlas index not provisioned (run gen-gov-atlas-index + kv put gov-atlas:index)"}';
+      let status = 503;
+      if (env.ACTOR_KV) {
+        const raw = await env.ACTOR_KV.get("gov-atlas:index");
+        if (raw) {
+          body = raw;
+          status = 200;
+        }
+      }
+      return new Response(body + "\n", {
+        status,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+    // gov-atlas human search page — `/gov`. Browser-native: fetches
+    // /.well-known/gov-units.json and filters client-side (no per-keystroke server
+    // call, cookie-free, same-origin only). Civic wayfinding over the world
+    // government atlas; observational mirror, never a target-list (G3/G10).
+    // Per ADR-2606021600. GET/HEAD only.
+    if (url.pathname === "/gov" || url.pathname === "/gov/") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      const govHtml = `<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>公 ooyake — World Government Atlas</title>
+<style>
+:root{color-scheme:light dark}
+body{font:15px/1.5 system-ui,sans-serif;max-width:920px;margin:0 auto;padding:1.2rem}
+h1{font-size:1.4rem;margin:.2rem 0}.sub{opacity:.7;font-size:.9rem;margin:.2rem 0 1rem}
+#q{width:100%;padding:.6rem .8rem;font-size:1rem;border:1px solid #8888;border-radius:.5rem;box-sizing:border-box}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+select{padding:.4rem;border:1px solid #8888;border-radius:.4rem}
+#stats{opacity:.7;font-size:.85rem;margin:.6rem 0}
+ul{list-style:none;padding:0;margin:0}
+li{padding:.5rem .2rem;border-bottom:1px solid #8882;display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap}
+.nm{font-weight:600}.en{opacity:.6}.lv{font-size:.75rem;opacity:.8;border:1px solid #8886;border-radius:.5rem;padding:0 .4rem}
+.au{color:#1a7f37;border-color:#1a7f3766}.re{opacity:.55}
+a{color:inherit}
+</style></head><body>
+<h1>公 — World Government Atlas</h1>
+<p class="sub">An observational <strong>mirror</strong> + civic wayfinding map of the world's government units — never the government, never an official channel, never a target-list (ADR-2606021600). Data: <a href="/.well-known/gov-units.json">/.well-known/gov-units.json</a>. <a href="/actors">/actors</a></p>
+<input id="q" placeholder="search government units… (try: 財務省, 札幌市, Stuttgart, London, prefecture)" autocomplete="off">
+<div class="row">
+<select id="lvl"><option value="">all levels</option></select>
+<select id="src"><option value="">all sourcing</option><option value="authoritative">authoritative</option><option value="representative">representative</option></select>
+</div>
+<div id="stats">loading…</div>
+<ul id="out"></ul>
+<script>
+(async()=>{
+ const d=await (await fetch('/.well-known/gov-units.json')).json();
+ const U=d.units||[];
+ const q=document.getElementById('q'),lvl=document.getElementById('lvl'),src=document.getElementById('src'),out=document.getElementById('out'),stats=document.getElementById('stats');
+ for(const l of Object.keys(d.byLevel||{}).sort()){const o=document.createElement('option');o.value=l;o.textContent=l+' ('+d.byLevel[l]+')';lvl.appendChild(o);}
+ const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+ function render(){
+  const t=q.value.trim().toLowerCase(),fl=lvl.value,fs=src.value;
+  const r=U.filter(u=>(!fl||u.level===fl)&&(!fs||u.sourcing===fs)&&(!t||(u.name||'').toLowerCase().includes(t)||(u.nameEn||'').toLowerCase().includes(t)||(u.id||'').toLowerCase().includes(t)||(u.jurisdiction||'').toLowerCase().includes(t))).slice(0,300);
+  stats.textContent=r.length+' shown · '+d.count+' units / '+d.countries+' jurisdictions · authoritative '+(d.bySourcing&&d.bySourcing.authoritative||0)+' / representative '+(d.bySourcing&&d.bySourcing.representative||0);
+  out.innerHTML=r.map(u=>'<li><span class="nm">'+esc(u.name)+'</span>'+(u.nameEn&&u.nameEn!==u.name?' <span class="en">'+esc(u.nameEn)+'</span>':'')+' <span class="lv">'+esc(u.level)+'</span> <span class="lv '+(u.sourcing==='authoritative'?'au':'re')+'">'+esc(u.sourcing)+'</span> <span class="en">'+esc(u.jurisdiction)+'</span>'+(u.url?' · <a href="'+esc(u.url)+'" rel="noopener noreferrer nofollow">site</a>':'')+'</li>').join('');
+ }
+ q.oninput=lvl.onchange=src.onchange=render;render();
+})();
+</script></body></html>`;
+      return new Response(govHtml, {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
           "permissions-policy": PERMISSIONS_POLICY,
           "x-etzhayyim-no-cookie": "1",
@@ -927,24 +1023,15 @@ export default {
           headers: { allow: "GET, HEAD" },
         });
       }
-      // `?static=1` serves the legacy server-rendered list (no-JS fallback);
-      // default is the browser-native page where the kotoba wasm node renders
-      // every actor client-side.
-      const wantStatic = url.searchParams.get("static") === "1";
-      const body = wantStatic ? buildActorsHtml() : buildActorsBrowserHtml();
-      const csp = wantStatic
-        ? "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"
-        // Same-origin only: the kotoba wasm bundle + registry fetch, no external
-        // resource, no tracker (Charter Rider §2(c)). wasm-unsafe-eval enables
-        // WebAssembly.instantiate for the in-browser read engine.
-        : "default-src 'none'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'";
-      return new Response(body, {
+      return new Response(buildActorsHtml(), {
         status: 200,
         headers: {
           "content-type": "text/html; charset=utf-8",
           "cache-control": "public, max-age=300, must-revalidate",
           "x-content-type-options": "nosniff",
-          "content-security-policy": csp,
+          // No external resource, no inline script, no cookie (Charter Rider §2(c)).
+          "content-security-policy":
+            "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
           "permissions-policy": PERMISSIONS_POLICY,
           "x-etzhayyim-no-cookie": "1",
@@ -978,7 +1065,7 @@ export default {
             JSON.stringify({
               error: "HandleNotInRegistry",
               message: `handle '${handle}' matches a namespaced registry shape but is not registered`,
-              registry: "app.etzhayyim.apps.unispsc",
+              registry: "com.etzhayyim.apps.unispsc",
               registryTotalCount: UNISPSC_TOTAL_COUNT,
             }),
             {
@@ -995,20 +1082,30 @@ export default {
         // (not registered actors) get null → legacy buildPerActorDidDoc scaffold.
         const rec = await resolveActorRecord(handle, env, ctx);
         const doc = rec ? toDidDoc(rec, env) : buildPerActorDidDoc(handle, env);
+        // Advertise the content-addressed (canonical) DID-doc CID so a client can
+        // ALSO retrieve + verify this document from any IPFS gateway, not just
+        // over TLS (ADR-2606015400). The CID is NOT embedded in the doc (that
+        // would be circular); it rides on a header + a `Link: …/ipfs/<cid>`.
+        const ddCid = rec ? await didDocCid(rec, env) : null;
+        const ddHeaders: Record<string, string> = {
+          "content-type": "application/did+json; charset=utf-8",
+          // Shorter cache window than the entity doc; per-actor state can
+          // change (key rotation, deactivation) and we want quicker invalidation.
+          "cache-control": "public, max-age=60, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+          "x-etzhayyim-actor-source": rec?.source ?? "scaffold",
+        };
+        if (ddCid) {
+          ddHeaders["x-etzhayyim-did-doc-cid"] = ddCid;
+          ddHeaders["link"] = `<https://etzhayyim.com/ipfs/${ddCid}>; rel="canonical"; type="application/did+json"`;
+        }
         return new Response(JSON.stringify(doc, null, 2) + "\n", {
           status: 200,
-          headers: {
-            "content-type": "application/did+json; charset=utf-8",
-            // Shorter cache window than the entity doc; per-actor state can
-            // change (key rotation, deactivation) and we want quicker invalidation.
-            "cache-control": "public, max-age=60, must-revalidate",
-            "access-control-allow-origin": "*",
-            "x-content-type-options": "nosniff",
-            "strict-transport-security": "max-age=31536000; includeSubDomains",
-            "permissions-policy": PERMISSIONS_POLICY,
-            "x-etzhayyim-no-cookie": "1",
-            "x-etzhayyim-actor-source": rec?.source ?? "scaffold",
-          },
+          headers: ddHeaders,
         });
       }
     }
@@ -1053,6 +1150,113 @@ export default {
     }
 
     // ──────────────────────────────────────────────────────────────────
+    // 2c) Trustless IPFS gateway — `/ipfs/<cid>` (ADR-2606014600).
+    //     Fetches the content-addressed bytes from configurable upstream
+    //     gateways and VERIFIES they hash to the requested CID before serving,
+    //     so the upstream gateway never has to be trusted — the CID is the
+    //     trust anchor (no server key, ADR-2605231525). This is where the
+    //     browser (ameno) / loader fetches an actor's WASM component
+    //     (ADR-2606014500). Raw single-block CIDs (`bafkrei…`, compact edge
+    //     actors) are verified; multi-block UnixFS CIDs (`bafy…`, large
+    //     componentize-py actors) are not verifiable here → 501 (T2 mesh tier).
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const m = url.pathname.match(/^\/ipfs\/([A-Za-z0-9]+)$/);
+      if (m) {
+        if (request.method !== "GET" && request.method !== "HEAD") {
+          return new Response("Method Not Allowed", {
+            status: 405,
+            headers: { allow: "GET, HEAD" },
+          });
+        }
+        const cid = m[1];
+        const raw = isRawCidV1(cid);
+        const dagpb = isDagPbCidV1(cid);
+        if (!raw && !dagpb) {
+          return new Response(
+            JSON.stringify({
+              error: "CidNotVerifiable",
+              message:
+                "trustless gateway supports CIDv1 with sha2-256 only: raw single-block (bafkrei…) verified directly, dag-pb UnixFS (bafybei…) verified via CAR. Other CIDs need a full IPFS node.",
+              cid,
+            }),
+            { status: 501, headers: ACTOR_JSON_HEADERS },
+          );
+        }
+        const gateways = (
+          env.IPFS_GATEWAYS ||
+          "https://{cid}.ipfs.dweb.link,https://ipfs.io/ipfs/{cid}"
+        )
+          .split(",")
+          .map((g) => g.trim())
+          .filter(Boolean);
+        let lastErr = "no gateway configured";
+        for (const tmpl of gateways) {
+          const base = tmpl.includes("{cid}")
+            ? tmpl.replace("{cid}", cid)
+            : `${tmpl.replace(/\/$/, "")}/ipfs/${cid}`;
+          // dag-pb: ask the gateway for a verifiable CAR; raw: the block itself.
+          const upstream = dagpb
+            ? `${base}${base.includes("?") ? "&" : "?"}format=car`
+            : base;
+          try {
+            const res = await fetch(upstream, {
+              headers: {
+                accept: dagpb
+                  ? "application/vnd.ipld.car"
+                  : "application/octet-stream",
+              },
+              signal: AbortSignal.timeout(dagpb ? 20000 : 8000),
+            });
+            if (!res.ok) {
+              lastErr = `upstream ${res.status}`;
+              continue;
+            }
+            const raw_buf = await res.arrayBuffer();
+            let out: ArrayBuffer;
+            if (dagpb) {
+              try {
+                // verifyCarToBytes re-hashes every block + walks the DAG from
+                // the requested root, so the untrusted gateway can't substitute.
+                const bytes = await verifyCarToBytes(
+                  cid,
+                  new Uint8Array(raw_buf),
+                );
+                out = bytes.buffer.slice(
+                  bytes.byteOffset,
+                  bytes.byteOffset + bytes.byteLength,
+                ) as ArrayBuffer;
+              } catch (ve) {
+                lastErr = `car verify failed: ${ve instanceof Error ? ve.message : ve}`;
+                continue; // never serve unverified bytes
+              }
+            } else {
+              if (!(await verifyRawCid(cid, raw_buf))) {
+                lastErr = "cid mismatch (untrusted gateway content rejected)";
+                continue;
+              }
+              out = raw_buf;
+            }
+            const hdrs = {
+              ...ipfsHeaders(cid, out.byteLength, detectCt(out)),
+              "x-etzhayyim-cid-verified": dagpb ? "car-dag-pb" : "sha256",
+            };
+            return new Response(
+              request.method === "HEAD" ? null : out,
+              { status: 200, headers: hdrs },
+            );
+          } catch (e) {
+            lastErr = e instanceof Error ? e.message : "fetch failed";
+          }
+        }
+        return new Response(
+          JSON.stringify({ error: "IpfsUnavailable", message: lastErr, cid }),
+          { status: 502, headers: ACTOR_JSON_HEADERS },
+        );
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
     // 3) XRPC routing — `/xrpc/{NSID}` proxied by NSID prefix to the
     //    registered upstream (langserver pod, MCP gateway, etc.). One
     //    Worker handles every actor; new actors are added by appending
@@ -1077,7 +1281,7 @@ export default {
         //    actor; everything else falls through to substrate routing.
         if (
           (nsid === "app.bsky.actor.getProfile" ||
-            nsid === "app.etzhayyim.actor.getProfile") &&
+            nsid === "com.etzhayyim.actor.getProfile") &&
           (request.method === "GET" || request.method === "HEAD")
         ) {
           const actorParam = url.searchParams.get("actor") ?? "";

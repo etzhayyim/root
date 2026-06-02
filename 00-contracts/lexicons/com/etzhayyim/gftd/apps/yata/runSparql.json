@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.runSparql",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Execute a SPARQL 1.1 SELECT or CONSTRUCT query against the caller's tenant graph. Translated to SQL/PGQ via `v_rdf_triple` view (see graph reasoner schema 2026-05-01). UPDATE / DELETE shapes are deferred to Phase 2.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["query"],
+          "properties": {
+            "query": {"type": "string", "description": "Raw SPARQL query string."},
+            "format": {"type": "string", "enum": ["json", "csv", "tsv"], "default": "json"},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 100000, "default": 1000},
+            "timeoutMs": {"type": "integer", "minimum": 100, "maximum": 30000, "default": 25000}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "rowCount"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "rowCount": {"type": "integer"},
+            "rows": {"type": "string", "description": "JSON-encoded rows when format=json; raw CSV/TSV otherwise."},
+            "translatedSql": {"type": "string", "description": "The SQL/PGQ that was executed (for debugging)."},
+            "elapsedMs": {"type": "integer"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

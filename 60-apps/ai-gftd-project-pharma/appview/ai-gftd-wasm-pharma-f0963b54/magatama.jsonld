@@ -65,9 +65,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.pharma.pharmaEntity",
-        "ai.gftd.apps.pharma.pharmaEvent",
-        "ai.gftd.apps.pharma.pharmaReport"
+        "com.etzhayyim.apps.pharma.pharmaEntity",
+        "com.etzhayyim.apps.pharma.pharmaEvent",
+        "com.etzhayyim.apps.pharma.pharmaReport"
       ]
     }
   },

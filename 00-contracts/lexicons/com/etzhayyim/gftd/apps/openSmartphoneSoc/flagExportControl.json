@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneSoc.flagExportControl",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Flag a chip design with ITAR/EAR/Entity List export control restrictions",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chipDid", "flagType", "jurisdiction", "severity"],
+          "properties": {
+            "chipDid": { "type": "string", "format": "did" },
+            "flagType": { "type": "string", "knownValues": ["itar", "ear", "entity-list", "other"] },
+            "entityListEntry": { "type": "string" },
+            "jurisdiction": { "type": "string", "description": "ISO3 country code of controlling authority" },
+            "severity": { "type": "string", "knownValues": ["critical", "high", "medium"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

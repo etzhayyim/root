@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.grantConsent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Issue a new consent capability. The pipeline canonicalizes the payload, signs with the granter's DID key (via @etzhayyim/sdk), and writes the record to the granter's PDS under `com.etzhayyim.consent.capability`. Auditor webhook (when set) receives a notification event.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["granterDid", "granteeDid", "purpose", "scope", "expiresAt"],
+          "properties": {
+            "granterDid": {"type": "string"},
+            "granteeDid": {"type": "string"},
+            "purpose": {
+              "type": "string",
+              "enum": ["insurance-billing", "second-opinion", "data-portability", "research-deidentified", "emergency-disclosure", "legal-disclosure", "deploy-execution"]
+            },
+            "scope": {"type": "array", "items": {"type": "string"}},
+            "resourceUris": {"type": "array", "items": {"type": "string"}},
+            "expiresAt": {"type": "string", "format": "datetime"},
+            "constraints": {"type": "ref", "ref": "#constraintsRef"},
+            "delegationPath": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "capabilityUri": {"type": "string"},
+            "capabilityCid": {"type": "string"},
+            "issuedAt": {"type": "string", "format": "datetime"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    },
+    "constraintsRef": {
+      "type": "object",
+      "properties": {
+        "maxQueriesPerDay": {"type": "integer"},
+        "redactionLevel": {"type": "string"},
+        "downstreamRedistribution": {"type": "boolean"},
+        "auditWebhookDid": {"type": "string"}
+      }
+    }
+  }
+}

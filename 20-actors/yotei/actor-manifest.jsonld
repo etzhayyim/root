@@ -46,7 +46,7 @@
         },
         {
           "args": {
-            "template": "MERGE (e:YoteiEvent {did: $did}) SET e.title = $input.record.title, e.ownerDid = $input.record.ownerDid, e.startAt = $input.record.startAt, e.endAt = $input.record.endAt, e.timezone = $input.record.timezone, e.status = 'confirmed', e.repo = $did, e.collection = 'ai.gftd.apps.yotei.event'"
+            "template": "MERGE (e:YoteiEvent {did: $did}) SET e.title = $input.record.title, e.ownerDid = $input.record.ownerDid, e.startAt = $input.record.startAt, e.endAt = $input.record.endAt, e.timezone = $input.record.timezone, e.status = 'confirmed', e.repo = $did, e.collection = 'com.etzhayyim.apps.yotei.event'"
           },
           "depends_on": [],
           "fn": "graph.write",
@@ -64,7 +64,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.yotei.createEvent",
+        "nsid": "com.etzhayyim.apps.yotei.createEvent",
         "type": "xrpc"
       }
     },
@@ -86,7 +86,7 @@
         },
         {
           "args": {
-            "template": "MERGE (b:YoteiBooking {did: $did}) SET b.hostDid = $input.record.hostDid, b.guestDid = $input.record.guestDid, b.startAt = $input.record.startAt, b.endAt = $input.record.endAt, b.status = 'confirmed', e.repo = $did, b.collection = 'ai.gftd.apps.yotei.booking'"
+            "template": "MERGE (b:YoteiBooking {did: $did}) SET b.hostDid = $input.record.hostDid, b.guestDid = $input.record.guestDid, b.startAt = $input.record.startAt, b.endAt = $input.record.endAt, b.status = 'confirmed', e.repo = $did, b.collection = 'com.etzhayyim.apps.yotei.booking'"
           },
           "depends_on": [],
           "fn": "graph.write",
@@ -105,7 +105,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.yotei.booking"
+          "com.etzhayyim.apps.yotei.booking"
         ],
         "type": "subscribeRepos"
       }
@@ -172,7 +172,7 @@
             "params": {
               "actorName": "yotei",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.yotei.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.yotei.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "unyrsfan",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -230,7 +230,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.yotei.coverage.get",
+        "nsid": "com.etzhayyim.apps.yotei.coverage.get",
         "type": "xrpc"
       }
     }
@@ -250,8 +250,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -264,9 +264,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.yotei.event",
-        "ai.gftd.apps.yotei.availability",
-        "ai.gftd.apps.yotei.booking"
+        "com.etzhayyim.apps.yotei.event",
+        "com.etzhayyim.apps.yotei.availability",
+        "com.etzhayyim.apps.yotei.booking"
       ]
     }
   },

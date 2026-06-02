@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.manga.addTag": {
+    "/xrpc/com.etzhayyim.manga.addTag": {
       "post": {
         "summary": "Add a tag to a manga title",
-        "operationId": "app.etzhayyim.manga.addTag",
+        "operationId": "com.etzhayyim.manga.addTag",
         "requestBody": {
           "required": true,
           "content": {
@@ -68,10 +68,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.createChapter": {
+    "/xrpc/com.etzhayyim.manga.createChapter": {
       "post": {
         "summary": "Create a chapter under a manga title",
-        "operationId": "app.etzhayyim.manga.createChapter",
+        "operationId": "com.etzhayyim.manga.createChapter",
         "requestBody": {
           "required": true,
           "content": {
@@ -135,10 +135,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.createTitle": {
+    "/xrpc/com.etzhayyim.manga.createTitle": {
       "post": {
         "summary": "Create a manga series/title",
-        "operationId": "app.etzhayyim.manga.createTitle",
+        "operationId": "com.etzhayyim.manga.createTitle",
         "requestBody": {
           "required": true,
           "content": {
@@ -206,10 +206,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.getChapter": {
+    "/xrpc/com.etzhayyim.manga.getChapter": {
       "get": {
         "summary": "Get a chapter by ID",
-        "operationId": "app.etzhayyim.manga.getChapter",
+        "operationId": "com.etzhayyim.manga.getChapter",
         "parameters": [
           {
             "name": "id",
@@ -266,10 +266,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.getTitle": {
+    "/xrpc/com.etzhayyim.manga.getTitle": {
       "get": {
         "summary": "Get a manga title by ID",
-        "operationId": "app.etzhayyim.manga.getTitle",
+        "operationId": "com.etzhayyim.manga.getTitle",
         "parameters": [
           {
             "name": "id",
@@ -332,10 +332,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.listChapters": {
+    "/xrpc/com.etzhayyim.manga.listChapters": {
       "get": {
         "summary": "List chapters for a manga title",
-        "operationId": "app.etzhayyim.manga.listChapters",
+        "operationId": "com.etzhayyim.manga.listChapters",
         "parameters": [
           {
             "name": "title_id",
@@ -410,10 +410,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.listTitles": {
+    "/xrpc/com.etzhayyim.manga.listTitles": {
       "get": {
         "summary": "List manga titles",
-        "operationId": "app.etzhayyim.manga.listTitles",
+        "operationId": "com.etzhayyim.manga.listTitles",
         "parameters": [
           {
             "name": "genre",
@@ -496,10 +496,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.publishChapter": {
+    "/xrpc/com.etzhayyim.manga.publishChapter": {
       "post": {
         "summary": "Publish a chapter (set status to published)",
-        "operationId": "app.etzhayyim.manga.publishChapter",
+        "operationId": "com.etzhayyim.manga.publishChapter",
         "requestBody": {
           "required": true,
           "content": {
@@ -550,10 +550,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.recordReadingProgress": {
+    "/xrpc/com.etzhayyim.manga.recordReadingProgress": {
       "post": {
         "summary": "Record or update user reading progress",
-        "operationId": "app.etzhayyim.manga.recordReadingProgress",
+        "operationId": "com.etzhayyim.manga.recordReadingProgress",
         "requestBody": {
           "required": true,
           "content": {
@@ -611,10 +611,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.searchTitles": {
+    "/xrpc/com.etzhayyim.manga.searchTitles": {
       "get": {
         "summary": "Search manga titles by keyword or tag",
-        "operationId": "app.etzhayyim.manga.searchTitles",
+        "operationId": "com.etzhayyim.manga.searchTitles",
         "parameters": [
           {
             "name": "q",
@@ -697,10 +697,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.submitFromNarou": {
+    "/xrpc/com.etzhayyim.manga.submitFromNarou": {
       "post": {
         "summary": "Import title and chapter from narou.etzhayyim.com",
-        "operationId": "app.etzhayyim.manga.submitFromNarou",
+        "operationId": "com.etzhayyim.manga.submitFromNarou",
         "requestBody": {
           "required": true,
           "content": {
@@ -777,10 +777,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.manga.updateChapterStatus": {
+    "/xrpc/com.etzhayyim.manga.updateChapterStatus": {
       "post": {
         "summary": "Update chapter workflow status",
-        "operationId": "app.etzhayyim.manga.updateChapterStatus",
+        "operationId": "com.etzhayyim.manga.updateChapterStatus",
         "requestBody": {
           "required": true,
           "content": {

@@ -2,7 +2,7 @@
 
 ADR-2605222000 — animeka v3. 16 nodes turn the Python-only USD scene
 + pose library + cinematic shot grammar + camera-move presets into a
-fully-self-contained ComfyUI workflow for `app.etzhayyim.animeka.cut`
+fully-self-contained ComfyUI workflow for `com.etzhayyim.animeka.cut`
 keyframe rendering.
 
 13 nodes mirror MangakaUSDScene semantics (renamed Animeka* + own

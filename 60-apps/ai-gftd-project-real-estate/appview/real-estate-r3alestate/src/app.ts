@@ -5,7 +5,7 @@ interface Env { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | S
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const APP = "realEstate";
-const NSID_PREFIX = "app.etzhayyim.apps.realEstate.";
+const NSID_PREFIX = "com.etzhayyim.apps.realEstate.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -17,7 +17,7 @@ export default {
         nanoid: env.APP_NANOID ?? "r3alestate",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/real_estate.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/real-estate",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/real-estate",
       });
     }
     const nsid = url.pathname.startsWith("/xrpc/") ? url.pathname.slice("/xrpc/".length) : "";

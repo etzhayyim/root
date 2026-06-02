@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fiataFreight.issueFbl",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FIATA Multimodal Bill of Lading (FBL) / IATA e-AWB / WCO Seal Container (bridges customs-clearance + logistics-lastmile + rail-cross-border + seafood-traceability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "documentId",
+            "documentKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "documentId": {
+              "type": "string"
+            },
+            "documentKind": {
+              "type": "string",
+              "enum": [
+                "fbl",
+                "ffi",
+                "fiata_sdt",
+                "fcr",
+                "fct",
+                "iata_awb",
+                "iata_eawb",
+                "wco_seal"
+              ]
+            },
+            "forwarderLei": {
+              "type": "string"
+            },
+            "shipperLei": {
+              "type": "string"
+            },
+            "consigneeLei": {
+              "type": "string"
+            },
+            "originUnlocode": {
+              "type": "string"
+            },
+            "destinationUnlocode": {
+              "type": "string"
+            },
+            "hsCode": {
+              "type": "string"
+            },
+            "grossWeightKg": {
+              "type": "number"
+            },
+            "insuredValueUsd": {
+              "type": "number"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

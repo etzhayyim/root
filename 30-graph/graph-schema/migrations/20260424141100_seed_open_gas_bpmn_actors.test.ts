@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-gas/definePipeSegment.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-gas/definePipeSegment.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-gas/reportLeak.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-gas/reportLeak.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-gas BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-gas-define-pipe-segment-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_gas_define_pipe_segment"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-gas/definePipeSegment.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-gas/definePipeSegment.bpmn"');
     expect(migrationSource).toContain("open-gas-report-leak-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_gas_report_leak"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-gas/reportLeak.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-gas/reportLeak.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openGas.definePipeSegment"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openGas.reportLeak"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openGas.definePipeSegment"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openGas.reportLeak"');
   });
 
   it("uses open-gas-specific actor_id + owner_did", () => {

@@ -78,13 +78,13 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.insatsu.printPartner",
-        "ai.gftd.apps.insatsu.printMailJob"
+        "com.etzhayyim.apps.insatsu.printPartner",
+        "com.etzhayyim.apps.insatsu.printMailJob"
       ]
     }
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution"
+    "com.etzhayyim.apps.standard.shinkaEvolution"
   ],
   "requiredLoops": [
     "shinka"

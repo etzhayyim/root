@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.tenki.tenkiEntity",
-        "ai.gftd.apps.tenki.tenkiEvent",
-        "ai.gftd.apps.tenki.tenkiReport"
+        "com.etzhayyim.apps.tenki.tenkiEntity",
+        "com.etzhayyim.apps.tenki.tenkiEvent",
+        "com.etzhayyim.apps.tenki.tenkiReport"
       ]
     }
   },

@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.iaeaSafeguards.flagProliferation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Proliferation signal (NSG / Wassenaar / MTCR — bridges mofcom + ofac-sanctions)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "signalId",
+            "regimeRefers",
+            "concernedIso3",
+            "indicator",
+            "flaggedAt"
+          ],
+          "properties": {
+            "signalId": {
+              "type": "string"
+            },
+            "inspectionVid": {
+              "type": "string",
+              "description": "bridges recordInspection"
+            },
+            "regimeRefers": {
+              "type": "string",
+              "enum": [
+                "NSG",
+                "Wassenaar",
+                "MTCR",
+                "Australia_Group",
+                "UNSC_1540",
+                "CPPNM"
+              ]
+            },
+            "concernedIso3": {
+              "type": "string"
+            },
+            "indicator": {
+              "type": "string",
+              "enum": [
+                "clandestine_enrichment",
+                "undeclared_facility",
+                "diversion",
+                "transfer_unauthorized",
+                "dual_use_equipment",
+                "weapons_design"
+              ]
+            },
+            "ofacSdnVid": {
+              "type": "string",
+              "description": "bridges open-ofac-sanctions-sdn"
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

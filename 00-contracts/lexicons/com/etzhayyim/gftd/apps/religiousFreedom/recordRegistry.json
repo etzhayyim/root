@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.religiousFreedom.recordRegistry",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "USCIRF / Pew / Open Doors religious freedom registry (bridges press-freedom + refugee-unhcr + indigenous-rights)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "recordId",
+            "countryIso3",
+            "designation",
+            "indexProvider",
+            "cursorYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "recordId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "designation": {
+              "type": "string",
+              "enum": [
+                "cpc",
+                "special_watch",
+                "swl",
+                "entity_of_particular_concern",
+                "not_designated"
+              ]
+            },
+            "indexProvider": {
+              "type": "string",
+              "enum": [
+                "uscirf",
+                "pew_rrli",
+                "pew_ggi",
+                "open_doors_wwl",
+                "religiopolitix"
+              ]
+            },
+            "scoreValue": {
+              "type": "number"
+            },
+            "cursorYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "restrictionTier": {
+              "type": "string",
+              "enum": [
+                "monitor",
+                "significant",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

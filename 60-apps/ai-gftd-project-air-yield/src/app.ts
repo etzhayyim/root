@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.apps.airYield.";
+const NSID_PREFIX = "com.etzhayyim.apps.airYield.";
 const ACTOR_DID = "did:web:air-yield.etzhayyim.com";
 
 export default {
@@ -22,7 +22,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "a1ry13ld",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/air-yield",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/air-yield",
         methods: ["publishFareClass", "adjustInventory", "fileFare", "setOverbooking", "processGroupBooking", "applyDynamicPrice", "generateRevenueReport", "forecastDemand"],
       });
     }

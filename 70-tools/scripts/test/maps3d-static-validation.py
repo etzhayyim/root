@@ -8,10 +8,10 @@ worker source, and migration are internally consistent before anything
 hits the cluster.
 
 Checks:
-  1. Every `00-contracts/lexicons/ai/gftd/apps/maps3d/*.json` has the
+  1. Every `00-contracts/lexicons/com/etzhayyim/apps/maps3d/*.json` has the
      required shape (lexicon=1, id matches filename, defs.main.type
      ∈ {query, procedure}, parameters or input present, output present).
-  2. `00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn` is well-formed
+  2. `00-contracts/bpmn/com/etzhayyim/maps3d/processTile.bpmn` is well-formed
      XML, every sequenceFlow source/target exists, every exclusive
      gateway has at least 2 outgoing flows, the boundary timer is
      attached to Task_Colmap, and every `zeebe:taskDefinition type` is
@@ -42,8 +42,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[3]
-LEX_DIR = REPO / "00-contracts/lexicons/ai/gftd/apps/maps3d"
-BPMN_PATH = REPO / "00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn"
+LEX_DIR = REPO / "00-contracts/lexicons/com/etzhayyim/apps/maps3d"
+BPMN_PATH = REPO / "00-contracts/bpmn/com/etzhayyim/maps3d/processTile.bpmn"
 WORKER_DIR = REPO / "50-infra/k8s/maps3d/workers"
 MIGRATION = REPO / "30-graph/graph-schema/migrations/20260426010000_maps3d_photogrammetry.ts"
 
@@ -83,7 +83,7 @@ def check_lexicons(r: Result) -> set[str]:
             r.fail(f"{p.name}: invalid JSON ({e})")
             continue
         nsid = doc.get("id")
-        expected = f"app.etzhayyim.apps.maps3d.{p.stem}"
+        expected = f"com.etzhayyim.apps.maps3d.{p.stem}"
         if doc.get("lexicon") != 1:
             r.fail(f"{p.name}: lexicon != 1")
             continue
@@ -192,7 +192,7 @@ def check_bpmn(r: Result, lexicon_nsids: set[str]) -> tuple[set[str], set[str]]:
             if not t:
                 continue
             if t.startswith("maps3d."):
-                bpmn_nsids.add(f"app.etzhayyim.apps.{t}")
+                bpmn_nsids.add(f"com.etzhayyim.apps.{t}")
             elif t.startswith("generic."):
                 generic_types.add(t)
             else:
@@ -210,13 +210,13 @@ def check_bpmn(r: Result, lexicon_nsids: set[str]) -> tuple[set[str], set[str]]:
     # Lexicon NSIDs that are NOT referenced by the BPMN are fine if they
     # describe inner-task contracts only (not BPMN entry points). We
     # list them as informational but never fail on them.
-    not_in_bpmn = lexicon_nsids - bpmn_nsids - {"app.etzhayyim.apps.maps3d.processTile"}
+    not_in_bpmn = lexicon_nsids - bpmn_nsids - {"com.etzhayyim.apps.maps3d.processTile"}
     if not_in_bpmn:
         for n in sorted(not_in_bpmn):
             # processTile is the BPMN entry, not a task type, so its
             # `type` attribute won't match.  Inner NSIDs SHOULD be in
             # the BPMN if they correspond to service tasks.  Diagnose.
-            short = n.removeprefix("app.etzhayyim.apps.")
+            short = n.removeprefix("com.etzhayyim.apps.")
             r.fail(f"Lexicon {n} has no BPMN service task (orphan) — expected `type=\"{short}\"` somewhere")
 
     return bpmn_nsids, generic_types
@@ -273,7 +273,7 @@ def check_workers(r: Result, lexicon_nsids: set[str], bpmn_nsids: set[str]) -> N
             handlers.setdefault(t, []).append(p.name)
 
     # Every BPMN maps3d task must be handled by exactly one worker.
-    expected = {n.removeprefix("app.etzhayyim.apps.") for n in bpmn_nsids}
+    expected = {n.removeprefix("com.etzhayyim.apps.") for n in bpmn_nsids}
     for t in sorted(expected):
         owners = handlers.get(t, [])
         if not owners:
@@ -285,7 +285,7 @@ def check_workers(r: Result, lexicon_nsids: set[str], bpmn_nsids: set[str]) -> N
 
     # Every worker task must have a matching lexicon JSON.
     for t, owners in sorted(handlers.items()):
-        nsid = f"app.etzhayyim.apps.{t}"
+        nsid = f"com.etzhayyim.apps.{t}"
         if nsid not in lexicon_nsids:
             r.fail(
                 f"worker {owners[0]} registers `{t}` but no lexicon JSON "
@@ -307,7 +307,7 @@ def check_migration(r: Result) -> None:
         ("CREATE TABLE", "vertex_langgraph_state"),
         # BPMN registry.
         ("INSERT INTO vertex_bpmn_process_def", "maps3d_process_tile"),
-        ("INSERT INTO vertex_bpmn_lexicon_binding", "app.etzhayyim.apps.maps3d.processTile"),
+        ("INSERT INTO vertex_bpmn_lexicon_binding", "com.etzhayyim.apps.maps3d.processTile"),
     ]
     for keyword, marker in expected:
         # Loose match — keyword + marker on same logical statement.

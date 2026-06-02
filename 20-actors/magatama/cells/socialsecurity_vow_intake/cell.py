@@ -7,8 +7,8 @@ Doctrine: ADR-2605302357 (covenantal-universal, conversion-gated).
 Purpose: verify a member-signed conversion vow (悔い改め・バプテスマ・得度 =
 social death and rebirth) and orchestrate the TRIPLE-PERMANENT commitment:
 kotoba EAVT datom + IPFS pin (CID) + soulbound Adherent SBT mint. The vow record
-(app.etzhayyim.membership.commitmentVow) is PII-free; member PII lives only in an
-app.etzhayyim.encrypted.* envelope (ADR-2605181100).
+(com.etzhayyim.membership.commitmentVow) is PII-free; member PII lives only in an
+com.etzhayyim.encrypted.* envelope (ADR-2605181100).
 
 Constitutional ceiling (CRITICAL - IMMUTABLE):
   - G3 NO PLATFORM-HELD KEY: the vow is MEMBER-SIGNED (WebAuthn passkey / wallet);
@@ -19,7 +19,7 @@ Constitutional ceiling (CRITICAL - IMMUTABLE):
   - G11 LIVE-ACTION GATE: no real SBT mint until Council Lv7+ §1.16 ratify
     (post 2026-06-19) + Sybil-resistance framework ratified.
   - G2 kotoba-only store (ADR-2605262130) + G4 Murakumo-only (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.membership.commitmentVow.
+Output Lexicon(s): com.etzhayyim.membership.commitmentVow.
 
 R0 scaffold - import-time RuntimeError until R2 (live vow).
 """
@@ -77,7 +77,7 @@ if (
 #         # 1. verify member signature over the vow payload (NO server key)
 #         # 2. confirm threefold consent (repentance/baptism/tokudo)
 #         # 3. write kotoba EAVT datom -> IPFS pin (CID) -> Adherent SBT mint
-#         # 4. emit app.etzhayyim.membership.commitmentVow (PII-free)
+#         # 4. emit com.etzhayyim.membership.commitmentVow (PII-free)
 #         raise NotImplementedError("socialsecurity_vow_intake R2")
 
 

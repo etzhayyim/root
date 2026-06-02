@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ecmwfForecast.recordForecastSkill",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ECMWF IFS / GraphCast / Pangu-Weather / FourCastNet forecast skill (bridges cyclone-prepo + disaster-response + agri-food-security + extreme-weather-attribution)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "skillId",
+            "model",
+            "variable",
+            "leadTimeHours",
+            "recordedAt"
+          ],
+          "properties": {
+            "skillId": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string",
+              "enum": [
+                "ecmwf_ifs",
+                "nwp_icon",
+                "gfs",
+                "graphcast",
+                "pangu_weather",
+                "fourcastnet",
+                "aurora",
+                "aifs"
+              ]
+            },
+            "variable": {
+              "type": "string",
+              "enum": [
+                "t2m",
+                "mslp",
+                "z500",
+                "t850",
+                "u10",
+                "v10",
+                "tp",
+                "sst"
+              ]
+            },
+            "leadTimeHours": {
+              "type": "integer"
+            },
+            "acc": {
+              "type": "number",
+              "description": "Anomaly Correlation Coefficient"
+            },
+            "rmse": {
+              "type": "number"
+            },
+            "crps": {
+              "type": "number"
+            },
+            "evaluationPeriod": {
+              "type": "string"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "skillTier": {
+              "type": "string",
+              "enum": [
+                "limited",
+                "useful",
+                "high"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

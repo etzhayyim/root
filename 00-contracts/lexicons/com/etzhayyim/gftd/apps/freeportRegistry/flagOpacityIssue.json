@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.freeportRegistry.flagOpacityIssue",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Disclosure gap / AML tipping off / indefinite storage (bridges artMarketAml.flagMoneyLaundering + beneficial-ownership + sanctions-entry)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "entryVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "entryVid": {
+              "type": "string",
+              "description": "bridges recordFreeportEntry"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "no_ubo_disclosed",
+                "tipping_off_concern",
+                "indefinite_storage",
+                "export_without_cites",
+                "sanctions_party_link",
+                "insurance_valuation_variance",
+                "custodian_unregulated",
+                "sale_inside_freeport",
+                "art_secured_lending",
+                "off_chain_swap"
+              ]
+            },
+            "daysStored": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

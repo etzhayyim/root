@@ -4,7 +4,7 @@ package main
 //
 // Per ADR-2605231400 (consent capability) + ADR-2605232000 (deploy-execution
 // purpose extension). A capability is an Ed25519-signed delegation token
-// stored as an AT Protocol record (`app.etzhayyim.consent.capability`) in the
+// stored as an AT Protocol record (`com.etzhayyim.consent.capability`) in the
 // granter's PDS. This CLI wraps:
 //
 //   issue   — canonicalize, sign with granter's Ed25519 key, return JWS (or
@@ -18,7 +18,7 @@ package main
 //
 //   revoke  — produces a revocation record body (call site forwards to PDS).
 //
-//   list    — calls app.etzhayyim.apps.karute.listConsent (or generic equivalent
+//   list    — calls com.etzhayyim.apps.karute.listConsent (or generic equivalent
 //             at the substrate-wide audit subject) and pretty-prints.
 
 import (
@@ -39,7 +39,7 @@ import (
 	"time"
 )
 
-const auditAggregatorEndpoint = "https://audit.etzhayyim.com/xrpc/app.etzhayyim.audit.emitAuditEvent"
+const auditAggregatorEndpoint = "https://audit.etzhayyim.com/xrpc/com.etzhayyim.audit.emitAuditEvent"
 
 type capabilityPayload struct {
 	Version      int      `json:"version"`
@@ -95,7 +95,7 @@ SUBCOMMANDS:
   issue    Sign a new capability JWS (no PDS write; caller forwards to PDS)
   verify   Ed25519-verify a JWS against the granter's DID document
   revoke   Produce a revocation record body
-  list     List capabilities (calls app.etzhayyim.apps.karute.listConsent or equivalent)
+  list     List capabilities (calls com.etzhayyim.apps.karute.listConsent or equivalent)
 
 ISSUE FLAGS:
   --granter <did>           granter DID (Steward); default $ETZ_STEWARD_DID
@@ -498,7 +498,7 @@ func runCapabilityRevoke(args []string) error {
 	reason := fs.String("reason", "", "free-text revocation reason")
 	revokedBy := fs.String("revoked-by", "", "DID of revoker (default $ETZ_STEWARD_DID)")
 	out := fs.String("out", "-", "output revocation record body (- for stdout)")
-	pdsXrpc := fs.String("pds-xrpc", "", "if set, POST to <url>/xrpc/app.etzhayyim.apps.karute.revokeConsent")
+	pdsXrpc := fs.String("pds-xrpc", "", "if set, POST to <url>/xrpc/com.etzhayyim.apps.karute.revokeConsent")
 	if err := fs.Parse(args); err != nil {
 		if err == flag.ErrHelp {
 			printCapabilityUsage()
@@ -525,7 +525,7 @@ func runCapabilityRevoke(args []string) error {
 		if err != nil {
 			return err
 		}
-		endpoint.Path = "/xrpc/app.etzhayyim.apps.karute.revokeConsent"
+		endpoint.Path = "/xrpc/com.etzhayyim.apps.karute.revokeConsent"
 		req, _ := http.NewRequest("POST", endpoint.String(), bytes.NewReader(bjson))
 		req.Header.Set("content-type", "application/json")
 		resp, err := http.DefaultClient.Do(req)
@@ -567,7 +567,7 @@ func runCapabilityList(args []string) error {
 		return err
 	}
 	endpoint, _ := url.Parse(*pdsXrpc)
-	endpoint.Path = "/xrpc/app.etzhayyim.apps.karute.listConsent"
+	endpoint.Path = "/xrpc/com.etzhayyim.apps.karute.listConsent"
 	q := endpoint.Query()
 	if *granter != "" {
 		q.Set("granterDid", *granter)

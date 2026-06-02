@@ -18,6 +18,6 @@
     "framework": "ts-thin-edge",
     "edge": "60-apps/ai-gftd-project-port/appview/port-infra-p0rt7890/src/app.ts",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/port.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/port"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/port"
   }
 }

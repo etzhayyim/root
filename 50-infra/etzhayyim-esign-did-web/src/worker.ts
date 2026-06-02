@@ -8,7 +8,7 @@ import didDoc from "../did.json";
  * `https://esign.etzhayyim.com/.well-known/did.json`.
  *
  * Identity of the religious-corp document-signing actor that issues,
- * collects, and completes `app.etzhayyim.esign.*` envelopes (per
+ * collects, and completes `com.etzhayyim.esign.*` envelopes (per
  * ADR-2605231230). The runtime Worker lives at
  * `20-actors/etzhayyim-esign/`; on-chain anchoring is delegated to
  * anchor-cron (50-infra/anchor-cron/).

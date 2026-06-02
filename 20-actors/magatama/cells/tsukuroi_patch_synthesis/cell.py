@@ -9,7 +9,7 @@ Constitutional ceiling (CRITICAL — IMMUTABLE): PROPOSE-ONLY (no merge/deploy) 
 NO PROBING (input via akuma finding_cid only) + DEFENSIVE-ONLY (no exploit/PoC,
 Charter Rider §2(a)) + NO PLATFORM-HELD KEY (ADR-2605231525) + Murakumo-only
 inference (ADR-2605215000). Gates: G5 (defensive-only) + G6 (scoped write) + G10 (Murakumo-only).
-Output Lexicon(s): app.etzhayyim.tsukuroi.patchProposal.
+Output Lexicon(s): com.etzhayyim.tsukuroi.patchProposal.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

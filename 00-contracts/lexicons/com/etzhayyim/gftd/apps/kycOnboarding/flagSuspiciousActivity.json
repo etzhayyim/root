@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kycOnboarding.flagSuspiciousActivity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "SAR / STR / watchlist hit / FinCEN alert (bridges beneficialOwnership.flagUboDiscrepancy + ofac-sanctions-sdn + fatf-travel-rule)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "sarId",
+            "checkVid",
+            "activityKind",
+            "filedAt"
+          ],
+          "properties": {
+            "sarId": {
+              "type": "string"
+            },
+            "checkVid": {
+              "type": "string",
+              "description": "bridges recordCddCheck"
+            },
+            "activityKind": {
+              "type": "string",
+              "enum": [
+                "structuring",
+                "rapid_movement",
+                "round_dollar",
+                "high_risk_jurisdiction",
+                "pep_without_eadd",
+                "shell_company_pattern",
+                "sudden_tx",
+                "dormant_reactivation",
+                "aml_typology_hit",
+                "sanctions_near_match"
+              ]
+            },
+            "aggregateUsd": {
+              "type": "number"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

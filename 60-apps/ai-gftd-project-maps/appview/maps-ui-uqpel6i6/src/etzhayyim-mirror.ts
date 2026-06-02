@@ -7,7 +7,7 @@
  *
  *   MAPS_DUAL_WRITE_ETZHAYYIM=1
  *     Every successful vertex_spatial INSERT also produces an
- *     app.etzhayyim.maps.feature record on the etzhayyim PDS so the new
+ *     com.etzhayyim.maps.feature record on the etzhayyim PDS so the new
  *     substrate accumulates a live mirror.
  *
  *   MAPS_SHADOW_ETZHAYYIM=1
@@ -20,11 +20,11 @@
  *   MAPS_ETZ_PDS_URL              default https://pds.etzhayyim.com
  *   MAPS_ETZ_PDS_HANDLE           required for dual-write
  *   MAPS_ETZ_PDS_APP_PASSWORD     required for dual-write
- *   MAPS_ETZ_TILE_URL             default https://maps.etzhayyim.com/xrpc/app.etzhayyim.maps.tileGeoJson
+ *   MAPS_ETZ_TILE_URL             default https://maps.etzhayyim.com/xrpc/com.etzhayyim.maps.tileGeoJson
  *   MAPS_ETZ_SHADOW_SAMPLE_PCT    default 100 (sample every shadow read)
  */
 
-const COLLECTION = "app.etzhayyim.maps.feature";
+const COLLECTION = "com.etzhayyim.maps.feature";
 
 interface MirrorEnv {
   MAPS_DUAL_WRITE_ETZHAYYIM?: string;
@@ -236,7 +236,7 @@ export function shadowTileGeoJsonRead(
 
   const tileUrl =
     env.MAPS_ETZ_TILE_URL ??
-    "https://maps.etzhayyim.com/xrpc/app.etzhayyim.maps.tileGeoJson";
+    "https://maps.etzhayyim.com/xrpc/com.etzhayyim.maps.tileGeoJson";
 
   void (async () => {
     try {

@@ -6,7 +6,7 @@ POSTs to ComfyUI's /prompt endpoint. The same shape ComfyUI's
 embedded ComfyUI editor when persisted via install-mangaka-comfy-workflow.py.
 
 Three builders mirror the three domain record types Studio generates per
-the mangaka schema (`app.etzhayyim.mangaka.{character,environment,panel}`):
+the mangaka schema (`com.etzhayyim.mangaka.{character,environment,panel}`):
 
   character_workflow(...)   one character design sheet, batch of N views
   scene_workflow(...)       one environment establishing shot, landscape

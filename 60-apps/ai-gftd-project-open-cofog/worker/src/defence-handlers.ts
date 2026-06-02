@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openCofog.classifyDefenceFunction — COFOG 02 防衛分類
+// com.etzhayyim.apps.openCofog.classifyDefenceFunction — COFOG 02 防衛分類
 export async function handle_classifyDefenceFunction(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.budgetVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openCofog.classifyDefenceFunction/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openCofog.classifyDefenceFunction/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-cofog",
-      nsid: "app.etzhayyim.apps.openCofog.classifyDefenceFunction",
+      nsid: "com.etzhayyim.apps.openCofog.classifyDefenceFunction",
       bpmnProcessId: "open_cofog_classify_defence_function",
       subjectVid,
       actionClass: "openCofog.budget.classifyDefence",
@@ -82,5 +82,5 @@ export async function handle_classifyDefenceFunction(env: DefenceEnv, body: any)
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openCofog.classifyDefenceFunction": handle_classifyDefenceFunction,
+  "com.etzhayyim.apps.openCofog.classifyDefenceFunction": handle_classifyDefenceFunction,
 };

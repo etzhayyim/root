@@ -23,8 +23,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.news.article",
-        "ai.gftd.narou.chapter"
+        "com.etzhayyim.apps.news.article",
+        "com.etzhayyim.narou.chapter"
       ]
     }
   },

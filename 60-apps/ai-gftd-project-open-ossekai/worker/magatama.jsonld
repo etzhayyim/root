@@ -36,9 +36,9 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openOssekai.intelBrief",
-        "ai.gftd.apps.openOssekai.arbitrage",
-        "ai.gftd.apps.openOssekai.wellBecomingPlan"
+        "com.etzhayyim.apps.openOssekai.intelBrief",
+        "com.etzhayyim.apps.openOssekai.arbitrage",
+        "com.etzhayyim.apps.openOssekai.wellBecomingPlan"
       ]
     }
   },

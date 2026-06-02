@@ -41,14 +41,14 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.os.agent",
-        "ai.gftd.apps.os.agentEvent",
-        "ai.gftd.apps.os.consentRequest",
-        "ai.gftd.apps.os.consentResponse",
-        "ai.gftd.apps.os.budgetAllocation",
-        "ai.gftd.apps.os.directoryEntry",
-        "ai.gftd.apps.os.syncEvent",
-        "ai.gftd.apps.os.windowEvent"
+        "com.etzhayyim.apps.os.agent",
+        "com.etzhayyim.apps.os.agentEvent",
+        "com.etzhayyim.apps.os.consentRequest",
+        "com.etzhayyim.apps.os.consentResponse",
+        "com.etzhayyim.apps.os.budgetAllocation",
+        "com.etzhayyim.apps.os.directoryEntry",
+        "com.etzhayyim.apps.os.syncEvent",
+        "com.etzhayyim.apps.os.windowEvent"
       ]
     }
   },

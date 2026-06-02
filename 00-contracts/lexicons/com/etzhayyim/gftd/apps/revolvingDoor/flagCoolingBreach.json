@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.revolvingDoor.flagCoolingBreach",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Cooling-off period breach / regulatory capture (bridges lobbyingDisclosure.flagFaraUnderreport + enforcement-action + judicial-influence)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "transitionVid",
+            "breachKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "transitionVid": {
+              "type": "string",
+              "description": "bridges recordTransition"
+            },
+            "breachKind": {
+              "type": "string",
+              "enum": [
+                "contact_within_cooling",
+                "shadow_lobby",
+                "foreign_state_client",
+                "matter_substantive",
+                "recusal_failure",
+                "continued_supervision",
+                "ethics_waiver",
+                "post_employment_income",
+                "regulatory_capture",
+                "procurement_inside"
+              ]
+            },
+            "estIncomeUsd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

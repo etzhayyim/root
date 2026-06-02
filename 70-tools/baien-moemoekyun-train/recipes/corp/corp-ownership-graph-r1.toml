@@ -31,7 +31,7 @@ v2.0 + Tier-B attribution layer.
 
 [[source]]
 subdataset    = "corp/lei/gleif/lei-l2"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_GLEIF_L2"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_GLEIF_L2"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "CC0-1.0"
@@ -39,7 +39,7 @@ weight        = 0.40
 
 [[source]]
 subdataset    = "corp/ownership/opencorporates-control"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_OPENCORPORATES_CONTROL"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_OPENCORPORATES_CONTROL"
 shard_glob    = "*.ndjson"
 tier          = "B"
 license       = "CC-BY-SA-4.0"

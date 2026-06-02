@@ -26,9 +26,9 @@ import {
   type ProviderRecord,
 } from "./types.js";
 
-const ASN_COLLECTION = "app.etzhayyim.apps.ipaddress.asn";
-const PREFIX_COLLECTION = "app.etzhayyim.apps.ipaddress.prefix";
-const PROVIDER_COLLECTION = "app.etzhayyim.apps.ipaddress.provider";
+const ASN_COLLECTION = "com.etzhayyim.apps.ipaddress.asn";
+const PREFIX_COLLECTION = "com.etzhayyim.apps.ipaddress.prefix";
+const PROVIDER_COLLECTION = "com.etzhayyim.apps.ipaddress.provider";
 
 function asnRkey(num: number): string {
   return `asn-${num}`;

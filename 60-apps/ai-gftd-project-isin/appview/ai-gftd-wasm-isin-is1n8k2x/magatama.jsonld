@@ -64,10 +64,10 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.isin.security",
-        "ai.gftd.isin.collectionJob",
-        "ai.gftd.isin.filing",
-        "ai.gftd.isin.source"
+        "com.etzhayyim.isin.security",
+        "com.etzhayyim.isin.collectionJob",
+        "com.etzhayyim.isin.filing",
+        "com.etzhayyim.isin.source"
       ]
     }
   },

@@ -17,7 +17,7 @@
   "layer": "edge-dispatcher",
   "atStandard": false,
   "nsidPrefixes": [
-    "ai.gftd.apps.voxelforge"
+    "com.etzhayyim.apps.voxelforge"
   ],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",

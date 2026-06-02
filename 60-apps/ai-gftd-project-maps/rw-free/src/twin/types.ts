@@ -1,12 +1,12 @@
 /**
  * Mirrors the 3 Digital Twin Lexicon record shapes:
- *   - app.etzhayyim.maps.deviceBinding
- *   - app.etzhayyim.maps.twinState
- *   - app.etzhayyim.maps.sensorAlert
+ *   - com.etzhayyim.maps.deviceBinding
+ *   - com.etzhayyim.maps.twinState
+ *   - com.etzhayyim.maps.sensorAlert
  *
  * Per maps CLAUDE.md §Digital Twin + ADR-2605231400 Phase 3 Tier B.
  *
- * Note: `app.etzhayyim.maps.sensorReading` is intentionally NOT here —
+ * Note: `com.etzhayyim.maps.sensorReading` is intentionally NOT here —
  * high-frequency sensor stream lives in a yatachain-projection (Tier C)
  * per MIGRATION-TODO OQ-M-5.
  */

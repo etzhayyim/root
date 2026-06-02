@@ -38,7 +38,7 @@ def test_top_level_required_fields(spec: dict) -> None:
 
 
 def test_assistant_id_nsid_shape(spec: dict) -> None:
-    assert spec["assistant_id"] == "app.etzhayyim.mangaka.composeCharacterVrm"
+    assert spec["assistant_id"] == "com.etzhayyim.mangaka.composeCharacterVrm"
 
 
 def test_node_count_matches_pipeline(spec: dict) -> None:
@@ -109,7 +109,7 @@ def test_attach_vrm_reuses_p13_tool(spec: dict) -> None:
     tool — no duplicate registration."""
     by_id = {n["id"]: n for n in spec["nodes"]}
     assert "attach_vrm" in by_id
-    assert by_id["attach_vrm"]["ref"] == "mcp://app.etzhayyim.mangaka.tools.attachCharacterVrm"
+    assert by_id["attach_vrm"]["ref"] == "mcp://com.etzhayyim.mangaka.tools.attachCharacterVrm"
 
 
 def test_pending_mcp_tools_align_with_node_refs(spec: dict) -> None:
@@ -121,7 +121,7 @@ def test_pending_mcp_tools_align_with_node_refs(spec: dict) -> None:
         n["ref"].removeprefix("mcp://")
         for n in spec["nodes"]
         if n["kind"] == "mcp_tool" and n["ref"].startswith("mcp://")
-        and n["ref"] != "mcp://app.etzhayyim.mangaka.tools.attachCharacterVrm"
+        and n["ref"] != "mcp://com.etzhayyim.mangaka.tools.attachCharacterVrm"
     })
     assert declared == referenced, (
         "pending_mcp_tools out of sync with mcp_tool refs.\n"
@@ -205,7 +205,7 @@ def test_training_pipeline_doc_exists() -> None:
 
 def test_pending_lexicon_jsons_exist(spec: dict) -> None:
     """P16-b — every NSID in `pending_mcp_tools` MUST have a matching
-    lexicon JSON under `00-contracts/lexicons/ai/gftd/apps/mangaka/tools/`.
+    lexicon JSON under `00-contracts/lexicons/com/etzhayyim/apps/mangaka/tools/`.
     Without these, `sync-mcp-registry.py` can't reconcile schema hashes
     and the topology can't flip from Phase B (YAML) to Phase C
     (`vertex_langgraph_assistant_node`)."""
@@ -223,7 +223,7 @@ def test_pending_lexicon_jsons_exist(spec: dict) -> None:
     import json
 
     for nsid in spec.get("pending_mcp_tools") or []:
-        # NSID = app.etzhayyim.mangaka.tools.<camelCase> ; lexicon filename = <camelCase>.json
+        # NSID = com.etzhayyim.mangaka.tools.<camelCase> ; lexicon filename = <camelCase>.json
         name = nsid.split(".")[-1]
         path = lex_dir / f"{name}.json"
         assert path.is_file(), f"missing lexicon JSON: {path}"
@@ -242,10 +242,10 @@ def test_vrm_bind_retry_dmn_ssot_exists(spec: dict) -> None:
     under `30-graph/graph-schema/sql_migrations/`. Locking both paths
     so a rename doesn't silently break Phase C activation."""
     repo_root = _LG_DIR.parents[2]
-    # The topology declares condition_ref: dmn:app.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0
+    # The topology declares condition_ref: dmn:com.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0
     ce = {ce["from"]: ce for ce in spec.get("conditional_edges") or []}["validate_vrm"]
     ref = ce["condition_ref"]
-    assert ref == "dmn:app.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0", ref
+    assert ref == "dmn:com.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0", ref
 
     dmn_path = (
         repo_root
@@ -260,7 +260,7 @@ def test_vrm_bind_retry_dmn_ssot_exists(spec: dict) -> None:
     assert dmn_path.is_file(), f"missing DMN SSoT: {dmn_path}"
     body = dmn_path.read_text(encoding="utf-8")
     # Decision id must match the condition_ref (less the version + scheme).
-    assert 'id="app.etzhayyim.policies.mangaka.vrmBindRetry"' in body
+    assert 'id="com.etzhayyim.policies.mangaka.vrmBindRetry"' in body
     # All three routing paths declared by the topology must appear.
     for verdict in ("accept", "retry", "reject"):
         assert f'"{verdict}"' in body, f"DMN missing route {verdict!r}"
@@ -274,7 +274,7 @@ def test_vrm_bind_retry_dmn_ssot_exists(spec: dict) -> None:
     )
     assert seed.is_file(), f"missing DMN seed migration: {seed}"
     seed_body = seed.read_text(encoding="utf-8")
-    assert "app.etzhayyim.policies.mangaka.vrmBindRetry" in seed_body
+    assert "com.etzhayyim.policies.mangaka.vrmBindRetry" in seed_body
     assert "vertex_dmn_model" in seed_body
 
 
@@ -312,7 +312,7 @@ def test_batch_driver_targets_topology_nsid(spec: dict) -> None:
     )
     assert driver.is_file(), f"missing batch driver: {driver}"
     body = driver.read_text(encoding="utf-8")
-    nsid = spec["assistant_id"]   # app.etzhayyim.mangaka.composeCharacterVrm
+    nsid = spec["assistant_id"]   # com.etzhayyim.mangaka.composeCharacterVrm
     assert nsid in body, f"driver does not reference topology NSID {nsid!r}"
     # Sequential-by-default invariant — the YAML says parallelism saturates
     # the GPU pool; the driver MUST NOT default to Promise.all over the
@@ -337,7 +337,7 @@ def test_mediapipe_face_pod_image_present(spec: dict) -> None:
         assert (pod_dir / name).is_file(), f"missing {pod_dir / name}"
 
     # The Dockerfile MUST reference the same NSID the topology calls.
-    nsid = "app.etzhayyim.mangaka.tools.extractFacialBlendshapes"
+    nsid = "com.etzhayyim.mangaka.tools.extractFacialBlendshapes"
     server = (pod_dir / "server.py").read_text(encoding="utf-8")
     assert nsid in server, f"server.py does not declare NSID {nsid!r}"
 
@@ -386,7 +386,7 @@ def test_character_gen_pod_image_present(spec: dict) -> None:
     for name in ("Dockerfile", "requirements.txt", "server.py", "README.md"):
         assert (pod_dir / name).is_file(), f"missing {pod_dir / name}"
 
-    nsid = "app.etzhayyim.mangaka.tools.generateMultiviewAnime"
+    nsid = "com.etzhayyim.mangaka.tools.generateMultiviewAnime"
     server = (pod_dir / "server.py").read_text(encoding="utf-8")
     assert nsid in server, f"server.py does not declare NSID {nsid!r}"
 
@@ -435,7 +435,7 @@ def test_hunyuan3d_pod_image_present(spec: dict) -> None:
     for name in ("Dockerfile", "requirements.txt", "server.py", "README.md"):
         assert (pod_dir / name).is_file(), f"missing {pod_dir / name}"
 
-    nsid = "app.etzhayyim.mangaka.tools.reconstructMesh"
+    nsid = "com.etzhayyim.mangaka.tools.reconstructMesh"
     server = (pod_dir / "server.py").read_text(encoding="utf-8")
     assert nsid in server, f"server.py does not declare NSID {nsid!r}"
 
@@ -489,7 +489,7 @@ def test_blender_rigify_pod_image_present(spec: dict) -> None:
     ):
         assert (pod_dir / name).is_file(), f"missing {pod_dir / name}"
 
-    nsid = "app.etzhayyim.mangaka.tools.autoRigHumanoid"
+    nsid = "com.etzhayyim.mangaka.tools.autoRigHumanoid"
     server = (pod_dir / "server.py").read_text(encoding="utf-8")
     assert nsid in server, f"server.py does not declare NSID {nsid!r}"
 
@@ -545,7 +545,7 @@ def test_blender_vrm_pod_image_present(spec: dict) -> None:
     for name in ("Dockerfile", "requirements.txt", "server.py", "bind_vrm.py", "README.md"):
         assert (pod_dir / name).is_file(), f"missing {pod_dir / name}"
 
-    nsid = "app.etzhayyim.mangaka.tools.bindVrm"
+    nsid = "com.etzhayyim.mangaka.tools.bindVrm"
     server = (pod_dir / "server.py").read_text(encoding="utf-8")
     assert nsid in server, f"server.py does not declare NSID {nsid!r}"
 

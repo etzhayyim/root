@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-saas-register-product-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-saas-register-product-v1',
                  'did:web:open-saas.etzhayyim.com',
                  'open_saas_register_product',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -154,12 +154,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5780,
-                 '00-contracts/bpmn/ai/gftd/open-saas/registerProduct.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-saas/registerProduct.bpmn',
                  '2026-04-24T15:30:00Z',
                  'did:web:open-saas.etzhayyim.com',
                  'did:web:open-saas.etzhayyim.com',
                  'sys.bpmn.seed.open-saas',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-saas-register-product-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-saas-register-product-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -167,7 +167,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-saas-map-to-unspsc-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-saas-map-to-unspsc-v1',
                  'did:web:open-saas.etzhayyim.com',
                  'open_saas_map_to_unspsc',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -255,12 +255,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3670,
-                 '00-contracts/bpmn/ai/gftd/open-saas/mapToUnspsc.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-saas/mapToUnspsc.bpmn',
                  '2026-04-24T15:30:00Z',
                  'did:web:open-saas.etzhayyim.com',
                  'did:web:open-saas.etzhayyim.com',
                  'sys.bpmn.seed.open-saas',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-saas-map-to-unspsc-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-saas-map-to-unspsc-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -268,16 +268,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-saas-registerProduct-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-saas-registerProduct-v1',
                  'did:web:open-saas.etzhayyim.com',
-                 'app.etzhayyim.apps.openSaas.registerProduct',
+                 'com.etzhayyim.apps.openSaas.registerProduct',
                  'open_saas_register_product',
                  30000,
                  '2026-04-24T15:30:00Z',
                  'did:web:open-saas.etzhayyim.com',
                  'did:web:open-saas.etzhayyim.com',
                  'sys.bpmn.seed.open-saas',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-saas-registerProduct-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-saas-registerProduct-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -285,25 +285,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-saas-mapToUnspsc-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-saas-mapToUnspsc-v1',
                  'did:web:open-saas.etzhayyim.com',
-                 'app.etzhayyim.apps.openSaas.mapToUnspsc',
+                 'com.etzhayyim.apps.openSaas.mapToUnspsc',
                  'open_saas_map_to_unspsc',
                  15000,
                  '2026-04-24T15:30:00Z',
                  'did:web:open-saas.etzhayyim.com',
                  'did:web:open-saas.etzhayyim.com',
                  'sys.bpmn.seed.open-saas',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-saas-mapToUnspsc-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-saas-mapToUnspsc-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-saas-registerProduct-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-saas-registerProduct-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-saas-mapToUnspsc-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-saas-mapToUnspsc-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-saas-register-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-saas-register-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-saas-map-to-unspsc-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-saas-map-to-unspsc-v1']}]
 
 
 def upgrade() -> None:

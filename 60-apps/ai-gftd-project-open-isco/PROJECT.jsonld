@@ -39,9 +39,9 @@
     "pattern": "LangServer-langgraph-udf",
     "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isco.py",
     "rwWriteEvidence": {
-      "classifyWorkerVertexId": "at://did:web:open-isco.etzhayyim.com/ai.gftd.apps.openIsco.classification/d83d798409d6171438dfce53",
-      "classificationEdgeId": "at://did:web:open-isco.etzhayyim.com/ai.gftd.apps.openIsco.classificationOccupation/7c55eeb29a235080f9319c43",
-      "concordanceVertexId": "at://did:web:open-isco.etzhayyim.com/ai.gftd.apps.openIsco.concordance/90b26f9aa9afd55678fbd02d",
+      "classifyWorkerVertexId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.classification/d83d798409d6171438dfce53",
+      "classificationEdgeId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.classificationOccupation/7c55eeb29a235080f9319c43",
+      "concordanceVertexId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.concordance/90b26f9aa9afd55678fbd02d",
       "conflictHandling": "SELECT-before-INSERT"
     }
   },

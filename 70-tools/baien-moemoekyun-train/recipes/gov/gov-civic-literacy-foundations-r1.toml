@@ -39,7 +39,7 @@ Speaker / member-statement pass-through per upstream publication rule.
 
 [[source]]
 subdataset    = "gov/parliament/usa/congress-gov"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_CONGRESS_GOV"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_CONGRESS_GOV"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -47,7 +47,7 @@ weight        = 0.18
 
 [[source]]
 subdataset    = "gov/parliament/gbr/hansard"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_HANSARD"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_HANSARD"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "OGL-v3.0"
@@ -55,7 +55,7 @@ weight        = 0.18
 
 [[source]]
 subdataset    = "gov/parliament/jpn/kokkai-kaigiroku"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_KOKKAI_KAIGIROKU"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_KOKKAI_KAIGIROKU"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "ndl-public-record-free-use"
@@ -63,7 +63,7 @@ weight        = 0.18
 
 [[source]]
 subdataset    = "gov/statistics/eurostat"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_EUROSTAT"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_EUROSTAT"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "eurostat-free-reuse"
@@ -71,7 +71,7 @@ weight        = 0.15
 
 [[source]]
 subdataset    = "gov/statistics/worldbank-open-data"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_WORLDBANK_OPEN_DATA"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_WORLDBANK_OPEN_DATA"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "CC-BY-4.0"
@@ -79,7 +79,7 @@ weight        = 0.15
 
 [[source]]
 subdataset    = "gov/open-data/usa/data-gov"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_DATA_GOV"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_DATA_GOV"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -87,7 +87,7 @@ weight        = 0.04
 
 [[source]]
 subdataset    = "gov/open-data/gbr/data-gov-uk"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_DATA_GOV_UK"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_DATA_GOV_UK"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "OGL-v3.0"
@@ -95,7 +95,7 @@ weight        = 0.04
 
 [[source]]
 subdataset    = "gov/open-data/jpn/data-go-jp"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_DATA_GO_JP"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_DATA_GO_JP"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "CC-BY-4.0"

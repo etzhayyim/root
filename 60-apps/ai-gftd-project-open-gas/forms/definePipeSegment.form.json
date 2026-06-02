@@ -3,7 +3,7 @@
   "formKey": "openGas.definePipeSegment.v1",
   "name": "Define Pipe Segment",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openGas.definePipeSegment",
+  "lexiconRef": "com.etzhayyim.apps.openGas.definePipeSegment",
   "components": [
     { "key": "regulatorDid", "label": "Regulator DID (origin)", "type": "textfield",
       "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },

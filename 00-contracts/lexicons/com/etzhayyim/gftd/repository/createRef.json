@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.repository.createRef",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a ref (branch / tag / HEAD) pointing to an initial commit. Ref names are unique per (ownerDid, kind).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ownerDid", "refName", "kind", "initialCommit"],
+          "properties": {
+            "ownerDid": {
+              "type": "string",
+              "format": "did",
+              "description": "Actor DID that owns this ref (= Repository identity per ADR-0039)."
+            },
+            "refName": {
+              "type": "string",
+              "description": "Branch/tag name. Slashes allowed (e.g. 'feat/new-block'). 'HEAD' reserved for kind=head."
+            },
+            "kind": {
+              "type": "string",
+              "knownValues": ["branch", "tag", "head"],
+              "description": "branch = mutable via updateRef; tag = immutable (updateRef rejects); head = symbolic pointer to another branch."
+            },
+            "initialCommit": {
+              "type": "string",
+              "description": "commitHash this ref starts pointing at. Required for branch/tag; symbolic target for head."
+            },
+            "description": { "type": "string", "maxLength": 512 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["refId", "ownerDid", "refName", "kind", "headCommitHash"],
+          "properties": {
+            "refId": { "type": "string", "description": "Vertex id of vertex_repository_ref row." },
+            "ownerDid": { "type": "string", "format": "did" },
+            "refName": { "type": "string" },
+            "kind": { "type": "string" },
+            "headCommitHash": { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "UnauthorizedWriter" },
+        { "name": "RefAlreadyExists" },
+        { "name": "CommitNotFound" },
+        { "name": "ReservedName", "description": "Ref name collides with a reserved symbol (e.g. 'HEAD' with kind != head)." }
+      ]
+    }
+  }
+}

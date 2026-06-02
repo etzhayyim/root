@@ -17,15 +17,15 @@
     </bpmn:sequenceFlow>
 
     <bpmn:serviceTask id="Task_ByCode" name="Lookup by code"
-                      camunda:topic="ai.gftd.apps.openJpnGov.getMinistry"/>
+                      camunda:topic="com.etzhayyim.apps.openJpnGov.getMinistry"/>
     <bpmn:serviceTask id="Task_ByDid" name="Lookup by DID"
-                      camunda:topic="ai.gftd.apps.openJpnGov.getMinistry"/>
+                      camunda:topic="com.etzhayyim.apps.openJpnGov.getMinistry"/>
 
     <bpmn:sequenceFlow id="f3a" sourceRef="Task_ByCode" targetRef="Task_Agencies"/>
     <bpmn:sequenceFlow id="f3b" sourceRef="Task_ByDid"  targetRef="Task_Agencies"/>
 
     <bpmn:serviceTask id="Task_Agencies" name="List child agencies"
-                      camunda:topic="ai.gftd.apps.openJpnGov.listAgencies"/>
+                      camunda:topic="com.etzhayyim.apps.openJpnGov.listAgencies"/>
     <bpmn:sequenceFlow id="f4" sourceRef="Task_Agencies" targetRef="End_Resolved"/>
 
     <bpmn:endEvent id="End_Resolved" name="Ministry resolved"/>

@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.runtimeConfig",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "styleUrl": {
+              "type": "string"
+            },
+            "style_url": {
+              "type": "string"
+            },
+            "mapDataCdnUrl": {
+              "type": "string"
+            },
+            "map_data_cdn_url": {
+              "type": "string"
+            },
+            "mapDataObjectUrl": {
+              "type": "string"
+            },
+            "map_data_object_url": {
+              "type": "string"
+            },
+            "mapDataMetadataKvkey": {
+              "type": "string"
+            },
+            "map_data_metadata_kvkey": {
+              "type": "string"
+            },
+            "mapTileUrl": {
+              "type": "string"
+            },
+            "map_tile_url": {
+              "type": "string"
+            },
+            "mapillaryAccessToken": {
+              "type": "string"
+            },
+            "mapillary_access_token": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

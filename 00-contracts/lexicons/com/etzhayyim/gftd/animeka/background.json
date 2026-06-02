@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.background",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a background painting (美術 / 背景 / haikei). Produced by the bgArtist actor (AI or human) after layout approval. May be reused across multiple cuts via `reuseCutRefs`.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["bgCid", "createdAt"],
+        "properties": {
+          "layoutRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Originating layout. Multiple backgrounds per layout are allowed (lighting variants)."
+          },
+          "sceneRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Scene scope (for BG reuse across cuts in the same scene)."
+          },
+          "bgCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the background image (typ. higher resolution than frame for PAN/TU headroom)."
+          },
+          "bgWidth": {
+            "type": "integer"
+          },
+          "bgHeight": {
+            "type": "integer"
+          },
+          "lightingMood": {
+            "type": "string",
+            "description": "Matches cut.scene.mood + timeOfDay (morning-warm / night-cool / golden-hour ...)."
+          },
+          "layeredCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the layered BG doc (sky / mid / fore + book layers)."
+          },
+          "reuseCutRefs": {
+            "type": "array",
+            "description": "Cuts that reuse this background.",
+            "items": { "type": "ref", "ref": "com.atproto.repo.strongRef" }
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "review", "approved", "rejected"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

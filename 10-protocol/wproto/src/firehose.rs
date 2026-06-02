@@ -8,16 +8,16 @@ use std::collections::HashSet;
 
 /// W Protocol AT collections that should be processed by the W Protocol pipeline.
 pub const W_COLLECTIONS: &[&str] = &[
-    "app.etzhayyim.w.message",
-    "app.etzhayyim.w.channel",
-    "app.etzhayyim.w.member",
-    "app.etzhayyim.w.reaction",
-    "app.etzhayyim.w.readReceipt",
-    "app.etzhayyim.w.presence",
-    "app.etzhayyim.a2a.task",
-    "app.etzhayyim.a2a.result",
-    "app.etzhayyim.a2a.message",
-    "app.etzhayyim.a2a.session",
+    "com.etzhayyim.w.message",
+    "com.etzhayyim.w.channel",
+    "com.etzhayyim.w.member",
+    "com.etzhayyim.w.reaction",
+    "com.etzhayyim.w.readReceipt",
+    "com.etzhayyim.w.presence",
+    "com.etzhayyim.a2a.task",
+    "com.etzhayyim.a2a.result",
+    "com.etzhayyim.a2a.message",
+    "com.etzhayyim.a2a.session",
 ];
 
 /// Classifier for W Protocol vs regular AT Firehose events.

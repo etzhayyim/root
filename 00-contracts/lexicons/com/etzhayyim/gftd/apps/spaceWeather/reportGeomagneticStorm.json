@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.spaceWeather.reportGeomagneticStorm",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NOAA SWPC / ESA SSA geomagnetic storm (bridges telecom-infra + aviation-safety + space-traffic + airplane)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "kpMax",
+            "gScale",
+            "startedAt"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "kpMax": {
+              "type": "number",
+              "description": "planetary K-index 0-9"
+            },
+            "gScale": {
+              "type": "string",
+              "enum": [
+                "G1",
+                "G2",
+                "G3",
+                "G4",
+                "G5"
+              ]
+            },
+            "sScale": {
+              "type": "string",
+              "enum": [
+                "S1",
+                "S2",
+                "S3",
+                "S4",
+                "S5"
+              ]
+            },
+            "rScale": {
+              "type": "string",
+              "enum": [
+                "R1",
+                "R2",
+                "R3",
+                "R4",
+                "R5"
+              ]
+            },
+            "startedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "peakedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "endedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "strong",
+                "extreme"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

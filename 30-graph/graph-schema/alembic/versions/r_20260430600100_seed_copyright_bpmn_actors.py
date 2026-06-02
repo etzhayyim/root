@@ -20,7 +20,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             $6, 'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v1',
                  'did:web:copyright.etzhayyim.com',
                  'copyright_crossref_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -31,9 +31,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '  No custom Python handler required (v2 rewrite, 2026-04-30).\n'
                  '  Single-page fetch: 100 most-recent works sorted by indexed desc.\n'
                  '  vertex_id dedup: RisingWave PK overwrite — safe to re-ingest same DOI.\n'
-                 '  NSID: app.etzhayyim.apps.copyright.ingestCrossref\n'
+                 '  NSID: com.etzhayyim.apps.copyright.ingestCrossref\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v2\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v2\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -47,7 +47,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.copyright.ingestCrossref", "version": 2, '
+                 '      { "nsid": "com.etzhayyim.apps.copyright.ingestCrossref", "version": 2, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -101,7 +101,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'crossrefBody.message != null and crossrefBody.message.items != null then for '
                  'item in crossrefBody.message.items[item.DOI != null] return { '
                  '&quot;vertex_id&quot;: '
-                 '&quot;at://did:web:copyright.etzhayyim.com:crossref/app.etzhayyim.apps.copyright.work/doi-&quot; '
+                 '&quot;at://did:web:copyright.etzhayyim.com:crossref/com.etzhayyim.apps.copyright.work/doi-&quot; '
                  '+ replace(item.DOI, &quot;/&quot;, &quot;-&quot;), &quot;owner_did&quot;: '
                  '&quot;did:web:copyright.etzhayyim.com:crossref&quot;, &quot;rkey&quot;: '
                  '&quot;doi-&quot; + replace(item.DOI, &quot;/&quot;, &quot;-&quot;), '
@@ -130,7 +130,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.copyright.crossref.ingest.completed&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.copyright.crossref.ingest.completed&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;registry&quot;: &quot;crossref&quot;, '
                  '&quot;rowsInserted&quot;: rowsInserted, &quot;fetchStatus&quot;: fetchStatus }" '
@@ -149,13 +149,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5782,
-                 '00-contracts/bpmn/ai/gftd/copyright/crossrefIngest.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/copyright/crossrefIngest.bpmn',
                  '2026-04-30T15:00:00+09:00',
                  'did:web:copyright.etzhayyim.com',
                  'did:web:copyright.etzhayyim.com',
                  'sys.bpmn.seed.copyright',
                  'did:web:copyright.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
          '       write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id,\n'
@@ -165,9 +165,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-crossref-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/copyright-crossref-ingest-v1',
                  'did:web:copyright.etzhayyim.com',
-                 'app.etzhayyim.apps.copyright.ingestCrossref',
+                 'com.etzhayyim.apps.copyright.ingestCrossref',
                  'copyright_crossref_ingest',
                  300000,
                  'vertex_work,vertex_copyright_ingest_state',
@@ -176,7 +176,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.bpmn.seed.copyright',
                  'did:web:copyright.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-crossref-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/copyright-crossref-ingest-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size, source_path, '
          'status,\n'
@@ -185,7 +185,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             $6, 'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-datacite-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-datacite-ingest-v1',
                  'did:web:copyright.etzhayyim.com',
                  'copyright_datacite_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -196,9 +196,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '  No custom Python handler required (v2 rewrite, 2026-04-30).\n'
                  '  Single-page fetch: 100 most-recent DOIs sorted by created desc.\n'
                  '  vertex_id dedup: RisingWave PK overwrite — safe to re-ingest same DOI.\n'
-                 '  NSID: app.etzhayyim.apps.copyright.ingestDatacite\n'
+                 '  NSID: com.etzhayyim.apps.copyright.ingestDatacite\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-datacite-ingest-v2\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-datacite-ingest-v2\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -212,7 +212,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.copyright.ingestDatacite", "version": 2, '
+                 '      { "nsid": "com.etzhayyim.apps.copyright.ingestDatacite", "version": 2, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -263,7 +263,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '          <zeebe:input source="= if dataciteBody != null and dataciteBody.data '
                  '!= null then for item in dataciteBody.data[item.attributes != null and '
                  'item.attributes.doi != null] return { &quot;vertex_id&quot;: '
-                 '&quot;at://did:web:copyright.etzhayyim.com:datacite/app.etzhayyim.apps.copyright.work/doi-&quot; '
+                 '&quot;at://did:web:copyright.etzhayyim.com:datacite/com.etzhayyim.apps.copyright.work/doi-&quot; '
                  '+ replace(item.attributes.doi, &quot;/&quot;, &quot;-&quot;), '
                  '&quot;owner_did&quot;: &quot;did:web:copyright.etzhayyim.com:datacite&quot;, '
                  '&quot;rkey&quot;: &quot;doi-&quot; + replace(item.attributes.doi, &quot;/&quot;, '
@@ -306,7 +306,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.copyright.datacite.ingest.completed&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.copyright.datacite.ingest.completed&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;registry&quot;: &quot;datacite&quot;, '
                  '&quot;rowsInserted&quot;: rowsInserted, &quot;fetchStatus&quot;: fetchStatus }" '
@@ -325,13 +325,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6538,
-                 '00-contracts/bpmn/ai/gftd/copyright/dataciteIngest.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/copyright/dataciteIngest.bpmn',
                  '2026-04-30T15:00:00+09:00',
                  'did:web:copyright.etzhayyim.com',
                  'did:web:copyright.etzhayyim.com',
                  'sys.bpmn.seed.copyright',
                  'did:web:copyright.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-datacite-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-datacite-ingest-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
          '       write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id,\n'
@@ -341,9 +341,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-datacite-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/copyright-datacite-ingest-v1',
                  'did:web:copyright.etzhayyim.com',
-                 'app.etzhayyim.apps.copyright.ingestDatacite',
+                 'com.etzhayyim.apps.copyright.ingestDatacite',
                  'copyright_datacite_ingest',
                  300000,
                  'vertex_work,vertex_copyright_ingest_state',
@@ -352,7 +352,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.bpmn.seed.copyright',
                  'did:web:copyright.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-datacite-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/copyright-datacite-ingest-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size, source_path, '
          'status,\n'
@@ -361,7 +361,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             $6, 'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-coverage-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-coverage-report-v1',
                  'did:web:copyright.etzhayyim.com',
                  'copyright_coverage_report',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -371,9 +371,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'generic.pds.dispatch + generic.db.insert\n'
                  '  No custom Python handler required (v2 rewrite, 2026-04-30).\n'
                  '  Skips post if total vertex_work count delta < minDelta since last post.\n'
-                 '  NSID: app.etzhayyim.apps.copyright.socialCoverageReport\n'
+                 '  NSID: com.etzhayyim.apps.copyright.socialCoverageReport\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-coverage-report-v2\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-coverage-report-v2\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -387,7 +387,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.copyright.socialCoverageReport", "version": 2, '
+                 '      { "nsid": "com.etzhayyim.apps.copyright.socialCoverageReport", "version": 2, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -529,7 +529,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.copyright.coverage.report.fired&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.copyright.coverage.report.fired&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;posted&quot;: true, '
                  '&quot;totalWorks&quot;: totalWorks, &quot;delta&quot;: totalWorks - lastCount, '
@@ -548,7 +548,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.copyright.coverage.report.skipped&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.copyright.coverage.report.skipped&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;posted&quot;: false, '
                  '&quot;totalWorks&quot;: totalWorks, &quot;delta&quot;: totalWorks - lastCount }" '
@@ -569,13 +569,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  9049,
-                 '00-contracts/bpmn/ai/gftd/copyright/coverageReport.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/copyright/coverageReport.bpmn',
                  '2026-04-30T15:00:00+09:00',
                  'did:web:copyright.etzhayyim.com',
                  'did:web:copyright.etzhayyim.com',
                  'sys.bpmn.seed.copyright',
                  'did:web:copyright.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-coverage-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-coverage-report-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
          '       write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id,\n'
@@ -585,9 +585,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          "             'active', $7, 100,\n"
          "             $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-coverage-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/copyright-coverage-report-v1',
                  'did:web:copyright.etzhayyim.com',
-                 'app.etzhayyim.apps.copyright.socialCoverageReport',
+                 'com.etzhayyim.apps.copyright.socialCoverageReport',
                  'copyright_coverage_report',
                  120000,
                  'vertex_copyright_ingest_state,vertex_repo_record',
@@ -596,20 +596,20 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.bpmn.seed.copyright',
                  'did:web:copyright.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-coverage-report-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/copyright-coverage-report-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-crossref-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/copyright-crossref-ingest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-datacite-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/copyright-datacite-ingest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-datacite-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-datacite-ingest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-coverage-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/copyright-coverage-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-coverage-report-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-coverage-report-v1']}]
 
 
 def upgrade() -> None:

@@ -1,9 +1,9 @@
 /**
  * anchor-cron — substrate mode (firehose-driven).
  *
- * Stage 5b of ADR-2605171800. Reads `app.etzhayyim.substrate.ipfsPin`
+ * Stage 5b of ADR-2605171800. Reads `com.etzhayyim.substrate.ipfsPin`
  * records from a PDS, submits the rootHash to EtzhayyimAnchor on Base
- * L2, and writes `app.etzhayyim.substrate.l2Anchor` receipts back.
+ * L2, and writes `com.etzhayyim.substrate.l2Anchor` receipts back.
  *
  * Sidecar mode (cell checkpoints) remains in `src/index.ts`. The two
  * entrypoints share submit.ts + solvency.ts but otherwise stand alone
@@ -16,7 +16,7 @@
  *   ETZ_ANCHOR_CHAIN_ID                  EIP-155 chain id (8453 / 84532)
  *   ETZ_ANCHOR_PDS_URL                   PDS service for both reads + writes
  *   ETZ_ANCHOR_PDS_SESSION | _PDS_AUTH   resumable session OR handle+password
- *   ETZ_ANCHOR_PINNER_REPO               DID hosting app.etzhayyim.substrate.ipfsPin
+ *   ETZ_ANCHOR_PINNER_REPO               DID hosting com.etzhayyim.substrate.ipfsPin
  *   ETZ_ANCHOR_ANCHORER_REPO             DID under which l2Anchor records are written
  *   ETZ_ANCHOR_CONFIRMATIONS             default 3
  *   ETZ_ANCHOR_BATCH_MAX                 default 10

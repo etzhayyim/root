@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.intangibleSafeguard.flagSafeguardingRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Transmission risk / bearers dying / commodification (bridges unescoInDanger.flagDegradationDriver + fpic-consent + cultural-heritage)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "inscriptionVid",
+            "riskKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "inscriptionVid": {
+              "type": "string",
+              "description": "bridges recordInscription"
+            },
+            "riskKind": {
+              "type": "string",
+              "enum": [
+                "bearers_dying",
+                "language_death",
+                "commodification",
+                "misappropriation",
+                "tourism_impact",
+                "youth_disengage",
+                "modernization",
+                "armed_conflict",
+                "economic_pressure",
+                "intellectual_property_claim"
+              ]
+            },
+            "bearersRemaining": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

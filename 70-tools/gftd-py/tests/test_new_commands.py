@@ -24,7 +24,7 @@ from gftd.workspace import workspace
 # ── lint ───────────────────────────────────────────────────────────────────────
 
 def test_lint_nsid_regression_no_violations(tmp_path):
-    (tmp_path / "app.ts").write_text('const nsid_real = "app.etzhayyim.apps.billing.invoice";\n')
+    (tmp_path / "app.ts").write_text('const nsid_real = "com.etzhayyim.apps.billing.invoice";\n')
     r = _lint_rule(tmp_path, "nsid-regression")
     assert r.ok
 
@@ -363,7 +363,7 @@ def test_nono_load_manifests_single(tmp_path):
         "nanoid": "abc12345",
         "name": "clock-worker",
         "bindings": ["clock"],
-        "skills": [{"nsid": "app.etzhayyim.nono.clock.getTime", "description": "get time"}],
+        "skills": [{"nsid": "com.etzhayyim.nono.clock.getTime", "description": "get time"}],
     }))
     manifests = _load_manifests(tmp_path)
     assert len(manifests) == 1
@@ -1123,7 +1123,7 @@ def test_apps_coverage_static_score(tmp_path):
     src_dir.mkdir(parents=True)
     (src_dir / "app.ts").write_text(
         'sdk.app.command("test", ...) vertex_orders vertex_invoices '
-        '"app.etzhayyim.apps.myapp.orders" if (x > 0) when (active) require(auth)'
+        '"com.etzhayyim.apps.myapp.orders" if (x > 0) when (active) require(auth)'
     )
     score, sql_labels, collections, _, biz_rules, _ = _score_domain_static(str(app_dir), "myapp")
     assert score > 0
@@ -1934,7 +1934,7 @@ def test_kosei_stack_with_app(tmp_path):
         "name": "test-actor",
         "performerType": "software",
         "guestLanguage": "typescript",
-        "subscribeRepos": {"collections": ["app.etzhayyim.test.item"]},
+        "subscribeRepos": {"collections": ["com.etzhayyim.test.item"]},
         "evolver": {"enabled": True},
     }
     (app_dir / "magatama.jsonld").write_text(_json.dumps(manifest))
@@ -2288,7 +2288,7 @@ def test_deps_governance_wit_with_files(tmp_path):
     src_dir = tmp_path / "src"
     src_dir.mkdir()
     (src_dir / "app.ts").write_text(
-        'sdk.app.command("app.etzhayyim.apps.test.run", async (ctx, body) => {});\n'
+        'sdk.app.command("com.etzhayyim.apps.test.run", async (ctx, body) => {});\n'
     )
     (tmp_path / "magatama.jsonld").write_text(json.dumps({
         "runtime": "worker",

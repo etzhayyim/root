@@ -234,7 +234,7 @@ async function main(): Promise<void> {
   const { apply, manifestPath, sourceId } = parseArgs(process.argv.slice(2));
   const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8')) as SourceManifest;
   let sources = manifest.sources.filter((source) =>
-    source.collection === 'app.etzhayyim.apps.jpFiscal.budgetBook'
+    source.collection === 'com.etzhayyim.apps.jpFiscal.budgetBook'
     && source.access_kind === 'pdf'
   );
   if (sourceId) sources = sources.filter((source) => source.source_id === sourceId);

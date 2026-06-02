@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.uasTrafficManagement.flagWeaponizedDrone",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave3 arms (stub): 武装ドローン フラグ. Starts BPMN process open_uas_traffic_management_flag_weaponized_drone.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "droneVid": { "type": "string" },
+            "operatorLei": { "type": "string" },
+            "location": { "type": "string" }
+          },
+          "required": ["vertexId", "droneVid"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

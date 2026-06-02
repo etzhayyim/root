@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hormuzDarkfleet.flagDarkFleetVessel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ダークフリート vessel フラグ",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "imo",
+            "currentFlag",
+            "riskScore",
+            "flaggedAt"
+          ],
+          "properties": {
+            "imo": {
+              "type": "string"
+            },
+            "mmsi": {
+              "type": "string"
+            },
+            "vesselName": {
+              "type": "string"
+            },
+            "currentFlag": {
+              "type": "string"
+            },
+            "priorFlags": {
+              "type": "string",
+              "description": "pipe-delimited"
+            },
+            "aisGapHours": {
+              "type": "number"
+            },
+            "sanctionedOwnerLei": {
+              "type": "string"
+            },
+            "riskScore": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "riskTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "requirePortStateNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tsukuroi.patchProposal",
+  "description": "A candidate DEFENSIVE fix patch tsukuroi proposes against an authorized target under an active RemediationMandate. defensiveOnly + autonomousMerge are structural consts enforcing the DEFENSIVE-ONLY (Charter Rider §2(a)) and PROPOSE-ONLY ceilings. pathsTouched MUST be ⊆ the mandate's allowedPaths (G6). R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement + Charter Rider scan gate.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "mandateCid",
+          "findingCid",
+          "submissionMode",
+          "pathsTouched",
+          "defensiveOnly",
+          "autonomousMerge",
+          "charterRiderScanPass"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime", "description": "ISO 8601 UTC timestamp of proposal emit."},
+          "mandateCid": {"type": "string", "description": "CID of the governing com.etzhayyim.tsukuroi.remediationMandate."},
+          "findingCid": {"type": "string", "description": "CID of the upstream akuma finding this patch remediates (must match the mandate)."},
+          "submissionMode": {"type": "string", "knownValues": ["fork-pr", "patch-file", "config-diff"], "description": "Must equal the mandate submissionMode."},
+          "patchDiffCid": {"type": "string", "description": "CID of the unified-diff patch payload (ciphertext in vault; metadata here). Defensive fix only."},
+          "pathsTouched": {"type": "array", "items": {"type": "string"}, "description": "Files/dirs the patch modifies. G6: MUST be ⊆ mandate.allowedPaths; out-of-scope ⇒ outOfScopeWriteCount increment + reject."},
+          "defensiveOnly": {"type": "boolean", "const": true, "description": "G5: structurally true. Patch contains a fix only — NO exploit/PoC/offensive payload, even as a test fixture (Charter Rider §2(a))."},
+          "autonomousMerge": {"type": "boolean", "const": false, "description": "G4: structurally false. tsukuroi never merges/self-approves/force-pushes/deploys; a human owner merges."},
+          "charterRiderScanPass": {"type": "boolean", "description": "G1/G5: Charter Rider §2(a)..(h) + offensive/PoC scan PASS (etzhayyim_organism.sensors.charter_rider.scan)."},
+          "charterRiderScanRunCid": {"type": "string", "description": "CID of the Charter Rider scan report."},
+          "validationResultCid": {"type": "string", "description": "CID of the com.etzhayyim.tsukuroi.patchValidationResult for this patch."},
+          "submittedPrUri": {"type": "string", "description": "URI of the opened fork-and-PR (populated after pr_submission; absent for patch-file mode)."},
+          "inferenceProvenance": {"type": "string", "description": "G10: must record Murakumo judah LiteLLM provenance for any LLM-assisted synthesis (no vendor API)."}
+        }
+      }
+    }
+  }
+}

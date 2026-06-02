@@ -8,7 +8,7 @@
  *   GET  /{did}                              → alias of above
  *   GET  /{did}/log                          → application/json (op log, newest first)
  *   GET  /{did}/path-context                 → application/json (platform extension: graph metadata)
- *   POST /                                   → 501 — submit ops via PDS XRPC app.etzhayyim.identity.submitOp
+ *   POST /                                   → 501 — submit ops via PDS XRPC com.etzhayyim.identity.submitOp
  *   GET  /health                             → "ok"
  *
  * Storage: HYPERDRIVE (RisingWave) + Kysely. Tables:
@@ -178,7 +178,7 @@ export default {
 
     if (request.method === "POST" && url.pathname === "/") {
       return jsonResponse(
-        { error: "notImplemented", message: "submit ops via PDS XRPC app.etzhayyim.identity.submitOp" },
+        { error: "notImplemented", message: "submit ops via PDS XRPC com.etzhayyim.identity.submitOp" },
         501,
       );
     }

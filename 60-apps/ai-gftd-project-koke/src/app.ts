@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.koke.";
+const NSID_PREFIX = "com.etzhayyim.koke.";
 const ACTOR_DID = "did:web:koke.etzhayyim.com";
 
 export default {
@@ -22,7 +22,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "k0k3m001",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/koke",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/koke",
         layer: 0,
         metaphor: "bryophyta-primary-fixation",
         methods: ["fixSignal", "releaseCarbon", "getFixation", "listFixations"],

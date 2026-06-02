@@ -34,21 +34,21 @@ interface Env {
 }
 
 const ACTOR_DID = "did:web:mitate.etzhayyim.com";
-const NSID_PREFIX = "app.etzhayyim.mitate.";
+const NSID_PREFIX = "com.etzhayyim.mitate.";
 
 // R1 ACTIVE lexicon NSIDs (4 cells unlocked when MITATE_R1_PHASE_GATE !== "locked")
 const R1_ACTIVE_NSIDS = new Set([
-  "app.etzhayyim.mitate.rhinitisIntake",
-  "app.etzhayyim.mitate.triageVerdict",
-  "app.etzhayyim.mitate.emergencyEscalation",
+  "com.etzhayyim.mitate.rhinitisIntake",
+  "com.etzhayyim.mitate.triageVerdict",
+  "com.etzhayyim.mitate.emergencyEscalation",
 ]);
 
 // R2+ GATED lexicon NSIDs (return 503 with R2-pending message)
 const R2_GATED_NSIDS = new Set([
-  "app.etzhayyim.mitate.diagnosticOrder",
-  "app.etzhayyim.mitate.diagnosticResult",
-  "app.etzhayyim.mitate.treatmentPlan",
-  "app.etzhayyim.mitate.outcomeFollowup",
+  "com.etzhayyim.mitate.diagnosticOrder",
+  "com.etzhayyim.mitate.diagnosticResult",
+  "com.etzhayyim.mitate.treatmentPlan",
+  "com.etzhayyim.mitate.outcomeFollowup",
 ]);
 
 // G11 — push notification only for these 3 urgency-only channels
@@ -106,10 +106,10 @@ export default {
     }
 
     // ─── G5 architectural invariant: intake → emergency_screen pass-through ──
-    // /xrpc/app.etzhayyim.mitate.rhinitisIntake POST always triggers emergency_screen
+    // /xrpc/com.etzhayyim.mitate.rhinitisIntake POST always triggers emergency_screen
     // cell as next-cell message at the substrate layer. No direct /triage POST allowed
     // from client — triage is read-only display of pre-computed verdict.
-    if (req.method === "POST" && url.pathname === "/xrpc/app.etzhayyim.mitate.triageVerdict") {
+    if (req.method === "POST" && url.pathname === "/xrpc/com.etzhayyim.mitate.triageVerdict") {
       return json({
         error: "G5InvariantBlocked",
         message:

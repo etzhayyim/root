@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.lawfirmAdmin.case",
-        "ai.gftd.apps.lawfirmAdmin.client"
+        "com.etzhayyim.apps.lawfirmAdmin.case",
+        "com.etzhayyim.apps.lawfirmAdmin.client"
       ]
     }
   }

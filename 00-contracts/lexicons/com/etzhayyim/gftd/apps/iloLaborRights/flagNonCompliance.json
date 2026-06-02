@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.iloLaborRights.flagNonCompliance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CEACR / Committee on the Application of Standards finding (bridges gspEligibility.flagEligibilityRemoval + forced-labor + indigenous-rights)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "recordVid",
+            "findingKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "recordVid": {
+              "type": "string",
+              "description": "bridges recordRatification"
+            },
+            "findingKind": {
+              "type": "string",
+              "enum": [
+                "special_paragraph",
+                "individual_case",
+                "direct_request",
+                "observation",
+                "urgent_appeal",
+                "double_footnote",
+                "technical_assistance"
+              ]
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "watch",
+                "serious",
+                "grave",
+                "special_session"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

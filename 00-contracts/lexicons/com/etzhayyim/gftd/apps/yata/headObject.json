@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.headObject",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Object existence + metadata probe (S3 HeadObject equivalent). Counts as Class B request for billing.",
+      "parameters": {
+        "type": "params",
+        "required": ["bucketName", "objectKey"],
+        "properties": {
+          "bucketName": {"type": "string"},
+          "objectKey": {"type": "string"},
+          "versionId": {"type": "string"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["exists"],
+          "properties": {
+            "exists": {"type": "boolean"},
+            "etag": {"type": "string"},
+            "sizeBytes": {"type": "integer"},
+            "contentType": {"type": "string"},
+            "storageTier": {"type": "string"},
+            "lastAccessedAt": {"type": "string", "format": "datetime"},
+            "createdAt": {"type": "string", "format": "datetime"}
+          }
+        }
+      }
+    }
+  }
+}

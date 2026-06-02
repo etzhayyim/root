@@ -57,7 +57,7 @@
         },
         {
           "args": {
-            "template": "MERGE (w:IsekaiWorldState {worldId: $input.record.worldId}) SET w.tickCount = w.tickCount + 1, w.lastEventAt = toString(timestamp()), w.repo = $did, w.collection = 'ai.gftd.isekai.worldState'"
+            "template": "MERGE (w:IsekaiWorldState {worldId: $input.record.worldId}) SET w.tickCount = w.tickCount + 1, w.lastEventAt = toString(timestamp()), w.repo = $did, w.collection = 'com.etzhayyim.isekai.worldState'"
           },
           "depends_on": [],
           "fn": "graph.write",
@@ -76,7 +76,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.kami.event"
+          "com.etzhayyim.apps.kami.event"
         ],
         "type": "subscribeRepos"
       }
@@ -111,7 +111,7 @@
         },
         {
           "args": {
-            "template": "CREATE (e:IsekaiBrainrotEvent {did: $did, events: $brainrot.text, repo: $did, collection: 'ai.gftd.isekai.brainrotEvent'})"
+            "template": "CREATE (e:IsekaiBrainrotEvent {did: $did, events: $brainrot.text, repo: $did, collection: 'com.etzhayyim.isekai.brainrotEvent'})"
           },
           "fn": "graph.write",
           "id": "writeBrainrot"
@@ -150,7 +150,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.isekai.craftItem",
+        "nsid": "com.etzhayyim.isekai.craftItem",
         "type": "xrpc"
       }
     },
@@ -176,7 +176,7 @@
             "params": {
               "actorName": "isekai",
               "bucket": "6h",
-              "collection": "ai.gftd.isekai.coverageSnapshot",
+              "collection": "com.etzhayyim.isekai.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "is3k41w0",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -234,7 +234,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.isekai.coverage.get",
+        "nsid": "com.etzhayyim.isekai.coverage.get",
         "type": "xrpc"
       }
     }
@@ -254,8 +254,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -268,11 +268,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.isekai.worldState",
-        "ai.gftd.isekai.chunkData",
-        "ai.gftd.isekai.craftRecipe",
-        "ai.gftd.isekai.creatureRoster",
-        "ai.gftd.apps.kami.event"
+        "com.etzhayyim.isekai.worldState",
+        "com.etzhayyim.isekai.chunkData",
+        "com.etzhayyim.isekai.craftRecipe",
+        "com.etzhayyim.isekai.creatureRoster",
+        "com.etzhayyim.apps.kami.event"
       ]
     }
   },

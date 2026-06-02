@@ -1,0 +1,111 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kataribe.silenKataribeReview",
+  "description": "Quarterly Council review. Const-field structural enforcement across G3/G4/G5/G6/G7/G8/G11/G12. Verifies NO ad-supported revenue + NO clickbait/apocalyptic + NO commercial publishing platform + NO single-doctrinal monopoly + community-need-based translation + NO surveillance investigative journalism + vocation-flow L5 + Murakumo-only translation.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "reviewPeriodStartUtc",
+          "reviewPeriodEndUtc",
+          "adSupportedRevenueUsdMillicents",
+          "apocalypticFramingEventsCount",
+          "commercialPublishingPlatformPenetrationPct",
+          "singleDoctrinalMonopolyEventsCount",
+          "commercialMarketDrivenTranslationPriorityEventsCount",
+          "surveillanceInvestigativeJournalismEventsCount",
+          "mandatoryPaywallEventsCount",
+          "kataribeVocationFlowCompliantRatioPctIntegerHundredths",
+          "commercialAiTranslationToolUsageCount",
+          "councilAttestations"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "reviewPeriodStartUtc": {"type": "string", "format": "datetime"},
+          "reviewPeriodEndUtc": {"type": "string", "format": "datetime"},
+          "totalPublications": {"type": "integer", "minimum": 0},
+          "publicationsByType": {
+            "type": "object",
+            "properties": {
+              "community-chronicle": {"type": "integer"},
+              "doctrine-commentary": {"type": "integer"},
+              "translation": {"type": "integer"},
+              "external-press-response": {"type": "integer"},
+              "whistleblower-report": {"type": "integer"},
+              "annual-compendium": {"type": "integer"}
+            }
+          },
+          "kataribeOfficiantCount": {"type": "integer"},
+          "adSupportedRevenueUsdMillicents": {
+            "type": "integer",
+            "const": 0,
+            "description": "G3 STRUCTURAL: const 0; NO ad-supported revenue"
+          },
+          "apocalypticFramingEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G4 STRUCTURAL: const 0; NO apocalyptic / clickbait / engagement-optimized framing (Charter §1.15 non-eschatological)"
+          },
+          "commercialPublishingPlatformPenetrationPct": {
+            "type": "integer",
+            "const": 0,
+            "description": "G5 STRUCTURAL: const 0; NO Substack/Medium/News Corp/The Atlantic/NYTimes-as-vendor/WordPress-Pro/Ghost-Pro/Mailchimp/ConvertKit/Beehiiv"
+          },
+          "singleDoctrinalMonopolyEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G6 STRUCTURAL: const 0; cross-doctrinal Wellbecoming priority"
+          },
+          "commercialMarketDrivenTranslationPriorityEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G7 STRUCTURAL: const 0; translation is community-need-based"
+          },
+          "surveillanceInvestigativeJournalismEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G8 STRUCTURAL: const 0; Charter §2(c) covert-ops avoidance"
+          },
+          "mandatoryPaywallEventsCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G13 STRUCTURAL: const 0; no mandatory paywall"
+          },
+          "kataribeVocationFlowCompliantRatioPctIntegerHundredths": {
+            "type": "integer",
+            "const": 10000,
+            "description": "G11 STRUCTURAL: const 10000 (100%); all kataribe vocation-flow L5"
+          },
+          "commercialAiTranslationToolUsageCount": {
+            "type": "integer",
+            "const": 0,
+            "description": "G12 STRUCTURAL: const 0; NO DeepL Pro / Google Translate API / Grammarly / Anthropic-direct"
+          },
+          "translationLanguagesActive": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "BCP-47 language tags actively translated to during period"
+          },
+          "crossDoctrinalReviewerAttestationsTotal": {"type": "integer"},
+          "publicationsApacheRiderLicensedPct": {
+            "type": "integer",
+            "const": 10000,
+            "description": "G9 STRUCTURAL: const 10000; all publications Apache 2.0 + Charter Rider"
+          },
+          "wellbecomingAttested": {"type": "boolean"},
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 3
+          },
+          "publishedAtMstUri": {"type": "string"},
+          "ipfsPinCid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

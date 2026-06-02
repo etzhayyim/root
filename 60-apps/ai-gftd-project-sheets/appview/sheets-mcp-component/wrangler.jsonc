@@ -18,7 +18,7 @@
     "APP_DISPLAY_NAME": "Sheets",
     "APP_EMBED_URL": "https://r8fitt3i.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     "APP_NANOID": "r8fitt3i",
     "APP_PERFORMER_TYPE": "system",
     "APP_UI_TYPE": "appview"

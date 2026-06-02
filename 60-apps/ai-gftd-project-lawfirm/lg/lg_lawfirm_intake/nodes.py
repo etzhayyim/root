@@ -201,7 +201,7 @@ async def search_node(state: IntakeState) -> dict:
 
     try:
         resp = _http_get(
-            f"{_BENGOSHI_URL}/xrpc/app.etzhayyim.apps.bengoshi.searchLawyers",
+            f"{_BENGOSHI_URL}/xrpc/com.etzhayyim.apps.bengoshi.searchLawyers",
             params=params,
         )
         lawyers: list[dict] = resp.get("lawyers") or []
@@ -232,7 +232,7 @@ async def match_node(state: IntakeState) -> dict:
             continue
         try:
             resp = _http_post(
-                f"{_DISPATCHER_URL}/xrpc/app.etzhayyim.apps.lawfirm.inviteExternalCounsel",
+                f"{_DISPATCHER_URL}/xrpc/com.etzhayyim.apps.lawfirm.inviteExternalCounsel",
                 body={
                     "matterDid": case_did,
                     "granteeDid": grantee_did,

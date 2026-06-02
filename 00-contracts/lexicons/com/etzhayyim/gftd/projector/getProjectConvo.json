@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.projector.getProjectConvo",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "convoId"
+        ]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "convo": {
+              "type": "object"
+            },
+            "project": {
+              "type": "object"
+            },
+            "taskSummary": {
+              "type": "object"
+            },
+            "totalTasks": {
+              "type": "integer"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "children": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "depth": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "convo",
+            "project",
+            "taskSummary",
+            "totalTasks",
+            "members",
+            "children",
+            "depth"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -60,7 +60,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.businessManager.listJournalEntries",
+        "nsid": "com.etzhayyim.apps.businessManager.listJournalEntries",
         "type": "xrpc"
       }
     },
@@ -75,7 +75,7 @@
         },
         {
           "args": {
-            "template": "CREATE (j:JournalEntry {did: $did, entryId: $input.entryId, debitAccount: $input.debitAccount, creditAccount: $input.creditAccount, amount: $input.amount, currency: coalesce($input.currency, 'JPY'), description: $input.description, fiscalYear: $input.fiscalYear, approved: $approvalCheck.status, repo: $did, collection: 'ai.gftd.apps.businessManager.journalEntry'})"
+            "template": "CREATE (j:JournalEntry {did: $did, entryId: $input.entryId, debitAccount: $input.debitAccount, creditAccount: $input.creditAccount, amount: $input.amount, currency: coalesce($input.currency, 'JPY'), description: $input.description, fiscalYear: $input.fiscalYear, approved: $approvalCheck.status, repo: $did, collection: 'com.etzhayyim.apps.businessManager.journalEntry'})"
           },
           "fn": "graph.write",
           "id": "writeJournal"
@@ -102,7 +102,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.businessManager.createJournalEntry",
+        "nsid": "com.etzhayyim.apps.businessManager.createJournalEntry",
         "type": "xrpc"
       }
     },
@@ -117,7 +117,7 @@
         },
         {
           "args": {
-            "template": "CREATE (p:PurchaseOrder {did: $did, poId: $input.poId, vendor: $input.vendor, amount: $input.amount, currency: coalesce($input.currency, 'JPY'), items: $input.items, approved: $poApprovalCheck.status, repo: $did, collection: 'ai.gftd.apps.businessManager.purchaseOrder'})"
+            "template": "CREATE (p:PurchaseOrder {did: $did, poId: $input.poId, vendor: $input.vendor, amount: $input.amount, currency: coalesce($input.currency, 'JPY'), items: $input.items, approved: $poApprovalCheck.status, repo: $did, collection: 'com.etzhayyim.apps.businessManager.purchaseOrder'})"
           },
           "fn": "graph.write",
           "id": "writePO"
@@ -144,7 +144,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.businessManager.createPurchaseOrder",
+        "nsid": "com.etzhayyim.apps.businessManager.createPurchaseOrder",
         "type": "xrpc"
       }
     },
@@ -152,7 +152,7 @@
       "steps": [
         {
           "args": {
-            "template": "MERGE (i:Invoice {invoiceId: $record.invoiceId}) SET i.vendor = $record.vendor, i.amount = $record.amount, i.currency = coalesce($record.currency, 'JPY'), i.dueDate = $record.dueDate, i.status = 'pending', i.repo = $did, i.collection = 'ai.gftd.apps.businessManager.invoice'"
+            "template": "MERGE (i:Invoice {invoiceId: $record.invoiceId}) SET i.vendor = $record.vendor, i.amount = $record.amount, i.currency = coalesce($record.currency, 'JPY'), i.dueDate = $record.dueDate, i.status = 'pending', i.repo = $did, i.collection = 'com.etzhayyim.apps.businessManager.invoice'"
           },
           "fn": "graph.write",
           "id": "processInvoice"
@@ -179,7 +179,7 @@
         }
       ],
       "trigger": {
-        "collection": "ai.gftd.apps.businessManager.invoice",
+        "collection": "com.etzhayyim.apps.businessManager.invoice",
         "type": "subscribeRepos"
       }
     },
@@ -248,7 +248,7 @@
             "params": {
               "actorName": "business-manager",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.businessmanager.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.businessmanager.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "bm4f8k2d1",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -306,7 +306,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.businessmanager.coverage.get",
+        "nsid": "com.etzhayyim.apps.businessmanager.coverage.get",
         "type": "xrpc"
       }
     }
@@ -327,8 +327,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -341,11 +341,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.businessManager.journalEntry",
-        "ai.gftd.apps.businessManager.invoice",
-        "ai.gftd.apps.businessManager.employee",
-        "ai.gftd.apps.businessManager.purchaseOrder",
-        "ai.gftd.apps.businessManager.budgetAllocation"
+        "com.etzhayyim.apps.businessManager.journalEntry",
+        "com.etzhayyim.apps.businessManager.invoice",
+        "com.etzhayyim.apps.businessManager.employee",
+        "com.etzhayyim.apps.businessManager.purchaseOrder",
+        "com.etzhayyim.apps.businessManager.budgetAllocation"
       ]
     }
   },

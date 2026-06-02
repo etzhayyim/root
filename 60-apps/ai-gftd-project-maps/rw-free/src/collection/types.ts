@@ -1,6 +1,6 @@
 /**
- * Mirrors app.etzhayyim.maps.collectionJob + app.etzhayyim.maps.jobEvent.
- * Source lexicons: 00-contracts/lexicons/app/etzhayyim/maps/
+ * Mirrors com.etzhayyim.maps.collectionJob + com.etzhayyim.maps.jobEvent.
+ * Source lexicons: 00-contracts/lexicons/com/etzhayyim/maps/
  */
 
 // ─── CollectionJob ───────────────────────────────────────────────────

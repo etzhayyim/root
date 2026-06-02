@@ -1,0 +1,104 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fisheriesIuu.flagVessel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IUU fishing vessel flag (RFMO blacklists — bridges carrier-fleet + forced-labor + biosecurity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "rfmo",
+            "violationCode",
+            "listedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "vesselName": {
+              "type": "string"
+            },
+            "flagStateIso3": {
+              "type": "string"
+            },
+            "rfmo": {
+              "type": "string",
+              "enum": [
+                "ICCAT",
+                "IOTC",
+                "WCPFC",
+                "IATTC",
+                "NAFO",
+                "NEAFC",
+                "SEAFO",
+                "CCAMLR",
+                "SIOFA",
+                "SPRFMO"
+              ]
+            },
+            "violationCode": {
+              "type": "string",
+              "enum": [
+                "unreported",
+                "illegal_gear",
+                "closed_area",
+                "unauthorized",
+                "quota_breach",
+                "transhipment",
+                "non_compliant_flag",
+                "human_trafficking"
+              ]
+            },
+            "forcedLaborVid": {
+              "type": "string",
+              "description": "bridges open-forced-labor"
+            },
+            "carrierFleetVid": {
+              "type": "string",
+              "description": "bridges open-carrier-fleet"
+            },
+            "listedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "major",
+                "severe",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

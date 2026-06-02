@@ -18,19 +18,19 @@ from e7m_dataset import pds
 
 def test_parse_at_uri_canonical():
     repo, collection, rkey = pds.parse_at_uri(
-        "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kpqab"
+        "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kpqab"
     )
     assert repo == "did:web:dataset-pinner.etzhayyim.com"
-    assert collection == "app.etzhayyim.substrate.datasetPin"
+    assert collection == "com.etzhayyim.substrate.datasetPin"
     assert rkey == "3kpqab"
 
 
 def test_parse_at_uri_with_handle():
     repo, collection, rkey = pds.parse_at_uri(
-        "at://etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc123"
+        "at://etzhayyim.com/com.etzhayyim.substrate.datasetPin/abc123"
     )
     assert repo == "etzhayyim.com"
-    assert collection == "app.etzhayyim.substrate.datasetPin"
+    assert collection == "com.etzhayyim.substrate.datasetPin"
     assert rkey == "abc123"
 
 
@@ -50,7 +50,7 @@ def test_parse_at_uri_rejects_bad_shape():
 
 
 def _at_uri(rkey: str) -> str:
-    return f"at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/{rkey}"
+    return f"at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/{rkey}"
 
 
 def test_resolve_datasetpin_happy_path():
@@ -75,7 +75,7 @@ def test_resolve_datasetpin_happy_path():
     with httpx.Client(transport=httpx.MockTransport(handler)) as client:
         rec = pds.resolve_datasetpin(_at_uri("rkey001"), client=client)
     assert rec["cid"] == "bafyactualpinmapcid001"
-    assert captured["params"]["collection"] == "app.etzhayyim.substrate.datasetPin"
+    assert captured["params"]["collection"] == "com.etzhayyim.substrate.datasetPin"
     assert captured["params"]["rkey"] == "rkey001"
     assert "com.atproto.repo.getRecord" in captured["url"]
 

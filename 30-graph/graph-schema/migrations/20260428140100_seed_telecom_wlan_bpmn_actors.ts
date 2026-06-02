@@ -22,30 +22,30 @@ const project = "telecom";
 
 const seeds: Seed[] = [
   { proc: "registerWlanRcoi", bpmnProcessId: "telecom_register_wlan_rcoi",
-    nsid: "app.etzhayyim.apps.telecom.registerWlanRcoi", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.registerWlanRcoi", resultTimeoutMs: 30000 },
   { proc: "registerHotspotVenue", bpmnProcessId: "telecom_register_hotspot_venue",
-    nsid: "app.etzhayyim.apps.telecom.registerHotspotVenue", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.registerHotspotVenue", resultTimeoutMs: 30000 },
   { proc: "provisionPasspointPpsMo", bpmnProcessId: "telecom_provision_passpoint_pps_mo",
-    nsid: "app.etzhayyim.apps.telecom.provisionPasspointPpsMo", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.provisionPasspointPpsMo", resultTimeoutMs: 30000 },
   { proc: "recordAnqpQuery", bpmnProcessId: "telecom_record_anqp_query",
-    nsid: "app.etzhayyim.apps.telecom.recordAnqpQuery", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.recordAnqpQuery", resultTimeoutMs: 15000 },
   { proc: "attachWlanSession", bpmnProcessId: "telecom_attach_wlan_session",
-    nsid: "app.etzhayyim.apps.telecom.attachWlanSession", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.attachWlanSession", resultTimeoutMs: 15000 },
   { proc: "recordWlanRoamingExchange", bpmnProcessId: "telecom_record_wlan_roaming_exchange",
-    nsid: "app.etzhayyim.apps.telecom.recordWlanRoamingExchange", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.recordWlanRoamingExchange", resultTimeoutMs: 15000 },
   { proc: "bridgeAndspToCellular", bpmnProcessId: "telecom_bridge_andsp_to_cellular",
-    nsid: "app.etzhayyim.apps.telecom.bridgeAndspToCellular", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.bridgeAndspToCellular", resultTimeoutMs: 15000 },
   { proc: "settleWlanRoamingInvoice", bpmnProcessId: "telecom_settle_wlan_roaming_invoice",
-    nsid: "app.etzhayyim.apps.telecom.settleWlanRoamingInvoice", resultTimeoutMs: 60000 },
+    nsid: "com.etzhayyim.apps.telecom.settleWlanRoamingInvoice", resultTimeoutMs: 60000 },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

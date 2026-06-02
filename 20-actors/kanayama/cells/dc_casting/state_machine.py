@@ -74,7 +74,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = CastingPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.kanayama.dcCastingAttestation",
+        "$type": "com.etzhayyim.kanayama.dcCastingAttestation",
         "lotId": s.lotId,
         "slabDimensionsMm": s.slabDimensionsMm,
         "castingTempC": s.castingTempC,

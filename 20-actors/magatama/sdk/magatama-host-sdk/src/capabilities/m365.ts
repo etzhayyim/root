@@ -1,6 +1,6 @@
 // capabilities/m365.ts — Microsoft 365 Graph API host capability.
 //
-// Backs `app.etzhayyim.host.m365.*` lexicons. Used by T1 `m365-ingest` actor pipelines
+// Backs `com.etzhayyim.host.m365.*` lexicons. Used by T1 `m365-ingest` actor pipelines
 // (and any other actor that declares `host.m365.*` capability).
 //
 // - Client credentials flow (app-only): requires tenant-admin-granted

@@ -62,8 +62,8 @@
 
 - name: Render Ollama launchd plist
   ansible.builtin.template:
-    src: app.etzhayyim.ollama.plist.j2
-    dest: "{{ ansible_facts.env.HOME }}/Library/LaunchAgents/app.etzhayyim.ollama.{{ inventory_hostname }}.plist"
+    src: com.etzhayyim.ollama.plist.j2
+    dest: "{{ ansible_facts.env.HOME }}/Library/LaunchAgents/com.etzhayyim.ollama.{{ inventory_hostname }}.plist"
     mode: "0644"
   notify: restart ollama
 
@@ -116,7 +116,7 @@
 
 - name: Load Ollama launchd service
   ansible.builtin.command:
-    cmd: "launchctl load -w {{ ansible_facts.env.HOME }}/Library/LaunchAgents/app.etzhayyim.ollama.{{ inventory_hostname }}.plist"
+    cmd: "launchctl load -w {{ ansible_facts.env.HOME }}/Library/LaunchAgents/com.etzhayyim.ollama.{{ inventory_hostname }}.plist"
   changed_when: false
   failed_when: false
 

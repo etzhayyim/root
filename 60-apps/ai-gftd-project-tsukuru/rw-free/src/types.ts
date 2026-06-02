@@ -2,8 +2,8 @@
  * tsukuru rw-free — record types aligned to Lexicon.
  *
  * Mirrors the tightened lexicons at:
- *   00-contracts/lexicons/ai/gftd/apps/tsukuru/productionOrder/*.json
- *   00-contracts/lexicons/ai/gftd/apps/payment/escrowOpened.json
+ *   00-contracts/lexicons/com/etzhayyim/apps/tsukuru/productionOrder/*.json
+ *   00-contracts/lexicons/com/etzhayyim/apps/payment/escrowOpened.json
  *
  * Per ADR-2605202800 Phase 2 — replacing vendor's Stripe Issuing card
  * model + RisingWave vertex_tsukuru_* with on-chain USDC + AT records.
@@ -39,7 +39,7 @@ export interface PaymentIntent {
   chainId?: number;
 }
 
-/** Record body for `app.etzhayyim.apps.tsukuru.productionOrder.productionOrder`. */
+/** Record body for `com.etzhayyim.apps.tsukuru.productionOrder.productionOrder`. */
 export interface ProductionOrderRecord {
   manufacturerDid: string;
   customerDid: string;
@@ -63,7 +63,7 @@ export interface ProductionOrderRecord {
   cancelledByDid?: string;
 }
 
-/** Record body for `app.etzhayyim.apps.payment.escrowOpened` — Gnosis Safe 2-of-3.
+/** Record body for `com.etzhayyim.apps.payment.escrowOpened` — Gnosis Safe 2-of-3.
  *  Phase 2 intent-only: safeAddress + arbiter are placeholders until SDK
  *  v0.2 implements escrowOpen() per ADR-2605202900. */
 export interface EscrowOpenedRecord {
@@ -81,7 +81,7 @@ export interface EscrowOpenedRecord {
 }
 
 /** Refund record — Phase 2 record-only state transition (no on-chain tx).
- *  Lexicon to-be-added: app.etzhayyim.apps.payment.escrowRefunded. */
+ *  Lexicon to-be-added: com.etzhayyim.apps.payment.escrowRefunded. */
 export interface EscrowRefundedRecord {
   forEscrowUri: string;
   forProductionOrderUri: string;
@@ -223,7 +223,7 @@ export const SETTLEMENT_TRIGGERING_RESULTS = [
   "conditional_pass",
 ] as const satisfies readonly InspectionResult[];
 
-/** Record body for `app.etzhayyim.apps.tsukuru.qualityInspection`. */
+/** Record body for `com.etzhayyim.apps.tsukuru.qualityInspection`. */
 export interface QualityInspectionRecord {
   productionOrderUri: string;
   inspectorDid: string;
@@ -285,7 +285,7 @@ export type OnboardingStatus =
   | "off-boarded";
 export type VerificationTier = "basic" | "verified" | "audited";
 
-/** Record body for `app.etzhayyim.apps.tsukuru.manufacturer`. */
+/** Record body for `com.etzhayyim.apps.tsukuru.manufacturer`. */
 export interface ManufacturerRecord {
   did: string;
   slug: string;

@@ -4,7 +4,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 const APP_UPSTREAM = 'https://uqpel6i6.etzhayyim.com';
 const PDS_UPSTREAM = 'https://atproto.etzhayyim.com';
 
-const ALLOWED_NSID_PREFIXES = ['app.bsky.', 'app.etzhayyim.apps.maps.'];
+const ALLOWED_NSID_PREFIXES = ['app.bsky.', 'com.etzhayyim.apps.maps.'];
 const ALLOWED_NSID_EXACT = new Set([
   'com.atproto.identity.resolveHandle',
   'com.atproto.repo.getRecord',
@@ -18,7 +18,7 @@ function isAllowedNsid(nsid: string): boolean {
 }
 
 function pickUpstream(nsid: string): string {
-  return nsid.startsWith('app.etzhayyim.apps.maps.') ? APP_UPSTREAM : PDS_UPSTREAM;
+  return nsid.startsWith('com.etzhayyim.apps.maps.') ? APP_UPSTREAM : PDS_UPSTREAM;
 }
 
 const handle: RequestHandler = async ({ request, params }) => {

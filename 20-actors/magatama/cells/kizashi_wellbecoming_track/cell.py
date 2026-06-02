@@ -4,13 +4,13 @@ Per ADR-2605312700 (兆 kizashi). Cell §3 #4; Murakumo node `gad`.
 
 Purpose: compute a self-referenced Wellbecoming trajectory — compare the
 member's current scan to their OWN prior scans and emit a delta. Emits
-`app.etzhayyim.kizashi.wellbecomingTrajectory`.
+`com.etzhayyim.kizashi.wellbecomingTrajectory`.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G8 self-referenced — baseline is
 the member's own prior scan ONLY; no population norm / ranking / health-score
 field exists in the schema (anti-individualist 動的軌跡 per ADR-2605192100);
 G2 encrypted envelope MANDATORY (ADR-2605181100); G14 Murakumo-only inference.
-Output Lexicon(s): app.etzhayyim.kizashi.wellbecomingTrajectory.
+Output Lexicon(s): com.etzhayyim.kizashi.wellbecomingTrajectory.
 
 R0 scaffold — import-time RuntimeError until R2.
 """

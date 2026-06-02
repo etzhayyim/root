@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMeti.recordAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "経済産業省 action / industrial policy / energy / trade (bridges criticalMinerals + evSupplyChain + ustr-section-301)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "bureau",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "bureau": {
+              "type": "string",
+              "enum": [
+                "honsho",
+                "keisan_economic",
+                "sangyo_industrial",
+                "seizo_manufacturing",
+                "tsusho_trade",
+                "shoshibai_smb",
+                "commerce_info_ipa",
+                "shigen_resource_energy",
+                "gns_aerospace_robotics",
+                "kei_kankoutei",
+                "jpomp",
+                "fepc_aenecog"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "industrial_policy",
+                "gx_green_transition",
+                "ai_strategy",
+                "semiconductor_strategy",
+                "jasm_tsmc",
+                "rapidus",
+                "supply_chain_act",
+                "economic_security_act",
+                "battery_strategy",
+                "hydrogen_basic_strategy",
+                "oil_kimura_emergency",
+                "nuclear_restart_review",
+                "trade_remedy",
+                "fdi_security_review",
+                "intellectual_property_grant"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges criticalMinerals / evSupplyChain"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

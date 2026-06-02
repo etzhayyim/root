@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.convo.invite",
+  "description": "etzhayyim extension: conversation invite record. No official chat.bsky equivalent.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "invitedDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "invitedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "convoId",
+          "invitedDid",
+          "invitedAt"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.crcChildrenDigital.flagAgeGateIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Age verification / children's data incident (bridges data-broker-registry + digital-identity + misinformation-observatory)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "jurisdictionIso3",
+            "incidentKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "platformLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "ageGateMethod": {
+              "type": "string",
+              "enum": [
+                "self_declaration",
+                "id_check",
+                "facial_age_estimation",
+                "biometric_match",
+                "parent_consent",
+                "zero_knowledge_proof"
+              ]
+            },
+            "incidentKind": {
+              "type": "string",
+              "enum": [
+                "bypass",
+                "misclassification",
+                "data_overreach",
+                "denial_of_service",
+                "discrimination",
+                "coppa_violation",
+                "gdpr_article8_violation"
+              ]
+            },
+            "affectedMinors": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "targeted",
+                "mass_impact",
+                "systemic"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

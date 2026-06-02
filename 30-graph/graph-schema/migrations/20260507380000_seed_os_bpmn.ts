@@ -76,14 +76,14 @@ const seeds: Seed[] = [
 ].map((proc) => ({
   proc,
   bpmnProcessId: `os_${snake(proc)}`,
-  nsid: `app.etzhayyim.apps.os.${proc}`,
+  nsid: `com.etzhayyim.apps.os.${proc}`,
   resultTimeoutMs: 30000,
   writeTableAllowlist: writeProcs.has(proc) ? writeTableAllowlist : "",
 }));
 
-const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/os/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/os-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/os-${slug(s.proc)}-v1`;
+const bpmnPath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/os/${s.proc}.bpmn`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/os-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/os-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

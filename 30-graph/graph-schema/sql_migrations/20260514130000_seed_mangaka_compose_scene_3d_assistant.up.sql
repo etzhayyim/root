@@ -2,7 +2,7 @@
 -- + ADR-2605082000 (Graph-as-Data) — register the `compose_scene_3d`
 -- LangGraph assistant in the RW-resident SSoT (vertex_langgraph_assistant /
 -- _node / _deployment) so the bpmn-dispatcher /runs router can resolve
--- `ai.gftd.apps.mangaka.composeScene3d` → assistant version → compiled graph.
+-- `com.etzhayyim.apps.mangaka.composeScene3d` → assistant version → compiled graph.
 --
 -- Phase A (this migration, active): kind='py_factory' pointing at
 --   `lg_mangaka.graphs.compose_scene_3d:build_graph`. Uses the existing
@@ -19,8 +19,8 @@ INSERT INTO vertex_langgraph_assistant
   (vertex_id, _seq, sensitivity_ord, assistant_id, version, kind, factory_path,
    description, checkpointer_mode, authored_by, created_at)
 SELECT
-  'ai.gftd.apps.mangaka.composeScene3d', 0, 0,
-  'ai.gftd.apps.mangaka.composeScene3d', 1, 'py_factory',
+  'com.etzhayyim.apps.mangaka.composeScene3d', 0, 0,
+  'com.etzhayyim.apps.mangaka.composeScene3d', 1, 'py_factory',
   'lg_mangaka.graphs.compose_scene_3d:build_graph',
   'mangaka compose_scene_3d — 9 super-step Pregel (P0–P5 of ADR-2605141200)',
   'postgres',
@@ -28,7 +28,7 @@ SELECT
   '2026-05-14T13:00:00Z'
 WHERE NOT EXISTS (
   SELECT 1 FROM vertex_langgraph_assistant
-  WHERE assistant_id = 'ai.gftd.apps.mangaka.composeScene3d'
+  WHERE assistant_id = 'com.etzhayyim.apps.mangaka.composeScene3d'
     AND version = 1
 );
 
@@ -36,11 +36,11 @@ INSERT INTO vertex_langgraph_deployment
   (vertex_id, _seq, sensitivity_ord, nsid, assistant_id, version, status,
    replicas, updated_at)
 SELECT
-  'ai.gftd.apps.mangaka.composeScene3d', 0, 0,
-  'ai.gftd.apps.mangaka.composeScene3d',
-  'ai.gftd.apps.mangaka.composeScene3d', 1, 'active', 1,
+  'com.etzhayyim.apps.mangaka.composeScene3d', 0, 0,
+  'com.etzhayyim.apps.mangaka.composeScene3d',
+  'com.etzhayyim.apps.mangaka.composeScene3d', 1, 'active', 1,
   '2026-05-14T13:00:00Z'
 WHERE NOT EXISTS (
   SELECT 1 FROM vertex_langgraph_deployment
-  WHERE nsid = 'ai.gftd.apps.mangaka.composeScene3d'
+  WHERE nsid = 'com.etzhayyim.apps.mangaka.composeScene3d'
 );

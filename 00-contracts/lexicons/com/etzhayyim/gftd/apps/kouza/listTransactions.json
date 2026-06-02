@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kouza.listTransactions",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List external transactions imported by kouza.",
+      "parameters": {
+        "type": "params",
+        "required": ["financialAccountDid"],
+        "properties": {
+          "financialAccountDid": { "type": "string", "format": "did" },
+          "since": { "type": "string", "format": "datetime" },
+          "until": { "type": "string", "format": "datetime" },
+          "accountingStatus": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 500, "default": 100 },
+          "cursor": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["transactions"],
+          "properties": {
+            "transactions": { "type": "array", "items": { "type": "unknown" } },
+            "cursor": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

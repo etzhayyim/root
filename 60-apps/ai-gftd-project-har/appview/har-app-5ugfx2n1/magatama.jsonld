@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.har.harEntity",
-        "ai.gftd.apps.har.harEvent",
-        "ai.gftd.apps.har.harReport"
+        "com.etzhayyim.apps.har.harEntity",
+        "com.etzhayyim.apps.har.harEvent",
+        "com.etzhayyim.apps.har.harReport"
       ]
     }
   },

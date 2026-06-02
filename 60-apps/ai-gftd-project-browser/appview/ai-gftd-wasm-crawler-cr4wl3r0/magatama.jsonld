@@ -89,9 +89,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.wwwUcrawler.www_crawler_entity",
-        "ai.gftd.apps.wwwUcrawler.www_crawler_event",
-        "ai.gftd.apps.wwwUcrawler.www_crawler_report"
+        "com.etzhayyim.apps.wwwUcrawler.www_crawler_entity",
+        "com.etzhayyim.apps.wwwUcrawler.www_crawler_event",
+        "com.etzhayyim.apps.wwwUcrawler.www_crawler_report"
       ]
     }
   },

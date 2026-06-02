@@ -11,22 +11,22 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/real_estate.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/real-estate"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/real-estate"
   },
   "routes": [
     {
       "host": "etzhayyim.com",
-      "paths": ["/r3alestate/api/mcp", "/xrpc/ai.gftd.apps.realEstate.*"]
+      "paths": ["/r3alestate/api/mcp", "/xrpc/com.etzhayyim.apps.realEstate.*"]
     }
   ],
   "capabilities": ["mcp", "xrpc", "bpmn-dispatch"],
   "tools": [
-    "ai.gftd.apps.realEstate.registerSource",
-    "ai.gftd.apps.realEstate.registerProperty",
-    "ai.gftd.apps.realEstate.publishListing",
-    "ai.gftd.apps.realEstate.recordTransaction",
-    "ai.gftd.apps.realEstate.searchListings",
-    "ai.gftd.apps.realEstate.getProperty",
-    "ai.gftd.apps.realEstate.getMarketStats"
+    "com.etzhayyim.apps.realEstate.registerSource",
+    "com.etzhayyim.apps.realEstate.registerProperty",
+    "com.etzhayyim.apps.realEstate.publishListing",
+    "com.etzhayyim.apps.realEstate.recordTransaction",
+    "com.etzhayyim.apps.realEstate.searchListings",
+    "com.etzhayyim.apps.realEstate.getProperty",
+    "com.etzhayyim.apps.realEstate.getMarketStats"
   ]
 }

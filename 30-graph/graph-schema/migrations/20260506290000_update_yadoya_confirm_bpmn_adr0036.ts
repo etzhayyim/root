@@ -20,10 +20,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 const repoRoot   = path.resolve(__dirname, "..", "..", "..");
 
-const PROC_VID   = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-confirm-reservation-v1";
+const PROC_VID   = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yadoya-confirm-reservation-v1";
 const OWNER_DID  = "did:web:yadoya.etzhayyim.com";
 const ACTOR_TAG  = "sys.bpmn.seed.yadoya-confirm";
-const REL_PATH   = "00-contracts/bpmn/ai/gftd/yadoya/confirmReservation.bpmn";
+const REL_PATH   = "00-contracts/bpmn/com/etzhayyim/yadoya/confirmReservation.bpmn";
 const CREATED_AT = "2026-05-06T00:00:00Z";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
@@ -45,7 +45,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
 export async function down(db: Kysely<unknown>): Promise<void> {
   // Re-apply original seed to restore the pre-fix XML.
-  const origPath = "00-contracts/bpmn/ai/gftd/yadoya/confirmReservation.bpmn";
+  const origPath = "00-contracts/bpmn/com/etzhayyim/yadoya/confirmReservation.bpmn";
   const xml = readFileSync(path.resolve(repoRoot, origPath), "utf8");
   const size = Buffer.byteLength(xml, "utf8");
   await sql`

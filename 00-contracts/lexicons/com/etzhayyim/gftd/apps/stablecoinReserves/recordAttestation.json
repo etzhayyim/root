@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.stablecoinReserves.recordAttestation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stablecoin reserves attestation (MiCA EMT / PBS 2500 / GENIUS Act — bridges mica-crypto + psd3-open-finance + fatf-travel-rule + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "attestationId",
+            "tokenSymbol",
+            "jurisdictionIso3",
+            "issuanceCirculatingUsd",
+            "attestedAt"
+          ],
+          "properties": {
+            "attestationId": {
+              "type": "string"
+            },
+            "issuerLei": {
+              "type": "string"
+            },
+            "tokenSymbol": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "issuanceCirculatingUsd": {
+              "type": "number"
+            },
+            "reserveCashPct": {
+              "type": "number"
+            },
+            "reserveTbillPct": {
+              "type": "number"
+            },
+            "reserveReverseRepoPct": {
+              "type": "number"
+            },
+            "reserveOtherPct": {
+              "type": "number"
+            },
+            "attestorLei": {
+              "type": "string"
+            },
+            "attestedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "reserveQualityTier": {
+              "type": "string",
+              "enum": [
+                "concerning",
+                "adequate",
+                "high_quality"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

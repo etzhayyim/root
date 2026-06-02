@@ -195,9 +195,9 @@ async def _fetch_actors(client: httpx.AsyncClient, pds_url: str, limit: int) -> 
         payload: dict[str, Any] = {"status": "active", "batchLimit": page}
         if cursor:
             payload["cursor"] = cursor
-        resp = await client.post(f"{pds_url}/xrpc/app.etzhayyim.actor.list", json=payload, headers=headers, timeout=30)
+        resp = await client.post(f"{pds_url}/xrpc/com.etzhayyim.actor.list", json=payload, headers=headers, timeout=30)
         if resp.status_code != 200:
-            click.echo(f"[shinka] app.etzhayyim.actor.list → {resp.status_code}: {resp.text[:200]}", err=True)
+            click.echo(f"[shinka] com.etzhayyim.actor.list → {resp.status_code}: {resp.text[:200]}", err=True)
             break
         data = resp.json()
         batch = data.get("actors", [])
@@ -225,7 +225,7 @@ async def _write_result(client: httpx.AsyncClient, pds_url: str, actor: ActorInf
 
     if result.domain_summary:
         writes.append({
-            "action": "update", "collection": "app.etzhayyim.actor.app", "rkey": actor.nanoid,
+            "action": "update", "collection": "com.etzhayyim.actor.app", "rkey": actor.nanoid,
             "value": {"nanoid": actor.nanoid, "did": actor.did,
                       "displayName": actor.display_name, "description": result.domain_summary},
         })
@@ -234,7 +234,7 @@ async def _write_result(client: httpx.AsyncClient, pds_url: str, actor: ActorInf
         if not sub.path:
             continue
         writes.append({
-            "action": "update", "collection": "app.etzhayyim.identity.did",
+            "action": "update", "collection": "com.etzhayyim.identity.did",
             "rkey": _stable_rkey(f"did:{sub.path}"),
             "value": {
                 "id": f"{actor.did}:{sub.path}", "display_name": sub.display_name,
@@ -247,7 +247,7 @@ async def _write_result(client: httpx.AsyncClient, pds_url: str, actor: ActorInf
     for edge in result.knowledge_edges:
         key = f"{edge.from_}:{edge.relation}:{edge.to}"
         writes.append({
-            "action": "update", "collection": "app.etzhayyim.actor.knowledgeEdge",
+            "action": "update", "collection": "com.etzhayyim.actor.knowledgeEdge",
             "rkey": _stable_rkey(key),
             "value": {"from": edge.from_, "relation": edge.relation, "to": edge.to, "createdAt": now},
         })
@@ -505,7 +505,7 @@ def actors_migrate_to_plc(
     actor: str, handle: str, apply: bool, pds: str | None,
     offline: bool, json_out: bool, deps_path: str,
 ) -> None:
-    """Migrate actor did:web → did:plc via PDS XRPC app.etzhayyim.plc.migrateActor."""
+    """Migrate actor did:web → did:plc via PDS XRPC com.etzhayyim.plc.migrateActor."""
     from .projector import resolve_pds
     pds_url = (pds or resolve_pds()).rstrip("/")
     resolved_handle = handle or f"{actor}.etzhayyim.com"
@@ -533,7 +533,7 @@ def actors_migrate_to_plc(
     payload = {"actor": actor, "handle": resolved_handle, "dryRun": not apply}
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.plc.migrateActor",
+            f"{pds_url}/xrpc/com.etzhayyim.plc.migrateActor",
             json=payload,
             headers=_auth_headers(),
             timeout=60,

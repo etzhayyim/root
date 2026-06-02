@@ -10,9 +10,9 @@ NEVER a candidate/party recommendation or vote prompt.
 Constitutional ceiling (CRITICAL — IMMUTABLE): G3 politically neutral (no
 partisan framing, no vote prompt); G4 consent-gated + OWN-data-only (member's
 declared interest, never a third party); G6 any member PII/opinion used lands
-ONLY in app.etzhayyim.encrypted.* (never inline); G12 data-minimization (no
+ONLY in com.etzhayyim.encrypted.* (never inline); G12 data-minimization (no
 opinion-profiling); Murakumo-only inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.moushibumi.participationMatch.
+Output Lexicon(s): com.etzhayyim.moushibumi.participationMatch.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

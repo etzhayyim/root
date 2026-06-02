@@ -28,7 +28,7 @@ Pregel graph (5 nodes):
                                       blister-pack (PVC/aluminum) or HDPE bottle
         |
         v
-    emit_fill_finish_attest       ->  MST PUT app.etzhayyim.pharma.fillFinishAttestation
+    emit_fill_finish_attest       ->  MST PUT com.etzhayyim.pharma.fillFinishAttestation
                                       with dosageForm = "tablet-{uncoated|film-coated|enteric}"
                                       (sterilityResult = "na", endotoxin = null,
                                        CCIT not applicable; instead dissolution /

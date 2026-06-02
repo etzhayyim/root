@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.worldBankDpf.recordOperation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "World Bank Development Policy Financing / prior actions (bridges imfArticleIv.flagProgramRequest + sovereign-debt + just-transition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "operationId",
+            "borrowerCountryIso3",
+            "instrumentKind",
+            "thematicArea",
+            "approvedAt"
+          ],
+          "properties": {
+            "operationId": {
+              "type": "string"
+            },
+            "borrowerCountryIso3": {
+              "type": "string"
+            },
+            "instrumentKind": {
+              "type": "string",
+              "enum": [
+                "dpf",
+                "ipf",
+                "pforr",
+                "gfu",
+                "rsa",
+                "cpf",
+                "esg_dpf",
+                "climate_dpf",
+                "crisis_response",
+                "surcharge"
+              ]
+            },
+            "thematicArea": {
+              "type": "string",
+              "enum": [
+                "fiscal_macro",
+                "climate",
+                "governance",
+                "human_capital",
+                "financial_sector",
+                "energy",
+                "trade",
+                "health_pandemic",
+                "just_transition",
+                "digital",
+                "crisis_preparedness"
+              ]
+            },
+            "programRequestVid": {
+              "type": "string",
+              "description": "bridges imfArticleIv.flagProgramRequest"
+            },
+            "amountBusd": {
+              "type": "number"
+            },
+            "approvedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

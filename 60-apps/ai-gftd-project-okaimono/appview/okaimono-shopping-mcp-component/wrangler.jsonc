@@ -18,7 +18,7 @@
     "APP_DISPLAY_NAME": "Okaimono D2C Store",
     "APP_EMBED_URL": "https://ok4imn1o.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     "APP_NANOID": "ok4imn1o",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"

@@ -6,7 +6,7 @@
 -->
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
-             targetNamespace="ai.gftd.apps.kaisya.bpmn"
+             targetNamespace="com.etzhayyim.apps.kaisya.bpmn"
              id="gftdcojp-legal-case-management">
 
   <process id="proc-legal-case" name="法務案件管理" isExecutable="true">

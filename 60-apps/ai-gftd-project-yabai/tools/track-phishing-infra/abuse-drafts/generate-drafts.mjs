@@ -59,7 +59,7 @@ function eml({ to, subject, body }) {
 const legalBoilerplate = `
 We identified the following domains as active phishing / typosquat
 infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
-Classification source: etzhayyim Yabai intel pipeline (app.etzhayyim.apps.yabai,
+Classification source: etzhayyim Yabai intel pipeline (com.etzhayyim.apps.yabai,
 evidence category PhishingInfrastructure, confidence >=0.95). Probe
 method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
 

@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.vaacVolcanic.issueAirAdvisory",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "VAA / SIGMET advisory for aviation (bridges aviation-safety + disaster-response)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "advisoryId",
+            "eventVid",
+            "issuedAt"
+          ],
+          "properties": {
+            "advisoryId": {
+              "type": "string"
+            },
+            "eventVid": {
+              "type": "string",
+              "description": "bridges recordEruption"
+            },
+            "firAffected": {
+              "type": "string",
+              "description": "ICAO Flight Information Region codes"
+            },
+            "altitudeBandFl": {
+              "type": "string",
+              "description": "FL0-FL100 etc"
+            },
+            "recommendedAction": {
+              "type": "string",
+              "enum": [
+                "close_airspace",
+                "reroute",
+                "altitude_restriction",
+                "visual_avoidance",
+                "no_restriction"
+              ]
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

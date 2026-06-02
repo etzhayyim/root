@@ -73,8 +73,8 @@ def test_parse_op_path_malformed_no_slash() -> None:
 def test_parse_op_path_preserves_rkey_with_slashes() -> None:
     """_parse_op_path partitions on the FIRST slash only."""
     # AT rkeys do not contain slashes, but let's ensure partition semantics
-    collection, rkey = _parse_op_path("app.etzhayyim.shinka.kyumeiSignal/rkey001")
-    assert collection == "app.etzhayyim.shinka.kyumeiSignal"
+    collection, rkey = _parse_op_path("com.etzhayyim.shinka.kyumeiSignal/rkey001")
+    assert collection == "com.etzhayyim.shinka.kyumeiSignal"
     assert rkey == "rkey001"
 
 
@@ -162,9 +162,9 @@ async def test_process_event_create() -> None:
         "ops": [
             {
                 "action": "create",
-                "path": "app.etzhayyim.shinka.kyumeiSignal/rkey001",
+                "path": "com.etzhayyim.shinka.kyumeiSignal/rkey001",
                 "cid": "bafycid1",
-                "record": {"$type": "app.etzhayyim.shinka.kyumeiSignal", "subjectDid": "did:plc:bob"},
+                "record": {"$type": "com.etzhayyim.shinka.kyumeiSignal", "subjectDid": "did:plc:bob"},
             }
         ],
     }
@@ -176,11 +176,11 @@ async def test_process_event_create() -> None:
     await _process_event(event, mock_indexer)
 
     mock_indexer.index_op.assert_awaited_once_with(
-        "app.etzhayyim.shinka.kyumeiSignal",
+        "com.etzhayyim.shinka.kyumeiSignal",
         "did:plc:alice",
         "rkey001",
         "bafycid1",
-        {"$type": "app.etzhayyim.shinka.kyumeiSignal", "subjectDid": "did:plc:bob"},
+        {"$type": "com.etzhayyim.shinka.kyumeiSignal", "subjectDid": "did:plc:bob"},
     )
     mock_indexer.delete_op.assert_not_awaited()
 
@@ -194,9 +194,9 @@ async def test_process_event_update_calls_index_op() -> None:
         "ops": [
             {
                 "action": "update",
-                "path": "app.etzhayyim.council.member/rkey002",
+                "path": "com.etzhayyim.council.member/rkey002",
                 "cid": "bafycid2",
-                "record": {"$type": "app.etzhayyim.council.member", "level": 6},
+                "record": {"$type": "com.etzhayyim.council.member", "level": 6},
             }
         ],
     }
@@ -220,7 +220,7 @@ async def test_process_event_delete() -> None:
         "ops": [
             {
                 "action": "delete",
-                "path": "app.etzhayyim.shinka.kyumeiSignal/rkey005",
+                "path": "com.etzhayyim.shinka.kyumeiSignal/rkey005",
                 "cid": "",
             }
         ],
@@ -233,7 +233,7 @@ async def test_process_event_delete() -> None:
     await _process_event(event, mock_indexer)
 
     mock_indexer.delete_op.assert_awaited_once_with(
-        "app.etzhayyim.shinka.kyumeiSignal",
+        "com.etzhayyim.shinka.kyumeiSignal",
         "did:plc:carol",
         "rkey005",
     )
@@ -275,13 +275,13 @@ async def test_process_event_continues_on_op_failure() -> None:
         "ops": [
             {
                 "action": "create",
-                "path": "app.etzhayyim.shinka.kyumeiSignal/rkey010",
+                "path": "com.etzhayyim.shinka.kyumeiSignal/rkey010",
                 "cid": "cid10",
                 "record": {"x": 1},
             },
             {
                 "action": "create",
-                "path": "app.etzhayyim.council.member/rkey011",
+                "path": "com.etzhayyim.council.member/rkey011",
                 "cid": "cid11",
                 "record": {"y": 2},
             },
@@ -312,7 +312,7 @@ async def test_process_event_continues_on_op_failure() -> None:
         "ops": [
             {
                 "action": "create",
-                "path": "app.etzhayyim.council.member/rkey012",
+                "path": "com.etzhayyim.council.member/rkey012",
                 "cid": "cid12",
                 "record": {"z": 3},
             }

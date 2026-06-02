@@ -160,13 +160,13 @@ UP = [{'sql': 'ALTER TABLE vertex_aircraft_state ADD COLUMN IF NOT EXISTS aircra
          "      SELECT $1, $2, $3, $4, $5, 'ICAO Annex 6 + Chicago Convention Art. 3', $6\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_purpose WHERE vertex_id = $7)\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/passenger',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/passenger',
                  'passenger',
                  'Passenger transport',
                  '旅客輸送',
                  'Scheduled or charter passenger flight (ICAO Annex 6 Part I)',
                  '2026-05-05T18:30:00Z',
-                 'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/passenger']},
+                 'at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/passenger']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_purpose (\n'
          '        vertex_id, purpose_code, label_en, label_ja, description, regulated_under, '
@@ -175,13 +175,13 @@ UP = [{'sql': 'ALTER TABLE vertex_aircraft_state ADD COLUMN IF NOT EXISTS aircra
          "      SELECT $1, $2, $3, $4, $5, 'ICAO Annex 6 + Chicago Convention Art. 3', $6\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_purpose WHERE vertex_id = $7)\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/cargo',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/cargo',
                  'cargo',
                  'Cargo transport',
                  '貨物輸送',
                  'Dedicated freight or mail transport',
                  '2026-05-05T18:30:00Z',
-                 'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/cargo']},
+                 'at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/cargo']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_purpose (\n'
          '        vertex_id, purpose_code, label_en, label_ja, description, regulated_under, '
@@ -190,13 +190,13 @@ UP = [{'sql': 'ALTER TABLE vertex_aircraft_state ADD COLUMN IF NOT EXISTS aircra
          "      SELECT $1, $2, $3, $4, $5, 'ICAO Annex 6 + Chicago Convention Art. 3', $6\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_purpose WHERE vertex_id = $7)\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/military',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/military',
                  'military',
                  'Military operation',
                  '軍用機',
                  'State aircraft per Chicago Convention Art. 3',
                  '2026-05-05T18:30:00Z',
-                 'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/military']},
+                 'at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/military']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_purpose (\n'
          '        vertex_id, purpose_code, label_en, label_ja, description, regulated_under, '
@@ -205,13 +205,13 @@ UP = [{'sql': 'ALTER TABLE vertex_aircraft_state ADD COLUMN IF NOT EXISTS aircra
          "      SELECT $1, $2, $3, $4, $5, 'ICAO Annex 6 + Chicago Convention Art. 3', $6\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_purpose WHERE vertex_id = $7)\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/medevac',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/medevac',
                  'medevac',
                  'Medical evacuation',
                  '救急医療搬送',
                  'Emergency or scheduled HEMS / air ambulance',
                  '2026-05-05T18:30:00Z',
-                 'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/medevac']},
+                 'at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/medevac']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_purpose (\n'
          '        vertex_id, purpose_code, label_en, label_ja, description, regulated_under, '
@@ -220,13 +220,13 @@ UP = [{'sql': 'ALTER TABLE vertex_aircraft_state ADD COLUMN IF NOT EXISTS aircra
          "      SELECT $1, $2, $3, $4, $5, 'ICAO Annex 6 + Chicago Convention Art. 3', $6\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_purpose WHERE vertex_id = $7)\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/training',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/training',
                  'training',
                  'Flight training',
                  '訓練',
                  'Type rating / instructional flight',
                  '2026-05-05T18:30:00Z',
-                 'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/training']},
+                 'at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/training']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_purpose (\n'
          '        vertex_id, purpose_code, label_en, label_ja, description, regulated_under, '
@@ -235,13 +235,13 @@ UP = [{'sql': 'ALTER TABLE vertex_aircraft_state ADD COLUMN IF NOT EXISTS aircra
          "      SELECT $1, $2, $3, $4, $5, 'ICAO Annex 6 + Chicago Convention Art. 3', $6\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_purpose WHERE vertex_id = $7)\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/test',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/test',
                  'test',
                  'Test / ferry',
                  '試験飛行',
                  'Production test, post-maintenance, ferry',
                  '2026-05-05T18:30:00Z',
-                 'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/test']},
+                 'at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/test']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_purpose (\n'
          '        vertex_id, purpose_code, label_en, label_ja, description, regulated_under, '
@@ -250,13 +250,13 @@ UP = [{'sql': 'ALTER TABLE vertex_aircraft_state ADD COLUMN IF NOT EXISTS aircra
          "      SELECT $1, $2, $3, $4, $5, 'ICAO Annex 6 + Chicago Convention Art. 3', $6\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_purpose WHERE vertex_id = $7)\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/private',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/private',
                  'private',
                  'Private / general aviation',
                  '一般航空',
                  'Non-commercial private operation (Part 91)',
                  '2026-05-05T18:30:00Z',
-                 'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/private']},
+                 'at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/private']},
  {'sql': '\n'
          '      INSERT INTO vertex_flight_purpose (\n'
          '        vertex_id, purpose_code, label_en, label_ja, description, regulated_under, '
@@ -265,13 +265,13 @@ UP = [{'sql': 'ALTER TABLE vertex_aircraft_state ADD COLUMN IF NOT EXISTS aircra
          "      SELECT $1, $2, $3, $4, $5, 'ICAO Annex 6 + Chicago Convention Art. 3', $6\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_flight_purpose WHERE vertex_id = $7)\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/government',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/government',
                  'government',
                  'Government / state',
                  '政府専用',
                  'Head-of-state, customs, law-enforcement, SAR (non-military)',
                  '2026-05-05T18:30:00Z',
-                 'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.flightPurpose/government']}]
+                 'at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.flightPurpose/government']}]
 
 DOWN = [{'sql': 'DROP TABLE IF EXISTS edge_aircraft_state_for_aircraft', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS edge_flight_serves_purpose', 'parameters': []},

@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.minorityRights.flagBacklash",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Backlash / anti-minority legislation / hate crime spike (bridges bilingualEducation.flagOutcomeGap + press-freedom + transnational-repression)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "findingVid",
+            "backlashKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "findingVid": {
+              "type": "string",
+              "description": "bridges recordReportFinding"
+            },
+            "backlashKind": {
+              "type": "string",
+              "enum": [
+                "legislation_rollback",
+                "hate_crime_spike",
+                "media_campaign",
+                "language_restriction",
+                "religious_restriction",
+                "expulsion_denaturalization",
+                "resettlement_forced",
+                "cultural_ban",
+                "lgbtqi_crackdown",
+                "femicide_surge",
+                "indigenous_land_grab",
+                "caste_reservation_rollback"
+              ]
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "watch",
+                "moderate",
+                "severe",
+                "crisis",
+                "genocide_warning"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

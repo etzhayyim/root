@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sovereignDebt.recordDebtRestructure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sovereign debt restructuring (IMF Common Framework / Paris Club / London Club — bridges digital-euro-brics.recordCorridor + fx-swap-lines + imf-sdr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "restructureId",
+            "debtorCountryIso3",
+            "frameworkKind",
+            "announcedAt"
+          ],
+          "properties": {
+            "restructureId": {
+              "type": "string"
+            },
+            "debtorCountryIso3": {
+              "type": "string"
+            },
+            "frameworkKind": {
+              "type": "string",
+              "enum": [
+                "imf_common_framework",
+                "paris_club",
+                "london_club",
+                "brady_bond",
+                "cacs_holdout",
+                "ex_ante_suspension",
+                "hipc",
+                "private_bilateral"
+              ]
+            },
+            "principalHaircutPct": {
+              "type": "number"
+            },
+            "nominalMusd": {
+              "type": "number"
+            },
+            "majorCreditors": {
+              "type": "string"
+            },
+            "announcedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

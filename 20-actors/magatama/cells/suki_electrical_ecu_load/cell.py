@@ -55,7 +55,7 @@ Pregel graph (6 nodes):
                                         as part of electricalEcuAttestation
         |
         v
-    emit_electrical_ecu_attest     ->  MST PUT app.etzhayyim.suki.electricalEcuAttestation
+    emit_electrical_ecu_attest     ->  MST PUT com.etzhayyim.suki.electricalEcuAttestation
                                         (ECU ID, firmware image CID, firmware
                                         SHA-256, bootloader name + version,
                                         bootloader unlock = default state,

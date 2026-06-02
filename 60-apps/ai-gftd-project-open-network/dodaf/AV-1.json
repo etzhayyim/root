@@ -17,7 +17,7 @@
       "standards": ["AT Protocol XRPC", "DoDAF v2.02", "BPMN 2.0", "DMN 1.3", "Camunda Forms", "ITIL change-management aligned", "TM Forum SID-aligned naming"]
     },
     "toolsAndMethods": [
-      "XRPC Lexicons (app.etzhayyim.apps.openNetwork.*)",
+      "XRPC Lexicons (com.etzhayyim.apps.openNetwork.*)",
       "BPMN 2.0 (defineLink, requestChange)",
       "DMN 1.3 (incidentSeverity, changeRisk)",
       "Camunda Forms"

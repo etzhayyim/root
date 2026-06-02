@@ -16,7 +16,7 @@ INSERT INTO vertex_gameka_studio_config (
       max_iterations, score_threshold,
       note, created_at
     ) VALUES (
-      'at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.studioConfig/global',
+      'at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.studioConfig/global',
       'did:web:gameka.etzhayyim.com', 'global', 'did:web:gameka.etzhayyim.com',
       'global', false,
       3, 0.8,

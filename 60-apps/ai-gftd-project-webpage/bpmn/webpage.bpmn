@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-cp-1" sourceRef="start-create-page" targetRef="task-create-page"/>
     <bpmn:serviceTask id="task-create-page" name="Create Page">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.webpage.create.page"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.webpage.create.page"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cp-2" sourceRef="task-create-page" targetRef="end-create-page"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-lp-1" sourceRef="start-list-pages" targetRef="task-list-pages"/>
     <bpmn:serviceTask id="task-list-pages" name="List Pages">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.webpage.list.pages"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.webpage.list.pages"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lp-2" sourceRef="task-list-pages" targetRef="end-list-pages"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-gp-1" sourceRef="start-get-page" targetRef="task-get-page"/>
     <bpmn:serviceTask id="task-get-page" name="Get Page">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.webpage.get.page"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.webpage.get.page"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gp-2" sourceRef="task-get-page" targetRef="end-get-page"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-up-1" sourceRef="start-update-page" targetRef="task-update-page"/>
     <bpmn:serviceTask id="task-update-page" name="Update Page">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.webpage.update.page"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.webpage.update.page"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-up-2" sourceRef="task-update-page" targetRef="end-update-page"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-pp-1" sourceRef="start-publish-page" targetRef="task-publish-page"/>
     <bpmn:serviceTask id="task-publish-page" name="Publish Page">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.webpage.publish.page"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.webpage.publish.page"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-pp-2" sourceRef="task-publish-page" targetRef="end-publish-page"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-lpub-1" sourceRef="start-list-published" targetRef="task-list-published"/>
     <bpmn:serviceTask id="task-list-published" name="List Published">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.webpage.list.published"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.webpage.list.published"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lpub-2" sourceRef="task-list-published" targetRef="end-list-published"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-gps-1" sourceRef="start-get-page-stats" targetRef="task-get-page-stats"/>
     <bpmn:serviceTask id="task-get-page-stats" name="Get Page Stats">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.webpage.get.pageStats"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.webpage.get.pageStats"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gps-2" sourceRef="task-get-page-stats" targetRef="end-get-page-stats"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-sp-1" sourceRef="start-search-pages" targetRef="task-search-pages"/>
     <bpmn:serviceTask id="task-search-pages" name="Search Pages">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.webpage.search.pages"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.webpage.search.pages"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sp-2" sourceRef="task-search-pages" targetRef="end-search-pages"/>

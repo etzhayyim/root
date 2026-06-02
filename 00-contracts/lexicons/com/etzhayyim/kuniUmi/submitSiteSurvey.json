@@ -1,0 +1,135 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kuniUmi.submitSiteSurvey",
+  "description": "Site survey results emitted by the kuni-umi SiteSurveyCell (phase 1) and consumed by DeploymentPlanningCell (phase 2, leaderNode zebulun). Captures the field-survey output (terrain / soil / utilities / hazards) + survey-team witness signatures. Per ADR-2605201400.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "surveyId",
+          "siteId",
+          "surveyStartedAt",
+          "surveyCompletedAt",
+          "terrainProfileIpfsCid",
+          "utilityAvailability",
+          "surveyTeamWitnessSignatures",
+          "siteSurveyCellAttestationCid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "surveyId": {
+            "type": "string"
+          },
+          "siteId": {
+            "type": "string",
+            "description": "Parent defineDeploymentSite.siteId this survey covers."
+          },
+          "surveyStartedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "surveyCompletedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "terrainProfileIpfsCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the terrain profile (DEM + slope analysis + soil samples)."
+          },
+          "soilCharacteristicsIpfsCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Optional IPFS CID of detailed soil characteristic measurements."
+          },
+          "utilityAvailability": {
+            "type": "object",
+            "required": ["water", "electric", "gas", "telecom"],
+            "properties": {
+              "water": {"type": "boolean"},
+              "electric": {"type": "boolean"},
+              "gas": {"type": "boolean"},
+              "telecom": {"type": "boolean"}
+            },
+            "description": "Per-utility availability flags. FALSE means no existing utility line within reasonable distance (deployment plan must include extension)."
+          },
+          "identifiedHazards": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#hazard"
+            },
+            "description": "Hazards identified during survey (flood / seismic / volcanic / contamination / etc.)."
+          },
+          "surveyTeamWitnessSignatures": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#witnessSignature"
+            },
+            "minLength": 2,
+            "description": "Survey team witnesses (≥2 distinct DIDs)."
+          },
+          "siteSurveyCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          }
+        }
+      }
+    },
+    "hazard": {
+      "type": "object",
+      "required": ["hazardClass", "severity", "description"],
+      "properties": {
+        "hazardClass": {
+          "type": "string",
+          "knownValues": [
+            "flood",
+            "seismic",
+            "volcanic",
+            "tsunami",
+            "landslide",
+            "contamination-chemical",
+            "contamination-biological",
+            "wildlife-corridor",
+            "cultural-heritage",
+            "other"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "knownValues": ["low", "moderate", "high", "critical"]
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "mitigationRequiredAttestationCid": {
+          "type": "string",
+          "format": "cid",
+          "description": "REQUIRED for severity high or critical; IPFS CID of the mitigation plan."
+        }
+      }
+    },
+    "witnessSignature": {
+      "type": "object",
+      "required": ["witnessDid", "role", "signedAt", "signature"],
+      "properties": {
+        "witnessDid": {"type": "string"},
+        "role": {
+          "type": "string",
+          "knownValues": ["surveyor", "site-engineer", "jurisdiction-observer", "council-witness"]
+        },
+        "signedAt": {"type": "string", "format": "datetime"},
+        "signature": {"type": "string"}
+      }
+    }
+  }
+}

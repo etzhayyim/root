@@ -13,7 +13,7 @@
              xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
              xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
              xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-             targetNamespace="ai.gftd.apps.kaisya.bpmn"
+             targetNamespace="com.etzhayyim.apps.kaisya.bpmn"
              id="gftdcojp-main-intake-delivery">
 
   <collaboration id="gftdcojp-collab">
@@ -36,7 +36,7 @@
           <camunda:property name="role" value="ceo"/>
           <camunda:property name="did" value="did:web:kaisya.gftd.ai"/>
           <camunda:property name="hc_worker" value="j.kawasaki"/>
-          <camunda:property name="form_task_nsid" value="ai.gftd.apps.kaisya.addNote"/>
+          <camunda:property name="form_task_nsid" value="com.etzhayyim.apps.kaisya.addNote"/>
         </camunda:properties>
       </extensionElements>
       <incoming>flow-start-to-strategy</incoming>

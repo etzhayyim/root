@@ -70,7 +70,7 @@ Each cell = 1 Pregel graph. R0.1: every cell's `.solve()` is implemented (no Run
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.himawari`
+**App lexicon root**: `com.etzhayyim.himawari`
 
 7 records (full atproto-style `record` defs, `key: "tid"`; validated by validate-lexicons.py; materialize to kotoba Datom/EAVT):
 

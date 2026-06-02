@@ -217,7 +217,7 @@ describe("AT Protocol repo commit handling", () => {
     // Set up a command with lexicon routing
     // comAtprotoSyncSubscribeRepos for convo.message triggers a code path
     const result = sdk.witExports.wHandler.handleComAtprotoSyncSubscribeReposCommit({
-      seq: 1n, repo: "did:web:test", collection: "app.etzhayyim.convo.message",
+      seq: 1n, repo: "did:web:test", collection: "com.etzhayyim.convo.message",
       rkey: "abc", action: "create", cid: null, rev: null, time: new Date().toISOString(),
     });
     expect(result.tag).toBe("err");

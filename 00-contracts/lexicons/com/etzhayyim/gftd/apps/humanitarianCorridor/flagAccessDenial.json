@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.humanitarianCorridor.flagAccessDenial",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Access denial / attack on aid workers / starvation siege (bridges remittanceCorridor.flagCorridorStress + refugee-unhcr + worker-grievance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "corridorVid",
+            "denialKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "corridorVid": {
+              "type": "string",
+              "description": "bridges recordCorridor"
+            },
+            "denialKind": {
+              "type": "string",
+              "enum": [
+                "parties_block",
+                "siege",
+                "checkpoint_extortion",
+                "aid_worker_attack",
+                "truck_convoy_intercept",
+                "deconfliction_violated",
+                "visa_denial",
+                "bureaucratic_delay",
+                "sanctions_self_block",
+                "weaponized_starvation"
+              ]
+            },
+            "personsAffected": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

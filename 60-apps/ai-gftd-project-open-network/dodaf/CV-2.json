@@ -9,33 +9,33 @@
       {
         "id": "cap.topology", "name": "Topology design",
         "children": [
-          { "id": "cap.siteDefine", "name": "Define site", "realisedBy": "app.etzhayyim.apps.openNetwork.defineSite" },
-          { "id": "cap.linkDefine", "name": "Define link", "realisedBy": "app.etzhayyim.apps.openNetwork.defineLink" },
-          { "id": "cap.siteQuery",  "name": "Query site",  "realisedBy": "app.etzhayyim.apps.openNetwork.getSite" },
-          { "id": "cap.linkList",   "name": "List links",  "realisedBy": "app.etzhayyim.apps.openNetwork.listLinks" }
+          { "id": "cap.siteDefine", "name": "Define site", "realisedBy": "com.etzhayyim.apps.openNetwork.defineSite" },
+          { "id": "cap.linkDefine", "name": "Define link", "realisedBy": "com.etzhayyim.apps.openNetwork.defineLink" },
+          { "id": "cap.siteQuery",  "name": "Query site",  "realisedBy": "com.etzhayyim.apps.openNetwork.getSite" },
+          { "id": "cap.linkList",   "name": "List links",  "realisedBy": "com.etzhayyim.apps.openNetwork.listLinks" }
         ]
       },
       {
         "id": "cap.telemetry", "name": "Telemetry",
         "children": [
-          { "id": "cap.utilizationIngest", "name": "Ingest utilization", "realisedBy": "app.etzhayyim.apps.openNetwork.recordUtilization" },
-          { "id": "cap.utilizationQuery",  "name": "Query utilization",  "realisedBy": "app.etzhayyim.apps.openNetwork.getLinkUtilization" }
+          { "id": "cap.utilizationIngest", "name": "Ingest utilization", "realisedBy": "com.etzhayyim.apps.openNetwork.recordUtilization" },
+          { "id": "cap.utilizationQuery",  "name": "Query utilization",  "realisedBy": "com.etzhayyim.apps.openNetwork.getLinkUtilization" }
         ]
       },
       {
         "id": "cap.faultMgmt", "name": "Fault management",
         "children": [
-          { "id": "cap.incidentReport",   "name": "Report incident",     "realisedBy": "app.etzhayyim.apps.openNetwork.reportIncident" },
+          { "id": "cap.incidentReport",   "name": "Report incident",     "realisedBy": "com.etzhayyim.apps.openNetwork.reportIncident" },
           { "id": "cap.incidentSeverity", "name": "Severity decisioning", "realisedBy": "openNetwork.incidentSeverity (DMN)" },
-          { "id": "cap.incidentList",     "name": "List incidents",      "realisedBy": "app.etzhayyim.apps.openNetwork.listIncidents" }
+          { "id": "cap.incidentList",     "name": "List incidents",      "realisedBy": "com.etzhayyim.apps.openNetwork.listIncidents" }
         ]
       },
       {
         "id": "cap.changeMgmt", "name": "Change management",
         "children": [
-          { "id": "cap.changeRequest", "name": "Request change",   "realisedBy": "app.etzhayyim.apps.openNetwork.requestChange" },
+          { "id": "cap.changeRequest", "name": "Request change",   "realisedBy": "com.etzhayyim.apps.openNetwork.requestChange" },
           { "id": "cap.changeRisk",    "name": "Risk decisioning", "realisedBy": "openNetwork.changeRisk (DMN)" },
-          { "id": "cap.changeList",    "name": "List changes",     "realisedBy": "app.etzhayyim.apps.openNetwork.listChanges" }
+          { "id": "cap.changeList",    "name": "List changes",     "realisedBy": "com.etzhayyim.apps.openNetwork.listChanges" }
         ]
       }
     ]

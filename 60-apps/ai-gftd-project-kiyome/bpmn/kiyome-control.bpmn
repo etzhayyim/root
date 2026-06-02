@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-sc-1" sourceRef="start-submit-clearance" targetRef="task-submit-clearance"/>
     <bpmn:serviceTask id="task-submit-clearance" name="Submit Clearance">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.kiyome.submitClearance"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.kiyome.submitClearance"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sc-2" sourceRef="task-submit-clearance" targetRef="end-submit-clearance"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-lc-1" sourceRef="start-list-clearances" targetRef="task-list-clearances"/>
     <bpmn:serviceTask id="task-list-clearances" name="List Clearances">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.kiyome.listClearances"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.kiyome.listClearances"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lc-2" sourceRef="task-list-clearances" targetRef="end-list-clearances"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-ac-1" sourceRef="start-approve-clearance" targetRef="task-approve-clearance"/>
     <bpmn:serviceTask id="task-approve-clearance" name="Approve Clearance">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.kiyome.approveClearance"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.kiyome.approveClearance"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ac-2" sourceRef="task-approve-clearance" targetRef="end-approve-clearance"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-rc-1" sourceRef="start-reject-clearance" targetRef="task-reject-clearance"/>
     <bpmn:serviceTask id="task-reject-clearance" name="Reject Clearance">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.kiyome.rejectClearance"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.kiyome.rejectClearance"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-rc-2" sourceRef="task-reject-clearance" targetRef="end-reject-clearance"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-cal-1" sourceRef="start-create-audit-log" targetRef="task-create-audit-log"/>
     <bpmn:serviceTask id="task-create-audit-log" name="Create Audit Log">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.kiyome.createAuditLog"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.kiyome.createAuditLog"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cal-2" sourceRef="task-create-audit-log" targetRef="end-create-audit-log"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-lal-1" sourceRef="start-list-audit-logs" targetRef="task-list-audit-logs"/>
     <bpmn:serviceTask id="task-list-audit-logs" name="List Audit Logs">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.kiyome.listAuditLogs"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.kiyome.listAuditLogs"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lal-2" sourceRef="task-list-audit-logs" targetRef="end-list-audit-logs"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-gcs-1" sourceRef="start-get-compliance-status" targetRef="task-get-compliance-status"/>
     <bpmn:serviceTask id="task-get-compliance-status" name="Get Compliance Status">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.kiyome.getComplianceStatus"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.kiyome.getComplianceStatus"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gcs-2" sourceRef="task-get-compliance-status" targetRef="end-get-compliance-status"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-rp-1" sourceRef="start-run-purification" targetRef="task-run-purification"/>
     <bpmn:serviceTask id="task-run-purification" name="Run Purification">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.kiyome.runPurification"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.kiyome.runPurification"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-rp-2" sourceRef="task-run-purification" targetRef="end-run-purification"/>

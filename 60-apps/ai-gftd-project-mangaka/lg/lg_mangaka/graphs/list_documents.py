@@ -1,4 +1,4 @@
-"""mangaka `list_documents` graph — listing for app.etzhayyim.mangaka.listDocuments.
+"""mangaka `list_documents` graph — listing for com.etzhayyim.mangaka.listDocuments.
 
 Returns the catalog of mangaka documents stored in vertex_mangaka.
 Optionally filter by convoId. Always returns offset/limit/total per
@@ -26,7 +26,7 @@ from langgraph.graph import END, START, StateGraph
 _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
-_NSID = "app.etzhayyim.mangaka.document"
+_NSID = "com.etzhayyim.mangaka.document"
 _RW_URL = os.environ.get("RW_URL", "")
 
 

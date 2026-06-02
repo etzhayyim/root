@@ -12,7 +12,7 @@ app.get('/health', (c) => {
 });
 
 // MCP router entrypoint
-app.post('/xrpc/app.etzhayyim.mcp.message', async (c) => {
+app.post('/xrpc/com.etzhayyim.mcp.message', async (c) => {
   try {
     const body = await c.req.json();
 

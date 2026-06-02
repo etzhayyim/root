@@ -23,7 +23,7 @@
 #       --recipe 70-tools/baien-moemoekyun-train/recipes/corp/corp-financial-disclosure-foundations-r1.toml
 #
 # Datasets MUST already be DataLad-saved + IPFS-pinned + have a
-# corresponding app.etzhayyim.substrate.datasetPin record (G10 in
+# corresponding com.etzhayyim.substrate.datasetPin record (G10 in
 # ADR-2605263800).
 
 target_artifact   = "baien-server-corp-financial-disclosure-r1"
@@ -44,7 +44,7 @@ LEI cross-jurisdictional key resolution canonical.
 
 [[source]]
 subdataset    = "corp/registries/usa/edgar-companies"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_EDGAR_COMPANIES"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_EDGAR_COMPANIES"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -52,7 +52,7 @@ weight        = 0.10
 
 [[source]]
 subdataset    = "corp/disclosures/usa/10-K"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_EDGAR_10K"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_EDGAR_10K"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -60,7 +60,7 @@ weight        = 0.18
 
 [[source]]
 subdataset    = "corp/disclosures/usa/10-Q"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_EDGAR_10Q"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_EDGAR_10Q"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -68,7 +68,7 @@ weight        = 0.10
 
 [[source]]
 subdataset    = "corp/disclosures/usa/8-K"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_EDGAR_8K"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_EDGAR_8K"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -76,7 +76,7 @@ weight        = 0.08
 
 [[source]]
 subdataset    = "corp/disclosures/jpn/yuho"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_EDINET_YUHO"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_EDINET_YUHO"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "fsa-open-data-utilization-terms"
@@ -84,7 +84,7 @@ weight        = 0.15
 
 [[source]]
 subdataset    = "corp/disclosures/jpn/large-holding"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_EDINET_LARGE_HOLDING"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_EDINET_LARGE_HOLDING"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "fsa-open-data-utilization-terms"
@@ -92,7 +92,7 @@ weight        = 0.07
 
 [[source]]
 subdataset    = "corp/registries/gbr/companies-house"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_COMPANIES_HOUSE"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_COMPANIES_HOUSE"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "OGL-v3.0"
@@ -100,7 +100,7 @@ weight        = 0.12
 
 [[source]]
 subdataset    = "corp/lei/gleif/lei-l1"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_GLEIF_L1"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_GLEIF_L1"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "CC0-1.0"
@@ -108,7 +108,7 @@ weight        = 0.10
 
 [[source]]
 subdataset    = "corp/lei/gleif/lei-l2"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_GLEIF_L2"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_GLEIF_L2"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "CC0-1.0"

@@ -340,7 +340,7 @@ forbidden: DETACH DELETE / FOREACH / CALL { ...write... }
   <section id="paneAuth" class="pane" hidden>
     <h2>API key</h2>
     <p class="meta">Paste your <code>sk_live_yata_*</code> token (or any <code>sk_live_*</code> key
-    minted via PDS <code>app.etzhayyim.auth.createApiKey</code>). Stored in <code>localStorage</code>
+    minted via PDS <code>com.etzhayyim.auth.createApiKey</code>). Stored in <code>localStorage</code>
     on this device only.</p>
     <div class="toolbar">
       <input id="apiKey" type="password" placeholder="sk_live_yata_..." />

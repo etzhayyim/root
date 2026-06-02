@@ -69,7 +69,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.gtin.product"
+          "com.etzhayyim.gtin.product"
         ],
         "type": "subscribeRepos"
       }
@@ -85,7 +85,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.gtin.lookupProduct",
+        "nsid": "com.etzhayyim.gtin.lookupProduct",
         "type": "xrpc"
       }
     },
@@ -103,7 +103,7 @@
             "params": {
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
             },
-            "template": "MERGE (c:ActorCoverageSnapshot {actorDid: $did, bucket: '6h', actorName: 'gtin', nanoid: 'gt1n4k7m', nodeCount: $nodeCount, repo: $did, collection: 'ai.gftd.gtin.coverageSnapshot', status: 'active'})"
+            "template": "MERGE (c:ActorCoverageSnapshot {actorDid: $did, bucket: '6h', actorName: 'gtin', nanoid: 'gt1n4k7m', nodeCount: $nodeCount, repo: $did, collection: 'com.etzhayyim.gtin.coverageSnapshot', status: 'active'})"
           },
           "depends_on": [
             "coverageNodes"
@@ -134,8 +134,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -148,10 +148,10 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.gtin.product",
-        "ai.gftd.gtin.alias",
-        "ai.gftd.gtin.brand",
-        "ai.gftd.gtin.category"
+        "com.etzhayyim.gtin.product",
+        "com.etzhayyim.gtin.alias",
+        "com.etzhayyim.gtin.brand",
+        "com.etzhayyim.gtin.category"
       ]
     }
   },

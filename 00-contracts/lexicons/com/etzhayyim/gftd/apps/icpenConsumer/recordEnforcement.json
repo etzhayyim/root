@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.icpenConsumer.recordEnforcement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Enforcement outcome (fine / cease-and-desist / undertaking)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "enforcementId",
+            "sweepVid",
+            "violationCategory",
+            "resolvedAt"
+          ],
+          "properties": {
+            "enforcementId": {
+              "type": "string"
+            },
+            "sweepVid": {
+              "type": "string",
+              "description": "bridges launchSweep"
+            },
+            "targetLei": {
+              "type": "string"
+            },
+            "violationCategory": {
+              "type": "string"
+            },
+            "remedy": {
+              "type": "string",
+              "enum": [
+                "fine",
+                "cease_and_desist",
+                "refund",
+                "undertaking",
+                "public_warning",
+                "product_recall"
+              ]
+            },
+            "fineUsd": {
+              "type": "number"
+            },
+            "consumersAffected": {
+              "type": "integer"
+            },
+            "resolvedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "scaleTier": {
+              "type": "string",
+              "enum": [
+                "targeted",
+                "broad",
+                "mass_market"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

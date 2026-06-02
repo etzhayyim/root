@@ -209,7 +209,7 @@
  {:db/ident :application/member-did
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "DID-bound; address/PII held in app.etzhayyim.encrypted.* (G6)"}
+  :db/doc "DID-bound; address/PII held in com.etzhayyim.encrypted.* (G6)"}
  {:db/ident :application/jurisdiction
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}

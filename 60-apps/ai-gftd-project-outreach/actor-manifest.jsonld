@@ -9,10 +9,10 @@
   "performerType": "service",
   "domain": "outreach.etzhayyim.com",
   "capabilities": [
-    "ai.gftd.apps.outreach.createSequence",
-    "ai.gftd.apps.outreach.getSequence",
-    "ai.gftd.apps.outreach.listSequences",
-    "ai.gftd.apps.outreach.addProspect",
-    "ai.gftd.apps.outreach.addDnc"
+    "com.etzhayyim.apps.outreach.createSequence",
+    "com.etzhayyim.apps.outreach.getSequence",
+    "com.etzhayyim.apps.outreach.listSequences",
+    "com.etzhayyim.apps.outreach.addProspect",
+    "com.etzhayyim.apps.outreach.addDnc"
   ]
 }

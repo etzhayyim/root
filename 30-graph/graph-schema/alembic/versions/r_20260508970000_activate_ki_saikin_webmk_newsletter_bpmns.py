@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/newsletter">\n'
                  '  <bpmn:process id="newsletter_weekly_send" name="newsletter weeklySend" '
                  'isExecutable="true">\n'
-                 '    <bpmn:documentation>{ "nsid": "app.etzhayyim.apps.newsletter.weeklySend", '
+                 '    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.newsletter.weeklySend", '
                  '"version": 1, "schedule": "0 0 * * 2", "tz": "Asia/Tokyo", "adr": '
                  '"2605072000-langgraph-agent-loop-pattern" }</bpmn:documentation>\n'
                  '\n'
@@ -121,11 +121,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2867,
-                 '00-contracts/bpmn/ai/gftd/newsletter/weeklySend.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/newsletter/weeklySend.bpmn',
                  '2026-05-08T09:45:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1']}]
 
 DOWN = [{'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
@@ -148,7 +148,7 @@ DOWN = [{'sql': '\n'
  {'sql': '\n'
          '    DELETE FROM vertex_bpmn_process_def\n'
          '    WHERE vertex_id = '
-         "'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1'\n"
+         "'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1'\n"
          '  ',
   'parameters': []}]
 

@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airCargo.issueAirWaybill",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Issue an Air Waybill (AWB) for a cargo booking.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["booking_vid", "awb_no", "shipper_did", "consignee_did"],
+          "properties": {
+            "booking_vid": { "type": "string" },
+            "awb_no": { "type": "string" },
+            "shipper_did": { "type": "string" },
+            "consignee_did": { "type": "string" },
+            "pieces": { "type": "integer" },
+            "gross_weight_kg": { "type": "string" },
+            "commodity": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

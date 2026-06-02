@@ -17,17 +17,17 @@ See: 90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md
      ADR-0056 — same `INSERT N rows` pattern as BPMN-as-actor
 
 Convention:
-  vertex_id = at://did:web:{actor-host}/app.etzhayyim.mcp.toolDef/{slug}
+  vertex_id = at://did:web:{actor-host}/com.etzhayyim.mcp.toolDef/{slug}
     where slug = nsid.replace(".", "-")
   actor_did  = did:web:{actor-host}.etzhayyim.com
-    where actor-host = the 4th NSID segment (`app.etzhayyim.apps.<actor>.<method>`)
+    where actor-host = the 4th NSID segment (`com.etzhayyim.apps.<actor>.<method>`)
 
 Behavior:
   --apply    : upsert rows
   (default)  : dry-run diff
   --strict   : exit 1 if any drift detected (CI gate)
   --only-drift: only print rows that differ from disk
-  --only NS  : restrict to lexicons under 00-contracts/lexicons/ai/gftd/apps/{NS}/
+  --only NS  : restrict to lexicons under 00-contracts/lexicons/com/etzhayyim/apps/{NS}/
                or special state actor roots such as govInd/govAfg
 
 Never deletes. Honors `enabled=false` on the row (won't flip back).
@@ -49,10 +49,10 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "apps"
-GOVIND_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "govInd"
-GOVAFG_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "govAfg"
-TOOL_REPO_PREFIX = "at://did:web:{host}.etzhayyim.com/app.etzhayyim.mcp.toolDef"
+LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "apps"
+GOVIND_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "govInd"
+GOVAFG_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "govAfg"
+TOOL_REPO_PREFIX = "at://did:web:{host}.etzhayyim.com/com.etzhayyim.mcp.toolDef"
 
 
 # ─── Keychain / psql ───────────────────────────────────────────────────
@@ -123,17 +123,17 @@ def parse_lexicon(path: Path) -> ParsedTool | None:
         return None
     nsid = doc.get("id")
     if not isinstance(nsid, str) or not (
-        nsid.startswith("app.etzhayyim.apps.")
-        or nsid.startswith("app.etzhayyim.govInd.")
-        or nsid.startswith("app.etzhayyim.govAfg.")
+        nsid.startswith("com.etzhayyim.apps.")
+        or nsid.startswith("com.etzhayyim.govInd.")
+        or nsid.startswith("com.etzhayyim.govAfg.")
     ):
         return None
     parts = nsid.split(".")
-    if nsid.startswith("app.etzhayyim.apps.") and len(parts) < 5:
+    if nsid.startswith("com.etzhayyim.apps.") and len(parts) < 5:
         return None
-    if nsid.startswith("app.etzhayyim.govInd."):
+    if nsid.startswith("com.etzhayyim.govInd."):
         actor = "govInd"
-    elif nsid.startswith("app.etzhayyim.govAfg."):
+    elif nsid.startswith("com.etzhayyim.govAfg."):
         actor = "govAfg"
     else:
         actor = parts[3]

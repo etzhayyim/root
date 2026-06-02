@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sbom.recall",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Blast-radius query for a supplier (and optionally MPN). Returns every SBOM artifact whose components reference the supplier — Takata-style hardware recall surface for vehicle BOMs and the equivalent software-side query for cargo SBOMs. Filters by kind (software | vehicle).",
+      "parameters": {
+        "type": "params",
+        "required": ["supplier"],
+        "properties": {
+          "supplier": {
+            "type": "string",
+            "description": "Manufacturer / supplier name. Matched against vertex_sbom_component.supplier_name."
+          },
+          "mpn": {
+            "type": "string",
+            "description": "Manufacturer part number. Optional. When set, only components whose supplier_mpn equals this value are returned."
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["software", "vehicle"],
+            "description": "Restrict results to software or vehicle artifacts. Omit for both."
+          },
+          "limit": { "type": "integer", "default": 50, "minimum": 1, "maximum": 500 },
+          "offset": { "type": "integer", "default": 0, "minimum": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["matches", "total", "limit", "offset"],
+          "properties": {
+            "matches": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["artifactUri", "kind", "componentBomRef", "supplier"],
+                "properties": {
+                  "artifactUri": { "type": "string" },
+                  "kind": { "type": "string" },
+                  "vehicleId": { "type": "string" },
+                  "vehicleRevision": { "type": "string" },
+                  "sourceUri": { "type": "string" },
+                  "componentBomRef": { "type": "string" },
+                  "componentName": { "type": "string" },
+                  "componentVersion": { "type": "string" },
+                  "supplier": { "type": "string" },
+                  "supplierMpn": { "type": "string" },
+                  "vulnCount": { "type": "integer" },
+                  "registeredAt": { "type": "string" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "offset": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

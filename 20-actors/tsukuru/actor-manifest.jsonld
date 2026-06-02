@@ -123,7 +123,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.tsukuru.productionOrder"
+          "com.etzhayyim.apps.tsukuru.productionOrder"
         ],
         "type": "subscribeRepos"
       }
@@ -150,7 +150,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.tsukuru.qualityInspection"
+          "com.etzhayyim.apps.tsukuru.qualityInspection"
         ],
         "type": "subscribeRepos"
       }
@@ -177,7 +177,7 @@
             "params": {
               "actorName": "tsukuru",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.tsukuru.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.tsukuru.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "tsukr8u0",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -235,7 +235,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.tsukuru.coverage.get",
+        "nsid": "com.etzhayyim.apps.tsukuru.coverage.get",
         "type": "xrpc"
       }
     }
@@ -271,8 +271,8 @@
     "operator": "etzhayyim"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -285,14 +285,14 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.tsukuru.manufacturer",
-        "ai.gftd.apps.tsukuru.productionOrder",
-        "ai.gftd.apps.tsukuru.qualityInspection",
-        "ai.gftd.apps.tsukuru.manufacturingCell",
-        "ai.gftd.apps.tsukuru.manufacturingOutput",
-        "ai.gftd.apps.tsukuru.softwareIntegration",
-        "ai.gftd.apps.tsukuru.logisticsRoute",
-        "ai.gftd.apps.tsukuru.autonomyOperation"
+        "com.etzhayyim.apps.tsukuru.manufacturer",
+        "com.etzhayyim.apps.tsukuru.productionOrder",
+        "com.etzhayyim.apps.tsukuru.qualityInspection",
+        "com.etzhayyim.apps.tsukuru.manufacturingCell",
+        "com.etzhayyim.apps.tsukuru.manufacturingOutput",
+        "com.etzhayyim.apps.tsukuru.softwareIntegration",
+        "com.etzhayyim.apps.tsukuru.logisticsRoute",
+        "com.etzhayyim.apps.tsukuru.autonomyOperation"
       ]
     }
   },

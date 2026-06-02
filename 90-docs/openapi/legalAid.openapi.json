@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.legalAid.assignDefender": {
+    "/xrpc/com.etzhayyim.legalAid.assignDefender": {
       "post": {
         "summary": "Assign a public defender / panel attorney to a legal aid case.",
-        "operationId": "app.etzhayyim.legalAid.assignDefender",
+        "operationId": "com.etzhayyim.legalAid.assignDefender",
         "requestBody": {
           "required": true,
           "content": {
@@ -86,10 +86,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.legalAid.createCase": {
+    "/xrpc/com.etzhayyim.legalAid.createCase": {
       "post": {
         "summary": "Create a legal aid case (public defender / 法テラス assignment). Sources: ILAG + 法テラス + national legal aid bodies.",
-        "operationId": "app.etzhayyim.legalAid.createCase",
+        "operationId": "com.etzhayyim.legalAid.createCase",
         "requestBody": {
           "required": true,
           "content": {
@@ -176,10 +176,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.legalAid.listCases": {
+    "/xrpc/com.etzhayyim.legalAid.listCases": {
       "get": {
         "summary": "List legal aid cases with offset/limit pagination, optional filters.",
-        "operationId": "app.etzhayyim.legalAid.listCases",
+        "operationId": "com.etzhayyim.legalAid.listCases",
         "parameters": [
           {
             "name": "jurisdiction",

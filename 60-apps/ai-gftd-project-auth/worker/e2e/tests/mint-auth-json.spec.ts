@@ -56,7 +56,7 @@ test("mint auth.json via headless WebAuthn → OAuth PKCE → apiKey", async ({ 
   // 1. passkeyBeginRegister — Node.js side (avoids SvelteKit patched window.fetch)
   const userId = randomBytes(16).toString("hex");
   const userName = `cli-${randomBytes(4).toString("hex")}@etzhayyim.com`;
-  const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/app.etzhayyim.auth.passkeyBeginRegister`, {
+  const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/com.etzhayyim.auth.passkeyBeginRegister`, {
     data: { userId, userName },
   });
   expect(beginResp.ok(), `passkeyBeginRegister failed: ${beginResp.status()}`).toBe(true);
@@ -94,7 +94,7 @@ test("mint auth.json via headless WebAuthn → OAuth PKCE → apiKey", async ({ 
   }, begin);
 
   // 3. passkeyVerifyRegister — Node.js side
-  const verifyResp = await request.post(`${AUTH_ORIGIN}/xrpc/app.etzhayyim.auth.passkeyVerifyRegister`, {
+  const verifyResp = await request.post(`${AUTH_ORIGIN}/xrpc/com.etzhayyim.auth.passkeyVerifyRegister`, {
     data: {
       challenge: begin.challenge,
       clientDataJson: credResult.clientDataJson,

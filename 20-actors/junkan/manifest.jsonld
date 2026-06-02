@@ -79,11 +79,11 @@
     { "name": "junkan_silen_review", "module": "magatama.cells.junkan_silen_review", "phase": "quarterly", "status": "R0 path-reserved" }
   ],
   "lexicons": [
-    "app.etzhayyim.junkan.societalStockObservation",
-    "app.etzhayyim.junkan.causalLoopFinding",
-    "app.etzhayyim.junkan.leveragePointFinding",
-    "app.etzhayyim.junkan.regimeShiftEvent",
-    "app.etzhayyim.junkan.silenJunkanReview"
+    "com.etzhayyim.junkan.societalStockObservation",
+    "com.etzhayyim.junkan.causalLoopFinding",
+    "com.etzhayyim.junkan.leveragePointFinding",
+    "com.etzhayyim.junkan.regimeShiftEvent",
+    "com.etzhayyim.junkan.silenJunkanReview"
   ],
   "license": "Apache-2.0 WITH etzhayyim-Charter-Compliance-Rider-v2.0",
   "phasedDelivery": {

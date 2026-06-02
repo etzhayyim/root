@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.claim.resolution",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "ADR-2604261717 immutable annotation that records the final outcome of a stakedAttestation. Append-only — never mutates the original record (record-log invariant per ADR-2604251220).",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["claimId", "outcome", "txHash", "settledAt"],
+        "properties": {
+          "claimId":   { "type": "string" },
+          "outcome":   { "type": "string", "description": "unchallenged | upheld | slashed | refunded" },
+          "rationale": { "type": "string", "description": "DMN decision id, oracle signature payload, or jury vote summary" },
+          "txHash":    { "type": "string", "description": "EVM settlement transaction hash" },
+          "claimantPayout":   { "type": "string", "description": "GCC wei returned to the claimant (uint256 decimal string)" },
+          "challengerPayout": { "type": "string", "description": "GCC wei paid to the challenger (uint256 decimal string)" },
+          "treasuryAmount":   { "type": "string" },
+          "rewardAmount":     { "type": "string" },
+          "settledAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

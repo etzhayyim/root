@@ -21,7 +21,7 @@ repository = "https://github.com/etzhayyim/etzhayyim-root"
 authors = ["etzhayyim.com"]
 
 [workspace.dependencies]
-heapless = { version = "0.8", default-features = false }
+heapless = { version = "0.9", default-features = false }
 openot-bfb-rs = { path = "openot-bfb-rs", default-features = false }
 
 [workspace.lints.rust]

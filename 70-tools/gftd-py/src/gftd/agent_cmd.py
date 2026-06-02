@@ -43,7 +43,7 @@ def agent_list(pds: str | None, json_out: bool, filter_status: str) -> None:
     if filter_status:
         params["status"] = filter_status
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.agent.listAgents",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.agent.listAgents",
                          params=params, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -65,7 +65,7 @@ def agent_get(agent_id: str, pds: str | None, json_out: bool) -> None:
     """Get agent details."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.agent.getAgent",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.agent.getAgent",
                          params={"id": agent_id}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -85,7 +85,7 @@ def agent_stop(agent_id: str, pds: str | None) -> None:
     """Stop a running agent."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.agent.stopAgent",
+        resp = httpx.post(f"{pds_url}/xrpc/com.etzhayyim.agent.stopAgent",
                           json={"id": agent_id}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         click.echo(f"stopped: {agent_id}")

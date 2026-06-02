@@ -3,7 +3,7 @@
 write a manifest that feeds the 3-D Gaussian-Splat training pipeline.
 
 This is the IMAGE-ACQUISITION front of the existing repo pipeline
-`app.etzhayyim.apps.maps.trainGsplatFromMapillary` (ADR-2605092800):
+`com.etzhayyim.apps.maps.trainGsplatFromMapillary` (ADR-2605092800):
 
     mapillary_fetch.py (this)  →  manifest of image ids + thumb URLs + poses
         →  trainGsplatFromMapillary worker (Vultr/RunPod GPU pod):
@@ -69,7 +69,7 @@ def main():
             f"  manifest to {args.out}.\n"
             "Step 2 (offline GPU): hand the manifest's image ids to the existing\n"
             "  XRPC procedure to enqueue COLMAP→gsplat training:\n\n"
-            f'    app.etzhayyim.apps.maps.trainGsplatFromMapillary '
+            f'    com.etzhayyim.apps.maps.trainGsplatFromMapillary '
             f'{{ "lat": {lat0:.5f}, "lng": {lng0:.5f}, "radiusM": 120, "maxImages": {args.limit} }}\n\n'
             "  → worker runs COLMAP SfM + gsplat on a GPU pod, uploads PLY to B2,\n"
             "    inserts a vertex_maps_gsplat_asset row (ADR-2605092800).\n"
@@ -95,7 +95,7 @@ def main():
             for im in imgs
         ],
         "train_invocation": {
-            "xrpc": "app.etzhayyim.apps.maps.trainGsplatFromMapillary",
+            "xrpc": "com.etzhayyim.apps.maps.trainGsplatFromMapillary",
             "input": {"lat": round(lat0, 7), "lng": round(lng0, 7),
                       "radiusM": 120, "maxImages": args.limit,
                       "mapillaryImageIds": [im["id"] for im in imgs]},

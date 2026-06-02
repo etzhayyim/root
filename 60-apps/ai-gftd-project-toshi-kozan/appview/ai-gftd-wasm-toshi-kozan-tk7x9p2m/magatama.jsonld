@@ -118,20 +118,20 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.toshiKozan.depot",
-        "ai.gftd.apps.toshiKozan.pickup",
-        "ai.gftd.apps.toshiKozan.receipt",
-        "ai.gftd.apps.toshiKozan.imageScan",
-        "ai.gftd.apps.toshiKozan.classification",
-        "ai.gftd.apps.toshiKozan.disassemblyPlan",
-        "ai.gftd.apps.toshiKozan.disassemblyStep",
-        "ai.gftd.apps.toshiKozan.armCommand",
-        "ai.gftd.apps.toshiKozan.hcTask",
-        "ai.gftd.apps.toshiKozan.batch",
-        "ai.gftd.apps.toshiKozan.appraisal",
-        "ai.gftd.apps.toshiKozan.material",
-        "ai.gftd.apps.toshiKozan.waste",
-        "ai.gftd.apps.collector.pickup"
+        "com.etzhayyim.apps.toshiKozan.depot",
+        "com.etzhayyim.apps.toshiKozan.pickup",
+        "com.etzhayyim.apps.toshiKozan.receipt",
+        "com.etzhayyim.apps.toshiKozan.imageScan",
+        "com.etzhayyim.apps.toshiKozan.classification",
+        "com.etzhayyim.apps.toshiKozan.disassemblyPlan",
+        "com.etzhayyim.apps.toshiKozan.disassemblyStep",
+        "com.etzhayyim.apps.toshiKozan.armCommand",
+        "com.etzhayyim.apps.toshiKozan.hcTask",
+        "com.etzhayyim.apps.toshiKozan.batch",
+        "com.etzhayyim.apps.toshiKozan.appraisal",
+        "com.etzhayyim.apps.toshiKozan.material",
+        "com.etzhayyim.apps.toshiKozan.waste",
+        "com.etzhayyim.apps.collector.pickup"
       ]
     }
   },
@@ -162,21 +162,21 @@
   "derive": {
     "social": [
       {
-        "on": "ai.gftd.apps.toshiKozan.appraisal",
+        "on": "com.etzhayyim.apps.toshiKozan.appraisal",
         "template": "[都市鉱山] 回収バッチ完了 — {{grade}} grade {{materialName}} {{weightKg}}kg 回収 (市場価値 ¥{{economicValueJpy}}, CO2削減 {{co2SavedKg}}kg)"
       },
       {
-        "on": "ai.gftd.apps.toshiKozan.receipt",
+        "on": "com.etzhayyim.apps.toshiKozan.receipt",
         "when": {"weightKg": ">100"},
         "template": "[都市鉱山] 大口受入: {{wasteCategory}} {{weightKg}}kg を {{depotName}} で受領"
       }
     ],
     "invoke": [
       {
-        "on": "ai.gftd.apps.toshiKozan.hcTask",
+        "on": "com.etzhayyim.apps.toshiKozan.hcTask",
         "when": {"status": "pending"},
         "target": "did:web:hc.etzhayyim.com",
-        "method": "ai.gftd.apps.hc.createTask",
+        "method": "com.etzhayyim.apps.hc.createTask",
         "map": {
           "category": "{{hcCategory}}",
           "title": "{{title}}",

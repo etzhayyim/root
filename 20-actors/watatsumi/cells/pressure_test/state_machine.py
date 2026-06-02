@@ -94,7 +94,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     pt.phase = PressureTestPhase.RECORD_EMITTED
     pt.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.watatsumi.pressureTestRecord",
+        "$type": "com.etzhayyim.watatsumi.pressureTestRecord",
         "craftId": pt.craftId,
         "designDepthM": pt.designDepthM,
         "testDepthEquivalentM": pt.testDepthEquivalentM,

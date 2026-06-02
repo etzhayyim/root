@@ -1,7 +1,7 @@
 """gftd xrpc — port of xrpc.go (ADR-2605151500).
 
 Invoke any XRPC endpoint on an App or PDS.
-Auto-routes app.etzhayyim.apps.{slug}.* NSIDs to the correct nanoid worker.
+Auto-routes com.etzhayyim.apps.{slug}.* NSIDs to the correct nanoid worker.
 Scoped-JWT auto-wrap: uses com.atproto.server.getServiceAuth for each NSID call.
 """
 
@@ -25,7 +25,7 @@ _KNOWN_APPS: dict[str, str] = {
     "gtin": "gt1n4k7m",
 }
 
-_APP_HOST_TEMPLATE = "https://{nanoid}.app.etzhayyim.com"
+_APP_HOST_TEMPLATE = "https://{nanoid}.com.etzhayyim.com"
 
 
 def _resolve_base(nsid: str, app: str | None, url: str | None) -> str:
@@ -33,9 +33,9 @@ def _resolve_base(nsid: str, app: str | None, url: str | None) -> str:
         return url.rstrip("/")
     if app:
         return _APP_HOST_TEMPLATE.format(nanoid=app)
-    # NSID inference: app.etzhayyim.apps.<slug>.*
+    # NSID inference: com.etzhayyim.apps.<slug>.*
     parts = nsid.split(".")
-    if len(parts) >= 4 and parts[:3] == ["ai", "gftd", "apps"]:
+    if len(parts) >= 4 and parts[:3] == ["com", "etzhayyim", "apps"]:
         slug = parts[3]
         if nanoid := _KNOWN_APPS.get(slug):
             return _APP_HOST_TEMPLATE.format(nanoid=nanoid)

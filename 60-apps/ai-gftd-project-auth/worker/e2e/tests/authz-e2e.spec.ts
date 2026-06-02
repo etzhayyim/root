@@ -6,7 +6,7 @@
  * 1. Redirect chain — accounts.etzhayyim.com root → /manage → authn sign-in (no session)
  * 2. Unauthenticated getSession returns {ok: false}
  * 3. Full passkey register (via authn.etzhayyim.com) → session cookie shared → authz getSession
- * 4. Canonical app.etzhayyim.authz.getSession works on authz
+ * 4. Canonical com.etzhayyim.authz.getSession works on authz
  * 5. Org management: orgCreate → orgInfo → orgList → orgInvite → orgInviteAccept → orgMembers
  */
 
@@ -51,7 +51,7 @@ async function registerPasskeySession(page: Page, request: any): Promise<{ did: 
   // 1. passkeyBeginRegister — Node.js side (avoids SvelteKit patched window.fetch)
   const userId = randomBytes(16).toString("hex");
   const userName = `authz-e2e-${randomBytes(4).toString("hex")}@etzhayyim.com`;
-  const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/app.etzhayyim.auth.passkeyBeginRegister`, {
+  const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/com.etzhayyim.auth.passkeyBeginRegister`, {
     data: { userId, userName },
   });
   expect(beginResp.ok(), `passkeyBeginRegister failed: ${beginResp.status()}`).toBe(true);
@@ -89,7 +89,7 @@ async function registerPasskeySession(page: Page, request: any): Promise<{ did: 
   }, begin);
 
   // 3. passkeyVerifyRegister — Node.js side
-  const verifyResp = await request.post(`${AUTH_ORIGIN}/xrpc/app.etzhayyim.auth.passkeyVerifyRegister`, {
+  const verifyResp = await request.post(`${AUTH_ORIGIN}/xrpc/com.etzhayyim.auth.passkeyVerifyRegister`, {
     data: {
       challenge: begin.challenge,
       clientDataJson: credResult.clientDataJson,
@@ -133,7 +133,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
   });
 
   test("2. getSession without auth returns {ok: false}", async ({ request }) => {
-    const resp = await request.get(`${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.getSession`, {
+    const resp = await request.get(`${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.getSession`, {
       headers: { Cookie: "gftd_session=invalid_token" },
     });
     // Worker returns 200 with {ok: false} (XRPC convention — not an HTTP error)
@@ -148,7 +148,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
   }) => {
     const { did, cookie } = await registerPasskeySession(page, request);
 
-    const resp = await request.get(`${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.getSession`, {
+    const resp = await request.get(`${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.getSession`, {
       headers: { Cookie: cookie },
     });
     expect(resp.ok(), `getSession failed: ${await resp.text()}`).toBe(true);
@@ -161,10 +161,10 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
     test.info().annotations.push({ type: "actorScore", description: String(body.actorScore.score) });
   });
 
-  test("4. canonical app.etzhayyim.authz.getSession works on authz", async ({ page, request }) => {
+  test("4. canonical com.etzhayyim.authz.getSession works on authz", async ({ page, request }) => {
     const { cookie } = await registerPasskeySession(page, request);
 
-    const resp = await request.get(`${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.getSession`, {
+    const resp = await request.get(`${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.getSession`, {
       headers: { Cookie: cookie },
     });
     expect(resp.ok()).toBe(true);
@@ -181,7 +181,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
     const { did: ownerDid, cookie: ownerCookie } = await registerPasskeySession(page, request);
 
     // 5a. orgCreate
-    const createResp = await request.post(`${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.orgCreate`, {
+    const createResp = await request.post(`${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.orgCreate`, {
       headers: { Cookie: ownerCookie, "Content-Type": "application/json" },
       data: { name: "E2E Test Org", domain: "e2e.etzhayyim.com", orgType: "company" },
     });
@@ -195,7 +195,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
 
     // 5b. orgInfo — response: { ok: true, org: { orgDid, name, orgType, memberCount, ... } }
     const infoResp = await request.get(
-      `${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.orgInfo?orgDid=${encodeURIComponent(orgDid)}`,
+      `${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.orgInfo?orgDid=${encodeURIComponent(orgDid)}`,
       { headers: { Cookie: ownerCookie } },
     );
     expect(infoResp.ok()).toBe(true);
@@ -206,7 +206,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
     expect(info.memberCount).toBeGreaterThanOrEqual(1);
 
     // 5c. orgList
-    const listResp = await request.get(`${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.orgList`, {
+    const listResp = await request.get(`${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.orgList`, {
       headers: { Cookie: ownerCookie },
     });
     expect(listResp.ok()).toBe(true);
@@ -218,7 +218,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
 
     // 5d. orgInvite (invite a fake email; token is HMAC-stateless so no delivery needed)
     const inviteEmail = `e2e-invitee-${Date.now()}@etzhayyim.com`;
-    const inviteResp = await request.post(`${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.orgInvite`, {
+    const inviteResp = await request.post(`${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.orgInvite`, {
       headers: { Cookie: ownerCookie, "Content-Type": "application/json" },
       data: { orgDid, email: inviteEmail, role: "member" },
     });
@@ -244,7 +244,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
     const { did: memberDid, cookie: memberCookie } = await registerPasskeySession(page2, request);
     await ctx2.close();
 
-    const acceptResp = await request.post(`${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.orgInviteAccept`, {
+    const acceptResp = await request.post(`${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.orgInviteAccept`, {
       headers: { Cookie: memberCookie, "Content-Type": "application/json" },
       data: { token: inviteToken },
     });
@@ -255,7 +255,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
 
     // 5f. orgMembers — should now have 2 members
     const membersResp = await request.get(
-      `${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.orgMembers?orgDid=${encodeURIComponent(orgDid)}`,
+      `${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.orgMembers?orgDid=${encodeURIComponent(orgDid)}`,
       { headers: { Cookie: ownerCookie } },
     );
     expect(membersResp.ok()).toBe(true);
@@ -266,7 +266,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
     expect(memberDids).toContain(memberDid);
 
     // 5g. orgLeave — member leaves
-    const leaveResp = await request.post(`${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.orgLeave`, {
+    const leaveResp = await request.post(`${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.orgLeave`, {
       headers: { Cookie: memberCookie, "Content-Type": "application/json" },
       data: { orgDid },
     });
@@ -274,7 +274,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
 
     // 5h. Verify members is back to 1
     const members2Resp = await request.get(
-      `${AUTHZ_BASE}/xrpc/app.etzhayyim.authz.orgMembers?orgDid=${encodeURIComponent(orgDid)}`,
+      `${AUTHZ_BASE}/xrpc/com.etzhayyim.authz.orgMembers?orgDid=${encodeURIComponent(orgDid)}`,
       { headers: { Cookie: ownerCookie } },
     );
     expect(members2Resp.ok()).toBe(true);
@@ -288,7 +288,7 @@ test.describe("T4 AuthZ Worker (authz.etzhayyim.com)", () => {
     expect(await health.text()).toBe("ok");
 
     // Use AUTH_CANONICAL (auth.etzhayyim.com) — authn.etzhayyim.com 301-redirects which converts POST→GET.
-    const beginAuth = await request.post(`${AUTH_CANONICAL}/xrpc/app.etzhayyim.auth.passkeyBeginAuth`, {
+    const beginAuth = await request.post(`${AUTH_CANONICAL}/xrpc/com.etzhayyim.auth.passkeyBeginAuth`, {
       headers: { "Content-Type": "application/json" },
       data: {},
     });

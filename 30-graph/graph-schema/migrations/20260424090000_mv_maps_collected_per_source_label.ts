@@ -5,7 +5,7 @@ import { sql } from "kysely";
  * RisingWave streaming MV — live collected_count per (source_did, label)
  * for the maps coverage frontier.
  *
- * Backs `app.etzhayyim.apps.maps.refreshCoverageStats` XRPC which writes the MV
+ * Backs `com.etzhayyim.apps.maps.refreshCoverageStats` XRPC which writes the MV
  * rows back into `vertex_maps_coverage_target.collected_count`, closing
  * the feedback loop started by the `advanceCoverage` frontier.
  *

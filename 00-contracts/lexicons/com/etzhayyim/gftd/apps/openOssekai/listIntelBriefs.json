@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openOssekai.listIntelBriefs",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List intel briefs, optionally filtered by target actor.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "targetDid": { "type": "string", "description": "Filter by target DID (optional)" },
+          "limit":     { "type": "integer", "description": "Max results (default 20)" },
+          "offset":    { "type": "integer", "description": "Pagination offset" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["briefs", "total"],
+          "properties": {
+            "briefs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "briefId":         { "type": "string" },
+                  "targetDid":       { "type": "string" },
+                  "targetHandle":    { "type": "string" },
+                  "title":           { "type": "string" },
+                  "summary":         { "type": "string" },
+                  "keySignals":      { "type": "string" },
+                  "confidenceScore": { "type": "number" },
+                  "generatedAt":     { "type": "string" }
+                }
+              }
+            },
+            "total":  { "type": "integer" },
+            "limit":  { "type": "integer" },
+            "offset": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

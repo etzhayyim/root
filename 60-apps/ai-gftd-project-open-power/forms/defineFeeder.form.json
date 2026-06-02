@@ -3,7 +3,7 @@
   "formKey": "openPower.defineFeeder.v1",
   "name": "Define Feeder",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openPower.defineFeeder",
+  "lexiconRef": "com.etzhayyim.apps.openPower.defineFeeder",
   "components": [
     {
       "key": "substationDid",

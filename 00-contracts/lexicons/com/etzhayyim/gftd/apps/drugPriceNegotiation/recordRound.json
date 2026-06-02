@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.drugPriceNegotiation.recordRound",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Drug price negotiation / HTA / formulary listing (bridges vaccineEquity.flagAccessGap + pharma-supply + universal-health-coverage)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "roundId",
+            "regimeKind",
+            "therapeuticArea",
+            "publishedAt"
+          ],
+          "properties": {
+            "roundId": {
+              "type": "string"
+            },
+            "regimeKind": {
+              "type": "string",
+              "enum": [
+                "us_ira_negotiation",
+                "uk_nice",
+                "de_ahmg",
+                "fr_ceps",
+                "ita_aifa",
+                "jp_chuikyo",
+                "kr_hira",
+                "au_pbs",
+                "ca_pcpa",
+                "br_cmed",
+                "mx_imss",
+                "cn_nrdl",
+                "sg_aca",
+                "is_lif_pricing",
+                "tw_nhi"
+              ]
+            },
+            "therapeuticArea": {
+              "type": "string",
+              "enum": [
+                "oncology",
+                "rare_disease",
+                "alzheimer",
+                "diabetes",
+                "obesity",
+                "cardiovascular",
+                "respiratory",
+                "mental_health",
+                "autoimmune",
+                "gene_therapy",
+                "ovid_post",
+                "cell_therapy",
+                "crispr_therapy"
+              ]
+            },
+            "pharmaCompanyLei": {
+              "type": "string"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

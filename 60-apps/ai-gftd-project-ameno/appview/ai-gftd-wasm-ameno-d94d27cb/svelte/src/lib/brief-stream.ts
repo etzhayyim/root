@@ -1,5 +1,5 @@
 /**
- * brief-stream.ts — EventSource wrapper for app.etzhayyim.apps.ameno.subscribeBriefs.
+ * brief-stream.ts — EventSource wrapper for com.etzhayyim.apps.ameno.subscribeBriefs.
  *
  * Connects to the AT Protocol PDS (atproto.etzhayyim.com) which routes the SSE
  * stream through bpmn-dispatcher → ameno-langserver → NATS JetStream.
@@ -48,7 +48,7 @@ export function openBriefStream(opts: OpenBriefStreamOptions): () => void {
   if (opts.maxEvents != null) params.set("maxEvents", String(opts.maxEvents));
   if (opts.idleTimeoutSec != null) params.set("idleTimeoutSec", String(opts.idleTimeoutSec));
 
-  const url = `${PDS_BASE}/xrpc/app.etzhayyim.apps.ameno.subscribeBriefs?${params.toString()}`;
+  const url = `${PDS_BASE}/xrpc/com.etzhayyim.apps.ameno.subscribeBriefs?${params.toString()}`;
   const es = new EventSource(url);
   let closed = false;
   let delivered = 0;

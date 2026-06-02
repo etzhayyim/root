@@ -17,26 +17,26 @@ const entries = [
   {
     proc: "scoreInfluence",
     bpmnProcessId: "business_person_score_influence",
-    nsid: "app.etzhayyim.apps.businessPerson.scoreInfluence",
+    nsid: "com.etzhayyim.apps.businessPerson.scoreInfluence",
     resultTimeoutMs: 60000,
   },
   {
     proc: "enrichCareerLLM",
     bpmnProcessId: "business_person_enrich_career_llm",
-    nsid: "app.etzhayyim.apps.businessPerson.enrichCareerLLM",
+    nsid: "com.etzhayyim.apps.businessPerson.enrichCareerLLM",
     resultTimeoutMs: 120000,
   },
 ] as const;
 
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVid = (proc: string) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(proc)}-v1`;
 const bindingVid = (proc: string) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${proc}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const e of entries) {
-    const rel = `00-contracts/bpmn/ai/gftd/${project}/${e.proc}.bpmn`;
+    const rel = `00-contracts/bpmn/com/etzhayyim/${project}/${e.proc}.bpmn`;
     const xml = readContract(rel);
     const size = Buffer.byteLength(xml, "utf8");
     const pvid = processVid(e.proc);

@@ -1,0 +1,98 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cyberCompliance.recordIsmsAudit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ISMS audit (ISO 27001 / SOC 2 / IEC 62443)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "auditId",
+            "framework",
+            "assessmentDate",
+            "passFail"
+          ],
+          "properties": {
+            "auditId": {
+              "type": "string"
+            },
+            "orgLei": {
+              "type": "string"
+            },
+            "framework": {
+              "type": "string",
+              "enum": [
+                "ISO-27001",
+                "SOC2-T1",
+                "SOC2-T2",
+                "IEC-62443",
+                "NIST-CSF",
+                "HIPAA",
+                "PCI-DSS-4",
+                "FedRAMP-Moderate",
+                "FedRAMP-High"
+              ]
+            },
+            "assessmentDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "findingsHigh": {
+              "type": "integer"
+            },
+            "findingsMedium": {
+              "type": "integer"
+            },
+            "findingsLow": {
+              "type": "integer"
+            },
+            "passFail": {
+              "type": "string",
+              "enum": [
+                "pass",
+                "conditional-pass",
+                "fail"
+              ]
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "certificationTier": {
+              "type": "string",
+              "enum": [
+                "certified",
+                "provisional",
+                "remediation-required",
+                "failed"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

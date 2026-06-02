@@ -25,7 +25,7 @@
 //      centralized-DB-class storage even though it lives at the edge.
 //      Migration target: store credential blobs in the MST under a
 //      Signal-wrapped, DID-bound encrypted envelope
-//      (`app.etzhayyim.encrypted.auth.credential`) per ADR-2605181100,
+//      (`com.etzhayyim.encrypted.auth.credential`) per ADR-2605181100,
 //      with a Workers KV index for fast lookup. The Kysely *types*
 //      themselves are harmless — they describe an off-chain auth-only
 //      cache that will eventually be regeneratable from the encrypted
@@ -33,7 +33,7 @@
 //
 //   2. `vertex_gftd_identity` / `edge_gftd_*` — RisingWave governance
 //      tables. Migration target: lexicons under
-//      `app.etzhayyim.apps.identity.*` (already partly registered) with the
+//      `com.etzhayyim.apps.identity.*` (already partly registered) with the
 //      authoritative writes against MST and a yatachain-projection
 //      (`ADR-2605231500`) RisingWave cache that is rebuildable from
 //      MST + IPFS.

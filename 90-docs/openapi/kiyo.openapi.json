@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.kiyo.addReview": {
+    "/xrpc/com.etzhayyim.kiyo.addReview": {
       "post": {
         "summary": "Add a peer review or comment to a paper. reviewer_did = caller DID. review_type: peer | comment | editorial.",
-        "operationId": "app.etzhayyim.kiyo.addReview",
+        "operationId": "com.etzhayyim.kiyo.addReview",
         "requestBody": {
           "required": true,
           "content": {
@@ -73,10 +73,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.endorsePaper": {
+    "/xrpc/com.etzhayyim.kiyo.endorsePaper": {
       "post": {
         "summary": "Endorse a paper (arXiv-style). Idempotent. Caller DID → edge_kiyo_endorses.",
-        "operationId": "app.etzhayyim.kiyo.endorsePaper",
+        "operationId": "com.etzhayyim.kiyo.endorsePaper",
         "requestBody": {
           "required": true,
           "content": {
@@ -123,10 +123,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.getCitationGraph": {
+    "/xrpc/com.etzhayyim.kiyo.getCitationGraph": {
       "get": {
         "summary": "Get inbound and outbound citation edges for a paper from edge_kiyo_cites. Resolved DOIs linked via bunken.",
-        "operationId": "app.etzhayyim.kiyo.getCitationGraph",
+        "operationId": "com.etzhayyim.kiyo.getCitationGraph",
         "parameters": [
           {
             "name": "paperId",
@@ -212,10 +212,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.getPaper": {
+    "/xrpc/com.etzhayyim.kiyo.getPaper": {
       "get": {
         "summary": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.etzhayyim.com/ipfs/{cid}.",
-        "operationId": "app.etzhayyim.kiyo.getPaper",
+        "operationId": "com.etzhayyim.kiyo.getPaper",
         "parameters": [
           {
             "name": "paperId",
@@ -295,10 +295,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.getPaperFile": {
+    "/xrpc/com.etzhayyim.kiyo.getPaperFile": {
       "get": {
         "summary": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.etzhayyim.com/ipfs/{cid} — no expiry (content-addressed, immutable).",
-        "operationId": "app.etzhayyim.kiyo.getPaperFile",
+        "operationId": "com.etzhayyim.kiyo.getPaperFile",
         "parameters": [
           {
             "name": "paperId",
@@ -365,10 +365,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.getStats": {
+    "/xrpc/com.etzhayyim.kiyo.getStats": {
       "get": {
         "summary": "Platform-wide statistics: total papers, subject breakdown, author count, recent activity from mv_kiyo_subject_stats.",
-        "operationId": "app.etzhayyim.kiyo.getStats",
+        "operationId": "com.etzhayyim.kiyo.getStats",
         "parameters": [],
         "responses": {
           "200": {
@@ -423,10 +423,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.listByAuthor": {
+    "/xrpc/com.etzhayyim.kiyo.listByAuthor": {
       "get": {
         "summary": "List papers by a given author DID, with their h-index from mv_kiyo_author_hindex.",
-        "operationId": "app.etzhayyim.kiyo.listByAuthor",
+        "operationId": "com.etzhayyim.kiyo.listByAuthor",
         "parameters": [
           {
             "name": "authorDid",
@@ -521,10 +521,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.listPapers": {
+    "/xrpc/com.etzhayyim.kiyo.listPapers": {
       "get": {
         "summary": "List papers with optional subject / authorType / date filters. Sorted by submittedAt DESC.",
-        "operationId": "app.etzhayyim.kiyo.listPapers",
+        "operationId": "com.etzhayyim.kiyo.listPapers",
         "parameters": [
           {
             "name": "subject",
@@ -637,10 +637,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.searchPapers": {
+    "/xrpc/com.etzhayyim.kiyo.searchPapers": {
       "get": {
         "summary": "Semantic search over papers using embedding cosine similarity (RisingWave SQL UDF kiyo_embed_query + list_cosine_similarity). Falls back to title ILIKE for unembedded papers.",
-        "operationId": "app.etzhayyim.kiyo.searchPapers",
+        "operationId": "com.etzhayyim.kiyo.searchPapers",
         "parameters": [
           {
             "name": "q",
@@ -735,10 +735,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.submitPaper": {
+    "/xrpc/com.etzhayyim.kiyo.submitPaper": {
       "post": {
         "summary": "Submit a new preprint to kiyo.etzhayyim.com. The PDF (and optionally LaTeX source) must be supplied as base64. A CIDv1 is assigned via ipfs.etzhayyim.com and stored in vertex_kiyo_paper. Triggers submitPaper.bpmn.",
-        "operationId": "app.etzhayyim.kiyo.submitPaper",
+        "operationId": "com.etzhayyim.kiyo.submitPaper",
         "requestBody": {
           "required": true,
           "content": {
@@ -827,10 +827,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.submitRevision": {
+    "/xrpc/com.etzhayyim.kiyo.submitRevision": {
       "post": {
         "summary": "Submit a revised version of an existing paper. Caller must be the original owner_did. Triggers submitRevision.bpmn.",
-        "operationId": "app.etzhayyim.kiyo.submitRevision",
+        "operationId": "com.etzhayyim.kiyo.submitRevision",
         "requestBody": {
           "required": true,
           "content": {
@@ -894,10 +894,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.kiyo.withdrawPaper": {
+    "/xrpc/com.etzhayyim.kiyo.withdrawPaper": {
       "post": {
         "summary": "Withdraw a paper (sets status=withdrawn). Content remains on IPFS (content-addressed — immutable). Caller must be owner_did.",
-        "operationId": "app.etzhayyim.kiyo.withdrawPaper",
+        "operationId": "com.etzhayyim.kiyo.withdrawPaper",
         "requestBody": {
           "required": true,
           "content": {

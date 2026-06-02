@@ -1,7 +1,7 @@
 /**
  * Pure-helper tests — slug↔DID round-trip + TTL syntax validation.
  *
- * These lock down the DID-shape invariants for app.etzhayyim.maps.source
+ * These lock down the DID-shape invariants for com.etzhayyim.maps.source
  * so the seeder cannot silently mis-route a source DID. Failures here
  * indicate the slug grammar changed deliberately (rare — usually a new
  * registry category) or the maps CLAUDE.md source DID list drifted.

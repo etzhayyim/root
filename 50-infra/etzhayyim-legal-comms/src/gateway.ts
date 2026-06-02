@@ -26,7 +26,7 @@ export type ArtifactClass =
   | "representation-letter"
   | "appeal-document";
 
-/** Maps app.etzhayyim.legal.outboundLegalAct#counselActuation. */
+/** Maps com.etzhayyim.legal.outboundLegalAct#counselActuation. */
 export interface CounselActuation {
   counselDid: string;            // DID of the actuating licensed lawyer
   licenseJurisdiction: string;   // MUST equal the artifact's destinationJurisdiction

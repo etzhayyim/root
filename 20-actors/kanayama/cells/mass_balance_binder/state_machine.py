@@ -72,7 +72,7 @@ def transition_to_mass_balance_computed(state: dict[str, Any]) -> dict[str, Any]
 def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
     s = BalanceState(**state.get("balance_state", {}))
     s.yatachainAnchor = {
-        "membraneNamespace": "app.etzhayyim.kanayama",
+        "membraneNamespace": "com.etzhayyim.kanayama",
         "anchorTxHash": "0xKANAYAMABALANCE...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
         "anchorBlockNumber": 0,

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govMys.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govMys.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Malaysia government.",
-        "operationId": "app.etzhayyim.govMys.followSiteDeps",
+        "operationId": "com.etzhayyim.govMys.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMys.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govMys.heartbeatTick": {
       "post": {
         "summary": "Run the Malaysia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govMys.heartbeatTick",
+        "operationId": "com.etzhayyim.govMys.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMys.listOrgs": {
+    "/xrpc/com.etzhayyim.govMys.listOrgs": {
       "get": {
         "summary": "List Malaysia government organization graph records.",
-        "operationId": "app.etzhayyim.govMys.listOrgs",
+        "operationId": "com.etzhayyim.govMys.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMys.registerDIDs": {
+    "/xrpc/com.etzhayyim.govMys.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Malaysia government organizations.",
-        "operationId": "app.etzhayyim.govMys.registerDIDs",
+        "operationId": "com.etzhayyim.govMys.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMys.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govMys.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Malaysia government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govMys.resolveOrgPath",
+        "operationId": "com.etzhayyim.govMys.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMys.seedOrgs": {
+    "/xrpc/com.etzhayyim.govMys.seedOrgs": {
       "post": {
         "summary": "Seed initial Malaysia government organization records into the graph.",
-        "operationId": "app.etzhayyim.govMys.seedOrgs",
+        "operationId": "com.etzhayyim.govMys.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMys.shinka": {
+    "/xrpc/com.etzhayyim.govMys.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Malaysia government organization update.",
-        "operationId": "app.etzhayyim.govMys.shinka",
+        "operationId": "com.etzhayyim.govMys.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMys.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govMys.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Malaysia government organization changes to graph.",
-        "operationId": "app.etzhayyim.govMys.syncWetUpdates",
+        "operationId": "com.etzhayyim.govMys.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

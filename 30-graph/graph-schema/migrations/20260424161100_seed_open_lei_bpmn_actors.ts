@@ -16,26 +16,26 @@ const ownerDid = "did:web:open-lei.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-lei";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-register-legal-entity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-lei-register-legal-entity-v1",
     bpmnProcessId: "open_lei_register_legal_entity",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/registerLegalEntity.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-record-ownership-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-lei/registerLegalEntity.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-lei-record-ownership-v1",
     bpmnProcessId: "open_lei_record_ownership",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/recordOwnership.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-collect-gleif-global-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-lei/recordOwnership.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-lei-collect-gleif-global-v1",
     bpmnProcessId: "open_lei_collect_gleif_global_lei",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/collectGleifGlobalLei.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-lei/collectGleifGlobalLei.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-registerLegalEntity-v1",
-    nsid: "app.etzhayyim.apps.openLei.registerLegalEntity", bpmnProcessId: "open_lei_register_legal_entity",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-lei-registerLegalEntity-v1",
+    nsid: "com.etzhayyim.apps.openLei.registerLegalEntity", bpmnProcessId: "open_lei_register_legal_entity",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-recordOwnership-v1",
-    nsid: "app.etzhayyim.apps.openLei.recordOwnership", bpmnProcessId: "open_lei_record_ownership",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-lei-recordOwnership-v1",
+    nsid: "com.etzhayyim.apps.openLei.recordOwnership", bpmnProcessId: "open_lei_record_ownership",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-collectGleifGlobal-v1",
-    nsid: "app.etzhayyim.apps.openLei.collectGleifGlobal", bpmnProcessId: "open_lei_collect_gleif_global_lei",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-lei-collectGleifGlobal-v1",
+    nsid: "com.etzhayyim.apps.openLei.collectGleifGlobal", bpmnProcessId: "open_lei_collect_gleif_global_lei",
     ownerDid, resultTimeoutMs: 180000 },
 ];
 

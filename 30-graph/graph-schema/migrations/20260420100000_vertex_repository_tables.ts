@@ -27,7 +27,7 @@ import { Kysely, sql } from 'kysely';
  * is already taken by PDS commit log in vertex_repo_commit / _block).
  *
  * Served by: repository.etzhayyim.com (60-apps/ai-gftd-project-repository).
- * Lexicons: 00-contracts/lexicons/ai/gftd/repository/*.json (13 files).
+ * Lexicons: 00-contracts/lexicons/com/etzhayyim/repository/*.json (13 files).
  */
 export async function up(db: Kysely<any>): Promise<void> {
   // ─── vertex_repository_blob ──────────────────────────────────────────

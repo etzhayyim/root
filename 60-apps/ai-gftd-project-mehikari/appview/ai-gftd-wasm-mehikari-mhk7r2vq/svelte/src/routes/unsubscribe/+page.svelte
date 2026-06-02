@@ -21,7 +21,7 @@
     }
     status = "submitting";
     try {
-      const res = await fetch("/xrpc/app.etzhayyim.apps.mehikari.unsubscribe", {
+      const res = await fetch("/xrpc/com.etzhayyim.apps.mehikari.unsubscribe", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ token, reason, userAgent: navigator.userAgent }),

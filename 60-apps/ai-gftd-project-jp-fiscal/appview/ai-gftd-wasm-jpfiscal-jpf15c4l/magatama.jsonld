@@ -71,19 +71,19 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.jpFiscal.taxPayment",
-        "ai.gftd.apps.jpFiscal.appropriation",
-        "ai.gftd.apps.jpFiscal.budgetExecution",
-        "ai.gftd.apps.jpFiscal.kofuzeiTransfer",
-        "ai.gftd.apps.jpFiscal.subsidyGrant",
-        "ai.gftd.apps.jpFiscal.contract",
-        "ai.gftd.apps.jpFiscal.paymentRecord",
-        "ai.gftd.apps.jpFiscal.auditFinding",
-        "ai.gftd.apps.jpFiscal.budgetBook",
-        "ai.gftd.apps.jpFiscal.programReview",
-        "ai.gftd.apps.jpFiscal.lgFinance",
-        "ai.gftd.apps.jpFiscal.incorpFinance",
-        "ai.gftd.apps.jpFiscal.beneficialOwner"
+        "com.etzhayyim.apps.jpFiscal.taxPayment",
+        "com.etzhayyim.apps.jpFiscal.appropriation",
+        "com.etzhayyim.apps.jpFiscal.budgetExecution",
+        "com.etzhayyim.apps.jpFiscal.kofuzeiTransfer",
+        "com.etzhayyim.apps.jpFiscal.subsidyGrant",
+        "com.etzhayyim.apps.jpFiscal.contract",
+        "com.etzhayyim.apps.jpFiscal.paymentRecord",
+        "com.etzhayyim.apps.jpFiscal.auditFinding",
+        "com.etzhayyim.apps.jpFiscal.budgetBook",
+        "com.etzhayyim.apps.jpFiscal.programReview",
+        "com.etzhayyim.apps.jpFiscal.lgFinance",
+        "com.etzhayyim.apps.jpFiscal.incorpFinance",
+        "com.etzhayyim.apps.jpFiscal.beneficialOwner"
       ]
     }
   },

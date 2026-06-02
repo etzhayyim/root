@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.osMessaging.listBridges",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List OS messaging bridges with optional platform/owner filter.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "platform": { "type": "string" },
+          "ownerDid": { "type": "string", "format": "did" },
+          "convoDid": { "type": "string", "format": "did" },
+          "bridgeMode": { "type": "string" },
+          "e2eMode": { "type": "string" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["bridges", "total", "offset", "limit"], "properties": { "bridges": { "type": "array", "items": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "platform": { "type": "string" }, "channelId": { "type": "string" }, "channelName": { "type": "string" }, "bridgeMode": { "type": "string" }, "e2eMode": { "type": "string" } } } }, "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" } } } }
+    }
+  }
+}

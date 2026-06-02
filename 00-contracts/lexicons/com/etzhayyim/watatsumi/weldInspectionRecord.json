@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watatsumi.weldInspectionRecord",
+  "description": "Full weld NDT inspection record (L3). 100% RT/UT/PT to ASME BPVC §VIII Div 3 equivalent. Sango AUV swarm in-process witness. Per ADR-2605252200 L3.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craftId": {"type": "string"},
+          "sectionIndex": {"type": "integer"},
+          "rtResults": {"type": "array", "items": {"type": "unknown"}},
+          "utResults": {"type": "array", "items": {"type": "unknown"}},
+          "ptResults": {"type": "array", "items": {"type": "unknown"}},
+          "sangoWitnessRecords": {"type": "array", "items": {"type": "unknown"}},
+          "indicationFindings": {"type": "array", "items": {"type": "unknown"}},
+          "overallAccept": {"type": "boolean"},
+          "code": {"type": "string", "knownValues": ["ASME BPVC §VIII Div 3 equivalent", "DNV-RU-UWT", "ABS Underwater Vehicles", "NK 同等"]},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["craftId", "sectionIndex", "overallAccept", "code"]
+      }
+    }
+  }
+}

@@ -17,13 +17,13 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const project = "coverage";
 
 const processes = [
-  { proc: "inferLdaSignals",  sourcePath: "00-contracts/bpmn/ai/gftd/coverage/inferLdaSignals.bpmn" },
-  { proc: "inferLdaTopics",   sourcePath: "00-contracts/bpmn/ai/gftd/coverage/inferLdaTopics.bpmn" },
-  { proc: "inferLdaEntities", sourcePath: "00-contracts/bpmn/ai/gftd/coverage/inferLdaEntities.bpmn" },
+  { proc: "inferLdaSignals",  sourcePath: "00-contracts/bpmn/com/etzhayyim/coverage/inferLdaSignals.bpmn" },
+  { proc: "inferLdaTopics",   sourcePath: "00-contracts/bpmn/com/etzhayyim/coverage/inferLdaTopics.bpmn" },
+  { proc: "inferLdaEntities", sourcePath: "00-contracts/bpmn/com/etzhayyim/coverage/inferLdaEntities.bpmn" },
 ] as const;
 
 const processVertexId = (proc: string) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${proc}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const p of processes) {

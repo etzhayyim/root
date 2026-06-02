@@ -23,7 +23,7 @@ import {
   type SourceView,
 } from "./types.js";
 
-const SOURCE_COLLECTION = "app.etzhayyim.hanrei.source";
+const SOURCE_COLLECTION = "com.etzhayyim.hanrei.source";
 
 function sourceSlug(sourceId: string): string {
   return sourceId.toLowerCase().replace(/[^a-z0-9]/g, "-");

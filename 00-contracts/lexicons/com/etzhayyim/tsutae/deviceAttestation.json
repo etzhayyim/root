@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tsutae.deviceAttestation",
+  "description": "Final device attestation. Per-device DID + full BoM lineage + IPFS-pinned photo + repair-history-ready blockchain record. Per ADR-2605261300 G14.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "deviceDid": {"type": "string", "description": "Per-device DID (parallel to Adherent SBT pattern, device-level)"},
+          "serialNumber": {"type": "string", "description": "Open serial (not closed UDID)"},
+          "deviceType": {"type": "string", "knownValues": [
+            "tsutae-r1-benchtop-poc",
+            "tsutae-r2-pilot-lcd",
+            "tsutae-r2-pilot-oled",
+            "tsutae-r3-community-lcd",
+            "tsutae-r3-community-oled"
+          ]},
+          "lineage": {
+            "type": "object",
+            "properties": {
+              "pcbAttestationCid": {"type": "string"},
+              "chassisAttestationCid": {"type": "string"},
+              "displayAttachedRecordCid": {"type": "string"},
+              "firmwareAttestationCid": {"type": "string"},
+              "qcRecordCid": {"type": "string"},
+              "packagedRecordCid": {"type": "string"}
+            },
+            "required": ["pcbAttestationCid", "chassisAttestationCid", "firmwareAttestationCid", "qcRecordCid"]
+          },
+          "finalPhotoIpfsCid": {"type": "string", "description": "G14: IPFS-pinned device photo per ADR-2605241500 dataset CID substrate"},
+          "repairHistoryLogSeedCid": {"type": "string", "description": "G14: empty repair-event log seed; accepts future repairEvent appends throughout lifecycle"},
+          "manufacturingDate": {"type": "string"},
+          "manufacturingHardwareAttestation": {"type": "string", "description": "Hardware-attested timestamp CID"},
+          "rPhase": {"type": "string", "knownValues": ["R1", "R2", "R3"]},
+          "ownerAdherentSbt": {"type": "string", "description": "SBT-holder DID (N9 internal-only invariant; non-adherent commercial sale NEVER)"},
+          "witnessRobotDids": {"type": "array", "items": {"type": "string"}, "minItems": 2, "description": "G4: Mimi + Otete Ed25519"},
+          "operatorDid": {"type": "string"}
+        },
+        "required": ["deviceDid", "serialNumber", "deviceType", "lineage", "finalPhotoIpfsCid", "repairHistoryLogSeedCid", "manufacturingDate", "rPhase", "ownerAdherentSbt", "witnessRobotDids", "operatorDid"]
+      }
+    }
+  }
+}

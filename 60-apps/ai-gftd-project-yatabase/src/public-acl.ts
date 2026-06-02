@@ -191,7 +191,7 @@ export async function handlePublicAcl(
   };
   const result = await dispatchYataXrpc<{ url?: string; expiresAt?: string }>(
     env,
-    "app.etzhayyim.apps.yata.presignUrl",
+    "com.etzhayyim.apps.yata.presignUrl",
     {
       bucketName: bucket,
       objectKey: key,

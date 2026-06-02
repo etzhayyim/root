@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.offshoreWind.flagConstructionDelay",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Construction delay / supply chain risk (bridges telecom-infra + critical-minerals + battery-passport + semiconductor-fab)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "delayId",
+            "leaseVid",
+            "delayKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "delayId": {
+              "type": "string"
+            },
+            "leaseVid": {
+              "type": "string",
+              "description": "bridges registerLease"
+            },
+            "delayKind": {
+              "type": "string",
+              "enum": [
+                "permits",
+                "supply_chain",
+                "vessels",
+                "labor",
+                "subsea_cable",
+                "transformer",
+                "turbine_recall",
+                "foundation",
+                "grid_connection"
+              ]
+            },
+            "monthsDelay": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "major"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

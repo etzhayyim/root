@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.homecareEpisode",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "FHIR R5 EpisodeOfCare specialized for 在宅医療 (home-care). Inner type of com.etzhayyim.encrypted.record envelope. Encapsulates a multi-month treatment episode at a patient's residence — encompassing scheduled home visits, drip therapy, palliative care, and end-of-life (看取り) handoff.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "status", "startedAt", "managingFacilityDid"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "EpisodeOfCare"},
+          "patientDid": {"type": "string"},
+          "managingFacilityDid": {"type": "string", "description": "did:web of the 在宅医療事業者"},
+          "primaryMdDid": {"type": "string"},
+          "primaryNurseDid": {"type": "string"},
+          "careTeamDids": {"type": "array", "items": {"type": "string"}, "description": "All clinicians + caregivers in the episode (MD/NP/RN/PT/OT/ST/MSW/Pharmacist/Caregiver)"},
+          "status": {
+            "type": "string",
+            "enum": ["planned", "active", "onhold", "finished", "cancelled", "entered-in-error"]
+          },
+          "careType": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["chronic-disease", "post-discharge", "palliative", "hospice", "rehabilitation", "ventilator-dependent", "dialysis-home", "intractable-disease", "pediatric-medical-care"]
+            },
+            "description": "JP-specific: 在宅医療の種別"
+          },
+          "diagnosisRefs": {"type": "array", "items": {"type": "string"}, "description": "AT URIs of Condition records central to the episode"},
+          "startedAt": {"type": "string", "format": "datetime"},
+          "endedAt": {"type": "string", "format": "datetime"},
+          "endReason": {"type": "string", "enum": ["recovered", "discharged-to-facility", "deceased", "patient-request", "scope-change"]},
+          "visitCadence": {
+            "type": "object",
+            "properties": {
+              "scheduledIntervalDays": {"type": "integer"},
+              "after22Available": {"type": "boolean", "description": "夜間対応"},
+              "emergency24Available": {"type": "boolean", "description": "24時間緊急対応"}
+            }
+          },
+          "advanceDirective": {
+            "type": "object",
+            "description": "事前指示書 (ACP) — limited PHI-encrypted summary",
+            "properties": {
+              "dnar": {"type": "boolean", "description": "DNAR/DNR 指示の有無"},
+              "preferredPlaceOfDeath": {"type": "string", "enum": ["home", "facility", "hospital", "undecided"]},
+              "decidedAt": {"type": "string", "format": "datetime"},
+              "decidedByDid": {"type": "string"},
+              "witnessDid": {"type": "string"},
+              "notes": {"type": "string"}
+            }
+          },
+          "createdAt": {"type": "string", "format": "datetime"},
+          "updatedAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}

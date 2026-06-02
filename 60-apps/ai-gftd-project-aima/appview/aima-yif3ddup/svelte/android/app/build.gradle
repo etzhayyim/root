@@ -15,10 +15,10 @@ def versionCodeOverride = System.getenv('ANDROID_VERSION_CODE')
 def versionNameOverride = System.getenv('ANDROID_VERSION_NAME')
 
 android {
-    namespace = "ai.gftd.aima"
+    namespace = "com.etzhayyim.aima"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "ai.gftd.aima"
+        applicationId "com.etzhayyim.aima"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode versionCodeOverride ? versionCodeOverride.toInteger() : 1

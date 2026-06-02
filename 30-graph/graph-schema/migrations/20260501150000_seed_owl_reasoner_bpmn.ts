@@ -11,9 +11,9 @@ const ownerDid   = "did:web:bpmn.etzhayyim.com";
 const createdAt  = "2026-05-01T13:00:00+09:00";
 const actorId    = "sys.bpmn.seed.owl-reasoner";
 
-const BPMN_PATH   = "00-contracts/bpmn/ai/gftd/owl/owlReasonerBatch.bpmn";
+const BPMN_PATH   = "00-contracts/bpmn/com/etzhayyim/owl/owlReasonerBatch.bpmn";
 const PROCESS_ID  = "owl_reasoner_batch";
-const PROCESS_VID = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/owl-reasoner-batch-v1";
+const PROCESS_VID = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/owl-reasoner-batch-v1";
 // Timer-start process: no external NSID binding (self-scheduled R/PT1H).
 // Task types (owl.el.classify / owl.dl.classify / owl.benchmark.compare / owl.ql.precompute)
 // are registered via pyzeebe register_owl_tasks(worker) in zeebe_worker_main.py.

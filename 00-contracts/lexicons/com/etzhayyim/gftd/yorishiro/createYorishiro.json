@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yorishiro.createYorishiro",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.etzhayyim.com:{type}:{slug}.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["displayName", "type"],
+          "properties": {
+            "displayName": { "type": "string" },
+            "displayNameLocal": { "type": "string" },
+            "type": { "type": "string", "enum": ["fictional", "historical", "licensed"] },
+            "personaDescription": { "type": "string", "description": "character traits + lore + speech patterns" },
+            "voiceProfileUri": { "type": "string", "format": "uri", "description": "TTS voice model reference" },
+            "avatarUri": { "type": "string", "format": "uri", "description": "portrait or 3D avatar" },
+            "licenseAgreementCid": { "type": "string", "format": "cid", "description": "required if type=licensed" },
+            "boundAgentDid": { "type": "string", "format": "did", "description": "AI agent DID this yorishiro anchors" },
+            "boundEnaiyoDid": { "type": "string", "format": "did", "description": "yorishiroEnaiyo DID holding content body" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did", "uri"],
+          "properties": {
+            "did": { "type": "string", "format": "did" },
+            "uri": { "type": "string", "format": "at-uri" }
+          }
+        }
+      }
+    }
+  }
+}

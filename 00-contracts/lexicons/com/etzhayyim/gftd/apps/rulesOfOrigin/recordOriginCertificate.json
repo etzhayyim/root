@@ -1,0 +1,99 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.rulesOfOrigin.recordOriginCertificate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FTA rules of origin certificate (CPTPP / USMCA / EU-GSP — bridges transshipmentEvasion.flagMaterialFinding + customs-declaration + ev-supply-chain)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "certId",
+            "ftaKind",
+            "productHs6",
+            "exportingCountryIso3",
+            "importingCountryIso3",
+            "rooKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "certId": {
+              "type": "string"
+            },
+            "ftaKind": {
+              "type": "string",
+              "enum": [
+                "usmca",
+                "cptpp",
+                "rcep",
+                "eu_gsp",
+                "eu_fta",
+                "mercosur",
+                "afcfta",
+                "asean_atiga",
+                "pacer_plus",
+                "china_asean",
+                "korea_fta",
+                "japan_epa",
+                "cptpp_extension"
+              ]
+            },
+            "productHs6": {
+              "type": "string"
+            },
+            "exportingCountryIso3": {
+              "type": "string"
+            },
+            "importingCountryIso3": {
+              "type": "string"
+            },
+            "rooKind": {
+              "type": "string",
+              "enum": [
+                "pse",
+                "rvc",
+                "cth_ctsh",
+                "de_minimis",
+                "wholly_obtained",
+                "substantial_trans",
+                "accumulation",
+                "outward_processing",
+                "roo_origin_blend"
+              ]
+            },
+            "materialFindingVid": {
+              "type": "string",
+              "description": "bridges transshipmentEvasion.flagMaterialFinding"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

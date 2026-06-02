@@ -15,7 +15,7 @@ import { sql } from "kysely";
  *
  * vertex_id は content-addressed (ADR-0041): at://{authorDid}/{collection}/{rkey}
  *   authorDid = did:web:otakiage.etzhayyim.com:matsuri
- *   collection = app.etzhayyim.apps.otakiage.matsuri
+ *   collection = com.etzhayyim.apps.otakiage.matsuri
  *   rkey = matsuri-{slug}-{yyyymm}
  */
 
@@ -35,7 +35,7 @@ const issuerName = "etzhayyim";
 
 const matsuriSeeds: M[] = [
   {
-    vertexId: "at://did:web:otakiage.etzhayyim.com:matsuri/app.etzhayyim.apps.otakiage.matsuri/matsuri-haru-ningyo-202604",
+    vertexId: "at://did:web:otakiage.etzhayyim.com:matsuri/com.etzhayyim.apps.otakiage.matsuri/matsuri-haru-ningyo-202604",
     matsuriId: "matsuri-haru-ningyo-202604",
     name: "春の人形供養祭 2026",
     categoryScope: JSON.stringify(["ningyo", "nuigurumi"]),
@@ -43,7 +43,7 @@ const matsuriSeeds: M[] = [
     description: "春の人形供養祭 — 雛人形・五月人形・ぬいぐるみ をお焚き上げいたします。etzhayyim 主催。Phase 1 は digital ritual (証跡 AT Record JSON 発行)。",
   },
   {
-    vertexId: "at://did:web:otakiage.etzhayyim.com:matsuri/app.etzhayyim.apps.otakiage.matsuri/matsuri-ehon-202604",
+    vertexId: "at://did:web:otakiage.etzhayyim.com:matsuri/com.etzhayyim.apps.otakiage.matsuri/matsuri-ehon-202604",
     matsuriId: "matsuri-ehon-202604",
     name: "絵本供養祭 2026 — こどもの読書週間",
     categoryScope: JSON.stringify(["ehon", "jidousho"]),
@@ -51,7 +51,7 @@ const matsuriSeeds: M[] = [
     description: "絵本供養祭 — 子どもの成長で役目を終えた絵本・児童書をお焚き上げいたします。こどもの読書週間 (4/23) に合わせた開催。reuse 未成立分のみ対象、reuse 経路を最優先。",
   },
   {
-    vertexId: "at://did:web:otakiage.etzhayyim.com:matsuri/app.etzhayyim.apps.otakiage.matsuri/matsuri-omocha-202608",
+    vertexId: "at://did:web:otakiage.etzhayyim.com:matsuri/com.etzhayyim.apps.otakiage.matsuri/matsuri-omocha-202608",
     matsuriId: "matsuri-omocha-202608",
     name: "おもちゃ供養祭 2026",
     categoryScope: JSON.stringify(["omocha"]),
@@ -59,7 +59,7 @@ const matsuriSeeds: M[] = [
     description: "おもちゃ供養祭 — 8/8 おもちゃの日 周辺に開催。子どもの成長と共に役目を終えたおもちゃをお焚き上げ。プラスチック製品は供養対象 (物理焼却ではなく digital ritual + 永続証跡)。",
   },
   {
-    vertexId: "at://did:web:otakiage.etzhayyim.com:matsuri/app.etzhayyim.apps.otakiage.matsuri/matsuri-aki-ningyo-202611",
+    vertexId: "at://did:web:otakiage.etzhayyim.com:matsuri/com.etzhayyim.apps.otakiage.matsuri/matsuri-aki-ningyo-202611",
     matsuriId: "matsuri-aki-ningyo-202611",
     name: "秋の人形供養祭 2026",
     categoryScope: JSON.stringify(["ningyo", "nuigurumi"]),

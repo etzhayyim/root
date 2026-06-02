@@ -2,7 +2,7 @@
  * yatachain witness quorum collection and verdict.
  *
  * Given the witness set produced by `selectWitnesses` and a stream (or batch)
- * of `app.etzhayyim.yatachain.attestation` records, decide whether the target
+ * of `com.etzhayyim.yatachain.attestation` records, decide whether the target
  * record is yatachain-witnessed, rejected, or pending escalation.
  *
  * Per yatachain SPEC §5 + ADR-2605231400.
@@ -14,7 +14,7 @@ export type Verdict = "accept" | "reject" | "escalate";
 
 /**
  * One witness attestation. Shape matches the wire form of
- * `app.etzhayyim.yatachain.attestation`. Field names mirror the lexicon.
+ * `com.etzhayyim.yatachain.attestation`. Field names mirror the lexicon.
  */
 export interface Attestation {
   v: 1;

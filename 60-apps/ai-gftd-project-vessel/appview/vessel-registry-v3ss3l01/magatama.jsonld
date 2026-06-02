@@ -43,7 +43,7 @@
     "framework": "ts-thin-edge",
     "edge": "60-apps/ai-gftd-project-vessel/appview/vessel-registry-v3ss3l01/src/app.ts",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/vessel.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/vessel"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/vessel"
   },
   "routes": [
     {
@@ -79,14 +79,14 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.vessel.ship",
-        "ai.gftd.apps.vessel.shipowner",
-        "ai.gftd.apps.vessel.shipRegistry",
-        "ai.gftd.apps.vessel.vesselPosition",
-        "ai.gftd.apps.vessel.voyage",
-        "ai.gftd.apps.vessel.portCall",
-        "ai.gftd.apps.maps.port",
-        "ai.gftd.legalEntity.entity"
+        "com.etzhayyim.apps.vessel.ship",
+        "com.etzhayyim.apps.vessel.shipowner",
+        "com.etzhayyim.apps.vessel.shipRegistry",
+        "com.etzhayyim.apps.vessel.vesselPosition",
+        "com.etzhayyim.apps.vessel.voyage",
+        "com.etzhayyim.apps.vessel.portCall",
+        "com.etzhayyim.apps.maps.port",
+        "com.etzhayyim.legalEntity.entity"
       ]
     }
   },

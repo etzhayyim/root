@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.houbun.treaty",
+  "description": "Record of an international treaty / convention. Parties and optional treaty-specific articles are modeled alongside the same `article` record type (statuteRef points at the treaty). See ADR-0052.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "title",
+          "source",
+          "sourceRecordId",
+          "createdAt"
+        ],
+        "properties": {
+          "title": { "type": "string" },
+          "titleNative": { "type": "string" },
+          "parties": { "type": "array", "items": { "type": "string" }, "description": "ISO 3166-1 alpha-3 codes or supra-national actors (e.g. 'eu', 'un')." },
+          "signedDate": { "type": "string", "format": "date" },
+          "enteredIntoForceDate": { "type": "string", "format": "date" },
+          "unRegNo": { "type": "string", "description": "UN Treaty Registration Number." },
+          "depositary": { "type": "string" },
+          "source": { "type": "string", "knownValues": ["un-treaty", "eur-lex", "govinfo-usc"] },
+          "sourceRecordId": { "type": "string" },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "language": { "type": "string" },
+          "props": { "type": "string", "description": "Opaque JSON string." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

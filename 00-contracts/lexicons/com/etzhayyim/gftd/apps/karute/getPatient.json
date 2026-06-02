@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.getPatient",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get patient full record. Returns encrypted envelope + recipient-key-wrap pointer. Caller decrypts client-side via @etzhayyim/sdk.encryptedRead if it holds a matching read-cap.",
+      "parameters": {
+        "type": "params",
+        "required": ["patientDid"],
+        "properties": {
+          "patientDid": {"type": "string"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rkey": {"type": "string"},
+            "encryptedCid": {"type": "string"},
+            "envelope": {
+              "type": "object",
+              "description": "Mirrors com.etzhayyim.encrypted.record fields (v, alg, nonce, ciphertext, keyId, sender, createdAt). Client uses keyId to discover key-wrap in own PDS.",
+              "properties": {
+                "v": {"type": "integer"},
+                "alg": {"type": "string"},
+                "nonce": {"type": "string", "description": "base64"},
+                "ciphertext": {"type": "string", "description": "base64"},
+                "keyId": {"type": "string"},
+                "sender": {"type": "string"},
+                "createdAt": {"type": "string", "format": "datetime"}
+              }
+            },
+            "publicMeta": {
+              "type": "object",
+              "properties": {
+                "registeredAt": {"type": "string", "format": "datetime"},
+                "facilityDid": {"type": "string"}
+              }
+            },
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

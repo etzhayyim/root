@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'open_airplane_flag_airspace_violation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -50,7 +50,7 @@ UP = [{'sql': '\n'
                  '              bpmn_process_id:  '
                  '&quot;open_airplane_flag_airspace_violation&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openAirplane.flagAirspaceViolation&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openAirplane.flagAirspaceViolation&quot;,\n'
                  '              project:          &quot;open-airplane&quot;,\n'
                  '              subject_vid:      aircraftVid,\n'
                  '              action_class:     &quot;airspace.violation&quot;,\n'
@@ -94,12 +94,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2997,
-                 '00-contracts/bpmn/ai/gftd/open-airplane/flagAirspaceViolation.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-airplane/flagAirspaceViolation.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -107,7 +107,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'open_airplane_notify_no_fly_zone',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -137,7 +137,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_airplane_notify_no_fly_zone&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openAirplane.notifyNoFlyZone&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openAirplane.notifyNoFlyZone&quot;,\n'
                  '              project:          &quot;open-airplane&quot;,\n'
                  '              subject_vid:      zoneVid,\n'
                  '              action_class:     &quot;airspace.noFlyZone&quot;,\n'
@@ -181,12 +181,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2969,
-                 '00-contracts/bpmn/ai/gftd/open-airplane/notifyNoFlyZone.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-airplane/notifyNoFlyZone.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -194,7 +194,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'open_ports_screen_vessel_sanctions',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -224,7 +224,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_ports_screen_vessel_sanctions&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openPorts.screenVesselSanctions&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openPorts.screenVesselSanctions&quot;,\n'
                  '              project:          &quot;open-ports&quot;,\n'
                  '              subject_vid:      vesselVid,\n'
                  '              action_class:     &quot;vessel.sanctions&quot;,\n'
@@ -268,12 +268,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2976,
-                 '00-contracts/bpmn/ai/gftd/open-ports/screenVesselSanctions.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-ports/screenVesselSanctions.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -281,7 +281,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'open_ports_flag_dark_fleet',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -311,7 +311,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_ports_flag_dark_fleet&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openPorts.flagDarkFleet&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openPorts.flagDarkFleet&quot;,\n'
                  '              project:          &quot;open-ports&quot;,\n'
                  '              subject_vid:      vesselVid,\n'
                  '              action_class:     &quot;vessel.darkFleet&quot;,\n'
@@ -355,12 +355,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2937,
-                 '00-contracts/bpmn/ai/gftd/open-ports/flagDarkFleet.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-ports/flagDarkFleet.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -368,7 +368,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'open_rail_flag_critical_asset_incident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -399,7 +399,7 @@ UP = [{'sql': '\n'
                  '              bpmn_process_id:  '
                  '&quot;open_rail_flag_critical_asset_incident&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openRail.flagCriticalAssetIncident&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openRail.flagCriticalAssetIncident&quot;,\n'
                  '              project:          &quot;open-rail&quot;,\n'
                  '              subject_vid:      stationVid,\n'
                  '              action_class:     &quot;rail.criticalIncident&quot;,\n'
@@ -442,12 +442,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2985,
-                 '00-contracts/bpmn/ai/gftd/open-rail/flagCriticalAssetIncident.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-rail/flagCriticalAssetIncident.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -455,7 +455,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-network-report-cyber-incident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-network-report-cyber-incident-v1',
                  'did:web:open-network.etzhayyim.com:ops',
                  'open_network_report_cyber_incident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -485,7 +485,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_network_report_cyber_incident&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openNetwork.reportCyberIncident&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openNetwork.reportCyberIncident&quot;,\n'
                  '              project:          &quot;open-network&quot;,\n'
                  '              subject_vid:      assetVid,\n'
                  '              action_class:     &quot;cyber.incident&quot;,\n'
@@ -529,12 +529,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2969,
-                 '00-contracts/bpmn/ai/gftd/open-network/reportCyberIncident.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-network/reportCyberIncident.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-network.etzhayyim.com:ops',
                  'did:web:open-network.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-network-report-cyber-incident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-network-report-cyber-incident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -542,7 +542,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-network-escalate-ddos-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-network-escalate-ddos-v1',
                  'did:web:open-network.etzhayyim.com:ops',
                  'open_network_escalate_ddos',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -572,7 +572,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_network_escalate_ddos&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openNetwork.escalateDdos&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openNetwork.escalateDdos&quot;,\n'
                  '              project:          &quot;open-network&quot;,\n'
                  '              subject_vid:      assetVid,\n'
                  '              action_class:     &quot;cyber.ddos&quot;,\n'
@@ -616,12 +616,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2930,
-                 '00-contracts/bpmn/ai/gftd/open-network/escalateDdos.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-network/escalateDdos.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-network.etzhayyim.com:ops',
                  'did:web:open-network.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-network-escalate-ddos-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-network-escalate-ddos-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -629,7 +629,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-power-report-grid-attack-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-power-report-grid-attack-v1',
                  'did:web:open-power.etzhayyim.com:ops',
                  'open_power_report_grid_attack',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -659,7 +659,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_power_report_grid_attack&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openPower.reportGridAttack&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openPower.reportGridAttack&quot;,\n'
                  '              project:          &quot;open-power&quot;,\n'
                  '              subject_vid:      feederVid,\n'
                  '              action_class:     &quot;grid.attack&quot;,\n'
@@ -702,12 +702,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2937,
-                 '00-contracts/bpmn/ai/gftd/open-power/reportGridAttack.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-power/reportGridAttack.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-power.etzhayyim.com:ops',
                  'did:web:open-power.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-power-report-grid-attack-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-power-report-grid-attack-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -715,7 +715,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1',
                  'did:web:open-gas.etzhayyim.com:ops',
                  'open_gas_report_pipeline_sabotage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -745,7 +745,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_gas_report_pipeline_sabotage&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openGas.reportPipelineSabotage&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openGas.reportPipelineSabotage&quot;,\n'
                  '              project:          &quot;open-gas&quot;,\n'
                  '              subject_vid:      segmentVid,\n'
                  '              action_class:     &quot;pipeline.sabotage&quot;,\n'
@@ -789,12 +789,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2963,
-                 '00-contracts/bpmn/ai/gftd/open-gas/reportPipelineSabotage.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-gas/reportPipelineSabotage.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-gas.etzhayyim.com:ops',
                  'did:web:open-gas.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -802,7 +802,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-water-report-infra-sabotage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-water-report-infra-sabotage-v1',
                  'did:web:open-water.etzhayyim.com:ops',
                  'open_water_report_infra_sabotage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -832,7 +832,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_water_report_infra_sabotage&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openWater.reportInfraSabotage&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openWater.reportInfraSabotage&quot;,\n'
                  '              project:          &quot;open-water&quot;,\n'
                  '              subject_vid:      mainVid,\n'
                  '              action_class:     &quot;water.sabotage&quot;,\n'
@@ -876,12 +876,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2955,
-                 '00-contracts/bpmn/ai/gftd/open-water/reportInfraSabotage.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-water/reportInfraSabotage.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-water.etzhayyim.com:ops',
                  'did:web:open-water.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-water-report-infra-sabotage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-water-report-infra-sabotage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -889,7 +889,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-swift-screen-sanctions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-swift-screen-sanctions-v1',
                  'did:web:open-swift.etzhayyim.com:ops',
                  'open_swift_screen_sanctions',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -919,7 +919,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_swift_screen_sanctions&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openSwift.screenSanctions&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openSwift.screenSanctions&quot;,\n'
                  '              project:          &quot;open-swift&quot;,\n'
                  '              subject_vid:      bicCode,\n'
                  '              action_class:     &quot;payment.sanctions&quot;,\n'
@@ -963,12 +963,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2947,
-                 '00-contracts/bpmn/ai/gftd/open-swift/screenSanctions.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-swift/screenSanctions.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-swift.etzhayyim.com:ops',
                  'did:web:open-swift.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-swift-screen-sanctions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-swift-screen-sanctions-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -976,7 +976,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1',
                  'did:web:open-banking.etzhayyim.com:ops',
                  'open_banking_flag_suspicious_transaction',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1007,7 +1007,7 @@ UP = [{'sql': '\n'
                  '              bpmn_process_id:  '
                  '&quot;open_banking_flag_suspicious_transaction&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openBanking.flagSuspiciousTransaction&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openBanking.flagSuspiciousTransaction&quot;,\n'
                  '              project:          &quot;open-banking&quot;,\n'
                  '              subject_vid:      accountVid,\n'
                  '              action_class:     &quot;transaction.str&quot;,\n'
@@ -1051,12 +1051,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3007,
-                 '00-contracts/bpmn/ai/gftd/open-banking/flagSuspiciousTransaction.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-banking/flagSuspiciousTransaction.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-banking.etzhayyim.com:ops',
                  'did:web:open-banking.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1064,7 +1064,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'open_jpn_gov_resolve_boei_sho_procurement',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1095,7 +1095,7 @@ UP = [{'sql': '\n'
                  '              bpmn_process_id:  '
                  '&quot;open_jpn_gov_resolve_boei_sho_procurement&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openJpnGov.resolveBoeiShoProcurement&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openJpnGov.resolveBoeiShoProcurement&quot;,\n'
                  '              project:          &quot;open-jpn-gov&quot;,\n'
                  '              subject_vid:      tenderId,\n'
                  '              action_class:     &quot;boeiSho.procurement&quot;,\n'
@@ -1139,12 +1139,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3007,
-                 '00-contracts/bpmn/ai/gftd/open-jpn-gov/resolveBoeiShoProcurement.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-jpn-gov/resolveBoeiShoProcurement.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1152,7 +1152,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'open_jpn_gov_check_tokutei_himitsu',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1182,7 +1182,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_jpn_gov_check_tokutei_himitsu&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openJpnGov.checkTokuteiHimitsu&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openJpnGov.checkTokuteiHimitsu&quot;,\n'
                  '              project:          &quot;open-jpn-gov&quot;,\n'
                  '              subject_vid:      documentVid,\n'
                  '              action_class:     &quot;tokuteiHimitsu.check&quot;,\n'
@@ -1226,12 +1226,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2981,
-                 '00-contracts/bpmn/ai/gftd/open-jpn-gov/checkTokuteiHimitsu.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-jpn-gov/checkTokuteiHimitsu.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1239,7 +1239,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cofog-classify-defence-function-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-cofog-classify-defence-function-v1',
                  'did:web:open-cofog.etzhayyim.com:ops',
                  'open_cofog_classify_defence_function',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1270,7 +1270,7 @@ UP = [{'sql': '\n'
                  '              bpmn_process_id:  '
                  '&quot;open_cofog_classify_defence_function&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openCofog.classifyDefenceFunction&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openCofog.classifyDefenceFunction&quot;,\n'
                  '              project:          &quot;open-cofog&quot;,\n'
                  '              subject_vid:      budgetVid,\n'
                  '              action_class:     &quot;cofog.defence&quot;,\n'
@@ -1314,12 +1314,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2968,
-                 '00-contracts/bpmn/ai/gftd/open-cofog/classifyDefenceFunction.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-cofog/classifyDefenceFunction.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-cofog.etzhayyim.com:ops',
                  'did:web:open-cofog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cofog-classify-defence-function-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-cofog-classify-defence-function-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1327,7 +1327,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1',
                  'did:web:open-isic.etzhayyim.com:ops',
                  'open_isic_flag_dual_use_industry',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1381,12 +1381,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2007,
-                 '00-contracts/bpmn/ai/gftd/open-isic/flagDualUseIndustry.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-isic/flagDualUseIndustry.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-isic.etzhayyim.com:ops',
                  'did:web:open-isic.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1394,7 +1394,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1',
                  'did:web:open-seiyaku.etzhayyim.com:ops',
                  'open_seiyaku_screen_export_control',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1424,7 +1424,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_seiyaku_screen_export_control&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openSeiyaku.screenExportControl&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openSeiyaku.screenExportControl&quot;,\n'
                  '              project:          &quot;open-seiyaku&quot;,\n'
                  '              subject_vid:      commodityVid,\n'
                  '              action_class:     &quot;export.control&quot;,\n'
@@ -1469,12 +1469,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3025,
-                 '00-contracts/bpmn/ai/gftd/open-seiyaku/screenExportControl.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-seiyaku/screenExportControl.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-seiyaku.etzhayyim.com:ops',
                  'did:web:open-seiyaku.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1482,7 +1482,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1',
                  'did:web:open-unispsc.etzhayyim.com:ops',
                  'open_unispsc_flag_dual_use_commodity',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1513,7 +1513,7 @@ UP = [{'sql': '\n'
                  '              bpmn_process_id:  '
                  '&quot;open_unispsc_flag_dual_use_commodity&quot;,\n'
                  '              nsid:             '
-                 '&quot;app.etzhayyim.apps.openUnispsc.flagDualUseCommodity&quot;,\n'
+                 '&quot;com.etzhayyim.apps.openUnispsc.flagDualUseCommodity&quot;,\n'
                  '              project:          &quot;open-unispsc&quot;,\n'
                  '              subject_vid:      commodityVid,\n'
                  '              action_class:     &quot;commodity.dualUse&quot;,\n'
@@ -1557,12 +1557,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2992,
-                 '00-contracts/bpmn/ai/gftd/open-unispsc/flagDualUseCommodity.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-unispsc/flagDualUseCommodity.bpmn',
                  '2026-04-25T09:00:00Z',
                  'did:web:open-unispsc.etzhayyim.com:ops',
                  'did:web:open-unispsc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1570,16 +1570,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1',
                  'did:web:open-airplane.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openAirplane.flagAirspaceViolation',
+                 'com.etzhayyim.apps.openAirplane.flagAirspaceViolation',
                  'open_airplane_flag_airspace_violation',
                  15000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1587,16 +1587,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1',
                  'did:web:open-airplane.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openAirplane.notifyNoFlyZone',
+                 'com.etzhayyim.apps.openAirplane.notifyNoFlyZone',
                  'open_airplane_notify_no_fly_zone',
                  15000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1604,16 +1604,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-ports-screenVesselSanctions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-ports-screenVesselSanctions-v1',
                  'did:web:open-ports.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openPorts.screenVesselSanctions',
+                 'com.etzhayyim.apps.openPorts.screenVesselSanctions',
                  'open_ports_screen_vessel_sanctions',
                  20000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-ports-screenVesselSanctions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-ports-screenVesselSanctions-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1621,16 +1621,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-ports-flagDarkFleet-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-ports-flagDarkFleet-v1',
                  'did:web:open-ports.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openPorts.flagDarkFleet',
+                 'com.etzhayyim.apps.openPorts.flagDarkFleet',
                  'open_ports_flag_dark_fleet',
                  15000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'did:web:open-ports.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-ports-flagDarkFleet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-ports-flagDarkFleet-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1638,16 +1638,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1',
                  'did:web:open-rail.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openRail.flagCriticalAssetIncident',
+                 'com.etzhayyim.apps.openRail.flagCriticalAssetIncident',
                  'open_rail_flag_critical_asset_incident',
                  15000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1655,16 +1655,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-network-reportCyberIncident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-network-reportCyberIncident-v1',
                  'did:web:open-network.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openNetwork.reportCyberIncident',
+                 'com.etzhayyim.apps.openNetwork.reportCyberIncident',
                  'open_network_report_cyber_incident',
                  30000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-network.etzhayyim.com:ops',
                  'did:web:open-network.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-network-reportCyberIncident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-network-reportCyberIncident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1672,16 +1672,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-network-escalateDdos-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-network-escalateDdos-v1',
                  'did:web:open-network.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openNetwork.escalateDdos',
+                 'com.etzhayyim.apps.openNetwork.escalateDdos',
                  'open_network_escalate_ddos',
                  15000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-network.etzhayyim.com:ops',
                  'did:web:open-network.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-network-escalateDdos-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-network-escalateDdos-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1689,16 +1689,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-power-reportGridAttack-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-power-reportGridAttack-v1',
                  'did:web:open-power.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openPower.reportGridAttack',
+                 'com.etzhayyim.apps.openPower.reportGridAttack',
                  'open_power_report_grid_attack',
                  30000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-power.etzhayyim.com:ops',
                  'did:web:open-power.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-power-reportGridAttack-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-power-reportGridAttack-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1706,16 +1706,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1',
                  'did:web:open-gas.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openGas.reportPipelineSabotage',
+                 'com.etzhayyim.apps.openGas.reportPipelineSabotage',
                  'open_gas_report_pipeline_sabotage',
                  30000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-gas.etzhayyim.com:ops',
                  'did:web:open-gas.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1723,16 +1723,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-water-reportInfraSabotage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-water-reportInfraSabotage-v1',
                  'did:web:open-water.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openWater.reportInfraSabotage',
+                 'com.etzhayyim.apps.openWater.reportInfraSabotage',
                  'open_water_report_infra_sabotage',
                  30000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-water.etzhayyim.com:ops',
                  'did:web:open-water.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-water-reportInfraSabotage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-water-reportInfraSabotage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1740,16 +1740,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-swift-screenSanctions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-swift-screenSanctions-v1',
                  'did:web:open-swift.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openSwift.screenSanctions',
+                 'com.etzhayyim.apps.openSwift.screenSanctions',
                  'open_swift_screen_sanctions',
                  20000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-swift.etzhayyim.com:ops',
                  'did:web:open-swift.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-swift-screenSanctions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-swift-screenSanctions-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1757,16 +1757,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1',
                  'did:web:open-banking.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openBanking.flagSuspiciousTransaction',
+                 'com.etzhayyim.apps.openBanking.flagSuspiciousTransaction',
                  'open_banking_flag_suspicious_transaction',
                  20000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-banking.etzhayyim.com:ops',
                  'did:web:open-banking.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1774,16 +1774,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openJpnGov.resolveBoeiShoProcurement',
+                 'com.etzhayyim.apps.openJpnGov.resolveBoeiShoProcurement',
                  'open_jpn_gov_resolve_boei_sho_procurement',
                  20000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1791,16 +1791,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openJpnGov.checkTokuteiHimitsu',
+                 'com.etzhayyim.apps.openJpnGov.checkTokuteiHimitsu',
                  'open_jpn_gov_check_tokutei_himitsu',
                  15000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'did:web:open-jpn-gov.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1808,16 +1808,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1',
                  'did:web:open-cofog.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openCofog.classifyDefenceFunction',
+                 'com.etzhayyim.apps.openCofog.classifyDefenceFunction',
                  'open_cofog_classify_defence_function',
                  15000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-cofog.etzhayyim.com:ops',
                  'did:web:open-cofog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1825,16 +1825,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1',
                  'did:web:open-isic.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openIsic.flagDualUseIndustry',
+                 'com.etzhayyim.apps.openIsic.flagDualUseIndustry',
                  'open_isic_flag_dual_use_industry',
                  15000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-isic.etzhayyim.com:ops',
                  'did:web:open-isic.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1842,16 +1842,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-screenExportControl-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-screenExportControl-v1',
                  'did:web:open-seiyaku.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openSeiyaku.screenExportControl',
+                 'com.etzhayyim.apps.openSeiyaku.screenExportControl',
                  'open_seiyaku_screen_export_control',
                  20000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-seiyaku.etzhayyim.com:ops',
                  'did:web:open-seiyaku.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-screenExportControl-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-screenExportControl-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1859,89 +1859,89 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1',
                  'did:web:open-unispsc.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openUnispsc.flagDualUseCommodity',
+                 'com.etzhayyim.apps.openUnispsc.flagDualUseCommodity',
                  'open_unispsc_flag_dual_use_commodity',
                  15000,
                  '2026-04-25T09:00:00Z',
                  'did:web:open-unispsc.etzhayyim.com:ops',
                  'did:web:open-unispsc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-defence',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-airplane-flagAirspaceViolation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-airplane-notifyNoFlyZone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-ports-screenVesselSanctions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-ports-screenVesselSanctions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-ports-flagDarkFleet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-ports-flagDarkFleet-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-flagCriticalAssetIncident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-network-reportCyberIncident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-network-reportCyberIncident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-network-escalateDdos-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-network-escalateDdos-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-power-reportGridAttack-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-power-reportGridAttack-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gas-reportPipelineSabotage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-water-reportInfraSabotage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-water-reportInfraSabotage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-swift-screenSanctions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-swift-screenSanctions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-banking-flagSuspiciousTransaction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jpn-gov-resolveBoeiShoProcurement-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jpn-gov-checkTokuteiHimitsu-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-cofog-classifyDefenceFunction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-isic-flagDualUseIndustry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-screenExportControl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-screenExportControl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-unispsc-flagDualUseCommodity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-airplane-flag-airspace-violation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-airplane-notify-no-fly-zone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-ports-screen-vessel-sanctions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-ports-flag-dark-fleet-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-flag-critical-asset-incident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-network-report-cyber-incident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-network-report-cyber-incident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-network-escalate-ddos-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-network-escalate-ddos-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-power-report-grid-attack-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-power-report-grid-attack-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gas-report-pipeline-sabotage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-water-report-infra-sabotage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-water-report-infra-sabotage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-swift-screen-sanctions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-swift-screen-sanctions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-banking-flag-suspicious-transaction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jpn-gov-resolve-boei-sho-procurement-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jpn-gov-check-tokutei-himitsu-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cofog-classify-defence-function-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-cofog-classify-defence-function-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-isic-flag-dual-use-industry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-screen-export-control-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-unispsc-flag-dual-use-commodity-v1']}]
 
 
 def upgrade() -> None:

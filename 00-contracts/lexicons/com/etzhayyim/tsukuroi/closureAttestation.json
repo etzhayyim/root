@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tsukuroi.closureAttestation",
+  "description": "Attests that a proposed remediation is closed. G11: remediated MAY be true only when BOTH ownerMerged (a human owner merged the PR/patch) AND akumaReprobePass (akuma re-probed the same finding via its closeFinding path and the exposure is gone). No self-attested closure. R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement + akuma re-probe CID verification.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "patchProposalCid",
+          "findingCid",
+          "ownerMerged",
+          "akumaReprobePass",
+          "remediated"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime", "description": "ISO 8601 UTC timestamp of closure attestation."},
+          "patchProposalCid": {"type": "string", "description": "CID of the com.etzhayyim.tsukuroi.patchProposal."},
+          "findingCid": {"type": "string", "description": "CID of the upstream akuma finding being closed."},
+          "ownerMerged": {"type": "boolean", "description": "G11: a human owner merged the PR / applied the patch. Required true for remediated=true."},
+          "ownerMergeUri": {"type": "string", "description": "URI/commit of the owner's merge (evidence for ownerMerged)."},
+          "akumaReprobePass": {"type": "boolean", "description": "G11: akuma re-probed the same finding (closeFinding re-probe path, ADR-2605151400) and the exposure is gone. Required true for remediated=true."},
+          "akumaReprobeFindingCid": {"type": "string", "description": "CID of the akuma re-probe finding record verifying closure."},
+          "remediated": {"type": "boolean", "description": "True iff ownerMerged AND akumaReprobePass. Structural conjunction enforced at the cell layer (G11)."}
+        }
+      }
+    }
+  }
+}

@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-power/defineFeeder.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-power/defineFeeder.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-power/reportOutage.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-power/reportOutage.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-power BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-power-define-feeder-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_power_define_feeder"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-power/defineFeeder.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-power/defineFeeder.bpmn"');
     expect(migrationSource).toContain("open-power-report-outage-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_power_report_outage"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-power/reportOutage.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-power/reportOutage.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPower.defineFeeder"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPower.reportOutage"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openPower.defineFeeder"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openPower.reportOutage"');
   });
 
   it("uses open-power-specific actor_id + owner_did", () => {

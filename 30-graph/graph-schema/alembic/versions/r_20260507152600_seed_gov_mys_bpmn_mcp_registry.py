@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-seedOrgs-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,7 +44,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Seed"/>\n'
                  '    <bpmn:serviceTask id="Task_Seed" name="seed orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.seedOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.seedOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -61,12 +61,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1361,
-                 '00-contracts/bpmn/ai/gftd/govMys/seedOrgs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/seedOrgs.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -80,7 +80,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-registerDIDs-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -100,7 +100,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Register"/>\n'
                  '    <bpmn:serviceTask id="Task_Register" name="register DIDs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.registerDIDs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.registerDIDs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=registered" target="registered"/>\n'
@@ -118,12 +118,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1403,
-                 '00-contracts/bpmn/ai/gftd/govMys/registerDIDs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/registerDIDs.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,7 +137,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-followSiteDeps-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Follow"/>\n'
                  '    <bpmn:serviceTask id="Task_Follow" name="follow site deps">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.followSiteDeps"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.followSiteDeps"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=followed" target="followed"/>\n'
@@ -173,12 +173,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1344,
-                 '00-contracts/bpmn/ai/gftd/govMys/followSiteDeps.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/followSiteDeps.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,7 +192,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-resolveOrgPath-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Resolve"/>\n'
                  '    <bpmn:serviceTask id="Task_Resolve" name="resolve org path">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.resolveOrgPath"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.resolveOrgPath"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=did" target="did"/>\n'
                  '          <zeebe:output source="=name" target="name"/>\n'
@@ -231,12 +231,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1519,
-                 '00-contracts/bpmn/ai/gftd/govMys/resolveOrgPath.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/resolveOrgPath.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -250,7 +250,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-listOrgs-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_List"/>\n'
                  '    <bpmn:serviceTask id="Task_List" name="list orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.listOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.listOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=orgs" target="orgs"/>\n'
                  '          <zeebe:output source="=total" target="total"/>\n'
@@ -285,12 +285,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1298,
-                 '00-contracts/bpmn/ai/gftd/govMys/listOrgs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/listOrgs.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -304,7 +304,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-syncWetUpdates-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -323,7 +323,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Sync"/>\n'
                  '    <bpmn:serviceTask id="Task_Sync" name="sync wet updates">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.syncWetUpdates"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.syncWetUpdates"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=checked" target="checked"/>\n'
@@ -341,12 +341,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1452,
-                 '00-contracts/bpmn/ai/gftd/govMys/syncWetUpdates.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/syncWetUpdates.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -360,7 +360,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-shinka-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-shinka-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_shinka',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -379,7 +379,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Shinka"/>\n'
                  '    <bpmn:serviceTask id="Task_Shinka" name="shinka">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.shinka"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.shinka"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=posted" target="posted"/>\n'
@@ -396,12 +396,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1351,
-                 '00-contracts/bpmn/ai/gftd/govMys/shinka.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/shinka.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,7 +415,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeatTick-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -444,7 +444,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Tick"/>\n'
                  '    <bpmn:serviceTask id="Task_Tick" name="heartbeat tick">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.heartbeatTick"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.heartbeatTick"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -465,12 +465,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2098,
-                 '00-contracts/bpmn/ai/gftd/govMys/heartbeatTick.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/heartbeatTick.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -484,7 +484,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-seed-orgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-seed-orgs-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -503,7 +503,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Seed"/>\n'
                  '    <bpmn:serviceTask id="Task_Seed" name="seed orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.seedOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.seedOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -520,12 +520,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1361,
-                 '00-contracts/bpmn/ai/gftd/govMys/seedOrgs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/seedOrgs.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-seed-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-seed-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -539,7 +539,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-register-dids-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-register-dids-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -559,7 +559,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Register"/>\n'
                  '    <bpmn:serviceTask id="Task_Register" name="register DIDs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.registerDIDs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.registerDIDs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=registered" target="registered"/>\n'
@@ -577,12 +577,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1403,
-                 '00-contracts/bpmn/ai/gftd/govMys/registerDIDs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/registerDIDs.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-register-dids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,7 +596,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-follow-site-deps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-follow-site-deps-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -616,7 +616,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Follow"/>\n'
                  '    <bpmn:serviceTask id="Task_Follow" name="follow site deps">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.followSiteDeps"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.followSiteDeps"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=followed" target="followed"/>\n'
@@ -632,12 +632,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1344,
-                 '00-contracts/bpmn/ai/gftd/govMys/followSiteDeps.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/followSiteDeps.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-follow-site-deps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-follow-site-deps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -651,7 +651,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-resolve-org-path-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-resolve-org-path-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -671,7 +671,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Resolve"/>\n'
                  '    <bpmn:serviceTask id="Task_Resolve" name="resolve org path">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.resolveOrgPath"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.resolveOrgPath"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=did" target="did"/>\n'
                  '          <zeebe:output source="=name" target="name"/>\n'
@@ -690,12 +690,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1519,
-                 '00-contracts/bpmn/ai/gftd/govMys/resolveOrgPath.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/resolveOrgPath.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-resolve-org-path-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-resolve-org-path-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -709,7 +709,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-list-orgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-list-orgs-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -728,7 +728,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_List"/>\n'
                  '    <bpmn:serviceTask id="Task_List" name="list orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.listOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.listOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=orgs" target="orgs"/>\n'
                  '          <zeebe:output source="=total" target="total"/>\n'
@@ -744,12 +744,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1298,
-                 '00-contracts/bpmn/ai/gftd/govMys/listOrgs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/listOrgs.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-list-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-list-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -763,7 +763,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-sync-wet-updates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-sync-wet-updates-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -782,7 +782,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Sync"/>\n'
                  '    <bpmn:serviceTask id="Task_Sync" name="sync wet updates">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.syncWetUpdates"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.syncWetUpdates"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=checked" target="checked"/>\n'
@@ -800,12 +800,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1452,
-                 '00-contracts/bpmn/ai/gftd/govMys/syncWetUpdates.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/syncWetUpdates.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-sync-wet-updates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-sync-wet-updates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -819,7 +819,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeat-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeat-tick-v1',
                  'did:web:mys-state.etzhayyim.com',
                  'gov_mys_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -848,7 +848,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Tick"/>\n'
                  '    <bpmn:serviceTask id="Task_Tick" name="heartbeat tick">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govMys.heartbeatTick"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govMys.heartbeatTick"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -869,12 +869,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2098,
-                 '00-contracts/bpmn/ai/gftd/govMys/heartbeatTick.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govMys/heartbeatTick.bpmn',
                  '2026-05-07T15:26:00Z',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeat-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeat-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -889,9 +889,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.seedOrgs',
+                 'com.etzhayyim.govMys.seedOrgs',
                  'gov_mys_seed_orgs',
                  90000,
                  '2026-05-07T15:26:00Z',
@@ -899,7 +899,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,9 +914,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.registerDIDs',
+                 'com.etzhayyim.govMys.registerDIDs',
                  'gov_mys_register_dids',
                  90000,
                  '2026-05-07T15:26:00Z',
@@ -924,7 +924,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,9 +939,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.followSiteDeps',
+                 'com.etzhayyim.govMys.followSiteDeps',
                  'gov_mys_follow_site_deps',
                  90000,
                  '2026-05-07T15:26:00Z',
@@ -949,7 +949,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,9 +964,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.resolveOrgPath',
+                 'com.etzhayyim.govMys.resolveOrgPath',
                  'gov_mys_resolve_org_path',
                  60000,
                  '2026-05-07T15:26:00Z',
@@ -974,7 +974,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,9 +989,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.listOrgs',
+                 'com.etzhayyim.govMys.listOrgs',
                  'gov_mys_list_orgs',
                  60000,
                  '2026-05-07T15:26:00Z',
@@ -999,7 +999,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,9 +1014,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.syncWetUpdates',
+                 'com.etzhayyim.govMys.syncWetUpdates',
                  'gov_mys_sync_wet_updates',
                  180000,
                  '2026-05-07T15:26:00Z',
@@ -1024,7 +1024,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,9 +1039,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-shinka-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-shinka-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.shinka',
+                 'com.etzhayyim.govMys.shinka',
                  'gov_mys_shinka',
                  180000,
                  '2026-05-07T15:26:00Z',
@@ -1049,7 +1049,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,9 +1064,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.heartbeatTick',
+                 'com.etzhayyim.govMys.heartbeatTick',
                  'gov_mys_heartbeat_tick',
                  180000,
                  '2026-05-07T15:26:00Z',
@@ -1074,7 +1074,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,9 +1089,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.seedOrgs',
+                 'com.etzhayyim.govMys.seedOrgs',
                  'gov_mys_seed_orgs',
                  90000,
                  '2026-05-07T15:26:00Z',
@@ -1099,7 +1099,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,9 +1114,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.registerDIDs',
+                 'com.etzhayyim.govMys.registerDIDs',
                  'gov_mys_register_dids',
                  90000,
                  '2026-05-07T15:26:00Z',
@@ -1124,7 +1124,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,9 +1139,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.followSiteDeps',
+                 'com.etzhayyim.govMys.followSiteDeps',
                  'gov_mys_follow_site_deps',
                  90000,
                  '2026-05-07T15:26:00Z',
@@ -1149,7 +1149,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,9 +1164,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.resolveOrgPath',
+                 'com.etzhayyim.govMys.resolveOrgPath',
                  'gov_mys_resolve_org_path',
                  60000,
                  '2026-05-07T15:26:00Z',
@@ -1174,7 +1174,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,9 +1189,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.listOrgs',
+                 'com.etzhayyim.govMys.listOrgs',
                  'gov_mys_list_orgs',
                  60000,
                  '2026-05-07T15:26:00Z',
@@ -1199,7 +1199,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,9 +1214,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.syncWetUpdates',
+                 'com.etzhayyim.govMys.syncWetUpdates',
                  'gov_mys_sync_wet_updates',
                  180000,
                  '2026-05-07T15:26:00Z',
@@ -1224,7 +1224,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,9 +1239,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1',
                  'did:web:mys-state.etzhayyim.com',
-                 'app.etzhayyim.govMys.heartbeatTick',
+                 'com.etzhayyim.govMys.heartbeatTick',
                  'gov_mys_heartbeat_tick',
                  180000,
                  '2026-05-07T15:26:00Z',
@@ -1249,7 +1249,7 @@ UP = [{'sql': '\n'
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,23 +1266,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs',
-                 'app.etzhayyim.govMys.seedOrgs',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs',
+                 'com.etzhayyim.govMys.seedOrgs',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Malaysia government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"ok":{"type":"boolean"},"remaining":{"type":"integer"},"seeded":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.seedOrgs',
-                 '00-contracts/lexicons/ai/gftd/govMys/seedOrgs.json',
+                 'com.etzhayyim.govMys.seedOrgs',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/seedOrgs.json',
                  '752caaab462fc224',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,23 +1299,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs',
-                 'app.etzhayyim.govMys.registerDIDs',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs',
+                 'com.etzhayyim.govMys.registerDIDs',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Malaysia government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"dids":{"items":{"type":"string"},"type":"array"},"ok":{"type":"boolean"},"registered":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.registerDIDs',
-                 '00-contracts/lexicons/ai/gftd/govMys/registerDIDs.json',
+                 'com.etzhayyim.govMys.registerDIDs',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/registerDIDs.json',
                  '54b7c83adb182658',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,23 +1332,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps',
-                 'app.etzhayyim.govMys.followSiteDeps',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps',
+                 'com.etzhayyim.govMys.followSiteDeps',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Malaysia government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.followSiteDeps',
-                 '00-contracts/lexicons/ai/gftd/govMys/followSiteDeps.json',
+                 'com.etzhayyim.govMys.followSiteDeps',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/followSiteDeps.json',
                  '7cc8487028a97111',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,23 +1365,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath',
-                 'app.etzhayyim.govMys.resolveOrgPath',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath',
+                 'com.etzhayyim.govMys.resolveOrgPath',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'query',
                  'Resolve a Malaysia government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
                  '{"properties":{"did":{"type":"string"},"error":{"type":"string"},"name":{"type":"string"},"nameEn":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.resolveOrgPath',
-                 '00-contracts/lexicons/ai/gftd/govMys/resolveOrgPath.json',
+                 'com.etzhayyim.govMys.resolveOrgPath',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/resolveOrgPath.json',
                  'fd053e499a6c69e1',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,23 +1398,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs',
-                 'app.etzhayyim.govMys.listOrgs',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs',
+                 'com.etzhayyim.govMys.listOrgs',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'query',
                  'List Malaysia government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
                  '{"properties":{"orgs":{"items":{"properties":{"did":{"type":"string"},"name":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"},"type":"array"},"total":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.listOrgs',
-                 '00-contracts/lexicons/ai/gftd/govMys/listOrgs.json',
+                 'com.etzhayyim.govMys.listOrgs',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/listOrgs.json',
                  'a954f23085113bd7',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,23 +1431,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates',
-                 'app.etzhayyim.govMys.syncWetUpdates',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates',
+                 'com.etzhayyim.govMys.syncWetUpdates',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Malaysia government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"checked":{"type":"integer"},"ok":{"type":"boolean"},"posted":{"type":"integer"},"updated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.syncWetUpdates',
-                 '00-contracts/lexicons/ai/gftd/govMys/syncWetUpdates.json',
+                 'com.etzhayyim.govMys.syncWetUpdates',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/syncWetUpdates.json',
                  'fd2c5a537ab1de19',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,23 +1464,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-shinka',
-                 'app.etzhayyim.govMys.shinka',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-shinka',
+                 'com.etzhayyim.govMys.shinka',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Post a periodic graph-visible Malaysia government organization update.',
                  '{"properties":{"limit":{"default":1,"maximum":5,"minimum":1,"type":"integer"},"postUpdates":{"default":true,"type":"boolean"}},"required":[],"type":"object"}',
                  '{"properties":{"ok":{"type":"boolean"},"posted":{"type":"integer"},"touched":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.shinka',
-                 '00-contracts/lexicons/ai/gftd/govMys/shinka.json',
+                 'com.etzhayyim.govMys.shinka',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/shinka.json',
                  'c7e4d40377ff9905',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-shinka']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,23 +1497,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick',
-                 'app.etzhayyim.govMys.heartbeatTick',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick',
+                 'com.etzhayyim.govMys.heartbeatTick',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Run the Malaysia government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"},"registered":{"type":"integer"},"seeded":{"type":"integer"},"shinkaPosted":{"type":"integer"},"wetUpdated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.heartbeatTick',
-                 '00-contracts/lexicons/ai/gftd/govMys/heartbeatTick.json',
+                 'com.etzhayyim.govMys.heartbeatTick',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/heartbeatTick.json',
                  'c8910150dd9c3081',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1530,23 +1530,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs',
-                 'app.etzhayyim.govMys.seedOrgs',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs',
+                 'com.etzhayyim.govMys.seedOrgs',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Malaysia government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"ok":{"type":"boolean"},"remaining":{"type":"integer"},"seeded":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.seedOrgs',
-                 '00-contracts/lexicons/ai/gftd/govMys/seedOrgs.json',
+                 'com.etzhayyim.govMys.seedOrgs',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/seedOrgs.json',
                  '752caaab462fc224',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1563,23 +1563,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs',
-                 'app.etzhayyim.govMys.registerDIDs',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs',
+                 'com.etzhayyim.govMys.registerDIDs',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Malaysia government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"dids":{"items":{"type":"string"},"type":"array"},"ok":{"type":"boolean"},"registered":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.registerDIDs',
-                 '00-contracts/lexicons/ai/gftd/govMys/registerDIDs.json',
+                 'com.etzhayyim.govMys.registerDIDs',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/registerDIDs.json',
                  '54b7c83adb182658',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1596,23 +1596,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps',
-                 'app.etzhayyim.govMys.followSiteDeps',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps',
+                 'com.etzhayyim.govMys.followSiteDeps',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Malaysia government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.followSiteDeps',
-                 '00-contracts/lexicons/ai/gftd/govMys/followSiteDeps.json',
+                 'com.etzhayyim.govMys.followSiteDeps',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/followSiteDeps.json',
                  '7cc8487028a97111',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1629,23 +1629,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath',
-                 'app.etzhayyim.govMys.resolveOrgPath',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath',
+                 'com.etzhayyim.govMys.resolveOrgPath',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'query',
                  'Resolve a Malaysia government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
                  '{"properties":{"did":{"type":"string"},"error":{"type":"string"},"name":{"type":"string"},"nameEn":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.resolveOrgPath',
-                 '00-contracts/lexicons/ai/gftd/govMys/resolveOrgPath.json',
+                 'com.etzhayyim.govMys.resolveOrgPath',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/resolveOrgPath.json',
                  'fd053e499a6c69e1',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1662,23 +1662,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs',
-                 'app.etzhayyim.govMys.listOrgs',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs',
+                 'com.etzhayyim.govMys.listOrgs',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'query',
                  'List Malaysia government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
                  '{"properties":{"orgs":{"items":{"properties":{"did":{"type":"string"},"name":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"},"type":"array"},"total":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.listOrgs',
-                 '00-contracts/lexicons/ai/gftd/govMys/listOrgs.json',
+                 'com.etzhayyim.govMys.listOrgs',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/listOrgs.json',
                  'a954f23085113bd7',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1695,23 +1695,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates',
-                 'app.etzhayyim.govMys.syncWetUpdates',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates',
+                 'com.etzhayyim.govMys.syncWetUpdates',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Malaysia government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"checked":{"type":"integer"},"ok":{"type":"boolean"},"posted":{"type":"integer"},"updated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.syncWetUpdates',
-                 '00-contracts/lexicons/ai/gftd/govMys/syncWetUpdates.json',
+                 'com.etzhayyim.govMys.syncWetUpdates',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/syncWetUpdates.json',
                  'fd2c5a537ab1de19',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates']},
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1728,114 +1728,114 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick',
-                 'app.etzhayyim.govMys.heartbeatTick',
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick',
+                 'com.etzhayyim.govMys.heartbeatTick',
                  'did:web:mys-state.etzhayyim.com',
                  'mys-state.etzhayyim.com',
                  'procedure',
                  'Run the Malaysia government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"},"registered":{"type":"integer"},"seeded":{"type":"integer"},"shinkaPosted":{"type":"integer"},"wetUpdated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govMys.heartbeatTick',
-                 '00-contracts/lexicons/ai/gftd/govMys/heartbeatTick.json',
+                 'com.etzhayyim.govMys.heartbeatTick',
+                 '00-contracts/lexicons/com/etzhayyim/govMys/heartbeatTick.json',
                  'c8910150dd9c3081',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'did:web:mys-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-mys',
                  '2026-05-07T15:26:00Z',
-                 'at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick']}]
+                 'at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-shinka']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:mys-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick']},
+  'parameters': ['at://did:web:mys-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govMys-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govMys-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-seed-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-seed-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-follow-site-deps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-follow-site-deps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-resolve-org-path-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-resolve-org-path-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-list-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-list-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-sync-wet-updates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-sync-wet-updates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeat-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-mys-heartbeat-tick-v1']}]
 
 
 def upgrade() -> None:

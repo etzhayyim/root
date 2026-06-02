@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.creative.tierBNhkLicenseAttestation",
+  "description": "NHK Creative Library (CC-BY 2.1 JP) per-clip license tracker. G13 STRUCTURAL: fleet-internal carve-out per ADR-2605262100 R1.4 precedent — NHK-trained baien artifacts MUST NOT be externally published; LiteLLM + SBT-gate only. nonCommercialAffirmation const true (CC-BY 2.1 JP license condition). attributionTextEmittedAttested const true (CC-BY attribution mandatory). NHK Creative Library URL: https://www.nhk.or.jp/archives/creative/",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "clipId",
+          "clipTitle",
+          "modality",
+          "ccBy21JpVersion",
+          "attributionText",
+          "nonCommercialAffirmation",
+          "attributionTextEmittedAttested",
+          "fleetInternalCarveOutAttested",
+          "downstreamArtifactNotExternallyPublishedAttested",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "clipId": {
+            "type": "string",
+            "description": "NHK Creative Library clip ID; format = 'nhk-creative:{clip-numeric-id}'"
+          },
+          "clipTitle": {"type": "string"},
+          "clipTitleJa": {"type": "string"},
+          "modality": {
+            "type": "string",
+            "knownValues": ["film", "video", "audio-speech", "audio-sound"]
+          },
+          "ccBy21JpVersion": {
+            "type": "string",
+            "const": "CC-BY-2.1-JP",
+            "description": "Pinned to CC-BY 2.1 JP (specific license version NHK uses)"
+          },
+          "attributionText": {
+            "type": "string",
+            "description": "Required attribution string: 'NHKクリエイティブ・ライブラリー / {clip-title} / CC-BY 2.1 JP'"
+          },
+          "nonCommercialAffirmation": {
+            "type": "boolean",
+            "const": true,
+            "description": "STRUCTURAL: const true; CC-BY 2.1 JP NHK license restricts to non-commercial use; religious-corp non-profit invariant compatible"
+          },
+          "attributionTextEmittedAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "STRUCTURAL: const true; every downstream artifact derived from this clip MUST emit the attributionText"
+          },
+          "fleetInternalCarveOutAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "G13 STRUCTURAL: const true; this clip is admitted under fleet-internal carve-out per ADR-2605262100 R1.4 precedent"
+          },
+          "downstreamArtifactNotExternallyPublishedAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "G13 STRUCTURAL: const true; baien artifacts trained on this clip MUST NOT be externally published; LiteLLM + SBT-gate access only"
+          },
+          "nhkClipUrl": {
+            "type": "string",
+            "description": "Source URL on NHK Creative Library (for attestation provenance; not for active fetch)"
+          },
+          "snapshotCid": {
+            "type": "string",
+            "description": "IPFS CID of pinned snapshot of this clip"
+          },
+          "sourceMetadataCid": {
+            "type": "string",
+            "description": "IPFS CID of NHK-provided metadata document"
+          },
+          "publicDomainStatusAttestationCid": {
+            "type": "string",
+            "description": "Cross-reference to per-work publicDomainStatusAttestation (clip is NOT PD but CC-BY 2.1 JP; attestation captures Tier-B classification)"
+          },
+          "attestingDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

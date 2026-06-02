@@ -67,6 +67,8 @@
   :actor/service-json    {:type :string  :doc "DID-doc service[] array, JSON-encoded"}
   :actor/vm-json         {:type :string  :optional true
                           :doc "DID-doc verificationMethod[], JSON-encoded; MIRROR of on-chain ERC725 key; \"[]\" until chain wiring (never server-minted)"}
+  :actor/wasm-cid        {:type :string  :optional true
+                          :doc "IPFS CIDv1 of the actor's content-addressed WASM component. Present → DID doc emits an EtzhayyimWasmComponent service (ipfs://<cid>) and the actor runs browser-local (ameno) / donated mesh — NO per-actor server (ADR-2606014500)."}
   :actor/created-at      {:type :string  :doc "ISO-8601 registration date"}}
 
  ;; ── normalized service / verificationMethod (Phase B — not used at R0) ──

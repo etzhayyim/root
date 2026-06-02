@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ongakuka.generation",
+  "description": "One generation/regeneration event for a track or stem. Audit + metering source of truth.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["targetUri", "stage", "modelId", "status"],
+        "properties": {
+          "targetUri": { "type": "string", "description": "AT URI of the track or stem this generation produced/updated" },
+          "stage": { "type": "string", "enum": ["lyric", "compose", "vocal", "arrange", "mix", "review", "regenerate"] },
+          "actorDid": { "type": "string", "description": "path-based actor DID that ran this stage" },
+          "modelId": { "type": "string" },
+          "params": { "type": "string", "description": "JSON-encoded {seed, temperature, cfg, steps, ...}" },
+          "promptTokens": { "type": "integer" },
+          "completionTokens": { "type": "integer" },
+          "audioSec": { "type": "number" },
+          "inferenceMs": { "type": "integer" },
+          "creditsConsumer": { "type": "integer" },
+          "creditsOperator": { "type": "integer" },
+          "node": { "type": "string", "description": "fleet node hostname (dan/simeon/...)" },
+          "status": { "type": "string", "enum": ["ok", "rejected", "failed"] },
+          "rejectReason": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

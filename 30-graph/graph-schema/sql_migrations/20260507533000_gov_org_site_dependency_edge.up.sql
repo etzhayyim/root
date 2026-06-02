@@ -25,7 +25,7 @@ INSERT INTO edge_gov_org_site_dependency (
       SELECT
         vertex_id,
         record_key,
-        'at://' || owner_did || '/ai.gftd.apps.states.govOrg/' || COALESCE(value_json::jsonb ->> 'path', ''),
+        'at://' || owner_did || '/com.etzhayyim.apps.states.govOrg/' || COALESCE(value_json::jsonb ->> 'path', ''),
         COALESCE(value_json::jsonb ->> 'siteDid', ''),
         COALESCE(value_json::jsonb ->> 'path', ''),
         value_json::jsonb ->> 'siteNanoid',
@@ -40,7 +40,7 @@ INSERT INTO edge_gov_org_site_dependency (
         owner_did,
         CAST(sensitivity_ord AS integer)
       FROM vertex_gov_record
-      WHERE record_kind = 'ai.gftd.apps.states.govOrgSiteDep'
+      WHERE record_kind = 'com.etzhayyim.apps.states.govOrgSiteDep'
       ON CONFLICT (edge_id) DO NOTHING;
 
 CREATE INDEX IF NOT EXISTS idx_gov_org_site_dep_from

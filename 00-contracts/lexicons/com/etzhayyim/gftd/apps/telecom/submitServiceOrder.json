@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.submitServiceOrder",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a service order via TMF641 Service Ordering Management API. Creates a vertex_telecom_tmf_service_order record.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["serviceOrderId", "productOrderId", "orderKind"],
+          "properties": {
+            "serviceOrderId": { "type": "string" },
+            "productOrderId": { "type": "string" },
+            "productId": { "type": "string" },
+            "serviceSpec": { "type": "string" },
+            "orderKind": { "type": "string", "enum": ["add", "modify", "delete", "noChange"] },
+            "orderItemHash": { "type": "string" },
+            "orderItemRef": { "type": "string" },
+            "requestedStartAt": { "type": "string", "format": "datetime" },
+            "requestedCompletionAt": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "serviceOrderId": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,12 +9,12 @@ import { sql } from "kysely";
 //   - vertex_langgraph_state     — checkpoint store for curator/replanner/actor-linker.
 //   - vertex_bpmn_process_def    — registers processTile.bpmn so the F5
 //                                  watcher in bpmn-dispatcher picks it up.
-//   - vertex_bpmn_lexicon_binding — maps NSID `app.etzhayyim.apps.maps3d.processTile`
+//   - vertex_bpmn_lexicon_binding — maps NSID `com.etzhayyim.apps.maps3d.processTile`
 //                                  to the BPMN process id (BPMN-as-actor, ADR-0056).
 //
 // Lexicon contracts for the inner pipeline tasks (fetchMapillary,
 // curateImages, colmapTile, simplifyAndExport, visionAnnotate, linkActor,
-// replanReconstruction) live in 00-contracts/lexicons/ai/gftd/apps/maps3d/
+// replanReconstruction) live in 00-contracts/lexicons/com/etzhayyim/apps/maps3d/
 // but are NOT BPMN entry points — they describe Zeebe service-task
 // contracts implemented by pyzeebe workers in `50-infra/k8s/maps3d/`.
 
@@ -36,9 +36,9 @@ interface ProcessSeed {
 const processSeeds: ProcessSeed[] = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps3d-process-tile-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps3d-process-tile-v1",
     bpmnProcessId: "maps3d_process_tile",
-    sourcePath: "00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/maps3d/processTile.bpmn",
   },
 ];
 
@@ -52,8 +52,8 @@ interface BindingSeed {
 const bindingSeeds: BindingSeed[] = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps3d-process-tile-v1",
-    nsid: "app.etzhayyim.apps.maps3d.processTile",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps3d-process-tile-v1",
+    nsid: "com.etzhayyim.apps.maps3d.processTile",
     bpmnProcessId: "maps3d_process_tile",
     // 90 min — covers the 60 min COLMAP boundary plus all surrounding
     // tasks. Tile is async-fire-and-forget anyway; XRPC caller only

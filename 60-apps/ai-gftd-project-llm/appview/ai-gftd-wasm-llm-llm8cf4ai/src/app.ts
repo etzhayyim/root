@@ -17,7 +17,7 @@ import {
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
-const ANSWER_WITH_KNOWLEDGE_NSID = "app.etzhayyim.apps.llm.answerWithKnowledge";
+const ANSWER_WITH_KNOWLEDGE_NSID = "com.etzhayyim.apps.llm.answerWithKnowledge";
 
 let appId = ""
 let actorDID = ""
@@ -55,7 +55,7 @@ const CREDIT_COST: Record<string, number> = {
 async function deductCredits(callerDid: string, modelId: string): Promise<string | null> {
   const cost = CREDIT_COST[modelId] ?? 1;
   try {
-    const resp = await fetch("https://credits.etzhayyim.com/xrpc/app.etzhayyim.apps.credits.checkSpendAllowed", {
+    const resp = await fetch("https://credits.etzhayyim.com/xrpc/com.etzhayyim.apps.credits.checkSpendAllowed", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify({ userId: callerDid, action: "llm_inference", amount: cost }),
@@ -500,7 +500,7 @@ function buildCellerSystemPrompt(lang: string): string {
 
 export function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeReposCommit): { ok: boolean; detail: string } {
   if (commit.action !== "create") return { ok: true, detail: "skip non-create" };
-  if (commit.collection === "app.etzhayyim.apps.llm.inferenceRequest") {
+  if (commit.collection === "com.etzhayyim.apps.llm.inferenceRequest") {
     return { ok: true, detail: "inference request noted" };
   }
   return { ok: true, detail: "commit accepted" };
@@ -722,12 +722,12 @@ const _inner = createWorkerExportFromEnvFactory((env) => {
   actorDID = sdk.pds.selfRepo ?? "";
   _env = env;
   sdk.app
-    .command(nsid("app.etzhayyim.apps.llm.converse"), (ctx, body) => cmdConverse(sdk, body),
+    .command(nsid("com.etzhayyim.apps.llm.converse"), (ctx, body) => cmdConverse(sdk, body),
       asAgentTool("LLM inference via Workers AI — converse with system/user messages"),
       withCapabilityTags("llm", "inference", "workersAi"),
       withOCELEvent("governance.audit"),
     )
-    .command(nsid("app.etzhayyim.apps.llm.chatCompletions"), (ctx, body) => cmdChatCompletions(sdk, body),
+    .command(nsid("com.etzhayyim.apps.llm.chatCompletions"), (ctx, body) => cmdChatCompletions(sdk, body),
       asAgentTool("OpenAI-compatible chat completions via Workers AI"),
       withCapabilityTags("llm", "inference", "openaiCompatible"),
     )
@@ -735,19 +735,19 @@ const _inner = createWorkerExportFromEnvFactory((env) => {
       asAgentTool("Answer with RisingWave domain knowledge through the BPMN LangGraph workflow"),
       withCapabilityTags("llm", "knowledge", "rag", "bpmn", "langgraph"),
     )
-    .command(nsid("app.etzhayyim.apps.llm.listModels"), (ctx, body) => cmdListModels(sdk, body),
+    .command(nsid("com.etzhayyim.apps.llm.listModels"), (ctx, body) => cmdListModels(sdk, body),
       asAgentTool("List available Workers AI models and their capabilities"),
       withCapabilityTags("llm", "models", "catalog"),
     )
-    .command(nsid("app.etzhayyim.apps.llm.recommendModel"), (ctx, body) => cmdRecommendModel(sdk, body),
+    .command(nsid("com.etzhayyim.apps.llm.recommendModel"), (ctx, body) => cmdRecommendModel(sdk, body),
       asAgentTool("Recommend optimal Workers AI model for a use case"),
       withCapabilityTags("llm", "models", "recommendation"),
     )
-    .command(nsid("app.etzhayyim.apps.llm.healthCheck"), (ctx, body) => cmdHealthCheck(sdk, body),
+    .command(nsid("com.etzhayyim.apps.llm.healthCheck"), (ctx, body) => cmdHealthCheck(sdk, body),
       asAgentTool("Health check all Workers AI model endpoints"),
       withCapabilityTags("llm", "health", "monitoring"),
     )
-    .command(nsid("app.etzhayyim.apps.llm.verifyCellerAi"), (ctx, body) => cmdVerifyCellerAi(sdk, body),
+    .command(nsid("com.etzhayyim.apps.llm.verifyCellerAi"), (ctx, body) => cmdVerifyCellerAi(sdk, body),
       asAgentTool("Verify Celler AI inbound call handling with 10-language multilingual test"),
       withCapabilityTags("llm", "celler", "voiceAi", "verification", "multilingual"),
     );
@@ -781,7 +781,7 @@ export default {
 
     // Credit gate for XRPC inference commands (converse, chatCompletions)
     const nsid = url.pathname.replace("/xrpc/", "");
-    const isInferenceNsid = nsid === "app.etzhayyim.apps.llm.converse" || nsid === "app.etzhayyim.apps.llm.chatCompletions";
+    const isInferenceNsid = nsid === "com.etzhayyim.apps.llm.converse" || nsid === "com.etzhayyim.apps.llm.chatCompletions";
     if (isInferenceNsid && request.headers.get("x-magatama-verified") !== "true") {
       const callerDid = request.headers.get("x-credits-did") || "";
       if (!callerDid) {

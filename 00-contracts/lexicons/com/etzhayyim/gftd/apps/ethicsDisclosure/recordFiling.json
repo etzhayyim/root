@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ethicsDisclosure.recordFiling",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Judicial / executive / legislative financial disclosure filing (bridges judicialInfluence.flagConflictOfInterest + enforcement-action + federal-court-docket)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "filingId",
+            "officeKind",
+            "regime",
+            "filedAt"
+          ],
+          "properties": {
+            "filingId": {
+              "type": "string"
+            },
+            "officeKind": {
+              "type": "string",
+              "enum": [
+                "scotus_justice",
+                "federal_judge",
+                "appellate_judge",
+                "magistrate",
+                "state_supreme",
+                "governor",
+                "federal_executive",
+                "cabinet",
+                "senator",
+                "rep",
+                "regulator_head",
+                "agency_ig",
+                "mtalf"
+              ]
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "ethics_government_act",
+                "28_usc_app",
+                "fed_judiciary_canons",
+                "stock_act",
+                "eu_transparency_reg",
+                "uk_ministerial_code",
+                "ca_conflict_act",
+                "fr_hatvp",
+                "jp_ethics_act",
+                "de_abghg"
+              ]
+            },
+            "conflictVid": {
+              "type": "string",
+              "description": "bridges judicialInfluence.flagConflictOfInterest"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.createPanel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pageId": {
+              "type": "integer"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "borderStyle": {
+              "type": "string"
+            },
+            "environmentId": {
+              "type": "integer"
+            },
+            "imagePrompt": {
+              "type": "string"
+            },
+            "shotAngle": {
+              "type": "string"
+            },
+            "shotAperture": {
+              "type": "string"
+            },
+            "shotDistance": {
+              "type": "string"
+            },
+            "shotLens": {
+              "type": "string"
+            },
+            "shotLighting": {
+              "type": "string"
+            },
+            "generatedImageUrl": {
+              "type": "string"
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "w": {
+              "type": "number"
+            },
+            "h": {
+              "type": "number"
+            },
+            "order": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "pageId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  }
+}

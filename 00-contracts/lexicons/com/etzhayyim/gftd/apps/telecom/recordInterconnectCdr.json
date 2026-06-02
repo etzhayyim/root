@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordInterconnectCdr",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record an interconnect-traversed CDR (POI / hub). MSISDN values stored as hashes (Tier-3 PII not persisted plaintext at this boundary).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["agreementId", "partnerId", "direction", "usageType", "units", "startedAt"],
+          "properties": {
+            "cdrId": { "type": "string" },
+            "agreementId": { "type": "string" },
+            "partnerId": { "type": "string" },
+            "direction": { "type": "string", "enum": ["originating", "terminating", "transit"] },
+            "usageType": { "type": "string", "enum": ["voice", "sms", "data", "iot"] },
+            "units": { "type": "number" },
+            "unitOfMeasure": { "type": "string" },
+            "originatingMsisdn": { "type": "string" },
+            "terminatingMsisdn": { "type": "string" },
+            "startedAt": { "type": "string", "format": "datetime" },
+            "endedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "cdrId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

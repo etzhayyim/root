@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.submitChangeRequest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OSS — submit an ITIL change request (RFC). planRef / rollbackPlanRef point to vault:// or document refs. Approval flow handled by approveChangeRequest.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["requesterId", "changeKind", "riskLevel", "scopeKind", "scopeVid", "summary", "plannedStart", "plannedEnd"],
+          "properties": {
+            "changeId": { "type": "string" },
+            "requesterId": { "type": "string" },
+            "changeKind": { "type": "string", "enum": ["normal", "standard", "emergency"] },
+            "riskLevel": { "type": "string", "enum": ["low", "medium", "high", "very_high"] },
+            "scopeKind": { "type": "string", "enum": ["cellSite", "ranNode", "nfInstance", "networkAsset", "service", "transport", "global"] },
+            "scopeVid": { "type": "string" },
+            "summary": { "type": "string" },
+            "planRef": { "type": "string" },
+            "plannedStart": { "type": "string", "format": "datetime" },
+            "plannedEnd": { "type": "string", "format": "datetime" },
+            "rollbackPlanRef": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "changeId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

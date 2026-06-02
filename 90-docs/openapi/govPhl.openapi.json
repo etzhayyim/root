@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govPhl.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govPhl.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Philippines government.",
-        "operationId": "app.etzhayyim.govPhl.followSiteDeps",
+        "operationId": "com.etzhayyim.govPhl.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPhl.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govPhl.heartbeatTick": {
       "post": {
         "summary": "Run the Philippines government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govPhl.heartbeatTick",
+        "operationId": "com.etzhayyim.govPhl.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPhl.listOrgs": {
+    "/xrpc/com.etzhayyim.govPhl.listOrgs": {
       "get": {
         "summary": "List Philippines government organization graph records.",
-        "operationId": "app.etzhayyim.govPhl.listOrgs",
+        "operationId": "com.etzhayyim.govPhl.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPhl.registerDIDs": {
+    "/xrpc/com.etzhayyim.govPhl.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Philippines government organizations.",
-        "operationId": "app.etzhayyim.govPhl.registerDIDs",
+        "operationId": "com.etzhayyim.govPhl.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPhl.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govPhl.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Philippines government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govPhl.resolveOrgPath",
+        "operationId": "com.etzhayyim.govPhl.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPhl.seedOrgs": {
+    "/xrpc/com.etzhayyim.govPhl.seedOrgs": {
       "post": {
         "summary": "Seed initial Philippines government organization records into the graph.",
-        "operationId": "app.etzhayyim.govPhl.seedOrgs",
+        "operationId": "com.etzhayyim.govPhl.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPhl.shinka": {
+    "/xrpc/com.etzhayyim.govPhl.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Philippines government organization update.",
-        "operationId": "app.etzhayyim.govPhl.shinka",
+        "operationId": "com.etzhayyim.govPhl.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPhl.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govPhl.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Philippines government organization changes to graph.",
-        "operationId": "app.etzhayyim.govPhl.syncWetUpdates",
+        "operationId": "com.etzhayyim.govPhl.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -171,7 +171,7 @@ class App:
 
         R1.3b — defaults to "unlimited" (returns 2**62) when no
         ``balance_lookup`` is wired. R1.3d-wiring will replace this with a
-        CACAO-verified XRPC call to ``app.etzhayyim.kotoba.economy.balance``.
+        CACAO-verified XRPC call to ``com.etzhayyim.kotoba.economy.balance``.
         """
         target = did or self.did
         if self.balance_lookup is not None:
@@ -182,7 +182,7 @@ class App:
         """Return the active tariff schedule.
 
         R1.3b returns the in-process default; R1.3d-wiring will fetch from
-        XRPC ``app.etzhayyim.kotoba.economy.tariff`` and verify the Council
+        XRPC ``com.etzhayyim.kotoba.economy.tariff`` and verify the Council
         signing chain via kotoba-auth CACAO before trusting the rows.
         """
         return self._tariff

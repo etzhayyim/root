@@ -1,7 +1,7 @@
 """jukyu `exportBrief` graph — LLM executive brief from latest outbox.
 
 Model: gemma-4-e4b-it
-Endpoint: POST /export/brief and NSID app.etzhayyim.apps.jukyu.exportBrief
+Endpoint: POST /export/brief and NSID com.etzhayyim.apps.jukyu.exportBrief
 """
 
 from __future__ import annotations

@@ -2,7 +2,7 @@
  * bpmn rw-free — record types.
  *
  * Per ADR-2605203000 Option B (PDS XRPC). bpmn = BPMN engine actor.
- * Collections: app.etzhayyim.bpmn.{process|instance|activityLog}
+ * Collections: com.etzhayyim.bpmn.{process|instance|activityLog}
  *
  * Identity hierarchy (per bpmn design):
  *   did:web:bpmn.etzhayyim.com                          — controller

@@ -25,8 +25,8 @@ import {
   type IpRecord,
 } from "./types.js";
 
-const ASN_COLLECTION = "app.etzhayyim.apps.ipaddress.asn";
-const IP_COLLECTION = "app.etzhayyim.apps.ipaddress.ip";
+const ASN_COLLECTION = "com.etzhayyim.apps.ipaddress.asn";
+const IP_COLLECTION = "com.etzhayyim.apps.ipaddress.ip";
 
 function asnRkey(num: number): string {
   return `asn-${num}`;

@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.baminiku.recordTip",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a viewer tip and create a KAMI particle/effect entity scaled by amount.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["streamId", "viewerDid", "amount"],
+          "properties": {
+            "streamId": { "type": "string" },
+            "viewerDid": { "type": "string" },
+            "amount": { "type": "number" },
+            "currency": { "type": "string" },
+            "message": { "type": "string" },
+            "effectType": { "type": "string", "enum": ["normal", "super", "mega", "firework"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tipId", "effectEntity", "kamiCommand"],
+          "properties": {
+            "tipId": { "type": "string" },
+            "effectEntity": { "type": "object" },
+            "kamiCommand": { "type": "object" }
+          }
+        }
+      }
+    }
+  }
+}

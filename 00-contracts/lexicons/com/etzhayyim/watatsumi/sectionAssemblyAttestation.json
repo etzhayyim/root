@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watatsumi.sectionAssemblyAttestation",
+  "description": "Section assembly attestation (L2). N-ring stacking, bulkheads, hull penetrators, N1 weapon-mount enforcement. Per ADR-2605252200 L2.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craftId": {"type": "string"},
+          "sectionIndex": {"type": "integer"},
+          "ringAttestations": {"type": "array", "items": {"type": "unknown"}, "minItems": 2},
+          "sectionLengthMm": {"type": "integer"},
+          "bulkheads": {"type": "array", "items": {"type": "unknown"}},
+          "penetrators": {"type": "array", "items": {"type": "unknown"}},
+          "weaponMountCheck": {
+            "type": "object",
+            "description": "N1 enforcement: forbidden kinds include torpedo-tube / missile-silo / mine-laying-bay / weapon-mount / ordnance-stowage / depth-charge-rack",
+            "properties": {
+              "n1Enforcement": {"type": "string", "const": "active"},
+              "violationsFound": {"type": "array", "items": {"type": "unknown"}, "maxItems": 0},
+              "accept": {"type": "boolean", "const": true}
+            },
+            "required": ["n1Enforcement", "accept"]
+          },
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["craftId", "sectionIndex", "weaponMountCheck", "attestingRobots"]
+      }
+    }
+  }
+}

@@ -205,7 +205,7 @@ def onboard_payload(payload: dict[str, Any]) -> dict[str, Any]:
     msisdn = str(payload["msisdn"])
     imsi = payload.get("imsi")
     subscriber_id = str(payload.get("subscriberId") or new_id("sub", msisdn))
-    vertex_id = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.subscriber/{subscriber_id}"
+    vertex_id = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.subscriber/{subscriber_id}"
     audit = base_audit(payload)
     now = now_iso()
 
@@ -252,8 +252,8 @@ def activate_sim_payload(payload: dict[str, Any]) -> dict[str, Any]:
     iccid = str(payload["iccid"])
     subscriber_id = str(payload["subscriberId"])
     sim_id = str(payload.get("simId") or new_id("sim", iccid))
-    subscriber_vid = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.subscriber/{subscriber_id}"
-    vertex_id = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.sim/{sim_id}"
+    subscriber_vid = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.subscriber/{subscriber_id}"
+    vertex_id = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.sim/{sim_id}"
     row = {
         "vertex_id": vertex_id,
         "owner_did": caller_did(payload),
@@ -280,15 +280,15 @@ def provision_service_payload(payload: dict[str, Any]) -> dict[str, Any]:
         raise ValueError(f"unsupported serviceType: {service_type}")
     subscriber_id = str(payload["subscriberId"])
     service_id = str(payload.get("serviceId") or new_id("svc", subscriber_id, service_type, payload["planId"]))
-    subscriber_vid = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.subscriber/{subscriber_id}"
-    vertex_id = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.service/{service_id}"
+    subscriber_vid = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.subscriber/{subscriber_id}"
+    vertex_id = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.service/{service_id}"
     row = {
         "vertex_id": vertex_id,
         "owner_did": caller_did(payload),
         "service_id": service_id,
         "subscriber_vid": subscriber_vid,
         "sim_vid": (
-            f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.sim/{payload['simId']}"
+            f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.sim/{payload['simId']}"
             if payload.get("simId") else None
         ),
         "service_type": service_type,
@@ -318,13 +318,13 @@ def record_usage_payload(payload: dict[str, Any]) -> dict[str, Any]:
     subscriber_id = str(payload["subscriberId"])
     service_id = str(payload["serviceId"])
     cdr_id = str(payload.get("cdrId") or new_id("cdr", subscriber_id, service_id, usage_type, payload["startedAt"]))
-    vertex_id = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.cdr/{cdr_id}"
+    vertex_id = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.cdr/{cdr_id}"
     row = {
         "vertex_id": vertex_id,
         "owner_did": caller_did(payload),
         "cdr_id": cdr_id,
-        "subscriber_vid": f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.subscriber/{subscriber_id}",
-        "service_vid": f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.service/{service_id}",
+        "subscriber_vid": f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.subscriber/{subscriber_id}",
+        "service_vid": f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.service/{service_id}",
         "usage_type": usage_type,
         "units": units,
         "unit_of_measure": payload.get("unitOfMeasure"),
@@ -358,10 +358,10 @@ def billing_cycle_payload(payload: dict[str, Any]) -> dict[str, Any]:
     if period_end <= period_start:
         raise ValueError("periodEnd must be after periodStart")
     subscriber_id = str(payload["subscriberId"])
-    subscriber_vid = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.subscriber/{subscriber_id}"
+    subscriber_vid = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.subscriber/{subscriber_id}"
     cycle_id = str(payload.get("cycleId") or f"{period_start.isoformat()}_{period_end.isoformat()}")
     invoice_id = str(payload.get("invoiceId") or new_id("inv", subscriber_id, cycle_id))
-    vertex_id = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.invoice/{invoice_id}"
+    vertex_id = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.invoice/{invoice_id}"
 
     totals = fetch_cdr_aggregates(subscriber_vid, period_start, period_end)
     total_amount = sum(totals.get(k, 0.0) * RATE_CARD[k] for k in RATE_CARD)
@@ -401,10 +401,10 @@ def sla_escalate_payload(payload: dict[str, Any]) -> dict[str, Any]:
     if severity not in {"minor", "major", "critical"}:
         raise ValueError(f"unsupported severity: {severity}")
     service_id = str(payload["serviceId"])
-    service_vid = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.service/{service_id}"
+    service_vid = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.service/{service_id}"
     breach_id = str(payload.get("breachId") or new_id("brc", service_id, payload["observedAt"], payload["breachType"]))
     ticket_id = str(payload.get("ticketId") or new_id("tkt", breach_id))
-    vertex_id = f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.slaBreach/{breach_id}"
+    vertex_id = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.slaBreach/{breach_id}"
     observed_value = payload.get("observedValue")
     sla_threshold = payload.get("slaThreshold")
     row = {

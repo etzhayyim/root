@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.businessPerson.getPerson",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a business person by DID or wikidataId.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "properties": { "did": { "type": "string", "format": "did" }, "wikidataId": { "type": "string", "description": "Q-identifier alternative lookup" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "fullName": { "type": "string" }, "fullNameLocal": { "type": "string" }, "jurisdiction": { "type": "string" }, "primaryRole": { "type": "string" }, "primaryEntityDid": { "type": "string", "format": "did" }, "appointedAt": { "type": "string", "format": "datetime" }, "naturalPersonDid": { "type": "string", "format": "did", "description": "full PII Tier 3 via natural-person.etzhayyim.com" }, "linkedinUri": { "type": "string", "format": "uri" }, "wikidataId": { "type": "string" }, "secondaryRoles": { "type": "array", "items": { "type": "object", "properties": { "entityDid": { "type": "string", "format": "did" }, "role": { "type": "string" } } } } } } }
+    }
+  }
+}

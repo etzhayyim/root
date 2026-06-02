@@ -2,10 +2,10 @@
 """open-ot CI validator: cells × Lexicons consistency.
 
 Walks `60-apps/ai-gftd-project-open-ot/cells/*/manifest.json` and
-`00-contracts/lexicons/ai/gftd/apps/openOt/*.json` and verifies:
+`00-contracts/lexicons/com/etzhayyim/apps/openOt/*.json` and verifies:
 
 - All Lexicon files load as valid JSON.
-- Lexicon `id` field matches the filename: `app.etzhayyim.apps.openOt.<basename>`.
+- Lexicon `id` field matches the filename: `com.etzhayyim.apps.openOt.<basename>`.
 - No `type: "number"` anywhere in Lexicon (root CLAUDE.md guardrail —
   AT Lexicon prohibits float at the wire boundary).
 - No inline `items: { "type": "object" }` in Lexicon — array-of-object
@@ -35,7 +35,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 DEFAULT_CELLS_DIR = REPO_ROOT / "60-apps/ai-gftd-project-open-ot/cells"
-DEFAULT_LEXICON_DIR = REPO_ROOT / "00-contracts/lexicons/ai/gftd/apps/openOt"
+DEFAULT_LEXICON_DIR = REPO_ROOT / "00-contracts/lexicons/com/etzhayyim/apps/openOt"
 
 # Permitted `wire` vocabulary for cell manifest data_in / data_out schemas.
 # Keep in sync with `cells/*/manifest.json` schema documentation.
@@ -60,7 +60,7 @@ def check_lexicon(path: Path) -> list[str]:
     except json.JSONDecodeError as exc:
         return [f"{path.name}: invalid JSON: {exc}"]
 
-    expected_id = f"app.etzhayyim.apps.openOt.{path.stem}"
+    expected_id = f"com.etzhayyim.apps.openOt.{path.stem}"
     if data.get("id") != expected_id:
         errs.append(f"{path.name}: id={data.get('id')!r} != {expected_id!r}")
 

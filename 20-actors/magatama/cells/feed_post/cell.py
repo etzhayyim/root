@@ -25,7 +25,7 @@ Determinism contract (yatachain SPEC §4 table row L3):
     - All set / dict iteration is sorted before hashing.
 
 Trigger: MST listener on ``app.bsky.feed.post`` create commits (firehose).
-Effect: emits ``app.etzhayyim.membrane.verdict`` permanent record on the
+Effect: emits ``com.etzhayyim.membrane.verdict`` permanent record on the
         cell's own DID, witnessing the verdict for this record CID. The
         original record stays under the author's repo; the verdict record
         is a sidecar that ipfs-pinner + anchor-cron treat as auditable.
@@ -266,14 +266,14 @@ def synthesize(state: FeedPostState) -> FeedPostState:
 
 
 def emit_record(state: FeedPostState) -> FeedPostState:
-    """Materialise the verdict as an ``app.etzhayyim.membrane.verdict`` record
+    """Materialise the verdict as an ``com.etzhayyim.membrane.verdict`` record
     payload. The cell's transport layer (MST listener wrapper) is what
     actually calls ``com.atproto.repo.createRecord``; the cell only
     produces the canonical record body so it stays deterministic.
     """
     return {
         "verdict_record": {
-            "$type": "app.etzhayyim.membrane.verdict",
+            "$type": "com.etzhayyim.membrane.verdict",
             "subject": {
                 "uri": state.get("record_uri", ""),
                 "cid": state.get("record_cid", ""),

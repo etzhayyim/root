@@ -294,10 +294,10 @@ def anchor_enrollment(state, anchor_bridge, anchor: bool):
         return {
             "enrollment_id": enrollment_id,
             "pairing_status": pairing,
-            "enrollment_vertex_uri": f"at://{state['debtor_did']}/app.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment/{enrollment_id}",
+            "enrollment_vertex_uri": f"at://{state['debtor_did']}/com.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment/{enrollment_id}",
         }
     result = anchor_bridge.write_and_anchor(
-        collection="app.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment",
+        collection="com.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment",
         rkey=enrollment_id,
         payload={
             "rite_id": state["rite_id"],

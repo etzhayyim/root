@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.apprenticeshipReg.flagCompletionGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Completion / retention / equity gap (bridges reskillingFund.flagOutcomeGap + gender-pay-gap + gig-worker)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "registrationVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "registrationVid": {
+              "type": "string",
+              "description": "bridges recordRegistration"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "dropout",
+                "wage_progression",
+                "gender_underrepresented",
+                "racial_equity",
+                "migrant_barrier",
+                "disability_support",
+                "mentor_gap",
+                "cancelled_funding",
+                "employer_malpractice",
+                "harassment_reported"
+              ]
+            },
+            "completionRatePct": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

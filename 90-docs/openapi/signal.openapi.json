@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.signal.ensureDevice": {
+    "/xrpc/com.etzhayyim.signal.ensureDevice": {
       "post": {
-        "summary": "app.etzhayyim.signal.ensureDevice",
-        "operationId": "app.etzhayyim.signal.ensureDevice",
+        "summary": "com.etzhayyim.signal.ensureDevice",
+        "operationId": "com.etzhayyim.signal.ensureDevice",
         "requestBody": {
           "required": true,
           "content": {
@@ -65,10 +65,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.getIdentityFingerprint": {
+    "/xrpc/com.etzhayyim.signal.getIdentityFingerprint": {
       "get": {
-        "summary": "app.etzhayyim.signal.getIdentityFingerprint",
-        "operationId": "app.etzhayyim.signal.getIdentityFingerprint",
+        "summary": "com.etzhayyim.signal.getIdentityFingerprint",
+        "operationId": "com.etzhayyim.signal.getIdentityFingerprint",
         "parameters": [
           {
             "name": "did",
@@ -108,10 +108,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.getPrekeyBundle": {
+    "/xrpc/com.etzhayyim.signal.getPrekeyBundle": {
       "get": {
-        "summary": "app.etzhayyim.signal.getPrekeyBundle",
-        "operationId": "app.etzhayyim.signal.getPrekeyBundle",
+        "summary": "com.etzhayyim.signal.getPrekeyBundle",
+        "operationId": "com.etzhayyim.signal.getPrekeyBundle",
         "parameters": [
           {
             "name": "did",
@@ -147,10 +147,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.getPrekeyBundles": {
+    "/xrpc/com.etzhayyim.signal.getPrekeyBundles": {
       "get": {
-        "summary": "app.etzhayyim.signal.getPrekeyBundles",
-        "operationId": "app.etzhayyim.signal.getPrekeyBundles",
+        "summary": "com.etzhayyim.signal.getPrekeyBundles",
+        "operationId": "com.etzhayyim.signal.getPrekeyBundles",
         "parameters": [
           {
             "name": "did",
@@ -189,10 +189,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.listDevices": {
+    "/xrpc/com.etzhayyim.signal.listDevices": {
       "get": {
-        "summary": "app.etzhayyim.signal.listDevices",
-        "operationId": "app.etzhayyim.signal.listDevices",
+        "summary": "com.etzhayyim.signal.listDevices",
+        "operationId": "com.etzhayyim.signal.listDevices",
         "parameters": [],
         "responses": {
           "200": {
@@ -222,10 +222,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.ratchetEncrypt": {
+    "/xrpc/com.etzhayyim.signal.ratchetEncrypt": {
       "post": {
-        "summary": "app.etzhayyim.signal.ratchetEncrypt",
-        "operationId": "app.etzhayyim.signal.ratchetEncrypt",
+        "summary": "com.etzhayyim.signal.ratchetEncrypt",
+        "operationId": "com.etzhayyim.signal.ratchetEncrypt",
         "requestBody": {
           "required": true,
           "content": {
@@ -273,10 +273,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.registerPrekeys": {
+    "/xrpc/com.etzhayyim.signal.registerPrekeys": {
       "post": {
-        "summary": "app.etzhayyim.signal.registerPrekeys",
-        "operationId": "app.etzhayyim.signal.registerPrekeys",
+        "summary": "com.etzhayyim.signal.registerPrekeys",
+        "operationId": "com.etzhayyim.signal.registerPrekeys",
         "requestBody": {
           "required": true,
           "content": {
@@ -342,10 +342,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.renameDevice": {
+    "/xrpc/com.etzhayyim.signal.renameDevice": {
       "post": {
-        "summary": "app.etzhayyim.signal.renameDevice",
-        "operationId": "app.etzhayyim.signal.renameDevice",
+        "summary": "com.etzhayyim.signal.renameDevice",
+        "operationId": "com.etzhayyim.signal.renameDevice",
         "requestBody": {
           "required": true,
           "content": {
@@ -397,10 +397,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.replenishOtpks": {
+    "/xrpc/com.etzhayyim.signal.replenishOtpks": {
       "post": {
-        "summary": "app.etzhayyim.signal.replenishOtpks",
-        "operationId": "app.etzhayyim.signal.replenishOtpks",
+        "summary": "com.etzhayyim.signal.replenishOtpks",
+        "operationId": "com.etzhayyim.signal.replenishOtpks",
         "requestBody": {
           "required": true,
           "content": {
@@ -454,10 +454,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.revokeDevice": {
+    "/xrpc/com.etzhayyim.signal.revokeDevice": {
       "post": {
-        "summary": "app.etzhayyim.signal.revokeDevice",
-        "operationId": "app.etzhayyim.signal.revokeDevice",
+        "summary": "com.etzhayyim.signal.revokeDevice",
+        "operationId": "com.etzhayyim.signal.revokeDevice",
         "requestBody": {
           "required": true,
           "content": {
@@ -505,10 +505,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.rotateGroupKey": {
+    "/xrpc/com.etzhayyim.signal.rotateGroupKey": {
       "post": {
-        "summary": "app.etzhayyim.signal.rotateGroupKey",
-        "operationId": "app.etzhayyim.signal.rotateGroupKey",
+        "summary": "com.etzhayyim.signal.rotateGroupKey",
+        "operationId": "com.etzhayyim.signal.rotateGroupKey",
         "requestBody": {
           "required": true,
           "content": {
@@ -560,10 +560,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.setEncryption": {
+    "/xrpc/com.etzhayyim.signal.setEncryption": {
       "post": {
-        "summary": "app.etzhayyim.signal.setEncryption",
-        "operationId": "app.etzhayyim.signal.setEncryption",
+        "summary": "com.etzhayyim.signal.setEncryption",
+        "operationId": "com.etzhayyim.signal.setEncryption",
         "requestBody": {
           "required": true,
           "content": {
@@ -614,10 +614,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.signal.verifyIdentity": {
+    "/xrpc/com.etzhayyim.signal.verifyIdentity": {
       "post": {
-        "summary": "app.etzhayyim.signal.verifyIdentity",
-        "operationId": "app.etzhayyim.signal.verifyIdentity",
+        "summary": "com.etzhayyim.signal.verifyIdentity",
+        "operationId": "com.etzhayyim.signal.verifyIdentity",
         "requestBody": {
           "required": true,
           "content": {

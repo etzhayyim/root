@@ -14,7 +14,7 @@ metadata:
     etzhayyim.com/leader-hostname: simeonnomac-mini.local
     etzhayyim.com/trigger: mst-listener
     etzhayyim.com/healthz-port: '13020'
-    etzhayyim.com/listens-to: app.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress
+    etzhayyim.com/listens-to: com.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress
     etzhayyim.com/adr: 2605201400,2605151200
 spec:
   selector:

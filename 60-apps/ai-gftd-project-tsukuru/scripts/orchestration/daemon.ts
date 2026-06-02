@@ -28,7 +28,7 @@ async function runDaemon() {
     const rId = Math.random().toString(36).substring(2, 8);
 
     const mockRecord = {
-      uri: `at://did:web:${customer}/app.etzhayyim.apps.tsukuru.productionOrder/${rId}`,
+      uri: `at://did:web:${customer}/com.etzhayyim.apps.tsukuru.productionOrder/${rId}`,
       manufacturerDid: 'did:web:tsukuru.etzhayyim.com',
       customerDid: `did:web:${customer}`,
       contactEmail: `procurement@${customer.replace('.com', '.net')}`,

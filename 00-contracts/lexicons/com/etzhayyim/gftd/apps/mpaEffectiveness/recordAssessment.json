@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mpaEffectiveness.recordAssessment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MPA management effectiveness (MPA Guide / PAME WH MEE — bridges biodiversity-gbf + bbnj-highseas + fisheries-iuu + blue-economy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "assessmentId",
+            "mpaWdpaId",
+            "countryIso3",
+            "mpaGuideStage",
+            "mpaGuideLevelOfProtection",
+            "assessedYear",
+            "recordedAt"
+          ],
+          "properties": {
+            "assessmentId": {
+              "type": "string"
+            },
+            "mpaWdpaId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "mpaGuideStage": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "designated",
+                "implemented",
+                "actively_managed"
+              ]
+            },
+            "mpaGuideLevelOfProtection": {
+              "type": "string",
+              "enum": [
+                "fully_protected",
+                "highly_protected",
+                "lightly_protected",
+                "minimally_protected"
+              ]
+            },
+            "pameScore": {
+              "type": "number"
+            },
+            "assessedYear": {
+              "type": "integer"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "effectivenessTier": {
+              "type": "string",
+              "enum": [
+                "proposed_only",
+                "paper_park",
+                "functional",
+                "exemplary"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -44,7 +44,7 @@
 #      `_camera_from_llm` + `_lights_from_llm` helpers; Phase A
 #      `_step_cinematography` calls the same tool so behaviour stays
 #      bit-identical across paths. Lexicon
-#      `00-contracts/lexicons/ai/gftd/apps/mangaka/tools/validateCameraPlan.json`,
+#      `00-contracts/lexicons/com/etzhayyim/apps/mangaka/tools/validateCameraPlan.json`,
 #      seed migration
 #      `20260514150000_seed_mangaka_validate_camera_plan_mcp_tool`, tests
 #      `lg/tests/test_validate_camera_plan.py`.
@@ -54,7 +54,7 @@
 #      canonical `_axes_from_parsed` equivalent), overlays Hume
 #      `emotionAlignment` via `lg_mangaka.hume_emotion` + `_blob.get`,
 #      and selects the highest-scoring render. Lexicon
-#      `00-contracts/lexicons/ai/gftd/apps/mangaka/tools/aggregateCritique.json`,
+#      `00-contracts/lexicons/com/etzhayyim/apps/mangaka/tools/aggregateCritique.json`,
 #      seed migration
 #      `20260514160000_seed_mangaka_aggregate_critique_mcp_tool`, tests
 #      `lg/tests/test_aggregate_critique.py`.
@@ -66,7 +66,7 @@
 #      P10.1b is unresolved; `tool_aggregate_critique` is the migration
 #      target once a `foreach` over renders + `make_llm_vision_node` land.
 #   3. Refinement-loop policy — DMN SSoT closed. Decision lives at
-#      `00-contracts/dmn/ai/gftd/policies/mangaka/composeScene3dRefinement.dmn`
+#      `00-contracts/dmn/com/etzhayyim/policies/mangaka/composeScene3dRefinement.dmn`
 #      and is seeded into `vertex_dmn_model` by migration
 #      `20260514150000_seed_mangaka_compose_scene_3d_refinement_dmn`. Drift
 #      between the DMN rules and the Python predicate
@@ -79,13 +79,13 @@
 #      audit / lineage queries against `vertex_dmn_model`.
 #   4. MCP tool serving endpoint — in-cluster short-circuit closed.
 #      Decision: the pod IS the MCP tool serving endpoint. `lg_mangaka.server`
-#      exposes `POST /xrpc/app.etzhayyim.mcp.message` (JSON-RPC `tools/call`
+#      exposes `POST /xrpc/com.etzhayyim.mcp.message` (JSON-RPC `tools/call`
 #      envelope) + `POST /xrpc/{nsid}` (direct dispatch), both routed
 #      through `_dispatch_mcp_tool` → `_TOOL_NSID_TO_HANDLER` →
 #      `lg_mangaka.tools.*`. ADR-2605111200 compliant — RW, B2 and GPU all
 #      stay pod-side.
 #      Phase C activation: the topology Pregel running on the pod hits
-#      `mcp://app.etzhayyim.mangaka.tools.*` and `pymagatama.langgraph_node_resolvers._resolve_mcp_nsid`
+#      `mcp://com.etzhayyim.mangaka.tools.*` and `pymagatama.langgraph_node_resolvers._resolve_mcp_nsid`
 #      short-circuits to localhost via the `MCP_NSID_OVERRIDE_<prefix>`
 #      env var pattern. Helm: `50-infra/vultr/lg-mangaka-pool/values.yaml`
 #      `mcpOverrides.aietzhayyimAppsMangakaTools: "http://localhost:8000"` →
@@ -100,7 +100,7 @@
 #      flipped to `atproto.etzhayyim.com` so the existing MCP adapter handles the
 #      forward. Phase C activation does not depend on external access.
 
-assistant_id: app.etzhayyim.mangaka.composeScene3d
+assistant_id: com.etzhayyim.mangaka.composeScene3d
 version: 1
 kind: topology
 description: |
@@ -141,11 +141,11 @@ entry: load_panel_plan
 nodes:
   - id: load_panel_plan
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.loadPanelPlan
+    ref: mcp://com.etzhayyim.mangaka.tools.loadPanelPlan
     config: {}
   - id: resolve_assets
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.resolveAssets
+    ref: mcp://com.etzhayyim.mangaka.tools.resolveAssets
     config: {}
   - id: pose_characters
     kind: llm
@@ -195,7 +195,7 @@ nodes:
           {asset_refs}
   - id: place_scene
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.placeScene
+    ref: mcp://com.etzhayyim.mangaka.tools.placeScene
     config: {}
   - id: cinematography
     kind: llm
@@ -240,7 +240,7 @@ nodes:
   # writes camera_plan. SSoT: lg_mangaka.tools:tool_validate_camera_plan.
   - id: validate_camera_plan
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.validateCameraPlan
+    ref: mcp://com.etzhayyim.mangaka.tools.validateCameraPlan
     config:
       # `make_mcp_tool_node` maps these state keys → tool kwargs.
       input_paths:
@@ -249,11 +249,11 @@ nodes:
       result_key: __scatter__   # tool returns {cameraPlan: {...}} → spread to state.camera_plan
   - id: simulate_one
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.simulateCharacter
+    ref: mcp://com.etzhayyim.mangaka.tools.simulateCharacter
     config: {}
   - id: render_keyframes
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.renderKeyframes
+    ref: mcp://com.etzhayyim.mangaka.tools.renderKeyframes
     config:
       gpu_required: true
       pod_pool: vke-render-pool
@@ -319,7 +319,7 @@ nodes:
   # SSoT: lg_mangaka.tools:tool_aggregate_critique.
   - id: aggregate_critique
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.aggregateCritique
+    ref: mcp://com.etzhayyim.mangaka.tools.aggregateCritique
     config:
       input_paths:
         renders:    $.renders
@@ -327,7 +327,7 @@ nodes:
       result_key: __scatter__   # tool returns {renders, selected, score} → spread to state
   - id: persist
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.persistScene3d
+    ref: mcp://com.etzhayyim.mangaka.tools.persistScene3d
     config: {}
 
 # Linear backbone (sequence reflects the Pregel super-step order).
@@ -365,7 +365,7 @@ conditional_edges:
   #    P10.2b; now the aggregator is the score authority. Routing decision
   #    lives in the DMN policy (ADR-2604261100).
   - from: aggregate_critique
-    condition_ref: dmn:app.etzhayyim.policies.mangaka.composeScene3dRefinement@1.0.0
+    condition_ref: dmn:com.etzhayyim.policies.mangaka.composeScene3dRefinement@1.0.0
     paths:
       cinematography: cinematography
       persist:        persist
@@ -374,21 +374,21 @@ conditional_edges:
 # Worker -> bpmn-dispatcher -> /runs route resolves the NSID to assistant via
 # `vertex_langgraph_deployment WHERE nsid=... AND status='active'`.
 deployments:
-  - nsid: app.etzhayyim.mangaka.composeScene3d
+  - nsid: com.etzhayyim.mangaka.composeScene3d
     status: active
     replicas: 1
 
 # MCP tools that must exist before Phase C activation. Each row will land
-# under `app.etzhayyim.mangaka.tools.*` with the lexicon JSON in
-# `00-contracts/lexicons/ai/gftd/apps/mangaka/tools/`. Sub-primitives
+# under `com.etzhayyim.mangaka.tools.*` with the lexicon JSON in
+# `00-contracts/lexicons/com/etzhayyim/apps/mangaka/tools/`. Sub-primitives
 # (audit.emit / time.now / crypto.hash etc.) come from the 10 generic
 # primitives already in `vertex_mcp_tool_def`.
 pending_mcp_tools:
-  - app.etzhayyim.mangaka.tools.loadPanelPlan        # SELECT vertex_mangaka
-  - app.etzhayyim.mangaka.tools.resolveAssets        # SELECT character/env/asset
-  - app.etzhayyim.mangaka.tools.placeScene           # scene_dag composition
-  - app.etzhayyim.mangaka.tools.validateCameraPlan   # P10.2 cinematography post-validator
-  - app.etzhayyim.mangaka.tools.simulateCharacter    # kami-mangaka-scene::settle
-  - app.etzhayyim.mangaka.tools.renderKeyframes      # GPU-bound — pod selector
-  - app.etzhayyim.mangaka.tools.aggregateCritique    # P10.2b: Hume overlay + best-of-N
-  - app.etzhayyim.mangaka.tools.persistScene3d       # vertex_mangaka_scene_3d INSERT
+  - com.etzhayyim.mangaka.tools.loadPanelPlan        # SELECT vertex_mangaka
+  - com.etzhayyim.mangaka.tools.resolveAssets        # SELECT character/env/asset
+  - com.etzhayyim.mangaka.tools.placeScene           # scene_dag composition
+  - com.etzhayyim.mangaka.tools.validateCameraPlan   # P10.2 cinematography post-validator
+  - com.etzhayyim.mangaka.tools.simulateCharacter    # kami-mangaka-scene::settle
+  - com.etzhayyim.mangaka.tools.renderKeyframes      # GPU-bound — pod selector
+  - com.etzhayyim.mangaka.tools.aggregateCritique    # P10.2b: Hume overlay + best-of-N
+  - com.etzhayyim.mangaka.tools.persistScene3d       # vertex_mangaka_scene_3d INSERT

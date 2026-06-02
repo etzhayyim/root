@@ -22,10 +22,10 @@ interface BpmnEntry {
 const ENTRIES: BpmnEntry[] = [
   {
     processId: "ki_vascular_synthesis_cycle",
-    bpmnPath: "00-contracts/bpmn/ai/gftd/ki/vascular-synthesis-cycle.bpmn",
-    processVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
-    bindingVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/ki-vascular-synthesis-cycle-v1",
-    nsid: "app.etzhayyim.apps.ki.absorb",
+    bpmnPath: "00-contracts/bpmn/com/etzhayyim/ki/vascular-synthesis-cycle.bpmn",
+    processVid: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/ki-vascular-synthesis-cycle-v1",
+    nsid: "com.etzhayyim.apps.ki.absorb",
   },
 ];
 

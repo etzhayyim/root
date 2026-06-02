@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          '        $5, $6, 1, TRUE, $7\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/law-firm-v1',
+  'parameters': ['at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/law-firm-v1',
                  'template_law_firm_v1',
                  'law_firm',
                  '["home","about","practice_areas","attorneys","fee","access","contact"]',
@@ -62,7 +62,7 @@ UP = [{'sql': '\n'
          '        $5, $6, 1, TRUE, $7\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/accounting-firm-v1',
+  'parameters': ['at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/accounting-firm-v1',
                  'template_accounting_firm_v1',
                  'accounting_firm',
                  '["home","about","services","staff","fee_guide","access","contact"]',
@@ -103,7 +103,7 @@ UP = [{'sql': '\n'
          '        $5, $6, 1, TRUE, $7\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/scrivener-v1',
+  'parameters': ['at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/scrivener-v1',
                  'template_scrivener_v1',
                  'judicial_scrivener',
                  '["home","about","services","fee","access","contact"]',
@@ -144,7 +144,7 @@ UP = [{'sql': '\n'
          '        $5, $6, 1, TRUE, $7\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/company-v1',
+  'parameters': ['at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/company-v1',
                  'template_company_v1',
                  'general_company',
                  '["home","about","services","news","access","contact"]',
@@ -179,13 +179,13 @@ UP = [{'sql': '\n'
  {'sql': 'FLUSH', 'parameters': []}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_webya_template WHERE vertex_id = $1',
-  'parameters': ['at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/law-firm-v1']},
+  'parameters': ['at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/law-firm-v1']},
  {'sql': 'DELETE FROM vertex_webya_template WHERE vertex_id = $1',
-  'parameters': ['at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/accounting-firm-v1']},
+  'parameters': ['at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/accounting-firm-v1']},
  {'sql': 'DELETE FROM vertex_webya_template WHERE vertex_id = $1',
-  'parameters': ['at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/scrivener-v1']},
+  'parameters': ['at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/scrivener-v1']},
  {'sql': 'DELETE FROM vertex_webya_template WHERE vertex_id = $1',
-  'parameters': ['at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/company-v1']}]
+  'parameters': ['at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/company-v1']}]
 
 
 def upgrade() -> None:

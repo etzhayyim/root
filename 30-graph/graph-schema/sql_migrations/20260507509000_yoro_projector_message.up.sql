@@ -41,7 +41,7 @@ INSERT INTO vertex_projector_message (
       'projector',
       2
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.convo.message'
+    WHERE collection = 'com.etzhayyim.convo.message'
       AND repo = 'did:web:ops.etzhayyim.com'
     ON CONFLICT (vertex_id) DO NOTHING;
 

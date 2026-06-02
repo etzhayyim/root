@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openNetwork.reportCyberIncident — サイバー事案 報告
+// com.etzhayyim.apps.openNetwork.reportCyberIncident — サイバー事案 報告
 export async function handle_reportCyberIncident(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.assetVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openNetwork.reportCyberIncident/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openNetwork.reportCyberIncident/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-network",
-      nsid: "app.etzhayyim.apps.openNetwork.reportCyberIncident",
+      nsid: "com.etzhayyim.apps.openNetwork.reportCyberIncident",
       bpmnProcessId: "open_network_report_cyber_incident",
       subjectVid,
       actionClass: "openNetwork.cyber.reportIncident",
@@ -81,16 +81,16 @@ export async function handle_reportCyberIncident(env: DefenceEnv, body: any): Pr
   }
 }
 
-// app.etzhayyim.apps.openNetwork.escalateDdos — DDoS 緊急報告
+// com.etzhayyim.apps.openNetwork.escalateDdos — DDoS 緊急報告
 export async function handle_escalateDdos(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.assetVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openNetwork.escalateDdos/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openNetwork.escalateDdos/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-network",
-      nsid: "app.etzhayyim.apps.openNetwork.escalateDdos",
+      nsid: "com.etzhayyim.apps.openNetwork.escalateDdos",
       bpmnProcessId: "open_network_escalate_ddos",
       subjectVid,
       actionClass: "openNetwork.cyber.escalateDdos",
@@ -108,6 +108,6 @@ export async function handle_escalateDdos(env: DefenceEnv, body: any): Promise<R
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openNetwork.reportCyberIncident": handle_reportCyberIncident,
-  "app.etzhayyim.apps.openNetwork.escalateDdos": handle_escalateDdos,
+  "com.etzhayyim.apps.openNetwork.reportCyberIncident": handle_reportCyberIncident,
+  "com.etzhayyim.apps.openNetwork.escalateDdos": handle_escalateDdos,
 };

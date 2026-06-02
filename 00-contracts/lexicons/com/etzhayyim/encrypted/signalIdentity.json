@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.encrypted.signalIdentity",
+  "description": "DID ↔ Signal identity binding. Published by an actor in their own PDS to assert which libsignal IdentityKey is canonical for their DID. The signature, verifiable against the DID document's signing key, prevents a malicious PDS from substituting a different Signal identity. Per ADR-2605181100.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "self",
+      "record": {
+        "type": "object",
+        "required": [
+          "did",
+          "signalIdentityKey",
+          "signalRegistrationId",
+          "signature",
+          "createdAt"
+        ],
+        "properties": {
+          "did": {
+            "type": "string",
+            "format": "did",
+            "description": "Self-DID. MUST equal the repo owner."
+          },
+          "signalIdentityKey": {
+            "type": "bytes",
+            "description": "libsignal IdentityKey public component. 32 bytes Curve25519.",
+            "minLength": 32,
+            "maxLength": 33
+          },
+          "signalRegistrationId": {
+            "type": "integer",
+            "description": "libsignal registration id (14-bit per Signal protocol).",
+            "minimum": 1,
+            "maximum": 16383
+          },
+          "signedPreKey": {
+            "type": "bytes",
+            "description": "libsignal signed pre-key public component. Optional — apps without offline-first sender requirement may omit.",
+            "maxLength": 64
+          },
+          "signedPreKeyId": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 16777215
+          },
+          "signedPreKeySignature": {
+            "type": "bytes",
+            "description": "libsignal Curve25519 signature over signedPreKey, by signalIdentityKey.",
+            "maxLength": 128
+          },
+          "signature": {
+            "type": "bytes",
+            "description": "Signature over CBOR({did, signalIdentityKey, signalRegistrationId, signedPreKey?, signedPreKeyId?, signedPreKeySignature?, createdAt}) by the DID document's signing key. Verifier MUST resolve the DID document fresh.",
+            "maxLength": 256
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

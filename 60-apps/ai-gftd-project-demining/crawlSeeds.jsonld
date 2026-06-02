@@ -5,7 +5,7 @@
   "description": "Seed URLs for `site.etzhayyim.com:seedForProject` to fetch primary legal sources and HMA authoritative data. Marked entries in `legalInstruments.jsonld` with `verifyCitation: true` should be resolved by cross-referencing the crawl output against the draft citation.",
   "consumer": "site.etzhayyim.com",
   "projectDid": "did:web:demining.etzhayyim.com",
-  "targetCollection": "ai.gftd.apps.demining.legalSource",
+  "targetCollection": "com.etzhayyim.apps.demining.legalSource",
   "priority": "P0",
   "groups": [
     {
@@ -82,7 +82,7 @@
     "adapter": "site.etzhayyim.com:seedForProject",
     "wetExtraction": ["lawTitle", "lawNumber", "datePublished", "articles", "treatyRef"],
     "watExtraction": ["pdfLinks", "amendingActs", "officialGazetteRefs"],
-    "outputCollection": "ai.gftd.apps.demining.legalSource",
+    "outputCollection": "com.etzhayyim.apps.demining.legalSource",
     "tier": 1,
     "consentGate": "public-legal-gazette",
     "rateLimit": "respect robots.txt + 1 req/s per host"

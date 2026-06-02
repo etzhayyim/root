@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-recordRound-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-recordRound-v1',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'open_drug_price_negotiation_record_round',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -144,12 +144,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>',
                  2361,
-                 '00-contracts/bpmn/ai/gftd/open-drug-price-negotiation/recordRound.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-drug-price-negotiation/recordRound.bpmn',
                  '2026-04-27T07:40:00Z',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-recordRound-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-recordRound-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -184,7 +184,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-flagAccessGap-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-flagAccessGap-v1',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'open_drug_price_negotiation_flag_access_gap',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -233,12 +233,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>',
                  2309,
-                 '00-contracts/bpmn/ai/gftd/open-drug-price-negotiation/flagAccessGap.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-drug-price-negotiation/flagAccessGap.bpmn',
                  '2026-04-27T07:40:00Z',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-flagAccessGap-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-flagAccessGap-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -273,7 +273,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-recordAction-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-recordAction-v1',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'open_jp_mhlw_record_action',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -319,12 +319,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>',
                  2236,
-                 '00-contracts/bpmn/ai/gftd/open-jp-mhlw/recordAction.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-jp-mhlw/recordAction.bpmn',
                  '2026-04-27T07:40:00Z',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-recordAction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-recordAction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -359,7 +359,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-flagPolicyConcern-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-flagPolicyConcern-v1',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'open_jp_mhlw_flag_policy_concern',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -406,12 +406,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>',
                  2231,
-                 '00-contracts/bpmn/ai/gftd/open-jp-mhlw/flagPolicyConcern.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-jp-mhlw/flagPolicyConcern.bpmn',
                  '2026-04-27T07:40:00Z',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-flagPolicyConcern-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-flagPolicyConcern-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -446,7 +446,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-regulateNarcotics-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-regulateNarcotics-v1',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'open_jp_mhlw_regulate_narcotics',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -494,12 +494,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2293,
-                 '00-contracts/bpmn/ai/gftd/open-jp-mhlw/regulateNarcotics.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-jp-mhlw/regulateNarcotics.bpmn',
                  '2026-04-27T07:40:00Z',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-regulateNarcotics-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-regulateNarcotics-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -534,7 +534,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-administerInfluenzaVaccine-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-administerInfluenzaVaccine-v1',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'open_jp_mhlw_administer_influenza_vaccine',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -582,12 +582,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2331,
-                 '00-contracts/bpmn/ai/gftd/open-jp-mhlw/administerInfluenzaVaccine.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-jp-mhlw/administerInfluenzaVaccine.bpmn',
                  '2026-04-27T07:40:00Z',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-administerInfluenzaVaccine-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-administerInfluenzaVaccine-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -620,16 +620,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-recordRound-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-recordRound-v1',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
-                 'app.etzhayyim.apps.drugPriceNegotiation.recordRound',
+                 'com.etzhayyim.apps.drugPriceNegotiation.recordRound',
                  'open_drug_price_negotiation_record_round',
                  15000,
                  '2026-04-27T07:40:00Z',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-recordRound-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-recordRound-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -662,16 +662,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-flagAccessGap-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-flagAccessGap-v1',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
-                 'app.etzhayyim.apps.drugPriceNegotiation.flagAccessGap',
+                 'com.etzhayyim.apps.drugPriceNegotiation.flagAccessGap',
                  'open_drug_price_negotiation_flag_access_gap',
                  30000,
                  '2026-04-27T07:40:00Z',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'did:web:open-drug-price-negotiation.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-flagAccessGap-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-flagAccessGap-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -704,16 +704,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-recordAction-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-recordAction-v1',
                  'did:web:open-jp-mhlw.etzhayyim.com',
-                 'app.etzhayyim.apps.jpMhlw.recordAction',
+                 'com.etzhayyim.apps.jpMhlw.recordAction',
                  'open_jp_mhlw_record_action',
                  15000,
                  '2026-04-27T07:40:00Z',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-recordAction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-recordAction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -746,16 +746,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-flagPolicyConcern-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-flagPolicyConcern-v1',
                  'did:web:open-jp-mhlw.etzhayyim.com',
-                 'app.etzhayyim.apps.jpMhlw.flagPolicyConcern',
+                 'com.etzhayyim.apps.jpMhlw.flagPolicyConcern',
                  'open_jp_mhlw_flag_policy_concern',
                  30000,
                  '2026-04-27T07:40:00Z',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-flagPolicyConcern-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-flagPolicyConcern-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -788,16 +788,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-regulateNarcotics-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-regulateNarcotics-v1',
                  'did:web:open-jp-mhlw.etzhayyim.com',
-                 'app.etzhayyim.apps.jpMhlw.regulateNarcotics',
+                 'com.etzhayyim.apps.jpMhlw.regulateNarcotics',
                  'open_jp_mhlw_regulate_narcotics',
                  15000,
                  '2026-04-27T07:40:00Z',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-regulateNarcotics-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-regulateNarcotics-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -830,41 +830,41 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-administerInfluenzaVaccine-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-administerInfluenzaVaccine-v1',
                  'did:web:open-jp-mhlw.etzhayyim.com',
-                 'app.etzhayyim.apps.jpMhlw.administerInfluenzaVaccine',
+                 'com.etzhayyim.apps.jpMhlw.administerInfluenzaVaccine',
                  'open_jp_mhlw_administer_influenza_vaccine',
                  15000,
                  '2026-04-27T07:40:00Z',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'did:web:open-jp-mhlw.etzhayyim.com',
                  'sys.bpmn.seed.pharma-policy',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-administerInfluenzaVaccine-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-administerInfluenzaVaccine-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-recordRound-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-recordRound-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-flagAccessGap-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-drug-price-negotiation-flagAccessGap-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-recordAction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-recordAction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-flagPolicyConcern-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-flagPolicyConcern-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-regulateNarcotics-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-regulateNarcotics-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-jp-mhlw-administerInfluenzaVaccine-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-jp-mhlw-administerInfluenzaVaccine-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-recordRound-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-recordRound-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-flagAccessGap-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-drug-price-negotiation-flagAccessGap-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-recordAction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-recordAction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-flagPolicyConcern-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-flagPolicyConcern-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-regulateNarcotics-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-regulateNarcotics-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-administerInfluenzaVaccine-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-jp-mhlw-administerInfluenzaVaccine-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_open_jp_mhlw', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_open_drug_price_negotiation', 'parameters': []}]
 

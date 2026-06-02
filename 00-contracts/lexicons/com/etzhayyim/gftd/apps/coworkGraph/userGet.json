@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.userGet",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Microsoft 365 ユーザーのプロフィール情報を取得する。Graph API /users/{userId} をラップ。",
+      "parameters": {
+        "type": "params",
+        "required": ["userId"],
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "UPN (user@domain.com) または Graph API user ID"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "displayName": { "type": "string" },
+            "mail": { "type": "string" },
+            "userPrincipalName": { "type": "string" },
+            "jobTitle": { "type": "string" },
+            "department": { "type": "string" },
+            "officeLocation": { "type": "string" },
+            "preferredLanguage": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

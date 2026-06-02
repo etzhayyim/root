@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.realEstate.registerSource",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a public or licensed real-estate data source for global property/listing/transaction ingestion. Starts BPMN real_estate_register_source.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sourceId", "sourceKind"],
+          "properties": {
+            "sourceId": { "type": "string" },
+            "sourceKind": { "type": "string", "enum": ["government_registry", "mls", "portal", "auction", "broker_feed", "open_data", "manual"] },
+            "countryIso2": { "type": "string" },
+            "countryIso3": { "type": "string" },
+            "jurisdiction": { "type": "string" },
+            "baseUrl": { "type": "string", "format": "uri" },
+            "license": { "type": "string" },
+            "refreshCadence": { "type": "string", "enum": ["realtime", "hourly", "daily", "weekly", "monthly", "ad_hoc"] },
+            "termsUrl": { "type": "string", "format": "uri" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

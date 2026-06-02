@@ -90,8 +90,8 @@ describe("createLangserverXrpcHandler — UNSPSC", () => {
     const res = await app.fetch(jsonRequest("/"));
     const body = (await res.json()) as { taxonomy: string; lexicons: string[] };
     expect(body.taxonomy).toBe("unispsc");
-    expect(body.lexicons).toContain("app.etzhayyim.apps.unispsc.classify");
-    expect(body.lexicons).not.toContain("app.etzhayyim.apps.isic.hierarchicalClassify");
+    expect(body.lexicons).toContain("com.etzhayyim.apps.unispsc.classify");
+    expect(body.lexicons).not.toContain("com.etzhayyim.apps.isic.hierarchicalClassify");
   });
 
   it("classify validates body + delegates to actor", async () => {
@@ -104,15 +104,15 @@ describe("createLangserverXrpcHandler — UNSPSC", () => {
     });
 
     const ok = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.unispsc.classify", { description: "cattle", topK: 1 }),
+      jsonRequest("/xrpc/com.etzhayyim.apps.unispsc.classify", { description: "cattle", topK: 1 }),
     );
     expect(ok.status).toBe(200);
     const body = (await ok.json()) as { candidates: Array<{ code: string }>; modelUsed: string };
     expect(body.candidates[0].code).toBe("10101501");
-    expect(calls[0].url).toBe("http://lg/xrpc/app.etzhayyim.apps.unispsc.classify");
+    expect(calls[0].url).toBe("http://lg/xrpc/com.etzhayyim.apps.unispsc.classify");
 
     const bad = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.unispsc.classify", { description: "" }),
+      jsonRequest("/xrpc/com.etzhayyim.apps.unispsc.classify", { description: "" }),
     );
     expect(bad.status).toBe(400);
     expect(await bad.json()).toEqual({ error: "DescriptionEmpty" });
@@ -128,7 +128,7 @@ describe("createLangserverXrpcHandler — UNSPSC", () => {
     });
 
     const ok = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.unispsc.invokeAgent", {
+      jsonRequest("/xrpc/com.etzhayyim.apps.unispsc.invokeAgent", {
         code: "10101501",
         payload: { animal_id: "cow-001" },
       }),
@@ -138,7 +138,7 @@ describe("createLangserverXrpcHandler — UNSPSC", () => {
     expect(body.ok).toBe(true);
 
     const bad = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.unispsc.invokeAgent", { code: "10101501" }),
+      jsonRequest("/xrpc/com.etzhayyim.apps.unispsc.invokeAgent", { code: "10101501" }),
     );
     expect(bad.status).toBe(400);
   });
@@ -152,10 +152,10 @@ describe("createLangserverXrpcHandler — UNSPSC", () => {
       actor,
     });
     const ok = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.unispsc.listAgents?prefix=10&limit=2"),
+      jsonRequest("/xrpc/com.etzhayyim.apps.unispsc.listAgents?prefix=10&limit=2"),
     );
     expect(ok.status).toBe(200);
-    expect(calls[0].url).toContain("/xrpc/app.etzhayyim.apps.unispsc.listAgents");
+    expect(calls[0].url).toContain("/xrpc/com.etzhayyim.apps.unispsc.listAgents");
     expect(calls[0].url).toContain("prefix=10");
     expect(calls[0].url).toContain("limit=2");
   });
@@ -169,7 +169,7 @@ describe("createLangserverXrpcHandler — UNSPSC", () => {
       actor,
     });
     const ok = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.unispsc.health"),
+      jsonRequest("/xrpc/com.etzhayyim.apps.unispsc.health"),
     );
     const body = (await ok.json()) as { status: string };
     expect(body.status).toBe("healthy");
@@ -184,7 +184,7 @@ describe("createLangserverXrpcHandler — UNSPSC", () => {
       actor,
     });
     const res = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.unispsc.hierarchicalClassify", {
+      jsonRequest("/xrpc/com.etzhayyim.apps.unispsc.hierarchicalClassify", {
         description: "x",
       }),
     );
@@ -203,7 +203,7 @@ describe("createLangserverXrpcHandler — ISIC", () => {
     });
     const res = await app.fetch(jsonRequest("/"));
     const body = (await res.json()) as { lexicons: string[] };
-    expect(body.lexicons).toContain("app.etzhayyim.apps.isic.hierarchicalClassify");
+    expect(body.lexicons).toContain("com.etzhayyim.apps.isic.hierarchicalClassify");
   });
 
   it("invokeAgent uses classCode field for ISIC", async () => {
@@ -217,7 +217,7 @@ describe("createLangserverXrpcHandler — ISIC", () => {
 
     // Missing classCode -> 400
     const bad = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.isic.invokeAgent", {
+      jsonRequest("/xrpc/com.etzhayyim.apps.isic.invokeAgent", {
         code: "0111",
         payload: {},
       }),
@@ -226,13 +226,13 @@ describe("createLangserverXrpcHandler — ISIC", () => {
 
     // Valid classCode -> proxied
     const ok = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.isic.invokeAgent", {
+      jsonRequest("/xrpc/com.etzhayyim.apps.isic.invokeAgent", {
         classCode: "0111",
         payload: { crop_id: "wheat-2026" },
       }),
     );
     expect(ok.status).toBe(200);
-    expect(calls[0].url).toBe("http://lg/xrpc/app.etzhayyim.apps.isic.invokeAgent");
+    expect(calls[0].url).toBe("http://lg/xrpc/com.etzhayyim.apps.isic.invokeAgent");
   });
 
   it("hierarchicalClassify is mounted for isic", async () => {
@@ -244,7 +244,7 @@ describe("createLangserverXrpcHandler — ISIC", () => {
       actor,
     });
     const res = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.isic.hierarchicalClassify", {
+      jsonRequest("/xrpc/com.etzhayyim.apps.isic.hierarchicalClassify", {
         description: "wheat farm",
         stopAt: "class",
       }),
@@ -277,7 +277,7 @@ describe("error propagation", () => {
       actor,
     });
     const res = await app.fetch(
-      jsonRequest("/xrpc/app.etzhayyim.apps.unispsc.invokeAgent", {
+      jsonRequest("/xrpc/com.etzhayyim.apps.unispsc.invokeAgent", {
         code: "00000000",
         payload: {},
       }),

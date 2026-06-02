@@ -10,7 +10,7 @@
 //       hit the same RW table.
 //     → return { apiKey, orgDid } once. Customer saves the key.
 //
-// This bypasses PDS XRPC `app.etzhayyim.auth.createApiKey` because that endpoint
+// This bypasses PDS XRPC `com.etzhayyim.auth.createApiKey` because that endpoint
 // requires session auth — yatabase signup is anonymous by design and
 // owns its own tenant boundary.
 //
@@ -273,7 +273,7 @@ export async function handleSignup(env: SignupEnv, req?: Request): Promise<Respo
       key_hash: keyHash,
       key_prefix: "sk_live_yata_",
       name: tenantName,
-      scopes: "atproto,include:app.etzhayyim.apps.yata",
+      scopes: "atproto,include:com.etzhayyim.apps.yata",
       status: "active",
       product_scope: "yata",
       aws_access_key_id: aws.id,

@@ -54,7 +54,7 @@ Shipped:
   cells** (`polysilicon_refine` / `ingot_wafer` / `cell_process` / `module_assembly` /
   `panel_loading` / `outbound_logistics` / `supply_procurement`), import-clean, `RuntimeError`
   on `.solve()`.
-- **7 lexicons** `app.etzhayyim.himawari.*` (integer-with-implied-units per repo convention).
+- **7 lexicons** `com.etzhayyim.himawari.*` (integer-with-implied-units per repo convention).
 - Registered in `deps.toml` (`[[adrs]]` + `[[modules]]`) + root `CLAUDE.md` Tier-B roster + ADR
   index + docs registry/graph.
 

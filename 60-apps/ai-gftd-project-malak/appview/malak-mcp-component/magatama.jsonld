@@ -66,9 +66,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.malak.malakEntity",
-        "ai.gftd.apps.malak.malakEvent",
-        "ai.gftd.apps.malak.malakReport"
+        "com.etzhayyim.apps.malak.malakEntity",
+        "com.etzhayyim.apps.malak.malakEvent",
+        "com.etzhayyim.apps.malak.malakReport"
       ]
     }
   },

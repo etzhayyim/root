@@ -12,7 +12,7 @@ CREATE VIEW IF NOT EXISTS view_cpc3_product AS
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.cpc.commodity_item_v3';
+    WHERE collection = 'com.etzhayyim.apps.cpc.commodity_item_v3';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('cpc3', 'cpc3.etzhayyim.com', 4594, 'products', 'commerce');

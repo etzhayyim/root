@@ -9,7 +9,7 @@ import { sql } from "kysely";
  *
  * 4 BPMN process defs + 6 XRPC bindings.  T2 actor (pymagatama + Zeebe).
  * Lifecycle BPMN は autonomous (timer-start)、XRPC binding は bpmn-dispatcher
- * `http://dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.otakiage.*` から到達。
+ * `http://dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.otakiage.*` から到達。
  *
  *  Process / NSID                              Trigger
  *  -----------------------------------------------------------------------
@@ -19,12 +19,12 @@ import { sql } from "kysely";
  *  otakiage_social_announce    (XRPC fan-in)   handover/ritual 完了で内部呼出
  *
  *  XRPC binding NSIDs:
- *    app.etzhayyim.apps.otakiage.submitItem        → otakiage_submit_item (この migration では process_def 不要、handler 直接実装)
- *    app.etzhayyim.apps.otakiage.requestReuse      → otakiage_request_reuse
- *    app.etzhayyim.apps.otakiage.confirmHandover   → otakiage_confirm_handover
- *    app.etzhayyim.apps.otakiage.requestRitual     → otakiage_request_ritual
- *    app.etzhayyim.apps.otakiage.scheduleMatsuri   → otakiage_schedule_matsuri
- *    app.etzhayyim.apps.otakiage.issueCertificate  → otakiage_issue_certificate
+ *    com.etzhayyim.apps.otakiage.submitItem        → otakiage_submit_item (この migration では process_def 不要、handler 直接実装)
+ *    com.etzhayyim.apps.otakiage.requestReuse      → otakiage_request_reuse
+ *    com.etzhayyim.apps.otakiage.confirmHandover   → otakiage_confirm_handover
+ *    com.etzhayyim.apps.otakiage.requestRitual     → otakiage_request_ritual
+ *    com.etzhayyim.apps.otakiage.scheduleMatsuri   → otakiage_schedule_matsuri
+ *    com.etzhayyim.apps.otakiage.issueCertificate  → otakiage_issue_certificate
  *
  * Phase 1 では 4 BPMN を deploy し、6 XRPC binding は pymagatama primitive 直接 dispatch
  * (BPMN process_def なしで bpmn-dispatcher が handler に forward) で実装する。
@@ -42,18 +42,18 @@ const ownerDid = "did:web:otakiage.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.otakiage";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/otakiage-reuse-match-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-reuse-match-v1",
     bpmnProcessId: "otakiage_reuse_match",
-    sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/reuseMatch.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/otakiage-reuse-expire-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/otakiage/reuseMatch.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-reuse-expire-v1",
     bpmnProcessId: "otakiage_reuse_expire",
-    sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/reuseExpire.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/otakiage-matsuri-schedule-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/otakiage/reuseExpire.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-matsuri-schedule-v1",
     bpmnProcessId: "otakiage_matsuri_schedule",
-    sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/matsuriSchedule.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/otakiage-social-announce-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/otakiage/matsuriSchedule.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-social-announce-v1",
     bpmnProcessId: "otakiage_social_announce",
-    sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/socialAnnounce.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/otakiage/socialAnnounce.bpmn", ownerDid },
 ];
 
 async function insertProcessDef(db: Kysely<unknown>, s: P): Promise<void> {

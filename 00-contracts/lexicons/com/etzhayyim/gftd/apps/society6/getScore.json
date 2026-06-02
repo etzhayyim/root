@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.society6.getScore",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "constituentDid": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "constituentDid"
+        ]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "constituentDid": {
+              "type": "integer"
+            },
+            "engagement": {
+              "type": "number"
+            },
+            "competence": {
+              "type": "number"
+            },
+            "contribution": {
+              "type": "number"
+            },
+            "growth": {
+              "type": "number"
+            },
+            "resilience": {
+              "type": "number"
+            },
+            "totalScore": {
+              "type": "number"
+            },
+            "rank": {
+              "type": "integer"
+            },
+            "rankDisplay": {
+              "type": "string"
+            },
+            "rankColor": {
+              "type": "string"
+            },
+            "calculatedAt": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

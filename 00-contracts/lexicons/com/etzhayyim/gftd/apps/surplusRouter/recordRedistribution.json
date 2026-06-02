@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.surplusRouter.recordRedistribution",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record the physical handoff of a surplus lot from donor to matched receiver. Audit event that closes the redistribution path. Per ADR-2605211241. On success: lot state matched -> redistributed. Both donor PDS and receiver PDS emit symmetric warehouse.pick / warehouse.putaway records when both are Adherent SBT holders. Cross-border physical movement should also reference a freeportRegistry.recordFreeportEntry entry via bondedEntryRef (optional).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "lotDid",
+            "matchUri",
+            "donorDid",
+            "receiverDid",
+            "deliveredQuantity",
+            "deliveredAt"
+          ],
+          "properties": {
+            "lotDid": { "type": "string", "format": "did" },
+            "matchUri": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "AT URI of the prior matchDemand event."
+            },
+            "donorDid": { "type": "string", "format": "did" },
+            "receiverDid": { "type": "string", "format": "did" },
+            "carrierDid": {
+              "type": "string",
+              "format": "did",
+              "description": "Optional DID of the logistics carrier."
+            },
+            "deliveredQuantity": { "type": "integer", "minimum": 1 },
+            "valueAttestedUsdcMicros": {
+              "type": "integer",
+              "description": "Final attested value at handoff. Should be consistent with registerSurplusLot.estimatedValueUsdcMicros unless valuationAttestationUri overrides."
+            },
+            "tithePaymentRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Optional AT URI of the com.etzhayyim.apps.payment.sent record that carried the 10% in-kind tithe coupling for this lot. Per ADR-2605192130."
+            },
+            "bondedEntryRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Optional AT URI of com.etzhayyim.apps.freeportRegistry.recordFreeportEntry for cross-border bonded transit."
+            },
+            "ftzZoneRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Optional AT URI of com.etzhayyim.apps.ftzZones.recordZone for FTZ-mediated transit."
+            },
+            "deliveredAt": { "type": "string", "format": "datetime" },
+            "receiverAckSignature": {
+              "type": "string",
+              "description": "Optional receiver's WebAuthn / DID signature over the handoff payload."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "redistributionUri": { "type": "string", "format": "at-uri" },
+            "lotState": { "type": "string", "enum": ["redistributed"] },
+            "warehousePickRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Auto-emitted com.etzhayyim.apps.warehouse.pick record on donor side, when applicable."
+            },
+            "warehousePutawayRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Auto-emitted com.etzhayyim.apps.warehouse.putaway record on receiver side, when applicable."
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

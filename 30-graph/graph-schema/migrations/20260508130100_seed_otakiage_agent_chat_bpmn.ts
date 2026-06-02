@@ -8,13 +8,13 @@ import { sql } from "kysely";
  * otakiage.etzhayyim.com Phase 2 — agentChat BPMN seeding (ADR-2605072000 LangGraph).
  *
  * Adds 1 BPMN process_def + 1 lexicon binding for the conversational
- * XRPC entry `app.etzhayyim.apps.otakiage.agentChat`. Backed by LangGraph
+ * XRPC entry `com.etzhayyim.apps.otakiage.agentChat`. Backed by LangGraph
  * graph id `otakiage.agent.chat.v1` (see
  * `20-actors/magatama/py/src/pymagatama/agents/otakiage_agent.py`).
  *
  *  Process / NSID                           Trigger
  *  ---------------------------------------------------------------------
- *  otakiage_agent_chat   (XRPC fan-in)     app.etzhayyim.apps.otakiage.agentChat
+ *  otakiage_agent_chat   (XRPC fan-in)     com.etzhayyim.apps.otakiage.agentChat
  */
 
 type P = { vertexId: string; bpmnProcessId: string; sourcePath: string; ownerDid: string };
@@ -29,14 +29,14 @@ const ownerDid = "did:web:otakiage.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.otakiage";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/otakiage-agent-chat-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-agent-chat-v1",
     bpmnProcessId: "otakiage_agent_chat",
-    sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/agentChat.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/otakiage/agentChat.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/otakiage-agentChat-v1",
-    nsid: "app.etzhayyim.apps.otakiage.agentChat",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/otakiage-agentChat-v1",
+    nsid: "com.etzhayyim.apps.otakiage.agentChat",
     bpmnProcessId: "otakiage_agent_chat", ownerDid, resultTimeoutMs: 90_000 },
 ];
 

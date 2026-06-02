@@ -94,7 +94,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   for (const s of seeds) {
-    const vertexId = `at://did:web:open-cyber-vuln.etzhayyim.com/app.etzhayyim.apps.openCyberVuln.source/${s.sourceId}`;
+    const vertexId = `at://did:web:open-cyber-vuln.etzhayyim.com/com.etzhayyim.apps.openCyberVuln.source/${s.sourceId}`;
     await sql`
       INSERT INTO vertex_open_cyber_source
         (vertex_id, sensitivity_ord, owner_did, source_id, display_name, base_url, cadence_iso8601, auth_strategy, secret_ref, license, last_cursor, last_fetched_at, status, created_at, org_id, user_id, actor_id)

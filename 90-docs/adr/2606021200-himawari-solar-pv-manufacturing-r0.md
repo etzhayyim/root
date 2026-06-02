@@ -58,7 +58,7 @@ himawari is the actor that **composes** these around a PV manufacturing core, cl
 Launch **`himawari` (向日葵 — "sunflower / sun-turning"; the heliotropic plant that turns to face the sun, echoing both solar trackers and the manufacture of light-capturing surfaces; deliberate sibling resonance with `hikari` 光)** as a Tier-B religious-corp actor.
 
 - **Actor DID**: `did:web:etzhayyim.com:himawari`
-- **Namespace**: `app.etzhayyim.himawari.*`
+- **Namespace**: `com.etzhayyim.himawari.*`
 - **R0 scope**: Solar-grade **crystalline-silicon** PV module manufacturing (polysilicon feedstock QA → ingot/wafer → cell process → module assembly → flash/EL test) **+ finished-module loading robotics + outbound logistics handoff + feedstock/consumable procurement**. Modules are produced **for internal hikari install only** (SBT↔SBT internal carve-out, ADR-2605192115 §3); no external commercial PV sale.
 - **R0 deliverable**: charter + 7 Pregel cell scaffolds (all import-time `RuntimeError`) + manifest + 14 gates + 10 non-goals declared **before** any capability lands. **No physics sim or kotoba entities are materialized at R0** (honest R0 — the loading/transport robotics it will *compose* are already landed in sarutahiko/giemon/kami-autodrive; himawari does not re-implement them).
 
@@ -104,7 +104,7 @@ Launch **`himawari` (向日葵 — "sunflower / sun-turning"; the heliotropic pl
 ### Lexicons (7, deferred to R1+)
 
 ```
-app.etzhayyim.himawari.{
+com.etzhayyim.himawari.{
   polysiliconProvenanceAttestation,  # feedstock lot provenance — XUAR-exclusion + §2(g) audit on-chain
   waferBatchRecord,                  # ingot/wafer batch + kerf recovery + yield
   cellBatchRecord,                   # cell process params (open) + flash IV + bin

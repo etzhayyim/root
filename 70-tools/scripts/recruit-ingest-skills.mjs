@@ -77,7 +77,7 @@ async function writeSkills(rows, header) {
     const vid = `skill:esco:${id || uri.split("/").pop()}`;
     const rkey = `esco-${(id || uri.split("/").pop()).replace(/[^a-zA-Z0-9]/g, "-").slice(0, 63)}`;
     const altJson = alts ? JSON.stringify(alts.split("\n").map(s => s.trim()).filter(Boolean).slice(0, 50)) : null;
-    const row = [vid, rkey, COLLECTOR_DID, "app.etzhayyim.apps.recruit.skill", SOURCE, LICENSE, HOMEPAGE,
+    const row = [vid, rkey, COLLECTOR_DID, "com.etzhayyim.apps.recruit.skill", SOURCE, LICENSE, HOMEPAGE,
       uri, id || null, skillType, reuse, label, desc.slice(0, 4000), altJson, now];
     ph.push(`(${row.map(() => `$${p++}`).join(",")})`);
     vals.push(...row);

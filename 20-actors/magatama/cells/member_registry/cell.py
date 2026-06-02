@@ -7,25 +7,25 @@ ADR-2605192100 §1.12 (国家機能 routing-around within the religious boundary
 This cell operates ONLY within the religious-corp boundary. The registry certificate
 it issues is NOT a Japanese legal document and has no legal force outside the
 adherent community. The cell is a coherence layer over existing substrate
-(`app.etzhayyim.member.adherent` Lexicon + `EtzhayyimMembership.sol` L2 contract +
+(`com.etzhayyim.member.adherent` Lexicon + `EtzhayyimMembership.sol` L2 contract +
 `MEMBERS.md` github roster) — it adds no new state-replacement functionality beyond
-on-demand `app.etzhayyim.member.registryCertificate` issuance.
+on-demand `com.etzhayyim.member.registryCertificate` issuance.
 
 Pregel graph (3 nodes):
-    ingest_sbt_mint_event  <-  MST firehose on app.etzhayyim.member.adherent
+    ingest_sbt_mint_event  <-  MST firehose on com.etzhayyim.member.adherent
         |
         v
     cross_validate_l2      <-  Base L2 EtzhayyimMembership event log
         |
         v
-    emit_registry_certificate  ->  MST PUT app.etzhayyim.member.registryCertificate
+    emit_registry_certificate  ->  MST PUT com.etzhayyim.member.registryCertificate
                               ->  optional: github PR appending to MEMBERS.md
                                   (manual review preserved, no auto-merge)
 
 Tier: B (Per-Domain).
 Murakumo node (leader): ephraim (to be assigned in 50-infra/murakumo/fleet.toml
 upon Council ratification).
-Trigger: MST firehose listener on app.etzhayyim.member.adherent + monthly cron snapshot.
+Trigger: MST firehose listener on com.etzhayyim.member.adherent + monthly cron snapshot.
 """
 
 from __future__ import annotations

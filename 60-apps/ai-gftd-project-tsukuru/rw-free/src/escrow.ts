@@ -7,17 +7,17 @@
  * (SDK v0.2+).
  *
  *   create order (escrow_intent)
- *     → openIntent() writes app.etzhayyim.apps.payment.escrowOpened with
+ *     → openIntent() writes com.etzhayyim.apps.payment.escrowOpened with
  *       safeAddress/arbiter = 0x0...0 placeholder + dueDate. No
  *       on-chain tx. USDC has NOT been moved.
  *
  *   delivery confirmed (quality_inspection.passed)
  *     → quality-inspection flow calls @etzhayyim/sdk pay() to do the
- *       actual USDC.transfer. Writes app.etzhayyim.apps.payment.sent. The
+ *       actual USDC.transfer. Writes com.etzhayyim.apps.payment.sent. The
  *       settlement step lives in qualityInspection module, not here.
  *
  *   cancel before delivery
- *     → refundIntent() writes app.etzhayyim.apps.payment.escrowRefunded.
+ *     → refundIntent() writes com.etzhayyim.apps.payment.escrowRefunded.
  *       No on-chain tx (USDC was never moved).
  *
  * This is record-state-machine escrow, not on-chain escrow. The state
@@ -82,7 +82,7 @@ export async function openIntent(
   };
 
   const receipt = await e.write({
-    collection: "app.etzhayyim.apps.payment.escrowOpened",
+    collection: "com.etzhayyim.apps.payment.escrowOpened",
     record: record as unknown as Record<string, unknown>,
   });
 
@@ -99,7 +99,7 @@ export interface RefundIntentOpts {
 /**
  * Refund a deferred-payment intent. Phase 2: record-only state
  * transition (no on-chain tx — USDC was never moved). Writes
- * app.etzhayyim.apps.payment.escrowRefunded record.
+ * com.etzhayyim.apps.payment.escrowRefunded record.
  *
  * Note: the escrowRefunded lexicon doesn't exist yet — it will be
  * added alongside this rw-free PR when the SDK escrowRelease lands.
@@ -121,7 +121,7 @@ export async function refundIntent(
   };
 
   const receipt = await e.write({
-    collection: "app.etzhayyim.apps.payment.escrowRefunded",
+    collection: "com.etzhayyim.apps.payment.escrowRefunded",
     record: record as unknown as Record<string, unknown>,
   });
 

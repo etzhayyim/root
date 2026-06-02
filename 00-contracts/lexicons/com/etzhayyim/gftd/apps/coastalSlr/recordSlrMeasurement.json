@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coastalSlr.recordSlrMeasurement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sea-level / coastal erosion measurement (bridges climate-adaptation-finance + disaster-response + water-scarcity + biodiversity-gbf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "measurementId",
+            "stationId",
+            "countryIso3",
+            "measuredYear",
+            "recordedAt"
+          ],
+          "properties": {
+            "measurementId": {
+              "type": "string"
+            },
+            "stationId": {
+              "type": "string",
+              "description": "PSMSL / GLOSS tide gauge ID"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "locationLat": {
+              "type": "number"
+            },
+            "locationLon": {
+              "type": "number"
+            },
+            "msMmPerYear": {
+              "type": "number",
+              "description": "mean sea-level trend mm/yr"
+            },
+            "shorelineRetreatMm": {
+              "type": "number",
+              "description": "annual retreat"
+            },
+            "reliabilityScore": {
+              "type": "number"
+            },
+            "measuredYear": {
+              "type": "integer"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "exposureTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high",
+                "extreme"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

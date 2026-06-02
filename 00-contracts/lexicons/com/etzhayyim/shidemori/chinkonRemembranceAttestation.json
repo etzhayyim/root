@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.shidemori.chinkonRemembranceAttestation",
+  "description": "Annual 鎮魂 (chinkon) remembrance cycle attestation. Cross-actor with musubi.seasonal_communal_ceremony. Multi-generational community remembrance per Charter §1.7. G4 cross-doctrinal accommodation tracking (Christian + Buddhist 49日 + Shinto 鎮魂 + nondenominational + secular). G9 community-discerned attendance (opt-in per free conscience).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "remembranceCycleNameJa",
+          "scheduledStartUtc",
+          "scheduledEndUtc",
+          "musubiSeasonalCeremonyCalendarCrossLinkCid",
+          "doctrinalAccommodationArray",
+          "cohortMix",
+          "attestingCellDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "remembranceCycleNameJa": {
+            "type": "string",
+            "knownValues": [
+              "chinkon-annual",
+              "shokuubon-obon-remembrance",
+              "shotsuki-meinichi-monthly",
+              "ohigan-spring-equinox",
+              "ohigan-autumn-equinox",
+              "covenant-anniversary-cross-doctrinal",
+              "all-saints-cross-doctrinal",
+              "founders-remembrance"
+            ]
+          },
+          "scheduledStartUtc": {"type": "string", "format": "datetime"},
+          "scheduledEndUtc": {"type": "string", "format": "datetime"},
+          "musubiSeasonalCeremonyCalendarCrossLinkCid": {
+            "type": "string",
+            "description": "Cross-link to musubi.seasonalCeremonyCalendar entry"
+          },
+          "cemeteryLandAttestationCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Cemetery sites participating in cycle"
+          },
+          "rememberedMemorialNftCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Memorial NFT CIDs honored in cycle (no PII; pseudonymous DIDs)"
+          },
+          "doctrinalAccommodationArray": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "knownValues": ["reformed-memorial-view", "anglican-low-church", "baptist", "methodist", "nondenominational", "shinto-鎮魂", "buddhist-49日-中陰", "secular-humanist", "cross-tradition", "ecumenical"]
+            },
+            "description": "G4 cross-doctrinal traditions accommodated in this cycle"
+          },
+          "cohortMix": {
+            "type": "ref",
+            "ref": "#cohortMixEntry",
+            "description": "G11 multi-gen invariant per Charter §1.7"
+          },
+          "estimatedAttendance": {"type": "integer", "minimum": 0},
+          "openToCommunityAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "G9 STRUCTURAL: community-wide opt-in attendance (musubi seasonalCeremonyCalendar.openToCommunity pattern shared)"
+          },
+          "wellbecomingAttested": {"type": "boolean"},
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 3
+          },
+          "attestingCellDid": {"type": "string"}
+        }
+      }
+    },
+    "cohortMixEntry": {
+      "type": "object",
+      "required": ["under18Count", "adultCount", "over65Count"],
+      "properties": {
+        "under18Count": {"type": "integer", "minimum": 0},
+        "adultCount": {"type": "integer", "minimum": 0},
+        "over65Count": {"type": "integer", "minimum": 0},
+        "totalParticipants": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

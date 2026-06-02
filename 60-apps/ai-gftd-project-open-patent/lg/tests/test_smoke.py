@@ -32,8 +32,8 @@ _LG_DIR = Path(__file__).resolve().parents[1]
 _EXPECTED_GRAPHS = {"health", "ingest_multi", "synthesize_invention"}
 
 _EXPECTED_NSID_MAP = {
-    "app.etzhayyim.apps.openPatent.ingestMulti":        "ingest_multi",
-    "app.etzhayyim.apps.openPatent.synthesizeInvention": "synthesize_invention",
+    "com.etzhayyim.apps.openPatent.ingestMulti":        "ingest_multi",
+    "com.etzhayyim.apps.openPatent.synthesizeInvention": "synthesize_invention",
 }
 
 
@@ -126,5 +126,5 @@ def test_unknown_assistant_404(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/app.etzhayyim.apps.openPatent.unknownMethod", json={})
+    r = client.post("/xrpc/com.etzhayyim.apps.openPatent.unknownMethod", json={})
     assert r.status_code == 404

@@ -10,7 +10,7 @@ re-implemented here.
 
 This cell takes solar-grade polysilicon lot input, models Czochralski mono / directional
 -cast multi ingot growth and wire-saw wafering, closes the kerf-Si recovery loop, and
-emits an `app.etzhayyim.himawari.waferBatchRecord` written to the kotoba Datom log.
+emits an `com.etzhayyim.himawari.waferBatchRecord` written to the kotoba Datom log.
 It enforces G5 (kerf-Si circularity ≥90%) and G4 (renewable-only process energy; no
 fossil/nuclear) structurally: a batch that fails either gate is returned `accepted=False`
 with a reason and is NOT transacted to kotoba. Recovered kerf-Si routes back to
@@ -221,11 +221,11 @@ class IngotWaferCell:
         # accepts all-renewable batches (above), so an energized batch is 100%.
         renewable_bps = 10000 if (renewable or process_energy_wh == 0) else 0
 
-        # --- emit waferBatchRecord (app.etzhayyim.himawari.waferBatchRecord) - #
+        # --- emit waferBatchRecord (com.etzhayyim.himawari.waferBatchRecord) - #
         # Field names mirror the partial lexicon; recordedAt + attestingEngineerDid
         # are required by the enriched schema and passed through from input when set.
         record: dict[str, Any] = {
-            "$type": "app.etzhayyim.himawari.waferBatchRecord",
+            "$type": "com.etzhayyim.himawari.waferBatchRecord",
             "batchId": batch_id,
             "polysiliconLotId": lot_id,
             "ingotMethod": method,

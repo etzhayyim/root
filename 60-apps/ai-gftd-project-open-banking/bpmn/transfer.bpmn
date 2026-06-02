@@ -22,8 +22,8 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="f4b" sourceRef="Gateway_Eligible" targetRef="EndEvent_Rejected"/>
 
-    <bpmn:serviceTask id="Task_Settle" name="ai.gftd.apps.openBanking.transfer"
-                      camunda:topic="ai.gftd.apps.openBanking.transfer"/>
+    <bpmn:serviceTask id="Task_Settle" name="com.etzhayyim.apps.openBanking.transfer"
+                      camunda:topic="com.etzhayyim.apps.openBanking.transfer"/>
     <bpmn:sequenceFlow id="f5" sourceRef="Task_Settle" targetRef="Task_AuditPost"/>
 
     <bpmn:serviceTask id="Task_AuditPost" name="Emit app.bsky.feed.post (large-tx audit)"

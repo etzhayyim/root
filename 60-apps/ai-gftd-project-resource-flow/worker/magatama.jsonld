@@ -50,9 +50,9 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.resourceFlow.legalEntityCurrencyFlow",
-        "ai.gftd.apps.resourceFlow.legalEntityServiceFlow",
-        "ai.gftd.apps.resourceFlow.legalEntityPersonnelFlow"
+        "com.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow",
+        "com.etzhayyim.apps.resourceFlow.legalEntityServiceFlow",
+        "com.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow"
       ]
     }
   }

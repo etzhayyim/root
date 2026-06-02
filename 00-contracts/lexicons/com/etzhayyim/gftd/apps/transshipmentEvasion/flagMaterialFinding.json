@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.transshipmentEvasion.flagMaterialFinding",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Material alteration / substantial transformation / anti-circumvention (bridges tradeRemedy.flagTariffOutcome + ustr-section-301 + hs-classification)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "investigationVid",
+            "findingKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "investigationVid": {
+              "type": "string",
+              "description": "bridges recordInvestigation"
+            },
+            "findingKind": {
+              "type": "string",
+              "enum": [
+                "minor_processing_insufficient",
+                "no_substantial_trans",
+                "ftz_not_insulating",
+                "first_sale_rule",
+                "material_alteration_test",
+                "non_market_economy",
+                "surrogate_value",
+                "same_class_or_kind",
+                "subs_change_in_tariff"
+              ]
+            },
+            "dutyImposedPct": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -29,7 +29,7 @@ async def emit_audit(*, actor: str, activity: str, object_id: str, object_type: 
         headers["x-internal-trust"] = _INTERNAL_SECRET
     try:
         async with httpx.AsyncClient(timeout=_AUDIT_TIMEOUT_SEC) as client:
-            await client.post(f"{_DISPATCHER_URL}/xrpc/app.etzhayyim.generic.audit.emit", json=payload, headers=headers)
+            await client.post(f"{_DISPATCHER_URL}/xrpc/com.etzhayyim.generic.audit.emit", json=payload, headers=headers)
     except Exception as exc:  # noqa: BLE001
         _log.warning("audit.emit failed (non-fatal): %s | activity=%s", exc, activity)
 

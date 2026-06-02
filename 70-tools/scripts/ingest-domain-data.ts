@@ -222,7 +222,7 @@ function parseDemaeRestaurants(data: string, limit: number): Record<string, unkn
 const DOMAINS: Record<string, DomainConfig> = {
   hanrei: {
     nanoid: "h4nr31jp",
-    collectionPrefix: "app.etzhayyim.apps.hanrei",
+    collectionPrefix: "com.etzhayyim.apps.hanrei",
     sources: [
       { type: "seed", path: "domains/hanrei/seed.json", kind: "court", parse: parseSeedJson },
       { type: "rawJson", path: "hanrei/egov/lawlist1Constitution20260328234616.json", kind: "egovLaw", parse: parseEgovLawsXml, enrich: true },
@@ -236,7 +236,7 @@ const DOMAINS: Record<string, DomainConfig> = {
   },
   dns: {
     nanoid: "scndu0rf",
-    collectionPrefix: "app.etzhayyim.apps.dns",
+    collectionPrefix: "com.etzhayyim.apps.dns",
     sources: [
       { type: "seed", path: "domains/dns/seed.json", kind: "tld", parse: parseSeedJson },
       { type: "rawCsv", path: "dns/top-1m.csv", kind: "domain", parse: parseCsv },
@@ -244,84 +244,84 @@ const DOMAINS: Record<string, DomainConfig> = {
   },
   legalEntity: {
     nanoid: "le01corp0",
-    collectionPrefix: "app.etzhayyim.apps.legalEntity",
+    collectionPrefix: "com.etzhayyim.apps.legalEntity",
     sources: [
       { type: "seed", path: "domains/legalEntity/seed.json", kind: "jurisdiction", parse: parseSeedJson },
     ],
   },
   gtin: {
     nanoid: "gt1n4k7m",
-    collectionPrefix: "app.etzhayyim.apps.gtin",
+    collectionPrefix: "com.etzhayyim.apps.gtin",
     sources: [
       { type: "seed", path: "domains/gtin/seed.json", kind: "prefixRange", parse: parseSeedJson },
     ],
   },
   isbn: {
     nanoid: "bn7k2m4x",
-    collectionPrefix: "app.etzhayyim.apps.isbn",
+    collectionPrefix: "com.etzhayyim.apps.isbn",
     sources: [
       { type: "seed", path: "domains/isbn/seed.json", kind: "isbnGroup", parse: parseSeedJson },
     ],
   },
   pachinko: {
     nanoid: "k3rn5la4",
-    collectionPrefix: "app.etzhayyim.apps.pachinko",
+    collectionPrefix: "com.etzhayyim.apps.pachinko",
     sources: [
       { type: "seed", path: "domains/pachinko/seed.json", kind: "prefectureStore", parse: parseSeedJson },
     ],
   },
   autorace: {
     nanoid: "zcv937fk",
-    collectionPrefix: "app.etzhayyim.apps.autorace",
+    collectionPrefix: "com.etzhayyim.apps.autorace",
     sources: [
       { type: "seed", path: "domains/autorace/seed.json", kind: "venue", parse: parseSeedJson },
     ],
   },
   keirin: {
     nanoid: "zub804qz",
-    collectionPrefix: "app.etzhayyim.apps.keirin",
+    collectionPrefix: "com.etzhayyim.apps.keirin",
     sources: [
       { type: "seed", path: "domains/keirin/seed.json", kind: "velodrome", parse: parseSeedJson },
     ],
   },
   kyotei: {
     nanoid: "qv8yed1k",
-    collectionPrefix: "app.etzhayyim.apps.kyotei",
+    collectionPrefix: "com.etzhayyim.apps.kyotei",
     sources: [
       { type: "seed", path: "domains/kyotei/seed.json", kind: "boatRaceVenue", parse: parseSeedJson },
     ],
   },
   isin: {
     nanoid: "is1n8k2x",
-    collectionPrefix: "app.etzhayyim.apps.isin",
+    collectionPrefix: "com.etzhayyim.apps.isin",
     sources: [
       { type: "seed", path: "domains/isin/seed.json", kind: "nna", parse: parseSeedJson },
     ],
   },
   maps: {
     nanoid: "v1m9k2q8",
-    collectionPrefix: "app.etzhayyim.apps.maps",
+    collectionPrefix: "com.etzhayyim.apps.maps",
     sources: [
       { type: "seed", path: "domains/maps/seed.json", kind: "country", parse: parseSeedJson },
     ],
   },
   ndc: {
     nanoid: "nd7c3k9m",
-    collectionPrefix: "app.etzhayyim.apps.ndc",
+    collectionPrefix: "com.etzhayyim.apps.ndc",
     sources: [
       { type: "seed", path: "domains/ndc/seed.json", kind: "atcLevel1", parse: parseSeedJson },
     ],
   },
   anima: {
     nanoid: "czj1f6yv",
-    collectionPrefix: "app.etzhayyim.apps.anima",
+    collectionPrefix: "com.etzhayyim.apps.anima",
     sources: [
       { type: "seed", path: "domains/anima/seed.json", kind: "kingdom", parse: parseSeedJson },
     ],
   },
   blockchain: {
     nanoid: "blkchn01",
-    collectionPrefix: "app.etzhayyim.apps.blockchain",
+    collectionPrefix: "com.etzhayyim.apps.blockchain",
     sources: [
       { type: "seed", path: "domains/blockchain/seed.json", kind: "chain", parse: parseSeedJson },
       { type: "rawJson", path: "blockchain/coingeckoCoinList.json", kind: "coin", parse: parseBlockchain },
@@ -329,42 +329,42 @@ const DOMAINS: Record<string, DomainConfig> = {
   },
   treaty: {
     nanoid: "tr3aty01",
-    collectionPrefix: "app.etzhayyim.apps.treaty",
+    collectionPrefix: "com.etzhayyim.apps.treaty",
     sources: [
       { type: "seed", path: "domains/treaty/seed.json", kind: "chapter", parse: parseTreatyItems },
     ],
   },
   chotatsu: {
     nanoid: "ch0t4ts1",
-    collectionPrefix: "app.etzhayyim.apps.chotatsu",
+    collectionPrefix: "com.etzhayyim.apps.chotatsu",
     sources: [
       { type: "seed", path: "domains/chotatsu/seed.json", kind: "procurementNotice", parse: parseSeedJson },
     ],
   },
   cas: {
     nanoid: "cs4r7n2k",
-    collectionPrefix: "app.etzhayyim.apps.cas",
+    collectionPrefix: "com.etzhayyim.apps.cas",
     sources: [
       { type: "seed", path: "domains/cas/seed.json", kind: "substance", parse: parseSeedJson },
     ],
   },
   isco: {
     nanoid: "wfc8k3n1",
-    collectionPrefix: "app.etzhayyim.apps.isco",
+    collectionPrefix: "com.etzhayyim.apps.isco",
     sources: [
       { type: "seed", path: "domains/isco/seed.json", kind: "majorGroup", parse: parseSeedJson },
     ],
   },
   isic: {
     nanoid: "1s1c5c0a",
-    collectionPrefix: "app.etzhayyim.apps.isic",
+    collectionPrefix: "com.etzhayyim.apps.isic",
     sources: [
       { type: "seed", path: "domains/isic/seed.json", kind: "section", parse: parseSeedJson },
     ],
   },
   sovereign: {
     nanoid: "", // No app yet, write as graph entity
-    collectionPrefix: "app.etzhayyim.apps.sovereign",
+    collectionPrefix: "com.etzhayyim.apps.sovereign",
     sources: [
       { type: "seed", path: "domains/sovereign/seed.json", kind: "state", parse: parseSeedJson },
     ],
@@ -621,7 +621,7 @@ async function ingestGraphResults(dryRun: boolean, limit: number): Promise<numbe
       const batch = lines.slice(i, i + CONCURRENCY);
       await Promise.all(batch.map(async (stmt) => {
         try {
-          const resp = await fetch(`${PDS_URL}/xrpc/app.etzhayyim.kagami.sql`, {
+          const resp = await fetch(`${PDS_URL}/xrpc/com.etzhayyim.kagami.sql`, {
             method: "POST",
             headers: AUTH_HEADERS,
             body: JSON.stringify({ sql: stmt, appId: "" }),
@@ -651,7 +651,7 @@ async function ingestGraphResults(dryRun: boolean, limit: number): Promise<numbe
         const entity = JSON.parse(line);
         await writeRecordToPDS(
           `did:web:graph.etzhayyim.com`,
-          "app.etzhayyim.apps.graph.entity",
+          "com.etzhayyim.apps.graph.entity",
           { ...entity, orgId: "anon", userId: "anon", actorId: "graph", createdAt: new Date().toISOString() },
         );
         total++;

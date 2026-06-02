@@ -593,7 +593,7 @@ async function registerTopicCoordinators(sdk: HostSDK): Promise<void> {
 
     try {
       await getDb().insertInto("vertex_web_topic" as any).values({
-        vertex_id: `at://${appId}/app.etzhayyim.apps.site.topic/${topic.slug}`,
+        vertex_id: `at://${appId}/com.etzhayyim.apps.site.topic/${topic.slug}`,
         topic: topic.slug,
         slug: topic.slug,
         did: topic.did,
@@ -648,7 +648,7 @@ async function createCollectionJob(
 // --- Commands: Collection Jobs ---
 
 async function cmdFetchAozora(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.collectAozora", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.collectAozora", payload);
   const jobs: string[] = [];
 
   if (req.workId) {
@@ -676,7 +676,7 @@ async function cmdFetchAozora(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
 }
 
 async function cmdFetchNdl(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.collectNdl", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.collectNdl", payload);
   const jobs: string[] = [];
 
   if (req.pid) {
@@ -703,7 +703,7 @@ async function cmdFetchNdl(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arra
 }
 
 async function cmdFetchWikisource(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.collectWikisource", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.collectWikisource", payload);
   const lang = req.language ?? "ja";
   const jobs: string[] = [];
 
@@ -737,7 +737,7 @@ async function cmdFetchWikisource(sdk: HostSDK, payload: Uint8Array): Promise<Ui
 }
 
 async function cmdFetchGutenberg(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.collectGutenberg", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.collectGutenberg", payload);
   const jobs: string[] = [];
 
   if (req.bookId) {
@@ -768,7 +768,7 @@ async function cmdFetchGutenberg(sdk: HostSDK, payload: Uint8Array): Promise<Uin
 }
 
 async function cmdFetchImages(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.collectImages", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.collectImages", payload);
   const source = req.source ?? "colbase";
   const jobs: string[] = [];
 
@@ -824,7 +824,7 @@ async function cmdFetchImages(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
 // --- Commands: Query ---
 
 async function cmdListPages(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.listPages", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.listPages", payload);
   const limit = Math.min(Math.max(req.limit ?? 50, 1), 100);
   const offset = req.offset ?? 0;
 
@@ -998,7 +998,7 @@ async function cmdSearchSemantic(sdk: HostSDK, payload: Uint8Array): Promise<Uin
 }
 
 async function cmdSearchPages(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.searchPages", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.searchPages", payload);
   const limit = Math.min(Math.max(req.limit ?? 50, 1), 100);
   const offset = req.offset ?? 0;
   const q = String(req.query ?? "");
@@ -1015,7 +1015,7 @@ async function cmdSearchPages(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
 }
 
 async function cmdListJobs(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.listJobs", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.listJobs", payload);
   const limit = Math.min(Math.max(req.limit ?? 50, 1), 100);
   const offset = req.offset ?? 0;
 
@@ -1048,7 +1048,7 @@ async function cmdGetStats(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Arr
 }
 
 async function cmdEnqueueUrl(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.enqueueUrl", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.enqueueUrl", payload);
   if (!req.url) return encodeJson({ error: "url is required" });
 
   const topics = req.topics ?? ["academic"];
@@ -1058,7 +1058,7 @@ async function cmdEnqueueUrl(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Ar
   try {
     const euFeRkey = genID("fe");
     await getDb().insertInto("vertex_frontier").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${euFeRkey}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${euFeRkey}`,
       rkey: euFeRkey,
       url: req.url,
       domain: new URL(req.url).hostname,
@@ -1083,7 +1083,7 @@ async function cmdEnqueueUrl(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Ar
 // --- Commands: Domain/Page DID Management ---
 
 async function cmdRegisterDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.registerDomain", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.registerDomain", payload);
   if (!req.domain) return encodeJson({ error: "domain is required" });
 
   const slug = req.domain.replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
@@ -1097,7 +1097,7 @@ async function cmdRegisterDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uin
 
   try {
     await getDb().insertInto("vertex_web_domain" as any).values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.domain/${slug}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.domain/${slug}`,
       domain: req.domain,
       slug,
       did: did || `did:web:${appId}.etzhayyim.com:${slug}`,
@@ -1115,7 +1115,7 @@ async function cmdRegisterDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uin
 }
 
 async function cmdCrawlPage(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.crawlPage", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.crawlPage", payload);
   if (!req.url) return encodeJson({ error: "url is required" });
 
   const topics = req.topics ?? ["academic"];
@@ -1129,7 +1129,7 @@ async function cmdCrawlPage(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arr
 
   const feRkey = genID("fe");
   await getDb().insertInto("vertex_frontier").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${feRkey}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${feRkey}`,
     rkey: feRkey,
     url: req.url,
     domain: hostname,
@@ -1147,7 +1147,7 @@ async function cmdCrawlPage(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arr
 }
 
 async function cmdCrawlDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.crawlDomain", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.crawlDomain", payload);
   if (!req.domain) return encodeJson({ error: "domain is required" });
 
   const maxDepth = Math.min(req.maxDepth ?? 3, 3);
@@ -1164,7 +1164,7 @@ async function cmdCrawlDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
 
   try {
     await getDb().insertInto("vertex_web_domain" as any).values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.domain/${slug}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.domain/${slug}`,
       domain: req.domain,
       slug,
       did: did || `did:web:${appId}.etzhayyim.com:${slug}`,
@@ -1181,7 +1181,7 @@ async function cmdCrawlDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
   const seedUrl = `https://${req.domain}/`;
   const seedFeRkey = genID("fe");
   await getDb().insertInto("vertex_frontier").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${seedFeRkey}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${seedFeRkey}`,
     rkey: seedFeRkey,
     url: seedUrl,
     domain: req.domain,
@@ -1198,7 +1198,7 @@ async function cmdCrawlDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
   const sessionId = genID("cs");
   try {
     await getDb().insertInto("vertex_crawl_session" as any).values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.crawl/${sessionId}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.crawl/${sessionId}`,
       session_id: sessionId,
       domain: req.domain,
       page_count: 0,
@@ -1216,7 +1216,7 @@ async function cmdCrawlDomain(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
 }
 
 async function cmdRecordPage(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.recordPage", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.recordPage", payload);
   if (!req.url || !req.content) return encodeJson({ error: "url and content are required" });
 
   const language = req.language ?? "ja";
@@ -1232,7 +1232,7 @@ async function cmdRecordPage(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Ar
     try {
       const rpRkey = genID("pg");
       await getDb().insertInto("vertex_page").values({
-        vertex_id: `at://${appId}/app.etzhayyim.apps.site.page/${rpRkey}`,
+        vertex_id: `at://${appId}/com.etzhayyim.apps.site.page/${rpRkey}`,
         rkey: rpRkey,
         url: req.url,
         domain: hostname,
@@ -1252,7 +1252,7 @@ async function cmdRecordPage(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Ar
 }
 
 async function cmdGetPage(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.getPage", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.getPage", payload);
 
   const db = createKyselyDb();
   let qb = db.selectFrom("vertex_page").selectAll().limit(1);
@@ -1274,7 +1274,7 @@ async function cmdGetPage(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array
 }
 
 async function cmdGetDomainOverview(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.getDomainOverview", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.getDomainOverview", payload);
   if (!req.domain) return encodeJson({ error: "domain is required" });
 
   // Serialized per Hyperdrive origin pool guideline.
@@ -1305,7 +1305,7 @@ async function cmdGetDomainOverview(sdk: HostSDK, payload: Uint8Array): Promise<
 }
 
 async function cmdGetLinkGraph(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.getLinkGraph", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.getLinkGraph", payload);
   const limit = Math.min(req.limit ?? 50, 200);
 
   // TODO(site): edge_links_to 1-hop expansion not yet wired to Kysely typed edge table — return empty
@@ -1316,7 +1316,7 @@ async function cmdGetLinkGraph(sdk: HostSDK, payload: Uint8Array): Promise<Uint8
 }
 
 async function cmdEnqueueBulk(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.enqueueBulk", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.enqueueBulk", payload);
   if (!req.urls || req.urls.length === 0) return encodeJson({ error: "urls array is required" });
 
   const topics = req.topics ?? ["academic"];
@@ -1329,7 +1329,7 @@ async function cmdEnqueueBulk(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
       const hostname = new URL(url).hostname;
       const bulkFeRkey = genID("fe");
       await getDb().insertInto("vertex_frontier").values({
-        vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${bulkFeRkey}`,
+        vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${bulkFeRkey}`,
         rkey: bulkFeRkey,
         url,
         domain: hostname,
@@ -1352,7 +1352,7 @@ async function cmdEnqueueBulk(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
 }
 
 async function cmdDequeueUrls(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.dequeueUrls", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.dequeueUrls", payload);
   const batchSize = Math.min(req.batchSize ?? 5, 20);
 
   let qb = createKyselyDb()
@@ -1400,7 +1400,7 @@ function setDomainLastCrawled(_sdk: HostSDK, _domain: string, _ts: number): void
 }
 
 async function cmdProcessFrontier(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.processFrontier", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.processFrontier", payload);
   const batchSize = Math.min(req.batchSize ?? 20, 50);
 
   const rows = await createKyselyDb()
@@ -1446,7 +1446,7 @@ async function cmdProcessFrontier(sdk: HostSDK, payload: Uint8Array): Promise<Ui
 
     const pfRkey = str(entry.rkey ?? entry.id ?? genID("fe"));
     await getDb().insertInto("vertex_frontier").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${pfRkey}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${pfRkey}`,
       rkey: pfRkey,
       url,
       domain,
@@ -1476,7 +1476,7 @@ async function cmdBulkIngestAozora(sdk: HostSDK, payload: Uint8Array): Promise<U
   const catalogUrl = "https://raw.githubusercontent.com/aozorahack/aozorabunko/master/indexPages/listPersonAllExtendedUtf8.csv";
 
   await getDb().insertInto("vertex_collection_job").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.collectionJob/${jobId}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.collectionJob/${jobId}`,
     rkey: jobId,
     source_id: "aozoraBulk",
     source_url: catalogUrl,
@@ -1515,7 +1515,7 @@ async function cmdBulkIngestGutenberg(sdk: HostSDK, payload: Uint8Array): Promis
   const catalogUrl = "https://gutendex.com/books/";
 
   await getDb().insertInto("vertex_collection_job").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.collectionJob/${jobId}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.collectionJob/${jobId}`,
     rkey: jobId,
     source_id: "gutenbergBulk",
     source_url: catalogUrl,
@@ -1574,7 +1574,7 @@ async function cmdBulkIngestNDL(sdk: HostSDK, payload: Uint8Array): Promise<Uint
   const catalogUrl = `https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&query=${encodeURIComponent(sruQuery)}&maximumRecords=${limit}&startRecord=${offset + 1}&recordSchema=dcndl`;
 
   await getDb().insertInto("vertex_collection_job").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.collectionJob/${jobId}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.collectionJob/${jobId}`,
     rkey: jobId,
     source_id: "ndlBulk",
     source_url: catalogUrl,
@@ -1618,7 +1618,7 @@ async function cmdFetchNdlManifest(sdk: HostSDK, payload: Uint8Array): Promise<U
   const jobId = genID("cj");
 
   await getDb().insertInto("vertex_collection_job").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.collectionJob/${jobId}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.collectionJob/${jobId}`,
     rkey: jobId,
     source_id: "ndl",
     source_name: `NDL IIIF Manifest ${bibId}`,
@@ -1651,17 +1651,17 @@ export async function handleComAtprotoSyncSubscribeReposCommit(
   const recordJson = str((commit as any).record ?? (commit as any).recordJson ?? "");
 
   // Process completed collectionJob results
-  if (collection === "app.etzhayyim.apps.site.collectionJob" || collection.includes("collectionJob")) {
+  if (collection === "com.etzhayyim.apps.site.collectionJob" || collection.includes("collectionJob")) {
     return await processCollectionJobResult(sdk, recordJson);
   }
 
   // Process inbound page data from pipeline
-  if (collection === "app.etzhayyim.apps.site.pageRaw") {
+  if (collection === "com.etzhayyim.apps.site.pageRaw") {
     return await processRawPage(sdk, recordJson);
   }
 
   // Process robots.txt fetch result
-  if (collection === "app.etzhayyim.apps.site.robotsTxt") {
+  if (collection === "com.etzhayyim.apps.site.robotsTxt") {
     return { ok: true, detail: "robotsTxt cached" };
   }
 
@@ -1735,7 +1735,7 @@ async function processCollectionJobResult(sdk: HostSDK, recordJson: string): Pro
       const rbRkey = genID("rb");
       try {
         await getDb().insertInto("vertex_robots_txt" as any).values({
-          vertex_id: `at://${appId}/app.etzhayyim.apps.site.robotsTxt/${rbRkey}`,
+          vertex_id: `at://${appId}/com.etzhayyim.apps.site.robotsTxt/${rbRkey}`,
           domain: targetDomain,
           rules: JSON.stringify(rules),
           crawl_delay: rules.crawlDelay,
@@ -1820,7 +1820,7 @@ async function processCollectionJobResult(sdk: HostSDK, recordJson: string): Pro
     const [orgId, userId] = ctxOrgUser(sdk);
     const pgRkey = genID("pg");
     await getDb().insertInto("vertex_page").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.page/${pgRkey}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.page/${pgRkey}`,
       rkey: pgRkey,
       url: sourceUrl,
       domain: hostname,
@@ -1901,7 +1901,7 @@ async function processCollectionJobResult(sdk: HostSDK, recordJson: string): Pro
     const contentHash = simpleCID(paragraph);
 
     await getDb().insertInto("vertex_page").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.page/${pageId}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.page/${pageId}`,
       rkey: pageId,
       url: sourceUrl,
       domain: sourceUrl ? (() => { try { return new URL(sourceUrl).hostname; } catch { return sourceId; } })() : sourceId,
@@ -1943,7 +1943,7 @@ async function processImageResult(
 
   // Tier 2: Domain record for image metadata
   await getDb().insertInto("vertex_page").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.page/${pageId}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.page/${pageId}`,
     rkey: pageId,
     url: imageUrl,
     domain: (() => { try { return new URL(imageUrl).hostname; } catch { return sourceId; } })(),
@@ -2015,7 +2015,7 @@ async function processRawPage(sdk: HostSDK, recordJson: string): Promise<{ ok: b
   for (const para of paragraphs) {
     const rawPgRkey = genID("pg");
     await getDb().insertInto("vertex_page").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.page/${rawPgRkey}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.page/${rawPgRkey}`,
       rkey: rawPgRkey,
       url: sourceUrl,
       domain: sourceUrl ? (() => { try { return new URL(sourceUrl).hostname; } catch { return sourceId; } })() : sourceId,
@@ -2050,7 +2050,7 @@ async function processInboundMention(sdk: HostSDK, recordJson: string): Promise<
   for (const url of urls) {
     const mentionFeRkey = genID("fe");
     await getDb().insertInto("vertex_frontier").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${mentionFeRkey}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${mentionFeRkey}`,
       rkey: mentionFeRkey,
       url,
       domain: new URL(url).hostname,
@@ -2093,7 +2093,7 @@ async function generateWET(
     const wetId = genID("wet");
     const now = nowISO();
     await getDb().insertInto("vertex_wet_chunk").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.wet/${wetId}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.wet/${wetId}`,
       page_rkey: meta.pageDid,
       url,
       domain: new URL(url).hostname,
@@ -2114,8 +2114,8 @@ async function generateWET(
     // Emit EdgeChunkOf: WetChunk → Page (for GraphRAG traversal)
     const coId = genID("co");
     await getDb().insertInto("edge_chunk_of").values({
-      edge_id: `at://${appId}/app.etzhayyim.apps.site.chunkOf/${coId}`,
-      src_vid: `at://${appId}/app.etzhayyim.apps.site.wet/${wetId}`,
+      edge_id: `at://${appId}/com.etzhayyim.apps.site.chunkOf/${coId}`,
+      src_vid: `at://${appId}/com.etzhayyim.apps.site.wet/${wetId}`,
       dst_vid: meta.pageDid,
       chunk_index: i,
       label: "ChunkOf",
@@ -2144,7 +2144,7 @@ async function generateWAT(
 
   const watRkey = genID("wat");
   await getDb().insertInto("vertex_wat").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.wat/${watRkey}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.wat/${watRkey}`,
     rkey: watRkey,
     url,
     domain: new URL(url).hostname,
@@ -2168,7 +2168,7 @@ async function generateWAT(
     for (const link of outlinks.filter(l => l.internal).slice(0, 50)) {
       const childFeRkey = genID("fe");
       await getDb().insertInto("vertex_frontier").values({
-        vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${childFeRkey}`,
+        vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${childFeRkey}`,
         rkey: childFeRkey,
         url: link.url,
         domain: new URL(url).hostname,
@@ -2188,7 +2188,7 @@ async function generateWAT(
   if (meta.frontierId) {
     const doneFeRkey = meta.frontierId;
     await getDb().insertInto("vertex_frontier").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${doneFeRkey}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${doneFeRkey}`,
       rkey: doneFeRkey,
       url,
       domain: new URL(url).hostname,
@@ -2228,7 +2228,7 @@ async function processScreenshotResult(sdk: HostSDK, record: Record<string, unkn
 
   const ssRkey = genID("ss");
   await getDb().insertInto("vertex_screenshot").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.screenshot/${ssRkey}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.screenshot/${ssRkey}`,
     rkey: ssRkey,
     url,
     domain: hostname,
@@ -2277,7 +2277,7 @@ async function processPdfResult(
     const pageUrl = `${sourceUrl}#page=${page}`;
     const jobId = genID("cj");
     await getDb().insertInto("vertex_collection_job").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.collectionJob/${jobId}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.collectionJob/${jobId}`,
       rkey: jobId,
       source_id: "pdfPage",
       source_name: `PDF page ${page}/${pageCount}`,
@@ -2307,7 +2307,7 @@ async function processPdfResult(
 
       const pdfWetRkey = genID("wet");
       await getDb().insertInto("vertex_wet_chunk").values({
-        vertex_id: `at://${appId}/app.etzhayyim.apps.site.wet/${pdfWetRkey}`,
+        vertex_id: `at://${appId}/com.etzhayyim.apps.site.wet/${pdfWetRkey}`,
         page_rkey: pageDid,
         url: sourceUrl,
         domain: hostname,
@@ -2331,7 +2331,7 @@ async function processPdfResult(
   // --- 3. WAT metadata record ---
   const pdfWatRkey = genID("wat");
   await getDb().insertInto("vertex_wat").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.wat/${pdfWatRkey}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.wat/${pdfWatRkey}`,
     rkey: pdfWatRkey,
     url: sourceUrl,
     domain: hostname,
@@ -2421,7 +2421,7 @@ async function processIiifManifestResult(
 
     const jobId = genID("cj");
     await getDb().insertInto("vertex_collection_job").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.collectionJob/${jobId}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.collectionJob/${jobId}`,
       rkey: jobId,
       source_id: "ndlIiif",
       source_name: `NDL IIIF page ${i + 1}/${canvases.length}`,
@@ -2453,7 +2453,7 @@ async function processIiifManifestResult(
 
       const iiifWetRkey = genID("wet");
       await getDb().insertInto("vertex_wet_chunk").values({
-        vertex_id: `at://${appId}/app.etzhayyim.apps.site.wet/${iiifWetRkey}`,
+        vertex_id: `at://${appId}/com.etzhayyim.apps.site.wet/${iiifWetRkey}`,
         page_rkey: pageDid,
         url: ndlViewUrl,
         domain: hostname,
@@ -2486,7 +2486,7 @@ async function processIiifManifestResult(
 
   const iiifWatRkey = genID("wat");
   await getDb().insertInto("vertex_wat").values({
-    vertex_id: `at://${appId}/app.etzhayyim.apps.site.wat/${iiifWatRkey}`,
+    vertex_id: `at://${appId}/com.etzhayyim.apps.site.wat/${iiifWatRkey}`,
     rkey: iiifWatRkey,
     url: ndlViewUrl,
     domain: hostname,
@@ -2514,7 +2514,7 @@ async function processIiifManifestResult(
   if (isbn || label) {
     const iiifPgRkey = genID("pg");
     await getDb().insertInto("vertex_page").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.page/${iiifPgRkey}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.page/${iiifPgRkey}`,
       rkey: iiifPgRkey,
       url: ndlViewUrl,
       domain: hostname,
@@ -2646,7 +2646,7 @@ function processNdlSruCatalogResult(
     const jobId = genID("cj");
 
     await getDb().insertInto("vertex_collection_job").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.collectionJob/${jobId}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.collectionJob/${jobId}`,
       rkey: jobId,
       source_id: "ndl",
       source_name: `NDL: ${truncateText(stripHTML(title), 80)}`,
@@ -2694,7 +2694,7 @@ function xmlExtractTag(xml: string, tagName: string): string {
 
 /** Fetch and process a PDF document: pages → WebP (R2 CDN), text → WET. */
 async function cmdFetchPdf(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.fetchPdf", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.fetchPdf", payload);
   if (!req.url) return encodeJson({ error: "url is required" });
 
   // Dedup: createCollectionJob uses URL-derived deterministic rkey (PDS upsert = idempotent)
@@ -2716,7 +2716,7 @@ async function cmdFetchPdf(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arra
 // --- New Commands: WET/WAT/Screenshot/Robots/Seed/Embedding ---
 
 function cmdGenerateWET(sdk: HostSDK, payload: Uint8Array): Uint8Array {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.generateWet", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.generateWet", payload);
   if (!req.url || !req.html) return encodeJson({ error: "url and html are required" });
 
   const hostname = new URL(req.url).hostname;
@@ -2736,7 +2736,7 @@ function cmdGenerateWET(sdk: HostSDK, payload: Uint8Array): Uint8Array {
 }
 
 function cmdGenerateWAT(sdk: HostSDK, payload: Uint8Array): Uint8Array {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.generateWat", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.generateWat", payload);
   if (!req.url || !req.html) return encodeJson({ error: "url and html are required" });
 
   const hostname = new URL(req.url).hostname;
@@ -2755,7 +2755,7 @@ function cmdGenerateWAT(sdk: HostSDK, payload: Uint8Array): Uint8Array {
 }
 
 async function cmdCaptureScreenshot(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.captureScreenshot", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.captureScreenshot", payload);
   if (!req.url) return encodeJson({ error: "url is required" });
 
   const topics = req.topics ?? ["academic"];
@@ -2764,7 +2764,7 @@ async function cmdCaptureScreenshot(sdk: HostSDK, payload: Uint8Array): Promise<
 }
 
 async function cmdCheckRobotsTxt(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.checkRobotsTxt", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.checkRobotsTxt", payload);
   if (!req.domain) return encodeJson({ error: "domain is required" });
 
   // TODO(site): vertex_robots_txt not in @etzhayyim/graph-schema — always cache-miss, falls through to fetch
@@ -2785,7 +2785,7 @@ async function cmdCheckRobotsTxt(sdk: HostSDK, payload: Uint8Array): Promise<Uin
 }
 
 async function cmdSeedFromCommonCrawl(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.seedFromCommonCrawl", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.seedFromCommonCrawl", payload);
   const limit = Math.min(req.limit ?? 10000, 100000);
   const ccIndex = req.ccIndex ?? "CC-MAIN-2024-51";
 
@@ -2804,7 +2804,7 @@ async function cmdSeedFromCommonCrawl(sdk: HostSDK, payload: Uint8Array): Promis
 // ── ingestGeoData: structured geo data ingest via CollectionJob ──
 
 /**
- * Emit a geoRecord AT record (app.etzhayyim.apps.site.geoRecord) for a single geo entity.
+ * Emit a geoRecord AT record (com.etzhayyim.apps.site.geoRecord) for a single geo entity.
  * Received by subscriber apps (e.g. maps.etzhayyim.com) via handleComAtprotoSyncSubscribeReposCommit.
  */
 async function emitGeoRecord(sdk: HostSDK, fields: {
@@ -2812,8 +2812,8 @@ async function emitGeoRecord(sdk: HostSDK, fields: {
   name: string; nameEn?: string; lat?: number; lng?: number;
   codes?: Record<string, string>; extra?: Record<string, unknown>;
 }): Promise<void> {
-  // Use full NSID so expandCollection passes it through unchanged → app.etzhayyim.apps.site.geoRecord
-  await sdk.pds.comAtprotoRepoCreateRecord("app.etzhayyim.apps.site.geoRecord", {
+  // Use full NSID so expandCollection passes it through unchanged → com.etzhayyim.apps.site.geoRecord
+  await sdk.pds.comAtprotoRepoCreateRecord("com.etzhayyim.apps.site.geoRecord", {
     id: genID("gr"),
     project: fields.project,
     format: fields.format,
@@ -3137,7 +3137,7 @@ async function processStacSearchResult(
  * The host executor fetches the URL → fills content → handleCommit processes the result.
  */
 async function cmdIngestGeoData(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.ingestGeoData", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.ingestGeoData", payload);
 
   if (!req.url || !req.format) {
     return encodeJson({ error: "url and format are required" });
@@ -3204,7 +3204,7 @@ async function cmdIngestGeoData(sdk: HostSDK, payload: Uint8Array): Promise<Uint
 // ── seedForProject: project-driven domain crawl + CommonCrawl fallback ──
 
 async function cmdSeedForProject(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.seedForProject", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.seedForProject", payload);
   if (!req.project || !req.domains || req.domains.length === 0) {
     return encodeJson({ error: "project and domains[] are required" });
   }
@@ -3248,7 +3248,7 @@ async function cmdSeedForProject(sdk: HostSDK, payload: Uint8Array): Promise<Uin
     // Create domain record
     try {
       await getDb().insertInto("vertex_web_domain" as any).values({
-        vertex_id: `at://${appId}/app.etzhayyim.apps.site.domain/${slug}`,
+        vertex_id: `at://${appId}/com.etzhayyim.apps.site.domain/${slug}`,
         domain,
         slug,
         did: did || `did:web:${appId}.etzhayyim.com:${slug}`,
@@ -3265,7 +3265,7 @@ async function cmdSeedForProject(sdk: HostSDK, payload: Uint8Array): Promise<Uin
     // Enqueue seed URL at priority
     const projFeRkey = genID("fe");
     await getDb().insertInto("vertex_frontier").values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${projFeRkey}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${projFeRkey}`,
       rkey: projFeRkey,
       url: `https://${domain}/`,
       domain,
@@ -3313,7 +3313,7 @@ const GOV_TLD_SUFFIXES = [
   ".oecd.org", ".nato.int",
 ];
 async function cmdSeedGovPdfs(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.seedGovPdfs", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.seedGovPdfs", payload);
   const limit = Math.min(req.limit ?? 200, 1000);
   const offset = req.offset ?? 0;
   const priority = req.priority ?? 60;
@@ -3369,7 +3369,7 @@ async function cmdSeedGovPdfs(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
       }));
       try {
         await getDb().insertInto("vertex_web_domain" as any).values({
-          vertex_id: `at://${appId}/app.etzhayyim.apps.site.domain/${slug}`,
+          vertex_id: `at://${appId}/com.etzhayyim.apps.site.domain/${slug}`,
           domain,
           slug,
           did: `did:web:${appId}.etzhayyim.com:${slug}`,
@@ -3399,7 +3399,7 @@ async function cmdSeedGovPdfs(sdk: HostSDK, payload: Uint8Array): Promise<Uint8A
 }
 
 async function cmdTriggerTextEmbedding(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.triggerTextEmbedding", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.triggerTextEmbedding", payload);
   const batchSize = Math.min(req.batchSize ?? 50, 200);
 
   // Query unembedded WetChunk nodes (vertex_wet_chunk with embedding IS NULL)
@@ -3440,7 +3440,7 @@ async function cmdTriggerTextEmbedding(sdk: HostSDK, payload: Uint8Array): Promi
           model: resolveModelId("qwen3-vl-8b"),
           'chunkVertexId': str(row.vid),
           'pageDid': str(row.pageDid),
-          'writeBackCollection': "app.etzhayyim.apps.site.wetChunkEmbedding",
+          'writeBackCollection': "com.etzhayyim.apps.site.wetChunkEmbedding",
         }),
       },
     });
@@ -3450,7 +3450,7 @@ async function cmdTriggerTextEmbedding(sdk: HostSDK, payload: Uint8Array): Promi
 }
 
 async function cmdTriggerVisualEmbedding(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.triggerVisualEmbedding", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.triggerVisualEmbedding", payload);
   const batchSize = Math.min(req.batchSize ?? 20, 100);
 
   // TODO(site): embedded_at / embedding not promoted on vertex_screenshot — return empty until schema extension
@@ -3472,7 +3472,7 @@ async function cmdTriggerVisualEmbedding(sdk: HostSDK, payload: Uint8Array): Pro
 }
 
 async function cmdRegisterWebTopic(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.registerWebTopic", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.registerWebTopic", payload);
   if (!req.slug || !req.name) return encodeJson({ error: "slug and name are required" });
 
   const did = str(sdk.hostImports.comAtprotoIdentityCreate(`topic:${req.slug}`, JSON.stringify({
@@ -3483,7 +3483,7 @@ async function cmdRegisterWebTopic(sdk: HostSDK, payload: Uint8Array): Promise<U
 
   try {
     await getDb().insertInto("vertex_web_topic" as any).values({
-      vertex_id: `at://${appId}/app.etzhayyim.apps.site.topic/${req.slug}`,
+      vertex_id: `at://${appId}/com.etzhayyim.apps.site.topic/${req.slug}`,
       topic: req.slug,
       slug: req.slug,
       did: did || `did:web:${appId}.etzhayyim.com:topic:${req.slug}`,
@@ -3525,7 +3525,7 @@ async function processCDXSeedResult(sdk: HostSDK, record: Record<string, unknown
 
       const cdxFeRkey = genID("fe");
       await getDb().insertInto("vertex_frontier").values({
-        vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${cdxFeRkey}`,
+        vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${cdxFeRkey}`,
         rkey: cdxFeRkey,
         url,
         domain: new URL(url).hostname,
@@ -3609,7 +3609,7 @@ async function registerWebTopicCoordinators(sdk: HostSDK): void {
 
     try {
       await getDb().insertInto("vertex_web_topic" as any).values({
-        vertex_id: `at://${appId}/app.etzhayyim.apps.site.topic/${topic.slug}`,
+        vertex_id: `at://${appId}/com.etzhayyim.apps.site.topic/${topic.slug}`,
         topic: topic.slug,
         slug: topic.slug,
         did: topic.did,
@@ -3682,7 +3682,7 @@ Topics: ${str(domainInfo?.topics ?? "")}`;
  * Retrieves WpgWET chunks scoped to the domain, gathers graph context, and generates a grounded response.
  */
 async function cmdAnswerConvo(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.answerConvo", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.answerConvo", payload);
   if (!req.domain || !req.question) return encodeJson({ error: "domain and question are required" });
 
   const keyword = extractKeyword(req.question);
@@ -3902,7 +3902,7 @@ export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions
       })));
       try {
         await getDb().insertInto("vertex_web_domain" as any).values({
-          vertex_id: `at://${appId}/app.etzhayyim.apps.site.domain/${slug}`,
+          vertex_id: `at://${appId}/com.etzhayyim.apps.site.domain/${slug}`,
           domain: seed.domain,
           slug,
           did: `did:web:${appId}.etzhayyim.com:${slug}`,
@@ -3920,7 +3920,7 @@ export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions
       for (const url of seed.urls) {
         const psFeRkey = genID("fe");
         await getDb().insertInto("vertex_frontier").values({
-          vertex_id: `at://${appId}/app.etzhayyim.apps.site.frontier/${psFeRkey}`,
+          vertex_id: `at://${appId}/com.etzhayyim.apps.site.frontier/${psFeRkey}`,
           rkey: psFeRkey,
           url,
           domain: seed.domain,
@@ -4090,174 +4090,174 @@ export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions
 function registerWebpageApp(sdk: HostSDK): void {
   sdk.app
     // --- Collection commands ---
-    .command(nsid("app.etzhayyim.apps.site.collectAozora"), (ctx, body) => cmdFetchAozora(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.collectAozora"), (ctx, body) => cmdFetchAozora(sdk, body),
       asAgentTool("Collect Japanese classical texts from Aozora Bunko (public domain)"),
       withCapabilityTags("collection", "aozora", "jpClassics"),
     )
-    .command(nsid("app.etzhayyim.apps.site.collectNdl"), (ctx, body) => cmdFetchNdl(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.collectNdl"), (ctx, body) => cmdFetchNdl(sdk, body),
       asAgentTool("Collect digitized materials from National Diet Library via IIIF/OCR"),
       withCapabilityTags("collection", "ndl", "jpClassics", "academic"),
     )
-    .command(nsid("app.etzhayyim.apps.site.collectWikisource"), (ctx, body) => cmdFetchWikisource(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.collectWikisource"), (ctx, body) => cmdFetchWikisource(sdk, body),
       asAgentTool("Collect texts from Wikisource (Japanese or English)"),
       withCapabilityTags("collection", "wikisource", "literature"),
     )
-    .command(nsid("app.etzhayyim.apps.site.collectGutenberg"), (ctx, body) => cmdFetchGutenberg(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.collectGutenberg"), (ctx, body) => cmdFetchGutenberg(sdk, body),
       asAgentTool("Collect public domain books from Project Gutenberg"),
       withCapabilityTags("collection", "gutenberg", "intlLiterature"),
     )
-    .command(nsid("app.etzhayyim.apps.site.collectImages"), (ctx, body) => cmdFetchImages(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.collectImages"), (ctx, body) => cmdFetchImages(sdk, body),
       asAgentTool("Collect historical images from ColBase, CODH, or NDL IIIF"),
       withCapabilityTags("collection", "images", "iiif"),
     )
     // --- Bulk catalog ingest ---
-    .command(nsid("app.etzhayyim.apps.site.bulkIngestAozora"), (ctx, body) => cmdBulkIngestAozora(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.bulkIngestAozora"), (ctx, body) => cmdBulkIngestAozora(sdk, body),
       asAgentTool("Bulk ingest Aozora Bunko PD catalog (~17K works)"),
       withCapabilityTags("collection", "aozora", "bulk", "publicDomain"),
     )
-    .command(nsid("app.etzhayyim.apps.site.bulkIngestGutenberg"), (ctx, body) => cmdBulkIngestGutenberg(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.bulkIngestGutenberg"), (ctx, body) => cmdBulkIngestGutenberg(sdk, body),
       asAgentTool("Bulk ingest Project Gutenberg PD catalog (~70K works)"),
       withCapabilityTags("collection", "gutenberg", "bulk", "publicDomain"),
     )
-    .command(nsid("app.etzhayyim.apps.site.bulkIngestNdl"), (ctx, body) => cmdBulkIngestNDL(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.bulkIngestNdl"), (ctx, body) => cmdBulkIngestNDL(sdk, body),
       asAgentTool("Bulk ingest NDL Digital Collection PD works (~500K) via SRU catalog + IIIF Manifest"),
       withCapabilityTags("collection", "ndl", "bulk", "publicDomain", "iiif"),
     )
-    .command(nsid("app.etzhayyim.apps.site.fetchNdlManifest"), (ctx, body) => cmdFetchNdlManifest(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.fetchNdlManifest"), (ctx, body) => cmdFetchNdlManifest(sdk, body),
       asAgentTool("Fetch single NDL IIIF Manifest by bibId → per-page WebP + OCR text"),
       withCapabilityTags("collection", "ndl", "iiif", "manifest"),
     )
     // --- Query commands ---
-    .command(nsid("app.etzhayyim.apps.site.listPages"), (ctx, body) => cmdListPages(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.listPages"), (ctx, body) => cmdListPages(sdk, body),
       asAgentTool("List archived web pages with topic/language/source filters"),
       withCapabilityTags("query", "pages"),
     )
-    .command(nsid("app.etzhayyim.apps.site.searchPages"), (ctx, body) => cmdSearchPages(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.searchPages"), (ctx, body) => cmdSearchPages(sdk, body),
       asAgentTool("Full-text search across archived pages"),
       withCapabilityTags("query", "search", "pages"),
     )
-    .query(nsid("app.etzhayyim.apps.site.searchSemantic"), (ctx, body) => cmdSearchSemantic(sdk, body),
+    .query(nsid("com.etzhayyim.apps.site.searchSemantic"), (ctx, body) => cmdSearchSemantic(sdk, body),
       asAgentTool("Corpus2Skill-guided IVF+PQ semantic search over WET chunks"),
       withCapabilityTags("query", "search", "semantic", "ivf", "corpus2skill"),
     )
-    .command(nsid("app.etzhayyim.apps.site.listJobs"), (ctx, body) => cmdListJobs(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.listJobs"), (ctx, body) => cmdListJobs(sdk, body),
       asAgentTool("List collection jobs with status and source filters"),
       withCapabilityTags("query", "jobs"),
     )
-    .command(nsid("app.etzhayyim.apps.site.getStats"), (ctx, body) => cmdGetStats(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.getStats"), (ctx, body) => cmdGetStats(sdk, body),
       asAgentTool("Get archive statistics: total pages, jobs, topic counts"),
       withCapabilityTags("query", "stats"),
     )
-    .command(nsid("app.etzhayyim.apps.site.enqueueUrl"), (ctx, body) => cmdEnqueueUrl(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.enqueueUrl"), (ctx, body) => cmdEnqueueUrl(sdk, body),
       asAgentTool("Enqueue a URL for crawling into the frontier"),
       withCapabilityTags("frontier", "crawl"),
     )
     // --- Domain/Page DID management ---
-    .command(nsid("app.etzhayyim.apps.site.registerDomain"), (ctx, body) => cmdRegisterDomain(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.registerDomain"), (ctx, body) => cmdRegisterDomain(sdk, body),
       asAgentTool("Register a domain as path-based DID for tracking"),
       withCapabilityTags("domain", "did", "register"),
     )
-    .command(nsid("app.etzhayyim.apps.site.crawlPage"), (ctx, body) => cmdCrawlPage(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.crawlPage"), (ctx, body) => cmdCrawlPage(sdk, body),
       asAgentTool("Crawl a single URL: fetch + parse + create page record"),
       withCapabilityTags("crawl", "page"),
     )
-    .command(nsid("app.etzhayyim.apps.site.crawlDomain"), (ctx, body) => cmdCrawlDomain(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.crawlDomain"), (ctx, body) => cmdCrawlDomain(sdk, body),
       asAgentTool("Start crawling a domain (BFS, max depth 3)"),
       withCapabilityTags("crawl", "domain"),
     )
-    .command(nsid("app.etzhayyim.apps.site.recordPage"), (ctx, body) => cmdRecordPage(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.recordPage"), (ctx, body) => cmdRecordPage(sdk, body),
       asAgentTool("Record a pre-fetched page as DID archive (no HTTP fetch)"),
       withCapabilityTags("record", "page"),
     )
-    .command(nsid("app.etzhayyim.apps.site.getPage"), (ctx, body) => cmdGetPage(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.getPage"), (ctx, body) => cmdGetPage(sdk, body),
       asAgentTool("Get page detail by DID, URL, or ID"),
       withCapabilityTags("query", "page"),
     )
-    .command(nsid("app.etzhayyim.apps.site.getDomainOverview"), (ctx, body) => cmdGetDomainOverview(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.getDomainOverview"), (ctx, body) => cmdGetDomainOverview(sdk, body),
       asAgentTool("Get domain overview with page count and crawl history"),
       withCapabilityTags("query", "domain"),
     )
-    .command(nsid("app.etzhayyim.apps.site.getLinkGraph"), (ctx, body) => cmdGetLinkGraph(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.getLinkGraph"), (ctx, body) => cmdGetLinkGraph(sdk, body),
       asAgentTool("Get link graph between pages or domains"),
       withCapabilityTags("query", "linkGraph"),
     )
-    .command(nsid("app.etzhayyim.apps.site.enqueueBulk"), (ctx, body) => cmdEnqueueBulk(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.enqueueBulk"), (ctx, body) => cmdEnqueueBulk(sdk, body),
       asAgentTool("Enqueue multiple URLs to the crawl frontier"),
       withCapabilityTags("frontier", "bulk"),
     )
-    .command(nsid("app.etzhayyim.apps.site.dequeueUrls"), (ctx, body) => cmdDequeueUrls(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.dequeueUrls"), (ctx, body) => cmdDequeueUrls(sdk, body),
       asAgentTool("Dequeue next URLs from frontier by priority"),
       withCapabilityTags("frontier", "dequeue"),
     )
-    .command(nsid("app.etzhayyim.apps.site.getFrontierStats"), (ctx, body) => cmdGetFrontierStats(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.getFrontierStats"), (ctx, body) => cmdGetFrontierStats(sdk, body),
       asAgentTool("Get frontier queue statistics"),
       withCapabilityTags("frontier", "stats"),
     )
-    .command(nsid("app.etzhayyim.apps.site.processFrontier"), (ctx, body) => cmdProcessFrontier(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.processFrontier"), (ctx, body) => cmdProcessFrontier(sdk, body),
       asAgentTool("Process next batch from frontier: dequeue + crawl + record"),
       withCapabilityTags("frontier", "process"),
     )
     // --- PDF ingest ---
-    .command(nsid("app.etzhayyim.apps.site.fetchPdf"), (ctx, body) => cmdFetchPdf(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.fetchPdf"), (ctx, body) => cmdFetchPdf(sdk, body),
       asAgentTool("Fetch PDF document: pages → WebP (R2 CDN), text → WET records"),
       withCapabilityTags("collection", "pdf", "webp", "wet"),
     )
     // --- WET/WAT/Screenshot pipeline ---
-    .command(nsid("app.etzhayyim.apps.site.generateWet"), (ctx, body) => cmdGenerateWET(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.generateWet"), (ctx, body) => cmdGenerateWET(sdk, body),
       asAgentTool("Generate WET (Markdown) records from HTML content"),
       withCapabilityTags("wet", "extraction", "markdown"),
     )
-    .command(nsid("app.etzhayyim.apps.site.generateWat"), (ctx, body) => cmdGenerateWAT(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.generateWat"), (ctx, body) => cmdGenerateWAT(sdk, body),
       asAgentTool("Generate WAT (metadata JSON) record from HTML content"),
       withCapabilityTags("wat", "metadata"),
     )
-    .command(nsid("app.etzhayyim.apps.site.captureScreenshot"), (ctx, body) => cmdCaptureScreenshot(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.captureScreenshot"), (ctx, body) => cmdCaptureScreenshot(sdk, body),
       asAgentTool("Capture WebP screenshot of a URL via headless browser"),
       withCapabilityTags("screenshot", "webp", "visual"),
     )
-    .command(nsid("app.etzhayyim.apps.site.checkRobotsTxt"), (ctx, body) => cmdCheckRobotsTxt(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.checkRobotsTxt"), (ctx, body) => cmdCheckRobotsTxt(sdk, body),
       asAgentTool("Check robots.txt rules for a domain"),
       withCapabilityTags("robots", "politeness"),
     )
-    .command(nsid("app.etzhayyim.apps.site.seedFromCommonCrawl"), (ctx, body) => cmdSeedFromCommonCrawl(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.seedFromCommonCrawl"), (ctx, body) => cmdSeedFromCommonCrawl(sdk, body),
       asAgentTool("Bootstrap frontier from Common Crawl CDX URL index"),
       withCapabilityTags("seed", "commonCrawl", "frontier"),
     )
-    .command(nsid("app.etzhayyim.apps.site.seedGovPdfs"), (ctx, body) => cmdSeedGovPdfs(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.seedGovPdfs"), (ctx, body) => cmdSeedGovPdfs(sdk, body),
       asAgentTool("Seed government PDF URLs from CC vertex_page for WebP + WET pipeline"),
       withCapabilityTags("collection", "pdf", "government", "legal", "bulk"),
     )
-    .command(nsid("app.etzhayyim.apps.site.seedForProject"), (ctx, body) => cmdSeedForProject(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.seedForProject"), (ctx, body) => cmdSeedForProject(sdk, body),
       asAgentTool("Seed crawl for a project: domain list + auto CommonCrawl fallback for missing data"),
       withCapabilityTags("seed", "project", "commonCrawl", "frontier"),
     )
-    .command(nsid("app.etzhayyim.apps.site.ingestGeoData"), (ctx, body) => cmdIngestGeoData(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.ingestGeoData"), (ctx, body) => cmdIngestGeoData(sdk, body),
       asAgentTool("Ingest structured geo data from a URL (USGS GeoJSON, Wikidata SPARQL, OurAirports CSV, OpenSky ADS-B) → emit geoRecord commits to subscriber apps"),
       withCapabilityTags("geo", "ingest", "usgs", "wikidata", "municipality", "seismic", "airport", "adsb"),
     )
-    .command(nsid("app.etzhayyim.apps.site.triggerTextEmbedding"), (ctx, body) => cmdTriggerTextEmbedding(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.triggerTextEmbedding"), (ctx, body) => cmdTriggerTextEmbedding(sdk, body),
       asAgentTool("Trigger text embedding batch for WET chunks via Murakumo"),
       withCapabilityTags("embedding", "text", "murakumo"),
     )
-    .command(nsid("app.etzhayyim.apps.site.triggerVisualEmbedding"), (ctx, body) => cmdTriggerVisualEmbedding(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.triggerVisualEmbedding"), (ctx, body) => cmdTriggerVisualEmbedding(sdk, body),
       asAgentTool("Trigger visual embedding batch for screenshots via ColPali"),
       withCapabilityTags("embedding", "visual", "colpali"),
     )
-    .command(nsid("app.etzhayyim.apps.site.registerWebTopic"), (ctx, body) => cmdRegisterWebTopic(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.registerWebTopic"), (ctx, body) => cmdRegisterWebTopic(sdk, body),
       asAgentTool("Register a new web topic coordinator DID"),
       withCapabilityTags("topic", "register"),
     )
-    .command(nsid("app.etzhayyim.apps.site.getCrawlOutputStats"), (ctx, body) => cmdGetCrawlOutputStats(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.getCrawlOutputStats"), (ctx, body) => cmdGetCrawlOutputStats(sdk, body),
       asAgentTool("Get WET/WAT/screenshot output statistics"),
       withCapabilityTags("stats", "wet", "wat", "screenshot"),
     )
     // --- GraphRAG convo ---
-    .command(nsid("app.etzhayyim.apps.site.answerConvo"), (ctx, body) => cmdAnswerConvo(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.answerConvo"), (ctx, body) => cmdAnswerConvo(sdk, body),
       asAgentTool("Answer a question about a crawled domain using GraphRAG retrieval"),
       withCapabilityTags("convo", "graphrag", "domain", "llm"),
     )
     // --- Synchronous fetch (browser.fetch primitive target) ---
-    .command(nsid("app.etzhayyim.apps.site.fetch"), (ctx, body) => cmdFetchSync(sdk, body),
+    .command(nsid("com.etzhayyim.apps.site.fetch"), (ctx, body) => cmdFetchSync(sdk, body),
       asAgentTool("Synchronous URL fetch: HTTP GET → markdown text (for pipeline browser.fetch primitive)"),
       withCapabilityTags("fetch", "sync", "markdown"),
     );
@@ -4270,7 +4270,7 @@ function registerWebpageApp(sdk: HostSDK): void {
  * Returns immediately with page content (no async job queue).
  */
 async function cmdFetchSync(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.site.fetch", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.site.fetch", payload);
   if (!req.url) return encodeJson({ error: "url is required" });
 
   // --- Try live fetch first ---

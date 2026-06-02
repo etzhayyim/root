@@ -22,7 +22,7 @@ pragma solidity 0.8.27;
  *           from the Treasury Safe to baseRecipient via
  *           IERC20.transferFrom.
  *        5. Emits {Fulfilled} as the public audit record. The SDK
- *           writes app.etzhayyim.apps.payment.kisha referencing this tx.
+ *           writes com.etzhayyim.apps.payment.kisha referencing this tx.
  *
  *      The Treasury Safe MUST have pre-approved this contract for the
  *      USDC allowance it intends to make claimable. Allowance budgets

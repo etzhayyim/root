@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openSwift.screenSanctions — SWIFT 制裁スクリーニング
+// com.etzhayyim.apps.openSwift.screenSanctions — SWIFT 制裁スクリーニング
 export async function handle_screenSanctions(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.bicCode ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openSwift.screenSanctions/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openSwift.screenSanctions/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-swift",
-      nsid: "app.etzhayyim.apps.openSwift.screenSanctions",
+      nsid: "com.etzhayyim.apps.openSwift.screenSanctions",
       bpmnProcessId: "open_swift_screen_sanctions",
       subjectVid,
       actionClass: "openSwift.payment.screenSanctions",
@@ -82,5 +82,5 @@ export async function handle_screenSanctions(env: DefenceEnv, body: any): Promis
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openSwift.screenSanctions": handle_screenSanctions,
+  "com.etzhayyim.apps.openSwift.screenSanctions": handle_screenSanctions,
 };

@@ -22,32 +22,32 @@ interface Entry {
 const entries: Entry[] = [
   {
     bpmnProcessId: "flight_offer_fetch_from_source",
-    nsid: "app.etzhayyim.apps.flightOffer.fetchFromSource",
-    sourcePath: "00-contracts/bpmn/ai/gftd/flight-offer/fetchFromSource.bpmn",
+    nsid: "com.etzhayyim.apps.flightOffer.fetchFromSource",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/flight-offer/fetchFromSource.bpmn",
     resultTimeoutMs: 30000,
     slug: "flight-offer-fetch-from-source-v1",
   },
   {
     bpmnProcessId: "flight_offer_list_sources",
-    nsid: "app.etzhayyim.apps.flightOffer.listSources",
-    sourcePath: "00-contracts/bpmn/ai/gftd/flight-offer/listSources.bpmn",
+    nsid: "com.etzhayyim.apps.flightOffer.listSources",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/flight-offer/listSources.bpmn",
     resultTimeoutMs: 10000,
     slug: "flight-offer-list-sources-v1",
   },
   {
     bpmnProcessId: "flight_offer_list_airlines",
-    nsid: "app.etzhayyim.apps.flightOffer.listAirlines",
-    sourcePath: "00-contracts/bpmn/ai/gftd/flight-offer/listAirlines.bpmn",
+    nsid: "com.etzhayyim.apps.flightOffer.listAirlines",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/flight-offer/listAirlines.bpmn",
     resultTimeoutMs: 10000,
     slug: "flight-offer-list-airlines-v1",
   },
 ];
 
 function processVertexId(slug: string): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${slug}`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${slug}`;
 }
 function bindingVertexId(slug: string): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${slug}`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${slug}`;
 }
 
 export async function up(db: Kysely<unknown>): Promise<void> {

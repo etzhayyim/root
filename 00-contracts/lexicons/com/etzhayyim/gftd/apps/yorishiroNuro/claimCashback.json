@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yorishiroNuro.claimCashback",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a NURO cashback receipt form via browser automation. bankVaultKey references provider-vault nuro/bankAccount/<key>; bank account values are never sent over XRPC. Requires confirm=true + ClassA approval (financial movement).",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "campaignCode": { "type": "string" },
+            "bankVaultKey": { "type": "string" },
+            "idempotencyKey": { "type": "string" },
+            "confirm": { "type": "boolean" }
+          },
+          "required": ["campaignCode", "bankVaultKey", "idempotencyKey", "confirm"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" },
+            "jobId": { "type": "string" },
+            "campaignCode": { "type": "string" },
+            "existingJobId": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

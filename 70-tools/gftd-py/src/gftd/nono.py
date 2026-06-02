@@ -275,7 +275,7 @@ def nono_deploy(nanoid: str, comp_dir: str | None, pds: str | None,
     }
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.actor.registerManifest",
+            f"{pds_url}/xrpc/com.etzhayyim.actor.registerManifest",
             json=reg_body,
             headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
             timeout=15,

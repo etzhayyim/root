@@ -12,10 +12,10 @@
     {"name": "delivery_verify", "murakumoNode": "zebulun"}
   ],
   "lexicons": [
-    "app.etzhayyim.supply.supplierSelection",
-    "app.etzhayyim.supply.purchaseOrder",
-    "app.etzhayyim.supply.manufacturingProgress",
-    "app.etzhayyim.supply.shipmentTracking",
-    "app.etzhayyim.supply.deliveryVerified"
+    "com.etzhayyim.supply.supplierSelection",
+    "com.etzhayyim.supply.purchaseOrder",
+    "com.etzhayyim.supply.manufacturingProgress",
+    "com.etzhayyim.supply.shipmentTracking",
+    "com.etzhayyim.supply.deliveryVerified"
   ]
 }

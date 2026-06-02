@@ -44,7 +44,7 @@
         optInEvidence: optInEvidence || `inbound:${window.location.host}/contact`,
         useCasePitch: useCasePitch || undefined,
       };
-      const res = await fetch("/xrpc/app.etzhayyim.apps.mehikari.registerProspect", {
+      const res = await fetch("/xrpc/com.etzhayyim.apps.mehikari.registerProspect", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),

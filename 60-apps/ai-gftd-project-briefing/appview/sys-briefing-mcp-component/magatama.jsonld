@@ -71,9 +71,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.briefing.briefingEntity",
-        "ai.gftd.apps.briefing.briefingEvent",
-        "ai.gftd.apps.briefing.briefingReport"
+        "com.etzhayyim.apps.briefing.briefingEntity",
+        "com.etzhayyim.apps.briefing.briefingEvent",
+        "com.etzhayyim.apps.briefing.briefingReport"
       ]
     }
   },

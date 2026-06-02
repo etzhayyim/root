@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govEst.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govEst.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Estonia government.",
-        "operationId": "app.etzhayyim.govEst.followSiteDeps",
+        "operationId": "com.etzhayyim.govEst.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEst.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govEst.heartbeatTick": {
       "post": {
         "summary": "Run the Estonia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govEst.heartbeatTick",
+        "operationId": "com.etzhayyim.govEst.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEst.listOrgs": {
+    "/xrpc/com.etzhayyim.govEst.listOrgs": {
       "get": {
         "summary": "List Estonia government organization graph records.",
-        "operationId": "app.etzhayyim.govEst.listOrgs",
+        "operationId": "com.etzhayyim.govEst.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEst.registerDIDs": {
+    "/xrpc/com.etzhayyim.govEst.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Estonia government organizations.",
-        "operationId": "app.etzhayyim.govEst.registerDIDs",
+        "operationId": "com.etzhayyim.govEst.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEst.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govEst.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Estonia government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govEst.resolveOrgPath",
+        "operationId": "com.etzhayyim.govEst.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEst.seedOrgs": {
+    "/xrpc/com.etzhayyim.govEst.seedOrgs": {
       "post": {
         "summary": "Seed initial Estonia government organization records into the graph.",
-        "operationId": "app.etzhayyim.govEst.seedOrgs",
+        "operationId": "com.etzhayyim.govEst.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEst.shinka": {
+    "/xrpc/com.etzhayyim.govEst.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Estonia government organization update.",
-        "operationId": "app.etzhayyim.govEst.shinka",
+        "operationId": "com.etzhayyim.govEst.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEst.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govEst.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Estonia government organization changes to graph.",
-        "operationId": "app.etzhayyim.govEst.syncWetUpdates",
+        "operationId": "com.etzhayyim.govEst.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

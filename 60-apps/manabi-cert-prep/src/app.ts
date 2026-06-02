@@ -29,12 +29,12 @@ const ACTOR_DID = "did:web:manabi-cert-prep.etzhayyim.com";
 
 // W0/W1 = scaffold; R1 active NSIDs land at R1 commit
 const R1_ACTIVE_NSIDS = new Set([
-  "app.etzhayyim.manabi.certPrepSession",
-  "app.etzhayyim.manabi.domainMasteryAttestation",
+  "com.etzhayyim.manabi.certPrepSession",
+  "com.etzhayyim.manabi.domainMasteryAttestation",
 ]);
 
 const R2_GATED_NSIDS = new Set([
-  "app.etzhayyim.manabi.personalMaterialImport",
+  "com.etzhayyim.manabi.personalMaterialImport",
 ]);
 
 function jsonResponse(body: unknown, status: number = 200): CFResponse {

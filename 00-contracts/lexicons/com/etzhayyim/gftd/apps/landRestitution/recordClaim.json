@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.landRestitution.recordClaim",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Historical land restitution claim (bridges fpicConsent.flagFpicViolation + indigenous-rights + land-tenure)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "claimId",
+            "claimantCommunity",
+            "countryIso3",
+            "regimeKind",
+            "filedAt"
+          ],
+          "properties": {
+            "claimId": {
+              "type": "string"
+            },
+            "claimantCommunity": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "regimeKind": {
+              "type": "string",
+              "enum": [
+                "native_title_au",
+                "nz_treaty_waitangi",
+                "ca_comprehensive_claim",
+                "za_restitution_land_rights",
+                "co_ruta_etnica",
+                "br_quilombola",
+                "pe_comunidad_nativa",
+                "ph_iprr",
+                "us_ira_eagle_act",
+                "no_finnmark",
+                "mx_ejido"
+              ]
+            },
+            "areaHectares": {
+              "type": "number"
+            },
+            "consentViolationVid": {
+              "type": "string",
+              "description": "bridges fpicConsent.flagFpicViolation"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

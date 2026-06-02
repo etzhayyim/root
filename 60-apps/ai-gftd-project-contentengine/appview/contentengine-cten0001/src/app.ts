@@ -11,7 +11,7 @@ interface Env {
 }
 
 const APP = "contentengine";
-const NSID_PREFIX = "app.etzhayyim.apps.contentengine.";
+const NSID_PREFIX = "com.etzhayyim.apps.contentengine.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -24,7 +24,7 @@ export default {
         nanoid: env.APP_NANOID ?? "cten0001",
         execution: "edge-bpmn+langgraph-langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/contentengine",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contentengine",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
         integrations: ["ads.etzhayyim.com", "news.etzhayyim.com", "narou.etzhayyim.com"],
         personalization: "cohort-first (ADR-0018) — no individual PII",

@@ -12,7 +12,7 @@ from typing import Any
 
 # Gate markers: set to non-None only after Council Lv6+ ≥ 3 silen-pharma-review attestation
 COUNCIL_ATTESTATION_TX_HASH: str | None = None
-SILEN_PHARMA_BASELINE_REVIEW_CID: str | None = None  # app.etzhayyim.pharma.silenPharmaReview scope: wave-1c-chiral-resolution-baseline
+SILEN_PHARMA_BASELINE_REVIEW_CID: str | None = None  # com.etzhayyim.pharma.silenPharmaReview scope: wave-1c-chiral-resolution-baseline
 
 
 def validate_gate():

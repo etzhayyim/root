@@ -24,7 +24,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.ki.absorb"]
+      "collections": ["com.etzhayyim.ki.absorb"]
     }
   }
 }

@@ -63,7 +63,7 @@
       "steps": [
         {
           "args": {
-            "template": "UNWIND [\n  {country:'SA', segment:'upstream', priority:1},\n  {country:'US', segment:'upstream', priority:1},\n  {country:'RU', segment:'upstream', priority:1},\n  {country:'CA', segment:'upstream', priority:1},\n  {country:'IQ', segment:'upstream', priority:1},\n  {country:'AE', segment:'upstream', priority:1},\n  {country:'IR', segment:'upstream', priority:1},\n  {country:'BR', segment:'upstream', priority:1},\n  {country:'NO', segment:'upstream', priority:1},\n  {country:'KZ', segment:'upstream', priority:1},\n  {country:'SA', segment:'midstream', priority:1},\n  {country:'US', segment:'midstream', priority:1},\n  {country:'AE', segment:'midstream', priority:1},\n  {country:'NL', segment:'midstream', priority:1},\n  {country:'SG', segment:'midstream', priority:1},\n  {country:'US', segment:'refining', priority:1},\n  {country:'CN', segment:'refining', priority:1},\n  {country:'IN', segment:'refining', priority:1},\n  {country:'KR', segment:'refining', priority:1},\n  {country:'SA', segment:'refining', priority:1},\n  {country:'CH', segment:'trading', priority:1},\n  {country:'SG', segment:'trading', priority:1},\n  {country:'GB', segment:'trading', priority:1},\n  {country:'AE', segment:'trading', priority:1},\n  {country:'GR', segment:'shipping', priority:1},\n  {country:'SG', segment:'shipping', priority:1},\n  {country:'AE', segment:'shipping', priority:1},\n  {country:'JP', segment:'shipping', priority:1},\n  {country:'US', segment:'distribution', priority:1},\n  {country:'CN', segment:'distribution', priority:1},\n  {country:'JP', segment:'distribution', priority:1},\n  {country:'DE', segment:'distribution', priority:1}\n] AS t MERGE (n:OilCoverageTarget {targetKey: t.country + ':' + t.segment}) SET n.countryCode = t.country, n.segment = t.segment, n.priority = t.priority, n.repo = 'did:web:oil-coverage.etzhayyim.com', n.collection = 'ai.gftd.apps.oil.coverageTarget', n.status = 'active'"
+            "template": "UNWIND [\n  {country:'SA', segment:'upstream', priority:1},\n  {country:'US', segment:'upstream', priority:1},\n  {country:'RU', segment:'upstream', priority:1},\n  {country:'CA', segment:'upstream', priority:1},\n  {country:'IQ', segment:'upstream', priority:1},\n  {country:'AE', segment:'upstream', priority:1},\n  {country:'IR', segment:'upstream', priority:1},\n  {country:'BR', segment:'upstream', priority:1},\n  {country:'NO', segment:'upstream', priority:1},\n  {country:'KZ', segment:'upstream', priority:1},\n  {country:'SA', segment:'midstream', priority:1},\n  {country:'US', segment:'midstream', priority:1},\n  {country:'AE', segment:'midstream', priority:1},\n  {country:'NL', segment:'midstream', priority:1},\n  {country:'SG', segment:'midstream', priority:1},\n  {country:'US', segment:'refining', priority:1},\n  {country:'CN', segment:'refining', priority:1},\n  {country:'IN', segment:'refining', priority:1},\n  {country:'KR', segment:'refining', priority:1},\n  {country:'SA', segment:'refining', priority:1},\n  {country:'CH', segment:'trading', priority:1},\n  {country:'SG', segment:'trading', priority:1},\n  {country:'GB', segment:'trading', priority:1},\n  {country:'AE', segment:'trading', priority:1},\n  {country:'GR', segment:'shipping', priority:1},\n  {country:'SG', segment:'shipping', priority:1},\n  {country:'AE', segment:'shipping', priority:1},\n  {country:'JP', segment:'shipping', priority:1},\n  {country:'US', segment:'distribution', priority:1},\n  {country:'CN', segment:'distribution', priority:1},\n  {country:'JP', segment:'distribution', priority:1},\n  {country:'DE', segment:'distribution', priority:1}\n] AS t MERGE (n:OilCoverageTarget {targetKey: t.country + ':' + t.segment}) SET n.countryCode = t.country, n.segment = t.segment, n.priority = t.priority, n.repo = 'did:web:oil-coverage.etzhayyim.com', n.collection = 'com.etzhayyim.apps.oil.coverageTarget', n.status = 'active'"
           },
           "fn": "graph.write",
           "id": "seedTargets"
@@ -123,7 +123,7 @@
             "params": {
               "actorName": "oil-coverage",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.oil.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.oil.coverageSnapshot",
               "latestSeq": "$coverageNodes.rows[0].latestSeq",
               "nanoid": "011c0v3r",
               "nodeCount": "$coverageNodes.rows[0].nodeCount",
@@ -162,7 +162,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oil.coverage.get",
+        "nsid": "com.etzhayyim.apps.oil.coverage.get",
         "type": "xrpc"
       }
     },
@@ -177,7 +177,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oil.coverage.listTargets",
+        "nsid": "com.etzhayyim.apps.oil.coverage.listTargets",
         "type": "xrpc"
       }
     },
@@ -192,7 +192,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oil.coverage.listBackbone",
+        "nsid": "com.etzhayyim.apps.oil.coverage.listBackbone",
         "type": "xrpc"
       }
     }
@@ -211,8 +211,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -225,18 +225,18 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.oil.coverageSnapshot",
-        "ai.gftd.apps.oil.coverageTarget",
-        "ai.gftd.apps.bunker.coverageSnapshot",
-        "ai.gftd.apps.vessel.coverageSnapshot",
-        "ai.gftd.apps.port.coverageSnapshot",
-        "ai.gftd.apps.marineInsurance.coverageSnapshot",
-        "ai.gftd.apps.oilShipping.coverageSnapshot",
-        "ai.gftd.apps.oilRefining.coverageSnapshot",
-        "ai.gftd.apps.oilMidstream.coverageSnapshot",
-        "ai.gftd.apps.oilUpstream.coverageSnapshot",
-        "ai.gftd.apps.oilTrading.coverageSnapshot",
-        "ai.gftd.apps.oilDistribution.coverageSnapshot"
+        "com.etzhayyim.apps.oil.coverageSnapshot",
+        "com.etzhayyim.apps.oil.coverageTarget",
+        "com.etzhayyim.apps.bunker.coverageSnapshot",
+        "com.etzhayyim.apps.vessel.coverageSnapshot",
+        "com.etzhayyim.apps.port.coverageSnapshot",
+        "com.etzhayyim.apps.marineInsurance.coverageSnapshot",
+        "com.etzhayyim.apps.oilShipping.coverageSnapshot",
+        "com.etzhayyim.apps.oilRefining.coverageSnapshot",
+        "com.etzhayyim.apps.oilMidstream.coverageSnapshot",
+        "com.etzhayyim.apps.oilUpstream.coverageSnapshot",
+        "com.etzhayyim.apps.oilTrading.coverageSnapshot",
+        "com.etzhayyim.apps.oilDistribution.coverageSnapshot"
       ]
     }
   },
