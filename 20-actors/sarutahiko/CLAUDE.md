@@ -178,6 +178,18 @@ from cells.vin_attestation_binder import VinAttestationBinderCell
 
 All should pass import; `.solve()` raises `RuntimeError("sarutahiko R0 scaffold...")`.
 
+**State-machine tests** (stdlib-only, langgraph-free; the R0 `.solve()` gate is
+**preserved** — never calls `solve()`, so it does not bypass Council ADR-2605252515):
+
+```bash
+cd 20-actors/sarutahiko
+python3 cells/test_state_machines.py   # 3 tests — all 9 cell state machines INIT→…→100% + G7 powertrain fuel-guard (accepts clean / rejects pure-fossil)
+```
+
+Coverage: all 9 `state_machine.py` at 100%. The `cell.py` Pregel wrappers stay
+import-smoke-only (this env's langgraph is broken by a pydantic/pydantic-core
+mismatch); they are R1-activated via ADR-2605252515.
+
 ## Related Files
 
 - `/20-actors/sarutahiko/manifest.jsonld`

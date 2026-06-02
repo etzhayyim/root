@@ -128,6 +128,21 @@ done
 python methods/voyage_energy.py    # writes out/voyage-energy-report.md
 ```
 
+**Tests** (stdlib-only, langgraph-free; the R0 `solve()` RuntimeError gate is
+**preserved** — these never call `solve()`, so they do not bypass the Council
+ADR-2606013415 activation gate):
+
+```bash
+cd 20-actors/funadaiku
+python3 methods/test_voyage_energy.py     # 7 tests — zero-emission invariant (fossil=0, wind+solar+H2≈100%, green-H2>0, Admiralty cube law)
+python3 cells/test_state_machines.py      # 2 tests — all 9 cell state machines INIT→…→100% (state_machine.py 100% coverage each)
+```
+
+Coverage: all 9 `state_machine.py` at 100%; `methods/voyage_energy.py` ~99%.
+The `cell.py` Pregel wrappers stay uncovered here (this env's langgraph is broken
+by a pydantic/pydantic-core version mismatch — same caveat as other actors); they
+are import-smoke-only until the env is fixed and `solve()` is R1-activated.
+
 ## Related Files
 
 - `/20-actors/funadaiku/manifest.jsonld` — DID + cells + gates + non-goals + reference vessel
