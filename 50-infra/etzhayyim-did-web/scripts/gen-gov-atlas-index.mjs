@@ -85,8 +85,17 @@ for (const cc of [...seenCC].sort()) {
 }
 
 const units = [...byId.values()];
+// Authoritative tier (BOOTSTRAP-ATTESTATION-reconcile-live.md, Seat 1 Lv7, re-ratify
+// at Council 3-of-5): the JP official-code backbone (全国地方公共団体コード / ISO 3166-2:JP)
+// is promoted :representative → :authoritative. Mirrors the kotoba node promotion by
+// deploy/promote_authoritative.py. Everything else stays :representative (G5).
+for (const u of units) {
+  if (/^gov\.jpn\.(pref|city)\./.test(u.id)) u.sourcing = "authoritative";
+}
 const byLevel = {};
 for (const u of units) byLevel[u.level] = (byLevel[u.level] || 0) + 1;
+const bySourcing = {};
+for (const u of units) bySourcing[u.sourcing] = (bySourcing[u.sourcing] || 0) + 1;
 const countries = new Set(units.map((u) => u.jurisdiction.split("-")[0])).size;
 const index = {
   graph: "gov-atlas-v1",
@@ -96,6 +105,7 @@ const index = {
   count: units.length,
   countries,
   byLevel,
+  bySourcing,
   units,
 };
 const outDir = join(__dirname, "../out");
