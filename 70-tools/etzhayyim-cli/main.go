@@ -37,6 +37,8 @@ func main() {
 		err = runCapability(os.Args[2:])
 	case "kuni-umi":
 		err = runKuniUmi(os.Args[2:])
+	case "vpn":
+		err = runVPN(os.Args[2:])
 	case "version", "--version", "-v":
 		fmt.Printf("gftd %s\n", version)
 	case "help", "--help", "-h":
@@ -72,6 +74,8 @@ COMMANDS:
   kuni-umi      6-phase robotic-deployment flow (define-site / submit-survey / propose-plan /
                 record-progress / commission / audit-event) — see 'gftd kuni-umi help'.
                 Per ADR-2605201400.
+  vpn           WireGuard VPN management (provision / connect / list / revoke) — see 'gftd vpn help'.
+                Calls vpn.gftd.ai XRPC. Keypair generated locally; private key never sent to server.
   version       Print version
 
 Run 'gftd <command> --help' for command-specific flags.
