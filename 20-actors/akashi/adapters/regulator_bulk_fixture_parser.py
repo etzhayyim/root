@@ -30,6 +30,18 @@ def _domain(url: str) -> str:
     return parsed.netloc.lower()
 
 
+def _range(source_range: dict[str, Any] | None) -> dict[str, Any] | None:
+    if source_range is None:
+        return None
+    mapped = {
+        "min": source_range.get("min", source_range.get("lower")),
+        "max": source_range.get("max", source_range.get("upper")),
+        "currency": source_range.get("currency"),
+        "sourceLabel": source_range.get("sourceLabel"),
+    }
+    return {k: v for k, v in mapped.items() if v is not None}
+
+
 def parse_regulator_bulk_fixture(
     payload: dict[str, Any],
     *,
@@ -157,8 +169,8 @@ def parse_regulator_bulk_fixture(
             "startedAt": source_record.get("startedAt"),
             "endedAt": source_record.get("endedAt"),
             "status": source_record.get("status", "unknown"),
-            "spendRange": source_record.get("spendRange"),
-            "impressionRange": source_record.get("impressionRange"),
+            "spendRange": _range(source_record.get("spendRange")),
+            "impressionRange": _range(source_record.get("impressionRange")),
             "regionSummary": source_record.get("regionSummary"),
             "sourceLimited": True,
             "attestingDid": attesting_did,

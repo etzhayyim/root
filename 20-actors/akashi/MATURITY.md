@@ -18,20 +18,21 @@ but collection and cell execution remain gated.
 | 9 | Lexicon invariant tests | ✅ | `70-tools/scripts/audit/test_akashi_invariants.py` |
 | 10 | Source adapter fixtures | ✅ | regulator bulk fixture parser, fixture-only/no network |
 | 11 | Cell scaffold | ✅ | `20-actors/magatama/cells/akashi_*` import-time R1 gates |
-| 12 | Live collection | 未 | R2+ only after source policy review |
+| 12 | Parser schema validation | ✅ | fixture parser output validates against akashi lexicons |
+| 13 | Live collection | 未 | R2+ only after source policy review |
 
 ## Maturity Score
 
 | Axis | R0 score | Rationale |
 |---|---:|---|
 | Actor identity | 4/5 | DID, manifest, ADR, root index present |
-| Schema surface | 4/5 | 10 lexicons present; R1 still needs closure and validators |
+| Schema surface | 5/5 | 10 lexicons present; fixture parser output has lexicon validation |
 | Source coverage | 2/5 | seed catalog plus one regulator bulk fixture parser; no live adapters |
 | Constitutional gates | 4/5 | gates documented, schema anchors present, and invariants test locks R0 |
 | Malak boundary | 4/5 | explicit candidate-only handoff in ADR, manifest, lexicon |
 | Operational readiness | 2/5 | gated cell scaffolds exist; no adapters or live jobs |
 
-Overall R0 maturity: **23/30**. This is a usable design scaffold, not a running
+Overall R0 maturity: **24/30**. This is a usable design scaffold, not a running
 collector.
 
 ## Next R1 Work
@@ -39,4 +40,4 @@ collector.
 1. Add source-policy review workflow that can disable an adapter without code
    changes.
 2. Add additional regulator/bulk fixtures before any platform page/API adapter.
-3. Add schema validators for parser output against akashi lexicons.
+3. Add closure validators for link/report/malak candidate records.

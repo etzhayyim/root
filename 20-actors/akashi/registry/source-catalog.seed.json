@@ -55,7 +55,7 @@
       "sourceFamily": "regulator-repository",
       "accessMode": "public-bulk-export",
       "collectionStatus": "manual-review",
-      "r0Coverage": "preferred-future-source",
+      "r0Coverage": "fixture-parser",
       "requiredBeforeCollection": ["license-review", "bulk-schema-map", "fixture-parser"]
     }
   ]

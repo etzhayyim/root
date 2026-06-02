@@ -25,6 +25,9 @@ _ADAPTER = (
     / "adapters"
     / "regulator_bulk_fixture_parser.py"
 )
+_VALIDATOR = (
+    _REPO / "20-actors" / "akashi" / "adapters" / "lexicon_shape_validator.py"
+)
 _FIXTURE = (
     _REPO
     / "20-actors"
@@ -181,7 +184,11 @@ def test_source_catalog_is_planning_only_and_manual_review():
     }
     for source in sources:
         assert source["collectionStatus"] == "manual-review"
-        assert source["r0Coverage"] in {"registry-only", "preferred-future-source"}
+        assert source["r0Coverage"] in {
+            "registry-only",
+            "preferred-future-source",
+            "fixture-parser",
+        }
         assert "fixture-parser" in source["requiredBeforeCollection"]
 
 
@@ -247,6 +254,45 @@ def test_regulator_bulk_fixture_parser_is_fixture_only_and_shape_safe():
     assert output["advertiserIdentity"][0]["nonInferred"] is True
     assert output["landingEvidence"][0]["fetchMode"] == "manual-review-only"
     assert output["deliveryDisclosure"][0]["sourceLimited"] is True
+
+
+def test_fixture_parser_output_validates_against_akashi_lexicons():
+    parser_spec = importlib.util.spec_from_file_location(
+        "_akashi_regulator_parser",
+        _ADAPTER,
+    )
+    validator_spec = importlib.util.spec_from_file_location(
+        "_akashi_lexicon_validator",
+        _VALIDATOR,
+    )
+    assert parser_spec and parser_spec.loader
+    assert validator_spec and validator_spec.loader
+
+    parser = importlib.util.module_from_spec(parser_spec)
+    validator = importlib.util.module_from_spec(validator_spec)
+    parser_spec.loader.exec_module(parser)
+    validator_spec.loader.exec_module(validator)
+
+    output = parser.parse_regulator_bulk_fixture(
+        _load(_FIXTURE),
+        attesting_did="did:web:akashi.etzhayyim.com",
+        source_policy_cid="cid:akashi:source-policy:test",
+        method_note_cid="cid:akashi:method-note:test",
+    )
+
+    singleton_outputs = ("methodNote", "sourcePolicySnapshot")
+    for name in singleton_outputs:
+        validator.validate_record(output[name], _load(_LEX / f"{name}.json"))
+
+    list_outputs = (
+        "adDisclosureSnapshot",
+        "advertiserIdentity",
+        "landingEvidence",
+        "creativeDisclosure",
+        "deliveryDisclosure",
+    )
+    for name in list_outputs:
+        validator.validate_records(output[name], _load(_LEX / f"{name}.json"))
 
 
 if __name__ == "__main__":

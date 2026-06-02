@@ -17,7 +17,7 @@ it has:
 | social ad libraries | Meta/Facebook/Instagram, X/Twitter, TikTok | registry seed only; no adapter | no |
 | messaging / portal ad disclosures | LINE | registry seed only; access-mode requires manual review | no |
 | search/video ad libraries | Google / YouTube | registry seed only; no adapter | no |
-| regulator repositories | EU / DSA-style repositories, election-ad archives | fixture-only bulk parser; no live adapter | no |
+| regulator repositories | EU / DSA-style repositories, election-ad archives | fixture-only bulk parser with lexicon validation; no live adapter | no |
 | regional transparency portals | jurisdiction-specific ad libraries | placeholder only | no |
 
 ## Field Coverage
@@ -51,7 +51,8 @@ A platform source can move from `candidate` to `covered-r1` only when:
 ## R0 Gaps
 
 - No live adapter code exists; current parser is fixture-only.
-- One fixture-only regulator bulk parser exists; no platform adapter exists.
+- One fixture-only regulator bulk parser exists and validates output against
+  akashi lexicons; no platform adapter exists.
 - No live fetch runs.
 - Cell scaffold exists under `20-actors/magatama/cells/akashi_*`, but every
   cell raises at import until ADR-2606022300 R1 activation gates are attested.
