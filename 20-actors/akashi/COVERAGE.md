@@ -36,6 +36,8 @@ it has:
 
 Closure fixture coverage exists for `adDisclosureLink`, `adTransparencyReport`,
 and `malakEvidenceCandidate`; all remain fixture-only and non-adjudicating.
+`adapters/dry_run_fixtures.py` exercises the local fixture set and validates
+every emitted record without network access or writes.
 
 ## R1 Promotion Rules
 
@@ -60,6 +62,8 @@ A platform source can move from `candidate` to `covered-r1` only when:
   akashi lexicons; no platform adapter exists.
 - Closure fixtures validate link/report/malak candidate records without live
   collection.
+- Dry-run CLI exists for local fixture validation only; it has no network mode
+  and does not write kotoba records.
 - No live fetch runs.
 - Source-policy review workflow exists and keeps every live source disabled.
 - Cell scaffold exists under `20-actors/magatama/cells/akashi_*`, but every

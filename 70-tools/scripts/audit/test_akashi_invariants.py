@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -31,6 +33,7 @@ _ADAPTER = (
 _VALIDATOR = (
     _REPO / "20-actors" / "akashi" / "adapters" / "lexicon_shape_validator.py"
 )
+_DRY_RUN = _REPO / "20-actors" / "akashi" / "adapters" / "dry_run_fixtures.py"
 _FIXTURE = (
     _REPO
     / "20-actors"
@@ -285,6 +288,13 @@ def test_regulator_bulk_fixture_parser_is_fixture_only_and_shape_safe():
     assert output["deliveryDisclosure"][0]["sourceLimited"] is True
 
 
+def test_adapter_sources_do_not_import_network_clients():
+    for path in (_ADAPTER, _VALIDATOR, _DRY_RUN):
+        source = path.read_text()
+        for forbidden in ("requests", "httpx", "aiohttp", "urlopen", "urllib.request"):
+            assert forbidden not in source, f"{path.name}: forbidden network import"
+
+
 def test_fixture_parser_output_validates_against_akashi_lexicons():
     parser_spec = importlib.util.spec_from_file_location(
         "_akashi_regulator_parser",
@@ -341,6 +351,25 @@ def test_closure_fixture_validates_and_malak_candidate_stays_candidate_only():
     assert candidate["reviewStatus"] == "candidate-only"
     assert candidate["nonAdjudicatingNotice"] is True
     assert "malakImportCid" not in candidate
+
+
+def test_dry_run_cli_emits_validated_local_fixture_summary_only():
+    result = subprocess.run(
+        [sys.executable, str(_DRY_RUN)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    summary = json.loads(result.stdout)
+
+    assert summary["actor"] == "akashi"
+    assert summary["mode"] == "fixture-dry-run"
+    assert summary["networkAccess"] is False
+    assert summary["writes"] is False
+    assert summary["recordCounts"]["methodNote"] == 1
+    assert summary["recordCounts"]["sourcePolicySnapshot"] == 1
+    assert summary["recordCounts"]["malakEvidenceCandidate"] == 1
+    assert summary["totalRecords"] == sum(summary["recordCounts"].values())
 
 
 if __name__ == "__main__":

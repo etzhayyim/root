@@ -65,6 +65,8 @@ fixtures, or collection jobs yet. See:
   — local fixture parser only; no live collection
 - `fixtures/closure/` — non-adjudicating link/report/malak-candidate closure
   fixtures
+- `adapters/dry_run_fixtures.py` — local fixture dry-run CLI; no network access
+  and no writes
 - `/00-contracts/lexicons/app/etzhayyim/akashi/` — 10 lexicon skeletons
 
 ## Immutable Gates
