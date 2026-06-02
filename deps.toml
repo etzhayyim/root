@@ -165,6 +165,26 @@ holochain_iso_projection_adr = "2605231500"          # SUPERSEDED by 2605262130 
 holochain_iso_engine_exploration_adr = "2605232300"  # SUPERSEDED by 2605262130 (engine chosen = kotoba)
 holochain_iso_engine_decision = "kotoba"  # closed by ADR-2605262130
 
+# ── Browser-native read node (ADR-2606013600; SHIPPED + deployed ADR-2606024000) ──
+# kotoba-kqe read engine (EAVT/AEVT/AVET/VAET) compiled to wasm32 via wasm-bindgen:
+# loadDatoms() hydrates an in-memory Arrangement, datomicQ() runs queries
+# client-side with ZERO server round-trip + no server-held key (ADR-2605231525).
+browser_node = "kotoba-wasm"
+browser_node_adr = "2606013600"
+browser_node_ship_adr = "2606024000"      # implement + deploy + content-addressed IPFS
+browser_node_path = "40-engine/kotoba/crates/kotoba-wasm"
+browser_node_first_consumer = "kabuto supply-chain viz (ADR-2606022000, G6)"
+browser_node_serving = ["https://etzhayyim.com/kotoba/ (CF static assets, [assets] dir ./public)", "etzhayyim.com/ipfs/<cid> (trustless gateway ADR-2606014600; sha256 raw + CAR dag-pb verified)", "any public gateway via dir CID path"]
+browser_node_ipfs_dir_cid = "bafybeicgushtjxtgwrx3zbphxyn3ptkdbdnqzmayni2nkdff6r7z24gnxi"
+# Read-consistency posture (browser + cold tier): content-addressing is fail-closed.
+# A lost pin yields UNAVAILABLE (missing) data, NEVER WRONG data; Datomic snapshot
+# (immutable commit root / basis-T) + atomic commit-head publish preserve consistency.
+# In-memory/browser node is pin-immune post-hydration (datomicQ never touches IPFS).
+# Honest open item: cold-path ProllyTree missing-node => silent-empty (incompleteness,
+# not incorrectness); harden to Err(BlockUnavailable) + root reachability check.
+read_consistency = "fail-closed (content-addressed): lost-pin => unavailable, never wrong; snapshot pinned to immutable commit root"
+read_consistency_adr = "2606024000"
+
 # ── No-Server-Key posture (ADR-2605231525, Council ratify pending) ──
 # etzhayyim-operated infrastructure holds zero signing capability.
 # All writes are member-signed; etzhayyim runs read-only surfaces.
@@ -9492,6 +9512,24 @@ status = "proposed"
 status_note = "Tier-B actor ooyake 公 (= the public / officialdom) — government-structure sibling of the tsumugi/watatsuna intel-weaver family. The READ-SIDE structural SSoT of public administration: kotoba-Datomic atlas of every government unit on Earth (supranational → country → 都道府県 → 市区町村 → 省 → 庁 → 局 → 課 → 係 → 窓口) where each unit carries :gov.unit/* (recursive parent tree, level/branch/COFOG/jurisdiction/external-code/wikidata), :gov.address/* (住所), :gov.window/* (窓口), :gov.form/* (書式 → chigiri template ref), :gov.procedure/* (手続き → toritsugi-ref delivery handoff), :gov.bpmn/* (BPMN). Schema 00-contracts/schemas/gov-atlas-ontology.kotoba.edn; consumed by danjo (watch) / kanae (fiscal viz) / tsumugi (reconcile via :gov.unit/organism) / toritsugi (citizen delivery) / himotoki (disclosure target). Posture: OBSERVATIONAL MIRROR + civic wayfinding — the per-unit atlas DID (did:web:etzhayyim.com:gov:<iso3>:...) mirrors a real public body, NEVER claims to BE it, NEVER an official channel, NEVER a target-list (G3/G10, §2(c)). Read-only: catalogs, never files (→ toritsugi gated) and never audits (→ danjo). 6 cells / 8 read-only Lexicons (getUnit/resolvePath/findService/searchUnits + 4 records) / 3 BPMN (model-only) / 12 gates / 11 non-goals. searchUnits backs etzhayyim.com civic search. Registered in INFRA_ACTORS + actor-profile-seed + yoro seed-datoms.json → discoverable at etzhayyim.com/search + /actors. AMENDS ADR-2605242330 §2: per-unit enumeration admitted as a bounded READ-SIDE civic atlas (NOT routing-around); subsumes the legacy gov* country BPMN/OpenAPI bootstrap stubs as kotoba-native owner (com.etzhayyim.gov* → com.etzhayyim.ooyake.* rename deferred to the gated Step-8 cutover). Honest R0: 28-unit :representative / :unverified-seed proof-of-model (full JP central gov 内閣府+11省+デジタル庁+復興庁 with HQ 住所 + 財務省→国税庁→東京国税局→麹町税務署→窓口 + 東京都→新宿区→窓口 + USA/GBR/DEU/KOR/EU rows); zero committed :authoritative rows (reconcile.py promotes 8/28 offline against bundled authority-reference.edn); no cell runs, no served per-unit DID; full-world authoritative ingest is R1+ Council+operator gated. publisher --emit-dir materializes ooyake.did.json + ooyake.profile.json; did-web worker tsc --noEmit clean."
 path = "90-docs/adr/2606021600-ooyake-world-government-atlas-tier-b-actor-r0.md"
 adr = ["2606021600", "2606011000", "2605262130", "2605312345", "2605212100", "2606013800", "2605215000", "2605312030", "2605301600", "2605302300", "2606011800", "2605242330", "2605250680"]
+
+# ─── tsutae handheld factory + device-BOM supply chain (sarutahiko-parity uplift) ──
+
+[[adrs]]
+id = "2606023600"
+title = "tsutae (伝え) — handheld cleanroom factory + device-BOM supply chain + 8-cell substrate (sarutahiko-parity uplift)"
+status = "proposed"
+status_note = "Raises tsutae from declaration-only R0 (8 named-but-absent RuntimeError cells, no BOM, no factory) to a sarutahiko-class substrate. (1) 8 Pregel cells implemented (state_machine.py + cell.py) with 7 constitutional-gate guards in-code (G9 open-SoC/proprietary-rejected N1, G6 mic hardware kill switch, G3 repair-modularity, G2 bootloader-unlock, G7 blob<=5%, G8 anti-addiction-UX, G4 >=2-robot quorum, G10 >=80% take-back); cells/test_state_machines.py 8/8 green; .solve() retains Council R0 gate (RuntimeError until ADR-2605261315). (2) Actor substrate: manifest.edn (G1-G18 + 10 cells), 10 cell .edn, device-order + production-ledger datalog cells, py/agent.py + test_agent.py 11/11 green, kotoba/schema.edn (38 attrs) + seed + deploy.sh, 10 lex/*.edn. (3) tsutae-factory-r0 scene: 48x30m Class-100k cleanroom (anti-mass-production G12 <=200/8hr); building.edn 63 parts incl. a 20-part GROUP-P DEVICE BOM = the smartphone supply chain that was missing (SoC/PMIC/DRAM/storage/8L-PCB/passives/LFP-battery/display/touch/camera/USB-C/removable-cellular/WiFi-BT/speaker/MEMS-mic+killswitch/Al-chassis/fasteners/antenna/haptic/IMU) each with :supplier-did (internal silicon/igata/hikari = vendor-independence chain) or honest external :representative + gate; factory.scene.json + 15-step construction.edn + robots.edn + 12-station production.edn, all cross-refs resolve. (4) 6 toolchain scripts reused/adapted (production_gen handheld ops 43 mfg-ops; procurement :internal branch + electronics suppliers); kotoba_gen emits 63-part CycloneDX SBOM + 189 kotoba entities + 15-step 4D order + IFC 763 STEP + 81 robot ops (drainage-sizing NG honestly flagged). (5) viz_gen.py -> self-contained tsutae-factory.htm (no build/WASM/network; build + produce animation). (6) kami-app-tsutae-factory Rust WASM crate DEFERRED — kami-engine submodule has no Rust source in this checkout (only pkg/ artifacts), cannot be repopulated non-destructively; spec captured in KAMI_APP_SPEC.md, JSON/entry-name data contract fixed. No invariant touched (Murakumo-only G16, kotoba-EAVT G17, USDC+TitheRouter G18, no-server-key G15, open-SoC G9/N1, SBT<->SBT N9). HONEST: design + data-model + state-machine + standalone-viz only; no real cleanroom/技適/robots/USDC-broadcast; R1 (ADR-2605261315) + R3 Council+LANDS.md gated."
+path = "90-docs/adr/2606023600-tsutae-handheld-cleanroom-factory-and-device-bom-supply-chain.md"
+adr = ["2606023600", "2605261300", "2606013100", "2606010030", "2606011500", "2605242500", "2605262130", "2605215000"]
+
+[[adrs]]
+id = "2606023800"
+title = "Session close — tsutae raised to sarutahiko-class substrate (cells + factory + device BOM + toolchain + viewer)"
+status = "active"
+status_note = "Documentation-only session closure for the /loop 'raise tsutae to sarutahiko parity' (3 iterations). Authoritative design = ADR-2606023600. Verification: cell state-machine 8/8 + agent 11/11 green; 24 tsutae EDN files parse (real EDN reader); kotoba_gen/production_gen/viz_gen all OK; scene cross-refs all resolve. Carried-forward blocker: kami-app-tsutae-factory WASM physics crate not built (kami-engine submodule source absent in checkout); standalone tsutae-factory.htm ships the visualization meanwhile, crate fully specced in KAMI_APP_SPEC.md."
+path = "90-docs/adr/2606023800-session-close-tsutae-sarutahiko-parity-uplift.md"
+adr = ["2606023800", "2606023600", "2605261300"]
 
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
