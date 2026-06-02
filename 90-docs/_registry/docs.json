@@ -19126,6 +19126,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606022400-session-close-himawari-r1-adr-and-coverage-maturation.md",
+      "id": "adr-2606022400",
+      "title": "ADR-2606022400: Session close — himawari R1 future-ADR + cell coverage maturation (88→146, ≥96%)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-himawari-r1-adr-and-coverage-maturation",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606022300-himawari-solar-pv-r1-benchtop-module-assembly-poc",
+        "adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "adr-2605261000-labor-liberation-transition-mechanism",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606022300 (himawari R1 future-ADR — the design authored this session)",
+        "ADR-2606021200 (himawari R0/R0.1 — the actor matured this session)"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606022800-openmail-per-member-dkim-no-server-key.md",
       "id": "adr-2606022800-openmail-per-member-dkim-no-server-key",
       "title": "ADR-2606022800: openmail outbound — per-member self-signed DKIM (no platform signing key)",

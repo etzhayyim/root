@@ -12331,6 +12331,21 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606022400",
+      "type": "TechArticle",
+      "title": "ADR-2606022400: Session close — himawari R1 future-ADR + cell coverage maturation (88→146, ≥96%)",
+      "status": "active",
+      "topic": "session-close-himawari-r1-adr-and-coverage-maturation",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606022300-himawari-solar-pv-r1-benchtop-module-assembly-poc",
+        "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-2606022800-openmail-per-member-dkim-no-server-key",
       "type": "TechArticle",
       "title": "ADR-2606022800: openmail outbound — per-member self-signed DKIM (no platform signing key)",
