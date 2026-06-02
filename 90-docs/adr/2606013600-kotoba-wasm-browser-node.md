@@ -1,11 +1,11 @@
 ---
 id: adr-2606013600-kotoba-wasm-browser-node
 title: "ADR-2606013600: kotoba browser node — WASM read/write node + browser-native Pregel/UDF guests"
-status: proposed
+status: active
 doc_type: adr
 topic: kotoba-wasm-browser-node
 authoritative: true
-last_verified: 2026-06-01
+last_verified: 2026-06-02
 priority: 6.0
 axis: architecture
 weight: 0.70
@@ -27,8 +27,8 @@ superseded_by: []
 
 # ADR-2606013600: kotoba browser node — WASM read/write node + browser-native Pregel/UDF guests
 
-**Status**: proposed
-**Date**: 2026-06-01
+**Status**: active — P0–P3 shipped + verified (real browser), browser-native /actors deployed
+**Date**: 2026-06-01 (impl 2026-06-01..02)
 **Deciders**: Jun Kawasaki
 
 # Context
@@ -183,17 +183,31 @@ no fork, no second guest ABI.
 
 # Phases (P0 is the feasibility gate)
 
-- **P0 (PoC, this ADR's scaffold)**: `kotoba-wasm` crate; port the read core to
-  `wasm32-unknown-unknown` behind the tokio feature-gate; `IdbBlockStore` as backend;
-  `datoms()` over wasm-bindgen; prove it returns the seeded `yoro-social-v1` profiles
-  (incl. `tsumugi`). **Output: the exact tokio-gate surface measured by a real build.**
-- **P1**: Service Worker transparent integration → yoro `/search` in-browser, unchanged
-  reader; seed via one-time remote CAR pull. **Permanent fix for the read durability
-  problem.**
-- **P2**: local `transact` + OPFS journal + delta sync.
-- **P3a**: `GuestRuntime` trait extraction + `BrowserComponentRuntime` (jco) → Pregel/UDF
-  in-browser.
-- **P3b**: libp2p-in-browser (WebTransport) P2P block sync → ameno donation mesh.
+- **P0 ✅ (shipped, kotoba PR #14)**: `kotoba-wasm` crate; read core on
+  `wasm32-unknown-unknown`. **Gate measured empirically**: the ONLY blocker is
+  tokio's `net` feature pulling `mio`; `kotoba-kqe` now feature-gates tokio per
+  target (native = full, wasm32 = `sync`). `searchActors` over the kqe arrangement
+  returns `tsumugi` (native test green; bundle 87 KiB gzip).
+- **P1 ✅ (shipped, kotoba PR #14/#15 + yoro deploy)**: `loadDatoms()` hydration
+  from the `datomic.datoms` JSON; **Service-Worker transparent `/xrpc` shim** so
+  `@etzhayyim/yoro-rw-free` is unchanged; **IndexedDB persistence** (reseed-free
+  reload, verified cold-restart in Chromium); snapshot **delta** refresh. The
+  browser node is the durable read path; the SW also **backfills** registered
+  actors so `/search` never silently degrades when the live server loses data.
+- **P2 ✅ (shipped, kotoba PR #15 + yoro deploy)**: local `transact()` +
+  `exportDatoms()` + **OPFS append-only tx journal** (verified in Chromium: write
+  lands, journals, survives cold restart).
+- **P3 ✅ (shipped, kotoba PR #16 + commits)**: the **real `kotoba-guest`**
+  (kotoba-node world) built to `wasm32-wasip2`, transpiled by **jco**, run on the
+  browser WebAssembly engine with `kotoba:kais/{kqe,kse,auth}` host imports wired
+  to `KotobaNode` (llm disabled — Murakumo-only); `kqe.assert-quad` lands in the
+  node. **JS BSP multi-superstep driver** (browser `WasmPregelRunner`) verified in
+  a **real browser** (Playwright/Chromium). `GuestRuntime` trait extraction (native
+  side) + libp2p-in-browser P2P sync (ameno mesh) remain follow-ons.
+- **Browser-native /actors ✅ (deployed)**: `etzhayyim.com/actors` renders every
+  referenced actor **client-side** via the in-page kotoba node (no server query for
+  the actor data); same-origin CSP, no tracker (CF beacon CSP-blocked). `?static=1`
+  no-JS fallback retained.
 
 # Honest risks
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-01",
+  "updated_at": "2026-06-02",
   "entries": [
     {
       "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
@@ -18648,7 +18648,7 @@
       "path": "90-docs/adr/2606013600-kotoba-wasm-browser-node.md",
       "id": "adr-2606013600-kotoba-wasm-browser-node",
       "title": "ADR-2606013600: kotoba browser node — WASM read/write node + browser-native Pregel/UDF guests",
-      "status": "proposed",
+      "status": "active",
       "doc_type": "adr",
       "topic": "kotoba-wasm-browser-node",
       "authoritative": true,
@@ -18668,7 +18668,7 @@
         "adr-2605241900-baien-edge-target-invariant",
         "adr-2606012100-donation-funded-operation-and-compute-node-donation"
       ],
-      "last_verified": "2026-06-01",
+      "last_verified": "2026-06-02",
       "amends": [],
       "amended_by": []
     },
@@ -18701,6 +18701,111 @@
         "2605262130"
       ],
       "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606014000-kotoba-passkey-cacao-signal-secrecy.md",
+      "id": "adr-2606014000-kotoba-passkey-cacao-signal-secrecy",
+      "title": "ADR-2606014000: kotoba Passkey-Rooted Secrecy — WebAuthn PRF → ARK → CACAO authz + Signal messaging",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-passkey-cacao-signal-secrecy",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-secrecy-architecture",
+        "passkey-key-derivation",
+        "vault-aead-binding",
+        "did-signal-binding"
+      ],
+      "related": [
+        "adr-2605240001-kotoba-cleanroom-architecture",
+        "adr-2605212030-etzhayyim-did-strategy"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606014500-ai-gftd-auth-zero-access-proton-alignment.md",
+      "id": "adr-2606014500-ai-gftd-auth-zero-access-proton-alignment",
+      "title": "ADR-2606014500: ai-gftd-project-auth → zero-access (Proton-aligned) custody",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "auth-zero-access-proton-alignment",
+      "authoritative": true,
+      "authoritative_for": [
+        "auth-worker-key-custody-posture"
+      ],
+      "related": [
+        "adr-0074-ethereum-identity-bridge-cacao-webauthn",
+        "adr-0010-kek-envelope-encryption"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606014000-kotoba-passkey-cacao-signal-secrecy",
+        "adr-2605231525-no-server-key-religious-corp-architecture"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606015000-kotoba-git-datomic-cid-roundtrip.md",
+      "id": "adr-2606015000-kotoba-git-datomic-cid-roundtrip",
+      "title": "ADR-2606015000: kotoba-git — git object model as CID blocks + Datom projection (round-trip)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-git",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-git crate (git ↔ kotoba bridge)",
+        "SHA-1(git) ↔ KotobaCid(sha2-256) mapping for git objects"
+      ],
+      "related": [
+        "adr-2605240001-kotoba-cleanroom-architecture"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-01",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606020100-session-close-kotoba-browser-node.md",
+      "id": "adr-2606020100-session-close-kotoba-browser-node",
+      "title": "ADR-2606020100: Session close — kotoba browser node (WASM read/write + jco Pregel) + browser-native actors + durable search",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-kotoba-browser-node",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606013200-yoro-kotoba-feed-readpath-migration",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2606012100-donation-funded-operation-and-compute-node-donation"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606013600-kotoba-wasm-browser-node"
+      ],
+      "last_verified": "2026-06-02",
       "amends": [],
       "amended_by": []
     },
