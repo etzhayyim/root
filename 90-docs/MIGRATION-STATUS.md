@@ -15,7 +15,7 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 7 | has `MIGRATION-TODO.md` (seed copied, codemod pending) — all build-targets resolved (rw-free or V); remainder = legacy codemod-cleanup chores |
-| **V — VENDOR-RESIDENT** | 84 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 85 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (84)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (85)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -417,6 +417,17 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (same family as `dougaka`, NOT a published-work catalog like animeka). Stays
   gftd. (Carry-forward test: can each record cite an authority that isn't our own
   pod/RW? No → (b).)
+- **mangaka** — axes: **RisingWave + GPU generation-compute**. Manga generation
+  studio pipeline (`mangaka.gftd.ai`): ComfyUI + USD cinematic page-atom pipeline
+  (11+ generation graphs, quality pack, MangakaUSDScene custom nodes) producing
+  manga pages via diffusion/LLM compute, artifacts to B2 + RW. Records have NO
+  authoritative external source — a page exists only because a generation job ran
+  (carry-forward test fails: `sourceUrl` would point at our own pod/RW). Compute-
+  output bookkeeping, NOT a published-work catalog — the consumer-facing catalog
+  front is the sibling `animeka` (in A); mangaka is the generation/studio side.
+  Same generation-pipeline family as `voxelforge` / `dougaka` / `yukkuri`. Stays
+  gftd. (Corrects a stale prose assertion that wrongly grouped mangaka with
+  animeka as "already in A" — caught by a git-authoritative C/D truth-pass.)
 - **watashi** — axis: **Custody (private device-session + transport relay)**.
   Cross-platform input sharing (渡し): macOS↔Windows cursor/keyboard/clipboard
   sharing (Synergy/Universal-Control style) via a Rust OS-input agent + encrypted
@@ -854,7 +865,8 @@ fronts were github / live / media-gamers / news / newsletter; the (b) vendor-
 resident were communicator / external-service-adapter / facebook /
 game-play-uploader / gmail / meet / meeting-recorder / messenger / microsoft /
 microsoft-graph / ongakuka / outreach / phone / recap / ses / society6 / x
-(plus animeka/mangaka already in A; briefing already in V; email-service-adapter/fax
+(plus animeka already in A [catalog front]; mangaka → V [generation/studio side,
+compute]; briefing already in V; email-service-adapter/fax
 legacy codemod-only).
 
 **Substrate-boundary violation flagged** — ALL RESOLVED: cloudflare-browser-render (V), insatsu (V), open-jpn-mynumber (A), playwright (V), repository (A — Repository-in-Graph git object model = first-party source code → front; FaaS build dispatch + execution stay gftd), site (V — Internet Clone Gateway: sole web-fetch gateway + 100B-scale RW/IPFS archive + embedding compute; Infra+Custody+Liability, no separable frontable layer).
