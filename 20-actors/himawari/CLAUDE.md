@@ -7,7 +7,7 @@
 - **ADR**: ADR-2606021200 (R0 scaffold, 2026-06-02)
 - **Parent ADR**: ADR-2605261000 (Liberation Ladder — feeds L2 Sustenance via hikari)
 - **Tightest sibling**: hikari (ADR-2605261100 — generation/install)
-- **Status**: R0 scaffold — all cells import-time RuntimeError
+- **Status**: R0.1 — all 7 cell solvers + 7 lexicons **implemented** (88 pure-logic tests green; import smoke clean). NOT operationally activated (no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization; deterministic-digest CIDs). Gated upstream by the R1 activation triggers below.
 
 ## What himawari is (and is not)
 
@@ -36,7 +36,7 @@ polysilicon_refine → ingot_wafer → cell_process → module_assembly
                                                  outbound_logistics (輸送) ──→ hikari install
 ```
 
-Each cell = 1 Pregel graph. R0: every cell raises RuntimeError on `.solve()`.
+Each cell = 1 Pregel graph. R0.1: every cell's `.solve()` is implemented (no RuntimeError stubs); cell→lexicon and cell→composed-actor wiring is real (see below). kotoba write-back via `datalog.transact` degrades to compute-only/no-op without a host binding (local dev) — never a fake write.
 
 ## Structural anchors (CRITICAL gates)
 
@@ -72,21 +72,34 @@ Each cell = 1 Pregel graph. R0: every cell raises RuntimeError on `.solve()`.
 
 **App lexicon root**: `app.etzhayyim.himawari`
 
-7 records (R0 stubs; full schemas R1+):
+7 records (full atproto-style `record` defs, `key: "tid"`; validated by validate-lexicons.py; materialize to kotoba Datom/EAVT):
 
-1. `polysiliconProvenanceAttestation` — feedstock lot provenance (XUAR-exclusion + §2(g) audit, on-chain)
-2. `waferBatchRecord` — ingot/wafer batch + kerf recovery + yield
-3. `cellBatchRecord` — cell process params (open) + flash IV + bin
-4. `moduleAttestation` — finished-module BOM + flash + EL image CID + EPBT block
-5. `loadingRecord` — 積込 robot cycle + pallet + carrier (F10 lineage)
-6. `outboundManifest` — transport handoff (carrier DID, route, kami-autodrive class)
-7. `silenHimawariReview` — Council attestation scope (provenance + chemistry + circularity + liberation-metric)
+1. `polysiliconProvenanceAttestation` — feedstock lot provenance (XUAR-exclusion + §2(g) audit, on-chain) — emitted by `polysilicon_refine` + `supply_procurement`
+2. `waferBatchRecord` — ingot/wafer batch + kerf recovery + yield — emitted by `ingot_wafer`
+3. `cellBatchRecord` — cell process params (open) + flash IV + bin — emitted by `cell_process`
+4. `moduleAttestation` — finished-module BOM + flash + EL image CID + EPBT block — emitted by `module_assembly`
+5. `loadingRecord` — 積込 robot cycle + pallet + carrier (F10 lineage) — emitted by `panel_loading`
+6. `outboundManifest` — transport handoff (carrier DID, route, kami-autodrive class) — emitted by `outbound_logistics`
+7. `silenHimawariReview` — Council attestation scope (provenance + chemistry + circularity + liberation-metric across all R-stage + gate axes)
 
-## Pregel Cells (R0 stub bodies)
+## Pregel Cells (R0.1 — solvers implemented)
 
-All R0 cells raise `RuntimeError("himawari R0 scaffold: ... not activated. ...")` on `.solve()`.
+All 7 cells have real `.solve()` logic (R0 RuntimeError stubs removed) + a pure-logic standalone test file (88 tests total, all green). Cell→lexicon + cell→composed-actor wiring:
+
+| Cell | Emits | Routes to | Composes (not re-implemented) | Tests |
+|---|---|---|---|---|
+| `polysilicon_refine` | polysiliconProvenanceAttestation | ingot_wafer | — | 12 |
+| `ingot_wafer` | waferBatchRecord | cell_process (+ kerf → polysilicon_refine) | — | 13 |
+| `cell_process` | cellBatchRecord | module_assembly | kuni-umi Otete + Mimi | 14 |
+| `module_assembly` | moduleAttestation | panel_loading | kuni-umi Otete + Mimi | 14 |
+| `panel_loading` | loadingRecord | outbound_logistics | sarutahiko F10 LoaderRobot (LoadPhase mirror) | 10 |
+| `outbound_logistics` | outboundManifest | hikari site (G13) | kami-autodrive GNC + open-customs-clearance BPMN + funadaiku ship class (R3+) | 9 |
+| `supply_procurement` | polysiliconProvenanceAttestation (per-lot) + CycloneDX SBOM | poly/cell feedstock | okaimono (ring + SBT settlement + TitheRouter) + giemon CycloneDX→kotoba bridge | 16 |
+
+**Honest R0.1 caveats** (not overclaiming): solvers are logic-complete and tested, but NOT yet wired into the himawari Pregel/Murakumo runtime topology; no sim physics integration; CIDs are deterministic tamper-evident digests (real IPFS CIDv1 / Base-L2 anchoring is operator-gated substrate work); kotoba entity materialization is compute-only / no-op without a host `datalog` binding. Module signature is a deterministic content-binding HMAC standing in for the off-cell Ed25519 device key (substrate-boundary). The okaimono/giemon LangGraph stack is broken in this env, so cell_process/outbound use an in-process sequential super-step driver fallback shaped like the StateGraph DAG (swaps to canonical StateGraph automatically when LangGraph is fixed).
 
 ### R1 activation triggers
+**R1 design landed → ADR-2606022300** (benchtop module-assembly PoC + Parcel Requirement Spec; activation gated A1∧A2∧A3, all pending as of 2026-06-02).
 1. ADR-2606021200 Council Lv6+ ratify
 2. ≥1 PV-process engineer on Council technical advisory
 3. ≥1 LANDS.md brownfield/existing-industrial parcel registered
@@ -95,16 +108,25 @@ All R0 cells raise `RuntimeError("himawari R0 scaffold: ... not activated. ...")
 
 ## Build & Deploy
 
-**R0 status**: Scaffold only. All cells RuntimeError on `.solve()`.
+**R0.1 status**: All 7 cell solvers implemented (logic-only, no runtime/sim/live-kotoba). No RuntimeError stubs remain.
 
-**Smoke test**:
+**Import smoke**:
 ```bash
 cd 20-actors/himawari
 for c in polysilicon_refine ingot_wafer cell_process module_assembly panel_loading outbound_logistics supply_procurement; do
   python -c "from himawari.cells.$c.cell import *" && echo "import ok: $c"
 done
 ```
-(Cells import cleanly; `.solve()` raises the R0 RuntimeError.)
+
+**Pure-logic tests** (no pytest/langgraph dependency; standalone runnable; 88 total green):
+```bash
+cd 20-actors/himawari/cells
+for t in polysilicon_refine/test_cell.py ingot_wafer/test_cell.py cell_process/test_cell_process.py \
+         module_assembly/test_cell.py panel_loading/test_cell.py \
+         outbound_logistics/test_outbound_logistics.py supply_procurement/test_cell.py; do
+  python3 "$t"
+done
+```
 
 ## Related Files
 

@@ -12211,6 +12211,103 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606021400",
+      "type": "TechArticle",
+      "title": "ADR-2606021400: 通関係 (つうかんがかり / tsuukan) — Customs/Tariff/通関 Clearance Orchestration Tier-B Actor R0 (Capability-Gap Resolution)",
+      "status": "proposed",
+      "topic": "tsuukan-customs-clearance-orchestration",
+      "authoritative": true,
+      "authoritativeFor": [
+        "customs/tariff/通関 clearance orchestration capability-gap resolution (R0 decision)",
+        "tsuukan actor charter sketch (proposed; NOT yet scaffolded — Council-gated)",
+        "app.etzhayyim.customsClearing lexicon namespace reservation"
+      ],
+      "related": [
+        "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "doc:adr-2606013400-funadaiku-zero-emission-cargo-ship-building",
+        "doc:adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+        "doc:adr-2606012100-okaimono-provisioning-commons-actor",
+        "doc:adr-2605262700-chigiri-legal-procedure-substrate",
+        "doc:adr-2605312030-toritsugi-citizen-government-procedure-concierge",
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606021600-ooyake-world-government-atlas",
+      "type": "TechArticle",
+      "title": "ADR-2606021600: ooyake 公 — kotoba-Datomic world government atlas (country→省庁→局→課→窓口) with 住所/窓口/書式/手続き/BPMN, observational-mirror Tier-B actor R0",
+      "status": "proposed",
+      "topic": "ooyake-world-government-atlas",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ooyake actor (world government-unit atlas / civic wayfinding map)",
+        "gov-atlas kotoba ontology (:gov.unit/* :gov.address/* :gov.window/* :gov.form/* :gov.procedure/* :gov.bpmn/*)",
+        "per-unit civic-atlas DID scheme (did:web:etzhayyim.com:gov:<iso3>:...) — observational mirror",
+        "government 住所 / 窓口 / 書式 / 手続き / BPMN structural catalog"
+      ],
+      "related": [
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302300-kanae-fiscal-flow-visualization",
+        "doc:adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "doc:adr-2605242330-gov-procedure-pregel-mcp-coverage",
+        "doc:adr-2605250680-etzhayyim-gov-coverage-maturity-score"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606022000",
+      "type": "TechArticle",
+      "title": "ADR-2606022000: kabuto (兜) — World Public-Company Supply-Chain Knowledge Graph + atproto social + browser-native kotoba-wasm render Tier-B Actor R0",
+      "status": "proposed",
+      "topic": "kabuto-public-company-intel-supply-chain",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kabuto actor charter (R0)",
+        "public-company supply-chain knowledge-graph constitutional gates G1..G12",
+        "public-company-ontology.kotoba.edn vocabulary",
+        "atproto-compatible social publish path via kotoba-server atproto.repo.write"
+      ],
+      "related": [
+        "doc:adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "doc:adr-2606012600-watatsuna-submarine-cable-knowledge-graph",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2606013600-kotoba-wasm-browser-node",
+        "doc:adr-2606013800-actor-profile-ssot-dynamic-did-json",
+        "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606022300",
+      "type": "TechArticle",
+      "title": "ADR-2606022300: himawari (向日葵) R1 — Benchtop Module-Assembly Line PoC + Brownfield Parcel Requirement Spec",
+      "status": "proposed",
+      "topic": "himawari-solar-pv-r1-benchtop-module-assembly-poc",
+      "authoritative": true,
+      "authoritativeFor": [
+        "himawari R1 activation conditions + benchtop module-assembly line PoC scope",
+        "himawari brownfield fab-siting parcel requirement spec (LANDS.md-bound, G9)",
+        "himawari R1 PV-process-engineer steward role definition"
+      ],
+      "related": [
+        "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "doc:adr-2605261100-hikari-energy-tier-b-actor-r0",
+        "doc:adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+        "doc:adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+        "doc:adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte",
+        "doc:adr-2606012100-okaimono-provisioning-commons-actor",
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192245-etzhayyim-global-land-sovereignty",
+        "doc:adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
