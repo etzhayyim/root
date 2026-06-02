@@ -15,7 +15,7 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 8 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 75 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 76 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (75)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (76)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -117,6 +117,15 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   custody; BSP/ticketing = IATA fiat settlement (merchant-of-record); ticketing +
   reprotection = fulfillment / 善管注意義務 liability. No public catalog to front
   (flight *search* is the separate `flight-offer`, already migrated) ⇒ stays gftd.
+- **air-cargo** — axes: **Settlement + Liability + Custody**. Airline cargo
+  operations: cargo bookings, air waybill issuance (`issueAirWaybill`), cargo
+  acceptance (`acceptCargo`), ULD assignment, shipment tracking, claims
+  (`processClaim`), cargo account settlement (`settleCargoAccount`), cargo
+  security reporting (`reportCargoSecurity`). AWB = contract of carriage (freight
+  charges + Montreal-Convention carriage liability); settleCargoAccount = fiat
+  settlement; claims + acceptance = 善管注意義務 fulfillment liability; shipper/
+  consignee + security reporting = custody/regulatory ⇒ stays gftd. No public
+  open-data catalog to front.
 - **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
   is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
   passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
