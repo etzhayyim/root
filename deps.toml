@@ -9467,6 +9467,14 @@ path = "90-docs/adr/2606022000-kabuto-public-company-intel-supply-chain-tier-b-a
 adr = ["2606022000", "2606011800", "2606012600", "2605301600", "2605262130", "2605312345", "2606013600", "2606013800", "2605215000"]
 
 [[adrs]]
+id = "2606022800"
+title = "openmail outbound — per-member self-signed DKIM (no platform signing key)"
+status = "proposed"
+status_note = "Session close 2026-06-02: registers the no-server-key refinement for ADR-2605172200 §3.2. Decision: outbound SMTP uses per-member Ed25519 DKIM keys held in the member ARK/client, with DNS TXT publication at <selector>._domainkey.etzhayyim.com; the gateway holds no DKIM private key and relays byte-exact signed RFC 5322 messages. Implementation already landed in 2ad240504: openmail-smtp-gateway dkim.rs sign/verify + relaxed canonicalization + RFC 8463 Appendix A KAT + DNS helpers; outbound.rs render/sign assembly; README custody notes and inbound verify reuse. Remaining follow-ups: browser/client ARK signing surface, rsa-sha256 compatibility co-signature, SMTP-out transport/postage orchestration, and live DNS enrollment automation."
+path = "90-docs/adr/2606022800-openmail-per-member-dkim-no-server-key.md"
+adr = ["2605172200", "2606014000", "2605231525"]
+
+[[adrs]]
 id = "2606021523"
 title = "Session close — himawari R0.1 code re-land onto main + worktree/branch cleanup"
 status = "active"

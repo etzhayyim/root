@@ -2,6 +2,7 @@
 id: adr-2606022800-openmail-per-member-dkim-no-server-key
 title: "ADR-2606022800: openmail outbound — per-member self-signed DKIM (no platform signing key)"
 status: proposed
+status_note: "Session close 2026-06-02: ADR registered after implementation landed in commit 2ad240504. openmail-smtp-gateway now carries Ed25519 DKIM sign/verify + RFC 8463 Appendix A KAT, per-member DNS helpers, outbound signing assembly, and README custody notes. Remaining follow-ups stay unchanged: client-side ARK signing surface, rsa-sha256 compatibility co-signature, SMTP-out transport/postage orchestration, and live DNS enrollment automation."
 doc_type: adr
 topic: openmail-outbound-dkim
 authoritative: true
@@ -128,6 +129,23 @@ The DKIM key and the Signal/DID keys are distinct purpose-keys off the same ARK.
 - `rsa-sha256` co-signature (compat follow-up).
 - Firehose/inbox poller driving outbound, SMTP-out transport, Postage verification.
 - ARC sealing for forwarded mail; BIMI.
+
+# Session Close (2026-06-02)
+
+Implementation landed before this registration pass in commit `2ad240504`.
+The shipped surface covers the R0 cryptographic core and gateway assembly:
+
+- `50-infra/openmail-smtp-gateway/src/dkim.rs` implements Ed25519 DKIM
+  sign/verify, relaxed canonicalization, DNS TXT/name helpers, and the RFC 8463
+  Appendix A known-answer test.
+- `50-infra/openmail-smtp-gateway/src/outbound.rs` wires render + sign assembly
+  while preserving the no-platform-key custody model.
+- `50-infra/openmail-smtp-gateway/README.md` documents the per-member key posture
+  and inbound DKIM verification reuse.
+
+The ADR remains `proposed` because Council/process ratification and operational
+enrollment automation are still pending. The code state is no longer just a
+design sketch: R0 sign/verify correctness is implemented and test-pinned.
 
 # Alternatives Considered
 

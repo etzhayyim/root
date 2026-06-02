@@ -29,12 +29,22 @@
 //! The socket listener + HTTP client live behind the `daemon` feature (see
 //! `src/main.rs` / `src/daemon.rs`), so the core verifies fast and offline.
 
+pub mod attestation;
 pub mod dkim;
+pub mod dmarc;
 pub mod ingest;
+pub mod orchestrate;
 pub mod outbound;
+pub mod outbound_route;
+pub mod postage;
+pub mod provision;
 pub mod render;
 pub mod routing;
 pub mod smtp_in;
+pub mod smtp_out;
+pub mod spf;
+pub mod status;
+pub mod threading;
 
 #[cfg(feature = "daemon")]
 pub mod daemon;

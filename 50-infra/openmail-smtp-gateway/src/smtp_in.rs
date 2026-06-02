@@ -16,20 +16,32 @@ pub const MAX_DATA_BYTES: usize = 26 * 1024 * 1024;
 /// RFC 5321 §4.5.3.1: a command line (incl. verb) must accept ≥ 512 octets.
 pub const MAX_COMMAND_LEN: usize = 998;
 
-/// A single SMTP reply (`code SP text`).
+/// An SMTP reply. Single-line unless `extra_lines` is non-empty, in which case it
+/// renders as an ESMTP multiline reply (`250-ext` … `250 final`).
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SmtpReply {
     pub code: u16,
     pub text: String,
+    /// Capability/continuation lines emitted before the final line (EHLO response).
+    pub extra_lines: Vec<String>,
 }
 
 impl SmtpReply {
-    fn new(code: u16, text: impl Into<String>) -> Self {
-        Self { code, text: text.into() }
+    pub fn new(code: u16, text: impl Into<String>) -> Self {
+        Self { code, text: text.into(), extra_lines: Vec::new() }
     }
-    /// Wire form, CRLF-terminated.
+    /// A multiline reply: each `extra_lines` entry precedes the final `text` line.
+    pub fn multiline(code: u16, extra_lines: Vec<String>, final_line: impl Into<String>) -> Self {
+        Self { code, text: final_line.into(), extra_lines }
+    }
+    /// Wire form, CRLF-terminated. Multiline uses `code-line` for all but the last.
     pub fn wire(&self) -> String {
-        format!("{} {}\r\n", self.code, self.text)
+        let mut out = String::new();
+        for line in &self.extra_lines {
+            out.push_str(&format!("{}-{}\r\n", self.code, line));
+        }
+        out.push_str(&format!("{} {}\r\n", self.code, self.text));
+        out
     }
 }
 
@@ -52,6 +64,10 @@ pub enum Event {
     /// A message was fully received. Send `reply` (250 on accept) and the envelope
     /// is in `message`. The session resets to post-EHLO state for the next message.
     Complete { message: InboundMessage, reply: SmtpReply },
+    /// Client issued STARTTLS: send `reply` (220), perform the TLS handshake, then
+    /// call [`SmtpSession::reset_after_starttls`] before reading the next command
+    /// (RFC 3207 — prior EHLO state is discarded).
+    StartTls(SmtpReply),
     /// Send this reply and close the connection.
     Quit(SmtpReply),
 }
@@ -77,6 +93,8 @@ pub struct SmtpSession {
     rcpts: Vec<String>,
     data: Vec<u8>,
     data_overflow: bool,
+    /// True once the connection has been upgraded to TLS (STARTTLS completed).
+    tls_active: bool,
 }
 
 impl SmtpSession {
@@ -88,7 +106,19 @@ impl SmtpSession {
             rcpts: Vec::new(),
             data: Vec::new(),
             data_overflow: false,
+            tls_active: false,
         }
+    }
+
+    /// Reset after a completed TLS handshake (RFC 3207 §4.2): discard all session
+    /// state and require a fresh EHLO over the encrypted channel.
+    pub fn reset_after_starttls(&mut self) {
+        self.phase = Phase::Start;
+        self.mail_from = None;
+        self.rcpts.clear();
+        self.data.clear();
+        self.data_overflow = false;
+        self.tls_active = true;
     }
 
     /// The 220 banner to send immediately on connect.
@@ -122,13 +152,34 @@ impl SmtpSession {
     fn feed_command(&mut self, line: &str) -> Event {
         let (verb, rest) = split_verb(line);
         match verb.as_str() {
-            "EHLO" | "HELO" => {
+            "EHLO" => {
+                self.reset_transaction();
+                self.phase = Phase::Greeted;
+                // Advertise STARTTLS only when not already encrypted.
+                let mut exts = vec![format!("{} greets {}", self.hostname, rest.trim())];
+                if !self.tls_active {
+                    exts.push("STARTTLS".to_string());
+                }
+                exts.push("8BITMIME".to_string());
+                Event::Reply(SmtpReply::multiline(250, exts, format!("SIZE {MAX_DATA_BYTES}")))
+            }
+            "HELO" => {
                 self.reset_transaction();
                 self.phase = Phase::Greeted;
                 Event::Reply(SmtpReply::new(
                     250,
                     format!("{} greets {}", self.hostname, rest.trim()),
                 ))
+            }
+            "STARTTLS" => {
+                if self.tls_active {
+                    Event::Reply(SmtpReply::new(503, "already in TLS"))
+                } else if self.phase == Phase::Start {
+                    Event::Reply(SmtpReply::new(503, "send EHLO first"))
+                } else {
+                    // Caller performs the handshake, then reset_after_starttls().
+                    Event::StartTls(SmtpReply::new(220, "ready to start TLS"))
+                }
             }
             "MAIL" => self.cmd_mail(rest),
             "RCPT" => self.cmd_rcpt(rest),
@@ -276,7 +327,13 @@ mod tests {
     #[test]
     fn full_happy_path_yields_envelope_and_body() {
         let mut s = SmtpSession::new("mx.etzhayyim.com");
-        assert_eq!(drive(&mut s, "EHLO gmail.com"), Event::Reply(SmtpReply::new(250, "mx.etzhayyim.com greets gmail.com")));
+        match drive(&mut s, "EHLO gmail.com") {
+            Event::Reply(r) => {
+                assert_eq!(r.code, 250);
+                assert!(r.wire().contains("250-STARTTLS"), "EHLO must advertise STARTTLS: {}", r.wire());
+            }
+            other => panic!("expected multiline 250, got {other:?}"),
+        }
         assert_eq!(drive(&mut s, "MAIL FROM:<alice@gmail.com>").as_code(), 250);
         assert_eq!(drive(&mut s, "RCPT TO:<bob@etzhayyim.com>").as_code(), 250);
         assert_eq!(drive(&mut s, "DATA").as_code(), 354);
@@ -406,16 +463,64 @@ mod tests {
     fn unknown_command_is_502() {
         let mut s = SmtpSession::new("h");
         drive(&mut s, "EHLO x");
-        assert_eq!(drive(&mut s, "STARTTLS").as_code(), 502);
+        assert_eq!(drive(&mut s, "FROBNICATE now").as_code(), 502);
     }
 
     // Helper to read a reply code regardless of Event variant.
     impl Event {
         fn as_code(&self) -> u16 {
             match self {
-                Event::Reply(r) | Event::Quit(r) => r.code,
+                Event::Reply(r) | Event::Quit(r) | Event::StartTls(r) => r.code,
                 Event::Complete { reply, .. } => reply.code,
             }
+        }
+    }
+
+    // ── STARTTLS ──────────────────────────────────────────────────────────────
+
+    #[test]
+    fn ehlo_advertises_starttls_then_starttls_yields_220() {
+        let mut s = SmtpSession::new("mx");
+        let _ = drive(&mut s, "EHLO client.example");
+        match drive(&mut s, "STARTTLS") {
+            Event::StartTls(r) => assert_eq!(r.code, 220),
+            other => panic!("expected StartTls, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn starttls_before_ehlo_is_bad_sequence() {
+        let mut s = SmtpSession::new("mx");
+        assert_eq!(drive(&mut s, "STARTTLS").as_code(), 503);
+    }
+
+    #[test]
+    fn after_starttls_reset_ehlo_does_not_readvertise_starttls() {
+        let mut s = SmtpSession::new("mx");
+        let _ = drive(&mut s, "EHLO c");
+        let _ = drive(&mut s, "STARTTLS");
+        s.reset_after_starttls();
+        // Fresh EHLO required; STARTTLS must no longer be offered.
+        match drive(&mut s, "EHLO c") {
+            Event::Reply(r) => {
+                assert_eq!(r.code, 250);
+                assert!(!r.wire().contains("STARTTLS"), "must not re-advertise STARTTLS over TLS");
+            }
+            other => panic!("got {other:?}"),
+        }
+        // And a second STARTTLS is refused.
+        assert_eq!(drive(&mut s, "STARTTLS").as_code(), 503);
+    }
+
+    #[test]
+    fn helo_is_single_line_no_extensions() {
+        let mut s = SmtpSession::new("mx");
+        match drive(&mut s, "HELO c") {
+            Event::Reply(r) => {
+                assert!(r.extra_lines.is_empty());
+                assert_eq!(r.code, 250);
+            }
+            other => panic!("got {other:?}"),
         }
     }
 }

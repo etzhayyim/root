@@ -36,17 +36,46 @@ mail is public-content / non-E2E). True E2E is reserved for the native path.
 
 | File | Role | Tested |
 |---|---|---|
-| `src/smtp_in.rs` | RFC 5321 inbound command state machine (socket-free) | ✅ 16 tests |
+| `src/smtp_in.rs` | RFC 5321 inbound command state machine + STARTTLS (socket-free) | ✅ 20 tests |
+| `src/spf.rs`     | SPF (RFC 7208) parse + evaluate (ip4/ip6/all + injected DNS resolver) | ✅ 12 tests |
+| `src/dmarc.rs`   | DMARC (RFC 7489) record parse + DKIM/SPF alignment + disposition | ✅ 9 tests |
+| `src/attestation.rs`| `app.openmail.smtpAttestation` builder + DMARC-reject SMTP gate | ✅ 5 tests |
 | `src/routing.rs` | recipient address → DID (ADR §3.4) + inline base32 | ✅ 11 tests |
 | `src/render.rs`  | structured message → RFC 5322 bytes (+ dot-stuffing, header-injection guard, RFC 2047) | ✅ 8 tests |
-| `src/dkim.rs`    | DKIM `ed25519-sha256` sign + verify (RFC 6376/8463), DNS TXT builder | ✅ 11 tests (incl. RFC 8463 KAT) |
-| `src/outbound.rs`| render → DKIM-sign assembly (option b end-to-end) | ✅ 3 tests |
+| `src/dkim.rs`    | DKIM `ed25519-sha256` + `rsa-sha256` sign + verify (RFC 6376/8463), DNS TXT builder | ✅ 15 tests (incl. both RFC 8463 KATs) |
+| `src/outbound.rs`| render → DKIM-sign assembly, single + dual (ed25519+rsa) | ✅ 4 tests |
+| `src/orchestrate.rs`| **outbound pipeline planner** — partition → postage gate → dual-sign → per-MX grouping | ✅ 6 tests (full-compose) |
+| `src/smtp_out.rs`| SMTP **client** send state machine + STARTTLS + MX selection + retry schedule | ✅ 10 tests |
+| `src/outbound_route.rs`| recipient classification (local/external) + per-domain MX grouping | ✅ 7 tests |
+| `src/provision.rs`| per-member DKIM provisioning + Cloudflare TXT request + ARK-enrollment batch | ✅ 9 tests |
+| `src/postage.rs` | `Postage.sol` keccak256 binding + receipt verify + `Paid`-log decode + `eth_getLogs` filter | ✅ 15 tests |
+| `src/threading.rs`| bridge `Message-ID ⇄ at-uri` map + reply/thread resolution | ✅ 7 tests |
+| `src/status.rs`  | per-recipient delivery → SMTP reply-code mapping | ✅ 6 tests |
 | `src/ingest.rs`  | build the `email.ingest` request body/URL | ✅ 3 tests |
-| `src/daemon.rs`  | TCP listener + reqwest relay (feature `daemon`) | R0, untested edge |
+| `src/daemon.rs`  | inbound listener + `relay_to_mx`/`execute_plan` + `publish_dkim_records` + `fetch_postage_receipt` (feature `daemon`) | R0 edge |
 | `src/main.rs`    | binary entrypoint | — |
 
-The pure core builds and tests **without** tokio/reqwest (48 tests). The listener
+The pure core builds and tests **without** tokio/reqwest (141 tests). The listener
 is behind the `daemon` feature so `cargo test` is fast and offline.
+
+## Outbound pipeline (assembled)
+
+`orchestrate::plan_outbound` composes the whole outbound path as one pure function:
+
+```
+native message + member DKIM keys + postage receipt
+   │
+   ├─ outbound_route::partition      → local DIDs / external addrs / invalid
+   ├─ postage::message_hash + verify → gate external on a valid, bound receipt
+   ├─ outbound::render_and_dual_sign → ed25519 + rsa DKIM over the RFC 5322
+   └─ outbound_route::group_by_domain→ one OutboundMessage per destination MX
+        │
+        ▼  OutboundPlan { Planned | Held(verdict) | NoExternal }
+   daemon::execute_plan(plan, resolve_mx) → relay_to_mx per domain (MX try-order)
+```
+
+A `Held` plan (missing/underpaid/mis-bound postage) relays nothing. The integration
+test signs a real plan and verifies the transmitted bytes pass DKIM.
 
 ## Outbound DKIM — option (b): per-member self-signed, no platform key
 
@@ -65,8 +94,12 @@ no-server-key invariant.
   is the member's. A leaked member key forges only that member; revocation = delete
   one TXT record.
 - **Correctness**: `dkim.rs` is pinned to the RFC 8463 Appendix A known-answer
-  vector — the test suite *verifies the RFC's own authoritative signature*, so the
-  canonicalization is byte-exact and interop-correct with real verifiers (Gmail etc.).
+  vectors (both `ed25519-sha256` and `rsa-sha256`) — the test suite *verifies the
+  RFC's own authoritative signatures*, so the canonicalization is byte-exact and
+  interop-correct with real verifiers (Gmail etc.).
+- **Deliverability**: `outbound::render_and_dual_sign` emits both an `ed25519-sha256`
+  and an `rsa-sha256` signature (RFC 8463 dual-signing). Both keys are member-held;
+  RSA is what receivers that don't yet accept ed25519 (Gmail today) validate against.
 
 `verify` is also used for **inbound** DKIM checking. See ADR-2606022800.
 
@@ -96,23 +129,42 @@ Foreign domains are relay-denied; unknown localparts are 550 *no such user*.
 
 ## R0 caveats / next steps
 
-Honest scope — what is **not** yet implemented:
+Done (pure cores, tested) — what was the "remaining glue":
 
-1. **Inbound TLS** — no STARTTLS. Terminate TLS in front (Cloudflare Email Routing
-   / stunnel) for now.
-2. **Inbound SPF / DMARC** — `dkim::verify` exists (inbound DKIM is checkable), but
-   SPF + DMARC alignment and the `app.openmail.smtpAttestation` write are not wired.
-3. **Outbound wiring** — the signing core (`outbound::render_and_sign`, option b) is
-   **done and tested**; the firehose/inbox poller that drives it, the actual SMTP-out
-   relay, per-member key provisioning + DNS publication automation, and `Postage.sol`
-   verification are the remaining glue.
-4. **`rsa-sha256` co-signature** — Gmail et al. still prefer RSA; RFC 8463 recommends
-   dual ed25519+rsa signing. The RSA signer drops in behind the same canonicalization
-   (RSA key also client-held). ed25519-only is the R0 deliverable.
-5. **Per-recipient SMTP status mapping** — `deliver()` logs failures; it should map
-   them back to SMTP 4xx/5xx before the final `.`-reply.
-6. **Threading map** (`bridge_message_id_map`, ADR §3.3) — not implemented; inbound
-   bridged mail starts new threads.
+- **Outbound driver** — SMTP-out client conversation, MX-order selection, retry
+  schedule (`smtp_out`), recipient classification + per-MX grouping (`outbound_route`),
+  and the on-the-wire relay (`daemon::relay_to_mx`).
+- **Key provisioning + DNS publication** — per-member ed25519+rsa selectors and the
+  Cloudflare TXT request builder (`provision`) — public material only.
+- **Postage** — keccak256 message-hash binding, receipt verification, and the
+  `Paid` event `eth_getLogs` filter (`postage`).
+- **Per-recipient SMTP status mapping** — delivery outcomes → one final reply
+  (`status`), wired into the inbound `daemon` path.
+- **Threading map** — `Message-ID ⇄ at-uri` bidi map + reply/thread resolution (`threading`).
+
+Done since (all *decision* logic, pure + tested; real HTTP adapters where feasible):
+
+- **TLS** — STARTTLS is implemented at the protocol layer both ways (`smtp_in`
+  advertises + handles it; `smtp_out::new_with_starttls` negotiates + re-EHLOs).
+- **Inbound SPF / DMARC** — `spf` (parse + evaluate) and `dmarc` (alignment +
+  disposition) are implemented; `attestation` builds the `smtpAttestation` record and
+  the DMARC-reject SMTP gate.
+- **Live IO adapters** — `daemon::publish_dkim_records` (Cloudflare POST) and
+  `fetch_postage_receipt` (`eth_getLogs` + `Paid`-log decode) are wired with reqwest.
+- **Key provisioning** — `provision::enrollment_requests` is the ARK-enrollment hook's
+  pure output (both CF calls, public keys only); `publish_dkim_records` issues them.
+
+Honest remaining scope — the irreducible OS/ops edges:
+
+1. **TLS handshake + certs** — the *protocol* is done; the actual rustls handshake is
+   not: inbound STARTTLS replies 454 until a server cert is provisioned
+   (`OPENMAIL_TLS_CERT/KEY` + tokio-rustls Acceptor), and outbound `relay_to_mx`
+   aborts on `Action::StartTls` until a tokio-rustls client is wired.
+2. **Live MX DNS lookup** — inject a resolver into `execute_plan`'s `resolve_mx`
+   (e.g. hickory-resolver) — `select_mx` ordering is already tested.
+3. **The poller** — subscribe to native records and run `plan_outbound` →
+   `fetch_postage_receipt` → `execute_plan`; and feed inbound SPF/DMARC from the
+   connecting IP + DNS into `attestation::build`. The pure pieces all exist + compose.
 
 ## References
 
