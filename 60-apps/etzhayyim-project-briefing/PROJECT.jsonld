@@ -1,0 +1,65 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Project",
+  "name": "Live Briefing Project",
+  "identifier": "etzhayyim-project-briefing",
+  "description": "Live briefing and video conferencing platform with LiveKit-powered meeting rooms, C2ISR situational awareness, and strategic briefing workflows.",
+  "hasPart": [
+    {
+      "@type": "WebApplication",
+      "name": "Briefing App",
+      "url": "https://briefing.etzhayyim.com"
+    }
+  ],
+  "performers": [
+    {
+      "@type": "Service",
+      "name": "Briefing Actor",
+      "identifier": "etzhayyim-performer-org-etzhayyim-sys-briefing-nkx5tcsp",
+      "description": "App actor for meeting lifecycle management, participant coordination, LiveKit room orchestration, and recording."
+    },
+    {
+      "@type": "Service",
+      "name": "Briefing App Performer",
+      "identifier": "etzhayyim-performer-sys-etzhayyim-app-briefing-bis87j5v",
+      "description": "Briefing application performer."
+    }
+  ],
+  "rdfUnifiedDocuments": {
+    "@type": "Dataset",
+    "name": "Unified top-level RDF/JSON-LD documents",
+    "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
+    "documents": [
+      {
+        "fileName": "scheduler.jsonld",
+        "content": {
+          "@context": [
+            "https://schema.org/",
+            {
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
+              "dependsOn": {
+                "@id": "etzhayyim:dependsOn",
+                "@type": "@id"
+              },
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
+            }
+          ],
+          "@type": "CreativeWork",
+          "name": "Live Briefing Project Scheduler",
+          "identifier": "etzhayyim-project-briefing/scheduler",
+          "description": "Project schedule (milestones) and blockers.",
+          "dateCreated": "2026-02-15T04:25:26+00:00",
+          "milestones": [],
+          "blockers": []
+        }
+      }
+    ]
+  }
+}
