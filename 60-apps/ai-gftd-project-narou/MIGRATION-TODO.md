@@ -8,7 +8,9 @@ Existing etzhayyim files were NOT overwritten (additive merge).
 - Strip any RisingWave / fiat → AT MST + IPFS + Base L2 + USDC/ERC-4337.
 
 ## Excluded from this migration (2026-06-02)
-- `ghosthacker/260208-spirit-in-physics/assets/**` binary image assets (~69 files, ~43 MB
-  webp/jpg manga panels, ComfyUI-generated). Omitted to avoid bloating the public repo with
-  regenerable creative output. Code + JSON-LD metadata + text sources were migrated.
-  Re-add the assets here if they are required as canonical artifacts.
+- `ghosthacker/260208-spirit-in-physics/**` — entire embedded web-manga sub-project
+  (~311 files incl ~43MB webp/jpg ComfyUI assets + an `apps/web` client that imports
+  `@atproto/api` directly, tripping the substrate-boundary lint per ADR-2605172000).
+  Migrate it separately after a codemod (route substrate access through `@etzhayyim/sdk`);
+  decide whether the generated image assets belong in-repo. narou core (appview / lg
+  LangGraph server / scripts / content bundle) was migrated.
