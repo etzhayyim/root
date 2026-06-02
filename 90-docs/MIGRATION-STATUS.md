@@ -11,13 +11,13 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 78 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 79 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 22 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 21 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 | **V — VENDOR-RESIDENT** | 25 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 77 apps** (C + D = 22 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 76 apps** (C + D = 21 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -33,11 +33,12 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > (`auth` was an example here previously but is now Bucket V — vendor-resident,
 > no on-chain path; see below.)
 
-## Bucket A — DONE (78, has rw-free/)
+## Bucket A — DONE (79, has rw-free/)
 
 6ir, aima (data layer; AI-compute stays gftd), air-sched,
 analytics (mixed split — public catalog front), anime, bim, business-person, cad,
 editor, gov (mixed split — public gov reference front), itonami, jp-fiscal,
+kami (catalog: eng workbench + game worlds),
 collector (mixed split — public OSINT front), completer,
 fleamarket (mixed split — public C2C catalog front), flight-offer, ge,
 animeka (mixed split — catalog front), blockchain, bpmn, bunken,
@@ -221,13 +222,13 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
 
-## Bucket C — NEEDS-CODEMOD (22) — active backlog
+## Bucket C — NEEDS-CODEMOD (21) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
 common-crawl (RW, legacy src), cpc (legacy src),
-email-service-adapter (stripe), kami,
+email-service-adapter (stripe),
 kenkyusha (RW), kyber-qzzg06nh, legal-entity (RW), llm (RW), manimani,
 open-kyber (stripe+RW),
 open-ossekai, open-ot (RW), open-patent (RW),
