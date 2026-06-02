@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 68 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 40 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 60 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 13 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **C — NEEDS-CODEMOD** | 39 | still imports prohibited substrate → the real active backlog |
+| **D — TODO-PENDING** | 59 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 14 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 100 apps** (C + D = 40 + 60; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 98 apps** (C + D = 39 + 59; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -52,7 +52,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (13)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (14)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -140,14 +140,19 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   observability); there is no substrate record layer to migrate. Stays gftd.
   (Publishing periodic coverage snapshots as public records would be net-new, not
   a migration of this monitor.)
+- **cowork** — axes: **Custody + RisingWave**. Internal "Claude Cowork" MCP bridge
+  to Microsoft Graph (Mail/Teams/Files/Calendar/Users) + RW graph (read-only):
+  mailDraft (email content), toolGrant (OAuth delegation credentials), syncJob.
+  Corporate M365 PII + credential custody; gftd internal IT tooling (M365 =
+  ingest-only per root CLAUDE.md). Stays gftd.
 
-## Bucket C — NEEDS-CODEMOD (40) — active backlog
+## Bucket C — NEEDS-CODEMOD (39) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
 bim, briefing, cad, cloudflare-browser-render,
-common-crawl (RW, legacy src), cowork, cpc (legacy src),
+common-crawl (RW, legacy src), cpc (legacy src),
 crypto-asset-freeze, cyber-drill (stripe), deai (RW), dougaka (RW), editor,
 email-service-adapter (stripe), fax, gov, hc, **hospitality (RW in
 scripts/sync-roster.ts)**, intel, itonami, jp-fiscal, jukyu (RW), kami,
@@ -159,10 +164,10 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (60, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (59, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (30)**:
-cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
+**TRANSFORM-pending (29)**:
+credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
 resource-provider, robot, scheduler, shiharai, tia, web4, webpage, wire, worlds,
 yabai, yatabase
