@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 95 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 41 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 49 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 40 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 50 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 41 apps** (C + D = 0 + 41; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 40 apps** (C + D = 0 + 40; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -69,7 +69,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (49)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (50)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -454,6 +454,17 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   across social media via AI similarity, auto-contact platforms). Records are
   private surveillance/security analytics state + account-protection PII, not
   open-data (carry-forward test fails). Stays gftd.
+- **web4** (Bucket D → V) — axes: **Settlement (GCC on-chain token + minter) +
+  Infra/compute (distributed Web4 inference & expert network)**. Two regulated
+  facets: (1) GCC Token & Minter — deployed Ethereum mainnet contracts (GCC
+  FiatTokenV2_2, GCCMinter accepting ETH/USDC/USDT, Safe 2/3 multisig, Chainlink
+  oracle); (2) Decentralized Web4 Inference & Expert Network (`web4.gftd.ai`):
+  registerExpert / submitInference / getInferenceResult / getClusterStats — a
+  distributed GPU-inference compute network. The GCC token/minter is an
+  **etzhayyim-EXCLUSIVE on-chain primitive** (ADR-2605211950 relocate target; the
+  same GCC `credits` references), NOT an AT-PDS rw-free registry; the
+  inference/expert compute stays gftd. Records are platform compute-network state
+  + on-chain contracts, not open-data (carry-forward test fails). No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -481,7 +492,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (41, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (40, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -490,8 +501,8 @@ These are mechanical import-removal chores on already-migrated/vendor apps, not
 > `etzhayyim/root` project. Nothing to migrate to etzhayyim-front; by definition
 > gftdcojp IS the vendor side. Dropped from the backlog (TRANSFORM 25→24, D 55→54).
 
-**TRANSFORM-pending (11)**:
-web4, webpage, wire, worlds,
+**TRANSFORM-pending (10)**:
+webpage, wire, worlds,
 yabai, yatabase
 
 **Ad-pixel codemod complete (26)**: animeka*, briefing*, communicator,
