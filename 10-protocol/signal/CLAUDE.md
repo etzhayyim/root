@@ -31,7 +31,7 @@ setSignalTransport(atpAgentTransport(() => agent));
 await ensureSignalIdentity(agent.session!.did, 'device-1');
 ```
 
-## Migration from `@etzhayyim/wproto`
+## Migration from pruned wproto
 
 Per `[[migrations]] signal-extract-from-wproto` (deps.toml):
 
@@ -40,9 +40,8 @@ Per `[[migrations]] signal-extract-from-wproto` (deps.toml):
 | `import { ... } from '@etzhayyim/wproto/signal'` | `import { ... } from '@etzhayyim/signal'` |
 | Implicit XRPC via wproto's global `atProcedure` | Explicit `setSignalTransport(...)` at app startup |
 
-`10-protocol/wproto/src/signal.ts` will remain as a deprecated re-export
-during the consumer migration window, then be removed alongside wproto
-(`[[migrations]] wproto-retirement`).
+`10-protocol/wproto` has been pruned. Consumers must import from
+`@etzhayyim/signal` directly.
 
 ## Wire-format note
 

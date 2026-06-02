@@ -5,7 +5,7 @@
 ## 責務
 
 - `xrpc/`: XRPC transport, auth, encode/decode, dispatch, app NSID 規約, command/query DSL の protocol core (`@etzhayyim/xrpc`)
-- `wproto/`: W Protocol TS client — service API, Signal E2E, governance, stream (`@etzhayyim/wproto`)
+- `signal/`: Signal Protocol E2E primitives (`@etzhayyim/signal`)
 
 ## 依存関係
 
@@ -13,8 +13,8 @@
 @etzhayyim/xrpc
   └─ (no internal package deps)
 
-@etzhayyim/wproto
-  └─ @etzhayyim/xrpc
+@etzhayyim/signal
+  └─ @atproto/api
 ```
 
 ## 境界ルール

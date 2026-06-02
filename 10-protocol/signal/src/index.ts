@@ -2,7 +2,7 @@
  * @etzhayyim/signal — Signal Protocol E2E primitives.
  *
  * Per ADR-2604261110, this is the SSoT for the CRITICAL `Signal Protocol E2E`
- * convention (replacing 10-protocol/wproto/src/signal.ts).
+ * convention (replacing the pruned wproto signal module).
  */
 
 export type {

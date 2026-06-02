@@ -1,6 +1,6 @@
 # @etzhayyim/lexicons-bundle
 
-Runtime `@atproto/lexicon` `Lexicons` instance built from `00-contracts/lexicons` (SSoT). Used by `@etzhayyim/wproto` so XRPC client+server calls validate against our schemas natively — extension fields (`performerType`, `viewerFollowing`, `nanoid`, etc.) pass because they're declared in the lexicon, not because validation is bypassed.
+Runtime `@atproto/lexicon` `Lexicons` instance built from `00-contracts/lexicons` (SSoT). Used by `@etzhayyim/xrpc` consumers so XRPC client+server calls validate against our schemas natively — extension fields (`performerType`, `viewerFollowing`, `nanoid`, etc.) pass because they're declared in the lexicon, not because validation is bypassed.
 
 ## Files
 
@@ -24,4 +24,4 @@ Run after any change under `00-contracts/lexicons/`.
 
 This package replaces the bundled lexicons with our SSoT so the validator becomes a strict guardrail: validation failures now surface real PDS/AppView bugs (e.g. empty-string URI fields, missing required keys) instead of silently degrading.
 
-Consumers should call `getLexicons()` and pass the result to `XrpcClient` (see `10-protocol/wproto/src/client.ts:36-40`). Do not instantiate ad-hoc `Lexicons` from a subset of files.
+Consumers should call `getLexicons()` and pass the result to XRPC clients. Do not instantiate ad-hoc `Lexicons` from a subset of files.

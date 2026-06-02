@@ -6,11 +6,11 @@
  * storage: IndexedDB. Session persistence: across page reloads, cleared on
  * logout.
  *
- * Per ADR-2604261110, this package replaces `10-protocol/wproto/src/signal.ts`
+ * Per ADR-2604261110, this package replaces the pruned wproto signal module
  * and is the SSoT for the CRITICAL `Signal Protocol E2E` convention.
  *
  * Transport: caller wires an XRPC dispatcher via `setSignalTransport(...)`
- * (see ./transport.ts). No dependency on @etzhayyim/wproto.
+ * (see ./transport.ts). No dependency on wproto.
  *
  * @see 90-docs/adr/2604261110-wproto-wreactive-wit-retirement.md
  * @see 90-docs/260318-w-protocol-sender-trust-design.md
