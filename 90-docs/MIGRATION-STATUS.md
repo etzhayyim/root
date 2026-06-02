@@ -14,8 +14,8 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 105 | has a `rw-free/` on-chain reference impl (git-authoritative: committed `rw-free/src/index.ts` count) |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 8 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 83 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 7 | has `MIGRATION-TODO.md` (seed copied, codemod pending) — all build-targets resolved (rw-free or V); remainder = legacy codemod-cleanup chores |
+| **V — VENDOR-RESIDENT** | 84 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (83)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (84)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -793,6 +793,19 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   `vault://` ephemeral, session state in D1. Pure execution infra — no product
   surface, not open-data (carry-forward test fails). Same family as
   `cloudflare-browser-render` (V) / `yorishiro` / `hub`. No rw-free built.
+- **site** (Bucket D / substrate-boundary → V) — axes: **Infra + Custody + Liability**.
+  Site Intelligence Platform / "Internet Clone Gateway" (`site.etzhayyim.com`): the
+  SOLE external web-fetch gateway (all apps' external fetch/crawl must route through
+  it — direct HTTP fetch prohibited), a 100B-scale hierarchical DID page archive,
+  crawl/fetch/frontier pipeline, bulk ingest (Aozora/Gutenberg/NDL/CommonCrawl),
+  WET/WAT/WebP output, and LLM text/visual embedding + semantic search. The
+  "frontable" page catalog cannot peel off: a 100B-scale RisingWave + IPFS-pinned
+  archive cannot have AT PDS as its canonical store — the catalog IS the archive IS
+  the infrastructure (no separable layer; building one = invent-a-catalog /
+  physically impossible at scale). Sole-fetch-gateway shared-infra dependency + RW +
+  IPFS pinning (both regulated-infra axes) + screenshot/full-content storage
+  (DMCA/GDPR/robots liability) + embedding compute ⇒ stays gftd whole. Precedent =
+  `common-crawl` (legacy codemod, never built rw-free), not `github`. No rw-free.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -820,7 +833,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (8, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (7, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -844,8 +857,7 @@ microsoft-graph / ongakuka / outreach / phone / recap / ses / society6 / x
 (plus animeka/mangaka already in A; briefing already in V; email-service-adapter/fax
 legacy codemod-only).
 
-**Substrate-boundary violation flagged**: cloudflare-browser-render (V), insatsu (V), open-jpn-mynumber (A), playwright (V), repository (A — Repository-in-Graph git object model = first-party source code → front; FaaS build dispatch + execution stay gftd).
-Un-resolved tail: **site**.
+**Substrate-boundary violation flagged** — ALL RESOLVED: cloudflare-browser-render (V), insatsu (V), open-jpn-mynumber (A), playwright (V), repository (A — Repository-in-Graph git object model = first-party source code → front; FaaS build dispatch + execution stay gftd), site (V — Internet Clone Gateway: sole web-fetch gateway + 100B-scale RW/IPFS archive + embedding compute; Infra+Custody+Liability, no separable frontable layer).
 
 ## In-progress (2026-06-02)
 
