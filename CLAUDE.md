@@ -74,7 +74,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 |---|---|---|---|---|
 | Baien federated R0 | training via ameno WebGPU (11 gates) | ✅ | 2605242600 | 05-24 |
 | Baien federated R1 | WebGPU LoRA backward-pass PoC | ✅ | 2605242630 | 05-24 |
-| Ternary silicon W1 | iwakura (inference) + fuigo (train) + tsukuru (fab) | ✅ | 2605242500 | 05-24 |
+| Ternary silicon W1 | iwakura (inference) + fuigo (train) + silicon (fab) | ✅ | 2605242500 / 2606021139 | 05-24 |
 | Silicon W2 supply | 8 upstream categories + Funamori marine cargo | ✅ | 2605242700 | 05-24 |
 | ameno WebNN | inference fast path R0 (CoreML/DirectML/NNAPI/QNN) | ✅ | 2605252100 | 05-25 |
 | gemma-coder-distill | LangGraph coding LoRA on EVO-X2 ROCm | 🟡 | 2605250400 | 05-25 |

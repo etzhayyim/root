@@ -36,6 +36,13 @@ supersedes: []
 superseded_by: []
 ---
 
+> **Namespace update (2026-06-02 — ADR-2606021139)**: 本 ADR 全体の `tsukuru.etzhayyim.com`
+> という home 指定は **`silicon`（`did:web:silicon.etzhayyim.com`, `20-actors/silicon/manifest.edn`）**
+> に置換された。`silicon_*` Pregel cell・fab equipment XRPC（旧 `tsukuru.fab.equipment.dispatch`
+> 等）・wafer lot orchestration はすべて silicon actor に属する。下記 **A4「新 actor を作る」案は
+> 当時却下されたが、ADR-2606021139 で逆に採用された**（名前衝突解消のため）。技術内容（8 工程
+> 責務分担・cell 契約）は有効。
+
 # Context
 
 ADR-2605242500 Decision 3 が **8 工程の自社装置 (litho / deposition / etch / implant / CMP / metrology / test / packaging) の RTL/CAD/mechanical/robotics を religious-corp が公開設計する** ことを確定した。本 ADR はその 8 工程の責務分担と、対応する 8 つの Pregel cell の責務契約を確定する。
@@ -282,7 +289,12 @@ ADR-2605231902 yatachain §4 membrane を踏襲するなら、fab 工程の **si
 
 ## A4. tsukuru ではなく新 actor (`silicon.etzhayyim.com`) を作る
 
-却下。ADR-2605242500 Decision 2 で tsukuru 統一を確定済み。
+~~却下。ADR-2605242500 Decision 2 で tsukuru 統一を確定済み。~~
+
+**REVERSED (2026-06-02, ADR-2606021139)**: この案が採用された。tsukuru が B2B 発注と fab の
+2 ドメインを背負う名前衝突が判明し（root CLAUDE.md でも別物として参照）、Gen-3 移行の意味論
+汚染を避けるため fab orchestration は独立 actor `silicon`（`did:web:silicon.etzhayyim.com`）に
+分離。ADR-2605242500 Decision 2 の SSoT 統一条項も同 ADR で撤回。
 
 # Acceptance Criteria
 
