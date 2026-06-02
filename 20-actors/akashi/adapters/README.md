@@ -10,3 +10,5 @@ Current parser:
   into akashi lexicon-shaped records.
 - `lexicon_shape_validator.py` validates fixture parser output against the
   akashi lexicon subset used by these records.
+- `dry_run_fixtures.py` parses and validates local fixtures, then prints counts
+  or records. It has no network mode.

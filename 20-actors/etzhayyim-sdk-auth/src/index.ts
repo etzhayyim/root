@@ -15,6 +15,14 @@ export interface SessionEnv {
    * See `50-infra/mst-projector/projection/yatachain-projection.toml`.
    */
   PROJECTION_DISCOVER_DID?: string;
+  /**
+   * kotoba server base URL (e.g. `https://kotoba.etzhayyim.com`). When set,
+   * `yoro-rw-free` feed/graph/actor reads resolve through the kotoba Datom log
+   * (canonical state, ADR-2606013200) instead of the PDS/projection path.
+   */
+  KOTOBA_URL?: string;
+  /** Multibase CID of the kotoba graph holding the yoro feed Datoms. */
+  YORO_GRAPH_CID?: string;
 }
 
 export interface AuthedEtzhayyimOpts {
@@ -39,6 +47,8 @@ export function createAuthedEtzhayyim(opts: AuthedEtzhayyimOpts): Etzhayyim {
     pdsUrl: opts.env.PDS_URL,
     l2RpcUrl: opts.env.L2_RPC_URL ?? "https://mainnet.base.org",
     projectionDiscoverDid: opts.env.PROJECTION_DISCOVER_DID,
+    kotobaUrl: opts.env.KOTOBA_URL,
+    yoroGraphCid: opts.env.YORO_GRAPH_CID,
   };
 
   // Attach session if we have an access JWT.

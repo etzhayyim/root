@@ -61,8 +61,15 @@ fixtures, or collection jobs yet. See:
   Google/YouTube, TikTok, and regulator repositories
 - `registry/source-policy-reviews.seed.json` — data-driven review state; all
   live collection remains disabled in R0
+- `registry/source-policy-approval.schema.json` — future approval transaction
+  shape with rollback-to-disabled requirement
 - `adapters/regulator_bulk_fixture_parser.py` and `fixtures/regulator_bulk/`
   — local fixture parser only; no live collection
+- `fixtures/closure/` — non-adjudicating link/report/malak-candidate closure
+  fixtures
+- `adapters/dry_run_fixtures.py` — local fixture dry-run CLI; no network access
+  and no writes
+- `fixtures/dry_run/summary.golden.json` — dry-run summary regression fixture
 - `/00-contracts/lexicons/app/etzhayyim/akashi/` — 10 lexicon skeletons
 
 ## Immutable Gates

@@ -21,18 +21,63 @@
           "organization": {"type": "string", "maxLength": 200, "description": "Target organization display name (e.g. 'Discord Inc.', 'LY Corporation', '内閣府')"},
           "did": {"type": "string", "format": "did", "description": "Optional DID of the organization if registered"},
           "lei": {"type": "string", "maxLength": 20, "description": "Optional GLEIF LEI (corp.leiReference) for canonical identity"},
-          "jurisdiction": {"type": "string", "maxLength": 8, "description": "e.g. jpn / eu / usa"},
+          "jurisdiction": {"type": "string", "maxLength": 16, "description": "ISO-ish jurisdiction tag, e.g. jpn / eu / usa / eu-wide / deu / fra / gbr / can / aus / ind / sgp / bra / mex / kor"},
+          "bloc": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Optional coarse regulatory-bloc grouping used for worldwide wayfinding/clustering (informational only, never an official channel). Examples: JP / US / EU / UK-CW / INTL-ROW.",
+            "knownValues": ["JP", "US", "EU", "UK-CW", "INTL-ROW"]
+          },
           "regime": {
             "type": "string",
-            "description": "The legal right being exercised against this target",
+            "description": "The legal right being exercised against this target. DSAR regimes are own-data-only, identity-bound; FOIA/public-records regimes are open-records. Informational routing tag only — no field here implies legal advice, representation, fees/consideration, campaigning, or official-channel status.",
             "knownValues": [
               "appi-33",
               "gdpr-15",
               "ccpa-110",
               "foia-jp-gyousei",
               "foia-us",
-              "eu-1049"
+              "eu-1049",
+              "foia-us-5usc552",
+              "privacy-act-us-5usc552a",
+              "foia-us-ca-cpra",
+              "foia-us-ny-foil",
+              "foia-us-tx-pia",
+              "foia-eu-1049-2001",
+              "foia-de-ifg",
+              "bdsg-34",
+              "foia-fr-crpa",
+              "uk-gdpr-15",
+              "foia-uk-2000",
+              "privacy-act-ca",
+              "foia-ca-atia",
+              "privacy-act-au-app12",
+              "foia-au-1982",
+              "foia-in-rti-2005",
+              "pdpa-sg",
+              "lgpd-18",
+              "foia-br-lai",
+              "lfpdppp-arco",
+              "foia-mx-lgtaip",
+              "lgpdppso-arco",
+              "pipa-35",
+              "foia-kr-oida"
             ]
+          },
+          "altRegimes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Optional additional legal regimes that may also apply to the same target (same knownValues space as `regime`); informational routing alternatives only."
+          },
+          "authority": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Plain-text note on WHICH body actually receives/processes the request and which body provides oversight (e.g. 'request goes to the controller's DPO; supervisory authority for complaints = the national DPA'). Descriptive wayfinding only — NOT an endorsement, NOT an official channel, NOT legal advice."
+          },
+          "legalBasis": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Plain-text citation of the statute/article underpinning the right (e.g. 'Regulation (EU) 2016/679, Article 15'). Informational reference only — does NOT constitute legal advice or representation."
           },
           "channelType": {
             "type": "string",

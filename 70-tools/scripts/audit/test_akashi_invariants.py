@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -19,6 +21,16 @@ _MANIFEST = _REPO / "20-actors" / "akashi" / "manifest.jsonld"
 _SOURCE_CATALOG = _REPO / "20-actors" / "akashi" / "registry" / "source-catalog.seed.json"
 _SOURCE_POLICY_REVIEWS = (
     _REPO / "20-actors" / "akashi" / "registry" / "source-policy-reviews.seed.json"
+)
+_SOURCE_POLICY_APPROVAL_SCHEMA = (
+    _REPO / "20-actors" / "akashi" / "registry" / "source-policy-approval.schema.json"
+)
+_SOURCE_POLICY_APPROVAL_EXAMPLE = (
+    _REPO
+    / "20-actors"
+    / "akashi"
+    / "registry"
+    / "source-policy-approval.fixture-only.example.json"
 )
 _METHOD_SEED = _REPO / "20-actors" / "akashi" / "methods" / "v1-r0-seed.json"
 _ADAPTER = (
@@ -31,6 +43,7 @@ _ADAPTER = (
 _VALIDATOR = (
     _REPO / "20-actors" / "akashi" / "adapters" / "lexicon_shape_validator.py"
 )
+_DRY_RUN = _REPO / "20-actors" / "akashi" / "adapters" / "dry_run_fixtures.py"
 _FIXTURE = (
     _REPO
     / "20-actors"
@@ -38,6 +51,31 @@ _FIXTURE = (
     / "fixtures"
     / "regulator_bulk"
     / "sample.json"
+)
+_MISSING_OPTIONAL_FIXTURE = (
+    _REPO
+    / "20-actors"
+    / "akashi"
+    / "fixtures"
+    / "regulator_bulk"
+    / "missing_optional_fields.json"
+)
+_NEGATIVE_MISSING_LANDING_URL = (
+    _REPO
+    / "20-actors"
+    / "akashi"
+    / "fixtures"
+    / "regulator_bulk"
+    / "negative_missing_landing_url.json"
+)
+_CLOSURE_FIXTURE = (
+    _REPO / "20-actors" / "akashi" / "fixtures" / "closure" / "sample.json"
+)
+_NEGATIVE_MALAK_IMPORTED = (
+    _REPO / "20-actors" / "akashi" / "fixtures" / "closure" / "negative_malak_imported.json"
+)
+_DRY_RUN_GOLDEN = (
+    _REPO / "20-actors" / "akashi" / "fixtures" / "dry_run" / "summary.golden.json"
 )
 _CELLS = _REPO / "20-actors" / "magatama" / "cells"
 
@@ -218,6 +256,33 @@ def test_source_policy_review_workflow_keeps_live_collection_disabled():
             assert review["adapterRuntime"] == "disabled"
 
 
+def test_source_policy_approval_tx_format_is_fixture_only_at_r0():
+    catalog = _load(_SOURCE_CATALOG)
+    schema = _load(_SOURCE_POLICY_APPROVAL_SCHEMA)
+    example = _load(_SOURCE_POLICY_APPROVAL_EXAMPLE)
+    source_ids = {source["id"] for source in catalog["sources"]}
+
+    assert schema["$id"] == "app.etzhayyim.akashi.sourcePolicyApprovalTx"
+    assert schema["additionalProperties"] is False
+    assert "allowed" in schema["properties"]["decision"]["enum"]
+    assert schema["properties"]["rollback"]["properties"][
+        "defaultRuntimeAfterRollback"
+    ]["const"] == "disabled"
+
+    required = set(schema["required"])
+    assert set(example) == required
+    assert example["sourceId"] in source_ids
+    assert example["decision"] == "fixture-only"
+    assert example["runtime"] == "fixture-only"
+    assert "live-adapter" != example["runtime"]
+    assert "public-bulk-export" in example["approvedAccessModes"]
+
+    evidence_required = set(schema["properties"]["evidence"]["required"])
+    assert evidence_required <= set(example["evidence"])
+    assert example["rollback"]["disableTxRequired"] is True
+    assert example["rollback"]["defaultRuntimeAfterRollback"] == "disabled"
+
+
 def test_method_seed_outputs_existing_lexicons():
     seed = _load(_METHOD_SEED)
     assert seed["status"] == "reserved"
@@ -282,6 +347,13 @@ def test_regulator_bulk_fixture_parser_is_fixture_only_and_shape_safe():
     assert output["deliveryDisclosure"][0]["sourceLimited"] is True
 
 
+def test_adapter_sources_do_not_import_network_clients():
+    for path in (_ADAPTER, _VALIDATOR, _DRY_RUN):
+        source = path.read_text()
+        for forbidden in ("requests", "httpx", "aiohttp", "urlopen", "urllib.request"):
+            assert forbidden not in source, f"{path.name}: forbidden network import"
+
+
 def test_fixture_parser_output_validates_against_akashi_lexicons():
     parser_spec = importlib.util.spec_from_file_location(
         "_akashi_regulator_parser",
@@ -319,6 +391,112 @@ def test_fixture_parser_output_validates_against_akashi_lexicons():
     )
     for name in list_outputs:
         validator.validate_records(output[name], _load(_LEX / f"{name}.json"))
+
+
+def test_missing_optional_fixture_preserves_source_limited_gaps():
+    parser_spec = importlib.util.spec_from_file_location(
+        "_akashi_regulator_parser",
+        _ADAPTER,
+    )
+    validator_spec = importlib.util.spec_from_file_location(
+        "_akashi_lexicon_validator",
+        _VALIDATOR,
+    )
+    assert parser_spec and parser_spec.loader
+    assert validator_spec and validator_spec.loader
+
+    parser = importlib.util.module_from_spec(parser_spec)
+    validator = importlib.util.module_from_spec(validator_spec)
+    parser_spec.loader.exec_module(parser)
+    validator_spec.loader.exec_module(validator)
+
+    output = parser.parse_regulator_bulk_fixture(
+        _load(_MISSING_OPTIONAL_FIXTURE),
+        attesting_did="did:web:akashi.etzhayyim.com",
+        source_policy_cid="cid:akashi:source-policy:test",
+        method_note_cid="cid:akashi:method-note:test",
+    )
+
+    advertiser = output["advertiserIdentity"][0]
+    creative = output["creativeDisclosure"][0]
+    delivery = output["deliveryDisclosure"][0]
+
+    assert advertiser["verifiedStatus"] == "not-disclosed"
+    assert "websiteDomain" not in advertiser
+    assert creative["sourceIssuePoliticalFlag"] == "not-applicable"
+    assert delivery["status"] == "unknown"
+    assert "spendRange" not in delivery
+    assert "impressionRange" not in delivery
+
+    for name, records in output.items():
+        lex = _load(_LEX / f"{name}.json")
+        if isinstance(records, list):
+            validator.validate_records(records, lex)
+        else:
+            validator.validate_record(records, lex)
+
+
+def test_closure_fixture_validates_and_malak_candidate_stays_candidate_only():
+    validator_spec = importlib.util.spec_from_file_location(
+        "_akashi_lexicon_validator",
+        _VALIDATOR,
+    )
+    assert validator_spec and validator_spec.loader
+    validator = importlib.util.module_from_spec(validator_spec)
+    validator_spec.loader.exec_module(validator)
+
+    closure = _load(_CLOSURE_FIXTURE)["records"]
+    for name in ("adDisclosureLink", "adTransparencyReport", "malakEvidenceCandidate"):
+        validator.validate_records(closure[name], _load(_LEX / f"{name}.json"))
+
+    candidate = closure["malakEvidenceCandidate"][0]
+    assert candidate["reviewStatus"] == "candidate-only"
+    assert candidate["nonAdjudicatingNotice"] is True
+    assert "malakImportCid" not in candidate
+
+
+def test_negative_fixtures_are_rejected():
+    parser_spec = importlib.util.spec_from_file_location(
+        "_akashi_regulator_parser",
+        _ADAPTER,
+    )
+    assert parser_spec and parser_spec.loader
+    parser = importlib.util.module_from_spec(parser_spec)
+    parser_spec.loader.exec_module(parser)
+
+    with pytest.raises(KeyError, match="landingUrl"):
+        parser.parse_regulator_bulk_fixture(
+            _load(_NEGATIVE_MISSING_LANDING_URL),
+            attesting_did="did:web:akashi.etzhayyim.com",
+            source_policy_cid="cid:akashi:source-policy:test",
+            method_note_cid="cid:akashi:method-note:test",
+        )
+
+    candidate = _load(_NEGATIVE_MALAK_IMPORTED)["records"]["malakEvidenceCandidate"][0]
+    assert candidate["reviewStatus"] == "malak-imported"
+    assert "malakImportCid" in candidate
+    assert candidate["reviewStatus"] != "candidate-only"
+
+
+def test_dry_run_cli_emits_validated_local_fixture_summary_only():
+    result = subprocess.run(
+        [sys.executable, str(_DRY_RUN)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    summary = json.loads(result.stdout)
+
+    assert summary["actor"] == "akashi"
+    assert summary["mode"] == "fixture-dry-run"
+    assert summary["networkAccess"] is False
+    assert summary["writes"] is False
+    assert summary["recordCounts"]["methodNote"] == 1
+    assert summary["recordCounts"]["sourcePolicySnapshot"] == 1
+    assert summary["recordCounts"]["adDisclosureSnapshot"] == 2
+    assert summary["recordCounts"]["malakEvidenceCandidate"] == 1
+    assert summary["totalRecords"] == sum(summary["recordCounts"].values())
+    assert summary == _load(_DRY_RUN_GOLDEN)
 
 
 if __name__ == "__main__":

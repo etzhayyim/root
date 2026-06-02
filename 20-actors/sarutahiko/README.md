@@ -4,6 +4,7 @@
 **Namespace**: `app.etzhayyim.sarutahiko.*`
 **ADR**: ADR-2605252500 (R0 scaffold), ADR-2605252515 (R1, reserved), ADR-2605252530 (R2, reserved), ADR-2605252545 (R3, reserved)
 **Status**: R0 scaffold (2026-05-25) — all cells import-time RuntimeError
+**Organism axis**: Axis 2 — Metabolism (代謝 / 産霊 musuhi) — generative production cycle: metabolizes steel + powertrain lots into heavy trucks (see [`90-docs/2606022500-organism-axis-affiliation-convention.md`](../../90-docs/2606022500-organism-axis-affiliation-convention.md))
 
 ## Overview
 

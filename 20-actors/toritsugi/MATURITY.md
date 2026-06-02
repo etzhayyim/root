@@ -27,6 +27,7 @@
 | 13 | 各 cell dir の README.md (tsukuroi パターン parity) | ✅ | **iter-4** |
 | 14 | murakumo fleet.toml への toritsugi cell placement (10ノード) | R0では時期尚早(R1延期) | iter-8 調査 |
 | 15 | procedure registry の自治体横展開設計 (1,700+ 市区町村 curation 方針) | ✅ | **iter-9** |
+| 16 | procedure registry の **worldwide 多管轄展開** (US/EU/UK-CW/INTL-ROW; 全件 unverified-seed) | ✅ | **iter-10** |
 
 ## イテレーション記録
 
@@ -199,6 +200,48 @@ graceful degrade、G8 で窓口を捏造しない)・verification は VERIFICATI
 実施(seed は national `.go.jp` のみ)。設計のみ・JSON/lexicon 変更なし。検証: invariants 10 passed・
 guard clean(既存成果に影響なし)。
 
+### iter-10 (2026-06-02)
+**上げた項目: #16 — procedure registry の worldwide 多管轄展開。** `registry/procedures.seed.json`
+を JP のみ(6件)から **worldwide 多管轄(34件)** へ拡張。既存6件は一字一句そのまま保持し、
+新規 **28件** を既存スキーマ(`procedureId` / `title` / `jurisdiction` / `regime` / `authority` /
+`channelType` / `onlineUrl` / `requiredDocuments` / `formRef` / `legalBasis` / `language` /
+`provenance` / `lastVerified` / `verificationStatus` / `notes`)に正規化してマージ。新ブロック:
+- **US(7)**: SSN(SS-5)・旅券(DS-11)・連邦所得税(1040)・REAL ID 運転免許・有権者登録・
+  SNAP・Medicaid/Marketplace。CA/NY/TX の state variation を notes に明記(州別税・州別 DMV・
+  州別取引所等)。
+- **EU(7)**: Single Digital Gateway / Your Europe・EHIC・独 Anmeldung・独 Personalausweis・
+  仏 CNI・仏 déclaration des revenus(2042)・GDPR DSAR。
+- **UK-CW(7)**: 英 NINO・英旅券・加 SIN・豪 TFN・印 Aadhaar・星 NRIC・星旅券。
+- **INTL-ROW(7)**: 伯 CPF・伯 Título de Eleitor・墨 CURP・墨 INE 在外投票・韓 ARC(외국인등록)・
+  韓 연말정산・欧州人権裁判所(ECHR)個人申立。
+
+通貨手数料は管轄別フィールド(`feeUsd`/`feeEur`/`feeGbp`/`feeCad`/`feeAud`/`feeInr`/`feeSgd`/
+`feeBrl`/`feeMxn`/`feeKrw`)で表現し、不明な額は捏造せず `null`(G8 非捏造)。**全28件が
+`verificationStatus="unverified-seed"`・`lastVerified="2026-06-02T00:00:00Z"`・適切な
+language code・https provenance(各管轄の公式一次ソース)・notes に行政書士法/UPL-equivalent
+境界キャベアト("information + wayfinding + form-fill assist ONLY; never advice, never 作成代理.
+Member self-submits.")を含む**。各管轄の reserved-practice 境界も notes に追記(US paid-preparer
+PTIN・独 RDG・仏 monopole du droit・韓 행정사/세무사・ECHR は qualified counsel 強推奨)。
+検証: `procedureId` で dedup 済(34 unique, 0 dupe)・JSON valid・新28件の field assert 全 pass。
+**注(honest)**: 全件 unverified-seed のため G14 により live submission 不可。fee/deadline/channel
+は多管轄ドリフトが大きく、各 entry の DRIFT WARNING に明記。`regime`/`fee*` の新値・通貨フィールドは
+既存 lexicon の strict validation 対象になりうる(seed は `$schema` 参照のみで lexicon record と
+1:1 ではない)— R1 で lexicon を多管轄対応させる際に整合確認が必要(本 iter ではデータ拡張のみ、
+lexicon/cell 変更なし)。
+**次の候補**: R1 ゲート(Council ratify)待ち。多管轄 lexicon 拡張(`regime` knownValues・通貨手数料
+ユニオン)・per-jurisdiction provenance allow-list(`.gov`/`.gouv.fr`/`.gov.uk`/`europa.eu` 等)の
+VERIFICATION.md 反映が R1 の TODO。
+
+### iter-11 (2026-06-02)
+**fail-closed registry invariants test を追加(緑）。** worldwide seed registry 専用の
+`70-tools/scripts/audit/test_toritsugi_registry_seed.py`(7 test)を新設し、`procedures.seed.json`
+の憲法不変条件を fail-closed に固定: ①JSON parse + `procedures` 非空 ②`procedureId` 一意(重複で fail）
+③全件 `verificationStatus="unverified-seed"`(G14)④全件 https provenance + ISO-8601 `lastVerified`
+⑤多管轄(≥5 distinct jurisdiction; JP-only 退行ガード)⑥全件 notes 非空 + 行政書士法/UPL 境界 regime 参照
+⑦top-level `freshnessWindowDays` 整数。`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest …` で
+**7 passed**(test-only・network-free・cell 実行なし、R0 ceiling 不変）。既存 `test_toritsugi_invariants.py`
+の seed honesty は `.go.jp` 固定で JP-only 前提のため、worldwide データの seed 不変条件は本 sibling suite が担う。
+
 ---
 
 ## R0 phase 総括(iter-9 時点)
@@ -215,3 +258,9 @@ guard clean(既存成果に影響なし)。
 クローズ後)を待つ** — cell 実行/提出/dispatch/fleet 配置/municipalBinding は全て R1+ の作業で、
 R0 ceiling(import-RuntimeError・no dispatch・PII平文禁止)を破らずには進められない。次回 loop 以降は
 既存成果の green 維持確認 + 文書の軽微改善に限定し、過剰実装(未使用 schema 等)は避ける。
+
+- 2026-06-02 lexicon reconciliation: EXTENDED `app.etzhayyim.toritsugi.procedure` to cover the worldwide seed (`registry/procedures.seed.json`) — added per-currency authority-fee fields (feeUsd/feeEur/feeGbp/feeCad/feeAud/feeInr/feeSgd/feeBrl/feeMxn/feeKrw) + `confidence`, and extended `regime` knownValues to the JP/US/EU/DE/FR/UK/CA/AU/IN/SG/BR/MX/KR + CoE set. Additive/backward-compatible/permissive only (no additionalProperties:false, no new required, UPL / political-neutrality / informational-only / zero-toritsugi-fee boundary preserved in descriptions). Validators green: lexicon-primary-types ✅, nsid-lexicon-exists ✅; lexicon-const-name-collision FAILS on a pre-existing unrelated collision (`app.etzhayyim.apps.ipaddress.analyzeIp`), confirmed identical with this edit stashed — not caused by this file.
+
+- 2026-06-02 long-tail worldwide deepening: merged 32 long-tail entries into `registry/procedures.seed.json` (34 → 66) across 4 buckets — EU-REST (SE/NL/ES/PL/IT/IE/CH/DK), ASIA-REST (CN/TW/HK/TH/ID/PH/VN/MY), AMERICAS-REST (AR/CL/CO/PE), MEA-OCEANIA (AE/SA/IL/ZA/NG/KE/EG/NZ): resident/address & population registration, national-ID/civil-status, social-security identifiers, voter registration, passport, income-tax filing. Distinct jurisdictions 13 → 41. Every new entry ships verificationStatus=unverified-seed + https provenance + language code + 行政書士法 / UPL boundary caveat; medium-confidence/in-flux entries flagged UNVERIFIED-for-live-use; requiredDocuments left as resolve-at-guide-time (not fabricated). Invariants test `70-tools/scripts/audit/test_toritsugi_registry_seed.py` distinct-jurisdiction threshold raised 5 → 12; all 7 tests green.
+
+**2026-06-02 R1 filing-deadline core (gate closed)**: `magatama.cells.toritsugi_status_track/deadline.py` 純コア — 法定届出期限の決定論計算(window は verified/member-confirmed INPUT、暦/営業日 counting)。行政書士法/UPL + G5 を docstring/コードで担保、is_legal_opinion 常に False。敵対的検証の指摘を反映: 統合テストの概念混同(`statutoryProcessingDays`=当局処理時間 ≠ 届出 window)を修正し member-confirmed INPUT へ、bool-as-int 拒否を追加。`test_deadline.py` green。cell.py ゲート閉維持。

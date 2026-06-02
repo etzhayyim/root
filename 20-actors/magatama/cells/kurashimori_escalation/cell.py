@@ -12,7 +12,9 @@ characterization happen at the destination (chigiri + licensed counsel); G6
 member PII stays encrypted; Murakumo-only inference (ADR-2605215000).
 Output Lexicon(s): com.etzhayyim.kurashimori.escalationReferral.
 
-R0 scaffold — import-time RuntimeError until R2.
+R0 scaffold — import-time RuntimeError until R2. The PURE, tested routing core
+already lands in the sibling module ``escalation_resolver.py`` (importable WITHOUT
+this gated wrapper); landing that core does NOT activate this cell.
 """
 
 from __future__ import annotations

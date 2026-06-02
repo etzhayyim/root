@@ -12,7 +12,10 @@ inline); G11 Transparent Religious Force — track only, no coercion; aggregate-
 first + 1 SBT = 1 vote for named-matter publication; Murakumo-only inference
 (ADR-2605215000). Output Lexicon(s): com.etzhayyim.moushibumi.statusTrack.
 
-R0 scaffold — import-time RuntimeError until R2.
+R0 scaffold — import-time RuntimeError until R2. The PURE, tested computation
+core (participation-window status) already lands in the sibling module
+``window.py`` (importable WITHOUT this gated wrapper); landing it does NOT
+activate this cell.
 """
 
 from __future__ import annotations

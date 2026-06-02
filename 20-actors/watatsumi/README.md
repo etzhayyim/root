@@ -81,6 +81,17 @@ Charter Rider §2(a) + §2(d) + §2(g) + §1.13 + §1.15 constitutional anchors:
 - Mimi-marine (kuni-umi Mimi pressure-compensated)
 - Funamori (surface support / R3 mother-ship; ADR-2605242745 reuse)
 
+**Cable-laying fleet (ADR-2606012600)** — operational counterpart to **watatsuna 綿津綱** (world cable-network KG actor); see `data/cable-laying-fleet.kotoba.edn` + `CLAUDE.md`:
+| Class | Role | Phase |
+|---|---|---|
+| Tsuna-suki (綱鋤) | Towed sea plough / burial trencher (≤3 m, ≤2000 m) | R1+ |
+| Horinuki (掘抜) | Jet-trenching burial / PLIB ROV | R2+ |
+| Tsugite (接手) | Splice / repeater-housing manipulation ROV | R2+ |
+| Tedori (手繰) | Grapnel cable-recovery ROV — **REPAIR-ONLY** (N8) | R2+ |
+| Kikimimi (聞耳) | DAS passive cable-health monitor → feeds watatsuna | R1+ |
+
+> **N8**: this fleet lays / buries / splices / repairs / monitors only. Cutting / interdiction = hard-prohibited. Tedori recovers *faulted* cable for re-splice under a logged G4 witness-quorum work-order, never a healthy one.
+
 ## 4-Phase Roadmap
 
 | Phase | Scope | Trigger |

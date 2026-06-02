@@ -612,8 +612,8 @@ AT Protocol 完全準拠 + federation 対応。
 ## Prohibited Patterns
 
 - **ERC725 root 以外の DID を新規 platform primary identity に使用禁止** — did:erc725 が canonical。did:gftd / did:plc / did:web は facade lookup input のみ。onchain authority path で直接 hash 禁止
-- **D1 に plaintext private key を保存禁止** — KEK envelope encryption 必須 (SS_REPO_SIGNING_KEK)。legacy `did_keys` テーブル pruned
-- **SS_REPO_SIGNING_KEK なしでの sign-up 禁止** — KEK 未 provision 時は sign-up が fail する (意図的)
+- **D1 に plaintext private key を保存禁止** — `server_assisted` (T1) custody では KEK envelope encryption 必須 (SS_REPO_SIGNING_KEK)。legacy `did_keys` テーブル pruned。**zero-access (`human_self_custody`/`agent_self_custody`, ADR-2606014500) では private key を一切受け取らない** — `vertex_gftd_key_signing` の private 列は空、public 半分のみ登録 (`app.etzhayyim.auth.registerSigningKey`)
+- **SS_REPO_SIGNING_KEK なしでの sign-up 禁止 (AMENDED, ADR-2606014500)** — `server_assisted` 経路では従来どおり KEK 必須で fail-closed。**ただし client-self-custody (public-key-only 登録) 経路は KEK 不要で許可** (Proton 系 zero-access; `SS_KEY_CUSTODY_MODE=client_self_custody`)。KEK 物理削除は Stage C-4 (30日 zero-read quarantine) で gated
 - **Zero-knowledge key custody を Agent に適用禁止** — Agent は server-assisted (T1) or self-custody (T2)。Master Password 方式は不成立
 - **Signal Identity Key を DID Signing Key から独立生成禁止** — Signal Identity Key は DID Signing Key で署名される (key hierarchy 遵守)
 - **Clerk / 外部 auth SaaS の再導入禁止** — P3 で完全除去済み
