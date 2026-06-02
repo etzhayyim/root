@@ -12123,6 +12123,21 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606015800-session-close-ipfs-did-and-self-certifying-resolution",
+      "type": "TechArticle",
+      "title": "ADR-2606015800: Session close — IPFS-based + self-certifying DID resolution, mesh-runner serving",
+      "status": "active",
+      "topic": "session-close-ipfs-did-and-self-certifying-resolution",
+      "authoritative": false,
+      "related": [
+        "doc:2606014800",
+        "doc:2606013800",
+        "doc:2605212030",
+        "doc:2605231525"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
