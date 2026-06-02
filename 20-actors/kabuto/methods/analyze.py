@@ -162,6 +162,58 @@ def analyze(companies, edges):
         commodity_hhi.append((commodity, len(shares), round(hhi, 3)))
     commodity_hhi.sort(key=lambda r: -r[2])  # most concentrated first
 
+    # MATURITY — cross-bloc dependency exposure: criticality on edges whose supplier
+    # and customer sit in DIFFERENT macro-region blocs = geopolitical supply exposure
+    # (the reshoring / friendshoring surface). Aggregated per supplier→customer
+    # corridor; routed to diversification + resilience, never to interdiction (G2).
+    cross_bloc = defaultdict(float)
+    cross_total = 0.0
+    all_total = 0.0
+    for e in edges:
+        s = e.get(':supply.edge/from')
+        c = e.get(':supply.edge/to')
+        crit = float(e.get(':supply.edge/criticality', 0.0) or 0.0)
+        if not s or not c:
+            continue
+        all_total += crit
+        bs = _bloc(companies.get(s, {}).get(':company/country', '??'))
+        bc = _bloc(companies.get(c, {}).get(':company/country', '??'))
+        if bs != bc:
+            cross_bloc[(bs, bc)] += crit
+            cross_total += crit
+    cross_corridors = sorted(
+        ((f"{a}→{b}", v) for (a, b), v in cross_bloc.items()), key=lambda r: -r[1])
+    cross_share = round(100 * cross_total / all_total, 1) if all_total else 0.0
+
+    # MATURITY — composite resilience score (capstone synthesis of the signals).
+    # Per customer with material inbound dependency, fragility rises with
+    # single-source inputs (×2), inbound criticality concentrated in few supplier
+    # sectors, and the share of inbound that crosses a region bloc. score =
+    # 100/(1+fragility) ∈ (0,100]; LOW = most fragile. Aggregate-first, an
+    # accountability/redundancy ranking — never a target-list (G2).
+    cust_single_cnt = defaultdict(int)
+    for (c, _commodity, _sup, _crit) in single_source:
+        cust_single_cnt[c] += 1
+    cust_cross_in = defaultdict(float)
+    for e in edges:
+        s = e.get(':supply.edge/from')
+        c = e.get(':supply.edge/to')
+        crit = float(e.get(':supply.edge/criticality', 0.0) or 0.0)
+        if s and c and _bloc(companies.get(s, {}).get(':company/country', '??')) != \
+                _bloc(companies.get(c, {}).get(':company/country', '??')):
+            cust_cross_in[c] += crit
+    resilience = []
+    for c, load in cust_in_crit.items():
+        if load < 1.0:
+            continue
+        secs = max(1, len(cust_supplier_sectors[c]))
+        cross_frac = cust_cross_in.get(c, 0.0) / load if load else 0.0
+        frag = cust_single_cnt.get(c, 0) * 2 + load / secs + cross_frac
+        score = round(100.0 / (1.0 + frag), 1)
+        resilience.append((c, score, cust_single_cnt.get(c, 0), len(cust_supplier_sectors[c]),
+                           round(load, 2), round(cross_frac, 2)))
+    resilience.sort(key=lambda r: r[1])  # most fragile (lowest score) first
+
     return dict(
         in_deg={k: len(v) for k, v in in_deg.items()},
         out_deg={k: len(v) for k, v in out_deg.items()},
@@ -174,6 +226,9 @@ def analyze(companies, edges):
         tier_depth=tier_depth,
         bloc_load=bloc_load,
         commodity_hhi=commodity_hhi,
+        cross_corridors=cross_corridors,
+        cross_share=cross_share,
+        resilience=resilience,
     )
 
 
@@ -199,6 +254,32 @@ def render_report(companies, addresses, contacts, edges, processes, a):
         sectors[c.get(':company/sector', ':unknown')] += 1
     P(f"- sectors covered: " + ", ".join(
         f"`{s}` {n}" for s, n in sorted(sectors.items(), key=lambda kv: -kv[1])))
+    P("")
+
+    # ── data-coverage self-audit (G5 honesty: what is actually covered) ──
+    n = len(companies) or 1
+    with_addr = len({a.get(':company.address/company') for a in addresses} & set(companies))
+    with_contact = len({c.get(':company.contact/company') for c in contacts} & set(companies))
+    in_edges = set()
+    for e in edges:
+        in_edges.add(e.get(':supply.edge/from'))
+        in_edges.add(e.get(':supply.edge/to'))
+    with_edge = len(in_edges & set(companies))
+    with_cap = sum(1 for c in companies.values() if c.get(':company/market-cap-busd'))
+    countries = len({c.get(':company/country') for c in companies.values()})
+    P("## Data coverage — G5 honesty self-audit")
+    P("")
+    P("What the seed ACTUALLY carries (absence = \"not yet ingested\", never \"does not exist\"). "
+      "A bounded `:representative` slice, growing each iteration — not exhaustive coverage.")
+    P("")
+    P("| field | companies | coverage |")
+    P("|---|---:|---:|")
+    P(f"| registered HQ address | {with_addr} | {round(100*with_addr/n,1)}% |")
+    P(f"| public IR contact | {with_contact} | {round(100*with_contact/n,1)}% |")
+    P(f"| ≥1 disclosed supply edge | {with_edge} | {round(100*with_edge/n,1)}% |")
+    P(f"| market-cap snapshot | {with_cap} | {round(100*with_cap/n,1)}% |")
+    P(f"| distinct countries | {countries} | — |")
+    P(f"| sector balance (min..max per sector) | {min(sectors.values())}..{max(sectors.values())} | — |")
     P("")
 
     # ── single-source dependencies (the headline resilience signal) ──
@@ -325,6 +406,38 @@ def render_report(companies, addresses, contacts, edges, processes, a):
         P("| (none in seed) | |")
     P("")
 
+    # ── cross-bloc dependency exposure (maturity) ──
+    P("## Cross-bloc dependency exposure — geopolitical supply corridors")
+    P("")
+    P(f"**{a['cross_share']}%** of disclosed-dependency criticality flows across a "
+      "macro-region bloc boundary (supplier and customer in different blocs) — the "
+      "geopolitical exposure / reshoring surface. Top corridors below; routed to "
+      "supply diversification + resilience, never to interdiction (G2).")
+    P("")
+    P("| corridor (supplier bloc → customer bloc) | Σ criticality |")
+    P("|---|---:|")
+    for corridor, load in a['cross_corridors'][:12]:
+        P(f"| {corridor} | {round(load, 2)} |")
+    if not a['cross_corridors']:
+        P("| (none in seed) | |")
+    P("")
+
+    # ── composite resilience score (maturity capstone) ──
+    P("## Composite supply-resilience score — most-fragile customers")
+    P("")
+    P("Capstone synthesis: score = 100/(1+fragility), where fragility rises with "
+      "single-source inputs (×2), inbound criticality concentrated in few supplier "
+      "sectors, and cross-bloc inbound share. **Lower = more fragile.** Aggregate-first "
+      "accountability/redundancy ranking — never a target-list (G2).")
+    P("")
+    P("| customer | resilience score | single-source | supplier sectors | inbound crit | cross-bloc share |")
+    P("|---|---:|---:|---:|---:|---:|")
+    for c, score, ss, secs, load, cross in a['resilience'][:12]:
+        P(f"| {cname(companies, c)} | {score} | {ss} | {secs} | {load} | {cross} |")
+    if not a['resilience']:
+        P("| (none in seed) | | | | | |")
+    P("")
+
     P("---")
     P("*Generated by `kabuto/methods/analyze.py`. HONEST: R0 bounded seed of public "
       "companies; supplier edges are disclosed/public `:representative` estimates, NOT an "
@@ -363,6 +476,12 @@ def render_datoms(companies, a):
     for commodity, nsup, hhi in a['commodity_hhi']:
         P(f' {{:supply/commodity "{str(commodity).lstrip(":")}" '
           f':supply/commodity-suppliers {nsup} :supply/commodity-hhi {hhi} :supply/derived true}}')
+    for corridor, load in a['cross_corridors']:
+        P(f' {{:supply/cross-bloc-corridor "{corridor}" :supply/cross-bloc-load {round(load, 2)} '
+          f':supply/derived true}}')
+    for c, score, ss, secs, load, cross in a['resilience']:
+        P(f' {{:supply/resilience-customer {edn_str(c)} :supply/resilience-score {score} '
+          f':supply/single-source-count {ss} :supply/derived true}}')
     P("]")
     return "\n".join(L) + "\n"
 

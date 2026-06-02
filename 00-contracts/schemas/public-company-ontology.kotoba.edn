@@ -84,7 +84,7 @@
   {:db/ident :supply.edge/from        :db/valueType :db.type/ref     :db/doc ":company/id of the SUPPLIER"}
   {:db/ident :supply.edge/to          :db/valueType :db.type/ref     :db/doc ":company/id of the CUSTOMER"}
   {:db/ident :supply.edge/tier        :db/valueType :db.type/long    :db/doc "supplier tier relative to customer (1 = direct), if disclosed"}
-  {:db/ident :supply.edge/commodity   :db/valueType :db.type/keyword :db/doc ":foundry | :lithography | :assembly | :memory | :display | :battery | :sensor | :logistics | :steel | :polysilicon | :wafer | … what flows along the edge"}
+  {:db/ident :supply.edge/commodity   :db/valueType :db.type/keyword :db/doc ":foundry | :lithography | :assembly | :memory | :display | :battery | :sensor | :logistics | :steel | :polysilicon | :wafer | :photoresist | :mask-blank | :substrate | :gas | :composite | … what flows along the edge"}
   {:db/ident :supply.edge/criticality :db/valueType :db.type/double  :db/doc "0.0..1.0 disclosed dependency strength; high = customer is concentrated on this supplier (:representative / :synthesized — never a contract figure)"}
   {:db/ident :supply.edge/sourcing    :db/valueType :db.type/keyword}
 
@@ -109,4 +109,6 @@
   {:db/ident :supply/betweenness :db/doc "in-degree × out-degree for nodes that are both customer and supplier — supply-chain middle-layer systemic-ness (transparency signal, NEVER a target, G2)"}
   {:db/ident :supply/tier-depth :db/doc "longest DISCLOSED upstream supplier chain reaching a node (hops back toward raw inputs) — multi-tier-visibility signal, NEVER a target (G2)"}
   {:db/ident :supply/bloc-load :db/doc "Σ criticality of edges whose supplier domiciles in a macro-region bloc (East Asia / Europe / North America / …) — regional concentration surface routed to cross-region diversification (G2)"}
-  {:db/ident :supply/commodity-hhi :db/doc "Herfindahl-Hirschman Index of supplier shares within a commodity (Σ share² by criticality) ∈ (0,1]; 1.0 = single disclosed supplier (monopoly), low = fragmented — the headline redundancy-priority signal (G2)"}]}
+  {:db/ident :supply/commodity-hhi :db/doc "Herfindahl-Hirschman Index of supplier shares within a commodity (Σ share² by criticality) ∈ (0,1]; 1.0 = single disclosed supplier (monopoly), low = fragmented — the headline redundancy-priority signal (G2)"}
+  {:db/ident :supply/cross-bloc-load :db/doc "Σ criticality of edges crossing a macro-region bloc boundary (supplier bloc ≠ customer bloc), per supplier→customer corridor — geopolitical / reshoring exposure surface routed to diversification (G2)"}
+  {:db/ident :supply/resilience-score :db/doc "composite per-customer supply-resilience score = 100/(1+fragility); fragility ↑ with single-source inputs, inbound criticality concentrated in few supplier sectors, and cross-bloc inbound share. LOW = most fragile — aggregate-first redundancy/accountability ranking, NEVER a target-list (G2)"}]}
