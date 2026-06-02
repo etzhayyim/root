@@ -1,4 +1,4 @@
-# ai-gftd-project-anima — Project Runbook
+# etzhayyim-project-anima — Project Runbook
 
 ## Project Overview
 
@@ -292,7 +292,7 @@ consDID, _ := magatama.DIDCreate("conservation:ibis-reintroduction", map[string]
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-anima/wasm/ai-gftd-wasm-anima-czj1f6yv
+cd 60-apps/etzhayyim-project-anima/wasm/ai-gftd-wasm-anima-czj1f6yv
 gftd build
 gftd deploy --smoke-url https://anima.etzhayyim.com/health
 ```
