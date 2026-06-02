@@ -47,6 +47,8 @@ A platform source can move from `candidate` to `covered-r1` only when:
 - `methodNote` states false-positive limits
 - `akashi` tests prove no voter/person profile fields are present in output
 - malak bridge remains disabled unless a reviewed public IOC fixture is present
+- `source-policy-reviews.seed.json` moves the source runtime from `disabled`
+  with an attested review transaction
 
 ## R0 Gaps
 
@@ -54,6 +56,7 @@ A platform source can move from `candidate` to `covered-r1` only when:
 - One fixture-only regulator bulk parser exists and validates output against
   akashi lexicons; no platform adapter exists.
 - No live fetch runs.
+- Source-policy review workflow exists and keeps every live source disabled.
 - Cell scaffold exists under `20-actors/magatama/cells/akashi_*`, but every
   cell raises at import until ADR-2606022300 R1 activation gates are attested.
 - Lexicon-specific invariant test exists (`test_akashi_invariants.py`), but no

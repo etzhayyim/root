@@ -17,6 +17,9 @@ _REPO = Path(__file__).resolve().parents[3]
 _LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "akashi"
 _MANIFEST = _REPO / "20-actors" / "akashi" / "manifest.jsonld"
 _SOURCE_CATALOG = _REPO / "20-actors" / "akashi" / "registry" / "source-catalog.seed.json"
+_SOURCE_POLICY_REVIEWS = (
+    _REPO / "20-actors" / "akashi" / "registry" / "source-policy-reviews.seed.json"
+)
 _METHOD_SEED = _REPO / "20-actors" / "akashi" / "methods" / "v1-r0-seed.json"
 _ADAPTER = (
     _REPO
@@ -190,6 +193,29 @@ def test_source_catalog_is_planning_only_and_manual_review():
             "fixture-parser",
         }
         assert "fixture-parser" in source["requiredBeforeCollection"]
+
+
+def test_source_policy_review_workflow_keeps_live_collection_disabled():
+    catalog = _load(_SOURCE_CATALOG)
+    reviews = _load(_SOURCE_POLICY_REVIEWS)
+    source_ids = {source["id"] for source in catalog["sources"]}
+    review_ids = {review["sourceId"] for review in reviews["reviews"]}
+
+    assert reviews["status"] == "r0-review-workflow"
+    assert reviews["defaultLiveCollectionStatus"] == "disabled"
+    assert reviews["disableWithoutCodeChange"] is True
+    assert review_ids == source_ids
+    assert "fixture-parser" in reviews["requiredEvidenceBeforeAllowed"]
+    assert "method-note" in reviews["requiredEvidenceBeforeAllowed"]
+
+    for review in reviews["reviews"]:
+        assert review["liveCollectionStatus"] == "disabled"
+        assert review["reviewTx"] == "reserved"
+        assert review["reviewStatus"] in {"manual-review", "fixture-only", "disabled"}
+        assert review["adapterRuntime"] in {"disabled", "fixture-only"}
+        if review["sourceId"] != "regulator-ad-repositories":
+            assert review["approvedAccessModes"] == []
+            assert review["adapterRuntime"] == "disabled"
 
 
 def test_method_seed_outputs_existing_lexicons():
