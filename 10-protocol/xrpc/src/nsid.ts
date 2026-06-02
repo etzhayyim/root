@@ -30,11 +30,11 @@ export function expandCollection(kind: string, appName?: string): string {
 
 /** WIT package + type → AT Protocol collection NSID.
  *
- * e.g. witToCollection("gftd:handotai", "article") → "com.etzhayyim.apps.handotai.article"
+ * e.g. witToCollection("etzhayyim:handotai", "article") → "com.etzhayyim.apps.handotai.article"
  *      witToCollection("magatama:wproto", "record") → "com.etzhayyim.platform.wproto.record"
  */
 export function witToCollection(witPkg: string, witType: string): string {
-  const ns = witPkg.startsWith("gftd:") ? "com.etzhayyim.apps" : "com.etzhayyim.platform";
+  const ns = witPkg.startsWith("etzhayyim:") ? "com.etzhayyim.apps" : "com.etzhayyim.platform";
   const app = witPkg.split(":")[1]?.split("/")[0] ?? witPkg;
   return `${ns}.${app}.${witType}`;
 }
@@ -117,7 +117,7 @@ export function resolveFlatDispatchMethod(
 
   for (const key of registeredNsids) {
     const parts = key.split(".");
-    if (parts.length < 5 || parts[0] !== "ai" || parts[1] !== "gftd" || parts[2] !== "apps") {
+    if (parts.length < 5 || parts[0] !== "com" || parts[1] !== "etzhayyim" || parts[2] !== "apps") {
       continue;
     }
     const appName = parts[3];

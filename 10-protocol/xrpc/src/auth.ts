@@ -1,7 +1,7 @@
 // auth.ts — XRPC service-auth header resolution for Worker-to-Worker calls.
 // SessionAuth / PublicAuth / mintInternalAuthJWT were pruned 2026-04-23 —
 // they had zero external consumers. Browser auth is @atproto/api (wproto facade).
-// Canonical ES256 minter: `60-apps/ai-gftd-project-auth/worker/src-ts/service-auth.ts`.
+// Canonical ES256 minter: `60-apps/etzhayyim-project-auth/worker/src-ts/service-auth.ts`.
 
 /** Auth header resolver interface. All transports use this. */
 export interface AuthResolver {
@@ -25,7 +25,7 @@ export class ServiceAuth implements AuthResolver {
   async resolve(nsid?: string): Promise<Record<string, string>> {
     const h: Record<string, string> = {
       "content-type": "application/json",
-      "x-gftd-org-id": this.opts.orgId ?? "service",
+      "x-etzhayyim-org-id": this.opts.orgId ?? "service",
     };
 
     // ADR-0023 P4: prefer ES256 Service Auth JWT. When a signer is wired,
