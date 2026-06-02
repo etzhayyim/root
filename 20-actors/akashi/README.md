@@ -1,0 +1,69 @@
+# akashi (証) — Public Ad-Disclosure Transparency Actor
+
+**DID**: `did:web:akashi.etzhayyim.com`
+**Namespace**: `app.etzhayyim.akashi.*`
+**ADR**: ADR-2606022300 (R0 scaffold)
+**Status**: R0 design scaffold (2026-06-02)
+
+akashi is a kotoba-native actor for ingesting already-public advertising
+transparency disclosures from platform ad libraries into a source-cited EAVT
+graph.
+
+It is the advertising-disclosure sibling of `danjo`: passive public records in,
+non-adjudicating transparency records out.
+
+## Scope
+
+akashi stores public ad disclosure evidence as kotoba datoms:
+
+- platform source policy snapshots
+- advertiser identities as disclosed by source platforms
+- creative text/media hashes
+- delivery period, region, spend range and impression range where disclosed
+- disclosed targeting summaries
+- landing URL/domain/redirect/content hash evidence
+- cross-platform factual links by source ID, advertiser, landing domain or
+  creative hash
+
+## Malak Boundary
+
+akashi is not part of `malak`. malak is confidential CTI and agency-referral
+infrastructure. akashi is public transparency infrastructure.
+
+The only allowed bridge is `malakEvidenceCandidate`: a reviewed, source-cited,
+non-adjudicating evidence package when a public ad disclosure intersects already
+known phishing, malware, brand-abuse or fraud indicators.
+
+## R0 Cells
+
+| Cell | Phase | Output |
+|---|---|---|
+| `akashi_source_registry` | periodic | `sourcePolicySnapshot` |
+| `akashi_disclosure_fetch` | periodic | `adDisclosureSnapshot` |
+| `akashi_normalize_creative` | continuous | advertiser / creative / delivery datoms |
+| `akashi_landing_evidence` | rate-limited | `landingEvidence` |
+| `akashi_cross_platform_link` | continuous | `adDisclosureLink` |
+| `akashi_transparency_report` | periodic | `adTransparencyReport` |
+| `akashi_malak_evidence_bridge` | event-gated | `malakEvidenceCandidate` |
+
+## Immutable Gates
+
+- passive public-source only
+- source provenance mandatory
+- non-adjudicating
+- no political profiling
+- no target lists
+- open method notes
+- ToS / robots / API policy snapshot required
+- no ad SDK or tracking pixels
+- no commercial ad-intel product
+- no private-person inference
+- Murakumo-only inference
+- transparent publication only
+- malak bridge requires review
+
+## Related
+
+- `/90-docs/adr/2606022300-akashi-public-ad-disclosure-kotoba-actor-r0.md`
+- `/20-actors/danjo/README.md`
+- `/60-apps/ai-gftd-project-malak/CLAUDE.md`

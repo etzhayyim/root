@@ -12308,6 +12308,29 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606022300-akashi-public-ad-disclosure-kotoba-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606022300: 証 (akashi) — public ad-disclosure kotoba actor for platform ad libraries (R0)",
+      "status": "proposed",
+      "topic": "akashi-public-ad-disclosure-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "new Tier-B actor `akashi` (public ad-disclosure transparency graph)",
+        "kotoba EAVT schema for platform / advertiser / creative / disclosure / targeting-summary / spend-range / impression-range / landing-page / snapshot",
+        "boundary between akashi (public ad disclosure) and malak (confidential cybercrime intelligence)",
+        "`app.etzhayyim.akashi.*` Lexicon namespace"
+      ],
+      "related": [
+        "doc:adr-2605172000-malak-onion-frontier-ransomware-tracking",
+        "doc:adr-2605131600-malak-orchestration-langgraph-pregel-langserve",
+        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "doc:adr-2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0",
+        "doc:adr-2604281900-open-adnetwork-actor",
+        "doc:adr-0084-yoro-ads-integration"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

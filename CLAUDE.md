@@ -146,6 +146,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | watatsuna 綿津綱 | world submarine-cable knowledge graph — chokepoint SPOF→redundancy+repair; resilience map, not target-list | 🟡 R0+R1+R2 | 2606012600 | 06-01 |
 | funadaiku 船大工 | zero-emission autonomous cargo-ship building — wind+solar+H₂ powertrain; Nagi class + shipyard | 🟡 R0 | 2606013400 | 06-01 |
 | himawari 向日葵 | solar-grade c-Si PV module mfg + 積込/輸送/調達 — makes panels hikari installs; closes hikari §G2 (no XUAR polysilicon) via first-party on-chain provenance; composes sarutahiko F10 + kami-autodrive + giemon AGV | 🟡 R0 | 2606021200 | 06-02 |
+| akashi 証 | public ad-disclosure transparency — passive platform ad-library mirror (Meta/Facebook/Instagram, LINE, X/Twitter, Google/YouTube, TikTok, regulators) into kotoba EAVT; danjo sibling, malak bridge only for reviewed fraud/malware evidence candidates; no political profiling / no target-list / no ad-intel SaaS | 🟡 R0 | 2606022300 | 06-02 |
 
 > **Note**: ADR ids `2605263400` and `2605263500` each label two distinct ADRs (parallel-agent race in the source); filename + actor name disambiguate. Tracked for a future ADR-id reconciliation.
 
