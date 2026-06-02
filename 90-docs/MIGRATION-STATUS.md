@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 62 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 78 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 1 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 77 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 2 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 120 apps** (C + D = 41 + 79; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 118 apps** (C + D = 41 + 77; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -49,7 +49,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (1)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (2)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -63,6 +63,13 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   it also touches — did:web / did:plc issuance + `vertex_gftd_identity` public
   governance — are etzhayyim-exclusive per ADR-2605211950 and tracked as separate
   relocate targets in `/CLAUDE.md` migrations, not as an rw-free registry here.
+- **accounts** — axis: **Custody** (+ identity-assurance liability). The
+  account-lifecycle worker (`accounts.etzhayyim.com`, ADR-0024 split of auth):
+  linked auth methods, email/OAuth provider linking, session, `/manage` UI,
+  actor.score. Same regulated-infra family as `auth` — handles linked
+  credentials + email PII + sessions. Currently scaffold-only (route still
+  served by the auth Worker). Stays gftd. The DID-linkage primitives are
+  etzhayyim-exclusive (ADR-2605211950), tracked separately.
 
 ## Bucket C — NEEDS-CODEMOD (41) — active backlog
 
@@ -82,9 +89,9 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (78, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (77, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (48)**: accounts, aima, air-book, air-cargo, air-crew,
+**TRANSFORM-pending (47)**: aima, air-book, air-cargo, air-crew,
 air-dcs, air-ffp, air-mro, air-ops, air-sched, air-sms, air-yield, analytics,
 business-edge, business-person, collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
