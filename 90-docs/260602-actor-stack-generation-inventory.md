@@ -34,10 +34,12 @@ related:
 | **okaimono** 御買物 | 2606012100 | 🟢 R0+R1+R2+R3（リファレンス実装） |
 | **haraedo** 祓戸 | 2606010200 | 🟡 R0 |
 | **tsukuru** 作 | 2605202800 | 🟢 R0（2026-06-02 Gen-3 化完了; py 11/11 green） |
+| **silicon** 珪 | 2605242500 / 2606021139 | 🟢 R0（2026-06-02 Gen-3 化完了; py 12/12 green; fab dispatch は Council+§2(a)(c) gated） |
 
-この3つが `manifest.edn` + `kotoba/`（schema/seed/ingest）+ `cells/` + `lex/` を完備。
-（**tsukuru** は当初 Gen-1 legacy だったが、移行プラン Phase 2–4 で Gen-3 へ昇格。Phase 5 命名
-cutover のみ法人登記ゲート待ち。**silicon** は `kotoba/` 未配線のため Gen-2 据え置き。）
+この4つが `manifest.edn` + `kotoba/`（schema/seed/ingest）+ `cells/` + `lex/` を完備。
+（**tsukuru** / **silicon** は当初 Gen-1 legacy だったが、本セッションで Gen-3 へ昇格。tsukuru は
+Phase 5 命名 cutover のみ法人登記ゲート待ち。silicon は実 fab dispatch が Council 批准 + §2(a)(c)
+force-review ゲート。）
 
 ## Gen-2 — Pregel cells あり / 旧 JSON-LD manifest（18 actors）
 
@@ -48,9 +50,9 @@ funadaiku · futawa · gov-municipality · hagukumi · hikari · hodoki ·
 infra-utility-connect · kanayama · kuni-umi · makura · manabi · mitsuho ·
 sarutahiko · tatekata · wadachi · yakushi · yamabiko · yoro-supply
 
-> **更新 2026-06-02**: **silicon** が `manifest.edn`+cells+lex を取得し Gen-2 相当（ADR-2606021139 で
-> tsukuru namespace から分離）。残り Gen-3 化は `kotoba/` 配線。**tsukuru** は Phase 2–4 完走で
-> **Gen-3 に到達**（上の Gen-3 表へ移動）。
+> **更新 2026-06-02**: **tsukuru**（Phase 2–4 完走）と **silicon**（ADR-2606021139 で tsukuru
+> namespace から分離後、kotoba/+py 配線）の両者が **Gen-3 に到達**（上の Gen-3 表へ移動）。
+> この Gen-2 カテゴリに残るのは下記の元々の 18 actor。
 
 > 部分世代: **warifu** / **yobel** は `cells/`（+warifu は `lex/`）を持つが JSON-LD manifest が無い変則形。
 
