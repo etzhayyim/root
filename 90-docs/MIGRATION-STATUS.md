@@ -11,13 +11,13 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 63 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 64 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 69 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **D — TODO-PENDING** | 68 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 | **V — VENDOR-RESIDENT** | 9 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 110 apps** (C + D = 41 + 69; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 109 apps** (C + D = 41 + 68; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -33,9 +33,9 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > (`auth` was an example here previously but is now Bucket V — vendor-resident,
 > no on-chain path; see below.)
 
-## Bucket A — DONE (63, has rw-free/)
+## Bucket A — DONE (64, has rw-free/)
 
-6ir, aima (data layer; AI-compute stays gftd), anime,
+6ir, aima (data layer; AI-compute stays gftd), air-sched, anime,
 animeka (mixed split — catalog front), blockchain, bpmn, bunken,
 celler, common-crawl, cpc, crowdfunding, dns, ec, eigyo,
 gameka, gtin, hakkou, hanrei, houbun, houki, houshi, ipaddress, isbn, isin,
@@ -132,9 +132,9 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (69, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (68, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (39)**: air-sched, air-sms, air-yield, analytics,
+**TRANSFORM-pending (38)**: air-sms, air-yield, analytics,
 business-edge, business-person, collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
