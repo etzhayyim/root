@@ -1,9 +1,9 @@
 {
   "@context": "https://schema.org/",
   "@type": "Project",
-  "name": "AI Agent Gateway (ai-gftd-project-agentgateway)",
+  "name": "AI Agent Gateway (etzhayyim-project-agentgateway)",
   "status": "In Progress",
-  "identifier": "ai-gftd-project-agentgateway",
+  "identifier": "etzhayyim-project-agentgateway",
   "description": "Application-level MCP (Model Context Protocol) Router built on AT Protocol. Serves as the central entry point for AI Agents to discover and call tools across the GFTD ecosystem.",
   "gftd:vision": "Provide a unified, highly-available MCP routing layer that connects AI Agents to downstream tools and services without exposing internal network topologies.",
   "hasPart": [],

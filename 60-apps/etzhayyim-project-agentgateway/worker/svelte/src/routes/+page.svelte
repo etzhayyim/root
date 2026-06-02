@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
-  "title": "Aidesk A1d3sk00",
-  "project": "ai-gftd-project-aidesk",
-  "name": "aidesk-a1d3sk00",
-  "kind": "appview",
+  "title": "Worker",
+  "project": "etzhayyim-project-agentgateway",
+  "name": "worker",
+  "kind": "worker",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-aidesk/appview/aidesk-a1d3sk00/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-agentgateway/worker/svelte/src/routes/+page.svelte"
 };
 </script>
 

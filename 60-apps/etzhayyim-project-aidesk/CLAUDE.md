@@ -1,4 +1,4 @@
-# ai-gftd-project-aidesk
+# etzhayyim-project-aidesk
 
 AI Design Desk — 画像・テキストから CadQuery/STEP を生成し tsukuru 製造フローへ橋渡しする。
 
@@ -47,7 +47,7 @@ normalize/validate は tsukuru 既存 BPMN に委譲。aidesk 側で再実装し
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-aidesk/appview/aidesk-a1d3sk00
+cd 60-apps/etzhayyim-project-aidesk/appview/aidesk-a1d3sk00
 gftd deploy --smoke-url https://a1d3sk00.etzhayyim.com/health
 ```
 

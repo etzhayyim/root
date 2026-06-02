@@ -1,4 +1,4 @@
-# ai-gftd-project-agentgateway
+# etzhayyim-project-agentgateway
 
 AI Agent Gateway (`agentgateway`) is the application-level MCP (Model Context Protocol) router built on top of the AT Protocol. It serves as the primary entry point for AI Agents to discover and call tools across the etzhayyim ecosystem.
 
