@@ -11,13 +11,13 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 91 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 92 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 1 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 7 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 | **V — VENDOR-RESIDENT** | 32 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 56 apps** (C + D = 1 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 62 apps** (C + D = 7 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -33,7 +33,7 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > (`auth` was an example here previously but is now Bucket V — vendor-resident,
 > no on-chain path; see below.)
 
-## Bucket A — DONE (91, has rw-free/)
+## Bucket A — DONE (92, has rw-free/)
 
 6ir, aima (data layer; AI-compute stays gftd), air-sched,
 analytics (mixed split — public catalog front), anime, bim, business-person, cad,
@@ -48,6 +48,7 @@ sanctions (mixed split — public consolidated sanctions-list reference; screeni
 seibutsu (biodiversity taxonomy open-data; image→species identify stays gftd),
 shigotoba (business-establishment registry + job-board open-data; summarize LLM stays gftd),
 shinkansen (mixed split — public timetable/fare/operation reference; reservations stay gftd),
+toshi-kozan (mixed split — public depot/material/safety reference; recovery pipeline stays gftd),
 collector (mixed split — public OSINT front), completer,
 fleamarket (mixed split — public C2C catalog front), flight-offer, ge,
 animeka (mixed split — catalog front), blockchain, bpmn, bunken,
@@ -282,7 +283,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   encrypt, PDS pipethrough). No public catalog to front — surfacing the wrapped
   keys would violate the zero-knowledge invariant. Stays gftd.
 
-## Bucket C — NEEDS-CODEMOD (1) — active backlog
+## Bucket C — NEEDS-CODEMOD (7) — active backlog
 
 > **False-positive removed**: `open-ot` (WASM-PLC OSS spec, Apache-2.0) was
 > labelled "(RW)" but is spec + Rust crates only — no TS app, no AT collections,
@@ -295,8 +296,16 @@ Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
+voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
+
+> **Count correction (2026-06-02)**: the header C count had drifted *below* the
+> real backlog (mechanical per-fire decrements assumed the tail names were
+> legacy-cleanup-only with existing rw-free; they are not). Verified: the 7
+> build-targets **voxelforge / watashi / webmk / webya / xlsx / yorishiro /
+> yukkuri** genuinely lack `rw-free/src` and are un-resolved. `common-crawl` +
+> `cpc` are legacy-src codemod-only (rw-free already exists); `email-service-adapter`
+> is a stripe codemod-only item (also in Bucket D). C count = the 7 build-targets.
 
 ## Bucket D — TODO-PENDING (55, MIGRATION-TODO.md)
 
