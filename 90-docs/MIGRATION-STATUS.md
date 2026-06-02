@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 93 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **D — TODO-PENDING** | 54 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 | **V — VENDOR-RESIDENT** | 38 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 55 apps** (C + D = 0 + 55; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 54 apps** (C + D = 0 + 54; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -379,10 +379,16 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (55, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (54, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (25)**:
-gftdcojp,
+> **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
+> no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
+> the **vendor org identity** (the gftd.co.jp side of the Consensys boundary,
+> repo `github.com/gftdcojp/ai-gftd-apps-gftdcojp`), not a migratable
+> `etzhayyim/root` project. Nothing to migrate to etzhayyim-front; by definition
+> gftdcojp IS the vendor side. Dropped from the backlog (TRANSFORM 25→24, D 55→54).
+
+**TRANSFORM-pending (24)**:
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
 resource-provider, robot, scheduler, shiharai, tia, web4, webpage, wire, worlds,
 yabai, yatabase
