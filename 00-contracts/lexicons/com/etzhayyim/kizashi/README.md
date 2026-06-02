@@ -1,4 +1,4 @@
-# app.etzhayyim.kizashi.* — kizashi (兆) Lexicons
+# com.etzhayyim.kizashi.* — kizashi (兆) Lexicons
 
 **Owner actor**: `did:web:kizashi.etzhayyim.com` (`20-actors/kizashi/`)
 **ADR**: ADR-2605312700 (R0 scaffold)
@@ -45,4 +45,4 @@ through R1 Council attestation review).
 - `/20-actors/kizashi/manifest.jsonld` — owner actor manifest
 - `/20-actors/kizashi/CLAUDE.md` — actor operational doc
 - `/90-docs/adr/2605312700-kizashi-noninvasive-multimodal-bodyscan-tier-b-actor-r0.md` — Master ADR
-- `/00-contracts/lexicons/app/etzhayyim/iyashi/` — sibling encrypted-envelope discipline (G2 pattern)
+- `/00-contracts/lexicons/com/etzhayyim/iyashi/` — sibling encrypted-envelope discipline (G2 pattern)

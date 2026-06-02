@@ -72,7 +72,7 @@ file. No private key on the Worker.
 
 ### C-2 — Per-agent ES256 → device-generated keypair
 
-Today: `app.etzhayyim.auth.createAgentSession` generates a P-256 keypair
+Today: `com.etzhayyim.auth.createAgentSession` generates a P-256 keypair
 inside the auth Worker, persists the private half to `KEYS_DB` (KEK-
 wrapped), and returns both halves to the agent's container at
 `gftd deploy` time.
@@ -80,7 +80,7 @@ wrapped), and returns both halves to the agent's container at
 After Stage C: the agent's runtime (the operator's own device or the
 community-operated pod) generates the keypair locally via WebCrypto
 `crypto.subtle.generateKey({name:'ECDSA', namedCurve:'P-256'})`,
-exports the public half, and POSTs `app.etzhayyim.auth.registerAgentKey`
+exports the public half, and POSTs `com.etzhayyim.auth.registerAgentKey`
 with the public key + an attestation (WebAuthn proof of possession
 or DPoP-style nonce sign). The auth Worker stores the public key in
 the `vertex_gftd_key_signing` projection — never the private key.
@@ -117,14 +117,14 @@ binding is then deleted.
 ## C-3 / C-4 status + execution runbook (2026-06-02)
 
 **Landed in code (additive, non-breaking — verified, see ADR-2606014500):**
-- **C-2 server**: `app.etzhayyim.auth.registerSigningKey` stores a client-generated
+- **C-2 server**: `com.etzhayyim.auth.registerSigningKey` stores a client-generated
   public key only (`vertex_gftd_key_signing.key_custody_tier = human_self_custody`,
   empty private columns — no KEK).
 - **C-3 verify**: `session-pop.ts::verifySessionPoP` + `POST
-  /xrpc/app.etzhayyim.auth.verifySessionPoP` (read-only Ed25519 JWS verification
+  /xrpc/com.etzhayyim.auth.verifySessionPoP` (read-only Ed25519 JWS verification
   against the registered public key; client↔worker interop cross-checked).
 - **C-3 issuance (additive login path)**: `POST
-  /xrpc/app.etzhayyim.auth.createSessionFromPoP` establishes a session from a
+  /xrpc/com.etzhayyim.auth.createSessionFromPoP` establishes a session from a
   client PoP — login proof is the member's own signature, no server signing-key
   custody involved. (Issues the standard HS256 session for downstream compat;
   dropping HS256 in favour of downstream PoP verification is the broader migration.)

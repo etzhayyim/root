@@ -33,7 +33,7 @@ cells/{cell_name}/
 Common deps (when implementation lands in S1):
 
 - Checkpointing — `pymagatama.checkpointer.MstCheckpointSaver` ([ADR-2605191559](../../90-docs/adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md))
-- MST listener — `pymagatama.listener.MstListener` subscribes to `app.etzhayyim.apps.etzhayyim.yobel.*` (canonical NSID: `org.etzhayyim.yobel.*` post-cutover)
+- MST listener — `pymagatama.listener.MstListener` subscribes to `com.etzhayyim.apps.etzhayyim.yobel.*` (canonical NSID: `org.etzhayyim.yobel.*` post-cutover)
 - Web3 — `pymagatama.eligibility.web3_ports.{GethPrivatePort, BaseL2Port}` for `CouncilSBT` / `CouncilRatification` / `EtzhayyimPaymaster` / `TitheRouter`
 - Signature verify — `pymagatama.identity.erc725.verify_eip712_signed_consent(creditorDid, payloadHash, signature)`
 - Anchor — `pymagatama.anchor.AnchorBridge` (ADR-2605171800) for MST → IPFS → Base L2 batched anchor

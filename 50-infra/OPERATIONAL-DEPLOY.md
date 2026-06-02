@@ -288,7 +288,7 @@ cat > ~/Library/LaunchAgents/com.etzhayyim.mst-projector.plist <<EOF
     <key>ETZ_PROJECTOR_IPFS_API_URL</key>
     <string>http://127.0.0.1:5001</string>
     <key>ETZ_PROJECTOR_COLLECTIONS</key>
-    <string>app.etzhayyim.,app.etzhayyim.apps.</string>
+    <string>com.etzhayyim.,com.etzhayyim.apps.</string>
   </dict>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>
@@ -317,12 +317,12 @@ tail -f ~/Library/Logs/etzhayyim/ipfs-pinner.err.log &
 
 # After a few minutes the projector should emit shardSnapshot records;
 # query PDS for them:
-curl -s "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:projector.etzhayyim.com&collection=app.etzhayyim.substrate.shardSnapshot&limit=5" \
+curl -s "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:projector.etzhayyim.com&collection=com.etzhayyim.substrate.shardSnapshot&limit=5" \
   | jq '.records[0].value'
 # Expected: { shardKey, phase: 2, rootCid, snapshotCid, ... }
 
 # ipfsPin records should follow shortly:
-curl -s "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:pinner.etzhayyim.com&collection=app.etzhayyim.substrate.ipfsPin&limit=5" \
+curl -s "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:pinner.etzhayyim.com&collection=com.etzhayyim.substrate.ipfsPin&limit=5" \
   | jq '.records[0].value'
 # Expected: { shardKey, rootCid, carCid, providers: ["kubo"], ... }
 
@@ -363,7 +363,7 @@ pnpm exec tsx src/index-substrate.ts
 
 ```bash
 # l2Anchor receipts should appear in the anchorer's PDS repo:
-curl -s "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:anchorer.etzhayyim.com&collection=app.etzhayyim.substrate.l2Anchor&limit=5" \
+curl -s "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:anchorer.etzhayyim.com&collection=com.etzhayyim.substrate.l2Anchor&limit=5" \
   | jq '.records[0].value'
 # Expected: { shardKey, rootCid, rootHash, txHash, blockNumber, contract, anchorer, ipfsPinUri }
 
@@ -371,7 +371,7 @@ curl -s "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:we
 cast call "$ETZ_ANCHOR_CONTRACT" "rootCount()(uint256)" --rpc-url https://sepolia.base.org
 
 # Per-root verification:
-ROOT_HASH=$(curl -s "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:anchorer.etzhayyim.com&collection=app.etzhayyim.substrate.l2Anchor&limit=1" \
+ROOT_HASH=$(curl -s "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:anchorer.etzhayyim.com&collection=com.etzhayyim.substrate.l2Anchor&limit=1" \
   | jq -r '.records[0].value.rootHash')
 cast call "$ETZ_ANCHOR_CONTRACT" "anchors(bytes32)" "$ROOT_HASH" --rpc-url https://sepolia.base.org
 # Expected: tuple with non-zero blockNumber

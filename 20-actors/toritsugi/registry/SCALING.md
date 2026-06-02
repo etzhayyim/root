@@ -33,7 +33,7 @@ in 窓口/URL, all needing independent G14 verification + freshness tracking.
 Split the registry along the layer boundary. **Do not** denormalize.
 
 1. **`procedure` (national template)** — the existing
-   `app.etzhayyim.toritsugi.procedure` lexicon, unchanged. One record per
+   `com.etzhayyim.toritsugi.procedure` lexicon, unchanged. One record per
    procedure (the 6 seeds + future national procedures). Holds 根拠法令 /
    statutory deadline / required-document *types* / channel *kind*. The
    `authority` field stays generic (e.g. "市区町村") and `onlineUrl` documents
@@ -61,7 +61,7 @@ template + tell the member "窓口は自治体ごとに要確認" (honest, never
 | **Demand-driven** | A `municipalBinding` is created/verified only when a consenting member in that 自治体 needs that procedure (G12). No speculative nationwide crawl. |
 | **Template-first** | National `procedure` template is the floor; a member is always served (template + "要確認") even with zero bindings. Coverage degrades gracefully, never to a hard fail. |
 | **Verification inherits VERIFICATION.md** | Each `municipalBinding` runs the same 10-point checklist + `.go.jp`/official-`.lg.jp` provenance fail-closed rule (see `VERIFICATION.md`). 自治体 sources are `*.lg.jp` (local-gov) — extend the provenance allow-list to `.lg.jp` when the binding lexicon lands. |
-| **No PII in bindings** | A `municipalBinding` is OPEN procedural data (窓口/様式/手数料) — never member data. Member PII stays in `app.etzhayyim.encrypted.*` (G6) as today. |
+| **No PII in bindings** | A `municipalBinding` is OPEN procedural data (窓口/様式/手数料) — never member data. Member PII stays in `com.etzhayyim.encrypted.*` (G6) as today. |
 | **Freshness budget** | Per-binding `freshnessWindowDays` (180 default). Stale binding ⇒ treated as unverified for dispatch (G14) ⇒ guide falls back to national template, not a stale 窓口. |
 | **Source priority** | (1) the 自治体's own `*.lg.jp` page; (2) マイナポータル ぴったりサービス (national online-application aggregator — authoritative for which procedures are e-fileable per 自治体); (3) デジタル庁 / 所管省庁 national page. Never a third-party blog (G8). |
 
@@ -78,7 +78,7 @@ gate.
 ## What is explicitly NOT done here (honest)
 
 - The `municipalBinding` lexicon is **not created** (R2+ scope; would be a new
-  `app.etzhayyim.toritsugi.municipalBinding` schema with its own invariants test
+  `com.etzhayyim.toritsugi.municipalBinding` schema with its own invariants test
   + guard checks). Creating it now would ship an unused schema.
 - No 自治体 code table, no ぴったりサービス integration, no bindings — all R2+.
 - `.lg.jp` is **not yet** in the provenance allow-list of

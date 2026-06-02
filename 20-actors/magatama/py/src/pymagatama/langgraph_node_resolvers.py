@@ -31,7 +31,7 @@ Implemented kinds:
                   - ``mcp://<nsid>`` (registry-resolved per ADR-2605082000 §2.6 —
                     SELECT actor_host FROM vertex_mcp_tool_def WHERE nsid=$1
                     AND enabled=true; endpoint =
-                    ``https://{actor_host}/xrpc/app.etzhayyim.mcp.message``;
+                    ``https://{actor_host}/xrpc/com.etzhayyim.mcp.message``;
                     tools/call ``name`` = nsid). Resolution requires ``pool_factory``,
                     cached in-process for 60 s.
   llm           pymagatama.llm.call_tier_json(tier=ref, system+user from
@@ -52,7 +52,7 @@ LOG = logging.getLogger("langgraph_node_resolvers")
 _MCP_REGISTRY_CACHE: dict[str, tuple[str, float]] = {}
 _MCP_REGISTRY_TTL_S = 60.0
 _MCP_NSID_PREFIX = "mcp://"
-_MCP_ENVELOPE_PATH = "/xrpc/app.etzhayyim.mcp.message"
+_MCP_ENVELOPE_PATH = "/xrpc/com.etzhayyim.mcp.message"
 
 NodeFn = Callable[[dict], Awaitable[dict]]
 
@@ -128,7 +128,7 @@ def _read_mcp_nsid_overrides() -> list[tuple[str, str]]:
 
     Use case: ADR-2605111200 + Phase C activation — the lg-mangaka pod
     sets `MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools=http://localhost:8000`
-    so the topology Pregel's `mcp://app.etzhayyim.apps.mangaka.tools.*` calls
+    so the topology Pregel's `mcp://com.etzhayyim.apps.mangaka.tools.*` calls
     short-circuit to the same pod's /xrpc/{nsid} server (
     `lg_mangaka.server._TOOL_NSID_TO_HANDLER`) without an external
     round-trip through the CF Worker.
@@ -150,7 +150,7 @@ async def _resolve_mcp_nsid(
 ) -> str:
     """Resolve `mcp://<nsid>` → MCP envelope endpoint via vertex_mcp_tool_def.
 
-    Returns the full POST URL (`https://{actor_host}/xrpc/app.etzhayyim.mcp.message`).
+    Returns the full POST URL (`https://{actor_host}/xrpc/com.etzhayyim.mcp.message`).
     Cached in-process for 60 s. Raises ValueError if the nsid is unknown
     or disabled.
 
@@ -195,7 +195,7 @@ def make_mcp_tool_node(
     """Compile an MCP tool reference into an async node callable.
 
     ref = HTTP URL of the MCP endpoint (typically
-          https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message)
+          https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message)
           OR ``mcp://<nsid>`` for registry-resolved endpoints (ADR-2605082000 §2.6).
           When the ``mcp://`` prefix is used, ``pool_factory`` is required and
           ``config.args.name`` is auto-set to the nsid (override allowed).
@@ -208,7 +208,7 @@ def make_mcp_tool_node(
     (nested) become the ``arguments`` dict on the MCP ``tools/call``
     envelope. ``input_paths`` keys are the kwarg names; values are
     dotted paths walked against ``state`` (same grammar as
-    ``app.etzhayyim.tools.json.extract``: ``a.b[2].c`` / ``a.*``).
+    ``com.etzhayyim.tools.json.extract``: ``a.b[2].c`` / ``a.*``).
     """
     cfg = _parse_config(config)
     input_keys = list(cfg.get("input_keys") or [])
@@ -237,7 +237,7 @@ def make_mcp_tool_node(
     headers.setdefault("content-type", "application/json")
     # Static defaults from config.args.* — anything other than the reserved
     # `name` / `headers` keys is merged into the envelope's `arguments`.
-    # Use case: identity / no-op tools (app.etzhayyim.tools.const.echo) where the
+    # Use case: identity / no-op tools (com.etzhayyim.tools.const.echo) where the
     # payload is config-only (state-independent). State-derived values from
     # `input_keys` override static defaults when keys collide.
     static_args = {
@@ -256,7 +256,7 @@ def make_mcp_tool_node(
         for k in input_keys:
             arguments[k] = state.get(k)
         # Nested-path input lookups (input_paths). Reuses the same safe
-        # navigator as app.etzhayyim.tools.json.extract so the path grammar is
+        # navigator as com.etzhayyim.tools.json.extract so the path grammar is
         # identical across the resolver and the JSON tool.
         if input_paths:
             try:
@@ -608,7 +608,7 @@ _DMN_REF_PREFIX = "dmn:"
 
 
 def _parse_dmn_ref(ref: str) -> tuple[str, int]:
-    """``dmn:app.etzhayyim.policies.foo.bar@1.0.0`` → (``app.etzhayyim.policies.foo.bar``, 1).
+    """``dmn:com.etzhayyim.policies.foo.bar@1.0.0`` → (``com.etzhayyim.policies.foo.bar``, 1).
 
     The minor / patch parts of the version are advisory only — DMN rows
     are keyed by ``decision_key`` + integer major version in

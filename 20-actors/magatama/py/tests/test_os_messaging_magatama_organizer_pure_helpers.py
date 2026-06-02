@@ -262,4 +262,4 @@ def test_mo_organizer_run_collection_is_string():
 
 
 def test_mo_organizer_run_collection_starts_with_ai_gftd():
-    assert MO.ORGANIZER_RUN_COLLECTION.startswith("app.etzhayyim.apps.")
+    assert MO.ORGANIZER_RUN_COLLECTION.startswith("com.etzhayyim.apps.")

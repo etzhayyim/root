@@ -136,7 +136,7 @@ def test_normalize_lei_record_vertex_id_format() -> None:
     record = {"attributes": {"lei": "TESTLEI0001"}}
     result = OL.normalize_lei_record(record)
     assert result["vertex_id"].startswith("at://did:web:open-lei.etzhayyim.com/")
-    assert "app.etzhayyim.apps.openLei.entity" in result["vertex_id"]
+    assert "com.etzhayyim.apps.openLei.entity" in result["vertex_id"]
     assert "TESTLEI0001" in result["vertex_id"]
 
 
@@ -213,24 +213,24 @@ def test_build_social_post_record_extra_fields_merged() -> None:
 # ─── yoro_social: build_repo_record ──────────────────────────────────────────
 
 def test_build_repo_record_shape() -> None:
-    record = {"$type": "app.etzhayyim.apps.test.post", "text": "hello"}
+    record = {"$type": "com.etzhayyim.apps.test.post", "text": "hello"}
     result = YS.build_repo_record(
         repo="did:web:yoro.etzhayyim.com",
-        collection="app.etzhayyim.apps.test.post",
+        collection="com.etzhayyim.apps.test.post",
         record=record,
         rkey="my-rkey",
     )
-    assert result["uri"] == "at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.test.post/my-rkey"
-    assert result["collection"] == "app.etzhayyim.apps.test.post"
+    assert result["uri"] == "at://did:web:yoro.etzhayyim.com/com.etzhayyim.apps.test.post/my-rkey"
+    assert result["collection"] == "com.etzhayyim.apps.test.post"
     assert result["repo"] == "did:web:yoro.etzhayyim.com"
 
 
 def test_build_repo_record_value_json_serialized() -> None:
     import json
-    record = {"$type": "app.etzhayyim.test.rec", "count": 42}
+    record = {"$type": "com.etzhayyim.test.rec", "count": 42}
     result = YS.build_repo_record(
         repo="did:web:x.etzhayyim.com",
-        collection="app.etzhayyim.test.rec",
+        collection="com.etzhayyim.test.rec",
         record=record,
     )
     parsed = json.loads(result["value_json"])

@@ -25,7 +25,7 @@ def test_organism_message_ndjson():
     )
     line = msg.to_ndjson_line()
     parsed = json.loads(line)
-    assert parsed["lexicon"] == "app.etzhayyim.organism.message"
+    assert parsed["lexicon"] == "com.etzhayyim.organism.message"
     assert parsed["v"] == 1
     assert parsed["actorDid"] == "did:web:sender"
     assert parsed["recipientDid"] == "did:web:recipient"

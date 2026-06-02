@@ -69,7 +69,7 @@ class _SyncCursorFactory:
 
 def test_sync_due_connections_dry_run(monkeypatch):
     factory = _SyncCursorFactory([
-        ("at://did:web:owner/app.etzhayyim.apps.kouza.institutionConnection/conn-a", "did:web:owner", "mock"),
+        ("at://did:web:owner/com.etzhayyim.apps.kouza.institutionConnection/conn-a", "did:web:owner", "mock"),
     ])
     monkeypatch.setattr(K, "sync_cursor", factory)
     monkeypatch.delenv("KOUZA_CORE_URL", raising=False)
@@ -89,7 +89,7 @@ def test_sync_due_connections_dry_run(monkeypatch):
 
 
 def test_sync_due_connections_writes_pending_sync_run(monkeypatch):
-    connection_did = "at://did:web:owner/app.etzhayyim.apps.kouza.institutionConnection/conn-a"
+    connection_did = "at://did:web:owner/com.etzhayyim.apps.kouza.institutionConnection/conn-a"
     factory = _SyncCursorFactory([(connection_did, "did:web:owner", "mock-provider")])
     monkeypatch.setattr(K, "sync_cursor", factory)
     monkeypatch.delenv("KOUZA_CORE_URL", raising=False)
@@ -99,7 +99,7 @@ def test_sync_due_connections_writes_pending_sync_run(monkeypatch):
     assert out["ok"] is True
     assert out["connectionsScanned"] == 1
     assert out["syncRunsCreated"] == 1
-    assert out["syncRunDids"][0].startswith("at://did:web:owner/app.etzhayyim.apps.kouza.syncRun/")
+    assert out["syncRunDids"][0].startswith("at://did:web:owner/com.etzhayyim.apps.kouza.syncRun/")
     write_sql = "\n".join(factory.cursors[1].sqls)
     assert "INSERT INTO vertex_atrecord_kouza_sync_run" in write_sql
     assert "UPDATE vertex_atrecord_kouza_institution_connection" in write_sql
@@ -108,7 +108,7 @@ def test_sync_due_connections_writes_pending_sync_run(monkeypatch):
 
 
 def test_sync_due_connections_delegates_to_kouza_core(monkeypatch):
-    connection_did = "at://did:web:owner/app.etzhayyim.apps.kouza.institutionConnection/conn-a"
+    connection_did = "at://did:web:owner/com.etzhayyim.apps.kouza.institutionConnection/conn-a"
     factory = _SyncCursorFactory([(connection_did, "did:web:owner", "mock-provider")])
     monkeypatch.setattr(K, "sync_cursor", factory)
     monkeypatch.setenv("KOUZA_CORE_URL", "https://kouza.etzhayyim.com")
@@ -125,7 +125,7 @@ def test_sync_due_connections_delegates_to_kouza_core(monkeypatch):
             return False
 
         def read(self, _limit):
-            return b'{"syncRunDid":"at://did:web:owner/app.etzhayyim.apps.kouza.syncRun/sync-core","status":"succeeded"}'
+            return b'{"syncRunDid":"at://did:web:owner/com.etzhayyim.apps.kouza.syncRun/sync-core","status":"succeeded"}'
 
     def _urlopen(req, timeout=0):
         calls.append((req.full_url, req.data, timeout))
@@ -138,9 +138,9 @@ def test_sync_due_connections_delegates_to_kouza_core(monkeypatch):
     assert out["ok"] is True
     assert out["adapterMode"] == "kouza-core"
     assert out["syncRunsCreated"] == 1
-    assert out["syncRunDids"] == ["at://did:web:owner/app.etzhayyim.apps.kouza.syncRun/sync-core"]
-    assert calls[0][0] == "https://kouza.etzhayyim.com/xrpc/app.etzhayyim.apps.kouza.syncConnection"
-    assert b'"connectionDid":"at://did:web:owner/app.etzhayyim.apps.kouza.institutionConnection/conn-a"' in calls[0][1]
+    assert out["syncRunDids"] == ["at://did:web:owner/com.etzhayyim.apps.kouza.syncRun/sync-core"]
+    assert calls[0][0] == "https://kouza.etzhayyim.com/xrpc/com.etzhayyim.apps.kouza.syncConnection"
+    assert b'"connectionDid":"at://did:web:owner/com.etzhayyim.apps.kouza.institutionConnection/conn-a"' in calls[0][1]
     assert len(factory.cursors) == 1
 
 

@@ -11,7 +11,7 @@ APQC PCF has five hierarchy layers:
 | Layer | Cardinality | rkey |
 |---|---:|---|
 | L1 (process category) | 13 (v7.4 cross-industry) | this PR — `literal:{code}` (e.g. "7.0") |
-| L2 (process group) | ~80 | future PR (`app.etzhayyim.apqc.processGroup`) |
+| L2 (process group) | ~80 | future PR (`com.etzhayyim.apqc.processGroup`) |
 | L3 (process) | ~250 | future PR |
 | L4 (activity) | ~700 | future PR |
 | L5 (task) | ~1,000 | future PR (segmented) |
@@ -37,7 +37,7 @@ rw-free/
 
 ## Lexicon
 
-`app.etzhayyim.apqc.processCategory` (record), at [`00-contracts/lexicons/ai/gftd/apqc/processCategory.json`](../../../00-contracts/lexicons/ai/gftd/apqc/processCategory.json). Naming convention follows the existing `app.etzhayyim.apqc.*` namespace (where sibling `getProcess` / `materializeSubprocesses` / `coverageSnapshot` / `emitEvent` are procedures) — record-vs-procedure split.
+`com.etzhayyim.apqc.processCategory` (record), at [`00-contracts/lexicons/com/etzhayyim/apqc/processCategory.json`](../../../00-contracts/lexicons/com/etzhayyim/apqc/processCategory.json). Naming convention follows the existing `com.etzhayyim.apqc.*` namespace (where sibling `getProcess` / `materializeSubprocesses` / `coverageSnapshot` / `emitEvent` are procedures) — record-vs-procedure split.
 
 `rkey` policy: `literal:{code}` — the L1 identifier (e.g. "7.0", "13.0") is the MST key verbatim. Idempotent re-seeds produce no new records. AT-Protocol literal-rkey alphabet allows `.` so the dotted-code format is preserved on disk.
 
@@ -84,7 +84,7 @@ pnpm tsx src/query.ts                       # full list
 ## Verify
 
 ```bash
-pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apqc.processCategory/7.0
+pnpm tsx src/verify.ts at://did:web:etzhayyim.com/com.etzhayyim.apqc.processCategory/7.0
 ```
 
 Returns the Merkle path from the record to the MST root that was anchored to Base L2 via the substrate pipeline. Any client (no credentials) can re-check the proof.
@@ -104,7 +104,7 @@ pnpm test
 
 | Surface | State |
 |---|---|
-| Record lexicon `app.etzhayyim.apqc.processCategory` | ✅ |
+| Record lexicon `com.etzhayyim.apqc.processCategory` | ✅ |
 | Seeder + helpers + inline v7.4 catalog | ✅ |
 | Pure-helper tests | ✅ 36/36 |
 | Live PDS seed run | ⏳ pending PDS auth credentials (Gate 4 of [`OPERATIONAL-DEPLOY.md`](../../../50-infra/OPERATIONAL-DEPLOY.md)) |

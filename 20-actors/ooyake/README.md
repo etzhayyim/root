@@ -44,18 +44,18 @@ map, never a target-list") and watatsuna ("resilience map, never a target-list")
     └── gov-units.seed.edn       # proof-of-model seed (all :unverified-seed)
 
 00-contracts/schemas/gov-atlas-ontology.kotoba.edn   # :gov.* ontology
-00-contracts/lexicons/app/etzhayyim/ooyake/*.json    # 8 XRPC lexicons (read-only)
-00-contracts/bpmn/app/etzhayyim/ooyake/*.bpmn        # 3 process models (model-only)
+00-contracts/lexicons/com/etzhayyim/ooyake/*.json    # 8 XRPC lexicons (read-only)
+00-contracts/bpmn/com/etzhayyim/ooyake/*.bpmn        # 3 process models (model-only)
 90-docs/adr/2606021600-ooyake-world-government-atlas-tier-b-actor-r0.md
 ```
 
 ## Query surface (read-only XRPC)
 
-- `app.etzhayyim.ooyake.getUnit` — resolve a unit + its children/addresses/windows
-- `app.etzhayyim.ooyake.resolvePath` — resolve a dotted path / atlas DID to a unit
-- `app.etzhayyim.ooyake.findService` — *"where do I do procedure X near me?"* →
+- `com.etzhayyim.ooyake.getUnit` — resolve a unit + its children/addresses/windows
+- `com.etzhayyim.ooyake.resolvePath` — resolve a dotted path / atlas DID to a unit
+- `com.etzhayyim.ooyake.findService` — *"where do I do procedure X near me?"* →
   procedure + window + address (the citizen wayfinding query)
-- `app.etzhayyim.ooyake.searchUnits` — text/geo search; backs civic search at
+- `com.etzhayyim.ooyake.searchUnits` — text/geo search; backs civic search at
   `etzhayyim.com` (`/actors` kotoba-wasm search surfaces gov units at R1)
 
 ## Status

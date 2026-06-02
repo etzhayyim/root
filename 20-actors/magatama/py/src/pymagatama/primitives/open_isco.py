@@ -62,7 +62,7 @@ def occupation_did(isco_code: Any) -> str:
 
 
 def classification_vertex_id(worker_did: str, isco_code: str, classified_at: str) -> str:
-    return f"at://{OPEN_ISCO_DID}/app.etzhayyim.apps.openIsco.classification/{_digest(worker_did, isco_code, classified_at)}"
+    return f"at://{OPEN_ISCO_DID}/com.etzhayyim.apps.openIsco.classification/{_digest(worker_did, isco_code, classified_at)}"
 
 
 def _audit(caller_did: str, employer_did: str = "") -> dict[str, Any]:
@@ -156,7 +156,7 @@ async def task_open_isco_classify_worker(
         "classified_at": classified_at,
         **_audit(callerDid or OPEN_ISCO_DID, employerDid),
     }, dry_run=dryRun)
-    edge_id = f"at://{OPEN_ISCO_DID}/app.etzhayyim.apps.openIsco.classificationOccupation/{_digest(vertex_id, code)}"
+    edge_id = f"at://{OPEN_ISCO_DID}/com.etzhayyim.apps.openIsco.classificationOccupation/{_digest(vertex_id, code)}"
     _insert("edge_open_isco_classification_occ", {
         "edge_id": edge_id,
         "src_vid": vertex_id,
@@ -193,7 +193,7 @@ async def task_open_isco_record_concordance(
         return {"ok": False, "error": "iscoCode must be 1-4 digits"}
     if relation not in VALID_RELATIONS:
         return {"ok": False, "error": f"invalid relation: {relation}"}
-    vertex_id = f"at://{OPEN_ISCO_DID}/app.etzhayyim.apps.openIsco.concordance/{_digest(code, otherTaxonomy, otherCode, relation)}"
+    vertex_id = f"at://{OPEN_ISCO_DID}/com.etzhayyim.apps.openIsco.concordance/{_digest(code, otherTaxonomy, otherCode, relation)}"
     _insert("vertex_open_isco_concordance", {
         "vertex_id": vertex_id,
         "isco_code": code,

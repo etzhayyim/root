@@ -24,7 +24,7 @@ mechanical, KiCad for driver PCB, ROS 2 + URDF for robotics.
 
 Paired with `20-actors/magatama/cells/silicon_litho/`. Each super-step =
 1 wafer-lot exposure. Telemetry stream via libp2p; per-step attestation
-via `app.etzhayyim.silicon.waferLotAttestation`.
+via `com.etzhayyim.silicon.waferLotAttestation`.
 
 ## Charter Rider §2(a)(c) gate
 

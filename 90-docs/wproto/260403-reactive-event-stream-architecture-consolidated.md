@@ -29,7 +29,7 @@ Write/read/stream の経路を重複なく整理し、Shannon 冗長を抑えた
 
 ## Scope
 
-- `app.etzhayyim.apps.*` の reactive 配信設計
+- `com.etzhayyim.apps.*` の reactive 配信設計
 - input (firehose), processing (app worker), output (subscriber stream) の標準経路
 - DO/Queue 非依存の運用基準
 
@@ -68,8 +68,8 @@ Deliver:
 |---|---|---|
 | `com.atproto.repo.*` | PDS direct | write authority / canonical CRUD |
 | `com.atproto.sync.*` | PDS direct | firehose/sync |
-| `app.etzhayyim.apps.*` | service proxy -> app worker | domain query / view logic |
-| `app.etzhayyim.{convo,signal,rtc,files}.*` | PDS direct | platform service |
+| `com.etzhayyim.apps.*` | service proxy -> app worker | domain query / view logic |
+| `com.etzhayyim.{convo,signal,rtc,files}.*` | PDS direct | platform service |
 
 ## Stream Delivery Modes
 

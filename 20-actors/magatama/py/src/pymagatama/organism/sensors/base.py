@@ -4,7 +4,7 @@ Per ADR-2605262400 §3. A DatasetSensor lets a `pymagatama.organism`
 heartbeat tick consume a bounded sample from a public-domain corpus
 without breaking the substrate boundary:
 
-  - bytes are resolved via `app.etzhayyim.substrate.datasetPin` AT records
+  - bytes are resolved via `com.etzhayyim.substrate.datasetPin` AT records
     (ADR-2605241500) + IPFS CID map; no separate projection layer;
   - the sensor runs in-memory only — it does NOT write back into the
     DataLad annex; the cold-path corpus assembler is the persistence
@@ -44,7 +44,7 @@ class PiiFilterPolicy(enum.Enum):
 class DatasetPin:
     """A receipt for one IPFS-pinned subdataset version.
 
-    Resolved from an `app.etzhayyim.substrate.datasetPin` AT record. The
+    Resolved from an `com.etzhayyim.substrate.datasetPin` AT record. The
     sensor consumes `cid_map` (a sha256e-key → IPFS CID mapping) to
     fetch individual annex objects on demand via Kubo HTTP API.
     """

@@ -1,4 +1,4 @@
-# `app.etzhayyim.comfyui.*` — ComfyUI — open node graph / inference workflow spec
+# `com.etzhayyim.comfyui.*` — ComfyUI — open node graph / inference workflow spec
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group C).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `app.etzhayyim.comfyui.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `com.etzhayyim.comfyui.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yamabiko.dynamicTestRecord"
+ :id "com.etzhayyim.yamabiko.dynamicTestRecord"
  :defs
  {:main
   {:type "record"

@@ -204,7 +204,7 @@ AT Protocol の `createdAt` は常に現在時刻。歴史日時は post 本文�
 ```typescript
 /**
  * 1つの歴史事象が「誰に・いつ・どう伝わったか」を表す。
- * Tier 2 Domain Record (collection: "app.etzhayyim.apps.shinka.propagation_event")
+ * Tier 2 Domain Record (collection: "com.etzhayyim.apps.shinka.propagation_event")
  */
 interface PropagationEvent {
   /** Record ID */

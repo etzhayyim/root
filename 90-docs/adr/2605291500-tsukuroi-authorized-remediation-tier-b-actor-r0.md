@@ -42,7 +42,7 @@ superseded_by: []
 ADR-2605151400 introduced `akuma` (悪魔), the platform's authorized active
 security-testing actor. akuma diagnoses: it runs scope-bound, dual-signature
 probes against owner-attested targets and emits `vertex_akuma_finding` /
-`app.etzhayyim.apps.akuma.recordFinding` records. The akuma ADR explicitly
+`com.etzhayyim.apps.akuma.recordFinding` records. The akuma ADR explicitly
 **leaves the loop open at "scored / recorded"** — its own "out of scope"
 ceiling states that "automated patch generation/submission is out of scope
 for akuma"; findings flow to `yabai` / `malak` / the threat ledger for
@@ -78,13 +78,13 @@ merges. tsukuroi performs **no probing** (that is akuma) and **holds no
 merge/deploy authority and no platform master key**.
 
 tsukuroi is kotoba-native (ADR-2605262130): datom/EAVT facts on
-`kotoba-kqe`, records on MST under `app.etzhayyim.tsukuroi.*`. It does **not**
+`kotoba-kqe`, records on MST under `com.etzhayyim.tsukuroi.*`. It does **not**
 reuse akuma's older RisingWave data plane.
 
 ## RemediationMandate contract (parallel to akuma's scope contract)
 
 Each remediation engagement is a datom-backed contract object
-(`app.etzhayyim.tsukuroi.remediationMandate`):
+(`com.etzhayyim.tsukuroi.remediationMandate`):
 
 - `target_repo`: git remote URL **or** config target the patch is proposed to
 - `finding_cid`: the **akuma finding** (or owner-submitted report) being
@@ -138,7 +138,7 @@ closure_verification ── request akuma re-probe; close only on owner-merge + 
 silen_tsukuroi_review ─ quarterly Council audit; structural zero-counters (G13)
 ```
 
-## Lexicons (`app.etzhayyim.tsukuroi.*`)
+## Lexicons (`com.etzhayyim.tsukuroi.*`)
 
 - `remediationMandate` — dual-sig; `submissionMode` closed enum;
   `mergeAuthorityHeld` const `false`
@@ -219,7 +219,7 @@ This actor **closes the loop akuma left open**:
   with a NetworkPolicy reconciled from active mandates — egress allowed only
   to the owner-attested **git submission endpoint** (a fork remote), never to
   the live runtime target
-- **Persistence**: kotoba datom (EAVT) + MST `app.etzhayyim.tsukuroi.*`; raw
+- **Persistence**: kotoba datom (EAVT) + MST `com.etzhayyim.tsukuroi.*`; raw
   patch payloads + delegated credentials ciphertext in `vault.etzhayyim.com`
   (zero-knowledge invariant)
 

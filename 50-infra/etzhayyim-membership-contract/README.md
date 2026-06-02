@@ -22,7 +22,7 @@ aspirant Smart Wallet ──▶ EtzhayyimMembership.join(oathHash, githubUsernam
 The contract has **no admin function**. No `setOwner`, no `pause`, no `upgrade`, no `expel`. Same governance posture as `EtzhayyimAnchor` (ADR-2605171800).
 
 The social meaning of membership comes from:
-1. the **oath text** the aspirant explicitly signs (off-chain, recorded as `app.etzhayyim.apps.etzhayyim.oath` AT Record);
+1. the **oath text** the aspirant explicitly signs (off-chain, recorded as `com.etzhayyim.apps.etzhayyim.oath` AT Record);
 2. the **public roster** (anyone can read);
 3. the **github commit** added to `MEMBERS.md` (dual-permanence with on-chain).
 
@@ -93,7 +93,7 @@ const receipt = await e.join({
 ## See also
 
 - [ADR-2605172600](../../90-docs/adr/2605172600-etzhayyim-membership-ritual.md)
-- [Oath Lexicon](../../00-contracts/lexicons/ai/gftd/apps/etzhayyim/oath.json)
+- [Oath Lexicon](../../00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json)
 - [`MEMBERS.md`](../../MEMBERS.md) — github-side ledger
 - `../l2-anchor-contract/` — sister contract, same immutability posture
 - `../etzhayyim-paymaster/` — sponsors the `join()` gas via allowlist

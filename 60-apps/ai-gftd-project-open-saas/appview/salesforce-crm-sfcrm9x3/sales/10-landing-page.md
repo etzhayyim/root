@@ -9,7 +9,7 @@
 **Subhead**: open-salesforce is a CRM on AT / W Protocol. Tenant = DID. PII split between a Tier-1 federation-ready record and a Tier-3 residency-pinned vault. Seat = agent. Flat price, no per-seat, no Einstein GPT line item.
 
 **Primary CTA (×3, side by side)**:
-- **See a real record** → `/at/democo.opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.opportunity/opp-demo-q3`
+- **See a real record** → `/at/democo.opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.opportunity/opp-demo-q3`
 - **Download posture packet (APPI + GDPR, PDF 14pp)** → `/docs/posture-appi-gdpr.pdf`
 - **Run the TCO calculator** → `/pricing/calculator`
 
@@ -20,7 +20,7 @@
 ### Claim A: Convert a lead atomically, auto-log the activity
 One click writes `account` + `contact` + `opportunity` + updated `lead` + derived `activity(kind=conversion)` in a single commit pipeline pass. Zero app-layer orchestration. No Flow, no Apex.
 
-- **Proof link**: live record `/at/democo.opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.activity/act-demo-conv-001`
+- **Proof link**: live record `/at/democo.opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.activity/act-demo-conv-001`
 - **Micro-copy**: "Paste that URI into any AT Protocol client. The CRM isn't the only thing that can read it."
 
 ### Claim B: Your CRM data is where you say it is, and you can prove it
@@ -82,7 +82,7 @@ Tight, honest inventory. No "we're better at everything" bravado.
 
 ## Section 6 — Proof (load-bearing footer)
 
-- Link to the lexicon repo: `https://github.com/etzhayyim/open-saas/tree/main/00-contracts/lexicons/ai/gftd/apps/opensaas/salesforce`.
+- Link to the lexicon repo: `https://github.com/etzhayyim/open-saas/tree/main/00-contracts/lexicons/com/etzhayyim/apps/opensaas/salesforce`.
 - Link to the Cloudflare Worker source and `magatama.jsonld`.
 - Link to the atproto.etzhayyim.com public firehose — anyone can verify our own dogfooding (we run open-salesforce internally).
 - Link to the `listPipeline` spec JSON.
@@ -90,7 +90,7 @@ Tight, honest inventory. No "we're better at everything" bravado.
 
 ## Analytics + lead capture
 
-- Every form on the page → `POST /xrpc/app.etzhayyim.apps.opensaas.salesforce.createLead` with `source=web-form` and `campaignId=<section-id>`.
+- Every form on the page → `POST /xrpc/com.etzhayyim.apps.opensaas.salesforce.createLead` with `source=web-form` and `campaignId=<section-id>`.
 - Calculator CTA emits a synthetic lead with `scoreBand` derived from calculator inputs; RevOps sees the scoreBand distribution in `listPipeline` without seeing the raw PII (it's hashed before the XRPC).
 - Posture-packet download gated by email, hashed before persistence, raw email goes to Tier-3 vault directly (dogfood).
 

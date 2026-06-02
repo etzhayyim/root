@@ -96,7 +96,7 @@ def _presentation_row(token: dict[str, Any], pres: dict[str, Any], file_id: str,
     width_emu = int((page_size.get("width") or {}).get("magnitude") or 0)
     height_emu = int((page_size.get("height") or {}).get("magnitude") or 0)
     return {
-        "vertex_id": f"at://{actor}/app.etzhayyim.apps.slides.presentation/{presentation_id}",
+        "vertex_id": f"at://{actor}/com.etzhayyim.apps.slides.presentation/{presentation_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,
@@ -134,7 +134,7 @@ def _slide_row(token: dict[str, Any], presentation_id: str, slide: dict[str, Any
     elements_preview = _extract_slide_text(elements)
     page_properties = slide.get("pageProperties") or {}
     return {
-        "vertex_id": f"at://{actor}/app.etzhayyim.apps.slides.slide/{presentation_id}_{slide_object_id}",
+        "vertex_id": f"at://{actor}/com.etzhayyim.apps.slides.slide/{presentation_id}_{slide_object_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,

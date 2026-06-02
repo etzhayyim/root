@@ -21,7 +21,7 @@ depends_on:
 Three constitutional gates must be set non-None in cell code before R1 manufacturing can begin:
 
 1. **COUNCIL_ATTESTATION_TX_HASH** — Base L2 (Ethereum-compatible) Council Lv6+ ≥3 multisig transaction hash
-2. **SILEN_PHARMA_BASELINE_REVIEW_CID** — IPFS CID of `app.etzhayyim.pharma.silenPharmaReview` Lexicon record (verdict = "approve")
+2. **SILEN_PHARMA_BASELINE_REVIEW_CID** — IPFS CID of `com.etzhayyim.pharma.silenPharmaReview` Lexicon record (verdict = "approve")
 3. **Additional for benzonatate (R1.5 only):** BENZONATATE_PMDA_OTC_APPROVAL_CID (contingent on PMDA decision)
 
 ## Phase 1: Pre-Ballot Documentation (T-2 weeks)
@@ -136,7 +136,7 @@ Signers: council.etzhayyim.eth [3/5 multisig]
 
 ```json
 {
-  "type": "app.etzhayyim.pharma.silenPharmaReview",
+  "type": "com.etzhayyim.pharma.silenPharmaReview",
   "createdAt": "2026-05-[date]T00:00:00Z",
   "scope": "wave-1c-chiral-resolution-baseline",
   "apiInn": ["omeprazole"],
@@ -144,7 +144,7 @@ Signers: council.etzhayyim.eth [3/5 multisig]
   "councilMultisigDid": "did:...",
   "councilAttestationTxHash": "0x...",
   "chainId": 8453,
-  "attestationUri": "at://did:plc:[council-actor]/app.etzhayyim.pharma.silenPharmaReview/[rkey]",
+  "attestationUri": "at://did:plc:[council-actor]/com.etzhayyim.pharma.silenPharmaReview/[rkey]",
   "gatekeepers": {
     "operatorDid": "did:web:etzhayyim.com:yakushi:operator",
     "qpEquivalentDid": "did:web:etzhayyim.com:yakushi:qp-equivalent"

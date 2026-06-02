@@ -1,4 +1,4 @@
-# app.etzhayyim.kanae.* — Global Government Fiscal-Flow Visualization Lexicons
+# com.etzhayyim.kanae.* — Global Government Fiscal-Flow Visualization Lexicons
 
 **ADR**: ADR-2605302300 (R0 scaffold)
 **Owner actor**: kanae (鼎) — `did:web:kanae.etzhayyim.com`
@@ -7,9 +7,9 @@
 ## Purpose
 
 These Lexicons are written by kanae cells over the danjo cross-reference
-graph (`app.etzhayyim.danjo.*`, ADR-2605301600 + extension ADR-2605302245)
+graph (`com.etzhayyim.danjo.*`, ADR-2605301600 + extension ADR-2605302245)
 and the already-IPFS-pinned open-government corpus
-(`app.etzhayyim.gov.dataset.*`, ADR-2605263900 — USAspending / EU FTS /
+(`com.etzhayyim.gov.dataset.*`, ADR-2605263900 — USAspending / EU FTS /
 IMF SDMX / World Bank / OECD / UN + JP 予算書 / 政府調達). kanae assembles
 worldwide fund flows into kotoba EAVT, narrates them with Murakumo-only
 LLM (FACTUAL, source-cited, **NON-adjudicating**), and renders
@@ -88,7 +88,7 @@ and to be guarded by the actor-specific `no-kanae-adjudication.mjs`
 
 - `/90-docs/adr/2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0.md` — master ADR
 - `/90-docs/adr/2605302245-danjo-global-fiscal-flow-extension.md` — danjo engine-side extension
-- `/00-contracts/lexicons/app/etzhayyim/danjo/README.md` — upstream engine namespace
-- `/00-contracts/lexicons/app/etzhayyim/gov/dataset/README.md` — primary input corpus namespace
+- `/00-contracts/lexicons/com/etzhayyim/danjo/README.md` — upstream engine namespace
+- `/00-contracts/lexicons/com/etzhayyim/gov/dataset/README.md` — primary input corpus namespace
 - `/20-actors/kanae/` — manifest + README + CLAUDE.md + methods
 - `/20-actors/magatama/cells/kanae_*/` — cell modules (R0 path-reserved)

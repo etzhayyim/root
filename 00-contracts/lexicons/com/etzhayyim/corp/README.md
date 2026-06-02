@@ -1,4 +1,4 @@
-# app.etzhayyim.corp.* — Corporate-disclosure Lexicons
+# com.etzhayyim.corp.* — Corporate-disclosure Lexicons
 
 **ADR**: ADR-2605263800 (R0 scaffold)
 **Status**: R0 schema skeletons. Full structural enforcement (const fields, vendor-terminal deny-list at lint, per-jurisdiction publication-redaction policy) lands at W1.

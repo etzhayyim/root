@@ -21,8 +21,8 @@ from pymagatama.db_sync import sync_cursor
 
 
 OWNER_DID = "did:web:legal-intel.etzhayyim.com"
-RUN_COLLECTION = "app.etzhayyim.apps.legalHoubun.linkRun"
-HYP_COLLECTION = "app.etzhayyim.apps.legalHoubun.linkHypothesis"
+RUN_COLLECTION = "com.etzhayyim.apps.legalHoubun.linkRun"
+HYP_COLLECTION = "com.etzhayyim.apps.legalHoubun.linkHypothesis"
 
 
 class LegalHoubunLinkerState(TypedDict, total=False):

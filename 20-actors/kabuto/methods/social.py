@@ -3,7 +3,7 @@
 
 ADR-2606022000. Composes app.bsky.feed.post-shaped records from the company /
 supply-edge / intel-report graph and writes them into the kotoba Datom log via
-kotoba-server `ai.gftd.apps.kotoba.atproto.repo.write` (so the post is queryable
+kotoba-server `com.etzhayyim.apps.kotoba.atproto.repo.write` (so the post is queryable
 by the in-browser kotoba-wasm node and federates over AT Protocol).
 
 OUTWARD-GATED (kabuto G11): live publication requires BOTH
@@ -102,7 +102,7 @@ def write_live(record, uri):
         "record": record,
     }).encode("utf-8")
     req = urllib.request.Request(
-        f"{ENDPOINT}/xrpc/ai.gftd.apps.kotoba.atproto.repo.write",
+        f"{ENDPOINT}/xrpc/com.etzhayyim.apps.kotoba.atproto.repo.write",
         data=body, method="POST",
         headers={"content-type": "application/json"})
     if OPERATOR_TOKEN:

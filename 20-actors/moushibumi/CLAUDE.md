@@ -31,7 +31,7 @@ exception. Driven by a coded `participationTarget` registry (organ / channel /
 - **Do not** render legal advice; drafting-assist only; characterization +
   appeals → chigiri + licensed counsel (G5).
 - **Do not** store member PII or political-opinion content (APPI special-care)
-  anywhere except an `app.etzhayyim.encrypted.*` DID-bound envelope; minimize +
+  anywhere except an `com.etzhayyim.encrypted.*` DID-bound envelope; minimize +
   explicit consent (G6).
 - **Do not** invent 期限 / 様式 / 根拠法令 / 紹介議員 requirements; cite 根拠法令
   + provenance; member confirms before submission (G8).

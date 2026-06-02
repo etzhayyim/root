@@ -24,14 +24,14 @@
   "posture": "READ-SIDE structural atlas + civic wayfinding map (observational mirror). NEVER an official channel, NEVER files/submits, NEVER audits — those are toritsugi (gated) and danjo respectively.",
   "primarySchema": "00-contracts/schemas/gov-atlas-ontology.kotoba.edn",
   "crossActorBoundary": [
-    "did:web:toritsugi.etzhayyim.com (BOUNDARY: ooyake CATALOGS who/where/structure of a procedure; toritsugi DELIVERS it to the citizen [guide/draft/submit/track]. :gov.procedure/toritsugi-ref links each procedure to app.etzhayyim.toritsugi.procedure; no duplication; ADR-2605312030)",
+    "did:web:toritsugi.etzhayyim.com (BOUNDARY: ooyake CATALOGS who/where/structure of a procedure; toritsugi DELIVERS it to the citizen [guide/draft/submit/track]. :gov.procedure/toritsugi-ref links each procedure to com.etzhayyim.toritsugi.procedure; no duplication; ADR-2605312030)",
     "did:web:chigiri.etzhayyim.com (BOUNDARY: chigiri OWNS the UPL-bounded fillable form templates; ooyake only points at them via :gov.form/chigiri-ref; ADR-2605262700)",
     "did:web:danjo.etzhayyim.com (BOUNDARY: danjo AUDITS/cross-references state open-data; ooyake only MAPS structure. danjo consumes the atlas; ADR-2605301600)",
     "did:web:kanae.etzhayyim.com (kanae renders fiscal flows over units the atlas enumerates; ADR-2605302300)",
     "did:web:tsumugi.etzhayyim.com (BOUNDARY: tsumugi weaves 縁/取 karma over :organism nodes; ooyake maps structure. :gov.unit/organism reconciles the SAME unit across both graphs [atlas=structure, engi=karma]; ADR-2606011800 + 2606011000)",
     "did:web:himotoki.etzhayyim.com (himotoki resolves WHICH authority + 窓口 to file a 開示請求/FOIA against via the atlas; ADR-2605302130)",
     "kotoba QuadStore EAVT (gov-atlas-v1 graph: :gov.unit/:gov.address/:gov.window/:gov.form/:gov.procedure/:gov.bpmn datoms; ADR-2605262130 + 2605312345; no RisingWave / no projection layer)",
-    "00-contracts/bpmn/app/etzhayyim/gov*/ (LEGACY F-Plan country BPMN stubs + 90-docs/openapi/gov*.openapi.json: SUBSUMED by ooyake's :gov.* graph as kotoba-native owner; ai.gftd.gov* → app.etzhayyim.ooyake.* rename deferred to the gated Step-8 gftd-* cutover, NOT executed here)"
+    "00-contracts/bpmn/com/etzhayyim/gov*/ (LEGACY F-Plan country BPMN stubs + 90-docs/openapi/gov*.openapi.json: SUBSUMED by ooyake's :gov.* graph as kotoba-native owner; com.etzhayyim.gov* → com.etzhayyim.ooyake.* rename deferred to the gated Step-8 gftd-* cutover, NOT executed here)"
   ],
   "form": "任意団体 internal civic-knowledge substrate (NOT a government, NOT an official 自治体/省庁 channel — observational mirror only, G3/§2(c); NOT a 行政書士/弁護士 firm; NOT a data-broker product — public good, G8). Preamble §0.4 Lv7+ unanimity lock applies.",
   "constitutionalDiscipline": {
@@ -81,14 +81,14 @@
     {"name": "freshness", "module": "magatama.cells.ooyake_freshness", "murakumoNode": "naphtali", "phase": "continuous", "io": "re-verify within freshness window; flag :stale (G12)"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.ooyake.govUnit",
-    "app.etzhayyim.ooyake.address",
-    "app.etzhayyim.ooyake.window",
-    "app.etzhayyim.ooyake.procedure",
-    "app.etzhayyim.ooyake.getUnit",
-    "app.etzhayyim.ooyake.resolvePath",
-    "app.etzhayyim.ooyake.findService",
-    "app.etzhayyim.ooyake.searchUnits"
+    "com.etzhayyim.ooyake.govUnit",
+    "com.etzhayyim.ooyake.address",
+    "com.etzhayyim.ooyake.window",
+    "com.etzhayyim.ooyake.procedure",
+    "com.etzhayyim.ooyake.getUnit",
+    "com.etzhayyim.ooyake.resolvePath",
+    "com.etzhayyim.ooyake.findService",
+    "com.etzhayyim.ooyake.searchUnits"
   ],
   "constitutionalGates": {
     "description": "12 immutable gates per ADR-2606021600 §4. Council Lv6+ supermajority + new ADR to amend.",

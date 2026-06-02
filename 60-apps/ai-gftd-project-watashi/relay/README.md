@@ -48,7 +48,7 @@ Denied messages generate audit events.
 
 ## Flow
 
-1. Control plane calls `app.etzhayyim.apps.watashi.issueRelaySession`
+1. Control plane calls `com.etzhayyim.apps.watashi.issueRelaySession`
 2. It returns `host.token` and `client.token`
 3. Each peer connects with:
 

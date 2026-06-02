@@ -55,7 +55,7 @@ Today the vendor repo still holds decentralization primitives:
 - Ethereum private chain handle (`ETH_PRIVATE_CHAIN_ID` env, internal RPC).
 - K2 ecosystem (`KarmaAnchor.sol`, ERC-4337 bundler, zk-SNARK `RebirthGate`, Filecoin pin).
 - ERC-8004 agent runtime path (ADR-2604262100).
-- `linkEthereumBegin` / `linkEthereumVerify` lexicons under `00-contracts/lexicons/ai/gftd/authz/`.
+- `linkEthereumBegin` / `linkEthereumVerify` lexicons under `00-contracts/lexicons/com/etzhayyim/authz/`.
 - Stripe Issuing → ERC-4337 + USDC bridge (vendor-side bridge between fiat and chain).
 
 This mixes the two layers and creates two operational risks:
@@ -112,7 +112,7 @@ The **centralization axis** is now the constitutional split between vendor and e
 - The vendor repo accumulates **migration debt** for the decentralization primitives it currently hosts. Concretely:
   - ERC725 root identity issuer (`authz.etzhayyim.com` `linkEthereumBegin/Verify` + `provision-root-identity` + `sign-up.ts` Ethereum branch) → relocate to etzhayyim authz.
   - K2 ecosystem on-chain components (`KarmaAnchor.sol`, ERC-4337 bundler, zk-SNARK `RebirthGate`, Filecoin pinning) → relocate to `etzhayyim/root/50-infra/`.
-  - `00-contracts/lexicons/ai/gftd/authz/linkEthereum*.json` lexicons → either move to etzhayyim lexicon namespace or deprecate.
+  - `00-contracts/lexicons/com/etzhayyim/authz/linkEthereum*.json` lexicons → either move to etzhayyim lexicon namespace or deprecate.
   - Stripe Issuing → ERC-4337 + USDC bridge → split: Stripe Issuing stays vendor, ERC-4337 + USDC moves to etzhayyim. The bridge is reframed as a vendor → etzhayyim XRPC call (vendor mints a fiat credit, etzhayyim mints the on-chain USDC equivalent).
 
 - Vendor ADRs that placed decentralization primitives in vendor are **not yet superseded by this ADR**; they remain in effect until the migration lands. This ADR establishes the rule and the migration target, not the cutover.
@@ -159,7 +159,7 @@ These are tracked as future work, not part of this ADR's cutover. Updated 2026-0
    - Design: **ADR-2605212040** — Base L2 + own rundler bundler + Noir/Honk PLONK + web3.storage with redundant ipfs-pinner + yobel-as-K2-consumer.
    - **Phase β P0 (contracts)**: ✅ landed. `KarmaAnchor.sol` (10 tests) + `CohortLifecycle.sol` (12 tests) Foundry under `50-infra/etzhayyim-k2/contracts/` + Deploy script. All 22 tests passing locally.
    - **Phase β P1+ pending**: Base Sepolia deploy → rundler bundler k8s deploy → RebirthGate Noir circuits + Solidity verifier → Filecoin pin client (web3.storage + redundant ipfs-pinner) → yobel `release_settlement` refactor to consume K2 cohort primitives.
-3. **Move `00-contracts/lexicons/ai/gftd/authz/linkEthereum*.json`** to etzhayyim or deprecate.
+3. **Move `00-contracts/lexicons/com/etzhayyim/authz/linkEthereum*.json`** to etzhayyim or deprecate.
    - **Done (2026-05-21)**: deprecation marker landed in vendor lexicons (vendor branch `260521-substrate-axis-vendor-side`); new etzhayyim namespace `org.etzhayyim.authz.*` defined in ADR-2605212030 §D4 and 5 lexicon JSONs landed under `00-contracts/lexicons/org/etzhayyim/authz/`.
 4. **Split Stripe Issuing → ERC-4337 bridge** into vendor (Stripe side) + etzhayyim (ERC-4337 side) connected via XRPC.
    - Design: **ADR-2605212050** — vendor approves Stripe authorization → XRPC `org.etzhayyim.payment.creditFromFiat` → etzhayyim mints USDC from Council-multisig reserve + atomic 90/10 split + Council-multisig daily cap.

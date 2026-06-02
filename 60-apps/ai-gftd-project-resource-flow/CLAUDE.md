@@ -32,11 +32,11 @@ resource-flow.etzhayyim.com — 公的団体 **+ 民間法人** の 12 resource 
 
 ```
 Country APPs (gov-jpn, gov-usa, gov-deu, gov-intl-un, ...)
-  │  Write: app.etzhayyim.apps.gov{Cc}.{class}Flow
+  │  Write: com.etzhayyim.apps.gov{Cc}.{class}Flow
   │  ATPost: "FY2025 予算配分..."
   │
 Legal-entity DIDs (did:web:legal-entity.etzhayyim.com:lei:*, hospitality:actor:*, ...)
-  │  Write: app.etzhayyim.apps.resourceFlow.legalEntity{Currency|Personnel|Service}Flow
+  │  Write: com.etzhayyim.apps.resourceFlow.legalEntity{Currency|Personnel|Service}Flow
   │  ATPost: "Q1 revenue ¥X / headcount +Y / room-nights Z..."
   │
   ├─ Follow ─────────────────────────────────┐
@@ -69,9 +69,9 @@ Legal-entity DIDs (did:web:legal-entity.etzhayyim.com:lei:*, hospitality:actor:*
 - 個別 PII (`individualCustomerDid` / `individualEmployeeDid`) は Tier 3 Preferences に保持、本 record には書かない
 
 **Phase 1 Lexicon (民間 3 class, 2026-04-15)**:
-- `app.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow` (revenue / cost / investment / m&a consideration)
-- `app.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow` (hire / retire / transfer / acquisition)
-- `app.etzhayyim.apps.resourceFlow.legalEntityServiceFlow` (customers served / room-nights / tickets / transactions)
+- `com.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow` (revenue / cost / investment / m&a consideration)
+- `com.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow` (hire / retire / transfer / acquisition)
+- `com.etzhayyim.apps.resourceFlow.legalEntityServiceFlow` (customers served / room-nights / tickets / transactions)
 
 **Phase 2 Lexicon (残り 9 class)**: goods / real_property / rights / debt / information / trust / energy / natural_resource / crypto_asset を同パターンで追加。
 
@@ -186,15 +186,15 @@ result, _ := magatama.G("GovCurrencyFlow").
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "app.etzhayyim.apps.govJpn.currencyFlow",
-        "app.etzhayyim.apps.govUsa.currencyFlow",
-        "app.etzhayyim.apps.govDeu.currencyFlow",
-        "app.etzhayyim.apps.govIntlUn.currencyFlow",
-        "app.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow",
-        "app.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow",
-        "app.etzhayyim.apps.resourceFlow.legalEntityServiceFlow",
-        "app.etzhayyim.apps.hospitality.leiBridge",
-        "app.etzhayyim.apps.hospitality.ownedBy",
+        "com.etzhayyim.apps.govJpn.currencyFlow",
+        "com.etzhayyim.apps.govUsa.currencyFlow",
+        "com.etzhayyim.apps.govDeu.currencyFlow",
+        "com.etzhayyim.apps.govIntlUn.currencyFlow",
+        "com.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow",
+        "com.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow",
+        "com.etzhayyim.apps.resourceFlow.legalEntityServiceFlow",
+        "com.etzhayyim.apps.hospitality.leiBridge",
+        "com.etzhayyim.apps.hospitality.ownedBy",
         "app.bsky.actor.profile"
       ]
     }

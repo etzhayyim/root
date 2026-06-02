@@ -68,10 +68,10 @@ BPMN_CATALOG: list[dict[str, Any]] = [
     {"taskId": "bpmn-2-product-design",      "apqcCode": "2.0",  "taskType": "userTask",         "name": "Design product / service",            "ocelEventType": "product.designed"},
     {"taskId": "bpmn-2-sku-activate",        "apqcCode": "2.0",  "taskType": "serviceTask",      "name": "Activate SKU in catalog",             "ocelEventType": "sku.activated"},
     # 3.0 Market & Sell
-    {"taskId": "bpmn-3-sales-order-intake",  "apqcCode": "3.0",  "taskType": "receiveTask",      "name": "Intake sales order",                  "ocelEventType": "sales.ordered",       "kyberCollection": "app.etzhayyim.apps.kyber.salesOrder"},
+    {"taskId": "bpmn-3-sales-order-intake",  "apqcCode": "3.0",  "taskType": "receiveTask",      "name": "Intake sales order",                  "ocelEventType": "sales.ordered",       "kyberCollection": "com.etzhayyim.apps.kyber.salesOrder"},
     {"taskId": "bpmn-3-order-confirm",       "apqcCode": "3.0",  "taskType": "serviceTask",      "name": "Confirm sales order",                 "ocelEventType": "sales.confirmed"},
     # 4.0 Supply Chain
-    {"taskId": "bpmn-4-po-create",           "apqcCode": "4.0",  "taskType": "receiveTask",      "name": "Create purchase order",               "ocelEventType": "po.created",          "kyberCollection": "app.etzhayyim.apps.kyber.purchaseOrder"},
+    {"taskId": "bpmn-4-po-create",           "apqcCode": "4.0",  "taskType": "receiveTask",      "name": "Create purchase order",               "ocelEventType": "po.created",          "kyberCollection": "com.etzhayyim.apps.kyber.purchaseOrder"},
     {"taskId": "bpmn-4-po-approve",          "apqcCode": "4.0",  "taskType": "userTask",         "name": "Approve purchase order",              "ocelEventType": "po.approved"},
     {"taskId": "bpmn-4-grn-post",            "apqcCode": "4.0",  "taskType": "serviceTask",      "name": "Goods receipt note",                  "ocelEventType": "grn.posted"},
     # 5.0 Production / Operations
@@ -80,18 +80,18 @@ BPMN_CATALOG: list[dict[str, Any]] = [
     {"taskId": "bpmn-6-case-open",           "apqcCode": "6.0",  "taskType": "receiveTask",      "name": "Open support case",                   "ocelEventType": "case.opened"},
     {"taskId": "bpmn-6-case-resolve",        "apqcCode": "6.0",  "taskType": "userTask",         "name": "Resolve support case",                "ocelEventType": "case.resolved"},
     # 7.0 Human Capital
-    {"taskId": "bpmn-7-employee-onboard",    "apqcCode": "7.0",  "taskType": "receiveTask",      "name": "Onboard employee",                    "ocelEventType": "employee.onboarded",  "kyberCollection": "app.etzhayyim.apps.kyber.employee"},
+    {"taskId": "bpmn-7-employee-onboard",    "apqcCode": "7.0",  "taskType": "receiveTask",      "name": "Onboard employee",                    "ocelEventType": "employee.onboarded",  "kyberCollection": "com.etzhayyim.apps.kyber.employee"},
     {"taskId": "bpmn-7-payroll-run",         "apqcCode": "7.0",  "taskType": "serviceTask",      "name": "Run payroll",                         "ocelEventType": "payroll.ran"},
     # 8.0 Information Technology
     {"taskId": "bpmn-8-incident-triage",     "apqcCode": "8.0",  "taskType": "userTask",         "name": "Triage IT incident",                  "ocelEventType": "incident.triaged"},
     {"taskId": "bpmn-8-change-deploy",       "apqcCode": "8.0",  "taskType": "serviceTask",      "name": "Deploy change release",               "ocelEventType": "change.deployed"},
     # 9.0 Financial Resources
-    {"taskId": "bpmn-9-journal-post",        "apqcCode": "9.0",  "taskType": "receiveTask",      "name": "Post GL journal",                     "ocelEventType": "journal.posted",      "kyberCollection": "app.etzhayyim.apps.kyber.journalEntry"},
-    {"taskId": "bpmn-9-coa-seed",            "apqcCode": "9.0",  "taskType": "serviceTask",      "name": "Seed chart of accounts",              "ocelEventType": "coa.seeded",          "kyberCollection": "app.etzhayyim.apps.kyber.account"},
-    {"taskId": "bpmn-9-invoice-issue",       "apqcCode": "9.0",  "taskType": "receiveTask",      "name": "Issue invoice",                       "ocelEventType": "invoice.issued",      "kyberCollection": "app.etzhayyim.apps.kyber.invoice"},
+    {"taskId": "bpmn-9-journal-post",        "apqcCode": "9.0",  "taskType": "receiveTask",      "name": "Post GL journal",                     "ocelEventType": "journal.posted",      "kyberCollection": "com.etzhayyim.apps.kyber.journalEntry"},
+    {"taskId": "bpmn-9-coa-seed",            "apqcCode": "9.0",  "taskType": "serviceTask",      "name": "Seed chart of accounts",              "ocelEventType": "coa.seeded",          "kyberCollection": "com.etzhayyim.apps.kyber.account"},
+    {"taskId": "bpmn-9-invoice-issue",       "apqcCode": "9.0",  "taskType": "receiveTask",      "name": "Issue invoice",                       "ocelEventType": "invoice.issued",      "kyberCollection": "com.etzhayyim.apps.kyber.invoice"},
     {"taskId": "bpmn-9-trial-balance",       "apqcCode": "9.0",  "taskType": "businessRuleTask", "name": "Compute trial balance",               "ocelEventType": "tb.computed"},
     # 10.0 Asset Management
-    {"taskId": "bpmn-10-inventory-register", "apqcCode": "10.0", "taskType": "receiveTask",      "name": "Register inventory item",             "ocelEventType": "inventory.registered", "kyberCollection": "app.etzhayyim.apps.kyber.inventoryItem"},
+    {"taskId": "bpmn-10-inventory-register", "apqcCode": "10.0", "taskType": "receiveTask",      "name": "Register inventory item",             "ocelEventType": "inventory.registered", "kyberCollection": "com.etzhayyim.apps.kyber.inventoryItem"},
     {"taskId": "bpmn-10-depreciation-run",   "apqcCode": "10.0", "taskType": "scriptTask",       "name": "Run monthly depreciation",            "ocelEventType": "depreciation.ran"},
     # 11.0 Risk & Compliance
     {"taskId": "bpmn-11-risk-assess",        "apqcCode": "11.0", "taskType": "businessRuleTask", "name": "Assess enterprise risk",              "ocelEventType": "risk.assessed"},
@@ -139,7 +139,7 @@ def _emit_ocel(
 ) -> str:
     l1 = L1_BY_CODE.get(apqc_code, {})
     event_id = _gen_id("ocel")
-    vertex_id = f"at://{actor_did}/app.etzhayyim.apps.apqc.apqcEvent/{event_id}"
+    vertex_id = f"at://{actor_did}/com.etzhayyim.apps.apqc.apqcEvent/{event_id}"
     ts = _now_iso()
     if not dry_run:
         with sync_cursor() as cur:
@@ -175,7 +175,7 @@ def _emit_ocel(
 # Single flat state type shared across all nodes.
 # Send passes a partial dict; Annotated reducers accumulate results.
 
-# Maps app.etzhayyim.kyber.projector.* NSID suffixes → internal mode
+# Maps com.etzhayyim.kyber.projector.* NSID suffixes → internal mode
 _NSID_MODE_MAP: dict[str, str] = {
     "registerApqcActors": "catalog",
     "listApqcActors":     "catalog",
@@ -400,7 +400,7 @@ def _l2_materialize(state: ApqcOrchestratorState) -> dict[str, Any]:
 
 
 def _catalog_query(state: ApqcOrchestratorState) -> dict[str, Any]:
-    """Serve app.etzhayyim.kyber.projector.list*/get*/register* + emitApqcEvent without L1 fan-out."""
+    """Serve com.etzhayyim.kyber.projector.list*/get*/register* + emitApqcEvent without L1 fan-out."""
     nsid_val = state.get("_nsid", "")
     suffix = nsid_val.split(".")[-1] if nsid_val else ""
     mode = state.get("mode", "catalog")

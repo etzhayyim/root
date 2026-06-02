@@ -61,7 +61,7 @@ def _entry(rid, *, jurisdiction="jpn", confidence="high", title="Rite",
 
 def _registry(*entries):
     return {
-        "$schema": "app.etzhayyim.musubi.ceremonyRecognition",
+        "$schema": "com.etzhayyim.musubi.ceremonyRecognition",
         "recognitions": list(entries),
     }
 

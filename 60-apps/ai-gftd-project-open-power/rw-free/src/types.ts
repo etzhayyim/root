@@ -14,9 +14,9 @@
 
 export const OPOW_DID_PREFIX = "did:web:open-power.etzhayyim.com:" as const;
 
-export const SUBSTATION_COLLECTION = "app.etzhayyim.apps.openPower.substation";
-export const FEEDER_COLLECTION = "app.etzhayyim.apps.openPower.feeder";
-export const OUTAGE_COLLECTION = "app.etzhayyim.apps.openPower.outage";
+export const SUBSTATION_COLLECTION = "com.etzhayyim.apps.openPower.substation";
+export const FEEDER_COLLECTION = "com.etzhayyim.apps.openPower.feeder";
+export const OUTAGE_COLLECTION = "com.etzhayyim.apps.openPower.outage";
 
 // ─── Substation ─────────────────────────────────────────────────────
 

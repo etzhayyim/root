@@ -31,7 +31,7 @@ bound を明示する必要がある。CLAUDE.md Root-Only Rule を ADR 化し�
 
 | 種別 | authority | 経路 |
 |---|---|---|
-| **社内** (`@etzhayyim.com` recipient のみ) | direct send | `app.etzhayyim.apps.microsoft.sendMail` を agent から直接 invoke |
+| **社内** (`@etzhayyim.com` recipient のみ) | direct send | `com.etzhayyim.apps.microsoft.sendMail` を agent から直接 invoke |
 | **社外** (1 件でも非 `@etzhayyim.com` を含む) | draft → approve → send | `sendDraft` で draft 作成 → 人間が `/manage` UI で approve → `sendMail` |
 
 判定は recipient list に **1 件でも** 社外 domain が含まれる時点で社外扱い。
@@ -60,9 +60,9 @@ trigger されない:
 
 Agent から送信するには `microsoft.etzhayyim.com` (Layer 9 Client App) の以下 XRPC
 を呼ぶ:
-- `app.etzhayyim.apps.microsoft.sendMail`
-- `app.etzhayyim.apps.microsoft.sendDraft`
-- `app.etzhayyim.apps.microsoft.listDrafts`
+- `com.etzhayyim.apps.microsoft.sendMail`
+- `com.etzhayyim.apps.microsoft.sendDraft`
+- `com.etzhayyim.apps.microsoft.listDrafts`
 
 これら handler 内部で D1 / D2 の authority を再 check し、規約違反 request
 は 403 で reject する (defense in depth)。

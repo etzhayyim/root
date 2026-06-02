@@ -62,7 +62,7 @@ trend scan からの自律企画 cadence は yoro と同形の R/PT2H timer-star
 | AT 15-Layer (ADR-2604231811) | Layer 10 Actor Worker (etzhayyim ext.) |
 | Worker host | `bpmn.etzhayyim.com` (Zeebe + pyzeebe)、新 Worker 不要 |
 | Primary DID | `did:web:gameka.etzhayyim.com` (ADR-0019, did:web sub-actor path) |
-| NSID prefix | `app.etzhayyim.gameka.*` |
+| NSID prefix | `com.etzhayyim.gameka.*` |
 | Persistence (ADR-0036) | domain write = Worker-direct Hyperdrive、social = `sdk.pds.dispatch` |
 | Inference | Murakumo MLX → RunPod fallback (yoro `infer.ts` 同経路) |
 | Game build | `kami-engine` `kami-app-{slug}` Rust crate + `wasm-pack` (Vultr build runner) |
@@ -81,30 +81,30 @@ per-game sub-DID は ADR-0023 multi-key rotation + host-sdk did.json
 auto-serve 経路に乗せる。各 sub-DID は独立に social post でき、
 media-gamers の game DID と同形の per-title timeline を形成する。
 
-## D3. NSID surface (`00-contracts/lexicons/ai/gftd/apps/gameka/`)
+## D3. NSID surface (`00-contracts/lexicons/com/etzhayyim/apps/gameka/`)
 
 | NSID | type | 役割 |
 |---|---|---|
-| `app.etzhayyim.gameka.proposeGame` | procedure | brief → `gameSpec` (LangGraph deliberation) |
-| `app.etzhayyim.gameka.generateGame` | procedure | spec → kami-app crate scaffold + WASM build |
-| `app.etzhayyim.gameka.playtestGame` | procedure | headless WebGPU QA → score |
-| `app.etzhayyim.gameka.publishGame` | procedure | sub-DID 発行 + B2 upload + social post |
-| `app.etzhayyim.gameka.tickStudio` | timer-start (R/PT2H) | 自律企画 cadence |
-| `app.etzhayyim.gameka.respondToPlaytest` | procedure | playtest feedback → patch 判断 |
-| `app.etzhayyim.gameka.gameSpec` | record | 仕様 (genre/mechanic/scene/budget) |
-| `app.etzhayyim.gameka.gameTitle` | record | 公開 title (slug/playUrl/version) |
-| `app.etzhayyim.gameka.buildArtifact` | record | wasm cid/size |
+| `com.etzhayyim.gameka.proposeGame` | procedure | brief → `gameSpec` (LangGraph deliberation) |
+| `com.etzhayyim.gameka.generateGame` | procedure | spec → kami-app crate scaffold + WASM build |
+| `com.etzhayyim.gameka.playtestGame` | procedure | headless WebGPU QA → score |
+| `com.etzhayyim.gameka.publishGame` | procedure | sub-DID 発行 + B2 upload + social post |
+| `com.etzhayyim.gameka.tickStudio` | timer-start (R/PT2H) | 自律企画 cadence |
+| `com.etzhayyim.gameka.respondToPlaytest` | procedure | playtest feedback → patch 判断 |
+| `com.etzhayyim.gameka.gameSpec` | record | 仕様 (genre/mechanic/scene/budget) |
+| `com.etzhayyim.gameka.gameTitle` | record | 公開 title (slug/playUrl/version) |
+| `com.etzhayyim.gameka.buildArtifact` | record | wasm cid/size |
 
 ## D4. BPMN process suite (5 process)
 
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/gameka/` に格納。**全 task は ADR-0056 の 7
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/gameka/` に格納。**全 task は ADR-0056 の 7
 generic primitives + ADR-2604250836 の `generic.langgraph.run` 8 種で
 構成し、新 primitive を追加しない**。
 
 ### D4.1 `proposeGame.bpmn`
 
 ```
-Start (XRPC app.etzhayyim.gameka.proposeGame)
+Start (XRPC com.etzhayyim.gameka.proposeGame)
   → Task_LoadMemory      generic.db.select  vertex_gameka_spec (last 10)
   → Task_Deliberate      generic.langgraph.run
                          { graph_id: "gameka.studio.v1", state: { brief, prior_specs }, mode: "oneshot" }
@@ -112,7 +112,7 @@ Start (XRPC app.etzhayyim.gameka.proposeGame)
                          (Path F consent middleware が gate を持つ)
   → Task_PersistSpec     generic.db.insert  vertex_gameka_spec
   → Task_Audit           generic.audit.emit  gameka.spec.proposed
-  → Task_DeriveGenerate  generic.pds.dispatch app.etzhayyim.gameka.generateGame
+  → Task_DeriveGenerate  generic.pds.dispatch com.etzhayyim.gameka.generateGame
   → End
 ```
 
@@ -127,7 +127,7 @@ Start (chained from spec)
   → Task_StoreArtifact   generic.http.fetch  PUT B2 ai-gftd-gameka/builds/{cid}.wasm
   → Task_PersistArtifact generic.db.insert   vertex_gameka_artifact
   → Task_Audit           generic.audit.emit  gameka.artifact.built
-  → Task_DerivePlaytest  generic.pds.dispatch app.etzhayyim.gameka.playtestGame
+  → Task_DerivePlaytest  generic.pds.dispatch com.etzhayyim.gameka.playtestGame
   → End
 ```
 
@@ -165,7 +165,7 @@ Start (timerEventDefinition R/PT2H)
   → Task_TrendScan       generic.db.select  vertex_repo_record
                           (media-gamers posts, last 24h)
   → Task_BuildBrief      script (FEEL) trend keywords → brief
-  → Task_DeriveProposal  generic.pds.dispatch app.etzhayyim.gameka.proposeGame
+  → Task_DeriveProposal  generic.pds.dispatch com.etzhayyim.gameka.proposeGame
   → End
 ```
 
@@ -324,4 +324,4 @@ oneshot で十分、本 ADR 時点で escape は **不要**。
 - `40-engine/kami-engine/CLAUDE.md` — kami-app-{game} crate pattern
 - `60-apps/ai-gftd-project-media-gamers/CLAUDE.md` — Multi-DID per game pattern
 - `60-apps/ai-gftd-project-game-play-uploader/` — play page hosting Worker
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/yoro/platformPulse.bpmn` — autonomous timer-start reference
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/yoro/platformPulse.bpmn` — autonomous timer-start reference

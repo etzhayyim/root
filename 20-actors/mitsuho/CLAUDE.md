@@ -22,7 +22,7 @@ alt_protein_fermentation ─┘
     (naphtali)    (zebulun)    (levi)      (joseph)            (simeon)
 ```
 
-Each cell = 1 Pregel graph. Cells communicate via lexicon records on MST (`app.etzhayyim.mitsuho.*`).
+Each cell = 1 Pregel graph. Cells communicate via lexicon records on MST (`com.etzhayyim.mitsuho.*`).
 
 ## Robotics Fleet (R0 uses kuni-umi inherited)
 
@@ -56,7 +56,7 @@ Critical for future implementers:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.mitsuho`
+**App lexicon root**: `com.etzhayyim.mitsuho`
 
 5 records (R0 stubs; full schemas R1+):
 

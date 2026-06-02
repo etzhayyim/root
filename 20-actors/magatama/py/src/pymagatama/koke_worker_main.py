@@ -154,7 +154,7 @@ async def task_fix_signal(
         else:
             # Create new fixation
             fid = _uid("kox")
-            vid = f"at://{KOKE_DID}/app.etzhayyim.apps.koke.fixation/{fid}"
+            vid = f"at://{KOKE_DID}/com.etzhayyim.apps.koke.fixation/{fid}"
 
             rec = KokeFixationRecord(
                 vertex_id=vid,
@@ -273,7 +273,7 @@ async def task_handoff_to_hakkou(
 
     # create hakkou ferment record
     ferment_id = _uid("fmnt")
-    ferment_vid = f"at://{HAKKOU_DID}/app.etzhayyim.apps.hakkou.ferment/{ferment_id}"
+    ferment_vid = f"at://{HAKKOU_DID}/com.etzhayyim.apps.hakkou.ferment/{ferment_id}"
     edge_id = _uid("kflo")
     now = _now()
 
@@ -373,7 +373,7 @@ async def task_handoff_to_saikin(
         return {"error": "fixationId required"}
 
     signal_id = _uid("s41k")
-    signal_vid = f"at://{SAIKIN_DID}/app.etzhayyim.apps.saikin.signal/{signal_id}"
+    signal_vid = f"at://{SAIKIN_DID}/com.etzhayyim.apps.saikin.signal/{signal_id}"
     edge_id = _uid("kflo")
     now = _now()
 

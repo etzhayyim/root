@@ -342,7 +342,7 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
     """yatachain witness endpoint. Receives a WitnessRequest from the
     orchestrator (`@etzhayyim/sdk/yatachain`), produces a signed
     attestation against this node's hosted cells, and writes the
-    resulting `app.etzhayyim.yatachain.attestation` record back to PDS.
+    resulting `com.etzhayyim.yatachain.attestation` record back to PDS.
 
     Wire contract (matches TS `WitnessTransport.requestAttestation`):
 
@@ -354,7 +354,7 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
           "recordUri": "at://...",
           "recordCid": "bafy...",
           "record": { ... domain record being attested ... },
-          "rule": { ... app.etzhayyim.yatachain.membraneRule shape ... }
+          "rule": { ... com.etzhayyim.yatachain.membraneRule shape ... }
         }
 
     Response:
@@ -412,14 +412,14 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
     # deploys, e.g. K8s Secret-injected) → deterministic test signer
     # (dev / unit-test only; logged loudly so it's not used in prod).
     # Per fleet.toml `cell_key_rotation_period_days = 90`, operator runs
-    # `security add-generic-password -s app.etzhayyim.yatachain -a {cellId} -w '{hexSeed}'`
+    # `security add-generic-password -s com.etzhayyim.yatachain -a {cellId} -w '{hexSeed}'`
     # quarterly to rotate.
     signer, signer_source = make_cell_signer(cell_id)
     if signer_source == "deterministic":
         _log.warning(
             "yatachain.attest cellId=%s using DETERMINISTIC TEST SIGNER — "
             "production deploys must publish a real Ed25519 key to macOS "
-            "Keychain (service=app.etzhayyim.yatachain, account=%s) OR set "
+            "Keychain (service=com.etzhayyim.yatachain, account=%s) OR set "
             "CELL_PRIVATE_KEY_%s env var (hex 32-byte seed)",
             cell_id, cell_id, cell_id,
         )
@@ -455,7 +455,7 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
             async with Etzhayyim(did=substrate_did) as e:
                 await e.write(
                     WriteOpts(
-                        collection="app.etzhayyim.yatachain.attestation",
+                        collection="com.etzhayyim.yatachain.attestation",
                         record=attestation.to_wire(),
                     )
                 )

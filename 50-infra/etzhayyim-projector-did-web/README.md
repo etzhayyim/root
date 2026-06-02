@@ -13,7 +13,7 @@ The off-chain actor that:
 1. Subscribes to the PDS firehose (`com.atproto.sync.subscribeRepos` on `pds.etzhayyim.com`).
 2. Projects each commit into a per-collection AT-Protocol MST shard (`@atproto/repo`).
 3. Flushes CAR files at the configured boundary (`<dataDir>/<shardKey>/<rootCid>.car`).
-4. Emits `app.etzhayyim.substrate.shardSnapshot` AT Records under this DID with `phase: 2`, `rootCid`, and `snapshotCid`.
+4. Emits `com.etzhayyim.substrate.shardSnapshot` AT Records under this DID with `phase: 2`, `rootCid`, and `snapshotCid`.
 
 Runtime: [`50-infra/mst-projector/`](../mst-projector/) — Stage 3 of [ADR-2605171800](../../90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md).
 

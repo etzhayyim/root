@@ -72,7 +72,7 @@ Phase 3 mst-projector closes this gap by maintaining indexed materialized views 
    - **Inverted attribute index** — attribute value → set of record DIDs (DuckDB hash table)
    - **Aggregate counts** — group key → count (e.g., `status:published` → 1234, `language:ja` → 567)
 4. **Updates atomically on commit** — receive record, compute vector/attributes/groups, write to LanceDB + DuckDB in single txn
-5. **Materializes back to PDS** — writes `app.etzhayyim.projector.<actor>View` records so clients can read indexed results via `e.read()`
+5. **Materializes back to PDS** — writes `com.etzhayyim.projector.<actor>View` records so clients can read indexed results via `e.read()`
 
 ## Update latency SLA
 
@@ -93,7 +93,7 @@ export interface ProjectorConfig {
 }
 
 export interface CollectionProjection {
-  /** AT collection NSID (e.g., "app.etzhayyim.kiyo.paper"). */
+  /** AT collection NSID (e.g., "com.etzhayyim.kiyo.paper"). */
   collection: string;
 
   /** Text search config — null if collection is not searchable. */
@@ -129,7 +129,7 @@ export interface CollectionProjection {
    - DuckDB cursor for incremental aggregate updates
    - Firehose subscription loop
    - Query methods (`queryTextSearch`, `queryAttribute`, `queryAggregate`)
-   - Materialization back to PDS as `app.etzhayyim.projector.kiyoPaperView` records
+   - Materialization back to PDS as `com.etzhayyim.projector.kiyoPaperView` records
 
 ## Migration path for rw-free functions
 
@@ -160,7 +160,7 @@ export const kiyoProjector: ProjectorConfig = {
   actorDid: "did:web:kiyo.etzhayyim.com",
   collections: {
     paper: {
-      collection: "app.etzhayyim.kiyo.paper",
+      collection: "com.etzhayyim.kiyo.paper",
       textIndex: {
         fields: ["title", "titleLocal", "abstract", "abstractLocal"],
         model: "all-MiniLM-L6-v2"
@@ -169,7 +169,7 @@ export const kiyoProjector: ProjectorConfig = {
       aggregates: ["status", "language", "field"]
     },
     review: {
-      collection: "app.etzhayyim.kiyo.review",
+      collection: "com.etzhayyim.kiyo.review",
       textIndex: { fields: ["conclusion"], model: "all-MiniLM-L6-v2" },
       attributes: ["status"],
       aggregates: ["status"]
@@ -185,18 +185,18 @@ export const hanreiProjector: ProjectorConfig = {
   actorDid: "did:web:hanrei.etzhayyim.com",
   collections: {
     case: {
-      collection: "app.etzhayyim.hanrei.case",
+      collection: "com.etzhayyim.hanrei.case",
       textIndex: { fields: ["title", "summary", "tags"], model: "all-MiniLM-L6-v2" },
       attributes: ["jurisdiction", "court"],
       aggregates: ["jurisdiction", "court"]
     },
     law: {
-      collection: "app.etzhayyim.hanrei.law",
+      collection: "com.etzhayyim.hanrei.law",
       attributes: ["jurisdiction", "type"],
       aggregates: ["jurisdiction"]
     },
     gazetteEntry: {
-      collection: "app.etzhayyim.hanrei.gazetteEntry",
+      collection: "com.etzhayyim.hanrei.gazetteEntry",
       attributes: ["jurisdiction"],
       aggregates: ["jurisdiction"]
     }
@@ -211,13 +211,13 @@ export const ipaddressProjector: ProjectorConfig = {
   actorDid: "did:web:ipaddress.etzhayyim.com",
   collections: {
     provider: {
-      collection: "app.etzhayyim.ipaddress.provider",
+      collection: "com.etzhayyim.ipaddress.provider",
       textIndex: { fields: ["name", "slug"], model: "all-MiniLM-L6-v2" },
       attributes: ["countryIso3", "abuseType"],
       aggregates: ["countryIso3"]
     },
     scan: {
-      collection: "app.etzhayyim.ipaddress.scan",
+      collection: "com.etzhayyim.ipaddress.scan",
       attributes: ["providerDid"],
       aggregates: ["providerDid", "scanType"]
     }
@@ -259,8 +259,8 @@ Firehose subscriber (`src/firehose.ts`):
   `com.atproto.sync.subscribeRepos`. Same `onCommit(event)` handler signature.
 
 Materialization (`src/materialize.ts`):
-- Writes projector outputs back to PDS as `app.etzhayyim.projector.aggregate` and
-  `app.etzhayyim.projector.textSearch` records so any client can read indexed
+- Writes projector outputs back to PDS as `com.etzhayyim.projector.aggregate` and
+  `com.etzhayyim.projector.textSearch` records so any client can read indexed
   results via the standard `e.read()` API without coupling to LanceDB/DuckDB.
 
 ## Related

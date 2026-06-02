@@ -47,7 +47,7 @@ Create the `warifu` Tier-B actor and its supporting protocol + infra:
    `settle`, `refund`, `dispute`), TIGHT-paired with `wakai` (underwriting + loss mutualisation),
    `toritate` 執帳 (100% on-chain accounting/audit, ADR-2605262900), `chigiri` 契 (dispute legal
    procedure, ADR-2605262700).
-2. **`10-protocol/warifu/`** — AT-Proto lexicons `app.etzhayyim.card.*`
+2. **`10-protocol/warifu/`** — AT-Proto lexicons `com.etzhayyim.card.*`
    (`issue`/`authorize`/`capture`/`settle`/`refund`/`dispute`).
 3. **`50-infra/warifu-contracts/`** — Foundry Solidity: `WarifuCard.sol` (ERC-5192 soulbound card
    identity bound to the holder's ERC-4337 smart account), `CreditLine.sol` (0% interest,
@@ -71,14 +71,14 @@ Create the `warifu` Tier-B actor and its supporting protocol + infra:
   `wakai` float; holder repays later at 0% (qard ḥasan). Default → L3 評価 penalty + mutual-aid
   absorption, **never** profit-bearing penalty interest.
 - **Refund**: reverse transfer, purpose `escrow-refund`.
-- **Dispute/chargeback**: on-chain dispute record (`app.etzhayyim.card.dispute`) → `chigiri`
+- **Dispute/chargeback**: on-chain dispute record (`com.etzhayyim.card.dispute`) → `chigiri`
   procedure / Council arbitration; loss covered by `wakai`.
 
 ### Auth & security
 
 - 3-D-Secure-equivalent = **WebAuthn passkey + on-chain attestation**, DID-bound
   (`did:web:etzhayyim.com`).
-- Card metadata under `app.etzhayyim.encrypted.*` envelope (XChaCha20-Poly1305 + Signal-wrapped,
+- Card metadata under `com.etzhayyim.encrypted.*` envelope (XChaCha20-Poly1305 + Signal-wrapped,
   ADR-2605181100). **No platform-held signing key** (server-side signing invariant
   ADR-2605231525); cardholder signing is passkey/smart-account only.
 

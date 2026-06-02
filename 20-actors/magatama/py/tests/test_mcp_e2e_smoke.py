@@ -4,7 +4,7 @@ Wires the full chain in-process, no HTTP, no aiohttp test server:
 
     LangGraph node (kind=mcp_tool ref=mcp://...)
       → make_mcp_tool_node._resolve_mcp_nsid (SELECT from vertex_mcp_tool_def)
-      → POST {actor_host}/xrpc/app.etzhayyim.mcp.message  (httpx, mocked)
+      → POST {actor_host}/xrpc/com.etzhayyim.mcp.message  (httpx, mocked)
       → mcp_dispatch.handle_envelope
       → MCP_HANDLERS[nsid]  (real, from build_default_handlers())
       → task_echo / task_* result
@@ -65,7 +65,7 @@ def _httpx_to_handle_envelope(handlers):
         async def __aexit__(self, *_): pass
 
         async def post(self, url, json=None, headers=None):
-            assert url.endswith("/xrpc/app.etzhayyim.mcp.message"), f"unexpected URL: {url}"
+            assert url.endswith("/xrpc/com.etzhayyim.mcp.message"), f"unexpected URL: {url}"
             status, body = await handle_envelope(json, handlers)
             return _Resp(status, body)
 
@@ -74,25 +74,25 @@ def _httpx_to_handle_envelope(handlers):
 
 @pytest.mark.asyncio
 async def test_e2e_const_echo_via_resolver_and_dispatcher():
-    """mcp://app.etzhayyim.tools.const.echo with config.args.constant flows end-to-end."""
+    """mcp://com.etzhayyim.tools.const.echo with config.args.constant flows end-to-end."""
     from pymagatama import langgraph_node_resolvers as resolvers
     from pymagatama.mcp_dispatch import build_default_handlers
 
     resolvers._MCP_REGISTRY_CACHE.clear()
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.const.echo" in handlers, "const.echo must be registered"
+    assert "com.etzhayyim.tools.const.echo" in handlers, "const.echo must be registered"
 
     pool = _mock_pool_for_registry("ki.etzhayyim.com")
     cfg = {
         "input_keys": [],
         "result_key": "out",
         "args": {
-            "name": "app.etzhayyim.tools.const.echo",
+            "name": "com.etzhayyim.tools.const.echo",
             "constant": {"bloomSkipped": True, "bloomId": None},
         },
     }
     node = resolvers.make_mcp_tool_node(
-        "mcp://app.etzhayyim.tools.const.echo",
+        "mcp://com.etzhayyim.tools.const.echo",
         cfg,
         pool_factory=lambda: _async_return(pool),
     )
@@ -125,16 +125,16 @@ async def test_e2e_actor_tool_input_keys_drive_arguments():
         captured["signalIds"] = signalIds
         return {"colonyId": "c-7", "memberCount": len(signalIds or [])}
 
-    handlers = {"app.etzhayyim.apps.saikin.formColony": _fake_form_colony}
+    handlers = {"com.etzhayyim.apps.saikin.formColony": _fake_form_colony}
 
     pool = _mock_pool_for_registry("saikin.etzhayyim.com")
     cfg = {
         "input_keys": ["signalIds"],
         "result_key": "formOut",
-        "args": {"name": "app.etzhayyim.apps.saikin.formColony"},
+        "args": {"name": "com.etzhayyim.apps.saikin.formColony"},
     }
     node = resolvers.make_mcp_tool_node(
-        "mcp://app.etzhayyim.apps.saikin.formColony",
+        "mcp://com.etzhayyim.apps.saikin.formColony",
         cfg,
         pool_factory=lambda: _async_return(pool),
     )
@@ -160,10 +160,10 @@ async def test_e2e_unknown_nsid_surfaces_dispatcher_404():
     cfg = {
         "input_keys": [],
         "result_key": "out",
-        "args": {"name": "app.etzhayyim.apps.ghost.haunt"},
+        "args": {"name": "com.etzhayyim.apps.ghost.haunt"},
     }
     node = resolvers.make_mcp_tool_node(
-        "mcp://app.etzhayyim.apps.ghost.haunt",
+        "mcp://com.etzhayyim.apps.ghost.haunt",
         cfg,
         pool_factory=lambda: _async_return(pool),
     )
@@ -232,10 +232,10 @@ async def test_e2e_full_data_chain_fetch_extract_transform_insert():
 
     # --- handlers registry (real handlers, mocks only at the I/O boundary) ---
     handlers = {
-        "app.etzhayyim.tools.http.fetch":     task_http_fetch,
-        "app.etzhayyim.tools.json.extract":   task_json_extract,
-        "app.etzhayyim.tools.transform.map":  task_transform_map,
-        "app.etzhayyim.tools.sql.exec":       task_sql_exec,
+        "com.etzhayyim.tools.http.fetch":     task_http_fetch,
+        "com.etzhayyim.tools.json.extract":   task_json_extract,
+        "com.etzhayyim.tools.transform.map":  task_transform_map,
+        "com.etzhayyim.tools.sql.exec":       task_sql_exec,
     }
     pool = _mock_pool_for_registry("copyright.etzhayyim.com")
     pool_factory = lambda: _async_return(pool)
@@ -249,7 +249,7 @@ async def test_e2e_full_data_chain_fetch_extract_transform_insert():
         async def __aenter__(self): return self
         async def __aexit__(self, *_): pass
         async def post(self, url, json=None, headers=None):
-            assert url.endswith("/xrpc/app.etzhayyim.mcp.message"), f"unexpected url {url}"
+            assert url.endswith("/xrpc/com.etzhayyim.mcp.message"), f"unexpected url {url}"
             status, body = await handle_envelope(json, handlers)
             return _EnvelopeResp(status, body)
         async def request(self, m, url, **kwargs):
@@ -262,12 +262,12 @@ async def test_e2e_full_data_chain_fetch_extract_transform_insert():
 
     # --- build 4 chain nodes ---
     fetch_node = resolvers.make_mcp_tool_node(
-        "mcp://app.etzhayyim.tools.http.fetch",
+        "mcp://com.etzhayyim.tools.http.fetch",
         {
             "input_keys": [],
             "result_key": "fetchOut",
             "args": {
-                "name": "app.etzhayyim.tools.http.fetch",
+                "name": "com.etzhayyim.tools.http.fetch",
                 "url":  "https://api.crossref.org/works",
             },
         },
@@ -277,26 +277,26 @@ async def test_e2e_full_data_chain_fetch_extract_transform_insert():
     # so downstream input_paths must navigate through `.result.` to reach
     # the inner payload. (Iter14's test_e2e_const_echo also shows this.)
     extract_node = resolvers.make_mcp_tool_node(
-        "mcp://app.etzhayyim.tools.json.extract",
+        "mcp://com.etzhayyim.tools.json.extract",
         {
             "input_keys": [],
             "input_paths": {"json": "fetchOut.result.body"},
             "result_key": "itemsOut",
             "args": {
-                "name": "app.etzhayyim.tools.json.extract",
+                "name": "com.etzhayyim.tools.json.extract",
                 "path": "message.items",
             },
         },
         pool_factory=pool_factory,
     )
     transform_node = resolvers.make_mcp_tool_node(
-        "mcp://app.etzhayyim.tools.transform.map",
+        "mcp://com.etzhayyim.tools.transform.map",
         {
             "input_keys": [],
             "input_paths": {"input": "itemsOut.result.value"},
             "result_key": "rowsOut",
             "args": {
-                "name": "app.etzhayyim.tools.transform.map",
+                "name": "com.etzhayyim.tools.transform.map",
                 "mapping": {
                     "doi": "$.DOI",
                     "title": "$.title[0]",
@@ -309,13 +309,13 @@ async def test_e2e_full_data_chain_fetch_extract_transform_insert():
         pool_factory=pool_factory,
     )
     insert_node = resolvers.make_mcp_tool_node(
-        "mcp://app.etzhayyim.tools.sql.exec",
+        "mcp://com.etzhayyim.tools.sql.exec",
         {
             "input_keys": [],
             "input_paths": {"rows": "rowsOut.result.rows"},
             "result_key": "insertOut",
             "args": {
-                "name": "app.etzhayyim.tools.sql.exec",
+                "name": "com.etzhayyim.tools.sql.exec",
                 "sql": "INSERT INTO vertex_work (doi, title, vertex_id, registry, berne_automatic) VALUES (%(doi)s, %(title)s, %(vertex_id)s, %(registry)s, %(berne_automatic)s)",
                 "confirmWrite": True,
             },
@@ -358,17 +358,17 @@ async def test_e2e_input_paths_chain_through_dispatcher():
     from pymagatama.tools_json_worker_main import task_json_extract
 
     resolvers._MCP_REGISTRY_CACHE.clear()
-    handlers = {"app.etzhayyim.tools.json.extract": task_json_extract}
+    handlers = {"com.etzhayyim.tools.json.extract": task_json_extract}
 
     pool = _mock_pool_for_registry("copyright.etzhayyim.com")
     cfg = {
         "input_keys": [],
         "input_paths": {"json": "fetchOut.body"},
         "result_key": "out",
-        "args": {"name": "app.etzhayyim.tools.json.extract", "path": "message.items[0].DOI"},
+        "args": {"name": "com.etzhayyim.tools.json.extract", "path": "message.items[0].DOI"},
     }
     node = resolvers.make_mcp_tool_node(
-        "mcp://app.etzhayyim.tools.json.extract",
+        "mcp://com.etzhayyim.tools.json.extract",
         cfg,
         pool_factory=lambda: _async_return(pool),
     )
@@ -397,18 +397,18 @@ async def test_e2e_registry_resolution_is_cached():
     async def _echo(*, constant=None, **_):
         return constant or {}
 
-    handlers = {"app.etzhayyim.tools.const.echo": _echo}
+    handlers = {"com.etzhayyim.tools.const.echo": _echo}
 
     cfg = {
         "input_keys": [],
         "result_key": "out",
         "args": {
-            "name": "app.etzhayyim.tools.const.echo",
+            "name": "com.etzhayyim.tools.const.echo",
             "constant": {"x": 1},
         },
     }
     node = resolvers.make_mcp_tool_node(
-        "mcp://app.etzhayyim.tools.const.echo",
+        "mcp://com.etzhayyim.tools.const.echo",
         cfg,
         pool_factory=lambda: _async_return(pool),
     )

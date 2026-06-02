@@ -43,8 +43,8 @@ DB_CONFIG = {
 }
 
 REPO              = "did:plc:gftd-collector"
-PATENT_COLLECTION = "app.etzhayyim.apps.patent.patent"
-DNS_COLLECTION    = "app.etzhayyim.apps.dns.observation"
+PATENT_COLLECTION = "com.etzhayyim.apps.patent.patent"
+DNS_COLLECTION    = "com.etzhayyim.apps.dns.observation"
 
 PATENT_LIMIT    = 3000   # target rows per run from OpenAlex
 DNS_LIMIT       = 500    # domains from Umbrella list per run

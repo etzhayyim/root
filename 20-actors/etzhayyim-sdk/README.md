@@ -36,7 +36,7 @@ const e = new Etzhayyim({
 // Write — pins blob to IPFS, then createRecord on PDS, then schedules
 // MST root for next L2 anchor batch.
 const receipt = await e.write({
-  collection: "app.etzhayyim.apps.openIsco.occupation",
+  collection: "com.etzhayyim.apps.openIsco.occupation",
   record: {
     code: "2511",
     name: "Software Developer",
@@ -49,7 +49,7 @@ const receipt = await e.write({
 
 // Read — MST traversal, optional blob fetch.
 const { records, cursor } = await e.read<Occupation>({
-  collection: "app.etzhayyim.apps.openIsco.occupation",
+  collection: "com.etzhayyim.apps.openIsco.occupation",
   prefix: "2",   // major code prefix
   limit: 50,
 });
@@ -60,7 +60,7 @@ const proof = await e.verify(receipt.uri);
 
 // Subscribe — replaces streaming MV.
 for await (const ev of e.subscribe<Occupation>({
-  collections: ["app.etzhayyim.apps.openIsco.occupation"],
+  collections: ["com.etzhayyim.apps.openIsco.occupation"],
 })) {
   console.log(ev.op, ev.uri, ev.value);
 }
@@ -95,17 +95,17 @@ Payment substrate (ADR-2605172100):
 
 ## Encrypted records (Tahoe-pattern, ADR-2605181100)
 
-Private state on the substrate. AEAD envelope (`app.etzhayyim.encrypted.record`) + per-recipient Signal-wrapped symmetric key (`app.etzhayyim.encrypted.keyWrap`). The CID over the envelope inherits MST verify-cap + L2 anchor finality from ADR-2605172000.
+Private state on the substrate. AEAD envelope (`com.etzhayyim.encrypted.record`) + per-recipient Signal-wrapped symmetric key (`com.etzhayyim.encrypted.keyWrap`). The CID over the envelope inherits MST verify-cap + L2 anchor finality from ADR-2605172000.
 
 ```typescript
 await e.encryptedWrite({
-  innerType:  "app.etzhayyim.governance.proposal",
+  innerType:  "com.etzhayyim.governance.proposal",
   record:     { title: "Council motion 42", body: "..." },
   recipients: ["did:web:alice.example", "did:web:bob.example"],
 });
 
 const { records } = await e.encryptedRead<ProposalBody>({
-  innerType: "app.etzhayyim.governance.proposal",
+  innerType: "com.etzhayyim.governance.proposal",
 });
 ```
 

@@ -1,6 +1,6 @@
 # ISO 8583 ↔ warifu on-chain mapping (Surface B)
 
-Maps standard card-present authorization messages onto `app.etzhayyim.card.authorize` /
+Maps standard card-present authorization messages onto `com.etzhayyim.card.authorize` /
 `.settle` so existing EMV/POS terminals interoperate without code changes (ADR-2605302000).
 
 > **R0 scope**: message map only. Physical terminal acceptance needs a BIN range + acquirer/
@@ -9,11 +9,11 @@ Maps standard card-present authorization messages onto `app.etzhayyim.card.autho
 ## Message flow
 
 ```
-Terminal ──0100 (auth request)──►  iso8583-gateway ──► app.etzhayyim.card.authorize
+Terminal ──0100 (auth request)──►  iso8583-gateway ──► com.etzhayyim.card.authorize
 Terminal ◄─0110 (auth response)──  iso8583-gateway ◄── {approve|decline|gated}
-Terminal ──0200 (financial req)──►  iso8583-gateway ──► app.etzhayyim.card.settle
+Terminal ──0200 (financial req)──►  iso8583-gateway ──► com.etzhayyim.card.settle
 Terminal ◄─0210 (fin response)───  iso8583-gateway ◄── settled (T+0)
-Terminal ──0400 (reversal)───────►  iso8583-gateway ──► app.etzhayyim.card.refund
+Terminal ──0400 (reversal)───────►  iso8583-gateway ──► com.etzhayyim.card.refund
 ```
 
 ## Field mapping (key DEs)

@@ -14,7 +14,7 @@ authoritative_for:
   - new Tier-B actor `kanae` (global government fiscal-flow visualization + narrative)
   - kotoba-kqe EAVT datom schema for fund-flow-edge / flow-narrative / visualization-manifest
   - the boundary between danjo (cross-reference ENGINE; non-adjudicating discrepancy observations) and kanae (fiscal-flow ASSEMBLY + Murakumo narrative + kami-engine WASM visualization)
-  - `app.etzhayyim.kanae.*` Lexicon namespace (fundFlowEdge / flowNarrative / visualizationManifest / methodNote)
+  - `com.etzhayyim.kanae.*` Lexicon namespace (fundFlowEdge / flowNarrative / visualizationManifest / methodNote)
   - kami-engine WASM as the constitutional render substrate for fiscal-flow visualization (no third-party BI / no ad/analytics SDK in the render path)
 depends_on:
   - adr-2605302245-danjo-global-fiscal-flow-extension
@@ -136,7 +136,7 @@ beyond what the source records already name, and adjudicates nothing.
 # Decision
 
 Create **`kanae`** (鼎), DID `did:web:kanae.etzhayyim.com`, namespace
-`app.etzhayyim.kanae.*`, as a **Tier-B kotoba-native global fiscal-flow
+`com.etzhayyim.kanae.*`, as a **Tier-B kotoba-native global fiscal-flow
 visualization actor** in **R0 scaffold**. Global in architecture from
 R0 (jurisdiction-generic), with the same JP-first → multi-jurisdiction
 activation ramp as danjo (the underlying corpus and danjo cross-reference
@@ -183,12 +183,12 @@ Council ADR + R1 ratification")` at W1 creation.
 | `kanae_viz_compiler` | gad | periodic (event) | `fundFlowEdge` subgraph + `flowNarrative` → `visualizationManifest` (kami-engine WASM scene; aggregate-first; each manifest carries the reproducing kotoba-kqe query) |
 | `kanae_publish` | naphtali | periodic (event) | aggregate `visualizationManifest` → published IPFS-pinned artifact + Council Lv6+ ≥3 attestation chain |
 
-Cells communicate via `app.etzhayyim.kanae.*` lexicon records on MST;
+Cells communicate via `com.etzhayyim.kanae.*` lexicon records on MST;
 the fund-flow graph lives in kotoba QuadStore (EAVT) per ADR-2605262130.
 No RisingWave, no projection layer. Murakumo node assignment mirrors
 danjo (reuben ingest / gad analysis / naphtali publish).
 
-## §3 — Lexicons (`app.etzhayyim.kanae.*`)
+## §3 — Lexicons (`com.etzhayyim.kanae.*`)
 
 | Lexicon | Purpose |
 |---|---|
@@ -269,7 +269,7 @@ actor is ever switched on:
 
 1. **Actor scaffold** — `90-docs/adr/2605302300-…` (this ADR) +
    `20-actors/kanae/{manifest.jsonld, README.md, CLAUDE.md}` + 4 Lexicon
-   skeletons under `00-contracts/lexicons/app/etzhayyim/kanae/`.
+   skeletons under `00-contracts/lexicons/com/etzhayyim/kanae/`.
 2. **Non-adjudication made structural (G4)** — `flowNarrative.nonAdjudicatingNotice`
    is `const:true`; the `flowClass` enum on `fundFlowEdge` is descriptive
    only and carries no verdict token (crime / violation / guilt / 不正).

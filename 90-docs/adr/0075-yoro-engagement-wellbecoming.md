@@ -94,9 +94,9 @@ hot path で以下を強制する。bypass 禁止:
 
 ## 5. 新規 NSID / Lexicon
 
-- `app.etzhayyim.yoro.feed.getRankedFeed` (query, optional: `echoPersistence` / `sessionDwellMs` / `sessionDistinctTopics` / `debug`)
+- `com.etzhayyim.yoro.feed.getRankedFeed` (query, optional: `echoPersistence` / `sessionDwellMs` / `sessionDistinctTopics` / `debug`)
 
-既存 `app.bsky.feed.getTimeline` / `app.etzhayyim.yoro.feed.getDiscoverFeed` は互換維持。`getRankedFeed` は opt-in path で、MV / 候補取得失敗時は `getDiscoverFeed` に自動降格する (既存フォールバック契約維持)。
+既存 `app.bsky.feed.getTimeline` / `com.etzhayyim.yoro.feed.getDiscoverFeed` は互換維持。`getRankedFeed` は opt-in path で、MV / 候補取得失敗時は `getDiscoverFeed` に自動降格する (既存フォールバック契約維持)。
 
 ## 6. Nintendo-style UX コンポーネント
 
@@ -160,5 +160,5 @@ hot path で以下を強制する。bypass 禁止:
 - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/session-topology.svelte.ts`
 - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/wellbecoming/StressPauseModal.svelte`
 - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/wellbecoming/ReactionWheel.svelte`
-- `00-contracts/lexicons/ai/gftd/yoro/feed/getRankedFeed.json`
+- `00-contracts/lexicons/com/etzhayyim/yoro/feed/getRankedFeed.json`
 - Related: ADR-0018 (PII Tier 3 + cohort-first), ADR-0019 (identifier topology), ADR-0026 (agent-only reverse identity), ADR-0028 (cohort MV sharding)

@@ -19,7 +19,7 @@ class OrganismMessage:
     def to_ndjson_line(self) -> str:
         """Convert to NDJSON line matching the TS drainer format."""
         d = {
-            "lexicon": "app.etzhayyim.organism.message",
+            "lexicon": "com.etzhayyim.organism.message",
             "v": 1,
             "actorDid": self.actor_did,
             "recipientDid": self.recipient_did,

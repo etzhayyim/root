@@ -452,13 +452,13 @@ export async function createProjectConvo(body: Record<string, unknown> | string)
 			members: [body],
 		}
 		: body;
-	const res = await proc<Record<string, any>>('app.etzhayyim.projector.newProjectConvo', payload);
+	const res = await proc<Record<string, any>>('com.etzhayyim.projector.newProjectConvo', payload);
 	if (res?.convoId && !res.convo) {
 		return { ...res, convo: { convoId: res.convoId } };
 	}
 	return res;
 }
-export const sendProjectMessage = (convoId: string, text: string, extra?: Record<string, unknown>) => proc('app.etzhayyim.projector.sendProjectMessage', { convoId, text, ...extra });
+export const sendProjectMessage = (convoId: string, text: string, extra?: Record<string, unknown>) => proc('com.etzhayyim.projector.sendProjectMessage', { convoId, text, ...extra });
 export const listConvos = (params?: Record<string, unknown>) => query('chat.bsky.convo.listConvos', params);
 export const getConvo = (convoId: string) => query('chat.bsky.convo.getConvo', { convoId });
 export const updateConvo = (body: Record<string, unknown>) => proc('chat.bsky.convo.updateConvo', body);
@@ -466,36 +466,36 @@ export const archiveConvo = (convoId: string) => proc('chat.bsky.convo.leaveConv
 export const getConvoMessages = (convoId: string, limit?: number, cursor?: string) => query('chat.bsky.convo.getMessages', { convoId, limit, cursor });
 export const listConvoMembers = (convoId: string) => query('chat.bsky.convo.getConvo', { convoId });
 export const inviteConvoMember = (convoId: string, did: string) => proc('chat.bsky.convo.addMember', { convoId, did });
-export const updateConvoMemberRole = (convoId: string, did: string, role: string) => proc('app.etzhayyim.convo.updateMemberRole', { convoId, did, role });
-export const setConvoEncryption = (convoId: string, enabled: boolean) => proc('app.etzhayyim.convo.setEncryption', { convoId, enabled });
-export const rotateGroupKey = (convoId: string) => proc('app.etzhayyim.convo.rotateGroupKey', { convoId });
+export const updateConvoMemberRole = (convoId: string, did: string, role: string) => proc('com.etzhayyim.convo.updateMemberRole', { convoId, did, role });
+export const setConvoEncryption = (convoId: string, enabled: boolean) => proc('com.etzhayyim.convo.setEncryption', { convoId, enabled });
+export const rotateGroupKey = (convoId: string) => proc('com.etzhayyim.convo.rotateGroupKey', { convoId });
 export const getUnread = () => query('chat.bsky.convo.getUnreadCount');
-export const listPresence = (dids?: string[]) => query('app.etzhayyim.presence.listPresence', { dids });
-export const setupConvoPush = (body: Record<string, unknown>) => proc('app.etzhayyim.convo.setupPush', body);
-export const unsubscribePush = (body: Record<string, unknown>) => proc('app.etzhayyim.convo.unsubscribePush', body);
+export const listPresence = (dids?: string[]) => query('com.etzhayyim.presence.listPresence', { dids });
+export const setupConvoPush = (body: Record<string, unknown>) => proc('com.etzhayyim.convo.setupPush', body);
+export const unsubscribePush = (body: Record<string, unknown>) => proc('com.etzhayyim.convo.unsubscribePush', body);
 
-export const listDevices = () => query('app.etzhayyim.signal.listDevices');
-export const ensureDevice = (body?: Record<string, unknown>) => proc('app.etzhayyim.signal.ensureDevice', body);
-export const revokeDevice = (deviceId: string) => proc('app.etzhayyim.signal.revokeDevice', { deviceId });
-export const renameDevice = (deviceId: string, name: string) => proc('app.etzhayyim.signal.renameDevice', { deviceId, name });
+export const listDevices = () => query('com.etzhayyim.signal.listDevices');
+export const ensureDevice = (body?: Record<string, unknown>) => proc('com.etzhayyim.signal.ensureDevice', body);
+export const revokeDevice = (deviceId: string) => proc('com.etzhayyim.signal.revokeDevice', { deviceId });
+export const renameDevice = (deviceId: string, name: string) => proc('com.etzhayyim.signal.renameDevice', { deviceId, name });
 export const replenishOtpks = (
 	deviceIdOrBody?: string | Record<string, unknown>,
 	keys?: number[][],
 	keyIds?: number[],
-) => proc('app.etzhayyim.signal.replenishOtpks',
+) => proc('com.etzhayyim.signal.replenishOtpks',
 	typeof deviceIdOrBody === 'string' ? { deviceId: deviceIdOrBody, keys, keyIds } : deviceIdOrBody,
 );
-export const ensureSignalIdentity = (did?: string, deviceId?: string) => proc('app.etzhayyim.signal.ensureIdentity', { did, deviceId });
-export const hasIdentity = () => query('app.etzhayyim.signal.hasIdentity');
-export const getIdentityFingerprint = (did: string) => query('app.etzhayyim.signal.getIdentityFingerprint', { did });
-export const verifyIdentityKey = (did: string, fingerprint: string) => proc('app.etzhayyim.signal.verifyIdentityKey', { did, fingerprint });
-export const resolveConsent = (body: Record<string, unknown>) => proc('app.etzhayyim.consent.resolveConsent', body);
+export const ensureSignalIdentity = (did?: string, deviceId?: string) => proc('com.etzhayyim.signal.ensureIdentity', { did, deviceId });
+export const hasIdentity = () => query('com.etzhayyim.signal.hasIdentity');
+export const getIdentityFingerprint = (did: string) => query('com.etzhayyim.signal.getIdentityFingerprint', { did });
+export const verifyIdentityKey = (did: string, fingerprint: string) => proc('com.etzhayyim.signal.verifyIdentityKey', { did, fingerprint });
+export const resolveConsent = (body: Record<string, unknown>) => proc('com.etzhayyim.consent.resolveConsent', body);
 
-export const sendCallOffer = (body: Record<string, unknown>) => proc('app.etzhayyim.call.sendOffer', body);
-export const sendCallAnswer = (body: Record<string, unknown>) => proc('app.etzhayyim.call.sendAnswer', body);
-export const sendCallICE = (body: Record<string, unknown>) => proc('app.etzhayyim.call.sendIce', body);
-export const hangupCall = (body: Record<string, unknown>) => proc('app.etzhayyim.call.hangup', body);
-export const getICEServers = () => query('app.etzhayyim.call.getIceServers');
+export const sendCallOffer = (body: Record<string, unknown>) => proc('com.etzhayyim.call.sendOffer', body);
+export const sendCallAnswer = (body: Record<string, unknown>) => proc('com.etzhayyim.call.sendAnswer', body);
+export const sendCallICE = (body: Record<string, unknown>) => proc('com.etzhayyim.call.sendIce', body);
+export const hangupCall = (body: Record<string, unknown>) => proc('com.etzhayyim.call.hangup', body);
+export const getICEServers = () => query('com.etzhayyim.call.getIceServers');
 
 export const blobUrl = (blob: { ref?: { $link?: string }; cid?: string } | string): string => {
 	const cid = typeof blob === 'string' ? blob : (blob.ref?.$link ?? blob.cid ?? '');

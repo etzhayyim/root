@@ -77,7 +77,7 @@ Extend ADR-2605172600 + ADR-2605172700 Adherent SBT to carry a `currentStage: L0
    - 30-day public objection period before each SBT mint
 2. **Stage attribute** — `currentStage` is mutable by `advanceStage` only. Downgrade only on explicit adherent request (`requestDowngrade`) or Wellbecoming-failure hold (`holdStage`).
 3. **Wellbecoming quarterly attestation** — adherent self-report (4-question form on signed XRPC) + Council-sampled audit (1-in-100 manual review). Failure path = **hold** at current stage (not revoke; not demote). Re-affirmation lifts hold.
-4. **Wage-labor disclosure** — adherent self-reports wage-labor hours/week + subsistence-labor hours/week, quarterly, encrypted via `app.etzhayyim.encrypted.*` envelope per ADR-2605181100. Aggregate (not per-adherent) figures publish on-chain via `reportLiberationMetric` (§4).
+4. **Wage-labor disclosure** — adherent self-reports wage-labor hours/week + subsistence-labor hours/week, quarterly, encrypted via `com.etzhayyim.encrypted.*` envelope per ADR-2605181100. Aggregate (not per-adherent) figures publish on-chain via `reportLiberationMetric` (§4).
 5. **Right of exit** — adherent may exit any stage at will. SBT remains. Benefits suspend until re-affirmation. No penalty; no public record of exit.
 6. **Multi-generational priority** — per ADR-2605192100 §1.3, children and elders count fully toward adherent ceilings, with proxied attestation by primary caregiver until age 14 (cf. ADR-2605260160 mitate pediatric handling).
 
@@ -106,7 +106,7 @@ Per-adherent annual cost envelope (steady-state; first-year transition cost ~1.5
 
 ### 4. Liberation Metric (on-chain KPI)
 
-Define `LiberationMetric` Lexicon (`app.etzhayyim.liberation.metricReport`):
+Define `LiberationMetric` Lexicon (`com.etzhayyim.liberation.metricReport`):
 
 ```
 {
@@ -182,11 +182,11 @@ Each transition ADR is independent and requires its own Council vote. **No batch
 - `etzhayyim-public-fund/`: add `stageReadiness(Stage s) → bool` view, gated by `reserveForStage(s)`
 - new `etzhayyim-liberation-ladder/LiberationLadder.sol` (this ADR's primary contract; ladder state machine)
 
-**Lexicons** (00-contracts/lexicons/app/etzhayyim/liberation/):
-- `app.etzhayyim.liberation.metricReport` (quarterly aggregate, no PII)
-- `app.etzhayyim.liberation.stageAdvanceAttestation` (Council multisig + activation proof)
-- `app.etzhayyim.liberation.wellbecomingAttestation` (encrypted; XChaCha20 envelope per ADR-2605181100)
-- `app.etzhayyim.liberation.adherentExitNotice` (private; only `exit happened: bool` published)
+**Lexicons** (00-contracts/lexicons/com/etzhayyim/liberation/):
+- `com.etzhayyim.liberation.metricReport` (quarterly aggregate, no PII)
+- `com.etzhayyim.liberation.stageAdvanceAttestation` (Council multisig + activation proof)
+- `com.etzhayyim.liberation.wellbecomingAttestation` (encrypted; XChaCha20 envelope per ADR-2605181100)
+- `com.etzhayyim.liberation.adherentExitNotice` (private; only `exit happened: bool` published)
 
 **Pregel cells** (20-actors/magatama/cells/):
 - `liberation_stage_advance` (levi node): per-stage gate evaluation + Council multisig collection

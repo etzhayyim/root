@@ -63,7 +63,7 @@ async def task_create_ferment_record(
     """Insert vertex_hakkou_ferment row in 'pending' state."""
 
     ferment_id = fermentVertexId.split("/")[-1] if fermentVertexId else _uid("hak")
-    ferment_vid = fermentVertexId or f"at://{HAKKOU_DID}/app.etzhayyim.apps.hakkou.ferment/{ferment_id}"
+    ferment_vid = fermentVertexId or f"at://{HAKKOU_DID}/com.etzhayyim.apps.hakkou.ferment/{ferment_id}"
     now = _now()
     input_hash = hashlib.sha256(inputRef.encode()).hexdigest()[:32] if inputRef else ""
 

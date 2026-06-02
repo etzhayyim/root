@@ -7,12 +7,12 @@ Reads the seven com.etzhayyim.himawari.* record types from seed.edn, projects ea
 entity map into a kotoba KG-ingest entity (id + claims + relations), and writes
 them into the canonical kotoba Datom log via the kotoba-server PDS XRPC write path:
 
-    1.  ai.gftd.pds.session.verify   (ADR-2606015000 D1) — verify the operator's
+    1.  com.etzhayyim.pds.session.verify   (ADR-2606015000 D1) — verify the operator's
         session Proof-of-Possession (compact EdDSA JWS). kotoba-server resolves the
         signer DID (did:key trustless / did:web via ERC725-mirror doc) and verifies
         the signature zero-access (server holds no key). A write is GATED on a valid
         session PoP; this is the no-server-key substrate boundary.
-    2.  ai.gftd.apps.kotobase.kg.ingest  — assert the entity's datoms into the named
+    2.  com.etzhayyim.apps.kotobase.kg.ingest  — assert the entity's datoms into the named
         graph (canonical EAVT state; G6/G8). Each lexicon field becomes a `claim`
         (literal) or `relation` (ref). `kotoba commit` seals the hot arrangement.
 
@@ -41,8 +41,8 @@ import urllib.request
 
 SEED = os.path.join(os.path.dirname(__file__), "seed.edn")
 
-NSID_SESSION_VERIFY = "ai.gftd.pds.session.verify"
-NSID_KG_INGEST = "ai.gftd.apps.kotobase.kg.ingest"
+NSID_SESSION_VERIFY = "com.etzhayyim.pds.session.verify"
+NSID_KG_INGEST = "com.etzhayyim.apps.kotobase.kg.ingest"
 
 # The unique-identity attribute per himawari record namespace — the entity's `id`
 # in the kg.ingest projection is taken from this attribute (mirrors schema.edn

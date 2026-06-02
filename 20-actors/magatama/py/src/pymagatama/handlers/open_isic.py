@@ -13,7 +13,7 @@ from pymagatama.primitives.open_isic import verification_for_confidence
 
 
 @udf(
-    nsid="app.etzhayyim.apps.openIsic.verificationForConfidence",
+    nsid="com.etzhayyim.apps.openIsic.verificationForConfidence",
     io_threads=32,
     input_types=["FLOAT64"],
     result_type="VARCHAR",
@@ -29,7 +29,7 @@ def verification_for_confidence_udf(confidence: float) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.openIsic.classificationVertexId",
+    nsid="com.etzhayyim.apps.openIsic.classificationVertexId",
     io_threads=32,
     input_types=["VARCHAR", "VARCHAR", "VARCHAR"],
     result_type="VARCHAR",
@@ -42,4 +42,4 @@ def classification_vertex_id(entity_did: str, isic_class_code: str, classified_a
     digest = hashlib.sha256(
         f"{entity_did}|{isic_class_code}|{classified_at}".encode("utf-8")
     ).hexdigest()[:24]
-    return f"at://did:web:open-isic.etzhayyim.com/app.etzhayyim.apps.openIsic.classification/{digest}"
+    return f"at://did:web:open-isic.etzhayyim.com/com.etzhayyim.apps.openIsic.classification/{digest}"

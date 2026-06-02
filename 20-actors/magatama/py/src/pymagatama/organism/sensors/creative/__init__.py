@@ -30,7 +30,7 @@ advertising auto-flag → Council Lv6+ ≥3 queue.
 
 Passive-only invariant (G4): sensors MUST NOT perform live archive
 scraping at organism-tick time; only pre-pinned IPFS snapshots
-via ``e7m-dataset add`` / ``app.etzhayyim.substrate.datasetPin``.
+via ``e7m-dataset add`` / ``com.etzhayyim.substrate.datasetPin``.
 
 Commercial vendor imports (Adobe Stock / Getty / Shutterstock / Pond5 /
 Audio Network / paid PD-collections) are CONSTITUTIONALLY PROHIBITED

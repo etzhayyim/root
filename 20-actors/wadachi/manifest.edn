@@ -28,7 +28,7 @@
   {:gate/id "G13" :gate/name "tithe-non-fiat"               :gate/rule "Payments are USDC Base L2 + ERC-4337 + TitheRouter 10% (no Stripe/fiat)"}
   {:gate/id "G14" :gate/name "no-server-key"                :gate/rule "Platform holds no key (member/operator signs commands + settlement)"}
   {:gate/id "G15" :gate/name "consent-bound"                :gate/rule "Real outward actions stay gated (compute-only R0; mission dispatch stops at 'intent')"}
-  {:gate/id "G16" :gate/name "pii-encrypted"                :gate/rule "Operator/member PII encrypted via app.etzhayyim.encrypted.* (ADR-2605181100)"}
+  {:gate/id "G16" :gate/name "pii-encrypted"                :gate/rule "Operator/member PII encrypted via com.etzhayyim.encrypted.* (ADR-2605181100)"}
   ]
 
  :actor/cells

@@ -18,5 +18,5 @@ SELECT
            THEN 1 ELSE 0 END)::BIGINT                           AS fission_ready_count,
   MAX(observed_at)                                              AS last_evidence_at
 FROM vertex_repo_record
-WHERE collection = 'ai.gftd.cohort.evidence'
+WHERE collection = 'com.etzhayyim.cohort.evidence'
 GROUP BY cohort_did

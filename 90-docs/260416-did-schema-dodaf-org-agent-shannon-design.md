@@ -154,7 +154,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
   "capabilityInvocation": [
     {
       "id": "#invoke-xrpc",
-      "scope": ["app.etzhayyim.apps.*.query", "app.etzhayyim.apps.*.invoke"],
+      "scope": ["com.etzhayyim.apps.*.query", "com.etzhayyim.apps.*.invoke"],
       "maxLifetime": 60,
       "consentRequired": true
     }
@@ -169,7 +169,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
   ],
   "rbac": {
     "roles": ["agent-runtime"],
-    "grants": ["app.etzhayyim.apps.*.query"]
+    "grants": ["com.etzhayyim.apps.*.query"]
   },
   "consent": {
     "model": "gnap-vp",
@@ -289,7 +289,7 @@ CREATE TABLE gftd_did_log (
   "payload": {
     "iss": "did:gftd:abc123",
     "aud": "did:gftd:atproto-pds",
-    "lxm": "app.etzhayyim.yoro.sendMessage",
+    "lxm": "com.etzhayyim.yoro.sendMessage",
     "exp": 1745000060,
     "iat": 1745000000,
     "jti": "uuid-v4"
@@ -303,7 +303,7 @@ CREATE TABLE gftd_did_log (
 
 ```
 Client (browser / CLI / agent)
-  POST /xrpc/app.etzhayyim.yoro.sendMessage
+  POST /xrpc/com.etzhayyim.yoro.sendMessage
   Authorization: Bearer <ES256 JWT, iss=did:gftd:abc123>
 
 PDS authenticate()                                    verify.ts
@@ -592,10 +592,10 @@ did:gftd:org-root   --[informed]-----> did:gftd:audit-agent
 {
   "rbac": {
     "roles": ["agent-runtime", "operator"],
-    "grants": ["app.etzhayyim.apps.*.query", "app.etzhayyim.apps.*.invoke"]
+    "grants": ["com.etzhayyim.apps.*.query", "com.etzhayyim.apps.*.invoke"]
   },
   "capabilityInvocation": [{
-    "scope": ["app.etzhayyim.apps.*.query"],
+    "scope": ["com.etzhayyim.apps.*.query"],
     "maxLifetime": 60,
     "consentRequired": true
   }]
@@ -672,7 +672,7 @@ Agent (did:gftd:agent-1)
   },
   "consent": { "model": "synthetic-cohort-v1", "piiTier": 1 },
   "capabilityInvocation": [{
-    "scope": ["app.etzhayyim.apps.*.query"],
+    "scope": ["com.etzhayyim.apps.*.query"],
     "consentRequired": false
   }]
 }
@@ -697,7 +697,7 @@ Agent (did:gftd:agent-1)
     "raci": "responsible"
   }],
   "capabilityInvocation": [{
-    "scope": ["app.etzhayyim.apps.*.query", "app.etzhayyim.apps.*.invoke"],
+    "scope": ["com.etzhayyim.apps.*.query", "com.etzhayyim.apps.*.invoke"],
     "consentRequired": true
   }]
 }
@@ -808,7 +808,7 @@ Federation が必要な actor のみ `federationDID` を持つ。cohort agent �
   "actorScore": 100,
 
   "federationDID": "did:plc:jun123",
-  "capabilityInvocation": [{ "scope": ["app.etzhayyim.apps.*"] }],
+  "capabilityInvocation": [{ "scope": ["com.etzhayyim.apps.*"] }],
   "rbac": { "roles": ["owner"] },
   "consent": { "model": "gnap-vp", "piiTier": 3 },
   "dodaf": { "viewpoint": "OV-4", "performerBinding": "did:gftd:org-gftd" }
@@ -850,7 +850,7 @@ User → authn.etzhayyim.com /sign-up
 #### OAuth リンク追加
 
 ```
-User → authn.etzhayyim.com /xrpc/app.etzhayyim.auth.linkOAuthStart { provider: "google" }
+User → authn.etzhayyim.com /xrpc/com.etzhayyim.auth.linkOAuthStart { provider: "google" }
   → Google OAuth flow → callback
   → auth Worker:
       1. Google profile 取得 (openid email)
@@ -878,9 +878,9 @@ User → authn.etzhayyim.com /xrpc/app.etzhayyim.auth.linkOAuthStart { provider:
     → JWT mint (iss = did:gftd:{hash})
 
 [Email magic link ログイン]
-  User → authn.etzhayyim.com /xrpc/app.etzhayyim.auth.linkEmailBegin { email: "jun@etzhayyim.com" }
+  User → authn.etzhayyim.com /xrpc/com.etzhayyim.auth.linkEmailBegin { email: "jun@etzhayyim.com" }
     → OTP code 生成 → email 送信
-  User → /xrpc/app.etzhayyim.auth.linkEmailVerify { email, code }
+  User → /xrpc/com.etzhayyim.auth.linkEmailVerify { email, code }
     → linked_auth_methods WHERE provider='email' AND email=?
     → account DID = did:gftd:{hash}
     → JWT mint (iss = did:gftd:{hash})
@@ -964,13 +964,13 @@ DID_DB (did.etzhayyim.com):
       "id": "#engineering",
       "name": "Engineering",
       "members": ["did:gftd:alice456", "did:gftd:agent-bot1"],
-      "rbac": { "grants": ["app.etzhayyim.apps.*.create", "app.etzhayyim.apps.*.query"] }
+      "rbac": { "grants": ["com.etzhayyim.apps.*.create", "com.etzhayyim.apps.*.query"] }
     },
     {
       "id": "#legal",
       "name": "Legal",
       "members": ["did:gftd:jun123"],
-      "rbac": { "grants": ["app.etzhayyim.apps.legal.*"] }
+      "rbac": { "grants": ["com.etzhayyim.apps.legal.*"] }
     }
   ],
 
@@ -990,7 +990,7 @@ DID_DB (did.etzhayyim.com):
   ],
   "rbac": {
     "roles": ["owner", "admin", "member", "viewer", "agent-runtime"],
-    "grants": ["app.etzhayyim.apps.*"]
+    "grants": ["com.etzhayyim.apps.*"]
   },
   "consent": { "model": "gnap-vp", "piiTier": 3 },
   "dodaf": { "viewpoint": "OV-4", "performerBinding": "did:gftd:jun123" }
@@ -1038,7 +1038,7 @@ did:gftd:alice456 の DID Doc fetch (1 fetch)
 ```
 [招待]
   Owner (did:gftd:jun123)
-    POST /xrpc/app.etzhayyim.org.inviteMember
+    POST /xrpc/com.etzhayyim.org.inviteMember
     {
       org: "did:gftd:org-gftd",
       invitee: "alice@etzhayyim.com",
@@ -1090,26 +1090,26 @@ did:gftd:alice456 の DID Doc fetch (1 fetch)
 ### Org Lexicon (新規 NSID)
 
 ```
-app.etzhayyim.org.createOrganization    ← org DID 作成 (org_type, name, domain)
-app.etzhayyim.org.getOrganization       ← org 情報取得
-app.etzhayyim.org.updateOrganization    ← org 設定更新 (name, sso, allowedDomains)
-app.etzhayyim.org.deleteOrganization    ← org 削除 (owner only, GDPR cascade purge)
+com.etzhayyim.org.createOrganization    ← org DID 作成 (org_type, name, domain)
+com.etzhayyim.org.getOrganization       ← org 情報取得
+com.etzhayyim.org.updateOrganization    ← org 設定更新 (name, sso, allowedDomains)
+com.etzhayyim.org.deleteOrganization    ← org 削除 (owner only, GDPR cascade purge)
 
-app.etzhayyim.org.inviteMember          ← メンバー招待 (email or did:gftd)
-app.etzhayyim.org.acceptInvite          ← 招待承認
-app.etzhayyim.org.removeMember          ← メンバー削除
-app.etzhayyim.org.updateMemberRole      ← role 変更
-app.etzhayyim.org.listMembers           ← メンバー一覧
+com.etzhayyim.org.inviteMember          ← メンバー招待 (email or did:gftd)
+com.etzhayyim.org.acceptInvite          ← 招待承認
+com.etzhayyim.org.removeMember          ← メンバー削除
+com.etzhayyim.org.updateMemberRole      ← role 変更
+com.etzhayyim.org.listMembers           ← メンバー一覧
 
-app.etzhayyim.org.createTeam            ← チーム作成
-app.etzhayyim.org.updateTeam            ← チーム設定更新
-app.etzhayyim.org.deleteTeam            ← チーム削除
-app.etzhayyim.org.addTeamMember         ← チームにメンバー追加
-app.etzhayyim.org.removeTeamMember      ← チームからメンバー削除
-app.etzhayyim.org.listTeams             ← チーム一覧
+com.etzhayyim.org.createTeam            ← チーム作成
+com.etzhayyim.org.updateTeam            ← チーム設定更新
+com.etzhayyim.org.deleteTeam            ← チーム削除
+com.etzhayyim.org.addTeamMember         ← チームにメンバー追加
+com.etzhayyim.org.removeTeamMember      ← チームからメンバー削除
+com.etzhayyim.org.listTeams             ← チーム一覧
 
-app.etzhayyim.org.configureSso          ← Enterprise SSO 設定
-app.etzhayyim.org.testSso               ← SSO 接続テスト
+com.etzhayyim.org.configureSso          ← Enterprise SSO 設定
+com.etzhayyim.org.testSso               ← SSO 接続テスト
 ```
 
 ### AI Agent as Org Member
@@ -1247,7 +1247,7 @@ Comparison to Schema F (split):
 
 ## Phase 6: Organization Management
 
-- `app.etzhayyim.org.*` Lexicon 新規作成 (15 NSID)
+- `com.etzhayyim.org.*` Lexicon 新規作成 (15 NSID)
 - Org DID Doc 作成 (`createOrganization` → did:gftd mint)
 - メンバー招待フロー (invite token + email + sign-up/login + accept)
 - チーム管理 (create/update/delete team + add/remove members)

@@ -1,7 +1,7 @@
 # 60-apps/ai-gftd-project-flight-offer
 
 Skyscanner-equivalent flight fare aggregation actor. **P1–P8 shipped 2026-04-28.**
-All compute lives in LangServer BPMN-contract (`etzhayyim-root/00-contracts/bpmn/ai/gftd/flight-offer/`) +
+All compute lives in LangServer BPMN-contract (`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/flight-offer/`) +
 LangServer primitives (`20-actors/magatama/py/src/pymagatama/ingest/flight_offer.py`).
 The CF Worker in `appview/` is a thin presentation layer.
 
@@ -9,14 +9,14 @@ The CF Worker in `appview/` is a thin presentation layer.
 |---|---|
 | **State** | `vertex_flight_offer` · `mv_flight_offer_cheapest_by_route_date` · `vertex_flight_offer_alert` · `vertex_flight_offer_watch` · `vertex_airline` · `vertex_flight_offer_source` · `edge_flight_offer_source_covers_airline` · `mv_flight_offer_source_coverage` · `vertex_flight_offer_source_run` · `mv_flight_offer_source_health` |
 | **Logic** | 12 LangServer primitives `flight.offer.{fetch,fetchFromSource,checkDrop,addWatch,removeWatch,listWatch,getCheapest,pollWatchlist,listSources,listAirlines,sourceHealth,cleanupRuns}` |
-| **Orchestration** | 12 BPMNs under `etzhayyim-root/00-contracts/bpmn/ai/gftd/flight-offer/`, dispatched via `vertex_bpmn_lexicon_binding` (ADR-0056) |
+| **Orchestration** | 12 BPMNs under `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/flight-offer/`, dispatched via `vertex_bpmn_lexicon_binding` (ADR-0056) |
 | **Schedules** | `pollWatchlist.bpmn` R/PT6H · `cleanupRuns.bpmn` R/PT24H (90d retention) |
 | **Fan-out** | `checkPriceDrop.bpmn` exclusiveGateway → `generic.pds.dispatch(app.bsky.feed.post)` when `alerted=true` |
 | **Providers** | registry-driven: `amadeus` / `duffel` / `kiwi-tequila` / `travelpayouts-aviasales` / `stub` (env-gated) |
 | **Registry** | 42 IATA airlines (`vertex_airline`) · 8 sources (`vertex_flight_offer_source`) · N:M coverage (`edge_flight_offer_source_covers_airline`) |
 | **Identity** | `did:web:flight-offer.etzhayyim.com`, nanoid `fl1ghts1` |
 
-## XRPC surface (`app.etzhayyim.apps.flightOffer.*`)
+## XRPC surface (`com.etzhayyim.apps.flightOffer.*`)
 
 | NSID | Summary |
 |---|---|

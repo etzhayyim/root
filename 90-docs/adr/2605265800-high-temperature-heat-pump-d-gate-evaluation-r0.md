@@ -146,7 +146,7 @@ HTHP (≤500 kW thermal, ≤200°C delivery)
 ## §7 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   hthpFacilityAttestation,             # refrigerant class + sink temp + capacity + compressor design CID
   hthpRefrigerantInventory,            # per-facility refrigerant kg + class + leak-monitor
   hthpCopAttestation,                  # commissioning + annual: COP at design + actual operating points + heat source/sink

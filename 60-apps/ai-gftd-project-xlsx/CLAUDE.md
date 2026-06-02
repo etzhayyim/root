@@ -86,21 +86,21 @@ Upload (.xlsx ZIP / .csv)
 | Tier | Purpose | Function | Collection NSID |
 |---|---|---|---|
 | **1 Social** | Share workbook | `AppBskyFeedPost(did, text, {embed})` | `app.bsky.feed.post` |
-| **2 Domain** | workbook/sheet/cell/style/chart | `ComAtprotoRepoCreateRecord(kind, payload)` | `app.etzhayyim.apps.xlsx.*` |
+| **2 Domain** | workbook/sheet/cell/style/chart | `ComAtprotoRepoCreateRecord(kind, payload)` | `com.etzhayyim.apps.xlsx.*` |
 | **3 State** | Editor preferences | `Preferences()` | server-side |
 
 ## Domain Record Types (Tier 2, camelCase) `[DESIGN]`
 
 | Kind | NSID | Content |
 |---|---|---|
-| `workbook` | `app.etzhayyim.apps.xlsx.workbook` | Workbook metadata (title, activeSheet) |
-| `sheet` | `app.etzhayyim.apps.xlsx.sheet` | Sheet definition (name, order, frozen panes) |
-| `cell` | `app.etzhayyim.apps.xlsx.cell` | Cell value/formula/type/style reference |
-| `style` | `app.etzhayyim.apps.xlsx.style` | Number format, font, fill, border, alignment |
-| `chart` | `app.etzhayyim.apps.xlsx.chart` | Chart definition (type, data range, series) |
-| `table` | `app.etzhayyim.apps.xlsx.table` | Structured table (ListObject) |
-| `definedName` | `app.etzhayyim.apps.xlsx.definedName` | Named range |
-| `workbookTemplate` | `app.etzhayyim.apps.xlsx.workbookTemplate` | Reusable template |
+| `workbook` | `com.etzhayyim.apps.xlsx.workbook` | Workbook metadata (title, activeSheet) |
+| `sheet` | `com.etzhayyim.apps.xlsx.sheet` | Sheet definition (name, order, frozen panes) |
+| `cell` | `com.etzhayyim.apps.xlsx.cell` | Cell value/formula/type/style reference |
+| `style` | `com.etzhayyim.apps.xlsx.style` | Number format, font, fill, border, alignment |
+| `chart` | `com.etzhayyim.apps.xlsx.chart` | Chart definition (type, data range, series) |
+| `table` | `com.etzhayyim.apps.xlsx.table` | Structured table (ListObject) |
+| `definedName` | `com.etzhayyim.apps.xlsx.definedName` | Named range |
+| `workbookTemplate` | `com.etzhayyim.apps.xlsx.workbookTemplate` | Reusable template |
 
 ## File Structure
 

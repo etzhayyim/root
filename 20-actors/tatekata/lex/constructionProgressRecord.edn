@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.tatekata.constructionProgressRecord"
+ :id "com.etzhayyim.tatekata.constructionProgressRecord"
  :defs
  {:main
   {:type "record"

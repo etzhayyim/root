@@ -1,7 +1,7 @@
 # kanayama (金山) — Circular Metallurgy Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:kanayama`
-**Namespace**: `app.etzhayyim.kanayama.*`
+**Namespace**: `com.etzhayyim.kanayama.*`
 **ADR**: ADR-2605252400 (R0 scaffold), ADR-2605252415 (R1, reserved), ADR-2605252430 (R2, reserved), ADR-2605252445 (R3, reserved)
 **Status**: R0 scaffold (2026-05-25) — all cells import-time RuntimeError
 
@@ -86,7 +86,7 @@ Closed-loop material recovery / circular metallurgy orchestrator. Adopts modern 
 ## Lexicons (8 record types, R0 stubs)
 
 ```
-app.etzhayyim.kanayama.{
+com.etzhayyim.kanayama.{
   intakeRecord
   decoatingAttestation
   meltingAttestation

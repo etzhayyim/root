@@ -73,18 +73,18 @@ See `ADR-2605261115` §4 for definitions. Key enforcement:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.makura`
+**App lexicon root**: `com.etzhayyim.makura`
 
 **Records (8 types, R0 stubs)**:
 
-1. `app.etzhayyim.makura.foamBatchAttestation` — L2 chemistry + density + cell-structure + VOC test
-2. `app.etzhayyim.makura.fabricAttestation` — L4a material disclosure + Charter scan + dye safety
-3. `app.etzhayyim.makura.pillowLotAttestation` — L5a fill weight + close + label + lot DID
-4. `app.etzhayyim.makura.qcRecord` — L5b dimensional + ILD + visual + reject %
-5. `app.etzhayyim.makura.packagingRecord` — L5c vacuum compression + carton + pallet + take-back QR
-6. `app.etzhayyim.makura.recyclingCertificate` — G13 take-back chain + recycled crumb % attestation
-7. `app.etzhayyim.makura.workerExposureRecord` — G6/G10 isocyanate / VOC / dust exposure log
-8. `app.etzhayyim.makura.silenComfortReview` — Council 5-of-7 Safe attestation, all new product classes
+1. `com.etzhayyim.makura.foamBatchAttestation` — L2 chemistry + density + cell-structure + VOC test
+2. `com.etzhayyim.makura.fabricAttestation` — L4a material disclosure + Charter scan + dye safety
+3. `com.etzhayyim.makura.pillowLotAttestation` — L5a fill weight + close + label + lot DID
+4. `com.etzhayyim.makura.qcRecord` — L5b dimensional + ILD + visual + reject %
+5. `com.etzhayyim.makura.packagingRecord` — L5c vacuum compression + carton + pallet + take-back QR
+6. `com.etzhayyim.makura.recyclingCertificate` — G13 take-back chain + recycled crumb % attestation
+7. `com.etzhayyim.makura.workerExposureRecord` — G6/G10 isocyanate / VOC / dust exposure log
+8. `com.etzhayyim.makura.silenComfortReview` — Council 5-of-7 Safe attestation, all new product classes
 
 **Deferred to R1+**: Full lexicon schema definitions. R0 ships stub JSON with `id` + `defs.main.type=record` only.
 

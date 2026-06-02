@@ -9,7 +9,7 @@ Tranche F scaffolding (Phase 2). See README.md.
 
 ## NSIDs
 
-See `00-contracts/lexicons/ai/gftd/sanctions/`.
+See `00-contracts/lexicons/com/etzhayyim/sanctions/`.
 
 ## Dependencies
 

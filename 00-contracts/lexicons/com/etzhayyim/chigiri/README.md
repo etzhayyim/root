@@ -1,4 +1,4 @@
-# app.etzhayyim.chigiri.* — chigiri (契) Lexicons
+# com.etzhayyim.chigiri.* — chigiri (契) Lexicons
 
 **Owner actor**: `did:web:chigiri.etzhayyim.com` (`20-actors/chigiri/`)
 **ADR**: ADR-2605262700 (R0 scaffold)

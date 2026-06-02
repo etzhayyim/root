@@ -1,7 +1,7 @@
-;; app.etzhayyim.futawa.silenMobilityReview — lexicon (EDN form)
+;; com.etzhayyim.futawa.silenMobilityReview — lexicon (EDN form)
 ;; Council 5-of-7 Safe attestation (terminal gate)
 {:lexicon 1
- :id "app.etzhayyim.futawa.silenMobilityReview"
+ :id "com.etzhayyim.futawa.silenMobilityReview"
  :defs
  {:main
   {:type "record"

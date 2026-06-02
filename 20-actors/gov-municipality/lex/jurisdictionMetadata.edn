@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.govmunicipality.jurisdictionMetadata"
+ :id "com.etzhayyim.govmunicipality.jurisdictionMetadata"
  :defs
  {:main
   {:type "record"

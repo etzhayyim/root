@@ -1,7 +1,7 @@
 # yoro-supply — Material Sourcing & Logistics Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:yoro-supply`
-**Namespace**: `app.etzhayyim.supply.*`
+**Namespace**: `com.etzhayyim.supply.*`
 **ADR**: ADR-2605250850 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26)
 

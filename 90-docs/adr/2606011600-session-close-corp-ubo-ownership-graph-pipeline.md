@@ -185,5 +185,5 @@ registration (#654). Two follow-through notes:
 - ADR-2605302300 — kanae global fiscal-flow visualization (reads `corp.{leiReference,ownershipEdge}`)
 - ADR-2605312345 — kotoba Datom log = first-class canonical state (EAVT ingest target)
 - PRs: #309, #312, #564, #649, #650, #652 (**all merged to `main` 2026-06-01**) + #654 (this ADR's first cut)
-- Lexicons: `00-contracts/lexicons/app/etzhayyim/corp/{ownershipEdge,leiReference}.json`, `app/etzhayyim/danjo/crossReferenceLink.json`
+- Lexicons: `00-contracts/lexicons/com/etzhayyim/corp/{ownershipEdge,leiReference}.json`, `com/etzhayyim/danjo/crossReferenceLink.json`
 - Tests: `20-actors/magatama/py/tests/sensors/test_{w1_corp_gov_sensors,corp_ownership_edge_datom,ownership_crossref,gleif_rr_normalize,lei_reference_datom,corp_ubo_pipeline_e2e}.py`

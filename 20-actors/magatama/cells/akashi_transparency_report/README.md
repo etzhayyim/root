@@ -7,5 +7,5 @@ disclosure records.
 - Murakumo node: `naphtali`
 - Phase: `periodic`
 - Gates: Council charter attestation, source-policy review, ADR-2606022300 R1 activation
-- Output Lexicon: `app.etzhayyim.akashi.adTransparencyReport`
+- Output Lexicon: `com.etzhayyim.akashi.adTransparencyReport`
 - Ceiling: aggregate transparency only; no targeting terminal or commercial ad-intel

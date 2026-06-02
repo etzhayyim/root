@@ -7,7 +7,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-NS = "app.etzhayyim.apps.kaikei"
+NS = "com.etzhayyim.apps.kaikei"
 ACTOR = "did:web:kaikei.etzhayyim.com"
 
 OWNER_MAP = {
@@ -113,7 +113,7 @@ def get_trial_balance(periodYm: str = "", owner: str = "", accountType: str = ""
         FROM mv_kaikei_trial_balance tb
         LEFT JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did=tb.owner_did
-         AND a.vertex_id=tb.owner_did || '|app.etzhayyim.apps.kaikei.account|' || SPLIT_PART(tb.account_did, ':', 5)
+         AND a.vertex_id=tb.owner_did || '|com.etzhayyim.apps.kaikei.account|' || SPLIT_PART(tb.account_did, ':', 5)
         WHERE {' AND '.join(filters)}
         ORDER BY a.account_type, a.account_name, tb.side""",
         tuple(args),
@@ -237,7 +237,7 @@ def record_pf_payable(employerOrgId: str = "", wageMonth: str = "", totalEmploye
     if not owner or not wageMonth:
         return {"error": "employerOrgId and wageMonth required"}
     total = _int(totalEmployerPfInrPaise) + _int(totalEmployeePfInrPaise) + _int(totalAdminInrPaise)
-    r = _post_one_entry(owner, f"pf-{wageMonth}-{int(time.time() * 1000)}", wageMonth, SENTINEL["pfExpense"], SENTINEL["pfPayable"], total, "INR", f"EPFO PF payable ({establishmentPfCode} {trrn})", triggerSource or "app.etzhayyim.apps.epfo.finalize", triggerVertexId)
+    r = _post_one_entry(owner, f"pf-{wageMonth}-{int(time.time() * 1000)}", wageMonth, SENTINEL["pfExpense"], SENTINEL["pfPayable"], total, "INR", f"EPFO PF payable ({establishmentPfCode} {trrn})", triggerSource or "com.etzhayyim.apps.epfo.finalize", triggerVertexId)
     return {"ok": True, "vertexId": r["vertexId"], "totalAmountInrPaise": r["amount"] * 100}
 
 
@@ -246,7 +246,7 @@ def record_esi_payable(employerOrgId: str = "", wageMonth: str = "", totalEmploy
     if not owner or not wageMonth:
         return {"error": "employerOrgId and wageMonth required"}
     total = _int(totalEmployerContributionInrPaise) + _int(totalEmployeeContributionInrPaise)
-    r = _post_one_entry(owner, f"esi-{wageMonth}-{int(time.time() * 1000)}", wageMonth, SENTINEL["esiExpense"], SENTINEL["esiPayable"], total, "INR", f"ESIC contribution ({establishmentEsiCode} {challanReference})", triggerSource or "app.etzhayyim.apps.esic.finalize", triggerVertexId)
+    r = _post_one_entry(owner, f"esi-{wageMonth}-{int(time.time() * 1000)}", wageMonth, SENTINEL["esiExpense"], SENTINEL["esiPayable"], total, "INR", f"ESIC contribution ({establishmentEsiCode} {challanReference})", triggerSource or "com.etzhayyim.apps.esic.finalize", triggerVertexId)
     return {"ok": True, "vertexId": r["vertexId"], "totalAmountInrPaise": r["amount"] * 100}
 
 
@@ -256,7 +256,7 @@ def record_gst_payable(gstinHash: str = "", taxPeriod: str = "", totalNetTaxInrP
     owner = resolve_owner(gstinHash) or f"did:web:kaikei.etzhayyim.com:taxpayer:{_str(gstinHash or 'unknown')[:16]}"
     total = _int(totalNetTaxInrPaise) or _int(deltaTaxInrPaise)
     memo = f"GSTR-3B net tax (ARN {arn or '-'}{('/ amend:' + amendmentReason) if amendmentReason else ''})"
-    r = _post_one_entry(owner, f"gst-{taxPeriod}-{int(time.time() * 1000)}", taxPeriod, SENTINEL["gstReceivable"], SENTINEL["gstPayable"], total, "INR", memo, triggerSource or "app.etzhayyim.apps.gstr3b.fileReturn", triggerVertexId)
+    r = _post_one_entry(owner, f"gst-{taxPeriod}-{int(time.time() * 1000)}", taxPeriod, SENTINEL["gstReceivable"], SENTINEL["gstPayable"], total, "INR", memo, triggerSource or "com.etzhayyim.apps.gstr3b.fileReturn", triggerVertexId)
     return {"ok": True, "vertexId": r["vertexId"], "totalAmountInrPaise": r["amount"] * 100}
 
 
@@ -265,7 +265,7 @@ def record_advance_tax(taxpayerPanHash: str = "", assessmentYear: str = "", tota
         return {"error": "assessmentYear required"}
     owner = f"did:web:kaikei.etzhayyim.com:taxpayer:{_str(taxpayerPanHash or 'unknown')[:16]}"
     total = _int(totalTaxPaidInrPaise) or _int(advanceTaxPaidInrPaise) or _int(selfAssessmentTaxInrPaise)
-    r = _post_one_entry(owner, f"itr1-{assessmentYear}-{int(time.time() * 1000)}", assessmentYear, SENTINEL["taxExpense"], SENTINEL["taxPayable"], total, "INR", f"ITR-1 advance/self-assessment tax (ack {ackNumber or '-'})", triggerSource or "app.etzhayyim.apps.itr1.fileReturn", triggerVertexId)
+    r = _post_one_entry(owner, f"itr1-{assessmentYear}-{int(time.time() * 1000)}", assessmentYear, SENTINEL["taxExpense"], SENTINEL["taxPayable"], total, "INR", f"ITR-1 advance/self-assessment tax (ack {ackNumber or '-'})", triggerSource or "com.etzhayyim.apps.itr1.fileReturn", triggerVertexId)
     return {"ok": True, "vertexId": r["vertexId"], "totalAmountInrPaise": r["amount"] * 100}
 
 
@@ -274,7 +274,7 @@ def recompute_withholding(employerOrgId: str = "", effectiveFromMonth: str = "",
     if not owner or not effectiveFromMonth:
         return {"error": "employerOrgId and effectiveFromMonth required"}
     memo = f"fuyou recompute marker (employee {employeeDid}{('/ ' + amendmentReason) if amendmentReason else ''})"
-    r = _post_one_entry(owner, f"fuyou-recompute-{taxYear or 'na'}-{effectiveFromMonth}-{int(time.time() * 1000)}", effectiveFromMonth, SENTINEL["whExpense"], SENTINEL["whPayable"], 0, "JPY", memo, triggerSource or "app.etzhayyim.apps.fuyou.finalize", triggerVertexId)
+    r = _post_one_entry(owner, f"fuyou-recompute-{taxYear or 'na'}-{effectiveFromMonth}-{int(time.time() * 1000)}", effectiveFromMonth, SENTINEL["whExpense"], SENTINEL["whPayable"], 0, "JPY", memo, triggerSource or "com.etzhayyim.apps.fuyou.finalize", triggerVertexId)
     return {"ok": True, "vertexId": r["vertexId"], "monthsAffected": 0}
 
 

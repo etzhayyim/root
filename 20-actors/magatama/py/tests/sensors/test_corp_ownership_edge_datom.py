@@ -1,5 +1,5 @@
 """Tests for corp.ownership_edge_datom — CorpOwnershipObservation →
-``app.etzhayyim.corp.ownershipEdge`` record + kotoba EAVT ingest batch.
+``com.etzhayyim.corp.ownershipEdge`` record + kotoba EAVT ingest batch.
 
 Per ADR-2605263800 §3 + ADR-2605312345. Validates:
 
@@ -23,7 +23,7 @@ import pytest
 
 PROV = dict(
     created_at="2026-05-31T00:00:00Z",
-    dataset_pin_at="at://did:web:etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc123",
+    dataset_pin_at="at://did:web:etzhayyim.com/com.etzhayyim.substrate.datasetPin/abc123",
     attesting_did="did:web:corp-sensor.etzhayyim.com",
 )
 
@@ -64,7 +64,7 @@ def test_control_edge_record_shape(load_sensor, corp_base_module):
     # Control edge carries no percentage.
     assert "pctHeld" not in rec
     assert rec["license"] == "CC0-1.0"
-    assert mod.OWNERSHIP_EDGE_NSID == "app.etzhayyim.corp.ownershipEdge"
+    assert mod.OWNERSHIP_EDGE_NSID == "com.etzhayyim.corp.ownershipEdge"
 
 
 def test_pct_held_to_basis_points(load_sensor, corp_base_module):
@@ -111,7 +111,7 @@ def test_kotoba_entity_shape(load_sensor, corp_base_module):
     mod = load_sensor("corp.ownership_edge_datom")
     ent = mod.observation_to_kotoba_entity(_obs(corp_base_module), **PROV)
     assert ent["type"] == "CorpOwnershipEdge"
-    assert ent["id"].startswith("app.etzhayyim.corp.ownershipEdge:gleif-l2:")
+    assert ent["id"].startswith("com.etzhayyim.corp.ownershipEdge:gleif-l2:")
     # Claims are {pred, value} with camelCase ownership/ predicates, str values.
     preds = {c["pred"]: c["value"] for c in ent["claims"]}
     assert preds["ownership/ownershipKind"] == "control-relationship"

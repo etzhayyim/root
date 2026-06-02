@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yamabiko.silenRailReview"
+ :id "com.etzhayyim.yamabiko.silenRailReview"
  :defs
  {:main
   {:type "record"

@@ -64,7 +64,7 @@ def _valid_request_body(cell_id: str = "MapsFeatureAttestor0") -> dict:
     return {
         "v": 1,
         "cellId": cell_id,
-        "recordUri": "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.feature/mount-fuji",
+        "recordUri": "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.feature/mount-fuji",
         "recordCid": "bafy-mount-fuji",
         "record": {
             "label": "Mountain",
@@ -75,7 +75,7 @@ def _valid_request_body(cell_id: str = "MapsFeatureAttestor0") -> dict:
         },
         "rule": {
             "v": 1,
-            "nsid": "app.etzhayyim.maps.feature",
+            "nsid": "com.etzhayyim.maps.feature",
             "schemaRef": {"path": "lex.json", "contentHash": "0" * 64, "version": "1.0.0"},
             "policyRef": {"path": "p.rego", "contentHash": "0" * 64, "version": "1.0.0"},
             "cellRef": {"path": "cell/", "contentHash": "0" * 64, "version": "abcdef0"},

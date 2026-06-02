@@ -6,7 +6,7 @@ Data flow:
 
 ```
 etzhayyim.com/xrpc/app.bsky.feed.getDiscoverFeed
-  → etzhayyim-did-web worker (alias → app.etzhayyim.yoro.feed.*, YORO_XRPC)
+  → etzhayyim-did-web worker (alias → com.etzhayyim.yoro.feed.*, YORO_XRPC)
   → yoro-xrpc-adapter  (KOTOBA_URL + YORO_GRAPH_CID)
   → @etzhayyim/yoro-rw-free → kotoba datomic.datoms
   → kotoba `yoro-social-v1` graph (Public) → :yoro/* datoms → feed JSON
@@ -51,7 +51,7 @@ gftd.ai-scoped, and the assistant's wrangler token is `zone:read` only):
 
 ```
 curl https://kotoba.etzhayyim.com/health                       # 200
-curl -X POST https://kotoba.etzhayyim.com/xrpc/ai.gftd.apps.kotoba.datomic.transact \
+curl -X POST https://kotoba.etzhayyim.com/xrpc/com.etzhayyim.apps.kotoba.datomic.transact \
   -H 'content-type: application/json' -d '{"graph":"x","tx_edn":"[]"}'   # 403 (write blocked)
 curl "https://etzhayyim.com/xrpc/app.bsky.feed.getDiscoverFeed?limit=5"  # feed has posts
 ```
@@ -81,10 +81,10 @@ Implementation: `40-engine/kotoba/crates/kotoba-server/src/econ.rs` + the
 
 ```
 # read a DID's balance
-curl -X POST https://kotoba.etzhayyim.com/xrpc/ai.gftd.apps.kotoba.econ.balance \
+curl -X POST https://kotoba.etzhayyim.com/xrpc/com.etzhayyim.apps.kotoba.econ.balance \
   -H 'content-type: application/json' -d '{"did":"did:key:..."}'
 # operator mint (needs operator Bearer)
-curl -X POST http://127.0.0.1:8077/xrpc/ai.gftd.apps.kotoba.econ.credit \
+curl -X POST http://127.0.0.1:8077/xrpc/com.etzhayyim.apps.kotoba.econ.credit \
   -H "authorization: Bearer <operator-jwt>" -H 'content-type: application/json' \
   -d '{"did":"did:key:...","amount_mkoto":5000}'
 ```

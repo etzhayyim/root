@@ -23,7 +23,7 @@ ADR-2605072000 business model ⑤ of 5.
 - Nanoid: `cten0001`
 - CF Worker: `60-apps/ai-gftd-project-contentengine/appview/contentengine-cten0001/`
 - Python worker: `20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py`
-- BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/contentengine/`
+- BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contentengine/`
 
 ## Flow
 
@@ -57,8 +57,8 @@ No individual PII — cohort-level only (sensitivity_ord=0, ADR-0018).
 
 ## subscribeRepos triggers
 
-- `app.etzhayyim.apps.news.article` — news signals
-- `app.etzhayyim.narou.chapter` — creative signals
+- `com.etzhayyim.apps.news.article` — news signals
+- `com.etzhayyim.narou.chapter` — creative signals
 
 ## Env
 

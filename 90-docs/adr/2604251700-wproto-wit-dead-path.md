@@ -35,7 +35,7 @@ Keeping these paths active creates Shannon redundancy: multiple sources appear a
 Active code must use:
 
 - `@atproto/api` and other official AT Protocol libraries for standard AT Protocol client/session behavior.
-- AT Protocol XRPC wire format (`/xrpc/{nsid}`) for app-specific `app.etzhayyim.*` procedures and queries.
+- AT Protocol XRPC wire format (`/xrpc/{nsid}`) for app-specific `com.etzhayyim.*` procedures and queries.
 - AT Protocol Lexicon JSON as the contract SSoT for active command/query schemas.
 - Domain names such as `PostView`, `FeedItem`, `FeedGeneratorView`, `Session`, `isDid`, and `subscribeAtprotoStream`; do not introduce new protocol-derived `W*` names.
 

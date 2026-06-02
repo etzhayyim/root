@@ -195,10 +195,10 @@ def upsert_rows(conn: Any, source: dict[str, str], assets: dict[str, Any]) -> No
     title = page_title(raw_html)
     content_hash = sha256_bytes(assets["html_bytes"])
 
-    page_id = vertex_id("app.etzhayyim.apps.site.page", rkey)
-    wet_id = vertex_id("app.etzhayyim.apps.site.wetChunk", rkey)
-    wat_id = vertex_id("app.etzhayyim.apps.site.wat", rkey)
-    screenshot_id = vertex_id("app.etzhayyim.apps.site.screenshot", rkey)
+    page_id = vertex_id("com.etzhayyim.apps.site.page", rkey)
+    wet_id = vertex_id("com.etzhayyim.apps.site.wetChunk", rkey)
+    wat_id = vertex_id("com.etzhayyim.apps.site.wat", rkey)
+    screenshot_id = vertex_id("com.etzhayyim.apps.site.screenshot", rkey)
 
     props = json.dumps(
         {
@@ -331,7 +331,7 @@ def upsert_rows(conn: Any, source: dict[str, str], assets: dict[str, Any]) -> No
                    props = %s
              WHERE vertex_id = %s
             """,
-            (crawled_at, props, vertex_id("app.etzhayyim.gov.source", rkey)),
+            (crawled_at, props, vertex_id("com.etzhayyim.gov.source", rkey)),
         )
 
 

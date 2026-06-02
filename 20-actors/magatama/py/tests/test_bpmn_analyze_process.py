@@ -100,6 +100,6 @@ def test_analyze_process_returns_stats_when_llm_disabled(monkeypatch) -> None:
     out = json.loads(bpmn.analyze_process(json.dumps({"includeLlm": False, "limit": 10})))
 
     assert out["ok"] is True
-    assert out["source"] == "vertex_repo_commit:app.etzhayyim.bpmn.audit"
+    assert out["source"] == "vertex_repo_commit:com.etzhayyim.bpmn.audit"
     assert out["eventCount"] == 1
     assert out["llm"] is None

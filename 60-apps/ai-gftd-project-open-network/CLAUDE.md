@@ -8,16 +8,16 @@ workflow. Apache-2.0.
 
 | NSID | Type | Description |
 |---|---|---|
-| `app.etzhayyim.apps.openNetwork.defineSite` | procedure | network site (PoP / DC / cell tower / customer edge) |
-| `app.etzhayyim.apps.openNetwork.defineLink` | procedure | bidirectional link between two sites + capacity Mbps + media |
-| `app.etzhayyim.apps.openNetwork.getSite` | query | site detail + adjacent links |
-| `app.etzhayyim.apps.openNetwork.listLinks` | query | links by site / status |
-| `app.etzhayyim.apps.openNetwork.recordUtilization` | procedure | link 5-min Mbps sample (in/out) |
-| `app.etzhayyim.apps.openNetwork.getLinkUtilization` | query | hourly aggregate per link |
-| `app.etzhayyim.apps.openNetwork.reportIncident` | procedure | NOC incident with severity + impact |
-| `app.etzhayyim.apps.openNetwork.listIncidents` | query | incidents by site / link / since |
-| `app.etzhayyim.apps.openNetwork.requestChange` | procedure | change request with risk DMN |
-| `app.etzhayyim.apps.openNetwork.listChanges` | query | change requests by status |
+| `com.etzhayyim.apps.openNetwork.defineSite` | procedure | network site (PoP / DC / cell tower / customer edge) |
+| `com.etzhayyim.apps.openNetwork.defineLink` | procedure | bidirectional link between two sites + capacity Mbps + media |
+| `com.etzhayyim.apps.openNetwork.getSite` | query | site detail + adjacent links |
+| `com.etzhayyim.apps.openNetwork.listLinks` | query | links by site / status |
+| `com.etzhayyim.apps.openNetwork.recordUtilization` | procedure | link 5-min Mbps sample (in/out) |
+| `com.etzhayyim.apps.openNetwork.getLinkUtilization` | query | hourly aggregate per link |
+| `com.etzhayyim.apps.openNetwork.reportIncident` | procedure | NOC incident with severity + impact |
+| `com.etzhayyim.apps.openNetwork.listIncidents` | query | incidents by site / link / since |
+| `com.etzhayyim.apps.openNetwork.requestChange` | procedure | change request with risk DMN |
+| `com.etzhayyim.apps.openNetwork.listChanges` | query | change requests by status |
 
 ## Architecture
 

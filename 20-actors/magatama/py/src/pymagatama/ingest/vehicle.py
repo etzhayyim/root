@@ -9,7 +9,7 @@ from uuid import uuid4
 OWNER_DID = "did:web:vehicle.etzhayyim.com"
 NANOID = "v3h1cl01"
 
-PACKAGE_BPMN = "00-contracts/bpmn/ai/gftd/robotics/manufactureVehicleProductPackage.bpmn"
+PACKAGE_BPMN = "00-contracts/bpmn/com/etzhayyim/robotics/manufactureVehicleProductPackage.bpmn"
 GRAPH_MIGRATION = "30-graph/graph-schema/migrations/20260426123000_automotive_manufacturing_supply_process_edges.ts"
 GRAPH_SEED = "80-data/schemas/automotive-manufacturing-graph-seed.json"
 

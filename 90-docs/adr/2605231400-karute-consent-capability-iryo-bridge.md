@@ -11,7 +11,7 @@ axis: architecture
 weight: 0.68
 priority_note: "Closes the substrate hop between etzhayyim (PHI custody, USDC self-pay) and vendor iryo.etzhayyim.com (RisingWave + Stripe + DPC/DRG insurance billing) without weakening the etzhayyim charter's three-axis-split rule. The same consent capability primitive serves data portability, second-opinion, research-de-identified, and emergency disclosure — i.e. every cross-actor PHI flow."
 authoritative_for:
-  - consent capability shape (`app.etzhayyim.consent.capability`)
+  - consent capability shape (`com.etzhayyim.consent.capability`)
   - cross-actor PHI delegation pattern under the etzhayyim charter
   - karute ↔ iryo.etzhayyim.com billing bridge
   - patient-initiated grant/revoke flow in karute UI
@@ -51,7 +51,7 @@ The forces are:
 
 ## The consent capability primitive
 
-A consent capability is an Ed25519-signed delegation record stored at `app.etzhayyim.consent.capability` in the granter's PDS. Shape:
+A consent capability is an Ed25519-signed delegation record stored at `com.etzhayyim.consent.capability` in the granter's PDS. Shape:
 
 ```
 {
@@ -60,7 +60,7 @@ A consent capability is an Ed25519-signed delegation record stored at `app.etzha
   granteeDid:    "did:web:iryo.etzhayyim.com" | "did:web:dr-someone.etzhayyim.com" | ...,
   purpose:       "insurance-billing" | "second-opinion" | "data-portability"
                 | "research-deidentified" | "emergency-disclosure" | "legal-disclosure",
-  scope:         ["app.etzhayyim.karute.encounter", "app.etzhayyim.karute.serviceRequest", ...],
+  scope:         ["com.etzhayyim.karute.encounter", "com.etzhayyim.karute.serviceRequest", ...],
   resourceUris:  [optional AT URI allowlist — narrower than scope],
   issuedAt:      "ISO-8601",
   expiresAt:     "ISO-8601",
@@ -84,9 +84,9 @@ The signature covers the canonicalized payload (everything but `signature` itsel
 
 ### Pattern 1 — Internal etzhayyim (clinician ↔ clinician, peer review)
 
-A patient grants `did:web:dr-cardiology.etzhayyim.com` a `second-opinion` capability scoped to `app.etzhayyim.karute.encounter` + `app.etzhayyim.karute.condition` + `app.etzhayyim.karute.observation` for 30 days.
+A patient grants `did:web:dr-cardiology.etzhayyim.com` a `second-opinion` capability scoped to `com.etzhayyim.karute.encounter` + `com.etzhayyim.karute.condition` + `com.etzhayyim.karute.observation` for 30 days.
 
-The grantee actor presents the capability to the karute substrate alongside its own DID, the substrate verifies signature + scope + expiry, and emits one `app.etzhayyim.encrypted.keyWrap` record per in-scope encrypted-record CID encrypted to the grantee's Signal session. The grantee's @etzhayyim/sdk then performs normal `encryptedRead`.
+The grantee actor presents the capability to the karute substrate alongside its own DID, the substrate verifies signature + scope + expiry, and emits one `com.etzhayyim.encrypted.keyWrap` record per in-scope encrypted-record CID encrypted to the grantee's Signal session. The grantee's @etzhayyim/sdk then performs normal `encryptedRead`.
 
 ### Pattern 2 — etzhayyim ↔ vendor bridge (insurance billing)
 
@@ -123,12 +123,12 @@ Mitigations:
 
 | Method | Type | Purpose |
 |---|---|---|
-| `app.etzhayyim.apps.karute.grantConsent` | procedure | Issue a new capability (server signs via `@etzhayyim/sdk`) |
-| `app.etzhayyim.apps.karute.revokeConsent` | procedure | Mark a capability revoked |
-| `app.etzhayyim.apps.karute.listConsent` | query | Enumerate capabilities by granter / grantee / purpose / status |
-| `app.etzhayyim.apps.karute.requestIryoBilling` | procedure | Bridge endpoint that verifies the capability + forwards to vendor iryo |
+| `com.etzhayyim.apps.karute.grantConsent` | procedure | Issue a new capability (server signs via `@etzhayyim/sdk`) |
+| `com.etzhayyim.apps.karute.revokeConsent` | procedure | Mark a capability revoked |
+| `com.etzhayyim.apps.karute.listConsent` | query | Enumerate capabilities by granter / grantee / purpose / status |
+| `com.etzhayyim.apps.karute.requestIryoBilling` | procedure | Bridge endpoint that verifies the capability + forwards to vendor iryo |
 
-The lexicon record `app.etzhayyim.consent.capability` is the canonical on-chain form; the XRPC layer above is the ergonomic procedural surface.
+The lexicon record `com.etzhayyim.consent.capability` is the canonical on-chain form; the XRPC layer above is the ergonomic procedural surface.
 
 ## UI integration
 
@@ -161,7 +161,7 @@ The lexicon record `app.etzhayyim.consent.capability` is the canonical on-chain 
 
 ## Rollout
 
-1. **This commit** — Lexicons (`app.etzhayyim.consent.capability` + 4 XRPC) + ADR + actor manifest pipelines + UI integration in PatientPortalView.
+1. **This commit** — Lexicons (`com.etzhayyim.consent.capability` + 4 XRPC) + ADR + actor manifest pipelines + UI integration in PatientPortalView.
 2. **Phase 2** — Real signature via `@etzhayyim/sdk.signConsentCapability` (currently a stub in the actor manifest). Server-side capability verification middleware.
 3. **Phase 3** — iryo.etzhayyim.com vendor-side `ingestKaruteEncounterForBilling` XRPC + DPC/DRG materialization pipeline. (Lives in `ai-gftd-apps-gftdcojp` repo, not this one.)
 4. **Phase 4** — Auditor webhook subsystem + clinician affordance ("Request billing consent") in PatientDetailView. Patient-DID-hash variant for capability metadata.

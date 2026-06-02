@@ -12,11 +12,11 @@ from pymagatama.db_sync import sync_cursor
 OWNER_DID = "did:web:game-play-uploader.etzhayyim.com"
 RATE_JPY_PER_HOUR = 100
 COLLECTION_TABLES = {
-    "app.etzhayyim.apps.gamePlayUploader.participant": "vertex_game_play_participant",
-    "app.etzhayyim.apps.gamePlayUploader.uploadSession": "vertex_game_play_upload_session",
-    "app.etzhayyim.apps.gamePlayUploader.upload": "vertex_game_play_upload",
-    "app.etzhayyim.apps.gamePlayUploader.review": "vertex_game_play_review",
-    "app.etzhayyim.apps.gamePlayUploader.reward": "vertex_game_play_reward",
+    "com.etzhayyim.apps.gamePlayUploader.participant": "vertex_game_play_participant",
+    "com.etzhayyim.apps.gamePlayUploader.uploadSession": "vertex_game_play_upload_session",
+    "com.etzhayyim.apps.gamePlayUploader.upload": "vertex_game_play_upload",
+    "com.etzhayyim.apps.gamePlayUploader.review": "vertex_game_play_review",
+    "com.etzhayyim.apps.gamePlayUploader.reward": "vertex_game_play_reward",
 }
 
 
@@ -123,19 +123,19 @@ def _write_related_edges(cur: Any, collection: str, kind: str, record_id: str, p
     if kind == "uploadSession":
         participant = _s(payload.get("participantDid"))
         if participant:
-            _write_edge(cur, "edge_game_play_participant_session", _vertex_id("app.etzhayyim.apps.gamePlayUploader.participant", participant), vertex_id, "created_upload_session", payload, created_at)
+            _write_edge(cur, "edge_game_play_participant_session", _vertex_id("com.etzhayyim.apps.gamePlayUploader.participant", participant), vertex_id, "created_upload_session", payload, created_at)
     elif kind == "upload":
         session_id = _s(payload.get("sessionId"))
         if session_id:
-            _write_edge(cur, "edge_game_play_session_upload", _vertex_id("app.etzhayyim.apps.gamePlayUploader.uploadSession", session_id), vertex_id, "has_upload", payload, created_at)
+            _write_edge(cur, "edge_game_play_session_upload", _vertex_id("com.etzhayyim.apps.gamePlayUploader.uploadSession", session_id), vertex_id, "has_upload", payload, created_at)
     elif kind == "review":
         upload_id = _s(payload.get("uploadId"))
         if upload_id:
-            _write_edge(cur, "edge_game_play_upload_review", _vertex_id("app.etzhayyim.apps.gamePlayUploader.upload", upload_id), vertex_id, "reviewed_by", payload, created_at)
+            _write_edge(cur, "edge_game_play_upload_review", _vertex_id("com.etzhayyim.apps.gamePlayUploader.upload", upload_id), vertex_id, "reviewed_by", payload, created_at)
     elif kind == "reward":
         upload_id = _s(payload.get("uploadId"))
         if upload_id:
-            _write_edge(cur, "edge_game_play_upload_reward", _vertex_id("app.etzhayyim.apps.gamePlayUploader.upload", upload_id), vertex_id, "earned_reward", payload, created_at)
+            _write_edge(cur, "edge_game_play_upload_reward", _vertex_id("com.etzhayyim.apps.gamePlayUploader.upload", upload_id), vertex_id, "earned_reward", payload, created_at)
 
 
 def _record(collection: str, kind: str, payload: dict[str, Any], record_id: str | None = None) -> dict[str, Any]:
@@ -205,7 +205,7 @@ def register_participant(participantDid: Any = None, displayName: Any = None, ag
     if not participant_did:
         return {"error": "participantDid required"}
     participant_id = _id("player")
-    _record("app.etzhayyim.apps.gamePlayUploader.participant", "participant", {
+    _record("com.etzhayyim.apps.gamePlayUploader.participant", "participant", {
         "participantId": participant_id,
         "participantDid": participant_did,
         "displayName": _s(displayName),
@@ -240,7 +240,7 @@ def create_upload_session(participantDid: Any = None, gameTitle: Any = None, pla
         "uploadIntent": upload_intent,
         "status": "awaitingUpload",
     }
-    _record("app.etzhayyim.apps.gamePlayUploader.uploadSession", "uploadSession", session, session_id)
+    _record("com.etzhayyim.apps.gamePlayUploader.uploadSession", "uploadSession", session, session_id)
     return {"sessionId": session_id, "uploadIntent": upload_intent}
 
 
@@ -259,7 +259,7 @@ def record_gameplay_upload(sessionId: Any = None, objectUri: Any = None, duratio
         "metadata": metadata if isinstance(metadata, dict) else {},
         "status": "pendingReview",
     }
-    _record("app.etzhayyim.apps.gamePlayUploader.upload", "upload", upload, upload_id)
+    _record("com.etzhayyim.apps.gamePlayUploader.upload", "upload", upload, upload_id)
     return {"uploadId": upload_id, "status": "pendingReview"}
 
 
@@ -268,7 +268,7 @@ def review_upload(uploadId: Any = None, decision: Any = None, reviewerDid: Any =
     decision_s = _s(decision)
     if not upload_id or decision_s not in {"approved", "rejected", "needsReview"}:
         return {"error": "uploadId and valid decision required"}
-    uploads = _list("app.etzhayyim.apps.gamePlayUploader.upload", "AND upload_id=%s", (upload_id,), 1)
+    uploads = _list("com.etzhayyim.apps.gamePlayUploader.upload", "AND upload_id=%s", (upload_id,), 1)
     duration = _num(uploads[0].get("durationSec") if uploads else 0)
     reward = _reward(duration) if decision_s == "approved" else 0
     review = {
@@ -280,9 +280,9 @@ def review_upload(uploadId: Any = None, decision: Any = None, reviewerDid: Any =
         "qualityScore": qualityScore,
         "rewardEstimateJpy": reward,
     }
-    _record("app.etzhayyim.apps.gamePlayUploader.review", "review", review, review["reviewId"])
+    _record("com.etzhayyim.apps.gamePlayUploader.review", "review", review, review["reviewId"])
     if reward > 0:
-        _record("app.etzhayyim.apps.gamePlayUploader.reward", "reward", {"uploadId": upload_id, "rewardJpy": reward, "status": "estimated"})
+        _record("com.etzhayyim.apps.gamePlayUploader.reward", "reward", {"uploadId": upload_id, "rewardJpy": reward, "status": "estimated"})
     return {"uploadId": upload_id, "decision": decision_s, "rewardEstimateJpy": reward}
 
 
@@ -296,13 +296,13 @@ def get_campaign_status(participantDid: Any = None, **_: Any) -> dict[str, Any]:
     participant_did = _s(participantDid)
     where = "AND participant_did=%s" if participant_did else ""
     params: tuple[Any, ...] = (participant_did,) if participant_did else ()
-    participants = _list("app.etzhayyim.apps.gamePlayUploader.participant", where, params)
-    uploads = _list("app.etzhayyim.apps.gamePlayUploader.upload")
-    reviews = _list("app.etzhayyim.apps.gamePlayUploader.review")
+    participants = _list("com.etzhayyim.apps.gamePlayUploader.participant", where, params)
+    uploads = _list("com.etzhayyim.apps.gamePlayUploader.upload")
+    reviews = _list("com.etzhayyim.apps.gamePlayUploader.review")
     approved_upload_ids = {_s(r.get("uploadId")) for r in reviews if _s(r.get("decision")) == "approved"}
     approved_duration = sum(_num(u.get("durationSec")) for u in uploads if _s(u.get("uploadId")) in approved_upload_ids)
     return {
-        "participants": len(participants) if participant_did else len(_list("app.etzhayyim.apps.gamePlayUploader.participant")),
+        "participants": len(participants) if participant_did else len(_list("com.etzhayyim.apps.gamePlayUploader.participant")),
         "uploads": len(uploads),
         "approvedDurationSec": approved_duration,
         "rewardJpy": _reward(approved_duration),

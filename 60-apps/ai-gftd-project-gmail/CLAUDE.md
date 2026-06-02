@@ -8,7 +8,7 @@
 | **domain** | `gmail.etzhayyim.com` |
 | **AT bot DID** | `did:web:gmail.etzhayyim.com` |
 | **Runtime** | **Single Worker** (TS Native, appview mode) |
-| **Data store** | **Design E 3-Tier Write** — T2 Domain (`sdk.pds.createRecord`, collection `app.etzhayyim.apps.gmail.{email,thread,contact,syncJob,outboundEmail,accountBinding,account,phishingAlert}`) → RisingWave `vertex_gmail_*`. T1 Social (`app.bsky.feed.post`) for sync/connect events |
+| **Data store** | **Design E 3-Tier Write** — T2 Domain (`sdk.pds.createRecord`, collection `com.etzhayyim.apps.gmail.{email,thread,contact,syncJob,outboundEmail,accountBinding,account,phishingAlert}`) → RisingWave `vertex_gmail_*`. T1 Social (`app.bsky.feed.post`) for sync/connect events |
 | **OAuth token custody** | **D1 `GMAIL_DB` + KEK envelope** (ADR-0010 Stage 1 pattern) — `vertex_gmail_oauth_token` (refresh_token AES-256-GCM with per-row data key, data key AES-256-GCM wrap by `SS_GMAIL_TOKEN_KEK`). Server-side only, never leaves worker |
 | **UI mode** | `appview` (Protocol Canvas card, zero frontend) |
 | **Capabilities** | gmail-sync, email-triage, contact-did-creation, messenger-email-bridge, phishing-detection |
@@ -31,7 +31,7 @@
 | `send_message` cross-actor handler (yoro messenger bridge) | ⏳ Not yet — `sendEmail` is the direct path for now |
 | Appview UI (`/embed`) | ⏳ Zero-UI, uses Protocol Canvas card via `appview` mode |
 
-### Key lexicons (in `00-contracts/lexicons/ai/gftd/apps/gmail/`)
+### Key lexicons (in `00-contracts/lexicons/com/etzhayyim/apps/gmail/`)
 
 `connectAccount`, `oauthCallback`, `syncInbox`, `sendEmail`, `replyToThread`, `disconnectAccount`, `listAccounts`, `getThread`, `listThreads`, `searchEmails`, `triage`.
 
@@ -137,17 +137,17 @@ Step 4: メッセンジャーで受信・返信
 
 | NSID | Type | Status |
 |---|---|---|
-| `app.etzhayyim.apps.gmail.connectAccount` | procedure | ✅ returns `oauthUrl` |
-| `app.etzhayyim.apps.gmail.oauthCallback` | query | ✅ backend of Hono `GET /oauth/callback` (same logic) |
-| `app.etzhayyim.apps.gmail.disconnectAccount` | procedure | ✅ marks token row disconnected |
-| `app.etzhayyim.apps.gmail.syncInbox` | procedure | ✅ messages.list → get metadata → vertex_gmail_email |
-| `app.etzhayyim.apps.gmail.sendEmail` | procedure | ✅ Gmail API `messages.send` |
-| `app.etzhayyim.apps.gmail.replyToThread` | procedure | ✅ thread resolve + In-Reply-To/References |
-| `app.etzhayyim.apps.gmail.listAccounts` | query | ✅ D1 `vertex_gmail_oauth_token` scan |
-| `app.etzhayyim.apps.gmail.getThread` | query | ✅ live Gmail API fetch |
-| `app.etzhayyim.apps.gmail.listThreads` | query | ⏳ stub (RisingWave wiring pending) |
-| `app.etzhayyim.apps.gmail.searchEmails` | query | ⏳ stub (RisingWave wiring pending) |
-| `app.etzhayyim.apps.gmail.triage` | procedure | ⏳ stub; inline scoring already runs in `syncInbox` |
+| `com.etzhayyim.apps.gmail.connectAccount` | procedure | ✅ returns `oauthUrl` |
+| `com.etzhayyim.apps.gmail.oauthCallback` | query | ✅ backend of Hono `GET /oauth/callback` (same logic) |
+| `com.etzhayyim.apps.gmail.disconnectAccount` | procedure | ✅ marks token row disconnected |
+| `com.etzhayyim.apps.gmail.syncInbox` | procedure | ✅ messages.list → get metadata → vertex_gmail_email |
+| `com.etzhayyim.apps.gmail.sendEmail` | procedure | ✅ Gmail API `messages.send` |
+| `com.etzhayyim.apps.gmail.replyToThread` | procedure | ✅ thread resolve + In-Reply-To/References |
+| `com.etzhayyim.apps.gmail.listAccounts` | query | ✅ D1 `vertex_gmail_oauth_token` scan |
+| `com.etzhayyim.apps.gmail.getThread` | query | ✅ live Gmail API fetch |
+| `com.etzhayyim.apps.gmail.listThreads` | query | ⏳ stub (RisingWave wiring pending) |
+| `com.etzhayyim.apps.gmail.searchEmails` | query | ⏳ stub (RisingWave wiring pending) |
+| `com.etzhayyim.apps.gmail.triage` | procedure | ⏳ stub; inline scoring already runs in `syncInbox` |
 
 ### Future: cross-actor messenger bridge
 
@@ -198,18 +198,18 @@ DATABASE_URL=postgresql://root@172.236.132.11:4566/dev pnpm -w run db:migrate
 curl -sS https://gmail.etzhayyim.com/health
 # → {"status":"ok","app":"gm4il0x1"}
 
-curl -sS -X POST https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.connectAccount \
+curl -sS -X POST https://gmail.etzhayyim.com/xrpc/com.etzhayyim.apps.gmail.connectAccount \
   -H 'content-type: application/json' \
   -d '{"email":"jun@etzhayyim.com","accountDid":"did:web:etzhayyim.com"}'
 # → {"status":"pending_oauth","oauthUrl":"https://accounts.google.com/o/oauth2/v2/auth?..."}
 
 # Open oauthUrl in browser → sign in → consent → redirect to /oauth/callback
 # After callback success:
-curl -sS https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.listAccounts
+curl -sS https://gmail.etzhayyim.com/xrpc/com.etzhayyim.apps.gmail.listAccounts
 # → {"accounts":[{"email":"jun@etzhayyim.com",...,"status":"active",...}],"total":1}
 
 # Manual sync trigger (or wait for cron)
-curl -sS -X POST https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.syncInbox \
+curl -sS -X POST https://gmail.etzhayyim.com/xrpc/com.etzhayyim.apps.gmail.syncInbox \
   -H 'content-type: application/json' -d '{"email":"jun@etzhayyim.com","maxResults":25}'
 
 # Verify rows landed in RisingWave

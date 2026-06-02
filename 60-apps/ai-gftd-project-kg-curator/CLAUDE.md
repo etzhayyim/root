@@ -59,9 +59,9 @@ gftd deploy --no-svelte
 
 ## API Endpoints
 
-- `https://kg7r4t0r.etzhayyim.com/xrpc/app.etzhayyim.apps.kgCurator.analyzeCoverage` (POST)
-- `https://kg7r4t0r.etzhayyim.com/xrpc/app.etzhayyim.apps.kgCurator.expandTitle` (POST `{scope_did, target_count}`)
-- `https://kg7r4t0r.etzhayyim.com/xrpc/app.etzhayyim.apps.kgCurator.status` (GET)
+- `https://kg7r4t0r.etzhayyim.com/xrpc/com.etzhayyim.apps.kgCurator.analyzeCoverage` (POST)
+- `https://kg7r4t0r.etzhayyim.com/xrpc/com.etzhayyim.apps.kgCurator.expandTitle` (POST `{scope_did, target_count}`)
+- `https://kg7r4t0r.etzhayyim.com/xrpc/com.etzhayyim.apps.kgCurator.status` (GET)
 
 ## Cluster Health Caveat
 

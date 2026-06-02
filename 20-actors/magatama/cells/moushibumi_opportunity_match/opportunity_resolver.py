@@ -35,7 +35,7 @@ this core does NOT activate the cell; once Council activates, the graph may call
 neutral wayfinding leg.
 
 Output shape mirrors a participation-routing view over Lexicon
-``app.etzhayyim.moushibumi.participationTarget`` (the registry's ``$schema``).
+``com.etzhayyim.moushibumi.participationTarget`` (the registry's ``$schema``).
 """
 
 from __future__ import annotations
@@ -261,7 +261,7 @@ def to_opportunity_routing_record(
     created_at: datetime,
     session_ref: str | None = None,
 ) -> dict:
-    """Build an ``app.etzhayyim.moushibumi.participationTarget`` routing-view record.
+    """Build an ``com.etzhayyim.moushibumi.participationTarget`` routing-view record.
 
     ``isLegalOpinion`` AND ``rendersAdvice`` are asserted ``False`` before return
     — G3 schema invariants this function structurally cannot violate. The record

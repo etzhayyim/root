@@ -1,4 +1,4 @@
-"""Generic-primitive worker for app.etzhayyim.tools.llm.* (ADR-2605082000 §2 follow-up).
+"""Generic-primitive worker for com.etzhayyim.tools.llm.* (ADR-2605082000 §2 follow-up).
 
 Replaces per-actor pure-LLM py_primitive nodes (animeka_*.generate_*, etc.)
 with a single data-resolved MCP tool. The underlying call routes to
@@ -6,7 +6,7 @@ with a single data-resolved MCP tool. The underlying call routes to
 and tier resolution stay in one place.
 
 Wired into mcp_dispatch via ``register_overrides`` (the namespace is
-``app.etzhayyim.tools.llm``, outside the per-actor convention).
+``com.etzhayyim.tools.llm``, outside the per-actor convention).
 """
 
 from __future__ import annotations
@@ -44,7 +44,7 @@ async def task_llm_chat(
           "input_paths": {"websiteUrl": "websiteUrl",
                           "industry":   "industry"},
           "args": {
-            "name":          "app.etzhayyim.tools.llm.chat",
+            "name":          "com.etzhayyim.tools.llm.chat",
             "system":        "...",
             "user_template": "Analyze {websiteUrl} in {industry}. ..."
           }

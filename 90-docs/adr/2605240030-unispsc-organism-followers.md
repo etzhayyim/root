@@ -90,7 +90,7 @@ Activated via `UNISPSC_ORGANISM_FOLLOWER_SEED=/path/to/follower-seed.json`.
 ```
 @etzhayyim/sdk Python binding (Wave 3, not yet shipped)
   → sdk.atproto.mst_query(
-      "app.etzhayyim.apps.etzhayyim.joucho.score",
+      "com.etzhayyim.apps.etzhayyim.joucho.score",
       filter={"followerOf": actor_did}
     )
   → list[FollowerCurrentScore]

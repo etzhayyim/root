@@ -138,18 +138,18 @@ def test_require_raises_on_empty_string() -> None:
 def test_vid_subscriber_shape() -> None:
     vid = TC._vid_subscriber("sub-001")
     assert "at://did:web:telecom.etzhayyim.com" in vid
-    assert "app.etzhayyim.apps.telecom.subscriber" in vid
+    assert "com.etzhayyim.apps.telecom.subscriber" in vid
     assert "sub-001" in vid
 
 
 def test_vid_sim_shape() -> None:
     vid = TC._vid_sim("sim-abc")
-    assert "app.etzhayyim.apps.telecom.sim" in vid
+    assert "com.etzhayyim.apps.telecom.sim" in vid
 
 
 def test_vid_service_shape() -> None:
     vid = TC._vid_service("svc-xyz")
-    assert "app.etzhayyim.apps.telecom.service" in vid
+    assert "com.etzhayyim.apps.telecom.service" in vid
 
 
 # ─── telecom: _caller and _audit ─────────────────────────────────────────────

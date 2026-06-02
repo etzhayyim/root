@@ -157,7 +157,7 @@ Mitsuho-permitted exception: **bamboo grove on marginal land where soil/climate 
 ## §6 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   cellulosicEthanolFeedstockAttestation,  # source actor + waste-stream CID + DM mass + cellulose % + soil-extract %
   cellulosicEthanolBatchAttestation,      # per-batch ethanol + pretreatment + enzyme open-publication CID + fermentation organism CID
   ligninResidueRoutingRecord,             # per-batch lignin disposition (CHP / biochar / mulch)

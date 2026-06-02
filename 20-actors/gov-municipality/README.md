@@ -1,7 +1,7 @@
 # gov-municipality — Regulatory & Permitting Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:gov-municipality`
-**Namespace**: `app.etzhayyim.gov.*`
+**Namespace**: `com.etzhayyim.gov.*`
 **ADR**: ADR-2605250800 (R0 scaffold), ADR-2605250815 (R1), ADR-2605250830 (R2), ADR-2605250845 (R3)
 **Status**: R0 scaffold (2026-05-26) — all cells import-time RuntimeError
 

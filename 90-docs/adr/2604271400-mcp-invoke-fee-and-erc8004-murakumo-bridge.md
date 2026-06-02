@@ -29,7 +29,7 @@ superseded_by: []
    (`20-actors/credits/CLAUDE.md` L9-14, L40, L135)。
    ただし Spend rate table に登録されている action は `Post` / `Reply` /
    `DM` のみで、MCP 経由 (`/mcp` Streamable HTTP, ADR-0087) や
-   `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` 経由の tool 呼び出しは
+   `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message` 経由の tool 呼び出しは
    metering されていない。host-sdk
    (`20-actors/magatama/sdk/magatama-host-sdk/src/mcp-server.ts`) の
    `tools/call` は `app.handleXRPC()` または BPMN dispatcher に

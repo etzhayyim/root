@@ -3,7 +3,7 @@
 XRPC AppView for the UNSPSC LangGraph Pregel fleet. ADR-2605180900 Phase 7.
 
 Public surface at `https://unispsc.etzhayyim.com`. Proxies XRPC under
-`/xrpc/app.etzhayyim.apps.unispsc.*` to the in-cluster `lg-open-unispsc`
+`/xrpc/com.etzhayyim.apps.unispsc.*` to the in-cluster `lg-open-unispsc`
 langserver. The handler itself lives in
 `@etzhayyim/magatama-host-sdk/langserver-xrpc-handler` — this Worker is
 just a thin CF Worker entry that supplies environment.
@@ -11,10 +11,10 @@ just a thin CF Worker entry that supplies environment.
 ## Endpoints
 
 ```
-POST /xrpc/app.etzhayyim.apps.unispsc.classify       # description -> top-K codes
-POST /xrpc/app.etzhayyim.apps.unispsc.invokeAgent    # code -> agent.ainvoke(state)
-GET  /xrpc/app.etzhayyim.apps.unispsc.listAgents     # paged registry
-GET  /xrpc/app.etzhayyim.apps.unispsc.health         # lexicon health
+POST /xrpc/com.etzhayyim.apps.unispsc.classify       # description -> top-K codes
+POST /xrpc/com.etzhayyim.apps.unispsc.invokeAgent    # code -> agent.ainvoke(state)
+GET  /xrpc/com.etzhayyim.apps.unispsc.listAgents     # paged registry
+GET  /xrpc/com.etzhayyim.apps.unispsc.health         # lexicon health
 GET  /health                                   # plain health probe
 GET  /                                         # service banner
 ```

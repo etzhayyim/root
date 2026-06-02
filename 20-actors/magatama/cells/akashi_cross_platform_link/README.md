@@ -7,5 +7,5 @@ advertiser, landing domain, or creative hash.
 - Murakumo node: `gad`
 - Phase: `continuous`
 - Gates: Council charter attestation, source-policy review, ADR-2606022300 R1 activation
-- Output Lexicon: `app.etzhayyim.akashi.adDisclosureLink`
+- Output Lexicon: `com.etzhayyim.akashi.adDisclosureLink`
 - Ceiling: factual link only; no illegal/fraud/electioneering conclusion

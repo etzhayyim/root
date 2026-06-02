@@ -153,7 +153,7 @@ DAC captured CO₂ (§1-3)
 ## §9 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   dacFacilityAttestation,                  # technology + capacity + sorbent open-formula CID + regen heat source
   dacCaptureRecord,                        # per-batch: t CO₂ captured + sorbent cycle + heat consumed
   dacUtilizationManifest,                  # downstream-CID per kg utilized (microbial / mitsuho / synfuel / mineral)

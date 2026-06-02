@@ -50,7 +50,7 @@ def test_fo_hash8_varies_with_input() -> None:
 def test_fo_vertex_id_format() -> None:
     vid = FO._vertex_id("amadeus", "offer-001")
     assert vid.startswith("at://")
-    assert "app.etzhayyim.apps.flightOffer.offer" in vid
+    assert "com.etzhayyim.apps.flightOffer.offer" in vid
     assert "amadeus" in vid
     assert "offer-001" in vid
 
@@ -258,7 +258,7 @@ class _FakeCursor:
 
 def _sample_offer_row() -> dict:
     return {
-        "vertex_id": "at://did:web:test/app.etzhayyim.apps.flightOffer.offer/abc123",
+        "vertex_id": "at://did:web:test/com.etzhayyim.apps.flightOffer.offer/abc123",
         "offer_id": "abc123",
         "provider": "stub",
         "airline": "NH",
@@ -320,7 +320,7 @@ def test_fo_insert_offer_returns_int() -> None:
 
 def _sample_alert() -> dict:
     return {
-        "vertex_id": "at://did:web:test/app.etzhayyim.apps.flightOffer.alert/aa-bb-2026-01",
+        "vertex_id": "at://did:web:test/com.etzhayyim.apps.flightOffer.alert/aa-bb-2026-01",
         "origin_iata": "TYO",
         "destination_iata": "LAX",
         "outbound_date": "2026-06-01",

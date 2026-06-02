@@ -1,7 +1,7 @@
 # kurashimori remedy-registry — Verification Workflow (G14)
 
 Per ADR-2605312500 §2 + §4 (G14 verified-remedy-only send). Every
-`app.etzhayyim.kurashimori.remedyTarget` entry under `targets.seed.json` ships
+`com.etzhayyim.kurashimori.remedyTarget` entry under `targets.seed.json` ships
 `verificationStatus = unverified-seed`, and **no live action (`kurashimori_send`)
 may run against an `unverified-seed` or stale entry**. This file documents how an
 entry is moved through the three tiers — the human/Council checks that gate

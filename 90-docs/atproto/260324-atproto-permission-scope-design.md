@@ -68,21 +68,21 @@ Spec が定義する 5 resource type:
 
 Permission set は **Lexicon JSON schema** (`type: "permission-set"`) で定義。
 
-**Single Source of Truth**: `00-contracts/lexicons/ai/gftd/*/auth*.json`
+**Single Source of Truth**: `00-contracts/lexicons/com/etzhayyim/*/auth*.json`
 
 ### 定義済み Permission Sets
 
 | Lexicon NSID | Title | nsAuthority | File |
 |---|---|---|---|
-| `app.etzhayyim.auth.authFull` | Full W Protocol Access | `app.etzhayyim.` | `auth/authFull.json` |
-| `app.etzhayyim.convo.authConversation` | Conversations | `app.etzhayyim.convo.` | `convo/authConversation.json` |
-| `app.etzhayyim.projector.authProjectManagement` | Project Management | `app.etzhayyim.projector.` | `projector/authProjectManagement.json` |
-| `app.etzhayyim.signal.authEncryption` | Encryption & Signal Protocol | `app.etzhayyim.signal.` | `signal/authEncryption.json` |
-| `app.etzhayyim.rtc.authCommunication` | Real-Time Communication | `app.etzhayyim.rtc.` | `rtc/authCommunication.json` |
-| `app.etzhayyim.kagami.authGraph` | Graph Database | `app.etzhayyim.kagami.` | `kagami/authGraph.json` |
-| `app.etzhayyim.governance.authGovernance` | Governance & Access Control | `app.etzhayyim.governance.` | `governance/authGovernance.json` |
-| `app.etzhayyim.actor.authActorManagement` | Actor Management | `app.etzhayyim.actor.` | `actor/authActorManagement.json` |
-| `app.etzhayyim.pds.authPlatform` | PDS Platform | `app.etzhayyim.pds.` | `pds/authPlatform.json` |
+| `com.etzhayyim.auth.authFull` | Full W Protocol Access | `com.etzhayyim.` | `auth/authFull.json` |
+| `com.etzhayyim.convo.authConversation` | Conversations | `com.etzhayyim.convo.` | `convo/authConversation.json` |
+| `com.etzhayyim.projector.authProjectManagement` | Project Management | `com.etzhayyim.projector.` | `projector/authProjectManagement.json` |
+| `com.etzhayyim.signal.authEncryption` | Encryption & Signal Protocol | `com.etzhayyim.signal.` | `signal/authEncryption.json` |
+| `com.etzhayyim.rtc.authCommunication` | Real-Time Communication | `com.etzhayyim.rtc.` | `rtc/authCommunication.json` |
+| `com.etzhayyim.kagami.authGraph` | Graph Database | `com.etzhayyim.kagami.` | `kagami/authGraph.json` |
+| `com.etzhayyim.governance.authGovernance` | Governance & Access Control | `com.etzhayyim.governance.` | `governance/authGovernance.json` |
+| `com.etzhayyim.actor.authActorManagement` | Actor Management | `com.etzhayyim.actor.` | `actor/authActorManagement.json` |
+| `com.etzhayyim.pds.authPlatform` | PDS Platform | `com.etzhayyim.pds.` | `pds/authPlatform.json` |
 
 Bluesky compat (TS-only, Lexicon JSON なし):
 
@@ -98,9 +98,9 @@ Bluesky compat (TS-only, Lexicon JSON なし):
 Permission set は **自身の NSID namespace 以下のみ** 参照可能。`nsAuthorityCovers()` で enforce。
 
 ```
-app.etzhayyim.convo.authConversation → app.etzhayyim.convo.* のみ grant 可能
-app.etzhayyim.auth.authFull          → app.etzhayyim.* 全体を grant 可能
-app.etzhayyim.actor.authActorManagement → app.etzhayyim.actor.* + app.etzhayyim.dmn.* + app.etzhayyim.form.* (共通親 app.etzhayyim.)
+com.etzhayyim.convo.authConversation → com.etzhayyim.convo.* のみ grant 可能
+com.etzhayyim.auth.authFull          → com.etzhayyim.* 全体を grant 可能
+com.etzhayyim.actor.authActorManagement → com.etzhayyim.actor.* + com.etzhayyim.dmn.* + com.etzhayyim.form.* (共通親 com.etzhayyim.)
 ```
 
 ### Lexicon JSON Format
@@ -108,7 +108,7 @@ app.etzhayyim.actor.authActorManagement → app.etzhayyim.actor.* + app.etzhayyi
 ```json
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.convo.authConversation",
+  "id": "com.etzhayyim.convo.authConversation",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -117,8 +117,8 @@ app.etzhayyim.actor.authActorManagement → app.etzhayyim.actor.* + app.etzhayyi
       "detail": "Create, send, and manage conversations.",
       "detail:lang": { "ja": "会話の作成・送信・管理" },
       "permissions": [
-        { "type": "permission", "resource": "repo", "collection": ["app.etzhayyim.convo.*"], "action": ["create", "update", "delete"] },
-        { "type": "permission", "resource": "rpc", "lxm": ["app.etzhayyim.convo.*"] }
+        { "type": "permission", "resource": "repo", "collection": ["com.etzhayyim.convo.*"], "action": ["create", "update", "delete"] },
+        { "type": "permission", "resource": "rpc", "lxm": ["com.etzhayyim.convo.*"] }
       ]
     }
   }
@@ -133,9 +133,9 @@ AT Protocol scope string format (spec 準拠):
 atproto                                          — base scope
 transition:chat.bsky                             — Bluesky DM
 transition:generic                               — transitional
-include:app.etzhayyim.convo.authConversation           — permission set
+include:com.etzhayyim.convo.authConversation           — permission set
 repo:com.atproto.repo.createRecord?collection=app.bsky.feed.post — resource scope
-rpc?aud=did:web:test.etzhayyim.com&lxm=app.etzhayyim.pds.getProfile        — rpc scope
+rpc?aud=did:web:test.etzhayyim.com&lxm=com.etzhayyim.pds.getProfile        — rpc scope
 blob?accept=image/*                              — blob (standalone only)
 account?action=manage                            — account (standalone only)
 identity:manage                                  — identity (standalone only)
@@ -150,7 +150,7 @@ identity:manage                                  — identity (standalone only)
 | `chat.bsky.*` | `transition:chat.bsky` |
 | その他すべて | `atproto` |
 
-Override 例外: `app.etzhayyim.projector.sendProjectMessage` → `atproto` (chat.bsky.convo と混在する dispatch のため)
+Override 例外: `com.etzhayyim.projector.sendProjectMessage` → `atproto` (chat.bsky.convo と混在する dispatch のため)
 
 ## Codegen Pipeline
 

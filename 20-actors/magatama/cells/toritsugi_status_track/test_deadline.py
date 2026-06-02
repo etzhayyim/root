@@ -211,7 +211,7 @@ def test_non_date_event_raises():
 
 def test_registry_loads_and_has_procedures():
     data = json.loads(_REGISTRY.read_text(encoding="utf-8"))
-    assert data["$schema"] == "app.etzhayyim.toritsugi.procedure"
+    assert data["$schema"] == "com.etzhayyim.toritsugi.procedure"
     assert isinstance(data["procedures"], list) and len(data["procedures"]) > 0
 
 

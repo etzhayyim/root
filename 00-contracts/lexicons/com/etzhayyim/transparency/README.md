@@ -1,4 +1,4 @@
-# app.etzhayyim.transparency.* — Covenant Transparency Doctrine Lexicons
+# com.etzhayyim.transparency.* — Covenant Transparency Doctrine Lexicons
 
 **ADR**: ADR-2605310100 (R0 scaffold)
 **Status**: R0 schema skeletons, **`proposed-unratified`**. These Lexicons
@@ -67,6 +67,6 @@ carve-out.
 - `/90-docs/transparency/worked-examples.md` — worked records (§4 floor + fourth-party cascade) for Council ratification review
 - `/90-docs/transparency/ratification-dossier.md` — Council Lv7+ decision sheet: threat model + what-flips-on-YES + open questions + legal/reversibility risk register
 - `/90-docs/adr/2605181100-*` (ADR-2605181100 confidentiality — **amended by this doctrine**)
-- `/00-contracts/lexicons/app/etzhayyim/encrypted/` — `app.etzhayyim.encrypted.*`, re-scoped by §4/§6 to the floor only (secrets + outbound third-party PII), not member privacy
+- `/00-contracts/lexicons/com/etzhayyim/encrypted/` — `com.etzhayyim.encrypted.*`, re-scoped by §4/§6 to the floor only (secrets + outbound third-party PII), not member privacy
 - `/40-engine/kotoba/crates/kotoba-server/src/fingerprint.rs` — request audit trail (`kotoba/audit/requests/v1`) promoted to publishable by §3 (post-ratification)
 - `/70-tools/scripts/lint/transparency-floor-and-gate.mjs` — enforcement guard (Check A §5 ratification gate · Check B §4 floor anchors · Check C no premature execution in code) + `.test.mjs` 9-test regression suite. Machine-enforces that the doctrine stays `proposed-unratified` until a `councilRatificationCid` exists

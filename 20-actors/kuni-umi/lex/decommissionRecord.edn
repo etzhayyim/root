@@ -1,7 +1,7 @@
-;; app.etzhayyim.kuniumi.decommissionRecord — lexicon
+;; com.etzhayyim.kuniumi.decommissionRecord — lexicon
 ;; ADR-2605201400 · decommission output
 {:lexicon 1
- :id "app.etzhayyim.kuniumi.decommissionRecord"
+ :id "com.etzhayyim.kuniumi.decommissionRecord"
  :defs
  {:main
   {:type "record"

@@ -5,12 +5,12 @@ CF Worker that exposes the 6 rw-free commands as XRPC endpoints.
 ## Endpoints
 
 ### Domain Transfer Workflow
-- `POST /xrpc/app.etzhayyim.dns.createTransferRequest` — create transfer request
-- `GET /xrpc/app.etzhayyim.dns.getTransferRequest` — get transfer by ID
-- `POST /xrpc/app.etzhayyim.dns.transferFromSquarespace` — initiate Squarespace transfer
-- `POST /xrpc/app.etzhayyim.dns.putTransferStep` — record transfer step
-- `GET /xrpc/app.etzhayyim.dns.listTransferSteps` — list steps for transfer
-- `POST /xrpc/app.etzhayyim.dns.putTransferOutcome` — record final outcome
+- `POST /xrpc/com.etzhayyim.dns.createTransferRequest` — create transfer request
+- `GET /xrpc/com.etzhayyim.dns.getTransferRequest` — get transfer by ID
+- `POST /xrpc/com.etzhayyim.dns.transferFromSquarespace` — initiate Squarespace transfer
+- `POST /xrpc/com.etzhayyim.dns.putTransferStep` — record transfer step
+- `GET /xrpc/com.etzhayyim.dns.listTransferSteps` — list steps for transfer
+- `POST /xrpc/com.etzhayyim.dns.putTransferOutcome` — record final outcome
 
 ## Deploy
 

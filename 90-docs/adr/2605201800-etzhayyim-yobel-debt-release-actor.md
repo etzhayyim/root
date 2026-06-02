@@ -11,7 +11,7 @@ axis: doctrine-runtime
 weight: 0.75
 priority_note: "etzhayyim Mission Charter §1 (構造的労働解放) の **金銭的負債** 局面における doctrinal runtime。bankruptcy.etzhayyim.com (vendor, mandatory legal procedure intelligence) と相補的に、religious-corp 主導の voluntary 集合債務免除 rite を AT MST + Base L2 USDC で実装する。SBT-gated eligibility + Council Lv6+ ratification + transparent on-chain settlement の三条件下で運用される。"
 authoritative_for:
-  - org.etzhayyim.yobel.* lexicon family (transitional NSID: app.etzhayyim.apps.etzhayyim.yobel.*)
+  - org.etzhayyim.yobel.* lexicon family (transitional NSID: com.etzhayyim.apps.etzhayyim.yobel.*)
   - shmita / yobel / tokusei-rei / Catholic Jubilee / political amnesty rite catalog
   - voluntary creditor opt-in + signedConsent invariant
   - USDC-on-Base-L2 settlement boundary (no fiat)
@@ -70,7 +70,7 @@ etzhayyim Mission Charter (ADR-2605192100) は **構造的労働解放** を最�
 | **DID** | `did:web:yobel.etzhayyim.com` (primary) |
 | **Substrate** | AT MST + IPFS + Base L2 (RW-free — vendor の RisingWave は使わない) |
 | **Settlement** | USDC on Base L2 via ERC725 Smart Wallet。fiat / Stripe / 銀行決済 禁止 |
-| **NSID (current)** | `app.etzhayyim.apps.etzhayyim.yobel.*` (kuniUmi precedent と整合) |
+| **NSID (current)** | `com.etzhayyim.apps.etzhayyim.yobel.*` (kuniUmi precedent と整合) |
 | **NSID (canonical, future)** | `org.etzhayyim.yobel.*` (post-org-rename cutover) |
 | **Runtime** | TS Native + Lexicon Contract |
 | **Charter alignment** | Mission §1 (構造的労働解放) の monetary-debt 局面における doctrinal runtime |
@@ -138,7 +138,7 @@ Where the line gets fuzzy (e.g. a sole-proprietor's business debt where the prop
 | `getRite` | query | rite 詳細 + 集計 metrics |
 | `listReleases` | query | pagination 付き release 一覧 |
 
-詳細 schema: `00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/*.json`
+詳細 schema: `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/yobel/*.json`
 
 ## Cluster Integration
 
@@ -189,11 +189,11 @@ vendor (etzhayyim Japan) は **意思決定権なし**。本 actor の出力 (re
 
 **B. 5 actor cluster (shmita / yobel / tokusei / jubilee / amnesty を分離)** — 却下。データモデル (debt registration + voluntary opt-in + release tx) はすべて同一。rite type discriminator で 1 actor に統合する方が Shannon-optimal。
 
-**C. vendor 配置 (`app.etzhayyim.apps.yobel.*`)** — 却下。3-axis split: liability (religious doctrine) / custody (collective ritual records) / settlement (USDC on Base L2, no fiat) すべて etzhayyim clean。
+**C. vendor 配置 (`com.etzhayyim.apps.yobel.*`)** — 却下。3-axis split: liability (religious doctrine) / custody (collective ritual records) / settlement (USDC on Base L2, no fiat) すべて etzhayyim clean。
 
 **D. RW + Hyperdrive 経由実装** — 却下。vendor:ADR-2605172000 etzhayyim substrate boundary により RW は vendor 限定。
 
-**E. canonical NSID で `org.etzhayyim.yobel.*` を本 repo に最初から使う** — 却下 (transitional)。`kuniUmi` precedent が `app.etzhayyim.apps.etzhayyim.kuniUmi.*` を使っているため、整合性のため transition 期間は `app.etzhayyim.apps.etzhayyim.yobel.*` で書き、登記後の org-rename cutover で `org.etzhayyim.*` に一括 sed する (220-file cutover script に乗せる)。
+**E. canonical NSID で `org.etzhayyim.yobel.*` を本 repo に最初から使う** — 却下 (transitional)。`kuniUmi` precedent が `com.etzhayyim.apps.etzhayyim.kuniUmi.*` を使っているため、整合性のため transition 期間は `com.etzhayyim.apps.etzhayyim.yobel.*` で書き、登記後の org-rename cutover で `org.etzhayyim.*` に一括 sed する (220-file cutover script に乗せる)。
 
 **F. SBT 不要、誰でも opt-in 可能** — 却下。Charter §1.13 SBT-based identity invariant と整合させるため `enrollDebtor` / `enrollCreditor` は SBT 保有 DID 限定 (verifyEligibility で gate)。
 

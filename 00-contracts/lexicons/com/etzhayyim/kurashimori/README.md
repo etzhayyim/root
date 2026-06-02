@@ -1,4 +1,4 @@
-# app.etzhayyim.kurashimori.* — Lexicons
+# com.etzhayyim.kurashimori.* — Lexicons
 
 Lexicons for **暮らし守 (kurashimori)** — the citizen consumer-protection
 concierge Tier-B actor (`did:web:kurashimori.etzhayyim.com`, ADR-2605312500).
@@ -25,7 +25,7 @@ ratification (R1+).
 - **G3 own-matter-only**: every record carries `memberDid` + a `consentRef`.
 - **G6 PII confidentiality**: contract/complaint content never inline — records
   hold `encrypted*Ref` / `outcomeRef` / `receiptRef` pointers into
-  `app.etzhayyim.encrypted.*` (ADR-2605181100).
+  `com.etzhayyim.encrypted.*` (ADR-2605181100).
 - **G8 non-fabrication**: `remedyTarget.legalBasis` + `.provenance` required;
   `memberConfirmed` gates send. A wrong cooling-off `statutoryWindowDays` is harmful.
 - **G10 lawful + non-harassment**: `dispatchRecord.channel` is a lawful channel

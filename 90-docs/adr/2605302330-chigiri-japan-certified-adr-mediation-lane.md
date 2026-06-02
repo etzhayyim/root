@@ -96,7 +96,7 @@ adjudication, or represent a party. The mediator proposes; the parties decide.
 chigiri MUST NOT operate this lane as actual 和解仲介 with §72-exemption claims **until** 法務大臣 認証 is
 granted. Pre-certification, the `dispute_mediation` cell operates only as **non-binding facilitation
 without §72 reliance** (the existing R0 behaviour). The §6-criteria compliance set is encoded as
-`app.etzhayyim.chigiri.adr.certificationCriteria` records (sixteen entries) and gated: the lane's
+`com.etzhayyim.chigiri.adr.certificationCriteria` records (sixteen entries) and gated: the lane's
 `certified=true` flag MUST be backed by a resolvable 認証 reference.
 
 ## D3. Criterion (5) mapped to G16

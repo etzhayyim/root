@@ -6,37 +6,37 @@ SDK / PDS / IPFS / L2 substrate to be live.
 
 The node-name → pipeline-trigger mapping mirrors the XRPC NSIDs:
 
-    create_patient                   app.etzhayyim.apps.karute.createPatient
-    create_encounter                 app.etzhayyim.apps.karute.createEncounter
-    create_soap_note                 app.etzhayyim.apps.karute.createSoapNote
-    create_observation               app.etzhayyim.apps.karute.createObservation
-    create_condition                 app.etzhayyim.apps.karute.createCondition
-    create_medication_request        app.etzhayyim.apps.karute.createMedicationRequest
-    create_service_request           app.etzhayyim.apps.karute.createServiceRequest
-    create_dispense                  app.etzhayyim.apps.karute.createDispense
-    create_homecare_episode          app.etzhayyim.apps.karute.createHomecareEpisode
-    create_home_visit                app.etzhayyim.apps.karute.createHomeVisit
-    grant_consent                    app.etzhayyim.apps.karute.grantConsent
-    revoke_consent                   app.etzhayyim.apps.karute.revokeConsent
-    list_consent                     app.etzhayyim.apps.karute.listConsent
-    request_iryo_billing             app.etzhayyim.apps.karute.requestIryoBilling
-    rekey_record                     app.etzhayyim.apps.karute.rekeyRecord
-    redact_record                    app.etzhayyim.apps.karute.redactRecord
-    list_tombstones                  app.etzhayyim.apps.karute.listTombstones
-    list_audit_events                app.etzhayyim.apps.karute.listAuditEvents
-    get_chart_summary                app.etzhayyim.apps.karute.getChartSummary
-    export_fhir_bundle               app.etzhayyim.apps.karute.exportFhirBundle
-    list_patients                    app.etzhayyim.apps.karute.listPatients
-    get_patient                      app.etzhayyim.apps.karute.getPatient
-    list_encounters                  app.etzhayyim.apps.karute.listEncounters
-    list_soap_notes                  app.etzhayyim.apps.karute.listSoapNotes
-    list_observations                app.etzhayyim.apps.karute.listObservations
-    list_medications                 app.etzhayyim.apps.karute.listMedications
-    list_orders                      app.etzhayyim.apps.karute.listOrders
-    list_dispenses                   app.etzhayyim.apps.karute.listDispenses
-    list_homecare_episodes           app.etzhayyim.apps.karute.listHomecareEpisodes
-    list_home_visits                 app.etzhayyim.apps.karute.listHomeVisits
-    health_karute                    app.etzhayyim.apps.karute.healthKarute
+    create_patient                   com.etzhayyim.apps.karute.createPatient
+    create_encounter                 com.etzhayyim.apps.karute.createEncounter
+    create_soap_note                 com.etzhayyim.apps.karute.createSoapNote
+    create_observation               com.etzhayyim.apps.karute.createObservation
+    create_condition                 com.etzhayyim.apps.karute.createCondition
+    create_medication_request        com.etzhayyim.apps.karute.createMedicationRequest
+    create_service_request           com.etzhayyim.apps.karute.createServiceRequest
+    create_dispense                  com.etzhayyim.apps.karute.createDispense
+    create_homecare_episode          com.etzhayyim.apps.karute.createHomecareEpisode
+    create_home_visit                com.etzhayyim.apps.karute.createHomeVisit
+    grant_consent                    com.etzhayyim.apps.karute.grantConsent
+    revoke_consent                   com.etzhayyim.apps.karute.revokeConsent
+    list_consent                     com.etzhayyim.apps.karute.listConsent
+    request_iryo_billing             com.etzhayyim.apps.karute.requestIryoBilling
+    rekey_record                     com.etzhayyim.apps.karute.rekeyRecord
+    redact_record                    com.etzhayyim.apps.karute.redactRecord
+    list_tombstones                  com.etzhayyim.apps.karute.listTombstones
+    list_audit_events                com.etzhayyim.apps.karute.listAuditEvents
+    get_chart_summary                com.etzhayyim.apps.karute.getChartSummary
+    export_fhir_bundle               com.etzhayyim.apps.karute.exportFhirBundle
+    list_patients                    com.etzhayyim.apps.karute.listPatients
+    get_patient                      com.etzhayyim.apps.karute.getPatient
+    list_encounters                  com.etzhayyim.apps.karute.listEncounters
+    list_soap_notes                  com.etzhayyim.apps.karute.listSoapNotes
+    list_observations                com.etzhayyim.apps.karute.listObservations
+    list_medications                 com.etzhayyim.apps.karute.listMedications
+    list_orders                      com.etzhayyim.apps.karute.listOrders
+    list_dispenses                   com.etzhayyim.apps.karute.listDispenses
+    list_homecare_episodes           com.etzhayyim.apps.karute.listHomecareEpisodes
+    list_home_visits                 com.etzhayyim.apps.karute.listHomeVisits
+    health_karute                    com.etzhayyim.apps.karute.healthKarute
 """
 
 from __future__ import annotations

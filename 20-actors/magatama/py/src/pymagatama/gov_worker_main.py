@@ -143,7 +143,7 @@ def _register_agency_sync(name: str, name_local: str, jurisdiction: str, branch:
         )
         conn.commit()
 
-    return {"did": actor_did, "uri": f"at://{actor_did}/app.etzhayyim.apps.gov.agency/{agency_id}"}
+    return {"did": actor_did, "uri": f"at://{actor_did}/com.etzhayyim.apps.gov.agency/{agency_id}"}
 
 
 def _record_official_sync(agency_did: str, person_did: str, role: str, appointed_at: str, term_ends_at: str, appointed_by_did: str, confirmation_process: str, actor: str) -> dict[str, Any]:
@@ -167,7 +167,7 @@ def _record_official_sync(agency_did: str, person_did: str, role: str, appointed
         )
         conn.commit()
 
-    return {"uri": f"at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.official/{official_id}"}
+    return {"uri": f"at://did:web:gov.etzhayyim.com/com.etzhayyim.apps.gov.official/{official_id}"}
 
 
 def _submit_consult_sync(requester_did: str, domain: str, category: str, query: str, municipality_code: str, priority: str, actor: str) -> dict[str, Any]:
@@ -302,7 +302,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.gov.registerAgency")
+    @worker.task(task_type="com.etzhayyim.apps.gov.registerAgency")
     async def task_register_agency(**kwargs):
         return await asyncio.to_thread(
             _register_agency_sync,
@@ -319,7 +319,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.gov.recordOfficial")
+    @worker.task(task_type="com.etzhayyim.apps.gov.recordOfficial")
     async def task_record_official(**kwargs):
         return await asyncio.to_thread(
             _record_official_sync,
@@ -333,7 +333,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.gov.submitConsult")
+    @worker.task(task_type="com.etzhayyim.apps.gov.submitConsult")
     async def task_submit_consult(**kwargs):
         return await asyncio.to_thread(
             _submit_consult_sync,
@@ -346,7 +346,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.gov.listAgencies")
+    @worker.task(task_type="com.etzhayyim.apps.gov.listAgencies")
     async def task_list_agencies(**kwargs):
         return await asyncio.to_thread(
             _list_agencies_sync,
@@ -359,7 +359,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.gov.getAgency")
+    @worker.task(task_type="com.etzhayyim.apps.gov.getAgency")
     async def task_get_agency(**kwargs):
         return await asyncio.to_thread(
             _get_agency_sync,
@@ -367,7 +367,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.gov.listOfficials")
+    @worker.task(task_type="com.etzhayyim.apps.gov.listOfficials")
     async def task_list_officials(**kwargs):
         return await asyncio.to_thread(
             _list_officials_sync,
@@ -378,7 +378,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.gov.listMunicipalities")
+    @worker.task(task_type="com.etzhayyim.apps.gov.listMunicipalities")
     async def task_list_municipalities(**kwargs):
         return await asyncio.to_thread(
             _list_municipalities_sync,
@@ -388,7 +388,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.gov.listConsults")
+    @worker.task(task_type="com.etzhayyim.apps.gov.listConsults")
     async def task_list_consults(**kwargs):
         return await asyncio.to_thread(
             _list_consults_sync,

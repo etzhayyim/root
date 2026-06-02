@@ -17,7 +17,7 @@
 
 export const COFOG_DID_PREFIX = "did:web:open-cofog.etzhayyim.com:" as const;
 
-export const ENTRY_COLLECTION = "app.etzhayyim.apps.openCofog.entry";
+export const ENTRY_COLLECTION = "com.etzhayyim.apps.openCofog.entry";
 
 export type CofogLevel = "division" | "group" | "class";
 

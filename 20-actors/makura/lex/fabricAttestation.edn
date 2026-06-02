@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.makura.fabricAttestation"
+ :id "com.etzhayyim.makura.fabricAttestation"
  :defs
  {:main
   {:type "record"

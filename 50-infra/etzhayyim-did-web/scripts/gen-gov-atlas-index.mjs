@@ -42,6 +42,23 @@ const ndjson = (p) => existsSync(p) ? readFileSync(p, "utf8").split("\n").filter
 const slug = (s) => (s || "x").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "x";
 const isSynthetic = (r) => { const nm = r.name || ""; return !nm || nm.startsWith("Dst ") || ["Executive", "Cabinet", "Ministry Of"].includes(nm) || (r.tags || []).some((t) => t.includes("nanoid")); };
 
+// cc -> real English country name, extracted from the INTERPOL NCB row in each
+// country's lea.ndjson ("<Country> INTERPOL National Central Bureau"). Real in-repo
+// data (not fabricated, G5); 169/195 countries carry it. Used to label the ISO3
+// country units instead of the bare code.
+const _NCB = " INTERPOL National Central Bureau";
+function buildCountryNames() {
+  const m = {};
+  for (const cc of readdirSync(STATES)) {
+    for (const r of ndjson(join(STATES, cc, "lea.ndjson"))) {
+      const ne = r.nameEn || "";
+      if (ne.endsWith(_NCB)) { m[cc] = ne.slice(0, -_NCB.length).trim(); break; }
+    }
+  }
+  return m;
+}
+const ccName = buildCountryNames();
+
 const byId = new Map();
 const put = (u) => { if (u && u.id && !byId.has(u.id)) byId.set(u.id, u); };
 
@@ -81,7 +98,8 @@ for (const cc of readdirSync(STATES).sort()) {
 }
 for (const cc of [...seenCC].sort()) {
   if (REAL_COUNTRIES.has(cc)) continue;
-  put({ id: `gov.${cc}`, name: cc.toUpperCase(), nameEn: cc.toUpperCase(), level: "country", jurisdiction: cc, parent: null, url: "", sourcing: "representative" });
+  const nm = ccName[cc] || cc.toUpperCase();  // real name when available, else ISO3 code
+  put({ id: `gov.${cc}`, name: nm, nameEn: nm, level: "country", jurisdiction: cc, parent: null, url: "", sourcing: "representative" });
 }
 
 const units = [...byId.values()];

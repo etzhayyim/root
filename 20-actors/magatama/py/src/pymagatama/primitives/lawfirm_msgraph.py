@@ -43,7 +43,7 @@ def _now_plus_minutes(minutes: int) -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _execute(sql_str: str, params: dict) -> bool:
@@ -91,7 +91,7 @@ def _ms_post(url: str, body_json: dict, method: str = "POST") -> dict:
 async def task_lawfirm_msgraph_subscription_ensure(
     user_upn: str = "k.bakshi@etzhayyim.com",
     folder: str = "Inbox",
-    notification_url: str = "https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.mailReplyWebhook",
+    notification_url: str = "https://lawfirm.etzhayyim.com/xrpc/com.etzhayyim.apps.lawfirm.mailReplyWebhook",
     client_state: str = "",
 ) -> dict:
     """Ensure a live MS Graph mail subscription exists for the given UPN."""
@@ -210,7 +210,7 @@ def register(app: Any, timeout_ms: int = 60_000) -> None:
               timeout_ms=timeout_ms, max_jobs_to_activate=2)
     async def _ensure(user_upn: str = "k.bakshi@etzhayyim.com",
                       folder: str = "Inbox",
-                      notification_url: str = "https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.mailReplyWebhook",
+                      notification_url: str = "https://lawfirm.etzhayyim.com/xrpc/com.etzhayyim.apps.lawfirm.mailReplyWebhook",
                       client_state: str = "") -> dict:
         return await task_lawfirm_msgraph_subscription_ensure(
             user_upn=user_upn, folder=folder,

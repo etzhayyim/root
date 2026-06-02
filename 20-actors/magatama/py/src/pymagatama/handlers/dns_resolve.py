@@ -6,11 +6,11 @@ Replaces the per-row DoH fetch loop in
 
 Two surfaces, chosen to match how callers actually want to consume DNS:
 
-    app.etzhayyim.apps.dns.resolve(domain, rtype)         VARCHAR, VARCHAR → VARCHAR
+    com.etzhayyim.apps.dns.resolve(domain, rtype)         VARCHAR, VARCHAR → VARCHAR
         Returns a comma-joined string of RRs for a single record type.
         Empty string on NXDOMAIN / upstream error (never raises).
 
-    app.etzhayyim.apps.dns.resolveJson(domain, rtype)     VARCHAR, VARCHAR → VARCHAR
+    com.etzhayyim.apps.dns.resolveJson(domain, rtype)     VARCHAR, VARCHAR → VARCHAR
         Returns the raw Cloudflare DoH JSON body so callers can extract
         TTLs, authority sections, or SOA — useful for passive-DNS
         ingestion. `{"error": "..."}` envelope on failure.
@@ -113,7 +113,7 @@ def _answer_strings(body: dict[str, Any] | None) -> list[str]:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.dns.resolve",
+    nsid="com.etzhayyim.apps.dns.resolve",
     io_threads=100,
     input_types=["VARCHAR", "VARCHAR"],
     result_type="VARCHAR",
@@ -135,7 +135,7 @@ def resolve(domain: str, rtype: str) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.dns.resolveJson",
+    nsid="com.etzhayyim.apps.dns.resolveJson",
     io_threads=100,
     input_types=["VARCHAR", "VARCHAR"],
     result_type="VARCHAR",

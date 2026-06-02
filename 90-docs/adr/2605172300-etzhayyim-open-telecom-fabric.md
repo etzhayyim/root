@@ -127,13 +127,13 @@ optional:
 Open protocol material belongs in `etzhayyim/root`:
 
 - `10-protocol/open-telecom/`
-- `00-contracts/lexicons/ai/gftd/apps/openTelecom/` after cutover or rename
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/open-telecom/` for public governance workflows
+- `00-contracts/lexicons/com/etzhayyim/apps/openTelecom/` after cutover or rename
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-telecom/` for public governance workflows
 
 Vendor bridge material remains in this repo:
 
-- `00-contracts/lexicons/ai/gftd/apps/telecom/*`
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/telecom/*`
+- `00-contracts/lexicons/com/etzhayyim/apps/telecom/*`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/telecom/*`
 - `50-infra/multicluster/*/telecom-actors/*`
 
 The current repository may carry a staging copy until the etzhayyim cutover is
@@ -190,7 +190,7 @@ portability, gateway, CDR, and abuse-control semantics.
 # References
 
 - `10-protocol/open-telecom/README.md`
-- `00-contracts/lexicons/ai/gftd/apps/telecom/establishVoiceCall.json`
-- `00-contracts/lexicons/ai/gftd/apps/telecom/bridgeVoiceToInterconnect.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/telecom/establishVoiceCall.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/telecom/bridgeVoiceToInterconnect.json`
 - `50-infra/multicluster/murakumo-vke/telecom-actors/README.md`
 - ADR-2605152100 etzhayyim GitHub Org Boundary + Monorepo Seed Strategy

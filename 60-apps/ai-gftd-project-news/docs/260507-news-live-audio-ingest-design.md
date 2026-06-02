@@ -17,7 +17,7 @@ visible.
 
 ## Contract
 
-- XRPC/BPMN NSID: `app.etzhayyim.apps.news.liveAudioIngest`
+- XRPC/BPMN NSID: `com.etzhayyim.apps.news.liveAudioIngest`
 - BPMN process: `news_live_audio_ingest`
 - Source contract: `sourceId`, `sourceName`, `streamUrl`
 - Optional metadata: `sourceUrl`, `sourceType`, `region`, `country`, `topic`, `lang`
@@ -26,12 +26,12 @@ visible.
 
 ## Source Registry
 
-- Record collection: `app.etzhayyim.apps.news.liveAudioSource`
-- Write command: `app.etzhayyim.apps.news.registerLiveAudioSource`
-- Read query: `app.etzhayyim.apps.news.listLiveAudioSources`
-- Policy audit query: `app.etzhayyim.apps.news.auditLiveAudioPolicies`
-- Scheduler command: `app.etzhayyim.apps.news.scheduleLiveAudioIngest`
-- Scheduler state collection: `app.etzhayyim.apps.news.liveAudioScheduleState`
+- Record collection: `com.etzhayyim.apps.news.liveAudioSource`
+- Write command: `com.etzhayyim.apps.news.registerLiveAudioSource`
+- Read query: `com.etzhayyim.apps.news.listLiveAudioSources`
+- Policy audit query: `com.etzhayyim.apps.news.auditLiveAudioPolicies`
+- Scheduler command: `com.etzhayyim.apps.news.scheduleLiveAudioIngest`
+- Scheduler state collection: `com.etzhayyim.apps.news.liveAudioScheduleState`
 - Registry records include stream URL, language, region/country, topic set,
   capture limits, scheduler cadence/cooldown, retention policy, rights policy,
   and `active | paused | disabled` status.
@@ -65,17 +65,17 @@ visible.
 2. `generic.llm.json`
    - Extract title, summary, facts, findings, and entities from transcript text.
    - Treat partial transcript uncertainty explicitly.
-3. `xrpc.app.etzhayyim.apps.news.analyzeIntel`
-   - Write an attributed `app.etzhayyim.apps.intel.report`.
+3. `xrpc.com.etzhayyim.apps.news.analyzeIntel`
+   - Write an attributed `com.etzhayyim.apps.intel.report`.
    - Use `sourceType=broadcast` unless a source-specific type is supplied.
    - Evaluate `policyGate` from `rightsPolicy`, country, and source type.
      Publication and maps export are blocked when the source policy does not
      permit them.
    - Forward spatial entity/incident candidates from transcript entities to
-     `app.etzhayyim.apps.maps.spatialEventRecord` as
+     `com.etzhayyim.apps.maps.spatialEventRecord` as
      `news.broadcast.entityMention` events. Set
      `NEWS_MAPS_SPATIAL_EXPORT_DISABLED=true` to disable this bridge.
-4. Optional `xrpc.app.etzhayyim.apps.news.publishIntel`
+4. Optional `xrpc.com.etzhayyim.apps.news.publishIntel`
    - Publish only when the process input sets `publish=true` and
      `policyGate.allowPublish=true`.
 5. `generic.audit.emit`

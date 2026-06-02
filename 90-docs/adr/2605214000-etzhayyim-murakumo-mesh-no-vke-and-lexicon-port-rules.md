@@ -93,7 +93,7 @@ New MIGRATION-NOTES.md sidecars MUST use the same 3-verdict taxonomy. Lefthook (
 
 The two MIGRATION-NOTES.md sidecars itemise ≈220 `gftd-*` → `etzhayyim-*` identifier sites across two scopes:
 
-- **Murakumo runtime** (`50-infra/cluster/murakumo/src/`): env var prefix (`etzhayyim_*` → `ETZHAYYIM_*`), config dir (`~/.gftd/` → `~/.etzhayyim/`), DNS suffix (`.mesh.etzhayyim.com` → `.mesh.etzhayyim.com`), control plane URL, launchd label (`app.etzhayyim.murakumo` → `com.etzhayyim.murakumo`), systemd unit, binary name (`gftd-murakumo` → `etzhayyim-murakumo`), cargo crate name, CDN URL.
+- **Murakumo runtime** (`50-infra/cluster/murakumo/src/`): env var prefix (`etzhayyim_*` → `ETZHAYYIM_*`), config dir (`~/.gftd/` → `~/.etzhayyim/`), DNS suffix (`.mesh.etzhayyim.com` → `.mesh.etzhayyim.com`), control plane URL, launchd label (`com.etzhayyim.murakumo` → `com.etzhayyim.murakumo`), systemd unit, binary name (`gftd-murakumo` → `etzhayyim-murakumo`), cargo crate name, CDN URL.
 - **pymagatama runtime** (`20-actors/magatama/py/`): RunPod-coupled call sites (REDIRECT / VENDOR-ONLY / REIMPLEMENT classified).
 
 Plus the package-rename half referenced by 3 SUBSTRATE-PORT-PENDING markers in this session:
@@ -115,7 +115,7 @@ Interdependent target categories:
 | config dir (`~/.gftd` / `~/.etzhayyim`) | If `src/main.rs` writes to `~/.etzhayyim/daemon.log` but the launchd plist's StandardErrorPath still points at `~/.gftd/daemon.log`, logs go to two paths. |
 | DNS suffix (`.mesh.etzhayyim.com` / `.mesh.etzhayyim.com`) | If half the nodes register under one suffix and half under the other, mesh discovery breaks. |
 | control plane URL (`murakumo.etzhayyim.com` / `murakumo.etzhayyim.com`) | If the binary defaults to one but the install script `curl`s the other, install instructions silently fail. |
-| launchd label (`app.etzhayyim.murakumo` / `com.etzhayyim.murakumo`) | If the plist filename and the Label key disagree, `launchctl load` refuses. |
+| launchd label (`com.etzhayyim.murakumo` / `com.etzhayyim.murakumo`) | If the plist filename and the Label key disagree, `launchctl load` refuses. |
 | cargo crate name (`gftd-murakumo` / `etzhayyim-murakumo`) | If the crate name changes but downstream `Cargo.toml` references the old name, build breaks. |
 | package name (`@etzhayyim/*` / `@etzhayyim/*`) | If `src/app.ts` imports `@etzhayyim/sdk` but `package.json` declares `@etzhayyim/magatama-host-sdk` as a dep, npm resolution fails. |
 

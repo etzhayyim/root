@@ -32,7 +32,7 @@ cells/{cell_name}/
 Common deps:
 
 - Checkpointing — `pymagatama.checkpointer.MstCheckpointSaver` ([ADR-2605191559](../../90-docs/adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md))
-- MST listener — `pymagatama.listener.MstListener` (subscribes to `app.etzhayyim.kuniUmi.*`)
+- MST listener — `pymagatama.listener.MstListener` (subscribes to `com.etzhayyim.kuniUmi.*`)
 - Web3 — `pymagatama.eligibility.web3_ports.{GethPrivatePort, BaseL2Port}` for `ChartersComplianceRegistry` / `TitheRouter`
 - UNSPSC procurement sub-graph — invoke via `pymagatama.unispsc.dispatch(commodityCode, intent="procure", qty=...)`
 - Giemon fleet driver — invoke via `pymagatama.open_robo.fleet.dispatch(fleetDid, taskCid)`

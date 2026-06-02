@@ -1,6 +1,6 @@
-;; app.etzhayyim.mitsuho.cropPlanAttestation — lexicon (EDN form) — attestation for seasonal crop plans
+;; com.etzhayyim.mitsuho.cropPlanAttestation — lexicon (EDN form) — attestation for seasonal crop plans
 {:lexicon 1
- :id "app.etzhayyim.mitsuho.cropPlanAttestation"
+ :id "com.etzhayyim.mitsuho.cropPlanAttestation"
  :defs
  {:main
   {:type "record"

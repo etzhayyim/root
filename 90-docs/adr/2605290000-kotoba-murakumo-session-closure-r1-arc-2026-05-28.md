@@ -122,13 +122,13 @@ kotoba_murakumo/
 └── tests/                             # 62 unit + 2 live_fleet
 ```
 
-**Lexicons** (3) — `00-contracts/lexicons/app/etzhayyim/kotoba/economy/`:
+**Lexicons** (3) — `00-contracts/lexicons/com/etzhayyim/kotoba/economy/`:
 `tariff.json` / `balanceSnapshot.json` / `usageRecord.json` — all
 religious-corp Lexicon convention compliant (integer-with-implied-units;
 no `number` types).
 
 **Rust scaffold** (1) — `40-engine/kotoba/crates/kotoba-server/src/economy_xrpc.rs`:
-NSID constants + handler signatures for `app.etzhayyim.kotoba.economy.{tariff,
+NSID constants + handler signatures for `com.etzhayyim.kotoba.economy.{tariff,
 balance, debit, creditFromDonation}`. `#[cfg(any())]` gated; R1.3d-wiring
 turns it on as a separate ADR.
 

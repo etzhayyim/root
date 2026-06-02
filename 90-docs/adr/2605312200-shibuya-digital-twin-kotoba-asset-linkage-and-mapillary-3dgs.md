@@ -42,7 +42,7 @@ Constraints (honest): installYear / company / cost are **not in OSM** (they are
 proprietary asset-management data); OSM carries position / kind / occasional
 `operator` / `start_date` / `height`. Photoreal 3DGS needs captured imagery +
 COLMAP SfM + gsplat GPU training — the repo already has that pipeline
-(`app.etzhayyim.apps.maps.trainGsplatFromMapillary`, ADR-2605092800; "maprealy"
+(`com.etzhayyim.apps.maps.trainGsplatFromMapillary`, ADR-2605092800; "maprealy"
 = Mapillary), but it is an offline GPU job, not runnable in a code session.
 
 # Decision
@@ -90,7 +90,7 @@ photoreal**, only a render-path proof so the GS pipeline is visible now.
 
 **Acquisition front — token-blocked.** `70-tools/scripts/sim/mapillary_fetch.py`
 pulls Mapillary Graph-API v4 image metadata for a bbox → a manifest feeding the
-existing `app.etzhayyim.apps.maps.trainGsplatFromMapillary` procedure (COLMAP
+existing `com.etzhayyim.apps.maps.trainGsplatFromMapillary` procedure (COLMAP
 SfM → gsplat on a GPU pod → PLY → B2 → `vertex_maps_gsplat_asset`). It requires
 a Mapillary **client token** (`MLY|…`). The 1Password "Mapillary" item turned
 out to be a **website login** (email + 19-char password), **not** an API client

@@ -7,5 +7,5 @@ and delivery datoms.
 - Murakumo node: `reuben`
 - Phase: `continuous`
 - Gates: Council charter attestation, source-policy review, ADR-2606022300 R1 activation
-- Output Lexicon: `app.etzhayyim.akashi.advertiserIdentity`, `app.etzhayyim.akashi.creativeDisclosure`, `app.etzhayyim.akashi.deliveryDisclosure`
+- Output Lexicon: `com.etzhayyim.akashi.advertiserIdentity`, `com.etzhayyim.akashi.creativeDisclosure`, `com.etzhayyim.akashi.deliveryDisclosure`
 - Ceiling: source-disclosed facts only; no voter, cohort, or persuasion profiles

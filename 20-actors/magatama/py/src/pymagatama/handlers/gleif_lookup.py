@@ -10,7 +10,7 @@ SQL usage
 
     INSERT INTO vertex_legal_entity (vertex_id, lei, name, country, jurisdiction, ...)
     SELECT
-      'at://did:web:legal-entity.etzhayyim.com/app.etzhayyim.apps.legalEntity.legalEntity/' || lower(m.lei) AS vertex_id,
+      'at://did:web:legal-entity.etzhayyim.com/com.etzhayyim.apps.legalEntity.legalEntity/' || lower(m.lei) AS vertex_id,
       m.lei,
       m.legal_name,
       m.country,
@@ -31,7 +31,7 @@ SQL usage
 Surface
 -------
 
-    app.etzhayyim.apps.gleif.lookup(name, countryHint)     VARCHAR, VARCHAR → VARCHAR
+    com.etzhayyim.apps.gleif.lookup(name, countryHint)     VARCHAR, VARCHAR → VARCHAR
 
 Input: `name` = legal entity search term, `countryHint` = optional ISO-2
 (`"US"`, `"JP"`, ...) that forces a best-match preference.
@@ -40,7 +40,7 @@ Output: single JSON object (string) with the best-match fields, or
 `{"lei": null, "error": "..."}` envelope. Never raises — arrow-udf would
 otherwise drop the whole row batch.
 
-Behaviour (mirrors the BPMN `app.etzhayyim.apps.yabai.enrichLegalEntity` flow
+Behaviour (mirrors the BPMN `com.etzhayyim.apps.yabai.enrichLegalEntity` flow
 so bulk ingest ≡ BPMN-triggered enrichment):
 
   - Empty `name` → `{"lei": null, "error": "name required"}`
@@ -163,7 +163,7 @@ def _pick_best(hits: list[dict[str, Any]], country_hint: str) -> dict[str, Any]:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.gleif.lookup",
+    nsid="com.etzhayyim.apps.gleif.lookup",
     io_threads=100,
     input_types=["VARCHAR", "VARCHAR"],
     result_type="VARCHAR",

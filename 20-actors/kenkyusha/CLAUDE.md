@@ -56,7 +56,7 @@ Custom code 不要 → T1。`$-variable interpolation` で step 間データ受�
 
 ```bash
 gftd mitama -dir 60-apps/ai-gftd-project-kenkyusha
-# = POST /xrpc/app.etzhayyim.actor.registerManifest (actor-manifest.jsonld → graph MERGE)
+# = POST /xrpc/com.etzhayyim.actor.registerManifest (actor-manifest.jsonld → graph MERGE)
 # → PDS Shared Executor が cron / subscribeRepos で自動実行開始
 # → Worker deploy 不要、wrangler 不要、build 不要
 ```
@@ -177,23 +177,23 @@ Dimensions (5):
 
 | NSID | 説明 |
 |---|---|
-| `app.etzhayyim.apps.kenkyusha.seedDisciplines` | ISCED-F taxonomy seed (初回) |
-| `app.etzhayyim.apps.kenkyusha.detectFrontiers` | bunken citation gap 分析 → frontier 生成 |
-| `app.etzhayyim.apps.kenkyusha.generateHypothesis` | frontier に対する仮説生成 (Murakumo LLM) |
-| `app.etzhayyim.apps.kenkyusha.collectEvidence` | bunken/hanrei/isbn から evidence 収集 |
-| `app.etzhayyim.apps.kenkyusha.evaluateHypothesis` | evidence に基づく仮説評価 |
-| `app.etzhayyim.apps.kenkyusha.registerDids` | discipline / frontier DID 登録 (chunked) |
+| `com.etzhayyim.apps.kenkyusha.seedDisciplines` | ISCED-F taxonomy seed (初回) |
+| `com.etzhayyim.apps.kenkyusha.detectFrontiers` | bunken citation gap 分析 → frontier 生成 |
+| `com.etzhayyim.apps.kenkyusha.generateHypothesis` | frontier に対する仮説生成 (Murakumo LLM) |
+| `com.etzhayyim.apps.kenkyusha.collectEvidence` | bunken/hanrei/isbn から evidence 収集 |
+| `com.etzhayyim.apps.kenkyusha.evaluateHypothesis` | evidence に基づく仮説評価 |
+| `com.etzhayyim.apps.kenkyusha.registerDids` | discipline / frontier DID 登録 (chunked) |
 
 ### Queries (read)
 
 | NSID | 説明 |
 |---|---|
-| `app.etzhayyim.apps.kenkyusha.listFrontiers` | frontier 一覧 (discipline / urgency filter) |
-| `app.etzhayyim.apps.kenkyusha.getFrontier` | frontier 詳細 + hypotheses + evidence |
-| `app.etzhayyim.apps.kenkyusha.listDisciplines` | ISCED-F discipline 一覧 |
-| `app.etzhayyim.apps.kenkyusha.searchEvidence` | evidence 横断検索 |
-| `app.etzhayyim.apps.kenkyusha.stats` | 全体統計 |
-| `app.etzhayyim.apps.kenkyusha.coverageMap` | discipline × frontier coverage matrix |
+| `com.etzhayyim.apps.kenkyusha.listFrontiers` | frontier 一覧 (discipline / urgency filter) |
+| `com.etzhayyim.apps.kenkyusha.getFrontier` | frontier 詳細 + hypotheses + evidence |
+| `com.etzhayyim.apps.kenkyusha.listDisciplines` | ISCED-F discipline 一覧 |
+| `com.etzhayyim.apps.kenkyusha.searchEvidence` | evidence 横断検索 |
+| `com.etzhayyim.apps.kenkyusha.stats` | 全体統計 |
+| `com.etzhayyim.apps.kenkyusha.coverageMap` | discipline × frontier coverage matrix |
 
 ## Cross-App Dependencies (Follow Sources)
 
@@ -252,7 +252,7 @@ Dimensions (5):
 ```bash
 # T1 (推奨): manifest を graph に MERGE するだけ
 gftd mitama -dir 60-apps/ai-gftd-project-kenkyusha
-# → POST /xrpc/app.etzhayyim.actor.registerManifest
+# → POST /xrpc/com.etzhayyim.actor.registerManifest
 # → ActorManifest vertex MERGE in RisingWave
 # → PDS Shared Executor が自動実行開始
 

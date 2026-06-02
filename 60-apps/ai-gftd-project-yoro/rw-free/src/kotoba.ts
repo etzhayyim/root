@@ -1,7 +1,7 @@
 // kotoba Datom-log read client for the yoro feed (ADR-2606013200).
 //
 // Reads the yoro-social graph back out of the kotoba canonical state via the
-// generic `datomic.datoms` XRPC (`ai.gftd.apps.kotoba.datomic.datoms`), then
+// generic `datomic.datoms` XRPC (`com.etzhayyim.apps.kotoba.datomic.datoms`), then
 // shapes the `:yoro.post/* :yoro.profile/* :yoro.follow/*` Datoms into the rows
 // the feed/graph/actor functions project into bsky-style views. This replaces
 // the superseded yatachain-projection + single-actor PDS read leg
@@ -18,7 +18,7 @@ import type { Etzhayyim } from "@etzhayyim/sdk";
 export const DEFAULT_YORO_GRAPH_CID =
   "bafyreibljg5gzye47fldkfq6m4vgy55kcjyez2vx432dubttou36g5yryq";
 
-const DATOMS_NSID = "ai.gftd.apps.kotoba.datomic.datoms";
+const DATOMS_NSID = "com.etzhayyim.apps.kotoba.datomic.datoms";
 
 export interface KotobaCfg {
   url: string;

@@ -58,7 +58,7 @@ The author directive (2026-05-30): *"実際に実世界に human に影響する
 | token (SBT) + benefit | Adherent SBT + Public Fund + tithe | 2605172600 / 2605192145 / 2605192130 |
 | inference | Murakumo loopback LiteLLM only | 2605215000 |
 | no platform key | member/operator-signed | 2605231525 |
-| PII confidentiality | `app.etzhayyim.encrypted.*` envelope | 2605181100 |
+| PII confidentiality | `com.etzhayyim.encrypted.*` envelope | 2605181100 |
 
 This ADR is the **integration design** that connects them. **Critical**: live outward-facing actions (sending real email to humans, publishing public social posts, minting SBTs, delivering benefits) are **hard to reverse and touch real people**. R0 here is **design + scaffold only**; every live action is gated (§7).
 
@@ -85,10 +85,10 @@ A human moves left→right. Each stage names its substrate and its concrete real
 ### Stage 1 — Vow / 回心 (信者 Level 0 entry)
 - **Substrate**: member-signed enrollment (WebAuthn passkey + DID; **no server-held key**, ADR-2605231525). The vow text (悔い改め・バプテスマ・得度) is presented; the human consents and signs.
 - **Triple-permanent commitment** (§1.16.3a) recorded atomically (reuse ADR-2605171800 chain):
-  1. **kotoba**: `app.etzhayyim.membership.commitmentVow` datom (EAVT, content-addressed)
+  1. **kotoba**: `com.etzhayyim.membership.commitmentVow` datom (EAVT, content-addressed)
   2. **IPFS**: pin the vow record → CID
   3. **token**: Adherent SBT (ERC-5192 soulbound, single-per-person) minted, binding the CID
-- **PII** (name, email, contact) → `app.etzhayyim.encrypted.*` envelope (ADR-2605181100), DID-bound. On-chain/public carry **only the commitment fact + CID**, never PII.
+- **PII** (name, email, contact) → `com.etzhayyim.encrypted.*` envelope (ADR-2605181100), DID-bound. On-chain/public carry **only the commitment fact + CID**, never PII.
 - **Real effect**: the human becomes a 信者 (Adherent) at Level 0 — an irreversible content-addressed record (death of the prior self) + a soulbound token (rebirth).
 
 ### Stage 2 — Compute (eligibility + entitlement)
@@ -124,11 +124,11 @@ A human moves left→right. Each stage names its substrate and its concrete real
 
 | NSID | Role | Notes |
 |---|---|---|
-| `app.etzhayyim.membership.commitmentVow` | Stage 1 vow record (primary) | closes ADR-2605302357 Open Q1; fields: `vowTextCid`, `threefold {repentance,baptism,tokudo: bool}`, `kotobaDatomRef`, `ipfsCid`, `sbtRef`, `signature`, `didBound`, `consentTimestamp`; **no PII** (PII in encrypted envelope) |
-| `app.etzhayyim.socialsecurity.entitlement` | Stage 2 output | `stage`, `level`, in-kind entitlements; `cashStipendUsdMicros` **const 0** (N1 proof) |
-| `app.etzhayyim.socialsecurity.metricReport` | Stage 4 aggregate | extends `liberation.metricReport`; aggregate-only, no per-adherent rows (anti-class, ADR-2605301020 §7) |
-| `app.etzhayyim.socialsecurity.outreachPost` | Stage 0/5 | post payload + `adFreeAttest` const true + Charter-Rider scan ref |
-| `app.etzhayyim.socialsecurity.noticeEmail` | Stage 3 | openmail template ref + delivery attest; recipient PII via encrypted envelope only |
+| `com.etzhayyim.membership.commitmentVow` | Stage 1 vow record (primary) | closes ADR-2605302357 Open Q1; fields: `vowTextCid`, `threefold {repentance,baptism,tokudo: bool}`, `kotobaDatomRef`, `ipfsCid`, `sbtRef`, `signature`, `didBound`, `consentTimestamp`; **no PII** (PII in encrypted envelope) |
+| `com.etzhayyim.socialsecurity.entitlement` | Stage 2 output | `stage`, `level`, in-kind entitlements; `cashStipendUsdMicros` **const 0** (N1 proof) |
+| `com.etzhayyim.socialsecurity.metricReport` | Stage 4 aggregate | extends `liberation.metricReport`; aggregate-only, no per-adherent rows (anti-class, ADR-2605301020 §7) |
+| `com.etzhayyim.socialsecurity.outreachPost` | Stage 0/5 | post payload + `adFreeAttest` const true + Charter-Rider scan ref |
+| `com.etzhayyim.socialsecurity.noticeEmail` | Stage 3 | openmail template ref + delivery attest; recipient PII via encrypted envelope only |
 
 All quantities integer-with-implied-units (no float; ADR-2605190900). `additionalProperties: false` schema closure.
 
@@ -147,7 +147,7 @@ All cross-substrate access goes **only via `@etzhayyim/sdk`** (ADR-2605172000): 
 - **G3** **No platform-held signing key** (ADR-2605231525) — every member action member-signed (passkey/wallet); operator DID only for read-only/bulk-ingest/postage per documented tiers.
 - **G4** Murakumo-only inference (ADR-2605215000, loopback gateway).
 - **G5** Mailer **opt-in + consent-gated + non-vexatious** — no unsolicited mass mail, unsubscribe honored, rate-limited (no agency/inbox DoS).
-- **G6** PII only in `app.etzhayyim.encrypted.*` DID-bound envelopes (ADR-2605181100); all on-chain/public artifacts PII-free.
+- **G6** PII only in `com.etzhayyim.encrypted.*` DID-bound envelopes (ADR-2605181100); all on-chain/public artifacts PII-free.
 - **G7** **No advertising / no third-party tracker / no microtargeted outreach** (ADR-2605192115) — broadcast + pull only.
 - **G8** N1 cash≡0 — entitlement in-kind; `cashStipendUsdMicros` const 0 in every entitlement/metric record.
 - **G9** N4/N7 preserved — benefits adherent-gated (delivery only post-vow); non-adherents receive only public-good outputs; **outreach is an open invitation, never a benefit**.
@@ -158,7 +158,7 @@ All cross-substrate access goes **only via `@etzhayyim/sdk`** (ADR-2605172000): 
 
 # 6. Implementation surface
 
-- **Lexicons** `00-contracts/lexicons/app/etzhayyim/{membership,socialsecurity}/` (§2).
+- **Lexicons** `00-contracts/lexicons/com/etzhayyim/{membership,socialsecurity}/` (§2).
 - **Cells** `20-actors/magatama/cells/socialsecurity_*/` (§3; path-reserved, R0 no runtime).
 - **Mailer** integrate `50-infra/openmail-postage/` (Postage.sol) + openmail SMTP bridge (ADR-2605172200).
 - **Publish/social** reuse `50-infra/mst-projector/projection/` feed-discover + feed-post membrane (ADR-2605231902); read path migrates to kotoba-kqe at Phase 2.5.

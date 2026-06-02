@@ -165,12 +165,12 @@ The BPMN path also writes `vertex_agent_dispatch_ledger` keyed by
 
 ## macOS launchd
 
-Use `ops/local-agent/app.etzhayyim.agent-daemon.plist.example` as the template.
+Use `ops/local-agent/com.etzhayyim.agent-daemon.plist.example` as the template.
 The plist calls the `magatama-agent-daemon` console script directly and the
 CLI loads `ops/local-agent/agent-daemon.env`.
 
 The dedicated local Zeebe worker uses the `magatama-agent-zeebe-worker` console
-script directly through the `ops/local-agent/app.etzhayyim.agent-zeebe-worker.plist.example`
+script directly through the `ops/local-agent/com.etzhayyim.agent-zeebe-worker.plist.example`
 template. The shell scripts remain as compatibility wrappers, but launchd does
 not depend on them.
 
@@ -183,7 +183,7 @@ ops/local-agent/install-launchd-agent.sh
 Logs:
 
 ```bash
-tail -f /tmp/app.etzhayyim.agent-daemon.out.log /tmp/app.etzhayyim.agent-daemon.err.log
+tail -f /tmp/com.etzhayyim.agent-daemon.out.log /tmp/com.etzhayyim.agent-daemon.err.log
 ```
 
 Live organism status:
@@ -209,7 +209,7 @@ Open `http://127.0.0.1:8765`. The WebUI is intentionally read-only in this
 phase. It polls `/api/status` and renders organism state, homeostasis,
 outcome, learning priors, launchd processes, observations, real-world effects,
 and dispatch ledger counts from the same status surface as the CLI.
-Use `ops/local-agent/app.etzhayyim.agent-status-web.plist.example` when the WebUI
+Use `ops/local-agent/com.etzhayyim.agent-status-web.plist.example` when the WebUI
 should stay resident under launchd.
 
 ERC-8004 local registration draft:
@@ -268,8 +268,8 @@ ZEEBE_GATEWAY=127.0.0.1:26500
 Then restart:
 
 ```bash
-launchctl stop app.etzhayyim.agent-daemon
-launchctl start app.etzhayyim.agent-daemon
+launchctl stop com.etzhayyim.agent-daemon
+launchctl start com.etzhayyim.agent-daemon
 ```
 
 Stop and remove the LaunchAgent:

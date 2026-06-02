@@ -16,7 +16,7 @@ from pymagatama.db_sync import sync_cursor
 
 
 PDS_DID = "did:web:atproto.etzhayyim.com"
-KEY_ROTATION_COLLECTION = "app.etzhayyim.apps.pds.keyRotation"
+KEY_ROTATION_COLLECTION = "com.etzhayyim.apps.pds.keyRotation"
 DEFAULT_TIMEOUT_SEC = 60.0
 
 

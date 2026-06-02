@@ -124,7 +124,7 @@ def generate_copy(state: ProposalState) -> dict[str, Any]:
 
 def _envelope_content(state: ProposalState, envelope_key: str, legacy_key: str) -> str:
     """Phase E2: extract content from {envelope_key}.result.content (when the
-    upstream node is mcp_tool app.etzhayyim.tools.llm.chat) and fall back to
+    upstream node is mcp_tool com.etzhayyim.tools.llm.chat) and fall back to
     state.<legacy_key> if the envelope is absent (v1 path / direct unit
     test seeding). Returns '' if neither is set."""
     envelope = state.get(envelope_key)
@@ -189,7 +189,7 @@ def store_proposal(state: ProposalState) -> dict[str, Any]:
                 ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                 """,
                 (
-                    f"at://{WEBMK_DID}/app.etzhayyim.apps.webmk.proposal/{proposal_id}",
+                    f"at://{WEBMK_DID}/com.etzhayyim.apps.webmk.proposal/{proposal_id}",
                     proposal_id,
                     WEBMK_DID,
                     "proposal",

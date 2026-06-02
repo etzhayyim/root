@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yamabiko.trainsetManufactureRecord"
+ :id "com.etzhayyim.yamabiko.trainsetManufactureRecord"
  :defs
  {:main
   {:type "record"

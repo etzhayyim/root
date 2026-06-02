@@ -1,7 +1,7 @@
 # himotoki disclosure-target registry — Verification Workflow (G14)
 
 Per ADR-2605302130 §2 + §4 (G14 verified-target-only dispatch). Every
-`app.etzhayyim.himotoki.disclosureTarget` entry in `targets.seed.json` ships
+`com.etzhayyim.himotoki.disclosureTarget` entry in `targets.seed.json` ships
 `verificationStatus = unverified-seed` and **no live disclosure request
 (`himotoki_dispatch`) may run against an unverified-seed or stale entry**. This
 file documents how an entry is moved through the three tiers — the human/Council

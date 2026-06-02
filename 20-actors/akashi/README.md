@@ -1,7 +1,7 @@
 # akashi (証) — Public Ad-Disclosure Transparency Actor
 
 **DID**: `did:web:akashi.etzhayyim.com`
-**Namespace**: `app.etzhayyim.akashi.*`
+**Namespace**: `com.etzhayyim.akashi.*`
 **ADR**: ADR-2606022300 (R0 scaffold)
 **Status**: R0 design scaffold (2026-06-02)
 
@@ -70,7 +70,7 @@ fixtures, or collection jobs yet. See:
 - `adapters/dry_run_fixtures.py` — local fixture dry-run CLI; no network access
   and no writes
 - `fixtures/dry_run/summary.golden.json` — dry-run summary regression fixture
-- `/00-contracts/lexicons/app/etzhayyim/akashi/` — 10 lexicon skeletons
+- `/00-contracts/lexicons/com/etzhayyim/akashi/` — 10 lexicon skeletons
 
 ## Immutable Gates
 

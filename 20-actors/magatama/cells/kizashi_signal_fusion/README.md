@@ -11,4 +11,4 @@ Per ADR-2605312700. R0 scaffold — `cell.py` raises at import time until R1
 - **Murakumo node (proposed)**: gad
 - **Gates**: G2 (biometric = 要配慮 PII, encrypted I/O) + G10 (only ledgered modalities fused) + G14 (Murakumo-only)
 - **Output**: transient fused feature vector (consumed by kizashi_attribution)
-- **Ceiling**: ENCRYPTED-ENVELOPE (G2, app.etzhayyim.encrypted.*, ADR-2605181100; no plaintext biometric flow) · Murakumo-only inference (ADR-2605215000)
+- **Ceiling**: ENCRYPTED-ENVELOPE (G2, com.etzhayyim.encrypted.*, ADR-2605181100; no plaintext biometric flow) · Murakumo-only inference (ADR-2605215000)

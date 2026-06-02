@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yamabiko.acousticEmissionsAuditRecord"
+ :id "com.etzhayyim.yamabiko.acousticEmissionsAuditRecord"
  :defs
  {:main
   {:type "record"

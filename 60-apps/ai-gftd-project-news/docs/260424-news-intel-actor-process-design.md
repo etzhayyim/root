@@ -4,14 +4,14 @@ Date: 2026-04-24
 
 ## Goal
 
-`news.etzhayyim.com` publishes global news as intel, not commodity summaries. The actor process prioritizes primary and official sources, extracts factual claims, scores provenance, records an `app.etzhayyim.apps.intel.report`, and publishes an attributed writer-DID post only when confidence and priority pass gate thresholds.
+`news.etzhayyim.com` publishes global news as intel, not commodity summaries. The actor process prioritizes primary and official sources, extracts factual claims, scores provenance, records an `com.etzhayyim.apps.intel.report`, and publishes an attributed writer-DID post only when confidence and priority pass gate thresholds.
 
 ## Architecture
 
-- LangServer process: `etzhayyim-root/00-contracts/bpmn/ai/gftd/news/intelBrief.bpmn`
+- LangServer process: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/news/intelBrief.bpmn`
 - UDF scoring: `news_source_credibility` and `news_intel_priority`
-- XRPC/MCP commands: `app.etzhayyim.apps.news.listIntelSources`, `analyzeIntel`, `publishIntel`
-- Intel record: `app.etzhayyim.apps.intel.report`
+- XRPC/MCP commands: `com.etzhayyim.apps.news.listIntelSources`, `analyzeIntel`, `publishIntel`
+- Intel record: `com.etzhayyim.apps.intel.report`
 - Publisher identity: `did:web:news.etzhayyim.com:writer:{sourceId}`
 
 ## Flow

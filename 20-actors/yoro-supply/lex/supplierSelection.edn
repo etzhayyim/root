@@ -1,7 +1,7 @@
-;; app.etzhayyim.yorosupply.supplierSelection — lexicon (EDN form)
+;; com.etzhayyim.yorosupply.supplierSelection — lexicon (EDN form)
 ;; ADR-2605250850 · Phase 2 — supplier selection results per BOM
 {:lexicon 1
- :id "app.etzhayyim.yorosupply.supplierSelection"
+ :id "com.etzhayyim.yorosupply.supplierSelection"
  :defs
  {:main
   {:type "record"

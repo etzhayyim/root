@@ -25,7 +25,7 @@ Validates each example against its kizashi lexicon AND the structural gates.
 ```bash
 python3 - <<'PY'
 import json, glob, os
-LEX='00-contracts/lexicons/app/etzhayyim/kizashi'
+LEX='00-contracts/lexicons/com/etzhayyim/kizashi'
 EX='20-actors/kizashi/registry/examples'
 def rec(n): return json.load(open(f'{LEX}/{n}.json'))['defs']['main']['record']
 ok=True

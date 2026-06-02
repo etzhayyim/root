@@ -95,8 +95,8 @@ Removal of the gate requires:
 
 ## Lexicon namespace
 
-`app.etzhayyim.pharma.*` — 8 lexicons under
-[`00-contracts/lexicons/app/etzhayyim/pharma/`](../../00-contracts/lexicons/app/etzhayyim/pharma/):
+`com.etzhayyim.pharma.*` — 8 lexicons under
+[`00-contracts/lexicons/com/etzhayyim/pharma/`](../../00-contracts/lexicons/com/etzhayyim/pharma/):
 
 | Lexicon | Phase | Encryption |
 |---|---|---|

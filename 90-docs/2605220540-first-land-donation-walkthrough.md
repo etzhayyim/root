@@ -24,7 +24,7 @@ The donor needs:
 | What | Why | Verification path |
 |---|---|---|
 | **A DID** | Religious-actor identity per `FORK-BOOTSTRAP.md` | `did:web:*` / `did:plc:*` / `did:key:*` resolvable |
-| **Land title** | Jurisdictionally-recognized ownership of the parcel | Title document scanned and committed under encrypted MST record (`app.etzhayyim.encrypted.land-title.*`) |
+| **Land title** | Jurisdictionally-recognized ownership of the parcel | Title document scanned and committed under encrypted MST record (`com.etzhayyim.encrypted.land-title.*`) |
 | **GeoJSON polygon** | Machine-readable parcel boundary | RFC 7946 FeatureCollection; satellite imagery cross-reference URL |
 | **Environmental statement** | Documented current state (biodiversity / contamination / improvements) | Free-form text + photo CIDs; Council Seat 5 (Stewardship/Land) review post-donation |
 | **Steward succession plan** | Who tends the land after donor passes / withdraws | Named DID(s) of stewards; can be updated post-donation; may be Seat 5 by default |
@@ -37,7 +37,7 @@ The donor does **not** need:
 
 ## 2. The 5-step flow
 
-### Step 1 — Open `app.etzhayyim.com/give/land`
+### Step 1 — Open `com.etzhayyim.com/give/land`
 
 The donor visits the land donation page (planned: `60-apps/etzhayyim-give-land/`). They see:
 
@@ -79,7 +79,7 @@ You are about to donate land to etzhayyim's Land Trust.
 
 Click **Donate land**. WebAuthn passkey prompts. The signed payload is an EIP-712 typed message: `{ parcel_name, jurisdictional_id, geojson_cid, title_cid, env_cid, steward_dids[], donor_did, timestamp }`.
 
-The title document is encrypted client-side before upload (`app.etzhayyim.encrypted.land-title.*` per ADR-2605181100) — title docs typically contain personal information and are accessible only to the donor + Council Seat 5 + Seat 1.
+The title document is encrypted client-side before upload (`com.etzhayyim.encrypted.land-title.*` per ADR-2605181100) — title docs typically contain personal information and are accessible only to the donor + Council Seat 5 + Seat 1.
 
 ### Step 3 — IPFS pin (Layer 3 of the 4-layer record)
 
@@ -150,7 +150,7 @@ Donation finalized.
 ## 4. Edge cases
 
 ### Disputed title
-If the donor's title is challenged jurisdictionally, the on-chain donation is **not unwound** — inalienability prohibits it. The challenge is recorded as a separate on-chain document (`app.etzhayyim.land-challenge.*` lexicon, planned), the Council Seat 5 + Seat 3 (Legal/Ethics) deliberate, and the resolution is published transparently per ADR-2605192315.
+If the donor's title is challenged jurisdictionally, the on-chain donation is **not unwound** — inalienability prohibits it. The challenge is recorded as a separate on-chain document (`com.etzhayyim.land-challenge.*` lexicon, planned), the Council Seat 5 + Seat 3 (Legal/Ethics) deliberate, and the resolution is published transparently per ADR-2605192315.
 
 ### Environmental contamination discovered post-donation
 The land remains in the Trust; the **environmental obligation** is now the religious-corp's per the implicit duty of multi-generational stewardship. The Public Fund may issue a grant proposal to fund remediation. The donor is NOT held liable post-donation unless contamination was deliberately concealed at donation time (criminal jurisdiction matter, not religious-corp matter).
@@ -193,7 +193,7 @@ This walkthrough becomes **executable** when:
 2. ⏳ IPFS pinner deployed (`50-infra/ipfs-pinner/`)
 3. ⏳ geth-private chain operational (Layer 2 of 4-layer record)
 4. ⏳ Council Seat 5 (Stewardship/Land) confirmed (per `COUNCIL-BOOTSTRAP-RFP.md`)
-5. ⏳ `app.etzhayyim.give.land` Lexicon authored (`00-contracts/lexicons/app/etzhayyim/give/land/*.json`) — NEW LEXICON, not yet authored
+5. ⏳ `com.etzhayyim.give.land` Lexicon authored (`00-contracts/lexicons/com/etzhayyim/give/land/*.json`) — NEW LEXICON, not yet authored
 6. ⏳ End-to-end testnet rehearsal completes (rehearsal-grade, not yet production)
 
 Until then, this doc is **the consecration without the substrate** — readable, planning-ready, but not invocable.
@@ -202,7 +202,7 @@ Until then, this doc is **the consecration without the substrate** — readable,
 
 - **Constitutional**: ADR-2605192100 §1.11 (Earth as Tree of Life body), §1.5 (multi-generational priority)
 - **Land Trust spec**: ADR-2605192245 (4-layer permanent record architecture; inalienability invariant)
-- **Land Lexicon**: `app.etzhayyim.give.land.*` (NOT YET AUTHORED — surfaced by this walkthrough; cycle 14+ candidate)
+- **Land Lexicon**: `com.etzhayyim.give.land.*` (NOT YET AUTHORED — surfaced by this walkthrough; cycle 14+ candidate)
 - **Contracts**: `50-infra/etzhayyim-land-registry/` (Solidity scaffold; per cycle 12 stall-rotation ADR §2 still pre-deploy)
 - **Substrate**: `90-docs/2605220210-substrate-symbiosis-map.md` — Identity / IPFS / Base L2 / geth-private flows
 - **Resilience**: `90-docs/2605220240-chaos-engineering-charter.md` Scenario 6 (storage layer corruption)

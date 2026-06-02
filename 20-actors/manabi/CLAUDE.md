@@ -66,7 +66,7 @@ Review queue is parallel; bottleneck mitigated by per-Council-member review allo
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.manabi`
+**App lexicon root**: `com.etzhayyim.manabi`
 
 4 records:
 

@@ -1,7 +1,7 @@
 # watatsumi (綿津見) — Civilian Submersible Manufacturing Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:watatsumi`
-**Namespace**: `app.etzhayyim.watatsumi.*`
+**Namespace**: `com.etzhayyim.watatsumi.*`
 **ADR**: ADR-2605252200 (R0 scaffold), ADR-2605252215 (R1, reserved), ADR-2605252230 (R2, reserved), ADR-2605252245 (R3, reserved)
 **Status**: R0 scaffold (2026-05-25) — all cells import-time RuntimeError
 
@@ -104,7 +104,7 @@ Charter Rider §2(a) + §2(d) + §2(g) + §1.13 + §1.15 constitutional anchors:
 ## Lexicons (8 record types, R0 stubs)
 
 ```
-app.etzhayyim.watatsumi.{
+com.etzhayyim.watatsumi.{
   pressureHullAttestation         # L1
   sectionAssemblyAttestation      # L2
   weldInspectionRecord            # L3

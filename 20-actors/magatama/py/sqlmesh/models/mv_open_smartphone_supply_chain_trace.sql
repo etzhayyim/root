@@ -20,7 +20,7 @@ SELECT
   (value_json::JSONB ->> 'objectRefs') AS object_refs_json,
   value_json AS payload_json
 FROM vertex_repo_commit
-WHERE collection = 'ai.gftd.bpmn.audit'
+WHERE collection = 'com.etzhayyim.bpmn.audit'
   AND (
     (value_json::JSONB ->> 'action') LIKE 'openSmartphone%'
     OR (value_json::JSONB ->> 'action') LIKE 'open-smartphone%'

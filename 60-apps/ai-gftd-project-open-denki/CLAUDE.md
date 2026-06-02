@@ -9,18 +9,18 @@ Apache-2.0. IEC 61968/61970 CIM aligned.
 
 | NSID | Type | Description |
 |---|---|---|
-| `app.etzhayyim.apps.openDenki.defineGenerationNode` | procedure | generation node (solar / wind / hydro / thermal / nuclear / storage) |
-| `app.etzhayyim.apps.openDenki.defineSubstation` | procedure | HV/MV/LV transformer substation |
-| `app.etzhayyim.apps.openDenki.defineFeeder` | procedure | distribution feeder (substation → delivery points) |
-| `app.etzhayyim.apps.openDenki.registerSmartMeter` | procedure | AMI meter (consumption / generation / bidirectional) |
-| `app.etzhayyim.apps.openDenki.recordMeterReading` | procedure | kWh + kW demand reading (monotonic for consumption) |
-| `app.etzhayyim.apps.openDenki.reportFault` | procedure | fault with severity DMN + optional public notice |
-| `app.etzhayyim.apps.openDenki.recordDemandResponse` | procedure | DR event (voluntary / mandatory / emergency) |
-| `app.etzhayyim.apps.openDenki.recordRenewableOutput` | procedure | renewable generation output (solar / wind / hydro / storage only) |
-| `app.etzhayyim.apps.openDenki.getNode` | query | substation or generation node detail |
-| `app.etzhayyim.apps.openDenki.listFeeders` | query | feeders by substation / status |
-| `app.etzhayyim.apps.openDenki.listFaults` | query | faults by feeder / since / minSeverity |
-| `app.etzhayyim.apps.openDenki.listReadings` | query | meter readings by meter / since |
+| `com.etzhayyim.apps.openDenki.defineGenerationNode` | procedure | generation node (solar / wind / hydro / thermal / nuclear / storage) |
+| `com.etzhayyim.apps.openDenki.defineSubstation` | procedure | HV/MV/LV transformer substation |
+| `com.etzhayyim.apps.openDenki.defineFeeder` | procedure | distribution feeder (substation → delivery points) |
+| `com.etzhayyim.apps.openDenki.registerSmartMeter` | procedure | AMI meter (consumption / generation / bidirectional) |
+| `com.etzhayyim.apps.openDenki.recordMeterReading` | procedure | kWh + kW demand reading (monotonic for consumption) |
+| `com.etzhayyim.apps.openDenki.reportFault` | procedure | fault with severity DMN + optional public notice |
+| `com.etzhayyim.apps.openDenki.recordDemandResponse` | procedure | DR event (voluntary / mandatory / emergency) |
+| `com.etzhayyim.apps.openDenki.recordRenewableOutput` | procedure | renewable generation output (solar / wind / hydro / storage only) |
+| `com.etzhayyim.apps.openDenki.getNode` | query | substation or generation node detail |
+| `com.etzhayyim.apps.openDenki.listFeeders` | query | feeders by substation / status |
+| `com.etzhayyim.apps.openDenki.listFaults` | query | faults by feeder / since / minSeverity |
+| `com.etzhayyim.apps.openDenki.listReadings` | query | meter readings by meter / since |
 
 ## Architecture
 

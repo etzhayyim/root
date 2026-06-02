@@ -89,7 +89,7 @@ const e = new Etzhayyim({
 
 // Domain write — replaces SQL INSERT
 const receipt = await e.write({
-  collection: 'app.etzhayyim.apps.openIsco.occupation',  // NSID
+  collection: 'com.etzhayyim.apps.openIsco.occupation',  // NSID
   record: { code: '2511', name: 'Software Developer', major: '2' },
   blobs: { handbookPdf: pdfBlob },  // optional, pinned to IPFS
 });
@@ -97,7 +97,7 @@ const receipt = await e.write({
 
 // Domain read — replaces SQL SELECT
 const occ = await e.read({
-  collection: 'app.etzhayyim.apps.openIsco.occupation',
+  collection: 'com.etzhayyim.apps.openIsco.occupation',
   filter: { major: '2' },     // key-prefix traversal of MST
   limit: 50,
 });

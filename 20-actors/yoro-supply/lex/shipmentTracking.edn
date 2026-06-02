@@ -1,7 +1,7 @@
-;; app.etzhayyim.yorosupply.shipmentTracking — lexicon (EDN form)
+;; com.etzhayyim.yorosupply.shipmentTracking — lexicon (EDN form)
 ;; ADR-2605250850 · Phase 2 — carrier coordination + ETA
 {:lexicon 1
- :id "app.etzhayyim.yorosupply.shipmentTracking"
+ :id "com.etzhayyim.yorosupply.shipmentTracking"
  :defs
  {:main
   {:type "record"

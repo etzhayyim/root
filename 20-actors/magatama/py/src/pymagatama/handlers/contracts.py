@@ -7,10 +7,10 @@ Projects the existing `vertex_legal_entity` (123.5M rows, ingested by
 `60-apps/ai-gftd-project-social-contract/CLAUDE.md`.
 
 Phase 1 surface:
-- `app.etzhayyim.apps.contracts.mintOrganizationDid`      (procedure, DB-only)
-- `app.etzhayyim.apps.contracts.projectFromLegalEntity`    (procedure, batch / per-row)
-- `app.etzhayyim.apps.contracts.ingestSocialContract`      (procedure, fresh HTTP crawl)
-- `app.etzhayyim.apps.contracts.resolveOrganization`       (query)
+- `com.etzhayyim.apps.contracts.mintOrganizationDid`      (procedure, DB-only)
+- `com.etzhayyim.apps.contracts.projectFromLegalEntity`    (procedure, batch / per-row)
+- `com.etzhayyim.apps.contracts.ingestSocialContract`      (procedure, fresh HTTP crawl)
+- `com.etzhayyim.apps.contracts.resolveOrganization`       (query)
 
 Law full-text corpus (statute / article / treaty full-text) is scope of
 the `houbun.etzhayyim.com` actor, not this handler — see ADR-0052.
@@ -123,7 +123,7 @@ async def _insert_organization_row(pool: Any, row: dict[str, Any]) -> bool:
     """Returns True if a new row was inserted (False on ON CONFLICT)."""
     did = row["did"]
     rkey = _rkey_for_org_did(did)
-    vertex_id = f"at://{did}/app.etzhayyim.apps.contracts.organization/{rkey}"
+    vertex_id = f"at://{did}/com.etzhayyim.apps.contracts.organization/{rkey}"
     now_iso = datetime.now(timezone.utc).isoformat()
     result = await pool.fetchval(
         _INSERT_ORGANIZATION,
@@ -236,7 +236,7 @@ def _row_to_projection(le_row: dict[str, Any] | Any) -> dict[str, Any]:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.contracts.mintOrganizationDid",
+    nsid="com.etzhayyim.apps.contracts.mintOrganizationDid",
     io_threads=50,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -262,7 +262,7 @@ async def mint_organization_did(params_json: str) -> str:
         return json.dumps({"error": "legalEntityVertexId required"})
     project_row = bool(params.get("projectRow", True))
 
-    ctx = Context(nsid="app.etzhayyim.apps.contracts.mintOrganizationDid")
+    ctx = Context(nsid="com.etzhayyim.apps.contracts.mintOrganizationDid")
     row = await ctx.db.fetchrow(_SELECT_LEGAL_ENTITY_BY_VID, le_vid)
     if row is None:
         return json.dumps({"error": f"legal entity not found: {le_vid}"})
@@ -290,7 +290,7 @@ async def mint_organization_did(params_json: str) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.contracts.projectFromLegalEntity",
+    nsid="com.etzhayyim.apps.contracts.projectFromLegalEntity",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -312,7 +312,7 @@ async def project_from_legal_entity(params_json: str) -> str:
     except json.JSONDecodeError as e:
         return json.dumps({"error": f"invalid JSON: {e}"})
 
-    ctx = Context(nsid="app.etzhayyim.apps.contracts.projectFromLegalEntity")
+    ctx = Context(nsid="com.etzhayyim.apps.contracts.projectFromLegalEntity")
     scanned = 0
     inserted = 0
     skipped = 0
@@ -396,7 +396,7 @@ async def _insert_social_contract_row(pool: Any, row: dict[str, Any]) -> bool:
     # rkey = source:source_record_id keeps the row address stable across re-ingests.
     rkey = f"{source}-{source_record_id}".lower()
     rkey = _NON_ALNUM.sub("-", rkey).strip("-")[:64] or "unknown"
-    vertex_id = f"at://{ACTOR_DID}/app.etzhayyim.apps.contracts.socialContract/{rkey}"
+    vertex_id = f"at://{ACTOR_DID}/com.etzhayyim.apps.contracts.socialContract/{rkey}"
     now_iso = datetime.now(timezone.utc).isoformat()
     result = await pool.fetchval(
         _INSERT_SOCIAL_CONTRACT,
@@ -442,7 +442,7 @@ async def _fetch_constitute_delta(since: str | None, limit: int) -> list[dict[st
 
 
 @udf(
-    nsid="app.etzhayyim.apps.contracts.ingestSocialContract",
+    nsid="com.etzhayyim.apps.contracts.ingestSocialContract",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -471,7 +471,7 @@ async def ingest_social_contract(params_json: str) -> str:
     raw_limit = int(params.get("limit") or 100)
     limit = max(1, min(1000, raw_limit))
 
-    ctx = Context(nsid="app.etzhayyim.apps.contracts.ingestSocialContract")
+    ctx = Context(nsid="com.etzhayyim.apps.contracts.ingestSocialContract")
 
     if source == "un-treaty":
         records = await _fetch_un_treaty_delta(since, limit)
@@ -561,7 +561,7 @@ def _row_to_resolve_dto(r: Any) -> dict[str, Any]:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.contracts.resolveOrganization",
+    nsid="com.etzhayyim.apps.contracts.resolveOrganization",
     io_threads=50,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -585,7 +585,7 @@ async def resolve_organization(params_json: str) -> str:
     limit = max(1, min(100, raw_limit))
     offset = max(0, int(params.get("offset") or 0))
 
-    ctx = Context(nsid="app.etzhayyim.apps.contracts.resolveOrganization")
+    ctx = Context(nsid="com.etzhayyim.apps.contracts.resolveOrganization")
 
     did = params.get("did")
     lei = params.get("lei")

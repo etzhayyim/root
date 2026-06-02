@@ -127,7 +127,7 @@ hikari thermal storage (water tank / molten salt)
 ## §6 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   geothermalWellAttestation,                # depth + temp + capacity + open-hardware + hydrogeology baseline
   geothermalProductionRecord,               # 15-min interval thermal output Ed25519-signed
   geothermalNormDispositionRecord,          # NORM concentration + containment plan + audit

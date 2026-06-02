@@ -98,12 +98,12 @@ Acceptance per file:
 ## Cutover plan
 
 1. Migrate all 13 workers to `open_substrate_writer()` (above).
-2. Land lexicons `app.etzhayyim.apps.maps.{label}` for the 51 node labels
+2. Land lexicons `com.etzhayyim.apps.maps.{label}` for the 51 node labels
    currently projected onto `vertex_spatial` (Spot, Place, Airport,
    Railway, SeaRoute, BusRoute, Port, Station, BusStop, Parking,
    EvCharger, River, Lake, Coastline, Mountain, MaritimeZone,
    AdminArea, Building, BuildingFloor, PhysicalAsset, …). Several
-   already exist under `00-contracts/lexicons/ai/gftd/apps/maps/`;
+   already exist under `00-contracts/lexicons/com/etzhayyim/apps/maps/`;
    the rest need scaffolds.
 3. Council Lv6+ ratifies the cutover; operator sets
    `ETZHAYYIM_SUBSTRATE_MODE=mst` on the k8s `maps-bulk-ingest` pod

@@ -143,7 +143,7 @@ def main() -> int:
                 """
                 SELECT vertex_id, document_vid
                 FROM vertex_domain_knowledge_chunk
-                WHERE document_vid LIKE 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-%'
+                WHERE document_vid LIKE 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-%'
                 """
             )
             chunk_by_doc = {str(doc): str(chunk) for chunk, doc in cur.fetchall()}
@@ -160,13 +160,13 @@ def main() -> int:
                 if slug_tail.startswith(("pokemon-", "item-", "habitat-", "building-")):
                     doc_suffix = slug_tail
                 elif slug_tail == "chigo-berry":
-                    doc_vid = f"at://{OWNER_DID}/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-chigo-berry"
+                    doc_vid = f"at://{OWNER_DID}/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-chigo-berry"
                     chunk_vid = chunk_by_doc.get(doc_vid, f"{doc_vid}/chunk-1")
                     doc_suffix = ""
                 else:
                     doc_suffix = f"{kind}-{slug_tail}"
                 if doc_suffix:
-                    doc_vid = f"at://{OWNER_DID}/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-{doc_suffix}"
+                    doc_vid = f"at://{OWNER_DID}/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-{doc_suffix}"
                     chunk_vid = chunk_by_doc.get(doc_vid, f"{doc_vid}/chunk/000")
                 for alias, score, source in build_aliases(entity):
                     norm = normalize(alias)

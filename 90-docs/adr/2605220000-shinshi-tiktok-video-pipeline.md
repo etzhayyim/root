@@ -256,7 +256,7 @@ Daily target: 247 models × 1 clip = 247 clips。LAN GPU 1 枚 24h で
 
 ## Implementation outline (follow-up)
 
-1. **Lexicon JSON** を 4 件作成 (`00-contracts/lexicons/ai/gftd/apps/shinshi/`):
+1. **Lexicon JSON** を 4 件作成 (`00-contracts/lexicons/com/etzhayyim/apps/shinshi/`):
    - `videoTikTokGenerate.json` (procedure, input: slug + style + duration)
    - `videoTikTokGet.json` (query, input: postUri)
    - `videoTikTokScript.json` (record schema, 5-shot script payload)

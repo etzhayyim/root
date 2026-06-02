@@ -21,12 +21,12 @@
 
 | Kind | AT Collection NSID | 説明 |
 |---|---|---|
-| `obebe.brand` | `app.etzhayyim.apps.obebe.brand` | ブランド |
-| `obebe.product` | `app.etzhayyim.apps.obebe.product` | 商品 |
-| `obebe.collection` | `app.etzhayyim.apps.obebe.collection` | シーズンコレクション |
-| `obebe.atelier` | `app.etzhayyim.apps.obebe.atelier` | アトリエ/ブティック |
-| `obebe.entity_did` | `app.etzhayyim.apps.obebe.entity_did` | Entity DID 登録 |
-| `obebe.source` | `app.etzhayyim.apps.obebe.source` | データソース |
+| `obebe.brand` | `com.etzhayyim.apps.obebe.brand` | ブランド |
+| `obebe.product` | `com.etzhayyim.apps.obebe.product` | 商品 |
+| `obebe.collection` | `com.etzhayyim.apps.obebe.collection` | シーズンコレクション |
+| `obebe.atelier` | `com.etzhayyim.apps.obebe.atelier` | アトリエ/ブティック |
+| `obebe.entity_did` | `com.etzhayyim.apps.obebe.entity_did` | Entity DID 登録 |
+| `obebe.source` | `com.etzhayyim.apps.obebe.source` | データソース |
 
 ## SQL Graph Schema
 

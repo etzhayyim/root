@@ -293,7 +293,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.ge.createOrg")
+    @worker.task(task_type="com.etzhayyim.apps.ge.createOrg")
     async def task_create_org(**kwargs):
         return await asyncio.to_thread(
             _create_org_sync,
@@ -304,7 +304,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.ge.listOrgs")
+    @worker.task(task_type="com.etzhayyim.apps.ge.listOrgs")
     async def task_list_orgs(**kwargs):
         return await asyncio.to_thread(
             _list_orgs_sync,
@@ -314,7 +314,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.ge.createProject")
+    @worker.task(task_type="com.etzhayyim.apps.ge.createProject")
     async def task_create_project(**kwargs):
         return await asyncio.to_thread(
             _create_project_sync,
@@ -325,7 +325,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.ge.listProjects")
+    @worker.task(task_type="com.etzhayyim.apps.ge.listProjects")
     async def task_list_projects(**kwargs):
         return await asyncio.to_thread(
             _list_projects_sync,
@@ -335,7 +335,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.ge.assignResource")
+    @worker.task(task_type="com.etzhayyim.apps.ge.assignResource")
     async def task_assign_resource(**kwargs):
         return await asyncio.to_thread(
             _assign_resource_sync,
@@ -346,7 +346,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.ge.listResources")
+    @worker.task(task_type="com.etzhayyim.apps.ge.listResources")
     async def task_list_resources(**kwargs):
         return await asyncio.to_thread(
             _list_resources_sync,
@@ -356,7 +356,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.ge.getOrgMetrics")
+    @worker.task(task_type="com.etzhayyim.apps.ge.getOrgMetrics")
     async def task_get_org_metrics(**kwargs):
         return await asyncio.to_thread(
             _get_org_metrics_sync,
@@ -364,7 +364,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.ge.planWorkforce")
+    @worker.task(task_type="com.etzhayyim.apps.ge.planWorkforce")
     async def task_plan_workforce(**kwargs):
         return await asyncio.to_thread(
             _plan_workforce_sync,

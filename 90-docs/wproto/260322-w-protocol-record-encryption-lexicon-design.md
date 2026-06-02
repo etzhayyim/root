@@ -31,8 +31,8 @@ W Protocol は **3 層の書き込み API** を提供する。各 API は異な�
 | API | 用途 | AT Lexicon | 暗号化 | 可視性 |
 |---|---|---|---|---|
 | **`ATPost`** | Social (投稿/Like/Follow) | `app.bsky.*` | **Plaintext** | **Public** (Bluesky federation) |
-| **`WRecord`** | Domain data write | `app.etzhayyim.apps.*` | **Plaintext** | **App-scoped** (org_id RLS) |
-| **`WSend`** | Channel messaging | `app.etzhayyim.messaging.*/app.etzhayyim.signal.*/app.etzhayyim.matrix.*` | **Channel 依存** | **Channel members** |
+| **`WRecord`** | Domain data write | `com.etzhayyim.apps.*` | **Plaintext** | **App-scoped** (org_id RLS) |
+| **`WSend`** | Channel messaging | `com.etzhayyim.messaging.*/com.etzhayyim.signal.*/com.etzhayyim.matrix.*` | **Channel 依存** | **Channel members** |
 
 **禁止**: `WSend` を social post に使用。`WRecord` を private messaging に使用。
 
@@ -57,22 +57,22 @@ W Protocol は **3 層の書き込み API** を提供する。各 API は異な�
 
 | Namespace | Kind prefix | 暗号化 | 可視性 | 用途 |
 |---|---|---|---|---|
-| `app.etzhayyim.messaging.*/app.etzhayyim.signal.*/app.etzhayyim.matrix.*` | `message`, `channel`, `member`, ... | **Channel 依存** | Channel members | Messaging, Signal session |
+| `com.etzhayyim.messaging.*/com.etzhayyim.signal.*/com.etzhayyim.matrix.*` | `message`, `channel`, `member`, ... | **Channel 依存** | Channel members | Messaging, Signal session |
 | `wproto.convo.*` | `conversation-message` | **Signal E2E** | Agent pair | Agent 間通信 |
-| `app.etzhayyim.governance.*` | `governance-*` | Plaintext | Org-internal | RACI, risk, data classification |
-| `app.etzhayyim.contract.*` | `contract-*` | Plaintext | Org-internal | 法的根拠, agreements |
-| `app.etzhayyim.consent.*` | `consent-*` | Plaintext (VC/VP metadata) | Identity-scoped | Cross-app data sharing |
-| `app.etzhayyim.rbac.*` | `rbac-*` | Plaintext | Org-internal | RBAC roles/assignments |
-| `app.etzhayyim.audit.*` | `audit-*` | Plaintext | Auditor | Compliance log, OCEL |
-| `app.etzhayyim.dm2.*` | `dm2-*` | Plaintext | Org-internal | DoDAF DM2 topology |
-| `app.etzhayyim.identity.*` | `identity-*` | Plaintext | Public (federation) | ActorCard, capabilities |
-| `app.etzhayyim.apps.*` | `{domain}.{record}` | **Plaintext** | App-scoped (RLS) | App domain data |
+| `com.etzhayyim.governance.*` | `governance-*` | Plaintext | Org-internal | RACI, risk, data classification |
+| `com.etzhayyim.contract.*` | `contract-*` | Plaintext | Org-internal | 法的根拠, agreements |
+| `com.etzhayyim.consent.*` | `consent-*` | Plaintext (VC/VP metadata) | Identity-scoped | Cross-app data sharing |
+| `com.etzhayyim.rbac.*` | `rbac-*` | Plaintext | Org-internal | RBAC roles/assignments |
+| `com.etzhayyim.audit.*` | `audit-*` | Plaintext | Auditor | Compliance log, OCEL |
+| `com.etzhayyim.dm2.*` | `dm2-*` | Plaintext | Org-internal | DoDAF DM2 topology |
+| `com.etzhayyim.identity.*` | `identity-*` | Plaintext | Public (federation) | ActorCard, capabilities |
+| `com.etzhayyim.apps.*` | `{domain}.{record}` | **Plaintext** | App-scoped (RLS) | App domain data |
 
 ### Legacy (後方互換)
 
 | Namespace | 状態 | 移行先 |
 |---|---|---|
-| `app.etzhayyim.w.*` | **Legacy reads only** | Social → `app.bsky.*`、Data → `app.etzhayyim.apps.*`、Messaging → `app.etzhayyim.messaging.*/app.etzhayyim.signal.*/app.etzhayyim.matrix.*` |
+| `com.etzhayyim.w.*` | **Legacy reads only** | Social → `app.bsky.*`、Data → `com.etzhayyim.apps.*`、Messaging → `com.etzhayyim.messaging.*/com.etzhayyim.signal.*/com.etzhayyim.matrix.*` |
 
 ## Encryption Model
 
@@ -110,11 +110,11 @@ W Protocol は **3 層の書き込み API** を提供する。各 API は異な�
 ```
 [ATPost] ──→ app.bsky.feed.post ──→ PDS ──→ AT Record (plaintext) ──→ Firehose (public)
 
-[WRecord] ──→ app.etzhayyim.apps.{domain}.{kind} ──→ PDS ──→ yata Cypher direct (SHA-256 content CID)
+[WRecord] ──→ com.etzhayyim.apps.{domain}.{kind} ──→ PDS ──→ yata Cypher direct (SHA-256 content CID)
 
-[WSend to public channel] ──→ app.etzhayyim.platform.message ──→ Plaintext ──→ Channel members
+[WSend to public channel] ──→ com.etzhayyim.platform.message ──→ Plaintext ──→ Channel members
 
-[WSend to DM channel] ──→ app.etzhayyim.platform.message ──→ Signal E2E ──→ Ciphertext only ──→ Endpoints only
+[WSend to DM channel] ──→ com.etzhayyim.platform.message ──→ Signal E2E ──→ Ciphertext only ──→ Endpoints only
 
 [WCreateDM] ──→ Signal session auto-create ──→ all messages E2E encrypted
 ```
@@ -127,7 +127,7 @@ W Protocol は **3 層の書き込み API** を提供する。各 API は異な�
 公開したい情報?
   ├─ はい → 人に見せる social 投稿?
   │   ├─ はい → ATPost (app.bsky.feed.post)
-  │   └─ いいえ → WRecord (app.etzhayyim.apps.{domain}.{kind})
+  │   └─ いいえ → WRecord (com.etzhayyim.apps.{domain}.{kind})
   │
   └─ いいえ → 特定の相手に送る?
       ├─ 1:1 DM → WCreateDM (Signal E2E 自動)
@@ -140,13 +140,13 @@ W Protocol は **3 層の書き込み API** を提供する。各 API は異な�
 | シナリオ | API | Collection | 暗号化 |
 |---|---|---|---|
 | Victory Royale 通知 | `ATPost("Winner: Alice!")` | `app.bsky.feed.post` | Plaintext (public) |
-| マッチ結果データ | `WRecord("kami.matchResult", data)` | `app.etzhayyim.apps.kami.matchResult` | Plaintext (app-scoped) |
+| マッチ結果データ | `WRecord("kami.matchResult", data)` | `com.etzhayyim.apps.kami.matchResult` | Plaintext (app-scoped) |
 | ランク昇格通知 | `ATPost("Promoted to Diamond!")` | `app.bsky.feed.post` | Plaintext (public) |
-| Ranked profile 更新 | `WRecord("kami.rankedProfile", data)` | `app.etzhayyim.apps.kami.rankedProfile` | Plaintext (app-scoped) |
+| Ranked profile 更新 | `WRecord("kami.rankedProfile", data)` | `com.etzhayyim.apps.kami.rankedProfile` | Plaintext (app-scoped) |
 | Agent 間タスク依頼 | `Invoke("", tool, args)` | `wproto.convo.message` | **Signal E2E** |
-| ユーザーへの DM | `WCreateDM(did, kind, payload, ct)` | `app.etzhayyim.platform.message` | **Signal E2E** |
-| 監査ログ | `WRecord("audit-entry", data)` | `app.etzhayyim.audit.entry` | Plaintext (auditor) |
-| 契約参照 | `WRecord("contract-ref", data)` | `app.etzhayyim.contract.ref` | Plaintext (org) |
+| ユーザーへの DM | `WCreateDM(did, kind, payload, ct)` | `com.etzhayyim.platform.message` | **Signal E2E** |
+| 監査ログ | `WRecord("audit-entry", data)` | `com.etzhayyim.audit.entry` | Plaintext (auditor) |
+| 契約参照 | `WRecord("contract-ref", data)` | `com.etzhayyim.contract.ref` | Plaintext (org) |
 | 個人プロフィール | Auto (`App.Serve()`) | `app.bsky.actor.profile` | Plaintext (public) |
 | Follow 関係 | `Follow(nanoid)` | `app.bsky.graph.follow` | Plaintext (public) |
 
@@ -168,7 +168,7 @@ W Protocol は **3 層の書き込み API** を提供する。各 API は異な�
 magatama.ATPost("New article published: "+title, &magatama.ATPostOpts{
     Embed: &magatama.ATEmbed{
         Type: "app.bsky.embed.external",
-        URI:  "https://app.etzhayyim.com/articles/" + id,
+        URI:  "https://com.etzhayyim.com/articles/" + id,
         Title: title,
     },
 })

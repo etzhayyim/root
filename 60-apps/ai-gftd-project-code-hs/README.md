@@ -13,7 +13,7 @@ Harmonized System (HS) code ベースの国際貿易品目分類 project。
 
 - domain: `hs.etzhayyim.com`
 - primary DID: `did:web:hs.etzhayyim.com`
-- NSID prefix: `app.etzhayyim.apps.hs.*`
+- NSID prefix: `com.etzhayyim.apps.hs.*`
 
 ## References
 

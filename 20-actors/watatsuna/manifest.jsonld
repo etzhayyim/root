@@ -61,16 +61,16 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.cable.registerCableSystem",
-    "app.etzhayyim.cable.registerLandingStation",
-    "app.etzhayyim.cable.registerSegment",
-    "app.etzhayyim.cable.flagCableFault"
+    "com.etzhayyim.cable.registerCableSystem",
+    "com.etzhayyim.cable.registerLandingStation",
+    "com.etzhayyim.cable.registerSegment",
+    "com.etzhayyim.cable.flagCableFault"
   ],
   "supersedesLexicons": [
-    "app.etzhayyim.apps.telecom.registerSubmarineCableSystem",
-    "app.etzhayyim.apps.telecom.recordSubmarineCableRepair",
-    "app.etzhayyim.apps.telecomInfra.registerCable",
-    "app.etzhayyim.apps.telecomInfra.flagCableFault"
+    "com.etzhayyim.apps.telecom.registerSubmarineCableSystem",
+    "com.etzhayyim.apps.telecom.recordSubmarineCableRepair",
+    "com.etzhayyim.apps.telecomInfra.registerCable",
+    "com.etzhayyim.apps.telecomInfra.flagCableFault"
   ],
   "display": {
     "did": "did:web:etzhayyim.com:actor:watatsuna",

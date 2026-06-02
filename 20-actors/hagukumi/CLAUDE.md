@@ -22,7 +22,7 @@ respite_support ──────┘
 meal_delivery (aggregate-only attestation; mitsuho-sourced)
 ```
 
-Each cell = 1 Pregel graph. Cells communicate via lexicon records on MST (`app.etzhayyim.hagukumi.*`).
+Each cell = 1 Pregel graph. Cells communicate via lexicon records on MST (`com.etzhayyim.hagukumi.*`).
 
 ## Privacy Invariant (CRITICAL)
 
@@ -52,7 +52,7 @@ Key enforcement notes:
 - **G4** (Caregiver Council vetting): On-chain caregiver registry; sessions REJECT if caregiver DID not in attested registry with current `caregiverAttestation` record.
 - **G9** (Human-in-loop): Yutori/Hitogata sessions require co-attestation by synchronous human caregiver DID at session start + every 30 min.
 - **G10** (Caregiver work cap): On-chain caregiver work-log; cell logic rejects new session if caregiver shows >12 hr cumulative in past 24 hr or <12 hr recovery since last session.
-- **G11** (Emergency escalation): mitate G5 emergency keyword set is shared lexicon (`app.etzhayyim.mitate.emergencyKeyword`); any care-session match triggers immediate mitate XRPC POST.
+- **G11** (Emergency escalation): mitate G5 emergency keyword set is shared lexicon (`com.etzhayyim.mitate.emergencyKeyword`); any care-session match triggers immediate mitate XRPC POST.
 - **G14** (Multi-gen ratio): Quarterly Council audit; `silenCareReview.cohortRatio` field tracks ratio.
 
 ## Non-Goals (N1–N10) — EXCLUDED from R0–R3
@@ -62,7 +62,7 @@ Key enforcement notes:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.hagukumi`
+**App lexicon root**: `com.etzhayyim.hagukumi`
 
 4 records (R0 stubs; full schemas R1+):
 

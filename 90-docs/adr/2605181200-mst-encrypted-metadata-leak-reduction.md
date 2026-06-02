@@ -48,7 +48,7 @@ This ADR addresses (1) and (2) — the two leaks the SDK can fix unilaterally wi
 
 ## Padding (ciphertext size leak)
 
-All `app.etzhayyim.encrypted.record` ciphertexts MUST be padded before AEAD encryption such that the resulting ciphertext length lands in one of the bucket sizes:
+All `com.etzhayyim.encrypted.record` ciphertexts MUST be padded before AEAD encryption such that the resulting ciphertext length lands in one of the bucket sizes:
 
 | Bucket | Inline cap (ciphertext bytes) |
 |---|---|

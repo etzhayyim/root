@@ -40,7 +40,7 @@ ADR-2604231811 で定めた 15-Layer Taxonomy でも Layer 1 (PDS) と Layer 2 (
 
 ```
 Browser / @atproto/api
-   ↓ XRPC (app.bsky.* / com.atproto.* / app.etzhayyim.*)
+   ↓ XRPC (app.bsky.* / com.atproto.* / com.etzhayyim.*)
 atproto.etzhayyim.com  ← PDS + Entryway (OAuth AS)
    │ (内部 service binding, 無効化中)
    └─ APPVIEW_SERVICE → yoro AppView Worker
@@ -176,9 +176,9 @@ Browser
    │
    ├─ com.atproto.* write → atproto.etzhayyim.com (PDS)
    ├─ OAuth flow         → atproto.etzhayyim.com (Entryway)
-   ├─ app.etzhayyim.vault.*    → atproto.etzhayyim.com → VAULT_SERVICE
-   ├─ app.etzhayyim.signal.*   → atproto.etzhayyim.com → signal.etzhayyim.com
-   └─ app.etzhayyim.convo.*    → atproto.etzhayyim.com (Chat service)
+   ├─ com.etzhayyim.vault.*    → atproto.etzhayyim.com → VAULT_SERVICE
+   ├─ com.etzhayyim.signal.*   → atproto.etzhayyim.com → signal.etzhayyim.com
+   └─ com.etzhayyim.convo.*    → atproto.etzhayyim.com (Chat service)
 
 yoro.etzhayyim.com (Svelte SPA only, no /xrpc/* route)
 ```
@@ -451,7 +451,7 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 
 - RisingWave graph DB は共有したまま (PDS write → MV → AppView read)。
   schema / migration 責務は graph 側で一元管理
-- app.etzhayyim.*/chat.bsky.convo.* / app.etzhayyim.vault.* / app.etzhayyim.signal.* 等の
+- com.etzhayyim.*/chat.bsky.convo.* / com.etzhayyim.vault.* / com.etzhayyim.signal.* 等の
   non-bsky namespace は **atproto.etzhayyim.com に残す** (Layer 1 PDS + Layer 7 Chat
   + Layer 11 Key Directory + Layer 12 Secret Vault の pipethrough target)。
   本 ADR は `app.bsky.*` のみ AppView に分離

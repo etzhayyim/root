@@ -40,7 +40,7 @@ eligibility_match ──┤→ intake → guide → draft → (member self-submi
   appeals route to **chigiri + licensed counsel**; tax routes to **toritate**
   (G5 — the critical gate for this actor).
 - **Do not** store member PII / 申請内容 / 結果 anywhere except an
-  `app.etzhayyim.encrypted.*` XChaCha20-Poly1305 DID-bound envelope (G6,
+  `com.etzhayyim.encrypted.*` XChaCha20-Poly1305 DID-bound envelope (G6,
   ADR-2605181100). **Never** plaintext PII on MST.
 - **Do not** invent 手続き / 様式 / 根拠法令 / 手数料 / 期限; every `procedure`
   cites 根拠法令 + `provenance`, and the member always confirms before any

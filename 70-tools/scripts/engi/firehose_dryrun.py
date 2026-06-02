@@ -88,7 +88,7 @@ if __name__ == "__main__":
          "rkey": "3k1", "op": "create", "recordCid": "bafy1"},
         {"seq": 2, "did": "did:plc:alice", "collection": "app.bsky.graph.follow",
          "rkey": "3k2", "op": "create", "recordCid": "bafy2"},
-        {"seq": 3, "did": "did:plc:bob", "collection": "app.etzhayyim.engi.dep",
+        {"seq": 3, "did": "did:plc:bob", "collection": "com.etzhayyim.engi.dep",
          "rkey": "3k3", "op": "create", "recordCid": "bafy3"},
         {"seq": 4, "did": "did:plc:alice", "collection": "app.bsky.feed.post",
          "rkey": "3k4", "op": "create", "recordCid": "bafy4"},   # not a graph edge → ignored

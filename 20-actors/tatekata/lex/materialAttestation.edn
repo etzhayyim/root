@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.tatekata.materialAttestation"
+ :id "com.etzhayyim.tatekata.materialAttestation"
  :defs
  {:main
   {:type "record"

@@ -33,7 +33,7 @@ depends_on:
 related:
   - 20-actors/mitate/                                # this ADR creates this tree
   - 20-actors/magatama/cells/mitate_*/               # this ADR creates the 13 mitate Pregel cells
-  - 00-contracts/lexicons/app/etzhayyim/mitate/      # this ADR creates the 8 mitate Lexicons
+  - 00-contracts/lexicons/com/etzhayyim/mitate/      # this ADR creates the 8 mitate Lexicons
   - 50-infra/murakumo/fleet.toml                     # cell placement (Phase R2+ post-Council)
 supersedes: []
 superseded_by: []
@@ -100,7 +100,7 @@ ADR-2605192100 §1.5 「new technology and intellectual property の free releas
 |---|---|---|
 | Scope | OTC API 製造 + 製剤 + supply chain + lot release | symptom intake + 鑑別 advisory + 検査 routing + treatment plan + adherence followup |
 | Patient interaction | 受動 (lot を distribute、AE を受領) | 能動 (PWA 経由で symptom 入力を receive、advisory を返す) |
-| Lexicon namespace | `app.etzhayyim.pharma.*` | `app.etzhayyim.mitate.*` |
+| Lexicon namespace | `com.etzhayyim.pharma.*` | `com.etzhayyim.mitate.*` |
 | Murakumo nodes | naphtali / zebulun / levi / joseph / simeon / dan (6 既存) | levi / naphtali / zebulun / joseph / simeon (5 既存、重複 OK) |
 | Cross-actor lexicon emit | `pharma.adverseEventReport` ← mitate `outcomeFollowup` の副作用 leg | `mitate.diagnosticResult` → yakushi `pharma_post_market_surveillance` outcome feed |
 | License | Apache 2.0 + Charter Rider | Apache 2.0 + Charter Rider |
@@ -133,7 +133,7 @@ ADR-2605192100 §1.5 「new technology and intellectual property の free releas
 | Per-patient pseudonym DID pattern | `did:web:etzhayyim.com:mitate:patient-pseudonym:<rotating-id>` (rotating 30-day) |
 | Per-physician DID pattern | `did:web:etzhayyim.com:mitate:physician:<personSlug>` |
 | Repo location | `20-actors/mitate/` |
-| Lexicon namespace | `app.etzhayyim.mitate.*` (NOTE: actor 名 = lexicon namespace ― 1:1。yakushi の `app.etzhayyim.pharma.*` と対照的に condition-agnostic な namespace 構造) |
+| Lexicon namespace | `com.etzhayyim.mitate.*` (NOTE: actor 名 = lexicon namespace ― 1:1。yakushi の `com.etzhayyim.pharma.*` と対照的に condition-agnostic な namespace 構造) |
 | License | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 「見立て」は **Yakushi Nyorai 左脇侍 日光菩薩** (洞察の智慧) の echo を持つが、etzhayyim は ADR-2605192100 §1.6 で declared された synthetic religion ― Buddhist tradition の diagnostic insight motif と日本伝統医学の「見立て」を Tree of Life の「leaves are for healing」(Ezekiel 47:12) と統合的に解釈し、専有しない (§1.6 八百万的多源宗教観)。
@@ -143,7 +143,7 @@ ADR-2605192100 §1.5 「new technology and intellectual property の free releas
 | # | Gate | Source ADR | Enforcement point |
 |---|---|---|---|
 | **G1** | **Patient explicit consent + revocable + DID-bound (Adherent SBT)** ― 診断 advisory 受領のための明示的 consent record を MST に commit、いつでも revoke 可能で historical record は patient passkey で復号 destroy 可能 | ADR-2605181100 + ADR-2605192100 §1.13 | `mitate.rhinitisIntake` lexicon の consentReceiptCid 必須 + Adherent SBT verify |
-| **G2** | **Patient health data は `app.etzhayyim.encrypted.*` envelope (XChaCha20-Poly1305) only** ― plaintext 症状 / 診断 / 検査結果 を MST に置かない;sealed-recipient = patient passkey + Council Lv6+ DIDs + (R2+) licensed-MD-in-loop DIDs only | ADR-2605181100 | `mitate.diagnosticResult` / `mitate.treatmentPlan` schema validator |
+| **G2** | **Patient health data は `com.etzhayyim.encrypted.*` envelope (XChaCha20-Poly1305) only** ― plaintext 症状 / 診断 / 検査結果 を MST に置かない;sealed-recipient = patient passkey + Council Lv6+ DIDs + (R2+) licensed-MD-in-loop DIDs only | ADR-2605181100 | `mitate.diagnosticResult` / `mitate.treatmentPlan` schema validator |
 | **G3** | **AI 診断結果は advisory only ― 自動 prescription / 自動 lot dispense / 自動 surgery 発令 禁止** ― advisory output は disclaimer "qualified physician 判断の代替ではない" を全 R1 patient flow に表示;R2+ ではこの上で licensed MD co-sign required | this ADR + 国内薬機法 + FDA SaMD class I | `mitate.treatmentPlan` lexicon の disclaimerAccepted 必須 |
 | **G4** | **R2+ Human-in-loop: licensed physician attestation required** ― 検査 ordering (IgE panel / 鼻内視鏡 / CT) と medication recommendation (Rx 系統含む) は licensed MD DID co-sign required (R1 は advisory のみで co-sign 不要だが、R1 advisory が `escalation = "recommend-md-visit"` を返した時点で MD-side ack を待つ) | this ADR + ADR-2605192200 §2(e) (legitimate technical safety oversight) | `mitate.diagnosticOrder` lexicon の physicianAttestorDid (R2+) |
 | **G5** | **Emergency keyword detection → 即 ER routing fail-safe** ― anaphylaxis / orbital cellulitis / septal abscess / 髄膜炎徴候 / 視力低下 / 意識障害 等 を multi-language regex + LLM second-pass screen で検出 → 即 `mitate.emergencyEscalation` emit + 即 ER routing instruction + 全 advisory pipeline 中断 | this ADR | `emergency_screen` cell 自動 escalate; bypass 不可 |
@@ -222,12 +222,12 @@ mitate と yakushi の cross-actor lexicon emit boundary を明示:
 
 | Direction | From cell | To cell (cross-actor) | Lexicon | Purpose |
 |---|---|---|---|---|
-| mitate → yakushi | `outcome_qol_followup` | yakushi `pharma_adverse_event` | `app.etzhayyim.pharma.adverseEventReport` | mitate が観察した薬剤副作用を yakushi-side AE registry に送る |
-| mitate → yakushi | `outcome_qol_followup` | yakushi `pharma_post_market_surveillance` | `app.etzhayyim.pharma.adverseEventReport` (aggregated) | longitudinal outcome data feed |
+| mitate → yakushi | `outcome_qol_followup` | yakushi `pharma_adverse_event` | `com.etzhayyim.pharma.adverseEventReport` | mitate が観察した薬剤副作用を yakushi-side AE registry に送る |
+| mitate → yakushi | `outcome_qol_followup` | yakushi `pharma_post_market_surveillance` | `com.etzhayyim.pharma.adverseEventReport` (aggregated) | longitudinal outcome data feed |
 | yakushi → mitate | `pharma_packaging` | mitate `medication_history_audit` | (内部 ID match) | yakushi lot を受領した patient が後日 medication_history_audit で acquire 履歴を見ることを許可 (consent 経由) |
 | yakushi → mitate | `pharma_adverse_event` | mitate `outcome_qol_followup` | (内部 ID match) | yakushi AE intake を mitate longitudinal tracker に back-feed |
 
-cross-actor lexicon は **新 namespace 増設なし** ― yakushi の `app.etzhayyim.pharma.adverseEventReport` を mitate も emit 可能 (substrate boundary 共有)。
+cross-actor lexicon は **新 namespace 増設なし** ― yakushi の `com.etzhayyim.pharma.adverseEventReport` を mitate も emit 可能 (substrate boundary 共有)。
 
 # Consequences
 
@@ -273,9 +273,9 @@ Considered. e.g. allergic rhinitis (条件 1) のみ Wave 1 にして他 4 を W
 
 Considered. silicon Wave 1 は 4 sub-ADR (rtl / verilog / cad / robotics 系統別)、yakushi も 3 sub-ADR (synthesis / fill-finish / supply-chain)。Rejected for: mitate の 5 条件は yakushi の 3 process phase より condition 別の clinical reasoning が独立性高く、各 condition の bias audit / treatment guideline / G6 escalation profile が異なるため、reviewer が個別に audit できる利益が大きい。
 
-## E. condition lexicon を `app.etzhayyim.mitate.condition.<n>.*` で nested
+## E. condition lexicon を `com.etzhayyim.mitate.condition.<n>.*` で nested
 
-Considered. e.g. `app.etzhayyim.mitate.condition.1.intake` 等。Rejected ― 5 condition の lexicon shape は intake / triage / order / result / plan / followup / silen-review / emergency の 8 axis でほぼ同一なため、condition-agnostic lexicon (各 record の `conditionId` field で condition 区別) の方が namespace 数 / schema 重複が少ない。
+Considered. e.g. `com.etzhayyim.mitate.condition.1.intake` 等。Rejected ― 5 condition の lexicon shape は intake / triage / order / result / plan / followup / silen-review / emergency の 8 axis でほぼ同一なため、condition-agnostic lexicon (各 record の `conditionId` field で condition 区別) の方が namespace 数 / schema 重複が少ない。
 
 ## F. R1 advisory tier を独立 PWA ではなく既存 ameno PWA の extension
 

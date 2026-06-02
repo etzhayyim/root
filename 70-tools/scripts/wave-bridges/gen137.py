@@ -6,7 +6,7 @@ from __future__ import annotations
 import json, pathlib
 
 ROOT = pathlib.Path("/Users/junkawasaki/github/etzhayyim/root")
-BPMN_ROOT = ROOT / "00-contracts/bpmn/ai/gftd"
+BPMN_ROOT = ROOT / "00-contracts/bpmn/com/etzhayyim"
 LEX_ROOT = ROOT / "00-contracts/lexicons/com/etzhayyim/apps"
 
 # (slug, lex_app, method, target_table, group_col, group_val,

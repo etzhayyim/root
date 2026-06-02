@@ -22,7 +22,7 @@ depends_on:
 related:
   - 20-actors/yakushi/
   - 20-actors/magatama/cells/pharma_chiral_resolution/
-  - 00-contracts/lexicons/app/etzhayyim/pharma/
+  - 00-contracts/lexicons/com/etzhayyim/pharma/
 supersedes: []
 superseded_by: []
 ---
@@ -359,7 +359,7 @@ Lexicon extensions: `apiInn` knownValues +7, `purificationAttestation` scheme +3
 
 1. ADR document (this file)
 2. Actor update (`20-actors/yakushi/manifest.jsonld`) — add Wave 1c APIs + cells
-3. Lexicon extensions (app.etzhayyim.pharma.* files)
+3. Lexicon extensions (com.etzhayyim.pharma.* files)
 4. New Pregel cell scaffolds:
    - `20-actors/magatama/cells/pharma_chiral_resolution/cell.py` (RuntimeError gated)
    - `20-actors/magatama/cells/pharma_liquid_formulation/cell.py` (RuntimeError gated)

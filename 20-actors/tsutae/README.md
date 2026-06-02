@@ -1,7 +1,7 @@
 # tsutae (伝え) — Handheld Communication Device Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:tsutae`
-**Namespace**: `app.etzhayyim.tsutae.*`
+**Namespace**: `com.etzhayyim.tsutae.*`
 **ADR**: ADR-2605261300 (R0 master), ADR-2605261315 (R1, reserved), ADR-2605261330 (R2, reserved), ADR-2605261345 (R3, reserved)
 **Status**: R0 scaffold (2026-05-26) — all 8 cells import-time RuntimeError
 **Methodology source**: YouTube `J4GoOScUO5k` — "How Samsung Produces Millions of Expensive Smartphones Inside Massive Factories" (manufacturing methodology adopted; surveillance / addiction / IP locking / closed bootloader / mass production at any cost explicitly rejected per §2(b) + §2(c) + §2(d) + §2(e))
@@ -89,7 +89,7 @@ Explicitly excluded from R0–R3:
 ## Lexicons (6, R0 stub deferred to R1+)
 
 ```
-app.etzhayyim.tsutae.{
+com.etzhayyim.tsutae.{
   pcbAttestation           # SMT PCB lot (component sourcing + AOI pass + ECN traceability)
   chassisAttestation       # chassis (igata Al + battery + speaker + camera + USB-C + cellular module IDs)
   firmwareAttestation      # firmware load (image CID + crypto hash + bootloader status + open-source verify)

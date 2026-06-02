@@ -18,7 +18,7 @@
 |---|---|---|---|
 | 1 | ADR-2605301600 (master) + ADR-2605302245 (fiscal-flow) | ✅ | init |
 | 2 | manifest.jsonld + README + CLAUDE.md | ✅ | init |
-| 3 | Lexicon skeletons (`app.etzhayyim.danjo.*`) | ✅ | init |
+| 3 | Lexicon skeletons (`com.etzhayyim.danjo.*`) | ✅ | init |
 | 4 | worldwide fiscal-source registry seed (`registry/sources.seed.json`, 全件 unverified-seed) | ✅ | seed |
 | 5 | fail-closed registry invariants test + G14 VERIFICATION.md | ✅ | この iter |
 

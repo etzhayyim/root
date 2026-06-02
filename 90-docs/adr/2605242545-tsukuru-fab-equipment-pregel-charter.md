@@ -29,8 +29,8 @@ related:
   - 20-actors/magatama/cells/silicon_metrology/
   - 20-actors/magatama/cells/silicon_test/
   - 20-actors/magatama/cells/silicon_packaging/
-  - 00-contracts/lexicons/app/etzhayyim/silicon/fabEquipmentTelemetry.json
-  - 00-contracts/lexicons/app/etzhayyim/silicon/waferLotAttestation.json
+  - 00-contracts/lexicons/com/etzhayyim/silicon/fabEquipmentTelemetry.json
+  - 00-contracts/lexicons/com/etzhayyim/silicon/waferLotAttestation.json
   - 20-actors/tsukuru/                            # existing orchestration substrate
 supersedes: []
 superseded_by: []
@@ -159,7 +159,7 @@ iwakura/fuigo と同一の方針 (ADR-2605242515 §Phase 1):
 **全装置の BOM + assembly procedure + RTL/CAD は Apache 2.0 + Charter Rider v2.0 で公開**:
 
 - GitHub `etzhayyim/root` 配下 (本 monorepo) に commit
-- IPFS pin (`app.etzhayyim.substrate.datasetPin` Lexicon per ADR-2605241500)
+- IPFS pin (`com.etzhayyim.substrate.datasetPin` Lexicon per ADR-2605241500)
 - yatachain witness attestation (Charter Rider scanner pass)
 
 これにより:
@@ -229,7 +229,7 @@ silicon_packaging/    (同構造)
 Lexicons:
 
 ```
-00-contracts/lexicons/app/etzhayyim/silicon/
+00-contracts/lexicons/com/etzhayyim/silicon/
 ├── chipManufacturingAttestation.json   # 完成 chip lot の出荷 attestation
 ├── silenForceReview.json               # §2(a)(c) Council review
 ├── fabEquipmentTelemetry.json          # 装置 telemetry record (subset; high-rate stream は libp2p)

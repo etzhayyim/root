@@ -122,7 +122,7 @@ class VertexConsent(_VertexBase, Base):
 # label = "RoleBinding"
 # did = subject DID (who has the role)
 # name = role name ("admin", "moderator", "owner", "reader", "writer")
-# description = scope pattern ("*", "global", "did:web:xxx", "collection:app.etzhayyim.*")
+# description = scope pattern ("*", "global", "did:web:xxx", "collection:com.etzhayyim.*")
 # status = "active" | "revoked"
 ```
 
@@ -141,7 +141,7 @@ class VertexRaci(_VertexBase, Base):
     rkey = Column(String(64))
     repo = Column(String(512))
     did = Column(String(512))           # subject DID
-    activity = Column(String(512))      # NSID pattern (e.g. "app.etzhayyim.projector.*")
+    activity = Column(String(512))      # NSID pattern (e.g. "com.etzhayyim.projector.*")
     raci_type = Column(String(1))       # "R" | "A" | "C" | "I"
     target_did = Column(String(512))    # target resource DID (optional)
     status = Column(String(64))         # "active" | "revoked"

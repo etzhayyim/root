@@ -6,7 +6,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-NS = "app.etzhayyim.apps.ka"
+NS = "com.etzhayyim.apps.ka"
 ACTOR = "did:web:ka.etzhayyim.com"
 
 QUERIES = {

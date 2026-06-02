@@ -126,7 +126,7 @@ Evidence reviewed:
 
 Reason:
 
-- `app.etzhayyim.kagami.sql` is intentionally unauthenticated in current policy
+- `com.etzhayyim.kagami.sql` is intentionally unauthenticated in current policy
 - repo evidence alone does not prove data sensitivity or privilege escalation
 - keep under review, but weaker than direct secret exposure
 

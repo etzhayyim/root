@@ -167,7 +167,7 @@ def _urls(text: str) -> list[str]:
 def _base_row(collection: str, rkey: str) -> dict[str, Any]:
     now = now_iso()
     return {
-        "vertex_id": f"at://{ACTOR}/app.etzhayyim.apps.gmail.{collection}/{rkey}",
+        "vertex_id": f"at://{ACTOR}/com.etzhayyim.apps.gmail.{collection}/{rkey}",
         "created_date": now[:10],
         "sensitivity_ord": 100,
         "owner_did": ACTOR,

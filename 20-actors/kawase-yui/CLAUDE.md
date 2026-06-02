@@ -88,7 +88,7 @@ NotYetImplemented stubs; R1 fills in bodies.
 kotoba_murakumo per the ADR-2605282300 downstream-consumer relocation
 pattern (lives outside the kotoba subrepo).
 
-**8 Lexicons** at `00-contracts/lexicons/app/etzhayyim/kawase/` —
+**8 Lexicons** at `00-contracts/lexicons/com/etzhayyim/kawase/` —
 deposit / withdraw intent / match execution / fx rate / pool state /
 rebalance / jurisdiction / silen review.
 
@@ -278,7 +278,7 @@ R1 deploy (post-Council ratify) lands as a separate runbook ADR.
 
 - `/20-actors/kawase-yui/manifest.jsonld` — ActorManifest JSON-LD
 - `/20-actors/kawase-yui/README.md` — Full inventory + 14 gates + R0→R3 ladder
-- `/00-contracts/lexicons/app/etzhayyim/kawase/` (8 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/kawase/` (8 Lexicons + README)
 - `/40-engine/kotoba_kawase/` (Python facade + 32 pytest)
 - `/50-infra/etzhayyim-kawase-pool/` (Solidity scaffold + 4 forge tests)
 - `/20-actors/magatama/cells/kawase_*/` (5 Pregel cell scaffolds)

@@ -1,7 +1,7 @@
-;; app.etzhayyim.kuniumi.deploymentIntent — lexicon
+;; com.etzhayyim.kuniumi.deploymentIntent — lexicon
 ;; ADR-2605201400 · deployment planning output
 {:lexicon 1
- :id "app.etzhayyim.kuniumi.deploymentIntent"
+ :id "com.etzhayyim.kuniumi.deploymentIntent"
  :defs
  {:main
   {:type "record"

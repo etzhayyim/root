@@ -1,6 +1,6 @@
 # deai Mobile — Capacitor + Fastlane
 
-App ID: `app.etzhayyim.deai`  
+App ID: `com.etzhayyim.deai`  
 Apple Team: `3A5CBTEBFP`  
 ASC Key: `62BW4Q57AB`
 
@@ -49,7 +49,7 @@ npx cap sync ios               # copies web assets + syncs plugins
 npx cap open ios
 ```
 
-Check: Bundle ID = `app.etzhayyim.deai`, Signing = Manual, Provisioning Profile = match AppStore app.etzhayyim.deai
+Check: Bundle ID = `com.etzhayyim.deai`, Signing = Manual, Provisioning Profile = match AppStore com.etzhayyim.deai
 
 ## Regular Deploy Flow
 

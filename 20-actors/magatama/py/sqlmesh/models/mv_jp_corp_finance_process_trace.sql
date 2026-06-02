@@ -30,5 +30,5 @@ SELECT
   NULLIF(value_json::JSONB ->> 'invalidCount', '')::BIGINT AS invalid_count,
   value_json AS payload_json
 FROM vertex_repo_commit
-WHERE collection = 'ai.gftd.bpmn.audit'
+WHERE collection = 'com.etzhayyim.bpmn.audit'
   AND (value_json::JSONB ->> 'action') LIKE 'jpCorpFinance.%'

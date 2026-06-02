@@ -109,7 +109,7 @@ def _insert(table: str, rec: dict[str, Any]) -> None:
     rkey = _str(rec.get("rkey") or rec.get("nodeId") or rec.get("runId") or rec.get("resultId") or gen_id("r"))
     created = _str(rec.get("createdAt") or rec.get("created_at") or now_iso())
     base = {
-        "vertex_id": f"at://{ACTOR_DID}/app.etzhayyim.apps.collector.{table.removeprefix('vertex_collector_')}/{rkey}",
+        "vertex_id": f"at://{ACTOR_DID}/com.etzhayyim.apps.collector.{table.removeprefix('vertex_collector_')}/{rkey}",
         "created_date": created[:10],
         "sensitivity_ord": 100,
         "owner_did": ACTOR_DID,

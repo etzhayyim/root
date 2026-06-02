@@ -53,7 +53,7 @@ superseded_by: []
 | **DID** | `did:web:yobel.etzhayyim.com` (primary) + `did:web:yobel.etzhayyim.com` (federation alias only, AT layer) |
 | **Substrate** | AT MST + IPFS + Base L2 (RW-free per ADR-2605172000) |
 | **Settlement** | USDC on Base L2 via ERC725 Smart Wallet (ADR-0074) — fiat / Stripe 禁止 |
-| **NSID** | `org.etzhayyim.yobel.*` (canonical, etzhayyim/root cutover 後) / `app.etzhayyim.apps.yobel.*` (transitional alias 維持) |
+| **NSID** | `org.etzhayyim.yobel.*` (canonical, etzhayyim/root cutover 後) / `com.etzhayyim.apps.yobel.*` (transitional alias 維持) |
 | **Runtime** | TS Native + Lexicon Contract |
 | **Profile category** | `religious` |
 | **Profile operator** | `etzhayyim` |
@@ -116,7 +116,7 @@ Vendor-side read-only consumer of etzhayyim/yobel rite state:
 
 | Lexicon | Direction | Purpose |
 |---|---|---|
-| `app.etzhayyim.apps.bankruptcy.recordYobelRiteReference` | vendor:bankruptcy ← (queries) → etzhayyim/yobel | Attach a yobel rite reference to a formal bankruptcy case. Handler resolves rite state via `YobelRiteRegistry.getRite()` on Base L2 (no trust required — independent chain verification). |
+| `com.etzhayyim.apps.bankruptcy.recordYobelRiteReference` | vendor:bankruptcy ← (queries) → etzhayyim/yobel | Attach a yobel rite reference to a formal bankruptcy case. Handler resolves rite state via `YobelRiteRegistry.getRite()` on Base L2 (no trust required — independent chain verification). |
 
 **3-axis split enforced** (vendor ADR-2605172400):
 - Vendor stores attachment record; etzhayyim/yobel remains rite SSoT
@@ -128,11 +128,11 @@ Vendor-side read-only consumer of etzhayyim/yobel rite state:
 
 | Layer | Repo | Path |
 |---|---|---|
-| Lexicons (8 yobel methods) | etzhayyim/root | `00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/` |
+| Lexicons (8 yobel methods) | etzhayyim/root | `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/yobel/` |
 | LangGraph cells (5) + orchestrator | etzhayyim/root | `20-actors/yobel/` |
 | Solidity contracts (2) | etzhayyim/root | `50-infra/etzhayyim-yobel-contract/` |
 | Web3 ports + EIP-712 verify | etzhayyim/root | `20-actors/yobel/concrete_ports/` |
-| Vendor cross-actor lexicon | this repo | `00-contracts/lexicons/ai/gftd/apps/bankruptcy/recordYobelRiteReference.json` |
+| Vendor cross-actor lexicon | this repo | `00-contracts/lexicons/com/etzhayyim/apps/bankruptcy/recordYobelRiteReference.json` |
 | Vendor cross-actor doc | this repo | `60-apps/ai-gftd-project-bankruptcy/CLAUDE.md` §Cross-Actor |
 
 # Consequences
@@ -153,7 +153,7 @@ Vendor-side read-only consumer of etzhayyim/yobel rite state:
 **Neutral**
 - deps.toml `[[projects]]` 追加
 - etzhayyim/root への seed は登記変更後の Step 11 (220-file sed cutover) に合わせて実施。本 repo には scaffolding stub のみ置く
-- NSID `org.etzhayyim.yobel.*` を canonical、`app.etzhayyim.apps.yobel.*` を transitional alias とする (ADR-2605152100 GitHub org split に整合)
+- NSID `org.etzhayyim.yobel.*` を canonical、`com.etzhayyim.apps.yobel.*` を transitional alias とする (ADR-2605152100 GitHub org split に整合)
 
 # Alternatives Considered
 
@@ -161,7 +161,7 @@ Vendor-side read-only consumer of etzhayyim/yobel rite state:
 
 **B. 4-actor cluster (`shmita.etzhayyim.com` + `yobel.etzhayyim.com` + `tokusei.etzhayyim.com` + `amnesty.etzhayyim.com`)** — 却下。データモデル (debt registration + voluntary opt-in + release tx) はすべて同一。rite type discriminator で 1 actor に統合する方が Shannon-optimal (η 高、operational overhead 低)。
 
-**C. Vendor placement (`app.etzhayyim.apps.yobel.*` only, this repo)** — 却下。user 明示で「非営利 → etzhayyim」。3-axis split: liability (religious doctrine) / custody (collective ritual records) / settlement (USDC on Base L2, no fiat) すべて etzhayyim clean。
+**C. Vendor placement (`com.etzhayyim.apps.yobel.*` only, this repo)** — 却下。user 明示で「非営利 → etzhayyim」。3-axis split: liability (religious doctrine) / custody (collective ritual records) / settlement (USDC on Base L2, no fiat) すべて etzhayyim clean。
 
 **D. RW + Hyperdrive 経由実装** — 却下。ADR-2605172000 etzhayyim substrate boundary により RW は vendor 限定。yobel は AT MST + IPFS + Base L2 のみ。
 

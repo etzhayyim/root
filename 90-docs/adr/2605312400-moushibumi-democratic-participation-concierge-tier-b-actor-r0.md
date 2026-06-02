@@ -97,7 +97,7 @@ gated R3 exception (parallels toritsugi G15). JP-first; jurisdiction-generic.
 ## §2 Coded participation-target registry
 
 Analogue of toritsugi's procedure registry. Each target is an
-`app.etzhayyim.moushibumi.participationTarget` record holding the **organ
+`com.etzhayyim.moushibumi.participationTarget` record holding the **organ
 (議会 / 行政機関 / 選管) / channel (窓口 / portal / 郵送) / 根拠法令 / 提出様式 /
 期限 (comment window / 会期) / 紹介議員-required flag** so a cell can route +
 (eventually) file procedurally. Seed at `registry/targets.seed.json` (5 entries,
@@ -134,7 +134,7 @@ G14 verification gate identical to toritsugi: no live submission against an
   **no legal advice**; legal characterization + appeal route to **chigiri +
   licensed counsel**.
 - **G6** **PII confidentiality** — member PII / political-opinion content (a
-  special-care category under APPI §2) lands ONLY in `app.etzhayyim.encrypted.*`
+  special-care category under APPI §2) lands ONLY in `com.etzhayyim.encrypted.*`
   DID-bound envelopes (ADR-2605181100); never plaintext on MST. Political-belief
   data is collected only with explicit consent and the minimum necessary.
 - **G7** Murakumo-only inference (ADR-2605215000).
@@ -171,7 +171,7 @@ broker of participation or opinion data · N9 NOT a pretext / impersonation tool
 filing / assembly-flooding tool · N12 NOT Japan-exclusive (JP-first R0) ·
 N13 NOT an oversight actor (that is danjo — opposite posture).
 
-## §6 Lexicons (6, `app.etzhayyim.moushibumi.*`)
+## §6 Lexicons (6, `com.etzhayyim.moushibumi.*`)
 
 `participationTarget` (election/petition/public-comment target registry;
 `verificationStatus`) · `participationMatch` (neutral open-opportunity match for
@@ -192,7 +192,7 @@ a consenting member) · `participationSession` (member-facing guide session) ·
   out); moushibumi files 請願/意見 (voice in). Shared dispatch discipline.
 - **toritsugi (ADR-2605312030)**: sibling — administrative procedures vs
   democratic participation; same registry + G15 self-submit pattern.
-- **`app.etzhayyim.encrypted.*` (ADR-2605181100)**: the only home for member PII
+- **`com.etzhayyim.encrypted.*` (ADR-2605181100)**: the only home for member PII
   + political-opinion content.
 - **kotoba EAVT (ADR-2605262130)**: target catalog + session/draft/submission
   lifecycle datoms; no RisingWave.
@@ -234,7 +234,7 @@ a consenting member) · `participationSession` (member-facing guide session) ·
 # References
 
 - This ADR: `/90-docs/adr/2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0.md`
-- Actor: `/20-actors/moushibumi/` · Lexicons: `/00-contracts/lexicons/app/etzhayyim/moushibumi/`
+- Actor: `/20-actors/moushibumi/` · Lexicons: `/00-contracts/lexicons/com/etzhayyim/moushibumi/`
 - ADR-2605312030 (toritsugi — sibling pattern) · ADR-2605302130 (himotoki) · ADR-2605301600 (danjo) · ADR-2605262700 (chigiri)
 - ADR-2605181100 (confidentiality) · ADR-2605262130 (kotoba) · ADR-2605192100 §1.12 (Transparent Force / 1 SBT = 1 vote) · ADR-2605192315 (Transparent Force authorization)
 - ADR-2605192200 (Charter Rider) · ADR-2605192300 (Council) · ADR-2605215000 (Murakumo-only)

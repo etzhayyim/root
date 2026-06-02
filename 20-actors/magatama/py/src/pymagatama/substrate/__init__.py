@@ -133,12 +133,12 @@ class Etzhayyim:
             session_jwt=os.environ["ETZ_SESSION_JWT"],
         )
         receipt = await e.write(WriteOpts(
-            collection="app.etzhayyim.maps.source",
+            collection="com.etzhayyim.maps.source",
             record={"v": 1, "slug": "geocode", ...},
             rkey="geocode",
         ))
         rows = await e.read(ReadOpts(
-            collection="app.etzhayyim.maps.source",
+            collection="com.etzhayyim.maps.source",
             prefix="registry-",
             limit=20,
         ))

@@ -22,7 +22,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.lo.createShipment")
+    @worker.task(task_type="com.etzhayyim.apps.lo.createShipment")
     async def task_create_shipment(**kwargs):
         origin = kwargs.get("origin", "")
         destination = kwargs.get("destination", "")
@@ -50,7 +50,7 @@ async def run_worker():
 
         return {"shipmentId": shipment_id, "status": "pending", "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.lo.updateShipment")
+    @worker.task(task_type="com.etzhayyim.apps.lo.updateShipment")
     async def task_update_shipment(**kwargs):
         shipment_id = kwargs.get("shipmentId", "")
         status = kwargs.get("status", "")
@@ -68,7 +68,7 @@ async def run_worker():
 
         return {"shipmentId": shipment_id, "status": status, "updatedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.lo.listShipments")
+    @worker.task(task_type="com.etzhayyim.apps.lo.listShipments")
     async def task_list_shipments(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -85,7 +85,7 @@ async def run_worker():
 
         return {"shipments": [dict(r) for r in rows], "total": total or 0, "offset": offset, "limit": limit}
 
-    @worker.task(task_type="app.etzhayyim.apps.lo.getShipment")
+    @worker.task(task_type="com.etzhayyim.apps.lo.getShipment")
     async def task_get_shipment(**kwargs):
         shipment_id = kwargs.get("shipmentId", "")
 
@@ -102,7 +102,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.lo.createRoute")
+    @worker.task(task_type="com.etzhayyim.apps.lo.createRoute")
     async def task_create_route(**kwargs):
         name = kwargs.get("name", "")
         origin = kwargs.get("origin", "")
@@ -130,7 +130,7 @@ async def run_worker():
 
         return {"routeId": route_id, "status": "active", "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.lo.updateRoute")
+    @worker.task(task_type="com.etzhayyim.apps.lo.updateRoute")
     async def task_update_route(**kwargs):
         route_id = kwargs.get("routeId", "")
         status = kwargs.get("status", "")
@@ -149,7 +149,7 @@ async def run_worker():
 
         return {"routeId": route_id, "status": status, "updatedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.lo.listRoutes")
+    @worker.task(task_type="com.etzhayyim.apps.lo.listRoutes")
     async def task_list_routes(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -166,7 +166,7 @@ async def run_worker():
 
         return {"routes": [dict(r) for r in rows], "total": total or 0, "offset": offset, "limit": limit}
 
-    @worker.task(task_type="app.etzhayyim.apps.lo.getRoute")
+    @worker.task(task_type="com.etzhayyim.apps.lo.getRoute")
     async def task_get_route(**kwargs):
         route_id = kwargs.get("routeId", "")
 

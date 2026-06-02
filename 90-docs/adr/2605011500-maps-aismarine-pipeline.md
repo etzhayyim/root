@@ -11,7 +11,7 @@ authoritative_for:
   - vertex_vessel / vertex_vessel_position / vertex_vessel_voyage schema
   - aisstream.io WebSocket consumer Deployment
   - aismarine BPMN actors (consumer / voyage-detector / master-refresh / density-refresh)
-  - app.etzhayyim.apps.maps.aismarine.* XRPC surface
+  - com.etzhayyim.apps.maps.aismarine.* XRPC surface
   - kami-geo vessel rendering layer
 related:
   - adr-0017-maritime-energy-cluster-topology
@@ -70,10 +70,10 @@ Add to existing `maps-ui-uqpel6i6` Worker (no new Worker, ADR-2604282300):
 
 | NSID | Read/Write | Backing |
 |---|---|---|
-| `app.etzhayyim.apps.maps.aismarine.queryVesselsBbox` | read | `mv_vessel_latest_position` SELECT with `lat BETWEEN` + `lon BETWEEN` + optional `type_class IN (...)`, returns GeoJSON FeatureCollection |
-| `app.etzhayyim.apps.maps.aismarine.getVesselDetail` | read | `vertex_vessel` + last 24h `vertex_vessel_position` ORDER BY ts_ms DESC LIMIT 500 + active `vertex_vessel_voyage` |
-| `app.etzhayyim.apps.maps.aismarine.searchVessels` | read | prefix SELECT on `vertex_vessel.name` / MMSI / IMO |
-| `app.etzhayyim.apps.maps.aismarine.getVesselDensityTile` | read | `mv_vessel_density_h3_r6` filtered by H3 cells covering bbox |
+| `com.etzhayyim.apps.maps.aismarine.queryVesselsBbox` | read | `mv_vessel_latest_position` SELECT with `lat BETWEEN` + `lon BETWEEN` + optional `type_class IN (...)`, returns GeoJSON FeatureCollection |
+| `com.etzhayyim.apps.maps.aismarine.getVesselDetail` | read | `vertex_vessel` + last 24h `vertex_vessel_position` ORDER BY ts_ms DESC LIMIT 500 + active `vertex_vessel_voyage` |
+| `com.etzhayyim.apps.maps.aismarine.searchVessels` | read | prefix SELECT on `vertex_vessel.name` / MMSI / IMO |
+| `com.etzhayyim.apps.maps.aismarine.getVesselDensityTile` | read | `mv_vessel_density_h3_r6` filtered by H3 cells covering bbox |
 
 All four use `createKyselyDb(env.HYPERDRIVE)` (ADR-0036 read path). No PDS pipethrough.
 
@@ -212,7 +212,7 @@ def task_aismarine_query_bbox(bbox, types, limit)
 
 ### Lexicons
 
-`00-contracts/lexicons/ai/gftd/maps/aismarine/`:
+`00-contracts/lexicons/com/etzhayyim/maps/aismarine/`:
 - `queryVesselsBbox.json` — input: `{bbox:[w,s,e,n], types?:[...], limit?:int}`; output: `{features:[GeoJSON]}`
 - `getVesselDetail.json` — input: `{mmsi:int}`; output: `{vessel, recentTrack:[...], voyage}`
 - `searchVessels.json` — input: `{q:string, limit?:int}`; output: `{results:[...]}`

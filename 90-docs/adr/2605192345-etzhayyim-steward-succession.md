@@ -11,8 +11,8 @@ axis: governance
 weight: 0.70
 priority_note: "ADR-2605192245 §"Open Question 2" で要請した steward 死亡時継承 procedure を formal 化する ADR。donation 時の事前指定 + 国家 inheritance 法との整合 + fallback path (指定者拒否 / 死亡時無指定 / 全候補拒否) を定義。多世代 stewardship continuity (§1.9) の technical 実装の核。"
 authoritative_for:
-  - donation 時の successor steward 事前指定 procedure (`app.etzhayyim.apps.etzhayyim.steward-succession-declaration`)
-  - donor 死亡時の succession trigger + activation flow (`app.etzhayyim.apps.etzhayyim.steward-succession-event`)
+  - donation 時の successor steward 事前指定 procedure (`com.etzhayyim.apps.etzhayyim.steward-succession-declaration`)
+  - donor 死亡時の succession trigger + activation flow (`com.etzhayyim.apps.etzhayyim.steward-succession-event`)
   - 国家 inheritance 法との dual-recognition pattern
   - fallback paths (4 種)
   - Council Lv6+ による succession 認定
@@ -47,11 +47,11 @@ ADR-2605192245 で steward role (Lv5 護) を定義したが、**donor 死亡時
 
 ADR-2605192245 の Land Donation Ritual に **Step 4.5: Successor Designation** を必須追加する。
 
-寄付者は寄付完了時に以下を含む successor 指定 record (`app.etzhayyim.apps.etzhayyim.steward-succession-declaration`) を作成:
+寄付者は寄付完了時に以下を含む successor 指定 record (`com.etzhayyim.apps.etzhayyim.steward-succession-declaration`) を作成:
 
 ```json
 {
-  "$type": "app.etzhayyim.apps.etzhayyim.steward-succession-declaration",
+  "$type": "com.etzhayyim.apps.etzhayyim.steward-succession-declaration",
   "landId": 1234,
   "primarySuccessor": {
     "did": "did:web:successor1.example",
@@ -72,7 +72,7 @@ ADR-2605192245 の Land Donation Ritual に **Step 4.5: Successor Designation** 
 ### 1.1 Requirements
 
 - **Primary successor** + **backup successor 2 名以上** (合計 3 名以上の指定)
-- 各 successor は事前に `app.etzhayyim.apps.etzhayyim.steward-succession-pre-acceptance` で承諾 sign 済み
+- 各 successor は事前に `com.etzhayyim.apps.etzhayyim.steward-succession-pre-acceptance` で承諾 sign 済み
 - 各 successor は active etzhayyim Adherent SBT holder (Lv5+ 推奨)
 - fallback path として `council-appointed` (= 全候補拒否時に Council Lv6+ が任命) または `corpus-direct` (= religious-corp 直接 stewardship、構成員 collective stewardship) を指定
 
@@ -94,11 +94,11 @@ steward role は以下のいずれかで自動的に successor へ移譲され�
 
 ### 2.1 Succession Event Lexicon
 
-`app.etzhayyim.apps.etzhayyim.steward-succession-event`:
+`com.etzhayyim.apps.etzhayyim.steward-succession-event`:
 
 ```json
 {
-  "$type": "app.etzhayyim.apps.etzhayyim.steward-succession-event",
+  "$type": "com.etzhayyim.apps.etzhayyim.steward-succession-event",
   "landId": 1234,
   "previousSteward": "did:web:previous.example",
   "newSteward": "did:web:successor1.example",
@@ -179,7 +179,7 @@ donor の指定があれば: religious-corp の 護持金庫 corpus tier に統�
 
 ```
 [死亡 / トリガー event]
-  → app.etzhayyim.apps.etzhayyim.steward-succession-event record 起票
+  → com.etzhayyim.apps.etzhayyim.steward-succession-event record 起票
   → triggerEvidence (死亡証明 / 医師 attestation / 不在 attestation 等) を Council Lv6+ がレビュー
   → Council 3-of-Lv6+ が承認 signature
   → LandRegistry.reassignSteward(landId, newSteward, councilSigs)

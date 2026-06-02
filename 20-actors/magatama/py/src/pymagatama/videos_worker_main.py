@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.videos.uploadVideo")
+    @worker.task(task_type="com.etzhayyim.apps.videos.uploadVideo")
     async def task_upload_video(**kwargs):
         title = kwargs.get("title", "")
         owner_did = kwargs.get("ownerDid", "did:web:videos.etzhayyim.com")
@@ -47,7 +47,7 @@ async def run_worker():
 
         return {"id": video_id, "status": "uploaded", "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.videos.getVideo")
+    @worker.task(task_type="com.etzhayyim.apps.videos.getVideo")
     async def task_get_video(**kwargs):
         video_id = kwargs.get("id", "")
 
@@ -65,7 +65,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.videos.updateVideo")
+    @worker.task(task_type="com.etzhayyim.apps.videos.updateVideo")
     async def task_update_video(**kwargs):
         video_id = kwargs.get("id", "")
         title = kwargs.get("title", "")
@@ -83,7 +83,7 @@ async def run_worker():
 
         return {"id": video_id, "updatedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.videos.deleteVideo")
+    @worker.task(task_type="com.etzhayyim.apps.videos.deleteVideo")
     async def task_delete_video(**kwargs):
         video_id = kwargs.get("id", "")
 
@@ -98,7 +98,7 @@ async def run_worker():
 
         return {"id": video_id, "deleted": True}
 
-    @worker.task(task_type="app.etzhayyim.apps.videos.listVideos")
+    @worker.task(task_type="com.etzhayyim.apps.videos.listVideos")
     async def task_list_videos(**kwargs):
         status = kwargs.get("status", "")
         limit = int(kwargs.get("limit", 50))
@@ -134,7 +134,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.videos.transcodeVideo")
+    @worker.task(task_type="com.etzhayyim.apps.videos.transcodeVideo")
     async def task_transcode_video(**kwargs):
         video_id = kwargs.get("id", "")
         target_format = kwargs.get("targetFormat", "mp4")
@@ -152,7 +152,7 @@ async def run_worker():
 
         return {"id": video_id, "status": "transcoding", "targetFormat": target_format, "startedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.videos.publishVideo")
+    @worker.task(task_type="com.etzhayyim.apps.videos.publishVideo")
     async def task_publish_video(**kwargs):
         video_id = kwargs.get("id", "")
 
@@ -169,7 +169,7 @@ async def run_worker():
 
         return {"id": video_id, "status": "published", "publishedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.videos.videoStats")
+    @worker.task(task_type="com.etzhayyim.apps.videos.videoStats")
     async def task_video_stats(**kwargs):
         video_id = kwargs.get("id", "")
 

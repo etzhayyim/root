@@ -18,7 +18,7 @@ import init, { KotobaNode } from "./kotoba/kotoba_wasm.js";
 const SEED_URL = "/kotoba/seed-datoms.json"; // same-origin snapshot (CORS-free)
 const SEARCH_NSIDS = new Set([
   "app.bsky.actor.searchActors",
-  "app.etzhayyim.yoro.actor.searchActors",
+  "com.etzhayyim.yoro.actor.searchActors",
 ]);
 
 // ── IndexedDB persistence ──────────────────────────────────────────────────

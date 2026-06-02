@@ -1,4 +1,4 @@
-# app.etzhayyim.iyashi.* — iyashi (癒) Lexicons
+# com.etzhayyim.iyashi.* — iyashi (癒) Lexicons
 
 **Owner actor**: `did:web:iyashi.etzhayyim.com` (`20-actors/iyashi/`)
 **ADR**: ADR-2605263000 (R0 scaffold); ADR-2605281950 (L7 phlebotomyAttestation, R2+)
@@ -44,4 +44,4 @@ strict validation + encryptedPayloadCid enforcement is not yet active
 - `/20-actors/iyashi/CLAUDE.md`
 - `/90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md`
 - `/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md` — privacy envelope
-- `/00-contracts/lexicons/app/etzhayyim/hagukumi/` — sibling Lexicon pattern reference
+- `/00-contracts/lexicons/com/etzhayyim/hagukumi/` — sibling Lexicon pattern reference

@@ -28,13 +28,13 @@ pod rewrite is Phase 2 follow-up (deferred per user direction 2026-05-21
 | Primary DID | `did:web:ransomwatch.etzhayyim.com` |
 | nanoid | `r4ns0w4t01` |
 | performerType | service |
-| NSID prefix | `app.etzhayyim.apps.ransomwatch.*` |
+| NSID prefix | `com.etzhayyim.apps.ransomwatch.*` |
 | Tier | T3 (edge dispatcher) |
 | TLP | WHITE only (AMBER/RED dropped before exposure) |
 
 ## Lexicons (4)
 
-`00-contracts/lexicons/ai/gftd/apps/ransomwatch/`:
+`00-contracts/lexicons/com/etzhayyim/apps/ransomwatch/`:
 
 - `seedGroup` (procedure) — register a ransomware group as a monitoring target
 - `listGroups` (query) — list active monitored groups

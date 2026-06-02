@@ -51,7 +51,7 @@ clinic_facility ─────── reuben (annual; facility standards)
 ```
 
 Each cell = 1 Pregel graph. Cells communicate via lexicon records on
-MST (`app.etzhayyim.iyashi.*`). All cell modules at R0 are import-time
+MST (`com.etzhayyim.iyashi.*`). All cell modules at R0 are import-time
 `RuntimeError`.
 
 ## Privacy Invariant (CRITICAL)
@@ -157,7 +157,7 @@ Expected: all 6 imports raise `RuntimeError` with "R0 scaffold" message.
 
 - `/20-actors/iyashi/manifest.jsonld`
 - `/20-actors/iyashi/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/iyashi/` (7 Lexicon JSONs + README)
+- `/00-contracts/lexicons/com/etzhayyim/iyashi/` (7 Lexicon JSONs + README)
 - `/90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md` — privacy envelope
 - `/90-docs/adr/2605181200-mst-encrypted-metadata-leak-reduction.md`

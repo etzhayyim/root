@@ -5,17 +5,17 @@ CF Worker that exposes the 9 rw-free commands as XRPC endpoints.
 ## Endpoints
 
 ### Document Registry (Slice 1)
-- `POST /xrpc/app.etzhayyim.houki.ingestDocument` — ingest document
-- `POST /xrpc/app.etzhayyim.houki.ingestText` — ingest text snippet
-- `GET /xrpc/app.etzhayyim.houki.getDocument?documentId=...` — fetch document + metadata
-- `GET /xrpc/app.etzhayyim.houki.listDocuments?authorDid=...` — paginated documents
+- `POST /xrpc/com.etzhayyim.houki.ingestDocument` — ingest document
+- `POST /xrpc/com.etzhayyim.houki.ingestText` — ingest text snippet
+- `GET /xrpc/com.etzhayyim.houki.getDocument?documentId=...` — fetch document + metadata
+- `GET /xrpc/com.etzhayyim.houki.listDocuments?authorDid=...` — paginated documents
 
 ### Rules & Bundles (Slice 2)
-- `POST /xrpc/app.etzhayyim.houki.extractRules` — LLM-extract compliance rules
-- `GET /xrpc/app.etzhayyim.houki.listRules?ruleSeq=...` — paginated rules
-- `GET /xrpc/app.etzhayyim.houki.getRuleBundle?bundleId=...` — fetch bundle
-- `GET /xrpc/app.etzhayyim.houki.listRuleBundles?registrarDid=...` — paginated bundles
-- `POST /xrpc/app.etzhayyim.houki.registerRuleBundle` — cross-actor bundle registration
+- `POST /xrpc/com.etzhayyim.houki.extractRules` — LLM-extract compliance rules
+- `GET /xrpc/com.etzhayyim.houki.listRules?ruleSeq=...` — paginated rules
+- `GET /xrpc/com.etzhayyim.houki.getRuleBundle?bundleId=...` — fetch bundle
+- `GET /xrpc/com.etzhayyim.houki.listRuleBundles?registrarDid=...` — paginated bundles
+- `POST /xrpc/com.etzhayyim.houki.registerRuleBundle` — cross-actor bundle registration
 
 ## Setup
 

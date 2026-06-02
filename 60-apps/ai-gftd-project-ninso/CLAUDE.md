@@ -4,7 +4,7 @@
 
 ## Architecture
 
-- **Ingest**: Follow photos.etzhayyim.com → on `app.etzhayyim.apps.photos.photo` create → analyze
+- **Ingest**: Follow photos.etzhayyim.com → on `com.etzhayyim.apps.photos.photo` create → analyze
 - **Face Analysis**: Murakumo VL (qwen3-vl-8b) for apparent age, gender, facial structure, skin condition, expression
 - **Personality Inference**: Big Five traits (openness, conscientiousness, extraversion, agreeableness, neuroticism) from facial features + clothing style
 - **Fashion Classification**: clothing style, color palette, silhouette, era/trend via Murakumo VL
@@ -89,14 +89,14 @@ Cross-link: `MATCH (nc:NinsoProfileCohort)-[:MAPS_TO]->(np:NaturalPersonCohort)`
 
 | NSID | Type | Description |
 |---|---|---|
-| `app.etzhayyim.apps.ninso.faceAnalysis` | record | Face analysis result (derived classifications) |
-| `app.etzhayyim.apps.ninso.personalityInference` | record | Big Five personality inference |
-| `app.etzhayyim.apps.ninso.styleClassification` | record | Fashion/style classification |
-| `app.etzhayyim.apps.ninso.profile` | record | Combined profile (face + personality + style) |
-| `app.etzhayyim.apps.ninso.faceCohort` | record | Face cohort statistics |
-| `app.etzhayyim.apps.ninso.styleCohort` | record | Style cohort statistics |
-| `app.etzhayyim.apps.ninso.profileCohort` | record | Combined profile cohort statistics |
-| `app.etzhayyim.apps.ninso.analysisJob` | record | Analysis job tracking |
+| `com.etzhayyim.apps.ninso.faceAnalysis` | record | Face analysis result (derived classifications) |
+| `com.etzhayyim.apps.ninso.personalityInference` | record | Big Five personality inference |
+| `com.etzhayyim.apps.ninso.styleClassification` | record | Fashion/style classification |
+| `com.etzhayyim.apps.ninso.profile` | record | Combined profile (face + personality + style) |
+| `com.etzhayyim.apps.ninso.faceCohort` | record | Face cohort statistics |
+| `com.etzhayyim.apps.ninso.styleCohort` | record | Style cohort statistics |
+| `com.etzhayyim.apps.ninso.profileCohort` | record | Combined profile cohort statistics |
+| `com.etzhayyim.apps.ninso.analysisJob` | record | Analysis job tracking |
 
 ## SQL Graph Schema
 

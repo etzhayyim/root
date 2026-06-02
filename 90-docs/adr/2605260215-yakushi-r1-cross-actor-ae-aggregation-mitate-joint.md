@@ -7,7 +7,7 @@ topic: yakushi-mitate-cross-actor-ae
 authoritative: true
 last_verified: 2026-05-25
 authoritative_for:
-  - app.etzhayyim.pharma.adverseEventReport-aggregated payload schema (yakushi-side aggregated feed)
+  - com.etzhayyim.pharma.adverseEventReport-aggregated payload schema (yakushi-side aggregated feed)
   - AE dedupe rule between mitate outcome_qol_followup and yakushi pharma_adverse_event
   - yakushi label-warning data-driven update mechanism (naphazoline closed-loop other half)
   - silenPharmaReview + silenMitateReview joint attestation flow for cross-actor cells
@@ -28,7 +28,7 @@ related:
   - 20-actors/magatama/cells/pharma_packaging/                 # yakushi-side label-warning update producer
   - 20-actors/magatama/cells/mitate_outcome_qol_followup/      # mitate-side emitter
   - 20-actors/magatama/cells/mitate_medication_history_audit/  # mitate-side condition 5 detection
-  - 00-contracts/lexicons/app/etzhayyim/pharma/adverseEventReport.json
+  - 00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json
 supersedes: []
 superseded_by: []
 ---
@@ -48,7 +48,7 @@ Two prior ADRs left an open question:
 
 Both ADRs left this work labeled "joint mitate-yakushi R1 ADRs". This is that ADR — the **yakushi side** of the mitate↔yakushi naphazoline closed-loop. It locks:
 
-1. Payload schema for the **aggregated** flavor of `app.etzhayyim.pharma.adverseEventReport` (today the lexicon has only the individual flavor; aggregated needs a sibling variant)
+1. Payload schema for the **aggregated** flavor of `com.etzhayyim.pharma.adverseEventReport` (today the lexicon has only the individual flavor; aggregated needs a sibling variant)
 2. **AE dedupe rule** so the same patient AE doesn't get counted both in mitate's longitudinal QOL feed and yakushi's intake
 3. **Label-warning data-driven update mechanism** — how the aggregated overuse signal actually moves the naphazoline label warning text on the next packaging lot
 4. **Joint silen-review flow** — silenMitateReview ↔ silenPharmaReview Council Lv6+ ≥ 3 attestation pairing
@@ -60,7 +60,7 @@ Without this ADR, ADR-2605260175 §Decision 4 cannot ship — mitate medication_
 
 ### Decision 1 — Aggregated AE payload variant
 
-`app.etzhayyim.pharma.adverseEventReport` today is **patient-individual** flavor (encryptedPatientIdentityEnvelope + narrative + symptom codes). The aggregated variant uses the **same NSID** but distinct field shape — distinguishable by `aggregationLevel` enum.
+`com.etzhayyim.pharma.adverseEventReport` today is **patient-individual** flavor (encryptedPatientIdentityEnvelope + narrative + symptom codes). The aggregated variant uses the **same NSID** but distinct field shape — distinguishable by `aggregationLevel` enum.
 
 Schema extension (lexicon update is part of this ADR landing):
 
@@ -220,7 +220,7 @@ So:
 
 ## Alternatives Considered
 
-### A. Separate lexicon for aggregated AE (e.g. `app.etzhayyim.pharma.adverseEventAggregated`)
+### A. Separate lexicon for aggregated AE (e.g. `com.etzhayyim.pharma.adverseEventAggregated`)
 
 Considered. Keeps individual + aggregated visibly distinct at the NSID level. Rejected because:
 - Two lexicons share ~70% of fields (lotAttestationUri, severity, MedDRA codes, etc.) — DRY violation
@@ -253,6 +253,6 @@ Considered. More responsive to fresh data. Rejected because:
 - ADR-2605260175 (mitate condition 5 — Decision 4 yakushi cross-actor signal)
 - ADR-2605260200 (mitate R1 — cells active scope)
 - ADR-2605181100 (encrypted confidentiality substrate — G2 envelope + G7 sealed-recipient registry)
-- 00-contracts/lexicons/app/etzhayyim/pharma/adverseEventReport.json — schema extension target
+- 00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json — schema extension target
 - WHO-UMC causality assessment, CIOMS Form III severity (referenced in adverseEventReport)
 - ICH E2D Post-Approval Safety Data Management — guidance for aggregated reporting cadence

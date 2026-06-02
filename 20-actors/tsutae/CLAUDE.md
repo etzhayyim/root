@@ -22,7 +22,7 @@ final_qc → packaging → device_attestation → recycling_intake
  (levi)    (simeon)         (levi)              (dan, EOL)
 ```
 
-Each cell = 1 Pregel graph with super-step semantics (4–5 LangGraph nodes per cell). Cells communicate via lexicon records on MST (`app.etzhayyim.tsutae.*` record types).
+Each cell = 1 Pregel graph with super-step semantics (4–5 LangGraph nodes per cell). Cells communicate via lexicon records on MST (`com.etzhayyim.tsutae.*` record types).
 
 ## Robotics Fleet
 
@@ -78,16 +78,16 @@ See `ADR-2605261300` for full definitions. Key enforcement:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.tsutae`
+**App lexicon root**: `com.etzhayyim.tsutae`
 
 **Records** (6 types):
 
-1. **`app.etzhayyim.tsutae.pcbAttestation`** — SMT PCB lot (component sourcing + AOI pass + ECN traceability + solder profile)
-2. **`app.etzhayyim.tsutae.chassisAttestation`** — Chassis assembly with igata Al + battery + speaker + camera module(s) + USB-C + cellular module IDs (per-component DID chain)
-3. **`app.etzhayyim.tsutae.firmwareAttestation`** — Firmware load with image CID + crypto hash (SHA-256) + bootloader unlock status + open-source verification chain
-4. **`app.etzhayyim.tsutae.deviceAttestation`** — Final device with full BoM lineage CID array + DID + serial + IPFS-pinned photo + repair-history-ready
-5. **`app.etzhayyim.tsutae.recyclingCertificate`** — EOL take-back per-device dismantling log + kanayama routing CID + per-material mass balance
-6. **`app.etzhayyim.tsutae.silenTsutaeReview`** — Council Lv6+ baseline review (R-phase activation gate; parallel to yakushi `silenPharmaReview` + silicon `silenForceReview` + igata `silenIgataReview`)
+1. **`com.etzhayyim.tsutae.pcbAttestation`** — SMT PCB lot (component sourcing + AOI pass + ECN traceability + solder profile)
+2. **`com.etzhayyim.tsutae.chassisAttestation`** — Chassis assembly with igata Al + battery + speaker + camera module(s) + USB-C + cellular module IDs (per-component DID chain)
+3. **`com.etzhayyim.tsutae.firmwareAttestation`** — Firmware load with image CID + crypto hash (SHA-256) + bootloader unlock status + open-source verification chain
+4. **`com.etzhayyim.tsutae.deviceAttestation`** — Final device with full BoM lineage CID array + DID + serial + IPFS-pinned photo + repair-history-ready
+5. **`com.etzhayyim.tsutae.recyclingCertificate`** — EOL take-back per-device dismantling log + kanayama routing CID + per-material mass balance
+6. **`com.etzhayyim.tsutae.silenTsutaeReview`** — Council Lv6+ baseline review (R-phase activation gate; parallel to yakushi `silenPharmaReview` + silicon `silenForceReview` + igata `silenIgataReview`)
 
 **Deferred to R1+**: Full lexicon schema definitions. R0 uses stub placeholders.
 

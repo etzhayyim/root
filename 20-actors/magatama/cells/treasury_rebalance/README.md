@@ -60,8 +60,8 @@ graph.invoke({"epoch_seconds": now}, config=config)
 
 | Collection | When emitted |
 |---|---|
-| `app.etzhayyim.apps.payment.treasury-rebalance-proposal` | drift > threshold; carries `proposalId`, observed/target/drift bps, `descCid` |
-| `app.etzhayyim.apps.payment.treasury-rebalance-skip` | within band or empty treasury; carries `reason` |
+| `com.etzhayyim.apps.payment.treasury-rebalance-proposal` | drift > threshold; carries `proposalId`, observed/target/drift bps, `descCid` |
+| `com.etzhayyim.apps.payment.treasury-rebalance-skip` | within band or empty treasury; carries `reason` |
 
 Both records anchor to Base via the existing
 `mst-projector → ipfs-pinner → l2-anchor` pipeline (ADR-2605171800), so

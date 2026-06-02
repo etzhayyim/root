@@ -13,13 +13,13 @@ BPMN coverage (ADR-0056 BPMN-as-actor):
 
 XRPC additionally bound (read-side, no dedicated BPMN — wired through
 generic.db.select):
-  app.etzhayyim.apps.billing.recordUsageEvent  → billing.event.record
-  app.etzhayyim.apps.billing.getUsage          → billing.usage.get
-  app.etzhayyim.apps.billing.getQuotaStatus    → billing.quota.status
-  app.etzhayyim.apps.billing.listInvoices      → billing.invoice.list
-  app.etzhayyim.apps.billing.getInvoice        → billing.invoice.get
-  app.etzhayyim.apps.billing.applyCredit       → billing.credit.apply
-  app.etzhayyim.apps.billing.coverage          → billing.coverage.snapshot
+  com.etzhayyim.apps.billing.recordUsageEvent  → billing.event.record
+  com.etzhayyim.apps.billing.getUsage          → billing.usage.get
+  com.etzhayyim.apps.billing.getQuotaStatus    → billing.quota.status
+  com.etzhayyim.apps.billing.listInvoices      → billing.invoice.list
+  com.etzhayyim.apps.billing.getInvoice        → billing.invoice.get
+  com.etzhayyim.apps.billing.applyCredit       → billing.credit.apply
+  com.etzhayyim.apps.billing.coverage          → billing.coverage.snapshot
 
 Output target tables (created by 20260508140000_vertex_billing_schema.ts):
   vertex_billing_event       per-request usage event
@@ -146,7 +146,7 @@ def _today() -> date:
 def _content_pk(prefix: str, parts: list[str]) -> str:
     """Content-addressed AT URI vertex_id (ADR-0041)."""
     h = hashlib.sha256("|".join(parts).encode("utf-8")).hexdigest()[:32]
-    return f"at://{_BILLING_ACTOR}/app.etzhayyim.apps.billing.{prefix}/{h}"
+    return f"at://{_BILLING_ACTOR}/com.etzhayyim.apps.billing.{prefix}/{h}"
 
 
 def _resolve_plan(org_did: str) -> tuple[str, float, date, date]:

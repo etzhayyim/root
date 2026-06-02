@@ -75,7 +75,7 @@ def _file_row(token: dict[str, Any], f: dict[str, Any]) -> dict[str, Any]:
     actor = ACTOR_DID
     now = now_iso()
     return {
-        "vertex_id": f"at://{actor}/app.etzhayyim.apps.drive.file/{file_id}",
+        "vertex_id": f"at://{actor}/com.etzhayyim.apps.drive.file/{file_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,

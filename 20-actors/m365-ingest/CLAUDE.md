@@ -1,12 +1,12 @@
 # m365-ingest — Tenant Mailbox Collector (T1)
 
-Microsoft Graph API → `app.etzhayyim.apps.kyber.inbox.emailSignal` pipeline. **No UI, no OAuth.** Pure tenant-app ingest using client credentials flow (`Application.Mail.Read`).
+Microsoft Graph API → `com.etzhayyim.apps.kyber.inbox.emailSignal` pipeline. **No UI, no OAuth.** Pure tenant-app ingest using client credentials flow (`Application.Mail.Read`).
 
 ## Responsibility Boundary (RACI)
 
 | Actor | Responsible | Reads | Writes |
 |---|---|---|---|
-| **m365-ingest** (this) | Graph API raw fetch | `vertex_m365_user`, Graph API | `vertex_m365_sync_state`, `app.etzhayyim.apps.kyber.inbox.emailSignal` |
+| **m365-ingest** (this) | Graph API raw fetch | `vertex_m365_user`, Graph API | `vertex_m365_sync_state`, `com.etzhayyim.apps.kyber.inbox.emailSignal` |
 | `email-service-adapter` (outlook.etzhayyim.com) | OAuth UI + per-user consent | PDS `oauth_connection` | `oauth_connection` |
 | `kyber-inbox` (`inb0x4k2`) | signal/noise + dept routing | `emailSignal` (subscribeRepos) | `vertex_email_message` |
 | `yabai` (`y8b41k0x`) | threat scoring | `emailSignal` where `signalClass='yabai'` (subscribeRepos) | `yabai.entity/evidence/risk` |
@@ -20,8 +20,8 @@ Microsoft Graph API → `app.etzhayyim.apps.kyber.inbox.emailSignal` pipeline. *
 | **Execution Tier** | T1 (MCP-Compose, manifest-driven, no Worker code) |
 | **Trigger sources** | cron (`*/15 * * * *` delta, `0 3 * * *` user enum) + xrpc on-demand |
 | **Auth** | Azure AD app (`9ad011ba-148c-4965-8f80-62086440c3df`) + tenant `e9b32269-81a5-4d3a-bf94-048ba6770c99` |
-| **Host capability** | `app.etzhayyim.host.m365.*` (4 methods — acquireAppToken, enumerateUsers, fetchMailFolders, fetchMessagesPage) |
-| **Output collection** | `app.etzhayyim.apps.kyber.inbox.emailSignal` (derives `vertex_email_message`) |
+| **Host capability** | `com.etzhayyim.host.m365.*` (4 methods — acquireAppToken, enumerateUsers, fetchMailFolders, fetchMessagesPage) |
+| **Output collection** | `com.etzhayyim.apps.kyber.inbox.emailSignal` (derives `vertex_email_message`) |
 | **State** | `vertex_m365_user` + `vertex_m365_sync_state` (per upn × data_kind) |
 | **PII Tier** | 3 (per ADR-0014) — subject/body Signal-enveloped, hashed message-id in AT Record |
 
@@ -37,27 +37,27 @@ Refresh `vertex_m365_user` from Graph `/users?$filter=endsWith(upn,'@etzhayyim.c
 - Fan-out to `sync-single-user` pipeline, bounded concurrency = 4
 - Respect `throttle_until` (set by 429 handler)
 
-### 3. `sync-single-user` (xrpc `app.etzhayyim.apps.m365Ingest.syncUser`)
+### 3. `sync-single-user` (xrpc `com.etzhayyim.apps.m365Ingest.syncUser`)
 
 - Acquire app token (cached by host 55 min)
 - Fetch mail folders (nested recursive)
 - Paginate `/users/{upn}/messages` with `$filter=receivedDateTime ge $since`
 - Per message: classify (`folder → signalClass`, `from → senderKind`, `noiseScore`)
-- Emit `createRecord(app.etzhayyim.apps.kyber.inbox.emailSignal, ...)`
+- Emit `createRecord(com.etzhayyim.apps.kyber.inbox.emailSignal, ...)`
 - Update watermark at end
 
 ## Lexicons
 
 ### Host (4)
-- `app.etzhayyim.host.m365.acquireAppToken` — client credentials → Bearer JWT
-- `app.etzhayyim.host.m365.enumerateUsers` — `/users` with filter
-- `app.etzhayyim.host.m365.fetchMailFolders` — recursive folder tree
-- `app.etzhayyim.host.m365.fetchMessagesPage` — one page of `/users/{upn}/messages`
+- `com.etzhayyim.host.m365.acquireAppToken` — client credentials → Bearer JWT
+- `com.etzhayyim.host.m365.enumerateUsers` — `/users` with filter
+- `com.etzhayyim.host.m365.fetchMailFolders` — recursive folder tree
+- `com.etzhayyim.host.m365.fetchMessagesPage` — one page of `/users/{upn}/messages`
 
 ### App (3 XRPC)
-- `app.etzhayyim.apps.m365Ingest.syncUser` (procedure) — on-demand single-user ingest
-- `app.etzhayyim.apps.m365Ingest.syncAllUsers` (procedure) — manual fan-out trigger
-- `app.etzhayyim.apps.m365Ingest.syncStatus` (query) — read vertex_m365_sync_state
+- `com.etzhayyim.apps.m365Ingest.syncUser` (procedure) — on-demand single-user ingest
+- `com.etzhayyim.apps.m365Ingest.syncAllUsers` (procedure) — manual fan-out trigger
+- `com.etzhayyim.apps.m365Ingest.syncStatus` (query) — read vertex_m365_sync_state
 
 ## Folder → signalClass Classification
 
@@ -78,13 +78,13 @@ Refresh `vertex_m365_user` from Graph `/users?$filter=endsWith(upn,'@etzhayyim.c
 
 ## Consent / Governance
 
-Reading employee mailboxes = high PII. Required consent records (`app.etzhayyim.apps.consent.grant`):
+Reading employee mailboxes = high PII. Required consent records (`com.etzhayyim.apps.consent.grant`):
 
 1. **Per-user opt-in** for `security:BEC-detection` purpose
 2. **Admin/legal consent** for `compliance:audit` (7-year retention per jp-e-archive-law)
 3. **Per-purpose data minimization** — enforce `$select` allowlist, no body/attachments by default
 
-Audit trail: every ingest run writes `app.etzhayyim.apps.m365Ingest.run` event → ocel log.
+Audit trail: every ingest run writes `com.etzhayyim.apps.m365Ingest.run` event → ocel log.
 
 ## Failure Modes
 
@@ -101,7 +101,7 @@ Audit trail: every ingest run writes `app.etzhayyim.apps.m365Ingest.run` event �
 T1 actor = no Worker. Register via PDS:
 
 ```bash
-gftd xrpc app.etzhayyim.actor.migrate -d '{"manifestPath":"20-actors/m365-ingest/actor-manifest.jsonld"}'
+gftd xrpc com.etzhayyim.actor.migrate -d '{"manifestPath":"20-actors/m365-ingest/actor-manifest.jsonld"}'
 ```
 
 Requires prior:
@@ -128,7 +128,7 @@ Current: `~/.gftd/ingest/m365_mail_ingest.py` (one-off, local)
 → Step 1: Implement host TS `m365.ts` (port of Python capability): **DONE**
 → Step 2: Apply migration `20260417190000_vertex_m365_sync_state`: **DONE**
 → Step 3: Seed `vertex_m365_user` once (daily cron will keep it fresh): PENDING
-→ Step 4: Register manifest → `gftd xrpc app.etzhayyim.actor.migrate`: PENDING
+→ Step 4: Register manifest → `gftd xrpc com.etzhayyim.actor.migrate`: PENDING
 → Step 5: Run `syncUser` for each UPN (initial full sync): PENDING
 → Step 6: Delta cron takes over → Python script archived / deleted: PENDING
 

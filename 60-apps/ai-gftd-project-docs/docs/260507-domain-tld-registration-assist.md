@@ -15,17 +15,17 @@ verification.
 - Runtime: shared `pymagatama` LangServer worker.
 - Worker module: `pymagatama.primitives.domain`.
 - BPMN contracts:
-  - `etzhayyim-root/00-contracts/bpmn/ai/gftd/domain/eligibilityCheck.bpmn`
-  - `etzhayyim-root/00-contracts/bpmn/ai/gftd/domain/registerAssist.bpmn`
-  - `etzhayyim-root/00-contracts/bpmn/ai/gftd/domain/refreshTldCatalog.bpmn`
+  - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/domain/eligibilityCheck.bpmn`
+  - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/domain/registerAssist.bpmn`
+  - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/domain/refreshTldCatalog.bpmn`
 - XRPC lexicons:
-  - `app.etzhayyim.apps.domain.eligibilityCheck`
-  - `app.etzhayyim.apps.domain.registerAssist`
+  - `com.etzhayyim.apps.domain.eligibilityCheck`
+  - `com.etzhayyim.apps.domain.registerAssist`
 - Query/catalog lexicons:
-  - `app.etzhayyim.apps.domain.coverage`
-  - `app.etzhayyim.apps.domain.getTld`
-  - `app.etzhayyim.apps.domain.listRegistrars`
-  - `app.etzhayyim.apps.domain.listTlds`
+  - `com.etzhayyim.apps.domain.coverage`
+  - `com.etzhayyim.apps.domain.getTld`
+  - `com.etzhayyim.apps.domain.listRegistrars`
+  - `com.etzhayyim.apps.domain.listTlds`
 
 ## Graph Model
 

@@ -6,7 +6,7 @@ doc_type: adr
 topic: yoro-migration-to-etzhayyim
 authoritative: true
 last_verified: 2026-05-18
-status_note: "Activated 2026-05-18 by vendor Phase 4c wave 4 (PR #1294) — full yoro NSID migration app.etzhayyim.apps.yoro.* → app.etzhayyim.yoro.* completed across 91 vendor consumer files. Stages 3-5 (DNS cutover yoro.etzhayyim.com → yoro.etzhayyim.com, redirect, vendor 60-apps/ai-gftd-project-yoro/ deletion) remain operator runbook items."
+status_note: "Activated 2026-05-18 by vendor Phase 4c wave 4 (PR #1294) — full yoro NSID migration com.etzhayyim.apps.yoro.* → com.etzhayyim.yoro.* completed across 91 vendor consumer files. Stages 3-5 (DNS cutover yoro.etzhayyim.com → yoro.etzhayyim.com, redirect, vendor 60-apps/ai-gftd-project-yoro/ deletion) remain operator runbook items."
 priority: 7.0
 axis: organization
 weight: 0.70
@@ -45,8 +45,8 @@ This ADR establishes the migration plan and records Stages 1-2 (already done in 
 | Layer | Was (legacy) | Becomes (etzhayyim) |
 |---|---|---|
 | Project code | upstream `60-apps/ai-gftd-project-yoro/` | `etzhayyim/root/60-apps/ai-gftd-project-yoro/` |
-| Lexicon spec | upstream `00-contracts/lexicons/ai/gftd/apps/yoro/` (15 JSON) | `etzhayyim/root/00-contracts/lexicons/ai/gftd/apps/yoro/` |
-| BPMN spec | upstream `00-contracts/bpmn/ai/gftd/yoro/` (6 BPMN) | `etzhayyim/root/00-contracts/bpmn/ai/gftd/yoro/` |
+| Lexicon spec | upstream `00-contracts/lexicons/com/etzhayyim/apps/yoro/` (15 JSON) | `etzhayyim/root/00-contracts/lexicons/com/etzhayyim/apps/yoro/` |
+| BPMN spec | upstream `00-contracts/bpmn/com/etzhayyim/yoro/` (6 BPMN) | `etzhayyim/root/00-contracts/bpmn/com/etzhayyim/yoro/` |
 | Domain | legacy domain | `yoro.etzhayyim.com` (etzhayyim CF zone `etzhayyim.com`) |
 | Deployment | legacy CF account | etzhayyim CF account |
 | DID resolver | legacy `did:web` | `did:web:etzhayyim.com` |
@@ -58,8 +58,8 @@ This ADR establishes the migration plan and records Stages 1-2 (already done in 
 
 `rsync -a` from upstream:
 - `60-apps/ai-gftd-project-yoro/` (293 MB working tree before build-artifact filtering; ~30-50 MB tracked after `.gitignore` excludes node_modules / .svelte-kit / dist)
-- `00-contracts/lexicons/ai/gftd/apps/yoro/` (15 files: activity / activitySeen / health / ingestProductCategory / listApps / listPosts / listProductResearch / postAgencyUpdate / productResearch / projectEntity / ...)
-- `00-contracts/bpmn/ai/gftd/yoro/` (6 files: actorQualityEnrich / platformPulse / respondToFollow / respondToMention / translatePost / translatePostBatch)
+- `00-contracts/lexicons/com/etzhayyim/apps/yoro/` (15 files: activity / activitySeen / health / ingestProductCategory / listApps / listPosts / listProductResearch / postAgencyUpdate / productResearch / projectEntity / ...)
+- `00-contracts/bpmn/com/etzhayyim/yoro/` (6 files: actorQualityEnrich / platformPulse / respondToFollow / respondToMention / translatePost / translatePostBatch)
 
 Sensitive-content scan: zero case-anchored markers (no `takahashi-hiroyuki`, no `0x06f...`, no `bitnest`, no `chain_freeze` etc.). Auth subsystem = `passkey` (WebAuthn, open standard).
 
@@ -101,8 +101,8 @@ Grace period: 12 months minimum (per the etz_hayim → etzhayyim → etzhayyim r
 After Stage 3-4 stabilize:
 
 - Remove `60-apps/ai-gftd-project-yoro/` from upstream
-- Remove `00-contracts/lexicons/ai/gftd/apps/yoro/` from upstream
-- Remove `00-contracts/bpmn/ai/gftd/yoro/` from upstream
+- Remove `00-contracts/lexicons/com/etzhayyim/apps/yoro/` from upstream
+- Remove `00-contracts/bpmn/com/etzhayyim/yoro/` from upstream
 - Update upstream `deps.toml [platform.operating_entity].public_page` to `https://yoro.etzhayyim.com/support/operator`
 - Update upstream `CLAUDE.md` references
 

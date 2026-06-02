@@ -5,9 +5,9 @@ CF Worker that exposes the 3 rw-free commands as XRPC endpoints.
 ## Endpoints
 
 ### Drug Registry (US FDA NDC + WHO ATC)
-- `POST /xrpc/app.etzhayyim.ndc.registerDrug` — register drug
-- `GET /xrpc/app.etzhayyim.ndc.lookupByCode` — lookup by code
-- `GET /xrpc/app.etzhayyim.ndc.listDrugs` — paginated list
+- `POST /xrpc/com.etzhayyim.ndc.registerDrug` — register drug
+- `GET /xrpc/com.etzhayyim.ndc.lookupByCode` — lookup by code
+- `GET /xrpc/com.etzhayyim.ndc.listDrugs` — paginated list
 
 ## Deploy
 

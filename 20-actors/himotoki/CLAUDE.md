@@ -33,7 +33,7 @@ request_intake ──┤→ compose → dispatch → deadline_tracker → respon
 - **Do not** render legal advice; templates + characterization + appeal
   strategy route to **chigiri + external counsel** (G5, UPL).
 - **Do not** store disclosed PII anywhere except an
-  `app.etzhayyim.encrypted.*` XChaCha20-Poly1305 **DID-bound envelope**
+  `com.etzhayyim.encrypted.*` XChaCha20-Poly1305 **DID-bound envelope**
   (G6, ADR-2605181100). **Never** plaintext PII on MST.
 - **Do not** mass-file, bulk-enumerate agencies, or flood requests (G8);
   **do not** resell disclosed data or run a paid pretext service (G9).

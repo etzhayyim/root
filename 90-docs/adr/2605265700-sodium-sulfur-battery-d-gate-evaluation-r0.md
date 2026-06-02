@@ -112,7 +112,7 @@ NaS optimal niche: 6-24 hour discharge at constant power, e.g., overnight bridgi
 ## §5 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   nasModuleAttestation,                 # cell + module design CID + β″-Al₂O₃ formula + operating temp ceiling
   nasThermalRunawayContainmentSpec,     # fusible link + isolation valve + fire-suppression design CID
   nasCycleLifeAttestation,              # destructive sampling test result + cycle-count demonstration

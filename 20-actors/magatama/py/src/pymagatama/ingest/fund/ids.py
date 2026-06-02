@@ -60,19 +60,19 @@ def fund_id(*, source_id: str, adviser_id: str, native_fund_id: Any = "", name: 
 
 
 def manager_vertex_id(value: str) -> str:
-    return f"at://{FUND_DID}/app.etzhayyim.apps.fund.manager/{slug(value)}"
+    return f"at://{FUND_DID}/com.etzhayyim.apps.fund.manager/{slug(value)}"
 
 
 def fund_vertex_id(value: str) -> str:
-    return f"at://{FUND_DID}/app.etzhayyim.apps.fund.fund/{slug(value)}"
+    return f"at://{FUND_DID}/com.etzhayyim.apps.fund.fund/{slug(value)}"
 
 
 def investor_vertex_id(value: str) -> str:
-    return f"at://{FUND_DID}/app.etzhayyim.apps.fund.investor/{slug(value)}"
+    return f"at://{FUND_DID}/com.etzhayyim.apps.fund.investor/{slug(value)}"
 
 
 def investee_vertex_id(value: str) -> str:
-    return f"at://{FUND_DID}/app.etzhayyim.apps.fund.investee/{slug(value)}"
+    return f"at://{FUND_DID}/com.etzhayyim.apps.fund.investee/{slug(value)}"
 
 
 def edge_id(kind: str, src_vid: str, dst_vid: str, *parts: Any) -> str:

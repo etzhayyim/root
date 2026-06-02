@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yamabiko.homologationRecord"
+ :id "com.etzhayyim.yamabiko.homologationRecord"
  :defs
  {:main
   {:type "record"

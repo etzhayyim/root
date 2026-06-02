@@ -3,7 +3,7 @@ open_isic_hierarchical_classify — Pregel StateGraph for hierarchical classific
 
 This graph takes an entity description and navigates down the ISIC Rev.4 tree
 (Section -> Division -> Group -> Class) by iteratively fetching the taxonomy
-options via the MCP tool `app.etzhayyim.apps.openIsic.getTaxonomy` and using the LLM
+options via the MCP tool `com.etzhayyim.apps.openIsic.getTaxonomy` and using the LLM
 to make decisions at each layer.
 """
 
@@ -46,7 +46,7 @@ async def fetch_taxonomy(state: HierarchicalClassifyState) -> dict:
         "id": "1",
         "method": "tools/call",
         "params": {
-            "name": "app.etzhayyim.apps.openIsic.getTaxonomy",
+            "name": "com.etzhayyim.apps.openIsic.getTaxonomy",
             "arguments": {
                 "level": level,
                 "parentCode": parent_code
@@ -85,7 +85,7 @@ async def predict_level(state: HierarchicalClassifyState) -> dict:
     # based on `state['entityName']` and `state['description']`.
     # For now, we simulate an LLM call by picking the first candidate (or a placeholder)
     # to demonstrate the graph structure.
-    # In a real environment, this node dispatches an MCP call to `app.etzhayyim.tools.llm.chat`.
+    # In a real environment, this node dispatches an MCP call to `com.etzhayyim.tools.llm.chat`.
     
     level = state.get("currentLevel", "section")
     candidates = state.get("candidates", [])

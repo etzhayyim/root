@@ -80,7 +80,7 @@ def test_task_writes_outbox_sync_tick(monkeypatch):
     assert out["replayed"] == 3
     row = factory.cursors[0].params[0]
     assert row["repo"] == "did:web:atproto.etzhayyim.com"
-    assert row["collection"] == "app.etzhayyim.apps.pds.writeOutboxSync"
+    assert row["collection"] == "com.etzhayyim.apps.pds.writeOutboxSync"
     value = json.loads(row["value_json"])
     assert value["expired"] == 1
     assert factory.cursors[0].sqls[-1] == "FLUSH"

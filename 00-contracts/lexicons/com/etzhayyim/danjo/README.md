@@ -1,4 +1,4 @@
-# app.etzhayyim.danjo.* — Public-Accountability Oversight Lexicons
+# com.etzhayyim.danjo.* — Public-Accountability Oversight Lexicons
 
 **ADR**: ADR-2605301600 (R0 scaffold)
 **Owner actor**: danjo (弾正) — `did:web:danjo.etzhayyim.com`
@@ -7,7 +7,7 @@
 ## Purpose
 
 These Lexicons are written by danjo cross-reference cells over the
-already-IPFS-pinned open-government corpus (`app.etzhayyim.gov.dataset.*`,
+already-IPFS-pinned open-government corpus (`com.etzhayyim.gov.dataset.*`,
 ADR-2605263900 — for Japan: 国会会議録 / 予算書 / 政府調達 / e-Stat).
 danjo ingests that corpus into kotoba EAVT and emits FACTUAL, source-
 cited, **NON-adjudicating** discrepancy observations + aggregate
@@ -83,6 +83,6 @@ its 8-test regression suite.
 ## Related Files
 
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — master ADR
-- `/00-contracts/lexicons/app/etzhayyim/gov/dataset/README.md` — primary input corpus namespace
+- `/00-contracts/lexicons/com/etzhayyim/gov/dataset/README.md` — primary input corpus namespace
 - `/20-actors/danjo/` — manifest + README + CLAUDE.md
 - `/20-actors/magatama/cells/danjo_*/` — cell modules (R0 path-reserved)

@@ -192,14 +192,14 @@ cohort DID: did:web:vin.etzhayyim.com:cohort:fleet_gftd_tokyo
 ## Lexicon NSIDs
 
 ```
-app.etzhayyim.apps.vin.vehicle               # vehicle record (VIN decoded)
-app.etzhayyim.apps.vin.vinRecord             # raw VIN decode result
-app.etzhayyim.apps.vin.licensePlate          # license plate record
-app.etzhayyim.apps.vin.manufacturer          # manufacturer record
-app.etzhayyim.apps.vin.wmiCode               # WMI code record
-app.etzhayyim.apps.vin.recallCampaign        # recall campaign
-app.etzhayyim.apps.vin.cohortRegistration    # cohort DID registration event
-app.etzhayyim.apps.vin.jurisdictionRegistry  # jurisdiction registry metadata
+com.etzhayyim.apps.vin.vehicle               # vehicle record (VIN decoded)
+com.etzhayyim.apps.vin.vinRecord             # raw VIN decode result
+com.etzhayyim.apps.vin.licensePlate          # license plate record
+com.etzhayyim.apps.vin.manufacturer          # manufacturer record
+com.etzhayyim.apps.vin.wmiCode               # WMI code record
+com.etzhayyim.apps.vin.recallCampaign        # recall campaign
+com.etzhayyim.apps.vin.cohortRegistration    # cohort DID registration event
+com.etzhayyim.apps.vin.jurisdictionRegistry  # jurisdiction registry metadata
 ```
 
 ## Commands

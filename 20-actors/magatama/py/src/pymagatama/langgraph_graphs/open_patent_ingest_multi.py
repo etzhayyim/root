@@ -150,7 +150,7 @@ def emit_audit(state: OpenPatentIngestMultiState) -> dict:
                 (
                     str(uuid.uuid4()),
                     "did:web:open-patent.etzhayyim.com",
-                    "app.etzhayyim.apps.openPatent.ingestMulti",
+                    "com.etzhayyim.apps.openPatent.ingestMulti",
                     f"lg-{int(_time.time() * 1000)}",
                     "create",
                     int(_time.time() * 1000),

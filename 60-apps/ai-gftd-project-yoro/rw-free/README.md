@@ -39,7 +39,7 @@ Yoro metadata is stored on PDS. No IPFS pointers. Phase 3 mst-projector may add 
 | Vendor (`yoro.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
-| `db.insertInto("vertex_yoro_*").values({...}).execute()` | `e.write({ collection: "app.etzhayyim.yoro.*", record, rkey })` |
+| `db.insertInto("vertex_yoro_*").values({...}).execute()` | `e.write({ collection: "com.etzhayyim.yoro.*", record, rkey })` |
 | `db.selectFrom("vertex_yoro_*").where(...).execute()` | Read query methods (getTimeline, getProfile, etc.) stub to pod LangServer |
 
 ## Usage

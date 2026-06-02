@@ -232,9 +232,9 @@ The first concrete **L1-projection** in the monorepo is **feed-discover**
 `50-infra/mst-projector/projection/yatachain-projection.toml`, CI smoke at
 `50-infra/mst-projector/test/feed-discover.replay.test.ts`). It indexes
 `app.bsky.feed.post` records cross-DID and emits
-`app.etzhayyim.projection.feedDiscover` snapshots; the lexicon's `verdict`
+`com.etzhayyim.projection.feedDiscover` snapshots; the lexicon's `verdict`
 field carries the membrane attestation observed via the
-`app.etzhayyim.membrane.verdict` sidecar. Per
+`com.etzhayyim.membrane.verdict` sidecar. Per
 [ADR-2605231902](../../90-docs/adr/2605231902-feed-post-membrane-and-feed-discover-projection.md).
 
 ### Combined claim
@@ -249,7 +249,7 @@ of the GTFS index).
 ## Open questions
 
 - **OQ-1**: should yatachain-witnesses operate on plaintext or ciphertext for
-  `app.etzhayyim.encrypted.*` records? Plaintext requires witness cells to be
+  `com.etzhayyim.encrypted.*` records? Plaintext requires witness cells to be
   inside the recipient set, which violates the encryption model. Ciphertext
   requires the membrane to validate envelope structure only (not payload). See
   ADR-2605181100 for the encryption envelope; the witness extension is TBD.

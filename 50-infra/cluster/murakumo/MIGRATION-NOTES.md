@@ -31,7 +31,7 @@ Authoritative ADR: **ADR-2605214000** §3.
 | `src/install.rs` | 12 | help text `HTTP/3 direct to murakumo.etzhayyim.com CF Worker` | `murakumo.etzhayyim.com` | help text |
 | `src/install.rs` | 39 | log `Registering with murakumo.etzhayyim.com/join...` | `murakumo.etzhayyim.com/join` | log message |
 | `src/install.rs` | 176 | `https://cdn.etzhayyim.com/bin/magatama-inference/latest/{}` | `https://cdn.etzhayyim.com/bin/magatama-inference/latest/{}` | binary download URL |
-| `src/install.rs` | 222, 259, 263 | launchd label `app.etzhayyim.murakumo` + plist filename | `com.etzhayyim.murakumo` | launchd label (found via dry-run) |
+| `src/install.rs` | 222, 259, 263 | launchd label `com.etzhayyim.murakumo` + plist filename | `com.etzhayyim.murakumo` | launchd label (found via dry-run) |
 | `src/install.rs` | 233–235 | `~/.gftd/daemon.log` paths in plist | `~/.etzhayyim/daemon.log` | log path (found via dry-run) |
 | `src/install.rs` | 238–240 | `etzhayyim_MURAKUMO` + `etzhayyim_PROVIDER_MODE` plist env keys | `ETZHAYYIM_MURAKUMO` + `ETZHAYYIM_PROVIDER_MODE` | plist env vars (found via dry-run) |
 | `src/install.rs` | 269, 278–280, 289–294 | systemd unit: `gftd-murakumo.service`, `etzhayyim_MURAKUMO`, `etzhayyim_PROVIDER_MODE` | `etzhayyim-murakumo.service`, `ETZHAYYIM_*` | systemd unit (found via dry-run) |
@@ -45,7 +45,7 @@ Authoritative ADR: **ADR-2605214000** §3.
 | `deploy-mesh.sh` | 17 | `CONTROL_PLANE="https://murakumo.etzhayyim.com"` | `CONTROL_PLANE="https://murakumo.etzhayyim.com"` | shell default |
 | `deploy-mesh.sh` | 16 | `MESH_IDENTITY_DIR="$HOME/.gftd/mesh"` | `"$HOME/.etzhayyim/mesh"` | mesh identity dir |
 | `deploy-mesh.sh` | 104, 109, 112, 117, 152, 153, 167, 176, 178, 210 | various `~/.gftd/` paths + `gftd-murakumo` binary refs | `~/.etzhayyim/` + `etzhayyim-murakumo` | path + binary refs |
-| `deploy-mesh.sh` | 164, 182 | launchd label `app.etzhayyim.murakumo-mesh` + plist path | `com.etzhayyim.murakumo-mesh` + plist path | launchd label |
+| `deploy-mesh.sh` | 164, 182 | launchd label `com.etzhayyim.murakumo-mesh` + plist path | `com.etzhayyim.murakumo-mesh` + plist path | launchd label |
 | `deploy-mesh.sh` | 142–146 | run script body using `gftd-murakumo` | `etzhayyim-murakumo` | run script |
 | `Cargo.toml` | (package.name) | `gftd-murakumo` | `etzhayyim-murakumo` | cargo crate name |
 

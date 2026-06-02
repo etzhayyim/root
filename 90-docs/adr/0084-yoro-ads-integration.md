@@ -95,7 +95,7 @@ AdPushup は AdSense と header bidding で共存 (同じ `<ins class="adsbygoog
 
 - 広告 creative は第三者の AdSense ネットワーク側にあるので yoro の AT Repo / federation には **一切** 流れない (ADR-0036 Repo Record Minimization 準拠、そもそも record 化していない)
 - Impression / click 等の個人広告 metrics も yoro 側で保持しない (Google が所有)
-- 将来の 1st-party sponsored post (advectors project) は別 ADR で扱う。advectors は `app.etzhayyim.apps.advectors.*` lexicon で federable sponsored post を出す設計の余地を残すが、本 ADR では対象外
+- 将来の 1st-party sponsored post (advectors project) は別 ADR で扱う。advectors は `com.etzhayyim.apps.advectors.*` lexicon で federable sponsored post を出す設計の余地を残すが、本 ADR では対象外
 
 ### 6. Shannon 観点
 
@@ -217,14 +217,14 @@ score = 0.5 · (viewer follows advertiser)
 | `wrangler.jsonc` | Stub (`gftd deploy` で regenerate) |
 | `CLAUDE.md` | project runbook + deploy flow |
 
-Lexicons at `00-contracts/lexicons/ai/gftd/apps/ads/`:
+Lexicons at `00-contracts/lexicons/com/etzhayyim/apps/ads/`:
 - `createCampaign.json` — procedure → path-DID `did:web:ads.etzhayyim.com:campaign:{id}` を issue
 - `postSponsored.json` — procedure → campaign DID で `app.bsky.feed.post` + `!ad` self-label を発行
 - `listCampaigns.json` — query → caller-owned campaign 一覧
 
 内部 collection (ADR-0036 § non-federable Tier 2):
-- `app.etzhayyim.apps.ads.campaign` — campaign metadata (name / budget / advertiser)
-- `app.etzhayyim.apps.ads.sponsoredPost` — post URI ↔ campaign linkage (analytics 用)
+- `com.etzhayyim.apps.ads.campaign` — campaign metadata (name / budget / advertiser)
+- `com.etzhayyim.apps.ads.sponsoredPost` — post URI ↔ campaign linkage (analytics 用)
 
 ### C — `/ads/compose` (yoro UI) ✅
 
@@ -239,7 +239,7 @@ B の 3 XRPC を `atQuery` / `atProcedure` で叩く。Auth は yoro セッシ�
 ## Follow-ups
 
 1. Campaign DID を `SPONSORED_DIDS[]` に登録する運用フロー (手動 or `ads.listCampaigns` を yoro 起動時に fetch して動的注入)
-2. advectors backend (別 project) — `app.etzhayyim.apps.advectors.listCandidates` (AppView-side auction + ML ranker) で client-side heuristic を置換
+2. advectors backend (別 project) — `com.etzhayyim.apps.advectors.listCandidates` (AppView-side auction + ML ranker) で client-side heuristic を置換
 4. Ad click telemetry pipeline — click event → RisingWave direct (ADR-0036)
 5. Per-advertiser mute — Tier 3 Preferences に格納、"Why this ad?" link を `/settings/ads` に接続
 6. Labeler 対応 — yoro labeler が `!ad` を既知 label として登録、他 AppView もこれを購読すれば除外可能

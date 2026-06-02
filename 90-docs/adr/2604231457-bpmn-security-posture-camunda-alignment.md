@@ -112,7 +112,7 @@ violate the spec:
    is already the canonical state store (ADR-0058 Pillar 3).
 2. **Lexicon-bound job types**
    `zeebe:taskDefinition.type` values follow the `generic.<domain>.<action>`
-   or `app.etzhayyim.<domain>.<action>` convention and are wired to pyzeebe
+   or `com.etzhayyim.<domain>.<action>` convention and are wired to pyzeebe
    handlers by name. This is no different from Camunda's own convention;
    we document it so reviewers don't look for an implicit registry.
 
@@ -176,7 +176,7 @@ caller.
 | 2 | `helm upgrade` dispatcher + mitama-udf workers | `/health` 200, `/bindings` non-empty | done (Version 55, 2026-04-23). All 3 deploys on `sha256:ed35265…d9dee`, dispatcher `/health` 200, direct `http://dispatcher.etzhayyim.com:8080/xrpc/...` → 200 with Zeebe data. |
 | 3 | PDS pipethrough sends `x-internal-trust: ${DISPATCHER_INTERNAL_SECRET}` from Secrets Store | PDS Worker deploy ok + end-to-end smoke (atproto → dispatcher → 200) | **partial, blocked** — code deployed (PDS Version `0820a358…`) and CF Secrets Store `dispatcher_internal_secret` created, but CF Workers `fetch("http://dispatcher.etzhayyim.com:8080/...")` returns 5xx from inside the CF fabric. External fetch works. Pipethrough silently falls through to the legacy handler. Every migrated yabai NSID is currently served by fallback, not by the dispatcher. |
 | 3.1 | **Blocker fix — dispatcher origin reachability from CF Workers** | Some CF-Worker-callable HTTPS origin resolves to the `bpmn-dispatcher` service | not started. Options: (a) CF Tunnel (`cloudflared` sidecar in `mitama-udf` namespace — recommended, matches murakumo-serve pattern); (b) CF Spectrum (Enterprise); (c) TLS terminate at Vultr LB :443 + orange-cloud `dispatcher.etzhayyim.com`. |
-| 3.2 | Re-run end-to-end smoke after 3.1 | `curl atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.yabai.listFlags` → 200 with real flags payload (via dispatcher, not fallback) | — |
+| 3.2 | Re-run end-to-end smoke after 3.1 | `curl atproto.etzhayyim.com/xrpc/com.etzhayyim.apps.yabai.listFlags` → 200 with real flags payload (via dispatcher, not fallback) | — |
 | 4 | Flip dispatcher `AUTH_MODE=strict` via helm values | bare curl `http://dispatcher…:8080/xrpc/...` → 401; PDS-forwarded → 200 | blocked on 3.1 |
 | 5 | Post-mortem: confirm no non-PDS caller exists on the LB | Vultr LB access-log scan | — |
 

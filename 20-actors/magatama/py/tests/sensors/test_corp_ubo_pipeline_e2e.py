@@ -30,7 +30,7 @@ from pathlib import Path
 
 PROV = dict(
     created_at="2026-05-31T00:00:00Z",
-    dataset_pin_at="at://did:web:etzhayyim.com/app.etzhayyim.substrate.datasetPin/g1",
+    dataset_pin_at="at://did:web:etzhayyim.com/com.etzhayyim.substrate.datasetPin/g1",
     attesting_did="did:web:corp-sensor.etzhayyim.com",
 )
 
@@ -154,6 +154,6 @@ def test_full_ubo_pipeline_composes(tmp_path, load_sensor, make_pin):
         assert lei_reference_cids[CHILD] in link["basisRecordCids"]
         # The edge record's own id is the first basis CID.
         assert link["basisRecordCids"][0].startswith(
-            "app.etzhayyim.corp.ownershipEdge:gleif-l2:")
+            "com.etzhayyim.corp.ownershipEdge:gleif-l2:")
         assert link["confidence"] == "registry-asserted"
         assert link["jurisdiction"] == "JPN"

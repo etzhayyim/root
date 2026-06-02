@@ -25,7 +25,7 @@ related:
   - 50-infra/silicon/                            # this ADR creates this tree
   - 20-actors/tsukuru/                           # existing orchestration actor (B2B factory-direct)
   - 20-actors/magatama/cells/silicon_*/          # this ADR creates the 8 fab Pregel cells
-  - 00-contracts/lexicons/app/etzhayyim/silicon/ # this ADR creates the 4 silicon Lexicons
+  - 00-contracts/lexicons/com/etzhayyim/silicon/ # this ADR creates the 4 silicon Lexicons
 supersedes: []
 superseded_by: []
 ---
@@ -158,7 +158,7 @@ silicon 製造 orchestrator は **religious-corp の tsukuru に統一** する�
 **Gate 設計**:
 
 1. **設計時 review** — 各 RTL/CAD commit に対し `charter-rider-applicator` の §2(a)(c) 静的 scanner を pass させる (キーワード + design intent attestation)
-2. **製造時 review** — Council Lv6+ ≥ 3 multisig attestation を `app.etzhayyim.silicon.silenForceReview` Lexicon で記録 — これを `tsukuru.etzhayyim.com` の production_order が require する
+2. **製造時 review** — Council Lv6+ ≥ 3 multisig attestation を `com.etzhayyim.silicon.silenForceReview` Lexicon で記録 — これを `tsukuru.etzhayyim.com` の production_order が require する
 3. **流通時 review** — 完成シリコンの納入先 DID は religious-corp adherent SBT 保有者 / 認可された他 NGO のみ (KYC は SBT-based)
 4. **転売禁止** — donated silicon は land trust 類比で inalienable (Decision 6)
 
@@ -250,7 +250,7 @@ ADR-2605192245 は土地を Tree of Life inalienable と定めた。本 ADR は�
 4. ⏳ ADR-2605242545 (tsukuru fab 8 equipment Pregel charter) commit — 本 wave
 5. ⏳ `50-infra/silicon/` 配下 scaffold (README + ternary-pe SV skeleton + cocotb test skeleton) commit — 本 wave
 6. ⏳ `20-actors/magatama/cells/silicon_*` 8 Pregel cell skeleton commit — 本 wave
-7. ⏳ `00-contracts/lexicons/app/etzhayyim/silicon/` 4 Lexicon stub commit — 本 wave
+7. ⏳ `00-contracts/lexicons/com/etzhayyim/silicon/` 4 Lexicon stub commit — 本 wave
 8. ⏳ Phase 2 (FPGA prototype) は別 ADR — Council 承認 + budget 確保後
 9. ⏳ Phase 3 (MPW tape-out) は別 ADR — 同上 + tsukuru production_order 経由
 10. ⏳ Phase 4 (自家 fab 建設) は超長期 — 本 ADR の射程外、別 wave

@@ -11,7 +11,7 @@
 | Pregel cell (religious-corp `20-actors/magatama/cells/`) | 0 gov | **0 gov** (unchanged — gov-specific cells were never religious-corp scope) |
 | MCP server (`20-actors/magatama/mcp/`) | 0 gov | **0 gov** (unchanged — same reason) |
 | App appview (`60-apps/`) | 4 gov-adjacent scaffolds | **9 apps** including the 1229-file `ai-gftd-project-cofog` covering UN COFOG × country |
-| BPMN namespace (`00-contracts/bpmn/ai/gftd/`) | 1127 .bpmn / 140国 | unchanged |
+| BPMN namespace (`00-contracts/bpmn/com/etzhayyim/`) | 1127 .bpmn / 140国 | unchanged |
 | Ingest script (`70-tools/scripts/gov/`) | 6 (5 IN + 1 AGO) | unchanged |
 
 The "real" gov coverage was always in `ai-gftd-project-cofog` (already 99.9% migrated, 1229/1230) and `ai-gftd-project-gov` (gov.etzhayyim.com public-services hub), not in religious-corp Pregel cells. The substrate boundary (ADR-2605172000) was the reason the gftd→etzhayyim migration left some apps as scaffold-only — the gftd code uses Kysely + HyperDrive Postgres which is prohibited on the etzhayyim side.

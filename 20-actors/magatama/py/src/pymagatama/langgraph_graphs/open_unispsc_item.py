@@ -71,7 +71,7 @@ def _repo_root() -> Path:
 
 
 def _bpmn_dir() -> Path:
-    return _repo_root() / "00-contracts/bpmn/ai/gftd/open-unispsc"
+    return _repo_root() / "00-contracts/bpmn/com/etzhayyim/open-unispsc"
 
 
 def _clean_code(value: Any, digits: int) -> str:
@@ -195,7 +195,7 @@ def build_langchain_prompt(state: OpenUnispscItemState) -> dict[str, Any]:
 
 def build_item_graph_design(state: OpenUnispscItemState) -> dict[str, Any]:
     code = state.get("commodity_code", "")
-    nsid_prefix = f"app.etzhayyim.apps.openUnispsc.item{code}"
+    nsid_prefix = f"com.etzhayyim.apps.openUnispsc.item{code}"
     bpmn_ids = [r["processId"] for r in state.get("bpmn_refs", [])]
     nodes = [
         "normalize_item",
@@ -221,13 +221,13 @@ def build_item_graph_design(state: OpenUnispscItemState) -> dict[str, Any]:
             "nodes": nodes,
             "edges": [[nodes[i], nodes[i + 1]] for i in range(len(nodes) - 1)],
             "mcpTools": {
-                "design": "app.etzhayyim.apps.openUnispsc.designItem",
-                "getSpec": "app.etzhayyim.apps.openUnispsc.itemGetSpec",
-                "screenSupplier": "app.etzhayyim.apps.openUnispsc.itemScreenSupplier",
-                "planProcurement": "app.etzhayyim.apps.openUnispsc.itemPlanProcurement",
-                "flagCompliance": "app.etzhayyim.apps.openUnispsc.itemFlagCompliance",
-                "syncCatalogItem": "app.etzhayyim.apps.openUnispsc.syncCatalogItem",
-                "planCatalogPurchase": "app.etzhayyim.apps.openUnispsc.planCatalogPurchase",
+                "design": "com.etzhayyim.apps.openUnispsc.designItem",
+                "getSpec": "com.etzhayyim.apps.openUnispsc.itemGetSpec",
+                "screenSupplier": "com.etzhayyim.apps.openUnispsc.itemScreenSupplier",
+                "planProcurement": "com.etzhayyim.apps.openUnispsc.itemPlanProcurement",
+                "flagCompliance": "com.etzhayyim.apps.openUnispsc.itemFlagCompliance",
+                "syncCatalogItem": "com.etzhayyim.apps.openUnispsc.syncCatalogItem",
+                "planCatalogPurchase": "com.etzhayyim.apps.openUnispsc.planCatalogPurchase",
                 "itemScopedPrefix": nsid_prefix,
             },
             "bpmnReferences": state.get("bpmn_refs", []),
@@ -397,22 +397,22 @@ def sync_catalog_item(state: OpenUnispscItemState) -> dict[str, Any]:
             "operation": "syncCatalogItem",
             "commodityCode": code,
             "commodityName": name,
-            "sourceCollection": "app.etzhayyim.apps.unispsc.commodity",
+            "sourceCollection": "com.etzhayyim.apps.unispsc.commodity",
             "sourceRepo": source_repo,
             "sourceRkey": rkey,
-            "catalogCollection": "app.etzhayyim.apps.okaimono.catalogItem",
+            "catalogCollection": "com.etzhayyim.apps.okaimono.catalogItem",
             "catalogRkey": product_id,
             "catalogItem": record,
             "atprotoWritePlan": {
                 "mode": "deterministic-upsert",
                 "operation": "upsertOkaimonoCatalogItemFromUnispscCommodity",
                 "repo": "did:web:okaimono.etzhayyim.com",
-                "collection": "app.etzhayyim.apps.okaimono.catalogItem",
+                "collection": "com.etzhayyim.apps.okaimono.catalogItem",
                 "rkey": product_id,
                 "record": record,
             },
             "classificationEdge": {
-                "src": f"at://did:web:okaimono.etzhayyim.com/app.etzhayyim.apps.okaimono.catalogItem/{product_id}",
+                "src": f"at://did:web:okaimono.etzhayyim.com/com.etzhayyim.apps.okaimono.catalogItem/{product_id}",
                 "dst": commodity_did,
                 "role": "CLASSIFIED_BY",
             },
@@ -452,7 +452,7 @@ def plan_catalog_purchase(state: OpenUnispscItemState) -> dict[str, Any]:
             "procurementInvocation": {
                 "step": "procurement-find-offers",
                 "targetActorDid": segment_actor,
-                "mcpTool": "app.etzhayyim.apps.openUnispsc.itemGetSpec",
+                "mcpTool": "com.etzhayyim.apps.openUnispsc.itemGetSpec",
                 "arguments": {"commodityCode": code},
             },
             "fulfillmentPlan": {

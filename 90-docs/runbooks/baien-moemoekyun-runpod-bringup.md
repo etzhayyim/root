@@ -75,7 +75,7 @@ python 70-tools/baien-moemoekyun-train/scripts/rental-orchestrator.py \
 Internally the orchestrator (per ADR-2605262300 §7):
 
 1. **Phase 0** pre-flight: budget cap validation + tier validation + Charter Rider scan over dataset CIDs
-2. **Phase 1** publish `app.etzhayyim.train.rentalAttestation` to PDS (record AT URI captured)
+2. **Phase 1** publish `com.etzhayyim.train.rentalAttestation` to PDS (record AT URI captured)
 3. **Phase 2** RunPod API: provision B200 SXM instance, returns instance IP + SSH key
 4. upload `70-tools/baien-moemoekyun-train/` + `configs/r2-iter01.yaml` to instance `/workspace/`
 5. SSH-execute `python /workspace/baien-moemoekyun-train/src/baien_moemoekyun/train.py --config /workspace/config.yaml`
@@ -85,14 +85,14 @@ Internally the orchestrator (per ADR-2605262300 §7):
 9. `e7m-dataset verify baien-server-moemoekyun-r2-iter01` → bytes round-trip CID
 10. **Phase 4** fleet eval: NDJSON emit to Mac mini bench cells (naphtali + simeon), poll asher ledger cell for aggregated results
 11. **Phase 5** commit_gate: Δ_langgraph ≥ +3pp AND Δ_humaneval+ ≥ 0 → commit; else abort
-12. **Phase 6** publish `app.etzhayyim.train.rentalCostLog` (actual wall + actual cost + commit decision)
+12. **Phase 6** publish `com.etzhayyim.train.rentalCostLog` (actual wall + actual cost + commit decision)
 13. **Phase 7** RunPod API: terminate instance (final billing collected)
 
 ## Step 3: post-run verification (T+30 min)
 
 ```sh
 # Verify both records emitted to PDS
-# (R2.1 deliverable: e7m-pds list-records --collection app.etzhayyim.train.rentalAttestation)
+# (R2.1 deliverable: e7m-pds list-records --collection com.etzhayyim.train.rentalAttestation)
 
 # Verify checkpoint pinned + retrievable
 ipfs cat <outputCheckpointCid> | head -c 100  # raw bytes preview
@@ -110,7 +110,7 @@ curl -X POST http://192.168.1.17:4000/v1/chat/completions \
 
 Per CHARTER-RIDER §2(i)(2)(3), cost log MUST be emitted within 24h. Verify:
 
-- `app.etzhayyim.train.rentalCostLog` record present in PDS for the rental attestation
+- `com.etzhayyim.train.rentalCostLog` record present in PDS for the rental attestation
 - Monthly aggregate counter updated (per ADR-2605262300 §6 caps: ≤100h aggregate / ≤$1000)
 - If aggregate approaches caps, surface warning to Council Lv4+ via asher cell
 
@@ -146,7 +146,7 @@ Beyond cap: Council Lv6+ ≥4/7 per-incident approval required to continue.
 
 After successful R2 iter-01:
 
-1. Push commit with new `app.etzhayyim.train.rentalAttestation/rentalCostLog` AT URIs referenced in `90-docs/baien/moemoekyun-r2-iter01-summary.md`
+1. Push commit with new `com.etzhayyim.train.rentalAttestation/rentalCostLog` AT URIs referenced in `90-docs/baien/moemoekyun-r2-iter01-summary.md`
 2. Update `90-docs/baien/moemoekyun-models.jsonl` entry (auto by orchestrator)
 3. Surface decision to ledger cell (asher) for Council Lv4+ visibility
 4. Plan R2 iter-02 hyperparameter sweep OR escalate to R3 (Phase 1 partial unfreeze) ADR

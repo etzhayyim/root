@@ -179,7 +179,7 @@ R5 increment (landed 2026-06-01) — live HTTP audit transport + settlement
 proposal + commit-loop contract:
 - **#1 live HTTP `ProofFetcher` (DONE, e2e tested).** Server half:
   `availability_xrpc::availability_challenge` XRPC endpoint
-  (`ai.gftd.apps.kotoba.dht.availability_challenge`) answers a challenge from the
+  (`com.etzhayyim.apps.kotoba.dht.availability_challenge`) answers a challenge from the
   node's block store via `proof_from_store`. Client half:
   `dht_transport::HttpProofFetcher` (`reqwest::blocking`, implements
   `ProofFetcher`). **End-to-end test binds a real axum server on an ephemeral

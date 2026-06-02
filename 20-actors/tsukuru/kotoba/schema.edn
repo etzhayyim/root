@@ -47,7 +47,7 @@
  {:db/ident :production-order/buyer-did
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "member = purchasing principal (G14), active Adherent SBT; detail encrypted app.etzhayyim.encrypted.* (G9)"}
+  :db/doc "member = purchasing principal (G14), active Adherent SBT; detail encrypted com.etzhayyim.encrypted.* (G9)"}
  {:db/ident :production-order/factory-did
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one

@@ -89,13 +89,13 @@ def _insert(table: str, row: dict[str, Any]) -> None:
 def _base(collection: str, rkey: str, created: str | None = None) -> dict[str, Any]:
     created_at = created or now_iso()
     return {
-        "vertex_id": f"at://{ACTOR_DID}/app.etzhayyim.apps.calendar.{collection}/{rkey}",
+        "vertex_id": f"at://{ACTOR_DID}/com.etzhayyim.apps.calendar.{collection}/{rkey}",
         "created_date": created_at[:10],
         "sensitivity_ord": 100,
         "owner_did": ACTOR_DID,
         "rkey": rkey,
         "repo": ACTOR_DID,
-        "collection": f"app.etzhayyim.apps.calendar.{collection}",
+        "collection": f"com.etzhayyim.apps.calendar.{collection}",
         "created_at": created_at,
         "org_id": "anon",
         "user_id": "anon",
@@ -362,7 +362,7 @@ def oauth_callback(code: str = "", error: str = "", state: str = "", **_: Any) -
 def _base_gcal(collection: str, rkey: str) -> dict[str, Any]:
     created = now_iso()
     return {
-        "vertex_id": f"at://{ACTOR_DID}/app.etzhayyim.apps.calendar.{collection}/{rkey}",
+        "vertex_id": f"at://{ACTOR_DID}/com.etzhayyim.apps.calendar.{collection}/{rkey}",
         "created_date": created[:10],
         "sensitivity_ord": 100,
         "owner_did": ACTOR_DID,

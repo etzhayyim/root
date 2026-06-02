@@ -1,7 +1,7 @@
-;; app.etzhayyim.futawa.engineAttestation — lexicon (EDN form)
+;; com.etzhayyim.futawa.engineAttestation — lexicon (EDN form)
 ;; L2a engine/motor + torque + ≤250cc/≤15kW cap verification
 {:lexicon 1
- :id "app.etzhayyim.futawa.engineAttestation"
+ :id "com.etzhayyim.futawa.engineAttestation"
  :defs
  {:main
   {:type "record"

@@ -60,11 +60,11 @@ did:web:saiban.etzhayyim.com:court:{iso3}:{court-id}  # Global (US/UK/DE/FR)
 
 | Collection | SQL Label |
 |---|---|
-| `app.etzhayyim.apps.saiban.court` | `Court` |
-| `app.etzhayyim.apps.saiban.judge` | `Judge` |
-| `app.etzhayyim.apps.saiban.jiken` | `Jiken` |
-| `app.etzhayyim.apps.saiban.trialEvent` | `TrialEvent` |
-| `app.etzhayyim.apps.saiban.jurisdictionMap` | `JurisdictionMap` |
+| `com.etzhayyim.apps.saiban.court` | `Court` |
+| `com.etzhayyim.apps.saiban.judge` | `Judge` |
+| `com.etzhayyim.apps.saiban.jiken` | `Jiken` |
+| `com.etzhayyim.apps.saiban.trialEvent` | `TrialEvent` |
+| `com.etzhayyim.apps.saiban.jurisdictionMap` | `JurisdictionMap` |
 
 ## Build & Deploy
 

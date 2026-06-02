@@ -87,7 +87,7 @@ The apex Worker resolves an `ActorRecord` (`resolveActorRecord`) in order:
 
 1. **CF KV** (`actor:<handle>`) — materialized from kotoba by the publisher; fast,
    origin-independent.
-2. **kotoba pull** (`KOTOBA_ENDPOINT` → `ai.gftd.apps.kotobase.kg.entity`) — first-class
+2. **kotoba pull** (`KOTOBA_ENDPOINT` → `com.etzhayyim.apps.kotobase.kg.entity`) — first-class
    canonical state; best-effort, result cached back into KV.
 3. **compiled `INFRA_ACTORS`** — last-resort fallback so did:web never goes dark.
 
@@ -100,7 +100,7 @@ Free-form member/council handles (not registered actors) keep the legacy
 ## D3 — Actor profile resolution through the apex registry
 
 - New REST surface `GET /actor/<handle>/profile.json` → `toGetProfileView(record)`.
-- XRPC short-circuit: `app.bsky.actor.getProfile` / `app.etzhayyim.actor.getProfile`
+- XRPC short-circuit: `app.bsky.actor.getProfile` / `com.etzhayyim.actor.getProfile`
   for a **registered actor** (DID form `did:web:etzhayyim.com:actor:*`, or a bare
   handle that is a known actor) is served from the actor registry **before** the
   substrate/PDS alias routing. Human-member profiles are never hijacked (the

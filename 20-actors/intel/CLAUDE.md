@@ -126,13 +126,13 @@ SubmitAnalysis(title, source_text)
 
 ```
 Follow source commit → handleComAtprotoSyncSubscribeReposCommit switch
-  ├── app.etzhayyim.apps.handotai.* → onPeerIntelCommit("handotai", "semiconductor")
-  ├── app.etzhayyim.apps.kuruma.*   → onPeerIntelCommit("kuruma", "automotive")
-  ├── app.etzhayyim.apps.malak.*    → onPeerIntelCommit("malak", "cybercrime")
-  ├── app.etzhayyim.apps.yabai.*    → onPeerIntelCommit("yabai", "risk-intelligence")
-  ├── app.etzhayyim.apps.ct_monitor.* → onPeerIntelCommit("ct-monitor", "infrastructure-security")
-  ├── app.etzhayyim.apps.ipaddress.*  → onPeerIntelCommit("ipaddress", "network-intelligence")
-  └── app.etzhayyim.apps.intel.{report|source|indicator} → domain record ingest
+  ├── com.etzhayyim.apps.handotai.* → onPeerIntelCommit("handotai", "semiconductor")
+  ├── com.etzhayyim.apps.kuruma.*   → onPeerIntelCommit("kuruma", "automotive")
+  ├── com.etzhayyim.apps.malak.*    → onPeerIntelCommit("malak", "cybercrime")
+  ├── com.etzhayyim.apps.yabai.*    → onPeerIntelCommit("yabai", "risk-intelligence")
+  ├── com.etzhayyim.apps.ct_monitor.* → onPeerIntelCommit("ct-monitor", "infrastructure-security")
+  ├── com.etzhayyim.apps.ipaddress.*  → onPeerIntelCommit("ipaddress", "network-intelligence")
+  └── com.etzhayyim.apps.intel.{report|source|indicator} → domain record ingest
 
 onPeerIntelCommit flow:
   1. Parse payload → extract title/content
@@ -214,8 +214,8 @@ L1=0.95 (直接導出), L2=0.80 (統計), L3=0.60 (波及), L4=0.40 (LLM), L5=0.
 
 | Source | Trigger | Industry |
 |---|---|---|
-| `app.etzhayyim.apps.handotai.company` | company commit → `inferFromCompanyCommit` | semiconductor |
-| `app.etzhayyim.apps.kuruma.company` | company commit → `inferFromCompanyCommit` | automotive |
+| `com.etzhayyim.apps.handotai.company` | company commit → `inferFromCompanyCommit` | semiconductor |
+| `com.etzhayyim.apps.kuruma.company` | company commit → `inferFromCompanyCommit` | automotive |
 
 設計: `260329-intel-inference-coverage-design.md`
 

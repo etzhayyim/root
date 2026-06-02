@@ -1,7 +1,7 @@
 # mitsuho (瑞穂) — Food / Agriculture Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:mitsuho`
-**Namespace**: `app.etzhayyim.mitsuho.*`
+**Namespace**: `com.etzhayyim.mitsuho.*`
 **ADR**: ADR-2605261015 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — all cells import-time RuntimeError
 **Parent ADR**: ADR-2605261000 (Liberation Ladder — L2 Sustenance Tier gate)
@@ -71,7 +71,7 @@ Key gates:
 ## Lexicons (5, deferred to R1+)
 
 ```
-app.etzhayyim.mitsuho.{
+com.etzhayyim.mitsuho.{
   parcelAttestation
   cropPlanAttestation
   harvestAttestation

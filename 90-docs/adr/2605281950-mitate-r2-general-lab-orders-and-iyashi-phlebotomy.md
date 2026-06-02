@@ -12,8 +12,8 @@ weight: 0.55
 priority_note: "Closes the 'allergy and blood test actor design?' gap surfaced 2026-05-28. mitate R0 diagnosticOrder is rhinitis-domain-bound (10 orderType values, 8 conditionContext values all rhinitis-scoped); general blood tests have no constitutional carve-out and iyashi R0 has no internal phlebotomy cell. This ADR generalizes the order lexicon, adds per-order sensitive-data consent receipts, and reserves the iyashi internal phlebotomy cell at R2+."
 authoritative_for:
   - mitate.diagnosticOrder generalization scope (R2+) — orderType + conditionContext enum extension policy
-  - app.etzhayyim.mitate.diagnosticConsentReceipt — 要配慮個人情報 (APPI 第2条第3項 / 個人情報保護法) per-order consent receipt lexicon
-  - app.etzhayyim.iyashi.phlebotomyAttestation — internal phlebotomy event log lexicon (iyashi R2+)
+  - com.etzhayyim.mitate.diagnosticConsentReceipt — 要配慮個人情報 (APPI 第2条第3項 / 個人情報保護法) per-order consent receipt lexicon
+  - com.etzhayyim.iyashi.phlebotomyAttestation — internal phlebotomy event log lexicon (iyashi R2+)
   - iyashi.internal_phlebotomy cell — reserved at iyashi R2 with import-time RuntimeError gate at R0
   - External clinical lab vendor allowlist policy — Charter Rider §2(a)-(h) scan + Council Lv6+ ≥3 attestation per vendor
   - Constitutional gates GA..GF (this ADR; layered on top of mitate G1..G14 from ADR-2605260100)
@@ -33,9 +33,9 @@ depends_on:
   - adr-2605262900-toritate-accounting-audit-tier-b-actor-r0
   - adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0
 related:
-  - 00-contracts/lexicons/app/etzhayyim/mitate/diagnosticOrder.json
-  - 00-contracts/lexicons/app/etzhayyim/mitate/diagnosticConsentReceipt.json
-  - 00-contracts/lexicons/app/etzhayyim/iyashi/phlebotomyAttestation.json
+  - 00-contracts/lexicons/com/etzhayyim/mitate/diagnosticOrder.json
+  - 00-contracts/lexicons/com/etzhayyim/mitate/diagnosticConsentReceipt.json
+  - 00-contracts/lexicons/com/etzhayyim/iyashi/phlebotomyAttestation.json
   - 20-actors/magatama/cells/mitate_diagnostic_consent_orchestrator/   # (reserved) R1+
   - 20-actors/magatama/cells/mitate_diagnostic_order_general/          # (reserved) R2+
   - 20-actors/magatama/cells/mitate_diagnostic_result_ingest/          # (reserved) R2+
@@ -91,7 +91,7 @@ ADR-2605260115 is scoped to "condition 1 allergic rhinitis perennial." Extending
 
 # Decision
 
-## D1 — Generalize `app.etzhayyim.mitate.diagnosticOrder`
+## D1 — Generalize `com.etzhayyim.mitate.diagnosticOrder`
 
 Extend `orderType` enum with **16 new permitted values** (R2+ activate):
 
@@ -141,7 +141,7 @@ Extend `conditionContext` enum with **18 new permitted values** (R2+ activate):
 
 `externalLabDid` is required when the specimen cannot be processed in-clinic (which is the default at R2; iyashi in-clinic centrifuge + basic-chem analyzer is R3+).
 
-## D2 — New lexicon `app.etzhayyim.mitate.diagnosticConsentReceipt`
+## D2 — New lexicon `com.etzhayyim.mitate.diagnosticConsentReceipt`
 
 Per-order, immutable consent receipt for 要配慮個人情報 (APPI 第2条第3項 / 個人情報保護法 / GDPR Art. 9 sensitive data / HIPAA PHI equivalent) 移管 to an external clinical laboratory.
 
@@ -164,7 +164,7 @@ Required fields:
 
 Constitutional gates inherited from mitate G1/G2/G7 (this lexicon's sealed-recipient set is structurally enforced; no plaintext recipient set permitted).
 
-## D3 — New lexicon `app.etzhayyim.iyashi.phlebotomyAttestation`
+## D3 — New lexicon `com.etzhayyim.iyashi.phlebotomyAttestation`
 
 Per-event log emitted by `iyashi.internal_phlebotomy` cell when religious-corp clinic performs the venipuncture in-house (R2+ only).
 
@@ -241,11 +241,11 @@ Required fields:
         ├─ licensed MD attestor co-sign (G4 / GF)
         ▼
 [mitate.diagnostic_consent_orchestrator]
-        │  emits  app.etzhayyim.mitate.diagnosticConsentReceipt
+        │  emits  com.etzhayyim.mitate.diagnosticConsentReceipt
         │  patient signs via passkey (webauthn-passkey-es256)
         ▼
 [mitate.diagnostic_order_general]
-        │  emits  app.etzhayyim.mitate.diagnosticOrder
+        │  emits  com.etzhayyim.mitate.diagnosticOrder
         │  orderRoutingTarget = "iyashi-internal"  OR  "external-lab"
         ▼
    ┌────────────┴────────────┐
@@ -258,7 +258,7 @@ Required fields:
         │
         ▼
 [mitate.diagnostic_result_ingest]
-        │  emits  app.etzhayyim.mitate.diagnosticResult (encrypted)
+        │  emits  com.etzhayyim.mitate.diagnosticResult (encrypted)
         ▼
 [mitate.treatment_router]
         │  Rx referral → yakushi (if OTC) | escalation = "recommend-md-visit" (if Rx-only)
@@ -328,12 +328,12 @@ Single-session arc from gap question ("アレルギー検査、血液検査の a
 | Artifact | Path |
 |---|---|
 | This ADR | `90-docs/adr/2605281950-mitate-r2-general-lab-orders-and-iyashi-phlebotomy.md` |
-| diagnosticOrder lexicon extension (+16 orderType / +18 conditionContext / +orderRoutingTarget) | `00-contracts/lexicons/app/etzhayyim/mitate/diagnosticOrder.json` |
-| diagnosticConsentReceipt lexicon (NEW) | `00-contracts/lexicons/app/etzhayyim/mitate/diagnosticConsentReceipt.json` |
-| phlebotomyAttestation lexicon (NEW) | `00-contracts/lexicons/app/etzhayyim/iyashi/phlebotomyAttestation.json` |
+| diagnosticOrder lexicon extension (+16 orderType / +18 conditionContext / +orderRoutingTarget) | `00-contracts/lexicons/com/etzhayyim/mitate/diagnosticOrder.json` |
+| diagnosticConsentReceipt lexicon (NEW) | `00-contracts/lexicons/com/etzhayyim/mitate/diagnosticConsentReceipt.json` |
+| phlebotomyAttestation lexicon (NEW) | `00-contracts/lexicons/com/etzhayyim/iyashi/phlebotomyAttestation.json` |
 | 4 cell paths reserved via `(reserved)` markers | `20-actors/magatama/cells/{mitate_diagnostic_consent_orchestrator, mitate_diagnostic_order_general, mitate_diagnostic_result_ingest, iyashi_internal_phlebotomy}` |
 | deps.toml `[[adrs]]` + 6 `[[modules]]` | `deps.toml` |
-| mitate/iyashi lexicon README index bumps (8→9, 6→7) | `00-contracts/lexicons/app/etzhayyim/{mitate,iyashi}/README.md` |
+| mitate/iyashi lexicon README index bumps (8→9, 6→7) | `00-contracts/lexicons/com/etzhayyim/{mitate,iyashi}/README.md` |
 
 **Lexicon-spec correction (pre-commit hook caught)**: First commit attempt failed `validate-religious-corp-lexicons` on two AT Protocol Lexicon discipline violations in `phlebotomyAttestation.json`:
 

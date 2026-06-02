@@ -98,7 +98,7 @@ Every dispatch appends one NDJSON line to
  "phase":"sync","charter_in":"clean","charter_out":"clean"}
 ```
 
-R1.2 will promote this to an `app.etzhayyim.murakumo.invocation` Lexicon
+R1.2 will promote this to an `com.etzhayyim.murakumo.invocation` Lexicon
 record posted to the caller's PDS.
 
 ## Tests

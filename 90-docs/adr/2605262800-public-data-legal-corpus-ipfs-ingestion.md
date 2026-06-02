@@ -374,7 +374,7 @@ opinion is a known difficult area. The policy at R0:
 - IF upstream removes, chigiri's W1 fetcher refresh propagates the
   removal at next cadence cycle.
 
-This is documented in `00-contracts/lexicons/app/etzhayyim/chigiri/dataPrivacyRequest.json` (R2 schema).
+This is documented in `00-contracts/lexicons/com/etzhayyim/chigiri/dataPrivacyRequest.json` (R2 schema).
 
 ## §7. Passive-only network discipline (inherits ADR-2605262400 §7)
 
@@ -442,7 +442,7 @@ and individual Status table updates.
 - **G12**: Sensor refresh cadence MUST NOT undercut upstream cadence
   (G4 cross-ref).
 - **G13**: Every ingestion emits one
-  `app.etzhayyim.substrate.datasetPin` record (same contract).
+  `com.etzhayyim.substrate.datasetPin` record (same contract).
 - **G14**: Every commit under this ADR (W1+) appends to
   `90-docs/baien/datasets.jsonl` and additionally appends to
   `90-docs/baien/legal-corpus-manifest.jsonl` (new — chigiri-readable

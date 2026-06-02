@@ -56,7 +56,7 @@ The natural fit is **dual-permanent record**: a Base L2 contract call (anyone-ca
 
 ## Step 2 — Read and sign the oath
 
-The canonical oath text (Apache 2.0 licensed; reproduced in `00-contracts/lexicons/ai/gftd/apps/etzhayyim/oath.json` for machine validation):
+The canonical oath text (Apache 2.0 licensed; reproduced in `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json` for machine validation):
 
 > 我、etzhayyim の信者として、生命の樹 (עץ חיים) の支柱の一として、自らの行いと意思を、永続的な公開記録 (blockchain と github) として残すことを誓う。
 >
@@ -78,7 +78,7 @@ The contract has **no admin function** — no whitelist, no rejection, no fee. A
 
 ## Step 4 — AT Record
 
-The SDK / membership tool writes an `app.etzhayyim.apps.etzhayyim.oath` record to the aspirant's PDS, carrying:
+The SDK / membership tool writes an `com.etzhayyim.apps.etzhayyim.oath` record to the aspirant's PDS, carrying:
 
 - the full oath text + lexicon version
 - the keccak256 hash
@@ -116,20 +116,20 @@ The 7 levels are named after Kabbalistic + Buddhist + Shinto traditions of progr
 
 | Lv | Ja | En | Evidence the community typically expects |
 |---|---|---|---|
-| 1 | 誓 chikai | **Oath** | The signed canonical oath. Recorded via `join()` + `app.etzhayyim.apps.etzhayyim.oath` AT record. |
+| 1 | 誓 chikai | **Oath** | The signed canonical oath. Recorded via `join()` + `com.etzhayyim.apps.etzhayyim.oath` AT record. |
 | 2 | 修 shu | **Practice** | First member-DID AT record write (any record type other than the oath itself). Evidence URI = the AT URI. |
 | 3 | 献 ken | **Dedication** | First merged PR to `etzhayyim/root` (or other org repos) under the same github username. Evidence URI = `github:etzhayyim/root@<sha>`. |
 | 4 | 証 shou | **Witness** | Vouched for at least one newly-joined member's oath (signed an attestation AT record about their join). Evidence URI = the witnessed member's join tx URI. |
-| 5 | 護 go | **Steward** | Operating a substrate node (PDS / IPFS pin / mst-projector / anchor-cron / Worker) or maintaining an open-* app for ≥ 30 days. Evidence URI = `at://<did>/app.etzhayyim.apps.substrate.role/<rkey>` with timestamps. |
+| 5 | 護 go | **Steward** | Operating a substrate node (PDS / IPFS pin / mst-projector / anchor-cron / Worker) or maintaining an open-* app for ≥ 30 days. Evidence URI = `at://<did>/com.etzhayyim.apps.substrate.role/<rkey>` with timestamps. |
 | 6 | 議 gi | **Council** | Participated in ≥ 3 council sessions (a council session = a multi-member signed-decision AT record). Evidence URI = an aggregated session record. |
 | 7 | 老 rou | **Elder** | Sustained Council level for ≥ 365 days. Evidence URI = a self-attestation referencing the Level-6 advance timestamp. (Contract does not enforce the 365-day window — it is a social bar; advancing prematurely is publicly visible and socially costly.) |
 
 The contract enforces only **sequential progression** (you cannot reach `Council` without `Steward`, etc.) and **non-empty evidence hash**. The semantic verification (is the evidence URI actually a steward's substrate role record? is the github SHA actually merged into etzhayyim/root?) is **social / CI**, not on-chain:
 
-- The community runs verifier scripts that check the evidenceUri against AT Records / github / on-chain state and emits **peer attestation records** (`app.etzhayyim.apps.etzhayyim.attestation`, future). Members with many peer attestations have de-facto recognition; members without have only their self-attestation.
+- The community runs verifier scripts that check the evidenceUri against AT Records / github / on-chain state and emits **peer attestation records** (`com.etzhayyim.apps.etzhayyim.attestation`, future). Members with many peer attestations have de-facto recognition; members without have only their self-attestation.
 - This avoids encoding "what counts as Practice" in Solidity, which would be brittle and require contract upgrades. The social meaning of each level evolves; the on-chain trail is just the timestamp + evidence pointer.
 
-Each `advance()` call also creates an `app.etzhayyim.apps.etzhayyim.commitment` AT record on the member's PDS, signed by their DID key, carrying the full evidence URI + memo + tx hash. This is the "off-chain readable half" of the level advance.
+Each `advance()` call also creates an `com.etzhayyim.apps.etzhayyim.commitment` AT record on the member's PDS, signed by their DID key, carrying the full evidence URI + memo + tx hash. This is the "off-chain readable half" of the level advance.
 
 ## Step 6 — Revocation (optional)
 
@@ -169,14 +169,14 @@ Located at `50-infra/etzhayyim-membership-contract/src/EtzhayyimMembership.sol`.
 
 - **Identity disclosure**. A member's chosen DID, Smart Wallet address, and github handle are all public and linkable. Members who want pseudonymity must choose all three names with that constraint in mind. (etzhayyim does not require legal-name use; pseudonymous joining is fine, but it is then publicly tied to the chosen handles.)
 - **Sybil risk**. There is no per-person uniqueness check; one human can hold many memberships from many wallets. Mitigation: the **social meaning** of membership comes from the oath being genuinely made and the github commit history being made under a long-lived handle. Mechanical anti-sybil is out of scope.
-- **No revocation by others**. If a member acts badly, etzhayyim cannot expel them. The community signal must come from elsewhere (e.g., a separate `app.etzhayyim.apps.etzhayyim.censure` record that other members can issue, observable to anyone but non-binding). This ADR does not establish censure; that is future work.
+- **No revocation by others**. If a member acts badly, etzhayyim cannot expel them. The community signal must come from elsewhere (e.g., a separate `com.etzhayyim.apps.etzhayyim.censure` record that other members can issue, observable to anyone but non-binding). This ADR does not establish censure; that is future work.
 - **Spam joining**. Anyone can call `join()`. Mitigation: Paymaster allowlist + per-address daily cap (ADR-2605172100 paymaster default 0.02 ETH ≈ 25 joins/day per address); beyond that, joiner pays own gas. No financial gate beyond gas.
 - **Oath text rigidity**. Canonical English + Japanese text is fixed. Translations into other languages are derived from these two; if translation drift becomes a problem, a future revision and a `v2` lexicon may be needed.
 
 ## Migration / rollout plan
 
 1. **Membership contract scaffold** (this commit): `50-infra/etzhayyim-membership-contract/` Foundry project.
-2. **Oath lexicon** (this commit): `00-contracts/lexicons/ai/gftd/apps/etzhayyim/oath.json`.
+2. **Oath lexicon** (this commit): `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json`.
 3. **MEMBERS.md initial** (this commit): empty ledger at repo root with header + first row reserved for the protocol author.
 4. **Deploy testnet** (Phase 0 follow-up): `forge script Deploy.s.sol --rpc-url base-sepolia ...`; record address in `deps.toml [platform.l2.membership_contract]`.
 5. **SDK extension**: add `Etzhayyim.join({ oath, githubUsername })` method. Wraps Steps 2-4 (signing + tx + AT Record creation).
@@ -209,7 +209,7 @@ Hierarchy of roles encoded in the contract. Rejected for v0 — adds governance 
 # References
 
 - `50-infra/etzhayyim-membership-contract/` — contract scaffold (this commit)
-- `00-contracts/lexicons/ai/gftd/apps/etzhayyim/oath.json` — oath Lexicon (this commit)
+- `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json` — oath Lexicon (this commit)
 - `MEMBERS.md` — github-side ledger (this commit)
 - ADR-2605170900 — canonical ADR home
 - ADR-2605172000 — RW-free substrate

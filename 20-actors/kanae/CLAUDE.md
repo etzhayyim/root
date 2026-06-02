@@ -99,7 +99,7 @@ publish ──────────── naphtali (periodic event; aggregate
 ```
 
 Each cell = 1 Pregel graph. Cells communicate via lexicon records on MST
-(`app.etzhayyim.kanae.*`); the fund-flow graph lives in kotoba QuadStore
+(`com.etzhayyim.kanae.*`); the fund-flow graph lives in kotoba QuadStore
 (EAVT) per ADR-2605262130. All cell modules are R0 path-reserved and will
 be import-time `RuntimeError("kanae R0 scaffold: activate via Council ADR
 + R1 ratification")` at W1 creation.
@@ -137,7 +137,7 @@ verdict is unrepresentable at the schema layer, exactly as danjo's
 5. Charter Rider scanner FP ≤5% over 7-day trial on kanae samples;
 6. `70-tools/scripts/lint/no-kanae-adjudication.mjs` (LANDED at R0)
    deployed to lefthook (gated on the repo-wide lefthook wave);
-7. `app.etzhayyim.kanae.fundFlowEdge` + `.methodNote` schemas
+7. `com.etzhayyim.kanae.fundFlowEdge` + `.methodNote` schemas
    Council-attestation-reviewed (R1 minimum cell pair = assembly cells).
 
 ## R1 Cell Activation Order
@@ -188,7 +188,7 @@ a non-zero exit, plus the doc-exemption case.
 - `/20-actors/kanae/manifest.jsonld`
 - `/20-actors/kanae/README.md`
 - `/20-actors/kanae/methods/v1-global-seed.json`
-- `/00-contracts/lexicons/app/etzhayyim/kanae/` (4 Lexicon JSONs + README)
+- `/00-contracts/lexicons/com/etzhayyim/kanae/` (4 Lexicon JSONs + README)
 - `/70-tools/scripts/lint/no-kanae-adjudication.{mjs,test.mjs}`
 - `/90-docs/adr/2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605302245-danjo-global-fiscal-flow-extension.md` — danjo engine-side extension

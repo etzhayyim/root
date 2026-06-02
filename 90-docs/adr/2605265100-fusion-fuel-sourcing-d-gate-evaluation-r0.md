@@ -137,7 +137,7 @@ Natural boron is 80.1% B-11 (the fusion-relevant isotope) + 19.9% B-10. For fusi
 ## §7 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   fusionFuelInventoryAttestation,        # per-isotope: kg current + sourcing CID + Council attestation chain
   deuteriumProductionAttestation,        # electrolysis source + D2O concentration + religious-corp attestation
   boron11EnrichmentAttestation,          # enrichment process + B-10 depletion % + Charter §2(g) supply audit

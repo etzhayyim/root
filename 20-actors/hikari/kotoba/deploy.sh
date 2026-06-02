@@ -13,7 +13,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${HIKARI_GRAPH:-app.etzhayyim.hikari}"
+GRAPH="${HIKARI_GRAPH:-com.etzhayyim.hikari}"
 ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> hikari kotoba deploy → ${KOTOBA_URL} (graph ${GRAPH})"

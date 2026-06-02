@@ -41,7 +41,7 @@ Without hagukumi, the L4 gate cannot lift, and adherents at L3 cannot release th
 Launch **`hagukumi` (育み — "nurturing", continuative form of 育む "to raise/nurture"; multi-generational care echo: nurturing children + nurturing elders is the same verb in Japanese)** as a Tier-B religious-corp actor:
 
 - **Actor DID**: `did:web:etzhayyim.com:hagukumi`
-- **Namespace**: `app.etzhayyim.hagukumi.*`
+- **Namespace**: `com.etzhayyim.hagukumi.*`
 - **R0 scope**: Daily-living care delivery — childcare (ages 2+; under-2 deferred to specialist actor TBD), eldercare (companionship + ADL support; non-medical), chronic-care continuity (post-mitate diagnosis adherence support; non-prescriptive), meal delivery (mitsuho-sourced), respite support. **Excludes**: medical procedures (mitate/yakushi), hospice/palliative terminal (mitate N10), behavioral psych intervention, abuse investigation (state domain), surveillance, in-home recording.
 - **R0 robotics**: Hitogata humanoid (R2+ class-A gentle, R0 placeholder only), Sukoyaka (yakushi cold-chain last-mile inheritance for meal delivery), new **Yutori (ゆとり)** class for companionship telepresence (R2+, separate mech-design ADR).
 - **14 gates + 10 non-goals** declared before capability lands.
@@ -85,7 +85,7 @@ Launch **`hagukumi` (育み — "nurturing", continuative form of 育む "to rai
 ### Lexicons (4, deferred to R1+)
 
 ```
-app.etzhayyim.hagukumi.{
+com.etzhayyim.hagukumi.{
   caregiverAttestation,       # Caregiver onboarding: training + background + Council vetting
   careSessionAttestation,     # Per-session record (encrypted XChaCha20 envelope per ADR-2605181100)
   consentRecord,              # Care-recipient + family-guardian consent (revocable, on-chain)

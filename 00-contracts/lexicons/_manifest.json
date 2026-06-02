@@ -45148,7 +45148,7 @@
       "com.etzhayyim.projector.updateProgress",
       "com.etzhayyim.projector.updateProjectConvo"
     ],
-    "ai.gftd": [
+    "com.etzhayyim": [
       "com.etzhayyim.projector",
       "com.etzhayyim.projectorTask",
       "com.etzhayyim.projectorUpdate"

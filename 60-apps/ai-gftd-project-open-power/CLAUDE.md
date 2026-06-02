@@ -8,14 +8,14 @@ distribution network design (substations / feeders) and operations
 
 | NSID | Type | Description |
 |---|---|---|
-| `app.etzhayyim.apps.openPower.defineSubstation` | procedure | declare a substation node + voltage class |
-| `app.etzhayyim.apps.openPower.defineFeeder` | procedure | declare a feeder edge (substation → service area) |
-| `app.etzhayyim.apps.openPower.getNode` | query | substation/service-point detail + downstream feeders |
-| `app.etzhayyim.apps.openPower.listFeeders` | query | feeders by substation / status |
-| `app.etzhayyim.apps.openPower.recordReading` | procedure | meter reading (kWh import / export) |
-| `app.etzhayyim.apps.openPower.reportOutage` | procedure | outage with affected feeder + cause |
-| `app.etzhayyim.apps.openPower.listOutages` | query | outages by feeder / since |
-| `app.etzhayyim.apps.openPower.getLoadProfile` | query | hourly aggregate kWh per feeder |
+| `com.etzhayyim.apps.openPower.defineSubstation` | procedure | declare a substation node + voltage class |
+| `com.etzhayyim.apps.openPower.defineFeeder` | procedure | declare a feeder edge (substation → service area) |
+| `com.etzhayyim.apps.openPower.getNode` | query | substation/service-point detail + downstream feeders |
+| `com.etzhayyim.apps.openPower.listFeeders` | query | feeders by substation / status |
+| `com.etzhayyim.apps.openPower.recordReading` | procedure | meter reading (kWh import / export) |
+| `com.etzhayyim.apps.openPower.reportOutage` | procedure | outage with affected feeder + cause |
+| `com.etzhayyim.apps.openPower.listOutages` | query | outages by feeder / since |
+| `com.etzhayyim.apps.openPower.getLoadProfile` | query | hourly aggregate kWh per feeder |
 
 ## Architecture
 

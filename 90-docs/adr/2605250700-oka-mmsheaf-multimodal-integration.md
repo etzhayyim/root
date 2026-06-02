@@ -141,7 +141,7 @@ Three task heads, swappable per deployment:
 2. **Link prediction** — feed-discover recommendation, lexicon similarity, peer-resolution scoring
 3. **Embedding projection** — back-map to `oka-mm-768` for production retrieval (substrate-compatible with `vertex_vector_embedding_768`)
 
-Output records emit a lexicon attestation `app.etzhayyim.mmsheaf.diffusionRoundReceipt` (specified in R1 ADR; lexicon namespace reserved here).
+Output records emit a lexicon attestation `com.etzhayyim.mmsheaf.diffusionRoundReceipt` (specified in R1 ADR; lexicon namespace reserved here).
 
 ## 6. Repository placement (R0 scaffold targets — defined here, implemented in follow-up ADR)
 
@@ -151,7 +151,7 @@ Output records emit a lexicon attestation `app.etzhayyim.mmsheaf.diffusionRoundR
 | Library | `20-actors/magatama/py/src/pymagatama/mmsheaf/` (`__init__.py` + `stalk.py` + `restriction.py` + `laplacian.py` + `diffusion.py` + `variants.py`) | declared, code lands in R1 |
 | Pregel cell | `20-actors/magatama/cells/mmsheaf_diffusion_aggregator/` (Murakumo placement: `levi`, alongside membrane verdict per ADR-2605231902) | declared, code lands in R1; import-time `RuntimeError` gate (silicon Wave 1 pattern) |
 | BitNet distill node | `70-tools/baien-distill/nodes/mmsheaf_v3_ternary.py` | declared, code lands in R3 |
-| Lexicon | `00-contracts/lexicons/app/etzhayyim/mmsheaf/diffusionRoundReceipt.json` | namespace reserved here; schema lands in R1 |
+| Lexicon | `00-contracts/lexicons/com/etzhayyim/mmsheaf/diffusionRoundReceipt.json` | namespace reserved here; schema lands in R1 |
 | Bench | `70-tools/scripts/bench/mmsheaf-microbench/` (synthetic 2-modality complementary-signal replication) | declared, code lands in R1 |
 
 Murakumo fleet impact (R3+): one new cell on `levi`. No new node added (contrast silicon Wave 1 which added `judah`).

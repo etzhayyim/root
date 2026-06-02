@@ -122,7 +122,7 @@ kubectl -n mitama-udf exec "$POD" -- curl -sS http://localhost:8081/healthz
 kubectl -n mitama-udf exec "$POD" -- curl -sS http://localhost:8081/readyz
 # subscribeBriefs handler — must emit `event: ready` within 6s.
 kubectl -n mitama-udf exec "$POD" -- timeout 8 curl -sS -N \
-  'http://localhost:8081/xrpc/app.etzhayyim.apps.ameno.subscribeBriefs?maxEvents=1&idleTimeoutSec=6' \
+  'http://localhost:8081/xrpc/com.etzhayyim.apps.ameno.subscribeBriefs?maxEvents=1&idleTimeoutSec=6' \
   -H 'accept: text/event-stream' | head -5
 ```
 
@@ -145,7 +145,7 @@ helm -n mitama-udf upgrade --reuse-values bpmn-dispatcher \
 kubectl -n mitama-udf rollout status deploy/bpmn-dispatcher --timeout=120s
 
 # Sanity: dispatcher must route ameno saveResult to the langserver.
-curl -sS https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.ameno.listHistory \
+curl -sS https://dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.ameno.listHistory \
   --get --data-urlencode 'actorDid=did:web:ameno-smoke.etzhayyim.com' \
   --data-urlencode 'limit=1' | head -200
 ```
@@ -166,7 +166,7 @@ cd -
 
 # Confirm one routed NSID is live before continuing.
 curl -sS -o /dev/null -w '%{http_code}\n' \
-  https://atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.ameno.cardHome
+  https://atproto.etzhayyim.com/xrpc/com.etzhayyim.apps.ameno.cardHome
 ```
 
 `cardHome` is local-only on the ameno worker, so it should return 200

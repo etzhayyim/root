@@ -160,8 +160,8 @@ name = "maps-spatial-rw"
 level = "L0-projection"   # bumped to L1 when rebuild tool exists in CI
 rebuild_runbook = "../tools/rebuild-spatial-projection.md"
 source_collections = [
-  "app.etzhayyim.maps.feature",
-  "app.etzhayyim.maps.building",
+  "com.etzhayyim.maps.feature",
+  "com.etzhayyim.maps.building",
   # ...
 ]
 rebuild_estimated_minutes = 240
@@ -248,7 +248,7 @@ overall chain back to MST is documented.
   budget per projection.
 - **Council deliberation projection**: the council deliberation cell (per
   [ADR-2605192300](/90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md)) is itself a
-  projection (votes derived from `app.etzhayyim.governance.*` records). This
+  projection (votes derived from `com.etzhayyim.governance.*` records). This
   ADR's framing applies — but the rebuild path must preserve the
   cryptographic chain of attestations, not just summarize them. Tracked as
   TBD.

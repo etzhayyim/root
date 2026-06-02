@@ -28,7 +28,7 @@ cargo test --release    # native gate-logic unit tests (5)
 ## Deploy / invoke
 
 `scripts/deploy.py` base64-encodes the wasm + a CBOR InvokeContext and POSTs to
-`ai.gftd.apps.kotoba.invoke.run` (program_type `wasm-node`) with an operator JWT
+`com.etzhayyim.apps.kotoba.invoke.run` (program_type `wasm-node`) with an operator JWT
 (`sub == operator_did`).
 
 Live-verified on the local node (2026-05-30):

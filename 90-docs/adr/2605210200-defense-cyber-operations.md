@@ -48,7 +48,7 @@ Add `cyber_operations.py` as a LangGraph agent for the `defCyber` PMESII domain.
 
 - **Audit-always pattern**: audit node runs on every path including errors, identical to EW.
 
-### Lexicons created under `00-contracts/lexicons/ai/gftd/apps/defCyber/`:
+### Lexicons created under `00-contracts/lexicons/com/etzhayyim/apps/defCyber/`:
 - `declareTarget.json` — procedure to register a cyber target (network/endpoint/scada/comms)
 - `requestEffect.json` — procedure to request a cyber effect with autonomy mode
 - `listEffects.json` — query to list effects by target vertex

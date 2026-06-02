@@ -72,7 +72,7 @@ verifier. 15 paths spanning 5 ADRs all had this issue.
 
 **Solution**: Trailing suffix tokens on `path` values:
 - `path = "90-docs/adr/foo.md (reserved)"` — owner-asserted future-impl
-- `path = "00-contracts/lexicons/ai/gftd/apps/unispsc (deferred-rename)"` — pre-cutover per CLAUDE.md root §"Do Not"
+- `path = "00-contracts/lexicons/com/etzhayyim/apps/unispsc (deferred-rename)"` — pre-cutover per CLAUDE.md root §"Do Not"
 
 Verifier strips marker before resolving; reports as `accepted-reserved`
 distinct from `drift`. Stale-marker check catches markers that should

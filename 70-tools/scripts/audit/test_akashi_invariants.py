@@ -160,7 +160,7 @@ def test_lexicon_ids_match_namespace_and_are_records():
     for path in files:
         lex = _load(path)
         assert lex.get("lexicon") == 1
-        assert lex["id"] == f"app.etzhayyim.akashi.{path.stem}"
+        assert lex["id"] == f"com.etzhayyim.akashi.{path.stem}"
         assert lex["defs"]["main"]["type"] == "record"
         assert isinstance(_props(lex), dict) and _props(lex)
 
@@ -262,7 +262,7 @@ def test_source_policy_approval_tx_format_is_fixture_only_at_r0():
     example = _load(_SOURCE_POLICY_APPROVAL_EXAMPLE)
     source_ids = {source["id"] for source in catalog["sources"]}
 
-    assert schema["$id"] == "app.etzhayyim.akashi.sourcePolicyApprovalTx"
+    assert schema["$id"] == "com.etzhayyim.akashi.sourcePolicyApprovalTx"
     assert schema["additionalProperties"] is False
     assert "allowed" in schema["properties"]["decision"]["enum"]
     assert schema["properties"]["rollback"]["properties"][

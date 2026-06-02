@@ -109,7 +109,7 @@ def _make_initial_state(input_payload: dict):
         input=gi,
         actor_did="did:web:voxelforge.etzhayyim.com",
         org_did="did:erc725:gftd:260425:test",
-        design_vertex_id="at://did:web:voxelforge.etzhayyim.com/app.etzhayyim.apps.voxelforge.design/test",
+        design_vertex_id="at://did:web:voxelforge.etzhayyim.com/com.etzhayyim.apps.voxelforge.design/test",
         run_id="test-run-id",
         started_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     )
@@ -139,7 +139,7 @@ def test_cad_path_completes_with_artifacts(patched_converters):
     assert "manifest_json" in formats, formats
     # All artifacts pinned to the same design + run.
     assert {a["design_vertex_id"] for a in arts} == {
-        "at://did:web:voxelforge.etzhayyim.com/app.etzhayyim.apps.voxelforge.design/test"
+        "at://did:web:voxelforge.etzhayyim.com/com.etzhayyim.apps.voxelforge.design/test"
     }
     assert {a["run_vertex_id"] for a in arts} == {"test-run-id"}
 

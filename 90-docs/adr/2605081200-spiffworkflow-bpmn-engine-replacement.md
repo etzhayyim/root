@@ -49,7 +49,7 @@ BPMN worker で実行する。
 ## Architecture
 
 ```
-BPMN XML (app.etzhayyim.bpmn.process AT record collection, code-as-data)
+BPMN XML (com.etzhayyim.bpmn.process AT record collection, code-as-data)
     │ deploy = AT record commit
     ▼
 graphar.vertex_bpmn_process (RW, append-only, latest version = MAX(deployed_at))
@@ -75,7 +75,7 @@ graphar.vertex_spiff_timer (instance_id, fire_at, 1s tick reconciler)
 - **Persistence**: `vertex_spiff_instance` への state write は **delete-then-insert** (1 row 単位、PK = `instance_id`)。`db.transaction()` は RW で no-op として扱う (root CLAUDE.md "Record-log semantics" 規約)。
 - **Job dispatch**: engine が `READY` task を `vertex_spiff_job` に append、worker は `mv_spiff_ready_jobs` を 5s polling もしくは RW subscribe で pull。`claim_until` lease column で at-least-once。
 - **Worker shim**: `gftd_bpmn` decorator package を `20-actors/magatama/sdk/` 配下に新設し、`@worker.task(task_type="...")` 互換 API を提供。既存 handler 関数本体は無改修。
-- **Deploy = AT record**: BPMN XML を `app.etzhayyim.bpmn.process` collection に commit (Worker-direct Hyperdrive、ADR-0036)。engine host は firehose (or RW notification) で hot-reload。
+- **Deploy = AT record**: BPMN XML を `com.etzhayyim.bpmn.process` collection に commit (Worker-direct Hyperdrive、ADR-0036)。engine host は firehose (or RW notification) で hot-reload。
 - **Timer**: `vertex_spiff_timer` を 1s tick reconciler で照会し、`fire_at <= now()` を engine に inject。
 - **Archive**: 完了 instance の `vertex_spiff_history` を Iceberg sink (既存 RW B2 path) で長期保存。
 
@@ -106,7 +106,7 @@ graphar.vertex_spiff_timer (instance_id, fire_at, 1s tick reconciler)
 
 - **License $0**, broker pod 廃止 ($140/mo Vultr 削減見込) , `mitama-udf-pool` 圧縮緩和
 - **ADR-0036 / record-log 規約と完全整合** (engine state も append-only、no UPDATE)
-- **既存 BPMN 資産** (`etzhayyim-root/00-contracts/bpmn/ai/gftd/lawfirm/*.bpmn` 等) **そのまま利用可**
+- **既存 BPMN 資産** (`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/lawfirm/*.bpmn` 等) **そのまま利用可**
 - **既存 pyzeebe worker は handler 無改修**、decorator のみ差し替え
 - **pyzeebe watchdog hazard 解消** (asyncio 占有 SDK を撤去)
 - DMN 1.3 が同梱され `00-contracts/dmn/` policy と直接連携可能 (ADR-2604261100 系)
@@ -125,7 +125,7 @@ graphar.vertex_spiff_timer (instance_id, fire_at, 1s tick reconciler)
 
 - 新規 dir: `etzhayyim-root/50-infra/k8s/bpmn-engine-host/`
 - 新規 schema: `30-graph/graph-schema/sql_migrations/20260509110000_vertex_spiff_runtime.{up,down}.sql`
-- 新規 lexicon: `00-contracts/lexicons/ai/gftd/apps/bpmn/{process,instance,job}.json`
+- 新規 lexicon: `00-contracts/lexicons/com/etzhayyim/apps/bpmn/{process,instance,job}.json`
 - 新規 SDK: `20-actors/magatama/sdk/gftd-bpmn/` (Python decorator shim)
 - 影響 worker: `50-infra/k8s/{open-lei-mcp,intel-dependency-worker,claim-consumer-actor,livecam-vision-actor,comfyui-generation-actor,shigotoba-jobs-actor,smishing-actor}` × 7 (decorator 差し替え)
 - 撤去対象: `etzhayyim-root/50-infra/vultr/zeebe/zeebe.yaml`, `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` の Zeebe broker 部分 (Phase 2 完了後)
@@ -151,7 +151,7 @@ graphar.vertex_spiff_timer (instance_id, fire_at, 1s tick reconciler)
 **Deliverables**:
 
 1. `30-graph/graph-schema/sql_migrations/20260509110000_vertex_spiff_runtime.{up,down}.sql` — `vertex_spiff_{instance,job,timer,history}` + `mv_spiff_ready_jobs` (`rw-health-gate.sh` 通過後に Alembic 直適用。table cardinality 数千・MV は status filter のみのため heavy DDL queue は不要)
-2. `00-contracts/lexicons/ai/gftd/apps/bpmn/{process,instance,job}.json` (PDS bundle 再生成 3-step 必須、root CLAUDE.md 規約)
+2. `00-contracts/lexicons/com/etzhayyim/apps/bpmn/{process,instance,job}.json` (PDS bundle 再生成 3-step 必須、root CLAUDE.md 規約)
 3. `20-actors/magatama/sdk/gftd-bpmn/` — Python decorator shim (`@gftd_bpmn.task("...")`)
 4. `etzhayyim-root/50-infra/k8s/bpmn-engine-host/` — Deployment + ConfigMap (replica 1, sleepAfter ∞)
 5. `50-infra/k8s/open-lei-mcp/` の `gleif_ingester.py` を `pyzeebe` → `gftd_bpmn` decorator に差し替え
@@ -251,7 +251,7 @@ Zeebe broker retirement is now gated by
 # Implementation Notes (Spiff 3.1.2 verified, 2026-05-08)
 
 PoC Phase 1 のエンジン実装中にローカル検証 (`SpiffWorkflow==3.1.2` + 既存
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/lawfirm/*.bpmn` 14 件) で発覚した **inherent な追加
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/lawfirm/*.bpmn` 14 件) で発覚した **inherent な追加
 LOE と API 制約**。後続の engine host 実装者が同じ罠を踏まないために残す。
 
 ## Spiff 3.x API 制約 (engine 設計に直接影響)
@@ -333,8 +333,8 @@ schema が残り、engine の SELECT が `column does not exist` で死ぬ。
 | Zeebe runtime (legacy, 不変) | `vertex_bpmn_instance`, `vertex_bpmn_activity_event`, `vertex_bpmn_signal_log` | Camunda 8、Phase 2 で broker 撤去後に retire 候補 |
 
 AT record collection paths も整合:
-`app.etzhayyim.apps.spiff.{instance,job,history}` — 既存
-`app.etzhayyim.bpmn.process` (spec) は engine-agnostic として保持。
+`com.etzhayyim.apps.spiff.{instance,job,history}` — 既存
+`com.etzhayyim.bpmn.process` (spec) は engine-agnostic として保持。
 
 ## requirements.txt ピン
 

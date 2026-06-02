@@ -4,7 +4,7 @@ Auto-generated OpenAPI 3.0 specifications from AT Protocol Lexicon documents.
 
 ## Overview
 
-One `.openapi.json` spec per actor namespace under `00-contracts/lexicons/ai/gftd/`. Each spec documents all XRPC endpoints (queries, procedures) and record types for that actor.
+One `.openapi.json` spec per actor namespace under `00-contracts/lexicons/com/etzhayyim/`. Each spec documents all XRPC endpoints (queries, procedures) and record types for that actor.
 
 ## Tool
 
@@ -20,7 +20,7 @@ Generated using `@etzhayyim/lexicon-to-openapi` (70-tools/lexicon-to-openapi/).
 ## Regenerate
 
 ```bash
-npx tsx 70-tools/lexicon-to-openapi/src/cli.ts 00-contracts/lexicons/ai/gftd 90-docs/openapi
+npx tsx 70-tools/lexicon-to-openapi/src/cli.ts 00-contracts/lexicons/com/etzhayyim 90-docs/openapi
 ```
 
 ## Usage

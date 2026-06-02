@@ -56,16 +56,16 @@ atproto.etzhayyim.com/xrpc/{NSID} (W Protocol Event Stream)
 
 **権威ソース**: `60-apps/ai-gftd-project-jp-ashiba/wit/jp-ashiba/package.wit`
 
-AT Lexicon namespace: `app.etzhayyim.apps.jpAshiba.*`
+AT Lexicon namespace: `com.etzhayyim.apps.jpAshiba.*`
 
 | WIT interface | Lexicon prefix | 主要 record kinds |
 |---|---|---|
-| `catalog` | `app.etzhayyim.apps.jpAshiba.scaffoldItem` | 足場資材マスタ (種別・規格・単価) |
-| `rental` | `app.etzhayyim.apps.jpAshiba.rentalContract` | レンタル契約 lifecycle |
-| `subscription` | `app.etzhayyim.apps.jpAshiba.subscriptionPlan` | サブスク tier・利用量・更新 |
-| `schedule` | `app.etzhayyim.apps.jpAshiba.siteSchedule` | 現場配送・組立・解体スケジュール |
-| `inspection` | `app.etzhayyim.apps.jpAshiba.inspectionRecord` | 法定安全点検・不良品報告 |
-| `analytics` | `app.etzhayyim.apps.jpAshiba.analyticsEvent` | KPI events (稼働率・回転率) |
+| `catalog` | `com.etzhayyim.apps.jpAshiba.scaffoldItem` | 足場資材マスタ (種別・規格・単価) |
+| `rental` | `com.etzhayyim.apps.jpAshiba.rentalContract` | レンタル契約 lifecycle |
+| `subscription` | `com.etzhayyim.apps.jpAshiba.subscriptionPlan` | サブスク tier・利用量・更新 |
+| `schedule` | `com.etzhayyim.apps.jpAshiba.siteSchedule` | 現場配送・組立・解体スケジュール |
+| `inspection` | `com.etzhayyim.apps.jpAshiba.inspectionRecord` | 法定安全点検・不良品報告 |
+| `analytics` | `com.etzhayyim.apps.jpAshiba.analyticsEvent` | KPI events (稼働率・回転率) |
 
 ## Data Model (W Protocol Event Stream)
 
@@ -148,20 +148,20 @@ AT Lexicon namespace: `app.etzhayyim.apps.jpAshiba.*`
 
 | Command | NSID | Handler | 説明 |
 |---|---|---|---|
-| `list-catalog` | `app.etzhayyim.apps.jpAshiba.listCatalog` | cmdListCatalog | 足場資材カタログ一覧 |
-| `get-item` | `app.etzhayyim.apps.jpAshiba.getItem` | cmdGetItem | 資材詳細取得 |
-| `check-availability` | `app.etzhayyim.apps.jpAshiba.checkAvailability` | cmdCheckAvailability | 在庫・空き確認 |
-| `create-quote` | `app.etzhayyim.apps.jpAshiba.createQuote` | cmdCreateQuote | 見積作成 |
-| `confirm-rental` | `app.etzhayyim.apps.jpAshiba.confirmRental` | cmdConfirmRental | レンタル契約確定 |
-| `extend-rental` | `app.etzhayyim.apps.jpAshiba.extendRental` | cmdExtendRental | レンタル期間延長 |
-| `return-rental` | `app.etzhayyim.apps.jpAshiba.returnRental` | cmdReturnRental | 返却手続き |
-| `subscribe` | `app.etzhayyim.apps.jpAshiba.subscribe` | cmdSubscribe | サブスク契約開始 |
-| `change-tier` | `app.etzhayyim.apps.jpAshiba.changeTier` | cmdChangeTier | tier 変更 |
-| `cancel-subscription` | `app.etzhayyim.apps.jpAshiba.cancelSubscription` | cmdCancelSubscription | サブスク解約 |
-| `schedule-delivery` | `app.etzhayyim.apps.jpAshiba.scheduleDelivery` | cmdScheduleDelivery | 配送スケジュール作成 |
-| `record-inspection` | `app.etzhayyim.apps.jpAshiba.recordInspection` | cmdRecordInspection | 点検記録登録 |
-| `report-defect` | `app.etzhayyim.apps.jpAshiba.reportDefect` | cmdReportDefect | 不良品報告 |
-| `get-usage-summary` | `app.etzhayyim.apps.jpAshiba.getUsageSummary` | cmdGetUsageSummary | サブスク利用量サマリ |
+| `list-catalog` | `com.etzhayyim.apps.jpAshiba.listCatalog` | cmdListCatalog | 足場資材カタログ一覧 |
+| `get-item` | `com.etzhayyim.apps.jpAshiba.getItem` | cmdGetItem | 資材詳細取得 |
+| `check-availability` | `com.etzhayyim.apps.jpAshiba.checkAvailability` | cmdCheckAvailability | 在庫・空き確認 |
+| `create-quote` | `com.etzhayyim.apps.jpAshiba.createQuote` | cmdCreateQuote | 見積作成 |
+| `confirm-rental` | `com.etzhayyim.apps.jpAshiba.confirmRental` | cmdConfirmRental | レンタル契約確定 |
+| `extend-rental` | `com.etzhayyim.apps.jpAshiba.extendRental` | cmdExtendRental | レンタル期間延長 |
+| `return-rental` | `com.etzhayyim.apps.jpAshiba.returnRental` | cmdReturnRental | 返却手続き |
+| `subscribe` | `com.etzhayyim.apps.jpAshiba.subscribe` | cmdSubscribe | サブスク契約開始 |
+| `change-tier` | `com.etzhayyim.apps.jpAshiba.changeTier` | cmdChangeTier | tier 変更 |
+| `cancel-subscription` | `com.etzhayyim.apps.jpAshiba.cancelSubscription` | cmdCancelSubscription | サブスク解約 |
+| `schedule-delivery` | `com.etzhayyim.apps.jpAshiba.scheduleDelivery` | cmdScheduleDelivery | 配送スケジュール作成 |
+| `record-inspection` | `com.etzhayyim.apps.jpAshiba.recordInspection` | cmdRecordInspection | 点検記録登録 |
+| `report-defect` | `com.etzhayyim.apps.jpAshiba.reportDefect` | cmdReportDefect | 不良品報告 |
+| `get-usage-summary` | `com.etzhayyim.apps.jpAshiba.getUsageSummary` | cmdGetUsageSummary | サブスク利用量サマリ |
 
 ## Multi-DID Actor Composition
 

@@ -49,7 +49,7 @@ no actor, no kotoba dataset, no ADR. This session built the full stack to R2, de
 - `methods/analyze.py` (stdlib) → aggregate-first `out/intel-report.md` +
   `out/cable-criticality.kotoba.edn`. Top chokepoints (seed): Malacca 490 / Luzon 455 /
   Gibraltar 324 / Suez 250 / S-China-Sea 191 Tbps.
-- kotoba-native lexicons `00-contracts/lexicons/app/etzhayyim/cable/*` (registerCableSystem /
+- kotoba-native lexicons `00-contracts/lexicons/com/etzhayyim/cable/*` (registerCableSystem /
   registerLandingStation / registerSegment / flagCableFault) + `MIGRATION-NOTES.md` mapping
   all 7 legacy `gftd` lexicons; **`flagSubseaCableTamper` RETIRED, not ported** (intent
   adjudication → violates G4).
@@ -101,5 +101,5 @@ in-scope `SIMEON_PEER_ID`.
 
 - ADR-2606012600 (authoritative design) · `20-actors/watatsuna/` · `20-actors/watatsumi/` ·
   `00-contracts/schemas/submarine-cable-ontology.kotoba.edn` ·
-  `00-contracts/lexicons/app/etzhayyim/cable/` ·
+  `00-contracts/lexicons/com/etzhayyim/cable/` ·
   `50-infra/etzhayyim-did-web/src/registry/infra-actors.ts`

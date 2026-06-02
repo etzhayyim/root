@@ -78,11 +78,11 @@ script/
 - Proposer track record
 - Similar past grant outcomes
 
-Output: `app.etzhayyim.apps.public-fund.evaluation` record displayed in voting UI as advisory.
+Output: `com.etzhayyim.apps.public-fund.evaluation` record displayed in voting UI as advisory.
 
 ## Lexicons
 
-- `00-contracts/lexicons/ai/gftd/apps/public-fund/proposal.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/public-fund/proposal.json`
 - `evaluation.json` (LLM advisory)
 - `vote.json`
 - `execution.json`

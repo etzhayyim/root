@@ -12,7 +12,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${SARUTAHIKO_GRAPH:-app.etzhayyim.sarutahiko}"
+GRAPH="${SARUTAHIKO_GRAPH:-com.etzhayyim.sarutahiko}"
 ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> sarutahiko kotoba deploy → ${KOTOBA_URL} (graph ${GRAPH})"

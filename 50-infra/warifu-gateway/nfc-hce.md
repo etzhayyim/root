@@ -8,7 +8,7 @@ to on-chain card references (`WarifuCard`).
 ## Provisioning
 
 ```
-app.etzhayyim.card.issue ──► WarifuCard.sol (ERC-5192 soulbound) bound to ERC-4337 smart account
+com.etzhayyim.card.issue ──► WarifuCard.sol (ERC-5192 soulbound) bound to ERC-4337 smart account
                           └► self-TSP issues network token (cardToken) → device keystore (HCE)
 ```
 
@@ -18,7 +18,7 @@ app.etzhayyim.card.issue ──► WarifuCard.sol (ERC-5192 soulbound) bound to 
 NFC tap (ISO 14443 + EMV contactless kernel)
    │  cryptogram + token
    ▼
-hce-tsp detokenize → app.etzhayyim.card.authorize (surface=nfc)
+hce-tsp detokenize → com.etzhayyim.card.authorize (surface=nfc)
    │  CVM = WebAuthn passkey (device biometric) — 3DS-equivalent, no platform key
    ▼
 {approve|decline|gated}

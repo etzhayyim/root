@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.analytics.createDashboard")
+    @worker.task(task_type="com.etzhayyim.apps.analytics.createDashboard")
     async def task_create_dashboard(**kwargs):
         name = kwargs.get("name", "")
         owner_did = kwargs.get("ownerDid", "did:web:analytics.etzhayyim.com")
@@ -46,7 +46,7 @@ async def run_worker():
 
         return {"dashboardId": dashboard_id, "name": name, "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.analytics.recordEvent")
+    @worker.task(task_type="com.etzhayyim.apps.analytics.recordEvent")
     async def task_record_event(**kwargs):
         event_name = kwargs.get("eventName", "")
         actor_did = kwargs.get("actorDid", "did:web:analytics.etzhayyim.com")
@@ -72,7 +72,7 @@ async def run_worker():
 
         return {"eventId": event_id, "eventName": event_name, "recordedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.analytics.listDashboards")
+    @worker.task(task_type="com.etzhayyim.apps.analytics.listDashboards")
     async def task_list_dashboards(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -95,7 +95,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.analytics.getDashboard")
+    @worker.task(task_type="com.etzhayyim.apps.analytics.getDashboard")
     async def task_get_dashboard(**kwargs):
         dashboard_id = kwargs.get("dashboardId", "")
 
@@ -112,7 +112,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.analytics.listEvents")
+    @worker.task(task_type="com.etzhayyim.apps.analytics.listEvents")
     async def task_list_events(**kwargs):
         event_name = kwargs.get("eventName", "")
         limit = int(kwargs.get("limit", 50))
@@ -146,7 +146,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.analytics.getMetrics")
+    @worker.task(task_type="com.etzhayyim.apps.analytics.getMetrics")
     async def task_get_metrics(**kwargs):
         metric_name = kwargs.get("metricName", "")
         period = kwargs.get("period", "day")
@@ -160,7 +160,7 @@ async def run_worker():
             "computedAt": now,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.analytics.createReport")
+    @worker.task(task_type="com.etzhayyim.apps.analytics.createReport")
     async def task_create_report(**kwargs):
         name = kwargs.get("name", "")
         dashboard_id = kwargs.get("dashboardId", "")
@@ -170,7 +170,7 @@ async def run_worker():
 
         return {"reportId": report_id, "name": name, "dashboardId": dashboard_id, "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.analytics.listReports")
+    @worker.task(task_type="com.etzhayyim.apps.analytics.listReports")
     async def task_list_reports(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))

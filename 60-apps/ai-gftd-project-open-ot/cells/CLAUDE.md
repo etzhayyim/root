@@ -1,6 +1,6 @@
 # cells — IEC 61499 BFB cells (Rust → wasm32-wasi → WAMR AOT)
 
-This directory holds gftd-native open-ot **Basic Function Block (BFB) cells** in Rust. Each cell is a Cargo crate that compiles to `wasm32-wasi` and is AOT-compiled by `wamrc` into a `.aot` artefact, pinned by content hash via `app.etzhayyim.apps.openOt.pinModule`.
+This directory holds gftd-native open-ot **Basic Function Block (BFB) cells** in Rust. Each cell is a Cargo crate that compiles to `wasm32-wasi` and is AOT-compiled by `wamrc` into a `.aot` artefact, pinned by content hash via `com.etzhayyim.apps.openOt.pinModule`.
 
 ## Layout
 
@@ -54,7 +54,7 @@ wamrc \
 # 3. Sign + upload + pin via XRPC
 cid=$(b3sum pid_limited.aot | awk '{print $1}')
 sig=$(./scripts/builder-sign.sh pid_limited.aot)  # was `gftd builder sign` before 2026-05-20 CLI removal
-curl -X POST https://open-ot.etzhayyim.com/xrpc/app.etzhayyim.apps.openOt.pinModule \
+curl -X POST https://open-ot.etzhayyim.com/xrpc/com.etzhayyim.apps.openOt.pinModule \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d "{

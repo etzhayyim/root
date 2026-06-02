@@ -2,7 +2,7 @@
 
 **ADR**: ADR-2605301600 (§4 G6 open method)
 **Owner cells**: `danjo_crossref_engine` + `danjo_statement_consistency` (R0 path-reserved; activate at R2)
-**Conforms to**: `app.etzhayyim.danjo.methodNote` Lexicon
+**Conforms to**: `com.etzhayyim.danjo.methodNote` Lexicon
 **Status**: R0 scaffold — `v1-jp-seed` is a DRAFT 雛形 pending Council Lv6+ ≥3 attestation
 
 ## Purpose
@@ -59,7 +59,7 @@ method that produced them.
 
 ## Related Files
 
-- `/00-contracts/lexicons/app/etzhayyim/danjo/methodNote.json` — Lexicon schema
-- `/00-contracts/lexicons/app/etzhayyim/danjo/discrepancyObservation.json` — the record a method produces
+- `/00-contracts/lexicons/com/etzhayyim/danjo/methodNote.json` — Lexicon schema
+- `/00-contracts/lexicons/com/etzhayyim/danjo/discrepancyObservation.json` — the record a method produces
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — §4 G6 open method
 - `/20-actors/toritate/valuation/` — sibling open-method-table precedent (ADR-2605301020)

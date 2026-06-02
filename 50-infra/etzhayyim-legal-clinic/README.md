@@ -6,10 +6,10 @@ no legal advice (G14).**
 
 ## What it does
 
-- `POST /xrpc/app.etzhayyim.chigiri.legalAid.intake` (member-signed) — opens a
+- `POST /xrpc/com.etzhayyim.chigiri.legalAid.intake` (member-signed) — opens a
   free matter (`intakeState=intake`) and relays it to the
   `chigiri_legal_aid_clinic` cell, which assigns Public-Fund counsel (G16).
-- `GET /xrpc/app.etzhayyim.chigiri.legalAid.status?matter=…` — read-only status.
+- `GET /xrpc/com.etzhayyim.chigiri.legalAid.status?matter=…` — read-only status.
 
 The endpoint accepts the adherent's OWN description and returns intake status —
 **never an answer**. Advice comes only from the licensed lawyer the cell assigns.
@@ -24,5 +24,5 @@ The endpoint accepts the adherent's OWN description and returns intake status �
 - **no-cookie / no-ads**: identity is DID-bound; no Set-Cookie, no trackers.
 - **substrate-boundary**: substrate access via `@etzhayyim/sdk` only.
 
-Lexicon: `app.etzhayyim.chigiri.legalAidMatter`. Cell:
+Lexicon: `com.etzhayyim.chigiri.legalAidMatter`. Cell:
 `20-actors/magatama/cells/chigiri_legal_aid_clinic/`.

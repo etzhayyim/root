@@ -15,7 +15,7 @@
 |---|---|---|---|
 | 1 | ADR-2605263400 (master) | ✅ | init |
 | 2 | manifest.jsonld + README + CLAUDE.md | ✅ | init |
-| 3 | 5 Lexicons (`app.etzhayyim.musubi.*`) | ✅ | init |
+| 3 | 5 Lexicons (`com.etzhayyim.musubi.*`) | ✅ | init |
 | 4 | **ceremony-recognition registry seed (worldwide, 全件 unverified-seed)** | ✅ | **iter-1** |
 
 ## イテレーション記録
@@ -24,7 +24,7 @@
 **上げた項目: #4 — ceremony-recognition registry の worldwide 初版 seed 作成。**
 musubi にこれまで registry が無かったため、`registry/ceremony-recognition.seed.json` を
 **新規作成**。sibling の `20-actors/toritsugi/registry/procedures.seed.json` の JSON shape を
-厳密にミラー:top-level `$schema="app.etzhayyim.musubi.ceremonyRecognition"` · ADR-2605263400 +
+厳密にミラー:top-level `$schema="com.etzhayyim.musubi.ceremonyRecognition"` · ADR-2605263400 +
 unverified-seed semantics + G8/G14 caveat を説明する `_comment` · `freshnessWindowDays:180` ·
 `recognitions:[…]` 配列(id フィールドは `recognitionId`)。
 
@@ -54,7 +54,7 @@ language + https provenance + boundary caveat の assert 全 pass。
 **注(honest)**: 全件 unverified-seed のため G14 により live 依拠不可(human/Council 検証 +
 freshness window 内 re-check が前提)。fee/window/regime 等の actor 固有フィールドは現データでは
 不明な値を捏造せず省略した(seed は `$schema` 参照のみで lexicon record と 1:1 ではない)。
-`app.etzhayyim.musubi.ceremonyRecognition` lexicon record は未作成 — R1 で lexicon 化する際に
+`com.etzhayyim.musubi.ceremonyRecognition` lexicon record は未作成 — R1 で lexicon 化する際に
 field 整合(ceremonyType knownValues 等)の確認が必要。confidence=medium の3件
 (jp-common-law-marriage-naien · jp-municipal-partnership-oath · uk-cw-in-civil-marriage-special-marriage-act)
 は doctrine/state-specific のため特に re-verify 要。
@@ -66,7 +66,7 @@ deps.toml の registry 反映。いずれも R1 ゲート(Council Lv6+ ≥3 rati
 
 **2026-06-02 — fail-closed registry invariants test 追加 (green)**: `70-tools/scripts/audit/test_musubi_registry_seed.py` を新規作成。`ceremony-recognition.seed.json` に対し deterministic / network-free な 7 invariant を fail-closed で pin: (1) JSON parse + 非空 `recognitions` list, (2) `recognitionId` 一意 (dup 0), (3) 全件 `verificationStatus="unverified-seed"` (G14), (4) 全件 非空 https provenance + lastVerified, (5) `jurisdiction` 必須 + worldwide ≥5 distinct (現状 10: aus/can/deu/eu-wide/fra/gbr/ind/jpn/sgp/usa — JP-only 退行ガード), (6) 全件 notes 非空 + informational-only / does-not-confer-civil-status / no-legal-advice の境界レジーム参照 + top-level `_comment`, (7) top-level int `freshnessWindowDays`。`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest … -q` で **7 passed** (langsmith pytest plugin の pydantic-core 不整合を回避するため plugin autoload off)。test-only・cell 実行なし・live 依拠なしの R0-safe。
 
-**2026-06-02 — Lexicon reconciliation: `ceremonyRecognition` CREATED (validators green)**: 新規 `00-contracts/lexicons/app/etzhayyim/musubi/ceremonyRecognition.json` (`id=app.etzhayyim.musubi.ceremonyRecognition`) を作成し、`registry/ceremony-recognition.seed.json` を型付け。chigiri/musubi lexicon idiom (record / key=tid / kurashimori.remedyTarget 同型) に整合し、`recognitionId` を record key concept として mirror。seed が実使用する全フィールド (recognitionId/title/jurisdiction/ceremonyType/authority/channel/legalBasis/language/provenance/confidence/lastVerified/verificationStatus/notes) を型付け。description に憲法境界 (informational-only / UPL boundary / no legal advice / no clergy class G3 / does-NOT-confer-civil-status / G14 verificationStatus gate / G8 legalBasis+provenance mandatory) を明記。`lexicon-primary-types.mjs` **OK (17 files)** + `nsid-lexicon-exists.mjs` **OK** で green。`lexicon-const-name-collision-check.mjs` は本ファイルとは無関係の既存衝突 (`app.etzhayyim.apps.ipaddress.analyzeIp`) で fail — 本ファイルを除去しても同一 fail を再現し、本作業に起因しないことを確認済 (unrelated namespace、修正対象外)。additive のみ・既存 lexicon 無変更。
+**2026-06-02 — Lexicon reconciliation: `ceremonyRecognition` CREATED (validators green)**: 新規 `00-contracts/lexicons/com/etzhayyim/musubi/ceremonyRecognition.json` (`id=com.etzhayyim.musubi.ceremonyRecognition`) を作成し、`registry/ceremony-recognition.seed.json` を型付け。chigiri/musubi lexicon idiom (record / key=tid / kurashimori.remedyTarget 同型) に整合し、`recognitionId` を record key concept として mirror。seed が実使用する全フィールド (recognitionId/title/jurisdiction/ceremonyType/authority/channel/legalBasis/language/provenance/confidence/lastVerified/verificationStatus/notes) を型付け。description に憲法境界 (informational-only / UPL boundary / no legal advice / no clergy class G3 / does-NOT-confer-civil-status / G14 verificationStatus gate / G8 legalBasis+provenance mandatory) を明記。`lexicon-primary-types.mjs` **OK (17 files)** + `nsid-lexicon-exists.mjs` **OK** で green。`lexicon-const-name-collision-check.mjs` は本ファイルとは無関係の既存衝突 (`com.etzhayyim.apps.ipaddress.analyzeIp`) で fail — 本ファイルを除去しても同一 fail を再現し、本作業に起因しないことを確認済 (unrelated namespace、修正対象外)。additive のみ・既存 lexicon 無変更。
 
 **2026-06-02 — long-tail worldwide deepening (registry +27 entries, test green)**: `registry/ceremony-recognition.seed.json` に 4 バケット (EU-REST / asia-rest / AMERICAS-REST / MEA-OCEANIA) の long-tail 27 件を merge — total 27→54 entries、distinct jurisdictions 10→36 (新規 26: ita/esp/pol/nld/irl/nor/swe/chn/twn/hkg/tha/vnm/idn/phl/mys/arg/chl/col/per/nzl/zaf/isr/ken/nga/are/egy; can は Ontario 既存 + Québec 追加で同一 jurisdiction)。全件 actor schema (recognitionId/ceremonyType=marriage/language/https-provenance/confidence/lastVerified=2026-06-02/verificationStatus=unverified-seed + 標準境界 caveat) に正規化、recognitionId dup 0、G8 legalBasis+provenance 維持。`test_musubi_registry_seed.py` の distinct-jurisdiction 閾値を ≥5 → **≥12** に引き上げ (実測 36 で lock-in)。`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest … -q` で **7 passed**。
 

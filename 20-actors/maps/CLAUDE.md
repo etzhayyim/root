@@ -250,7 +250,7 @@ v1m9k2q8.etzhayyim.com
 
 ## Write Path
 
-`sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", payload: { collection: "app.etzhayyim.apps.maps.{kind}", recordJson } })` → PDS → graph write path → RisingWave
+`sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", payload: { collection: "com.etzhayyim.apps.maps.{kind}", recordJson } })` → PDS → graph write path → RisingWave
 
 Social posts: `writeBuffer.push({ type: "com-atproto-repo-create-post", payload: { value: { text, createdAt } } })`
 
@@ -273,9 +273,9 @@ Social posts: `writeBuffer.push({ type: "com-atproto-repo-create-post", payload:
 
 STARTS_AT, ENDS_AT, IN_REGION, PARENT_OF, OBSERVED_AT, LOCATED_AT, SEGMENT_OF, NODE_OF, CONNECTS, FLOOR_OF, ASSET_IN, TWIN_OF, BOUND_TO, MONITORS, RELATES_TO, EVENT_ON, VERSION_OF, DETECTED, SAME_AS, ANALYZED_FROM, RESOLVES_TO
 
-## Lexicon (app.etzhayyim.apps.maps.*)
+## Lexicon (com.etzhayyim.apps.maps.*)
 
-47 record kinds mapped via `LABEL_MAP` in `app.ts`. W Protocol kind `maps.{type}` → AT Lexicon `app.etzhayyim.apps.maps.{type}`.
+47 record kinds mapped via `LABEL_MAP` in `app.ts`. W Protocol kind `maps.{type}` → AT Lexicon `com.etzhayyim.apps.maps.{type}`.
 
 ## Infrastructure Types (infra_type)
 
@@ -304,16 +304,16 @@ sentinelIngest.bpmn   (timer R/PT24H)
   ──► maps.sentinel.stac.search       (LangChain STAC POST /search)
         Element84 (S-2 L2A, no auth) + Copernicus Dataspace (S-1 GRD, OAuth)
   ──► generic.db.insert × N            (vertex_repo_record,
-                                         collection app.etzhayyim.apps.maps.satelliteScene)
-  ──► generic.audit.emit               (app.etzhayyim.apps.maps.sentinel.ingest)
+                                         collection com.etzhayyim.apps.maps.satelliteScene)
+  ──► generic.audit.emit               (com.etzhayyim.apps.maps.sentinel.ingest)
 
-sentinelAnalyze.bpmn  (xrpc POST app.etzhayyim.apps.maps.sentinelAnalyze)
+sentinelAnalyze.bpmn  (xrpc POST com.etzhayyim.apps.maps.sentinelAnalyze)
   ──► generic.db.select                (load satelliteScene by sceneUri)
   ──► maps.sentinel.runpod.analyze     (LangChain chain → RunPod sync poll)
         models: sentinel2_change_siamese | sentinel2_landuse_unet | sentinel1_flood_unet
   ──► generic.db.insert                (vertex_repo_record,
-                                         collection app.etzhayyim.apps.maps.satelliteAnalysis)
-  ──► generic.audit.emit               (app.etzhayyim.apps.maps.sentinel.analyze)
+                                         collection com.etzhayyim.apps.maps.satelliteAnalysis)
+  ──► generic.audit.emit               (com.etzhayyim.apps.maps.sentinel.analyze)
 ```
 
 **Files** (all live in this repo as of 2026-04-27):
@@ -321,10 +321,10 @@ sentinelAnalyze.bpmn  (xrpc POST app.etzhayyim.apps.maps.sentinelAnalyze)
 | File | Purpose |
 |---|---|
 | `90-docs/adr/2604271800-maps-l8-sentinel-pipeline.md` | ADR (decision + scope) |
-| `00-contracts/lexicons/ai/gftd/apps/maps/sentinelIngest.json` | XRPC procedure schema |
-| `00-contracts/lexicons/ai/gftd/apps/maps/sentinelAnalyze.json` | XRPC procedure schema |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/sentinelIngest.bpmn` | Timer-start BPMN |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/sentinelAnalyze.bpmn` | XRPC-triggered BPMN |
+| `00-contracts/lexicons/com/etzhayyim/apps/maps/sentinelIngest.json` | XRPC procedure schema |
+| `00-contracts/lexicons/com/etzhayyim/apps/maps/sentinelAnalyze.json` | XRPC procedure schema |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelIngest.bpmn` | Timer-start BPMN |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelAnalyze.bpmn` | XRPC-triggered BPMN |
 | `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py` | LangServer primitives (STAC + RunPod + LangChain) |
 | `30-graph/graph-schema/migrations/20260427210000_seed_maps_sentinel_bpmn_actors.ts` | BPMN registry seed |
 | `50-infra/vultr/mitama-udf-pool/{templates/zeebe-worker.yaml,values.yaml}` | env wiring (RUNPOD / Copernicus secrets) |

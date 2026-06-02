@@ -15,11 +15,11 @@ scope):
   - ``POST /runs``                      submit a generate run
   - ``GET  /runs/{run_id}``             poll status / artifacts
   - ``GET  /health`` / ``/_app/meta``   probes
-  - ``POST /xrpc/app.etzhayyim.apps.voxelforge.{generate,getRun,listArtifacts,coverage}``
+  - ``POST /xrpc/com.etzhayyim.apps.voxelforge.{generate,getRun,listArtifacts,coverage}``
                                         bpmn-dispatcher bridge
 
 bpmn-dispatcher (ADR-2604282300) routes
-``app.etzhayyim.apps.voxelforge.*`` to this service via in-cluster ClusterIP
+``com.etzhayyim.apps.voxelforge.*`` to this service via in-cluster ClusterIP
 ``voxelforge-langgraph.mitama-udf.svc.cluster.local:8000``.
 """
 
@@ -54,7 +54,7 @@ def _utc_now_iso() -> str:
 
 def _make_design_vertex_id(actor_did: str, ts_ms: int, prompt_hash: str) -> str:
     digest = hashlib.sha256(f"{actor_did}|{ts_ms}|{prompt_hash}".encode()).hexdigest()
-    return f"at://{actor_did}/app.etzhayyim.apps.voxelforge.design/{digest[:16]}"
+    return f"at://{actor_did}/com.etzhayyim.apps.voxelforge.design/{digest[:16]}"
 
 
 def _make_run_id(design_vertex_id: str) -> str:
@@ -237,7 +237,7 @@ def build_app() -> Any:
 
     # ── XRPC bridge endpoints (bpmn-dispatcher → here) ──────────────
 
-    @api.post("/xrpc/app.etzhayyim.apps.voxelforge.generate")
+    @api.post("/xrpc/com.etzhayyim.apps.voxelforge.generate")
     async def xrpc_generate(req: Request) -> JSONResponse:
         if not _internal_trust_ok(req):
             raise HTTPException(status_code=401, detail="x-internal-trust required")
@@ -248,7 +248,7 @@ def build_app() -> Any:
         org_did = header_org
         return JSONResponse(await _start_run(gen_input, actor_did, org_did))
 
-    @api.get("/xrpc/app.etzhayyim.apps.voxelforge.getRun")
+    @api.get("/xrpc/com.etzhayyim.apps.voxelforge.getRun")
     async def xrpc_get_run(req: Request) -> JSONResponse:
         if not _internal_trust_ok(req):
             raise HTTPException(status_code=401, detail="x-internal-trust required")
@@ -271,7 +271,7 @@ def build_app() -> Any:
             }
         )
 
-    @api.get("/xrpc/app.etzhayyim.apps.voxelforge.listArtifacts")
+    @api.get("/xrpc/com.etzhayyim.apps.voxelforge.listArtifacts")
     async def xrpc_list_artifacts(req: Request) -> JSONResponse:
         if not _internal_trust_ok(req):
             raise HTTPException(status_code=401, detail="x-internal-trust required")
@@ -309,7 +309,7 @@ def build_app() -> Any:
             }
         )
 
-    @api.get("/xrpc/app.etzhayyim.apps.voxelforge.coverage")
+    @api.get("/xrpc/com.etzhayyim.apps.voxelforge.coverage")
     async def xrpc_coverage(req: Request) -> JSONResponse:
         if not _internal_trust_ok(req):
             raise HTTPException(status_code=401, detail="x-internal-trust required")

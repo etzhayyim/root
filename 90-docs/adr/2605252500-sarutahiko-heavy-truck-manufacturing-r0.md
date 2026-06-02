@@ -18,7 +18,7 @@ authoritative_for:
   - 5-layer assembly process (frame → powertrain → cab → marriage → paint+electrical+QA)
   - 9 Pregel cell catalog + Murakumo placement (R0 design-only)
   - 4 new robotics class reservation (Kasane / Tsutsumi / Akari / Norimichi) + 3 inherited (Otete-heavy / Mimi-precision / Migaki)
-  - lexicon namespace reservation (`app.etzhayyim.sarutahiko.*`, 9 record types)
+  - lexicon namespace reservation (`com.etzhayyim.sarutahiko.*`, 9 record types)
   - manufacturing-side counterpart positioning to wadachi (operator-side autonomous mobility)
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
@@ -80,7 +80,7 @@ The user-prompted source reference for this design is the manufacturing methodol
 | Per-vehicle DID pattern (reserved) | `did:web:etzhayyim.com:sarutahiko:vehicle:<vin>` |
 | Per-line-station DID pattern (reserved) | `did:web:etzhayyim.com:sarutahiko:line:<plantCode>:<stationCode>` |
 | Repo location | `20-actors/sarutahiko/` |
-| Lexicon namespace | `app.etzhayyim.sarutahiko.*` |
+| Lexicon namespace | `com.etzhayyim.sarutahiko.*` |
 | License | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 ### 2. Positioning vs wadachi
@@ -172,7 +172,7 @@ Adopted from large-scale heavy-truck plant practice (Turkey OEM class).
 
 R0 contract: each cell module imports cleanly; instantiating its class succeeds; calling `.solve()` raises `RuntimeError("sarutahiko R0 scaffold: activate via Council ADR-2605252515 post-ratification")`.
 
-### 8. Lexicons (9 record types under `app.etzhayyim.sarutahiko.*`, R0 stubs)
+### 8. Lexicons (9 record types under `com.etzhayyim.sarutahiko.*`, R0 stubs)
 
 ```
 frameAttestation              # L1 chassis frame + steel lot + straightness

@@ -1,7 +1,7 @@
-;; app.etzhayyim.infrautilityconnect.serviceRequest — service request record
+;; com.etzhayyim.infrautilityconnect.serviceRequest — service request record
 ;; ADR-2605250900 · Phase 1 (utility activation initiation)
 {:lexicon 1
- :id "app.etzhayyim.infrautilityconnect.serviceRequest"
+ :id "com.etzhayyim.infrautilityconnect.serviceRequest"
  :defs
  {:main
   {:type "record"

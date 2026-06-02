@@ -1,7 +1,7 @@
 # iyashi (癒) — Non-profit Religious-Corp Clinical Care Provider Substrate
 
 **DID**: `did:web:iyashi.etzhayyim.com`
-**Namespace**: `app.etzhayyim.iyashi.*`
+**Namespace**: `com.etzhayyim.iyashi.*`
 **ADR**: ADR-2605263000 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 6 cells path-reserved (import-time RuntimeError per G2 privacy invariant) + 6 Lexicon skeletons
 **L4 Care Tier siblings**: yakushi (pharma) / mitate (diagnosis) / hagukumi (daily-living)
@@ -63,7 +63,7 @@ Cell modules created at R1 ratification, import-time
 | `iyashi_provider_lifecycle` | reuben | event | candidate provider DID → providerAttestation (Council ≥3 + medical-license-cite-CID) |
 | `iyashi_clinic_facility` | reuben | annual (event) | facility audit → clinicFacilityAttestation |
 
-## 6 Lexicons under `app.etzhayyim.iyashi.*`
+## 6 Lexicons under `com.etzhayyim.iyashi.*`
 
 | Lexicon | Description |
 |---|---|
@@ -74,7 +74,7 @@ Cell modules created at R1 ratification, import-time
 | `clinicFacilityAttestation` | Per-clinic-site standards; annual audit |
 | `silenIyashiReview` | Council Wellbecoming + quality + multi-gen ratio quarterly review |
 
-See `/00-contracts/lexicons/app/etzhayyim/iyashi/README.md` for canonical schemas.
+See `/00-contracts/lexicons/com/etzhayyim/iyashi/README.md` for canonical schemas.
 
 ## Constitutional Gates (G1–G14) — IMMUTABLE R0–R3
 
@@ -126,7 +126,7 @@ enforcement lands at R1 Council attestation review.
 
 - `/20-actors/iyashi/manifest.jsonld`
 - `/20-actors/iyashi/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/iyashi/` (6 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/iyashi/` (6 Lexicons + README)
 - `/90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md`
 - `/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md` — privacy envelope
 - `/90-docs/adr/2605261000-labor-liberation-transition-mechanism.md` — L4 gate

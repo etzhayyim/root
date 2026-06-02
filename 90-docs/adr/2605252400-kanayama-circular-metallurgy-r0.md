@@ -18,7 +18,7 @@ authoritative_for:
   - 5-layer construction process (intake QA → de-coat/shred/sort → melt+refine → DC cast+homogenize → roll+finish)
   - 9 Pregel cell catalog + Murakumo placement (R0 design-only)
   - 3 new robotics class reservation (Kamado / Yokin / Migaki) + 3 thermal-rated inheritance (Otete-thermal / Mimi-thermal / Funamori R3 reuse)
-  - lexicon namespace reservation (`app.etzhayyim.kanayama.*`, 8 record types)
+  - lexicon namespace reservation (`com.etzhayyim.kanayama.*`, 8 record types)
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605242000-roso-pattern-frontier-distill
@@ -73,7 +73,7 @@ The user-prompted source reference for this design is the manufacturing methodol
 | Per-batch DID pattern (reserved) | `did:web:etzhayyim.com:kanayama:batch:<lotId>` |
 | Per-coil DID pattern (reserved) | `did:web:etzhayyim.com:kanayama:coil:<coilId>` |
 | Repo location | `20-actors/kanayama/` |
-| Lexicon namespace | `app.etzhayyim.kanayama.*` |
+| Lexicon namespace | `com.etzhayyim.kanayama.*` |
 | License | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 ### 2. Scope (R0)
@@ -149,7 +149,7 @@ Adopted from European integrated recycling-rolling mill practice (Wave 1, alumin
 
 R0 contract: each cell module imports cleanly; instantiating its class succeeds; calling `.solve()` raises `RuntimeError("kanayama R0 scaffold: activate via Council ADR-2605252415 post-ratification")`.
 
-### 7. Lexicons (8 record types under `app.etzhayyim.kanayama.*`, R0 stubs)
+### 7. Lexicons (8 record types under `com.etzhayyim.kanayama.*`, R0 stubs)
 
 ```
 intakeRecord                    # L1 — UBC bale weighing + QA

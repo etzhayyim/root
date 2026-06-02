@@ -24,7 +24,7 @@ GLEIF LEI (3M active) を起点に、全世界 194+ カ国の法人登記デー�
 ```
 [Data Source API / CSV / Scraper]
   → le9k4x2m Worker (command handler per source)
-    → normalize → { $type: "app.etzhayyim.legalEntity.legalEntity", ... }
+    → normalize → { $type: "com.etzhayyim.legalEntity.legalEntity", ... }
       → sdk.pds.rpc("com.atproto.repo.applyWrites", { repo, writes })
         → PDS → sign → vertex_legal_entity (RisingWave)
         → firehose emit (com.atproto.sync.subscribeRepos)
@@ -333,7 +333,7 @@ Immediate implementation. Each source gets a `collect{Iso3}` command in `le9k4x2
 #### Common Collector Pattern
 
 ```ts
-sdk.app.command("app.etzhayyim.legalEntity.collect{Iso3}", async (input) => {
+sdk.app.command("com.etzhayyim.legalEntity.collect{Iso3}", async (input) => {
   // 1. Fetch from national API (paginated)
   const resp = await sdk.net.fetch(API_URL, { params });
   // 2. Normalize to common LegalEntity schema
@@ -395,6 +395,6 @@ Build bridging edges between records from different sources.
 
 - Existing GLEIF ingest: `70-tools/scripts/gleif-bulk-ingest.mjs`
 - Legal entity project: `60-apps/ai-gftd-project-legal-entity/CLAUDE.md`
-- Lexicons: `00-contracts/lexicons/ai/gftd/apps/legalEntity/`
+- Lexicons: `00-contracts/lexicons/com/etzhayyim/apps/legalEntity/`
 - Graph schema: `30-graph/graph-schema/src/database.ts` (`VertexLegalEntityRow`)
 - PDS typed vertex: `50-infra/cloudflare/workers/atproto/src/core.ts` (`buildTypedVertex("LegalEntity", ...)`)

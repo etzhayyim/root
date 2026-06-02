@@ -1,7 +1,7 @@
-;; app.etzhayyim.infrautilityconnect.utilityActivation — utility service activation record
+;; com.etzhayyim.infrautilityconnect.utilityActivation — utility service activation record
 ;; ADR-2605250900 · Phase 1 (final go-live confirmation + settlement intent)
 {:lexicon 1
- :id "app.etzhayyim.infrautilityconnect.utilityActivation"
+ :id "com.etzhayyim.infrautilityconnect.utilityActivation"
  :defs
  {:main
   {:type "record"

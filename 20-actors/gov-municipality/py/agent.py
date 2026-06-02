@@ -15,7 +15,7 @@ inspection scheduling, final sign-off. Constitutional gates enforced:
   G17 tithe-non-fiat           fee settlement via USDC Base L2 + ERC-4337 + TitheRouter 10% only
   G18 no-server-key            member + jurisdiction operator sign; platform holds no key
   G19 consent-bound            submission + scheduling + sign-off gated on member explicit consent
-  G20 pii-encrypted-envelope   applicant details encrypted app.etzhayyim.encrypted.*
+  G20 pii-encrypted-envelope   applicant details encrypted com.etzhayyim.encrypted.*
 
 LLM access is Murakumo-only via KotobaLLM (127.0.0.1:4000, gemma3:4b; G15). State is
 written back to the kotoba Datom log (G16). Settlement is USDC on Base L2 + ERC-4337

@@ -76,7 +76,7 @@ def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
 
 
 def _vertex(collection: str, rkey: str) -> str:
-    return f"at://{ACTOR}/app.etzhayyim.apps.shiharai.{collection}/{_rkey(rkey)}"
+    return f"at://{ACTOR}/com.etzhayyim.apps.shiharai.{collection}/{_rkey(rkey)}"
 
 
 def _normalize_issuer_to_handle(issuer: str) -> str:
@@ -99,7 +99,7 @@ def _normalize_issuer_to_handle(issuer: str) -> str:
 
 
 def _bpmn_call(method: str, params: dict[str, Any]) -> dict[str, Any]:
-    # ADR-2604282300: app.etzhayyim.* must NOT route through CF Workers — use K8s ClusterIP.
+    # ADR-2604282300: com.etzhayyim.* must NOT route through CF Workers — use K8s ClusterIP.
     base = (
         os.environ.get("BPMN_DISPATCHER_INTERNAL_URL")
         or os.environ.get("BPMN_URL")
@@ -107,7 +107,7 @@ def _bpmn_call(method: str, params: dict[str, Any]) -> dict[str, Any]:
         or "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080"
     ).rstrip("/")
     req = urllib.request.Request(
-        f"{base}/xrpc/app.etzhayyim.apps.bpmn.{method}",
+        f"{base}/xrpc/com.etzhayyim.apps.bpmn.{method}",
         method="POST",
         data=json.dumps(params).encode(),
         headers={"content-type": "application/json", "user-agent": "gftd-shiharai-zeebe/1"},

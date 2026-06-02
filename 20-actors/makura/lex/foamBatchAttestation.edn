@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.makura.foamBatchAttestation"
+ :id "com.etzhayyim.makura.foamBatchAttestation"
  :defs
  {:main
   {:type "record"

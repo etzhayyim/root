@@ -37,8 +37,8 @@ After:   Actor DID = Cypher graph node (PDS manages)
                     ┌──────────▼──────────────────────┐
                     │         PDS (sole gateway)       │
                     │                                  │
-                    │  XRPC: app.etzhayyim.actor.*           │
-                    │  XRPC: app.etzhayyim.tool.*            │
+                    │  XRPC: com.etzhayyim.actor.*           │
+                    │  XRPC: com.etzhayyim.tool.*            │
                     │  MCP:  /mcp (JSON-RPC 2.0)       │
                     │                                  │
                     └──────────┬──────────────────────┘
@@ -90,28 +90,28 @@ SET g.actorDid = "did:web:k3rn5la4.etzhayyim.com", g.toolName = "news.summarize"
 
 | NSID | Auth | Description |
 |---|---|---|
-| `app.etzhayyim.actor.create` | required | Create Actor node (Cypher MERGE) |
-| `app.etzhayyim.actor.update` | required | Update Actor properties |
-| `app.etzhayyim.actor.delete` | required | Archive Actor (status="archived") |
-| `app.etzhayyim.actor.get` | public | Get Actor by DID |
-| `app.etzhayyim.actor.list` | public | List Actors by status |
-| `app.etzhayyim.actor.setStatus` | required | Change Actor status |
-| `app.etzhayyim.actor.heartbeatBatch` | required | Batch heartbeat update |
-| `app.etzhayyim.actor.grantTool` | required | Grant CAN_USE (ToolGrant) |
-| `app.etzhayyim.actor.revokeTool` | required | Revoke ToolGrant |
-| `app.etzhayyim.actor.listTools` | public | List granted tools for Actor |
-| `app.etzhayyim.actor.migrateBatch` | required | Bulk migration (App → Actor + Tool + ToolGrant) |
+| `com.etzhayyim.actor.create` | required | Create Actor node (Cypher MERGE) |
+| `com.etzhayyim.actor.update` | required | Update Actor properties |
+| `com.etzhayyim.actor.delete` | required | Archive Actor (status="archived") |
+| `com.etzhayyim.actor.get` | public | Get Actor by DID |
+| `com.etzhayyim.actor.list` | public | List Actors by status |
+| `com.etzhayyim.actor.setStatus` | required | Change Actor status |
+| `com.etzhayyim.actor.heartbeatBatch` | required | Batch heartbeat update |
+| `com.etzhayyim.actor.grantTool` | required | Grant CAN_USE (ToolGrant) |
+| `com.etzhayyim.actor.revokeTool` | required | Revoke ToolGrant |
+| `com.etzhayyim.actor.listTools` | public | List granted tools for Actor |
+| `com.etzhayyim.actor.migrateBatch` | required | Bulk migration (App → Actor + Tool + ToolGrant) |
 
 ### Tool (`pds-actor-tools.ts`)
 
 | NSID | Auth | Description |
 |---|---|---|
-| `app.etzhayyim.tool.register` | required | Register MCP tool |
-| `app.etzhayyim.tool.update` | required | Update tool properties |
-| `app.etzhayyim.tool.delete` | required | Delete tool (status="deleted") |
-| `app.etzhayyim.tool.get` | public | Get Tool by name |
-| `app.etzhayyim.tool.list` | public | List Tools (filter by capabilityWorker/tag) |
-| `app.etzhayyim.tool.registerBatch` | required | Batch register tools (capability worker startup) |
+| `com.etzhayyim.tool.register` | required | Register MCP tool |
+| `com.etzhayyim.tool.update` | required | Update tool properties |
+| `com.etzhayyim.tool.delete` | required | Delete tool (status="deleted") |
+| `com.etzhayyim.tool.get` | public | Get Tool by name |
+| `com.etzhayyim.tool.list` | public | List Tools (filter by capabilityWorker/tag) |
+| `com.etzhayyim.tool.registerBatch` | required | Batch register tools (capability worker startup) |
 
 ## MCP Gateway (`mcp-adapter.ts`)
 
@@ -126,7 +126,7 @@ SET g.actorDid = "did:web:k3rn5la4.etzhayyim.com", g.toolName = "news.summarize"
 
 ### createCapabilityWorker()
 
-DID management なし。MCP tool handler only。Auto-registers tools via `app.etzhayyim.tool.registerBatch` on first request.
+DID management なし。MCP tool handler only。Auto-registers tools via `com.etzhayyim.tool.registerBatch` on first request.
 
 ```typescript
 export default createCapabilityWorker({
@@ -154,7 +154,7 @@ PDS cron (`*/5 * * * *`):
 
 ## Migration (`pds-migrate-logical.ts`)
 
-`app.etzhayyim.actor.migrateBatch` endpoint. 3 phases:
+`com.etzhayyim.actor.migrateBatch` endpoint. 3 phases:
 
 | Phase | Input → Output | Method |
 |---|---|---|
@@ -164,7 +164,7 @@ PDS cron (`*/5 * * * *`):
 
 ```bash
 # Run all phases
-curl -X POST atproto.etzhayyim.com/xrpc/app.etzhayyim.actor.migrateBatch \
+curl -X POST atproto.etzhayyim.com/xrpc/com.etzhayyim.actor.migrateBatch \
   -H 'X-Magatama-Verified: true' \
   -d '{"phase":"all","batchLimit":500}'
 ```

@@ -67,7 +67,7 @@ okaimono をテンプレに `20-actors/tsukuru/` を Gen-3 形へ:
 2. `cells/` 作成（langgraph/datalog 混在）: `orderbook`(datalog) / `discover`(langgraph) /
    `production`(langgraph: BTO/MTO/CTO) / `qc`(langgraph) / `compliance`(langgraph) / `ledger`(datalog)。
 3. `lex/` 作成: `factory.edn` / `production-order.edn` / `progress.edn` / `quality.edn` / `settlement.edn`。
-   既存 `app.etzhayyim.apps.tsukuru.*` record kinds を lex EDN にポート。
+   既存 `com.etzhayyim.apps.tsukuru.*` record kinds を lex EDN にポート。
 
 **完了基準**: `manifest.edn` + `cells/` + `lex/` が存在し、棚卸し判定で Gen-2 以上に昇格。
 → **達成 (2026-06-02)**: `manifest.edn`（17 ゲート: okaimono 15 写像 + G16 trade-compliance + G17 fulfillment-traceability）
@@ -79,7 +79,7 @@ progress/quality/settlement 5 lex）を landed、全 12 EDN paren-balanced。残
 1. `kotoba/schema.edn` 定義: `:factory/*` `:production-order/{id,mode,status,factory,member}`
    `:progress/*` `:quality/*` を EAVT で。SHA/DID bridge は kotoba-git パターン参照。
 2. `kotoba/ingest_factories.py`: 460+ factory DID（gftd 旧 collection
-   `app.etzhayyim.apps.tsukuru-api.manufacturer` の read-compat 含む）→ kotoba Datom へ ingest。
+   `com.etzhayyim.apps.tsukuru-api.manufacturer` の read-compat 含む）→ kotoba Datom へ ingest。
 3. **Cypher `MATCH (o:ProductionOrder)…` → kotoba-kqe Datalog query へ全面置換**。`G()` builder 撤去。
 4. `kotoba/deploy.sh`（okaimono のコピー）。`gftd build/deploy` を廃止。
 
@@ -113,7 +113,7 @@ SBT eligibility/G16 compliance gate/G17 progress-datom/G15 member-sig）+ `test_
 
 1. `gftd:tsukuru*@*` WIT 5 pkg → `etzhayyim:tsukuru*@*`。
 2. `60-apps/ai-gftd-project-tsukuru/` → `60-apps/etzhayyim-project-tsukuru/`、
-   `00-contracts/**/ai/gftd/tsukuru/` → `app/etzhayyim/tsukuru/`。
+   `00-contracts/**/com/etzhayyim/tsukuru/` → `com/etzhayyim/tsukuru/`。
 3. nanoid `tsukr8u0` ホスト・`0ljdfw8u` deprecated 整理。root CLAUDE.md Tier-B roster に正式登録。
 
 ## 3. リスク / 非ゴール

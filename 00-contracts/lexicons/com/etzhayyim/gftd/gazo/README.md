@@ -1,4 +1,4 @@
-# `app.etzhayyim.gazo.*` — 画像 — open image annotation record
+# `com.etzhayyim.gazo.*` — 画像 — open image annotation record
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group C).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `app.etzhayyim.gazo.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `com.etzhayyim.gazo.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

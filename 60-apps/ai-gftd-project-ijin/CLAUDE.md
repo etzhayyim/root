@@ -42,14 +42,14 @@ person_slug = snake_case (alpha-start, ASCII transliteration)。例: `tokugawa_i
 
 | Collection | 用途 |
 |---|---|
-| `app.etzhayyim.apps.ijin.historicalPerson` | 偉人 profile (生没年, 国, 分野, era, 業績) |
-| `app.etzhayyim.apps.ijin.influenceEdge` | 影響関係 (from_did → to_did, influence_type, weight) |
-| `app.etzhayyim.apps.ijin.legacyResource` | 偉人の業績が影響を与えた現代の resource/activity |
-| `app.etzhayyim.apps.ijin.socialVoice` | 偉人 DID の social post 設定 (voice, topics, style) |
-| `app.etzhayyim.apps.ijin.historicalOrg` | 過去の組織 (effective_from/until で時間範囲, 構造・役職) |
-| `app.etzhayyim.apps.ijin.orgRole` | 偉人と組織の関係 (role, effective_from/until) |
-| `app.etzhayyim.apps.ijin.ownershipHistory` | 土地・建物の所有者履歴 (person/org → parcel/building) |
-| `app.etzhayyim.apps.ijin.spatialAnchor` | 偉人・組織の地理的接続 (lat/lng, maps_node_id) |
+| `com.etzhayyim.apps.ijin.historicalPerson` | 偉人 profile (生没年, 国, 分野, era, 業績) |
+| `com.etzhayyim.apps.ijin.influenceEdge` | 影響関係 (from_did → to_did, influence_type, weight) |
+| `com.etzhayyim.apps.ijin.legacyResource` | 偉人の業績が影響を与えた現代の resource/activity |
+| `com.etzhayyim.apps.ijin.socialVoice` | 偉人 DID の social post 設定 (voice, topics, style) |
+| `com.etzhayyim.apps.ijin.historicalOrg` | 過去の組織 (effective_from/until で時間範囲, 構造・役職) |
+| `com.etzhayyim.apps.ijin.orgRole` | 偉人と組織の関係 (role, effective_from/until) |
+| `com.etzhayyim.apps.ijin.ownershipHistory` | 土地・建物の所有者履歴 (person/org → parcel/building) |
+| `com.etzhayyim.apps.ijin.spatialAnchor` | 偉人・組織の地理的接続 (lat/lng, maps_node_id) |
 
 ### Influence Graph (Intel)
 

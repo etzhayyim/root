@@ -3,7 +3,7 @@
 /**
  * CLI: Read AT Protocol Lexicon files and generate OpenAPI specs
  * Usage: lexicon-to-openapi [LEXICON_ROOT] [OUT_DIR]
- * Example: lexicon-to-openapi 00-contracts/lexicons/ai/gftd 90-docs/openapi
+ * Example: lexicon-to-openapi 00-contracts/lexicons/com/etzhayyim 90-docs/openapi
  */
 
 import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
@@ -11,7 +11,7 @@ import { dirname, join, basename } from "node:path";
 import { lexiconsToOpenApi } from "./index.js";
 import type { LexiconDoc } from "./types.js";
 
-const LEXICON_ROOT = process.argv[2] ?? "00-contracts/lexicons/ai/gftd";
+const LEXICON_ROOT = process.argv[2] ?? "00-contracts/lexicons/com/etzhayyim";
 const OUT_DIR = process.argv[3] ?? "90-docs/openapi";
 
 async function main() {

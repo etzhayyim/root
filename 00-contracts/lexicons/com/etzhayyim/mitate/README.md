@@ -1,4 +1,4 @@
-# app.etzhayyim.mitate.* — mitate diagnostic + treatment routing lexicons
+# com.etzhayyim.mitate.* — mitate diagnostic + treatment routing lexicons
 
 Per mitate master charter [ADR-2605260100](../../../../../90-docs/adr/2605260100-mitate-diagnostic-routing-charter.md)
 + 5 condition sub-ADRs ([2605260115](../../../../../90-docs/adr/2605260115-mitate-condition-1-allergic-rhinitis-perennial.md)
@@ -41,5 +41,5 @@ Per master charter §Decision 8, mitate and yakushi share substrate boundary:
 - yakushi `pharma.adverseEventReport` → mitate `outcomeFollowup` (back-feed for longitudinal tracking)
 
 No new namespace introduced. Cross-actor lexicon emit uses existing yakushi
-`app.etzhayyim.pharma.adverseEventReport` schema (mitate adds `apiInn` knownValue if mitate-side
+`com.etzhayyim.pharma.adverseEventReport` schema (mitate adds `apiInn` knownValue if mitate-side
 detects a new INN not in yakushi catalog — requires joint mitate-yakushi silen-review).

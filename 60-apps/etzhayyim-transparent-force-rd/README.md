@@ -28,7 +28,7 @@ detection-system/          ← proximity alert / verbal de-escalation
 ├── dual-use-analysis.md   # adversary use analysis + Charter Rider §3 exposure
 ├── source/                # implementation source (if any)
 ├── test/
-└── app.etzhayyim.apps.etzhayyim.force-rd-publication.json  # publication record
+└── com.etzhayyim.apps.etzhayyim.force-rd-publication.json  # publication record
 ```
 
 ## Initial seed projects (S0)

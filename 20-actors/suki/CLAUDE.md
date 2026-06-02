@@ -83,19 +83,19 @@ See `ADR-2605261500` for full definitions. Key enforcement:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.suki`
+**App lexicon root**: `com.etzhayyim.suki`
 
 **Records** (9 types):
 
-1. **`app.etzhayyim.suki.chassisAttestation`** — Frame fabrication (HSLA-590/780 + weld inspection + ≥2 robot witness)
-2. **`app.etzhayyim.suki.powertrainAttestation`** — Engine + transmission + hydraulic (G7 fuel type R-phase gate)
-3. **`app.etzhayyim.suki.cabAttestation`** — Cab body + ROPS/FOPS rollover-protection certification + interior + G14 open serial
-4. **`app.etzhayyim.suki.hitchPtoAttestation`** — 3-point hitch Cat I/II/III + PTO 540/1000 RPM (ISO 730 + ISO 500)
-5. **`app.etzhayyim.suki.paintAttestation`** — Water-based KTL + VOC + cure profile
-6. **`app.etzhayyim.suki.electricalEcuAttestation`** — **G9 open ECU + G10 no DRM** + bootloader unlock default + CAN bus open protocol
-7. **`app.etzhayyim.suki.fieldTestRecord`** — Drawbar (ASAE S496) + PTO (ASAE S217) + 3-point lift (ISO 730) test
-8. **`app.etzhayyim.suki.emissionsAuditRecord`** — Stage V / EPA Tier 4 Final / 日本特殊自動車; R0-R1 tailpipe → R2+ zero
-9. **`app.etzhayyim.suki.silenSukiReview`** — Council Lv6+ baseline review for R-phase activation
+1. **`com.etzhayyim.suki.chassisAttestation`** — Frame fabrication (HSLA-590/780 + weld inspection + ≥2 robot witness)
+2. **`com.etzhayyim.suki.powertrainAttestation`** — Engine + transmission + hydraulic (G7 fuel type R-phase gate)
+3. **`com.etzhayyim.suki.cabAttestation`** — Cab body + ROPS/FOPS rollover-protection certification + interior + G14 open serial
+4. **`com.etzhayyim.suki.hitchPtoAttestation`** — 3-point hitch Cat I/II/III + PTO 540/1000 RPM (ISO 730 + ISO 500)
+5. **`com.etzhayyim.suki.paintAttestation`** — Water-based KTL + VOC + cure profile
+6. **`com.etzhayyim.suki.electricalEcuAttestation`** — **G9 open ECU + G10 no DRM** + bootloader unlock default + CAN bus open protocol
+7. **`com.etzhayyim.suki.fieldTestRecord`** — Drawbar (ASAE S496) + PTO (ASAE S217) + 3-point lift (ISO 730) test
+8. **`com.etzhayyim.suki.emissionsAuditRecord`** — Stage V / EPA Tier 4 Final / 日本特殊自動車; R0-R1 tailpipe → R2+ zero
+9. **`com.etzhayyim.suki.silenSukiReview`** — Council Lv6+ baseline review for R-phase activation
 
 Terminal `vehicleManufactureRecord` emitted by `suki_vehicle_attestation_binder` as per-VIN derived record (sarutahiko binder parity).
 

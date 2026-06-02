@@ -199,7 +199,7 @@ iwakura はこれを利用して、modality encoder (SigLIP / Whisper / VideoMAE
 
 USB4 + iPhone Lightning-to-USB-C adapter で 2026 年型 iPhone (USB-C ネイティブ) と直結可能。
 Android は USB-C OTG。
-信者所有の iwakura dongle は religious-corp DID と SBT で binding (`app.etzhayyim.silicon.chipManufacturingAttestation` Lexicon で出荷時 attestation)。
+信者所有の iwakura dongle は religious-corp DID と SBT で binding (`com.etzhayyim.silicon.chipManufacturingAttestation` Lexicon で出荷時 attestation)。
 
 ## Phase 1 deliverable scope (本 wave で commit)
 

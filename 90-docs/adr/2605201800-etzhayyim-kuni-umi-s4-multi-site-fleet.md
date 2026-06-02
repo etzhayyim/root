@@ -152,7 +152,7 @@ def constitutional_filter(state: FleetRebalanceState) -> FleetRebalanceState:
 def emit_migration_proposals(state: FleetRebalanceState) -> FleetRebalanceState:
     for migration in state["pending_migrations"]:
         sdk.mst.write(
-            nsid="app.etzhayyim.apps.etzhayyim.kuniUmi.fleetMigrationProposal",  # NEW lexicon
+            nsid="com.etzhayyim.apps.etzhayyim.kuniUmi.fleetMigrationProposal",  # NEW lexicon
             record=migration.to_record(),
         )
     return state
@@ -290,7 +290,7 @@ S4 期間 (≥ 5 site active) では Council Lv6+ **月例 fleet review meeting*
 - Cross-site BoM consolidation outcome review
 - Multi-jurisdiction stewardship issue triage
 
-Output: fleet review minutes が `app.etzhayyim.fleet.review` (新規 lexicon) で MST 永続化。
+Output: fleet review minutes が `com.etzhayyim.fleet.review` (新規 lexicon) で MST 永続化。
 
 ## 6. Quad introduction
 

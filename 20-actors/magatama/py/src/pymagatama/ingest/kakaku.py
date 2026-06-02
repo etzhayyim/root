@@ -1,7 +1,7 @@
 """Kakaku price comparison ingest tasks.
 
 This module is the source-specific Python layer behind
-`app.etzhayyim.apps.kakaku.*` BPMN/XRPC bindings. It keeps deterministic entity
+`com.etzhayyim.apps.kakaku.*` BPMN/XRPC bindings. It keeps deterministic entity
 resolution in Python and writes the existing `vertex_kakaku_*` graph tables.
 """
 
@@ -21,11 +21,11 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 KAKAKU_DID = "did:web:kakaku.etzhayyim.com"
-PRODUCT_COLLECTION = "app.etzhayyim.apps.kakaku.product"
-MERCHANT_COLLECTION = "app.etzhayyim.apps.kakaku.merchant"
-OFFER_COLLECTION = "app.etzhayyim.apps.kakaku.offer"
-PRICE_HISTORY_COLLECTION = "app.etzhayyim.apps.kakaku.priceHistory"
-MATCH_COLLECTION = "app.etzhayyim.apps.kakaku.matchCandidate"
+PRODUCT_COLLECTION = "com.etzhayyim.apps.kakaku.product"
+MERCHANT_COLLECTION = "com.etzhayyim.apps.kakaku.merchant"
+OFFER_COLLECTION = "com.etzhayyim.apps.kakaku.offer"
+PRICE_HISTORY_COLLECTION = "com.etzhayyim.apps.kakaku.priceHistory"
+MATCH_COLLECTION = "com.etzhayyim.apps.kakaku.matchCandidate"
 
 
 def now_iso() -> str:

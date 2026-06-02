@@ -81,8 +81,8 @@ _REFINEMENT_ROW = (
 def test_parse_dmn_ref_strips_version_suffix():
     from pymagatama.langgraph_node_resolvers import _parse_dmn_ref
 
-    assert _parse_dmn_ref("dmn:app.etzhayyim.policies.foo.bar@1.0.0") == (
-        "app.etzhayyim.policies.foo.bar", 1,
+    assert _parse_dmn_ref("dmn:com.etzhayyim.policies.foo.bar@1.0.0") == (
+        "com.etzhayyim.policies.foo.bar", 1,
     )
     assert _parse_dmn_ref("dmn:foo@2") == ("foo", 2)
     # No version → default to 1.
@@ -185,12 +185,12 @@ async def test_resolve_dmn_ref_caches_after_first_hit():
 
     _DMN_REGISTRY_CACHE.clear()
     pool, conn = _pool_returning(_REFINEMENT_ROW)
-    ref = "dmn:app.etzhayyim.policies.mangaka.composeScene3dRefinement@1.0.0"
+    ref = "dmn:com.etzhayyim.policies.mangaka.composeScene3dRefinement@1.0.0"
 
     out1 = await _resolve_dmn_ref(ref, lambda: _async_return(pool)())
     out2 = await _resolve_dmn_ref(ref, lambda: _async_return(pool)())
 
-    assert out1["decision_key"] == "app.etzhayyim.policies.mangaka.composeScene3dRefinement"
+    assert out1["decision_key"] == "com.etzhayyim.policies.mangaka.composeScene3dRefinement"
     assert out1["version"] == 1
     assert out1["hit_policy"] == "FIRST"
     assert len(out1["inputs"]) == 3
@@ -246,7 +246,7 @@ async def test_dmn_router_matches_python_route_after_critique(
     _DMN_REGISTRY_CACHE.clear()
     pool, _ = _pool_returning(_REFINEMENT_ROW)
     router = make_dmn_condition_router(
-        "dmn:app.etzhayyim.policies.mangaka.composeScene3dRefinement@1.0.0",
+        "dmn:com.etzhayyim.policies.mangaka.composeScene3dRefinement@1.0.0",
         lambda: _async_return(pool)(),
     )
 
@@ -504,9 +504,9 @@ async def test_mcp_nsid_override_short_circuits_db_lookup(monkeypatch):
         raise AssertionError("DB lookup must not fire when override matches")
 
     url = await _resolve_mcp_nsid(
-        "app.etzhayyim.apps.mangaka.tools.loadPanelPlan", _explode_pool,
+        "com.etzhayyim.apps.mangaka.tools.loadPanelPlan", _explode_pool,
     )
-    assert url == "http://localhost:8000/xrpc/app.etzhayyim.mcp.message"
+    assert url == "http://localhost:8000/xrpc/com.etzhayyim.mcp.message"
 
 
 @pytest.mark.asyncio
@@ -525,15 +525,15 @@ async def test_mcp_nsid_override_longest_prefix_wins(monkeypatch):
         return None
 
     url = await _resolve_mcp_nsid(
-        "app.etzhayyim.apps.mangaka.tools.loadPanelPlan", _unused_pool,
+        "com.etzhayyim.apps.mangaka.tools.loadPanelPlan", _unused_pool,
     )
     assert url.startswith("http://specific:9000")
 
 
 @pytest.mark.asyncio
 async def test_mcp_nsid_override_does_not_match_prefix_substring(monkeypatch):
-    """`app.etzhayyim.appsXYZ.tools.foo` must NOT match the
-    `app.etzhayyim.apps` prefix — only exact segment boundaries count."""
+    """`com.etzhayyim.appsXYZ.tools.foo` must NOT match the
+    `com.etzhayyim.apps` prefix — only exact segment boundaries count."""
     from pymagatama.langgraph_node_resolvers import (
         _MCP_REGISTRY_CACHE, _resolve_mcp_nsid,
     )
@@ -543,7 +543,7 @@ async def test_mcp_nsid_override_does_not_match_prefix_substring(monkeypatch):
 
     pool, conn = _pool_returning(("real-host.etzhayyim.com",))
     url = await _resolve_mcp_nsid(
-        "app.etzhayyim.apps.mangakatv.something",  # `mangakatv` ≠ `mangaka` segment
+        "com.etzhayyim.apps.mangakatv.something",  # `mangakatv` ≠ `mangaka` segment
         lambda: _async_return(pool)(),
     )
     # Override should NOT match (prefix segment mismatch) → DB path used.
@@ -567,9 +567,9 @@ async def test_mcp_nsid_no_override_falls_back_to_db(monkeypatch):
 
     pool, conn = _pool_returning(("foo.etzhayyim.com",))
     url = await _resolve_mcp_nsid(
-        "app.etzhayyim.apps.someApp.tools.do", lambda: _async_return(pool)(),
+        "com.etzhayyim.apps.someApp.tools.do", lambda: _async_return(pool)(),
     )
-    assert url == "https://foo.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    assert url == "https://foo.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
     assert conn.execute.await_count == 1
 
 
@@ -591,9 +591,9 @@ async def test_mcp_nsid_override_matches_exact_nsid(monkeypatch):
         return None
 
     url = await _resolve_mcp_nsid(
-        "app.etzhayyim.apps.mangaka.tools.loadPanelPlan", _unused_pool,
+        "com.etzhayyim.apps.mangaka.tools.loadPanelPlan", _unused_pool,
     )
-    assert url == "http://exact:7000/xrpc/app.etzhayyim.mcp.message"
+    assert url == "http://exact:7000/xrpc/com.etzhayyim.mcp.message"
 
 
 @pytest.mark.asyncio

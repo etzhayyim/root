@@ -67,7 +67,7 @@ for p in (_CELLS_DIR, _PY_SRC):
 
 
 GATEWAY_PORT = 13031
-NSID_PREFIX = "app.etzhayyim.apps.etzhayyim.kuniUmi."
+NSID_PREFIX = "com.etzhayyim.apps.etzhayyim.kuniUmi."
 ALL_NSIDS = [
     f"{NSID_PREFIX}defineDeploymentSite",
     f"{NSID_PREFIX}submitSiteSurvey",
@@ -242,7 +242,7 @@ class TestGatewayHTTP:
         assert sorted(lexicons) == sorted(ALL_NSIDS)
 
     def test_xrpc_unknown_nsid_returns_404(self, gateway_thread: str) -> None:
-        code, body = _xrpc(gateway_thread, "app.etzhayyim.apps.foo.bar", {})
+        code, body = _xrpc(gateway_thread, "com.etzhayyim.apps.foo.bar", {})
         assert code == 404
         assert body.get("ok") is False
         # Gateway uses "UnknownLexicon" (equivalent to UnknownNSID for this

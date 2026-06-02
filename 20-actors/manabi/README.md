@@ -1,7 +1,7 @@
 # manabi (学び) — Education Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:manabi`
-**Namespace**: `app.etzhayyim.manabi.*`
+**Namespace**: `com.etzhayyim.manabi.*`
 **ADR**: ADR-2605261045 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — all cells import-time RuntimeError
 **Parent ADR**: ADR-2605261000 (Liberation Ladder — L4 + L5 gates)
@@ -75,7 +75,7 @@ Key gates:
 ## Lexicons (4, deferred to R1+)
 
 ```
-app.etzhayyim.manabi.{
+com.etzhayyim.manabi.{
   curriculumAttestation
   learningSessionAttestation       # aggregate-only for minors (G6)
   charterUnderstandingAttestation  # informed-consent baseline for SBT

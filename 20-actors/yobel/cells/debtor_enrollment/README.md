@@ -6,7 +6,7 @@ Murakumo leader: `issachar` (discernment + scholar tribe — Gen 49:14-15, 1 Chr
 ## Trigger
 
 `enrollDebtor` XRPC request, scoped to a `riteId` that is in `status=active`.
-Input lexicon: `app.etzhayyim.apps.etzhayyim.yobel.enrollDebtor`.
+Input lexicon: `com.etzhayyim.apps.etzhayyim.yobel.enrollDebtor`.
 
 ## Steps
 
@@ -30,14 +30,14 @@ Input lexicon: `app.etzhayyim.apps.etzhayyim.yobel.enrollDebtor`.
 
 ## Output
 
-Lexicon `app.etzhayyim.apps.etzhayyim.yobel.enrollDebtor` response:
+Lexicon `com.etzhayyim.apps.etzhayyim.yobel.enrollDebtor` response:
 
 ```json
 {
   "ok": true,
   "enrollmentId": "yobel-2074-tree-of-life-50yr-debt-<tid>",
   "eligible": true,
-  "vertexId": "at://<debtorDid>/app.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment/<tid>"
+  "vertexId": "at://<debtorDid>/com.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment/<tid>"
 }
 ```
 
@@ -45,6 +45,6 @@ Lexicon `app.etzhayyim.apps.etzhayyim.yobel.enrollDebtor` response:
 
 ## See also
 
-- Lexicon `00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/enrollDebtor.json` + `verifyEligibility.json`
+- Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/yobel/enrollDebtor.json` + `verifyEligibility.json`
 - DMN [`dmn/eligibility-by-rite-type.md`](../../dmn/eligibility-by-rite-type.md)
 - ADR-2605181100 envelope encryption (eligibilityProof PII protection)

@@ -56,7 +56,7 @@ def _entry(rid, *, jurisdiction="jpn", confidence="high", title="Org",
 
 
 def _registry(*entries):
-    return {"$schema": "app.etzhayyim.chigiri.legalAidReferral", "referrals": list(entries)}
+    return {"$schema": "com.etzhayyim.chigiri.legalAidReferral", "referrals": list(entries)}
 
 
 # ── G14 / UPL: never advice, never eligibility ──────────────────────────

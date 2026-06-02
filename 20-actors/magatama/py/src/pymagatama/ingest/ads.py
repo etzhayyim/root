@@ -101,7 +101,7 @@ def create_campaign(name: str = "", description: str = "", advertiser: str = "",
     created_at = now_iso()
     identity = _create_identity(campaign_id, name, description or "")
     record = {
-        "$type": "app.etzhayyim.apps.ads.campaign",
+        "$type": "com.etzhayyim.apps.ads.campaign",
         "campaignId": campaign_id,
         "did": did,
         "name": name,
@@ -115,9 +115,9 @@ def create_campaign(name: str = "", description: str = "", advertiser: str = "",
         """INSERT INTO vertex_ads_campaign
         (vertex_id, owner_did, rkey, repo, collection, campaign_id, did, name, description, advertiser,
          budget_jpy, active, created_at, org_id, user_id, actor_id, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,'app.etzhayyim.apps.ads.campaign',%s,%s,%s,%s,%s,%s,true,%s,'anon','anon',%s,%s,'anon')
+        VALUES (%s,%s,%s,%s,'com.etzhayyim.apps.ads.campaign',%s,%s,%s,%s,%s,%s,true,%s,'anon','anon',%s,%s,'anon')
         ON CONFLICT (vertex_id) DO NOTHING""",
-        (f"at://{ACTOR}/app.etzhayyim.apps.ads.campaign/{_rkey(campaign_id)}", ACTOR, campaign_id, ACTOR, campaign_id, did, name, description or "", advertiser or "", _int(budgetJpy), created_at, ACTOR, ACTOR),
+        (f"at://{ACTOR}/com.etzhayyim.apps.ads.campaign/{_rkey(campaign_id)}", ACTOR, campaign_id, ACTOR, campaign_id, did, name, description or "", advertiser or "", _int(budgetJpy), created_at, ACTOR, ACTOR),
     )
     return {"campaignId": campaign_id, "did": did, "createdAt": created_at, **({"identityWarning": identity} if identity.get("error") else {})}
 
@@ -146,9 +146,9 @@ def post_sponsored(campaignId: str = "", text: str = "", embedUri: str = "", emb
     _execute(
         """INSERT INTO vertex_ads_sponsored_post
         (vertex_id, owner_did, rkey, repo, collection, campaign_id, post_uri, cid, text, created_at, org_id, user_id, actor_id, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,'app.etzhayyim.apps.ads.sponsoredPost',%s,%s,%s,%s,%s,'anon','anon',%s,%s,'anon')
+        VALUES (%s,%s,%s,%s,'com.etzhayyim.apps.ads.sponsoredPost',%s,%s,%s,%s,%s,'anon','anon',%s,%s,'anon')
         ON CONFLICT (vertex_id) DO NOTHING""",
-        (f"at://{ACTOR}/app.etzhayyim.apps.ads.sponsoredPost/{_rkey(campaignId + '-' + created_at)}", ACTOR, _rkey(campaignId + "-" + created_at), ACTOR, campaignId, uri, cid, text, created_at, ACTOR, ACTOR),
+        (f"at://{ACTOR}/com.etzhayyim.apps.ads.sponsoredPost/{_rkey(campaignId + '-' + created_at)}", ACTOR, _rkey(campaignId + "-" + created_at), ACTOR, campaignId, uri, cid, text, created_at, ACTOR, ACTOR),
     )
     if posted.get("error"):
         return {"uri": "", "cid": "", "createdAt": created_at, "error": posted.get("error"), "body": posted.get("body")}

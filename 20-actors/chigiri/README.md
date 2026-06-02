@@ -1,7 +1,7 @@
 # chigiri (契) — Non-profit Religious-Corp Legal Procedure Substrate
 
 **DID**: `did:web:chigiri.etzhayyim.com`
-**Namespace**: `app.etzhayyim.chigiri.*`
+**Namespace**: `com.etzhayyim.chigiri.*`
 **ADR**: ADR-2605262700 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 12 cells path-reserved + 9 Lexicon skeletons
 **Companion ADR**: ADR-2605262800 (global legal corpus ingestion — data substrate)
@@ -69,9 +69,9 @@ All cells are path-reserved at R0; the cell modules are created in W1
 | `chigiri_data_privacy` | gad | event | DSAR / breach → procedure routing |
 | `chigiri_transparent_force_authorization` | naphtali | event | force request → 1 SBT = 1 vote chain + IHL checklist |
 
-## 9 Lexicons under `app.etzhayyim.chigiri.*`
+## 9 Lexicons under `com.etzhayyim.chigiri.*`
 
-See `/00-contracts/lexicons/app/etzhayyim/chigiri/README.md` for the
+See `/00-contracts/lexicons/com/etzhayyim/chigiri/README.md` for the
 canonical list + schemas.
 
 ## Constitutional Gates (G1–G14) — IMMUTABLE R0–R3
@@ -139,7 +139,7 @@ skeleton only — required-field validation lands at W1 ratification.
 
 - `/20-actors/chigiri/manifest.jsonld`
 - `/20-actors/chigiri/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/chigiri/` (9 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/chigiri/` (9 Lexicons + README)
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md`
 - `/90-docs/adr/2605262800-public-data-legal-corpus-ipfs-ingestion.md`
 - `/70-tools/baien-moemoekyun-train/recipes/legal/` (training corpus recipes)

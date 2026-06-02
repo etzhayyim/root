@@ -66,11 +66,11 @@ def base36(n: int) -> str:
 
 def quote_vid(owner_did: str, venue: str, symbol: str, ts: str) -> str:
     safe = "".join(ch if ch.isalnum() or ch in "_-" else "_" for ch in f"{venue}-{symbol}-{ts}")
-    return f"at://{owner_did}/app.etzhayyim.apps.arb.quote/{safe}"
+    return f"at://{owner_did}/com.etzhayyim.apps.arb.quote/{safe}"
 
 
 def proposal_vid(owner_did: str, proposal_id: str) -> str:
-    return f"at://{owner_did}/app.etzhayyim.apps.arb.proposal/{proposal_id}"
+    return f"at://{owner_did}/com.etzhayyim.apps.arb.proposal/{proposal_id}"
 
 
 def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
@@ -277,7 +277,7 @@ def score_proposal(proposal_id: str, model: str = "heuristic-v1") -> dict[str, A
         else "strong cross-venue dislocation; check borrow / FX leg / venue halt"
     )
     owner = f"{OWNER_DID}:judge"
-    vid = f"at://{owner}/app.etzhayyim.apps.arb.score/{proposal_id}"
+    vid = f"at://{owner}/com.etzhayyim.apps.arb.score/{proposal_id}"
     created_at = now_iso()
     _execute("DELETE FROM vertex_arb_score WHERE vertex_id = %s", (vid,))
     _execute(
@@ -318,7 +318,7 @@ def publish_proposal(proposal_id: str, mention_cohort: str = "trader.etzhayyim.c
     )
     post_uri = _pds_post(text)
     owner = f"{OWNER_DID}:herald"
-    vid = f"at://{owner}/app.etzhayyim.apps.arb.publication/{proposal_id}"
+    vid = f"at://{owner}/com.etzhayyim.apps.arb.publication/{proposal_id}"
     created_at = now_iso()
     _execute("DELETE FROM vertex_arb_publication WHERE vertex_id = %s", (vid,))
     _execute(

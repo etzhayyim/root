@@ -7,7 +7,7 @@
 - **ADR**: ADR-2605262700 (R0 scaffold, 2026-05-26)
 - **Companion ADR**: ADR-2605262800 (global legal corpus ingestion)
 - **Parent ADRs**: ADR-2605192100 (Mission Charter), ADR-2605192200 (Charter Rider), ADR-2605192300 (Council 5-of-7), ADR-2605261000 (Liberation Ladder L0..L6)
-- **Status**: R0 scaffold — 12 cells path-reserved (created in W1); 9 Lexicon skeletons under app.etzhayyim.chigiri.*
+- **Status**: R0 scaffold — 12 cells path-reserved (created in W1); 9 Lexicon skeletons under com.etzhayyim.chigiri.*
 - **Form**: 任意団体 internal procedure substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)
 
 ## Constitutional Discipline (CRITICAL — IMMUTABLE)
@@ -76,7 +76,7 @@ transparent_force_authorization ── naphtali (witness pair; ADR-2605192315 fr
 ```
 
 Each cell = 1 Pregel graph. Cells communicate via lexicon records on
-MST (`app.etzhayyim.chigiri.*`). All cell modules are R0 path-reserved
+MST (`com.etzhayyim.chigiri.*`). All cell modules are R0 path-reserved
 and will be import-time `RuntimeError("chigiri R0 scaffold: activate
 via Council ADR + R1 ratification")` at W1 creation.
 
@@ -138,7 +138,7 @@ forwarding to any arbitration channel.
    deployed to lefthook config;
 4. Charter Rider scanner false-positive rate ≤5% over 7-day trial on
    chigiri-bound document samples (R8 / R11 KaizenObserver health);
-5. `app.etzhayyim.chigiri.covenantAttestation` + `.inheritanceChain` +
+5. `com.etzhayyim.chigiri.covenantAttestation` + `.inheritanceChain` +
    `.stewardLaborAttestation` schemas Council-attestation-reviewed
    (R1 minimum cell trio).
 
@@ -206,7 +206,7 @@ python -c "from magatama.cells.chigiri_charters_attestation import _r0_marker" 2
 
 - `/20-actors/chigiri/manifest.jsonld`
 - `/20-actors/chigiri/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/chigiri/` (9 Lexicon JSONs + README)
+- `/00-contracts/lexicons/com/etzhayyim/chigiri/` (9 Lexicon JSONs + README)
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605262800-public-data-legal-corpus-ipfs-ingestion.md` — Data substrate ADR
 - `/90-docs/adr/2605192100-etzhayyim-mission-charter.md` — Mission charter

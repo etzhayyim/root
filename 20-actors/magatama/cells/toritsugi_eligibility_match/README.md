@@ -10,5 +10,5 @@ Per ADR-2605312030. R0 scaffold — `cell.py` raises at import time until R1
 - **Actor**: toritsugi (取次) — `did:web:toritsugi.etzhayyim.com`
 - **Murakumo node (proposed)**: reuben
 - **Gates**: G3 (consent-gated + own-data-only) + G5 (no eligibility/legal determination) + G12 (data-minimization)
-- **Output Lexicon(s)**: app.etzhayyim.toritsugi.benefitMatch
-- **Ceiling**: CONSENT-GATED / OWN-DATA-ONLY (never a third party) · NO-ELIGIBILITY-DETERMINATION (soft signal → guide → chigiri/licensed) · PII only in app.etzhayyim.encrypted.* (G6, ADR-2605181100) · NO fabricated entitlement (G8) · Murakumo-only inference (ADR-2605215000)
+- **Output Lexicon(s)**: com.etzhayyim.toritsugi.benefitMatch
+- **Ceiling**: CONSENT-GATED / OWN-DATA-ONLY (never a third party) · NO-ELIGIBILITY-DETERMINATION (soft signal → guide → chigiri/licensed) · PII only in com.etzhayyim.encrypted.* (G6, ADR-2605181100) · NO fabricated entitlement (G8) · Murakumo-only inference (ADR-2605215000)

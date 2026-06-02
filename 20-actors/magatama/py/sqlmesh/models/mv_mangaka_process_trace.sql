@@ -19,5 +19,5 @@ SELECT
   (value_json::JSONB -> 'objectRefs')::VARCHAR AS object_refs_json,
   value_json AS payload_json
 FROM vertex_repo_commit
-WHERE collection = 'ai.gftd.bpmn.audit'
+WHERE collection = 'com.etzhayyim.bpmn.audit'
   AND (value_json::JSONB -> 'action')::VARCHAR LIKE 'mangaka.%'

@@ -88,7 +88,7 @@ def _crossref_row(item: dict) -> dict | None:
     rkey = _doi_rkey(doi)
     kind = "dataset" if item.get("type") in ("dataset", "component") else "literary"
     return {
-        "vertex_id": f"at://{_COPYRIGHT_DID}:crossref/app.etzhayyim.apps.copyright.work/{rkey}",
+        "vertex_id": f"at://{_COPYRIGHT_DID}:crossref/com.etzhayyim.apps.copyright.work/{rkey}",
         "owner_did": f"{_COPYRIGHT_DID}:crossref",
         "rkey": rkey,
         "repo": f"{_COPYRIGHT_DID}:crossref",
@@ -114,7 +114,7 @@ def _datacite_row(item: dict) -> dict | None:
     titles = attrs.get("titles") or []
     title = titles[0].get("title") if titles else "(no title)"
     return {
-        "vertex_id": f"at://{_COPYRIGHT_DID}:datacite/app.etzhayyim.apps.copyright.work/{rkey}",
+        "vertex_id": f"at://{_COPYRIGHT_DID}:datacite/com.etzhayyim.apps.copyright.work/{rkey}",
         "owner_did": f"{_COPYRIGHT_DID}:datacite",
         "rkey": rkey,
         "repo": f"{_COPYRIGHT_DID}:datacite",
@@ -252,7 +252,7 @@ def emit_audit(state: CopyrightIngestState) -> dict:
         t = _vertex_copyright_ingest_run_table()
         rows = [
             {
-                "vertex_id": f"at://{_COPYRIGHT_DID}/app.etzhayyim.apps.copyright.ingestRun/run-crossref-{ts_ms}",
+                "vertex_id": f"at://{_COPYRIGHT_DID}/com.etzhayyim.apps.copyright.ingestRun/run-crossref-{ts_ms}",
                 "owner_did": _COPYRIGHT_DID,
                 "registry": "crossref",
                 "started_at": now,
@@ -265,7 +265,7 @@ def emit_audit(state: CopyrightIngestState) -> dict:
                 "sensitivity_ord": 100,
             },
             {
-                "vertex_id": f"at://{_COPYRIGHT_DID}/app.etzhayyim.apps.copyright.ingestRun/run-datacite-{ts_ms}",
+                "vertex_id": f"at://{_COPYRIGHT_DID}/com.etzhayyim.apps.copyright.ingestRun/run-datacite-{ts_ms}",
                 "owner_did": _COPYRIGHT_DID,
                 "registry": "datacite",
                 "started_at": now,

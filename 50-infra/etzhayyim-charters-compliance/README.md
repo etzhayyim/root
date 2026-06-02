@@ -73,7 +73,7 @@ Phase 2 (post 1000-member or 12-month trigger per ADR-2605192300 §4) graduates 
 
 ## Lexicons
 
-- [`00-contracts/lexicons/ai/gftd/apps/etzhayyim/charter-attestation-request.json`](../../00-contracts/lexicons/ai/gftd/apps/etzhayyim/charter-attestation-request.json)
+- [`00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/charter-attestation-request.json`](../../00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/charter-attestation-request.json)
 - `charter-attestation.json`
 - `charter-appeal.json`
 - `charter-rehabilitation.json`

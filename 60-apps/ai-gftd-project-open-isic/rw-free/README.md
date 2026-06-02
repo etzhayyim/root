@@ -76,8 +76,8 @@ const weaponsClass = await getByCode("2520");
 ## Lexicon
 
 The new record lexicon is
-[`00-contracts/lexicons/ai/gftd/apps/openIsic/class.json`](../../../00-contracts/lexicons/ai/gftd/apps/openIsic/class.json)
-(NSID `app.etzhayyim.apps.openIsic.class`). The classification path
+[`00-contracts/lexicons/com/etzhayyim/apps/openIsic/class.json`](../../../00-contracts/lexicons/com/etzhayyim/apps/openIsic/class.json)
+(NSID `com.etzhayyim.apps.openIsic.class`). The classification path
 (`classifyEntity`, `recordConcordance`, etc.) continues to use the
 existing query / procedure lexicons under the same namespace — this PR
 adds only the `class` record type for taxonomy publication.
@@ -116,7 +116,7 @@ prefix-only for substrate-purity.
 ## Verify
 
 ```bash
-pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apps.openIsic.class/2520
+pnpm tsx src/verify.ts at://did:web:etzhayyim.com/com.etzhayyim.apps.openIsic.class/2520
 ```
 
 Returns the Merkle path from the record to the MST root that was
@@ -137,7 +137,7 @@ pnpm test
 
 | Surface | State |
 |---|---|
-| Record lexicon | ✅ `00-contracts/lexicons/ai/gftd/apps/openIsic/class.json` |
+| Record lexicon | ✅ `00-contracts/lexicons/com/etzhayyim/apps/openIsic/class.json` |
 | Seeder + helpers | ✅ |
 | Pure-helper tests | ✅ 47/47 |
 | Live PDS seed run | ⏳ pending `ETZ_SEEDER_DID` + PDS auth credentials |

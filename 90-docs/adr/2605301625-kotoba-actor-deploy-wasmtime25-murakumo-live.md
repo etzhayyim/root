@@ -28,7 +28,7 @@ upstream in `etzhayyim/kotoba`.
 
 1. **kotoba server `:8077`** is up; `/health` reports all subsystems ready.
    **Datomic compatibility** is provided *inside* kotoba as `kotoba-datomic`
-   (17 XRPC endpoints under `ai.gftd.apps.kotoba.datomic.*`) — there is no
+   (17 XRPC endpoints under `com.etzhayyim.apps.kotoba.datomic.*`) — there is no
    separate Cognitect Datomic process. Confirmed correct.
 
 2. **Rust WASM actor** — `examples/kotoba-hello` built for `wasm32-wasip2`,
@@ -96,7 +96,7 @@ module scope in `_entry.py` is noted on PR #4.
 | Layer | Result |
 |---|---|
 | kotoba `/health` (`:8077`) | all subsystems ready; `wasm_executor: ready` |
-| Datomic-compat XRPC | 17 endpoints under `ai.gftd.apps.kotoba.datomic.*` live |
+| Datomic-compat XRPC | 17 endpoints under `com.etzhayyim.apps.kotoba.datomic.*` live |
 | Rust WASM actor | ran in-WASM, `gas_used=1030` |
 | Python LangGraph aria | ran in-WASM, output == host-Python |
 | kotoba → Murakumo `llm.infer` | `gemma4:e4b` → `"4"`, on prod `:8077` |

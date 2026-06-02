@@ -23,7 +23,7 @@ ADR-2605072000 business model ③ of 5.
 - Nanoid: `otch0001`
 - CF Worker: `60-apps/ai-gftd-project-outreach/appview/outreach-otch0001/`
 - Python worker: `20-actors/magatama/py/src/pymagatama/outreach_worker_main.py`
-- BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/outreach/`
+- BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach/`
 
 ## Flow
 
@@ -40,8 +40,8 @@ createSequence XRPC
                     → outreach.create_sponsor_slot (optional ads.etzhayyim.com)
 ```
 
-Reply detection: `subscribeRepos` on `app.etzhayyim.apps.gmail.message` +
-`app.etzhayyim.apps.m365Ingest.email`. Worker correlates thread to active LangServer instance.
+Reply detection: `subscribeRepos` on `com.etzhayyim.apps.gmail.message` +
+`com.etzhayyim.apps.m365Ingest.email`. Worker correlates thread to active LangServer instance.
 
 ## PII Policy (ADR-0018)
 

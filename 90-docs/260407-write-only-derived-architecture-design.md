@@ -61,17 +61,17 @@ async function cmdLaunch(sdk, payload) {
   "derive": {
     "social": [
       {
-        "on": "app.etzhayyim.apps.{app}.{collection}",
+        "on": "com.etzhayyim.apps.{app}.{collection}",
         "when": { "field": "value" },
         "template": "text with {{field}} interpolation"
       }
     ],
     "invoke": [
       {
-        "on": "app.etzhayyim.apps.{app}.{collection}",
+        "on": "com.etzhayyim.apps.{app}.{collection}",
         "when": { "status": "value" },
         "target": "did:web:{target}.etzhayyim.com",
-        "method": "app.etzhayyim.apps.{target}.{method}",
+        "method": "com.etzhayyim.apps.{target}.{method}",
         "map": { "targetField": "{{sourceField}}" }
       }
     ]

@@ -41,14 +41,14 @@ No DB I/O runs in the edge UI. UI calls the MCP surface, which dispatches to pod
 
 | Tool | Endpoint | Notes |
 |---|---|---|
-| `jukyu.queryBalance` | POST `/xrpc/app.etzhayyim.apps.jukyu.queryBalance` | Filters: domain, countryCode, productFamily; limit 500 |
-| `jukyu.querySupplyChain` | POST `/xrpc/app.etzhayyim.apps.jukyu.querySupplyChain` | Filters: domain, countryCode, productFamily, nodeCode; limit 1000 |
-| `jukyu.rankCompanyExposure` | POST `/xrpc/app.etzhayyim.apps.jukyu.rankCompanyExposure` | Filters: domain, countryCode, minRiskScore; limit 250 |
-| `jukyu.explainNode` | POST `/xrpc/app.etzhayyim.apps.jukyu.explainNode` | Required: nodeCode; returns node + chain (50) + balance (10) |
+| `jukyu.queryBalance` | POST `/xrpc/com.etzhayyim.apps.jukyu.queryBalance` | Filters: domain, countryCode, productFamily; limit 500 |
+| `jukyu.querySupplyChain` | POST `/xrpc/com.etzhayyim.apps.jukyu.querySupplyChain` | Filters: domain, countryCode, productFamily, nodeCode; limit 1000 |
+| `jukyu.rankCompanyExposure` | POST `/xrpc/com.etzhayyim.apps.jukyu.rankCompanyExposure` | Filters: domain, countryCode, minRiskScore; limit 250 |
+| `jukyu.explainNode` | POST `/xrpc/com.etzhayyim.apps.jukyu.explainNode` | Required: nodeCode; returns node + chain (50) + balance (10) |
 | `jukyu.runStressPropagation` | POST `/runs` (LangGraph) | Triggers Pregel run; optional scenarioText/shockSeeds/withLLM |
-| `jukyu.upsertSignal` | POST `/xrpc/app.etzhayyim.apps.jukyu.upsertSignal` | Write notification signal to outbox |
+| `jukyu.upsertSignal` | POST `/xrpc/com.etzhayyim.apps.jukyu.upsertSignal` | Write notification signal to outbox |
 | `jukyu.exportBrief` | POST `/export/brief` | LLM executive brief from latest outbox (gemma-4-e4b-it) |
-| `jukyu.notifyCompany` | POST `/xrpc/app.etzhayyim.apps.jukyu.notifyCompany` | Dispatch signal to target company |
+| `jukyu.notifyCompany` | POST `/xrpc/com.etzhayyim.apps.jukyu.notifyCompany` | Dispatch signal to target company |
 | `jukyu.normalizeDomainAdapter` | POST `/cron/domain-adapter/{domain}` | Trigger single domain adapter normalization |
 | `jukyu.extractShocks` | POST `/extract/shocks` | News text → structured shock events (qwen3-30b) |
 

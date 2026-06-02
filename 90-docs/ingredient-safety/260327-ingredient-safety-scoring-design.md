@@ -166,7 +166,7 @@ Weight_i = 配合順序の逆数 (原材料表示は多い順)
 #### 4.1 新規 Lexicon Collections
 
 ```
-app.etzhayyim.apps.omatsuri.{
+com.etzhayyim.apps.omatsuri.{
   ingredient,              // 原材料マスタ (name, category, risk_level, score, evidence)
   ingredient_risk_profile, // 原材料リスクプロファイル (IARC, ADI, banned_countries, studies)
   product_scan,            // 製品スキャン結果 (barcode, ingredients[], product_score, grade)

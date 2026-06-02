@@ -29,7 +29,7 @@ anchor-cron CronJob (every 15 minutes):
 ## Status
 
 - **Sidecar mode (v0.1.0)**: sidecarClient.ts + pending.ts + submit.ts + cron.ts + index.ts all real. Local-anvil-validated against `0x5fbdb2315678afecb367f032d93f642f64180aa3`. Base sepolia / mainnet pending an `EtzhayyimAnchor` deploy to those chains.
-- **Substrate mode (Phase 1)**: pendingFromPds.ts + commitToPds.ts + cron-substrate.ts + index-substrate.ts + `app.etzhayyim.substrate.l2Anchor` lexicon. End-to-end mocked-PDS coverage in tests; production deploy gated on the same `EtzhayyimAnchor` deploy + an ipfs-pinner producing real `ipfsPin` records.
+- **Substrate mode (Phase 1)**: pendingFromPds.ts + commitToPds.ts + cron-substrate.ts + index-substrate.ts + `com.etzhayyim.substrate.l2Anchor` lexicon. End-to-end mocked-PDS coverage in tests; production deploy gated on the same `EtzhayyimAnchor` deploy + an ipfs-pinner producing real `ipfsPin` records.
 - **Tests**: 45/45 (vitest, sidecar 30 + substrate 15).
 
 ## Layout
@@ -49,15 +49,15 @@ anchor-cron/
     ├── sidecarClient.ts     # msgpack + Unix-socket framing for the checkpointer wire protocol
     ├── pending.ts           # sidecar mode — anchor_pending → PendingRoot[] with rootHash computed
     ├── pendingFromPds.ts    # substrate mode — list ipfsPin records, filter unanchored
-    ├── commitToPds.ts       # substrate mode — emit app.etzhayyim.substrate.l2Anchor receipts
+    ├── commitToPds.ts       # substrate mode — emit com.etzhayyim.substrate.l2Anchor receipts
     └── submit.ts            # viem walletClient.writeContract → EtzhayyimAnchor.anchor() (shared)
 ```
 
 ## Substrate mode (firehose-driven, Phase 1)
 
 Closes the substrate pipeline `mst-projector → ipfs-pinner → anchor-cron`. Reads
-`app.etzhayyim.substrate.ipfsPin` records from a PDS, anchors each unique
-`rootCid` to EtzhayyimAnchor, and writes `app.etzhayyim.substrate.l2Anchor`
+`com.etzhayyim.substrate.ipfsPin` records from a PDS, anchors each unique
+`rootCid` to EtzhayyimAnchor, and writes `com.etzhayyim.substrate.l2Anchor`
 receipts back. Sidecar mode (cell-checkpoint anchors) is unaffected.
 
 | substrate-mode env | default | purpose |

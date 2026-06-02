@@ -237,7 +237,7 @@ def parse_lei_records(zip_path: Path) -> Iterator[dict[str, Any]]:
                     next_renewal_at = _text(reg, "NextRenewalDate") or None
 
                 yield {
-                    "vertex_id": f"at://did:web:open-lei.etzhayyim.com/app.etzhayyim.apps.openLei.entity/{lei}",
+                    "vertex_id": f"at://did:web:open-lei.etzhayyim.com/com.etzhayyim.apps.openLei.entity/{lei}",
                     "lei": lei,
                     "legal_name": legal_name or lei,
                     "country": country[:64] if country else "",
@@ -315,7 +315,7 @@ def upsert_s3_run(
     records_written: int,
     error_msg: str = "",
 ) -> None:
-    vid = f"at://did:web:open-lei.etzhayyim.com/app.etzhayyim.apps.openLei.s3Run/{publish_date}"
+    vid = f"at://did:web:open-lei.etzhayyim.com/com.etzhayyim.apps.openLei.s3Run/{publish_date}"
     cur.execute(
         """
         INSERT INTO vertex_open_lei_s3_run (

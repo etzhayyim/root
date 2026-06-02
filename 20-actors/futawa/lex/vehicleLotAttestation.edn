@@ -1,7 +1,7 @@
-;; app.etzhayyim.futawa.vehicleLotAttestation — lexicon (EDN form)
+;; com.etzhayyim.futawa.vehicleLotAttestation — lexicon (EDN form)
 ;; L5a final assembly + VIN + G12 parts catalog CID + G13 hodoki pre-registration
 {:lexicon 1
- :id "app.etzhayyim.futawa.vehicleLotAttestation"
+ :id "com.etzhayyim.futawa.vehicleLotAttestation"
  :defs
  {:main
   {:type "record"

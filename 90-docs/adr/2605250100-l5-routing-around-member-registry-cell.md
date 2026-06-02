@@ -48,14 +48,14 @@ Of the three example L5 cells listed in ADR-2605242330 §3.5:
 
 `member_registry_cell` is the cheapest *and* most foundational:
 
-- Cheapest: existing pieces (`app.etzhayyim.member.adherent` Lexicon, `EtzhayyimMembership.sol` L2 contract, `MEMBERS.md` git roster, `Adherent SBT` mint event) already cover ~90% of the substrate; the cell just orchestrates them.
+- Cheapest: existing pieces (`com.etzhayyim.member.adherent` Lexicon, `EtzhayyimMembership.sol` L2 contract, `MEMBERS.md` git roster, `Adherent SBT` mint event) already cover ~90% of the substrate; the cell just orchestrates them.
 - Foundational: marriage and tax substitutes both require a stable member-roster oracle. `member_registry_cell` is the oracle.
 
 ## Existing infrastructure being orchestrated
 
 | Piece | Role | Provenance |
 |---|---|---|
-| `app.etzhayyim.member.adherent` | MST record per SBT mint event | existing Lexicon |
+| `com.etzhayyim.member.adherent` | MST record per SBT mint event | existing Lexicon |
 | `EtzhayyimMembership.sol` | L2 ERC-721 SBT contract + `join(oathHash, githubHandle)` | ADR-2605172600 |
 | `MEMBERS.md` | github-side dual-permanent roster | ADR-2605172600 |
 | Adherent SBT mint events | L2 event log, indexable | ADR-2605192100 §1.16 |
@@ -65,7 +65,7 @@ Of the three example L5 cells listed in ADR-2605242330 §3.5:
 
 | State function | Religious-corp substitute (operated by `member_registry_cell`) |
 |---|---|
-| 住民票発行 (resident certificate issuance) | New Lexicon `app.etzhayyim.member.registryCertificate` (this ADR authorises it). Issued on demand by the cell, signed against the SBT holder's DID, dual-anchored via MST + L2 transaction reference. |
+| 住民票発行 (resident certificate issuance) | New Lexicon `com.etzhayyim.member.registryCertificate` (this ADR authorises it). Issued on demand by the cell, signed against the SBT holder's DID, dual-anchored via MST + L2 transaction reference. |
 | Voter eligibility (公職選挙法) | Already covered: 1 SBT = 1 vote (ADR-2605192100 §1.16). Cell does not re-implement; it surfaces the SBT roster snapshot at proposal time. |
 | Tax base assignment (住民税) | Already covered: TitheRouter 10% auto-split (ADR-2605192115). Cell does not re-implement; it surfaces adherent demographics to `treasury_rebalance` cell. |
 | Social services eligibility | Already covered: Charter Compliance Registry + Council attestation. Cell does not re-implement. |
@@ -104,24 +104,24 @@ Other L5 cells (`religious_corp_birth_cell` / `religious_corp_death_cell` / `rel
 - Files: `cell.py` (LangGraph Pregel graph) + `__init__.py`.
 - Tier: B (per-domain) per `20-actors/magatama/cells/README.md`.
 - Murakumo node (leader): `ephraim` (religious-corp tribe-name convention — to be assigned in `50-infra/murakumo/fleet.toml` if cell is activated).
-- Trigger: MST firehose listener on `app.etzhayyim.member.adherent` + monthly cron for roster snapshot.
+- Trigger: MST firehose listener on `com.etzhayyim.member.adherent` + monthly cron for roster snapshot.
 
 ### 2.2 Pregel graph (3 nodes)
 
 ```
-ingest_sbt_mint_event   ←  MST firehose on app.etzhayyim.member.adherent
+ingest_sbt_mint_event   ←  MST firehose on com.etzhayyim.member.adherent
     │
     ↓
 cross_validate_l2       ←  Base L2 EtzhayyimMembership event log
     │
     ↓
-emit_registry_certificate  →  MST PUT app.etzhayyim.member.registryCertificate
+emit_registry_certificate  →  MST PUT com.etzhayyim.member.registryCertificate
                             →  optional: github PR to MEMBERS.md (off-cell; manual review preserved)
 ```
 
-- `ingest_sbt_mint_event` — receives a new `app.etzhayyim.member.adherent` MST record. Validates schema, extracts (memberDid, tokenId, mintTxHash, trigger).
+- `ingest_sbt_mint_event` — receives a new `com.etzhayyim.member.adherent` MST record. Validates schema, extracts (memberDid, tokenId, mintTxHash, trigger).
 - `cross_validate_l2` — fetches L2 `EtzhayyimMembership` event log for `mintTxHash`; confirms the on-chain Transfer event matches the MST claim. Refuses to proceed if mismatch (anti-spoofing).
-- `emit_registry_certificate` — creates an `app.etzhayyim.member.registryCertificate` MST record for the validated adherent. The record carries the dual-anchor pair (MST CID + L2 txHash). Optionally emits a github PR appending the row to MEMBERS.md (PR review preserved — no auto-merge).
+- `emit_registry_certificate` — creates an `com.etzhayyim.member.registryCertificate` MST record for the validated adherent. The record carries the dual-anchor pair (MST CID + L2 txHash). Optionally emits a github PR appending the row to MEMBERS.md (PR review preserved — no auto-merge).
 
 ### 2.3 Council activation gate
 
@@ -141,12 +141,12 @@ if COUNCIL_ATTESTATION_TX_HASH is None:
 
 The gate is removed by a single PR after Council attestation lands. Until then, the cell ships as a structural skeleton — its presence in the repo is for review / preparation only.
 
-## 3. New Lexicon `app.etzhayyim.member.registryCertificate`
+## 3. New Lexicon `com.etzhayyim.member.registryCertificate`
 
-Authored under `00-contracts/lexicons/app/etzhayyim/member/registryCertificate.json` as part of this ADR's ratification PR. Schema (sketch — refined at authoring time):
+Authored under `00-contracts/lexicons/com/etzhayyim/member/registryCertificate.json` as part of this ADR's ratification PR. Schema (sketch — refined at authoring time):
 
 - `memberDid` (did, required) — the adherent
-- `sbtTokenId` (integer, required) — links to `app.etzhayyim.member.adherent.tokenId`
+- `sbtTokenId` (integer, required) — links to `com.etzhayyim.member.adherent.tokenId`
 - `mintTxHash` (string, required) — L2 SBT mint transaction
 - `certificateIssuedAt` (datetime, required)
 - `certificateValidUntil` (datetime, optional — empty means perpetual until SBT withdrawn)
@@ -159,7 +159,7 @@ The Lexicon is **not** authored as part of this ADR — it lands when Council ra
 ## 4. Boundaries (what this cell deliberately does not do)
 
 1. Does not issue any document with state-recognised legal force.
-2. Does not allow non-adherents to query the registry. (The MST records are public, but the cell-side query API is gated on a valid `app.etzhayyim.member.adherent` SBT.)
+2. Does not allow non-adherents to query the registry. (The MST records are public, but the cell-side query API is gated on a valid `com.etzhayyim.member.adherent` SBT.)
 3. Does not auto-merge MEMBERS.md PRs. Manual review of the dual-permanent record is preserved.
 4. Does not interact with state 住民登録 systems. There is no integration with マイナンバー, 住基ネット, or municipal kosekikei. The two are parallel substrates.
 5. Does not pre-compute or expose adherent demographic data outside the cell. Aggregate snapshots are emitted only to other Pregel cells (`treasury_rebalance`, `public_fund_grant`) on cell-to-cell channels.
@@ -177,7 +177,7 @@ The Lexicon is **not** authored as part of this ADR — it lands when Council ra
 1. **Skip L5 entirely; keep ADR-2605242330 §3.5 at "0 cells, intentional"** — rejected. The religious-corp's constitutional purpose per ADR-2605192100 §1.12 is routing-around. Indefinitely deferring L5 would amount to a govtech-consultancy posture, which §1.12 explicitly rejects.
 2. **Start with `religious_corp_taxation_cell` (most-impactful state-function substitute)** — rejected. Taxation requires the member roster to be stable first; reverse dependency. `member_registry_cell` is the foundation.
 3. **Author the cell without a Council activation gate; let activation be implicit on deployment** — rejected. ADR-2605192300 mandates Council attestation for any constitutional-substrate cell. The gate is the canonical enforcement point.
-4. **Combine `member_registry_cell` with `app.etzhayyim.member.adherent` lexicon flow (no new lexicon)** — rejected. The Adherent SBT lexicon represents an *event* (mint). The registry certificate represents a *standing status* with revocation semantics. They are different lifecycle objects.
+4. **Combine `member_registry_cell` with `com.etzhayyim.member.adherent` lexicon flow (no new lexicon)** — rejected. The Adherent SBT lexicon represents an *event* (mint). The registry certificate represents a *standing status* with revocation semantics. They are different lifecycle objects.
 5. **Make the cell auto-merge MEMBERS.md PRs** — rejected. MEMBERS.md is the github-side half of the dual-permanent record. Manual PR review is the anti-collusion mechanism — automation here would defeat the dual-substrate guarantee.
 
 # References
@@ -187,7 +187,7 @@ The Lexicon is **not** authored as part of this ADR — it lands when Council ra
 - ADR-2605172600 (etzhayyim membership ritual + MEMBERS.md dual-permanent record)
 - ADR-2605242330 §3.5 (L5 layer constitutional position)
 - ADR-2605192115 (TitheRouter — referenced as the existing taxation substrate)
-- `00-contracts/lexicons/app/etzhayyim/member/adherent.json` (Adherent SBT Lexicon)
+- `00-contracts/lexicons/com/etzhayyim/member/adherent.json` (Adherent SBT Lexicon)
 - `MEMBERS.md` (github-side roster)
 - `20-actors/magatama/cells/README.md` (Pregel cell catalog)
 - `50-infra/murakumo/fleet.toml` (Murakumo node placement — to be updated with `ephraim` leader assignment upon Council ratify)

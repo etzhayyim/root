@@ -55,13 +55,13 @@ CADENCE_MULTIPLIER_BY_STATE = {
     "halted": 12.0,
 }
 LOCAL_HEALTH_LAUNCHD_LABELS = (
-    "app.etzhayyim.agent-daemon",
-    "app.etzhayyim.agent-zeebe-worker",
-    "app.etzhayyim.zeebe-port-forward",
+    "com.etzhayyim.agent-daemon",
+    "com.etzhayyim.agent-zeebe-worker",
+    "com.etzhayyim.zeebe-port-forward",
 )
 LOCAL_HEALTH_LOG_PATHS = (
-    "/tmp/app.etzhayyim.agent-daemon.err.log",
-    "/tmp/app.etzhayyim.agent-zeebe-worker.err.log",
+    "/tmp/com.etzhayyim.agent-daemon.err.log",
+    "/tmp/com.etzhayyim.agent-zeebe-worker.err.log",
 )
 
 
@@ -932,7 +932,7 @@ def record_knowledge_graph_evolution_direct(
         "knowledgeGraphFitness": knowledge_graph_fitness,
         "minimaxInformationContext": minimax_information_context,
     }
-    vertex_id = "at://" + agent_did + "/app.etzhayyim.apps.standard.shinkaEvolution/kg-" + stable_hash(
+    vertex_id = "at://" + agent_did + "/com.etzhayyim.apps.standard.shinkaEvolution/kg-" + stable_hash(
         {"agentDid": agent_did, "tickId": tick_id, "props": props}
     )[:24]
     row = {
@@ -941,7 +941,7 @@ def record_knowledge_graph_evolution_direct(
         "rkey": "kg-fitness-" + stable_hash({"agentDid": agent_did, "tickId": tick_id})[:16],
         "repo": agent_did,
         "did": agent_did,
-        "collection": "app.etzhayyim.apps.standard.shinkaEvolution",
+        "collection": "com.etzhayyim.apps.standard.shinkaEvolution",
         "actorDid": agent_did,
         "actorName": agent_did.split(":")[-1].split(".")[0] if ":" in agent_did else agent_did,
         "nanoid": stable_hash({"agentDid": agent_did, "tickId": tick_id})[:16],
@@ -1879,7 +1879,7 @@ def execute_local_self_repair(
     viability: dict[str, Any],
     *,
     enabled: bool = True,
-    current_label: str = "app.etzhayyim.agent-daemon",
+    current_label: str = "com.etzhayyim.agent-daemon",
 ) -> dict[str, Any]:
     if not enabled:
         return {"enabled": False, "attempted": [], "skipped": []}

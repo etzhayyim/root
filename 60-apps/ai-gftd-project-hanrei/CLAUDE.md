@@ -55,12 +55,12 @@ Social posts: `writeBuffer.push({ type: "app.bsky.feed.post", payload: { text, o
 
 | Collection | SQL Label |
 |---|---|
-| `app.etzhayyim.hanrei.case_record` | `CaseRecord` |
-| `app.etzhayyim.hanrei.collection_job` | `CollectionJob` |
-| `app.etzhayyim.hanrei.jurisdiction` | `Jurisdiction` |
-| `app.etzhayyim.hanrei.digest` | `Digest` |
-| `app.etzhayyim.hanrei.egov_law` | `EgovLaw` |
-| `app.etzhayyim.hanrei.caseParty` | `CaseParty` |
+| `com.etzhayyim.hanrei.case_record` | `CaseRecord` |
+| `com.etzhayyim.hanrei.collection_job` | `CollectionJob` |
+| `com.etzhayyim.hanrei.jurisdiction` | `Jurisdiction` |
+| `com.etzhayyim.hanrei.digest` | `Digest` |
+| `com.etzhayyim.hanrei.egov_law` | `EgovLaw` |
+| `com.etzhayyim.hanrei.caseParty` | `CaseParty` |
 
 ## Commands (XRPC)
 

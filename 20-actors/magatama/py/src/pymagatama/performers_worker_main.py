@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.performers.create.profile")
+    @worker.task(task_type="com.etzhayyim.apps.performers.create.profile")
     async def task_create_profile(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:performers.etzhayyim.com")
         display_name = kwargs.get("displayName", "")
@@ -48,7 +48,7 @@ async def run_worker():
 
         return {"profileId": profile_id, "status": "active"}
 
-    @worker.task(task_type="app.etzhayyim.apps.performers.list.profiles")
+    @worker.task(task_type="com.etzhayyim.apps.performers.list.profiles")
     async def task_list_profiles(**kwargs):
         genre = kwargs.get("genre", "")
         limit = int(kwargs.get("limit", 50))
@@ -84,7 +84,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.performers.get.profile")
+    @worker.task(task_type="com.etzhayyim.apps.performers.get.profile")
     async def task_get_profile(**kwargs):
         profile_id = kwargs.get("profileId", "")
 
@@ -102,7 +102,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.performers.create.booking")
+    @worker.task(task_type="com.etzhayyim.apps.performers.create.booking")
     async def task_create_booking(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:performers.etzhayyim.com")
         profile_id = kwargs.get("profileId", "")
@@ -130,7 +130,7 @@ async def run_worker():
 
         return {"bookingId": booking_id, "status": "pending"}
 
-    @worker.task(task_type="app.etzhayyim.apps.performers.list.bookings")
+    @worker.task(task_type="com.etzhayyim.apps.performers.list.bookings")
     async def task_list_bookings(**kwargs):
         profile_id = kwargs.get("profileId", "")
         limit = int(kwargs.get("limit", 50))
@@ -164,7 +164,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.performers.record.performance")
+    @worker.task(task_type="com.etzhayyim.apps.performers.record.performance")
     async def task_record_performance(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:performers.etzhayyim.com")
         booking_id = kwargs.get("bookingId", "")
@@ -183,7 +183,7 @@ async def run_worker():
 
         return {"bookingId": booking_id, "status": "completed", "recordedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.performers.list.performances")
+    @worker.task(task_type="com.etzhayyim.apps.performers.list.performances")
     async def task_list_performances(**kwargs):
         profile_id = kwargs.get("profileId", "")
         limit = int(kwargs.get("limit", 50))
@@ -210,7 +210,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.performers.submit.review")
+    @worker.task(task_type="com.etzhayyim.apps.performers.submit.review")
     async def task_submit_review(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:performers.etzhayyim.com")
         profile_id = kwargs.get("profileId", "")

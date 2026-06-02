@@ -1,7 +1,7 @@
 # makura (枕) — Foam Pillow Manufacturing Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:makura`
-**Namespace**: `app.etzhayyim.makura.*`
+**Namespace**: `com.etzhayyim.makura.*`
 **ADR**: ADR-2605261115 (R0 scaffold), ADR-2605261130 (R1, reserved), ADR-2605261145 (R2, reserved), ADR-2605261200 (R3, reserved)
 **Status**: R0 scaffold (2026-05-25) — all cells import-time RuntimeError
 
@@ -91,7 +91,7 @@ Memory-foam viscoelastic class is deferred to R2+ pending Council Lv6+ supermajo
 ## Lexicons (8 record types, R0 stubs)
 
 ```
-app.etzhayyim.makura.{
+com.etzhayyim.makura.{
   foamBatchAttestation        # L2
   fabricAttestation           # L4a
   pillowLotAttestation        # L5a

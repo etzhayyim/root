@@ -6,7 +6,7 @@ Murakumo leader: `judah` (declaration / proclamation tribe — Gen 49:8-10, king
 ## Trigger
 
 `declareRite` XRPC request from an etzhayyim-aligned religious-corp DID (or partner religious-corp DID).
-Input lexicon: `app.etzhayyim.apps.etzhayyim.yobel.declareRite`.
+Input lexicon: `com.etzhayyim.apps.etzhayyim.yobel.declareRite`.
 
 ## Steps
 
@@ -33,13 +33,13 @@ Input lexicon: `app.etzhayyim.apps.etzhayyim.yobel.declareRite`.
 
 ## Output
 
-Lexicon `app.etzhayyim.apps.etzhayyim.yobel.declareRite` response:
+Lexicon `com.etzhayyim.apps.etzhayyim.yobel.declareRite` response:
 
 ```json
 {
   "ok": true,
   "riteId": "yobel-2074-tree-of-life-50yr",
-  "vertexId": "at://did:web:yobel.etzhayyim.com/app.etzhayyim.apps.etzhayyim.yobel.rite/<tid>"
+  "vertexId": "at://did:web:yobel.etzhayyim.com/com.etzhayyim.apps.etzhayyim.yobel.rite/<tid>"
 }
 ```
 
@@ -47,7 +47,7 @@ On success, downstream cells (`creditor_enrollment`, `debtor_enrollment`) start 
 
 ## See also
 
-- Lexicon `00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/declareRite.json`
+- Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/yobel/declareRite.json`
 - DMN [`dmn/council-ratification-threshold.md`](../../dmn/council-ratification-threshold.md)
 - ADR-2605192230 Three-Tier Enforcement (Council Lv6+ ratification semantics)
 - ADR-2605192100 §1.5 free release + §1.13 SBT identity (issuer standing basis)

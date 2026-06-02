@@ -142,7 +142,7 @@ Hypotheses, ranked:
 
 1. **Timer state lost during the OOM cycle** — Zeebe broker held the
    R/PT15M timer in a partition that didn't recover cleanly. Fix: re-deploy
-   `etzhayyim-root/00-contracts/bpmn/ai/gftd/animeka/autopilot.bpmn` (and
+   `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/animeka/autopilot.bpmn` (and
    re-register in `vertex_bpmn_process_def`) so the broker re-creates
    the timer subscription.
 2. **Process instance dispatched but worker stream paused** — pyzeebe
@@ -245,7 +245,7 @@ once R0 verifies and R2 LoRA is integrated.
 - ADR-2604231328 — animeka 12-stage BPMN + Vultr L40S ComfyUI pipeline
 - PR #1159 (merged) — comfyui internal-trust shim (R0)
 - PR #1160 (open) — LoRA wiring + graceful fallback + video mode dispatcher
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/animeka/{autopilot,cutRunner,generateInbetween,renderComposite}.bpmn`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/animeka/{autopilot,cutRunner,generateInbetween,renderComposite}.bpmn`
 - `50-infra/runpod/comfyui-l40s/adapter/openai-comfyui-adapter.py`
 - `etzhayyim-root/50-infra/vultr/zeebe/zeebe.yaml` — broker resource budget
 - `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py:1936` — `task_generic_comfyui_call`

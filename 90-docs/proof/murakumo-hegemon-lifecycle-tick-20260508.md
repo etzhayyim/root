@@ -159,4 +159,4 @@ To move the resident loop from direct fleet processes into k8s Pods:
    signing key.
 3. Apply `actor-workers.yaml` directly on Murakumo k3s, or restore Karmada and
    apply the `shinka-actors` kustomization on the hub.
-4. Verify rollout and record the first successful `app.etzhayyim.shinka.tick`.
+4. Verify rollout and record the first successful `com.etzhayyim.shinka.tick`.

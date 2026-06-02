@@ -195,7 +195,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.hub.registerEndpoint")
+    @worker.task(task_type="com.etzhayyim.apps.hub.registerEndpoint")
     async def task_register_endpoint(**kwargs):
         return await asyncio.to_thread(
             _create_endpoint_sync,
@@ -206,7 +206,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.hub.listEndpoints")
+    @worker.task(task_type="com.etzhayyim.apps.hub.listEndpoints")
     async def task_list_endpoints(**kwargs):
         return await asyncio.to_thread(
             _list_endpoints_sync,
@@ -215,7 +215,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.hub.routeRequest")
+    @worker.task(task_type="com.etzhayyim.apps.hub.routeRequest")
     async def task_route_request(**kwargs):
         endpoint_id = kwargs.get("endpointId", "")
         return {
@@ -225,7 +225,7 @@ async def run_worker():
             "routedAt": datetime.utcnow().isoformat(),
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.hub.getRouteStatus")
+    @worker.task(task_type="com.etzhayyim.apps.hub.getRouteStatus")
     async def task_get_route_status(**kwargs):
         return {
             "requestId": kwargs.get("requestId", ""),
@@ -233,7 +233,7 @@ async def run_worker():
             "checkedAt": datetime.utcnow().isoformat(),
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.hub.createWebhook")
+    @worker.task(task_type="com.etzhayyim.apps.hub.createWebhook")
     async def task_create_webhook(**kwargs):
         return await asyncio.to_thread(
             _create_webhook_sync,
@@ -244,7 +244,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.hub.listWebhooks")
+    @worker.task(task_type="com.etzhayyim.apps.hub.listWebhooks")
     async def task_list_webhooks(**kwargs):
         return await asyncio.to_thread(
             _list_webhooks_sync,
@@ -254,7 +254,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.hub.testConnection")
+    @worker.task(task_type="com.etzhayyim.apps.hub.testConnection")
     async def task_test_connection(**kwargs):
         return {
             "endpointId": kwargs.get("endpointId", ""),
@@ -263,7 +263,7 @@ async def run_worker():
             "testedAt": datetime.utcnow().isoformat(),
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.hub.getMetrics")
+    @worker.task(task_type="com.etzhayyim.apps.hub.getMetrics")
     async def task_get_metrics(**kwargs):
         return await asyncio.to_thread(
             _get_metrics_sync,

@@ -39,7 +39,7 @@ The 2026-05-21 post-freeze 3-axis audit (vendor PR #1339 `tranche-f-post-freeze-
 - **Inputs**: Hume biometric scores, emotion assessments (Spirit Type: Hero / Sage / Lover / Caregiver), word-response reaction times, physiological JSON
 - **Output**: Match recommendations + research dataset → `spirit-in-physics.com/api` (research SSoT)
 - **Research basis**: Jun Kawasaki et al. "Spirit in Physics: Spirit as a Thermodynamic Information Quantity"
-- **7 lexicons** at `vendor/00-contracts/lexicons/ai/gftd/apps/deai/`:
+- **7 lexicons** at `vendor/00-contracts/lexicons/com/etzhayyim/apps/deai/`:
   - `startAssessment` / `submitResponse` / `getProfile` / `createCheckin` / `listMatches` / `sendMessage` / `listMessages`
 
 ## 3-axis verdict (per ADR-2605172400)
@@ -154,5 +154,5 @@ Don't file this ADR; let deai sit in vendor with mismatched magatama declaration
 - ADR-2605211335 — Tranche F session closure (post-freeze audit)
 - vendor PR #1339 — post-freeze 7-actor audit (verdict source)
 - vendor `60-apps/ai-gftd-project-deai/CLAUDE.md` — project shape
-- vendor `00-contracts/lexicons/ai/gftd/apps/deai/*.json` — 7 lexicons
+- vendor `00-contracts/lexicons/com/etzhayyim/apps/deai/*.json` — 7 lexicons
 - Bootstrap Council Seat 2-5 RFP closes 2026-06-19 (per `etzhayyim/root/COUNCIL-BOOTSTRAP-RFP.md`)

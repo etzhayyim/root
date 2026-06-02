@@ -1,7 +1,7 @@
 # wadachi — Autonomous Mobility R&D Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:wadachi`
-**Namespace**: `app.etzhayyim.wadachi.*`
+**Namespace**: `com.etzhayyim.wadachi.*`
 **ADR**: ADR-2605242000 (R0 scaffold), ADR-2605242015 (R1), ADR-2605242030 (R2), ADR-2605242045 (R3)
 **Status**: R0 scaffold (2026-05-23) — all cells import-time RuntimeError
 

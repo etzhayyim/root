@@ -265,7 +265,7 @@ TypeScript paths) keeps existing references valid through the transition.
 1. **Bulk NSID migration**: dir move + `LC_ALL=C` sed + bpmn-coverage-manifest path fix + binding seed verify
 2. **SPLIT migration**: `perl -pe 's/...(?!vendor-stay-patterns)/.../'` negative-lookahead
 3. **GH Packages publish inside workspace**: `NPM_CONFIG_USERCONFIG=/path/to/.npmrc` workaround (npm ignores local .npmrc in workspace members)
-4. **Validator schema evolution**: dual-schema fallback chain (legacy `app.etzhayyim.apps.<X>` → canonical `app.etzhayyim.<X>`)
+4. **Validator schema evolution**: dual-schema fallback chain (legacy `com.etzhayyim.apps.<X>` → canonical `com.etzhayyim.<X>`)
 5. **Phase 5 deletion-with-redirect**: `git rm -rf` + [MOVED] stub README + 3-stage operator runbook for live items
 
 ## What's NOT done (deferred, not mechanical)
@@ -275,6 +275,6 @@ TypeScript paths) keeps existing references valid through the transition.
 | yoro vendor `60-apps/ai-gftd-project-yoro/appview/` deletion (172M) | operator runbook: DNS cutover + redirect + 1-week obs (PR #1305) |
 | public-malak vendor deletion | live Worker → needs deploy plan |
 | watashi vendor deletion | sibling to etzhayyim/root/60-apps/watashi → unification plan |
-| vendor `00-contracts/lexicons/ai/gftd/<X>/` deletion | vendor business-app consumer switch to `@etzhayyim/lexicons-bundle` npm (use-case driven) |
+| vendor `00-contracts/lexicons/com/etzhayyim/<X>/` deletion | vendor business-app consumer switch to `@etzhayyim/lexicons-bundle` npm (use-case driven) |
 | bpmn-sdk consumer migration | when a vendor business app actually imports `@etzhayyim/bpmn-sdk-*` (use-case driven) |
 | `expectedSourcePath` full schema-agnostic | low priority: all bindings use `etzhayyim-root/` prefix |

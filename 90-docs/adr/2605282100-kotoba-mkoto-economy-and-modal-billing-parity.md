@@ -264,7 +264,7 @@ actual: UsageActual = call.get_with_usage()
 4. kotoba-server donation_indexer cell (R1.3d) subscribes to Base L2
    events, computes mKOTO credit at the Council-set USDC-to-mKOTO ratio,
    writes Quad credit/mkoto/{donorDid}/{epoch} via XRPC
-   app.etzhayyim.kotoba.economy.credit_from_donation.
+   com.etzhayyim.kotoba.economy.credit_from_donation.
 5. balance/mkoto/{donorDid} Quad updated atomically with the credit.
 6. Donor's next .remote() succeeds; pre-dispatch budget check sees the
    new balance.
@@ -302,21 +302,21 @@ royalty_pool/mkoto/{epoch} and crediting the contributor's balance.
 ### XRPC surface (kotoba-server, R1.3c+d)
 
 ```
-GET  /xrpc/app.etzhayyim.kotoba.economy.tariff
+GET  /xrpc/com.etzhayyim.kotoba.economy.tariff
      → { version, schedule: [{ backend, gpu_second_mkoto, egress_mb_mkoto, gas_per_1k_mkoto }],
          signed_by: [did:web:...], signed_at: "..." }
 
-GET  /xrpc/app.etzhayyim.kotoba.economy.balance?did=<did>
+GET  /xrpc/com.etzhayyim.kotoba.economy.balance?did=<did>
      → { did, balance_mkoto, last_updated_seq }
      (CACAO-signed read; requires caller DID match or operator override)
 
-POST /xrpc/app.etzhayyim.kotoba.economy.debit
+POST /xrpc/com.etzhayyim.kotoba.economy.debit
      body: { caller_did, invocation_id, cost_mkoto, usage_breakdown,
              tariff_version, fleet_endpoint }
      → { new_balance_mkoto, debited_at_seq }
      (CACAO-signed by caller; atomic against balance/mkoto/<DID> Quad)
 
-POST /xrpc/app.etzhayyim.kotoba.economy.credit_from_donation
+POST /xrpc/com.etzhayyim.kotoba.economy.credit_from_donation
      body: { donor_did, usdc_amount, donation_tx_hash, tithed_to_fund_usdc,
              mkoto_credit_at_ratio, ratio_version }
      → { new_balance_mkoto, credited_at_seq }
@@ -325,8 +325,8 @@ POST /xrpc/app.etzhayyim.kotoba.economy.credit_from_donation
 
 ### Lexicons (R1.3c)
 
-Three Lexicons under `app.etzhayyim.kotoba.economy.*` registered at
-`00-contracts/lexicons/app/etzhayyim/kotoba/economy/`:
+Three Lexicons under `com.etzhayyim.kotoba.economy.*` registered at
+`00-contracts/lexicons/com/etzhayyim/kotoba/economy/`:
 
 1. `tariff.json` — versioned tariff record; Council-signed
 2. `balanceSnapshot.json` — per-DID balance snapshot
@@ -361,7 +361,7 @@ Three Lexicons under `app.etzhayyim.kotoba.economy.*` registered at
 |---|---|---|
 | **R1.3a** | This ADR | landed this commit |
 | **R1.3b** | `kotoba_murakumo.economy` Python: Tariff / UsageEstimate / UsageActual / BudgetExceeded / InsufficientCredit + Function.estimate() + max_cost_mkoto= decorator param + pre-dispatch check + NDJSON extension + tests | landed this commit |
-| **R1.3c** | 3 Lexicons (tariff / balanceSnapshot / usageRecord) at `00-contracts/lexicons/app/etzhayyim/kotoba/economy/` | landed this commit |
+| **R1.3c** | 3 Lexicons (tariff / balanceSnapshot / usageRecord) at `00-contracts/lexicons/com/etzhayyim/kotoba/economy/` | landed this commit |
 | **R1.3d-scaffold** | `40-engine/kotoba/crates/kotoba-server/src/economy_xrpc.rs` scaffold — handler signatures + doc comments + `#[cfg(any())]` gate so it doesn't break the build until wiring | landed this commit |
 | **R1.3d-wiring** | Add `pub mod economy_xrpc;` to `kotoba-server/src/lib.rs` + register routes in `xrpc.rs`. Quad I/O via existing `QuadStore` + CACAO auth via existing `check_read_access`. | separate ADR (R1.3d-impl); needs Rust review + Council pre-attestation |
 | **R1.3e** | TitheRouter Solidity extension — emit `MkotoCreditPosted(donorDid, mkotoAmount)` event after `DonationConfirmed`. donation_indexer cell to consume → XRPC credit_from_donation | separate ADR (R1.3e-tithe-extension) |

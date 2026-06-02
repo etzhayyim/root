@@ -8,13 +8,13 @@ design (line / station topology). Apache-2.0.
 
 | NSID | Type | Description |
 |---|---|---|
-| `app.etzhayyim.apps.openRail.defineLine` | procedure | declare a line + its station sequence (network design) |
-| `app.etzhayyim.apps.openRail.getLine` | query | line + stations + km posts |
-| `app.etzhayyim.apps.openRail.listLines` | query | paginated line list |
-| `app.etzhayyim.apps.openRail.scheduleTrain` | procedure | publish a single train run (origin→destination, stop pattern) |
-| `app.etzhayyim.apps.openRail.listTrainRuns` | query | runs by line / day / status |
-| `app.etzhayyim.apps.openRail.reportIncident` | procedure | safety / delay incident with severity |
-| `app.etzhayyim.apps.openRail.listIncidents` | query | incidents by line / since |
+| `com.etzhayyim.apps.openRail.defineLine` | procedure | declare a line + its station sequence (network design) |
+| `com.etzhayyim.apps.openRail.getLine` | query | line + stations + km posts |
+| `com.etzhayyim.apps.openRail.listLines` | query | paginated line list |
+| `com.etzhayyim.apps.openRail.scheduleTrain` | procedure | publish a single train run (origin→destination, stop pattern) |
+| `com.etzhayyim.apps.openRail.listTrainRuns` | query | runs by line / day / status |
+| `com.etzhayyim.apps.openRail.reportIncident` | procedure | safety / delay incident with severity |
+| `com.etzhayyim.apps.openRail.listIncidents` | query | incidents by line / since |
 
 ## Architecture
 

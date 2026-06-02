@@ -101,7 +101,7 @@ speed-record vanity. See `manifest.jsonld` + ADR-2606013400 §Non-Goals.
 
 ## Lexicon Namespace
 
-**Root**: `app.etzhayyim.funadaiku` — 9 record stubs (R0):
+**Root**: `com.etzhayyim.funadaiku` — 9 record stubs (R0):
 `blockFabricationAttestation` · `grandBlockAssemblyAttestation` · `weldInspectionRecord` ·
 `powertrainIntegrationAttestation` · `outfittingAttestation` · `launchCommissioningRecord` ·
 `seaTrialRecord` · `decarbonizationAudit` · `silenCargoShipReview` (Council 5-of-7).

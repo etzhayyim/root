@@ -32,7 +32,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 ACTOR_PREGEL = "did:web:pregel.etzhayyim.com"
-COLLECTION_MESSAGE = "app.etzhayyim.convo.message"
+COLLECTION_MESSAGE = "com.etzhayyim.convo.message"
 
 
 def _now_iso() -> str:

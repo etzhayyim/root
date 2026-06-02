@@ -16,7 +16,7 @@ ADR-2605151400 が SSoT。
 | **Operating entity** | etzhayyim (etzhayyim Japan = vendor only) |
 | **Domain** | `akuma.etzhayyim.com` / `ak0m4r3d.etzhayyim.com` |
 
-## XRPC surface (`app.etzhayyim.apps.akuma.*`)
+## XRPC surface (`com.etzhayyim.apps.akuma.*`)
 
 | NSID | Type | Purpose |
 |---|---|---|
@@ -73,7 +73,7 @@ Run: `opa test 00-contracts/policies/gftd/akuma/scope/ -v` (11/11 PASS).
 | File | Purpose |
 |---|---|
 | `actor-manifest.jsonld` | Actor identity + governance + pipelines |
-| `00-contracts/lexicons/ai/gftd/apps/akuma/*.json` | XRPC schemas |
+| `00-contracts/lexicons/com/etzhayyim/apps/akuma/*.json` | XRPC schemas |
 | `00-contracts/policies/gftd/akuma/scope/policy.rego` | Authorization Rego |
 | `00-contracts/policies/gftd/akuma/scope/test.rego` | 11 policy unit tests |
 | `90-docs/adr/2605151400-akuma-authorized-redteam-actor.md` | ADR (SSoT) |

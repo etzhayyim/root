@@ -9,11 +9,11 @@ last_verified: 2026-05-26
 priority: 6.5
 axis: emergency-response
 weight: 0.55
-priority_note: "Fifth-priority gap-closure actor (gap audit row 5 = 災害対応 / disaster response). Civilian disaster response substrate — earthquake / typhoon / flood / wildfire / pandemic-class biological emergency / power outage / water shortage / food shortage / building damage / mass evacuation / medical surge coordination. NOT military, NOT war-zone humanitarian, NOT long-term refugee resettlement, NOT state emergency-management replacement, NOT armed enforcement (force authorization is separate per ADR-2605192315 Transparent Force; kazaori is civilian-only). 任意団体 internal coordination substrate at did:web:kazaori.etzhayyim.com (20-actors/kazaori/). Etymology: 風折 = wind-broken (storm-damaged tree branches; classical 古事記 / 万葉集 imagery); evokes disaster-induced rupture requiring response. Standards reference (NOT membership): Sphere Standards (G9) + ICRC Code of Conduct + IFRC + UN OCHA cluster system (all open-source / open-publication frameworks). NO commercial disaster management software (G4 — Veoci / NC4 / Crisis Track / Everbridge / OnSolve / SAP Disaster Recovery / Microsoft Disaster Response Hub / IBM Crisis Response PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) covert-ops vendor concern — vendor closed query-tracking exposes member-evacuation + member-status posture). NO surveillance-based monitoring (G6 — aerial drone surveillance / facial-recognition crowd-monitoring / Bluetooth-beacon-tracking PROHIBITED per Charter §2(c); evacuation check-in is OPT-IN self-attestation, member-signed). Time-bounded carve-outs (G8 — normally-prohibited operations such as mizuho G5 single-use water container distribution may be activated during declared emergency, default 60-day initial / Council Lv7+ unanimity extension / auto-revoke on emergency-lifting). 6 cells / 6 Lexicons under app.etzhayyim.kazaori.* / 12 immutable gates / 12 non-goals / 4-phase R0..R3. Cross-actor: mizuho (G5 single-use carve-out coordination + emergency water supply) / mitsuho (emergency food supply from reserve stocks + mutual aid) / hagukumi (vulnerable population coordination — children + elderly) / iyashi + mitate (medical surge) / tatekata (building damage assessment) / hikari (power outage coordination) / chigiri (declaration procedural attestation + post-emergency mediation if cure-required) / toritate (Public Fund emergency disbursement + post-emergency accounting) / wakai (future; mutual aid pooling) / kokoro (future; post-emergency mental health surge)."
+priority_note: "Fifth-priority gap-closure actor (gap audit row 5 = 災害対応 / disaster response). Civilian disaster response substrate — earthquake / typhoon / flood / wildfire / pandemic-class biological emergency / power outage / water shortage / food shortage / building damage / mass evacuation / medical surge coordination. NOT military, NOT war-zone humanitarian, NOT long-term refugee resettlement, NOT state emergency-management replacement, NOT armed enforcement (force authorization is separate per ADR-2605192315 Transparent Force; kazaori is civilian-only). 任意団体 internal coordination substrate at did:web:kazaori.etzhayyim.com (20-actors/kazaori/). Etymology: 風折 = wind-broken (storm-damaged tree branches; classical 古事記 / 万葉集 imagery); evokes disaster-induced rupture requiring response. Standards reference (NOT membership): Sphere Standards (G9) + ICRC Code of Conduct + IFRC + UN OCHA cluster system (all open-source / open-publication frameworks). NO commercial disaster management software (G4 — Veoci / NC4 / Crisis Track / Everbridge / OnSolve / SAP Disaster Recovery / Microsoft Disaster Response Hub / IBM Crisis Response PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) covert-ops vendor concern — vendor closed query-tracking exposes member-evacuation + member-status posture). NO surveillance-based monitoring (G6 — aerial drone surveillance / facial-recognition crowd-monitoring / Bluetooth-beacon-tracking PROHIBITED per Charter §2(c); evacuation check-in is OPT-IN self-attestation, member-signed). Time-bounded carve-outs (G8 — normally-prohibited operations such as mizuho G5 single-use water container distribution may be activated during declared emergency, default 60-day initial / Council Lv7+ unanimity extension / auto-revoke on emergency-lifting). 6 cells / 6 Lexicons under com.etzhayyim.kazaori.* / 12 immutable gates / 12 non-goals / 4-phase R0..R3. Cross-actor: mizuho (G5 single-use carve-out coordination + emergency water supply) / mitsuho (emergency food supply from reserve stocks + mutual aid) / hagukumi (vulnerable population coordination — children + elderly) / iyashi + mitate (medical surge) / tatekata (building damage assessment) / hikari (power outage coordination) / chigiri (declaration procedural attestation + post-emergency mediation if cure-required) / toritate (Public Fund emergency disbursement + post-emergency accounting) / wakai (future; mutual aid pooling) / kokoro (future; post-emergency mental health surge)."
 authoritative_for:
   - kazaori actor R0 charter
   - religious-corp civilian disaster response substrate single SoT
-  - `app.etzhayyim.kazaori.*` Lexicon namespace boundary
+  - `com.etzhayyim.kazaori.*` Lexicon namespace boundary
   - civilian-only invariant (NOT military; force authorization separate per ADR-2605192315)
   - time-bounded carve-out invariant (G8 — normally-prohibited operations auto-revoke on emergency-lifting)
   - prohibition on commercial disaster management software (Veoci / NC4 / Crisis Track / Everbridge / OnSolve / SAP / Microsoft / IBM Crisis Response)
@@ -139,7 +139,7 @@ Constitutional constraints (inherited; not adjustable):
 Create `kazaori` (風折) as a Tier-B religious-corp civilian disaster
 response substrate actor at `20-actors/kazaori/`, with DID
 `did:web:kazaori.etzhayyim.com`, Lexicon namespace
-`app.etzhayyim.kazaori.*`. R0 = scaffold only; all cells import-time
+`com.etzhayyim.kazaori.*`. R0 = scaffold only; all cells import-time
 `RuntimeError`.
 
 ## §1. Identity and naming
@@ -148,7 +148,7 @@ response substrate actor at `20-actors/kazaori/`, with DID
 |---|---|
 | Name | `kazaori` (風折 — wind-broken; storm-damaged) |
 | DID | `did:web:kazaori.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.kazaori.*` |
+| Lexicon root | `com.etzhayyim.kazaori.*` |
 | Form | 任意団体 internal civilian disaster response substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | Cross-actor (response) | mizuho (G5 carve-out + water) / mitsuho (food) / hagukumi (vulnerable populations) / iyashi + mitate (medical surge) / tatekata (damage assessment) / hikari (power outage) / chigiri (declaration attestation) / toritate (Public Fund emergency disbursement) |
@@ -230,7 +230,7 @@ All R0 path-reserved; import-time `RuntimeError("kazaori R0 scaffold: activate v
 R1 activation gates each cell separately + Sphere Standards baseline
 attestation on file + ≥1 community-pilot tabletop drill.
 
-## §4. Lexicons (6, all under `app.etzhayyim.kazaori.*`)
+## §4. Lexicons (6, all under `com.etzhayyim.kazaori.*`)
 
 | # | Lexicon | Consumer cell | Description |
 |---|---|---|---|
@@ -246,7 +246,7 @@ attestation on file + ≥1 community-pilot tabletop drill.
 | Gate | Description |
 |---|---|
 | **G1** | Every emergency document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `app.etzhayyim.kazaori.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.kazaori.*` Lexicon with yatachain attestation lineage. |
 | **G3** | **Community-scale only** — disaster response coordinated for religious-corp community sites + adjacent partner sites; NOT large municipal / regional / national disaster response replacement. |
 | **G4** | **NO commercial disaster management software** — Veoci / NC4 / Crisis Track / Everbridge / OnSolve / SAP Disaster Recovery / Microsoft Disaster Response Hub / IBM Crisis Response PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty. |
 | **G5** | **NO armed enforcement** — kazaori is civilian disaster response only; force authorization is separate per ADR-2605192315 Transparent Force; kazaori MUST NOT invoke or coordinate with armed force actions. |
@@ -305,7 +305,7 @@ attestation on file + ≥1 community-pilot tabletop drill.
 
 1. This ADR (`90-docs/adr/2605263200-kazaori-disaster-response-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/kazaori/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 6 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/kazaori/` + README;
+3. 6 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/kazaori/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 72 + Repo Layout entry.

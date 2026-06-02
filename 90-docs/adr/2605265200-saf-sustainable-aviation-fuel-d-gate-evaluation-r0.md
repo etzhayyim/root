@@ -131,7 +131,7 @@ Green H₂ (ADR-2605263600 §1) + DAC CO₂ (ADR-2605264600 §1-3) → reverse w
 ## §6 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   hefaSafBatchAttestation,                # ASTM D7566 A2/A7 per-batch + algal-feedstock CID + H2 CID
   eJetFtBatchAttestation,                 # ASTM D7566 A1 per-batch + H2 CID + DAC-CO2 CID + FT-catalyst lot
   missionEssentialFlightAttestation,      # per-flight Council Lv6+ ≥3 mission-essential justification record

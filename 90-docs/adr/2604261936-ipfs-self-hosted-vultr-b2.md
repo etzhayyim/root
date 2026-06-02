@@ -152,7 +152,7 @@ Mirror of `ai-gftd-geth-rpc-proxy` (ADR-0074 Phase 2-A).
 | Source | Pin? | TTL |
 |---|---|---|
 | `com.atproto.repo.uploadBlob` (PDS) | **yes** | until repo deletion |
-| `app.etzhayyim.claim.stakedAttestation.atRecordCid` | **yes** | forever |
+| `com.etzhayyim.claim.stakedAttestation.atRecordCid` | **yes** | forever |
 | `did:gftd` genesis-op DAG-CBOR | **yes** | forever (sovereignty) |
 | User-pin via `/api/v0/pin/add` (HMAC-gated) | yes | until unpin |
 | Anonymous `/ipfs/{cid}` fetch (cache miss → DHT pull) | **no** | until next GC |
@@ -185,7 +185,7 @@ XRPC 経路は新規追加せず、Kubo HTTP API を直接プロキシする。�
 - IPFS gateway が `/ipfs/{cid}` で取れるのは IPFS 標準 contract で、独自 NSID で wrap すると η を下げる (ADR-0005 Shannon redundancy)
 - 内部 caller (PDS, claim-consumer) は CF Worker service binding 経由で `/api/v0/add` `/api/v0/pin/add` を叩く
 
-将来 `app.etzhayyim.ipfs.pin` lexicon を追加するのは、permission gate / org 単位の quota が必要になった時のみ。
+将来 `com.etzhayyim.ipfs.pin` lexicon を追加するのは、permission gate / org 単位の quota が必要になった時のみ。
 
 # Consequences
 

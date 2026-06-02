@@ -142,7 +142,7 @@ def test_build_homeostasis_belief_row_derives_runtime_health_posterior() -> None
             "source": "measured",
             "errorRate1h": 0.2,
             "toolSuccessRate1h": 0.75,
-            "launchd": {"app.etzhayyim.agent-daemon": True},
+            "launchd": {"com.etzhayyim.agent-daemon": True},
             "ollama": {"ok": True, "status": 200},
         },
         controls={"effectDispatchAllowed": True},
@@ -158,7 +158,7 @@ def test_build_homeostasis_belief_row_derives_runtime_health_posterior() -> None
     assert result["posterior_entropy"] == 0.2
     assert result["updated_from_observation"] == "agent-observation-homeostasis-123"
     assert state_value["viabilityState"] == "normal"
-    assert state_value["launchd"]["app.etzhayyim.agent-daemon"] is True
+    assert state_value["launchd"]["com.etzhayyim.agent-daemon"] is True
     assert state_value["ollama"]["status"] == 200
 
 
@@ -627,7 +627,7 @@ def test_collect_local_homeostasis_metrics_maps_probe_failures(monkeypatch, tmp_
     monkeypatch.setattr(
         agent_daemon_main,
         "launchd_label_running",
-        lambda label: label == "app.etzhayyim.agent-daemon",
+        lambda label: label == "com.etzhayyim.agent-daemon",
     )
     monkeypatch.setattr(
         agent_daemon_main,
@@ -649,13 +649,13 @@ def test_collect_local_homeostasis_metrics_maps_probe_failures(monkeypatch, tmp_
 
     result = agent_daemon_main.collect_local_homeostasis_metrics(
         llm_endpoint="http://127.0.0.1:11434/api/chat",
-        launchd_labels=("app.etzhayyim.agent-daemon", "app.etzhayyim.agent-zeebe-worker"),
+        launchd_labels=("com.etzhayyim.agent-daemon", "com.etzhayyim.agent-zeebe-worker"),
         log_paths=(str(log_path),),
     )
 
     assert result["source"] == "measured"
-    assert result["launchd"]["app.etzhayyim.agent-daemon"] is True
-    assert result["launchd"]["app.etzhayyim.agent-zeebe-worker"] is False
+    assert result["launchd"]["com.etzhayyim.agent-daemon"] is True
+    assert result["launchd"]["com.etzhayyim.agent-zeebe-worker"] is False
     assert result["ollama"]["ok"] is False
     assert result["logFailures"] == 2
     assert result["logFailureWindowSec"] == 3600
@@ -728,7 +728,7 @@ def test_harden_runtime_viability_repairs_local_service_degraded() -> None:
             "normalized": {"leaseSecondsRemaining": 3600},
         },
         metrics={
-            "launchd": {"app.etzhayyim.agent-daemon": True, "app.etzhayyim.agent-zeebe-worker": False},
+            "launchd": {"com.etzhayyim.agent-daemon": True, "com.etzhayyim.agent-zeebe-worker": False},
             "ollama": {"ok": True},
         },
     )
@@ -736,7 +736,7 @@ def test_harden_runtime_viability_repairs_local_service_degraded() -> None:
     assert result["viabilityState"] == "repair"
     assert "local_service_degraded" in result["blockers"]
     assert "restart_degraded_services" in result["nextActions"]
-    assert result["failedLaunchdServices"] == ["app.etzhayyim.agent-zeebe-worker"]
+    assert result["failedLaunchdServices"] == ["com.etzhayyim.agent-zeebe-worker"]
 
 
 def test_load_homeostasis_belief_direct_returns_none_when_store_unavailable(
@@ -818,17 +818,17 @@ def test_execute_local_self_repair_restarts_failed_non_daemon_services(monkeypat
         {
             "nextActions": ["restart_degraded_services"],
             "failedLaunchdServices": [
-                "app.etzhayyim.agent-daemon",
-                "app.etzhayyim.agent-zeebe-worker",
+                "com.etzhayyim.agent-daemon",
+                "com.etzhayyim.agent-zeebe-worker",
             ],
         },
-        current_label="app.etzhayyim.agent-daemon",
+        current_label="com.etzhayyim.agent-daemon",
     )
 
-    assert calls == ["app.etzhayyim.agent-zeebe-worker"]
-    assert result["attempted"] == [{"ok": True, "label": "app.etzhayyim.agent-zeebe-worker"}]
+    assert calls == ["com.etzhayyim.agent-zeebe-worker"]
+    assert result["attempted"] == [{"ok": True, "label": "com.etzhayyim.agent-zeebe-worker"}]
     assert result["skipped"] == [
-        {"label": "app.etzhayyim.agent-daemon", "reason": "current_daemon_not_self_restarted"}
+        {"label": "com.etzhayyim.agent-daemon", "reason": "current_daemon_not_self_restarted"}
     ]
     assert result["ok"] is True
 
@@ -839,7 +839,7 @@ def test_build_self_repair_observation_row_records_local_repair_payload() -> Non
         variables={"repairReason": "homeostasis:repair"},
         local_repair={
             "ok": True,
-            "attempted": [{"ok": True, "label": "app.etzhayyim.agent-zeebe-worker"}],
+            "attempted": [{"ok": True, "label": "com.etzhayyim.agent-zeebe-worker"}],
             "skipped": [],
         },
         process_instance_key="repair-123",
@@ -850,7 +850,7 @@ def test_build_self_repair_observation_row_records_local_repair_payload() -> Non
     assert row["source_kind"] == "self_repair_receipt"
     assert row["source_ref"] == "repair-123"
     assert row["confidence"] == 0.9
-    assert payload["localRepair"]["attempted"][0]["label"] == "app.etzhayyim.agent-zeebe-worker"
+    assert payload["localRepair"]["attempted"][0]["label"] == "com.etzhayyim.agent-zeebe-worker"
 
 
 def test_record_self_repair_outcome_direct_updates_outcome_and_learning(monkeypatch) -> None:

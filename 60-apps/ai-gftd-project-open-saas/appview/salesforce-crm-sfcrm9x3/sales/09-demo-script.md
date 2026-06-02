@@ -39,7 +39,7 @@ Steps:
 1. Open the pipeline view → it renders from `listPipeline({tenantDid: "did:web:democo.opensaas.etzhayyim.com"})`. Hover a stage bucket → shows `stageRollup[stage].weightedAmountJpy`. Note: this is a streaming MV; latency <100ms.
 2. Click into the lead list → pick "Osaka Trade Partners Ltd." (status=qualifying). Trigger the "Convert" action. In the right-hand drawer, show the `convertLead` XRPC call's payload (SE has the devtools open).
 3. One click → server-side: three `createRecord`s (account, contact, opportunity) + one `lead` update + one derived `activity`(kind=conversion) land in a single commit pipeline pass.
-4. Click the new Activity row → "View source commit" opens `/at/democo.opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.activity/<rkey>`. Show the AT URI in the browser; copy-paste it to a curl in the terminal to show anyone-who-has-the-URI can verify the record (federation-grade).
+4. Click the new Activity row → "View source commit" opens `/at/democo.opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.activity/<rkey>`. Show the AT URI in the browser; copy-paste it to a curl in the terminal to show anyone-who-has-the-URI can verify the record (federation-grade).
 
 Gate: "3 records atomically, 1 activity auto-derived, 1 URI that's verifiable outside the CRM — is that the 'kill Apex Flow' story your team was asking about?"
 
@@ -76,7 +76,7 @@ Goal: justify the hyper-care line item; prove operability under stress.
 Steps:
 1. Simulate a stale passkey: revoke seat `ae-01`'s passkey via `gftd vault revoke-credential`. SE reloads the CRM → access denied, with a human-readable error pointing to the re-issue flow.
 2. Operator re-issues: `POST /api/seats/ae-01/passkey/re-issue` from a second operator seat (demonstrates RBAC). New enrollment link emitted. SE walks through the re-enrollment (skip actual re-auth for time — show the email content).
-3. Show the audit trail in the operator console: the revoke + re-issue are two `app.etzhayyim.audit.*` events, cross-referenceable to the seat DID's `activity` history.
+3. Show the audit trail in the operator console: the revoke + re-issue are two `com.etzhayyim.audit.*` events, cross-referenceable to the seat DID's `activity` history.
 4. Mention the 30-day / 90-day hyper-care SKU (pricing node 08); this is the kind of operational sequence covered.
 
 Gate: "Would your ops team prefer a ticket-based recovery or this self-serve one? Does the 30-day hyper-care match how you'd ramp internal ownership?"

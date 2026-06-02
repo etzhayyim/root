@@ -55,11 +55,11 @@ the repo. They therefore require a common effect boundary.
 
 Existing repo surfaces already cover parts of this:
 
-- `app.etzhayyim.apps.mailer.*` for mailer
-- `app.etzhayyim.apps.fax.*` for fax
-- `app.etzhayyim.apps.browser.*` for browser sessions
-- `app.etzhayyim.apps.docs.*` for document sync
-- `app.etzhayyim.apps.insatsu.printMailJob.*` for print-mail
+- `com.etzhayyim.apps.mailer.*` for mailer
+- `com.etzhayyim.apps.fax.*` for fax
+- `com.etzhayyim.apps.browser.*` for browser sessions
+- `com.etzhayyim.apps.docs.*` for document sync
+- `com.etzhayyim.apps.insatsu.printMailJob.*` for print-mail
 - `comfyui.etzhayyim.com` / image-generation gateway
 - `robotics.*` mission, simulation, authority, telemetry contracts
 
@@ -143,18 +143,18 @@ The dispatch record MUST include:
 
 | Channel | Existing or target surface | Required pre-dispatch gate |
 |---|---|---|
-| Email | `app.etzhayyim.apps.mailer.sendEmail` | recipient binding, payload hash, delegated authority |
-| Gmail ingest / reply | `app.etzhayyim.apps.gmail.*` / Gmail connector | thread context, reply payload hash, delegated mailbox authority |
-| Web operation | `app.etzhayyim.apps.browser.openSession` / browser worker | credential scope, domain allowlist, form-submit authority |
-| Fax | `app.etzhayyim.apps.fax.composeAndSend` / `send` | rendered PDF hash, recipient number binding, delegated authority |
-| Phone / voice call | `app.etzhayyim.apps.phone.*` (target namespace) | caller identity, script, recording/consent policy, delegated authority |
-| Document creation | `app.etzhayyim.apps.docs.*` | artifact only unless shared/sent/signed |
+| Email | `com.etzhayyim.apps.mailer.sendEmail` | recipient binding, payload hash, delegated authority |
+| Gmail ingest / reply | `com.etzhayyim.apps.gmail.*` / Gmail connector | thread context, reply payload hash, delegated mailbox authority |
+| Web operation | `com.etzhayyim.apps.browser.openSession` / browser worker | credential scope, domain allowlist, form-submit authority |
+| Fax | `com.etzhayyim.apps.fax.composeAndSend` / `send` | rendered PDF hash, recipient number binding, delegated authority |
+| Phone / voice call | `com.etzhayyim.apps.phone.*` (target namespace) | caller identity, script, recording/consent policy, delegated authority |
+| Document creation | `com.etzhayyim.apps.docs.*` | artifact only unless shared/sent/signed |
 | Image generation | `comfyui.etzhayyim.com` / image gateway | artifact only unless published/sent/printed |
-| Audio / speech generation | `app.etzhayyim.apps.voice.*` (target namespace) | artifact only unless played/called/published |
-| Video generation | `app.etzhayyim.apps.video.*` (target namespace) | artifact only unless published/sent/ad-used |
+| Audio / speech generation | `com.etzhayyim.apps.voice.*` (target namespace) | artifact only unless played/called/published |
+| Video generation | `com.etzhayyim.apps.video.*` (target namespace) | artifact only unless published/sent/ad-used |
 | Public post | AT Protocol / PDS dispatch | actor policy, moderation, high-risk delegated authority |
-| Print-mail | `app.etzhayyim.apps.insatsu.printMailJob.*` | quote, destination validation, PDF hash, delegated authority |
-| Robotics | `app.etzhayyim.apps.robotics.*` | simulation, safety envelope, delegated authority, telemetry sink |
+| Print-mail | `com.etzhayyim.apps.insatsu.printMailJob.*` | quote, destination validation, PDF hash, delegated authority |
+| Robotics | `com.etzhayyim.apps.robotics.*` | simulation, safety envelope, delegated authority, telemetry sink |
 
 Target namespaces may be added incrementally. The boundary applies before the
 namespace exists.

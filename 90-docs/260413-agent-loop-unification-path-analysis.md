@@ -16,8 +16,8 @@ PDS handler 内に分散する agent inference パスを **agentInfer() 単一�
 ┌─────────────────────────────────────────────────────────────────────┐
 │                    PDS Handler (index.ts)                           │
 │                                                                     │
-│  ① app.etzhayyim.pds.invoke        L917   XRPC dispatch (no LLM)        │
-│  ② app.etzhayyim.agent.chat        L1017  agentInfer                   ✓│
+│  ① com.etzhayyim.pds.invoke        L917   XRPC dispatch (no LLM)        │
+│  ② com.etzhayyim.agent.chat        L1017  agentInfer                   ✓│
 │  ③ chat.bsky.convo.send      L2623  agentInfer (peer auto-reply) ✓│
 │  ④ projector.sendProjectMessage L3035 INLINE LLM (独自)          ✗│
 │                                                                     │
@@ -30,8 +30,8 @@ PDS handler 内に分散する agent inference パスを **agentInfer() 単一�
 
 | # | NSID | 呼出元 | LLM | memory | consent | audit | 問題 |
 |---|---|---|---|---|---|---|---|
-| ① | `app.etzhayyim.pds.invoke` | Worker RPC | なし (XRPC 転送) | - | - | - | LLM 不使用。統合不要 |
-| ② | `app.etzhayyim.agent.chat` | MCP/直接 chat | `agentInfer` | ✓ | ✓ | ✓ | **統合済** |
+| ① | `com.etzhayyim.pds.invoke` | Worker RPC | なし (XRPC 転送) | - | - | - | LLM 不使用。統合不要 |
+| ② | `com.etzhayyim.agent.chat` | MCP/直接 chat | `agentInfer` | ✓ | ✓ | ✓ | **統合済** |
 | ③ | `chat.bsky.convo.send` | convo DM | `agentInfer` (auto-reply) | ✓ | ✓ | ✓ | **統合済** |
 | ④ | `projector.sendProjectMessage` | yoro projector | **独自 inline** (~500行) | **✓ (統合済)** | PM任せ | **✓ (統合済)** | memory/audit は inject 済。LLM call は独自のまま |
 
@@ -55,7 +55,7 @@ PDS handler 内に分散する agent inference パスを **agentInfer() 単一�
 ┌─────────────────────────────────────────────────────────────────────┐
 │                    PDS Handler (index.ts)                           │
 │                                                                     │
-│  ① app.etzhayyim.pds.invoke        → XRPC dispatch (LLM 不使用)         │
+│  ① com.etzhayyim.pds.invoke        → XRPC dispatch (LLM 不使用)         │
 │                                                                     │
 │  ②③④ → agentInfer()                                               │
 │         ├── loadSemanticContext (memory)     ✓                     │
@@ -120,11 +120,11 @@ B) agentInfer delegation (推奨)
 
 | やりたいこと | 使う NSID | 説明 |
 |---|---|---|
-| **プロジェクト会話で agent と対話** | `app.etzhayyim.projector.sendProjectMessage` | PM + member agent tools + reflexion。**推奨 default** |
-| **agent に直接 DM** | `app.etzhayyim.agent.chat` | 1:1 会話。convoSystemPrompt で応答 |
+| **プロジェクト会話で agent と対話** | `com.etzhayyim.projector.sendProjectMessage` | PM + member agent tools + reflexion。**推奨 default** |
+| **agent に直接 DM** | `com.etzhayyim.agent.chat` | 1:1 会話。convoSystemPrompt で応答 |
 | **convo で DM (Bluesky 互換)** | `chat.bsky.convo.sendMessage` | AT Protocol 標準。agent auto-reply |
-| **XRPC 直接呼出** | `app.etzhayyim.pds.invoke` | tool 単体実行 (LLM なし) |
-| **外部 platform から** | os-messaging webhook → `app.etzhayyim.convo.send` | Discord/Telegram/Slack/LINE/WhatsApp |
+| **XRPC 直接呼出** | `com.etzhayyim.pds.invoke` | tool 単体実行 (LLM なし) |
+| **外部 platform から** | os-messaging webhook → `com.etzhayyim.convo.send` | Discord/Telegram/Slack/LINE/WhatsApp |
 
 ### 推奨パターン (新規 app 開発者向け)
 

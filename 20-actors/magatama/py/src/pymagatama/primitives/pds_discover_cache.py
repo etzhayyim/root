@@ -16,7 +16,7 @@ from pymagatama.db_sync import sync_cursor
 
 
 PDS_DID = "did:web:atproto.etzhayyim.com"
-DISCOVER_CACHE_COLLECTION = "app.etzhayyim.apps.pds.discoverCacheWarm"
+DISCOVER_CACHE_COLLECTION = "com.etzhayyim.apps.pds.discoverCacheWarm"
 DEFAULT_TIMEOUT_SEC = 45.0
 
 

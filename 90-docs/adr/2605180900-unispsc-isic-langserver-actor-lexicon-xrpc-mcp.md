@@ -35,7 +35,7 @@ superseded_by: []
 
 | Phase | Title                                    | Status                | PR  | Notes |
 |-------|------------------------------------------|-----------------------|-----|-------|
-| P1    | Lexicon contract                          | ✅ complete           | #17 | 4 UNSPSC + 5 ISIC JSON lexicons under `00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/` |
+| P1    | Lexicon contract                          | ✅ complete           | #17 | 4 UNSPSC + 5 ISIC JSON lexicons under `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/` |
 | P2    | ISIC fleet generation script              | ✅ complete           | #17 | `70-tools/scripts/gen-isic/gen_isic_agents.py` — Haiku Batch runner; `ast.parse` + top-level `graph` validation gate; `--dry-run` / `--execute` / `--resume` modes |
 | P3    | ISIC fleet first generation run           | ⏸ gated               | —   | Requires `ANTHROPIC_API_KEY` + explicit operator approval (~$0.30 Anthropic Batch spend) |
 | P4    | UNSPSC langserver pod                     | ✅ manifests-ready    | #19 | `50-infra/k8s/lg-open-unispsc/` Deployment + Service + HPA + Dockerfile; 18,342 agents lazy-loaded; smoke against `c10101501` PASS in 11 ms |
@@ -93,7 +93,7 @@ Caller ─────────┼─ MCP server (20-actors/magatama/mcp/)
                           │
                           ▼
             Lexicon validation
-            (00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/*.json)
+            (00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/*.json)
                           │
                           ▼
        AppView dispatch
@@ -141,19 +141,19 @@ declaration from the lexicon set per the host-sdk convention.
 
 ## Call surface 3: XRPC
 
-Lexicons are authored under `00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/`:
+Lexicons are authored under `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/`:
 
 | NSID | Type | Purpose |
 |---|---|---|
-| `app.etzhayyim.apps.unispsc.classify` | procedure | description → top-K UNSPSC codes |
-| `app.etzhayyim.apps.unispsc.invokeAgent` | procedure | code → agent.ainvoke(state) |
-| `app.etzhayyim.apps.unispsc.listAgents` | query | paged registry listing |
-| `app.etzhayyim.apps.unispsc.health` | query | langserver health probe |
-| `app.etzhayyim.apps.isic.classify` | procedure | single-level class classification |
-| `app.etzhayyim.apps.isic.hierarchicalClassify` | procedure | section → division → group → class |
-| `app.etzhayyim.apps.isic.invokeAgent` | procedure | classCode → agent.ainvoke(state) |
-| `app.etzhayyim.apps.isic.listAgents` | query | paged registry listing |
-| `app.etzhayyim.apps.isic.health` | query | langserver health probe |
+| `com.etzhayyim.apps.unispsc.classify` | procedure | description → top-K UNSPSC codes |
+| `com.etzhayyim.apps.unispsc.invokeAgent` | procedure | code → agent.ainvoke(state) |
+| `com.etzhayyim.apps.unispsc.listAgents` | query | paged registry listing |
+| `com.etzhayyim.apps.unispsc.health` | query | langserver health probe |
+| `com.etzhayyim.apps.isic.classify` | procedure | single-level class classification |
+| `com.etzhayyim.apps.isic.hierarchicalClassify` | procedure | section → division → group → class |
+| `com.etzhayyim.apps.isic.invokeAgent` | procedure | classCode → agent.ainvoke(state) |
+| `com.etzhayyim.apps.isic.listAgents` | query | paged registry listing |
+| `com.etzhayyim.apps.isic.health` | query | langserver health probe |
 
 XRPC handler lives in the corresponding AppView under `60-apps/ai-gftd-project-open-{unispsc,isic}/`.
 The handler validates the input against the Lexicon schema, then dispatches
@@ -311,5 +311,5 @@ $0.30 and 30 minutes wall-clock.
 - `20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents/`
 - `20-actors/magatama/py/src/pymagatama/langgraph_graphs/dynamic_runner.py`
 - `60-apps/ai-gftd-project-open-isic/data/classes/` (428 ISIC Rev. 4 class JSONs)
-- `00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/*.json` (this PR)
+- `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/*.json` (this PR)
 - `70-tools/scripts/gen-isic/gen_isic_agents.py` (this PR)

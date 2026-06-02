@@ -113,8 +113,8 @@ async def task_anastomosis_probe(
             # "Edge_kabi_anastomosisRecord".
             rec = KabiAnastomosisRecord(
                 edge_id=edgeId,
-                src_vid=f"at://{KABI_DID}/app.etzhayyim.apps.kabi.network/{networkADid.split(':')[-1]}",
-                dst_vid=f"at://{KABI_DID}/app.etzhayyim.apps.kabi.network/{networkBDid.split(':')[-1]}",
+                src_vid=f"at://{KABI_DID}/com.etzhayyim.apps.kabi.network/{networkADid.split(':')[-1]}",
+                dst_vid=f"at://{KABI_DID}/com.etzhayyim.apps.kabi.network/{networkBDid.split(':')[-1]}",
                 relation_kind="kabi_anastomosis",
                 value_json=json.dumps({"callerDid": callerDid}),
                 created_at=_now(),

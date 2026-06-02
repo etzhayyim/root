@@ -64,9 +64,9 @@ Migrations:
 | `otakiage_matsuri_schedule` | cron 月初 | `otakiage.matsuri.seedNextMonth` → audit |
 | `otakiage_social_announce` | XRPC fan-in | `otakiage.social.composeAnnounce` → `generic.pds.dispatch` → audit |
 
-BPMN files: `etzhayyim-root/00-contracts/bpmn/ai/gftd/otakiage/`
+BPMN files: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/otakiage/`
 
-## Lexicons (11, NSID `app.etzhayyim.otakiage.*`)
+## Lexicons (11, NSID `com.etzhayyim.otakiage.*`)
 
 | NSID | type | scope |
 |---|---|---|
@@ -82,11 +82,11 @@ BPMN files: `etzhayyim-root/00-contracts/bpmn/ai/gftd/otakiage/`
 | `getItem` | query | single item with related URIs |
 | `coverage` | query | mv_otakiage_items_by_state |
 
-Lexicon files: `00-contracts/lexicons/ai/gftd/apps/otakiage/`
+Lexicon files: `00-contracts/lexicons/com/etzhayyim/apps/otakiage/`
 
 ## Phase 2 — Conversational LangGraph Agent (2026-05-08)
 
-`app.etzhayyim.otakiage.agentChat` — kotodama persona、3 LLM call の StateGraph。
+`com.etzhayyim.otakiage.agentChat` — kotodama persona、3 LLM call の StateGraph。
 
 **Graph** `otakiage.agent.chat.v1` (`pymagatama/agents/otakiage_agent.py`):
 
@@ -162,7 +162,7 @@ issueCertificate → (auto-queue, non-fatal)
 
 | process_id | trigger | task chain |
 |---|---|---|
-| `otakiage_anchor_certificate` | XRPC `app.etzhayyim.otakiage.anchorCertificate` | `otakiage.certificate.anchor` (queue) → audit |
+| `otakiage_anchor_certificate` | XRPC `com.etzhayyim.otakiage.anchorCertificate` | `otakiage.certificate.anchor` (queue) → audit |
 | `otakiage_certificate_anchor_sweep` | R/PT1H | `otakiage.certificate.anchorSweep` (queued→submitted→anchored) → audit |
 
 ### Primitives
@@ -224,7 +224,7 @@ ritualized 時に発行:
 
 ```json
 {
-  "$type": "app.etzhayyim.otakiage.certificate",
+  "$type": "com.etzhayyim.otakiage.certificate",
   "ritualUri": "at://did:web:otakiage.etzhayyim.com:ritual/.../...",
   "itemUris": ["at://...", ...],
   "donorDids": ["did:web:alice.etzhayyim.com", ...],

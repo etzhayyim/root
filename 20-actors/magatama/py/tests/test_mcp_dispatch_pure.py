@@ -19,12 +19,12 @@ async def test_tools_call_routes_to_registered_handler():
         captured.update(kwargs)
         return {"signalCount": 3, "signals": [{"id": "s1"}]}
 
-    handlers = {"app.etzhayyim.apps.saikin.probeEnvironment": _fake}
+    handlers = {"com.etzhayyim.apps.saikin.probeEnvironment": _fake}
     status, body = await handle_envelope(
         {
             "method": "tools/call",
             "params": {
-                "name": "app.etzhayyim.apps.saikin.probeEnvironment",
+                "name": "com.etzhayyim.apps.saikin.probeEnvironment",
                 "arguments": {},
             },
         },
@@ -44,12 +44,12 @@ async def test_tools_call_passes_arguments_as_kwargs():
         assert kwargs == {"signalIds": ["s1", "s2", "s3"]}
         return {"colonyId": "c-42", "memberCount": 3}
 
-    handlers = {"app.etzhayyim.apps.saikin.formColony": _form_colony}
+    handlers = {"com.etzhayyim.apps.saikin.formColony": _form_colony}
     status, body = await handle_envelope(
         {
             "method": "tools/call",
             "params": {
-                "name": "app.etzhayyim.apps.saikin.formColony",
+                "name": "com.etzhayyim.apps.saikin.formColony",
                 "arguments": {"signalIds": ["s1", "s2", "s3"]},
             },
         },
@@ -65,7 +65,7 @@ async def test_unknown_nsid_returns_404():
     from pymagatama.mcp_dispatch import handle_envelope
 
     status, body = await handle_envelope(
-        {"method": "tools/call", "params": {"name": "app.etzhayyim.apps.unknown.thing"}},
+        {"method": "tools/call", "params": {"name": "com.etzhayyim.apps.unknown.thing"}},
         handlers={},
     )
 
@@ -106,12 +106,12 @@ async def test_unexpected_kwargs_become_400():
     async def _strict():  # accepts no kwargs at all
         return {"ok": True}
 
-    handlers = {"app.etzhayyim.apps.saikin.lyse": _strict}
+    handlers = {"com.etzhayyim.apps.saikin.lyse": _strict}
     status, body = await handle_envelope(
         {
             "method": "tools/call",
             "params": {
-                "name": "app.etzhayyim.apps.saikin.lyse",
+                "name": "com.etzhayyim.apps.saikin.lyse",
                 "arguments": {"signalId": "s1"},
             },
         },
@@ -119,7 +119,7 @@ async def test_unexpected_kwargs_become_400():
     )
 
     assert status == 400
-    assert "app.etzhayyim.apps.saikin.lyse" in body["error"]
+    assert "com.etzhayyim.apps.saikin.lyse" in body["error"]
 
 
 # ---------------------------------------------------------------------------
@@ -136,7 +136,7 @@ def test_camel_to_snake():
 
 
 def test_register_actor_by_convention_resolves_task_functions(monkeypatch):
-    """`app.etzhayyim.apps.{actor}.{method}` → `pymagatama.{actor}_worker_main:task_{snake}`."""
+    """`com.etzhayyim.apps.{actor}.{method}` → `pymagatama.{actor}_worker_main:task_{snake}`."""
     import sys
     import types
     from pymagatama.mcp_dispatch import register_actor_by_convention
@@ -153,11 +153,11 @@ def test_register_actor_by_convention_resolves_task_functions(monkeypatch):
     )
 
     assert set(handlers.keys()) == {
-        "app.etzhayyim.apps.fakeactor.doSomething",
-        "app.etzhayyim.apps.fakeactor.run",
+        "com.etzhayyim.apps.fakeactor.doSomething",
+        "com.etzhayyim.apps.fakeactor.run",
     }
-    assert handlers["app.etzhayyim.apps.fakeactor.doSomething"] is task_do_something
-    assert handlers["app.etzhayyim.apps.fakeactor.run"] is task_run
+    assert handlers["com.etzhayyim.apps.fakeactor.doSomething"] is task_do_something
+    assert handlers["com.etzhayyim.apps.fakeactor.run"] is task_run
 
 
 def test_register_actor_by_convention_module_missing_returns_empty(caplog):
@@ -190,8 +190,8 @@ def test_register_actor_by_convention_override_module_and_fn_template(monkeypatc
         fn_template="task_adsk_{snake}",
     )
 
-    assert list(handlers.keys()) == ["app.etzhayyim.apps.adsk.datasetIngestAll"]
-    assert handlers["app.etzhayyim.apps.adsk.datasetIngestAll"] is task_adsk_dataset_ingest_all
+    assert list(handlers.keys()) == ["com.etzhayyim.apps.adsk.datasetIngestAll"]
+    assert handlers["com.etzhayyim.apps.adsk.datasetIngestAll"] is task_adsk_dataset_ingest_all
 
 
 def test_register_actor_by_convention_missing_method_skipped(monkeypatch, caplog):
@@ -209,8 +209,8 @@ def test_register_actor_by_convention_missing_method_skipped(monkeypatch, caplog
     with caplog.at_level("WARNING", logger="mcp_dispatch"):
         handlers = register_actor_by_convention("partial", ["present", "missing"])
 
-    assert list(handlers.keys()) == ["app.etzhayyim.apps.partial.present"]
-    assert any("app.etzhayyim.apps.partial.missing" in r.message for r in caplog.records)
+    assert list(handlers.keys()) == ["com.etzhayyim.apps.partial.present"]
+    assert any("com.etzhayyim.apps.partial.missing" in r.message for r in caplog.records)
 
 
 # ---------------------------------------------------------------------------
@@ -255,7 +255,7 @@ async def test_task_echo_ignores_extra_kwargs():
 async def test_time_now_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.time.now" in handlers
+    assert "com.etzhayyim.tools.time.now" in handlers
 
 
 @pytest.mark.asyncio
@@ -297,7 +297,7 @@ async def test_time_now_invalid_format_returns_error():
 async def test_crypto_hash_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.crypto.hash" in handlers
+    assert "com.etzhayyim.tools.crypto.hash" in handlers
 
 
 @pytest.mark.asyncio
@@ -341,7 +341,7 @@ async def test_crypto_hash_missing_input():
 async def test_transform_map_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.transform.map" in handlers
+    assert "com.etzhayyim.tools.transform.map" in handlers
 
 
 @pytest.mark.asyncio
@@ -413,7 +413,7 @@ async def test_task_transform_map_required_fields():
 async def test_json_extract_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.json.extract" in handlers
+    assert "com.etzhayyim.tools.json.extract" in handlers
 
 
 @pytest.mark.asyncio
@@ -454,7 +454,7 @@ async def test_task_json_extract_errors():
 async def test_sql_exec_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.sql.exec" in handlers
+    assert "com.etzhayyim.tools.sql.exec" in handlers
 
 
 @pytest.mark.asyncio
@@ -512,7 +512,7 @@ async def test_task_sql_exec_executemany_path(monkeypatch):
 async def test_sql_insert_row_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.sql.insert_row" in handlers
+    assert "com.etzhayyim.tools.sql.insert_row" in handlers
 
 
 @pytest.mark.asyncio
@@ -616,11 +616,11 @@ async def test_sql_insert_row_derives_vertex_id_from_template(monkeypatch):
         row={"name": "alice"},
         vertex_id_template="at://{owner_did}/{collection}/{stamp}-{nanoid8}",
         owner_did="did:web:bpmn.etzhayyim.com",
-        collection="app.etzhayyim.apps.hr.event",
+        collection="com.etzhayyim.apps.hr.event",
     )
     assert out["ok"] is True
     vid = out["vertexId"]
-    # Shape: at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.hr.event/<14digits>-<8hex>
+    # Shape: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.hr.event/<14digits>-<8hex>
     assert _re.match(
         r"^at://did:web:bpmn\.gftd\.ai/ai\.gftd\.apps\.hr\.event/\d{14}-[0-9a-f]{8}$",
         vid,
@@ -660,7 +660,7 @@ async def test_sql_insert_row_existing_vertex_id_not_overwritten(monkeypatch):
 async def test_http_fetch_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.http.fetch" in handlers
+    assert "com.etzhayyim.tools.http.fetch" in handlers
 
 
 @pytest.mark.asyncio
@@ -712,7 +712,7 @@ async def test_task_http_fetch_returns_envelope(monkeypatch):
 async def test_sql_query_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.sql.query" in handlers
+    assert "com.etzhayyim.tools.sql.query" in handlers
 
 
 @pytest.mark.asyncio
@@ -798,7 +798,7 @@ async def test_task_sql_query_threads_extra_kwargs_into_params(monkeypatch):
 async def test_llm_chat_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.llm.chat" in handlers
+    assert "com.etzhayyim.tools.llm.chat" in handlers
 
 
 @pytest.mark.asyncio
@@ -914,7 +914,7 @@ async def test_task_llm_chat_user_takes_precedence_over_template(monkeypatch):
 async def test_audit_emit_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.audit.emit" in handlers
+    assert "com.etzhayyim.tools.audit.emit" in handlers
 
 
 @pytest.mark.asyncio
@@ -951,18 +951,18 @@ async def test_task_audit_emit_returns_vertex_id_and_rkey(monkeypatch):
 
     out = await mod.task_audit_emit(
         repo="did:web:shosha.etzhayyim.com",
-        collection="app.etzhayyim.apps.shosha.audit",
+        collection="com.etzhayyim.apps.shosha.audit",
         rkey="r-123",
         action="ingest",
         recordJson={"foo": 1},
     )
 
-    assert out["vertexId"] == "did:web:shosha.etzhayyim.com:app.etzhayyim.apps.shosha.audit:r-123:ingest"
+    assert out["vertexId"] == "did:web:shosha.etzhayyim.com:com.etzhayyim.apps.shosha.audit:r-123:ingest"
     assert out["rkey"] == "r-123"
     assert "error" not in out
     # SQL params order: vertex_id, repo, collection, rkey, action, ts_ms, record_json
     assert captured["params"][1] == "did:web:shosha.etzhayyim.com"
-    assert captured["params"][2] == "app.etzhayyim.apps.shosha.audit"
+    assert captured["params"][2] == "com.etzhayyim.apps.shosha.audit"
     assert captured["params"][6] == '{"foo":1}'
 
 
@@ -970,7 +970,7 @@ async def test_task_audit_emit_returns_vertex_id_and_rkey(monkeypatch):
 async def test_const_echo_registered_in_default_handlers():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.tools.const.echo" in handlers
+    assert "com.etzhayyim.tools.const.echo" in handlers
 
 
 @pytest.mark.asyncio
@@ -981,14 +981,14 @@ async def test_yoro_canonical_actor_registers_all_methods():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
     expected = {
-        "app.etzhayyim.apps.yoro.socialPostGraphFallback",
-        "app.etzhayyim.apps.yoro.socialPlatformPulseGraphFallback",
-        "app.etzhayyim.apps.yoro.socialRespondToMentionGraphFallback",
-        "app.etzhayyim.apps.yoro.socialRespondToFollowGraphFallback",
-        "app.etzhayyim.apps.yoro.actorQualityInspect",
-        "app.etzhayyim.apps.yoro.actorQualityVerify",
-        "app.etzhayyim.apps.yoro.actorQualityEnrichProfile",
-        "app.etzhayyim.apps.yoro.actorQualityEnsureSeedPost",
+        "com.etzhayyim.apps.yoro.socialPostGraphFallback",
+        "com.etzhayyim.apps.yoro.socialPlatformPulseGraphFallback",
+        "com.etzhayyim.apps.yoro.socialRespondToMentionGraphFallback",
+        "com.etzhayyim.apps.yoro.socialRespondToFollowGraphFallback",
+        "com.etzhayyim.apps.yoro.actorQualityInspect",
+        "com.etzhayyim.apps.yoro.actorQualityVerify",
+        "com.etzhayyim.apps.yoro.actorQualityEnrichProfile",
+        "com.etzhayyim.apps.yoro.actorQualityEnsureSeedPost",
     }
     missing = expected - set(handlers.keys())
     assert not missing, f"yoro methods missing: {sorted(missing)}"
@@ -1001,7 +1001,7 @@ async def test_wellbecoming_process_mining_recovered():
     mapping is the right tool."""
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
-    assert "app.etzhayyim.apps.wellbecoming.processMiningAnalyze" in handlers
+    assert "com.etzhayyim.apps.wellbecoming.processMiningAnalyze" in handlers
 
 
 @pytest.mark.asyncio
@@ -1017,34 +1017,34 @@ async def test_full_dispatcher_inventory_iter43():
     counts = Counter(k.rsplit(".", 1)[0] for k in handlers)
 
     expected = {
-        # actor namespace (app.etzhayyim.apps.<actor>) → method count
-        "app.etzhayyim.apps.adsk":           1,
-        "app.etzhayyim.apps.agentEconomy":   9,
-        "app.etzhayyim.apps.aria":           8,
-        "app.etzhayyim.apps.coverageGap":    5,
-        "app.etzhayyim.apps.isbn":           6,
-        "app.etzhayyim.apps.ki":             4,
-        "app.etzhayyim.apps.koke":           5,
-        "app.etzhayyim.apps.onion":          2,
-        "app.etzhayyim.apps.osMessaging":    2,
-        "app.etzhayyim.apps.patent":         3,
-        "app.etzhayyim.apps.publicMalakAds": 5,
-        "app.etzhayyim.apps.saikin":         5,
-        "app.etzhayyim.apps.shinka":         5,
-        "app.etzhayyim.apps.shinshi":        3,
-        "app.etzhayyim.apps.shosha":         18,
-        "app.etzhayyim.apps.wellbecoming":   11,
-        "app.etzhayyim.apps.yoro":           8,
-        # generic tool primitives (app.etzhayyim.tools.*) — 1 each
-        "app.etzhayyim.tools.audit":         1,
-        "app.etzhayyim.tools.const":         1,
-        "app.etzhayyim.tools.llm":           1,
-        "app.etzhayyim.tools.sql":           3,
-        "app.etzhayyim.tools.http":          1,
-        "app.etzhayyim.tools.json":          1,
-        "app.etzhayyim.tools.transform":     1,
-        "app.etzhayyim.tools.time":          1,
-        "app.etzhayyim.tools.crypto":        1,
+        # actor namespace (com.etzhayyim.apps.<actor>) → method count
+        "com.etzhayyim.apps.adsk":           1,
+        "com.etzhayyim.apps.agentEconomy":   9,
+        "com.etzhayyim.apps.aria":           8,
+        "com.etzhayyim.apps.coverageGap":    5,
+        "com.etzhayyim.apps.isbn":           6,
+        "com.etzhayyim.apps.ki":             4,
+        "com.etzhayyim.apps.koke":           5,
+        "com.etzhayyim.apps.onion":          2,
+        "com.etzhayyim.apps.osMessaging":    2,
+        "com.etzhayyim.apps.patent":         3,
+        "com.etzhayyim.apps.publicMalakAds": 5,
+        "com.etzhayyim.apps.saikin":         5,
+        "com.etzhayyim.apps.shinka":         5,
+        "com.etzhayyim.apps.shinshi":        3,
+        "com.etzhayyim.apps.shosha":         18,
+        "com.etzhayyim.apps.wellbecoming":   11,
+        "com.etzhayyim.apps.yoro":           8,
+        # generic tool primitives (com.etzhayyim.tools.*) — 1 each
+        "com.etzhayyim.tools.audit":         1,
+        "com.etzhayyim.tools.const":         1,
+        "com.etzhayyim.tools.llm":           1,
+        "com.etzhayyim.tools.sql":           3,
+        "com.etzhayyim.tools.http":          1,
+        "com.etzhayyim.tools.json":          1,
+        "com.etzhayyim.tools.transform":     1,
+        "com.etzhayyim.tools.time":          1,
+        "com.etzhayyim.tools.crypto":        1,
     }
 
     drops = []
@@ -1085,13 +1085,13 @@ async def test_phase_a_standalone_actors_registered():
     handlers = build_default_handlers()
     counts = Counter(k.rsplit(".", 1)[0] for k in handlers)
     expected = {
-        "app.etzhayyim.apps.agentEconomy": 9,
-        "app.etzhayyim.apps.coverageGap": 5,
-        "app.etzhayyim.apps.onion": 2,
-        "app.etzhayyim.apps.osMessaging": 2,
-        "app.etzhayyim.apps.patent": 3,
-        "app.etzhayyim.apps.publicMalakAds": 5,
-        "app.etzhayyim.apps.shinshi": 3,
+        "com.etzhayyim.apps.agentEconomy": 9,
+        "com.etzhayyim.apps.coverageGap": 5,
+        "com.etzhayyim.apps.onion": 2,
+        "com.etzhayyim.apps.osMessaging": 2,
+        "com.etzhayyim.apps.patent": 3,
+        "com.etzhayyim.apps.publicMalakAds": 5,
+        "com.etzhayyim.apps.shinshi": 3,
     }
     for nsidPrefix, expectedCount in expected.items():
         actual = counts.get(nsidPrefix, 0)
@@ -1110,16 +1110,16 @@ async def test_wellbecoming_canonical_actor_via_mapping():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
     expected = {
-        "app.etzhayyim.apps.wellbecoming.agentLoop",
-        "app.etzhayyim.apps.wellbecoming.bottleneckDetect",
-        "app.etzhayyim.apps.wellbecoming.proactiveConnect",
-        "app.etzhayyim.apps.wellbecoming.floorCheck",
-        "app.etzhayyim.apps.wellbecoming.floorAlert",
-        "app.etzhayyim.apps.wellbecoming.minimaxSweep",
-        "app.etzhayyim.apps.wellbecoming.beliefInfluencePropagate",
-        "app.etzhayyim.apps.wellbecoming.beliefNoiseInject",
-        "app.etzhayyim.apps.wellbecoming.beliefRestoringCapture",
-        "app.etzhayyim.apps.wellbecoming.trustWeightUpdate",
+        "com.etzhayyim.apps.wellbecoming.agentLoop",
+        "com.etzhayyim.apps.wellbecoming.bottleneckDetect",
+        "com.etzhayyim.apps.wellbecoming.proactiveConnect",
+        "com.etzhayyim.apps.wellbecoming.floorCheck",
+        "com.etzhayyim.apps.wellbecoming.floorAlert",
+        "com.etzhayyim.apps.wellbecoming.minimaxSweep",
+        "com.etzhayyim.apps.wellbecoming.beliefInfluencePropagate",
+        "com.etzhayyim.apps.wellbecoming.beliefNoiseInject",
+        "com.etzhayyim.apps.wellbecoming.beliefRestoringCapture",
+        "com.etzhayyim.apps.wellbecoming.trustWeightUpdate",
     }
     missing = expected - set(handlers.keys())
     assert not missing, f"wellbecoming methods missing: {sorted(missing)}"
@@ -1139,12 +1139,12 @@ async def test_isbn_canonical_actor_registers_all_methods():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
     expected = {
-        "app.etzhayyim.apps.isbn.aozoraIngest",
-        "app.etzhayyim.apps.isbn.gutenbergIngest",
-        "app.etzhayyim.apps.isbn.ndlIngest",
-        "app.etzhayyim.apps.isbn.hathitrustIngest",
-        "app.etzhayyim.apps.isbn.internetArchiveIngest",
-        "app.etzhayyim.apps.isbn.openLibraryIngest",
+        "com.etzhayyim.apps.isbn.aozoraIngest",
+        "com.etzhayyim.apps.isbn.gutenbergIngest",
+        "com.etzhayyim.apps.isbn.ndlIngest",
+        "com.etzhayyim.apps.isbn.hathitrustIngest",
+        "com.etzhayyim.apps.isbn.internetArchiveIngest",
+        "com.etzhayyim.apps.isbn.openLibraryIngest",
     }
     missing = expected - set(handlers.keys())
     assert not missing, f"isbn methods missing: {sorted(missing)}"
@@ -1159,24 +1159,24 @@ async def test_shosha_canonical_actor_registers_all_methods():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
     expected = {
-        "app.etzhayyim.apps.shosha.intelIngestPrices",
-        "app.etzhayyim.apps.shosha.intelIngestFreight",
-        "app.etzhayyim.apps.shosha.marketViewSynth",
-        "app.etzhayyim.apps.shosha.sanctionsRefreshOfac",
-        "app.etzhayyim.apps.shosha.sanctionsRefreshUn",
-        "app.etzhayyim.apps.shosha.complySanctionsCheck",
-        "app.etzhayyim.apps.shosha.tradeSubmit",
-        "app.etzhayyim.apps.shosha.exposureRecompute",
-        "app.etzhayyim.apps.shosha.pnlDailyRecompute",
-        "app.etzhayyim.apps.shosha.tradeSynth",
-        "app.etzhayyim.apps.shosha.tradeSettle",
-        "app.etzhayyim.apps.shosha.tradeApprove",
-        "app.etzhayyim.apps.shosha.tradeReject",
-        "app.etzhayyim.apps.shosha.hedgePropose",
-        "app.etzhayyim.apps.shosha.dailyReportCompose",
-        "app.etzhayyim.apps.shosha.agentChat",
-        "app.etzhayyim.apps.shosha.reactiveScanUpstream",
-        "app.etzhayyim.apps.shosha.coverageSnapshot",
+        "com.etzhayyim.apps.shosha.intelIngestPrices",
+        "com.etzhayyim.apps.shosha.intelIngestFreight",
+        "com.etzhayyim.apps.shosha.marketViewSynth",
+        "com.etzhayyim.apps.shosha.sanctionsRefreshOfac",
+        "com.etzhayyim.apps.shosha.sanctionsRefreshUn",
+        "com.etzhayyim.apps.shosha.complySanctionsCheck",
+        "com.etzhayyim.apps.shosha.tradeSubmit",
+        "com.etzhayyim.apps.shosha.exposureRecompute",
+        "com.etzhayyim.apps.shosha.pnlDailyRecompute",
+        "com.etzhayyim.apps.shosha.tradeSynth",
+        "com.etzhayyim.apps.shosha.tradeSettle",
+        "com.etzhayyim.apps.shosha.tradeApprove",
+        "com.etzhayyim.apps.shosha.tradeReject",
+        "com.etzhayyim.apps.shosha.hedgePropose",
+        "com.etzhayyim.apps.shosha.dailyReportCompose",
+        "com.etzhayyim.apps.shosha.agentChat",
+        "com.etzhayyim.apps.shosha.reactiveScanUpstream",
+        "com.etzhayyim.apps.shosha.coverageSnapshot",
     }
     missing = expected - set(handlers.keys())
     assert not missing, (
@@ -1193,14 +1193,14 @@ async def test_aria_canonical_actor_registers_all_methods():
     from pymagatama.mcp_dispatch import build_default_handlers
     handlers = build_default_handlers()
     expected = {
-        "app.etzhayyim.apps.aria.attentionIngest",
-        "app.etzhayyim.apps.aria.emotionIngest",
-        "app.etzhayyim.apps.aria.influenceIngest",
-        "app.etzhayyim.apps.aria.marketDeltaIngest",
-        "app.etzhayyim.apps.aria.minimaxSweep",
-        "app.etzhayyim.apps.aria.moneyFlowIngest",
-        "app.etzhayyim.apps.aria.requestIngest",
-        "app.etzhayyim.apps.aria.reverseTopoReplan",
+        "com.etzhayyim.apps.aria.attentionIngest",
+        "com.etzhayyim.apps.aria.emotionIngest",
+        "com.etzhayyim.apps.aria.influenceIngest",
+        "com.etzhayyim.apps.aria.marketDeltaIngest",
+        "com.etzhayyim.apps.aria.minimaxSweep",
+        "com.etzhayyim.apps.aria.moneyFlowIngest",
+        "com.etzhayyim.apps.aria.requestIngest",
+        "com.etzhayyim.apps.aria.reverseTopoReplan",
     }
     missing = expected - set(handlers.keys())
     assert not missing, (
@@ -1216,11 +1216,11 @@ async def test_handler_must_return_dict():
     async def _bad(**_):
         return ["not", "a", "dict"]  # type: ignore[return-value]
 
-    handlers = {"app.etzhayyim.apps.saikin.probeEnvironment": _bad}
+    handlers = {"com.etzhayyim.apps.saikin.probeEnvironment": _bad}
     status, body = await handle_envelope(
         {
             "method": "tools/call",
-            "params": {"name": "app.etzhayyim.apps.saikin.probeEnvironment", "arguments": {}},
+            "params": {"name": "com.etzhayyim.apps.saikin.probeEnvironment", "arguments": {}},
         },
         handlers,
     )

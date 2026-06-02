@@ -46,7 +46,7 @@ Per ADR-2605202800:
    create order (escrow_intent)
      │
      └─► openIntent()
-           writes app.etzhayyim.apps.payment.escrowOpened
+           writes com.etzhayyim.apps.payment.escrowOpened
            safeAddress / arbiter = 0x0...0 placeholder (SDK v0.1)
            NO on-chain USDC transfer
            returns escrowIntentUri
@@ -60,7 +60,7 @@ Per ADR-2605202800:
            │
            └─► settleEscrow()  →  SDK pay()
                  USDC.transfer to manufacturer wallet on Base L2
-                 writes app.etzhayyim.apps.payment.sent (auto by SDK)
+                 writes com.etzhayyim.apps.payment.sent (auto by SDK)
                  returns paymentSentUri + txHash
                  │
                  └─► markOrderPassed()
@@ -71,7 +71,7 @@ Per ADR-2605202800:
    cancel before delivery (slice 1)
      │
      └─► refundIntent()
-           writes app.etzhayyim.apps.payment.escrowRefunded
+           writes com.etzhayyim.apps.payment.escrowRefunded
            NO on-chain tx (USDC was never moved)
            returns escrowRefundUri
            │

@@ -85,7 +85,7 @@ GeoJSON properties:
   - `GET /api/land-owners/records?country=&region=&owner_type=&limit=&cursor=`
   - `GET /api/map/geojson?country=&region=&owner_type=&bbox=&zoom=`
 - 新規推奨（フロント向け）:
-  - XRPC `app.etzhayyim.apps.jinushi.listMapFeatures`
+  - XRPC `com.etzhayyim.apps.jinushi.listMapFeatures`
 
 ## 6. maps.etzhayyim.com 統合
 - maps backend (`maps-ui-uqpel6i6/main.go`) に `searchWithLandOwners` を追加。

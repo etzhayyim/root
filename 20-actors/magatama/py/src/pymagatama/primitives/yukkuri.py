@@ -35,11 +35,11 @@ from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives.yoro_social import build_repo_record, insert_social_post_record
 
 DEFAULT_REPO = "did:web:y5kk5r1x.etzhayyim.com"
-COLLECTION_VIDEO = "app.etzhayyim.apps.yukkuri.video"
-COLLECTION_SCENE = "app.etzhayyim.apps.yukkuri.scene"
-COLLECTION_LINE = "app.etzhayyim.apps.yukkuri.line"
-COLLECTION_ASSET = "app.etzhayyim.apps.yukkuri.asset"
-COLLECTION_GENERATION = "app.etzhayyim.apps.yukkuri.generation"
+COLLECTION_VIDEO = "com.etzhayyim.apps.yukkuri.video"
+COLLECTION_SCENE = "com.etzhayyim.apps.yukkuri.scene"
+COLLECTION_LINE = "com.etzhayyim.apps.yukkuri.line"
+COLLECTION_ASSET = "com.etzhayyim.apps.yukkuri.asset"
+COLLECTION_GENERATION = "com.etzhayyim.apps.yukkuri.generation"
 
 PATH_SCRIPTWRITER = "did:web:yukkuri.etzhayyim.com:actor:scriptwriter"
 

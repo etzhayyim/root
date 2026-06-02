@@ -10,7 +10,7 @@ This is not a government production system and does not contain private J-LIS, D
 |---|---|---|
 | Spec (`CLAUDE.md`, project dir) | absent | **present** (this dir) |
 | Worker / BPMN / DMN / forms / lg / ingest pipeline | absent | **present** (`bpmn/`, `dmn/`, `forms/`, `lg/`, `worker/`, `ingest/`) |
-| Lexicons (`openJpnMynumber/health.json`) | present (1 file) → mirrored | **present** (`00-contracts/lexicons/ai/gftd/apps/openJpnMynumber/`) |
+| Lexicons (`openJpnMynumber/health.json`) | present (1 file) → mirrored | **present** (`00-contracts/lexicons/com/etzhayyim/apps/openJpnMynumber/`) |
 | Corpus blobs (923 files, ~177 MB on disk; ~280 MB before pruning) | **present** (`data/ingest/`) — kept per Option A | absent (read-fresh from gov sources) |
 | `corpus.sqlite3` / `corpus.jsonl` / `manifest.json` | present | absent |
 

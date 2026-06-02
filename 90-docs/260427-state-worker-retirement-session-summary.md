@@ -40,8 +40,8 @@ workers, RisingWave, and B2 evidence instead.
 ZAF replacement path:
 
 - Python Zeebe worker module: `pymagatama.primitives.gov_zaf`.
-- BPMN contracts: `etzhayyim-root/00-contracts/bpmn/ai/gftd/govZaf/*.bpmn`.
-- Lexicons: `00-contracts/lexicons/ai/gftd/govZaf/*.json`.
+- BPMN contracts: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/govZaf/*.bpmn`.
+- Lexicons: `00-contracts/lexicons/com/etzhayyim/govZaf/*.json`.
 - Registry migration:
   `30-graph/graph-schema/migrations/20260426230000_seed_gov_zaf_bpmn_mcp_registry.ts`.
 - Official-source coverage migration:
@@ -127,8 +127,8 @@ Official-source anchors selected for AGO:
 Implementation started:
 
 - Python Zeebe worker module: `pymagatama.primitives.gov_ago`.
-- BPMN contracts: `etzhayyim-root/00-contracts/bpmn/ai/gftd/govAgo/*.bpmn`.
-- Lexicons: `00-contracts/lexicons/ai/gftd/govAgo/*.json`.
+- BPMN contracts: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/govAgo/*.bpmn`.
+- Lexicons: `00-contracts/lexicons/com/etzhayyim/govAgo/*.json`.
 - Registry migration:
   `30-graph/graph-schema/migrations/20260427113000_seed_gov_ago_bpmn_mcp_registry.ts`.
 - Official-source coverage placeholder migration:

@@ -13,7 +13,7 @@ priority_note: "Seventh-priority gap-closure actor (gap audit row 7 = 共済 / m
 authoritative_for:
   - wakai actor R0 charter
   - religious-corp mutual aid substrate single SoT
-  - `app.etzhayyim.wakai.*` Lexicon namespace boundary
+  - `com.etzhayyim.wakai.*` Lexicon namespace boundary
   - NOT-insurance invariant (no premium / no actuarial / no claim denial)
   - prohibition on commercial insurance software (Guidewire / Duck Creek / Insurity / Sapiens / Majesco / SAP Insurance / Oracle Insurance / Lemonade / Hippo as vendor)
   - prohibition on commercial re-insurance (Munich Re / Swiss Re / SCOR / Hannover Re / Berkshire Hathaway Re)
@@ -103,7 +103,7 @@ Constitutional constraints (inherited; not adjustable):
 
 Create `wakai` (和会) as a Tier-B religious-corp mutual aid substrate
 actor at `20-actors/wakai/`, with DID `did:web:wakai.etzhayyim.com`,
-Lexicon namespace `app.etzhayyim.wakai.*`. R0 = scaffold only; all
+Lexicon namespace `com.etzhayyim.wakai.*`. R0 = scaffold only; all
 cells import-time `RuntimeError`.
 
 ## §1. Identity and naming
@@ -112,7 +112,7 @@ cells import-time `RuntimeError`.
 |---|---|
 | Name | `wakai` (和会 — harmony/reconciliation gathering; classical 互助会 mutual aid society) |
 | DID | `did:web:wakai.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.wakai.*` |
+| Lexicon root | `com.etzhayyim.wakai.*` |
 | Form | 任意団体 internal mutual aid substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格; NOT a state-licensed insurance entity — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | NOT-insurance invariant | No premium-as-contract / no actuarial pricing / no claim adjudication / no policy denial / no investment return promise |
@@ -185,7 +185,7 @@ R1 activation gates each cell separately + initial pool seed (Public
 Fund seed grant Council Lv6+ ≥4/7) + ≥3 community discernment
 witness candidates on file.
 
-## §4. Lexicons (5, all under `app.etzhayyim.wakai.*`)
+## §4. Lexicons (5, all under `com.etzhayyim.wakai.*`)
 
 | # | Lexicon | Consumer cell | Description |
 |---|---|---|---|
@@ -200,7 +200,7 @@ witness candidates on file.
 | Gate | Description |
 |---|---|
 | **G1** | Every wakai document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `app.etzhayyim.wakai.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.wakai.*` Lexicon with yatachain attestation lineage. |
 | **G3** | **NOT insurance** — no premium-as-contract; no actuarial pricing; no claim adjudication; no policy denial; no underwriting. |
 | **G4** | **NO commercial insurance software** — Guidewire / Duck Creek / Insurity / Sapiens / Majesco / SAP Insurance / Oracle Insurance / Lemonade-as-vendor / Hippo-as-vendor PROHIBITED per Charter Rider §2(e) + §2(c). |
 | **G5** | **NO commercial re-insurance** — Munich Re / Swiss Re / SCOR / Hannover Re / Berkshire Hathaway Re PROHIBITED; risk stays in community; Public Fund backstop is the only escalation. |
@@ -256,7 +256,7 @@ witness candidates on file.
 
 1. This ADR (`90-docs/adr/2605263500-wakai-mutual-aid-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/wakai/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/wakai/` + README;
+3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/wakai/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 74 + Repo Layout entry.

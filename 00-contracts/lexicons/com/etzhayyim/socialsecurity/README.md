@@ -1,4 +1,4 @@
-# app.etzhayyim.socialsecurity.* — §1.16 Social Security delivery lexicons
+# com.etzhayyim.socialsecurity.* — §1.16 Social Security delivery lexicons
 
 Lexicons for the real-world delivery & outreach pipeline of Charter §1.16 (人類の社会保障).
 
@@ -7,11 +7,11 @@ Lexicons for the real-world delivery & outreach pipeline of Charter §1.16 (人�
 
 | NSID | Pipeline stage | Role |
 |---|---|---|
-| `app.etzhayyim.membership.commitmentVow` | 1 VOW | triple-permanent commitment record (kotoba + IPFS + SBT); PII-free |
-| `app.etzhayyim.socialsecurity.entitlement` | 2 COMPUTE | per-member in-kind entitlement; cash≡0 (N1); private/own-data |
-| `app.etzhayyim.socialsecurity.metricReport` | 4 PUBLISH | aggregate-only social-security metric (G12 anti-class) |
-| `app.etzhayyim.socialsecurity.outreachPost` | 0 / 5 OUTREACH/SOCIAL | invitation + transparency posts; ad-free/no-tracker (G7) |
-| `app.etzhayyim.socialsecurity.noticeEmail` | 3 NOTIFY | openmail send record; opt-in/non-vexatious (G5), PII via envelope (G6) |
+| `com.etzhayyim.membership.commitmentVow` | 1 VOW | triple-permanent commitment record (kotoba + IPFS + SBT); PII-free |
+| `com.etzhayyim.socialsecurity.entitlement` | 2 COMPUTE | per-member in-kind entitlement; cash≡0 (N1); private/own-data |
+| `com.etzhayyim.socialsecurity.metricReport` | 4 PUBLISH | aggregate-only social-security metric (G12 anti-class) |
+| `com.etzhayyim.socialsecurity.outreachPost` | 0 / 5 OUTREACH/SOCIAL | invitation + transparency posts; ad-free/no-tracker (G7) |
+| `com.etzhayyim.socialsecurity.noticeEmail` | 3 NOTIFY | openmail send record; opt-in/non-vexatious (G5), PII via envelope (G6) |
 
 ## Invariants enforced at the schema layer (`const` fields)
 

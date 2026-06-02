@@ -9,7 +9,7 @@ last_verified: 2026-05-30
 priority: 6.5
 axis: architecture
 weight: 0.62
-priority_note: "Records the decision + live verification that the legal-services constitutional gates execute as WASM Component guests INSIDE the kotoba node (wasm32-wasip2 WasmExecutor), not as external Cloudflare Workers. Two guests: chigiri-legal-aid-guest (G14/G15/G16 intake gate) + chigiri-legal-comms-guest (G18 counsel-actuation gate). Both compiled with cargo-component, content-addressed in kotoba via block.put, and invoked via ai.gftd.apps.kotoba.invoke.run (program_type=wasm-node) under an operator JWT. Gate violations are blocked server-side (assert_count=0); valid invocations journal the matter/legal-act quad (gas-metered execution + content-addressed JournalEntry). Documents the request surfaces (HTTP XRPC / MCP kotoba_wasm_run / QUIC libp2p mesh propagation), the Python-guest blocker (wasmtime 22 extended-const) that forced the Rust path, and the relationship to the now-superseded CF Worker gate logic (CF retained only as optional HTTP front-door + downstream egress transport). Stored program CIDs recorded for reproducibility."
+priority_note: "Records the decision + live verification that the legal-services constitutional gates execute as WASM Component guests INSIDE the kotoba node (wasm32-wasip2 WasmExecutor), not as external Cloudflare Workers. Two guests: chigiri-legal-aid-guest (G14/G15/G16 intake gate) + chigiri-legal-comms-guest (G18 counsel-actuation gate). Both compiled with cargo-component, content-addressed in kotoba via block.put, and invoked via com.etzhayyim.apps.kotoba.invoke.run (program_type=wasm-node) under an operator JWT. Gate violations are blocked server-side (assert_count=0); valid invocations journal the matter/legal-act quad (gas-metered execution + content-addressed JournalEntry). Documents the request surfaces (HTTP XRPC / MCP kotoba_wasm_run / QUIC libp2p mesh propagation), the Python-guest blocker (wasmtime 22 extended-const) that forced the Rust path, and the relationship to the now-superseded CF Worker gate logic (CF retained only as optional HTTP front-door + downstream egress transport). Stored program CIDs recorded for reproducibility."
 authoritative_for:
   - legal-services in-node kotoba WASM deployment decision
   - chigiri-legal-aid-guest + chigiri-legal-comms-guest program manifests + CIDs
@@ -53,8 +53,8 @@ node**, compiled with `cargo-component` to `wasm32-wasip2`. Two guests:
 
 | guest | crate | gates | on pass |
 |---|---|---|---|
-| chigiri-legal-aid-guest | `40-engine/legal-aid-wasm-guest/` | G14 (no advice) · G15 (zero compensation) · G16 (in-jurisdiction Public-Fund counsel; AT/US-state `verify-required` rejected) | `kqe.assert-quad app.etzhayyim.chigiri/legalAidMatter` + `kse.publish …/legalAid/counsel-assigned` |
-| chigiri-legal-comms-guest | `40-engine/legal-comms-wasm-guest/` | G18 (counselActuation: counsel DID + own signature + license == destination jurisdiction) | `kqe.assert-quad app.etzhayyim.legal/outboundLegalAct` + `kse.publish …/legalAct/authorized` |
+| chigiri-legal-aid-guest | `40-engine/legal-aid-wasm-guest/` | G14 (no advice) · G15 (zero compensation) · G16 (in-jurisdiction Public-Fund counsel; AT/US-state `verify-required` rejected) | `kqe.assert-quad com.etzhayyim.chigiri/legalAidMatter` + `kse.publish …/legalAid/counsel-assigned` |
+| chigiri-legal-comms-guest | `40-engine/legal-comms-wasm-guest/` | G18 (counselActuation: counsel DID + own signature + license == destination jurisdiction) | `kqe.assert-quad com.etzhayyim.legal/outboundLegalAct` + `kse.publish …/legalAct/authorized` |
 
 ## D1. Content-addressed program storage
 
@@ -66,7 +66,7 @@ Each guest's `.wasm` is stored in kotoba via `block.put` and addressed by CID
 
 ## D2. Request surfaces
 
-- **HTTP XRPC** (primary): `POST /xrpc/ai.gftd.apps.kotoba.invoke.run`
+- **HTTP XRPC** (primary): `POST /xrpc/com.etzhayyim.apps.kotoba.invoke.run`
   `{program_type:"wasm-node", wasm_b64, ctx_b64, agent_did}` under an **operator JWT**
   (`require_operator_auth`: `sub == operator_did`, exp checked, signature not verified).
   `ctx_b64` is the CBOR `InvokeContext{graph, session_cid, args_cbor}`; the host passes it

@@ -1,4 +1,4 @@
-# app.etzhayyim.toritate.* — toritate (執帳) Lexicons
+# com.etzhayyim.toritate.* — toritate (執帳) Lexicons
 
 **Owner actor**: `did:web:toritate.etzhayyim.com` (`20-actors/toritate/`)
 **ADR**: ADR-2605262900 (R0 scaffold)

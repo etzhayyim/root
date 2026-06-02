@@ -29,7 +29,7 @@ gated R3 exception (parallels toritsugi G15).
 
 ## The coded participation-target registry
 
-Each target is an `app.etzhayyim.moushibumi.participationTarget` record holding
+Each target is an `com.etzhayyim.moushibumi.participationTarget` record holding
 the **organ (議会 / 行政機関 / 選管) / channel / 根拠法令 / 提出様式 / 期限 /
 紹介議員-required flag** so a cell can route + (eventually) file procedurally.
 
@@ -78,7 +78,7 @@ mass-filing tool · NOT an oversight actor (that's danjo).
 - **danjo** (ADR-2605301600): opposite posture (watches output vs conveys input).
 - **himotoki** (ADR-2605302130): sibling — 開示請求 (data out) vs 請願/意見 (voice in).
 - **toritsugi** (ADR-2605312030): sibling — procedures vs participation.
-- **`app.etzhayyim.encrypted.*`** (ADR-2605181100): only home for member PII + opinion.
+- **`com.etzhayyim.encrypted.*`** (ADR-2605181100): only home for member PII + opinion.
 
 ## Roadmap
 
@@ -88,5 +88,5 @@ gated 代行.
 ## References
 
 - ADR: [`/90-docs/adr/2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0.md`](/90-docs/adr/2605312400-moushibumi-democratic-participation-concierge-tier-b-actor-r0.md)
-- Lexicons: [`/00-contracts/lexicons/app/etzhayyim/moushibumi/`](/00-contracts/lexicons/app/etzhayyim/moushibumi/)
+- Lexicons: [`/00-contracts/lexicons/com/etzhayyim/moushibumi/`](/00-contracts/lexicons/com/etzhayyim/moushibumi/)
 - Charter Rider: [`/CHARTER-RIDER.md`](/CHARTER-RIDER.md)

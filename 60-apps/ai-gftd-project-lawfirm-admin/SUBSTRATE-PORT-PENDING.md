@@ -9,12 +9,12 @@
 ## What's done (2026-05-24 substrate-port wave)
 
 - Surprise audit finding: this app is a **thin-edge proxy** with no Kysely / HyperDrive usage. Substrate-port is correspondingly simple — no MST rewrite needed.
-- `src/app.ts` — `ACTOR_DID` etzhayyim.com → etzhayyim.com; `NSID_PREFIX` `app.etzhayyim.apps.lawfirmAdmin.` → `app.etzhayyim.lawfirmAdmin.`; dispatcher default URL etzhayyim.com → etzhayyim.com.
+- `src/app.ts` — `ACTOR_DID` etzhayyim.com → etzhayyim.com; `NSID_PREFIX` `com.etzhayyim.apps.lawfirmAdmin.` → `com.etzhayyim.lawfirmAdmin.`; dispatcher default URL etzhayyim.com → etzhayyim.com.
 
 ## Substrate violations remaining (ADR-2605172000 / 2605172100 boundary)
 
 1. ~~`src/app.ts` — DID / NSID / dispatcher URL rename.~~ **DONE 2026-05-24.**
-2. `svelte/src/routes/xrpc/[...path]/+server.ts` — forwards to `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` → re-target to `mcp.etzhayyim.com` (same pattern as gov-mcp-component port).
+2. `svelte/src/routes/xrpc/[...path]/+server.ts` — forwards to `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message` → re-target to `mcp.etzhayyim.com` (same pattern as gov-mcp-component port).
 3. ~~Kysely / HyperDrive references.~~ **N/A — never present in this app.**
 4. ~~Lexicon namespace rename.~~ **DONE 2026-05-24** (NSID_PREFIX cutover in `src/app.ts`).
 5. Package name `@etzhayyim/magatama-*` → `@etzhayyim/magatama-*` (ADR-2605214000 atomic cutover — still pending).

@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.worlds.create.scene")
+    @worker.task(task_type="com.etzhayyim.apps.worlds.create.scene")
     async def task_create_scene(**kwargs):
         name = kwargs.get("name", "")
         scene_type = kwargs.get("sceneType", "room")
@@ -47,7 +47,7 @@ async def run_worker():
 
         return {"sceneId": scene_id, "status": "draft"}
 
-    @worker.task(task_type="app.etzhayyim.apps.worlds.list.scenes")
+    @worker.task(task_type="com.etzhayyim.apps.worlds.list.scenes")
     async def task_list_scenes(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -62,7 +62,7 @@ async def run_worker():
 
         return {"scenes": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="app.etzhayyim.apps.worlds.get.scene")
+    @worker.task(task_type="com.etzhayyim.apps.worlds.get.scene")
     async def task_get_scene(**kwargs):
         scene_id = kwargs.get("sceneId", "")
 
@@ -79,7 +79,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.worlds.publish.scene")
+    @worker.task(task_type="com.etzhayyim.apps.worlds.publish.scene")
     async def task_publish_scene(**kwargs):
         scene_id = kwargs.get("sceneId", "")
         now = datetime.utcnow().isoformat()
@@ -95,7 +95,7 @@ async def run_worker():
 
         return {"sceneId": scene_id, "status": "published", "publishedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.worlds.create.asset")
+    @worker.task(task_type="com.etzhayyim.apps.worlds.create.asset")
     async def task_create_asset(**kwargs):
         name = kwargs.get("name", "")
         asset_type = kwargs.get("assetType", "mesh")
@@ -122,7 +122,7 @@ async def run_worker():
 
         return {"assetId": asset_id, "status": "active"}
 
-    @worker.task(task_type="app.etzhayyim.apps.worlds.list.assets")
+    @worker.task(task_type="com.etzhayyim.apps.worlds.list.assets")
     async def task_list_assets(**kwargs):
         scene_id = kwargs.get("sceneId", "")
         limit = int(kwargs.get("limit", 50))
@@ -142,7 +142,7 @@ async def run_worker():
 
         return {"assets": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="app.etzhayyim.apps.worlds.create.portal")
+    @worker.task(task_type="com.etzhayyim.apps.worlds.create.portal")
     async def task_create_portal(**kwargs):
         from_scene_id = kwargs.get("fromSceneId", "")
         to_scene_id = kwargs.get("toSceneId", "")
@@ -153,7 +153,7 @@ async def run_worker():
 
         return {"portalId": portal_id, "fromSceneId": from_scene_id, "toSceneId": to_scene_id, "label": label, "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.worlds.list.portals")
+    @worker.task(task_type="com.etzhayyim.apps.worlds.list.portals")
     async def task_list_portals(**kwargs):
         scene_id = kwargs.get("sceneId", "")
         limit = int(kwargs.get("limit", 50))

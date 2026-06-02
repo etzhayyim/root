@@ -116,7 +116,7 @@ Private key: macOS Keychain `service=etzhayyim, account=DID_PRIVATE_KEY_ED25519_
 
 ## Component 2 — audit DID Worker (`50-infra/audit-did-web/`)
 
-Same pattern, different subject. Serves `did:web:audit.etzhayyim.com/.well-known/did.json` and exposes `/xrpc/app.etzhayyim.audit.emitAuditEvent` (forwards to `$AUDIT_AGGREGATOR_UPSTREAM`).
+Same pattern, different subject. Serves `did:web:audit.etzhayyim.com/.well-known/did.json` and exposes `/xrpc/com.etzhayyim.audit.emitAuditEvent` (forwards to `$AUDIT_AGGREGATOR_UPSTREAM`).
 
 Critically: this Worker is **substrate-wide** (not karute-specific). Every actor manifest that emits an audit event references `did:web:audit.etzhayyim.com` as the canonical target. Provisioning it as part of the karute rollout closes the constitutional gap from ADR-2605231700 ("audit subsystem deferred until first consumer lands").
 

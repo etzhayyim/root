@@ -171,7 +171,7 @@ def _load_seed_orgs() -> list[dict[str, Any]]:
 
 
 def _vertex_id(path: str) -> str:
-    return f"at://{PRIMARY_DID}/app.etzhayyim.apps.states.govOrg/{path}"
+    return f"at://{PRIMARY_DID}/com.etzhayyim.apps.states.govOrg/{path}"
 
 
 def _repo_rkey(prefix: str, key: str) -> str:
@@ -295,7 +295,7 @@ def _insert_repo_record(repo: str, collection: str, rkey: str, record: dict[str,
                     params,
                 )
             return uri
-        if collection == "app.etzhayyim.apps.states.govOrgSiteDep":
+        if collection == "com.etzhayyim.apps.states.govOrgSiteDep":
             path = str(record.get("path") or "")
             site_did = str(record.get("siteDid") or "")
             params = {
@@ -713,10 +713,10 @@ async def task_gov_tur_follow_site_deps(limit: int = 15) -> dict[str, Any]:
         }
         _insert_repo_record(
             f"{PRIMARY_DID}:{path}",
-            "app.etzhayyim.apps.states.govOrgSiteDep",
+            "com.etzhayyim.apps.states.govOrgSiteDep",
             _repo_rkey("site-dep", path),
             {
-                "$type": "app.etzhayyim.apps.states.govOrgSiteDep",
+                "$type": "com.etzhayyim.apps.states.govOrgSiteDep",
                 "path": path,
                 "siteNanoid": SITE_NANOID,
                 "siteTopicDid": SITE_GOV_TOPIC_DID,
@@ -894,42 +894,42 @@ async def task_gov_tur_heartbeat_tick(
 
 def register(worker: Any, *, timeout_ms: int) -> None:
     worker.task(
-        task_type="xrpc.app.etzhayyim.govTur.seedOrgs",
+        task_type="xrpc.com.etzhayyim.govTur.seedOrgs",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_tur_seed_orgs)
     worker.task(
-        task_type="xrpc.app.etzhayyim.govTur.registerDIDs",
+        task_type="xrpc.com.etzhayyim.govTur.registerDIDs",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_tur_register_dids)
     worker.task(
-        task_type="xrpc.app.etzhayyim.govTur.followSiteDeps",
+        task_type="xrpc.com.etzhayyim.govTur.followSiteDeps",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_tur_follow_site_deps)
     worker.task(
-        task_type="xrpc.app.etzhayyim.govTur.resolveOrgPath",
+        task_type="xrpc.com.etzhayyim.govTur.resolveOrgPath",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_tur_resolve_org_path)
     worker.task(
-        task_type="xrpc.app.etzhayyim.govTur.listOrgs",
+        task_type="xrpc.com.etzhayyim.govTur.listOrgs",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_tur_list_orgs)
     worker.task(
-        task_type="xrpc.app.etzhayyim.govTur.syncWetUpdates",
+        task_type="xrpc.com.etzhayyim.govTur.syncWetUpdates",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_tur_sync_wet_updates)
     worker.task(
-        task_type="xrpc.app.etzhayyim.govTur.shinka",
+        task_type="xrpc.com.etzhayyim.govTur.shinka",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_tur_shinka)
     worker.task(
-        task_type="xrpc.app.etzhayyim.govTur.heartbeatTick",
+        task_type="xrpc.com.etzhayyim.govTur.heartbeatTick",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_tur_heartbeat_tick)

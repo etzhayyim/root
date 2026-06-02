@@ -26,8 +26,8 @@ from pymagatama.db_sync import sync_cursor  # noqa: F401  (re-exported for mock 
 # ──────────────────────────────────────────────────────────────────────
 
 DEFAULT_REPO = "did:web:maps.etzhayyim.com"
-COLLECTION_SCENE = "app.etzhayyim.apps.maps.satelliteScene"
-COLLECTION_ANALYSIS = "app.etzhayyim.apps.maps.satelliteAnalysis"
+COLLECTION_SCENE = "com.etzhayyim.apps.maps.satelliteScene"
+COLLECTION_ANALYSIS = "com.etzhayyim.apps.maps.satelliteAnalysis"
 
 ELEMENT84_STAC = "https://earth-search.aws.element84.com/v1/search"
 COPERNICUS_STAC = "https://catalogue.dataspace.copernicus.eu/stac/search"

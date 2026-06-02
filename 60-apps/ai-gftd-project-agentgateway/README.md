@@ -6,7 +6,7 @@ AI Agent Gateway (`agentgateway`) is the application-level MCP (Model Context Pr
 
 * **Runtime:** Cloudflare Worker
 * **Protocol:** AT Protocol (XRPC), JSON-RPC 2.0 (MCP)
-* **Target Interface:** `app.etzhayyim.mcp.message`
+* **Target Interface:** `com.etzhayyim.mcp.message`
 
 Unlike the Envoy Gateway which handles network-level ingress and security, the `agentgateway` specifically handles MCP requests (`tools/list`, `tools/call`, etc.), routing them to the appropriate backend services based on the requested tool ID.
 

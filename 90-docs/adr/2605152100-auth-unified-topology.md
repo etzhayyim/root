@@ -97,10 +97,10 @@ L3  E2E Confidentiality  (orthogonal, Signal X25519)
 ```
 
 `auth.etzhayyim.com` は **OAuth AS ではない**。担当は:
-- `POST /xrpc/app.etzhayyim.auth.createApiKey` — passkey セッション → sk_live_* 発行
+- `POST /xrpc/com.etzhayyim.auth.createApiKey` — passkey セッション → sk_live_* 発行
 - `GET  /.well-known/did.json` — Worker 自身の did:web document
 - `GET  /sign-in` / `/sign-up` — passkey UI (HTML)
-- `POST /xrpc/app.etzhayyim.auth.passkeyRegister` / `passkeyAuthenticate`
+- `POST /xrpc/com.etzhayyim.auth.passkeyRegister` / `passkeyAuthenticate`
 
 CLI の `gftd authn signin` は現状 2 つの問題がある (ADR-2605141700):
 1. URL が stale: `authn.etzhayyim.com/oauth/authorize` → `atproto.etzhayyim.com/oauth/authorize` に修正必要
@@ -151,13 +151,13 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 
 | Worker | DNS | NSID prefix |
 |---|---|---|
-| ai-gftd-auth | `auth.etzhayyim.com` | `app.etzhayyim.auth.*` |
-| ai-gftd-authz | `authz.etzhayyim.com` (+ accounts alias) | `app.etzhayyim.authz.*` |
+| ai-gftd-auth | `auth.etzhayyim.com` | `com.etzhayyim.auth.*` |
+| ai-gftd-authz | `authz.etzhayyim.com` (+ accounts alias) | `com.etzhayyim.authz.*` |
 | ai-gftd-pds (atproto) | `atproto.etzhayyim.com` | `com.atproto.*` |
 
 **廃止 legacy alias (authz Worker から削除)**:
-- `GET  /xrpc/app.etzhayyim.auth.getSession` on authz → `app.etzhayyim.authz.getSession` に rename
-- `POST /xrpc/app.etzhayyim.auth.linkEmailBegin` / `linkEmailVerify` / `linkOAuthStart` on authz → `app.etzhayyim.authz.*` に rename
+- `GET  /xrpc/com.etzhayyim.auth.getSession` on authz → `com.etzhayyim.authz.getSession` に rename
+- `POST /xrpc/com.etzhayyim.auth.linkEmailBegin` / `linkEmailVerify` / `linkOAuthStart` on authz → `com.etzhayyim.authz.*` に rename
 
 ---
 
@@ -171,8 +171,8 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 [x] PDS resolveDIDSigningKey: did:web:authn.etzhayyim.com 検出時に env.AUTH_SERVICE.fetch() 経路を維持 (変更不要を確認)
 
 # NSID rename (Lexicon JSON 同時更新必須)
-[ ] authz Worker: app.etzhayyim.auth.getSession → app.etzhayyim.authz.getSession (Lexicon JSON + handler)
-[ ] authz Worker: app.etzhayyim.auth.linkEmail* / linkOAuth* → app.etzhayyim.authz.* (Lexicon JSON + handler)
+[ ] authz Worker: com.etzhayyim.auth.getSession → com.etzhayyim.authz.getSession (Lexicon JSON + handler)
+[ ] authz Worker: com.etzhayyim.auth.linkEmail* / linkOAuth* → com.etzhayyim.authz.* (Lexicon JSON + handler)
 
 # Phase 3 callsite migration (2026-05-15 完了)
 [x] auth Worker getServiceAuth: _SVC_AUTH_ISS_ALLOWLIST (6 entries) + Option B HMAC gate (magatama のみ)

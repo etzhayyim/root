@@ -253,7 +253,7 @@ def test_build_translation_link_record_shape():
     )
     assert row["vertex_id"] == (
         "at://did:web:yoro.etzhayyim.com/"
-        "app.etzhayyim.apps.media_gamers.record.translationLink/translation-link-en"
+        "com.etzhayyim.apps.media_gamers.record.translationLink/translation-link-en"
     )
     assert row["source_uri"].endswith("/src")
     assert row["translated_uri"].endswith("/en")
@@ -287,7 +287,7 @@ def test_translate_post_dry_run_uses_gemma_translation_path():
     assert out["translatedText"] == "Hello"
     assert out["model"] == "gemma-4-e4b-it"
     assert out["translationLinkUri"].startswith(
-        "at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.media_gamers.record.translationLink/",
+        "at://did:web:yoro.etzhayyim.com/com.etzhayyim.apps.media_gamers.record.translationLink/",
     )
 
 

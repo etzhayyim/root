@@ -75,7 +75,7 @@ python3 70-tools/scripts/sim/mapillary_fetch.py \
   --bbox 139.6985,35.6585,139.7025,35.6605 \
   --out 70-tools/e7m-sim/scenes/shibuya/shibuya_mapillary.manifest.json --limit 150
 # 2. enqueue the GPU training (existing pipeline):
-#    app.etzhayyim.apps.maps.trainGsplatFromMapillary
+#    com.etzhayyim.apps.maps.trainGsplatFromMapillary
 #      { "lat":35.6595, "lng":139.7005, "radiusM":120, "mapillaryImageIds":[…] }
 # 3. → shibuya.ply → shibuya.htm 'G'
 ```

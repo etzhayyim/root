@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yakushi.rawMaterialAttestation"
+ :id "com.etzhayyim.yakushi.rawMaterialAttestation"
  :defs
  {:main
   {:type "record"

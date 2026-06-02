@@ -17,7 +17,7 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 
 ## Reactive Runtime (Design D 準拠)
 
-- **Input**: `subscribe-repos.handle-repo-commit` (`handleComAtprotoSyncSubscribeReposCommit`) で `app.etzhayyim.apps.yabai.*` + `app.etzhayyim.apps.ipaddress.*` commit を受けて即時処理
+- **Input**: `subscribe-repos.handle-repo-commit` (`handleComAtprotoSyncSubscribeReposCommit`) で `com.etzhayyim.apps.yabai.*` + `com.etzhayyim.apps.ipaddress.*` commit を受けて即時処理
 - **Follow-based input**: `magatama.Follow("n7w1p4d0")` で ipaddress.etzhayyim.com を Follow → `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` を自動受信
 - **Processing**: yabai commit → reactive publish。ipaddress commit → auto IP ingest + risk evaluation
 - **Output (stream)**: `serve.handle-stream("stream-alerts")` を subscriber role + trust level で配信

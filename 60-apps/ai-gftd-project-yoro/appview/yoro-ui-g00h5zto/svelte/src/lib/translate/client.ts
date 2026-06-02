@@ -26,11 +26,11 @@ export function initTranslate(cfg?: TranslateConfig) {
 	_agent = new AtpAgent({ service: cfg?.baseUrl ?? DEFAULT_BASE });
 }
 
-/** XRPC POST to i18n service: /xrpc/app.etzhayyim.i18n.{lcFirstMethod} */
+/** XRPC POST to i18n service: /xrpc/com.etzhayyim.i18n.{lcFirstMethod} */
 async function xrpcPost<T>(method: string, body: Record<string, unknown>): Promise<T> {
 	translateLoading.set(true);
 	translateError.set(null);
-	const nsid = `app.etzhayyim.i18n.${method.charAt(0).toLowerCase()}${method.slice(1)}`;
+	const nsid = `com.etzhayyim.i18n.${method.charAt(0).toLowerCase()}${method.slice(1)}`;
 	try {
 		const res = await _agent.api.call(nsid, body, undefined, { encoding: 'application/json' });
 		const data = res.data as { value?: T } & T;

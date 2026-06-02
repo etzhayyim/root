@@ -231,11 +231,11 @@ RETURN sum(c.estimated_count) AS inferred_total LIMIT 1
 ```
 [Reactive: Follow source → 自動推論]
 handleComAtprotoSyncSubscribeReposCommit
-  ├── app.etzhayyim.apps.handotai.company → inferFromCompanyData("semiconductor")
+  ├── com.etzhayyim.apps.handotai.company → inferFromCompanyData("semiconductor")
   │     Toyota Semiconductor (仮): 半導体調達量 → 推論チェーン
-  ├── app.etzhayyim.apps.kuruma.company  → inferFromCompanyData("automotive")
+  ├── com.etzhayyim.apps.kuruma.company  → inferFromCompanyData("automotive")
   │     Toyota: IR データ → 販売/生産/サプライチェーン推論
-  └── app.etzhayyim.apps.malak.threat_actor → inferFromThreat("cybercrime")
+  └── com.etzhayyim.apps.malak.threat_actor → inferFromThreat("cybercrime")
         攻撃グループ → 標的業界 → 被害推定 → coverage
 
 [Scheduled: 定期推論更新]

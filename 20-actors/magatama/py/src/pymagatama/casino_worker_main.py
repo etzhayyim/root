@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.casino.listCasinos")
+    @worker.task(task_type="com.etzhayyim.apps.casino.listCasinos")
     async def task_list_casinos(**kwargs):
         city = kwargs.get("city", "")
         limit = int(kwargs.get("limit", 50))
@@ -54,7 +54,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.casino.getCasino")
+    @worker.task(task_type="com.etzhayyim.apps.casino.getCasino")
     async def task_get_casino(**kwargs):
         casino_id = kwargs.get("casinoId", "")
 
@@ -72,7 +72,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.casino.createReview")
+    @worker.task(task_type="com.etzhayyim.apps.casino.createReview")
     async def task_create_review(**kwargs):
         casino_id = kwargs.get("casinoId", "")
         reviewer_did = kwargs.get("reviewerDid", "did:web:casino.etzhayyim.com")
@@ -100,7 +100,7 @@ async def run_worker():
 
         return {"reviewId": review_id, "casinoId": casino_id, "rating": rating, "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.casino.listReviews")
+    @worker.task(task_type="com.etzhayyim.apps.casino.listReviews")
     async def task_list_reviews(**kwargs):
         casino_id = kwargs.get("casinoId", "")
         limit = int(kwargs.get("limit", 50))
@@ -126,7 +126,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.casino.listJurisdictions")
+    @worker.task(task_type="com.etzhayyim.apps.casino.listJurisdictions")
     async def task_list_jurisdictions(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -145,7 +145,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.casino.getJurisdiction")
+    @worker.task(task_type="com.etzhayyim.apps.casino.getJurisdiction")
     async def task_get_jurisdiction(**kwargs):
         jurisdiction_code = kwargs.get("jurisdictionCode", "")
 
@@ -159,7 +159,7 @@ async def run_worker():
             return {"error": "not found"}
         return result
 
-    @worker.task(task_type="app.etzhayyim.apps.casino.searchCasinos")
+    @worker.task(task_type="com.etzhayyim.apps.casino.searchCasinos")
     async def task_search_casinos(**kwargs):
         query = kwargs.get("query", "")
         limit = int(kwargs.get("limit", 50))
@@ -186,7 +186,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.casino.listCities")
+    @worker.task(task_type="com.etzhayyim.apps.casino.listCities")
     async def task_list_cities(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))

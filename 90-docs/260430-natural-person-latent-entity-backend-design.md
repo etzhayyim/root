@@ -27,7 +27,7 @@ All-human latent entity scale can be tens of billions. The logical graph treats 
 Record path:
 
 ```text
-at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/{rkey}
+at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.cohortPerson/{rkey}
 ```
 
 Current cohort DID patterns:
@@ -40,7 +40,7 @@ did:web:natural-person.etzhayyim.com:deceased:{era}:{cause_cluster}
 Registry path:
 
 ```text
-at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/{rkey}
+at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.cohortActor/{rkey}
 ```
 
 ### Latent Entity
@@ -48,7 +48,7 @@ at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohor
 Vertex path:
 
 ```text
-at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.latentEntity/{entity_hash}
+at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/{entity_hash}
 ```
 
 Natural-person scoped DID-like identifier:

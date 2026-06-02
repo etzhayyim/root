@@ -25,7 +25,7 @@
   {:gate/id "G17" :gate/name "tithe-non-fiat"           :gate/rule "Jurisdiction fees paid via USDC Base L2 + ERC-4337 + TitheRouter 10% auto-split; no fiat processor"}
   {:gate/id "G18" :gate/name "no-server-key"            :gate/rule "Member + municipal operator hold signing keys; platform retains no secret (ADR-2605231525)"}
   {:gate/id "G19" :gate/name "consent-bound"            :gate/rule "Permit submission + inspection scheduling + final sign-off gated behind member explicit consent"}
-  {:gate/id "G20" :gate/name "pii-encrypted-envelope"   :gate/rule "Permit applicant + project details → app.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}]
+  {:gate/id "G20" :gate/name "pii-encrypted-envelope"   :gate/rule "Permit applicant + project details → com.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}]
 
  :actor/cells
  [{:cell/id "permit_submission"    :cell/kind :langgraph :cell/runtime :wasm}

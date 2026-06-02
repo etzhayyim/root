@@ -82,7 +82,7 @@ def test_swe_domain_slug() -> None:
 
 def test_esp_vertex_id() -> None:
     vid = ESP._vertex_id("presidencia")
-    assert "at://" in vid and "app.etzhayyim.apps.states.govOrg" in vid
+    assert "at://" in vid and "com.etzhayyim.apps.states.govOrg" in vid
 
 
 def test_ita_vertex_id() -> None:

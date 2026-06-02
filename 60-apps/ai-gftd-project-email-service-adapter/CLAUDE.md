@@ -11,7 +11,7 @@
 - `gmail` — peer adapter (Gmail OAuth)
 - `mailer` — outbound transactional email
 - `briefing` — invitation flow
-- `kyber-inbox` (`did:web:kyber-qzzg06nh.etzhayyim.com:dept:inbox`, nanoid `inb0x4k2`) — receives derived `app.etzhayyim.apps.kyber.inbox.{emailSignal,calendarSignal,documentSignal}` records (dept-routed signal/noise classification). Wired via `magatama.jsonld` `derive` rule from `syncJob`. RisingWave sink: `vertex_email_message` / `vertex_calendar_event` / `vertex_office_document` + `edge_kyber_routed`.
+- `kyber-inbox` (`did:web:kyber-qzzg06nh.etzhayyim.com:dept:inbox`, nanoid `inb0x4k2`) — receives derived `com.etzhayyim.apps.kyber.inbox.{emailSignal,calendarSignal,documentSignal}` records (dept-routed signal/noise classification). Wired via `magatama.jsonld` `derive` rule from `syncJob`. RisingWave sink: `vertex_email_message` / `vertex_calendar_event` / `vertex_office_document` + `edge_kyber_routed`.
 
 ## PII (per ADR-0014)
 - email body / headers: Tier 3 (Preferences only)
@@ -23,4 +23,4 @@
 - ADR-0014: PII Tier 3 + Cohort-First Pattern
 - `30-graph/graph-schema/migrations/0027_outlook_kyber_integration.ts` (email/event/contact + dept routing)
 - `30-graph/graph-schema/migrations/0028_office_documents_kyber.ts` (OneDrive/SharePoint office documents)
-- `00-contracts/lexicons/ai/gftd/apps/kyber/inbox/` (3 record lexicons)
+- `00-contracts/lexicons/com/etzhayyim/apps/kyber/inbox/` (3 record lexicons)

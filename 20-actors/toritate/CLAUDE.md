@@ -50,7 +50,7 @@ annual_audit_report ─── reuben (annual event; aggregates cells 1-5)
 ```
 
 Each cell = 1 Pregel graph. Cells communicate via lexicon records on
-MST (`app.etzhayyim.toritate.*`). All cell modules are R0 path-
+MST (`com.etzhayyim.toritate.*`). All cell modules are R0 path-
 reserved.
 
 ## On-Chain Read-Only Discipline (G11) — Structural
@@ -116,7 +116,7 @@ categories. The schema enforces this at the Lexicon level.
 1. ADR-2605262900 Council Lv6+ ≥3 ratify;
 2. ChartersComplianceRegistry Charter Rider scanner FP rate ≤5% over
    7-day trial on toritate-bound document samples;
-3. `app.etzhayyim.toritate.ledgerEntry` + `.financialAttestation` +
+3. `com.etzhayyim.toritate.ledgerEntry` + `.financialAttestation` +
    `.auditObservation` schemas Council-attestation-reviewed (R1
    minimum cell trio = transaction_ledger / tithe_accounting /
    public_fund_accounting);
@@ -177,7 +177,7 @@ python -c "from magatama.cells.toritate_transaction_ledger import _r0_marker" 2>
 
 - `/20-actors/toritate/manifest.jsonld`
 - `/20-actors/toritate/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/toritate/` (5 Lexicon JSONs + README)
+- `/00-contracts/lexicons/com/etzhayyim/toritate/` (5 Lexicon JSONs + README)
 - `/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605192145-etzhayyim-public-fund-architecture.md` — Public Fund
 - `/90-docs/adr/2605192130-etzhayyim-tithe-redistribution.md` — Tithe

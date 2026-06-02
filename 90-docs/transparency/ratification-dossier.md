@@ -88,11 +88,11 @@ None of this executes before a recorded `councilRatificationCid`:
    (`redactionMethodNote` v1.0.0) applied before publication.
 3. **Standing ingress disclosure notice** served on every endpoint
    (`/90-docs/transparency/ingress-disclosure-notice.md`, ja/en).
-4. **`app.etzhayyim.encrypted.*`** documentation narrowed to the §4 floor only
+4. **`com.etzhayyim.encrypted.*`** documentation narrowed to the §4 floor only
    (secrets + outbound third-party PII) — no longer a member-privacy namespace.
 5. **Cross-refs updated**: repo CLAUDE.md Substrate-boundary "Confidentiality" row;
    ADR-2605181100 marked amended-by ADR-2605310100.
-6. Every `app.etzhayyim.transparency.*` record's `ratificationStatus` flips from
+6. Every `com.etzhayyim.transparency.*` record's `ratificationStatus` flips from
    `proposed-unratified` and gains a `councilRatificationCid`.
 
 ---

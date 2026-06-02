@@ -6,7 +6,7 @@
  *   node src/cli.ts [lexicon-root] [output-dir]
  *
  * Example:
- *   node src/cli.ts 00-contracts/lexicons/ai/gftd 70-tools/lexicon-to-zod/generated
+ *   node src/cli.ts 00-contracts/lexicons/com/etzhayyim 70-tools/lexicon-to-zod/generated
  *
  * Output: One .ts file per actor directory, with all lexicons pre-built into
  * a validator map that can be imported and used by XRPC adapters.
@@ -16,7 +16,7 @@ import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import type { LexiconDoc } from "./types.js";
 
-const LEX_ROOT = process.argv[2] ?? "00-contracts/lexicons/ai/gftd";
+const LEX_ROOT = process.argv[2] ?? "00-contracts/lexicons/com/etzhayyim";
 const OUT_DIR = process.argv[3] ?? "70-tools/lexicon-to-zod/generated";
 
 async function main() {

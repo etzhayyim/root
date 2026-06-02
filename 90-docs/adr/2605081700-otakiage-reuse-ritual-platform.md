@@ -82,7 +82,7 @@ graph schema で扱い、各遷移を AT Protocol 公開記録 + RisingWave Hype
 - 譲渡完了記録 (handover)
 - お焚き上げ依頼 (ritual)
 - 季節祭スケジュール (人形供養祭 / 絵本供養祭 / 家具解体祭)
-- 永続証跡発行 (Phase 1: AT Record JSON、URI = `at://otakiage.etzhayyim.com/app.etzhayyim.otakiage.certificate/{rkey}`)
+- 永続証跡発行 (Phase 1: AT Record JSON、URI = `at://otakiage.etzhayyim.com/com.etzhayyim.otakiage.certificate/{rkey}`)
 - T1 social derive (handover / ritual 完了時に PII を含まない post)
 
 ### Out of scope (Phase 2+)
@@ -111,7 +111,7 @@ graph schema で扱い、各遷移を AT Protocol 公開記録 + RisingWave Hype
    - T3 State: 受領者 / 寄贈者 PII (氏名 / 住所 / 連絡先) は Preferences
 3. **Path-based DID (ADR-0019)**: `did:web:otakiage.etzhayyim.com:{root,reuse,ritual,matsuri}` の 4 sub-DID で責務分離
 4. **BPMN-as-actor (ADR-0056)**: 4 process_def (reuse_match R/PT1H, reuse_expire R/PT24H, matsuri_schedule cron 月1, social_announce XRPC)
-5. **永続証跡 = AT Record (Phase 1)**: ritualized 時に `app.etzhayyim.otakiage.certificate` を発行、URI が永続 ID
+5. **永続証跡 = AT Record (Phase 1)**: ritualized 時に `com.etzhayyim.otakiage.certificate` を発行、URI が永続 ID
 6. **季節祭 calendar 内蔵**: 人形供養祭 (3月/11月)、絵本供養祭 (4月)、家具解体祭 (随時、reuse_expired バッチ)
 
 ## Decision
@@ -180,7 +180,7 @@ submitted ──[auto]──→ reuse_open (TTL 30d)
 - `reuse_expired` から `ritual_pending` への遷移は category 別:
   - `nuigurumi / ningyo / omocha / ehon / jidousho` → 自動で `ritual_pending`
   - `kagu / kaden` → 留まる (`reuse_only` mode、解体パートナー edge 推奨)
-- `ritualized` は terminal、AT Record `app.etzhayyim.otakiage.certificate` を発行して URI を `vertex_otakiage_item.certificate_uri` に書く
+- `ritualized` は terminal、AT Record `com.etzhayyim.otakiage.certificate` を発行して URI を `vertex_otakiage_item.certificate_uri` に書く
 
 ### 4. Schema (Hyperdrive 直、ADR-0036)
 
@@ -214,7 +214,7 @@ submitted ──[auto]──→ reuse_open (TTL 30d)
 - `h3_neighbors_at_res(cell varchar, res int) returns varchar[]` — H3 res-5 隣接 cell 配列
 - `otakiage_category_to_lifecycle(category varchar) returns varchar` — `'furniture'` → `'reuse_only'`、他 → `'reuse_then_ritual'`
 
-### 5. Lexicon (NSID `app.etzhayyim.otakiage.*`)
+### 5. Lexicon (NSID `com.etzhayyim.otakiage.*`)
 
 Phase 1 = 9 lexicon:
 
@@ -243,11 +243,11 @@ XRPC binding は `submitItem / requestReuse / confirmHandover / requestRitual / 
 
 ### 7. Certificate (Phase 1 = AT Record JSON)
 
-ritualized 時に `vertex_otakiage_certificate` + AT Record `app.etzhayyim.otakiage.certificate/{rkey}` を発行:
+ritualized 時に `vertex_otakiage_certificate` + AT Record `com.etzhayyim.otakiage.certificate/{rkey}` を発行:
 
 ```json
 {
-  "$type": "app.etzhayyim.otakiage.certificate",
+  "$type": "com.etzhayyim.otakiage.certificate",
   "ritualUri": "at://did:web:otakiage.etzhayyim.com:ritual/.../...",
   "itemUris": ["at://...", "at://..."],
   "donorDids": ["did:web:alice.etzhayyim.com", "did:web:bob.etzhayyim.com"],
@@ -289,7 +289,7 @@ handler は **explicit `postFeed()` を書かない** (ADR-0004 / ADR-0036 不�
 | Phase | Scope | 期限目安 | 状態 |
 |---|---|---|---|
 | **Phase 1** | Schema + Lexicon + BPMN + pymagatama primitives + Helm pool。Certificate = AT Record JSON。社内テスト | 1-2 週間 | ✅ 2026-05-08 完了 (ファイル) / migration apply pending |
-| **Phase 2a** | Conversational LangGraph agent (kotodama persona、`app.etzhayyim.otakiage.agentChat`) | 1 週間 | ✅ 2026-05-08 完了 (ファイル) |
+| **Phase 2a** | Conversational LangGraph agent (kotodama persona、`com.etzhayyim.otakiage.agentChat`) | 1 週間 | ✅ 2026-05-08 完了 (ファイル) |
 | **Phase 2b1** | ERC725 anchor — state tracking + queue + sweep stub (`anchorCertificate` + `certificateAnchorSweep`) | 1 週間 | ✅ 2026-05-08 完了 (ファイル) |
 | **Phase 2b2** | ERC725 anchor — 実 on-chain submission (ethers/viem、Base L2) | 2-3 週間 | 未着手 |
 | **Phase 2c** | 配送 actor 連携 (ヤマト集荷 API)、季節祭の Wan 2.2 動画生成 | 1-2 ヶ月 | 未着手 |
@@ -323,7 +323,7 @@ START → load_history (DB) → parse_intent (LLM #1)
 - `vertex_otakiage_conversation_turn` — append-only per-turn (user_message, agent_reply, intent, actions_json, llm_calls, latency_ms)
 - `mv_otakiage_conversation_recent` — 24h active threads (soak monitor)
 
-**Lexicon**: `app.etzhayyim.otakiage.agentChat` (procedure)。Output に `draftItem` (submit 時の抽出結果)、`candidates` (search 時の reuse_open URI 配列)、`actions[]` (turn 内の副次操作)、`llmCalls` (≥2 or ≥3)、`intent` を含む。
+**Lexicon**: `com.etzhayyim.otakiage.agentChat` (procedure)。Output に `draftItem` (submit 時の抽出結果)、`candidates` (search 時の reuse_open URI 配列)、`actions[]` (turn 内の副次操作)、`llmCalls` (≥2 or ≥3)、`intent` を含む。
 
 **BPMN**: `otakiage_agent_chat` (XRPC binding、resultTimeoutMs=90000 — 3-LLM cold-start 余裕)。
 
@@ -359,7 +359,7 @@ issueCertificate → (auto-queue, non-fatal)
 
 **Streaming MV**: `mv_otakiage_anchor_status` (status × chain × count 別 soak metric)。
 
-**Lexicon**: `app.etzhayyim.otakiage.anchorCertificate` (procedure)。`chain` enum = `base|base-sepolia|polygon|polygon-amoy` (default `base`、Coinbase L2 で gas $0.01〜$0.10/anchor)。`force=true` で failed → queued 再試行。
+**Lexicon**: `com.etzhayyim.otakiage.anchorCertificate` (procedure)。`chain` enum = `base|base-sepolia|polygon|polygon-amoy` (default `base`、Coinbase L2 で gas $0.01〜$0.10/anchor)。`force=true` で failed → queued 再試行。
 
 **BPMN**:
 - `otakiage_anchor_certificate` — XRPC binding (60s timeout)、queue 1 件

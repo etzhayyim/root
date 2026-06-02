@@ -53,7 +53,7 @@ amended_by: []
 | 呼び出し元 | 方法 | 許可 |
 |---|---|---|
 | 内部 CF Worker (PDS / dispatcher) | CF Service Binding | ✅ |
-| K8s pod / LangServer | XRPC `app.etzhayyim.apps.search.*` via dispatcher | ✅ |
+| K8s pod / LangServer | XRPC `com.etzhayyim.apps.search.*` via dispatcher | ✅ |
 | 外部クライアント | `mcp.etzhayyim.com/mcp` MCP tool 経由 | ✅ (MCP facade が auth gate) |
 | 外部クライアント | `search.etzhayyim.com` 直接 HTTP | ❌ 禁止 |
 | `*.workers.dev` URL | — | ❌ 無効化 |

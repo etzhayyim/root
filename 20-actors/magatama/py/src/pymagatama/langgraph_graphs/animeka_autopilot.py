@@ -67,7 +67,7 @@ async def _render_and_upload(prompt: str, width: int, height: int, steps: int) -
 
 def _envelope_content(state: dict, envelope_key: str, legacy_key: str) -> str:
     """Phase E3: extract content from {envelope_key}.result.content (when the
-    upstream node is mcp_tool app.etzhayyim.tools.llm.chat) and fall back to
+    upstream node is mcp_tool com.etzhayyim.tools.llm.chat) and fall back to
     state.<legacy_key> if the envelope is absent (v1 path / direct unit
     test seeding). Returns '' if neither is set."""
     env = state.get(envelope_key)
@@ -169,9 +169,9 @@ def generate_storyboard(state: AnimakaAutopilotState) -> dict:
             asyncio.run(task_generic_db_insert(
                 table="vertex_animeka",
                 values={
-                    "vertex_id": f"at://{_REPO}/app.etzhayyim.apps.animeka.storyboard/{cut_id}-c1",
+                    "vertex_id": f"at://{_REPO}/com.etzhayyim.apps.animeka.storyboard/{cut_id}-c1",
                     "repo": _REPO,
-                    "collection": "app.etzhayyim.apps.animeka.storyboard",
+                    "collection": "com.etzhayyim.apps.animeka.storyboard",
                     "rkey": f"{cut_id}-c1",
                     "blob_cid": sb_cid,
                     "cut_summary": cut_summary,
@@ -232,9 +232,9 @@ def generate_storyboard_retry(state: AnimakaAutopilotState) -> dict:
             asyncio.run(task_generic_db_insert(
                 table="vertex_animeka",
                 values={
-                    "vertex_id": f"at://{_REPO}/app.etzhayyim.apps.animeka.storyboard/{cut_id}-c2",
+                    "vertex_id": f"at://{_REPO}/com.etzhayyim.apps.animeka.storyboard/{cut_id}-c2",
                     "repo": _REPO,
-                    "collection": "app.etzhayyim.apps.animeka.storyboard",
+                    "collection": "com.etzhayyim.apps.animeka.storyboard",
                     "rkey": f"{cut_id}-c2",
                     "blob_cid": sb_cid,
                     "cut_summary": cut_summary,
@@ -302,9 +302,9 @@ def generate_layout(state: AnimakaAutopilotState) -> dict:
             asyncio.run(task_generic_db_insert(
                 table="vertex_animeka",
                 values={
-                    "vertex_id": f"at://{_REPO}/app.etzhayyim.apps.animeka.layout/{cut_id}",
+                    "vertex_id": f"at://{_REPO}/com.etzhayyim.apps.animeka.layout/{cut_id}",
                     "repo": _REPO,
-                    "collection": "app.etzhayyim.apps.animeka.layout",
+                    "collection": "com.etzhayyim.apps.animeka.layout",
                     "rkey": cut_id,
                     "blob_cid": ly_cid,
                     "cut_summary": cut_summary,
@@ -342,9 +342,9 @@ def generate_keyframe(state: AnimakaAutopilotState) -> dict:
             asyncio.run(task_generic_db_insert(
                 table="vertex_animeka",
                 values={
-                    "vertex_id": f"at://{_REPO}/app.etzhayyim.apps.animeka.keyframe/{cut_id}-f1",
+                    "vertex_id": f"at://{_REPO}/com.etzhayyim.apps.animeka.keyframe/{cut_id}-f1",
                     "repo": _REPO,
-                    "collection": "app.etzhayyim.apps.animeka.keyframe",
+                    "collection": "com.etzhayyim.apps.animeka.keyframe",
                     "rkey": f"{cut_id}-f1",
                     "blob_cid": kf_cid,
                     "cut_summary": cut_summary,
@@ -403,9 +403,9 @@ def generate_background(state: AnimakaAutopilotState) -> dict:
             asyncio.run(task_generic_db_insert(
                 table="vertex_animeka",
                 values={
-                    "vertex_id": f"at://{_REPO}/app.etzhayyim.apps.animeka.background/{cut_id}",
+                    "vertex_id": f"at://{_REPO}/com.etzhayyim.apps.animeka.background/{cut_id}",
                     "repo": _REPO,
-                    "collection": "app.etzhayyim.apps.animeka.background",
+                    "collection": "com.etzhayyim.apps.animeka.background",
                     "rkey": cut_id,
                     "blob_cid": bg_cid,
                     "bg_cid": bg_cid,

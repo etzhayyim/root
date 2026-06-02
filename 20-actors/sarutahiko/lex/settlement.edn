@@ -1,7 +1,7 @@
-;; app.etzhayyim.sarutahiko.settlement — lexicon (EDN form) — USDC on-chain settlement
+;; com.etzhayyim.sarutahiko.settlement — lexicon (EDN form) — USDC on-chain settlement
 ;; ADR-2605252500 · Gen-3 deepen — fiat 非前提; USDC Base L2 + ERC-4337 + TitheRouter only (G18)
 {:lexicon 1
- :id "app.etzhayyim.sarutahiko.settlement"
+ :id "com.etzhayyim.sarutahiko.settlement"
  :defs
  {:main
   {:type "record"

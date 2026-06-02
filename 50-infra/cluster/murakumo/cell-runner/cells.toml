@@ -40,7 +40,7 @@ name = "KarmaHegemonObservationCell"
 module = "pymagatama.primitives.shinka_murakumo"
 entry = "karma_hegemon_observation_cell"
 node = "levi"
-trigger = { kind = "mst-listener", listens_to = ["app.etzhayyim.shinka.kyumeiSignal"] }
+trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.shinka.kyumeiSignal"] }
 healthz_port = 13023
 adr = ["2605215200"]
 
@@ -49,7 +49,7 @@ name = "EvolutionValidationCell"
 module = "pymagatama.primitives.shinka_murakumo"
 entry = "evolution_validation_cell"
 node = "levi"
-trigger = { kind = "mst-listener", listens_to = ["app.etzhayyim.shinka.observeAdherent"] }
+trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.shinka.observeAdherent"] }
 healthz_port = 13024
 adr = ["2605215200", "2605215400"]
 
@@ -58,7 +58,7 @@ name = "EvolutionEmissionCell"
 module = "pymagatama.primitives.shinka_murakumo"
 entry = "evolution_emission_cell"
 node = "simeon"
-trigger = { kind = "mst-listener", listens_to = ["app.etzhayyim.shinka.validateEvolution"] }
+trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.shinka.validateEvolution"] }
 healthz_port = 13025
 adr = ["2605215200", "2605171800"]
 
@@ -79,7 +79,7 @@ adr = ["JOUCHO-MIGRATION-DESIGN.md"]
 #      pymagatama/primitives/langserver_murakumo.py
 #
 # MST listener wiring deferred (requires lexicon registration under
-# 00-contracts/lexicons/app/etzhayyim/langserver/). L9 minimum: in-memory
+# 00-contracts/lexicons/com/etzhayyim/langserver/). L9 minimum: in-memory
 # cycle result + log line.
 
 [[cell]]
@@ -215,7 +215,7 @@ adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 # module = "pymagatama.primitives.maps_sentinel_murakumo"
 # entry = "task_t0_preprocess"
 # node = "*"  # runs on any node receiving the XRPC call
-# trigger = { kind = "xrpc", nsid = "app.etzhayyim.apps.maps.sentinel.analyze" }
+# trigger = { kind = "xrpc", nsid = "com.etzhayyim.apps.maps.sentinel.analyze" }
 # adr = ["2605215100"]
 #
 # [[cell]]
@@ -223,7 +223,7 @@ adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 # module = "pymagatama.primitives.yoro_social_murakumo"
 # entry = "yoro_social_cell"
 # node = "*"
-# trigger = { kind = "mst-listener", listens_to = ["app.etzhayyim.yoro.socialEvent"] }
+# trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.yoro.socialEvent"] }
 # adr = []
 #
 # [[cell]]

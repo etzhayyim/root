@@ -69,12 +69,12 @@ def _fetch_inbox(since: str = "", top: int = 50) -> tuple[list[dict], str]:
         params["since"] = since
     payload = json.dumps(params).encode()
     try:
-        token = _mint_token("app.etzhayyim.apps.microsoft.listInbox")
+        token = _mint_token("com.etzhayyim.apps.microsoft.listInbox")
     except Exception as exc:
         print(f"[pregel][poll] listInbox error: token mint failed: {exc}")
         return [], ""
     req = urllib.request.Request(
-        f"{_MICROSOFT_XRPC}/app.etzhayyim.apps.microsoft.listInbox",
+        f"{_MICROSOFT_XRPC}/com.etzhayyim.apps.microsoft.listInbox",
         data=payload,
         headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"},
         method="POST",
@@ -169,7 +169,7 @@ _TRIAGE_MOVED_FILE = Path(os.getenv(
     "TRIAGE_MOVED_FILE",
     str(Path.home() / ".gftd" / "triage-moved.txt"),
 ))
-_TRIAGE_MOVE_URL = f"{_MICROSOFT_XRPC}/app.etzhayyim.apps.microsoft.batchMoveMessages"
+_TRIAGE_MOVE_URL = f"{_MICROSOFT_XRPC}/com.etzhayyim.apps.microsoft.batchMoveMessages"
 _TRIAGE_CATEGORY_TO_FOLDER = {
     "DELETE":  "deleteditems",
     "ARCHIVE": "archive",
@@ -207,7 +207,7 @@ def _batch_move(message_ids: list[str], target_folder: str) -> dict:
         "targetFolder": target_folder,
     }).encode()
     try:
-        token = _mint_token("app.etzhayyim.apps.microsoft.batchMoveMessages")
+        token = _mint_token("com.etzhayyim.apps.microsoft.batchMoveMessages")
     except Exception as exc:
         print(f"[triage][move] batchMoveMessages error: token mint failed: {exc}")
         return {}

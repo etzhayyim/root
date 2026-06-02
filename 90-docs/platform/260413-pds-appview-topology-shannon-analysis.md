@@ -63,9 +63,9 @@ PDS (bsky.social) — 唯一の gateway
 
 ```
 Client → yoro.etzhayyim.com (gateway + AppView + SPA)
-  ├─ app.etzhayyim.yoro.*     → local handler (5 implemented) or PDS fallback
-  ├─ app.etzhayyim.atproto.*  → rewrite → com.atproto.* → PDS proxy
-  ├─ app.etzhayyim.convo.*    → transparent proxy → PDS
+  ├─ com.etzhayyim.yoro.*     → local handler (5 implemented) or PDS fallback
+  ├─ com.etzhayyim.atproto.*  → rewrite → com.atproto.* → PDS proxy
+  ├─ com.etzhayyim.convo.*    → transparent proxy → PDS
   └─ app.bsky.*         → PDS proxy (compat)
 ```
 
@@ -89,7 +89,7 @@ Client → atproto.etzhayyim.com (PDS = gateway)
   ├─ app.bsky.* (read)   → atproto-proxy → yoro AppView
   ├─ app.bsky.* (write)  → PDS direct (createRecord)
   ├─ chat.bsky.*         → atproto-proxy → Convo Service
-  └─ app.etzhayyim.*           → PDS direct or proxy
+  └─ com.etzhayyim.*           → PDS direct or proxy
 ```
 
 | Factor | Value | Bits |
@@ -112,7 +112,7 @@ yoro.etzhayyim.com — SPA 配信のみ (static assets)
 Client JS → atproto.etzhayyim.com (PDS = gateway, cross-origin)
   ├─ com.atproto.* → PDS direct
   ├─ app.bsky.*    → PDS pipethrough → yoro AppView Worker (service binding)
-  └─ app.etzhayyim.*     → PDS direct or proxy
+  └─ com.etzhayyim.*     → PDS direct or proxy
 ```
 
 | Factor | Value | Bits |
@@ -137,7 +137,7 @@ yoro.etzhayyim.com — SPA + XRPC endpoint
   ├─ /xrpc/app.bsky.* (write) → PDS proxy (service binding)
   ├─ /xrpc/com.atproto.*      → PDS proxy (service binding)
   ├─ /xrpc/chat.bsky.*        → PDS proxy → Convo handler
-  └─ /xrpc/app.etzhayyim.*          → PDS proxy
+  └─ /xrpc/com.etzhayyim.*          → PDS proxy
 atproto.etzhayyim.com — PDS (federation endpoint, external clients)
 ```
 
@@ -163,7 +163,7 @@ atproto.etzhayyim.com — PDS + AppView + SPA 全統合
   ├─ /xrpc/com.atproto.*   → PDS direct
   ├─ /xrpc/app.bsky.*      → AppView direct (HYPERDRIVE)
   ├─ /xrpc/chat.bsky.*     → Convo handler direct
-  └─ /xrpc/app.etzhayyim.*       → Platform handlers direct
+  └─ /xrpc/com.etzhayyim.*       → Platform handlers direct
 yoro.etzhayyim.com → 301 redirect → atproto.etzhayyim.com
 ```
 
@@ -186,7 +186,7 @@ yoro.etzhayyim.com → 301 redirect → atproto.etzhayyim.com
 
 | Candidate | Description | η | Read hop | Write hop | NSID rewrite | Federation | CORS |
 |---|---|---|---|---|---|---|---|
-| **A** | yoro gateway + app.etzhayyim.yoro.* rewrite (現状) | **0.72** | 1-2 | 2 | ~10 rules | Low | No |
+| **A** | yoro gateway + com.etzhayyim.yoro.* rewrite (現状) | **0.72** | 1-2 | 2 | ~10 rules | Low | No |
 | **B** | AT Protocol 準拠 (PDS gateway + atproto-proxy) | **0.93** | 2 | 1 | 0 | Full | Yes |
 | **C** | Hybrid (yoro SPA only + PDS gateway + AppView binding) | **0.95** | 2 | 1 | 0 | Full | Yes |
 | **D** | yoro 統合 (SPA + AppView + PDS proxy, 同一オリジン) | **0.90** | 1 | 2 | 0 | Full | No |
@@ -261,9 +261,9 @@ atproto.etzhayyim.com (PDS — sole gateway)
   │   → pipethroughAppView() → APPVIEW_SERVICE (service binding <1ms)
   │     → yoro Worker handleAppViewRpc() → HYPERDRIVE → RisingWave
   │   → 501? → PDS local handler fallback
-  ├─ app.etzhayyim.convo.* → PDS direct (convo handler)
-  ├─ app.etzhayyim.signal.* → PDS direct (signal handler)
-  └─ app.etzhayyim.projector.* → PDS direct
+  ├─ com.etzhayyim.convo.* → PDS direct (convo handler)
+  ├─ com.etzhayyim.signal.* → PDS direct (signal handler)
+  └─ com.etzhayyim.projector.* → PDS direct
 
 210 App Workers (server-side, 変更なし)
   sdk.pds.dispatch() → PDS_SERVICE binding → PDS direct

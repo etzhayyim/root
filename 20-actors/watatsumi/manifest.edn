@@ -29,7 +29,7 @@
   {:gate/id "G17" :gate/name "tithe-non-fiat"                :gate/rule "Payments are USDC Base L2 + ERC-4337 + TitheRouter 10% (no Stripe/fiat)"}
   {:gate/id "G18" :gate/name "no-server-key"                 :gate/rule "Platform holds no key (member/operator signs)"}
   {:gate/id "G19" :gate/name "consent-bound"                 :gate/rule "Real outward actions gated (compute-only R0; settlement stops at 'intent')"}
-  {:gate/id "G20" :gate/name "pii-encrypted"                 :gate/rule "PII encrypted in app.etzhayyim.encrypted.* (ADR-2605181100)"}]
+  {:gate/id "G20" :gate/name "pii-encrypted"                 :gate/rule "PII encrypted in com.etzhayyim.encrypted.* (ADR-2605181100)"}]
 
  :actor/cells
  [{:cell/id "hull_ring_fabrication"    :cell/kind :langgraph :cell/runtime :wasm}

@@ -167,7 +167,7 @@ Each technology is re-evaluated against D1..D5 independently. Verdict is the con
 
 **Verdict**: PERMITTED under the following additional conditions:
 
-1. **Carbon provenance attestation**: every hydrocarbon batch carries `app.etzhayyim.hikari.carbonSourceAttestation` Lexicon record certifying CO₂ source = atmospheric (direct photosynthesis or direct air capture by religious-corp process) within prior 10 yr.
+1. **Carbon provenance attestation**: every hydrocarbon batch carries `com.etzhayyim.hikari.carbonSourceAttestation` Lexicon record certifying CO₂ source = atmospheric (direct photosynthesis or direct air capture by religious-corp process) within prior 10 yr.
 2. **No fossil feedstock**: feedstock CO₂ MUST NOT originate from fossil combustion flue gas (even though that would be technically CO₂ recycling, accepting it creates a dependency on fossil-burning industry). Atmospheric ambient CO₂ only.
 3. **Bioreactor open-hardware**: photobioreactor design + control firmware + harvest equipment Apache 2.0 + Charter Rider.
 4. **Strain open-genome**: engineered organism genome + plasmid sequences published under OpenMTA before R2 deployment. No utility-patent-encumbered strains. No CRISPR-Cas9-derived strains under closed IP (only public-domain or open-license Cas9 variants).
@@ -262,7 +262,7 @@ ADR-2605202000 (energy substrate) is **partially superseded**:
 ## §4 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   carbonSourceAttestation,        # §2.2 D3 — every hydrocarbon batch certifies atmospheric CO₂ provenance ≤10 yr
   hydrocarbonBatchRecord,         # §2.2 — per-batch hydrocarbon output: strain, bioreactor, CO₂ source, energy in, product mass, lifecycle CO₂
   silenHydrocarbonReview,         # §2.2.9 — annual Council Lv6+ ≥3 net-zero mass-balance attestation

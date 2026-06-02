@@ -1,7 +1,7 @@
-;; app.etzhayyim.manabi.charterUnderstandingAttestation — lexicon (EDN form)
+;; com.etzhayyim.manabi.charterUnderstandingAttestation — lexicon (EDN form)
 ;; Civics_charter cell output; SBT informed-consent baseline (ADR-2605261000 §2)
 {:lexicon 1
- :id "app.etzhayyim.manabi.charterUnderstandingAttestation"
+ :id "com.etzhayyim.manabi.charterUnderstandingAttestation"
  :defs
  {:main
   {:type "record"

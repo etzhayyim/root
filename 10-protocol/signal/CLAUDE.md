@@ -14,7 +14,7 @@ convention** per ADR-2604261110 (2026-04-26).
 ## Out of scope
 
 - XRPC dispatch — caller injects via `setSignalTransport(...)`
-- Lexicon definitions — live at `00-contracts/lexicons/ai/gftd/signal/`
+- Lexicon definitions — live at `00-contracts/lexicons/com/etzhayyim/signal/`
 - Auth / session bootstrap — caller's `@atproto/api` AtpAgent
 
 ## Transport injection
@@ -46,7 +46,7 @@ during the consumer migration window, then be removed alongside wproto
 
 ## Wire-format note
 
-`app.etzhayyim.signal.getPrekeyBundle` is declared as `query` (GET) in its Lexicon
+`com.etzhayyim.signal.getPrekeyBundle` is declared as `query` (GET) in its Lexicon
 but the original wproto implementation called it via POST. The port preserves
 POST for behavioral parity. Switching to GET is a follow-up once server
 acceptance is verified.

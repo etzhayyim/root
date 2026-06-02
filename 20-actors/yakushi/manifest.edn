@@ -34,7 +34,7 @@
   {:gate/id "G17" :gate/name "tithe-non-fiat" :gate/rule "Payments = USDC Base L2 + ERC-4337 + TitheRouter 10% auto-split only; no Stripe / fiat / commercial sale model"}
   {:gate/id "G18" :gate/name "no-server-key" :gate/rule "Platform holds no key; member / QP signs each settlement (ADR-2605231525)"}
   {:gate/id "G19" :gate/name "consent-bound" :gate/rule "Real outward actions stay gated; compute-only R0; settlement stops at :intent (G18)"}
-  {:gate/id "G20" :gate/name "pii-encrypted-envelope" :gate/rule "Patient AE identity -> app.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}]
+  {:gate/id "G20" :gate/name "pii-encrypted-envelope" :gate/rule "Patient AE identity -> com.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}]
 
  :actor/cells
  [{:cell/id "raw-material"    :cell/kind :langgraph :cell/runtime :wasm}

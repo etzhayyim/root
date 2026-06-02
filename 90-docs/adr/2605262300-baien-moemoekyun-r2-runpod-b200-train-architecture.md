@@ -15,7 +15,7 @@ authoritative_for:
   - "Precision ladder R2 BF16 → R3 FP8 (TransformerEngine) → R4 sparse FP4 (engineering work itemized per phase)"
   - "Checkpoint pipeline: rented GPU → HuggingFace Hub draft OR direct upload → IPFS pin via mac-260317 → Murakumo fleet pull"
   - "Inference architecture (Mac mini + EVO-X2 fleet) — UNCHANGED, references ADR-2605215000"
-  - "Per-rental yatachain attestation Lexicons app.etzhayyim.train.rentalAttestation + rentalCostLog spec"
+  - "Per-rental yatachain attestation Lexicons com.etzhayyim.train.rentalAttestation + rentalCostLog spec"
   - "Cost / wall budget caps + runbook for rental orchestration"
 depends_on:
   - adr-2605262200-charter-rider-2i-baien-train-rental-carveout
@@ -27,7 +27,7 @@ depends_on:
 related:
   - 70-tools/baien-moemoekyun-train/ (extended for rental orchestration)
   - 90-docs/runbooks/baien-moemoekyun-runpod-bringup.md (R2 deliverable)
-  - 00-contracts/lexicons/app/etzhayyim/train/ (rentalAttestation + rentalCostLog Lexicon定義 deliverable)
+  - 00-contracts/lexicons/com/etzhayyim/train/ (rentalAttestation + rentalCostLog Lexicon定義 deliverable)
 supersedes: []
 superseded_by: []
 ---
@@ -183,7 +183,7 @@ R2 immediate execution は BF16 で開始、FP8 engineering を並行進行、R3
                ↓
 ┌─────────────────────────────┐
 │ Pre-flight attestation emit │
-│ app.etzhayyim.train.        │
+│ com.etzhayyim.train.        │
 │ rentalAttestation           │
 │ (vendor, GPU spec, est wall,│
 │  est cost, dataset CID,     │
@@ -216,7 +216,7 @@ R2 immediate execution は BF16 で開始、FP8 engineering を並行進行、R3
                ↓
 ┌─────────────────────────────┐
 │ Post-flight cost log emit   │
-│ app.etzhayyim.train.        │
+│ com.etzhayyim.train.        │
 │ rentalCostLog               │
 │ (actual wall, actual USD,   │
 │  output checkpoint CID,     │
@@ -239,13 +239,13 @@ R2 immediate execution は BF16 で開始、FP8 engineering を並行進行、R3
 
 ## §5 Per-rental yatachain attestation Lexicon (deliverable)
 
-### §5.1 `app.etzhayyim.train.rentalAttestation` (pre-flight)
+### §5.1 `com.etzhayyim.train.rentalAttestation` (pre-flight)
 
 ```typescript
-// 00-contracts/lexicons/app/etzhayyim/train/rentalAttestation.json (NSID schema)
+// 00-contracts/lexicons/com/etzhayyim/train/rentalAttestation.json (NSID schema)
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.train.rentalAttestation",
+  "id": "com.etzhayyim.train.rentalAttestation",
   "description": "Pre-flight attestation for commercial GPU rental train run under CHARTER-RIDER §2(i)(2) carve-out (ADR-2605262200).",
   "defs": {
     "main": {
@@ -281,12 +281,12 @@ R2 immediate execution は BF16 で開始、FP8 engineering を並行進行、R3
 }
 ```
 
-### §5.2 `app.etzhayyim.train.rentalCostLog` (post-flight)
+### §5.2 `com.etzhayyim.train.rentalCostLog` (post-flight)
 
 ```typescript
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.train.rentalCostLog",
+  "id": "com.etzhayyim.train.rentalCostLog",
   "description": "Post-flight cost + outcome log for commercial GPU rental train run.",
   "defs": {
     "main": {
@@ -324,7 +324,7 @@ R2 immediate execution は BF16 で開始、FP8 engineering を並行進行、R3
 }
 ```
 
-両 Lexicon は P4 以降に `00-contracts/lexicons/app/etzhayyim/train/` 配下に commit、Pregel cell 経由で auto-emit する。
+両 Lexicon は P4 以降に `00-contracts/lexicons/com/etzhayyim/train/` 配下に commit、Pregel cell 経由で auto-emit する。
 
 ## §6 Cost / wall budget caps (constitutional ceiling)
 
@@ -356,7 +356,7 @@ def run_rental_train(adr_ref, vendor, gpu, dataset_cids_train, ...):
         vendor=vendor, gpu=gpu, ...,
         charter_scan_run_cid=scan_result.cid,
     )
-    publish_to_pds(attestation)  # app.etzhayyim.train.rentalAttestation
+    publish_to_pds(attestation)  # com.etzhayyim.train.rentalAttestation
 
     # Provision + train
     start = time.time()
@@ -383,7 +383,7 @@ def run_rental_train(adr_ref, vendor, gpu, dataset_cids_train, ...):
         output_cid=checkpoint_cid, verify_cid=verify_cid,
         eval_metrics=eval_results, commit_decision=decision,
     )
-    publish_to_pds(cost_log)  # app.etzhayyim.train.rentalCostLog
+    publish_to_pds(cost_log)  # com.etzhayyim.train.rentalCostLog
 
     return decision
 ```

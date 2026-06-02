@@ -107,7 +107,7 @@ Calico mesh.
    - `at/[...path]/+page.svelte` — AT URI deep-link catch-all (renders
      `App.svelte`; the SPA parses `location.pathname` and calls
      `loadDocument` XRPC).
-   - `xrpc/[nsid]/+server.ts` — proxies `app.etzhayyim.mangaka.*` POSTs to
+   - `xrpc/[nsid]/+server.ts` — proxies `com.etzhayyim.mangaka.*` POSTs to
      `dispatcher.etzhayyim.com` with the `x-internal-trust` header from the CF
      Secrets Store binding.
    - `blob/[cid]/+server.ts` — direct B2 SigV4 GET for ai-image blobs
@@ -185,7 +185,7 @@ Calico mesh.
 
 - `cd 60-apps/.../mng4k4x1/svelte && pnpm build` succeeds with new
   StateGraph imports.
-- Live: `mangaka.etzhayyim.com/xrpc/app.etzhayyim.mangaka.detectFaces` →
+- Live: `mangaka.etzhayyim.com/xrpc/com.etzhayyim.mangaka.detectFaces` →
   HTTP 200, method=`anime-cascade`, 2 faces per ai-image,
   1.9s latency end-to-end.
 - Live: `mangaka.etzhayyim.com/blob/{cid}?did=anonymous` → HTTP 200,

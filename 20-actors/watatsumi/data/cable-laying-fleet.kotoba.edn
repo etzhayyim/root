@@ -56,7 +56,7 @@
   :robot/role :monitor :robot/mode :shore-interrogator
   :robot/spec "uses the cable's OWN spare fiber as a distributed acoustic/strain sensor; flags strain, seismic, anchor-drag risk"
   :robot/op-sequence ["interrogate-fiber" "anomaly-detect" "emit-fault-bulletin"]
-  :robot/feeds "actor:watatsuna app.etzhayyim.cable.flagCableFault"
+  :robot/feeds "actor:watatsuna com.etzhayyim.cable.flagCableFault"
   :robot/phase "R1+" :robot/maturity :design-only :robot/sourcing :representative
   :robot/note "monitoring only; resilience signal feeds watatsuna. No location data beyond the cable's own route is exported (watatsuna G1)."}
 

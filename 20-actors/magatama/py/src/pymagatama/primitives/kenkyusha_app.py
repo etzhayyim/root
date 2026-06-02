@@ -92,7 +92,7 @@ def _djb2(prefix: str, parts: list[str]) -> str:
 
 
 def _collection(name: str) -> str:
-    return f"app.etzhayyim.apps.kenkyusha.{name}"
+    return f"com.etzhayyim.apps.kenkyusha.{name}"
 
 
 def _record_key(name: str, record: dict[str, Any]) -> str:
@@ -476,18 +476,18 @@ def task_kenkyusha_coverage_map(broad: str = "", **_: Any) -> dict[str, Any]:
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.app.etzhayyim.apps.kenkyusha.collectEvidence": task_kenkyusha_collect_evidence,
-        "xrpc.app.etzhayyim.apps.kenkyusha.coverageMap": task_kenkyusha_coverage_map,
-        "xrpc.app.etzhayyim.apps.kenkyusha.detectFrontiers": task_kenkyusha_detect_frontiers,
-        "xrpc.app.etzhayyim.apps.kenkyusha.evaluateHypothesis": task_kenkyusha_evaluate_hypothesis,
-        "xrpc.app.etzhayyim.apps.kenkyusha.generateHypothesis": task_kenkyusha_generate_hypothesis,
-        "xrpc.app.etzhayyim.apps.kenkyusha.getFrontier": task_kenkyusha_get_frontier,
-        "xrpc.app.etzhayyim.apps.kenkyusha.listDisciplines": task_kenkyusha_list_disciplines,
-        "xrpc.app.etzhayyim.apps.kenkyusha.listFrontiers": task_kenkyusha_list_frontiers,
-        "xrpc.app.etzhayyim.apps.kenkyusha.registerDids": task_kenkyusha_register_dids,
-        "xrpc.app.etzhayyim.apps.kenkyusha.searchEvidence": task_kenkyusha_search_evidence,
-        "xrpc.app.etzhayyim.apps.kenkyusha.seedDisciplines": task_kenkyusha_seed_disciplines,
-        "xrpc.app.etzhayyim.apps.kenkyusha.stats": task_kenkyusha_stats,
+        "xrpc.com.etzhayyim.apps.kenkyusha.collectEvidence": task_kenkyusha_collect_evidence,
+        "xrpc.com.etzhayyim.apps.kenkyusha.coverageMap": task_kenkyusha_coverage_map,
+        "xrpc.com.etzhayyim.apps.kenkyusha.detectFrontiers": task_kenkyusha_detect_frontiers,
+        "xrpc.com.etzhayyim.apps.kenkyusha.evaluateHypothesis": task_kenkyusha_evaluate_hypothesis,
+        "xrpc.com.etzhayyim.apps.kenkyusha.generateHypothesis": task_kenkyusha_generate_hypothesis,
+        "xrpc.com.etzhayyim.apps.kenkyusha.getFrontier": task_kenkyusha_get_frontier,
+        "xrpc.com.etzhayyim.apps.kenkyusha.listDisciplines": task_kenkyusha_list_disciplines,
+        "xrpc.com.etzhayyim.apps.kenkyusha.listFrontiers": task_kenkyusha_list_frontiers,
+        "xrpc.com.etzhayyim.apps.kenkyusha.registerDids": task_kenkyusha_register_dids,
+        "xrpc.com.etzhayyim.apps.kenkyusha.searchEvidence": task_kenkyusha_search_evidence,
+        "xrpc.com.etzhayyim.apps.kenkyusha.seedDisciplines": task_kenkyusha_seed_disciplines,
+        "xrpc.com.etzhayyim.apps.kenkyusha.stats": task_kenkyusha_stats,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

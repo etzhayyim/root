@@ -26,9 +26,9 @@ repo 内の DID manifest と actor governance metadata の compliance 準拠状�
 
 | Lexicon | Method | Description |
 |---|---|---|
-| `ai.gftd.command.completer.evaluate` | `audit.evaluate` | 単一 DID / actor manifest の compliance 評価を実行 |
-| `ai.gftd.command.completer.evaluate_repo_dids` | `audit.evaluate_repo_dids` | repo 内 DID manifest 群の一括評価 |
-| `ai.gftd.command.completer.remediate` | `remediation.recommend` | 特定 finding に対する remediation 推奨生成 |
+| `com.etzhayyim.command.completer.evaluate` | `audit.evaluate` | 単一 DID / actor manifest の compliance 評価を実行 |
+| `com.etzhayyim.command.completer.evaluate_repo_dids` | `audit.evaluate_repo_dids` | repo 内 DID manifest 群の一括評価 |
+| `com.etzhayyim.command.completer.remediate` | `remediation.recommend` | 特定 finding に対する remediation 推奨生成 |
 
 ### Query Path (XRPC)
 
@@ -43,16 +43,16 @@ repo 内の DID manifest と actor governance metadata の compliance 準拠状�
 
 | Collection | Purpose |
 |---|---|
-| `ai.gftd.app.service` | 新規 app 登録の検出 → 自動 profile 作成 |
-| `ai.gftd.command.completer` | Command dispatch |
+| `com.etzhayyim.app.service` | 新規 app 登録の検出 → 自動 profile 作成 |
+| `com.etzhayyim.command.completer` | Command dispatch |
 
 ### AT Record Output
 
 | Lexicon | Description |
 |---|---|
-| `ai.gftd.completer.audit` | 監査実行結果 (`actorId`, score, effect, jurisdictions, evaluated_at) |
-| `ai.gftd.completer.finding` | 個別指摘 (rule_ref, risk_level, obligation, remediation_hint) |
-| `ai.gftd.completer.remediation` | 改善推奨 (finding_id, action_plan, priority, estimated_effort) |
+| `com.etzhayyim.completer.audit` | 監査実行結果 (`actorId`, score, effect, jurisdictions, evaluated_at) |
+| `com.etzhayyim.completer.finding` | 個別指摘 (rule_ref, risk_level, obligation, remediation_hint) |
+| `com.etzhayyim.completer.remediation` | 改善推奨 (finding_id, action_plan, priority, estimated_effort) |
 
 ### AT Channels
 

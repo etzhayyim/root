@@ -78,7 +78,7 @@ export async function getServerConnectClient<T>(Service: T) {
 
   async function connectPost<T>(method: string, body = {}): Promise<T> {
     const headers = await auth.resolve();
-    const response = await transport.call(`app.etzhayyim.apps.hrse.${method}`, undefined, body, { headers });
+    const response = await transport.call(`com.etzhayyim.apps.hrse.${method}`, undefined, body, { headers });
     return response.data as T;
   }
 

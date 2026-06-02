@@ -6,7 +6,7 @@
 set -e
 
 ACTOR_ID="infra-utility-connect"
-GRAPH="app.etzhayyim.infrautilityconnect"
+GRAPH="com.etzhayyim.infrautilityconnect"
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
 
 # Defaults (override via env)

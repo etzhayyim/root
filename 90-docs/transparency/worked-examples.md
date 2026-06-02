@@ -32,7 +32,7 @@ Every example carries `ratificationStatus: "proposed-unratified"`. Until a
 
 ```json
 {
-  "$type": "app.etzhayyim.transparency.redactionMethodNote",
+  "$type": "com.etzhayyim.transparency.redactionMethodNote",
   "createdAt": "2026-05-31T00:00:00Z",
   "methodId": "floor-secret-redaction",
   "version": "v1.0.0",
@@ -76,7 +76,7 @@ naming the sender's **child** who never touched etzhayyim (`outbound-third-party
 
 ```json
 {
-  "$type": "app.etzhayyim.transparency.accessLogPublication",
+  "$type": "com.etzhayyim.transparency.accessLogPublication",
   "createdAt": "2026-05-31T00:00:00Z",
   "accessKind": "inbound-email",
   "actorClass": "non-member",
@@ -113,13 +113,13 @@ naming the sender's **child** who never touched etzhayyim (`outbound-third-party
 
 ```json
 {
-  "$type": "app.etzhayyim.transparency.accessLogPublication",
+  "$type": "com.etzhayyim.transparency.accessLogPublication",
   "createdAt": "2026-05-31T00:00:00Z",
   "accessKind": "http-request",
   "actorClass": "non-member",
   "peerIp": "198.51.100.22",
   "method": "GET",
-  "path": "/xrpc/ai.gftd.apps.kotoba.graph.sparql",
+  "path": "/xrpc/com.etzhayyim.apps.kotoba.graph.sparql",
   "requestAuditCid": "<cid:kotoba/audit/requests/v1/...>",
   "ingressConsentBasis": "ingress-act",
   "secretsRedacted": true,
@@ -140,7 +140,7 @@ datom — become publishable.
 
 ```json
 {
-  "$type": "app.etzhayyim.transparency.covenantTransparencyAttestation",
+  "$type": "com.etzhayyim.transparency.covenantTransparencyAttestation",
   "createdAt": "2026-05-31T00:00:00Z",
   "memberDid": "did:plc:examplemember",
   "acceptsAnonymityAbolished": true,

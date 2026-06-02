@@ -104,7 +104,7 @@ async def _persist(state: _State) -> dict[str, Any]:
     name = state.get("name") or f"studio-{(state.get('user_email') or 'anon').split('@')[0]}"
     scopes = state.get("scopes") or _DEFAULT_SCOPES
     owner = state["owner_did"]
-    vid = f"at://{owner}/app.etzhayyim.auth.apiKey/{state['key_hash'][:13]}"
+    vid = f"at://{owner}/com.etzhayyim.auth.apiKey/{state['key_hash'][:13]}"
     now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
     try:

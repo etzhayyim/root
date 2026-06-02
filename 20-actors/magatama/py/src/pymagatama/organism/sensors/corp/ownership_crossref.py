@@ -4,7 +4,7 @@
 Per ADR-2605263800 §3 + ADR-2605301600 §3. This is the **pure, non-running
 core** of ``danjo_crossref_engine``'s ownership-edge path: it turns a
 ``corp.ownershipEdge`` record (see ``ownership_edge_datom``) into a
-``app.etzhayyim.danjo.crossReferenceLink`` record — a typed *factual*
+``com.etzhayyim.danjo.crossReferenceLink`` record — a typed *factual*
 edge between two LEI-identified entities, citing the public-record basis.
 
 **This module does NOT run anything.** It is a deterministic library
@@ -50,7 +50,7 @@ from __future__ import annotations
 
 from typing import Iterable, Mapping
 
-CROSSREF_LINK_NSID = "app.etzhayyim.danjo.crossReferenceLink"
+CROSSREF_LINK_NSID = "com.etzhayyim.danjo.crossReferenceLink"
 
 # corp.ownershipEdge ownershipKind → crossReferenceLink linkType.
 # Covers all five OwnershipKind values; each target is a Lexicon linkType

@@ -133,7 +133,7 @@ specify how an objection is judged cleared (good-faith) vs uncleared
 
 ### Step 2.1 — Receive
 
-An objection arrives as `app.etzhayyim.apps.etzhayyim.council-objection` AT Record
+An objection arrives as `com.etzhayyim.apps.etzhayyim.council-objection` AT Record
 during the 30-day window. The objector MUST hold an active Adherent SBT
 (checked via `AdherentRegistry.isActive(did) == true`). Objections from
 non-Adherents are filed but not counted.
@@ -168,7 +168,7 @@ The founder reviews each objection within 7 days of receipt:
 ### Step 2.4 — Record
 
 For each judged objection, the founder writes a public reply AT Record
-(`app.etzhayyim.apps.etzhayyim.council-objection-disposition`) within 7 days:
+(`com.etzhayyim.apps.etzhayyim.council-objection-disposition`) within 7 days:
 
 - Cleared objections list cited evidence
 - Uncleared objections explain why (1-2 sentences, no need to defame the
@@ -321,7 +321,7 @@ the deadline:
 - ADR-2605192100 — Mission Charter
 - ADR-2605192200 — Charter Compliance Rider v2.0 (§2(a)–(h) prohibited categories)
 - CHARTER-RIDER.md — Rider canonical text
-- `00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-candidate-application.json`
-- `00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-objection.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/council-candidate-application.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/council-objection.json`
 - `50-infra/etzhayyim-chain-contracts/src/ChartersComplianceRegistry.sol`
 - `50-infra/etzhayyim-chain-contracts/script/DeployReligiousCorp.s.sol`

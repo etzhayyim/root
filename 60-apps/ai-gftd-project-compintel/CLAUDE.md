@@ -22,7 +22,7 @@ ADR-2605072000 business model ④ of 5.
 - Nanoid: `cpti0001`
 - CF Worker: `60-apps/ai-gftd-project-compintel/appview/compintel-cpti0001/`
 - Python worker: `20-actors/magatama/py/src/pymagatama/compintel_worker_main.py`
-- BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/compintel/`
+- BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/compintel/`
 
 ## Flow
 

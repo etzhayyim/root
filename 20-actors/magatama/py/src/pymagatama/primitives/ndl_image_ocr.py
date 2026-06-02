@@ -359,8 +359,8 @@ def _oai_checkpoint_vertex_id(
     key = hashlib.sha1(f"{provider_id}|{set_group}|{window_start}|{window_end}".encode("utf-8")).hexdigest()[:20]
     if pages_seen is not None and records_seen is not None:
         token_key = hashlib.sha1(token.encode("utf-8")).hexdigest()[:12]
-        return f"at://{_ACTOR}/app.etzhayyim.apps.ndl.oaiCheckpoint/{key}/{int(pages_seen)}-{int(records_seen)}-{token_key}"
-    return f"at://{_ACTOR}/app.etzhayyim.apps.ndl.oaiCheckpoint/{key}"
+        return f"at://{_ACTOR}/com.etzhayyim.apps.ndl.oaiCheckpoint/{key}/{int(pages_seen)}-{int(records_seen)}-{token_key}"
+    return f"at://{_ACTOR}/com.etzhayyim.apps.ndl.oaiCheckpoint/{key}"
 
 
 def _read_oai_checkpoint(provider_id: str, set_group: str, window_start: str, window_end: str) -> tuple[str, int, int, int, str] | None:
@@ -459,7 +459,7 @@ def _parse_ocr_json(content: str) -> dict[str, Any]:
 
 def _cursor_vertex_id(provider_id: str, query: str) -> str:
     key = hashlib.sha1(f"{provider_id}|{query}".encode("utf-8")).hexdigest()[:16]
-    return f"at://{_ACTOR}/app.etzhayyim.apps.ndl.ingestCursor/{provider_id}-{key}"
+    return f"at://{_ACTOR}/com.etzhayyim.apps.ndl.ingestCursor/{provider_id}-{key}"
 
 
 def _resume_start_record(provider_id: str, query: str, requested_start: int) -> int:
@@ -491,7 +491,7 @@ def _page_has_completed_ocr(pid: str, page_index: int) -> bool:
           AND p.status = 'active'
         LIMIT 1
         """,
-        {"vertex_id": f"at://{_ACTOR}/app.etzhayyim.apps.ndl.digitalPage/{pid}-{page_index + 1:06d}"},
+        {"vertex_id": f"at://{_ACTOR}/com.etzhayyim.apps.ndl.digitalPage/{pid}-{page_index + 1:06d}"},
     )
     return row is not None
 
@@ -660,7 +660,7 @@ INSERT INTO vertex_ndl_oai_checkpoint (
 def _item_insert_row(item: dict[str, str], now: str) -> dict[str, Any]:
     pid = item["pid"]
     return {
-        "vertex_id": f"at://{_ACTOR}/app.etzhayyim.apps.ndl.digitalItem/{pid}",
+        "vertex_id": f"at://{_ACTOR}/com.etzhayyim.apps.ndl.digitalItem/{pid}",
         "created_date": _today_date(),
         "owner_did": _ACTOR,
         "pid": pid,
@@ -750,7 +750,7 @@ def _write_run_and_cursor(
     _rw_exec(
         _INSERT_RUN,
         {
-            "vertex_id": f"at://{_ACTOR}/app.etzhayyim.apps.ndl.ingestRun/{run_id}",
+            "vertex_id": f"at://{_ACTOR}/com.etzhayyim.apps.ndl.ingestRun/{run_id}",
             "created_date": _today_date(),
             "owner_did": _ACTOR,
             "run_id": run_id,
@@ -883,7 +883,7 @@ async def task_ndl_image_ocr_ingest(
         for item in selected_items:
             now = _now_iso()
             pid = item["pid"]
-            item_vid = f"at://{_ACTOR}/app.etzhayyim.apps.ndl.digitalItem/{pid}"
+            item_vid = f"at://{_ACTOR}/com.etzhayyim.apps.ndl.digitalItem/{pid}"
             _rw_replace_vertex(
                 "vertex_ndl_digital_item",
                 item_vid,
@@ -904,7 +904,7 @@ async def task_ndl_image_ocr_ingest(
                     webp, width, height = _webp_from_image_bytes(img, int(webpQuality))
                     webp_sha, cid, b2_key = _b2_put_webp(pid, page_index, webp)
                     now = _now_iso()
-                    page_vid = f"at://{_ACTOR}/app.etzhayyim.apps.ndl.digitalPage/{pid}-{page_index + 1:06d}"
+                    page_vid = f"at://{_ACTOR}/com.etzhayyim.apps.ndl.digitalPage/{pid}-{page_index + 1:06d}"
                     page_row = {
                         "vertex_id": page_vid,
                         "created_date": _today_date(),
@@ -934,7 +934,7 @@ async def task_ndl_image_ocr_ingest(
                         warnings = json.dumps(parsed.get("warnings") or [], ensure_ascii=False)
                         raw_json = json.dumps(parsed, ensure_ascii=False)
                         text_bytes = text.encode("utf-8")
-                        ocr_vid = f"at://{_ACTOR}/app.etzhayyim.apps.ndl.ocrText/{pid}-{page_index + 1:06d}"
+                        ocr_vid = f"at://{_ACTOR}/com.etzhayyim.apps.ndl.ocrText/{pid}-{page_index + 1:06d}"
                         ocr_row = {
                             "vertex_id": ocr_vid,
                             "created_date": _today_date(),

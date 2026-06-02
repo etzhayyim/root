@@ -84,7 +84,7 @@ ipfs add (Kubo) ──► CID ──► DataLad subdataset ─────┘
 
 **Graph**:`kotoba:graph:etzhayyim-root` (single canonical graph; sub-graph 分割は将来検討)。
 
-**Predicate vocabulary** (CURIE-like; full form `ai.gftd.apps.kotoba.monorepo:<short>`):
+**Predicate vocabulary** (CURIE-like; full form `com.etzhayyim.apps.kotoba.monorepo:<short>`):
 
 | Predicate | Domain | Range | 説明 |
 |---|---|---|---|
@@ -110,7 +110,7 @@ ipfs add (Kubo) ──► CID ──► DataLad subdataset ─────┘
 **Subject IRI naming**:
 
 - ADR: `adr:2605281700` (just ID; ファイル名ではなく ADR id)
-- Lexicon: `lex:app.etzhayyim.feed.discover` (NSID)
+- Lexicon: `lex:com.etzhayyim.feed.discover` (NSID)
 - deps.toml row: `deps:adrs:adr-2605281700` (table.row)
 - Roster: `roster:members` / `roster:council` / `roster:lands`
 - CLAUDE.md Status row: `status:row-<N>` (table row index)
@@ -173,7 +173,7 @@ ipfs add (Kubo) ──► CID ──► DataLad subdataset ─────┘
 
 - **N1**: kotoba を authoritative SoT にしない。`git revert` で完全に戻せる構造を保つ。
 - **N2**: real-time sync しない。ingest は手動 or post-commit hook トリガで足りる。
-- **N3**: encrypted content の ingest はしない。Per user 2026-05-28 「etzhayyim のデータは public なので public 前提 OK」。private/restricted 系は別 ADR で `app.etzhayyim.encrypted.*` (ADR-2605181100) 経路を併用。
+- **N3**: encrypted content の ingest はしない。Per user 2026-05-28 「etzhayyim のデータは public なので public 前提 OK」。private/restricted 系は別 ADR で `com.etzhayyim.encrypted.*` (ADR-2605181100) 経路を併用。
 - **N4**: 双方向 sync しない。kotoba → ファイルへの書き戻し経路は実装しない(D2)。
 - **N5**: AT Protocol MST projection (`app.bsky.feed.post` 等) の置換ではない — それは ADR-2605231902 の領域。本 ADR は monorepo 内 file 系のみを対象。
 - **N6**: e7m-dataset (ADR-2605262400) の置換ではない — 大規模 dataset (RIR / GeoLite2 / Common Crawl など) は引き続き e7m-dataset で扱う。本 ADR は monorepo 内の "doc / schema / registry" 階層を対象。

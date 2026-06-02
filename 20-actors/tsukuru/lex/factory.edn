@@ -1,7 +1,7 @@
-;; app.etzhayyim.tsukuru.factory — lexicon (EDN form) — manufacturer registry entry
-;; ADR-2605202800 · Phase 2 (ports legacy app.etzhayyim.apps.tsukuru.manufacturer)
+;; com.etzhayyim.tsukuru.factory — lexicon (EDN form) — manufacturer registry entry
+;; ADR-2605202800 · Phase 2 (ports legacy com.etzhayyim.apps.tsukuru.manufacturer)
 {:lexicon 1
- :id "app.etzhayyim.tsukuru.factory"
+ :id "com.etzhayyim.tsukuru.factory"
  :defs
  {:main
   {:type "record"

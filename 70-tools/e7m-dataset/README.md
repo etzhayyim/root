@@ -9,7 +9,7 @@ Glues four substrate components together:
    `${ETZ_DATASET_ROOT}/annex-store/<subdataset>/` — bytes at rest.
 3. **Sidecar IPFS pinner** — walks the directory remote, `ipfs add`s each
    annex object, emits a SHA256E-key → IPFS-CID map JSON, pins the map.
-4. **PDS `app.etzhayyim.substrate.datasetPin` record** — religious-corp-canonical receipt.
+4. **PDS `com.etzhayyim.substrate.datasetPin` record** — religious-corp-canonical receipt.
 
 It does NOT reimplement DataLad / git-annex semantics — it orchestrates
 existing commands and adds the **Charter Rider §2 scan** gate and the

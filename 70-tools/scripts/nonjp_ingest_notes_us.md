@@ -8,7 +8,7 @@ Scope: source research only. No live DB writes.
 - `60-apps/ai-gftd-project-houbun/CLAUDE.md` already reserves:
   - `did:web:houbun.etzhayyim.com:usa:cfr`
   - `did:web:houbun.etzhayyim.com:usa:usc`
-- `00-contracts/lexicons/ai/gftd/apps/houbun/ingestStatuteUsa.json` describes GovInfo CFR/USCODE ingestion, but its current wording assumes `USCODE` is available through GovInfo bulkdata JSON. Tested endpoints show that is not true for keyless bulkdata JSON.
+- `00-contracts/lexicons/com/etzhayyim/apps/houbun/ingestStatuteUsa.json` describes GovInfo CFR/USCODE ingestion, but its current wording assumes `USCODE` is available through GovInfo bulkdata JSON. Tested endpoints show that is not true for keyless bulkdata JSON.
 - Target graph tables are `vertex_houbun_statute`, `vertex_houbun_article`, `edge_houbun_statute_article`. This note does not modify them.
 
 ## Keyless URLs tested

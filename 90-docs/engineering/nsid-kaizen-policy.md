@@ -1,7 +1,7 @@
 # NSID Kaizen Policy
 
 ## Canonical Command Naming
-- Canonical command namespace: `app.etzhayyim.apps.<app>.<method>`
+- Canonical command namespace: `com.etzhayyim.apps.<app>.<method>`
 - `<method>` must be `lowerCamelCase`
 - Legacy names (`snake_case`, plain, `UpperCamelCase`) are compatibility aliases only
 
@@ -18,11 +18,11 @@
 
 ## PDS Namespace Migration (2026-04-03)
 - Canonical:
-  - `app.etzhayyim.pds.listHeartbeatApps`
-  - `app.etzhayyim.pds.registerSyncApp`
+  - `com.etzhayyim.pds.listHeartbeatApps`
+  - `com.etzhayyim.pds.registerSyncApp`
 - Removed alias (no longer accepted by PDS as of 2026-04-03):
-  - `app.etzhayyim.apps.pds.listHeartbeatApps`
-  - `app.etzhayyim.apps.pds.registerSyncApp`
+  - `com.etzhayyim.apps.pds.listHeartbeatApps`
+  - `com.etzhayyim.apps.pds.registerSyncApp`
 - Enforcement:
   - callers must use canonical NSIDs only
   - alias calls return method-not-found at dispatch layer

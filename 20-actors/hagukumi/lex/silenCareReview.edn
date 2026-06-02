@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hagukumi.silenCareReview"
+ :id "com.etzhayyim.hagukumi.silenCareReview"
  :defs
  {:main
   {:type "record"

@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hodoki.silenDeconstructionReview"
+ :id "com.etzhayyim.hodoki.silenDeconstructionReview"
  :defs
  {:main
   {:type "record"

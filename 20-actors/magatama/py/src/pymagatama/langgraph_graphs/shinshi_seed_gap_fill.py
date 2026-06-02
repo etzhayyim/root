@@ -89,7 +89,7 @@ def emit_audit(state: ShinshiSeedGapFillState) -> dict:
                 (
                     str(uuid.uuid4()),
                     _SHINSHI_ACTOR,
-                    "app.etzhayyim.apps.shinshi.seedGapFill",
+                    "com.etzhayyim.apps.shinshi.seedGapFill",
                     f"lg-{int(_time.time() * 1000)}",
                     "create",
                     int(_time.time() * 1000),

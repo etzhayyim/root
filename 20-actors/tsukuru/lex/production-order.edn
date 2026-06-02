@@ -1,7 +1,7 @@
-;; app.etzhayyim.tsukuru.productionOrder — lexicon (EDN form)
+;; com.etzhayyim.tsukuru.productionOrder — lexicon (EDN form)
 ;; ADR-2605202800 · Phase 2 (ports legacy production_order record kind)
 {:lexicon 1
- :id "app.etzhayyim.tsukuru.productionOrder"
+ :id "com.etzhayyim.tsukuru.productionOrder"
  :defs
  {:main
   {:type "record"
@@ -17,4 +17,4 @@
      :spec            {:type "string" :description "production spec (Murakumo-parsed, G5)"}
      :state           {:type "string" :description "draft|placed|dispatched|in-production|qc|ready|shipped|quarantine|refused"}
      :complianceState {:type "string" :description "pending|passed|rejected (G16: treaty + yabai)"}
-     :settlementId    {:type "string" :description "→ app.etzhayyim.tsukuru.settlement (USDC, G7)"}}}}}}
+     :settlementId    {:type "string" :description "→ com.etzhayyim.tsukuru.settlement (USDC, G7)"}}}}}}

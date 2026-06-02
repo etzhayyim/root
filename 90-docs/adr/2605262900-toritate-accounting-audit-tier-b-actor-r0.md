@@ -9,11 +9,11 @@ last_verified: 2026-05-26
 priority: 6.5
 axis: governance
 weight: 0.55
-priority_note: "Second-priority gap-closure actor (sibling of chigiri ADR-2605262700; gap audit row 2). 任意団体 internal accounting + audit substrate for religious-corp's on-chain financial flows: TitheRouter income / Public Fund disbursement / Council compensation (typically zero) / steward subsistence flow per Liberation Ladder L0..L6 / Land Trust acquisition records. 100% on-chain transparency invariant (G3) — no off-chain books, no commercial accounting software (QuickBooks / Xero / FreeAgent / Wave / FreshBooks PROHIBITED per G8 + Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty). NOT a tax-advice service (chigiri.tax_receipt handles donor receipts per ADR-2605262700; toritate aggregates the religious-corp side only). NOT a payroll system (volunteer ≠ employee per ADR-2605261000 G13). 6 cells / 5 Lexicons under app.etzhayyim.toritate.* / 12 immutable gates / 12 non-goals / 4-phase R0..R3. Powered by the existing on-chain primitives (no new substrate engine introduced). Annual audit by ≥3 distinct Council Lv6+ attestations (G6); external auditor engagement (when needed for jurisdictional compliance) contracted via Public Fund Safe per Council Lv6+ approval — toritate orchestrates the data preparation, NOT the audit opinion itself."
+priority_note: "Second-priority gap-closure actor (sibling of chigiri ADR-2605262700; gap audit row 2). 任意団体 internal accounting + audit substrate for religious-corp's on-chain financial flows: TitheRouter income / Public Fund disbursement / Council compensation (typically zero) / steward subsistence flow per Liberation Ladder L0..L6 / Land Trust acquisition records. 100% on-chain transparency invariant (G3) — no off-chain books, no commercial accounting software (QuickBooks / Xero / FreeAgent / Wave / FreshBooks PROHIBITED per G8 + Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty). NOT a tax-advice service (chigiri.tax_receipt handles donor receipts per ADR-2605262700; toritate aggregates the religious-corp side only). NOT a payroll system (volunteer ≠ employee per ADR-2605261000 G13). 6 cells / 5 Lexicons under com.etzhayyim.toritate.* / 12 immutable gates / 12 non-goals / 4-phase R0..R3. Powered by the existing on-chain primitives (no new substrate engine introduced). Annual audit by ≥3 distinct Council Lv6+ attestations (G6); external auditor engagement (when needed for jurisdictional compliance) contracted via Public Fund Safe per Council Lv6+ approval — toritate orchestrates the data preparation, NOT the audit opinion itself."
 authoritative_for:
   - toritate actor R0 charter
   - religious-corp accounting + audit substrate single SoT
-  - `app.etzhayyim.toritate.*` Lexicon namespace boundary
+  - `com.etzhayyim.toritate.*` Lexicon namespace boundary
   - 100% on-chain transparency invariant for religious-corp financial flows
   - prohibition on commercial accounting software (QuickBooks / Xero / FreeAgent / Wave / FreshBooks)
   - annual transparency report contract
@@ -106,7 +106,7 @@ Constitutional constraints (inherited; not adjustable):
 Create `toritate` (執帳) as a Tier-B religious-corp accounting + audit
 substrate actor at `20-actors/toritate/`, with DID
 `did:web:toritate.etzhayyim.com`, Lexicon namespace
-`app.etzhayyim.toritate.*`. R0 = scaffold only; all cells import-time
+`com.etzhayyim.toritate.*`. R0 = scaffold only; all cells import-time
 `RuntimeError` (same scaffold discipline as chigiri R0 + hagukumi R0).
 
 ## §1. Identity and naming
@@ -116,7 +116,7 @@ substrate actor at `20-actors/toritate/`, with DID
 | Name | `toritate` (執帳) |
 | Etymology | 執帳 = bookkeeping ledger (Heian-era 律令制 financial-record term); 執 = handle / hold + 帳 = ledger / book |
 | DID | `did:web:toritate.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.toritate.*` |
+| Lexicon root | `com.etzhayyim.toritate.*` |
 | Form | 任意団体 internal accounting + audit substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格) |
 | Tier | Tier-B per-domain leader actor |
 | Cross-actor | `chigiri` (tax_receipt boundary, 2-way) / Public Fund Safe (disbursement read) / TitheRouter (income read) / Land Registry (acquisition read) / Council Safe (compensation flow read) |
@@ -191,7 +191,7 @@ All R0 path-reserved; import-time `RuntimeError("toritate R0 scaffold: activate 
 
 R1 activation gates each cell separately (Council Lv6+ ≥3 attestation per cell).
 
-## §4. Lexicons (5, all under `app.etzhayyim.toritate.*`)
+## §4. Lexicons (5, all under `com.etzhayyim.toritate.*`)
 
 | # | Lexicon | Cell consumer | Description |
 |---|---|---|---|
@@ -208,7 +208,7 @@ All 5 records require schema-level field validation. R0 = scaffold + skeleton sc
 | Gate | Description |
 |---|---|
 | **G1** | Every report MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). Fail = block. |
-| **G2** | Every record MUST emit `app.etzhayyim.toritate.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.toritate.*` Lexicon with yatachain attestation lineage. |
 | **G3** | **100% on-chain transparency** — toritate MUST NOT maintain an off-chain primary ledger. All financial state derives from on-chain transactions. |
 | **G4** | **No fiat reconciliation as primary ledger** — USDC + Base L2 + TitheRouter + Public Fund Safe are canonical SoT. Fiat reporting (if any) is a derived projection only, never primary. |
 | **G5** | UPL-equivalent: toritate MUST NOT render tax advice or accounting opinion. Templates document procedure; opinion happens via external counsel contracted through Public Fund Safe. |
@@ -263,7 +263,7 @@ All 5 records require schema-level field validation. R0 = scaffold + skeleton sc
 
 1. This ADR (`90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/toritate/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/toritate/` + README;
+3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/toritate/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 69 + Repo Layout entry.

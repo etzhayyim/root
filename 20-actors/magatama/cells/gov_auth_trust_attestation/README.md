@@ -36,12 +36,12 @@ Operationalizes trust-level evaluation for DID-based identity attestation (ADR-2
 | Node | Purpose | Output |
 |---|---|---|
 | `evaluate_trust_level` | Assess authentication evidence. Require webauthn_verified=True. Map to trustLevel (1 or 2) based on method + mynumber_decrypted. | `{trust_level, reason_code, audit_log}` |
-| `emit_attestation` | Create public `app.etzhayyim.gov.procedure.auth.didTrustAttestation` (no encryption, no PII). | `{attested_tid, sig, expiry}` |
+| `emit_attestation` | Create public `com.etzhayyim.gov.procedure.auth.didTrustAttestation` (no encryption, no PII). | `{attested_tid, sig, expiry}` |
 
 ### Output (R1+)
 ```python
 {
-  "app.etzhayyim.gov.procedure.auth.didTrustAttestation": {
+  "com.etzhayyim.gov.procedure.auth.didTrustAttestation": {
     "subjectDidHash": "blake2b_256(subject_did)",  # hashed DID only (no plaintext)
     "trustLevel": 2,  # 1 or 2
     "attestedBy": "did:web:etzhayyim.com:council:seat1",
@@ -64,7 +64,7 @@ Operationalizes trust-level evaluation for DID-based identity attestation (ADR-2
 ## R1 Implementation Tasks
 
 - [ ] evaluate_trust_level: enum validation + logic (L1 vs L2 determination)
-- [ ] emit_attestation: record construction + MST emission (`app.etzhayyim.gov.procedure.auth.didTrustAttestation`)
+- [ ] emit_attestation: record construction + MST emission (`com.etzhayyim.gov.procedure.auth.didTrustAttestation`)
 - [ ] blake2b_256 DID hash computation
 - [ ] Optional signature + expiry handling
 - [ ] Council activation ADR (R1 ADR-2605260100 reserved)

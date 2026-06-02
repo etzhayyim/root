@@ -1,7 +1,7 @@
 # moushibumi participation-registry — Verification Workflow (G14)
 
 Per ADR-2605312400 §2 + §4 (G14 verified-target-only submission). Every
-`app.etzhayyim.moushibumi.participationTarget` entry in the `targets` list ships
+`com.etzhayyim.moushibumi.participationTarget` entry in the `targets` list ships
 `verificationStatus = unverified-seed` and **no live action (`moushibumi_submit`)
 may run against an unverified-seed or stale entry**. This file documents how an
 entry is moved through the three tiers — the human/Council checks that gate

@@ -22,7 +22,7 @@ SQL usage
 Surface
 -------
 
-    app.etzhayyim.apps.steam.releaseDate(appid)    VARCHAR → VARCHAR
+    com.etzhayyim.apps.steam.releaseDate(appid)    VARCHAR → VARCHAR
 
 Output JSON:
     { "appid": "123", "releaseDate": "2021-08-10", "releaseYear": 2021,
@@ -96,7 +96,7 @@ def _parse_date(raw: str) -> tuple[str | None, int | None]:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.steam.releaseDate",
+    nsid="com.etzhayyim.apps.steam.releaseDate",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",

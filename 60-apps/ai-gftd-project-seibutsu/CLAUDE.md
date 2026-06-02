@@ -1,6 +1,6 @@
 # Seibutsu (生物) — Biological Entities as Actors
 
-Living taxa and observed individuals as DID-addressed actors. Procedural-generation profiles (`app.etzhayyim.apps.seibutsu.traits`) feed `kami-vegetation` engine 1:1.
+Living taxa and observed individuals as DID-addressed actors. Procedural-generation profiles (`com.etzhayyim.apps.seibutsu.traits`) feed `kami-vegetation` engine 1:1.
 
 ## Runtime
 
@@ -18,7 +18,7 @@ Living taxa and observed individuals as DID-addressed actors. Procedural-generat
 
 - **Taxon actor** = `did:plc:*`, handle `{slug}.seibutsu.etzhayyim.com` (e.g. `bamboo.seibutsu.etzhayyim.com`).
 - **Individual actor** = path-based DID `did:plc:seibutsu:individual:{tid}` for tracked specimens.
-- No nanoid usage. NSID = `app.etzhayyim.apps.seibutsu.*` (4-segment, ADR-0019).
+- No nanoid usage. NSID = `com.etzhayyim.apps.seibutsu.*` (4-segment, ADR-0019).
 - 1 project = N actor DIDs (taxa + individuals), scoped by `projectId = did:plc:seibutsu`.
 
 ## Linnaean → DID graph
@@ -30,15 +30,15 @@ domain → kingdom → phylum/division → class → order → family → genus 
 
 Hierarchy is edge-only (`graphar.edge_hasParent`). Records do not nest.
 
-## Lexicons (`00-contracts/lexicons/ai/gftd/apps/seibutsu/`)
+## Lexicons (`00-contracts/lexicons/com/etzhayyim/apps/seibutsu/`)
 
 | NSID | type | role |
 |---|---|---|
-| `app.etzhayyim.apps.seibutsu.taxon` | record | rank + scientific name + GBIF/NCBI/Wikidata cross-refs |
-| `app.etzhayyim.apps.seibutsu.traits` | record | procedural profile (kami-vegetation TaxonomicProfile mirror) |
-| `app.etzhayyim.apps.seibutsu.observation` | record | individual sighting (geo-h3, image, observer) |
-| `app.etzhayyim.apps.seibutsu.getProfile` | query | DID → taxon + traits + lineage chain |
-| `app.etzhayyim.apps.seibutsu.renderProfile` | query | DID → engine-ready TaxonomicProfile JSON |
+| `com.etzhayyim.apps.seibutsu.taxon` | record | rank + scientific name + GBIF/NCBI/Wikidata cross-refs |
+| `com.etzhayyim.apps.seibutsu.traits` | record | procedural profile (kami-vegetation TaxonomicProfile mirror) |
+| `com.etzhayyim.apps.seibutsu.observation` | record | individual sighting (geo-h3, image, observer) |
+| `com.etzhayyim.apps.seibutsu.getProfile` | query | DID → taxon + traits + lineage chain |
+| `com.etzhayyim.apps.seibutsu.renderProfile` | query | DID → engine-ready TaxonomicProfile JSON |
 
 ## Magatama capabilities
 
@@ -99,7 +99,7 @@ curl https://seibutsu.etzhayyim.com/health
 ### 1. Worker (`src/app.ts`)
 
 5 commands wired (`getProfile`, `renderProfile`, `taxon`, `traits`, `observation`)
-+ reactive `onCommit` for `app.etzhayyim.apps.seibutsu.*`. Reads via Kysely against
++ reactive `onCommit` for `com.etzhayyim.apps.seibutsu.*`. Reads via Kysely against
 `graphar.vertex_seibutsu_taxon` / `graphar.vertex_seibutsu_traits`. Writes via
 `com.atproto.repo.createRecord` (Design E Tier 2).
 
@@ -149,7 +149,7 @@ After `--apply`, deps.toml `did = "did:plc:pending"` is rewritten to the
 Browser shell (`kami-web`) flow:
 
 ```js
-const res = await fetch(`https://atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.seibutsu.renderProfile?did=${did}`);
+const res = await fetch(`https://atproto.etzhayyim.com/xrpc/com.etzhayyim.apps.seibutsu.renderProfile?did=${did}`);
 const json = await res.text();
 catalog.push_json(json);   // WASM call
 ```

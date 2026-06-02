@@ -36,7 +36,7 @@ superseded_by: []
 After the black-screen fix (ADR-2605311310), `https://etzhayyim.com/` renders but
 shows **no posts and no following**. Empirical trace:
 
-- `etzhayyim-did-web` worker aliases `app.bsky.feed.*` → `app.etzhayyim.yoro.feed.*`
+- `etzhayyim-did-web` worker aliases `app.bsky.feed.*` → `com.etzhayyim.yoro.feed.*`
   and routes to the `yoro-xrpc-adapter` (service binding `YORO_XRPC`).
 - The adapter delegates to `@etzhayyim/yoro-rw-free`, whose feed reads
   (`getDiscoverFeed` / `getTimeline` / `getAuthorFeed`) hit the **single-actor
@@ -54,7 +54,7 @@ So the feed is empty because (a) the read path was never migrated to kotoba
 The running kotoba node (`127.0.0.1:8077`, launchd `com.etzhayyim.kotoba`)
 exposes generic Datomic primitives over XRPC — `datomic.transact`,
 `datomic.datoms` (indexes `:eavt/:aevt/:avet/:vaet`), `datomic.entity`, etc.
-(`ai.gftd.apps.kotoba.datomic.*`). A graph is addressed by a multibase CID
+(`com.etzhayyim.apps.kotoba.datomic.*`). A graph is addressed by a multibase CID
 (`KotobaCid::from_bytes(name).to_multibase()`); writes need operator-Bearer
 auth (`sub == operator_did`, signature not verified); reads are gated by
 per-graph visibility (`Public` / `Authenticated` / `Private`), default private.

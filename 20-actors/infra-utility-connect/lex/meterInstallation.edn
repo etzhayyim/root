@@ -1,7 +1,7 @@
-;; app.etzhayyim.infrautilityconnect.meterInstallation — meter installation & calibration record
+;; com.etzhayyim.infrautilityconnect.meterInstallation — meter installation & calibration record
 ;; ADR-2605250900 · Phase 1 (infrastructure witness, G2 IPFS-pinned certs)
 {:lexicon 1
- :id "app.etzhayyim.infrautilityconnect.meterInstallation"
+ :id "com.etzhayyim.infrautilityconnect.meterInstallation"
  :defs
  {:main
   {:type "record"

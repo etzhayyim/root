@@ -109,7 +109,7 @@ CapMix (capacitor mixing), reverse-flow nanofiltration, dialytic battery — R&D
 ## §6 New Lexicons (R1+)
 
 ```
-app.etzhayyim.funamori.{
+com.etzhayyim.funamori.{
   salinityGradientMembraneAttestation,   # technology (PRO/RED/hybrid) + membrane formula CID (open-publication) + power density characterization
   salinityGradientSiteAttestation,       # mizuho river-mouth + Δsalinity baseline + estuarine ecosystem
   silenSalinityGradientReview            # annual Council Lv6+ ≥3

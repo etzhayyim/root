@@ -52,13 +52,13 @@ def _today() -> str:
 
 
 def _patent_vid(patent_number: str) -> str:
-    return f"at://{OWNER_DID}/app.etzhayyim.apps.openPatent.patent/US-{patent_number}"
+    return f"at://{OWNER_DID}/com.etzhayyim.apps.openPatent.patent/US-{patent_number}"
 
 
 def _citation_vid(citing: str, cited: str, seq: str) -> str:
     raw = f"{citing}\x1f{cited}\x1f{seq}"
     h = hashlib.sha256(raw.encode()).hexdigest()[:20]
-    return f"at://{OWNER_DID}/app.etzhayyim.apps.openPatent.citation/{h}"
+    return f"at://{OWNER_DID}/com.etzhayyim.apps.openPatent.citation/{h}"
 
 
 def _citation_edge_id(citing: str, cited: str) -> str:
@@ -68,11 +68,11 @@ def _citation_edge_id(citing: str, cited: str) -> str:
 
 
 def _blob_vid(patent_number: str) -> str:
-    return f"at://{OWNER_DID}/app.etzhayyim.apps.patentBlob.doc/US-{patent_number}"
+    return f"at://{OWNER_DID}/com.etzhayyim.apps.patentBlob.doc/US-{patent_number}"
 
 
 def _foreign_patent_vid(cc: str, number: str) -> str:
-    return f"at://{OWNER_DID}/app.etzhayyim.apps.openPatent.patent/{cc}-{number}"
+    return f"at://{OWNER_DID}/com.etzhayyim.apps.openPatent.patent/{cc}-{number}"
 
 
 def _family_edge_id(citing: str, member_cc: str, member_num: str) -> str:

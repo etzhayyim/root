@@ -9,11 +9,11 @@ last_verified: 2026-05-26
 priority: 6.5
 axis: communication
 weight: 0.55
-priority_note: "Eighth-priority gap-closure actor (gap audit row 8 = 報道 + 出版 + 翻訳 / press + publishing + translation). Religious-corp internal journalism + doctrine commentary publishing + multilingual translation + community historical chronicle + whistleblower channel (chigiri.ipLicenseClaim cross-actor). 任意団体 internal substrate at did:web:kataribe.etzhayyim.com (20-actors/kataribe/). Etymology: 語部 (kataribe) = classical Japan oral historian / storyteller class; pre-literate-era keepers of imperial chronicles + clan genealogy + ritual recitation. Modern semantic = journalist / chronicler / publisher / translator. Resonates with 万人祭司 (every member is a kataribe in principle) + Sola Scriptura (scripture access through translation) + Charter §1.7 多世代 (cross-generational chronicle preservation) + Charter §1.15 non-eschatological invariant (no apocalyptic news framing). **Constitutional octet**: (1) NO ad-supported revenue G3+N2 (Charter §1.13 anti-addictive UX + §1.15 non-eschatological; ad-supported revenue creates engagement-optimization incentive that violates both) / (2) NO clickbait / apocalyptic framing G4+N3 (Charter §1.15 non-eschatological invariant; tone-attestation gate on every publication; chronicling not crisis-amplification) / (3) NO commercial publishing platform G5+N4 (Substack / Medium / News Corp / The Atlantic / NYTimes-as-vendor / WordPress-Pro / Ghost-Pro / Mailchimp / ConvertKit / Beehiiv PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty exposing reader+writer posture) / (4) NO single-doctrinal monopoly G6+N5 (cross-doctrinal Wellbecoming priority per musubi G9 + N12; Protestant / Reformed / Anglican / Baptist / Methodist / nondenominational accommodated within Charter §1.7 + §1.13 boundaries) / (5) Translation prioritization community-need-based G7+N6 (NOT commercial-market-driven language priority; member-population + Wellbecoming need governs) / (6) NO surveillance investigative journalism G8+N7 (Charter §2(c) covert-ops avoidance extends to journalism; whistleblower channel encrypted G10 per ADR-2605181100; no sensationalized exposé-as-surveillance) / (7) All publications Apache 2.0 + Charter Rider G9+N8 (open-source publication; no proprietary content; no mandatory paywall N12) / (8) NO commercial AI translation/grammar tool G12 (DeepL Pro-as-vendor / Google Translate API-as-vendor / Grammarly / DeepL-as-vendor / Anthropic-direct-translation PROHIBITED; Murakumo-only inference via judah LiteLLM → gemma4:e4b per ADR-2605215000). G10 whistleblower channel encrypted MANDATORY per ADR-2605181100. G11 NO payroll for kataribe (vocation-flow L5 stewards). 6 cells / 5 Lexicons under app.etzhayyim.kataribe.* / 13 immutable gates / 12 non-goals / 4-phase R0..R3."
+priority_note: "Eighth-priority gap-closure actor (gap audit row 8 = 報道 + 出版 + 翻訳 / press + publishing + translation). Religious-corp internal journalism + doctrine commentary publishing + multilingual translation + community historical chronicle + whistleblower channel (chigiri.ipLicenseClaim cross-actor). 任意団体 internal substrate at did:web:kataribe.etzhayyim.com (20-actors/kataribe/). Etymology: 語部 (kataribe) = classical Japan oral historian / storyteller class; pre-literate-era keepers of imperial chronicles + clan genealogy + ritual recitation. Modern semantic = journalist / chronicler / publisher / translator. Resonates with 万人祭司 (every member is a kataribe in principle) + Sola Scriptura (scripture access through translation) + Charter §1.7 多世代 (cross-generational chronicle preservation) + Charter §1.15 non-eschatological invariant (no apocalyptic news framing). **Constitutional octet**: (1) NO ad-supported revenue G3+N2 (Charter §1.13 anti-addictive UX + §1.15 non-eschatological; ad-supported revenue creates engagement-optimization incentive that violates both) / (2) NO clickbait / apocalyptic framing G4+N3 (Charter §1.15 non-eschatological invariant; tone-attestation gate on every publication; chronicling not crisis-amplification) / (3) NO commercial publishing platform G5+N4 (Substack / Medium / News Corp / The Atlantic / NYTimes-as-vendor / WordPress-Pro / Ghost-Pro / Mailchimp / ConvertKit / Beehiiv PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty exposing reader+writer posture) / (4) NO single-doctrinal monopoly G6+N5 (cross-doctrinal Wellbecoming priority per musubi G9 + N12; Protestant / Reformed / Anglican / Baptist / Methodist / nondenominational accommodated within Charter §1.7 + §1.13 boundaries) / (5) Translation prioritization community-need-based G7+N6 (NOT commercial-market-driven language priority; member-population + Wellbecoming need governs) / (6) NO surveillance investigative journalism G8+N7 (Charter §2(c) covert-ops avoidance extends to journalism; whistleblower channel encrypted G10 per ADR-2605181100; no sensationalized exposé-as-surveillance) / (7) All publications Apache 2.0 + Charter Rider G9+N8 (open-source publication; no proprietary content; no mandatory paywall N12) / (8) NO commercial AI translation/grammar tool G12 (DeepL Pro-as-vendor / Google Translate API-as-vendor / Grammarly / DeepL-as-vendor / Anthropic-direct-translation PROHIBITED; Murakumo-only inference via judah LiteLLM → gemma4:e4b per ADR-2605215000). G10 whistleblower channel encrypted MANDATORY per ADR-2605181100. G11 NO payroll for kataribe (vocation-flow L5 stewards). 6 cells / 5 Lexicons under com.etzhayyim.kataribe.* / 13 immutable gates / 12 non-goals / 4-phase R0..R3."
 authoritative_for:
   - kataribe actor R0 charter
   - religious-corp press + publishing + translation substrate single SoT
-  - `app.etzhayyim.kataribe.*` Lexicon namespace boundary
+  - `com.etzhayyim.kataribe.*` Lexicon namespace boundary
   - NO ad-supported revenue invariant (Charter §1.13 + §1.15)
   - NO clickbait / apocalyptic framing invariant (Charter §1.15 non-eschatological tone-attestation gate)
   - prohibition on commercial publishing platforms (Substack / Medium / Ghost-Pro / Mailchimp / WordPress-Pro / ConvertKit / Beehiiv / News Corp / The Atlantic / NYTimes as-vendor)
@@ -101,7 +101,7 @@ Constitutional constraints (inherited; not adjustable):
 Create `kataribe` (語部) as a Tier-B religious-corp press + publishing
 + translation substrate actor at `20-actors/kataribe/`, with DID
 `did:web:kataribe.etzhayyim.com`, Lexicon namespace
-`app.etzhayyim.kataribe.*`. R0 = scaffold only; all cells import-time
+`com.etzhayyim.kataribe.*`. R0 = scaffold only; all cells import-time
 `RuntimeError`.
 
 ## §1. Identity and naming
@@ -110,7 +110,7 @@ Create `kataribe` (語部) as a Tier-B religious-corp press + publishing
 |---|---|
 | Name | `kataribe` (語部 — classical oral historian / storyteller / chronicler class) |
 | DID | `did:web:kataribe.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.kataribe.*` |
+| Lexicon root | `com.etzhayyim.kataribe.*` |
 | Form | 任意団体 internal press + publishing + translation substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格; NOT a state-licensed press entity — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | Cultural lineage | 古代日本 語部 class (oral historian); 万人祭司 (priesthood of all believers); Sola Scriptura (scripture-access-through-translation); Charter §1.7 多世代 chronicle preservation; Charter §1.15 non-eschatological tone |
@@ -185,7 +185,7 @@ R1 activation gates each cell separately + ≥3 community chronicler
 baseline attestations + cross-doctrinal advisory on Council
 (Bootstrap Council Seat 2-5 RFP).
 
-## §4. Lexicons (5, all under `app.etzhayyim.kataribe.*`)
+## §4. Lexicons (5, all under `com.etzhayyim.kataribe.*`)
 
 | # | Lexicon | Consumer cell | Purpose |
 |---|---|---|---|
@@ -200,7 +200,7 @@ baseline attestations + cross-doctrinal advisory on Council
 | Gate | Description |
 |---|---|
 | **G1** | Every publication MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `app.etzhayyim.kataribe.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.kataribe.*` Lexicon with yatachain attestation lineage. |
 | **G3** | **NO ad-supported revenue** — Charter §1.13 anti-addictive UX + §1.15 non-eschatological; ad-supported creates engagement-optimization incentive incompatible with both. |
 | **G4** | **NO clickbait / apocalyptic framing** — Charter §1.15 non-eschatological invariant; `communityChronicleAttestation.toneAttestation` enum DELIBERATELY excludes apocalyptic/clickbait/engagement-optimized; `nonEschatologicalAttested` const true structural. |
 | **G5** | **NO commercial publishing platform** — Substack / Medium / News Corp / The Atlantic / NYTimes-as-vendor / WordPress-Pro / Ghost-Pro / Mailchimp / ConvertKit / Beehiiv PROHIBITED per Charter Rider §2(e) + §2(c). |
@@ -255,7 +255,7 @@ baseline attestations + cross-doctrinal advisory on Council
 
 1. This ADR (`90-docs/adr/2605263600-kataribe-press-publishing-translation-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/kataribe/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/kataribe/` + README;
+3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/kataribe/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 75 + Repo Layout entry.

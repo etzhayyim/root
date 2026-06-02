@@ -21,7 +21,7 @@ superseded_by: []
 # Context
 
 YORO social posts need sibling `app.bsky.feed.post` translations linked by
-`app.etzhayyim.apps.media_gamers.record.translationLink` records, per
+`com.etzhayyim.apps.media_gamers.record.translationLink` records, per
 ADR-0077. The earlier translation-link topology defined the record shape and
 read path, but did not pin the live yoro worker, MCP exposure, Gemma model
 route, or scheduled language sweep.
@@ -83,8 +83,8 @@ auth policy.
 MCP remains a facade. It does not directly write PDS records. Tool responses
 route callers to BPMN / LangServer execution:
 
-- `app.etzhayyim.yoro.translatePost -> yoro.social.translatePost`
-- `app.etzhayyim.yoro.translatePostBatch -> yoro.social.translatePostBatch`
+- `com.etzhayyim.yoro.translatePost -> yoro.social.translatePost`
+- `com.etzhayyim.yoro.translatePostBatch -> yoro.social.translatePostBatch`
 
 The translation worker writes translated sibling posts and
 `translationLink` records through the governed actor path.

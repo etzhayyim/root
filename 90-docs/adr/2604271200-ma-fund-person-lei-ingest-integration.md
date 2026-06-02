@@ -133,7 +133,7 @@ explicitly:
   and `hasNextPage`.
 - `businessPerson.scheduleNextPage` emits a
   `com.atproto.repo.createRecord` payload for
-  `app.etzhayyim.apps.businessPerson.collectionJob`.
+  `com.etzhayyim.apps.businessPerson.collectionJob`.
 
 This is a scheduler handoff, not yet durable cursor persistence. Durable
 cursor tables, scheduled execution, and retry observability remain explicit
@@ -177,4 +177,4 @@ data, and legal-entity ownership data.
 
 Direct autonomous outreach from ingest results was rejected. External email,
 negotiation, DD requests, and LP solicitation must pass through human approval
-and policy gates before `app.etzhayyim.apps.mailer.sendEmail`.
+and policy gates before `com.etzhayyim.apps.mailer.sendEmail`.

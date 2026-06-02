@@ -11,7 +11,7 @@ axis: architecture
 weight: 0.74
 priority_note: "Closes ADR-2605181100 §5.4 (deferred forward-secrecy follow-up) + §5.3 (group rekey on member removal). Defines the operational protocol for rotating record-level symmetric keys, logical-deleting records on an append-only substrate, and binding the prior/successor envelope chain so verifiers from outside can reconstruct the 'logical present' view."
 authoritative_for:
-  - "tombstone record shape (`app.etzhayyim.encrypted.tombstone`)"
+  - "tombstone record shape (`com.etzhayyim.encrypted.tombstone`)"
   - "rekey / redact / sealed semantics on AT MST"
   - "group-rekey-on-removal protocol"
   - "consent-revocation-flush handler"
@@ -104,15 +104,15 @@ Throughput note: at ~100 envelopes per minute the substrate sustains comfortable
 
 ## Audit emission
 
-Every tombstone with non-empty `auditWebhookDids` triggers an `app.etzhayyim.audit.event` (ADR-2605231700) per webhook target. This is the patient's observability mechanism for revocation-flush operations.
+Every tombstone with non-empty `auditWebhookDids` triggers an `com.etzhayyim.audit.event` (ADR-2605231700) per webhook target. This is the patient's observability mechanism for revocation-flush operations.
 
 ## Karute integration
 
 The karute actor manifest gains three pipelines:
 
-- `app.etzhayyim.apps.karute.rekeyRecord` — for prescriber-initiated correction or scheduled periodic rekey of long-lived chronic records (e.g. allergies list).
-- `app.etzhayyim.apps.karute.redactRecord` — for mis-entered records (`reason='data-correction'`) and patient-initiated removal of non-mandatory fields.
-- `app.etzhayyim.apps.karute.listTombstones` — for the chart-summary timeline materialization step.
+- `com.etzhayyim.apps.karute.rekeyRecord` — for prescriber-initiated correction or scheduled periodic rekey of long-lived chronic records (e.g. allergies list).
+- `com.etzhayyim.apps.karute.redactRecord` — for mis-entered records (`reason='data-correction'`) and patient-initiated removal of non-mandatory fields.
+- `com.etzhayyim.apps.karute.listTombstones` — for the chart-summary timeline materialization step.
 
 The `getChartSummary` and `exportFhirBundle` pipelines are updated to apply the logical-present algorithm before returning.
 

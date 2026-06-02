@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hodoki.catalystRecoveryRecord"
+ :id "com.etzhayyim.hodoki.catalystRecoveryRecord"
  :defs
  {:main
   {:type "record"

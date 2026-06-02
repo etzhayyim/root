@@ -13,7 +13,7 @@ priority_note: "Ninth-priority gap-closure actor (gap audit row 9 = 精神 / men
 authoritative_for:
   - kokoro actor R0 charter
   - religious-corp mental health support substrate single SoT
-  - `app.etzhayyim.kokoro.*` Lexicon namespace boundary
+  - `com.etzhayyim.kokoro.*` Lexicon namespace boundary
   - NOT clinical psychiatric entity invariant (community-witnessed-competent counselors, NOT state-licensed psych)
   - prohibition on commercial mental health software (BetterHelp / Talkspace / Cerebral / Modern Health / Lyra / Calm-business / Headspace-Enterprise / Spring Health / Brightline / Octave / Two Chairs / Charlie Health)
   - prohibition on commercial AI therapy chatbot (Woebot / Wysa / Replika-as-therapy / character.ai / GPT-as-therapy / Anthropic-direct-therapy / Claude-as-therapy)
@@ -138,7 +138,7 @@ Constitutional constraints (inherited; not adjustable):
 Create `kokoro` (心) as a Tier-B religious-corp mental health support
 substrate actor at `20-actors/kokoro/`, with DID
 `did:web:kokoro.etzhayyim.com`, Lexicon namespace
-`app.etzhayyim.kokoro.*`. R0 = scaffold only; all cells import-time
+`com.etzhayyim.kokoro.*`. R0 = scaffold only; all cells import-time
 `RuntimeError`.
 
 ## §1. Identity and naming
@@ -147,7 +147,7 @@ substrate actor at `20-actors/kokoro/`, with DID
 |---|---|
 | Name | `kokoro` (心 — heart/mind/spirit; cross-tradition: Reformed soul + Shinto 心魂 + 仏 心) |
 | DID | `did:web:kokoro.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.kokoro.*` |
+| Lexicon root | `com.etzhayyim.kokoro.*` |
 | Form | 任意団体 internal mental health support substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格; NOT state-licensed psych entity — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | Cultural lineage | 心 cross-tradition (Reformed + Shinto + 仏); community + spiritual + relational framing, NOT clinical psychiatry framing |
@@ -191,7 +191,7 @@ substrate actor at `20-actors/kokoro/`, with DID
 
 ### E. Acute crisis escalation (mitate G5 emergency keyword cross-actor)
 
-- Reuses existing `app.etzhayyim.mitate.emergencyKeyword` shared
+- Reuses existing `com.etzhayyim.mitate.emergencyKeyword` shared
   lexicon (hagukumi G11 + iyashi G10 cross-actor pattern);
 - Immediate mitate G5 trigger upon acute crisis detection
   (suicidal ideation / self-harm imminent threat);
@@ -229,7 +229,7 @@ R1 activation gates each cell separately + ≥3 counselor baseline
 attestations + encrypted-record framework production-deployed (same
 hagukumi R1 + iyashi R1 dependency).
 
-## §4. Lexicons (5, all under `app.etzhayyim.kokoro.*`)
+## §4. Lexicons (5, all under `com.etzhayyim.kokoro.*`)
 
 | # | Lexicon | Consumer cell | Purpose |
 |---|---|---|---|
@@ -244,7 +244,7 @@ hagukumi R1 + iyashi R1 dependency).
 | Gate | Description |
 |---|---|
 | **G1** | Every kokoro document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `app.etzhayyim.kokoro.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.kokoro.*` Lexicon with yatachain attestation lineage. |
 | **G3** | **NOT clinical psychiatric entity** — NOT state-licensed; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern shared); `counselorAttestation.counselorClass` const "community-witnessed-competent" + DELIBERATELY excludes "state-licensed-psych" / "clinical-psychiatrist" / "ordained-pastoral-counselor". |
 | **G4** | **Encrypted envelope MANDATORY + NO video recording** — `peerSupportCircleAttestation` + `griefSupportAttestation` MUST carry `encryptedPayloadCid`; video frame-write-to-disk PROHIBITED (firmware-level mirrors hagukumi G2 + iyashi G3). |
 | **G5** | **NO conversion therapy / behavior modification** — sexual orientation / gender identity / religious belief NEVER targets for modification (extends hagukumi G7 to mental health domain). |
@@ -306,7 +306,7 @@ hagukumi R1 + iyashi R1 dependency).
 
 1. This ADR (`90-docs/adr/2605263700-kokoro-mental-health-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/kokoro/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/kokoro/` + README;
+3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/kokoro/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 76 + Repo Layout entry.

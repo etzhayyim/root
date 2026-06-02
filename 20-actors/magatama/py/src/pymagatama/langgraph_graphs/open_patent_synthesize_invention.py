@@ -189,7 +189,7 @@ def emit_audit(state: OpenPatentSynthesizeState) -> dict:
                 (
                     str(uuid.uuid4()),
                     "did:web:open-patent.etzhayyim.com",
-                    "app.etzhayyim.apps.openPatent.synthesizeInvention",
+                    "com.etzhayyim.apps.openPatent.synthesizeInvention",
                     f"lg-{int(_time.time() * 1000)}",
                     "create",
                     int(_time.time() * 1000),

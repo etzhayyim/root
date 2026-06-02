@@ -159,7 +159,7 @@ Used for dynamic table selection when label is only known at runtime.
 ```typescript
 // src/app.ts
 export default createWorkerExport((sdk) => {
-  sdk.app.command('app.etzhayyim.apps.intel.search', searchIntel);
+  sdk.app.command('com.etzhayyim.apps.intel.search', searchIntel);
 });
 
 async function searchIntel(sdk: HostSDK, params: SearchParams) {

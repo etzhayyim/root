@@ -1,6 +1,6 @@
-# app.etzhayyim.murakumo.* — etzhayyim variant
+# com.etzhayyim.murakumo.* — etzhayyim variant
 
-Vendor-authored (etzhayyim.com) lexicons that the religious-corp (etzhayyim) substrate borrows for its murakumo distributed cluster (per the `app.etzhayyim.*` shared-namespace pattern in `etzhayyim/root`).
+Vendor-authored (etzhayyim.com) lexicons that the religious-corp (etzhayyim) substrate borrows for its murakumo distributed cluster (per the `com.etzhayyim.*` shared-namespace pattern in `etzhayyim/root`).
 
 ## Migration verdicts (2026-05-21, gftd murakumo → etzhayyim)
 
@@ -17,11 +17,11 @@ Vendor-authored (etzhayyim.com) lexicons that the religious-corp (etzhayyim) sub
 | `evalV6` | **PORT-adapted** | `sql` default `false` (etzhayyim has no RW SQL substrate; vendor keeps `true`) |
 | `scoreDataQuality` | **REJECT** | RW `schema_registry` write-back; no etzhayyim equivalent. Would need redesign against AT MST / IPFS registry to be portable. |
 
-## Why these are kept in the `app.etzhayyim.*` namespace (and not `app.etzhayyim.*`)
+## Why these are kept in the `com.etzhayyim.*` namespace (and not `com.etzhayyim.*`)
 
-Per the operating-entity boundary (root CLAUDE.md §Identity): `etzhayyim` is the operating entity; `etzhayyim Japan株式会社` is the vendor/contractor. NSID authorship is **shared** — vendor authors religious-corp-compatible lexicons under `app.etzhayyim.*` and etzhayyim borrows them with adaptations. This keeps the lexicon registry deduplicated; if etzhayyim ever forks, the namespace can split to `app.etzhayyim.murakumo.*`.
+Per the operating-entity boundary (root CLAUDE.md §Identity): `etzhayyim` is the operating entity; `etzhayyim Japan株式会社` is the vendor/contractor. NSID authorship is **shared** — vendor authors religious-corp-compatible lexicons under `com.etzhayyim.*` and etzhayyim borrows them with adaptations. This keeps the lexicon registry deduplicated; if etzhayyim ever forks, the namespace can split to `com.etzhayyim.murakumo.*`.
 
-The `app.etzhayyim.murakumo.*` namespace at `00-contracts/lexicons/app/etzhayyim/murakumo/` is reserved for **etzhayyim-only** lexicons that have no vendor equivalent (`inferenceJob`, `inferenceJobEvent`, `apiKey`).
+The `com.etzhayyim.murakumo.*` namespace at `00-contracts/lexicons/com/etzhayyim/murakumo/` is reserved for **etzhayyim-only** lexicons that have no vendor equivalent (`inferenceJob`, `inferenceJobEvent`, `apiKey`).
 
 ## Substrate fit rules
 
@@ -39,7 +39,7 @@ A lexicon is REJECT when its wire shape mandates RW / commercial K8s / fiat / Sa
 
 ## Related namespaces
 
-- `00-contracts/lexicons/ai/gftd/apps/murakumo/` — application-level (`cronTick` etc.)
-- `00-contracts/lexicons/ai/gftd/apps/murakumoFleet/` — fleet-level (`healthCheck` etc.)
-- `00-contracts/lexicons/app/etzhayyim/murakumo/` — etzhayyim-only (`inferenceJob`, `inferenceJobEvent`, `apiKey`)
-- `00-contracts/bpmn/ai/gftd/murakumo/` — BPMN process contracts
+- `00-contracts/lexicons/com/etzhayyim/apps/murakumo/` — application-level (`cronTick` etc.)
+- `00-contracts/lexicons/com/etzhayyim/apps/murakumoFleet/` — fleet-level (`healthCheck` etc.)
+- `00-contracts/lexicons/com/etzhayyim/murakumo/` — etzhayyim-only (`inferenceJob`, `inferenceJobEvent`, `apiKey`)
+- `00-contracts/bpmn/com/etzhayyim/murakumo/` — BPMN process contracts

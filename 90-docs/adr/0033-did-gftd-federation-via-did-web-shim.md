@@ -94,12 +94,12 @@ https://did.etzhayyim.com/{s0}/{s1}/.../{sN}/did.json         (depth=N)
 具体例 (3-segment standard form `sub:id:lexicon`):
 
 ```
-did:gftd:user:kami:app.etzhayyim.yoro.profile
-  ↔ did:web:did.etzhayyim.com:user:kami:app.etzhayyim.yoro.profile
-  ↔ https://did.etzhayyim.com/user/kami/app.etzhayyim.yoro.profile/did.json
+did:gftd:user:kami:com.etzhayyim.yoro.profile
+  ↔ did:web:did.etzhayyim.com:user:kami:com.etzhayyim.yoro.profile
+  ↔ https://did.etzhayyim.com/user/kami/com.etzhayyim.yoro.profile/did.json
 
-did:gftd:lawfirm-kagoshima-univ:matter-2026-001:app.etzhayyim.apps.sashiosae.case
-  ↔ https://did.etzhayyim.com/lawfirm-kagoshima-univ/matter-2026-001/app.etzhayyim.apps.sashiosae.case/did.json
+did:gftd:lawfirm-kagoshima-univ:matter-2026-001:com.etzhayyim.apps.sashiosae.case
+  ↔ https://did.etzhayyim.com/lawfirm-kagoshima-univ/matter-2026-001/com.etzhayyim.apps.sashiosae.case/did.json
 ```
 
 `did:web` spec は colon を path separator として解釈する (`did:web:host:a:b:c` →
@@ -133,15 +133,15 @@ did.etzhayyim.com Worker は `vertex_gftd_identity` から on-demand 生成:
 ```json
 {
   "@context": ["https://www.w3.org/ns/did/v1"],
-  "id": "did:web:did.etzhayyim.com:user:kami:app.etzhayyim.yoro.profile",
+  "id": "did:web:did.etzhayyim.com:user:kami:com.etzhayyim.yoro.profile",
   "alsoKnownAs": [
     "at://kami.etzhayyim.com",
-    "at://kami/app.etzhayyim.yoro.profile/self"
+    "at://kami/com.etzhayyim.yoro.profile/self"
   ],
   "verificationMethod": [{
-    "id": "did:web:did.etzhayyim.com:user:kami:app.etzhayyim.yoro.profile#atproto",
+    "id": "did:web:did.etzhayyim.com:user:kami:com.etzhayyim.yoro.profile#atproto",
     "type": "Multikey",
-    "controller": "did:web:did.etzhayyim.com:user:kami:app.etzhayyim.yoro.profile",
+    "controller": "did:web:did.etzhayyim.com:user:kami:com.etzhayyim.yoro.profile",
     "publicKeyMultibase": "z..." /* from vertex_gftd_identity.pubkey_multibase of nearest pubkey/root ancestor */
   }],
   "service": [{

@@ -87,10 +87,10 @@ Subscribers connect via `InvokeStream("did:web:news.etzhayyim.com", "stream-arti
 | `news-core.news.evolve`                        | Show evolution metrics dashboard                        |
 | `news-core.news.fitness`                       | Show fitness growth history                             |
 | `news-core.card.action`                        | Handle card interaction actions                         |
-| `news-core.app.etzhayyim.apps.news.listIntelSources` | List primary/official global intel sources              |
-| `news-core.app.etzhayyim.apps.news.analyzeIntel`     | Convert source evidence into an attributed intel report |
-| `news-core.app.etzhayyim.apps.news.publishIntel`     | Publish prepared intel as a writer-DID post             |
-| `news-core.app.etzhayyim.apps.news.liveAudioIngest`  | Start public live-news/radio/HLS audio capture + STT → intel |
+| `news-core.com.etzhayyim.apps.news.listIntelSources` | List primary/official global intel sources              |
+| `news-core.com.etzhayyim.apps.news.analyzeIntel`     | Convert source evidence into an attributed intel report |
+| `news-core.com.etzhayyim.apps.news.publishIntel`     | Publish prepared intel as a writer-DID post             |
+| `news-core.com.etzhayyim.apps.news.liveAudioIngest`  | Start public live-news/radio/HLS audio capture + STT → intel |
 
 Discovery: `POST mcp.etzhayyim.com/mcp` → `{"method":"tools/list","params":{"app":"news-core"}}`。
 Invocation: `POST mcp.etzhayyim.com/mcp` → `{"method":"tools/call","params":{"name":"news-core.GenerateDigest","arguments":{...}}}`。
@@ -154,14 +154,14 @@ magatama.Follow("rss-tech-nanoid")
 
 | Kind (dot notation) | AT Lexicon NSID             | 説明                                         |
 | ------------------- | --------------------------- | -------------------------------------------- |
-| `news_article`      | `app.etzhayyim.apps.news.article` | 記事レコード (ATPost で writer_did = author) |
-| `news_source`       | `app.etzhayyim.apps.news.source`  | 情報ソース定義 (category, writer DID)        |
-| `news_writer`       | `app.etzhayyim.apps.news.writer`  | Writer entity メタデータ                     |
-| `news_digest`       | `app.etzhayyim.apps.news.digest`  | カテゴリ別 daily/weekly ダイジェスト         |
+| `news_article`      | `com.etzhayyim.apps.news.article` | 記事レコード (ATPost で writer_did = author) |
+| `news_source`       | `com.etzhayyim.apps.news.source`  | 情報ソース定義 (category, writer DID)        |
+| `news_writer`       | `com.etzhayyim.apps.news.writer`  | Writer entity メタデータ                     |
+| `news_digest`       | `com.etzhayyim.apps.news.digest`  | カテゴリ別 daily/weekly ダイジェスト         |
 
 ## Data Model
 
-### `intel.report` (AT Record via `app.etzhayyim.apps.intel.report`)
+### `intel.report` (AT Record via `com.etzhayyim.apps.intel.report`)
 
 | Column           | Type | Description                                            |
 | ---------------- | ---- | ------------------------------------------------------ |

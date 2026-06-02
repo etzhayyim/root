@@ -723,7 +723,7 @@ def _role_from_row(
     person_id = str(row.get("personId") or "").strip() or _stable_id(
         "bp", full_name, org_name, title, country, registry_id, row_source_url
     )
-    vertex_id = f"at://{BUSINESS_PERSON_DID}/app.etzhayyim.apps.businessPerson.person/{_slug(person_id)}"
+    vertex_id = f"at://{BUSINESS_PERSON_DID}/com.etzhayyim.apps.businessPerson.person/{_slug(person_id)}"
     return {
         "vertex_id": vertex_id,
         "_seq": None,
@@ -1043,7 +1043,7 @@ def task_business_person_schedule_next_page(
             "type": "com.atproto.repo.createRecord",
             "payload": {
                 "repo": BUSINESS_PERSON_DID,
-                "collection": "app.etzhayyim.apps.businessPerson.collectionJob",
+                "collection": "com.etzhayyim.apps.businessPerson.collectionJob",
                 "record": record,
             },
         },
@@ -1435,7 +1435,7 @@ def task_business_person_compute_influence_scores(
         person_vertex_id = str(p.get("person_id") or "")
         vertex_id = _stable_id("vis", person_vertex_id, today)
         scores.append({
-            "vertex_id": f"at://did:web:business-person.etzhayyim.com/app.etzhayyim.apps.businessPerson.influenceScore/{vertex_id}",
+            "vertex_id": f"at://did:web:business-person.etzhayyim.com/com.etzhayyim.apps.businessPerson.influenceScore/{vertex_id}",
             "_seq": None,
             "created_date": today,
             "sensitivity_ord": 200,
@@ -1631,7 +1631,7 @@ def task_business_person_extract_career_llm(
                 continue
             vertex_id_raw = _stable_id("bpce-llm", person_vertex_id, ev_org, ev_title, today)
             extractions.append({
-                "vertex_id": f"at://did:web:business-person.etzhayyim.com/app.etzhayyim.apps.businessPerson.careerEvent/{vertex_id_raw}",
+                "vertex_id": f"at://did:web:business-person.etzhayyim.com/com.etzhayyim.apps.businessPerson.careerEvent/{vertex_id_raw}",
                 "created_date": today,
                 "sensitivity_ord": 200,
                 "owner_did": BUSINESS_PERSON_DID,
@@ -2075,7 +2075,7 @@ def task_business_person_write_lei_entities(
             if not lei:
                 continue
 
-            vertex_id = f"at://did:web:business-person.etzhayyim.com/app.etzhayyim.apps.businessPerson.leiEntity/{lei}"
+            vertex_id = f"at://did:web:business-person.etzhayyim.com/com.etzhayyim.apps.businessPerson.leiEntity/{lei}"
 
             cur.execute("SELECT 1 FROM vertex_lei_entity WHERE vertex_id = %s", (vertex_id,))
             if not cur.fetchone():

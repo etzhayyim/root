@@ -232,7 +232,7 @@ function nsidToConstName(nsid) {
 
 // Collision-aware name resolver. When two NSIDs (e.g. com.etzhayyim.convo.sendMessage
 // vs chat.bsky.convo.sendMessage) would produce the same `NSID_*` constant,
-// disambiguate by prefixing the namespace segments (ai.gftd → AI_etzhayyim,
+// disambiguate by prefixing the namespace segments (com.etzhayyim → AI_etzhayyim,
 // chat.bsky → CHAT_BSKY). Emits an explicit error if a 3-way collision arises.
 function buildConstNameMap(nsids) {
   const byTail = new Map();

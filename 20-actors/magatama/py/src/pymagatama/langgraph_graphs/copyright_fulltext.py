@@ -66,7 +66,7 @@ def _now_str() -> str:
 
 def _work_blob_vertex_id(doi: str) -> str:
     h = hashlib.sha256(doi.encode()).hexdigest()[:16]
-    return f"at://{_COPYRIGHT_DID}/app.etzhayyim.apps.copyright.workblob/blob-{h}"
+    return f"at://{_COPYRIGHT_DID}/com.etzhayyim.apps.copyright.workblob/blob-{h}"
 
 
 def _extract_text_from_pdf(pdf_bytes: bytes) -> str:
@@ -314,7 +314,7 @@ def emit_audit(state: CopyrightFulltextState) -> dict:
             {
                 "vid": str(uuid.uuid4()),
                 "repo": _COPYRIGHT_DID,
-                "col": "app.etzhayyim.apps.copyright.fulltext",
+                "col": "com.etzhayyim.apps.copyright.fulltext",
                 "rkey": f"lg-{ts_ms}",
                 "act": "create",
                 "ts": ts_ms,

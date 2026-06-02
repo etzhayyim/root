@@ -37,7 +37,7 @@ PREF_NDJSON = os.path.join(DATASET_DIR, "prefecture.ndjson")
 MUNI_NDJSON = os.path.join(DATASET_DIR, "municipality.ndjson")
 
 GOV_GRAPH = "gov-atlas-v1"
-NSID_INGEST = "ai.gftd.apps.kotobase.kg.ingest_batch"
+NSID_INGEST = "com.etzhayyim.apps.kotobase.kg.ingest_batch"
 LAST_VERIFIED = "2026-06-02"
 PROVENANCE_DATASET = "60-apps/ai-gftd-project-states/data/gov/jpn (官公庁公開データ / 地方自治法)"
 

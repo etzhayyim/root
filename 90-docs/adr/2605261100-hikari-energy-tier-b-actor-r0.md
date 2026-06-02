@@ -52,7 +52,7 @@ Without a religious-corp energy actor, the entire substrate depends on commercia
 Launch **`hikari` (光 — "light"; multi-generational solar abundance echo; also evokes Yakushi Nyorai's left attendant 日光菩薩 (Nikkō Bosatsu), creating intentional sibling resonance with mitate)** as a Tier-B religious-corp actor:
 
 - **Actor DID**: `did:web:etzhayyim.com:hikari`
-- **Namespace**: `app.etzhayyim.hikari.*`
+- **Namespace**: `com.etzhayyim.hikari.*`
 - **R0 scope**: Distributed renewable energy generation (solar PV + small wind ≤100 kW per turbine + geothermal micro ≤500 kW per well) + storage (battery + thermal) + grid-edge (microgrid + islandable per-site). **Excludes**: nuclear (any tier, constitutional), fossil fuel (any tier, constitutional), large hydroelectric (kuni-umi-adjacent if ever), biofuel from food crops, offshore wind (separate Funamori-class marine actor), commercial utility scale (>10 MW per site), smart-meter surveillance, carbon offset trading, rare-earth permanent magnets, proprietary inverter firmware.
 - **R0 robotics**: kuni-umi Otete (panel installation + tracker servicing), Mimi (yield metrology + thermal-imaging fault detection), Giemon (geothermal drilling at micro scale ≤500 m depth). New placeholder **Hizukue (日柄)** class for autonomous panel-tracking + cleaning (R2+).
 - **14 gates + 10 non-goals** declared before capability lands.
@@ -96,7 +96,7 @@ Launch **`hikari` (光 — "light"; multi-generational solar abundance echo; als
 ### Lexicons (5, deferred to R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   parcelEnergyAttestation,        # Parcel solar/wind/geothermal resource baseline + biodiversity-no-harm
   installAttestation,             # Per-install record (panels, battery, inverter, with vendor + sourcing Charter Rider §2(g) audit)
   generationRecord,               # Per-period generation log (aggregate; no per-adherent device PII)

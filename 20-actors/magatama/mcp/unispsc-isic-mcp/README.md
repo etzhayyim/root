@@ -24,7 +24,7 @@ CLI / Cursor) and Streamable HTTP transport (in-cluster service mesh).
 | `isic_health`                   | ISIC langserver health probe                                           |
 
 All tool input schemas are zod 4 schemas that mirror the lexicons under
-`00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/` — so XRPC, MCP, and
+`00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/` — so XRPC, MCP, and
 in-process actor callers share identical input/output shapes.
 
 ## Stdio (desktop)
@@ -86,8 +86,8 @@ Test Files  2 passed (2)
 
 ## See also
 
-- `00-contracts/lexicons/ai/gftd/apps/unispsc/*.json` — Lexicon contracts (Phase 1)
-- `00-contracts/lexicons/ai/gftd/apps/isic/*.json` — Lexicon contracts (Phase 1)
+- `00-contracts/lexicons/com/etzhayyim/apps/unispsc/*.json` — Lexicon contracts (Phase 1)
+- `00-contracts/lexicons/com/etzhayyim/apps/isic/*.json` — Lexicon contracts (Phase 1)
 - `50-infra/k8s/lg-open-unispsc/` — UNSPSC langserver pod (Phase 4)
 - `50-infra/k8s/lg-open-isic/` — ISIC langserver pod (Phase 5)
 - `20-actors/magatama/sdk/magatama-host-sdk/src/langserver-actor.ts` — Magatama actor wrapper (Phase 6)
@@ -100,4 +100,4 @@ Test Files  2 passed (2)
 - **Lexicon-first**: the 9 tool input schemas match the 9 lexicons authored
   in Phase 1.
 - **Legacy NSID retention** (ADR-2605172900): protocol identifiers under
-  the legacy `app.etzhayyim.*` namespace preserved.
+  the legacy `com.etzhayyim.*` namespace preserved.

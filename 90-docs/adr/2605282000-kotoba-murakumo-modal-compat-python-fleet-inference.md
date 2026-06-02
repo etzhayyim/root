@@ -160,7 +160,7 @@ Every `.remote()` emits one line to `~/.kotoba_murakumo/invocations.ndjson`:
 {"ts":"2026-05-28T20:00:00Z","app":"my-inference","fn":"summarize","caller_did":"did:web:...","endpoint":"http://192.168.1.17:4000","model":"gemma3:4b","prompt_chars":42,"result_chars":138,"latency_ms":312,"charter_in":"clean","charter_out":"clean"}
 ```
 
-R1 promotes this to a real `app.etzhayyim.murakumo.invocation` Lexicon record posted to the caller's PDS (consistent with the existing organism observation pattern in ADR-2605240200). R0 lands the NDJSON path so KaizenObserver downstream tail-readers can ingest immediately without waiting for the Lexicon.
+R1 promotes this to a real `com.etzhayyim.murakumo.invocation` Lexicon record posted to the caller's PDS (consistent with the existing organism observation pattern in ADR-2605240200). R0 lands the NDJSON path so KaizenObserver downstream tail-readers can ingest immediately without waiting for the Lexicon.
 
 ### Hard non-goals (R0 → R3)
 
@@ -221,7 +221,7 @@ mirror.
 kotoba substrate engine via HTTP at R1.1 (LiteLLM gateway + Ollama
 endpoints declared in `50-infra/murakumo/fleet.toml`), and will consume
 it via kotoba-vm XRPC at R2 (`kotoba_murakumo.client.kotoba_vm` →
-`POST /xrpc/app.etzhayyim.kotoba.vm.invoke` against a kotoba-server
+`POST /xrpc/com.etzhayyim.kotoba.vm.invoke` against a kotoba-server
 instance on the fleet). The consumer relationship does not require
 filesystem-collocation.
 
@@ -231,7 +231,7 @@ filesystem-collocation.
 
 - Internal app authors can write `import kotoba_murakumo as modal` and use the familiar decorator API while staying on the Murakumo fleet — zero code-body changes for the common LLM-call case.
 - The 3-tier routing policy is in code, not in `httpx.post` boilerplate scattered across apps. Charter scan, fleet unreachable handling, invocation logging all happen exactly once.
-- KaizenObserver and the future `app.etzhayyim.murakumo.invocation` Lexicon gain a uniform observability surface across every Python caller.
+- KaizenObserver and the future `com.etzhayyim.murakumo.invocation` Lexicon gain a uniform observability surface across every Python caller.
 - The package is a natural home for the R2 WASM Component dispatch path (kotoba-vm Invoke), so adding non-LLM GPU compute later does not require a new public surface.
 - Closes a year of drift risk where each app would otherwise hand-roll its own LiteLLM call pattern with its own (likely missing) Charter scan.
 

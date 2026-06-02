@@ -1,7 +1,7 @@
 # yamabiko (山彦) — High-Speed Rail Manufacturing Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:yamabiko`
-**Namespace**: `app.etzhayyim.yamabiko.*`
+**Namespace**: `com.etzhayyim.yamabiko.*`
 **ADR**: ADR-2605252600 (R0 scaffold), ADR-2605252615 (R1, reserved), ADR-2605252630 (R2, reserved), ADR-2605252645 (R3, reserved)
 **Status**: R0 scaffold (2026-05-25) — all cells import-time RuntimeError
 
@@ -102,7 +102,7 @@ High-speed rail trainset manufacturing orchestrator. Adopts modern friction-stir
 ## Lexicons (9 record types, R0 stubs)
 
 ```
-app.etzhayyim.yamabiko.{
+com.etzhayyim.yamabiko.{
   carbodyAttestation
   bogieAttestation
   interiorAttestation

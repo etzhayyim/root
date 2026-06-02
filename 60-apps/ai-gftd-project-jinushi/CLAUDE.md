@@ -18,8 +18,8 @@ jinushi は maps.etzhayyim.com を Follow し、3 つの reactive pipeline で�
 
 | Pipeline | Trigger | Action |
 |---|---|---|
-| AdminArea → CadastralZone | `app.etzhayyim.apps.maps.admin_area` commit (admin_level 6-8) | 自治体レベルを自動 CadastralZone 化 |
-| Building リンク | `app.etzhayyim.apps.maps.building` commit | 座標近傍の jinushi Building を `maps_building_id` で紐付け |
+| AdminArea → CadastralZone | `com.etzhayyim.apps.maps.admin_area` commit (admin_level 6-8) | 自治体レベルを自動 CadastralZone 化 |
+| Building リンク | `com.etzhayyim.apps.maps.building` commit | 座標近傍の jinushi Building を `maps_building_id` で紐付け |
 | 座標解決 | RegisterLandParcel/Building (住所のみ) | maps `place_search` Invoke で lat/lng 自動取得 |
 
 ## 収集戦略 (Kyumei-Koji + Murakumo)
@@ -39,7 +39,7 @@ jinushi は maps.etzhayyim.com を Follow し、3 つの reactive pipeline で�
 - **HandleHeartbeat (60s)**: zone/parcel/building/job stats → `AgentChat` (murakumo.etzhayyim.com, qwen3-vl-8b) → coverage gap 分析
 - **KyumeiDeclareSources**: geospatial (3600s) + registry (7200s) + authority (86400s) を heartbeat で宣言
 - **GatherRegistryData**: 国別ソース一覧 + `AgentChat` で追加ソース発見 + `KyumeiDeclareSources` で宣言
-- **結果**: `app.etzhayyim.agent.chat_result` record (async flush via PDS batch-flush → murakumo proxy)
+- **結果**: `com.etzhayyim.agent.chat_result` record (async flush via PDS batch-flush → murakumo proxy)
 
 ## 分割・統合
 

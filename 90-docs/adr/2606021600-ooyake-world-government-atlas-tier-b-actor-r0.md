@@ -56,9 +56,9 @@ The honest finding (investigation 2026-06-02):
   (citizen procedure concierge), **moushibumi** (democratic-participation concierge), **himotoki** (DSAR/FOIA),
   **tsumugi** (power-graph) — are all **observers/agents about** governments. **None is a per-government-unit
   catalog.** All are R0.
-- A **legacy F-Plan scaffold** exists: `00-contracts/bpmn/app/etzhayyim/gov<ISO3>/` (196 country dirs,
+- A **legacy F-Plan scaffold** exists: `00-contracts/bpmn/com/etzhayyim/gov<ISO3>/` (196 country dirs,
   ~1,574 BPMN **stubs** with generic `listOrgs`/`registerDIDs`/`resolveOrgPath`/`seedOrgs` tasks in the legacy
-  `ai.gftd.gov*` namespace) + `90-docs/openapi/gov*.openapi.json` (141 skeleton specs). These are **bootstrap
+  `com.etzhayyim.gov*` namespace) + `90-docs/openapi/gov*.openapi.json` (141 skeleton specs). These are **bootstrap
   stubs** — no real units, addresses, windows, forms, procedures, or DIDs behind them.
 - **toritsugi** holds a **6-entry** JP procedure seed (`registry/procedures.seed.json`, all
   `unverified-seed`). No address dataset, no window registry, no form catalog, no executable BPMN exist for any
@@ -105,7 +105,7 @@ ADR-2605242330 §2 declined *per-unit global enumeration* as conflating observab
 ADR **narrows that non-goal**: per-unit enumeration is admitted **only as a read-side civic atlas** (structure +
 contact + wayfinding). Routing-around (L5) remains out of ooyake's scope and stays governed by the Transparent
 Force discipline. The legacy `gov*` country BPMN/OpenAPI stubs and the L1–L4 COFOG taxonomy are **subsumed** by
-ooyake's `:gov.*` graph as their kotoba-native canonical owner (the `ai.gftd.gov*` → `app.etzhayyim.ooyake.*`
+ooyake's `:gov.*` graph as their kotoba-native canonical owner (the `com.etzhayyim.gov*` → `com.etzhayyim.ooyake.*`
 rename is itemized for the gated Step-8 `gftd-*` cutover, NOT executed here — root CLAUDE.md §Do-Not).
 
 ## §3 — Substrate (kotoba EDN / Datomic)
@@ -121,7 +121,7 @@ rename is itemized for the gated Step-8 `gftd-*` cutover, NOT executed here — 
   `:gov.unit/external-code` + `:gov.unit/wikidata` reconcile against JP 行政機関コード / 全国地方公共団体コード /
   ISO-3166-2 / GeoNames / Wikidata.
 - **Procedure boundary**: `:gov.procedure/toritsugi-ref` points each procedure at toritsugi's existing
-  `app.etzhayyim.toritsugi.procedure` registry — **ooyake catalogs (who/where/structure), toritsugi delivers
+  `com.etzhayyim.toritsugi.procedure` registry — **ooyake catalogs (who/where/structure), toritsugi delivers
   (guide/draft/submit/track)**. No duplication.
 - **Forms**: `:gov.form/chigiri-ref` points at chigiri's UPL-bounded fillable templates; ooyake only points.
 
@@ -162,15 +162,15 @@ rename is itemized for the gated Step-8 `gftd-*` cutover, NOT executed here — 
 
 ## §6 — Lexicons (XRPC, read-only)
 
-Records: `app.etzhayyim.ooyake.govUnit` / `.address` / `.window` / `.procedure`.
-Queries: `app.etzhayyim.ooyake.getUnit` / `.resolvePath` / `.findService` / `.searchUnits`.
+Records: `com.etzhayyim.ooyake.govUnit` / `.address` / `.window` / `.procedure`.
+Queries: `com.etzhayyim.ooyake.getUnit` / `.resolvePath` / `.findService` / `.searchUnits`.
 `searchUnits` is the backend for civic search at `etzhayyim.com` (the `/actors` kotoba-wasm search surfaces
 ooyake gov units once the gov-atlas graph is published; Phase R1).
 
 ## §7 — BPMN
 
-`00-contracts/bpmn/app/etzhayyim/ooyake/`: `resolveUnit.bpmn`, `findService.bpmn`, `reconcileUnit.bpmn` — real
-read/ingest flows in the canonical `app.etzhayyim.ooyake.*` task namespace (`:model-only` at R0, no Zeebe engine
+`00-contracts/bpmn/com/etzhayyim/ooyake/`: `resolveUnit.bpmn`, `findService.bpmn`, `reconcileUnit.bpmn` — real
+read/ingest flows in the canonical `com.etzhayyim.ooyake.*` task namespace (`:model-only` at R0, no Zeebe engine
 deployed). These supersede the legacy `gov*` country stubs as the canonical models.
 
 ## §8 — Roadmap
@@ -210,7 +210,7 @@ deployed). These supersede the legacy `gov*` country stubs as the canonical mode
 2. **Extend tsumugi's engi power-graph** — rejected: engi is karma/縁 (`:en/*`, `:grasp/*`); the atlas is
    concrete structure (addresses, windows, forms). They reconcile via `:gov.unit/organism` but are different
    concerns; merging would overload the karma graph.
-3. **Keep the legacy `gov*` BPMN stubs as the home** — rejected: they are legacy `ai.gftd` namespace, non-kotoba,
+3. **Keep the legacy `gov*` BPMN stubs as the home** — rejected: they are legacy `com.etzhayyim` namespace, non-kotoba,
    stub-only, and pre-cutover; they become `:gov.bpmn` rows pointing at the new canonical models.
 4. **Mint real per-government DIDs** — rejected as unconstitutional impersonation (§2(c)); mirror-only (G3).
 
@@ -218,7 +218,7 @@ deployed). These supersede the legacy `gov*` country stubs as the canonical mode
 
 - `00-contracts/schemas/gov-atlas-ontology.kotoba.edn` — the ontology (this ADR §3)
 - `20-actors/ooyake/manifest.jsonld` · `CLAUDE.md` · `registry/gov-units.seed.edn`
-- `00-contracts/lexicons/app/etzhayyim/ooyake/*.json` · `00-contracts/bpmn/app/etzhayyim/ooyake/*.bpmn`
+- `00-contracts/lexicons/com/etzhayyim/ooyake/*.json` · `00-contracts/bpmn/com/etzhayyim/ooyake/*.bpmn`
 - ADR-2605242330 (scope amended here) · ADR-2605212100 (gov 5-layer taxonomy) · ADR-2605250680 (maturity score)
 - ADR-2605312030 (toritsugi) · ADR-2605301600 (danjo) · ADR-2605302300 (kanae) · ADR-2606011800 (tsumugi)
 - ADR-2606011000 (engi-organism) · ADR-2605262130 + 2605312345 (kotoba) · ADR-2606013800 (dynamic did.json)

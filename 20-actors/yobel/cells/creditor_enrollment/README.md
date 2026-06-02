@@ -6,9 +6,9 @@ Murakumo leader: `gad` (good fortune / treasury — Gen 49:19).
 ## Trigger
 
 `enrollCreditor` XRPC request, scoped to a `riteId` that is in `status=active` (output of `rite_declaration` cell).
-Input lexicon: `app.etzhayyim.apps.etzhayyim.yobel.enrollCreditor`.
+Input lexicon: `com.etzhayyim.apps.etzhayyim.yobel.enrollCreditor`.
 
-Also: MST listener on `app.etzhayyim.apps.etzhayyim.yobel.rite` (`status: declared → active`) — when a rite activates, this cell begins accepting enrollments for that `riteId`.
+Also: MST listener on `com.etzhayyim.apps.etzhayyim.yobel.rite` (`status: declared → active`) — when a rite activates, this cell begins accepting enrollments for that `riteId`.
 
 ## Steps
 
@@ -37,19 +37,19 @@ XChaCha20-Poly1305-enveloped per ADR-2605181100 for `debts[].principalMicroUsdc`
 
 ## Output
 
-Lexicon `app.etzhayyim.apps.etzhayyim.yobel.enrollCreditor` response:
+Lexicon `com.etzhayyim.apps.etzhayyim.yobel.enrollCreditor` response:
 
 ```json
 {
   "ok": true,
   "enrollmentId": "yobel-2074-tree-of-life-50yr-cred-<tid>",
   "debtCount": 47,
-  "vertexId": "at://<creditorDid>/app.etzhayyim.apps.etzhayyim.yobel.creditorEnrollment/<tid>"
+  "vertexId": "at://<creditorDid>/com.etzhayyim.apps.etzhayyim.yobel.creditorEnrollment/<tid>"
 }
 ```
 
 ## See also
 
-- Lexicon `00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/enrollCreditor.json`
+- Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/yobel/enrollCreditor.json`
 - ADR-2605181100 XChaCha20-Poly1305 envelope encryption
 - ADR-0074 ERC725 + WebAuthn identity bridge (signedConsent verify path)

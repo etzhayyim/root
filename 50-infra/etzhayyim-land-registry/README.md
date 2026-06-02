@@ -45,7 +45,7 @@ Verified by the absence of these functions in `LandRegistry.sol`.
 2. Satellite imagery hash (3+ months time series)
 3. Donor oath signing (canonical text)
 4. On-chain `donate()` call
-5. AT Record `app.etzhayyim.apps.etzhayyim.land-donation`
+5. AT Record `com.etzhayyim.apps.etzhayyim.land-donation`
 6. PR to `/LANDS.md`
 
 ## Steward role
@@ -78,7 +78,7 @@ forge script script/DeployReligiousCorp.s.sol:DeployReligiousCorp \
 
 ## Lexicons
 
-- [`00-contracts/lexicons/ai/gftd/apps/etzhayyim/land-donation.json`](../../00-contracts/lexicons/ai/gftd/apps/etzhayyim/land-donation.json)
+- [`00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/land-donation.json`](../../00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/land-donation.json)
 - `land-attestation.json` (annual steward attestation)
 - `land-biodiversity.json`
 - `land-dispute.json`

@@ -1,7 +1,7 @@
 # toritsugi procedure-registry — Verification Workflow (G14)
 
 Per ADR-2605312030 §2 + §4 (G14 verified-procedure-only submission). Every
-`app.etzhayyim.toritsugi.procedure` record ships `verificationStatus =
+`com.etzhayyim.toritsugi.procedure` record ships `verificationStatus =
 unverified-seed` and **no live submission (`toritsugi_submit`) may run against
 an unverified-seed or stale entry**. This file documents how an entry is moved
 through the three tiers — the human/Council checks that gate `toritsugi_submit`.

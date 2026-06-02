@@ -34,7 +34,7 @@ def _now_iso() -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _execute(sql_str: str, params: dict) -> bool:

@@ -116,7 +116,7 @@ class TestDispatchHappyPath(unittest.TestCase):
                 [],
             ],
             eml_returns={"outbox/08a-khaitan-warm-intro.eml": _khaitan_parsed()},
-            dispatch_returns=[{"ok": True, "via": "app.etzhayyim.apps.microsoft.sendDraft"}],
+            dispatch_returns=[{"ok": True, "via": "com.etzhayyim.apps.microsoft.sendDraft"}],
         )
         stub.install()
         try:

@@ -9,7 +9,7 @@ SCOPE
 Adds attachment_json VARCHAR to vertex_mailer_inbound_email so the email-relay
 CF Worker can store the raw GEWP Layer-1 attachment JSON string extracted from
 incoming MIME messages.  The graph worker will project this field from PDS
-records (app.etzhayyim.apps.mailer.inboundEmail.gewpPayloadJson) once updated.
+records (com.etzhayyim.apps.mailer.inboundEmail.gewpPayloadJson) once updated.
 
 RisingWave notes
 -----------------

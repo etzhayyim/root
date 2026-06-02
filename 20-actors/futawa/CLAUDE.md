@@ -85,18 +85,18 @@ Other gates: G1 open-source CAD/firmware/fixtures / G2 mass-balance ≥98% / G3 
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.futawa`
+**App lexicon root**: `com.etzhayyim.futawa`
 
 **Records (8 types, R0 stubs)**:
 
-1. `app.etzhayyim.futawa.frameAttestation` — L1 frame weld + roundness + material lot
-2. `app.etzhayyim.futawa.engineAttestation` — L2a engine/motor + torque + ≤250cc/≤15kW cap
-3. `app.etzhayyim.futawa.electricalAttestation` — L3a harness + ECU + **G8 NO surveillance manifest**
-4. `app.etzhayyim.futawa.paintAttestation` — L4 paint + artwork Charter scan + VOC
-5. `app.etzhayyim.futawa.vehicleLotAttestation` — L5a VIN + **G12 parts catalog CID** + **G13 hodoki pre-registration**
-6. `app.etzhayyim.futawa.testRecord` — L5b dyno + emissions + G6 sound + ABS function
-7. `app.etzhayyim.futawa.partsCatalog` — **G12 forward-publishing companion to hodoki partsHarvestCatalog at EOL**
-8. `app.etzhayyim.futawa.silenMobilityReview` — Council 5-of-7 Safe attestation
+1. `com.etzhayyim.futawa.frameAttestation` — L1 frame weld + roundness + material lot
+2. `com.etzhayyim.futawa.engineAttestation` — L2a engine/motor + torque + ≤250cc/≤15kW cap
+3. `com.etzhayyim.futawa.electricalAttestation` — L3a harness + ECU + **G8 NO surveillance manifest**
+4. `com.etzhayyim.futawa.paintAttestation` — L4 paint + artwork Charter scan + VOC
+5. `com.etzhayyim.futawa.vehicleLotAttestation` — L5a VIN + **G12 parts catalog CID** + **G13 hodoki pre-registration**
+6. `com.etzhayyim.futawa.testRecord` — L5b dyno + emissions + G6 sound + ABS function
+7. `com.etzhayyim.futawa.partsCatalog` — **G12 forward-publishing companion to hodoki partsHarvestCatalog at EOL**
+8. `com.etzhayyim.futawa.silenMobilityReview` — Council 5-of-7 Safe attestation
 
 **Deferred to R1+**: Full lexicon schema definitions.
 

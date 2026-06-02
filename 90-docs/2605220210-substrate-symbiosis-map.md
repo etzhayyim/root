@@ -122,7 +122,7 @@ Dashed arrows = governance / consensus flows that fire occasionally.
 2. **No state in centralized DB.** Postgres / Kysely / RisingWave / MySQL / Mongo are prohibited per ADR-2605172000.
 3. **No fiat payment processor.** Stripe / PayPal / Square are prohibited per ADR-2605172100. USDC on Base L2 only.
 4. **No external advertising network.** Per ADR-2605192115 §1.2.
-5. **No plaintext private records on MST.** Confidential cargo MUST be wrapped via `app.etzhayyim.encrypted.*` (XChaCha20-Poly1305 + Signal-wrapped per-recipient keys, DID-bound) per ADR-2605181100.
+5. **No plaintext private records on MST.** Confidential cargo MUST be wrapped via `com.etzhayyim.encrypted.*` (XChaCha20-Poly1305 + Signal-wrapped per-recipient keys, DID-bound) per ADR-2605181100.
 
 Any new substrate added in a future generation requires a new ADR and must declare its symbiotic flows by appending rows to this map.
 

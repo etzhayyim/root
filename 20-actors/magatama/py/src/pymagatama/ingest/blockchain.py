@@ -112,7 +112,7 @@ def _ethereum_rpc(method: str, params: list[Any] | None = None) -> Any:
 
 
 def _get_cursor_height(source_id: str) -> int | None:
-    vid = f"at://did:web:ingest.etzhayyim.com/app.etzhayyim.apps.ingest.cursor/blockchain-{source_id}-head"
+    vid = f"at://did:web:ingest.etzhayyim.com/com.etzhayyim.apps.ingest.cursor/blockchain-{source_id}-head"
     try:
         with sync_cursor() as cur:
             cur.execute("SELECT cursor_value FROM vertex_ingest_cursor WHERE vertex_id = ?", (vid,))

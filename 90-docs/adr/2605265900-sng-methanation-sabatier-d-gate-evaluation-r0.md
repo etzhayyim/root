@@ -124,7 +124,7 @@ At 200 Nm³/day (~143 kg/day SNG), heat byproduct ~1.4 GJ/day = ~17 kW continuou
 ## §6 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   sngBatchAttestation,                # per-batch + H2 CID + DAC-CO2 CID + Ni catalyst lot + mass-balance
   sngStorageInventory,                # per-LANDS-parcel Nm³ + pressure + storage type
   sngPathwaySelectionRecord,          # Council Lv6+ ≥3 quarterly biomethane-vs-Sabatier allocation

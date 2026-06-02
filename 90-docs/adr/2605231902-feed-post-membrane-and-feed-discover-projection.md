@@ -28,8 +28,8 @@ related:
   - 00-contracts/policies/app/bsky/feed/
   - 20-actors/magatama/cells/feed_post/
   - 50-infra/mst-projector/projection/
-  - 00-contracts/lexicons/app/etzhayyim/membrane/
-  - 00-contracts/lexicons/app/etzhayyim/projection/
+  - 00-contracts/lexicons/com/etzhayyim/membrane/
+  - 00-contracts/lexicons/com/etzhayyim/projection/
 supersedes: []
 superseded_by: []
 ---
@@ -96,7 +96,7 @@ The first concrete `(L1, L2, L3)` triple:
 | **L1 schema** | `00-contracts/lexicons/app/bsky/feed/post.json` | Pre-existing vendored Bluesky lexicon |
 | **L2 policy** | `00-contracts/policies/app/bsky/feed/{policy.rego, test.rego}` | OPA-evaluable. Charter Rider §2(a)/(b)/(c)/(d)/(f)/(h), advertising, eschatology assertions (per ADR-2605192100 §1.15), gore self-label (per ADR-2605192400). Allow-context exemption set per category. 8/8 `opa test` PASS |
 | **L3 deterministic cell** | `20-actors/magatama/cells/feed_post/cell.py` | LangGraph Pregel cell. Strict-determinism contract: no clocks (`createdAt` from input only, verdict-record `createdAt` from `ctx.now` supplied by dispatcher), no RNG, no LLM in verdict path. Content-addressed `verdictCid = sha256-<hex>` of canonical JSON of `(record_cid, kind, reason, sorted_evidence)`. 18/18 pytest PASS |
-| **Sidecar lexicon** | `00-contracts/lexicons/app/etzhayyim/membrane/verdict.json` | `app.etzhayyim.membrane.verdict` records emitted by L3, attesting the verdict for one record CID |
+| **Sidecar lexicon** | `00-contracts/lexicons/com/etzhayyim/membrane/verdict.json` | `com.etzhayyim.membrane.verdict` records emitted by L3, attesting the verdict for one record CID |
 | **Fleet registration** | `50-infra/murakumo/fleet.toml [cells.FeedPostCell]` | Placed on `levi` (membrane-adjacent role: AuditWitnessCell + KaizenObserverCell), healthz_port 13017, `determinism = "strict"` |
 
 Three semantic verdict kinds:
@@ -126,8 +126,8 @@ The first concrete instance of [ADR-2605231500](/90-docs/adr/2605231500-yatachai
   `com.atproto.repo.getRecord` since the firehose carries only the CID).
   Snapshots emit on shard flush boundary via `createRecord` against the
   projector DID.
-- **Output lexicon**: `00-contracts/lexicons/app/etzhayyim/projection/feedDiscover.json` —
-  `app.etzhayyim.projection.feedDiscover` record with `items[]` sorted
+- **Output lexicon**: `00-contracts/lexicons/com/etzhayyim/projection/feedDiscover.json` —
+  `com.etzhayyim.projection.feedDiscover` record with `items[]` sorted
   by `indexedAt` desc, `cursor` + `firstSeq` for replay resume, and
   per-item `verdict` annotation.
 - **Manifest**: `50-infra/mst-projector/projection/yatachain-projection.toml` —
@@ -155,7 +155,7 @@ The first concrete instance of [ADR-2605231500](/90-docs/adr/2605231500-yatachai
 ### 4. Membrane → projection wire
 
 `feed-discover.ts` `applyVerdictEvent()` consumes
-`app.etzhayyim.membrane.verdict` firehose events, fetches the verdict
+`com.etzhayyim.membrane.verdict` firehose events, fetches the verdict
 record via `makeAtpVerdictFetcher`, and dispatches to `applyVerdict()`:
 
 | Verdict | Projection effect |
@@ -303,8 +303,8 @@ both become reasonable.
 - `70-tools/seed-post/` — operator CLI
 - `00-contracts/policies/app/bsky/feed/{policy.rego, test.rego}` — L2
 - `20-actors/magatama/cells/feed_post/{cell.py, test_cell.py}` — L3
-- `00-contracts/lexicons/app/etzhayyim/membrane/verdict.json` — sidecar lexicon
-- `00-contracts/lexicons/app/etzhayyim/projection/feedDiscover.json` — projection lexicon
+- `00-contracts/lexicons/com/etzhayyim/membrane/verdict.json` — sidecar lexicon
+- `00-contracts/lexicons/com/etzhayyim/projection/feedDiscover.json` — projection lexicon
 - `50-infra/mst-projector/src/feed-discover.ts` — projection emitter
 - `50-infra/mst-projector/projection/{yatachain-projection.toml, REBUILD.md}` — manifest + runbook
 - `50-infra/mst-projector/test/feed-discover.replay.test.ts` — L1 conformance smoke
@@ -317,9 +317,9 @@ both become reasonable.
 | 1 | `70-tools/seed-post/` CLI | landed |
 | 2 | L2 Rego `policy.rego` + 8/8 `opa test` | landed |
 | 3 | L3 cell + 18/18 pytest | landed |
-| 4 | `app.etzhayyim.membrane.verdict` lexicon | landed |
+| 4 | `com.etzhayyim.membrane.verdict` lexicon | landed |
 | 5 | `FeedPostCell` registration in `fleet.toml` on `levi` | landed |
-| 6 | `app.etzhayyim.projection.feedDiscover` lexicon | landed |
+| 6 | `com.etzhayyim.projection.feedDiscover` lexicon | landed |
 | 7 | `feed-discover.ts` emitter + manifest + REBUILD.md (L0) | landed |
 | 8 | Membrane → projection wire (`applyVerdictEvent`) + 6 unit tests | landed |
 | 9 | L1 conformance smoke (golden replay) + L0→L1 bump | landed |

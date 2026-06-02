@@ -13,7 +13,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${WADACHI_GRAPH:-app.etzhayyim.wadachi}"
+GRAPH="${WADACHI_GRAPH:-com.etzhayyim.wadachi}"
 ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> wadachi kotoba deploy → ${KOTOBA_URL} (graph ${GRAPH})"

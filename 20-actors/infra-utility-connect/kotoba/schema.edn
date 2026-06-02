@@ -11,7 +11,7 @@
  {:db/ident :site/address
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "full postal address (PII encrypted → app.etzhayyim.encrypted.*)"}
+  :db/doc "full postal address (PII encrypted → com.etzhayyim.encrypted.*)"}
  {:db/ident :site/coordinates
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one

@@ -9,7 +9,7 @@
 
 [ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) defined the Option B PDS XRPC pattern (`@etzhayyim/sdk e.write()`) replacing vendor's `createKyselyDb` direct-write pattern, per the [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) RW-free substrate mandate.
 
-This ADR records the **scaffold-layer completion** of that migration — every actor in `etzhayyim/root/60-apps/` that has lexicons under `00-contracts/lexicons/ai/gftd/<actor>/` now has a `rw-free/` reference implementation.
+This ADR records the **scaffold-layer completion** of that migration — every actor in `etzhayyim/root/60-apps/` that has lexicons under `00-contracts/lexicons/com/etzhayyim/<actor>/` now has a `rw-free/` reference implementation.
 
 ## Decision
 

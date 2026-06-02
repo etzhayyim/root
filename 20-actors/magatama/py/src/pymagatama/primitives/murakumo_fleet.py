@@ -19,7 +19,7 @@ from pymagatama.db_sync import sync_cursor
 
 
 MURAKUMO_DID = "did:web:murakumo.etzhayyim.com"
-FLEET_COLLECTION = "app.etzhayyim.apps.murakumo.fleetHealth"
+FLEET_COLLECTION = "com.etzhayyim.apps.murakumo.fleetHealth"
 DEFAULT_LITELLM_URL = "http://litellm.murakumo-system.svc.cluster.local:4000"
 HEALTH_TIMEOUT_SEC = 5.0
 
@@ -228,7 +228,7 @@ def write_fleet_health(roster: dict[str, Any], *, flush: bool = True) -> dict[st
                 (
                     edge_id,
                     uri,
-                    f"at://{MURAKUMO_DID}/app.etzhayyim.apps.murakumo.node/{node_name}",
+                    f"at://{MURAKUMO_DID}/com.etzhayyim.apps.murakumo.node/{node_name}",
                     node_name,
                     str(node.get("ip") or ""),
                     bool(node.get("healthy")),

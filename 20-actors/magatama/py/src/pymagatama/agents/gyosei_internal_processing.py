@@ -39,7 +39,7 @@ async def decision_gate(state: GyoseiInternalState) -> str:
 
 async def update_case_status(state: GyoseiInternalState) -> GyoseiInternalState:
     logger.info(f"[gyosei_internal] Updating status: {state.get('decision')}")
-    # MCP: app.etzhayyim.apps.gyosei.processCase
+    # MCP: com.etzhayyim.apps.gyosei.processCase
     return state
 
 async def notify_user_yoro(state: GyoseiInternalState) -> GyoseiInternalState:

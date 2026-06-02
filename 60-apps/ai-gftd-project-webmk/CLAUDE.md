@@ -38,10 +38,10 @@ createProposal XRPC
 ## XRPC Endpoints
 
 ### Procedure (2)
-`app.etzhayyim.apps.webmk.{createProposal, deliverProposal}`
+`com.etzhayyim.apps.webmk.{createProposal, deliverProposal}`
 
 ### Query (2)
-`app.etzhayyim.apps.webmk.{getProposal, listProposals}`
+`com.etzhayyim.apps.webmk.{getProposal, listProposals}`
 
 ## RisingWave Tables
 
@@ -82,7 +82,7 @@ python -m pymagatama.webmk_worker_main
 
 # Smoke test
 curl https://wbmk0001.etzhayyim.com/health
-curl -X POST https://wbmk0001.etzhayyim.com/xrpc/app.etzhayyim.apps.webmk.createProposal \
+curl -X POST https://wbmk0001.etzhayyim.com/xrpc/com.etzhayyim.apps.webmk.createProposal \
   -H "Content-Type: application/json" \
   -d '{"clientName":"ACME Corp","websiteUrl":"https://acme.example.com","industry":"retail","deliveryEmail":"test@example.com"}'
 ```

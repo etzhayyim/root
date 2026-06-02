@@ -132,7 +132,7 @@ def _insert_whois(domain: str, rdap: dict, run_id: str) -> bool:
     ts = now_iso()
     created_date = ts[:10]  # CURRENT_DATE unsupported in RW prepared statements
     snap_hash = hashlib.sha256(f"{domain}:{ts}".encode()).hexdigest()[:16]
-    vertex_id = f"at://did:web:ingest.etzhayyim.com/app.etzhayyim.apps.ingest.whoisRecord/{domain}:{snap_hash}"
+    vertex_id = f"at://did:web:ingest.etzhayyim.com/com.etzhayyim.apps.ingest.whoisRecord/{domain}:{snap_hash}"
     sql = (
         "INSERT INTO vertex_whois_record "
         "(vertex_id, owner_did, domain, registrar, registrar_iana_id, nameservers, "

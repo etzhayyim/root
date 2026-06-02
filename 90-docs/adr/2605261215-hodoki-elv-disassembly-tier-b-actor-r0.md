@@ -16,7 +16,7 @@ authoritative_for:
   - 5-layer ELV processing chain (intake+depollute → battery → parts-harvest+catalyst+seat-textile → shred → emissions+provenance)
   - 9 Pregel cell catalog + Murakumo placement (R0 design-only)
   - 3 new robotics class reservation (Hagasu 剥がす / Nuku 抜く / Tokike 解け) + 4 kuni-umi inherited reuse
-  - lexicon namespace reservation (`app.etzhayyim.hodoki.*`, 8 record types)
+  - lexicon namespace reservation (`com.etzhayyim.hodoki.*`, 8 record types)
   - constitutional firsts: G8 mandatory ECU/infotainment data wipe (§2(c) anti-surveillance applied to vehicles) + G12 right-to-repair parts catalog invariant
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
@@ -85,7 +85,7 @@ This ADR fulfills that gap, declaring 14 constitutional gates and 10 non-goals, 
 | Per-vehicle DID pattern (reserved) | `did:web:etzhayyim.com:hodoki:vehicle:<vin>` |
 | Per-part DID pattern (reserved) | `did:web:etzhayyim.com:hodoki:part:<lotId>:<partSerial>` |
 | Repo location | `20-actors/hodoki/` |
-| Lexicon namespace | `app.etzhayyim.hodoki.*` |
+| Lexicon namespace | `com.etzhayyim.hodoki.*` |
 | License | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 ### 2. Scope (R0)
@@ -187,7 +187,7 @@ Charter Rider §2(a) + §2(c) + §2(g) + §1.13 + §1.15 + commercial / safety b
 ### 8. Lexicon Namespace (8 record types, R0 stubs)
 
 ```
-app.etzhayyim.hodoki.{
+com.etzhayyim.hodoki.{
   elvIntakeRecord                # L1a — VIN + title + prior-owner consent + Charter scan
   depollutionAttestation         # L1b — fluid drain + F-gas + airbag + battery disconnect
   batteryHandlingRecord          # L2 — Li-ion SoH + routing (second-life vs cell-recycle)

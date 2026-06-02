@@ -115,7 +115,7 @@ python3 70-tools/scripts/audit/manifest-lexicon-drift.py --strict
 ```
 
 **Initial baseline (iter-47): 21 missing lexicons across 5 actors.**
-**Progression**: iter-48 closed wadachi (3/3); iter-49 closed gov-municipality (3/3); iter-50 closed infra-utility-connect (4/4); iter-51 closed yoro-supply (5/5); iter-52 closed kuni-umi (6/6) + migrated legacy NSID prefix `ai.gftd.apps.etzhayyim.kuniUmi.*` → `app.etzhayyim.kuniUmi.*`. **Current: 0 missing — category FULLY CLOSED.**
+**Progression**: iter-48 closed wadachi (3/3); iter-49 closed gov-municipality (3/3); iter-50 closed infra-utility-connect (4/4); iter-51 closed yoro-supply (5/5); iter-52 closed kuni-umi (6/6) + migrated legacy NSID prefix `com.etzhayyim.apps.etzhayyim.kuniUmi.*` → `com.etzhayyim.kuniUmi.*`. **Current: 0 missing — category FULLY CLOSED.**
 
 | Actor | Missing | Status |
 |---|---|---|
@@ -216,11 +216,11 @@ introduces new manifest-lexicon drift, this test fails fast
 
 The religious-corp Lexicon-spec validator at `70-tools/scripts/validate-lexicons.py` is the source of truth for `lexicon: 1` AT-Protocol-Lexicon-spec + religious-corp invariants (no float types, integer-with-implied-units per ADR-2605190900, refs over inline objects, etc.).
 
-The lefthook hook `validate-religious-corp-lexicons` runs it in staged-files mode (one commit's worth of touched JSON). For a full-tree health check across all `00-contracts/lexicons/app/etzhayyim/`:
+The lefthook hook `validate-religious-corp-lexicons` runs it in staged-files mode (one commit's worth of touched JSON). For a full-tree health check across all `00-contracts/lexicons/com/etzhayyim/`:
 
 ```bash
 python3 70-tools/scripts/validate-lexicons.py \
-  --root 00-contracts/lexicons/app/etzhayyim/ \
+  --root 00-contracts/lexicons/com/etzhayyim/ \
   --exit-on-error
 ```
 

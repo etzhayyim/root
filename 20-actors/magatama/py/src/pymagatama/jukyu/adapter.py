@@ -58,7 +58,7 @@ def normalize_naphtha() -> dict[str, Any]:
           status,
           'vertex_naphtha_market_node',
           vertex_id,
-          'app.etzhayyim.apps.jukyu.supplyNode',
+          'com.etzhayyim.apps.jukyu.supplyNode',
           'did:web:jukyu.etzhayyim.com',
           org_did
         FROM vertex_naphtha_market_node
@@ -147,7 +147,7 @@ def normalize_naphtha() -> dict[str, Any]:
           'naphtha_adapter',
           0.72,
           'active',
-          'app.etzhayyim.apps.jukyu.balanceObservation',
+          'com.etzhayyim.apps.jukyu.balanceObservation',
           'did:web:jukyu.etzhayyim.com',
           'did:web:etzhayyim.com'
         FROM mv_naphtha_country_balance
@@ -203,7 +203,7 @@ def normalize_naphtha() -> dict[str, Any]:
           '[{"source":"mv_naphtha_country_balance","reason":"country balance normalized into Jukyu SoS"}]',
           'Evaluate alternate naphtha supply routes, term coverage, cracker run-rate flexibility, and inventory buffer.',
           'active',
-          'app.etzhayyim.apps.jukyu.companyExposure',
+          'com.etzhayyim.apps.jukyu.companyExposure',
           'did:web:jukyu.etzhayyim.com',
           COALESCE(n.org_did, 'did:web:etzhayyim.com')
         FROM vertex_naphtha_market_node n
@@ -275,7 +275,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           status,
           'vertex_oil_field',
           vertex_id,
-          'app.etzhayyim.apps.jukyu.supplyNode',
+          'com.etzhayyim.apps.jukyu.supplyNode',
           'did:web:jukyu.etzhayyim.com',
           CAST(NULL AS VARCHAR)
         FROM vertex_oil_field
@@ -314,7 +314,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           status,
           'vertex_oil_terminal',
           vertex_id,
-          'app.etzhayyim.apps.jukyu.supplyNode',
+          'com.etzhayyim.apps.jukyu.supplyNode',
           'did:web:jukyu.etzhayyim.com',
           CAST(NULL AS VARCHAR)
         FROM vertex_oil_terminal
@@ -353,7 +353,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           status,
           'vertex_refinery',
           vertex_id,
-          'app.etzhayyim.apps.jukyu.supplyNode',
+          'com.etzhayyim.apps.jukyu.supplyNode',
           'did:web:jukyu.etzhayyim.com',
           CAST(NULL AS VARCHAR)
         FROM vertex_refinery
@@ -450,7 +450,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           'crude_oil_adapter',
           0.55,
           'active',
-          'app.etzhayyim.apps.jukyu.balanceObservation',
+          'com.etzhayyim.apps.jukyu.balanceObservation',
           'did:web:jukyu.etzhayyim.com',
           'did:web:etzhayyim.com'
         FROM vertex_refinery
@@ -504,7 +504,7 @@ def normalize_crude_oil() -> dict[str, Any]:
           '[{"source":"vertex_refinery","reason":"refinery throughput normalized into Jukyu SoS"}]',
           'Evaluate term crude supply contracts, strategic petroleum reserves, and crude grade flexibility.',
           'active',
-          'app.etzhayyim.apps.jukyu.companyExposure',
+          'com.etzhayyim.apps.jukyu.companyExposure',
           'did:web:jukyu.etzhayyim.com',
           'did:web:etzhayyim.com'
         FROM vertex_refinery r
@@ -585,7 +585,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           'active',
           'vertex_open_smartphone_soc_design:fab',
           chip_vertex_id,
-          'app.etzhayyim.apps.jukyu.supplyNode',
+          'com.etzhayyim.apps.jukyu.supplyNode',
           'did:web:jukyu.etzhayyim.com',
           'did:web:etzhayyim.com'
         FROM unique_fabs
@@ -619,7 +619,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           COALESCE(status, 'active'),
           'vertex_open_smartphone_soc_design',
           vertex_id,
-          'app.etzhayyim.apps.jukyu.supplyNode',
+          'com.etzhayyim.apps.jukyu.supplyNode',
           'did:web:jukyu.etzhayyim.com',
           'did:web:etzhayyim.com'
         FROM vertex_open_smartphone_soc_design
@@ -661,7 +661,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           COALESCE(status, 'active'),
           'vertex_open_smartphone_ems_facility',
           vertex_id,
-          'app.etzhayyim.apps.jukyu.supplyNode',
+          'com.etzhayyim.apps.jukyu.supplyNode',
           'did:web:jukyu.etzhayyim.com',
           'did:web:etzhayyim.com'
         FROM vertex_open_smartphone_ems_facility
@@ -796,7 +796,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           'semiconductor_adapter',
           0.55,
           'active',
-          'app.etzhayyim.apps.jukyu.balanceObservation',
+          'com.etzhayyim.apps.jukyu.balanceObservation',
           'did:web:jukyu.etzhayyim.com',
           'did:web:etzhayyim.com'
         FROM vertex_open_smartphone_soc_fab_order o
@@ -849,7 +849,7 @@ def normalize_semiconductor() -> dict[str, Any]:
           '[{"source":"vertex_open_smartphone_ems_facility","reason":"EMS facility normalized into Jukyu SoS semiconductor domain"}]',
           'Diversify foundry sourcing, increase wafer safety stock, qualify alternate EMS facilities, and monitor export control alerts.',
           'active',
-          'app.etzhayyim.apps.jukyu.companyExposure',
+          'com.etzhayyim.apps.jukyu.companyExposure',
           'did:web:jukyu.etzhayyim.com',
           'did:web:etzhayyim.com'
         FROM vertex_open_smartphone_ems_facility e
@@ -962,7 +962,7 @@ def normalize_entity_vessel_transport(domain: str | None = None) -> dict[str, An
           '[{"source":"vertex_oil_cargo","reason":"cargo load/discharge ports linked to Jukyu supply nodes"}]',
           'vertex_oil_cargo',
           c.vertex_id,
-          'app.etzhayyim.apps.jukyu.transportLeg',
+          'com.etzhayyim.apps.jukyu.transportLeg',
           'did:web:jukyu.etzhayyim.com',
           'did:web:etzhayyim.com'
         FROM vertex_oil_cargo c

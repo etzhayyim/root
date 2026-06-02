@@ -28,9 +28,9 @@
 
 | Kind | Collection | Description |
 |---|---|---|
-| `family_constitution` | `app.etzhayyim.apps.tradition.family_constitution` | Family constitutions and precepts |
-| `cultural_norm` | `app.etzhayyim.apps.tradition.cultural_norm` | Cultural norms and social practices |
-| `art_form` | `app.etzhayyim.apps.tradition.art_form` | Traditional art forms and disciplines |
+| `family_constitution` | `com.etzhayyim.apps.tradition.family_constitution` | Family constitutions and precepts |
+| `cultural_norm` | `com.etzhayyim.apps.tradition.cultural_norm` | Cultural norms and social practices |
+| `art_form` | `com.etzhayyim.apps.tradition.art_form` | Traditional art forms and disciplines |
 
 ## Channels
 

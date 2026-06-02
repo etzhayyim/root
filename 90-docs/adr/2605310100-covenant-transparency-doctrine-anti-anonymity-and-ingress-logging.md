@@ -15,8 +15,8 @@ authoritative_for:
   - intra-covenant transparency: full member-to-member visibility of all member actions (no Council-only tier)
   - ingress-consent: logging + publication policy for any party (member or non-member) that accesses etzhayyim / kotoba resources, inbound email included
   - the carve-out floor that transparency does NOT override (secrets/keys/credentials; non-ingress third-party data still bound by actor gates)
-  - redefinition of kotoba `private` graph semantics and the `app.etzhayyim.encrypted.*` namespace scope
-  - `app.etzhayyim.transparency.*` Lexicon namespace (ingressDisclosureNotice / accessLogPublication / covenantTransparencyAttestation)
+  - redefinition of kotoba `private` graph semantics and the `com.etzhayyim.encrypted.*` namespace scope
+  - `com.etzhayyim.transparency.*` Lexicon namespace (ingressDisclosureNotice / accessLogPublication / covenantTransparencyAttestation)
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605262130-kotoba-storage-substrate-unification
@@ -160,7 +160,7 @@ published**, and this floor cannot be waived by §3 ingress-consent:
    (encrypted to authorized DIDs, aggregate-first, consent-gated). A third party who
    never touched etzhayyim is not "in our domain" and is not published by §3.
 
-`app.etzhayyim.encrypted.*` (ADR-2605181100) survives **only** for this floor —
+`com.etzhayyim.encrypted.*` (ADR-2605181100) survives **only** for this floor —
 key material and §4(2) outbound third-party PII — not for member privacy.
 
 ## §5 — Constitutional status (honest framing)
@@ -189,9 +189,9 @@ but the encryption-narrowing and publication changes are **not executed**.
   `fingerprint_middleware` audit datoms + inbound-email ingest to publishable (§3),
   with a §4 secret-redaction filter applied before publication; serve a standing
   **ingress disclosure notice** on every endpoint.
-- **Lexicons**: add `app.etzhayyim.transparency.*` — `ingressDisclosureNotice`,
+- **Lexicons**: add `com.etzhayyim.transparency.*` — `ingressDisclosureNotice`,
   `accessLogPublication`, `covenantTransparencyAttestation`. Narrow
-  `app.etzhayyim.encrypted.*` documentation to the §4 floor.
+  `com.etzhayyim.encrypted.*` documentation to the §4 floor.
 - **Cross-refs**: update repo CLAUDE.md Substrate-boundary Confidentiality row and
   ADR-2605181100 (mark amended-by this ADR) — **only after Council ratification**.
 
@@ -253,7 +253,7 @@ landed this session is the complete, ratification-ready scaffold, all
 `proposed-unratified`:
 
 - **This ADR** + registration in `90-docs/adr/README.md` and `deps.toml`.
-- **4 Lexicons** `app.etzhayyim.transparency.*` — `ingressDisclosureNotice`,
+- **4 Lexicons** `com.etzhayyim.transparency.*` — `ingressDisclosureNotice`,
   `accessLogPublication`, `covenantTransparencyAttestation`, `redactionMethodNote`
   (repo lexicon validator CLEAN).
 - **Standing notice text** (ja/en): `90-docs/transparency/ingress-disclosure-notice.md`.
@@ -269,7 +269,7 @@ landed this session is the complete, ratification-ready scaffold, all
   on the real repo.
 
 **Gated, not done** (await Council Lv7+ ratification per §5/§6): kotoba `private`
-graph re-definition, `fingerprint_middleware` publishable promotion, `app.etzhayyim.encrypted.*`
+graph re-definition, `fingerprint_middleware` publishable promotion, `com.etzhayyim.encrypted.*`
 narrowing, and the cross-ref edits to repo CLAUDE.md + ADR-2605181100. The two
 sub-decisions (Q-1 fourth-party cascade; Q-2 §1.13/pastoral visibility) are
 reserved to the ratification vote. Bootstrap Council Seats 2-5 RFP closes 2026-06-19.
@@ -278,7 +278,7 @@ reserved to the ratification vote. Bootstrap Council Seats 2-5 RFP closes 2026-0
 
 - ADR-2605192100 (etzhayyim Mission Charter — §0.4 Lv7+ lock, §1.12 Transparent
   Religious Force, §1.13 Eros, Wellbecoming, 反個人主義 ontology)
-- ADR-2605181100 (Confidentiality — `app.etzhayyim.encrypted.*`; **amended by this ADR**)
+- ADR-2605181100 (Confidentiality — `com.etzhayyim.encrypted.*`; **amended by this ADR**)
 - ADR-2605262130 (kotoba storage substrate — `private` graph / CACAO scope)
 - ADR-2605231525 (server-side signing capability — no platform-held key)
 - ADR-2605301400 (tadori) / ADR-2605301600 (danjo) / ADR-2605302130 (himotoki) —

@@ -272,7 +272,7 @@ def test_attestation_to_wire_matches_lexicon_camelcase():
 def test_membrane_rule_from_wire_parses_tsdk_shape():
     payload = {
         "v": 1,
-        "nsid": "app.etzhayyim.maps.feature",
+        "nsid": "com.etzhayyim.maps.feature",
         "schemaRef": {"path": "lex.json", "contentHash": "0" * 64, "version": "1.0.0"},
         "policyRef": {"path": "p.rego", "contentHash": "0" * 64},
         "cellRef": {"path": "cell/", "contentHash": "0" * 64},
@@ -282,7 +282,7 @@ def test_membrane_rule_from_wire_parses_tsdk_shape():
         "registeredAt": "2026-05-23T00:00:00Z",
     }
     rule = MembraneRule.from_wire(payload)
-    assert rule.nsid == "app.etzhayyim.maps.feature"
+    assert rule.nsid == "com.etzhayyim.maps.feature"
     assert rule.quorum_size == 5
     assert rule.quorum_threshold == 3
     assert rule.escalation_policy == "council"
@@ -417,7 +417,7 @@ def test_witness_request_from_wire():
         "record": {"v": 1, "label": "Mountain"},
         "rule": {
             "v": 1,
-            "nsid": "app.etzhayyim.maps.feature",
+            "nsid": "com.etzhayyim.maps.feature",
             "schemaRef": {"path": "lex.json", "contentHash": "0" * 64},
             "policyRef": {"path": "p.rego", "contentHash": "0" * 64},
             "cellRef": {"path": "cell/", "contentHash": "0" * 64},
@@ -430,4 +430,4 @@ def test_witness_request_from_wire():
     assert req.record_uri == "at://x/y/z"
     assert req.record_cid == "bafy"
     assert req.record["label"] == "Mountain"
-    assert req.rule.nsid == "app.etzhayyim.maps.feature"
+    assert req.rule.nsid == "com.etzhayyim.maps.feature"

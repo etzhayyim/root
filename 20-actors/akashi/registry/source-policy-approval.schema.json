@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "app.etzhayyim.akashi.sourcePolicyApprovalTx",
+  "$id": "com.etzhayyim.akashi.sourcePolicyApprovalTx",
   "title": "akashi source policy approval transaction",
   "type": "object",
   "additionalProperties": false,

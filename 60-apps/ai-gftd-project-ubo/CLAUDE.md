@@ -5,19 +5,19 @@
 ## Architecture: Design E + Intel Reactive Pipeline
 
 ```
-intel.etzhayyim.com → Follow → app.etzhayyim.apps.intel.report commit
+intel.etzhayyim.com → Follow → com.etzhayyim.apps.intel.report commit
   → handleComAtprotoSyncSubscribeReposCommit
   → Murakumo LLM (ownership extraction)
   → ComAtprotoRepoCreateRecord("uboEntity"/"ubo_ownership") [Tier 2: domain]
   → AppBskyFeedPost(entityDID, analysis) [Tier 1: social]
 
-legal-entity.etzhayyim.com → Follow → app.etzhayyim.apps.legal_entity.entity commit
+legal-entity.etzhayyim.com → Follow → com.etzhayyim.apps.legal_entity.entity commit
   → auto-register as UBOEntity [Tier 2: domain]
 ```
 
 ## Domain Model
 
-### Record Types (Design E Tier 2 — `app.etzhayyim.apps.ubo.*`)
+### Record Types (Design E Tier 2 — `com.etzhayyim.apps.ubo.*`)
 
 | collection | 説明 |
 |---|---|

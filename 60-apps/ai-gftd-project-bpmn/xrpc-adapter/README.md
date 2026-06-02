@@ -5,23 +5,23 @@ CF Worker that exposes the 13 rw-free commands as XRPC endpoints.
 ## Endpoints
 
 **Process (6):**
-- `POST /xrpc/app.etzhayyim.bpmn.deployProcess` — deploy BPMN
-- `GET /xrpc/app.etzhayyim.bpmn.listProcesses` — list processes
-- `POST /xrpc/app.etzhayyim.bpmn.validateXml` — validate XML
-- `POST /xrpc/app.etzhayyim.bpmn.compileJsonToXml` — JSON→XML
-- `POST /xrpc/app.etzhayyim.bpmn.compileBpmn` — compile
-- `POST /xrpc/app.etzhayyim.bpmn.analyzeProcess` — analyze
+- `POST /xrpc/com.etzhayyim.bpmn.deployProcess` — deploy BPMN
+- `GET /xrpc/com.etzhayyim.bpmn.listProcesses` — list processes
+- `POST /xrpc/com.etzhayyim.bpmn.validateXml` — validate XML
+- `POST /xrpc/com.etzhayyim.bpmn.compileJsonToXml` — JSON→XML
+- `POST /xrpc/com.etzhayyim.bpmn.compileBpmn` — compile
+- `POST /xrpc/com.etzhayyim.bpmn.analyzeProcess` — analyze
 
 **Instance (6):**
-- `POST /xrpc/app.etzhayyim.bpmn.startInstance` — start
-- `GET /xrpc/app.etzhayyim.bpmn.getInstanceState` — state
-- `GET /xrpc/app.etzhayyim.bpmn.listInstances` — list
-- `POST /xrpc/app.etzhayyim.bpmn.signalInstance` — signal
-- `POST /xrpc/app.etzhayyim.bpmn.cancelInstance` — cancel
-- `POST /xrpc/app.etzhayyim.bpmn.executePipeline` — pipeline
+- `POST /xrpc/com.etzhayyim.bpmn.startInstance` — start
+- `GET /xrpc/com.etzhayyim.bpmn.getInstanceState` — state
+- `GET /xrpc/com.etzhayyim.bpmn.listInstances` — list
+- `POST /xrpc/com.etzhayyim.bpmn.signalInstance` — signal
+- `POST /xrpc/com.etzhayyim.bpmn.cancelInstance` — cancel
+- `POST /xrpc/com.etzhayyim.bpmn.executePipeline` — pipeline
 
 **Activity (1):**
-- `GET /xrpc/app.etzhayyim.bpmn.getActivityLog` — audit log
+- `GET /xrpc/com.etzhayyim.bpmn.getActivityLog` — audit log
 
 ## Setup & Deploy
 

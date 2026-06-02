@@ -1,5 +1,5 @@
 """Tests for corp.ownership_crossref — corp.ownershipEdge record →
-``app.etzhayyim.danjo.crossReferenceLink`` (the pure crossref core).
+``com.etzhayyim.danjo.crossReferenceLink`` (the pure crossref core).
 
 Per ADR-2605263800 §3 + ADR-2605301600 §3. Validates:
 
@@ -50,7 +50,7 @@ def test_parent_subsidiary_link(load_sensor):
     assert link["confidence"] == "registry-asserted"
     assert link["jurisdiction"] == "JPN"
     assert link["basisRecordCids"] == ["cid:edge1"]
-    assert mod.CROSSREF_LINK_NSID == "app.etzhayyim.danjo.crossReferenceLink"
+    assert mod.CROSSREF_LINK_NSID == "com.etzhayyim.danjo.crossReferenceLink"
 
 
 def test_ubo_and_officer_link_types(load_sensor):

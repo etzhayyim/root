@@ -54,9 +54,9 @@
 
 ## Lexicons (kotoba-native)
 
-`app.etzhayyim.cable.{registerCableSystem,registerLandingStation,registerSegment,flagCableFault}`
+`com.etzhayyim.cable.{registerCableSystem,registerLandingStation,registerSegment,flagCableFault}`
 — supersede the legacy `gftd` telecom / telecomInfra / cableRepairFleet lexicons. Mapping +
-inventory: `00-contracts/lexicons/app/etzhayyim/cable/MIGRATION-NOTES.md`.
+inventory: `00-contracts/lexicons/com/etzhayyim/cable/MIGRATION-NOTES.md`.
 
 ## Pairing with watatsumi (敷設 robotics)
 

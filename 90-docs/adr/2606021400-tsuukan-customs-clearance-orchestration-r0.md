@@ -13,7 +13,7 @@ priority_note: ""
 authoritative_for:
   - customs/tariff/通関 clearance orchestration capability-gap resolution (R0 decision)
   - tsuukan actor charter sketch (proposed; NOT yet scaffolded — Council-gated)
-  - app.etzhayyim.customsClearing lexicon namespace reservation
+  - com.etzhayyim.customsClearing lexicon namespace reservation
 related:
   - adr-2606021200-himawari-solar-pv-manufacturing-r0
   - adr-2606013400-funadaiku-zero-emission-cargo-ship-building
@@ -54,9 +54,9 @@ operational responsibility for the end-to-end 通関 (customs clearance) workflo
 | `port` actor | `20-actors/port/actor-manifest.jsonld` (`did:web:port.etzhayyim.com`) | 35+ ports, berths, terminals, vessel-call tracking | Does NOT handle customs declaration, duty calculation, inspection routing, or release. |
 | `cargo` actor | (`did:web:cargo.etzhayyim.com`) | B/L lifecycle, manifest, container tracking, IMDG DG code | Does NOT assess tariff or lodge declarations — it is the *source* of the manifest clearance reads. |
 | `okaimono` actor | `20-actors/okaimono/kotoba/schema.edn` (`:product/tariff-bps`) | Ring-2 external-catalog landed-cost roll-up | Consumes a tariff-bps *input*; does not derive it from a clearance workflow. |
-| `open-customs-clearance` BPMN/lexicon | `00-contracts/bpmn/app/etzhayyim/open-customs-clearance/{lodgeDeclaration,releaseShipment}.bpmn` + `00-contracts/lexicons/app/etzhayyim/gftd/apps/customsClearance/{lodgeDeclaration,releaseShipment}.json` | 2 bare procedures: lodge (hsCode, declaredValueUsd, importerLei, sanctionsScreeningVid → riskTier, requireInspection); release (inspection, dutiesPaidUsd → efficiencyTier) | Bare BPMN/lexicon **without an actor wrapper** — no manifest, no DID, no agent autonomy, no lexicon depth beyond 2 ops. |
+| `open-customs-clearance` BPMN/lexicon | `00-contracts/bpmn/com/etzhayyim/open-customs-clearance/{lodgeDeclaration,releaseShipment}.bpmn` + `00-contracts/lexicons/com/etzhayyim/gftd/apps/customsClearance/{lodgeDeclaration,releaseShipment}.json` | 2 bare procedures: lodge (hsCode, declaredValueUsd, importerLei, sanctionsScreeningVid → riskTier, requireInspection); release (inspection, dutiesPaidUsd → efficiencyTier) | Bare BPMN/lexicon **without an actor wrapper** — no manifest, no DID, no agent autonomy, no lexicon depth beyond 2 ops. |
 
-Note: `00-contracts/lexicons/app/etzhayyim/kotoba/economy/tariff.json` is the **mKOTO
+Note: `00-contracts/lexicons/com/etzhayyim/kotoba/economy/tariff.json` is the **mKOTO
 economy pricing** schema and is unrelated to import/export border tariff — it must NOT
 be conflated with this work.
 
@@ -64,7 +64,7 @@ be conflated with this work.
 feedstock/consumables (G2 requires first-party on-chain provenance to avoid XUAR
 forced-labor polysilicon) and may export finished modules across jurisdictions to
 hikari install sites. Its `supply_procurement` and `outbound_logistics` cells emit an
-`app.etzhayyim.himawari.outboundManifest` (carrier DID, route, destinationSiteDid,
+`com.etzhayyim.himawari.outboundManifest` (carrier DID, route, destinationSiteDid,
 kami-autodrive class) but have **no clearance counterparty** — no actor to lodge the
 declaration, compute landed-cost (duty + VAT + fees), route inspection, or authorize
 release. The same hole blocks funadaiku-built Nagi-class voyages (the vessel exists; the
@@ -88,7 +88,7 @@ Tier-B actor convention: ADR + manifest + cells + lex land only after vote).
 - Form factor: Tier-B religious-corp actor (Pregel cells + manifest + lexicon)
 - Proposed DID: `did:web:tsuukan.etzhayyim.com` (or `did:web:etzhayyim.com:tsuukan`,
   matching himawari's path-style DID — Council to choose the convention at scaffold time)
-- Lexicon namespace (reserved by this ADR): **`app.etzhayyim.customsClearing`**
+- Lexicon namespace (reserved by this ADR): **`com.etzhayyim.customsClearing`**
 
 **One-line scope.** Customs-clearance orchestrator for maritime & cross-border cargo:
 intake manifest + HS codes from `cargo.etzhayyim.com`, query tariff rates & restrictions
@@ -116,7 +116,7 @@ landed-cost to `okaimono.etzhayyim.com`.
 - Inbound (subscribe): `cargo.etzhayyim.com/manifest`, `port.etzhayyim.com/vessel-call`,
   `himawari` `outboundManifest`.
 - Query (XRPC): `hs.etzhayyim.com` tariff/restriction/license overlay (read-only).
-- Emit (publish): `app.etzhayyim.customsClearing.declarationLodged`,
+- Emit (publish): `com.etzhayyim.customsClearing.declarationLodged`,
   `….releaseAuthorized`, `….landedCost` → okaimono landed-cost + port SLA.
 
 **Substrate binding (constitutional).** Canonical state = **kotoba Datom log (EAVT
@@ -173,7 +173,7 @@ himawari (ADR-2606021200) is the **first internal consumer**, exercising the ful
 
 1. himawari `supply_procurement` (inbound cross-border PV feedstock/consumables) and
    `outbound_logistics` (finished-module export to a foreign hikari install site) emit an
-   `app.etzhayyim.himawari.outboundManifest` (carrier DID, route, **destinationSiteDid**,
+   `com.etzhayyim.himawari.outboundManifest` (carrier DID, route, **destinationSiteDid**,
    kami-autodrive/funadaiku class).
 2. tsuukan `manifest_intake` subscribes that manifest (plus the `cargo` B/L + HS codes),
    `tariff_classify` queries `hs` for the destination jurisdiction's tariff/restriction/
@@ -188,7 +188,7 @@ himawari (ADR-2606021200) is the **first internal consumer**, exercising the ful
 
 Compatibility note: tsuukan **wraps** the existing `lodgeDeclaration` / `releaseShipment`
 BPMN + lexicon unchanged (no duplication); it adds the actor wrapper, manifest_intake,
-tariff_classify, landed_cost, clearance_audit, and the `app.etzhayyim.customsClearing`
+tariff_classify, landed_cost, clearance_audit, and the `com.etzhayyim.customsClearing`
 lexicon depth those bare procedures lack.
 
 # Consequences
@@ -241,6 +241,6 @@ emphasize the *handling-specialist* (orchestrator) role over the *cargo* (に) r
 - ADR-2605312030 (toritsugi — citizen procedure concierge; shared UPL/self-submit pattern)
 - ADR-2605192100 (Mission Charter — §1.12 force-separation invariant)
 - ADR-2605192200 (Charter Compliance Rider v2.0 — license invariants)
-- `00-contracts/bpmn/app/etzhayyim/open-customs-clearance/{lodgeDeclaration,releaseShipment}.bpmn`
-- `00-contracts/lexicons/app/etzhayyim/gftd/apps/customsClearance/{lodgeDeclaration,releaseShipment}.json`
+- `00-contracts/bpmn/com/etzhayyim/open-customs-clearance/{lodgeDeclaration,releaseShipment}.bpmn`
+- `00-contracts/lexicons/com/etzhayyim/gftd/apps/customsClearance/{lodgeDeclaration,releaseShipment}.json`
 - `20-actors/hs/actor-manifest.jsonld` · `20-actors/port/actor-manifest.jsonld` · `20-actors/okaimono/kotoba/schema.edn`

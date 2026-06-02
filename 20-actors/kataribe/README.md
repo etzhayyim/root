@@ -1,7 +1,7 @@
 # kataribe (語部) — Non-profit Religious-Corp Press + Publishing + Translation Substrate
 
 **DID**: `did:web:kataribe.etzhayyim.com`
-**Namespace**: `app.etzhayyim.kataribe.*`
+**Namespace**: `com.etzhayyim.kataribe.*`
 **ADR**: ADR-2605263600 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 6 cells path-reserved + 5 Lexicon skeletons
 **Cross-actor**: chigiri.ipLicenseClaim (whistleblower) / musubi (cross-doctrinal) / toritate (Public Fund grant) / kazaori (post-emergency chronicle) / manabi (future translated curriculum) / iyashi (clinical-grade review)
@@ -63,7 +63,7 @@ through translation) + Charter §1.7 多世代 + §1.15 non-eschatological.
 | `kataribe_whistleblower_channel` | issachar (chigiri-paired) | event (encrypted) | encrypted report → whistleblowerReport + chigiri.ipLicenseClaim cross-emit |
 | `kataribe_annual_history_compendium` | issachar | annual (event) | aggregate chronicles → compendium IPFS pin + Council ≥3 |
 
-## 5 Lexicons under `app.etzhayyim.kataribe.*`
+## 5 Lexicons under `com.etzhayyim.kataribe.*`
 
 | Lexicon | Purpose |
 |---|---|
@@ -73,7 +73,7 @@ through translation) + Charter §1.7 多世代 + §1.15 non-eschatological.
 | `whistleblowerReport` | G10 STRUCTURAL: encryptedPayloadCid REQUIRED; chigiri.ipLicenseClaim cross-link |
 | `silenKataribeReview` | G3/G4/G5/G6/G7/G8/G11/G12 const-field structural enforcement |
 
-See `/00-contracts/lexicons/app/etzhayyim/kataribe/README.md`.
+See `/00-contracts/lexicons/com/etzhayyim/kataribe/README.md`.
 
 ## Constitutional Gates (G1–G13)
 
@@ -105,7 +105,7 @@ See ADR-2605263600 §6.
 
 - `/20-actors/kataribe/manifest.jsonld`
 - `/20-actors/kataribe/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/kataribe/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/kataribe/` (5 Lexicons + README)
 - `/90-docs/adr/2605263600-kataribe-press-publishing-translation-tier-b-actor-r0.md`
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — whistleblower cross-actor
 - `/90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md` — cross-doctrinal pattern shared

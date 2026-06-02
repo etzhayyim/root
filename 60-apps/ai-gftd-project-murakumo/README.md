@@ -13,8 +13,8 @@ Mac-mini fleet + custom Rust kubelet + launchd control plane. **No VKE, no Karma
 | LiteLLM gateway (launchd, 127.0.0.1:4000) | `50-infra/cluster/murakumo/litellm/` |
 | Cloudflare Worker (edge proxy) | `50-infra/cloudflare/workers/murakumo/` |
 | Multicluster placement contract (mesh, no Karmada) | `50-infra/multicluster/murakumo-mesh/` |
-| Lexicons (XRPC contracts) | `00-contracts/lexicons/ai/gftd/{murakumo,apps/murakumo,apps/murakumoFleet}` + `00-contracts/lexicons/app/etzhayyim/murakumo` |
-| BPMN process contracts | `00-contracts/bpmn/ai/gftd/murakumo/` |
+| Lexicons (XRPC contracts) | `00-contracts/lexicons/com/etzhayyim/{murakumo,apps/murakumo,apps/murakumoFleet}` + `00-contracts/lexicons/com/etzhayyim/murakumo` |
+| BPMN process contracts | `00-contracts/bpmn/com/etzhayyim/murakumo/` |
 | Browser-side inference (ameno) | `20-actors/ameno/` |
 | This project shell (metadata + model roster) | `60-apps/ai-gftd-project-murakumo/` |
 
@@ -48,4 +48,4 @@ External GPU pod for heavy LLM/image/audio: **evo-x2** (AMD Ryzen AI Max+ 395 + 
 
 ## Boundary notes (vendor vs religious-corp)
 
-This is the **etzhayyim** murakumo. The vendor (etzhayyim Japan) keeps a separate RunPod-based inference platform at `etzhayyim.com` for paid SaaS workloads. They share no infrastructure — only the `app.etzhayyim.*` lexicon namespace (vendor-authored, religious-corp-borrowable). etzhayyim murakumo does **not** call out to RunPod, Vultr VKE, Linode GPU, or any commercial K8s.
+This is the **etzhayyim** murakumo. The vendor (etzhayyim Japan) keeps a separate RunPod-based inference platform at `etzhayyim.com` for paid SaaS workloads. They share no infrastructure — only the `com.etzhayyim.*` lexicon namespace (vendor-authored, religious-corp-borrowable). etzhayyim murakumo does **not** call out to RunPod, Vultr VKE, Linode GPU, or any commercial K8s.

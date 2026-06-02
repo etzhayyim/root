@@ -138,7 +138,7 @@ replaced with the BeliefStore put_row equivalent.
 
 (b) **DNS cutover** of the 29 actor DIDs from `<actor>.etzhayyim.com` to
 `<actor>.etzhayyim.com`, gated on (a). Drift today is purely DID web
-domain + NSID prefix (`app.etzhayyim.<actor>` → `app.etzhayyim.apps.<actor>`) +
+domain + NSID prefix (`com.etzhayyim.<actor>` → `com.etzhayyim.apps.<actor>`) +
 secret redaction — etzhayyim already holds the canonical version of
 all 14 differing files.
 

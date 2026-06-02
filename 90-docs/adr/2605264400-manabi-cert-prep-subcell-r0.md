@@ -137,7 +137,7 @@ manabi-cert-prep PWA (60-apps/manabi-cert-prep/)
     │   XChaCha20-Poly1305 envelope (ADR-2605181100)
     │       │
     │       ↓
-    │   MST as app.etzhayyim.encrypted.envelope wrapping app.etzhayyim.manabi.certPrepSession
+    │   MST as com.etzhayyim.encrypted.envelope wrapping com.etzhayyim.manabi.certPrepSession
     │       │
     │       └─ recipientDids: [owner DID] (only owner can decrypt)
     │
@@ -169,7 +169,7 @@ For Council audit (G4 manabi-master + G14 silenEducationReview), an opt-in aggre
 
 All four cell modules raise `RuntimeError("manabi cert_prep R0 scaffold: ...")` on import per manabi-master R0 convention.
 
-### Lexicons (3 new under `app.etzhayyim.manabi.*`)
+### Lexicons (3 new under `com.etzhayyim.manabi.*`)
 
 1. **`certPrepSession`** — per-session attestation. Adult-only practical use; under-18 path inherits manabi G6 minor-aggregate-only via `learnerAgeBucket` discriminator. Closed enum on `questionSource` enforces G16 at PDS write time. Schema deliberately omits any `passRate` / `predictedScore` / `relativeRanking` field (G15 negative-space enforcement).
 
@@ -233,7 +233,7 @@ R0 = scaffold only; R1 adds live LLM via judah gateway (deferred to Wave 2 commi
 ## Alternatives Considered
 
 1. **Stand alone Tier-B actor** (`tameshi`) — rejected: anti-credentialism framing is *easier* as a manabi sub-cell since the master invariants (G3 + G7 + G10) auto-inherit. Standalone actor would force re-stating each invariant and risks divergence.
-2. **`70-tools/cert-prep/` as a pure tool, no actor surface** — rejected: encrypted session persistence (ADR-2605181100) requires actor DID for envelope addressing; pure tool path cannot bind to `app.etzhayyim.encrypted.*` recipientDids cleanly.
+2. **`70-tools/cert-prep/` as a pure tool, no actor surface** — rejected: encrypted session persistence (ADR-2605181100) requires actor DID for envelope addressing; pure tool path cannot bind to `com.etzhayyim.encrypted.*` recipientDids cleanly.
 3. **Reproduce a curated subset of "publicly leaked" past questions** — rejected: §2(h) IP infringement; no fair-use defense for systematic reproduction; reputational risk for the charter as a whole.
 4. **Partner with ISACA / (ISC)² for official content** — rejected: G17 — external credential body partnership constitutionally prohibited; would entangle religious-corp infrastructure with for-profit credentialing economics.
 
@@ -255,7 +255,7 @@ content for an analogous WIP sweep).
 **Functional outcome correct, commit-message hygiene impacted.** The bytes
 attributed to the sweep — under `60-apps/manabi-cert-prep/` (app skeleton +
 calm UI + 4 anti-addiction tests) + `20-actors/manabi/cells/cert_prep/`
-(4 cell stubs) + `00-contracts/lexicons/app/etzhayyim/manabi/` (3 new lex) +
+(4 cell stubs) + `00-contracts/lexicons/com/etzhayyim/manabi/` (3 new lex) +
 this ADR + deps.toml + CLAUDE.md row 75 + adr/README.md row + manabi
 manifest update — exactly match the W0+W1 scope declared in §Design above.
 

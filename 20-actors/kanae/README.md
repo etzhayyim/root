@@ -1,10 +1,10 @@
 # kanae (鼎) — Global Government Fiscal-Flow Visualization Substrate
 
 **DID**: `did:web:kanae.etzhayyim.com`
-**Namespace**: `app.etzhayyim.kanae.*`
+**Namespace**: `com.etzhayyim.kanae.*`
 **ADR**: ADR-2605302300 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-30) — 5 cells path-reserved + 4 Lexicon skeletons
-**Primary upstream**: danjo (ADR-2605301600 + ADR-2605302245) + `app.etzhayyim.gov.dataset.*` corpus (ADR-2605263900)
+**Primary upstream**: danjo (ADR-2605301600 + ADR-2605302245) + `com.etzhayyim.gov.dataset.*` corpus (ADR-2605263900)
 **Parent ADRs**: ADR-2605301600 (danjo engine), ADR-2605302245 (danjo global fiscal-flow extension), ADR-2605263900 (open-gov corpus), ADR-2605262130 (kotoba), ADR-2605261800 (kami-engine WASM), ADR-2605192100 (Mission Charter §1.12), ADR-2605192200 (Charter Rider), ADR-2605192300 (Council 5-of-7), ADR-2605215000 (Murakumo-only inference)
 
 ## Overview
@@ -95,7 +95,7 @@ publish ──────────── naphtali (periodic event; aggregate
 ```
 
 Each cell = 1 Pregel graph. Cells communicate via lexicon records on MST
-(`app.etzhayyim.kanae.*`); the fund-flow graph lives in kotoba QuadStore
+(`com.etzhayyim.kanae.*`); the fund-flow graph lives in kotoba QuadStore
 (EAVT) per ADR-2605262130. All cell modules are R0 path-reserved and will
 be import-time `RuntimeError("kanae R0 scaffold: activate via Council ADR
 + R1 ratification")` at W1 creation. Murakumo node assignment mirrors
@@ -149,7 +149,7 @@ to danjo (ADR-2605301600) and tadori (ADR-2605301400).
 6. `70-tools/scripts/lint/no-kanae-adjudication.mjs` (LANDED at R0)
    deployed to the lefthook config (gated on the repo-wide "lefthook
    hooks full set" wave; the script is already green standalone);
-7. `app.etzhayyim.kanae.fundFlowEdge` + `.methodNote` schemas
+7. `com.etzhayyim.kanae.fundFlowEdge` + `.methodNote` schemas
    Council-attestation-reviewed (R1 minimum cell pair = assembly cells).
 
 ## R1 Cell Activation Order
@@ -212,7 +212,7 @@ python -c "from magatama.cells.kanae_flow_assembler import _r0_marker" 2>&1 | gr
 - `/20-actors/kanae/CLAUDE.md`
 - `/20-actors/kanae/methods/` (open, versioned aggregation + narrative heuristics — `v1-global-seed`; G6 open method)
 - `/70-tools/scripts/lint/no-kanae-adjudication.mjs` (G4 + G7 + G8 + G15 constitutional lint, green at R0)
-- `/00-contracts/lexicons/app/etzhayyim/kanae/` (4 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/kanae/` (4 Lexicons + README)
 - `/90-docs/adr/2605302300-kanae-global-fiscal-flow-visualization-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605302245-danjo-global-fiscal-flow-extension.md` — danjo global fiscal-flow extension (engine-side)
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — danjo (cross-reference engine; primary upstream)

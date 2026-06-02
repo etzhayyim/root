@@ -117,7 +117,7 @@ Per-facility cogeneration attestation Council Lv6+ ≥3 (cross-actor with hikari
 ## §6 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   cpvFacilityAttestation,           # concentration ratio + tracker design CID + cooling-loop CID + DNI site cert
   cpvDniSiteCertification,          # ≥1-yr DNI measurement campaign data
   cpvHeatRecoveryAttestation,       # cogeneration heat delivery to district network

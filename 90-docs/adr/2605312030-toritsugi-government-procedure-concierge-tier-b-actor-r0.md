@@ -119,7 +119,7 @@ procedure record).
 
 The analogue of himotoki's coded target registry. Every government /
 municipal procedure is encoded as an
-`app.etzhayyim.toritsugi.procedure` record holding the **窓口 / 所管 (省庁・
+`com.etzhayyim.toritsugi.procedure` record holding the **窓口 / 所管 (省庁・
 自治体) / オンライン申請URL / 必要書類 / 様式 / 手数料 / 法定処理期間 / 根拠
 法令 / オンライン or 窓口 or 郵送 channel** so a cell can guide + (eventually)
 file procedurally.
@@ -165,7 +165,7 @@ ratification.
   行政書士/external counsel** (Public Fund Council Lv6+); tax procedures route to
   **toritate** boundary. (CRITICAL gate for this actor.)
 - **G6** **PII confidentiality** — member PII + 申請内容 + 結果 land ONLY in
-  `app.etzhayyim.encrypted.*` XChaCha20-Poly1305 DID-bound envelopes
+  `com.etzhayyim.encrypted.*` XChaCha20-Poly1305 DID-bound envelopes
   (ADR-2605181100); **never** plaintext PII on MST. (Outbound third-party PII
   not brought in by member ingress stays outside the Covenant Transparency
   ingress scope — ADR-2605310100 §4(2).)
@@ -219,7 +219,7 @@ ratification.
   citizen**; danjo **watches the state**. Opposite posture, deliberately
   separated.
 
-## §6 Lexicons (6 namespaces, `app.etzhayyim.toritsugi.*`)
+## §6 Lexicons (6 namespaces, `com.etzhayyim.toritsugi.*`)
 
 - `procedure` — coded government-procedure registry entry (窓口/所管/様式/必要
   書類/手数料/法定処理期間/根拠法令/channel; `verificationStatus` gate).
@@ -254,7 +254,7 @@ ratification.
 - **danjo (ADR-2605301600)**: opposite posture (serves citizen vs watches state).
 - **manimani (ADR-2605291100)**: a member's own procedure history → that
   member's personal knowledge graph (with consent).
-- **`app.etzhayyim.encrypted.*` (ADR-2605181100)**: the only home for member PII.
+- **`com.etzhayyim.encrypted.*` (ADR-2605181100)**: the only home for member PII.
 - **kotoba EAVT (ADR-2605262130)**: procedure catalog + guide/draft/submission
   lifecycle datoms; no RisingWave / no projection layer.
 
@@ -319,7 +319,7 @@ ratification.
 
 - This ADR: `/90-docs/adr/2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0.md`
 - Actor: `/20-actors/toritsugi/` (manifest + README + CLAUDE.md + registry seed)
-- Lexicons: `/00-contracts/lexicons/app/etzhayyim/toritsugi/`
+- Lexicons: `/00-contracts/lexicons/com/etzhayyim/toritsugi/`
 - ADR-2605262700 (chigiri legal-procedure substrate — UPL boundary)
 - ADR-2605302130 (himotoki disclosure-request actor — sibling pattern + registry)
 - ADR-2605302357 / 2605302358 (§1.16 Social Security doctrine + delivery pipeline)

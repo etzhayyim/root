@@ -128,7 +128,7 @@ def _truncate(s: str | None, cap: int = _RECORD_BYTE_HARDCAP) -> str | None:
 def _vertex_id(slug: str, record_id: str) -> str:
     safe_slug = re.sub(r"[^a-zA-Z0-9]", "-", slug)
     safe_id = re.sub(r"[^a-zA-Z0-9._-]", "-", record_id)[:200]
-    return f"at://{_ADSK_ACTOR}/app.etzhayyim.apps.adsk.record/{safe_slug}--{safe_id}"
+    return f"at://{_ADSK_ACTOR}/com.etzhayyim.apps.adsk.record/{safe_slug}--{safe_id}"
 
 
 def _rw_executemany(rows: list[tuple[Any, ...]]) -> int:
@@ -512,7 +512,7 @@ async def task_adsk_3d_blob_ingest(
         sha = sha[2:]
     now = _now_iso()
     ts_ms = int(time.time() * 1000)
-    vertex_id = f"at://{_ADSK_ACTOR}/app.etzhayyim.apps.adsk.blob3d/{re.sub(r'[^a-zA-Z0-9._-]', '-', slug)}--{sha[:16]}"
+    vertex_id = f"at://{_ADSK_ACTOR}/com.etzhayyim.apps.adsk.blob3d/{re.sub(r'[^a-zA-Z0-9._-]', '-', slug)}--{sha[:16]}"
 
     with sync_cursor() as cur:
         cur.execute(

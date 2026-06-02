@@ -96,9 +96,9 @@ gftd deploy   # writes did.json, configures XRPC routes, MCP facade
 
 ```bash
 # Teams
-gftd agent-token --lxm app.etzhayyim.apps.meetingRecorder.joinMeeting \
+gftd agent-token --lxm com.etzhayyim.apps.meetingRecorder.joinMeeting \
   | xargs -I{} curl -H "Authorization: Bearer {}" \
-    https://meeting-recorder.etzhayyim.com/xrpc/app.etzhayyim.apps.meetingRecorder.joinMeeting \
+    https://meeting-recorder.etzhayyim.com/xrpc/com.etzhayyim.apps.meetingRecorder.joinMeeting \
     -d '{"provider":"teams","joinTarget":{"joinUrl":"<test-meeting>"},"onBehalfOfDid":"did:web:jun.etzhayyim.com","consentToken":"<signed-jwt>"}'
 
 # Meet / Zoom も同様

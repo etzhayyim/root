@@ -9,11 +9,11 @@ last_verified: 2026-05-26
 priority: 6.5
 axis: information-symmetry
 weight: 0.55
-priority_note: "Sixth-priority gap-closure actor (gap audit row 6 = 情報非対称 / information arbitrage). Artificial-organism Tier-B actor at did:web:ossekai.etzhayyim.com (20-actors/ossekai/) whose dual mandate is (a) AGGREGATE PUBLICATION of societal information asymmetries (the public-good intel surface) and (b) OSSEKAI-MODE NUDGE — caring proactive notification to opted-in members + Council-gated single-touch @mention to non-member companies/individuals — all delivered via AT Protocol native primitives (NO email, NO SMTP, NO commercial CRM at R0-R2). First-touch channel = AT Proto `app.bsky.feed.post` (existing membrane per ADR-2605231902) + custom feed generator + `@mention` to AT Proto handles. Etymology: 御節介 (ossekai / o-sekkai) — Japanese cultural concept of caring proactive intervention, walking the knife-edge between compassionate-helpfulness and unwelcome-meddling; the constitutional discipline structurally pins the actor on the caring side. The dual-channel architecture is the Charter §1.13 Wellbecoming + §2(c) covert-ops-avoidance + §1.4 anti-individualism + §1.12 state-function routing-around resolution: aggregate publication is the maximum information-symmetry public good (anonymized, no targeting, queryable by anyone with a Bluesky-compatible client); ossekai-mode is the secondary opt-in / Council-gated channel that preserves the cultural ossekai semantic while structurally preventing the actor from becoming surveillance / spam / shame / lobbying / marketing. NO commercial intel/CRM/marketing software (G5 — Salesforce / HubSpot / Marketo / Mailchimp / SendGrid commercial / Constant Contact / Pardot / ZoomInfo / Apollo / Clay / Lemlist / Outreach / SalesLoft / Gong / Chorus / 6sense / Cognism / LeadIQ / Drift PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor exposure of recipient posture; AT Proto + PDS-native architecture sidesteps the entire category). NO email at R0-R2 (N1 — first-touch is AT Proto only; email-bridge to AT Proto DM is R3+ Council Lv7+ unanimity gate). NO surveillance (G3 — PASSIVE-ONLY collection per ADR-2605262400; no live probing of companies / individuals; only pre-published public archives + voluntarily-published AT Proto activity). NO dark patterns (G6 — AT Proto native mute/block/quote-block is honored structurally at projection layer; no urgency / no scarcity / no engagement-hacking / no A/B-test-for-conversion). 8 cells / 8 Lexicons under app.etzhayyim.ossekai.* / 15 gates G1..G15 / 12 non-goals N1..N12 / 4-phase R0..R3 (R0 scaffold / R1 2 core cells aggregate publisher + arbitrage observer / R2 +3 cells member digest + mention dispatcher + consent registry / R3 +3 cells intel analyzer + emergency advisory cross-actor with kazaori + kaizen observer). Cross-actor: kazaori (emergency advisory cross-publication) / chigiri (UPL boundary — ossekai MUST NOT render legal advice; legal-themed advisories cite chigiri.ipLicenseClaim for licensed counsel routing) / iyashi + mitate + yakushi (clinical/diagnostic/pharmaceutical boundary — ossekai MUST NOT render medical advice; health-themed advisories cite cross-actor procedural routing) / toritate (financial transparency intel SOURCE only — toritate publishes; ossekai reads + curates) / e7m-dataset (sensor source per ADR-2605262400) / legal corpus (regulatory source per ADR-2605262800) / baien-moemoekyun (Murakumo inference via judah LiteLLM per G12)."
+priority_note: "Sixth-priority gap-closure actor (gap audit row 6 = 情報非対称 / information arbitrage). Artificial-organism Tier-B actor at did:web:ossekai.etzhayyim.com (20-actors/ossekai/) whose dual mandate is (a) AGGREGATE PUBLICATION of societal information asymmetries (the public-good intel surface) and (b) OSSEKAI-MODE NUDGE — caring proactive notification to opted-in members + Council-gated single-touch @mention to non-member companies/individuals — all delivered via AT Protocol native primitives (NO email, NO SMTP, NO commercial CRM at R0-R2). First-touch channel = AT Proto `app.bsky.feed.post` (existing membrane per ADR-2605231902) + custom feed generator + `@mention` to AT Proto handles. Etymology: 御節介 (ossekai / o-sekkai) — Japanese cultural concept of caring proactive intervention, walking the knife-edge between compassionate-helpfulness and unwelcome-meddling; the constitutional discipline structurally pins the actor on the caring side. The dual-channel architecture is the Charter §1.13 Wellbecoming + §2(c) covert-ops-avoidance + §1.4 anti-individualism + §1.12 state-function routing-around resolution: aggregate publication is the maximum information-symmetry public good (anonymized, no targeting, queryable by anyone with a Bluesky-compatible client); ossekai-mode is the secondary opt-in / Council-gated channel that preserves the cultural ossekai semantic while structurally preventing the actor from becoming surveillance / spam / shame / lobbying / marketing. NO commercial intel/CRM/marketing software (G5 — Salesforce / HubSpot / Marketo / Mailchimp / SendGrid commercial / Constant Contact / Pardot / ZoomInfo / Apollo / Clay / Lemlist / Outreach / SalesLoft / Gong / Chorus / 6sense / Cognism / LeadIQ / Drift PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor exposure of recipient posture; AT Proto + PDS-native architecture sidesteps the entire category). NO email at R0-R2 (N1 — first-touch is AT Proto only; email-bridge to AT Proto DM is R3+ Council Lv7+ unanimity gate). NO surveillance (G3 — PASSIVE-ONLY collection per ADR-2605262400; no live probing of companies / individuals; only pre-published public archives + voluntarily-published AT Proto activity). NO dark patterns (G6 — AT Proto native mute/block/quote-block is honored structurally at projection layer; no urgency / no scarcity / no engagement-hacking / no A/B-test-for-conversion). 8 cells / 8 Lexicons under com.etzhayyim.ossekai.* / 15 gates G1..G15 / 12 non-goals N1..N12 / 4-phase R0..R3 (R0 scaffold / R1 2 core cells aggregate publisher + arbitrage observer / R2 +3 cells member digest + mention dispatcher + consent registry / R3 +3 cells intel analyzer + emergency advisory cross-actor with kazaori + kaizen observer). Cross-actor: kazaori (emergency advisory cross-publication) / chigiri (UPL boundary — ossekai MUST NOT render legal advice; legal-themed advisories cite chigiri.ipLicenseClaim for licensed counsel routing) / iyashi + mitate + yakushi (clinical/diagnostic/pharmaceutical boundary — ossekai MUST NOT render medical advice; health-themed advisories cite cross-actor procedural routing) / toritate (financial transparency intel SOURCE only — toritate publishes; ossekai reads + curates) / e7m-dataset (sensor source per ADR-2605262400) / legal corpus (regulatory source per ADR-2605262800) / baien-moemoekyun (Murakumo inference via judah LiteLLM per G12)."
 authoritative_for:
   - ossekai actor R0 charter
   - religious-corp information-arbitrage elimination substrate single SoT
-  - `app.etzhayyim.ossekai.*` Lexicon namespace boundary
+  - `com.etzhayyim.ossekai.*` Lexicon namespace boundary
   - AT Protocol first-touch invariant (NO email / SMTP / commercial CRM at R0-R2)
   - aggregate-first publication discipline (anonymized public-good intel as default)
   - Council-gated single-touch @mention to non-members (G13)
@@ -159,7 +159,7 @@ Constitutional constraints (inherited; not adjustable):
 Create `ossekai` (御節介) as a Tier-B religious-corp artificial-organism
 information-arbitrage elimination + Wellbecoming-nudge actor at
 `20-actors/ossekai/`, with DID `did:web:ossekai.etzhayyim.com`, Lexicon
-namespace `app.etzhayyim.ossekai.*`. R0 = scaffold only; all cells
+namespace `com.etzhayyim.ossekai.*`. R0 = scaffold only; all cells
 import-time `RuntimeError`. First-touch channel = AT Protocol
 `app.bsky.feed.post` (existing membrane per ADR-2605231902) + custom
 feed generator + `@mention` to AT Proto handles.
@@ -170,7 +170,7 @@ feed generator + `@mention` to AT Proto handles.
 |---|---|
 | Name | `ossekai` (御節介 — caring proactive intervention) |
 | DID | `did:web:ossekai.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.ossekai.*` |
+| Lexicon root | `com.etzhayyim.ossekai.*` |
 | Form | 任意団体 internal artificial-organism information-arbitrage substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | First-touch channel | AT Protocol — `app.bsky.feed.post` (public feed) + custom feed generator (subscription) + `@mention` (Council-gated single-touch); NO email / SMTP at R0-R2 |
@@ -281,7 +281,7 @@ R1 activation gates each cell separately. Murakumo placement = `issachar`
 (witness pair node for organism observation; existing pattern from
 ADR-2605240200 KaizenObserverCell).
 
-## §4. Lexicons (8, all under `app.etzhayyim.ossekai.*`)
+## §4. Lexicons (8, all under `com.etzhayyim.ossekai.*`)
 
 | # | Lexicon | Consumer cell | Description |
 |---|---|---|---|
@@ -304,7 +304,7 @@ brings the practical total to 9 once written.)
 | Gate | Description |
 |---|---|
 | **G1** | Every advisory MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h) on input AND output. |
-| **G2** | Every record MUST emit `app.etzhayyim.ossekai.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.ossekai.*` Lexicon with yatachain attestation lineage. |
 | **G3** | **PASSIVE-ONLY** collection — no live DNS / port-probe / traceroute / WHOIS / RDAP / DoH / handle-enumeration against third parties; only pre-published public archives + voluntarily-published AT Proto activity (per ADR-2605262400). |
 | **G4** | **Aggregate-first publication** — anonymized AT Proto `app.bsky.feed.post` is the DEFAULT mode; targeted @mention is the secondary mode; the default order MUST NOT be inverted at runtime. |
 | **G5** | **NO commercial intel / CRM / marketing software** — Salesforce / HubSpot / Marketo / Mailchimp / SendGrid commercial / Constant Contact / Pardot / ZoomInfo / Apollo / Clay / Lemlist / Outreach / SalesLoft / Gong / Chorus / 6sense / Cognism / LeadIQ / Drift PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty. |
@@ -400,7 +400,7 @@ is no auditable "unsent draft" record.
 
 1. This ADR (`90-docs/adr/2605264000-ossekai-information-arbitrage-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/ossekai/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 9 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/ossekai/` + README;
+3. 9 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/ossekai/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 73 + Repo Layout entry.

@@ -30,14 +30,14 @@ Rationale:
 ## 3. Lexicon Namespace
 
 Canonical:
-- `app.etzhayyim.apps.unispsc.*`
+- `com.etzhayyim.apps.unispsc.*`
 
 Examples:
-- `app.etzhayyim.apps.unispsc.commodity`
-- `app.etzhayyim.apps.unispsc.procurement`
-- `app.etzhayyim.apps.unispsc.supplier`
-- `app.etzhayyim.apps.unispsc.standard`
-- `app.etzhayyim.apps.unispsc.risk`
+- `com.etzhayyim.apps.unispsc.commodity`
+- `com.etzhayyim.apps.unispsc.procurement`
+- `com.etzhayyim.apps.unispsc.supplier`
+- `com.etzhayyim.apps.unispsc.standard`
+- `com.etzhayyim.apps.unispsc.risk`
 
 ## 4. Migration Phases
 
@@ -48,7 +48,7 @@ Examples:
 - Switch UI/API default links to `unispsc.etzhayyim.com`.
 
 3. Canonical-only
-- Write/read/subscribe all flows only via `app.etzhayyim.apps.unispsc.*`.
+- Write/read/subscribe all flows only via `com.etzhayyim.apps.unispsc.*`.
 - Do not emit compatibility aliases.
 
 ## 5. Validation Checklist

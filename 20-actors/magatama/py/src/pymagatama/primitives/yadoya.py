@@ -1,7 +1,7 @@
 """Yadoya catalog query primitives for BPMN/LangServer.
 
 Moves the read-side hotel search/list logic out of the Cloudflare Worker.
-Mutation flows already have BPMN definitions under 00-contracts/bpmn/ai/gftd/yadoya.
+Mutation flows already have BPMN definitions under 00-contracts/bpmn/com/etzhayyim/yadoya.
 """
 
 from __future__ import annotations
@@ -49,7 +49,7 @@ def task_yadoya_search_hotels(
     limit: Any = 50,
     **_: Any,
 ) -> dict[str, Any]:
-    """Filtered catalog search for app.etzhayyim.apps.yadoya.searchHotels."""
+    """Filtered catalog search for com.etzhayyim.apps.yadoya.searchHotels."""
     limit_n = _int(limit, 50, min_value=1, max_value=200)
     try:
         price_max = int(priceJpyMax or 0)
@@ -98,7 +98,7 @@ def task_yadoya_list_hotels(
     offset: Any = 0,
     **_: Any,
 ) -> dict[str, Any]:
-    """Unfiltered/paged catalog listing for app.etzhayyim.apps.yadoya.listHotels."""
+    """Unfiltered/paged catalog listing for com.etzhayyim.apps.yadoya.listHotels."""
     limit_n = _int(limit, 50, min_value=1, max_value=500)
     offset_n = _int(offset, 0, min_value=0, max_value=100_000)
 
@@ -127,12 +127,12 @@ def task_yadoya_list_hotels(
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     worker.task(
-        task_type="xrpc.app.etzhayyim.apps.yadoya.searchHotels",
+        task_type="xrpc.com.etzhayyim.apps.yadoya.searchHotels",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_yadoya_search_hotels)
     worker.task(
-        task_type="xrpc.app.etzhayyim.apps.yadoya.listHotels",
+        task_type="xrpc.com.etzhayyim.apps.yadoya.listHotels",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_yadoya_list_hotels)

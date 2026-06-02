@@ -23,9 +23,9 @@ from pymagatama.db_sync import sync_cursor
 
 
 _OWNER_DID = "did:web:handotai.etzhayyim.com"
-_COL_SRC = "app.etzhayyim.apps.handotai.source"
-_COL_ART = "app.etzhayyim.apps.handotai.article"
-_COL_DIG = "app.etzhayyim.apps.handotai.digest"
+_COL_SRC = "com.etzhayyim.apps.handotai.source"
+_COL_ART = "com.etzhayyim.apps.handotai.article"
+_COL_DIG = "com.etzhayyim.apps.handotai.digest"
 
 _WRITERS: list[dict[str, str]] = [
     {"source_id": "src-pcw",  "name": "PC Watch",                  "url": "https://pc.watch.impress.co.jp/data/rss/1.0/pcw/feed.rdf", "language": "ja", "category": "fabrication"},

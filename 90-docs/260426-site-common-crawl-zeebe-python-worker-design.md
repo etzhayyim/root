@@ -41,7 +41,7 @@ local artifacts.
 
 # Files
 
-- BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/ingest/siteCommonCrawlDelta.bpmn`
+- BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/ingest/siteCommonCrawlDelta.bpmn`
 - Worker entrypoint: `20-actors/magatama/py/src/pymagatama/site_common_crawl_worker_main.py`
 - Task handlers: `20-actors/magatama/py/src/pymagatama/ingest/site_common_crawl.py`
 - Seed migration: `30-graph/graph-schema/migrations/20260426233000_seed_site_common_crawl_bpmn.ts`

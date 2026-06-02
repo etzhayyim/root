@@ -1,4 +1,4 @@
-# app.etzhayyim.wakai.* — wakai (和会) Lexicons
+# com.etzhayyim.wakai.* — wakai (和会) Lexicons
 
 **Owner actor**: `did:web:wakai.etzhayyim.com` (`20-actors/wakai/`)
 **ADR**: ADR-2605263500 (R0 scaffold)

@@ -29,7 +29,7 @@ python -m pymagatama.server    # binds :8815 arrow-flight, :9090 prometheus
 from pymagatama import udf
 
 @udf(
-    nsid="app.etzhayyim.apps.yabai.classify",
+    nsid="com.etzhayyim.apps.yabai.classify",
     io_threads=100,
     agent_tool="Classify an email for BEC/phishing signals",
 )

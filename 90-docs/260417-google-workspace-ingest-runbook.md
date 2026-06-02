@@ -36,7 +36,7 @@ inside a single Workspace tenant). Therefore:
 - Refresh tokens stored with **KEK envelope encryption** in each app's
   D1 `vertex_*_oauth_token` table (same ADR-0010 Stage 1 pattern the
   gmail worker uses). Future: migrate to `vault.etzhayyim.com`
-  (`app.etzhayyim.vault.*`) per CLAUDE.md Vault Zero-Knowledge Invariant.
+  (`com.etzhayyim.vault.*`) per CLAUDE.md Vault Zero-Knowledge Invariant.
 
 ### Consent scopes (unified per account)
 
@@ -172,7 +172,7 @@ done
 
 # 4. Per-account OAuth
 #    For each account from 70-tools/scripts/google-accounts-from-1p.sh:
-#    open https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.connectAccount?email=...
+#    open https://gmail.etzhayyim.com/xrpc/com.etzhayyim.apps.gmail.connectAccount?email=...
 #    → redirects to Google consent → sets tokens in every app's D1 table.
 ```
 
@@ -183,7 +183,7 @@ done
      → prints JSON: [{ "email": "jun@etzhayyim.com", "label": "…" }, …]
 2. For each email:
      a. Open https://gmail.etzhayyim.com in browser signed in as gftd user.
-     b. Call app.etzhayyim.apps.gmail.connectAccount { email }
+     b. Call com.etzhayyim.apps.gmail.connectAccount { email }
      c. Google consent screen → grants all 12 scopes.
      d. /oauth/callback stores refresh_token in vertex_gmail_oauth_token.
      e. Repeat for calendar/drive/contacts/tasks/docs/sheets/slides/meet
@@ -208,7 +208,7 @@ identical shape.
 ## Known gaps / Phase 1+
 
 - **Vault migration**: refresh tokens currently in per-app D1 KEK
-  envelope. Move to `vault.etzhayyim.com` (`app.etzhayyim.vault.putItem` with
+  envelope. Move to `vault.etzhayyim.com` (`com.etzhayyim.vault.putItem` with
   `kind=google_refresh_token`) when the vault app stabilises. CLAUDE.md
   "Vault Zero-Knowledge Invariant".
 - **Pub/Sub (Gmail)**: current gmail app uses cron `history.list`.
@@ -235,7 +235,7 @@ identical shape.
 - `70-tools/scripts/google-accounts-from-1p.sh` — account-list discovery
 - `60-apps/ai-gftd-project-calendar/appview/calendar-mcp-component/src/app.ts` — Google Calendar sync added (full)
 - `60-apps/ai-gftd-project-{drive,contacts,tasks,docs,sheets,slides,meet}/appview/*-mcp-component/src/app.ts` — scaffolded by `70-tools/scripts/scaffold-google-app.sh`. drive→`drive-app-component/`, docs→`docs-performers-r5ycqp6x/` (consolidated with existing svelte UI dirs).
-- `00-contracts/lexicons/ai/gftd/apps/{calendar,drive,contacts,tasks,docs,sheets,slides,meet}/{connectAccount,syncFromGoogle}.json` — 16 new lexicons
+- `00-contracts/lexicons/com/etzhayyim/apps/{calendar,drive,contacts,tasks,docs,sheets,slides,meet}/{connectAccount,syncFromGoogle}.json` — 16 new lexicons
 - `70-tools/templates/google-workspace-oauth.ts` — inline-copy OAuth/KEK helpers reference
 - `70-tools/scripts/scaffold-google-app.sh` — per-service app generator
 

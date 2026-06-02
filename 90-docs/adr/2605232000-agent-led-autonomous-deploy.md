@@ -43,7 +43,7 @@ Two needs surfaced concurrently during the karute deployment work (ADR-260523190
 
     > Don't put long-lived secrets into the transcript. Prefer short-lived + scoped tokens over long-lived roots. Make rotation a 1-liner.
 
-But the existing primitives only cover **runtime** XRPC calls (`gftd agent-token --lxm app.etzhayyim.apps.gmail.syncInbox --ttl 60`). Deploy-time authority — "this agent may run `wrangler deploy` against the `karute-did-web` Worker and `kubectl apply` against `lg-karute`" — has no formalized capability.
+But the existing primitives only cover **runtime** XRPC calls (`gftd agent-token --lxm com.etzhayyim.apps.gmail.syncInbox --ttl 60`). Deploy-time authority — "this agent may run `wrangler deploy` against the `karute-did-web` Worker and `kubectl apply` against `lg-karute`" — has no formalized capability.
 
 Both problems share a solution shape: a declarative manifest + a capability-gated executor + audit emission per step.
 
@@ -105,7 +105,7 @@ Mints an Ed25519-signed JWT (JWS compact form) for a single scope, default TTL 6
   "sub": "did:web:claude-agent.etzhayyim.com",
   "aud": "did:web:karute-did-web.etzhayyim.com",
   "lxm": "deploy.cfWorker:karute-did-web",
-  "cap": "at://did:web:steward.etzhayyim.com/app.etzhayyim.consent.capability/3lzw1",
+  "cap": "at://did:web:steward.etzhayyim.com/com.etzhayyim.consent.capability/3lzw1",
   "iat": 1779513922,
   "exp": 1779513982,
   "jti": "<hex16>"
@@ -116,7 +116,7 @@ The audience DID is inferred from the `lxm` prefix when not supplied. Tokens are
 
 ### 3. Consent capability — `purpose: "deploy-execution"`
 
-Extends `app.etzhayyim.consent.capability` (ADR-2605231400) to cover deploy authority. A Steward issues:
+Extends `com.etzhayyim.consent.capability` (ADR-2605231400) to cover deploy authority. A Steward issues:
 
 ```json
 {
@@ -138,7 +138,7 @@ Extends `app.etzhayyim.consent.capability` (ADR-2605231400) to cover deploy auth
 }
 ```
 
-`e7m actor deploy` rejects any stage whose `require_cap` is not in the capability's `scope`, with a `denied` DEPLOY_EVENT logged. The capability itself is a normal PDS record and revocable via `app.etzhayyim.apps.karute.revokeConsent` (or the generic equivalent on `did:web:audit.etzhayyim.com`).
+`e7m actor deploy` rejects any stage whose `require_cap` is not in the capability's `scope`, with a `denied` DEPLOY_EVENT logged. The capability itself is a normal PDS record and revocable via `com.etzhayyim.apps.karute.revokeConsent` (or the generic equivalent on `did:web:audit.etzhayyim.com`).
 
 ## Three-tier credential model (for agents)
 
@@ -148,7 +148,7 @@ Per the secret-handling note, with the new T3 deploy specialization:
 |---|---|---|---|
 | **T0 device-only** | persistent | Keychain / WebAuthn | Never share with agent. |
 | **T1 long-lived root** | months | 1Password vault, CF Secrets Store | Pre-provisioned env vars or `op read` pipes; agent never sees value. |
-| **T2 deploy capability** | hours-to-day | PDS record (`app.etzhayyim.consent.capability`, purpose=deploy-execution) | Agent holds the JWS file; verifiable by every downstream tool that consults the granter's DID document. |
+| **T2 deploy capability** | hours-to-day | PDS record (`com.etzhayyim.consent.capability`, purpose=deploy-execution) | Agent holds the JWS file; verifiable by every downstream tool that consults the granter's DID document. |
 | **T3 scoped per-call token** | 60-300s | In-memory; not persisted | Minted per stage from the T2 capability via `e7m agent-token`; passed in `Authorization: Bearer` to the actual deploy tool wrapper. |
 
 The capability is the only piece that needs human-issued explicit consent. Everything below is mintable by the agent itself.
@@ -161,10 +161,10 @@ Every stage emits a structured `DEPLOY_EVENT` line to stderr:
 DEPLOY_EVENT {"version":1,"agentDid":"did:web:claude-agent.etzhayyim.com","stewardDid":"did:web:steward.etzhayyim.com","stage":"did-worker","target":{"nsid":"deploy.cf-worker","identifier":"karute/did-worker"},"command":"wrangler deploy","commitSha":"abc123","outcome":"ok","durationMs":4321,"occurredAt":"2026-05-23T..."}
 ```
 
-Phase 2 wires this to POST `https://audit.etzhayyim.com/xrpc/app.etzhayyim.audit.emitAuditEvent` so the audit subsystem (ADR-2605231700) gets it on its hash-chained timeline. The two new lexicons supporting this:
+Phase 2 wires this to POST `https://audit.etzhayyim.com/xrpc/com.etzhayyim.audit.emitAuditEvent` so the audit subsystem (ADR-2605231700) gets it on its hash-chained timeline. The two new lexicons supporting this:
 
-- `app.etzhayyim.deploy.agentToken` — token-issuance audit projection (jwsHash, never the token value)
-- `app.etzhayyim.deploy.deployEvent` — per-stage signed audit record
+- `com.etzhayyim.deploy.agentToken` — token-issuance audit projection (jwsHash, never the token value)
+- `com.etzhayyim.deploy.deployEvent` — per-stage signed audit record
 
 ## Reference flow — full agent-led karute deploy
 
@@ -219,7 +219,7 @@ The agent's local invocations of `wrangler` / `kubectl` / `docker` / `cloudflare
 - **Agents can deploy without human-in-the-loop credentials.** The Steward issues one T2 capability; the agent mints T3 tokens per stage. Human is not required for individual stages.
 - **Every deploy step has a signed, verifiable audit trail.** `DEPLOY_EVENT` correlates the agent DID, Steward DID, capability URI, commit SHA, and outcome — a regulator or licensure board can subpoena the timeline.
 - **Capability is revocable.** Steward revokes via `revokeConsent`; agent immediately loses authority for all future stages. Already-committed deploys are not unwound, but new deploys fail closed.
-- **Composes with existing primitives.** No new lexicon families; `deploy-execution` is one enum value on `app.etzhayyim.consent.capability`.
+- **Composes with existing primitives.** No new lexicon families; `deploy-execution` is one enum value on `com.etzhayyim.consent.capability`.
 - **Stage-scope minimum privilege.** An agent authorized for `deploy.cfWorker:karute-did-web` cannot run `kubectl apply`. Per-stage capability fanout is fine-grained.
 - **Dry-run is free and safe.** `--dry-run` prints the planned commands and emits `outcome="dry-run"` events without executing anything.
 
@@ -233,8 +233,8 @@ The agent's local invocations of `wrangler` / `kubectl` / `docker` / `cloudflare
 
 ## Rollout
 
-1. **This commit** — ADR + 2 new lexicons (`app.etzhayyim.deploy.agentToken`, `app.etzhayyim.deploy.deployEvent`) + `purpose=deploy-execution` enum value on consent capability + 2 e7m subcommands (`actor`, `agent-token`) + karute `actor.toml`. End-to-end dry-run smoke (`gftd actor deploy --actor karute --dry-run --only pages-build` → DEPLOY_EVENT emitted) verified.
-2. **Phase 2** — Capability JWS Ed25519 verification + audit emission HTTP POST to `https://audit.etzhayyim.com/xrpc/app.etzhayyim.audit.emitAuditEvent`. Phase 2 also adds `e7m capability issue / revoke / list` subcommands so capability management is in-CLI.
+1. **This commit** — ADR + 2 new lexicons (`com.etzhayyim.deploy.agentToken`, `com.etzhayyim.deploy.deployEvent`) + `purpose=deploy-execution` enum value on consent capability + 2 e7m subcommands (`actor`, `agent-token`) + karute `actor.toml`. End-to-end dry-run smoke (`gftd actor deploy --actor karute --dry-run --only pages-build` → DEPLOY_EVENT emitted) verified.
+2. **Phase 2** — Capability JWS Ed25519 verification + audit emission HTTP POST to `https://audit.etzhayyim.com/xrpc/com.etzhayyim.audit.emitAuditEvent`. Phase 2 also adds `e7m capability issue / revoke / list` subcommands so capability management is in-CLI.
 3. **Phase 3** — Per-stage T1 cloud-provider creds (CF Workers API tokens scoped to a single Worker; GitHub PATs scoped to a single repo). Cosign + image-SHA scoping for `deploy.docker:` scopes.
 4. **Phase 4** — Failure-mode test rig (revoked capability mid-deploy / expired token mid-stage / forged JWS detection).
 

@@ -27,7 +27,7 @@ Standalone component runtime (WASM) and legacy Zeebe BPMN orchestration for `cla
 The open-isic classification now operates via native LangGraph (Pregel) flows rather than BPMN:
 
 - `open_isic_classify_entity`: Direct routing to explicit 4-digit class tools.
-- `open_isic_hierarchical_classify`: Dynamic LLM drill-down from Section -> Division -> Group -> Class using the `app.etzhayyim.apps.openIsic.getTaxonomy` tool.
+- `open_isic_hierarchical_classify`: Dynamic LLM drill-down from Section -> Division -> Group -> Class using the `com.etzhayyim.apps.openIsic.getTaxonomy` tool.
 
 Other non-classification tasks (e.g., `recordConcordance`) remain as generic tools.
 
@@ -56,8 +56,8 @@ LangGraph is used as a checkpointable deterministic guard. The hot-path decision
 `pymagatama.handlers.open_isic` exposes:
 
 ```text
-app.etzhayyim.apps.openIsic.verificationForConfidence
-app.etzhayyim.apps.openIsic.classificationVertexId
+com.etzhayyim.apps.openIsic.verificationForConfidence
+com.etzhayyim.apps.openIsic.classificationVertexId
 ```
 
 These helpers are for RisingWave SQL paths that need deterministic verification gates or stable classification vertex IDs without invoking the full LangServer workflow.

@@ -2,7 +2,7 @@
 
 Purpose:
     Fetch already-public platform disclosure pages, APIs, or bulk exports and
-    emit app.etzhayyim.akashi.adDisclosureSnapshot records.
+    emit com.etzhayyim.akashi.adDisclosureSnapshot records.
 
 ADR:
     ADR-2606022300

@@ -1,4 +1,4 @@
-# `app.etzhayyim.voxelforge.*` — Voxelforge — open voxel modeling spec
+# `com.etzhayyim.voxelforge.*` — Voxelforge — open voxel modeling spec
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group C).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `app.etzhayyim.voxelforge.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `com.etzhayyim.voxelforge.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

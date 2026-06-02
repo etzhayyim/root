@@ -104,7 +104,7 @@ def _rows(cur: Any) -> list[dict[str, Any]]:
 
 
 def _collection(name: str) -> str:
-    return f"app.etzhayyim.apps.handotai.{name}"
+    return f"com.etzhayyim.apps.handotai.{name}"
 
 
 def _record_key(name: str, record: dict[str, Any]) -> str:
@@ -595,29 +595,29 @@ def task_handotai_wave(from_: str = "", fromName: str = "", message: str = "Hell
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.app.etzhayyim.apps.handotai.alertCreate": task_handotai_alert_create,
-        "xrpc.app.etzhayyim.apps.handotai.alertDelete": task_handotai_alert_delete,
-        "xrpc.app.etzhayyim.apps.handotai.alertList": task_handotai_alert_list,
-        "xrpc.app.etzhayyim.apps.handotai.backfillWriterPosts": task_handotai_backfill_writer_posts,
-        "xrpc.app.etzhayyim.apps.handotai.crawlTrigger": task_handotai_crawl_trigger,
-        "xrpc.app.etzhayyim.apps.handotai.getArticle": task_handotai_get_article,
-        "xrpc.app.etzhayyim.apps.handotai.getDailyDigest": task_handotai_get_daily_digest,
-        "xrpc.app.etzhayyim.apps.handotai.getSubscription": task_handotai_get_subscription,
-        "xrpc.app.etzhayyim.apps.handotai.getWeeklyReport": task_handotai_get_weekly_report,
-        "xrpc.app.etzhayyim.apps.handotai.handleDailyEvolution": task_handotai_handle_daily_evolution,
-        "xrpc.app.etzhayyim.apps.handotai.listArticles": task_handotai_list_articles,
-        "xrpc.app.etzhayyim.apps.handotai.listSemiEntities": task_handotai_list_semi_entities,
-        "xrpc.app.etzhayyim.apps.handotai.registerSemiEntities": task_handotai_register_semi_entities,
-        "xrpc.app.etzhayyim.apps.handotai.registerWriterProfiles": task_handotai_register_writer_profiles,
-        "xrpc.app.etzhayyim.apps.handotai.reportGenerate": task_handotai_report_generate,
-        "xrpc.app.etzhayyim.apps.handotai.searchArticles": task_handotai_search_articles,
-        "xrpc.app.etzhayyim.apps.handotai.seedArticles": task_handotai_seed_articles,
-        "xrpc.app.etzhayyim.apps.handotai.sourceAdd": task_handotai_source_add,
-        "xrpc.app.etzhayyim.apps.handotai.sourceList": task_handotai_source_list,
-        "xrpc.app.etzhayyim.apps.handotai.subscribe": task_handotai_subscribe,
-        "xrpc.app.etzhayyim.apps.handotai.translateArticle": task_handotai_translate_article,
-        "xrpc.app.etzhayyim.apps.handotai.updateTranslation": task_handotai_update_translation,
-        "xrpc.app.etzhayyim.apps.handotai.wave": task_handotai_wave,
+        "xrpc.com.etzhayyim.apps.handotai.alertCreate": task_handotai_alert_create,
+        "xrpc.com.etzhayyim.apps.handotai.alertDelete": task_handotai_alert_delete,
+        "xrpc.com.etzhayyim.apps.handotai.alertList": task_handotai_alert_list,
+        "xrpc.com.etzhayyim.apps.handotai.backfillWriterPosts": task_handotai_backfill_writer_posts,
+        "xrpc.com.etzhayyim.apps.handotai.crawlTrigger": task_handotai_crawl_trigger,
+        "xrpc.com.etzhayyim.apps.handotai.getArticle": task_handotai_get_article,
+        "xrpc.com.etzhayyim.apps.handotai.getDailyDigest": task_handotai_get_daily_digest,
+        "xrpc.com.etzhayyim.apps.handotai.getSubscription": task_handotai_get_subscription,
+        "xrpc.com.etzhayyim.apps.handotai.getWeeklyReport": task_handotai_get_weekly_report,
+        "xrpc.com.etzhayyim.apps.handotai.handleDailyEvolution": task_handotai_handle_daily_evolution,
+        "xrpc.com.etzhayyim.apps.handotai.listArticles": task_handotai_list_articles,
+        "xrpc.com.etzhayyim.apps.handotai.listSemiEntities": task_handotai_list_semi_entities,
+        "xrpc.com.etzhayyim.apps.handotai.registerSemiEntities": task_handotai_register_semi_entities,
+        "xrpc.com.etzhayyim.apps.handotai.registerWriterProfiles": task_handotai_register_writer_profiles,
+        "xrpc.com.etzhayyim.apps.handotai.reportGenerate": task_handotai_report_generate,
+        "xrpc.com.etzhayyim.apps.handotai.searchArticles": task_handotai_search_articles,
+        "xrpc.com.etzhayyim.apps.handotai.seedArticles": task_handotai_seed_articles,
+        "xrpc.com.etzhayyim.apps.handotai.sourceAdd": task_handotai_source_add,
+        "xrpc.com.etzhayyim.apps.handotai.sourceList": task_handotai_source_list,
+        "xrpc.com.etzhayyim.apps.handotai.subscribe": task_handotai_subscribe,
+        "xrpc.com.etzhayyim.apps.handotai.translateArticle": task_handotai_translate_article,
+        "xrpc.com.etzhayyim.apps.handotai.updateTranslation": task_handotai_update_translation,
+        "xrpc.com.etzhayyim.apps.handotai.wave": task_handotai_wave,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

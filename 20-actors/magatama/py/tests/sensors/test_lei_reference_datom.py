@@ -1,5 +1,5 @@
 """Tests for corp.lei_reference_datom — LeiObservation →
-``app.etzhayyim.corp.leiReference`` record + kotoba EAVT ingest batch.
+``com.etzhayyim.corp.leiReference`` record + kotoba EAVT ingest batch.
 
 Per ADR-2605263800 §3 + ADR-2605312345. Validates:
 
@@ -17,7 +17,7 @@ import pytest
 
 PROV = dict(
     created_at="2026-05-31T00:00:00Z",
-    dataset_pin_at="at://did:web:etzhayyim.com/app.etzhayyim.substrate.datasetPin/g1",
+    dataset_pin_at="at://did:web:etzhayyim.com/com.etzhayyim.substrate.datasetPin/g1",
     attesting_did="did:web:corp-sensor.etzhayyim.com",
 )
 
@@ -54,7 +54,7 @@ def test_lei_record_shape(load_sensor, corp_base_module):
     # No parent pointers on this row.
     assert "parentLei" not in rec
     assert "ultimateParentLei" not in rec
-    assert mod.LEI_REFERENCE_NSID == "app.etzhayyim.corp.leiReference"
+    assert mod.LEI_REFERENCE_NSID == "com.etzhayyim.corp.leiReference"
 
 
 def test_parent_pointers_included_when_published(load_sensor, corp_base_module):
@@ -91,7 +91,7 @@ def test_kotoba_entity_shape_and_id(load_sensor, corp_base_module):
     ent = mod.observation_to_kotoba_entity(_obs(corp_base_module), **PROV)
     assert ent["type"] == "CorpLeiReference"
     # Entity id is the LEI (canonical key) — stable across re-ingest.
-    assert ent["id"] == "app.etzhayyim.corp.leiReference:353800OE2WPLLC7YPQ59"
+    assert ent["id"] == "com.etzhayyim.corp.leiReference:353800OE2WPLLC7YPQ59"
     preds = {c["pred"]: c["value"] for c in ent["claims"]}
     assert preds["lei/entityLei"] == "353800OE2WPLLC7YPQ59"
     assert preds["lei/legalName"] == "Sony Group Corporation"
@@ -111,7 +111,7 @@ def test_batch_skips_invalid_and_dedupes(load_sensor, corp_base_module):
     ids = [e["id"] for e in batch["entities"]]
     assert len(ids) == 2  # dup collapsed, bad skipped
     assert len(set(ids)) == 2
-    assert "app.etzhayyim.corp.leiReference:HWUPKR0MPOU8FGXBT394" in ids
+    assert "com.etzhayyim.corp.leiReference:HWUPKR0MPOU8FGXBT394" in ids
 
 
 def test_id_stable_across_reingest(load_sensor, corp_base_module):

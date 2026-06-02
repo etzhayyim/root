@@ -1,6 +1,6 @@
-# app.etzhayyim.apps.maps3d.* — etzhayyim variant
+# com.etzhayyim.apps.maps3d.* — etzhayyim variant
 
-Vendor-authored maps3d lexicons borrowed by religious-corp (etzhayyim) under the shared `app.etzhayyim.*` namespace pattern. Verdicts assigned per **ADR-2605214000 §2** substrate-fit rules.
+Vendor-authored maps3d lexicons borrowed by religious-corp (etzhayyim) under the shared `com.etzhayyim.*` namespace pattern. Verdicts assigned per **ADR-2605214000 §2** substrate-fit rules.
 
 ## Verdicts (2026-05-21)
 
@@ -21,9 +21,9 @@ Only top-level `description` text in 3 lexicons (`linkActor`, `processTile`, `si
 
 The five PORT-direct lexicons (`colmapTile`, `curateImages`, `fetchMapillary`, `replanReconstruction`, `visionAnnotate`) required no edits; their descriptions already reference substrate-compatible infrastructure (open standards like Mapillary, LangGraph, and OSM; or internal systems like Murakumo Vision).
 
-## Why the namespace stays `app.etzhayyim.apps.maps3d.*`
+## Why the namespace stays `com.etzhayyim.apps.maps3d.*`
 
-Per ADR-2605214000 §2 namespace placement rule: vendor-authored lexicons borrowed by religious-corp keep the `app.etzhayyim.*` NSID. The `app.etzhayyim.*` namespace is reserved for religious-corp-only lexicons with no vendor equivalent.
+Per ADR-2605214000 §2 namespace placement rule: vendor-authored lexicons borrowed by religious-corp keep the `com.etzhayyim.*` NSID. The `com.etzhayyim.*` namespace is reserved for religious-corp-only lexicons with no vendor equivalent.
 
 ## Substrate-fit conditions (recap)
 
@@ -40,5 +40,5 @@ The two PORT-adapted lexicons here pass all five conditions on **required fields
 - ADR-2605214000 — Murakumo distributed cluster (no-VKE mesh) + vendor→religious-corp lexicon port rules
 - ADR-2605172000 — etzhayyim RW-free substrate
 - ADR-2605191346 — etzhayyim is Vultr-free / no commercial K8s
-- `00-contracts/lexicons/ai/gftd/murakumo/README.md` — sister registry for murakumo lexicons
-- `00-contracts/bpmn/ai/gftd/murakumo/README.md` — sister registry for murakumo BPMN
+- `00-contracts/lexicons/com/etzhayyim/murakumo/README.md` — sister registry for murakumo lexicons
+- `00-contracts/bpmn/com/etzhayyim/murakumo/README.md` — sister registry for murakumo BPMN

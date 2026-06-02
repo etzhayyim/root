@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.po.create.po")
+    @worker.task(task_type="com.etzhayyim.apps.po.create.po")
     async def task_create_po(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:po.etzhayyim.com")
         supplier_id = kwargs.get("supplierId", "")
@@ -48,7 +48,7 @@ async def run_worker():
 
         return {"poId": po_id, "status": "draft"}
 
-    @worker.task(task_type="app.etzhayyim.apps.po.list.pos")
+    @worker.task(task_type="com.etzhayyim.apps.po.list.pos")
     async def task_list_pos(**kwargs):
         status = kwargs.get("status", "")
         limit = int(kwargs.get("limit", 50))
@@ -82,7 +82,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.po.get.po")
+    @worker.task(task_type="com.etzhayyim.apps.po.get.po")
     async def task_get_po(**kwargs):
         po_id = kwargs.get("poId", "")
 
@@ -100,7 +100,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.po.approve.po")
+    @worker.task(task_type="com.etzhayyim.apps.po.approve.po")
     async def task_approve_po(**kwargs):
         po_id = kwargs.get("poId", "")
         approver_did = kwargs.get("approverDid", "did:web:po.etzhayyim.com")
@@ -118,7 +118,7 @@ async def run_worker():
 
         return {"poId": po_id, "status": "approved", "approvedAt": now, "approverDid": approver_did}
 
-    @worker.task(task_type="app.etzhayyim.apps.po.list.suppliers")
+    @worker.task(task_type="com.etzhayyim.apps.po.list.suppliers")
     async def task_list_suppliers(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -141,7 +141,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.po.create.supplier")
+    @worker.task(task_type="com.etzhayyim.apps.po.create.supplier")
     async def task_create_supplier(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:po.etzhayyim.com")
         name = kwargs.get("name", "")
@@ -169,7 +169,7 @@ async def run_worker():
 
         return {"supplierId": supplier_id, "status": "active"}
 
-    @worker.task(task_type="app.etzhayyim.apps.po.record.receipt")
+    @worker.task(task_type="com.etzhayyim.apps.po.record.receipt")
     async def task_record_receipt(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:po.etzhayyim.com")
         po_id = kwargs.get("poId", "")
@@ -188,7 +188,7 @@ async def run_worker():
 
         return {"poId": po_id, "status": "received", "receivedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.po.list.receipts")
+    @worker.task(task_type="com.etzhayyim.apps.po.list.receipts")
     async def task_list_receipts(**kwargs):
         supplier_id = kwargs.get("supplierId", "")
         limit = int(kwargs.get("limit", 50))

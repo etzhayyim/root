@@ -9,13 +9,13 @@ last_verified: 2026-05-24
 priority: 6.0
 axis: architecture
 weight: 0.55
-priority_note: "Defines how this monorepo references large (10TB+) training / reference / baien datasets without putting bytes in git. Uses DataLad superdataset → git-annex (SHA256E backend, `directory` special remote on local volume) for the catalog + bytes-at-rest, and a sidecar IPFS pinner that mirrors each annex object to Kubo for substrate-compliant distribution; emits app.etzhayyim.substrate.datasetPin records to PDS as the religious-corp-canonical receipt. Local data root on this Mac: /Volumes/260317/etzhayyim/. The `type=external externaltype=ipfs` route is deliberately NOT taken because git-annex IPFS external remote implementations have an inherent CHECKPRESENT-always-fails limitation that re-uploads on every copy unless `git annex trust` is asserted; the sidecar pinner avoids that class of failure entirely."
+priority_note: "Defines how this monorepo references large (10TB+) training / reference / baien datasets without putting bytes in git. Uses DataLad superdataset → git-annex (SHA256E backend, `directory` special remote on local volume) for the catalog + bytes-at-rest, and a sidecar IPFS pinner that mirrors each annex object to Kubo for substrate-compliant distribution; emits com.etzhayyim.substrate.datasetPin records to PDS as the religious-corp-canonical receipt. Local data root on this Mac: /Volumes/260317/etzhayyim/. The `type=external externaltype=ipfs` route is deliberately NOT taken because git-annex IPFS external remote implementations have an inherent CHECKPRESENT-always-fails limitation that re-uploads on every copy unless `git annex trust` is asserted; the sidecar pinner avoids that class of failure entirely."
 authoritative_for:
   - dataset storage policy (bytes off git via git-annex; pointers in git; PDS-anchored receipt)
   - DataLad superdataset layout (90-docs/baien/datasets/)
   - git-annex `directory` special remote configuration (annex object dir on local volume)
   - sidecar IPFS pinner contract (annex-object → CID mapping + datasetPin emit)
-  - app.etzhayyim.substrate.datasetPin lexicon
+  - com.etzhayyim.substrate.datasetPin lexicon
   - 70-tools/e7m-dataset thin Python wrapper (DataLad orchestration + Charter Rider gate + sidecar pin + PDS emit)
   - per-machine local path resolver (ETZ_DATASET_ROOT / ~/.etzhayyim/local-paths.toml)
   - dataset replication-factor + Charter Rider pre-pin gate
@@ -77,7 +77,7 @@ sharding mechanical.
 
 Adopt **DataLad + git-annex (directory special remote) + sidecar IPFS
 pinner** as the dataset substrate, and keep
-`app.etzhayyim.substrate.datasetPin` PDS records as the
+`com.etzhayyim.substrate.datasetPin` PDS records as the
 religious-corp-canonical receipt. Six layers:
 
 ```
@@ -92,7 +92,7 @@ sidecar pinner     : e7m-dataset publish-ipfs walks the directory remote,
                      and emits the root CID
 IPFS (distribution): Kubo data root on per-machine local volume
                      holds the pinned annex objects + map
-PDS (receipt)      : app.etzhayyim.substrate.datasetPin records, DID-signed
+PDS (receipt)      : com.etzhayyim.substrate.datasetPin records, DID-signed
 human index        : 90-docs/baien/datasets.jsonl, append-only, summary view
 ```
 
@@ -163,10 +163,10 @@ and FAILURE for `REMOVE` (IPFS immutability). This makes the IPFS
 external remote impractical as a primary store. We use it as a
 **distribution layer downstream of the directory remote** instead.
 
-## D3. Lexicon — `app.etzhayyim.substrate.datasetPin`
+## D3. Lexicon — `com.etzhayyim.substrate.datasetPin`
 
 Kept (already created at
-`00-contracts/lexicons/app/etzhayyim/substrate/datasetPin.json`). Emitted
+`00-contracts/lexicons/com/etzhayyim/substrate/datasetPin.json`). Emitted
 once per `(name, revision)` pair after the sidecar pinner has copied all
 new annex objects to IPFS.
 
@@ -219,7 +219,7 @@ e7m-dataset where <name>
 5. `git -C <super> commit` the subdataset state.
 6. Append a row to `90-docs/baien/datasets.jsonl` (human index) with the
    map root CID.
-7. Emit `app.etzhayyim.substrate.datasetPin` PDS record (or `--dry-run`).
+7. Emit `com.etzhayyim.substrate.datasetPin` PDS record (or `--dry-run`).
 
 The wrapper does **not** reimplement git-annex semantics; it orchestrates
 existing commands and adds the Charter Rider gate + sidecar IPFS pin +
@@ -396,7 +396,7 @@ contract, not a library.
 ## Invariants introduced
 
 1. No first-party dataset >100 MB enters git directly (all annexed).
-2. Every emitted `app.etzhayyim.substrate.datasetPin` PDS record carries
+2. Every emitted `com.etzhayyim.substrate.datasetPin` PDS record carries
    a Charter Rider scan result with `passed = true`.
 3. `etzhayyim.assigned-nodes` in `.datalad/config` is the source of truth
    for which node MUST hold a subdataset's bytes.
@@ -465,7 +465,7 @@ End-to-end Phase-1 path exercised on the deciding Mac:
    (`a90e658f...`).
 6. `90-docs/baien/datasets.jsonl` received the corresponding manifest
    row; `pds.build_record()` produced a structurally valid
-   `app.etzhayyim.substrate.datasetPin` body (dry-run output — PDS
+   `com.etzhayyim.substrate.datasetPin` body (dry-run output — PDS
    network wiring deferred).
 
 Status implication: D1–D8 are reachable in the current toolchain;
@@ -484,6 +484,6 @@ follow-ups and listed in Consequences §Negative.
 - DataLad handbook: https://handbook.datalad.org/
 - git-annex special remotes: https://git-annex.branchable.com/special_remotes/
 - `50-infra/ipfs-pinner/src/providers/kubo.ts` — Kubo HTTP client used by `ipfs-pinner` (shared network contract, not a shared library)
-- `00-contracts/lexicons/app/etzhayyim/substrate/datasetPin.json` — receipt lexicon (created with this ADR)
+- `00-contracts/lexicons/com/etzhayyim/substrate/datasetPin.json` — receipt lexicon (created with this ADR)
 - `70-tools/e7m-dataset/` — operator wrapper (Phase 1: `where`, `publish-ipfs`)
 - `90-docs/baien/datasets/README.md` — superdataset entry point

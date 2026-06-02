@@ -13,12 +13,12 @@ Mirrors the [`open-isic/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) ref
 
 | Topic | Tier | Lexicons | Seed | Tests |
 |---|---|---|---|---|
-| **source** (Source DID registry) | A | `app.etzhayyim.maps.source` | 24 records | 53 |
-| **geo** (Geo DID Management — 8 commands) | A | `app.etzhayyim.maps.{region,geoAlias,verticalZone,naturalZone,layerCoordinator}` | 59 records + 29 schemes | 45 |
-| **display-layer** (operator-defined overlays — 2 commands) | A | `app.etzhayyim.maps.displayLayer` | operator-driven | 21 |
-| **registry** (Legal Entity + Registry + Ownership — 22 commands) | A | `app.etzhayyim.maps.{legalEntity,registry,ownership}` | pipeline-driven | 38 |
-| **collection** (Job + state event log — 4 commands) | A | `app.etzhayyim.maps.{collectionJob,jobEvent}` | event-log shape | 45 |
-| **feature** (Geography / Building / Asset registration) | **B (L0 + L1 witnessed)** | `app.etzhayyim.maps.feature` (existing) | label-discriminated | 33 |
+| **source** (Source DID registry) | A | `com.etzhayyim.maps.source` | 24 records | 53 |
+| **geo** (Geo DID Management — 8 commands) | A | `com.etzhayyim.maps.{region,geoAlias,verticalZone,naturalZone,layerCoordinator}` | 59 records + 29 schemes | 45 |
+| **display-layer** (operator-defined overlays — 2 commands) | A | `com.etzhayyim.maps.displayLayer` | operator-driven | 21 |
+| **registry** (Legal Entity + Registry + Ownership — 22 commands) | A | `com.etzhayyim.maps.{legalEntity,registry,ownership}` | pipeline-driven | 38 |
+| **collection** (Job + state event log — 4 commands) | A | `com.etzhayyim.maps.{collectionJob,jobEvent}` | event-log shape | 45 |
+| **feature** (Geography / Building / Asset registration) | **B (L0 + L1 witnessed)** | `com.etzhayyim.maps.feature` (existing) | label-discriminated | 33 |
 | **TOTAL** | — | **11 new lexicons** | **83 seed records + 29 schemes** | **235 tests** |
 
 ## Tier B end-to-end demo
@@ -91,7 +91,7 @@ rw-free/
     ├── verify.ts        # shared CLI — SDK.verify() for any at-uri
     ├── source/
     │   ├── types.ts            # MapsSource + didForSlug / slugForDid / isValidTtl
-    │   ├── seed.ts             # seeds sources.json → app.etzhayyim.maps.source records
+    │   ├── seed.ts             # seeds sources.json → com.etzhayyim.maps.source records
     │   ├── query.ts            # CLI read with prefix/slug/category filters
     │   ├── index.ts            # programmatic listSources / getSource / resolveSourceDid
     │   └── *.test.ts           # 53 tests
@@ -145,7 +145,7 @@ import { listSources, getSource } from "@etzhayyim/maps-rw-free";
 import { Etzhayyim } from "@etzhayyim/sdk";
 const e = new Etzhayyim({ /* ... */ });
 await e.write({
-  collection: "app.etzhayyim.maps.source",
+  collection: "com.etzhayyim.maps.source",
   rkey: slug,
   record: { v: 1, slug, did, displayName, externalSource, ttl, status, registeredAt, ... },
 });
@@ -161,8 +161,8 @@ const src = await resolveSourceDid("did:web:maps.etzhayyim.com:geocode");
 
 ## Lexicon
 
-Record lexicon at [`00-contracts/lexicons/app/etzhayyim/maps/source.json`](../../../00-contracts/lexicons/app/etzhayyim/maps/source.json)
-(NSID `app.etzhayyim.maps.source`).
+Record lexicon at [`00-contracts/lexicons/com/etzhayyim/maps/source.json`](../../../00-contracts/lexicons/com/etzhayyim/maps/source.json)
+(NSID `com.etzhayyim.maps.source`).
 
 `rkey` policy: `literal:{slug}` — the kebab-case slug is the MST key
 verbatim. Idempotent re-seeds produce no new records.
@@ -195,7 +195,7 @@ pnpm tsx src/query.ts --status=active          # filter by status
 ## Verify
 
 ```bash
-pnpm tsx src/verify.ts at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.source/geocode
+pnpm tsx src/verify.ts at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.source/geocode
 ```
 
 Returns the Merkle path from the record to the MST root that was
@@ -217,7 +217,7 @@ pnpm test
 
 | Surface | State |
 |---|---|
-| Record lexicon | ✅ `00-contracts/lexicons/app/etzhayyim/maps/source.json` |
+| Record lexicon | ✅ `00-contracts/lexicons/com/etzhayyim/maps/source.json` |
 | Seed data (24 entries) | ✅ `data/sources.json` |
 | Seeder + helpers | ✅ |
 | Pure-helper tests | ✅ |
@@ -239,9 +239,9 @@ pnpm test
 
 Per [`MIGRATION-TODO.md`](../MIGRATION-TODO.md) Phase 1 Tier A:
 
-1. **Geo DID Management (8 commands)** — register_region / resolve_geo_alias / list_geo_aliases / list_vertical_zones / list_natural_zones / list_layer_coordinators / resolve_zones_3d / list_geo_schemes. Lexicon `app.etzhayyim.maps.{region,geoAlias,verticalZone,naturalZone,layerCoordinator}` (5 new lexicons).
-2. **Display layer (2 commands)** — `display_layer_define` / `list_display_layers`. Lexicon `app.etzhayyim.maps.displayLayer`.
-3. **Collection plumbing (4 commands)** — `createCollectionJob` / `advanceJob` / `listJobs` / `getJobStatus`. Lexicon `app.etzhayyim.maps.collectionJob`.
+1. **Geo DID Management (8 commands)** — register_region / resolve_geo_alias / list_geo_aliases / list_vertical_zones / list_natural_zones / list_layer_coordinators / resolve_zones_3d / list_geo_schemes. Lexicon `com.etzhayyim.maps.{region,geoAlias,verticalZone,naturalZone,layerCoordinator}` (5 new lexicons).
+2. **Display layer (2 commands)** — `display_layer_define` / `list_display_layers`. Lexicon `com.etzhayyim.maps.displayLayer`.
+3. **Collection plumbing (4 commands)** — `createCollectionJob` / `advanceJob` / `listJobs` / `getJobStatus`. Lexicon `com.etzhayyim.maps.collectionJob`.
 4. **Registry & Legal Entity register/list (22 commands)** — LegalEntity / LandRegistry / PropertyRegistry / BusinessRegistry / ConstructionPermit / OperatingLicense / ZoningRecord + ownership/registry-link. 7+ new lexicons.
 
 All follow this same pattern: types + seed + query + verify + tests, sharing `@etzhayyim/sdk` as the only substrate seam.

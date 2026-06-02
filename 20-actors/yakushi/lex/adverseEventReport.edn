@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yakushi.adverseEventReport"
+ :id "com.etzhayyim.yakushi.adverseEventReport"
  :defs
  {:main
   {:type "record"

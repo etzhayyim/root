@@ -34,7 +34,7 @@ exception. Driven by a coded `remedyTarget` registry (remedy kind / 根拠法令
   informational date computation, NOT a legal opinion; characterization +
   representation → chigiri + licensed counsel (G5, the critical gate).
 - **Do not** store member PII / contract / complaint content anywhere except an
-  `app.etzhayyim.encrypted.*` DID-bound envelope (G6).
+  `com.etzhayyim.encrypted.*` DID-bound envelope (G6).
 - **Do not** invent a 根拠法令 / 日数 / 様式; cite 根拠法令 + provenance; member
   confirms before send (G8). A wrong cooling-off 日数 is harmful — verify (G14).
 - **Do not** charge a contingency fee, buy/assign the member's claim, or run a

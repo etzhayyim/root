@@ -39,7 +39,7 @@ Per [ADR-2605250500](../../90-docs/adr/2605250500-yakushi-pharmaceutical-rd-char
 All 8 pharma_* cells are import-time RuntimeError gated. Removal requires:
 
 - `COUNCIL_ATTESTATION_TX_HASH: str | None = None` set to a non-None Council Lv6+ ≥ 3 multisig tx hash
-- `SILEN_PHARMA_BASELINE_REVIEW_CID: str | None = None` set to an `app.etzhayyim.pharma.silenPharmaReview` record CID with `verdict = "approve"`
+- `SILEN_PHARMA_BASELINE_REVIEW_CID: str | None = None` set to an `com.etzhayyim.pharma.silenPharmaReview` record CID with `verdict = "approve"`
 - For G4 enforcement, additionally `QP_EQUIVALENT_REGISTRY_CID` set to a Council-attested registry of QP DIDs
 
 The gate is constitutional invariant — do not remove without R1+ ADR landing.
@@ -64,7 +64,7 @@ Do NOT skip phases. Each R transition is its own ADR.
 
 ## Substrate-port + non-violation rules
 
-- The 8 pharma lexicons use `app.etzhayyim.pharma.*` namespace (NOT `app.etzhayyim.yakushi.*`) — this mirrors silicon (`iwakura`/`fuigo`/`tsukuru` all under `app.etzhayyim.silicon.*`)
+- The 8 pharma lexicons use `com.etzhayyim.pharma.*` namespace (NOT `com.etzhayyim.yakushi.*`) — this mirrors silicon (`iwakura`/`fuigo`/`tsukuru` all under `com.etzhayyim.silicon.*`)
 - The 3 化合物 API DIDs use **stable INN slug**: `:api:sodium-cromoglicate`, `:api:naphazoline-hydrochloride`, `:api:chlorpheniramine-maleate` — never CAS or local code
 - Adverse event submission **MUST NOT** be aggregated by patient DID — only by lot + severity + outcome; aggregate keys exclude patient identity (G10)
 - Wellbecoming label content (G11) is enforceable lint — `pharma_packaging` cell rejects label drafts missing `naphazoline 連用警告` for products containing naphazoline ≥ 0.05%

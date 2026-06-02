@@ -1,4 +1,4 @@
-# app.etzhayyim.toritsugi.* — Lexicons
+# com.etzhayyim.toritsugi.* — Lexicons
 
 Lexicons for **取次 (toritsugi)** — the citizen-facing government-procedure
 concierge Tier-B actor (`did:web:toritsugi.etzhayyim.com`, ADR-2605312030).
@@ -22,7 +22,7 @@ ratification (R1+).
   (作成代理 is unrepresentable); legal/tax characterization routes to chigiri /
   toritate.
 - **G6 PII confidentiality**: PII never inline — records hold
-  `encrypted*Ref` / `resultRef` pointers into `app.etzhayyim.encrypted.*`
+  `encrypted*Ref` / `resultRef` pointers into `com.etzhayyim.encrypted.*`
   (ADR-2605181100).
 - **G8 non-fabrication**: `procedure.legalBasis` + `procedure.provenance` are
   required; `applicationDraft.memberConfirmed` gates submission.

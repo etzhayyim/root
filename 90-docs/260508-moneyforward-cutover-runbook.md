@@ -83,7 +83,7 @@ curl -fsS -X POST http://localhost:8080/v1/instance \
 Run after every MoneyForward export period:
 
 ```bash
-curl -fsS -X POST https://kaikei.etzhayyim.com/xrpc/app.etzhayyim.apps.kaikei.validateMoneyForwardParity \
+curl -fsS -X POST https://kaikei.etzhayyim.com/xrpc/com.etzhayyim.apps.kaikei.validateMoneyForwardParity \
   -H 'content-type: application/json' \
   -d '{"owner":"works","periodFrom":"2026-04-01","periodTo":"2026-04-30","mfExportCid":"bafy...","mfTotal":0}'
 ```

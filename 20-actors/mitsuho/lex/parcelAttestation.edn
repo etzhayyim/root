@@ -1,6 +1,6 @@
-;; app.etzhayyim.mitsuho.parcelAttestation — lexicon (EDN form) — baseline attestation for agricultural parcels
+;; com.etzhayyim.mitsuho.parcelAttestation — lexicon (EDN form) — baseline attestation for agricultural parcels
 {:lexicon 1
- :id "app.etzhayyim.mitsuho.parcelAttestation"
+ :id "com.etzhayyim.mitsuho.parcelAttestation"
  :defs
  {:main
   {:type "record"

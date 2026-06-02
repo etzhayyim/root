@@ -195,7 +195,7 @@ a `corpus-recipe.toml` source entry pointing at the sidecar:
 ```toml
 [[source]]
 subdataset    = "routing/ris-mrt/rrc00"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/<rkey>"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey>"
 shard_glob    = "bview.*.ndjson"     # <-- the operator-derived sidecar
 tier          = "A"
 license       = "ripe-tou-open"

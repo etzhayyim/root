@@ -38,7 +38,7 @@
 
 ```
 Caller (kaisya/lawfirm/agent) 
-  ↓ XRPC /xrpc/app.etzhayyim.apps.yuubin.composeAndPost
+  ↓ XRPC /xrpc/com.etzhayyim.apps.yuubin.composeAndPost
 yuubin actor
   ├─ uploadDocument → CDN R2 (SHA-256 keyed, dedup)
   ├─ Tier 1 composeAndPost
@@ -53,10 +53,10 @@ yuubin actor
 
 | NSID | Tier | 用途 |
 |---|---|---|
-| `app.etzhayyim.apps.yuubin.composeAndPost` | 1 | 通常便/レターパック自動投函 |
-| `app.etzhayyim.apps.yuubin.submitNaiyoShomei` | 1 | 電子内容証明 |
-| `app.etzhayyim.apps.yuubin.confirmManualPost` | 1 | manual handoff 完了記録 |
-| `app.etzhayyim.apps.yuubin.uploadDocument` | 2 | PDF base64 → B2 content-addressed |
+| `com.etzhayyim.apps.yuubin.composeAndPost` | 1 | 通常便/レターパック自動投函 |
+| `com.etzhayyim.apps.yuubin.submitNaiyoShomei` | 1 | 電子内容証明 |
+| `com.etzhayyim.apps.yuubin.confirmManualPost` | 1 | manual handoff 完了記録 |
+| `com.etzhayyim.apps.yuubin.uploadDocument` | 2 | PDF base64 → B2 content-addressed |
 
 ## Bindings (wrangler.jsonc)
 
@@ -148,7 +148,7 @@ Web ゆうびん は以下を厳格にチェックして拒否するため、sub
 | チェック | 拒否メッセージ | 対応 |
 |---|---|---|
 | PDF フォント埋込 + 仕様 | 「PDFの作成方法を変更してください」 | `scripts/render-a4-pdf.sh` で `pandoc --pdf-engine=xelatex -V papersize=a4 -V CJKmainfont=...` (Mac-local, 要 BasicTeX + collection-langjapanese)。Chrome headless `--print-to-pdf` の PDF は拒否される |
-| .docx A4 | 「ファイルのページサイズがA4(210x297,297x210)ではなかった」 | `scripts/normalize-a4-docx.sh` (Mac-local) or `app.etzhayyim.apps.yuubin.normalizeDocx` XRPC (CF Worker runtime) |
+| .docx A4 | 「ファイルのページサイズがA4(210x297,297x210)ではなかった」 | `scripts/normalize-a4-docx.sh` (Mac-local) or `com.etzhayyim.apps.yuubin.normalizeDocx` XRPC (CF Worker runtime) |
 | .docx ≤ 1MB | "ファイルサイズは１回のアップロードあたり１ＭＢまで" | caller 側で分割 |
 | 1 page ≤ A4 横 or 縦のみ | (上記に含まれる) | normalize-a4-docx が対応 |
 
@@ -172,11 +172,11 @@ scripts/normalize-a4-docx.sh input.docx output-a4.docx
 ### Worker-side preprocessing (XRPC)
 
 ```
-POST https://yuubin.etzhayyim.com/xrpc/app.etzhayyim.apps.yuubin.normalizeDocx
+POST https://yuubin.etzhayyim.com/xrpc/com.etzhayyim.apps.yuubin.normalizeDocx
 { "blobKey": "<sha256 hex of docx in CDN_R2>" }
 → { "normalizedBlobKey": "<new sha256>", "normalizedPublicUrl": "..." }
 
-POST https://yuubin.etzhayyim.com/xrpc/app.etzhayyim.apps.yuubin.validatePdf
+POST https://yuubin.etzhayyim.com/xrpc/com.etzhayyim.apps.yuubin.validatePdf
 { "blobKey": "<sha256 hex of PDF in CDN_R2>" }
 → { "isA4": true/false, "pages": N, "sampleSize": [w, h], "warning": "..." }
 ```

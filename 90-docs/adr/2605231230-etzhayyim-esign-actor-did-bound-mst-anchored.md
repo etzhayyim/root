@@ -12,7 +12,7 @@ axis: substrate-boundary
 weight: 0.65
 priority_note: "Religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign — required to keep document signing inside RW-free substrate. gftd lawfirm vendor passthrough remains for fiat / India intake only."
 authoritative_for:
-  - app.etzhayyim.esign.* lexicon namespace
+  - com.etzhayyim.esign.* lexicon namespace
   - religious-corp native document signing protocol (DID + WebAuthn + MST + IPFS + Base L2 anchor)
   - separation between gftd lawfirm DocuSign passthrough and etzhayyim native esign
 depends_on:
@@ -51,9 +51,9 @@ superseded_by: []
 |---|---|---|---|
 | Zeebe task `lawfirm.esign.request` / `lawfirm.esign.webhook` | `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` | gftd vendor (`did:web:lawfirm.etzhayyim.com`) | DocuSign REST 実装 + Adobe/Razorpay stub。`vertex_lawfirm_esign_request` (RisingWave) に書込 |
 | KPI MV | `20-actors/magatama/py/sqlmesh/models/mv_lawfirm_esign_active.sql` | gftd vendor (RLS-gated CEO/COO/CLO) | Hyperdrive + RisingWave projection |
-| ADR-2605180600 §"Future Work" の `app.etzhayyim.apps.lawfirm.eSignRequest` lexicon | (記載のみ) | gftd vendor lexicon namespace | 未作成。ADR 本文に "deferred" と記載 |
+| ADR-2605180600 §"Future Work" の `com.etzhayyim.apps.lawfirm.eSignRequest` lexicon | (記載のみ) | gftd vendor lexicon namespace | 未作成。ADR 本文に "deferred" と記載 |
 
-religious-corp 側 (`app.etzhayyim.esign.*`) には actor / lexicon / cell / smart
+religious-corp 側 (`com.etzhayyim.esign.*`) には actor / lexicon / cell / smart
 contract のいずれも存在しない。
 
 ### Substrate boundary 観点の問題
@@ -96,20 +96,20 @@ religious-corp 信者間 / Council 議事 / 土地寄進 (Land Trust, ADR-260519
 | License | Apache 2.0 + Charter Rider v2.0 |
 | Substrate | `@etzhayyim/sdk` 経由 — `@atproto/api` / `viem` 直接 import 禁止 |
 
-### 2. Lexicon 名前空間 (`app.etzhayyim.esign.*`)
+### 2. Lexicon 名前空間 (`com.etzhayyim.esign.*`)
 
-`00-contracts/lexicons/app/etzhayyim/esign/` に以下 7 record / procedure を
+`00-contracts/lexicons/com/etzhayyim/esign/` に以下 7 record / procedure を
 配置する。
 
 | NSID | Type | 用途 |
 |---|---|---|
-| `app.etzhayyim.esign.envelope` | record | 署名 envelope 本体 (PDF CID + 署名者 DID 配列 + 状態) |
-| `app.etzhayyim.esign.signature` | record | 個別署名 (envelope ref + signer DID + WebAuthn assertion + signed-at) |
-| `app.etzhayyim.esign.requestEnvelope` | procedure | envelope 起票 (起票者 DID, signer DIDs, PDF blob, 署名順, 期限) |
-| `app.etzhayyim.esign.signEnvelope` | procedure | signer が WebAuthn assertion + 鍵 attestation を提出 |
-| `app.etzhayyim.esign.declineEnvelope` | procedure | signer が拒否を記録 |
-| `app.etzhayyim.esign.completedEvent` | record | 全員署名済 → anchor 候補に投入 |
-| `app.etzhayyim.esign.anchoredEvent` | record | Base L2 `Postage.sol`-pattern anchor 完了 (chainId + blockNumber + txHash) |
+| `com.etzhayyim.esign.envelope` | record | 署名 envelope 本体 (PDF CID + 署名者 DID 配列 + 状態) |
+| `com.etzhayyim.esign.signature` | record | 個別署名 (envelope ref + signer DID + WebAuthn assertion + signed-at) |
+| `com.etzhayyim.esign.requestEnvelope` | procedure | envelope 起票 (起票者 DID, signer DIDs, PDF blob, 署名順, 期限) |
+| `com.etzhayyim.esign.signEnvelope` | procedure | signer が WebAuthn assertion + 鍵 attestation を提出 |
+| `com.etzhayyim.esign.declineEnvelope` | procedure | signer が拒否を記録 |
+| `com.etzhayyim.esign.completedEvent` | record | 全員署名済 → anchor 候補に投入 |
+| `com.etzhayyim.esign.anchoredEvent` | record | Base L2 `Postage.sol`-pattern anchor 完了 (chainId + blockNumber + txHash) |
 
 `signEnvelope` の signer attestation は ADR-2605181100 と整合する Signal
 key-wrap 形式 (XChaCha20-Poly1305 envelope) で field-encrypted する。
@@ -134,7 +134,7 @@ draft (envelope created)
 
 | Layer | 役割 | 実装 |
 |---|---|---|
-| **L1 MST** | envelope / signature / event record の正本 | `app.etzhayyim.esign.*` PDS write via `@etzhayyim/sdk` |
+| **L1 MST** | envelope / signature / event record の正本 | `com.etzhayyim.esign.*` PDS write via `@etzhayyim/sdk` |
 | **L2 IPFS** | PDF 本体 + 大型添付 | `ipfs-pinner` (CIDv1, raw codec) — envelope record は CID のみ保持 |
 | **L3 Base L2 anchor** | 完了 envelope のハッシュを on-chain anchor | `anchor-cron` (50-infra/anchor-cron) → `Postage.sol` 拡張 `EsignAnchor.sol` |
 | **L4 geth-private** | Council Lv6+ 関与署名 (Public Fund, Land Trust, Force R&D 同意) | constitutional chain にも mirror anchor |
@@ -186,8 +186,8 @@ centralized OAuth / email magic-link / SMS OTP は不採用。**DID + passkey �
 | Adherent SBT mint 時の宣誓 | `etzhayyim-esign` + ADR-2605172600 membership ritual と統合 |
 | Council 議決 (Bootstrap Council 5 seats) | **`etzhayyim-esign` 必須** (ADR-2605192300) |
 
-両者は **lexicon namespace で分離** (`app.etzhayyim.esign.*` vs
-`app.etzhayyim.apps.lawfirm.eSign*`) し、データもそれぞれ MST / Hyperdrive に分かれる。
+両者は **lexicon namespace で分離** (`com.etzhayyim.esign.*` vs
+`com.etzhayyim.apps.lawfirm.eSign*`) し、データもそれぞれ MST / Hyperdrive に分かれる。
 cross-call は禁止。
 
 ### 9. Deployment 段階
@@ -204,7 +204,7 @@ cross-call は禁止。
 
 | Artifact | Path | 状態 |
 |---|---|---|
-| 7 lexicons | `00-contracts/lexicons/app/etzhayyim/esign/{envelope,signature,completedEvent,anchoredEvent,requestEnvelope,signEnvelope,declineEnvelope}.json` | ✅ all valid JSON |
+| 7 lexicons | `00-contracts/lexicons/com/etzhayyim/esign/{envelope,signature,completedEvent,anchoredEvent,requestEnvelope,signEnvelope,declineEnvelope}.json` | ✅ all valid JSON |
 | Actor scaffold | `20-actors/etzhayyim-esign/` | ✅ `src/worker.ts` returns 501 NotYetImplemented for all 3 procedures; `/health` + `/` return 200; `wrangler.toml` has no route binding (Phase 1 will add) |
 | DID Worker scaffold | `50-infra/etzhayyim-esign-did-web/` | ✅ `did.json` for `did:web:esign.etzhayyim.com` with `AtprotoPersonalDataServer` (`pds.etzhayyim.com`) + `EtzhayyimEsignActor` (`esign.etzhayyim.com`) service entries |
 | DID Worker deploy | CF account `ai-gftd-cloud` (4da88288) | ✅ Worker version `cfb3b6c0-1d13-476f-8cec-0fbc20a8a023`, route `esign.etzhayyim.com/.well-known/did.json` bound on zone `etzhayyim.com`, bundle 1.49 KiB / 0.71 KiB gzipped |
@@ -272,14 +272,14 @@ ADR-2605192100 §1.12 の "on-chain 監視" 三条件を満たせない。
 必要に応じて `audit_witness` cell を多人数立会 (Council 議決の Lv6+ ≥3 multisig
 など) に invoke する設計とする。
 
-### D. 1 lexicon (`app.etzhayyim.signedDocument`) に統合する
+### D. 1 lexicon (`com.etzhayyim.signedDocument`) に統合する
 
 却下。状態機械が複雑 (draft / requested / signed / completed / anchored /
 declined / expired) で 1 record に詰めると mutation が増え、MST の immutable
 原則と衝突する。envelope と signature を分離し、event を append-only にする
 本 ADR の構成が AT Protocol record 設計と整合する。
 
-### E. 既存 `app.etzhayyim.apps.lawfirm.eSignRequest` lexicon を流用 (vendor namespace)
+### E. 既存 `com.etzhayyim.apps.lawfirm.eSignRequest` lexicon を流用 (vendor namespace)
 
 却下。lexicon namespace は **substrate boundary の SSoT** であり、gftd vendor
 namespace に religious-corp 文書を流すと、後段の RisingWave projection / RLS /
@@ -307,7 +307,7 @@ KPI MV まで vendor 側に流れる。namespace 分離が本 ADR の最重要�
   本 ADR は新規 violation の発生を未然に止めるための native 設計
 - `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` — gftd
   vendor passthrough の現状実装
-- `00-contracts/lexicons/app/etzhayyim/esign/` (新規) — 本 ADR で定義する
+- `00-contracts/lexicons/com/etzhayyim/esign/` (新規) — 本 ADR で定義する
   lexicon の配置先
 - `50-infra/anchor-cron/` — anchor 投入先
 - `50-infra/openmail-postage/Postage.sol` — `EsignAnchor.sol` の拡張元 pattern

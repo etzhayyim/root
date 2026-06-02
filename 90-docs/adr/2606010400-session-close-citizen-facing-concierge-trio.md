@@ -69,7 +69,7 @@ in **3e9061a2e**).
   行政書士法/司法書士法 clearance + Council Lv7+; structurally double-gated via
   `DAIKOU_R3_GATE_TX`).
 - **7 import-raise Pregel cells** each (reuben/gad/naphtali) + per-cell README.
-- **PII-encrypted (G6)** — content only in `app.etzhayyim.encrypted.*`
+- **PII-encrypted (G6)** — content only in `com.etzhayyim.encrypted.*`
   DID-bound envelopes; moushibumi additionally treats political opinion as APPI
   §2 special-care; kurashimori's cooling-off output is `isLegalOpinion` const
   false (date-computation, never a legal opinion).

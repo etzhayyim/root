@@ -2,7 +2,7 @@
 
 RW-free port of the UN UNSPSC (Standard Products and Services Code) taxonomy under the substrate rules of [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md): no RisingWave, no centralized DB, no fiat payment processor. Taxonomy state lives on AT Protocol MST + IPFS; the substrate pipeline (mst-projector → ipfs-pinner → anchor-cron) anchors the MST root to Base L2 so any third party can verify the taxonomy without trusting this operator.
 
-Third rw-free actor after [`open-isco/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) (occupations) and [`open-isic/rw-free/`](../../ai-gftd-project-open-isic/rw-free/) (industry classes). The classification runtime (active business logic for segments / families / classes / commodities) lives in this same project's sibling directories and uses different lexicons (the `*procedure*` lexicons under `app.etzhayyim.apps.openUnispsc.*`); this PR adds only the taxonomy publisher surface.
+Third rw-free actor after [`open-isco/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) (occupations) and [`open-isic/rw-free/`](../../ai-gftd-project-open-isic/rw-free/) (industry classes). The classification runtime (active business logic for segments / families / classes / commodities) lives in this same project's sibling directories and uses different lexicons (the `*procedure*` lexicons under `com.etzhayyim.apps.openUnispsc.*`); this PR adds only the taxonomy publisher surface.
 
 ## Phase 1 scope: the 50 segments
 
@@ -36,7 +36,7 @@ rw-free/
 
 ## Lexicon
 
-`app.etzhayyim.apps.openUnispsc.segmentDef` (record), at [`00-contracts/lexicons/ai/gftd/apps/openUnispsc/segmentDef.json`](../../../00-contracts/lexicons/ai/gftd/apps/openUnispsc/segmentDef.json). Naming note: the sibling `segment.json` is a **procedure** that actively resolves a segment as a business-portfolio boundary; `segmentDef` is the **record** companion that persists the catalog on PDS. The two are complementary — the procedure does runtime work, the record gives the substrate pipeline a content-addressable target.
+`com.etzhayyim.apps.openUnispsc.segmentDef` (record), at [`00-contracts/lexicons/com/etzhayyim/apps/openUnispsc/segmentDef.json`](../../../00-contracts/lexicons/com/etzhayyim/apps/openUnispsc/segmentDef.json). Naming note: the sibling `segment.json` is a **procedure** that actively resolves a segment as a business-portfolio boundary; `segmentDef` is the **record** companion that persists the catalog on PDS. The two are complementary — the procedure does runtime work, the record gives the substrate pipeline a content-addressable target.
 
 `rkey` policy: `literal:{code}` — the 2-digit UNSPSC code is the MST key verbatim. Idempotent re-seeds produce no new records.
 
@@ -82,7 +82,7 @@ pnpm tsx src/query.ts                      # full list
 ## Verify
 
 ```bash
-pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apps.openUnispsc.segmentDef/43
+pnpm tsx src/verify.ts at://did:web:etzhayyim.com/com.etzhayyim.apps.openUnispsc.segmentDef/43
 ```
 
 Returns the Merkle path from the record to the MST root that was anchored to Base L2 via the substrate pipeline. Any client (no credentials) can re-check the proof.
@@ -100,7 +100,7 @@ pnpm test
 
 | Surface | State |
 |---|---|
-| Record lexicon `app.etzhayyim.apps.openUnispsc.segmentDef` | ✅ |
+| Record lexicon `com.etzhayyim.apps.openUnispsc.segmentDef` | ✅ |
 | Seeder + helpers + CPC enrichment | ✅ |
 | Pure-helper tests | ✅ 68/68 |
 | Live PDS seed run | ⏳ pending `ETZ_SEEDER_DID` + PDS auth credentials (Gate 4 of [`OPERATIONAL-DEPLOY.md`](../../../50-infra/OPERATIONAL-DEPLOY.md)) |

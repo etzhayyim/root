@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hikari.parcelEnergyAttestation"
+ :id "com.etzhayyim.hikari.parcelEnergyAttestation"
  :defs
  {:main
   {:type "record"

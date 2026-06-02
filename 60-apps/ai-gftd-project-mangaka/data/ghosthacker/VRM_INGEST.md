@@ -54,7 +54,7 @@ with `--rkey-prefix` if the production rkey scheme differs.
 
 ```
 artist hands off                            mangaka pod
-  Chise/avatar.vrm                              app.etzhayyim.mangaka.tools.attachCharacterVrm
+  Chise/avatar.vrm                              com.etzhayyim.mangaka.tools.attachCharacterVrm
        │                                              │
        │  scripts/ingest-vrms.ts                      │
        │  POST /xrpc/...attachCharacterVrm            │
@@ -76,7 +76,7 @@ artist hands off                            mangaka pod
        │  ◄───────────────────────────────────────────┤
        │  { blobKey: "blobs/mangaka/vrm/9b...",        │
        │    vertexId: "at://did:web:mangaka.etzhayyim.com/ │
-       │                app.etzhayyim.mangaka.character/ch-chise",
+       │                com.etzhayyim.mangaka.character/ch-chise",
        │    status: "attached" }                      │
        ▼                                              │
    next render run                                    │
@@ -110,7 +110,7 @@ curl -I https://mangaka.etzhayyim.com/api/blob/blobs/mangaka/vrm/<sha256>
 #   → 200 OK, content-type: model/gltf-binary
 
 # Confirm character row sees the new key (replace ch-chise / API key):
-curl -X POST https://mangaka.etzhayyim.com/xrpc/app.etzhayyim.mangaka.tools.resolveAssets \
+curl -X POST https://mangaka.etzhayyim.com/xrpc/com.etzhayyim.mangaka.tools.resolveAssets \
   -H "content-type: application/json" \
   -d '{"panelPlan": {"characters": ["ch-chise"]}}'
 #   → {"assetRefs": {"characters": {"ch-chise": {"vrm_blob_key": "blobs/mangaka/vrm/<sha256>", ...}}}}
@@ -135,7 +135,7 @@ Logs end with a `summary: N ok · N warn · N err · N dry/skip` so artist
 
 ## Related
 
-- `00-contracts/lexicons/ai/gftd/apps/mangaka/tools/attachCharacterVrm.json` — wire contract
+- `00-contracts/lexicons/com/etzhayyim/apps/mangaka/tools/attachCharacterVrm.json` — wire contract
 - `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/tools.py:tool_attach_character_vrm` — tool implementation
 - `30-graph/graph-schema/sql_migrations/20260514180000_seed_mangaka_attach_character_vrm_mcp_tool.up.sql` — registry seed
 - `40-engine/kami-engine/kami-vrm/` — VRM parse / spring bone simulator

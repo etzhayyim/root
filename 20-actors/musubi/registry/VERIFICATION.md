@@ -1,7 +1,7 @@
 # musubi ceremony-recognition registry — Verification Workflow (G14)
 
 Per ADR-2605263400 §2 + §4 (G14 verified-recognition-only reliance). Every
-`app.etzhayyim.musubi.ceremonyRecognition` record in
+`com.etzhayyim.musubi.ceremonyRecognition` record in
 `ceremony-recognition.seed.json` ships `verificationStatus = unverified-seed`,
 and **no live action (the `musubi_recognition_resolver` resolve / any
 member-facing surfacing of a civil-recognition mapping) may run against an

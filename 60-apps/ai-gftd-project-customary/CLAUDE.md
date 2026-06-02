@@ -27,9 +27,9 @@
 
 | Kind | Collection | Description |
 |---|---|---|
-| `customary_tradition` | `app.etzhayyim.apps.customary.customary_tradition` | Tradition registry (Tikanga, Adat, etc.) |
-| `customary_rule` | `app.etzhayyim.apps.customary.customary_rule` | Individual rules within a tradition |
-| `court_recognition` | `app.etzhayyim.apps.customary.court_recognition` | Court recognition records per jurisdiction |
+| `customary_tradition` | `com.etzhayyim.apps.customary.customary_tradition` | Tradition registry (Tikanga, Adat, etc.) |
+| `customary_rule` | `com.etzhayyim.apps.customary.customary_rule` | Individual rules within a tradition |
+| `court_recognition` | `com.etzhayyim.apps.customary.court_recognition` | Court recognition records per jurisdiction |
 
 ## Channels
 

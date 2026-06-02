@@ -1,7 +1,7 @@
-;; app.etzhayyim.infrautilityconnect.providerApproval — utility provider approval record
+;; com.etzhayyim.infrautilityconnect.providerApproval — utility provider approval record
 ;; ADR-2605250900 · Phase 1 (permission-to-connect from utility company)
 {:lexicon 1
- :id "app.etzhayyim.infrautilityconnect.providerApproval"
+ :id "com.etzhayyim.infrautilityconnect.providerApproval"
  :defs
  {:main
   {:type "record"

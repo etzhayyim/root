@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.watatsumi.weldInspectionRecord"
+ :id "com.etzhayyim.watatsumi.weldInspectionRecord"
  :defs
  {:main
   {:type "record"

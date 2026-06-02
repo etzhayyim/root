@@ -4,7 +4,7 @@ Per [ADR-2605201400](../../../../90-docs/adr/2605201400-etzhayyim-kuni-umi-plane
 Murakumo leader: `naphtali`.
 
 ## Trigger
-`app.etzhayyim.kuniUmi.defineDeploymentSite` MST record (post-gate).
+`com.etzhayyim.kuniUmi.defineDeploymentSite` MST record (post-gate).
 
 ## Inputs (state)
 - `siteDid`
@@ -31,4 +31,4 @@ Murakumo leader: `naphtali`.
 - Jurisdiction eligibility fails → MST `submitSiteSurvey` written with `accepted=false`, site DID transitions to `rejected`
 
 ## See also
-- Lexicon `00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/submitSiteSurvey.json`
+- Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/submitSiteSurvey.json`

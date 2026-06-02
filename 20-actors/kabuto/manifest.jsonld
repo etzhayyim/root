@@ -51,7 +51,7 @@
       "id": "cell:kabuto.social",
       "method": "methods/social.py",
       "input": "data/seed-public-companies.kotoba.edn + out/intel-report.md",
-      "output": ["app.bsky.feed.post records via kotoba-server ai.gftd.apps.kotoba.atproto.repo.write"],
+      "output": ["app.bsky.feed.post records via kotoba-server com.etzhayyim.apps.kotoba.atproto.repo.write"],
       "pipeline": "aggregate-first company/edge/report → app.bsky.feed.post → Charter Rider §2 scan → atproto.repo.write (kotoba Datom log + AT Protocol federation)",
       "gate": "G11 — live posting requires KABUTO_LIVE_POST=1 + KOTOBA_ENDPOINT + operator auth; default dry-run"
     },

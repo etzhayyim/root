@@ -35,7 +35,7 @@ does NOT activate the cell; once Council activates, the cell may call
 wayfinding leg.
 
 Output shape mirrors a recognition-routing view over Lexicon
-``app.etzhayyim.musubi.ceremonyRecognition`` (the registry's ``$schema``).
+``com.etzhayyim.musubi.ceremonyRecognition`` (the registry's ``$schema``).
 """
 
 from __future__ import annotations
@@ -230,7 +230,7 @@ def to_recognition_routing_record(
     created_at: datetime,
     session_ref: str | None = None,
 ) -> dict:
-    """Build an ``app.etzhayyim.musubi.ceremonyRecognition`` routing-view record.
+    """Build an ``com.etzhayyim.musubi.ceremonyRecognition`` routing-view record.
 
     ``isLegalOpinion`` AND ``confersCivilStatus`` are asserted ``False`` before
     return — G-invariants this function structurally cannot violate. The record

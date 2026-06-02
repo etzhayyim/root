@@ -94,11 +94,11 @@ Telemetry / environment event
 Phase 1 does not dispatch robot motion directly. For robotics, the output is a
 mission plan or simulation request routed through existing robotics lexicons:
 
-- `app.etzhayyim.apps.robotics.mission.plan`
-- `app.etzhayyim.apps.robotics.mission.simulate`
-- `app.etzhayyim.apps.robotics.approvalRecord`
-- `app.etzhayyim.apps.robotics.telemetry.ingest`
-- `app.etzhayyim.apps.robotics.mission.status`
+- `com.etzhayyim.apps.robotics.mission.plan`
+- `com.etzhayyim.apps.robotics.mission.simulate`
+- `com.etzhayyim.apps.robotics.approvalRecord`
+- `com.etzhayyim.apps.robotics.telemetry.ingest`
+- `com.etzhayyim.apps.robotics.mission.status`
 
 Real-world effect channels follow the same rule. Email, web form submission,
 fax, phone calls, public posts, generated-media publication, and print-mail are
@@ -114,7 +114,7 @@ runtime receipts, or human input.
 
 | Column | Type | Notes |
 |---|---|---|
-| `vertex_id` | VARCHAR PRIMARY KEY | `at://did:web:agent.etzhayyim.com/app.etzhayyim.apps.agent.observation/{rkey}` |
+| `vertex_id` | VARCHAR PRIMARY KEY | `at://did:web:agent.etzhayyim.com/com.etzhayyim.apps.agent.observation/{rkey}` |
 | `agent_did` | VARCHAR | owning agent |
 | `source_kind` | VARCHAR | `tool`, `sensor`, `telemetry`, `social`, `runtime`, `human` |
 | `source_ref` | VARCHAR | URI / topic / task id |
@@ -252,23 +252,23 @@ Viability state for organism-like persistence.
 ## Lexicon Surface
 
 Phase 1 should add only agent-level contracts. Robotics contracts remain in
-`app.etzhayyim.apps.robotics.*`.
+`com.etzhayyim.apps.robotics.*`.
 
 | NSID | Type | Role |
 |---|---|---|
-| `app.etzhayyim.apps.agent.observeState` | procedure | write observation |
-| `app.etzhayyim.apps.agent.inferBelief` | procedure | derive / update belief rows |
-| `app.etzhayyim.apps.agent.activeInferenceTick` | procedure | compute candidate actions and expected free energy |
-| `app.etzhayyim.apps.agent.proposeAction` | procedure | record action proposal |
-| `app.etzhayyim.apps.agent.classifyRealWorldEffect` | procedure | classify external effect channel and gates |
-| `app.etzhayyim.apps.agent.planRealWorldDispatch` | procedure | convert autonomous authority into channel task plan |
-| `app.etzhayyim.apps.agent.buildDispatchReceiptObservation` | procedure | convert channel receipt into observation |
-| `app.etzhayyim.apps.agent.recordDispatchReceipt` | procedure | persist channel receipt state on effect vertex |
-| `app.etzhayyim.apps.agent.inboundEmailToObservation` | procedure | convert inbound mail into observation |
-| `app.etzhayyim.apps.agent.recordRealWorldEffect` | procedure | write effect gate / dispatch receipt |
-| `app.etzhayyim.apps.agent.recordHomeostasis` | procedure | write viability snapshot |
-| `app.etzhayyim.apps.agent.evaluateViability` | query | read current homeostasis and blockers |
-| `app.etzhayyim.apps.agent.adaptPolicy` | procedure | bounded prior / policy update request |
+| `com.etzhayyim.apps.agent.observeState` | procedure | write observation |
+| `com.etzhayyim.apps.agent.inferBelief` | procedure | derive / update belief rows |
+| `com.etzhayyim.apps.agent.activeInferenceTick` | procedure | compute candidate actions and expected free energy |
+| `com.etzhayyim.apps.agent.proposeAction` | procedure | record action proposal |
+| `com.etzhayyim.apps.agent.classifyRealWorldEffect` | procedure | classify external effect channel and gates |
+| `com.etzhayyim.apps.agent.planRealWorldDispatch` | procedure | convert autonomous authority into channel task plan |
+| `com.etzhayyim.apps.agent.buildDispatchReceiptObservation` | procedure | convert channel receipt into observation |
+| `com.etzhayyim.apps.agent.recordDispatchReceipt` | procedure | persist channel receipt state on effect vertex |
+| `com.etzhayyim.apps.agent.inboundEmailToObservation` | procedure | convert inbound mail into observation |
+| `com.etzhayyim.apps.agent.recordRealWorldEffect` | procedure | write effect gate / dispatch receipt |
+| `com.etzhayyim.apps.agent.recordHomeostasis` | procedure | write viability snapshot |
+| `com.etzhayyim.apps.agent.evaluateViability` | query | read current homeostasis and blockers |
+| `com.etzhayyim.apps.agent.adaptPolicy` | procedure | bounded prior / policy update request |
 
 Write allowlists:
 
@@ -471,17 +471,17 @@ active inference tick
 
 | Channel | Existing or target surface | Effect begins when |
 |---|---|---|
-| Email | `app.etzhayyim.apps.mailer.sendEmail` | message is sent |
-| Web operation | `app.etzhayyim.apps.browser.*` | form, purchase, booking, account change, or public write is submitted |
-| Fax | `app.etzhayyim.apps.fax.*` | fax is sent |
-| Phone | `app.etzhayyim.apps.phone.*` target namespace | call is placed |
-| Document | `app.etzhayyim.apps.docs.*` | document is shared, signed, sent, filed, or printed |
+| Email | `com.etzhayyim.apps.mailer.sendEmail` | message is sent |
+| Web operation | `com.etzhayyim.apps.browser.*` | form, purchase, booking, account change, or public write is submitted |
+| Fax | `com.etzhayyim.apps.fax.*` | fax is sent |
+| Phone | `com.etzhayyim.apps.phone.*` target namespace | call is placed |
+| Document | `com.etzhayyim.apps.docs.*` | document is shared, signed, sent, filed, or printed |
 | Image | ComfyUI / image gateway | image is published, sent, printed, or used in ads |
-| Audio / voice | `app.etzhayyim.apps.voice.*` target namespace | audio is played to others, sent, published, or used in calls |
-| Video | `app.etzhayyim.apps.video.*` target namespace | video is published, sent, or used in public/commercial context |
-| Print-mail | `app.etzhayyim.apps.insatsu.printMailJob.*` | job is submitted to print/mail partner |
+| Audio / voice | `com.etzhayyim.apps.voice.*` target namespace | audio is played to others, sent, published, or used in calls |
+| Video | `com.etzhayyim.apps.video.*` target namespace | video is published, sent, or used in public/commercial context |
+| Print-mail | `com.etzhayyim.apps.insatsu.printMailJob.*` | job is submitted to print/mail partner |
 | Public post | AT Protocol / PDS dispatch | record is committed to external social surface |
-| Robotics | `app.etzhayyim.apps.robotics.*` | adapter dispatches motion / physical operation |
+| Robotics | `com.etzhayyim.apps.robotics.*` | adapter dispatches motion / physical operation |
 
 Generated artifacts remain internal until one of the external-effect events
 above happens.
@@ -514,7 +514,7 @@ applies when self-maintenance variables affect future action selection.
 | Phase | Deliverable | Notes |
 |---|---|---|
 | P0 | This design + ADR registry | architecture contract only |
-| P1 | Lexicon JSON stubs for 9 `app.etzhayyim.apps.agent.*` NSIDs | no new runtime |
+| P1 | Lexicon JSON stubs for 9 `com.etzhayyim.apps.agent.*` NSIDs | no new runtime |
 | P2 | RisingWave migration for 7 tables | includes `vertex_agent_realworld_effect`; JSON type choice depends on local migration convention |
 | P3 | Python primitive pure helpers for EFE scoring and viability transition | unit-testable, no network |
 | P4 | BPMN seed for `activeInferenceTick` and `homeostasisWatch` | proposal-only action writes |

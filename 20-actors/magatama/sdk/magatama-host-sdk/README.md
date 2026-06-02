@@ -50,10 +50,10 @@ This avoids unknown write-buffer event types for OCEL emission.
 Write-dispatch mappings were updated to reduce legacy PDS errors:
 
 - `cypher-query`:
-  - from `app.etzhayyim.graph.query`
-  - to `app.etzhayyim.kagami.graph.query`
+  - from `com.etzhayyim.graph.query`
+  - to `com.etzhayyim.kagami.graph.query`
 - `cypher-write`:
-  - from `app.etzhayyim.graph.write` (legacy, removed)
-  - to `app.etzhayyim.kagami.graph.query` (authenticated write, unified)
+  - from `com.etzhayyim.graph.write` (legacy, removed)
+  - to `com.etzhayyim.kagami.graph.query` (authenticated write, unified)
 - `anomaly-emit-event`:
-  - legacy `app.etzhayyim.audit.emitEvent` dispatch removed (best-effort no-op)
+  - legacy `com.etzhayyim.audit.emitEvent` dispatch removed (best-effort no-op)

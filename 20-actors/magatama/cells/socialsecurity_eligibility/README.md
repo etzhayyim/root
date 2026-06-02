@@ -7,5 +7,5 @@ Per ADR-2605302358 (income form: ADR-2605301020). R0 scaffold — `cell.py` rais
 - **Pipeline group**: 産土 (ubusuna)
 - **Murakumo node (proposed)**: gad
 - **Gates**: N1 (cash=0) · G4 (Murakumo-only) · G2 (kotoba-only) · G12 (aggregate-only, no leaderboard) · G11 (liveDeliveryEnabled=false pre-ratify)
-- **Output Lexicon(s)**: app.etzhayyim.socialsecurity.entitlement
+- **Output Lexicon(s)**: com.etzhayyim.socialsecurity.entitlement
 - **Ceiling**: entitlement is the IN-KIND service, never cash; per-member detail private; aggregate-only publication.

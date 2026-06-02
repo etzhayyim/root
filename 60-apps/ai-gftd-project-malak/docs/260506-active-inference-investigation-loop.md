@@ -70,7 +70,7 @@ and PDS references.
 
 ## Commands
 
-`app.etzhayyim.apps.malak.runInvestigationTick`
+`com.etzhayyim.apps.malak.runInvestigationTick`
 
 Scores candidate investigation actions. If no candidates are supplied, the app
 derives conservative defaults:
@@ -80,7 +80,7 @@ derives conservative defaults:
 - `draft_agency_referral`: prepare a draft only when confidence and approval
   are already present.
 
-`app.etzhayyim.apps.malak.draftAgencyReferral`
+`com.etzhayyim.apps.malak.draftAgencyReferral`
 
 Creates a referral draft. It does not send email, submit an INTERPOL notice, or
 call an external agency API. The draft can be reviewed, exported, and routed
@@ -88,7 +88,7 @@ through a later DecisionClassA/DecisionClassB approval process.
 
 ## BPMN
 
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/malak/runInvestigationTick.bpmn`
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak/runInvestigationTick.bpmn`
 
 The BPMN version mirrors the app command:
 
@@ -99,7 +99,7 @@ The BPMN version mirrors the app command:
 The BPMN is seeded by
 `20260506190000_seed_malak_active_inference_loop_bpmn.ts`.
 
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/malak/draftAgencyReferral.bpmn`
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak/draftAgencyReferral.bpmn`
 
 Records a draft-only referral package through dispatcher/BPMN. It computes a
 stable JSON SHA-256 payload hash with `generic.hash.json`, inserts
@@ -116,7 +116,7 @@ The trap pipeline is operational and bounded:
 trap-email-malak-spamtrap-primary@etzhayyim.com
   -> Cloudflare Email Routing
   -> ai-gftd-email-relay
-  -> did:web:ml1nb0nd.etzhayyim.com / app.etzhayyim.apps.mailer.inboundEmail
+  -> did:web:ml1nb0nd.etzhayyim.com / com.etzhayyim.apps.mailer.inboundEmail
   -> vertex_malak_trap_message
 ```
 
@@ -127,7 +127,7 @@ Local operations:
 50-infra/launchd/malak-trap-health.sh
 ```
 
-`app.etzhayyim.malak-trap-sync` is installed as a LaunchAgent with a 300 second
+`com.etzhayyim.malak-trap-sync` is installed as a LaunchAgent with a 300 second
 interval. Health checks require zero missing evidence rows between recent PDS
 trap records and `vertex_malak_trap_message`.
 

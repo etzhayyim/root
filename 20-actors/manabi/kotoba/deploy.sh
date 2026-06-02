@@ -13,7 +13,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${MANABI_GRAPH:-app.etzhayyim.manabi}"
+GRAPH="${MANABI_GRAPH:-com.etzhayyim.manabi}"
 ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> manabi kotoba deploy → ${KOTOBA_URL} (graph ${GRAPH})"

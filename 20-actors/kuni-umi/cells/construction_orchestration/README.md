@@ -26,6 +26,6 @@ Murakumo leader: `joseph`.
 - Construction injury (`recordPhysicalAuditEvent` class=injury) → immediate halt; safety review; Phenotype.effectiveMultiplier feedback per ADR-2605192230
 
 ## See also
-- Lexicon `00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/recordConstructionProgress.json`
+- Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/recordConstructionProgress.json`
 - Giemon firmware (`60-apps/ai-gftd-project-open-robo/firmware/`)
 - open-ot Pregel orchestrator pattern (`60-apps/ai-gftd-project-open-ot/orchestrator/`)

@@ -3,7 +3,7 @@
 
 Per ADR-2605263800 §3 + ADR-2605312345. The entity-resolution sibling of
 ``ownership_edge_datom``: turns a ``LeiObservation`` (what ``GleifLeiSensor``
-yields) into the ``app.etzhayyim.corp.leiReference`` record, materialized as
+yields) into the ``com.etzhayyim.corp.leiReference`` record, materialized as
 kotoba EAVT datoms.
 
 ``corp.leiReference`` is the **canonical cross-jurisdiction entity node** —
@@ -18,13 +18,13 @@ leiReference record is exactly what ``ownership_crossref``'s
 Two output shapes, both pure / deterministic (mirrors ``ownership_edge_datom``):
 
 1. ``observation_to_lei_record`` — the AT-Protocol record matching the
-   ``app.etzhayyim.corp.leiReference`` Lexicon. STRICT: raises ``ValueError``
+   ``com.etzhayyim.corp.leiReference`` Lexicon. STRICT: raises ``ValueError``
    if a required field would be empty.
 2. ``observation_to_kotoba_entity`` / ``observations_to_kotoba_batch`` — the
    house-style kotoba ingest envelope ``{"entities": [{"id","type","labelEn",
    "claims":[{"pred":"lei/<camelField>","value":str}]}]}``.
 
-**Entity id is the LEI itself** (``app.etzhayyim.corp.leiReference:<LEI>``):
+**Entity id is the LEI itself** (``com.etzhayyim.corp.leiReference:<LEI>``):
 the LEI is the canonical unique key, so re-ingesting an updated golden-copy
 appends new facts (legalName / status changes) onto the same entity rather
 than forking it — the append-only log preserves the history.
@@ -45,12 +45,12 @@ from typing import Iterable
 
 from .base import LeiObservation
 
-LEI_REFERENCE_NSID = "app.etzhayyim.corp.leiReference"
+LEI_REFERENCE_NSID = "com.etzhayyim.corp.leiReference"
 
 KOTOBA_ENTITY_TYPE = "CorpLeiReference"
 _PRED_NS = "lei"
 
-# app.etzhayyim.corp.leiReference §record.required.
+# com.etzhayyim.corp.leiReference §record.required.
 _REQUIRED_NONEMPTY = (
     "createdAt",
     "entityLei",
@@ -71,7 +71,7 @@ def observation_to_lei_record(
     dataset_pin_at: str,
     attesting_did: str,
 ) -> dict:
-    """Build the ``app.etzhayyim.corp.leiReference`` record (Lexicon shape).
+    """Build the ``com.etzhayyim.corp.leiReference`` record (Lexicon shape).
 
     STRICT: raises ``ValueError`` listing any required field that would be
     empty. Optional parent pointers are included only when published.

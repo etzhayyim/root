@@ -1,6 +1,6 @@
 """sbom.etzhayyim.com — SBOM artifact registry persistence (LangServer handlers).
 
-CF Worker forwards `app.etzhayyim.apps.sbom.registerArtifact` to
+CF Worker forwards `com.etzhayyim.apps.sbom.registerArtifact` to
 `dispatcher.etzhayyim.com`; the BPMN routes the job here. This handler does
 the actual psycopg2 INSERT into `vertex_sbom_artifact` and the
 `vertex_sbom_component` fan-out, per ADR-2604282300 (CF Worker stays
@@ -657,22 +657,22 @@ async def task_sbom_cve_ingest_osv(**job_vars: Any) -> dict[str, Any]:
 def register(worker: Any, *, timeout_ms: int = 600_000) -> None:
     """Wire sbom task types onto the shared LangServer worker."""
     worker.task(
-        task_type="xrpc.app.etzhayyim.apps.sbom.registerArtifact",
+        task_type="xrpc.com.etzhayyim.apps.sbom.registerArtifact",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_sbom_register_artifact)
     worker.task(
-        task_type="xrpc.app.etzhayyim.apps.sbom.runVulnMatch",
+        task_type="xrpc.com.etzhayyim.apps.sbom.runVulnMatch",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_sbom_run_vuln_match)
     worker.task(
-        task_type="xrpc.app.etzhayyim.apps.sbom.recall",
+        task_type="xrpc.com.etzhayyim.apps.sbom.recall",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_sbom_recall)
     worker.task(
-        task_type="xrpc.app.etzhayyim.apps.sbom.cveIngestOsv",
+        task_type="xrpc.com.etzhayyim.apps.sbom.cveIngestOsv",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_sbom_cve_ingest_osv)

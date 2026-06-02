@@ -62,7 +62,7 @@ def _entry(org, *, jurisdiction="usa", regime="gdpr-15", confidence="high",
 
 
 def _registry(*entries):
-    return {"$schema": "app.etzhayyim.himotoki.disclosureTarget",
+    return {"$schema": "com.etzhayyim.himotoki.disclosureTarget",
             "targets": list(entries)}
 
 

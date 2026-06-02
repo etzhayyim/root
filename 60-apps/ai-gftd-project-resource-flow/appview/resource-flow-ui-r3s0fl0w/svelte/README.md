@@ -2,7 +2,7 @@
 
 Svelte 5 (runes mode) AppView for `resource-flow.etzhayyim.com`.
 
-- Calls `app.etzhayyim.apps.resourceFlow.getSankey` via `atproto.etzhayyim.com` PDS pipethrough (or same-origin when served from `resource-flow.etzhayyim.com`).
+- Calls `com.etzhayyim.apps.resourceFlow.getSankey` via `atproto.etzhayyim.com` PDS pipethrough (or same-origin when served from `resource-flow.etzhayyim.com`).
 - Renders `mv_resource_flow_sankey_*` edges with `d3-sankey`. Aggregation key is `COALESCE(root_did, source_did)` per ADR-0074; the AppView simply renders whatever the MV returns.
 - Resolves counterparty labels via `app.bsky.actor.getProfile` (works for both `did:web:hospitality.etzhayyim.com:actor:chain:*` and ERC725 root DIDs once `did:erc725` profile resolution is wired into the PDS).
 

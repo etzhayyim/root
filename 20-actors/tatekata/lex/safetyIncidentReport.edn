@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.tatekata.safetyIncidentReport"
+ :id "com.etzhayyim.tatekata.safetyIncidentReport"
  :defs
  {:main
   {:type "record"

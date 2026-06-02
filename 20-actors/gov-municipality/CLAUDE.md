@@ -17,7 +17,7 @@ permit_submission → inspection_scheduling → final_sign_off
 ```
 
 Each cell = 1 Pregel graph with super-step semantics (5–7 LangGraph nodes).
-Cells communicate via lexicon records on MST (`app.etzhayyim.gov.*`).
+Cells communicate via lexicon records on MST (`com.etzhayyim.gov.*`).
 
 ## Jurisdictional Coverage
 
@@ -48,13 +48,13 @@ Cells communicate via lexicon records on MST (`app.etzhayyim.gov.*`).
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.gov`
+**App lexicon root**: `com.etzhayyim.gov`
 
 **Records** (3 types):
 
-1. **`app.etzhayyim.gov.permitApplication`** — Submission data (project scope, location, drawings CID)
-2. **`app.etzhayyim.gov.inspectionSchedule`** — Inspection slots + requirements per jurisdiction
-3. **`app.etzhayyim.gov.permitsFinalizedRecord`** — Municipal sign-off + occupancy clearance
+1. **`com.etzhayyim.gov.permitApplication`** — Submission data (project scope, location, drawings CID)
+2. **`com.etzhayyim.gov.inspectionSchedule`** — Inspection slots + requirements per jurisdiction
+3. **`com.etzhayyim.gov.permitsFinalizedRecord`** — Municipal sign-off + occupancy clearance
 
 ## Pregel Cells (Detailed)
 

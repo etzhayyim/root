@@ -1,4 +1,4 @@
-# `app.etzhayyim.creative.*` — Lexicon Namespace
+# `com.etzhayyim.creative.*` — Lexicon Namespace
 
 **ADR**: ADR-2605265000 (R0 scaffold; creative-pd substrate for baien training)
 **Bucket family**: `creative-pd/{films,video,music,audio}/` IPFS-pinned via DataLad

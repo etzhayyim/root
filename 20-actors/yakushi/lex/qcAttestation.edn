@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yakushi.qcAttestation"
+ :id "com.etzhayyim.yakushi.qcAttestation"
  :defs
  {:main
   {:type "record"

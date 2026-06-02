@@ -13,7 +13,7 @@ CF Worker は **存在しない**。
 | LangServerWorker (FastAPI) | `50-infra/k8s/legal-corpus-langgraph/legal_corpus_worker.py` |
 | K8s Deployment (embed/search always-on) | `50-infra/k8s/legal-corpus-langgraph/deployment.yaml` |
 | CronJobs (source fetches) | `50-infra/k8s/legal-corpus-langgraph/cronjob-*.yaml` |
-| BPMN process contracts | `etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/*.bpmn` |
+| BPMN process contracts | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/*.bpmn` |
 
 ## NSID / Task types
 

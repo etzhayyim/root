@@ -137,7 +137,7 @@ L1  App protocol      : AT Protocol XRPC + Lexicons (00-contracts/lexicons/)
     }
   ],
   "capabilities": [
-    { "id": "app.etzhayyim.apps.substrate.datasetPin", "scope": "0x<aat-scope-hash>" }
+    { "id": "com.etzhayyim.apps.substrate.datasetPin", "scope": "0x<aat-scope-hash>" }
   ]
 }
 ```

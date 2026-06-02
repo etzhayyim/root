@@ -1,5 +1,5 @@
 """
-open-patent generation primitives (app.etzhayyim.apps.openPatent.*).
+open-patent generation primitives (com.etzhayyim.apps.openPatent.*).
 
 Reads from vertex_open_patent_patent corpus (ingested by patent.etzhayyim.com via AT
 firehose — open-patent never calls external APIs directly).
@@ -59,12 +59,12 @@ def _now_iso() -> str:
 
 def _seed_vid(tech_domain: str, title: str) -> str:
     h = hashlib.sha256(f"seed:{tech_domain}:{title}".encode()).hexdigest()[:20]
-    return f"at://{INVENTOR_DID}/app.etzhayyim.apps.openPatent.inventionSeed/{h}"
+    return f"at://{INVENTOR_DID}/com.etzhayyim.apps.openPatent.inventionSeed/{h}"
 
 
 def _report_vid(seed_vid: str) -> str:
     h = hashlib.sha256(f"report:{seed_vid}".encode()).hexdigest()[:20]
-    return f"at://{ANALYST_DID}/app.etzhayyim.apps.openPatent.noveltyReport/{h}"
+    return f"at://{ANALYST_DID}/com.etzhayyim.apps.openPatent.noveltyReport/{h}"
 
 
 # ── Primitive 1: gather_tech_trends ───────────────────────────────────

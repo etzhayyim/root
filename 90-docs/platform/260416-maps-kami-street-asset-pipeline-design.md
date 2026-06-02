@@ -506,7 +506,7 @@ Mapillary ベースの街路生成では、まず sequence を `50m` chunk へ�
 
 ## Runtime Contract
 
-`app.etzhayyim.apps.maps.kamiConfig` は、単純な `tileUrl` 返却ではなく、KAMI が street chunk package を解釈するための descriptor を返す契約に拡張する。
+`com.etzhayyim.apps.maps.kamiConfig` は、単純な `tileUrl` 返却ではなく、KAMI が street chunk package を解釈するための descriptor を返す契約に拡張する。
 
 ### Example Payload
 
@@ -631,7 +631,7 @@ graph には少なくとも以下を seed している。
 
 ### Worker Contract
 
-`app.etzhayyim.apps.maps.runtimeConfig` は terrain/vector に加えて以下も返す。
+`com.etzhayyim.apps.maps.runtimeConfig` は terrain/vector に加えて以下も返す。
 
 - `orbitalSystems`
 - `orbitalBodies`

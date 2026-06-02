@@ -145,7 +145,7 @@ def test_mb_default_repo_starts_with_did():
 
 
 def test_mb_collection_building_3d_is_nsid():
-    assert "app.etzhayyim.apps.maps" in MB.COLLECTION_BUILDING_3D
+    assert "com.etzhayyim.apps.maps" in MB.COLLECTION_BUILDING_3D
 
 
 # ─── telecom_li — _now_iso ───────────────────────────────────────────────────

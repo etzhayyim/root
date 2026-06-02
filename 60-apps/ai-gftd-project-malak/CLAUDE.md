@@ -8,8 +8,8 @@ malak は以下 2 つの capability cluster で構成される:
 
 | Cluster | NSID prefix | sensitivity | 用途 |
 |---|---|---|---|
-| **Core** (cybercrime intel) | `app.etzhayyim.apps.malak.{registerThreatActor,createThreatOrg,linkWalletToActor,queryRiskChain,exportStixBundle,draftAgencyReferral,reviewAgencyReferralDraft,exportAgencyReferralPackage,buildAgencyReferralEvidenceBundle,draftPoliceReport,registerPhishingTrapInbox,ingestTrapMessage,runInvestigationTick,getDashboard,getThreatGraph,listThreatActors,listWallets,listAgencyReferralDrafts,listAgencyReferralExports}` | TLP:AMBER/RED | 既存 — ThreatActor/WalletAddress/IntelReport graph + AgencyReferral + INTERPOL 通報 |
-| **Surveillance** (formerly mehikari) | `app.etzhayyim.apps.malak.{registerCamera,ingestSurveillanceClip,queryScene,queryPerson,reviewSurveillanceMatches,exportSurveillanceEvidence,listSurveillanceQueries,getSurveillanceAuditTrail}` + `{registerAgencyProspect,draftAgencyOutreach,reviewAgencyOutreach,sendAgencyOutreach,handleAgencyOutreachReply,unsubscribeAgencyOutreach,listAgencyOutreach}` | TLP:RED (face template ciphertext) / TLP:AMBER (outreach) | 監視カメラ シーン/人物検索 + 国際 LEA への B2G 営業 (2026-05-13 統合) |
+| **Core** (cybercrime intel) | `com.etzhayyim.apps.malak.{registerThreatActor,createThreatOrg,linkWalletToActor,queryRiskChain,exportStixBundle,draftAgencyReferral,reviewAgencyReferralDraft,exportAgencyReferralPackage,buildAgencyReferralEvidenceBundle,draftPoliceReport,registerPhishingTrapInbox,ingestTrapMessage,runInvestigationTick,getDashboard,getThreatGraph,listThreatActors,listWallets,listAgencyReferralDrafts,listAgencyReferralExports}` | TLP:AMBER/RED | 既存 — ThreatActor/WalletAddress/IntelReport graph + AgencyReferral + INTERPOL 通報 |
+| **Surveillance** (formerly mehikari) | `com.etzhayyim.apps.malak.{registerCamera,ingestSurveillanceClip,queryScene,queryPerson,reviewSurveillanceMatches,exportSurveillanceEvidence,listSurveillanceQueries,getSurveillanceAuditTrail}` + `{registerAgencyProspect,draftAgencyOutreach,reviewAgencyOutreach,sendAgencyOutreach,handleAgencyOutreachReply,unsubscribeAgencyOutreach,listAgencyOutreach}` | TLP:RED (face template ciphertext) / TLP:AMBER (outreach) | 監視カメラ シーン/人物検索 + 国際 LEA への B2G 営業 (2026-05-13 統合) |
 
 詳細: `_working/malak/surveillance/` 配下の DESIGN.md / COMPLIANCE-MEMO.md / LEAD-PIPELINE-SEED.md / MURAKUMO-DOMESTIC-CONSTRAINT.md / langgraph_agency_outreach.py。
 
@@ -102,7 +102,7 @@ Malak currently has an owned email-only trap path for defensive CTI:
 trap-email-malak-spamtrap-primary@etzhayyim.com
   → Cloudflare Email Routing catch-all
   → ai-gftd-email-relay Worker
-  → PDS did:web:ml1nb0nd.etzhayyim.com / app.etzhayyim.apps.mailer.inboundEmail
+  → PDS did:web:ml1nb0nd.etzhayyim.com / com.etzhayyim.apps.mailer.inboundEmail
   → launchd sync every 5 min
   → vertex_malak_trap_message
 ```
@@ -120,7 +120,7 @@ Operational commands:
 LaunchAgent:
 
 ```text
-app.etzhayyim.malak-trap-sync
+com.etzhayyim.malak-trap-sync
 interval: 300 seconds
 stdout: ~/.gftd/malak-trap-sync.log
 stderr: ~/.gftd/malak-trap-sync.err
@@ -216,7 +216,7 @@ onion.etzhayyim.com (0n10n001) → .onion crawl → page/site/crawl record
 
 **登録例 (XRPC):**
 ```
-POST /xrpc/app.etzhayyim.apps.malak.registerMonitoredEntity
+POST /xrpc/com.etzhayyim.apps.malak.registerMonitoredEntity
 {
   "name": "アサヒビール",
   "entity_type": "corporation",

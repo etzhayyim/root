@@ -12,7 +12,7 @@ weight: 0.75
 priority_note: "open-* utility lexicons (denki / gas / water / network / power / rail / airplane / ports) と open-robo (Giemon hardware) と open-ot (WASM PLC) を貫通する planetary-scale 自律施工 / 運用 fleet actor の上位設計。Izanagi/Izanami の国生み神話を name origin とし、religious-corp が国家ではなく chain-of-stewards として地球上の物理インフラを進める。労働解放 (ADR-2605192100 §mission.labor_liberation) の最大 throughput pillar."
 authoritative_for:
   - 20-actors/kuni-umi/ Pregel actor topology
-  - app.etzhayyim.kuniUmi.* Lexicon namespace
+  - com.etzhayyim.kuniUmi.* Lexicon namespace
   - Deployment phase BPMN (survey → procure → construct → commission)
   - open-* utility lexicons と open-robo / open-ot 間の orchestration seam
   - Multi-jurisdiction 施工 governance (land sovereignty + Charter Rider gate)
@@ -94,14 +94,14 @@ religious-corp の力学的 routing-around (§1.12 §1.11) は **物理層** で
 | Tier | Actor | Placement | Trigger |
 |---|---|---|---|
 | **A — per-site PhenotypeAgent** | `KuniUmiSiteAgent` (1 per deployment site DID) | code-generated per ADR-2605171300 pattern, runs on the Murakumo node where the leader of that phase is currently elected | `defineDeploymentSite` MST record |
-| **B — per-phase leader + replica** | `SiteSurveyCell`, `DeploymentPlanningCell`, `ConstructionOrchestrationCell`, `CommissioningCell`, `AuditWitnessCell`, `DecommissionCell` | leaders on Murakumo `naphtali` (survey) / `zebulun` (planning, treasury-adjacent) / `joseph` (construction) / `simeon` (commissioning) / `levi` (audit) / `dan` (decommission). N=2 replicas per ADR-2605192415 §B | MST listener on `app.etzhayyim.kuniUmi.*` |
+| **B — per-phase leader + replica** | `SiteSurveyCell`, `DeploymentPlanningCell`, `ConstructionOrchestrationCell`, `CommissioningCell`, `AuditWitnessCell`, `DecommissionCell` | leaders on Murakumo `naphtali` (survey) / `zebulun` (planning, treasury-adjacent) / `joseph` (construction) / `simeon` (commissioning) / `levi` (audit) / `dan` (decommission). N=2 replicas per ADR-2605192415 §B | MST listener on `com.etzhayyim.kuniUmi.*` |
 | **C — per-decision council** | `CouncilDeliberationCell` (existing generic per ADR-2605192415 Tier C) | levi (orchestrator) | escalation when jurisdiction / counterparty / proportionality DMN returns `requires_council=true` |
 
 Each phase cell is a LangGraph `StateGraph` with `MstCheckpointSaver` (ADR-2605191559) → MST → IPFS pin (ADR-2605191608) → Base L2 anchor (ADR-2605191625). One super-step = one phase tick = one IEC 61499 event when bridging into `open-ot`.
 
-## 2. Lexicon namespace `app.etzhayyim.apps.etzhayyim.kuniUmi.*`
+## 2. Lexicon namespace `com.etzhayyim.apps.etzhayyim.kuniUmi.*`
 
-Six lexicons authored in `00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/`:
+Six lexicons authored in `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/`:
 
 | Lexicon | Type | Purpose |
 |---|---|---|
@@ -117,7 +117,7 @@ All records are MST → IPFS → L2 anchored. Encryption per ADR-2605181100 is a
 ## 3. 4-phase workflow (BPMN)
 
 ```
-[Site DID]                                  app.etzhayyim.kuniUmi
+[Site DID]                                  com.etzhayyim.kuniUmi
    │
    ▼ Phase 1 — Survey
 SiteSurveyCell

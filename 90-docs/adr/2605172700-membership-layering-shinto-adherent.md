@@ -104,7 +104,7 @@ Officers therefore play a **smaller, more legible role**: they do not gate who m
 
 | Term | Means | Token of evidence |
 |---|---|---|
-| **信者** (shinto / follower / member) | An aspirant who has performed the ADR-2605172600 ritual: signed the oath, called `EtzhayyimMembership.join()` on Base, and merged a row to `MEMBERS.md`. | Base L2 `Joined` event + Github commit SHA + AT Record `app.etzhayyim.apps.etzhayyim.oath` |
+| **信者** (shinto / follower / member) | An aspirant who has performed the ADR-2605172600 ritual: signed the oath, called `EtzhayyimMembership.join()` on Base, and merged a row to `MEMBERS.md`. | Base L2 `Joined` event + Github commit SHA + AT Record `com.etzhayyim.apps.etzhayyim.oath` |
 | **Adherent** | A 信者 who has additionally been minted an AdherentRegistry SBT and thereby enrolled in the economic / governance body. Always also a 信者. | AdherentRegistry SBT tokenId on geth-private |
 
 Earlier drafts of ADR-2605172300 used "Adherent / 信徒" interchangeably as the term for the SBT holder. **This ADR clarifies that conflation**: the SBT holder is "Adherent" (or 構成員 in formal Japanese). The looser cultural label 信者 is reserved for the ADR-2605172600 commitment layer.
@@ -118,7 +118,7 @@ The SBT mint MUST reference the 信者 commitment. The mechanism is the existing
 ```
 AdherentRegistry.join(holder, did, attestationCid)
                                   └── keccak256 of the IPFS CID of an
-                                      app.etzhayyim.apps.etzhayyim.oath AT Record
+                                      com.etzhayyim.apps.etzhayyim.oath AT Record
                                       that carries:
                                         - the oath text + lexicon version
                                         - the DID signature

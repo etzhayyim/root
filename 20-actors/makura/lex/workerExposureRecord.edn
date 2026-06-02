@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.makura.workerExposureRecord"
+ :id "com.etzhayyim.makura.workerExposureRecord"
  :defs
  {:main
   {:type "record"

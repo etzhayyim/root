@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hikari.generationRecord"
+ :id "com.etzhayyim.hikari.generationRecord"
  :defs
  {:main
   {:type "record"

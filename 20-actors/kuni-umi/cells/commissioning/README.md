@@ -28,6 +28,6 @@ After `commissionDeployment`, kuni-umi is observer-only for that site (except `A
 - open-ot `defineLoop` rejects topology → loop spec error in BoM; punch list
 
 ## See also
-- Lexicon `00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/commissionDeployment.json`
+- Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/commissionDeployment.json`
 - `60-apps/ai-gftd-project-open-ot/PROTOTYPE-MICROGRID.md` (acceptance test reference)
 - All `60-apps/ai-gftd-project-open-{denki,gas,water,network,power,rail,airplane,ports}/CLAUDE.md`

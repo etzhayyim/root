@@ -23,7 +23,7 @@ def test_c_atproto_adapter_maps_follow_and_dep():
         {"author_did": "did:plc:alice",
          "record": {"$type": "app.bsky.graph.follow", "subject": "did:plc:bob"}},
         {"author_did": "did:plc:bob",
-         "record": {"$type": "app.etzhayyim.engi.dep", "subject": "did:plc:alice"}},
+         "record": {"$type": "com.etzhayyim.engi.dep", "subject": "did:plc:alice"}},
         {"author_did": "did:plc:alice",
          "record": {"$type": "app.bsky.feed.post", "text": "ignored"}},  # not a graph edge
     ]
@@ -128,7 +128,7 @@ EVENTS = [
      "rkey": "3k1", "op": "create", "recordCid": "bafy1"},
     {"seq": 2, "did": "did:plc:alice", "collection": "app.bsky.graph.follow",
      "rkey": "3k2", "op": "create", "recordCid": "bafy2"},     # → latent carol
-    {"seq": 3, "did": "did:plc:bob", "collection": "app.etzhayyim.engi.dep",
+    {"seq": 3, "did": "did:plc:bob", "collection": "com.etzhayyim.engi.dep",
      "rkey": "3k3", "op": "create", "recordCid": "bafy3"},
     {"seq": 4, "did": "did:plc:alice", "collection": "app.bsky.feed.post",
      "rkey": "3k4", "op": "create", "recordCid": "bafy4"},     # ignored

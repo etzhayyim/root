@@ -100,17 +100,17 @@ RW には reference だけを持たせる (Hume と同型、ADR-2604300135 の
 
 ## 2. BPMN-as-actor (ADR-0056)
 
-新規 BPMN 5 本を `etzhayyim-root/00-contracts/bpmn/ai/gftd/training/` に追加し、
+新規 BPMN 5 本を `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/training/` に追加し、
 `vertex_bpmn_process_def` + `vertex_bpmn_lexicon_binding` に seed (F5 watcher が
 Zeebe deploy する既存規約)。
 
 | BPMN process | trigger | task chain |
 |---|---|---|
-| `train_sft_run` | XRPC `app.etzhayyim.apps.training.runSft` | `train.dataset.snapshot` → `train.sft.run` (GPU pod) → `train.eval.run` → audit |
-| `train_lora_run` | XRPC `app.etzhayyim.apps.training.runLora` | 同上 (LoRA adapter only) |
-| `train_distill_run` | XRPC `app.etzhayyim.apps.training.runDistill` | `train.dataset.snapshot` → `train.teacher.label` (Murakumo bulk infer) → `train.distill.run` → `train.eval.run` → audit |
-| `train_eval_run` | XRPC `app.etzhayyim.apps.training.runEval` | `train.eval.run` → audit |
-| `train_promote_checkpoint` | XRPC `app.etzhayyim.apps.training.promote` | `train.promote.checkpoint` (edge insert) → audit |
+| `train_sft_run` | XRPC `com.etzhayyim.apps.training.runSft` | `train.dataset.snapshot` → `train.sft.run` (GPU pod) → `train.eval.run` → audit |
+| `train_lora_run` | XRPC `com.etzhayyim.apps.training.runLora` | 同上 (LoRA adapter only) |
+| `train_distill_run` | XRPC `com.etzhayyim.apps.training.runDistill` | `train.dataset.snapshot` → `train.teacher.label` (Murakumo bulk infer) → `train.distill.run` → `train.eval.run` → audit |
+| `train_eval_run` | XRPC `com.etzhayyim.apps.training.runEval` | `train.eval.run` → audit |
+| `train_promote_checkpoint` | XRPC `com.etzhayyim.apps.training.promote` | `train.promote.checkpoint` (edge insert) → audit |
 
 `generic.audit.emit` (ADR-0056 primitive) を全 BPMN の終端に置き、
 OCEL event を `vertex_repo_commit` に残す。
@@ -150,7 +150,7 @@ GPU が要る handler は **`mitama-training-pool` Helm release** (新設、ADR-
 ## 6. CLI / XRPC entry
 
 - `gftd training run --kind sft --base gemma-4-e4b-it --dataset gftd-corpus@latest`
-  → bpmn-dispatcher ClusterIP `http://dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.training.runSft`
+  → bpmn-dispatcher ClusterIP `http://dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.training.runSft`
 - `gftd training promote <checkpoint_id> --alias murakumo:gemma4-e4b-it`
 - `gftd training list-runs` / `list-checkpoints` / `eval <checkpoint_id>`
 - 全 XRPC は ADR-2604282300 に従い T2 (BPMN-as-actor) で CF Worker を持たない
@@ -363,7 +363,7 @@ gftd training run --kind sft ...
 - `30-graph/graph-schema/migrations/20260502130000_seed_training_export_bpmn.ts`
 - `30-graph/graph-schema/migrations/20260502140000_update_training_export_bpmn_phase_d.ts`
 - `20-actors/magatama/py/src/pymagatama/primitives/training_export.py`
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/training/trainingExport.bpmn`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/training/trainingExport.bpmn`
 - `90-docs/adr/2604300135-hume-distillation-artifact-persistence.md`
 - `90-docs/adr/0056-bpmn-as-actor.md` (`90-docs/adr/2604231150-bpmn-as-actor.md`)
 - `90-docs/adr/0036-worker-direct-hyperdrive-persistence.md`

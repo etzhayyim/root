@@ -35,10 +35,10 @@
 
 ## NSID
 
-- Current (kuniUmi precedent と整合): `app.etzhayyim.apps.etzhayyim.yobel.*`
+- Current (kuniUmi precedent と整合): `com.etzhayyim.apps.etzhayyim.yobel.*`
 - Canonical (post-org-rename cutover): `org.etzhayyim.yobel.*`
 
-Path: `00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/{declareRite,enrollCreditor,enrollDebtor,verifyEligibility,recordRelease,listRites,getRite,listReleases}.json`
+Path: `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/yobel/{declareRite,enrollCreditor,enrollDebtor,verifyEligibility,recordRelease,listRites,getRite,listReleases}.json`
 
 ## Cluster Integration
 

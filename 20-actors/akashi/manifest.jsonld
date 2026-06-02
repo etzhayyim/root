@@ -101,16 +101,16 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.akashi.sourcePolicySnapshot",
-    "app.etzhayyim.akashi.adDisclosureSnapshot",
-    "app.etzhayyim.akashi.advertiserIdentity",
-    "app.etzhayyim.akashi.creativeDisclosure",
-    "app.etzhayyim.akashi.deliveryDisclosure",
-    "app.etzhayyim.akashi.landingEvidence",
-    "app.etzhayyim.akashi.adDisclosureLink",
-    "app.etzhayyim.akashi.methodNote",
-    "app.etzhayyim.akashi.adTransparencyReport",
-    "app.etzhayyim.akashi.malakEvidenceCandidate"
+    "com.etzhayyim.akashi.sourcePolicySnapshot",
+    "com.etzhayyim.akashi.adDisclosureSnapshot",
+    "com.etzhayyim.akashi.advertiserIdentity",
+    "com.etzhayyim.akashi.creativeDisclosure",
+    "com.etzhayyim.akashi.deliveryDisclosure",
+    "com.etzhayyim.akashi.landingEvidence",
+    "com.etzhayyim.akashi.adDisclosureLink",
+    "com.etzhayyim.akashi.methodNote",
+    "com.etzhayyim.akashi.adTransparencyReport",
+    "com.etzhayyim.akashi.malakEvidenceCandidate"
   ],
   "references": {
     "adr": {
@@ -120,7 +120,7 @@
       "malakBoundary": "/60-apps/ai-gftd-project-malak/CLAUDE.md",
       "coverage": "/20-actors/akashi/COVERAGE.md",
       "maturity": "/20-actors/akashi/MATURITY.md",
-      "lexicons": "/00-contracts/lexicons/app/etzhayyim/akashi/README.md"
+      "lexicons": "/00-contracts/lexicons/com/etzhayyim/akashi/README.md"
     }
   }
 }

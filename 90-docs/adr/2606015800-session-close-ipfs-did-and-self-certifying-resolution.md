@@ -46,7 +46,7 @@ what remains.
    vm mirror** (gated keccak256 + eth_call) + operator runbook.
 
 2. **ADR-2606015400 — mesh-runner serving + IPFS-based DID retrieval** (PR #715).
-   `e7m-wasm-runner/serve.mjs` HTTP service (`/xrpc/app.etzhayyim.actor.run`,
+   `e7m-wasm-runner/serve.mjs` HTTP service (`/xrpc/com.etzhayyim.actor.run`,
    CID-cached). **did.json is content-addressed**: `canonicalDidDoc`/`didDocCid`
    normalize the request-volatile field so the CID is stable across KV/kotoba/
    compiled; advertised via `x-etzhayyim-did-doc-cid` + `actors.json`; retrievable

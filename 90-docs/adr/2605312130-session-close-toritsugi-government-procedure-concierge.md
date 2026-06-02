@@ -64,7 +64,7 @@ Record the session as closed with the following committed deliverable
   行政書士法 clearance, OFF at R0). 15 gates G1..G15, 14 non-goals.
 - **Actor dir** `20-actors/toritsugi/` — manifest.jsonld + README + CLAUDE.md +
   MATURITY ledger + registry/{procedures.seed.json, VERIFICATION.md, SCALING.md}.
-- **6 Lexicons** `app.etzhayyim.toritsugi.*` (procedure / benefitMatch /
+- **6 Lexicons** `com.etzhayyim.toritsugi.*` (procedure / benefitMatch /
   procedureGuide / applicationDraft / submissionRecord / statusTrack).
 - **7 path-reserved Pregel cells** `magatama.cells.toritsugi_*` (import-raise)
   + per-cell READMEs (tsukuroi parity).

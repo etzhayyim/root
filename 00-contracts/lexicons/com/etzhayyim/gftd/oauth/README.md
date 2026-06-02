@@ -1,4 +1,4 @@
-# `app.etzhayyim.oauth.*` — DID-bound OAuth flow extensions
+# `com.etzhayyim.oauth.*` — DID-bound OAuth flow extensions
 
 Open spec for the DID-bound OAuth flow used by atproto / etzhayyim agents.
 Extends `com.atproto.server.*` with DID-method-aware authorization, DPoP
@@ -14,10 +14,10 @@ vendor scope per the Custody axis (session state is operator-held).
 
 ## NSIDs (planned)
 
-- `app.etzhayyim.oauth.getAuthorizationServer` — discovery doc (RFC 8414 extended)
-- `app.etzhayyim.oauth.authorizeWithDpop` — DPoP-bound authorization request
-- `app.etzhayyim.oauth.exchangeServiceAuth` — service-to-service token exchange (`x-internal-trust` callers)
-- `app.etzhayyim.oauth.revokeBindingByDid` — revoke all bindings for a DID
+- `com.etzhayyim.oauth.getAuthorizationServer` — discovery doc (RFC 8414 extended)
+- `com.etzhayyim.oauth.authorizeWithDpop` — DPoP-bound authorization request
+- `com.etzhayyim.oauth.exchangeServiceAuth` — service-to-service token exchange (`x-internal-trust` callers)
+- `com.etzhayyim.oauth.revokeBindingByDid` — revoke all bindings for a DID
 
 ## See also
 

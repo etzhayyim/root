@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yakushi.settlementIntent"
+ :id "com.etzhayyim.yakushi.settlementIntent"
  :defs
  {:main
   {:type "record"

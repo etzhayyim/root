@@ -117,7 +117,7 @@ violation grounds the prohibition.
 
 ## Acute Crisis Escalation (G13) — Cross-Actor Pattern Reuse
 
-`acute_crisis_escalation` cell reuses the existing `app.etzhayyim.mitate.emergencyKeyword`
+`acute_crisis_escalation` cell reuses the existing `com.etzhayyim.mitate.emergencyKeyword`
 shared lexicon pattern from hagukumi G11 + iyashi G10:
 
 - Suicidal ideation / self-harm imminent threat → mitate G5
@@ -194,7 +194,7 @@ python -c "from magatama.cells.kokoro_peer_support_circle import _r0_marker" 2>&
 
 - `/20-actors/kokoro/manifest.jsonld`
 - `/20-actors/kokoro/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/kokoro/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/kokoro/` (5 Lexicons + README)
 - `/90-docs/adr/2605263700-kokoro-mental-health-tier-b-actor-r0.md`
 - `/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md` — G4 envelope
 - `/90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md` — grief TIGHT pair + G3 musubi pattern shared

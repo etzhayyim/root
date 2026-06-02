@@ -147,7 +147,7 @@ Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-gftd, $0.77/hr)  ← 未払�
 
 ```
 animeka.etzhayyim.com (thin CF Worker b7b7f6b2)
-  → dispatcher.etzhayyim.com/xrpc/app.etzhayyim.animeka.* (HTTPS via CF)
+  → dispatcher.etzhayyim.com/xrpc/com.etzhayyim.animeka.* (HTTPS via CF)
     → bpmn-dispatcher (mitama-udf VKE) → Zeebe broker
       → zeebe-worker pod (pymagatama:0.3.11-amd64)
         → generic.llm.chat / generic.llm.json handler
@@ -160,7 +160,7 @@ animeka.etzhayyim.com (thin CF Worker b7b7f6b2)
 shinshi.etzhayyim.com (CF Worker 0df83283)
   → seedScenesWithImagesReal (photoreal SDXL)
     → COMFY_POD_URL = https://<NEW_ID>-8188.proxy.runpod.net  ← DOWN
-  → app.etzhayyim.apps.shinshi.generateVideo (Wan video)
+  → com.etzhayyim.apps.shinshi.generateVideo (Wan video)
     → dispatcher.etzhayyim.com → Zeebe → shinshi.video.render
 ```
 
@@ -291,7 +291,7 @@ security add-generic-password -s "gftd.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/
 
 # Open follow-ups (deps.toml [[migrations]] 別エントリ)
 
-1. **`animeka-chat-zeebe-pickup-2605010000`** (open, severity medium): `app.etzhayyim.animeka.chat` の `generic.llm.chat` job が Zeebe broker queue で pickup されない (CF Worker 25s timeout)。LLM URL とは独立、Zeebe / pyzeebe handler の signature 問題の可能性。
+1. **`animeka-chat-zeebe-pickup-2605010000`** (open, severity medium): `com.etzhayyim.animeka.chat` の `generic.llm.chat` job が Zeebe broker queue で pickup されない (CF Worker 25s timeout)。LLM URL とは独立、Zeebe / pyzeebe handler の signature 問題の可能性。
 
 2. **`shinshi-photoreal-post-auth-2605010000`** (open, severity low): photoreal 画像生成 + blob upload は OK だが、最終的な AT Record post (`app.bsky.feed.post` as path-DID) で 401。`sdk.pds.dispatch` 経由に切替か Service Auth JWT 手動付与で修復可。
 

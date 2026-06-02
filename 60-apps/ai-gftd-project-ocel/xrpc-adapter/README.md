@@ -4,9 +4,9 @@ CF Worker exposing 3 rw-free commands as XRPC endpoints.
 
 ## Endpoints
 
-- `POST /xrpc/app.etzhayyim.ocel.recordEvent` — record event
-- `GET /xrpc/app.etzhayyim.ocel.getEvent` — event by ID
-- `GET /xrpc/app.etzhayyim.ocel.listEvents` — paginated list
+- `POST /xrpc/com.etzhayyim.ocel.recordEvent` — record event
+- `GET /xrpc/com.etzhayyim.ocel.getEvent` — event by ID
+- `GET /xrpc/com.etzhayyim.ocel.listEvents` — paginated list
 
 ## Deploy
 

@@ -44,7 +44,7 @@ never a target-list.**
 ├── README.md                             # this file
 ├── CLAUDE.md                             # agent reference
 ├── data/
-│   ├── seed-public-companies.kotoba.edn  # 488 companies · 185 supply edges · 68 HQ · 38 contacts · 2 BPMN seeds (:representative; grows each /loop)
+│   ├── seed-public-companies.kotoba.edn  # 566 companies · 203 supply edges · 79 HQ · 43 contacts · 2 BPMN seeds (:representative; grows each /loop)
 │   └── companies.merged.kotoba.edn       # GENERATED: seed + ingest bridge (dedup)
 ├── methods/
 │   ├── kabuto_edn.py                     # shared minimal EDN reader + classifier (stdlib)
@@ -79,7 +79,7 @@ python3 methods/social.py --dry-run               # compose atproto posts (dry-r
 
 ### Result (seed)
 
-- **488** public companies · **185** disclosed supply edges · **15** sectors · **52** countries · **68** HQ addresses
+- **566** public companies · **203** disclosed supply edges · **15** sectors · **52** countries · **79** HQ addresses
   (growing each `/loop` iteration toward full global coverage — all 15 sectors balanced; 52 countries
   across every macro-region; incl. Japanese sōgō shōsha, commodity traders/agribusiness, and deep
   fab-input suppliers — wafers, OSAT assembly/test, specialty gases, photoresist, mask-blanks,
@@ -101,7 +101,7 @@ python3 methods/social.py --dry-run               # compose atproto posts (dry-r
 `methods/social.py` composes `app.bsky.feed.post`-shaped records (aggregate-first, public facts
 only), runs a Charter Rider §2(a)-(h) content scan on every body, and — when
 `KABUTO_LIVE_POST=1` + `KOTOBA_ENDPOINT=...` + operator auth are set — POSTs them to kotoba-server
-`ai.gftd.apps.kotoba.atproto.repo.write`, writing into the kotoba Datom log (queryable by the
+`com.etzhayyim.apps.kotoba.atproto.repo.write`, writing into the kotoba Datom log (queryable by the
 in-browser kotoba-wasm node + federated over AT Protocol). Default is dry-run.
 
 ```bash

@@ -92,7 +92,7 @@ Coordinated dispatch of discretionary loads across religious-corp facilities to 
    - DAC §1 regeneration heat dispatch (ADR-2605264600 cross-actor)
    - **EXCLUDED**: residential HVAC of any individual member home (privacy + paternalism — members control their own home loads, not religious-corp infrastructure layer)
 3. **Coordination protocol**: Murakumo-only inference for dispatch optimization per ADR-2605215000; NO commercial DR-aggregator / NO Google Nest DR / NO Amazon Sidewalk / NO ConnectedHome
-4. **Encrypted transport**: even aggregate telemetry SHOULD use `app.etzhayyim.encrypted.*` envelope (ADR-2605181100) for facility-level data above L4 Care tier (iyashi facility electrical load could leak operational metadata if intercepted)
+4. **Encrypted transport**: even aggregate telemetry SHOULD use `com.etzhayyim.encrypted.*` envelope (ADR-2605181100) for facility-level data above L4 Care tier (iyashi facility electrical load could leak operational metadata if intercepted)
 5. **Coordination logs publicly attestable**: aggregate dispatch decisions logged via `dispatchCoordinationRecord` Lexicon on IPFS (operator transparency)
 
 ## §3 Charging-only (unidirectional, no V2G discharge) — UNRESTRICTED within hikari §2.1
@@ -122,7 +122,7 @@ V2G permitted under §1 only if consumer-side ADR exists for vehicle type:
 ## §6 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   v2gFacilityAttestation,                # bidirectional charging post + open-firmware CID + nameplate kW
   v2gDispatchRecord,                     # per-event: vehicle DID + cycle delta + SoC range + energy in/out
   v2gCycleAccounting,                    # per-vehicle quarterly cycle-life budget consumption

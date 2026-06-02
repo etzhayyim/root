@@ -27,11 +27,11 @@ function decodeParams(payload: any): Record<string, any> {
 }
 
 /**
- * app.etzhayyim.apps.playwright — Browser automation primitives.
+ * com.etzhayyim.apps.playwright — Browser automation primitives.
  *
  * XRPC methods wrap Playwright operations. Execution routes to:
  *   target=local       → Mac daemon (headed capable, Keychain access)
- *   target=cf-browser  → app.etzhayyim.apps.cloudflareBrowserRender via CF_BROWSER_RENDER binding
+ *   target=cf-browser  → com.etzhayyim.apps.cloudflareBrowserRender via CF_BROWSER_RENDER binding
  *
  * Session state in D1 PLAYWRIGHT_DB.session (sessionId, target, expiresAt).
  * Credentials never arrive as plaintext: use valueRef strings resolved per-op.
@@ -94,7 +94,7 @@ async function enqueueLocalOp(env: any, sessionId: string, op: string, args: Rec
 
 async function dispatchCfBrowser(env: any, sessionId: string, op: string, args: Record<string, unknown>): Promise<unknown> {
   if (!env.CF_BROWSER_RENDER) return { error: "CF_BROWSER_RENDER binding not configured" };
-  const url = `https://cloudflare-browser-render.etzhayyim.com/xrpc/app.etzhayyim.apps.cloudflareBrowserRender.dispatchOp`;
+  const url = `https://cloudflare-browser-render.etzhayyim.com/xrpc/com.etzhayyim.apps.cloudflareBrowserRender.dispatchOp`;
   const body = { sessionId, op, args };
   const res = await env.CF_BROWSER_RENDER.fetch(new Request(url, {
     method: "POST",
@@ -124,7 +124,7 @@ async function writeRecord(db: Kysely<Database>, collection: string, rkey: strin
   const table = `vertex_${camelToSnake(ACTOR_NSID_NS)}_${camelToSnake(collection)}`;
   const now = new Date();
   const row: Record<string, unknown> = {
-    vertex_id: `at://${ACTOR_DID}/app.etzhayyim.apps.${ACTOR_NSID_NS}.${collection}/${rkey}`,
+    vertex_id: `at://${ACTOR_DID}/com.etzhayyim.apps.${ACTOR_NSID_NS}.${collection}/${rkey}`,
     _seq: null,
     created_date: now.toISOString().slice(0, 10),
     sensitivity_ord: 100,
@@ -155,7 +155,7 @@ export default createWorkerExport((sdk: HostSDK) => {
   const env = sdk.env as any;
   const db = createKyselyDb(env.HYPERDRIVE) as unknown as Kysely<Database>;
 
-    sdk.app.command(nsid("app.etzhayyim.apps.playwright.sessionOpen"),
+    sdk.app.command(nsid("com.etzhayyim.apps.playwright.sessionOpen"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const target = str(params?.target ?? "local");
@@ -180,7 +180,7 @@ export default createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("playwright", "session"),
     );
 
-    sdk.app.command(nsid("app.etzhayyim.apps.playwright.sessionClose"),
+    sdk.app.command(nsid("com.etzhayyim.apps.playwright.sessionClose"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const sessionId = requireSessionId(params);
@@ -195,7 +195,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     );
 
     const simpleOp = (opName: string, description: string) =>
-      sdk.app.command(nsid(`app.etzhayyim.apps.playwright.${opName}`),
+      sdk.app.command(nsid(`com.etzhayyim.apps.playwright.${opName}`),
         async (_ctx, _p: any) => {
         const params = decodeParams(_p);
           const sessionId = requireSessionId(params);
@@ -221,7 +221,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     // ─────────────────────────────────────────────────────────────────────
     // Daemon interface — atomic claim + result report of pending actions
     // ─────────────────────────────────────────────────────────────────────
-    sdk.app.command(nsid("app.etzhayyim.apps.playwright.dequeueAction"),
+    sdk.app.command(nsid("com.etzhayyim.apps.playwright.dequeueAction"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const daemonId = str(params?.daemonId ?? "");
@@ -262,7 +262,7 @@ export default createWorkerExport((sdk: HostSDK) => {
       withCapabilityTags("playwright", "daemon", "dequeue"),
     );
 
-    sdk.app.command(nsid("app.etzhayyim.apps.playwright.reportActionResult"),
+    sdk.app.command(nsid("com.etzhayyim.apps.playwright.reportActionResult"),
       async (_ctx, _p: any) => {
         const params = decodeParams(_p);
         const actionId = str(params?.actionId ?? "");

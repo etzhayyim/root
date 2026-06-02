@@ -1,6 +1,6 @@
 # warifu-gateway — drop-in compatibility surfaces
 
-Translation layer that maps the existing card ecosystem onto `app.etzhayyim.card.*` lexicons →
+Translation layer that maps the existing card ecosystem onto `com.etzhayyim.card.*` lexicons →
 kotoba EAVT + ERC-4337 USDC settlement (ADR-2605302000). "全く同じ api 規格" across three surfaces:
 
 | Surface | File | Drop-in target |
@@ -41,7 +41,7 @@ end-to-end self-controlled and ship first.
     │   ├── gateway.test.mjs  # idempotency + iso8583 codec tests (node-only)
     │   ├── settle-flow.js    # SHARED authorize->settle core (one SoT for all 3 surfaces)
     │   ├── memory-substrate.js  # gateway-layer WarifuSubstrate fake (e2e tests)
-    │   ├── types.ts          # substrate-native card shapes (mirror app.etzhayyim.card.*)
+    │   ├── types.ts          # substrate-native card shapes (mirror com.etzhayyim.card.*)
     │   └── sdk.ts            # @etzhayyim/sdk facade (fail-closed stub; no key held)
     ├── stripe-compat/
     │   ├── handler.js               # Surface A: payment_intents/capture/refund (451 on gate)

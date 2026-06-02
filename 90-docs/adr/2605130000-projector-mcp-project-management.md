@@ -16,7 +16,7 @@ authoritative_for:
   - vertex_project_props 拡張列 (progress_permille / lifecycle_state / lg_thread_id / target_date)
   - mv_projector_project_status MV 定義
   - pymagatama/projector/ LangGraph + Pregel 実装
-  - ai/gftd/projector/ Lexicon 定義
+  - com/etzhayyim/projector/ Lexicon 定義
   - GRAPHS["projector_lifecycle"] の pregel pod 登録
   - Claude Agent が projector tools を使うべきタイミングの契約
 depends_on:
@@ -61,7 +61,7 @@ Claude Agent (MCP client)
   │
   ├─ projector.create_project ────────────────────────────────────┐
   ├─ projector.update_status  ─── XRPC → bpmn-dispatcher ─────── LangGraph
-  ├─ projector.add_blocker    ─── app.etzhayyim.projector.*  ─────────  projector_lifecycle
+  ├─ projector.add_blocker    ─── com.etzhayyim.projector.*  ─────────  projector_lifecycle
   ├─ projector.resolve_blocker ──────────────────────────────────  (pregel pod)
   ├─ projector.get_status     ─── READ → mv_projector_project_status
   └─ projector.list_projects  ─── READ → mv_projector_project_status
@@ -118,7 +118,7 @@ LEFT JOIN graphar.vertex_projector_blocker b ON b.project_did = p.did
 GROUP BY p.did, p.name, p.lifecycle_state, p.progress_permille;
 ```
 
-### Lexicon 一覧 (`ai/gftd/projector/`)
+### Lexicon 一覧 (`com/etzhayyim/projector/`)
 
 | ファイル | type | 用途 |
 |---|---|---|
@@ -209,7 +209,7 @@ planning → active → blocked → active (ループ可) → done
   "tool": "projector.create_project",
   "arguments": {
     "name": "lexicon-migration-2026-05",
-    "description": "app.etzhayyim.projector.* Lexicon の PDS bundle 再生成と deploy",
+    "description": "com.etzhayyim.projector.* Lexicon の PDS bundle 再生成と deploy",
     "targetDate": "2026-05-20"
   }
 }
@@ -350,6 +350,6 @@ blocker が解消されたら**即時**呼ぶ。
 - `20-actors/magatama/py/src/pymagatama/projector/blocker_pregel.py`
 - `60-apps/ai-gftd-project-pregel/lg/lg_pregel/server.py` (`GRAPHS["projector_lifecycle"]`)
 - `50-infra/cloudflare/workers/atproto/src/mcp-adapter.ts` (BUILTIN_TOOLS `projector.*`)
-- `00-contracts/lexicons/ai/gftd/projector/`
+- `00-contracts/lexicons/com/etzhayyim/projector/`
 - `50-infra/vultr/geth-private/contracts/` (migration `20260513000000_vertex_projector_blocker_project_progress`)
 - `70-tools/gftd/projector.go` (`gftd projector` CLI)

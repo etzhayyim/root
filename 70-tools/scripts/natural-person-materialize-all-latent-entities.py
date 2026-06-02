@@ -41,7 +41,7 @@ def main() -> None:
                   next_ordinal, materialized_count, batch_size, status
                 )
                 SELECT
-                  'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.latentCursor/' || c.cohort_hash,
+                  'at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.latentCursor/' || c.cohort_hash,
                   1, 300,
                   'did:web:natural-person.etzhayyim.com',
                   'did:web:natural-person.etzhayyim.com',
@@ -86,7 +86,7 @@ def main() -> None:
                       primary_topic_vid, individual_did
                     )
                     SELECT
-                      'at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.latentEntity/natural-person-individual-'
+                      'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-individual-'
                         || w.cohort_hash || '-' || LPAD(g.i::VARCHAR, 12, '0'),
                       g.i,
                       300,

@@ -1,4 +1,4 @@
-# app.etzhayyim.hagukumi.* — Lexicons
+# com.etzhayyim.hagukumi.* — Lexicons
 
 Per ADR-2605261030. R0 stubs; full schemas R1+.
 

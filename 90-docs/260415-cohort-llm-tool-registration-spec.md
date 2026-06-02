@@ -15,7 +15,7 @@ superseded_by: []
 # Goal
 
 Murakumo / Ameno LLM agent が ADR-0026 cohort lifecycle を tool call で操作可能にする。
-app.etzhayyim.cohort.* の 4 procedure (seed / emitEvidence / fission / repairEdge) を tool 化。
+com.etzhayyim.cohort.* の 4 procedure (seed / emitEvidence / fission / repairEdge) を tool 化。
 
 # Tool Definition (OpenAI tool calling 互換)
 
@@ -52,7 +52,7 @@ app.etzhayyim.cohort.* の 4 procedure (seed / emitEvidence / fission / repairEd
 }
 ```
 
-→ host が `gftd cohort gen` 相当の JSON-LD 組立て + POST `/xrpc/app.etzhayyim.cohort.seed`。
+→ host が `gftd cohort gen` 相当の JSON-LD 組立て + POST `/xrpc/com.etzhayyim.cohort.seed`。
 
 ## 2. cohort_emit_evidence
 
@@ -129,7 +129,7 @@ LLM が誤って fission を発火しないよう gate を schema 制約とし�
 
 # Registration in `magatama-host-sdk`
 
-`20-actors/magatama/sdk/magatama-host-sdk/src/llm-tools.ts` (新規予定) に上記 4 tool spec をハードコード or `00-contracts/lexicons/ai/gftd/cohort/*.json` から自動生成。
+`20-actors/magatama/sdk/magatama-host-sdk/src/llm-tools.ts` (新規予定) に上記 4 tool spec をハードコード or `00-contracts/lexicons/com/etzhayyim/cohort/*.json` から自動生成。
 
 ```typescript
 // 推奨実装パターン
@@ -140,7 +140,7 @@ await llmCall({
   tools: [...standardTools, ...cohortToolSpecs],
   toolHandler: async (call) => {
     if (call.name === 'cohort_seed') {
-      return await pdsClient.fetch('/xrpc/app.etzhayyim.cohort.seed', {
+      return await pdsClient.fetch('/xrpc/com.etzhayyim.cohort.seed', {
         method: 'POST',
         body: JSON.stringify({
           segmentJsonld: JSON.stringify(call.args),
@@ -155,7 +155,7 @@ await llmCall({
 
 # Audit / Safety
 
-- 全 tool call は OCEL audit に emit (`app.etzhayyim.cohort.llmToolCall` index)
+- 全 tool call は OCEL audit に emit (`com.etzhayyim.cohort.llmToolCall` index)
 - `cohort_fission` は posterior min/judgeAgreement const で LLM 誤発火を schema-level に防止
 - `cohort_emit_evidence` は signalKind を whitelist 化 (将来) して spam evidence を防止
 
@@ -174,10 +174,10 @@ await llmCall({
 
 # References
 
-- `00-contracts/lexicons/ai/gftd/cohort/seed.json`
-- `00-contracts/lexicons/ai/gftd/cohort/emitEvidence.json`
-- `00-contracts/lexicons/ai/gftd/cohort/fission.json`
-- `00-contracts/lexicons/ai/gftd/cohort/listCohorts.json`
+- `00-contracts/lexicons/com/etzhayyim/cohort/seed.json`
+- `00-contracts/lexicons/com/etzhayyim/cohort/emitEvidence.json`
+- `00-contracts/lexicons/com/etzhayyim/cohort/fission.json`
+- `00-contracts/lexicons/com/etzhayyim/cohort/listCohorts.json`
 - `20-actors/magatama/sdk/magatama-host-sdk/src/llm.ts`
 - `20-actors/magatama/sdk/magatama-host-sdk/src/cohort.ts`
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`

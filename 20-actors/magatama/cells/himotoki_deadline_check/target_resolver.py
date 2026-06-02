@@ -30,7 +30,7 @@ stays non-deployable (import-time ``RuntimeError``) until Council ratification
 does NOT activate the cell; the activation gate in ``cell.py`` is the sole switch.
 
 Output shape mirrors a routing view over Lexicon
-``app.etzhayyim.himotoki.disclosureTarget`` (the registry's ``$schema``).
+``com.etzhayyim.himotoki.disclosureTarget`` (the registry's ``$schema``).
 """
 
 from __future__ import annotations
@@ -276,7 +276,7 @@ def to_target_routing_record(
     created_at: datetime,
     session_ref: str | None = None,
 ) -> dict:
-    """Build an ``app.etzhayyim.himotoki.disclosureTarget`` routing-view record.
+    """Build an ``com.etzhayyim.himotoki.disclosureTarget`` routing-view record.
 
     ``isLegalOpinion`` is asserted ``False`` before return — a constitutional
     schema invariant this function structurally cannot violate. The record is a

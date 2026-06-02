@@ -90,7 +90,7 @@ def _clamp_int(value: Any, default: int, lo: int, hi: int) -> int:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.mangaka.storyboardFromPrompt",
+    nsid="com.etzhayyim.apps.mangaka.storyboardFromPrompt",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",

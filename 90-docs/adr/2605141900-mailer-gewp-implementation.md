@@ -177,7 +177,7 @@ cloudflared origin pod が `NotReady` node 上に残ったことによる ingres
 | Probe | Expected |
 |---|---|
 | `GET https://dispatcher.etzhayyim.com/health` | `200 {"status":"ok"}` |
-| `GET https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.mailer.stats` without trust header | `401 missing x-internal-trust header` |
+| `GET https://dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.mailer.stats` without trust header | `401 missing x-internal-trust header` |
 | `GET https://mailer.etzhayyim.com/api/stats` | `200` |
 | `GET https://mailer.etzhayyim.com/api/emails?limit=1` | `200` |
 

@@ -4,7 +4,7 @@ ISCO-08 occupation classification runtime.
 
 ## Active Runtime
 
-- Orchestration: BPMN / LangServer under `00-contracts/bpmn/ai/gftd/open-isco`
+- Orchestration: BPMN / LangServer under `00-contracts/bpmn/com/etzhayyim/open-isco`
 - Worker implementation: `20-actors/magatama/py/src/pymagatama/primitives/open_isco.py`
 - SQL helpers: `20-actors/magatama/py/src/pymagatama/handlers/open_isco.py`
 - Runtime pattern: LangServer + LangGraph + UDF
@@ -56,9 +56,9 @@ Code level is derived from code length:
 ## UDF Helpers
 
 ```text
-app.etzhayyim.apps.openIsco.codeLevel
-app.etzhayyim.apps.openIsco.verificationForConfidence
-app.etzhayyim.apps.openIsco.classificationVertexId
+com.etzhayyim.apps.openIsco.codeLevel
+com.etzhayyim.apps.openIsco.verificationForConfidence
+com.etzhayyim.apps.openIsco.classificationVertexId
 ```
 
 ## Data Model

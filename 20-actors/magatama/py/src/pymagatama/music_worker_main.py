@@ -22,7 +22,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.music.createTrack")
+    @worker.task(task_type="com.etzhayyim.apps.music.createTrack")
     async def task_create_track(**kwargs):
         title = kwargs.get("title", "")
         artist_id = kwargs.get("artistId", "")
@@ -50,7 +50,7 @@ async def run_worker():
 
         return {"trackId": track_id, "status": "active", "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.music.updateTrack")
+    @worker.task(task_type="com.etzhayyim.apps.music.updateTrack")
     async def task_update_track(**kwargs):
         track_id = kwargs.get("trackId", "")
         title = kwargs.get("title", "")
@@ -69,7 +69,7 @@ async def run_worker():
 
         return {"trackId": track_id, "updatedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.music.listTracks")
+    @worker.task(task_type="com.etzhayyim.apps.music.listTracks")
     async def task_list_tracks(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -94,7 +94,7 @@ async def run_worker():
 
         return {"tracks": [dict(r) for r in rows], "total": total or 0, "offset": offset, "limit": limit}
 
-    @worker.task(task_type="app.etzhayyim.apps.music.getTrack")
+    @worker.task(task_type="com.etzhayyim.apps.music.getTrack")
     async def task_get_track(**kwargs):
         track_id = kwargs.get("trackId", "")
 
@@ -111,7 +111,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.music.createArtist")
+    @worker.task(task_type="com.etzhayyim.apps.music.createArtist")
     async def task_create_artist(**kwargs):
         name = kwargs.get("name", "")
         genre = kwargs.get("genre", "")
@@ -138,7 +138,7 @@ async def run_worker():
 
         return {"artistId": artist_id, "status": "active", "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.music.updateArtist")
+    @worker.task(task_type="com.etzhayyim.apps.music.updateArtist")
     async def task_update_artist(**kwargs):
         artist_id = kwargs.get("artistId", "")
         name = kwargs.get("name", "")
@@ -157,7 +157,7 @@ async def run_worker():
 
         return {"artistId": artist_id, "updatedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.music.listArtists")
+    @worker.task(task_type="com.etzhayyim.apps.music.listArtists")
     async def task_list_artists(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -174,7 +174,7 @@ async def run_worker():
 
         return {"artists": [dict(r) for r in rows], "total": total or 0, "offset": offset, "limit": limit}
 
-    @worker.task(task_type="app.etzhayyim.apps.music.getArtist")
+    @worker.task(task_type="com.etzhayyim.apps.music.getArtist")
     async def task_get_artist(**kwargs):
         artist_id = kwargs.get("artistId", "")
 

@@ -61,7 +61,7 @@ Per ADR-2605191346, none of the above may target Vultr VKE either. Per ADR-26051
 
 # Decision
 
-The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2, accessed exclusively via `@etzhayyim/sdk`. Lexicons (`00-contracts/lexicons/ai/gftd/{yoro,murakumo}/`) are already migrated and retained unchanged — the wire format is stable; only the durable storage substrate swaps.
+The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2, accessed exclusively via `@etzhayyim/sdk`. Lexicons (`00-contracts/lexicons/com/etzhayyim/{yoro,murakumo}/`) are already migrated and retained unchanged — the wire format is stable; only the durable storage substrate swaps.
 
 ## Path-level rewrite map
 
@@ -78,14 +78,14 @@ The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2,
 | Read path Hyperdrive → RW                  | PDS XRPC → MST → client reducer (no Hyperdrive)                         |
 | Write path RW Stream Load + MV refresh     | `e.write({ collection, record, blobs })` → PDS commit → IPFS pin → L2 anchor (batched, `anchor-cron`) |
 | RW operator JWT                            | `did:web:etzhayyim.com` + WebAuthn passkey, DID-bound (ADR-2605172000 §SDK) |
-| Server-side plaintext RW query             | Private records → `app.etzhayyim.encrypted.*` envelope (ADR-2605181100); public records → plaintext MST |
+| Server-side plaintext RW query             | Private records → `com.etzhayyim.encrypted.*` envelope (ADR-2605181100); public records → plaintext MST |
 
 ### murakumo cluster (`60-apps/ai-gftd-project-murakumo/` — pending migration)
 
 | Old (RW-backed)                                        | New (`@etzhayyim/sdk`)                                                |
 |---|---|
-| goose recipe INSERT into `app.etzhayyim.yoro.platformDigest` | `e.write({ collection: 'app.etzhayyim.yoro.platformDigest', record })`      |
-| LiteLLM `vertex_inference_job` row write               | `e.write({ collection: 'app.etzhayyim.murakumo.inferenceJob', record })`; status updates as new records (event-sourced; no UPDATE) |
+| goose recipe INSERT into `com.etzhayyim.yoro.platformDigest` | `e.write({ collection: 'com.etzhayyim.yoro.platformDigest', record })`      |
+| LiteLLM `vertex_inference_job` row write               | `e.write({ collection: 'com.etzhayyim.murakumo.inferenceJob', record })`; status updates as new records (event-sourced; no UPDATE) |
 | `vertex_repo_commit` MV                                | `mst-projector` derives commit log → CID-pinned JSON; referenced by MST record |
 | RW PG URL `/Users/judah/.gftd/rw-url`                  | Removed. No PG URL in secrets store.                                  |
 | ansible PG URL distribution                            | ansible distributes `@etzhayyim/sdk` config (PDS URL + DID + paymaster address) only |
@@ -97,7 +97,7 @@ The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2,
 |---|---|
 | `import { createKyselyDb } from '@etzhayyim/magatama-host-sdk'`      | `import { Etzhayyim } from '@etzhayyim/sdk'`                       |
 | `createKyselyDb(env.HYPERDRIVE)` + raw SQL                      | `new Etzhayyim({ pdsUrl, did, … })`; no Hyperdrive binding         |
-| `INSERT INTO vertex_inference_job …`                            | `e.write({ collection: 'app.etzhayyim.murakumo.inferenceJob', record })` |
+| `INSERT INTO vertex_inference_job …`                            | `e.write({ collection: 'com.etzhayyim.murakumo.inferenceJob', record })` |
 | `SELECT … FROM vertex_inference_job WHERE error IS NULL …`      | `e.read({ collection, filter })` (key-prefix MST traverse)         |
 | Hyperdrive `env.HYPERDRIVE` Worker binding                      | Removed from `wrangler.jsonc`                                      |
 | FLUSH / RW-specific SQL semantics                               | Idempotent record creation (collection NSID + rkey scheme)         |
@@ -114,7 +114,7 @@ Per ADR-2605191346 §Substrate hard rule, `etzhayyim/*` workloads run on **Murak
 `templates/yoro-social-post.json` requires `postgres:16-alpine` for a per-actor scratch DB. Replacement:
 
 - Remove the Postgres container from the template.
-- Per-actor scratch state lives in the actor's local IndexedDB / SQLite-WASM and is checkpointed to MST via `e.write({ collection: 'app.etzhayyim.yoro.actorRunState', record })`.
+- Per-actor scratch state lives in the actor's local IndexedDB / SQLite-WASM and is checkpointed to MST via `e.write({ collection: 'com.etzhayyim.yoro.actorRunState', record })`.
 
 If the actor genuinely needs SQL semantics (joins, aggregates), it runs **DuckDB-WASM** over CID-pinned Parquet snapshots emitted by `mst-projector` — read-only, no shared mutable state.
 
@@ -177,7 +177,7 @@ Rejected. MST is the AT Protocol canonical state and already integrates with PDS
 - ADR-2605170900 (etzhayyim/root canonical home for open ADRs)
 - ADR-2605171900 (yoro migration to etzhayyim — Stages 1–5)
 - ADR-2605172000 (etzhayyim RW-free substrate — hard rule)
-- ADR-2605181100 (etzhayyim encrypted records — `app.etzhayyim.encrypted.*`)
+- ADR-2605181100 (etzhayyim encrypted records — `com.etzhayyim.encrypted.*`)
 - ADR-2605191346 (Vultr-free + Murakumo Mac-mini Tier-1 fleet)
 - ADR-2605171800 (LangGraph Pregel → MST → IPFS → L2 anchor pipeline)
 - `60-apps/ai-gftd-project-open-isco/rw-free/` (first RW-free reference impl)

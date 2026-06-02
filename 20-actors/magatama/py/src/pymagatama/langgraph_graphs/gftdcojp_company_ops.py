@@ -86,7 +86,7 @@ def _now_iso() -> str:
 def _vid(kind: str) -> str:
     import datetime as _dt
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{_OWNER_DID}/app.etzhayyim.apps.etzhayyim.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{_OWNER_DID}/com.etzhayyim.apps.etzhayyim.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _llm_structured(system: str, user: str, max_tokens: int = 800) -> dict:
@@ -520,7 +520,7 @@ def emit_audit(state: CompanyOpsState) -> dict:
             {
                 "vid":  str(uuid.uuid4()),
                 "repo": _ORG_DID,
-                "col":  "app.etzhayyim.apps.etzhayyim.ops",
+                "col":  "com.etzhayyim.apps.etzhayyim.ops",
                 "rkey": f"ops-{ts_ms}",
                 "act":  "create",
                 "ts":   ts_ms,
@@ -544,7 +544,7 @@ def emit_audit(state: CompanyOpsState) -> dict:
 #   <domain>_fetch_ctx (only legal/governance/personnel) — py_primitive that
 #     fetches SQL context and writes a `<domain>Context` field consumed by the
 #     next node's user_template.
-#   <domain>_call_llm — mcp_tool ref=mcp://app.etzhayyim.tools.llm.chat (in v2 SQL
+#   <domain>_call_llm — mcp_tool ref=mcp://com.etzhayyim.tools.llm.chat (in v2 SQL
 #     migration; not a function here).
 #   <domain>_persist — py_primitive that reads
 #     `state.<domain>LlmOut.result.content` (envelope from llm.chat) or falls
@@ -554,12 +554,12 @@ def emit_audit(state: CompanyOpsState) -> dict:
 #
 # supervisor / emit_audit are NOT decomposed (supervisor stays py_primitive
 # because it sets `state.domain` for Phase D2 field routing; emit_audit becomes
-# mcp_tool app.etzhayyim.tools.audit.emit consuming `<domain>_audit_record`).
+# mcp_tool com.etzhayyim.tools.audit.emit consuming `<domain>_audit_record`).
 
 
 def _envelope_content(state: CompanyOpsState, envelope_key: str) -> str:
     """Extract content from {envelope_key}.result.content if upstream node was
-    mcp_tool app.etzhayyim.tools.llm.chat. Returns '' if absent."""
+    mcp_tool com.etzhayyim.tools.llm.chat. Returns '' if absent."""
     envelope = state.get(envelope_key)
     if isinstance(envelope, dict):
         result = envelope.get("result")

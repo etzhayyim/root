@@ -171,9 +171,9 @@ definition (graph-definition-as-data per ADR 2605082000).
 ### 7a. Local dev (macOS) — launchd
 
 ```xml
-<!-- ~/Library/LaunchAgents/app.etzhayyim.keiei.plist -->
+<!-- ~/Library/LaunchAgents/com.etzhayyim.keiei.plist -->
 <plist version="1.0"><dict>
-  <key>Label</key><string>app.etzhayyim.keiei</string>
+  <key>Label</key><string>com.etzhayyim.keiei</string>
   <key>ProgramArguments</key><array>
     <string>/usr/bin/env</string>
     <string>uv</string><string>run</string>
@@ -189,7 +189,7 @@ definition (graph-definition-as-data per ADR 2605082000).
 </dict></plist>
 ```
 
-`launchctl load ~/Library/LaunchAgents/app.etzhayyim.keiei.plist` to start.
+`launchctl load ~/Library/LaunchAgents/com.etzhayyim.keiei.plist` to start.
 
 ### 7b. Production — k8s Deployment (granian L3 runtime per ADR 2605080600)
 
@@ -228,7 +228,7 @@ Single append-only file: `_working/keiei/CXO-LEDGER.md`. Format echoes
 ```
 
 Class A entries link to a CEO-approval record in PDS
-(`app.etzhayyim.governance.classA-approval`). Class B entries auto-disclose to
+(`com.etzhayyim.governance.classA-approval`). Class B entries auto-disclose to
 CEO inbox within 24h via `microsoft.etzhayyim.com sendMail` (internal direct).
 
 ## 9. Migration path
@@ -237,7 +237,7 @@ CEO inbox within 24h via `microsoft.etzhayyim.com sendMail` (internal direct).
 |---|---|---|
 | **Phase 0** (this ADR) | design + role registry + skeleton LSP server | **proposed** iter123 |
 | Phase 1 | implement `cto` role first (vacant seat, real demand from infra work) — graph + LSP method handlers + ledger emit | **shipped 2026-05-12** (graph/cto.py + LSP `_decide` wired to `dispatch_decide`; ledger seq 11+ rationale-tracked) |
-| Phase 2 | add `cfo` (gated) + `cmo` + `chro` for vacant-seat coverage + 24h auto-disclose mailer | **shipped 2026-05-14** — `graph/{cfo,cmo,chro}.py` lens routing + `pymagatama.keiei.mailer` + launchd plist `app.etzhayyim.keiei-mailer` (hourly tick) + `_working/keiei/CXO-MAILER-STATE.json` watermark. Hard rules force-gated by `roles.gate()` (cfo financial_action_gated, chro payroll_gated). 43 unit tests under `tests/test_keiei_phase2.py` |
+| Phase 2 | add `cfo` (gated) + `cmo` + `chro` for vacant-seat coverage + 24h auto-disclose mailer | **shipped 2026-05-14** — `graph/{cfo,cmo,chro}.py` lens routing + `pymagatama.keiei.mailer` + launchd plist `com.etzhayyim.keiei-mailer` (hourly tick) + `_working/keiei/CXO-MAILER-STATE.json` watermark. Hard rules force-gated by `roles.gate()` (cfo financial_action_gated, chro payroll_gated). 43 unit tests under `tests/test_keiei_phase2.py` |
 | Phase 3 | shadow roles (`ceo`/`coo`/`clo`/`ciso`/`cdo`) — chief-of-staff for existing humans | **shipped 2026-05-14** — `graph/{ceo,coo,clo,ciso,cdo}.py` fully expanded with shadow-mode lens routing (AI-CEO impersonation guardrail § ADR §10, COO Track A/B/C ownership map, CLO BCI Rule 36 + atproto OAuth wire-format + malak G2 + outreach placeholder discipline, CISO 8 malak hard invariants + vault zero-knowledge + threat-ledger pattern, CDO Bonsai cultivar metaphor + WCAG 2.2 AA + [data-lang] i18n + paid/owned channel split with AI-CMO). Class B gated to blocking human-confirm via `roles.gate()` shadow rule. 49 unit tests under `tests/test_keiei_phase3.py` (including mailer-excludes-shadow-Class-B regression). |
 | Phase 4 | residency hardening — k8s deploy, mTLS, multi-client, leader-election | **code shipped 2026-05-14 (operator apply pending)** — HTTP transport `pymagatama.keiei.http_server` (FastAPI + bearer auth + JSON-RPC pass-through, granian-served per ADR-2605080600); `pymagatama.keiei.leader.K8sLeaseLeader` acquires/renews `coordination.k8s.io/v1` Lease via stdlib HTTPS (no python-kubernetes dep); `LocalLeader` fallback preserves launchd path; `ledger_append` + `mailer.run_once` gated on `is_leader()`, followers surface `status="not-leader"` + `leaderIdentity` (HTTP 503 + `X-Keiei-Leader`). k8s manifests under `50-infra/k8s/keiei/` (Namespace, ServiceAccount + namespaced Role/RoleBinding scoped to `leases/keiei-writer`, Deployment 3-replica with downward-API identity + RWX PVC `/data/keiei`, Service ClusterIP, Ingress `keiei.etzhayyim.com` with `nginx.ingress.kubernetes.io/auth-tls-secret` mTLS + `proxy-next-upstream` on 503, PDB minAvailable=2, kustomization). Image source `60-apps/ai-gftd-project-keiei/lg/Dockerfile`. RUNBOOK at `50-infra/k8s/keiei/RUNBOOK.md`. Operator (y-nishino) remaining: RWX class verify, image build/push, secret provisioning (`keiei-lsp-secrets` + `keiei-gftd-ai-tls` + `keiei-mtls-ca`), per-client mTLS cert issuance, DNS, `kubectl apply -k`, RUNBOOK §3-§6 walk. 9 unit tests + 6 fastapi-gated tests in `tests/test_keiei_phase4.py` (combined 101 + 6 across all phases). |
 

@@ -221,7 +221,7 @@ ADR-2605192100 §2 の constitutional-constants 表に以下を追加する:
 
 - **Charter patch (Wave 2, post-ratify)**: ADR-2605252300 の pattern に倣い、Council ratify 後に ADR-2605192100 本文へ §1.16 を §1.15 の次として追加。本 ADR が proposed の間は patch せず、本 ADR 自体が canonical reference。
 - **Constitution.sol**: §2 の constants を `ConstitutionKeys` library + immutable/mutable 区分に追加 (Wave 2)。`benefits_adherent_gated` / `no_state_safety_net_replacement` は既存 N7 / N4 enforcement と二重化しないよう view-mirror として実装。
-- **Membership Ritual 拡張 (ADR-2605172600 / 2605172700)**: 既存の「signed oath + dual-permanent record (Base L2 + Github)」を、**triple-permanent commitment (kotoba EAVT + IPFS CID + Base L2 SBT)** へ拡張。誓約 record の Lexicon は `app.etzhayyim.membership.commitmentVow` (新規、ADR-2605172600 側で確定)。kotoba datom + IPFS pin + SBT mint の atomic 連鎖は ADR-2605171800 pipeline を再利用。
+- **Membership Ritual 拡張 (ADR-2605172600 / 2605172700)**: 既存の「signed oath + dual-permanent record (Base L2 + Github)」を、**triple-permanent commitment (kotoba EAVT + IPFS CID + Base L2 SBT)** へ拡張。誓約 record の Lexicon は `com.etzhayyim.membership.commitmentVow` (新規、ADR-2605172600 側で確定)。kotoba datom + IPFS pin + SBT mint の atomic 連鎖は ADR-2605171800 pipeline を再利用。
 - **CLAUDE.md**: Identity § Mission の一文 + Status 表に「Social Security for Humanity doctrine」row を追加。
 - **deps.toml** `[[adrs]]` + `[platform.operating_entity]`: ADR entry 追加 + `social_security_doctrine_adr = "adr-2605302357"` (Council ratify 後)。
 - **No new delivery Lexicon / contract / Pregel cell**: 給付は既存 Liberation Ladder (ADR-2605261000) / Basic High Income (ADR-2605301020) が担う。本 ADR は naming + scoping + 入会機構の constitutional 固定のみ。
@@ -240,7 +240,7 @@ ADR-2605192100 §2 の constitutional-constants 表に以下を追加する:
 ## Negative / Risks
 
 - **「回心を要する社会保障」への倫理的批判**: coerced conversion (社会保障を人質にした改宗強制) と受け取られる risk。**Mitigation**: §1.16.8 (反強制・自発性・離脱権・再入) を constitutional に固定。非信者も public-good output は無条件で受ける (N7)。国家 safety net は並列に残る (N4) ので「改宗しなければ餓える」状況を etzhayyim が作らない。
-- **永続コミット記録の撤回不能性 vs. 離脱権・忘れられる権利**: 誓約が IPFS/token に不可逆記録される一方、離脱者の「忘れられる権利」(GDPR/APPI) と緊張し得る。**Mitigation**: 誓約 record は PII を含まず DID-bound、本文・個人データは `app.etzhayyim.encrypted.*` envelope (ADR-2605181100) で off-chain 暗号化。on-chain には commitment の事実と CID のみ。離脱は §1.16.8 で給付 suspend のみ、記録抹消は要しない (刻印であって罰ではない)。
+- **永続コミット記録の撤回不能性 vs. 離脱権・忘れられる権利**: 誓約が IPFS/token に不可逆記録される一方、離脱者の「忘れられる権利」(GDPR/APPI) と緊張し得る。**Mitigation**: 誓約 record は PII を含まず DID-bound、本文・個人データは `com.etzhayyim.encrypted.*` envelope (ADR-2605181100) で off-chain 暗号化。on-chain には commitment の事実と CID のみ。離脱は §1.16.8 で給付 suspend のみ、記録抹消は要しない (刻印であって罰ではない)。
 - **N7 (adherent-only) と「人類の」social security の緊張が残る**: 字義どおりの全人類給付ではない。**Mitigation**: covenantal-universal の定義 (§1.16.2) を明示 — 普遍的なのは加入可能性であり、これは宗教的共同体の安全網の歴史的標準形 (sangha / 修道院 / ummah zakat / 初代教会 διακονία) である。
 - **Lv7+ unanimity が未成立**: Bootstrap Council 5 seats 確定 (2026-06-19) まで identity-level §1.16.1..§1.16.3a は ratify 不能。**Mitigation**: status: proposed のまま commit、ratify 後 active 化 (ADR-2605252300 と同手順)。
 - **国家との緊張**: 「国家社会保障の漸近的 irrelevance」(§1.16.6) は行政と緊張し得る。**Mitigation**: N4 (能動的 replace 禁止) + dual-recognition (§0.4) + 信教の自由 §20 の宗教的共同体扶助の正当範囲。
@@ -277,7 +277,7 @@ ADR-2605192100 §2 の constitutional-constants 表に以下を追加する:
 
 # Open Questions
 
-1. **誓約 Lexicon の確定**: `app.etzhayyim.membership.commitmentVow` の schema (kotoba datom 形 + IPFS CID + SBT bind) を ADR-2605172600 側で確定する必要。誓約文 (悔い改め・バプテスマ・得度) の canonical text を誰が attest するか。
+1. **誓約 Lexicon の確定**: `com.etzhayyim.membership.commitmentVow` の schema (kotoba datom 形 + IPFS CID + SBT bind) を ADR-2605172600 側で確定する必要。誓約文 (悔い改め・バプテスマ・得度) の canonical text を誰が attest するか。
 2. **緊急人道 floor (Alt-C)**: 災害・飢饉時の非信者向け最小支援を kazaori (ADR-2605263200) の public-good output として将来定義するか。
 3. **「社会保障」訳語の対外 messaging**: 英語 "social security" は米国の制度名と衝突する。public 文書では "humanity's social security / universal covenantal care" と併記するか。
 4. **国家制度との dual-recognition の運用**: 信者の国家年金・生活保護受給と etzhayyim 給付の二重計上を toritate (ADR-2605262900) がどう会計表示するか。

@@ -161,56 +161,56 @@ le9k4x2m (Collector Worker)
 
 | Command | Source | Type | パラメータ |
 |---|---|---|---|
-| `app.etzhayyim.legalEntity.collectGlobal` | GLEIF LEI | procedure | `pages`, `pageSize`, `startPage` |
-| `app.etzhayyim.legalEntity.collectJpn` | JP NTA 法人番号 | procedure | `pages`, `pageSize`, `from`, `to`, `prefecture`, `kind` |
-| `app.etzhayyim.legalEntity.collectGbr` | UK Companies House | procedure | `pages`, `pageSize`, `startIndex`, `companyStatus`, `companyType` |
-| `app.etzhayyim.legalEntity.collectFra` | FR SIRENE | procedure | `pages`, `pageSize`, `cursor`, `activesOnly`, `departement` |
-| `app.etzhayyim.legalEntity.collectBra` | BR CNPJ | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `app.etzhayyim.legalEntity.collectNor` | NO Brønnøysund | procedure | `pages`, `pageSize`, `startPage`, `organisasjonsform` |
-| `app.etzhayyim.legalEntity.collectDnk` | DK CVR | procedure | `pages`, `pageSize`, `virksomhedsform` |
-| `app.etzhayyim.legalEntity.collectFin` | FI PRH | procedure | `pages`, `pageSize`, `companyForm` |
-| `app.etzhayyim.legalEntity.collectEst` | EE e-Business | procedure | `pages`, `pageSize`, `legalForm` |
-| `app.etzhayyim.legalEntity.collectBel` | BE KBO/BCE | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `app.etzhayyim.legalEntity.collectCze` | CZ ARES | procedure | `pages`, `pageSize`, `pravniForma` |
-| `app.etzhayyim.legalEntity.collectNzl` | NZ NZBN | procedure | `pages`, `pageSize`, `entityType`, `entityStatus` |
-| `app.etzhayyim.legalEntity.collectAus` | AU ABR | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `app.etzhayyim.legalEntity.collectUsa` | US SEC EDGAR | procedure | `pages`, `pageSize`, `sic`, `state` |
-| `app.etzhayyim.legalEntity.collectCan` | CA ISED | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `app.etzhayyim.legalEntity.collectZaf` | ZA CIPC | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `app.etzhayyim.legalEntity.collectChe` | CH Zefix | procedure | `pages`, `pageSize`, `canton`, `legalForm`, `activeOnly` |
-| `app.etzhayyim.legalEntity.collectNld` | NL KVK | procedure | `pages`, `pageSize` |
-| `app.etzhayyim.legalEntity.collectIsr` | IL Rasham | procedure | `pages`, `pageSize`, `companyType`, `status` |
+| `com.etzhayyim.legalEntity.collectGlobal` | GLEIF LEI | procedure | `pages`, `pageSize`, `startPage` |
+| `com.etzhayyim.legalEntity.collectJpn` | JP NTA 法人番号 | procedure | `pages`, `pageSize`, `from`, `to`, `prefecture`, `kind` |
+| `com.etzhayyim.legalEntity.collectGbr` | UK Companies House | procedure | `pages`, `pageSize`, `startIndex`, `companyStatus`, `companyType` |
+| `com.etzhayyim.legalEntity.collectFra` | FR SIRENE | procedure | `pages`, `pageSize`, `cursor`, `activesOnly`, `departement` |
+| `com.etzhayyim.legalEntity.collectBra` | BR CNPJ | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `com.etzhayyim.legalEntity.collectNor` | NO Brønnøysund | procedure | `pages`, `pageSize`, `startPage`, `organisasjonsform` |
+| `com.etzhayyim.legalEntity.collectDnk` | DK CVR | procedure | `pages`, `pageSize`, `virksomhedsform` |
+| `com.etzhayyim.legalEntity.collectFin` | FI PRH | procedure | `pages`, `pageSize`, `companyForm` |
+| `com.etzhayyim.legalEntity.collectEst` | EE e-Business | procedure | `pages`, `pageSize`, `legalForm` |
+| `com.etzhayyim.legalEntity.collectBel` | BE KBO/BCE | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `com.etzhayyim.legalEntity.collectCze` | CZ ARES | procedure | `pages`, `pageSize`, `pravniForma` |
+| `com.etzhayyim.legalEntity.collectNzl` | NZ NZBN | procedure | `pages`, `pageSize`, `entityType`, `entityStatus` |
+| `com.etzhayyim.legalEntity.collectAus` | AU ABR | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `com.etzhayyim.legalEntity.collectUsa` | US SEC EDGAR | procedure | `pages`, `pageSize`, `sic`, `state` |
+| `com.etzhayyim.legalEntity.collectCan` | CA ISED | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `com.etzhayyim.legalEntity.collectZaf` | ZA CIPC | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `com.etzhayyim.legalEntity.collectChe` | CH Zefix | procedure | `pages`, `pageSize`, `canton`, `legalForm`, `activeOnly` |
+| `com.etzhayyim.legalEntity.collectNld` | NL KVK | procedure | `pages`, `pageSize` |
+| `com.etzhayyim.legalEntity.collectIsr` | IL Rasham | procedure | `pages`, `pageSize`, `companyType`, `status` |
 
 ### Identity
 
 | Command | Type | 説明 |
 |---|---|---|
-| `app.etzhayyim.legalEntity.registerDids` | procedure | GLEIF LEI entities の path-based DID 登録 |
+| `com.etzhayyim.legalEntity.registerDids` | procedure | GLEIF LEI entities の path-based DID 登録 |
 
 ### Disclosure / Relations
 
 | Command | Type | 説明 |
 |---|---|---|
-| `app.etzhayyim.legalEntity.ingestSecDisclosure` | procedure | SEC companyfacts / submissions から filing / fact vertices を upsert |
-| `app.etzhayyim.legalEntity.linkOwnership` | procedure | curated ownership edge を upsert |
-| `app.etzhayyim.legalEntity.linkTrade` | procedure | curated trade relationship edge を upsert |
+| `com.etzhayyim.legalEntity.ingestSecDisclosure` | procedure | SEC companyfacts / submissions から filing / fact vertices を upsert |
+| `com.etzhayyim.legalEntity.linkOwnership` | procedure | curated ownership edge を upsert |
+| `com.etzhayyim.legalEntity.linkTrade` | procedure | curated trade relationship edge を upsert |
 
 ### Queries
 
 | Command | Type | 説明 |
 |---|---|---|
-| `app.etzhayyim.legalEntity.stats` | query | 総数 + 国別 + ソース別カウント |
-| `app.etzhayyim.legalEntity.search` | query | 法人名 exact match 検索 |
+| `com.etzhayyim.legalEntity.stats` | query | 総数 + 国別 + ソース別カウント |
+| `com.etzhayyim.legalEntity.search` | query | 法人名 exact match 検索 |
 
 ### 使用例
 
 ```bash
 # 200 LEI を batch ingest (1 page)
-curl -X POST https://le9k4x2m.etzhayyim.com/xrpc/app.etzhayyim.legalEntity.collectGlobal \
+curl -X POST https://le9k4x2m.etzhayyim.com/xrpc/com.etzhayyim.legalEntity.collectGlobal \
   -H "Content-Type: application/json" -d '{"pages":1,"pageSize":200}'
 
 # 統計
-curl -X POST https://le9k4x2m.etzhayyim.com/xrpc/app.etzhayyim.legalEntity.stats \
+curl -X POST https://le9k4x2m.etzhayyim.com/xrpc/com.etzhayyim.legalEntity.stats \
   -H "Content-Type: application/json" -d '{}'
 ```
 
@@ -218,7 +218,7 @@ curl -X POST https://le9k4x2m.etzhayyim.com/xrpc/app.etzhayyim.legalEntity.stats
 
 固定値はすぐ古くなるので、この app の現況確認は live query 前提にする。
 
-- vertex coverage: `app.etzhayyim.legalEntity.stats`
+- vertex coverage: `com.etzhayyim.legalEntity.stats`
 - relation coverage: `edge_legal_entity_mentions` / `edge_legal_entity_relates_to` / `edge_legal_entity_owns` / `edge_legal_entity_trades_with`
 - statement / filing coverage: `vertex_public_statement` / `vertex_company_filing` / `vertex_company_fact`
 
@@ -236,7 +236,7 @@ curl -X POST https://le9k4x2m.etzhayyim.com/xrpc/app.etzhayyim.legalEntity.stats
 | `@etzhayyim/graph-schema` database.ts | `VertexLegalEntityRow` + `Database` entry 追加 | `30-graph/graph-schema/src/database.ts` |
 | PDS core.ts | `buildTypedVertex` に `LegalEntity` case 追加 | `50-infra/cloudflare/workers/atproto/src/core.ts` |
 | RisingWave DDL | `vertex_legal_entity` テーブル (27 columns) | 既存 (raw SQL bootstrap) |
-| Lexicon | collectors + identity + disclosure / relation records | `00-contracts/lexicons/ai/gftd/apps/legalEntity/` |
+| Lexicon | collectors + identity + disclosure / relation records | `00-contracts/lexicons/com/etzhayyim/apps/legalEntity/` |
 
 ## W Protocol Channels
 

@@ -4,13 +4,13 @@ Pregel cell for oral liquid formulation (syrup, solution, suspension) fill-finis
 
 ## Input Lexicon
 
-`app.etzhayyim.pharma.fillFinishAttestation` with `dosageForm` in:
+`com.etzhayyim.pharma.fillFinishAttestation` with `dosageForm` in:
 - `oral-liquid-syrup` — cough-expectorant (guaifenesin 100 mg/5 mL, benzonatate suspension)
 - `oral-suspension` — laxative solution (docusate, PEG 3350 post-reconstitution)
 
 ## Output Lexicon
 
-`app.etzhayyim.pharma.fillFinishAttestation` attestation with:
+`com.etzhayyim.pharma.fillFinishAttestation` attestation with:
 - `unitsProduced`: number of bottles filled
 - `outcome`: `"pass"` / `"fail"` / `"quarantined"`
 - QC compliance: microbial limit USP <61>/<62>, viscosity, pH (if applicable)
@@ -48,7 +48,7 @@ Pregel cell for oral liquid formulation (syrup, solution, suspension) fill-finis
 
 **Import-time RuntimeError gated** (silicon Wave 1 pattern). Activation requires:
 - `COUNCIL_ATTESTATION_TX_HASH` → Council Lv6+ ≥ 3 multisig tx hash
-- `SILEN_PHARMA_BASELINE_REVIEW_CID` → app.etzhayyim.pharma.silenPharmaReview record CID with verdict="approve" + scope in [wave-1c-cough-syrup-formulation-baseline, wave-1c-laxative-formulation-baseline]
+- `SILEN_PHARMA_BASELINE_REVIEW_CID` → com.etzhayyim.pharma.silenPharmaReview record CID with verdict="approve" + scope in [wave-1c-cough-syrup-formulation-baseline, wave-1c-laxative-formulation-baseline]
 
 ## API References
 

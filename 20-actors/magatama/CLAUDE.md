@@ -47,9 +47,9 @@ porting a worker MUST:
 
 Full Tranche F closure index: `90-docs/TRANCHE-F-INDEX.md`
 
-⚠️ **DEPRECATED 2026-04-12 → REMOVED 2026-04-13**: SQL architecture fully removed. Use Kysely (`createKyselyDb(env.HYPERDRIVE)`) for graph reads and `app.etzhayyim.kagami.sql` for raw SQL. `sqlQuery*` host imports, `sql.ts`, Drizzle ORM, kagami SQL transpiler are archived.
+⚠️ **DEPRECATED 2026-04-12 → REMOVED 2026-04-13**: SQL architecture fully removed. Use Kysely (`createKyselyDb(env.HYPERDRIVE)`) for graph reads and `com.etzhayyim.kagami.sql` for raw SQL. `sqlQuery*` host imports, `sql.ts`, Drizzle ORM, kagami SQL transpiler are archived.
 
-**TS Native + Lexicon Contract アーキテクチャ (F-Plan 2026-04-13)。** Business logic = TS native (async/await 直接)。Host capability contract SSoT = `00-contracts/lexicons/ai/gftd/host/*.json` (36 lexicons across 20 groups)。`70-tools/scripts/contract/gen-host-client-from-lexicon.mjs` が typed TS client (`magatama-host-sdk/src/generated/host-client.ts`) を生成し、`magatama-host-sdk/src/host-dispatcher.ts` が NSID → in-process host 関数へルートする。WIT は T3 Container (wasmtime) 経路でのみ legacy 用途 — TS Native (DEFAULT) は `wit/world.wit` 不要。設計: `00-contracts/lexicons/ai/gftd/host/` (Lexicon contract SSoT) + `90-docs/atproto/260324-wit-lexicon-typed-alignment-design.md` (旧 migration doc)
+**TS Native + Lexicon Contract アーキテクチャ (F-Plan 2026-04-13)。** Business logic = TS native (async/await 直接)。Host capability contract SSoT = `00-contracts/lexicons/com/etzhayyim/host/*.json` (36 lexicons across 20 groups)。`70-tools/scripts/contract/gen-host-client-from-lexicon.mjs` が typed TS client (`magatama-host-sdk/src/generated/host-client.ts`) を生成し、`magatama-host-sdk/src/host-dispatcher.ts` が NSID → in-process host 関数へルートする。WIT は T3 Container (wasmtime) 経路でのみ legacy 用途 — TS Native (DEFAULT) は `wit/world.wit` 不要。設計: `00-contracts/lexicons/com/etzhayyim/host/` (Lexicon contract SSoT) + `90-docs/atproto/260324-wit-lexicon-typed-alignment-design.md` (旧 migration doc)
 
 | Mode | 構成 | Build | 用途 |
 |---|---|---|---|
@@ -135,9 +135,9 @@ CF Single Worker
 - actor declaration
   `actor-manifest.jsonld` / actor record → `vertex_actor`
 - capability declaration
-  `app.etzhayyim.agent.actorCapability` record → `vertex_capability`
+  `com.etzhayyim.agent.actorCapability` record → `vertex_capability`
 - policy / governance declaration
-  `app.etzhayyim.agent.governanceRule`, `app.etzhayyim.agent.roleBinding` → `vertex_policy`, `edge_actor_bound_role`, `edge_capability_requires_permission`
+  `com.etzhayyim.agent.governanceRule`, `com.etzhayyim.agent.roleBinding` → `vertex_policy`, `edge_actor_bound_role`, `edge_capability_requires_permission`
 - relationship projection
   `edge_actor_has_capability`, `edge_capability_calls_capability`, `edge_capability_requires_permission`
 
@@ -145,12 +145,12 @@ CF Single Worker
 
 ## Host Capability Contract (Lexicon SSoT, F-Plan 2026-04-13)
 
-**Host capability surface = `00-contracts/lexicons/ai/gftd/host/*.json`** が唯一の contract SSoT。WIT world.wit は T3 Container (wasmtime) 経路でのみ legacy 用途で残存。T3 TS Native (DEFAULT) では Lexicon-driven。
+**Host capability surface = `00-contracts/lexicons/com/etzhayyim/host/*.json`** が唯一の contract SSoT。WIT world.wit は T3 Container (wasmtime) 経路でのみ legacy 用途で残存。T3 TS Native (DEFAULT) では Lexicon-driven。
 
 ### File layout
 
 ```
-00-contracts/lexicons/ai/gftd/host/
+00-contracts/lexicons/com/etzhayyim/host/
 ├── core/configGet.json,        logAppend.json
 ├── authn/verifyToken.json
 ├── authz/enforce.json
@@ -179,7 +179,7 @@ CF Single Worker
 
 ```
 Lexicon JSON                      gen-host-client-from-lexicon.mjs              host-client.ts
-app.etzhayyim.host.secrets.get   ───►   (70-tools/scripts/contract/)         ───►    secretsGet(input: {key:string})
+com.etzhayyim.host.secrets.get   ───►   (70-tools/scripts/contract/)         ───►    secretsGet(input: {key:string})
                                                                                  → requireDispatcher().dispatch(NSID, input)
 ```
 
@@ -203,7 +203,7 @@ sdk.hostImports.secretsGet(key)            secretsGet({ key })               cas
 
 ### CRITICAL: 新規 host capability の追加手順
 
-1. `00-contracts/lexicons/ai/gftd/host/{group}/{action}.json` を作成 (`x-hostImportsMethod` を必ず指定)
+1. `00-contracts/lexicons/com/etzhayyim/host/{group}/{action}.json` を作成 (`x-hostImportsMethod` を必ず指定)
 2. `node 70-tools/scripts/contract/gen-host-client-from-lexicon.mjs` で typed client 再生成
 3. `magatama-host-sdk/src/host-dispatcher.ts` の switch に case を追加
 4. `magatama-host-sdk/src/host-imports.ts` に実装を追加 (まだなければ)
@@ -270,7 +270,7 @@ async function invokeRemote(_sdk: HostSDK, did: string, method: string, params: 
 
 ## App Command Contract (F2, Lexicon SSoT, 2026-04-13)
 
-**App commands (`sdk.app.command(nsid, handler, ...opts)`) の NSID も `00-contracts/lexicons/ai/gftd/apps/{app}/*.json` が SSoT。** TS コード側の NSID 文字列は **派生物**、`nsid()` helper または `LEXICON_NSID` 定数経由でアクセスするのが新規標準。
+**App commands (`sdk.app.command(nsid, handler, ...opts)`) の NSID も `00-contracts/lexicons/com/etzhayyim/apps/{app}/*.json` が SSoT。** TS コード側の NSID 文字列は **派生物**、`nsid()` helper または `LEXICON_NSID` 定数経由でアクセスするのが新規標準。
 
 ### Generated artifacts (`20-actors/magatama/sdk/magatama-host-sdk/src/generated/lexicon-nsid-types.ts`)
 
@@ -281,7 +281,7 @@ async function invokeRemote(_sdk: HostSDK, did: string, method: string, params: 
 | `KnownLexiconQueryNSID` / `KnownLexiconProcedureNSID` / ... | Union 型。Lexicon の `defs.main.type` から分類 |
 | `KnownLexiconNSID` | 全種合体 Union |
 | `StrictCommandNSID<N>` / `StrictQueryNSID<N>` | 厳格 type guard (未知 NSID で **compile error**)。**DEFAULT** for `sdk.app.command/query` |
-| `LEXICON_NSID` | Frozen record。`LEXICON_NSID["app.etzhayyim.apps.foo.bar"] === "app.etzhayyim.apps.foo.bar"` |
+| `LEXICON_NSID` | Frozen record。`LEXICON_NSID["com.etzhayyim.apps.foo.bar"] === "com.etzhayyim.apps.foo.bar"` |
 | `LexiconNsid` | `keyof typeof LEXICON_NSID` |
 | `nsid<N extends LexiconNsid>(n: N): N` | Tagged helper。未知 NSID を compile time で検出 |
 | `LexiconInputMap` / `LexiconOutputMap` | NSID → input/output schema の TS 型マッピング (**2243 件**) |
@@ -314,12 +314,12 @@ import {
 
 export default createWorkerExport((sdk) => {
   sdk.app.command(
-    nsid("app.etzhayyim.apps.foo.bar"),                                   // ← compile error if lexicon missing
+    nsid("com.etzhayyim.apps.foo.bar"),                                   // ← compile error if lexicon missing
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.foo.bar", body);
-      //    ^^ typed as LexiconInput<"app.etzhayyim.apps.foo.bar"> + runtime schema validation
+      const input = parseLexiconInput("com.etzhayyim.apps.foo.bar", body);
+      //    ^^ typed as LexiconInput<"com.etzhayyim.apps.foo.bar"> + runtime schema validation
       //       (throws LexiconValidationError on missing/mistyped properties)
-      const output: LexiconOutput<"app.etzhayyim.apps.foo.bar"> = {
+      const output: LexiconOutput<"com.etzhayyim.apps.foo.bar"> = {
         //  ^^ type auto-derived from the same lexicon output schema
         ok: true,
       };
@@ -347,7 +347,7 @@ export default createWorkerExport((sdk) => {
 | Script | 役割 |
 |---|---|
 | `gen-lexicon-nsid-types.mjs` | Lexicon JSON → `LEXICON_NSID` / `nsid()` / `LexiconInput`/`LexiconOutput` / `LEXICON_INPUT_SCHEMA` |
-| `gen-host-client-from-lexicon.mjs` | `app.etzhayyim.host.*` lexicons → `host-client.ts` (BindingTransport dispatcher) |
+| `gen-host-client-from-lexicon.mjs` | `com.etzhayyim.host.*` lexicons → `host-client.ts` (BindingTransport dispatcher) |
 | `gen-service-from-lexicon.mjs` | Full lexicon set → `service-generated.ts` (XRPC client, atQuery/atProcedure) |
 | `bootstrap-app-lexicons.mjs` | app.ts から不明 NSID を抽出 → stub lexicon 自動生成 (冪等) |
 | `f2-codemod.mjs` | `.command("...", ...)` → `.lexiconCommand(nsid("..."), ...)` |
@@ -357,9 +357,9 @@ export default createWorkerExport((sdk) => {
 
 ### CRITICAL: 新規 app command の追加手順
 
-1. `00-contracts/lexicons/ai/gftd/apps/{app}/{action}.json` を作成 (type: procedure または query、input/output schema 定義)
+1. `00-contracts/lexicons/com/etzhayyim/apps/{app}/{action}.json` を作成 (type: procedure または query、input/output schema 定義)
 2. `node 70-tools/scripts/contract/gen-lexicon-nsid-types.mjs` で `lexicon-nsid-types.ts` を再生成
-3. `src/app.ts` で `sdk.app.command(nsid("app.etzhayyim.apps.{app}.{action}"), handler)` を追加 (query は `sdk.app.query`)
+3. `src/app.ts` で `sdk.app.command(nsid("com.etzhayyim.apps.{app}.{action}"), handler)` を追加 (query は `sdk.app.query`)
 4. Handler 内で `parseLexiconInput(nsid, body)` + `LexiconOutput<...>` を使用
 5. `pnpm exec vitest run` で host-sdk 全 165+ tests 合格を確認
 
@@ -385,7 +385,7 @@ export default createWorkerExport((sdk) => {
   const agents = createAgentLifecycle(sdk.pds, sdk.hostImports, appId);
   const audit = createAuditHelper(sdk.hostImports);
 
-  sdk.app.command("app.etzhayyim.apps.myapp.approve", async (_ctx, body) => {
+  sdk.app.command("com.etzhayyim.apps.myapp.approve", async (_ctx, body) => {
     const { requestId } = decodeJson(body, { requestId: "" });
     const verdict = await consent.approve(requestId);
     audit.success("consent", "approve", requestId);
@@ -500,7 +500,7 @@ import type { Database } from "@etzhayyim/graph-schema";
 const db = createKyselyDb<Database>(env.HYPERDRIVE);
 await db.insertInto("vertex_hr_journalEntry")
   .values({
-    vertex_id: `at://${did}/app.etzhayyim.apps.hr.journalEntry/${rkey}`,
+    vertex_id: `at://${did}/com.etzhayyim.apps.hr.journalEntry/${rkey}`,
     /* ... typed columns from record ... */
   })
   .onConflict((oc) => oc.column("vertex_id").doNothing())
@@ -517,14 +517,14 @@ const rows = await db.selectFrom("vertex_employee").selectAll().limit(50).execut
 ```
 
 **禁止パターン**:
-- `sdk.pds.createRecord("app.etzhayyim.apps.*", ...)` / `sdk.pds.dispatch({type:"com.atproto.repo.createRecord",...})` for domain → `db.insertInto('vertex_<actor>_<kind>').values(...).execute()` を使用 (ADR-0036)
+- `sdk.pds.createRecord("com.etzhayyim.apps.*", ...)` / `sdk.pds.dispatch({type:"com.atproto.repo.createRecord",...})` for domain → `db.insertInto('vertex_<actor>_<kind>').values(...).execute()` を使用 (ADR-0036)
 - `sdk.writeBuffer.push(...)` → Hyperdrive + Kysely 直接書込を使用
 - `sqlQueryAsync()` / `sqlQueryMap()` → `createKyselyDb().selectFrom()` を使用
 - `G("Label").Query()` / `G("Label").Exec()` → `createKyselyDb()` の query builder を使用
 - ローカル `writeRecord()` / `postSocial()` 関数定義 → SDK import + Hyperdrive + Kysely を使用
 - `globalThis.fetch("atproto.etzhayyim.com/...")` → `sdk.pds.*` (social only) を使用
 
-**Exception (PDS pipethrough 維持)**: `app.etzhayyim.vault.*` (D1 zero-knowledge)、`app.etzhayyim.signal.*` (E2E prekey)、`app.bsky.*` / `com.atproto.*` (federable)、`chat.bsky.convo.*` / `wproto.convo.*` (messaging)。
+**Exception (PDS pipethrough 維持)**: `com.etzhayyim.vault.*` (D1 zero-knowledge)、`com.etzhayyim.signal.*` (E2E prekey)、`app.bsky.*` / `com.atproto.*` (federable)、`chat.bsky.convo.*` / `wproto.convo.*` (messaging)。
 
 ### CRITICAL: SDK Singleton (app.ts direct export)
 
@@ -553,14 +553,14 @@ export default createWorkerExport();
 
 | 経路 | 方式 | エラー処理 | 状態 |
 |---|---|---|---|
-| **`serveAsync()` (DEFAULT)** | `await pds.governanceRegisterManifest()` → XRPC `app.etzhayyim.governance.registerManifest` | `catch → console.error` (Worker logs に出力) | **必須** |
+| **`serveAsync()` (DEFAULT)** | `await pds.governanceRegisterManifest()` → XRPC `com.etzhayyim.governance.registerManifest` | `catch → console.error` (Worker logs に出力) | **必須** |
 | ~~`serve()`~~ | `host-imports.dispatch()` → `void rpc()` | **silent fail** (Promise 破棄) | **禁止** |
 
 **禁止**: `sdk.app.serve()` を app.ts 内で呼ぶこと。`createWorkerExport()` が `serveAsync()` を自動呼出し、`_served` flag で二重登録を防止。
 
 **Canonical internal path**:
 - PDS write/query は `https://atproto.etzhayyim.com/xrpc/*` を使用
-- legacy internal HTTP paths と legacy registration NSID (`app.etzhayyim.identity.register`, `app.etzhayyim.capability.declare`, `app.etzhayyim.agent.registerTools`) は使用禁止
+- legacy internal HTTP paths と legacy registration NSID (`com.etzhayyim.identity.register`, `com.etzhayyim.capability.declare`, `com.etzhayyim.agent.registerTools`) は使用禁止
 - 旧 NSID・旧呼び出し (legacy PDS NSID) の再導入は manual review で防止 (gftd lint nsid-regression は CLI ごと撤去 2026-05-20)
 
 ### CRITICAL: XRPC Handler Hard Timeout (2026-04-17)
@@ -592,7 +592,7 @@ export default createWorkerExport();
 
 ### Other Rules
 
-- **Default runtime (CRITICAL)**: TS Native + Lexicon Contract (F-Plan 2026-04-13)。`src/app.ts` + `@etzhayyim/magatama-host-sdk` + esbuild。Host capability は `00-contracts/lexicons/ai/gftd/host/*.json` (SSoT) → `gen-host-client-from-lexicon.mjs` → `magatama-host-sdk/src/generated/host-client.ts` → `host-dispatcher.ts` (BindingTransport) → in-process 実装。WIT は T3 Container 経路のみ
+- **Default runtime (CRITICAL)**: TS Native + Lexicon Contract (F-Plan 2026-04-13)。`src/app.ts` + `@etzhayyim/magatama-host-sdk` + esbuild。Host capability は `00-contracts/lexicons/com/etzhayyim/host/*.json` (SSoT) → `gen-host-client-from-lexicon.mjs` → `magatama-host-sdk/src/generated/host-client.ts` → `host-dispatcher.ts` (BindingTransport) → in-process 実装。WIT は T3 Container 経路のみ
 - **wRPC Stream-Native Reactive Pipeline (CRITICAL, DEFAULT)**: 詳細 → `60-apps/CLAUDE.md` §wRPC Stream-Native Reactive Pipeline。新規 app は `resolveHeartbeatCadence` を使用。Batch polling 禁止
 - **Single Worker 統合 (CRITICAL)**: TS native + host-sdk (Hono) を 1 Worker に統合。Shannon 冗長度 0%
 - **Appview Embed Route (CRITICAL)**: `uiType: "appview"` apps MUST add `sdk.router.get("/embed", ...)` in `src/app.ts` and set `"embedUrl": "https://{nanoid}.etzhayyim.com/embed"` in `magatama.jsonld`. `?embed=1` is handled by the app's `/embed` Hono route. Embed HTML must send `window.parent?.postMessage({type:'gftd:embed:ready',nanoid:'{nanoid}'},'*')`
@@ -646,7 +646,7 @@ SDK 関数一覧:
 | Graph WHERE IN | `.WhereIn("status", []string{"active","draft"})` | `WHERE n.status IN $p0` |
 | Graph WHERE NULL | `.WhereIsNull("deletedAt")` / `.WhereIsNotNull("assignedTo")` | IS NULL / IS NOT NULL |
 | Graph WHERE CONTAINS | `.WhereContains("name", "tokyo")` | `WHERE n.name CONTAINS $p0` |
-| Graph WHERE STARTS WITH | `.WhereStartsWith("collection", "app.etzhayyim.apps")` | `WHERE n.collection STARTS WITH $p0` |
+| Graph WHERE STARTS WITH | `.WhereStartsWith("collection", "com.etzhayyim.apps")` | `WHERE n.collection STARTS WITH $p0` |
 | Graph DISTINCT | `.Distinct().Return("category")` | `RETURN DISTINCT n.category` |
 | Graph count | `magatama.G("Label").MatchAll().Where(Eq{...}).Count()` | → int |
 | Graph ReturnCount | `.ReturnCount("total")` | `count(n) AS total` |
@@ -925,7 +925,7 @@ import { createWorkerExport, asAgentTool, withCapabilityTags, withCapabilityPhas
   AssigneeOrgRole, DecisionClassC } from "@etzhayyim/magatama-host-sdk";
 
 export default createWorkerExport((sdk) => {
-  sdk.app.command("app.etzhayyim.apps.i18n.translate", async (ctx, body) => {
+  sdk.app.command("com.etzhayyim.apps.i18n.translate", async (ctx, body) => {
     // translate handler
     return JSON.stringify({ ok: true });
   },
@@ -948,7 +948,7 @@ export default createWorkerExport((sdk) => {
 
 | CommandOption | Auto-Generated Target | Graph/WIT |
 |---|---|---|
-| `AsAgentTool(desc)` | `ActorCard.tools[]` + `ActorCapability.description` + **MCP tool** | `:ActorCard` node + `:ActorCapability` node → canonical `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) の `tools/list` で自動公開 |
+| `AsAgentTool(desc)` | `ActorCard.tools[]` + `ActorCapability.description` + **MCP tool** | `:ActorCard` node + `:ActorCapability` node → canonical `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) の `tools/list` で自動公開 |
 | `WithCapabilityTags(tags...)` | `ActorCapability.tags[]` | discovery key for `Invoke("", method, params)` |
 | `WithCapabilityPhase(phase)` | `ActorCapability.phase` | CV-1 timeline |
 | `Responsible/Accountable/...` | `GovernanceManifest.RACI` + auto-tag `"governed"` | governance WIT host |

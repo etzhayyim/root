@@ -53,21 +53,21 @@ LIVE_AUTONOMOUS_CHANNELS = {"email"}
 CHANNEL_DISPATCH_TARGETS = {
     "email": {
         "taskType": "mailer.sendEmail",
-        "nsid": "app.etzhayyim.apps.mailer.sendEmail",
+        "nsid": "com.etzhayyim.apps.mailer.sendEmail",
         "payloadKeys": {"to", "subject", "text", "html", "from", "fromAddress", "replyTo"},
         "requiredPayloadKeys": {"to", "subject", "text"},
         "receipt": "messageId",
     },
     "fax": {
         "taskType": "fax.send",
-        "nsid": "app.etzhayyim.apps.fax.send",
+        "nsid": "com.etzhayyim.apps.fax.send",
         "payloadKeys": {"to", "from", "blobKey", "url", "subject", "caseId", "cover"},
         "requiredPayloadKeys": {"to"},
         "receipt": "txId",
     },
     "print-mail": {
         "taskType": "insatsu.printMailJob.createPrintMailJob",
-        "nsid": "app.etzhayyim.apps.insatsu.printMailJob.createPrintMailJob",
+        "nsid": "com.etzhayyim.apps.insatsu.printMailJob.createPrintMailJob",
         "payloadKeys": {
             "document_url",
             "destination_country",

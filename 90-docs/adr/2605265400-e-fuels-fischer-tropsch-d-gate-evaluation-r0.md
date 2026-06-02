@@ -114,7 +114,7 @@ Religious-corp R3+ runs the slate Council-balanced based on aggregate cross-acto
 ## §5 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   eFuelFtBatchAttestation,             # per-batch FT slate + H2 CID + DAC-CO2 CID + α value + product cut breakdown
   eFuelFtProductCutRouting,            # per-cut: kg + downstream consumer CID + food-grade-attestation (for wax)
   silenEFuelFtReview                   # annual Council Lv6+ ≥3 mass-balance + slate-routing audit

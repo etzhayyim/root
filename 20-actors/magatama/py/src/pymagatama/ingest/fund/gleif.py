@@ -9,7 +9,7 @@ def legal_entity_did_from_lei(lei: Any) -> str:
     value = clean(lei).upper()
     if not value:
         return ""
-    return f"at://did:web:legal-entity.etzhayyim.com/app.etzhayyim.apps.legalEntity.legalEntity/{slug(value)}"
+    return f"at://did:web:legal-entity.etzhayyim.com/com.etzhayyim.apps.legalEntity.legalEntity/{slug(value)}"
 
 
 def apply_gleif_enrichment(entity: dict[str, Any], gleif_payload: dict[str, Any]) -> dict[str, Any]:

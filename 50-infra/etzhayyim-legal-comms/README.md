@@ -22,9 +22,9 @@ through `transmitNonLegalAct` and needs no actuation.
 
 ## Endpoints
 
-- `POST /xrpc/app.etzhayyim.legal.sendLegalAct` → 200 receipt, or **422
+- `POST /xrpc/com.etzhayyim.legal.sendLegalAct` → 200 receipt, or **422
   CounselActuationRequired** if actuation is missing/mismatched (G18).
-- `POST /xrpc/app.etzhayyim.legal.sendNonLegalAct` → scheduling/delivery.
+- `POST /xrpc/com.etzhayyim.legal.sendNonLegalAct` → scheduling/delivery.
 
-Lexicon: `app.etzhayyim.legal.outboundLegalAct`. Lint gate:
+Lexicon: `com.etzhayyim.legal.outboundLegalAct`. Lint gate:
 `no-autonomous-legal-act.mjs` (G18).

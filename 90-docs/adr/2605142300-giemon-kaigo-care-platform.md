@@ -103,9 +103,9 @@ kaigo.etzhayyim.com (SvelteKit 5 / CF Worker kg8r2m5n)
 
 | NSID | 種別 | 説明 |
 |---|---|---|
-| `app.etzhayyim.apps.kaigo.getProduct` | query | プラットフォーム製品情報 |
-| `app.etzhayyim.apps.kaigo.calcHousingReformBenefit` | query | 住宅改修費給付額試算 |
-| `app.etzhayyim.apps.kaigo.estimateCareCost` | query | 月額介護費用目安 |
+| `com.etzhayyim.apps.kaigo.getProduct` | query | プラットフォーム製品情報 |
+| `com.etzhayyim.apps.kaigo.calcHousingReformBenefit` | query | 住宅改修費給付額試算 |
+| `com.etzhayyim.apps.kaigo.estimateCareCost` | query | 月額介護費用目安 |
 
 ### Path-based DID エージェント（kaigo.etzhayyim.com）
 

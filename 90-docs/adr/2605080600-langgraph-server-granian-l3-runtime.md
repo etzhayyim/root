@@ -89,7 +89,7 @@ ADR-2605081200 の SpiffWorkflow engine host + BPMN worker を併用する。
 
 ```
 CF Worker (L1)
-    │ XRPC POST  app.etzhayyim.apps.{actor}.{method}
+    │ XRPC POST  com.etzhayyim.apps.{actor}.{method}
     ▼
 bpmn-dispatcher  (L3 routing, 既存 ADR-2604282300)
 http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080
@@ -291,7 +291,7 @@ Phase 3 implementation contract:
 新: K8s CronJob
     schedule: "0 */4 * * *"
     command: ["curl", "-XPOST",
-      "http://bpmn-dispatcher.mitama-udf.svc:8080/xrpc/app.etzhayyim.apps.{actor}.{method}"]
+      "http://bpmn-dispatcher.mitama-udf.svc:8080/xrpc/com.etzhayyim.apps.{actor}.{method}"]
 ```
 
 CronJob は bpmn-dispatcher を経由して `/runs` を POST する。
@@ -318,7 +318,7 @@ Phase 6: Zeebe StatefulSet を shutdown (long-running multi-day process がゼ�
 First XRPC canary:
 
 ```text
-app.etzhayyim.apps.shosha.agentLoop
+com.etzhayyim.apps.shosha.agentLoop
   -> vertex_bpmn_lexicon_binding.routing_target = 'langgraph'
   -> assistant_id = shosha_agent_loop
 ```
@@ -340,7 +340,7 @@ python -m pymagatama.shosha_langgraph_smoke
 ```
 
 The smoke checks `/bindings` for `routingTarget='langgraph'`, then dispatches
-`/xrpc/app.etzhayyim.apps.shosha.agentLoop` and requires the dispatcher to return a
+`/xrpc/com.etzhayyim.apps.shosha.agentLoop` and requires the dispatcher to return a
 LangGraph async run handle (`202`, `assistant_id=shosha_agent_loop`, `run_id`).
 
 ### Zeebe の継続使用条件

@@ -63,7 +63,7 @@ forward default, KEK custody as legacy fallback until C-4.**
 
 ## D1 — public-key-only registration (Stage C-2, landed)
 
-New XRPC `POST /xrpc/app.etzhayyim.auth.registerSigningKey`
+New XRPC `POST /xrpc/com.etzhayyim.auth.registerSigningKey`
 (`handleRegisterSigningKey`): a session-authenticated caller registers a
 **client-generated** signing key by its public half only. The worker:
 
@@ -94,10 +94,10 @@ ARK-derived session key (vitest: sign → verify against the registered public k
 **Server-side verification landed (additive)**: `worker/src-ts/session-pop.ts`
 (`verifySessionPoP`) base58-decodes the registered Ed25519 multibase from the
 public projection and verifies the JWS — read-only, mints nothing, holds no key;
-exposed at `POST /xrpc/app.etzhayyim.auth.verifySessionPoP`. Client↔worker interop
+exposed at `POST /xrpc/com.etzhayyim.auth.verifySessionPoP`. Client↔worker interop
 cross-verified in Node (token signed client-side verifies server-side; multibase
 round-trips; tampered rejected). HS256 issuance is **untouched**.
-**Login path landed (additive)**: `POST /xrpc/app.etzhayyim.auth.createSessionFromPoP`
+**Login path landed (additive)**: `POST /xrpc/com.etzhayyim.auth.createSessionFromPoP`
 establishes a session from a client PoP — the login proof is the member's own
 signature, no passkey round-trip and no server signing-key custody (issues the
 standard HS256 session for downstream compat).

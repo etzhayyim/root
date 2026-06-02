@@ -8,7 +8,7 @@ all RisingWave writes happen in the K8s LangServer pod (ADR-2604282300).
 ```
 caller (kami-cad-import / cargo-cyclonedx)
     │
-    ▼  POST /xrpc/app.etzhayyim.sbom.registerArtifact
+    ▼  POST /xrpc/com.etzhayyim.sbom.registerArtifact
 sbom.etzhayyim.com  (this CF Worker)
     │   validate input shape
     │   parse cdxJson, count components
@@ -48,9 +48,9 @@ the same handler.
 | `magatama.jsonld` | Worker manifest + profile + triggers |
 | `wrangler.jsonc` | CF Worker config + DISPATCHER_INTERNAL_SECRET binding |
 | `src/app.ts` | Hono facade — validate + `proxyToDispatcher` only |
-| `00-contracts/lexicons/ai/gftd/apps/sbom/registerArtifact.json` | XRPC contract (already existed) |
-| `00-contracts/lexicons/ai/gftd/apps/sbom/health.json` | Liveness contract |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/sbom/registerArtifact.bpmn` | BPMN process definition |
+| `00-contracts/lexicons/com/etzhayyim/apps/sbom/registerArtifact.json` | XRPC contract (already existed) |
+| `00-contracts/lexicons/com/etzhayyim/apps/sbom/health.json` | Liveness contract |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/sbom/registerArtifact.bpmn` | BPMN process definition |
 | `30-graph/graph-schema/migrations/20260506100000_vertex_sbom_artifact.ts` | RisingWave schema |
 | `30-graph/graph-schema/migrations/20260506100100_seed_sbom_bpmn_actor.ts` | BPMN process_def + binding seed |
 | `20-actors/magatama/py/src/pymagatama/primitives/sbom.py` | LangServer handler (psycopg2 INSERT) |
@@ -97,8 +97,8 @@ cargo run -p kami-cad-import --example register_roadster | bash
 
 # Software SBOM (cargo-cyclonedx)
 cargo cyclonedx -f json
-gftd agent-token --lxm app.etzhayyim.sbom.registerArtifact > /tmp/tok
-curl -fsSL -X POST https://sbom.etzhayyim.com/xrpc/app.etzhayyim.sbom.registerArtifact \
+gftd agent-token --lxm com.etzhayyim.sbom.registerArtifact > /tmp/tok
+curl -fsSL -X POST https://sbom.etzhayyim.com/xrpc/com.etzhayyim.sbom.registerArtifact \
   -H "Authorization: Bearer $(cat /tmp/tok)" \
   -H "Content-Type: application/json" \
   --data '{"format":"CycloneDX","specVersion":"1.5","sourceUri":"file://Cargo.lock","sourceSha256":"...","license":"MIT","cdxJson":"<<full doc>>"}'
@@ -106,5 +106,5 @@ curl -fsSL -X POST https://sbom.etzhayyim.com/xrpc/app.etzhayyim.sbom.registerAr
 
 ## Health
 
-`POST /xrpc/app.etzhayyim.sbom.health` → `{ ok, did, ts, phase, note }`
+`POST /xrpc/com.etzhayyim.sbom.health` → `{ ok, did, ts, phase, note }`
 — public, no auth.

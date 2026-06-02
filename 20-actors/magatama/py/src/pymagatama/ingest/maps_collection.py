@@ -313,7 +313,7 @@ def _to_db_timestamp(value: str) -> str:
 
 def _insert_spatial(entity: str, props: dict[str, Any], rec_id: str | None = None) -> dict[str, Any]:
     label = MAPS_ENTITY_LABELS.get(entity, entity[:1].upper() + entity[1:])
-    collection = f"app.etzhayyim.apps.maps.{entity}"
+    collection = f"com.etzhayyim.apps.maps.{entity}"
     rkey = _s(rec_id or props.get(f"{entity}Id") or props.get("id") or props.get("name") or _id(entity))
     vertex_id = f"at://{OWNER_DID}/{collection}/{rkey}"
     row_props = {**props, "nodeLabel": props.get("nodeLabel") or label, "createdAt": props.get("createdAt") or now_iso()}
@@ -854,7 +854,7 @@ def register_region(
     if not display_name or lat is None or lng is None:
         return {"error": "displayName, lat, lng required"}
     region_id = f"r_{_id('r')}"
-    canonical_did = f"at://{OWNER_DID}/app.etzhayyim.apps.maps.adminArea/adminArea:{region_id}"
+    canonical_did = f"at://{OWNER_DID}/com.etzhayyim.apps.maps.adminArea/adminArea:{region_id}"
     code_map = _normalize_region_codes(codes)
     record: dict[str, Any] = {
         "regionId": region_id,
@@ -877,7 +877,7 @@ def register_region(
     _insert_spatial("adminArea", record, f"adminArea:{region_id}")
     aliases = 0
     for scheme, code in code_map.items():
-        alias_did = f"at://{OWNER_DID}/app.etzhayyim.apps.maps.geoAlias/geoAlias:{scheme}:{code}"
+        alias_did = f"at://{OWNER_DID}/com.etzhayyim.apps.maps.geoAlias/geoAlias:{scheme}:{code}"
         _insert_spatial(
             "geoAlias",
             {
@@ -1752,7 +1752,7 @@ def expand_frontier(targets: Any = None, **_: Any) -> dict[str, Any]:
         ttl_hours = _n(target.get("ttlHours"), 168)
         slug = source_did.replace("did:web:maps.etzhayyim.com:", "").replace("did:web:maps.etzhayyim.com", "")
         slug = slug.replace(".", "-").replace(":", "-") or "primary"
-        vertex_id = f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/{slug}:{label}"
+        vertex_id = f"at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/{slug}:{label}"
         exists = _row("SELECT vertex_id FROM vertex_maps_coverage_target WHERE vertex_id = %s LIMIT 1", (vertex_id,))
         if exists:
             skipped += 1
@@ -1821,7 +1821,7 @@ def seed_all_known_variations(dryRun: Any = False, **_: Any) -> dict[str, Any]:
         label = _s(candidate["label"])
         slug = source_did.replace("did:web:maps.etzhayyim.com:", "").replace("did:web:maps.etzhayyim.com", "")
         slug = slug.replace(".", "-").replace(":", "-") or "primary"
-        vertex_id = f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/{slug}:{label}"
+        vertex_id = f"at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/{slug}:{label}"
         if vertex_id in have:
             skipped += 1
             continue

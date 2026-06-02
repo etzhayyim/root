@@ -93,7 +93,7 @@ R3 exception. JP-first; jurisdiction-generic.
 
 ## §2 Coded remedy registry
 
-Each remedy/route is an `app.etzhayyim.kurashimori.remedyTarget` record holding
+Each remedy/route is an `com.etzhayyim.kurashimori.remedyTarget` record holding
 the **remedy kind / 根拠法令 / statutory window (日数) / required 書面 form /
 delivery channel (内容証明 / 電子 / portal) / escalation forum**. Seed at
 `registry/targets.seed.json` (5 entries, all `unverified-seed`): 訪問販売
@@ -131,7 +131,7 @@ template. G14 verification gate identical to toritsugi.
   counsel**; the cooling-off "eligibility" output is an informational date
   computation, explicitly NOT a legal opinion.
 - **G6** **PII confidentiality** — member PII + contract/complaint content land
-  ONLY in `app.etzhayyim.encrypted.*` DID-bound envelopes (ADR-2605181100);
+  ONLY in `com.etzhayyim.encrypted.*` DID-bound envelopes (ADR-2605181100);
   never plaintext on MST.
 - **G7** Murakumo-only inference (ADR-2605215000).
 - **G8** **Non-fabrication** — never invent a 根拠法令 / 日数 / 様式; every
@@ -170,7 +170,7 @@ official 消費生活センター (unofficial assistant) · N11 NOT a plaintext-
 · N12 NOT Japan-exclusive (JP-first R0) · N13 NOT a legal-opinion / rights-
 determination engine (informational date-computation only).
 
-## §6 Lexicons (7, `app.etzhayyim.kurashimori.*`)
+## §6 Lexicons (7, `com.etzhayyim.kurashimori.*`)
 
 `remedyTarget` (coded remedy/route registry; `verificationStatus`) ·
 `complaintSession` (member-facing session) · `coolingOffAssessment` (informational
@@ -195,7 +195,7 @@ chigiri+counsel).
   routes, wakai absorbs (its own gates).
 - **warifu (割符, ADR-2605302000)**: a disputed card charge may have a warifu-side
   chargeback/refund path; kurashimori coordinates the consumer-side demand.
-- **`app.etzhayyim.encrypted.*` (ADR-2605181100)**: only home for member PII +
+- **`com.etzhayyim.encrypted.*` (ADR-2605181100)**: only home for member PII +
   contract/complaint content.
 - **kotoba EAVT (ADR-2605262130)**: registry + session/draft/dispatch lifecycle
   datoms; no RisingWave.
@@ -241,7 +241,7 @@ chigiri+counsel).
 # References
 
 - This ADR: `/90-docs/adr/2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0.md`
-- Actor: `/20-actors/kurashimori/` · Lexicons: `/00-contracts/lexicons/app/etzhayyim/kurashimori/`
+- Actor: `/20-actors/kurashimori/` · Lexicons: `/00-contracts/lexicons/com/etzhayyim/kurashimori/`
 - ADR-2605312030 (toritsugi — sibling pattern) · ADR-2605312400 (moushibumi — sibling) · ADR-2605302130 (himotoki)
 - ADR-2605262700 (chigiri — escalation + UPL) · ADR-2605263500 (wakai — mutual-aid relief) · ADR-2605302000 (warifu — chargeback coordination)
 - ADR-2605181100 (confidentiality) · ADR-2605262130 (kotoba) · ADR-2605192100 §1.12 · ADR-2605192200 (Charter Rider) · ADR-2605192300 (Council) · ADR-2605215000 (Murakumo-only)

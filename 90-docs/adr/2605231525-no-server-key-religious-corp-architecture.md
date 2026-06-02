@@ -76,12 +76,12 @@ posture and is itemised here as the authoritative migration list.
 | 4 | `DATABASE_URL` (RisingWave creds) | bulk-ingest pods + Worker `HYPERDRIVE` | Direct INSERT into `vertex_spatial` and friends | Community operator publishes signed AT records → etzhayyim relay subscribes → yatachain-projection rebuilds the read cache (ADR-2605231500). |
 | 5 | `B2_ACCESS_KEY_ID` / `B2_SECRET_ACCESS_KEY` | bulk-ingest pods | Parquet shard + gsplat PLY + baked GLB upload | Content-addressed CID. Members or community operators submit `{cid, sha256}`; etzhayyim pins via IPFS (no upload credentials). |
 | 6 | `RESEND_API_KEY` | auth Worker, yatabase Worker | Magic-link + invoice email | Member-side SMTP (ProtonMail / Migadu / self-hosted). etzhayyim emits unsigned event records; member's own client polls them. |
-| 7 | `MAPILLARY_ACCESS_TOKEN` | gsplat-train k8s deploy | Mapillary image fetch | Community operator's token. Their submission lands as a member-signed `app.etzhayyim.maps.gsplatAsset` record. |
+| 7 | `MAPILLARY_ACCESS_TOKEN` | gsplat-train k8s deploy | Mapillary image fetch | Community operator's token. Their submission lands as a member-signed `com.etzhayyim.maps.gsplatAsset` record. |
 | 8 | `RUNPOD_API_KEY` | gsplat-train k8s deploy | GPU job submission for 3D Gaussian Splatting | Same — community operator runs the trainer with their own RunPod account. |
 | 9 | `ODPT_API_KEY` | gtfs-rt k8s deploy | Real-time transit feeds | Same — community operator runs the dumper with their own ODPT registration. |
 | 10 | `DISPATCHER_INTERNAL_SECRET` | Worker ↔ bpmn-dispatcher pod HMAC | Worker-to-pod auth | Disappears once internal pods are removed (see #4). If a residual pod survives, its operator runs it with their own HMAC chain. |
 | 11 | `YATA_AGENT_ADMIN_KEY` | yatabase Worker | Single-operator admin gate for outbox approve / batch trigger | Council Lv6+ 5-of-7 Safe multisig (1 SBT = 1 vote, already deployed for the Public Fund). |
-| 12 | `EMBED_AUTH_TOKEN` | maps-ui Worker → embedder pod | Vector embedding service auth | Community-operated embedder; submission is a member-signed `app.etzhayyim.maps.visionResult` record. |
+| 12 | `EMBED_AUTH_TOKEN` | maps-ui Worker → embedder pod | Vector embedding service auth | Community-operated embedder; submission is a member-signed `com.etzhayyim.maps.visionResult` record. |
 | 13 | Auth Worker P-256 keypair per agent (715+ ES256 keys) | KEYS_DB (D1, KEK-wrapped) | Service Auth JWT signing for AI agents | Each agent generates its own keypair on the member's device; KEYS_DB becomes a yatachain-projection cache (ADR-2605231500) that the operator can rebuild. |
 
 `STRIPE_SECRET_KEY` (already removed per Charter Rider §2,
@@ -134,8 +134,8 @@ None of them require signing capability:
    license layer, not only the operational layer.
 
 2. **Member-write model**: all writes to etzhayyim-controlled
-   collections (`app.etzhayyim.apps.maps.*`, `app.etzhayyim.apps.payment.*`,
-   `app.etzhayyim.auth.*`, `app.etzhayyim.encrypted.*`, …) MUST be
+   collections (`com.etzhayyim.apps.maps.*`, `com.etzhayyim.apps.payment.*`,
+   `com.etzhayyim.auth.*`, `com.etzhayyim.encrypted.*`, …) MUST be
    signed by the member, donor, contributor, or community operator
    whose action they record. etzhayyim relays do not sign on behalf
    of any subject.
@@ -210,8 +210,8 @@ None of them require signing capability:
      (`isValidSignature` magic value `0x1626ba7e`). Smoke-tested
      2026-05-23 with placeholder Safe address — produces valid
      canonical JSON + attestation envelope.
-     **C-2 (per-agent device key)**: `app.etzhayyim.auth.registerAgentKey`
-     replaces `app.etzhayyim.auth.createAgentSession`'s server-side
+     **C-2 (per-agent device key)**: `com.etzhayyim.auth.registerAgentKey`
+     replaces `com.etzhayyim.auth.createAgentSession`'s server-side
      `crypto.subtle.generateKey`. Agent runtime (operator's own
      device) generates the keypair locally, POSTs public key + a
      WebAuthn-style PoP. `vertex_gftd_key_signing.private_key_b64`
@@ -230,7 +230,7 @@ None of them require signing capability:
    - **Stage D — External-API liability handover** · 🟡 scaffold ready, blocked on Stage B.
      Six external credentials migrate to community-operator
      ownership: RESEND_API_KEY (auth + yatabase email; replaced by
-     member-side SMTP emitting `app.etzhayyim.apps.email.outbox`), B2
+     member-side SMTP emitting `com.etzhayyim.apps.email.outbox`), B2
      keys (replaced by content-addressed CIDs pinned via IPFS),
      MAPILLARY_ACCESS_TOKEN + RUNPOD_API_KEY (community operator's
      own gsplat trainer pod), ODPT_API_KEY (community operator's
@@ -381,7 +381,7 @@ None of them require signing capability:
 - `60-apps/ai-gftd-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md`
 - `60-apps/ai-gftd-project-auth/yatachain-projection.toml` (already shipped, decl D1 as L0-rebuildable)
 - `60-apps/ai-gftd-project-auth/worker/src-ts/substrate-mst-credential.ts` (already shipped, encrypted-MST seam)
-- `00-contracts/lexicons/ai/gftd/auth/credential.json` (already shipped, inner-type lexicon)
+- `00-contracts/lexicons/com/etzhayyim/auth/credential.json` (already shipped, inner-type lexicon)
 
 **Stage D — External-API liability handover (scaffold)**
 

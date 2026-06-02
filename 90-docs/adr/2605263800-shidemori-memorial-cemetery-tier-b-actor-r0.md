@@ -13,7 +13,7 @@ priority_note: "Tenth-priority (FINAL) gap-closure actor (gap audit row 10 = 冥
 authoritative_for:
   - shidemori actor R0 charter (FINAL gap-closure of 10-actor 30min-loop wave)
   - religious-corp memorial + cemetery substrate single SoT
-  - `app.etzhayyim.shidemori.*` Lexicon namespace boundary
+  - `com.etzhayyim.shidemori.*` Lexicon namespace boundary
   - Charter §1.15 non-eschatological discipline in memorial domain (NO afterlife doctrine imposition)
   - cross-doctrinal Wellbecoming priority in memorial domain (Christian + Buddhist + Shinto + nondenominational + secular accommodation)
   - NOT-state-licensed-mortuary invariant (community-witnessed-competent guardians, NOT licensed funeral director)
@@ -136,7 +136,7 @@ Constitutional constraints (inherited; not adjustable):
 Create `shidemori` (死出守) as a Tier-B religious-corp memorial +
 cemetery substrate actor at `20-actors/shidemori/`, with DID
 `did:web:shidemori.etzhayyim.com`, Lexicon namespace
-`app.etzhayyim.shidemori.*`. R0 = scaffold only; all cells import-time
+`com.etzhayyim.shidemori.*`. R0 = scaffold only; all cells import-time
 `RuntimeError`.
 
 ## §1. Identity and naming
@@ -145,7 +145,7 @@ cemetery substrate actor at `20-actors/shidemori/`, with DID
 |---|---|
 | Name | `shidemori` (死出守 — guardian of the death-journey; 死出 = 死出の旅 classical imagery + 守 = keeper) |
 | DID | `did:web:shidemori.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.shidemori.*` |
+| Lexicon root | `com.etzhayyim.shidemori.*` |
 | Form | 任意団体 internal memorial + cemetery substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格; NOT state-licensed mortuary entity — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | Final gap-closure | This actor completes the 10-actor 30min-loop gap-closure wave (audit list: toritate / iyashi / mizuho / kazaori / musubi / wakai / kataribe / kokoro / shidemori — and chigiri preceded as the kick-off) |
@@ -232,7 +232,7 @@ All R0 path-reserved; import-time `RuntimeError("shidemori R0 scaffold: activate
 R1 activation gates each cell separately + ≥3 guardian baseline
 attestations + ≥1 cemetery Land Registry waqf-attested entry.
 
-## §4. Lexicons (5, all under `app.etzhayyim.shidemori.*`)
+## §4. Lexicons (5, all under `com.etzhayyim.shidemori.*`)
 
 | # | Lexicon | Consumer cell | Purpose |
 |---|---|---|---|
@@ -247,7 +247,7 @@ attestations + ≥1 cemetery Land Registry waqf-attested entry.
 | Gate | Description |
 |---|---|
 | **G1** | Every memorial document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `app.etzhayyim.shidemori.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.shidemori.*` Lexicon with yatachain attestation lineage. |
 | **G3** | **Charter §1.15 non-eschatological** — NO apocalyptic / millennial / specific-heaven-hell-mapping afterlife claims; honors deceased without imposing afterlife doctrine; `memorialNftAttestation.afterlifeDoctrineImposed` const false structural (extends kataribe G4 pattern to memorial domain). |
 | **G4** | **Cross-doctrinal Wellbecoming priority** — Christian + Buddhist (49日 / 中陰) + Shinto (鎮魂) + nondenominational + secular memorial preferences all accommodated (musubi G9+N12 + kataribe G6 + kokoro G12 pattern shared, now 4-actor maturity in memorial domain). |
 | **G5** | **NOT state-licensed mortuary services** — community-witnessed-competent guardians per musubi G3 pattern shared; external licensed mortuary engagement via Public Fund Safe Council Lv6+ ≥4/7 (chigiri G14 + iyashi N9 + kokoro G3 UPL-equivalent pattern extended to mortuary). |
@@ -305,7 +305,7 @@ attestations + ≥1 cemetery Land Registry waqf-attested entry.
 
 1. This ADR (`90-docs/adr/2605263800-shidemori-memorial-cemetery-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/shidemori/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/shidemori/` + README;
+3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/shidemori/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 77 + Repo Layout entry;

@@ -11,5 +11,5 @@ Per ADR-2605312700. R0 scaffold — `cell.py` raises at import time until R1
 - **Actor**: kizashi (兆) — `did:web:kizashi.etzhayyim.com`
 - **Murakumo node (proposed)**: asher
 - **Gates**: G10 (verified-modality-only; bio-resonance/aura/波動 grade-X EXCLUDED) + G4 (regulated modalities R3-gated) + G9 (ALARA — ionizing = referral)
-- **Output Lexicon(s)**: app.etzhayyim.kizashi.modalityCapability (PUBLIC)
+- **Output Lexicon(s)**: com.etzhayyim.kizashi.modalityCapability (PUBLIC)
 - **Ceiling**: ANTI-PSEUDOSCIENCE (G10) · DEVICE-BOUNDARY (G4) · Murakumo-only inference (ADR-2605215000)

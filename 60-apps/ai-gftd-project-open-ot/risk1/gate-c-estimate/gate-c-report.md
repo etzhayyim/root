@@ -99,8 +99,8 @@ The estimate is bottom-up; the SPEC threshold (6 PM) carries a 26 % slack agains
 
 | Item | Status |
 |---|---|
-| Build → sign → pin | Specced in SPEC §9: cargo build → `wamrc` AOT → builder DID Ed25519 sign → CID via `b3sum` → atproto record via `app.etzhayyim.apps.openOt.pinModule` |
-| Today | CLI stub at `scripts/builder-sign.sh` (per cells/CLAUDE.md note from 2026-05-20 CLI removal); `pinModule` Lexicon already exists at `00-contracts/lexicons/ai/gftd/apps/openOt/pinModule.json` |
+| Build → sign → pin | Specced in SPEC §9: cargo build → `wamrc` AOT → builder DID Ed25519 sign → CID via `b3sum` → atproto record via `com.etzhayyim.apps.openOt.pinModule` |
+| Today | CLI stub at `scripts/builder-sign.sh` (per cells/CLAUDE.md note from 2026-05-20 CLI removal); `pinModule` Lexicon already exists at `00-contracts/lexicons/com/etzhayyim/apps/openOt/pinModule.json` |
 | Edge verification | Mimi / Te / Atama pull CID over XRPC, verify Ed25519 sig against builder DID resolved from atproto, load via WAMR — **not yet implemented** |
 | Risk | Cortex-M7 Ed25519 verify (~5 ms on STM32H753) is well within budget for the boot-time check. Tooling for signing is mature (e.g. `signify-rs`, `ed25519-dalek`) |
 | Effort breakdown | (a) Builder signing CLI re-implementation in Rust (cells/builder-sign-rs); (b) Ed25519 verify shim for Cortex-M7 in `firmware/mimi-zephyr/src/aot-verify.c` + integration with MCUboot; (c) `pinModule` XRPC handler on the cloud gateway VKE + LangServer pod |
@@ -144,7 +144,7 @@ Bottom-up rates assume one full-time engineer with industrial-cyber experience +
 | LLVM 18 EOL forces upgrade mid-cert | medium | low | Quarterly CVE review; LLVM 19 validation when WAMR upstreams it (~Q4 2026) |
 | External consultant unavailable for §2.6 review | medium | medium | Pre-engage at Risk-1 PASS; budget includes 0.25 PM consultant time |
 | Cortex-M7 Ed25519 verify exceeds boot-time budget | low | very low | Already benchmarked at ~5 ms; MCUboot's existing Ed25519 path is reusable |
-| SL-2 gap (FR 2 role-based use control) requires SBT redesign | medium | low | SBT ↔ role binding already in `app.etzhayyim.apps.openOt` Lexicon set; gap is plumbing |
+| SL-2 gap (FR 2 role-based use control) requires SBT redesign | medium | low | SBT ↔ role binding already in `com.etzhayyim.apps.openOt` Lexicon set; gap is plumbing |
 
 No risk is rated high. No risk pushes the estimate over 6 PM in isolation.
 

@@ -109,7 +109,7 @@ Once 5 Lv6+ + 1 Lv9 chair are committed:
    )
    ```
 2. The off-chain signature set is enveloped (XChaCha20-Poly1305 per ADR-2605181100) to the Lv9 chair + Public Fund auditor DIDs
-3. Council secretary publishes the encrypted set as an MST record under `app.etzhayyim.apps.etzhayyim.governance.councilRatification`
+3. Council secretary publishes the encrypted set as an MST record under `com.etzhayyim.apps.etzhayyim.governance.councilRatification`
 
 ### Step 3 — On-chain witness
 

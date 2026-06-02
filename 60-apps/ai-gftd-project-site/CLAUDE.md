@@ -20,7 +20,7 @@
 - Spec: `90-docs/adr/0029-did-gftd-method-specification.md`
 - Lib: `10-protocol/did-gftd/` (CIDv1 + DAG-CBOR genesis op + W3C DID Doc)
 - Resolver: `did.etzhayyim.com` (`10-protocol/did-gftd/resolver/`)
-- Migration XRPC: `app.etzhayyim.identity.submitOp` (PDS handler)
+- Migration XRPC: `com.etzhayyim.identity.submitOp` (PDS handler)
 - 既存 15,283 wikipedia path は **topological-sort で root → leaf 順** に CIDv1 化 (`gftd identity migrate-paths --root did:web:site.etzhayyim.com`、scaffold 予定)
 
 CONTROLS chain は path syntax で自動的に表現される (parent = `did.split(':').slice(0,-1).join(':')`)。新規追加に `:CONTROLS` edge の手動 INSERT は不要 (ADR-0029 §Path-Form DID Resolution)。
@@ -71,7 +71,7 @@ site.etzhayyim.com (single APP, 1 Worker)
 | Tier | API | Record | 用途 |
 |---|---|---|---|
 | **Tier 1 Social** | `AppBskyFeedPost(topicDID, ...)` | `app.bsky.feed.post` | topic/domain DID から social post → followers に ComAtprotoSyncSubscribeRepos |
-| **Tier 2 Domain** | `DIDWrite(pageDID, ...)` / `ComAtprotoRepoCreateRecord(...)` | `app.etzhayyim.apps.site.*` | page metadata, topic metadata, follower events |
+| **Tier 2 Domain** | `DIDWrite(pageDID, ...)` / `ComAtprotoRepoCreateRecord(...)` | `com.etzhayyim.apps.site.*` | page metadata, topic metadata, follower events |
 | **Tier 3 State** | `Preferences()` | — | evolution config |
 
 ### Follower Routing (100B Scale)
@@ -113,7 +113,7 @@ enqueue-url / enqueue-bulk / ComAtprotoSyncSubscribeRepos (cross-actor URL menti
 
 - Max depth = 3 (link discovery stops after 3 hops)
 - Batch size = 20 URLs per heartbeat (60s interval = ~28,800 pages/day)
-- robots.txt: cached as `app.etzhayyim.apps.site.robots_txt` record (24h TTL), `User-agent: gftd-bot` + `*`
+- robots.txt: cached as `com.etzhayyim.apps.site.robots_txt` record (24h TTL), `User-agent: gftd-bot` + `*`
 - Per-domain cooldown via crawl_delay from robots.txt (default 1s)
 - Failed entries are marked, not retried immediately
 
@@ -141,9 +141,9 @@ General web crawl produces 3 output formats (WARC-alternative):
 
 | Format | Record | Content | LLM Use |
 |---|---|---|---|
-| **WET** | `app.etzhayyim.apps.site.wet` | Markdown text chunks (512 tokens, sentence boundary) | Text embedding (Murakumo) |
-| **WAT** | `app.etzhayyim.apps.site.wat` | JSON metadata (URL, headers, outlinks, OG, language) | Link graph, analytics |
-| **WebP** | `app.etzhayyim.apps.site.screenshot` | WebP screenshot blob (1280x720, quality 80) | ColPali visual embedding |
+| **WET** | `com.etzhayyim.apps.site.wet` | Markdown text chunks (512 tokens, sentence boundary) | Text embedding (Murakumo) |
+| **WAT** | `com.etzhayyim.apps.site.wat` | JSON metadata (URL, headers, outlinks, OG, language) | Link graph, analytics |
+| **WebP** | `com.etzhayyim.apps.site.screenshot` | WebP screenshot blob (1280x720, quality 80) | ColPali visual embedding |
 
 ### Pipeline Flow
 
@@ -200,7 +200,7 @@ Phase 3: phase3_wat_to_cypher.py (60-apps/ai-gftd-project-common-crawl/70-tools/
 
 Phase 4: phase4_murakumo_classify_did.py
   Murakumo LLM (qwen3-30b) で internet domain → 403 world domain 分類
-  → domain_mapping.json → PDS XRPC DID inject (app.etzhayyim.apps.site.classified)
+  → domain_mapping.json → PDS XRPC DID inject (com.etzhayyim.apps.site.classified)
 
 Phase 5: docs update
 ```
@@ -259,16 +259,16 @@ Graph context enrichment:
 
 | Record Kind | Lexicon NSID | Writer DID | Key Fields |
 |---|---|---|---|
-| `site_topic` | `app.etzhayyim.apps.site.topic` | Primary DID | topic, slug, did |
-| `site_domain` | `app.etzhayyim.apps.site.domain` | Primary DID | domain, slug, did, topics |
-| `site_page` | `app.etzhayyim.apps.site.page` | Page DID | url, domain, did, title, content_hash, topics (legacy catalog) |
-| `site_wet` | `app.etzhayyim.apps.site.wet` | Primary DID | url, domain, chunk_index, total_chunks, markdown, content_hash, language, section, token_count |
-| `site_wat` | `app.etzhayyim.apps.site.wat` | Primary DID | url, domain, title, language, mime_type, status_code, outlinks, outlink_count, content_hash |
-| `site_screenshot` | `app.etzhayyim.apps.site.screenshot` | Primary DID | url, domain, blob_ref, format, width, height, quality, file_size |
-| `site_robots_txt` | `app.etzhayyim.apps.site.robots_txt` | Primary DID | domain, rules, crawl_delay, sitemap_urls, expires_at |
-| `site_crawl` | `app.etzhayyim.apps.site.crawl` | Domain DID | session_id, domain, page_count |
-| `site_frontier` | `app.etzhayyim.apps.site.frontier` | Primary DID | url, domain, status, priority, depth, topics, source |
-| `site_follower_event` | `app.etzhayyim.apps.site.follower_event` | Primary DID | follower_did, action |
+| `site_topic` | `com.etzhayyim.apps.site.topic` | Primary DID | topic, slug, did |
+| `site_domain` | `com.etzhayyim.apps.site.domain` | Primary DID | domain, slug, did, topics |
+| `site_page` | `com.etzhayyim.apps.site.page` | Page DID | url, domain, did, title, content_hash, topics (legacy catalog) |
+| `site_wet` | `com.etzhayyim.apps.site.wet` | Primary DID | url, domain, chunk_index, total_chunks, markdown, content_hash, language, section, token_count |
+| `site_wat` | `com.etzhayyim.apps.site.wat` | Primary DID | url, domain, title, language, mime_type, status_code, outlinks, outlink_count, content_hash |
+| `site_screenshot` | `com.etzhayyim.apps.site.screenshot` | Primary DID | url, domain, blob_ref, format, width, height, quality, file_size |
+| `site_robots_txt` | `com.etzhayyim.apps.site.robots_txt` | Primary DID | domain, rules, crawl_delay, sitemap_urls, expires_at |
+| `site_crawl` | `com.etzhayyim.apps.site.crawl` | Domain DID | session_id, domain, page_count |
+| `site_frontier` | `com.etzhayyim.apps.site.frontier` | Primary DID | url, domain, status, priority, depth, topics, source |
+| `site_follower_event` | `com.etzhayyim.apps.site.follower_event` | Primary DID | follower_did, action |
 
 ## SQL Graph Schema
 

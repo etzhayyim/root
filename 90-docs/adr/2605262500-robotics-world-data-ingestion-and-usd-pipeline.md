@@ -70,7 +70,7 @@ hodoki / makura / igata-outdoor / tsutae).
 What already exists, and what this ADR builds on rather than reinventing:
 
 - `e7m-dataset` (ADR-2605241500) — DataLad + git-annex `directory` +
-  IPFS pinner + `app.etzhayyim.substrate.datasetPin` Lexicon as the
+  IPFS pinner + `com.etzhayyim.substrate.datasetPin` Lexicon as the
   receipt. Four existing fetchers: HF / GeoNames / OSM Geofabrik /
   Wikidata SPARQL.
 - `maps_sentinel_murakumo` M1 T0 (ADR-2605215100) — Sentinel-2
@@ -175,7 +175,7 @@ e7m-dataset publish-ipfs <subdataset>
 IPFS Kubo (replicationMin: 2)
         │
         ▼
-app.etzhayyim.substrate.datasetPin record on PDS (receipt)
+com.etzhayyim.substrate.datasetPin record on PDS (receipt)
         │
         ├─────────────► (A) SIM SCENE ASSEMBLY (hot path, THIS ADR)
         │                scene-recipe.toml (per-sim-scene)
@@ -272,7 +272,7 @@ world:
   layers:
     - kind: terrain
       source_subdataset: "geo/srtm/n35e139"
-      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/<rkey>"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey>"
       tier: A
       shader: "kami-pbrt:Soil_Grass"
 

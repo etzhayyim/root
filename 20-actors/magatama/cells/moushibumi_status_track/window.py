@@ -27,7 +27,7 @@ Pregel wrapper. ``cell.py`` (``MoushibumiStatusTrackCell``) remains import-time
 R2). Landing + testing this core does NOT activate the cell; once Council activates,
 ``super_step`` will call :func:`compute_window` and :func:`to_window_record`.
 
-Output shape mirrors Lexicon ``app.etzhayyim.moushibumi.statusTrack``
+Output shape mirrors Lexicon ``com.etzhayyim.moushibumi.statusTrack``
 (participation-window facet).
 """
 
@@ -201,7 +201,7 @@ def to_window_record(
     session_ref: str | None = None,
     encrypted_detail_ref: str | None = None,
 ) -> dict:
-    """Build an ``app.etzhayyim.moushibumi.statusTrack``-shaped (window facet) record.
+    """Build an ``com.etzhayyim.moushibumi.statusTrack``-shaped (window facet) record.
 
     ``isLegalOpinion`` and ``rendersAdvice`` are asserted ``False`` before return —
     G5 / G9 schema invariants this function structurally cannot violate.

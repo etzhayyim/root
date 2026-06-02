@@ -1,4 +1,4 @@
-# app.etzhayyim.give.* — Lexicons
+# com.etzhayyim.give.* — Lexicons
 
 Giving / donation-side records for the religious-corp. All flows are **non-profit,
 donation-only** (ADR-2605192115 + ADR-2605192100 §2). On-chain settlement is

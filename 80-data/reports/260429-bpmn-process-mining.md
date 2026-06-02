@@ -78,31 +78,31 @@
 
 | Severity | Type | Process | Project | Tasks | Gateways | Source |
 | --- | --- | --- | --- | ---: | ---: | --- |
-| medium | long_straight_through_flow | gstr3b_amend | gstr3b | 5 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/gstr3b/amend.bpmn |
-| medium | long_straight_through_flow | mangaka_compose_page | mangaka | 5 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/mangaka/composePage.bpmn |
-| medium | long_straight_through_flow | natural_person_generate_cohort_batch_v1 | natural-person | 5 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/natural-person/generateCohortBatch.bpmn |
-| medium | long_straight_through_flow | open_lei_collect_gleif_global_lei | open-lei | 5 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/open-lei/collectGleifGlobalLei.bpmn |
-| medium | long_straight_through_flow | open_ossekai_generate_wellbecoming_plan | open-ossekai | 5 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/open-ossekai/generateWellBecomingPlan.bpmn |
-| medium | long_straight_through_flow | open_ossekai_score_jocho | open-ossekai | 5 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/open-ossekai/scoreJocho.bpmn |
-| medium | missing_audit_emit | business_person_enrich_org_lei | business-person | 4 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/business-person/enrichOrgLei.bpmn |
-| medium | missing_audit_emit | lawfirm_issue_invoice | lawfirm | 4 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/lawfirm/issueInvoice.bpmn |
-| medium | missing_audit_emit | legal_corpus_fetch_and_embed | legal-corpus | 4 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/fetchAndEmbed.bpmn |
-| medium | missing_audit_emit | projector_agent_loop | projector | 4 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/projector/agentLoop.bpmn |
-| medium | missing_audit_emit | business_person_enrich_global_persons | business-person | 3 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/business-person/enrichGlobalPersons.bpmn |
-| medium | missing_audit_emit | lawfirm_run_conflict_check | lawfirm | 3 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/lawfirm/runConflictCheck.bpmn |
-| medium | missing_audit_emit | legal_corpus_embed_document | legal-corpus | 3 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/embedDocument.bpmn |
-| medium | missing_audit_emit | legal_corpus_fetch_courtlistener_delta | legal-corpus | 3 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/fetchCourtListenerDelta.bpmn |
-| medium | missing_audit_emit | open_cyber_vuln_fetch_nvd_delta | open-cyber-vuln | 3 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/open-cyber-vuln/fetchNvdDelta.bpmn |
-| medium | missing_audit_emit | open_oss_vuln_fetch_ghsa_delta | open-oss-vuln | 3 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/open-oss-vuln/fetchGhsaDelta.bpmn |
-| medium | missing_audit_emit | open_sales_compute_forecast | open-sales | 3 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/open-sales/computeForecast.bpmn |
-| medium | missing_audit_emit | kakaku_ingest_offer_from_url | kakaku | 2 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/kakaku/ingestOfferFromUrl.bpmn |
-| medium | missing_audit_emit | legal_corpus_fetch_canlii_delta | legal-corpus | 2 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/fetchCanLiiDelta.bpmn |
-| medium | missing_audit_emit | llm_answer_with_knowledge | llm | 2 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/llm/answerWithKnowledge.bpmn |
-| medium | missing_audit_emit | malak_get_threat_graph | malak | 2 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/malak/getThreatGraph.bpmn |
-| medium | missing_audit_emit | malak_query_risk_chain | malak | 2 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/malak/queryRiskChain.bpmn |
-| medium | missing_audit_emit | open_cyber_soc_fetch_cisa_alert_delta | open-cyber-soc | 2 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/open-cyber-soc/fetchCisaAlertDelta.bpmn |
-| medium | missing_audit_emit | open_cyber_threat_fetch_mitre_attack_delta | open-cyber-threat | 2 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/open-cyber-threat/fetchMitreAttackDelta.bpmn |
-| medium | missing_audit_emit | open_kev_catalog_fetch_kev_delta | open-kev-catalog | 2 | 0 | etzhayyim-root/00-contracts/bpmn/ai/gftd/open-kev-catalog/fetchKevDelta.bpmn |
+| medium | long_straight_through_flow | gstr3b_amend | gstr3b | 5 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/gstr3b/amend.bpmn |
+| medium | long_straight_through_flow | mangaka_compose_page | mangaka | 5 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/mangaka/composePage.bpmn |
+| medium | long_straight_through_flow | natural_person_generate_cohort_batch_v1 | natural-person | 5 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/natural-person/generateCohortBatch.bpmn |
+| medium | long_straight_through_flow | open_lei_collect_gleif_global_lei | open-lei | 5 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-lei/collectGleifGlobalLei.bpmn |
+| medium | long_straight_through_flow | open_ossekai_generate_wellbecoming_plan | open-ossekai | 5 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-ossekai/generateWellBecomingPlan.bpmn |
+| medium | long_straight_through_flow | open_ossekai_score_jocho | open-ossekai | 5 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-ossekai/scoreJocho.bpmn |
+| medium | missing_audit_emit | business_person_enrich_org_lei | business-person | 4 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/business-person/enrichOrgLei.bpmn |
+| medium | missing_audit_emit | lawfirm_issue_invoice | lawfirm | 4 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/lawfirm/issueInvoice.bpmn |
+| medium | missing_audit_emit | legal_corpus_fetch_and_embed | legal-corpus | 4 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchAndEmbed.bpmn |
+| medium | missing_audit_emit | projector_agent_loop | projector | 4 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/projector/agentLoop.bpmn |
+| medium | missing_audit_emit | business_person_enrich_global_persons | business-person | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/business-person/enrichGlobalPersons.bpmn |
+| medium | missing_audit_emit | lawfirm_run_conflict_check | lawfirm | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/lawfirm/runConflictCheck.bpmn |
+| medium | missing_audit_emit | legal_corpus_embed_document | legal-corpus | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/embedDocument.bpmn |
+| medium | missing_audit_emit | legal_corpus_fetch_courtlistener_delta | legal-corpus | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchCourtListenerDelta.bpmn |
+| medium | missing_audit_emit | open_cyber_vuln_fetch_nvd_delta | open-cyber-vuln | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-cyber-vuln/fetchNvdDelta.bpmn |
+| medium | missing_audit_emit | open_oss_vuln_fetch_ghsa_delta | open-oss-vuln | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-oss-vuln/fetchGhsaDelta.bpmn |
+| medium | missing_audit_emit | open_sales_compute_forecast | open-sales | 3 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-sales/computeForecast.bpmn |
+| medium | missing_audit_emit | kakaku_ingest_offer_from_url | kakaku | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kakaku/ingestOfferFromUrl.bpmn |
+| medium | missing_audit_emit | legal_corpus_fetch_canlii_delta | legal-corpus | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchCanLiiDelta.bpmn |
+| medium | missing_audit_emit | llm_answer_with_knowledge | llm | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/llm/answerWithKnowledge.bpmn |
+| medium | missing_audit_emit | malak_get_threat_graph | malak | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak/getThreatGraph.bpmn |
+| medium | missing_audit_emit | malak_query_risk_chain | malak | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak/queryRiskChain.bpmn |
+| medium | missing_audit_emit | open_cyber_soc_fetch_cisa_alert_delta | open-cyber-soc | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-cyber-soc/fetchCisaAlertDelta.bpmn |
+| medium | missing_audit_emit | open_cyber_threat_fetch_mitre_attack_delta | open-cyber-threat | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-cyber-threat/fetchMitreAttackDelta.bpmn |
+| medium | missing_audit_emit | open_kev_catalog_fetch_kev_delta | open-kev-catalog | 2 | 0 | etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-kev-catalog/fetchKevDelta.bpmn |
 
 ## Interpretation
 

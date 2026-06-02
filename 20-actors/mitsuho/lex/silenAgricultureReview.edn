@@ -1,6 +1,6 @@
-;; app.etzhayyim.mitsuho.silenAgricultureReview — lexicon (EDN form) — Council attestation scope for silent agriculture
+;; com.etzhayyim.mitsuho.silenAgricultureReview — lexicon (EDN form) — Council attestation scope for silent agriculture
 {:lexicon 1
- :id "app.etzhayyim.mitsuho.silenAgricultureReview"
+ :id "com.etzhayyim.mitsuho.silenAgricultureReview"
  :defs
  {:main
   {:type "record"

@@ -135,9 +135,9 @@ related:
 
 ### Lexicon contracts — 26 JSON files
 
-`00-contracts/lexicons/ai/gftd/apps/openSmartphone{Soc,Modem,Sensor,Os,Ems,Bom,Patent}/`
+`00-contracts/lexicons/com/etzhayyim/apps/openSmartphone{Soc,Modem,Sensor,Os,Ems,Bom,Patent}/`
 
-各ドメイン 3-4 ファイル (procedure + query)。NSID prefix: `app.etzhayyim.openSmartphone{Layer}.*`
+各ドメイン 3-4 ファイル (procedure + query)。NSID prefix: `com.etzhayyim.openSmartphone{Layer}.*`
 
 ### Patent 依存関係グラフ設計
 
@@ -208,7 +208,7 @@ Score 0% = 全クローズド (Apple/Qualcomm フルスタック)
 
 - **全27 BPMN** が Zeebe F5 watcher 経由で自動デプロイ (bpmn-dispatcher 30s polling)
 - **timer-start BPMN**: fetchRiscvEcosystemDelta (R/P7D), fetchSepDelta (R/P1D), fetchDriverAvailability (R/P7D), fetchSecurityPatchDelta (R/P1D), fetchComplianceDelta (R/P7D), dailyPulse×2 (R/P1D), fetchSepLandscapeDelta (R/P1D), flagExpiryGate (R/P7D) = 計9本
-- **XRPC endpoint**: `dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.openSmartphone{Layer}.{method}` 経由
+- **XRPC endpoint**: `dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.openSmartphone{Layer}.{method}` 経由
 - **`write_table_allowlist`**: NULL (unrestricted) — domain stabilization 後に per-table tighten
 - **ERC725 root**: 全7 actor とも `erc725_root_pending = true` — `provision-root-identity` 別 PR
 - **実装参照**: RISC-V Foundation、Osmocom、postmarketOS、Fairphone、Framework Laptop の設計哲学を参考にしている

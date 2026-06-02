@@ -460,7 +460,7 @@ For backfill:
   "source_id": "egov-jpn",
   "mode": "backfill",
   "range": {"offset": 0, "limit": 1000},
-  "requested_by": "mcp:app.etzhayyim.apps.ingest.backfill"
+  "requested_by": "mcp:com.etzhayyim.apps.ingest.backfill"
 }
 ```
 
@@ -470,13 +470,13 @@ JP e-Gov:
 
 - shard key: `law_id`
 - cursor: last verified `revision_info.updated_at` or source content hash
-- destination id: `at://did:web:houbun.etzhayyim.com:jpn:e-gov/app.etzhayyim.houbun.statute/{law_id}`
+- destination id: `at://did:web:houbun.etzhayyim.com:jpn:e-gov/com.etzhayyim.houbun.statute/{law_id}`
 
 Constitute:
 
 - shard key: `constitution_id`
 - cursor: metadata hash
-- destination id: `at://did:web:contracts.etzhayyim.com/app.etzhayyim.apps.contracts.socialContract/{source_rkey}`
+- destination id: `at://did:web:contracts.etzhayyim.com/com.etzhayyim.apps.contracts.socialContract/{source_rkey}`
 
 UNTC/Wikidata:
 

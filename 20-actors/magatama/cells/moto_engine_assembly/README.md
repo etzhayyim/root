@@ -4,5 +4,5 @@
 Per ADR-2605261330 §6 L2a. R0 scaffold — `.solve()` raises until R1.
 
 - **Murakumo node**: joseph
-- **Lexicon (output)**: `app.etzhayyim.futawa.engineAttestation`
+- **Lexicon (output)**: `com.etzhayyim.futawa.engineAttestation`
 - **Constraints**: G11 ≤250cc/≤15kW cap; G14 30-year design service life; G3 ≥2-robot witness on torque

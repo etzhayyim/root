@@ -472,7 +472,7 @@ export async function addDevicePasskey(accountDid: string, accessToken: string):
 	}
 	try {
 		const userId = crypto.randomUUID();
-		const beginResp = await authRpc('/xrpc/app.etzhayyim.auth.passkeyBeginRegister', {
+		const beginResp = await authRpc('/xrpc/com.etzhayyim.auth.passkeyBeginRegister', {
 			userId,
 			userName: `device-${userId.slice(0, 8)}@etzhayyim.com`,
 		});

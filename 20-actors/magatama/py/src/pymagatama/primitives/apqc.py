@@ -145,7 +145,7 @@ async def task_apqc_emit_event(
         return {"ok": False, "error": "apqcCode and eventType required"}
     l1 = L1_BY_CODE.get(apqcCode.split(".")[0] + ".0") or L1_BY_CODE.get(apqcCode)
     event_id = f"ocel-{_digest(apqcCode, taskId, eventType, caseId, _now_iso())}"
-    vertex_id = f"at://{PROJECTOR_DID}/app.etzhayyim.apps.apqc.apqcEvent/{event_id}"
+    vertex_id = f"at://{PROJECTOR_DID}/com.etzhayyim.apps.apqc.apqcEvent/{event_id}"
     _insert("vertex_apqc_event", {
         "vertex_id": vertex_id,
         "rkey": event_id,

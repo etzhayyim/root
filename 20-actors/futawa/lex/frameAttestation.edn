@@ -1,7 +1,7 @@
-;; app.etzhayyim.futawa.frameAttestation — lexicon (EDN form)
+;; com.etzhayyim.futawa.frameAttestation — lexicon (EDN form)
 ;; L1 frame weld + roundness + material lot attestation
 {:lexicon 1
- :id "app.etzhayyim.futawa.frameAttestation"
+ :id "com.etzhayyim.futawa.frameAttestation"
  :defs
  {:main
   {:type "record"

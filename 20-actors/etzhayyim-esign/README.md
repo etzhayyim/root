@@ -14,23 +14,23 @@ Phase 0 scaffold — lexicons in place, procedure handlers return `501 NotYetImp
 
 ## Lexicons
 
-Defined in `00-contracts/lexicons/app/etzhayyim/esign/`:
+Defined in `00-contracts/lexicons/com/etzhayyim/esign/`:
 
 | NSID | Type |
 |---|---|
-| `app.etzhayyim.esign.envelope` | record |
-| `app.etzhayyim.esign.signature` | record |
-| `app.etzhayyim.esign.completedEvent` | record |
-| `app.etzhayyim.esign.anchoredEvent` | record |
-| `app.etzhayyim.esign.requestEnvelope` | procedure |
-| `app.etzhayyim.esign.signEnvelope` | procedure |
-| `app.etzhayyim.esign.declineEnvelope` | procedure |
+| `com.etzhayyim.esign.envelope` | record |
+| `com.etzhayyim.esign.signature` | record |
+| `com.etzhayyim.esign.completedEvent` | record |
+| `com.etzhayyim.esign.anchoredEvent` | record |
+| `com.etzhayyim.esign.requestEnvelope` | procedure |
+| `com.etzhayyim.esign.signEnvelope` | procedure |
+| `com.etzhayyim.esign.declineEnvelope` | procedure |
 
 ## Substrate boundary
 
 This Worker MUST NOT import `@atproto/api` or `viem` directly. All AT Protocol writes flow through `@etzhayyim/sdk`. All on-chain anchoring is delegated to `anchor-cron` via the `completedEvent` record — this Worker never holds a wallet key.
 
-DocuSign / Adobe Sign / RazorpaySign passthroughs (`app.etzhayyim.apps.lawfirm.eSign*`) are reserved for fiat receipts and external counsel intake per ADR-2605192115 §4. Religious-corp documents (Council resolutions, Land donations, Force R&D consent, Public Fund disbursements, membership affirmations) MUST use this actor.
+DocuSign / Adobe Sign / RazorpaySign passthroughs (`com.etzhayyim.apps.lawfirm.eSign*`) are reserved for fiat receipts and external counsel intake per ADR-2605192115 §4. Religious-corp documents (Council resolutions, Land donations, Force R&D consent, Public Fund disbursements, membership affirmations) MUST use this actor.
 
 ## License
 

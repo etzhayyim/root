@@ -19,7 +19,7 @@ Status: 🟡 R0 scaffold (ADR-2605301400).
 | **Compute** | malak LangGraph/Pregel family (`wallet_deep_inspect_pursuit`, `address_label_pursuit`) — tadori owns the durable graph, malak owns the super-steps |
 | **Sources** | ipaddress.etzhayyim.com (1次 IP/WHOIS/GeoIP) + yabai (CTI/risk) + on-chain (BSC/ETH/BTC head ingest) + feature-flagged external (OFAC SDN / Tornado / Chainalysis) |
 | **Inference** | Murakumo gateway only (LiteLLM 127.0.0.1:4000 / EVO-X2 / Ollama) — never vendor/commercial GPU (ADR-2605215000) |
-| **PII** | person / IP / device attribution datoms written under `app.etzhayyim.encrypted.*` envelope, Signal-wrapped to case-member DIDs (ADR-2605181100) |
+| **PII** | person / IP / device attribution datoms written under `com.etzhayyim.encrypted.*` envelope, Signal-wrapped to case-member DIDs (ADR-2605181100) |
 | **Server-key** | member-signed (case-member DID) or community-operator DID (bulk ingest); no platform private key (ADR-2605231525) |
 | **Domain** | `tadori.etzhayyim.com` / DID `did:web:tadori.etzhayyim.com` |
 
@@ -43,7 +43,7 @@ Full attribute list → ADR-2605301400 §D2. Reads use the four `kotoba-kqe` arr
 |---|---|
 | `kotoba/schema.edn` | Datomic schema for `tadori.source/*`, `tadori.obs/*`, `tadori.dns/*`, `tadori.ip/*`, and `tadori.indicator/*`. |
 | `kotoba/seed.threat-intel.jsonl` | Operator-staged JSONL sample for public-archive and SecurityTrails-shaped compatibility records. |
-| `kotoba/ingest_threat_intel.py` | JSONL validator + `tx_edn` generator + live `ai.gftd.apps.kotoba.datomic.transact` writer with optional `datomic.datoms` readback. |
+| `kotoba/ingest_threat_intel.py` | JSONL validator + `tx_edn` generator + live `com.etzhayyim.apps.kotoba.datomic.transact` writer with optional `datomic.datoms` readback. |
 | `kotoba/deploy.sh` | Dry-run/live wrapper for a running kotoba node; live runs verify readback. |
 
 Dry-run:
@@ -54,12 +54,12 @@ Dry-run:
 
 Live writes require a running kotoba node plus `KOTOBA_SESSION_POP` or `KOTOBA_TOKEN`.
 If `KOTOBA_SESSION_POP` is supplied, the script first verifies it through
-`ai.gftd.pds.session.verify`, then posts schema and data through
-`ai.gftd.apps.kotoba.datomic.transact`. Live data writes require `TADORI_CASE_ID`
+`com.etzhayyim.pds.session.verify`, then posts schema and data through
+`com.etzhayyim.apps.kotoba.datomic.transact`. Live data writes require `TADORI_CASE_ID`
 or per-record `case_id`; the script rejects any collection mode other than
 `operator-staged-passive-archive`. `deploy.sh` runs with `--verify-readback`, so
 each live run also confirms the staged source, DNS, IP, and indicator datoms via
-`ai.gftd.apps.kotoba.datomic.datoms`.
+`com.etzhayyim.apps.kotoba.datomic.datoms`.
 
 Vendor-shaped feeds (`securitytrails-compatible`, `dnsdb-compatible`,
 `recordedfuture-compatible`) are accepted only as `source_role:
@@ -99,13 +99,13 @@ G1 Charter Rider §2(a)-(h) scan · G2 append-only EAVT (supersededBy, no soft d
 **G3 AUTHORIZED-INVESTIGATION-ONLY** (caseMandate required; no case → Phase 0 dry-run) ·
 **G4 OPEN-SOURCE** (no proprietary chain-analysis as SoR) ·
 **G5 ON-CHAIN-MONITORABLE** (Transparent Force audit datom) ·
-**G6 PII-ENCRYPTED** (`app.etzhayyim.encrypted.*`) ·
+**G6 PII-ENCRYPTED** (`com.etzhayyim.encrypted.*`) ·
 **G7 EVIDENCE-ONLY / NO ENFORCEMENT** (enforcement via yabai + Council) ·
 **G8 NO PLATFORM-HELD KEY** (ADR-2605231525) · G9 Murakumo-only (ADR-2605215000) ·
 **G10 NO MASS SURVEILLANCE / NO ADHERENT DE-ANON** · G11 kotoba-only (ADR-2605262130) ·
 G12 Bonsai seed-tier prune on any silenTadoriReview nonzero counter.
 
-## Lexicons (`app.etzhayyim.tadori.*`)
+## Lexicons (`com.etzhayyim.tadori.*`)
 
 `caseMandate` (authorization anchor; `transparentForceLogged` const true; `phase` 0/1) ·
 `attributionFinding` (cross-store edge; `encrypted` required true for person/IP/device) ·
@@ -113,7 +113,7 @@ G12 Bonsai seed-tier prune on any silenTadoriReview nonzero counter.
 `silenTadoriReview` (9 zero-counters: noncaseWrite / plaintextPii / proprietarySor /
 enforcementAction / platformHeldKey / murakumoBypass / massSurveillance / adherentDeanon /
 nonKotobaStore — any nonzero ⇒ halt + chigiri.disputeMediation). Schemas + manifest:
-`00-contracts/lexicons/app/etzhayyim/tadori/` · `20-actors/tadori/manifest.jsonld`.
+`00-contracts/lexicons/com/etzhayyim/tadori/` · `20-actors/tadori/manifest.jsonld`.
 
 ## Relationship to siblings (no duplication)
 
@@ -135,4 +135,4 @@ nonKotobaStore — any nonzero ⇒ halt + chigiri.disputeMediation). Schemas + m
 - Do not perform enforcement, de-anonymize etzhayyim adherents, or run untargeted/mass
   surveillance. Evidence-producing only.
 - Do not route LLM classification through any non-Murakumo path (ADR-2605215000).
-- Do not write person/IP/device attribution as plaintext — use `app.etzhayyim.encrypted.*`.
+- Do not write person/IP/device attribution as plaintext — use `com.etzhayyim.encrypted.*`.

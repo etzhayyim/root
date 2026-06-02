@@ -169,7 +169,7 @@ Minimum manifest fields:
 
 ```json
 {
-  "schema": "app.etzhayyim.robotics.product.manufacturing.v1",
+  "schema": "com.etzhayyim.robotics.product.manufacturing.v1",
   "productId": "robotics-product",
   "revision": "A",
   "assetKind": "robot-arm",
@@ -309,7 +309,7 @@ Required worker task types:
 | `automotive.rfq.export` | build RFQ packages for tier suppliers, EMS, tooling suppliers, logistics, and validation labs |
 
 The vehicle-specific BPMN SSoT is
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/robotics/manufactureVehicleProductPackage.bpmn`.
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/robotics/manufactureVehicleProductPackage.bpmn`.
 The worker contract is mirrored in
 `60-apps/ai-gftd-project-vehicle/WORKERS.md`.
 

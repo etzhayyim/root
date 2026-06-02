@@ -126,7 +126,7 @@ await adherentRegistry.join(OFFICER_2, "did:web:founder2.etzhayyim.com", joinAtt
 await adherentRegistry.join(OFFICER_3, "did:web:founder3.etzhayyim.com", joinAttestationCid3);
 ```
 
-The `joinAttestationCid` is the keccak hash of the IPFS CID pointing at the creed-acceptance document. The document itself follows ADR-2605172600 oath conventions: signed by the founder's DID key, written to their PDS as `app.etzhayyim.apps.etzhayyim.oath`. See [the reconciliation ADR-2605172700](../../90-docs/adr/2605172700-membership-layering-shinto-adherent.md) for the layering between 信者 (172600) and Adherent (172300 S0) tiers — every founder is by definition both.
+The `joinAttestationCid` is the keccak hash of the IPFS CID pointing at the creed-acceptance document. The document itself follows ADR-2605172600 oath conventions: signed by the founder's DID key, written to their PDS as `com.etzhayyim.apps.etzhayyim.oath`. See [the reconciliation ADR-2605172700](../../90-docs/adr/2605172700-membership-layering-shinto-adherent.md) for the layering between 信者 (172600) and Adherent (172300 S0) tiers — every founder is by definition both.
 
 ---
 

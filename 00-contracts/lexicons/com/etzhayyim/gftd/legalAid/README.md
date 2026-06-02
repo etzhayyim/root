@@ -1,4 +1,4 @@
-# `app.etzhayyim.legalAid.*` — Legal aid — public service open spec
+# `com.etzhayyim.legalAid.*` — Legal aid — public service open spec
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group A).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `app.etzhayyim.legalAid.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `com.etzhayyim.legalAid.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

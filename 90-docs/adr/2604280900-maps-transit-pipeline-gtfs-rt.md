@@ -47,9 +47,9 @@ The CF Worker heartbeat model (30s/128MB budget) cannot handle bulk GTFS ingest 
 
 | Worker pod | BPMN trigger | Source | Cadence |
 |---|---|---|---|
-| `bulk-ingest-gtfs-jp` | `app.etzhayyim.apps.maps.bulkRefreshGtfsJp` R/PT24H | GTFS-JP per-agency feed ZIP | Daily |
-| `bulk-ingest-openflights` | `app.etzhayyim.apps.maps.bulkRefreshOpenflights` R/P7D | OpenFlights airports/routes/airlines (ODbL) | Weekly |
-| `bulk-ingest-ferry-routes` | `app.etzhayyim.apps.maps.bulkRefreshFerryRoutes` R/P7D | OSM Overpass relation[route=ferry] × 7 bboxes | Weekly |
+| `bulk-ingest-gtfs-jp` | `com.etzhayyim.apps.maps.bulkRefreshGtfsJp` R/PT24H | GTFS-JP per-agency feed ZIP | Daily |
+| `bulk-ingest-openflights` | `com.etzhayyim.apps.maps.bulkRefreshOpenflights` R/P7D | OpenFlights airports/routes/airlines (ODbL) | Weekly |
+| `bulk-ingest-ferry-routes` | `com.etzhayyim.apps.maps.bulkRefreshFerryRoutes` R/P7D | OSM Overpass relation[route=ferry] × 7 bboxes | Weekly |
 | `bulk-ingest-gtfs-rt` | internal 30s/60s/300s scheduler | ODPT + no-auth RT binary feeds | **Gated, replicas=0** |
 
 ### Layer 4: Two new RisingWave tables (Phase 2)
@@ -78,8 +78,8 @@ Streaming MV rows fall out of window at compaction time; base tables retain raw 
 
 | NSID | Pattern | Index |
 |---|---|---|
-| `app.etzhayyim.apps.maps.nextDeparturesAtStop` | 3-way JOIN stop_time × trip × vertex_spatial | `idx_maps_stop_time_stop_dep` |
-| `app.etzhayyim.apps.maps.realtimeDelaysAtStop` | Same + LEFT JOIN `mv_maps_recent_trip_update` | degrades gracefully when RT offline |
+| `com.etzhayyim.apps.maps.nextDeparturesAtStop` | 3-way JOIN stop_time × trip × vertex_spatial | `idx_maps_stop_time_stop_dep` |
+| `com.etzhayyim.apps.maps.realtimeDelaysAtStop` | Same + LEFT JOIN `mv_maps_recent_trip_update` | degrades gracefully when RT offline |
 
 RT query degrades explicitly: when RT tables are empty/offline, `departureDelaySec = null`, `rtAvailable = false`. Static `nextDeparturesAtStop` path is unaffected by RT status.
 
@@ -182,7 +182,7 @@ After (5): `realtimeDelaysAtStop` returns RT delays for configured operators.
 | `60-apps/ai-gftd-project-maps/bulk-ingest/feed-index/gtfs-jp.json` | 4 verified no-auth seed feeds |
 | `60-apps/ai-gftd-project-maps/bulk-ingest/RUNBOOK-PHASE-3.md` | Phase 3 bring-up runbook |
 | `60-apps/ai-gftd-project-maps/bulk-ingest/deploy.sh` | Image 1.2.0 build + apply |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.bpmn` | BPMN timer triggers |
-| `00-contracts/lexicons/ai/gftd/apps/maps/{nextDeparturesAtStop,realtimeDelaysAtStop}.json` | XRPC lexicons |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.bpmn` | BPMN timer triggers |
+| `00-contracts/lexicons/com/etzhayyim/apps/maps/{nextDeparturesAtStop,realtimeDelaysAtStop}.json` | XRPC lexicons |
 | `60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/app.ts` | XRPC handlers |
 | `60-apps/ai-gftd-project-maps/CLAUDE.md` | Transit Architecture section |

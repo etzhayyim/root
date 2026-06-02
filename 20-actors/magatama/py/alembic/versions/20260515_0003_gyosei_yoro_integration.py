@@ -54,7 +54,7 @@ def upgrade() -> None:
             updated_at
         ) VALUES (
             'at://sys.worker.gyosei.pregel/deployment/gyosei-intake-agent',
-            'app.etzhayyim.apps.gyosei.intake',
+            'com.etzhayyim.apps.gyosei.intake',
             'gyosei-intake-agent',
             1,
             'active',
@@ -105,7 +105,7 @@ def upgrade() -> None:
             updated_at
         ) VALUES (
             'at://sys.worker.gyosei.pregel/deployment/gyosei-internal-processing',
-            'app.etzhayyim.apps.gyosei.processCase',
+            'com.etzhayyim.apps.gyosei.processCase',
             'gyosei-internal-processing',
             1,
             'active',

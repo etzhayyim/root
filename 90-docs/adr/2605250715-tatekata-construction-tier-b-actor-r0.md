@@ -18,7 +18,7 @@ Similarly, `yakushi` (pharmaceutical, ADR-2605250500) and `wadachi` (autonomous 
 Launch **`tatekata` (建方 — construction method / general construction practice)** as a Tier-B religious-corp actor, mirroring `yakushi` Wave 1 + `wadachi` R0 patterns:
 
 - **Actor DID**: `did:web:etzhayyim.com:tatekata`
-- **Namespace**: `app.etzhayyim.tatekata.*`
+- **Namespace**: `com.etzhayyim.tatekata.*`
 - **R0 scope**: Infrastructure construction (≤2 story, ≤5000m², civil + MEP) — excludes housing (residential R+X), high-rise (>12 stories), nuclear, hazmat manufacture
 - **R0 robotics**: kuni-umi Giemon (crawler + arm), Otete (chem-resist arm), Hitogata (future class-A clean), Mimi (metrology)
 - **14 gates + 10 non-goals** declared before capability lands
@@ -61,7 +61,7 @@ Launch **`tatekata` (建方 — construction method / general construction pract
 ### Lexicons (4 new, all deferred to R1+)
 
 ```
-app.etzhayyim.tatekata.{
+com.etzhayyim.tatekata.{
   siteAttestation,         # Site survey findings (soil, utilities, hazards)
   materialAttestaton,      # Material delivery + QA
   constructionProgressRecord,  # Phase transition + photo/video CID
@@ -121,7 +121,7 @@ app.etzhayyim.tatekata.{
 3. **`20-actors/tatekata/CLAUDE.md`** — Local instructions (manifest loading, cell architecture)
 4. **`20-actors/tatekata/manifest.jsonld`** — `did:web:etzhayyim.com:tatekata`, 5 cell URIs, 4 lexicon namespaces
 5. **`20-actors/tatekata/cells/{foundation_excavation, structural_assembly, mep_installation, finishing_handoff, commissioning}/`** — 5 × (\_\_init\_\_.py, cell.py, README.md) with RuntimeError scaffolds
-6. **`00-contracts/lexicons/app/etzhayyim/tatekata/{siteAttestation, materialAttestation, constructionProgressRecord, safetyIncidentReport}.json`** — 4 lexicons
+6. **`00-contracts/lexicons/com/etzhayyim/tatekata/{siteAttestation, materialAttestation, constructionProgressRecord, safetyIncidentReport}.json`** — 4 lexicons
 7. **`deps.toml`** — Add `[[migrations]]` entry for tatekata + ADR ID + 5 cell module entries
 8. **`90-docs/adr/README.md`** — Register ADR-2605250715 + phase ADRs (2605250730, 2605250745, 2605250760 reserved)
 9. **`CLAUDE.md` Status table** — Row 43 (tatekata Wave R0) between yakushi Wave 1c and next row

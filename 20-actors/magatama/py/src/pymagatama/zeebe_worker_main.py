@@ -1,7 +1,7 @@
 """
 ADR-0049 Pattern 5 / Z3 — in-cluster Zeebe worker entrypoint.
 
-Subscribes to the four `app.etzhayyim.devstral.*` job types that map 1:1 to the
+Subscribes to the four `com.etzhayyim.devstral.*` job types that map 1:1 to the
 existing UDF handlers, but calls `pymagatama.llm` directly instead of
 round-tripping through the SQL UDF layer. The SQL UDF surface remains
 for streaming-MV / row-level use cases; this worker is for BPMN-driven
@@ -10,10 +10,10 @@ process orchestration.
 Job type table (kept stable so BPMN definitions don't have to know
 which engine implements them):
 
-  app.etzhayyim.devstral.chat        → llm.call_tier (free-form chat)
-  app.etzhayyim.devstral.classifyT3  → classify_t3 phishing JSON
-  app.etzhayyim.devstral.translate   → news_translate semantics
-  app.etzhayyim.devstral.storyboard  → mangaka_storyboard_from_prompt semantics
+  com.etzhayyim.devstral.chat        → llm.call_tier (free-form chat)
+  com.etzhayyim.devstral.classifyT3  → classify_t3 phishing JSON
+  com.etzhayyim.devstral.translate   → news_translate semantics
+  com.etzhayyim.devstral.storyboard  → mangaka_storyboard_from_prompt semantics
 
 Run inside the cluster:
     python -m pymagatama.zeebe_worker_main
@@ -1297,14 +1297,14 @@ _PDS_PREFER_LEGACY_TRUST_FOR_REPO_WRITE = (
 )
 # ADR-2604282300: Zeebe/UDF/LangGraph must NOT route through CF Workers.
 # Social/AT writes use the C-path (direct vertex_repo_record INSERT).
-# app.etzhayyim.* XRPC calls route to bpmn-dispatcher K8s ClusterIP directly.
+# com.etzhayyim.* XRPC calls route to bpmn-dispatcher K8s ClusterIP directly.
 _BPMN_DISPATCHER_INTERNAL_URL = os.environ.get(
     "BPMN_DISPATCHER_INTERNAL_URL",
     "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080",
 ).rstrip("/")
 _BPMN_DISPATCHER_INTERNAL_SECRET = os.environ.get("BPMN_DISPATCHER_INTERNAL_SECRET", "").strip()
 _AT_SOCIAL_NSID_PREFIXES = ("app.bsky.", "chat.bsky.", "com.atproto.repo.")
-_etzhayyim_APP_NSID_PREFIX = "app.etzhayyim."
+_etzhayyim_APP_NSID_PREFIX = "com.etzhayyim."
 _COMFYUI_BASE = os.environ.get("COMFYUI_URL", "https://comfyui.etzhayyim.com")
 _COMFYUI_KEY = os.environ.get("COMFYUI_API_KEY", "")
 _COMFYUI_BLOB_REPO = os.environ.get("COMFYUI_BLOB_REPO", "did:web:animeka.etzhayyim.com")
@@ -1457,7 +1457,7 @@ async def _pds_dispatch_c_path(
 
 
 async def _pds_dispatch_internal_xrpc(type: str, payload: dict, started: float) -> dict:
-    """Route app.etzhayyim.* XRPC to bpmn-dispatcher K8s ClusterIP (no CF edge hop)."""
+    """Route com.etzhayyim.* XRPC to bpmn-dispatcher K8s ClusterIP (no CF edge hop)."""
     url = f"{_BPMN_DISPATCHER_INTERNAL_URL}/xrpc/{type}"
     headers: dict[str, str] = {
         "Content-Type": "application/json",
@@ -1539,7 +1539,7 @@ async def task_generic_pds_dispatch(type: str = "", payload: dict | None = None,
     Routing per ADR-2604282300:
     - app.bsky.* / chat.bsky.* / com.atproto.repo.* → C-path: write
       vertex_repo_record directly (graph-visible, not federable).
-    - app.etzhayyim.* → internal K8s bpmn-dispatcher POST with x-internal-trust.
+    - com.etzhayyim.* → internal K8s bpmn-dispatcher POST with x-internal-trust.
     - Other NSIDs → legacy PDS HTTP call (backward compat fallback).
     """
     if not type:
@@ -1563,9 +1563,9 @@ _XRPC_NSID_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9]*(?:\.[a-zA-Z][a-zA-Z0-9]*)+$")
 
 
 _PD_COLOR_XRPC_NSIDS = {
-    "app.etzhayyim.apps.storage.resolveSourceAsset",
-    "app.etzhayyim.apps.copyright.license.inspect",
-    "app.etzhayyim.apps.i18n.translateBatch",
+    "com.etzhayyim.apps.storage.resolveSourceAsset",
+    "com.etzhayyim.apps.copyright.license.inspect",
+    "com.etzhayyim.apps.i18n.translateBatch",
 }
 
 
@@ -1575,7 +1575,7 @@ async def _pd_color_add_json_manifest(kind: str, payload: dict) -> str:
     body = json.dumps(
         {
             "kind": kind,
-            "schema": "app.etzhayyim.apps.publicDomainColorization.manifest.v1",
+            "schema": "com.etzhayyim.apps.publicDomainColorization.manifest.v1",
             "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             **payload,
         },
@@ -1594,7 +1594,7 @@ async def _pd_color_local_xrpc(nsid: str, payload: dict) -> dict:
     copyright, and i18n actors are deployed. Outputs intentionally match the
     BPMN's `response.*` mappings.
     """
-    if nsid == "app.etzhayyim.apps.storage.resolveSourceAsset":
+    if nsid == "com.etzhayyim.apps.storage.resolveSourceAsset":
         source_record = {
             "workId": payload.get("workId"),
             "title": payload.get("title"),
@@ -1610,7 +1610,7 @@ async def _pd_color_local_xrpc(nsid: str, payload: dict) -> dict:
         }
         return {"status": 200, "response": source_record}
 
-    if nsid == "app.etzhayyim.apps.copyright.license.inspect":
+    if nsid == "com.etzhayyim.apps.copyright.license.inspect":
         source_record = payload.get("sourceRecord") if isinstance(payload.get("sourceRecord"), dict) else {}
         source_cid = str(
             payload.get("sourceIpfsCid")
@@ -1645,7 +1645,7 @@ async def _pd_color_local_xrpc(nsid: str, payload: dict) -> dict:
             },
         }
 
-    if nsid == "app.etzhayyim.apps.i18n.translateBatch":
+    if nsid == "com.etzhayyim.apps.i18n.translateBatch":
         target_langs = payload.get("targetLangs") if isinstance(payload.get("targetLangs"), list) else []
         source_lang = str(payload.get("sourceLang") or "en")
         source_cid = str(payload.get("sourceCid") or "")
@@ -1758,7 +1758,7 @@ async def task_open_patent_expired_drug_patent_screen(payload: dict | None = Non
         "productId": p.get("productId"),
         "asOf": as_of,
     }
-    vertex_id = str(p.get("patentVertexId") or f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.expiredDrugPatentScreen/{_stable_vertex_suffix(seed)}")
+    vertex_id = str(p.get("patentVertexId") or f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.expiredDrugPatentScreen/{_stable_vertex_suffix(seed)}")
     return {
         "vertexId": vertex_id,
         "eligible": eligible,
@@ -1787,7 +1787,7 @@ async def task_open_patent_expired_drug_patent_collect(payload: dict | None = No
         "rows": scoped_rows,
     }
     return {
-        "runVertexId": f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.expiredDrugPatentBacklog/{_stable_vertex_suffix(run_seed)}",
+        "runVertexId": f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.expiredDrugPatentBacklog/{_stable_vertex_suffix(run_seed)}",
         "scannedCount": len(scoped_rows),
         "candidateCount": len(candidates),
         "insertedCount": 0 if p.get("dryRun", True) else len(candidates),
@@ -1806,7 +1806,7 @@ async def task_open_patent_generic_manufacturing_plan(payload: dict | None = Non
     }
     suffix = _stable_vertex_suffix(seed)
     return {
-        "vertexId": f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.genericManufacturingCandidate/{suffix}",
+        "vertexId": f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.genericManufacturingCandidate/{suffix}",
         "seiyakuProcessId": f"seiyaku_generic_manufacturing_{suffix}",
         "status": "planned",
     }
@@ -1825,7 +1825,7 @@ async def task_open_patent_generic_manufacturing_prepare_seiyaku_batch_draft(pay
     }
     vertex_id = str(
         p.get("vertexId")
-        or f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.seiyakuBatchDraft/{_stable_vertex_suffix(seed)}"
+        or f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.seiyakuBatchDraft/{_stable_vertex_suffix(seed)}"
     )
     seiyaku_process_id = str(p.get("seiyakuProcessId") or "seiyaku_register_batch")
     batch_payload = {
@@ -1870,7 +1870,7 @@ async def task_open_patent_generic_manufacturing_validate_seiyaku_batch_draft(pa
         "ok": True,
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.seiyakuBatchDraftValidation/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.seiyakuBatchDraftValidation/{_stable_vertex_suffix(seed)}"
         ),
         "passed": passed,
         "status": "validated" if passed else "validation_failed",
@@ -1889,7 +1889,7 @@ async def task_open_patent_generic_manufacturing_handoff_seiyaku(payload: dict |
     return {
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.seiyakuHandoff/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.seiyakuHandoff/{_stable_vertex_suffix(seed)}"
         ),
         "seiyakuProcessId": seiyaku_process_id,
         "status": "handoff_queued",
@@ -1903,12 +1903,12 @@ async def task_open_patent_generic_manufacturing_queue_seiyaku_batch_start(paylo
         "validationVid": p.get("validationVid"),
     }
     batch_payload = p.get("batchPayload") if isinstance(p.get("batchPayload"), dict) else {}
-    start_nsid = str(p.get("startNsid") or "app.etzhayyim.apps.openPatent.genericManufacturing.startSeiyakuBatch")
+    start_nsid = str(p.get("startNsid") or "com.etzhayyim.apps.openPatent.genericManufacturing.startSeiyakuBatch")
     bpmn_process_id = str(p.get("bpmnProcessId") or "seiyaku_register_batch")
     return {
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.seiyakuBatchStartRequest/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.seiyakuBatchStartRequest/{_stable_vertex_suffix(seed)}"
         ),
         "startNsid": start_nsid,
         "bpmnProcessId": bpmn_process_id,
@@ -1928,7 +1928,7 @@ async def task_open_patent_generic_manufacturing_ack_seiyaku_batch_start(payload
     return {
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.seiyakuBatchStartAck/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.seiyakuBatchStartAck/{_stable_vertex_suffix(seed)}"
         ),
         "status": str(p.get("status") or "acknowledged"),
         "startRequestVid": str(p.get("startRequestVid") or ""),
@@ -1957,7 +1957,7 @@ async def task_open_patent_generic_manufacturing_summarize_seiyaku_start_progres
     return {
         "vertexId": str(
             p.get("vertexId")
-            or f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.seiyakuStartProgress/{_stable_vertex_suffix(seed)}"
+            or f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.seiyakuStartProgress/{_stable_vertex_suffix(seed)}"
         ),
         "progressStatus": progress_status,
         "startRequestVid": str(p.get("startRequestVid") or ""),
@@ -1981,7 +1981,7 @@ async def task_open_patent_expired_drug_patent_record_blocker(payload: dict | No
         "evidenceUri": p.get("evidenceUri"),
     }
     return {
-        "vertexId": f"at://did:web:open-patent.etzhayyim.com/app.etzhayyim.apps.openPatent.drugRegulatoryBlocker/{_stable_vertex_suffix(seed)}",
+        "vertexId": f"at://did:web:open-patent.etzhayyim.com/com.etzhayyim.apps.openPatent.drugRegulatoryBlocker/{_stable_vertex_suffix(seed)}",
         "active": active,
         "status": "active" if active else "expired_or_unbounded",
         "blockingUntil": blocking_until,
@@ -2109,7 +2109,7 @@ async def task_news_xrpc_analyze_intel(actor: str = "", input: dict | None = Non
         payload.setdefault("actor", actor)
     if "text" not in payload:
         payload["text"] = str(payload.get("title") or "")
-    return await _news_xrpc("app.etzhayyim.apps.news.analyzeIntel", payload)
+    return await _news_xrpc("com.etzhayyim.apps.news.analyzeIntel", payload)
 
 
 async def task_news_xrpc_publish_intel(input: dict | None = None) -> dict:
@@ -2117,7 +2117,7 @@ async def task_news_xrpc_publish_intel(input: dict | None = None) -> dict:
     payload = dict(input or {})
     if "url" not in payload and "sourceUrl" in payload:
         payload["url"] = payload["sourceUrl"]
-    return await _news_xrpc("app.etzhayyim.apps.news.publishIntel", payload)
+    return await _news_xrpc("com.etzhayyim.apps.news.publishIntel", payload)
 
 
 async def _serverless_image_gen(body: dict, timeout_sec: float, repo: str) -> dict:
@@ -2815,7 +2815,7 @@ async def task_pd_color_localization_translate_subtitles(
         activity="Translate subtitles",
         task_type="pdColor.localization.translateSubtitles",
         call=lambda: task_generic_xrpc_invoke(
-            nsid="app.etzhayyim.apps.i18n.translateBatch",
+            nsid="com.etzhayyim.apps.i18n.translateBatch",
             payload={
                 "project": "public-domain-colorization",
                 "sourceLang": sourceLanguage or detectedLanguage or "en",
@@ -3146,7 +3146,7 @@ async def task_ind_efiling_submit(
     now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     seq = int(time.time() * 1000)
     row_base = {
-        "vertex_id": "at://did:web:ind-union.etzhayyim.com/app.etzhayyim.apps.ind.efiling.submission/"
+        "vertex_id": "at://did:web:ind-union.etzhayyim.com/com.etzhayyim.apps.ind.efiling.submission/"
         + hashlib.sha256(idem.encode("utf-8")).hexdigest()[:32],
         "_seq": seq,
         "created_date": time.strftime("%Y-%m-%d", time.gmtime()),
@@ -3326,7 +3326,7 @@ async def task_generic_audit_emit(
         return {"error": "actor and action required"}
     ts_ms = int(time.time() * 1000)
     rkey = f"audit-{ts_ms}-{re.sub(r'[^a-zA-Z0-9]+', '-', action_value)[:32]}"
-    vertex_id = f"{actor_value}:app.etzhayyim.bpmn.audit:{rkey}:create"
+    vertex_id = f"{actor_value}:com.etzhayyim.bpmn.audit:{rkey}:create"
     created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     sql_text = (
         "INSERT INTO vertex_repo_commit ("
@@ -3338,7 +3338,7 @@ async def task_generic_audit_emit(
     try:
         with sync_cursor() as cur:
             cur.execute(sql_text, (
-                vertex_id, ts_ms, actor_value, "app.etzhayyim.bpmn.audit", rkey, "create",
+                vertex_id, ts_ms, actor_value, "com.etzhayyim.bpmn.audit", rkey, "create",
                 json.dumps({"action": action_value, **payload_value}),
                 ts_ms, created_at,
                 vertex_id,
@@ -3519,7 +3519,7 @@ async def task_business_profit_settle_open_adnetwork(
         else f"open-adnetwork-profit-{publisher_filter}-{started_ms}-{finished_ms}"
     )
     vertex_id = (
-        "at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.business.profitSettlement/"
+        "at://did:web:yoro.etzhayyim.com/com.etzhayyim.apps.business.profitSettlement/"
         + hashlib.sha256(settlement_id.encode("utf-8")).hexdigest()[:32]
     )
 
@@ -3777,7 +3777,7 @@ async def task_bluesky_ingest_actor(
     """Ingest one public Bluesky actor via AppView.
 
     This is the Zeebe/Python replacement for the former CF Worker
-    `/xrpc/app.etzhayyim.apps.bluesky.ingestActor` business logic.
+    `/xrpc/com.etzhayyim.apps.bluesky.ingestActor` business logic.
     """
     try:
         from pymagatama.ingest.bluesky import ingest_actor
@@ -6092,7 +6092,7 @@ async def main() -> None:
         worker.task(task_type="animeka.listRetakes",       single_value=False, timeout_ms=animeka_timeout_ms)(task_animeka_list_retakes)
         worker.task(task_type="animeka.health",            single_value=False, timeout_ms=animeka_timeout_ms)(task_animeka_health)
         # Generic primitives that animeka generation BPMN ServiceTasks
-        # bind to (see 00-contracts/bpmn/ai/gftd/animeka/*.bpmn).
+        # bind to (see 00-contracts/bpmn/com/etzhayyim/animeka/*.bpmn).
         worker.task(task_type="generic.llm.chat",     single_value=False, timeout_ms=120_000)(task_generic_llm_chat)
         worker.task(task_type="generic.llm.json",     single_value=False, timeout_ms=120_000)(task_generic_llm_json)
         worker.task(task_type="generic.db.select",    single_value=False, timeout_ms=60_000)(task_generic_db_select)
@@ -6176,7 +6176,7 @@ async def main() -> None:
         from pymagatama.primitives import shinshi_video  # noqa: E402
         shinshi_video.register(worker, timeout_ms=shinshi_video_timeout_ms)
         # Generic primitives that shinshi BPMN ServiceTasks bind to
-        # (see 00-contracts/bpmn/ai/gftd/shinshi/*.bpmn —
+        # (see 00-contracts/bpmn/com/etzhayyim/shinshi/*.bpmn —
         # generic.audit.emit / generic.db.select / generic.db.insert).
         worker.task(task_type="generic.audit.emit", single_value=False, timeout_ms=60_000)(task_generic_audit_emit)
         worker.task(task_type="generic.db.select",  single_value=False, timeout_ms=60_000)(task_generic_db_select)
@@ -6231,7 +6231,7 @@ async def main() -> None:
 
         billing_module.register(worker, timeout_ms=billing_timeout_ms)
         # Generic primitives that billing BPMN ServiceTasks bind to
-        # (see 00-contracts/bpmn/ai/gftd/billing/*.bpmn —
+        # (see 00-contracts/bpmn/com/etzhayyim/billing/*.bpmn —
         # generic.audit.emit / generic.db.select / generic.db.insert).
         worker.task(task_type="generic.audit.emit", single_value=False, timeout_ms=60_000)(task_generic_audit_emit)
         worker.task(task_type="generic.db.select",  single_value=False, timeout_ms=60_000)(task_generic_db_select)
@@ -6295,7 +6295,7 @@ async def main() -> None:
         hume_emotion.register(worker, timeout_ms=timeout_ms)
         hume_distillation.register(worker, timeout_ms=distill_timeout_ms)
         worker.task(
-            task_type="app.etzhayyim.agent.hume.emotion",
+            task_type="com.etzhayyim.agent.hume.emotion",
             single_value=False,
             timeout_ms=timeout_ms,
         )(task_agent_hume_emotion)
@@ -6307,7 +6307,7 @@ async def main() -> None:
         LOG.info(
             "registered dedicated worker profile=%s task_types="
             "hume.expression.{predictStudent,analyzeTeacher,analyze,analyzeMultimodal,analyzeUploaded},"
-            "hume.tts.synthesize,hume.distill.*,app.etzhayyim.agent.hume.emotion,generic.langgraph.run",
+            "hume.tts.synthesize,hume.distill.*,com.etzhayyim.agent.hume.emotion,generic.langgraph.run",
             worker_profile,
         )
 
@@ -6516,20 +6516,20 @@ async def main() -> None:
 
         completer_timeout_ms = int(os.environ.get("COMPLETER_TASK_TIMEOUT_MS", "300000"))
         completer_llm_timeout_ms = int(os.environ.get("COMPLETER_LLM_TIMEOUT_MS", "300000"))
-        worker.task(task_type="app.etzhayyim.apps.completer.queryRules",        single_value=False, timeout_ms=completer_timeout_ms)(_completer_query_rules)
-        worker.task(task_type="app.etzhayyim.apps.completer.matchRules",         single_value=False, timeout_ms=completer_timeout_ms)(_completer_match_rules)
-        worker.task(task_type="app.etzhayyim.apps.completer.llmEvaluate",        single_value=False, timeout_ms=completer_llm_timeout_ms)(_completer_llm_evaluate)
-        worker.task(task_type="app.etzhayyim.apps.completer.evaluate",           single_value=False, timeout_ms=completer_timeout_ms)(_completer_evaluate)
-        worker.task(task_type="app.etzhayyim.apps.completer.evaluateRepoDids",   single_value=False, timeout_ms=completer_timeout_ms)(_completer_evaluate_repo_dids)
-        worker.task(task_type="app.etzhayyim.apps.completer.remediate",          single_value=False, timeout_ms=completer_llm_timeout_ms)(_completer_remediate)
-        worker.task(task_type="app.etzhayyim.apps.completer.getAuditReport",     single_value=False, timeout_ms=completer_timeout_ms)(_completer_get_audit_report)
-        worker.task(task_type="app.etzhayyim.apps.completer.listFindings",       single_value=False, timeout_ms=completer_timeout_ms)(_completer_list_findings)
-        worker.task(task_type="app.etzhayyim.apps.completer.listAudits",         single_value=False, timeout_ms=completer_timeout_ms)(_completer_list_audits)
-        worker.task(task_type="app.etzhayyim.apps.completer.getComplianceScore", single_value=False, timeout_ms=completer_timeout_ms)(_completer_get_compliance_score)
+        worker.task(task_type="com.etzhayyim.apps.completer.queryRules",        single_value=False, timeout_ms=completer_timeout_ms)(_completer_query_rules)
+        worker.task(task_type="com.etzhayyim.apps.completer.matchRules",         single_value=False, timeout_ms=completer_timeout_ms)(_completer_match_rules)
+        worker.task(task_type="com.etzhayyim.apps.completer.llmEvaluate",        single_value=False, timeout_ms=completer_llm_timeout_ms)(_completer_llm_evaluate)
+        worker.task(task_type="com.etzhayyim.apps.completer.evaluate",           single_value=False, timeout_ms=completer_timeout_ms)(_completer_evaluate)
+        worker.task(task_type="com.etzhayyim.apps.completer.evaluateRepoDids",   single_value=False, timeout_ms=completer_timeout_ms)(_completer_evaluate_repo_dids)
+        worker.task(task_type="com.etzhayyim.apps.completer.remediate",          single_value=False, timeout_ms=completer_llm_timeout_ms)(_completer_remediate)
+        worker.task(task_type="com.etzhayyim.apps.completer.getAuditReport",     single_value=False, timeout_ms=completer_timeout_ms)(_completer_get_audit_report)
+        worker.task(task_type="com.etzhayyim.apps.completer.listFindings",       single_value=False, timeout_ms=completer_timeout_ms)(_completer_list_findings)
+        worker.task(task_type="com.etzhayyim.apps.completer.listAudits",         single_value=False, timeout_ms=completer_timeout_ms)(_completer_list_audits)
+        worker.task(task_type="com.etzhayyim.apps.completer.getComplianceScore", single_value=False, timeout_ms=completer_timeout_ms)(_completer_get_compliance_score)
         worker.task(task_type="generic.audit.emit", single_value=False, timeout_ms=60_000)(task_generic_audit_emit)
         LOG.info(
             "registered dedicated worker profile=%s task_types="
-            "app.etzhayyim.apps.completer.{queryRules,matchRules,llmEvaluate,evaluate,evaluateRepoDids,"
+            "com.etzhayyim.apps.completer.{queryRules,matchRules,llmEvaluate,evaluate,evaluateRepoDids,"
             "remediate,getAuditReport,listFindings,listAudits,getComplianceScore},generic.audit.emit",
             worker_profile,
         )
@@ -6667,10 +6667,10 @@ async def main() -> None:
     # subsequent CompleteJob came back JobNotFound. 180s gives 3x headroom
     # over the worst path including one llm.py retry.
     LONG_TIMEOUT_MS = 180_000
-    worker.task(task_type="app.etzhayyim.devstral.chat",       single_value=False, timeout_ms=LONG_TIMEOUT_MS)(task_chat)
-    worker.task(task_type="app.etzhayyim.devstral.classifyT3", single_value=False, timeout_ms=LONG_TIMEOUT_MS)(task_classify_t3)
-    worker.task(task_type="app.etzhayyim.devstral.translate",  single_value=False, timeout_ms=LONG_TIMEOUT_MS)(task_translate)
-    worker.task(task_type="app.etzhayyim.devstral.storyboard", single_value=False, timeout_ms=LONG_TIMEOUT_MS)(task_storyboard)
+    worker.task(task_type="com.etzhayyim.devstral.chat",       single_value=False, timeout_ms=LONG_TIMEOUT_MS)(task_chat)
+    worker.task(task_type="com.etzhayyim.devstral.classifyT3", single_value=False, timeout_ms=LONG_TIMEOUT_MS)(task_classify_t3)
+    worker.task(task_type="com.etzhayyim.devstral.translate",  single_value=False, timeout_ms=LONG_TIMEOUT_MS)(task_translate)
+    worker.task(task_type="com.etzhayyim.devstral.storyboard", single_value=False, timeout_ms=LONG_TIMEOUT_MS)(task_storyboard)
     worker.task(task_type="llm.knowledge.retrieve", single_value=False, timeout_ms=60_000)(task_llm_knowledge_retrieve)
     worker.task(task_type="llm.knowledge.langgraphAnswer", single_value=False, timeout_ms=LONG_TIMEOUT_MS)(task_llm_knowledge_langgraph_answer)
     from pymagatama.primitives import hume_emotion  # noqa: E402
@@ -6707,7 +6707,7 @@ async def main() -> None:
     worker.task(task_type="generic.tls.probe",    single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_generic_tls_probe)
     worker.task(task_type="generic.audit.emit",   single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_generic_audit_emit)
     worker.task(task_type="ind.efiling.submit",   single_value=False, timeout_ms=180_000)(task_ind_efiling_submit)
-    worker.task(task_type="app.etzhayyim.kouza.syncDueConnections", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_kouza_sync_due_connections)
+    worker.task(task_type="com.etzhayyim.kouza.syncDueConnections", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_kouza_sync_due_connections)
     worker.task(task_type="ingest.run.markCompleted", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_ingest_run_mark_completed)
     if os.environ.get("REGISTER_BLOCKCHAIN_TASKS", "0").lower() in ("1", "true", "on", "yes"):
         worker.task(
@@ -7636,19 +7636,19 @@ async def main() -> None:
     _domain_register(worker, timeout_ms=30_000)
     # news.etzhayyim.com intel process tasks.
     worker.task(task_type="news.udf.scoreIntel", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_news_udf_score_intel)
-    worker.task(task_type="xrpc.app.etzhayyim.apps.news.analyzeIntel", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_news_xrpc_analyze_intel)
-    worker.task(task_type="xrpc.app.etzhayyim.apps.news.publishIntel", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_news_xrpc_publish_intel)
+    worker.task(task_type="xrpc.com.etzhayyim.apps.news.analyzeIntel", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_news_xrpc_analyze_intel)
+    worker.task(task_type="xrpc.com.etzhayyim.apps.news.publishIntel", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_news_xrpc_publish_intel)
     # kakaku.etzhayyim.com price comparison actor. Source-specific logic lives in
     # pymagatama.ingest.kakaku; these task types are bound directly from the
-    # app.etzhayyim.apps.kakaku.* XRPC BPMN processes.
+    # com.etzhayyim.apps.kakaku.* XRPC BPMN processes.
     from pymagatama.ingest.kakaku import (  # noqa: E402
         task_compare_offers,
         task_ingest_offer_from_url,
         task_upsert_offer,
     )
-    worker.task(task_type="xrpc.app.etzhayyim.apps.kakaku.upsertOffer", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_upsert_offer)
-    worker.task(task_type="xrpc.app.etzhayyim.apps.kakaku.ingestOfferFromUrl", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_ingest_offer_from_url)
-    worker.task(task_type="xrpc.app.etzhayyim.apps.kakaku.compareOffers", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_compare_offers)
+    worker.task(task_type="xrpc.com.etzhayyim.apps.kakaku.upsertOffer", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_upsert_offer)
+    worker.task(task_type="xrpc.com.etzhayyim.apps.kakaku.ingestOfferFromUrl", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_ingest_offer_from_url)
+    worker.task(task_type="xrpc.com.etzhayyim.apps.kakaku.compareOffers", single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_compare_offers)
     # animeka (ADR-2604231328) — ComfyUI passthrough. 600s timeout accommodates
     # AnimateDiff / SVD / WAN 5B video generations that run 3-5 min on L40S.
     COMFYUI_TIMEOUT_MS = 600_000
@@ -7658,32 +7658,32 @@ async def main() -> None:
     # SQL UDF so a BPMN timer-start event can schedule per-actor heartbeats
     # without the K8s CronJob (templates/cronjob-shinka.yaml).
     SHINKA_TICK_TIMEOUT_MS = 180_000  # UDF includes one Devstral compose call
-    worker.task(task_type="app.etzhayyim.shinka.tick", single_value=False, timeout_ms=SHINKA_TICK_TIMEOUT_MS)(task_shinka_tick)
+    worker.task(task_type="com.etzhayyim.shinka.tick", single_value=False, timeout_ms=SHINKA_TICK_TIMEOUT_MS)(task_shinka_tick)
     # Z2 — LangGraph ingest planner. 3-node graph (classify → summarise →
     # audit). Budgeted by Zeebe process timeout, not agent-internal — a
     # runaway LLM loop hits the SHINKA_TIMEOUT_MS boundary and the BPMN
     # caller retries per <zeebe:taskDefinition retries="N">.
     from pymagatama.agents import task_agent_plan  # noqa: E402, lazy: skip langgraph import if unused
-    worker.task(task_type="app.etzhayyim.agent.plan",  single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_agent_plan)
+    worker.task(task_type="com.etzhayyim.agent.plan",  single_value=False, timeout_ms=SHINKA_TIMEOUT_MS)(task_agent_plan)
     from pymagatama.agents.hume_emotion import task_agent_hume_emotion  # noqa: E402
-    worker.task(task_type="app.etzhayyim.agent.hume.emotion", single_value=False,
+    worker.task(task_type="com.etzhayyim.agent.hume.emotion", single_value=False,
                 timeout_ms=LONG_TIMEOUT_MS)(task_agent_hume_emotion)
     # SBOM register agent — wraps task_sbom_register_artifact +
     # task_sbom_run_vuln_match in a LangGraph (classify → persist with
-    # retry → notify). Callers can use app.etzhayyim.agent.sbom.register
-    # instead of the lower-level xrpc.app.etzhayyim.apps.sbom.registerArtifact
+    # retry → notify). Callers can use com.etzhayyim.agent.sbom.register
+    # instead of the lower-level xrpc.com.etzhayyim.apps.sbom.registerArtifact
     # when they want the agentic retry + notification semantics.
     from pymagatama.agents.sbom_register import task_agent_sbom_register  # noqa: E402
     SBOM_AGENT_TIMEOUT_MS = 600_000
-    worker.task(task_type="app.etzhayyim.agent.sbom.register", single_value=False,
+    worker.task(task_type="com.etzhayyim.agent.sbom.register", single_value=False,
                 timeout_ms=SBOM_AGENT_TIMEOUT_MS)(task_agent_sbom_register)
     # Z-γ — gameka studio deliberator. 5-node LangGraph (planner →
     # researcher → critic → loop_or_finalize → finalizer). Transitional
     # task type until generic.langgraph.run lands per ADR 2604250836; see
-    # ADR 2604250900 §D5 + 00-contracts/bpmn/ai/gftd/gameka/proposeGame.bpmn.
+    # ADR 2604250900 §D5 + 00-contracts/bpmn/com/etzhayyim/gameka/proposeGame.bpmn.
     GAMEKA_DELIBERATE_TIMEOUT_MS = 60_000  # 3 iter × 2 LLM × ~7s p95
     from pymagatama.agents import task_agent_gameka_studio  # noqa: E402
-    worker.task(task_type="app.etzhayyim.agent.gameka.studio", single_value=False,
+    worker.task(task_type="com.etzhayyim.agent.gameka.studio", single_value=False,
                 timeout_ms=GAMEKA_DELIBERATE_TIMEOUT_MS)(task_agent_gameka_studio)
     # Z-γ-2 — gameka codegen. Pure-function source-tree generator
     # (kami-app-{slug} crate). 30s budget covers cold imports; typical
@@ -7724,7 +7724,7 @@ async def main() -> None:
     # one vision-LLM call at p95 + headroom. ADR 2604250900 §P4.
     GAMEKA_VISUAL_CRITIC_TIMEOUT_MS = 60_000
     from pymagatama.agents import task_agent_gameka_visual_critic  # noqa: E402
-    worker.task(task_type="app.etzhayyim.agent.gameka.visualCritic", single_value=False,
+    worker.task(task_type="com.etzhayyim.agent.gameka.visualCritic", single_value=False,
                 timeout_ms=GAMEKA_VISUAL_CRITIC_TIMEOUT_MS)(task_agent_gameka_visual_critic)
 
     # generic.langgraph.run — ADR-2604250836 step 2.
@@ -7877,7 +7877,7 @@ async def main() -> None:
     from pymagatama.primitives import lawfirm_intake  # noqa: E402
     lawfirm_intake.register(worker, timeout_ms=60_000)
     # lawfirm.etzhayyim.com tenant lifecycle — bootstrap / suspend / promote.
-    # Backs app.etzhayyim.apps.lawfirm.tenantBootstrap lexicon → BPMN
+    # Backs com.etzhayyim.apps.lawfirm.tenantBootstrap lexicon → BPMN
     # lawfirm_tenant_bootstrap → vertex_lawfirm_tenant + audit + edge.
     from pymagatama.primitives import lawfirm_tenant  # noqa: E402
     lawfirm_tenant.register(worker, timeout_ms=60_000)
@@ -7892,7 +7892,7 @@ async def main() -> None:
     # lawfirm_sales_cadence_tick BPMN (R/PT24H).
     from pymagatama.primitives import lawfirm_cadence_dispatch  # noqa: E402
     lawfirm_cadence_dispatch.register(worker, timeout_ms=90_000)
-    # lawfirm.etzhayyim.com reply detection — backs app.etzhayyim.apps.lawfirm.mailReplyWebhook.
+    # lawfirm.etzhayyim.com reply detection — backs com.etzhayyim.apps.lawfirm.mailReplyWebhook.
     # Inbound mail → match lead by from_email/subject → INSERT outreach_event
     # (event_kind='reply_received', direction='inbound') → suppress follow-up
     # drafts via NOT EXISTS gate in dispatchFollowUps + advance lead.stage.
@@ -7969,7 +7969,7 @@ async def main() -> None:
     # Wave 2 T2 migration — 133 gov state actors batch-migrated from CF Workers
     # to pymagatama LangServer primitives (2026-04-28). Each module exposes 8 task types
     # (seedOrgs, registerDIDs, followSiteDeps, resolveOrgPath, listOrgs,
-    # syncWetUpdates, shinka, heartbeatTick) under xrpc.app.etzhayyim.gov{Code}.*.
+    # syncWetUpdates, shinka, heartbeatTick) under xrpc.com.etzhayyim.gov{Code}.*.
     from pymagatama.primitives import gov_alb  # noqa: E402
     gov_alb.register(worker, timeout_ms=180_000)
     from pymagatama.primitives import gov_and  # noqa: E402
@@ -8254,7 +8254,7 @@ async def main() -> None:
     satellite_live.register(worker, timeout_ms=300_000)
     # maps celestial catalog ingest — HYG (~9K naked-eye stars) + OpenNGC
     # (~5K deep-sky / galaxies / nebulae / clusters) for the globe view's
-    # accurate star background (R/P30D, app.etzhayyim.apps.maps.ingestCelestialCatalogs).
+    # accurate star background (R/P30D, com.etzhayyim.apps.maps.ingestCelestialCatalogs).
     from pymagatama.primitives import celestial_catalog  # noqa: E402
     celestial_catalog.register(worker, timeout_ms=1_800_000)
     # maps AIS Marine vessel tracking — MarineTraffic-equivalent (ADR-2605011500).
@@ -8516,7 +8516,7 @@ async def main() -> None:
              "pds.domainCoverage.expand, "
              "vectorEmbedding.backfillBatch, "
              "ingest.run.markCompleted, rw.health.probe, "
-             "app.etzhayyim.agent.{plan,gameka.studio,gameka.visualCritic}, "
+             "com.etzhayyim.agent.{plan,gameka.studio,gameka.visualCritic}, "
              "gameka.{codegen.renderKamiApp,avatar.render,build.wasmPack}, "
              "mangaka.{panel.batchRender,balloon.batchOverlay,page.batchCompose,records.batchInsertPages,post.publish}, "
              "loadingRobot.{vision.analyze,plan.load,robot.design,mission.plan}, "

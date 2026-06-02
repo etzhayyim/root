@@ -85,7 +85,7 @@ category, subcategory, jurisdiction, governing_law, duration, party_type, value_
 
 ## Data Collections
 
-`app.etzhayyim.apps.social_contract.*`: contract_type, cohort, cohort_stat, contract_instance, party, obligation, lifecycle_event, legal_entity, officer, subsidiary_rel
+`com.etzhayyim.apps.social_contract.*`: contract_type, cohort, cohort_stat, contract_instance, party, obligation, lifecycle_event, legal_entity, officer, subsidiary_rel
 
 ## Component
 

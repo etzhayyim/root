@@ -525,10 +525,10 @@ class TestSafeRkey:
 
 def _make_signal(adherent_did: str, kind: str, weight: int = 800) -> dict:
     return {
-        "uri": f"at://{adherent_did}/app.etzhayyim.shinka.kyumeiSignal/tid001",
+        "uri": f"at://{adherent_did}/com.etzhayyim.shinka.kyumeiSignal/tid001",
         "cid": "bafyreitest",
         "value": {
-            "$type": "app.etzhayyim.shinka.kyumeiSignal",
+            "$type": "com.etzhayyim.shinka.kyumeiSignal",
             "adherentDid": adherent_did,
             "signalKind": kind,
             "weight": weight,
@@ -588,7 +588,7 @@ class TestJouchoAggregationCell:
         assert rec.from_signals_since != ""
         mock_pds.put_record.assert_called_once()
         call_kwargs = mock_pds.put_record.call_args
-        assert call_kwargs[0][0] == "app.etzhayyim.joucho.joucho"
+        assert call_kwargs[0][0] == "com.etzhayyim.joucho.joucho"
         assert call_kwargs[1]["rkey"] == _safe_rkey(did)
 
     @pytest.mark.asyncio
@@ -657,7 +657,7 @@ class TestFetchJoucho:
 
     def _make_pds_record(self, did: str, **overrides) -> dict:
         value = {
-            "$type": "app.etzhayyim.joucho.joucho",
+            "$type": "com.etzhayyim.joucho.joucho",
             "adherentDid": did,
             "joy": 650,
             "calm": 500,
@@ -671,7 +671,7 @@ class TestFetchJoucho:
             "from_signal_days": 7,
         }
         value.update(overrides)
-        return {"uri": f"at://{did}/app.etzhayyim.joucho.joucho/{_safe_rkey(did)}", "cid": "bafytest", "value": value}
+        return {"uri": f"at://{did}/com.etzhayyim.joucho.joucho/{_safe_rkey(did)}", "cid": "bafytest", "value": value}
 
     @pytest.mark.asyncio
     async def test_happy_path_returns_joucho_record(self):
@@ -735,7 +735,7 @@ class TestFetchJoucho:
             "computed_at": "2026-05-21T09:00:00Z",
             "from_signal_count": 2,
         }
-        raw = {"uri": f"at://{did}/app.etzhayyim.joucho.joucho/{_safe_rkey(did)}", "cid": "bafytest2", "value": minimal_value}
+        raw = {"uri": f"at://{did}/com.etzhayyim.joucho.joucho/{_safe_rkey(did)}", "cid": "bafytest2", "value": minimal_value}
 
         mock_pds = MagicMock()
         mock_pds.get_record = AsyncMock(return_value=raw)
@@ -769,10 +769,10 @@ class TestJouchoAggregationCellProjector:
         did = "did:plc:projtest001"
         proj_signals = [
             {
-                "uri": f"at://{did}/app.etzhayyim.shinka.kyumeiSignal/tid001",
+                "uri": f"at://{did}/com.etzhayyim.shinka.kyumeiSignal/tid001",
                 "cid": "bafyproj001",
                 "value": {
-                    "$type": "app.etzhayyim.shinka.kyumeiSignal",
+                    "$type": "com.etzhayyim.shinka.kyumeiSignal",
                     "adherentDid": did,
                     "signalKind": "ritual",
                     "weight": 800,
@@ -780,10 +780,10 @@ class TestJouchoAggregationCellProjector:
                 },
             },
             {
-                "uri": f"at://{did}/app.etzhayyim.shinka.kyumeiSignal/tid002",
+                "uri": f"at://{did}/com.etzhayyim.shinka.kyumeiSignal/tid002",
                 "cid": "bafyproj002",
                 "value": {
-                    "$type": "app.etzhayyim.shinka.kyumeiSignal",
+                    "$type": "com.etzhayyim.shinka.kyumeiSignal",
                     "adherentDid": did,
                     "signalKind": "oath",
                     "weight": 1000,
@@ -814,7 +814,7 @@ class TestJouchoAggregationCellProjector:
         mock_projector.query_by_did.assert_called_once()
         call_kwargs = mock_projector.query_by_did.call_args
         assert call_kwargs.args[0] == did
-        assert call_kwargs.kwargs.get("collection") == "app.etzhayyim.shinka.kyumeiSignal"
+        assert call_kwargs.kwargs.get("collection") == "com.etzhayyim.shinka.kyumeiSignal"
         mock_mst.query.assert_not_called()
 
         # Aggregation was correct
@@ -868,12 +868,12 @@ class TestJouchoAggregationCellProjector:
 
         all_proj_signals = [
             {
-                "uri": f"at://{did_a}/app.etzhayyim.shinka.kyumeiSignal/t1",
+                "uri": f"at://{did_a}/com.etzhayyim.shinka.kyumeiSignal/t1",
                 "cid": "bafya",
                 "value": {"adherentDid": did_a, "signalKind": "ritual", "weight": 800},
             },
             {
-                "uri": f"at://{did_b}/app.etzhayyim.shinka.kyumeiSignal/t2",
+                "uri": f"at://{did_b}/com.etzhayyim.shinka.kyumeiSignal/t2",
                 "cid": "bafyb",
                 "value": {"adherentDid": did_b, "signalKind": "oath", "weight": 900},
             },

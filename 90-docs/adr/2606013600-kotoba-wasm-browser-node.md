@@ -36,7 +36,7 @@ superseded_by: []
 The kotoba canonical Datom log (ADR-2605312345) is today served only by a native
 `kotoba serve` process (axum HTTP on `:8077`, Kubo cold tier, wasmtime guests).
 ADR-2606013200 made the yoro feed read through that server via the
-`ai.gftd.apps.kotoba.datomic.datoms` XRPC (`@etzhayyim/yoro-rw-free`). Operationally
+`com.etzhayyim.apps.kotoba.datomic.datoms` XRPC (`@etzhayyim/yoro-rw-free`). Operationally
 this leaves every browser read dependent on a reachable server endpoint (currently a
 laptop + CF Tunnel publishing `kotoba.etzhayyim.com`), which is fragile and is *not*
 the edge-first posture the charter mandates: the **baien edge-target invariant**
@@ -121,7 +121,7 @@ Target `wasm32-unknown-unknown` via `wasm-bindgen` (distinct from the `wasm32-wa
 
 ## D3. Transparent integration via a Service Worker shim
 
-A Service Worker intercepts `fetch('/xrpc/ai.gftd.apps.kotoba.*')` and dispatches to
+A Service Worker intercepts `fetch('/xrpc/com.etzhayyim.apps.kotoba.*')` and dispatches to
 `kotoba-wasm`. Therefore **`@etzhayyim/yoro-rw-free` is unchanged** — set its
 `KOTOBA_URL` to same-origin (`/`) and the reader cannot tell a local WASM node from a
 remote server. On a local miss for a query the node can't satisfy (e.g. a guest the

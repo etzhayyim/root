@@ -1,7 +1,7 @@
 # kazaori (風折) — Non-profit Religious-Corp Civilian Disaster Response Substrate
 
 **DID**: `did:web:kazaori.etzhayyim.com`
-**Namespace**: `app.etzhayyim.kazaori.*`
+**Namespace**: `com.etzhayyim.kazaori.*`
 **ADR**: ADR-2605263200 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 6 cells path-reserved + 6 Lexicon skeletons
 **Cross-actor**: mizuho / mitsuho / hagukumi / iyashi + mitate / tatekata / hikari / chigiri / toritate / wakai+kokoro+shidemori (future)
@@ -70,7 +70,7 @@ Cell modules created at R1 ratification, import-time
 | `kazaori_mass_evacuation` | naphtali | continuous | opt-in self-check-in → evacuationCheckIn + safe-site registry |
 | `kazaori_medical_surge` | naphtali (iyashi + mitate paired) | continuous | clinical overflow → iyashi clinic-overflow + temporary triage |
 
-## 6 Lexicons under `app.etzhayyim.kazaori.*`
+## 6 Lexicons under `com.etzhayyim.kazaori.*`
 
 | Lexicon | Purpose |
 |---|---|
@@ -81,7 +81,7 @@ Cell modules created at R1 ratification, import-time
 | `emergencyCarveOutLog` | Per-carve-out activation log; gate carved + Council attestation + auto-revoke timestamp; G8 structural |
 | `silenKazaoriReview` | Post-emergency Council review; Sphere compliance + carve-out audit + Wellbecoming preservation |
 
-See `/00-contracts/lexicons/app/etzhayyim/kazaori/README.md`.
+See `/00-contracts/lexicons/com/etzhayyim/kazaori/README.md`.
 
 ## Constitutional Gates (G1–G12)
 
@@ -113,7 +113,7 @@ See ADR-2605263200 §6.
 
 - `/20-actors/kazaori/manifest.jsonld`
 - `/20-actors/kazaori/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/kazaori/` (6 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/kazaori/` (6 Lexicons + README)
 - `/90-docs/adr/2605263200-kazaori-disaster-response-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605192315-etzhayyim-transparent-force-authorization.md` — G5 + N1 separation
 - `/90-docs/adr/2605263100-mizuho-water-sanitation-tier-b-actor-r0.md` — G5 carve-out coordination

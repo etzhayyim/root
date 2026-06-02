@@ -74,5 +74,5 @@ in hakkou, no prion-state contamination in kobo from raw signals).
 ## References
 
 - ADR-2605071200: Myco-Yeast Artificial Organism JP Naming
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/koke/photosynthesis-cycle.bpmn`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/koke/photosynthesis-cycle.bpmn`
 - `30-graph/graph-schema/migrations/20260507760000_vertex_koke_tables.ts`

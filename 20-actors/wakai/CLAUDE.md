@@ -177,7 +177,7 @@ python -c "from magatama.cells.wakai_mutual_aid_pool_contribution import _r0_mar
 
 - `/20-actors/wakai/manifest.jsonld`
 - `/20-actors/wakai/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/wakai/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/wakai/` (5 Lexicons + README)
 - `/90-docs/adr/2605263500-wakai-mutual-aid-tier-b-actor-r0.md`
 - `/90-docs/adr/2605192145-etzhayyim-public-fund-architecture.md` — backstop source
 - `/90-docs/adr/2605263200-kazaori-disaster-response-tier-b-actor-r0.md` — emergency cross-actor

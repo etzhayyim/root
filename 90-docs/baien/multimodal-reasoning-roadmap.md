@@ -232,5 +232,5 @@ Concrete first sprint (one H100 session, ≤ 12 hours wall clock):
 - ADR 2605091400 (cell-membrane / Lexicon demotion)
 - ADR 2605091600 (plasmid / horizontal tool acquisition)
 - ADR 2604262359 (RisingWave vector substrate)
-- `00-contracts/lexicons/ai/gftd/apps/training/runBaienMultimodalGraft.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/training/runBaienMultimodalGraft.json`
 - `20-actors/magatama/py/src/pymagatama/primitives/training_run.py:task_train_baien_graft_run`

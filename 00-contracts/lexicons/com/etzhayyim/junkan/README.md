@@ -1,4 +1,4 @@
-# app.etzhayyim.junkan.* — Lexicons
+# com.etzhayyim.junkan.* — Lexicons
 
 Lexicons for **junkan (循環)**, the analysis-only societal feedback-loop
 observer. R0 skeletons per ADR-2605290927; full schema hardening at R1.

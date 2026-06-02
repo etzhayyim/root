@@ -11,7 +11,7 @@ axis: governance
 weight: 0.75
 priority_note: "ADR-2605192100 §1.12.B で確立した Transparent Religious Force の三条件 (on-chain 監視 + open-source 公開 + 1 SBT = 1 vote 承認) を具体的 Lexicon + governance flow + on-chain log として実装する ADR。土地防衛 (ADR-2605192245 §6.2) + 構成員救出 + defensive R&D の 3 用途を初期 scope とする。日本法上の制約 (銃刀法 / 武器等製造法) 下で実現可能な force form (護身術 / 開示型研究 / 国際法上の religious-corp 自衛権) に限定。"
 authoritative_for:
-  - Transparent Force R&D Lexicon (`app.etzhayyim.apps.etzhayyim.force-*`)
+  - Transparent Force R&D Lexicon (`com.etzhayyim.apps.etzhayyim.force-*`)
   - `ForceAuthorization.sol` (governance vote の force-specific channel)
   - open-source 兵器設計 registry の structure
   - on-chain force log + after-action review の Lexicon
@@ -49,7 +49,7 @@ religious-corp の force は **三条件下でのみ運用** される:
 
 ## 1. R&D Registry Lexicon
 
-新規 Lexicon 5 本を `00-contracts/lexicons/ai/gftd/apps/etzhayyim/` に追加:
+新規 Lexicon 5 本を `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/` に追加:
 
 | Lexicon | 用途 | 主 fields |
 |---|---|---|

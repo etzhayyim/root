@@ -110,7 +110,7 @@ repo/
 
 ## BPMN = 信念更新スクリプトとしての完全形
 
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/` 以下の各ファイルは、SBGE 離散更新 1 ステップを
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/` 以下の各ファイルは、SBGE 離散更新 1 ステップを
 Zeebe 実行可能な DAG として表現する：
 
 ```

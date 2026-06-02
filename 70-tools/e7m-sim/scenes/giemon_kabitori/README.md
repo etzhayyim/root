@@ -89,7 +89,7 @@ Load into kotoba and query (verified live, 2026-05-31; in-memory, no IPFS):
 ```bash
 KOTOBA_IPFS=off kotoba serve &                          # in-memory EAVT
 TOK=$(python3 -c 'import base64,json;b=lambda o:base64.urlsafe_b64encode(json.dumps(o,separators=(",",":")).encode()).rstrip(b"=").decode();print(f"{b({\"alg\":\"HS256\",\"typ\":\"JWT\"})}.{b({\"sub\":\"operator\",\"exp\":9999999999})}.sig")')
-curl -s -XPOST localhost:8080/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch \
+curl -s -XPOST localhost:8080/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch \
   -H "Authorization: Bearer $TOK" -H 'Content-Type: application/json' --data @kotoba_ingest.json
 # claims become kg/claim/part/* datoms; query with SPARQL:
 kotoba --token "$TOK" sparql 'SELECT * WHERE { ?s <kg/claim/part/procurement> "cots" }'        # → 15

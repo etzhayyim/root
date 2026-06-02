@@ -15,7 +15,7 @@ authoritative_for:
   - Autonomous-mobility constitutional gates (Transparent Force binding; Eros/Gore content rules; SAE J3016 ceiling; data-encryption requirements)
   - R0 → R3 phased roadmap and gating
   - Non-goals (commercial robotaxi, Level-5, weaponized autonomy, mass-surveillance harvesting)
-  - Lexicon namespace reservation (`app.etzhayyim.wadachi.*`, registration deferred)
+  - Lexicon namespace reservation (`com.etzhayyim.wadachi.*`, registration deferred)
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605201800-etzhayyim-kuni-umi-s4-multi-site-fleet
@@ -71,7 +71,7 @@ Three pressures motivate landing the design now:
 | Per-vehicle DID pattern (reserved) | `did:web:etzhayyim.com:wadachi:vehicle:<serial>` |
 | Per-route DID pattern (reserved) | `did:web:etzhayyim.com:wadachi:route:<routeCode>` |
 | Intended repo location (when scaffold lands) | `20-actors/wadachi/` |
-| Lexicon namespace (reserved, registration deferred) | `app.etzhayyim.wadachi.*` |
+| Lexicon namespace (reserved, registration deferred) | `com.etzhayyim.wadachi.*` |
 | License (when first-party code lands) | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 Wadachi is intended as a **sibling of kuni-umi**, not a child. kuni-umi orchestrates Survey → Plan → Construct → Commission → Audit → Decommission of physical infrastructure. Wadachi orchestrates the **movement of vehicles through that infrastructure**, including the vehicles that kuni-umi itself produces. The two share the witness invariant (N ≥ 2 independent DID signatures) and the same substrate boundary; they do not share a phase model.
@@ -89,7 +89,7 @@ Any wadachi-attributable autonomous movement, when capability eventually lands, 
 | G3 | **No weaponized autonomous platforms.** `intendedUse = military` / `combat` / `interdiction` auto-reject. This is stricter than G2 — even Transparent Force does **not** authorize autonomous (no-human-in-loop) weapon systems under wadachi. | ADR-2605192100 §1.12.B | actor scaffold listener (when scaffolded) |
 | G4 | **No commercial robotaxi.** Uber / Lyft / Waymo-style payoff extraction from adherent ride demand is rejected as `subscription` / `purchase` payment-purpose violation. Adherent-internal rides settle as `kisha` / `internal-promo` / donation; never as commercial fare. | ADR-2605192115 §3 | TitheRouter payment-purpose filter |
 | G5 | **No in-cabin / on-screen advertising.** Third-party ads, AdSense, Meta Pixel, affiliate links, GA4 ad linkage — all reject. Religious-corp internal `internal-promo` per ADR-2605192115 §3.b is allowed only for etzhayyim's own religious activity notices, never for product placement. | ADR-2605192115 §2 + §3 | content lint hook |
-| G6 | **Route / passenger telemetry encrypted by default.** Any record carrying passenger DID, biometric, or fine-grained route polyline MUST use `app.etzhayyim.encrypted.*` envelope (XChaCha20-Poly1305 + Signal-wrapped per-recipient keys, DID-bound). Coarse fleet-rebalance aggregates (≥ 1 km × 1 km bucket) MAY be public. | ADR-2605181100 | Lexicon schema (when registered) |
+| G6 | **Route / passenger telemetry encrypted by default.** Any record carrying passenger DID, biometric, or fine-grained route polyline MUST use `com.etzhayyim.encrypted.*` envelope (XChaCha20-Poly1305 + Signal-wrapped per-recipient keys, DID-bound). Coarse fleet-rebalance aggregates (≥ 1 km × 1 km bucket) MAY be public. | ADR-2605181100 | Lexicon schema (when registered) |
 | G7 | **No mass-surveillance harvest.** Wadachi vehicles SHALL NOT persist passenger / pedestrian biometric, gait, face, voice, license-plate, or device-MAC streams beyond the operational rolling window required for safe navigation. Persistence requires explicit `recordWitnessConsent` with Council Lv6+ co-sign per route deployment. | ADR-2605192200 §2(c) surveillance capitalism | actor scaffold listener (when scaffolded) |
 | G8 | **Witness invariant N ≥ 2.** Every `recordDrive` and `recordIncident` (when lexicons land) carries ≥ 2 independent DID signatures (vehicle + adjacent witness vehicle / fixed wadachi sensor post / Council Lv6+). N=1 auto-escalates to Council. Constitutional invariant. | ADR-2605201400 §5 (inherited from kuni-umi) | MST listener |
 | G9 | **No server-held vehicle private key.** Per ADR-2605231525, vehicle Ed25519 / passkey-derived signing keys live on the vehicle's onboard secure element. Platform-side wadachi Workers / pods / CronJobs MUST NOT hold the vehicle key. Read-only RPC / firehose subscribe / IPFS pin remain allowed. | ADR-2605231525 | `e7m verify` 9th invariant |
@@ -154,7 +154,7 @@ Explicit non-deliverables of this ADR, compared to a typical kuni-umi-style ADR 
 
 - ❌ No `20-actors/wadachi/` directory created
 - ❌ No actor `README.md` / `CLAUDE.md` / `manifest.jsonld`
-- ❌ No lexicon JSON registered under `app.etzhayyim.wadachi.*`
+- ❌ No lexicon JSON registered under `com.etzhayyim.wadachi.*`
 - ❌ No root `CLAUDE.md` Repo-Layout edit, no Status table row
 - ❌ No Murakumo `fleet.toml` placement
 - ❌ No Solidity contract scaffold
@@ -173,7 +173,7 @@ All of the above are deferred to a follow-on R0 commit (or to later R-phase ADRs
 - ADR-only landing means review can focus on the design itself, not on whether the actor directory layout is right. Layout decisions land at the R0 scaffold commit.
 
 **Negative / costs**:
-- Reserves `app.etzhayyim.wadachi.*` namespace and `did:web:etzhayyim.com:wadachi` without registering — any future operator who introduces a colliding lexicon or path will hit a soft conflict, but there is no enforcement layer at this ADR.
+- Reserves `com.etzhayyim.wadachi.*` namespace and `did:web:etzhayyim.com:wadachi` without registering — any future operator who introduces a colliding lexicon or path will hit a soft conflict, but there is no enforcement layer at this ADR.
 - Defers all real engineering decisions (perception stack, planning algorithm, fleet rebalance solver, ODD definition format) to R1+. Reviewers expecting "the wadachi design" will find only constitutional gating.
 - Without an actor `CLAUDE.md`, the gate set lives only in this ADR file. A reader landing on `20-actors/` won't see wadachi until the R0 scaffold commit. Mitigated by the kuni-umi-S4 ADR linking forward.
 

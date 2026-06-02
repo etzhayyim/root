@@ -215,7 +215,7 @@ pnpm --dir 30-graph/graph-schema rag:evaluate
 pnpm --dir 30-graph/graph-schema rag:train
 ```
 
-`llm.etzhayyim.com/xrpc/app.etzhayyim.apps.llm.answerWithKnowledge` is intentionally not
+`llm.etzhayyim.com/xrpc/com.etzhayyim.apps.llm.answerWithKnowledge` is intentionally not
 served by this gateway:
 
 ```json

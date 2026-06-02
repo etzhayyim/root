@@ -38,17 +38,17 @@ did:web:gameka.etzhayyim.com:game:{title-slug}        — Per-game sub-DID (mint
 
 ## Collections
 
-- `app.etzhayyim.gameka.spec` — GameSpec records (proposal + iteration chain)
-- `app.etzhayyim.gameka.buildArtifact` — BuildArtifact records (source tree or WASM CID)
-- `app.etzhayyim.gameka.gameQa` — GameQa records (playtest metrics + outcome)
-- `app.etzhayyim.gameka.gameTitle` — GameTitle records (published games with sub-DID)
+- `com.etzhayyim.gameka.spec` — GameSpec records (proposal + iteration chain)
+- `com.etzhayyim.gameka.buildArtifact` — BuildArtifact records (source tree or WASM CID)
+- `com.etzhayyim.gameka.gameQa` — GameQa records (playtest metrics + outcome)
+- `com.etzhayyim.gameka.gameTitle` — GameTitle records (published games with sub-DID)
 
 ## Pattern translation (Option B)
 
 | Vendor (`gameka.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
-| `db.insertInto("vertex_gameka_spec").values({...}).execute()` | `e.write({ collection: "app.etzhayyim.gameka.spec", record, rkey })` |
+| `db.insertInto("vertex_gameka_spec").values({...}).execute()` | `e.write({ collection: "com.etzhayyim.gameka.spec", record, rkey })` |
 | `db.selectFrom("vertex_gameka_spec").where("spec_id","=",id).execute()` | `e.read({ collection, rkey: \`spec-${specSlug(id)}\` })` |
 
 ## Usage

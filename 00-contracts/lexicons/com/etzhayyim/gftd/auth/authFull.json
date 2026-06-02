@@ -9,9 +9,9 @@
       "title:lang": {
         "ja": "W Protocol 全機能アクセス"
       },
-      "detail": "Full access to all AT Protocol + W Protocol features. Superset: includes all app.bsky, chat.bsky, com.atproto collections and RPCs, plus ai.gftd extensions.",
+      "detail": "Full access to all AT Protocol + W Protocol features. Superset: includes all app.bsky, chat.bsky, com.atproto collections and RPCs, plus com.etzhayyim extensions.",
       "detail:lang": {
-        "ja": "AT Protocol + W Protocol全機能へのアクセス。app.bsky, chat.bsky, com.atprotoの全コレクション・RPCに加え、ai.gftd拡張を含むスーパーセット。"
+        "ja": "AT Protocol + W Protocol全機能へのアクセス。app.bsky, chat.bsky, com.atprotoの全コレクション・RPCに加え、com.etzhayyim拡張を含むスーパーセット。"
       },
       "permissions": [
         {

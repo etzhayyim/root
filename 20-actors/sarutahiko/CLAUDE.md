@@ -77,19 +77,19 @@ Key enforcement:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.sarutahiko`
+**App lexicon root**: `com.etzhayyim.sarutahiko`
 
 **Records (9 types, R0 stubs)**:
 
-1. `app.etzhayyim.sarutahiko.frameAttestation` — L1
-2. `app.etzhayyim.sarutahiko.powertrainAttestation` — L2 (G7 fuel guard)
-3. `app.etzhayyim.sarutahiko.cabBodyAttestation` — L3
-4. `app.etzhayyim.sarutahiko.marriageAttestation` — L4 (≥2 robot witness)
-5. `app.etzhayyim.sarutahiko.paintAttestation` — L5a
-6. `app.etzhayyim.sarutahiko.electricalAttestation` — L5b (open-source firmware CID)
-7. `app.etzhayyim.sarutahiko.roadTestRecord` — L5c
-8. `app.etzhayyim.sarutahiko.emissionsAuditRecord` — cross-cutting
-9. `app.etzhayyim.sarutahiko.silenVehicleReview` — Council 5-of-7 Safe
+1. `com.etzhayyim.sarutahiko.frameAttestation` — L1
+2. `com.etzhayyim.sarutahiko.powertrainAttestation` — L2 (G7 fuel guard)
+3. `com.etzhayyim.sarutahiko.cabBodyAttestation` — L3
+4. `com.etzhayyim.sarutahiko.marriageAttestation` — L4 (≥2 robot witness)
+5. `com.etzhayyim.sarutahiko.paintAttestation` — L5a
+6. `com.etzhayyim.sarutahiko.electricalAttestation` — L5b (open-source firmware CID)
+7. `com.etzhayyim.sarutahiko.roadTestRecord` — L5c
+8. `com.etzhayyim.sarutahiko.emissionsAuditRecord` — cross-cutting
+9. `com.etzhayyim.sarutahiko.silenVehicleReview` — Council 5-of-7 Safe
 
 Terminal `vehicleManufactureRecord` (yatachain-anchored aggregate) emitted by `vin_attestation_binder` cell.
 

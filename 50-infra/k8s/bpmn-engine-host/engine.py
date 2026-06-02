@@ -138,15 +138,15 @@ PROCESS_DID_HOST = "did:web:bpmn.etzhayyim.com"
 
 
 def _vertex_instance(instance_id: str, seq: int = 0) -> str:
-    return f"at://{PROCESS_DID_HOST}/app.etzhayyim.apps.spiff.instance/{instance_id}:{seq}"
+    return f"at://{PROCESS_DID_HOST}/com.etzhayyim.apps.spiff.instance/{instance_id}:{seq}"
 
 
 def _vertex_job(job_id: str, seq: int = 0) -> str:
-    return f"at://{PROCESS_DID_HOST}/app.etzhayyim.apps.spiff.job/{job_id}:{seq}"
+    return f"at://{PROCESS_DID_HOST}/com.etzhayyim.apps.spiff.job/{job_id}:{seq}"
 
 
 def _vertex_history(instance_id: str, seq: int) -> str:
-    return f"at://{PROCESS_DID_HOST}/app.etzhayyim.apps.spiff.history/{instance_id}:{seq}"
+    return f"at://{PROCESS_DID_HOST}/com.etzhayyim.apps.spiff.history/{instance_id}:{seq}"
 
 
 def _now_iso() -> str:

@@ -13,7 +13,7 @@ priority_note: "ADR-2605192100 §1.13 で確立した Eros 許容 / Gore 禁止�
 authoritative_for:
   - Eros / Gore 境界 case の judging procedure (3 層 framework)
   - LLM-assisted pre-classification cell (`EthicsContentClassifierCell`)
-  - precedent registry Lexicon (`app.etzhayyim.apps.etzhayyim.eros-gore-precedent`)
+  - precedent registry Lexicon (`com.etzhayyim.apps.etzhayyim.eros-gore-precedent`)
   - 5 段階 classification rubric
   - appeal procedure
 depends_on:
@@ -58,7 +58,7 @@ Layer 1: LLM-assisted pre-classification (EthicsContentClassifierCell, automatic
    ↓ (uncertain or boundary)
 Layer 2: Council Lv6+ deliberation (3 名以上 multisig)
    ↓ (precedent setting)
-Layer 3: Precedent Registry (`app.etzhayyim.apps.etzhayyim.eros-gore-precedent`)
+Layer 3: Precedent Registry (`com.etzhayyim.apps.etzhayyim.eros-gore-precedent`)
 ```
 
 ### Layer 1 — LLM pre-classification
@@ -78,7 +78,7 @@ magatama Pregel cell `EthicsContentClassifierCell` が input content を以下�
 T2 / T4 (borderline) は Council Lv6+ 3 名以上が deliberation + signed attestation:
 
 ```
-app.etzhayyim.apps.etzhayyim.eros-gore-judging request
+com.etzhayyim.apps.etzhayyim.eros-gore-judging request
   → LLM pre-classification (Tier + rationale)
   → Council Lv6+ 各 member の signed evaluation
   → 3-of-Lv6+ signatures → final classification (Permit / Prohibit / Conditional)
@@ -87,11 +87,11 @@ app.etzhayyim.apps.etzhayyim.eros-gore-judging request
 
 ### Layer 3 — Precedent Registry
 
-Council 判決は precedent として `app.etzhayyim.apps.etzhayyim.eros-gore-precedent` に永続記録される:
+Council 判決は precedent として `com.etzhayyim.apps.etzhayyim.eros-gore-precedent` に永続記録される:
 
 ```json
 {
-  "$type": "app.etzhayyim.apps.etzhayyim.eros-gore-precedent",
+  "$type": "com.etzhayyim.apps.etzhayyim.eros-gore-precedent",
   "subjectDescription": "Commercial first-person shooter game with photo-realistic violence depiction, ESRB Mature",
   "llmPreClassification": "T4",
   "councilDetermination": "Prohibit",
@@ -181,7 +181,7 @@ def build_graph():
 precedent + Council determination に対して 30 日以内に appeal 可能:
 
 ```
-app.etzhayyim.apps.etzhayyim.eros-gore-appeal
+com.etzhayyim.apps.etzhayyim.eros-gore-appeal
   → Council Lv6+ 5 名以上 (initial determination の 3 名を超える) が再 deliberation
   → 元 determination の維持 or 修正
   → 修正の場合 precedent registry に supersedesPrecedent link

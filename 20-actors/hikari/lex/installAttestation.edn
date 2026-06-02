@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hikari.installAttestation"
+ :id "com.etzhayyim.hikari.installAttestation"
  :defs
  {:main
   {:type "record"

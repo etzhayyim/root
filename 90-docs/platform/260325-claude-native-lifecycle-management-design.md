@@ -64,7 +64,7 @@ gftd symbol-graph --format json
     }
   },
   "xrpc": {
-    "app.etzhayyim.yoro.feed.get-timeline": {
+    "com.etzhayyim.yoro.feed.get-timeline": {
       "method": "GET",
       "handler": "50-infra/cloudflare/workers/atproto/src/pds-handlers-feed.ts:128"
     }

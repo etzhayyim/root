@@ -27,7 +27,7 @@ Persistence: orchestration spine (run/cursor) via the shared RW-free
 `ingest.core` helpers (best-effort, see `_spine`); the canonical entities live in
 this worker's own `ingest_kg_open.db` SQLite. The RW→kotoba-datomic refactor
 (vendor ADR-2605302130) is performed KOTOBA-SIDE by swapping the single
-`_persist_entities` seam for `ai.gftd.apps.kotoba.datomic.transact` into an
+`_persist_entities` seam for `com.etzhayyim.apps.kotoba.datomic.transact` into an
 etzhayyim-owned graph (never vendor `kotobase-kg-v1`).
 """
 
@@ -184,7 +184,7 @@ def sync_cursor():
 # Canonical entities currently land in the RW-free local SQLite. The RW→kotoba
 # refactor is performed KOTOBA-SIDE: replace THIS function body with a kotoba
 # datomic transact of the same `entities` dicts (POST
-# ai.gftd.apps.kotoba.datomic.transact, via yatabase_entity_to_tx_ops shape),
+# com.etzhayyim.apps.kotoba.datomic.transact, via yatabase_entity_to_tx_ops shape),
 # into an etzhayyim-owned graph. No other code here writes entities.
 def _persist_entities(cur: Any, entities: list[dict[str, Any]], source_id: str, now: str) -> int:
     inserted = 0
@@ -192,7 +192,7 @@ def _persist_entities(cur: Any, entities: list[dict[str, Any]], source_id: str, 
         eid = e.get("id")
         if not eid:
             continue
-        vid = f"at://{KG_PATH_DID}/ai.gftd.apps.kg.entity/{eid}"
+        vid = f"at://{KG_PATH_DID}/com.etzhayyim.apps.kg.entity/{eid}"
         try:
             cur.execute(
                 """INSERT OR REPLACE INTO vertex_kg_entity (

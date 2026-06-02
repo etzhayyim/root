@@ -591,7 +591,7 @@ class StaleSensorPinRule:
                     detail=(
                         f"DatasetSensor '{s.name}' (tier {s.tier}, license "
                         f"{s.license}) has not received a fresh "
-                        f"app.etzhayyim.substrate.datasetPin record in "
+                        f"com.etzhayyim.substrate.datasetPin record in "
                         f"{age_h:.1f}h. Upstream cadence is "
                         f"{s.refresh_cadence_sec}s ≈ "
                         f"{s.refresh_cadence_sec / 3600:.1f}h. Per "

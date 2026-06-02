@@ -1,6 +1,6 @@
 ---
 id: adr-2606021400-session-close-nsid-com-etzhayyim-migration
-title: "ADR-2606021400: Session close — repo-wide NSID migration app.etzhayyim.* / ai.gftd.* → com.etzhayyim.*"
+title: "ADR-2606021400: Session close — repo-wide NSID migration com.etzhayyim.* / com.etzhayyim.* → com.etzhayyim.*"
 status: active
 doc_type: adr
 topic: session-close-nsid-com-etzhayyim-migration
@@ -24,11 +24,11 @@ Documentation-only closure for the PR-triage + NSID-migration session.
 
 # Context
 
-The repo carried two legacy lexicon/NSID namespaces — `app.etzhayyim.*` (the
-atproto-convention `app.*` reverse-DNS) and the vendor-origin `ai.gftd.*` —
+The repo carried two legacy lexicon/NSID namespaces — `com.etzhayyim.*` (the
+atproto-convention `app.*` reverse-DNS) and the vendor-origin `com.etzhayyim.*` —
 where the operating domain is `etzhayyim.com`, whose reverse-DNS is
 `com.etzhayyim`. PR #718 had already converted the tsukuru actor
-(`app.etzhayyim.apps.tsukuru.*` → `com.etzhayyim.apps.tsukuru.*`); this session
+(`com.etzhayyim.apps.tsukuru.*` → `com.etzhayyim.apps.tsukuru.*`); this session
 extended that to the whole tree.
 
 # Decision
@@ -40,11 +40,11 @@ agent-rewritten.
 ## Landed
 
 - **#742 — repo-wide migration** (~23.4k files):
-  - dotted ids `app.etzhayyim.` / `ai.gftd.` → `com.etzhayyim.`
-  - slash path-strings `app/etzhayyim/` / `ai/gftd/` → `com/etzhayyim/`
+  - dotted ids `com.etzhayyim.` / `com.etzhayyim.` → `com.etzhayyim.`
+  - slash path-strings `com/etzhayyim/` / `com/etzhayyim/` → `com/etzhayyim/`
   - `git mv` of every lexicon/contract dir tree (`bpmn`, `dmn`, `examples`,
     `formats`, `forms`, `lexicons`, `lexicons/archive`, + comfyui/murakumo app
-    lexicon mirrors) under `…/app/etzhayyim/` and `…/ai/gftd/` →
+    lexicon mirrors) under `…/com/etzhayyim/` and `…/com/etzhayyim/` →
     `…/com/etzhayyim/`.
   - Collisions: 128 app↔ai mirrored files byte-identical after transform →
     de-duplicated; 1 differing `murakumo/README.md` kept the app-origin copy.
@@ -52,7 +52,7 @@ agent-rewritten.
     `20-actors/magatama/py/` (609) + `50-infra/cluster/murakumo/` (4) per
     ADR-2605214000 §3 / ADR-2605215000 §4 (atomic rename
     post-legal-registration); historical docs (1,136 `.md`, incl. all ADRs, as
-    as-of record); Android Java packages `…/java/ai/gftd/` (5, separate JVM
+    as-of record); Android Java packages `…/java/com/etzhayyim/` (5, separate JVM
     namespace); and 40 files carrying pre-existing substrate-boundary
     violations (reverted to keep the rename un-entangled — same pattern as
     #718→#728).
@@ -77,7 +77,7 @@ agent-rewritten.
   content rather than a destructive cross-history merge.
 - Dependabot bumps merged (#705–708, #711, #731, #732); #728 cleared a
   pre-existing dead-`psycopg` substrate-boundary violation; #738 tracks the
-  #724 hakken `ai.gftd.*` → `com.etzhayyim.*` follow-up.
+  #724 hakken `com.etzhayyim.*` → `com.etzhayyim.*` follow-up.
 
 # Consequences
 

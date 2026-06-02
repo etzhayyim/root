@@ -201,7 +201,7 @@ def test_evidence_meta_clean():
 
 def _row(**overrides) -> dict:
     base = {
-        "vertex_id": "at://did:web:gmail.etzhayyim.com/app.etzhayyim.apps.gmail.email/email-x",
+        "vertex_id": "at://did:web:gmail.etzhayyim.com/com.etzhayyim.apps.gmail.email/email-x",
         "email_id": "email-x",
         "from_addr": "x@y.tld",
         "reply_to": "",

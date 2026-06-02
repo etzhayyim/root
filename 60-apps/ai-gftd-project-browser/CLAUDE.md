@@ -41,7 +41,7 @@ did:web:site.etzhayyim.com                        ← primary DID (controller)
 ```
 
 - `DIDCreate("page:"+urlHash, profile)` で冪等登録 (同一 URL → 同一 DID)
-- `DIDWrite(did, "app.etzhayyim.apps.crawler.crawlPage", record)` で crawl data を AT Record として永続化
+- `DIDWrite(did, "com.etzhayyim.apps.crawler.crawlPage", record)` で crawl data を AT Record として永続化
 - `ATPost(did, title, embed)` で webpage DID として Bluesky timeline に投稿
 - `actor_id` = webpage DID (provenance tracking)
 - yoro.etzhayyim.com/profile/{did} で各 webpage が followable/likeable

@@ -4,7 +4,7 @@
  *
  * Transport is injected (`PutWrap`/`GetWrap`) so this is unit-testable without a
  * live server; `account.ts` provides the real fetch-based implementation against
- * kotoba-server `ai.gftd.account.{put,get}.wrapped.ark`.
+ * kotoba-server `com.etzhayyim.account.{put,get}.wrapped.ark`.
  *
  * Multi-device semantics are explicit and correct:
  *   • enrollAccount   — FIRST device of a NEW account: mint ARK, wrap, store.

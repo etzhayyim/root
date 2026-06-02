@@ -224,7 +224,7 @@ async def node_store_proposal(state: ProposalState) -> dict[str, Any]:
                 ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                 """,
                 (
-                    f"at://{WEBMK_DID}/app.etzhayyim.apps.webmk.proposal/{state['proposal_id']}",
+                    f"at://{WEBMK_DID}/com.etzhayyim.apps.webmk.proposal/{state['proposal_id']}",
                     state["proposal_id"],
                     WEBMK_DID,
                     "proposal",
@@ -429,7 +429,7 @@ async def task_create_ad_campaign(
     """Call ads.etzhayyim.com createCampaign and link to proposal."""
     async with httpx.AsyncClient() as client:
         resp = await client.post(
-            f"{ADS_XRPC_URL}/xrpc/app.etzhayyim.apps.ads.createCampaign",
+            f"{ADS_XRPC_URL}/xrpc/com.etzhayyim.apps.ads.createCampaign",
             json={
                 "name": f"webmk-{proposalId[:8]} {clientName}",
                 "description": f"Auto-generated campaign from webmk proposal {proposalId}",
@@ -457,8 +457,8 @@ async def task_create_ad_campaign(
                 """,
                 (
                     edge_id,
-                    f"at://{WEBMK_DID}/app.etzhayyim.apps.webmk.proposal/{proposalId}",
-                    f"at://{ADS_DID}/app.etzhayyim.apps.ads.campaign/{campaign_id}",
+                    f"at://{WEBMK_DID}/com.etzhayyim.apps.webmk.proposal/{proposalId}",
+                    f"at://{ADS_DID}/com.etzhayyim.apps.ads.campaign/{campaign_id}",
                     "has_campaign",
                     proposalId,
                     campaign_id,

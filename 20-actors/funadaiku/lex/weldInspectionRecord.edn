@@ -1,7 +1,7 @@
-;; app.etzhayyim.funadaiku.weldInspectionRecord — lexicon (EDN form)
+;; com.etzhayyim.funadaiku.weldInspectionRecord — lexicon (EDN form)
 ;; ADR-2606013400 · L3 NDT inspection (RT/UT/PT)
 {:lexicon 1
- :id "app.etzhayyim.funadaiku.weldInspectionRecord"
+ :id "com.etzhayyim.funadaiku.weldInspectionRecord"
  :defs
  {:main
   {:type "record"

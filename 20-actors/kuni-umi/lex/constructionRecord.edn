@@ -1,7 +1,7 @@
-;; app.etzhayyim.kuniumi.constructionRecord — lexicon
+;; com.etzhayyim.kuniumi.constructionRecord — lexicon
 ;; ADR-2605201400 · construction orchestration output
 {:lexicon 1
- :id "app.etzhayyim.kuniumi.constructionRecord"
+ :id "com.etzhayyim.kuniumi.constructionRecord"
  :defs
  {:main
   {:type "record"

@@ -55,10 +55,10 @@ Purge Worker
 
 | Collection | Purpose | Encryption |
 |---|---|---|
-| `app.etzhayyim.apps.tenso.transferRequest` | Transfer initiation + status | plaintext (metadata only) |
-| `app.etzhayyim.apps.tenso.fileManifest` | fileKey + chunk CID list | `signal:v1:` field encrypt |
-| `app.etzhayyim.apps.tenso.transferLog` | Audit trail (event_type, actor, timestamp) | plaintext |
-| `app.etzhayyim.apps.tenso.accessControl` | Recipient permissions, download limits | `signal:v1:` field encrypt |
+| `com.etzhayyim.apps.tenso.transferRequest` | Transfer initiation + status | plaintext (metadata only) |
+| `com.etzhayyim.apps.tenso.fileManifest` | fileKey + chunk CID list | `signal:v1:` field encrypt |
+| `com.etzhayyim.apps.tenso.transferLog` | Audit trail (event_type, actor, timestamp) | plaintext |
+| `com.etzhayyim.apps.tenso.accessControl` | Recipient permissions, download limits | `signal:v1:` field encrypt |
 
 ## 3-Tier Write
 

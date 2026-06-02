@@ -2,7 +2,7 @@
  * Ed25519 session signing key derived from the account hierarchy (ADR-2606014500
  * C-2, client side). The key is generated **on the device** from `k_session`
  * (= HKDF(ARK, "kotoba/session/sign/v1")) and only its PUBLIC half is registered
- * with the auth Worker via `app.etzhayyim.auth.registerSigningKey`. The private
+ * with the auth Worker via `com.etzhayyim.auth.registerSigningKey`. The private
  * key never leaves the browser — zero-access custody.
  *
  * Deterministic: the same ARK always yields the same key, so it is recoverable on
@@ -153,7 +153,7 @@ export async function registerSessionKey(
 	accessToken: string,
 	authBase = 'https://authn.etzhayyim.com',
 ): Promise<boolean> {
-	const resp = await fetch(`${authBase}/xrpc/app.etzhayyim.auth.registerSigningKey`, {
+	const resp = await fetch(`${authBase}/xrpc/com.etzhayyim.auth.registerSigningKey`, {
 		method: 'POST',
 		headers: { 'content-type': 'application/json', authorization: `Bearer ${accessToken}` },
 		body: JSON.stringify({ did, publicKeyMultibase, performerType: 'person' }),

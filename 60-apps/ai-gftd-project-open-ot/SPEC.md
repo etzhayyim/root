@@ -14,7 +14,7 @@ Path-based DIDs under `did:web:open-ot.etzhayyim.com`:
 | `:loop:` | Logical control loop (≥ 1 cell + signals) | `did:web:open-ot.etzhayyim.com:loop:tank3-level-control` |
 | `:fault:` | Fault record | `did:web:open-ot.etzhayyim.com:fault:2026-05-15-001` |
 
-Devices, cells, signals, and loops are AT records under `app.etzhayyim.apps.openOt.*`. Fault records carry a DMN-evaluated severity.
+Devices, cells, signals, and loops are AT records under `com.etzhayyim.apps.openOt.*`. Fault records carry a DMN-evaluated severity.
 
 ## 2. NSID surface (MVP)
 
@@ -22,32 +22,32 @@ Procedures (write):
 
 | NSID | Purpose | Notes |
 |---|---|---|
-| `app.etzhayyim.apps.openOt.defineDevice` | register physical controller | manufacturer / model / firmware / location |
-| `app.etzhayyim.apps.openOt.defineCell` | declare WASM cell instance | references pinned module CID, host capabilities, cohort links |
-| `app.etzhayyim.apps.openOt.defineSignal` | analog / digital / string signal | EU range, deadband, sample period |
-| `app.etzhayyim.apps.openOt.defineLoop` | PID / sequence / interlock | references cells + signals |
-| `app.etzhayyim.apps.openOt.pinModule` | pin `.aot` / `.wasm` artefact | content-addressed CID, signed by builder DID |
-| `app.etzhayyim.apps.openOt.grantCapability` | host capability grant | I/O, network peer, neighbor cell, time source |
-| `app.etzhayyim.apps.openOt.setpointChange` | operator / agent setpoint | requires `setpoint:write` capability + audit reason |
-| `app.etzhayyim.apps.openOt.modeChange` | auto / manual / cascade / safe | interlock-checked DMN |
-| `app.etzhayyim.apps.openOt.recordTelemetryBatch` | pod-side ingest from Zenoh aggregator | array of `(signal_did, ts, value, quality)` |
-| `app.etzhayyim.apps.openOt.reportFault` | fault with severity DMN | optional public notice |
+| `com.etzhayyim.apps.openOt.defineDevice` | register physical controller | manufacturer / model / firmware / location |
+| `com.etzhayyim.apps.openOt.defineCell` | declare WASM cell instance | references pinned module CID, host capabilities, cohort links |
+| `com.etzhayyim.apps.openOt.defineSignal` | analog / digital / string signal | EU range, deadband, sample period |
+| `com.etzhayyim.apps.openOt.defineLoop` | PID / sequence / interlock | references cells + signals |
+| `com.etzhayyim.apps.openOt.pinModule` | pin `.aot` / `.wasm` artefact | content-addressed CID, signed by builder DID |
+| `com.etzhayyim.apps.openOt.grantCapability` | host capability grant | I/O, network peer, neighbor cell, time source |
+| `com.etzhayyim.apps.openOt.setpointChange` | operator / agent setpoint | requires `setpoint:write` capability + audit reason |
+| `com.etzhayyim.apps.openOt.modeChange` | auto / manual / cascade / safe | interlock-checked DMN |
+| `com.etzhayyim.apps.openOt.recordTelemetryBatch` | pod-side ingest from Zenoh aggregator | array of `(signal_did, ts, value, quality)` |
+| `com.etzhayyim.apps.openOt.reportFault` | fault with severity DMN | optional public notice |
 
 Queries (read):
 
 | NSID | Purpose |
 |---|---|
-| `app.etzhayyim.apps.openOt.getDevice` | device detail incl. attached cells |
-| `app.etzhayyim.apps.openOt.getCell` | cell detail incl. pinned module + capabilities |
-| `app.etzhayyim.apps.openOt.getLoop` | loop detail incl. cells + signals + setpoint |
-| `app.etzhayyim.apps.openOt.listSignals` | by device / cell / since |
-| `app.etzhayyim.apps.openOt.listLoops` | by device / status |
-| `app.etzhayyim.apps.openOt.listFaults` | by device / loop / since / minSeverity |
-| `app.etzhayyim.apps.openOt.listReadings` | telemetry by signal / since (paged) |
+| `com.etzhayyim.apps.openOt.getDevice` | device detail incl. attached cells |
+| `com.etzhayyim.apps.openOt.getCell` | cell detail incl. pinned module + capabilities |
+| `com.etzhayyim.apps.openOt.getLoop` | loop detail incl. cells + signals + setpoint |
+| `com.etzhayyim.apps.openOt.listSignals` | by device / cell / since |
+| `com.etzhayyim.apps.openOt.listLoops` | by device / status |
+| `com.etzhayyim.apps.openOt.listFaults` | by device / loop / since / minSeverity |
+| `com.etzhayyim.apps.openOt.listReadings` | telemetry by signal / since (paged) |
 
 All NSIDs in `camelCase` per platform identifier convention.
 
-**Status (2026-05-15)**: All 17 Lexicon JSON files authored under `00-contracts/lexicons/ai/gftd/apps/openOt/`. Bundle (`50-infra/cloudflare/workers/atproto/src/lexicon/bundled.ts`) and registry (`50-infra/cloudflare/workers/atproto/src/generated/lexicon-registry.gen.ts`, `10-protocol/xrpc/src/lexicon-types.gen.ts`) regenerated. **Wrangler deploy deferred** until the open-ot Worker has handlers — no point shipping a bundle whose new NSIDs have no responder. When implementation begins: `cd 50-infra/cloudflare/workers/atproto && npx wrangler deploy` (per CLAUDE.md root rule). All values use `integer` (no `number` per AT Lexicon float-prohibition); analog values are scaled to micro-units (1e-6) with UCUM `unitCode` separately; super-step rate uses `millihertz` (1000 = 1 Hz). Array-of-object always uses `items: { type: "ref", "ref": "#typeName" }` per the AT Lexicon validator.
+**Status (2026-05-15)**: All 17 Lexicon JSON files authored under `00-contracts/lexicons/com/etzhayyim/apps/openOt/`. Bundle (`50-infra/cloudflare/workers/atproto/src/lexicon/bundled.ts`) and registry (`50-infra/cloudflare/workers/atproto/src/generated/lexicon-registry.gen.ts`, `10-protocol/xrpc/src/lexicon-types.gen.ts`) regenerated. **Wrangler deploy deferred** until the open-ot Worker has handlers — no point shipping a bundle whose new NSIDs have no responder. When implementation begins: `cd 50-infra/cloudflare/workers/atproto && npx wrangler deploy` (per CLAUDE.md root rule). All values use `integer` (no `number` per AT Lexicon float-prohibition); analog values are scaled to micro-units (1e-6) with UCUM `unitCode` separately; super-step rate uses `millihertz` (1000 = 1 Hz). Array-of-object always uses `items: { type: "ref", "ref": "#typeName" }` per the AT Lexicon validator.
 
 ## 3. Function-block API (Rust, Tier 1) — IEC 61499-compatible
 
@@ -141,7 +141,7 @@ A control **loop** is a LangGraph graph; each **cell** in the loop is a Pregel n
 
 | LangGraph / Pregel | Open-OT | Storage |
 |---|---|---|
-| Graph definition (per ADR-2605082000) | `defineLoop` record with cell DIDs + edges | atproto `app.etzhayyim.apps.openOt.loop` |
+| Graph definition (per ADR-2605082000) | `defineLoop` record with cell DIDs + edges | atproto `com.etzhayyim.apps.openOt.loop` |
 | Pregel node | one cell DID | `vertex_open_ot_cell` |
 | Pregel message | typed IEC 61499 event + data | Zenoh key `open-ot/{site}/{loop}/msg/{from_cell}→{to_cell}/{event}` |
 | Super-step id | monotonic `super_step: u64` per loop | column in checkpoint row |

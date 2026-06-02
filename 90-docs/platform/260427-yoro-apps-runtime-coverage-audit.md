@@ -11,7 +11,7 @@ The four layers under audit:
 | Layer | What counts as "implemented" |
 |---|---|
 | **L3 CF Hono + Svelte edge** | `60-apps/ai-gftd-project-{id}` contains a `wrangler.jsonc` (Hono Worker) and / or a `svelte/package.json` (Svelte CSR app shell) |
-| **L7 BPMN (Zeebe)** | At least one `.bpmn` lives under `etzhayyim-root/00-contracts/bpmn/ai/gftd/{id}/` (deployed via `bpmn-dispatcher.etzhayyim.com` watcher to the `zeebe-0` cluster) |
+| **L7 BPMN (Zeebe)** | At least one `.bpmn` lives under `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/{id}/` (deployed via `bpmn-dispatcher.etzhayyim.com` watcher to the `zeebe-0` cluster) |
 | **L8 Python pod worker** | Has a `50-infra/k8s/{id}*` deployment, or owns a Vultr VKE pod under `50-infra/vultr/{id}*` |
 | **MCP server** | Worker source declares `agentTool` / `mcpRegistry` (per ADR-0087 magatama MCP facade) **or** ships a dedicated MCP pod (`50-infra/k8s/{id}-mcp`) |
 
@@ -20,7 +20,7 @@ The four layers under audit:
 - **Apps registry**: `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/apps/apps.ts`
   — 74 unique app ids, minus the `gftd` portal entry → **73 evaluable rows**
 - **Project folders**: `60-apps/ai-gftd-project-*` (399 directories)
-- **BPMN actors**: `etzhayyim-root/00-contracts/bpmn/ai/gftd/*` (557 actor namespaces)
+- **BPMN actors**: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/*` (557 actor namespaces)
 - **k8s services**: `50-infra/k8s/*` (10 services)
 - **Vultr services**: `50-infra/vultr/*` (14 services)
 

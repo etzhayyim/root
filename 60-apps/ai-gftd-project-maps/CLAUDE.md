@@ -6,19 +6,19 @@ Spatial Intelligence + Digital Twin Platform (maps.etzhayyim.com). Graph-first a
 
 ## Rendering (2026-04-17, RisingWave-native + KAMI 3D)
 
-**外部 MVT タイル依存は廃止。** ベクタレイヤは `app.etzhayyim.apps.maps.tileGeoJson` XRPC が `vertex_spatial` から bbox + labels で GeoJSON を返し、KAMI の GeoJSON layer path が描画する。旧 `tiles.maps.etzhayyim.com` MVT 経路は `kami-bridge.ts` が明示的にブロックリスト。
+**外部 MVT タイル依存は廃止。** ベクタレイヤは `com.etzhayyim.apps.maps.tileGeoJson` XRPC が `vertex_spatial` から bbox + labels で GeoJSON を返し、KAMI の GeoJSON layer path が描画する。旧 `tiles.maps.etzhayyim.com` MVT 経路は `kami-bridge.ts` が明示的にブロックリスト。
 
 | 層 | 実装 |
 |---|---|
 | **Base raster** | `tile.openstreetmap.org/{z}/{x}/{y}.png` (KAMI `upload_tile`) — vectorTileUrl が空のとき自動で fallback |
-| **Vector overlay (2D)** | `svelte/src/lib/risingwave-overlay.ts` → `app.etzhayyim.apps.maps.tileGeoJson` XRPC → KAMI `addSource(geojson)` + `addLayer(line|fill|circle)` for AdminArea / Coastline / River / Road / Railway / Place |
+| **Vector overlay (2D)** | `svelte/src/lib/risingwave-overlay.ts` → `com.etzhayyim.apps.maps.tileGeoJson` XRPC → KAMI `addSource(geojson)` + `addLayer(line|fill|circle)` for AdminArea / Coastline / River / Road / Railway / Place |
 | **3D extrusion** | viewport diagonal < **500 km** で `Building` / `Mountain` / `Port` / `Airport` / `Station` を `KamiMapBridge.addExtrudeLayer(id, rings, heights, color, opacity)` に送信。KAMI WASM `add_extrude_layer` が earcut roof + 4 辺 sidewall triangles を生成。`heightM` (props) > `levels×3` > default heights の順で解決 |
 | **Camera** | Flat mode orthographic に pitch/bearing を Mat4 rotation で適用 (kami-map/src/lib.rs `update_camera_uniform`)。bootstrap で `setPitch(45)` を default 適用。以前 pitch は stored but unused |
 
 ### XRPC Contract
 
-- `app.etzhayyim.apps.maps.tileGeoJson` (query) — input `{west, south, east, north, labels[], zoom, limit}`, output `{layers: {[label]: FeatureCollection}, bbox, total}`. 単一クエリ `WHERE label IN (...)` で 1 Hyperdrive round-trip
-- `app.etzhayyim.apps.maps.seedBuildings` (procedure) — input `{lat, lng, radiusM, maxBuildings}` → `{written}`. OSM Overpass `way["building"](bbox)` + `out geom tags` で footprint + height/levels を取得、`vertex_spatial` Building 行として永続化
+- `com.etzhayyim.apps.maps.tileGeoJson` (query) — input `{west, south, east, north, labels[], zoom, limit}`, output `{layers: {[label]: FeatureCollection}, bbox, total}`. 単一クエリ `WHERE label IN (...)` で 1 Hyperdrive round-trip
+- `com.etzhayyim.apps.maps.seedBuildings` (procedure) — input `{lat, lng, radiusM, maxBuildings}` → `{written}`. OSM Overpass `way["building"](bbox)` + `out geom tags` で footprint + height/levels を取得、`vertex_spatial` Building 行として永続化
 - Heartbeat auto-seed: 4 heartbeat ごと (≈20 min) に `INFRA_SEED_CITIES` を rotate、最大 200 棟/cycle
 
 ### KAMI WASM API (新規)
@@ -36,7 +36,7 @@ pub fn polygon_to_extrude_earcut(ring: &[[f64;2]], zoom: f64, center: WorldPx, b
 
 ### Write Path (2026-04-22, ADR-0036)
 
-**PDS + graph-worker bypass.** 全 `app.etzhayyim.apps.maps.*` domain write は `createKyselyDb(env.HYPERDRIVE).insertInto("vertex_spatial")` で直接 INSERT。entity → label は `src/vertex-spatial-projection.ts` (`mapsEntityToLabel`) が担当、graph-worker の convention と同一。ON CONFLICT (vertex_id) DO UPDATE でべき等。Social derive (`sdk.pds.dispatch({type:"app.bsky.feed.post",...})`) は ADR-0036 で PDS 経由維持。Cross-actor `sdk.pds.dispatch({type:"invoke",...})` も維持 (storage ではなく RPC)。
+**PDS + graph-worker bypass.** 全 `com.etzhayyim.apps.maps.*` domain write は `createKyselyDb(env.HYPERDRIVE).insertInto("vertex_spatial")` で直接 INSERT。entity → label は `src/vertex-spatial-projection.ts` (`mapsEntityToLabel`) が担当、graph-worker の convention と同一。ON CONFLICT (vertex_id) DO UPDATE でべき等。Social derive (`sdk.pds.dispatch({type:"app.bsky.feed.post",...})`) は ADR-0036 で PDS 経由維持。Cross-actor `sdk.pds.dispatch({type:"invoke",...})` も維持 (storage ではなく RPC)。
 
 ### Forward Topology: H3 Chunk Overlay (Phase 1+2+3 shipped 2026-04-17)
 
@@ -46,7 +46,7 @@ pub fn polygon_to_extrude_earcut(ring: &[[f64;2]], zoom: f64, center: WorldPx, b
 
 | 要素 | 実装 |
 |---|---|
-| **XRPC** `app.etzhayyim.apps.maps.getChunk` | input `{h3Cells[], lod, labels[], limit}` → output `{chunks: {[h3Cell]: {[label]: Feature[]}}}`. cellToBoundary → union bbox → 1 query → centroid → owning cell にルーティング |
+| **XRPC** `com.etzhayyim.apps.maps.getChunk` | input `{h3Cells[], lod, labels[], limit}` → output `{chunks: {[h3Cell]: {[label]: Feature[]}}}`. cellToBoundary → union bbox → 1 query → centroid → owning cell にルーティング |
 | **Client cache** `svelte/src/lib/chunk-overlay.ts` | visibleH3Cells (polygonToCells) + LRU 1024 + 64 cell/request バッチ。cache key = h3Cell (pan で stable)。旧 bbox-per-moveend の `risingwave-overlay.ts` を置換 |
 | **Zoom → LOD** | zoom `<3/3/6/10/14/17+` → H3 res `2/4/6/8/10/12` (`zoomToLod`) |
 | **3D 依然動作** | viewport 500km rule + `addExtrudeLayer` は変更なく、chunk-overlay 側に再実装 |
@@ -61,18 +61,18 @@ landmark / 局所再構成の preview / QC 用途のみ。
 | Renderer | `kami_pipelines::GsplatAdapter` (`40-engine/kami-engine/kami-pipelines/src/gsplat.rs`) | shipped — CPU sort + WGSL EWA falloff、≤50k splats / tile cap、**SH degree 0–3 view-dependent evaluation (Inria coeffs, `f_rest_*` storage buffer at bind 3)** — `exportRest=true` で訓練した splat が browser preview で specular する |
 | WASM bind | `kami-app-maps3d::set_gsplat_asset / remove_gsplat_asset` | shipped |
 | Schema | `vertex_maps_gsplat_asset` + `edge_maps_gsplat_baked_to` (Alembic `r_20260509220000_vertex_maps_gsplat_asset`) | shipped |
-| XRPC | `app.etzhayyim.apps.maps.{getGsplatAsset,listGsplatAssets,bakeGsplatAsset,trainGsplatFromMapillary}` | shipped |
+| XRPC | `com.etzhayyim.apps.maps.{getGsplatAsset,listGsplatAssets,bakeGsplatAsset,trainGsplatFromMapillary}` | shipped |
 | SDK | `@etzhayyim/kami-engine-sdk/gsplat` (`loadGsplatAsset` / `pushToWasm` / `bakeGsplatAsset`) | shipped |
 | HTML toggle | `svelte/static/maps-3d.htm?gsplat=1` + 「📷 Train splat here」 button | shipped — 1-ring H3 res-12 prefetch, negative-cache on 404 |
 | Trainer endpoint (RunPod) | `runpod-endpoint-gsplat/{handler.py,Dockerfile,Dockerfile.phase2,requirements.txt,requirements-phase2.txt}` | **shipped Phase 1 stub + Phase 2 real trainer + bake mode**. Phase 2 train = Mapillary download + COLMAP SfM (`pycolmap.extract_features` + `match_exhaustive` + `incremental_mapping`) + gsplat training (`gsplat==1.4.0`, **`DefaultStrategy` densification (clone+split+prune)**, **`shDegree ∈ [0,3]`**, opacity-cull at half-step, 50k splat cap). PLY in our renderer's `f_dc/scale/rot` schema; optional `f_rest_*` (`exportRest=true`) for SuperSplat / Inria viewer compat. Phase 2 bake = TSDF fusion (Open3D `ScalableTSDFVolume.integrate` over 24 fibonacci-sphere `RGB+D` views from gsplat) → `simplify_quadric_decimation(5000)` → trimesh GLB. Toggle via `RUNPOD_PHASE=2` + GPU `Dockerfile.phase2`. Mode dispatch via payload `mode: "train" \| "bake"` (default train) |
 | Bake mesh registry | `vertex_maps_gsplat_mesh` + `edge_maps_gsplat_baked_to` (Alembic `r_20260510120000_vertex_maps_gsplat_mesh`) | shipped — append-only, lineage edge from splat asset → baked mesh |
-| Bake BPMN | `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/bakeGsplatAsset.bpmn` | shipped — message-start, correlationKey=tileH3, dispatches to dumper `/trigger/bake` |
+| Bake BPMN | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/bakeGsplatAsset.bpmn` | shipped — message-start, correlationKey=tileH3, dispatches to dumper `/trigger/bake` |
 | Worker bake handler | `cmdGetGsplatAsset` JOIN `vertex_maps_gsplat_mesh` returns `bakedMesh` + `bakedMeshUrl`; `cmdBakeGsplatAsset` already publishes the BPMN message | shipped |
 | HTML bake consumer | `svelte/static/maps-3d.htm` calls `set_mesh_tile(tileH3, glb)` whenever `bakedMeshUrl` is present in the splat fetch response | shipped — same 1-ring H3 res-12 prefetch loop as splat preview |
 | Job state log | `vertex_maps_gsplat_job` + `mv_maps_gsplat_job_latest` (Alembic `r_20260510130000_*`) | shipped — append-only phase events (queued/running/completed/failed × per-phase string), 7-day window MV |
 | Auto-chain train→bake | dumper pod self-targets `/trigger/bake` after train INSERT (skip via `autoBake:false` in train payload). Bypasses LangServer so a working dumper alone produces both splat + mesh | shipped |
 | Quality metrics | train handler holds out 10% of registered views (cap 8), reports `evalL1` / `evalPsnr` / `registeredRatio` in `stats` | shipped |
-| Status XRPC | `app.etzhayyim.apps.maps.{getGsplatJobStatus,listGsplatJobs}` reads `mv_maps_gsplat_job_latest` for sub-ms hot path | shipped |
+| Status XRPC | `com.etzhayyim.apps.maps.{getGsplatJobStatus,listGsplatJobs}` reads `mv_maps_gsplat_job_latest` for sub-ms hot path | shipped |
 | UI status polling | maps-3d.htm: 「📷 Train splat here」 + 「🔨 Bake mesh here」 buttons each spawn a 5-second poll loop on `getGsplatJobStatus(jobId)` until terminal state, surface phase + elapsed time + final detail in toast | shipped |
 | Per-cloud cap | `kami_pipelines::MAX_SPLATS_PER_CLOUD` 50k → 100k (2026-05-10), `_MAX_SPLATS_OUT` in handler.py mirrored — fits 60 fps with M-series CPU sort. True GPU bitonic deferred until 200k+ scenes appear | shipped |
 | Jobs HUD | `?jobs=1` (or `window.__maps3d_jobs=true`) shows the 10 most recent gsplat jobs top-right, polls `listGsplatJobs?limit=10` every 30 s. Off by default to avoid extra requests on prod | shipped |
@@ -90,7 +90,7 @@ landmark / 局所再構成の preview / QC 用途のみ。
 | Failure webhook | Dumper POSTs `{text:"..."}` (Slack + Discord compatible) to `GSPLAT_FAILURE_WEBHOOK_URL` env on `_run_train` / `_run_bake` exceptions, after the `_emit_job_state(failed)` row. Best-effort — webhook timeout ≤ 4 s, never masks the underlying job failure. No-op when env not set | shipped |
 | Train idempotency | Dumper computes `sha256(",".join(sorted(imageIds)))` after Mapillary list, looks up `mv_maps_gsplat_job_latest` for a prior completed train with the same `(tile_h3, imageids_hash)`. Hit → emit `phase=skipped-duplicate` job-state row, skip RunPod (cost_usd=0), still auto-chain bake against the existing splat row. New `vertex_maps_gsplat_job.imageids_hash` column (Alembic `r_20260510150000_*`) | shipped |
 | Trainer dumper pod (k8s) | `bulk-ingest/workers/gsplat_train_dumper.py` + `bulk-ingest/k8s/deployment-gsplat-train.yaml` | **shipped, replicas=0** — gated until operator wires `MAPILLARY_ACCESS_TOKEN` + `RUNPOD_API_KEY` + `RUNPOD_ENDPOINT_ID_GSPLAT` |
-| BPMN process | `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/trainGsplatFromMapillary.bpmn` | shipped — message-start, correlationKey=tileH3, dispatches to dumper `/trigger` |
+| BPMN process | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/trainGsplatFromMapillary.bpmn` | shipped — message-start, correlationKey=tileH3, dispatches to dumper `/trigger` |
 | Bake pod (splat → mesh, k8s L8) | not implemented — contract only (`bakeGsplatAsset` enqueues LangServer message) | follow-up |
 
 Runtime delivery は引き続き `mesh_tile` GLB (`maps3d.simplifyAndExport` BPMN)。
@@ -107,7 +107,7 @@ quadric_decimation → KTX2 texture → `vertex_spatial.Building` upsert) は
 2. RunPod template + Serverless endpoint を `runpod-endpoint-gsplat/README.md` 手順で作成、endpoint id を控える
 3. `kubectl -n maps-bulk-ingest patch secret maps-bulk-ingest-credentials --type merge -p '{"stringData":{"RUNPOD_API_KEY":"…","RUNPOD_ENDPOINT_ID_GSPLAT":"…","MAPILLARY_ACCESS_TOKEN":"…"}}'`
 4. `kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-gsplat-train --replicas=1`
-5. (BPMN) `bpmn-engine` deployer pod で `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/trainGsplatFromMapillary.bpmn` を再 deploy
+5. (BPMN) `bpmn-engine` deployer pod で `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/trainGsplatFromMapillary.bpmn` を再 deploy
 
 Phase 2 (real COLMAP + gsplat) への昇格 (2026-05-09 shipped):
 
@@ -206,19 +206,19 @@ Client Request
 
 | 経路 | NSID (BPMN) | dumper pod (k8s deploy) | source | label / props 形 |
 |---|---|---|---|---|
-| 路線 + 駅 + 停留所 + 時刻表 (bus + train) | `app.etzhayyim.apps.maps.bulkRefreshGtfsJp` (R/PT24H) | `bulk-ingest-gtfs-jp` (`workers/gtfs_jp_dumper.py`) | per-agency `feed.zip` × N — **`GTFS_JP_FEED_INDEX_URL` 必須** (JSON array `[{feed_id, url, prefecture, agency}, …]`)。bundled default なし — fail-fast (gtfs-data.jp の URL scheme 非公開のため Phase 1 の guess は 404)。推奨 host: 自前 B2 `maps-bulk-ingest/gtfs-jp/index.json` | Railway / BusRoute / Station / BusStop, props `{first_departure, last_departure, num_trips, num_stops, service_days{mon..sun}, route_short_name, route_long_name, route_type}` |
-| 空路 (scheduled flight legs) | `app.etzhayyim.apps.maps.bulkRefreshOpenflights` (R/P7D) | `bulk-ingest-openflights` (`workers/openflights_dumper.py`) | OpenFlights `airports.dat` + `routes.dat` + `airlines.dat` (ODbL) | Airport / AirRoute, props `{airline, airline_id, airline_name, src_iata/icao/lat/lng, dst_iata/icao/lat/lng, codeshare, stops, equipment}` |
-| 海路 (ferry routes) | `app.etzhayyim.apps.maps.bulkRefreshFerryRoutes` (R/P7D) | `bulk-ingest-ferry-routes` (`workers/ferry_routes_dumper.py`) | OSM Overpass `relation[route=ferry]` × 7 continent bbox + `node[amenity=ferry_terminal]` / `node[harbour=yes]` (ODbL) | SeaRoute / Port, props `{osm_relation_id, operator, ref, network, from, to, via, duration_min, frequency, distance_nmi, fee, wheelchair}` |
+| 路線 + 駅 + 停留所 + 時刻表 (bus + train) | `com.etzhayyim.apps.maps.bulkRefreshGtfsJp` (R/PT24H) | `bulk-ingest-gtfs-jp` (`workers/gtfs_jp_dumper.py`) | per-agency `feed.zip` × N — **`GTFS_JP_FEED_INDEX_URL` 必須** (JSON array `[{feed_id, url, prefecture, agency}, …]`)。bundled default なし — fail-fast (gtfs-data.jp の URL scheme 非公開のため Phase 1 の guess は 404)。推奨 host: 自前 B2 `maps-bulk-ingest/gtfs-jp/index.json` | Railway / BusRoute / Station / BusStop, props `{first_departure, last_departure, num_trips, num_stops, service_days{mon..sun}, route_short_name, route_long_name, route_type}` |
+| 空路 (scheduled flight legs) | `com.etzhayyim.apps.maps.bulkRefreshOpenflights` (R/P7D) | `bulk-ingest-openflights` (`workers/openflights_dumper.py`) | OpenFlights `airports.dat` + `routes.dat` + `airlines.dat` (ODbL) | Airport / AirRoute, props `{airline, airline_id, airline_name, src_iata/icao/lat/lng, dst_iata/icao/lat/lng, codeshare, stops, equipment}` |
+| 海路 (ferry routes) | `com.etzhayyim.apps.maps.bulkRefreshFerryRoutes` (R/P7D) | `bulk-ingest-ferry-routes` (`workers/ferry_routes_dumper.py`) | OSM Overpass `relation[route=ferry]` × 7 continent bbox + `node[amenity=ferry_terminal]` / `node[harbour=yes]` (ODbL) | SeaRoute / Port, props `{osm_relation_id, operator, ref, network, from, to, via, duration_min, frequency, distance_nmi, fee, wheelchair}` |
 
-Lexicon: `00-contracts/lexicons/ai/gftd/apps/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.json`。
-BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.bpmn`。
+Lexicon: `00-contracts/lexicons/com/etzhayyim/apps/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.json`。
+BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.bpmn`。
 K8s manifest: `60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-{gtfs-jp,openflights,ferry-routes}.yaml`。
 Image: `ghcr.io/etzhayyim/maps-bulk-ingest:1.1.0` (1 image / N command, CMD で worker を切替)。
 
 **運行予定の粒度** (2026-04-27 update, Phase 2 shipped):
 
 - **per-route summary** (Phase 1, vertex_spatial.props) — first/last departure + 便数 + 曜日 service pattern。地図上の "この路線が動いているか" を答える用途。
-- **per-stop timetable** (Phase 2, `vertex_maps_trip` + `vertex_maps_stop_time`) — 1 trip 1 row + 1 stop call 1 row。読み取りは `app.etzhayyim.apps.maps.nextDeparturesAtStop` XRPC (idx_maps_stop_time_stop_dep `(stop_id, departure_time)` で sub-50ms)。**(a) "次の電車は X 駅に何時"** read pattern 専用に最適化済み。**(b) "この路線の全時刻表"** が必要になったら `(feed_id, route_id, stop_sequence)` 複合 index を別 migration で追加する (現状 deliberately 未投入、advisor #5)。
+- **per-stop timetable** (Phase 2, `vertex_maps_trip` + `vertex_maps_stop_time`) — 1 trip 1 row + 1 stop call 1 row。読み取りは `com.etzhayyim.apps.maps.nextDeparturesAtStop` XRPC (idx_maps_stop_time_stop_dep `(stop_id, departure_time)` で sub-50ms)。**(a) "次の電車は X 駅に何時"** read pattern 専用に最適化済み。**(b) "この路線の全時刻表"** が必要になったら `(feed_id, route_id, stop_sequence)` 複合 index を別 migration で追加する (現状 deliberately 未投入、advisor #5)。
 - **idempotency**: gtfs_jp_dumper は per-feed `DELETE FROM vertex_maps_{trip,stop_time} WHERE feed_id = ?` → re-INSERT (RW append-only / no `ON CONFLICT`、root CLAUDE.md "Record-log semantics" 規約)。`vertex_spatial` の route/stop 行は deterministic vertex_id PK で RW PK upsert に任せる。
 
 **Cross-feed stop unification** (advisor 2026-04-27 #3, decision = (i) "Accept feed-scoped stop_id"): Tokyo Metro / JR East / Keio の Shibuya は 3 個の独立 `stop_id` (`gtfsjp-tokyo-metro-…` / `gtfsjp-jr-east-…` / `gtfsjp-keio-…`)。`nextDeparturesAtStop` は caller が operator 別 stop_id を渡す。理由: (a) 路線図 UI は operator 別レイヤを既に持つ、(b) 現時点でクロス operator 集約 query の要件なし、(c) RT (Phase 3) も per-feed stop_id 参照のため canonical 化を入れると RT join 路も再設計が必要。**将来 Phase 2.x で必要になったら**、別 migration で `vertex_maps_stop_canonical {canonical_id, label, lat, lng, name_jp, name_en}` + `edge_maps_stop_canonical_alias {canonical_id, feed_id, gtfs_stop_id}` を追加 (ingest-time fuzzy + 50m coord cluster)。`nextDeparturesAtStop` には `canonicalStopId` 任意 param を後付け。`stop_id` カラム形式は不変条件として固定 (`gtfsjp-{feed_id}-{gtfs_stop_id}`)。
@@ -249,7 +249,7 @@ python3 60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py \
 | Schema | `30-graph/graph-schema/migrations/20260428160000_vertex_maps_realtime.ts` | shipped (3 tables + 3 streaming MV; ADR-2604241342 4 失敗パターンに該当しない: 生 `CREATE TABLE/INDEX/MATERIALIZED VIEW` のみ、`ON CONFLICT` なし、`vitest` import なし) |
 | Dumper pod | `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_rt_dumper.py` | shipped — internal scheduler, 30s VP / 60s TU / 300s alerts; `gtfs-realtime-bindings` protobuf parser; **`_resolve_feeds()` raises if neither `GTFS_RT_FEED_INDEX_URL` nor `ODPT_API_KEY` is set** (CrashLoopBackOff is the gate) |
 | K8s deploy | `bulk-ingest/k8s/deployment-gtfs-rt.yaml` | shipped, `replicas: 0` (manual scale up after auth config) |
-| XRPC lexicon | `00-contracts/lexicons/ai/gftd/apps/maps/realtimeDelaysAtStop.json` | shipped |
+| XRPC lexicon | `00-contracts/lexicons/com/etzhayyim/apps/maps/realtimeDelaysAtStop.json` | shipped |
 | Worker handler | `cmdRealtimeDelaysAtStop` in `appview/maps-ui-uqpel6i6/src/app.ts` | shipped — 3 parallel queries (departures + rtAvailable probe + alerts), `LEFT JOIN mv_maps_recent_trip_update` so RT-offline degrades to static |
 | Static path | `cmdNextDeparturesAtStop` | **不変** — RT feed が落ちても静的 timetable は返り続ける (advisor invariant) |
 | Tables | `vertex_maps_vehicle_position` PK `(feed_id, vehicle_id, ts)` / `vertex_maps_trip_update` PK `(feed_id, trip_id, stop_sequence, ts)` / `vertex_maps_service_alert` PK `(feed_id, alert_id, ts)` | append-only |
@@ -276,7 +276,7 @@ kubectl -n maps-bulk-ingest set env deploy/bulk-ingest-gtfs-rt \
 kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-gtfs-rt --replicas=1
 # 6. Verify cycle
 kubectl -n maps-bulk-ingest logs -f deploy/bulk-ingest-gtfs-rt
-curl https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.realtimeDelaysAtStop?stopId=gtfsjp-...
+curl https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.realtimeDelaysAtStop?stopId=gtfsjp-...
 ```
 
 **Schedule realtime (GTFS-RT, 遅延 / 運休)**: 未実装。GTFS-RT VehiclePosition / TripUpdate
@@ -522,7 +522,7 @@ maps.etzhayyim.com / uqpel6i6.etzhayyim.com
 
 ## Write Path (2026-04-22, ADR-0036)
 
-Domain (`app.etzhayyim.apps.maps.*`): `createKyselyDb(env.HYPERDRIVE).insertInto("vertex_spatial")` 直接 INSERT。entity→label は `src/vertex-spatial-projection.ts` が Pascal-case 変換 (`mapsEntityToLabel`)、camelCase→snake_case カラム + `props` JSON 残余。PDS + graph-worker 共に経由しない。
+Domain (`com.etzhayyim.apps.maps.*`): `createKyselyDb(env.HYPERDRIVE).insertInto("vertex_spatial")` 直接 INSERT。entity→label は `src/vertex-spatial-projection.ts` が Pascal-case 変換 (`mapsEntityToLabel`)、camelCase→snake_case カラム + `props` JSON 残余。PDS + graph-worker 共に経由しない。
 
 Social posts: `sdk.pds.dispatch({ type: "app.bsky.feed.post", text, ... })` (PDS 経由、federates)。ローカル `post()` 経路は既存の `vertex_repo_record` direct write を維持。
 
@@ -547,9 +547,9 @@ Cross-actor invoke (Murakumo / site.etzhayyim.com): `sdk.pds.dispatch({ type: "i
 
 STARTS_AT, ENDS_AT, IN_REGION, PARENT_OF, OBSERVED_AT, LOCATED_AT, SEGMENT_OF, NODE_OF, CONNECTS, FLOOR_OF, ASSET_IN, TWIN_OF, BOUND_TO, MONITORS, RELATES_TO, EVENT_ON, VERSION_OF, DETECTED, SAME_AS, ANALYZED_FROM, RESOLVES_TO, OwnsProperty, TransferredTo, InheritedBy, ForeclosedBy, LeasedTo, Operates, Manages, Maintains, Concessions, RegisteredAt, FiledWith, LicensedBy, PermittedBy, VerifiedBy, CertifiedBy, ApprovedBy, AuditedBy, Supersedes, AmendedBy, RevokedBy, ReplacedBy
 
-## Lexicon (app.etzhayyim.apps.maps.*)
+## Lexicon (com.etzhayyim.apps.maps.*)
 
-47 record kinds mapped via `LABEL_MAP` in `app.ts`. W Protocol kind `maps.{type}` → AT Lexicon `app.etzhayyim.apps.maps.{type}`.
+47 record kinds mapped via `LABEL_MAP` in `app.ts`. W Protocol kind `maps.{type}` → AT Lexicon `com.etzhayyim.apps.maps.{type}`.
 
 ## Infrastructure Types (infra_type)
 

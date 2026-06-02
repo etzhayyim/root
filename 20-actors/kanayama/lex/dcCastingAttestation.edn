@@ -1,7 +1,7 @@
-;; app.etzhayyim.kanayama.dcCastingAttestation — lexicon (EDN form)
+;; com.etzhayyim.kanayama.dcCastingAttestation — lexicon (EDN form)
 ;; ADR-2605252400 · Phase 2 — L4 DC slab cast + homogenization
 {:lexicon 1
- :id "app.etzhayyim.kanayama.dcCastingAttestation"
+ :id "com.etzhayyim.kanayama.dcCastingAttestation"
  :defs
  {:main
   {:type "record"

@@ -258,7 +258,7 @@ psql "$DATABASE_URL" -c \
 
 ```bash
 # Singapore Strait — busiest waterway globally.
-curl -s 'https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.aismarine.queryVesselsBbox?bbox=103.6&bbox=1.0&bbox=104.2&bbox=1.5&limit=100' \
+curl -s 'https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.aismarine.queryVesselsBbox?bbox=103.6&bbox=1.0&bbox=104.2&bbox=1.5&limit=100' \
   | jq '.total, .features | length'
 # Expected: total > 50 within 10 min of consumer start.
 ```
@@ -269,7 +269,7 @@ curl -s 'https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.aismarine.query
 # Pick any MMSI from S2.
 MMSI=$(psql "$DATABASE_URL" -tAc \
   "SELECT mmsi FROM mv_vessel_latest_position ORDER BY ts_ms DESC LIMIT 1")
-curl -s "https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.aismarine.getVesselDetail?mmsi=$MMSI" \
+curl -s "https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.aismarine.getVesselDetail?mmsi=$MMSI" \
   | jq '.vessel.mmsi, (.recentTrack | length)'
 # Expected: same MMSI + > 0 track points
 ```
@@ -337,8 +337,8 @@ Full kill-switch: `kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-aismarin
 - ADR-2605011500 — design SSoT
 - `30-graph/graph-schema/migrations/20260501170000_vertex_aismarine_phase1.ts`
 - `30-graph/graph-schema/migrations/20260501180300_seed_aismarine_bpmn_actors.ts`
-- `00-contracts/lexicons/ai/gftd/apps/maps/aismarine/`
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/aismarine/`
+- `00-contracts/lexicons/com/etzhayyim/apps/maps/aismarine/`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/aismarine/`
 - `20-actors/magatama/py/src/pymagatama/primitives/aismarine.py`
 - `60-apps/ai-gftd-project-maps/bulk-ingest/workers/aismarine_consumer.py`
 - `60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-aismarine.yaml`

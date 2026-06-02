@@ -89,4 +89,4 @@ mycelium density logic. Cross-cluster signal copies require transfer receipts
 
 - ADR-2605071200: Myco-Yeast Artificial Organism JP Naming
 - ADR-2605071900: Koke Bryophyta Primary Fixation Layer
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/saikin/horizontal-transfer-cycle.bpmn`

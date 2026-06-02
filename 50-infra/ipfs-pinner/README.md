@@ -5,13 +5,13 @@
 ## What it does
 
 ```
-app.etzhayyim.apps.substrate.mstRoot records (PDS firehose)
+com.etzhayyim.apps.substrate.mstRoot records (PDS firehose)
        │
        ▼
 ipfs-pinner ──▶ read CAR from local mst-projector data volume
        │   ──▶ POST to pinning provider (Pinata / Web3.Storage / Filecoin)
        │   ──▶ verify pinned (GET /ipfs/<cid>)
-       │   ──▶ emit app.etzhayyim.apps.substrate.ipfsPin record
+       │   ──▶ emit com.etzhayyim.apps.substrate.ipfsPin record
        ▼
 public IPFS network
 ```
@@ -40,7 +40,7 @@ religious-corp ethos). Production must override with `ETZ_PINNER_PROVIDERS=kubo,
 ## Status
 
 **Phase 1 (Kubo-only working)** —
-- ✅ `app.etzhayyim.substrate.ipfsPin` lexicon (`00-contracts/lexicons/app/etzhayyim/substrate/ipfsPin.json`)
+- ✅ `com.etzhayyim.substrate.ipfsPin` lexicon (`00-contracts/lexicons/com/etzhayyim/substrate/ipfsPin.json`)
 - ✅ Kubo provider: real `/api/v0/dag/import` + `/api/v0/pin/add` round-trip
 - ✅ `buildPinRecord` + `emitPinRecord` (AtpAgent, mirrors mst-projector emit pattern)
 - ✅ `discoverCars` + `pinOne` + polling loop over the shared mst-projector data volume

@@ -187,7 +187,7 @@ EDINET は listed/public company path として扱う。
 
 # Zeebe BPMN
 
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/jp-corp-finance/` に process を置く。
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/jp-corp-finance/` に process を置く。
 
 | Process ID | Start | Task family |
 |---|---|---|
@@ -363,15 +363,15 @@ Outputs:
 
 # XRPC / MCP Surface
 
-Add lexicons under `00-contracts/lexicons/ai/gftd/apps/jpCorpFinance/`.
+Add lexicons under `00-contracts/lexicons/com/etzhayyim/apps/jpCorpFinance/`.
 
 | NSID | Type | Purpose |
 |---|---|---|
-| `app.etzhayyim.apps.jpCorpFinance.startDailyIngest` | procedure | start daily process |
-| `app.etzhayyim.apps.jpCorpFinance.backfillKanpo` | procedure | date range backfill |
-| `app.etzhayyim.apps.jpCorpFinance.repairCompany` | procedure | one JCN / EDINET code repair |
-| `app.etzhayyim.apps.jpCorpFinance.getCoverage` | query | coverage row by JCN |
-| `app.etzhayyim.apps.jpCorpFinance.listMissing` | query | missing/stale companies |
+| `com.etzhayyim.apps.jpCorpFinance.startDailyIngest` | procedure | start daily process |
+| `com.etzhayyim.apps.jpCorpFinance.backfillKanpo` | procedure | date range backfill |
+| `com.etzhayyim.apps.jpCorpFinance.repairCompany` | procedure | one JCN / EDINET code repair |
+| `com.etzhayyim.apps.jpCorpFinance.getCoverage` | query | coverage row by JCN |
+| `com.etzhayyim.apps.jpCorpFinance.listMissing` | query | missing/stale companies |
 
 All mutating procedures dispatch BPMN and return `{ runId, processInstanceKey }`.
 They do not fetch PDFs or call LLM inside CF Worker.

@@ -32,7 +32,7 @@ npm run dev
 ## Example: Register Jurisdiction
 
 ```bash
-curl -X POST http://localhost:8787/xrpc/app.etzhayyim.hanrei.registerJurisdiction \
+curl -X POST http://localhost:8787/xrpc/com.etzhayyim.hanrei.registerJurisdiction \
   -H "Content-Type: application/json" \
   -d '{
     "jurisdictionCode": "JP-TYO",

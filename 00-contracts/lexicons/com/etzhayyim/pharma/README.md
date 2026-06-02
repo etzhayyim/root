@@ -1,4 +1,4 @@
-# app.etzhayyim.pharma.* — yakushi pharmaceutical R&D lexicons
+# com.etzhayyim.pharma.* — yakushi pharmaceutical R&D lexicons
 
 Per yakushi master charter [ADR-2605250500](../../../../../90-docs/adr/2605250500-yakushi-pharmaceutical-rd-charter.md).
 

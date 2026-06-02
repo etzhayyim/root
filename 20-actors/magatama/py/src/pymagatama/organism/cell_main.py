@@ -65,7 +65,7 @@ def _seed_self_inbox(organism: UnispscOrganism, now_ms: int) -> None:
     rkey = f"selfprobe-{now_ms}"
     organism.inbox.add_commit(
         InboundCommit(
-            collection="app.etzhayyim.apps.unispsc.invokeAgent",
+            collection="com.etzhayyim.apps.unispsc.invokeAgent",
             repo=organism.actor_did,
             rkey=rkey,
             time=str(now_ms),

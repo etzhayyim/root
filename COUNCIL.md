@@ -59,20 +59,20 @@ Each seat covers an axis of expertise needed for Council deliberations across th
    You do not publicly represent any entity in Rider §2 prohibited categories. The application form requires affirming this.
 
 3. **Submit a `council-candidate-application` AT Record on your PDS**
-   - Lexicon: [`app.etzhayyim.apps.etzhayyim.council-candidate-application`](00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-candidate-application.json)
+   - Lexicon: [`com.etzhayyim.apps.etzhayyim.council-candidate-application`](00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/council-candidate-application.json)
    - Includes: seat axis, narrative (why this seat), qualifications, Smart Wallet address, COI disclosure, DID-bound signature
 
 4. **Announce on github**
    Open a discussion at https://github.com/etzhayyim/root/discussions linking to the AT Record URI.
 
 5. **Stay accessible during the 30-day window**
-   Objections (per Lexicon `app.etzhayyim.apps.etzhayyim.council-objection`) may arrive from any active Adherent SBT holder. Respond to good-faith concerns.
+   Objections (per Lexicon `com.etzhayyim.apps.etzhayyim.council-objection`) may arrive from any active Adherent SBT holder. Respond to good-faith concerns.
 
 ## How to object to a candidate
 
 1. **You must hold an active Adherent SBT** (AdherentRegistry.isActive == true)
 2. **Submit a `council-objection` AT Record on your PDS**
-   - Lexicon: [`app.etzhayyim.apps.etzhayyim.council-objection`](00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-objection.json)
+   - Lexicon: [`com.etzhayyim.apps.etzhayyim.council-objection`](00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/council-objection.json)
    - Cite specific Rider §2(a)-(h) violation, undisclosed COI, qualification fabrication, doctrinal incompatibility, or axis mismatch
 3. **Three (3) distinct SBT-holder objections** within the 30-day window triggers founder re-proposal for that seat
 4. **Defamatory or evidence-free objections** themselves may trigger Council Lv6+ review of the objector under the Charter Compliance framework

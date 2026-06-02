@@ -149,7 +149,7 @@ def _common(collection: str, did: str, rec_id: str | None = None) -> dict[str, A
         "rkey": _id(collection),
         "repo": OWNER_DID,
         "did": did,
-        "collection": f"app.etzhayyim.apps.vin.{collection}",
+        "collection": f"com.etzhayyim.apps.vin.{collection}",
         "status": "active",
         "id": rec_id or _id(collection),
         "org_id": "anon",

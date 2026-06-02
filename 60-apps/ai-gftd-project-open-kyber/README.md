@@ -14,11 +14,11 @@ Source-of-truth for the Kyber ERP product. The etzhayyim tenancy runs at `kyber.
 ## Architecture
 
 ```
-Client → XRPC /xrpc/app.etzhayyim.apps.kyber.*
+Client → XRPC /xrpc/com.etzhayyim.apps.kyber.*
       → ERP Worker (kyb3rerp)
       → com.atproto.repo.createRecord → PDS
       → onCommit → Projector (kyb3proj)
-      → emit app.etzhayyim.apps.apqc.apqcEvent
+      → emit com.etzhayyim.apps.apqc.apqcEvent
       → RisingWave streaming MV → getApqcCoverage
 ```
 
@@ -38,7 +38,7 @@ cd ai-gftd-wasm-kyber-erp-kyb3rerp && pnpm install && gftd deploy
 cd ai-gftd-wasm-kyber-projector-kyb3proj && pnpm install && gftd deploy
 
 # Bootstrap projector from ERP side
-curl -X POST https://<your-erp>/xrpc/app.etzhayyim.apps.kyber.initApqcProjector \
+curl -X POST https://<your-erp>/xrpc/com.etzhayyim.apps.kyber.initApqcProjector \
   -H 'content-type: application/json' -d '{}'
 ```
 

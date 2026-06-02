@@ -10,7 +10,7 @@ Public surface:
     from pymagatama import udf, serve
     from pymagatama.db_sync import fetch_one, fetch_all, execute  # sync DB
 
-    @udf("app.etzhayyim.apps.yabai.classify",
+    @udf("com.etzhayyim.apps.yabai.classify",
          input_types=["VARCHAR"], result_type="VARCHAR", io_threads=100)
     def classify(body_json: str) -> str:
         return compute_score(body_json)

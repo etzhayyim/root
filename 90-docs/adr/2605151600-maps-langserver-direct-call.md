@@ -27,14 +27,14 @@ ADR-2605111200 defines the read path as:
 
 The BPMN dispatcher is a deprecated execution path (ADR-2604282300, CLAUDE.md infra layer rules). The `maps-read-langserver` K8s pod (`pymagatama.worker_api`, port 8081) already handles these NSIDs directly:
 
-- `app.etzhayyim.apps.maps.getDashboard`
-- `app.etzhayyim.apps.maps.listLiveAircraft`
-- `app.etzhayyim.apps.maps.listLiveSatellites`
-- `app.etzhayyim.apps.maps.getWorldMonitorDashboard`
-- `app.etzhayyim.apps.maps.listIntelEvents`
-- `app.etzhayyim.apps.maps.getRiskSnapshot`
-- `app.etzhayyim.apps.maps.getLatestBrief`
-- `app.etzhayyim.apps.maps.listIntelAlerts`
+- `com.etzhayyim.apps.maps.getDashboard`
+- `com.etzhayyim.apps.maps.listLiveAircraft`
+- `com.etzhayyim.apps.maps.listLiveSatellites`
+- `com.etzhayyim.apps.maps.getWorldMonitorDashboard`
+- `com.etzhayyim.apps.maps.listIntelEvents`
+- `com.etzhayyim.apps.maps.getRiskSnapshot`
+- `com.etzhayyim.apps.maps.getLatestBrief`
+- `com.etzhayyim.apps.maps.listIntelAlerts`
 
 The pod was only reachable within the K8s cluster (ClusterIP Service). The CF Worker at `maps.etzhayyim.com` was calling through `dispatcher.etzhayyim.com` as a workaround.
 

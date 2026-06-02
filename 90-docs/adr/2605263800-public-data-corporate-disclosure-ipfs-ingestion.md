@@ -17,7 +17,7 @@ authoritative_for:
   - corporate-disclosure license × tier × jurisdiction ladder
   - Bloomberg/S&P/Refinitiv/FactSet/Moody's/D&B/Pitchbook/Crunchbase commercial terminal PROHIBITION (Charter Rider §2(e) + §2(c) substrate-boundary)
   - corporate-disclosure PII redaction policy (per-jurisdiction publication-rule honoring; NO unilateral re-identification, NO de-anonymization)
-  - `app.etzhayyim.substrate.datasetPin` integration for corp bucket
+  - `com.etzhayyim.substrate.datasetPin` integration for corp bucket
   - corp training corpus recipes at `70-tools/baien-moemoekyun-train/recipes/corp/`
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
@@ -277,7 +277,7 @@ fetch will run (per ADR-2605262400 W3 acceptance pattern).
 - **G7**. `hot_sample` determinism (same pin_cid + same n → same observation IDs)
 - **G8**. Recipe-in-git (every `corp/*/r*.toml` recipe + `<sha256>` lock file committed)
 - **G9**. False-positive ≤5% / 24h on Charter Rider scan (else cell halts + R8 Kaizen escalation)
-- **G10**. `datasetPin` PDS record mandatory per published revision (`app.etzhayyim.substrate.datasetPin`)
+- **G10**. `datasetPin` PDS record mandatory per published revision (`com.etzhayyim.substrate.datasetPin`)
 - **G11**. Per-source acceptance flag present (§6) before fetch will run
 - **G12**. Vendor-commercial-terminal deny-list lint (Bloomberg Terminal / S&P CapIQ / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro imports + API hostnames forbidden at lint time)
 

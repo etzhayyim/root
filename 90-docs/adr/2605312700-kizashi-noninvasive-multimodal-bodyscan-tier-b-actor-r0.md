@@ -9,11 +9,11 @@ last_verified: 2026-06-01
 priority: 6.5
 axis: care
 weight: 0.55
-priority_note: "Sensing / instrument layer of the L4 Care Tier — the 'futuristic scan pod' ask (2026-05-31). kizashi (兆 — 兆し = sign/early indication) is the NON-INVASIVE multimodal body-scan substrate that detects physical-burden SIGNS (腰痛 posture/筋, 肩こり 筋硬度/血流, 鼻詰まり 構造/気流, アレルギー via consented microsampling, 炎症 thermal/biomarker) and emits PROBABILISTIC, NON-DIAGNOSTIC attributions + self-referenced Wellbecoming trajectories + triage referral. Sits UPSTREAM of mitate (diagnosis routing ADR-2605260100) and iyashi (clinical care ADR-2605263000): kizashi SENSES signs, mitate (licensed clinician) DIAGNOSES, iyashi TREATS. Constitutional crux: NON-DIAGNOSTIC (医師法 §17 boundary, G3) + medical-device-regulatory boundary (薬機法/SaMD, G4) — R0..R2 = software + simulation + non-ionizing non-regulated sensing ONLY; physical regulated-modality pod gated to licensed-medical-device pathway + qualified operator + Council Lv7+ (R3, G11). Biometric scan data = 要配慮 personal info → encrypted envelope MANDATORY (G2, same discipline as iyashi/hagukumi). Murakumo-only inference (G14). Anti-pseudoscience: only modalities with declared evidence grade in the capability ledger (G10; bio-resonance/aura/波動 EXCLUDED N8). 6 cells / 6 Lexicons under app.etzhayyim.kizashi.* / 14 immutable gates / 12 non-goals / 4-phase R0..R3. Cross-actor: mitate (sign → diagnosis), iyashi (clinical referral), kokoro (psychosocial referral — pain is multifactorial), yakushi (medication via iyashi), hagukumi (minor/elder consent), chigiri (consent + steward labor), toritate (Public Fund grant), manabi (operator training)."
+priority_note: "Sensing / instrument layer of the L4 Care Tier — the 'futuristic scan pod' ask (2026-05-31). kizashi (兆 — 兆し = sign/early indication) is the NON-INVASIVE multimodal body-scan substrate that detects physical-burden SIGNS (腰痛 posture/筋, 肩こり 筋硬度/血流, 鼻詰まり 構造/気流, アレルギー via consented microsampling, 炎症 thermal/biomarker) and emits PROBABILISTIC, NON-DIAGNOSTIC attributions + self-referenced Wellbecoming trajectories + triage referral. Sits UPSTREAM of mitate (diagnosis routing ADR-2605260100) and iyashi (clinical care ADR-2605263000): kizashi SENSES signs, mitate (licensed clinician) DIAGNOSES, iyashi TREATS. Constitutional crux: NON-DIAGNOSTIC (医師法 §17 boundary, G3) + medical-device-regulatory boundary (薬機法/SaMD, G4) — R0..R2 = software + simulation + non-ionizing non-regulated sensing ONLY; physical regulated-modality pod gated to licensed-medical-device pathway + qualified operator + Council Lv7+ (R3, G11). Biometric scan data = 要配慮 personal info → encrypted envelope MANDATORY (G2, same discipline as iyashi/hagukumi). Murakumo-only inference (G14). Anti-pseudoscience: only modalities with declared evidence grade in the capability ledger (G10; bio-resonance/aura/波動 EXCLUDED N8). 6 cells / 6 Lexicons under com.etzhayyim.kizashi.* / 14 immutable gates / 12 non-goals / 4-phase R0..R3. Cross-actor: mitate (sign → diagnosis), iyashi (clinical referral), kokoro (psychosocial referral — pain is multifactorial), yakushi (medication via iyashi), hagukumi (minor/elder consent), chigiri (consent + steward labor), toritate (Public Fund grant), manabi (operator training)."
 authoritative_for:
   - kizashi actor R0 charter
   - religious-corp non-invasive multimodal body-scan / sign-sensing substrate single SoT
-  - "`app.etzhayyim.kizashi.*` Lexicon namespace boundary"
+  - "`com.etzhayyim.kizashi.*` Lexicon namespace boundary"
   - non-diagnostic invariant (G3 structural — 兆候 + probabilistic attribution + consult ONLY, never diagnosis)
   - medical-device regulatory boundary (G4 — 薬機法/SaMD; regulated/ionizing modalities gated to licensed pathway)
   - encrypted biometric-scan envelope invariant (G2 structural, same discipline as iyashi)
@@ -82,7 +82,7 @@ Constitutional constraints (inherited; not adjustable):
 
 # Decision
 
-Create `kizashi` (兆) as a Tier-B religious-corp **non-invasive multimodal body-scan / sign-sensing substrate** actor at `20-actors/kizashi/`, with DID `did:web:kizashi.etzhayyim.com`, Lexicon namespace `app.etzhayyim.kizashi.*`. R0 = scaffold only; all cells import-time `RuntimeError` (same scaffold discipline as iyashi/hagukumi/chigiri R0).
+Create `kizashi` (兆) as a Tier-B religious-corp **non-invasive multimodal body-scan / sign-sensing substrate** actor at `20-actors/kizashi/`, with DID `did:web:kizashi.etzhayyim.com`, Lexicon namespace `com.etzhayyim.kizashi.*`. R0 = scaffold only; all cells import-time `RuntimeError` (same scaffold discipline as iyashi/hagukumi/chigiri R0).
 
 ## §1. Identity and naming
 
@@ -90,7 +90,7 @@ Create `kizashi` (兆) as a Tier-B religious-corp **non-invasive multimodal body
 |---|---|
 | Name | `kizashi` (兆 — 兆し = sign / early indication; the body's signs read before a clinician's diagnosis) |
 | DID | `did:web:kizashi.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.kizashi.*` |
+| Lexicon root | `com.etzhayyim.kizashi.*` |
 | Form | 任意団体 internal non-invasive sensing/screening substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | L4 Care Tier | yes; sensing/instrument sibling of mitate (diagnosis) / iyashi (treatment) / kokoro (mental) / yakushi (pharma) / hagukumi (daily-living) |
@@ -153,7 +153,7 @@ R0..R2 use ONLY the non-ionizing, non-regulated subset (optical posture, thermog
 
 All cell modules at R0 raise import-time `RuntimeError` (prevents accidental plaintext biometric data flow before R1's encrypted-record framework is Council-attested).
 
-## §4. Lexicons (`app.etzhayyim.kizashi.*`)
+## §4. Lexicons (`com.etzhayyim.kizashi.*`)
 
 | # | Lexicon | Consumer cell | Structural invariant |
 |---|---|---|---|
@@ -226,7 +226,7 @@ All cell modules at R0 raise import-time `RuntimeError` (prevents accidental pla
 
 1. This ADR (`90-docs/adr/2605312700-...md`);
 2. Actor scaffold (`20-actors/kizashi/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 6 Lexicon skeleton schemas + README (`00-contracts/lexicons/app/etzhayyim/kizashi/`);
+3. 6 Lexicon skeleton schemas + README (`00-contracts/lexicons/com/etzhayyim/kizashi/`);
 3b. Modality capability ledger seed (`20-actors/kizashi/registry/modalities.seed.json`) — 14 entries (11 sensing + MRI/CT referral marker + 3 grade-X excluded pseudoscience), all `unverified-seed` (G10 Council-ratify gate);
 4. `deps.toml` registration ([[adrs]] + [[modules]] actor + [[modules]] lexicon namespace);
 5. ADR README index row (`90-docs/adr/README.md`);

@@ -6,7 +6,7 @@
  :cell/runtime :wasm
  :cell/entry "py/agent.py"
  :cell/handler "handle_consumption_audit"
- :cell/doc "Consumption audit — aggregate-only per-period consumption (≥1h buckets; no smart-meter granular PII). Encrypted envelope (app.etzhayyim.encrypted.*) stores detailed per-load breakdown; datomic surface exposes only time-aggregated consumption for facility/adherent baseline tracking (G9 privacy gate)."
+ :cell/doc "Consumption audit — aggregate-only per-period consumption (≥1h buckets; no smart-meter granular PII). Encrypted envelope (com.etzhayyim.encrypted.*) stores detailed per-load breakdown; datomic surface exposes only time-aggregated consumption for facility/adherent baseline tracking (G9 privacy gate)."
  :cell/state-graph
  {:nodes [:aggregate-loads :encrypt-detail :record-aggregate :finalize-audit]
   :entry :aggregate-loads

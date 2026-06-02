@@ -35,7 +35,7 @@ The originating question for this session was: *「google のような global �
 
 The audit verdict was **partial**. kotoba already had, end-to-end: Common Crawl parquet
 ingestion (`kotoba-ingest::cc` → `cc/*` datoms), semantic (vector) search via a pure-Rust IVF
-index + Murakumo-only embeddings (`ai.gftd.apps.kotoba.cc.search` / `.rag`), and cross-modal
+index + Murakumo-only embeddings (`com.etzhayyim.apps.kotoba.cc.search` / `.rag`), and cross-modal
 search. But the three pillars that make Google *Google* were missing or inert:
 
 1. **No keyword / full-text (lexical) search** — every query was embedding-cosine only.
@@ -65,13 +65,13 @@ increments landed in this session:
   incomparable score distributions) + a min-max weighted-linear fuser.
 - `kotoba-server::cc_xrpc` — fixed the dead IVF fallback (`semantic_ranking()` probes `nprobe`
   nearest centroids via the persisted `cc/ivf/cluster` assignments) and added
-  `ai.gftd.apps.kotoba.search.web` (GET) fusing lexical + semantic + authority via RRF with
+  `com.etzhayyim.apps.kotoba.search.web` (GET) fusing lexical + semantic + authority via RRF with
   graceful degrade.
 
 **Increment 2 — precompute wiring (the two follow-ups):**
 
 - BM25 precompute: a corpus-global build pass persists `cc/bm25/*` into the chunks graph;
-  `web_search` prefers it; `ai.gftd.apps.kotoba.search.reindex` (POST) rebuilds on demand; the
+  `web_search` prefers it; `com.etzhayyim.apps.kotoba.search.reindex` (POST) rebuilds on demand; the
   `cc.ingest` job triggers the rebuild automatically.
 - Outlink edges: `CcPageIngestor::ingest_links_dir_datoms` / `read_page_links` parse an optional
   `outlinks` `List<Utf8>` column into `cc/link/to` edges in `cc:2026-12:links`; the PageRank pass

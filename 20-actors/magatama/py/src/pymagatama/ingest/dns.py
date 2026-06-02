@@ -89,7 +89,7 @@ def transfer_from_squarespace(**kwargs: Any) -> dict[str, Any]:
     approval_list = [str(a) for a in approval_list[:8] if a]
     status = "approved" if len(approval_list) >= 3 else "requested"
     rkey = _id("transfer")
-    transfer_request_uri = f"at://{CF_REGISTRAR_DID}/app.etzhayyim.apps.dns.transferRequest/{rkey}"
+    transfer_request_uri = f"at://{CF_REGISTRAR_DID}/com.etzhayyim.apps.dns.transferRequest/{rkey}"
     requested_at = now_iso()
     record = {
         "domain": domain,
@@ -146,7 +146,7 @@ def transfer_outcome(**kwargs: Any) -> dict[str, Any]:
         (vertex_id, _seq, owner_did, rkey, transfer_request_uri, domain, result, zone_did, cloudflare_zone_id, failure_reason, rollback_steps_json, completed_at, record_json)
         VALUES (%s, _next_seq('vertex_atrecord_dns_transfer_outcome'), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ON CONFLICT (vertex_id) DO UPDATE SET record_json=EXCLUDED.record_json""",
-        (f"at://{CF_REGISTRAR_DID}/app.etzhayyim.apps.dns.transferOutcome/{rkey}", CF_REGISTRAR_DID, rkey, record["transferRequestUri"], domain, result, record.get("zoneDid"), record.get("cloudflareZoneId"), record.get("failureReason"), json.dumps(record["rollbackSteps"]), completed_at, json.dumps(record, ensure_ascii=False, sort_keys=True)),
+        (f"at://{CF_REGISTRAR_DID}/com.etzhayyim.apps.dns.transferOutcome/{rkey}", CF_REGISTRAR_DID, rkey, record["transferRequestUri"], domain, result, record.get("zoneDid"), record.get("cloudflareZoneId"), record.get("failureReason"), json.dumps(record["rollbackSteps"]), completed_at, json.dumps(record, ensure_ascii=False, sort_keys=True)),
     )
     if result != "success":
         return {"status": "recorded", "result": result, "domain": domain}
@@ -157,7 +157,7 @@ def transfer_outcome(**kwargs: Any) -> dict[str, Any]:
         ON CONFLICT (vertex_id) DO NOTHING""",
         (zone_did, OWNER_DID, zone_did, f"{_domain_slug(domain)}.dns.etzhayyim.com", domain, domain, today()),
     )
-    ownership_id = f"at://{CF_REGISTRAR_DID}/app.etzhayyim.apps.dns.ownershipTransfer/{_id('own')}"
+    ownership_id = f"at://{CF_REGISTRAR_DID}/com.etzhayyim.apps.dns.ownershipTransfer/{_id('own')}"
     ownership = {
         "domain": domain,
         "fromRegistrar": "squarespace",

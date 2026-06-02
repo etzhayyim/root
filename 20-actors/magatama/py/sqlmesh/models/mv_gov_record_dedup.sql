@@ -16,10 +16,10 @@ SELECT
   COUNT(*) AS record_count
 FROM vertex_repo_record
 WHERE collection IN (
-  'ai.gftd.apps.gov.org',
-  'ai.gftd.apps.gov.person',
-  'ai.gftd.apps.gov.budget',
-  'ai.gftd.apps.gov.contract',
-  'ai.gftd.apps.states.org'
+  'com.etzhayyim.apps.gov.org',
+  'com.etzhayyim.apps.gov.person',
+  'com.etzhayyim.apps.gov.budget',
+  'com.etzhayyim.apps.gov.contract',
+  'com.etzhayyim.apps.states.org'
 )
 GROUP BY collection, LOWER(COALESCE(NULLIF(repo, ''), rkey))

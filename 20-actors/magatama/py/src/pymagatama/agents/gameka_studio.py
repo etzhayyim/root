@@ -1,5 +1,5 @@
 """
-app.etzhayyim.agent.gameka.studio — LangGraph game-spec deliberation agent
+com.etzhayyim.agent.gameka.studio — LangGraph game-spec deliberation agent
 (ADR 2604250900, P1 transitional task type).
 
 5-node StateGraph:
@@ -21,7 +21,7 @@ app.etzhayyim.agent.gameka.studio — LangGraph game-spec deliberation agent
 Why a dedicated task type and not generic.langgraph.run:
   ADR 2604250836 proposes generic.langgraph.run as the 8th primitive but
   is still status: proposed. Until that primitive lands (Migration Step 2),
-  app.etzhayyim.agent.gameka.studio mirrors app.etzhayyim.agent.plan's shape so we can
+  com.etzhayyim.agent.gameka.studio mirrors com.etzhayyim.agent.plan's shape so we can
   exercise the BPMN end-to-end on the existing zeebe-worker. Switching
   to generic.langgraph.run is a one-line BPMN change (taskDefinition
   type + state.graph_id="gameka.studio.v1") plus dropping this wrapper.
@@ -376,7 +376,7 @@ async def task_agent_gameka_studio(
     scoreThreshold: float = 0.8,
     threadId: str = "",
 ) -> dict:
-    """Entry point registered as `app.etzhayyim.agent.gameka.studio` in
+    """Entry point registered as `com.etzhayyim.agent.gameka.studio` in
     pymagatama.zeebe_worker_main. Returns a flat dict consumable by
     Zeebe FEEL ioMapping."""
     if not brief:

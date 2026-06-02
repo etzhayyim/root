@@ -128,7 +128,7 @@ L4  Authorization plane — CACAO (CAIP-74), server VERIFIES ONLY
 
 L5  Messaging plane — user ↔ user, Signal (closes gap 3)
     Signal IdentityKey unlocked under passkey (KeyOpKind::SignalKeyUnlock, UV required)
-    DID ↔ Signal binding = CACAO-signed assertion (app.etzhayyim.encrypted.signalIdentity), verified before X3DH
+    DID ↔ Signal binding = CACAO-signed assertion (com.etzhayyim.encrypted.signalIdentity), verified before X3DH
     X3DH session establish → Double Ratchet per-message keys → forward secrecy + post-compromise security
 ```
 
@@ -175,11 +175,11 @@ C-4), and route all session signing to the passkey-derived `k_session`.
 ## D4 — Signal for user↔user, bound to DID (closes gap 3)
 
 `kotoba-signal`'s X3DH/Double Ratchet becomes the wrap transport for
-`app.etzhayyim.encrypted.*` records exchanged between members:
+`com.etzhayyim.encrypted.*` records exchanged between members:
 
 - The Signal `IdentityKey` is derived from `k_signal` (L2), so it is recoverable
   on a new device via ARK, and unlockable only behind `SignalKeyUnlock` (UV).
-- A new lexicon record `app.etzhayyim.encrypted.signalIdentity` carries the
+- A new lexicon record `com.etzhayyim.encrypted.signalIdentity` carries the
   Signal identity public key signed as a CACAO by the member's DID key; peers
   **must** verify this binding (`Cacao::verify_with_resolver`) before X3DH.
   This is the DID↔Signal assertion ADR-2605181100 specified but never enforced.
@@ -263,7 +263,7 @@ asserting two seals of identical plaintext differ.
   and `decrypt_body(email_cid, body_cid)` enforces the same binding, so a body
   blob cannot be swapped between emails (kotoba-ingest 89 green; +wrong-owner
   rejection test). The **`signalIdentity` publish/resolve loop** is now in
-  kotoba-server (`ai.gftd.signal.{publish,resolve}.identity`): publish stores the
+  kotoba-server (`com.etzhayyim.signal.{publish,resolve}.identity`): publish stores the
   DID-signed binding (and rejects an invalid did:key signature on publish);
   resolve verifies it by **resolving the issuer DID to its Ed25519 key** (via the
   existing `CompositeDidResolver`: `did:key` trustless + `did:web`/`did:plc`
@@ -282,7 +282,7 @@ asserting two seals of identical plaintext differ.
   capture `S_prf` (best-effort, falls back to server-assisted if the authenticator
   lacks PRF). yoro key-tree + prf vitest 13 green; svelte-check clean.
   All three remaining legs are now landed: **(1)** the wrapped-ARK store —
-  kotoba-server `ai.gftd.account.{put,get}.wrapped.ark` persists the opaque
+  kotoba-server `com.etzhayyim.account.{put,get}.wrapped.ark` persists the opaque
   per-passkey `wrapArk` blob (server holds no key to read it; owner-auth'd;
   account_xrpc 4 green); **(2)** the Ed25519 session key — yoro
   `$lib/auth/session-key.ts` derives a deterministic Ed25519 keypair from

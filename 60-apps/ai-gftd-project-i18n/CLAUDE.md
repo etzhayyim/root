@@ -58,9 +58,9 @@
 
 | Lexicon | Method | Description |
 |---|---|---|
-| `app.etzhayyim.command.i18n.translate` | `translate_batch` | プロジェクト+言語バッチ翻訳 |
-| `app.etzhayyim.command.i18n.sync` | `sync_all` | 全プロジェクトスキャン→変更検出→翻訳 |
-| `app.etzhayyim.command.i18n.translate_message` | `translate_message` | AT channel メッセージ翻訳 |
+| `com.etzhayyim.command.i18n.translate` | `translate_batch` | プロジェクト+言語バッチ翻訳 |
+| `com.etzhayyim.command.i18n.sync` | `sync_all` | 全プロジェクトスキャン→変更検出→翻訳 |
+| `com.etzhayyim.command.i18n.translate_message` | `translate_message` | AT channel メッセージ翻訳 |
 
 ### Query Path (XRPC)
 
@@ -86,9 +86,9 @@
 
 | Lexicon | Description |
 |---|---|
-| `app.etzhayyim.i18n.translation_completed` | バッチ翻訳完了イベント |
-| `app.etzhayyim.i18n.translated_message` | メッセージ翻訳結果 (record_uri, channel_id, source/target_lang, translated) |
-| `app.etzhayyim.apps.i18n.translatedPost` | yoro 投稿の自動翻訳結果 (source_uri, source/target_lang, model) |
+| `com.etzhayyim.i18n.translation_completed` | バッチ翻訳完了イベント |
+| `com.etzhayyim.i18n.translated_message` | メッセージ翻訳結果 (record_uri, channel_id, source/target_lang, translated) |
+| `com.etzhayyim.apps.i18n.translatedPost` | yoro 投稿の自動翻訳結果 (source_uri, source/target_lang, model) |
 
 ### AT Channels
 
@@ -125,7 +125,7 @@ User reads AT channel message (foreign language)
       { record_uri: "at://did:...", text: "こんにちは", target_lang: "en" }
     → detectLanguage() → "ja"
     → TM lookup → miss → murakumo → "Hello"
-    → publish app.etzhayyim.i18n.translated_message AT record
+    → publish com.etzhayyim.i18n.translated_message AT record
     → return translated text to Widget UI
 ```
 
@@ -178,11 +178,11 @@ yoro post create → PDS commit → i18n subscribeRepos (Follow-based)
   → detectLanguage (post.langs field or Unicode heuristic)
   → for each Tier 1+2 lang (≠ source): murakumoTranslate()
     → Murakumo on-prem qwen3.5-4b (direct fetch, zero cost)
-  → app.etzhayyim.apps.i18n.translatedPost record × N languages
+  → com.etzhayyim.apps.i18n.translatedPost record × N languages
   → social announce (AppBskyFeedPost)
 ```
 
-**Output record** (`app.etzhayyim.apps.i18n.translatedPost`):
+**Output record** (`com.etzhayyim.apps.i18n.translatedPost`):
 
 | Field | Description |
 |---|---|

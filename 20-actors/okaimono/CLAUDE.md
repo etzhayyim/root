@@ -57,7 +57,7 @@ kurashimori / wakai. Provisioning history is a kotoba `as-of` Wellbecoming traje
 | G6 | kotoba-eavt-native | no RW/SQL/Lance as canonical |
 | G7 | tithe-non-fiat | USDC+ERC-4337+warifu; TitheRouter 10% auto-split; no fiat |
 | G8 | labor-dignity-provenance | etzhayyim logistics, no gig; provenance disclosed |
-| G9 | pii-encrypted-envelope | need + history → app.etzhayyim.encrypted.*, DID-bound |
+| G9 | pii-encrypted-envelope | need + history → com.etzhayyim.encrypted.*, DID-bound |
 | G10 | catalog-sourcing-legality | robots.txt/ToS/rate-limit/public-only; :representative honesty |
 | G11 | outward-gated | live scraping + real 代理-purchase = Council Lv7+ + operator |
 | G12 | anti-individualism | household/multi-gen baskets + commons-share first |
@@ -95,7 +95,7 @@ adds `build_payment_intent` (unsigned, member-principal, `serverHeldKey=false`, 
 external trips its own Lv7+ gate), `authorize_payment` (member signature only; server sig
 refused — G15), `seal_encrypted` (envelope ref + field names, never plaintext — G9),
 `assist_checkout` (awaiting→authorized→submitted; nothing submits without member sig +
-operator), `arrange_delivery` (no-gig preferred). +`app.etzhayyim.okaimono.assist` lexicon.
+operator), `arrange_delivery` (no-gig preferred). +`com.etzhayyim.okaimono.assist` lexicon.
 **40/40 tests green.**
 
 **R2 (Ring 2 external catalog, landed 2026-06-01):** the constitutional crux is G3

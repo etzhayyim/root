@@ -23,7 +23,7 @@ Web 支払いページを Playwright 駆動で埋め、**最終 submit まで** 
 │   gftd shiharai agent           → local Playwright daemon loop   │
 └─────────────────────────────────────────────────────────────────┘
                         │
-                        │ XRPC (app.etzhayyim.apps.shiharai.*)
+                        │ XRPC (com.etzhayyim.apps.shiharai.*)
                         ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │ T4 shiharai.etzhayyim.com Worker (this project)                        │
@@ -49,7 +49,7 @@ Web 支払いページを Playwright 駆動で埋め、**最終 submit まで** 
                                           ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │ T0 Local Mac — `gftd shiharai agent` daemon (LaunchAgent)        │
-│  1. Long-poll shiharai.etzhayyim.com/xrpc/app.etzhayyim.apps.shiharai.dequeue│
+│  1. Long-poll shiharai.etzhayyim.com/xrpc/com.etzhayyim.apps.shiharai.dequeue│
 │  2. Fetch creds from macOS Keychain (service=gftd.shiharai.X)    │
 │  3. Run Playwright: Chrome / WebKit launch → navigate → fill     │
 │     → (confirmPayment if authorized) → submit                    │
@@ -91,7 +91,7 @@ logic)。biller 識別は `extractBill` の output `issuer` field から。
 
 ## XRPC methods
 
-NSID: `app.etzhayyim.apps.shiharai.*`
+NSID: `com.etzhayyim.apps.shiharai.*`
 
 | method | type | destructive | 概要 |
 |---|---|---|---|
@@ -123,9 +123,9 @@ NSID: `app.etzhayyim.apps.shiharai.*`
   `20260419120000` applied (12 tables). 3 biller rows seeded.
 - ✅ **Phase 2** (2026-04-19): `confirmPayment` + local daemon (superseded).
 - ✅ **Phase 3** (2026-04-19): **architectural pivot — shiharai becomes a
-  thin consumer of `app.etzhayyim.apps.bpmn` (orchestrator) +
-  `app.etzhayyim.apps.playwright` (primitives) +
-  `app.etzhayyim.apps.cloudflareBrowserRender` (substrate).** Biller-specific
+  thin consumer of `com.etzhayyim.apps.bpmn` (orchestrator) +
+  `com.etzhayyim.apps.playwright` (primitives) +
+  `com.etzhayyim.apps.cloudflareBrowserRender` (substrate).** Biller-specific
   code removed — each biller is a BPMN JSON recipe at `recipes/*.bpmn.json`
   deployed once via `bpmn.deployProcess`. shiharai `src/app.ts` = 7 XRPC
   methods that wrap `bpmn.startInstance` / `bpmn.signalInstance`. Local

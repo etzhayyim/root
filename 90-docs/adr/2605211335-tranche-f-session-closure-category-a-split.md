@@ -81,7 +81,7 @@ The 45 actors with identical `60-apps/ai-gftd-project-<name>` directories in bot
   - Actor's BPMN moves to a runtime that depends on etzhayyim substrate primitives (PDS XRPC / mst-projector / etc.)
   - Actor's BPMN gains user-facing PII surface
 - **What "SPLIT" means concretely**:
-  - `00-contracts/bpmn/ai/gftd/<actor>/*.bpmn` lives in etzhayyim/root (spec, open)
+  - `00-contracts/bpmn/com/etzhayyim/<actor>/*.bpmn` lives in etzhayyim/root (spec, open)
   - Worker / appview / LangServer task handlers / pymagatama primitives stay in vendor (runtime)
   - Per-actor `magatama.jsonld` typically declares `operator: etzhayyim.com` (or unspecified)
   - No 3-axis re-test required at quarterly cycle if no trigger fires

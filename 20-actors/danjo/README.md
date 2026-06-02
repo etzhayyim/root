@@ -1,10 +1,10 @@
 # danjo (弾正) — Public-Accountability Oversight Substrate
 
 **DID**: `did:web:danjo.etzhayyim.com`
-**Namespace**: `app.etzhayyim.danjo.*`
+**Namespace**: `com.etzhayyim.danjo.*`
 **ADR**: ADR-2605301600 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-30) — 6 cells path-reserved + 4 Lexicon skeletons
-**Primary input**: `app.etzhayyim.gov.dataset.*` corpus (ADR-2605263900)
+**Primary input**: `com.etzhayyim.gov.dataset.*` corpus (ADR-2605263900)
 **Parent ADRs**: ADR-2605263900 (open-gov corpus), ADR-2605262130 (kotoba), ADR-2605192100 (Mission Charter §1.12), ADR-2605192200 (Charter Rider), ADR-2605192300 (Council 5-of-7), ADR-2605215000 (Murakumo-only inference)
 
 ## Overview
@@ -66,7 +66,7 @@ The cross-reference graph lives in **kotoba QuadStore (EAVT)** per
 ADR-2605262130. No RisingWave, no projection layer (same discipline as
 the tadori sibling, ADR-2605301400).
 
-## 4 Lexicons under `app.etzhayyim.danjo.*`
+## 4 Lexicons under `com.etzhayyim.danjo.*`
 
 | Lexicon | Description |
 |---|---|
@@ -75,7 +75,7 @@ the tadori sibling, ADR-2605301400).
 | `oversightReport` | Periodic aggregate transparency report; Council Lv6+ ≥3 attestation chain; IPFS-pinned (replication ≥2) |
 | `methodNote` | Open, versioned definition of one detector heuristic (the public can audit the detector) |
 
-See `/00-contracts/lexicons/app/etzhayyim/danjo/README.md` for canonical schemas.
+See `/00-contracts/lexicons/com/etzhayyim/danjo/README.md` for canonical schemas.
 
 ## Constitutional Gates (G1–G13) — IMMUTABLE R0–R3
 
@@ -127,7 +127,7 @@ validation lands at R1 Council attestation review.
 - `/20-actors/danjo/CLAUDE.md`
 - `/20-actors/danjo/methods/` (open, versioned detector heuristics — `v1-jp-seed`, 6 seeds; G6 open method)
 - `/70-tools/scripts/lint/no-danjo-adjudication.mjs` (G4 + G8 constitutional lint, green at R0)
-- `/00-contracts/lexicons/app/etzhayyim/danjo/` (4 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/danjo/` (4 Lexicons + README)
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md` — open-gov corpus (primary input)
 - `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate

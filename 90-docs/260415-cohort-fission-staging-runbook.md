@@ -38,7 +38,7 @@ gftd cohort snapshot --out-dir data/staging-cohort-baseline/
 ## 1. Phase A — seed 1 cohort
 
 ```bash
-AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.cohort.seed --ttl 600)
+AT_TOKEN=$(gftd agent-token --lxm com.etzhayyim.cohort.seed --ttl 600)
 etzhayyim_TOKEN=$AT_TOKEN gftd cohort gen \
   --pcfL1 3-market-sell --role salesRep --locale jp --k 50
 
@@ -60,7 +60,7 @@ gftd cohort list --pcfL1 3-market-sell
 COHORT="did:plc:pending-X1Y2Z3W4"
 
 # 49 件 ambient evidence (low posterior, no judge)
-AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.cohort.emitEvidence --ttl 600)
+AT_TOKEN=$(gftd agent-token --lxm com.etzhayyim.cohort.emitEvidence --ttl 600)
 for i in $(seq 1 49); do
   etzhayyim_TOKEN=$AT_TOKEN gftd cohort emit \
     --cohort "$COHORT" \
@@ -87,18 +87,18 @@ gftd cohort evidence --cohort "$COHORT" --min-posterior 0.95 --judge true
 ## 3. Phase C — fission
 
 ```bash
-AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.cohort.fission --ttl 60)
+AT_TOKEN=$(gftd agent-token --lxm com.etzhayyim.cohort.fission --ttl 60)
 etzhayyim_TOKEN=$AT_TOKEN gftd cohort fission \
   --cohort "$COHORT" \
   --posterior 0.97 --judge=true \
-  --evidence "at://cohort-X1Y2Z3W4.etzhayyim.com/app.etzhayyim.cohort.evidence/<rkey>"
+  --evidence "at://cohort-X1Y2Z3W4.etzhayyim.com/com.etzhayyim.cohort.evidence/<rkey>"
 
 # Expected response:
 # {
 #   "individualDid": "did:plc:pending-AABBCCDD",
 #   "individualHandle": "agent-AABBCCDD.etzhayyim.com",
 #   "derivedFrom": "did:plc:pending-X1Y2Z3W4",
-#   "lineageArchiveUri": "at://agent-AABBCCDD.etzhayyim.com/app.etzhayyim.cohort.fissionLineage/self",
+#   "lineageArchiveUri": "at://agent-AABBCCDD.etzhayyim.com/com.etzhayyim.cohort.fissionLineage/self",
 #   "fissionAt": "2026-04-15T..."
 # }
 ```
@@ -123,7 +123,7 @@ gftd cohort forest --pcfL1 3-market-sell
 ```bash
 # Should be 0 drift after a clean E2E run
 curl -H "Authorization: Bearer $etzhayyim_TOKEN" \
-  "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.pds.getOcel?index=app.etzhayyim.cohort.lineageDrift" \
+  "https://atproto.etzhayyim.com/xrpc/com.etzhayyim.pds.getOcel?index=com.etzhayyim.cohort.lineageDrift" \
   | jq '.data[].doubles[0]'   # edgeMissing count
 ```
 

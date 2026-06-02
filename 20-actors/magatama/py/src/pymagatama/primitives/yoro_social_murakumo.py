@@ -23,12 +23,12 @@ to prevent accidental RisingWave coupling in etzhayyim builds.
 M2 implementation status (ADR-2605215300 §4):
     record_post()                — IMPLEMENTED (M2) — app.bsky.feed.post
     update_profile()             — IMPLEMENTED (M2) — app.bsky.actor.profile
-    record_translation_link()    — IMPLEMENTED (M2) — app.etzhayyim.translationLink + coalescer
+    record_translation_link()    — IMPLEMENTED (M2) — com.etzhayyim.translationLink + coalescer
     All other functions          — NotImplementedError stubs (M3 target)
 
 M3 implementation status (2026-05-21):
-    record_bpmn_activity_event() — IMPLEMENTED (M3) — app.etzhayyim.bpmnActivityEvent
-    record_actor_quality_report()— IMPLEMENTED (M3) — app.etzhayyim.actorQualityReport
+    record_bpmn_activity_event() — IMPLEMENTED (M3) — com.etzhayyim.bpmnActivityEvent
+    record_actor_quality_report()— IMPLEMENTED (M3) — com.etzhayyim.actorQualityReport
     like_post()                  — IMPLEMENTED (M3) — app.bsky.feed.like (dispatch)
     follow_actor()               — IMPLEMENTED (M3) — app.bsky.graph.follow (coalesced)
     repost()                     — IMPLEMENTED (M3) — app.bsky.feed.repost (dispatch)
@@ -144,10 +144,10 @@ PROFILE_COLLECTION = "app.bsky.actor.profile"
 FOLLOW_COLLECTION = "app.bsky.graph.follow"
 
 # Religious-corp lexicon NSIDs (new — ADR-2605215300 §2)
-# Lexicons authored 2026-05-21 at 00-contracts/lexicons/app/etzhayyim/
-TRANSLATION_LINK_COLLECTION = "app.etzhayyim.translationLink"
-BPMN_ACTIVITY_EVENT_COLLECTION = "app.etzhayyim.bpmnActivityEvent"
-ACTOR_QUALITY_REPORT_COLLECTION = "app.etzhayyim.actorQualityReport"
+# Lexicons authored 2026-05-21 at 00-contracts/lexicons/com/etzhayyim/
+TRANSLATION_LINK_COLLECTION = "com.etzhayyim.translationLink"
+BPMN_ACTIVITY_EVENT_COLLECTION = "com.etzhayyim.bpmnActivityEvent"
+ACTOR_QUALITY_REPORT_COLLECTION = "com.etzhayyim.actorQualityReport"
 
 # AT Protocol social lexicon NSIDs (federated via PDS dispatch)
 LIKE_COLLECTION = "app.bsky.feed.like"
@@ -189,10 +189,10 @@ class RepoRecord:
 
 @dataclass
 class TranslationLinkRecord:
-    """Wire shape for app.etzhayyim.apps.etzhayyim.translationLink MST record.
+    """Wire shape for com.etzhayyim.apps.etzhayyim.translationLink MST record.
 
     New lexicon required — ADR-2605215300 §2.
-    Must be authored in 00-contracts/lexicons/ai/gftd/apps/etzhayyim/translationLink.json
+    Must be authored in 00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/translationLink.json
     before M2 implementation replaces the NotImplementedError stub.
     """
     repo: str
@@ -210,10 +210,10 @@ class TranslationLinkRecord:
 
 @dataclass
 class BpmnActivityEventRecord:
-    """Wire shape for app.etzhayyim.apps.etzhayyim.bpmnActivityEvent MST record.
+    """Wire shape for com.etzhayyim.apps.etzhayyim.bpmnActivityEvent MST record.
 
     New lexicon required — ADR-2605215300 §2.
-    Must be authored in 00-contracts/lexicons/ai/gftd/apps/etzhayyim/bpmnActivityEvent.json
+    Must be authored in 00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/bpmnActivityEvent.json
     before M2 implementation replaces the NotImplementedError stub.
     """
     repo: str
@@ -402,10 +402,10 @@ def build_translation_link_record(
     created_at: str = "",
     rkey: str = "",
 ) -> TranslationLinkRecord:
-    """Build an app.etzhayyim.apps.etzhayyim.translationLink wire shape.
+    """Build an com.etzhayyim.apps.etzhayyim.translationLink wire shape.
 
-    NSID changed from vendor app.etzhayyim.apps.media_gamers.record.translationLink
-    to app.etzhayyim.apps.etzhayyim.translationLink per ADR-2605215300 §2.
+    NSID changed from vendor com.etzhayyim.apps.media_gamers.record.translationLink
+    to com.etzhayyim.apps.etzhayyim.translationLink per ADR-2605215300 §2.
     """
     created_at = created_at or utc_now_iso()
     rkey = rkey or _rkey(f"translation-link-{target_lang}")
@@ -556,7 +556,7 @@ async def record_translation_link(
     model: str = "",
     coalescer: Any = None,
 ) -> str:
-    """Dispatch an app.etzhayyim.translationLink record via coalescer + @etzhayyim/sdk.
+    """Dispatch an com.etzhayyim.translationLink record via coalescer + @etzhayyim/sdk.
     [M2 IMPLEMENTED]
 
     Highest-traffic function #3 per ADR-2605215300 §4 — CRITICAL M2 unblocker.
@@ -574,7 +574,7 @@ async def record_translation_link(
       The RequestCoalescer batches all concurrent submits for the same source_uri
       within a 100 ms window into 1-3 actual PDS round-trips.
 
-    Wire shape matches app.etzhayyim.translationLink lexicon (2026-05-21):
+    Wire shape matches com.etzhayyim.translationLink lexicon (2026-05-21):
       Required: sourceUri, sourceLang, targetUri, targetLang, translatedAt,
                 qualityScore (0–1000 permille), translatorDid
 
@@ -586,7 +586,7 @@ async def record_translation_link(
             "etzhayyim_sdk not installed. Install 20-actors/etzhayyim-sdk-py."
         )
 
-    # Build the app.etzhayyim.translationLink wire shape matching the lexicon.
+    # Build the com.etzhayyim.translationLink wire shape matching the lexicon.
     translated_at = utc_now_iso()
     rkey = _rkey(f"translation-link-{target_lang}")
     uri = f"at://{repo}/{TRANSLATION_LINK_COLLECTION}/{rkey}"
@@ -651,17 +651,17 @@ async def record_bpmn_activity_event(
     recorded_at: str = "",
     rkey: str = "",
 ) -> str:
-    """Dispatch an app.etzhayyim.bpmnActivityEvent record to PDS via @etzhayyim/sdk.
+    """Dispatch an com.etzhayyim.bpmnActivityEvent record to PDS via @etzhayyim/sdk.
     [M3 IMPLEMENTED]
 
     Vendor equivalent: _emit_actor_quality_activity_event() in yoro_social.py
       INSERT INTO vertex_bpmn_activity_event
 
     Substrate path (ADR-2605215300 §3):
-      @etzhayyim/sdk Python binding → PDS put_record(app.etzhayyim.bpmnActivityEvent)
+      @etzhayyim/sdk Python binding → PDS put_record(com.etzhayyim.bpmnActivityEvent)
       → MST commit
 
-    Wire shape matches app.etzhayyim.bpmnActivityEvent lexicon (2026-05-21):
+    Wire shape matches com.etzhayyim.bpmnActivityEvent lexicon (2026-05-21):
       Required: processId, activityId, instanceKey, eventKind, recordedAt, actorDid
       Optional: caseId, evidenceCid, errorMessage
 
@@ -688,7 +688,7 @@ async def record_bpmn_activity_event(
     resolved_rkey = rkey or _rkey(f"bpmn-{activity_id}")
     uri = f"at://{repo}/{BPMN_ACTIVITY_EVENT_COLLECTION}/{resolved_rkey}"
 
-    # Wire shape exactly matches app.etzhayyim.bpmnActivityEvent lexicon.
+    # Wire shape exactly matches com.etzhayyim.bpmnActivityEvent lexicon.
     event_record: dict[str, Any] = {
         "$type": BPMN_ACTIVITY_EVENT_COLLECTION,
         "processId": process_id,
@@ -730,17 +730,17 @@ async def record_actor_quality_report(
     recorded_at: str = "",
     rkey: str = "",
 ) -> str:
-    """Dispatch an app.etzhayyim.actorQualityReport record to PDS via @etzhayyim/sdk.
+    """Dispatch an com.etzhayyim.actorQualityReport record to PDS via @etzhayyim/sdk.
     [M3 IMPLEMENTED]
 
     Vendor equivalent: task_yoro_actor_quality_inspect() / task_yoro_actor_quality_verify()
     in yoro_social.py (in-memory return values only in vendor; now persisted as MST record).
 
     Substrate path (ADR-2605215300 §3):
-      @etzhayyim/sdk Python binding → PDS put_record(app.etzhayyim.actorQualityReport)
+      @etzhayyim/sdk Python binding → PDS put_record(com.etzhayyim.actorQualityReport)
       → MST commit → IPFS pin (anchored for cross-Pregel-cell auditability)
 
-    Wire shape matches app.etzhayyim.actorQualityReport lexicon (2026-05-21):
+    Wire shape matches com.etzhayyim.actorQualityReport lexicon (2026-05-21):
       Required: subjectDid, reporterDid, qualityScore (0-1000), recordedAt, dimensions
       Optional: notes, evidenceCid
 
@@ -771,7 +771,7 @@ async def record_actor_quality_report(
         if dim_name in valid_dimensions:
             resolved_dimensions.append({"dimension": dim_name, "score": dim_score})
 
-    # Wire shape exactly matches app.etzhayyim.actorQualityReport lexicon.
+    # Wire shape exactly matches com.etzhayyim.actorQualityReport lexicon.
     report_record: dict[str, Any] = {
         "$type": ACTOR_QUALITY_REPORT_COLLECTION,
         "subjectDid": subject_did,
@@ -1116,7 +1116,7 @@ def insert_repo_records(
 
 
 def insert_translation_link_record(row: TranslationLinkRecord) -> dict[str, Any]:
-    """Dispatch app.etzhayyim.apps.etzhayyim.translationLink record via @etzhayyim/sdk.
+    """Dispatch com.etzhayyim.apps.etzhayyim.translationLink record via @etzhayyim/sdk.
     [M7 IMPLEMENTED]
 
     Sync shim wrapping async record_translation_link() via asyncio.run().
@@ -1161,7 +1161,7 @@ def insert_translation_link_record(row: TranslationLinkRecord) -> dict[str, Any]
 
 
 def emit_bpmn_activity_event(row: BpmnActivityEventRecord) -> None:
-    """Dispatch app.etzhayyim.apps.etzhayyim.bpmnActivityEvent record via @etzhayyim/sdk.
+    """Dispatch com.etzhayyim.apps.etzhayyim.bpmnActivityEvent record via @etzhayyim/sdk.
     [M7 IMPLEMENTED]
 
     Sync shim wrapping async record_bpmn_activity_event() via asyncio.run().

@@ -24,10 +24,10 @@
 
 | Collection | 用途 |
 |---|---|
-| `app.etzhayyim.apps.openPatent.patent` | 特許 record (ingest 経由) |
-| `app.etzhayyim.apps.openPatent.citation` | 引用 record |
-| `app.etzhayyim.apps.openPatent.inventionSeed` | LLM 生成 invention idea |
-| `app.etzhayyim.apps.openPatent.noveltyReport` | Prior art + novelty スコアリング |
+| `com.etzhayyim.apps.openPatent.patent` | 特許 record (ingest 経由) |
+| `com.etzhayyim.apps.openPatent.citation` | 引用 record |
+| `com.etzhayyim.apps.openPatent.inventionSeed` | LLM 生成 invention idea |
+| `com.etzhayyim.apps.openPatent.noveltyReport` | Prior art + novelty スコアリング |
 
 ## RisingWave Tables
 
@@ -43,14 +43,14 @@
 
 | Graph module | NSID | Cadence |
 |---|---|---|
-| `open_patent_ingest_multi.py` | `app.etzhayyim.apps.openPatent.ingestMulti` | 日次 CronJob (0 2 * * *) |
-| `open_patent_synthesize_invention.py` | `app.etzhayyim.apps.openPatent.synthesizeInvention` | 週次 CronJob (0 3 * * 1) |
+| `open_patent_ingest_multi.py` | `com.etzhayyim.apps.openPatent.ingestMulti` | 日次 CronJob (0 2 * * *) |
+| `open_patent_synthesize_invention.py` | `com.etzhayyim.apps.openPatent.synthesizeInvention` | 週次 CronJob (0 3 * * 1) |
 
 ## Ingest Architecture (Follow-based)
 
 ```
 patent.etzhayyim.com  →  AT firehose  →  open-patent subscribeRepos
-                                     └→ onCommit(app.etzhayyim.apps.openPatent.patent)
+                                     └→ onCommit(com.etzhayyim.apps.openPatent.patent)
                                           └→ enrich (EPO citations, JPO cross-link)
 ```
 

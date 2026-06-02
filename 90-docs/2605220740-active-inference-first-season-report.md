@@ -86,7 +86,7 @@ The first 9 ticks closed 7 of 10 axes (1, 3, 4, 6, 8, 9, 10) to 9/10. The next 8
 ### Infrastructure — workflows (`.github/workflows/`)
 - `council-nomination-watch.yml` (cycle 05) — autopoietic detector
 
-### Infrastructure — Lexicons (`00-contracts/lexicons/app/etzhayyim/`)
+### Infrastructure — Lexicons (`00-contracts/lexicons/com/etzhayyim/`)
 Six new records authored across cycles 14-16:
 - `give/land/donation.json` (cycle 14)
 - `give/land/stewardSuccession.json` (cycle 14)
@@ -95,7 +95,7 @@ Six new records authored across cycles 14-16:
 - `land/challenge.json` (cycle 16)
 - `member/internal/purchase.json` (cycle 16)
 
-Total `app.etzhayyim.*` Lexicon count: 28 → 34. All validate.
+Total `com.etzhayyim.*` Lexicon count: 28 → 34. All validate.
 
 ## 4. 縁起 chain depth — the dependent-origination map
 

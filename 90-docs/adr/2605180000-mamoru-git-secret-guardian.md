@@ -95,7 +95,7 @@ Message-ID: `d8dbcf17-1548-4817-8af8-6a5ae32daae6`.
 
 ## 3. processSecretAlert XRPC method
 
-New lexicon: `app.etzhayyim.apps.mamoru.processSecretAlert` (procedure).
+New lexicon: `com.etzhayyim.apps.mamoru.processSecretAlert` (procedure).
 
 The pod handles pre-detected tokens directly — the 9-node scan pipeline
 (parse_diff → detect_secrets → …) is bypassed. Instead:
@@ -142,12 +142,12 @@ client-side routing for `/scan` and `/incident/[id]`.
 |---|---|---|---|
 | `/webhook/github` | POST | HMAC-SHA256 | push + repository.publicized |
 | `/webhook/github-secret-scanning` | POST | ECDSA-P256 | Partner Program alerts |
-| `/xrpc/app.etzhayyim.apps.mamoru.scanCommit` | POST | Bearer | manual / webhook-triggered scan |
-| `/xrpc/app.etzhayyim.apps.mamoru.scanRepo` | POST | Bearer | full repo scan |
-| `/xrpc/app.etzhayyim.apps.mamoru.processSecretAlert` | POST | Bearer (internal) | Partner Program pipeline |
-| `/xrpc/app.etzhayyim.apps.mamoru.listIncidents` | GET | Bearer | incident list with filters |
-| `/xrpc/app.etzhayyim.apps.mamoru.getIncident` | GET | Bearer | incident detail + occurrences |
-| `/xrpc/app.etzhayyim.apps.mamoru.resolveIncident` | POST | Bearer | revoke / false_positive / accepted_risk |
+| `/xrpc/com.etzhayyim.apps.mamoru.scanCommit` | POST | Bearer | manual / webhook-triggered scan |
+| `/xrpc/com.etzhayyim.apps.mamoru.scanRepo` | POST | Bearer | full repo scan |
+| `/xrpc/com.etzhayyim.apps.mamoru.processSecretAlert` | POST | Bearer (internal) | Partner Program pipeline |
+| `/xrpc/com.etzhayyim.apps.mamoru.listIncidents` | GET | Bearer | incident list with filters |
+| `/xrpc/com.etzhayyim.apps.mamoru.getIncident` | GET | Bearer | incident detail + occurrences |
+| `/xrpc/com.etzhayyim.apps.mamoru.resolveIncident` | POST | Bearer | revoke / false_positive / accepted_risk |
 | `/health`, `/_app/meta` | GET | none | edge probes |
 
 # Deployment

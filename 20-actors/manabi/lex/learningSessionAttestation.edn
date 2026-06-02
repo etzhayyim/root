@@ -1,7 +1,7 @@
-;; app.etzhayyim.manabi.learningSessionAttestation — lexicon (EDN form)
+;; com.etzhayyim.manabi.learningSessionAttestation — lexicon (EDN form)
 ;; Per-session aggregate data; discriminator on learnerAgeBucket enforces G6 minor privacy
 {:lexicon 1
- :id "app.etzhayyim.manabi.learningSessionAttestation"
+ :id "com.etzhayyim.manabi.learningSessionAttestation"
  :defs
  {:main
   {:type "record"

@@ -52,7 +52,7 @@ of watatsumi):
   `weld_ndt_inspection` → **`powertrain_integration`** → `outfitting` →
   `launch_commissioning` → `sea_trial` + `decarbonization_audit` cross-cut +
   `class_certification_binder` terminal) — import-clean, `RuntimeError` on `.solve()`.
-- **9 lexicons** `app.etzhayyim.funadaiku.*` (integer-typed, religious-corp gate clean).
+- **9 lexicons** `com.etzhayyim.funadaiku.*` (integer-typed, religious-corp gate clean).
 - **Nagi 凪 class** reference design `data/vessel.edn` (wind-assist + solar + PEM H₂
   fuel cell + LFP + electric pods; **no fossil engine**, G13/N5) + `data/shipyard.edn`
   (building dock / panel line / block shops / ATEX-zoned H₂ powertrain bay + routed MEP,

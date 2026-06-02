@@ -13,7 +13,7 @@ Consumer peer: 12D3KooWM7m3fhPBDnTLxfMj44oN1fGCfzjuifS9oxkbzE5z1bdX
 
 ## End-to-end round trip:
 $ curl http://127.0.0.1:29080/echo-payload.json
-{"$type":"app.etzhayyim.libp2p.echo","msg":"hello over libp2p","ts":"2026-05-24T17:50:00Z"}
+{"$type":"com.etzhayyim.libp2p.echo","msg":"hello over libp2p","ts":"2026-05-24T17:50:00Z"}
 
 
 Direct backend GET vs tunneled GET diff:

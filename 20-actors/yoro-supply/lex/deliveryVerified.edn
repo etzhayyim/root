@@ -1,7 +1,7 @@
-;; app.etzhayyim.yorosupply.deliveryVerified — lexicon (EDN form)
+;; com.etzhayyim.yorosupply.deliveryVerified — lexicon (EDN form)
 ;; ADR-2605250850 · Phase 2 — final delivery attestation
 {:lexicon 1
- :id "app.etzhayyim.yorosupply.deliveryVerified"
+ :id "com.etzhayyim.yorosupply.deliveryVerified"
  :defs
  {:main
   {:type "record"

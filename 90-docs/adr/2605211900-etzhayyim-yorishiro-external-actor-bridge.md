@@ -50,7 +50,7 @@ superseded_by: []
 これらは現状すべて **hand-written** で:
 
 1. app ごとに `src/app.ts` (CF Worker) または `pymagatama/primitives/*.py` (Pregel cell) を個別実装
-2. Lexicon contract (`00-contracts/lexicons/ai/gftd/apps/*/` または `ai/etzhayyim/*/`) を手書き
+2. Lexicon contract (`00-contracts/lexicons/com/etzhayyim/apps/*/` または `ai/etzhayyim/*/`) を手書き
 3. MCP exposure は `20-actors/magatama/mcp/unispsc-isic-mcp/` (1 件のみ) を除き未整備
 
 この hand-written-per-app 流儀は Shannon 冗長度が高く、Charter compliance (ADR-2605192200 §2 の 8 prohibited categories) の per-app 確認も人手依存で drift する。
@@ -82,7 +82,7 @@ HKUDS が公開した CLI-Anything (https://github.com/HKUDS/CLI-Anything) は�
 
 | Layer | 既存実装 (unispsc-isic-mcp) |
 |---|---|
-| Lexicon (SSoT) | `00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/*.json` (9 件) |
+| Lexicon (SSoT) | `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/*.json` (9 件) |
 | Actor (Pregel cell) | `pymagatama/primitives/open_unispsc.py` + `open_isic_*.py` (594 cells) + `20-actors/magatama/sdk/magatama-host-sdk/src/langserver-actor.ts` |
 | MCP server | `20-actors/magatama/mcp/unispsc-isic-mcp/src/cli.ts` (stdio + Streamable HTTP) |
 
@@ -284,4 +284,4 @@ yorishiro は外部 substrate へ書込/読込する op を内包するため、
 - ADR-2605172100 (etzhayyim-sdk substrate client — L2 TS Worker の client SSoT)
 - HKUDS/CLI-Anything (外部参照 — generator 設計の inspiration、ただし出力 layer は etzhayyim-native に翻訳)
 - `20-actors/magatama/mcp/unispsc-isic-mcp/README.md` (1 件目の hand-written 3-layer 実装)
-- `00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/` (1 件目の hand-written L1 lexicons)
+- `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/` (1 件目の hand-written L1 lexicons)

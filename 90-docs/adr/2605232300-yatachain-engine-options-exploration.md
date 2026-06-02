@@ -69,7 +69,7 @@ yatachain projection layer に求められる機能を 9 つに分解:
 4. Graph surface (openCypher subset + property graph)
 5. **GraphQL surface** (API クエリ言語、Hasura-iso、subscription 含む)
 6. UDF protocol (Arrow Flight、pymagatama 18,345 agents を直接呼べる)
-7. Encryption integration (`app.etzhayyim.encrypted.*` envelope を貫通)
+7. Encryption integration (`com.etzhayyim.encrypted.*` envelope を貫通)
 8. RLS (DID-bound UCAN capability、三層 defense in depth)
 9. **Pregel epoch semantics** (LangGraph super-step ↔ engine barrier の整合)
 
@@ -81,7 +81,7 @@ yatachain projection layer に求められる機能を 9 つに分解:
 - **Primary write home は MST のみ** (ADR-2605172000)
 - **Projection は MST root から決定論的に再構築可能** であること (ADR-2605231500)
 - **License は Apache 2.0 + Charter Compliance Rider v2.0** (ADR-2605192200)
-- **暗号化は `app.etzhayyim.encrypted.*` 形式** (ADR-2605181100)
+- **暗号化は `com.etzhayyim.encrypted.*` 形式** (ADR-2605181100)
 - **直接 import 禁止**: アプリは `@etzhayyim/sdk` 経由のみ
 - **Religious-corp parallel-substrate 原則** を毀損しない (ADR-2605192100 §1.12)
 

@@ -50,7 +50,7 @@ CELLS_TOML_CONTENT = textwrap.dedent("""\
     module = "pymagatama.primitives.shinka_murakumo"
     entry = "karma_hegemon_observation_cell"
     node = "levi"
-    trigger = { kind = "mst-listener", listens_to = ["app.etzhayyim.shinka.kyumeiSignal"] }
+    trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.shinka.kyumeiSignal"] }
     healthz_port = 13023
     adr = ["2605215200"]
 
@@ -59,7 +59,7 @@ CELLS_TOML_CONTENT = textwrap.dedent("""\
     module = "pymagatama.primitives.shinka_murakumo"
     entry = "evolution_validation_cell"
     node = "levi"
-    trigger = { kind = "mst-listener", listens_to = ["app.etzhayyim.shinka.observeAdherent"] }
+    trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.shinka.observeAdherent"] }
     healthz_port = 13024
     adr = ["2605215200", "2605215400"]
 
@@ -68,7 +68,7 @@ CELLS_TOML_CONTENT = textwrap.dedent("""\
     module = "pymagatama.primitives.shinka_murakumo"
     entry = "evolution_emission_cell"
     node = "simeon"
-    trigger = { kind = "mst-listener", listens_to = ["app.etzhayyim.shinka.validateEvolution"] }
+    trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.shinka.validateEvolution"] }
     healthz_port = 13025
     adr = ["2605215200", "2605171800"]
 

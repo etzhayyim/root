@@ -122,7 +122,7 @@ python -c "from magatama.cells.mizuho_potable_water_supply import _r0_marker" 2>
 
 - `/20-actors/mizuho/manifest.jsonld`
 - `/20-actors/mizuho/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/mizuho/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/mizuho/` (5 Lexicons + README)
 - `/90-docs/adr/2605263100-mizuho-water-sanitation-tier-b-actor-r0.md`
 - `/90-docs/adr/2605192245-etzhayyim-global-land-sovereignty.md` — G11
 - `/90-docs/adr/2605261015-mitsuho-food-agriculture-tier-b-actor-r0.md` — naming-collision sibling

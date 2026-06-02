@@ -540,7 +540,7 @@ def ingest_actors(conn, dry_run=False):
             description = f"[AI Agent — unofficial] Internet domain: {domain}"
             rows.append((
                 did, did, None, handle, display_name, None, None,
-                None, "active", "app.etzhayyim.apps.site.domain", slug,
+                None, "active", "com.etzhayyim.apps.site.domain", slug,
                 "did:web:site.etzhayyim.com", None, None, None,
                 "service", None, None, None, None, None, None,
                 now, 0, None, None,
@@ -622,7 +622,7 @@ def update_pds_profiles(conn, dry_run=False):
 
         try:
             resp = requests.post(
-                f"{PDS_URL}/xrpc/app.etzhayyim.pds.putProfile",
+                f"{PDS_URL}/xrpc/com.etzhayyim.pds.putProfile",
                 json=body, headers=headers, timeout=30,
             )
             if resp.status_code < 400:

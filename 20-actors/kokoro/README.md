@@ -1,7 +1,7 @@
 # kokoro (心) — Non-profit Religious-Corp Mental Health Support Substrate
 
 **DID**: `did:web:kokoro.etzhayyim.com`
-**Namespace**: `app.etzhayyim.kokoro.*`
+**Namespace**: `com.etzhayyim.kokoro.*`
 **ADR**: ADR-2605263700 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 6 cells path-reserved + 5 Lexicon skeletons
 **Cross-actor**: musubi (grief TIGHT) / iyashi (chronic + postnatal TIGHT) / mitate (acute crisis G5) / hagukumi (multi-gen + vulnerable pop) / chigiri (counselor L5 + UPL-equivalent referral) / kazaori (post-emergency; path-reserved cross-actor at R0) / kataribe (cross-doctrinal content) / yakushi (medication info read-only)
@@ -81,7 +81,7 @@ shared).
 | `kokoro_acute_crisis_escalation` | benjamin (mitate-paired) | event (urgent) | acute detection → mitate G5 + iyashi surge + chigiri.disputeMediation if needed |
 | `kokoro_counseling_referral` | benjamin (chigiri-paired) | event | external counselor need → Public Fund Council Lv6+ ≥4/7 + referral record |
 
-## 5 Lexicons under `app.etzhayyim.kokoro.*`
+## 5 Lexicons under `com.etzhayyim.kokoro.*`
 
 | Lexicon | Purpose |
 |---|---|
@@ -91,7 +91,7 @@ shared).
 | `acuteCrisisEscalationLog` | G13 STRUCTURAL: mitateG5EmergencyKeywordTriggeredCid REQUIRED; severity enum |
 | `silenKokoroReview` | G3/G4/G5/G6/G7/G8/G9/G10/G14 const-field structural enforcement (10+ const-field structurals) |
 
-See `/00-contracts/lexicons/app/etzhayyim/kokoro/README.md`.
+See `/00-contracts/lexicons/com/etzhayyim/kokoro/README.md`.
 
 ## Constitutional Gates (G1–G14)
 
@@ -114,7 +114,7 @@ See ADR-2605263700 §6.
 
 - `/20-actors/kokoro/manifest.jsonld`
 - `/20-actors/kokoro/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/kokoro/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/kokoro/` (5 Lexicons + README)
 - `/90-docs/adr/2605263700-kokoro-mental-health-tier-b-actor-r0.md`
 - `/90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md` — grief TIGHT pair
 - `/90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md` — chronic + postnatal TIGHT pair

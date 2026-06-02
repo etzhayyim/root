@@ -31,7 +31,7 @@ resident intelligence dashboard surface.
 Last verified on 2026-05-14 against:
 
 ```bash
-POST https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.getWorldMonitorDashboard
+POST https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.getWorldMonitorDashboard
 ```
 
 Observed dashboard evidence:
@@ -50,10 +50,10 @@ Observed dashboard evidence:
 
 The public supporting XRPCs also returned HTTP 200 from the pod LangServer:
 
-- `app.etzhayyim.apps.maps.listIntelEvents`
-- `app.etzhayyim.apps.maps.getRiskSnapshot`
-- `app.etzhayyim.apps.maps.getLatestBrief`
-- `app.etzhayyim.apps.maps.listIntelAlerts`
+- `com.etzhayyim.apps.maps.listIntelEvents`
+- `com.etzhayyim.apps.maps.getRiskSnapshot`
+- `com.etzhayyim.apps.maps.getLatestBrief`
+- `com.etzhayyim.apps.maps.listIntelAlerts`
 
 ## Current Parity
 
@@ -84,7 +84,7 @@ The public supporting XRPCs also returned HTTP 200 from the pod LangServer:
 ### P0: Restore Reliable Runtime
 
 - [x] Redeploy `magatama-uqpel6i6` so `maps.etzhayyim.com/xrpc/*` routes hit the Worker instead of timing out.
-- [x] Verify `app.etzhayyim.apps.maps.getDashboard` returns 200 on `maps.etzhayyim.com`.
+- [x] Verify `com.etzhayyim.apps.maps.getDashboard` returns 200 on `maps.etzhayyim.com`.
 - [x] Add defensive edge degrade for dashboard collection reads and live aircraft/satellite reads when Worker-side DB access is prohibited.
 - [x] Move World Monitor dashboard counts, risk snapshot, event feed, brief, alerts, and market signals to pod-side maps LangServer reads.
 

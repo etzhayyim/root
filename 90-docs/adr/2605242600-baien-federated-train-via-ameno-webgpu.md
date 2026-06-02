@@ -6,12 +6,12 @@ doc_type: adr
 topic: baien-federated-training
 authoritative: true
 last_verified: 2026-05-24
-status_note: "R0 scaffold landed via PR #273 (commit 0134acb1d, 8 files / 992 LoC). Lexicon `app.etzhayyim.baien.distributedTrainDelta` + ameno throw-on-use stubs + Murakumo cell (import-time RuntimeError) + baien-distill dry-run planner all in place. R1 ADR (ADR-2605242630) + R1a framework (PR #276) build directly on this."
+status_note: "R0 scaffold landed via PR #273 (commit 0134acb1d, 8 files / 992 LoC). Lexicon `com.etzhayyim.baien.distributedTrainDelta` + ameno throw-on-use stubs + Murakumo cell (import-time RuntimeError) + baien-distill dry-run planner all in place. R1 ADR (ADR-2605242630) + R1a framework (PR #276) build directly on this."
 authoritative_for:
   - smartphone / browser participation contract for baien post-train (LoRA-only)
   - WebGPU LoRA-only autograd budget on iPhone 12 / Android 4GB / WASM-32
   - federated aggregation rules (Wellbecoming gate + Byzantine gate + DP clip)
-  - delta lexicon shape (app.etzhayyim.baien.distributedTrainDelta)
+  - delta lexicon shape (com.etzhayyim.baien.distributedTrainDelta)
   - aggregator placement (Murakumo cell, not commercial GPU)
   - settlement path (participationReceipt → MST + L2 anchor; tithe optional)
 depends_on:
@@ -30,7 +30,7 @@ related:
   - 20-actors/ameno/src/train.ts
   - 70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py
   - 20-actors/magatama/cells/baien_federated_aggregator/
-  - 00-contracts/lexicons/app/etzhayyim/baien/distributedTrainDelta.json
+  - 00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json
 supersedes: []
 superseded_by: []
 ---
@@ -121,7 +121,7 @@ Out of scope:
 L5  Settlement       MST + L2 anchor      participationReceipt + optional tithe via TitheRouter
 L4  Aggregator       Murakumo cell        20-actors/magatama/cells/baien_federated_aggregator/
                                           + 70-tools/baien-distill/.../nodes/federated_aggregate.py
-L3  Participation    AT lexicon + DID     00-contracts/lexicons/app/etzhayyim/baien/distributedTrainDelta.json
+L3  Participation    AT lexicon + DID     00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json
 L2  Local loop       ameno PWA            20-actors/ameno/src/train.ts (WebGPU forward+backward+Δ emit)
 L1  WebGPU kernel    WGSL / transformers.js  LoRA-only autograd (BitNet trunk frozen, encoders frozen)
 ```
@@ -155,7 +155,7 @@ L1  WebGPU kernel    WGSL / transformers.js  LoRA-only autograd (BitNet trunk fr
   `throw-on-use` bodies until WebGPU autograd path lands in R1.
 - Flow per round, in order:
   1. **Datacore pull** — Resolve current round's `datasetShardCid`
-     via `app.etzhayyim.substrate.datasetPin` (ADR-2605241500); fetch
+     via `com.etzhayyim.substrate.datasetPin` (ADR-2605241500); fetch
      from IPFS into OPFS cache.
   2. **Charter Rider scan** — `charter_rider.scan(examples)` on the
      full shard. Rejected rows are dropped from the local training
@@ -176,7 +176,7 @@ L1  WebGPU kernel    WGSL / transformers.js  LoRA-only autograd (BitNet trunk fr
      B_before)` to safetensors; pin to IPFS; record `deltaCid`.
   8. **Sign & publish** — Sign the canonical delta manifest with
      WebAuthn passkey-derived ES256 (member-held key, export-blocked
-     by platform). Publish `app.etzhayyim.baien.distributedTrainDelta`
+     by platform). Publish `com.etzhayyim.baien.distributedTrainDelta`
      record on the contributor's DID repo.
 - Background / battery: BackgroundFetch + Wake Lock; only when
   charging + Wi-Fi + device-thermal-state in `{nominal, fair}`.
@@ -187,7 +187,7 @@ L1  WebGPU kernel    WGSL / transformers.js  LoRA-only autograd (BitNet trunk fr
 
 ### L3 — Participation contract (new lexicon)
 
-`00-contracts/lexicons/app/etzhayyim/baien/distributedTrainDelta.json`
+`00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json`
 (see file). Record-type, append-only, TID-keyed. The signature
 covers the canonical JSON of all preceding fields; verification is
 the aggregator's responsibility.
@@ -272,7 +272,7 @@ pattern set by ADR-2605242000 (wadachi R0 scaffold gating R1..R3).
 ## 4. R0 deliverables (this commit)
 
 1. This ADR — `90-docs/adr/2605242600-baien-federated-train-via-ameno-webgpu.md`.
-2. Lexicon scaffold — `00-contracts/lexicons/app/etzhayyim/baien/distributedTrainDelta.json`.
+2. Lexicon scaffold — `00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json`.
 3. ameno scaffold — `20-actors/ameno/src/train.ts` (throw-on-use stubs)
    + `index.ts` re-export.
 4. baien-distill dry-run node —

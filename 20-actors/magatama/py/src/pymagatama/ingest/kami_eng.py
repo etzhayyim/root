@@ -11,13 +11,13 @@ from pymagatama.db_sync import sync_cursor
 
 OWNER_DID = "did:web:eng-kami.etzhayyim.com"
 COLLECTION_TABLES = {
-    "app.etzhayyim.apps.kami.eda.schematic": "vertex_kami_eng_eda_schematic",
-    "app.etzhayyim.apps.kami.cad.model": "vertex_kami_eng_cad_model",
-    "app.etzhayyim.apps.kami.cad.featureTree": "vertex_kami_eng_cad_feature",
-    "app.etzhayyim.apps.kami.cam.job": "vertex_kami_eng_cam_job",
-    "app.etzhayyim.apps.kami.rtl.moduleRef": "vertex_kami_eng_rtl_module_ref",
-    "app.etzhayyim.apps.kami.rtl.simulation": "vertex_kami_eng_rtl_simulation",
-    "app.etzhayyim.apps.kami.cae.analysis": "vertex_kami_eng_cae_analysis",
+    "com.etzhayyim.apps.kami.eda.schematic": "vertex_kami_eng_eda_schematic",
+    "com.etzhayyim.apps.kami.cad.model": "vertex_kami_eng_cad_model",
+    "com.etzhayyim.apps.kami.cad.featureTree": "vertex_kami_eng_cad_feature",
+    "com.etzhayyim.apps.kami.cam.job": "vertex_kami_eng_cam_job",
+    "com.etzhayyim.apps.kami.rtl.moduleRef": "vertex_kami_eng_rtl_module_ref",
+    "com.etzhayyim.apps.kami.rtl.simulation": "vertex_kami_eng_rtl_simulation",
+    "com.etzhayyim.apps.kami.cae.analysis": "vertex_kami_eng_cae_analysis",
 }
 
 
@@ -104,16 +104,16 @@ def _write_related_edges(cur: Any, collection: str, kind: str, record_id: str, p
     src = _vertex_id(collection, record_id)
     model_id = _s(payload.get("modelId"))
     if kind == "cad_feature" and model_id:
-        _write_edge(cur, "edge_kami_eng_cad_model_feature", _vertex_id("app.etzhayyim.apps.kami.cad.model", model_id), src, "has_feature", payload, created_at)
+        _write_edge(cur, "edge_kami_eng_cad_model_feature", _vertex_id("com.etzhayyim.apps.kami.cad.model", model_id), src, "has_feature", payload, created_at)
     elif kind == "cam_job" and model_id:
-        _write_edge(cur, "edge_kami_eng_cad_model_cam_job", _vertex_id("app.etzhayyim.apps.kami.cad.model", model_id), src, "manufactured_by_job", payload, created_at)
+        _write_edge(cur, "edge_kami_eng_cad_model_cam_job", _vertex_id("com.etzhayyim.apps.kami.cad.model", model_id), src, "manufactured_by_job", payload, created_at)
     elif kind == "rtl_simulation":
         module_id = _s(payload.get("moduleId"))
         if module_id:
-            _record("app.etzhayyim.apps.kami.rtl.moduleRef", "rtl_module_ref", {"moduleId": module_id, "createdAt": created_at}, module_id, _cur=cur)
-            _write_edge(cur, "edge_kami_eng_rtl_module_simulation", _vertex_id("app.etzhayyim.apps.kami.rtl.moduleRef", module_id), src, "simulated_by", payload, created_at)
+            _record("com.etzhayyim.apps.kami.rtl.moduleRef", "rtl_module_ref", {"moduleId": module_id, "createdAt": created_at}, module_id, _cur=cur)
+            _write_edge(cur, "edge_kami_eng_rtl_module_simulation", _vertex_id("com.etzhayyim.apps.kami.rtl.moduleRef", module_id), src, "simulated_by", payload, created_at)
     elif kind == "cae_analysis" and model_id:
-        _write_edge(cur, "edge_kami_eng_cad_model_cae_analysis", _vertex_id("app.etzhayyim.apps.kami.cad.model", model_id), src, "analyzed_by", payload, created_at)
+        _write_edge(cur, "edge_kami_eng_cad_model_cae_analysis", _vertex_id("com.etzhayyim.apps.kami.cad.model", model_id), src, "analyzed_by", payload, created_at)
 
 
 def _record(collection: str, kind: str, payload: dict[str, Any], record_id: str | None = None, _cur: Any = None) -> str:
@@ -161,7 +161,7 @@ def _record(collection: str, kind: str, payload: dict[str, Any], record_id: str 
 
 def eda_create_schematic(name: Any = None, sheetSize: Any = None, gridSpacing: Any = None, **_: Any) -> dict[str, Any]:
     schematic_id = _record(
-        "app.etzhayyim.apps.kami.eda.schematic",
+        "com.etzhayyim.apps.kami.eda.schematic",
         "eda_schematic",
         {"name": name, "sheetSize": sheetSize, "gridSpacing": gridSpacing, "symbols": [], "wires": []},
     )
@@ -178,7 +178,7 @@ def eda_export_gerber(**_: Any) -> dict[str, Any]:
 
 def cad_create_model(name: Any = None, type: Any = None, unit: Any = None, **_: Any) -> dict[str, Any]:
     model_id = _record(
-        "app.etzhayyim.apps.kami.cad.model",
+        "com.etzhayyim.apps.kami.cad.model",
         "cad_model",
         {"name": name, "type": type, "unit": unit, "featureTree": []},
     )
@@ -187,7 +187,7 @@ def cad_create_model(name: Any = None, type: Any = None, unit: Any = None, **_: 
 
 def cad_add_feature(modelId: Any = None, featureType: Any = None, params: Any = None, order: Any = None, **_: Any) -> dict[str, Any]:
     _record(
-        "app.etzhayyim.apps.kami.cad.featureTree",
+        "com.etzhayyim.apps.kami.cad.featureTree",
         "cad_feature",
         {"modelId": modelId, "featureType": featureType, "params": params or {}, "order": order},
     )
@@ -200,7 +200,7 @@ def cad_export_step(**_: Any) -> dict[str, Any]:
 
 def cam_create_job(modelId: Any = None, material: Any = None, operations: Any = None, machine: Any = None, **_: Any) -> dict[str, Any]:
     _record(
-        "app.etzhayyim.apps.kami.cam.job",
+        "com.etzhayyim.apps.kami.cam.job",
         "cam_job",
         {"modelId": modelId, "material": material or {}, "operations": operations, "machine": machine, "status": "pending"},
     )
@@ -217,7 +217,7 @@ def rtl_parse_hdl(language: Any = None, **_: Any) -> dict[str, Any]:
 
 def rtl_simulate(moduleId: Any = None, duration: Any = None, **_: Any) -> dict[str, Any]:
     _record(
-        "app.etzhayyim.apps.kami.rtl.simulation",
+        "com.etzhayyim.apps.kami.rtl.simulation",
         "rtl_simulation",
         {"moduleId": moduleId, "duration": duration, "status": "running"},
     )
@@ -234,7 +234,7 @@ def cae_generate_mesh(elementSize: Any = None, **_: Any) -> dict[str, Any]:
 
 def cae_run_analysis(modelId: Any = None, analysisType: Any = None, **_: Any) -> dict[str, Any]:
     _record(
-        "app.etzhayyim.apps.kami.cae.analysis",
+        "com.etzhayyim.apps.kami.cae.analysis",
         "cae_analysis",
         {"modelId": modelId, "analysisType": analysisType, "status": "running"},
     )

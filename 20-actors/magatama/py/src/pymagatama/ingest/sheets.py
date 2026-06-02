@@ -81,7 +81,7 @@ def _spreadsheet_row(token: dict[str, Any], ss: dict[str, Any], file_id: str, mo
     named_ranges = ss.get("namedRanges") or []
     developer_metadata = ss.get("developerMetadata") or []
     return {
-        "vertex_id": f"at://{actor}/app.etzhayyim.apps.sheets.spreadsheet/{spreadsheet_id}",
+        "vertex_id": f"at://{actor}/com.etzhayyim.apps.sheets.spreadsheet/{spreadsheet_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,
@@ -133,7 +133,7 @@ def _sheet_row(token: dict[str, Any], spreadsheet_id: str, sheet: dict[str, Any]
     data_bytes = len(json.dumps(grid_values, ensure_ascii=False).encode())
 
     return {
-        "vertex_id": f"at://{actor}/app.etzhayyim.apps.sheets.sheet/{spreadsheet_id}_{sheet_id}",
+        "vertex_id": f"at://{actor}/com.etzhayyim.apps.sheets.sheet/{spreadsheet_id}_{sheet_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,

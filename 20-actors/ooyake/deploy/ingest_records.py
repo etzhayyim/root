@@ -13,7 +13,7 @@ Reads:
     `actor.ooyake` actor-profile entity, written into the default actor graph so the
     node knows ooyake alongside the other registered actors.
 
-Write path: POST {url}/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch with a Bearer
+Write path: POST {url}/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch with a Bearer
 token. The operator-local node (127.0.0.1) authorizes on token PRESENCE at this R0
 tier (no signature verification — operator-local boundary). Without a token the run
 is a DRY RUN (parse + project + count, NO writes) — outward/durable writes are
@@ -140,7 +140,7 @@ def parse_edn(src: str):
 
 GOV_GRAPH = "gov-atlas-v1"
 ACTOR_GRAPH = "actors-v1"
-NSID_INGEST = "ai.gftd.apps.kotobase.kg.ingest_batch"
+NSID_INGEST = "com.etzhayyim.apps.kotobase.kg.ingest_batch"
 
 GOV_SEEDS = [
     os.path.join(_ACTOR, "registry", "gov-units.seed.edn"),

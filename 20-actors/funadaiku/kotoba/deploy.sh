@@ -13,7 +13,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${FUNADAIKU_GRAPH:-app.etzhayyim.funadaiku}"
+GRAPH="${FUNADAIKU_GRAPH:-com.etzhayyim.funadaiku}"
 ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> funadaiku kotoba deploy → ${KOTOBA_URL} (graph ${GRAPH})"

@@ -7,5 +7,5 @@ Per ADR-2605302358. R0 scaffold — `cell.py` raises at import time until R2 (Co
 - **Pipeline group**: 産土 (ubusuna)
 - **Murakumo node (proposed)**: naphtali
 - **Gates**: G5 (opt-in / non-vexatious / unsubscribe-honored) · G6 (PII in encrypted envelope) · G3 (member/operator-signed, no platform mail key) · G11 (sent=false pre-ratify)
-- **Output Lexicon(s)**: app.etzhayyim.socialsecurity.noticeEmail
+- **Output Lexicon(s)**: com.etzhayyim.socialsecurity.noticeEmail
 - **Ceiling**: opt-in only; unsubscribe always honored; on-chain postage (Postage.sol), Public-Fund-funded; PII only via encrypted envelope.

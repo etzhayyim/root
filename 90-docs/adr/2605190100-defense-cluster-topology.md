@@ -7,7 +7,7 @@ topic: defense-cluster
 authoritative: true
 last_verified: 2026-05-21
 authoritative_for:
-  - defense cluster actor namespace (app.etzhayyim.apps.def*)
+  - defense cluster actor namespace (com.etzhayyim.apps.def*)
   - defense deployment tier model (SaaS / Sovereign / Air-Gap)
   - defense CAD management + generative CAD (OpenSCAD/CadQuery)
   - supplier dependency Pregel graph topology
@@ -76,19 +76,19 @@ AT Protocol への適用:
 
 | Actor | NSID prefix | 役割 | Phase |
 |---|---|---|---|
-| defContract | `app.etzhayyim.apps.defContract.*` | 契約ライフサイクル管理 | 1-8 |
-| defSupplier | `app.etzhayyim.apps.defSupplier.*` | サプライヤー資格・クリアランス | 1-8 |
-| defBudget | `app.etzhayyim.apps.defBudget.*` | EVM コスト追跡 | 1-8 |
-| defAudit | `app.etzhayyim.apps.defAudit.*` | 不変監査証跡 | 1-8 |
-| defCad | `app.etzhayyim.apps.defCad.*` | CAD ファイル管理・バージョン管理 | 1-8 |
-| defCadgen | `app.etzhayyim.apps.defCadgen.*` | LangGraph 生成 CAD (OpenSCAD / CadQuery) | 1-8 |
-| defMission | `app.etzhayyim.apps.defMission.*` | ミッション計画・承認・実行 | 9 |
-| defPlatform | `app.etzhayyim.apps.defPlatform.*` | 自律プラットフォーム (UAV/UUV/地上) 制御 | 9 |
-| defIsr | `app.etzhayyim.apps.defIsr.*` | ISR センサートラック・融合 COP | 9 |
-| defEw | `app.etzhayyim.apps.defEw.*` | EW / Counter-UAS 介入 | 9 |
-| defCop | `app.etzhayyim.apps.defCop.*` | 統合 COP アラートキュー + ROE 検証 | 10 |
-| defCyber | `app.etzhayyim.apps.defCyber.*` | サイバー作戦 (PMESII 第 5 ドメイン) | 10 |
-| defLogistics | `app.etzhayyim.apps.defLogistics.*` | 兵站-作戦ブリッジ (補給・EVM 連携) | 10 |
+| defContract | `com.etzhayyim.apps.defContract.*` | 契約ライフサイクル管理 | 1-8 |
+| defSupplier | `com.etzhayyim.apps.defSupplier.*` | サプライヤー資格・クリアランス | 1-8 |
+| defBudget | `com.etzhayyim.apps.defBudget.*` | EVM コスト追跡 | 1-8 |
+| defAudit | `com.etzhayyim.apps.defAudit.*` | 不変監査証跡 | 1-8 |
+| defCad | `com.etzhayyim.apps.defCad.*` | CAD ファイル管理・バージョン管理 | 1-8 |
+| defCadgen | `com.etzhayyim.apps.defCadgen.*` | LangGraph 生成 CAD (OpenSCAD / CadQuery) | 1-8 |
+| defMission | `com.etzhayyim.apps.defMission.*` | ミッション計画・承認・実行 | 9 |
+| defPlatform | `com.etzhayyim.apps.defPlatform.*` | 自律プラットフォーム (UAV/UUV/地上) 制御 | 9 |
+| defIsr | `com.etzhayyim.apps.defIsr.*` | ISR センサートラック・融合 COP | 9 |
+| defEw | `com.etzhayyim.apps.defEw.*` | EW / Counter-UAS 介入 | 9 |
+| defCop | `com.etzhayyim.apps.defCop.*` | 統合 COP アラートキュー + ROE 検証 | 10 |
+| defCyber | `com.etzhayyim.apps.defCyber.*` | サイバー作戦 (PMESII 第 5 ドメイン) | 10 |
+| defLogistics | `com.etzhayyim.apps.defLogistics.*` | 兵站-作戦ブリッジ (補給・EVM 連携) | 10 |
 
 ### LangGraph エージェント (v11.0.0, 13 graphs)
 

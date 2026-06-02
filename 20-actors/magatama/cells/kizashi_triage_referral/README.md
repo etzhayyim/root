@@ -11,5 +11,5 @@ emergency-keyword lexicon).
 - **Actor**: kizashi (兆) — `did:web:kizashi.etzhayyim.com`
 - **Murakumo node (proposed)**: naphtali
 - **Gates**: **G5 (emergency red-flag → immediate 受診/救急, never "wait for next scan")** + G3 (refer-only; targetActor const-enum {mitate, iyashi, kokoro}) + G6 (consent to share provenance) + G14 (Murakumo-only)
-- **Output Lexicon(s)**: app.etzhayyim.kizashi.triageReferral
+- **Output Lexicon(s)**: com.etzhayyim.kizashi.triageReferral
 - **Ceiling**: REFER-ONLY (G3) + EMERGENCY-ESCALATION (G5) is constitutional — routes to mitate/iyashi/kokoro, never self-treats · Murakumo-only inference (ADR-2605215000)

@@ -1,7 +1,7 @@
-;; app.etzhayyim.kanayama.silenRecyclingReview — lexicon (EDN form)
+;; com.etzhayyim.kanayama.silenRecyclingReview — lexicon (EDN form)
 ;; ADR-2605252400 · Phase 2 — Council 5-of-7 Safe attestation
 {:lexicon 1
- :id "app.etzhayyim.kanayama.silenRecyclingReview"
+ :id "com.etzhayyim.kanayama.silenRecyclingReview"
  :defs
  {:main
   {:type "record"

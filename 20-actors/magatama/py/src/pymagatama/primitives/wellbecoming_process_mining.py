@@ -27,7 +27,7 @@ from pymagatama.db_sync import sync_cursor
 LOG = logging.getLogger("wellbecoming.process_mining")
 
 DEFAULT_REPO = "did:web:bpmn.etzhayyim.com"
-COLLECTION_REPORT = "app.etzhayyim.apps.wellbecoming.processMiningReport"
+COLLECTION_REPORT = "com.etzhayyim.apps.wellbecoming.processMiningReport"
 
 # Max events to score per BPMN fire (throttle LLM spend).
 _MAX_SCORE_PER_RUN: int = int(os.environ.get("WB_MAX_SCORE_PER_RUN", "5"))

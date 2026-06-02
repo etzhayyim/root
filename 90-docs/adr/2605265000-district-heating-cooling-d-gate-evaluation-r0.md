@@ -122,7 +122,7 @@ Same conditions as §1 but distributing chilled water (4°C supply / 10°C retur
 ## §6 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   districtHeatNetworkAttestation,         # network ID + LANDS pipe-route + heat source CIDs + ≤2 MW cap
   districtCoolNetworkAttestation,         # same shape for chilled-water / ambient-loop
   networkLossAuditRecord,                 # annual per-network loss % + transmission distance + average ΔT

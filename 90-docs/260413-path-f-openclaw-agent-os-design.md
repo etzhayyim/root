@@ -36,7 +36,7 @@ os-consent (App)        ──────→  agent/consent.ts (PDS 新規 modu
   [Discord] ─┐      │  os-messaging Worker                │
   [Telegram]─┤      │  (ai-gftd-os-messaging-0sm3sg01)    │
   [Slack]   ─┤──────▶  platform adapter → UnifiedMessage   │
-  [LINE]    ─┤      │  → XRPC app.etzhayyim.convo.send          │
+  [LINE]    ─┤      │  → XRPC com.etzhayyim.convo.send          │
   [WhatsApp]─┤      │  → reply webhook                     │
   [Web/yoro]─┘      └──────────────┬────────────────────────┘
                                     │ XRPC (service binding)
@@ -297,7 +297,7 @@ graphar.vertex_AgentSchedule (
 
 ## 4. os-messaging Worker — Multi-Platform Gateway
 
-**唯一の新規 CF Worker。** 8 platform の webhook を受け、`app.etzhayyim.convo.send` XRPC で PDS に転送。
+**唯一の新規 CF Worker。** 8 platform の webhook を受け、`com.etzhayyim.convo.send` XRPC で PDS に転送。
 
 ```
 Worker: ai-gftd-os-messaging-0sm3sg01
@@ -313,20 +313,20 @@ Service bindings: PDS_SERVICE, PDS_RPC
 
 export default createWorkerExport((sdk) => {
   // ── Platform webhooks ──
-  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookDiscord", handleDiscordWebhook, ...);
-  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookTelegram", handleTelegramWebhook, ...);
-  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookSlack", handleSlackWebhook, ...);
-  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookLine", handleLineWebhook, ...);
-  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookWhatsapp", handleWhatsappWebhook, ...);
+  sdk.app.command("com.etzhayyim.apps.osMessaging.webhookDiscord", handleDiscordWebhook, ...);
+  sdk.app.command("com.etzhayyim.apps.osMessaging.webhookTelegram", handleTelegramWebhook, ...);
+  sdk.app.command("com.etzhayyim.apps.osMessaging.webhookSlack", handleSlackWebhook, ...);
+  sdk.app.command("com.etzhayyim.apps.osMessaging.webhookLine", handleLineWebhook, ...);
+  sdk.app.command("com.etzhayyim.apps.osMessaging.webhookWhatsapp", handleWhatsappWebhook, ...);
 
   // ── Unified dispatch ──
-  // Platform webhook → UnifiedMessage → resolve user DID → app.etzhayyim.convo.send → PDS → agentInfer
+  // Platform webhook → UnifiedMessage → resolve user DID → com.etzhayyim.convo.send → PDS → agentInfer
   // agentInfer reply → platform API で返信
 
   // ── Platform connection management ──
-  sdk.app.command("app.etzhayyim.apps.osMessaging.connectPlatform", handleConnect, ...);
-  sdk.app.command("app.etzhayyim.apps.osMessaging.disconnectPlatform", handleDisconnect, ...);
-  sdk.app.query("app.etzhayyim.apps.osMessaging.listConnections", handleListConnections, ...);
+  sdk.app.command("com.etzhayyim.apps.osMessaging.connectPlatform", handleConnect, ...);
+  sdk.app.command("com.etzhayyim.apps.osMessaging.disconnectPlatform", handleDisconnect, ...);
+  sdk.app.query("com.etzhayyim.apps.osMessaging.listConnections", handleListConnections, ...);
 });
 ```
 
@@ -469,14 +469,14 @@ export async function agentInferV2(
 ## 7. Lexicon 追加
 
 ```
-00-contracts/lexicons/ai/gftd/agent/
-├── memory.json           -- app.etzhayyim.agent.memory (query/procedure)
-├── consent.json          -- app.etzhayyim.agent.consent (query/procedure)
-├── audit.json            -- app.etzhayyim.agent.audit (query)
-├── schedule.json         -- app.etzhayyim.agent.schedule (procedure)
-└── infer.json            -- app.etzhayyim.agent.infer (procedure, V2 params)
+00-contracts/lexicons/com/etzhayyim/agent/
+├── memory.json           -- com.etzhayyim.agent.memory (query/procedure)
+├── consent.json          -- com.etzhayyim.agent.consent (query/procedure)
+├── audit.json            -- com.etzhayyim.agent.audit (query)
+├── schedule.json         -- com.etzhayyim.agent.schedule (procedure)
+└── infer.json            -- com.etzhayyim.agent.infer (procedure, V2 params)
 
-00-contracts/lexicons/ai/gftd/apps/osMessaging/
+00-contracts/lexicons/com/etzhayyim/apps/osMessaging/
 ├── webhookDiscord.json
 ├── webhookTelegram.json
 ├── webhookSlack.json

@@ -35,7 +35,7 @@ Enable physical firearm ID authentication and immutable chain-of-custody trackin
 
 ## Scope
 
-- `arms.etzhayyim.com` CF Worker — 12 XRPC methods under `app.etzhayyim.apps.arms.*`
+- `arms.etzhayyim.com` CF Worker — 12 XRPC methods under `com.etzhayyim.apps.arms.*`
 - RisingWave schema: 5 vertex tables + 2 PII tables + 2 edge tables + 1 MV
 - Rego AuthZ policy: `00-contracts/policies/gftd/xrpc/arms/`
 - Defence cluster integration: `vertex_open_defence_event`
@@ -105,18 +105,18 @@ mv_arms_active_by_holder     (holder_did, firearm_vid, permit_type, issued_at, e
 
 | NSID | Auth | Notes |
 |------|------|-------|
-| `app.etzhayyim.apps.arms.registerFirearm` | `arms:system` | Internal only |
-| `app.etzhayyim.apps.arms.getFirearm` | `arms:holder` or `arms:authority` | PII join gated |
-| `app.etzhayyim.apps.arms.issuePermit` | `arms:authority` | |
-| `app.etzhayyim.apps.arms.getPermit` | `arms:holder` or `arms:authority` | PII join gated |
-| `app.etzhayyim.apps.arms.revokePermit` | `arms:authority` | |
-| `app.etzhayyim.apps.arms.authenticateHolder` | public | Returns challenge nonce |
-| `app.etzhayyim.apps.arms.verifyAuthChallenge` | `arms:holder` | Sets session passed |
-| `app.etzhayyim.apps.arms.checkOutFirearm` | `arms:holder` + auth session | |
-| `app.etzhayyim.apps.arms.checkInFirearm` | `arms:holder` | |
-| `app.etzhayyim.apps.arms.transferCustody` | `arms:authority` + export gate | HTTP 451 on restricted |
-| `app.etzhayyim.apps.arms.reportIncident` | `arms:holder` or `arms:authority` | Defence dual-write |
-| `app.etzhayyim.apps.arms.getAuditLog` | `arms:authority` or `arms:law-enforcement` | |
+| `com.etzhayyim.apps.arms.registerFirearm` | `arms:system` | Internal only |
+| `com.etzhayyim.apps.arms.getFirearm` | `arms:holder` or `arms:authority` | PII join gated |
+| `com.etzhayyim.apps.arms.issuePermit` | `arms:authority` | |
+| `com.etzhayyim.apps.arms.getPermit` | `arms:holder` or `arms:authority` | PII join gated |
+| `com.etzhayyim.apps.arms.revokePermit` | `arms:authority` | |
+| `com.etzhayyim.apps.arms.authenticateHolder` | public | Returns challenge nonce |
+| `com.etzhayyim.apps.arms.verifyAuthChallenge` | `arms:holder` | Sets session passed |
+| `com.etzhayyim.apps.arms.checkOutFirearm` | `arms:holder` + auth session | |
+| `com.etzhayyim.apps.arms.checkInFirearm` | `arms:holder` | |
+| `com.etzhayyim.apps.arms.transferCustody` | `arms:authority` + export gate | HTTP 451 on restricted |
+| `com.etzhayyim.apps.arms.reportIncident` | `arms:holder` or `arms:authority` | Defence dual-write |
+| `com.etzhayyim.apps.arms.getAuditLog` | `arms:authority` or `arms:law-enforcement` | |
 
 ## Rego AuthZ
 
@@ -147,10 +147,10 @@ Key rules:
 
 `arms_expired_permit_scanner` — ADR-0056 BPMN-as-actor, R/P1D timer.
 
-- BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/arms/expiredPermitScanner.bpmn`
+- BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/arms/expiredPermitScanner.bpmn`
 - Registry migration: `30-graph/graph-schema/migrations/20260428000000_seed_arms_expired_permit_scanner.ts`
 - RisingWave rows confirmed: `vertex_bpmn_process_def` + `vertex_bpmn_lexicon_binding`
-- NSID: `app.etzhayyim.apps.arms.scanExpiredPermits` (timer-start + manual trigger)
+- NSID: `com.etzhayyim.apps.arms.scanExpiredPermits` (timer-start + manual trigger)
 - Flow: `generic.db.select` (count active-expired) → `generic.db.insert` (PK-upsert `status='expired'`) → `generic.audit.emit`
 
 ## Pending

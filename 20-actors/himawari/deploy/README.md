@@ -17,7 +17,7 @@ manufacturing** — NOT the logic/compute iwakura/fuigo/tsukuru silicon track (N
 | `requirements.txt` | langgraph build deps (no external LLM client — Murakumo-only, G5). |
 | `schema.edn` | kotoba EAVT schema projecting the 7 `com.etzhayyim.himawari.*` lexicon records → `:himawari.*/*` Datom attributes. |
 | `seed.edn` | one representative end-to-end manufacturing chain (lot → wafer → cell → module → loading → outbound + Council review), `:representative`. |
-| `ingest_records.py` | PDS write path — parses `seed.edn`, projects each record to a `kg.ingest` entity, gates the write on an operator session PoP (`ai.gftd.pds.session.verify`), writes via `ai.gftd.apps.kotobase.kg.ingest`. |
+| `ingest_records.py` | PDS write path — parses `seed.edn`, projects each record to a `kg.ingest` entity, gates the write on an operator session PoP (`com.etzhayyim.pds.session.verify`), writes via `com.etzhayyim.apps.kotobase.kg.ingest`. |
 | `deploy.sh` | orchestrator — health-check → record ingest (session-PoP-gated) → `kotoba commit` → componentize-py WASM build. |
 | `agent.wasm` | build output (gitignored). |
 
@@ -95,7 +95,7 @@ layer `0d00 0100`) bundling all 7 cells + `kotoba_langgraph` + `langgraph`.
 The node at `:8077` loads `agent.wasm` and invokes `WitWorld.run` via the same path
 the other `kotoba-langgraph-*` actors use (`kotoba_wasm_run` MCP tool / invoke.run).
 
-`POST /xrpc/ai.gftd.apps.kotoba.invoke.run` (operator-JWT-gated):
+`POST /xrpc/com.etzhayyim.apps.kotoba.invoke.run` (operator-JWT-gated):
 
 ```json
 {
@@ -152,12 +152,12 @@ The seven `com.etzhayyim.himawari.*` lexicon records (manifest `:lexiconNamespac
 are written into the canonical kotoba Datom log through the kotoba-server PDS XRPC
 surface — **no separate TS PDS** (ADR-2606015000 retired it):
 
-1. **`ai.gftd.pds.session.verify`** (ADR-2606015000 D1, landed) — the operator
+1. **`com.etzhayyim.pds.session.verify`** (ADR-2606015000 D1, landed) — the operator
    presents a compact EdDSA JWS **session Proof-of-Possession**. kotoba-server
    resolves the signer DID (did:key trustless / did:web via ERC725-mirror doc) and
    verifies the signature **zero-access** (server holds no key). Every write is gated
    on a valid session PoP — the no-server-key substrate boundary (G15-equivalent).
-2. **`ai.gftd.apps.kotobase.kg.ingest`** — each record is projected to an entity
+2. **`com.etzhayyim.apps.kotobase.kg.ingest`** — each record is projected to an entity
    (`id` from the record's `:db.unique/identity` attr; literals → `claims`, refs →
    `relations`) and asserted into the `com.etzhayyim.himawari` named graph (canonical
    EAVT; G6/G8). `kotoba commit` seals the hot arrangement.

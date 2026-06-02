@@ -1,7 +1,7 @@
-;; app.etzhayyim.kanayama.coilQualificationRecord — lexicon (EDN form)
+;; com.etzhayyim.kanayama.coilQualificationRecord — lexicon (EDN form)
 ;; ADR-2605252400 · Phase 2 — L5b final coil QA + shipping record
 {:lexicon 1
- :id "app.etzhayyim.kanayama.coilQualificationRecord"
+ :id "com.etzhayyim.kanayama.coilQualificationRecord"
  :defs
  {:main
   {:type "record"

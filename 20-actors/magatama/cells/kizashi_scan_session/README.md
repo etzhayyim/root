@@ -11,5 +11,5 @@ regulatory-pathway assessment filed).
 - **Actor**: kizashi (兆) — `did:web:kizashi.etzhayyim.com`
 - **Murakumo node (proposed)**: naphtali
 - **Gates**: G2 (biometric = 要配慮 PII, encrypted; 30-day rotating pseudonym DID) + G6 (per-scan consent, default-deny) + G4 (R0..R2 non-ionizing non-regulated only) + G11 (real scans = Council + licensed oversight + R3)
-- **Output Lexicon(s)**: app.etzhayyim.kizashi.scanSessionAttestation
+- **Output Lexicon(s)**: com.etzhayyim.kizashi.scanSessionAttestation
 - **Ceiling**: ENCRYPTED-ENVELOPE (G2, ADR-2605181100) · CONSENT (G6) · DEVICE-BOUNDARY (G4) · Murakumo-only inference (ADR-2605215000)

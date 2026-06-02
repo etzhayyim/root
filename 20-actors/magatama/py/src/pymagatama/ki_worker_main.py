@@ -107,7 +107,7 @@ async def task_absorb(
 
     # ── create mode: called externally with source data ──
     absorb_id = _uid("xyl")
-    absorb_vid = f"at://{KI_DID}/app.etzhayyim.apps.ki.absorb/{absorb_id}"
+    absorb_vid = f"at://{KI_DID}/com.etzhayyim.apps.ki.absorb/{absorb_id}"
     content_hash = hashlib.sha256(content.encode()).hexdigest()[:32]
     now = _now()
 
@@ -202,7 +202,7 @@ async def task_synthesize(
     refined = bool(graph_result.get("refined", False))
 
     artifact_id = _uid("art")
-    artifact_vid = f"at://{KI_DID}/app.etzhayyim.apps.ki.artifact/{artifact_id}"
+    artifact_vid = f"at://{KI_DID}/com.etzhayyim.apps.ki.artifact/{artifact_id}"
     artifact_hash = hashlib.sha256(synthesis.encode()).hexdigest()[:32]
     now = _now()
 
@@ -320,7 +320,7 @@ async def task_ring(
     """Create versioned knowledge checkpoint (growth ring / 年輪 analogy)."""
 
     ring_id = _uid("ring")
-    ring_vid = f"at://{KI_DID}/app.etzhayyim.apps.ki.ring/{ring_id}"
+    ring_vid = f"at://{KI_DID}/com.etzhayyim.apps.ki.ring/{ring_id}"
     now = _now()
 
     def _run() -> dict[str, Any]:

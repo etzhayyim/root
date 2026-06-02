@@ -11,7 +11,7 @@
 
 Salesforce 相当の OSS CRM appview (M2.5)。
 
-- Lexicons: `00-contracts/lexicons/ai/gftd/apps/opensaas/salesforce/` (account, contact, lead, opportunity, case, activity, createLead, convertLead, listPipeline)
+- Lexicons: `00-contracts/lexicons/com/etzhayyim/apps/opensaas/salesforce/` (account, contact, lead, opportunity, case, activity, createLead, convertLead, listPipeline)
 - Route: `https://salesforce.opensaas.etzhayyim.com/`
 - Tenancy: `did:web:<slug>.opensaas.etzhayyim.com` per tenant, seat DID = `did:web:<slug>.opensaas.etzhayyim.com:seat:<role>-<nn>`
 - PII split (ADR-0018): emailHash / phoneHash を Tier 1 AT Record、raw PII は Tier 3 Preferences

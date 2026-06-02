@@ -138,7 +138,7 @@ commit は primitive tool / UDF / model 追加の時だけ要る (低頻度)。
 
 `mcp_tool` kind の `ref` は次のいずれか:
 
-- HTTP URL (legacy / 後方互換) — `https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message`
+- HTTP URL (legacy / 後方互換) — `https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message`
 - `mcp://<tool_id>` — `vertex_mcp_tool_def.tool_id` を引いて endpoint を解決
 
 新規は後者を使う。`make_mcp_tool_node` (`langgraph_node_resolvers.py`) が
@@ -154,7 +154,7 @@ Python lambda は禁止。
 {
   "from": "classify_intent",
   "to":   "escalate_to_human",
-  "condition_ref": "dmn:app.etzhayyim.policies.intent.escalation@1.0.0"
+  "condition_ref": "dmn:com.etzhayyim.policies.intent.escalation@1.0.0"
 }
 ```
 
@@ -212,7 +212,7 @@ shadow run / canary で評価 (`vertex_langgraph_run` event log)
 - node が 1 tool に縛られるため、micro-tool が増える傾向 (`vertex_mcp_tool_def` のスケール対応が要る)
 - agent が graph を破壊するリスク → `authored_by` で trace、Rego policy で
   agent の write 権限を制限、shadow run 必須
-- `vertex_langgraph_graph_def` への write は L4 MCP tool (`app.etzhayyim.tools.langgraph.publish`)
+- `vertex_langgraph_graph_def` への write は L4 MCP tool (`com.etzhayyim.tools.langgraph.publish`)
   経由のみ許可 (生 SQL 禁止)
 
 ## Phase D — Sub-primitive expansion (2026-05-09)
@@ -222,12 +222,12 @@ Phase A/B 完了時点で live `py_primitive` が 61 ノード残存。中身を
 node を 1:1 で mcp_tool 化するには、ノード本体内で頻出する **sub-primitive**
 が追加で必要。Phase D で 2 つ追加:
 
-- `app.etzhayyim.tools.time.now` — 壁掛け時計 (`iso` / `epoch_s` / `epoch_ms`、
+- `com.etzhayyim.tools.time.now` — 壁掛け時計 (`iso` / `epoch_s` / `epoch_ms`、
   `tz` 対応)。`tools_time_worker_main:task_time_now`。
   動機: 全 supervisor / agent ノードが `int(time.time()*1000)` /
   `datetime.now(tz=UTC)` を inline で呼ぶ。これを mcp_tool に切り出すと
   合成 node 全体が data-only で再構成可能になる。
-- `app.etzhayyim.tools.crypto.hash` — 内容アドレス hash (`sha256` / `sha1` /
+- `com.etzhayyim.tools.crypto.hash` — 内容アドレス hash (`sha256` / `sha1` /
   `md5` / `sha512`、`hex` / `base64` 出力)。
   `tools_crypto_worker_main:task_crypto_hash`。
   動機: `_work_blob_vertex_id` 系の sha256 + 名前空間連結が複数 actor に
@@ -334,18 +334,18 @@ LLM-driven domain agent の典型形 1 ノードは、以下の **5-step chain**
 
 ```
 [supervisor → state.<key>_input]
-    ↓ kind=mcp_tool ref=mcp://app.etzhayyim.tools.llm.chat
+    ↓ kind=mcp_tool ref=mcp://com.etzhayyim.tools.llm.chat
     ↓ result_key: <key>_llm_out
     ↓ args: {system: "...", user_template: "...", input_keys: [...]}
 [<key>_llm_out  ─ {result, action_items, db_writes, ok, error}]
     ↓ kind=foreach
     ↓ items_path: <key>_llm_out.result.db_writes
     ↓ result_key: <key>_inserted
-    ↓ inner: kind=mcp_tool ref=mcp://app.etzhayyim.tools.sql.insert_row
+    ↓ inner: kind=mcp_tool ref=mcp://com.etzhayyim.tools.sql.insert_row
     ↓        config: {input_paths: {table:"item.table", row:"item.row",
                                      vertex_id_template: "<convention>"}}
 [<key>_inserted ─ list of {vertexId, ok}]
-    ↓ kind=mcp_tool ref=mcp://app.etzhayyim.tools.transform.map
+    ↓ kind=mcp_tool ref=mcp://com.etzhayyim.tools.transform.map
     ↓ args: {mapping: {action_items: "$.<key>_llm_out.result.action_items",
                         ok: "$.<key>_llm_out.result.ok"}}
 [<key>_summary]
@@ -357,7 +357,7 @@ domain agents = ~50 合成 node × 4 = **200 新 mcp_tool node** 規模。
 
 ### 必要な追加 primitive (1 件)
 
-**`app.etzhayyim.tools.sql.insert_row`** — 動的 row → INSERT。
+**`com.etzhayyim.tools.sql.insert_row`** — 動的 row → INSERT。
 現行 `sql.exec` は固定 SQL string + bindings。LLM 出力の `db_writes` は
 table 名と row の column 集合がランタイム決定なので、これを受け取れる
 primitive が要る:

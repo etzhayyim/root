@@ -55,7 +55,7 @@ Constant: `WITNESS_RECENCY_DAYS = 365` (per ADR-2605192100 §1.6 anti-recency-de
 
 ### §3 Council Lv6+ DID Registry
 
-**Lexicon**: `app.etzhayyim.council.member` (AT schema)
+**Lexicon**: `com.etzhayyim.council.member` (AT schema)
 
 **Record fields**:
 - `did`: Council member DID
@@ -64,7 +64,7 @@ Constant: `WITNESS_RECENCY_DAYS = 365` (per ADR-2605192100 §1.6 anti-recency-de
 - `adheres_charter`: boolean (cache of last charter compliance check)
 
 **Live Registry Query**: `mst.get_council_lv6_dids()` (SDK method)
-- Queries MST for all `app.etzhayyim.council.member` records where `level >= 6`
+- Queries MST for all `com.etzhayyim.council.member` records where `level >= 6`
 - Returns set of DIDs for Lv6+ approval gates
 - Cached for 24h with fallback to hardcoded list during bootstrap
 
@@ -80,7 +80,7 @@ Constant: `WITNESS_RECENCY_DAYS = 365` (per ADR-2605192100 §1.6 anti-recency-de
 
 When EvolutionValidationCell processes Lv6→Lv7 advancement:
 
-1. Emit `app.etzhayyim.evolution-objection` record with `status="open"` and window_close timestamp (now + 30 days)
+1. Emit `com.etzhayyim.evolution-objection` record with `status="open"` and window_close timestamp (now + 30 days)
 2. Return validation status as `"pending"` until window closes
 3. Query `mst.council_objections(adherent_did, recency_days=365)` to check for filed objections
 4. After window close:
@@ -89,7 +89,7 @@ When EvolutionValidationCell processes Lv6→Lv7 advancement:
 
 **Window duration**: `EVOLUTION_APPEAL_DAYS = 30` (constitutional constant per ADR-2605192100)
 
-**Objection lexicon**: `app.etzhayyim.evolution-objection`
+**Objection lexicon**: `com.etzhayyim.evolution-objection`
 - `adherent_did`: subject DID
 - `objector_did`: filer DID (must be Lv5+)
 - `reason`: short text (max 512 chars)
@@ -106,7 +106,7 @@ Per ADR-2605192230, evolution advancement is gated by charter alignment. This co
 
 **Function**: `_check_charter_compliance(adherent_did)` in EvolutionValidationCell
 
-**Query target**: `app.etzhayyim.apps.etzhayyim.charter-compliance` MST records
+**Query target**: `com.etzhayyim.apps.etzhayyim.charter-compliance` MST records
 
 **Decision logic**:
 - If compliance `status="non-aligned"` → **reject advancement** with explicit reason citing ADR-2605192230 rehabilitation path (return `status="non-compliant"`)
@@ -131,17 +131,17 @@ All canonical constants wired into shinka_murakumo.py + mst.py:
 | `COUNCIL_LV6_DIDS` (fallback) | {`did:web:etzhayyim.com`} only | mst.py |
 
 §3 Council Lv6+ DID Registry:
-- `app.etzhayyim.council.member` lexicon authored
+- `com.etzhayyim.council.member` lexicon authored
 - `mst.get_council_lv6_dids()` SDK method real impl (queries the lexicon)
 - Bootstrap fallback `COUNCIL_LV6_DIDS` set returns founder seat 1 only until RFP close 2026-06-19
 
 §4 Appeal Window:
-- `app.etzhayyim.evolution-objection` lexicon authored
+- `com.etzhayyim.evolution-objection` lexicon authored
 - `mst.council_objections()` real impl (queries the lexicon with recency filter)
 - Lv7 path in `evolution_validation_cell` enforces 30-day window: returns `status="pending"` within window, `status="valid"` past window with no objections, `status="invalid"` if any objection filed
 
 §5 Charter-rider Compliance Gate:
-- `_check_charter_compliance(adherent_did)` queries `app.etzhayyim.apps.etzhayyim.charter-compliance` MST records
+- `_check_charter_compliance(adherent_did)` queries `com.etzhayyim.apps.etzhayyim.charter-compliance` MST records
 - Non-aligned status → reject with explicit reason citing ADR-2605192230 rehabilitation path
 - Compliant / pending / unknown / query failure → allow advancement (presumption of innocence)
 

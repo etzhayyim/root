@@ -76,16 +76,16 @@ service OrchestratorService {
 
 | W Protocol Kind | AT Lexicon |
 |---|---|
-| `okaimono.order` (status=created) | `app.etzhayyim.apps.okaimono.order` |
-| `okaimono.order` (status=paid) | `app.etzhayyim.apps.okaimono.order` |
-| `okaimono.shipment` | `app.etzhayyim.apps.okaimono.shipment` |
-| `okaimono.refund` | `app.etzhayyim.apps.okaimono.refund` |
-| `okaimono.stock-reservation` | `app.etzhayyim.apps.okaimono.stockReservation` |
-| `okaimono.production-link` | `app.etzhayyim.apps.okaimono.productionLink` |
-| `okaimono.production-progress` | `app.etzhayyim.apps.okaimono.productionProgress` |
-| `okaimono.quality-result` | `app.etzhayyim.apps.okaimono.qualityResult` |
-| `okaimono.support-case` | `app.etzhayyim.apps.okaimono.supportCase` |
-| `okaimono.promotion` | `app.etzhayyim.apps.okaimono.promotion` |
+| `okaimono.order` (status=created) | `com.etzhayyim.apps.okaimono.order` |
+| `okaimono.order` (status=paid) | `com.etzhayyim.apps.okaimono.order` |
+| `okaimono.shipment` | `com.etzhayyim.apps.okaimono.shipment` |
+| `okaimono.refund` | `com.etzhayyim.apps.okaimono.refund` |
+| `okaimono.stock-reservation` | `com.etzhayyim.apps.okaimono.stockReservation` |
+| `okaimono.production-link` | `com.etzhayyim.apps.okaimono.productionLink` |
+| `okaimono.production-progress` | `com.etzhayyim.apps.okaimono.productionProgress` |
+| `okaimono.quality-result` | `com.etzhayyim.apps.okaimono.qualityResult` |
+| `okaimono.support-case` | `com.etzhayyim.apps.okaimono.supportCase` |
+| `okaimono.promotion` | `com.etzhayyim.apps.okaimono.promotion` |
 
 ### 2.3 idempotency / SAGA
 
@@ -105,23 +105,23 @@ service OrchestratorService {
 
 | Kind | AT Lexicon NSID | 用途 |
 |---|---|---|
-| `okaimono.catalog-item` | `app.etzhayyim.apps.okaimono.catalogItem` | OEM 商品カタログ |
-| `okaimono.order` | `app.etzhayyim.apps.okaimono.order` | D2C 注文 (items embedded) |
-| `okaimono.stock-reservation` | `app.etzhayyim.apps.okaimono.stockReservation` | 在庫予約/解放 |
-| `okaimono.stock-movement` | `app.etzhayyim.apps.okaimono.stockMovement` | 入庫/出庫/棚卸 |
-| `okaimono.shipment` | `app.etzhayyim.apps.okaimono.shipment` | 出荷計画 |
-| `okaimono.carrier-event` | `app.etzhayyim.apps.okaimono.carrierEvent` | 配送追跡イベント |
-| `okaimono.production-link` | `app.etzhayyim.apps.okaimono.productionLink` | 注文 ↔ OEM 製造リンク |
-| `okaimono.production-progress` | `app.etzhayyim.apps.okaimono.productionProgress` | OEM 製造進捗 |
-| `okaimono.quality-result` | `app.etzhayyim.apps.okaimono.qualityResult` | OEM 品質検査結果 |
-| `okaimono.promotion` | `app.etzhayyim.apps.okaimono.promotion` | プロモーション/クーポン |
-| `okaimono.review` | `app.etzhayyim.apps.okaimono.review` | 商品レビュー |
-| `okaimono.support-case` | `app.etzhayyim.apps.okaimono.supportCase` | CS ケース |
-| `okaimono.support-message` | `app.etzhayyim.apps.okaimono.supportMessage` | CS メッセージ |
-| `okaimono.return` | `app.etzhayyim.apps.okaimono.return` | 返品 |
-| `okaimono.refund` | `app.etzhayyim.apps.okaimono.refund` | 返金 |
-| `okaimono.checkout-execution` | `app.etzhayyim.apps.okaimono.checkoutExecution` | Checkout SAGA 実行 |
-| `okaimono.analytics-event` | `app.etzhayyim.apps.okaimono.analyticsEvent` | KPI イベント |
+| `okaimono.catalog-item` | `com.etzhayyim.apps.okaimono.catalogItem` | OEM 商品カタログ |
+| `okaimono.order` | `com.etzhayyim.apps.okaimono.order` | D2C 注文 (items embedded) |
+| `okaimono.stock-reservation` | `com.etzhayyim.apps.okaimono.stockReservation` | 在庫予約/解放 |
+| `okaimono.stock-movement` | `com.etzhayyim.apps.okaimono.stockMovement` | 入庫/出庫/棚卸 |
+| `okaimono.shipment` | `com.etzhayyim.apps.okaimono.shipment` | 出荷計画 |
+| `okaimono.carrier-event` | `com.etzhayyim.apps.okaimono.carrierEvent` | 配送追跡イベント |
+| `okaimono.production-link` | `com.etzhayyim.apps.okaimono.productionLink` | 注文 ↔ OEM 製造リンク |
+| `okaimono.production-progress` | `com.etzhayyim.apps.okaimono.productionProgress` | OEM 製造進捗 |
+| `okaimono.quality-result` | `com.etzhayyim.apps.okaimono.qualityResult` | OEM 品質検査結果 |
+| `okaimono.promotion` | `com.etzhayyim.apps.okaimono.promotion` | プロモーション/クーポン |
+| `okaimono.review` | `com.etzhayyim.apps.okaimono.review` | 商品レビュー |
+| `okaimono.support-case` | `com.etzhayyim.apps.okaimono.supportCase` | CS ケース |
+| `okaimono.support-message` | `com.etzhayyim.apps.okaimono.supportMessage` | CS メッセージ |
+| `okaimono.return` | `com.etzhayyim.apps.okaimono.return` | 返品 |
+| `okaimono.refund` | `com.etzhayyim.apps.okaimono.refund` | 返金 |
+| `okaimono.checkout-execution` | `com.etzhayyim.apps.okaimono.checkoutExecution` | Checkout SAGA 実行 |
+| `okaimono.analytics-event` | `com.etzhayyim.apps.okaimono.analyticsEvent` | KPI イベント |
 
 ### UNSPSC classification fields
 
@@ -138,11 +138,11 @@ add these classification fields:
 
 `import-unispsc-segment` is a bulk import command: query
 `G("unispsc_commodities").Where(Eq{"segment": segment})`, transform each row via
-`app.etzhayyim.apps.openUnispsc.syncCatalogItem`, and upsert
-`app.etzhayyim.apps.okaimono.catalogItem` with `product_id = unispsc-{code}`.
+`com.etzhayyim.apps.openUnispsc.syncCatalogItem`, and upsert
+`com.etzhayyim.apps.okaimono.catalogItem` with `product_id = unispsc-{code}`.
 `catalog-search-unispsc` filters catalog rows by `unispsc_code`, segment, family,
 or class. `procurement-find-offers-unispsc` resolves `product_id=unispsc-{code}`
-through `app.etzhayyim.apps.openUnispsc.planCatalogPurchase` before checkout SAGA
+through `com.etzhayyim.apps.openUnispsc.planCatalogPurchase` before checkout SAGA
 handoff.
 
 ### Status Enums (application-level)

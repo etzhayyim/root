@@ -13,7 +13,7 @@ ongakuka.etzhayyim.com — Suno クラスの AI 音楽生成。歌詞 + style pr
 | Primary DID | `did:plc:ongakuka` (Phase 5 `plc.etzhayyim.com` で genesis) |
 | Handle | `ongakuka.etzhayyim.com` |
 | Legacy nanoid | `0ng4k4k4` (grandfather, deprecate 2026-10-01) |
-| NSID | `app.etzhayyim.ongakuka.*` |
+| NSID | `com.etzhayyim.ongakuka.*` |
 
 ## Project Actor Composition (1 project = N actor DIDs)
 
@@ -29,16 +29,16 @@ ongakuka.etzhayyim.com — Suno クラスの AI 音楽生成。歌詞 + style pr
 | `did:web:ongakuka.etzhayyim.com:actor:mixer` | vocoder + LUFS 正規化 + マスタリング | DAC/EnCodec decoder |
 | `did:web:ongakuka.etzhayyim.com:actor:critic` | CLAP score + 歌詞 alignment QA + 著作権 sim 検査 | CLAP + text classifier |
 
-actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。stage 出力 (stem) は `app.etzhayyim.ongakuka.stem` record + `actorDid` field で帰属。
+actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。stage 出力 (stem) は `com.etzhayyim.ongakuka.stem` record + `actorDid` field で帰属。
 
 ## Domain Model
 
 | 概念 | NSID | Graph node |
 |---|---|---|
-| 楽曲 | `app.etzhayyim.ongakuka.track` | `OkTrack` |
-| Stem | `app.etzhayyim.ongakuka.stem` | `OkStem` |
-| Style 参照 (prompt or embedding) | `app.etzhayyim.ongakuka.style` | `OkStyle` |
-| 生成イベント (audit + metering) | `app.etzhayyim.ongakuka.generation` | `OkGeneration` |
+| 楽曲 | `com.etzhayyim.ongakuka.track` | `OkTrack` |
+| Stem | `com.etzhayyim.ongakuka.stem` | `OkStem` |
+| Style 参照 (prompt or embedding) | `com.etzhayyim.ongakuka.style` | `OkStyle` |
+| 生成イベント (audit + metering) | `com.etzhayyim.ongakuka.generation` | `OkGeneration` |
 
 ### Edge predicates
 
@@ -54,11 +54,11 @@ actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。st
 
 | NSID | Type | 用途 |
 |---|---|---|
-| `app.etzhayyim.ongakuka.compose` | procedure | enqueue 1 track (returns trackUri 即時) |
-| `app.etzhayyim.ongakuka.regenerate` | procedure | section / stem 部分再生成 |
-| `app.etzhayyim.ongakuka.listTracks` | query | offset/limit list |
-| `app.etzhayyim.ongakuka.getTrack` | query | track + stems + last generation |
-| `app.etzhayyim.ongakuka.health` | procedure | health probe (bootstrap) |
+| `com.etzhayyim.ongakuka.compose` | procedure | enqueue 1 track (returns trackUri 即時) |
+| `com.etzhayyim.ongakuka.regenerate` | procedure | section / stem 部分再生成 |
+| `com.etzhayyim.ongakuka.listTracks` | query | offset/limit list |
+| `com.etzhayyim.ongakuka.getTrack` | query | track + stems + last generation |
+| `com.etzhayyim.ongakuka.health` | procedure | health probe (bootstrap) |
 
 ## Triggers (magatama.jsonld 予定)
 
@@ -71,10 +71,10 @@ actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。st
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "app.etzhayyim.ongakuka.track",
-        "app.etzhayyim.ongakuka.stem",
-        "app.etzhayyim.ongakuka.style",
-        "app.etzhayyim.ongakuka.generation"
+        "com.etzhayyim.ongakuka.track",
+        "com.etzhayyim.ongakuka.stem",
+        "com.etzhayyim.ongakuka.style",
+        "com.etzhayyim.ongakuka.generation"
       ]
     }
   }
@@ -87,7 +87,7 @@ actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。st
 XRPC compose
   → handleAietzhayyimAppsOngakukaCompose
     → ComAtprotoRepoCreateRecord("track", {status:"queued", projectId, ...})
-       ↓ onCommit (subscribeRepos: app.etzhayyim.ongakuka.track)
+       ↓ onCommit (subscribeRepos: com.etzhayyim.ongakuka.track)
        handleAietzhayyimAppsOngakukaTrack:
          track.status === "queued" →
            lyricist.complete() → status "lyric"
@@ -129,7 +129,7 @@ XRPC compose
 ## CRITICAL: Copyright / Consent Invariants
 
 1. **学習データ**: permissive (CC0/CC-BY)、ユーザー持ち込み (consent 明示)、自社制作のみ。著作権不明データを学習 corpus に入れない
-2. **Style ref**: `app.etzhayyim.ongakuka.style` の `license` field が `permissive|own|licensed` の場合のみ AT Record 公開可。`unknown` は Preferences (T3) 限定
+2. **Style ref**: `com.etzhayyim.ongakuka.style` の `license` field が `permissive|own|licensed` の場合のみ AT Record 公開可。`unknown` は Preferences (T3) 限定
 3. **Critic gate**: 生成物が学習データ中の特定楽曲と CLAP cosine > 0.92 なら `status="rejected"` で publish 抑止 (memorization 検出)
 4. **Lyrics PII**: 歌詞に実在個人名/連絡先が含まれる場合 critic が PII flag → T3 only
 5. **No covers without licensing**: style prompt に既存アーティスト名を明示指定された場合は reject (parody/inspired はテキスト記述のみ許容)
@@ -142,7 +142,7 @@ XRPC compose
 | `murakumo` | `inference/audio` provider (CRITICAL) |
 | `kakin` | quota check (`CheckQuota` per compose) |
 | `credits` | consumer spend / operator reward |
-| `auth` | per-call ES256 Service Auth (`lxm=app.etzhayyim.ongakuka.compose`) |
+| `auth` | per-call ES256 Service Auth (`lxm=com.etzhayyim.ongakuka.compose`) |
 | `signal` | private style ref / draft lyrics の field encrypt (`signal:v1:`) |
 | `vault` | licensed sample/dataset の zero-knowledge 保管 |
 | `well-becoming` | critic の品質 / 配慮スコア反映 |
@@ -161,13 +161,13 @@ XRPC compose
 
 - Hono router + Svelte CSR (40-engine/svelte AppShell v2)
 - 画面: lyrics editor / style picker (prompt or upload) / generation queue / waveform player / stem mixer / critic feedback
-- Deep-link: `https://ongakuka.etzhayyim.com/at/{handle}/app.etzhayyim.ongakuka.track/{rkey}`
+- Deep-link: `https://ongakuka.etzhayyim.com/at/{handle}/com.etzhayyim.ongakuka.track/{rkey}`
 
 ## Migration Backlog
 
 | 項目 | 状態 |
 |---|---|
-| Lexicon JSON × 9 (`00-contracts/lexicons/ai/gftd/apps/ongakuka/`) | DONE (2026-04-15) |
+| Lexicon JSON × 9 (`00-contracts/lexicons/com/etzhayyim/apps/ongakuka/`) | DONE (2026-04-15) |
 | Murakumo `inference/audio` spec 追記 | DONE (2026-04-15) |
 | `magatama.jsonld` + `src/app.ts` + `wrangler.jsonc` (T1 worker) | TODO |
 | `30-graph/graph-schema/migrations/00XX_vertex_ongakuka_*.ts` | TODO |

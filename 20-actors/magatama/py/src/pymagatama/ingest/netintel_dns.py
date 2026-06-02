@@ -132,7 +132,7 @@ def _stale_domains(batch_size: int) -> list[str]:
 
 def _insert_dns_row(domain: str, rdap: dict, doh: dict, run_id: str) -> bool:
     ts = now_iso()
-    vertex_id = f"at://did:web:ingest.etzhayyim.com/app.etzhayyim.apps.collector.dnsObservation/{domain}"
+    vertex_id = f"at://did:web:ingest.etzhayyim.com/com.etzhayyim.apps.collector.dnsObservation/{domain}"
     sql = (
         "INSERT INTO vertex_dns_observation "
         "(vertex_id, owner_did, domain, registrar, nameservers, "

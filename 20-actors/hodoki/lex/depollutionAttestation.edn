@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hodoki.depollutionAttestation"
+ :id "com.etzhayyim.hodoki.depollutionAttestation"
  :defs
  {:main
   {:type "record"

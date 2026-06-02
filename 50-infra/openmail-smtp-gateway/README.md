@@ -2,7 +2,7 @@
 
 SMTP **bridge plane** for etzhayyim openmail — terminates legacy SMTP and relays
 to `kotoba-server`'s email XRPC. Implements ADR-2605172200 §3 against the *current*
-canonical storage path (kotoba Datom log + `ai.gftd.apps.kotoba.email.*`), not the
+canonical storage path (kotoba Datom log + `com.etzhayyim.apps.kotoba.email.*`), not the
 original atproto-MST AppView design.
 
 License: Apache-2.0 + etzhayyim Charter Compliance Rider v2.0 (see `/CHARTER-RIDER.md`).

@@ -18,7 +18,7 @@ from etzhayyim_sdk import mst_projector
 
 # Query indexed view (server-side filter via mst-projector)
 result = await mst_projector.query_by_collection(
-    collection="app.etzhayyim.shinka.heartbeat",
+    collection="com.etzhayyim.shinka.heartbeat",
     limit=50,
 )
 for record in result["records"]:
@@ -26,20 +26,20 @@ for record in result["records"]:
 
 # Count records in a collection
 count_result = await mst_projector.count_by_collection(
-    collection="app.etzhayyim.shinka.heartbeat",
+    collection="com.etzhayyim.shinka.heartbeat",
 )
 print(f"Total records: {count_result['count']}")
 
 # Query by author DID
 records_by_did = await mst_projector.query_by_did(
     did="did:plc:abc123",
-    collection="app.etzhayyim.shinka.kyumeiSignal",
+    collection="com.etzhayyim.shinka.kyumeiSignal",
     limit=100,
 )
 
 # Query by field value
 field_results = await mst_projector.query_by_field(
-    collection="app.etzhayyim.shinka.heartbeat",
+    collection="com.etzhayyim.shinka.heartbeat",
     field_name="nodeName",
     field_value="levi",
 )

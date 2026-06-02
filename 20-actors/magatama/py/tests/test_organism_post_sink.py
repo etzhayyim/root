@@ -89,10 +89,10 @@ def test_ndjson_sink_creates_parent_dir(tmp_path: Path):
 
 def test_ndjson_sink_custom_lexicon(tmp_path: Path):
     queue = tmp_path / "queue.ndjson"
-    sink = NdjsonQueuePostSink(queue, lexicon="app.etzhayyim.apps.etzhayyim.shinka.post")
+    sink = NdjsonQueuePostSink(queue, lexicon="com.etzhayyim.apps.etzhayyim.shinka.post")
     sink("x", ctx=_Ctx(), mood="neutral", content_source_kind="inbound")
     payload = json.loads(queue.read_text(encoding="utf-8").splitlines()[0])
-    assert payload["lexicon"] == "app.etzhayyim.apps.etzhayyim.shinka.post"
+    assert payload["lexicon"] == "com.etzhayyim.apps.etzhayyim.shinka.post"
 
 
 def test_ndjson_sink_unicode(tmp_path: Path):

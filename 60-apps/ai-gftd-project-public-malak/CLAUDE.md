@@ -10,7 +10,7 @@ Per `etzhayyim/etzhayyim-root` deps.toml `tranche-f-public-malak-classification-
 
 **Inverted partial-migration shape** (as of 2026-05-20):
 - Vendor (etzhayyim) retains: project scaffold (CLAUDE.md, magatama.jsonld), 14 lexicons under `publicMalak/`, 280 MB crawled corpus (`60-apps/ai-gftd-project-public-malak/data/ingest/`).
-- etzhayyim already had: BPMN definitions (`00-contracts/bpmn/ai/gftd/public-malak/{analyzeAd,crawlAds}.bpmn`).
+- etzhayyim already had: BPMN definitions (`00-contracts/bpmn/com/etzhayyim/public-malak/{analyzeAd,crawlAds}.bpmn`).
 
 This commit lands the etzhayyim-side scaffold mirror (CLAUDE.md + OWNERS + PROJECT.jsonld + magatama.jsonld) and 14 lexicons. The worker (`src/app.ts`), rw-free reference impl, and corpus residency follow separately:
 
@@ -27,16 +27,16 @@ This commit lands the etzhayyim-side scaffold mirror (CLAUDE.md + OWNERS + PROJE
 | Corpus storage | `data/ingest/blobs/` (vendor B2) | IPFS pinner (`50-infra/ipfs-pinner/`) or fresh-ingest only |
 
 ## Lexicons
-`00-contracts/lexicons/ai/gftd/apps/publicMalak/` (14 files):
+`00-contracts/lexicons/com/etzhayyim/apps/publicMalak/` (14 files):
 
 - procedures: `crawlAds`, `analyzeAd`, `analyzeRecentAds`, `clusterRecentAds`, `processScraperQueue`
 - queries: `getAdvertiser`, `getAnalysis`, `getCampaignCluster`, `getCreative`, `listAds`, `listAnalyses`, `listCampaignClusters`, `listScraperRuns`, `listSnapshots`
 
-All surface the ad-library scraper graph (Meta / Facebook / Instagram / WhatsApp, Google Ads Transparency, LinkedIn, TikTok, X, LINE, Telegram). NSID prefix is `app.etzhayyim.apps.publicMalak.*` mirroring the vendor scope; an etzhayyim-namespaced alias (`ai.etzhayyim.apps.publicMalak.*`) may be added in Phase 2 if substrate divergence requires it.
+All surface the ad-library scraper graph (Meta / Facebook / Instagram / WhatsApp, Google Ads Transparency, LinkedIn, TikTok, X, LINE, Telegram). NSID prefix is `com.etzhayyim.apps.publicMalak.*` mirroring the vendor scope; an etzhayyim-namespaced alias (`ai.etzhayyim.apps.publicMalak.*`) may be added in Phase 2 if substrate divergence requires it.
 
 ## Ad crawl execution
 
-- BPMN: `00-contracts/bpmn/ai/gftd/public-malak/crawlAds.bpmn` (`public_malak_crawl_ads`, timer `R/PT6H`) and `analyzeAd.bpmn` (`public_malak_analyze_ad`, on-demand). Both already present in this repo.
+- BPMN: `00-contracts/bpmn/com/etzhayyim/public-malak/crawlAds.bpmn` (`public_malak_crawl_ads`, timer `R/PT6H`) and `analyzeAd.bpmn` (`public_malak_analyze_ad`, on-demand). Both already present in this repo.
 - Python tasks: `publicMalak.ads.queueSeedRuns`, `publicMalak.ads.processQueue`, `publicMalak.ads.analyzeCreative` — to be ported from vendor `20-actors/magatama/py/src/pymagatama/primitives/public_malak_ads.py` in Phase 2.
 - Writes: PDS XRPC (Phase 2). Worker appview XRPC remains as the read/manual control surface.
 

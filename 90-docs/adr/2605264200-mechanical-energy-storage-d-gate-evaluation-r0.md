@@ -141,7 +141,7 @@ The four mechanical-storage classes + chemical battery (hikari R0 §2.1) have di
 ## §8 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   pumpedHydroFacilityAttestation,         # reservoir CIDs + waqf attestation + biodiversity baseline
   caesSurfaceFacilityAttestation,         # pressure-vessel design + ASME-equivalent compliance
   flywheelDeviceAttestation,              # rotor design + burst-containment + bearing type
@@ -149,7 +149,7 @@ app.etzhayyim.hikari.{
   mechanicalStorageDispatchRecord,        # per-cycle: energy-in / energy-out / round-trip-η / SOC
   silenMechanicalStorageReview            # annual Council Lv6+ ≥3 per-class compliance
 }
-app.etzhayyim.mizuho.{
+com.etzhayyim.mizuho.{
   pumpedHydroReservoirWaqfAttestation     # cross-actor: water-source registered + inalienable
 }
 ```

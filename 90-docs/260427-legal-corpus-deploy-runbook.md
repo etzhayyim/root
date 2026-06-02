@@ -22,8 +22,8 @@ T2 BPMN-as-actor (ADR-0056) のため CF Worker deploy は不要。
 
 - Actor: `did:web:legal-corpus.etzhayyim.com` (nanoid `lc0rpus0`)
 - Migrations to apply: `20260427230000` / `230100` / `230200` / `230300` / `230400`
-- Lexicons: `00-contracts/lexicons/ai/gftd/apps/legal-corpus/*.json` (6)
-- BPMN: `etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/*.bpmn` (8)
+- Lexicons: `00-contracts/lexicons/com/etzhayyim/apps/legal-corpus/*.json` (6)
+- BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/*.bpmn` (8)
 - Embedding: Workers AI `@cf/baai/bge-m3` (1024d) + Murakumo MLX fallback
 
 ## T-3d: 外部 API key 取得
@@ -145,7 +145,7 @@ bash 70-tools/scripts/legal-corpus-bootstrap.sh
 このスクリプトは下記 5 行を順次実行:
 
 ```bash
-gftd xrpc app.etzhayyim.apps.legal-corpus.registerSource -d '{
+gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "courtlistener",
   "displayName": "CourtListener (US)",
   "baseUrl": "https://www.courtlistener.com/api/rest/v3",
@@ -156,7 +156,7 @@ gftd xrpc app.etzhayyim.apps.legal-corpus.registerSource -d '{
   "license": "CC0"
 }'
 
-gftd xrpc app.etzhayyim.apps.legal-corpus.registerSource -d '{
+gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "eur-lex",
   "displayName": "EUR-Lex (EU)",
   "baseUrl": "https://publications.europa.eu/webapi/rdf/sparql",
@@ -166,7 +166,7 @@ gftd xrpc app.etzhayyim.apps.legal-corpus.registerSource -d '{
   "license": "CC-BY-4.0"
 }'
 
-gftd xrpc app.etzhayyim.apps.legal-corpus.registerSource -d '{
+gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "bailii",
   "displayName": "BAILII (UK + IE)",
   "baseUrl": "https://www.bailii.org",
@@ -176,7 +176,7 @@ gftd xrpc app.etzhayyim.apps.legal-corpus.registerSource -d '{
   "license": "BAILII-Terms"
 }'
 
-gftd xrpc app.etzhayyim.apps.legal-corpus.registerSource -d '{
+gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "worldlii",
   "displayName": "WorldLII (Commonwealth)",
   "baseUrl": "https://www.worldlii.org/cgi-bin/oai.pl",
@@ -186,7 +186,7 @@ gftd xrpc app.etzhayyim.apps.legal-corpus.registerSource -d '{
   "license": "WorldLII-Terms"
 }'
 
-gftd xrpc app.etzhayyim.apps.legal-corpus.registerSource -d '{
+gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "canlii",
   "displayName": "CanLII / SCC (CA)",
   "baseUrl": "https://api.canlii.org/v1",
@@ -215,7 +215,7 @@ timer-start BPMN (`fetchCourtListenerDelta` etc.) は次回 cadence まで起動
 
 ```bash
 # CourtListener (一番安全、free tier rate limit 余裕)
-gftd xrpc app.etzhayyim.apps.legal-corpus.fetchCourtListenerDelta -d '{}'
+gftd xrpc com.etzhayyim.apps.legal-corpus.fetchCourtListenerDelta -d '{}'
 
 # 30 秒後 — ingestDocument が item ごとに発火、vertex_legal_corpus_document に行が増える
 psql $DATABASE_URL -c "
@@ -231,7 +231,7 @@ psql $DATABASE_URL -c "
 ```bash
 # 任意の 1 doc を取って embed を kick
 DOC_VID=$(psql $DATABASE_URL -tAc "SELECT vertex_id FROM vertex_legal_corpus_document WHERE source_id='courtlistener' LIMIT 1")
-gftd xrpc app.etzhayyim.apps.legal-corpus.embedDocument -d "{\"vertexId\":\"$DOC_VID\"}"
+gftd xrpc com.etzhayyim.apps.legal-corpus.embedDocument -d "{\"vertexId\":\"$DOC_VID\"}"
 
 # 確認
 psql $DATABASE_URL -c "

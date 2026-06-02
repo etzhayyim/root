@@ -1,7 +1,7 @@
 """joucho_murakumo — Religious-corp variant of joucho (5-axis emotional state) aggregator.
 
 Per JOUCHO-MIGRATION-DESIGN.md + ADR-2605215200. Replaces vendor vertex_joucho RW table
-with MST-backed app.etzhayyim.joucho.joucho records, aggregated hourly from kyumeiSignal.
+with MST-backed com.etzhayyim.joucho.joucho records, aggregated hourly from kyumeiSignal.
 
 Pregel cell: JouchoAggregationCell on levi. Trigger: cron 0 * * * * (hourly).
 
@@ -98,7 +98,7 @@ SIGNAL_KIND_TO_AXIS_WEIGHTS: dict[str, dict[str, int]] = {
 
 @dataclass(slots=True)
 class JouchoRecord:
-    """app.etzhayyim.joucho.joucho record — matches lexicon wire shape byte-for-byte.
+    """com.etzhayyim.joucho.joucho record — matches lexicon wire shape byte-for-byte.
 
     All 5 axes are permille integers (0-1000).  Required fields: adherentDid,
     joy, calm, stress, gratitude, focus, computed_at, from_signal_count.
@@ -283,7 +283,7 @@ async def _query_kyumei_signals(
     Returns:
         list of raw record dicts (wire shape: {uri, cid, value}).
     """
-    collection = "app.etzhayyim.shinka.kyumeiSignal"
+    collection = "com.etzhayyim.shinka.kyumeiSignal"
     if _projector_mod is not None:
         try:
             if adherent_did is not None:
@@ -322,12 +322,12 @@ async def joucho_aggregation_cell(
     """JouchoAggregationCell — aggregate kyumeiSignal → joucho records.
 
     Placement: levi (port 13027). Cron 0 * * * * (hourly) + optional MST listener
-    on app.etzhayyim.shinka.kyumeiSignal (Phase C, off in M5).
+    on com.etzhayyim.shinka.kyumeiSignal (Phase C, off in M5).
 
     Write path (per design doc):
-      1. Query MST for app.etzhayyim.shinka.kyumeiSignal (last window_days days).
+      1. Query MST for com.etzhayyim.shinka.kyumeiSignal (last window_days days).
       2. Group by adherentDid → aggregate_signals() per adherent.
-      3. Upsert app.etzhayyim.joucho.joucho record to MST via pds.put_record().
+      3. Upsert com.etzhayyim.joucho.joucho record to MST via pds.put_record().
       4. Log result and latency.
 
     Error handling: missing kyumeiSignal → new-adherent defaults (from_signal_count=0).
@@ -403,9 +403,9 @@ async def joucho_aggregation_cell(
             # c. Write to MST via pds.put_record (upsert — same rkey per adherent).
             rkey = _safe_rkey(did)
             await pds.put_record(
-                "app.etzhayyim.joucho.joucho",
+                "com.etzhayyim.joucho.joucho",
                 {
-                    "$type": "app.etzhayyim.joucho.joucho",
+                    "$type": "com.etzhayyim.joucho.joucho",
                     "adherentDid": record.adherentDid,
                     "joy": record.joy,
                     "calm": record.calm,
@@ -445,7 +445,7 @@ async def fetch_joucho(adherent_did: str) -> JouchoRecord | None:
       SELECT mood, joy, calm, stress, gratitude, focus
       FROM vertex_joucho WHERE owner_did = %s ORDER BY created_at DESC LIMIT 1
 
-    Reads from app.etzhayyim.joucho.joucho via pds.get_record() using the
+    Reads from com.etzhayyim.joucho.joucho via pds.get_record() using the
     deterministic rkey produced by _safe_rkey().
 
     Returns None if no record exists yet for the adherent (caller should apply
@@ -467,7 +467,7 @@ async def fetch_joucho(adherent_did: str) -> JouchoRecord | None:
 
     pds = _pds_mod
     rkey = _safe_rkey(adherent_did)
-    uri = f"at://{adherent_did}/app.etzhayyim.joucho.joucho/{rkey}"
+    uri = f"at://{adherent_did}/com.etzhayyim.joucho.joucho/{rkey}"
 
     try:
         raw = await pds.get_record(uri)

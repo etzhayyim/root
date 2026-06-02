@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.wadachi.energyReport"
+ :id "com.etzhayyim.wadachi.energyReport"
  :defs
  {:main
   {:type "record"

@@ -1,7 +1,7 @@
 # chigiri legal-aid REFERRAL registry — Verification Workflow (G14)
 
 Per ADR-2605262700 §2 + §4 (G14 verified-referral-only routing). Every
-`app.etzhayyim.chigiri.legalAidReferral` record in
+`com.etzhayyim.chigiri.legalAidReferral` record in
 `registry/legal-aid.seed.json` (key `referrals`, id field `referralId`) ships
 `verificationStatus = unverified-seed`, and **no live action — referral
 routing / wayfinding via the `chigiri_legal_aid_clinic` resolver

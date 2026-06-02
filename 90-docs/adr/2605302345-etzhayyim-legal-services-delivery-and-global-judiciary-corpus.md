@@ -91,7 +91,7 @@ G15/G16 remain in force throughout.
 ### D1. The corp is substrate; counsel is the practitioner
 
 etzhayyim.com provides: adherent intake, conflict check, matter records on MST
-(`app.etzhayyim.chigiri.legalAid.*`), secure consultation channel, scheduling, document custody, and
+(`com.etzhayyim.chigiri.legalAid.*`), secure consultation channel, scheduling, document custody, and
 Public-Fund-funded **routing to a jurisdiction-licensed lawyer** (ADR-2605302200 G16). The **legal advice
 itself is produced by the human lawyer**, never by chigiri code or any LLM cell (G14; Murakumo discipline
 applies only to non-advice assistance such as template retrieval). This realises "real consultation at
@@ -124,7 +124,7 @@ never takes a fee (G15). Non-goal, hard: autonomous (lawyer-absent) drafting/fil
 
 ### D4. Scope — courts, decisions, case-history (passive-only)
 
-Ingest into kotoba-EAVT (`app.etzhayyim.judiciary.*`): (a) **court directory** — jurisdiction, instance,
+Ingest into kotoba-EAVT (`com.etzhayyim.judiciary.*`): (a) **court directory** — jurisdiction, instance,
 competence, procedure, public contact/e-filing endpoints; (b) **judicial decisions / case-history** —
 published judgments, dockets where public; (c) **judge reference** — name, court, role, official public
 biography. Ingestion is **passive-only** (danjo G3): only **pre-published public records**; NO scraping
@@ -145,7 +145,7 @@ does not profile the judiciary.)
 
 Before any L1 projection / public surface, litigant and third-party PII is pseudonymized per the
 source-jurisdiction rule (e.g. France art. 33 pseudonymization; GDPR; Japan 個人情報保護法). Raw records
-stay in the encrypted envelope (`app.etzhayyim.encrypted.*`, ADR-2605181100) until pseudonymized.
+stay in the encrypted envelope (`com.etzhayyim.encrypted.*`, ADR-2605181100) until pseudonymized.
 
 ### D7. Substrate discipline
 

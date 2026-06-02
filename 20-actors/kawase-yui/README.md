@@ -1,7 +1,7 @@
 # kawase-yui (為替結) — Religious-Corp Multi-Stable Adherent Remittance Mutual-Aid Substrate
 
 **DID**: `did:web:kawase-yui.etzhayyim.com`
-**Namespace**: `app.etzhayyim.kawase.*`
+**Namespace**: `com.etzhayyim.kawase.*`
 **ADR**: ADR-2605282200 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-28) — 8 Lexicons + 5 Pregel cells + 1 Solidity scaffold + 1 Python facade + 1 build-time G7 lint hook
 **Parent ADRs**: ADR-2605192100 (Mission Charter) + ADR-2605192200 (Charter Rider) + ADR-2605282100 (mKOTO economy)
@@ -45,7 +45,7 @@ ADR-2605282100 economy. **No new token is minted.**
 
 | Layer | Files | Tests |
 |---|---|---|
-| Lexicons (`00-contracts/lexicons/app/etzhayyim/kawase/`) | 8 schemas (`depositAttestation` + `withdrawIntent` + `matchExecution` + `fxRateAttestation` + `poolStateReport` + `rebalanceAttestation` + `jurisdictionAttestation` + `silenKawaseReview`) | `validate-lexicons.py` 8/8 clean |
+| Lexicons (`00-contracts/lexicons/com/etzhayyim/kawase/`) | 8 schemas (`depositAttestation` + `withdrawIntent` + `matchExecution` + `fxRateAttestation` + `poolStateReport` + `rebalanceAttestation` + `jurisdictionAttestation` + `silenKawaseReview`) | `validate-lexicons.py` 8/8 clean |
 | Solidity (`50-infra/etzhayyim-kawase-pool/`) | `src/KawaseYuiPool.sol` (R0 scaffold) + `foundry.toml` + `.gitignore` | 4/4 forge tests pass (constructor + G4 plumbing + G9 plumbing + R0 honesty) |
 | Python facade (`40-engine/kotoba_kawase/`) | `kotoba_kawase/__init__.py` + `kotoba_kawase/exceptions.py` (5 constitutional exceptions + KawaseError base) + `pyproject.toml` | 16/16 pytest pass (surface + R0 honesty + introspection + hierarchy + frozen dataclasses) |
 | Pregel cells (`20-actors/magatama/cells/kawase_*/`) | 5 cells (`pool_match` + `fx_oracle_watcher` + `rebalance_proposer` + `jurisdiction_compliance` + `silen_review`) | each raises `RuntimeError` on import per magatama R0 convention |
@@ -120,7 +120,7 @@ as follows:
 - ADR-2605262900 — toritate accounting (cross-actor ledger consumer)
 - ADR-2605192130 — TitheRouter / 10% tithe (NOT applied at R0-R3 per §5 Kisha exemption)
 - ADR-2605172100 — payments substrate (Base L2 + USDC + ERC-4337)
-- `00-contracts/lexicons/app/etzhayyim/kawase/` — 8 Lexicons
+- `00-contracts/lexicons/com/etzhayyim/kawase/` — 8 Lexicons
 - `50-infra/etzhayyim-kawase-pool/` — Solidity L6
 - `40-engine/kotoba_kawase/` — Python facade
 - `20-actors/magatama/cells/kawase_*/` — 5 Pregel cells

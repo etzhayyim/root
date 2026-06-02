@@ -16,7 +16,7 @@ authoritative_for:
   - 5-layer motorcycle assembly process (frame → drivetrain → harness+suspension+paint → final assembly → test+provenance)
   - 9 Pregel cell catalog + Murakumo placement (R0 design-only)
   - 2 new robotics class reservation (Tsugite 継ぎ手 / Suri 摺) + 4 inherited reuse
-  - lexicon namespace reservation (`app.etzhayyim.futawa.*`, 8 record types)
+  - lexicon namespace reservation (`com.etzhayyim.futawa.*`, 8 record types)
   - constitutional firsts: G7 ABS-mandatory ≥125cc + G8 build-time anti-surveillance (no GPS/connected-app/telematics) + G12 right-to-repair forward-publishing at manufacture + G14 30-year service life
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
@@ -83,7 +83,7 @@ This ADR fulfills that gap, declaring 14 constitutional gates and 10 non-goals, 
 | Per-vehicle DID pattern (reserved) | `did:web:etzhayyim.com:futawa:vehicle:<vin>` (VIN pre-registered with hodoki at manufacture time per G13) |
 | Per-part DID pattern (reserved) | `did:web:etzhayyim.com:futawa:part:<lotId>:<partSerial>` |
 | Repo location | `20-actors/futawa/` |
-| Lexicon namespace | `app.etzhayyim.futawa.*` |
+| Lexicon namespace | `com.etzhayyim.futawa.*` |
 | License | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 ### 2. Scope (R0)
@@ -187,7 +187,7 @@ Charter Rider §2(a) + §2(c) + §2(e) + §1.13 + safety class boundary anchors:
 ### 8. Lexicon Namespace (8 record types, R0 stubs)
 
 ```
-app.etzhayyim.futawa.{
+com.etzhayyim.futawa.{
   frameAttestation              # L1 — frame weld + roundness + material lot
   engineAttestation             # L2a — engine/motor assembly + torque + ≤250cc/≤15kW cap
   electricalAttestation         # L3a — harness + ECU + G8 NO surveillance manifest

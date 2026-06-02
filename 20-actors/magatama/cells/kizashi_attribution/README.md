@@ -12,5 +12,5 @@ backend live).
 - **Actor**: kizashi (兆) — `did:web:kizashi.etzhayyim.com`
 - **Murakumo node (proposed)**: gad
 - **Gates**: **G3 (NON-DIAGNOSTIC, 医師法 §17 — schema forbids diagnosis/prescription/treatmentPlan)** + G7 (uncertainty-honest — confidence + disclaimer + consult required) + G2 (encrypted) + G14 (Murakumo-only)
-- **Output Lexicon(s)**: app.etzhayyim.kizashi.attributionReport
+- **Output Lexicon(s)**: com.etzhayyim.kizashi.attributionReport
 - **Ceiling**: NON-DIAGNOSTIC (G3) is constitutional — 兆候 + probabilistic attribution + consult ONLY, never a diagnosis; a licensed clinician (mitate/iyashi) owns any diagnosis · Murakumo-only inference (ADR-2605215000)

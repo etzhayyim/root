@@ -10,10 +10,10 @@ https://anchorer.etzhayyim.com/.well-known/did.json
 
 The off-chain actor that:
 
-1. Lists `app.etzhayyim.substrate.ipfsPin` records from `pds.etzhayyim.com`.
-2. Filters out roots that already have a matching `app.etzhayyim.substrate.l2Anchor` under this DID's repo.
+1. Lists `com.etzhayyim.substrate.ipfsPin` records from `pds.etzhayyim.com`.
+2. Filters out roots that already have a matching `com.etzhayyim.substrate.l2Anchor` under this DID's repo.
 3. For each unanchored `rootCid`, calls `EtzhayyimAnchor.anchor(rootHash, ipfsCid, batchSize)` on Base L2 via a funded EOA.
-4. Emits `app.etzhayyim.substrate.l2Anchor` receipts under this DID linking `rootCid` ↔ `txHash` ↔ `blockNumber` ↔ `ipfsPinUri`.
+4. Emits `com.etzhayyim.substrate.l2Anchor` receipts under this DID linking `rootCid` ↔ `txHash` ↔ `blockNumber` ↔ `ipfsPinUri`.
 
 Runtime: [`50-infra/anchor-cron/`](../anchor-cron/) (substrate mode, `src/index-substrate.ts`) — Stage 5b of [ADR-2605171800](../../90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md).
 

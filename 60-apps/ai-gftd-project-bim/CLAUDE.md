@@ -9,7 +9,7 @@
 
 - `bim` は browser-based BIM (Building Information Modeling) viewer / reviewer / annotator / exporter
 - app boundary は `project → site → building → storey → space → element` を中心に置く
-- 公開 contract は XRPC (`app.etzhayyim.apps.bim.*`)
+- 公開 contract は XRPC (`com.etzhayyim.apps.bim.*`)
 - 会話 / 通知 / agent activity は AT Protocol (bsky + wproto) を使う
 - 権威スキーマは IFC (IFC2X3 / IFC4 / IFC4X3)。内部モデルは `kami-bim` crate に SSoT
 
@@ -20,14 +20,14 @@
 | Primary DID | `did:plc:bim` (Phase 5 `plc.etzhayyim.com` で genesis、当面 `did:web:bim.etzhayyim.com`) |
 | Handle | `bim.etzhayyim.com` |
 | Legacy nanoid | `b1m3d1tr` (grandfather、deprecate 2026-10-01) |
-| NSID | `app.etzhayyim.apps.bim.*` |
+| NSID | `com.etzhayyim.apps.bim.*` |
 
 ## Runtime (ADR 2604241500 準拠)
 
 | Layer | 方式 |
 |---|---|
 | **Viewer (hot path)** | `kami-app-bim` per-game WASM crate (`40-engine/kami-engine/kami-app-bim/`)。`run_bim_v2(canvas)` を JS から呼び、WebGPU で storey を描画 |
-| **App Worker** | TS Native (`runtimeType: "worker"`)。Hono + host-sdk。XRPC `app.etzhayyim.apps.bim.*` を提供 |
+| **App Worker** | TS Native (`runtimeType: "worker"`)。Hono + host-sdk。XRPC `com.etzhayyim.apps.bim.*` を提供 |
 | **Heavy job** | IFC parse / tessellation / IFC export は CF Container `bim-job` サブ service (lite 256 MiB) に分離。viewer path は Worker 1 経路で完結 |
 | **UI overlay** | `@etzhayyim/kami-engine-sdk` + Svelte AppShell v2。storey switcher / space list / comment panel / viewpoint thumbnail を DOM overlay |
 
@@ -50,15 +50,15 @@
 
 | 概念 | NSID | Graph vertex |
 |---|---|---|
-| Project | `app.etzhayyim.apps.bim.project` | `vertex_bim_project` |
-| Revision | `app.etzhayyim.apps.bim.revision` | `vertex_bim_revision` |
-| Building | `app.etzhayyim.apps.bim.building` | `vertex_bim_building` |
-| Storey | `app.etzhayyim.apps.bim.storey` | `vertex_bim_storey` |
-| Space | `app.etzhayyim.apps.bim.space` | `vertex_bim_space` |
-| Element | `app.etzhayyim.apps.bim.element` | `vertex_bim_element` |
-| PropertySet | `app.etzhayyim.apps.bim.propertySet` | `vertex_bim_pset` |
-| Annotation | `app.etzhayyim.apps.bim.annotation` | `vertex_bim_annotation` |
-| ImportJob / ExportJob | `app.etzhayyim.apps.bim.importJob` / `exportJob` | `vertex_bim_job` |
+| Project | `com.etzhayyim.apps.bim.project` | `vertex_bim_project` |
+| Revision | `com.etzhayyim.apps.bim.revision` | `vertex_bim_revision` |
+| Building | `com.etzhayyim.apps.bim.building` | `vertex_bim_building` |
+| Storey | `com.etzhayyim.apps.bim.storey` | `vertex_bim_storey` |
+| Space | `com.etzhayyim.apps.bim.space` | `vertex_bim_space` |
+| Element | `com.etzhayyim.apps.bim.element` | `vertex_bim_element` |
+| PropertySet | `com.etzhayyim.apps.bim.propertySet` | `vertex_bim_pset` |
+| Annotation | `com.etzhayyim.apps.bim.annotation` | `vertex_bim_annotation` |
+| ImportJob / ExportJob | `com.etzhayyim.apps.bim.importJob` / `exportJob` | `vertex_bim_job` |
 
 Edges: `HAS_STOREY`, `HAS_SPACE`, `HAS_ELEMENT`, `BOUNDED_BY`, `CONNECTED_TO`, `CLASSIFIED_AS`, `HAS_PSET`, `ANNOTATED_BY`.
 
@@ -66,13 +66,13 @@ Edges: `HAS_STOREY`, `HAS_SPACE`, `HAS_ELEMENT`, `BOUNDED_BY`, `CONNECTED_TO`, `
 
 | NSID | Type | 用途 |
 |---|---|---|
-| `app.etzhayyim.apps.bim.importIfc` | procedure | IFC → tessellation job enqueue |
-| `app.etzhayyim.apps.bim.getStoreyScene` | query | storey 単位の scene projection |
-| `app.etzhayyim.apps.bim.listSpaces` | query | room schedule / area take-off |
-| `app.etzhayyim.apps.bim.annotateElement` | procedure | 要素付き comment / issue (BCF viewpoint) |
-| `app.etzhayyim.apps.bim.requestExport` | procedure | IFC / glTF / BCF / xlsx / PDF export job |
+| `com.etzhayyim.apps.bim.importIfc` | procedure | IFC → tessellation job enqueue |
+| `com.etzhayyim.apps.bim.getStoreyScene` | query | storey 単位の scene projection |
+| `com.etzhayyim.apps.bim.listSpaces` | query | room schedule / area take-off |
+| `com.etzhayyim.apps.bim.annotateElement` | procedure | 要素付き comment / issue (BCF viewpoint) |
+| `com.etzhayyim.apps.bim.requestExport` | procedure | IFC / glTF / BCF / xlsx / PDF export job |
 
-Lexicon JSON は `00-contracts/lexicons/ai/gftd/bim/` に 5 file、ここが SSoT。
+Lexicon JSON は `00-contracts/lexicons/com/etzhayyim/bim/` に 5 file、ここが SSoT。
 
 ## Persistence (ADR-0036 — Worker-direct Hyperdrive)
 
@@ -83,7 +83,7 @@ Lexicon JSON は `00-contracts/lexicons/ai/gftd/bim/` に 5 file、ここが SSo
 
 ## Collaboration (Phase 1 = review / annotate / presence)
 
-- `subscribeRepos`: `app.bsky.feed.*` + `app.bsky.graph.follow` + `app.etzhayyim.apps.bim.annotation` + `app.etzhayyim.apps.bim.revision`
+- `subscribeRepos`: `app.bsky.feed.*` + `app.bsky.graph.follow` + `com.etzhayyim.apps.bim.annotation` + `com.etzhayyim.apps.bim.revision`
 - Co-edit (Phase 2): branch + operation log + server rebuild。Phase 1 は review-only + authoritative revision
 
 ## First Increment
@@ -97,6 +97,6 @@ Lexicon JSON は `00-contracts/lexicons/ai/gftd/bim/` に 5 file、ここが SSo
 ## Prohibitions
 
 - `kami-web::run_with_*` に bim エントリ追加禁止 (ADR 2604241500)
-- `sdk.pds.createRecord` で `app.etzhayyim.apps.bim.*` を書くこと禁止 (ADR-0036, Hyperdrive 直接)
+- `sdk.pds.createRecord` で `com.etzhayyim.apps.bim.*` を書くこと禁止 (ADR-0036, Hyperdrive 直接)
 - IFC 原本をそのまま AT Record (federable) に埋め込むこと禁止 (blobKey 参照のみ)
 - BIM 図面レビュー以外のフル authoring (シン MEP 設計 / 構造解析 / 施工管理) は Phase 2 scope 外

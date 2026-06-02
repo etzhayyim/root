@@ -78,7 +78,7 @@ def test_task_writes_consume_tick(monkeypatch):
     assert out["lastSeq"] == 99
     row = factory.cursors[0].params[0]
     assert row["repo"] == "did:web:graph.etzhayyim.com"
-    assert row["collection"] == "app.etzhayyim.apps.graph.consumeTick"
+    assert row["collection"] == "com.etzhayyim.apps.graph.consumeTick"
     value = json.loads(row["value_json"])
     assert value["processed"] == 3
 

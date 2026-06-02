@@ -48,7 +48,7 @@
 
 **Canonical sentence**: `activity` records aren't typed by a user; they're derived by the PDS commit pipeline from stage-changes, status-changes, and conversions — every row is cryptographically tied to the commit that caused it and is verifiable outside the CRM.
 
-**Proof anchor**: a real record at `/at/democo.opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.activity/act-demo-conv-001`. Landing CTA link: **See a real record**.
+**Proof anchor**: a real record at `/at/democo.opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.activity/act-demo-conv-001`. Landing CTA link: **See a real record**.
 
 **Disallowed phrasings**:
 - ❌ "Immutable ledger" (blockchainy; just say content-addressed).
@@ -58,7 +58,7 @@
 
 **30-word support**: Stage changes on `opportunity`, status changes on `case`, and `convertLead` atomic commits each auto-emit `activity` via `magatama.jsonld` derive rules. Every activity row's source commit is AT-URI-addressable.
 
-**100-word support**: Salesforce `FieldHistory` is a row in a mutable table; a DBA with write access can rewrite it. W Protocol commits sign, chain, and content-address each write — so the `activity(kind=stage-change)` row that claims "VP Sales moved opp-4829 from negotiation to closed-won at 14:02" can be verified by fetching the source commit at `/at/<tenant>/app.etzhayyim.apps.opensaas.salesforce.opportunity/opp-4829` and comparing the signed commit CID. This is what "federation-grade audit" actually means — an auditor, a regulator, or a successor CRM can read the evidence without our CRM being online.
+**100-word support**: Salesforce `FieldHistory` is a row in a mutable table; a DBA with write access can rewrite it. W Protocol commits sign, chain, and content-address each write — so the `activity(kind=stage-change)` row that claims "VP Sales moved opp-4829 from negotiation to closed-won at 14:02" can be verified by fetching the source commit at `/at/<tenant>/com.etzhayyim.apps.opensaas.salesforce.opportunity/opp-4829` and comparing the signed commit CID. This is what "federation-grade audit" actually means — an auditor, a regulator, or a successor CRM can read the evidence without our CRM being online.
 
 **Forbidden claims**:
 - Don't claim the audit trail is legally admissible in `<jurisdiction>` without counsel sign-off.

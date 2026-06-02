@@ -34,7 +34,7 @@ superseded_by: []
 `60-apps/` には病院運営に直接対応する actor / project が無い。隣接資産:
 
 - `medical-coverage-{ingester,mcp}` (PubMed / ClinicalTrials.gov / facility CSV ingest, MCP control plane)
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/{open-fhir-health-data,open-universal-health-coverage,open-one-health}/` (政策/標準 BPMN 雛形)
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/{open-fhir-health-data,open-universal-health-coverage,open-one-health}/` (政策/標準 BPMN 雛形)
 - `cofog/0731-hospital-services` / `0732-specialized-hospital-services` (政府機能分類 stub)
 - `kenkyusha` / `natural-person` / `mold-allergy` / `sensitive-taima` / `ethics` (周辺文脈の言及のみ)
 
@@ -112,7 +112,7 @@ mv_iryo_staff_coverage_gap         shifts where required headcount > rostered
 ```
 
 Vertex IDs follow ADR-0041 content-addressed PK pattern:
-`at://did:web:iryo.etzhayyim.com:hospital/app.etzhayyim.apps.iryo.{collection}/{rkey}`.
+`at://did:web:iryo.etzhayyim.com:hospital/com.etzhayyim.apps.iryo.{collection}/{rkey}`.
 
 PII tier (ADR-0018):
 - Tier 1 (federable): hospital / dept / ward / bed / staff / health_kpi (code/category/aggregate only)
@@ -132,7 +132,7 @@ PII tier (ADR-0018):
 
 ## XRPC surface (Phase 1, 8 lexicons)
 
-`app.etzhayyim.apps.iryo.*` 全て bpmn-dispatcher 経由 (`http://dispatcher.etzhayyim.com:8080/xrpc/{nsid}`):
+`com.etzhayyim.apps.iryo.*` 全て bpmn-dispatcher 経由 (`http://dispatcher.etzhayyim.com:8080/xrpc/{nsid}`):
 
 | NSID | type | purpose |
 |---|---|---|

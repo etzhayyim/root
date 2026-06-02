@@ -13,7 +13,7 @@
 ```
 Browser (CodeMirror 6 + Sandpack iframe preview)
   │
-  │ XRPC /xrpc/app.etzhayyim.apps.editor.*
+  │ XRPC /xrpc/com.etzhayyim.apps.editor.*
   ▼
 editor Worker (createWorkerExport + @etzhayyim/magatama-host-sdk)
   ├─ createProject  → ComAtprotoRepoCreateRecord(collection: "project")
@@ -28,7 +28,7 @@ editor Worker (createWorkerExport + @etzhayyim/magatama-host-sdk)
 ## Design E 3-Tier Write
 
 - **Tier 1 Social**: project create / file commit は PDS commit pipeline の derive rule で自動 `app.bsky.feed.post` 化 (Write-Only Derived)
-- **Tier 2 Domain**: `app.etzhayyim.apps.editor.project` / `app.etzhayyim.apps.editor.file` records
+- **Tier 2 Domain**: `com.etzhayyim.apps.editor.project` / `com.etzhayyim.apps.editor.file` records
 - **Tier 3 State**: editor preferences (theme, keymap, recent files) → `Preferences()`
 
 ## Storage
@@ -48,7 +48,7 @@ editor Worker (createWorkerExport + @etzhayyim/magatama-host-sdk)
 
 ## Lexicons
 
-`00-contracts/lexicons/ai/gftd/editor/`:
+`00-contracts/lexicons/com/etzhayyim/editor/`:
 - `project.json` — record schema
 - `file.json` — record schema
 - `createProject.json` — procedure

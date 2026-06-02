@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-DEFAULT_SOURCE = Path('/Users/junkawasaki/github/etzhayyim-root/00-contracts/bpmn/ai/gftd')
+DEFAULT_SOURCE = Path('/Users/junkawasaki/github/etzhayyim-root/00-contracts/bpmn/com/etzhayyim')
 
 DIRNAME_RE = re.compile(r'^gov([A-Z][a-z][a-z])$')
 

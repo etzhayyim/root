@@ -46,7 +46,7 @@ AT Protocol spec に忠実に準拠する機能。外部 AT Protocol client は�
 ### [PRODUCTION] DID
 
 - `did:web` method (W3C DID v1.0 準拠)
-- Path-based sub-DID (`did:web:app.etzhayyim.com:entity:path`) — W3C DID v1.0 §5.1.2 controller relationship
+- Path-based sub-DID (`did:web:com.etzhayyim.com:entity:path`) — W3C DID v1.0 §5.1.2 controller relationship
 - Evidence: `50-infra/cloudflare/workers/atproto/src/index.ts` (DID resolution)
 
 ### [PRODUCTION] XRPC Sole API
@@ -86,8 +86,8 @@ AT Protocol spec に忠実に準拠する機能。外部 AT Protocol client は�
 
 ### [PRODUCTION] Lexicon Namespace Extension
 
-- `app.etzhayyim.apps.*` (per-app domain data) — AT Lexicon の正規拡張方法
-- `app.etzhayyim.{convo|signal|rtc|files}.*` — W Protocol 4 namespace
+- `com.etzhayyim.apps.*` (per-app domain data) — AT Lexicon の正規拡張方法
+- `com.etzhayyim.{convo|signal|rtc|files}.*` — W Protocol 4 namespace
 - AT Protocol は namespace を無限に拡張可能 — 仕様に矛盾しない
 
 ## Layer 1: W Protocol Extension

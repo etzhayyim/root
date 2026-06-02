@@ -1,7 +1,7 @@
-;; app.etzhayyim.kuniumi.siteAttestation — lexicon
+;; com.etzhayyim.kuniumi.siteAttestation — lexicon
 ;; ADR-2605201400 · site survey output
 {:lexicon 1
- :id "app.etzhayyim.kuniumi.siteAttestation"
+ :id "com.etzhayyim.kuniumi.siteAttestation"
  :defs
  {:main
   {:type "record"

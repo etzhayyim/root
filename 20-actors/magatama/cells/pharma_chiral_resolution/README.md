@@ -4,14 +4,14 @@ Pregel cell for enantiomeric separation (chiral resolution). Wave 1c flagship: o
 
 ## Input Lexicon
 
-`app.etzhayyim.pharma.purificationAttestation` with `scheme` in:
+`com.etzhayyim.pharma.purificationAttestation` with `scheme` in:
 - `crystalline-resolution-mandelate` — L-mandelic acid salt crystallization (industrial precedent)
 - `prep-hplc-chiral` — preparative HPLC with chiral stationary phase (Chiralcel OD-H, etc.)
 - `SFC-supercritical` — supercritical fluid chromatography (deferred Wave 1c+)
 
 ## Output Lexicon
 
-`app.etzhayyim.pharma.purificationAttestation` attestation with:
+`com.etzhayyim.pharma.purificationAttestation` attestation with:
 - `enantiomeric_purity_bp`: ≥ 9950 (99.50% target enantiomer, ≤ 0.50% unwanted enantiomer)
 - `recovery_yield_bp`: typically 70-95% depending on method
 - `outcome`: `"ok"` / `"rework-required"` / `"scrapped"`
@@ -41,7 +41,7 @@ Pregel cell for enantiomeric separation (chiral resolution). Wave 1c flagship: o
 
 **Import-time RuntimeError gated** (silicon Wave 1 pattern). Activation requires:
 - `COUNCIL_ATTESTATION_TX_HASH` → Council Lv6+ ≥ 3 multisig tx hash
-- `SILEN_PHARMA_BASELINE_REVIEW_CID` → app.etzhayyim.pharma.silenPharmaReview record CID with verdict="approve" + scope="wave-1c-chiral-resolution-baseline"
+- `SILEN_PHARMA_BASELINE_REVIEW_CID` → com.etzhayyim.pharma.silenPharmaReview record CID with verdict="approve" + scope="wave-1c-chiral-resolution-baseline"
 
 ## API References
 

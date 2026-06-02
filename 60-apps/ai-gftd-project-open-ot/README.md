@@ -12,7 +12,7 @@ Reference implementation for **WASM-based industrial PLC and Distributed Logic C
 - Cells compile to **WASM (`wasm32-wasi`)** and run inside **WAMR AOT** on **Zephyr** (field tier) or **Wasmtime** on **PREEMPT_RT Linux** / **NixOS** (edge tier).
 - Logic semantics follow **IEC 61499** (event-driven function blocks). Optional 4diac IDE round-trip via FBType XML.
 - Substrate: **Eclipse Zenoh** (data plane), **OPC UA FX over TSN** (cross-vendor interop), **gftd XRPC + MCP** (control-plane / config / audit).
-- Configuration / lineage / audit are **atproto records** under `app.etzhayyim.apps.openOt.*` (17 NSIDs).
+- Configuration / lineage / audit are **atproto records** under `com.etzhayyim.apps.openOt.*` (17 NSIDs).
 - Hardware reference: **Giemon Mimi (耳)** sensor RTU / **Te (手)** actuator RTU / **Atama (頭)** edge controller.
 - First prototype vertical: **community microgrid (100 kW–10 MW)** in collaboration with [`open-denki`](../ai-gftd-project-open-denki).
 
@@ -26,7 +26,7 @@ Reference implementation for **WASM-based industrial PLC and Distributed Logic C
 | Hardware spec (Mimi / Te / Atama) | [`cad-spec/giemon-{mimi,te,atama}/SPEC.md`](cad-spec/) |
 | Cell cargo workspace | [`cells/`](cells/) |
 | Microgrid prototype scope | [`PROTOTYPE-MICROGRID.md`](PROTOTYPE-MICROGRID.md) |
-| Lexicon JSON (XRPC contract) | [`../../00-contracts/lexicons/ai/gftd/apps/openOt/`](../../00-contracts/lexicons/ai/gftd/apps/openOt/) |
+| Lexicon JSON (XRPC contract) | [`../../00-contracts/lexicons/com/etzhayyim/apps/openOt/`](../../00-contracts/lexicons/com/etzhayyim/apps/openOt/) |
 
 ## Layout
 

@@ -220,7 +220,7 @@ def export_artifacts(state: VoxelforgeState) -> dict[str, Any]:
         b2_put(bucket, key, glb, "model/gltf-binary")
         out.append(
             Artifact(
-                vertex_id=f"at://{state.actor_did}/app.etzhayyim.apps.voxelforge.artifact/{sha[:16]}-glb",
+                vertex_id=f"at://{state.actor_did}/com.etzhayyim.apps.voxelforge.artifact/{sha[:16]}-glb",
                 design_vertex_id=design_id,
                 run_vertex_id=run_id,
                 format="glb",
@@ -243,7 +243,7 @@ def export_artifacts(state: VoxelforgeState) -> dict[str, Any]:
         b2_put(bucket, key_g, grid_json_bytes, "application/json")
         out.append(
             Artifact(
-                vertex_id=f"at://{state.actor_did}/app.etzhayyim.apps.voxelforge.artifact/{sha_g[:16]}-grid",
+                vertex_id=f"at://{state.actor_did}/com.etzhayyim.apps.voxelforge.artifact/{sha_g[:16]}-grid",
                 design_vertex_id=design_id,
                 run_vertex_id=run_id,
                 format="voxel_grid_json",
@@ -262,7 +262,7 @@ def export_artifacts(state: VoxelforgeState) -> dict[str, Any]:
         b2_put(bucket, key_v, vox_bytes, "application/octet-stream")
         out.append(
             Artifact(
-                vertex_id=f"at://{state.actor_did}/app.etzhayyim.apps.voxelforge.artifact/{sha_v[:16]}-vox",
+                vertex_id=f"at://{state.actor_did}/com.etzhayyim.apps.voxelforge.artifact/{sha_v[:16]}-vox",
                 design_vertex_id=design_id,
                 run_vertex_id=run_id,
                 format="vox",
@@ -294,7 +294,7 @@ def export_artifacts(state: VoxelforgeState) -> dict[str, Any]:
     b2_put(bucket, key_m, manifest_bytes, "application/json")
     out.append(
         Artifact(
-            vertex_id=f"at://{state.actor_did}/app.etzhayyim.apps.voxelforge.artifact/{sha_m[:16]}-mf",
+            vertex_id=f"at://{state.actor_did}/com.etzhayyim.apps.voxelforge.artifact/{sha_m[:16]}-mf",
             design_vertex_id=design_id,
             run_vertex_id=run_id,
             format="manifest_json",

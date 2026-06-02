@@ -77,7 +77,7 @@ ADR-2605081200).
 | Primary DID | `did:web:hatsubai.etzhayyim.com` |
 | Sub-DID per platform | `did:web:hatsubai.etzhayyim.com:platform:{nsw2,ps5,xbsx,steam}` |
 | Sub-DID per shipped title (P3) | `did:web:hatsubai.etzhayyim.com:title:{platform}-{slug}` |
-| NSID prefix | `app.etzhayyim.apps.hatsubai.*` |
+| NSID prefix | `com.etzhayyim.apps.hatsubai.*` |
 | Persistence (ADR-0036) | domain → Worker-direct Hyperdrive (Kysely); social → `sdk.pds.dispatch` |
 
 ## Graph shape (1 forward-only migration)
@@ -132,7 +132,7 @@ violate the §MV Memory Safety Guardrails.
 
 ## Lexicon surface
 
-`00-contracts/lexicons/ai/gftd/apps/hatsubai/` — 13 NSIDs:
+`00-contracts/lexicons/com/etzhayyim/apps/hatsubai/` — 13 NSIDs:
 
 - 11 record types matching the 11 vertex tables
 - 2 procedures:
@@ -141,7 +141,7 @@ violate the §MV Memory Safety Guardrails.
 
 ## BPMN pipeline (target)
 
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/hatsubai/`:
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/hatsubai/`:
 
 | BPMN | Trigger | Status |
 |---|---|---|
@@ -276,8 +276,8 @@ this is a CRITICAL guardrail. Scaled BIGINT (`price_minor`,
 - `30-graph/graph-schema/sql_migrations/20260510160000_vertex_hatsubai_console_publishing.up.sql`
 - `30-graph/graph-schema/sql_migrations/20260510160000_vertex_hatsubai_console_publishing.down.sql`
 - `30-graph/graph-schema/alembic/current_versions/r_20260510160000_vertex_hatsubai_console_publishing.py`
-- `00-contracts/lexicons/ai/gftd/apps/hatsubai/` (13 lexicons)
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/hatsubai/submitToCert.bpmn` (P1 skeleton)
+- `00-contracts/lexicons/com/etzhayyim/apps/hatsubai/` (13 lexicons)
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/hatsubai/submitToCert.bpmn` (P1 skeleton)
 - `60-apps/ai-gftd-project-hatsubai/CLAUDE.md`
 - `90-docs/adr/2604250900-gameka-bpmn-langgraph-game-studio.md` — peer
   BPMN-as-actor for browser games, owns `vertex_games_title`

@@ -24,7 +24,7 @@ candidates. Cycle 73 tested whether the 3198 known lexicon violations
 (documented-deferred per audit-health) contain auto-fixable subsets
 that would re-engage Pattern F.
 
-**Result**: Yes-and-no. **3017 violations** are in `app/etzhayyim/gftd/`
+**Result**: Yes-and-no. **3017 violations** are in `com/etzhayyim/gftd/`
 subtree (pre-cutover, constitutional skip per CLAUDE.md root §"Do Not"
 gftd-rename invariant). **181 violations are in non-gftd post-cutover
 religious-corp-native lexicons** — a tractable scope. Of those 181,
@@ -36,8 +36,8 @@ per ADR-2605181100. **Not safe to auto-fix without governance.**
 
 | Scope | Files | Violations | Disposition |
 |---|---|---|---|
-| `app/etzhayyim/gftd/` (legacy) | many | **3017** | Constitutional skip — pre-cutover invariant |
-| `app/etzhayyim/` non-gftd (post-cutover) | 51 | **181** | Tractable but breaking |
+| `com/etzhayyim/gftd/` (legacy) | many | **3017** | Constitutional skip — pre-cutover invariant |
+| `com/etzhayyim/` non-gftd (post-cutover) | 51 | **181** | Tractable but breaking |
 | **Total** | | **3198** | Matches cycle 56 audit-health baseline |
 
 ## Non-gftd 181-violation breakdown
@@ -73,7 +73,7 @@ with explicit unit suffix.
 4. Cascade: any downstream consumer (TypeScript SDK / Python validators /
    PDS records already written) must adapt
 
-**Per ADR-2605181100** (`app.etzhayyim.encrypted.*` wire format) +
+**Per ADR-2605181100** (`com.etzhayyim.encrypted.*` wire format) +
 Charter Rider §6 (lexicon SSoT), wire format changes require Council
 Lv6+ attestation. Cycle 73 does NOT have authority to make these
 changes without owner sign-off.

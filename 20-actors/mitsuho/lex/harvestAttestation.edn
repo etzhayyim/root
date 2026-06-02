@@ -1,6 +1,6 @@
-;; app.etzhayyim.mitsuho.harvestAttestation — lexicon (EDN form) — attestation for crop harvests
+;; com.etzhayyim.mitsuho.harvestAttestation — lexicon (EDN form) — attestation for crop harvests
 {:lexicon 1
- :id "app.etzhayyim.mitsuho.harvestAttestation"
+ :id "com.etzhayyim.mitsuho.harvestAttestation"
  :defs
  {:main
   {:type "record"

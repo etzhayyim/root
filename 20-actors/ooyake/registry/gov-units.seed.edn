@@ -397,11 +397,11 @@
  ;; ════════════════════════════════════════════════════════════════════════════
  :bpmn
  [{:gov.bpmn/id "bpmn.ooyake.find-service"
-   :gov.bpmn/path "00-contracts/bpmn/app/etzhayyim/ooyake/findService.bpmn"
+   :gov.bpmn/path "00-contracts/bpmn/com/etzhayyim/ooyake/findService.bpmn"
    :gov.bpmn/engine :zeebe :gov.bpmn/status :model-only}
   {:gov.bpmn/id "bpmn.ooyake.resolve-unit"
-   :gov.bpmn/path "00-contracts/bpmn/app/etzhayyim/ooyake/resolveUnit.bpmn"
+   :gov.bpmn/path "00-contracts/bpmn/com/etzhayyim/ooyake/resolveUnit.bpmn"
    :gov.bpmn/engine :zeebe :gov.bpmn/status :model-only}
   {:gov.bpmn/id "bpmn.ooyake.reconcile-unit"
-   :gov.bpmn/path "00-contracts/bpmn/app/etzhayyim/ooyake/reconcileUnit.bpmn"
+   :gov.bpmn/path "00-contracts/bpmn/com/etzhayyim/ooyake/reconcileUnit.bpmn"
    :gov.bpmn/engine :zeebe :gov.bpmn/status :model-only}]}

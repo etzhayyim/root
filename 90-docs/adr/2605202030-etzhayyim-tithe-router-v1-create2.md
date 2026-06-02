@@ -241,7 +241,7 @@ Pro: v0 SDK call は変更不要、v1 は新機能のみ。Con: SDK で両方 ma
 
 1. **CREATE2 salt schema の forward compatibility** — v2 / v3 で salt 計算 algorithm を変えるか?
 2. **bytecode 変更時の address 変更** — TitheRouter v1.1 (microfix) が v1 と異なる address になる。Mitigation: Constitution.setMutable で v1.1 address に切り替え (v1 contract は永続放置)
-3. **v0 deprecation Council attestation の specific Lexicon** — `app.etzhayyim.apps.etzhayyim.contract-deprecation` future Lexicon が必要
+3. **v0 deprecation Council attestation の specific Lexicon** — `com.etzhayyim.apps.etzhayyim.contract-deprecation` future Lexicon が必要
 4. **mainnet timing** — v1 を mainnet 初回 deploy にするか、v0 mainnet → 6ヶ月後 v1 migration にするか。Decision (本 ADR): mainnet 初回は v0 (simpler operational), 6ヶ月後 v1 (mature)
 
 # References

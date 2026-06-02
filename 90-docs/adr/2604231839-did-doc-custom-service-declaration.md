@@ -35,7 +35,7 @@ superseded_by: []
 ```
 
 つまり **PDS への委譲宣言のみ**。実際には各 `*.etzhayyim.com` Worker が自分自身の
-NSID 向け XRPC (`/xrpc/app.etzhayyim.apps.<app>.*`) を serve しているにも関わらず、
+NSID 向け XRPC (`/xrpc/com.etzhayyim.apps.<app>.*`) を serve しているにも関わらず、
 DID Doc を読んだ client はその事実を知る方法がない。現状 discovery は:
 
 - DNS 経由 (`<handle>.etzhayyim.com` に直接リクエスト) — 内部ツール / `gftd xrpc` のみ
@@ -66,7 +66,7 @@ DID Doc でその事実を宣言していない。結果:
 - **外部 AT Protocol client (`@atproto/api`, Bluesky App, 3rd party) が actor 発見不可** —
   DNS を引いて各 actor hostname を直打ちする fallback しかなく、spec 準拠の client は reach できない
 - **federation 時の interop 不完全** — 他 PDS / 他 AppView が `did:web:mangaka.etzhayyim.com` を
-  resolve しても、custom NSID `app.etzhayyim.mangaka.*` の endpoint が発見できない
+  resolve しても、custom NSID `com.etzhayyim.mangaka.*` の endpoint が発見できない
 - **`Atproto-Proxy` header flow が未利用** — 既に PDS 側の pipethrough 実装はあるが
   DID Doc 側の service 宣言がないため形式不整合
 - **ADR-2604231800 (permission spec) との相補性が欠落** — permission-set 側では
@@ -137,7 +137,7 @@ sub-actor は独立 Worker を持たないため parent の NSID dispatcher が�
 
 ## Client routing semantics
 
-1. **DNS direct (既存路、継続)**: client が `https://mangaka.etzhayyim.com/xrpc/app.etzhayyim.mangaka.foo` を直接叩く
+1. **DNS direct (既存路、継続)**: client が `https://mangaka.etzhayyim.com/xrpc/com.etzhayyim.mangaka.foo` を直接叩く
 2. **PDS pipethrough (既存路、継続)**: client が PDS に `Atproto-Proxy: did:web:mangaka.etzhayyim.com#gftd_actor` header 付きで送信 → PDS が DID Doc resolve → service endpoint 発見 → routing-gateway 経由で forward
 3. **DID Doc discovery (新規)**: client が `did:web:mangaka.etzhayyim.com` を直接 resolve → `service[].type=etzhayyimActor` を発見 → その `serviceEndpoint` に XRPC 直送。外部 AT client が spec-native に gftd actor へ到達できる最小経路
 

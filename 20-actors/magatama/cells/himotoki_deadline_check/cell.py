@@ -13,9 +13,9 @@ isLegalOpinion const false); borderline/complex/contested cases route to chigiri
 licensed counsel. G14/G8 non-fabrication (well-established statutory windows only,
 each cited; indeterminate windows modelled as null — never a guessed number; member
 confirms input facts); consent-gated, identity-bound, own-data-only (DSAR) /
-public-records (FOIA); G6 request detail only in app.etzhayyim.encrypted.* (never
+public-records (FOIA); G6 request detail only in com.etzhayyim.encrypted.* (never
 inline); Murakumo-only inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.himotoki.responseDeadline.
+Output Lexicon(s): com.etzhayyim.himotoki.responseDeadline.
 
 R0 scaffold — import-time RuntimeError until R1. The PURE, tested computation core
 already lands in the sibling module ``deadline.py`` (importable WITHOUT this gated

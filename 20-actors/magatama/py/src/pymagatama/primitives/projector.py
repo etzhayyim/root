@@ -3,7 +3,7 @@ yoro `/projects` agent loop, Tree-of-Thoughts, Self-Consistency, and
 Reflexion. ADR-2604271600.
 
 Each task type maps 1:1 to a BPMN service task in
-`00-contracts/bpmn/ai/gftd/projector/*.bpmn`. The BPMN layer is the
+`00-contracts/bpmn/com/etzhayyim/projector/*.bpmn`. The BPMN layer is the
 orchestration boundary (XOR routing, OCEL audit, retry, guardrail
 errors); the LangGraph StateGraph inside each primitive is the
 *reasoning* boundary (CoT injection, tool dispatch, branch evaluation,
@@ -67,8 +67,8 @@ except ImportError:
 # ──────────────────────────────────────────────────────────────────────
 
 DEFAULT_REPO_PROJECTOR = "did:web:ops.etzhayyim.com"
-COLLECTION_MESSAGE = "app.etzhayyim.convo.message"
-COLLECTION_REFLECTION = "app.etzhayyim.projector.reflection"
+COLLECTION_MESSAGE = "com.etzhayyim.convo.message"
+COLLECTION_REFLECTION = "com.etzhayyim.projector.reflection"
 
 _TOOL_CALL_RE = re.compile(
     r"\[TOOL_CALL:\s*([a-zA-Z0-9_.-]+)\s*\((\{[^\}]*\}|\s*)\)\s*\]",
@@ -1072,7 +1072,7 @@ async def task_projector_auth_mint(lxm: str = "") -> dict[str, Any]:
     Authorization: Bearer for typed-write paths.
     """
     if not lxm:
-        return {"ok": False, "error": "lxm required (e.g. app.etzhayyim.identity.create)"}
+        return {"ok": False, "error": "lxm required (e.g. com.etzhayyim.identity.create)"}
     try:
         from pymagatama.zeebe_worker_main import _mint_pds_service_auth  # type: ignore
     except ImportError as e:

@@ -43,7 +43,7 @@ from typing import Any
 from pymagatama import udf
 from pymagatama.db_sync import execute
 
-_CONTACT_COLLECTION = "app.etzhayyim.apps.gmail.contact"
+_CONTACT_COLLECTION = "com.etzhayyim.apps.gmail.contact"
 _CONTACT_DID_PREFIX = "did:web:gmail.etzhayyim.com:contact:"
 _MAX_SEGMENT_LEN = 63  # DNS label ceiling (RFC 1035)
 
@@ -79,7 +79,7 @@ def sanitize_path_segment(email: str) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.gmail.upsertContact",
+    nsid="com.etzhayyim.apps.gmail.upsertContact",
     io_threads=50,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -127,7 +127,7 @@ def upsert_contact(request_json: str) -> str:
     contact_did = f"{_CONTACT_DID_PREFIX}{sanitized}"
     contact_vertex_id = f"at://{contact_did}/{_CONTACT_COLLECTION}/{sanitized}"
     # Email vertex_id shape from gmail/app.ts write("email", ...).
-    email_vertex_id = f"at://{account_did}/app.etzhayyim.apps.gmail.email/{email_id}"
+    email_vertex_id = f"at://{account_did}/com.etzhayyim.apps.gmail.email/{email_id}"
     edge_id = f"{email_vertex_id}|from|{contact_vertex_id}"
 
     # RisingWave does not parse `ON CONFLICT DO NOTHING`. Use `WHERE NOT

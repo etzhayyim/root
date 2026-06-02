@@ -8,7 +8,7 @@
 | performerType | service |
 | nanoid | gt1n4k7m |
 | primary DID | `did:web:gtin.etzhayyim.com` |
-| NSID prefix | `app.etzhayyim.gtin.*` |
+| NSID prefix | `com.etzhayyim.gtin.*` |
 
 ## What This App Does
 
@@ -30,11 +30,11 @@ GS1 Global Trade Item Number (GTIN) registry。世界中のバーコード製品
 
 | collection | NSID | 内容 |
 |---|---|---|
-| product | `app.etzhayyim.gtin.product` | GTIN master (barcode, name, brand, manufacturer) |
-| packaging | `app.etzhayyim.gtin.packaging` | Packaging hierarchy (inner/case/pallet) |
-| classification | `app.etzhayyim.gtin.classification` | CPC/UNSPSC/HS Code mapping |
-| gs1_prefix | `app.etzhayyim.gtin.gs1_prefix` | GS1 Company Prefix registry |
-| coverage_report | `app.etzhayyim.gtin.coverage_report` | Coverage metrics per prefix |
+| product | `com.etzhayyim.gtin.product` | GTIN master (barcode, name, brand, manufacturer) |
+| packaging | `com.etzhayyim.gtin.packaging` | Packaging hierarchy (inner/case/pallet) |
+| classification | `com.etzhayyim.gtin.classification` | CPC/UNSPSC/HS Code mapping |
+| gs1_prefix | `com.etzhayyim.gtin.gs1_prefix` | GS1 Company Prefix registry |
+| coverage_report | `com.etzhayyim.gtin.coverage_report` | Coverage metrics per prefix |
 
 ## WIT Capability Exports
 

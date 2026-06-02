@@ -123,7 +123,7 @@ Branch `fix/wasm-runtime-build-json-macro`; parent pointer bumps
 Route kotoba inference through the **loopback Murakumo LiteLLM gateway**, not
 a direct LAN address. Loopback (`127.0.0.1`) is exempt from macOS Local
 Network Privacy; the LiteLLM gateway (its own launchd service,
-`ai.gftd.litellm.jacob`) holds the LAN access and load-balances across nodes.
+`com.etzhayyim.litellm.jacob`) holds the LAN access and load-balances across nodes.
 This is also the ADR-2605215000 SSoT (LiteLLM `127.0.0.1:4000`), so it is
 architecture-correct, not a workaround.
 
@@ -172,4 +172,4 @@ Session-independent: survives daemon restarts; no session-bound forwarder.
 - `/90-docs/adr/2605301030-kotoba-kg-storage-session-52-entity-actor-graph.md` — kotoba operator runbook
 - `40-engine/kotoba` @ `fix/wasm-runtime-build-json-macro` (a53457e, 5f9d14c)
 - `~/Library/LaunchAgents/com.etzhayyim.kotoba.plist` — local inference routing (secrets uncommitted)
-- `~/litellm.yaml` + `~/Library/LaunchAgents/ai.gftd.litellm.jacob.plist` — Murakumo LiteLLM gateway (gemma4-e4b alias)
+- `~/litellm.yaml` + `~/Library/LaunchAgents/com.etzhayyim.litellm.jacob.plist` — Murakumo LiteLLM gateway (gemma4-e4b alias)

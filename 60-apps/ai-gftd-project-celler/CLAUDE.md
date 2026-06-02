@@ -171,7 +171,7 @@ Telnyx 単一 API で eSIM + SIP trunk + 番号プロビジョニング + WebRTC
 
 ## NSID Namespace
 
-`app.etzhayyim.apps.celler.*`
+`com.etzhayyim.apps.celler.*`
 
 | interface | key operations |
 |---|---|
@@ -184,7 +184,7 @@ Telnyx 単一 API で eSIM + SIP trunk + 番号プロビジョニング + WebRTC
 | voice_ai | transcribe_voicemail, classify_call, translate_stream, handle_inbound_ai, get_call_transcript, get_call_recording, set_ai_response_policy, get_ai_response_policy, list_ai_calls |
 | esim | provision_esim, activate_esim, suspend_esim, get_esim_usage, get_esim_profile |
 
-既存 NSID 再利用: `app.etzhayyim.rtc.*` (signaling), `app.etzhayyim.signal.*` (E2E), `chat.bsky.convo.*` (messaging)
+既存 NSID 再利用: `com.etzhayyim.rtc.*` (signaling), `com.etzhayyim.signal.*` (E2E), `chat.bsky.convo.*` (messaging)
 
 ## AI Inbound Call Handling
 
@@ -231,7 +231,7 @@ PSTN着信 → Telnyx webhook → handleInboundAi
 `llm.etzhayyim.com` の `verify_celler_ai` コマンドで 10言語 E2E テスト:
 
 ```bash
-curl -X POST https://llm.etzhayyim.com/xrpc/app.etzhayyim.apps.llm.verify_celler_ai -d '{}'
+curl -X POST https://llm.etzhayyim.com/xrpc/com.etzhayyim.apps.llm.verify_celler_ai -d '{}'
 ```
 
 ## AI Agent Integration

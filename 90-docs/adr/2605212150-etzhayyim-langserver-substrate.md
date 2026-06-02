@@ -182,7 +182,7 @@ shim) is **dry-run-default**. `launchctl load` is gated on:
   synchronization is **out of scope** for this ADR.
 - **MST listener wiring deferred**: writing
   `LangserverHealthMonitoringCell` results to MST requires a new lexicon
-  under `00-contracts/lexicons/app/etzhayyim/langserver/`. Captured in
+  under `00-contracts/lexicons/com/etzhayyim/langserver/`. Captured in
   `deps.toml [platform.langserver.cell_integration].lexicon_status =
   "deferred"`; a follow-up ADR will register it.
 - **NATS deployment dependency for stream-tier observability**: NATS is

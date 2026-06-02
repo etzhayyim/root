@@ -47,7 +47,7 @@ religious-corp は wadachi (autonomous-mobility), tatekata (construction), silic
 religious-corp Tier-B actor **igata (鋳型)** を以下で立ち上げる:
 
 - **Actor DID**: `did:web:etzhayyim.com:igata`
-- **Namespace**: `app.etzhayyim.igata.*`
+- **Namespace**: `com.etzhayyim.igata.*`
 - **R0 scope**: HPDC ≤6000 ton clamping force, Al-Si alloy 単一片構造部品 (≤50 kg final part R3 上限)
 - **R0 deliverable**: Scaffold only (8 cells import-time RuntimeError + 5 lexicon stub + actor scaffold)
 - **14 constitutional gates G1..G14 + 10 non-goals N1..N10** declared before capability lands
@@ -85,7 +85,7 @@ religious-corp Tier-B actor **igata (鋳型)** を以下で立ち上げる:
 ├── igata_heat_treatment/
 └── igata_part_attestation/
 
-00-contracts/lexicons/app/etzhayyim/igata/
+00-contracts/lexicons/com/etzhayyim/igata/
 ├── alloyAttestation.json         # Al-Si alloy melt lot (composition + source)
 ├── dieAttestation.json           # die design + thermal cycle history
 ├── castShotRecord.json           # per-shot injection profile + sensor logs
@@ -111,7 +111,7 @@ Cell ordering follows physical megacasting sequence (alloy → die → shot → 
 ### Lexicons (5, all R0 stub deferred to R1+)
 
 ```
-app.etzhayyim.igata.{
+com.etzhayyim.igata.{
   alloyAttestation         # Al-Si melt lot (composition, mass, certifications, source ingot)
   dieAttestation           # die geometry CAD CID + machining history + thermal cycle count
   castShotRecord           # per-shot injection profile + sensor stream + outcome

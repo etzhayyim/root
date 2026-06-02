@@ -142,14 +142,14 @@ def sync_cursor():
 # Domain facts currently land in the local RW-free SQLite ingest spine, matching
 # the houbun / site_common_crawl convention. The RW→kotoba-datomic refactor is
 # performed KOTOBA-SIDE: replace THIS function body with a kotoba datomic
-# transact of the same `items` dicts (POST ai.gftd.apps.kotoba.datomic.transact,
+# transact of the same `items` dicts (POST com.etzhayyim.apps.kotoba.datomic.transact,
 # one `:ndl/*` entity per item). No other code in this module writes domain
 # facts — keep the seam isolated here so the swap is a single, reviewable edit.
 def _persist_items(cur: Any, items: list[dict[str, Any]], now: str) -> int:
     inserted = 0
     for item in items:
         ndl_id = item["ndl_id"]
-        vid = f"at://{ONLINE_PATH_DID}/ai.gftd.apps.ndl.bibItem/{ndl_id}"
+        vid = f"at://{ONLINE_PATH_DID}/com.etzhayyim.apps.ndl.bibItem/{ndl_id}"
         try:
             cur.execute(
                 """INSERT OR REPLACE INTO vertex_ndl_bib_item (
@@ -316,7 +316,7 @@ def _oai_list_records(
 # ── Checkpoint read/write (resumable, local table) ────────────────────────────
 def _checkpoint_vid(provider_id: str, set_group: str, window_start: str, window_end: str) -> str:
     key = hashlib.sha1(f"{provider_id}|{set_group}|{window_start}|{window_end}".encode("utf-8")).hexdigest()[:20]
-    return f"at://{ACTOR_DID}/ai.gftd.apps.ndl.oaiCheckpoint/{key}"
+    return f"at://{ACTOR_DID}/com.etzhayyim.apps.ndl.oaiCheckpoint/{key}"
 
 
 def _read_checkpoint(cur: Any, vid: str) -> dict[str, Any] | None:

@@ -145,4 +145,4 @@ def test_pds_collection_constant_starts_with_ai_gftd(mod_name: str):
     assert len(collection_attrs) >= 1
     for attr in collection_attrs:
         val = getattr(mod, attr)
-        assert val.startswith("app.etzhayyim.apps.pds."), f"{mod_name}.{attr} = {val!r}"
+        assert val.startswith("com.etzhayyim.apps.pds."), f"{mod_name}.{attr} = {val!r}"

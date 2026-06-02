@@ -38,12 +38,12 @@ def test_ndjson_publisher_writes_record(queue_file: Path, test_did: str):
         record = json.loads(line)
 
     assert record["v"] == 1
-    assert record["lexicon"] == "app.etzhayyim.organism.lifecycle"
+    assert record["lexicon"] == "com.etzhayyim.organism.lifecycle"
     assert record["actorDid"] == test_did
     assert "ts" in record
     assert "createdAt" in record
     assert record["createdAt"].endswith("Z")
-    assert record["event"]["$type"] == "app.etzhayyim.organism.lifecycle#birth"
+    assert record["event"]["$type"] == "com.etzhayyim.organism.lifecycle#birth"
     assert record["event"]["reason"] == "test birth"
 
 
@@ -59,7 +59,7 @@ def test_lifecycle_calls_publisher_on_transition(test_did: str):
     # The publisher should be called with the lexicon representation of the event
     call_args, _ = mock_publisher.call_args
     sent_event_lexicon = call_args[0]
-    assert sent_event_lexicon["$type"] == "app.etzhayyim.organism.lifecycle#birth"
+    assert sent_event_lexicon["$type"] == "com.etzhayyim.organism.lifecycle#birth"
     assert f"Birth of {test_did}" in sent_event_lexicon["reason"]
 
 
@@ -100,20 +100,20 @@ def test_all_event_types_are_publishable(queue_file: Path, test_did: str):
 
     # Check each record
     birth_record = json.loads(lines[0])
-    assert birth_record["event"]["$type"] == "app.etzhayyim.organism.lifecycle#birth"
+    assert birth_record["event"]["$type"] == "com.etzhayyim.organism.lifecycle#birth"
     assert birth_record["event"]["councilAttestation"] == "test_cid"
 
     retire_record = json.loads(lines[1])
-    assert retire_record["event"]["$type"] == "app.etzhayyim.organism.lifecycle#retire"
+    assert retire_record["event"]["$type"] == "com.etzhayyim.organism.lifecycle#retire"
     assert retire_record["event"]["reason"] == "end of service"
 
     excom_record = json.loads(lines[2])
     assert (
         excom_record["event"]["$type"]
-        == "app.etzhayyim.organism.lifecycle#excommunication"
+        == "com.etzhayyim.organism.lifecycle#excommunication"
     )
     assert excom_record["event"]["councilAttestation"] == "excom_cid"
 
     clone_record = json.loads(lines[3])
-    assert clone_record["event"]["$type"] == "app.etzhayyim.organism.lifecycle#clone"
+    assert clone_record["event"]["$type"] == "com.etzhayyim.organism.lifecycle#clone"
     assert clone_record["event"]["sourceShard"] == "shard-A"

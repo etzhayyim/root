@@ -47,18 +47,18 @@ def stable_run_id(ingest_family: str, source_id: str, mode: str, input_json: str
 
 
 def run_vertex_id(run_id: str) -> str:
-    return f"at://{INGEST_ACTOR_DID}/app.etzhayyim.apps.ingest.run/{_slug(run_id)}"
+    return f"at://{INGEST_ACTOR_DID}/com.etzhayyim.apps.ingest.run/{_slug(run_id)}"
 
 
 def cursor_vertex_id(ingest_family: str, source_id: str, shard_key: str) -> str:
     slug = _slug(f"{ingest_family}-{source_id}-{shard_key}")
-    return f"at://{INGEST_ACTOR_DID}/app.etzhayyim.apps.ingest.cursor/{slug}"
+    return f"at://{INGEST_ACTOR_DID}/com.etzhayyim.apps.ingest.cursor/{slug}"
 
 
 def artifact_vertex_id(run_id: str, artifact_kind: str, uri: str) -> str:
     digest = hashlib.blake2b(uri.encode("utf-8"), digest_size=6).hexdigest()
     slug = _slug(f"{run_id}-{artifact_kind}-{digest}")
-    return f"at://{INGEST_ACTOR_DID}/app.etzhayyim.apps.ingest.artifact/{slug}"
+    return f"at://{INGEST_ACTOR_DID}/com.etzhayyim.apps.ingest.artifact/{slug}"
 
 
 def _psql_enabled() -> bool:

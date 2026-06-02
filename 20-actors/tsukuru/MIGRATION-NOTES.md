@@ -21,15 +21,15 @@ Phase 2–4 (manifest.edn / cells / lex / kotoba / py) は既に landed（非ゲ
 
 (source-of-truth: `manifest.edn` `:actor/legacy :wit-packages`)
 
-## B. App / contract paths (`ai/gftd` → `app/etzhayyim`)
+## B. App / contract paths (`com/etzhayyim` → `com/etzhayyim`)
 
 | 現 (legacy) | cutover 後 |
 |---|---|
 | `60-apps/ai-gftd-project-tsukuru/` | `60-apps/etzhayyim-project-tsukuru/` |
-| `00-contracts/lexicons/ai/gftd/apps/tsukuru/` | `00-contracts/lexicons/app/etzhayyim/tsukuru/` |
-| `00-contracts/bpmn/ai/gftd/tsukuru/` | `00-contracts/bpmn/app/etzhayyim/tsukuru/` |
-| `00-contracts/catalogs/ai/gftd/tsukuru/` | `00-contracts/catalogs/app/etzhayyim/tsukuru/` |
-| `00-contracts/examples/ai/gftd/tsukuru/` | `00-contracts/examples/app/etzhayyim/tsukuru/` |
+| `00-contracts/lexicons/com/etzhayyim/apps/tsukuru/` | `00-contracts/lexicons/com/etzhayyim/tsukuru/` |
+| `00-contracts/bpmn/com/etzhayyim/tsukuru/` | `00-contracts/bpmn/com/etzhayyim/tsukuru/` |
+| `00-contracts/catalogs/com/etzhayyim/tsukuru/` | `00-contracts/catalogs/com/etzhayyim/tsukuru/` |
+| `00-contracts/examples/com/etzhayyim/tsukuru/` | `00-contracts/examples/com/etzhayyim/tsukuru/` |
 
 ## C. Build/deploy + runtime
 
@@ -44,8 +44,8 @@ Phase 2–4 (manifest.edn / cells / lex / kotoba / py) は既に landed（非ゲ
 
 | 現 (legacy) | cutover 後 |
 |---|---|
-| `app.etzhayyim.apps.tsukuru.manufacturer` (active) | `app.etzhayyim.tsukuru.factory` (kotoba `:factory/*`) |
-| `app.etzhayyim.apps.tsukuru-api.manufacturer` (historical) | read-compat only; project → `:factory/*` then archive |
+| `com.etzhayyim.apps.tsukuru.manufacturer` (active) | `com.etzhayyim.tsukuru.factory` (kotoba `:factory/*`) |
+| `com.etzhayyim.apps.tsukuru-api.manufacturer` (historical) | read-compat only; project → `:factory/*` then archive |
 
 > 460+ factory DID の live projection は `kotoba/ingest_factories.py` の operator-gated
 > path (G11/G15)。schema は Phase 3 で landed、live ingest は登記後。

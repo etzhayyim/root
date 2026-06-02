@@ -14,7 +14,7 @@
 |---|---|---|---|
 | 1 | ADR-2605312030 (master) | ✅ | init |
 | 2 | manifest.jsonld + README + CLAUDE.md | ✅ | init |
-| 3 | 6 Lexicons (`app.etzhayyim.toritsugi.*`) | ✅ | init |
+| 3 | 6 Lexicons (`com.etzhayyim.toritsugi.*`) | ✅ | init |
 | 4 | procedure registry seed (6件, unverified-seed) | ✅ | init |
 | 5 | registry 更新 (root CLAUDE.md / adr README / deps.toml) | ✅ | init |
 | 6 | **7 cell scaffold** (`magatama.cells.toritsugi_*`, import時 RuntimeError) | ✅ | **iter-1** |
@@ -131,11 +131,11 @@ fleet 構成の理解が要るので後回し。
 確認:`lexicon-primary-types: OK (17 files)`、`nsid-lexicon-exists: OK (5 static refs, 6723
 lexicons)`、両 exit 0。toritsugi 6 lexicon の id↔namespace 整合も全 OK(手動 python 確認)。
 ただし「手動確認」では drift を防げないので、invariants test に **3b ケースを追加**:6 lexicon
-全てについて `lexicon==1` / `id == app.etzhayyim.toritsugi.{stem}` / `defs.main.type=="record"` /
+全てについて `lexicon==1` / `id == com.etzhayyim.toritsugi.{stem}` / `defs.main.type=="record"` /
 `record.properties` が非空、を pin(tsukuroi の `test_each_lexicon_id_matches_namespace` 相当で、
 toritsugi では欠けていた)。これで id rename や record def の脱落が validator 待ちでなく test で
 即 fail する。検証: invariants **10 passed**(従来 9 + 新 1)。**注(honest)**: repo 全体の
-`lexicon-const-name-collision-check` は **既存の** `app.etzhayyim.apps.ipaddress.analyzeIp` 衝突で
+`lexicon-const-name-collision-check` は **既存の** `com.etzhayyim.apps.ipaddress.analyzeIp` 衝突で
 fail し続けるが、これは toritsugi と無関係(init 時から既知)。toritsugi 由来の const 衝突は無い。
 **次の候補: #10(procedure seed 根拠法令・出典URL 精査 + verification ワークフロー設計)** —
 seed 6件の legalBasis / provenance を再点検し、verification 手順(unverified-seed →
@@ -259,7 +259,7 @@ VERIFICATION.md 反映が R1 の TODO。
 R0 ceiling(import-RuntimeError・no dispatch・PII平文禁止)を破らずには進められない。次回 loop 以降は
 既存成果の green 維持確認 + 文書の軽微改善に限定し、過剰実装(未使用 schema 等)は避ける。
 
-- 2026-06-02 lexicon reconciliation: EXTENDED `app.etzhayyim.toritsugi.procedure` to cover the worldwide seed (`registry/procedures.seed.json`) — added per-currency authority-fee fields (feeUsd/feeEur/feeGbp/feeCad/feeAud/feeInr/feeSgd/feeBrl/feeMxn/feeKrw) + `confidence`, and extended `regime` knownValues to the JP/US/EU/DE/FR/UK/CA/AU/IN/SG/BR/MX/KR + CoE set. Additive/backward-compatible/permissive only (no additionalProperties:false, no new required, UPL / political-neutrality / informational-only / zero-toritsugi-fee boundary preserved in descriptions). Validators green: lexicon-primary-types ✅, nsid-lexicon-exists ✅; lexicon-const-name-collision FAILS on a pre-existing unrelated collision (`app.etzhayyim.apps.ipaddress.analyzeIp`), confirmed identical with this edit stashed — not caused by this file.
+- 2026-06-02 lexicon reconciliation: EXTENDED `com.etzhayyim.toritsugi.procedure` to cover the worldwide seed (`registry/procedures.seed.json`) — added per-currency authority-fee fields (feeUsd/feeEur/feeGbp/feeCad/feeAud/feeInr/feeSgd/feeBrl/feeMxn/feeKrw) + `confidence`, and extended `regime` knownValues to the JP/US/EU/DE/FR/UK/CA/AU/IN/SG/BR/MX/KR + CoE set. Additive/backward-compatible/permissive only (no additionalProperties:false, no new required, UPL / political-neutrality / informational-only / zero-toritsugi-fee boundary preserved in descriptions). Validators green: lexicon-primary-types ✅, nsid-lexicon-exists ✅; lexicon-const-name-collision FAILS on a pre-existing unrelated collision (`com.etzhayyim.apps.ipaddress.analyzeIp`), confirmed identical with this edit stashed — not caused by this file.
 
 - 2026-06-02 long-tail worldwide deepening: merged 32 long-tail entries into `registry/procedures.seed.json` (34 → 66) across 4 buckets — EU-REST (SE/NL/ES/PL/IT/IE/CH/DK), ASIA-REST (CN/TW/HK/TH/ID/PH/VN/MY), AMERICAS-REST (AR/CL/CO/PE), MEA-OCEANIA (AE/SA/IL/ZA/NG/KE/EG/NZ): resident/address & population registration, national-ID/civil-status, social-security identifiers, voter registration, passport, income-tax filing. Distinct jurisdictions 13 → 41. Every new entry ships verificationStatus=unverified-seed + https provenance + language code + 行政書士法 / UPL boundary caveat; medium-confidence/in-flux entries flagged UNVERIFIED-for-live-use; requiredDocuments left as resolve-at-guide-time (not fabricated). Invariants test `70-tools/scripts/audit/test_toritsugi_registry_seed.py` distinct-jurisdiction threshold raised 5 → 12; all 7 tests green.
 

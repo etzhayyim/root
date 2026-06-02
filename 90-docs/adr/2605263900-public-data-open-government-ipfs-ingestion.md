@@ -18,7 +18,7 @@ authoritative_for:
   - GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro commercial gov-intelligence terminal PROHIBITION (Charter Rider §2(e) + §2(c))
   - parliament / 議事録 publication-rule-honoring policy (NO unilateral re-identification, NO de-anonymization; chigiri.data_privacy DSAR routing)
   - CN gov data §2(g) state-aligned scrutiny flagging (parallel to ADR-2605262800 CN NPC treatment)
-  - `app.etzhayyim.substrate.datasetPin` integration for gov bucket
+  - `com.etzhayyim.substrate.datasetPin` integration for gov bucket
   - gov training corpus recipes at `70-tools/baien-moemoekyun-train/recipes/gov/`
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home

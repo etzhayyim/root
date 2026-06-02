@@ -50,7 +50,7 @@ yoro.gftd.ai FAB tap
 
 **Data flow:**
 ```
-user message (ai.gftd.convo.message)
+user message (com.etzhayyim.convo.message)
   → ComAtprotoSyncSubscribeRepos → handleConvoMessage()
   → processConvoCommand() → execCreateProject/execCreateTask/...
   → AiGftdConvoSendMessage(convoId, reply) → user receives reply in DM
@@ -148,28 +148,28 @@ PM Agent (project DID) が heartbeat で:
 3. 完了 task を celebration 投稿
 4. Weekly summary を自動投稿
 
-## Convo-Project Integration (ai.gftd.projector.*)
+## Convo-Project Integration (com.etzhayyim.projector.*)
 
-**yoro /convo の compose (FAB) から ops agent を選択 → `ai.gftd.projector.new` で project convo を作成。**
+**yoro /convo の compose (FAB) から ops agent を選択 → `com.etzhayyim.projector.new` で project convo を作成。**
 
 ### Lexicon NSID
 
 | NSID | Type | Handler |
 |---|---|---|
-| `ai.gftd.projector.new` | procedure | `new_project_convo` — project + DM convo 同時作成 |
-| `ai.gftd.projector.get` | query | `get_project_convo` — convo + project context overlay |
-| `ai.gftd.projector.list` | query | `list_project_convos` — project convo 一覧 |
-| `ai.gftd.projector.sendProjectMessage` | procedure | `send_project_message` — slash command auto-routing |
-| `ai.gftd.projector.addTask` | procedure | `add_convo_task` — convo から task 追加 |
-| `ai.gftd.projector.completeTask` | procedure | `complete_convo_task` — convo から task 完了 |
-| `ai.gftd.projector.getStatus` | query | `get_convo_project_status` — convo 内 project status |
+| `com.etzhayyim.projector.new` | procedure | `new_project_convo` — project + DM convo 同時作成 |
+| `com.etzhayyim.projector.get` | query | `get_project_convo` — convo + project context overlay |
+| `com.etzhayyim.projector.list` | query | `list_project_convos` — project convo 一覧 |
+| `com.etzhayyim.projector.sendProjectMessage` | procedure | `send_project_message` — slash command auto-routing |
+| `com.etzhayyim.projector.addTask` | procedure | `add_convo_task` — convo から task 追加 |
+| `com.etzhayyim.projector.completeTask` | procedure | `complete_convo_task` — convo から task 完了 |
+| `com.etzhayyim.projector.getStatus` | query | `get_convo_project_status` — convo 内 project status |
 
 ### Data Flow
 
 ```
 yoro /convo FAB tap
   → agent picker → select "Ops Project Manager"
-  → XRPC ai.gftd.projector.new({name, description, members})
+  → XRPC com.etzhayyim.projector.new({name, description, members})
   → ops Worker: cmdNewProjectConvo()
     → DIDCreate("project:{id}") → PM Agent DID
     → write("project", {...}) → PDS
@@ -183,8 +183,8 @@ yoro /convo FAB tap
 
 ```
 user types in project convo
-  → ai.gftd.projector.sendProjectMessage({convo_id, text})
-  → ComAtprotoSyncSubscribeRepos → collection: ai.gftd.convo.message
+  → com.etzhayyim.projector.sendProjectMessage({convo_id, text})
+  → ComAtprotoSyncSubscribeRepos → collection: com.etzhayyim.convo.message
   → ops handleComAtprotoSyncSubscribeReposCommit
     → lookup ConvoProject binding
     → slash command? → route to handler (/task, /done, /status, etc.)

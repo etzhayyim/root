@@ -1,6 +1,6 @@
 //! Build the kotoba-server `email.ingest` request (ADR-2605172200 §3.1 inbound).
 //!
-//! The gateway hands raw RFC 5322 bytes to `ai.gftd.apps.kotoba.email.ingest`,
+//! The gateway hands raw RFC 5322 bytes to `com.etzhayyim.apps.kotoba.email.ingest`,
 //! which parses + at-rest-encrypts them into the recipient's inbox graph. The
 //! request body shape mirrors `EmailIngestBody` in kotoba-server (snake_case keys,
 //! base64-STANDARD raw). Kept pure so the body is unit-tested without a network.
@@ -9,7 +9,7 @@ use base64::{engine::general_purpose::STANDARD as B64, Engine as _};
 use serde_json::{json, Value};
 
 /// XRPC path (appended to the kotoba-server base URL).
-pub const INGEST_NSID: &str = "ai.gftd.apps.kotoba.email.ingest";
+pub const INGEST_NSID: &str = "com.etzhayyim.apps.kotoba.email.ingest";
 
 /// Build the JSON body for one `email.ingest` call delivering `raw` to `owner_did`.
 pub fn ingest_request_body(raw: &[u8], owner_did: &str, thread_id: Option<&str>) -> Value {
@@ -51,11 +51,11 @@ mod tests {
     fn url_joins_without_double_slash() {
         assert_eq!(
             ingest_url("http://127.0.0.1:8077/"),
-            "http://127.0.0.1:8077/xrpc/ai.gftd.apps.kotoba.email.ingest"
+            "http://127.0.0.1:8077/xrpc/com.etzhayyim.apps.kotoba.email.ingest"
         );
         assert_eq!(
             ingest_url("http://127.0.0.1:8077"),
-            "http://127.0.0.1:8077/xrpc/ai.gftd.apps.kotoba.email.ingest"
+            "http://127.0.0.1:8077/xrpc/com.etzhayyim.apps.kotoba.email.ingest"
         );
     }
 }

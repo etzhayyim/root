@@ -66,7 +66,7 @@ R1 phase transitions from scaffold to operational readiness by:
 - `scope: "wave-1c-chiral-resolution-baseline"`
 - `apiInn: "omeprazole"` (singular; extends baseline to cover only omeprazole chiral)
 - `verdict: "approve"` (set by Council Lv6+ ≥3 supermajority multisig)
-- `attestationUri: "at://...did:plc:[council-multisig-actor]/app.etzhayyim.pharma.silenPharmaReview/..."` (published via `council.etzhayyim.com` Bluesky PDS)
+- `attestationUri: "at://...did:plc:[council-multisig-actor]/com.etzhayyim.pharma.silenPharmaReview/..."` (published via `council.etzhayyim.com` Bluesky PDS)
 
 **Gate unlock condition:** Both `COUNCIL_ATTESTATION_TX_HASH` (Base L2 Council Lv6+ multisig Tx hash) and `SILEN_PHARMA_BASELINE_REVIEW_CID` (IPFS CID of above record) set non-None in `pharma_chiral_resolution/cell.py` + `pharma_liquid_formulation/cell.py`.
 

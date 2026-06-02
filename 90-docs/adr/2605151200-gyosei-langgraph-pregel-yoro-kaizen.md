@@ -22,7 +22,7 @@ Accepted
 ## Context
 The `gov` and `state` actors require a scalable mechanism to discover and track the organizational structures and administrative procedures of over 140 countries. Additionally, these administrative procedures must be actionable by external users (citizens/businesses) and continuously monitored for compliance with real-world changes.
 
-The existing infrastructure relied on static BPMN task definitions (`xrpc.app.etzhayyim.govXXX.*`) which did not scale gracefully to hierarchical agency discovery, nor did they natively support conversational intake or continuous improvement (Kaizen) loops for the legal schemas.
+The existing infrastructure relied on static BPMN task definitions (`xrpc.com.etzhayyim.govXXX.*`) which did not scale gracefully to hierarchical agency discovery, nor did they natively support conversational intake or continuous improvement (Kaizen) loops for the legal schemas.
 
 ## Decisions
 
@@ -32,14 +32,14 @@ The existing infrastructure relied on static BPMN task definitions (`xrpc.app.et
    - Allows dynamic, recursive discovery of sub-agencies and dependencies mapped back to RisingWave (`vertex_gov_org`, `govOrgSiteDep`).
 
 2. **Conversational Intake & Internal Processing (`gyosei-procedure-pregel`)**
-   - **Yoro Integration**: Designed an intake agent (`gyosei-intake-agent`) to process user messages/mentions from the `yoro.etzhayyim.com` social feed, identify intents, and draft procedures (`app.etzhayyim.apps.gyosei.startProcedure`, `submitDraft`).
+   - **Yoro Integration**: Designed an intake agent (`gyosei-intake-agent`) to process user messages/mentions from the `yoro.etzhayyim.com` social feed, identify intents, and draft procedures (`com.etzhayyim.apps.gyosei.startProcedure`, `submitDraft`).
    - **Back-office Workflow**: Designed an internal agent (`gyosei-internal-processing`) to validate submitted schemas against `governanceContract`, route for Human-in-the-loop (HAR) or automated review, and notify the user via Yoro DM.
    - Enhanced `vertex_gov_org` to include `address`, `phone`, and `email` to route procedures correctly.
 
 3. **Continuous Evaluation Loop (`gyosei-procedure-kaizen-pregel`)**
    - Implemented an autonomous quality assurance graph that periodically compares the etzhayyim modeled schema (`current_schema`) against real-world scraped texts (`official_source_data`).
    - If discrepancies (gaps) are detected (e.g., score < 100), the LLM generates JSON-Patch directives.
-   - Outputs are persisted to a new `app.etzhayyim.apps.gyosei.kaizenReport` lexicon record for audit and application.
+   - Outputs are persisted to a new `com.etzhayyim.apps.gyosei.kaizenReport` lexicon record for audit and application.
 
 4. **Graph as Data — `py_factory` kind**
    - Adhering strictly to ADR-2605082000, all new graphs (`gov-fractal-pregel`, `gyosei-intake-agent`, `gyosei-internal-processing`, `gyosei-procedure-kaizen-pregel`, `gyosei-procedure-pregel`) are registered via Alembic into `vertex_langgraph_assistant` (kind=`'py_factory'`) and `vertex_langgraph_deployment`.

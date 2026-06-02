@@ -20,7 +20,7 @@ class NdjsonLifecyclePublisher:
             "v": 1,
             "ts": int(now.timestamp()),
             "actorDid": self.actor_did,
-            "lexicon": "app.etzhayyim.organism.lifecycle",
+            "lexicon": "com.etzhayyim.organism.lifecycle",
             "createdAt": now.isoformat().replace("+00:00", "Z"),
             "event": event_lexicon,
         }

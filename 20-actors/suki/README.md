@@ -1,7 +1,7 @@
 # suki (鋤) — Farm Tractor Manufacturing Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:suki`
-**Namespace**: `app.etzhayyim.suki.*`
+**Namespace**: `com.etzhayyim.suki.*`
 **ADR**: ADR-2605261500 (R0 master), ADR-2605261515 (R1, reserved), ADR-2605261530 (R2, reserved), ADR-2605261545 (R3, reserved)
 **Status**: R0 scaffold (2026-05-26) — all 9 cells import-time RuntimeError
 **Methodology source**: YouTube `aSmoLQKdX9E` — "Inside Ultra-Modern European Factories Building Massive Farm Tractors From Scratch" (manufacturing methodology adopted; **John Deere-class DRM ECU + dealer-locked diagnostics + patent-locked seed integration + mega-farm consolidation + fossil-fuel-only powertrain + surveillance hardware integration all explicitly rejected**)
@@ -92,7 +92,7 @@ Explicitly excluded from R0–R3:
 ## Lexicons (9, R0 stub deferred to R1+)
 
 ```
-app.etzhayyim.suki.{
+com.etzhayyim.suki.{
   chassisAttestation       # HSLA-590/780 frame + ≥2 robot witness
   powertrainAttestation    # Engine + transmission + hydraulic + G7 fuel type
   cabAttestation           # Cab body + ROPS/FOPS + interior + G14 open serial

@@ -1,4 +1,4 @@
-# app.etzhayyim.liberation.* — Lexicons
+# com.etzhayyim.liberation.* — Lexicons
 
 Per ADR-2605261000 (Labor Liberation Transition Mechanism — 7-Stage Liberation Ladder L0..L6).
 

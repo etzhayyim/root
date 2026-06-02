@@ -11,7 +11,7 @@ from pymagatama.db_sync import sync_cursor
 
 
 KIYO_DID = "did:web:kiyo.etzhayyim.com"
-PAPER_COLLECTION = "app.etzhayyim.apps.kiyo.paper"
+PAPER_COLLECTION = "com.etzhayyim.apps.kiyo.paper"
 
 
 def _now() -> str:
@@ -59,7 +59,7 @@ def task_kiyo_add_review(
         return {"error": "paperId and body required"}
     now = _now()
     reviewer = callerDid or KIYO_DID
-    review_id = f"at://{KIYO_DID}/app.etzhayyim.apps.kiyo.review/{int(time.time() * 1000):x}"
+    review_id = f"at://{KIYO_DID}/com.etzhayyim.apps.kiyo.review/{int(time.time() * 1000):x}"
     rating_v: int | None
     try:
         rating_v = int(rating) if rating is not None else None
@@ -259,16 +259,16 @@ def task_kiyo_get_stats(**_: Any) -> dict[str, Any]:
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.app.etzhayyim.apps.kiyo.addReview": task_kiyo_add_review,
-        "xrpc.app.etzhayyim.apps.kiyo.endorsePaper": task_kiyo_endorse_paper,
-        "xrpc.app.etzhayyim.apps.kiyo.getCitationGraph": task_kiyo_get_citation_graph,
-        "xrpc.app.etzhayyim.apps.kiyo.getPaper": task_kiyo_get_paper,
-        "xrpc.app.etzhayyim.apps.kiyo.getPaperFile": task_kiyo_get_paper_file,
-        "xrpc.app.etzhayyim.apps.kiyo.getStats": task_kiyo_get_stats,
-        "xrpc.app.etzhayyim.apps.kiyo.listByAuthor": task_kiyo_list_by_author,
-        "xrpc.app.etzhayyim.apps.kiyo.listPapers": task_kiyo_list_papers,
-        "xrpc.app.etzhayyim.apps.kiyo.searchPapers": task_kiyo_search_papers,
-        "xrpc.app.etzhayyim.apps.kiyo.withdrawPaper": task_kiyo_withdraw_paper,
+        "xrpc.com.etzhayyim.apps.kiyo.addReview": task_kiyo_add_review,
+        "xrpc.com.etzhayyim.apps.kiyo.endorsePaper": task_kiyo_endorse_paper,
+        "xrpc.com.etzhayyim.apps.kiyo.getCitationGraph": task_kiyo_get_citation_graph,
+        "xrpc.com.etzhayyim.apps.kiyo.getPaper": task_kiyo_get_paper,
+        "xrpc.com.etzhayyim.apps.kiyo.getPaperFile": task_kiyo_get_paper_file,
+        "xrpc.com.etzhayyim.apps.kiyo.getStats": task_kiyo_get_stats,
+        "xrpc.com.etzhayyim.apps.kiyo.listByAuthor": task_kiyo_list_by_author,
+        "xrpc.com.etzhayyim.apps.kiyo.listPapers": task_kiyo_list_papers,
+        "xrpc.com.etzhayyim.apps.kiyo.searchPapers": task_kiyo_search_papers,
+        "xrpc.com.etzhayyim.apps.kiyo.withdrawPaper": task_kiyo_withdraw_paper,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

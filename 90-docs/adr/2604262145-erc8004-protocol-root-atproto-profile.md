@@ -159,7 +159,7 @@ AT Protocol is represented as a profile inside `protocols`:
   "collections": [
     "app.bsky.feed.post",
     "app.bsky.actor.profile",
-    "app.etzhayyim.yoro.*"
+    "com.etzhayyim.yoro.*"
   ],
   "blob": {
     "uploadBlobStore": "b2",
@@ -195,7 +195,7 @@ MCP is represented independently from atproto:
     "method": "oauth2-dpop",
     "issuer": "https://authn.etzhayyim.com",
     "resource": "https://yoro.etzhayyim.com/mcp",
-    "scopes": ["app.etzhayyim.agent.invoke"]
+    "scopes": ["com.etzhayyim.agent.invoke"]
   },
   "toolsCid": "ipfs://bafy..."
 }

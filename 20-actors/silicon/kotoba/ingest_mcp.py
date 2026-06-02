@@ -7,7 +7,7 @@ require an operator AT-session JWT (no-server-key posture, G7). --dry-run parses
 counts datoms only (no writes, no LLM).
 
 Usage:
-    python3 ingest_mcp.py [--url http://127.0.0.1:8077] [--graph app.etzhayyim.silicon] [--dry-run]
+    python3 ingest_mcp.py [--url http://127.0.0.1:8077] [--graph com.etzhayyim.silicon] [--dry-run]
 """
 from __future__ import annotations
 
@@ -79,7 +79,7 @@ def _top_level_entities(s: str):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--url", default="http://127.0.0.1:8077")
-    ap.add_argument("--graph", default="app.etzhayyim.silicon")
+    ap.add_argument("--graph", default="com.etzhayyim.silicon")
     ap.add_argument("--via", default="mcp")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()

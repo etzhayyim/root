@@ -210,9 +210,9 @@ def robotics_workflow_plan(*, request_id: str = "robotics-request", processes: A
             "dependencies": dependency_graph["dependencies"],
             "missingPrerequisites": dependency_graph["missingPrerequisites"],
             "bpmnProcesses": [
-                "00-contracts/bpmn/ai/gftd/robotics/planRoboticsBusinessProcess.bpmn",
-                "00-contracts/bpmn/ai/gftd/robotics/executeRoboticsWork.bpmn",
-                "00-contracts/bpmn/ai/gftd/robotics/planRoboticsTransportAndSales.bpmn",
+                "00-contracts/bpmn/com/etzhayyim/robotics/planRoboticsBusinessProcess.bpmn",
+                "00-contracts/bpmn/com/etzhayyim/robotics/executeRoboticsWork.bpmn",
+                "00-contracts/bpmn/com/etzhayyim/robotics/planRoboticsTransportAndSales.bpmn",
             ],
             "mcpTools": [
                 "robotics.process.catalog",
@@ -354,10 +354,10 @@ def robotics_network_deployment_plan(
             "missions": missions,
             "telemetryTopics": ["robotics.network.link", "robotics.rf.survey", "robotics.telecom.commissioning"],
             "bpmnProcesses": [
-                "00-contracts/bpmn/ai/gftd/robotics/observeRoboticsMission.bpmn",
-                "00-contracts/bpmn/ai/gftd/telecom/registerCellSite.bpmn",
-                "00-contracts/bpmn/ai/gftd/telecom/registerRanNode.bpmn",
-                "00-contracts/bpmn/ai/gftd/telecom/auditPerformanceCounters.bpmn",
+                "00-contracts/bpmn/com/etzhayyim/robotics/observeRoboticsMission.bpmn",
+                "00-contracts/bpmn/com/etzhayyim/telecom/registerCellSite.bpmn",
+                "00-contracts/bpmn/com/etzhayyim/telecom/registerRanNode.bpmn",
+                "00-contracts/bpmn/com/etzhayyim/telecom/auditPerformanceCounters.bpmn",
             ],
             "approvalGates": [
                 "human approval before robot motion",

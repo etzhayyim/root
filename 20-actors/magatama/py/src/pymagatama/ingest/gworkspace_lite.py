@@ -157,7 +157,7 @@ def _write_account(app: str, account_did: str, email: str, display_name: str, sc
     }[app]
     actor = f"did:web:{app}.etzhayyim.com"
     now = now_iso()
-    vid = f"at://{actor}/app.etzhayyim.apps.{app}.account/{email}"
+    vid = f"at://{actor}/com.etzhayyim.apps.{app}.account/{email}"
     _execute(f"DELETE FROM {table} WHERE vertex_id = %s", (vid,))
     _execute(
         f"""INSERT INTO {table}

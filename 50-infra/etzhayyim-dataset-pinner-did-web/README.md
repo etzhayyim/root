@@ -13,7 +13,7 @@ actor that:
 
 1. Mirrors `git-annex` `directory`-remote objects to IPFS via Kubo
    (`e7m-dataset publish-ipfs`).
-2. Emits `app.etzhayyim.substrate.datasetPin` records to PDS as the
+2. Emits `com.etzhayyim.substrate.datasetPin` records to PDS as the
    religious-corp-canonical pin receipt.
 
 Distinct from `pinner.etzhayyim.com` (`did:web:pinner.etzhayyim.com`,

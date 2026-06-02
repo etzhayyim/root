@@ -1,7 +1,7 @@
 # tatekata (建方) — Construction Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:tatekata`
-**Namespace**: `app.etzhayyim.tatekata.*`
+**Namespace**: `com.etzhayyim.tatekata.*`
 **ADR**: ADR-2605250700 (R0 scaffold), ADR-2605250715 (R1), ADR-2605250730 (R2), ADR-2605250745 (R3)
 **Status**: R0 scaffold (2026-05-25) — all cells import-time RuntimeError
 
@@ -69,7 +69,7 @@ Explicitly deferred or forbidden:
 ## Lexicons (4, all deferred to R1+)
 
 ```
-app.etzhayyim.tatekata.{
+com.etzhayyim.tatekata.{
   siteAttestation         # Site survey findings (soil, utilities, hazards)
   materialAttestation     # Material delivery + QA per batch
   constructionProgressRecord    # Phase transition + sensor CID + photo CID

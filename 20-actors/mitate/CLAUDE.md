@@ -15,7 +15,7 @@ Per [ADR-2605260100](../../90-docs/adr/2605260100-mitate-diagnostic-routing-char
 | Scope | symptom intake / Bayesian 鑑別 advisory / 検査 ordering routing / treatment plan advisory / longitudinal followup | Rx prescription issuance / surgical execution / primary care 代替 / specialist 判断 override / mental health diagnosis / 遺伝子検査 medical interpretation / 終末期 palliative |
 | Advisory output framing | "qualified physician 判断の代替ではない" disclaimer 必須 + INN only + transparency on cost / 期間 / risk | proprietary diagnosis claim / brand drug 宣伝 (yakushi-side products 除く) / paywalled insight / fear-driven re-engagement |
 | Patient identity | Adherent SBT + passkey + 30-day rotating pseudonym DID | server-issued JWT without DID binding;static patient identifier |
-| Health data storage | `app.etzhayyim.encrypted.*` envelope (XChaCha20-Poly1305 per ADR-2605181100), sealed-recipient = patient + Council medical advisory + (R2+) licensed MD | plaintext symptom / 診断 / 検査結果 on MST;recipient registry without G7 enforcement |
+| Health data storage | `com.etzhayyim.encrypted.*` envelope (XChaCha20-Poly1305 per ADR-2605181100), sealed-recipient = patient + Council medical advisory + (R2+) licensed MD | plaintext symptom / 診断 / 検査結果 on MST;recipient registry without G7 enforcement |
 | Detection of high-risk groups | pediatric (<13) / pregnancy / lactation / immunocompromised / 抗凝固薬服用中 → escalate to human review (G6) | independent advisory for high-risk groups in R1 |
 | Emergency keyword fail-safe | anaphylaxis / orbital cellulitis / septal abscess / 髄膜炎 / 視力低下 / 意識障害 → 即 ER routing (G5, bypass 不可) | bypass / silent suppression of red-flag signals |
 | Inference | Murakumo fleet only (LiteLLM 127.0.0.1:4000 + EVO-X2 + Mac mini gemma — gemma-coder-distill medical variant 経路) | RunPod / Vertex / OpenAI direct / Anthropic direct from vendor key (§2(i)) |
@@ -38,7 +38,7 @@ Per [ADR-2605260100](../../90-docs/adr/2605260100-mitate-diagnostic-routing-char
 All 13 mitate_* cells are import-time RuntimeError gated. Removal requires:
 
 - `COUNCIL_CHARTER_ATTESTATION_TX_HASH: str | None = None` set to non-None Council Lv6+ ≥ 3 multisig tx hash (ADR-2605260100)
-- `SILEN_MITATE_BASELINE_REVIEW_CID: str | None = None` set to `app.etzhayyim.mitate.silenMitateReview` CID with `verdict = "approve"` for the cell-specific baseline
+- `SILEN_MITATE_BASELINE_REVIEW_CID: str | None = None` set to `com.etzhayyim.mitate.silenMitateReview` CID with `verdict = "approve"` for the cell-specific baseline
 - `LICENSED_MD_REGISTRY_CID: str | None = None` set to Council-attested registry of licensed MD DIDs (G4)
 - For cells handling `diagnosticOrder` / `diagnosticResult` / `treatmentPlan`: additionally `ENCRYPTED_ENVELOPE_RECIPIENT_REGISTRY_CID` set (G2 + G7 enforcement)
 - For `emergency_screen` cell: additionally `ER_ROUTING_PROTOCOL_CID` set (G5 fail-safe)
@@ -69,7 +69,7 @@ Do NOT skip phases. Each R transition is its own ADR.
 
 ## Substrate-port + non-violation rules
 
-- 9 mitate lexicons use `app.etzhayyim.mitate.*` namespace (actor 名 = lexicon namespace, 1:1 ― yakushi の `app.etzhayyim.pharma.*` と対照的に condition-agnostic)
+- 9 mitate lexicons use `com.etzhayyim.mitate.*` namespace (actor 名 = lexicon namespace, 1:1 ― yakushi の `com.etzhayyim.pharma.*` と対照的に condition-agnostic)
 - 5 condition DIDs use **stable slug**: `:condition:allergic-rhinitis-perennial`, `:condition:vasomotor-rhinitis`, `:condition:chronic-sinusitis`, `:condition:septal-deviation`, `:condition:rhinitis-medicamentosa` — never ICD-10 code (jurisdictional dependent)
 - Patient pseudonym DID は **30-day rotation** ― G2 reinforcement;continuity が必要な longitudinal record (SLIT cohort, outcome followup) は patient passkey re-sign による pseudonym pair derivation
 - Treatment plan advisory **MUST NOT** mention brand drug names except yakushi-distributed products (registered under `did:web:etzhayyim.com:yakushi:product:*`) — INN only — G8 enforceable lint

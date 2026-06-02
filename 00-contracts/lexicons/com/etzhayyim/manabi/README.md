@@ -1,4 +1,4 @@
-# app.etzhayyim.manabi.* — Lexicons
+# com.etzhayyim.manabi.* — Lexicons
 
 Per ADR-2605261045. R0 stubs; full schemas R1+.
 

@@ -39,7 +39,7 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.normpath(os.path.join(_HERE, "..", "..", ".."))
 GOV_DIR = os.path.join(_REPO, "60-apps", "ai-gftd-project-states", "data", "gov")
 GOV_GRAPH = "gov-atlas-v1"
-NSID_INGEST = "ai.gftd.apps.kotobase.kg.ingest_batch"
+NSID_INGEST = "com.etzhayyim.apps.kotobase.kg.ingest_batch"
 LAST_VERIFIED = "2026-06-02"
 
 # countries already carrying REAL names in the ooyake seed — never overwrite with a stub.

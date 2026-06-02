@@ -12,14 +12,14 @@ rights, communities, or underused capacity.
 
 ## Contract
 
-- BPMN process: `etzhayyim-root/00-contracts/bpmn/ai/gftd/news/socialArbitrageIntel.bpmn`
+- BPMN process: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/news/socialArbitrageIntel.bpmn`
 - LangServer worker: `50-infra/k8s/news-social-arbitrage-actor/worker.py`
 - Discovery task: `news.socialArbitrage.discover`
 - LangGraph task: `news.socialArbitrage.draft`
 - RSS pipeline tasks: `news.rss.resolveSources`, `news.rss.ingestSource`
-- Thin edge publish path: `app.etzhayyim.apps.news.analyzeIntel` then
-  `app.etzhayyim.apps.news.publishIntel`
-- Thin RSS write path: `app.etzhayyim.apps.news.commitArticle`
+- Thin edge publish path: `com.etzhayyim.apps.news.analyzeIntel` then
+  `com.etzhayyim.apps.news.publishIntel`
+- Thin RSS write path: `com.etzhayyim.apps.news.commitArticle`
 - Public actor: `did:web:news.etzhayyim.com`
 - Writer DID: `did:web:news.etzhayyim.com:writer:social-arbitrage`
 

@@ -18,24 +18,24 @@ class InvalidLifecycleTransition(Exception):
 class BirthEvent:
     reason: str
     council_attestation: Optional[str] = None
-    _type: str = "app.etzhayyim.organism.lifecycle#birth"
+    _type: str = "com.etzhayyim.organism.lifecycle#birth"
 
 @dataclass
 class CloneEvent:
     source_shard: str
     target_shard: str
-    _type: str = "app.etzhayyim.organism.lifecycle#clone"
+    _type: str = "com.etzhayyim.organism.lifecycle#clone"
 
 @dataclass
 class RetireEvent:
     reason: str
-    _type: str = "app.etzhayyim.organism.lifecycle#retire"
+    _type: str = "com.etzhayyim.organism.lifecycle#retire"
 
 @dataclass
 class ExcommunicationEvent:
     council_attestation: str
     chigiri_procedure_ref: str
-    _type: str = "app.etzhayyim.organism.lifecycle#excommunication"
+    _type: str = "com.etzhayyim.organism.lifecycle#excommunication"
 
 LifecycleEvent = Union[BirthEvent, CloneEvent, RetireEvent, ExcommunicationEvent]
 
@@ -44,21 +44,21 @@ def event_from_lexicon(record: dict) -> LifecycleEvent:
     obj = record.get("event", record)
     event_type = obj.get("$type")
 
-    if event_type == "app.etzhayyim.organism.lifecycle#birth":
+    if event_type == "com.etzhayyim.organism.lifecycle#birth":
         return BirthEvent(
             reason=obj.get("reason", ""),
             council_attestation=obj.get("councilAttestation")
         )
-    elif event_type == "app.etzhayyim.organism.lifecycle#clone":
+    elif event_type == "com.etzhayyim.organism.lifecycle#clone":
         return CloneEvent(
             source_shard=obj.get("sourceShard", ""),
             target_shard=obj.get("targetShard", "")
         )
-    elif event_type == "app.etzhayyim.organism.lifecycle#retire":
+    elif event_type == "com.etzhayyim.organism.lifecycle#retire":
         return RetireEvent(
             reason=obj.get("reason", "")
         )
-    elif event_type == "app.etzhayyim.organism.lifecycle#excommunication":
+    elif event_type == "com.etzhayyim.organism.lifecycle#excommunication":
         return ExcommunicationEvent(
             council_attestation=obj.get("councilAttestation", ""),
             chigiri_procedure_ref=obj.get("chigiriProcedureRef", "")

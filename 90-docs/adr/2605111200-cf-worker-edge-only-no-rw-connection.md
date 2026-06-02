@@ -112,7 +112,7 @@ CF Worker が DB I/O を必要とする場合は **必ず HTTP / XRPC で server
 
 | 用途 | 代替経路 |
 |---|---|
-| Domain write (`vertex_<actor>_<kind>`) | XRPC `app.etzhayyim.apps.<actor>.<method>` → bpmn-dispatcher → LangGraph `/runs` or SpiffWorkflow `/v1/instance` → pod → INSERT |
+| Domain write (`vertex_<actor>_<kind>`) | XRPC `com.etzhayyim.apps.<actor>.<method>` → bpmn-dispatcher → LangGraph `/runs` or SpiffWorkflow `/v1/instance` → pod → INSERT |
 | Domain read | XRPC query method → bpmn-dispatcher → LangGraph node → SELECT → response |
 | Social write (`app.bsky.*`) | `sdk.pds.dispatch({type:"app.bsky.feed.post",...})` (PDS pipethrough は維持) |
 | Federation read | XRPC through PDS (unchanged) |
@@ -124,7 +124,7 @@ ADR-2604282300 の "T3 = Worker 許可" 条項のうち、**DB I/O に関する�
 T3 が必要な理由 (CF 固有 binding / WebSocket / SSE / edge latency) は維持するが、
 T3 Worker 内で `createKyselyDb()` を呼ぶことは禁止。
 
-`app.etzhayyim.vault.*` (D1 zero-knowledge) と `app.etzhayyim.signal.*` (E2E prekey) は元から PDS pipethrough のため影響なし。
+`com.etzhayyim.vault.*` (D1 zero-knowledge) と `com.etzhayyim.signal.*` (E2E prekey) は元から PDS pipethrough のため影響なし。
 
 ## 5. Phase 化 (soft-prune)
 
@@ -167,7 +167,7 @@ Per `60-apps/ai-gftd-project-<actor>/appview/.../src/app.ts`:
 
 1. Identify `createKyselyDb(env.HYPERDRIVE)` callsites → list domain collections involved
 2. For each domain write:
-   - Add `app.etzhayyim.apps.<actor>.<method>` lexicon (if not exists) として bpmn-dispatcher route 化
+   - Add `com.etzhayyim.apps.<actor>.<method>` lexicon (if not exists) として bpmn-dispatcher route 化
    - Worker handler は `parseLexiconInput()` + `await fetch(BPMN_DISPATCHER_URL, ...)` または `sdk.pds.xrpc(...)` 経由に書き換え
    - server-side (LangGraph node / Spiff task / pyzeebe primitive) で INSERT を実装
 3. For each domain read:
@@ -245,7 +245,7 @@ The same session inventory confirmed the intended Worker shape:
 - `/xrpc/[...path]` shims forward JSON-RPC MCP calls to
   `AGENTGATEWAY_MCP_ROUTER_URL` or `MCP_ROUTER_URL`;
 - canonical public MCP routing is
-  `https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message`;
+  `https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message`;
 - legacy non-Svelte / Worker-local logic remains a migration target and must be
   treated as exception debt, not a new precedent.
 

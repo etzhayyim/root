@@ -148,7 +148,7 @@ during Phase 4 migration (instead of W-8BEN + bank info as currently).
 Cancellation / dispute: ERC-4337 has no `cancelCard` analog. Replace
 with **escrow pattern**: USDC held in `ai.etzhayyim.apps.payment.escrowOpened`
 state, released on `qualityInspection.passed`, refundable to buyer
-within dispute window. Reference: `00-contracts/lexicons/ai/gftd/apps/
+within dispute window. Reference: `00-contracts/lexicons/com/etzhayyim/apps/
 payment/{sent,streamStarted,escrowOpened,split}.json` (already in
 etzhayyim/root from Phase 3 wave 4).
 
@@ -165,7 +165,7 @@ Current Stripe invoke calls become:
 - Build + deploy `@etzhayyim/tsukuru` Worker on etzhayyim CF account
 - Smoke: `curl https://tsukuru.etzhayyim.com/health` = 200
 - Lexicon NSID rename: `com.etzhayyim.apps.tsukuru.*` → `ai.etzhayyim.apps.tsukuru.*`
-  (lexicon files already exist in etzhayyim under `ai/gftd/apps/tsukuru/`
+  (lexicon files already exist in etzhayyim under `com/etzhayyim/apps/tsukuru/`
   per Phase 3 wave 5; rename collection NSIDs at this Phase 3 step)
 
 ## Phase 4 — factory DID migration (operator + factory consent)
@@ -298,4 +298,4 @@ clearer migration arc.
 - `@etzhayyim/sdk` `pay()` reference: `etzhayyim-root/20-actors/etzhayyim-sdk/`
 - `etzhayyim-paymaster` ERC-4337 reference: `etzhayyim-root/50-infra/etzhayyim-paymaster/`
 - vendor deps.toml `tranche-f-tsukuru-etzhayyim-fullmove-2026-05-20`
-- Seed Data: `00-contracts/catalogs/app/etzhayyim/tsukuru/manufacturer-catalog.v1.json` (465 companies)
+- Seed Data: `00-contracts/catalogs/com/etzhayyim/tsukuru/manufacturer-catalog.v1.json` (465 companies)

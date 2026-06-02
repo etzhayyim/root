@@ -366,7 +366,7 @@ complete native-ontology scaffold plus a working, floor-enforced reference pipel
 
 **Gated, not done** (await Council Lv7+ ratification of §D1–§D4 + the §4(2) outbound
 gates being honored): retrofitting danjo/tadori/kanae onto `:en/*`; populating any real
-follow/PII data for non-member, non-ingressed organisms; the `app.etzhayyim.engi.dep`
+follow/PII data for non-member, non-ingressed organisms; the `com.etzhayyim.engi.dep`
 lexicon (referenced by the adapter, not yet authored); and a repo-level CI guard
 (`validate-engi-floor`) mirroring `transparency-floor-and-gate.mjs`. The venue verdict
 (§D8: public/etzhayyim ≫ private/gftdcojp) is the standing answer to the founder's

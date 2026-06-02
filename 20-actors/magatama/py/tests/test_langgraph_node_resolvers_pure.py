@@ -89,7 +89,7 @@ async def test_mcp_tool_node_posts_envelope():
         "result_key": "research",
         "args": {"name": "web_research", "headers": {"x-test": "1"}},
     }
-    node = make_mcp_tool_node("https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message", cfg)
+    node = make_mcp_tool_node("https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message", cfg)
 
     sent = {}
 
@@ -111,7 +111,7 @@ async def test_mcp_tool_node_posts_envelope():
         out = await node({"query": "RW commit", "limit": 5})
 
     assert out == {"research": {"ok": True, "result": [1, 2, 3]}}
-    assert sent["url"].endswith("/app.etzhayyim.mcp.message")
+    assert sent["url"].endswith("/com.etzhayyim.mcp.message")
     assert sent["json"] == {
         "method": "tools/call",
         "params": {
@@ -134,11 +134,11 @@ async def test_mcp_tool_static_args_merged_into_arguments():
         "input_keys": [],
         "result_key": "out",
         "args": {
-            "name": "app.etzhayyim.tools.const.echo",
+            "name": "com.etzhayyim.tools.const.echo",
             "constant": {"bloomSkipped": True, "bloomId": None},
         },
     }
-    node = make_mcp_tool_node("https://x.example/xrpc/app.etzhayyim.mcp.message", cfg)
+    node = make_mcp_tool_node("https://x.example/xrpc/com.etzhayyim.mcp.message", cfg)
 
     sent: dict = {}
 
@@ -159,7 +159,7 @@ async def test_mcp_tool_static_args_merged_into_arguments():
 
     assert result == {"out": {"bloomSkipped": True, "bloomId": None}}
     # static args reach the wire; reserved keys (name) are NOT duplicated.
-    assert sent["json"]["params"]["name"] == "app.etzhayyim.tools.const.echo"
+    assert sent["json"]["params"]["name"] == "com.etzhayyim.tools.const.echo"
     assert sent["json"]["params"]["arguments"] == {
         "constant": {"bloomSkipped": True, "bloomId": None}
     }
@@ -179,9 +179,9 @@ async def test_mcp_tool_input_paths_navigates_nested_state():
             "first_doi": "fetchOut.body.message.items[0].DOI",
         },
         "result_key": "out",
-        "args": {"name": "app.etzhayyim.tools.json.extract", "path": "message.items"},
+        "args": {"name": "com.etzhayyim.tools.json.extract", "path": "message.items"},
     }
-    node = make_mcp_tool_node("https://x.example/xrpc/app.etzhayyim.mcp.message", cfg)
+    node = make_mcp_tool_node("https://x.example/xrpc/com.etzhayyim.mcp.message", cfg)
 
     sent: dict = {}
 
@@ -225,7 +225,7 @@ def test_mcp_tool_registry_ref_requires_pool_factory():
     from pymagatama.langgraph_node_resolvers import make_mcp_tool_node
     with pytest.raises(ValueError, match="pool_factory required"):
         make_mcp_tool_node(
-            "mcp://app.etzhayyim.tools.web.research",
+            "mcp://com.etzhayyim.tools.web.research",
             {"input_keys": ["q"], "result_key": "r"},
         )
 
@@ -253,7 +253,7 @@ async def test_mcp_tool_registry_ref_resolves_via_vertex_mcp_tool_def():
     pool, conn = _pool_returning(("research.etzhayyim.com",))
     cfg = {"input_keys": ["query"], "result_key": "out"}
     node = mod.make_mcp_tool_node(
-        "mcp://app.etzhayyim.tools.web.research",
+        "mcp://com.etzhayyim.tools.web.research",
         cfg,
         pool_factory=lambda: _async_return(pool),
     )
@@ -281,11 +281,11 @@ async def test_mcp_tool_registry_ref_resolves_via_vertex_mcp_tool_def():
     assert out2 == {"out": {"ok": True}}
     # Endpoint built from registry actor_host:
     assert sent["urls"] == [
-        "https://research.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
-        "https://research.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+        "https://research.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
+        "https://research.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     ]
     # tools/call name defaults to the nsid:
-    assert sent["envelopes"][0]["params"]["name"] == "app.etzhayyim.tools.web.research"
+    assert sent["envelopes"][0]["params"]["name"] == "com.etzhayyim.tools.web.research"
     # Registry SELECT happened exactly once thanks to TTL cache.
     assert conn.execute.await_count == 1
 

@@ -16,5 +16,5 @@ SELECT
        ELSE COUNT(*) / COUNT(DISTINCT signal_kind)
   END::BIGINT                         AS k_proxy
 FROM vertex_repo_record
-WHERE collection = 'ai.gftd.cohort.evidence'
+WHERE collection = 'com.etzhayyim.cohort.evidence'
 GROUP BY cohort_did

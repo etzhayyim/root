@@ -5,7 +5,7 @@
   "methods": [
     {
       "id": "source-policy/public-disclosure-r0",
-      "output": "app.etzhayyim.akashi.sourcePolicySnapshot",
+      "output": "com.etzhayyim.akashi.sourcePolicySnapshot",
       "limits": [
         "No logged-in scraping",
         "No anti-bot bypass",
@@ -14,7 +14,7 @@
     },
     {
       "id": "snapshot-parser/source-record-r0",
-      "output": "app.etzhayyim.akashi.adDisclosureSnapshot",
+      "output": "com.etzhayyim.akashi.adDisclosureSnapshot",
       "limits": [
         "Preserve source-limited fields",
         "Do not infer unavailable targeting or spend detail"
@@ -22,7 +22,7 @@
     },
     {
       "id": "cross-platform-link/factual-r0",
-      "output": "app.etzhayyim.akashi.adDisclosureLink",
+      "output": "com.etzhayyim.akashi.adDisclosureLink",
       "limits": [
         "Links are factual and non-adjudicating",
         "Same domain or creative hash is not proof of common control"
@@ -30,7 +30,7 @@
     },
     {
       "id": "malak-candidate/public-ioc-r0",
-      "output": "app.etzhayyim.akashi.malakEvidenceCandidate",
+      "output": "com.etzhayyim.akashi.malakEvidenceCandidate",
       "limits": [
         "Candidate evidence only",
         "Requires review before malak import",

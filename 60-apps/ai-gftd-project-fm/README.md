@@ -10,12 +10,12 @@ Investment fund domain baseline for `fund.etzhayyim.com`.
   - `government_fund`
   - `investor_fund`
 - Seeded collections:
-  - `app.etzhayyim.apps.fund.fund`
-  - `app.etzhayyim.apps.fund.manager`
-  - `app.etzhayyim.apps.fund.investor`
-  - `app.etzhayyim.apps.fund.investee`
-  - `app.etzhayyim.apps.fund.metric`
-  - `app.etzhayyim.apps.fund.commitment`
+  - `com.etzhayyim.apps.fund.fund`
+  - `com.etzhayyim.apps.fund.manager`
+  - `com.etzhayyim.apps.fund.investor`
+  - `com.etzhayyim.apps.fund.investee`
+  - `com.etzhayyim.apps.fund.metric`
+  - `com.etzhayyim.apps.fund.commitment`
 
 ## Why this exists
 

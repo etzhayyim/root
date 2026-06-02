@@ -17,7 +17,7 @@ one LangGraph invocation:
     load_state → resolve_cadence → [kyumei | koji | shinka_analyze] →
     write_heartbeat → emit_evolution → end
 
-Triggered by `app.etzhayyim.apps.shinka.tickActor` UDF (see handlers/shinka.py),
+Triggered by `com.etzhayyim.apps.shinka.tickActor` UDF (see handlers/shinka.py),
 which is scheduled every 15 min by a K8s CronJob in the mitama-udf
 namespace.
 """
@@ -239,12 +239,12 @@ def _kyumei_gather(state: ShinkaState) -> ShinkaState:
                 %s)
         """,
         (
-            f"at://{did}/app.etzhayyim.apps.standard.shinkaKnowledge/{rkey}",
+            f"at://{did}/com.etzhayyim.apps.standard.shinkaKnowledge/{rkey}",
             did,
             rkey,
             did,
             did,
-            "app.etzhayyim.apps.standard.shinkaKnowledge",
+            "com.etzhayyim.apps.standard.shinkaKnowledge",
             did,
             did.split(":")[-1].split(".")[0] if ":" in did else did,
             did.split(":")[-1],
@@ -372,7 +372,7 @@ def _write_heartbeat(state: ShinkaState) -> ShinkaState:
     """UPSERT vertex_actor_shinka_state with now as last_run_ts_ms."""
     did = state["actor_did"]
     now = state["now_ms"]
-    collection = f"app.etzhayyim.apps.standard.heartbeat"
+    collection = f"com.etzhayyim.apps.standard.heartbeat"
     # RW does not support ON CONFLICT on composite uniqueness beyond PK,
     # but vertex_actor_shinka_state is a live aggregation target — a bare
     # INSERT is fine (duplicates compact at MV level).
@@ -411,12 +411,12 @@ def _emit_evolution(state: ShinkaState) -> ShinkaState:
                 %s)
         """,
         (
-            f"at://{did}/app.etzhayyim.apps.standard.shinkaEvolution/{rkey}",
+            f"at://{did}/com.etzhayyim.apps.standard.shinkaEvolution/{rkey}",
             did,
             rkey,
             did,
             did,
-            "app.etzhayyim.apps.standard.shinkaEvolution",
+            "com.etzhayyim.apps.standard.shinkaEvolution",
             did,
             did.split(":")[-1].split(".")[0] if ":" in did else did,
             did.split(":")[-1],

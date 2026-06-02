@@ -30,7 +30,7 @@ The Cloudflare Worker implementation has been retired to
 `_archive/retired-cf-workers/adr-2604282300/60-apps/ai-gftd-project-open-isic/worker`.
 Active writes and classification workflows are owned by:
 
-- `00-contracts/bpmn/ai/gftd/open-isic`
+- `00-contracts/bpmn/com/etzhayyim/open-isic`
 - `20-actors/magatama/py/src/pymagatama/primitives/open_isic.py`
 - `20-actors/magatama/py/src/pymagatama/handlers/open_isic.py`
 

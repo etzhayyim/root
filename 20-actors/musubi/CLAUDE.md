@@ -173,7 +173,7 @@ python -c "from magatama.cells.musubi_marriage_ceremony import _r0_marker" 2>&1 
 
 - `/20-actors/musubi/manifest.jsonld`
 - `/20-actors/musubi/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/musubi/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/musubi/` (5 Lexicons + README)
 - `/90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md`
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — TIGHT PAIR
 - `/90-docs/adr/2605250200-l5-religious-marriage-cell.md` — existing Pregel-cell pattern

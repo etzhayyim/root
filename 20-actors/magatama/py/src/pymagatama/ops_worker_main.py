@@ -22,7 +22,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.ops.createProcessRun")
+    @worker.task(task_type="com.etzhayyim.apps.ops.createProcessRun")
     async def task_create_process_run(**kwargs):
         process_name = kwargs.get("processName", "")
         automation_id = kwargs.get("automationId", "")
@@ -50,7 +50,7 @@ async def run_worker():
 
         return {"runId": run_id, "status": "running", "startedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.ops.updateProcessRun")
+    @worker.task(task_type="com.etzhayyim.apps.ops.updateProcessRun")
     async def task_update_process_run(**kwargs):
         run_id = kwargs.get("runId", "")
         status = kwargs.get("status", "")
@@ -68,7 +68,7 @@ async def run_worker():
 
         return {"runId": run_id, "status": status, "updatedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.ops.listProcessRuns")
+    @worker.task(task_type="com.etzhayyim.apps.ops.listProcessRuns")
     async def task_list_process_runs(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -93,7 +93,7 @@ async def run_worker():
 
         return {"runs": [dict(r) for r in rows], "total": total or 0, "offset": offset, "limit": limit}
 
-    @worker.task(task_type="app.etzhayyim.apps.ops.getProcessRun")
+    @worker.task(task_type="com.etzhayyim.apps.ops.getProcessRun")
     async def task_get_process_run(**kwargs):
         run_id = kwargs.get("runId", "")
 
@@ -110,7 +110,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.ops.createAutomation")
+    @worker.task(task_type="com.etzhayyim.apps.ops.createAutomation")
     async def task_create_automation(**kwargs):
         name = kwargs.get("name", "")
         description = kwargs.get("description", "")
@@ -138,7 +138,7 @@ async def run_worker():
 
         return {"automationId": automation_id, "status": "active", "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.ops.updateAutomation")
+    @worker.task(task_type="com.etzhayyim.apps.ops.updateAutomation")
     async def task_update_automation(**kwargs):
         automation_id = kwargs.get("automationId", "")
         name = kwargs.get("name", "")
@@ -157,7 +157,7 @@ async def run_worker():
 
         return {"automationId": automation_id, "status": status, "updatedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.ops.listAutomations")
+    @worker.task(task_type="com.etzhayyim.apps.ops.listAutomations")
     async def task_list_automations(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -174,7 +174,7 @@ async def run_worker():
 
         return {"automations": [dict(r) for r in rows], "total": total or 0, "offset": offset, "limit": limit}
 
-    @worker.task(task_type="app.etzhayyim.apps.ops.getAutomation")
+    @worker.task(task_type="com.etzhayyim.apps.ops.getAutomation")
     async def task_get_automation(**kwargs):
         automation_id = kwargs.get("automationId", "")
 

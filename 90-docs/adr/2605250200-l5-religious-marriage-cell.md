@@ -53,7 +53,7 @@ Three vital-records candidates were considered for P2:
 
 | State function | Religious-corp substitute |
 |---|---|
-| Legal marriage status | New Lexicon `app.etzhayyim.member.marriage` — dual-signed, dual-anchored. NOT a Japanese legal marriage. |
+| Legal marriage status | New Lexicon `com.etzhayyim.member.marriage` — dual-signed, dual-anchored. NOT a Japanese legal marriage. |
 | Spousal inheritance | Already covered: land donations stay at Land Registry (waqf, inalienable per ADR-2605192245). Personal inheritance is outside religious-corp scope. |
 | Joint tax filing | NOT replicated. TitheRouter operates on individual SBT (1 SBT = 1 tithe stream). Marriage does not create a joint tithe entity. This is a constitutional choice, not an oversight. |
 | Health insurance dependency | NOT replicated. Religious-corp has no insurance substrate (substrate boundary). |
@@ -65,7 +65,7 @@ The cell adds **one** new function: dual-signed, dual-anchored marriage record. 
 ## Open constitutional questions (Council MUST resolve before activation)
 
 1. **Gender requirement**. ADR-2605192100 contains no explicit gender requirement for marriage. CLAUDE.md doctrinal positions list Tree of Life biology (`生命創出` / 産霊) — interpretation ranges from strictly procreative (male+female) to relational ontology (any consenting SBT↔SBT bond). This ADR is **agnostic** on the gender question; the activation PR must include a Council attestation that specifies the constitutional position. Without Council resolution, the cell cannot accept records.
-2. **Polygamy**. ADR-2605192100 contains no explicit position on N≥3 marriages. The cell schema in §3.1 assumes N=2 (binary marriage) by default but does not technically prevent N>2 via chained `app.etzhayyim.member.marriage` records. Council must explicitly attest whether N>2 is permitted, prohibited, or per-case.
+2. **Polygamy**. ADR-2605192100 contains no explicit position on N≥3 marriages. The cell schema in §3.1 assumes N=2 (binary marriage) by default but does not technically prevent N>2 via chained `com.etzhayyim.member.marriage` records. Council must explicitly attest whether N>2 is permitted, prohibited, or per-case.
 3. **Cross-religion adherent**. Some adherents may hold parallel state marriage. Whether religious-corp marriage requires state-marriage-absence is undefined. Default: no requirement (the two substrates are independent per §1.12).
 
 These three questions are blockers for activation, not for ADR / scaffold ratification. The ADR can land as `proposed`; Council resolves the questions in the ratify PR.
@@ -78,12 +78,12 @@ These three questions are blockers for activation, not for ADR / scaffold ratifi
 - Files: `cell.py` (LangGraph Pregel graph) + `__init__.py`.
 - Tier: B (Per-Domain) per `cells/README.md` taxonomy.
 - Murakumo node (leader): `manasseh` (religious-corp tribe-name convention — to be assigned in `50-infra/murakumo/fleet.toml` if cell is activated; sibling of `ephraim` since both are member-relational cells).
-- Trigger: MST firehose listener on `app.etzhayyim.member.marriage.proposal` (the consent-collection record, see §3.2) + manual cell command for confirmation.
+- Trigger: MST firehose listener on `com.etzhayyim.member.marriage.proposal` (the consent-collection record, see §3.2) + manual cell command for confirmation.
 
 ## 2. Pregel graph (4 nodes — one more than P1, because consent is a 2-step ritual)
 
 ```
-ingest_proposal       <-  MST firehose on app.etzhayyim.member.marriage.proposal
+ingest_proposal       <-  MST firehose on com.etzhayyim.member.marriage.proposal
     |
     v
 validate_both_sbt     <-  cross-check both DIDs hold active Adherent SBT
@@ -93,18 +93,18 @@ collect_consent       <-  wait for counter-party signed acceptance record
                           (timeout: 30 days; otherwise emit proposal-expired)
     |
     v
-emit_marriage         ->  MST PUT app.etzhayyim.member.marriage (dual-signed)
+emit_marriage         ->  MST PUT com.etzhayyim.member.marriage (dual-signed)
                        ->  optional: L2 attestation tx (off-cell, manual ritual)
 ```
 
 - `ingest_proposal` — receives a `proposal` record signed by the proposing adherent. Extracts (proposerDid, counterpartyDid, vows, proposedAt).
-- `validate_both_sbt` — confirms both parties have an `app.etzhayyim.member.adherent` SBT record in `active` status (`revocationStatus != withdrawn/revoked`). Refuses to proceed otherwise.
+- `validate_both_sbt` — confirms both parties have an `com.etzhayyim.member.adherent` SBT record in `active` status (`revocationStatus != withdrawn/revoked`). Refuses to proceed otherwise.
 - `collect_consent` — waits for a `proposal-acceptance` MST record signed by `counterpartyDid` referencing the proposal CID. The 30-day timeout matches the Bootstrap Council public objection period (ADR-2605192300) — long enough to be deliberative, short enough that stale proposals don't linger.
-- `emit_marriage` — emits a single `app.etzhayyim.member.marriage` record with both DIDs, both signature hashes, the proposal+acceptance CID pair, and the cell's witness attestation CID. Optionally a Council member or registered officiant may emit an L2 attestation transaction; the cell does not require this.
+- `emit_marriage` — emits a single `com.etzhayyim.member.marriage` record with both DIDs, both signature hashes, the proposal+acceptance CID pair, and the cell's witness attestation CID. Optionally a Council member or registered officiant may emit an L2 attestation transaction; the cell does not require this.
 
 ## 3. New Lexicons (3 — to be authored in the Council-ratify PR)
 
-### 3.1 `app.etzhayyim.member.marriage` (record, key=tid)
+### 3.1 `com.etzhayyim.member.marriage` (record, key=tid)
 
 The standing marriage record. Required fields:
 
@@ -113,24 +113,24 @@ The standing marriage record. Required fields:
 - `partyASignature` (string, required) — signature hash of vow text by partyA's DID key
 - `partyBSignature` (string, required) — signature hash of vow text by partyB's DID key
 - `vowsCid` (string, required) — IPFS CID of the shared vows text (allows custom vows; default vows text published per ADR-2605172600 model)
-- `proposalCid` (string, required) — CID of the `app.etzhayyim.member.marriage.proposal` record
-- `acceptanceCid` (string, required) — CID of the `app.etzhayyim.member.marriage.acceptance` record
+- `proposalCid` (string, required) — CID of the `com.etzhayyim.member.marriage.proposal` record
+- `acceptanceCid` (string, required) — CID of the `com.etzhayyim.member.marriage.acceptance` record
 - `cellAttestationCid` (string, required) — CID of the cell's `validate_both_sbt` + `collect_consent` output
 - `marriedAt` (datetime, required) — moment of mutual consent finalization
 - `dissolutionStatus` (enum: `active` / `dissolved` / `void`)
-- `dissolutionRef` (at-uri, optional) — link to `app.etzhayyim.member.marriage.dissolution` if `dissolutionStatus != active`
+- `dissolutionRef` (at-uri, optional) — link to `com.etzhayyim.member.marriage.dissolution` if `dissolutionStatus != active`
 - `optionalL2AttestationTxHash` (string, optional)
 - `createdAt`, `updatedAt`
 
-### 3.2 `app.etzhayyim.member.marriage.proposal` (record, key=tid)
+### 3.2 `com.etzhayyim.member.marriage.proposal` (record, key=tid)
 
 One-side proposal record. Required fields: `proposerDid`, `counterpartyDid`, `vowsCid`, `proposedAt`. Expires automatically 30 days after `proposedAt` if no `acceptance` is emitted.
 
-### 3.3 `app.etzhayyim.member.marriage.acceptance` (record, key=tid)
+### 3.3 `com.etzhayyim.member.marriage.acceptance` (record, key=tid)
 
 Counter-party acceptance. Required fields: `proposalCid`, `accepterDid`, `acceptedAt`. Triggers `emit_marriage` in the cell.
 
-### 3.4 `app.etzhayyim.member.marriage.dissolution` (record, key=tid) — DEFAULT BLOCKED
+### 3.4 `com.etzhayyim.member.marriage.dissolution` (record, key=tid) — DEFAULT BLOCKED
 
 Mutual-consent dissolution. Required fields: `marriageCid`, `partyADissolutionSignature`, `partyBDissolutionSignature`, `dissolvedAt`. **Unilateral dissolution is constitutionally not supported** — both parties must sign. If only one party signs, the record is invalid and the cell refuses to update `dissolutionStatus`.
 

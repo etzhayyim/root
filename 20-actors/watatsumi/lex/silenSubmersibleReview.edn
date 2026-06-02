@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.watatsumi.silenSubmersibleReview"
+ :id "com.etzhayyim.watatsumi.silenSubmersibleReview"
  :defs
  {:main
   {:type "record"

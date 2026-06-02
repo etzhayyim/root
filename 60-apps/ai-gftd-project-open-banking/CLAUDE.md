@@ -7,11 +7,11 @@
 
 | NSID | Type | Description |
 |---|---|---|
-| `app.etzhayyim.apps.openBanking.createAccount` | procedure | open account (DID-addressed) |
-| `app.etzhayyim.apps.openBanking.getAccount` | query | account + derived balance |
-| `app.etzhayyim.apps.openBanking.listAccounts` | query | owner → accounts, paginated |
-| `app.etzhayyim.apps.openBanking.transfer` | procedure | atomic double-entry, idempotent |
-| `app.etzhayyim.apps.openBanking.listTransactions` | query | ledger view w/ running balance |
+| `com.etzhayyim.apps.openBanking.createAccount` | procedure | open account (DID-addressed) |
+| `com.etzhayyim.apps.openBanking.getAccount` | query | account + derived balance |
+| `com.etzhayyim.apps.openBanking.listAccounts` | query | owner → accounts, paginated |
+| `com.etzhayyim.apps.openBanking.transfer` | procedure | atomic double-entry, idempotent |
+| `com.etzhayyim.apps.openBanking.listTransactions` | query | ledger view w/ running balance |
 
 ## Architecture
 

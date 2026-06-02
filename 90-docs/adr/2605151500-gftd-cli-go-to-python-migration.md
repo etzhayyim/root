@@ -93,7 +93,7 @@ hardcoded strings.
 17. `cohort` XRPC subcommands — seed, gen, fission, evidence, emit, lineage, lineage-stats, repair-edge, forest, dashboard, coverage, gap, snapshot, diff, drift (all XRPC POST/GET). `cohort bootstrap` remains Go-only (deps.toml mutations). ✓
 18. `agent-runtime restart` — kept as Go-only stub; Go's agent_runtime.go has no `restart` subcommand either (render/publish/register only). Kubectl-level operation deferred. ✓ (stub correct)
 19. `kaizen logs` — OCEL event aggregation; tries CF Analytics Engine SQL API (`ocel_v2` table, `quantileWeighted` p50/p99), falls back to PDS `/_pds/ocel`; per-method slow/error findings; `--fix code-exec` builds structured prompt → `claude -p` / `codex exec -`; `--fix-engine murakumo` calls `scoreDataQuality` + `optimizeCycle`. ✓
-20. `nono deploy` — Phase 1: `npx wrangler deploy` subprocess in component dir (resolved from nanoid or `--dir`). Phase 2: reads `nono-manifest.jsonld`, POSTs to `/xrpc/app.etzhayyim.actor.registerManifest`. `--skip-skills` skips Phase 2. ✓
+20. `nono deploy` — Phase 1: `npx wrangler deploy` subprocess in component dir (resolved from nanoid or `--dir`). Phase 2: reads `nono-manifest.jsonld`, POSTs to `/xrpc/com.etzhayyim.actor.registerManifest`. `--skip-skills` skips Phase 2. ✓
 
 ### Extensions (beyond original 20-item list)
 
@@ -126,22 +126,22 @@ hardcoded strings.
 - `actors cc-coverage` / `common-crawler-coverage` — Go-only stub (pgxpool required for vertex_domain/vertex_page queries); raises ClickException with clear message to use Go binary. ✓
 - `authn login` / `logout` — aliases for signin/signout (muscle-memory aliases). ✓
 - `authn revoke` — POST `/oauth/revoke` for access/refresh/id tokens; `--token` explicit mode; `--keep-local` gate; `-q` quiet. ✓
-- `authn migrate` — exchange stored session JWT for API key (sk_live_*) via `app.etzhayyim.auth.createApiKey`; `--dry-run` mode. ✓
+- `authn migrate` — exchange stored session JWT for API key (sk_live_*) via `com.etzhayyim.auth.createApiKey`; `--dry-run` mode. ✓
 - `authz create-api-key` — upgraded with `--name`, `--test` (sk_test_*), `-q` (key-only output for scripting) flags matching Go. ✓
 - `agent verify` — verify ERC-8004 on-chain agent registration against local proof files. ✓
 - `agent organism status/publish` — organism HTTP status probe; publish stub (full flow requires Go). ✓
 - `murakumo graph-extract/graph-ingest/coverage-export` — subprocess launchers for LFM graph pipeline scripts. ✓
-- `murakumo train-experts` — XRPC POST to `app.etzhayyim.murakumo.trainExperts`. ✓
+- `murakumo train-experts` — XRPC POST to `com.etzhayyim.murakumo.trainExperts`. ✓
 - `murakumo optimize` — dry-run cycle description; live mode prints actionable message. ✓
 - `vault create/add/ls/audit/device-key/run` — zero-knowledge vault ops: AES-KW key wrap (client-side), AES-256-GCM content encrypt; `run` injects secrets as env vars. ✓
 - `vault share/unshare` — X25519-ECIES key wrap (HKDF-SHA256 + AES-KW) for sharing vault access across DIDs via signal prekey bundle. ✓
 - `docs validate` — docs registry validation: registry shape, file existence, YAML front matter, graph.jsonld consistency. ✓
 - `code-quality run` — unified quality scorer: cargo-machete, cargo-duplicates, go-vet, go-mod-tidy, jscpd, magatama-lint, frontend-lint, perf-test, sql-injection/full-scan, dead-exports; JSON + text output; `--skip` filter. ✓
 - `murakumo fleet-plan` — Hayate V5 fleet plan generator (hayate_v5_split.py fleet); target-slots/dim/groups/mamba-per-group/top-m/batch-size/lr/data-source/lancedb-uri; `--dry-run`. ✓
-- `actors migrate-to-plc` — upgraded from stub to real XRPC `app.etzhayyim.plc.migrateActor`; `--offline` mock mode; `--apply` gate. ✓
+- `actors migrate-to-plc` — upgraded from stub to real XRPC `com.etzhayyim.plc.migrateActor`; `--offline` mock mode; `--apply` gate. ✓
 - `coverage world/infer/hospitality` — Go-only stubs (require RisingWave direct via pgxpool); `--help` prints available options. ✓
 - `deps governance-wit` — WIT + governance compliance static analysis: wit/world.wit import count, src/app.ts command/handle count, magatama.jsonld governance fields; score + verdict; `--format json`. ✓
-- `identity migrate-paths` — legacy-nanoid → did:gftd path migration: reads `[[legacy_nanoids]]` from deps.toml, computes SHA-256-based path DID, submits via XRPC `app.etzhayyim.identity.submitOp`; `--apply` gate; `--json`. ✓
+- `identity migrate-paths` — legacy-nanoid → did:gftd path migration: reads `[[legacy_nanoids]]` from deps.toml, computes SHA-256-based path DID, submits via XRPC `com.etzhayyim.identity.submitOp`; `--apply` gate; `--json`. ✓
 - `migrate-manifest run` — pure file transformation (gftd.json → magatama.jsonld); reads routes/runtime/build/deploy fields from gftd.json; optionally parses `magatama.toml` (sections: component, component.env, component.compose, triggers.http, triggers.w_commit, ui, ui.ssr_routes, game, space, [[space.channels]], evolver, pool, [[extensions]], interfaces); `--batch` scans subdirs; `--dry-run` prints to stdout; zero DB dependencies. ✓
 - `docs-gen schema` — factual schema auto-generation: reads `magatama.jsonld` (app/nanoid/DID/collections/performerType), `wrangler.jsonc` (service bindings via `"binding":` regex), `src/*.ts` (G("Label") graph patterns); `--all` scans all `60-apps/ai-gftd-project-*/wasm/*/`; `--format json|md`; `--out` file sink; fully portable local file analysis. ✓
 - `deps score` — HTTP-based: fetches `deps.etzhayyim.com/api/deps/graph`, extracts link coverage summary (totalLinks/resolvedLinks/linkCoverageRate/isolatedCount/workerDeployCoverage/governanceCoverage/wprotoIntegrationScore); `--format text|json`; `--timeout-sec`. ✓
@@ -152,7 +152,7 @@ hardcoded strings.
 - `dodaf init` — seeds TV-1 (11 seed rules), AV-2 (9 terms), OV-5 (6 activities) from embedded Python dicts → temp NDJSON → DuckDB `COPY … TO (FORMAT PARQUET)` in `80-data/dodaf/`; `--workspace-dir`; `--force` to overwrite existing parquet files. ✓
 - `deps mv` — generates 2 RisingWave `CREATE MATERIALIZED VIEW` DDL statements (`mv_deps_component_live`, `mv_deps_summary_live`) from embedded SQL; `--format sql|text`; `--apply` exits nonzero with "use gftd (Go CLI)" message (requires live RisingWave pgxpool). ✓
 - `dodaf migrate` — walks workspace for all `CLAUDE.md` files; extracts `## CRITICAL:` sections via line-scanner; generates TV-1 IDs from dir+title slug; appends new rows to `tv1_standards.parquet` via `_write_json_to_parquet`; replaces section body with `→ gftd dodaf tv1 query --id <id>` pointer in-place; `--dry-run`, `--skip-pointer`. ✓
-- `dodaf seed` — reads `tv1_standards.parquet` via DuckDB CLI; POSTs each row to `com.atproto.repo.createRecord` as `app.etzhayyim.dodaf.tv1Standard` via `urllib.request`; `etzhayyim_TOKEN` auth; `--dry-run` prints without hitting PDS; `--pds` override. ✓
+- `dodaf seed` — reads `tv1_standards.parquet` via DuckDB CLI; POSTs each row to `com.atproto.repo.createRecord` as `com.etzhayyim.dodaf.tv1Standard` via `urllib.request`; `etzhayyim_TOKEN` auth; `--dry-run` prints without hitting PDS; `--pds` override. ✓
 - `domain-ingest local` — upgraded from stub: resolves `70-tools/scripts/ingest-domain-data.ts` from git root, runs `npx tsx <script> [--domain] [--limit] [--dry-run] [--skip-llm]`; exits nonzero when script or `npx` missing. ✓
 - `domain-ingest common-crawl` — new subcommand: resolves `60-apps/ai-gftd-project-common-crawl/scripts/phase5_inject.py`, runs via `sys.executable`; `--source intel|graph`, `--batch-size`, `--dry-run`, `--pds` (injects `PDS_URL` env). ✓
 - `monitor shinka` — full port replacing XRPC stub: discovers apps via `magatama.jsonld` rglob; reads `src/app.ts` for `resolveHeartbeatCadence`/`createInboxBuffer`/`createCadenceState`/`shouldDrill`/`shouldValidate`/`shouldAnalyze`/`shouldEngage`/`heartbeatCount %`; parallel analysis via `ThreadPoolExecutor`; optional live `POST /_heartbeat` test; optional `--hyoka` domain scoring overlay (in-memory, KG nodes approximate to 0 without DB); optional `--store` to `80-data/hyoka/` NDJSON→Parquet via DuckDB CLI; `--gate` regression check on `avg_hyoka_score`/`top10_avg`/`low_count`; `--json` output via `dataclasses.asdict`; sub-DID freshness via `com.atproto.repo.listRecords` XRPC probe; `--nanoid` single-app filter; `--freshness-hours` threshold. ✓
@@ -161,8 +161,8 @@ hardcoded strings.
 - `agent-runtime register` — dry-run builds ERC-8004 registration payload (SHA256 metadata hash, keccak root DID hash from args or `--registration` JSON); `--no-dry-run` raises ClickException (EVM signing requires Go). ✓
 - `agent-runtime publish-agent` — dry-run combines render + publish + register into single result JSON; `--no-dry-run` raises ClickException. ✓
 - `agent-runtime holochain-plan` — pure data transformation: builds Holochain conductor k8s plan JSON with `agentDid`, `hApp` (name/uri/sha256/roleName/zomeName/dnaHash), `k8s` (namespace/workload/conductorImage/env); validates `--namespace != default`; `--out` file sink. ✓
-- `mitama schema-status` — `SHOW ALTER TABLE COLUMN FROM graphar` via `app.etzhayyim.kagami.sql` XRPC; `--table` filter, `--all`, `--state` (RUNNING/FINISHED/CANCELLED); `--json`. ✓
-- `training run` — full port of Go's `training run --kind sft|lora|distill`: routes to `app.etzhayyim.apps.training.runSft`/`runLora`/`runDistill` XRPC; validates `--base` (sft/lora), `--student-base` + `--teacher-kind` (distill); supports `--dataset`, `--label`, `--run-id`, `--gpu`, `--seed`, `--hyperparams` JSON, `--eval-benches`, `--rationale`, `--distill-method`; `--json` output. ✓
+- `mitama schema-status` — `SHOW ALTER TABLE COLUMN FROM graphar` via `com.etzhayyim.kagami.sql` XRPC; `--table` filter, `--all`, `--state` (RUNNING/FINISHED/CANCELLED); `--json`. ✓
+- `training run` — full port of Go's `training run --kind sft|lora|distill`: routes to `com.etzhayyim.apps.training.runSft`/`runLora`/`runDistill` XRPC; validates `--base` (sft/lora), `--student-base` + `--teacher-kind` (distill); supports `--dataset`, `--label`, `--run-id`, `--gpu`, `--seed`, `--hyperparams` JSON, `--eval-benches`, `--rationale`, `--distill-method`; `--json` output. ✓
 - `deps export` — exports deps score/audit/apps JSON files for the frontend visualizer: fetches `deps.etzhayyim.com/api/deps/graph`, computes `_summarize_deps_graph`, writes `deps-score.json`/`deps-audit.json`/`deps-apps.json` to `--out-dir`; `--no-refresh` skips HTTP; `--top` controls top-N unresolved nodes; `--score-name`/`--audit-name`/`--apps-name` overrides. ✓
 - `deps sql` — Go-only stub (queries `mv_deps_component_live` via pgxpool); raises ClickException directing to `gftd deps sql`. ✓
 - `code exec` — non-interactive one-shot terminal-agent mode: resolves `OPENROUTER_API_KEY` from `--api-key` arg → `OPENROUTER_API_KEY` env → macOS Keychain (`security find-generic-password -s gftd.openrouter -w`); delegates to `uv run agent --local --message <msg> --dir <path>`; `--dry-run` prints command without executing; `--model` and `--uv-bin` overrides. ✓

@@ -26,7 +26,7 @@ rw-free/
 ├── package.json         # depends on @etzhayyim/sdk
 ├── tsconfig.json
 ├── src/
-│   ├── types.ts         # Occupation type (matches app.etzhayyim.apps.openIsco.occupation lexicon)
+│   ├── types.ts         # Occupation type (matches com.etzhayyim.apps.openIsco.occupation lexicon)
 │   ├── seed.ts          # one-shot seeder — reads ISCO CSV → SDK.write() per row
 │   ├── query.ts         # read API — SDK.read() with key-prefix MST traversal
 │   ├── verify.ts        # verification example — SDK.verify() returns Merkle proof
@@ -62,7 +62,7 @@ const e = new Etzhayyim({
 
 // Read — replaces SELECT
 const { records } = await e.read<Occupation>({
-  collection: "app.etzhayyim.apps.openIsco.occupation",
+  collection: "com.etzhayyim.apps.openIsco.occupation",
   prefix: "2",       // major code prefix
   limit: 100,
 });
@@ -85,7 +85,7 @@ const { records } = await e.read<Occupation>({
 
 3. **Verify anytime** (any third party):
    ```bash
-   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apps.openIsco.occupation/3a7b6806
+   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/com.etzhayyim.apps.openIsco.occupation/3a7b6806
    # → { included: true, anchoredAt: { txHash, blockNumber, rootCid }, merklePath: [...] }
    ```
 

@@ -273,7 +273,7 @@ async def task_patent_epo_ops_fill_citations(
             cited_cc = str(cited_doc.get("country", {}).get("$", "US") or "US")
             if not cited_num:
                 continue
-            cited_vertex_id = f"at://{_PATENT_ACTOR}/app.etzhayyim.apps.patent.patent/{cited_cc}-{cited_num}"
+            cited_vertex_id = f"at://{_PATENT_ACTOR}/com.etzhayyim.apps.patent.patent/{cited_cc}-{cited_num}"
             edge_id = f"edge-epo-cit-{patent_number}-{cited_num}-{uuid.uuid4().hex[:6]}"
             cit_rows.append((
                 edge_id, vertex_id, cited_vertex_id,
@@ -316,7 +316,7 @@ async def task_patent_epo_ops_fill_citations(
             member_cc = str(pub_ref_obj.get("country", {}).get("$", "") or "")
             if not member_num or not member_cc:
                 continue
-            member_vid = f"at://{_PATENT_ACTOR}/app.etzhayyim.apps.patent.patent/{member_cc}-{member_num}"
+            member_vid = f"at://{_PATENT_ACTOR}/com.etzhayyim.apps.patent.patent/{member_cc}-{member_num}"
             edge_id = f"edge-fam-{patent_number}-{member_cc}-{member_num}-{uuid.uuid4().hex[:6]}"
             fam_rows.append((edge_id, vertex_id, member_vid, _now_iso()))
 
@@ -385,8 +385,8 @@ async def task_patent_uspto_ingest_citation(
         if not pat_id or not cit_id:
             continue
 
-        citing_vid = f"at://{_PATENT_ACTOR}/app.etzhayyim.apps.patent.patent/US-{pat_id}"
-        cited_vid = f"at://{_PATENT_ACTOR}/app.etzhayyim.apps.patent.patent/US-{cit_id}"
+        citing_vid = f"at://{_PATENT_ACTOR}/com.etzhayyim.apps.patent.patent/US-{pat_id}"
+        cited_vid = f"at://{_PATENT_ACTOR}/com.etzhayyim.apps.patent.patent/US-{cit_id}"
         edge_id = f"edge-uspto-cit-{pat_id}-{cit_id}"
 
         batch.append((
@@ -473,7 +473,7 @@ async def task_patent_uspto_ingest_patent(
         if not pat_number:
             continue
 
-        vertex_id = f"at://{_PATENT_ACTOR}/app.etzhayyim.apps.patent.patent/US-{pat_number}"
+        vertex_id = f"at://{_PATENT_ACTOR}/com.etzhayyim.apps.patent.patent/US-{pat_number}"
 
         batch.append((
             vertex_id, pat_number, "US", pat_type,
@@ -486,7 +486,7 @@ async def task_patent_uspto_ingest_patent(
         # Queue blob convert for patents on or after threshold date.
         if pat_date and pat_date >= blobThresholdDate and filename:
             pdf_url = f"https://bulkdata.uspto.gov/data/patent/grant/redbook/fulltext/{pat_date[:4]}/{filename}"
-            blob_vid = f"at://{_PATENT_ACTOR}/app.etzhayyim.apps.patent.blob/US-{pat_number}"
+            blob_vid = f"at://{_PATENT_ACTOR}/com.etzhayyim.apps.patent.blob/US-{pat_number}"
             blob_batch.append((
                 blob_vid, pat_number, "US", pdf_url, "pending",
                 _PATENT_ACTOR, _PATENT_ACTOR, 1, _now_iso(),

@@ -51,7 +51,7 @@ religious-corp は wadachi (autonomous-mobility), igata (HPDC), tatekata (constr
 religious-corp Tier-B actor **tsutae (伝え)** を以下で立ち上げる:
 
 - **Actor DID**: `did:web:etzhayyim.com:tsutae`
-- **Namespace**: `app.etzhayyim.tsutae.*`
+- **Namespace**: `com.etzhayyim.tsutae.*`
 - **R0 scope**: Handheld communication device assembly (smartphone-class form factor; ≤200 g + ≤7-inch display + ≤500 cm³ enclosure volume); ARM64 or RISC-V 64-bit SoC; modular battery + display + camera + USB-C + cellular module
 - **R0 deliverable**: Scaffold only (8 cells import-time RuntimeError + 6 lexicon stub + actor scaffold)
 - **14 constitutional gates G1..G14 + 12 non-goals N1..N12** declared before capability lands (+2 non-goals over igata's 10 reflecting smartphone-specific §2(c) + §2(d) risks)
@@ -86,7 +86,7 @@ religious-corp Tier-B actor **tsutae (伝え)** を以下で立ち上げる:
 ├── tsutae_device_attestation/
 └── tsutae_recycling_intake/
 
-00-contracts/lexicons/app/etzhayyim/tsutae/
+00-contracts/lexicons/com/etzhayyim/tsutae/
 ├── pcbAttestation.json           # SMT PCB lot attestation
 ├── chassisAttestation.json       # chassis assembly with igata Al + battery + display
 ├── firmwareAttestation.json      # firmware load with crypto hash + open-source verification
@@ -117,7 +117,7 @@ Cell ordering follows physical smartphone assembly sequence (SMT → chassis →
 ### Lexicons (6, all R0 stub deferred to R1+)
 
 ```
-app.etzhayyim.tsutae.{
+com.etzhayyim.tsutae.{
   pcbAttestation           # SMT PCB lot (component sourcing + AOI pass + ECN traceability)
   chassisAttestation       # chassis assembly (igata Al + battery + speaker + camera + USB-C + cellular module IDs)
   firmwareAttestation      # firmware load (image CID + crypto hash + bootloader status + open-source verification)

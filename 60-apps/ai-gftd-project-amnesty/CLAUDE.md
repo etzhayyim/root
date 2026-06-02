@@ -52,10 +52,10 @@ Both actors enforce mutual deferral: yobel R14 returns `deferToAmnesty=true` for
 
 ## NSID
 
-- Canonical (kuniUmi precedent と整合): `app.etzhayyim.apps.etzhayyim.amnesty.*`
+- Canonical (kuniUmi precedent と整合): `com.etzhayyim.apps.etzhayyim.amnesty.*`
 - Vendor transitional alias: `org.etzhayyim.amnesty.*` (post-cutover, vendor-side mirror)
 
-Path: `00-contracts/lexicons/ai/gftd/apps/etzhayyim/amnesty/{declareRestructuring,enrollCreditorClass,enrollDebtor,verifyEligibility,voteOnPlan,recordSettlement,listRestructurings,getRestructuring}.json`
+Path: `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/amnesty/{declareRestructuring,enrollCreditorClass,enrollDebtor,verifyEligibility,voteOnPlan,recordSettlement,listRestructurings,getRestructuring}.json`
 
 ## Cluster Integration
 

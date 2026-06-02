@@ -66,7 +66,7 @@ only**, following the houbun / site_common_crawl pattern.
     URL is present (absent on the oai_dc feed — those records are bib-level
     metadata). Synthesising a manifest from the bib id is explicitly avoided.
   - Domain table = `vertex_ndl_bib_item` (bib-level metadata; collection
-    `ai.gftd.apps.ndl.bibItem`).
+    `com.etzhayyim.apps.ndl.bibItem`).
 - `20-actors/magatama/py/src/pymagatama/ndl_worker_main.py` — dedicated Zeebe
   worker registration.
 - `test_ndl_worker.py` — offline test whose fixtures are **real NDL records**
@@ -85,7 +85,7 @@ only**, following the houbun / site_common_crawl pattern.
 **The kotoba handoff (single seam):** domain-fact writes go through exactly one
 function — `ingest.ndl._persist_items`. The RW→kotoba-datomic refactor
 (ADR-2605302130) swaps that function body for a kotoba
-`ai.gftd.apps.kotoba.datomic.transact` of the same item dicts, into an
+`com.etzhayyim.apps.kotoba.datomic.transact` of the same item dicts, into an
 **etzhayyim-owned graph** (never the vendor `kotobase-kg-v1`). No other code in
 the module touches the domain write path, so the swap is a single reviewable
 edit performed kotoba-side. The kotoba datomic client is **intentionally not

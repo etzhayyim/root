@@ -13,7 +13,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${HAGUKUMI_GRAPH:-app.etzhayyim.hagukumi}"
+GRAPH="${HAGUKUMI_GRAPH:-com.etzhayyim.hagukumi}"
 ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> hagukumi kotoba deploy -> ${KOTOBA_URL} (graph ${GRAPH})"

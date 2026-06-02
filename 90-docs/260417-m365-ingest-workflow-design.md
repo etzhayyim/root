@@ -6,16 +6,16 @@ Ad-hoc `~/.gftd/ingest/m365_mail_ingest.py` Python script を T1 actor manifest 
 
 | before | after |
 |---|---|
-| 手動 `python3 m365_mail_ingest.py upn` を UPN ごとに実行 | `cron */15 *` が `delta-sync-all-users` を自動起動、`app.etzhayyim.apps.m365Ingest.syncUser` XRPC で任意 UPN を on-demand |
+| 手動 `python3 m365_mail_ingest.py upn` を UPN ごとに実行 | `cron */15 *` が `delta-sync-all-users` を自動起動、`com.etzhayyim.apps.m365Ingest.syncUser` XRPC で任意 UPN を on-demand |
 | sync state = ローカル JSON (`~/.gftd/sync_state.json`) | sync state = graph (`vertex_m365_sync_state`) |
-| routing なし (DB 書き込みのみ) | `app.etzhayyim.apps.kyber.inbox.emailSignal` emit → kyber-inbox / yabai が subscribeRepos で後処理 |
+| routing なし (DB 書き込みのみ) | `com.etzhayyim.apps.kyber.inbox.emailSignal` emit → kyber-inbox / yabai が subscribeRepos で後処理 |
 | OAuth 考慮なし | `email-service-adapter` が per-user OAuth UI を担い、`m365-ingest` は tenant app token のみ使用 (RACI 分離) |
 
 ## アクター境界 (RACI)
 
 | Actor | Role | Reads | Writes |
 |---|---|---|---|
-| `m365-ingest` (T1, 新規) | **R** — Graph API raw fetch + classification | `vertex_m365_user`, Graph `/users/*` | `vertex_m365_sync_state`, `app.etzhayyim.apps.kyber.inbox.emailSignal` |
+| `m365-ingest` (T1, 新規) | **R** — Graph API raw fetch + classification | `vertex_m365_user`, Graph `/users/*` | `vertex_m365_sync_state`, `com.etzhayyim.apps.kyber.inbox.emailSignal` |
 | `email-service-adapter` (既存, `outlook.etzhayyim.com`) | **A** — OAuth UI + per-user consent | PDS `oauth_connection` | `oauth_connection` (不変) |
 | `kyber-inbox` (既存, `inb0x4k2`) | **C** — signal/noise + dept routing | `emailSignal` (subscribeRepos) | `vertex_email_message` |
 | `yabai` (既存, `y8b41k0x`) | **C** — threat scoring | `emailSignal` where `signalClass='yabai'` | `yabai.entity/evidence/risk` |
@@ -44,7 +44,7 @@ Shannon η: 1 responsibility / actor。ingest-only な actor を分離するこ�
 | `agent.chat` | `{ message, context?, model? }` | `{ text, usage }` | LLM 1-shot |
 | `agent.converse` | `{ messages, tools?, options? }` | `{ content, finishReason }` | Multi-turn LLM |
 | `derive:social` | `{ template, did?, embed? }` | `{ postUri, cid }` | `app.bsky.feed.post` 発行 |
-| `host.<group>.<method>` | lexicon input schema | lexicon output schema | Host capability (`app.etzhayyim.host.*`) |
+| `host.<group>.<method>` | lexicon input schema | lexicon output schema | Host capability (`com.etzhayyim.host.*`) |
 | `iterate` | `{ over, as, maxConcurrency?, do[] }` | `{ results[] }` | Array fan-out、bounded 並行 |
 | `loop` | `{ while, maxIterations, do[] }` | `{ iterations }` | 条件付き反復 (e.g. pagination) |
 | `pipeline.call` | `{ pipelineId, input }` | `{ output }` | 別 pipeline 呼出 (再帰 OK) |
@@ -110,7 +110,7 @@ token  ←  host.m365.acquireAppToken
              do = pipeline.call('sync-single-user', input={upn: $u.upn, since: $u.last_received_at}))
 ```
 
-### 3. `sync-single-user` (xrpc `app.etzhayyim.apps.m365Ingest.syncUser`)
+### 3. `sync-single-user` (xrpc `com.etzhayyim.apps.m365Ingest.syncUser`)
 
 1 UPN の mailbox を pagination しながら ingest。`loop` step が `nextLink` を追跡。
 
@@ -120,7 +120,7 @@ folders  ←  host.m365.fetchMailFolders(token=$token.access_token, upn=$input.u
 mark     ←  graph.write  (vertex_m365_sync_state status='running')
 paginate ←  loop (while=$next.nextLink != null || $iteration == 0, maxIterations=500, do = [
               page             ←  host.m365.fetchMessagesPage(token=$token.access_token, upn=$input.upn, since=$input.since, nextLink=$loop.prev.nextLink),
-              classify-and-write ←  pipeline.map(items=$page.messages, emit={ collection: 'app.etzhayyim.apps.kyber.inbox.emailSignal', record: {... signalEncrypt, folderSignalClass, classifySenderKind ...} }),
+              classify-and-write ←  pipeline.map(items=$page.messages, emit={ collection: 'com.etzhayyim.apps.kyber.inbox.emailSignal', record: {... signalEncrypt, folderSignalClass, classifySenderKind ...} }),
             ])
 watermark ←  graph.write  (UPDATE vertex_m365_sync_state SET last_sync_at=NOW, last_received_at=$paginate.maxReceivedAt, status='idle')
 ```
@@ -131,21 +131,21 @@ watermark ←  graph.write  (UPDATE vertex_m365_sync_state SET last_sync_at=NOW,
 
 | Subscriber | Filter | 動作 |
 |---|---|---|
-| `kyber-inbox` | `app.etzhayyim.apps.kyber.inbox.emailSignal` | signal/noise classification → `vertex_email_message` INSERT + `kyber_dept` routing edge |
-| `yabai` | `app.etzhayyim.apps.kyber.inbox.emailSignal` (where `signalClass='yabai'`) | `yabai.entity (Email)` + `yabai.evidence (FraudSignal)` + `yabai.risk (monitor)` |
+| `kyber-inbox` | `com.etzhayyim.apps.kyber.inbox.emailSignal` | signal/noise classification → `vertex_email_message` INSERT + `kyber_dept` routing edge |
+| `yabai` | `com.etzhayyim.apps.kyber.inbox.emailSignal` (where `signalClass='yabai'`) | `yabai.entity (Email)` + `yabai.evidence (FraudSignal)` + `yabai.risk (monitor)` |
 
 新規 routing rule は downstream actor の manifest に追加するだけで、`m365-ingest` には触らない (open/closed 原則、Shannon η 維持)。
 
-## Host capability: `app.etzhayyim.host.m365.*`
+## Host capability: `com.etzhayyim.host.m365.*`
 
-4 lexicons + 1 TS module。完全な contract SSoT (`00-contracts/lexicons/ai/gftd/host/m365/*.json`)。
+4 lexicons + 1 TS module。完全な contract SSoT (`00-contracts/lexicons/com/etzhayyim/host/m365/*.json`)。
 
 | NSID | 方向 | 用途 |
 |---|---|---|
-| `app.etzhayyim.host.m365.acquireAppToken` | `procedure` | Client credentials flow、token cache (55min skew) |
-| `app.etzhayyim.host.m365.enumerateUsers` | `query` | `/users?$filter=endsWith(upn,...)`, auto-pagination |
-| `app.etzhayyim.host.m365.fetchMailFolders` | `query` | `/mailFolders` recursive (childFolders) |
-| `app.etzhayyim.host.m365.fetchMessagesPage` | `query` | `/messages` 1 page (caller が `nextLink` ループ) |
+| `com.etzhayyim.host.m365.acquireAppToken` | `procedure` | Client credentials flow、token cache (55min skew) |
+| `com.etzhayyim.host.m365.enumerateUsers` | `query` | `/users?$filter=endsWith(upn,...)`, auto-pagination |
+| `com.etzhayyim.host.m365.fetchMailFolders` | `query` | `/mailFolders` recursive (childFolders) |
+| `com.etzhayyim.host.m365.fetchMessagesPage` | `query` | `/messages` 1 page (caller が `nextLink` ループ) |
 
 TS impl: `20-actors/magatama/sdk/magatama-host-sdk/src/capabilities/m365.ts` (`createM365Capability(cfg)`).
 
@@ -208,7 +208,7 @@ Migration `20260417190000_vertex_m365_sync_state.ts`:
 | 2 | Migration apply (`pnpm db:migrate`) + types regen (`pnpm db:gen`) | ⏳ |
 | 3 | Seed `vertex_m365_user` 手動 1 回 (daily cron 前の bootstrap) | ⏳ |
 | 4 | Wrangler secret `m365_client_secret` 登録 + ActorExecutor Worker に bind | ⏳ |
-| 5 | Actor manifest 登録: `gftd xrpc app.etzhayyim.actor.migrate -d '{"manifestPath":"20-actors/m365-ingest/actor-manifest.jsonld"}'` | ⏳ |
+| 5 | Actor manifest 登録: `gftd xrpc com.etzhayyim.actor.migrate -d '{"manifestPath":"20-actors/m365-ingest/actor-manifest.jsonld"}'` | ⏳ |
 | 6 | `syncUser` を各 UPN で 1 回 invoke (initial full sync) | ⏳ |
 | 7 | Delta cron 稼働確認、throttle / error rate モニタリング 1 週間 | ⏳ |
 | 8 | Python script archive (`~/.gftd/ingest/m365_mail_ingest.py` → `_archive/`) | ⏳ |
@@ -231,8 +231,8 @@ Migration `20260417190000_vertex_m365_sync_state.ts`:
 
 - `20-actors/m365-ingest/actor-manifest.jsonld` (declaration SSoT)
 - `20-actors/m365-ingest/CLAUDE.md` (run-book)
-- `00-contracts/lexicons/ai/gftd/host/m365/*.json` (4)
-- `00-contracts/lexicons/ai/gftd/apps/m365Ingest/*.json` (3)
+- `00-contracts/lexicons/com/etzhayyim/host/m365/*.json` (4)
+- `00-contracts/lexicons/com/etzhayyim/apps/m365Ingest/*.json` (3)
 - `20-actors/magatama/sdk/magatama-host-sdk/src/capabilities/m365.ts`
 - `30-graph/graph-schema/migrations/20260417190000_vertex_m365_sync_state.ts`
 - ADR-0014 PII Tier 3 + Cohort-First Pattern

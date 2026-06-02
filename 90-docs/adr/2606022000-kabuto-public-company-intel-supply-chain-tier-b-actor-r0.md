@@ -57,7 +57,7 @@ The monorepo already has the substrate this needs:
 - the **kotoba-wasm browser node** (ADR-2606013600) renders `/actors` + `/search` client-side: the
   browser instantiates a `KotobaNode`, `loadDatoms()` from `/.well-known/actors.json` +
   `kotoba/seed-datoms.json`, and `searchActors()` with **zero server round-trip**.
-- **kotoba-server** exposes `ai.gftd.apps.kotoba.atproto.repo.write` (xrpc.rs:6454) — an
+- **kotoba-server** exposes `com.etzhayyim.apps.kotoba.atproto.repo.write` (xrpc.rs:6454) — an
   `app.bsky.feed.post` written there lands in the Datom log and federates over AT Protocol.
 
 What is missing is a supply-chain knowledge graph over **public companies** themselves (tsumugi

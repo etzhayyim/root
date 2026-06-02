@@ -38,7 +38,7 @@ The question that prompted this ADR: *"is a Google-like global search designed/i
 The honest pre-ADR answer was **partially**. kotoba already had, end-to-end:
 
 - **Web-scale corpus ingestion** — `kotoba-ingest::cc` reads Common Crawl parquet into the `cc:2026-12:{pages,chunks,links}` named graphs as `cc/*` datoms (ADR-2605250006).
-- **Semantic (vector) search** — `kotoba-ingest::ivf` (pure-Rust IVF flat index, farthest-first + Lloyd) + `cc/embed/*` embeddings via the Murakumo-only embed client; exposed at `ai.gftd.apps.kotoba.cc.search` / `.rag`.
+- **Semantic (vector) search** — `kotoba-ingest::ivf` (pure-Rust IVF flat index, farthest-first + Lloyd) + `cc/embed/*` embeddings via the Murakumo-only embed client; exposed at `com.etzhayyim.apps.kotoba.cc.search` / `.rag`.
 - **Cross-modal search** — `media_xrpc` over the shared embedding space.
 
 But the three pillars that make Google *Google* were missing or inert:
@@ -62,13 +62,13 @@ Add a **hybrid retrieval stack** to kotoba, all datom-native and dependency-free
 ## Server wiring (`kotoba-server::cc_xrpc`)
 
 - **Fixed the IVF fallback.** New `semantic_ranking()` reads the persisted `cc/ivf/cluster` assignments + `cc/ivf/*` centroids, builds the `(cluster, embedding)` candidate set, and calls `IvfIndex::search(query, candidates, nprobe, top_k)` — probing only the `nprobe` nearest centroids. `cc_search` now uses it (brute-force only when no index is present). This removes the `let _ = ivf;` dead path.
-- **New endpoint `ai.gftd.apps.kotoba.search.web`** (`web_search`, GET). Pipeline:
+- **New endpoint `com.etzhayyim.apps.kotoba.search.web`** (`web_search`, GET). Pipeline:
   1. Load chunk datoms (canonical Datom view via `current_db_for_graph`).
   2. **Lexical**: build BM25 over `cc/chunk/text`, search → ranking.
   3. **Semantic** *(optional)*: if `KOTOBA_EMBED_URL` is configured, embed the query (Murakumo) and run `semantic_ranking` (IVF or brute-force). Absent backend ⇒ leg dropped, search degrades to lexical+authority.
   4. **Authority** *(optional)*: load `PageRankIndex` from the links graph; a chunk's authority = its parent page's (`cc/chunk/page`) normalised PageRank. Empty links graph ⇒ leg dropped.
   5. **Fuse** present signals via RRF (weights `wLex`/`wSem`/`wAuth`, defaults 1.0/1.0/0.5), apply `lang` filter, return `top_k` with per-signal rank breakdown.
-- **New endpoint `ai.gftd.apps.kotoba.search.reindex`** (`search_reindex`, POST). Rebuilds the corpus-global BM25 (`cc/bm25/*` → chunks graph) and PageRank (`cc/rank/score` → links graph) from the canonical Datom view and commits them. The `cc.ingest` job invokes the same `rebuild_search_indexes` pass automatically after ingest, and the pages-ingest path additionally calls `CcPageIngestor::ingest_links_dir_datoms` to populate `cc:2026-12:links` from the parquet `outlinks` column.
+- **New endpoint `com.etzhayyim.apps.kotoba.search.reindex`** (`search_reindex`, POST). Rebuilds the corpus-global BM25 (`cc/bm25/*` → chunks graph) and PageRank (`cc/rank/score` → links graph) from the canonical Datom view and commits them. The `cc.ingest` job invokes the same `rebuild_search_indexes` pass automatically after ingest, and the pages-ingest path additionally calls `CcPageIngestor::ingest_links_dir_datoms` to populate `cc:2026-12:links` from the parquet `outlinks` column.
 - Operator-auth gated, same `MAX_QUERY_LEN` / `MAX_NPROBE` / `MAX_TOP_K` limits as `cc_search`.
 
 # Consequences
@@ -83,7 +83,7 @@ Add a **hybrid retrieval stack** to kotoba, all datom-native and dependency-free
 
 **Index precompute now wired (2nd increment, this ADR):**
 
-- **BM25 precompute.** A corpus-global BM25 build pass (`build_bm25_datoms` — global df/N/avgdl over the whole chunk graph, so it runs post-ingest, never per-file) persists `cc/bm25/*` and is committed back into the chunks graph. `web_search` now **prefers the persisted index** (`Bm25Index::from_datoms`) and only rebuilds query-time as a fallback. The `cc.ingest` job triggers the rebuild automatically after ingest; `ai.gftd.apps.kotoba.search.reindex` (POST) rebuilds on demand.
+- **BM25 precompute.** A corpus-global BM25 build pass (`build_bm25_datoms` — global df/N/avgdl over the whole chunk graph, so it runs post-ingest, never per-file) persists `cc/bm25/*` and is committed back into the chunks graph. `web_search` now **prefers the persisted index** (`Bm25Index::from_datoms`) and only rebuilds query-time as a fallback. The `cc.ingest` job triggers the rebuild automatically after ingest; `com.etzhayyim.apps.kotoba.search.reindex` (POST) rebuilds on demand.
 - **Outlink edges + PageRank.** `CcPageIngestor::ingest_links_dir_datoms` / `read_page_links` parse an optional `outlinks` (`List<Utf8>`) column from the pages parquet into `cc/link/to` Cid edges in the `cc:2026-12:links` graph (self-loops dropped). `build_pagerank_datoms` runs PageRank over those edges and persists `cc/rank/score`; the ingest job + reindex endpoint do this automatically. `web_search` already consumes the authority leg. `cc.status` now reports `bm25_terms` / `link_edges` / `pagerank_nodes`.
 
 **Honest limitations / deferred (R0):**

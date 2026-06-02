@@ -1,6 +1,6 @@
 /**
  * Fetch transport for the opaque wrapped-ARK store (ADR-2606014000 L1),
- * kotoba-server `ai.gftd.account.{put,get}.wrapped.ark`. The server stores the
+ * kotoba-server `com.etzhayyim.account.{put,get}.wrapped.ark`. The server stores the
  * `wrapArk` ciphertext but cannot read it — the wrapping key is the device's
  * WebAuthn PRF output. Build `PutWrap` / `GetWrap` closures for `key-hierarchy.ts`.
  */
@@ -12,7 +12,7 @@ const DEFAULT_KOTOBA_BASE = 'https://kotoba.etzhayyim.com';
 
 export function makePutWrap(accessToken: string, kotobaBase = DEFAULT_KOTOBA_BASE): PutWrap {
 	return async (did, credentialId, wrappedArkB64) => {
-		const resp = await fetch(`${kotobaBase}/xrpc/ai.gftd.account.put.wrapped.ark`, {
+		const resp = await fetch(`${kotobaBase}/xrpc/com.etzhayyim.account.put.wrapped.ark`, {
 			method: 'POST',
 			headers: { 'content-type': 'application/json', authorization: `Bearer ${accessToken}` },
 			body: JSON.stringify({ did, credentialId, wrappedArk: wrappedArkB64 }),
@@ -23,7 +23,7 @@ export function makePutWrap(accessToken: string, kotobaBase = DEFAULT_KOTOBA_BAS
 
 export function makeGetWrap(accessToken: string, kotobaBase = DEFAULT_KOTOBA_BASE): GetWrap {
 	return async (did, credentialId) => {
-		const url = new URL(`${kotobaBase}/xrpc/ai.gftd.account.get.wrapped.ark`);
+		const url = new URL(`${kotobaBase}/xrpc/com.etzhayyim.account.get.wrapped.ark`);
 		url.searchParams.set('did', did);
 		url.searchParams.set('credentialId', credentialId);
 		const resp = await fetch(url, { headers: { authorization: `Bearer ${accessToken}` } });

@@ -141,7 +141,7 @@ R2+ heat-network attestation per cross-actor pairing.
 ## §7 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   cspFacilityAttestation,                   # type + capacity + HTF + open-hardware-CIDs
   solarProcessHeatFacilityAttestation,      # collector type + downstream-consumer-CIDs
   thermalStorageInventory,                  # storage medium + capacity + state-of-charge

@@ -34,7 +34,7 @@ const PDS_URL = (process.env.PDS_URL ?? "https://atproto.etzhayyim.com").replace
 const GRAPH = process.env.YORO_GRAPH_CID ?? DEFAULT_YORO_GRAPH_CID;
 const OPERATOR_DID = process.env.KOTOBA_OPERATOR_DID ?? "";
 
-const TRANSACT_NSID = "ai.gftd.apps.kotoba.datomic.transact";
+const TRANSACT_NSID = "com.etzhayyim.apps.kotoba.datomic.transact";
 const MAX_TX_BYTES = 900 * 1024; // stay under the server's 1 MiB tx_edn cap
 
 function die(msg: string): never {

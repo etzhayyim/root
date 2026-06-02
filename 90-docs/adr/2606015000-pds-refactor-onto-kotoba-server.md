@@ -66,7 +66,7 @@ compact EdDSA JWS session PoP against the issuer DID's Ed25519 key, resolved via
 the `CompositeDidResolver`: **`did:key` trustlessly** (key is the DID itself),
 **`did:web`/`did:plc` from the DID document** (the ERC725 / apex-Worker mirror,
 ADR-2606013800). Unresolvable / no-Ed25519-method DIDs are reported unverified —
-never falsely vouched. Exposed at `POST /xrpc/ai.gftd.pds.session.verify`.
+never falsely vouched. Exposed at `POST /xrpc/com.etzhayyim.pds.session.verify`.
 This is the kotoba-server-native equivalent of the auth Worker's
 `verifySessionPoP` and the home the PDS forwards to. (kotoba-server pds_session
 **5 tests green**: did:key verify, tampered/expired rejected, did:web via resolved

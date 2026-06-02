@@ -63,7 +63,7 @@ data-collection, b2-replication, shinka-tick (helm `enabled=false` 扱い)
 **選定基準**:
 - 1 actor = 1 NSID にマップされる業務行為
 - 失敗・retry・compensation を BPMN で記述したい
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/<project>/<method>.bpmn` の DSL で表現可
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/<project>/<method>.bpmn` の DSL で表現可
 
 **現行該当**: yoro/platformPulse, animeka/autopilot, magatama/shinkaCronTick,
 shinka/manualTick, kouza/syncDueConnections, maps/* (6 process),
@@ -124,7 +124,7 @@ Hummock 集計が本質なので移行対象)。
 **理由**: 単一マシン (mac-mini) 依存で HA 不可。
 
 **移行先**:
-- `app.etzhayyim.legacy-trust-tally.plist` (γ2 cutover tally, 9:17 daily)
+- `com.etzhayyim.legacy-trust-tally.plist` (γ2 cutover tally, 9:17 daily)
   は 2026-05-08 に自動 cleanup する短命 job。**移行不要、消化待ち**。
 
 **今後**: etzhayyim 個人 mac の launchd は agent-token / vault

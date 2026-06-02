@@ -70,6 +70,6 @@ identity data.
 ## BPMN
 
 The vehicle-specific process is
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/robotics/manufactureVehicleProductPackage.bpmn`.
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/robotics/manufactureVehicleProductPackage.bpmn`.
 It runs profile normalization, generic package validation, file cataloging,
 routing, quality gate evaluation, EOL planning, and audit emission.

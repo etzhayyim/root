@@ -216,7 +216,7 @@ GROUP BY
 ### 3. BPMN: 日次ロイヤルティ配分ワーカー
 
 ```xml
-<!-- etzhayyim-root/00-contracts/bpmn/ai/gftd/contribution/contributionRoyaltyDistribute.bpmn -->
+<!-- etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contribution/contributionRoyaltyDistribute.bpmn -->
 <!-- Timer-start R/PT24H — distributes yesterday's accrued royalties -->
 ```
 
@@ -243,7 +243,7 @@ async def emit_contribution_usage(
     db, source_hash: str, consumer_did: str,
     usage_type: str, gcc_value_wei: str
 ):
-    vertex_id = f"at://did:web:contribution.etzhayyim.com/app.etzhayyim.apps.contribution.usage/{generate_tid()}"
+    vertex_id = f"at://did:web:contribution.etzhayyim.com/com.etzhayyim.apps.contribution.usage/{generate_tid()}"
     await db.execute("""
         INSERT INTO vertex_contribution_usage
             (vertex_id, source_hash, consumer_did, usage_type, gcc_value_wei, used_at, actor_did, org_did)
@@ -276,7 +276,7 @@ BPMN タスクの `input` に `contribution_source_id: "media:irasutoya.com/illu
 #### 5-A. Platform ユーザー (既登録 DID)
 
 ```
-authz.etzhayyim.com/xrpc/app.etzhayyim.authz.registerContributionSource
+authz.etzhayyim.com/xrpc/com.etzhayyim.authz.registerContributionSource
   body: {
     canonicalId: "oss:github.com/myname/mylib",
     sourceType: "oss",
@@ -289,7 +289,7 @@ authz.etzhayyim.com/xrpc/app.etzhayyim.authz.registerContributionSource
 
 1. contributor が etzhayyim.com で sign-up
 2. `linkGithub` (OAuth) → GitHub handle を `linked_auth_methods` に登録
-3. `app.etzhayyim.authz.claimContributionPending` を呼ぶ
+3. `com.etzhayyim.authz.claimContributionPending` を呼ぶ
 4. authz が `pendingEarned[keccak256("github:{handle}")]` を lookup → `registerSource` + `claimPending` on-chain
 
 #### 5-C. いらすとや (免責・自動)
@@ -321,7 +321,7 @@ Safe (multisig) が `royalty_bps` を個別ソースごとに変更できる (au
 |---|---|---|
 | **P1 (今日〜1 週)** | ContributionRoyaltyRegistry デプロイ + 初期 10K GCC 入金 + RisingWave 2 テーブル作成 | 既存 GCC + Safe |
 | **P2 (1〜2 週)** | Murakumo 推論 usage emit (modelId → source_hash lookup) + BPMN distributionWorker | ADR-0056 BPMN |
-| **P3 (2〜3 週)** | `gftd deploy` 依存解析 + `app.etzhayyim.authz.registerContributionSource` XRPC + pending claim 機能 | authz Worker |
+| **P3 (2〜3 週)** | `gftd deploy` 依存解析 + `com.etzhayyim.authz.registerContributionSource` XRPC + pending claim 機能 | authz Worker |
 | **P4 (3〜4 週)** | yoro UI: `/credits` にコントリビューター残高 + claim ボタン | authz getActorTokenBalance |
 
 ---

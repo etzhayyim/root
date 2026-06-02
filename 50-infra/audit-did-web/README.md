@@ -5,7 +5,7 @@ Cloudflare Worker serving **`did:web:audit.etzhayyim.com`** — the canonical au
 ## What this implements
 
 - W3C DID Core 1.0 — DID Document at `/.well-known/did.json`
-- `EtzhayyimAuditSubject` service endpoint declaring the `app.etzhayyim.audit.event` lexicon contract
+- `EtzhayyimAuditSubject` service endpoint declaring the `com.etzhayyim.audit.event` lexicon contract
 - XRPC dispatch to the audit aggregator (which signs the event + writes it into the named subject's PDS, forming the per-(actor, subject) hash-chain)
 - `/healthz` Worker-side liveness probe
 

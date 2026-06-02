@@ -14,7 +14,7 @@ FHIR R5 互換の電子カルテ。Patient / Encounter / SOAP / Observation / Co
 | 規約 | 適用 |
 |---|---|
 | RW-free substrate (ADR-2605172000) | ✅ AT MST + IPFS + Base L2 のみ。RisingWave / Postgres 不使用 |
-| 暗号化 envelope (ADR-2605181100) | ✅ 全 PHI は `app.etzhayyim.encrypted.record` envelope。XChaCha20-Poly1305 + Signal key-wrap |
+| 暗号化 envelope (ADR-2605181100) | ✅ 全 PHI は `com.etzhayyim.encrypted.record` envelope。XChaCha20-Poly1305 + Signal key-wrap |
 | Payments on-chain (ADR-2605172100) | ✅ 自費診療は USDC + ERC-4337。保険請求 (社保/国保) は vendor 側 (`iryo.etzhayyim.com`) progressive enhancement |
 | Charter Rider v2.0 (ADR-2605192200) | ✅ Apache 2.0 + Rider |
 | 3軸 split (ADR-2605172400) | Liability=etzhayyim (PHI custody は 患者 DID 主体) / Custody=etzhayyim (PDS + IPFS 自己保管) / Settlement=etzhayyim (USDC) → 3軸とも clean → etzhayyim/root |
@@ -43,22 +43,22 @@ Browser (SuperApp Mobile-First, max-w-[600px])
 
 | Inner type | 用途 | FHIR R5 mapping |
 |---|---|---|
-| `app.etzhayyim.karute.patient` | 患者デモグラ・連絡先・アレルギー | `Patient` |
-| `app.etzhayyim.karute.encounter` | 受診 (外来・入院・往診) | `Encounter` |
-| `app.etzhayyim.karute.soapNote` | SOAP/経過記録 | `Composition` (section: SOAP) |
-| `app.etzhayyim.karute.observation` | バイタル・検査結果 | `Observation` |
-| `app.etzhayyim.karute.condition` | 病名・問題リスト | `Condition` |
-| `app.etzhayyim.karute.medicationRequest` | 処方 | `MedicationRequest` |
-| `app.etzhayyim.karute.serviceRequest` | 検査・画像オーダー・処置オーダー | `ServiceRequest` |
-| `app.etzhayyim.karute.dispenseRecord` | 薬剤師調剤記録 (ADR-2605231400 ext) | `MedicationDispense` |
+| `com.etzhayyim.karute.patient` | 患者デモグラ・連絡先・アレルギー | `Patient` |
+| `com.etzhayyim.karute.encounter` | 受診 (外来・入院・往診) | `Encounter` |
+| `com.etzhayyim.karute.soapNote` | SOAP/経過記録 | `Composition` (section: SOAP) |
+| `com.etzhayyim.karute.observation` | バイタル・検査結果 | `Observation` |
+| `com.etzhayyim.karute.condition` | 病名・問題リスト | `Condition` |
+| `com.etzhayyim.karute.medicationRequest` | 処方 | `MedicationRequest` |
+| `com.etzhayyim.karute.serviceRequest` | 検査・画像オーダー・処置オーダー | `ServiceRequest` |
+| `com.etzhayyim.karute.dispenseRecord` | 薬剤師調剤記録 (ADR-2605231400 ext) | `MedicationDispense` |
 
 ### Consent capability (non-PHI delegation)
 
 | Collection | NSID | 用途 |
 |---|---|---|
-| consent capability | `app.etzhayyim.consent.capability` | Ed25519-signed delegation token (granter/grantee/purpose/scope/expiresAt). public record, not PHI. ADR-2605231400. |
+| consent capability | `com.etzhayyim.consent.capability` | Ed25519-signed delegation token (granter/grantee/purpose/scope/expiresAt). public record, not PHI. ADR-2605231400. |
 
-すべて `app.etzhayyim.encrypted.record` envelope の `innerType` に入る。CID は ciphertext over。AAD = cid_self_ref。
+すべて `com.etzhayyim.encrypted.record` envelope の `innerType` に入る。CID は ciphertext over。AAD = cid_self_ref。
 
 ### Public meta (graph index)
 
@@ -81,9 +81,9 @@ PHI を露出しない範囲で、検索・タイムライン構築に必要な�
 
 | Collection | NSID | 用途 |
 |---|---|---|
-| terminologyBinding | `app.etzhayyim.apps.karute.terminologyBinding` | LOINC/ICD-10/SNOMED/RxNorm/JLAC10 binding |
-| coverageSnapshot | `app.etzhayyim.apps.karute.coverageSnapshot` | 統計 (患者数・受診数・処方数) |
-| referral | `app.etzhayyim.apps.karute.referral` | 紹介状 metadata (本文は encrypted envelope) |
+| terminologyBinding | `com.etzhayyim.apps.karute.terminologyBinding` | LOINC/ICD-10/SNOMED/RxNorm/JLAC10 binding |
+| coverageSnapshot | `com.etzhayyim.apps.karute.coverageSnapshot` | 統計 (患者数・受診数・処方数) |
+| referral | `com.etzhayyim.apps.karute.referral` | 紹介状 metadata (本文は encrypted envelope) |
 
 ## XRPC API
 
@@ -119,7 +119,7 @@ PHI を露出しない範囲で、検索・タイムライン構築に必要な�
 internal lexicon ↔ FHIR R5 resource は 1:1。Export 時は:
 
 ```
-GET /xrpc/app.etzhayyim.apps.karute.exportFhirBundle?patientDid=...&recipientDid=...
+GET /xrpc/com.etzhayyim.apps.karute.exportFhirBundle?patientDid=...&recipientDid=...
   ↓ encrypted.read (recipientDid の read-cap 検証)
   ↓ inner records → FHIR R5 Resource transformation
   ↓ wrap in FHIR Bundle (type: collection)

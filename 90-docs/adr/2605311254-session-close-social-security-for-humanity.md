@@ -56,7 +56,7 @@ Record the session deliverable as committed in **`0077e4413`** (branch `feat/soc
 - Coordinator = 産土 (ubusuna) magatama cell-group; **no new did:web actor, no new Solidity**.
 
 **R0 artifacts** (all outward-inert):
-- 5 lexicons: `app.etzhayyim.membership.commitmentVow` + `app.etzhayyim.socialsecurity.{entitlement,metricReport,outreachPost,noticeEmail}`
+- 5 lexicons: `com.etzhayyim.membership.commitmentVow` + `com.etzhayyim.socialsecurity.{entitlement,metricReport,outreachPost,noticeEmail}`
 - 6 cells: `socialsecurity_{outreach,vow_intake,eligibility,notice,publish,mcp_facade}` (each raises `RuntimeError` at import)
 - 2 orchestration docs: `SOCIAL-SECURITY-PIPELINE.md` (産土 spec) + `SOCIAL-SECURITY-INTEGRATION.md` (4 delivery seams by reference)
 - index updates: ADR README, deps.toml, CLAUDE.md, docs.json + graph.jsonld (regenerated → 703)

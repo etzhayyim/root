@@ -119,7 +119,7 @@ invariant, ADR-2606011500); the trajectory is Wellbecoming, not a loyalty score 
 | G6 | kotoba-EAVT-native | catalog + need + basket + provision are kotoba Datoms; no RisingWave / SQL / Lance as canonical (ADR-2605262130 / 2605312345) |
 | G7 | tithe + non-fiat | internal settlement USDC Base L2 + ERC-4337 + warifu only; TitheRouter 10% auto-split on every transaction; no Stripe/fiat |
 | G8 | labor-dignity + provenance | fulfillment via etzhayyim logistics actors, no gig exploitation; labor-provenance disclosed on external products |
-| G9 | PII encrypted envelope | need + provisioning history = 要配慮-adjacent → `app.etzhayyim.encrypted.*`, DID-bound (ADR-2605181100) |
+| G9 | PII encrypted envelope | need + provisioning history = 要配慮-adjacent → `com.etzhayyim.encrypted.*`, DID-bound (ADR-2605181100) |
 | G10 | catalog-sourcing legality | scraping respects robots.txt + ToS + rate-limit + public-only; official-API ToS honored; `:representative` honesty; no fabricated price/availability |
 | G11 | outward-gated | live scraping ingest + real external 代理-purchase = Council Lv7+ + operator |
 | G12 | anti-individualism | household / multi-generational baskets + commons-share first; not individual-consumption-maximizing |
@@ -140,10 +140,10 @@ invariant, ADR-2606011500); the trajectory is Wellbecoming, not a loyalty score 
 
 ### Lexicons
 
-- `app.etzhayyim.okaimono.product`   — catalog product record
-- `app.etzhayyim.okaimono.need`      — member need / intent (encrypted envelope)
-- `app.etzhayyim.okaimono.basket`    — multi-source basket + landed cost
-- `app.etzhayyim.okaimono.provision` — provisioning record (ring + settlement + lifecycle route)
+- `com.etzhayyim.okaimono.product`   — catalog product record
+- `com.etzhayyim.okaimono.need`      — member need / intent (encrypted envelope)
+- `com.etzhayyim.okaimono.basket`    — multi-source basket + landed cost
+- `com.etzhayyim.okaimono.provision` — provisioning record (ring + settlement + lifecycle route)
 
 ## R1 — Ring 1 internal economy (landed 2026-06-01)
 
@@ -178,7 +178,7 @@ ingests it (mirrors the repo's actor-owns-its-domain rule).
    and hands to `lifecycle` — there is no terminal `:consumed` state (G13).
 
 New schema: `:order/* :settlement/* :sbt/*`. New lexicons:
-`app.etzhayyim.okaimono.order` + `.settlement`. Tests: **`py/test_agent.py` 19/19 green**
+`com.etzhayyim.okaimono.order` + `.settlement`. Tests: **`py/test_agent.py` 19/19 green**
 (adds eligibility gate, exact-tithe-split + remainder invariant, operator-gated execution,
 order refusal/advance, no-gig fulfillment). `ingest_internal.py --check` validates clean.
 
@@ -243,7 +243,7 @@ so §1.3 holds and no Lv7+ amendment is needed; the gates are G14/G15/G9/G11.
    `instrument ∈ {member-external-card, warifu}`; warifu at an **external** retailer additionally
    flags `requiresWarifuExternalGate` (warifu's own Phase-2 Lv7+ gate, ADR-2605302000) rather
    than silently allowing it.
-2. **Encrypted transport (G9).** `seal_encrypted` models the `app.etzhayyim.encrypted.*`
+2. **Encrypted transport (G9).** `seal_encrypted` models the `com.etzhayyim.encrypted.*`
    envelope (XChaCha20-Poly1305, Signal-wrapped, DID-bound, ADR-2605181100): it returns an
    opaque envelope ref + the sealed field **names**, and **never** the plaintext values — no
    cleartext card/PII crosses the okaimono boundary (verified by test).

@@ -34,7 +34,7 @@ The donor does **not** need:
 
 ## 2. The 5-step flow
 
-### Step 1 — Open `app.etzhayyim.com/give`
+### Step 1 — Open `com.etzhayyim.com/give`
 
 The donor visits the donation page (planned: `60-apps/etzhayyim-give/`). They see:
 
@@ -122,7 +122,7 @@ This is **not** a thank-you screen. The donor is not a customer. The screen ackn
 - **Public Fund balance** updates by +5.00 USDC, visible at the Public Fund Safe address on Basescan.
 - **Treasury balance** updates by +45.00 USDC.
 - **`_observations/donations/`** (planned) appends a record for the active-inference loop to count.
-- **If the donor `note` was non-empty**: the note hash is stored on-chain, the plaintext is stored in an `app.etzhayyim.encrypted.donation-note` MST record (XChaCha20-wrapped, viewable only to the donor and the treasury Council seat per ADR-2605181100).
+- **If the donor `note` was non-empty**: the note hash is stored on-chain, the plaintext is stored in an `com.etzhayyim.encrypted.donation-note` MST record (XChaCha20-wrapped, viewable only to the donor and the treasury Council seat per ADR-2605181100).
 
 ## 4. Edge cases
 

@@ -39,7 +39,7 @@ from pymagatama.shinka import run_tick
 
 
 @udf(
-    nsid="app.etzhayyim.apps.shinka.tickActor",
+    nsid="com.etzhayyim.apps.shinka.tickActor",
     io_threads=20,  # mostly DB ops, some LLM-free compute
     input_types=["VARCHAR"],
     result_type="VARCHAR",

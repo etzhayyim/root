@@ -107,7 +107,7 @@ class MstFollowerScoreProvider(Protocol):
 
     Wave 3 will provide a class that reads follow edges via
     ``@etzhayyim/sdk`` Python binding and joins them against the
-    ``app.etzhayyim.apps.etzhayyim.joucho.score`` MST collection (ADR-2605240015
+    ``com.etzhayyim.apps.etzhayyim.joucho.score`` MST collection (ADR-2605240015
     Layer 2) for wellness / dojo data.
     """
 

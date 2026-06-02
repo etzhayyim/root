@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.makura.packagingRecord"
+ :id "com.etzhayyim.makura.packagingRecord"
  :defs
  {:main
   {:type "record"

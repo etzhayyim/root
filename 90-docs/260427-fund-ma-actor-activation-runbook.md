@@ -23,9 +23,9 @@ The fund and M&A contracts now have:
   - `ma_start_deal_workflow`
   - `business_person_collect_public_roles`
 - Lexicon bindings:
-  - `app.etzhayyim.apps.fund.managerDiscovery`
-  - `app.etzhayyim.apps.ma.startDealWorkflow`
-  - `app.etzhayyim.apps.businessPerson.collectPublicRoles`
+  - `com.etzhayyim.apps.fund.managerDiscovery`
+  - `com.etzhayyim.apps.ma.startDealWorkflow`
+  - `com.etzhayyim.apps.businessPerson.collectPublicRoles`
 - graph seed bindings in `vertex_bpmn_process_def` and
   `vertex_bpmn_lexicon_binding`
 - MA graph spine tables:
@@ -84,7 +84,7 @@ MA deal intake
 
 Fund manager ingest is designed as a Zeebe worker family, not a direct cron
 writer. The process is `fund_manager_discovery`, exposed through
-`app.etzhayyim.apps.fund.managerDiscovery`. The current worker tasks plan SEC ADV
+`com.etzhayyim.apps.fund.managerDiscovery`. The current worker tasks plan SEC ADV
 shards, normalize managers and funds, optionally enrich through GLEIF, compute
 safe metric rows, write fund graph rows, and verify coverage.
 
@@ -97,7 +97,7 @@ resumable cursor scheduling for full SEC ADV/GLEIF backfills.
 
 Business-person ingest now has a BPMN wrapper:
 `business_person_collect_public_roles`, exposed through
-`app.etzhayyim.apps.businessPerson.collectPublicRoles`. The wrapper dispatches
+`com.etzhayyim.apps.businessPerson.collectPublicRoles`. The wrapper dispatches
 public collection jobs to the business-person PDS app, prepares
 source-specific public registry requests, fetches the public `sourceUrl`,
 checks RisingWave health, normalizes public role rows, writes
@@ -226,7 +226,7 @@ tables referenced by the process.
 5. Start a smoke workflow through the dispatcher:
 
 ```bash
-curl -sf -X POST "https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.ma.startDealWorkflow" \
+curl -sf -X POST "https://dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.ma.startDealWorkflow" \
   -H "x-internal-trust: ${DISPATCHER_INTERNAL_SECRET}" \
   -H "content-type: application/json" \
   -d '{
@@ -267,7 +267,7 @@ LIMIT 20;
 | M&A intake | deterministic `ma.salesOrigination.intake` | authenticated app/UI intake, conflict check, client authorization record |
 | Research | generic `http.fetch`, LLM JSON, GLEIF/OpenLEI pieces exist | source-specific research tasks for company, market, sanctions, litigation, filings, news, ownership |
 | Buyer / LP matching | deterministic ranking from supplied candidates | candidate sourcing from graph, CRM, fund manager graph, public registries, private lists |
-| Email drafting | `ma.outreach.composeDraft` creates a mailer.etzhayyim.com draft envelope | approval UI / human task, then `app.etzhayyim.apps.mailer.sendEmail` |
+| Email drafting | `ma.outreach.composeDraft` creates a mailer.etzhayyim.com draft envelope | approval UI / human task, then `com.etzhayyim.apps.mailer.sendEmail` |
 | Email sending | mailer.etzhayyim.com sends through Resend | external recipients must default to draft-only; direct send only after policy approval |
 | Negotiation | `ma.tradeBroker.negotiate` prepares a negotiation envelope | term sheet state machine, counterparty messages, human approval, versioned offers |
 | Due diligence | not implemented as MA tasks | data room ingest, checklist graph, document extraction, red-flag scoring, Q&A workflow |
@@ -334,13 +334,13 @@ Add worker tasks:
 
 Use `mailer.etzhayyim.com` as the standard provider:
 
-- outbound: `app.etzhayyim.apps.mailer.sendEmail` -> Resend
+- outbound: `com.etzhayyim.apps.mailer.sendEmail` -> Resend
 - inbound: Cloudflare Email Routing -> `email-relay` ->
-  `app.etzhayyim.apps.mailer.inboundEmail`
+  `com.etzhayyim.apps.mailer.inboundEmail`
 - sender addresses: `{local}@etzhayyim.com`, for example `ma@etzhayyim.com`
 
 External-recipient policy should create a draft/approval envelope first. The
-actual `app.etzhayyim.apps.mailer.sendEmail` call is allowed only after human
+actual `com.etzhayyim.apps.mailer.sendEmail` call is allowed only after human
 approval.
 
 ### Unit 3: Negotiation State Machine

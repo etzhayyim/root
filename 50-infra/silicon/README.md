@@ -37,7 +37,7 @@ silicon/
    by `charter-rider-applicator`. Design intent that even partially
    resembles `weapons` (§2(a)) or `mass surveillance` (§2(c)) requires
    Council Lv6+ ≥ 3 multisig attestation via
-   `app.etzhayyim.silicon.silenForceReview` before merge.
+   `com.etzhayyim.silicon.silenForceReview` before merge.
 
 3. **No commercial sale of completed silicon** (ADR-2605242500 Decision 6).
    Donated silicon is inalienable, land-trust analogue. Lease to SBT

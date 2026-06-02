@@ -97,7 +97,7 @@ forge script script/Deploy.s.sol \
 2. **Anchor deployment receipt** — call `EtzhayyimAnchor.anchor(rootHash, ipfsCid, batchSize=2)` where `rootHash = keccak256(abi.encode(YobelRiteRegistry, YobelReleaseRegistry, deploymentBlock))`, `ipfsCid` points to the verified Etherscan JSON
 3. **Update orchestrator wiring** — `20-actors/yobel/orchestrator.py` constructor accepts a `chain_id` + `registry_address`; set via env at the deployer-defined value
 4. **Update vendor bridge** — vendor:`70-tools/scripts/yobel-bridge/README.md` deployment table updated with the canonical testnet (and later mainnet) `yobelRiteRegistryAddress`
-5. **Notify Public Fund auditor** — encrypted MST record under `app.etzhayyim.apps.etzhayyim.publicFund.deploymentAudit` per ADR-2605192145
+5. **Notify Public Fund auditor** — encrypted MST record under `com.etzhayyim.apps.etzhayyim.publicFund.deploymentAudit` per ADR-2605192145
 
 ## Rollback / emergency response
 

@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.watatsumi.sectionJoiningAttestation"
+ :id "com.etzhayyim.watatsumi.sectionJoiningAttestation"
  :defs
  {:main
   {:type "record"

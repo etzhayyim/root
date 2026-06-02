@@ -82,7 +82,7 @@ WHERE v.kind = 'fissioned' AND v.derived_from <> e.src_vid
 
 # Scheduled Audit
 
-cohort-watchdog cron tick (6h) に上記 3 query を追加し、drift 件数を OCEL `app.etzhayyim.cohort.lineageDrift` index に emit する。閾値超 (例: 10 件以上) で repair-edge を自動発火。
+cohort-watchdog cron tick (6h) に上記 3 query を追加し、drift 件数を OCEL `com.etzhayyim.cohort.lineageDrift` index に emit する。閾値超 (例: 10 件以上) で repair-edge を自動発火。
 
 実装: `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts` に `runCohortLineageAudit()` を追加 (次 iter)。
 

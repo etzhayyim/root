@@ -68,7 +68,7 @@ kubectl -n mitama-udf logs -l app.kubernetes.io/name=lg-mangaka --tail=50
 # In-cluster smoke
 kubectl -n mitama-udf run smoke --rm -i --image=curlimages/curl --restart=Never -- \
   curl -sS -X POST -H 'content-type: application/json' \
-  -d '{}' http://lg-mangaka.mitama-udf.svc.cluster.local:8000/xrpc/app.etzhayyim.mangaka.health
+  -d '{}' http://lg-mangaka.mitama-udf.svc.cluster.local:8000/xrpc/com.etzhayyim.mangaka.health
 # expect: {"ok": true, ...}
 ```
 
@@ -95,11 +95,11 @@ kubectl apply -f 50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml
 
 ### Option 2 — Route via atproto.etzhayyim.com dispatcher
 
-Update `50-infra/cloudflare/workers/atproto/src/yoro-reactive-dispatch.ts` to route `app.etzhayyim.mangaka.saveDocument` etc. to `http://lg-mangaka.mitama-udf.svc.cluster.local:8000` via the same CF Tunnel hop. Then `mangaka.etzhayyim.com` continues to proxy to `dispatcher.etzhayyim.com` (no tunnel update needed) and the dispatcher forwards based on NSID prefix.
+Update `50-infra/cloudflare/workers/atproto/src/yoro-reactive-dispatch.ts` to route `com.etzhayyim.mangaka.saveDocument` etc. to `http://lg-mangaka.mitama-udf.svc.cluster.local:8000` via the same CF Tunnel hop. Then `mangaka.etzhayyim.com` continues to proxy to `dispatcher.etzhayyim.com` (no tunnel update needed) and the dispatcher forwards based on NSID prefix.
 
 ## Phase E — Run the ghosthacker import (TODO, ~10-30 min depending on size)
 
-Once `https://lg-mangaka.etzhayyim.com/xrpc/app.etzhayyim.mangaka.saveDocument` returns 200 in a smoke test:
+Once `https://lg-mangaka.etzhayyim.com/xrpc/com.etzhayyim.mangaka.saveDocument` returns 200 in a smoke test:
 
 ```bash
 # Update import-jump-all.ts to target lg-mangaka instead of mangaka.etzhayyim.com
@@ -116,17 +116,17 @@ Verification:
 ```bash
 # 1 row per episode in vertex_mangaka with kind='document'
 PGPASSWORD=... psql "$KAISYA_URL" -c \
-  "SELECT rkey, name FROM vertex_mangaka WHERE kind='document' AND collection='app.etzhayyim.mangaka.document' ORDER BY rkey;"
+  "SELECT rkey, name FROM vertex_mangaka WHERE kind='document' AND collection='com.etzhayyim.mangaka.document' ORDER BY rkey;"
 
 # Web UI deep-link (after frontend loadDocument wired to lg-mangaka path)
-open "https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.document/doc-gh-arc0-1-origin"
+open "https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/com.etzhayyim.mangaka.document/doc-gh-arc0-1-origin"
 ```
 
 ## Phase F — Frontend `loadDocument` wiring (TODO, ~30 min)
 
 The mangaka Svelte SPA calls `loadDocument({ docId })` somewhere. Update its base URL to either:
-- Call `https://mangaka.etzhayyim.com/xrpc/app.etzhayyim.mangaka.loadDocument` (proxied to lg-mangaka via dispatcher / tunnel)
-- Or call `https://lg-mangaka.etzhayyim.com/xrpc/app.etzhayyim.mangaka.loadDocument` directly
+- Call `https://mangaka.etzhayyim.com/xrpc/com.etzhayyim.mangaka.loadDocument` (proxied to lg-mangaka via dispatcher / tunnel)
+- Or call `https://lg-mangaka.etzhayyim.com/xrpc/com.etzhayyim.mangaka.loadDocument` directly
 
 Confirm the response shape matches what Genko canvas expects (`{ document: "<JSON string>" }`).
 
@@ -140,7 +140,7 @@ helm rollback lg-mangaka-pool -n mitama-udf
 
 # Phase E rollback (delete imported rows)
 psql "$ROOT_URL" -c \
-  "DELETE FROM vertex_mangaka WHERE kind='document' AND collection='app.etzhayyim.mangaka.document' AND rkey LIKE 'doc-gh-%';"
+  "DELETE FROM vertex_mangaka WHERE kind='document' AND collection='com.etzhayyim.mangaka.document' AND rkey LIKE 'doc-gh-%';"
 ```
 
 ## Open risks / decisions

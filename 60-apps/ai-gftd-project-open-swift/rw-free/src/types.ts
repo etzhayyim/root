@@ -19,8 +19,8 @@
 
 export const OSW_DID_PREFIX = "did:web:open-swift.etzhayyim.com:" as const;
 
-export const INSTITUTION_COLLECTION = "app.etzhayyim.apps.openSwift.institution";
-export const MESSAGE_COLLECTION = "app.etzhayyim.apps.openSwift.message";
+export const INSTITUTION_COLLECTION = "com.etzhayyim.apps.openSwift.institution";
+export const MESSAGE_COLLECTION = "com.etzhayyim.apps.openSwift.message";
 
 // ─── Institution ────────────────────────────────────────────────────
 

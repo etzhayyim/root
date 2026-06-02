@@ -1,4 +1,4 @@
-# app.etzhayyim.hikari.* — Lexicons
+# com.etzhayyim.hikari.* — Lexicons
 
 Per ADR-2605261100. R0 stubs; full schemas R1+.
 

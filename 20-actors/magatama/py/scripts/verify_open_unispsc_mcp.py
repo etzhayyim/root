@@ -43,7 +43,7 @@ async def verify() -> dict[str, Any]:
     handlers = build_actor_handlers({"openUnispsc"})
     coverage = await _call_tool(
         handlers,
-        "app.etzhayyim.apps.openUnispsc.coverageSnapshot",
+        "com.etzhayyim.apps.openUnispsc.coverageSnapshot",
         {},
     )
     workflow_scenarios = {
@@ -106,12 +106,12 @@ async def verify() -> dict[str, Any]:
     for name, scenario in workflow_scenarios.items():
         workflows[name] = await _call_tool(
             handlers,
-            "app.etzhayyim.apps.openUnispsc.runItemWorkflow",
+            "com.etzhayyim.apps.openUnispsc.runItemWorkflow",
             scenario["arguments"],
         )
     catalog_sync = await _call_tool(
         handlers,
-        "app.etzhayyim.apps.openUnispsc.syncCatalogItem",
+        "com.etzhayyim.apps.openUnispsc.syncCatalogItem",
         {
             "commodityCode": "43211501",
             "commodityName": "Computer servers",
@@ -121,7 +121,7 @@ async def verify() -> dict[str, Any]:
     )
     purchase_plan = await _call_tool(
         handlers,
-        "app.etzhayyim.apps.openUnispsc.planCatalogPurchase",
+        "com.etzhayyim.apps.openUnispsc.planCatalogPurchase",
         {
             "productId": "unispsc-43211501",
             "orderId": "order-001",
@@ -134,19 +134,19 @@ async def verify() -> dict[str, Any]:
     )
     sync_all = await _call_tool(
         handlers,
-        "app.etzhayyim.apps.openUnispsc.syncAllCommodityDids",
+        "com.etzhayyim.apps.openUnispsc.syncAllCommodityDids",
         {"segmentCodes": ["44", "46"], "batchSize": 250, "dryRun": True},
     )
     segment_import = await _call_tool(
         handlers,
-        "app.etzhayyim.apps.openUnispsc.importSegmentCatalog",
+        "com.etzhayyim.apps.openUnispsc.importSegmentCatalog",
         {"segmentCode": "46", "pageSize": 750, "dryRun": True},
     )
     workflow = workflows["manualReview"]
     workflow_result = workflow["result"]
     apply_preview = await _call_tool(
         handlers,
-        "app.etzhayyim.apps.openUnispsc.applyGraphWritePlan",
+        "com.etzhayyim.apps.openUnispsc.applyGraphWritePlan",
         {"graphWritePlan": workflow_result.get("graphWritePlan", {}), "dryRun": True},
     )
 
@@ -158,11 +158,11 @@ async def verify() -> dict[str, Any]:
         "syncAllOk": sync_all["status"] == 200 and sync_all["result"].get("ok") is True,
         "syncAllFanout": sync_all["result"].get("orchestrationPlan", {}).get("commandsPerSegment") == 3,
         "segmentImportOk": segment_import["status"] == 200 and segment_import["result"].get("ok") is True,
-        "segmentImportTransform": segment_import["result"].get("importPlan", {}).get("transformTool") == "app.etzhayyim.apps.openUnispsc.syncCatalogItem",
+        "segmentImportTransform": segment_import["result"].get("importPlan", {}).get("transformTool") == "com.etzhayyim.apps.openUnispsc.syncCatalogItem",
         "catalogSyncOk": catalog_sync["status"] == 200 and catalog_sync["result"].get("ok") is True,
         "catalogSyncRecord": catalog_sync["result"].get("catalogItem", {}).get("product_id") == "unispsc-43211501",
         "purchasePlanOk": purchase_plan["status"] == 200 and purchase_plan["result"].get("ok") is True,
-        "purchasePlanInvocation": purchase_plan["result"].get("procurementInvocation", {}).get("mcpTool") == "app.etzhayyim.apps.openUnispsc.itemGetSpec",
+        "purchasePlanInvocation": purchase_plan["result"].get("procurementInvocation", {}).get("mcpTool") == "com.etzhayyim.apps.openUnispsc.itemGetSpec",
         "applyPreviewOk": apply_preview["status"] == 200 and preview_result.get("ok") is True,
         "applyPreviewRows": preview_result.get("validatedRows") == 5,
     }

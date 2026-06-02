@@ -59,7 +59,7 @@ def _entry(rid, *, jurisdiction="jpn", remedy_kind="escalation-public",
 
 
 def _registry(*entries):
-    return {"$schema": "app.etzhayyim.kurashimori.remedyTarget", "targets": list(entries)}
+    return {"$schema": "com.etzhayyim.kurashimori.remedyTarget", "targets": list(entries)}
 
 
 # ── G5 / UPL: never legal opinion, never eligibility, never representation ─

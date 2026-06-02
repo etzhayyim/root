@@ -3,7 +3,7 @@ pymagatama.agents — LangGraph-driven planning agents invoked from BPMN
 service tasks (ADR-0049 Phase D / arc 1+2 hybrid).
 
 Each agent is a LangGraph StateGraph exposed as a LangServer task type
-named `app.etzhayyim.agent.<name>`. The zeebe-worker activates the job,
+named `com.etzhayyim.agent.<name>`. The zeebe-worker activates the job,
 hands the `variables` dict to the StateGraph as initial state, runs
 the graph to END, and returns the final state back as output variables.
 

@@ -1,7 +1,7 @@
-;; app.etzhayyim.kuniumi.commissioningRecord — lexicon
+;; com.etzhayyim.kuniumi.commissioningRecord — lexicon
 ;; ADR-2605201400 · commissioning output
 {:lexicon 1
- :id "app.etzhayyim.kuniumi.commissioningRecord"
+ :id "com.etzhayyim.kuniumi.commissioningRecord"
  :defs
  {:main
   {:type "record"

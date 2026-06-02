@@ -137,11 +137,11 @@ async function loadWorldCoverage(sdk: HostSDK) {
 }
 
 export default createWorkerExport((sdk) => {
-  sdk.app.query(nsid("app.etzhayyim.apps.coverage.getWorldCoverage"), async (_ctx, _body) => {
+  sdk.app.query(nsid("com.etzhayyim.apps.coverage.getWorldCoverage"), async (_ctx, _body) => {
     return await loadWorldCoverage(sdk);
   });
 
-  sdk.app.query(nsid("app.etzhayyim.apps.coverage.listLatentEntities"), async (_ctx, body) => {
+  sdk.app.query(nsid("com.etzhayyim.apps.coverage.listLatentEntities"), async (_ctx, body) => {
     const args = body as Record<string, unknown>;
     const limit = Math.min(Number(args.limit ?? 50), 200);
     const offset = Number(args.offset ?? 0);
@@ -177,7 +177,7 @@ export default createWorkerExport((sdk) => {
     return { entities: rows, total: Number(countRow?.cnt ?? 0), offset, limit };
   });
 
-  sdk.app.query(nsid("app.etzhayyim.apps.coverage.getEntityEvidence"), async (_ctx, body) => {
+  sdk.app.query(nsid("com.etzhayyim.apps.coverage.getEntityEvidence"), async (_ctx, body) => {
     const args = body as Record<string, unknown>;
     const entityVid = String(args.entityVid ?? "");
     if (!entityVid) return { error: "entityVid required" };
@@ -206,7 +206,7 @@ export default createWorkerExport((sdk) => {
     return { entity: entity ?? null, evidence: evidenceRows };
   });
 
-  sdk.app.query(nsid("app.etzhayyim.apps.coverage.getViewpointStats"), async (_ctx, _body) => {
+  sdk.app.query(nsid("com.etzhayyim.apps.coverage.getViewpointStats"), async (_ctx, _body) => {
     const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as unknown as Kysely<Database>;
     const viewpoints = await (db as any)
       .selectFrom("vertex_lda_viewpoint")

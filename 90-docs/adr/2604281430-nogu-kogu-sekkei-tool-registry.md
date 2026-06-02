@@ -49,14 +49,14 @@ Option A (sub-actor under tsukuru) was rejected: lifecycle concerns (inspection 
 | Actor | BPMN | Trigger | Zeebe Key |
 |---|---|---|---|
 | nogu | `nogu_daily_pulse` | R/P1D cron `0 30 0 * * *` | 2251799813843597 |
-| nogu | `nogu_schedule_inspection` | XRPC `app.etzhayyim.apps.nogu.scheduleInspection` | 2251799813694354 |
-| nogu | `nogu_record_lease` | XRPC `app.etzhayyim.apps.nogu.recordLease` | 2251799813694352 |
+| nogu | `nogu_schedule_inspection` | XRPC `com.etzhayyim.apps.nogu.scheduleInspection` | 2251799813694354 |
+| nogu | `nogu_record_lease` | XRPC `com.etzhayyim.apps.nogu.recordLease` | 2251799813694352 |
 | kogu | `kogu_daily_pulse` | R/P1D cron `0 35 0 * * *` | 2251799813843723 |
-| kogu | `kogu_schedule_calibration` | XRPC `app.etzhayyim.apps.kogu.scheduleCalibration` | 2251799813694913 |
-| kogu | `kogu_checkout_tool` | XRPC `app.etzhayyim.apps.kogu.checkoutTool` | 2251799813844486 |
+| kogu | `kogu_schedule_calibration` | XRPC `com.etzhayyim.apps.kogu.scheduleCalibration` | 2251799813694913 |
+| kogu | `kogu_checkout_tool` | XRPC `com.etzhayyim.apps.kogu.checkoutTool` | 2251799813844486 |
 | sekkei | `sekkei_daily_pulse` | R/P1D cron `0 40 0 * * *` | 2251799813844372 |
-| sekkei | `sekkei_review_drawing` | XRPC `app.etzhayyim.apps.sekkei.reviewDrawing` | 2251799813844587 |
-| sekkei | `sekkei_approve_revision` | XRPC `app.etzhayyim.apps.sekkei.approveRevision` | 2251799813844684 |
+| sekkei | `sekkei_review_drawing` | XRPC `com.etzhayyim.apps.sekkei.reviewDrawing` | 2251799813844587 |
+| sekkei | `sekkei_approve_revision` | XRPC `com.etzhayyim.apps.sekkei.approveRevision` | 2251799813844684 |
 
 All 9 processes deployed to Zeebe via F5 watcher at 2026-04-28T07:00–07:22Z (commit `5b821da3403`).
 
@@ -87,7 +87,7 @@ FLUSH added between each `CREATE INDEX` to avoid RisingWave streaming job schedu
 
 ### Lexicon contracts — 17 JSON files
 
-`00-contracts/lexicons/ai/gftd/apps/{nogu,kogu,sekkei}/*.json`:
+`00-contracts/lexicons/com/etzhayyim/apps/{nogu,kogu,sekkei}/*.json`:
 - nogu: item, inspection, maintenance, lease, disposal, listItems
 - kogu: item, calibration, checkout, inspection, listItems
 - sekkei: drawing, revision, approval, bomLine, release, listDrawings
@@ -105,7 +105,7 @@ ERC725 root identity (ADR-0074) must be provisioned via `POST /internal/provisio
 ## Consequences
 
 - **dailyPulse BPMNs** (timer-start R/P1D) activate automatically in Zeebe. First fires expected at next midnight UTC after deploy.
-- **XRPC calls** to `app.etzhayyim.apps.{nogu,kogu,sekkei}.*` route via `dispatcher.etzhayyim.com:8080/xrpc/{nsid}` per ADR-0056.
+- **XRPC calls** to `com.etzhayyim.apps.{nogu,kogu,sekkei}.*` route via `dispatcher.etzhayyim.com:8080/xrpc/{nsid}` per ADR-0056.
 - **Writes** go directly to RisingWave via `generic.db.insert` primitives in pymagatama.
 - **`write_table_allowlist`** in `vertex_bpmn_lexicon_binding` is NULL (unrestricted) for all 9 bindings — tighten per-table when domain writes are stabilized.
 - **ERC725** not yet provisioned — DID doc serves `did:web:{name}.etzhayyim.com` AT facade only. Upgrade path: call `provision-root-identity` + update deps.toml `erc725_root_pending = false` + add `erc725_did`.

@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.fleamarket.createListing")
+    @worker.task(task_type="com.etzhayyim.apps.fleamarket.createListing")
     async def task_create_listing(**kwargs):
         title = kwargs.get("title", "")
         seller_did = kwargs.get("sellerDid", "did:web:fleamarket.etzhayyim.com")
@@ -50,7 +50,7 @@ async def run_worker():
 
         return {"listingId": listing_id, "title": title, "status": "active", "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.fleamarket.listListings")
+    @worker.task(task_type="com.etzhayyim.apps.fleamarket.listListings")
     async def task_list_listings(**kwargs):
         category = kwargs.get("category", "")
         limit = int(kwargs.get("limit", 50))
@@ -88,7 +88,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.fleamarket.getListing")
+    @worker.task(task_type="com.etzhayyim.apps.fleamarket.getListing")
     async def task_get_listing(**kwargs):
         listing_id = kwargs.get("listingId", "")
 
@@ -106,7 +106,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.fleamarket.createBid")
+    @worker.task(task_type="com.etzhayyim.apps.fleamarket.createBid")
     async def task_create_bid(**kwargs):
         listing_id = kwargs.get("listingId", "")
         bidder_did = kwargs.get("bidderDid", "did:web:fleamarket.etzhayyim.com")
@@ -117,7 +117,7 @@ async def run_worker():
 
         return {"bidId": bid_id, "listingId": listing_id, "bidderDid": bidder_did, "amount": amount, "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.fleamarket.listBids")
+    @worker.task(task_type="com.etzhayyim.apps.fleamarket.listBids")
     async def task_list_bids(**kwargs):
         listing_id = kwargs.get("listingId", "")
         limit = int(kwargs.get("limit", 50))
@@ -130,7 +130,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.fleamarket.closeListing")
+    @worker.task(task_type="com.etzhayyim.apps.fleamarket.closeListing")
     async def task_close_listing(**kwargs):
         listing_id = kwargs.get("listingId", "")
         outcome = kwargs.get("outcome", "sold")
@@ -148,7 +148,7 @@ async def run_worker():
 
         return {"listingId": listing_id, "status": outcome, "closedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.fleamarket.createTransaction")
+    @worker.task(task_type="com.etzhayyim.apps.fleamarket.createTransaction")
     async def task_create_transaction(**kwargs):
         listing_id = kwargs.get("listingId", "")
         buyer_did = kwargs.get("buyerDid", "did:web:fleamarket.etzhayyim.com")
@@ -177,7 +177,7 @@ async def run_worker():
 
         return {"transactionId": tx_id, "listingId": listing_id, "amount": amount, "status": "pending", "createdAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.fleamarket.listTransactions")
+    @worker.task(task_type="com.etzhayyim.apps.fleamarket.listTransactions")
     async def task_list_transactions(**kwargs):
         actor_did = kwargs.get("actorDid", "")
         limit = int(kwargs.get("limit", 50))

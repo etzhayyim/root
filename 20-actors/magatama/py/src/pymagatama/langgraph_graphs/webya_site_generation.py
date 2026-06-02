@@ -568,7 +568,7 @@ def publisher(state: WebsiteGenerationState) -> WebsiteGenerationState:
     try:
         for slug, page in state.pages.items():
             page_id = f"{site_id}-{slug}"
-            vertex_id = f"at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.page/{page_id}"
+            vertex_id = f"at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.page/{page_id}"
             html_content = getattr(page, "html_content", "")
             json_ld_str = json.dumps(page.json_ld, ensure_ascii=False) if page.json_ld else ""
 
@@ -587,8 +587,8 @@ def publisher(state: WebsiteGenerationState) -> WebsiteGenerationState:
                 ),
             )
             # edge: site → page
-            edge_vid = f"at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.edge/site-page-{page_id}"
-            site_vid = f"at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.site/{site_id}"
+            edge_vid = f"at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.edge/site-page-{page_id}"
+            site_vid = f"at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.site/{site_id}"
             _rw_execute(
                 "INSERT INTO edge_webya_site_page (vertex_id, src, dst, slug, created_at) VALUES (%s, %s, %s, %s, %s)",
                 (edge_vid, site_vid, vertex_id, slug, now),

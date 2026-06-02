@@ -25,5 +25,5 @@ BoM cost and supplier identities are XChaCha20-Poly1305-enveloped per ADR-260518
 - Payment plan insufficient liquidity → emit `requiresFunding` event for Public Fund (ADR-2605192145) grant cell
 
 ## See also
-- Lexicon `00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/proposeDeploymentPlan.json`
+- Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/proposeDeploymentPlan.json`
 - UNSPSC agent fleet (`pymagatama.unispsc.dispatch`)

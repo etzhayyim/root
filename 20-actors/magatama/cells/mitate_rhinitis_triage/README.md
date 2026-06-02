@@ -16,4 +16,4 @@ Algorithm:
 - R1 advisory tier returns top-3 condition posterior + recommended next-step
   (self-care advisory OR `escalation = "recommend-md-visit"`)
 
-Output lexicon: `app.etzhayyim.mitate.triageVerdict`.
+Output lexicon: `com.etzhayyim.mitate.triageVerdict`.

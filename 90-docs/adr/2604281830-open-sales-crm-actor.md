@@ -38,7 +38,7 @@ ADR-0056 (BPMN-as-actor) パターンに従い、新規 CF Worker を 0 追加�
 | Domain | `open-sales.etzhayyim.com` |
 | DID | `did:web:open-sales.etzhayyim.com` |
 | Layer | T1 (BPMN-as-actor, ADR-0056) |
-| XRPC endpoint | `dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.openSales.*` |
+| XRPC endpoint | `dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.openSales.*` |
 | New CF Workers | 0 |
 
 ### BPMN Inventory — 8 flows
@@ -80,19 +80,19 @@ ADR-0056 (BPMN-as-actor) パターンに従い、新規 CF Worker を 0 追加�
 
 | Lexicon NSID | Type | 概要 |
 |---|---|---|
-| app.etzhayyim.openSales.createLead | procedure | Lead 新規作成 |
-| app.etzhayyim.openSales.qualifyLead | procedure | Lead 資格評価 (LLM スコア) |
-| app.etzhayyim.openSales.updateOpportunity | procedure | 商談更新 |
-| app.etzhayyim.openSales.logActivity | procedure | 活動ログ記録 |
-| app.etzhayyim.openSales.generateQuote | procedure | 見積書生成 (LLM サマリ) |
-| app.etzhayyim.openSales.closeDeal | procedure | 商談クローズ (won / lost) |
-| app.etzhayyim.openSales.listOpportunities | query | 商談一覧取得 |
-| app.etzhayyim.openSales.getPipelineHealth | query | Pipeline KPI 取得 |
+| com.etzhayyim.openSales.createLead | procedure | Lead 新規作成 |
+| com.etzhayyim.openSales.qualifyLead | procedure | Lead 資格評価 (LLM スコア) |
+| com.etzhayyim.openSales.updateOpportunity | procedure | 商談更新 |
+| com.etzhayyim.openSales.logActivity | procedure | 活動ログ記録 |
+| com.etzhayyim.openSales.generateQuote | procedure | 見積書生成 (LLM サマリ) |
+| com.etzhayyim.openSales.closeDeal | procedure | 商談クローズ (won / lost) |
+| com.etzhayyim.openSales.listOpportunities | query | 商談一覧取得 |
+| com.etzhayyim.openSales.getPipelineHealth | query | Pipeline KPI 取得 |
 
 ## Consequences
 
 - 全 8 BPMN が Zeebe に deploy される (F5 watcher 経由, 30s 以内)
-- `dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.openSales.*` で XRPC 6 手続きが即座に利用可能
+- `dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.openSales.*` で XRPC 6 手続きが即座に利用可能
 - timer-start 2 flows (fetchPipelineDelta R/P1D, computeForecast R/P7D) が自律的に実行
 - LLM (qualifyLead / generateQuote / computeForecast) は `generic.llm.json` primitive 経由で Murakumo fleet を使用
 - vertex_open_sales_forecast に AI 予測値 (ai_forecast_usd / confidence_pct) が蓄積される

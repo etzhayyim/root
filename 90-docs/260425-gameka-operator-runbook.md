@@ -63,10 +63,10 @@ The shared platform must already be running:
 
 ## Operator hooks (the only 2 things you must wire by hand)
 
-### Hook 1 — `app.etzhayyim.authz.provisionSubDid`
+### Hook 1 — `com.etzhayyim.authz.provisionSubDid`
 
 `publishGame.bpmn` `Task_ProvisionSubDid` calls
-`app.etzhayyim.authz.provisionSubDid` with input
+`com.etzhayyim.authz.provisionSubDid` with input
 `{ parentDid, path, displayName, description }` and expects
 `output.did`. If your authn surface uses a different NSID, swap the
 literal in `publishGame.bpmn` — everything downstream consumes the
@@ -84,7 +84,7 @@ INSERT INTO vertex_gameka_studio_config (
   config_id, tick_live_mode, max_iterations, score_threshold,
   note, created_at
 ) VALUES (
-  'at://did:web:gameka.etzhayyim.com/app.etzhayyim.gameka.studioConfig/global',
+  'at://did:web:gameka.etzhayyim.com/com.etzhayyim.gameka.studioConfig/global',
   'did:web:gameka.etzhayyim.com', 'global', 'did:web:gameka.etzhayyim.com',
   'global', true, 3, 0.8,
   'P7 cutover', NOW()::text
@@ -137,8 +137,8 @@ docker push ghcr.io/etzhayyim/gameka-build-runner:latest
 kubectl apply -f 50-infra/vultr/gameka-build-runner/deployment.yaml
 
 # ── 5. rebuild + roll the zeebe-worker pod (registers 4 task types) ──
-# app.etzhayyim.agent.gameka.studio
-# app.etzhayyim.agent.gameka.visualCritic
+# com.etzhayyim.agent.gameka.studio
+# com.etzhayyim.agent.gameka.visualCritic
 # gameka.codegen.renderKamiApp
 # gameka.avatar.render
 cd $REPO/20-actors/magatama/py
@@ -158,7 +158,7 @@ cd $REPO/50-infra/cloudflare/workers/atproto
 pnpm test  # 16/16 routing-table tests must pass
 pnpm deploy
 
-# ── 8. wire your authn surface for app.etzhayyim.authz.provisionSubDid ──
+# ── 8. wire your authn surface for com.etzhayyim.authz.provisionSubDid ──
 # (see §Hook 1)
 
 # ── 9. final lint after live ──────────────────────────────────
@@ -170,7 +170,7 @@ node $REPO/70-tools/scripts/lint/lint-gameka-rollout.mjs
 ### Smoke 1 — the studio loop (P1 only, no build)
 
 ```bash
-curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.gameka.proposeGame \
+curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.gameka.proposeGame \
   -H "authorization: Bearer $etzhayyim_TOKEN" \
   -H "content-type: application/json" \
   -d '{"brief":"a cozy quarry-walk roguelike with one weather rune"}'
@@ -182,7 +182,7 @@ Expect within ~60s: 1 row in `vertex_gameka_spec` with `score >= 0`.
 
 ```bash
 SPEC=spec-merge-grid-2048   # or spec-merge-drop-suika / spec-merge-field-triple
-curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.gameka.generateGame \
+curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.gameka.generateGame \
   -H "authorization: Bearer $etzhayyim_TOKEN" \
   -d "{\"specId\":\"$SPEC\"}"
 ```
@@ -196,7 +196,7 @@ Expect within ~5 min (cold sccache):
 Manual fire of the autonomous tick (skips the 2h timer):
 
 ```bash
-curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.gameka.tickStudio \
+curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.gameka.tickStudio \
   -H "authorization: Bearer $etzhayyim_TOKEN" -d '{}'
 ```
 
@@ -241,7 +241,7 @@ curl -I 'https://game-play.etzhayyim.com/__playtest__.html'
 | `502 backend error` from playtest-shell | Hyperdrive / RisingWave unreachable | check RW health: `kubectl logs -n risingwave …`; B2 SlowDown 503 storm? see `50-infra/vultr/risingwave/deps.toml` |
 | `400 invalid slug` from /play/{slug} | slug doesn't match `[a-z0-9-]{1,32}` | publish path produced an unexpected slug — investigate codegen `_slug()` |
 | Visual critic publishes nothing for 3 iterations | spec is fundamentally broken | the chain ends with `outcome=exhausted`, lineage stays in graph for post-mortem |
-| `gameka.tick.live` fires but no spec row | LangGraph studio LLM error | check `vertex_repo_commit WHERE collection='app.etzhayyim.bpmn.audit'` for `briefError` events |
+| `gameka.tick.live` fires but no spec row | LangGraph studio LLM error | check `vertex_repo_commit WHERE collection='com.etzhayyim.bpmn.audit'` for `briefError` events |
 | `gameka.title.published` audit shows empty `launchPostUri` | sub-DID provisioned but firehose post failed | manual fix: re-emit the post with the title's `subDid`; provisioning has already succeeded |
 
 ## Per-phase ownership map
@@ -253,8 +253,8 @@ curl -I 'https://game-play.etzhayyim.com/__playtest__.html'
 | P3  | `50-infra/vultr/gameka-build-runner/` | smoke only | §6 |
 | P4  | `agents/gameka_visual_critic.py` | `tests/test_gameka_visual_critic.py` | §5 |
 | P5  | `gameka-playtest-shell/src/worker.ts` | inline TS + `pnpm typecheck` | §7 |
-| P6  | `etzhayyim-root/00-contracts/bpmn/ai/gftd/gameka/publishGame.bpmn` | rollout lint NSID match | §1 §2 |
-| P7  | `etzhayyim-root/00-contracts/bpmn/ai/gftd/gameka/tickStudio.bpmn` + 20260425110000 | rollout lint | §1 §2 §3 |
+| P6  | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/gameka/publishGame.bpmn` | rollout lint NSID match | §1 §2 |
+| P7  | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/gameka/tickStudio.bpmn` + 20260425110000 | rollout lint | §1 §2 §3 |
 | P10 | `handlers/gameka_avatar.py` + 20260425130000 | `tests/test_gameka_avatar.py` (13 tests) | §3 §5 |
 | P11 | `gameka-playtest-shell/static/__playtest__.html` social-bar | manual browser smoke | §7 column round-trip |
 | P12 | `70-tools/scripts/lint/lint-gameka-rollout.mjs` | n/a — IS the test | gates all others |

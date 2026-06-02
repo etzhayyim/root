@@ -8,5 +8,5 @@ Per ADR-2605312400. R0 scaffold — `cell.py` raises at import time until R2.
 - **Actor**: moushibumi (申文) — `did:web:moushibumi.etzhayyim.com`
 - **Murakumo node (proposed)**: naphtali
 - **Gates**: G6 (outcome PII encrypted) + G11 (Transparent Religious Force — track only, aggregate-first, 1 SBT = 1 vote)
-- **Output Lexicon(s)**: app.etzhayyim.moushibumi.statusTrack
-- **Ceiling**: PII only in app.etzhayyim.encrypted.* (ADR-2605181100) · TRANSPARENT-FORCE / no coercion / aggregate-first · Murakumo-only (ADR-2605215000)
+- **Output Lexicon(s)**: com.etzhayyim.moushibumi.statusTrack
+- **Ceiling**: PII only in com.etzhayyim.encrypted.* (ADR-2605181100) · TRANSPARENT-FORCE / no coercion / aggregate-first · Murakumo-only (ADR-2605215000)

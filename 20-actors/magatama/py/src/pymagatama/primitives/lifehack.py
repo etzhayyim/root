@@ -123,23 +123,23 @@ def _scalar_max(sql: str, params: tuple[Any, ...] = ()) -> int:
 
 
 def _topic_vertex_id(topic_id: str) -> str:
-    return f"at://{_LIFEHACK_ACTOR}/app.etzhayyim.apps.lifehack.topic/{_slug(topic_id)}"
+    return f"at://{_LIFEHACK_ACTOR}/com.etzhayyim.apps.lifehack.topic/{_slug(topic_id)}"
 
 
 def _tip_vertex_id(tip_id: str) -> str:
-    return f"at://{_LIFEHACK_ACTOR}/app.etzhayyim.apps.lifehack.tip/{tip_id}"
+    return f"at://{_LIFEHACK_ACTOR}/com.etzhayyim.apps.lifehack.tip/{tip_id}"
 
 
 def _product_vertex_id(product_id: str) -> str:
-    return f"at://{_LIFEHACK_ACTOR}/app.etzhayyim.apps.lifehack.product/{product_id}"
+    return f"at://{_LIFEHACK_ACTOR}/com.etzhayyim.apps.lifehack.product/{product_id}"
 
 
 def _post_log_vertex_id(post_id: str) -> str:
-    return f"at://{_LIFEHACK_ACTOR}/app.etzhayyim.apps.lifehack.postLog/{post_id}"
+    return f"at://{_LIFEHACK_ACTOR}/com.etzhayyim.apps.lifehack.postLog/{post_id}"
 
 
 def _reading_vertex_id(reading_id: str) -> str:
-    return f"at://{_LIFEHACK_ACTOR}/app.etzhayyim.apps.lifehack.environmentReading/{reading_id}"
+    return f"at://{_LIFEHACK_ACTOR}/com.etzhayyim.apps.lifehack.environmentReading/{reading_id}"
 
 
 # ──────────────────────────────────────────────────────────────────────

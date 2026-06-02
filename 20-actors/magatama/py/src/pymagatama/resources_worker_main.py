@@ -235,7 +235,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.resources.createResource")
+    @worker.task(task_type="com.etzhayyim.apps.resources.createResource")
     async def task_create_resource(**kwargs):
         return await asyncio.to_thread(
             _create_resource_sync,
@@ -245,7 +245,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.resources.getResource")
+    @worker.task(task_type="com.etzhayyim.apps.resources.getResource")
     async def task_get_resource(**kwargs):
         return await asyncio.to_thread(
             _get_resource_sync,
@@ -253,7 +253,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.resources.updateResource")
+    @worker.task(task_type="com.etzhayyim.apps.resources.updateResource")
     async def task_update_resource(**kwargs):
         return await asyncio.to_thread(
             _update_resource_sync,
@@ -263,7 +263,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.resources.deleteResource")
+    @worker.task(task_type="com.etzhayyim.apps.resources.deleteResource")
     async def task_delete_resource(**kwargs):
         return await asyncio.to_thread(
             _delete_resource_sync,
@@ -271,7 +271,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.resources.listResources")
+    @worker.task(task_type="com.etzhayyim.apps.resources.listResources")
     async def task_list_resources(**kwargs):
         return await asyncio.to_thread(
             _list_resources_sync,
@@ -281,7 +281,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.resources.allocateResource")
+    @worker.task(task_type="com.etzhayyim.apps.resources.allocateResource")
     async def task_allocate_resource(**kwargs):
         return await asyncio.to_thread(
             _allocate_resource_sync,
@@ -291,7 +291,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.resources.releaseResource")
+    @worker.task(task_type="com.etzhayyim.apps.resources.releaseResource")
     async def task_release_resource(**kwargs):
         return await asyncio.to_thread(
             _release_resource_sync,
@@ -299,7 +299,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.resources.resourceUsage")
+    @worker.task(task_type="com.etzhayyim.apps.resources.resourceUsage")
     async def task_resource_usage(**kwargs):
         return await asyncio.to_thread(
             _resource_usage_sync,

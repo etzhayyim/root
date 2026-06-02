@@ -1,6 +1,6 @@
 ---
 id: 2605191638-ameno-substrate-swarm-lease-lex
-title: Ameno substrate-level swarm lease — app.etzhayyim.swarm.lease lex
+title: Ameno substrate-level swarm lease — com.etzhayyim.swarm.lease lex
 status: proposed
 doc_type: adr
 topic: ameno-swarm
@@ -26,7 +26,7 @@ ADR-2605191603 で **同 origin / 同 browser** 内の leader election を
 substrate (MST + L2 anchor) を介すれば、 worker は時間軸的に monotonic
 な lease を取り合える:
 
-- 各 worker が自分の DID で `app.etzhayyim.apps.ameno.swarmLease` record を
+- 各 worker が自分の DID で `com.etzhayyim.apps.ameno.swarmLease` record を
   write
 - `generation` カウンタが MST CAS + L2 anchor 順序で全 worker から
   一意に見える
@@ -37,7 +37,7 @@ takeover algorithm)は別 PR(`ameno-swarm-lease-impl`)。
 
 ## Decision
 
-**`00-contracts/lexicons/ai/gftd/apps/ameno/swarmLease.json` を導入。**
+**`00-contracts/lexicons/com/etzhayyim/apps/ameno/swarmLease.json` を導入。**
 
 ### Record shape
 
@@ -57,7 +57,7 @@ takeover algorithm)は別 PR(`ameno-swarm-lease-impl`)。
 
 ### Identification
 
-- collection: `app.etzhayyim.apps.ameno.swarmLease`
+- collection: `com.etzhayyim.apps.ameno.swarmLease`
 - rkey: literal `current`(`"key": "literal:current"`)
 - repo: holder's PDS repo(`did:plc:…` or `did:web:…` per ADR-2605173000)
 - → 1 lease per (repo, rkey) — single MST slot enforces single-writer
@@ -139,4 +139,4 @@ scope ごとに別 lease。複数 scope を同 worker が掛け持ち可。
 - ADR-2605171800(MST + L2 anchor pipeline)
 - ADR-2605181100(MST encrypted records — future composition)
 - ADR-2605173000(did:web pds resolution)
-- Lex schema:`00-contracts/lexicons/ai/gftd/apps/ameno/swarmLease.json`
+- Lex schema:`00-contracts/lexicons/com/etzhayyim/apps/ameno/swarmLease.json`

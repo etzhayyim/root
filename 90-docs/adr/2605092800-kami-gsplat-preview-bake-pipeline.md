@@ -80,7 +80,7 @@ ARCHITECTURE 上の所有関係:
 新規テーブル:
 
 - `vertex_maps_gsplat_asset` — splat 1 ファイル = 1 行
-  - PK: `vertex_id` (`at://{authority}/app.etzhayyim.apps.maps.gsplatAsset/{rkey}`)
+  - PK: `vertex_id` (`at://{authority}/com.etzhayyim.apps.maps.gsplatAsset/{rkey}`)
   - 主要列: `source_did`, `tile_h3`, `b2_key`, `byte_size`, `splat_count`,
     `sh_degree`, `format`, `generated_at`, `bake_job_id`, `props` JSON
   - RLS: `actor_did` / `org_did` / `at_did` / `created_at` (ADR-0095)
@@ -93,16 +93,16 @@ PDS bypass。`ON CONFLICT` 不使用 (RW append-only / ADR-0048 / record-log)。
 
 ## D4. XRPC Lexicons
 
-`app.etzhayyim.apps.maps.*` 名前空間に 3 メソッドを追加する。
+`com.etzhayyim.apps.maps.*` 名前空間に 3 メソッドを追加する。
 
 | NSID | 種別 | 役割 |
 |---|---|---|
-| `app.etzhayyim.apps.maps.getGsplatAsset` | query | 単一 asset 取得 (preview 配信) |
-| `app.etzhayyim.apps.maps.listGsplatAssets` | query | tile_h3 / bbox / source_did で一覧 |
-| `app.etzhayyim.apps.maps.bakeGsplatAsset` | procedure | bake job を BPMN へ enqueue |
+| `com.etzhayyim.apps.maps.getGsplatAsset` | query | 単一 asset 取得 (preview 配信) |
+| `com.etzhayyim.apps.maps.listGsplatAssets` | query | tile_h3 / bbox / source_did で一覧 |
+| `com.etzhayyim.apps.maps.bakeGsplatAsset` | procedure | bake job を BPMN へ enqueue |
 
 `getGsplatAsset` は B2 signed URL + metadata を返す (binary は B2 直配信)。
-`bakeGsplatAsset` は `sdk.zeebe.publishMessage({ name: "app.etzhayyim.apps.maps.bakeGsplatAsset", correlationKey: vertex_id, ... })` で k8s pod に委譲する (ADR-2604251830 L7)。
+`bakeGsplatAsset` は `sdk.zeebe.publishMessage({ name: "com.etzhayyim.apps.maps.bakeGsplatAsset", correlationKey: vertex_id, ... })` で k8s pod に委譲する (ADR-2604251830 L7)。
 
 ## D5. SDK
 
@@ -332,7 +332,7 @@ wrangler secret put MAPS_GSPLAT_LIFETIME_CAP_USD --env=production
 kubectl -n maps-bulk-ingest rollout restart deploy/bulk-ingest-gsplat-train
 
 # Verify cap
-curl -X POST https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.trainGsplatFromMapillary \
+curl -X POST https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.trainGsplatFromMapillary \
   -H 'content-type: application/json' \
   -d '{"lat":35.6812,"lng":139.7671}'
 # After spending $10+ on the same tile:
@@ -370,7 +370,7 @@ RisingWave は MV body を ALTER できないので DROP+CREATE。idempotent。
 
 ### XRPC
 
-`app.etzhayyim.apps.maps.getGsplatCostSummary` (query, no params) が 3 つの
+`com.etzhayyim.apps.maps.getGsplatCostSummary` (query, no params) が 3 つの
 時間バケット {today UTC / last 7 days / last 30 days} それぞれで
 `job_kind` 別に SUM(cost_usd) を返す。Worker handler は 3 並列クエリ
 (`Promise.all`) で answer する。
@@ -407,7 +407,7 @@ cd ../../bulk-ingest
 kubectl -n maps-bulk-ingest rollout restart deploy/bulk-ingest-gsplat-train
 
 # Verify
-curl https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.getGsplatCostSummary | jq
+curl https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.getGsplatCostSummary | jq
 # → {"today":{"totalUsd":0.42,"count":1,"byKind":[{"kind":"train","totalUsd":0.42,"count":1}]},...}
 ```
 
@@ -715,8 +715,8 @@ register-rate のシーンは bake してもメッシュ品質が悪いので、
 
 | NSID | Type | 用途 |
 |---|---|---|
-| `app.etzhayyim.apps.maps.getGsplatJobStatus` | query | `mv_maps_gsplat_job_latest` から jobId 一発 |
-| `app.etzhayyim.apps.maps.listGsplatJobs` | query | tile / kind / status filter + pagination |
+| `com.etzhayyim.apps.maps.getGsplatJobStatus` | query | `mv_maps_gsplat_job_latest` から jobId 一発 |
+| `com.etzhayyim.apps.maps.listGsplatJobs` | query | tile / kind / status filter + pagination |
 
 UI は train / bake ボタン押下後、返ってきた `jobId` を 5 秒間隔で
 polling してトーストに `phase · 経過秒数` を表示、terminal status

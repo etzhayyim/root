@@ -162,7 +162,7 @@ def _rw_query(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
 
 
 def _vertex_id(collection: str, rkey: str) -> str:
-    return f"at://{_IRYO_HOSPITAL}/app.etzhayyim.apps.iryo.{collection}/{rkey}"
+    return f"at://{_IRYO_HOSPITAL}/com.etzhayyim.apps.iryo.{collection}/{rkey}"
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -856,7 +856,7 @@ async def task_iryo_kpi_refresh_who_gho(**kwargs: Any) -> dict[str, Any]:
 # ──────────────────────────────────────────────────────────────────────
 
 async def task_iryo_coverage_snapshot(**kwargs: Any) -> dict[str, Any]:
-    """Read-only counts for app.etzhayyim.apps.iryo.coverage."""
+    """Read-only counts for com.etzhayyim.apps.iryo.coverage."""
     rows = _rw_query(
         "SELECT "
         " (SELECT count(*) FROM vertex_iryo_hospital), "
@@ -888,7 +888,7 @@ async def task_iryo_coverage_snapshot(**kwargs: Any) -> dict[str, Any]:
 
 
 async def task_iryo_bed_occupancy_snapshot(**kwargs: Any) -> dict[str, Any]:
-    """Read-only ward occupancy snapshot for app.etzhayyim.apps.iryo.getBedOccupancy."""
+    """Read-only ward occupancy snapshot for com.etzhayyim.apps.iryo.getBedOccupancy."""
     dept_filter = (str(kwargs.get("deptSlug") or "")).strip()
     if dept_filter:
         # Join via vertex_iryo_ward to get dept_slug for each ward.
@@ -924,7 +924,7 @@ async def task_iryo_bed_occupancy_snapshot(**kwargs: Any) -> dict[str, Any]:
 
 
 async def task_iryo_encounter_list(**kwargs: Any) -> dict[str, Any]:
-    """Read-only encounter list for app.etzhayyim.apps.iryo.listEncounters."""
+    """Read-only encounter list for com.etzhayyim.apps.iryo.listEncounters."""
     where: list[str] = []
     params: list[Any] = []
     dept = str(kwargs.get("deptSlug") or "").strip()
@@ -993,7 +993,7 @@ async def task_iryo_encounter_list(**kwargs: Any) -> dict[str, Any]:
 
 
 async def task_iryo_claim_get(**kwargs: Any) -> dict[str, Any]:
-    """Read-only single-claim lookup for app.etzhayyim.apps.iryo.getDrgClaim."""
+    """Read-only single-claim lookup for com.etzhayyim.apps.iryo.getDrgClaim."""
     claim_id = str(kwargs.get("claimId") or "").strip()
     if not claim_id:
         return {"ok": False, "error": "missing claimId"}

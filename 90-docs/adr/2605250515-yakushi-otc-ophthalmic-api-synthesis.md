@@ -23,9 +23,9 @@ related:
   - 20-actors/magatama/cells/pharma_api_synthesis/
   - 20-actors/magatama/cells/pharma_purification/
   - 20-actors/magatama/cells/pharma_qc/
-  - 00-contracts/lexicons/app/etzhayyim/pharma/apiSynthesisAttestation.json
-  - 00-contracts/lexicons/app/etzhayyim/pharma/purificationAttestation.json
-  - 00-contracts/lexicons/app/etzhayyim/pharma/qcAttestation.json
+  - 00-contracts/lexicons/com/etzhayyim/pharma/apiSynthesisAttestation.json
+  - 00-contracts/lexicons/com/etzhayyim/pharma/purificationAttestation.json
+  - 00-contracts/lexicons/com/etzhayyim/pharma/qcAttestation.json
 supersedes: []
 superseded_by: []
 ---

@@ -33,7 +33,7 @@ role = "lexicon-ai-gftd"
 tier = "production"
 description = "com.etzhayyim.* Lexicon JSON (2344 NSID files, permission scopes, 9 permission-set Lexicons)"
 
-[subdirs."lexicons/ai/gftd"]
+[subdirs."lexicons/com/etzhayyim"]
 role = "lexicon-ai-gftd-scope"
 tier = "production"
 description = "com.etzhayyim.* leaf namespace"

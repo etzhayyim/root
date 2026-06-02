@@ -11,7 +11,7 @@ axis: architecture
 weight: 0.65
 authoritative_for:
   - Organism lifecycle events (birth, clone, retire, excommunication)
-  - Lexicon definitions for lifecycle events (`app.etzhayyim.organism.lifecycle`)
+  - Lexicon definitions for lifecycle events (`com.etzhayyim.organism.lifecycle`)
 depends_on:
   - adr-2605232345-unispsc-actor-as-organism
   - adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0
@@ -31,7 +31,7 @@ Furthermore, ADR-2605262700 defines the `chigiri` legal procedure, including the
 
 ## Decision
 
-We define four foundational lifecycle events for the organism ecosystem. These events will be represented as Lexicon schemas under `app.etzhayyim.organism.lifecycle` and will be persisted via on-chain attestation (either Yatachain or Kotoba-KQE).
+We define four foundational lifecycle events for the organism ecosystem. These events will be represented as Lexicon schemas under `com.etzhayyim.organism.lifecycle` and will be persisted via on-chain attestation (either Yatachain or Kotoba-KQE).
 
 The 4 events are:
 

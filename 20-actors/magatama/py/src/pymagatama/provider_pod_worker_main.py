@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.providerPod.register.provider")
+    @worker.task(task_type="com.etzhayyim.apps.providerPod.register.provider")
     async def task_register_provider(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:provider-pod.etzhayyim.com")
         name = kwargs.get("name", "")
@@ -48,7 +48,7 @@ async def run_worker():
 
         return {"providerId": provider_id, "status": "registered"}
 
-    @worker.task(task_type="app.etzhayyim.apps.providerPod.list.providers")
+    @worker.task(task_type="com.etzhayyim.apps.providerPod.list.providers")
     async def task_list_providers(**kwargs):
         status = kwargs.get("status", "")
         limit = int(kwargs.get("limit", 50))
@@ -82,7 +82,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.providerPod.get.provider")
+    @worker.task(task_type="com.etzhayyim.apps.providerPod.get.provider")
     async def task_get_provider(**kwargs):
         provider_id = kwargs.get("providerId", "")
 
@@ -100,7 +100,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="app.etzhayyim.apps.providerPod.update.health")
+    @worker.task(task_type="com.etzhayyim.apps.providerPod.update.health")
     async def task_update_health(**kwargs):
         provider_id = kwargs.get("providerId", "")
         health_status = kwargs.get("healthStatus", "healthy")
@@ -118,7 +118,7 @@ async def run_worker():
 
         return {"providerId": provider_id, "healthStatus": health_status, "updatedAt": now}
 
-    @worker.task(task_type="app.etzhayyim.apps.providerPod.list.capabilities")
+    @worker.task(task_type="com.etzhayyim.apps.providerPod.list.capabilities")
     async def task_list_capabilities(**kwargs):
         provider_id = kwargs.get("providerId", "")
         limit = int(kwargs.get("limit", 50))
@@ -143,7 +143,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.providerPod.create.pod")
+    @worker.task(task_type="com.etzhayyim.apps.providerPod.create.pod")
     async def task_create_pod(**kwargs):
         actor_did = kwargs.get("actorDid", "did:web:provider-pod.etzhayyim.com")
         provider_id = kwargs.get("providerId", "")
@@ -171,7 +171,7 @@ async def run_worker():
 
         return {"podId": pod_id, "providerId": provider_id, "status": "pending"}
 
-    @worker.task(task_type="app.etzhayyim.apps.providerPod.list.pods")
+    @worker.task(task_type="com.etzhayyim.apps.providerPod.list.pods")
     async def task_list_pods(**kwargs):
         provider_id = kwargs.get("providerId", "")
         limit = int(kwargs.get("limit", 50))
@@ -205,7 +205,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="app.etzhayyim.apps.providerPod.get.pod.status")
+    @worker.task(task_type="com.etzhayyim.apps.providerPod.get.pod.status")
     async def task_get_pod_status(**kwargs):
         pod_id = kwargs.get("podId", "")
 

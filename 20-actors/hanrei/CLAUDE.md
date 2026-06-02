@@ -22,7 +22,7 @@
 | **Japan source DIDs** | 3 | kanpo (gazette), egov (legislation), wikidata (courts) |
 | **判例DID** | N | `did:web:hanrei.etzhayyim.com:hanrei:{rkey}` — 事件番号・裁判年月日・裁判所で一意識別 |
 | **判決DID** | N | `did:web:hanrei.etzhayyim.com:hanketsu:{rkey}` — 判例に紐づく判決全文 (1判例:N判決) |
-| **Citation graph** | edges | `app.etzhayyim.hanrei.citationEdge` — 判例間引用関係 |
+| **Citation graph** | edges | `com.etzhayyim.hanrei.citationEdge` — 判例間引用関係 |
 | **Total** | 83 jurisdictions + 6 JP courts + 3 JP sources + 判例/判決 DID |
 
 ## Data Sources
@@ -56,15 +56,15 @@ Social posts: `writeBuffer.push({ type: "app.bsky.feed.post", payload: { text, o
 
 | Collection | SQL Label |
 |---|---|
-| `app.etzhayyim.hanrei.case_record` | `CaseRecord` |
-| `app.etzhayyim.hanrei.collection_job` | `CollectionJob` |
-| `app.etzhayyim.hanrei.jurisdiction` | `Jurisdiction` |
-| `app.etzhayyim.hanrei.digest` | `Digest` |
-| `app.etzhayyim.hanrei.egov_law` | `EgovLaw` |
-| `app.etzhayyim.hanrei.caseParty` | `CaseParty` |
-| `app.etzhayyim.hanrei.hanreiRecord` | `HanreiRecord` |
-| `app.etzhayyim.hanrei.hanketsuRecord` | `HanketsuRecord` |
-| `app.etzhayyim.hanrei.citationEdge` | `CitationEdge` |
+| `com.etzhayyim.hanrei.case_record` | `CaseRecord` |
+| `com.etzhayyim.hanrei.collection_job` | `CollectionJob` |
+| `com.etzhayyim.hanrei.jurisdiction` | `Jurisdiction` |
+| `com.etzhayyim.hanrei.digest` | `Digest` |
+| `com.etzhayyim.hanrei.egov_law` | `EgovLaw` |
+| `com.etzhayyim.hanrei.caseParty` | `CaseParty` |
+| `com.etzhayyim.hanrei.hanreiRecord` | `HanreiRecord` |
+| `com.etzhayyim.hanrei.hanketsuRecord` | `HanketsuRecord` |
+| `com.etzhayyim.hanrei.citationEdge` | `CitationEdge` |
 
 ## Connected Actors
 

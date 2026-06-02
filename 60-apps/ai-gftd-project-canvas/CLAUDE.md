@@ -25,22 +25,22 @@
 | Tier | 用途 | 関数 | Collection NSID |
 |---|---|---|---|
 | **1 Social** | Canvas 公開共有 | `AppBskyFeedPost(did, text, {embed})` | `app.bsky.feed.post` |
-| **2 Domain** | board/element/layer/template | `ComAtprotoRepoCreateRecord(kind, payload)` | `app.etzhayyim.apps.canvas.*` |
+| **2 Domain** | board/element/layer/template | `ComAtprotoRepoCreateRecord(kind, payload)` | `com.etzhayyim.apps.canvas.*` |
 | **3 State** | 表示設定 | `Preferences()` | server-side |
 
 ## Domain Record Types (Tier 2, camelCase) `[DESIGN]`
 
 | Kind | NSID | 内容 |
 |---|---|---|
-| `board` | `app.etzhayyim.apps.canvas.board` | Canvas board 定義 (title, dimensions, visibility) |
-| `element` | `app.etzhayyim.apps.canvas.element` | Canvas 要素 (shape, text, image, connector) |
-| `layer` | `app.etzhayyim.apps.canvas.layer` | Layer 管理 (z-order, visibility, lock) |
-| `template` | `app.etzhayyim.apps.canvas.template` | Reusable canvas template |
+| `board` | `com.etzhayyim.apps.canvas.board` | Canvas board 定義 (title, dimensions, visibility) |
+| `element` | `com.etzhayyim.apps.canvas.element` | Canvas 要素 (shape, text, image, connector) |
+| `layer` | `com.etzhayyim.apps.canvas.layer` | Layer 管理 (z-order, visibility, lock) |
+| `template` | `com.etzhayyim.apps.canvas.template` | Reusable canvas template |
 
 ## Reactive Pipeline (ComAtprotoSyncSubscribeRepos) `[DESIGN]`
 
-- `app.etzhayyim.apps.canvas.board` create -> social notification via AppBskyFeedPost
-- `app.etzhayyim.apps.canvas.element` create -> AI auto-layout suggestion
+- `com.etzhayyim.apps.canvas.board` create -> social notification via AppBskyFeedPost
+- `com.etzhayyim.apps.canvas.element` create -> AI auto-layout suggestion
 
 ## File Structure
 

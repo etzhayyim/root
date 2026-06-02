@@ -36,7 +36,7 @@ npx lexicon-to-openapi
 npx lexicon-to-openapi <LEXICON_ROOT> <OUTPUT_DIR>
 
 # Example
-npx lexicon-to-openapi 00-contracts/lexicons/ai/gftd 90-docs/openapi
+npx lexicon-to-openapi 00-contracts/lexicons/com/etzhayyim 90-docs/openapi
 ```
 
 **Behavior**:
@@ -54,7 +54,7 @@ const spec = lexiconsToOpenApi(
   [
     {
       lexicon: 1,
-      id: "app.etzhayyim.kiyo.getPaper",
+      id: "com.etzhayyim.kiyo.getPaper",
       defs: { main: { type: "query", /* ... */ } }
     }
   ],
@@ -102,7 +102,7 @@ For lexicon:
 ```json
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.kiyo.getPaper",
+  "id": "com.etzhayyim.kiyo.getPaper",
   "defs": {
     "main": {
       "type": "query",
@@ -128,10 +128,10 @@ Generates OpenAPI:
   "info": { "title": "Kiyo XRPC API", "version": "0.1.0" },
   "servers": [{ "url": "https://kiyo.etzhayyim.com" }],
   "paths": {
-    "/xrpc/app.etzhayyim.kiyo.getPaper": {
+    "/xrpc/com.etzhayyim.kiyo.getPaper": {
       "get": {
         "summary": "Get paper metadata",
-        "operationId": "app.etzhayyim.kiyo.getPaper",
+        "operationId": "com.etzhayyim.kiyo.getPaper",
         "parameters": [{
           "name": "paperId",
           "in": "query",

@@ -41,7 +41,7 @@ START → load_intake → conflict_check ─(clear?)→ triage_classify → chec
 
 ## Ports (dependency-injected)
 
-- `mst_port` — read intake record / write `app.etzhayyim.chigiri.legalAidMatter`
+- `mst_port` — read intake record / write `com.etzhayyim.chigiri.legalAidMatter`
 - `policy_port` — `jurisdictionPolicy` lookup (`enableState`)
 - `counsel_port` — Public-Fund counsel registry + conflict check (G16)
 - `murakumo_port` — non-advice classifier via the Murakumo fleet
@@ -49,5 +49,5 @@ START → load_intake → conflict_check ─(clear?)→ triage_classify → chec
 ## Status
 
 R1 — control flow + constitutional guards are live and unit-tested; node I/O
-(`# TODO`) is scaffolded behind ports. Lexicon: `app.etzhayyim.chigiri.legalAidMatter`.
+(`# TODO`) is scaffolded behind ports. Lexicon: `com.etzhayyim.chigiri.legalAidMatter`.
 Lint gate: `no-legal-aid-consideration.mjs` (G15).

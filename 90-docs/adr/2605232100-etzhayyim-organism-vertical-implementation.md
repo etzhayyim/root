@@ -233,7 +233,7 @@ documents the 2-Kubo end-to-end verification (jacob, 2026-05-23T19:13Z):
 - Primary exposes KuniUmiApiCell:13030 on `/x/etzhayyim/xrpc/1.0`.
 - 2nd peer forwards local TCP:29030 → primary peer's stream.
 - `curl 127.0.0.1:29030/healthz` returns bytes identical to direct `curl 127.0.0.1:13030/healthz` (505 bytes each).
-- `curl -X POST 127.0.0.1:29030/xrpc/app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite` runs the full SiteSurveyCell LangGraph (8 nodes) and returns `ok=true, latencyMs=6.74, state.jurisdiction_ok=true, state.charter_rider_ok=true, state.submission_at_uri=at://...`.
+- `curl -X POST 127.0.0.1:29030/xrpc/com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite` runs the full SiteSurveyCell LangGraph (8 nodes) and returns `ok=true, latencyMs=6.74, state.jurisdiction_ok=true, state.charter_rider_ok=true, state.submission_at_uri=at://...`.
 
 Self-dial loopback on a single Kubo node is rejected by libp2p (architectural); the
 2-Kubo PoC mirrors what the Mac mini fleet will look like once deployed.

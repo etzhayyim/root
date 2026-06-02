@@ -51,7 +51,7 @@ religious-corp は wadachi (autonomous-mobility operator-side), sarutahiko (heav
 religious-corp Tier-B actor **suki (鋤)** を以下で立ち上げる:
 
 - **Actor DID**: `did:web:etzhayyim.com:suki`
-- **Namespace**: `app.etzhayyim.suki.*`
+- **Namespace**: `com.etzhayyim.suki.*`
 - **R0 scope**: Farm tractor assembly (~50-200 hp Wave 1; community-scale farming target; **mega-tractor ≥400 hp deferred to N3**; Wave 2 = orchard / vineyard specialty < 50 hp; Wave 3 = cultivator-only walk-behind ≤ 25 hp deferred)
 - **R0 deliverable**: Scaffold only (9 cells import-time RuntimeError + 9 lexicon stub + actor scaffold)
 - **14 constitutional gates G1..G14 + 12 non-goals N1..N12** declared (matches sarutahiko + tsutae density)
@@ -88,7 +88,7 @@ religious-corp Tier-B actor **suki (鋤)** を以下で立ち上げる:
 ├── suki_emissions_audit/
 └── suki_vehicle_attestation_binder/
 
-00-contracts/lexicons/app/etzhayyim/suki/
+00-contracts/lexicons/com/etzhayyim/suki/
 ├── chassisAttestation.json
 ├── powertrainAttestation.json
 ├── cabAttestation.json
@@ -119,7 +119,7 @@ Cell ordering follows physical tractor assembly + terminal `vehicle_attestation_
 ### Lexicons (9, all R0 stub deferred to R1+)
 
 ```
-app.etzhayyim.suki.{
+com.etzhayyim.suki.{
   chassisAttestation       # Frame fabrication: HSLA-590/780, weld inspection ≥2 robot witness
   powertrainAttestation    # Engine + transmission + hydraulic: G7 fuel type R-phase gate
   cabAttestation           # Cab body + ROPS/FOPS cert + interior + G14 open serial

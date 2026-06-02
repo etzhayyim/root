@@ -171,7 +171,7 @@ when witness quorum fails or when the membrane itself is being amended.
 | 1 | This ADR + `10-protocol/yatachain/{README.md,SPEC.md}` + `deps.toml` + root `CLAUDE.md` updates | session 2026-05-23 | shipped with this commit |
 | 2 | `20-actors/etzhayyim-sdk/src/yatachain/witness-selector.ts` — `hash(record_cid) % len(fleet.cells)` returning 5 cell IDs | shipped 2026-05-23 | — |
 | 3 | `20-actors/etzhayyim-sdk/src/yatachain/quorum.ts` — collect ≥3 matching attestations, persist alongside record | shipped 2026-05-23 | — |
-| 4 | `00-contracts/lexicons/app/etzhayyim/yatachain/{attestation,membraneRule}.json` — DNA-equivalent rule spec lexicons | shipped 2026-05-23 | — |
+| 4 | `00-contracts/lexicons/com/etzhayyim/yatachain/{attestation,membraneRule}.json` — DNA-equivalent rule spec lexicons | shipped 2026-05-23 | — |
 | 5 | `60-apps/ai-gftd-project-maps/MIGRATION-TODO.md` rewritten as yatachain conformance checklist (replaces current empty file) | follow-up | 0.5-day |
 | 6 | ADR for the regenerable-projection escape hatch (RW AppView as "yatachain-projection", Iroh as "yatachain-sync") | follow-up | 1-day |
 
@@ -185,7 +185,7 @@ when witness quorum fails or when the membrane itself is being amended.
 - **Sync layer ADR**: Iroh P2P sync as a `yatachain-sync` accelerator that does not
   require L2 anchor round-trip for intra-cohort propagation (ADR TBD)
 - **Encrypted membrane**: extend the witness validation to operate on
-  `app.etzhayyim.encrypted.*` ciphertext (ADR-2605181100) via zero-knowledge
+  `com.etzhayyim.encrypted.*` ciphertext (ADR-2605181100) via zero-knowledge
   attestation — witnesses validate envelope structure + signature without
   decrypting payload (ADR TBD, depends on libsignal capability)
 - **Council escalation handoff**: formalize when witness quorum failure escalates

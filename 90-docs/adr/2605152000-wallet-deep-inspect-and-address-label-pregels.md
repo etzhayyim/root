@@ -229,8 +229,8 @@ Key change: **never classify as "bridge" without explicit bridge address DB hit 
   - `20-actors/magatama/py/src/pymagatama/malak/langgraph/wallet_deep_inspect_pursuit.py`
   - `20-actors/magatama/py/src/pymagatama/malak/langgraph/address_label_pursuit.py`
 - New XRPC lexicons:
-  - `00-contracts/lexicons/ai/gftd/apps/malak/walletDeepInspect.json`
-  - `00-contracts/lexicons/ai/gftd/apps/malak/addressLabelBatch.json`
+  - `00-contracts/lexicons/com/etzhayyim/apps/malak/walletDeepInspect.json`
+  - `00-contracts/lexicons/com/etzhayyim/apps/malak/addressLabelBatch.json`
 - LangServer `CHAINS` extended in `server.py`.
 
 # Alternatives Considered

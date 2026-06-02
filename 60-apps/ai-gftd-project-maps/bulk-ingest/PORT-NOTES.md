@@ -16,7 +16,7 @@ legacy path can be deleted and the pod is yatachain L0-nominal.
    ```python
    USE_PYMAGATAMA_SUBSTRATE = os.environ.get("USE_PYMAGATAMA_SUBSTRATE", "0") == "1"
    SUBSTRATE_DID = os.environ.get("SUBSTRATE_DID", "did:web:maps.etzhayyim.com")
-   SUBSTRATE_COLLECTION = "app.etzhayyim.maps.<feature|legalEntity|ownership>"
+   SUBSTRATE_COLLECTION = "com.etzhayyim.maps.<feature|legalEntity|ownership>"
    SUBSTRATE_BATCH = int(os.environ.get("SUBSTRATE_BATCH", "100"))
    ```
 
@@ -60,14 +60,14 @@ legacy path can be deleted and the pod is yatachain L0-nominal.
 
 | Pod | Status | Target lexicon | Notes |
 |---|---|---|---|
-| **`geonames_dumper.py`** | ✅ Ported 2026-05-23. Legacy path preserved; substrate path under `USE_PYMAGATAMA_SUBSTRATE=1`. 8 converter tests | `app.etzhayyim.maps.feature` | Each geonames row → 1 feature record. h3Cell computed via h3-py (lazy import; falls back to `unknown-resN` placeholder if h3 missing). bbox is point (W=E, S=N) in microdegrees |
-| **`aismarine_wikidata_lei.py`** | ⏳ Skeleton TBD | `app.etzhayyim.maps.ownership` (vessel → corp/operator edges) | Apply the 5-step recipe. 2 INSERT call sites (`edge_vessel_owned_by` + `edge_vessel_operated_by`) → 2 ownership records each iteration. The pod reads `vertex_vessel` by IMO → looks up MMSI in Wikidata LEI registry → writes edges. Substrate side: vessel and operator are LegalEntity records (pre-existing or seeded separately); ownership record points subjectUri → operator, objectUri → vessel |
+| **`geonames_dumper.py`** | ✅ Ported 2026-05-23. Legacy path preserved; substrate path under `USE_PYMAGATAMA_SUBSTRATE=1`. 8 converter tests | `com.etzhayyim.maps.feature` | Each geonames row → 1 feature record. h3Cell computed via h3-py (lazy import; falls back to `unknown-resN` placeholder if h3 missing). bbox is point (W=E, S=N) in microdegrees |
+| **`aismarine_wikidata_lei.py`** | ⏳ Skeleton TBD | `com.etzhayyim.maps.ownership` (vessel → corp/operator edges) | Apply the 5-step recipe. 2 INSERT call sites (`edge_vessel_owned_by` + `edge_vessel_operated_by`) → 2 ownership records each iteration. The pod reads `vertex_vessel` by IMO → looks up MMSI in Wikidata LEI registry → writes edges. Substrate side: vessel and operator are LegalEntity records (pre-existing or seeded separately); ownership record points subjectUri → operator, objectUri → vessel |
 | `gtfs_jp_dumper.py` | Phase 1 (Tier C) — projection retained, no port | — | streaming-MV input, stays on RW |
 | `gtfs_rt_dumper.py` | Phase 1 (Tier C) | — | streaming-MV input |
-| `openflights_dumper.py` | Phase 1 (Tier B, requires witness) | `app.etzhayyim.maps.feature` (Airport) + a new flight-route lexicon | TBD |
-| `ferry_routes_dumper.py` | Phase 1 (Tier B) | `app.etzhayyim.maps.feature` (SeaRoute / Port) | TBD |
-| `gsplat_train_dumper.py` | Phase 2 (Tier D blob) | IPFS pin via pymagatama.substrate.upload_blob (TBD primitive) + `app.etzhayyim.maps.gsplatAsset` | Larger refactor — TBD |
-| `wikidata_dumper.py` / `wikipedia_dumper.py` / `overture_maps_dumper.py` | Phase 1 (Tier B) | `app.etzhayyim.maps.feature` | TBD |
+| `openflights_dumper.py` | Phase 1 (Tier B, requires witness) | `com.etzhayyim.maps.feature` (Airport) + a new flight-route lexicon | TBD |
+| `ferry_routes_dumper.py` | Phase 1 (Tier B) | `com.etzhayyim.maps.feature` (SeaRoute / Port) | TBD |
+| `gsplat_train_dumper.py` | Phase 2 (Tier D blob) | IPFS pin via pymagatama.substrate.upload_blob (TBD primitive) + `com.etzhayyim.maps.gsplatAsset` | Larger refactor — TBD |
+| `wikidata_dumper.py` / `wikipedia_dumper.py` / `overture_maps_dumper.py` | Phase 1 (Tier B) | `com.etzhayyim.maps.feature` | TBD |
 | `noaa_ais_dumper.py` / `aismarine_consumer.py` | Phase 1 (Tier C) | — | vessel position stream, stays on RW |
 | `maps_search_ivf_backfill.py` | Phase 1 (Tier C) | — | vector index, projection only |
 
@@ -103,8 +103,8 @@ legacy path can be deleted and the pod is yatachain L0-nominal.
   pod's output) follow that same pattern but are tracked separately.
 - A Python equivalent of `pymagatama.substrate.upload_blob`. That
   primitive doesn't exist yet — gsplat / parquet blob migration is Phase 2.
-- Witness validation. Geonames writes to `app.etzhayyim.maps.feature`
+- Witness validation. Geonames writes to `com.etzhayyim.maps.feature`
   which is Tier B in MIGRATION-TODO (witnessed). The pod port establishes
   the SDK write path; witness wiring happens at the `@etzhayyim/sdk` /
-  `pymagatama.substrate` layer once `app.etzhayyim.yatachain.attestation`
+  `pymagatama.substrate` layer once `com.etzhayyim.yatachain.attestation`
   consumers are live in Murakumo cells (per ADR-2605231400 §5).

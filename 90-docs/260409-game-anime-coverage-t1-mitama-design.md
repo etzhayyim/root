@@ -18,7 +18,7 @@
 - `20-actors/media-gamers/actor-manifest.jsonld` は `executionTier: T1` で既に稼働。
 - 既存で coverage 系 pipeline を持つ。
   - cron `0 */6 * * *`: `ActorCoverageSnapshot` 更新
-  - xrpc `app.etzhayyim.apps.mediagamers.coverage.get`: 最新 snapshot + freshness 返却
+  - xrpc `com.etzhayyim.apps.mediagamers.coverage.get`: 最新 snapshot + freshness 返却
 - 追加で cron `0 */8 * * *` の guide/translation coverage もあり、運用上の土台はある。
 
 ### anime 側
@@ -44,7 +44,7 @@
 - `graph.query`: collection別 top N
 - `graph.write`: `ActorCoverageSnapshot` upsert
 
-2. `xrpc` pipeline (`app.etzhayyim.apps.<segment>.coverage.get`)
+2. `xrpc` pipeline (`com.etzhayyim.apps.<segment>.coverage.get`)
 - 最新 snapshot
 - freshnessRate (24h)
 
@@ -79,7 +79,7 @@
 - `latestTs`
 - `topCollections`
 - `timestamp_ms`
-- `collection` (`app.etzhayyim.apps.<segment>.coverageSnapshot`)
+- `collection` (`com.etzhayyim.apps.<segment>.coverageSnapshot`)
 
 拡張キー (game/anime 向け):
 
@@ -103,7 +103,7 @@
 2. `gftd mitama -dir 20-actors/media-anime --dry-run`
 3. `gftd mitama -dir 20-actors/media-anime` で登録
 4. `gftd mitama inspect did:web:media-anime.etzhayyim.com` で登録内容確認
-5. `app.etzhayyim.apps.mediaanime.coverage.get` を smoke 実行
+5. `com.etzhayyim.apps.mediaanime.coverage.get` を smoke 実行
 6. `media-gamers` 側も同契約に合わせて key/collection の揺れを是正
 7. 必要に応じて `news` を T1 actor 化し category coverage を統合
 

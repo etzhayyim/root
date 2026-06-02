@@ -28,7 +28,7 @@ LOG = logging.getLogger("org_unit")
 
 _OWNER_DID = "did:web:open-lei.etzhayyim.com"
 _ACTOR_ID  = "sys.langserver.open-lei.org"
-_COLLECTION = "app.etzhayyim.apps.openLei.orgUnit"
+_COLLECTION = "com.etzhayyim.apps.openLei.orgUnit"
 
 VALID_ORG_TYPES = frozenset({
     "division", "department", "project", "committee", "team",

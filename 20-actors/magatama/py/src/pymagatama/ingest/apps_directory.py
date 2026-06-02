@@ -11,9 +11,9 @@ from pymagatama.db_sync import sync_cursor
 
 OWNER_DID = "did:web:apps.etzhayyim.com"
 COLLECTION_TABLES = {
-    "app.etzhayyim.apps.apps.appListing": "vertex_apps_directory_listing",
-    "app.etzhayyim.apps.apps.feature": "vertex_apps_directory_feature",
-    "app.etzhayyim.apps.apps.installIntent": "vertex_apps_directory_install_intent",
+    "com.etzhayyim.apps.apps.appListing": "vertex_apps_directory_listing",
+    "com.etzhayyim.apps.apps.feature": "vertex_apps_directory_feature",
+    "com.etzhayyim.apps.apps.installIntent": "vertex_apps_directory_install_intent",
 }
 
 
@@ -112,7 +112,7 @@ def _write_related_edges(cur: Any, collection: str, kind: str, record_id: str, p
     listing_id = _s(payload.get("listingId"))
     if not listing_id:
         return
-    listing_vid = _vertex_id("app.etzhayyim.apps.apps.appListing", listing_id)
+    listing_vid = _vertex_id("com.etzhayyim.apps.apps.appListing", listing_id)
     vertex_id = _vertex_id(collection, record_id)
     if kind == "feature":
         _write_edge(cur, "edge_apps_directory_listing_feature", listing_vid, vertex_id, "featured_as", payload, created_at)
@@ -180,7 +180,7 @@ def _list(collection: str, limit: int = 500) -> list[dict[str, Any]]:
 
 
 def _latest_listing(listing_id: str = "", app_did: str = "") -> dict[str, Any] | None:
-    for item in _list("app.etzhayyim.apps.apps.appListing"):
+    for item in _list("com.etzhayyim.apps.apps.appListing"):
         if listing_id and _s(item.get("listingId")) == listing_id:
             return item
         if app_did and _s(item.get("appDid")) == app_did:
@@ -206,7 +206,7 @@ def register_app_listing(appDid: Any = None, name: Any = None, displayName: Any 
         "capabilities": _arr(capabilities),
         "status": "active",
     }
-    _record("app.etzhayyim.apps.apps.appListing", "appListing", listing, listing_id)
+    _record("com.etzhayyim.apps.apps.appListing", "appListing", listing, listing_id)
     return {"listingId": listing_id, "status": "active"}
 
 
@@ -221,7 +221,7 @@ def update_app_listing(listingId: Any = None, **kwargs: Any) -> dict[str, Any]:
             next_listing[key] = _s(kwargs[key])
     if isinstance(kwargs.get("capabilities"), list):
         next_listing["capabilities"] = _arr(kwargs["capabilities"])
-    _record("app.etzhayyim.apps.apps.appListing", "appListing", next_listing, listing_id)
+    _record("com.etzhayyim.apps.apps.appListing", "appListing", next_listing, listing_id)
     return {"listingId": listing_id, "status": "updated"}
 
 
@@ -237,7 +237,7 @@ def list_apps(category: Any = None, search: Any = None, limit: Any = 50, offset:
     cat = _s(category).lower()
     needle = _s(search).lower()
     latest: dict[str, dict[str, Any]] = {}
-    for item in reversed(_list("app.etzhayyim.apps.apps.appListing", 1000)):
+    for item in reversed(_list("com.etzhayyim.apps.apps.appListing", 1000)):
         latest[_s(item.get("listingId"))] = item
     rows = list(latest.values())
     if cat:
@@ -260,7 +260,7 @@ def feature_app(listingId: Any = None, rail: Any = "featured", rank: Any = 100, 
         rank_i = int(rank)
     except (TypeError, ValueError):
         rank_i = 100
-    _record("app.etzhayyim.apps.apps.feature", "feature", {"featureId": feature_id, "listingId": listing_id, "rail": _s(rail, "featured"), "rank": rank_i, "reason": _s(reason), "approvedByDid": _s(approvedByDid), "status": "active"}, feature_id)
+    _record("com.etzhayyim.apps.apps.feature", "feature", {"featureId": feature_id, "listingId": listing_id, "rail": _s(rail, "featured"), "rank": rank_i, "reason": _s(reason), "approvedByDid": _s(approvedByDid), "status": "active"}, feature_id)
     return {"featureId": feature_id, "status": "active"}
 
 
@@ -269,5 +269,5 @@ def record_install_intent(listingId: Any = None, userDid: Any = None, source: An
     if not listing_id:
         return {"error": "listingId required"}
     intent_id = _id("install")
-    _record("app.etzhayyim.apps.apps.installIntent", "installIntent", {"intentId": intent_id, "listingId": listing_id, "userDid": _s(userDid), "source": _s(source), "client": _s(client), "status": "recorded"}, intent_id)
+    _record("com.etzhayyim.apps.apps.installIntent", "installIntent", {"intentId": intent_id, "listingId": listing_id, "userDid": _s(userDid), "source": _s(source), "client": _s(client), "status": "recorded"}, intent_id)
     return {"intentId": intent_id, "status": "recorded"}

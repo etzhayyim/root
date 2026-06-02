@@ -33,7 +33,7 @@ Tools (Phase 1, all in-process; no Zeebe RTT):
     web_search   RisingWave KG + pod-local embedding/vector ANN
 
 Tools (Phase 1, side-effect, async via Zeebe BPMN):
-    schedule_report  POST /xrpc/app.etzhayyim.apps.chat.scheduleReport
+    schedule_report  POST /xrpc/com.etzhayyim.apps.chat.scheduleReport
                       → BPMN chat_schedule_report (LangGraph not in loop;
                         reports back via PDS dispatch later)
 
@@ -41,7 +41,7 @@ Maintenance (Zeebe BPMN cron, registered by register()):
     chat.memory.reindex          (R/PT24H)
     chat.artifact.gc             (R/PT24H)
     chat.conversation.archive    (R/P7D)
-    chat.report.compose          (XRPC app.etzhayyim.apps.chat.scheduleReport)
+    chat.report.compose          (XRPC com.etzhayyim.apps.chat.scheduleReport)
 """
 
 from __future__ import annotations
@@ -213,19 +213,19 @@ def _new_conv_id(owner_did: str) -> str:
 
 
 def _vertex_id_msg(conv_id: str, msg_id: str) -> str:
-    return f"at://{CHAT_ACTOR}/app.etzhayyim.apps.chat.message/{conv_id}-{msg_id}"
+    return f"at://{CHAT_ACTOR}/com.etzhayyim.apps.chat.message/{conv_id}-{msg_id}"
 
 
 def _vertex_id_conv(conv_id: str) -> str:
-    return f"at://{CHAT_ACTOR}/app.etzhayyim.apps.chat.conversation/{conv_id}"
+    return f"at://{CHAT_ACTOR}/com.etzhayyim.apps.chat.conversation/{conv_id}"
 
 
 def _vertex_id_invocation(conv_id: str, msg_id: str, tool_call_id: str) -> str:
-    return f"at://{CHAT_ACTOR}/app.etzhayyim.apps.chat.toolInvocation/{conv_id}-{msg_id}-{tool_call_id}"
+    return f"at://{CHAT_ACTOR}/com.etzhayyim.apps.chat.toolInvocation/{conv_id}-{msg_id}-{tool_call_id}"
 
 
 def _vertex_id_artifact(conv_id: str, artifact_id: str) -> str:
-    return f"at://{CHAT_ACTOR}/app.etzhayyim.apps.chat.artifact/{conv_id}-{artifact_id}"
+    return f"at://{CHAT_ACTOR}/com.etzhayyim.apps.chat.artifact/{conv_id}-{artifact_id}"
 
 
 def _rw_execute(sql: str, params: tuple[Any, ...]) -> None:
@@ -1654,7 +1654,7 @@ def tool_schedule_report(args: dict[str, Any], *, conv_id: str, msg_id: str,
         sig = hmac.new(INTERNAL_TRUST_SECRET.encode(), json.dumps(body).encode(),
                        hashlib.sha256).hexdigest()
         headers["x-internal-trust"] = sig
-    url = f"{DISPATCHER_URL}/xrpc/app.etzhayyim.apps.chat.scheduleReport"
+    url = f"{DISPATCHER_URL}/xrpc/com.etzhayyim.apps.chat.scheduleReport"
     try:
         resp = _http_post_json(url, body, headers=headers, timeout=30.0)
     except (urllib.error.URLError, TimeoutError, OSError) as e:
@@ -1872,7 +1872,7 @@ def build_chat_graph() -> Any:
                     result_byte_size=len(summary),
                     duration_ms=duration_ms,
                     side_effect_run_id=str(result.get("runId") or ""),
-                    side_effect_xrpc_uri=("app.etzhayyim.apps.chat.scheduleReport"
+                    side_effect_xrpc_uri=("com.etzhayyim.apps.chat.scheduleReport"
                                           if name == "schedule_report" else ""),
                     error_code="" if result.get("ok") else "tool_error",
                     error_message=str(result.get("error") or "")[:500],
@@ -1947,7 +1947,7 @@ def run_turn(*, owner_did: str, user_text: str, conv_id: str = "",
              tier: str = "balanced", model: str = "",
              tools_allowed: Optional[list[str]] = None,
              max_iterations: int = 8) -> dict[str, Any]:
-    """Synchronous one-shot turn (used by app.etzhayyim.apps.chat.agentLoop XRPC)."""
+    """Synchronous one-shot turn (used by com.etzhayyim.apps.chat.agentLoop XRPC)."""
     init: ChatState = {
         "owner_did": owner_did,
         "user_text": user_text,
@@ -2245,7 +2245,7 @@ async def stream_turn(*, owner_did: str, user_text: str, conv_id: str = "",
                             duration_ms=tool_duration_ms,
                             side_effect_run_id=str(tool_result.get("runId") or ""),
                             side_effect_xrpc_uri=(
-                                "app.etzhayyim.apps.chat.scheduleReport"
+                                "com.etzhayyim.apps.chat.scheduleReport"
                                 if tool_name == "schedule_report" else ""
                             ),
                             error_code="" if tool_result.get("ok") else "tool_error",
@@ -2394,7 +2394,7 @@ async def task_chat_conversation_archive(**_kwargs: Any) -> dict[str, Any]:
 
 
 async def task_chat_report_compose(**kwargs: Any) -> dict[str, Any]:
-    """XRPC app.etzhayyim.apps.chat.scheduleReport handler.
+    """XRPC com.etzhayyim.apps.chat.scheduleReport handler.
     Generates a deep-research report (Murakumo `reasoning` tier), saves
     artifact, posts a follow-up assistant message into the conversation."""
     conv_id = str(kwargs.get("convId") or "")

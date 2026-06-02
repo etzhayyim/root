@@ -2,7 +2,7 @@
 
 Replaces the Zeebe/pyzeebe BPMN-as-actor runtime for legal-corpus.etzhayyim.com
 (ADR-0049, ADR-2605080600).  BPMN files under
-00-contracts/bpmn/ai/gftd/legal-corpus/ remain as process contracts and
+00-contracts/bpmn/com/etzhayyim/legal-corpus/ remain as process contracts and
 audit documents; this module is the runtime implementation.
 
 Graphs:
@@ -56,7 +56,7 @@ def _now() -> str:
 
 def _vertex_id(source_id: str, canonical_uri: str) -> str:
     return (
-        f"at://{OWNER_DID}/app.etzhayyim.apps.legal-corpus.document/"
+        f"at://{OWNER_DID}/com.etzhayyim.apps.legal-corpus.document/"
         f"{source_id}:{canonical_uri}"
     )
 

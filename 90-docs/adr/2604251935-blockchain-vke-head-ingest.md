@@ -119,5 +119,5 @@ switch to a faster bootstrap path.
 
 - `50-infra/vultr/blockchain-node/manifests/`
 - `20-actors/magatama/py/src/pymagatama/ingest/blockchain.py`
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/ingest/blockchainBitcoinHeadDelta.bpmn`
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/ingest/blockchainEthereumHeadDelta.bpmn`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/ingest/blockchainBitcoinHeadDelta.bpmn`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/ingest/blockchainEthereumHeadDelta.bpmn`

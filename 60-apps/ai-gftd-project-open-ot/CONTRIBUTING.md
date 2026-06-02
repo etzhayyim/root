@@ -15,7 +15,7 @@ When the standalone repo is created, it will export the following subset:
 | `60-apps/ai-gftd-project-open-ot/{README,CLAUDE,SPEC,PROTOTYPE-MICROGRID,LICENSE,OWNERS}.md` | root |
 | `60-apps/ai-gftd-project-open-ot/cad-spec/` | `cad-spec/` |
 | `60-apps/ai-gftd-project-open-ot/cells/` | `cells/` |
-| `00-contracts/lexicons/ai/gftd/apps/openOt/` | `lexicons/openOt/` |
+| `00-contracts/lexicons/com/etzhayyim/apps/openOt/` | `lexicons/openOt/` |
 | `90-docs/adr/2605151200-open-ot-wasm-plc-dlc.md` | `docs/adr/0001-open-ot.md` |
 
 Internal-only files (gftd platform conventions, `deps.toml`, registry sidecars) will **not** be exported. The split is one-way (monorepo → standalone); upstream changes flow back through PR.
@@ -56,7 +56,7 @@ repos:
         name: open-ot Lexicon × manifest validator
         entry: python3 70-tools/scripts/open-ot/validate-cell-abi.py
         language: system
-        files: ^(60-apps/ai-gftd-project-open-ot/cells/.*/manifest\.json|00-contracts/lexicons/ai/gftd/apps/openOt/.*\.json)$
+        files: ^(60-apps/ai-gftd-project-open-ot/cells/.*/manifest\.json|00-contracts/lexicons/com/etzhayyim/apps/openOt/.*\.json)$
         pass_filenames: false
 
       - id: open-ot-codegen-check

@@ -135,7 +135,7 @@ Per kg lipid, ~1.5-2 kg defatted algal biomass (40-60% protein) remains. Cross-a
 ## §7 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   algalCultivationFacilityAttestation,    # strain + system type + containment + CO2 source
   algalBiomassHarvestRecord,              # per-batch DW + lipid % + protein %
   algalLipidExtractionRecord,             # per-batch lipid kg + extraction method

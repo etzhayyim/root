@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hodoki.partsHarvestCatalog"
+ :id "com.etzhayyim.hodoki.partsHarvestCatalog"
  :defs
  {:main
   {:type "record"

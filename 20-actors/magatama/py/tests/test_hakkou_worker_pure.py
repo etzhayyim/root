@@ -56,7 +56,7 @@ def test_create_ferment_record_uses_provided_vertex_id():
     mock_cm.__enter__ = MagicMock(return_value=MagicMock())
     mock_cm.__exit__ = MagicMock(return_value=False)
 
-    vid = "at://did:web:hakkou.etzhayyim.com/app.etzhayyim.apps.hakkou.ferment/hak-abc123"
+    vid = "at://did:web:hakkou.etzhayyim.com/com.etzhayyim.apps.hakkou.ferment/hak-abc123"
     with patch("pymagatama.hakkou_worker_main.sync_cursor", return_value=mock_cm):
         from pymagatama.hakkou_worker_main import task_create_ferment_record
 
@@ -112,7 +112,7 @@ def test_finalize_ferment_success():
     mock_cm.__enter__ = MagicMock(return_value=MagicMock())
     mock_cm.__exit__ = MagicMock(return_value=False)
 
-    vid = "at://did:web:hakkou.etzhayyim.com/app.etzhayyim.apps.hakkou.ferment/hak-xyz"
+    vid = "at://did:web:hakkou.etzhayyim.com/com.etzhayyim.apps.hakkou.ferment/hak-xyz"
     with patch("pymagatama.hakkou_worker_main.sync_cursor", return_value=mock_cm):
         from pymagatama.hakkou_worker_main import task_finalize_ferment
 

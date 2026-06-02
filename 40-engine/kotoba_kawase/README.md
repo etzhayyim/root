@@ -53,7 +53,7 @@ The R1 implementation MUST honor these without exception:
 ## Related
 
 - `50-infra/etzhayyim-kawase-pool/` — Solidity L6 (KawaseYuiPool.sol)
-- `00-contracts/lexicons/app/etzhayyim/kawase/` — 8 Lexicons
+- `00-contracts/lexicons/com/etzhayyim/kawase/` — 8 Lexicons
 - `70-tools/scripts/lint/verify_no_commercial_remittance.py` — G7
 - `40-engine/kotoba_murakumo/` — sibling package precedent (downstream
   consumer outside the kotoba subrepo)

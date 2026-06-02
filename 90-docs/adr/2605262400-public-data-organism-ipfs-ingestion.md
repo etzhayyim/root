@@ -58,7 +58,7 @@ ADR-2605232345, ADR-2605240200) currently has:
 
 - `e7m-dataset` (ADR-2605241500) — a DataLad + git-annex `directory` +
   sidecar IPFS pinner with four fetchers (HF / GeoNames / OSM Geofabrik
-  / Wikidata SPARQL) and the `app.etzhayyim.substrate.datasetPin`
+  / Wikidata SPARQL) and the `com.etzhayyim.substrate.datasetPin`
   Lexicon as the receipt.
 - `pymagatama.organism` — joucho 情緒 cadence, `InboxBuffer`,
   `KaizenObserver` (6 rules), and a single sensor module
@@ -169,7 +169,7 @@ e7m-dataset publish-ipfs <subdataset>
 IPFS Kubo (replicationMin: 2, at least two religious-corp nodes pin)
         │
         ▼
-app.etzhayyim.substrate.datasetPin record on PDS (receipt)
+com.etzhayyim.substrate.datasetPin record on PDS (receipt)
         │
         ├─────────────► (A) PERCEPTION / hot path
         │                organism heartbeat tick → sensor.latest_pin()
@@ -284,7 +284,7 @@ output_subdataset = "training/corpora/netgraph-r2-261015/"
 
 [[source]]
 subdataset    = "netreg/rir-delegated/apnic"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/<rkey>"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey>"
 shard_glob    = "*.txt"
 tier          = "A"
 weight        = 0.05
@@ -437,7 +437,7 @@ own commit and individual eval rows.
   publisher's stated update cadence (e.g. RIR delegated is daily —
   sensor MUST NOT poll more often than daily; RIS dumps are 8-hourly
   — sensor MUST NOT poll more often than 8-hourly).
-- **G13**: Every ingestion emits one `app.etzhayyim.substrate.datasetPin`
+- **G13**: Every ingestion emits one `com.etzhayyim.substrate.datasetPin`
   record. Missing record = the subdataset is invisible to organisms
   (sensors MUST fail-closed on missing receipt).
 - **G14**: Every commit under this ADR (Wave 1+) emits an entry in

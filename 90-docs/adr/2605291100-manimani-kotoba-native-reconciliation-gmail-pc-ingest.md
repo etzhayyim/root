@@ -302,7 +302,7 @@ Phases 1–5 are separate sessions. This PR authors Phase 0 only.
 - ADR-2605215000 (etzhayyim inference Murakumo-only — no RunPod / no commercial GPU)
 - ADR-2605192100 (mission charter — non-profit, Wellbecoming, PII posture)
 - ADR-2605192200 (Charter Rider v2.0 — §2(a)-(h) content scanner)
-- ADR-2605181100 (confidentiality — `app.etzhayyim.encrypted.*`, Signal-wrapped envelopes)
+- ADR-2605181100 (confidentiality — `com.etzhayyim.encrypted.*`, Signal-wrapped envelopes)
 - ADR-2605120000 (SES anken/jokyo ingest — sibling LangGraph ingest pattern)
 - kotoba-internal ADR-2605250002 (kotoba StateGraph / LangGraph-compatible API)
 - kotoba-internal ADR-2605252400 (kotoba-ingest Gmail OAuth2 → QuadStore)

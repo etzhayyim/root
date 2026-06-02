@@ -241,7 +241,7 @@ class TestEnsureRequiresUserUpn(unittest.TestCase):
             out = asyncio.run(task_lawfirm_msgraph_subscription_ensure(
                 user_upn="k.bakshi@etzhayyim.com",
                 folder="Inbox",
-                notification_url="https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.mailReplyWebhook",
+                notification_url="https://lawfirm.etzhayyim.com/xrpc/com.etzhayyim.apps.lawfirm.mailReplyWebhook",
                 client_state="test-state-32-chars-or-more-secret-x",
             ))
             self.assertTrue(out.get("ok") is True or out.get("subscription_id") is not None)

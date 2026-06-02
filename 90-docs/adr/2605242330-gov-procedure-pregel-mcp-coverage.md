@@ -55,7 +55,7 @@ The "gov coverage" question maps to five distinct layers. Each has its own home 
 
 | Layer | Home | What it covers | Current cardinality | Scale model |
 |---|---|---|---|---|
-| **L1 — Country namespace** | `00-contracts/bpmn/ai/gftd/gov<ISO3>/` | Per-country org-crawl scaffolding (8 generic BPMN per country) | 140 / 195 countries (~72%) | Codegen, cheap |
+| **L1 — Country namespace** | `00-contracts/bpmn/com/etzhayyim/gov<ISO3>/` | Per-country org-crawl scaffolding (8 generic BPMN per country) | 140 / 195 countries (~72%) | Codegen, cheap |
 | **L2 — Agency registry** | `60-apps/ai-gftd-project-cofog/appview/` + `ai-gftd-project-gov/scaffold/actor-manifest.jsonld` | UN COFOG × country actor bundles + JP ministry roster | 203 cofog actor-bundles + 23 JP ministries | Manual + codegen per country |
 | **L3 — Public-services hub** | `60-apps/ai-gftd-project-gov/appview/gov-mcp-component/` | COFOG-aligned path-based DID sub-agents (healthcare / insurance / welfare / education / prevention / housing / employment / child_family) | 8 sub-agents (JP-focused) | Per-country fork |
 | **L4 — Procedure ingest** | `70-tools/scripts/gov/` | Form / procedure crawlers for individual country gov sites | 6 scripts (AGO + IN-local-language ×5) | Per-country bespoke |
@@ -76,7 +76,7 @@ Per ADR-2605212100, the L3 `gov-mcp-component` carries `SUBSTRATE-PORT-PENDING.m
 Concrete deliverable: a substrate-port wave ADR (working name: `2605260XXX-gov-app-substrate-port`) that ports the 3 deferred apps (gov / lawfirm-admin / legal-entity) to MST + `@etzhayyim/sdk`, gated on:
 
 - ADR-2605214000 §3 atomic identifier cutover (`@etzhayyim/magatama-*` → `@etzhayyim/magatama-*`).
-- Lexicon namespace rename (`app.etzhayyim.apps.gov.*` → `app.etzhayyim.gov.*`).
+- Lexicon namespace rename (`com.etzhayyim.apps.gov.*` → `com.etzhayyim.gov.*`).
 - `did:web:gov.etzhayyim.com` → `did:web:etzhayyim.com:gov`.
 
 ### 3.2 JP-deep reference (post-substrate-port)
@@ -85,11 +85,11 @@ Once L3 ports, deepen the JP coverage as the reference implementation:
 
 - L2 — wire the 23-entry `scaffold/actor-manifest.jsonld` into `cofog/appview/` so JP ministries (MOJ / METI / Cabinet Office / MoE / MoF / MHLW / MEXT / MLIT / MAFF / MOFA / ...) become resolvable DIDs.
 - L3 — exercise the 8 path-based DID sub-agents against ≥1 real procedure each (healthcare consult / 高額療養費 calc / 児童手当 eligibility / 生涯学習 plan / etc).
-- L4 — add 1 ingest script per ministry that emits a `app.etzhayyim.gov.agency` MST record per resolved agency.
+- L4 — add 1 ingest script per ministry that emits a `com.etzhayyim.gov.agency` MST record per resolved agency.
 
 ### 3.3 140 → 195 country namespace fill-out
 
-L1 has 140/195 (~72%). The remaining 55 countries get added by extending `00-contracts/bpmn/ai/gftd/gov<ISO3>/` with the same 8-BPMN template. Pure codegen, no behavioral content. Owner: a single PR.
+L1 has 140/195 (~72%). The remaining 55 countries get added by extending `00-contracts/bpmn/com/etzhayyim/gov<ISO3>/` with the same 8-BPMN template. Pure codegen, no behavioral content. Owner: a single PR.
 
 ### 3.4 L4 per-country bespoke ingest
 
@@ -97,7 +97,7 @@ This is where genuine effort lives. Each country has a different procedure surfa
 
 - Open a country-specific issue per non-trivial country (start with G20 + ASEAN + EU + ETZHAYYIM-relevant countries — IL, US, JP, IN, EU, UK, BR, ZA, KR, CN, AU, CA, MX).
 - Each issue authors its own ADR (`2606XXXXXX-gov-ingest-<iso3>.md`) covering the country's procedure surface, MST schema, ingest cadence, and consent boundary.
-- L4 scripts emit `app.etzhayyim.gov.procedure` records keyed by `(jurisdiction, agency, procedure_id)` triple.
+- L4 scripts emit `com.etzhayyim.gov.procedure` records keyed by `(jurisdiction, agency, procedure_id)` triple.
 
 ### 3.5 L5 routing-around — keep narrow
 

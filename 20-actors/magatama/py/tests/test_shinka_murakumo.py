@@ -338,14 +338,14 @@ class TestKarmaHegemonObservationCellProjector:
         # Projector should have been called for Step 2
         mock_projector.query_by_did.assert_called_once_with(
             adherent_did,
-            collection="app.etzhayyim.shinka.kyumeiSignal",
+            collection="com.etzhayyim.shinka.kyumeiSignal",
             limit=500,
         )
         # mst.query should only have been called for Step 1 (evolution records)
         # and NOT for Step 2 (kyumei signals)
         assert mock_mst.query.call_count == 1
         call_args = mock_mst.query.call_args[0][0]
-        assert call_args == "app.etzhayyim.shinka.evolutionEvent"
+        assert call_args == "com.etzhayyim.shinka.evolutionEvent"
 
         # The returned state should contain the kyumei signals from projector
         assert state.did == adherent_did

@@ -14,7 +14,7 @@ from pymagatama.langgraph_graphs import site_common_crawl_ingest as LG
 
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
-BPMN_PATH = REPO_ROOT / "00-contracts/bpmn/ai/gftd/ingest/siteCommonCrawlDelta.bpmn"
+BPMN_PATH = REPO_ROOT / "00-contracts/bpmn/com/etzhayyim/ingest/siteCommonCrawlDelta.bpmn"
 
 
 def _bpmn_task_types() -> list[str]:

@@ -24,7 +24,7 @@
   {:gate/id "G8"  :gate/name "tithe-non-fiat"           :gate/rule "Settlement is USDC Base L2 + ERC-4337 + TitheRouter 10% auto-split; no Stripe/fiat (constitution §1.11)"}
   {:gate/id "G9"  :gate/name "no-server-key"            :gate/rule "Member/operator signs each settlement; platform holds no key (ADR-2605231525)"}
   {:gate/id "G10" :gate/name "consent-bound"            :gate/rule "Real outward RPC calls (service-request to utility company) stay gated; compute-only R0; settlement stops at :intent"}
-  {:gate/id "G11" :gate/name "pii-encrypted"            :gate/rule "Utility customer PII (account number, address, phone) → app.etzhayyim.encrypted.* (ADR-2605181100)"}
+  {:gate/id "G11" :gate/name "pii-encrypted"            :gate/rule "Utility customer PII (account number, address, phone) → com.etzhayyim.encrypted.* (ADR-2605181100)"}
   {:gate/id "G12" :gate/name "outage-logging"           :gate/rule "Service outages logged + disseminated (emergency transparency)"}]
 
  :actor/cells

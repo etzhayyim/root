@@ -62,7 +62,7 @@ joucho_score (0-100) = Σ (axis_weight × axis_score)
 
 ## Lexicon Collections
 
-`app.etzhayyim.joucho.{review,score,meal_score,restaurant_score,spot_score,product_score,building_score,score_history}`
+`com.etzhayyim.joucho.{review,score,meal_score,restaurant_score,spot_score,product_score,building_score,score_history}`
 
 ## WIT
 

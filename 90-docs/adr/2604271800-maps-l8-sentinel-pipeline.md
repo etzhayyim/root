@@ -38,7 +38,7 @@ commands `satellite_ingest` / `satellite_import_scene` /
 `satellite_analyze` / `list_satellite_scenes`. The commands have never
 been backed by a runtime: there is no BPMN process, no pyzeebe primitive,
 no RunPod / Murakumo binding for SAR / optical analysis. As of 2026-04-27
-the only maps BPMN files in `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/` are 7
+the only maps BPMN files in `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/` are 7
 coverage / OSM / Wikipedia / Wikidata refresh jobs — none touch Sentinel.
 
 Yoro proved the BPMN + pyzeebe + LangChain + RunPod stack
@@ -63,7 +63,7 @@ Start (timer R/PT24H)
   → Task_StacSearch       (maps.sentinel.stac.search)
   → Gateway_HasScenes     (XOR; skip when 0 hits)
   → Task_PersistScenes    (generic.db.insert, multi-instance over rows)
-  → Task_Audit            (generic.audit.emit "app.etzhayyim.apps.maps.sentinel.ingest")
+  → Task_Audit            (generic.audit.emit "com.etzhayyim.apps.maps.sentinel.ingest")
   → End
 ```
 
@@ -76,13 +76,13 @@ Start (timer R/PT24H)
 - LangChain in primitive: prompt → STAC `POST /search` → JSON parse →
   filter cloud cover < 30% (S-2) / orbit pass (S-1).
 - Persist to `vertex_repo_record` (collection
-  `app.etzhayyim.apps.maps.satelliteScene`, no schema migration required).
+  `com.etzhayyim.apps.maps.satelliteScene`, no schema migration required).
   Phase 2 (separate ADR) promotes to a typed `vertex_satellite_scene`.
 
 ### 2. `sentinelAnalyze.bpmn` — XRPC-triggered
 
 ```
-Start (XRPC POST app.etzhayyim.apps.maps.sentinelAnalyze)
+Start (XRPC POST com.etzhayyim.apps.maps.sentinelAnalyze)
   → Task_LoadScene        (generic.db.select vertex_repo_record by scene URI)
   → Task_RunpodAnalyze    (maps.sentinel.runpod.analyze)
   → Task_PersistResult    (generic.db.insert vertex_repo_record)
@@ -134,7 +134,7 @@ LangChain + Sentinel SDK Python deps land in the existing
 
 ### 5. Lexicon contract
 
-`00-contracts/lexicons/ai/gftd/apps/maps/`:
+`00-contracts/lexicons/com/etzhayyim/apps/maps/`:
 - `sentinelIngest.json` — procedure, body optional `{aois?, timeRangeDays?, maxScenesPerAoi?}`,
   response `{scenesIngested, runId}`.
 - `sentinelAnalyze.json` — procedure, body
@@ -144,7 +144,7 @@ LangChain + Sentinel SDK Python deps land in the existing
 ### 6. Graph projection
 
 Phase 1: writes use `vertex_repo_record` with collection
-`app.etzhayyim.apps.maps.satelliteScene` and `…satelliteAnalysis`. Avoids a
+`com.etzhayyim.apps.maps.satelliteScene` and `…satelliteAnalysis`. Avoids a
 RisingWave DDL during the recovery-sensitive Vultr+B2 cluster window
 (see CLAUDE.md "RisingWave Smooth Scaling Gate").
 
@@ -185,8 +185,8 @@ cluster footprint is back inside RW license caps.
 
 | Artifact | State |
 |---|---|
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/sentinelIngest.bpmn` | ✅ committed, seeded to `vertex_bpmn_process_def` |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/sentinelAnalyze.bpmn` | ✅ committed, seeded to `vertex_bpmn_process_def` |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelIngest.bpmn` | ✅ committed, seeded to `vertex_bpmn_process_def` |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelAnalyze.bpmn` | ✅ committed, seeded to `vertex_bpmn_process_def` |
 | `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py` | ✅ `maps.sentinel.stac.search` + `maps.sentinel.runpod.analyze` |
 | `20-actors/magatama/py/tests/test_maps_sentinel_primitives.py` | ✅ 36/36 passing |
 | `70-tools/scripts/contract/lint-sentinel-drift.py` | ✅ 5-check CI guard |
@@ -195,7 +195,7 @@ cluster footprint is back inside RW license caps.
 | PR #1151 | ✅ `safe-deploy-and-fix-settler-ws` → `main` |
 
 Persistence: Phase 1 BPMNs write to `vertex_repo_record` (collection
-`app.etzhayyim.apps.maps.satelliteScene` / `…satelliteAnalysis`). No DDL
+`com.etzhayyim.apps.maps.satelliteScene` / `…satelliteAnalysis`). No DDL
 change required; the `generic.db.insert` task type is already wired.
 
 ### ✅ Phase 2 DDL pre-staged

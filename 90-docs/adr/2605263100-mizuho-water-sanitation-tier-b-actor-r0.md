@@ -9,11 +9,11 @@ last_verified: 2026-05-26
 priority: 6.5
 axis: infrastructure
 weight: 0.55
-priority_note: "Fourth-priority gap-closure actor (gap audit row 4 = 水 / water + sanitation). Upstream infrastructure prerequisite for mitsuho (agricultural irrigation), hagukumi (daily-living water), iyashi (clinical-grade hand-hygiene + sterile-zone reprocessing), yakushi (pharmaceutical water-for-injection — pre-supply only; final pharma-grade is yakushi-internal). Community-scale only at R0-R3; NOT a large municipal water utility (N1). 任意団体 internal infrastructure substrate at did:web:mizuho.etzhayyim.com (20-actors/mizuho/). Naming note: 水穂 (mi-zu-ho) is romanization-homophone with the existing mitsuho 瑞穂 food/agriculture actor (ADR-2605261015 row 47). Directory path mizuho/ vs mitsuho/ disambiguates at filesystem level; DIDs are distinct (did:web:mizuho.etzhayyim.com vs did:web:mitsuho.etzhayyim.com). User explicitly proposed `mizuho (水穂)` in gap audit row 4; this ADR follows verbatim. 6 cells / 5 Lexicons under app.etzhayyim.mizuho.* / 12 immutable gates / 12 non-goals / 4-phase R0..R3. NO commercial water utility software (G4 — Veolia / Suez / American Water / Aquarion / Évian / Nestlé Pure Life / Beck Water / Trojan UV proprietary control systems PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty exposing water-quality + member-consumption posture). NO bottled water vendor relationship — single-use plastic PROHIBITED per Charter §1.13 Wellbecoming + multi-generational priority (G5). NO mandatory fluoridation (G6 — per-member consent required; anti-paternalism). NO industrial water service (G3 — community-scale only). Cross-actor: mitsuho (irrigation supply) / hagukumi (daily-living water) / iyashi (clinical-grade water) / yakushi (water-for-injection feed) / tatekata (MEP plumbing standards for new construction) / hodoki (recycled greywater integration) / hikari (water-source-edge solar power for treatment plants) / toritate (Public Fund grant accounting) / chigiri (procedural attestation + ip license)."
+priority_note: "Fourth-priority gap-closure actor (gap audit row 4 = 水 / water + sanitation). Upstream infrastructure prerequisite for mitsuho (agricultural irrigation), hagukumi (daily-living water), iyashi (clinical-grade hand-hygiene + sterile-zone reprocessing), yakushi (pharmaceutical water-for-injection — pre-supply only; final pharma-grade is yakushi-internal). Community-scale only at R0-R3; NOT a large municipal water utility (N1). 任意団体 internal infrastructure substrate at did:web:mizuho.etzhayyim.com (20-actors/mizuho/). Naming note: 水穂 (mi-zu-ho) is romanization-homophone with the existing mitsuho 瑞穂 food/agriculture actor (ADR-2605261015 row 47). Directory path mizuho/ vs mitsuho/ disambiguates at filesystem level; DIDs are distinct (did:web:mizuho.etzhayyim.com vs did:web:mitsuho.etzhayyim.com). User explicitly proposed `mizuho (水穂)` in gap audit row 4; this ADR follows verbatim. 6 cells / 5 Lexicons under com.etzhayyim.mizuho.* / 12 immutable gates / 12 non-goals / 4-phase R0..R3. NO commercial water utility software (G4 — Veolia / Suez / American Water / Aquarion / Évian / Nestlé Pure Life / Beck Water / Trojan UV proprietary control systems PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty exposing water-quality + member-consumption posture). NO bottled water vendor relationship — single-use plastic PROHIBITED per Charter §1.13 Wellbecoming + multi-generational priority (G5). NO mandatory fluoridation (G6 — per-member consent required; anti-paternalism). NO industrial water service (G3 — community-scale only). Cross-actor: mitsuho (irrigation supply) / hagukumi (daily-living water) / iyashi (clinical-grade water) / yakushi (water-for-injection feed) / tatekata (MEP plumbing standards for new construction) / hodoki (recycled greywater integration) / hikari (water-source-edge solar power for treatment plants) / toritate (Public Fund grant accounting) / chigiri (procedural attestation + ip license)."
 authoritative_for:
   - mizuho actor R0 charter
   - religious-corp water + sanitation substrate single SoT
-  - `app.etzhayyim.mizuho.*` Lexicon namespace boundary
+  - `com.etzhayyim.mizuho.*` Lexicon namespace boundary
   - community-scale invariant (NOT large municipal utility)
   - prohibition on commercial water utility software (Veolia / Suez / American Water / etc.)
   - prohibition on bottled water vendor / single-use plastic distribution
@@ -119,7 +119,7 @@ Constitutional constraints (inherited; not adjustable):
 Create `mizuho` (水穂) as a Tier-B religious-corp water + sanitation
 substrate actor at `20-actors/mizuho/`, with DID
 `did:web:mizuho.etzhayyim.com`, Lexicon namespace
-`app.etzhayyim.mizuho.*`. R0 = scaffold only; all cells import-time
+`com.etzhayyim.mizuho.*`. R0 = scaffold only; all cells import-time
 `RuntimeError` (same scaffold discipline as prior R0 actors).
 
 ## §1. Identity and naming
@@ -128,7 +128,7 @@ substrate actor at `20-actors/mizuho/`, with DID
 |---|---|
 | Name | `mizuho` (水穂 — 水 water + 穂 ear-of-rice/spike) |
 | DID | `did:web:mizuho.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.mizuho.*` |
+| Lexicon root | `com.etzhayyim.mizuho.*` |
 | Form | 任意団体 internal water + sanitation substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格) |
 | Tier | Tier-B per-domain leader actor |
 | Naming-collision note | Romanization-homophone with `mitsuho` (瑞穂; food/agriculture, ADR-2605261015). Filesystem paths (`mizuho/` vs `mitsuho/`) + DIDs (`mizuho.etzhayyim.com` vs `mitsuho.etzhayyim.com`) disambiguate. User explicitly proposed `mizuho (水穂)` in gap audit row 4. |
@@ -211,7 +211,7 @@ All R0 path-reserved; import-time `RuntimeError("mizuho R0 scaffold: activate vi
 
 R1 activation gates each cell separately (Council Lv6+ ≥3 attestation per cell + per-source baseline water-quality test on file).
 
-## §4. Lexicons (5, all under `app.etzhayyim.mizuho.*`)
+## §4. Lexicons (5, all under `com.etzhayyim.mizuho.*`)
 
 | # | Lexicon | Consumer cell | Description |
 |---|---|---|---|
@@ -226,7 +226,7 @@ R1 activation gates each cell separately (Council Lv6+ ≥3 attestation per cell
 | Gate | Description |
 |---|---|
 | **G1** | Every water-quality document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `app.etzhayyim.mizuho.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.mizuho.*` Lexicon with yatachain attestation lineage. |
 | **G3** | **Community-scale only** — NOT large municipal utility; per-source service population ≤2,500 at R2, ≤25,000 cumulative at R3. |
 | **G4** | **NO commercial water utility software** — Veolia / Suez / American Water / Aquarion / Évian (Danone) / Nestlé Pure Life / Beck Water / Trojan UV proprietary control systems PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty. |
 | **G5** | **NO bottled water vendor relationship** — single-use plastic PROHIBITED per Charter §1.13 Wellbecoming + multi-gen priority; closed-loop reusable container ONLY where containerized delivery unavoidable (disaster relief coordination with future kazaori actor). |
@@ -282,7 +282,7 @@ R1 activation gates each cell separately (Council Lv6+ ≥3 attestation per cell
 
 1. This ADR (`90-docs/adr/2605263100-mizuho-water-sanitation-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/mizuho/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/mizuho/` + README;
+3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/mizuho/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 71 + Repo Layout entry.

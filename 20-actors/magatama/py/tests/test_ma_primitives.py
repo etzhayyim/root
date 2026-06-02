@@ -15,7 +15,7 @@ from pymagatama.primitives import ma
 def test_start_deal_bpmn_binds_ma_runtime_tasks() -> None:
     bpmn_path = (
         Path(__file__).resolve().parents[4]
-        / "00-contracts/bpmn/ai/gftd/ma/startDealWorkflow.bpmn"
+        / "00-contracts/bpmn/com/etzhayyim/ma/startDealWorkflow.bpmn"
     )
     ns = {
         "bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL",
@@ -154,7 +154,7 @@ def test_ma_deal_workflow_tasks_are_deterministic_enough() -> None:
     assert outreach["outreachDraft"]["provider"] == "mailer.etzhayyim.com"
     assert outreach["outreachDraft"]["outboundProvider"] == "resend"
     assert outreach["outreachDraft"]["inboundProvider"] == "cloudflare-email-routing"
-    assert outreach["outreachDraft"]["sendNsid"] == "app.etzhayyim.apps.mailer.sendEmail"
+    assert outreach["outreachDraft"]["sendNsid"] == "com.etzhayyim.apps.mailer.sendEmail"
     assert outreach["outreachDraft"]["from"] == "ma@etzhayyim.com"
     assert outreach["pendingApproval"]["status"] == "pending"
 
@@ -180,7 +180,7 @@ def test_ma_deal_workflow_tasks_are_deterministic_enough() -> None:
     )
     assert approved_send["ok"] is True
     assert approved_send["sendReady"] is True
-    assert approved_send["sendNsid"] == "app.etzhayyim.apps.mailer.sendEmail"
+    assert approved_send["sendNsid"] == "com.etzhayyim.apps.mailer.sendEmail"
     assert approved_send["mailerSendPayload"]["to"] == "corpdev@example.com"
     assert approved_send["mailerSendPayload"]["from"] == "ma@etzhayyim.com"
 
@@ -195,7 +195,7 @@ def test_ma_deal_workflow_tasks_are_deterministic_enough() -> None:
     assert staged_send["ok"] is True
     assert staged_send["sent"] is False
     assert staged_send["request"]["url"] == (
-        "https://mailer.etzhayyim.com/xrpc/app.etzhayyim.apps.mailer.sendEmail"
+        "https://mailer.etzhayyim.com/xrpc/com.etzhayyim.apps.mailer.sendEmail"
     )
 
     handoff = asyncio.run(

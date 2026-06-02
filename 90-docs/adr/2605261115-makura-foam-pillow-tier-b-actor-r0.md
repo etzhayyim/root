@@ -16,7 +16,7 @@ authoritative_for:
   - 5-layer foam-pillow assembly process (raw-material → foam-blowing → shredding → shell-sewing → fill-close-QC-pack)
   - 9 Pregel cell catalog + Murakumo placement (R0 design-only)
   - 2 new robotics class reservation (Watari 綿 / Awa 泡) + 4 inherited reuse (Otete / Mimi / Hitogata / Quad)
-  - lexicon namespace reservation (`app.etzhayyim.makura.*`, 8 record types)
+  - lexicon namespace reservation (`com.etzhayyim.makura.*`, 8 record types)
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605242000-roso-pattern-frontier-distill
@@ -76,7 +76,7 @@ The user-prompted source reference for this design is the manufacturing methodol
 | Per-lot DID pattern (reserved) | `did:web:etzhayyim.com:makura:lot:<lotId>` |
 | Per-pillow DID pattern (reserved) | `did:web:etzhayyim.com:makura:pillow:<serial>` (R3 take-back recycling) |
 | Repo location | `20-actors/makura/` |
-| Lexicon namespace | `app.etzhayyim.makura.*` |
+| Lexicon namespace | `com.etzhayyim.makura.*` |
 | License | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 ### 2. Scope (R0)
@@ -177,7 +177,7 @@ Charter Rider §1.13 + §2(b) + §2(c) + §2(e) + §2(g) constitutional anchors:
 ### 8. Lexicon Namespace (8 record types, R0 stubs)
 
 ```
-app.etzhayyim.makura.{
+com.etzhayyim.makura.{
   foamBatchAttestation        # L2 — chemistry + density + cell-structure + VOC test
   fabricAttestation           # L4a — material disclosure + Charter scan + dye safety
   pillowLotAttestation        # L5a — fill weight + close + label + lot DID

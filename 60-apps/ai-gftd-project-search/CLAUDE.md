@@ -30,7 +30,7 @@
 ## Data Flow
 
 - **site Common Crawl ingest** starts `ingest_site_common_crawl_delta` and writes RisingWave corpus state.
-- **site IVF/PQ reindex** is registered as `site_ivf_pq_reindex` (`app.etzhayyim.apps.site.ivfPqReindex`) and maintains `vertex_wet_chunk_pq`.
+- **site IVF/PQ reindex** is registered as `site_ivf_pq_reindex` (`com.etzhayyim.apps.site.ivfPqReindex`) and maintains `vertex_wet_chunk_pq`.
 - **search.etzhayyim.com** reads RisingWave, ranks by ANN candidate distance + lexical/domain freshness signals, and serves web/image verticals.
 - **image/OCR ingest** is separate from web search. Current integrated sources include NDL image OCR and biblio open-data OCR; generic web image crawl remains a crawler capability/workload, not the full production search corpus.
 

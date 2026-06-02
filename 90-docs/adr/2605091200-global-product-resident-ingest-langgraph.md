@@ -42,7 +42,7 @@ Google-Shopping-like product graph:
   `vertex_kakaku_offer`, and `vertex_kakaku_price_history` own
   merchant-specific catalog, offer, and price observations.
 - `yoro_product_ingest` already runs as a LangGraph graph and forwards offers
-  to `app.etzhayyim.apps.kakaku.ingestOfferFromUrl`.
+  to `com.etzhayyim.apps.kakaku.ingestOfferFromUrl`.
 
 The gap is source quality and runtime shape. The current yoro path is mostly a
 category/query trigger against retailer surfaces. Global product intelligence

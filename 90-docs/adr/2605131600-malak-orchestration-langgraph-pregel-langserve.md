@@ -9,7 +9,7 @@ last_verified: 2026-05-13
 authoritative_for:
   - new malak orchestration model (LangGraph StateGraph + Pregel super-step + Send fan-out)
   - LangServe-style FastAPI HTTP route exposure
-  - Replacement of new BPMN-as-actor flows under etzhayyim-root/00-contracts/bpmn/ai/gftd/malak/
+  - Replacement of new BPMN-as-actor flows under etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak/
 priority: 8.6
 axis: orchestration
 weight: 0.86
@@ -60,7 +60,7 @@ LangServe instead.
 **New malak orchestrations use LangGraph StateGraph + Pregel super-step
 parallelism + LangServe-style FastAPI HTTP routes.** The legacy 18 malak
 BPMN files are retained (`status: legacy`) for the pyzeebe-direct path
-but no new BPMN flows are written under `etzhayyim-root/00-contracts/bpmn/ai/gftd/malak/`.
+but no new BPMN flows are written under `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak/`.
 
 ## 1. LangGraph chains
 
@@ -69,9 +69,9 @@ to a Pregel runtime:
 
 | Chain | Module | NSID | Pregel super-steps |
 |---|---|---|---|
-| `exportSurveillanceEvidence` | `pymagatama/malak/langgraph/export_surveillance_evidence.py` | `app.etzhayyim.apps.malak.exportSurveillanceEvidence` | 4 (Send fan-out to render_doc × 4) |
-| `agencyOutreachFullFlow` | `pymagatama/malak/langgraph/agency_outreach_full_flow.py` | `app.etzhayyim.apps.malak.agencyOutreachFullFlow` (composite) | 6 (sequential + 5 conditional abort branches) |
-| `draftAgencyBriefing` | `pymagatama/malak/langgraph/briefing.py` | `app.etzhayyim.apps.malak.draftAgencyBriefing` | 8 (graph-native entity extraction + RW row staging) |
+| `exportSurveillanceEvidence` | `pymagatama/malak/langgraph/export_surveillance_evidence.py` | `com.etzhayyim.apps.malak.exportSurveillanceEvidence` | 4 (Send fan-out to render_doc × 4) |
+| `agencyOutreachFullFlow` | `pymagatama/malak/langgraph/agency_outreach_full_flow.py` | `com.etzhayyim.apps.malak.agencyOutreachFullFlow` (composite) | 6 (sequential + 5 conditional abort branches) |
+| `draftAgencyBriefing` | `pymagatama/malak/langgraph/briefing.py` | `com.etzhayyim.apps.malak.draftAgencyBriefing` | 8 (graph-native entity extraction + RW row staging) |
 
 ## 2. Pregel parallel fan-out via Send
 
@@ -164,7 +164,7 @@ runs JP fraud-network outreach and EU GDPR-compliant outreach.
 
 # Legacy BPMN status
 
-The 18 malak BPMN files in `etzhayyim-root/00-contracts/bpmn/ai/gftd/malak/` are
+The 18 malak BPMN files in `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak/` are
 retained `status: legacy`:
 
 ```

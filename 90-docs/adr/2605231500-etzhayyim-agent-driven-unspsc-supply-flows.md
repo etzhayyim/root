@@ -11,9 +11,9 @@ axis: substrate-boundary
 weight: 0.70
 priority_note: "Defines the canonical wiring matrix between (a) the 18,346 UNSPSC LangGraph actors registered 2026-05-23 (commit 9cd4fe73d) and (b) the religious-corp business-model contracts (Charter / Tithe / Public Fund / Force / Sanctions / Council / Surplus Router / Wellbecoming). Without this ADR, agent-driven commodity flows have no canonical authorization chain and risk Charter §2 violations at scale."
 authoritative_for:
-  - app.etzhayyim.agent.authority lexicon namespace + AgentAuthorityToken contract semantics
-  - app.etzhayyim.unspsc.processManifest lexicon namespace
-  - extensions to app.etzhayyim.esign.* required for agent-bound signing
+  - com.etzhayyim.agent.authority lexicon namespace + AgentAuthorityToken contract semantics
+  - com.etzhayyim.unspsc.processManifest lexicon namespace
+  - extensions to com.etzhayyim.esign.* required for agent-bound signing
   - the canonical wiring matrix between UNSPSC LangGraph actors and religious-corp economic-body contracts
   - agent-vs-human signer distinction (AAT for AI agents, Adherent SBT for humans)
 depends_on:
@@ -78,7 +78,7 @@ The religious-corp constitutional wave (2026-05-19/20) already shipped most of t
 - `etzhayyim-organism` ecosystem (ADR-2605221411 — BeliefStore feedback loop)
 - `20-actors/sanctions/` (OFAC/EU/UN sanctions list ingest)
 - `20-actors/yobel/cells/audit_witness/` (3-party witness primitive)
-- ADR-2605211241 Surplus Router (`app.etzhayyim.apps.surplusRouter.*` 7 lexicons)
+- ADR-2605211241 Surplus Router (`com.etzhayyim.apps.surplusRouter.*` 7 lexicons)
 - ADR-2605231230 etzhayyim-esign (Phase 0 landed this session)
 
 What is **missing** is:
@@ -101,7 +101,7 @@ Every UNSPSC commodity flow that crosses the religious-corp economic boundary MU
 | **F3** — surplus redistribution | `surplus-routing` | Source Steward + Router agent + Destination Steward | no additional tithe (already routed from earlier tithe split) |
 | **F4** — operational ingress | `operational-supply` | Vendor (donation form, NOT purchase) + Steward | 10% inventory tithe (same as F1) |
 
-`purchase` / `sale` / `subscription` / `lease` / `tip` are **not** valid purposes for commodity flows under this ADR. Apps that need fiat-paid commodity acquisition route through the gftd vendor backend per ADR-2605192115 §4 and never touch `app.etzhayyim.esign.*`.
+`purchase` / `sale` / `subscription` / `lease` / `tip` are **not** valid purposes for commodity flows under this ADR. Apps that need fiat-paid commodity acquisition route through the gftd vendor backend per ADR-2605192115 §4 and never touch `com.etzhayyim.esign.*`.
 
 ### 2. Agent execution loop (canonical 12-step process)
 
@@ -142,12 +142,12 @@ Operational invariants (enforced in the contract):
 
 - A Steward DID without an Adherent SBT (verified via `AdherentRegistry.locked(tokenId)`) MUST NOT be allowed to mint AATs.
 - Transfer / approve are permanently disabled (ERC-5192 soulbound).
-- Mint events emit a canonical `AAT_Minted(tokenId, agentDid, stewardDid, scope)` event consumed by the `app.etzhayyim.agent.authority` record indexer.
+- Mint events emit a canonical `AAT_Minted(tokenId, agentDid, stewardDid, scope)` event consumed by the `com.etzhayyim.agent.authority` record indexer.
 - Revocation events emit `AAT_Revoked(tokenId, by, reason)` and force any in-flight envelope referencing the AAT to refuse counter-sign until the requester proves replacement authority.
 
 ### 4. UNSPSC process manifest record
 
-A new record at `app.etzhayyim.unispsc.processManifest`. One record per UNSPSC code (18,346 records max, sparse — only populated for actively flowing commodities). Declares per-commodity policy that the LangGraph actor reads at step 3 (authz):
+A new record at `com.etzhayyim.unispsc.processManifest`. One record per UNSPSC code (18,346 records max, sparse — only populated for actively flowing commodities). Declares per-commodity policy that the LangGraph actor reads at step 3 (authz):
 
 | Field | Purpose |
 |---|---|
@@ -159,7 +159,7 @@ A new record at `app.etzhayyim.unispsc.processManifest`. One record per UNSPSC c
 | `councilEscalationThreshold` | per-envelope value/count at which Council Lv6+ ≥3 multisig required |
 | `auditWitnessRequired` | bool — if true, yobel `audit_witness` cell invoked |
 | `customsRequired` | bool — physical goods crossing borders need `customsRef` field |
-| `chartersAttestation` | AT URI of the most recent `app.etzhayyim.charters.attest` covering this code |
+| `chartersAttestation` | AT URI of the most recent `com.etzhayyim.charters.attest` covering this code |
 
 ### 5. Charter-compliance gate library
 
@@ -177,13 +177,13 @@ Phase 1 ships **only the function signatures + `NotImplementedError` stubs**. Ea
 
 ### 6. esign envelope extensions (backward-compatible)
 
-The Phase 0 `app.etzhayyim.esign.*` lexicons gain optional fields. No required field changes — existing envelopes remain valid.
+The Phase 0 `com.etzhayyim.esign.*` lexicons gain optional fields. No required field changes — existing envelopes remain valid.
 
 | Lexicon | Added field | Type | Purpose |
 |---|---|---|---|
 | `envelope` | `subjectClassifications[]` | array of `{scheme, code, did}` | which UNSPSC / ISCO / APQC subject(s) the envelope is about |
-| `envelope` | `commodityManifestUri` | at-uri | reference to `app.etzhayyim.esign.commodityManifest` record (multi-commodity batch) |
-| `envelope` | `requesterAgentAuthorityRef` | at-uri | reference to `app.etzhayyim.agent.authority` record proving AAT-bound authority |
+| `envelope` | `commodityManifestUri` | at-uri | reference to `com.etzhayyim.esign.commodityManifest` record (multi-commodity batch) |
+| `envelope` | `requesterAgentAuthorityRef` | at-uri | reference to `com.etzhayyim.agent.authority` record proving AAT-bound authority |
 | `envelope` | `purpose` enum + 4 values | enum | adds `donation-in-kind`, `internal-allocation`, `surplus-routing`, `operational-supply` |
 | `envelope` | `charterAttestationRef` | at-uri | snapshot of the `ChartersComplianceRegistry` attestation captured at envelope creation |
 | `envelope` | `sanctionsScreenRef` | at-uri | snapshot of the sanctions screening result at envelope creation |
@@ -198,8 +198,8 @@ Three new cells to add to `20-actors/magatama/cells/`, registered in `50-infra/m
 | Cell | Role |
 |---|---|
 | `commodity_process_orchestrator` | Drives the 12-step loop for the 18,346 UNSPSC actors. Runs as a single fleet-wide cell that round-robins or queue-driven across active commodities. |
-| `tithe_in_kind_splitter` | Subscribes to `app.etzhayyim.esign.anchoredEvent`; for `donation-in-kind` / `operational-supply` purposes splits 10% of items to Public Fund inventory queue. |
-| `aat_lifecycle` | Watches `AAT_Minted` / `AAT_Revoked` events; maintains the AT-Protocol projection of the AAT contract state; emits `app.etzhayyim.agent.authority` records. |
+| `tithe_in_kind_splitter` | Subscribes to `com.etzhayyim.esign.anchoredEvent`; for `donation-in-kind` / `operational-supply` purposes splits 10% of items to Public Fund inventory queue. |
+| `aat_lifecycle` | Watches `AAT_Minted` / `AAT_Revoked` events; maintains the AT-Protocol projection of the AAT contract state; emits `com.etzhayyim.agent.authority` records. |
 
 ### 8. Business-model wiring matrix (canonical 16-row reference)
 
@@ -219,7 +219,7 @@ The complete mapping from agent execution loop step to business-model contract:
 | 10 | Wellbecoming priority | 20-actors/yoro + JouchoScore graph | scoring input for surplus routing destination selection | 2 |
 | 11 | Payment rails (donation USDC only) | etzhayyim-paymaster (ERC-4337) + Smart Account | optional donor USDC co-sign with paymaster gas sponsor | 2 |
 | 12 | L2 anchor + Council mirror | anchor-cron + EtzhayyimAnchor.sol + geth-private | esign Phase 2 anchor + Phase 3 Council mirror reused | 2/3 |
-| 13 | BPMN process integration | 00-contracts/bpmn/ai/gftd/apqc/ + Kyber BPMN projector | UNSPSC actor `signature_required` node fires BPMN signal `Signal:esign:{purpose}` | 2 |
+| 13 | BPMN process integration | 00-contracts/bpmn/com/etzhayyim/apqc/ + Kyber BPMN projector | UNSPSC actor `signature_required` node fires BPMN signal `Signal:esign:{purpose}` | 2 |
 | 14 | Audit witness (high-stakes) | 20-actors/yobel/cells/audit_witness | manifest.auditWitnessRequired=true → 3-party witness cell invoked | 1 |
 | 15 | Council escalation | ADR-2605192300 + etzhayyim-charters-compliance Council Lv6+ ≥3 multisig | manifest.councilEscalationThreshold triggers multisig requirement | 3 |
 | 16 | KPI + organism feedback | etzhayyim-organism BeliefStore + magatama cell catalog | step 12 close pushes per-envelope facts to organism | 1 (basic) / 2 (full belief update) |
@@ -277,7 +277,7 @@ The five OPEN questions from the prior turn are answered as follows:
 
 Rejected. The Adherent SBT is constitutionally 1 SBT = 1 vote per ADR-2605192100 §1.16. Sharing the key with N agents creates ambiguity about voting authority, makes revocation of a specific agent impossible without revoking the Steward, and creates a single point of compromise. AAT separation is the smallest cost to keep the human/agent distinction clean.
 
-### B. Use existing `app.etzhayyim.apps.lawfirm.eSign*` for commodity flows
+### B. Use existing `com.etzhayyim.apps.lawfirm.eSign*` for commodity flows
 
 Rejected. ADR-2605231230 §8 already excluded religious-corp documents from the gftd lawfirm DocuSign passthrough. Commodity flows are religious-corp documents. Reverting that boundary would re-introduce centralized SaaS dependency for the largest agent-driven flow class.
 

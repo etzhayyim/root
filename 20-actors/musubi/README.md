@@ -1,7 +1,7 @@
 # musubi (結) — Non-profit Religious-Corp Covenant Ceremony Substrate
 
 **DID**: `did:web:musubi.etzhayyim.com`
-**Namespace**: `app.etzhayyim.musubi.*`
+**Namespace**: `com.etzhayyim.musubi.*`
 **ADR**: ADR-2605263400 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 6 cells path-reserved + 5 Lexicon skeletons
 **TIGHT PAIR**: chigiri (chigiri.covenant_ceremony cell explicit cross-actor at R2)
@@ -67,7 +67,7 @@ Etymology: 結 (musubi) = tie / knot / bind / connect; Shinto 産霊
 | `musubi_rededication_ceremony` | gad | event | returning member + cure attestation + Council ≥3 → ceremonyPerformanceAttestation + chigiri cross-emit |
 | `musubi_seasonal_communal_ceremony` | gad | calendar (8-12/year) | seasonal cycle + opt-in attendance → seasonalCeremonyCalendar (no chigiri per-individual emit) |
 
-## 5 Lexicons under `app.etzhayyim.musubi.*`
+## 5 Lexicons under `com.etzhayyim.musubi.*`
 
 | Lexicon | Purpose |
 |---|---|
@@ -77,7 +77,7 @@ Etymology: 結 (musubi) = tie / knot / bind / connect; Shinto 産霊
 | `seasonalCeremonyCalendar` | Annual schedule of communal ceremonies; opt-in attendance registry |
 | `silenMusubiReview` | Quarterly Council Wellbecoming + multi-gen ratio + Charter §1.13 + anti-coercive-economy audit |
 
-See `/00-contracts/lexicons/app/etzhayyim/musubi/README.md`.
+See `/00-contracts/lexicons/com/etzhayyim/musubi/README.md`.
 
 ## Constitutional Gates (G1–G13)
 
@@ -106,7 +106,7 @@ See ADR-2605263400 §6.
 
 - `/20-actors/musubi/manifest.jsonld`
 - `/20-actors/musubi/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/musubi/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/musubi/` (5 Lexicons + README)
 - `/90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md`
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — TIGHT PAIR
 - `/90-docs/adr/2605250200-l5-religious-marriage-cell.md` — existing Pregel-cell reference

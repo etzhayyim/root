@@ -60,7 +60,7 @@ address_label_pursuit (multi-source label batch). What was still missing:
 ## 1. New Pregel: `chain_freeze_request_pursuit`
 
 Module: `20-actors/magatama/py/src/pymagatama/malak/langgraph/chain_freeze_request_pursuit.py`
-NSID: `app.etzhayyim.apps.malak.chainFreezeRequest`
+NSID: `com.etzhayyim.apps.malak.chainFreezeRequest`
 LangServer route: `POST /invoke/chainFreezeRequest`
 
 ### Topology (6 super-steps; ADR-2605152000 family)
@@ -194,7 +194,7 @@ results between the two = candidate for KNOWN_ADDRESS_DB expansion.
 
 ## Migration
 
-- `00-contracts/lexicons/ai/gftd/apps/malak/chainFreezeRequest.json` lexicon SSoT: pending (Phase 1 chore).
+- `00-contracts/lexicons/com/etzhayyim/apps/malak/chainFreezeRequest.json` lexicon SSoT: pending (Phase 1 chore).
 - `bsc_unknown_deep_label.py` standalone is now legacy; new investigations use `address_label_pursuit` Pregel.
 - KNOWN_ADDRESS_DB quarterly refresh process: pending automation (Phase 2 chore).
 

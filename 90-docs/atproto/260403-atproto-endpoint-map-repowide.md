@@ -36,10 +36,10 @@
 
 内部運用NSID (`/_pds` は廃止済み):
 
-1. `app.etzhayyim.pds.emitOcel`
-1. `app.etzhayyim.pds.getOcel`
-1. `app.etzhayyim.pds.processCollectionJob`
-1. `app.etzhayyim.pds.reconcile`
+1. `com.etzhayyim.pds.emitOcel`
+1. `com.etzhayyim.pds.getOcel`
+1. `com.etzhayyim.pds.processCollectionJob`
+1. `com.etzhayyim.pds.reconcile`
 
 参照:
 - [pds-app.ts](/Users/junkawasaki/etzhayyim/etzhayyim-root/50-infra/cloudflare/workers/atproto/src/pds-app.ts):53
@@ -78,7 +78,7 @@ AppView は単一 `api.etzhayyim.com` ではなく、アプリごとのサブド
 
 - `yoro.etzhayyim.com` が yoro の AppView/API を提供
 - `maps.etzhayyim.com` が maps の AppView/API を提供
-- 独自NSIDは `app.etzhayyim.apps.{app}.*` を原則にする
+- 独自NSIDは `com.etzhayyim.apps.{app}.*` を原則にする
 
 補足:
 - `api.etzhayyim.com` は後方互換のためドメイン自体は確保するが、API入口としては使わない。

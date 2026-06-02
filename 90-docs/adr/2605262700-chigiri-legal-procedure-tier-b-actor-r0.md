@@ -9,11 +9,11 @@ last_verified: 2026-05-26
 priority: 6.5
 axis: governance
 weight: 0.60
-priority_note: "First-class religious-corp legal procedure actor. 任意団体 internal procedure substrate + state-system interface routing + Charter §1.12 state-function routing-around — packaged as procedural template + on-chain attestation + routing substrate, NOT as a commercial law firm and NOT as an unauthorized practice of law (UPL strictly prohibited per G14). chigiri does not provide legal advice; human counsel is contracted out of Public Fund (Council Lv6+) when needed. 12 cells / 9 Lexicons under `app.etzhayyim.chigiri.*` / 14 immutable constitutional gates / 12 non-goals / 4-phase R0..R3. Consumes legal corpus from ADR-2605262800 (public-data legal corpus ingestion via IPFS-pinned DataLad subdatasets) as the data substrate, and cross-actor invokes `did:web:hanrei.etzhayyim.com` for case-law / 判例 lookups. Replaces the legacy `lawfirm.etzhayyim.com` reference visible in 20-actors/hanrei/CLAUDE.md with a religious-corp native, Murakumo-only, SBT-gated, Charter Rider §2-compliant substrate. Constitutional invariants honored: NOT 宗教法人法 登記 (Preamble §0.4 Lv7+ unanimity lock); NOT a state-granted legal personality (N2); Murakumo-only inference (G11); 1 SBT = 1 vote for community governance decisions (G6); Defensive Just War only (G7); Open-source legal templates (G8); Multi-jurisdictional fallback (G9); Cooperative mediation precedes adversarial arbitration (G10); Excommunication Council Lv6+ + 30-day cure (G12); Volunteer ≠ employee per Liberation Ladder L0..L6 classification (G13). All 12 cells import-time `RuntimeError` at R0 (same scaffold discipline as hagukumi ADR-2605261030)."
+priority_note: "First-class religious-corp legal procedure actor. 任意団体 internal procedure substrate + state-system interface routing + Charter §1.12 state-function routing-around — packaged as procedural template + on-chain attestation + routing substrate, NOT as a commercial law firm and NOT as an unauthorized practice of law (UPL strictly prohibited per G14). chigiri does not provide legal advice; human counsel is contracted out of Public Fund (Council Lv6+) when needed. 12 cells / 9 Lexicons under `com.etzhayyim.chigiri.*` / 14 immutable constitutional gates / 12 non-goals / 4-phase R0..R3. Consumes legal corpus from ADR-2605262800 (public-data legal corpus ingestion via IPFS-pinned DataLad subdatasets) as the data substrate, and cross-actor invokes `did:web:hanrei.etzhayyim.com` for case-law / 判例 lookups. Replaces the legacy `lawfirm.etzhayyim.com` reference visible in 20-actors/hanrei/CLAUDE.md with a religious-corp native, Murakumo-only, SBT-gated, Charter Rider §2-compliant substrate. Constitutional invariants honored: NOT 宗教法人法 登記 (Preamble §0.4 Lv7+ unanimity lock); NOT a state-granted legal personality (N2); Murakumo-only inference (G11); 1 SBT = 1 vote for community governance decisions (G6); Defensive Just War only (G7); Open-source legal templates (G8); Multi-jurisdictional fallback (G9); Cooperative mediation precedes adversarial arbitration (G10); Excommunication Council Lv6+ + 30-day cure (G12); Volunteer ≠ employee per Liberation Ladder L0..L6 classification (G13). All 12 cells import-time `RuntimeError` at R0 (same scaffold discipline as hagukumi ADR-2605261030)."
 authoritative_for:
   - chigiri actor R0 charter
   - religious-corp legal procedure substrate single SoT
-  - `app.etzhayyim.chigiri.*` Lexicon namespace boundary
+  - `com.etzhayyim.chigiri.*` Lexicon namespace boundary
   - non-profit (任意団体) legal procedure architecture
   - Charter §1.12 state-function routing-around procedural primitives
   - covenant ceremony attestation contract (musubi / shidemori cross-actor)
@@ -130,7 +130,7 @@ Constraints (constitutional, not adjustable):
 Create `chigiri` (契) as a Tier-B religious-corp legal procedure
 substrate actor at `20-actors/chigiri/`, with DID
 `did:web:chigiri.etzhayyim.com`, Lexicon namespace
-`app.etzhayyim.chigiri.*`. R0 = scaffold only; all cells import-time
+`com.etzhayyim.chigiri.*`. R0 = scaffold only; all cells import-time
 `RuntimeError` (same discipline as hagukumi R0).
 
 ## §1. Identity and naming
@@ -140,7 +140,7 @@ substrate actor at `20-actors/chigiri/`, with DID
 | Name | `chigiri` (契) |
 | Etymology | 契り = covenant / pledge / pact; Japanese rendering of Hebrew בְּרִית (brit) — foundational biblical legal primitive; reduces SBT issuance / 婚姻 / Charter Rider / Council attestation / vendor contract all to one abstraction |
 | DID | `did:web:chigiri.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.chigiri.*` |
+| Lexicon root | `com.etzhayyim.chigiri.*` |
 | Form | 任意団体 internal procedure substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | Cross-actor (data) | `hanrei.etzhayyim.com` (case-law lookup) / `bunken.etzhayyim.com` (legal literature) |
@@ -284,7 +284,7 @@ All cells import-time `RuntimeError("chigiri R0 scaffold: activate via Council A
 
 R1 activation gates each cell separately (Council Lv6+ ≥3 attestation per cell, same pattern as ADR-2605215000 fleet placement gates).
 
-## §4. Lexicons (9, all under `app.etzhayyim.chigiri.*`)
+## §4. Lexicons (9, all under `com.etzhayyim.chigiri.*`)
 
 | # | Lexicon | Cell consumer | Description |
 |---|---|---|---|
@@ -305,7 +305,7 @@ All 9 records require schema-level field validation. R0 = scaffold + skeleton sc
 | Gate | Description |
 |---|---|
 | **G1** | Every legal document (ingested OR produced) MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). Fail = block, no Lexicon emit, no procedural advancement. |
-| **G2** | Every procedure MUST emit `app.etzhayyim.chigiri.*` Lexicon record with yatachain attestation lineage (kotoba block CID + Council attestation signatures); missing record = procedure invisible. |
+| **G2** | Every procedure MUST emit `com.etzhayyim.chigiri.*` Lexicon record with yatachain attestation lineage (kotoba block CID + Council attestation signatures); missing record = procedure invisible. |
 | **G3** | Internal procedure MUST NOT require state-issued personal ID (DID + SBT only); external interface (counsel KYC, vendor contract) MAY require state ID at the boundary. |
 | **G4** | Charter Rider amendment MUST be Council Lv6+ ≥4/7. |
 | **G5** | Constitutional invariant amendment MUST be Council Lv7+ unanimity (Preamble §0.4). |
@@ -392,7 +392,7 @@ session (2026-05-26).
 1. This ADR (`90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/chigiri/manifest.jsonld` + `README.md` + `CLAUDE.md`);
 3. 12 Pregel cell directory stubs (`20-actors/magatama/cells/chigiri_*/README.md`);
-4. 9 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/chigiri/`;
+4. 9 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/chigiri/`;
 5. Companion ADR-2605262800 (legal corpus ingestion);
 6. `deps.toml` [[adrs]] + [[modules]] entries;
 7. `90-docs/adr/README.md` index update;
@@ -447,7 +447,7 @@ No code activation in R0. Lint hook `70-tools/scripts/lint/no-chigiri-legal-advi
   schema break;
 - Additional Lexicons (e.g., `arbitrationAttestation`,
   `mediatorVetting`, `paralegalCertification`) extend the namespace
-  under `app.etzhayyim.chigiri.*`;
+  under `com.etzhayyim.chigiri.*`;
 - Cross-religious-corp federation (if another religious-corp adopts
   Charter Rider in future) gets a clean integration point via
   cross-actor invoke;

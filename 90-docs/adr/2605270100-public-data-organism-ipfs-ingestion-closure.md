@@ -188,7 +188,7 @@ recovery trivial — every byte is auditable via `git log --stat`.
 ## §6. Deferred (not blocking substrate completion)
 
 1. **dataset-pinner Worker deploy** (`did:web:dataset-pinner.etzhayyim.com`).
-   Required to actually emit `app.etzhayyim.substrate.datasetPin`
+   Required to actually emit `com.etzhayyim.substrate.datasetPin`
    records to PDS instead of the current `--dry-run-pds true`
    default. Blocks: CF Worker deploy + AAAA record + Ed25519
    keypair + PDS app-password.
@@ -201,7 +201,7 @@ recovery trivial — every byte is auditable via `git log --stat`.
    requires operator-signed `~/.etzhayyim/source-acceptance/
    <source>.toml` flag file with `accepted_at` + `accepted_by_did`
    + `upstream_tos_url`. For CZDS additionally a Council Lv6+ ≥4/7
-   attestation per `app.etzhayyim.substrate.tldCouncilAttestation`.
+   attestation per `com.etzhayyim.substrate.tldCouncilAttestation`.
 
 None of these block the substrate's intended use within the
 religious-corp; they unblock specific downstream consumers

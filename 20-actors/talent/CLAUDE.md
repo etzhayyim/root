@@ -27,11 +27,11 @@ did:web:talent.etzhayyim.com:profile:{subjectDid-hash}     # self-sovereign の�
 
 | Command | NSID | Access |
 |---|---|---|
-| listOccupations | `app.etzhayyim.apps.talent.listOccupations` | public (cohort 集計) |
-| getCohortStats | `app.etzhayyim.apps.talent.getCohortStats` | public (cohort 集計) |
-| registerSelf | `app.etzhayyim.apps.talent.registerSelf` | caller = subject 必須 |
-| forgetSelf | `app.etzhayyim.apps.talent.forgetSelf` | caller = subject 必須、GDPR Art 17 |
-| stats | `app.etzhayyim.apps.talent.stats` | public |
+| listOccupations | `com.etzhayyim.apps.talent.listOccupations` | public (cohort 集計) |
+| getCohortStats | `com.etzhayyim.apps.talent.getCohortStats` | public (cohort 集計) |
+| registerSelf | `com.etzhayyim.apps.talent.registerSelf` | caller = subject 必須 |
+| forgetSelf | `com.etzhayyim.apps.talent.forgetSelf` | caller = subject 必須、GDPR Art 17 |
+| stats | `com.etzhayyim.apps.talent.stats` | public |
 
 ## cross-actor
 

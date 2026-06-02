@@ -1,5 +1,5 @@
 {
-  "$schema": "app.etzhayyim.danjo.fiscalSource",
+  "$schema": "com.etzhayyim.danjo.fiscalSource",
   "_comment": "R0 SEED ingestion-source catalog of already-public official fiscal-transparency datasets per ADR-2605301600 (danjo public-accountability oversight actor) + ADR-2605302245 (global fiscal-flow extension). EVERY entry verificationStatus=unverified-seed: per G14, NO live ingestion may run against an unverified/stale source until a maintainer/Council verifies it (freshnessWindowDays=180). danjo is NON-ADJUDICATING + OBSERVATIONAL + PUBLIC-RECORD-ONLY (鼎の軽重を問う but renders NO verdict; per ADR-2605192100 §1.12 + §2(c)). This is an ingestion SOURCE catalog of already-public official fiscal-transparency datasets — NOT a target-list, NOT enforcement, NOT 会計検査院 itself. danjo finds + cross-references; kanae renders; neither adjudicates.",
   "freshnessWindowDays": 180,
   "sources": [

@@ -10,9 +10,9 @@ pharmaceutical manufacturing actor built with BPMN-as-actor. Phase 1 covers:
 
 Canonical executable assets live under:
 
-- `00-contracts/bpmn/ai/gftd/open-seiyaku/`
-- `00-contracts/forms/ai/gftd/open-seiyaku/`
-- `00-contracts/lexicons/ai/gftd/apps/openSeiyaku/`
+- `00-contracts/bpmn/com/etzhayyim/open-seiyaku/`
+- `00-contracts/forms/com/etzhayyim/open-seiyaku/`
+- `00-contracts/lexicons/com/etzhayyim/apps/openSeiyaku/`
 - `30-graph/graph-schema/migrations/20260423190000_vertex_open_seiyaku.ts`
 - `30-graph/graph-schema/migrations/20260423191000_seed_open_seiyaku_bpmn_actors.ts`
 

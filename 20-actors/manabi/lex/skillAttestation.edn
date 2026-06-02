@@ -1,7 +1,7 @@
-;; app.etzhayyim.manabi.skillAttestation — lexicon (EDN form)
+;; com.etzhayyim.manabi.skillAttestation — lexicon (EDN form)
 ;; Subject-specific replayable demonstration (G7 anti-credentialism); gates L5+ contribution
 {:lexicon 1
- :id "app.etzhayyim.manabi.skillAttestation"
+ :id "com.etzhayyim.manabi.skillAttestation"
  :defs
  {:main
   {:type "record"

@@ -38,7 +38,7 @@ The repo had accumulated 30 local branches + 9 worktrees across many parallel
    submodule, tadori, stage4→#666).
 3. **Genuinely-new un-PR'd work on a pre-refactor base** — the himawari R0.1
    maturation, which could not be PR'd as-is (would revert `main`'s refactor +
-   regress the deprecated `app.etzhayyim` namespace).
+   regress the deprecated `com.etzhayyim` namespace).
 
 Throughout the session **10+ concurrent `claude` sessions** were actively
 committing to the same repo (`main` advanced every ~1–2 min; `git reset --hard`
@@ -67,7 +67,7 @@ cleanly or left to their owning session.
 #735/#745 landed himawari **R0** — stub cells (25 lines, `RuntimeError` on
 `.solve()`). The R0.1 maturation (real cell-solver code + test suites + deploy
 harness + matured lexicons) existed only on a pre-refactor stale branch (**#748**,
-`CONFLICTING/DIRTY`) under the deprecated `app.etzhayyim` namespace. The R0.1
+`CONFLICTING/DIRTY`) under the deprecated `com.etzhayyim` namespace. The R0.1
 *docs* had reached `main` via concurrent merges, but the *code* had not — a
 **docs-ahead-of-code gap**. Rather than force-merge #748 (namespace regression +
 ADR-id collision + conflicts), the R0.1 deliverable was **rebuilt cleanly onto
@@ -78,9 +78,9 @@ the latest `main`** in an isolated worktree:
   lexicon conformance, kotoba write-path coverage)
 - `deploy/` harness (agent.py, ingest_records.py, schema.edn, seed.edn, pytest.ini)
 - 7 `com.etzhayyim.himawari.*` lexicons matured to R0.1 shape
-- **all** `app.etzhayyim` → `com.etzhayyim` converted (dotted ids, slash paths,
+- **all** `com.etzhayyim` → `com.etzhayyim` converted (dotted ids, slash paths,
   *and* split path-literal components `/ "app" / "etzhayyim"`) per the #742
-  migration — **0 residual `app.etzhayyim` refs**
+  migration — **0 residual `com.etzhayyim` refs**
 
 The two stale-base ADRs in #748 were **dropped**: `2606021400` (tsuukan) **collided**
 with `main`'s already-landed `2606021400` (nsid session-close), and `2606022600`

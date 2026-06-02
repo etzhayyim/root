@@ -16,23 +16,23 @@ point for the OSS-facing design surface.
     batch
   - `seiyaku_purge` — confidential payload retention purge
 - **Contracts**:
-  - BPMN: `00-contracts/bpmn/ai/gftd/open-seiyaku/`
-  - Forms: `00-contracts/forms/ai/gftd/open-seiyaku/`
-  - Lexicons: `00-contracts/lexicons/ai/gftd/apps/openSeiyaku/`
+  - BPMN: `00-contracts/bpmn/com/etzhayyim/open-seiyaku/`
+  - Forms: `00-contracts/forms/com/etzhayyim/open-seiyaku/`
+  - Lexicons: `00-contracts/lexicons/com/etzhayyim/apps/openSeiyaku/`
   - Graph schema: `30-graph/graph-schema/migrations/20260423190000_vertex_open_seiyaku.ts`
 
 ## XRPC Surface
 
 | NSID | Type | Description |
 |---|---|---|
-| `app.etzhayyim.apps.openSeiyaku.startBatchRecord` | procedure | start a new manufacturing batch workflow |
-| `app.etzhayyim.apps.openSeiyaku.submitBatchDraft` | procedure | save encrypted confidential batch draft |
-| `app.etzhayyim.apps.openSeiyaku.amendBatchRecord` | procedure | raise amendment / deviation workflow |
-| `app.etzhayyim.apps.openSeiyaku.reviewBatch` | procedure | QA verdict with checklist |
-| `app.etzhayyim.apps.openSeiyaku.finalizeBatch` | procedure | mark the batch released / rejected |
-| `app.etzhayyim.apps.openSeiyaku.getBatchRecord` | query | fetch one batch record (RBAC gated) |
-| `app.etzhayyim.apps.openSeiyaku.listForPlant` | query | plant / org batch list |
-| `app.etzhayyim.apps.openSeiyaku.purge` | procedure | retention purge for confidential payloads |
+| `com.etzhayyim.apps.openSeiyaku.startBatchRecord` | procedure | start a new manufacturing batch workflow |
+| `com.etzhayyim.apps.openSeiyaku.submitBatchDraft` | procedure | save encrypted confidential batch draft |
+| `com.etzhayyim.apps.openSeiyaku.amendBatchRecord` | procedure | raise amendment / deviation workflow |
+| `com.etzhayyim.apps.openSeiyaku.reviewBatch` | procedure | QA verdict with checklist |
+| `com.etzhayyim.apps.openSeiyaku.finalizeBatch` | procedure | mark the batch released / rejected |
+| `com.etzhayyim.apps.openSeiyaku.getBatchRecord` | query | fetch one batch record (RBAC gated) |
+| `com.etzhayyim.apps.openSeiyaku.listForPlant` | query | plant / org batch list |
+| `com.etzhayyim.apps.openSeiyaku.purge` | procedure | retention purge for confidential payloads |
 
 ## Design Notes
 

@@ -71,7 +71,7 @@ canonical flat entity shape the kotoba datomic writer consumes.
 Persistence: spine (run/cursor) via best-effort `ingest.core` (`_spine`);
 canonical entities in worker-local RW-free `ingest_kg_open.db`. **Kotoba handoff
 = single `_persist_entities` seam** → swap for
-`ai.gftd.apps.kotoba.datomic.transact` into an etzhayyim-owned graph (never
+`com.etzhayyim.apps.kotoba.datomic.transact` into an etzhayyim-owned graph (never
 vendor `kotobase-kg-v1`); the kotoba datomic client is not ported here.
 
 **Vendor removal is NOT done — it is the post-cutover step.** Unlike NDL's

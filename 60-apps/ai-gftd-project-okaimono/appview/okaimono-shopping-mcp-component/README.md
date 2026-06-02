@@ -76,10 +76,10 @@ W Protocol Event Stream:
 `catalog-upsert` accepts UNSPSC classification fields on the product record:
 `unispsc_code`, `unispsc_segment`, `unispsc_family`, `unispsc_class`, and
 `commodity_did`. `import-unispsc-segment` queries `G("unispsc_commodities")`
-for a segment and applies `app.etzhayyim.apps.openUnispsc.syncCatalogItem` to produce
-idempotent `app.etzhayyim.apps.okaimono.catalogItem` writes. Purchase flows for
+for a segment and applies `com.etzhayyim.apps.openUnispsc.syncCatalogItem` to produce
+idempotent `com.etzhayyim.apps.okaimono.catalogItem` writes. Purchase flows for
 `product_id = "unispsc-{code}"` call
-`app.etzhayyim.apps.openUnispsc.planCatalogPurchase` before checkout hands off to
+`com.etzhayyim.apps.openUnispsc.planCatalogPurchase` before checkout hands off to
 procurement and fulfillment.
 
 Verification:

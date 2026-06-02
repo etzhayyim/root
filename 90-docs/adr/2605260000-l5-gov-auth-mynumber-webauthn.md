@@ -105,7 +105,7 @@ Both flows are **scaffolded** (cell.py RuntimeError). Full implementation deferr
 2. Authenticator: Store public key locally; return attestation object + clientDataJSON
 3. Server: Verify attestation (signature over clientDataJSON + challenge)
 4. Server: Extract public key → store in DID document (authentication key section)
-5. Emit: app.etzhayyim.gov.procedure.auth.didTrustAttestation (trustLevel=1, reason="webauthn-only")
+5. Emit: com.etzhayyim.gov.procedure.auth.didTrustAttestation (trustLevel=1, reason="webauthn-only")
 ```
 
 ### Trust Level 1: WebAuthn Assertion (sign-in)
@@ -133,9 +133,9 @@ Both flows are **scaffolded** (cell.py RuntimeError). Full implementation deferr
    - validate_webauthn: re-verify WebAuthn passkey for this session (prevent CSRF)
    - bind_mynumber_encrypted: Parse JPKI card data → XChaCha20 encrypt → IPFS upload → CID
    - emit_trust_attestation: Emit didTrustAttestation (trustLevel=2, reason="webauthn-plus-mynumber")
-6. (R1 implementation) emit: app.etzhayyim.encrypted.keyWrap records (Signal-wrapped decrypt key for self + Council)
+6. (R1 implementation) emit: com.etzhayyim.encrypted.keyWrap records (Signal-wrapped decrypt key for self + Council)
 7. Server: Verify XChaCha20 CID + Signal keyWrap signatures
-8. Emit: app.etzhayyim.gov.procedure.auth.didTrustAttestation (trustLevel=2)
+8. Emit: com.etzhayyim.gov.procedure.auth.didTrustAttestation (trustLevel=2)
 ```
 
 ---
@@ -186,9 +186,9 @@ Both flows are **scaffolded** (cell.py RuntimeError). Full implementation deferr
 
 | Lexicon | Purpose | Privacy | Location |
 |---|---|---|---|
-| `app.etzhayyim.gov.procedure.auth.credentialBinding` | Bind DID to WebAuthn credential + encrypted MyNumber | Encrypted payload + Signal-wrapped key | `00-contracts/lexicons/app/etzhayyim/gov/procedure/auth/` |
-| `app.etzhayyim.gov.procedure.auth.didTrustAttestation` | Public trust-level attestation (no PII) | Public (hashed DID only) | `00-contracts/lexicons/app/etzhayyim/gov/procedure/auth/` |
-| `app.etzhayyim.gov.procedure.auth.webauthnChallenge` | WebAuthn challenge nonce | Temporary (expires on assertion) | `00-contracts/lexicons/app/etzhayyim/gov/procedure/auth/` |
+| `com.etzhayyim.gov.procedure.auth.credentialBinding` | Bind DID to WebAuthn credential + encrypted MyNumber | Encrypted payload + Signal-wrapped key | `00-contracts/lexicons/com/etzhayyim/gov/procedure/auth/` |
+| `com.etzhayyim.gov.procedure.auth.didTrustAttestation` | Public trust-level attestation (no PII) | Public (hashed DID only) | `00-contracts/lexicons/com/etzhayyim/gov/procedure/auth/` |
+| `com.etzhayyim.gov.procedure.auth.webauthnChallenge` | WebAuthn challenge nonce | Temporary (expires on assertion) | `00-contracts/lexicons/com/etzhayyim/gov/procedure/auth/` |
 
 ### Pregel Cells (2 new)
 

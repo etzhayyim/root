@@ -22,7 +22,7 @@ depends_on:
 
 ## Context
 
-R0 (ADR-2605261200) established igata (鋳型) as religious-corp first-party HPDC / megacasting Tier-B actor with **14 constitutional gates G1..G14 + 10 non-goals N1..N10** IMMUTABLE R0..R3. The R0 scaffold landed 8 `igata_*` Pregel cells with import-time `RuntimeError` Council activation gates (silicon Wave 1 + yakushi Wave 1 pattern) and 5 lexicons under `app.etzhayyim.igata.*`.
+R0 (ADR-2605261200) established igata (鋳型) as religious-corp first-party HPDC / megacasting Tier-B actor with **14 constitutional gates G1..G14 + 10 non-goals N1..N10** IMMUTABLE R0..R3. The R0 scaffold landed 8 `igata_*` Pregel cells with import-time `RuntimeError` Council activation gates (silicon Wave 1 + yakushi Wave 1 pattern) and 5 lexicons under `com.etzhayyim.igata.*`.
 
 R1 transitions from R0 scaffold to **operational benchtop readiness** by establishing:
 
@@ -64,7 +64,7 @@ R1 transitions from R0 scaffold to **operational benchtop readiness** by establi
 - `approvedDieMaterials: ["H13-hot-work-tool-steel"]`
 - `approvedRoboticsClasses: ["Otete-heat-resistant", "Mimi-dimensional-2D-radiograph"]` (X-ray CT = R2; 2D radiograph OK for R1 screening)
 - `verdict: "approved"` (or `approved-with-conditions`)
-- `attestationUri: "at://...did:plc:[council-multisig-actor]/app.etzhayyim.igata.silenIgataReview/..."` (published via `council.etzhayyim.com` Bluesky PDS)
+- `attestationUri: "at://...did:plc:[council-multisig-actor]/com.etzhayyim.igata.silenIgataReview/..."` (published via `council.etzhayyim.com` Bluesky PDS)
 
 **Gate unlock condition:** Both `COUNCIL_CHARTER_ATTESTATION_TX_HASH` (Base L2 Council Lv6+ multisig Tx hash) and `SILEN_IGATA_BASELINE_REVIEW_CID` (IPFS CID of the `silenIgataReview` record) set non-`None` in the 7 R1-activated `igata_*` cells (`alloy_melt` / `die_preparation` / `shot_injection` / `solidification_eject` / `post_cast_qc` / `trim_machining` / `part_attestation`).
 

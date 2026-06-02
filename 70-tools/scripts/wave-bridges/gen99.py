@@ -8,7 +8,7 @@ from __future__ import annotations
 import json, os, pathlib, textwrap
 
 ROOT = pathlib.Path("/Users/junkawasaki/github/etzhayyim/root")
-BPMN_ROOT = ROOT / "00-contracts/bpmn/ai/gftd"
+BPMN_ROOT = ROOT / "00-contracts/bpmn/com/etzhayyim"
 LEX_ROOT = ROOT / "00-contracts/lexicons/com/etzhayyim/apps"
 
 # Each entry: (bpmn_dir_slug, lex_app_camel, method, target_table, group_col, group_val,

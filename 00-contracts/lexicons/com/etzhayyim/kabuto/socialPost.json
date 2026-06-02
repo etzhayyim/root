@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Compose and publish an atproto-compatible social post (app.bsky.feed.post shape) about a kabuto company or supply-chain intel finding, written into the kotoba Datom log via kotoba-server ai.gftd.apps.kotoba.atproto.repo.write. The post body is generated from PUBLIC facts only and is aggregate-first + non-adjudicating (kabuto G3/G4). OUTWARD-GATED (G11): live publication requires KABUTO_LIVE_POST operator gate; default is dry-run. Charter Rider §2(a)-(h) scan runs on every post body before write.",
+      "description": "Compose and publish an atproto-compatible social post (app.bsky.feed.post shape) about a kabuto company or supply-chain intel finding, written into the kotoba Datom log via kotoba-server com.etzhayyim.apps.kotoba.atproto.repo.write. The post body is generated from PUBLIC facts only and is aggregate-first + non-adjudicating (kabuto G3/G4). OUTWARD-GATED (G11): live publication requires KABUTO_LIVE_POST operator gate; default is dry-run. Charter Rider §2(a)-(h) scan runs on every post body before write.",
       "input": {
         "encoding": "application/json",
         "schema": {

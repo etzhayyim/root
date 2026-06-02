@@ -21,7 +21,7 @@
   {:gate/id "G6"  :gate/name "kotoba-eavt-native"      :gate/rule "deployment/site/construction/audit/decommission records are kotoba Datom; no SQL/RisingWave/Cypher canonical"}
   {:gate/id "G7"  :gate/name "tithe-non-fiat"          :gate/rule "settlement is USDC Base L2 + ERC-4337 + TitheRouter 10%; no Stripe/fiat"}
   {:gate/id "G8"  :gate/name "witness-quorum"          :gate/rule "recordConstructionProgress + recordAuditEvent carry ≥2 independent robot DIDs; N=1 rejected + Council escalation (constitutional)"}
-  {:gate/id "G9"  :gate/name "pii-encrypted-envelope"  :gate/rule "site location / project details → app.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
+  {:gate/id "G9"  :gate/name "pii-encrypted-envelope"  :gate/rule "site location / project details → com.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
   {:gate/id "G10" :gate/name "land-registry-anchor"    :gate/rule "deployment site must be registered in kuni-umi LandRegistry or OceanStewardship; waqf-style inalienable donation"}
   {:gate/id "G11" :gate/name "council-6lv-checkpoint"  :gate/rule "first deployment on any new site requires Council Lv6+ 3-sig attestation; tracked per :site/council-gates"}
   {:gate/id "G13" :gate/name "robot-did-mandatory"     :gate/rule "every field-action record signed by robot DID (did:web:etzhayyim.com:kuniumi:robot:<serial> Ed25519); platform never vouches"}

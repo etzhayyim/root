@@ -1,7 +1,7 @@
 # wakai (和会) — Non-profit Religious-Corp Mutual Aid Substrate
 
 **DID**: `did:web:wakai.etzhayyim.com`
-**Namespace**: `app.etzhayyim.wakai.*`
+**Namespace**: `com.etzhayyim.wakai.*`
 **ADR**: ADR-2605263500 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 6 cells path-reserved + 5 Lexicon skeletons
 **Cross-actor**: kazaori (emergency pool; path-reserved wakai cross-actor at ADR-2605263200) / iyashi+hagukumi+yakushi (health event) / toritate (accounting + Public Fund backstop) / chigiri (membership + procedural)
@@ -58,7 +58,7 @@ Etymology: 和会 (wakai) = harmony/reconciliation gathering; classical
 | `wakai_public_fund_backstop_request` | asher (toritate-paired) | event | pool insufficient → Council Lv6+ ≥4/7 backstop |
 | `wakai_pool_state_reporting` | asher | continuous (monthly) | aggregate state → mutualAidPoolStateReport (no individual amounts) |
 
-## 5 Lexicons under `app.etzhayyim.wakai.*`
+## 5 Lexicons under `com.etzhayyim.wakai.*`
 
 | Lexicon | Purpose |
 |---|---|
@@ -68,7 +68,7 @@ Etymology: 和会 (wakai) = harmony/reconciliation gathering; classical
 | `publicFundBackstopRequest` | When pool insufficient; Council Lv6+ ≥4/7 attestations + toritate cross-link |
 | `silenWakaiReview` | Quarterly Council review; G3/G4/G5/G6/G7/G9/G11 const-field structural enforcement |
 
-See `/00-contracts/lexicons/app/etzhayyim/wakai/README.md`.
+See `/00-contracts/lexicons/com/etzhayyim/wakai/README.md`.
 
 ## Constitutional Gates (G1–G12)
 
@@ -100,7 +100,7 @@ See ADR-2605263500 §6.
 
 - `/20-actors/wakai/manifest.jsonld`
 - `/20-actors/wakai/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/wakai/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/wakai/` (5 Lexicons + README)
 - `/90-docs/adr/2605263500-wakai-mutual-aid-tier-b-actor-r0.md`
 - `/90-docs/adr/2605263200-kazaori-disaster-response-tier-b-actor-r0.md` — cross-actor emergency
 - `/90-docs/adr/2605192145-etzhayyim-public-fund-architecture.md` — backstop source

@@ -28,7 +28,7 @@ superseded_by: []
 
 # Context
 
-etzhayyim-root ADR-2605202300 migrates `maps.etzhayyim.com` to `maps.etzhayyim.com` as a consumer of the existing substrate (`app.etzhayyim.substrate.shardSnapshot` + `50-infra/mst-projector` + `@etzhayyim/sdk` + `CheckpointAnchor.sol`). The 3-axis OR-test (ADR-2605172400) passes for maps as a whole.
+etzhayyim-root ADR-2605202300 migrates `maps.etzhayyim.com` to `maps.etzhayyim.com` as a consumer of the existing substrate (`com.etzhayyim.substrate.shardSnapshot` + `50-infra/mst-projector` + `@etzhayyim/sdk` + `CheckpointAnchor.sol`). The 3-axis OR-test (ADR-2605172400) passes for maps as a whole.
 
 GTFS-RT (real-time transit feed: `vertex_maps_vehicle_position` / `vertex_maps_trip_update` / `vertex_maps_service_alert`, ingested by `bulk-ingest/workers/gtfs_rt_dumper.py`, currently `replicas=0`-gated, ADR-2604271400-era) however does not fit the mst-projector publish loop:
 
@@ -50,7 +50,7 @@ GTFS-RT (the **real-time** path) stays in vendor (`etzhayyim-root`):
 
 - `bulk-ingest/workers/gtfs_rt_dumper.py` continues to write `vertex_maps_vehicle_position` / `vertex_maps_trip_update` / `vertex_maps_service_alert` to RisingWave via Hyperdrive direct INSERT (ADR-0036 path).
 - The streaming MVs `mv_maps_recent_vehicle_position` / `mv_maps_recent_trip_update` / `mv_maps_active_alerts` (window-pruned DISTINCT ON keyed by stop/trip/alert) stay in vendor.
-- The XRPC handler `cmdRealtimeDelaysAtStop` (`app.etzhayyim.apps.maps.realtimeDelaysAtStop`) stays in vendor and continues to be served from `maps.etzhayyim.com`.
+- The XRPC handler `cmdRealtimeDelaysAtStop` (`com.etzhayyim.apps.maps.realtimeDelaysAtStop`) stays in vendor and continues to be served from `maps.etzhayyim.com`.
 
 GTFS-RT is the **only** maps subsystem that does not migrate to etzhayyim. Everything else (static GTFS-JP, OSM, Wikidata, ferry, openflights, gsplat preview, satellite, post EXIF, Mapraly, Murakumo Vision) follows ADR-2605202300 to the etzhayyim substrate.
 
@@ -59,9 +59,9 @@ GTFS-RT is the **only** maps subsystem that does not migrate to etzhayyim. Every
 `maps.etzhayyim.com` may expose a thin **public read-only proxy** to the vendor RT endpoint so etzhayyim-aligned clients do not have to know about `maps.etzhayyim.com`:
 
 ```
-GET maps.etzhayyim.com/xrpc/app.etzhayyim.maps.realtimeDelaysAtStop?stopId=…
+GET maps.etzhayyim.com/xrpc/com.etzhayyim.maps.realtimeDelaysAtStop?stopId=…
    ↓ pass-through
-GET maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.realtimeDelaysAtStop?stopId=…
+GET maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.realtimeDelaysAtStop?stopId=…
    ↓
 RisingWave (vendor)
 ```
@@ -95,4 +95,4 @@ The vendor placement is **not permanent**. Reconsider in any of:
 - etzhayyim-root ADR-2605191655 — mst-projector Phase 2 design
 - `60-apps/ai-gftd-project-maps/CLAUDE.md` — GTFS-RT Phase 3 design + bring-up runbook
 - `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_rt_dumper.py`
-- `00-contracts/lexicons/ai/gftd/apps/maps/realtimeDelaysAtStop.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/maps/realtimeDelaysAtStop.json`

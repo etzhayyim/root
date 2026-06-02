@@ -14,7 +14,7 @@ authoritative_for:
   - "hard rule: private records on MST are XChaCha20-Poly1305 AEAD ciphertext, CID over ciphertext"
   - "hard rule: per-record symmetric keys are wrapped per-recipient via Signal session"
   - "hard rule: DID ↔ Signal identity binding is a signed assertion in the actor's PDS repo"
-  - "lexicon namespace: app.etzhayyim.encrypted.*"
+  - "lexicon namespace: com.etzhayyim.encrypted.*"
   - "SDK seam: @etzhayyim/sdk crypto + signal modules; apps MUST NOT import @noble/ciphers or @signalapp/libsignal-client directly"
   - "rejection of MLS for v1 (revisit when libsignal scale ceiling hits)"
 depends_on:
@@ -67,7 +67,7 @@ Signal protocol (`libsignal-protocol`, used by Signal Messenger, WhatsApp, Googl
 
 ## Record encoding
 
-Encrypted records use lexicon `app.etzhayyim.encrypted.record`. The payload is the AEAD ciphertext envelope:
+Encrypted records use lexicon `com.etzhayyim.encrypted.record`. The payload is the AEAD ciphertext envelope:
 
 ```
 EncryptedRecord {
@@ -87,7 +87,7 @@ EncryptedRecord {
 
 ## Key distribution
 
-Symmetric keys are wrapped per-recipient via Signal session and stored in lexicon `app.etzhayyim.encrypted.keyWrap`:
+Symmetric keys are wrapped per-recipient via Signal session and stored in lexicon `com.etzhayyim.encrypted.keyWrap`:
 
 ```
 KeyWrap {
@@ -101,13 +101,13 @@ KeyWrap {
 }
 ```
 
-- One `KeyWrap` record per (record, recipient) pair. Recipient enumerates `app.etzhayyim.encrypted.keyWrap` in their own PDS to discover keys they have read-cap for.
+- One `KeyWrap` record per (record, recipient) pair. Recipient enumerates `com.etzhayyim.encrypted.keyWrap` in their own PDS to discover keys they have read-cap for.
 - For group encryption: one `EncryptedRecord` + N `KeyWrap` records (one per group member). At low-thousands group size this is acceptable; at ~10⁴+ revisit with MLS.
 - Sender MAY also wrap to themselves (for self-decrypt later from a new device).
 
 ## DID ↔ Signal identity binding
 
-Per actor (DID), exactly one Signal identity key. Binding is published as a signed assertion in the actor's PDS under lexicon `app.etzhayyim.encrypted.signalIdentity`:
+Per actor (DID), exactly one Signal identity key. Binding is published as a signed assertion in the actor's PDS under lexicon `com.etzhayyim.encrypted.signalIdentity`:
 
 ```
 SignalIdentity {
@@ -129,16 +129,16 @@ App code uses only `@etzhayyim/sdk`:
 ```typescript
 // Write encrypted record + key-wraps for each recipient in one call.
 await e.encryptedWrite({
-  collection: "app.etzhayyim.encrypted.record",
-  innerType:  "app.etzhayyim.governance.proposal",
+  collection: "com.etzhayyim.encrypted.record",
+  innerType:  "com.etzhayyim.governance.proposal",
   record:     proposalBody,
   recipients: ["did:web:alice.example", "did:web:bob.example"],
 });
 
 // Read (auto-decrypt if read-cap discoverable in own PDS keyWrap collection).
 const { records } = await e.encryptedRead<ProposalBody>({
-  collection: "app.etzhayyim.encrypted.record",
-  innerType:  "app.etzhayyim.governance.proposal",
+  collection: "com.etzhayyim.encrypted.record",
+  innerType:  "com.etzhayyim.governance.proposal",
 });
 ```
 

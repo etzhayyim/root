@@ -29,7 +29,7 @@ artificial-organism 文脈で言えば、Tier 2 worker は:
 
 substrate boundary(ADR-2605172000)整合性:
 - 永続化は browser-local の IndexedDB。サーバ側依存ゼロ
-- ADR-2605181100 の `app.etzhayyim.encrypted.record` (AEAD envelope) と同 shape — 将来 `@etzhayyim/sdk/encryptedWrite` 経由で **同じ record を MST に昇格** できる設計
+- ADR-2605181100 の `com.etzhayyim.encrypted.record` (AEAD envelope) と同 shape — 将来 `@etzhayyim/sdk/encryptedWrite` 経由で **同じ record を MST に昇格** できる設計
 
 ## Decision
 
@@ -82,7 +82,7 @@ agent: "Yes — you mentioned a Kyoto trip next month."
 - AES-GCM 暗号化により、devtools から IndexedDB を覗いても plaintext は見えない(IV + ciphertext + base64 のみ)
 - embedding も permanent storage に含まれるため、初回保存時の MiniLM encode コスト(WASM ~10ms)が再検索時にゼロ
 - 将来 substrate 連携:
-  - `@etzhayyim/sdk/encryptedWrite({collection: "app.etzhayyim.memory.record", record: {...}, recipients})` で同じ ciphertext + DID-bound key wrap に変換、MST に upload
+  - `@etzhayyim/sdk/encryptedWrite({collection: "com.etzhayyim.memory.record", record: {...}, recipients})` で同じ ciphertext + DID-bound key wrap に変換、MST に upload
   - browser local vault は **ローカルキャッシュ**として残し、conflict resolution は CRDT で(別 ADR)
 - IndexedDB quota はユーザ管理。3 MB 超えても問題なし(対して localStorage は 5-10 MB 全体 cap)
 

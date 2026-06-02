@@ -166,7 +166,7 @@ def statute_row(law: dict[str, Any], articles: list[dict[str, Any]]) -> tuple[An
     law_id = law_info.get("law_id") or rev.get("law_id")
     title = rev.get("law_title") or law_id
     current = now_iso()
-    vertex_id = f"at://{JPN_PATH_DID}/app.etzhayyim.apps.houbun.statute/{law_id}"
+    vertex_id = f"at://{JPN_PATH_DID}/com.etzhayyim.apps.houbun.statute/{law_id}"
     return (
         vertex_id,
         current[:10],
@@ -203,7 +203,7 @@ def article_rows(law: dict[str, Any], statute_ref: str, articles: list[dict[str,
     for idx, article in enumerate(articles):
         h = article_hash("jpn", str(law_id), str(article["article_no"]), str(amended_at))
         article_did = f"{ACTOR_DID}:article:{h}"
-        vertex_id = f"at://{article_did}/app.etzhayyim.apps.houbun.article/{h}"
+        vertex_id = f"at://{article_did}/com.etzhayyim.apps.houbun.article/{h}"
         rows.append(
             (
                 vertex_id,
@@ -256,7 +256,7 @@ def generic_article_rows(
     for idx, article in enumerate(articles):
         h = article_hash(jurisdiction, statute_id, str(article["article_no"]), str(amended_at or ""))
         article_did = f"{ACTOR_DID}:article:{h}"
-        vertex_id = f"at://{article_did}/app.etzhayyim.apps.houbun.article/{h}"
+        vertex_id = f"at://{article_did}/com.etzhayyim.apps.houbun.article/{h}"
         rows.append(
             (
                 vertex_id,
@@ -378,7 +378,7 @@ def insert_social_contracts(conn: Any) -> int:
         rkey = social_rkey(source, source_record_id)
         rows.append(
             (
-                f"at://{CONTRACTS_DID}/app.etzhayyim.apps.contracts.socialContract/{rkey}",
+                f"at://{CONTRACTS_DID}/com.etzhayyim.apps.contracts.socialContract/{rkey}",
                 current[:10],
                 CONTRACTS_DID,
                 rkey,
@@ -464,7 +464,7 @@ def insert_constitute_metadata(conn: Any, *, limit: int, include_historic: bool)
         effective = year_date(doc.get("year_reinstated") or doc.get("year_enacted"))
         rows.append(
             (
-                f"at://{CONTRACTS_DID}/app.etzhayyim.apps.contracts.socialContract/{rkey}",
+                f"at://{CONTRACTS_DID}/com.etzhayyim.apps.contracts.socialContract/{rkey}",
                 current[:10],
                 CONTRACTS_DID,
                 rkey,
@@ -545,7 +545,7 @@ def insert_wikidata_untc_treaties(conn: Any, *, limit: int, offset: int) -> dict
         source_url = f"https://treaties.un.org/Pages/showDetails.aspx?objid={urllib.parse.quote(objid)}"
         treaty_rows.append(
             (
-                f"at://{ACTOR_DID}:int:un-treaty/app.etzhayyim.apps.houbun.treaty/{rkey}",
+                f"at://{ACTOR_DID}:int:un-treaty/com.etzhayyim.apps.houbun.treaty/{rkey}",
                 current[:10],
                 f"{ACTOR_DID}:int:un-treaty",
                 rkey,
@@ -567,7 +567,7 @@ def insert_wikidata_untc_treaties(conn: Any, *, limit: int, offset: int) -> dict
         srkey = social_rkey("wikidata-p9966-untc", objid)
         social_rows.append(
             (
-                f"at://{CONTRACTS_DID}/app.etzhayyim.apps.contracts.socialContract/{srkey}",
+                f"at://{CONTRACTS_DID}/com.etzhayyim.apps.contracts.socialContract/{srkey}",
                 current[:10],
                 CONTRACTS_DID,
                 srkey,
@@ -677,7 +677,7 @@ def insert_cfr_title(conn: Any, *, year: int, title: int, max_sections: int) -> 
             package = Path(urllib.parse.urlparse(str(link)).path).stem
             current = now_iso()
             path_did = f"{ACTOR_DID}:usa:cfr"
-            statute_ref = f"at://{path_did}/app.etzhayyim.apps.houbun.statute/{package}"
+            statute_ref = f"at://{path_did}/com.etzhayyim.apps.houbun.statute/{package}"
             srow = (
                 statute_ref,
                 current[:10],
@@ -764,7 +764,7 @@ def insert_eurlex_celex(conn: Any, *, celex: str, max_articles: int) -> dict[str
         articles = articles[:max_articles]
     current = now_iso()
     path_did = f"{ACTOR_DID}:eu:eur-lex"
-    statute_ref = f"at://{path_did}/app.etzhayyim.apps.houbun.statute/{celex}"
+    statute_ref = f"at://{path_did}/com.etzhayyim.apps.houbun.statute/{celex}"
     srow = (
         statute_ref,
         current[:10],

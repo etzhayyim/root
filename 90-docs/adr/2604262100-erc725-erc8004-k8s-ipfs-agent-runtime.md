@@ -162,7 +162,7 @@ schema and must not be used for new public actor registrations.
         "method": "oauth2-dpop",
         "issuer": "https://authn.etzhayyim.com",
         "resource": "https://agent.example.etzhayyim.com/mcp",
-        "scopes": ["app.etzhayyim.agent.invoke"]
+        "scopes": ["com.etzhayyim.agent.invoke"]
       }
     },
     {

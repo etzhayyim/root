@@ -35,7 +35,7 @@ async def classify_intent(state: GyoseiIntakeState) -> str:
 
 async def start_procedure(state: GyoseiIntakeState) -> GyoseiIntakeState:
     logger.info("[gyosei_intake] Starting procedure via MCP")
-    # Call MCP: app.etzhayyim.apps.gyosei.startProcedure
+    # Call MCP: com.etzhayyim.apps.gyosei.startProcedure
     state["procedure_schema"] = {"fields": ["name", "address", "reason"]}
     return state
 
@@ -55,6 +55,6 @@ async def generate_draft(state: GyoseiIntakeState) -> GyoseiIntakeState:
 
 async def submit_draft(state: GyoseiIntakeState) -> GyoseiIntakeState:
     logger.info("[gyosei_intake] Submitting draft on behalf of user")
-    # Call MCP: app.etzhayyim.apps.gyosei.submitDraft
+    # Call MCP: com.etzhayyim.apps.gyosei.submitDraft
     state["submitted"] = True
     return state

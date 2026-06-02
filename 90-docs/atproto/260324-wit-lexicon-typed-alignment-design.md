@@ -19,7 +19,7 @@ superseded_by:
 > **⚠️ SUPERSEDED 2026-04-13 (F-Plan: Lexicon-as-Contract)**
 >
 > This document described a WIT-Lexicon dual-SSoT alignment strategy. The F-Plan migration
-> consolidated host capability surface to **Lexicon JSON only** (`00-contracts/lexicons/ai/gftd/host/`,
+> consolidated host capability surface to **Lexicon JSON only** (`00-contracts/lexicons/com/etzhayyim/host/`,
 > 37 capability lexicons across 21 groups). WIT files for TS Native (DEFAULT) apps were archived
 > to `_archive/wit-2026-04-13/` (3007 files across 936 component dirs). Two T3 components retain
 > in-tree wit/ for legacy compat: `cad/cd4dview` (Container) + `hoge/contract-jco` (Rust).
@@ -28,7 +28,7 @@ superseded_by:
 >
 > | Layer | Path |
 > |---|---|
-> | SSoT | `00-contracts/lexicons/ai/gftd/host/**/*.json` |
+> | SSoT | `00-contracts/lexicons/com/etzhayyim/host/**/*.json` |
 > | Codegen (lex-cli analog) | `70-tools/scripts/contract/gen-host-client-from-lexicon.mjs` |
 > | Generated client | `20-actors/magatama/sdk/magatama-host-sdk/src/generated/host-client.ts` |
 > | Dispatch (BindingTransport NSID router) | `20-actors/magatama/sdk/magatama-host-sdk/src/host-dispatcher.ts` |
@@ -216,7 +216,7 @@ WIT doc comment から自動導出される検証ルール例:
 | **Schema/属性は lowerCamelCase** | XRPC method は camelCase。WIT field は kebab-case (WIT 仕様制約) → host-sdk が camelCase JSON に変換 | ✅ |
 | **Record は単数名詞** | `post`, `like`, `follow`, `profile` | ✅ |
 | **Query/Procedure は動詞+名詞** | `post`, `like`, `repost` (NSID method kebab) → XRPC `createRecord` | ✅ |
-| **NSID 階層グルーピング** | `app.bsky.feed.*`, `app.etzhayyim.apps.{app}.*`, `app.etzhayyim.convo.*` | ✅ |
+| **NSID 階層グルーピング** | `app.bsky.feed.*`, `com.etzhayyim.apps.{app}.*`, `com.etzhayyim.convo.*` | ✅ |
 | **Record 参照は DID (handle 不可)** | `at-did` type alias、`subject: string` (DID) | ✅ |
 | **大バイナリは blob 参照** | `blob-ref` record (FormData+multipart) | ✅ |
 | **Pagination は `limit` + `cursor`** | XRPC 428 methods で cursor-based | ✅ |

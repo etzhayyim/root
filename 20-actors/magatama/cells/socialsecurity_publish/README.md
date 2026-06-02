@@ -7,5 +7,5 @@ Per ADR-2605302358 (metric extends ADR-2605261000 §4 + 2605301020 §5). R0 scaf
 - **Pipeline group**: 産土 (ubusuna)
 - **Murakumo node (proposed)**: naphtali
 - **Gates**: G12 (aggregate-only, no leaderboard) · G6 (PII-free public artifacts) · G2 (kotoba-native read) · G13 (Transparent audit datom) · G11 (published=false pre-ratify)
-- **Output Lexicon(s)**: app.etzhayyim.socialsecurity.metricReport (+ feed-post records)
+- **Output Lexicon(s)**: com.etzhayyim.socialsecurity.metricReport (+ feed-post records)
 - **Ceiling**: public artifacts are aggregate-only + PII-free; every publish audited (Transparent Force §1.12).

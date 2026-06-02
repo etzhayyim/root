@@ -364,7 +364,7 @@ global coverage の可視化に必要な最小 query は以下。
 
 XRPC:
 
-- `app.etzhayyim.apps.<segment>.coverage.get`
+- `com.etzhayyim.apps.<segment>.coverage.get`
 
 cron:
 

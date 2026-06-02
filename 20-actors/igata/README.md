@@ -1,7 +1,7 @@
 # igata (鋳型) — Megacasting / HPDC Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:igata`
-**Namespace**: `app.etzhayyim.igata.*`
+**Namespace**: `com.etzhayyim.igata.*`
 **ADR**: ADR-2605261200 (R0 master), ADR-2605261215 (R1, reserved), ADR-2605261230 (R2, reserved), ADR-2605261245 (R3, reserved)
 **Status**: R0 scaffold (2026-05-26) — all 8 cells import-time RuntimeError
 **Methodology source**: YouTube `y0oF2UirEMk` — IDRA Giga Press build-from-scratch documentary (manufacturing methodology adopted, military application rejected per §2(a))
@@ -86,7 +86,7 @@ Explicitly excluded from R0–R3:
 ## Lexicons (5, R0 stub deferred to R1+)
 
 ```
-app.etzhayyim.igata.{
+com.etzhayyim.igata.{
   alloyAttestation         # Al-Si melt lot (composition, mass, certifications)
   dieAttestation           # die geometry CAD CID + thermal cycle history
   castShotRecord           # per-shot injection profile + sensor stream

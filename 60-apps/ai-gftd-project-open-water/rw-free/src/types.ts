@@ -27,10 +27,10 @@
 
 export const OWATER_DID_PREFIX = "did:web:open-water.etzhayyim.com:" as const;
 
-export const RESERVOIR_COLLECTION = "app.etzhayyim.apps.openWater.reservoir";
-export const MAIN_COLLECTION = "app.etzhayyim.apps.openWater.main";
-export const LEAK_COLLECTION = "app.etzhayyim.apps.openWater.leak";
-export const SAMPLE_COLLECTION = "app.etzhayyim.apps.openWater.qualitySample";
+export const RESERVOIR_COLLECTION = "com.etzhayyim.apps.openWater.reservoir";
+export const MAIN_COLLECTION = "com.etzhayyim.apps.openWater.main";
+export const LEAK_COLLECTION = "com.etzhayyim.apps.openWater.leak";
+export const SAMPLE_COLLECTION = "com.etzhayyim.apps.openWater.qualitySample";
 
 // ─── Reservoir ──────────────────────────────────────────────────────
 

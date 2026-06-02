@@ -59,8 +59,8 @@ DO alarm fires:
 他の actor/app が AT Record を commit すると、matching する actor の pipeline を即時実行。
 
 ```
-PDS comAtprotoRepoCreateRecord("app.etzhayyim.apps.bunken.bunken", record)
-  → dispatchSubscribeReposTrigger("app.etzhayyim.apps.bunken.bunken", record, env, auth)
+PDS comAtprotoRepoCreateRecord("com.etzhayyim.apps.bunken.bunken", record)
+  → dispatchSubscribeReposTrigger("com.etzhayyim.apps.bunken.bunken", record, env, auth)
     → MATCH (m:ActorManifest) WHERE m.val CONTAINS $collection
     → for each matching manifest:
       → find pipeline with trigger.collections.includes(collection)
@@ -79,7 +79,7 @@ PDS comAtprotoRepoCreateRecord("app.etzhayyim.apps.bunken.bunken", record)
 外部クライアント / 他の actor が XRPC で明示的に pipeline を呼ぶ。
 
 ```
-POST /xrpc/app.etzhayyim.actor.executePipeline
+POST /xrpc/com.etzhayyim.actor.executePipeline
   { did: "did:web:kenkyusha.etzhayyim.com", pipelineIndex: 7, input: {...} }
   → handleActorExecutor(NSID_EXECUTOR_EXECUTE, ...)
     → getManifest(did)
@@ -198,7 +198,7 @@ async function resyncCronTriggers(env: Env): Promise<void> {
       "steps": [/* Evidence Evaluation */]
     },
     {
-      "trigger": { "type": "subscribeRepos", "collections": ["app.etzhayyim.apps.bunken.bunken"] },
+      "trigger": { "type": "subscribeRepos", "collections": ["com.etzhayyim.apps.bunken.bunken"] },
       "steps": [/* Reactive evidence from new literature */]
     }
   ]

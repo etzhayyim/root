@@ -44,12 +44,12 @@ Operationalizes Trust Level 2 authentication (ADR-2605260000):
 |---|---|---|
 | `validate_webauthn` | Verify P-256 ECDSA signature against subject DID's authentication key. Reject if platform authenticator != FaceID/TouchID/Windows Hello. | `{valid: bool}` |
 | `bind_mynumber_encrypted` | Parse JPKI IC response → XChaCha20 encrypt → IPFS upload → Signal-wrap per-recipient keys. | `{encrypted_payload_cid, key_wrap_cids}` |
-| `emit_trust_attestation` | Create `app.etzhayyim.gov.procedure.auth.didTrustAttestation` (trustLevel=2) signed by attestor DID. | `{attested_tid, sig}` |
+| `emit_trust_attestation` | Create `com.etzhayyim.gov.procedure.auth.didTrustAttestation` (trustLevel=2) signed by attestor DID. | `{attested_tid, sig}` |
 
 ### Output (R1+)
 ```python
 {
-  "app.etzhayyim.gov.procedure.auth.credentialBinding": {
+  "com.etzhayyim.gov.procedure.auth.credentialBinding": {
     "subjectDid": "did:web:etzhayyim.com:member:alice",
     "trustLevel": 2,
     "webauthnCredentialId": "base64url...",
@@ -57,7 +57,7 @@ Operationalizes Trust Level 2 authentication (ADR-2605260000):
     "encryptedPayloadCid": "bafy...",  # XChaCha20 ciphertext
     "sig": "base64url(Ed25519_sig)"
   },
-  "app.etzhayyim.encrypted.keyWrap": [
+  "com.etzhayyim.encrypted.keyWrap": [
     {
       "senderDid": "did:web:etzhayyim.com:member:alice",
       "recipientDid": "did:web:etzhayyim.com:council:seat1",
@@ -66,7 +66,7 @@ Operationalizes Trust Level 2 authentication (ADR-2605260000):
     },
     ...
   ],
-  "app.etzhayyim.gov.procedure.auth.didTrustAttestation": {
+  "com.etzhayyim.gov.procedure.auth.didTrustAttestation": {
     "subjectDidHash": "blake2b_256(subject_did)",
     "trustLevel": 2,
     "attestedBy": "did:web:etzhayyim.com:council:seat1",
@@ -84,7 +84,7 @@ Operationalizes Trust Level 2 authentication (ADR-2605260000):
 - [ ] XChaCha20-Poly1305 encryption (use `@etzhayyim/sdk/crypto` via checkpointer sidecar)
 - [ ] IPFS upload (CID receipt)
 - [ ] Signal X3DH session establishment + key wrapping (per `@etzhayyim/sdk/signal`)
-- [ ] MST record emission (`app.etzhayyim.*.` lexicons)
+- [ ] MST record emission (`com.etzhayyim.*.` lexicons)
 - [ ] Council activation ADR (R1 ADR-2605260100 reserved)
 
 ## R2+ Roadmap

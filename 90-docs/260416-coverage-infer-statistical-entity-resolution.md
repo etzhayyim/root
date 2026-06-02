@@ -47,7 +47,7 @@ Input (CSV/JSONL)
   │    1. SELECT vertex_infer_cluster + vertex_cohort_actor│
   │    2. cosine_similarity() UDF for feature matching    │
   │    3. posterior_update() UDF for Bayesian update      │
-  │    4. Evidence write → app.etzhayyim.cohort.evidence       │
+  │    4. Evidence write → com.etzhayyim.cohort.evidence       │
   │       (Tier 1 hashed)                                │
   │    5. mv_cohort_identity_posterior auto-refresh       │
   └──────────────────────────────────────────────────────┘

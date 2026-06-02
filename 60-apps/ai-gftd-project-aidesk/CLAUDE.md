@@ -11,8 +11,8 @@ AI Design Desk — 画像・テキストから CadQuery/STEP を生成し tsukur
 | AT bot DID | `did:web:aidesk.etzhayyim.com` |
 | Primary DID | `did:erc725:gftd:260505:{identityContract}` |
 | Runtime | T3 CF Worker (thin edge) + T2 pymagatama BPMN (LangServer) |
-| NSID prefix (商用) | `app.etzhayyim.apps.aidesk.*` |
-| NSID prefix (研究) | `app.etzhayyim.apps.aidesk.research.*` (Phase 2) |
+| NSID prefix (商用) | `com.etzhayyim.apps.aidesk.*` |
+| NSID prefix (研究) | `com.etzhayyim.apps.aidesk.research.*` (Phase 2) |
 | ADR | `90-docs/adr/2605051200-aidesk-cad-synthesis-actor.md` |
 
 ## CRITICAL: ライセンス境界
@@ -33,10 +33,10 @@ AI Design Desk — 画像・テキストから CadQuery/STEP を生成し tsukur
 
 | NSID | Kind |
 |---|---|
-| `app.etzhayyim.apps.aidesk.submitDesignJob` | procedure |
-| `app.etzhayyim.apps.aidesk.getDesignJob` | query |
-| `app.etzhayyim.apps.aidesk.listDesignJobs` | query |
-| `app.etzhayyim.apps.aidesk.exportToTsukuru` | procedure |
+| `com.etzhayyim.apps.aidesk.submitDesignJob` | procedure |
+| `com.etzhayyim.apps.aidesk.getDesignJob` | query |
+| `com.etzhayyim.apps.aidesk.listDesignJobs` | query |
+| `com.etzhayyim.apps.aidesk.exportToTsukuru` | procedure |
 
 ## tsukuru Integration
 

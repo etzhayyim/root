@@ -48,7 +48,7 @@ These are organism-specific and **must** differ between sister-corps to maintain
 - **Members** — your own `MEMBERS.md`; SBT collection deployed under your own contract.
 - **ADR registry** — your own `90-docs/adr/`; ADR IDs follow your own timezone-anchored YYMMDDHHMM convention.
 - **Cell catalog** — fork etzhayyim's Pregel cell catalog freely; rename, extend, prune.
-- **Lexicons** — fork the AT Protocol Lexicons under your own NSID namespace (NOT `app.etzhayyim.*`).
+- **Lexicons** — fork the AT Protocol Lexicons under your own NSID namespace (NOT `com.etzhayyim.*`).
 - **Language / locale** — religious vocabulary may be in any natural language; the synthetic ontology is the constant.
 - **Cell deployment topology** — your own `murakumo/fleet.toml` (or equivalent); no shared infrastructure.
 

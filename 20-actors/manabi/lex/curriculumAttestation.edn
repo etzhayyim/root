@@ -1,7 +1,7 @@
-;; app.etzhayyim.manabi.curriculumAttestation — lexicon (EDN form)
+;; com.etzhayyim.manabi.curriculumAttestation — lexicon (EDN form)
 ;; Module declaration: open-source content CID + reviewer attestations + Charter Rider scan
 {:lexicon 1
- :id "app.etzhayyim.manabi.curriculumAttestation"
+ :id "com.etzhayyim.manabi.curriculumAttestation"
  :defs
  {:main
   {:type "record"

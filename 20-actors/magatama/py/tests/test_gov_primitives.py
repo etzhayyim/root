@@ -105,10 +105,10 @@ def test_gov_register_exposes_tasks(country: str):
 
     mod.register(FakeWorker(), timeout_ms=30_000)
     assert len(registered) >= 8, f"{country}: only {len(registered)} tasks registered"
-    # Each task type should follow the xrpc.app.etzhayyim.gov{CC}.* pattern
+    # Each task type should follow the xrpc.com.etzhayyim.gov{CC}.* pattern
     cc = country
     camel_cc = cc[0].upper() + cc[1:]  # e.g. "jpn" → "Jpn"
-    prefix = f"xrpc.app.etzhayyim.gov{camel_cc}."
+    prefix = f"xrpc.com.etzhayyim.gov{camel_cc}."
     for t in registered:
         assert t.startswith(prefix), f"{country}: task {t!r} doesn't match expected prefix {prefix!r}"
 

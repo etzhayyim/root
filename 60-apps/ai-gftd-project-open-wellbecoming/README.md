@@ -10,8 +10,8 @@ Phase 2 (scaffolding) per ADR-2605172400. No content yet.
 
 ## Scope
 
-- `app.etzhayyim.wellBecoming.skillClaim` (record) — user-asserted claim on their own PDS
-- `app.etzhayyim.wellBecoming.attestation` (record) — peer attestation on peer's PDS
+- `com.etzhayyim.wellBecoming.skillClaim` (record) — user-asserted claim on their own PDS
+- `com.etzhayyim.wellBecoming.attestation` (record) — peer attestation on peer's PDS
 - Rank-compute lexicon (`getRank`) — pure function over claims + attestations
 
 ## Out of scope (stays vendor)
@@ -28,6 +28,6 @@ Phase 2 (scaffolding) per ADR-2605172400. No content yet.
 
 ## See also
 
-- [`00-contracts/lexicons/ai/gftd/wellBecoming/`](../../00-contracts/lexicons/ai/gftd/wellBecoming) — Tranche F lexicons
+- [`00-contracts/lexicons/com/etzhayyim/wellBecoming/`](../../00-contracts/lexicons/com/etzhayyim/wellBecoming) — Tranche F lexicons
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
 - [vendor: society6 / trust](https://github.com/etzhayyim/etzhayyim-root/tree/main/60-apps) — monetized reputation, stays vendor

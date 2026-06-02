@@ -171,7 +171,7 @@ export function createHostSDK(config: HostSDKConfig): HostSDK {
     : baseImports;
 
   // Wire the Lexicon-typed host client to this SDK's host implementation.
-  // App code can import typed app.etzhayyim.host.* helpers and they resolve in-process
+  // App code can import typed com.etzhayyim.host.* helpers and they resolve in-process
   // through the dispatcher instead of going over HTTP.
   //
   // Optional host capabilities (e.g. m365) auto-construct from env vars when all
@@ -470,7 +470,7 @@ export type { HeartbeatCadence, CadenceState, JouchoScores, InboxBuffer, Inbound
 export { DEFAULT_CHARACTER_DEF, buildCharacterExtractionPrompt, buildCharacterPreviewScene } from "./kami-character-maker.js";
 export type { CharacterDef, FaceShapeParams, EyeParams as CharEyeParams, NoseParams, MouthParams as CharMouthParams, BrowParams, SkinParams, HairPreset, HairParams as CharHairParams, ClothingPreset, ClothingParams, BodyParams as CharBodyParams } from "./kami-character-maker.js";
 
-// F-Plan 2026-04-13: Lexicon-typed host capability client (generated from app.etzhayyim.host.* lexicons).
+// F-Plan 2026-04-13: Lexicon-typed host capability client (generated from com.etzhayyim.host.* lexicons).
 // Apps can `import { secretsGet, invokeCall, configGet, ... } from "@etzhayyim/magatama-host-sdk"`
 // instead of using the legacy `sdk.hostImports.*` pattern. The dispatcher is auto-wired by
 // createHostSDK() / createWorkerExport() — no manual setup needed.
@@ -488,9 +488,9 @@ export * as hostClient from "./generated/host-client.js";
 //
 // Usage:
 //   import { nsid, LEXICON_NSID, type LexiconInput, type LexiconOutput } from "@etzhayyim/magatama-host-sdk";
-//   sdk.app.command(nsid("app.etzhayyim.apps.foo.bar"), async (ctx, body) => {
-//     const input = decodeJson<LexiconInput<"app.etzhayyim.apps.foo.bar">>(body, {} as any);
-//     const output: LexiconOutput<"app.etzhayyim.apps.foo.bar"> = { ok: true };
+//   sdk.app.command(nsid("com.etzhayyim.apps.foo.bar"), async (ctx, body) => {
+//     const input = decodeJson<LexiconInput<"com.etzhayyim.apps.foo.bar">>(body, {} as any);
+//     const output: LexiconOutput<"com.etzhayyim.apps.foo.bar"> = { ok: true };
 //     return JSON.stringify(output);
 //   });
 export { LEXICON_NSID, nsid, LEXICON_INPUT_SCHEMA } from "./generated/lexicon-nsid-types.js";
@@ -700,7 +700,7 @@ export interface CapabilityContext {
  * stateless MCP tools. Actor DIDs are managed by PDS records and Hyperdrive-backed Kysely state.
  *
  * On first request, auto-registers tools in the Tool graph via
- * app.etzhayyim.tool.registerBatch XRPC.
+ * com.etzhayyim.tool.registerBatch XRPC.
  *
  * @example
  * ```typescript
@@ -746,7 +746,7 @@ export function createCapabilityWorker(config: {
             inputSchema: def.inputSchema ?? { type: "object" },
             tags: def.tags ?? [],
           }));
-          const regPromise = _sdk.pds.xrpc("app.etzhayyim.tool.registerBatch", {
+          const regPromise = _sdk.pds.xrpc("com.etzhayyim.tool.registerBatch", {
             capabilityWorker: nanoid,
             tools: toolDefs,
           }).catch((e: any) => console.warn(`[capability-worker] tool registration failed: ${e?.message ?? e}`));
@@ -781,7 +781,7 @@ export function createCapabilityWorker(config: {
         });
       }
 
-      // XRPC tool dispatch: /xrpc/app.etzhayyim.apps.{nanoid}.{method}
+      // XRPC tool dispatch: /xrpc/com.etzhayyim.apps.{nanoid}.{method}
       if (url.pathname.startsWith("/xrpc/")) {
         const nsid = url.pathname.slice(6);
         // Extract method name from NSID (last segment)
@@ -805,7 +805,7 @@ export function createCapabilityWorker(config: {
         const capCtx: CapabilityContext = {
           query: async (statement, params) => {
             if (!_sdk?.pds) return [];
-            const result = await _sdk.pds.xrpc("app.etzhayyim.kagami.sql", { statement, params });
+            const result = await _sdk.pds.xrpc("com.etzhayyim.kagami.sql", { statement, params });
             return Array.isArray(result) ? result : ((result as any)?.rows ?? []);
           },
           write: async (collection, record) => {
@@ -818,7 +818,7 @@ export function createCapabilityWorker(config: {
           },
           llm: async (messages, opts) => {
             if (!_sdk?.pds) throw new Error("PDS not available");
-            return _sdk.pds.xrpc("app.etzhayyim.llm.converse", { messages, ...opts }) as any;
+            return _sdk.pds.xrpc("com.etzhayyim.llm.converse", { messages, ...opts }) as any;
           },
           env,
         };

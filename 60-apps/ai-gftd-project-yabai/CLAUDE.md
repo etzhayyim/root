@@ -19,7 +19,7 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 
 ## Reactive Runtime (Design D 準拠)
 
-- **Input**: `subscribe-repos.handle-repo-commit` (`handleComAtprotoSyncSubscribeReposCommit`) で `app.etzhayyim.apps.yabai.*` + `app.etzhayyim.apps.ipaddress.*` commit を受けて即時処理
+- **Input**: `subscribe-repos.handle-repo-commit` (`handleComAtprotoSyncSubscribeReposCommit`) で `com.etzhayyim.apps.yabai.*` + `com.etzhayyim.apps.ipaddress.*` commit を受けて即時処理
 - **Follow-based input**: `magatama.Follow("n7w1p4d0")` で ipaddress.etzhayyim.com を Follow → `ip_address`/`ip_analysis`/`geolocation`/`whois_snapshot` を自動受信
 - **Processing**: yabai commit → reactive publish。ipaddress commit → auto IP ingest + risk evaluation
 - **Output (stream)**: `serve.handle-stream("stream-alerts")` を subscriber role + trust level で配信
@@ -186,7 +186,7 @@ IntelSession -[:FROM_IP]-> YabaiEntity (IPAddress)
 
 ## Phishing Infrastructure Tracking (2026-04-19)
 
-`tools/track-phishing-infra/` — local node scripts for enriching `app.etzhayyim.apps.yabai.entity WHERE entity_type='phishing_url'` with hosting/registrar/TLS intel and linking operators to GLEIF legal-entity DIDs. Not a CF Worker (active TLS probes need raw TCP, and `whois`/`dig` aren't available in Worker runtime).
+`tools/track-phishing-infra/` — local node scripts for enriching `com.etzhayyim.apps.yabai.entity WHERE entity_type='phishing_url'` with hosting/registrar/TLS intel and linking operators to GLEIF legal-entity DIDs. Not a CF Worker (active TLS probes need raw TCP, and `whois`/`dig` aren't available in Worker runtime).
 
 | Script | Purpose |
 |---|---|

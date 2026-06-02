@@ -197,11 +197,11 @@ class TestSpawnListenerCell:
 
         event1 = {
             "repo": "did:plc:alice",
-            "ops": [{"path": "app.etzhayyim.shinka.kyumeiSignal/abc123", "action": "create"}],
+            "ops": [{"path": "com.etzhayyim.shinka.kyumeiSignal/abc123", "action": "create"}],
         }
         event2 = {
             "repo": "did:plc:bob",
-            "ops": [{"path": "app.etzhayyim.shinka.kyumeiSignal/def456", "action": "create"}],
+            "ops": [{"path": "com.etzhayyim.shinka.kyumeiSignal/def456", "action": "create"}],
         }
 
         cell = {
@@ -210,7 +210,7 @@ class TestSpawnListenerCell:
             "entry": "karma_hegemon_observation_cell",
             "trigger": {
                 "kind": "mst-listener",
-                "listens_to": ["app.etzhayyim.shinka.kyumeiSignal"],
+                "listens_to": ["com.etzhayyim.shinka.kyumeiSignal"],
             },
         }
         stop_event = asyncio.Event()
@@ -287,7 +287,7 @@ class TestSpawnListenerCell:
             "entry": "dummy_fn",
             "trigger": {
                 "kind": "mst-listener",
-                "listens_to": ["app.etzhayyim.shinka.kyumeiSignal"],
+                "listens_to": ["com.etzhayyim.shinka.kyumeiSignal"],
             },
         }
         stop_event = asyncio.Event()
@@ -324,7 +324,7 @@ class TestExtractAdherentDid:
         event = {
             "repo": "did:plc:alice123",
             "ops": [
-                {"path": "app.etzhayyim.shinka.kyumeiSignal/abc", "action": "create"}
+                {"path": "com.etzhayyim.shinka.kyumeiSignal/abc", "action": "create"}
             ],
         }
         result = _extract_adherent_did(event)

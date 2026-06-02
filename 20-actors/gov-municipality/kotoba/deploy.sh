@@ -13,7 +13,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${GOVMUN_GRAPH:-app.etzhayyim.govmunicipality}"
+GRAPH="${GOVMUN_GRAPH:-com.etzhayyim.govmunicipality}"
 ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> gov-municipality kotoba deploy → ${KOTOBA_URL} (graph ${GRAPH})"

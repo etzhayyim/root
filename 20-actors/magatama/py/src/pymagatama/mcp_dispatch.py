@@ -1,7 +1,7 @@
 """MCP envelope dispatcher (ADR-2605082000 §2.6 + ADR-0087).
 
 Receives MCP JSON-RPC `tools/call` envelopes at
-``POST /xrpc/app.etzhayyim.mcp.message`` on the dispatcher and routes them to a
+``POST /xrpc/com.etzhayyim.mcp.message`` on the dispatcher and routes them to a
 registered async callable. The route is consumed by LangGraph node bindings
 of `kind=mcp_tool ref=mcp://<nsid>` after they resolve the actor_host via
 ``vertex_mcp_tool_def`` (see ``langgraph_node_resolvers._resolve_mcp_nsid``).
@@ -72,7 +72,7 @@ McpHandler = Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]
 # Convention-derived registration (ADR-2605082000 §2.6 + ADR-0087):
 #
 #   NSID                                       → Python target
-#   app.etzhayyim.apps.<actor>.<methodCamel>         → pymagatama.<actor>_worker_main:task_<method_snake>
+#   com.etzhayyim.apps.<actor>.<methodCamel>         → pymagatama.<actor>_worker_main:task_<method_snake>
 #
 # Adding a new actor is registry + lexicon work (data) — the dispatcher
 # auto-wires by importing the matching ``task_*`` function. Use
@@ -93,7 +93,7 @@ def register_actor_by_convention(
     module_template: str = "pymagatama.{actor}_worker_main",
     fn_template: str = "task_{snake}",
 ) -> dict[str, McpHandler]:
-    """Resolve `app.etzhayyim.apps.{actor}.{method}` → `pymagatama.{actor}_worker_main:task_{method_snake}`.
+    """Resolve `com.etzhayyim.apps.{actor}.{method}` → `pymagatama.{actor}_worker_main:task_{method_snake}`.
 
     Methods that fail to import are skipped with a WARN log so a partial
     actor (some methods missing) does not break the dispatcher boot.
@@ -107,7 +107,7 @@ def register_actor_by_convention(
         LOG.warning("mcp_dispatch: actor %s module %s import failed: %s", actor, module_name, exc)
         return out
     for method in methods:
-        nsid = f"app.etzhayyim.apps.{actor}.{method}"
+        nsid = f"com.etzhayyim.apps.{actor}.{method}"
         fn_name = fn_template.format(snake=_camel_to_snake(method))
         fn = getattr(mod, fn_name, None)
         if fn is None or not callable(fn):
@@ -145,7 +145,7 @@ def register_actor_by_mapping(
     """
     out: dict[str, McpHandler] = {}
     for method, target in mapping.items():
-        nsid = f"app.etzhayyim.apps.{actor}.{method}"
+        nsid = f"com.etzhayyim.apps.{actor}.{method}"
         if ":" not in target:
             LOG.warning("mcp_dispatch: %s mapping target %r missing ':<fn>'", nsid, target)
             continue
@@ -167,7 +167,7 @@ def register_actor_by_mapping(
 # convention be overridden per actor for cases where the task_* implementation
 # lives outside ``<actor>_worker_main`` or has a non-standard name.
 #
-#   {"actor": <str>,            # NSID segment app.etzhayyim.apps.<actor>.*
+#   {"actor": <str>,            # NSID segment com.etzhayyim.apps.<actor>.*
 #    "methods": [<camel>, ...],  # NSID method names
 #    "module": <dotted>,         # optional, defaults to "pymagatama.{actor}_worker_main"
 #    "fn_template": <str>,       # optional, defaults to "task_{snake}"
@@ -3069,37 +3069,37 @@ _DEFAULT_ACTORS: list[dict[str, Any]] = [
 
 
 def _build_const_overrides() -> dict[str, McpHandler]:
-    """app.etzhayyim.tools.const.* — generic primitives outside the actor convention."""
+    """com.etzhayyim.tools.const.* — generic primitives outside the actor convention."""
     try:
         from pymagatama.tools_const_worker_main import task_echo
     except Exception as exc:  # pragma: no cover — defensive
         LOG.warning("mcp_dispatch: const tools unavailable: %s", exc)
         return {}
-    return {"app.etzhayyim.tools.const.echo": task_echo}
+    return {"com.etzhayyim.tools.const.echo": task_echo}
 
 
 def _build_audit_overrides() -> dict[str, McpHandler]:
-    """app.etzhayyim.tools.audit.* — generic OCEL emitter (ADR-2605082000 §2.5)."""
+    """com.etzhayyim.tools.audit.* — generic OCEL emitter (ADR-2605082000 §2.5)."""
     try:
         from pymagatama.tools_audit_worker_main import task_audit_emit
     except Exception as exc:  # pragma: no cover — defensive
         LOG.warning("mcp_dispatch: audit tools unavailable: %s", exc)
         return {}
-    return {"app.etzhayyim.tools.audit.emit": task_audit_emit}
+    return {"com.etzhayyim.tools.audit.emit": task_audit_emit}
 
 
 def _build_llm_overrides() -> dict[str, McpHandler]:
-    """app.etzhayyim.tools.llm.* — generic LLM chat (ADR-2605082000 §2)."""
+    """com.etzhayyim.tools.llm.* — generic LLM chat (ADR-2605082000 §2)."""
     try:
         from pymagatama.tools_llm_worker_main import task_llm_chat
     except Exception as exc:  # pragma: no cover — defensive
         LOG.warning("mcp_dispatch: llm tools unavailable: %s", exc)
         return {}
-    return {"app.etzhayyim.tools.llm.chat": task_llm_chat}
+    return {"com.etzhayyim.tools.llm.chat": task_llm_chat}
 
 
 def _build_sql_overrides() -> dict[str, McpHandler]:
-    """app.etzhayyim.tools.sql.* — generic SELECT + write exec + dynamic-row INSERT
+    """com.etzhayyim.tools.sql.* — generic SELECT + write exec + dynamic-row INSERT
     (ADR-2605082000 §2 + Phase E0)."""
     out: dict[str, McpHandler] = {}
     try:
@@ -3111,60 +3111,60 @@ def _build_sql_overrides() -> dict[str, McpHandler]:
     except Exception as exc:  # pragma: no cover — defensive
         LOG.warning("mcp_dispatch: sql tools unavailable: %s", exc)
         return out
-    out["app.etzhayyim.tools.sql.query"] = task_sql_query
-    out["app.etzhayyim.tools.sql.exec"] = task_sql_exec
-    out["app.etzhayyim.tools.sql.insert_row"] = task_sql_insert_row
+    out["com.etzhayyim.tools.sql.query"] = task_sql_query
+    out["com.etzhayyim.tools.sql.exec"] = task_sql_exec
+    out["com.etzhayyim.tools.sql.insert_row"] = task_sql_insert_row
     return out
 
 
 def _build_http_overrides() -> dict[str, McpHandler]:
-    """app.etzhayyim.tools.http.* — generic HTTP fetch (ADR-2605082000 §2)."""
+    """com.etzhayyim.tools.http.* — generic HTTP fetch (ADR-2605082000 §2)."""
     try:
         from pymagatama.tools_http_worker_main import task_http_fetch
     except Exception as exc:  # pragma: no cover — defensive
         LOG.warning("mcp_dispatch: http tools unavailable: %s", exc)
         return {}
-    return {"app.etzhayyim.tools.http.fetch": task_http_fetch}
+    return {"com.etzhayyim.tools.http.fetch": task_http_fetch}
 
 
 def _build_json_overrides() -> dict[str, McpHandler]:
-    """app.etzhayyim.tools.json.* — generic JSON extract (ADR-2605082000 §2)."""
+    """com.etzhayyim.tools.json.* — generic JSON extract (ADR-2605082000 §2)."""
     try:
         from pymagatama.tools_json_worker_main import task_json_extract
     except Exception as exc:  # pragma: no cover — defensive
         LOG.warning("mcp_dispatch: json tools unavailable: %s", exc)
         return {}
-    return {"app.etzhayyim.tools.json.extract": task_json_extract}
+    return {"com.etzhayyim.tools.json.extract": task_json_extract}
 
 
 def _build_transform_overrides() -> dict[str, McpHandler]:
-    """app.etzhayyim.tools.transform.* — per-row declarative mapping (ADR-2605082000 §2)."""
+    """com.etzhayyim.tools.transform.* — per-row declarative mapping (ADR-2605082000 §2)."""
     try:
         from pymagatama.tools_transform_worker_main import task_transform_map
     except Exception as exc:  # pragma: no cover — defensive
         LOG.warning("mcp_dispatch: transform tools unavailable: %s", exc)
         return {}
-    return {"app.etzhayyim.tools.transform.map": task_transform_map}
+    return {"com.etzhayyim.tools.transform.map": task_transform_map}
 
 
 def _build_time_overrides() -> dict[str, McpHandler]:
-    """app.etzhayyim.tools.time.* — wall-clock readout (ADR-2605082000 Phase D)."""
+    """com.etzhayyim.tools.time.* — wall-clock readout (ADR-2605082000 Phase D)."""
     try:
         from pymagatama.tools_time_worker_main import task_time_now
     except Exception as exc:  # pragma: no cover — defensive
         LOG.warning("mcp_dispatch: time tools unavailable: %s", exc)
         return {}
-    return {"app.etzhayyim.tools.time.now": task_time_now}
+    return {"com.etzhayyim.tools.time.now": task_time_now}
 
 
 def _build_crypto_overrides() -> dict[str, McpHandler]:
-    """app.etzhayyim.tools.crypto.* — content-addressing hash (ADR-2605082000 Phase D)."""
+    """com.etzhayyim.tools.crypto.* — content-addressing hash (ADR-2605082000 Phase D)."""
     try:
         from pymagatama.tools_crypto_worker_main import task_crypto_hash
     except Exception as exc:  # pragma: no cover — defensive
         LOG.warning("mcp_dispatch: crypto tools unavailable: %s", exc)
         return {}
-    return {"app.etzhayyim.tools.crypto.hash": task_crypto_hash}
+    return {"com.etzhayyim.tools.crypto.hash": task_crypto_hash}
 
 
 def _make_lg_pod_proxy(base_url: str, endpoint: str, nsid: str) -> McpHandler:
@@ -3190,7 +3190,7 @@ def _build_jukyu_handlers() -> dict[str, McpHandler]:
     """Build proxy handlers for jukyu actor routed to lg-jukyu pod."""
     out: dict[str, McpHandler] = {}
     for method, endpoint in _LG_JUKYU_ROUTES.items():
-        nsid = f"app.etzhayyim.apps.jukyu.{method}"
+        nsid = f"com.etzhayyim.apps.jukyu.{method}"
         out[nsid] = _make_lg_pod_proxy(_LG_JUKYU_BASE, endpoint, nsid)
     return out
 
@@ -3199,7 +3199,7 @@ def _build_supplychain_handlers() -> dict[str, McpHandler]:
     """Build proxy handlers for supplychain actor routed to lg-supplychain pod."""
     out: dict[str, McpHandler] = {}
     for method, endpoint in _LG_SUPPLYCHAIN_ROUTES.items():
-        nsid = f"app.etzhayyim.apps.supplychain.{method}"
+        nsid = f"com.etzhayyim.apps.supplychain.{method}"
         out[nsid] = _make_lg_pod_proxy(_LG_SUPPLYCHAIN_BASE, endpoint, nsid)
     return out
 
@@ -3224,7 +3224,7 @@ def _build_organism_handlers() -> dict[str, McpHandler]:
     out: dict[str, McpHandler] = {}
     for actor, methods in _LG_ORGANISM_ACTORS.items():
         for method in methods:
-            nsid = f"app.etzhayyim.apps.{actor}.{method}"
+            nsid = f"com.etzhayyim.apps.{actor}.{method}"
             out[nsid] = _make_organism_proxy(nsid)
     return out
 
@@ -3299,7 +3299,7 @@ async def handle_envelope(
       {"method": "tools/call", "params": {"name": "<nsid>", "arguments": {...}}}
 
     Other methods (initialize / tools/list / ping) are out of scope here —
-    the canonical MCP server (mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message) owns
+    the canonical MCP server (mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message) owns
     those. This dispatcher is the per-actor delegate that only handles
     tools/call routed via vertex_mcp_tool_def.
     """

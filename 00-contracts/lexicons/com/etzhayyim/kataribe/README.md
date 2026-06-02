@@ -1,4 +1,4 @@
-# app.etzhayyim.kataribe.* — kataribe (語部) Lexicons
+# com.etzhayyim.kataribe.* — kataribe (語部) Lexicons
 
 **Owner actor**: `did:web:kataribe.etzhayyim.com` (`20-actors/kataribe/`)
 **ADR**: ADR-2605263600 (R0 scaffold)

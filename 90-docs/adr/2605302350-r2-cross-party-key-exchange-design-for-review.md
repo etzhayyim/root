@@ -60,7 +60,7 @@ and the recipient needs only their own PRIVATE key — no transmitted session se
 
 Recipient long-term identity (published, DID-bound per ADR-2605181100):
 - An **X25519** key pair. The public key is the `signalIdentityKey` already carried in
-  `app.etzhayyim.encrypted.signalIdentity` and signed by the DID key
+  `com.etzhayyim.encrypted.signalIdentity` and signed by the DID key
   (`signSignalIdentity` / `verifySignalIdentity` — unchanged, the authenticity gate).
 
 Wrap (sender), per recipient, over the envelope symmetric key `K`:
@@ -73,7 +73,7 @@ Wrap (sender), per recipient, over the envelope symmetric key `K`:
 Unwrap (recipient): recompute `shared = X25519(self_priv, e_pub)`, derive `wrapKey` the
 same way, AEAD-open. No shared state; works across parties/PDSes.
 
-## D2. keyWrap lexicon change (`app.etzhayyim.encrypted.keyWrap`)
+## D2. keyWrap lexicon change (`com.etzhayyim.encrypted.keyWrap`)
 
 Add `ephemeralPubKey: bytes` (the sender's `e_pub`). The R1.0 fields `signalSessionId`
 becomes vestigial (kept for one cycle as optional, then removed). `ciphertext` carries the

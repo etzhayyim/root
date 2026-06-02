@@ -28,7 +28,7 @@ once Council activates, the intake graph may call :func:`resolve_referrals` /
 :func:`to_referral_routing_record` for the wayfinding leg.
 
 Output shape mirrors a referral-routing view over Lexicon
-``app.etzhayyim.chigiri.legalAidReferral`` (the registry's ``$schema``).
+``com.etzhayyim.chigiri.legalAidReferral`` (the registry's ``$schema``).
 """
 
 from __future__ import annotations
@@ -221,7 +221,7 @@ def to_referral_routing_record(
     created_at: datetime,
     session_ref: str | None = None,
 ) -> dict:
-    """Build an ``app.etzhayyim.chigiri.legalAidReferral`` routing-view record.
+    """Build an ``com.etzhayyim.chigiri.legalAidReferral`` routing-view record.
 
     ``rendersAdvice`` is asserted ``False`` before return — a G14 schema
     invariant this function structurally cannot violate. The record is a pure

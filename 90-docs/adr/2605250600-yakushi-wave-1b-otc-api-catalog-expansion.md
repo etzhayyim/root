@@ -22,7 +22,7 @@ related:
   - 20-actors/yakushi/
   - 20-actors/magatama/cells/pharma_tablet_manufacture/
   - 20-actors/magatama/cells/pharma_topical_formulation/
-  - 00-contracts/lexicons/app/etzhayyim/pharma/
+  - 00-contracts/lexicons/com/etzhayyim/pharma/
 supersedes: []
 superseded_by: []
 ---

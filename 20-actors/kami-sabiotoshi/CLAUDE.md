@@ -47,7 +47,7 @@
 | Character | **Nintendo Mii-style parametric avatar** (`gftd:kami/character@1.0.0`)。yoro Agent 作成時に使用。SVG プレビュー + wgpu 3D レンダリング |
 | Persistence | W Protocol Event Stream (operational) + MDAG CAS (scene) + SQL (analytics) |
 | W Protocol Event Stream | Write: `WRecord()` → yata SQL direct (SHA-256 content CID)。Read: `G()` (SQL) |
-| **Lexicon** | `app.etzhayyim.apps.kami.*` — dot-notation kind で自動マッピング (`kami.islandDef` → `app.etzhayyim.apps.kami.islandDef`)。`40-engine/kami-engine/kami-game/src/wproto.rs` が authoritative kind 定数 |
+| **Lexicon** | `com.etzhayyim.apps.kami.*` — dot-notation kind で自動マッピング (`kami.islandDef` → `com.etzhayyim.apps.kami.islandDef`)。`40-engine/kami-engine/kami-game/src/wproto.rs` が authoritative kind 定数 |
 | Scene Format | **JSON-LD** (`@context`, `@type`, `@id`) — `IslandScene` + `CharacterDef` + `CharacterAppearance`。後方互換 (plain JSON も parse 可) |
 | Games | 29 games → 29 KAMI Islands (22 Godot + 6 Brainrot + 1 Suika, published + portals registered) |
 | **Brainrot** | 6 Brainrot ゲーム + 6 キャラクター (Skibidi/Sigma/Ohio/Grimace/Rizz/Fanum)。Mii-style パラメトリック avatar |
@@ -91,65 +91,65 @@ wasm-pack build kami-web --target web  # ~40-90s (incremental)
 
 ## W Protocol Lexicon (CRITICAL)
 
-**KAMI の全 AT Record は `app.etzhayyim.apps.kami.*` namespace。** dot-notation kind (`kami.{recordType}`) で `RecordMapper` が自動マッピング。
+**KAMI の全 AT Record は `com.etzhayyim.apps.kami.*` namespace。** dot-notation kind (`kami.{recordType}`) で `RecordMapper` が自動マッピング。
 
 | Kind (W Protocol) | AT Collection NSID | WIT Source | 永続化 |
 |---|---|---|---|
-| `kami.islandDef` | `app.etzhayyim.apps.kami.islandDef` | `gftd:kami/island` | AT Record (MDAG) |
-| `kami.portal` | `app.etzhayyim.apps.kami.portal` | `gftd:kami/island` | AT Record |
-| `kami.sceneVersion` | `app.etzhayyim.apps.kami.sceneVersion` | `gftd:kami/scene` | AT Record (CID ref) |
-| `kami.character` | `app.etzhayyim.apps.kami.character` | `gftd:kami/character` | AT Record (immutable meme) |
-| `kami.buildResult` | `app.etzhayyim.apps.kami.buildResult` | `gftd:kami/publish` | AT Record |
-| `kami.publishResult` | `app.etzhayyim.apps.kami.publishResult` | `gftd:kami/publish` | AT Record |
-| `kami.matchSummary` | `app.etzhayyim.apps.kami.matchSummary` | `gftd:kami-battle-royale/match-lifecycle` | AT Record |
-| `kami.playerResult` | `app.etzhayyim.apps.kami.playerResult` | `gftd:kami-battle-royale/match-lifecycle` | AT Record |
-| `kami.rankedProfile` | `app.etzhayyim.apps.kami.rankedProfile` | `gftd:kami-battle-royale/ranked-queue` | AT Record |
-| `kami.seasonInfo` | `app.etzhayyim.apps.kami.seasonInfo` | `gftd:kami-battle-royale/ranked-queue` | AT Record |
-| `kami.killEvent` | `app.etzhayyim.apps.kami.killEvent` | `gftd:kami-battle-royale/match-state` | AT Record (feed) |
-| `kami.evolution` | `app.etzhayyim.apps.kami.evolution` | `brainrot_mesh` / `island_gen` | AT Record (stage transition) |
-| `kami.game.score` | `app.etzhayyim.apps.kami.game.score` | telemetry | AT Record |
-| `kami.game.transaction` | `app.etzhayyim.apps.kami.game.transaction` | telemetry | AT Record |
-| `kami.listing` | `app.etzhayyim.apps.kami.listing` | `gftd:kami/catalog` | AT Record |
-| `kami.collection` | `app.etzhayyim.apps.kami.collection` | `gftd:kami/catalog` | AT Record |
-| `kami.playerProfile` | `app.etzhayyim.apps.kami.playerProfile` | `gftd:kami/player` | AT Record |
-| `kami.achievement` | `app.etzhayyim.apps.kami.achievement` | `gftd:kami/player` | AT Record |
-| `kami.achievementUnlock` | `app.etzhayyim.apps.kami.achievementUnlock` | `gftd:kami/player` | AT Record |
-| `kami.playSession` | `app.etzhayyim.apps.kami.playSession` | `gftd:kami/player` | AT Record |
-| `kami.leaderboard` | `app.etzhayyim.apps.kami.leaderboard` | `gftd:kami/ranking` | AT Record |
-| `kami.leaderboardEntry` | `app.etzhayyim.apps.kami.leaderboardEntry` | `gftd:kami/ranking` | AT Record |
-| `kami.seasonPass` | `app.etzhayyim.apps.kami.seasonPass` | `gftd:kami/ranking` | AT Record |
-| `kami.itemDef` | `app.etzhayyim.apps.kami.itemDef` | `gftd:kami/economy` | AT Record |
-| `kami.trade` | `app.etzhayyim.apps.kami.trade` | `gftd:kami/economy` | AT Record |
-| `kami.emoteDef` | `app.etzhayyim.apps.kami.emoteDef` | `gftd:kami/emote` | AT Record |
-| `kami.emoteGrant` | `app.etzhayyim.apps.kami.emoteGrant` | `gftd:kami/emote` | AT Record |
-| `kami.emoteLoadout` | `app.etzhayyim.apps.kami.emoteLoadout` | `gftd:kami/emote` | AT Record |
-| `kami.game.emotePlay` | `app.etzhayyim.apps.kami.game.emotePlay` | telemetry | AT Record (analytics) |
-| `kami.game.collision` | `app.etzhayyim.apps.kami.game.collision` | `gftd:kami/physics` | AT Record (audit) |
-| `kami.triggerZone` | `app.etzhayyim.apps.kami.triggerZone` | `gftd:kami/trigger` | AT Record |
-| `kami.game.triggerEvent` | `app.etzhayyim.apps.kami.game.triggerEvent` | `gftd:kami/trigger` | AT Record (analytics) |
-| `kami.dialogueContext` | `app.etzhayyim.apps.kami.dialogueContext` | `gftd:kami/actor-conversation` | AT Record |
-| `kami.dialogueOutcome` | `app.etzhayyim.apps.kami.dialogueOutcome` | `gftd:kami/actor-conversation` | AT Record |
-| `kami.dialogueVote` | `app.etzhayyim.apps.kami.dialogueVote` | `gftd:kami/actor-conversation` | AT Record (council) |
-| `kami.npcDef` | `app.etzhayyim.apps.kami.npcDef` | `gftd:kami/npc` | AT Record |
-| `kami.game.npcInteraction` | `app.etzhayyim.apps.kami.game.npcInteraction` | `gftd:kami/npc` | AT Record (analytics) |
-| `kami.questDef` | `app.etzhayyim.apps.kami.questDef` | `gftd:kami/npc` | AT Record |
-| `kami.questProgress` | `app.etzhayyim.apps.kami.questProgress` | `gftd:kami/npc` | AT Record |
-| `kami.game.inventoryEvent` | `app.etzhayyim.apps.kami.game.inventoryEvent` | `gftd:kami/inventory` | AT Record (analytics) |
-| `kami.terrainConfig` | `app.etzhayyim.apps.kami.terrainConfig` | `gftd:kami/terrain` | AT Record |
-| `kami.game.terrainEdit` | `app.etzhayyim.apps.kami.game.terrainEdit` | `gftd:kami/terrain` | AT Record (analytics) |
-| `kami.pokoaTrainer` | `app.etzhayyim.apps.kami.pokoaTrainer` | `gftd:kami/pokoa` | AT Record |
-| `kami.game.pokoaBattle` | `app.etzhayyim.apps.kami.game.pokoaBattle` | `gftd:kami/pokoa` | AT Record (analytics) |
-| `kami.game.pokoaCapture` | `app.etzhayyim.apps.kami.game.pokoaCapture` | `gftd:kami/pokoa` | AT Record (analytics) |
-| `kami.game.pokoaEvolve` | `app.etzhayyim.apps.kami.game.pokoaEvolve` | `gftd:kami/pokoa` | AT Record (analytics) |
-| `kami.gachaBanner` | `app.etzhayyim.apps.kami.gachaBanner` | `gftd:kami/gacha` | AT Record |
-| `kami.game.gachaRoll` | `app.etzhayyim.apps.kami.game.gachaRoll` | `gftd:kami/gacha` | AT Record (analytics) |
-| `kami.suika.game` | `app.etzhayyim.apps.kami.suika.game` | `gftd:kami-suika/game-lifecycle` | AT Record |
-| `kami.suika.score` | `app.etzhayyim.apps.kami.suika.score` | `gftd:kami-suika/leaderboard` | AT Record |
-| `kami.ketsu_gorilla.game` | `app.etzhayyim.apps.kami.ketsu_gorilla.game` | `gftd:kami-ketsu-gorilla/game-lifecycle` | AT Record |
-| `kami.ketsu_gorilla.score` | `app.etzhayyim.apps.kami.ketsu_gorilla.score` | `gftd:kami-ketsu-gorilla/leaderboard` | AT Record |
-| `kami.ketsu_gorilla.slap` | `app.etzhayyim.apps.kami.ketsu_gorilla.slap` | `gftd:kami-ketsu-gorilla/gorilla-ai` | AT Record |
-| `kami.callEffect` | `app.etzhayyim.apps.kami.callEffect` | `gftd:kami/call-effect` | AT Record |
-| `kami.callEffectActive` | `app.etzhayyim.apps.kami.callEffectActive` | `gftd:kami/call-effect` | AT Record |
+| `kami.islandDef` | `com.etzhayyim.apps.kami.islandDef` | `gftd:kami/island` | AT Record (MDAG) |
+| `kami.portal` | `com.etzhayyim.apps.kami.portal` | `gftd:kami/island` | AT Record |
+| `kami.sceneVersion` | `com.etzhayyim.apps.kami.sceneVersion` | `gftd:kami/scene` | AT Record (CID ref) |
+| `kami.character` | `com.etzhayyim.apps.kami.character` | `gftd:kami/character` | AT Record (immutable meme) |
+| `kami.buildResult` | `com.etzhayyim.apps.kami.buildResult` | `gftd:kami/publish` | AT Record |
+| `kami.publishResult` | `com.etzhayyim.apps.kami.publishResult` | `gftd:kami/publish` | AT Record |
+| `kami.matchSummary` | `com.etzhayyim.apps.kami.matchSummary` | `gftd:kami-battle-royale/match-lifecycle` | AT Record |
+| `kami.playerResult` | `com.etzhayyim.apps.kami.playerResult` | `gftd:kami-battle-royale/match-lifecycle` | AT Record |
+| `kami.rankedProfile` | `com.etzhayyim.apps.kami.rankedProfile` | `gftd:kami-battle-royale/ranked-queue` | AT Record |
+| `kami.seasonInfo` | `com.etzhayyim.apps.kami.seasonInfo` | `gftd:kami-battle-royale/ranked-queue` | AT Record |
+| `kami.killEvent` | `com.etzhayyim.apps.kami.killEvent` | `gftd:kami-battle-royale/match-state` | AT Record (feed) |
+| `kami.evolution` | `com.etzhayyim.apps.kami.evolution` | `brainrot_mesh` / `island_gen` | AT Record (stage transition) |
+| `kami.game.score` | `com.etzhayyim.apps.kami.game.score` | telemetry | AT Record |
+| `kami.game.transaction` | `com.etzhayyim.apps.kami.game.transaction` | telemetry | AT Record |
+| `kami.listing` | `com.etzhayyim.apps.kami.listing` | `gftd:kami/catalog` | AT Record |
+| `kami.collection` | `com.etzhayyim.apps.kami.collection` | `gftd:kami/catalog` | AT Record |
+| `kami.playerProfile` | `com.etzhayyim.apps.kami.playerProfile` | `gftd:kami/player` | AT Record |
+| `kami.achievement` | `com.etzhayyim.apps.kami.achievement` | `gftd:kami/player` | AT Record |
+| `kami.achievementUnlock` | `com.etzhayyim.apps.kami.achievementUnlock` | `gftd:kami/player` | AT Record |
+| `kami.playSession` | `com.etzhayyim.apps.kami.playSession` | `gftd:kami/player` | AT Record |
+| `kami.leaderboard` | `com.etzhayyim.apps.kami.leaderboard` | `gftd:kami/ranking` | AT Record |
+| `kami.leaderboardEntry` | `com.etzhayyim.apps.kami.leaderboardEntry` | `gftd:kami/ranking` | AT Record |
+| `kami.seasonPass` | `com.etzhayyim.apps.kami.seasonPass` | `gftd:kami/ranking` | AT Record |
+| `kami.itemDef` | `com.etzhayyim.apps.kami.itemDef` | `gftd:kami/economy` | AT Record |
+| `kami.trade` | `com.etzhayyim.apps.kami.trade` | `gftd:kami/economy` | AT Record |
+| `kami.emoteDef` | `com.etzhayyim.apps.kami.emoteDef` | `gftd:kami/emote` | AT Record |
+| `kami.emoteGrant` | `com.etzhayyim.apps.kami.emoteGrant` | `gftd:kami/emote` | AT Record |
+| `kami.emoteLoadout` | `com.etzhayyim.apps.kami.emoteLoadout` | `gftd:kami/emote` | AT Record |
+| `kami.game.emotePlay` | `com.etzhayyim.apps.kami.game.emotePlay` | telemetry | AT Record (analytics) |
+| `kami.game.collision` | `com.etzhayyim.apps.kami.game.collision` | `gftd:kami/physics` | AT Record (audit) |
+| `kami.triggerZone` | `com.etzhayyim.apps.kami.triggerZone` | `gftd:kami/trigger` | AT Record |
+| `kami.game.triggerEvent` | `com.etzhayyim.apps.kami.game.triggerEvent` | `gftd:kami/trigger` | AT Record (analytics) |
+| `kami.dialogueContext` | `com.etzhayyim.apps.kami.dialogueContext` | `gftd:kami/actor-conversation` | AT Record |
+| `kami.dialogueOutcome` | `com.etzhayyim.apps.kami.dialogueOutcome` | `gftd:kami/actor-conversation` | AT Record |
+| `kami.dialogueVote` | `com.etzhayyim.apps.kami.dialogueVote` | `gftd:kami/actor-conversation` | AT Record (council) |
+| `kami.npcDef` | `com.etzhayyim.apps.kami.npcDef` | `gftd:kami/npc` | AT Record |
+| `kami.game.npcInteraction` | `com.etzhayyim.apps.kami.game.npcInteraction` | `gftd:kami/npc` | AT Record (analytics) |
+| `kami.questDef` | `com.etzhayyim.apps.kami.questDef` | `gftd:kami/npc` | AT Record |
+| `kami.questProgress` | `com.etzhayyim.apps.kami.questProgress` | `gftd:kami/npc` | AT Record |
+| `kami.game.inventoryEvent` | `com.etzhayyim.apps.kami.game.inventoryEvent` | `gftd:kami/inventory` | AT Record (analytics) |
+| `kami.terrainConfig` | `com.etzhayyim.apps.kami.terrainConfig` | `gftd:kami/terrain` | AT Record |
+| `kami.game.terrainEdit` | `com.etzhayyim.apps.kami.game.terrainEdit` | `gftd:kami/terrain` | AT Record (analytics) |
+| `kami.pokoaTrainer` | `com.etzhayyim.apps.kami.pokoaTrainer` | `gftd:kami/pokoa` | AT Record |
+| `kami.game.pokoaBattle` | `com.etzhayyim.apps.kami.game.pokoaBattle` | `gftd:kami/pokoa` | AT Record (analytics) |
+| `kami.game.pokoaCapture` | `com.etzhayyim.apps.kami.game.pokoaCapture` | `gftd:kami/pokoa` | AT Record (analytics) |
+| `kami.game.pokoaEvolve` | `com.etzhayyim.apps.kami.game.pokoaEvolve` | `gftd:kami/pokoa` | AT Record (analytics) |
+| `kami.gachaBanner` | `com.etzhayyim.apps.kami.gachaBanner` | `gftd:kami/gacha` | AT Record |
+| `kami.game.gachaRoll` | `com.etzhayyim.apps.kami.game.gachaRoll` | `gftd:kami/gacha` | AT Record (analytics) |
+| `kami.suika.game` | `com.etzhayyim.apps.kami.suika.game` | `gftd:kami-suika/game-lifecycle` | AT Record |
+| `kami.suika.score` | `com.etzhayyim.apps.kami.suika.score` | `gftd:kami-suika/leaderboard` | AT Record |
+| `kami.ketsu_gorilla.game` | `com.etzhayyim.apps.kami.ketsu_gorilla.game` | `gftd:kami-ketsu-gorilla/game-lifecycle` | AT Record |
+| `kami.ketsu_gorilla.score` | `com.etzhayyim.apps.kami.ketsu_gorilla.score` | `gftd:kami-ketsu-gorilla/leaderboard` | AT Record |
+| `kami.ketsu_gorilla.slap` | `com.etzhayyim.apps.kami.ketsu_gorilla.slap` | `gftd:kami-ketsu-gorilla/gorilla-ai` | AT Record |
+| `kami.callEffect` | `com.etzhayyim.apps.kami.callEffect` | `gftd:kami/call-effect` | AT Record |
+| `kami.callEffectActive` | `com.etzhayyim.apps.kami.callEffectActive` | `gftd:kami/call-effect` | AT Record |
 
 **使い方 (TS Native):**
 ```go
@@ -406,7 +406,7 @@ Final stage 進化は他 game の stage を要求。1 体だけ先行進化で�
 
 - `brainrot_mesh.rs`: `BrainrotCharacter` enum + `brainrot_evolution_mesh(character, stage, phase)`
 - `island_gen.rs`: `BrainrotEvolution` + `brainrot_evolution_chains()`
-- AT Record: `app.etzhayyim.apps.kami.evolution` (stage transition 記録)
+- AT Record: `com.etzhayyim.apps.kami.evolution` (stage transition 記録)
 - Social: ATPost で進化 announce → ATLike → engagement 加速
 
 ## File Structure

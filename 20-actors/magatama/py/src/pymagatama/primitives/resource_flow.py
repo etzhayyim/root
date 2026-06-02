@@ -4,7 +4,7 @@ Task types:
   resource-flow.detect.anomaly
   resource-flow.project.flow
   resource-flow.review.anomaly
-BPMN:      00-contracts/bpmn/ai/gftd/resource-flow/detectAnomaly.bpmn (R/PT24H)
+BPMN:      00-contracts/bpmn/com/etzhayyim/resource-flow/detectAnomaly.bpmn (R/PT24H)
 
 Ported from 60-apps/ai-gftd-project-resource-flow/worker/src/app.ts detectAnomaly().
 Covers all 3 flow classes: currency, service, personnel.
@@ -112,7 +112,7 @@ def _reject_individual(record: dict[str, Any]) -> str | None:
 
 def _flow_vid(flow_class: str, record_uri: str) -> str:
     return (
-        f"at://{_PRIMARY_DID}/app.etzhayyim.apps.resourceFlow."
+        f"at://{_PRIMARY_DID}/com.etzhayyim.apps.resourceFlow."
         f"{flow_class}Projected/{quote(record_uri, safe='')}"
     )
 
@@ -122,7 +122,7 @@ def _review_id() -> str:
 
 
 def _review_vid(review_id: str) -> str:
-    return f"at://{_PRIMARY_DID}/app.etzhayyim.apps.resourceFlow.anomalyReview/{review_id}"
+    return f"at://{_PRIMARY_DID}/com.etzhayyim.apps.resourceFlow.anomalyReview/{review_id}"
 
 
 def _facade_hash(did: str) -> str:
@@ -167,7 +167,7 @@ def _severity_for(ratio: float) -> str:
 
 def _anomaly_vid(run_id: str, flow_class: str, src: str, cp: str, period: str) -> str:
     slug = f"{run_id}:{flow_class}:{src}:{cp}:{period}"
-    return f"at://{_PRIMARY_DID}/app.etzhayyim.apps.resourceFlow.anomaly/{quote(slug, safe='')}"
+    return f"at://{_PRIMARY_DID}/com.etzhayyim.apps.resourceFlow.anomaly/{quote(slug, safe='')}"
 
 
 def _emit_anomaly_post(

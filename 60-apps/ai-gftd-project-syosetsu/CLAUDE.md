@@ -20,11 +20,11 @@ narou.etzhayyim.com で生成されたテキストコンテンツを縦書きリ
 
 | NSID | WRecord kind | SQL Label |
 |---|---|---|
-| `app.etzhayyim.apps.syosetsu.series` | `series` | `:Series` |
-| `app.etzhayyim.apps.syosetsu.episode` | `episode` | `:Episode` |
-| `app.etzhayyim.apps.syosetsu.bookmark` | `bookmark` | `:Bookmark` |
-| `app.etzhayyim.apps.syosetsu.review` | `review` | `:Review` |
-| `app.etzhayyim.apps.syosetsu.tag` | `tag` | `:Tag` |
+| `com.etzhayyim.apps.syosetsu.series` | `series` | `:Series` |
+| `com.etzhayyim.apps.syosetsu.episode` | `episode` | `:Episode` |
+| `com.etzhayyim.apps.syosetsu.bookmark` | `bookmark` | `:Bookmark` |
+| `com.etzhayyim.apps.syosetsu.review` | `review` | `:Review` |
+| `com.etzhayyim.apps.syosetsu.tag` | `tag` | `:Tag` |
 
 ## 設計
 

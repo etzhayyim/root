@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hagukumi.careSessionAttestation"
+ :id "com.etzhayyim.hagukumi.careSessionAttestation"
  :defs
  {:main
   {:type "record"

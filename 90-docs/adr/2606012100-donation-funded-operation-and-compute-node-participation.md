@@ -47,7 +47,7 @@ Two gaps, one ADR.
 
 **(1) etzhayyim.com does not say it runs on donations.** ADR-2605192115 locks `non_profit_only` + `donation_only` and §6 requires a public, third-party-auditable proof of non-profit operation. Today the apex (`https://etzhayyim.com/`) reverse-proxies to the yoro app (`50-infra/etzhayyim-did-web/src/worker.ts` §4) and nowhere states, in plain language a visitor can read, that the religious-corp is funded only by donation and that no money ever reaches an adherent as cash (Basic High Income N1, ADR-2605301020). The donation policy is real and constitutional but invisible to the public it should reassure.
 
-**(2) Donation is defined only as money.** The `purpose` enum (`app.etzhayyim.apps.payment.sent`) and the `give.*` lexicons treat a donation as a USDC transfer routed through `TitheRouter.donate()`. But the mission's two scarcest non-cash resources are **inference compute** (Murakumo-only per ADR-2605215000 — deliberately *not* rentable from commercial GPU clouds, so capacity is genuinely constrained) and **substrate durability** (kotoba blocks / IPFS pinning / Datom replication). A supporter with a phone, a laptop, or a spare machine can give *those* directly. There is no doctrine that recognizes **donating compute** as a donation — even though it is the most mission-aligned gift available and the one the Charter's GPU constraints make most valuable.
+**(2) Donation is defined only as money.** The `purpose` enum (`com.etzhayyim.apps.payment.sent`) and the `give.*` lexicons treat a donation as a USDC transfer routed through `TitheRouter.donate()`. But the mission's two scarcest non-cash resources are **inference compute** (Murakumo-only per ADR-2605215000 — deliberately *not* rentable from commercial GPU clouds, so capacity is genuinely constrained) and **substrate durability** (kotoba blocks / IPFS pinning / Datom replication). A supporter with a phone, a laptop, or a spare machine can give *those* directly. There is no doctrine that recognizes **donating compute** as a donation — even though it is the most mission-aligned gift available and the one the Charter's GPU constraints make most valuable.
 
 The directive: **明記 donation-funded operation on etzhayyim.com, and design donation to include node participation — ameno/Murakumo browser inference, the e7m CLI, and kotoba pods.**
 
@@ -127,7 +127,7 @@ This ADR therefore **extends the ADR-2605215000 fleet definition** with a `donat
 ### 7. Implementation surface
 
 - **Worker** (`50-infra/etzhayyim-did-web/src/worker.ts`): add `GET /donate` (HTML) + `GET /.well-known/donation.json` (machine-readable) routes, served locally before the yoro proxy; cookie-free headers reused from the DID-doc branch.
-- **Lexicon** (`00-contracts/lexicons/app/etzhayyim/give/`): new `computeDonationAttestation.json` — aggregate, period-scoped, no PII: `{ period, nodeClass: ameno|e7m|kotoba, imputedValueUsdMicros, inferenceTokensServed, storageGbDays, titheable: false (const) }`. Update `give/README.md`.
+- **Lexicon** (`00-contracts/lexicons/com/etzhayyim/give/`): new `computeDonationAttestation.json` — aggregate, period-scoped, no PII: `{ period, nodeClass: ameno|e7m|kotoba, imputedValueUsdMicros, inferenceTokensServed, storageGbDays, titheable: false (const) }`. Update `give/README.md`.
 - **e7m CLI** (`70-tools/`): `e7m node join|leave|status` design stub — registers/withdraws a donated Murakumo/kotoba node; R0 documents the surface, live enrollment gated (G9).
 - **deps.toml**: `[[adrs]]` registry entry + a `[donation]` section (media, node classes, gates) as machine-readable SSoT.
 - **No Solidity change** — cash rail is the existing TitheRouter; compute donation has no on-chain settlement (it is in-kind).
@@ -172,6 +172,6 @@ This ADR therefore **extends the ADR-2605215000 fleet definition** with a `donat
 - ADR-2605262900 (toritate — imputed-value attestation of donated compute)
 - ADR-2605231525 (No server-side signing key — donor holds keys)
 - `50-infra/etzhayyim-did-web/src/worker.ts` (apex Worker — /donate + /.well-known/donation.json)
-- `00-contracts/lexicons/app/etzhayyim/give/` (donation-side lexicons)
+- `00-contracts/lexicons/com/etzhayyim/give/` (donation-side lexicons)
 </content>
 </invoke>

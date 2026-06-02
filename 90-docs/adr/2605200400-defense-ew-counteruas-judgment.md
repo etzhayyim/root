@@ -41,9 +41,9 @@ Anduril Leonidas / Pulsar 相当のソフトウェアレイヤーが必要:
 
 | Method | NSID | 機能 |
 |---|---|---|
-| declareTarget | `app.etzhayyim.apps.defEw.declareTarget` | 脅威ターゲット宣言 (classification ≥ 3 必須) |
-| requestIntervention | `app.etzhayyim.apps.defEw.requestIntervention` | 介入要求 (人間承認トークン必須) |
-| listInterventions | `app.etzhayyim.apps.defEw.listInterventions` | 介入履歴一覧 |
+| declareTarget | `com.etzhayyim.apps.defEw.declareTarget` | 脅威ターゲット宣言 (classification ≥ 3 必須) |
+| requestIntervention | `com.etzhayyim.apps.defEw.requestIntervention` | 介入要求 (人間承認トークン必須) |
+| listInterventions | `com.etzhayyim.apps.defEw.listInterventions` | 介入履歴一覧 |
 
 ### 介入タイプ
 

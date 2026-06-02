@@ -44,7 +44,7 @@ over did:web TLS?
 ## D1 — Mesh-runner serving surface
 `50-infra/e7m-wasm-runner/serve.mjs` exposes the runner as an HTTP service:
 ```
-GET /xrpc/app.etzhayyim.actor.run?actor=<did|handle>[&cid=<cidv1>]
+GET /xrpc/com.etzhayyim.actor.run?actor=<did|handle>[&cid=<cidv1>]
 GET /healthz
 ```
 It resolves → CID/CAR-verifies → runs (core or jco component) → returns JSON, and

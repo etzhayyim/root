@@ -117,7 +117,7 @@
  {:db/ident :consumption-audit-record/detail-encrypted-cid
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "app.etzhayyim.encrypted.* CID (per-load breakdown, DID-bound)"}
+  :db/doc "com.etzhayyim.encrypted.* CID (per-load breakdown, DID-bound)"}
  {:db/ident :consumption-audit-record/timestamp
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}

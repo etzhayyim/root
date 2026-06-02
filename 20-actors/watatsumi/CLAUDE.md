@@ -89,18 +89,18 @@ See `ADR-2605252200` §4 for definitions. Key enforcement:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.watatsumi`
+**App lexicon root**: `com.etzhayyim.watatsumi`
 
 **Records (8 types, R0 stubs)**:
 
-1. `app.etzhayyim.watatsumi.pressureHullAttestation` — L1 material lot / roundness / NDT result
-2. `app.etzhayyim.watatsumi.sectionAssemblyAttestation` — L2 ring stacking + bulkhead + penetrators
-3. `app.etzhayyim.watatsumi.weldInspectionRecord` — L3 100% NDT pass log
-4. `app.etzhayyim.watatsumi.systemIntegrationAttestation` — L4 propulsion + life support + sensors
-5. `app.etzhayyim.watatsumi.sectionJoiningAttestation` — L5a final ring-to-ring weld
-6. `app.etzhayyim.watatsumi.pressureTestRecord` — L5b 1.25× design depth pressure test
-7. `app.etzhayyim.watatsumi.seaTrialRecord` — L5c dock / harbor / deep-water trial
-8. `app.etzhayyim.watatsumi.silenSubmersibleReview` — Council 5-of-7 Safe attestation, all new craft classes
+1. `com.etzhayyim.watatsumi.pressureHullAttestation` — L1 material lot / roundness / NDT result
+2. `com.etzhayyim.watatsumi.sectionAssemblyAttestation` — L2 ring stacking + bulkhead + penetrators
+3. `com.etzhayyim.watatsumi.weldInspectionRecord` — L3 100% NDT pass log
+4. `com.etzhayyim.watatsumi.systemIntegrationAttestation` — L4 propulsion + life support + sensors
+5. `com.etzhayyim.watatsumi.sectionJoiningAttestation` — L5a final ring-to-ring weld
+6. `com.etzhayyim.watatsumi.pressureTestRecord` — L5b 1.25× design depth pressure test
+7. `com.etzhayyim.watatsumi.seaTrialRecord` — L5c dock / harbor / deep-water trial
+8. `com.etzhayyim.watatsumi.silenSubmersibleReview` — Council 5-of-7 Safe attestation, all new craft classes
 
 **Deferred to R1+**: Full lexicon schema definitions. R0 ships stub JSON with `id` + `defs.main.type=record` only.
 

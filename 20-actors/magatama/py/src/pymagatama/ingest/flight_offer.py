@@ -1,6 +1,6 @@
 """Flight offer ingest tasks (Skyscanner-equivalent, ADR-0056 BPMN-as-actor).
 
-Provides LangServer task handlers behind `app.etzhayyim.apps.flightOffer.*` BPMN
+Provides LangServer task handlers behind `com.etzhayyim.apps.flightOffer.*` BPMN
 processes. Writes the existing `vertex_flight_offer` table created by
 30-graph/graph-schema/migrations/20260416110000_vertex_flight_offer.ts.
 
@@ -38,9 +38,9 @@ WATCH_TABLE = "vertex_flight_offer_watch"
 SOURCE_TABLE = "vertex_flight_offer_source"
 SOURCE_RUN_TABLE = "vertex_flight_offer_source_run"
 SOURCE_HEALTH_MV = "mv_flight_offer_source_health"
-ALERT_COLLECTION = "app.etzhayyim.apps.flightOffer.alert"
-WATCH_COLLECTION = "app.etzhayyim.apps.flightOffer.watch"
-SOURCE_RUN_COLLECTION = "app.etzhayyim.apps.flightOffer.sourceRun"
+ALERT_COLLECTION = "com.etzhayyim.apps.flightOffer.alert"
+WATCH_COLLECTION = "com.etzhayyim.apps.flightOffer.watch"
+SOURCE_RUN_COLLECTION = "com.etzhayyim.apps.flightOffer.sourceRun"
 
 AMADEUS_TOKEN_URL = "https://test.api.amadeus.com/v1/security/oauth2/token"
 AMADEUS_SEARCH_URL = "https://test.api.amadeus.com/v2/shopping/flight-offers"
@@ -65,7 +65,7 @@ def _hash8(*parts: Any) -> str:
 
 
 def _vertex_id(provider: str, offer_id: str) -> str:
-    return f"at://{FLIGHT_OFFER_DID}/app.etzhayyim.apps.flightOffer.offer/{provider}-{offer_id}"
+    return f"at://{FLIGHT_OFFER_DID}/com.etzhayyim.apps.flightOffer.offer/{provider}-{offer_id}"
 
 
 def _http_post_form(url: str, form: dict[str, str], timeout: float = 10.0) -> dict[str, Any]:

@@ -100,7 +100,7 @@ owner-asserted future-impl + pre-cutover state:
 path = "90-docs/adr/2605250730-tatekata-r1.md (reserved)"
 
 [[modules]]
-path = "00-contracts/lexicons/ai/gftd/apps/unispsc (deferred-rename)"
+path = "00-contracts/lexicons/com/etzhayyim/apps/unispsc (deferred-rename)"
 ```
 
 | State | Semantics | CI |

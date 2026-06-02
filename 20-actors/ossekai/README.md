@@ -1,7 +1,7 @@
 # ossekai (御節介) — Non-profit Religious-Corp Information-Arbitrage Elimination + Wellbecoming-Nudge Artificial-Organism Actor
 
 **DID**: `did:web:ossekai.etzhayyim.com`
-**Namespace**: `app.etzhayyim.ossekai.*`
+**Namespace**: `com.etzhayyim.ossekai.*`
 **ADR**: ADR-2605264000 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 8 cells path-reserved + 9 Lexicon skeletons
 **First-touch channel**: AT Protocol — `app.bsky.feed.post` (existing membrane per ADR-2605231902) + custom feed generator `feed.ossekai.wellbecoming` + `@mention` (NO email / SMTP at R0-R2)
@@ -95,7 +95,7 @@ Cell modules created at R1 ratification with import-time
 | `ossekai_kaizen_observer` | issachar | quarterly | unsubscribe rate / spam-flag / re-engagement-after-opt-out / staleness → KaizenProposal |
 | `ossekai_emergency_advisory` | issachar (kazaori-paired) | event | kazaori.emergencyDeclarationAttestation → expedited Wellbecoming-positive advisory |
 
-## 9 Lexicons under `app.etzhayyim.ossekai.*`
+## 9 Lexicons under `com.etzhayyim.ossekai.*`
 
 | Lexicon | Purpose |
 |---|---|
@@ -109,7 +109,7 @@ Cell modules created at R1 ratification with import-time
 | `unsubscribeRecord` | Unified unsubscribe; ingests AT Proto block/mute; G15 effective-immediately |
 | `silenOssekaiReview` | Quarterly Council audit; G4/G5/G10/G14/G15 const-field structural enforcement |
 
-See `/00-contracts/lexicons/app/etzhayyim/ossekai/README.md`.
+See `/00-contracts/lexicons/com/etzhayyim/ossekai/README.md`.
 
 ## Constitutional Gates (G1–G15)
 
@@ -159,7 +159,7 @@ unchanged). New surface:
 
 - `/20-actors/ossekai/manifest.jsonld`
 - `/20-actors/ossekai/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/ossekai/` (9 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/ossekai/` (9 Lexicons + README)
 - `/90-docs/adr/2605264000-ossekai-information-arbitrage-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605231902-feed-post-membrane-and-feed-discover-projection.md` — AT Proto first-touch substrate (preserved unchanged)
 - `/90-docs/adr/2605262400-public-data-ingestion-via-ipfs-datalad.md` — Sensor source

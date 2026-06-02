@@ -10,7 +10,7 @@ but collection and cell execution remain gated.
 | 1 | Master ADR | ✅ | `90-docs/adr/2606022300-akashi-public-ad-disclosure-kotoba-actor-r0.md` |
 | 2 | Actor README + manifest | ✅ | `20-actors/akashi/README.md`, `manifest.jsonld` |
 | 3 | Root actor index | ✅ | `CLAUDE.md` row |
-| 4 | 10 Lexicon skeletons | ✅ | `00-contracts/lexicons/app/etzhayyim/akashi/` |
+| 4 | 10 Lexicon skeletons | ✅ | `00-contracts/lexicons/com/etzhayyim/akashi/` |
 | 5 | Method note seed | ✅ | `20-actors/akashi/methods/v1-r0-seed.json` |
 | 6 | Source coverage seed | ✅ | `20-actors/akashi/registry/source-catalog.seed.json` |
 | 7 | Coverage matrix | ✅ | `20-actors/akashi/COVERAGE.md` |

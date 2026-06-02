@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yamabiko.interiorAttestation"
+ :id "com.etzhayyim.yamabiko.interiorAttestation"
  :defs
  {:main
   {:type "record"

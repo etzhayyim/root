@@ -52,7 +52,7 @@ Per ADR-2605192100 §1.12, "国家機能は parallel substrate で routing-aroun
 |---|---|
 | Operate TitheRouter as internal taxation system (10% Tithe → Public Fund) | Discharge state corporate tax obligations |
 | Publish complete on-chain financial flow for state audit visibility | Issue state-recognised tax receipts |
-| Emit `app.etzhayyim.gov.taxAuditView` records summarising 0-commercial-income claim | Provide individual 寄附金控除 receipts |
+| Emit `com.etzhayyim.gov.taxAuditView` records summarising 0-commercial-income claim | Provide individual 寄附金控除 receipts |
 | Coordinate religious-corp-level state-tax filing preparation (off-cell) | File the state tax return (filing is a human act) |
 | Notify Council if Charter Rider §2(a)-(h) violation creates commercial-income exposure | Decide what counts as commercial income (Council does this) |
 | Maintain a transparency interface for tax authorities | Negotiate with tax authorities |
@@ -91,8 +91,8 @@ Three reasons:
 ## 2. Pregel graph (5 nodes — the largest L5 cell)
 
 ```
-ingest_donation_stream    <-  MST firehose on app.etzhayyim.give.usdc.donation
-                              + app.etzhayyim.give.land.donation
+ingest_donation_stream    <-  MST firehose on com.etzhayyim.give.usdc.donation
+                              + com.etzhayyim.give.land.donation
     |
     v
 tithe_split_audit         <-  cross-check on-chain TitheRouter contract events
@@ -107,7 +107,7 @@ charter_rider_§2_check    <-  scan recent donation purposes for §2(a)-(h)
                               violations; raise Council alarm on hit
     |
     v
-emit_tax_audit_view       ->  MST PUT app.etzhayyim.gov.taxAuditView
+emit_tax_audit_view       ->  MST PUT com.etzhayyim.gov.taxAuditView
                               (annual + on-demand)
 ```
 
@@ -115,9 +115,9 @@ emit_tax_audit_view       ->  MST PUT app.etzhayyim.gov.taxAuditView
 - `tithe_split_audit` — verifies that TitheRouter's on-chain 10% split actually executed for each donation. Refuses to proceed if MST donation exists but L2 split is missing (or vice versa). This is the anti-divergence guarantee.
 - `public_fund_attribution` — reconciles Tithe inflow against Public Fund grants. Emits monthly accounting records.
 - `charter_rider_§2_check` — passes each donation's `purpose` field through the Charter Rider §2(a)-(h) scanner. If a violation is detected, raises a Council escalation immediately (does NOT continue to tax-audit-view emission until Council clears).
-- `emit_tax_audit_view` — produces the consolidated `app.etzhayyim.gov.taxAuditView` MST record annually (and on-demand). This is the public-facing audit transparency surface.
+- `emit_tax_audit_view` — produces the consolidated `com.etzhayyim.gov.taxAuditView` MST record annually (and on-demand). This is the public-facing audit transparency surface.
 
-## 3. New Lexicon `app.etzhayyim.gov.taxAuditView`
+## 3. New Lexicon `com.etzhayyim.gov.taxAuditView`
 
 To be authored in the Council-ratify PR. Schema sketch:
 

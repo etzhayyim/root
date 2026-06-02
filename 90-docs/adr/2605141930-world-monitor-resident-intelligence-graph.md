@@ -32,11 +32,11 @@ reads or resident intelligence logic.
 
 The deployed system now has these public XRPCs on `maps.etzhayyim.com`:
 
-- `app.etzhayyim.apps.maps.getWorldMonitorDashboard`
-- `app.etzhayyim.apps.maps.listIntelEvents`
-- `app.etzhayyim.apps.maps.getRiskSnapshot`
-- `app.etzhayyim.apps.maps.getLatestBrief`
-- `app.etzhayyim.apps.maps.listIntelAlerts`
+- `com.etzhayyim.apps.maps.getWorldMonitorDashboard`
+- `com.etzhayyim.apps.maps.listIntelEvents`
+- `com.etzhayyim.apps.maps.getRiskSnapshot`
+- `com.etzhayyim.apps.maps.getLatestBrief`
+- `com.etzhayyim.apps.maps.listIntelAlerts`
 
 The read implementation runs pod-side through `maps-read-langserver` and is
 proxied via `bpmn-dispatcher` / Cloudflare tunnel. The dashboard exposes
@@ -98,7 +98,7 @@ Verified on 2026-05-14 against `https://maps.etzhayyim.com`:
 
 ```bash
 curl -sS --max-time 70 \
-  -X POST https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.getWorldMonitorDashboard \
+  -X POST https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.getWorldMonitorDashboard \
   -H 'content-type: application/json' \
   --data '{"limit":2}'
 ```

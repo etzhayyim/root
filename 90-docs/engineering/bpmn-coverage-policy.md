@@ -20,8 +20,8 @@ related:
 
 Every covered BPMN actor must have all three contract surfaces:
 
-- BPMN XML under `etzhayyim-root/00-contracts/bpmn/ai/gftd/**`
-- Lexicon NSID under `00-contracts/lexicons/ai/gftd/apps/**`
+- BPMN XML under `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/**`
+- Lexicon NSID under `00-contracts/lexicons/com/etzhayyim/apps/**`
 - Graph seed binding into `vertex_bpmn_process_def` and `vertex_bpmn_lexicon_binding`
 
 This prevents a BPMN file from existing only as a static artifact without an XRPC route

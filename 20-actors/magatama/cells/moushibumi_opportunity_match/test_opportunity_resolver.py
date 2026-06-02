@@ -63,7 +63,7 @@ def _entry(tid, *, jurisdiction="jpn", channel_kind="petition", title="Channel",
 
 def _registry(*entries):
     return {
-        "$schema": "app.etzhayyim.moushibumi.participationTarget",
+        "$schema": "com.etzhayyim.moushibumi.participationTarget",
         "targets": list(entries),
     }
 

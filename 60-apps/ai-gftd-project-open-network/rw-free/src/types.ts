@@ -14,9 +14,9 @@
 
 export const ONET_DID_PREFIX = "did:web:open-network.etzhayyim.com:" as const;
 
-export const SITE_COLLECTION = "app.etzhayyim.apps.openNetwork.site";
-export const LINK_COLLECTION = "app.etzhayyim.apps.openNetwork.link";
-export const INCIDENT_COLLECTION = "app.etzhayyim.apps.openNetwork.incident";
+export const SITE_COLLECTION = "com.etzhayyim.apps.openNetwork.site";
+export const LINK_COLLECTION = "com.etzhayyim.apps.openNetwork.link";
+export const INCIDENT_COLLECTION = "com.etzhayyim.apps.openNetwork.incident";
 
 // ─── Site ───────────────────────────────────────────────────────────
 

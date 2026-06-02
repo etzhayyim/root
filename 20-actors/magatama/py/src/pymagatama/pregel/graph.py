@@ -513,7 +513,7 @@ async def ingest_malak(state: PregelState) -> dict[str, Any]:
     try:
         conn = await asyncpg.connect(_DB_URL)
         try:
-            vid = f"at://{_ACTOR_MALAK}/app.etzhayyim.apps.malak.trapMessage/{message_id}"
+            vid = f"at://{_ACTOR_MALAK}/com.etzhayyim.apps.malak.trapMessage/{message_id}"
             await conn.execute(
                 """
                 INSERT INTO graphar.vertex_malak_trap_message
@@ -563,7 +563,7 @@ async def ingest_intel(state: PregelState) -> dict[str, Any]:
     org    = state.get("spam_sender_org", "") or domain
     ckey   = f"ses-recruiter:{domain}"
     subj_id = _hash(ckey)
-    vid    = f"at://{_ACTOR_INTEL}/app.etzhayyim.apps.intel.subject/{subj_id}"
+    vid    = f"at://{_ACTOR_INTEL}/com.etzhayyim.apps.intel.subject/{subj_id}"
 
     try:
         conn = await asyncpg.connect(_DB_URL)
@@ -619,9 +619,9 @@ async def register_yabai(state: PregelState) -> dict[str, Any]:
     }
     category, confidence, severity = _YABAI_META.get(kind, ("spam", 0.70, 3))
 
-    entity_vid  = f"at://{_ACTOR_YABAI}/app.etzhayyim.apps.yabai.entity/{entity_id}"
+    entity_vid  = f"at://{_ACTOR_YABAI}/com.etzhayyim.apps.yabai.entity/{entity_id}"
     evidence_id = f"ev-{_hash(state['message_id'] + 'yabai')}"
-    evidence_vid = f"at://{_ACTOR_YABAI}/app.etzhayyim.apps.yabai.evidence/{evidence_id}"
+    evidence_vid = f"at://{_ACTOR_YABAI}/com.etzhayyim.apps.yabai.evidence/{evidence_id}"
 
     try:
         conn = await asyncpg.connect(_DB_URL)
@@ -730,7 +730,7 @@ async def handle_blocker(state: PregelState) -> dict[str, Any]:
                 "bodyText": ack_body,
             }).encode()
             req = urllib.request.Request(
-                f"{_MICROSOFT_XRPC}/app.etzhayyim.apps.microsoft.sendMail",
+                f"{_MICROSOFT_XRPC}/com.etzhayyim.apps.microsoft.sendMail",
                 data=payload,
                 headers={"Content-Type": "application/json"},
                 method="POST",
@@ -1262,7 +1262,7 @@ async def triage_ingest_rw(state: TriageState) -> dict[str, Any]:
     if not message_id:
         return {"triage_written": False, "triage_error": "missing message_id"}
 
-    vertex_id  = f"at://{_TRIAGE_OWNER_DID}/app.etzhayyim.apps.pregel.inboxTriage/{message_id}"
+    vertex_id  = f"at://{_TRIAGE_OWNER_DID}/com.etzhayyim.apps.pregel.inboxTriage/{message_id}"
     now        = _utc_now_str()
 
     try:

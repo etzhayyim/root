@@ -1,4 +1,4 @@
-# app.etzhayyim.kokoro.* — kokoro (心) Lexicons
+# com.etzhayyim.kokoro.* — kokoro (心) Lexicons
 
 **Owner actor**: `did:web:kokoro.etzhayyim.com` (`20-actors/kokoro/`)
 **ADR**: ADR-2605263700 (R0 scaffold)

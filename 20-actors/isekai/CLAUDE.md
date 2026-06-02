@@ -72,16 +72,16 @@
 
 | Kind (W Protocol) | AT Collection NSID | WIT Source | 永続化 |
 |---|---|---|---|
-| `isekai.worldState` | `app.etzhayyim.isekai.worldState` | `gftd:isekai/open-world` | AT Record |
-| `isekai.chunkData` | `app.etzhayyim.isekai.chunkData` | `gftd:isekai/voxel-terrain` | AT Record |
-| `isekai.craftRecipe` | `app.etzhayyim.isekai.craftRecipe` | `gftd:isekai/crafting` | AT Record |
-| `isekai.brainrotEvent` | `app.etzhayyim.isekai.brainrotEvent` | `gftd:isekai/brainrot-event` | AT Record |
-| `isekai.creatureRoster` | `app.etzhayyim.isekai.creatureRoster` | `gftd:isekai/creature` | AT Record |
-| `isekai.game.battle` | `app.etzhayyim.isekai.game.battle` | `gftd:kami/pokoa` | AT Record (analytics) |
-| `isekai.game.capture` | `app.etzhayyim.isekai.game.capture` | `gftd:kami/pokoa` | AT Record (analytics) |
-| `isekai.game.craft` | `app.etzhayyim.isekai.game.craft` | `gftd:isekai/crafting` | AT Record (analytics) |
-| `isekai.game.brainrotEncounter` | `app.etzhayyim.isekai.game.brainrotEncounter` | `gftd:isekai/brainrot-event` | AT Record (analytics) |
-| `isekai.complianceDep` | `app.etzhayyim.isekai.complianceDep` | compliance graph | AT Record |
+| `isekai.worldState` | `com.etzhayyim.isekai.worldState` | `gftd:isekai/open-world` | AT Record |
+| `isekai.chunkData` | `com.etzhayyim.isekai.chunkData` | `gftd:isekai/voxel-terrain` | AT Record |
+| `isekai.craftRecipe` | `com.etzhayyim.isekai.craftRecipe` | `gftd:isekai/crafting` | AT Record |
+| `isekai.brainrotEvent` | `com.etzhayyim.isekai.brainrotEvent` | `gftd:isekai/brainrot-event` | AT Record |
+| `isekai.creatureRoster` | `com.etzhayyim.isekai.creatureRoster` | `gftd:isekai/creature` | AT Record |
+| `isekai.game.battle` | `com.etzhayyim.isekai.game.battle` | `gftd:kami/pokoa` | AT Record (analytics) |
+| `isekai.game.capture` | `com.etzhayyim.isekai.game.capture` | `gftd:kami/pokoa` | AT Record (analytics) |
+| `isekai.game.craft` | `com.etzhayyim.isekai.game.craft` | `gftd:isekai/crafting` | AT Record (analytics) |
+| `isekai.game.brainrotEncounter` | `com.etzhayyim.isekai.game.brainrotEncounter` | `gftd:isekai/brainrot-event` | AT Record (analytics) |
+| `isekai.complianceDep` | `com.etzhayyim.isekai.complianceDep` | compliance graph | AT Record |
 
 **非永続 (KNP real-time):** player position, voxel edit stream, battle animation state, brainrot NPC movement
 
@@ -99,8 +99,8 @@
 | Nintendo v Palworld | Lawsuit | — | Original species, crafted balls, no throwing animation |
 | Minecraft trade dress | Trade dress | — | PBR rendering, SDF characters, brainrot aesthetic |
 
-**登録**: `app.etzhayyim.isekai.registerCompliance` コマンドで全ノードを graph に投入
-**照会**: `app.etzhayyim.isekai.getCompliance` で risk level フィルタ可能
+**登録**: `com.etzhayyim.isekai.registerCompliance` コマンドで全ノードを graph に投入
+**照会**: `com.etzhayyim.isekai.getCompliance` で risk level フィルタ可能
 
 ## KAMI Engine Integration
 

@@ -13,7 +13,7 @@ priority_note: "World submarine-cable network as a kotoba knowledge graph; resil
 authoritative_for:
   - watatsuna actor (world submarine-cable network knowledge graph)
   - submarine-cable-ontology kotoba schema
-  - app.etzhayyim.cable.* kotoba-native lexicons (supersede legacy gftd telecom/telecomInfra/cableRepairFleet)
+  - com.etzhayyim.cable.* kotoba-native lexicons (supersede legacy gftd telecom/telecomInfra/cableRepairFleet)
   - watatsumi cable-laying robotics fleet
 depends_on:
   - adr-2606011800-tsumugi-spirit-intel-power-graph
@@ -108,12 +108,12 @@ concentration, **routed to redundancy + faster repair**.
 
 ## 2. kotoba-native lexicons — migrate the legacy `gftd` cable lexicons (founder ask "c")
 
-New `app.etzhayyim.cable.*` namespace asserting into the kotoba Datom log
+New `com.etzhayyim.cable.*` namespace asserting into the kotoba Datom log
 (`txCid` + `datomCount`, ADR-2605312345), with `:sourcing` on every record:
 `registerCableSystem` · `registerLandingStation` · `registerSegment` · `flagCableFault`.
 
 Full inventory + legacy→kotoba mapping is the SoT in
-`00-contracts/lexicons/app/etzhayyim/cable/MIGRATION-NOTES.md`. Notably,
+`00-contracts/lexicons/com/etzhayyim/cable/MIGRATION-NOTES.md`. Notably,
 `cableRepairFleet.flagSubseaCableTamper` is **RETIRED, not ported** — a "tamper flag"
 presumes intent adjudication (violates G4) and reads as interdiction-adjacent. Repair-fleet
 lexicons (`registerRepairVessel`, `logRepairMission`) move to **watatsumi** (operational).
@@ -178,7 +178,7 @@ where `redundancy-gap`, pre-stage repair where `chokepoint-load` is high. watats
 
 - `20-actors/watatsuna/` — actor (manifest, README, CLAUDE, data, methods, out)
 - `00-contracts/schemas/submarine-cable-ontology.kotoba.edn` — vocabulary
-- `00-contracts/lexicons/app/etzhayyim/cable/` — kotoba-native lexicons + MIGRATION-NOTES.md
+- `00-contracts/lexicons/com/etzhayyim/cable/` — kotoba-native lexicons + MIGRATION-NOTES.md
 - `20-actors/watatsumi/data/cable-laying-fleet.kotoba.edn` — cable-laying robotics fleet
 - `50-infra/etzhayyim-did-web/src/registry/infra-actors.ts` — `INFRA_ACTORS.watatsuna`
 - ADR-2605252200 (watatsumi R0, N8) · ADR-2606011800 (tsumugi, observation-actor pattern) ·

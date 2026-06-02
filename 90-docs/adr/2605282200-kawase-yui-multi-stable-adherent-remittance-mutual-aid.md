@@ -14,7 +14,7 @@ authoritative_for:
   - kawase-yui (為替結) actor charter — adherent-to-adherent multi-stable remittance via pre-funded pools
   - pool-match Pregel cell topology + mid-market FX oracle policy
   - constitutional gates G1..G14 + non-goals N1..N12
-  - Lexicon family app.etzhayyim.kawase.* (8 schemas, R0 scaffold)
+  - Lexicon family com.etzhayyim.kawase.* (8 schemas, R0 scaffold)
   - Cross-actor binding with wakai (mutual aid sibling), chigiri (multi-juris compliance), toritate (accounting), mKOTO economy (cell compute cost)
 depends_on:
   - "2605282100"   # mKOTO economy — cell compute cost layer
@@ -68,7 +68,7 @@ These are constitutionally non-starters. But the **substrate primitives** for th
 
 - Multi-stable on-chain settlement: USDC + EURC on Base L2 native (Circle-issued, regulated reserve, Apache-compatible).
 - DID-bound ERC-4337 Smart Account (ADR-2605172100 L2) gives adherent-level identity without state KYC.
-- Adherent SBT (`app.etzhayyim.adherent.*`) gives membership gating that replaces FATF passport KYC under Charter §1.12 routing-around precedent.
+- Adherent SBT (`com.etzhayyim.adherent.*`) gives membership gating that replaces FATF passport KYC under Charter §1.12 routing-around precedent.
 - kotoba Pregel cells (ADR-2605262130) give continuous bipartite matching topology.
 - mKOTO economy (ADR-2605282100) gives a non-transferable internal accounting unit for cell compute cost.
 - wakai (ADR-2605263500) gives the **mutual aid** constitutional framing for adherent-to-adherent risk pooling.
@@ -195,7 +195,7 @@ This is the only flow where the religious-corp interacts with a DEX. It is struc
 
 ### Lexicons (8 schemas at R0)
 
-Under `00-contracts/lexicons/app/etzhayyim/kawase/`:
+Under `00-contracts/lexicons/com/etzhayyim/kawase/`:
 
 1. **`depositAttestation.json`** — sender-side L1 Quad (CACAO-signed by sender DID).
    Fields: senderDid, recipientDid, srcStable, tgtStable, srcAmountMinor, tgtAmountMinorQuoted, fxRateBps, fxRateAttestationCid, intentCid, depositTxHash, blockNumber, perMonthCapRemainingMinor, encryptedMemoCid (optional, ADR-2605181100), depositedAt.
@@ -434,7 +434,7 @@ contract KawaseYuiPool {
 - ADR-2605181100 (signal-envelope encryption — optional memo)
 - ADR-2605231525 (server-side signing capability — DID-bound auth)
 - ADR-2605192300 (Bootstrap Council — Lv6+ ≥3 / Lv6+ ≥4/7 / Lv7+ unanimity gates)
-- `00-contracts/lexicons/app/etzhayyim/kawase/` (8 Lexicons landed this commit)
+- `00-contracts/lexicons/com/etzhayyim/kawase/` (8 Lexicons landed this commit)
 - `50-infra/etzhayyim-kawase-pool/` (R1 Solidity scaffold destination)
 - `20-actors/magatama/cells/kawase_*/` (5 Pregel cell paths reserved at R0)
 - `20-actors/kawase-yui/` (Tier-B actor root, R1 scaffold destination)

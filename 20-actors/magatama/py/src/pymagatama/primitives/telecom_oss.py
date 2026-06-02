@@ -105,7 +105,7 @@ def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
 
 
 def _vid(kind: str, ident: str) -> str:
-    return f"at://did:web:telecom.etzhayyim.com/app.etzhayyim.apps.telecom.{kind}/{ident}"
+    return f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.{kind}/{ident}"
 
 
 # ─── Task implementations ───────────────────────────────────────────────

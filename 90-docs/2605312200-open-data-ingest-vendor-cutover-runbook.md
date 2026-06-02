@@ -30,7 +30,7 @@ Every etzhayyim ingest worker isolates ALL domain-fact writes to a single seam:
 - `ingest.kg_open._persist_entities`
 
 The kotoba-side RW→datomic refactor (vendor ADR-2605302130) is a one-function
-swap per seam → `ai.gftd.apps.kotoba.datomic.transact` of the same entity dicts,
+swap per seam → `com.etzhayyim.apps.kotoba.datomic.transact` of the same entity dicts,
 into an **etzhayyim-owned graph** (never the vendor commercial `kotobase-kg-v1`).
 The kotoba datomic endpoint is in-cluster (`*.svc.cluster.local`) and gated on its
 scaling fix, so it is **not executable / verifiable from the dev host** — this is

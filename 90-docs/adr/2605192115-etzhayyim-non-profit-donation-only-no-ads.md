@@ -94,7 +94,7 @@ purpose: "donation" | "kisha" | "grant" | "tithe" | "escrow-refund",
 ```
 
 **Lexicon 変更**:
-- `00-contracts/lexicons/ai/gftd/apps/payment/sent.json` の `purpose` enum を narrow
+- `00-contracts/lexicons/com/etzhayyim/apps/payment/sent.json` の `purpose` enum を narrow
 - `streamStarted.json` の用途を kisha 専用 (Superfluid stream は subscription ではなく per-second kisha flow として位置付け)
 - 新規 lexicon `tithe.json` を追加 (ADR-2605192130 で specify)
 
@@ -265,7 +265,7 @@ allowed_strings:                    # internal context (new)
 
 internal carve-out が abuse されないよう、以下の guardrail を設ける:
 
-- internal-purchase の record (`app.etzhayyim.apps.payment.sent` with purpose=`internal-purchase`) は **必ず両者の SBT tokenId を含む**
+- internal-purchase の record (`com.etzhayyim.apps.payment.sent` with purpose=`internal-purchase`) は **必ず両者の SBT tokenId を含む**
 - SBT holder が internal-purchase record を作成した直後に SBT を revoke してそれを external に再販する pattern は、Council Lv6+ が retroactive non-compliant attestation する (ADR-2605192200 §5)
 - internal-promo は etzhayyim 配下の AppView (`ai-gftd-project-*`) からのみ発信可、外部 channel (Twitter / Meta / Google) からは禁止
 
@@ -286,7 +286,7 @@ etzhayyim/root の非営利性を第三者が監査できるよう、以下を o
 - Public Fund 残高 + 出金 (ADR-2605192145)
 - Kisha-Stream 累計分配額 — `KishaStream.sol` (ADR-2605172300 §2) で公開
 - Tithe 累計再分配額 — ADR-2605192130 の `TitheRouter.sol` で公開
-- 役員報酬 (もしあれば) — `app.etzhayyim.apps.etzhayyim.officer-compensation` AT Record として MST に公開 (current value: 0 — 役員は無報酬)
+- 役員報酬 (もしあれば) — `com.etzhayyim.apps.etzhayyim.officer-compensation` AT Record として MST に公開 (current value: 0 — 役員は無報酬)
 
 ## 6. 商業的 collaborators との関係
 

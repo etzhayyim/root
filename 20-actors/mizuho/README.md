@@ -1,7 +1,7 @@
 # mizuho (水穂) — Non-profit Religious-Corp Water + Sanitation Substrate
 
 **DID**: `did:web:mizuho.etzhayyim.com`
-**Namespace**: `app.etzhayyim.mizuho.*`
+**Namespace**: `com.etzhayyim.mizuho.*`
 **ADR**: ADR-2605263100 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 6 cells path-reserved + 5 Lexicon skeletons
 **Cross-actor pairs**: mitsuho (irrigation) / hagukumi (daily-living) / iyashi (clinical) / yakushi (WFI feed) / tatekata (MEP) / hodoki (greywater recovery) / hikari (edge power)
@@ -15,7 +15,7 @@ Both Japanese characters can read "mizuho" in standard romanization.
 **Disambiguation**:
 - Filesystem: `20-actors/mizuho/` (this) vs `20-actors/mitsuho/` (food)
 - DID: `did:web:mizuho.etzhayyim.com` (this) vs `did:web:mitsuho.etzhayyim.com` (food)
-- Lexicon namespace: `app.etzhayyim.mizuho.*` (this) vs `app.etzhayyim.mitsuho.*` (food)
+- Lexicon namespace: `com.etzhayyim.mizuho.*` (this) vs `com.etzhayyim.mitsuho.*` (food)
 
 User explicitly proposed `mizuho (水穂)` in the gap audit row 4; this
 ADR follows verbatim.
@@ -83,7 +83,7 @@ Cell modules created at R1 ratification, import-time
 | `mizuho_irrigation_supply` | dan (mitsuho-paired) | continuous | irrigation dispatch → mitsuho cross-actor |
 | `mizuho_clinical_grade_water_supply` | dan (L4 triad-paired) | continuous | clinical-grade dispatch → iyashi + hagukumi + yakushi cross-actor |
 
-## 5 Lexicons under `app.etzhayyim.mizuho.*`
+## 5 Lexicons under `com.etzhayyim.mizuho.*`
 
 | Lexicon | Purpose |
 |---|---|
@@ -93,7 +93,7 @@ Cell modules created at R1 ratification, import-time
 | `waterContaminationIncident` | Anomaly / contamination event; severity enum; chigiri.disputeMediation routing if critical |
 | `silenMizuhoReview` | Quarterly Wellbecoming + closed-loop ratio + multi-gen consumption review |
 
-See `/00-contracts/lexicons/app/etzhayyim/mizuho/README.md`.
+See `/00-contracts/lexicons/com/etzhayyim/mizuho/README.md`.
 
 ## Constitutional Gates (G1–G12)
 
@@ -124,7 +124,7 @@ See ADR-2605263100 §6.
 
 - `/20-actors/mizuho/manifest.jsonld`
 - `/20-actors/mizuho/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/mizuho/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/mizuho/` (5 Lexicons + README)
 - `/90-docs/adr/2605263100-mizuho-water-sanitation-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605192245-etzhayyim-global-land-sovereignty.md` — G11 source
 - `/90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md` — cross-actor clinical

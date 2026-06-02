@@ -103,7 +103,7 @@ path = "90-docs/adr/2605250730-tatekata-construction-r1.md (reserved)"
 # → owner-asserted: future R-cycle will produce this path
 
 [[modules]]
-path = "00-contracts/lexicons/ai/gftd/apps/unispsc (deferred-rename)"
+path = "00-contracts/lexicons/com/etzhayyim/apps/unispsc (deferred-rename)"
 adr = ["2605180900"]
 # → intentionally pre-cutover per CLAUDE.md root §"Do Not" gftd-rename invariant
 ```

@@ -219,7 +219,7 @@
    :actor/performer-type :system
    :actor/ui-type :appview
    :actor/description "kotoba-Datomic structural atlas of every government unit on Earth (国→省→庁→局→課→窓口) with 住所/窓口/書式/手続き/BPMN. The read-side SSoT danjo/kanae/tsumugi/toritsugi/himotoki consume. An observational MIRROR + civic wayfinding map — NEVER the government, NEVER an official channel, NEVER a target-list (G3/G10)."
-   :actor/primary-lexicon "app.etzhayyim.ooyake"
+   :actor/primary-lexicon "com.etzhayyim.ooyake"
    :actor/primary-schema "00-contracts/schemas/gov-atlas-ontology.kotoba.edn"
    :actor/adr ["2606021600"]
    :actor/created-at "2026-06-02"

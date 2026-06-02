@@ -16,7 +16,7 @@ from pymagatama.db_sync import sync_cursor
 
 
 PDS_DID = "did:web:atproto.etzhayyim.com"
-OUTBOX_SYNC_COLLECTION = "app.etzhayyim.apps.pds.writeOutboxSync"
+OUTBOX_SYNC_COLLECTION = "com.etzhayyim.apps.pds.writeOutboxSync"
 DEFAULT_TIMEOUT_SEC = 60.0
 
 

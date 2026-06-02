@@ -137,7 +137,7 @@ async def task_transfer_signal(
         store = select_belief_store()
         rec = SaikinTransferRecord(
             edge_id=transfer_id,
-            src_vid=f"at://{SAIKIN_DID}/app.etzhayyim.apps.saikin.signal/{signal_id}",
+            src_vid=f"at://{SAIKIN_DID}/com.etzhayyim.apps.saikin.signal/{signal_id}",
             dst_vid=f"at://{target_did}/",
             relation_kind="saikin_transfer",
             value_json=json.dumps({"inputKind": input_kind, "signalHash": signal_hash}),
@@ -187,7 +187,7 @@ async def task_form_colony(
         return {"error": "signalIds required"}
 
     colony_id = _uid("col")
-    colony_vid = f"at://{SAIKIN_DID}/app.etzhayyim.apps.saikin.colony/{colony_id}"
+    colony_vid = f"at://{SAIKIN_DID}/com.etzhayyim.apps.saikin.colony/{colony_id}"
     now = _now()
     member_count = len(signalIds)
 
@@ -218,7 +218,7 @@ async def task_form_colony(
             mem_rec = SaikinMemberRecord(
                 edge_id=edge_id,
                 src_vid=colony_vid,
-                dst_vid=f"at://{SAIKIN_DID}/app.etzhayyim.apps.saikin.signal/{sid}",
+                dst_vid=f"at://{SAIKIN_DID}/com.etzhayyim.apps.saikin.signal/{sid}",
                 relation_kind="saikin_member",
                 value_json=json.dumps({}),
                 created_at=now,
@@ -306,7 +306,7 @@ async def task_handoff_to_ki(
         return {"error": "colonyId or signalId required"}
 
     absorb_id = _uid("xyl")
-    absorb_vid = f"at://{KI_DID}/app.etzhayyim.apps.ki.absorb/{absorb_id}"
+    absorb_vid = f"at://{KI_DID}/com.etzhayyim.apps.ki.absorb/{absorb_id}"
     now = _now()
 
     def _run() -> dict[str, Any]:

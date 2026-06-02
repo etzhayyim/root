@@ -56,13 +56,13 @@ Browser → kuruma.etzhayyim.com → XRPC /xrpc/{NSID}
 
 | Actor | DID Path Prefix | NSID Collection | ID Source |
 |---|---|---|---|
-| vehicle | `vehicle_{id}` | `app.etzhayyim.apps.kuruma.vehicle` | vehicle_id (VIN or slug) |
-| maker | `maker_{slug}` | `app.etzhayyim.apps.kuruma.maker` | make_slug |
-| parts | `parts_{part_number}` | `app.etzhayyim.apps.kuruma.parts` | OEM part number |
-| seller | `seller_{dealer_id}` | `app.etzhayyim.apps.kuruma.seller` | dealer ID |
-| maintainer | `maintainer_{shop_id}` | `app.etzhayyim.apps.kuruma.maintainer` | shop ID |
-| insurance | `insurance_{provider_slug}` | `app.etzhayyim.apps.kuruma.insurance` | provider slug |
-| registration | `registration_{plate_slug}` | `app.etzhayyim.apps.kuruma.registration` | plate slug |
+| vehicle | `vehicle_{id}` | `com.etzhayyim.apps.kuruma.vehicle` | vehicle_id (VIN or slug) |
+| maker | `maker_{slug}` | `com.etzhayyim.apps.kuruma.maker` | make_slug |
+| parts | `parts_{part_number}` | `com.etzhayyim.apps.kuruma.parts` | OEM part number |
+| seller | `seller_{dealer_id}` | `com.etzhayyim.apps.kuruma.seller` | dealer ID |
+| maintainer | `maintainer_{shop_id}` | `com.etzhayyim.apps.kuruma.maintainer` | shop ID |
+| insurance | `insurance_{provider_slug}` | `com.etzhayyim.apps.kuruma.insurance` | provider slug |
+| registration | `registration_{plate_slug}` | `com.etzhayyim.apps.kuruma.registration` | plate slug |
 
 ## Graph Model
 

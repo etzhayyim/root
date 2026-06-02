@@ -76,9 +76,9 @@ etzhayyim/root rather than leaving it vendor-side.
 4. **NSID namespace = `com.etzhayyim.apps.hakken.*`** (operator-directed, reverse-DNS of
    etzhayyim.com). hakken had no legacy gftd lexicon (vendor wrote kotoba datoms directly), so
    the namespace is native. **Note:** the established record-NSID authority elsewhere in
-   etzhayyim/root is `app.etzhayyim.*` (consent / council / encrypted / esign), with
+   etzhayyim/root is `com.etzhayyim.*` (consent / council / encrypted / esign), with
    `com.etzhayyim.*` otherwise reserved for launchd/system labels. `com.etzhayyim.*` was chosen
-   here by explicit operator direction; if the org standardises record NSIDs on `app.etzhayyim.*`,
+   here by explicit operator direction; if the org standardises record NSIDs on `com.etzhayyim.*`,
    hakken should follow in a later sweep (lexicons + write-path collections + magatama
    `nsidPrefixes`).
 
@@ -106,8 +106,8 @@ nor settlement counterparty; gftd remains both for any hakken-originated sale.
   without this the PDS validator hangs with `Lexicon not found`. The PDS typed registry
   (`gen-pds-lexicon-registry.mjs`) + Worker redeploy is a **Phase 2 deploy prerequisite**
   (no etzhayyim deploy happens in this commit; vendor is unchanged).
-- **This PR is hakken-only.** `main` independently migrated tsukuru to `app.etzhayyim.apps.tsukuru.*`
-  (~86 files, part of a repo-wide `app.etzhayyim.apps.*` standard — 15,758 occurrences vs 0 for
+- **This PR is hakken-only.** `main` independently migrated tsukuru to `com.etzhayyim.apps.tsukuru.*`
+  (~86 files, part of a repo-wide `com.etzhayyim.apps.*` standard — 15,758 occurrences vs 0 for
   `com.etzhayyim.*`). Per operator direction (2026-06-01), tsukuru will be converted to
   `com.etzhayyim.apps.tsukuru.*` to match hakken, **but in a separate follow-up PR** because it
   overrides merged work across 86 files including cross-app refs (aidesk / hc), graph migrations,
@@ -118,10 +118,10 @@ nor settlement counterparty; gftd remains both for any hakken-originated sale.
   shared payment/escrow authority (`payment.escrowOpened/escrowRefunded/sent/split/stream`,
   read by treasury / tithe) is owned by a different actor and is NOT part of the hakken or
   tsukuru namespace decision — it follows whatever the payment authority standardises on
-  (currently `app.etzhayyim.apps.payment.*` on main).
-- **Open:** the `com.etzhayyim.*` vs `app.etzhayyim.*` record-NSID convention (see Decision §4)
+  (currently `com.etzhayyim.apps.payment.*` on main).
+- **Open:** the `com.etzhayyim.*` vs `com.etzhayyim.*` record-NSID convention (see Decision §4)
   needs an org-level ruling. The operator chose `com.etzhayyim.*` for hakken/tsukuru with full
-  knowledge that the repo standard is `app.etzhayyim.*`; this divergence is deliberate and
+  knowledge that the repo standard is `com.etzhayyim.*`; this divergence is deliberate and
   documented, to be revisited at org-level standardisation.
 
 ## Status update (2026-06-02 — session close)
@@ -139,8 +139,8 @@ All migration PRs merged to `etzhayyim/root` main:
 - **#718 (merged)** — tsukuru converted to `com.etzhayyim.apps.tsukuru.*` (ADR-2606020000).
 
 **Code state:** the moved pipeline is **un-refactored by design** — it still references vendor
-`kotoba`/RisingWave/Stripe and `ai.gftd.*` NSIDs. Per operator direction the refactor
-(RW → kotoba/PDS, Stripe tail → gftd consent capability, `ai.gftd.*` → `com.etzhayyim.*`,
+`kotoba`/RisingWave/Stripe and `com.etzhayyim.*` NSIDs. Per operator direction the refactor
+(RW → kotoba/PDS, Stripe tail → gftd consent capability, `com.etzhayyim.*` → `com.etzhayyim.*`,
 wiring the pipeline to the rw-free ingest surface) happens **on the etzhayyim side** and is the
 remaining Phase 2/3 work. Vendor `hakken.gftd.ai` is unchanged (Phase 4 sunset still pending,
 after etzhayyim deploy proves stable).

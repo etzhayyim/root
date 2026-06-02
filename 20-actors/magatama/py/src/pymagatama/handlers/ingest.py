@@ -124,7 +124,7 @@ def _plan_payload(params: dict[str, Any]) -> dict[str, Any]:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.ingest.plan",
+    nsid="com.etzhayyim.apps.ingest.plan",
     io_threads=16,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -139,7 +139,7 @@ def ingest_plan(params_json: str) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.ingest.start",
+    nsid="com.etzhayyim.apps.ingest.start",
     io_threads=16,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -203,7 +203,7 @@ def ingest_start(params_json: str) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.ingest.backfill",
+    nsid="com.etzhayyim.apps.ingest.backfill",
     io_threads=16,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -222,7 +222,7 @@ def ingest_backfill(params_json: str) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.ingest.status",
+    nsid="com.etzhayyim.apps.ingest.status",
     io_threads=16,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -284,7 +284,7 @@ def _update_run_status(params: dict[str, Any], status: str) -> int:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.ingest.pause",
+    nsid="com.etzhayyim.apps.ingest.pause",
     io_threads=16,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -303,7 +303,7 @@ def ingest_pause(params_json: str) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.ingest.resume",
+    nsid="com.etzhayyim.apps.ingest.resume",
     io_threads=16,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -322,7 +322,7 @@ def ingest_resume(params_json: str) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.ingest.validate",
+    nsid="com.etzhayyim.apps.ingest.validate",
     io_threads=16,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -362,7 +362,7 @@ def ingest_validate(params_json: str) -> str:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.coverage.refresh",
+    nsid="com.etzhayyim.apps.coverage.refresh",
     io_threads=16,
     input_types=["VARCHAR"],
     result_type="VARCHAR",

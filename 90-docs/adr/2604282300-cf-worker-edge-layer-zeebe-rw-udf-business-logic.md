@@ -192,7 +192,7 @@ MCP tools/call or XRPC nsid
 
 新規 actor の追加手順:
 
-1. `00-contracts/lexicons/ai/gftd/apps/<actor>/<method>.json` 作成
+1. `00-contracts/lexicons/com/etzhayyim/apps/<actor>/<method>.json` 作成
 2. `vertex_actor_registry` に行 INSERT
 3. `vertex_mcp_tool_def` に行 INSERT (`sync-mcp-registry.py` で sync 可)
 4. LangServer method (`actor.<name>.<method>` or `tool.<name>`) を
@@ -221,7 +221,7 @@ Zeebe/pyzeebe/SpiffWorkflow worker は historical migration source であり、
 - RisingWave への domain read/write (`asyncpg` / psycopg3 / SQLAlchemy Core)
 - LLM/tool call と external API fetch
 - OCEL audit emit (`generic.audit.emit`)
-- Shinka heartbeat (`app.etzhayyim.shinka.tick`)
+- Shinka heartbeat (`com.etzhayyim.shinka.tick`)
 
 ### FastAPI + Granian / LangServer pod surface
 
@@ -331,13 +331,13 @@ CF Worker 全体の前提を次の通り更新する。
    AgentGateway / LangServer 経由で実現する。固定互換 URL や CF binding が必要な
    場合でも、Worker は adapter/proxy に限定する。
 
-Historical validation: `app.etzhayyim.apps.llm.answerWithKnowledge?stream=1` was served by
+Historical validation: `com.etzhayyim.apps.llm.answerWithKnowledge?stream=1` was served by
 `dispatcher.etzhayyim.com` with SSE events while the actual work runs in the
 `llm-knowledge-zeebe-worker` pool. PDS/ATProto workers must preserve this stream
 when proxying BPMN NSIDs. New validation target is the same stream contract via
 AgentGateway MCP and pod-side LangServer.
 
-2026-04-29 phase validation: `llm.etzhayyim.com/xrpc/app.etzhayyim.apps.llm.answerWithKnowledge`
+2026-04-29 phase validation: `llm.etzhayyim.com/xrpc/com.etzhayyim.apps.llm.answerWithKnowledge`
 now delegates to the same PDS/BPMN path and preserves SSE (`started`,
 `heartbeat`, `complete`) without buffering. The `llm_knowledge` Python primitive
 must not synthesize an extractive fallback answer when the LLM backend fails or
@@ -346,7 +346,7 @@ caller can surface backend loss explicitly.
 
 2026-04-29 Projector validation: `yoro.etzhayyim.com/projects/*` now routes Pokopia /
 Dream Island questions, or explicit `/knowledge ...`, to
-`llm.etzhayyim.com/xrpc/app.etzhayyim.apps.llm.answerWithKnowledge?stream=1` using browser
+`llm.etzhayyim.com/xrpc/com.etzhayyim.apps.llm.answerWithKnowledge?stream=1` using browser
 `fetch()` stream parsing. The public `llm.etzhayyim.com` hostname is served by the
 RunPod gateway Worker, so that Worker exposes only this knowledge XRPC as a
 thin CORS/SSE proxy and calls the `magatama-llm8cf4ai` Worker by service binding.
@@ -484,7 +484,7 @@ CF edge を踏むことは ADR 原則 (Business logic は K8s Pod に) に反す
 | NSID prefix | ルーティング先 | 実装関数 | 備考 |
 |---|---|---|---|
 | `app.bsky.*` / `chat.bsky.*` / `com.atproto.repo.*` | C-path: `vertex_repo_record` 直接 INSERT | `_pds_dispatch_c_path` | graph-visible, AT federation なし |
-| `app.etzhayyim.*` | bpmn-dispatcher ClusterIP (`x-internal-trust` 認証) | `_pds_dispatch_internal_xrpc` | K8s クラスタ内完結 |
+| `com.etzhayyim.*` | bpmn-dispatcher ClusterIP (`x-internal-trust` 認証) | `_pds_dispatch_internal_xrpc` | K8s クラスタ内完結 |
 | その他 | legacy PDS HTTP (`https://atproto.etzhayyim.com`) | `_pds_dispatch_legacy` | 後方互換フォールバック |
 
 ### C-path 詳細 (social/AT writes)
@@ -592,7 +592,7 @@ AgentGateway MCP and pod-side LangServer methods. Existing BPMN processes and
 
 ### Implementation references
 
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/{transport-extra,twin-sensor-sim,spatiotemporal,registry-media}/`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/{transport-extra,twin-sensor-sim,spatiotemporal,registry-media}/`
 - `20-actors/magatama/py/src/pymagatama/ingest/maps_collection.py`
 - `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
 - `30-graph/graph-schema/migrations/20260430216400_seed_maps_collection_bpmn_actors.ts`

@@ -74,7 +74,7 @@ NVIDIA stack 9 components 全てに対し canonical KAMI 実装 + nv-compat faca
 | # | NVIDIA component | KAMI canonical | crate / package | nv-compat facade |
 |---|---|---|---|---|
 | 1 | Omniverse Kit | **amenominaka** (天之御中) | `40-engine/kami-engine/kami-app-amenominaka/` | `nv-compat/omni-kit-app` |
-| 2 | Nucleus | **yatachain-nucleus** | 既存 yatachain (MST + IPFS + Base L2) + 新 `app.etzhayyim.sim.usd.layer` Lexicon | `nv-compat/omni-nucleus` |
+| 2 | Nucleus | **yatachain-nucleus** | 既存 yatachain (MST + IPFS + Base L2) + 新 `com.etzhayyim.sim.usd.layer` Lexicon | `nv-compat/omni-nucleus` |
 | 3 | Isaac Sim | **e7m-sim** (R1 articulated phase) | 既存 `70-tools/e7m-sim/` + 新 `kami-articulated` + `kami-genesis` | `nv-compat/isaacsim` |
 | 4 | Isaac Lab | **e7m-shugyo** (修行) | 既存 `70-tools/isaac-lab-task-port/` + 新 `kami-shugyo` | `nv-compat/isaaclab` |
 | 5 | OptiX | **hikari-rt** (光) | 新 `40-engine/kami-engine/kami-rt/` (WebGPU ray-query + WGSL BVH) | `nv-compat/optix` |

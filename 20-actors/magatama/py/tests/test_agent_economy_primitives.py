@@ -95,7 +95,7 @@ def test_insert_normalizes_timestamp_values_for_risingwave(
     AE._insert(
         "vertex_agent_economy_profile",
         {
-            "vertex_id": "at://did:web:agent.etzhayyim.com/app.etzhayyim.agent.economyProfile/profile_test",
+            "vertex_id": "at://did:web:agent.etzhayyim.com/com.etzhayyim.agent.economyProfile/profile_test",
             "created_at": "2026-04-30T02:04:58Z",
             "updated_at": None,
         },

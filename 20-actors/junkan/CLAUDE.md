@@ -83,7 +83,7 @@ import-time `RuntimeError` until R1). State is a `TypedDict`
 `emit_findings` never routes to any dispatch/post/mention node — that node does
 not exist (G4).
 
-## Lexicons (`app.etzhayyim.junkan.*`)
+## Lexicons (`com.etzhayyim.junkan.*`)
 
 - `societalStockObservation` — append-only; aggregate-only (G6); immutable (G9)
 - `causalLoopFinding` — R/B type + currentRegime {virtuous, vicious, neutral, transitioning} + hypothesisOnly const true (G5)

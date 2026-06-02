@@ -8,7 +8,7 @@
 | performerType | service |
 | nanoid | bn7k2m4x |
 | primary DID | `did:web:isbn.etzhayyim.com` |
-| NSID prefix | `app.etzhayyim.isbn.*` |
+| NSID prefix | `com.etzhayyim.isbn.*` |
 
 ## What This App Does
 
@@ -31,14 +31,14 @@ ISO 2108 International Standard Book Number registry。世界中の書籍を DID
 
 | collection | NSID | 内容 |
 |---|---|---|
-| book | `app.etzhayyim.isbn.book` | ISBN master (isbn13, title, authors, publisher, year, language) |
-| publisher | `app.etzhayyim.isbn.publisher` | Publisher prefix registry |
-| edition | `app.etzhayyim.isbn.edition` | Edition/format variants (hardcover, paperback, ebook) |
-| series | `app.etzhayyim.isbn.series` | Book series grouping |
-| coverage_report | `app.etzhayyim.isbn.coverage_report` | Coverage metrics per group |
-| book_chapter | `app.etzhayyim.isbn.book_chapter` | チャプター単位テキスト (isbn13, chapter_number, title, text, token_count, language) |
-| book_fulltext | `app.etzhayyim.isbn.book_fulltext` | 全文メタデータ (isbn13, source, source_url, format, total_chapters, total_tokens, license) |
-| book_copyright | `app.etzhayyim.isbn.book_copyright` | 著作権状態 (isbn13, status: pd/cc0/cc_by/cc_by_sa, author_death_year, jurisdiction, evidence_url) |
+| book | `com.etzhayyim.isbn.book` | ISBN master (isbn13, title, authors, publisher, year, language) |
+| publisher | `com.etzhayyim.isbn.publisher` | Publisher prefix registry |
+| edition | `com.etzhayyim.isbn.edition` | Edition/format variants (hardcover, paperback, ebook) |
+| series | `com.etzhayyim.isbn.series` | Book series grouping |
+| coverage_report | `com.etzhayyim.isbn.coverage_report` | Coverage metrics per group |
+| book_chapter | `com.etzhayyim.isbn.book_chapter` | チャプター単位テキスト (isbn13, chapter_number, title, text, token_count, language) |
+| book_fulltext | `com.etzhayyim.isbn.book_fulltext` | 全文メタデータ (isbn13, source, source_url, format, total_chapters, total_tokens, license) |
+| book_copyright | `com.etzhayyim.isbn.book_copyright` | 著作権状態 (isbn13, status: pd/cc0/cc_by/cc_by_sa, author_death_year, jurisdiction, evidence_url) |
 
 ## SQL Graph (Fulltext)
 
@@ -168,7 +168,7 @@ Aozora, Gutenberg, and Internet Archive works without a published ISBN are mappe
 - `30-graph/graph-schema/migrations/20260505100000_vertex_isbn_book.ts` — schema (5 vertex + 1 edge + 2 MV)
 - `30-graph/graph-schema/migrations/20260505100100_seed_isbn_bpmn_actors.ts` — initial BPMN seed (v1, manual-start, superseded)
 - `30-graph/graph-schema/migrations/20260505110000_isbn_bpmn_v2_no_cf_worker.ts` — **v2 redesign**: drop XRPC bindings, drop refreshDaily, all 5 ingests timer-start
-- `00-contracts/lexicons/ai/gftd/apps/isbn/{book,lookup,list,coverage}.json` — 4 lexicons (1 record + 3 read query, schema documentation only — no live endpoint)
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/isbn/*.bpmn` — 5 timer-start BPMN definitions
+- `00-contracts/lexicons/com/etzhayyim/apps/isbn/{book,lookup,list,coverage}.json` — 4 lexicons (1 record + 3 read query, schema documentation only — no live endpoint)
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/isbn/*.bpmn` — 5 timer-start BPMN definitions
 - `20-actors/magatama/py/src/pymagatama/primitives/isbn.py` — 5 LangServer task handlers + chapter chunking + B2 sigv4
 - `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py` — `_isbn_register(worker)` wired after patent register

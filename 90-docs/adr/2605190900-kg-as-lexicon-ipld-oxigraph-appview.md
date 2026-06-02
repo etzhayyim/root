@@ -1,6 +1,6 @@
 ---
 id: adr-2605190900-kg-as-lexicon-ipld-oxigraph-appview
-title: "ADR-2605190900: Knowledge Graph as Lexicon — app.etzhayyim.kg.{node,edge} + IPLD payload + ephemeral OxiGraph AppView"
+title: "ADR-2605190900: Knowledge Graph as Lexicon — com.etzhayyim.kg.{node,edge} + IPLD payload + ephemeral OxiGraph AppView"
 status: proposed
 doc_type: adr
 topic: kg-as-lexicon-ipld-oxigraph-appview
@@ -12,7 +12,7 @@ weight: 0.65
 priority_note: "Defines the substrate-native knowledge graph layer for dependency / ADR / module / actor / capability relations. Reuses the MST → IPFS → L2 spine from ADR-2605171800 as KG persistence. Activates once first KG records land in 30-graph/."
 authoritative_for:
   - knowledge graph data model on etzhayyim substrate
-  - Lexicons app.etzhayyim.kg.node and app.etzhayyim.kg.edge
+  - Lexicons com.etzhayyim.kg.node and com.etzhayyim.kg.edge
   - IPLD payload convention for KG records (DAG-CBOR, CID-linked)
   - ephemeral AppView convention (in-memory triplestore, replayable, RW-free)
   - relationship to deps.toml SSoT (deps.toml stays canonical; KG is projected view)
@@ -28,7 +28,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605190900: Knowledge Graph as Lexicon — `app.etzhayyim.kg.{node,edge}` + IPLD payload + ephemeral OxiGraph AppView
+# ADR-2605190900: Knowledge Graph as Lexicon — `com.etzhayyim.kg.{node,edge}` + IPLD payload + ephemeral OxiGraph AppView
 
 **Status**: proposed
 **Date**: 2026-05-19
@@ -92,8 +92,8 @@ Adopt a three-layer knowledge graph:
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │  Layer 1 — KG as ATProto records                                    │
-│  ─ app.etzhayyim.kg.node      (record)                              │
-│  ─ app.etzhayyim.kg.edge      (record)                              │
+│  ─ com.etzhayyim.kg.node      (record)                              │
+│  ─ com.etzhayyim.kg.edge      (record)                              │
 │  ─ payload blobs as IPLD DAG-CBOR (CID-linked from records)         │
 └───────────────────────────────┬─────────────────────────────────────┘
                                 │  reuses ADR-2605171800 pipeline
@@ -114,14 +114,14 @@ Adopt a three-layer knowledge graph:
 
 ## Layer 1 — Lexicon definitions
 
-Placed under `00-contracts/lexicons/app/etzhayyim/kg/`.
+Placed under `00-contracts/lexicons/com/etzhayyim/kg/`.
 
-### `app.etzhayyim.kg.node`
+### `com.etzhayyim.kg.node`
 
 ```jsonc
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.kg.node",
+  "id": "com.etzhayyim.kg.node",
   "defs": {
     "main": {
       "type": "record",
@@ -148,12 +148,12 @@ Placed under `00-contracts/lexicons/app/etzhayyim/kg/`.
 }
 ```
 
-### `app.etzhayyim.kg.edge`
+### `com.etzhayyim.kg.edge`
 
 ```jsonc
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.kg.edge",
+  "id": "com.etzhayyim.kg.edge",
   "defs": {
     "main": {
       "type": "record",
@@ -200,9 +200,9 @@ New module: `30-graph/kg-appview/` (Rust).
 **Stack:**
 
 - **OxiGraph** (Rust) — embeddable W3C-compliant RDF triplestore + SPARQL 1.1 engine. Used in **in-memory mode** (`MemoryStore`). Optional disk-backed mode is **explicitly disabled** to keep RW-free.
-- **XRPC façade**: `app.etzhayyim.kg.query` (read-only SPARQL endpoint) and `app.etzhayyim.kg.describe` (DESCRIBE shorthand). Definitions live in `00-contracts/lexicons/app/etzhayyim/kg/`.
+- **XRPC façade**: `com.etzhayyim.kg.query` (read-only SPARQL endpoint) and `com.etzhayyim.kg.describe` (DESCRIBE shorthand). Definitions live in `00-contracts/lexicons/com/etzhayyim/kg/`.
 - **Ingestion**:
-  - **Live**: subscribe to MST commits via Jetstream-equivalent firehose (per ADR-2605171800) filtered to `app.etzhayyim.kg.*` records.
+  - **Live**: subscribe to MST commits via Jetstream-equivalent firehose (per ADR-2605171800) filtered to `com.etzhayyim.kg.*` records.
   - **Cold start / disaster recovery**: replay from latest L2-anchored MST root via IPFS, rehydrate triplestore from scratch.
 
 **RW-free guarantee:**
@@ -253,7 +253,7 @@ New module: `30-graph/kg-appview/` (Rust).
 
 | Stage | Deliverable | Owner |
 |---|---|---|
-| **K0** | This ADR merged; lexicon files committed under `00-contracts/lexicons/app/etzhayyim/kg/` | done by this PR |
+| **K0** | This ADR merged; lexicon files committed under `00-contracts/lexicons/com/etzhayyim/kg/` | done by this PR |
 | **K1** | `30-graph/kg-projector/` TS package: `deps.toml` + ADR front-matter → `kg.node` / `kg.edge` records, idempotent | next PR |
 | **K2** | `30-graph/kg-appview/` Rust crate: in-memory OxiGraph + Jetstream firehose subscriber + XRPC SPARQL endpoint | follow-up |
 | **K3** | Cold-start replay: rehydrate AppView from latest L2-anchored MST root + IPFS | follow-up |

@@ -93,4 +93,4 @@ expressed as a single vascular layer.
 - ADR-2605071200: Myco-Yeast Artificial Organism JP Naming
 - ADR-2605071900: Koke Bryophyta Primary Fixation Layer
 - ADR-2605072000: Saikin Bacteria Horizontal Transfer Layer
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/ki/vascular-synthesis-cycle.bpmn`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/ki/vascular-synthesis-cycle.bpmn`

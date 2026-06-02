@@ -11,7 +11,7 @@ This sensor reads the per-notice NDJSON view emitted by the (TODO W1)
 ``GovProcurementObservation`` with ``jurisdiction="EU"`` (or per-
 member-state ISO-3 if the fetcher splits per-country shards).
 
-Cross-links to ``app.etzhayyim.corp.leiReference`` (ADR-2605263800
+Cross-links to ``com.etzhayyim.corp.leiReference`` (ADR-2605263800
 ``LeiSensor``) when the awardee is a legal entity with a GLEIF LEI;
 used by **toritate** (ADR-2605262900) for recipient-vendor anti-
 related-party checks.

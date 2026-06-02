@@ -12,7 +12,7 @@ Murakumo leader: `reuben` (firstborn / witness — Gen 49:3, "my might, the firs
 ## Steps
 
 1. `collectStateDiff` — read LangGraph checkpoint deltas via `pymagatama.checkpointer.MstCheckpointSaver` (ADR-2605191559); compute `(stateRootBefore, stateRootAfter, txDigest)` triple
-2. `signAndAppend` — sign triple with cell's rotating witness key; append to `auditLog` MST collection (`app.etzhayyim.apps.etzhayyim.yobel.auditEvent`)
+2. `signAndAppend` — sign triple with cell's rotating witness key; append to `auditLog` MST collection (`com.etzhayyim.apps.etzhayyim.yobel.auditEvent`)
 3. `tamperDetect` — verify previous super-step's signed triple is in the chain. Missing prior signature or hash chain break → tampering signal
 4. `anchorAuditBatch` — batched anchor via `AnchorBridge` (ADR-2605171800) every 100 audit events or 10 minutes (whichever first). MST → IPFS → Base L2 anchor tx in `AuditAnchorRegistry` contract
 5. `onTamperingDetected` (handler):
@@ -42,7 +42,7 @@ Audit log entries are **public per Charter §1.3** (transparent religious-corp a
 ## Output
 
 No XRPC method (witness is internal). Side effects:
-- Continuous writes to `app.etzhayyim.apps.etzhayyim.yobel.auditEvent` MST collection (signed)
+- Continuous writes to `com.etzhayyim.apps.etzhayyim.yobel.auditEvent` MST collection (signed)
 - Batched anchors to `AuditAnchorRegistry` Solidity contract on Base L2
 - On tampering: rite status mutation + Public Fund grant request + Council notification
 

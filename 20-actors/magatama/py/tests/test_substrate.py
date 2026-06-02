@@ -70,7 +70,7 @@ async def test_write_happy_path():
         return httpx.Response(
             200,
             json={
-                "uri": "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.source/geocode",
+                "uri": "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.source/geocode",
                 "cid": "bafyreidemo",
             },
         )
@@ -78,7 +78,7 @@ async def test_write_happy_path():
     async with _client(handler) as e:
         receipt = await e.write(
             WriteOpts(
-                collection="app.etzhayyim.maps.source",
+                collection="com.etzhayyim.maps.source",
                 record={"v": 1, "slug": "geocode"},
                 rkey="geocode",
             )
@@ -88,7 +88,7 @@ async def test_write_happy_path():
     assert receipt.uri.endswith("/geocode")
     assert receipt.cid == "bafyreidemo"
     assert captured["body"]["repo"] == DID_FIX
-    assert captured["body"]["collection"] == "app.etzhayyim.maps.source"
+    assert captured["body"]["collection"] == "com.etzhayyim.maps.source"
     assert captured["body"]["rkey"] == "geocode"
     assert captured["body"]["record"]["slug"] == "geocode"
     assert captured["headers"]["authorization"] == "Bearer test-jwt"
@@ -183,7 +183,7 @@ async def test_read_single_record_happy_path():
         )
 
     async with _client(handler) as e:
-        resp = await e.read(ReadOpts(collection="app.etzhayyim.maps.source", rkey="geocode"))
+        resp = await e.read(ReadOpts(collection="com.etzhayyim.maps.source", rkey="geocode"))
 
     assert isinstance(resp, ReadResponse)
     assert len(resp.records) == 1
@@ -225,7 +225,7 @@ async def test_read_list_records_with_prefix():
     async with _client(handler) as e:
         resp = await e.read(
             ReadOpts(
-                collection="app.etzhayyim.maps.source",
+                collection="com.etzhayyim.maps.source",
                 prefix="registry-",
                 limit=50,
             )

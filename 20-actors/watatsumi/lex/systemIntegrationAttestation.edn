@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.watatsumi.systemIntegrationAttestation"
+ :id "com.etzhayyim.watatsumi.systemIntegrationAttestation"
  :defs
  {:main
   {:type "record"

@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.wadachi.trajectoryPlan"
+ :id "com.etzhayyim.wadachi.trajectoryPlan"
  :defs
  {:main
   {:type "record"

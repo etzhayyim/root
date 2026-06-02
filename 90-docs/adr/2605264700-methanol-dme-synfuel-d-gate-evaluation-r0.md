@@ -122,7 +122,7 @@ R3+ consumer actors MUST ratify their own consumer-side ADR before drawing metha
 ## §5 New Lexicons (R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   methanolBatchAttestation,           # per-batch: H2 Lexicon CIDs + CO2 Lexicon CIDs + mass-balance
   dmeBatchAttestation,                # per-batch DME (with parent methanol batch CIDs)
   methanolStorageInventory,           # per-LANDS-parcel + tank-grade + leak-containment

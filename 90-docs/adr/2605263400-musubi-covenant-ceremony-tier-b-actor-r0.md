@@ -9,11 +9,11 @@ last_verified: 2026-05-26
 priority: 6.5
 axis: ceremony
 weight: 0.55
-priority_note: "Sixth-priority gap-closure actor (gap audit row 6 = 冠婚葬祭 covenant ceremonies). Performs the ceremonies that chigiri (ADR-2605262700) attests on-chain. The chigiri.covenant_ceremony cell explicitly path-reserved musubi as its cross-actor pair at R2 activation; this ADR realizes that pair. 任意団体 internal ceremony performance substrate at did:web:musubi.etzhayyim.com (20-actors/musubi/). Etymology: 結 (musubi) = tie / knot / bind / connect; Shinto 産霊 (musubi) = generative-creative force tying threads of life — apt for ceremonies that tie families (marriage) / name new lives (naming) / honor passages (funeral) / commit vocations (vow). Scope = marriage ceremony (covenant rite; NOT state-recognized; Charter §1.12 routing-around) / naming ceremony (Adherent SBT issuance ritual; cross-actor with chigiri.member_onboarding) / funeral ceremony 葬送 (cross-actor with chigiri.inheritance + future shidemori memorial) / vocation vow (L5 vocation-flow steward commitment) / rededication ceremony (post-voluntary-withdrawal return or post-excommunication cure per chigiri G12) / seasonal communal ceremony (新年 / 祈年 / 収穫 + Wellbecoming festival cycles). **Constitutional octet**: (1) NO clergy class G3 (Reformed 万人祭司 priesthood-of-all-believers invariant per Charter §1.7; officiants are L5 vocation-flow community-witnessed-competent, NOT ordained clergy) / (2) NO mandatory ritual attendance G4 (free conscience invariant; member opt-in) / (3) Per-ceremony consent G5 (default-deny for non-applicant participation) / (4) NO commercial wedding/funeral industry software G6 (Aisle Planner / Honeybook / The Knot / WeddingWire / Zola / SRS Computing / Aldor / Wilbert / Frazer Consultants PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) covert-ops vendor concern — vendor closed query-tracking on member life-events exposes deeply personal posture) / (5) NO bride price / dowry coercive economic structure G7 (anti-coercive ceremony economy; gifts permitted but coercive transfer prohibited) / (6) NO video recording without per-party consent G8 (ceremony privacy; mirrors hagukumi G2 / iyashi G3) / (7) NO sacrament-as-transubstantiation theology G9 (Sola Scriptura + Reformed memorial view; communal practice without doctrinal monopoly) / (8) Cross-actor chigiri.covenantAttestation emit MANDATORY G11 (chigiri attests on-chain; musubi performs ceremony; non-emit = procedure invisible per chigiri G2). 6 cells / 5 Lexicons under app.etzhayyim.musubi.* / 13 immutable gates / 12 non-goals / 4-phase R0..R3. Cross-actor: chigiri (covenant_ceremony pair; attestation emit) / iyashi (post-clinical healing-rite ceremonial closure for chronic conditions) / hagukumi (children/elder ceremony participation; multi-gen) / shidemori (future; funeral → memorial NFT cross-link) / kokoro (future; grief / mental-health surge post-funeral) / chigiri.stewardLaborAttestation (officiant L5 classification) / toritate (ceremony venue cost via Public Fund grant if applicable)."
+priority_note: "Sixth-priority gap-closure actor (gap audit row 6 = 冠婚葬祭 covenant ceremonies). Performs the ceremonies that chigiri (ADR-2605262700) attests on-chain. The chigiri.covenant_ceremony cell explicitly path-reserved musubi as its cross-actor pair at R2 activation; this ADR realizes that pair. 任意団体 internal ceremony performance substrate at did:web:musubi.etzhayyim.com (20-actors/musubi/). Etymology: 結 (musubi) = tie / knot / bind / connect; Shinto 産霊 (musubi) = generative-creative force tying threads of life — apt for ceremonies that tie families (marriage) / name new lives (naming) / honor passages (funeral) / commit vocations (vow). Scope = marriage ceremony (covenant rite; NOT state-recognized; Charter §1.12 routing-around) / naming ceremony (Adherent SBT issuance ritual; cross-actor with chigiri.member_onboarding) / funeral ceremony 葬送 (cross-actor with chigiri.inheritance + future shidemori memorial) / vocation vow (L5 vocation-flow steward commitment) / rededication ceremony (post-voluntary-withdrawal return or post-excommunication cure per chigiri G12) / seasonal communal ceremony (新年 / 祈年 / 収穫 + Wellbecoming festival cycles). **Constitutional octet**: (1) NO clergy class G3 (Reformed 万人祭司 priesthood-of-all-believers invariant per Charter §1.7; officiants are L5 vocation-flow community-witnessed-competent, NOT ordained clergy) / (2) NO mandatory ritual attendance G4 (free conscience invariant; member opt-in) / (3) Per-ceremony consent G5 (default-deny for non-applicant participation) / (4) NO commercial wedding/funeral industry software G6 (Aisle Planner / Honeybook / The Knot / WeddingWire / Zola / SRS Computing / Aldor / Wilbert / Frazer Consultants PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) covert-ops vendor concern — vendor closed query-tracking on member life-events exposes deeply personal posture) / (5) NO bride price / dowry coercive economic structure G7 (anti-coercive ceremony economy; gifts permitted but coercive transfer prohibited) / (6) NO video recording without per-party consent G8 (ceremony privacy; mirrors hagukumi G2 / iyashi G3) / (7) NO sacrament-as-transubstantiation theology G9 (Sola Scriptura + Reformed memorial view; communal practice without doctrinal monopoly) / (8) Cross-actor chigiri.covenantAttestation emit MANDATORY G11 (chigiri attests on-chain; musubi performs ceremony; non-emit = procedure invisible per chigiri G2). 6 cells / 5 Lexicons under com.etzhayyim.musubi.* / 13 immutable gates / 12 non-goals / 4-phase R0..R3. Cross-actor: chigiri (covenant_ceremony pair; attestation emit) / iyashi (post-clinical healing-rite ceremonial closure for chronic conditions) / hagukumi (children/elder ceremony participation; multi-gen) / shidemori (future; funeral → memorial NFT cross-link) / kokoro (future; grief / mental-health surge post-funeral) / chigiri.stewardLaborAttestation (officiant L5 classification) / toritate (ceremony venue cost via Public Fund grant if applicable)."
 authoritative_for:
   - musubi actor R0 charter
   - religious-corp covenant ceremony performance substrate single SoT
-  - `app.etzhayyim.musubi.*` Lexicon namespace boundary
+  - `com.etzhayyim.musubi.*` Lexicon namespace boundary
   - Reformed 万人祭司 invariant (no clergy class; officiants are L5 vocation-flow community-witnessed)
   - prohibition on commercial wedding/funeral industry software
   - anti-coercive ceremony economy (no bride price / dowry)
@@ -130,7 +130,7 @@ Constitutional constraints (inherited; not adjustable):
 Create `musubi` (結) as a Tier-B religious-corp covenant ceremony
 substrate actor at `20-actors/musubi/`, with DID
 `did:web:musubi.etzhayyim.com`, Lexicon namespace
-`app.etzhayyim.musubi.*`. R0 = scaffold only; all cells import-time
+`com.etzhayyim.musubi.*`. R0 = scaffold only; all cells import-time
 `RuntimeError`.
 
 ## §1. Identity and naming
@@ -139,7 +139,7 @@ substrate actor at `20-actors/musubi/`, with DID
 |---|---|
 | Name | `musubi` (結 — tie / knot / bind / connect; Shinto 産霊 generative force) |
 | DID | `did:web:musubi.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.musubi.*` |
+| Lexicon root | `com.etzhayyim.musubi.*` |
 | Form | 任意団体 internal covenant ceremony performance substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | Cross-actor pair | **chigiri** (chigiri attests, musubi performs; chigiri.covenant_ceremony cell explicit path-reserve at R2) |
@@ -222,7 +222,7 @@ attestations on file (different from clergy ordination per G3 — these
 are community-witnessed-competence attestations) + community-witness
 registry initialized.
 
-## §4. Lexicons (5, all under `app.etzhayyim.musubi.*`)
+## §4. Lexicons (5, all under `com.etzhayyim.musubi.*`)
 
 | # | Lexicon | Consumer cell | Description |
 |---|---|---|---|
@@ -237,7 +237,7 @@ registry initialized.
 | Gate | Description |
 |---|---|
 | **G1** | Every ceremony document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `app.etzhayyim.musubi.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.musubi.*` Lexicon with yatachain attestation lineage. |
 | **G3** | **NO clergy class** — Reformed 万人祭司 per Charter §1.7; officiants are L5 vocation-flow community-witnessed-competent; `officiantAttestation.officiantClass` enum DELIBERATELY excludes "clergy" / "ordained" / "priest" / "bishop" / "minister-with-ecclesiastical-authority". |
 | **G4** | **NO mandatory ritual attendance** — free conscience invariant; member opt-in only; non-participation NEVER grounds for membership consequences. |
 | **G5** | **Per-ceremony consent** (default-deny) — `ceremonyPerformanceAttestation.partyConsentCids` REQUIRED for all primary participants. |
@@ -295,7 +295,7 @@ registry initialized.
 
 1. This ADR (`90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/musubi/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/musubi/` + README;
+3. 5 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/musubi/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 73 + Repo Layout entry.

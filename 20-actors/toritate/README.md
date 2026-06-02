@@ -1,7 +1,7 @@
 # toritate (執帳) — Non-profit Religious-Corp Accounting + Audit Substrate
 
 **DID**: `did:web:toritate.etzhayyim.com`
-**Namespace**: `app.etzhayyim.toritate.*`
+**Namespace**: `com.etzhayyim.toritate.*`
 **ADR**: ADR-2605262900 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — 6 cells path-reserved + 5 Lexicon skeletons
 **Cross-actor sibling**: chigiri (ADR-2605262700; tax_receipt boundary, 2-way)
@@ -52,7 +52,7 @@ Cell modules created at R1 ratification, import-time
 | `toritate_transaction_ledger` | reuben | continuous | raw on-chain Base L2 tx parsing + categorization |
 | `toritate_annual_audit_report` | reuben | annual (event) | aggregate cells (1-5) → annual transparency report + Council ≥3 attestation |
 
-## 5 Lexicons under `app.etzhayyim.toritate.*`
+## 5 Lexicons under `com.etzhayyim.toritate.*`
 
 | Lexicon | Description |
 |---|---|
@@ -62,7 +62,7 @@ Cell modules created at R1 ratification, import-time
 | `auditObservation` | Anomaly / finding; routes to Council mediation if critical |
 | `externalAuditorEngagement` | External auditor contract record (Public Fund Safe contract CID + scope + Council Lv6+) |
 
-See `/00-contracts/lexicons/app/etzhayyim/toritate/README.md` for canonical schemas.
+See `/00-contracts/lexicons/com/etzhayyim/toritate/README.md` for canonical schemas.
 
 ## Constitutional Gates (G1–G12) — IMMUTABLE R0–R3
 
@@ -114,7 +114,7 @@ attestation review.
 
 toritate is the accounting SSoT for the **Basic High Income** doctrine — the
 non-cash income/asset figure (imputed income FLOW + commons-asset access STOCK)
-published in `app.etzhayyim.liberation.metricReport.basicHighIncome`. Two
+published in `com.etzhayyim.liberation.metricReport.basicHighIncome`. Two
 R0-path-reserved cells compute it (`toritate_imputed_income_compute` +
 `toritate_commons_asset_value`) against open, method-versioned reference tables in
 `20-actors/toritate/valuation/` (`v1-retail-equiv` draft 雛形). No cash is ever
@@ -126,7 +126,7 @@ per-adherent leaderboard). See `valuation/README.md`.
 - `/20-actors/toritate/manifest.jsonld`
 - `/20-actors/toritate/CLAUDE.md`
 - `/20-actors/toritate/valuation/` (Basic High Income reference price tables — ADR-2605301020)
-- `/00-contracts/lexicons/app/etzhayyim/toritate/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/toritate/` (5 Lexicons + README)
 - `/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md`
 - `/CHARTER-RIDER.md` §2 — 8 prohibited categories (esp. §2(e) anti-gatekeeping + §2(c) covert-ops vendor)
 - `/CLAUDE.md` — Religious-corp status table

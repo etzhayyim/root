@@ -84,7 +84,7 @@ kubectl -n mitama-udf exec "$POD" -- curl -s localhost:8000/graphs
 
 ## 4. Expose to yatabase CF Worker
 
-The Worker forwards `/xrpc/app.etzhayyim.apps.yata.bmc*` to `${LG_YATABASE_URL}/xrpc/...`.
+The Worker forwards `/xrpc/com.etzhayyim.apps.yata.bmc*` to `${LG_YATABASE_URL}/xrpc/...`.
 Two production-grade paths:
 
 ### Path A — Cloudflare Tunnel (recommended)
@@ -116,11 +116,11 @@ new infra.
 ```bash
 curl -sS https://yatabase.etzhayyim.com/health
 curl -sS -H "authorization: Bearer sk_live_yata_..." \
-  https://yatabase.etzhayyim.com/xrpc/app.etzhayyim.apps.yata.bmcGetState
+  https://yatabase.etzhayyim.com/xrpc/com.etzhayyim.apps.yata.bmcGetState
 curl -sS -X POST -H "authorization: Bearer sk_live_yata_..." \
   -H "content-type: application/json" \
   -d '{"dryRun":true}' \
-  https://yatabase.etzhayyim.com/xrpc/app.etzhayyim.apps.yata.bmcIterate
+  https://yatabase.etzhayyim.com/xrpc/com.etzhayyim.apps.yata.bmcIterate
 ```
 
 Expected for the first call after fresh schema apply: `bmcGetState` returns

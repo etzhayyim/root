@@ -345,6 +345,6 @@ Legacy ingestion helpers from the removed RisingWave pipeline have been deleted.
 Common Crawl pipeline feeds into site.etzhayyim.com (internet clone gateway):
 - **WebDomain** DIDs are created in `did:web:site.etzhayyim.com:{domain-slug}` namespace
 - **WebPage** DIDs follow `did:web:site.etzhayyim.com:{domain-slug}:{page-slug}`
-- Intelligence extraction results are written as `app.etzhayyim.apps.site.domain` records
+- Intelligence extraction results are written as `com.etzhayyim.apps.site.domain` records
 - Link graph enables site.etzhayyim.com's coverage tracking for 403 world domains
 - **Profile**: `vertex_actor` に 872 domain profiles 登録済み (PDS getProfile で取得可能)

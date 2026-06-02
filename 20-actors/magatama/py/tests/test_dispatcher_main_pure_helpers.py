@@ -68,7 +68,7 @@ def test_langgraph_run_payload_preserves_input_and_promotes_identity() -> None:
         "actorDid": "did:web:yoro.etzhayyim.com",
         "threadId": "thread-1",
         "config": {"tags": ["resident"]},
-        "_nsid": "app.etzhayyim.apps.yoro.platformPulse",
+        "_nsid": "com.etzhayyim.apps.yoro.platformPulse",
     }
 
     payload = DM._langgraph_run_payload("yoro_platform_pulse", process_vars)
@@ -106,11 +106,11 @@ def test_langgraph_request_headers_empty_without_secret(monkeypatch) -> None:
 
 def test_maps_world_monitor_xrpcs_proxy_to_langserver() -> None:
     expected = {
-        "app.etzhayyim.apps.maps.getWorldMonitorDashboard",
-        "app.etzhayyim.apps.maps.listIntelEvents",
-        "app.etzhayyim.apps.maps.getRiskSnapshot",
-        "app.etzhayyim.apps.maps.getLatestBrief",
-        "app.etzhayyim.apps.maps.listIntelAlerts",
+        "com.etzhayyim.apps.maps.getWorldMonitorDashboard",
+        "com.etzhayyim.apps.maps.listIntelEvents",
+        "com.etzhayyim.apps.maps.getRiskSnapshot",
+        "com.etzhayyim.apps.maps.getLatestBrief",
+        "com.etzhayyim.apps.maps.listIntelAlerts",
     }
 
     assert expected <= DM.MAPS_LANGSERVER_PROXY_NSIDS

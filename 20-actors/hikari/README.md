@@ -1,7 +1,7 @@
 # hikari (光) — Energy Generation Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:hikari`
-**Namespace**: `app.etzhayyim.hikari.*`
+**Namespace**: `com.etzhayyim.hikari.*`
 **ADR**: ADR-2605261100 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — all cells import-time RuntimeError
 **Parent ADR**: ADR-2605261000 (Liberation Ladder — L2 Sustenance Tier gate)
@@ -86,7 +86,7 @@ R3 must scale to silicon Wave 2 fab partial load (~2 MW continuous typical; reli
 ## Lexicons (5, deferred to R1+)
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   parcelEnergyAttestation       # resource baseline + biodiversity-no-harm
   installAttestation            # vendor + sourcing Charter Rider §2(g) audit
   generationRecord              # aggregate-only; no per-adherent device PII

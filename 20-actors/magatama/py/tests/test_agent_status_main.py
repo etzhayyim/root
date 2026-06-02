@@ -9,8 +9,8 @@ def test_summarize_status_reports_repairing_organism() -> None:
     report = agent_status_main.summarize_status(
         agent_did="did:gftd:agent:test",
         launchd={
-            "app.etzhayyim.agent-daemon": True,
-            "app.etzhayyim.agent-zeebe-worker": True,
+            "com.etzhayyim.agent-daemon": True,
+            "com.etzhayyim.agent-zeebe-worker": True,
         },
         belief_rows=[
             {
@@ -206,7 +206,7 @@ def test_format_text_includes_process_status() -> None:
                 "failures": [],
             },
             "effectChannels": [{"channel": "email", "state": "live"}, {"channel": "fax", "state": "planned"}],
-            "processes": {"app.etzhayyim.agent-daemon": True, "app.etzhayyim.agent-zeebe-worker": False},
+            "processes": {"com.etzhayyim.agent-daemon": True, "com.etzhayyim.agent-zeebe-worker": False},
         }
     )
 
@@ -221,8 +221,8 @@ def test_format_text_includes_process_status() -> None:
     assert "effectChannels: live=1 total=2" in text
     assert "counterpartyMinimax: available counterparties=1 protectedAssets=1 evaluations=1" in text
     assert "informationFlow: available nodes=1 flows=1" in text
-    assert "app.etzhayyim.agent-daemon: running" in text
-    assert "app.etzhayyim.agent-zeebe-worker: down" in text
+    assert "com.etzhayyim.agent-daemon: running" in text
+    assert "com.etzhayyim.agent-zeebe-worker: down" in text
 
 
 def test_health_marks_historical_dispatch_failures_as_recovering_after_success() -> None:

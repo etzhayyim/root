@@ -23,7 +23,7 @@ so they stop re-deriving it ad hoc.
    ├─ :gov.window/*    窓口 ── handles ──▶ :gov.procedure/*
    └─ :gov.procedure/* 手続き ── form ──▶ :gov.form/* (→ chigiri template)
                        └─ bpmn ──▶ :gov.bpmn/* (00-contracts/bpmn/.../ooyake/)
-                       └─ toritsugi-ref ──▶ app.etzhayyim.toritsugi.procedure (delivery)
+                       └─ toritsugi-ref ──▶ com.etzhayyim.toritsugi.procedure (delivery)
    reconcile: :gov.unit/organism ──▶ :organism (engi) for tsumugi's 縁/取 graph
 ```
 
@@ -76,10 +76,10 @@ It is **read-only** and it is **not the government**.
 
 ## Legacy `gov*` stubs
 
-`00-contracts/bpmn/app/etzhayyim/gov<ISO3>/` (196 country dirs, ~1,574 BPMN
-stubs, legacy `ai.gftd.gov*` namespace) + `90-docs/openapi/gov*.openapi.json`
+`00-contracts/bpmn/com/etzhayyim/gov<ISO3>/` (196 country dirs, ~1,574 BPMN
+stubs, legacy `com.etzhayyim.gov*` namespace) + `90-docs/openapi/gov*.openapi.json`
 (141 skeletons) are **subsumed** by ooyake's `:gov.*` graph as their kotoba-native
-owner. The `ai.gftd.gov*` → `app.etzhayyim.ooyake.*` rename is deferred to the
+owner. The `com.etzhayyim.gov*` → `com.etzhayyim.ooyake.*` rename is deferred to the
 gated Step-8 `gftd-*` cutover (root CLAUDE.md §Do-Not) — **do not rename them
 here**.
 

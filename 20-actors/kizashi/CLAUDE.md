@@ -81,7 +81,7 @@ modality_registry ──── asher (event/annual; PUBLIC modalityCapability le
 ```
 
 Each cell = 1 Pregel graph. Cells communicate via lexicon records on
-MST (`app.etzhayyim.kizashi.*`). All cell modules at R0 are import-time
+MST (`com.etzhayyim.kizashi.*`). All cell modules at R0 are import-time
 `RuntimeError`.
 
 ## Privacy Invariant (CRITICAL)
@@ -232,7 +232,7 @@ cause-finding modalities are exactly the R3-gated regulated ones.
 - `/20-actors/kizashi/manifest.jsonld`
 - `/20-actors/kizashi/registry/modalities.seed.json` — modality capability ledger seed (G10)
 - `/20-actors/kizashi/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/kizashi/` (6 Lexicon JSONs + README)
+- `/00-contracts/lexicons/com/etzhayyim/kizashi/` (6 Lexicon JSONs + README)
 - `/90-docs/adr/2605312700-kizashi-noninvasive-multimodal-bodyscan-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md` — privacy envelope (G2)
 - `/90-docs/adr/2605181200-mst-encrypted-metadata-leak-reduction.md` — rotating pseudonym DID (N10)

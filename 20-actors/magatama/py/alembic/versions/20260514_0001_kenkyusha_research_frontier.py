@@ -46,7 +46,7 @@ def upgrade() -> None:
     ]
     for isced4, broad, narrow, name_en, name_ja in _seed:
         did = f"{_ACTOR}:discipline:{isced4}"
-        vid = f"at://{did}/app.etzhayyim.apps.kenkyusha.discipline/{isced4}"
+        vid = f"at://{did}/com.etzhayyim.apps.kenkyusha.discipline/{isced4}"
         op.execute(f"""
 INSERT INTO vertex_kenkyusha_discipline
     (vertex_id, rkey, repo, did, isced4, isced_broad, isced_narrow,

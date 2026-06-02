@@ -37,13 +37,13 @@ See CLAUDE.md gates section — enforce via manifest.jsonld.
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.wadachi`
+**App lexicon root**: `com.etzhayyim.wadachi`
 
 **Records** (3 types):
 
-1. **`app.etzhayyim.wadachi.deliveryRoute`** — Mission input (origin, dest, obstacles, payload)
-2. **`app.etzhayyim.wadachi.trajectoryPlan`** — Planned path with safety buffers
-3. **`app.etzhayyim.wadachi.missionCompleteRecord`** — Telemetry + completion status
+1. **`com.etzhayyim.wadachi.deliveryRoute`** — Mission input (origin, dest, obstacles, payload)
+2. **`com.etzhayyim.wadachi.trajectoryPlan`** — Planned path with safety buffers
+3. **`com.etzhayyim.wadachi.missionCompleteRecord`** — Telemetry + completion status
 
 ## Non-Goals (N1–N8, immutable R0–R3)
 

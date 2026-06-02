@@ -12,7 +12,7 @@ Authoritative ADR: `90-docs/adr/2604250900-gameka-bpmn-langgraph-game-studio.md`
 | Worker host | `bpmn.etzhayyim.com` (LangServer + LangServer) — no dedicated Worker |
 | Primary DID | `did:web:gameka.etzhayyim.com` |
 | Sub-DID per game | `did:web:gameka.etzhayyim.com:game:{slug}` |
-| NSID prefix | `app.etzhayyim.gameka.*` |
+| NSID prefix | `com.etzhayyim.gameka.*` |
 | Persistence (ADR-0036) | domain → Worker-direct Hyperdrive (Kysely), social → `sdk.pds.dispatch` |
 | Inference | Murakumo MLX → RunPod fallback |
 | Game build | `kami-engine` `kami-app-{slug}` Rust crate + `wasm-pack` |
@@ -126,18 +126,18 @@ image attachments — no contract change.
 - load component: linear from 4000ms (0.0) to 0ms (1.0)
 - weighted: 0.75 × fps + 0.25 × load
 
-## Lexicons (`00-contracts/lexicons/ai/gftd/apps/gameka/`)
+## Lexicons (`00-contracts/lexicons/com/etzhayyim/apps/gameka/`)
 
 | NSID | type | P1 |
 |---|---|---|
-| `app.etzhayyim.gameka.proposeGame`   | procedure | ✅ P1 (now accepts `priorSpecs[]`) |
-| `app.etzhayyim.gameka.generateGame`  | procedure | ✅ P2 / chains to playtestGame on built |
-| `app.etzhayyim.gameka.playtestGame`  | procedure | ✅ P4 |
-| `app.etzhayyim.gameka.gameSpec`      | record    | ✅ P1 |
-| `app.etzhayyim.gameka.buildArtifact` | record    | ✅ P2 |
-| `app.etzhayyim.gameka.gameQa`        | record    | ✅ P4 |
-| `app.etzhayyim.gameka.publishGame`/`tickStudio`/`respondToPlaytest` | procedure | P5-P6 |
-| `app.etzhayyim.gameka.gameTitle`     | record    | P5 |
+| `com.etzhayyim.gameka.proposeGame`   | procedure | ✅ P1 (now accepts `priorSpecs[]`) |
+| `com.etzhayyim.gameka.generateGame`  | procedure | ✅ P2 / chains to playtestGame on built |
+| `com.etzhayyim.gameka.playtestGame`  | procedure | ✅ P4 |
+| `com.etzhayyim.gameka.gameSpec`      | record    | ✅ P1 |
+| `com.etzhayyim.gameka.buildArtifact` | record    | ✅ P2 |
+| `com.etzhayyim.gameka.gameQa`        | record    | ✅ P4 |
+| `com.etzhayyim.gameka.publishGame`/`tickStudio`/`respondToPlaytest` | procedure | P5-P6 |
+| `com.etzhayyim.gameka.gameTitle`     | record    | P5 |
 
 ## RisingWave schema (`30-graph/graph-schema/migrations/20260425090000_vertex_gameka_studio.ts`)
 
@@ -162,7 +162,7 @@ START → planner → researcher → critic → should_loop?
 
 Iteration cap: 3. Score threshold: 0.8.
 
-**Task type (transitional)**: `app.etzhayyim.agent.gameka.studio`. Mirrors `app.etzhayyim.agent.plan` pattern. Will migrate to `generic.langgraph.run` (ADR-2604250836 step 2) by changing the BPMN `taskDefinition type` and providing `graph_id="gameka.studio.v1"` + `mode="oneshot"` ioMapping inputs. The graph definition itself is unchanged.
+**Task type (transitional)**: `com.etzhayyim.agent.gameka.studio`. Mirrors `com.etzhayyim.agent.plan` pattern. Will migrate to `generic.langgraph.run` (ADR-2604250836 step 2) by changing the BPMN `taskDefinition type` and providing `graph_id="gameka.studio.v1"` + `mode="oneshot"` ioMapping inputs. The graph definition itself is unchanged.
 
 ## Autonomous loop (`tickStudio.bpmn`)
 
@@ -194,8 +194,8 @@ Start (R/PT2H, no XRPC caller)
 |---|---|---|
 | 0 | Apply migration `20260425110000_vertex_gameka_studio_config.ts` (seeds `tick_live_mode=false`) | `pnpm db:migrate latest` |
 | 0 | Sync BPMN registry (`tickStudio.bpmn` becomes the 5th gameka actor) | `python3 70-tools/scripts/contract/sync-bpmn-actors.py --apply --only gameka` |
-| 0–13 | Soak — 12 dry-run ticks/day. Tail audit. Look for: degenerate briefs, LLM cost spikes, trendCount=0 every tick (media-gamers ingest broken) | `psql "$ROOT_URL" -c "SELECT created_at, value_json FROM vertex_repo_commit WHERE collection='app.etzhayyim.bpmn.audit' AND value_json LIKE '%gameka.tick.%' ORDER BY created_at DESC LIMIT 50;"` |
-| 14 | Flip live | `psql "$ROOT_URL" <<'SQL'`<br>`INSERT INTO vertex_gameka_studio_config (vertex_id, owner_did, rkey, repo, config_id, tick_live_mode, max_iterations, score_threshold, note, created_at) VALUES ('at://did:web:gameka.etzhayyim.com/app.etzhayyim.gameka.studioConfig/global', 'did:web:gameka.etzhayyim.com', 'global', 'did:web:gameka.etzhayyim.com', 'global', true, 3, 0.8, 'P7 live cutover', '2026-05-09T00:00:00Z');`<br>`SQL` |
+| 0–13 | Soak — 12 dry-run ticks/day. Tail audit. Look for: degenerate briefs, LLM cost spikes, trendCount=0 every tick (media-gamers ingest broken) | `psql "$ROOT_URL" -c "SELECT created_at, value_json FROM vertex_repo_commit WHERE collection='com.etzhayyim.bpmn.audit' AND value_json LIKE '%gameka.tick.%' ORDER BY created_at DESC LIMIT 50;"` |
+| 14 | Flip live | `psql "$ROOT_URL" <<'SQL'`<br>`INSERT INTO vertex_gameka_studio_config (vertex_id, owner_did, rkey, repo, config_id, tick_live_mode, max_iterations, score_threshold, note, created_at) VALUES ('at://did:web:gameka.etzhayyim.com/com.etzhayyim.gameka.studioConfig/global', 'did:web:gameka.etzhayyim.com', 'global', 'did:web:gameka.etzhayyim.com', 'global', true, 3, 0.8, 'P7 live cutover', '2026-05-09T00:00:00Z');`<br>`SQL` |
 | 14+ | Live — every R/PT2H derive lands a fresh spec. Steady state ≈ 12 specs/day; many will revise; the planner's `priorSpecs` avoid-list keeps them diverse. | watch `vertex_gameka_title.published_at` time-density |
 
 **Hard rollback**: re-INSERT the same `vertex_id` with `tick_live_mode=false`. Next tick (within ≤2h) reverts to dry-run. RW PK-upsert means no UPDATE primitive needed.
@@ -406,7 +406,7 @@ playtestGame (pass)
 
 | Task | NSID (convention) | What you wire |
 |---|---|---|
-| `Task_ProvisionSubDid` | `app.etzhayyim.authz.provisionSubDid` | The authn.etzhayyim.com endpoint that mints + custodies a sub-DID's signing key. Input `{ parentDid, path, displayName, description }`, output `{ did, signingKeyId? }`. If your auth surface uses a different NSID, swap it here — the rest of the chain only needs the deterministic `subDid` string. |
+| `Task_ProvisionSubDid` | `com.etzhayyim.authz.provisionSubDid` | The authn.etzhayyim.com endpoint that mints + custodies a sub-DID's signing key. Input `{ parentDid, path, displayName, description }`, output `{ did, signingKeyId? }`. If your auth surface uses a different NSID, swap it here — the rest of the chain only needs the deterministic `subDid` string. |
 
 **Failure semantics**: provisioning failure aborts before any title row is written → graph stays consistent (no title without a key). The launch post failing leaves a written title row + a populated `launchPostUri=""` in the audit payload — operator can retry the post manually without re-minting.
 
@@ -511,7 +511,7 @@ Smoke per spec (run any one or all three):
 
 ```bash
 SPEC=spec-merge-grid-2048   # or -drop-suika / -field-triple
-curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.gameka.generateGame \
+curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.gameka.generateGame \
   -H "authorization: Bearer $etzhayyim_TOKEN" \
   -H "content-type: application/json" \
   -d "{\"specId\":\"$SPEC\"}"
@@ -588,10 +588,10 @@ python3 70-tools/scripts/contract/sync-bpmn-actors.py --apply --only gameka
 
 # 3. Rebuild + roll the langserver-worker so the new task handlers are live
 #    (build + Helm rollout per etzhayyim-root/50-infra/vultr/zeebe runbook).
-#    Registers app.etzhayyim.agent.gameka.studio + gameka.codegen.renderKamiApp.
+#    Registers com.etzhayyim.agent.gameka.studio + gameka.codegen.renderKamiApp.
 
 # 4. proposeGame → spec lands
-curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.gameka.proposeGame \
+curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.gameka.proposeGame \
   -H "content-type: application/json" \
   -H "authorization: Bearer $etzhayyim_TOKEN" \
   -d '{"brief":"a cozy quarry-walk roguelike with one weather rune"}'
@@ -602,7 +602,7 @@ psql "$ROOT_URL" -c "SELECT spec_id, title, slug, score, iteration \
 # 5. generateGame → kami-app sources hash lands
 SPEC_ID=$(psql "$ROOT_URL" -At -c "SELECT spec_id FROM vertex_gameka_spec \
   ORDER BY created_at DESC LIMIT 1;")
-curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.gameka.generateGame \
+curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.gameka.generateGame \
   -H "content-type: application/json" \
   -H "authorization: Bearer $etzhayyim_TOKEN" \
   -d "{\"specId\":\"$SPEC_ID\"}"

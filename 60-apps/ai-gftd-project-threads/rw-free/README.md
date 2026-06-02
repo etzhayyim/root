@@ -6,7 +6,7 @@ Different shape from taxonomy actors ([open-isco](../../ai-gftd-project-open-isc
 
 ## Lexicon
 
-`app.etzhayyim.apps.threads.post` (record) at [`00-contracts/lexicons/ai/gftd/apps/threads/post.json`](../../../00-contracts/lexicons/ai/gftd/apps/threads/post.json).
+`com.etzhayyim.apps.threads.post` (record) at [`00-contracts/lexicons/com/etzhayyim/apps/threads/post.json`](../../../00-contracts/lexicons/com/etzhayyim/apps/threads/post.json).
 
 | Field | Limits | Purpose |
 |---|---|---|
@@ -48,7 +48,7 @@ rw-free/
 
 ## SBT gating (not in this lexicon)
 
-Only adherents (ERC-5192 SBT holders per [ADR-2605172300](../../../90-docs/adr/2605172300-etzhayyim-bi-asset-substrate.md)) should be able to write `app.etzhayyim.apps.threads.post` records under religious-corp DIDs. That policy is enforced at the **PDS write-handler layer**, not in this lexicon — the lexicon describes only the record shape, not who's allowed to author it. Anyone can read the records once published; the substrate pipeline anchors them so the read trail is public + verifiable.
+Only adherents (ERC-5192 SBT holders per [ADR-2605172300](../../../90-docs/adr/2605172300-etzhayyim-bi-asset-substrate.md)) should be able to write `com.etzhayyim.apps.threads.post` records under religious-corp DIDs. That policy is enforced at the **PDS write-handler layer**, not in this lexicon — the lexicon describes only the record shape, not who's allowed to author it. Anyone can read the records once published; the substrate pipeline anchors them so the read trail is public + verifiable.
 
 ## Create
 
@@ -59,7 +59,7 @@ pnpm tsx src/create.ts --text="八百万の神々に和をもって学ぶ。"
 # Reply (all 4 reply-ref fields required together)
 pnpm tsx src/create.ts \
   --text="amen." \
-  --replyRootUri=at://did:web:.../app.etzhayyim.apps.threads.post/3kabc \
+  --replyRootUri=at://did:web:.../com.etzhayyim.apps.threads.post/3kabc \
   --replyRootCid=bafy... \
   --replyParentUri=at://... \
   --replyParentCid=bafy...
@@ -81,7 +81,7 @@ Reads from the SDK client's configured DID. To list a different adherent's posts
 ## Verify
 
 ```bash
-pnpm tsx src/verify.ts at://did:web:.../app.etzhayyim.apps.threads.post/3kabc...
+pnpm tsx src/verify.ts at://did:web:.../com.etzhayyim.apps.threads.post/3kabc...
 ```
 
 Returns the Merkle proof (anchored MST root + path) so any third party can re-check that the post existed at the moment claimed.
@@ -102,7 +102,7 @@ pnpm test
 
 | Surface | State |
 |---|---|
-| Record lexicon `app.etzhayyim.apps.threads.post` | ✅ |
+| Record lexicon `com.etzhayyim.apps.threads.post` | ✅ |
 | create / list / verify CLI + helpers | ✅ |
 | Pure-helper tests | ✅ 23/23 |
 | Live PDS write (first religious-social post on `pds.etzhayyim.com`) | ⏳ pending Gate 4 of [`OPERATIONAL-DEPLOY.md`](../../../50-infra/OPERATIONAL-DEPLOY.md) (PDS auth credentials) |

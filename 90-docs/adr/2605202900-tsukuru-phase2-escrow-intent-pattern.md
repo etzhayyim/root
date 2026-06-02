@@ -57,7 +57,7 @@ The Safe 2-of-3 escrow contract from `payment.escrowOpened.json` lexicon (Phase 
                  ▼
    ┌────────────────────────────────────────┐
    │ openIntent() — escrow.ts               │
-   │   write app.etzhayyim.apps.payment.          │
+   │   write com.etzhayyim.apps.payment.          │
    │     escrowOpened                       │
    │   • safeAddress = 0x0...0 placeholder  │
    │   • arbiter     = 0x0...0 placeholder  │
@@ -170,7 +170,7 @@ Output:
 "cancellableStatuses": { "type": "array", ... }
 ```
 
-These lexicons are simultaneously SSoT in vendor `00-contracts/lexicons/ai/gftd/apps/tsukuru/productionOrder/` and etzhayyim `00-contracts/lexicons/ai/gftd/apps/tsukuru/productionOrder/`. The PR updates the etzhayyim copy; vendor copy will sync at next bundle regen (lexicon Phase 6 cleanup tracking).
+These lexicons are simultaneously SSoT in vendor `00-contracts/lexicons/com/etzhayyim/apps/tsukuru/productionOrder/` and etzhayyim `00-contracts/lexicons/com/etzhayyim/apps/tsukuru/productionOrder/`. The PR updates the etzhayyim copy; vendor copy will sync at next bundle regen (lexicon Phase 6 cleanup tracking).
 
 # Consequences
 
@@ -186,7 +186,7 @@ These lexicons are simultaneously SSoT in vendor `00-contracts/lexicons/ai/gftd/
 - **No actual escrow protection until SDK v0.2.** A malicious manufacturer can't be force-refunded by an arbiter today — buyer's recourse before delivery is only "cancel and trust the record". Mitigation: only do business with manufacturers carrying reputable etzhayyim DID + community trust signals.
 - **`safeAddress = 0x0...0` is misleading.** Naive readers might think there's an actual Safe at that address. Mitigation: README documents the placeholder explicitly, and the `escrowOpened.json` lexicon description in this PR is reworded to be clearer.
 - **Buyer commitment is record-level only.** A buyer can ignore the intent and never call `pay()` at delivery. Mitigation: manufacturer-side delivery handler will require pay() before marking delivered (Phase 2 next PR).
-- **`escrowRefunded` lexicon doesn't exist yet.** The refund writes to `app.etzhayyim.apps.payment.escrowRefunded` but there's no Lexicon JSON for it yet. Filed as inline TODO in `escrow.ts`; PDS validator will throw `Lexicon not found` until the JSON is added. Sub-PR adds the lexicon before any real deploy.
+- **`escrowRefunded` lexicon doesn't exist yet.** The refund writes to `com.etzhayyim.apps.payment.escrowRefunded` but there's no Lexicon JSON for it yet. Filed as inline TODO in `escrow.ts`; PDS validator will throw `Lexicon not found` until the JSON is added. Sub-PR adds the lexicon before any real deploy.
 
 # Alternatives Considered
 
@@ -215,4 +215,4 @@ Use ERC-2612 permit() pre-authorization. Buyer signs a permit at order time, man
 - [ADR-2605172100](./2605172100-etzhayyim-payments-on-chain-only.md) — payments on-chain only
 - [@etzhayyim/sdk pay.ts](../../20-actors/etzhayyim-sdk/src/pay.ts) — SDK v0.1 working path + v0.2 stubs
 - [tsukuru rw-free](../../60-apps/ai-gftd-project-tsukuru/rw-free/) — reference impl this ADR documents
-- [`payment.escrowOpened.json`](../../00-contracts/lexicons/ai/gftd/apps/payment/escrowOpened.json) — Phase 3 wave 4 lexicon (used as intent record schema)
+- [`payment.escrowOpened.json`](../../00-contracts/lexicons/com/etzhayyim/apps/payment/escrowOpened.json) — Phase 3 wave 4 lexicon (used as intent record schema)

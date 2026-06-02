@@ -27,6 +27,6 @@ N ≥ 2. Always. Even for solo-survey (S1) phase requires 2 witnesses (use a sta
 - `community-event` / `compliance-check` — public (transparency)
 
 ## See also
-- Lexicon `00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/recordPhysicalAuditEvent.json`
+- Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/recordPhysicalAuditEvent.json`
 - ADR-2605191657 (Ed25519 DID auth — robot signature scheme)
 - ADR-2605192315 (transparent force R&D — drone-detection sensors are reused here for `intrusion` class)

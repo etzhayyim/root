@@ -38,7 +38,7 @@ notes: |
 Two days of design work (CXO-LEDGER #1-31) produced a JP-police-only
 surveillance vendor under the project name "mehikari" with:
 
-- 15 Lexicon NSIDs under `app.etzhayyim.apps.mehikari.*`
+- 15 Lexicon NSIDs under `com.etzhayyim.apps.mehikari.*`
 - Project directory `60-apps/ai-gftd-project-mehikari/`
 - LangGraph chain `langgraph_sales_outreach.py`
 - 47-prefecture seed in `60-apps/ai-gftd-project-states/data/gov/jpn/`
@@ -62,7 +62,7 @@ NSIDs are retained. Surveillance becomes a new capability cluster
 
 ## 1. NSID rename
 
-15 NSIDs collapsed into `app.etzhayyim.apps.malak.*` namespace with rebrand
+15 NSIDs collapsed into `com.etzhayyim.apps.malak.*` namespace with rebrand
 where the JP-only "mehikari" naming was generic:
 
 | Old | New | Notes |

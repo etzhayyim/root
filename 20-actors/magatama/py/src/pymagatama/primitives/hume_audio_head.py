@@ -230,7 +230,7 @@ def predict_audio_emotion(
     primary = top[0] if top else None
     algorithm = (model or {}).get("algorithm") or "wav_prosody_heuristic_v1"
     return {
-        "schema": "app.etzhayyim.apps.hume.normalizedExpression.v1",
+        "schema": "com.etzhayyim.apps.hume.normalizedExpression.v1",
         "primary": primary,
         "topEmotions": top,
         "confidence": primary["score"] if primary else 0.0,
@@ -284,12 +284,12 @@ def train_audio_centroid(rows: list[dict[str, Any]]) -> dict[str, Any]:
     n = len(rows)
     total_primary = sum(primary_counts.values()) or 1
     return {
-        "schema": "app.etzhayyim.apps.hume.studentAudioExpressionModel.v1",
+        "schema": "com.etzhayyim.apps.hume.studentAudioExpressionModel.v1",
         "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "algorithm": "wav_prosody_centroid_v1",
         "featureKeys": list(FEATURE_KEYS),
         "teacher": {"provider": "hume", "api": "expression-measurement"},
-        "outputSchema": "app.etzhayyim.apps.hume.normalizedExpression.v1",
+        "outputSchema": "com.etzhayyim.apps.hume.normalizedExpression.v1",
         "emotionCentroids": centroids,
         "primaryPriors": {name: cnt / total_primary for name, cnt in primary_counts.items()},
         "globalTopEmotions": [

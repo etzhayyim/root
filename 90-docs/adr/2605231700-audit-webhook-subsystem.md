@@ -11,7 +11,7 @@ axis: architecture
 weight: 0.70
 priority_note: "Closes the consent-capability observability gap from ADR-2605231400 §'Revocation semantics'. Provides a typed, signed, hash-chained, PHI-free event stream that the patient (or a delegated auditor) can subscribe to in order to detect honor failures by grantees (clinicians / vendor iryo / external EHRs)."
 authoritative_for:
-  - "audit event record shape (`app.etzhayyim.audit.event`)"
+  - "audit event record shape (`com.etzhayyim.audit.event`)"
   - "emission rules — which substrate operations emit events"
   - "hash-chain semantics for audit log integrity"
   - "auditor-subscription pattern"
@@ -40,7 +40,7 @@ ADR-2605231400 §"Revocation semantics" stated:
 
 ADR-2605231603 §"Audit emission" stated:
 
-> Every tombstone with non-empty `auditWebhookDids` triggers an `app.etzhayyim.audit.event` per webhook target.
+> Every tombstone with non-empty `auditWebhookDids` triggers an `com.etzhayyim.audit.event` per webhook target.
 
 Both ADRs deferred the actual event format and delivery mechanism. This ADR specifies them.
 
@@ -55,7 +55,7 @@ The forces:
 
 ## Event shape
 
-`app.etzhayyim.audit.event` (the lexicon shipping with this ADR). Required fields: `eventType`, `subjectDid`, `actorDid`, `occurredAt`, `signature`. The signature is over the canonicalized payload by the **actor** (not the auditor) — the audit record is the actor's own attestation, mirrored to the subject's audit PDS.
+`com.etzhayyim.audit.event` (the lexicon shipping with this ADR). Required fields: `eventType`, `subjectDid`, `actorDid`, `occurredAt`, `signature`. The signature is over the canonicalized payload by the **actor** (not the auditor) — the audit record is the actor's own attestation, mirrored to the subject's audit PDS.
 
 The 13 `eventType` values cover:
 
@@ -90,7 +90,7 @@ If `auditWebhookDid` is set on a capability or tombstone, an additional copy is 
 | `requestIryoBilling` | ✓ (`consent.invoked` + `billing.requested`) | — |
 | iryo claim status change | ✓ (`billing.claim.statusChanged`) | — |
 | Consent capability auto-expiry | ✓ (`consent.expired`) | — |
-| `encryptedWrite` of `app.etzhayyim.karute.*` | — | When `constraints.auditWebhookDid` set on a covering capability, OR the patient has opted in globally via `karute.setAuditPolicy` (Phase 2). |
+| `encryptedWrite` of `com.etzhayyim.karute.*` | — | When `constraints.auditWebhookDid` set on a covering capability, OR the patient has opted in globally via `karute.setAuditPolicy` (Phase 2). |
 | `encryptedRead` by non-self actor | — | Same as above. |
 | `keyWrap.issued` to grantee | ✓ (in subject's PDS) | — |
 | `keyWrap.refused` (e.g. capability invalid) | ✓ (`outcome='denied'`) | — |
@@ -105,7 +105,7 @@ If `auditWebhookDid` is set on a capability or tombstone, an additional copy is 
 
 ## UI integration
 
-`PatientPortalView.svelte` gains an "Audit log" section that subscribes to `subscribeRepos` on the patient's own `app.etzhayyim.audit.event` collection (or polls via `karute.listAuditEvents`). Each event renders with:
+`PatientPortalView.svelte` gains an "Audit log" section that subscribes to `subscribeRepos` on the patient's own `com.etzhayyim.audit.event` collection (or polls via `karute.listAuditEvents`). Each event renders with:
 
 - 🔵 consent events — issued, invoked, expired, revoked
 - 🟢 read/write — when grantees decrypt records

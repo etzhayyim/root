@@ -18,7 +18,7 @@ authoritative_for:
   - 5-layer trainset assembly process (carbody → bogie → interior → traction → final + dynamic test + homologation)
   - 9 Pregel cell catalog + Murakumo placement (R0 design-only)
   - 4 new robotics class reservation (Tsugite / Wadasa / Toritsuke / Pantagora) + 3 inherited (Otete-heavy / Mimi-precision / Akari)
-  - lexicon namespace reservation (`app.etzhayyim.yamabiko.*`, 9 record types)
+  - lexicon namespace reservation (`com.etzhayyim.yamabiko.*`, 9 record types)
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605242000-roso-pattern-frontier-distill
@@ -80,7 +80,7 @@ The user-prompted source reference is YouTube video `KFSPENlRdFU` ("Inside Giant
 | Per-trainset DID pattern (reserved) | `did:web:etzhayyim.com:yamabiko:trainset:<serial>` |
 | Per-car DID pattern (reserved) | `did:web:etzhayyim.com:yamabiko:car:<serial>` |
 | Repo location | `20-actors/yamabiko/` |
-| Lexicon namespace | `app.etzhayyim.yamabiko.*` |
+| Lexicon namespace | `com.etzhayyim.yamabiko.*` |
 | License | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 ### 2. Scope (R0)
@@ -155,7 +155,7 @@ The user-prompted source reference is YouTube video `KFSPENlRdFU` ("Inside Giant
 
 R0 contract: each cell module imports cleanly; instantiating its class succeeds; calling `.solve()` raises `RuntimeError("yamabiko R0 scaffold: activate via Council ADR-2605252615 post-ratification")`.
 
-### 7. Lexicons (9 record types under `app.etzhayyim.yamabiko.*`, R0 stubs)
+### 7. Lexicons (9 record types under `com.etzhayyim.yamabiko.*`, R0 stubs)
 
 ```
 carbodyAttestation              # L1 FSW Al extrusion carbody

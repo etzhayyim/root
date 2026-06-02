@@ -1,4 +1,4 @@
-# app.etzhayyim.musubi.* — musubi (結) Lexicons
+# com.etzhayyim.musubi.* — musubi (結) Lexicons
 
 **Owner actor**: `did:web:musubi.etzhayyim.com` (`20-actors/musubi/`)
 **ADR**: ADR-2605263400 (R0 scaffold)

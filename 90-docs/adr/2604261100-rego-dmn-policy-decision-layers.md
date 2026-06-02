@@ -23,7 +23,7 @@ superseded_by: []
 
 定義レイヤーの DSM 整理 (2026-04-26) で、現 repo は以下を網羅:
 
-- **Schema** = Lexicon (`00-contracts/lexicons/ai/gftd/**/*.json`, ~2206 app + 37 host)
+- **Schema** = Lexicon (`00-contracts/lexicons/com/etzhayyim/**/*.json`, ~2206 app + 37 host)
 - **Behavior** = BPMN (`etzhayyim-root/00-contracts/bpmn/`) + ADR-0056 BPMN-as-actor
 - **Topology** = `magatama.jsonld` / `deps.toml` / `wrangler.jsonc`
 - **Capability (T3 Container 限定)** = WIT (terminal、ADR-2604261110 で retire)
@@ -62,12 +62,12 @@ Rego は repo 未導入。
 ## Rego — AuthZ SSoT
 
 - **Bundle 構造**: `00-contracts/policies/<package>/{policy.rego, data.json, test.rego}`
-- **Package 命名**: NSID を逆ドメイン化 — `app.etzhayyim.apps.<project>.<method>` →
+- **Package 命名**: NSID を逆ドメイン化 — `com.etzhayyim.apps.<project>.<method>` →
   `package gftd.apps.<project>.<method>`
 - **Input contract** (Worker → Rego):
   ```
   input = {
-    nsid:        "app.etzhayyim.apps.foo.bar",
+    nsid:        "com.etzhayyim.apps.foo.bar",
     actor:       { did: "did:gftd:...", handles: [...] },
     target:      { did?, collection?, rkey? },
     permission_sets: ["..."],         // Lexicon Permission-Set 由来
@@ -89,7 +89,7 @@ Rego は repo 未導入。
 
 - **既存 `00-contracts/dmn/ai/` を一級化**: 全 BPMN gateway / TS 内 if/else
   classifier を DMN 1.5 XML に書き出す方針。
-- **Decision 命名**: `ai/gftd/<project>/<decision>.dmn` (Lexicon と同階層)。
+- **Decision 命名**: `com/etzhayyim/<project>/<decision>.dmn` (Lexicon と同階層)。
 - **Evaluator**: Zeebe deploy 時は Zeebe DMN engine、CF Worker in-process は
   軽量 JS evaluator (候補: `dmn-eval-js`) を `magatama-host-sdk` に追加。
 - **BPMN 連携**: BPMN `businessRuleTask` の `decisionRef` が DMN id と
@@ -133,4 +133,4 @@ Rego は repo 未導入。
 - 90-docs/adr/0056-bpmn-as-actor.md
 - 90-docs/adr/2604261110-wproto-wreactive-wit-retirement.md (subtractive companion)
 - 00-contracts/dmn/ai/ (既存)
-- 00-contracts/lexicons/ai/gftd/host/ (Permission-Set 宣言基盤)
+- 00-contracts/lexicons/com/etzhayyim/host/ (Permission-Set 宣言基盤)

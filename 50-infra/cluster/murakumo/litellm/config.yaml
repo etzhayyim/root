@@ -79,4 +79,4 @@ general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
   # No database — substrate boundary (ADR-2605172000 / 2605191358). Stateless
   # gateway only. Per-tenant usage / billing lives in the CF Worker substrate
-  # layer (app.etzhayyim.murakumo.inferenceJob* via @etzhayyim/sdk).
+  # layer (com.etzhayyim.murakumo.inferenceJob* via @etzhayyim/sdk).

@@ -1,4 +1,4 @@
-"""Wikidata SPARQL row → app.etzhayyim.maps.ownership bulk ingest (Python).
+"""Wikidata SPARQL row → com.etzhayyim.maps.ownership bulk ingest (Python).
 
 Python analog of TS
 ``60-apps/ai-gftd-project-maps/rw-free/src/registry/wikidata-ingest.ts``.
@@ -8,7 +8,7 @@ to write vessel ↔ legal-entity ownership / operator edges via the PDS
 substrate instead of legacy psycopg2 → RisingWave INSERTs.
 
 Each Wikidata triple (vessel IMO, owner LegalEntity, role) becomes one
-``app.etzhayyim.maps.ownership`` record:
+``com.etzhayyim.maps.ownership`` record:
 
   - subjectUri = AT URI of the LegalEntity feature (owner / operator)
   - objectUri  = AT URI of the Vessel feature (typically created via
@@ -37,7 +37,7 @@ log = logging.getLogger(__name__)
 
 
 WIKIDATA_SOURCE_DID = "did:web:maps.etzhayyim.com:registry:wikidata"
-OWNERSHIP_COLLECTION = "app.etzhayyim.maps.ownership"
+OWNERSHIP_COLLECTION = "com.etzhayyim.maps.ownership"
 
 # Mirrors the TS-side OWNERSHIP_RELATIONS — extended per ADR-2605231400
 # Phase 3 Tier B closure to include Operates + Manages (vessel operator
@@ -85,7 +85,7 @@ class OwnershipConverterOptions:
     legal_entity_uri_for_lei: Optional[Callable[[str], str]] = None
     """Function `(lei) → at://...legalEntity/{rkey}`. Caller-supplied so
     the converter doesn't hardcode rkey scheme. Default constructs
-    `at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.legalEntity/corporation-{lei_lc}`."""
+    `at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.legalEntity/corporation-{lei_lc}`."""
 
     legal_entity_uri_for_qid: Optional[Callable[[str], str]] = None
     """Fallback when no LEI: build URI from Wikidata QID."""
@@ -99,16 +99,16 @@ class OwnershipConverterOptions:
 
 def _default_legal_entity_uri_for_lei(lei: str) -> str:
     safe = lei.lower()
-    return f"at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.legalEntity/corporation-{safe}"
+    return f"at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.legalEntity/corporation-{safe}"
 
 
 def _default_legal_entity_uri_for_qid(qid: str) -> str:
     safe = qid.lower()
-    return f"at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.legalEntity/corporation-wd-{safe}"
+    return f"at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.legalEntity/corporation-wd-{safe}"
 
 
 def _default_vessel_uri_for_imo(imo: int) -> str:
-    return f"at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.feature/vessel-imo-{imo}"
+    return f"at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.feature/vessel-imo-{imo}"
 
 
 @dataclass

@@ -36,7 +36,7 @@ superseded_by: []
 Before this change kotoba could do **text** semantic search: `kotoba-ingest::cc`
 embeds Common Crawl WET chunks into `cc/embed/*` datoms, builds a pure-Rust IVF
 index (`kotoba-ingest::ivf`), and serves ANN queries over
-`ai.gftd.apps.kotoba.cc.search` / `cc.rag`. The substrate *to store other
+`com.etzhayyim.apps.kotoba.cc.search` / `cc.rag`. The substrate *to store other
 modalities already existed* — the KSE `Vault` chunks `image/*`, `video/*`,
 `audio/*` and document bytes content-addressed, and `kotoba-kqe::Value` carries
 `VectorF32` / `TensorCid` — but there was **no pipeline that embedded images,
@@ -105,11 +105,11 @@ retrievable from a text query.
 
 ### 4. `kotoba-server::media_xrpc` — XRPC endpoints
 
-- `ai.gftd.apps.kotoba.media.search` (GET) — embeds the TEXT query in the shared
+- `com.etzhayyim.apps.kotoba.media.search` (GET) — embeds the TEXT query in the shared
   space, cosine-ranks all modalities, optional `modality` filter, returns
   subject / modality / blob CID / mime / title / caption / source / score.
-- `ai.gftd.apps.kotoba.media.ingest` (POST, 36 MiB body limit) — base64 assets.
-- `ai.gftd.apps.kotoba.media.status` (GET) — asset / embedding / IVF-centroid
+- `com.etzhayyim.apps.kotoba.media.ingest` (POST, 36 MiB body limit) — base64 assets.
+- `com.etzhayyim.apps.kotoba.media.status` (GET) — asset / embedding / IVF-centroid
   counts + per-modality breakdown.
 - All operator-auth-gated (`require_operator_auth`).
 - `KotobaState.media_embed_client: Option<Arc<dyn MediaEmbedClient>>` — populated

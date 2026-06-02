@@ -16,7 +16,7 @@ authoritative_for:
   - 5-layer modular ring-section construction process (耐圧殻リング → セクション → NDT → 統合 → 結合+試験+公試)
   - 9 Pregel cell catalog + Murakumo placement (R0 design-only)
   - 4 new robotics class reservation (Sango / Tako / Hibiki / Ama) + 3 marinized inheritance (Otete-marine / Mimi-marine / Funamori reuse)
-  - lexicon namespace reservation (`app.etzhayyim.watatsumi.*`, 8 record types)
+  - lexicon namespace reservation (`com.etzhayyim.watatsumi.*`, 8 record types)
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605242000-roso-pattern-frontier-distill
@@ -77,7 +77,7 @@ The user-prompted source reference for this design is the manufacturing methodol
 | Per-craft DID pattern (reserved) | `did:web:etzhayyim.com:watatsumi:craft:<serial>` |
 | Per-mission DID pattern (reserved) | `did:web:etzhayyim.com:watatsumi:mission:<missionCode>` |
 | Repo location | `20-actors/watatsumi/` |
-| Lexicon namespace | `app.etzhayyim.watatsumi.*` |
+| Lexicon namespace | `com.etzhayyim.watatsumi.*` |
 | License | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 ### 2. Scope (R0)
@@ -158,7 +158,7 @@ Adopted from modern European shipyard practice; civilianised by metallurgical, p
 
 R0 contract: each cell module imports cleanly; instantiating its class succeeds; calling `.solve()` raises `RuntimeError("watatsumi R0 scaffold: activate via Council ADR post-ratification")`.
 
-### 7. Lexicons (8 record types under `app.etzhayyim.watatsumi.*`, R0 stubs)
+### 7. Lexicons (8 record types under `com.etzhayyim.watatsumi.*`, R0 stubs)
 
 ```
 pressureHullAttestation        # L1 — material lot / roundness / RT/UT

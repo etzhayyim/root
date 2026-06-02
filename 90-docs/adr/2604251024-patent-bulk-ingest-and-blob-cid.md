@@ -28,7 +28,7 @@ collected=3,799 / vertex_count=81 (`coverage_rate ≈ 0.000019`)。trademark は
 
 一方、配線は 8 割完成している:
 
-- Lexicon: `00-contracts/lexicons/ai/gftd/apps/patent/{patent,get,list,coverage}.json`
+- Lexicon: `00-contracts/lexicons/com/etzhayyim/apps/patent/{patent,get,list,coverage}.json`
 - Schema: `vertex_patent` (legacy 23 列), `vertex_open_patent_patent`
   (ADR-0056 wave 5, 2026-04-24, migration `20260424170000_vertex_open_patent.ts`)
   + `edge_patent_cites` + `edge_family_member` + `edge_open_patent_citation_pair`
@@ -124,7 +124,7 @@ F5 watcher (30s) → Zeebe deploy → live。
 
 ```sql
 CREATE TABLE vertex_patent_blob (
-  vertex_id varchar PRIMARY KEY,         -- at://did:web:patent.etzhayyim.com/app.etzhayyim.apps.patent.blob/{patent_number}
+  vertex_id varchar PRIMARY KEY,         -- at://did:web:patent.etzhayyim.com/com.etzhayyim.apps.patent.blob/{patent_number}
   _seq bigint, created_date date, sensitivity_ord int, owner_did varchar,
 
   patent_vertex_id varchar NOT NULL,     -- FK vertex_open_patent_patent.vertex_id
@@ -211,7 +211,7 @@ did:gftd path-form sub-DID で参照する拡張が容易 (e.g. `did:web:patent.
 
 ## Federation policy
 
-`app.etzhayyim.apps.patent.*` は **default non-federable** (ADR-0085 / `federable-nsid-allowlist`):
+`com.etzhayyim.apps.patent.*` は **default non-federable** (ADR-0085 / `federable-nsid-allowlist`):
 
 - Tier 1 PII あり (inventor 名 / assignee 法人名) だが公開情報のみ
 - 商業情報 — 競合他社 firehose 経由 mass scrape のリスクは中

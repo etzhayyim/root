@@ -55,7 +55,7 @@ def _now_iso() -> str:
 
 def _vertex_id(prefix: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{OWNER_DID}/app.etzhayyim.apps.kaisya.{prefix}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{OWNER_DID}/com.etzhayyim.apps.kaisya.{prefix}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 def _human_did(agent_id: str) -> str:
     return _AGENT_HUMAN.get(agent_id, ORG_DID)

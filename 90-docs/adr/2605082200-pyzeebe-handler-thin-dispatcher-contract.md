@@ -117,7 +117,7 @@ BPMN ServiceTask は `tool_id` を変数として持つ。handler は registry �
 
 ```
 vertex_mcp_tool_def  (ADR-0087)
-  tool_id            TEXT PRIMARY KEY    -- app.etzhayyim.tools.<domain>.<name>@<semver>
+  tool_id            TEXT PRIMARY KEY    -- com.etzhayyim.tools.<domain>.<name>@<semver>
   endpoint           TEXT                -- https://<svc>.capability.svc.cluster.local
   input_schema       JSONB
   output_schema      JSONB

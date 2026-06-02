@@ -1,7 +1,7 @@
 # hodoki (解き) — End-of-Life Vehicle Disassembly + Materials Recovery Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:hodoki`
-**Namespace**: `app.etzhayyim.hodoki.*`
+**Namespace**: `com.etzhayyim.hodoki.*`
 **ADR**: ADR-2605261215 (R0 scaffold), ADR-2605261230 (R1, reserved), ADR-2605261245 (R2, reserved), ADR-2605261300 (R3, reserved)
 **Status**: R0 scaffold (2026-05-26) — all cells import-time RuntimeError
 
@@ -92,7 +92,7 @@ End-of-life vehicle (ELV) disassembly + materials recovery orchestrator. Adopts 
 ## Lexicons (8 record types, R0 stubs)
 
 ```
-app.etzhayyim.hodoki.{
+com.etzhayyim.hodoki.{
   elvIntakeRecord                # L1a
   depollutionAttestation         # L1b
   batteryHandlingRecord          # L2

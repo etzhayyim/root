@@ -403,5 +403,5 @@ ADR-0056 BPMN-as-actor として 5 プロセスが Zeebe に live:
 | `wellbecoming_floor_violation_alert` | `2251799816311153` | Timer R/PT30M |
 | `wellbecoming_agent_loop` | `2251799816311145` | XRPC none-start |
 
-XRPC エンドポイント: `http://dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.wellbecoming.agentLoop`  
+XRPC エンドポイント: `http://dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.wellbecoming.agentLoop`  
 pymagatama: `0.2.84-amd64` (mitama-udf namespace、全 6 wellbecoming タスクタイプ登録済み)

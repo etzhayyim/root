@@ -1,4 +1,4 @@
-# `app.etzhayyim.ossekai.*` — Lexicon Namespace
+# `com.etzhayyim.ossekai.*` — Lexicon Namespace
 
 **ADR**: ADR-2605264000 (R0 scaffold; ossekai information-arbitrage elimination + Wellbecoming nudge actor)
 **Form**: 任意団体 internal artificial-organism information-arbitrage substrate
@@ -43,7 +43,7 @@ projection layer.
 
 ## Cross-actor citations
 
-- **chigiri (ADR-2605262700)** — UPL boundary: legal-themed advisories cite `app.etzhayyim.chigiri.ipLicenseClaim` for licensed-counsel routing
+- **chigiri (ADR-2605262700)** — UPL boundary: legal-themed advisories cite `com.etzhayyim.chigiri.ipLicenseClaim` for licensed-counsel routing
 - **iyashi (ADR-2605263000)** — medical-advice boundary
 - **mitate** — diagnostic boundary
 - **yakushi (ADR-2605250500)** — pharmaceutical boundary
@@ -62,6 +62,6 @@ projection layer.
 
 - `/90-docs/adr/2605264000-ossekai-information-arbitrage-tier-b-actor-r0.md` — Master ADR
 - `/20-actors/ossekai/` — Actor scaffold
-- `/00-contracts/lexicons/app/etzhayyim/chigiri/` — UPL boundary cross-actor
-- `/00-contracts/lexicons/app/etzhayyim/iyashi/` — medical-advice boundary cross-actor
+- `/00-contracts/lexicons/com/etzhayyim/chigiri/` — UPL boundary cross-actor
+- `/00-contracts/lexicons/com/etzhayyim/iyashi/` — medical-advice boundary cross-actor
 - `/CHARTER-RIDER.md` §2(c) + §2(e) — G3 + G5 sources

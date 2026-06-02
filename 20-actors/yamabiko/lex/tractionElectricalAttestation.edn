@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.yamabiko.tractionElectricalAttestation"
+ :id "com.etzhayyim.yamabiko.tractionElectricalAttestation"
  :defs
  {:main
   {:type "record"

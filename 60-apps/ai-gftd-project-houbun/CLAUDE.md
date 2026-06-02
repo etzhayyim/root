@@ -39,15 +39,15 @@ hash input: jurisdiction + statuteId + articleNo + amendedAt
 | `legal-entity.etzhayyim.com` | 法人 registry crawler (123.5M rows) | 法人 ≠ 法令。境界明確 |
 | `bengoshi` / `lawfirm` / `legal-aid` / `sashiosae` | 法務サービス actor (ADR-0016/0035) | corpus ≠ service |
 
-## Collections (`app.etzhayyim.houbun.*`)
+## Collections (`com.etzhayyim.houbun.*`)
 
 | NSID | Kind | Description |
 |---|---|---|
-| `app.etzhayyim.houbun.statute` | record | 法令/規則メタ (title / jurisdiction / enacted / effective / repealed) |
-| `app.etzhayyim.houbun.article` | record | 条文本体 — **quantum of citation** |
-| `app.etzhayyim.houbun.amendmentEvent` | record | 改正イベント (insert / modify / delete / repeal) |
-| `app.etzhayyim.houbun.treaty` | record | 国際条約 |
-| `app.etzhayyim.houbun.ingestStatuteJpn` | procedure | e-Gov v2 crawl (Phase 1, live) |
+| `com.etzhayyim.houbun.statute` | record | 法令/規則メタ (title / jurisdiction / enacted / effective / repealed) |
+| `com.etzhayyim.houbun.article` | record | 条文本体 — **quantum of citation** |
+| `com.etzhayyim.houbun.amendmentEvent` | record | 改正イベント (insert / modify / delete / repeal) |
+| `com.etzhayyim.houbun.treaty` | record | 国際条約 |
+| `com.etzhayyim.houbun.ingestStatuteJpn` | procedure | e-Gov v2 crawl (Phase 1, live) |
 
 Phase 2 (別 PR): `caseLaw` record + `ingestStatuteUsa` / `ingestEurLex` / `ingestUnTreaty` procedure.
 
@@ -76,7 +76,7 @@ Migration: `30-graph/graph-schema/migrations/20260422110000_vertex_houbun.ts`
 
 ```bash
 # JPN: 民法 (Civil Code)
-curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.houbun.ingestStatuteJpn \
+curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.houbun.ingestStatuteJpn \
   -H "Authorization: Bearer $etzhayyim_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"lawId":"129AC0000000089"}'

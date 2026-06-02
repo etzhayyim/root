@@ -113,7 +113,7 @@ def run_analysis(
 
         loop_findings.append(
             {
-                "$type": "app.etzhayyim.junkan.causalLoopFinding",
+                "$type": "com.etzhayyim.junkan.causalLoopFinding",
                 "loopId": loop.loop_id,
                 "loopType": loop.loop_type,
                 "currentRegime": loop.regime,
@@ -140,7 +140,7 @@ def run_analysis(
         for c in rank_leverage_candidates(loop):
             leverage_findings.append(
                 {
-                    "$type": "app.etzhayyim.junkan.leveragePointFinding",
+                    "$type": "com.etzhayyim.junkan.leveragePointFinding",
                     "targetLoopId": c.target_loop_id,
                     "meadowsLevel": c.meadows_level,
                     "description": c.description,
@@ -160,7 +160,7 @@ def run_analysis(
         if shift is not None:
             regime_shifts.append(
                 {
-                    "$type": "app.etzhayyim.junkan.regimeShiftEvent",
+                    "$type": "com.etzhayyim.junkan.regimeShiftEvent",
                     "loopId": shift.loop_id,
                     "fromRegime": shift.from_regime,
                     "toRegime": shift.to_regime,

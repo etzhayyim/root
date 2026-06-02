@@ -25,8 +25,8 @@ from pymagatama.db_sync import sync_cursor
 
 
 _OWNER_DID = "did:web:jp-fiscal.etzhayyim.com"
-_COL_UBO = "app.etzhayyim.apps.jpFiscal.beneficialOwner"
-_COL_CONTRACT = "app.etzhayyim.apps.jpFiscal.contract"
+_COL_UBO = "com.etzhayyim.apps.jpFiscal.beneficialOwner"
+_COL_CONTRACT = "com.etzhayyim.apps.jpFiscal.contract"
 _EDINET_URL = "https://disclosure.edinet-fsa.go.jp/api/v2/documents.json"
 
 _MINISTRY_URLS: dict[str, str] = {

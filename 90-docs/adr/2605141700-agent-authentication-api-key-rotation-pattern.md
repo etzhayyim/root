@@ -65,7 +65,7 @@ ADR fixes that gap and pins a CLI bug for follow-up.
 | Heartbeat / cron pod | ES256 Service Auth JWT minted from app DID | 60 s scoped | per-invocation via `getServiceAuth` |
 | Internal binding | `x-magatama-verified: true` HMAC | per-request | n/a (service binding) |
 
-`app.etzhayyim.auth.createApiKey` accepts **only** a fresh authn.etzhayyim.com session
+`com.etzhayyim.auth.createApiKey` accepts **only** a fresh authn.etzhayyim.com session
 (passkey-bound cookies) — **not** Clerk `oat_*`, **not** Clerk `id_token`,
 **not** sk_test_, **not** prior sk_live_. This is by design: API key
 creation is a privileged self-rotation that must be human-presence

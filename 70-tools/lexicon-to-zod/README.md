@@ -5,7 +5,7 @@ Generate Zod runtime validators from AT Protocol Lexicon JSON files.
 This tool provides two capabilities:
 
 1. **Runtime Validators**: Convert AT Protocol Lexicon schemas into Zod validators for input/output validation in XRPC handlers.
-2. **Code Generation**: CLI tool to pre-generate validator modules from all lexicons under `00-contracts/lexicons/ai/gftd/<actor>/`.
+2. **Code Generation**: CLI tool to pre-generate validator modules from all lexicons under `00-contracts/lexicons/com/etzhayyim/<actor>/`.
 
 ## Installation
 
@@ -25,7 +25,7 @@ import type { LexiconDoc } from "@etzhayyim/lexicon-to-zod";
 const lexicons: LexiconDoc[] = [
   {
     lexicon: 1,
-    id: "app.etzhayyim.apps.openBanking.transfer",
+    id: "com.etzhayyim.apps.openBanking.transfer",
     defs: {
       main: {
         type: "procedure",
@@ -49,7 +49,7 @@ const validators = buildValidatorMap(lexicons);
 
 // Validate input
 const input = { transferId: "tx123", amount: 1000 };
-const result = validateInput(validators, "app.etzhayyim.apps.openBanking.transfer", input);
+const result = validateInput(validators, "com.etzhayyim.apps.openBanking.transfer", input);
 
 if ("error" in result) {
   console.error("Validation failed:", result.error.issues);
@@ -97,7 +97,7 @@ const result = await transfer(e, input);
 Generate validator modules from all lexicons:
 
 ```bash
-node src/cli.ts 00-contracts/lexicons/ai/gftd 70-tools/lexicon-to-zod/generated
+node src/cli.ts 00-contracts/lexicons/com/etzhayyim 70-tools/lexicon-to-zod/generated
 ```
 
 This produces one `.ts` file per actor directory (e.g., `openBanking.validators.ts`), containing:
@@ -112,7 +112,7 @@ Import and use in your handler:
 import { openBankingValidators } from "@etzhayyim/lexicon-to-zod/generated/openBanking.validators.js";
 import { validateInput } from "@etzhayyim/lexicon-to-zod";
 
-const v = validateInput(openBankingValidators, "app.etzhayyim.apps.openBanking.transfer", input);
+const v = validateInput(openBankingValidators, "com.etzhayyim.apps.openBanking.transfer", input);
 ```
 
 ## Supported Lexicon Features

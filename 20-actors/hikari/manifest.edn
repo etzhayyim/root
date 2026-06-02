@@ -23,7 +23,7 @@
   {:gate/id "G6"  :gate/name "kotoba-eavt-native"               :gate/rule "Generation/consumption/storage/grid records are kotoba Datoms; no SQL/RisingWave/Cypher canonical (ADR-2605312345)"}
   {:gate/id "G7"  :gate/name "tithe-non-fiat"                   :gate/rule "Settlement USDC Base L2 + ERC-4337 + TitheRouter 10% only; no Stripe/fiat (ADR-2605192115 §3)"}
   {:gate/id "G8"  :gate/name "no-server-key"                    :gate/rule "Operator signs own transactions; platform holds no key (ADR-2605231525)"}
-  {:gate/id "G9"  :gate/name "pii-encrypted-envelope"           :gate/rule "Consumption audit (granular loads) → app.etzhayyim.encrypted.*, DID-bound (≥1h buckets; no smart-meter PII)"}
+  {:gate/id "G9"  :gate/name "pii-encrypted-envelope"           :gate/rule "Consumption audit (granular loads) → com.etzhayyim.encrypted.*, DID-bound (≥1h buckets; no smart-meter PII)"}
   {:gate/id "G10" :gate/name "consent-bound"                    :gate/rule "Real grid control / load-dispatch gated by member attestation; compute-only R0 (R1+ Council ratify + ≥1 renewable-engineer on Council advisory)"}
   {:gate/id "G11" :gate/name "r1-activation-triggers"           :gate/rule "R0→R1: Council Lv6+ ratify; ≥1 renewable engineer on advisory; ≥1 LANDS parcel registered; Charter Rider §2(g) audit framework operational; battery chemistry safety Council-ratified"}]
 

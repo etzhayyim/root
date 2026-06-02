@@ -74,7 +74,7 @@ traction_electrical ──┘
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.yamabiko`
+**App lexicon root**: `com.etzhayyim.yamabiko`
 
 9 records: `carbodyAttestation`, `bogieAttestation`, `interiorAttestation`, `tractionElectricalAttestation`, `finalAssemblyAttestation`, `dynamicTestRecord`, `acousticEmissionsAuditRecord`, `homologationRecord`, `silenRailReview`.
 

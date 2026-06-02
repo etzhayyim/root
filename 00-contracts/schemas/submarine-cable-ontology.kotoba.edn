@@ -36,10 +36,10 @@
 {:schema/id        "submarine-cable-ontology"
  :schema/version   "0.1.0"
  :schema/adr       "2606012600"
- :schema/supersedes ["app.etzhayyim.apps.telecom.registerSubmarineCableSystem"
-                     "app.etzhayyim.apps.telecomInfra.registerCable"
-                     "app.etzhayyim.apps.telecomInfra.flagCableFault"]
- :schema/note      "kotoba-native successor to the legacy gftd telecom/telecomInfra/cableRepairFleet lexicons (see 00-contracts/lexicons/app/etzhayyim/cable/MIGRATION-NOTES.md)."
+ :schema/supersedes ["com.etzhayyim.apps.telecom.registerSubmarineCableSystem"
+                     "com.etzhayyim.apps.telecomInfra.registerCable"
+                     "com.etzhayyim.apps.telecomInfra.flagCableFault"]
+ :schema/note      "kotoba-native successor to the legacy gftd telecom/telecomInfra/cableRepairFleet lexicons (see 00-contracts/lexicons/com/etzhayyim/cable/MIGRATION-NOTES.md)."
 
  ;; ───────────────────────────── ENTITY: cable system ─────────────────────────────
  :attributes

@@ -37,7 +37,7 @@
   {:cell/id "cmp"              :cell/kind :langgraph :cell/runtime :wasm   :cell/status :pending}
   {:cell/id "lot_ledger"       :cell/kind :datalog   :cell/runtime :kotoba :cell/status :r0}]
 
- ;; lexicons already exist under 00-contracts/lexicons/app/etzhayyim/silicon/
+ ;; lexicons already exist under 00-contracts/lexicons/com/etzhayyim/silicon/
  :actor/lex
  [{:lex/id "chipManufacturingAttestation"}
   {:lex/id "waferLotAttestation"}

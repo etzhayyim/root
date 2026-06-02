@@ -7,14 +7,14 @@ Create Date: 2026-05-14
 SCOPE
 -----
 Phase 2A — expose kenkyusha's research lifecycle endpoints as MCP tools at
-``atproto.etzhayyim.com/xrpc/app.etzhayyim.mcp.message`` (compat: ``atproto.etzhayyim.com/mcp``).
+``atproto.etzhayyim.com/xrpc/com.etzhayyim.mcp.message`` (compat: ``atproto.etzhayyim.com/mcp``).
 
 The MCP adapter (``50-infra/cloudflare/workers/atproto/src/mcp-adapter.ts``)
 discovers tools by querying ``vertex_capability`` rows where
-``collection = 'app.etzhayyim.tool.tool'`` and ``status = 'active'``. Each row also
+``collection = 'com.etzhayyim.tool.tool'`` and ``status = 'active'``. Each row also
 declares the ``capability_worker`` (= kenkyusha nanoid ``kk8r3n5v``); the
 generic dispatcher in ``handleToolsCall`` then proxies to
-``https://kk8r3n5v.etzhayyim.com/xrpc/app.etzhayyim.apps.kenkyusha.<method>``, which is
+``https://kk8r3n5v.etzhayyim.com/xrpc/com.etzhayyim.apps.kenkyusha.<method>``, which is
 handled by the kenkyusha appview Worker — it in turn proxies to the
 lg-kenkyusha pod at ``https://kenkyusha.etzhayyim.com`` (ADR-2605111200).
 
@@ -135,7 +135,7 @@ INSERT INTO vertex_capability
 SELECT
     '{vid}',
     '{_ACTOR}', '{_ACTOR}', '{name.replace('.', '_')}',
-    'app.etzhayyim.tool.tool',
+    'com.etzhayyim.tool.tool',
     '{name}',
     '{description.replace("'", "''")}',
     '{schema_json}',
@@ -144,7 +144,7 @@ SELECT
     '{_ACTOR}', '{_ACTOR}', NOW()::VARCHAR, 0
 WHERE NOT EXISTS (
     SELECT 1 FROM vertex_capability
-    WHERE name = '{name}' AND collection = 'app.etzhayyim.tool.tool'
+    WHERE name = '{name}' AND collection = 'com.etzhayyim.tool.tool'
 )
 """)
 
@@ -153,5 +153,5 @@ def downgrade() -> None:
     for name, _, _ in _TOOLS:
         op.execute(
             f"DELETE FROM vertex_capability "
-            f"WHERE name = '{name}' AND collection = 'app.etzhayyim.tool.tool'"
+            f"WHERE name = '{name}' AND collection = 'com.etzhayyim.tool.tool'"
         )

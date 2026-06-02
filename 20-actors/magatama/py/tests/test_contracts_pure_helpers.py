@@ -192,7 +192,7 @@ def test_rkey_for_org_did_from_mint_did() -> None:
 def _make_resolve_row(**kwargs: object) -> dict:
     base: dict = {
         "did": "did:web:social-contract.etzhayyim.com:entity:jpn:abc123def456",
-        "vertex_id": "at://did:web:x/app.etzhayyim.apps.contracts.organization/rkey1",
+        "vertex_id": "at://did:web:x/com.etzhayyim.apps.contracts.organization/rkey1",
         "legal_entity_ref": "at://x/le/rkey2",
         "country": "JPN",
         "lei": "lei789",
@@ -215,7 +215,7 @@ def test_row_to_resolve_dto_did_field() -> None:
 
 def test_row_to_resolve_dto_vertex_id_mapped_to_camel() -> None:
     dto = CO._row_to_resolve_dto(_make_resolve_row())
-    assert dto["vertexId"] == "at://did:web:x/app.etzhayyim.apps.contracts.organization/rkey1"
+    assert dto["vertexId"] == "at://did:web:x/com.etzhayyim.apps.contracts.organization/rkey1"
 
 
 def test_row_to_resolve_dto_legal_entity_ref_camel() -> None:
@@ -253,7 +253,7 @@ def test_row_to_resolve_dto_none_values_pass_through() -> None:
 
 def _make_le_row(**kwargs: object) -> dict:
     base: dict = {
-        "vertex_id": "at://did:web:x/app.etzhayyim.apps.contracts.organization/rk1",
+        "vertex_id": "at://did:web:x/com.etzhayyim.apps.contracts.organization/rk1",
         "country": "JPN",
         "national_id": "12345",
         "name": "Acme Corp",
@@ -286,7 +286,7 @@ def test_row_to_projection_did_contains_jpn() -> None:
 
 def test_row_to_projection_legal_entity_ref_from_vertex_id() -> None:
     result = CO._row_to_projection(_make_le_row())
-    assert result["legal_entity_ref"] == "at://did:web:x/app.etzhayyim.apps.contracts.organization/rk1"
+    assert result["legal_entity_ref"] == "at://did:web:x/com.etzhayyim.apps.contracts.organization/rk1"
 
 
 def test_row_to_projection_country_preserved() -> None:

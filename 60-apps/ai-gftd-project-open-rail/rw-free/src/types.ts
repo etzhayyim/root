@@ -14,9 +14,9 @@
 
 export const ORAIL_DID_PREFIX = "did:web:open-rail.etzhayyim.com:" as const;
 
-export const STATION_COLLECTION = "app.etzhayyim.apps.openRail.station";
-export const LINE_COLLECTION = "app.etzhayyim.apps.openRail.line";
-export const RUN_COLLECTION = "app.etzhayyim.apps.openRail.run";
+export const STATION_COLLECTION = "com.etzhayyim.apps.openRail.station";
+export const LINE_COLLECTION = "com.etzhayyim.apps.openRail.line";
+export const RUN_COLLECTION = "com.etzhayyim.apps.openRail.run";
 
 // ─── Station ────────────────────────────────────────────────────────
 

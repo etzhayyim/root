@@ -59,8 +59,8 @@ gftd deploy --dir .
 4. Debug
 ```bash
 curl -sS -X POST https://news.etzhayyim.com/_heartbeat | jq
-curl -sS -X POST https://news.etzhayyim.com/_commit -H 'content-type: application/json' -d '{"action":"create","collection":"app.etzhayyim.apps.news.article","rkey":"test","repo":"did:web:test","seq":1,"cid":null,"rev":null,"time":"2026-03-27T00:00:00Z"}' | jq
-curl -sS -X POST https://news.etzhayyim.com/xrpc/app.etzhayyim.apps.news.news.list -H 'content-type: application/json' -d '{"limit":5}' | jq
+curl -sS -X POST https://news.etzhayyim.com/_commit -H 'content-type: application/json' -d '{"action":"create","collection":"com.etzhayyim.apps.news.article","rkey":"test","repo":"did:web:test","seq":1,"cid":null,"rev":null,"time":"2026-03-27T00:00:00Z"}' | jq
+curl -sS -X POST https://news.etzhayyim.com/xrpc/com.etzhayyim.apps.news.news.list -H 'content-type: application/json' -d '{"limit":5}' | jq
 ```
 
 ## 2026-03-27 実測 (news.etzhayyim.com)

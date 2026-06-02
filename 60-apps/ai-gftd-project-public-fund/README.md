@@ -37,11 +37,11 @@ npx tsx 60-apps/ai-gftd-project-public-fund/seed.ts
 ```
 
 Seeded collections:
-- `app.etzhayyim.apps.publicFund.fundProgram`
-- `app.etzhayyim.apps.publicFund.fundCampaign`
-- `app.etzhayyim.apps.publicFund.pledge`
-- `app.etzhayyim.apps.publicFund.routedAllocation`
-- `app.etzhayyim.apps.publicFund.eligibilityPolicy`
-- `app.etzhayyim.apps.publicFund.application`
-- `app.etzhayyim.apps.publicFund.decision`
-- `app.etzhayyim.apps.publicFund.disbursement`
+- `com.etzhayyim.apps.publicFund.fundProgram`
+- `com.etzhayyim.apps.publicFund.fundCampaign`
+- `com.etzhayyim.apps.publicFund.pledge`
+- `com.etzhayyim.apps.publicFund.routedAllocation`
+- `com.etzhayyim.apps.publicFund.eligibilityPolicy`
+- `com.etzhayyim.apps.publicFund.application`
+- `com.etzhayyim.apps.publicFund.decision`
+- `com.etzhayyim.apps.publicFund.disbursement`

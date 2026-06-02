@@ -24,8 +24,8 @@ from pymagatama.db_sync import sync_cursor
 
 
 _OWNER_DID = "did:web:legal-entity.etzhayyim.com"
-_COL_ENTITY = "app.etzhayyim.apps.legalEntity.legalEntity"
-_COL_FILING = "app.etzhayyim.apps.legalEntity.filing"
+_COL_ENTITY = "com.etzhayyim.apps.legalEntity.legalEntity"
+_COL_FILING = "com.etzhayyim.apps.legalEntity.filing"
 _GLEIF_URL = "https://api.gleif.org/api/v1/lei-records"
 _EDGAR_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 _EDGAR_UA = os.environ.get("SEC_USER_AGENT", "legal-entity.etzhayyim.com/1.0 contact@etzhayyim.com")

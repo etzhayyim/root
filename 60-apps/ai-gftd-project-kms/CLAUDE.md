@@ -2,13 +2,13 @@
 
 KMS (Key Management Service) for etzhayyim private records (kms.etzhayyim.com).
 Issues, manages, and revokes signed access policies that authorize specific DIDs
-to decrypt `app.etzhayyim.private.*` records.
+to decrypt `com.etzhayyim.private.*` records.
 
 ## Layer Metadata
 
 ```
 layer:           L3 Dispatcher → L7 LangServer pod
-nsid_prefix:     app.etzhayyim.kms
+nsid_prefix:     com.etzhayyim.kms
 did:             did:web:kms.etzhayyim.com
 issuer (interim):did:web:etzhayyim.com
 migration target:did:web:etzhayyim.com
@@ -27,11 +27,11 @@ migration target:did:web:etzhayyim.com
 
 | NSID | Type | Description |
 |------|------|-------------|
-| `app.etzhayyim.kms.issueAccessPolicy`  | procedure | Issue signed policy → `policyCid` + `policyJwt` |
-| `app.etzhayyim.kms.getAccessPolicy`    | query     | Retrieve policy by CID |
-| `app.etzhayyim.kms.addRecipient`       | procedure | Add DID → new CID (policy version chain) |
-| `app.etzhayyim.kms.removeRecipient`    | procedure | Remove DID → new CID |
-| `app.etzhayyim.kms.revokeAccessPolicy` | procedure | Mark policy revoked |
+| `com.etzhayyim.kms.issueAccessPolicy`  | procedure | Issue signed policy → `policyCid` + `policyJwt` |
+| `com.etzhayyim.kms.getAccessPolicy`    | query     | Retrieve policy by CID |
+| `com.etzhayyim.kms.addRecipient`       | procedure | Add DID → new CID (policy version chain) |
+| `com.etzhayyim.kms.removeRecipient`    | procedure | Remove DID → new CID |
+| `com.etzhayyim.kms.revokeAccessPolicy` | procedure | Mark policy revoked |
 
 ## Policy CID format
 

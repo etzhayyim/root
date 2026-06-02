@@ -2,7 +2,7 @@
 
 **Status**: Source-of-truth (2026-04-15; etzhayyim DID-swap 2026-05-21). Apache-2.0 OSS mirror originally at `github.com/etzhayyim/ai-gftd-project-open-kyber`; this monorepo (`github.com/etzhayyim/root`) runs the etzhayyim tenancy. Deployed instance: `kyber.etzhayyim.com` (replaces former `kyber.etzhayyim.com`). Legacy gftd tenancy remains a separate proprietary deployment.
 
-**Consolidates** the former `ai-gftd-project-kyber/appview/*`. Product brand = **Kyber**; repo folder = **open-kyber**. NSIDs remain `app.etzhayyim.apps.kyber.*` / `app.etzhayyim.kyber.projector.*` (rename would break deployed records + graph labels + ADR-0025 bootstrap).
+**Consolidates** the former `ai-gftd-project-kyber/appview/*`. Product brand = **Kyber**; repo folder = **open-kyber**. NSIDs remain `com.etzhayyim.apps.kyber.*` / `com.etzhayyim.kyber.projector.*` (rename would break deployed records + graph labels + ADR-0025 bootstrap).
 
 ## Folder Layout
 
@@ -32,7 +32,7 @@
 | **nanoid** | `kyb3rerp` | `kyb3proj` |
 | **AT bot DID** | `did:web:kyber.etzhayyim.com` | `did:web:kyber-projector.etzhayyim.com` |
 | **Runtime** | TS Native (`src/app.ts` + `@etzhayyim/magatama-host-sdk` → esbuild) | TS Native |
-| **Write path** | `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` | same + `app.etzhayyim.apps.apqc.apqcEvent` OCEL emit |
+| **Write path** | `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` | same + `com.etzhayyim.apps.apqc.apqcEvent` OCEL emit |
 | **Read path** | `createKyselyDb(env.HYPERDRIVE)` | Kysely + Hyperdrive |
 | **UI** | Hono + Svelte CSR | headless (XRPC only) |
 
@@ -42,7 +42,7 @@
 |---|---|
 | `CLAUDE.md`, `README.md`, `PROJECT.jsonld`, `ai-gftd-wasm-kyber-erp-kyb3rerp/**`, `ai-gftd-wasm-kyber-projector-kyb3proj/**` | Apache-2.0 |
 | Deployed `kyber.etzhayyim.com` + `kyber-projector.etzhayyim.com` (and legacy `*.etzhayyim.com`) tenant data, Signal keys, Hyperdrive creds | Proprietary (not in repo) |
-| `00-contracts/lexicons/ai/gftd/kyber/**`, `00-contracts/lexicons/ai/gftd/app/kyber/**` | Apache-2.0 (contract) |
+| `00-contracts/lexicons/com/etzhayyim/kyber/**`, `00-contracts/lexicons/com/etzhayyim/app/kyber/**` | Apache-2.0 (contract) |
 | `90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md` | Apache-2.0 (governance record) |
 
 Integrators running their own instance fork the repo, swap `wrangler.jsonc` bindings, and point `did:web` at their own domain. No code change required for white-labeling.
@@ -51,17 +51,17 @@ Integrators running their own instance fork the repo, swap `wrangler.jsonc` bind
 
 | APQC L1 | Module | Collection | SQL Label |
 |---|---|---|---|
-| 9.0 Financial Resources | Accounting | `app.etzhayyim.apps.kyber.journal_entry` | `JournalEntry` |
-| 9.0 Financial Resources | Accounting | `app.etzhayyim.apps.kyber.account` | `Account` |
-| 9.0 Financial Resources | AP/AR | `app.etzhayyim.apps.kyber.invoice` | `Invoice` |
-| 7.0 Human Capital | HR | `app.etzhayyim.apps.kyber.employee` | `Employee` |
-| 4.0 Supply Chain | Procurement | `app.etzhayyim.apps.kyber.purchase_order` | `PurchaseOrder` |
-| 5.0 Production/Ops | Inventory | `app.etzhayyim.apps.kyber.inventory_item` | `InventoryItem` |
-| 3.0 Market & Sell | Sales | `app.etzhayyim.apps.kyber.sales_order` | `SalesOrder` |
-| 10.0 Manage Enterprise Assets | Asset | `app.etzhayyim.apps.kyber.fixed_asset` | `FixedAsset` |
-| 10.0 Manage Enterprise Assets | Asset | `app.etzhayyim.apps.kyber.depreciation_run` | `DepreciationRun` |
-| 11.0 Manage Enterprise Risk/Compliance | Governance | `app.etzhayyim.apps.kyber.policy_control` | `PolicyControl` |
-| 11.0 Manage Enterprise Risk/Compliance | Governance | `app.etzhayyim.apps.kyber.risk_issue` | `RiskIssue` |
+| 9.0 Financial Resources | Accounting | `com.etzhayyim.apps.kyber.journal_entry` | `JournalEntry` |
+| 9.0 Financial Resources | Accounting | `com.etzhayyim.apps.kyber.account` | `Account` |
+| 9.0 Financial Resources | AP/AR | `com.etzhayyim.apps.kyber.invoice` | `Invoice` |
+| 7.0 Human Capital | HR | `com.etzhayyim.apps.kyber.employee` | `Employee` |
+| 4.0 Supply Chain | Procurement | `com.etzhayyim.apps.kyber.purchase_order` | `PurchaseOrder` |
+| 5.0 Production/Ops | Inventory | `com.etzhayyim.apps.kyber.inventory_item` | `InventoryItem` |
+| 3.0 Market & Sell | Sales | `com.etzhayyim.apps.kyber.sales_order` | `SalesOrder` |
+| 10.0 Manage Enterprise Assets | Asset | `com.etzhayyim.apps.kyber.fixed_asset` | `FixedAsset` |
+| 10.0 Manage Enterprise Assets | Asset | `com.etzhayyim.apps.kyber.depreciation_run` | `DepreciationRun` |
+| 11.0 Manage Enterprise Risk/Compliance | Governance | `com.etzhayyim.apps.kyber.policy_control` | `PolicyControl` |
+| 11.0 Manage Enterprise Risk/Compliance | Governance | `com.etzhayyim.apps.kyber.risk_issue` | `RiskIssue` |
 
 NSIDs use snake_case kind intentionally (deployed data compat). New records added post-consolidation MUST use camelCase per the 60-apps convention.
 
@@ -108,7 +108,7 @@ NSIDs use snake_case kind intentionally (deployed data compat). New records adde
 
 ## Projector XRPC Commands — 12 total
 
-Under `app.etzhayyim.kyber.projector.*`:
+Under `com.etzhayyim.kyber.projector.*`:
 `registerApqcActors` · `listApqcActors` · `listBpmnTasks` · `runBpmnTask` · `getApqcCoverage` · `emitApqcEvent`
 
 Compatibility layer:
@@ -119,13 +119,13 @@ BPMN 2.0 catalog: 28 task bindings (7 reactive `kyberCollection` + 21 explicit `
 ## Bootstrap Flow (ADR-0025)
 
 ```
-ERP → POST /xrpc/app.etzhayyim.apps.kyber.initApqcProjector
+ERP → POST /xrpc/com.etzhayyim.apps.kyber.initApqcProjector
     → follow(kyb3proj) + createRecord(apqcBootstrap)
     → projector.onCommit → registerApqcActors (13 L1 DIDs)
 
 ERP write (createJournalEntry etc.)
-    → Repo commit (app.etzhayyim.apps.kyber.journal_entry)
-    → projector.onCommit → emit app.etzhayyim.apps.apqc.apqcEvent (OCEL)
+    → Repo commit (com.etzhayyim.apps.kyber.journal_entry)
+    → projector.onCommit → emit com.etzhayyim.apps.apqc.apqcEvent (OCEL)
     → RisingWave streaming MV → getApqcCoverage
 ```
 
@@ -152,7 +152,7 @@ pnpm build
 pnpm start
 ```
 
-Hono server serves `dist/` and fallbacks to `index.html`. Svelte SPA calls `/xrpc/app.etzhayyim.apps.kyber.*` on the same Worker origin.
+Hono server serves `dist/` and fallbacks to `index.html`. Svelte SPA calls `/xrpc/com.etzhayyim.apps.kyber.*` on the same Worker origin.
 
 ## Relationship to Other Projects
 

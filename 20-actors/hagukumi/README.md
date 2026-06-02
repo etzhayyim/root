@@ -1,7 +1,7 @@
 # hagukumi (育み) — Care Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:hagukumi`
-**Namespace**: `app.etzhayyim.hagukumi.*`
+**Namespace**: `com.etzhayyim.hagukumi.*`
 **ADR**: ADR-2605261030 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26) — all cells import-time RuntimeError
 **Parent ADR**: ADR-2605261000 (Liberation Ladder — L4 Care Tier gate)
@@ -78,7 +78,7 @@ Key gates:
 ## Lexicons (4, deferred to R1+)
 
 ```
-app.etzhayyim.hagukumi.{
+com.etzhayyim.hagukumi.{
   caregiverAttestation
   careSessionAttestation       # encrypted XChaCha20 envelope MANDATORY
   consentRecord                # revocable, on-chain

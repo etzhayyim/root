@@ -48,7 +48,7 @@ def test_ic_slug_truncates_at_160() -> None:
 def test_ic_run_vertex_id_format() -> None:
     vid = IC.run_vertex_id("run-001")
     assert vid.startswith("at://")
-    assert "app.etzhayyim.apps.ingest.run" in vid
+    assert "com.etzhayyim.apps.ingest.run" in vid
     assert "run-001" in vid
 
 
@@ -62,7 +62,7 @@ def test_ic_run_vertex_id_deterministic() -> None:
 
 def test_ic_cursor_vertex_id_format() -> None:
     vid = IC.cursor_vertex_id("gleif", "lei-feed", "shard-1")
-    assert "app.etzhayyim.apps.ingest.cursor" in vid
+    assert "com.etzhayyim.apps.ingest.cursor" in vid
     assert "gleif" in vid
 
 
@@ -76,7 +76,7 @@ def test_ic_cursor_vertex_id_includes_all_parts() -> None:
 
 def test_ic_artifact_vertex_id_format() -> None:
     vid = IC.artifact_vertex_id("run-001", "csv", "s3://bucket/file.csv")
-    assert "app.etzhayyim.apps.ingest.artifact" in vid
+    assert "com.etzhayyim.apps.ingest.artifact" in vid
 
 
 def test_ic_artifact_vertex_id_deterministic() -> None:

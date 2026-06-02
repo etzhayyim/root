@@ -1,6 +1,6 @@
-;; app.etzhayyim.mitsuho.foodLotAttestation — lexicon (EDN form) — attestation for processed food lots
+;; com.etzhayyim.mitsuho.foodLotAttestation — lexicon (EDN form) — attestation for processed food lots
 {:lexicon 1
- :id "app.etzhayyim.mitsuho.foodLotAttestation"
+ :id "com.etzhayyim.mitsuho.foodLotAttestation"
  :defs
  {:main
   {:type "record"

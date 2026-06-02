@@ -12,11 +12,11 @@ weight: 0.80
 priority_note: "Names a new Tier-B actor (himotoki) as the ACTIVE (outbound) counterpart to the passive-only oversight/ingest actors. Where danjo (ADR-2605301600) only reads pre-published open data and tadori (ADR-2605301400) only reads the chain, himotoki EXERCISES A RIGHT OF ACCESS: it files (a) data-subject access / 個人情報開示請求 (APPI §33 / GDPR Art.15 / CCPA) to private controllers (Discord / Google / LINE / Meta / Amazon …) on behalf of CONSENTING members, and (b) freedom-of-information / 行政文書開示請求 (情報公開法) to public organs. It carries a CODED target-registry (`disclosureTarget`) of each organization's 窓口 / postal address / contact email / web portal / required form / fee / statutory deadline so the actor can route + file procedurally. Bounded as: consent-gated + identity-bound (G3), transparent + non-pretextual (G4), UPL-equivalent (G5), PII lands ONLY in encrypted DID-bound envelopes (G6, ADR-2605181100), rate-limited / non-vexatious (G8), dispatch ONLY against a human/Council-verified target entry (G14), Murakumo-only (G7), Transparent-Religious-Force-disciplined (G11, ADR-2605192100 §1.12)."
 authoritative_for:
   - new Tier-B actor `himotoki` (active disclosure-request filer + response custodian)
-  - `app.etzhayyim.himotoki.*` Lexicon namespace (disclosureTarget / disclosureRequest / requestDispatch / disclosureResponse / appealRecord)
+  - `com.etzhayyim.himotoki.*` Lexicon namespace (disclosureTarget / disclosureRequest / requestDispatch / disclosureResponse / appealRecord)
   - the coded disclosure-target registry schema (per-organization 窓口 / address / email / portal / form / fee / statutory-deadline / legal-regime) and its verification gate
   - the boundary between chigiri (procedure templates + legal characterization + UPL routing) and himotoki (the ACTIVE filer + tracker + encrypted response custodian)
   - the boundary between himotoki (active right-of-access requests) and danjo/tadori (passive-only reading)
-  - how disclosed personal data enters the substrate: `app.etzhayyim.encrypted.*` DID-bound envelopes ONLY (never plaintext PII on MST)
+  - how disclosed personal data enters the substrate: `com.etzhayyim.encrypted.*` DID-bound envelopes ONLY (never plaintext PII on MST)
 depends_on:
   - adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0
   - adr-2605181100-etzhayyim-confidentiality-encrypted-records
@@ -103,7 +103,7 @@ active one**:
 # Decision
 
 Create **`himotoki`** (繙き), DID `did:web:himotoki.etzhayyim.com`, namespace
-`app.etzhayyim.himotoki.*`, as a **Tier-B kotoba-native ACTIVE
+`com.etzhayyim.himotoki.*`, as a **Tier-B kotoba-native ACTIVE
 disclosure-request actor** in **R0 scaffold**. JP-first at R0 (APPI §33 +
 行政機関情報公開法), jurisdiction-generic in architecture (GDPR Art.15 /
 CCPA / FOIA / Reg.1049/2001 are added as `disclosureTarget` regime values).
@@ -142,7 +142,7 @@ substrate**. It:
    chigiri, recording an `appealRecord`.
 6. **Custodies the response**: it records `disclosureResponse` metadata on
    MST, but the **disclosed personal data itself lands ONLY in an
-   `app.etzhayyim.encrypted.*` XChaCha20-Poly1305 envelope, DID-bound to
+   `com.etzhayyim.encrypted.*` XChaCha20-Poly1305 envelope, DID-bound to
    the requesting member** (ADR-2605181100). Never plaintext PII on MST.
    Public-record FOIA responses (non-PII) may additionally feed danjo /
    ossekai.
@@ -228,7 +228,7 @@ Council Lv6+ supermajority + new ADR to amend.
   legal characterization + appeal strategy route to external counsel via
   **chigiri + Public Fund** (Council Lv6+).
 - **G6** **PII confidentiality mandatory.** Disclosed personal data lands
-  ONLY in `app.etzhayyim.encrypted.*` (XChaCha20-Poly1305 envelope,
+  ONLY in `com.etzhayyim.encrypted.*` (XChaCha20-Poly1305 envelope,
   Signal-wrapped per-recipient keys, **DID-bound to the requesting
   member**, ADR-2605181100). **NEVER plaintext PII on MST.** The member
   holds the decryption capability; himotoki is a custodian, not a reader.
@@ -294,7 +294,7 @@ Council Lv6+ supermajority + new ADR to amend.
 | Actor / substrate | Direction | Purpose |
 |---|---|---|
 | **chigiri** (ADR-2605262700) | → | **Boundary**: chigiri = procedure TEMPLATES + legal characterization + UPL routing + appeal procedure (`data_privacy` cell); himotoki = the ACTIVE filer + deadline tracker + encrypted response custodian. himotoki pulls templates from chigiri; chigiri renders no dispatch. |
-| `app.etzhayyim.encrypted.*` (ADR-2605181100) | → (write) | Disclosed PII lands here ONLY (DID-bound envelope); G6. |
+| `com.etzhayyim.encrypted.*` (ADR-2605181100) | → (write) | Disclosed PII lands here ONLY (DID-bound envelope); G6. |
 | **manimani** (ADR-2605291100) | → | A member's own disclosed data (decrypted by the member) may be ingested into that member's personal knowledge graph, with member consent. |
 | **danjo** (ADR-2605301600) | → | FOIA-obtained PUBLIC administrative documents (non-PII) may feed danjo's open-government cross-reference corpus. PII NEVER flows to danjo. |
 | **ossekai** (ADR-2605264000) | → | Aggregate publication of FOIA-obtained public records (non-PII) via the §1.12 path. |
@@ -378,7 +378,7 @@ Council Lv6+ supermajority + new ADR to amend.
 # References
 
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — chigiri (procedure templates + UPL; `data_privacy` DSAR routing)
-- `/90-docs/adr/2605181100-etzhayyim-confidentiality-encrypted-records.md` — `app.etzhayyim.encrypted.*` envelope (PII custody, G6)
+- `/90-docs/adr/2605181100-etzhayyim-confidentiality-encrypted-records.md` — `com.etzhayyim.encrypted.*` envelope (PII custody, G6)
 - `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no RisingWave)
 - `/90-docs/adr/2605192100-etzhayyim-mission-charter.md` — §1.12 Transparent Religious Force + §2(c) covert-ops avoidance
 - `/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md` — Charter Rider §2(c)/(e)

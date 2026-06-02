@@ -2,7 +2,7 @@
 
 **ADR**: ADR-2605301020 (Basic High Income — Imputed-Income + Commons-Asset Doctrine)
 **Owner cells**: `toritate_imputed_income_compute` + `toritate_commons_asset_value` (R0 path-reserved; activate at R1)
-**Consumed by**: `app.etzhayyim.liberation.metricReport` → `basicHighIncome` block (ADR-2605261000 §4)
+**Consumed by**: `com.etzhayyim.liberation.metricReport` → `basicHighIncome` block (ADR-2605261000 §4)
 **Status**: R0 scaffold — `v1-retail-equiv` is a DRAFT 雛形 pending Council Lv6+ ≥3 attestation
 
 ## Purpose
@@ -75,5 +75,5 @@ accumulation.**
 - `/90-docs/adr/2605301020-basic-high-income-imputed-and-commons-asset-doctrine.md`
 - `/90-docs/adr/2605261000-labor-liberation-transition-mechanism.md` — ladder L0..L6 + N1
 - `/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md` — toritate master
-- `/00-contracts/lexicons/app/etzhayyim/liberation/metricReport.json` — `basicHighIncome` consumer
+- `/00-contracts/lexicons/com/etzhayyim/liberation/metricReport.json` — `basicHighIncome` consumer
 - `/90-docs/adr/2605192245-etzhayyim-global-land-sovereignty.md` — waqf inalienability (generalized here)

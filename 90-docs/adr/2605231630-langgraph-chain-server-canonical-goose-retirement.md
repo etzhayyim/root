@@ -60,7 +60,7 @@ This ADR records the architectural pivot those two directives mandate.
 
 - **LangGraph** — every agent is a compiled `StateGraph`. Per-actor under `20-actors/magatama/py/src/pymagatama/langgraph_graphs/` (18,342 UNSPSC commodity actors today) or per-cell under `20-actors/magatama/cells/` (15 religious-corp cells per ADR-2605192415 + 16 yorishiro source connectors).
 - **yatachain** (`10-protocol/yatachain/`, ADR-2605231400) — the composition of `(DID + WebAuthn + Adherent SBT) + (atproto PDS MST source chain) + (IPFS + Base L2 anchor DHT) + (Lexicon + Rego + LangGraph membrane)` provides all state, identity, and validation. AT-IPFS-local SQLite hot-cache (`pymagatama.primitives.at_ipfs_belief_store`) is the agent-side knowledge accumulator (perceive/record loop wired in ADR-2605232100 Stage D, 2026-05-23).
-- **langserver** — the XRPC façade that exposes LangGraph agents over `app.etzhayyim.apps.<domain>.invokeAgent` / `…listAgents` / `…health` / `…classify` Lexicons. `lg-open-unispsc` (live on orbstack, 2026-05-23) is the reference implementation; per-cell langservers (per ADR-2605202200 cell runtime contract) follow the same pattern.
+- **langserver** — the XRPC façade that exposes LangGraph agents over `com.etzhayyim.apps.<domain>.invokeAgent` / `…listAgents` / `…health` / `…classify` Lexicons. `lg-open-unispsc` (live on orbstack, 2026-05-23) is the reference implementation; per-cell langservers (per ADR-2605202200 cell runtime contract) follow the same pattern.
 
 **(2) Goose retirement.** The Goose agent runtime decisions in `60-apps/ai-gftd-project-murakumo/CLAUDE.md` (ADR-0034 scope) are retired in `etzhayyim/*` scope:
 

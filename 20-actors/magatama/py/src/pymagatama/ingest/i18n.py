@@ -13,13 +13,13 @@ from pymagatama.db_sync import sync_cursor
 OWNER_DID = "did:web:i18n.etzhayyim.com"
 CREDIT_PORTAL_URL = "https://yoro.etzhayyim.com/credits"
 COLLECTION_TABLES = {
-    "app.etzhayyim.apps.i18n.project": "vertex_i18n_project",
-    "app.etzhayyim.apps.i18n.projectTranslation": "vertex_i18n_project_translation",
-    "app.etzhayyim.apps.i18n.translationMemory": "vertex_i18n_translation_memory",
-    "app.etzhayyim.apps.i18n.graphNode": "vertex_i18n_text_node",
-    "app.etzhayyim.apps.i18n.creditJob": "vertex_i18n_credit_job",
+    "com.etzhayyim.apps.i18n.project": "vertex_i18n_project",
+    "com.etzhayyim.apps.i18n.projectTranslation": "vertex_i18n_project_translation",
+    "com.etzhayyim.apps.i18n.translationMemory": "vertex_i18n_translation_memory",
+    "com.etzhayyim.apps.i18n.graphNode": "vertex_i18n_text_node",
+    "com.etzhayyim.apps.i18n.creditJob": "vertex_i18n_credit_job",
 }
-EDGE_COLLECTIONS = {"app.etzhayyim.apps.i18n.graphEdge"}
+EDGE_COLLECTIONS = {"com.etzhayyim.apps.i18n.graphEdge"}
 
 BASE_LANGUAGES: list[dict[str, Any]] = [
     {"code": "ja", "name": "Japanese", "enName": "Japanese", "script": "Jpan", "dir": "ltr", "tier": 1},
@@ -169,12 +169,12 @@ def _write_graph_edge(cur: Any, payload: dict[str, Any], created_at: str) -> Non
     label = _s(payload.get("label"))
     if not src or not dst:
         return
-    src_vid = _vertex_id("app.etzhayyim.apps.i18n.graphNode", src)
+    src_vid = _vertex_id("com.etzhayyim.apps.i18n.graphNode", src)
     if label == "HAS_LANG":
-        dst_vid = f"at://{OWNER_DID}/app.etzhayyim.apps.i18n.language/{dst}"
+        dst_vid = f"at://{OWNER_DID}/com.etzhayyim.apps.i18n.language/{dst}"
         _write_edge(cur, "edge_i18n_text_language", src_vid, dst_vid, "has_language", payload, created_at)
     else:
-        dst_vid = _vertex_id("app.etzhayyim.apps.i18n.graphNode", dst)
+        dst_vid = _vertex_id("com.etzhayyim.apps.i18n.graphNode", dst)
         _write_edge(cur, "edge_i18n_translation_text", src_vid, dst_vid, "translated_to", payload, created_at)
 
 
@@ -185,7 +185,7 @@ def _write_related_edges(cur: Any, collection: str, kind: str, record_id: str, p
             _write_edge(
                 cur,
                 "edge_i18n_project_translation",
-                _vertex_id("app.etzhayyim.apps.i18n.project", project_id),
+                _vertex_id("com.etzhayyim.apps.i18n.project", project_id),
                 _vertex_id(collection, record_id),
                 "has_project_translation",
                 payload,
@@ -307,7 +307,7 @@ def _synth_translate(text: str, target_lang: str) -> str:
 def _find_tm(source_text: str, target_lang: str) -> dict[str, Any] | None:
     source_hash = _hash_text(_normalize_source(source_text))
     key = _tm_key(source_hash, target_lang)
-    for item in reversed(_list_records("app.etzhayyim.apps.i18n.translationMemory")):
+    for item in reversed(_list_records("com.etzhayyim.apps.i18n.translationMemory")):
         if _tm_key(_s(item.get("sourceHash")), _s(item.get("targetLang"))) == key:
             return item
     return None
@@ -318,10 +318,10 @@ def _persist_graph_translation(source_text: str, source_lang: str, target_text: 
     ts = now_iso()
     src_node_id = f"txt-{source_hash}-{source_lang}"
     dst_node_id = f"txt-{source_hash}-{target_lang}"
-    _record("app.etzhayyim.apps.i18n.graphNode", "graphNode", {"nodeId": src_node_id, "label": "TranslationText", "kind": "source", "lang": source_lang, "val": source_text, "createdAt": ts}, src_node_id)
-    _record("app.etzhayyim.apps.i18n.graphNode", "graphNode", {"nodeId": dst_node_id, "label": "TranslationText", "kind": "translation", "lang": target_lang, "val": target_text, "createdAt": ts}, dst_node_id)
-    _record("app.etzhayyim.apps.i18n.graphEdge", "graphEdge", {"edgeId": f"edge-{source_hash}-{target_lang}", "label": "TRANSLATED_TO", "src": src_node_id, "dst": dst_node_id, "lang": target_lang, "createdAt": ts})
-    _record("app.etzhayyim.apps.i18n.graphEdge", "graphEdge", {"edgeId": f"lang-{source_hash}-{target_lang}", "label": "HAS_LANG", "src": dst_node_id, "dst": f"lang-{target_lang}", "lang": target_lang, "createdAt": ts})
+    _record("com.etzhayyim.apps.i18n.graphNode", "graphNode", {"nodeId": src_node_id, "label": "TranslationText", "kind": "source", "lang": source_lang, "val": source_text, "createdAt": ts}, src_node_id)
+    _record("com.etzhayyim.apps.i18n.graphNode", "graphNode", {"nodeId": dst_node_id, "label": "TranslationText", "kind": "translation", "lang": target_lang, "val": target_text, "createdAt": ts}, dst_node_id)
+    _record("com.etzhayyim.apps.i18n.graphEdge", "graphEdge", {"edgeId": f"edge-{source_hash}-{target_lang}", "label": "TRANSLATED_TO", "src": src_node_id, "dst": dst_node_id, "lang": target_lang, "createdAt": ts})
+    _record("com.etzhayyim.apps.i18n.graphEdge", "graphEdge", {"edgeId": f"lang-{source_hash}-{target_lang}", "label": "HAS_LANG", "src": dst_node_id, "dst": f"lang-{target_lang}", "lang": target_lang, "createdAt": ts})
 
 
 def _upsert_tm(source_text: str, source_lang: str, target_lang: str, target_text: str, source: str, quality_score: float, context: str = "") -> dict[str, Any]:
@@ -342,7 +342,7 @@ def _upsert_tm(source_text: str, source_lang: str, target_lang: str, target_text
         "createdAt": existing.get("createdAt") if existing else now,
         "updatedAt": now,
     }
-    _record("app.etzhayyim.apps.i18n.translationMemory", "translationMemory", tm, _s(tm["id"]))
+    _record("com.etzhayyim.apps.i18n.translationMemory", "translationMemory", tm, _s(tm["id"]))
     _persist_graph_translation(source_norm, source_lang, target_text, target_lang)
     return tm
 
@@ -364,7 +364,7 @@ def _enqueue_credit_job(job_kind: str, workload: int, meta: dict[str, Any]) -> s
     job_id = _id("credjob")
     estimate = max(1, (max(0, workload) + 49) // 50)
     _record(
-        "app.etzhayyim.apps.i18n.creditJob",
+        "com.etzhayyim.apps.i18n.creditJob",
         "creditJob",
         {
             "id": job_id,
@@ -386,14 +386,14 @@ def _enqueue_credit_job(job_kind: str, workload: int, meta: dict[str, Any]) -> s
 
 
 def _get_project(project_id: str) -> dict[str, Any] | None:
-    for item in reversed(_list_records("app.etzhayyim.apps.i18n.project")):
+    for item in reversed(_list_records("com.etzhayyim.apps.i18n.project")):
         if _s(item.get("projectId")) == project_id:
             return {"id": project_id, "projectPath": _s(item.get("projectPath")), "messages": _messages(item.get("messages"))}
     return None
 
 
 def _get_project_translation(project_id: str, lang: str) -> dict[str, str] | None:
-    for item in reversed(_list_records("app.etzhayyim.apps.i18n.projectTranslation")):
+    for item in reversed(_list_records("com.etzhayyim.apps.i18n.projectTranslation")):
         if _s(item.get("projectId")) == project_id and _s(item.get("lang")) == lang:
             return _messages(item.get("messages"))
     return None
@@ -416,7 +416,7 @@ def register_project(projectId: Any = None, projectPath: Any = None, messages: A
     if not project_id:
         return {"error": "projectId required"}
     _record(
-        "app.etzhayyim.apps.i18n.project",
+        "com.etzhayyim.apps.i18n.project",
         "project",
         {"projectId": project_id, "projectPath": _s(projectPath), "messages": msg, "totalKeys": len(msg), "createdAt": now_iso()},
         project_id,
@@ -437,7 +437,7 @@ def translate_batch(projectId: Any = None, targetLangs: Any = None, **_: Any) ->
         for key, text in project["messages"].items():
             translated[key] = _translate_with_tm(text, "en", lang, f"project:{project_id}:{key}")["targetText"]
         results[lang] = translated
-        _record("app.etzhayyim.apps.i18n.projectTranslation", "projectTranslation", {"projectId": project_id, "lang": lang, "messages": translated, "updatedAt": now_iso()}, f"{project_id}:{lang}")
+        _record("com.etzhayyim.apps.i18n.projectTranslation", "projectTranslation", {"projectId": project_id, "lang": lang, "messages": translated, "updatedAt": now_iso()}, f"{project_id}:{lang}")
     workload = len(project["messages"]) * max(len(langs), 1)
     credit_job_id = _enqueue_credit_job("translateBatch", workload, {"projectId": project_id, "langs": langs})
     return {"projectId": project_id, "results": results, "status": "translated", "creditJobId": credit_job_id}
@@ -549,7 +549,7 @@ def get_translation_status(projectId: Any = None, **_: Any) -> dict[str, Any]:
     if not project:
         return {"projectId": project_id, "totalKeys": 0, "coverage": {}}
     coverage: dict[str, int] = {}
-    for item in _list_records("app.etzhayyim.apps.i18n.projectTranslation"):
+    for item in _list_records("com.etzhayyim.apps.i18n.projectTranslation"):
         if _s(item.get("projectId")) != project_id:
             continue
         coverage[_s(item.get("lang"))] = len(_messages(item.get("messages")))

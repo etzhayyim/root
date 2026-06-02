@@ -14,5 +14,5 @@ SELECT
   COUNT(*)::BIGINT AS cut_count,
   SUM(CASE WHEN priority = 'retake' THEN 1 ELSE 0 END)::BIGINT AS retake_count
 FROM vertex_animeka
-WHERE collection = 'ai.gftd.apps.animeka.cut'
+WHERE collection = 'com.etzhayyim.apps.animeka.cut'
 GROUP BY 1, 2

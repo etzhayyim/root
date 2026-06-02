@@ -58,10 +58,10 @@ that each target exposes a lexicon that can ingest a kizashi referral CID
 
 | Path | Target lexicon | Ingest field (verified present) | Verdict |
 |---|---|---|---|
-| emergency → mitate | `app.etzhayyim.mitate.emergencyEscalation` | `intakeUri` (required) + `redFlagCategory` + `urgency` | ✅ aligned — kizashi emergency `triageReferral` CID is the `intakeUri` source |
-| emergency → kokoro | `app.etzhayyim.kokoro.acuteCrisisEscalationLog` | `detectionSourceCid` (required) + `mitateG5EmergencyKeywordTriggeredCid` (required) | ✅ aligned — kizashi referral CID is `detectionSourceCid`; the canonical G5 keyword trigger lives in mitate (kokoro references it) |
-| clinical → iyashi | `app.etzhayyim.iyashi.clinicalEncounterAttestation` | `consentRecordCid` + encrypted payload (encounter created by provider) | ✅ aligned (pull) — a provider opens the encounter; kizashi referral is consented provenance, not a clinical order |
-| non-emergency → mitate diagnosis | `app.etzhayyim.mitate.diagnosticOrder` | **NO source/referral field**; `physicianAttestorDid` required | ✅ **correct by design** — kizashi is non-diagnostic (G3); it MUST NOT create a diagnostic order. A physician creates it after reading the referral |
+| emergency → mitate | `com.etzhayyim.mitate.emergencyEscalation` | `intakeUri` (required) + `redFlagCategory` + `urgency` | ✅ aligned — kizashi emergency `triageReferral` CID is the `intakeUri` source |
+| emergency → kokoro | `com.etzhayyim.kokoro.acuteCrisisEscalationLog` | `detectionSourceCid` (required) + `mitateG5EmergencyKeywordTriggeredCid` (required) | ✅ aligned — kizashi referral CID is `detectionSourceCid`; the canonical G5 keyword trigger lives in mitate (kokoro references it) |
+| clinical → iyashi | `com.etzhayyim.iyashi.clinicalEncounterAttestation` | `consentRecordCid` + encrypted payload (encounter created by provider) | ✅ aligned (pull) — a provider opens the encounter; kizashi referral is consented provenance, not a clinical order |
+| non-emergency → mitate diagnosis | `com.etzhayyim.mitate.diagnosticOrder` | **NO source/referral field**; `physicianAttestorDid` required | ✅ **correct by design** — kizashi is non-diagnostic (G3); it MUST NOT create a diagnostic order. A physician creates it after reading the referral |
 
 **Honest gap (tracked, not a blocker)**: mitate has no *generic* "referral
 intake" lexicon for the non-emergency, pre-physician case — `rhinitisIntake` is
@@ -89,9 +89,9 @@ try: s.loader.exec_module(m); print('FAIL $c')
 except RuntimeError as e: print('ok $c', 'R0 scaffold' in str(e))"
 done
 # 6 lexicons valid + non-diagnostic schema check:
-python3 70-tools/scripts/validate-lexicons.py --root 00-contracts/lexicons/app/etzhayyim/kizashi/
+python3 70-tools/scripts/validate-lexicons.py --root 00-contracts/lexicons/com/etzhayyim/kizashi/
 # attributionReport MUST NOT permit a diagnosis field (G3):
-python3 -c "import json; p=json.load(open('00-contracts/lexicons/app/etzhayyim/kizashi/attributionReport.json'))['defs']['main']['record']['properties']; assert 'diagnosis' not in p and 'prescription' not in p, 'G3 VIOLATION'; print('ok G3: no diagnosis/prescription field')"
+python3 -c "import json; p=json.load(open('00-contracts/lexicons/com/etzhayyim/kizashi/attributionReport.json'))['defs']['main']['record']['properties']; assert 'diagnosis' not in p and 'prescription' not in p, 'G3 VIOLATION'; print('ok G3: no diagnosis/prescription field')"
 # docs registry sidecars in sync:
 python3 70-tools/scripts/docs/regen-registry.py --check
 ```

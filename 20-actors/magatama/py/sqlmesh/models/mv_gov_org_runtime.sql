@@ -16,4 +16,4 @@ SELECT
   last_ts_ms,
   record_count
 FROM dev.mv_gov_record_dedup
-WHERE entity_kind = 'ai.gftd.apps.gov.org'
+WHERE entity_kind = 'com.etzhayyim.apps.gov.org'

@@ -43,7 +43,7 @@ ADR-2605211950 made the centralization axis the constitutional split: decentrali
 1. **DID format** — keep `did:erc725:` or adopt `did:web:` + on-chain anchor.
 2. **Chain selection** — Base L2 public mainnet vs the vendor's private chain (`ETH_PRIVATE_CHAIN_ID = 260425`).
 3. **Cutover protocol** — how to migrate the ~96 mitama actor roots + N org roots without invalidating downstream `vault_members` / `vertex_signal_identity` rows.
-4. **Lexicon namespace** — `org.etzhayyim.authz.*` (new) vs reusing `app.etzhayyim.authz.*` with prefix.
+4. **Lexicon namespace** — `org.etzhayyim.authz.*` (new) vs reusing `com.etzhayyim.authz.*` with prefix.
 
 Constraints from existing ADRs:
 
@@ -99,13 +99,13 @@ New lexicons live under `00-contracts/lexicons/org/etzhayyim/authz/`. NSIDs foll
 
 | NSID | Type | Replaces |
 |---|---|---|
-| `org.etzhayyim.authz.beginRootProvision` | procedure | vendor `app.etzhayyim.authz.linkEthereumBegin` |
-| `org.etzhayyim.authz.completeRootProvision` | procedure | vendor `app.etzhayyim.authz.linkEthereumVerify` |
+| `org.etzhayyim.authz.beginRootProvision` | procedure | vendor `com.etzhayyim.authz.linkEthereumBegin` |
+| `org.etzhayyim.authz.completeRootProvision` | procedure | vendor `com.etzhayyim.authz.linkEthereumVerify` |
 | `org.etzhayyim.authz.resolveRoot` | query | (new) — bidirectional did:web ↔ did:erc725:base |
 | `org.etzhayyim.authz.mirrorVendorRoot` | procedure | (new, Phase P2) — continuity proof submission |
 | `org.etzhayyim.authz.getProvenance` | query | (new) — full chain of did:web ↔ did:erc725 history |
 
-The `org.etzhayyim.*` namespace mirrors the existing `org/etzhayyim/yobel/` pattern in this repo. Vendor's `app.etzhayyim.authz.*` remains valid during the migration window; only **new** etzhayyim-scope identity ops use the `org.etzhayyim.*` namespace.
+The `org.etzhayyim.*` namespace mirrors the existing `org/etzhayyim/yobel/` pattern in this repo. Vendor's `com.etzhayyim.authz.*` remains valid during the migration window; only **new** etzhayyim-scope identity ops use the `org.etzhayyim.*` namespace.
 
 ## Consequences
 
@@ -130,7 +130,7 @@ The `org.etzhayyim.*` namespace mirrors the existing `org/etzhayyim/yobel/` patt
 
 5. **Mass-migrate all 96 vendor roots in a single big-bang cutover.** Rejected: actors hold their original signing keys; forced migration without per-actor cryptographic continuity proof is either insecure (no proof = etzhayyim claims arbitrary roots) or impossible (some actors may have lost their vendor key). Opt-in continuity proof is the only sound path.
 
-6. **Keep `app.etzhayyim.authz.*` namespace and add `etzhayyim:` prefix.** Rejected: AT NSIDs are namespace-purpose-method triples; bolting on a prefix breaks tooling that splits by dots. `org.etzhayyim.authz.*` is the clean separation and matches the existing `org/etzhayyim/yobel/` precedent.
+6. **Keep `com.etzhayyim.authz.*` namespace and add `etzhayyim:` prefix.** Rejected: AT NSIDs are namespace-purpose-method triples; bolting on a prefix breaks tooling that splits by dots. `org.etzhayyim.authz.*` is the clean separation and matches the existing `org/etzhayyim/yobel/` precedent.
 
 ## Open Items
 

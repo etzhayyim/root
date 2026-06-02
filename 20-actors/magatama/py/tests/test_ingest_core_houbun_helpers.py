@@ -60,7 +60,7 @@ def test_run_vertex_id_contains_slug() -> None:
 
 def test_run_vertex_id_collection_in_path() -> None:
     vid = C.run_vertex_id("run-001")
-    assert "app.etzhayyim.apps.ingest.run" in vid
+    assert "com.etzhayyim.apps.ingest.run" in vid
 
 
 def test_cursor_vertex_id_starts_with_did() -> None:
@@ -70,7 +70,7 @@ def test_cursor_vertex_id_starts_with_did() -> None:
 
 def test_cursor_vertex_id_collection_in_path() -> None:
     vid = C.cursor_vertex_id("houbun", "jpn", "main")
-    assert "app.etzhayyim.apps.ingest.cursor" in vid
+    assert "com.etzhayyim.apps.ingest.cursor" in vid
 
 
 def test_cursor_vertex_id_deterministic() -> None:
@@ -92,7 +92,7 @@ def test_artifact_vertex_id_starts_with_did() -> None:
 
 def test_artifact_vertex_id_collection_in_path() -> None:
     vid = C.artifact_vertex_id("run-001", "html", "https://example.com/page")
-    assert "app.etzhayyim.apps.ingest.artifact" in vid
+    assert "com.etzhayyim.apps.ingest.artifact" in vid
 
 
 def test_artifact_vertex_id_deterministic() -> None:

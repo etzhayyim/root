@@ -6,7 +6,7 @@ kakaku.etzhayyim.com — 商品 x ECサイト x 価格更新の比較サイト a
 
 ```
 Browser / API client
-  → /xrpc/app.etzhayyim.apps.kakaku.*
+  → /xrpc/com.etzhayyim.apps.kakaku.*
     ↓
   did:web:kakaku.etzhayyim.com
     ├─ Catalog: registerProduct / updateProduct / getProduct
@@ -25,12 +25,12 @@ Browser / API client
 
 | Collection | Role | Key fields |
 |---|---|---|
-| `app.etzhayyim.apps.kakaku.product` | canonical product | `productId, name, brand, model, jan, gtin, mpn, category` |
-| `app.etzhayyim.apps.kakaku.merchant` | EC site / seller registry | `merchantId, name, domain, reputationScore, shippingPolicy, selectorProfile, selectorVersion, selectorRollout, status` |
-| `app.etzhayyim.apps.kakaku.selectorRevision` | selector version history | `revisionId, merchantId, selectorProfile, selectorVersion, selectorConfig, rollout, isActive` |
-| `app.etzhayyim.apps.kakaku.offer` | current merchant offer | `offerId, productId, merchantId, price, shippingFee, totalPrice, availability, deliveryEta, productUrl, observedAt` |
-| `app.etzhayyim.apps.kakaku.priceHistory` | offer time series | `productId, merchantId, offerId, price, totalPrice, availability, observedAt` |
-| `app.etzhayyim.apps.kakaku.matchCandidate` | source to canonical match queue | `sourceMerchantId, sourceSku, productId, confidence, status` |
+| `com.etzhayyim.apps.kakaku.product` | canonical product | `productId, name, brand, model, jan, gtin, mpn, category` |
+| `com.etzhayyim.apps.kakaku.merchant` | EC site / seller registry | `merchantId, name, domain, reputationScore, shippingPolicy, selectorProfile, selectorVersion, selectorRollout, status` |
+| `com.etzhayyim.apps.kakaku.selectorRevision` | selector version history | `revisionId, merchantId, selectorProfile, selectorVersion, selectorConfig, rollout, isActive` |
+| `com.etzhayyim.apps.kakaku.offer` | current merchant offer | `offerId, productId, merchantId, price, shippingFee, totalPrice, availability, deliveryEta, productUrl, observedAt` |
+| `com.etzhayyim.apps.kakaku.priceHistory` | offer time series | `productId, merchantId, offerId, price, totalPrice, availability, observedAt` |
+| `com.etzhayyim.apps.kakaku.matchCandidate` | source to canonical match queue | `sourceMerchantId, sourceSku, productId, confidence, status` |
 
 ## Actor Composition
 

@@ -7,7 +7,7 @@ etzhayyim Japan の AI agent が user 代理で Microsoft Teams / Google Meet / 
 | 領域 | 状態 |
 |---|---|
 | Actor 登録 (did:web:meeting-recorder.etzhayyim.com, nanoid m33tr3c0) | ✅ `deps.toml` |
-| Lexicon (7 本) | ✅ `00-contracts/lexicons/ai/gftd/apps/meetingRecorder/*.json` |
+| Lexicon (7 本) | ✅ `00-contracts/lexicons/com/etzhayyim/apps/meetingRecorder/*.json` |
 | Graph migration (5 tables) | ✅ `30-graph/graph-schema/migrations/20260422090000_vertex_meeting_recorder_tables.ts` |
 | Control-plane CF Worker | ✅ `60-apps/ai-gftd-project-meeting-recorder/appview/ai-gftd-wasm-meeting-recorder-m33tr3c0/` |
 | Media-plane Vultr VKE container (skeleton) | ✅ `50-infra/vultr/meeting-recorder/container/` |
@@ -73,7 +73,7 @@ a2d58dd364b feat: add contracts actor wiring and meeting recorder updates
 
 ## Verified (live smoke, wrangler dev + tsx container)
 
-### Consent gate (`POST /xrpc/app.etzhayyim.apps.meetingRecorder.joinMeeting`)
+### Consent gate (`POST /xrpc/com.etzhayyim.apps.meetingRecorder.joinMeeting`)
 
 | test | result |
 |---|---|
@@ -109,7 +109,7 @@ Container (`tsx src/server.ts` on :50052) + fake services (fake mint + fake PDS 
 ## Artifacts (fresh this session)
 
 ```
-00-contracts/lexicons/ai/gftd/apps/meetingRecorder/
+00-contracts/lexicons/com/etzhayyim/apps/meetingRecorder/
   joinMeeting.json leaveMeeting.json getSession.json listSessions.json
   getTranscript.json recordingChunk.json transcriptSegment.json
 
@@ -173,7 +173,7 @@ deps.toml
 
 ### Phase 4+ (security hardening)
 
-7. **Signal X25519 shared-secret bootstrap** (`transcript-pipeline.ts`): 現在は dev key fallback (sessionDid hash)。`app.etzhayyim.signal.getPrekeyBundle` + HKDF に置換、container が onBehalfOfDid の prekey を pull して session 限りの秘密を導出
+7. **Signal X25519 shared-secret bootstrap** (`transcript-pipeline.ts`): 現在は dev key fallback (sessionDid hash)。`com.etzhayyim.signal.getPrekeyBundle` + HKDF に置換、container が onBehalfOfDid の prekey を pull して session 限りの秘密を導出
 8. **did:gftd + did:plc multibase JWK 両対応** は完了 (Phase 4)。`did:key` method 対応は別 ADR で検討
 
 ## Smoke をもう一度流す手順 (mock-path, 次 session 用)

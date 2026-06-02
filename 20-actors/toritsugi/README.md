@@ -30,7 +30,7 @@ procedure and walks them through it.
 ## The coded procedure registry (the point)
 
 Mirroring himotoki's coded target registry, toritsugi carries each government /
-municipal procedure as a coded `app.etzhayyim.toritsugi.procedure` record
+municipal procedure as a coded `com.etzhayyim.toritsugi.procedure` record
 holding the **窓口 / 所管 (省庁・自治体) / オンライン申請URL / 必要書類 / 様式 /
 手数料 / 法定処理期間 / 根拠法令 / channel** so a cell can guide (and eventually
 file) procedurally.
@@ -89,7 +89,7 @@ an oversight actor (that's danjo).
 - **産土 ubusuna / §1.16** (ADR-2605302357/2605302358): toritsugi is the
   government-procedure execution arm complementing etzhayyim's own social
   security.
-- **`app.etzhayyim.encrypted.*`** (ADR-2605181100): the only home for member PII.
+- **`com.etzhayyim.encrypted.*`** (ADR-2605181100): the only home for member PII.
 
 ## Roadmap
 
@@ -100,5 +100,5 @@ only) → R2 draft + status-track (member self-submits) → R3 gated 本人同�
 ## References
 
 - ADR: [`/90-docs/adr/2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0.md`](/90-docs/adr/2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0.md)
-- Lexicons: [`/00-contracts/lexicons/app/etzhayyim/toritsugi/`](/00-contracts/lexicons/app/etzhayyim/toritsugi/)
+- Lexicons: [`/00-contracts/lexicons/com/etzhayyim/toritsugi/`](/00-contracts/lexicons/com/etzhayyim/toritsugi/)
 - Charter Rider: [`/CHARTER-RIDER.md`](/CHARTER-RIDER.md)

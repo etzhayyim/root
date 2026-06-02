@@ -47,7 +47,7 @@ remains the sole switch; once Council activates, the cell may call
 wayfinding leg.
 
 Output shape mirrors an escalation-routing view over Lexicon
-``app.etzhayyim.kurashimori.escalationReferral``.
+``com.etzhayyim.kurashimori.escalationReferral``.
 """
 
 from __future__ import annotations
@@ -241,7 +241,7 @@ def to_escalation_routing_record(
     created_at: datetime,
     session_ref: str | None = None,
 ) -> dict:
-    """Build an ``app.etzhayyim.kurashimori.escalationReferral`` routing-view record.
+    """Build an ``com.etzhayyim.kurashimori.escalationReferral`` routing-view record.
 
     ``isLegalOpinion`` is asserted ``False`` before return — a G5 schema
     invariant this function structurally cannot violate. The record is a pure

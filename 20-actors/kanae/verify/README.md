@@ -90,7 +90,7 @@ Keychain identity; export it as `KOTOBA_TOKEN`, or mint a JWT-shaped token.
 WASM_B64=$(base64 -i kanae-fiscal-ingest/target/wasm32-wasip2/release/kanae_fiscal_ingest.wasm)
 CTX_B64=$(printf '{}' | base64)
 
-curl -sS -X POST http://127.0.0.1:8077/xrpc/ai.gftd.apps.kotoba.invoke.run \
+curl -sS -X POST http://127.0.0.1:8077/xrpc/com.etzhayyim.apps.kotoba.invoke.run \
   -H "Authorization: Bearer ${KOTOBA_TOKEN}" \
   -H 'Content-Type: application/json' \
   -d "{
@@ -125,12 +125,12 @@ the ingest + EAVT-persist half does not depend on the LLM.)
 
 ```bash
 # Datomic EAVT index over the graph:
-curl -sS -X POST http://127.0.0.1:8077/xrpc/ai.gftd.apps.kotoba.datomic.datoms \
+curl -sS -X POST http://127.0.0.1:8077/xrpc/com.etzhayyim.apps.kotoba.datomic.datoms \
   -H "Authorization: Bearer ${KOTOBA_TOKEN}" -H 'Content-Type: application/json' \
   -d '{"graph":"etzhayyim/kanae/fiscal-flow","index":":eavt"}' | jq .
 
 # Or SPARQL:
-curl -sS -X POST http://127.0.0.1:8077/xrpc/ai.gftd.apps.kotoba.graph.sparql \
+curl -sS -X POST http://127.0.0.1:8077/xrpc/com.etzhayyim.apps.kotoba.graph.sparql \
   -H "Authorization: Bearer ${KOTOBA_TOKEN}" -H 'Content-Type: application/json' \
   -d '{"graph":"etzhayyim/kanae/fiscal-flow","sparql":"SELECT ?s ?p ?o WHERE { ?s ?p ?o }"}' | jq .
 ```

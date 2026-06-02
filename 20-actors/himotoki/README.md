@@ -29,7 +29,7 @@ Per the 2026-05-30 requirement — *"公開企業の窓口、住所、連絡先�
 アドレス、手続きなどをすべて コードに, actor が手続きできるように"* —
 himotoki carries each organization's **窓口 / 住所 / 連絡先 / メールアドレス /
 portal / 手続き / 手数料 / 法定期限** as coded
-`app.etzhayyim.himotoki.disclosureTarget` records so a cell can route and
+`com.etzhayyim.himotoki.disclosureTarget` records so a cell can route and
 file procedurally.
 
 - Seed: [`registry/targets.seed.json`](registry/targets.seed.json) — 6
@@ -78,7 +78,7 @@ plaintext-PII store · NOT a leak channel.
 - **chigiri** (ADR-2605262700): chigiri = procedure templates + UPL +
   appeal procedure; himotoki = active filer + tracker + custodian. himotoki
   *pulls* templates from chigiri.
-- **`app.etzhayyim.encrypted.*`** (ADR-2605181100): the only home for
+- **`com.etzhayyim.encrypted.*`** (ADR-2605181100): the only home for
   disclosed PII.
 - **manimani** (ADR-2605291100): a member's own disclosed data → that
   member's personal KG (with consent).
@@ -94,5 +94,5 @@ only) → R2 FOIA live dispatch (public records) → R3 DSAR live dispatch
 ## References
 
 - ADR: [`/90-docs/adr/2605302130-himotoki-disclosure-request-tier-b-actor-r0.md`](/90-docs/adr/2605302130-himotoki-disclosure-request-tier-b-actor-r0.md)
-- Lexicons: [`/00-contracts/lexicons/app/etzhayyim/himotoki/`](/00-contracts/lexicons/app/etzhayyim/himotoki/)
+- Lexicons: [`/00-contracts/lexicons/com/etzhayyim/himotoki/`](/00-contracts/lexicons/com/etzhayyim/himotoki/)
 - Charter Rider: [`/CHARTER-RIDER.md`](/CHARTER-RIDER.md)

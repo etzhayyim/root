@@ -45,10 +45,10 @@ items that this ADR closes:
 |---|---|---|
 | 1   | LLM prompt inlining (text)                                 | `compose_scene_3d.topology.yaml` inlines all three LLM `args.system` / `args.user_template` blocks; `tests/test_compose_scene_3d_prompts.py` guards drift against the Python source constants. |
 | 1b  | Vision LLM resolver (multimodal critic node)               | `pymagatama.langgraph_node_resolvers.make_llm_vision_node` + `pymagatama.llm.call_tier_vision_json` resolve `kind="llm_vision"` against B2 blob fetch + OpenAI-compatible vision endpoint; `blob_fetcher` callback keeps pymagatama storage-agnostic. |
-| 2   | Cinematography + critique post-processor MCP tools         | `app.etzhayyim.mangaka.tools.validateCameraPlan` and `.aggregateCritique` in `lg_mangaka.tools`, with topology nodes between the LLM stages and the downstream simulate / refinement edges. Phase A in-tree path re-uses the same tools (single SSoT). |
-| 3   | DMN refinement policy seed                                 | `00-contracts/dmn/ai/gftd/policies/mangaka/composeScene3dRefinement.dmn` + alembic seed into `vertex_dmn_model`. Drift between the DMN rules table and the Phase A Python predicate guarded by `tests/test_compose_scene_3d_refinement_dmn.py`. |
+| 2   | Cinematography + critique post-processor MCP tools         | `com.etzhayyim.mangaka.tools.validateCameraPlan` and `.aggregateCritique` in `lg_mangaka.tools`, with topology nodes between the LLM stages and the downstream simulate / refinement edges. Phase A in-tree path re-uses the same tools (single SSoT). |
+| 3   | DMN refinement policy seed                                 | `00-contracts/dmn/com/etzhayyim/policies/mangaka/composeScene3dRefinement.dmn` + alembic seed into `vertex_dmn_model`. Drift between the DMN rules table and the Phase A Python predicate guarded by `tests/test_compose_scene_3d_refinement_dmn.py`. |
 | 3b  | DMN evaluator in `_compile_topology`                       | `pymagatama.langgraph_node_resolvers.make_dmn_condition_router` + `_resolve_dmn_ref` + the FEEL-lite `_eval_dmn_input_entry` (supports `-`, `< N`, `<= N`, `> N`, `>= N`, `== N`, bare literals, and named-input refs like `< maxIter`). |
-| 4   | MCP tool serving endpoint                                  | `lg_mangaka.server` exposes `POST /xrpc/app.etzhayyim.mcp.message` (JSON-RPC tools/call envelope) on top of the existing `/xrpc/{nsid}` direct route. In-cluster Pregel short-circuits via the new `MCP_NSID_OVERRIDE_<prefix>` env pattern in the resolver. |
+| 4   | MCP tool serving endpoint                                  | `lg_mangaka.server` exposes `POST /xrpc/com.etzhayyim.mcp.message` (JSON-RPC tools/call envelope) on top of the existing `/xrpc/{nsid}` direct route. In-cluster Pregel short-circuits via the new `MCP_NSID_OVERRIDE_<prefix>` env pattern in the resolver. |
 
 Beyond the Phase C closure, the same session wired an end-to-end
 Hume-driven emotion loop. The persistence side
@@ -72,12 +72,12 @@ pure functions the topology nodes will resolve to.
 ## 2. MCP serving — pod IS the endpoint
 
 The lg-mangaka pod (`lg_mangaka.server`) is the canonical MCP serving
-endpoint for `app.etzhayyim.mangaka.tools.*`. Two routes converge on
+endpoint for `com.etzhayyim.mangaka.tools.*`. Two routes converge on
 `_dispatch_mcp_tool → _TOOL_NSID_TO_HANDLER → lg_mangaka.tools.*`:
 
 * `POST /xrpc/{nsid}` — direct (used by the in-tree Phase A path and
   by direct XRPC callers).
-* `POST /xrpc/app.etzhayyim.mcp.message` — JSON-RPC 2.0 `tools/call`
+* `POST /xrpc/com.etzhayyim.mcp.message` — JSON-RPC 2.0 `tools/call`
   envelope (used by Phase C topology and external MCP clients).
 
 The in-cluster Pregel short-circuits the external trip through
@@ -129,7 +129,7 @@ distilled centroid when present — heuristic fallback otherwise.
 
 ## 4. Per-node emotion attachment in the Genko graph
 
-`app.etzhayyim.mangaka.scoreEmotion` is a 4-step Pregel in
+`com.etzhayyim.mangaka.scoreEmotion` is a 4-step Pregel in
 `lg_mangaka.graphs.score_emotion`:
 
 | Step               | Output |
@@ -164,7 +164,7 @@ and panel node that carries `_emotion.primary`. The chip is
 `kami-engine-sdk/.../Genko.svelte` adds a side-panel "感情" section for
 both ai-image and panel selectables: primary name + score +
 algorithm + top-4 emotions, plus a 🎭 採点 button that fires
-`app.etzhayyim.mangaka.scoreEmotion` (single mode for ai-image, batch
+`com.etzhayyim.mangaka.scoreEmotion` (single mode for ai-image, batch
 mode for panel — the panel then picks its own `panelEmotion[nid]` out
 of the response).
 
@@ -246,7 +246,7 @@ artefact — no graph changes required.
 |---|---|---|
 | Phase C — alembic flip      | `r_20260514170000_topology_compose_scene_3d` applied in dev DB, watcher re-resolves NSID, smoke test compose_scene_3d invocation against the v2 row | ✅ ready (waiting on dev DB apply) |
 | Hume distillation cron     | Schedule `scripts/distill_hume_emotion.py` to run nightly, persist the model JSON to a stable path on the pod, watch corpus growth | ⏳ |
-| External MCP forwarding    | Either CF Worker `/xrpc/app.etzhayyim.mcp.message` → pod via tunnel, OR flip `actor_host = atproto.etzhayyim.com` and let the existing MCP adapter forward | ⏳ |
+| External MCP forwarding    | Either CF Worker `/xrpc/com.etzhayyim.mcp.message` → pod via tunnel, OR flip `actor_host = atproto.etzhayyim.com` and let the existing MCP adapter forward | ⏳ |
 | `_panelChildren` backfill  | Walk existing Genko documents that predate this ADR and infer panel→ai-image children from canvas geometry, so historical docs gain panel emotion aggregates | ⏳ |
 
 # References
@@ -256,7 +256,7 @@ artefact — no graph changes required.
 - ADR-2605111200 — CF Worker edge-only, no RW connection
 - ADR-2604261100 — Rego + DMN as decision-table SSoT
 - ADR-2604300135 — Hume distillation artefact persistence
-- `00-contracts/dmn/ai/gftd/policies/mangaka/composeScene3dRefinement.dmn`
+- `00-contracts/dmn/com/etzhayyim/policies/mangaka/composeScene3dRefinement.dmn`
 - `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/graphs/{compose_scene_3d,score_emotion}.py`
 - `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/{hume_distill,hume_emotion}.py`
 - `50-infra/vultr/lg-mangaka-pool/values.yaml` (mcpOverrides)

@@ -1,6 +1,6 @@
 ---
 id: adr-2606020000-tsukuru-com-etzhayyim-nsid-conversion
-title: "ADR-2606020000: tsukuru NSID conversion app.etzhayyim.apps.tsukuru.* → com.etzhayyim.apps.tsukuru.*"
+title: "ADR-2606020000: tsukuru NSID conversion com.etzhayyim.apps.tsukuru.* → com.etzhayyim.apps.tsukuru.*"
 status: proposed
 doc_type: adr
 topic: tsukuru-com-etzhayyim-nsid-conversion
@@ -9,16 +9,16 @@ last_verified: 2026-06-02
 priority: 6.0
 axis: organization
 weight: 0.60
-priority_note: "Operator-directed repo-wide NSID conversion of tsukuru from the app.etzhayyim.* standard to com.etzhayyim.*, to match the hakken ingest actor (ADR-2606011700). Mechanical 87-file rename; no behavioural change."
+priority_note: "Operator-directed repo-wide NSID conversion of tsukuru from the com.etzhayyim.* standard to com.etzhayyim.*, to match the hakken ingest actor (ADR-2606011700). Mechanical 87-file rename; no behavioural change."
 authoritative_for:
   - tsukuru record/lexicon NSID namespace (com.etzhayyim.apps.tsukuru.*)
 depends_on:
   - adr-2606011700-hakken-etzhayyim-migration-override
 overrides:
-  - repo-wide app.etzhayyim.apps.* standard, for the tsukuru namespace only (operator-directed)
+  - repo-wide com.etzhayyim.apps.* standard, for the tsukuru namespace only (operator-directed)
 ---
 
-# ADR-2606020000: tsukuru NSID conversion `app.etzhayyim.apps.tsukuru.*` → `com.etzhayyim.apps.tsukuru.*`
+# ADR-2606020000: tsukuru NSID conversion `com.etzhayyim.apps.tsukuru.*` → `com.etzhayyim.apps.tsukuru.*`
 
 ## Status
 
@@ -27,35 +27,35 @@ Proposed (2026-06-02). Operator-directed. Follow-up to ADR-2606011700 (hakken).
 ## Context
 
 The hakken ingest actor was landed under `com.etzhayyim.apps.hakken.*` per operator direction
-(ADR-2606011700), chosen with full knowledge that the repo standard is `app.etzhayyim.apps.*`
+(ADR-2606011700), chosen with full knowledge that the repo standard is `com.etzhayyim.apps.*`
 (15,758 occurrences vs 0 for `com.etzhayyim.*`; `com.etzhayyim.*` is otherwise launchd labels).
 
-Meanwhile `main` had independently migrated tsukuru to `app.etzhayyim.apps.tsukuru.*` (~86 files).
-Leaving tsukuru on `app.etzhayyim.*` while hakken (its sibling OEM-discovery actor) is on
+Meanwhile `main` had independently migrated tsukuru to `com.etzhayyim.apps.tsukuru.*` (~86 files).
+Leaving tsukuru on `com.etzhayyim.*` while hakken (its sibling OEM-discovery actor) is on
 `com.etzhayyim.*` would split the two ingest actors across namespaces. The operator directed that
 tsukuru be converted to `com.etzhayyim.apps.tsukuru.*` to match hakken — deliberately, accepting
-the divergence from the repo-wide `app.etzhayyim.*` standard.
+the divergence from the repo-wide `com.etzhayyim.*` standard.
 
 This is the dedicated follow-up PR that ADR-2606011700 deferred (the hakken PR stayed hakken-only
 to avoid bundling an 86-file override of merged work).
 
 ## Decision
 
-Convert every `app.etzhayyim.apps.tsukuru.*` reference to `com.etzhayyim.apps.tsukuru.*`
+Convert every `com.etzhayyim.apps.tsukuru.*` reference to `com.etzhayyim.apps.tsukuru.*`
 repo-wide (87 files), and relocate the tsukuru lexicons accordingly.
 
-1. **Lexicon ids + dirs.** 46 lexicons: `id` field `app.etzhayyim.apps.tsukuru.*` →
+1. **Lexicon ids + dirs.** 46 lexicons: `id` field `com.etzhayyim.apps.tsukuru.*` →
    `com.etzhayyim.apps.tsukuru.*`; directory `git mv`
-   `00-contracts/lexicons/app/etzhayyim/gftd/apps/tsukuru/` →
+   `00-contracts/lexicons/com/etzhayyim/gftd/apps/tsukuru/` →
    `00-contracts/lexicons/com/etzhayyim/apps/tsukuru/` (clean path, matching hakken; the old path
    carried a spurious `gftd` segment the id never had). Catalog `git mv`
-   `00-contracts/catalogs/app/etzhayyim/tsukuru/` → `00-contracts/catalogs/com/etzhayyim/tsukuru/`.
+   `00-contracts/catalogs/com/etzhayyim/tsukuru/` → `00-contracts/catalogs/com/etzhayyim/tsukuru/`.
 
 2. **Source + cross-app refs.** rw-free, orchestration scripts, `magatama.toml`, `20-actors/tsukuru`,
    and cross-app callers (`aidesk`, `hc`, `open-robo`, magatama cells, graph seed migrations, ADRs)
    all updated. This avoids a split-collection bug (one writer on `com`, another on `app`).
 
-3. **Payment stays shared.** `app.etzhayyim.apps.payment.*` (escrowOpened / escrowRefunded / sent,
+3. **Payment stays shared.** `com.etzhayyim.apps.payment.*` (escrowOpened / escrowRefunded / sent,
    read by treasury / tithe) is owned by a different authority and is **NOT** renamed. Only the
    `.tsukuru` token moved; payment is untouched.
 
@@ -73,10 +73,10 @@ repo-wide (87 files), and relocate the tsukuru lexicons accordingly.
 - **87 files** changed, symmetric (pure rename/token swap); no behavioural change.
 - tsukuru + hakken now share the `com.etzhayyim.apps.*` namespace.
 - **Divergence from repo standard:** tsukuru/hakken are now the only `com.etzhayyim.apps.*`
-  record actors in a repo otherwise standardised on `app.etzhayyim.apps.*`. This is deliberate
-  and operator-directed; the `com.etzhayyim.*` vs `app.etzhayyim.*` record-NSID convention still
+  record actors in a repo otherwise standardised on `com.etzhayyim.apps.*`. This is deliberate
+  and operator-directed; the `com.etzhayyim.*` vs `com.etzhayyim.*` record-NSID convention still
   needs an org-level ruling (carried from ADR-2606011700). If the org standardises on
-  `app.etzhayyim.*`, both tsukuru and hakken revert in one sweep.
+  `com.etzhayyim.*`, both tsukuru and hakken revert in one sweep.
 - **Deploy prereq:** PDS typed-registry regen (`gen-pds-lexicon-registry.mjs`) + Worker redeploy
   before tsukuru serves on the new NSID.
 

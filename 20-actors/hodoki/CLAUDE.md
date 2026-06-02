@@ -77,18 +77,18 @@ See `ADR-2605261215` §4 for definitions. Key enforcement + constitutional first
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.hodoki`
+**App lexicon root**: `com.etzhayyim.hodoki`
 
 **Records (8 types, R0 stubs)**:
 
-1. `app.etzhayyim.hodoki.elvIntakeRecord` — L1a VIN + title + prior-owner consent + Charter scan
-2. `app.etzhayyim.hodoki.depollutionAttestation` — L1b fluid + F-gas + airbag + battery disconnect
-3. `app.etzhayyim.hodoki.batteryHandlingRecord` — L2 Li-ion SoH + routing
-4. `app.etzhayyim.hodoki.partsHarvestCatalog` — L3a RIGHT-TO-REPAIR public parts catalog (G12)
-5. `app.etzhayyim.hodoki.catalystRecoveryRecord` — L3b PGM brick + smelter handoff + yield audit
-6. `app.etzhayyim.hodoki.shredOutputAttestation` — L4 ferrous + non-ferrous + Cu + ASR + cross-actor handoff
-7. `app.etzhayyim.hodoki.dataWipeAttestation` — G8 ECU/infotainment cryptographic destruction
-8. `app.etzhayyim.hodoki.silenDeconstructionReview` — Council 5-of-7 Safe attestation
+1. `com.etzhayyim.hodoki.elvIntakeRecord` — L1a VIN + title + prior-owner consent + Charter scan
+2. `com.etzhayyim.hodoki.depollutionAttestation` — L1b fluid + F-gas + airbag + battery disconnect
+3. `com.etzhayyim.hodoki.batteryHandlingRecord` — L2 Li-ion SoH + routing
+4. `com.etzhayyim.hodoki.partsHarvestCatalog` — L3a RIGHT-TO-REPAIR public parts catalog (G12)
+5. `com.etzhayyim.hodoki.catalystRecoveryRecord` — L3b PGM brick + smelter handoff + yield audit
+6. `com.etzhayyim.hodoki.shredOutputAttestation` — L4 ferrous + non-ferrous + Cu + ASR + cross-actor handoff
+7. `com.etzhayyim.hodoki.dataWipeAttestation` — G8 ECU/infotainment cryptographic destruction
+8. `com.etzhayyim.hodoki.silenDeconstructionReview` — Council 5-of-7 Safe attestation
 
 **Deferred to R1+**: Full lexicon schema definitions. R0 ships stub JSON with `id` + `defs.main.type=record` only.
 

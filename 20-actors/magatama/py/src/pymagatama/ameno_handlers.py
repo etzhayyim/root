@@ -6,9 +6,9 @@ ameno-langserver pod, and persists / queries vertex_ameno_inferenceresult
 via the shared sync psycopg pool.
 
 Lexicons (SSoT):
-  00-contracts/lexicons/ai/gftd/apps/ameno/saveResult.json
-  00-contracts/lexicons/ai/gftd/apps/ameno/listHistory.json
-  00-contracts/lexicons/ai/gftd/apps/ameno/inferenceResult.json
+  00-contracts/lexicons/com/etzhayyim/apps/ameno/saveResult.json
+  00-contracts/lexicons/com/etzhayyim/apps/ameno/listHistory.json
+  00-contracts/lexicons/com/etzhayyim/apps/ameno/inferenceResult.json
 """
 
 from __future__ import annotations
@@ -116,7 +116,7 @@ def _record_credit_event(
 
 
 def handle_save_result(payload: dict[str, Any]) -> dict[str, Any]:
-    """app.etzhayyim.apps.ameno.saveResult — INSERT vertex_ameno_inferenceresult."""
+    """com.etzhayyim.apps.ameno.saveResult — INSERT vertex_ameno_inferenceresult."""
     model_id = _safe_str(payload.get("modelId"))
     if not model_id:
         return {"status": "failed", "error": "modelId required"}
@@ -131,7 +131,7 @@ def handle_save_result(payload: dict[str, Any]) -> dict[str, Any]:
     actor_did = _safe_str(payload.get("actorDid"))
     vertex_id = (
         f"at://{actor_did or 'did:web:ameno.etzhayyim.com'}"
-        f"/app.etzhayyim.apps.ameno.inferenceResult/{result_id}"
+        f"/com.etzhayyim.apps.ameno.inferenceResult/{result_id}"
     )
     created_at = _now_iso()
     lora_adapters_raw = payload.get("loraAdapters")
@@ -232,7 +232,7 @@ def _extract_brief(payload: dict[str, Any]) -> dict[str, Any] | None:
 
 
 async def subscribe_briefs_sse(payload: dict[str, Any]) -> AsyncIterator[bytes]:
-    """app.etzhayyim.apps.ameno.subscribeBriefs — yield SSE frames per NATS commit event.
+    """com.etzhayyim.apps.ameno.subscribeBriefs — yield SSE frames per NATS commit event.
 
     Subscribes to NATS subject `pds.repo.commit.<collection_underscored>` and
     yields one `event: brief` frame per matching record. Closes the stream after
@@ -319,7 +319,7 @@ _ADAPTER_COLS = (
 
 
 def handle_list_actor_adapters(payload: dict[str, Any]) -> dict[str, Any]:
-    """app.etzhayyim.apps.ameno.listActorAdapters — SELECT vertex_lora_adapter."""
+    """com.etzhayyim.apps.ameno.listActorAdapters — SELECT vertex_lora_adapter."""
     actor_did = _safe_str(payload.get("actorDid"))
     if not actor_did:
         return {"items": [], "total": 0, "error": "actorDid required"}
@@ -376,7 +376,7 @@ def handle_list_actor_adapters(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def handle_list_my_credits(payload: dict[str, Any]) -> dict[str, Any]:
-    """app.etzhayyim.apps.ameno.listMyCredits — SELECT mv_ameno_credits_balance for one user."""
+    """com.etzhayyim.apps.ameno.listMyCredits — SELECT mv_ameno_credits_balance for one user."""
     actor_did = _safe_str(payload.get("actorDid"))
     if not actor_did:
         return {"actorDid": "", "balance": 0, "eventCount": 0}
@@ -406,7 +406,7 @@ def handle_list_my_credits(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def handle_list_history(payload: dict[str, Any]) -> dict[str, Any]:
-    """app.etzhayyim.apps.ameno.listHistory — SELECT from vertex_ameno_inferenceresult."""
+    """com.etzhayyim.apps.ameno.listHistory — SELECT from vertex_ameno_inferenceresult."""
     actor_did = _safe_str(payload.get("actorDid"))
     model_id = _safe_str(payload.get("modelId"))
     limit_raw = _safe_int(payload.get("limit"), 20)

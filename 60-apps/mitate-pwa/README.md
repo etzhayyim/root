@@ -28,22 +28,22 @@ Plus: ≥ 1 licensed MD on Council medical advisory + 1 emergency medicine speci
 | Gate | Enforcement point | Test |
 |---|---|---|
 | **G3** disclaimer-first | `/triage` + `/medication-audit` 303 → `/disclaimer` until ack present | `tests/g3-disclaimer-flow.test.ts` |
-| **G5** emergency_screen pass-through | POST `/xrpc/app.etzhayyim.mitate.triageVerdict` → 405 `G5InvariantBlocked` | `tests/g5-emergency-bypass-impossible.test.ts` |
+| **G5** emergency_screen pass-through | POST `/xrpc/com.etzhayyim.mitate.triageVerdict` → 405 `G5InvariantBlocked` | `tests/g5-emergency-bypass-impossible.test.ts` |
 | **G11** notification 3-channel only | `/notify/{channel}` checks `G11_ALLOWED_NOTIFICATION_CHANNELS` | `tests/g11-no-addictive-design.test.ts` |
 | **G14** substrate boundary | all substrate writes via `proxyToSubstrate()` → `ETZHAYYIM_SDK_PROXY_URL`; no direct AT MST / IPFS / viem / noble-ciphers / libsignal imports | `tests/g14-substrate-boundary.test.ts` |
 
 ## R1 active vs R2 gated lexicon NSIDs
 
 R1 active (4):
-- `app.etzhayyim.mitate.rhinitisIntake`
-- `app.etzhayyim.mitate.triageVerdict` (read-only — POST blocked per G5)
-- `app.etzhayyim.mitate.emergencyEscalation`
+- `com.etzhayyim.mitate.rhinitisIntake`
+- `com.etzhayyim.mitate.triageVerdict` (read-only — POST blocked per G5)
+- `com.etzhayyim.mitate.emergencyEscalation`
 
 R2 gated (return 503 `MitateR2GatedLexicon`):
-- `app.etzhayyim.mitate.diagnosticOrder`
-- `app.etzhayyim.mitate.diagnosticResult`
-- `app.etzhayyim.mitate.treatmentPlan`
-- `app.etzhayyim.mitate.outcomeFollowup`
+- `com.etzhayyim.mitate.diagnosticOrder`
+- `com.etzhayyim.mitate.diagnosticResult`
+- `com.etzhayyim.mitate.treatmentPlan`
+- `com.etzhayyim.mitate.outcomeFollowup`
 
 ## App layout
 

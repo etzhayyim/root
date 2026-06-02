@@ -745,7 +745,7 @@ def bunseki_recommendations(pds: str | None, minutes: int, limit: int, top: int,
     for p in slow[:top]:
         activity = p["activity"]
         handler_hits: list[str] = []
-        search_term = activity.replace(".", "/").replace("ai/gftd", "xrpc")
+        search_term = activity.replace(".", "/").replace("com/etzhayyim", "xrpc")
         try:
             import subprocess
             result = subprocess.run(

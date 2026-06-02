@@ -1,4 +1,4 @@
-# app.etzhayyim.mitsuho.* — Lexicons
+# com.etzhayyim.mitsuho.* — Lexicons
 
 Per ADR-2605261015. R0 stubs; full schemas R1+.
 

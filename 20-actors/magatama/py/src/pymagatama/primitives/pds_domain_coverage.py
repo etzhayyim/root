@@ -16,7 +16,7 @@ from pymagatama.db_sync import sync_cursor
 
 
 PDS_DID = "did:web:atproto.etzhayyim.com"
-DOMAIN_COVERAGE_COLLECTION = "app.etzhayyim.apps.pds.domainCoverageExpansion"
+DOMAIN_COVERAGE_COLLECTION = "com.etzhayyim.apps.pds.domainCoverageExpansion"
 DEFAULT_TIMEOUT_SEC = 120.0
 
 

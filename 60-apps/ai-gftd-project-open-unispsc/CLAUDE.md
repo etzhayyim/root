@@ -11,7 +11,7 @@ Segment  (2桁)  ~55 segments    → APP boundary (1 APP per segment)
       Commodity (8桁)  ~70,000 items → Entity (SQL node :UNSPSCCommodity + Lexicon records)
 ```
 
-## Lexicon Namespace: `app.etzhayyim.apps.unispsc.*`
+## Lexicon Namespace: `com.etzhayyim.apps.unispsc.*`
 
 全 record に `commodity_code` (8桁) フィールドを持ち、commodity entity を特定。
 canonical DID は alpha-start ルール準拠:
@@ -24,15 +24,15 @@ canonical DID は alpha-start ルール準拠:
 
 | Lexicon NSID | WRecord kind | Rkey | Entity ID | 用途 |
 |---|---|---|---|---|
-| `app.etzhayyim.apps.unispsc.commodity` | `unispsc.commodity` | UNSPSC 8桁 | commodity_code | commodity entity 登録 (master) |
-| `app.etzhayyim.apps.unispsc.spec` | `unispsc.spec` | nanoid | commodity_code | 製品仕様テンプレート |
-| `app.etzhayyim.apps.unispsc.procurement` | `unispsc.procurement` | nanoid | commodity_code | 調達イベント記録 |
-| `app.etzhayyim.apps.unispsc.supplier` | `unispsc.supplier` | nanoid | commodity_code | サプライヤー評価 |
-| `app.etzhayyim.apps.unispsc.standard` | `unispsc.standard` | standard_id | commodity_codes[] | 品質規格バインド |
-| `app.etzhayyim.apps.unispsc.risk` | `unispsc.risk` | nanoid | commodity_code | リスク評価 |
-| `app.etzhayyim.apps.unispsc.rfp` | `unispsc.rfp` | nanoid | commodity_code | RFP/RFQ テンプレート |
-| `app.etzhayyim.apps.unispsc.concordance` | `unispsc.concordance` | unispsc_code | unispsc_code | CPC concordance |
-| `app.etzhayyim.apps.unispsc.hsConcordance` | `unispsc.hsConcordance` | unispsc_code | unispsc_code | HS concordance |
+| `com.etzhayyim.apps.unispsc.commodity` | `unispsc.commodity` | UNSPSC 8桁 | commodity_code | commodity entity 登録 (master) |
+| `com.etzhayyim.apps.unispsc.spec` | `unispsc.spec` | nanoid | commodity_code | 製品仕様テンプレート |
+| `com.etzhayyim.apps.unispsc.procurement` | `unispsc.procurement` | nanoid | commodity_code | 調達イベント記録 |
+| `com.etzhayyim.apps.unispsc.supplier` | `unispsc.supplier` | nanoid | commodity_code | サプライヤー評価 |
+| `com.etzhayyim.apps.unispsc.standard` | `unispsc.standard` | standard_id | commodity_codes[] | 品質規格バインド |
+| `com.etzhayyim.apps.unispsc.risk` | `unispsc.risk` | nanoid | commodity_code | リスク評価 |
+| `com.etzhayyim.apps.unispsc.rfp` | `unispsc.rfp` | nanoid | commodity_code | RFP/RFQ テンプレート |
+| `com.etzhayyim.apps.unispsc.concordance` | `unispsc.concordance` | unispsc_code | unispsc_code | CPC concordance |
+| `com.etzhayyim.apps.unispsc.hsConcordance` | `unispsc.hsConcordance` | unispsc_code | unispsc_code | HS concordance |
 
 ## UNSPSC-CPC Concordance
 
@@ -59,10 +59,10 @@ UNSPSC hierarchy は単一の `commodity_code` lookup ではなく、4 つの bu
 
 | Grain | MCP tool | Code | Business logic |
 |---|---|---|---|
-| Segment | `app.etzhayyim.apps.openUnispsc.segment` | 2桁 | portfolio/domain ownership, regulated segment detection, default approval policy |
-| Family | `app.etzhayyim.apps.openUnispsc.family` | 4桁 | category-management strategy under segment |
-| Class | `app.etzhayyim.apps.openUnispsc.class` | 6桁 | compliance/control policy under family |
-| Commodity | `app.etzhayyim.apps.openUnispsc.commodity` | 8桁 | executable procurement policy: parent hierarchy, approval tier, risk tags, optional spend calculation |
+| Segment | `com.etzhayyim.apps.openUnispsc.segment` | 2桁 | portfolio/domain ownership, regulated segment detection, default approval policy |
+| Family | `com.etzhayyim.apps.openUnispsc.family` | 4桁 | category-management strategy under segment |
+| Class | `com.etzhayyim.apps.openUnispsc.class` | 6桁 | compliance/control policy under family |
+| Commodity | `com.etzhayyim.apps.openUnispsc.commodity` | 8桁 | executable procurement policy: parent hierarchy, approval tier, risk tags, optional spend calculation |
 
 Implementation:
 
@@ -71,7 +71,7 @@ Implementation:
 - Item-specific LangGraph + LangChain design graph: `20-actors/magatama/py/src/pymagatama/langgraph_graphs/open_unispsc_item.py`
 - MCP dispatch registration: `pymagatama.mcp_dispatch` actor `openUnispsc`
 - MCP registry seed: `30-graph/graph-schema/sql_migrations/20260514010000_seed_open_unispsc_hierarchy_mcp.up.sql`
-- Lexicons: `00-contracts/lexicons/ai/gftd/apps/openUnispsc/{segment,family,class,commodity,designItem,itemGetSpec,itemScreenSupplier,itemPlanProcurement,itemFlagCompliance,syncCatalogItem,planCatalogPurchase,syncAllCommodityDids,importSegmentCatalog,supplier,procurement,flagArmsCommodity,flagDualUseCommodity,applyGraphWritePlan,runItemWorkflow,coverageSnapshot}.json`
+- Lexicons: `00-contracts/lexicons/com/etzhayyim/apps/openUnispsc/{segment,family,class,commodity,designItem,itemGetSpec,itemScreenSupplier,itemPlanProcurement,itemFlagCompliance,syncCatalogItem,planCatalogPurchase,syncAllCommodityDids,importSegmentCatalog,supplier,procurement,flagArmsCommodity,flagDualUseCommodity,applyGraphWritePlan,runItemWorkflow,coverageSnapshot}.json`
 
 Pregel execution walks ancestors before the requested grain:
 
@@ -83,50 +83,50 @@ For example, `openUnispsc.commodity(code=43211501)` returns segment 43,
 family 4321, class 432115, and commodity 43211501 records, each with its own
 MCP tool name and businessLogic payload.
 
-Actual UNSPSC item design uses `app.etzhayyim.apps.openUnispsc.designItem`.
+Actual UNSPSC item design uses `com.etzhayyim.apps.openUnispsc.designItem`.
 It accepts an 8-digit commodity item (for example `25172504 Vehicle Batteries`)
 and produces:
 
 - item-specific LangGraph nodes and edges
 - item-specific LangChain `ChatPromptTemplate` contract
 - MCP tool names scoped to the commodity item
-- BPMN references selected from `00-contracts/bpmn/ai/gftd/open-unispsc/`
+- BPMN references selected from `00-contracts/bpmn/com/etzhayyim/open-unispsc/`
 
 Executable item-level MCP tools:
 
 | MCP tool | Implements | BPMN reference |
 |---|---|---|
-| `app.etzhayyim.apps.openUnispsc.itemGetSpec` | item-specific spec/evidence contract + LangGraph/LangChain references | procurement/supplier process context |
-| `app.etzhayyim.apps.openUnispsc.itemScreenSupplier` | supplier KYC + quality routing: blocked/manual-review/approved | `supplier.bpmn` |
-| `app.etzhayyim.apps.openUnispsc.itemPlanProcurement` | totalAmount, approvalTier, requireCab, commodityDst | `procurement.bpmn` |
-| `app.etzhayyim.apps.openUnispsc.itemFlagCompliance` | arms / dual-use compliance flags and process refs | `flagArmsCommodity.bpmn`, `flagDualUseCommodity.bpmn` |
-| `app.etzhayyim.apps.openUnispsc.syncCatalogItem` | UNSPSC commodity item → `okaimono` catalog upsert contract | `260326-unispsc-okaimono-integration-design.md` Phase 2 |
-| `app.etzhayyim.apps.openUnispsc.planCatalogPurchase` | `okaimono` product/order line → checkout SAGA + segment item-spec invocation + fulfillment handoff | `260326-unispsc-okaimono-integration-design.md` Phase 3, `procurement.bpmn` |
-| `app.etzhayyim.apps.openUnispsc.syncAllCommodityDids` | cross-segment fanout plan for `register-commodities-bulk` + `register-commodity-profiles` + social registration post | `260326-unispsc-okaimono-integration-design.md` UNSPSC-side requirement |
-| `app.etzhayyim.apps.openUnispsc.importSegmentCatalog` | `okaimono` bulk import plan: query `unispsc_commodities` by segment and apply `syncCatalogItem` | `260326-unispsc-okaimono-integration-design.md` okaimono-side import command |
-| `app.etzhayyim.apps.openUnispsc.supplier` | supplier registration vertex + BPMN instance contract | `supplier.bpmn` |
-| `app.etzhayyim.apps.openUnispsc.procurement` | procurement request vertex + BPMN instance contract | `procurement.bpmn` |
-| `app.etzhayyim.apps.openUnispsc.flagArmsCommodity` | direct arms commodity BPMN flag | `flagArmsCommodity.bpmn` |
-| `app.etzhayyim.apps.openUnispsc.flagDualUseCommodity` | direct dual-use commodity BPMN flag | `flagDualUseCommodity.bpmn` |
-| `app.etzhayyim.apps.openUnispsc.runItemWorkflow` | spec + supplier + procurement + compliance + merged graphWritePlan | all selected open-unispsc BPMN refs |
-| `app.etzhayyim.apps.openUnispsc.coverageSnapshot` | dispatcher + lexicon + seed/down SQL + Alembic wrapper + BPMN + graph-target coverage report | all expected open-unispsc MCP refs |
+| `com.etzhayyim.apps.openUnispsc.itemGetSpec` | item-specific spec/evidence contract + LangGraph/LangChain references | procurement/supplier process context |
+| `com.etzhayyim.apps.openUnispsc.itemScreenSupplier` | supplier KYC + quality routing: blocked/manual-review/approved | `supplier.bpmn` |
+| `com.etzhayyim.apps.openUnispsc.itemPlanProcurement` | totalAmount, approvalTier, requireCab, commodityDst | `procurement.bpmn` |
+| `com.etzhayyim.apps.openUnispsc.itemFlagCompliance` | arms / dual-use compliance flags and process refs | `flagArmsCommodity.bpmn`, `flagDualUseCommodity.bpmn` |
+| `com.etzhayyim.apps.openUnispsc.syncCatalogItem` | UNSPSC commodity item → `okaimono` catalog upsert contract | `260326-unispsc-okaimono-integration-design.md` Phase 2 |
+| `com.etzhayyim.apps.openUnispsc.planCatalogPurchase` | `okaimono` product/order line → checkout SAGA + segment item-spec invocation + fulfillment handoff | `260326-unispsc-okaimono-integration-design.md` Phase 3, `procurement.bpmn` |
+| `com.etzhayyim.apps.openUnispsc.syncAllCommodityDids` | cross-segment fanout plan for `register-commodities-bulk` + `register-commodity-profiles` + social registration post | `260326-unispsc-okaimono-integration-design.md` UNSPSC-side requirement |
+| `com.etzhayyim.apps.openUnispsc.importSegmentCatalog` | `okaimono` bulk import plan: query `unispsc_commodities` by segment and apply `syncCatalogItem` | `260326-unispsc-okaimono-integration-design.md` okaimono-side import command |
+| `com.etzhayyim.apps.openUnispsc.supplier` | supplier registration vertex + BPMN instance contract | `supplier.bpmn` |
+| `com.etzhayyim.apps.openUnispsc.procurement` | procurement request vertex + BPMN instance contract | `procurement.bpmn` |
+| `com.etzhayyim.apps.openUnispsc.flagArmsCommodity` | direct arms commodity BPMN flag | `flagArmsCommodity.bpmn` |
+| `com.etzhayyim.apps.openUnispsc.flagDualUseCommodity` | direct dual-use commodity BPMN flag | `flagDualUseCommodity.bpmn` |
+| `com.etzhayyim.apps.openUnispsc.runItemWorkflow` | spec + supplier + procurement + compliance + merged graphWritePlan | all selected open-unispsc BPMN refs |
+| `com.etzhayyim.apps.openUnispsc.coverageSnapshot` | dispatcher + lexicon + seed/down SQL + Alembic wrapper + BPMN + graph-target coverage report | all expected open-unispsc MCP refs |
 
 The direct `supplier`, `procurement`, and compliance flag tools also return a deterministic
 `graphWritePlan` that targets the existing graph tables:
 
 | Tool | Graph target |
 |---|---|
-| `app.etzhayyim.apps.openUnispsc.supplier` | `vertex_open_unispsc_supplier` |
-| `app.etzhayyim.apps.openUnispsc.procurement` | `vertex_open_unispsc_procurement` + `edge_open_unispsc_procurement_commodity` |
-| `app.etzhayyim.apps.openUnispsc.flagArmsCommodity` | `vertex_open_defence_event` |
-| `app.etzhayyim.apps.openUnispsc.flagDualUseCommodity` | `vertex_open_defence_event` |
+| `com.etzhayyim.apps.openUnispsc.supplier` | `vertex_open_unispsc_supplier` |
+| `com.etzhayyim.apps.openUnispsc.procurement` | `vertex_open_unispsc_procurement` + `edge_open_unispsc_procurement_commodity` |
+| `com.etzhayyim.apps.openUnispsc.flagArmsCommodity` | `vertex_open_defence_event` |
+| `com.etzhayyim.apps.openUnispsc.flagDualUseCommodity` | `vertex_open_defence_event` |
 
-`app.etzhayyim.apps.openUnispsc.applyGraphWritePlan` validates those plans against
+`com.etzhayyim.apps.openUnispsc.applyGraphWritePlan` validates those plans against
 an open-unispsc table/column allowlist and returns parameterized upsert SQL in
 `dryRun=true`; with `dryRun=false` it applies the same validated statements via
 the existing DB sync helper.
 
-`app.etzhayyim.apps.openUnispsc.runItemWorkflow` composes the item spec, supplier
+`com.etzhayyim.apps.openUnispsc.runItemWorkflow` composes the item spec, supplier
 screening, procurement approval plan, and compliance flag tools into one
 workflow response. It returns `workflowStatus` (`ready`, `manual-review`, or
 `blocked`) plus one merged `graphWritePlan` for downstream validation or apply.
@@ -266,7 +266,7 @@ magatama.Invoke("", "get-spec", `{"commodity_code":"43211501"}`)
 
 okaimono (ok4imn1o) が全 51 UNSPSC segment を Follow → commodity 登録 commit を reactive に受信 → `okaimono_catalog_item` として自動カタログ登録。
 
-**フロー**: UNSPSC `register-commodities-bulk` → `app.etzhayyim.apps.unispsc.commodity` commit → okaimono `handleUpstreamUnispscCommodity()` → catalog item 作成 → 購入可能
+**フロー**: UNSPSC `register-commodities-bulk` → `com.etzhayyim.apps.unispsc.commodity` commit → okaimono `handleUpstreamUnispscCommodity()` → catalog item 作成 → 購入可能
 
 **okaimono 側 command**: `import-unispsc-segment`, `import-unispsc-all`, `catalog-search-unispsc`
 

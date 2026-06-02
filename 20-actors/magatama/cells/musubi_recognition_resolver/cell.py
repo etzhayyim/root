@@ -17,7 +17,7 @@ false AND ceremonyRecognition.confersCivilStatus const false (no code path to
 True). G8 non-fabrication (uses the registry's cited legalBasis + provenance
 only; unknown jurisdiction → empty, never a guess); Murakumo-only inference
 (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.musubi.ceremonyRecognition.
+Output Lexicon(s): com.etzhayyim.musubi.ceremonyRecognition.
 
 R0 scaffold — import-time RuntimeError until R1. The PURE, tested resolver core
 already lands in the sibling module ``recognition_resolver.py`` (importable

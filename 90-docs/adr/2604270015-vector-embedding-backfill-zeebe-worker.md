@@ -67,7 +67,7 @@ batches in production.
 
 The first BPMN artifact is intentionally one-batch:
 
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/vector-embedding/backfillBatch.bpmn`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/vector-embedding/backfillBatch.bpmn`
 
 K8s CronJobs start repeated one-batch instances for each surface. They are
 suspended by default:

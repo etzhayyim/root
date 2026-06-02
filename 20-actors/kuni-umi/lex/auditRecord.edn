@@ -1,7 +1,7 @@
-;; app.etzhayyim.kuniumi.auditRecord — lexicon
+;; com.etzhayyim.kuniumi.auditRecord — lexicon
 ;; ADR-2605201400 · audit witness output
 {:lexicon 1
- :id "app.etzhayyim.kuniumi.auditRecord"
+ :id "com.etzhayyim.kuniumi.auditRecord"
  :defs
  {:main
   {:type "record"

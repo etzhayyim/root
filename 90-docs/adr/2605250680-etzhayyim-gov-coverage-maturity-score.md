@@ -34,7 +34,7 @@ This ADR integrates that mechanism into `e7m` (Etzhayyim Monorepo CLI) as the ca
 | L1 | ISO-3 country codes | 196 (100%) | 20% | Count of gov<ISO3> BPMN namespace entries |
 | L2 | BPMN files | 784 (196 × 4 major COFOG categories) | 25% | Highest-impact gap (currently 0 baseline) |
 | L3 | substrate-ports | 3 (gov-mcp, lawfirm-admin, legal-entity) | 20% | Already at 100% as of 2026-05-25 |
-| L4 | ingest demonstrator records | 1000 | 20% | Scripted and emitted to app.etzhayyim.gov.agency |
+| L4 | ingest demonstrator records | 1000 | 20% | Scripted and emitted to com.etzhayyim.gov.agency |
 | L5 | cell activation | 3 (member_registry, religious_marriage, religious_corp_taxation) | 15% | Council Lv6+ supermajority gate; currently 0% |
 
 **Total Score** = sum(L_i × weight_i), capped at 100.
@@ -89,10 +89,10 @@ Output:
 
 ### 3. Measurement Implementation
 
-**L1 ISO-3 Coverage**: Count `BPMN namespace` entries in `00-contracts/bpmn/ai/gftd/gov<ISO3>/`.
+**L1 ISO-3 Coverage**: Count `BPMN namespace` entries in `00-contracts/bpmn/com/etzhayyim/gov<ISO3>/`.
 - Current baseline: ~176 of 196 countries → 90%
 
-**L2 COFOG Density**: Count `.bpmn` / `.bpmn2` files recursively under `00-contracts/bpmn/ai/gftd/gov*/`.
+**L2 COFOG Density**: Count `.bpmn` / `.bpmn2` files recursively under `00-contracts/bpmn/com/etzhayyim/gov*/`.
 - Target: 784 files (4 major COFOG per country)
 - Current baseline: 0 files → 0%
 - **Highest-impact improvement path**

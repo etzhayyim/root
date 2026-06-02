@@ -57,7 +57,7 @@ Add a `pds` + `yoro` command family to `70-tools/e7m` (the Python operator CLI +
 | `e7m pds list-repos [--host <h>] [--limit N] [--cursor C]` | `com.atproto.sync.listRepos` | Confirms which DIDs the PDS knows. Today's incident exposed that `pds.etzhayyim.com` is empty (`{repos:[]}`) while `atproto.etzhayyim.com` holds the `did:web:*.etzhayyim.com` corpus. |
 | `e7m pds describe-repo <did> [--host <h>]` | `com.atproto.repo.describeRepo` | Yes/no answer for "does this DID actually have a repo on this PDS?". Sets `exists=true` only when the PDS returns a real DID (defends against the empty-shell response some custom PDS implementations send). |
 | `e7m pds resolve-handle <handle> [--host <h>]` | `com.atproto.identity.resolveHandle` | Handle → DID. |
-| `e7m pds xrpc <nsid> [--method GET\|POST] [--host <h>] [--params JSON] [--body JSON] [--bearer JWT] [--allow-write]` | any NSID | Generic escape hatch. POSTs to non-read NSIDs require `--allow-write` so an operator cannot accidentally mutate state. NSID prefix safelist matches the substrate surface (`com.atproto.*` read, `app.bsky.*`, `app.etzhayyim.yoro.*`). |
+| `e7m pds xrpc <nsid> [--method GET\|POST] [--host <h>] [--params JSON] [--body JSON] [--bearer JWT] [--allow-write]` | any NSID | Generic escape hatch. POSTs to non-read NSIDs require `--allow-write` so an operator cannot accidentally mutate state. NSID prefix safelist matches the substrate surface (`com.atproto.*` read, `app.bsky.*`, `com.etzhayyim.yoro.*`). |
 | `e7m yoro probe` | composite | Replays today's diagnostic in one call: apex HTML + bundle entrypoint + `atQuery` GET-vs-POST check + three feed endpoints. Idempotent. Use this *first* when the timeline is reported failing. |
 
 ### Write surface (CLI-only, NOT exposed via MCP)

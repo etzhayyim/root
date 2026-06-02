@@ -9,10 +9,10 @@ last_verified: 2026-05-26
 priority: 6.5
 axis: training-corpus
 weight: 0.55
-priority_note: "Extends the religious-corp public-data ingestion family (ADR-2605262400 geo/netreg/web + ADR-2605262800 legal + ADR-2605263800 corporate + ADR-2605263900 open-government) with the `creative-pd/` bucket family covering four modalities: 映画 (film) + 映像 (video) + 音楽 (music; both symbolic and recordings) + 音声 (audio; speech + sound). Powers baien-distill creative-foundations recipe family + manabi arts/civic-literacy curriculum primary-source citations + ossekai Public-Domain-Day annual Jan 1 advisory. **Constitutional decet G1..G10**: G1 per-work PD attestation MANDATORY (7-jurisdiction matrix; no blanket-PD assumption) / G2 multi-juris pessimistic threshold (admitted only if PD in ALL of US/EU/UK/JP/AU/CA/CN; defaults to most-restrictive 70-yr p.m.a. baseline) / G3 music dual-copyright STRUCTURAL (composition PD AND recording PD both required for audio bucket; symbolic-only sidesteps recording layer) / G4 PASSIVE-ONLY ingestion (inherit ADR-2605262400 §G7; no live scraping; pre-pinned IPFS snapshot only) / G5 NO commercial vendor (Adobe Stock / Getty / Shutterstock / Pond5 / Audio Network / paid PD-collections PROHIBITED per Charter Rider §2(e)) / G6 memorization guardrail (3-pronged eval: verbatim regurgitation probe ≤1% / DP-SGD ε≤8.0 R3+ / Chromaprint spectral-fingerprint distance ≥0.2 for audio) / G7 Charter Rider §2(d) Wellbecoming framing scan per work (pre-1929 content auto-flag for racial-content review; manual at R1, rule-encoded R2+) / G8 attribution chain MANDATORY (every baien-distill artifact traces back to source work via attestation CID) / G9 Murakumo-only inference (inherit ADR-2605215000) / G10 memorization eval evidence emission to `90-docs/baien/creative-memorization-eval-{R-step}.jsonl` per training run. **Cross-juris contradiction resolution** (URAA + similar): per-work `jurisdictionConflictResolution` field captures conflicts; pessimistic algorithm rejects ANY work failing PD in even one of 7 jurisdictions; URAA-restored 1925-1935 European works become eligible only after US restoration expires + other jurisdictions remain PD. **8 non-goals N1..N8**: NOT training on copyright-active works (no fair-use carve-out R0-R3) / NOT orphan-works training (research-only carve-out R3+ Council Lv6+ ≥3) / NOT commercial-license-vendor ingestion / NOT blanket-PD-assumption (per-work attestation mandatory) / NOT memorization-infringing generative output (G6 enforces) / NOT removal of attribution chain (G8 mandatory) / NOT Tier-B NHK external publication (G13 fleet-internal carve-out per ADR-2605262100 precedent) / NOT US-only PD (multi-juris pessimistic threshold mandatory). 7 Lexicons under `app.etzhayyim.creative.*`: publicDomainStatusAttestation (G1+G2+G3 STRUCTURAL) + tierBNhkLicenseAttestation (CC-BY 2.1 JP carve-out) + tierBCcByAttestation (CC-BY 3.0/4.0 + CC-BY-SA carve-out with attribution-chain) + orphanWorkResearchAttestation (R3+ Council Lv6+ ≥3; research-only) + wellbecomingFramingScan (G7) + creativeMemorizationEvalReport (G6) + jurisdictionConflictResolution (URAA + similar)."
+priority_note: "Extends the religious-corp public-data ingestion family (ADR-2605262400 geo/netreg/web + ADR-2605262800 legal + ADR-2605263800 corporate + ADR-2605263900 open-government) with the `creative-pd/` bucket family covering four modalities: 映画 (film) + 映像 (video) + 音楽 (music; both symbolic and recordings) + 音声 (audio; speech + sound). Powers baien-distill creative-foundations recipe family + manabi arts/civic-literacy curriculum primary-source citations + ossekai Public-Domain-Day annual Jan 1 advisory. **Constitutional decet G1..G10**: G1 per-work PD attestation MANDATORY (7-jurisdiction matrix; no blanket-PD assumption) / G2 multi-juris pessimistic threshold (admitted only if PD in ALL of US/EU/UK/JP/AU/CA/CN; defaults to most-restrictive 70-yr p.m.a. baseline) / G3 music dual-copyright STRUCTURAL (composition PD AND recording PD both required for audio bucket; symbolic-only sidesteps recording layer) / G4 PASSIVE-ONLY ingestion (inherit ADR-2605262400 §G7; no live scraping; pre-pinned IPFS snapshot only) / G5 NO commercial vendor (Adobe Stock / Getty / Shutterstock / Pond5 / Audio Network / paid PD-collections PROHIBITED per Charter Rider §2(e)) / G6 memorization guardrail (3-pronged eval: verbatim regurgitation probe ≤1% / DP-SGD ε≤8.0 R3+ / Chromaprint spectral-fingerprint distance ≥0.2 for audio) / G7 Charter Rider §2(d) Wellbecoming framing scan per work (pre-1929 content auto-flag for racial-content review; manual at R1, rule-encoded R2+) / G8 attribution chain MANDATORY (every baien-distill artifact traces back to source work via attestation CID) / G9 Murakumo-only inference (inherit ADR-2605215000) / G10 memorization eval evidence emission to `90-docs/baien/creative-memorization-eval-{R-step}.jsonl` per training run. **Cross-juris contradiction resolution** (URAA + similar): per-work `jurisdictionConflictResolution` field captures conflicts; pessimistic algorithm rejects ANY work failing PD in even one of 7 jurisdictions; URAA-restored 1925-1935 European works become eligible only after US restoration expires + other jurisdictions remain PD. **8 non-goals N1..N8**: NOT training on copyright-active works (no fair-use carve-out R0-R3) / NOT orphan-works training (research-only carve-out R3+ Council Lv6+ ≥3) / NOT commercial-license-vendor ingestion / NOT blanket-PD-assumption (per-work attestation mandatory) / NOT memorization-infringing generative output (G6 enforces) / NOT removal of attribution chain (G8 mandatory) / NOT Tier-B NHK external publication (G13 fleet-internal carve-out per ADR-2605262100 precedent) / NOT US-only PD (multi-juris pessimistic threshold mandatory). 7 Lexicons under `com.etzhayyim.creative.*`: publicDomainStatusAttestation (G1+G2+G3 STRUCTURAL) + tierBNhkLicenseAttestation (CC-BY 2.1 JP carve-out) + tierBCcByAttestation (CC-BY 3.0/4.0 + CC-BY-SA carve-out with attribution-chain) + orphanWorkResearchAttestation (R3+ Council Lv6+ ≥3; research-only) + wellbecomingFramingScan (G7) + creativeMemorizationEvalReport (G6) + jurisdictionConflictResolution (URAA + similar)."
 authoritative_for:
   - creative-pd substrate single SoT
-  - app.etzhayyim.creative.* Lexicon namespace boundary
+  - com.etzhayyim.creative.* Lexicon namespace boundary
   - baien-distill creative-foundations recipe family
   - per-work PD attestation methodology
   - multi-jurisdictional pessimistic threshold algorithm
@@ -129,7 +129,7 @@ e7m-dataset:creative-pd/
 
 Per-work directory structure mirrors the legal-corpus pattern of
 ADR-2605262800. Per-source datasetPin records under
-`app.etzhayyim.substrate.datasetPin` per ADR-2605241500.
+`com.etzhayyim.substrate.datasetPin` per ADR-2605241500.
 
 ## §3. Multi-jurisdictional PD term matrix (2026 baseline)
 
@@ -189,7 +189,7 @@ R3+ Tier-B + orphan-works:
 `pd_status_cross_verifier_sensor` — cross-references HathiTrust /
 Standard Ebooks / Public Domain Review for status confirmation.
 
-## §5. Lexicons (7, all under `app.etzhayyim.creative.*`)
+## §5. Lexicons (7, all under `com.etzhayyim.creative.*`)
 
 | # | Lexicon | Purpose |
 |---|---|---|
@@ -257,7 +257,7 @@ Standard Ebooks / Public Domain Review for status confirmation.
 
 Streams source → per-work attestation → Charter Rider §2(d) scan →
 modality-specific preprocessing → NDJSON shard write → IPFS pin →
-publish-ipfs CID → `app.etzhayyim.substrate.datasetPin` emit.
+publish-ipfs CID → `com.etzhayyim.substrate.datasetPin` emit.
 
 Per-modality preprocessing handlers at
 `70-tools/baien-moemoekyun-train/scripts/preprocess/`:
@@ -289,7 +289,7 @@ R2 recipes:
 ## §12. R0 deliverables (this commit)
 
 1. This ADR (`90-docs/adr/2605265000-creative-pd-substrate-for-baien-training-r0.md`);
-2. 7 Lexicon JSON schema skeletons under `00-contracts/lexicons/app/etzhayyim/creative/` (R0 paths reserved; iteration 6+ writes);
+2. 7 Lexicon JSON schema skeletons under `00-contracts/lexicons/com/etzhayyim/creative/` (R0 paths reserved; iteration 6+ writes);
 3. Sensor scaffold paths reserved under `pymagatama.organism.sensors.creative.*` (R0 path-reserved; iteration 7+ writes);
 4. Recipe templates path-reserved under `70-tools/baien-moemoekyun-train/recipes/creative/` (R1 writes);
 5. Cold-path corpus assembler skeleton at `70-tools/baien-moemoekyun-train/scripts/assemble-creative-pd-corpus.py` (R1 writes);

@@ -47,9 +47,9 @@ performerType: `system` (observability infrastructure)
 
 | Kind | AT Lexicon NSID | Description |
 |---|---|---|
-| `ocel_event` | `app.etzhayyim.apps.ocel.event` | OCEL v2 event record |
-| `ocel_object_type` | `app.etzhayyim.apps.ocel.object_type` | Object type definition |
-| `ocel_process_model` | `app.etzhayyim.apps.ocel.process_model` | DFG + variant model |
+| `ocel_event` | `com.etzhayyim.apps.ocel.event` | OCEL v2 event record |
+| `ocel_object_type` | `com.etzhayyim.apps.ocel.object_type` | Object type definition |
+| `ocel_process_model` | `com.etzhayyim.apps.ocel.process_model` | DFG + variant model |
 
 ## Process Mining Algorithms `[DESIGN]`
 
@@ -85,8 +85,8 @@ yoro.etzhayyim.com `/activities` consumes `OcelEvent` graph label alongside Blue
 
 | XRPC (yoro side) | Source from OCEL |
 |---|---|
-| `app.etzhayyim.yoro.activity.listActivities` | `OcelEvent` label → `deploy:*`, `record:*`, `profile:*`, `auth:*` activities |
-| `app.etzhayyim.yoro.activity.getActivityTrace` | `OcelEvent` label filtered by objectType + objectId |
+| `com.etzhayyim.yoro.activity.listActivities` | `OcelEvent` label → `deploy:*`, `record:*`, `profile:*`, `auth:*` activities |
+| `com.etzhayyim.yoro.activity.getActivityTrace` | `OcelEvent` label filtered by objectType + objectId |
 
 ## SQL Process Mining Queries `[DESIGN]`
 

@@ -50,7 +50,7 @@ did:web:otakiage.etzhayyim.com:matsuri:{matsuriId-slug}  — Matsuri (future)
 | Vendor (`otakiage.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
-| `db.insertInto("vertex_otakiage_item").values({...}).execute()` | `e.write({ collection: "app.etzhayyim.otakiage.item", record, rkey })` |
+| `db.insertInto("vertex_otakiage_item").values({...}).execute()` | `e.write({ collection: "com.etzhayyim.otakiage.item", record, rkey })` |
 | `db.selectFrom("vertex_otakiage_item").where("id","=",i).execute()` | `e.read({ collection, rkey: \`item-${idSlug(i)}\` })` |
 
 ## Usage

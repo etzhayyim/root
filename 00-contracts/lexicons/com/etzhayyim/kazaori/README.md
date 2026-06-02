@@ -1,4 +1,4 @@
-# app.etzhayyim.kazaori.* — kazaori (風折) Lexicons
+# com.etzhayyim.kazaori.* — kazaori (風折) Lexicons
 
 **Owner actor**: `did:web:kazaori.etzhayyim.com` (`20-actors/kazaori/`)
 **ADR**: ADR-2605263200 (R0 scaffold)

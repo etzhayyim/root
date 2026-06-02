@@ -11,7 +11,7 @@ The contract is open. The roster is open. There is no admin. Anyone reading this
 ## How to join
 
 1. Read [ADR-2605172600](90-docs/adr/2605172600-etzhayyim-membership-ritual.md) in full.
-2. Read [the oath](00-contracts/lexicons/ai/gftd/apps/etzhayyim/oath.json) (the canonical text — both Japanese and English are equivalent).
+2. Read [the oath](00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json) (the canonical text — both Japanese and English are equivalent).
 3. Prepare a DID + ERC-4337 Smart Account (Coinbase Smart Wallet recommended).
 4. Sign the oath text with your DID key.
 5. Call `EtzhayyimMembership.join(oathHash, "your-github-username")` on Base L2 (Paymaster sponsors gas).
@@ -64,7 +64,7 @@ cast call $MEMBERSHIP_CONTRACT \
 # 3. Verify the oath AT Record (carries the DID signature)
 curl -s https://pds.etzhayyim.com/xrpc/com.atproto.repo.getRecord \
   -G --data-urlencode "repo=$DID" \
-  --data-urlencode "collection=app.etzhayyim.apps.etzhayyim.oath" \
+  --data-urlencode "collection=com.etzhayyim.apps.etzhayyim.oath" \
   --data-urlencode "rkey=$RKEY"
 ```
 
@@ -74,5 +74,5 @@ All three checks should resolve to the same `oathHash` (= keccak256 of the canon
 
 - [ADR-2605172600](90-docs/adr/2605172600-etzhayyim-membership-ritual.md) — protocol spec
 - [`50-infra/etzhayyim-membership-contract/`](50-infra/etzhayyim-membership-contract/) — Solidity source
-- [`00-contracts/lexicons/ai/gftd/apps/etzhayyim/oath.json`](00-contracts/lexicons/ai/gftd/apps/etzhayyim/oath.json) — AT Record Lexicon
+- [`00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json`](00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/oath.json) — AT Record Lexicon
 - [ADR-2605172000](90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — why the roster lives on MST + L2 + github

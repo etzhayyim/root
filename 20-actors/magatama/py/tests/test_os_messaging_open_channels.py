@@ -65,7 +65,7 @@ def test_queue_seed_runs_inserts_telegram_run(monkeypatch):
 
 def test_process_queue_writes_channel_and_messages(monkeypatch):
     run = (
-        "at://did:web:os-messaging.etzhayyim.com/app.etzhayyim.apps.osMessaging.openScraperRun/run-1",
+        "at://did:web:os-messaging.etzhayyim.com/com.etzhayyim.apps.osMessaging.openScraperRun/run-1",
         "telegram",
         "gftd",
         "https://t.me/s/gftd",

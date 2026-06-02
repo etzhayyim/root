@@ -87,7 +87,7 @@ This ADR defines:
 
 All actors run as LangGraph `StateGraph` graphs registered on the `lg-yatabase` pod
 (`60-apps/ai-gftd-project-yatabase/lg/`). Each is imported in `server.py`, exposed via
-`/runs` and `/xrpc/app.etzhayyim.apps.yata.lg.*`, and scheduled via APScheduler.
+`/runs` and `/xrpc/com.etzhayyim.apps.yata.lg.*`, and scheduled via APScheduler.
 
 ```
 lg-yatabase pod (mitama-udf namespace, Vultr GPU node)
@@ -276,11 +276,11 @@ CREATE TABLE IF NOT EXISTS vertex_yatabase_metrics_daily (
 
 | NSID | Graph | Description |
 |---|---|---|
-| `app.etzhayyim.apps.yata.lg.leadDiscovery.run` | `lead_discovery` | HN + GitHub lead gen |
-| `app.etzhayyim.apps.yata.lg.activation.run` | `activation` | Day-3/7 onboarding |
-| `app.etzhayyim.apps.yata.lg.conversion.run` | `conversion` | Quota-based upgrade trigger |
-| `app.etzhayyim.apps.yata.lg.retention.run` | `retention` | Churn detection + win-back |
-| `app.etzhayyim.apps.yata.lg.metricsDaily.run` | `metrics_daily` | KPI snapshot |
+| `com.etzhayyim.apps.yata.lg.leadDiscovery.run` | `lead_discovery` | HN + GitHub lead gen |
+| `com.etzhayyim.apps.yata.lg.activation.run` | `activation` | Day-3/7 onboarding |
+| `com.etzhayyim.apps.yata.lg.conversion.run` | `conversion` | Quota-based upgrade trigger |
+| `com.etzhayyim.apps.yata.lg.retention.run` | `retention` | Churn detection + win-back |
+| `com.etzhayyim.apps.yata.lg.metricsDaily.run` | `metrics_daily` | KPI snapshot |
 
 ---
 

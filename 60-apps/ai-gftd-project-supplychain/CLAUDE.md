@@ -113,7 +113,7 @@ docker buildx build \
 
 ## MCP Dispatch
 
-Registered in `mcp_dispatch.py` under `app.etzhayyim.apps.supplychain.*`:
+Registered in `mcp_dispatch.py` under `com.etzhayyim.apps.supplychain.*`:
 
 | MCP Method | Pod Endpoint |
 |---|---|

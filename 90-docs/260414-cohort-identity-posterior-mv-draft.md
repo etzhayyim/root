@@ -25,7 +25,7 @@ graph-schema CLAUDE.md §MV Memory Safety Guardrails 準拠:
 | 項目 | 見積 | 判定 |
 |---|---|---|
 | `GROUP BY cohort_did` cardinality | 初期 31、スケール後 ~10k | ✅ < 500k |
-| MV backfill row count | `vertex_repo_record WHERE collection='app.etzhayyim.cohort.evidence'` 初期 0 | ✅ 問題なし |
+| MV backfill row count | `vertex_repo_record WHERE collection='com.etzhayyim.cohort.evidence'` 初期 0 | ✅ 問題なし |
 | MAX(varchar) 列数 | 0 (数値 aggregate のみ) | ✅ 回避 |
 | payload columns fan-out | なし (narrow MV; cohort_did + posterior + evidence_count のみ) | ✅ |
 
@@ -35,7 +35,7 @@ graph-schema CLAUDE.md §MV Memory Safety Guardrails 準拠:
 
 ```sql
 -- Migration: 0054_cohort_identity_posterior_mv.ts (applied)
--- Source collection: app.etzhayyim.cohort.evidence
+-- Source collection: com.etzhayyim.cohort.evidence
 -- Drives: ADR-0026 Phase C fission gate (posterior > 0.95 + judgeAgreement)
 
 CREATE MATERIALIZED VIEW mv_cohort_identity_posterior AS
@@ -49,7 +49,7 @@ SELECT
            THEN 1 ELSE 0 END)::BIGINT                           AS fission_ready_count,
   MAX(observed_at)                                              AS last_evidence_at
 FROM vertex_repo_record
-WHERE collection = 'app.etzhayyim.cohort.evidence'
+WHERE collection = 'com.etzhayyim.cohort.evidence'
 GROUP BY cohort_did;
 
 -- Index for hot read (fission decision path)
@@ -58,7 +58,7 @@ GROUP BY cohort_did;
 
 ## Required promoted columns (insert pipeline)
 
-`vertex_repo_record` は promoted column 設計 (graph-schema CLAUDE.md §Schema Design)。`app.etzhayyim.cohort.evidence` 用に追加する列:
+`vertex_repo_record` は promoted column 設計 (graph-schema CLAUDE.md §Schema Design)。`com.etzhayyim.cohort.evidence` 用に追加する列:
 
 | Column | Type | Nullable | Source (lexicon path) |
 |---|---|---|---|
@@ -80,7 +80,7 @@ const ready = await db.selectFrom('mv_cohort_identity_posterior' as any)
   .where('max_posterior', '>', 0.95)
   .where('fission_ready_count', '>=', 1)
   .execute();
-// → app.etzhayyim.cohort.fission procedure を cohort_did ごとに呼ぶ
+// → com.etzhayyim.cohort.fission procedure を cohort_did ごとに呼ぶ
 ```
 
 # k-anonymity Re-evaluation (companion MV, Phase B scheduler)
@@ -97,7 +97,7 @@ SELECT
        ELSE COUNT(*) / COUNT(DISTINCT signal_kind)
   END::BIGINT                         AS k_proxy
 FROM vertex_repo_record
-WHERE collection = 'app.etzhayyim.cohort.evidence'
+WHERE collection = 'com.etzhayyim.cohort.evidence'
 GROUP BY cohort_did;
 ```
 
@@ -105,7 +105,7 @@ GROUP BY cohort_did;
 
 # Process Mining 連携 (ADR-0025 OCEL)
 
-Evidence write が `vertex_repo_record` に commit → PDS commit pipeline → `onCommit` handler が下記 OCEL event を `app.etzhayyim.apqc.apqcEvent` に emit:
+Evidence write が `vertex_repo_record` に commit → PDS commit pipeline → `onCommit` handler が下記 OCEL event を `com.etzhayyim.apqc.apqcEvent` に emit:
 
 | MV 状態遷移 | OCEL eventType | APQC L1 DID 経路 |
 |---|---|---|
@@ -128,6 +128,6 @@ OCEL object list: `cohort` (cohort_did), `evidence` (evidence_hash), 条件に�
 
 - `30-graph/graph-schema/CLAUDE.md` §MV Memory Safety Guardrails
 - `50-infra/cloudflare/workers/atproto/src/insert-columns.ts`
-- `00-contracts/lexicons/ai/gftd/cohort/evidence.json`
-- `00-contracts/lexicons/ai/gftd/cohort/fission.json`
+- `00-contracts/lexicons/com/etzhayyim/cohort/evidence.json`
+- `00-contracts/lexicons/com/etzhayyim/cohort/fission.json`
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`

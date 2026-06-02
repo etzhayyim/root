@@ -17,7 +17,7 @@ requiring a separate NIC or k8s control plane.
 
 - 256-bit ed25519 peer ID is burned into eFuse at tape-out
 - Peer ID derivation: `keccak256(lot_id || die_xy_coord || nonce_council_attest)`
-- Recorded in `app.etzhayyim.silicon.chipManufacturingAttestation` Lexicon at shipment
+- Recorded in `com.etzhayyim.silicon.chipManufacturingAttestation` Lexicon at shipment
 
 ## Why on-die
 

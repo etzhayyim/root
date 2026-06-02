@@ -22,7 +22,7 @@ with the existing card ecosystem. Settles on-chain (USDC on Base L2 + ERC-4337).
   projection layer. Substrate access only via `@etzhayyim/sdk`.
 - **Inference**: Murakumo-only (ADR-2605215000) — no commercial GPU.
 - **No raw PAN**: network tokenization only (self TSP). Card metadata under
-  `app.etzhayyim.encrypted.*` (ADR-2605181100).
+  `com.etzhayyim.encrypted.*` (ADR-2605181100).
 - **No third-party processors**: no Stripe/PayPal/Square/Visa/MC integration. We re-implement an
   *interoperable* open spec; we do not import or route through commercial card rails.
 
@@ -42,7 +42,7 @@ with the existing card ecosystem. Settles on-chain (USDC on Base L2 + ERC-4337).
 │   ├── authorize.py                # auth (debit hold / credit reserve) -> EAVT auth_hold
 │   ├── settle.py                   # capture -> SettlementRouter USDC transfer -> EAVT settlement
 │   └── lex/                        # per-cell lexicons (cell I/O contracts)
-└── lex/README.md                   # points to 10-protocol/warifu/ app.etzhayyim.card.* lexicons
+└── lex/README.md                   # points to 10-protocol/warifu/ com.etzhayyim.card.* lexicons
 ```
 
 Companion layers: `10-protocol/warifu/` (lexicons), `50-infra/warifu-contracts/` (Solidity),

@@ -108,7 +108,7 @@ engineering metaphor で、生命組織の網状 / 分散 / 多態的な signali
 | `ingest.osm.>` | INGEST_OSM | T3 cold path OSM bulk ingest | T3 |
 | `spore.dispersal.>` | SPORE | Houshi propagation / AT firehose 拡散 | T2 |
 | `anastomosis.>` | ANASTOMOSIS | Hyphal fusion events (kabi network merge) | T2 |
-| `app.etzhayyim.apps.>` | LG_DISPATCH | LangGraph graph invocation dispatch (pull consumer per graph, WorkQueue, memory store) | L7 |
+| `com.etzhayyim.apps.>` | LG_DISPATCH | LangGraph graph invocation dispatch (pull consumer per graph, WorkQueue, memory store) | L7 |
 
 Future additions follow the same convention: `{domain}.{kind}.{further...}`.
 
@@ -178,7 +178,7 @@ SELECT * FROM tbl_gradient_flow;  -- row visible <8s
 | 3 | All Mitama actors → NATS publish via bpmn-dispatcher fan-out (subject `mitama.{nsid}`) | ✓ done 2026-05-09 (code landed, image rebuild required) |
 | 4 | T3 OSM ingest → NATS publish (RW table `tbl_ingest_osm_element` ← `ingest.osm.element.>` verified) | ✓ infra + RW source done 2026-05-09; v0.5.0 ingester rewrite TODO |
 | 5 | T1 PDS commits → NATS publish (firehose-to-NATS bridge scaffold + RW source verified) | ✓ infra+RW done 2026-05-09; bridge image build TODO |
-| 6 | LangGraph pull consumer pattern — lg-animeka `NatsConsumerManager` (stream `LG_DISPATCH`, subjects `app.etzhayyim.animeka.{autopilot\|cutRunner\|autoTraceCut\|breakdownScene}`, WorkQueue retention, memory store, max_age=1h). CronJob replaced by `nats pub` (nats-box). APScheduler disabled. 0.1.9 deployed 2026-05-13. | ✓ done 2026-05-13 |
+| 6 | LangGraph pull consumer pattern — lg-animeka `NatsConsumerManager` (stream `LG_DISPATCH`, subjects `com.etzhayyim.animeka.{autopilot\|cutRunner\|autoTraceCut\|breakdownScene}`, WorkQueue retention, memory store, max_age=1h). CronJob replaced by `nats pub` (nats-box). APScheduler disabled. 0.1.9 deployed 2026-05-13. | ✓ done 2026-05-13 |
 | 7 | HA expand: 3-node cluster (Vultr quota lift required) | TODO |
 
 Rejected alternatives (see comparison table in §Decision):

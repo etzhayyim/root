@@ -70,13 +70,13 @@ Core edges:
 
 Process: `public_domain_colorization_pipeline`
 
-NSID: `app.etzhayyim.apps.publicDomainColorization.colorizeWork`
+NSID: `com.etzhayyim.apps.publicDomainColorization.colorizeWork`
 
-Canonical BPMN: `00-contracts/bpmn/ai/gftd/public-domain-colorization/colorizeWork.bpmn`
+Canonical BPMN: `00-contracts/bpmn/com/etzhayyim/public-domain-colorization/colorizeWork.bpmn`
 
 Project mirror: `bpmn/colorize-public-domain-work.bpmn`
 
-Lexicon: `00-contracts/lexicons/ai/gftd/apps/publicDomainColorization/colorizeWork.json`
+Lexicon: `00-contracts/lexicons/com/etzhayyim/apps/publicDomainColorization/colorizeWork.json`
 
 Migration: `30-graph/graph-schema/migrations/20260429090000_public_domain_colorization.ts`
 
@@ -131,7 +131,7 @@ Worker runtime:
 - Movie source files are first added to `ipfs.etzhayyim.com`; downstream tasks should read `sourceIpfsCid`/`sourceIpfsUrl`, not arbitrary source URLs.
 - Fail closed on rights uncertainty. `classification in ["unknown", "in-copyright", "blocked"]` routes to `End_Blocked`.
 - Never publish directly from a ComfyUI task; publication is after human QC and a separate rights-approved variable.
-- Subtitle translation uses `app.etzhayyim.apps.i18n.translateBatch` with `contentKind = "timed-text"` so translation memory, glossary approval, and RTL handling stay in the i18n actor.
+- Subtitle translation uses `com.etzhayyim.apps.i18n.translateBatch` with `contentKind = "timed-text"` so translation memory, glossary approval, and RTL handling stay in the i18n actor.
 - Voice translation is opt-in per run. The default `voicePolicy = "narration-neutral"` avoids cloning a living performer; archival voice matching must be separately approved and recorded in the rights evidence bundle.
 
 ## Localization Contract
@@ -250,7 +250,7 @@ Current canary publication:
 
 - Work: `Gertie the Dinosaur`
 - PDS record CID: `3mkmf36owkk2m`
-- AT URI: `at://did:web:pd-color.etzhayyim.com/app.etzhayyim.apps.publicDomainColorization.publication/3mkmf36owkk2m`
+- AT URI: `at://did:web:pd-color.etzhayyim.com/com.etzhayyim.apps.publicDomainColorization.publication/3mkmf36owkk2m`
 - Publication package CID: `bafkreibf2d5q7t4thvtro2qjomq4ejytqlv2rh3z5vg5otrpwngma4fice`
 - Localized package CID: `bafkreifoyld7dyj7urialgcq357w5n6yhnrdveosspeukflcw6ablv2t6e`
 - Subtitle manifest CID: `bafkreigoyykv7ckdivx463qtjw4nldd43rrwkwa5iad5deatzxh7xffvle`

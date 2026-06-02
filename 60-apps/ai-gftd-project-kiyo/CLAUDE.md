@@ -6,7 +6,7 @@
 | **Tier** | T3 (専用 CF Worker) |
 | **DID** | `did:web:kiyo.etzhayyim.com` |
 | **nanoid** | `k1y04rc4` |
-| **NSID prefix** | `app.etzhayyim.kiyo.*` |
+| **NSID prefix** | `com.etzhayyim.kiyo.*` |
 | **paper_id** | `kiyo:{YYYY}:{TID}` (e.g. `kiyo:2026:lzxy1a`) |
 | **Storage** | `ipfs.etzhayyim.com` — CIDv1 content-addressed, URL = `https://ipfs.etzhayyim.com/ipfs/{cid}` |
 | **ADR** | this CLAUDE.md is authoritative; `ADR-2605203000-rw-free-write-target-options.md` for write-target choice (PDS XRPC Option B) |
@@ -27,8 +27,8 @@
 
 30-graph/risingwave-udf/kiyo_udf.py  ← RisingWave Python External UDF (L6)
 
-etzhayyim-root/00-contracts/bpmn/ai/gftd/kiyo/     ← 5 BPMN files
-00-contracts/lexicons/ai/gftd/apps/kiyo/  ← 12 Lexicon JSONs
+etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kiyo/     ← 5 BPMN files
+00-contracts/lexicons/com/etzhayyim/apps/kiyo/  ← 12 Lexicon JSONs
 
 30-graph/graph-schema/migrations/
     20260430230000_vertex_kiyo.ts    ← tables + 3 MVs
@@ -39,7 +39,7 @@ etzhayyim-root/00-contracts/bpmn/ai/gftd/kiyo/     ← 5 BPMN files
 
 ```
 Client / LLM actor
-  → XRPC POST app.etzhayyim.kiyo.submitPaper
+  → XRPC POST com.etzhayyim.kiyo.submitPaper
     → CF Worker (L3 thin): validate schema + dispatchBpmn()
       → BPMN dispatcher HTTP → LangServer process instance
         → kiyo.validateAuthor  (LangServer, RisingWave SELECT)
@@ -48,7 +48,7 @@ Client / LLM actor
         → generic.pds.dispatch (AT post announcement)
 
 Client
-  → XRPC GET app.etzhayyim.kiyo.searchPapers?q=autopoiesis
+  → XRPC GET com.etzhayyim.kiyo.searchPapers?q=autopoiesis
     → CF Worker (L3): Kysely raw SQL
         SELECT ... list_cosine_similarity(embedding, kiyo_embed_query(%q)) ...
         FROM vertex_kiyo_paper
@@ -124,15 +124,15 @@ kubectl logs -n mitama-udf deploy/bpmn-dispatcher | grep 'deployed kind=bpmn.*ki
 
 ```bash
 # submit a paper
-gftd agent-token --lxm app.etzhayyim.kiyo.submitPaper | xargs -I{} \
-  curl -s -X POST https://kiyo.etzhayyim.com/xrpc/app.etzhayyim.kiyo.submitPaper \
+gftd agent-token --lxm com.etzhayyim.kiyo.submitPaper | xargs -I{} \
+  curl -s -X POST https://kiyo.etzhayyim.com/xrpc/com.etzhayyim.kiyo.submitPaper \
     -H "Authorization: Bearer {}" \
     -H "Content-Type: application/json" \
     -d '{"title":"Test","abstract":"Test abstract","subject":["cs.AI"],"authors":["did:web:kiyo.etzhayyim.com"],"fileBase64":"..."}'
 
 # get stats
-curl https://kiyo.etzhayyim.com/xrpc/app.etzhayyim.kiyo.getStats
+curl https://kiyo.etzhayyim.com/xrpc/com.etzhayyim.kiyo.getStats
 
 # search
-curl "https://kiyo.etzhayyim.com/xrpc/app.etzhayyim.kiyo.searchPapers?q=autopoiesis"
+curl "https://kiyo.etzhayyim.com/xrpc/com.etzhayyim.kiyo.searchPapers?q=autopoiesis"
 ```

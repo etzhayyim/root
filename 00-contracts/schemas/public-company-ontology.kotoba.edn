@@ -84,7 +84,7 @@
   {:db/ident :supply.edge/from        :db/valueType :db.type/ref     :db/doc ":company/id of the SUPPLIER"}
   {:db/ident :supply.edge/to          :db/valueType :db.type/ref     :db/doc ":company/id of the CUSTOMER"}
   {:db/ident :supply.edge/tier        :db/valueType :db.type/long    :db/doc "supplier tier relative to customer (1 = direct), if disclosed"}
-  {:db/ident :supply.edge/commodity   :db/valueType :db.type/keyword :db/doc ":foundry | :lithography | :assembly | :memory | :display | :battery | :sensor | :logistics | :steel | :polysilicon | :wafer | :photoresist | :mask-blank | :substrate | :gas | :composite | :eda | … what flows along the edge"}
+  {:db/ident :supply.edge/commodity   :db/valueType :db.type/keyword :db/doc ":foundry | :lithography | :assembly | :memory | :display | :battery | :sensor | :logistics | :steel | :polysilicon | :wafer | :photoresist | :mask-blank | :substrate | :gas | :composite | :eda | :copper | … what flows along the edge"}
   {:db/ident :supply.edge/criticality :db/valueType :db.type/double  :db/doc "0.0..1.0 disclosed dependency strength; high = customer is concentrated on this supplier (:representative / :synthesized — never a contract figure)"}
   {:db/ident :supply.edge/sourcing    :db/valueType :db.type/keyword}
 

@@ -136,7 +136,7 @@ for (const [project, procs] of byProject) {
 
   // Per-NSID handler
   for (const e of procs) {
-    const nsid = `app.etzhayyim.apps.${e.nsidNs}.${e.proc}`;
+    const nsid = `com.etzhayyim.apps.${e.nsidNs}.${e.proc}`;
     const handlerName = `handle_${e.proc}`;
     lines.push(
       `// ${nsid} — ${e.jpName}`,
@@ -172,7 +172,7 @@ for (const [project, procs] of byProject) {
   lines.push(
     `export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {`,
     ...procs.map(
-      (e) => `  "app.etzhayyim.apps.${e.nsidNs}.${e.proc}": handle_${e.proc},`,
+      (e) => `  "com.etzhayyim.apps.${e.nsidNs}.${e.proc}": handle_${e.proc},`,
     ),
     `};`,
     ``,

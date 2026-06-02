@@ -126,10 +126,10 @@ renderer with kanae/shibuya, ADR-2605302300) remains the deferred integration �
 
 ## Lexicons (kotoba-native, supersede legacy `gftd`)
 
-`app.etzhayyim.cable.*` — `registerCableSystem` / `registerLandingStation` /
+`com.etzhayyim.cable.*` — `registerCableSystem` / `registerLandingStation` /
 `registerSegment` / `flagCableFault`. These replace the legacy `gftd` telecom / telecomInfra /
 cableRepairFleet lexicons; see the inventory + mapping in
-[`00-contracts/lexicons/app/etzhayyim/cable/MIGRATION-NOTES.md`](../../00-contracts/lexicons/app/etzhayyim/cable/MIGRATION-NOTES.md).
+[`00-contracts/lexicons/com/etzhayyim/cable/MIGRATION-NOTES.md`](../../00-contracts/lexicons/com/etzhayyim/cable/MIGRATION-NOTES.md).
 
 ## Display on etzhayyim.com
 

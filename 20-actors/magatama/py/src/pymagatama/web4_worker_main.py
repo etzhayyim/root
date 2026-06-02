@@ -213,7 +213,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="app.etzhayyim.apps.web4.register.expert")
+    @worker.task(task_type="com.etzhayyim.apps.web4.register.expert")
     async def task_register_expert(**kwargs):
         return await asyncio.to_thread(
             _create_expert_sync,
@@ -223,7 +223,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.web4.list.experts")
+    @worker.task(task_type="com.etzhayyim.apps.web4.list.experts")
     async def task_list_experts(**kwargs):
         return await asyncio.to_thread(
             _list_experts_sync,
@@ -232,7 +232,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.web4.submit.inference")
+    @worker.task(task_type="com.etzhayyim.apps.web4.submit.inference")
     async def task_submit_inference(**kwargs):
         return await asyncio.to_thread(
             _submit_inference_sync,
@@ -242,7 +242,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.web4.get.inferenceResult")
+    @worker.task(task_type="com.etzhayyim.apps.web4.get.inferenceResult")
     async def task_get_inference_result(**kwargs):
         return await asyncio.to_thread(
             _get_inference_result_sync,
@@ -250,7 +250,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.web4.list.jobs")
+    @worker.task(task_type="com.etzhayyim.apps.web4.list.jobs")
     async def task_list_jobs(**kwargs):
         return await asyncio.to_thread(
             _list_jobs_sync,
@@ -259,7 +259,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.web4.get.jobStatus")
+    @worker.task(task_type="com.etzhayyim.apps.web4.get.jobStatus")
     async def task_get_job_status(**kwargs):
         return await asyncio.to_thread(
             _get_job_status_sync,
@@ -267,14 +267,14 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.web4.get.clusterStats")
+    @worker.task(task_type="com.etzhayyim.apps.web4.get.clusterStats")
     async def task_get_cluster_stats(**kwargs):
         return await asyncio.to_thread(
             _get_cluster_stats_sync,
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="app.etzhayyim.apps.web4.update.expert")
+    @worker.task(task_type="com.etzhayyim.apps.web4.update.expert")
     async def task_update_expert(**kwargs):
         return await asyncio.to_thread(
             _update_expert_sync,

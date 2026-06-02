@@ -36,7 +36,7 @@ grep -l "export async function down" migrations/20260415*.ts migrations/20260416
 cd /repo
 
 # Verify all new lexicon JSONs are syntactically valid
-for f in 00-contracts/lexicons/ai/gftd/apps/{legalEntity,hospitality,maps,ongakuka,onion,openBanking,openIsic,openJpnGov}/*.json; do
+for f in 00-contracts/lexicons/com/etzhayyim/apps/{legalEntity,hospitality,maps,ongakuka,onion,openBanking,openIsic,openJpnGov}/*.json; do
   jq . "$f" > /dev/null || echo "INVALID: $f"
 done
 
@@ -299,9 +299,9 @@ psql "$DATABASE_URL" -c "SELECT schemaname, tablename, n_live_tup FROM pg_stat_u
 ```bash
 # Test 3 sample endpoints with new schema
 endpoints=(
-  "app.etzhayyim.apps.maps.getJobStatus"
-  "app.etzhayyim.legalEntity.companyFact"
-  "app.etzhayyim.ongakuka.listTracks"
+  "com.etzhayyim.apps.maps.getJobStatus"
+  "com.etzhayyim.legalEntity.companyFact"
+  "com.etzhayyim.ongakuka.listTracks"
 )
 
 for nsid in "${endpoints[@]}"; do
@@ -571,9 +571,9 @@ EOF
 ```bash
 # Test each new app
 test_cases=(
-  "app.etzhayyim.apps.maps.getJobStatus?jobId=test-job-1"
-  "app.etzhayyim.legalEntity.listCompanies?limit=1"
-  "app.etzhayyim.ongakuka.listTracks?limit=1"
+  "com.etzhayyim.apps.maps.getJobStatus?jobId=test-job-1"
+  "com.etzhayyim.legalEntity.listCompanies?limit=1"
+  "com.etzhayyim.ongakuka.listTracks?limit=1"
 )
 
 for endpoint in "${test_cases[@]}"; do
@@ -598,7 +598,7 @@ ORDER BY pct DESC;
 -- Check new lexicon usage
 SELECT collection, COUNT(*) as record_count 
 FROM vertex_repo_record
-WHERE collection LIKE 'app.etzhayyim.apps.%' 
+WHERE collection LIKE 'com.etzhayyim.apps.%' 
   AND (collection LIKE '%.orbital%' 
     OR collection LIKE '%.flight%' 
     OR collection LIKE '%.company%')

@@ -14,11 +14,11 @@ lg/
 │   ├── audit.py                             # fire-and-forget BPMN generic.audit.emit
 │   ├── checkpointer.py                      # _RwAsyncPostgresSaver (RW ON CONFLICT 回避)
 │   └── graphs/
-│       ├── health.py                        # app.etzhayyim.apps.webmk.health
-│       ├── create_proposal.py               # app.etzhayyim.apps.webmk.createProposal
-│       ├── deliver_proposal.py              # app.etzhayyim.apps.webmk.deliverProposal
-│       ├── get_proposal.py                  # app.etzhayyim.apps.webmk.getProposal
-│       └── list_proposals.py               # app.etzhayyim.apps.webmk.listProposals
+│       ├── health.py                        # com.etzhayyim.apps.webmk.health
+│       ├── create_proposal.py               # com.etzhayyim.apps.webmk.createProposal
+│       ├── deliver_proposal.py              # com.etzhayyim.apps.webmk.deliverProposal
+│       ├── get_proposal.py                  # com.etzhayyim.apps.webmk.getProposal
+│       └── list_proposals.py               # com.etzhayyim.apps.webmk.listProposals
 └── tests/
     └── test_smoke.py                        # smoke tests
 ```
@@ -27,11 +27,11 @@ lg/
 
 | NSID | assistant_id | graph file | status |
 |---|---|---|---|
-| `app.etzhayyim.apps.webmk.health` | `health` | health.py | ✅ |
-| `app.etzhayyim.apps.webmk.createProposal` | `create_proposal` | create_proposal.py | ✅ |
-| `app.etzhayyim.apps.webmk.deliverProposal` | `deliver_proposal` | deliver_proposal.py | ✅ |
-| `app.etzhayyim.apps.webmk.getProposal` | `get_proposal` | get_proposal.py | ✅ |
-| `app.etzhayyim.apps.webmk.listProposals` | `list_proposals` | list_proposals.py | ✅ |
+| `com.etzhayyim.apps.webmk.health` | `health` | health.py | ✅ |
+| `com.etzhayyim.apps.webmk.createProposal` | `create_proposal` | create_proposal.py | ✅ |
+| `com.etzhayyim.apps.webmk.deliverProposal` | `deliver_proposal` | deliver_proposal.py | ✅ |
+| `com.etzhayyim.apps.webmk.getProposal` | `get_proposal` | get_proposal.py | ✅ |
+| `com.etzhayyim.apps.webmk.listProposals` | `list_proposals` | list_proposals.py | ✅ |
 
 ## Proposal Lifecycle
 
@@ -80,6 +80,6 @@ Columns include `actor_did VARCHAR NOT NULL DEFAULT 'anon'`, `org_did VARCHAR NO
 | **P1** DB schema | `vertex_webmk_proposal` | ✅ migration `20260516650000` |
 | **P1** Helm chart | `50-infra/vultr/lg-webmk-pool/` | ✅ deployment.yaml |
 | **P1** CF tunnel route | cloudflared ConfigMap webmk NSID routes | ✅ 2026-05-16 added to bpmn-dispatcher-tunnel.yaml |
-| **P1** Lexicon | `00-contracts/lexicons/ai/gftd/apps/webmk/` | ✅ 5 lexicons (health + 4 XRPC) |
+| **P1** Lexicon | `00-contracts/lexicons/com/etzhayyim/apps/webmk/` | ✅ 5 lexicons (health + 4 XRPC) |
 | **P2** LLM proposal content | Full gemma-4-e4b-it proposal generation | ✅ implemented in create_proposal.py |
 | **P3** Delivery integration | Email/notification deliver pathway | ⏳ deliver_proposal.py stub wired, delivery backend pending |

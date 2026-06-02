@@ -89,7 +89,7 @@ reconstructible from MST+IPFS+L2 (that property is preserved, not the authority 
   remain authoritative on geth-private + Base L2 + IPFS + `LANDS.md`/`MEMBERS.md`
   (ADRs 2605192245 / 192300 / 192315 / 192145 / 192130, and 2605262130 D4/N3). The Datom
   log indexes/mirrors them; it does **not** become their write home.
-- **C2 — Encrypted wire format unchanged.** `app.etzhayyim.encrypted.*` (ADR-2605181100/181200)
+- **C2 — Encrypted wire format unchanged.** `com.etzhayyim.encrypted.*` (ADR-2605181100/181200)
   is the bit-identical envelope; Datoms carry ciphertext, never plaintext private records on MST.
 - **C3 — RW-free preserved.** No RisingWave / Postgres / Lance / DuckDB / SQLite as
   projection, cache, or read backend (ADR-2605172000 + 2605262130 D7/N8).
@@ -134,7 +134,7 @@ reconstructible from MST+IPFS+L2 (that property is preserved, not the authority 
 
 - ADR-2605262130 — Kotoba as Canonical Storage Substrate (parent; this ADR clarifies its layering)
 - ADR-2605172000 — RW-free substrate
-- ADR-2605181100 / 181200 — `app.etzhayyim.encrypted.*` wire format
+- ADR-2605181100 / 181200 — `com.etzhayyim.encrypted.*` wire format
 - ADR-2605215000 — Murakumo-only inference
 - ADR-2605231525 — no-server-key religious-corp architecture
 - ADR-2605231902 — feed-post membrane + feed-discover projection (Phase 2.5 migration target)

@@ -36,10 +36,10 @@ did:web:hubspot.etzhayyim.com) that polls HubSpot CRM v3 REST API and writes eac
 to `vertex_hubspot_*` via Hyperdrive direct per ADR-0036. Surface 4 NSIDs over
 XRPC + auto-published MCP:
 
-- `app.etzhayyim.apps.hubspot.syncObjectType` — incremental sync for one object type
-- `app.etzhayyim.apps.hubspot.syncAll` — fan-out over all 8 types (cron entrypoint)
-- `app.etzhayyim.apps.hubspot.listObjects` — read-side projection
-- `app.etzhayyim.apps.hubspot.getSyncStatus` — sync cursor inspection
+- `com.etzhayyim.apps.hubspot.syncObjectType` — incremental sync for one object type
+- `com.etzhayyim.apps.hubspot.syncAll` — fan-out over all 8 types (cron entrypoint)
+- `com.etzhayyim.apps.hubspot.listObjects` — read-side projection
+- `com.etzhayyim.apps.hubspot.getSyncStatus` — sync cursor inspection
 
 ## Object coverage (8 types)
 
@@ -110,6 +110,6 @@ Initial backfill: `syncAll {since: "1970-01-01T00:00:00Z", maxPagesPerType: 200}
 
 - `30-graph/graph-schema/sql_migrations/20260510010000_vertex_hubspot.{up,down}.sql`
 - `30-graph/graph-schema/alembic/current_versions/r_20260510010000_vertex_hubspot.py`
-- `00-contracts/lexicons/ai/gftd/apps/hubspot/{syncObjectType,syncAll,listObjects,getSyncStatus}.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/hubspot/{syncObjectType,syncAll,listObjects,getSyncStatus}.json`
 - `60-apps/ai-gftd-project-hubspot-hb5p0t1n/appview/ai-gftd-wasm-hubspot-hb5p0t1n/{magatama.jsonld,wrangler.jsonc,package.json,tsconfig.json,src/app.ts}`
 - `_working/etzhayyim-revenue/DECISION-LOG.md` iter 123, 127

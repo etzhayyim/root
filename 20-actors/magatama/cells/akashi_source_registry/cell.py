@@ -2,7 +2,7 @@
 
 Purpose:
     Curate already-public advertising disclosure sources and emit
-    app.etzhayyim.akashi.sourcePolicySnapshot records.
+    com.etzhayyim.akashi.sourcePolicySnapshot records.
 
 ADR:
     ADR-2606022300

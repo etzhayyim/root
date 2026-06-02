@@ -4,8 +4,8 @@
  * Per ADR-2604261110, this package does not depend on @etzhayyim/wproto. The caller
  * wires an XRPC dispatcher (typically a thin wrapper over `@atproto/api`'s
  * AtpAgent) and the Signal client uses it for the two server calls it needs:
- *   - app.etzhayyim.signal.registerPrekeys (procedure, body)
- *   - app.etzhayyim.signal.getPrekeyBundle (query, params)
+ *   - com.etzhayyim.signal.registerPrekeys (procedure, body)
+ *   - com.etzhayyim.signal.getPrekeyBundle (query, params)
  *
  * Single global slot is intentional: Signal identity is per-user, and the
  * browser session has exactly one. Tests can reset by calling

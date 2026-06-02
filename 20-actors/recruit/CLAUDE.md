@@ -22,19 +22,19 @@ did:web:recruit.etzhayyim.com:source:{sourceCode}
 
 | Command | NSID | Description |
 |---|---|---|
-| listPostings | `app.etzhayyim.apps.recruit.listPostings` | Filter by iscoCode / country / employerDid |
-| getPosting | `app.etzhayyim.apps.recruit.getPosting` | Detail + legal-entity JOIN |
-| ingestTaxonomy | `app.etzhayyim.apps.recruit.ingestTaxonomy` | ESCO/O*NET taxonomy batch ingest |
-| ingestJobPostings | `app.etzhayyim.apps.recruit.ingestJobPostings` | Ingest real public ATS job postings |
-| listJobIngestRuns | `app.etzhayyim.apps.recruit.listJobIngestRuns` | List public job ingest run history |
-| recommendCohorts | `app.etzhayyim.apps.recruit.recommendCohorts` | JobPosting × TalentCohort × DemandForecast cohort-first recommendations |
-| matchStats | `app.etzhayyim.apps.recruit.matchStats` | Cohort-first matching operational counts |
-| proposeCohortMatch | `app.etzhayyim.apps.recruit.proposeCohortMatch` | Persist a PII-free cohort match proposal |
-| listMatchProposals | `app.etzhayyim.apps.recruit.listMatchProposals` | List persisted cohort match proposals |
-| getMatchProposal | `app.etzhayyim.apps.recruit.getMatchProposal` | Get one persisted cohort match proposal |
-| decideMatchProposal | `app.etzhayyim.apps.recruit.decideMatchProposal` | Mark a persisted cohort match proposal accepted/rejected/expired |
-| listMatchDecisionEvents | `app.etzhayyim.apps.recruit.listMatchDecisionEvents` | List decision events for a persisted cohort match proposal |
-| stats | `app.etzhayyim.apps.recruit.stats` | Coverage stats |
+| listPostings | `com.etzhayyim.apps.recruit.listPostings` | Filter by iscoCode / country / employerDid |
+| getPosting | `com.etzhayyim.apps.recruit.getPosting` | Detail + legal-entity JOIN |
+| ingestTaxonomy | `com.etzhayyim.apps.recruit.ingestTaxonomy` | ESCO/O*NET taxonomy batch ingest |
+| ingestJobPostings | `com.etzhayyim.apps.recruit.ingestJobPostings` | Ingest real public ATS job postings |
+| listJobIngestRuns | `com.etzhayyim.apps.recruit.listJobIngestRuns` | List public job ingest run history |
+| recommendCohorts | `com.etzhayyim.apps.recruit.recommendCohorts` | JobPosting × TalentCohort × DemandForecast cohort-first recommendations |
+| matchStats | `com.etzhayyim.apps.recruit.matchStats` | Cohort-first matching operational counts |
+| proposeCohortMatch | `com.etzhayyim.apps.recruit.proposeCohortMatch` | Persist a PII-free cohort match proposal |
+| listMatchProposals | `com.etzhayyim.apps.recruit.listMatchProposals` | List persisted cohort match proposals |
+| getMatchProposal | `com.etzhayyim.apps.recruit.getMatchProposal` | Get one persisted cohort match proposal |
+| decideMatchProposal | `com.etzhayyim.apps.recruit.decideMatchProposal` | Mark a persisted cohort match proposal accepted/rejected/expired |
+| listMatchDecisionEvents | `com.etzhayyim.apps.recruit.listMatchDecisionEvents` | List decision events for a persisted cohort match proposal |
+| stats | `com.etzhayyim.apps.recruit.stats` | Coverage stats |
 
 ## Real Job Ingest
 
@@ -48,7 +48,7 @@ pnpm run recruit:jobs:ingest -- --platform lever --limit 100 --batch-size 50
 K8s worker:
 
 - Manifests: `50-infra/k8s/recruit-job-ingester/`
-- Internal endpoint: `http://recruit-job-ingester.recruit-actors.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.recruit.ingestJobPostings`
+- Internal endpoint: `http://recruit-job-ingester.recruit-actors.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.recruit.ingestJobPostings`
 - Health: `/healthz`; readiness: `/readyz`
 - Real writes persist run history into `vertex_recruit_job_ingest_run`
 

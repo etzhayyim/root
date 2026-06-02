@@ -36,8 +36,8 @@ Tier C escalation uses the generic
 
 ## Lexicon namespace
 
-`app.etzhayyim.apps.etzhayyim.kuniUmi.*` — 6 procedure lexicons under
-[`00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/`](../../00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/):
+`com.etzhayyim.apps.etzhayyim.kuniUmi.*` — 6 procedure lexicons under
+[`00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/`](../../00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/):
 
 | Lexicon | Phase | Encryption |
 |---|---|---|

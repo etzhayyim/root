@@ -3,7 +3,7 @@
 ;;
 ;; Projects the seven com.etzhayyim.himawari.* lexicon records (manifest.jsonld
 ;; :lexiconNamespaces) into kotoba Datom attributes. This is the canonical EAVT
-;; shape the PDS write path (ai.gftd.apps.kotobase.kg.ingest, gated by an operator
+;; shape the PDS write path (com.etzhayyim.apps.kotobase.kg.ingest, gated by an operator
 ;; session PoP per ADR-2606015000) materializes records into. All state is kotoba
 ;; Datoms — no RW/SQL/Lance as canonical (substrate boundary; G6-equivalent).
 ;;

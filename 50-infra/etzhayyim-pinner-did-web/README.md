@@ -13,7 +13,7 @@ The off-chain actor that:
 1. Reads CAR files written by `mst-projector` to a shared data volume (`<dataDir>/<shardKey>/<rootCid>.car`).
 2. Pins each new CAR to ≥1 IPFS providers (default: Kubo; production: Kubo + Filecoin via Storacha).
 3. Verifies the provider's returned CID equals the filename-encoded `rootCid`.
-4. Emits `app.etzhayyim.substrate.ipfsPin` AT Records under this DID with `rootCid`, `carCid`, `providers[]`, and `pinnedAt`.
+4. Emits `com.etzhayyim.substrate.ipfsPin` AT Records under this DID with `rootCid`, `carCid`, `providers[]`, and `pinnedAt`.
 
 Runtime: [`50-infra/ipfs-pinner/`](../ipfs-pinner/) — Stage 4 of [ADR-2605171800](../../90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md).
 

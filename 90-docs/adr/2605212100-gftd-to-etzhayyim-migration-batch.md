@@ -53,7 +53,7 @@ The DEPRECATED.md authors were correct to skip the violating subtrees, but the d
 
 2. **Deferred-subtree handling (2026-05-24 blind-copy wave)**:
    - The 36 files (12+11+13) previously deferred have been **blind-copied** to the etzhayyim side per user direction "blind copy して、後から修正".
-   - Each restored app carries a `SUBSTRATE-PORT-PENDING.md` documenting the exact Kysely / HyperDrive call sites and the substrate-port checklist (Kysely → MST PUT via `@etzhayyim/sdk`, `did:web:*.etzhayyim.com` → `did:web:etzhayyim.com:*`, Lexicon `app.etzhayyim.apps.*` → `app.etzhayyim.*`, package `@etzhayyim/magatama-*` → `@etzhayyim/magatama-*`).
+   - Each restored app carries a `SUBSTRATE-PORT-PENDING.md` documenting the exact Kysely / HyperDrive call sites and the substrate-port checklist (Kysely → MST PUT via `@etzhayyim/sdk`, `did:web:*.etzhayyim.com` → `did:web:etzhayyim.com:*`, Lexicon `com.etzhayyim.apps.*` → `com.etzhayyim.*`, package `@etzhayyim/magatama-*` → `@etzhayyim/magatama-*`).
    - The substrate-port wave will execute as part of the ADR-2605214000 §3 atomic identifier cutover, gated on legal-registration completion of the etzhayyim → 宗教法人 transition.
 
 3. **Authoritative audit record**: `60-apps/MIGRATION-NOTES-GOV-2026-05-24.md` is the single source of truth for the migration-gap matrix and per-app file counts as of 2026-05-24.

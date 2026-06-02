@@ -30,14 +30,14 @@ ADR-0024 "Auth / Accounts Worker Topology" に基づき、`accounts.etzhayyim.co
 
 - `GET  /manage` — account management UI (Svelte SPA)
 - `GET  /api/accounts/session`
-- `POST /xrpc/app.etzhayyim.auth.linkEmailBegin`
-- `POST /xrpc/app.etzhayyim.auth.linkEmailVerify`
-- `POST /xrpc/app.etzhayyim.auth.linkOAuthStart`
-- `POST /xrpc/app.etzhayyim.auth.unlinkMethod`
+- `POST /xrpc/com.etzhayyim.auth.linkEmailBegin`
+- `POST /xrpc/com.etzhayyim.auth.linkEmailVerify`
+- `POST /xrpc/com.etzhayyim.auth.linkOAuthStart`
+- `POST /xrpc/com.etzhayyim.auth.unlinkMethod`
 - `GET  /oauth/link/google/callback`
 - `GET  /oauth/link/microsoft/callback`
 
-NSID は移設時に `app.etzhayyim.auth.*` → `app.etzhayyim.accounts.*` に rename する (ADR-0024
+NSID は移設時に `com.etzhayyim.auth.*` → `com.etzhayyim.accounts.*` に rename する (ADR-0024
 責務マトリクス準拠)。旧 NSID は 90 日 alias で受け付ける。
 
 ## D1 分離

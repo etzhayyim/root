@@ -95,7 +95,7 @@ for baien-moemoekyun bench-eval (inference) workloads** during the window
 3. **No HF Hub publication** of moemoekyun bench outputs derived from this rental window — fleet-internal use only until P4 (matches G13 distribution boundary)
 4. **Council post-ratification recording**: this ADR + each runlog entry MUST be submitted to Council at the next vote (2026-06-19+) for retroactive ratification or objection
 5. **Cost log on yatachain (deferred to P4)**: full per-rental attestation Lexicon
-   (`app.etzhayyim.train.rentalCostLog`, ADR-2605262300 §5) cannot fire yet
+   (`com.etzhayyim.train.rentalCostLog`, ADR-2605262300 §5) cannot fire yet
    (PDS emit dry-run only) — substitute = the `runpod-5090-runlog-260526.jsonl` file
 
 ### §1.4 Time bound

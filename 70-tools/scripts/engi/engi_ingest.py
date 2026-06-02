@@ -44,11 +44,11 @@ class Follow:
 
 
 # atproto collection ($type) → :en/kind. Only known graph collections are ingested;
-# everything else is skipped (no silent mis-typing). app.etzhayyim.engi.dep is our
+# everything else is skipped (no silent mis-typing). com.etzhayyim.engi.dep is our
 # own dependency-edge collection (deps express しがらみ just like follows).
 ATPROTO_KIND = {
     "app.bsky.graph.follow": "follows",
-    "app.etzhayyim.engi.dep": "depends-on",
+    "com.etzhayyim.engi.dep": "depends-on",
 }
 
 

@@ -4,7 +4,7 @@
 
 ## Publishing principles
 - **Primary surface**: `https://salesforce.opensaas.etzhayyim.com/` root docs + `/at/` deep-links to example records so every post can link to a *live* lexicon-shaped artifact.
-- **Secondary surface**: `atproto.etzhayyim.com` blog (AT Record-native; every post is itself `app.bsky.feed.post` + a `app.etzhayyim.apps.opensaas.site.article` record, dog-fooding the protocol).
+- **Secondary surface**: `atproto.etzhayyim.com` blog (AT Record-native; every post is itself `app.bsky.feed.post` + a `com.etzhayyim.apps.opensaas.site.article` record, dog-fooding the protocol).
 - **No gating** on technical content. Gate only the pricing calculator (email required) and the POC Agreement draft.
 - **Language**: JP + EN for every pillar piece. JP first when the topic is APPI / Japan sovereignty; EN first when it's GDPR / federation.
 - **Cadence**: 1 pillar / 2 weeks, 1 short / week. Sustained for 2 quarters before judging SEO pull.
@@ -16,7 +16,7 @@
 **Outline**:
 1. What "audit log" means in Sales Cloud (rows in `FieldHistory` + Setup Audit Trail) and why a DBA with write access breaks both.
 2. W Protocol commit = Merkle DAG + signed by the seat DID's key. Immutable by construction.
-3. How the `derive` rule in `magatama.jsonld` emits `app.etzhayyim.apps.opensaas.salesforce.activity` with `source=derived-stage-change`, and the commit CID is embedded. Link to a live record: `at://demo.opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.activity/act-example`.
+3. How the `derive` rule in `magatama.jsonld` emits `com.etzhayyim.apps.opensaas.salesforce.activity` with `source=derived-stage-change`, and the commit CID is embedded. Link to a live record: `at://demo.opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.activity/act-example`.
 4. Regulator demo: export 7y of activity as OCEL 2.0 → Parquet on Iceberg, verifiable offline.
 5. "Things Einstein forecasts can't explain and we can" — 3 worked examples.
 
@@ -91,7 +91,7 @@
 ## Attribution
 
 - Landing URLs use UTM + a short-form AT URI deep-link so the inbound AE can see the exact pillar that pulled the lead.
-- Every form POST lands as `app.etzhayyim.apps.opensaas.salesforce.createLead` with `source=web-form` and `campaignId=<pillar-id>`.
+- Every form POST lands as `com.etzhayyim.apps.opensaas.salesforce.createLead` with `source=web-form` and `campaignId=<pillar-id>`.
 - Weekly RevOps review: which pillar yielded which discovery-call green column in the qualification sheet.
 
 ## What this forces the outbound sequence (07) to do

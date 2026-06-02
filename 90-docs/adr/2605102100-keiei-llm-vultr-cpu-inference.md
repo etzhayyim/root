@@ -37,10 +37,10 @@ calls through a **dedicated Vultr VKE CPU inference pod** running
 `https://gemma-e2b.etzhayyim.com` via Cloudflare Tunnel; in-cluster surface is
 the ClusterIP `keiei-llm.keiei-llm.svc.cluster.local:8080`.
 
-The macOS launchd daemon (`app.etzhayyim.keiei`) is wired through a small
+The macOS launchd daemon (`com.etzhayyim.keiei`) is wired through a small
 shell wrapper that loads the bearer from macOS Keychain
 (`gftd.keiei / LLM_BEARER`) at process start; the secret never lives in
-the world-readable `~/Library/LaunchAgents/app.etzhayyim.keiei.plist`.
+the world-readable `~/Library/LaunchAgents/com.etzhayyim.keiei.plist`.
 
 ## 2. Why CPU, not GPU
 
@@ -89,7 +89,7 @@ new operational shape — only a new instance of an established pattern.
 ## 4. Component layout
 
 ```
-macOS launchd app.etzhayyim.keiei  (PID alive, KeepAlive=true)
+macOS launchd com.etzhayyim.keiei  (PID alive, KeepAlive=true)
   └─ /bin/zsh -c keiei-launchd-wrapper.sh
        ├─ security find-generic-password -s gftd.keiei -a LLM_BEARER → etzhayyim_LLM_API_KEY
        ├─ export etzhayyim_LLM_URL=https://gemma-e2b.etzhayyim.com/v1/chat/completions

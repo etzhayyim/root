@@ -39,7 +39,7 @@ what the no-server-key invariant (substrate boundary table; ADR-2605231525) forb
 in etzhayyim-operated infrastructure. It is also the worst-case blast radius: a leak
 lets an attacker forge outbound mail for *every* member.
 
-The current canonical mail path is kotoba-server's `ai.gftd.apps.kotoba.email.*`
+The current canonical mail path is kotoba-server's `com.etzhayyim.apps.kotoba.email.*`
 (native E2E `email.send` via Signal; bridged ingest via `email.ingest`). The SMTP
 gateway (`50-infra/openmail-smtp-gateway/`) is the legacy edge. Its inbound path is
 fine (read-only ingress). Its **outbound** path needs DKIM, and DKIM is where the

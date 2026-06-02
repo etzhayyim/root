@@ -30,7 +30,7 @@ to use that image tag.
 cd 20-actors/magatama/py
 AGENTGATEWAY_MCP_URL="$AGENTGATEWAY_MCP_URL" \
   uv run python -m pymagatama.vector_embedding_ops deploy \
-  --bpmn ../../../etzhayyim-root/00-contracts/bpmn/ai/gftd/vector-embedding/backfillBatch.bpmn
+  --bpmn ../../../etzhayyim-root/00-contracts/bpmn/com/etzhayyim/vector-embedding/backfillBatch.bpmn
 ```
 
 ## 3. Apply Worker Manifest

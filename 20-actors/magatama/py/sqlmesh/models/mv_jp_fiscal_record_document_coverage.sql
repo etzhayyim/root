@@ -27,7 +27,7 @@ SELECT
   e.confidence AS record_evidence_confidence
 FROM (
   SELECT
-    'ai.gftd.apps.jpFiscal.budgetBook' AS collection,
+    'com.etzhayyim.apps.jpFiscal.budgetBook' AS collection,
     vertex_id,
     fiscal_year,
     account_type,
@@ -39,7 +39,7 @@ FROM (
   FROM vertex_jp_fiscal_budget_book
   UNION ALL
   SELECT
-    'ai.gftd.apps.jpFiscal.appropriation' AS collection,
+    'com.etzhayyim.apps.jpFiscal.appropriation' AS collection,
     vertex_id,
     fiscal_year,
     account_type,
@@ -51,7 +51,7 @@ FROM (
   FROM vertex_jp_fiscal_appropriation
   UNION ALL
   SELECT
-    'ai.gftd.apps.jpFiscal.procurementBid' AS collection,
+    'com.etzhayyim.apps.jpFiscal.procurementBid' AS collection,
     vertex_id,
     CASE
       WHEN EXTRACT(MONTH FROM opened_at) >= 4 THEN EXTRACT(YEAR FROM opened_at)::INT

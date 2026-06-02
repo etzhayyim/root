@@ -25,10 +25,10 @@ This ADR documents the implementation of four new XRPC MCP query endpoints and t
 
 | NSID | Source MV | Key filters | Max rows |
 |---|---|---|---|
-| `app.etzhayyim.apps.jukyu.queryBalance` | `mv_jukyu_global_balance` | domain, countryCode, productFamily | 500 |
-| `app.etzhayyim.apps.jukyu.querySupplyChain` | `mv_jukyu_supply_chain_trace` | domain, countryCode, productFamily, nodeCode | 1000 |
-| `app.etzhayyim.apps.jukyu.rankCompanyExposure` | `mv_jukyu_company_exposure_rank` | domain, countryCode, minRiskScore | 250 |
-| `app.etzhayyim.apps.jukyu.explainNode` | `vertex_jukyu_supply_node` + `mv_jukyu_supply_chain_trace` + `mv_jukyu_global_balance` | nodeCode (required), domain | node + chain (50) + balance (10) |
+| `com.etzhayyim.apps.jukyu.queryBalance` | `mv_jukyu_global_balance` | domain, countryCode, productFamily | 500 |
+| `com.etzhayyim.apps.jukyu.querySupplyChain` | `mv_jukyu_supply_chain_trace` | domain, countryCode, productFamily, nodeCode | 1000 |
+| `com.etzhayyim.apps.jukyu.rankCompanyExposure` | `mv_jukyu_company_exposure_rank` | domain, countryCode, minRiskScore | 250 |
+| `com.etzhayyim.apps.jukyu.explainNode` | `vertex_jukyu_supply_node` + `mv_jukyu_supply_chain_trace` + `mv_jukyu_global_balance` | nodeCode (required), domain | node + chain (50) + balance (10) |
 
 All endpoints:
 - Accept `POST` with JSON body
@@ -45,7 +45,7 @@ LG_JUKYU_INTERNAL_URL = os.environ.get(
     "LG_JUKYU_INTERNAL_URL",
     "http://lg-jukyu.mitama-udf.svc.cluster.local:8000",
 )
-LG_JUKYU_PROXY_PREFIXES = ("app.etzhayyim.apps.jukyu.",)
+LG_JUKYU_PROXY_PREFIXES = ("com.etzhayyim.apps.jukyu.",)
 LG_JUKYU_UTIL_PATHS = frozenset({"/extract/shocks", "/export/brief"})
 ```
 
@@ -58,11 +58,11 @@ The `dispatch()` function checks `LG_JUKYU_PROXY_PREFIXES` before the `vertex_bp
 ## Routing chain
 
 ```
-POST jukyu.etzhayyim.com/xrpc/app.etzhayyim.apps.jukyu.queryBalance
+POST jukyu.etzhayyim.com/xrpc/com.etzhayyim.apps.jukyu.queryBalance
   → CF Worker (app.ts): NSID_PREFIX match → proxyToDispatcher
-    → dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.jukyu.queryBalance
+    → dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.jukyu.queryBalance
       → bpmn-dispatcher: LG_JUKYU_PROXY_PREFIXES match → _proxy_to_lg_pod
-        → lg-jukyu.mitama-udf.svc.cluster.local:8000/xrpc/app.etzhayyim.apps.jukyu.queryBalance
+        → lg-jukyu.mitama-udf.svc.cluster.local:8000/xrpc/com.etzhayyim.apps.jukyu.queryBalance
           → FastAPI + psycopg2 → RisingWave mv_jukyu_global_balance
 ```
 

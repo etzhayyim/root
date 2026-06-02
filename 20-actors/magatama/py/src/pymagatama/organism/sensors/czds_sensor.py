@@ -5,7 +5,7 @@ Per ADR-2605262400 §3 + §4.2 + W4. Reads a CZDS zone-file snapshot
 resource record.
 
 Per-TLD `tier` is inherited from the
-``app.etzhayyim.substrate.tldCouncilAttestation`` record — the
+``com.etzhayyim.substrate.tldCouncilAttestation`` record — the
 StaticPinResolver passes that down via the DatasetPin. internal_only
 attaches automatically via make_observation.
 

@@ -41,7 +41,7 @@ etzhayyim-root は AT Protocol app surface 専念に絞る。
 
 1. **BPMN file ownership = etzhayyim-root** に集約。
 2. etzhayyim-root branch `iter144-bpmn-extract` で以下を `git rm`:
-   - `00-contracts/bpmn/ai/gftd/*` (4,443 files; AT-Protocol-app process defs)
+   - `00-contracts/bpmn/com/etzhayyim/*` (4,443 files; AT-Protocol-app process defs)
    - `60-apps/ai-gftd-project-bpmn/` (28 files; BPMN appview)
    - `60-apps/*/bpmn/` (53 per-project subdirs, 3,370 files)
    - `50-infra/k8s/bpmn-engine-host` (SpiffWorkflow engine, ADR-2605081200)

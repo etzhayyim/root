@@ -117,18 +117,18 @@ ITU (treaty:itu)                         ← ITU Constitution Art.44
 ## Lexicon NSIDs `[DESIGN]`
 
 ```
-app.etzhayyim.apps.ipaddress.ip_address         # individual IP record
-app.etzhayyim.apps.ipaddress.ip_range           # CIDR block
-app.etzhayyim.apps.ipaddress.asn                # Autonomous System
-app.etzhayyim.apps.ipaddress.whois_snapshot     # WHOIS snapshot
-app.etzhayyim.apps.ipaddress.geolocation        # GeoIP mapping
-app.etzhayyim.apps.ipaddress.reverse_dns        # PTR record
-app.etzhayyim.apps.ipaddress.hosting_provider   # hosting provider
-app.etzhayyim.apps.ipaddress.abuse_contact      # RIR abuse contact
-app.etzhayyim.apps.ipaddress.delegation_event   # RIR delegation change
-app.etzhayyim.apps.ipaddress.governance_rule    # governance rule (treaty/charter/standard/sovereign)
-app.etzhayyim.apps.ipaddress.ip_analysis        # full IP analysis result (GeoIP+WHOIS+ASN+PTR+Scan)
-app.etzhayyim.apps.ipaddress.scan_result        # port/service scan result (software, version, banner, TLS)
+com.etzhayyim.apps.ipaddress.ip_address         # individual IP record
+com.etzhayyim.apps.ipaddress.ip_range           # CIDR block
+com.etzhayyim.apps.ipaddress.asn                # Autonomous System
+com.etzhayyim.apps.ipaddress.whois_snapshot     # WHOIS snapshot
+com.etzhayyim.apps.ipaddress.geolocation        # GeoIP mapping
+com.etzhayyim.apps.ipaddress.reverse_dns        # PTR record
+com.etzhayyim.apps.ipaddress.hosting_provider   # hosting provider
+com.etzhayyim.apps.ipaddress.abuse_contact      # RIR abuse contact
+com.etzhayyim.apps.ipaddress.delegation_event   # RIR delegation change
+com.etzhayyim.apps.ipaddress.governance_rule    # governance rule (treaty/charter/standard/sovereign)
+com.etzhayyim.apps.ipaddress.ip_analysis        # full IP analysis result (GeoIP+WHOIS+ASN+PTR+Scan)
+com.etzhayyim.apps.ipaddress.scan_result        # port/service scan result (software, version, banner, TLS)
 ```
 
 ## Agent Behavior `[DESIGN]`

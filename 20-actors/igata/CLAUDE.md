@@ -22,7 +22,7 @@ alloy_melt → die_preparation → shot_injection → solidification_eject
       (levi)         (simeon)           (dan)            (levi)
 ```
 
-Each cell = 1 Pregel graph with super-step semantics (4–5 LangGraph nodes per cell). Cells communicate via lexicon records on MST (`app.etzhayyim.igata.*` record types).
+Each cell = 1 Pregel graph with super-step semantics (4–5 LangGraph nodes per cell). Cells communicate via lexicon records on MST (`com.etzhayyim.igata.*` record types).
 
 ## Robotics Fleet
 
@@ -75,15 +75,15 @@ See `ADR-2605261200` for full definitions. Key enforcement:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.igata`
+**App lexicon root**: `com.etzhayyim.igata`
 
 **Records** (5 types):
 
-1. **`app.etzhayyim.igata.alloyAttestation`** — Al-Si melt lot (composition, mass, source ingot, certifications, OPCW Schedule scan result, RoHS scan result)
-2. **`app.etzhayyim.igata.dieAttestation`** — Die geometry CAD CID (vendor-free: FreeCAD/OpenSCAD/Open CASCADE) + machining history + thermal cycle count + life-cycle status
-3. **`app.etzhayyim.igata.castShotRecord`** — Per-shot injection profile @ 1 kHz + vacuum-assist pressure + die temperature distribution + final outcome (success/reject/anomaly)
-4. **`app.etzhayyim.igata.partAttestation`** — Final part with full lineage chain (alloy CID + die CID + shot CID + QC CID + HT CID + machining CID + final part photo IPFS + material balance log)
-5. **`app.etzhayyim.igata.silenIgataReview`** — Council Lv6+ baseline review record (R2+ HPDC ≥2500 ton activation gate, parallel to yakushi `silenPharmaReview` + silicon `silenForceReview`)
+1. **`com.etzhayyim.igata.alloyAttestation`** — Al-Si melt lot (composition, mass, source ingot, certifications, OPCW Schedule scan result, RoHS scan result)
+2. **`com.etzhayyim.igata.dieAttestation`** — Die geometry CAD CID (vendor-free: FreeCAD/OpenSCAD/Open CASCADE) + machining history + thermal cycle count + life-cycle status
+3. **`com.etzhayyim.igata.castShotRecord`** — Per-shot injection profile @ 1 kHz + vacuum-assist pressure + die temperature distribution + final outcome (success/reject/anomaly)
+4. **`com.etzhayyim.igata.partAttestation`** — Final part with full lineage chain (alloy CID + die CID + shot CID + QC CID + HT CID + machining CID + final part photo IPFS + material balance log)
+5. **`com.etzhayyim.igata.silenIgataReview`** — Council Lv6+ baseline review record (R2+ HPDC ≥2500 ton activation gate, parallel to yakushi `silenPharmaReview` + silicon `silenForceReview`)
 
 **Deferred to R1+**: Full lexicon schema definitions. R0 uses stub placeholders.
 

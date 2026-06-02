@@ -68,7 +68,7 @@ OrganismLifecycle.handle_birth (state machine, iter 15)
         → drainer.processLine (iter 2-24)
           → dispatchLifecycle (iter 24)
             → Etzhayyim.write XChaCha20-Poly1305 wrapped (iter 19)
-              → PDS `app.etzhayyim.organism.lifecycle` record
+              → PDS `com.etzhayyim.organism.lifecycle` record
 ```
 
 **Inter-organism messaging E2E** (iters 1 → 16 → 25):

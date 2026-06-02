@@ -10,7 +10,7 @@ Reference implementation for **WASM-based industrial PLC and DLC** in non-safety
 |---|---|
 | Architecture decision | `90-docs/adr/2605151200-open-ot-wasm-plc-dlc.md` |
 | Detailed spec (NSIDs / FB API / Zenoh schemas) | `60-apps/ai-gftd-project-open-ot/SPEC.md` |
-| Lexicon contract (17 NSID, authored 2026-05-15) | `00-contracts/lexicons/ai/gftd/apps/openOt/*.json` |
+| Lexicon contract (17 NSID, authored 2026-05-15) | `00-contracts/lexicons/com/etzhayyim/apps/openOt/*.json` |
 | BFB cells (Cargo workspace, 3 cells, 29 tests) | `60-apps/ai-gftd-project-open-ot/cells/` |
 | Risk-1 Gate A Wasmtime harness | `60-apps/ai-gftd-project-open-ot/risk1/gate-a-rig/` |
 | Pregel orchestrator demos (Python, 3 variants, 25 tests) | `60-apps/ai-gftd-project-open-ot/orchestrator/` |

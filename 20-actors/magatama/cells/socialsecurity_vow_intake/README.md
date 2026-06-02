@@ -7,5 +7,5 @@ Per ADR-2605302358 + ADR-2605302357 §1.16.3a. R0 scaffold — `cell.py` raises 
 - **Pipeline group**: 産土 (ubusuna) — `did:web:etzhayyim.com` cell-group (NOT a new actor)
 - **Murakumo node (proposed)**: reuben
 - **Gates**: G3 (member-signed, no platform key) · N1 (cash=0) · G6 (PII in encrypted envelope) · G10 (non-coercive, right of exit) · G11 (live-action gate) · G2 (kotoba-only) · G4 (Murakumo-only)
-- **Output Lexicon(s)**: app.etzhayyim.membership.commitmentVow
+- **Output Lexicon(s)**: com.etzhayyim.membership.commitmentVow
 - **Ceiling**: MEMBER-SIGNED conversion vow only — social death and rebirth as an irreversible content-addressed record + soulbound token; NON-COERCIVE; cash=0; NO platform-held key.

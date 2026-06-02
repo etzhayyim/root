@@ -172,13 +172,13 @@ def test_fund_id_deterministic() -> None:
 def test_manager_vertex_id_shape() -> None:
     vid = I.manager_vertex_id("adv-123")
     assert vid.startswith("at://did:web:fund.etzhayyim.com/")
-    assert "app.etzhayyim.apps.fund.manager" in vid
+    assert "com.etzhayyim.apps.fund.manager" in vid
 
 
 def test_fund_vertex_id_shape() -> None:
     vid = I.fund_vertex_id("fund-abc")
     assert vid.startswith("at://did:web:fund.etzhayyim.com/")
-    assert "app.etzhayyim.apps.fund.fund" in vid
+    assert "com.etzhayyim.apps.fund.fund" in vid
 
 
 def test_investor_vertex_id_shape() -> None:

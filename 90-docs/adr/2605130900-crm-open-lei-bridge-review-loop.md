@@ -83,15 +83,15 @@ As of 2026-05-13:
 - `30-graph/graph-schema/alembic/current_versions/r_20260512140000_crm_lei_review_queue.py`
 - `50-infra/k8s/open-lei-mcp/mcp_server.py`
 - `50-infra/k8s/open-lei-mcp/README.md`
-- `00-contracts/lexicons/ai/gftd/apps/crm/resolveLei.json`
-- `00-contracts/lexicons/ai/gftd/apps/crm/listLeiLinks.json`
-- `00-contracts/lexicons/ai/gftd/apps/crm/listLeiPending.json`
-- `00-contracts/lexicons/ai/gftd/apps/crm/reviewLei.json`
-- `00-contracts/lexicons/ai/gftd/apps/crm/autoreviewLei.json`
-- `00-contracts/lexicons/ai/gftd/apps/crm/enrichLeiReviewQueue.json`
-- `00-contracts/lexicons/ai/gftd/apps/crm/listLeiReviewQueue.json`
-- `00-contracts/lexicons/ai/gftd/apps/crm/reviewLeiQueue.json`
-- `00-contracts/lexicons/ai/gftd/apps/crm/submitLeiEvidence.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/crm/resolveLei.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/crm/listLeiLinks.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/crm/listLeiPending.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/crm/reviewLei.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/crm/autoreviewLei.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/crm/enrichLeiReviewQueue.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/crm/listLeiReviewQueue.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/crm/reviewLeiQueue.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/crm/submitLeiEvidence.json`
 
 ## Closing State
 

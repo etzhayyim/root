@@ -296,8 +296,8 @@ AI agents alive across rebirth. Rejected:
 - `90-docs/proof/Karma.lean` — axioms
 - `30-graph/graph-schema/migrations/20260508140000` ~
   `20260508220000_vertex_karma_*.ts` — schema migrations
-- `00-contracts/lexicons/ai/gftd/apps/karma/*.json` — XRPC contract
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/karma/*.bpmn` — actor flow definitions
+- `00-contracts/lexicons/com/etzhayyim/apps/karma/*.json` — XRPC contract
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/karma/*.bpmn` — actor flow definitions
 - `20-actors/magatama/py/src/pymagatama/primitives/karma_*.py` —
   pyzeebe primitive implementations
 - `50-infra/vultr/mitama-karma-pool/` — Helm release

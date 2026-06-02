@@ -1,7 +1,7 @@
 # shidemori (死出守) — Non-profit Religious-Corp Memorial + Cemetery Substrate (FINAL gap-closure)
 
 **DID**: `did:web:shidemori.etzhayyim.com`
-**Namespace**: `app.etzhayyim.shidemori.*`
+**Namespace**: `com.etzhayyim.shidemori.*`
 **ADR**: ADR-2605263800 (R0 scaffold; **FINAL gap-closure** of 10-actor 30min-loop wave)
 **Status**: R0 scaffold (2026-05-26) — 6 cells path-reserved + 5 Lexicon skeletons
 **Cross-actor**: musubi.funeral_ceremony (TIGHT memorial NFT mint pair) / chigiri.inheritanceChain (TIGHT succession handoff pair) / Land Registry (waqf-equivalent cemetery; mizuho G11 pattern shared) / toritate (cemetery maintenance + external mortuary Public Fund) / kokoro.grief_support (post-funeral grief continuity) / kazaori (mass-fatality memorial; path-reserved shidemori at R0) / kataribe (memorial publication + cross-doctrinal grief literature)
@@ -66,7 +66,7 @@ memorial + Shinto 鎮魂 + 仏 49日 + secular humanist).
 | `shidemori_external_mortuary_engagement` | zebulun (toritate-UPL-equivalent) | event | state-compliance need → Public Fund Council Lv6+ ≥4/7 |
 | `shidemori_silen_shidemori_review` | zebulun | quarterly | Council Wellbecoming + multi-doctrinal + Land Trust + Charter §1.15 + §2(d) audit |
 
-## 5 Lexicons under `app.etzhayyim.shidemori.*`
+## 5 Lexicons under `com.etzhayyim.shidemori.*`
 
 | Lexicon | Purpose |
 |---|---|
@@ -76,7 +76,7 @@ memorial + Shinto 鎮魂 + 仏 49日 + secular humanist).
 | `externalMortuaryEngagement` | UPL-equivalent pattern (chigiri G14 + iyashi N9 + kokoro G3 + shidemori G5); Public Fund Safe + Council Lv6+ ≥4 |
 | `silenShidemoriReview` | G3/G4/G5/G6/G7/G8/G9/G10/G11/G12 const-field structural enforcement |
 
-See `/00-contracts/lexicons/app/etzhayyim/shidemori/README.md`.
+See `/00-contracts/lexicons/com/etzhayyim/shidemori/README.md`.
 
 ## Constitutional Gates (G1–G13)
 
@@ -99,7 +99,7 @@ See ADR-2605263800 §6.
 
 - `/20-actors/shidemori/manifest.jsonld`
 - `/20-actors/shidemori/CLAUDE.md`
-- `/00-contracts/lexicons/app/etzhayyim/shidemori/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/shidemori/` (5 Lexicons + README)
 - `/90-docs/adr/2605263800-shidemori-memorial-cemetery-tier-b-actor-r0.md`
 - `/90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md` — TIGHT pair
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — TIGHT pair

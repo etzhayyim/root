@@ -19,7 +19,7 @@
   {:gate/id "G2"  :gate/name "no-video-recording"             :gate/rule "Firmware-level. Hitogata/Yutori firmware spec includes attestation that no frame-write-to-disk code path exists; Council reviews firmware annually"}
   {:gate/id "G3"  :gate/name "per-session-consent-window"     :gate/rule "careSessionAttestation.consentRecordCid timestamp must fall within session window; cell logic verifies before proceeding"}
   {:gate/id "G4"  :gate/name "caregiver-council-vetting"      :gate/rule "On-chain caregiver registry; sessions REJECT if caregiver DID not in attested registry with current caregiverAttestation record"}
-  {:gate/id "G5"  :gate/name "emergency-escalation-mitate"    :gate/rule "mitate G5 emergency-keyword set is shared lexicon (app.etzhayyim.mitate.emergencyKeyword); any care-session match triggers immediate mitate XRPC POST"}
+  {:gate/id "G5"  :gate/name "emergency-escalation-mitate"    :gate/rule "mitate G5 emergency-keyword set is shared lexicon (com.etzhayyim.mitate.emergencyKeyword); any care-session match triggers immediate mitate XRPC POST"}
   {:gate/id "G9"  :gate/name "human-in-loop-robotics"         :gate/rule "Yutori/Hitogata sessions require co-attestation by synchronous human caregiver DID at session start + every 30 min"}
   {:gate/id "G10" :gate/name "caregiver-work-cap"             :gate/rule "On-chain caregiver work-log; cell logic rejects new session if caregiver shows >12 hr cumulative in past 24 hr or <12 hr recovery since last session"}
   {:gate/id "G11" :gate/name "murakumo-only"                  :gate/rule "Care session coordination is Murakumo-only (KotobaLLM 127.0.0.1:4000); external LLM prohibited"}

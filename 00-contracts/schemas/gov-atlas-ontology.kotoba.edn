@@ -246,7 +246,7 @@
  ;; ════════════════════════════════════════════════════════════════════════════
  ;; :gov.procedure/* — 手続き (administrative procedure)
  ;; ATLAS view (who/where/structure). The citizen-execution view (guide/draft/
- ;; submit/track) lives in toritsugi (app.etzhayyim.toritsugi.procedure). Linked
+ ;; submit/track) lives in toritsugi (com.etzhayyim.toritsugi.procedure). Linked
  ;; via :gov.procedure/toritsugi-ref — ooyake catalogs, toritsugi delivers.
  ;; ════════════════════════════════════════════════════════════════════════════
  {:db/ident :gov.procedure/id
@@ -306,7 +306,7 @@
  {:db/ident :gov.procedure/toritsugi-ref
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "procedureId in toritsugi's app.etzhayyim.toritsugi.procedure registry (e.g. jp-juminhyo-utsushi). ooyake = catalog; toritsugi = citizen delivery"}
+  :db/doc "procedureId in toritsugi's com.etzhayyim.toritsugi.procedure registry (e.g. jp-juminhyo-utsushi). ooyake = catalog; toritsugi = citizen delivery"}
  {:db/ident :gov.procedure/sourcing
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one}
@@ -383,7 +383,7 @@
  {:db/ident :gov.bpmn/path
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "repo path to the .bpmn definition, e.g. 00-contracts/bpmn/app/etzhayyim/ooyake/findService.bpmn"}
+  :db/doc "repo path to the .bpmn definition, e.g. 00-contracts/bpmn/com/etzhayyim/ooyake/findService.bpmn"}
  {:db/ident :gov.bpmn/engine
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one

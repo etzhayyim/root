@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.watatsumi.pressureTestRecord"
+ :id "com.etzhayyim.watatsumi.pressureTestRecord"
  :defs
  {:main
   {:type "record"

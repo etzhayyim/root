@@ -144,7 +144,7 @@ class TestHelpers(unittest.TestCase):
     def test_vid_format(self):
         from pymagatama.langgraph_graphs.etzhayyim_company_ops import _vid
         v = _vid("test")
-        self.assertTrue(v.startswith("at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.test/"))
+        self.assertTrue(v.startswith("at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.test/"))
 
     def test_now_iso_format(self):
         from pymagatama.langgraph_graphs.etzhayyim_company_ops import _now_iso
@@ -210,7 +210,7 @@ class TestetzhayyimcojpPersonnelPrimitive(unittest.TestCase):
         import pymagatama.primitives.etzhayyim_personnel as p
         v = p._vid("personMinimax")
         self.assertTrue(
-            v.startswith("at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personMinimax/")
+            v.startswith("at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personMinimax/")
         )
 
 

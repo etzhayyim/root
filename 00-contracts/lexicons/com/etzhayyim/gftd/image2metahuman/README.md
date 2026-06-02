@@ -1,4 +1,4 @@
-# `app.etzhayyim.image2metahuman.*` — Image → MetaHuman conversion spec
+# `com.etzhayyim.image2metahuman.*` — Image → MetaHuman conversion spec
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group C).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `app.etzhayyim.image2metahuman.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `com.etzhayyim.image2metahuman.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

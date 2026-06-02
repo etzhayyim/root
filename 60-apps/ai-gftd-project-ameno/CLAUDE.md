@@ -13,10 +13,10 @@
 ```
 ameno.etzhayyim.com (CF Worker — TS Native)
   ├─ Backend (src/app.ts)
-  │   ├─ app.etzhayyim.apps.ameno.listModels     — ONNX model registry
-  │   ├─ app.etzhayyim.apps.ameno.saveResult     — Persist inference result to the graph query layer
-  │   ├─ app.etzhayyim.apps.ameno.listHistory    — Query inference history
-  │   └─ app.etzhayyim.apps.ameno.cardHome       — Protocol canvas card
+  │   ├─ com.etzhayyim.apps.ameno.listModels     — ONNX model registry
+  │   ├─ com.etzhayyim.apps.ameno.saveResult     — Persist inference result to the graph query layer
+  │   ├─ com.etzhayyim.apps.ameno.listHistory    — Query inference history
+  │   └─ com.etzhayyim.apps.ameno.cardHome       — Protocol canvas card
   │
   └─ Frontend (svelte/)
       ├─ inference.ts     — transformers.js pipeline + WebGPU state machine

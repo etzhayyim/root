@@ -35,7 +35,7 @@ ISIC sections (`A` through `U`).
 
 Publish one path-based actor DID per ISIC section under the tsukuru DID
 root and pair each actor with one BPMN process in
-`etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/`.
+`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/tsukuru/`.
 
 The authoritative catalog is the shared module
 `60-apps/ai-gftd-project-tsukuru/appview/tsukuru-tsukr8u0/src/isic-industry-actors.mjs`.

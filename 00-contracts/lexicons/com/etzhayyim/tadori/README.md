@@ -1,4 +1,4 @@
-# app.etzhayyim.tadori.* — Lexicons
+# com.etzhayyim.tadori.* — Lexicons
 
 Lexicon schemas for **辿 tadori** — authorized on-chain transaction tracing +
 actor attribution (ADR-2605301400). kotoba-EAVT-native; R0 = schema skeletons

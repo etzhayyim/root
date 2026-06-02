@@ -20,7 +20,7 @@ LiteLLM is configured as a stateless proxy:
 - `general_settings.master_key` is sourced from env (Keychain at install).
 - **`database` field is absent** — no Prisma, no Postgres, no RW.
 - Per-tenant accounting / usage / API-key auth lives in the CF Worker at
-  `murakumo.etzhayyim.com` against `app.etzhayyim.murakumo.*` lexicons via
+  `murakumo.etzhayyim.com` against `com.etzhayyim.murakumo.*` lexicons via
   `@etzhayyim/sdk` (ADR-2605191358 §RW sites replaced).
 
 If billing or rate-limiting features ever need persistence, the storage

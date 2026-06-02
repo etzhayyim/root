@@ -78,7 +78,7 @@ Blast radius:
 - RW MV refresh stalls (SST checkpoint 不可)
 - vertex_repo_record / vertex_repo_commit append-only log halts
 - AT Protocol PDS reads degrade to in-memory cache only
-- All XRPC `app.etzhayyim.apps.*` query methods 500 once cache evicts
+- All XRPC `com.etzhayyim.apps.*` query methods 500 once cache evicts
 - BPMN dispatcher (replicas=0) 無影響
 - lawfirm.etzhayyim.com SPA (HTML/SPA only) 無影響
 

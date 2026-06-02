@@ -1,4 +1,4 @@
-# app.etzhayyim.mizuho.* — mizuho (水穂) Lexicons
+# com.etzhayyim.mizuho.* — mizuho (水穂) Lexicons
 
 **Owner actor**: `did:web:mizuho.etzhayyim.com` (`20-actors/mizuho/`)
 **ADR**: ADR-2605263100 (R0 scaffold)

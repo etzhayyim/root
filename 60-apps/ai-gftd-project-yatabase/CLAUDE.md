@@ -23,15 +23,15 @@ L3 Dispatcher (CF Worker, edge). State-less. All persistence + heavy compute liv
 | `/auth/v1/recover` | Email-based API key recovery (anonymous, P76) |
 | `/auth/v1/redeem` | Exchange recovery token for new API key (anonymous, P76) |
 | `/sparql` | SPARQL 1.1 SELECT/CONSTRUCT/ASK |
-| `/xrpc/app.etzhayyim.apps.yata.*` | Native XRPC pass-through |
-| `/xrpc/app.etzhayyim.apps.billing.*` | Tenant billing read-side |
+| `/xrpc/com.etzhayyim.apps.yata.*` | Native XRPC pass-through |
+| `/xrpc/com.etzhayyim.apps.billing.*` | Tenant billing read-side |
 | `/health`, `/_app/meta` | Edge probes |
 | `/s3/{bucket}/{key}` (P3.2) | AWS SigV4 compat |
 | `/pg` (Phase 11) | PG protocol via Vultr LB |
 
 ## Auth
 
-- `Bearer sk_live_yata_*` — product-scoped API key (P2 ADR-2605080000 §D9). **Resolved via `POST /xrpc/app.etzhayyim.apps.yata.authResolveApiKey` on the lg-yatabase pod** (since ADR-2605111200 prohibits the Worker from reading `vertex_api_key` directly through Hyperdrive). Worker SHA-256s the raw key, HMAC-signs the lookup body with `DISPATCHER_INTERNAL_SECRET`, and forwards via the dispatcher proxy. productScope=`yata` is returned by the pod and enforced by `enforceApiKeyProductScope` on the Worker.
+- `Bearer sk_live_yata_*` — product-scoped API key (P2 ADR-2605080000 §D9). **Resolved via `POST /xrpc/com.etzhayyim.apps.yata.authResolveApiKey` on the lg-yatabase pod** (since ADR-2605111200 prohibits the Worker from reading `vertex_api_key` directly through Hyperdrive). Worker SHA-256s the raw key, HMAC-signs the lookup body with `DISPATCHER_INTERNAL_SECRET`, and forwards via the dispatcher proxy. productScope=`yata` is returned by the pod and enforced by `enforceApiKeyProductScope` on the Worker.
 - AT Protocol session JWT (Bearer ES256) — falls through to `PDS_SERVICE` binding `com.atproto.server.getSession` (legacy unchanged).
 - `/storage/v1/object/public/*` — no auth, only when bucket `public_read=true` AND ACL grants public.
 
@@ -40,17 +40,17 @@ L3 Dispatcher (CF Worker, edge). State-less. All persistence + heavy compute liv
 ```
 Client → CF Worker (yatabase.etzhayyim.com)
    ↓ auth middleware:
-   │   sk_live_yata_* → POST https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.yata.authResolveApiKey
+   │   sk_live_yata_* → POST https://dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.yata.authResolveApiKey
    │                    (HMAC over body, bpmn-dispatcher proxies to lg-yatabase pod)
    │   ES256 JWT     → PDS_SERVICE getSession (legacy)
    ↓ resolved { did, orgDid, activeDid, productScope }
-   ↓ POST/GET https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.yata.*
+   ↓ POST/GET https://dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.yata.*
       headers: x-internal-trust=<HMAC>, x-gftd-org-did, x-gftd-actor-did,
                x-gftd-product-scope=yata, x-gftd-trace-id
 CF Tunnel → cloudflared pod → bpmn-dispatcher pod
    ↓ pymagatama dispatcher_main.py:
    │   auth_middleware verifies HMAC-SHA256(body, secret) OR legacy raw secret
-   │   nsid.startswith("app.etzhayyim.apps.yata.") → _proxy_to_lg_yatabase
+   │   nsid.startswith("com.etzhayyim.apps.yata.") → _proxy_to_lg_yatabase
    │   else → LangServer BPMN-contract process (legacy path for non-yata NSIDs)
    ↓ HTTP POST/GET http://lg-yatabase.mitama-udf.svc.cluster.local:8000/xrpc/{nsid}
 lg-yatabase Granian pod (mitama-udf):
@@ -84,11 +84,11 @@ RisingWave PG (45.32.79.245:4566) + B2 + R2
 
 | Surface | Result |
 |---|---|
-| `GET /xrpc/app.etzhayyim.apps.yata.leadList` | ✅ real leads (kyne.au, etc.) |
-| `GET /xrpc/app.etzhayyim.apps.yata.leadSendable` | ✅ |
-| `GET /xrpc/app.etzhayyim.apps.yata.leadNeedsEnrichment` | ✅ |
+| `GET /xrpc/com.etzhayyim.apps.yata.leadList` | ✅ real leads (kyne.au, etc.) |
+| `GET /xrpc/com.etzhayyim.apps.yata.leadSendable` | ✅ |
+| `GET /xrpc/com.etzhayyim.apps.yata.leadNeedsEnrichment` | ✅ |
 | Public surfaces `/`, `/studio`, `/docs`, `/comparison`, `/quickstart`, `/.well-known/*`, `/openapi.json` | ✅ |
-| `/xrpc/app.etzhayyim.apps.yata.bmc*` (admin) | ⚠️ schema drift in this RW instance — not customer-facing |
+| `/xrpc/com.etzhayyim.apps.yata.bmc*` (admin) | ⚠️ schema drift in this RW instance — not customer-facing |
 
 ### R2-primary storage tier (P73, 2026-05-12)
 
@@ -152,7 +152,7 @@ Workers KV namespace `YATABASE_AUTH_CACHE` (id
 
 ### Remaining work (post-P64)
 
-1. **Pod-side handlers** for `app.etzhayyim.apps.yata.{runCypher,putObject,getObject,deleteObject,listObject,signObject}` — when these land, the KV fallback in `cypher-kv.ts` + `storage-kv.ts` becomes transparently dormant (dispatcher returns non-404 and the fallback path is skipped). No Worker changes needed.
+1. **Pod-side handlers** for `com.etzhayyim.apps.yata.{runCypher,putObject,getObject,deleteObject,listObject,signObject}` — when these land, the KV fallback in `cypher-kv.ts` + `storage-kv.ts` becomes transparently dormant (dispatcher returns non-404 and the fallback path is skipped). No Worker changes needed.
 2. **BMC admin schema migration** (`30-graph/graph-schema/sql_migrations/20260512000000_bmc_lean_iteration.up.sql`) for the Studio left-pane health rollups.
 3. **RisingWave durability recovery** (other teams' batch jobs jamming barrier coordinator) — independent of the customer-facing service which is now KV-backed at every step that customers touch.
 
@@ -166,7 +166,7 @@ human gate to flip them to `queued`.
 
 | Surface | Where | Auth |
 |---|---|---|
-| `POST /xrpc/app.etzhayyim.apps.yata.outbox{List,Approve,Reject}` | lg-yatabase pod (`lg_yatabase/outbox/`) | `x-internal-trust` HMAC |
+| `POST /xrpc/com.etzhayyim.apps.yata.outbox{List,Approve,Reject}` | lg-yatabase pod (`lg_yatabase/outbox/`) | `x-internal-trust` HMAC |
 | `POST /api/outbox/{list,approve,reject}` | yatabase Worker (`src/outbox-forward.ts` + `src/app.ts`) | `x-yata-admin-key` (operator) |
 | `/studio/admin/outbox` | Studio (`svelte/.../studio/admin/outbox/+page.svelte`) | `adminKey` store (`localStorage`) |
 
@@ -267,7 +267,7 @@ Deploy: `pnpm deploy` from `60-apps/ai-gftd-project-yatabase/`
 ## Forbidden
 
 - Direct B2 / Vultr OS SigV4 from this Worker. All PUT/GET/DELETE go through LangServer in `mitama-yata-pool` which owns the SigV4 credentials in the `yata-storage-creds` Secret.
-- `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` for `app.etzhayyim.apps.yata.*` — domain writes go to Hyperdrive via LangServer (ADR-0036).
+- `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` for `com.etzhayyim.apps.yata.*` — domain writes go to Hyperdrive via LangServer (ADR-0036).
 - New custom HTTP endpoints outside the surfaces table above. Add via XRPC + lexicon instead.
 
 ## Deploy
@@ -297,7 +297,7 @@ kubectl -n mitama-udf set image deployment/bpmn-dispatcher dispatcher=ghcr.io/et
 curl https://yatabase.etzhayyim.com/health
 curl https://yatabase.etzhayyim.com/_app/meta
 curl -H "Authorization: Bearer sk_live_yata_xxx" \
-     https://yatabase.etzhayyim.com/xrpc/app.etzhayyim.apps.yata.coverage
+     https://yatabase.etzhayyim.com/xrpc/com.etzhayyim.apps.yata.coverage
 curl -X PUT --data-binary @small.png \
      -H "Authorization: Bearer sk_live_yata_xxx" \
      https://yatabase.etzhayyim.com/storage/v1/object/test/small.png

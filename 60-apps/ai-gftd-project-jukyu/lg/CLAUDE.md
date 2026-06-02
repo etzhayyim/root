@@ -19,17 +19,17 @@ lg/
 │   │                                        #          /export/brief /extract/shocks
 │   │                                        #          /cron/domain-adapter/{domain}
 │   └── graphs/
-│       ├── health.py                        # app.etzhayyim.apps.jukyu.health
-│       ├── query_balance.py                 # app.etzhayyim.apps.jukyu.queryBalance
-│       ├── query_supply_chain.py            # app.etzhayyim.apps.jukyu.querySupplyChain
-│       ├── rank_company_exposure.py         # app.etzhayyim.apps.jukyu.rankCompanyExposure
-│       ├── explain_node.py                  # app.etzhayyim.apps.jukyu.explainNode
-│       ├── run_stress_propagation.py        # app.etzhayyim.apps.jukyu.runStressPropagation
-│       ├── upsert_signal.py                 # app.etzhayyim.apps.jukyu.upsertSignal
-│       ├── export_brief.py                  # app.etzhayyim.apps.jukyu.exportBrief (gemma-4-e4b-it)
-│       ├── notify_company.py                # app.etzhayyim.apps.jukyu.notifyCompany
-│       ├── normalize_domain_adapter.py      # app.etzhayyim.apps.jukyu.normalizeDomainAdapter
-│       ├── extract_shocks.py                # app.etzhayyim.apps.jukyu.extractShocks (qwen3-30b)
+│       ├── health.py                        # com.etzhayyim.apps.jukyu.health
+│       ├── query_balance.py                 # com.etzhayyim.apps.jukyu.queryBalance
+│       ├── query_supply_chain.py            # com.etzhayyim.apps.jukyu.querySupplyChain
+│       ├── rank_company_exposure.py         # com.etzhayyim.apps.jukyu.rankCompanyExposure
+│       ├── explain_node.py                  # com.etzhayyim.apps.jukyu.explainNode
+│       ├── run_stress_propagation.py        # com.etzhayyim.apps.jukyu.runStressPropagation
+│       ├── upsert_signal.py                 # com.etzhayyim.apps.jukyu.upsertSignal
+│       ├── export_brief.py                  # com.etzhayyim.apps.jukyu.exportBrief (gemma-4-e4b-it)
+│       ├── notify_company.py                # com.etzhayyim.apps.jukyu.notifyCompany
+│       ├── normalize_domain_adapter.py      # com.etzhayyim.apps.jukyu.normalizeDomainAdapter
+│       ├── extract_shocks.py                # com.etzhayyim.apps.jukyu.extractShocks (qwen3-30b)
 │       └── equilibrium.py                   # resident 15-min loop (cron)
 └── tests/
     └── test_smoke.py                        # 25 smoke tests (all pass)
@@ -39,17 +39,17 @@ lg/
 
 | NSID | assistant_id | graph file | status |
 |---|---|---|---|
-| `app.etzhayyim.apps.jukyu.health` | `health` | health.py | ✅ |
-| `app.etzhayyim.apps.jukyu.queryBalance` | `query_balance` | query_balance.py | ✅ |
-| `app.etzhayyim.apps.jukyu.querySupplyChain` | `query_supply_chain` | query_supply_chain.py | ✅ |
-| `app.etzhayyim.apps.jukyu.rankCompanyExposure` | `rank_company_exposure` | rank_company_exposure.py | ✅ |
-| `app.etzhayyim.apps.jukyu.explainNode` | `explain_node` | explain_node.py | ✅ |
-| `app.etzhayyim.apps.jukyu.runStressPropagation` | `run_stress_propagation` | run_stress_propagation.py | ✅ |
-| `app.etzhayyim.apps.jukyu.upsertSignal` | `upsert_signal` | upsert_signal.py | ✅ |
-| `app.etzhayyim.apps.jukyu.exportBrief` | `export_brief` | export_brief.py | ✅ |
-| `app.etzhayyim.apps.jukyu.notifyCompany` | `notify_company` | notify_company.py | ✅ |
-| `app.etzhayyim.apps.jukyu.normalizeDomainAdapter` | `normalize_domain_adapter` | normalize_domain_adapter.py | ✅ |
-| `app.etzhayyim.apps.jukyu.extractShocks` | `extract_shocks` | extract_shocks.py | ✅ |
+| `com.etzhayyim.apps.jukyu.health` | `health` | health.py | ✅ |
+| `com.etzhayyim.apps.jukyu.queryBalance` | `query_balance` | query_balance.py | ✅ |
+| `com.etzhayyim.apps.jukyu.querySupplyChain` | `query_supply_chain` | query_supply_chain.py | ✅ |
+| `com.etzhayyim.apps.jukyu.rankCompanyExposure` | `rank_company_exposure` | rank_company_exposure.py | ✅ |
+| `com.etzhayyim.apps.jukyu.explainNode` | `explain_node` | explain_node.py | ✅ |
+| `com.etzhayyim.apps.jukyu.runStressPropagation` | `run_stress_propagation` | run_stress_propagation.py | ✅ |
+| `com.etzhayyim.apps.jukyu.upsertSignal` | `upsert_signal` | upsert_signal.py | ✅ |
+| `com.etzhayyim.apps.jukyu.exportBrief` | `export_brief` | export_brief.py | ✅ |
+| `com.etzhayyim.apps.jukyu.notifyCompany` | `notify_company` | notify_company.py | ✅ |
+| `com.etzhayyim.apps.jukyu.normalizeDomainAdapter` | `normalize_domain_adapter` | normalize_domain_adapter.py | ✅ |
+| `com.etzhayyim.apps.jukyu.extractShocks` | `extract_shocks` | extract_shocks.py | ✅ |
 
 Plus 1 internal graph:
 | `equilibrium` | resident 15-min Pregel loop (cron, no XRPC) | equilibrium.py | ✅ |

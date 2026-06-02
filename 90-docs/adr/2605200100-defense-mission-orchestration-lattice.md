@@ -38,13 +38,13 @@ air / undersea / ground / cyber の横断ミッションを LangGraph Pregel fan
 
 ### Lexicon (defMission)
 
-`00-contracts/lexicons/ai/gftd/apps/defMission/` に以下を追加:
+`00-contracts/lexicons/com/etzhayyim/apps/defMission/` に以下を追加:
 
 | Method | NSID | 機能 |
 |---|---|---|
-| createMission | `app.etzhayyim.apps.defMission.createMission` | ミッション作成 (classification ≥ 2 必須) |
-| updateMissionStatus | `app.etzhayyim.apps.defMission.updateMissionStatus` | 状態遷移 |
-| listMissions | `app.etzhayyim.apps.defMission.listMissions` | ミッション一覧 (clearance-gated) |
+| createMission | `com.etzhayyim.apps.defMission.createMission` | ミッション作成 (classification ≥ 2 必須) |
+| updateMissionStatus | `com.etzhayyim.apps.defMission.updateMissionStatus` | 状態遷移 |
+| listMissions | `com.etzhayyim.apps.defMission.listMissions` | ミッション一覧 (clearance-gated) |
 
 ### ミッション状態機械
 

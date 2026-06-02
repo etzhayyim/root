@@ -1,4 +1,4 @@
-# app.etzhayyim.silicon — silicon attestation lexicons
+# com.etzhayyim.silicon — silicon attestation lexicons
 
 Per **ADR-2605242500** (silicon charter) and **ADR-2605242545** (8 fab
 equipment + Pregel cell catalog).

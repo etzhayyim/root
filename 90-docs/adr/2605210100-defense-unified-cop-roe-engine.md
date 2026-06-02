@@ -68,5 +68,5 @@ Add `unified_cop.py` as a Phase 10A fan-in LangGraph.
 ## References
 
 - `20-actors/defense/py/src/pydefense/unified_cop.py`
-- `00-contracts/lexicons/ai/gftd/apps/defCop/`
+- `00-contracts/lexicons/com/etzhayyim/apps/defCop/`
 - ADR-2605190100 (defense cluster topology)

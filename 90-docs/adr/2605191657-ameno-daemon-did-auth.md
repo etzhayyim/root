@@ -112,7 +112,7 @@ contains `:` characters.
   `credentialless` + CSP rules, but XSS = compromise. Acceptable for
   single-operator deployments
 - ⚠️ no key rotation cadence prescribed → manual via `rotateAuthKey()`
-- ❌ not yet integrated with `app.etzhayyim.identity.signalIdentity`
+- ❌ not yet integrated with `com.etzhayyim.identity.signalIdentity`
   (Signal Protocol DID binding, ADR-2605181100). Future composition
 
 ### Compatibility / migration

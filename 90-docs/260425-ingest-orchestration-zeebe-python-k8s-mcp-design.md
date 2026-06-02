@@ -264,14 +264,14 @@ Initial tools:
 
 | Tool | Effect |
 |---|---|
-| `app.etzhayyim.apps.ingest.plan` | dry-run shard plan and estimated writes |
-| `app.etzhayyim.apps.ingest.start` | create Zeebe process instance |
-| `app.etzhayyim.apps.ingest.status` | read `vertex_ingest_run` and Zeebe keys |
-| `app.etzhayyim.apps.ingest.pause` | mark run/cursors paused; Zeebe incident if active |
-| `app.etzhayyim.apps.ingest.resume` | clear pause and retry incident/shard |
-| `app.etzhayyim.apps.ingest.backfill` | bounded backfill with explicit source/range |
-| `app.etzhayyim.apps.ingest.validate` | run visibility/count/source-hash checks |
-| `app.etzhayyim.apps.coverage.refresh` | refresh or reconcile coverage read models |
+| `com.etzhayyim.apps.ingest.plan` | dry-run shard plan and estimated writes |
+| `com.etzhayyim.apps.ingest.start` | create Zeebe process instance |
+| `com.etzhayyim.apps.ingest.status` | read `vertex_ingest_run` and Zeebe keys |
+| `com.etzhayyim.apps.ingest.pause` | mark run/cursors paused; Zeebe incident if active |
+| `com.etzhayyim.apps.ingest.resume` | clear pause and retry incident/shard |
+| `com.etzhayyim.apps.ingest.backfill` | bounded backfill with explicit source/range |
+| `com.etzhayyim.apps.ingest.validate` | run visibility/count/source-hash checks |
+| `com.etzhayyim.apps.coverage.refresh` | refresh or reconcile coverage read models |
 
 MCP is an agent/operator facade. It does not become a second source of truth.
 Lexicons define input/output contracts, BPMN defines orchestration, and
@@ -308,7 +308,7 @@ RisingWave graph rows define durable state.
 
 1. Add Kysely migration for `vertex_ingest_run`, `vertex_ingest_cursor`, and
    `vertex_ingest_artifact`.
-2. Add lexicons for `app.etzhayyim.apps.ingest.{plan,start,status,pause,resume,backfill,validate}`.
+2. Add lexicons for `com.etzhayyim.apps.ingest.{plan,start,status,pause,resume,backfill,validate}`.
 3. Sync those lexicons into `vertex_mcp_tool_def`.
 4. Add `pymagatama.ingest.core` with run/cursor/artifact helpers and
    read-after-write verification.

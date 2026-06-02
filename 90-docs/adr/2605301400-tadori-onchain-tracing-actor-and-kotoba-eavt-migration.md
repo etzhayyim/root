@@ -116,7 +116,7 @@ engine); tadori owns the *durable case graph + attribution surface* in kotoba.
     (Transparent Force log, ADR-2605192315). No covert tracing.
   - **PII confidentiality.** Any datom that attributes an on-chain entity to a natural
     person, an IP, or a device fingerprint is written under the
-    `app.etzhayyim.encrypted.*` envelope (ADR-2605181100), Signal-wrapped to the
+    `com.etzhayyim.encrypted.*` envelope (ADR-2605181100), Signal-wrapped to the
     authorized case-member DIDs only. Public datoms (on-chain tx, public address labels)
     stay plaintext.
   - **Prohibited.** Mass / untargeted surveillance; selling or ad-monetizing intel
@@ -169,10 +169,10 @@ read+write cutover). Default Phase 0 dry-run is preserved throughout (malak cont
 
 | Phase | Scope | Cutover | Acceptance gate |
 |---|---|---|---|
-| **T0** (this ADR, R0) | Scaffold `20-actors/tadori/` (CLAUDE.md + manifest + cells + lex) + the EAVT schema above as `00-contracts/lexicons/app/etzhayyim/tadori/*.json`. No data moved. | none | schema lexicons validate; substrate-boundary linter green |
+| **T0** (this ADR, R0) | Scaffold `20-actors/tadori/` (CLAUDE.md + manifest + cells + lex) + the EAVT schema above as `00-contracts/lexicons/com/etzhayyim/tadori/*.json`. No data moved. | none | schema lexicons validate; substrate-boundary linter green |
 | **T1** | **malak Pregel output** → kotoba QuadStore. `wallet_deep_inspect_pursuit` / `address_label_pursuit` `emit_pegel`/`persist_fs` steps additionally write `tx`/`addr`/`cluster`/`label`/`case` datoms via `@etzhayyim/sdk` (`kotoba-graph`). RisingWave `vertex_blockchain_tx` becomes a read-shadow, then retired. | dual-write → verify → drop RW | round-trip: a Takahashi-case replay produces bit-identical classifications reading from kotoba vs RW |
 | **T2** | **ipaddress SQL graph** → `kotoba-kqe`. `IPAddress`/`IPRange`/`ASN`/`WhoisSnapshot`/`Geolocation`/`ReverseDns` become `ip-obs`/`dns-obs` datoms. ipaddress `G()` reads re-point to `kotoba-kqe` arrangements. | dual-read → cut | `lookup_ip` / `analyze_ip` return identical enrichment from kotoba |
-| **T3** | **yabai SQL graph** → `kotoba-kqe`. `DnsRecord`/`IpLocationHistory`/`IpHostingHistory`/`IntelAccessLog`/`IntelSession`/`IntelDevice` → `dns-obs`/`ip-obs` + (access-audit) `app.etzhayyim.encrypted.*` envelope. `correlate-ip-activity` → Datalog rule over VAET. | dual-read → cut | `correlate-ip-activity` output set-equal under kotoba; access-audit PII verified encrypted |
+| **T3** | **yabai SQL graph** → `kotoba-kqe`. `DnsRecord`/`IpLocationHistory`/`IpHostingHistory`/`IntelAccessLog`/`IntelSession`/`IntelDevice` → `dns-obs`/`ip-obs` + (access-audit) `com.etzhayyim.encrypted.*` envelope. `correlate-ip-activity` → Datalog rule over VAET. | dual-read → cut | `correlate-ip-activity` output set-equal under kotoba; access-audit PII verified encrypted |
 | **T4** | Retire yata Workers-RPC SQL graph + RisingWave `vertex_blockchain_*` for these three actors. Remove projection markers. | git rm + archive marker | substrate-boundary linter rejects any residual `yata`/`RisingWave` import in tadori/ipaddress/yabai |
 
 Each cutover is **dual-write/dual-read → verify set-equality → drop legacy**, never a
@@ -254,7 +254,7 @@ datom, never the system of record.
 - ADR-2604251935 (blockchain VKE head ingest — RisingWave `vertex_blockchain_*`, migration source)
 - ADR-2605215000 (Murakumo-only inference invariant)
 - ADR-2605231525 (server-side signing capability — no platform private key)
-- ADR-2605181100 (confidential records `app.etzhayyim.encrypted.*` envelope)
+- ADR-2605181100 (confidential records `com.etzhayyim.encrypted.*` envelope)
 - ADR-2605291500 (tsukuroi — authorized propose-only Tier-B actor pattern)
 - `20-actors/ipaddress/CLAUDE.md` (1次ソース IP/ASN/WHOIS/GeoIP collector — T2 migration target)
 - `20-actors/yabai/CLAUDE.md` (CTI risk + DNS/IP-history + access-audit — T3 migration target)

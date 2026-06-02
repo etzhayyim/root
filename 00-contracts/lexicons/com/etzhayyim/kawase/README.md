@@ -1,4 +1,4 @@
-# app.etzhayyim.kawase.* — kawase-yui (為替結) Lexicons
+# com.etzhayyim.kawase.* — kawase-yui (為替結) Lexicons
 
 **Owner actor**: `did:web:kawase-yui.etzhayyim.com` (`20-actors/kawase-yui/`)
 **ADR**: ADR-2605282200 (R0 scaffold; landed 2026-05-28)

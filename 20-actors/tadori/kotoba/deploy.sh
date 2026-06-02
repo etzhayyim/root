@@ -26,7 +26,7 @@ if [[ -z "${KOTOBA_SESSION_POP:-}" && -z "${KOTOBA_TOKEN:-}" ]]; then
   echo "--> credential unset -> DRY RUN"
   python3 "${SCRIPT_DIR}/ingest_threat_intel.py" --url "${KOTOBA_URL}" --graph "${GRAPH}" --dry-run
 else
-  echo "--> transacting schema + staged observations, then verifying via ai.gftd.apps.kotoba.datomic.datoms"
+  echo "--> transacting schema + staged observations, then verifying via com.etzhayyim.apps.kotoba.datomic.datoms"
   python3 "${SCRIPT_DIR}/ingest_threat_intel.py" --url "${KOTOBA_URL}" --graph "${GRAPH}" --verify-readback
 fi
 

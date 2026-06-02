@@ -6,18 +6,18 @@ ADR-0039 **Repository-in-Graph** backing Worker for `repository.etzhayyim.com`. 
 
 - SSoT: `vertex_repository_{blob,tree,commit,ref}` + 6 edge labels (ADR-0039 §1).
 - Repository ≡ Actor DID. `vertex_actor` is reused; no new repository entity.
-- Lexicons: `00-contracts/lexicons/ai/gftd/repository/*.json` (13 files — 12 method + 1 record).
-- **Not a PDS replacement.** `app.etzhayyim.repository.*` is served by this Worker directly; PDS (`atproto.etzhayyim.com`) still owns `app.bsky.*`, `com.atproto.*`, `chat.bsky.convo.*`, `app.etzhayyim.vault.*`, `app.etzhayyim.signal.*` per ADR-0036.
+- Lexicons: `00-contracts/lexicons/com/etzhayyim/repository/*.json` (13 files — 12 method + 1 record).
+- **Not a PDS replacement.** `com.etzhayyim.repository.*` is served by this Worker directly; PDS (`atproto.etzhayyim.com`) still owns `app.bsky.*`, `com.atproto.*`, `chat.bsky.convo.*`, `com.etzhayyim.vault.*`, `com.etzhayyim.signal.*` per ADR-0036.
 
 ## Architecture
 
 ```
 Browser / CLI / yoro code-editor
-  → repository.etzhayyim.com/xrpc/app.etzhayyim.repository.*
+  → repository.etzhayyim.com/xrpc/com.etzhayyim.repository.*
   → this Worker (ai-gftd-wasm-repository-r3p0s1t0)
      ├─ createBlob / createTree / createCommit  → vertex_repository_* INSERT (Hyperdrive, 1-RTT per ADR-0036)
      ├─ createRef / updateRef                   → vertex_repository_ref + edge_repository_ref_points rewrite
-     │                                             ↓ sdk.pds.dispatch({type: "app.etzhayyim.repository.refUpdate"})
+     │                                             ↓ sdk.pds.dispatch({type: "com.etzhayyim.repository.refUpdate"})
      │                                             → firehose broadcast
      │                                             → CF Container build runner (trigger)
      ├─ getBlob / getTree / getCommit           → Kysely SELECT on vertex_repository_*
@@ -74,7 +74,7 @@ Routes (per `magatama.jsonld`):
 - ADR-0010: per-DID ES256 signing key custody (commit 署名)
 - ADR-0036: Worker-direct Hyperdrive persistence (write path)
 - ADR-0038: Actor-as-Data (manifest side — この repository は code side)
-- Lexicons: `00-contracts/lexicons/ai/gftd/repository/`
+- Lexicons: `00-contracts/lexicons/com/etzhayyim/repository/`
 - Schema: `30-graph/graph-schema/migrations/20260420100000_vertex_repository_tables.ts`
 
 ## Phase Status

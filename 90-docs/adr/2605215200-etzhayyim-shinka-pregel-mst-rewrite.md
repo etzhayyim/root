@@ -34,7 +34,7 @@ shinka is a Pregel-native daemon running 4 core cells in sequence per super-step
 
 1. **KarmaHegemonObservation** — ingest external signals (social cohesion metrics, transaction records, resource flows, fellowship participation)
 2. **EvolutionValidation** — apply 7-level witness thresholds + charter compliance gate
-3. **EvolutionEmission** — emit `app.etzhayyim.evolution-witness` and `app.etzhayyim.evolution-objection` records to MST
+3. **EvolutionEmission** — emit `com.etzhayyim.evolution-witness` and `com.etzhayyim.evolution-objection` records to MST
 4. **ShinkaHeartbeat** — post-evolution state to charter-compliance registry for L3 scoring
 
 Each cell is a LangGraph Pregel node with input schema (message class) and runnable output (next cell or completion). `shinka_tick()` orchestrates the super-step.
@@ -47,7 +47,7 @@ Each cell is a LangGraph Pregel node with input schema (message class) and runna
 
 **Real impl**: `shinka_murakumo.py::KarmaHegemonObservationCell`
 
-- Aggregates witness signals from yoro social records, transaction records (`app.etzhayyim.apps.etzhayyim.donation.*`), and fellowship records (`app.etzhayyim.apps.etzhayyim.fellowship.*`)
+- Aggregates witness signals from yoro social records, transaction records (`com.etzhayyim.apps.etzhayyim.donation.*`), and fellowship records (`com.etzhayyim.apps.etzhayyim.fellowship.*`)
 - Returns signal object with weighted social score, transaction frequency, fellowship engagement hours
 - Caches results for 24h to avoid re-ingestion thrashing
 
@@ -61,9 +61,9 @@ Each cell is a LangGraph Pregel node with input schema (message class) and runna
 
 - Applies §1 witness thresholds from `WITNESS_MIN_BY_LEVEL` (per ADR-2605215400)
 - If `current_level < 6`, directly return `new_level`
-- If advancing to Lv6, query `mst.get_council_lv6_dids()` (MST records of `app.etzhayyim.council.member`) and require ≥2 dids to vote approval (§3 per ADR-2605215400)
+- If advancing to Lv6, query `mst.get_council_lv6_dids()` (MST records of `com.etzhayyim.council.member`) and require ≥2 dids to vote approval (§3 per ADR-2605215400)
 - If advancing to Lv7, start 30-day appeal window; return `status="pending"` during window, `status="valid"` after window with no objections, `status="invalid"` if any objection filed (per ADR-2605215400 §4)
-- For all levels, call `_check_charter_compliance(adherent_did)` to query `app.etzhayyim.apps.etzhayyim.charter-compliance` records; if `status="non-aligned"`, reject advancement with explicit reason citing ADR-2605192230 rehabilitation path
+- For all levels, call `_check_charter_compliance(adherent_did)` to query `com.etzhayyim.apps.etzhayyim.charter-compliance` records; if `status="non-aligned"`, reject advancement with explicit reason citing ADR-2605192230 rehabilitation path
 - Return complete result for emission
 
 ### §4 EvolutionEmission Cell
@@ -74,8 +74,8 @@ Each cell is a LangGraph Pregel node with input schema (message class) and runna
 
 **Real impl**: `shinka_murakumo.py::EvolutionEmissionCell`
 
-- Write `app.etzhayyim.evolution-witness` record to MST (adherent DID, old level, new level, witness count, timestamp)
-- If Lv7, also write `app.etzhayyim.evolution-objection` record with `status="open"` and 30-day window close timestamp
+- Write `com.etzhayyim.evolution-witness` record to MST (adherent DID, old level, new level, witness count, timestamp)
+- If Lv7, also write `com.etzhayyim.evolution-objection` record with `status="open"` and 30-day window close timestamp
 - Return URIs for follow-up queries
 - Integrate with `mst-projector` (via `karma_hegemon_observation_cell` server-side filter) for index updates
 
@@ -99,11 +99,11 @@ All §1-5 deliverables complete:
 |---|---|
 | 4 Pregel cells real impl (KarmaHegemonObservation + EvolutionValidation + EvolutionEmission + ShinkaHeartbeat) | ✅ in shinka_murakumo.py |
 | `shinka_tick()` super-step orchestration | ✅ |
-| 6 lexicons under `app.etzhayyim.shinka.*` | ✅ at `00-contracts/lexicons/app/etzhayyim/shinka/` |
+| 6 lexicons under `com.etzhayyim.shinka.*` | ✅ at `00-contracts/lexicons/com/etzhayyim/shinka/` |
 | MST/IPFS/L2 write path via @etzhayyim/sdk | ✅ via etzhayyim_sdk.pds + ipfs + l2 (all real impl) |
 | 3-tier Lv1-7 validation logic | ✅ per ADR-2605215400 canonical thresholds |
 | Lv7 30-day public objection window | ✅ via mst.council_objections() + EVOLUTION_APPEAL_DAYS |
-| Charter Compliance gate | ✅ via `_check_charter_compliance()` query of `app.etzhayyim.apps.etzhayyim.charter-compliance` |
+| Charter Compliance gate | ✅ via `_check_charter_compliance()` query of `com.etzhayyim.apps.etzhayyim.charter-compliance` |
 | Council Lv6 DID registry binding | ✅ via `mst.get_council_lv6_dids()` (live query) + `COUNCIL_LV6_DIDS` hardcoded fallback (until RFP close 2026-06-19 populates real records) |
 | fleet.toml placement on levi + simeon | ✅ |
 | cell-runner spawn from cells.toml | ✅ |

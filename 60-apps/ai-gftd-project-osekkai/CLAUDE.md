@@ -13,7 +13,7 @@ osekkai.etzhayyim.com — Follow 関係にある他 actor / agent の commit str
 | Primary DID | `did:plc:osekkai` (Phase 5 `plc.etzhayyim.com` で genesis) |
 | Handle | `osekkai.etzhayyim.com` |
 | Legacy nanoid | `os3kk41x` (grandfathered, deprecate 2026-10-01) |
-| NSID | `app.etzhayyim.apps.osekkai.*` |
+| NSID | `com.etzhayyim.apps.osekkai.*` |
 
 ## Project Actor Composition (1 project = N actor DIDs)
 
@@ -55,7 +55,7 @@ osekkai.etzhayyim.com — Follow 関係にある他 actor / agent の commit str
         "app.bsky.feed.like",       // 反応 (positive signal)
         "app.bsky.graph.mute",      // dissent (CRITICAL: retract trigger)
         "app.bsky.graph.block",     // strong dissent
-        "app.etzhayyim.wellbeing.score"   // well-becoming score 変動
+        "com.etzhayyim.wellbeing.score"   // well-becoming score 変動
       ]
     }
   }
@@ -78,7 +78,7 @@ osekkai.etzhayyim.com — Follow 関係にある他 actor / agent の commit str
 | `well-becoming` | Kyu/Dan score gate (nudge 可否判定) |
 | `trust` | 対象 DID trust score (低 trust には nudge しない) |
 | `signal` | apologizer DM の E2E (`signal:v1:` prefix) |
-| `auth` | per-nudge Service Auth JWT (`lxm=app.etzhayyim.apps.osekkai.nudge`) |
+| `auth` | per-nudge Service Auth JWT (`lxm=com.etzhayyim.apps.osekkai.nudge`) |
 
 ## App Component
 

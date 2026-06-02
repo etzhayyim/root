@@ -7,5 +7,5 @@ disclosures.
 - Murakumo node: `gad`
 - Phase: `rate-limited`
 - Gates: Council charter attestation, source-policy review, landing rate-limit review, ADR-2606022300 R1 activation
-- Output Lexicon: `app.etzhayyim.akashi.landingEvidence`
+- Output Lexicon: `com.etzhayyim.akashi.landingEvidence`
 - Ceiling: no covert browsing, tracking pixels, or active investigation

@@ -1,12 +1,12 @@
-# app.etzhayyim.gov.dataset.* — Open-government-data Lexicons
+# com.etzhayyim.gov.dataset.* — Open-government-data Lexicons
 
 **ADR**: ADR-2605263900 (R0 scaffold)
 **Status**: R0 schema skeletons. Full structural enforcement (const fields, vendor-terminal deny-list at lint, per-jurisdiction publication-rule honoring, CN §2(g) display obligation) lands at W1.
 
-**Namespace boundary**: this `app.etzhayyim.gov.dataset.*` sub-namespace describes religious-corp ingestion of officially-published OPEN-DATA / parliament / budget / procurement / statistics records. It is SEPARATE from the existing `app.etzhayyim.gov.{agency,consult,municipality,official,procedure}` sibling namespace (ADR-2605242330) which catalogs the state's structure for read-side interop. The two share the `gov.*` prefix but cover different concerns:
+**Namespace boundary**: this `com.etzhayyim.gov.dataset.*` sub-namespace describes religious-corp ingestion of officially-published OPEN-DATA / parliament / budget / procurement / statistics records. It is SEPARATE from the existing `com.etzhayyim.gov.{agency,consult,municipality,official,procedure}` sibling namespace (ADR-2605242330) which catalogs the state's structure for read-side interop. The two share the `gov.*` prefix but cover different concerns:
 
-- `app.etzhayyim.gov.{agency,consult,...}` — **state-side organizational catalog** (who/what the state is)
-- `app.etzhayyim.gov.dataset.*` — **state-published data corpora** (what the state has published)
+- `com.etzhayyim.gov.{agency,consult,...}` — **state-side organizational catalog** (who/what the state is)
+- `com.etzhayyim.gov.dataset.*` — **state-published data corpora** (what the state has published)
 
 **Owner**: religious-corp substrate (no single actor — written by `pymagatama.organism.sensors.gov.*` after passive-only fetch of officially-published bulk archives; consumed by ossekai / toritate / chigiri / manabi / baien-distill).
 

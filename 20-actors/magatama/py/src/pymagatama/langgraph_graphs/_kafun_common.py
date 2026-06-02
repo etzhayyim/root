@@ -53,4 +53,4 @@ def rkey(seed: str) -> str:
 
 
 def vertex_id(did: str, kind: str, key: str) -> str:
-    return f"at://{did}/app.etzhayyim.apps.kafun.{kind}/{key}"
+    return f"at://{did}/com.etzhayyim.apps.kafun.{kind}/{key}"

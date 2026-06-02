@@ -176,7 +176,7 @@ def _ingest_crypto_asset_freeze(world_total: int) -> dict[str, Any]:
         program = _as_str(prog_el.text if prog_el is not None else "", 64)
         if not uid:
             continue
-        vertex_id = f"at://did:web:crypto-asset-freeze.etzhayyim.com/app.etzhayyim.apps.cryptoAssetFreeze.incident/ofac-{uid}"
+        vertex_id = f"at://did:web:crypto-asset-freeze.etzhayyim.com/com.etzhayyim.apps.cryptoAssetFreeze.incident/ofac-{uid}"
         rows.append((
             vertex_id, uid, name, sdn_type, program, "ofac_sdn", ts,
         ))
@@ -510,7 +510,7 @@ def _ingest_ofac_sdn(world_total: int) -> dict[str, Any]:
         # sdn.xml is the SDN list — all entries are full blocks regardless of entity type
         blocking_tier = "full_block"
         vertex_id = (
-            f"at://{actor_did}/app.etzhayyim.apps.ofacSanctionsSdn.listSdn/sdn-{uid}"
+            f"at://{actor_did}/com.etzhayyim.apps.ofacSanctionsSdn.listSdn/sdn-{uid}"
         )
         rows.append((
             vertex_id, uid, program, sdn_type, blocking_tier,
@@ -616,7 +616,7 @@ def _ingest_bengoshi_lawyers(world_total: int) -> dict[str, Any]:
         # Seed 1 representative row per bar association
         bar_code = f"JP-BAR-{kai_code:03d}"
         roll = f"{kai_name[:3].upper()}-{kai_code:04d}"
-        vertex_id = f"at://{actor_did}/app.etzhayyim.apps.bengoshi.registerLawyer/lawyer-bar{kai_code:03d}"
+        vertex_id = f"at://{actor_did}/com.etzhayyim.apps.bengoshi.registerLawyer/lawyer-bar{kai_code:03d}"
         specialty = specialties[kai_code % len(specialties)]
         rows.append((
             vertex_id,
@@ -680,7 +680,7 @@ def _ingest_adr_cases(world_total: int) -> dict[str, Any]:
     for inst, seat, gov_law, currency, annual_count, years in INSTITUTIONS:
         for year in years:
             case_ref = f"{inst}-{year}-SEED"
-            vertex_id = f"at://{actor_did}/app.etzhayyim.apps.bengoshi.openCase/adr-{inst.lower()}-{year}"
+            vertex_id = f"at://{actor_did}/com.etzhayyim.apps.bengoshi.openCase/adr-{inst.lower()}-{year}"
             rows.append((
                 vertex_id,
                 f"{inst}/{year}/annual",
@@ -878,9 +878,9 @@ def _ingest_oil_company(world_total: int) -> dict[str, Any]:
                 "status,collection,owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid, company_did,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.company/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.company/{vid[-12:]}",
                  _as_str(name, 256), company_type, hq_country, sanctions_status,
-                 "active", "app.etzhayyim.apps.oilCoverage.company",
+                 "active", "com.etzhayyim.apps.oilCoverage.company",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -954,9 +954,9 @@ def _ingest_oil_refinery(world_total: int) -> dict[str, Any]:
                 "status,collection,owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid, company_did,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.company/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.company/{vid[-12:]}",
                  _as_str(name, 256), "refinery", hq_country, "none",
-                 "active", "app.etzhayyim.apps.oilCoverage.company",
+                 "active", "com.etzhayyim.apps.oilCoverage.company",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1046,9 +1046,9 @@ def _ingest_crude_grade(world_total: int) -> dict[str, Any]:
                 "status,collection,owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.crudeGrade/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.crudeGrade/{vid[-12:]}",
                  grade_code, api_gravity, sulfur_pct, benchmark_link,
-                 "active", "app.etzhayyim.apps.oilCoverage.crudeGrade",
+                 "active", "com.etzhayyim.apps.oilCoverage.crudeGrade",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1103,9 +1103,9 @@ def _ingest_pricing_benchmark(world_total: int) -> dict[str, Any]:
                 "status,collection,owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.benchmark/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.benchmark/{vid[-12:]}",
                  benchmark_code, region, commodity, publisher,
-                 "active", "app.etzhayyim.apps.oilCoverage.benchmark",
+                 "active", "com.etzhayyim.apps.oilCoverage.benchmark",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1201,9 +1201,9 @@ def _ingest_oil_basin(world_total: int) -> dict[str, Any]:
                 "status,collection,owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.basin/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.basin/{vid[-12:]}",
                  basin_code, _as_str(basin_name, 256), country_code, basin_type,
-                 "active", "app.etzhayyim.apps.oilCoverage.basin",
+                 "active", "com.etzhayyim.apps.oilCoverage.basin",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1362,9 +1362,9 @@ def _ingest_oil_field(world_total: int) -> dict[str, Any]:
                 "status,collection,owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.field/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.field/{vid[-12:]}",
                  field_code, basin_code, field_type, country_code,
-                 "active", "app.etzhayyim.apps.oilCoverage.field",
+                 "active", "com.etzhayyim.apps.oilCoverage.field",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1441,9 +1441,9 @@ def _ingest_oil_pipeline(world_total: int) -> dict[str, Any]:
                 "status,collection,owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.pipeline/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.pipeline/{vid[-12:]}",
                  pipeline_code, commodity, capacity_bpd, length_km,
-                 "active", "app.etzhayyim.apps.oilCoverage.pipeline",
+                 "active", "com.etzhayyim.apps.oilCoverage.pipeline",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1522,9 +1522,9 @@ def _ingest_oil_terminal(world_total: int) -> dict[str, Any]:
                 "status,collection,owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.terminal/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.terminal/{vid[-12:]}",
                  terminal_code, terminal_type, locode, storage_capacity,
-                 "active", "app.etzhayyim.apps.oilCoverage.terminal",
+                 "active", "com.etzhayyim.apps.oilCoverage.terminal",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1602,10 +1602,10 @@ def _ingest_oil_trade(world_total: int) -> dict[str, Any]:
                 "delivery_window,status,collection,owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.trade/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.trade/{vid[-12:]}",
                  trade_id, trader_did, counterparty_did, commodity,
                  grade_code, benchmark_code, exporter_cc, volume, unit, price_basis,
-                 "Q2-2026", "active", "app.etzhayyim.apps.oilCoverage.trade",
+                 "Q2-2026", "active", "com.etzhayyim.apps.oilCoverage.trade",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1680,7 +1680,7 @@ def _ingest_oil_tanker(world_total: int) -> dict[str, Any]:
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid, imo, mmsi, vessel_name, vessel_class, flag, dwt,
                  op_did, built, sanctions, "active",
-                 "app.etzhayyim.apps.oilCoverage.tanker",
+                 "com.etzhayyim.apps.oilCoverage.tanker",
                  _OIL_ACTOR, _OIL_ACTOR, 0, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1756,10 +1756,10 @@ def _ingest_oil_cargo(world_total: int) -> dict[str, Any]:
                 "owner_did,actor_did,org_did,created_date) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.cargo/{vid[-12:]}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.cargo/{vid[-12:]}",
                  cargo_id, commodity, grade_code, quantity,
                  _as_str(load_port, 128), _as_str(discharge_port, 128), laycan,
-                 "active", "app.etzhayyim.apps.oilCoverage.cargo",
+                 "active", "com.etzhayyim.apps.oilCoverage.cargo",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts),
             )
             written += 1
@@ -1935,9 +1935,9 @@ def _ingest_oil_country_profile(world_total: int) -> dict[str, Any]:
                 "status,collection,owner_did,actor_did,org_did,created_date,sensitivity_ord) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (vid,
-                 f"at://{_OIL_ACTOR}/app.etzhayyim.apps.oilCoverage.countryProfile/{country_code}",
+                 f"at://{_OIL_ACTOR}/com.etzhayyim.apps.oilCoverage.countryProfile/{country_code}",
                  country_code, role_flags, reserve_rank, production_rank,
-                 "active", "app.etzhayyim.apps.oilCoverage.countryProfile",
+                 "active", "com.etzhayyim.apps.oilCoverage.countryProfile",
                  _OIL_ACTOR, _OIL_ACTOR, _OIL_ACTOR, ts, 0),
             )
             written += 1
@@ -2394,7 +2394,7 @@ def _ingest_natural_person(world_total: int) -> dict[str, Any]:
         for qid, name in humans:
             vertex_id = (
                 f"at://did:web:natural-person.etzhayyim.com"
-                f"/app.etzhayyim.apps.naturalPerson.person/wd-{qid}"
+                f"/com.etzhayyim.apps.naturalPerson.person/wd-{qid}"
             )
             cur.execute(
                 f"SELECT 1 FROM vertex_natural_person WHERE vertex_id = %s LIMIT {int(1)}",

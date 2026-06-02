@@ -40,8 +40,8 @@ Claude never sees the actual token; it runs `curl -H "Authorization: Bearer $etz
 ### Per-call scoped token (the common case)
 
 ```bash
-AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.apps.gmail.syncInbox --ttl 60)
-curl -H "Authorization: Bearer $AT_TOKEN" https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.syncInbox -d '…'
+AT_TOKEN=$(gftd agent-token --lxm com.etzhayyim.apps.gmail.syncInbox --ttl 60)
+curl -H "Authorization: Bearer $AT_TOKEN" https://gmail.etzhayyim.com/xrpc/com.etzhayyim.apps.gmail.syncInbox -d '…'
 ```
 
 One NSID per token. One minute lifetime. Caller DID in `iss` — audit trail intact.

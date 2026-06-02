@@ -74,7 +74,7 @@ records the violation explicitly so the unwind is tracked.
 5. **Apex `/xrpc/*` not routed + GET vs POST mismatch.** Even after the
    subdomains were provisioned, `etzhayyim.com/xrpc/{NSID}` (the path the bundle
    actually uses) was caught by `etzhayyim-did-web/src/worker.ts`'s newer XRPC
-   dispatcher which only knew `app.etzhayyim.apps.unispsc.*` and returned 501 "no
+   dispatcher which only knew `com.etzhayyim.apps.unispsc.*` and returned 501 "no
    upstream registered" for everything else. Once that was wired, the bundle's
    GET-style queries (`searchActors`, `getProfile`, ...) still failed with 405
    because the upstream dispatcher serves all NSIDs as POST-only.
@@ -89,7 +89,7 @@ records the violation explicitly so the unwind is tracked.
 | 2 | bundle post-process: `googletagmanager.com` / `pagead2.googlesyndication.com` / `a.magsrv.com` → `127.0.0.1.invalid`; `G-FPSMTY14DJ` → `G-NOOP-DISA`; `ca-pub-8017914559680125` → `ca-pub-0000000000000000`; cookie banner text scrubbed | committed in `e67f86884` |
 | 3 | New Worker `etzhayyim-xrpc-proxy` (`50-infra/etzhayyim-xrpc-proxy/`) with custom-domain bindings for `atproto/bsky/authn/mcp.etzhayyim.com` and service bindings to the upstream `ai-gftd-pds-2603241700 / ai-gftd-appview / ai-gftd-auth / ai-gftd-agentgateway` Workers | `etzhayyim-xrpc-proxy@76483e4d-...` |
 | 4 | `@etzhayyim/magatama-host-sdk` `createKyselyDb` guard softened from `throw new WorkerDBProhibitedError()` to a warn-once `console.warn`. PDS + AppView re-bundled and re-deployed | `ai-gftd-pds-2603241700@e85d67fe-...` + `ai-gftd-appview@e73d3e88-...` |
-| 5 | `etzhayyim-did-web` worker: added `app.bsky.*`, `com.atproto.*`, `chat.bsky.*`, `app.etzhayyim.*` NSID prefixes; added GET → POST normalization (URL search params → JSON body) for `/xrpc/*` so the bundle's query NSIDs reach the POST-only upstream | `etzhayyim-did-web@cec99c52-4e61-4de5-b8f4-40d4cc9b5d51` |
+| 5 | `etzhayyim-did-web` worker: added `app.bsky.*`, `com.atproto.*`, `chat.bsky.*`, `com.etzhayyim.*` NSID prefixes; added GET → POST normalization (URL search params → JSON body) for `/xrpc/*` so the bundle's query NSIDs reach the POST-only upstream | `etzhayyim-did-web@cec99c52-4e61-4de5-b8f4-40d4cc9b5d51` |
 
 End-to-end result: home page Discover feed renders real posts; `/search?q=yoro`
 returns the `did:web:yoro.etzhayyim.com` actor row.

@@ -13,7 +13,7 @@ priority_note: "How LangGraph row-driven nodes address MCP tools by NSID, resolv
 authoritative_for:
   - mcp:// URI scheme in vertex_langgraph_assistant_node.ref
   - vertex_mcp_tool_def runtime lookup contract (SELECT actor_host WHERE nsid AND enabled)
-  - MCP envelope endpoint construction (https://{actor_host}/xrpc/app.etzhayyim.mcp.message)
+  - MCP envelope endpoint construction (https://{actor_host}/xrpc/com.etzhayyim.mcp.message)
   - tools/call default name = nsid
   - In-process TTL cache (60s) for registry hits
 depends_on:
@@ -35,7 +35,7 @@ superseded_by: []
 
 ADR-2604261000 made `vertex_mcp_tool_def` the SSoT for the MCP tool registry
 (NSID → actor_host + lexicon I/O schemas, populated by `sync-mcp-registry.py`
-from `00-contracts/lexicons/ai/gftd/apps/**/*.json`).
+from `00-contracts/lexicons/com/etzhayyim/apps/**/*.json`).
 
 ADR-2605082200 introduced row-driven LangGraph assistants where each node's
 `ref` column is a string. The resolver dispatch in
@@ -45,7 +45,7 @@ rule — every node binding hard-coded a hostname, defeating the actor-host
 indirection that `vertex_mcp_tool_def` exists to provide.
 
 This ADR fixes that: a node binding can declare `kind=mcp_tool` with
-`ref="mcp://app.etzhayyim.tools.web.research"` and the loader resolves the
+`ref="mcp://com.etzhayyim.tools.web.research"` and the loader resolves the
 endpoint at runtime via `vertex_mcp_tool_def`.
 
 ## Decision
@@ -56,14 +56,14 @@ When `vertex_langgraph_assistant_node.ref` starts with `mcp://`, the
 remainder is parsed as a fully-qualified MCP tool NSID. Resolution rules:
 
 ```
-ref = "mcp://app.etzhayyim.tools.web.research"
-  └─ nsid = "app.etzhayyim.tools.web.research"
+ref = "mcp://com.etzhayyim.tools.web.research"
+  └─ nsid = "com.etzhayyim.tools.web.research"
 
 SELECT actor_host FROM vertex_mcp_tool_def
 WHERE nsid = $1 AND enabled = true
 LIMIT 1
 
-endpoint = "https://{actor_host}/xrpc/app.etzhayyim.mcp.message"
+endpoint = "https://{actor_host}/xrpc/com.etzhayyim.mcp.message"
 tools/call body.name = nsid
 ```
 

@@ -53,7 +53,7 @@ function computeLeader(selfDid: string, peers: SwarmPeer[]): boolean {
 ### Substrate との関係
 
 これは **browser ローカル協調**のみ。substrate lease(MST 上の
-`app.etzhayyim.swarm.lease` record + L2 タイムスタンプ)は別 ADR で
+`com.etzhayyim.swarm.lease` record + L2 タイムスタンプ)は別 ADR で
 扱う(`ameno-substrate-lease`)。本 ADR は同 origin / 同 browser
 multi-tab に限定。
 

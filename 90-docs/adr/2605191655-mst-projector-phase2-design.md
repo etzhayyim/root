@@ -12,7 +12,7 @@ weight: 0.75
 priority_note: "Locks the upgrade path from Phase 1 counter-derived snapshot hash to a true AT-Protocol MST root + CAR file. Required before downstream consumers (anchor-cron, app readers) can claim third-party verifiability."
 authoritative_for:
   - mst-projector Phase 2 implementation contract
-  - lexicon migration `snapshotHash` → `rootCid` for `app.etzhayyim.substrate.shardSnapshot`
+  - lexicon migration `snapshotHash` → `rootCid` for `com.etzhayyim.substrate.shardSnapshot`
   - emit format upgrade JSON manifest → CAR file
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
@@ -43,7 +43,7 @@ ADR-2605191358 step 5 shipped as Phase 1 in PR #65 (commit `65f495cd`):
 | `firehose.ts` | real WS subscriber, CBOR frame decode via `cborg`, cursor persistence, backoff reconnect |
 | `mst.ts` | per-shard ordered record list; `currentRoot()` returns `sha256-<hex>` of canonical JSON |
 | `shard.ts` | counter + wall-clock `shouldFlush()`; `flushShard()` writes JSON manifest |
-| `emit.ts` | optional Kubo IPFS pin; publishes `app.etzhayyim.substrate.shardSnapshot` via `@atproto/api createRecord` |
+| `emit.ts` | optional Kubo IPFS pin; publishes `com.etzhayyim.substrate.shardSnapshot` via `@atproto/api createRecord` |
 
 Phase 1 unblocks step 4 (yoro UI kagami-store) by giving consumers a stable CID per shard flush, but two properties are deferred:
 
@@ -67,7 +67,7 @@ Phase 2 swaps:
 
 ## Lexicon migration
 
-`app.etzhayyim.substrate.shardSnapshot` was deliberately authored in Phase 1 with both fields:
+`com.etzhayyim.substrate.shardSnapshot` was deliberately authored in Phase 1 with both fields:
 
 ```json
 "snapshotHash": { "type": "string", "description": "Phase 1: …. Phase 2: dropped …" },
@@ -89,8 +89,8 @@ CAR v1 (`application/vnd.ipld.car`) with one root CID equal to the MST root, fol
 
 ```jsonc
 {
-  "$type": "app.etzhayyim.substrate.shardSnapshot",
-  "shardKey": "app.etzhayyim.murakumo.inferenceJobEvent",
+  "$type": "com.etzhayyim.substrate.shardSnapshot",
+  "shardKey": "com.etzhayyim.murakumo.inferenceJobEvent",
   "phase": 2,
   "firstSeq": "...",
   "lastSeq": "...",
@@ -136,7 +136,7 @@ After Phase 2 lands, the following property holds: any two projectors that consu
 
 **Required follow-ups**:
 
-- Lexicon migration PR (`app.etzhayyim.substrate.shardSnapshot` v2 fields).
+- Lexicon migration PR (`com.etzhayyim.substrate.shardSnapshot` v2 fields).
 - `anchor-cron` consumer update — switch from `snapshotHash` to `rootCid`.
 - `ipfs-pinner` consumer update — pin CAR files (`application/vnd.ipld.car`) instead of JSON manifests.
 - Operational ADR for multi-replica deploy (consensus rule for `anchor-cron`).

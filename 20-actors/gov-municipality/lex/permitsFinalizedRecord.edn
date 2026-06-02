@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.govmunicipality.permitsFinalizedRecord"
+ :id "com.etzhayyim.govmunicipality.permitsFinalizedRecord"
  :defs
  {:main
   {:type "record"

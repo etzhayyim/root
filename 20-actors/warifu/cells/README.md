@@ -17,7 +17,7 @@ EAVT facts and emits ERC-4337 UserOperations via `@etzhayyim/sdk`. No platform-h
 return `GATED` until the Council Lv7+ amendment).
 
 Per-cell I/O contracts live in `lex/` (`warifu.authorize.json`, `warifu.settle.json`).
-Wire-level lexicons (`app.etzhayyim.card.*`) live in `10-protocol/warifu/`.
+Wire-level lexicons (`com.etzhayyim.card.*`) live in `10-protocol/warifu/`.
 
 ## Substrate seam + tests
 

@@ -283,7 +283,7 @@ pattern on a Murakumo node (import-time `RuntimeError` until R1 activation):
 
 ## Lexicons
 
-Five Lexicons under `app.etzhayyim.junkan.*` (R0 skeletons; full schema at R1):
+Five Lexicons under `com.etzhayyim.junkan.*` (R0 skeletons; full schema at R1):
 
 - **societalStockObservation** — append-only; G6 aggregate-only; G9 immutable;
   carries `sourceCid` + `validTime` (+ tx-time from substrate).
@@ -382,7 +382,7 @@ What is implemented (pure stdlib; offline; **no fleet, no network, no inference,
 no outward channel** — G4 holds by absence of any dispatch path):
 
 - `20-actors/junkan/` actor scaffold (CLAUDE.md / README.md / manifest.jsonld /
-  NOTICE) + 5 Lexicon skeletons under `app.etzhayyim.junkan.*` (commit
+  NOTICE) + 5 Lexicon skeletons under `com.etzhayyim.junkan.*` (commit
   `d2b0f2d60`, "bundle: junkan R0").
 - `pymagatama.organism.junkan` analysis core (commit `d2b0f2d60`):
   - `datom.py` — Datomic-isomorphic append-only `DatomStore` (EAVT entity /

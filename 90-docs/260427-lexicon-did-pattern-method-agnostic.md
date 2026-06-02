@@ -52,8 +52,8 @@ Union pattern (例: `^(did:erc725:gftd:[0-9]+:0x[0-9a-fA-F]+|did:web:...|did:plc
 
 `grep -rl '"pattern": "\^did:' 00-contracts/lexicons/` で 15 ファイル抽出 (2026-04-27):
 
-- `00-contracts/lexicons/ai/gftd/auth/mintChildDid.json`
-- `00-contracts/lexicons/ai/gftd/apps/lawfirm/{14 files}`
+- `00-contracts/lexicons/com/etzhayyim/auth/mintChildDid.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/lawfirm/{14 files}`
 
 各ファイルの JSON snippet `, "pattern": "^did:..."` を `sed`/`python` で削除。
 JSON 構造、format 宣言、description は変更なし。

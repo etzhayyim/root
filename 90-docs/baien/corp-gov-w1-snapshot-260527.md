@@ -131,8 +131,8 @@ All 12 fetchers share: (a) network mode + local-source mode (operator-staged or 
 | **Fetcher path-reserved** | 4 corp + 8 gov | 12 | `70-tools/e7m-dataset/src/e7m_dataset/fetchers/*.py` |
 | **Corpus recipes (TOML)** | 2 corp + 2 gov + 2 READMEs | 4 + 2 | `70-tools/baien-moemoekyun-train/recipes/{corp,gov}/` |
 | **Acceptance flag templates** | 3 generic (Tier-A/B/C) + 1 specific (opencorporates) + README | 4 + 1 | `70-tools/e7m-dataset/acceptance-templates/` |
-| **Lexicon (corp)** | registry/disclosure/lei/ownership/filing-event + README | 5 + 1 | `00-contracts/lexicons/app/etzhayyim/corp/` |
-| **Lexicon (gov.dataset)** | openDataset/parliament/budget/procurement/statistics + README | 5 + 1 | `00-contracts/lexicons/app/etzhayyim/gov/dataset/` |
+| **Lexicon (corp)** | registry/disclosure/lei/ownership/filing-event + README | 5 + 1 | `00-contracts/lexicons/com/etzhayyim/corp/` |
+| **Lexicon (gov.dataset)** | openDataset/parliament/budget/procurement/statistics + README | 5 + 1 | `00-contracts/lexicons/com/etzhayyim/gov/dataset/` |
 | **deps.toml entries** | [[adrs]] + [[modules]] | 2 + 30+ | `deps.toml` |
 | **Cross-actor wiring** | ossekai (`crossActor` object), chigiri (`lexiconReadAccess`), toritate (`lexiconReadAccess`) | 3 manifest updates | `20-actors/{ossekai,chigiri,toritate}/manifest.jsonld` |
 | **Legacy script supersession marker** | sec-edgar / gleif-bulk / legal-entity-relationship / multi-country-scheduled-ingest + MIGRATION-NOTES.md | 4 + 1 | `70-tools/scripts/` |
@@ -158,7 +158,7 @@ For ADR-2605263800 / ADR-2605263900 to move from R0 (proposed) to R1 (operationa
 - [ ] **G2**. Council Lv6+ ≥3 ratify ADR-2605263800
 - [ ] **G3**. Council Lv6+ ≥3 ratify ADR-2605263900
 - [ ] **G4**. Charter Rider §2 scanner FP rate ≤5% over 7-day trial on corp/gov-bound document samples (R8 KaizenObserver health)
-- [ ] **G5**. `app.etzhayyim.substrate.datasetPin` PDS extension verified accepting `corp/*` and `gov/dataset/*` revisions
+- [ ] **G5**. `com.etzhayyim.substrate.datasetPin` PDS extension verified accepting `corp/*` and `gov/dataset/*` revisions
 - [x] **G6**. At least ONE fetcher concrete impl — **EXCEEDED 2026-05-27: 12/12 W1 fetcher parity COMPLETE (see §2 + §7 for the landed sequence)**
 - [ ] **G7**. lint hook deploy: vendor commercial terminal deny-list in `lefthook.yml` for `corp/*.py` + `gov/*.py` sensor sources (currently enforced in pytest only)
 - [ ] **G8**. chigiri R1 active (cross-actor `ipLicenseClaim` chain; ADR-2605262700 gates separately)

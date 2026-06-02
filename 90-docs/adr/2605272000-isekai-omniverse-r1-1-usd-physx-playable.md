@@ -148,7 +148,7 @@ round-trip) + Default button + HUD pulling from
 re-published to `svelte/static/v2/`.
 
 The wrangler worker name + routes (`magatama-is3k41w0`,
-`is3k41w0.etzhayyim.com/*` / `isekapp.etzhayyim.ai/*`) are unchanged. No new
+`is3k41w0.etzhayyim.com/*` / `isekcom.etzhayyim.ai/*`) are unchanged. No new
 Cloudflare resources, no DNS change.
 
 # Consequences

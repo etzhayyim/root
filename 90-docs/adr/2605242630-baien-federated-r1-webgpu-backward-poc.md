@@ -67,7 +67,7 @@ In scope:
 Out of scope (lands in R2..R4 under their own ADRs):
 
 - Murakumo aggregator wiring into `baien-distill/graph.py`.
-- Lexicon publish (`app.etzhayyim.baien.distributedTrainDelta` real
+- Lexicon publish (`com.etzhayyim.baien.distributedTrainDelta` real
   emission with ES256 passkey signing).
 - Multi-device swarm coordination.
 - DP clip + Gaussian noise calibration (R2 — once real Δ distributions

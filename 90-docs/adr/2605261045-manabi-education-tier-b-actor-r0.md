@@ -41,7 +41,7 @@ Existing tooling (baien-distill, gemma-coder-distill, joucho organism agents, mi
 Launch **`manabi` (学び — "learning", continuative noun of 学ぶ "to learn"; multi-generational lifelong-learning echo; etymologically rooted in 真似ぶ "to imitate/emulate", suggesting learning-as-following-model)** as a Tier-B religious-corp actor:
 
 - **Actor DID**: `did:web:etzhayyim.com:manabi`
-- **Namespace**: `app.etzhayyim.manabi.*`
+- **Namespace**: `com.etzhayyim.manabi.*`
 - **R0 scope**: Open-curriculum knowledge transmission across literacy (reading + writing), numeracy (counting → calculus), civics (charter + governance + history), vocational (practical skills aligned to L5+ adherent productive contribution), lifelong inquiry (open-ended questioning + critical analysis). **Excludes**: formal accreditation, degree issuance, examination-as-gatekeeper, behavioral conditioning, for-profit textbook publishing, proprietary LMS, surveillance edtech, replacement of family/cultural transmission, advertising, political-party content.
 - **R0 robotics**: None. Education is primarily digital substrate (text + audio + open data) + (R2+) human tutors + (R3+) Yutori telepresence inheritance from hagukumi.
 - **14 gates + 10 non-goals** declared before capability lands.
@@ -85,7 +85,7 @@ Launch **`manabi` (学び — "learning", continuative noun of 学ぶ "to learn"
 ### Lexicons (4, deferred to R1+)
 
 ```
-app.etzhayyim.manabi.{
+com.etzhayyim.manabi.{
   curriculumAttestation,          # Curriculum module declaration (open-source content CID + reviewer attestations)
   learningSessionAttestation,     # Per-session record (aggregate only for under-18; full encrypted for adult)
   charterUnderstandingAttestation,  # Specific to civics_charter — adherent informed-consent baseline

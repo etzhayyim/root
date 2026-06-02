@@ -15,7 +15,7 @@ authoritative_for:
   - primary payment substrate: Base L2 + USDC (Coinbase Bridged on Base, contract 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913)
   - account model: ERC-4337 Smart Account, DID-bound via Coinbase Smart Wallet
   - gas sponsorship: etzhayyim-operated paymaster contract (funded by anchor-batch fee skim)
-  - payment record convention: every settled tx → AT Record (NSID app.etzhayyim.apps.payment.*) for verifiability + audit
+  - payment record convention: every settled tx → AT Record (NSID com.etzhayyim.apps.payment.*) for verifiability + audit
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
@@ -49,7 +49,7 @@ If an open app legitimately needs fiat acceptance (regulatory, accessibility), t
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│ L4  Audit       — AT Record (app.etzhayyim.apps.payment.*)        │
+│ L4  Audit       — AT Record (com.etzhayyim.apps.payment.*)        │
 │                   anchored to MST → IPFS → Base L2          │
 ├────────────────────────────────────────────────────────────┤
 │ L3  Settlement  — USDC on Base L2 (Coinbase Bridged)        │
@@ -92,8 +92,8 @@ const receipt = await e.pay({
   to: "did:web:recipient.etzhayyim.com",   // or 0x address
   amount: parseUsdc("10.00"),               // USDC base units (6 decimals)
   token: "USDC",                            // default; only token supported in v0.1
-  reason: {                                 // recorded as app.etzhayyim.apps.payment.sent
-    collection: "app.etzhayyim.apps.payment.sent",
+  reason: {                                 // recorded as com.etzhayyim.apps.payment.sent
+    collection: "com.etzhayyim.apps.payment.sent",
     purpose: "donation",                    // or "tip", "subscription", "purchase", "refund"
     forUri?: "at://did/coll/rkey",          // links to the thing being paid for
     memo?: "thank you for the open data API",
@@ -106,7 +106,7 @@ const receipt = await e.pay({
 const stream = await e.payStream({
   to: "did:web:recipient.etzhayyim.com",
   flowRate: parseUsdcPerSecond("10.00 / month"),  // = 3.858e-6 USDC/s
-  reason: { collection: "app.etzhayyim.apps.payment.stream", purpose: "subscription" },
+  reason: { collection: "com.etzhayyim.apps.payment.stream", purpose: "subscription" },
 });
 // → { streamId, startedAt }
 
@@ -117,9 +117,9 @@ const proof = await e.verify(receipt.recordUri);
 // → { included: true, anchoredAt: {...}, paymentTx: { txHash, from, to, amount } }
 ```
 
-## Payment record lexicon (`app.etzhayyim.apps.payment.*`)
+## Payment record lexicon (`com.etzhayyim.apps.payment.*`)
 
-New Lexicon under `00-contracts/lexicons/ai/gftd/apps/payment/`:
+New Lexicon under `00-contracts/lexicons/com/etzhayyim/apps/payment/`:
 
 - `sent.json` — one-shot transfer; required: `to`, `amount`, `tokenContract`, `txHash`, `purpose`, `forUri?`, `memo?`
 - `received.json` — counterpart record on recipient's PDS (created by their listener)
@@ -138,7 +138,7 @@ Each record carries the on-chain `txHash` and `blockNumber` so any reader can re
 |---|---|---|
 | Open data API (`open-isco`, `open-naics`, `open-hs`, etc.) | per-call micropayment | Paymaster sponsors; quota burns USDC against user's pre-loaded credit. Optional — free tier exists. |
 | Public fund (`public-fund`) | grant disbursement | 0xSplits to recipients; on-chain proof of allocation. |
-| Public sento (`public-sento`) | community pool donations | Direct USDC transfer; `app.etzhayyim.apps.payment.sent` with purpose=donation. |
+| Public sento (`public-sento`) | community pool donations | Direct USDC transfer; `com.etzhayyim.apps.payment.sent` with purpose=donation. |
 | AppView tipping (`yoro`) | content tip | Direct USDC, no escrow. Receiver listens on PDS firehose for `received` events. |
 | Open banking (`open-banking`) | core banking primitives | Smart contract on Base for the ledger; off-chain MST projection for the human-readable account view. |
 | Religious-corp offerings (`otakiage`, `*-jinja` style) | offering | Direct USDC, AT Record carries blessing/intention text. |
@@ -177,7 +177,7 @@ Each record carries the on-chain `txHash` and `blockNumber` so any reader can re
 ## Migration plan
 
 1. **SDK pay() stub** (this commit alongside ADR): `Etzhayyim.pay()` / `.payStream()` / `.payStreamStop()` method signatures + types, throws "not yet implemented" with explicit TODO breakdown.
-2. **Payment lexicon** (this commit): `00-contracts/lexicons/ai/gftd/apps/payment/{sent,received,streamStarted,streamStopped,escrowOpened,escrowReleased,refundIssued,split}.json` schemas.
+2. **Payment lexicon** (this commit): `00-contracts/lexicons/com/etzhayyim/apps/payment/{sent,received,streamStarted,streamStopped,escrowOpened,escrowReleased,refundIssued,split}.json` schemas.
 3. **Paymaster contract** (follow-up): `50-infra/etzhayyim-paymaster/` — ERC-4337 paymaster, fee-skim funded, Solidity + Foundry deploy script.
 4. **Reference impl**: pick the simplest payment flow (donation / `public-sento`) and wire end-to-end through SDK + paymaster + AT Record.
 5. **CI hooks**: lint-`stripe-import`, lint-`fiat-currency-code`, lint-`direct-viem-payment` — fail PR on any.

@@ -8,7 +8,7 @@ without round-tripping through Node.
 The cell-runner's ``/yatachain/attest`` HTTP endpoint receives a
 ``WitnessRequest`` body from the orchestrator, dispatches it to one of
 the local cells, and calls :func:`produce_attestation` to emit a signed
-``app.etzhayyim.yatachain.attestation`` record. The record is then
+``com.etzhayyim.yatachain.attestation`` record. The record is then
 written back to PDS via :mod:`pymagatama.substrate`.
 
 Per yatachain SPEC §4 + §5 + ADR-2605231400.
@@ -34,7 +34,7 @@ Verdict = Literal["accept", "reject", "escalate"]
 @dataclass
 class MembraneLayerRef:
     """Reference to one membrane layer artifact. Mirrors
-    ``app.etzhayyim.yatachain.membraneRule#layerRef``."""
+    ``com.etzhayyim.yatachain.membraneRule#layerRef``."""
 
     path: str
     content_hash: str
@@ -44,7 +44,7 @@ class MembraneLayerRef:
 @dataclass
 class MembraneRule:
     """Loaded ``(L1 schema, L2 policy, L3 deterministic)`` triple for a
-    single NSID. Mirrors ``app.etzhayyim.yatachain.membraneRule``."""
+    single NSID. Mirrors ``com.etzhayyim.yatachain.membraneRule``."""
 
     v: int
     nsid: str
@@ -104,7 +104,7 @@ class MembraneVerdict:
 
 @dataclass
 class Attestation:
-    """Mirrors ``app.etzhayyim.yatachain.attestation`` record shape. The
+    """Mirrors ``com.etzhayyim.yatachain.attestation`` record shape. The
     ``signature`` is bytes locally; wire encoding uses base64 (see
     :meth:`to_wire`)."""
 
@@ -317,7 +317,7 @@ def verify_ed25519_signature(canonical: bytes, signature: bytes, public_key: byt
 def _keychain_cell_key(cell_id: str) -> Optional[bytes]:
     """Load a cell's Ed25519 private key from the macOS Keychain.
 
-    Resolution: ``security find-generic-password -s app.etzhayyim.yatachain
+    Resolution: ``security find-generic-password -s com.etzhayyim.yatachain
     -a {cell_id} -w`` returns hex-encoded 32-byte seed. Returns None
     when the keychain entry is absent or ``security`` is not on PATH
     (non-mac runtimes).
@@ -331,7 +331,7 @@ def _keychain_cell_key(cell_id: str) -> Optional[bytes]:
         out = subprocess.check_output(
             [
                 "security", "find-generic-password",
-                "-s", "app.etzhayyim.yatachain",
+                "-s", "com.etzhayyim.yatachain",
                 "-a", cell_id,
                 "-w",
             ],
@@ -370,7 +370,7 @@ def make_cell_signer(cell_id: str) -> tuple[CellSigner, str]:
     ``source`` is one of:
 
       - ``"keychain"``      — macOS Keychain entry under
-                              ``service=app.etzhayyim.yatachain, account={cell_id}``
+                              ``service=com.etzhayyim.yatachain, account={cell_id}``
       - ``"env"``           — ``CELL_PRIVATE_KEY_{cell_id}`` env var
       - ``"deterministic"`` — fallback for dev / unit-tests. Prominent
                               warning is logged at the cell-runner level

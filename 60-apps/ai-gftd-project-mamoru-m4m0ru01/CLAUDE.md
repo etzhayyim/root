@@ -13,11 +13,11 @@ detection pipeline and writes incidents / occurrences to RisingWave.
 | Path | Purpose |
 |---|---|
 | `/webhook/github` | GitHub App push webhook (HMAC-256 verification) |
-| `/xrpc/app.etzhayyim.apps.mamoru.scanCommit` | procedure — scan a commit diff |
-| `/xrpc/app.etzhayyim.apps.mamoru.scanRepo` | procedure — full repo scan (Phase 2) |
-| `/xrpc/app.etzhayyim.apps.mamoru.listIncidents` | query — list incidents |
-| `/xrpc/app.etzhayyim.apps.mamoru.getIncident` | query — incident detail + occurrences |
-| `/xrpc/app.etzhayyim.apps.mamoru.resolveIncident` | procedure — resolve/dismiss incident |
+| `/xrpc/com.etzhayyim.apps.mamoru.scanCommit` | procedure — scan a commit diff |
+| `/xrpc/com.etzhayyim.apps.mamoru.scanRepo` | procedure — full repo scan (Phase 2) |
+| `/xrpc/com.etzhayyim.apps.mamoru.listIncidents` | query — list incidents |
+| `/xrpc/com.etzhayyim.apps.mamoru.getIncident` | query — incident detail + occurrences |
+| `/xrpc/com.etzhayyim.apps.mamoru.resolveIncident` | procedure — resolve/dismiss incident |
 | `/health`, `/_app/meta` | edge probe |
 
 ## Detection pipeline (LangGraph pod)
@@ -40,7 +40,7 @@ Detectors (P1): aws-access-key-id, aws-secret-access-key, github-token, generic-
 ```
 GitHub App push webhook
     ↓ HMAC verify @ CF Worker
-    ↓ POST /xrpc/app.etzhayyim.apps.mamoru.scanCommit → dispatcher.etzhayyim.com
+    ↓ POST /xrpc/com.etzhayyim.apps.mamoru.scanCommit → dispatcher.etzhayyim.com
 bpmn-dispatcher (K8s ClusterIP)
     ↓ NSID routing → mamoru-langgraph.mitama-udf.svc.cluster.local:8000
 mamoru LangGraph pod
@@ -69,11 +69,11 @@ curl https://mamoru.etzhayyim.com/health
 curl https://mamoru.etzhayyim.com/_app/meta
 
 # List incidents (Bearer required)
-curl 'https://mamoru.etzhayyim.com/xrpc/app.etzhayyim.apps.mamoru.listIncidents?limit=10' \
+curl 'https://mamoru.etzhayyim.com/xrpc/com.etzhayyim.apps.mamoru.listIncidents?limit=10' \
   -H "Authorization: Bearer sk_live_xxxxx"
 
 # Manual scan trigger
-curl -X POST https://mamoru.etzhayyim.com/xrpc/app.etzhayyim.apps.mamoru.scanCommit \
+curl -X POST https://mamoru.etzhayyim.com/xrpc/com.etzhayyim.apps.mamoru.scanCommit \
   -H "Authorization: Bearer sk_live_xxxxx" \
   -H "Content-Type: application/json" \
   -d '{

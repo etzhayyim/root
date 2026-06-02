@@ -62,16 +62,16 @@ import type { Database } from "@etzhayyim/graph-schema";
 
 export default createWorkerExport((sdk) => {
   sdk.app.command(
-    nsid("app.etzhayyim.apps.{nsidNs}.{proc}"),
+    nsid("com.etzhayyim.apps.{nsidNs}.{proc}"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.{nsidNs}.{proc}", body);
+      const input = parseLexiconInput("com.etzhayyim.apps.{nsidNs}.{proc}", body);
       const db = createKyselyDb<Database>(ctx.env.HYPERDRIVE);
       await db.insertInto("vertex_open_defence_event")
         .values({
           vertex_id: input.vertexId,
           owner_did: ctx.callerDid,
           bpmn_process_id: "{bpmnId}",   // historical key, kept for compatibility
-          nsid: "app.etzhayyim.apps.{nsidNs}.{proc}",
+          nsid: "com.etzhayyim.apps.{nsidNs}.{proc}",
           project: "{project}",
           subject_vid: input.{subjectField} ?? null,
           action_class: "{actionName}",
@@ -109,7 +109,7 @@ Estimate: 3 files per project × 50 projects = 150 files. All template-generated
 
 ## 6. Auth & scope
 
-Per ADR-0022 each CF Worker invocation receives a Service Auth JWT with `lxm = app.etzhayyim.apps.{ns}.{proc}` claim. The Worker:
+Per ADR-0022 each CF Worker invocation receives a Service Auth JWT with `lxm = com.etzhayyim.apps.{ns}.{proc}` claim. The Worker:
 - only accepts requests where the JWT `lxm` matches the called NSID (mismatched = 401)
 - writes to `vertex_open_defence_event` via Hyperdrive — the Hyperdrive credential is per-Worker (not shared with pyzeebe)
 - emits audit via the existing `sdk.audit` helper (PDS-routed)
@@ -177,4 +177,4 @@ Each phase is independently revertible.
 
 - Wave 4 timer-start BPMNs (none in defence cluster yet, but ADR-0056 §F5 covers them). Stay in BPMN.
 - mitama-udf KEDA scale-to-zero (separate ADR-0049 follow-up).
-- Any change to host capability lexicons. The Worker uses existing `host-client.ts` generated from `00-contracts/lexicons/ai/gftd/host/*.json`.
+- Any change to host capability lexicons. The Worker uses existing `host-client.ts` generated from `00-contracts/lexicons/com/etzhayyim/host/*.json`.

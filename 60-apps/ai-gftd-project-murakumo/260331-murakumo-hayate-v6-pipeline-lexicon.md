@@ -1,20 +1,20 @@
 # Murakumo Hayate V6 Pipeline Lexicon + CLI
 
-Namespace: `app.etzhayyim.murakumo.*`
+Namespace: `com.etzhayyim.murakumo.*`
 
 ## NSID Step Map
 
-1. `app.etzhayyim.murakumo.planPipeline`
-2. `app.etzhayyim.murakumo.graphExtract`
-3. `app.etzhayyim.murakumo.graphIngest`
-4. `app.etzhayyim.murakumo.coverageExport`
-5. `app.etzhayyim.murakumo.fleetPlan`
-6. `app.etzhayyim.murakumo.trainExperts`
-7. `app.etzhayyim.murakumo.evalV6`
-8. `app.etzhayyim.murakumo.runPipeline`
+1. `com.etzhayyim.murakumo.planPipeline`
+2. `com.etzhayyim.murakumo.graphExtract`
+3. `com.etzhayyim.murakumo.graphIngest`
+4. `com.etzhayyim.murakumo.coverageExport`
+5. `com.etzhayyim.murakumo.fleetPlan`
+6. `com.etzhayyim.murakumo.trainExperts`
+7. `com.etzhayyim.murakumo.evalV6`
+8. `com.etzhayyim.murakumo.runPipeline`
 
 Lexicon JSON files live under:
-`60-apps/ai-gftd-project-murakumo/lexicons/ai/gftd/murakumo/*.json`
+`60-apps/ai-gftd-project-murakumo/lexicons/com/etzhayyim/murakumo/*.json`
 
 ## gftd CLI Mapping
 
@@ -29,7 +29,7 @@ Lexicon JSON files live under:
 Generic XRPC invocation:
 
 ```bash
-gftd murakumo xrpc --nsid app.etzhayyim.murakumo.graphExtract --payload-file payload.json
+gftd murakumo xrpc --nsid com.etzhayyim.murakumo.graphExtract --payload-file payload.json
 ```
 
 ## Data Path Contract

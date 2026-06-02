@@ -41,7 +41,7 @@ loop を形成 (religious-corp 内 self-care substrate の最初の完結した 
 |---|---|---|
 | Scope | OTC API 製造 + 製剤 + supply chain + lot release | symptom intake + 鑑別 advisory + 検査 routing + treatment plan + adherence followup |
 | Patient interaction | 受動 (lot を distribute、AE 受領) | 能動 (PWA 経由で symptom 入力 receive、advisory return) |
-| Lexicon namespace | `app.etzhayyim.pharma.*` | `app.etzhayyim.mitate.*` |
+| Lexicon namespace | `com.etzhayyim.pharma.*` | `com.etzhayyim.mitate.*` |
 | Cross-actor lexicon | `pharma.adverseEventReport` ← mitate `outcome_qol_followup` の副作用 leg | `mitate.diagnosticResult` → yakushi `pharma_post_market_surveillance` outcome feed |
 | R0 lexicon count | 8 (Wave 1) | 8 (Wave 1) |
 | R0 cell count | 10 + 2 Wave 1b + 2 Wave 1c = 14 | 13 (Wave 1) |
@@ -74,8 +74,8 @@ Removal of the gate requires:
 
 ## Lexicon namespace
 
-`app.etzhayyim.mitate.*` — 8 lexicons under
-[`00-contracts/lexicons/app/etzhayyim/mitate/`](../../00-contracts/lexicons/app/etzhayyim/mitate/):
+`com.etzhayyim.mitate.*` — 8 lexicons under
+[`00-contracts/lexicons/com/etzhayyim/mitate/`](../../00-contracts/lexicons/com/etzhayyim/mitate/):
 
 | Lexicon | Phase | Encryption |
 |---|---|---|
@@ -146,8 +146,8 @@ Each R-phase is its own ADR.
 
 | Direction | From | To | Lexicon | Purpose |
 |---|---|---|---|---|
-| mitate → yakushi | `outcome_qol_followup` | yakushi `pharma_adverse_event` | `app.etzhayyim.pharma.adverseEventReport` | 薬剤副作用 ハンドオフ |
-| mitate → yakushi | `outcome_qol_followup` | yakushi `pharma_post_market_surveillance` | `app.etzhayyim.pharma.adverseEventReport` (aggregated) | longitudinal outcome data feed |
+| mitate → yakushi | `outcome_qol_followup` | yakushi `pharma_adverse_event` | `com.etzhayyim.pharma.adverseEventReport` | 薬剤副作用 ハンドオフ |
+| mitate → yakushi | `outcome_qol_followup` | yakushi `pharma_post_market_surveillance` | `com.etzhayyim.pharma.adverseEventReport` (aggregated) | longitudinal outcome data feed |
 | yakushi → mitate | `pharma_packaging` | mitate `medication_history_audit` | (internal lot ID match) | adherent が yakushi lot を 受領した record を後日 audit 可能 |
 | yakushi → mitate | `pharma_adverse_event` | mitate `outcome_qol_followup` | (internal ID match) | yakushi AE intake を mitate longitudinal tracker に back-feed |
 

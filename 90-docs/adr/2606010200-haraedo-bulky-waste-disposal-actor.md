@@ -88,7 +88,7 @@ Murakumo LiteLLM loopback `127.0.0.1:4000` only.
 | G2 | no-illegal-dumping | only verified facilities + licensed routes; never propose unlicensed/illegal disposal |
 | G3 | hazardous-boundary | 家電リサイクル法対象 / PCB / asbestos / 医療廃棄物 / batteries → routed to licensed handler, NOT collected as bulky waste |
 | G5 | labor-dignity | 担当者 modeled per Labor Liberation ladder (ADR-2605261000); no extractive gig dispatch |
-| G6 | pii-encrypted | member address/PII → `app.etzhayyim.encrypted.*` envelope, DID-bound (ADR-2605181100) |
+| G6 | pii-encrypted | member address/PII → `com.etzhayyim.encrypted.*` envelope, DID-bound (ADR-2605181100) |
 | G7 | fee-non-fiat | 手数料 via USDC/warifu SBT↔SBT internal carve-out or external-backend XRPC consent-capability (領収書用途のみ); never Stripe/PayPal/Square |
 | G11 | outward-gated | real-world receipt/dispatch/collection requires Council ratification + community operator; R0 is design-only (mirrors ADR-2605302358 G11) |
 | G14 | verified-facility | route destinations + fee tables drawn only from the verified facility/fleet registry |

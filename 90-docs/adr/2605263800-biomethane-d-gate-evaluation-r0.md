@@ -64,7 +64,7 @@ Biomethane = CH₄ upgraded from biogas (50-70% CH₄ + 30-50% CO₂ + trace H�
 
 **Verdict**: PERMITTED under the following operational conditions:
 
-1. **Feedstock provenance**: every batch carries `app.etzhayyim.hikari.biomethaneFeedstockAttestation` Lexicon entry listing source actor + waste-stream-CID + dry-matter mass + VS (volatile solids) mass; energy-crop feedstock (corn / sorghum / sugarcane for biogas) **categorically excluded** per N4 of hikari R0
+1. **Feedstock provenance**: every batch carries `com.etzhayyim.hikari.biomethaneFeedstockAttestation` Lexicon entry listing source actor + waste-stream-CID + dry-matter mass + VS (volatile solids) mass; energy-crop feedstock (corn / sorghum / sugarcane for biogas) **categorically excluded** per N4 of hikari R0
 2. **No municipal-waste accept**: biomethane plant MUST NOT accept commercial municipal organic waste contracts (D1 — vendor dependency + contamination tracing burden). Internal religious-corp streams only.
 3. **Digester open-hardware**: continuously-stirred tank reactor (CSTR) OR plug-flow OR covered lagoon; mechanical design + control firmware Apache 2.0 + Rider per D5. Stainless steel pressure vessel + biogas membrane gasholder + heating loop heat-recovery from upgrading
 4. **Upgrading technology**: PSA / water-scrubbing / amine-scrubbing / membrane-separation all permitted; vendor IP-encumbered upgrading skids (e.g., proprietary water-scrubbing controllers) require open-firmware retrofit before commissioning
@@ -116,7 +116,7 @@ Inherits hikari R0 N4 (no biofuel from food crops). Corn silage / sorghum / suga
 ## §6 New Lexicons
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   biomethaneFeedstockAttestation,    # per-batch: source actor + waste-stream CID + VS mass + retention time
   biomethaneProductionAttestation,   # per-Nm³: digester ID + CH₄ % + upgrading method + leak survey date
   biomethaneStorageInventory,        # per-LANDS-parcel: Nm³ current + pressure + gasholder type

@@ -14,9 +14,9 @@
 
 export const OGAS_DID_PREFIX = "did:web:open-gas.etzhayyim.com:" as const;
 
-export const REGULATOR_COLLECTION = "app.etzhayyim.apps.openGas.regulator";
-export const SEGMENT_COLLECTION = "app.etzhayyim.apps.openGas.segment";
-export const LEAK_COLLECTION = "app.etzhayyim.apps.openGas.leak";
+export const REGULATOR_COLLECTION = "com.etzhayyim.apps.openGas.regulator";
+export const SEGMENT_COLLECTION = "com.etzhayyim.apps.openGas.segment";
+export const LEAK_COLLECTION = "com.etzhayyim.apps.openGas.leak";
 
 // ─── Regulator ──────────────────────────────────────────────────────
 

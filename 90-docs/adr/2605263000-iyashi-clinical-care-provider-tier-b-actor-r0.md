@@ -9,11 +9,11 @@ last_verified: 2026-05-26
 priority: 6.5
 axis: care
 weight: 0.55
-priority_note: "Third-priority gap-closure actor (gap audit row 3 = 医療 clinic provider). Completes the L4 Care Tier triad with yakushi (pharmaceutical manufacturing ADR-2605250500..615) + mitate (diagnostic routing ADR-2605260100) + hagukumi (daily-living care ADR-2605261030). 任意団体 internal clinical care provider substrate at did:web:iyashi.etzhayyim.com (20-actors/iyashi/). Scope = community-clinic-model primary care + chronic care followup + vaccination + acute first-line (with mitate emergency referral handoff). Privacy-first: ADR-2605181100 encrypted envelope MANDATORY (clinical PHI is the most sensitive observation class in religious-corp; G2 structural). NO commercial EHR (Epic / Cerner / Athena / Allscripts / NextGen / eClinicalWorks / Greenway / Practice Fusion PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) covert-ops vendor concern — vendor closed query-tracking exposes patient + provider posture). NO insurance / fee-for-service medicine — funded via Public Fund grant OR sliding-scale donation (chigiri.taxReceipt handles donor-side per ADR-2605262700). NO payroll for providers — volunteer ≠ employee per Liberation Ladder L0..L6 (providers are vocation-flow L5 stewards). UPL-equivalent (G analog): iyashi does NOT replace state-licensed medical practice; individual providers carry state license; iyashi is the procedural / attestation substrate, not the licensed entity. 6 cells / 6 Lexicons under app.etzhayyim.iyashi.* / 14 immutable gates / 12 non-goals / 4-phase R0..R3 (R0 scaffold / R1 ≤20 patient onboarding pilot, single clinic / R2 ≤200 patient ceiling 5 community clinics / R3 community-scale ≤25,000 patient capacity full mesh). Cross-actor: mitate (diagnosis ↔ clinical encounter), hagukumi (daily-living continuity), yakushi (medication supply), toritate (donation + Public Fund grant accounting), chigiri (consent + procedural attestation), manabi (provider continuing-med-ed)."
+priority_note: "Third-priority gap-closure actor (gap audit row 3 = 医療 clinic provider). Completes the L4 Care Tier triad with yakushi (pharmaceutical manufacturing ADR-2605250500..615) + mitate (diagnostic routing ADR-2605260100) + hagukumi (daily-living care ADR-2605261030). 任意団体 internal clinical care provider substrate at did:web:iyashi.etzhayyim.com (20-actors/iyashi/). Scope = community-clinic-model primary care + chronic care followup + vaccination + acute first-line (with mitate emergency referral handoff). Privacy-first: ADR-2605181100 encrypted envelope MANDATORY (clinical PHI is the most sensitive observation class in religious-corp; G2 structural). NO commercial EHR (Epic / Cerner / Athena / Allscripts / NextGen / eClinicalWorks / Greenway / Practice Fusion PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) covert-ops vendor concern — vendor closed query-tracking exposes patient + provider posture). NO insurance / fee-for-service medicine — funded via Public Fund grant OR sliding-scale donation (chigiri.taxReceipt handles donor-side per ADR-2605262700). NO payroll for providers — volunteer ≠ employee per Liberation Ladder L0..L6 (providers are vocation-flow L5 stewards). UPL-equivalent (G analog): iyashi does NOT replace state-licensed medical practice; individual providers carry state license; iyashi is the procedural / attestation substrate, not the licensed entity. 6 cells / 6 Lexicons under com.etzhayyim.iyashi.* / 14 immutable gates / 12 non-goals / 4-phase R0..R3 (R0 scaffold / R1 ≤20 patient onboarding pilot, single clinic / R2 ≤200 patient ceiling 5 community clinics / R3 community-scale ≤25,000 patient capacity full mesh). Cross-actor: mitate (diagnosis ↔ clinical encounter), hagukumi (daily-living continuity), yakushi (medication supply), toritate (donation + Public Fund grant accounting), chigiri (consent + procedural attestation), manabi (provider continuing-med-ed)."
 authoritative_for:
   - iyashi actor R0 charter
   - religious-corp clinical care provider substrate single SoT
-  - `app.etzhayyim.iyashi.*` Lexicon namespace boundary
+  - `com.etzhayyim.iyashi.*` Lexicon namespace boundary
   - encrypted PHI envelope invariant (G2 structural, same discipline as hagukumi)
   - prohibition on commercial EHR (Epic / Cerner / Athena / Allscripts / NextGen / eClinicalWorks / Greenway / Practice Fusion)
   - clinical care funding via Public Fund grant + sliding-scale donation (no insurance billing automation)
@@ -118,7 +118,7 @@ Constitutional constraints (inherited; not adjustable):
 Create `iyashi` (癒) as a Tier-B religious-corp clinical care provider
 substrate actor at `20-actors/iyashi/`, with DID
 `did:web:iyashi.etzhayyim.com`, Lexicon namespace
-`app.etzhayyim.iyashi.*`. R0 = scaffold only; all cells import-time
+`com.etzhayyim.iyashi.*`. R0 = scaffold only; all cells import-time
 `RuntimeError` (same scaffold discipline as chigiri R0 + hagukumi R0).
 
 ## §1. Identity and naming
@@ -127,7 +127,7 @@ substrate actor at `20-actors/iyashi/`, with DID
 |---|---|
 | Name | `iyashi` (癒 — 癒し / 癒える = healing) |
 | DID | `did:web:iyashi.etzhayyim.com` |
-| Lexicon root | `app.etzhayyim.iyashi.*` |
+| Lexicon root | `com.etzhayyim.iyashi.*` |
 | Form | 任意団体 internal clinical care provider substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock) |
 | Tier | Tier-B per-domain leader actor |
 | L4 Care Tier | yes; sibling of yakushi (mfg) + mitate (diagnosis) + hagukumi (daily-living) |
@@ -165,7 +165,7 @@ substrate actor at `20-actors/iyashi/`, with DID
 
 - Acute encounter triage (cold / flu / minor trauma / minor wound);
 - Emergency keyword escalation to mitate (shared
-  `app.etzhayyim.mitate.emergencyKeyword` lexicon per hagukumi G11);
+  `com.etzhayyim.mitate.emergencyKeyword` lexicon per hagukumi G11);
 - Hospital referral handoff (when condition exceeds community-clinic
   scope).
 
@@ -206,7 +206,7 @@ R1 activation gates each cell separately (Council Lv6+ ≥3 attestation
 per cell, plus ≥1 licensed-MD on Council medical advisory per cell
 class).
 
-## §4. Lexicons (6, all under `app.etzhayyim.iyashi.*`)
+## §4. Lexicons (6, all under `com.etzhayyim.iyashi.*`)
 
 | # | Lexicon | Consumer cell | Description |
 |---|---|---|---|
@@ -235,7 +235,7 @@ mandatory on L1 + L3).
 | **G7** | NO behavioral modification protocols (operant / classical / social conditioning); mirrors hagukumi G7. |
 | **G8** | Human-in-loop ALWAYS for AI-assisted clinical decision support; AI-assist output requires synchronous provider sign-off. NO AI-only clinical decision. |
 | **G9** | Provider 12-hr work cap + 12-hr recovery between shifts (mirrors hagukumi G10). |
-| **G10** | Emergency escalation to mitate via shared `app.etzhayyim.mitate.emergencyKeyword` lexicon (cross-actor; same contract as hagukumi G11). |
+| **G10** | Emergency escalation to mitate via shared `com.etzhayyim.mitate.emergencyKeyword` lexicon (cross-actor; same contract as hagukumi G11). |
 | **G11** | **NO commercial EHR** — Epic / Cerner / Athena / Allscripts / NextGen / eClinicalWorks / Greenway / Practice Fusion PROHIBITED (Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty). |
 | **G12** | **Murakumo-only inference** (ADR-2605215000) — clinical decision support via judah LiteLLM only; vendor clinical-AI (Nuance DAX / Abridge / Suki / Augmedix / etc.) PROHIBITED. |
 | **G13** | **NO insurance billing automation** — funded via Public Fund grant OR direct member donation; chigiri.taxReceipt handles donor receipts (sliding-scale donation model). State insurance integration OUT OF SCOPE at all phases R0..R3. |
@@ -285,7 +285,7 @@ mandatory on L1 + L3).
 
 1. This ADR (`90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md`);
 2. Actor scaffold (`20-actors/iyashi/manifest.jsonld` + `README.md` + `CLAUDE.md`);
-3. 6 Lexicon JSON skeleton schemas under `00-contracts/lexicons/app/etzhayyim/iyashi/` + README;
+3. 6 Lexicon JSON skeleton schemas under `00-contracts/lexicons/com/etzhayyim/iyashi/` + README;
 4. `deps.toml` [[adrs]] + [[modules]] entries;
 5. `90-docs/adr/README.md` index update;
 6. `CLAUDE.md` Status table row 70 + Repo Layout entry.

@@ -168,7 +168,7 @@ def witness_attest(state: SiteSurveyState) -> SiteSurveyState:
 def emit_survey(state: SiteSurveyState) -> SiteSurveyState:
     from etzhayyim_sdk import sdk
     sdk.mst.write(
-        nsid="app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
+        nsid="com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
         record={
             "siteDid": state["site_did"],
             "surveyBlobCids": state["survey_blob_cids"],
@@ -201,7 +201,7 @@ def build_graph():
 
 if __name__ == "__main__":
     listener = MstListener(
-        nsid="app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite",
+        nsid="com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite",
         on_record=lambda record: build_graph().invoke(
             SiteSurveyState(**record_to_state(record)),
             config={"configurable": {"thread_id": record["siteDid"]}},

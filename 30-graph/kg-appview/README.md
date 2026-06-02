@@ -14,20 +14,20 @@ Ephemeral in-memory SPARQL AppView for the etzhayyim Knowledge Graph.
   - `--snapshot-file <path>` — a `kg-projector` `bundle.jsonl` (one record
     per line). The K3.a substrate-anchored replay primitive.
   - `--firehose-url <wss://...>` — a Jetstream-format WebSocket emitting
-    `app.etzhayyim.kg.*` commits. The K2.c live-update path. Disabled by
+    `com.etzhayyim.kg.*` commits. The K2.c live-update path. Disabled by
     default; reconnects with exponential backoff on disconnect.
 - Exposes the resulting graph over:
   - `GET|POST /sparql` — SPARQL 1.1 Protocol endpoint (SELECT / ASK /
     CONSTRUCT / DESCRIBE). UPDATE keywords are rejected with HTTP 403.
-  - `GET /xrpc/app.etzhayyim.kg.query` — ATProto XRPC facade with the same
+  - `GET /xrpc/com.etzhayyim.kg.query` — ATProto XRPC facade with the same
     behavior, conforming to the lexicon at
-    `00-contracts/lexicons/app/etzhayyim/kg/query.json`.
+    `00-contracts/lexicons/com/etzhayyim/kg/query.json`.
 - Holds no durable state of its own. On every restart the store is rebuilt
   from the configured sources.
 
 ## What it is not (current scope)
 
-- No SPARQL UPDATE. Mutations come from writing `app.etzhayyim.kg.*` records
+- No SPARQL UPDATE. Mutations come from writing `com.etzhayyim.kg.*` records
   to MST; the AppView is read-only by construction.
 - No disk-backed cache. RW-free per ADR-2605172000.
 - No edge-metadata triples (weight / context / createdAt). The shape is on
@@ -79,7 +79,7 @@ cargo build --release
 # K2.c — bundle as cold start + Jetstream firehose for live updates
 ./target/release/kg-appview \
     --snapshot-file ../kg-projector/out/bundle.jsonl \
-    --firehose-url 'wss://jetstream.example.com/subscribe?wantedCollections=app.etzhayyim.kg.*' \
+    --firehose-url 'wss://jetstream.example.com/subscribe?wantedCollections=com.etzhayyim.kg.*' \
     --listen 127.0.0.1:8080
 ```
 
@@ -106,7 +106,7 @@ curl -sG http://localhost:8080/sparql \
     CONSTRUCT { ?a etzp:uses-lexicon ?b } WHERE { ?a etzp:uses-lexicon ?b }'
 
 # Same, via the XRPC facade
-curl -sG http://localhost:8080/xrpc/app.etzhayyim.kg.query \
+curl -sG http://localhost:8080/xrpc/com.etzhayyim.kg.query \
   --data-urlencode 'query=…' --data-urlencode 'format=turtle'
 ```
 
@@ -114,8 +114,8 @@ curl -sG http://localhost:8080/xrpc/app.etzhayyim.kg.query \
 
 - **K2.a** — in-memory load from `kg-projector` directory + SPARQL JSON / XML / CSV ✅
 - **K2.b** — CONSTRUCT / DESCRIBE Turtle / N-Triples / RDF/XML + XRPC facade ✅
-- **K2.c** — Jetstream-format firehose subscriber (live `app.etzhayyim.kg.*` updates) ✅
+- **K2.c** — Jetstream-format firehose subscriber (live `com.etzhayyim.kg.*` updates) ✅
 - **K3.a** — `bundle.jsonl` snapshot replay (substrate-anchored cold start) ✅
 - **K3.b** — fetch bundle from IPFS gateway URL resolved off the L2 anchor — deferred
 - **K4** — RDF-star or reification for edge metadata — deferred
-- **K5** — federation across third-party DIDs publishing `app.etzhayyim.kg.*` — deferred
+- **K5** — federation across third-party DIDs publishing `com.etzhayyim.kg.*` — deferred

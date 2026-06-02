@@ -1,4 +1,4 @@
-# `app.etzhayyim.joucho.*` — 情緒 — open emotion / affect annotation
+# `com.etzhayyim.joucho.*` — 情緒 — open emotion / affect annotation
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group B).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `app.etzhayyim.joucho.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `com.etzhayyim.joucho.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

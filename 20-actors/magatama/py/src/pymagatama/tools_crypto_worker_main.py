@@ -1,4 +1,4 @@
-"""Generic-primitive worker for app.etzhayyim.tools.crypto.* (ADR-2605082000 Phase D).
+"""Generic-primitive worker for com.etzhayyim.tools.crypto.* (ADR-2605082000 Phase D).
 
 Stateless content-addressing primitive. Replaces per-actor inline
 ``hashlib.sha256(...).hexdigest()`` / ``base64.b64encode(...)``
@@ -6,13 +6,13 @@ py_primitive nodes (e.g. copyright store_blob's vertex_id derivation).
 
 Surface:
 
-  app.etzhayyim.tools.crypto.hash({"algorithm": "sha256"|"sha1"|"md5",
+  com.etzhayyim.tools.crypto.hash({"algorithm": "sha256"|"sha1"|"md5",
                              "input": "<utf8 string>",
                              "encoding": "hex"|"base64"})
     → {"hash": "<digest>"}
 
 The dispatcher convention does not apply — namespace is
-``app.etzhayyim.tools.crypto``, wired via ``register_overrides`` in mcp_dispatch.
+``com.etzhayyim.tools.crypto``, wired via ``register_overrides`` in mcp_dispatch.
 """
 
 from __future__ import annotations

@@ -527,7 +527,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
                 continue
             sender_key = _sanitize_addr(from_addr)
             entity_id = f"email-{sender_key}"
-            entity_vid = f"at://{ACTOR_YABAI}/app.etzhayyim.apps.yabai.entity/{entity_id}"
+            entity_vid = f"at://{ACTOR_YABAI}/com.etzhayyim.apps.yabai.entity/{entity_id}"
             if entity_vid not in seen_entities:
                 cur.execute(
                     "INSERT INTO vertex_yabai_entity ("
@@ -556,7 +556,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
                 continue
             email_id = str(row.get("email_id") or "")
             evidence_id = f"ev-{email_id}-{cls}"
-            evidence_vid = f"at://{ACTOR_YABAI}/app.etzhayyim.apps.yabai.evidence/{evidence_id}"
+            evidence_vid = f"at://{ACTOR_YABAI}/com.etzhayyim.apps.yabai.evidence/{evidence_id}"
             reasons_csv = ",".join(str(x) for x in (row.get("reasons") or []))[:480]
             cur.execute(
                 "INSERT INTO vertex_yabai_evidence ("

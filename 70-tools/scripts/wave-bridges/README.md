@@ -1,8 +1,8 @@
 # Wave Bridges (BPMN-as-actor binding-extension)
 
 ADR-0056 BPMN-as-actor wave generators. Each `gen{N}.py` produces:
-- `00-contracts/bpmn/ai/gftd/<actor>/*.bpmn` (canonical, in-repo)
-- `00-contracts/lexicons/ai/gftd/apps/<lexApp>/*.json` (canonical, in-repo)
+- `00-contracts/bpmn/com/etzhayyim/<actor>/*.bpmn` (canonical, in-repo)
+- `00-contracts/lexicons/com/etzhayyim/apps/<lexApp>/*.json` (canonical, in-repo)
 - `bind{N}.sql` (NSID → BPMN process_id binding INSERT for `vertex_bpmn_lexicon_binding`)
 
 Older waves (W1-W98) also created `w{N}_{1..5}.sql` DDL for `vertex_open_*` tables.

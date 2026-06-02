@@ -12,7 +12,7 @@ weight: 0.65
 priority_note: "First non-trivial vendor app to migrate to the etzhayyim substrate. Establishes the consumer-only pattern (no new substrate primitives — reuse shardSnapshot + mst-projector + @etzhayyim/sdk) that subsequent app migrations (sanctions-list / open-data / A-B-C-group datasets / yobel ledger reader) will follow."
 authoritative_for:
   - maps.etzhayyim.com app boundary and namespace
-  - app.etzhayyim.maps.* lexicons (consumer of app.etzhayyim.substrate.shardSnapshot)
+  - com.etzhayyim.maps.* lexicons (consumer of com.etzhayyim.substrate.shardSnapshot)
 depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605191655-mst-projector-phase2-design
@@ -45,7 +45,7 @@ A prior draft (vendor ADR-2605201800, reverted) proposed a parallel "AT record +
 
 | What was re-derived | What already exists in etzhayyim-root |
 |---|---|
-| snapshot record | `app.etzhayyim.substrate.shardSnapshot` (Phase 1 JSON manifest + Phase 2 MST CAR + `rootCid` + `snapshotCid`) |
+| snapshot record | `com.etzhayyim.substrate.shardSnapshot` (Phase 1 JSON manifest + Phase 2 MST CAR + `rootCid` + `snapshotCid`) |
 | projector pod | `50-infra/mst-projector` + `@etzhayyim/sdk` (`checkpointer.ts` / `ipfs.ts` / `l2.ts`) — Python shim + TS sidecar via Unix socket IPC |
 | MV / publish / L2 anchor architecture | ADR-2605171800 + ADR-2605191655 + ADR-2605191559 / 1608 / 1625 (Stage 2/3/4 activation) |
 
@@ -67,20 +67,20 @@ A prior draft (vendor ADR-2605201800, reverted) proposed a parallel "AT record +
 
 | NSID | Type | Role |
 |---|---|---|
-| `app.etzhayyim.maps.feature` | record | 1 spatial feature = 1 record. Geometry as GeoJSON string, bbox as integer microdegrees, h3Cell + h3Resolution carried in record so indexers do not re-parse |
-| `app.etzhayyim.maps.tileGeoJson` | query | bbox + labels → GeoJSON, read against latest (or pinned-generation) `app.etzhayyim.substrate.shardSnapshot` for `shardKey = "app.etzhayyim.maps.feature"` |
+| `com.etzhayyim.maps.feature` | record | 1 spatial feature = 1 record. Geometry as GeoJSON string, bbox as integer microdegrees, h3Cell + h3Resolution carried in record so indexers do not re-parse |
+| `com.etzhayyim.maps.tileGeoJson` | query | bbox + labels → GeoJSON, read against latest (or pinned-generation) `com.etzhayyim.substrate.shardSnapshot` for `shardKey = "com.etzhayyim.maps.feature"` |
 
-Both lexicons land in `00-contracts/lexicons/app/etzhayyim/maps/` in this commit.
+Both lexicons land in `00-contracts/lexicons/com/etzhayyim/maps/` in this commit.
 
 ## Pipeline (reusing existing components)
 
 ```
 maps app
-  └─ createRecord app.etzhayyim.maps.feature  ──▶  PDS / MST
+  └─ createRecord com.etzhayyim.maps.feature  ──▶  PDS / MST
                                                        │
                                                        ▼ (firehose-style projection)
                                               50-infra/mst-projector
-                                              (shardKey = "app.etzhayyim.maps.feature")
+                                              (shardKey = "com.etzhayyim.maps.feature")
                                                        │
                                               MstCheckpointSaver (py shim)
                                                        │ Unix socket
@@ -94,17 +94,17 @@ maps app
                                                      Base L2 anchor (CheckpointAnchor.sol)
                                                        │
                                                        ▼
-                                              app.etzhayyim.substrate.shardSnapshot record
+                                              com.etzhayyim.substrate.shardSnapshot record
 ```
 
 `tileGeoJson` reads the latest `shardSnapshot` for the maps shardKey, resolves the MST root from IPFS, walks the MST for features matching the bbox, and emits a GeoJSON FeatureCollection. Phase 1 readers walk the JSON manifest; Phase 2 readers walk the MST CAR.
 
 ## What is explicitly NOT introduced
 
-- No new `org.etzhayyim.storage.*` namespace (would have duplicated `app.etzhayyim.substrate.*`)
+- No new `org.etzhayyim.storage.*` namespace (would have duplicated `com.etzhayyim.substrate.*`)
 - No Iceberg manifest format on IPFS (the MST CAR + shardSnapshot already serve this role for AT-Protocol-shaped data)
 - No standalone Python projector for maps (the central `50-infra/mst-projector` handles all shards by `shardKey`)
-- No new XRPC procedures for publish / get / list snapshot (caller uses the standard `com.atproto.repo.*` record APIs against `app.etzhayyim.substrate.shardSnapshot`)
+- No new XRPC procedures for publish / get / list snapshot (caller uses the standard `com.atproto.repo.*` record APIs against `com.etzhayyim.substrate.shardSnapshot`)
 - No new Base L2 anchor contract (the existing `CheckpointAnchor.sol` from ADR-2605171800 is shared)
 
 # Consequences
@@ -116,12 +116,12 @@ maps app
 - Time travel and audit anchor come for free via the existing pipeline.
 
 **Negative**:
-- The H3-aware partition optimisation we would have wanted (`partitions[].key = h3Cell`) is not first-class in `shardSnapshot`. Bbox queries against a large feature collection will walk the MST; if performance becomes an issue, the right next step is a **separate** spatial side-index shard (e.g., `app.etzhayyim.maps.h3Index` with `shardKey = "app.etzhayyim.maps.h3Index"`) projected by the same mst-projector. This keeps the substrate uniform and defers optimisation until measurement justifies it.
+- The H3-aware partition optimisation we would have wanted (`partitions[].key = h3Cell`) is not first-class in `shardSnapshot`. Bbox queries against a large feature collection will walk the MST; if performance becomes an issue, the right next step is a **separate** spatial side-index shard (e.g., `com.etzhayyim.maps.h3Index` with `shardKey = "com.etzhayyim.maps.h3Index"`) projected by the same mst-projector. This keeps the substrate uniform and defers optimisation until measurement justifies it.
 - Real-time GTFS-RT (30s update cadence) does not fit the snapshot publish loop and stays vendor-side as a read-only mirror — same exception class as discussed in the reverted ADR-2605201800.
 
 # Alternatives Considered
 
-1. **Parallel Iceberg-on-IPFS substrate** (the reverted vendor ADR-2605201800). Rejected: duplicates `app.etzhayyim.substrate.shardSnapshot`, fragments the substrate, doubles operator cost.
+1. **Parallel Iceberg-on-IPFS substrate** (the reverted vendor ADR-2605201800). Rejected: duplicates `com.etzhayyim.substrate.shardSnapshot`, fragments the substrate, doubles operator cost.
 2. **Keep maps on vendor RW**, expose etzhayyim-side as a read-only mirror. Rejected: defers the substrate migration that the 3-axis rule mandates; leaves the largest RW dependency in vendor indefinitely.
 3. **Skip H3 indexing entirely**, do all bbox queries via MST walk. Acceptable as the Phase 1 starting point — adopted here. The side-index shard is queued as a follow-up only when query latency demands it.
 
@@ -131,7 +131,7 @@ maps app
 - ADR-2605191655 — mst-projector Phase 2 design
 - ADR-2605172000 — etzhayyim RW-free substrate
 - ADR-2605172400 — etzhayyim / vendor 3-axis split rule
-- `00-contracts/lexicons/app/etzhayyim/substrate/shardSnapshot.json` — the snapshot record consumed by `tileGeoJson`
+- `00-contracts/lexicons/com/etzhayyim/substrate/shardSnapshot.json` — the snapshot record consumed by `tileGeoJson`
 - `50-infra/mst-projector/` — projector daemon
 - `20-actors/etzhayyim-sdk/src/{checkpointer.ts,ipfs.ts,l2.ts}` — substrate-client sidecar
 - Reverted vendor commit: etzhayyim-root@54898e99111 (revert of 1fa63bf1f0b)

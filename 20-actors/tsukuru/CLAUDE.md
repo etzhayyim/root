@@ -78,11 +78,11 @@ and embedded-carbon context into the CNT flow.
 **Catalog/schema data**:
 - code: `60-apps/ai-gftd-project-tsukuru/appview/tsukuru-tsukr8u0/src/cnt-process-catalog.ts`
 - schema: `00-contracts/schemas/tsukuru-cnt-process-catalog.schema.json`
-- data: `00-contracts/catalogs/ai/gftd/tsukuru/cnt/process-catalog.v1.json`
+- data: `00-contracts/catalogs/com/etzhayyim/tsukuru/cnt/process-catalog.v1.json`
 - run package schema: `00-contracts/schemas/tsukuru-cnt-run-package.schema.json`
-- run package example: `00-contracts/examples/ai/gftd/tsukuru/cnt/run-package.example.v1.json`
+- run package example: `00-contracts/examples/com/etzhayyim/tsukuru/cnt/run-package.example.v1.json`
 - run validation schema: `00-contracts/schemas/tsukuru-cnt-run-validation.schema.json`
-- run validation example: `00-contracts/examples/ai/gftd/tsukuru/cnt/run-validation.example.v1.json`
+- run validation example: `00-contracts/examples/com/etzhayyim/tsukuru/cnt/run-validation.example.v1.json`
 
 ## Cross-Project Dependencies
 

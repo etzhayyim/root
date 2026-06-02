@@ -27,7 +27,7 @@ LangServer pod XRPC handler is the next operator task per ADR-2605203000.
 | Vendor | etzhayyim |
 |---|---|
 | `const db = createKyselyDb(env.HYPERDRIVE);` | `import type { Etzhayyim }` |
-| `db.insertInto("vertex_hanrei_jurisdiction").values({...})` | `e.write({ collection: "app.etzhayyim.hanrei.jurisdiction", record, rkey })` |
+| `db.insertInto("vertex_hanrei_jurisdiction").values({...})` | `e.write({ collection: "com.etzhayyim.hanrei.jurisdiction", record, rkey })` |
 | Read via SELECT … WHERE iso3 = ? | `e.read({ collection, rkey: \`jurisdiction-${iso3}\` })` |
 
 Same idempotency pattern as ipaddress / tsukuru (rkey derived from natural key).

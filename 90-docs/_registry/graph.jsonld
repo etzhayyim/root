@@ -814,7 +814,7 @@
     {
       "id": "doc:2605191638-ameno-substrate-swarm-lease-lex",
       "type": "TechArticle",
-      "title": "Ameno substrate-level swarm lease — app.etzhayyim.swarm.lease lex",
+      "title": "Ameno substrate-level swarm lease — com.etzhayyim.swarm.lease lex",
       "status": "proposed",
       "topic": "ameno-swarm",
       "authoritative": true,
@@ -1997,7 +1997,7 @@
       "authoritativeFor": [
         "claim-level-stake-primitive",
         "truth-incentive-game-theory",
-        "app.etzhayyim.claim.stakedAttestation lexicon",
+        "com.etzhayyim.claim.stakedAttestation lexicon",
         "ClaimStakeEscrow.sol contract"
       ],
       "related": [
@@ -2802,7 +2802,7 @@
         "vertex_vessel / vertex_vessel_position / vertex_vessel_voyage schema",
         "aisstream.io WebSocket consumer Deployment",
         "aismarine BPMN actors (consumer / voyage-detector / master-refresh / density-refresh)",
-        "app.etzhayyim.apps.maps.aismarine.* XRPC surface",
+        "com.etzhayyim.apps.maps.aismarine.* XRPC surface",
         "kami-geo vessel rendering layer"
       ],
       "related": [
@@ -3568,7 +3568,7 @@
       "authoritativeFor": [
         "mcp:// URI scheme in vertex_langgraph_assistant_node.ref",
         "vertex_mcp_tool_def runtime lookup contract (SELECT actor_host WHERE nsid AND enabled)",
-        "MCP envelope endpoint construction (https://{actor_host}/xrpc/app.etzhayyim.mcp.message)",
+        "MCP envelope endpoint construction (https://{actor_host}/xrpc/com.etzhayyim.mcp.message)",
         "tools/call default name = nsid",
         "In-process TTL cache (60s) for registry hits"
       ],
@@ -4400,7 +4400,7 @@
       "authoritativeFor": [
         "SES 案件・状況 ingest pipeline の LangGraph actor 定義",
         "vertex_ses_* schema (案件 / 状況 / クライアント / エンジニア / run)",
-        "6 NSID lexicon (app.etzhayyim.apps.ses.{ingestAnken,updateJokyo,getAnken,listAnken,listJokyo,coverage})",
+        "6 NSID lexicon (com.etzhayyim.apps.ses.{ingestAnken,updateJokyo,getAnken,listAnken,listJokyo,coverage})",
         "email → 案件 自動抽出 (LLM structured output)",
         "状況遷移モデル (提案中→選考中→契約→稼働中→終了)"
       ],
@@ -4499,7 +4499,7 @@
         "vertex_project_props 拡張列 (progress_permille / lifecycle_state / lg_thread_id / target_date)",
         "mv_projector_project_status MV 定義",
         "pymagatama/projector/ LangGraph + Pregel 実装",
-        "ai/gftd/projector/ Lexicon 定義",
+        "com/etzhayyim/projector/ Lexicon 定義",
         "GRAPHS[\"projector_lifecycle\"] の pregel pod 登録",
         "Claude Agent が projector tools を使うべきタイミングの契約"
       ],
@@ -4574,7 +4574,7 @@
       "authoritativeFor": [
         "new malak orchestration model (LangGraph StateGraph + Pregel super-step + Send fan-out)",
         "LangServe-style FastAPI HTTP route exposure",
-        "Replacement of new BPMN-as-actor flows under etzhayyim-root/00-contracts/bpmn/ai/gftd/malak/"
+        "Replacement of new BPMN-as-actor flows under etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak/"
       ],
       "related": [
         "doc:adr-0056-bpmn-as-actor",
@@ -4662,7 +4662,7 @@
         "mangaka 3D scene composition pipeline (character → 3D model → background/camera/object placement → simulation → render)",
         "kami-mangaka-scene Rust crate (engine-side facade above kami-vrm / kami-scene-graph / kami-render / kami-postfx / kami-dec / kami-pipelines)",
         "LangGraph Pregel `compose_scene_3d` graph wired into lg_mangaka",
-        "XRPC procedure `app.etzhayyim.mangaka.composeScene3d`"
+        "XRPC procedure `com.etzhayyim.mangaka.composeScene3d`"
       ],
       "related": [
         "doc:adr-0057-manga-bpmn-actor-pipeline",
@@ -5148,7 +5148,7 @@
         "primary payment substrate: Base L2 + USDC (Coinbase Bridged on Base, contract 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913)",
         "account model: ERC-4337 Smart Account, DID-bound via Coinbase Smart Wallet",
         "gas sponsorship: etzhayyim-operated paymaster contract (funded by anchor-batch fee skim)",
-        "payment record convention: every settled tx → AT Record (NSID app.etzhayyim.apps.payment.*) for verifiability + audit"
+        "payment record convention: every settled tx → AT Record (NSID com.etzhayyim.apps.payment.*) for verifiability + audit"
       ],
       "lastVerified": "2026-05-17"
     },
@@ -5365,7 +5365,7 @@
         "lawfirm↔lawyer connection protocol (externalCounselGrant flow)",
         "ISCO-2611 document approval gate design",
         "LangGraph attorney workspace graph definitions",
-        "app.etzhayyim.apps.lawyer.* lexicon namespace ownership"
+        "com.etzhayyim.apps.lawyer.* lexicon namespace ownership"
       ],
       "related": [
         "doc:adr-0016-legal-cluster-topology",
@@ -5469,7 +5469,7 @@
         "hard rule: private records on MST are XChaCha20-Poly1305 AEAD ciphertext, CID over ciphertext",
         "hard rule: per-record symmetric keys are wrapped per-recipient via Signal session",
         "hard rule: DID ↔ Signal identity binding is a signed assertion in the actor's PDS repo",
-        "lexicon namespace: app.etzhayyim.encrypted.*",
+        "lexicon namespace: com.etzhayyim.encrypted.*",
         "SDK seam: @etzhayyim/sdk crypto + signal modules; apps MUST NOT import @noble/ciphers or @signalapp/libsignal-client directly",
         "rejection of MLS for v1 (revisit when libsignal scale ceiling hits)"
       ],
@@ -5562,7 +5562,7 @@
       "topic": "defense-cluster",
       "authoritative": true,
       "authoritativeFor": [
-        "defense cluster actor namespace (app.etzhayyim.apps.def*)",
+        "defense cluster actor namespace (com.etzhayyim.apps.def*)",
         "defense deployment tier model (SaaS / Sovereign / Air-Gap)",
         "defense CAD management + generative CAD (OpenSCAD/CadQuery)",
         "supplier dependency Pregel graph topology",
@@ -5584,13 +5584,13 @@
     {
       "id": "doc:adr-2605190900-kg-as-lexicon-ipld-oxigraph-appview",
       "type": "TechArticle",
-      "title": "ADR-2605190900: Knowledge Graph as Lexicon — app.etzhayyim.kg.{node,edge} + IPLD payload + ephemeral OxiGraph AppView",
+      "title": "ADR-2605190900: Knowledge Graph as Lexicon — com.etzhayyim.kg.{node,edge} + IPLD payload + ephemeral OxiGraph AppView",
       "status": "proposed",
       "topic": "kg-as-lexicon-ipld-oxigraph-appview",
       "authoritative": true,
       "authoritativeFor": [
         "knowledge graph data model on etzhayyim substrate",
-        "Lexicons app.etzhayyim.kg.node and app.etzhayyim.kg.edge",
+        "Lexicons com.etzhayyim.kg.node and com.etzhayyim.kg.edge",
         "IPLD payload convention for KG records (DAG-CBOR, CID-linked)",
         "ephemeral AppView convention (in-memory triplestore, replayable, RW-free)",
         "relationship to deps.toml SSoT (deps.toml stays canonical; KG is projected view)"
@@ -5650,7 +5650,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "mst-projector Phase 2 implementation contract",
-        "lexicon migration `snapshotHash` → `rootCid` for `app.etzhayyim.substrate.shardSnapshot`",
+        "lexicon migration `snapshotHash` → `rootCid` for `com.etzhayyim.substrate.shardSnapshot`",
         "emit format upgrade JSON manifest → CAR file"
       ],
       "related": [
@@ -5727,7 +5727,7 @@
         "`TitheRouter.sol` contract spec (Base L2)",
         "donation / kisha / grant 受領 tx を経由する流路",
         "既存 `Etzhayyim.pay()` SDK との統合 (transparent な auto-skim)",
-        "tithe Lexicon (`app.etzhayyim.apps.payment.tithe`) spec"
+        "tithe Lexicon (`com.etzhayyim.apps.payment.tithe`) spec"
       ],
       "related": "doc:adr-2605192145-etzhayyim-public-fund-architecture",
       "lastVerified": "2026-05-19"
@@ -5743,7 +5743,7 @@
         "Public Fund Safe address のガバナンス境界",
         "`PublicFundGovernance.sol` contract spec",
         "grant 評議 Pregel cell (`PublicFundGrantCell`) の入出力",
-        "grant 配布 Lexicon (`app.etzhayyim.apps.public-fund.*`)",
+        "grant 配布 Lexicon (`com.etzhayyim.apps.public-fund.*`)",
         "60-apps/ai-gftd-project-public-fund/ の architecture"
       ],
       "lastVerified": "2026-05-19"
@@ -5783,7 +5783,7 @@
         "`KishaStream.sol` amendment — accrue() の multiplier 読み替え",
         "`PublicFundGovernance.sol` amendment — propose() recipient gate",
         "`TitheRouter.sol` amendment — recipient gate",
-        "Council attestation flow Lexicon (`app.etzhayyim.apps.etzhayyim.charter-attestation-*`)",
+        "Council attestation flow Lexicon (`com.etzhayyim.apps.etzhayyim.charter-attestation-*`)",
         "修復 (Rehabilitation / Teshuvah) flow Lexicon"
       ],
       "lastVerified": "2026-05-19"
@@ -5831,7 +5831,7 @@
       "topic": "etzhayyim-transparent-force-rd",
       "authoritative": true,
       "authoritativeFor": [
-        "Transparent Force R&D Lexicon (`app.etzhayyim.apps.etzhayyim.force-*`)",
+        "Transparent Force R&D Lexicon (`com.etzhayyim.apps.etzhayyim.force-*`)",
         "`ForceAuthorization.sol` (governance vote の force-specific channel)",
         "open-source 兵器設計 registry の structure",
         "on-chain force log + after-action review の Lexicon",
@@ -5864,8 +5864,8 @@
       "topic": "etzhayyim-steward-succession",
       "authoritative": true,
       "authoritativeFor": [
-        "donation 時の successor steward 事前指定 procedure (`app.etzhayyim.apps.etzhayyim.steward-succession-declaration`)",
-        "donor 死亡時の succession trigger + activation flow (`app.etzhayyim.apps.etzhayyim.steward-succession-event`)",
+        "donation 時の successor steward 事前指定 procedure (`com.etzhayyim.apps.etzhayyim.steward-succession-declaration`)",
+        "donor 死亡時の succession trigger + activation flow (`com.etzhayyim.apps.etzhayyim.steward-succession-event`)",
         "国家 inheritance 法との dual-recognition pattern",
         "fallback paths (4 種)",
         "Council Lv6+ による succession 認定"
@@ -5882,7 +5882,7 @@
       "authoritativeFor": [
         "Eros / Gore 境界 case の judging procedure (3 層 framework)",
         "LLM-assisted pre-classification cell (`EthicsContentClassifierCell`)",
-        "precedent registry Lexicon (`app.etzhayyim.apps.etzhayyim.eros-gore-precedent`)",
+        "precedent registry Lexicon (`com.etzhayyim.apps.etzhayyim.eros-gore-precedent`)",
         "5 段階 classification rubric",
         "appeal procedure"
       ],
@@ -6066,7 +6066,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "20-actors/kuni-umi/ Pregel actor topology",
-        "app.etzhayyim.kuniUmi.* Lexicon namespace",
+        "com.etzhayyim.kuniUmi.* Lexicon namespace",
         "Deployment phase BPMN (survey → procure → construct → commission)",
         "open-* utility lexicons と open-robo / open-ot 間の orchestration seam",
         "Multi-jurisdiction 施工 governance (land sovereignty + Charter Rider gate)"
@@ -6206,7 +6206,7 @@
       "topic": "etzhayyim-yobel-debt-release-actor",
       "authoritative": true,
       "authoritativeFor": [
-        "org.etzhayyim.yobel.* lexicon family (transitional NSID: app.etzhayyim.apps.etzhayyim.yobel.*)",
+        "org.etzhayyim.yobel.* lexicon family (transitional NSID: com.etzhayyim.apps.etzhayyim.yobel.*)",
         "shmita / yobel / tokusei-rei / Catholic Jubilee / political amnesty rite catalog",
         "voluntary creditor opt-in + signedConsent invariant",
         "USDC-on-Base-L2 settlement boundary (no fiat)",
@@ -6254,7 +6254,7 @@
       "topic": "etzhayyim-amnesty-legal-person-debt-actor",
       "authoritative": true,
       "authoritativeFor": [
-        "org.etzhayyim.amnesty.* lexicon family (transitional NSID: app.etzhayyim.apps.etzhayyim.amnesty.*)",
+        "org.etzhayyim.amnesty.* lexicon family (transitional NSID: com.etzhayyim.apps.etzhayyim.amnesty.*)",
         "sovereign debt restructuring rite catalog (HIPC / Paris Club / Brady Bond / multilateral)",
         "corporate amnesty rite catalog (Chapter 11 multi-creditor amnesty / scheme of arrangement / 会社更生)",
         "voluntary multi-creditor / multilateral consent invariant",
@@ -6412,7 +6412,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "maps.etzhayyim.com app boundary and namespace",
-        "app.etzhayyim.maps.* lexicons (consumer of app.etzhayyim.substrate.shardSnapshot)"
+        "com.etzhayyim.maps.* lexicons (consumer of com.etzhayyim.substrate.shardSnapshot)"
       ],
       "lastVerified": "2026-05-20"
     },
@@ -6703,7 +6703,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "surplus / overstock / dead-stock の religious-corp 経済圏内 取扱定義",
-        "app.etzhayyim.apps.surplusRouter.* Lexicon 群の API surface",
+        "com.etzhayyim.apps.surplusRouter.* Lexicon 群の API surface",
         "warehouse / toshiKozan / ftzZones / freeportRegistry / payment.tithe との bridge spec",
         "SurplusLot のライフサイクル (registered → matched → redistributed | recycled | dispose)"
       ],
@@ -7047,7 +7047,7 @@
       "authoritativeFor": [
         "physical location of active-inference primitives (etzhayyim/root vs vendor monorepo)",
         "vertex_agent_* table lifecycle (archive + drop)",
-        "NSID rename catalog (app.etzhayyim.agent.* / app.etzhayyim.consent.capability.* → ai.etzhayyim.*)",
+        "NSID rename catalog (com.etzhayyim.agent.* / com.etzhayyim.consent.capability.* → ai.etzhayyim.*)",
         "vendor monorepo cleanup pass (delete what moved)"
       ],
       "related": [
@@ -7358,7 +7358,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "karute actor topology and DID",
-        "FHIR R5 ↔ app.etzhayyim.karute.* lexicon mapping",
+        "FHIR R5 ↔ com.etzhayyim.karute.* lexicon mapping",
         "clinical PHI handling rules on etzhayyim substrate",
         "encrypted-envelope vs public-meta split for clinical records"
       ],
@@ -7376,7 +7376,7 @@
       "topic": "esign-actor",
       "authoritative": true,
       "authoritativeFor": [
-        "app.etzhayyim.esign.* lexicon namespace",
+        "com.etzhayyim.esign.* lexicon namespace",
         "religious-corp native document signing protocol (DID + WebAuthn + MST + IPFS + Base L2 anchor)",
         "separation between gftd lawfirm DocuSign passthrough and etzhayyim native esign"
       ],
@@ -7414,7 +7414,7 @@
       "topic": "karute-consent-capability-iryo-bridge",
       "authoritative": true,
       "authoritativeFor": [
-        "consent capability shape (`app.etzhayyim.consent.capability`)",
+        "consent capability shape (`com.etzhayyim.consent.capability`)",
         "cross-actor PHI delegation pattern under the etzhayyim charter",
         "karute ↔ iryo.etzhayyim.com billing bridge",
         "patient-initiated grant/revoke flow in karute UI"
@@ -7454,7 +7454,7 @@
         "dojo 帯 ↔ society6 Kyu/Dan の正規化",
         "joucho S-D は object-axis であり person rank に変換しない (非変換ルール)",
         "Dan 昇格 = 自他非分離体験ゲート (D6 non-duality embodiment gate)",
-        "app.etzhayyim.apps.etzhayyim.nonDualityAttestation Lexicon 予約"
+        "com.etzhayyim.apps.etzhayyim.nonDualityAttestation Lexicon 予約"
       ],
       "related": [
         "doc:20-actors/joucho/CLAUDE.md",
@@ -7472,9 +7472,9 @@
       "topic": "agent-driven-supply",
       "authoritative": true,
       "authoritativeFor": [
-        "app.etzhayyim.agent.authority lexicon namespace + AgentAuthorityToken contract semantics",
-        "app.etzhayyim.unspsc.processManifest lexicon namespace",
-        "extensions to app.etzhayyim.esign.* required for agent-bound signing",
+        "com.etzhayyim.agent.authority lexicon namespace + AgentAuthorityToken contract semantics",
+        "com.etzhayyim.unspsc.processManifest lexicon namespace",
+        "extensions to com.etzhayyim.esign.* required for agent-bound signing",
         "the canonical wiring matrix between UNSPSC LangGraph actors and religious-corp economic-body contracts",
         "agent-vs-human signer distinction (AAT for AI agents, Adherent SBT for humans)"
       ],
@@ -7564,7 +7564,7 @@
       "topic": "per-record-rekey-tombstone-protocol",
       "authoritative": true,
       "authoritativeFor": [
-        "tombstone record shape (`app.etzhayyim.encrypted.tombstone`)",
+        "tombstone record shape (`com.etzhayyim.encrypted.tombstone`)",
         "rekey / redact / sealed semantics on AT MST",
         "group-rekey-on-removal protocol",
         "consent-revocation-flush handler"
@@ -7580,7 +7580,7 @@
       "topic": "audit-webhook-subsystem",
       "authoritative": true,
       "authoritativeFor": [
-        "audit event record shape (`app.etzhayyim.audit.event`)",
+        "audit event record shape (`com.etzhayyim.audit.event`)",
         "emission rules — which substrate operations emit events",
         "hash-chain semantics for audit log integrity",
         "auditor-subscription pattern"
@@ -7644,8 +7644,8 @@
         "doc:00-contracts/policies/app/bsky/feed/",
         "doc:20-actors/magatama/cells/feed_post/",
         "doc:50-infra/mst-projector/projection/",
-        "doc:00-contracts/lexicons/app/etzhayyim/membrane/",
-        "doc:00-contracts/lexicons/app/etzhayyim/projection/"
+        "doc:00-contracts/lexicons/com/etzhayyim/membrane/",
+        "doc:00-contracts/lexicons/com/etzhayyim/projection/"
       ],
       "lastVerified": "2026-05-23"
     },
@@ -7809,7 +7809,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "deterministic UNSPSC joucho personality function (5-axis from code seed)",
-        "app.etzhayyim.apps.etzhayyim.joucho.score lexicon shape (proposed)",
+        "com.etzhayyim.apps.etzhayyim.joucho.score lexicon shape (proposed)",
         "joucho_personality_provider Python contract"
       ],
       "lastVerified": "2026-05-24"
@@ -7878,7 +7878,7 @@
         "DataLad superdataset layout (90-docs/baien/datasets/)",
         "git-annex `directory` special remote configuration (annex object dir on local volume)",
         "sidecar IPFS pinner contract (annex-object → CID mapping + datasetPin emit)",
-        "app.etzhayyim.substrate.datasetPin lexicon",
+        "com.etzhayyim.substrate.datasetPin lexicon",
         "70-tools/e7m-dataset thin Python wrapper (DataLad orchestration + Charter Rider gate + sidecar pin + PDS emit)",
         "per-machine local path resolver (ETZ_DATASET_ROOT / ~/.etzhayyim/local-paths.toml)",
         "dataset replication-factor + Charter Rider pre-pin gate"
@@ -8049,7 +8049,7 @@
         "Autonomous-mobility constitutional gates (Transparent Force binding; Eros/Gore content rules; SAE J3016 ceiling; data-encryption requirements)",
         "R0 → R3 phased roadmap and gating",
         "Non-goals (commercial robotaxi, Level-5, weaponized autonomy, mass-surveillance harvesting)",
-        "Lexicon namespace reservation (`app.etzhayyim.wadachi.*`, registration deferred)"
+        "Lexicon namespace reservation (`com.etzhayyim.wadachi.*`, registration deferred)"
       ],
       "related": [
         "doc:wellbecoming-karma-lean-proofs",
@@ -8110,7 +8110,7 @@
         "doc:50-infra/silicon/",
         "doc:20-actors/tsukuru/",
         "doc:20-actors/magatama/cells/silicon_*/",
-        "doc:00-contracts/lexicons/app/etzhayyim/silicon/"
+        "doc:00-contracts/lexicons/com/etzhayyim/silicon/"
       ],
       "lastVerified": "2026-05-24"
     },
@@ -8184,8 +8184,8 @@
         "doc:20-actors/magatama/cells/silicon_metrology/",
         "doc:20-actors/magatama/cells/silicon_test/",
         "doc:20-actors/magatama/cells/silicon_packaging/",
-        "doc:00-contracts/lexicons/app/etzhayyim/silicon/fabEquipmentTelemetry.json",
-        "doc:00-contracts/lexicons/app/etzhayyim/silicon/waferLotAttestation.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/silicon/fabEquipmentTelemetry.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/silicon/waferLotAttestation.json",
         "doc:20-actors/tsukuru/"
       ],
       "lastVerified": "2026-05-24"
@@ -8201,7 +8201,7 @@
         "smartphone / browser participation contract for baien post-train (LoRA-only)",
         "WebGPU LoRA-only autograd budget on iPhone 12 / Android 4GB / WASM-32",
         "federated aggregation rules (Wellbecoming gate + Byzantine gate + DP clip)",
-        "delta lexicon shape (app.etzhayyim.baien.distributedTrainDelta)",
+        "delta lexicon shape (com.etzhayyim.baien.distributedTrainDelta)",
         "aggregator placement (Murakumo cell, not commercial GPU)",
         "settlement path (participationReceipt → MST + L2 anchor; tithe optional)"
       ],
@@ -8209,7 +8209,7 @@
         "doc:20-actors/ameno/src/train.ts",
         "doc:70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py",
         "doc:20-actors/magatama/cells/baien_federated_aggregator/",
-        "doc:00-contracts/lexicons/app/etzhayyim/baien/distributedTrainDelta.json"
+        "doc:00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json"
       ],
       "lastVerified": "2026-05-24"
     },
@@ -8320,7 +8320,7 @@
       "related": [
         "doc:20-actors/yakushi/",
         "doc:20-actors/magatama/cells/pharma_*/",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/",
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/",
         "doc:50-infra/murakumo/fleet.toml"
       ],
       "lastVerified": "2026-05-25"
@@ -8345,9 +8345,9 @@
         "doc:20-actors/magatama/cells/pharma_api_synthesis/",
         "doc:20-actors/magatama/cells/pharma_purification/",
         "doc:20-actors/magatama/cells/pharma_qc/",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/apiSynthesisAttestation.json",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/purificationAttestation.json",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/qcAttestation.json"
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/apiSynthesisAttestation.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/purificationAttestation.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/qcAttestation.json"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8371,8 +8371,8 @@
         "doc:20-actors/yakushi/",
         "doc:20-actors/magatama/cells/pharma_sterile_fill_finish/",
         "doc:20-actors/magatama/cells/pharma_container/",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/fillFinishAttestation.json",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/lotAttestation.json"
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/fillFinishAttestation.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/lotAttestation.json"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8398,9 +8398,9 @@
         "doc:20-actors/magatama/cells/pharma_cold_chain/",
         "doc:20-actors/magatama/cells/pharma_post_market_surveillance/",
         "doc:20-actors/magatama/cells/pharma_adverse_event/",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/rawMaterialAttestation.json",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/silenPharmaReview.json",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/adverseEventReport.json"
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/rawMaterialAttestation.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/silenPharmaReview.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8423,7 +8423,7 @@
         "doc:20-actors/yakushi/",
         "doc:20-actors/magatama/cells/pharma_tablet_manufacture/",
         "doc:20-actors/magatama/cells/pharma_topical_formulation/",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/"
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8445,7 +8445,7 @@
       "related": [
         "doc:20-actors/yakushi/",
         "doc:20-actors/magatama/cells/pharma_chiral_resolution/",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/"
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8528,7 +8528,7 @@
         "5-layer modular ring-section construction process (耐圧殻リング → セクション → NDT → 統合 → 結合+試験+公試)",
         "9 Pregel cell catalog + Murakumo placement (R0 design-only)",
         "4 new robotics class reservation (Sango / Tako / Hibiki / Ama) + 3 marinized inheritance (Otete-marine / Mimi-marine / Funamori reuse)",
-        "lexicon namespace reservation (`app.etzhayyim.watatsumi.*`, 8 record types)"
+        "lexicon namespace reservation (`com.etzhayyim.watatsumi.*`, 8 record types)"
       ],
       "related": [
         "doc:wellbecoming-karma-lean-proofs",
@@ -8624,7 +8624,7 @@
         "5-layer construction process (intake QA → de-coat/shred/sort → melt+refine → DC cast+homogenize → roll+finish)",
         "9 Pregel cell catalog + Murakumo placement (R0 design-only)",
         "3 new robotics class reservation (Kamado / Yokin / Migaki) + 3 thermal-rated inheritance (Otete-thermal / Mimi-thermal / Funamori R3 reuse)",
-        "lexicon namespace reservation (`app.etzhayyim.kanayama.*`, 8 record types)"
+        "lexicon namespace reservation (`com.etzhayyim.kanayama.*`, 8 record types)"
       ],
       "related": [
         "doc:wellbecoming-karma-lean-proofs",
@@ -8650,7 +8650,7 @@
         "5-layer assembly process (frame → powertrain → cab → marriage → paint+electrical+QA)",
         "9 Pregel cell catalog + Murakumo placement (R0 design-only)",
         "4 new robotics class reservation (Kasane / Tsutsumi / Akari / Norimichi) + 3 inherited (Otete-heavy / Mimi-precision / Migaki)",
-        "lexicon namespace reservation (`app.etzhayyim.sarutahiko.*`, 9 record types)",
+        "lexicon namespace reservation (`com.etzhayyim.sarutahiko.*`, 9 record types)",
         "manufacturing-side counterpart positioning to wadachi (operator-side autonomous mobility)"
       ],
       "related": [
@@ -8677,7 +8677,7 @@
         "5-layer trainset assembly process (carbody → bogie → interior → traction → final + dynamic test + homologation)",
         "9 Pregel cell catalog + Murakumo placement (R0 design-only)",
         "4 new robotics class reservation (Tsugite / Wadasa / Toritsuke / Pantagora) + 3 inherited (Otete-heavy / Mimi-precision / Akari)",
-        "lexicon namespace reservation (`app.etzhayyim.yamabiko.*`, 9 record types)"
+        "lexicon namespace reservation (`com.etzhayyim.yamabiko.*`, 9 record types)"
       ],
       "related": [
         "doc:wellbecoming-karma-lean-proofs",
@@ -8782,7 +8782,7 @@
       "related": [
         "doc:20-actors/mitate/",
         "doc:20-actors/magatama/cells/mitate_*/",
-        "doc:00-contracts/lexicons/app/etzhayyim/mitate/",
+        "doc:00-contracts/lexicons/com/etzhayyim/mitate/",
         "doc:50-infra/murakumo/fleet.toml"
       ],
       "lastVerified": "2026-05-25"
@@ -8931,7 +8931,7 @@
       "topic": "yakushi-mitate-cross-actor-ae",
       "authoritative": true,
       "authoritativeFor": [
-        "app.etzhayyim.pharma.adverseEventReport-aggregated payload schema (yakushi-side aggregated feed)",
+        "com.etzhayyim.pharma.adverseEventReport-aggregated payload schema (yakushi-side aggregated feed)",
         "AE dedupe rule between mitate outcome_qol_followup and yakushi pharma_adverse_event",
         "yakushi label-warning data-driven update mechanism (naphazoline closed-loop other half)",
         "silenPharmaReview + silenMitateReview joint attestation flow for cross-actor cells",
@@ -8947,7 +8947,7 @@
         "doc:20-actors/magatama/cells/pharma_packaging/",
         "doc:20-actors/magatama/cells/mitate_outcome_qol_followup/",
         "doc:20-actors/magatama/cells/mitate_medication_history_audit/",
-        "doc:00-contracts/lexicons/app/etzhayyim/pharma/adverseEventReport.json"
+        "doc:00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -9114,7 +9114,7 @@
         "5-layer foam-pillow assembly process (raw-material → foam-blowing → shredding → shell-sewing → fill-close-QC-pack)",
         "9 Pregel cell catalog + Murakumo placement (R0 design-only)",
         "2 new robotics class reservation (Watari 綿 / Awa 泡) + 4 inherited reuse (Otete / Mimi / Hitogata / Quad)",
-        "lexicon namespace reservation (`app.etzhayyim.makura.*`, 8 record types)"
+        "lexicon namespace reservation (`com.etzhayyim.makura.*`, 8 record types)"
       ],
       "related": [
         "doc:wellbecoming-karma-lean-proofs",
@@ -9139,7 +9139,7 @@
         "5-layer ELV processing chain (intake+depollute → battery → parts-harvest+catalyst+seat-textile → shred → emissions+provenance)",
         "9 Pregel cell catalog + Murakumo placement (R0 design-only)",
         "3 new robotics class reservation (Hagasu 剥がす / Nuku 抜く / Tokike 解け) + 4 kuni-umi inherited reuse",
-        "lexicon namespace reservation (`app.etzhayyim.hodoki.*`, 8 record types)",
+        "lexicon namespace reservation (`com.etzhayyim.hodoki.*`, 8 record types)",
         "constitutional firsts: G8 mandatory ECU/infotainment data wipe (§2(c) anti-surveillance applied to vehicles) + G12 right-to-repair parts catalog invariant"
       ],
       "related": [
@@ -9191,7 +9191,7 @@
         "5-layer motorcycle assembly process (frame → drivetrain → harness+suspension+paint → final assembly → test+provenance)",
         "9 Pregel cell catalog + Murakumo placement (R0 design-only)",
         "2 new robotics class reservation (Tsugite 継ぎ手 / Suri 摺) + 4 inherited reuse",
-        "lexicon namespace reservation (`app.etzhayyim.futawa.*`, 8 record types)",
+        "lexicon namespace reservation (`com.etzhayyim.futawa.*`, 8 record types)",
         "constitutional firsts: G7 ABS-mandatory ≥125cc + G8 build-time anti-surveillance (no GPS/connected-app/telematics) + G12 right-to-repair forward-publishing at manufacture + G14 30-year service life"
       ],
       "related": [
@@ -9385,13 +9385,13 @@
         "Precision ladder R2 BF16 → R3 FP8 (TransformerEngine) → R4 sparse FP4 (engineering work itemized per phase)",
         "Checkpoint pipeline: rented GPU → HuggingFace Hub draft OR direct upload → IPFS pin via mac-260317 → Murakumo fleet pull",
         "Inference architecture (Mac mini + EVO-X2 fleet) — UNCHANGED, references ADR-2605215000",
-        "Per-rental yatachain attestation Lexicons app.etzhayyim.train.rentalAttestation + rentalCostLog spec",
+        "Per-rental yatachain attestation Lexicons com.etzhayyim.train.rentalAttestation + rentalCostLog spec",
         "Cost / wall budget caps + runbook for rental orchestration"
       ],
       "related": [
         "doc:70-tools/baien-moemoekyun-train/ (extended for rental orchestration)",
         "doc:90-docs/runbooks/baien-moemoekyun-runpod-bringup.md (R2 deliverable)",
-        "doc:00-contracts/lexicons/app/etzhayyim/train/ (rentalAttestation + rentalCostLog Lexicon定義 deliverable)"
+        "doc:00-contracts/lexicons/com/etzhayyim/train/ (rentalAttestation + rentalCostLog Lexicon定義 deliverable)"
       ],
       "lastVerified": "2026-05-26"
     },
@@ -9469,7 +9469,7 @@
       "authoritativeFor": [
         "chigiri actor R0 charter",
         "religious-corp legal procedure substrate single SoT",
-        "`app.etzhayyim.chigiri.*` Lexicon namespace boundary",
+        "`com.etzhayyim.chigiri.*` Lexicon namespace boundary",
         "non-profit (任意団体) legal procedure architecture",
         "Charter §1.12 state-function routing-around procedural primitives",
         "covenant ceremony attestation contract (musubi / shidemori cross-actor)",
@@ -9519,7 +9519,7 @@
       "authoritativeFor": [
         "toritate actor R0 charter",
         "religious-corp accounting + audit substrate single SoT",
-        "`app.etzhayyim.toritate.*` Lexicon namespace boundary",
+        "`com.etzhayyim.toritate.*` Lexicon namespace boundary",
         "100% on-chain transparency invariant for religious-corp financial flows",
         "prohibition on commercial accounting software (QuickBooks / Xero / FreeAgent / Wave / FreshBooks)",
         "annual transparency report contract",
@@ -9557,7 +9557,7 @@
       "authoritativeFor": [
         "iyashi actor R0 charter",
         "religious-corp clinical care provider substrate single SoT",
-        "`app.etzhayyim.iyashi.*` Lexicon namespace boundary",
+        "`com.etzhayyim.iyashi.*` Lexicon namespace boundary",
         "encrypted PHI envelope invariant (G2 structural, same discipline as hagukumi)",
         "prohibition on commercial EHR (Epic / Cerner / Athena / Allscripts / NextGen / eClinicalWorks / Greenway / Practice Fusion)",
         "clinical care funding via Public Fund grant + sliding-scale donation (no insurance billing automation)",
@@ -9598,7 +9598,7 @@
       "authoritativeFor": [
         "mizuho actor R0 charter",
         "religious-corp water + sanitation substrate single SoT",
-        "`app.etzhayyim.mizuho.*` Lexicon namespace boundary",
+        "`com.etzhayyim.mizuho.*` Lexicon namespace boundary",
         "community-scale invariant (NOT large municipal utility)",
         "prohibition on commercial water utility software (Veolia / Suez / American Water / etc.)",
         "prohibition on bottled water vendor / single-use plastic distribution",
@@ -9617,7 +9617,7 @@
       "authoritativeFor": [
         "kazaori actor R0 charter",
         "religious-corp civilian disaster response substrate single SoT",
-        "`app.etzhayyim.kazaori.*` Lexicon namespace boundary",
+        "`com.etzhayyim.kazaori.*` Lexicon namespace boundary",
         "civilian-only invariant (NOT military; force authorization separate per ADR-2605192315)",
         "time-bounded carve-out invariant (G8 — normally-prohibited operations auto-revoke on emergency-lifting)",
         "prohibition on commercial disaster management software (Veoci / NC4 / Crisis Track / Everbridge / OnSolve / SAP / Microsoft / IBM Crisis Response)",
@@ -9681,7 +9681,7 @@
       "authoritativeFor": [
         "musubi actor R0 charter",
         "religious-corp covenant ceremony performance substrate single SoT",
-        "`app.etzhayyim.musubi.*` Lexicon namespace boundary",
+        "`com.etzhayyim.musubi.*` Lexicon namespace boundary",
         "Reformed 万人祭司 invariant (no clergy class; officiants are L5 vocation-flow community-witnessed)",
         "prohibition on commercial wedding/funeral industry software",
         "anti-coercive ceremony economy (no bride price / dowry)",
@@ -9727,7 +9727,7 @@
       "authoritativeFor": [
         "wakai actor R0 charter",
         "religious-corp mutual aid substrate single SoT",
-        "`app.etzhayyim.wakai.*` Lexicon namespace boundary",
+        "`com.etzhayyim.wakai.*` Lexicon namespace boundary",
         "NOT-insurance invariant (no premium / no actuarial / no claim denial)",
         "prohibition on commercial insurance software (Guidewire / Duck Creek / Insurity / Sapiens / Majesco / SAP Insurance / Oracle Insurance / Lemonade / Hippo as vendor)",
         "prohibition on commercial re-insurance (Munich Re / Swiss Re / SCOR / Hannover Re / Berkshire Hathaway Re)",
@@ -9765,7 +9765,7 @@
       "authoritativeFor": [
         "kataribe actor R0 charter",
         "religious-corp press + publishing + translation substrate single SoT",
-        "`app.etzhayyim.kataribe.*` Lexicon namespace boundary",
+        "`com.etzhayyim.kataribe.*` Lexicon namespace boundary",
         "NO ad-supported revenue invariant (Charter §1.13 + §1.15)",
         "NO clickbait / apocalyptic framing invariant (Charter §1.15 non-eschatological tone-attestation gate)",
         "prohibition on commercial publishing platforms (Substack / Medium / Ghost-Pro / Mailchimp / WordPress-Pro / ConvertKit / Beehiiv / News Corp / The Atlantic / NYTimes as-vendor)",
@@ -9826,7 +9826,7 @@
       "authoritativeFor": [
         "kokoro actor R0 charter",
         "religious-corp mental health support substrate single SoT",
-        "`app.etzhayyim.kokoro.*` Lexicon namespace boundary",
+        "`com.etzhayyim.kokoro.*` Lexicon namespace boundary",
         "NOT clinical psychiatric entity invariant (community-witnessed-competent counselors, NOT state-licensed psych)",
         "prohibition on commercial mental health software (BetterHelp / Talkspace / Cerebral / Modern Health / Lyra / Calm-business / Headspace-Enterprise / Spring Health / Brightline / Octave / Two Chairs / Charlie Health)",
         "prohibition on commercial AI therapy chatbot (Woebot / Wysa / Replika-as-therapy / character.ai / GPT-as-therapy / Anthropic-direct-therapy / Claude-as-therapy)",
@@ -9901,7 +9901,7 @@
         "corporate-disclosure license × tier × jurisdiction ladder",
         "Bloomberg/S&P/Refinitiv/FactSet/Moody's/D&B/Pitchbook/Crunchbase commercial terminal PROHIBITION (Charter Rider §2(e) + §2(c) substrate-boundary)",
         "corporate-disclosure PII redaction policy (per-jurisdiction publication-rule honoring; NO unilateral re-identification, NO de-anonymization)",
-        "`app.etzhayyim.substrate.datasetPin` integration for corp bucket",
+        "`com.etzhayyim.substrate.datasetPin` integration for corp bucket",
         "corp training corpus recipes at `70-tools/baien-moemoekyun-train/recipes/corp/`"
       ],
       "supersedes": [
@@ -9920,7 +9920,7 @@
       "authoritativeFor": [
         "shidemori actor R0 charter (FINAL gap-closure of 10-actor 30min-loop wave)",
         "religious-corp memorial + cemetery substrate single SoT",
-        "`app.etzhayyim.shidemori.*` Lexicon namespace boundary",
+        "`com.etzhayyim.shidemori.*` Lexicon namespace boundary",
         "Charter §1.15 non-eschatological discipline in memorial domain (NO afterlife doctrine imposition)",
         "cross-doctrinal Wellbecoming priority in memorial domain (Christian + Buddhist + Shinto + nondenominational + secular accommodation)",
         "NOT-state-licensed-mortuary invariant (community-witnessed-competent guardians, NOT licensed funeral director)",
@@ -9946,7 +9946,7 @@
         "GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro commercial gov-intelligence terminal PROHIBITION (Charter Rider §2(e) + §2(c))",
         "parliament / 議事録 publication-rule-honoring policy (NO unilateral re-identification, NO de-anonymization; chigiri.data_privacy DSAR routing)",
         "CN gov data §2(g) state-aligned scrutiny flagging (parallel to ADR-2605262800 CN NPC treatment)",
-        "`app.etzhayyim.substrate.datasetPin` integration for gov bucket",
+        "`com.etzhayyim.substrate.datasetPin` integration for gov bucket",
         "gov training corpus recipes at `70-tools/baien-moemoekyun-train/recipes/gov/`"
       ],
       "lastVerified": "2026-05-27"
@@ -9961,7 +9961,7 @@
       "authoritativeFor": [
         "ossekai actor R0 charter",
         "religious-corp information-arbitrage elimination substrate single SoT",
-        "`app.etzhayyim.ossekai.*` Lexicon namespace boundary",
+        "`com.etzhayyim.ossekai.*` Lexicon namespace boundary",
         "AT Protocol first-touch invariant (NO email / SMTP / commercial CRM at R0-R2)",
         "aggregate-first publication discipline (anonymized public-good intel as default)",
         "Council-gated single-touch @mention to non-members (G13)",
@@ -10153,7 +10153,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "creative-pd substrate single SoT",
-        "app.etzhayyim.creative.* Lexicon namespace boundary",
+        "com.etzhayyim.creative.* Lexicon namespace boundary",
         "baien-distill creative-foundations recipe family",
         "per-work PD attestation methodology",
         "multi-jurisdictional pessimistic threshold algorithm",
@@ -10351,7 +10351,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "Inter-organism messaging architecture",
-        "app.etzhayyim.organism.message lexicon definition",
+        "com.etzhayyim.organism.message lexicon definition",
         "Private messaging payload encryption standard (Signal keywrap)",
         "InboxBuffer integration for inbound messages"
       ],
@@ -10395,7 +10395,7 @@
       "authoritative": true,
       "authoritativeFor": [
         "Organism lifecycle events (birth, clone, retire, excommunication)",
-        "Lexicon definitions for lifecycle events (`app.etzhayyim.organism.lifecycle`)"
+        "Lexicon definitions for lifecycle events (`com.etzhayyim.organism.lifecycle`)"
       ],
       "lastVerified": "2026-05-26"
     },
@@ -10684,8 +10684,8 @@
       "authoritative": true,
       "authoritativeFor": [
         "mitate.diagnosticOrder generalization scope (R2+) — orderType + conditionContext enum extension policy",
-        "app.etzhayyim.mitate.diagnosticConsentReceipt — 要配慮個人情報 (APPI 第2条第3項 / 個人情報保護法) per-order consent receipt lexicon",
-        "app.etzhayyim.iyashi.phlebotomyAttestation — internal phlebotomy event log lexicon (iyashi R2+)",
+        "com.etzhayyim.mitate.diagnosticConsentReceipt — 要配慮個人情報 (APPI 第2条第3項 / 個人情報保護法) per-order consent receipt lexicon",
+        "com.etzhayyim.iyashi.phlebotomyAttestation — internal phlebotomy event log lexicon (iyashi R2+)",
         "iyashi.internal_phlebotomy cell — reserved at iyashi R2 with import-time RuntimeError gate at R0",
         "External clinical lab vendor allowlist policy — Charter Rider §2(a)-(h) scan + Council Lv6+ ≥3 attestation per vendor",
         "Constitutional gates GA..GF (this ADR; layered on top of mitate G1..G14 from ADR-2605260100)",
@@ -10693,9 +10693,9 @@
         "Cross-actor lexicon boundary mitate ↔ iyashi ↔ yakushi ↔ chigiri ↔ toritate"
       ],
       "related": [
-        "doc:00-contracts/lexicons/app/etzhayyim/mitate/diagnosticOrder.json",
-        "doc:00-contracts/lexicons/app/etzhayyim/mitate/diagnosticConsentReceipt.json",
-        "doc:00-contracts/lexicons/app/etzhayyim/iyashi/phlebotomyAttestation.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/mitate/diagnosticOrder.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/mitate/diagnosticConsentReceipt.json",
+        "doc:00-contracts/lexicons/com/etzhayyim/iyashi/phlebotomyAttestation.json",
         "doc:20-actors/magatama/cells/mitate_diagnostic_consent_orchestrator/",
         "doc:20-actors/magatama/cells/mitate_diagnostic_order_general/",
         "doc:20-actors/magatama/cells/mitate_diagnostic_result_ingest/",
@@ -10743,7 +10743,7 @@
         "kawase-yui (為替結) actor charter — adherent-to-adherent multi-stable remittance via pre-funded pools",
         "pool-match Pregel cell topology + mid-market FX oracle policy",
         "constitutional gates G1..G14 + non-goals N1..N12",
-        "Lexicon family app.etzhayyim.kawase.* (8 schemas, R0 scaffold)",
+        "Lexicon family com.etzhayyim.kawase.* (8 schemas, R0 scaffold)",
         "Cross-actor binding with wakai (mutual aid sibling), chigiri (multi-juris compliance), toritate (accounting), mKOTO economy (cell compute cost)"
       ],
       "related": [
@@ -11004,7 +11004,7 @@
         "new Tier-B actor `danjo` (public-accountability oversight; civic transparency cross-reference)",
         "kotoba-kqe EAVT datom schema for official / statement / authority / award / appropriation / outlay / entity / cross-reference-link / discrepancy-observation",
         "the boundary between toritate (religious-corp's OWN on-chain books) and danjo (the STATE's published open-data books)",
-        "`app.etzhayyim.danjo.*` Lexicon namespace (discrepancyObservation / crossReferenceLink / oversightReport / methodNote)"
+        "`com.etzhayyim.danjo.*` Lexicon namespace (discrepancyObservation / crossReferenceLink / oversightReport / methodNote)"
       ],
       "related": [
         "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
@@ -11024,11 +11024,11 @@
       "authoritative": true,
       "authoritativeFor": [
         "new Tier-B actor `himotoki` (active disclosure-request filer + response custodian)",
-        "`app.etzhayyim.himotoki.*` Lexicon namespace (disclosureTarget / disclosureRequest / requestDispatch / disclosureResponse / appealRecord)",
+        "`com.etzhayyim.himotoki.*` Lexicon namespace (disclosureTarget / disclosureRequest / requestDispatch / disclosureResponse / appealRecord)",
         "the coded disclosure-target registry schema (per-organization 窓口 / address / email / portal / form / fee / statutory-deadline / legal-regime) and its verification gate",
         "the boundary between chigiri (procedure templates + legal characterization + UPL routing) and himotoki (the ACTIVE filer + tracker + encrypted response custodian)",
         "the boundary between himotoki (active right-of-access requests) and danjo/tadori (passive-only reading)",
-        "how disclosed personal data enters the substrate: `app.etzhayyim.encrypted.*` DID-bound envelopes ONLY (never plaintext PII on MST)"
+        "how disclosed personal data enters the substrate: `com.etzhayyim.encrypted.*` DID-bound envelopes ONLY (never plaintext PII on MST)"
       ],
       "related": [
         "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
@@ -11106,7 +11106,7 @@
         "new Tier-B actor `kanae` (global government fiscal-flow visualization + narrative)",
         "kotoba-kqe EAVT datom schema for fund-flow-edge / flow-narrative / visualization-manifest",
         "the boundary between danjo (cross-reference ENGINE; non-adjudicating discrepancy observations) and kanae (fiscal-flow ASSEMBLY + Murakumo narrative + kami-engine WASM visualization)",
-        "`app.etzhayyim.kanae.*` Lexicon namespace (fundFlowEdge / flowNarrative / visualizationManifest / methodNote)",
+        "`com.etzhayyim.kanae.*` Lexicon namespace (fundFlowEdge / flowNarrative / visualizationManifest / methodNote)",
         "kami-engine WASM as the constitutional render substrate for fiscal-flow visualization (no third-party BI / no ad/analytics SDK in the render path)"
       ],
       "related": [
@@ -11302,8 +11302,8 @@
         "intra-covenant transparency: full member-to-member visibility of all member actions (no Council-only tier)",
         "ingress-consent: logging + publication policy for any party (member or non-member) that accesses etzhayyim / kotoba resources, inbound email included",
         "the carve-out floor that transparency does NOT override (secrets/keys/credentials; non-ingress third-party data still bound by actor gates)",
-        "redefinition of kotoba `private` graph semantics and the `app.etzhayyim.encrypted.*` namespace scope",
-        "`app.etzhayyim.transparency.*` Lexicon namespace (ingressDisclosureNotice / accessLogPublication / covenantTransparencyAttestation)"
+        "redefinition of kotoba `private` graph semantics and the `com.etzhayyim.encrypted.*` namespace scope",
+        "`com.etzhayyim.transparency.*` Lexicon namespace (ingressDisclosureNotice / accessLogPublication / covenantTransparencyAttestation)"
       ],
       "related": [
         "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
@@ -11635,7 +11635,7 @@
       "authoritativeFor": [
         "kizashi actor R0 charter",
         "religious-corp non-invasive multimodal body-scan / sign-sensing substrate single SoT",
-        "`app.etzhayyim.kizashi.*` Lexicon namespace boundary",
+        "`com.etzhayyim.kizashi.*` Lexicon namespace boundary",
         "non-diagnostic invariant (G3 structural — 兆候 + probabilistic attribution + consult ONLY, never diagnosis)",
         "medical-device regulatory boundary (G4 — 薬機法/SaMD; regulated/ionizing modalities gated to licensed pathway)",
         "encrypted biometric-scan envelope invariant (G2 structural, same discipline as iyashi)",
@@ -11995,7 +11995,7 @@
       "authoritativeFor": [
         "watatsuna actor (world submarine-cable network knowledge graph)",
         "submarine-cable-ontology kotoba schema",
-        "app.etzhayyim.cable.* kotoba-native lexicons (supersede legacy gftd telecom/telecomInfra/cableRepairFleet)",
+        "com.etzhayyim.cable.* kotoba-native lexicons (supersede legacy gftd telecom/telecomInfra/cableRepairFleet)",
         "watatsumi cable-laying robotics fleet"
       ],
       "related": [
@@ -12094,7 +12094,7 @@
       "authoritativeFor": [
         "funadaiku actor (zero-emission autonomous cargo shipbuilding)",
         "Nagi 凪 class coastal zero-emission cargo carrier reference design",
-        "app.etzhayyim.funadaiku.* lexicons",
+        "com.etzhayyim.funadaiku.* lexicons",
         "funadaiku shipyard plant (kami-engine + kotoba EAVT)"
       ],
       "related": [
@@ -12385,7 +12385,7 @@
     {
       "id": "doc:adr-2606020000-tsukuru-com-etzhayyim-nsid-conversion",
       "type": "TechArticle",
-      "title": "ADR-2606020000: tsukuru NSID conversion app.etzhayyim.apps.tsukuru.* → com.etzhayyim.apps.tsukuru.*",
+      "title": "ADR-2606020000: tsukuru NSID conversion com.etzhayyim.apps.tsukuru.* → com.etzhayyim.apps.tsukuru.*",
       "status": "proposed",
       "topic": "tsukuru-com-etzhayyim-nsid-conversion",
       "authoritative": true,
@@ -12483,7 +12483,7 @@
       "authoritativeFor": [
         "customs/tariff/通関 clearance orchestration capability-gap resolution (R0 decision)",
         "tsuukan actor charter sketch (proposed; NOT yet scaffolded — Council-gated)",
-        "app.etzhayyim.customsClearing lexicon namespace reservation"
+        "com.etzhayyim.customsClearing lexicon namespace reservation"
       ],
       "related": [
         "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
@@ -12500,7 +12500,7 @@
     {
       "id": "doc:adr-2606021400-session-close-nsid-com-etzhayyim-migration",
       "type": "TechArticle",
-      "title": "ADR-2606021400: Session close — repo-wide NSID migration app.etzhayyim.* / ai.gftd.* → com.etzhayyim.*",
+      "title": "ADR-2606021400: Session close — repo-wide NSID migration com.etzhayyim.* / com.etzhayyim.* → com.etzhayyim.*",
       "status": "active",
       "topic": "session-close-nsid-com-etzhayyim-migration",
       "authoritative": false,
@@ -12622,7 +12622,7 @@
         "new Tier-B actor `akashi` (public ad-disclosure transparency graph)",
         "kotoba EAVT schema for platform / advertiser / creative / disclosure / targeting-summary / spend-range / impression-range / landing-page / snapshot",
         "boundary between akashi (public ad disclosure) and malak (confidential cybercrime intelligence)",
-        "`app.etzhayyim.akashi.*` Lexicon namespace"
+        "`com.etzhayyim.akashi.*` Lexicon namespace"
       ],
       "related": [
         "doc:adr-2605172000-malak-onion-frontier-ransomware-tracking",
@@ -12946,7 +12946,7 @@
     {
       "id": "doc:cohort-evidence-oncommit-spec-260415",
       "type": "TechArticle",
-      "title": "app.etzhayyim.cohort.evidence onCommit Handler Spec (ADR-0026 Phase B)",
+      "title": "com.etzhayyim.cohort.evidence onCommit Handler Spec (ADR-0026 Phase B)",
       "status": "active",
       "topic": "cohort-evidence",
       "authoritative": false,
@@ -13008,7 +13008,7 @@
     {
       "id": "doc:cohort-seed-procedure-spec-260414",
       "type": "TechArticle",
-      "title": "app.etzhayyim.cohort.seed — PDS Procedure Implementation Spec (ADR-0026 Iter 11)",
+      "title": "com.etzhayyim.cohort.seed — PDS Procedure Implementation Spec (ADR-0026 Iter 11)",
       "status": "active",
       "topic": "cohort-seed",
       "authoritative": false,

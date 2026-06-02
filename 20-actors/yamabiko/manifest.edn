@@ -27,7 +27,7 @@
   {:gate/id "G16" :gate/name "kotoba-eavt-native"                :gate/rule "Trainset/assembly/progress state = kotoba Datom; no Cypher MATCH / RisingWave canonical"}
   {:gate/id "G17" :gate/name "tithe-non-fiat"                    :gate/rule "Settlement USDC Base L2 + ERC-4337 + TitheRouter 10% only; no fiat/Stripe (constitutional)"}
   {:gate/id "G18" :gate/name "labor-dignity-provenance"          :gate/rule "Manufacturing labor provenance disclosed; gig-exploitation prohibited; fulfillment via etzhayyim logistics"}
-  {:gate/id "G19" :gate/name "pii-encrypted-envelope"            :gate/rule "Order/build history → app.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
+  {:gate/id "G19" :gate/name "pii-encrypted-envelope"            :gate/rule "Order/build history → com.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
   {:gate/id "G20" :gate/name "manufacturing-legality"            :gate/rule "Factory data public/API-ToS compliant; no price/inventory manipulation; :representative honesty"}
   {:gate/id "G21" :gate/name "no-server-key"                     :gate/rule "Member/factory sign with own keys; platform holds no private key (ADR-2605231525)"}
   {:gate/id "G22" :gate/name "full-traceability"                 :gate/rule "Assembly L1..L5 → final → test → homologation all recorded as Datoms; no silent truncation"}]

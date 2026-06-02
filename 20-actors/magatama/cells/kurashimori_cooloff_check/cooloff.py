@@ -23,7 +23,7 @@ Council RFP 2026-06-19). Landing + testing this core does NOT activate the cell;
 once Council activates, ``super_step`` will call :func:`compute_assessment` and
 :func:`to_assessment_record`.
 
-Output shape mirrors Lexicon ``app.etzhayyim.kurashimori.coolingOffAssessment``.
+Output shape mirrors Lexicon ``com.etzhayyim.kurashimori.coolingOffAssessment``.
 """
 
 from __future__ import annotations
@@ -156,7 +156,7 @@ def to_assessment_record(
     session_ref: str | None = None,
     encrypted_contract_ref: str | None = None,
 ) -> dict:
-    """Build an ``app.etzhayyim.kurashimori.coolingOffAssessment``-shaped record.
+    """Build an ``com.etzhayyim.kurashimori.coolingOffAssessment``-shaped record.
 
     ``isLegalOpinion`` is asserted ``False`` before return — a G5 schema invariant
     that this function structurally cannot violate.

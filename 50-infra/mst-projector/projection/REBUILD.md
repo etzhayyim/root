@@ -29,7 +29,7 @@ launchctl stop com.etzhayyim.mst-projector  # or k3s equivalent
 #    net — the daemon will rebuild from cursor 0 either way).
 mv /data/mst-projector/firehose.cursor /data/mst-projector/firehose.cursor.bak
 
-# 3. Optionally delete prior `app.etzhayyim.projection.feedDiscover`
+# 3. Optionally delete prior `com.etzhayyim.projection.feedDiscover`
 #    records under the projector DID. They will continue to exist as
 #    history; the rebuild appends fresh snapshots ordered by TID, so the
 #    "latest snapshot wins" read semantics still hold without deletion.
@@ -40,7 +40,7 @@ ETZ_PROJECTOR_PDS_SESSION="$(security find-generic-password \
    -s etzhayyim -a PROJECTOR_PDS_SESSION -w)" \
 ETZ_PROJECTOR_DID="did:web:projector.etzhayyim.com" \
 ETZ_PROJECTOR_PDS_URL="https://pds.etzhayyim.com" \
-ETZ_PROJECTOR_COLLECTIONS="app.etzhayyim.,app.etzhayyim.apps.,app.bsky.feed." \
+ETZ_PROJECTOR_COLLECTIONS="com.etzhayyim.,com.etzhayyim.apps.,app.bsky.feed." \
 ETZ_PROJECTOR_FLUSH_RECORDS=1000 \
 ETZ_PROJECTOR_FLUSH_SECONDS=60 \
 ETZ_PROJECTOR_IPFS_API_URL="http://localhost:5001" \
@@ -48,7 +48,7 @@ node dist/index.js
 ```
 
 The first snapshot record under
-`app.etzhayyim.projection.feedDiscover` will appear once the firehose has
+`com.etzhayyim.projection.feedDiscover` will appear once the firehose has
 caught up to the present and the first flush boundary fires (default:
 1000 records OR 60 seconds, whichever first).
 
@@ -57,7 +57,7 @@ caught up to the present and the first flush boundary fires (default:
 ```sh
 # Fetch the most-recent snapshot:
 curl -s \
-  "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:projector.etzhayyim.com&collection=app.etzhayyim.projection.feedDiscover&limit=1&reverse=true" \
+  "https://pds.etzhayyim.com/xrpc/com.atproto.repo.listRecords?repo=did:web:projector.etzhayyim.com&collection=com.etzhayyim.projection.feedDiscover&limit=1&reverse=true" \
   | jq '.records[0].value | {snapshotAt, cursor, totalSeen, items: (.items | length)}'
 
 # Cross-check item count against what listRecords returns for one source DID:

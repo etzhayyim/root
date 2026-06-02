@@ -41,7 +41,7 @@ Existing magatama cells `agri_autonomous_cultivation`, `eco_reforestation_swarm`
 Launch **`mitsuho` (瑞穂 — "abundant rice ears", ancient honorific name for Japan as a fertile land; Kojiki 瑞穂国 reference; multi-generational food-abundance echo)** as a Tier-B religious-corp actor:
 
 - **Actor DID**: `did:web:etzhayyim.com:mitsuho`
-- **Namespace**: `app.etzhayyim.mitsuho.*`
+- **Namespace**: `com.etzhayyim.mitsuho.*`
 - **R0 scope**: Plant agriculture (cereals, legumes, vegetables, fruits) + aquaculture (freshwater) + alternative protein (fermentation + insect + algae). **Excludes**: animal slaughter (deferred ethics gate), industrial monoculture (constitutional non-goal), GMO without Council attestation, commercial commodities trading, ocean fishing factory ships.
 - **R0 robotics** (kuni-umi inherited): Giemon (tractor-equivalent crawler), Otete (precision tool arm — seeding/pruning/harvest), Mimi (crop metrology), Sora (drone — survey + spot treatment). New placeholder **Tsumugi (紡ぎ)** class for greenhouse + vertical-farm tending (R2+).
 - **14 gates + 10 non-goals** declared before capability lands.
@@ -85,7 +85,7 @@ Launch **`mitsuho` (瑞穂 — "abundant rice ears", ancient honorific name for 
 ### Lexicons (5, deferred to R1+)
 
 ```
-app.etzhayyim.mitsuho.{
+com.etzhayyim.mitsuho.{
   parcelAttestation,         # Agricultural parcel registration (soil + water + climate baseline)
   cropPlanAttestation,       # Per-season plan: varietals + rotation + organic-only confirmation
   harvestAttestation,        # Yield + quality + witness sigs + IPFS photo CID

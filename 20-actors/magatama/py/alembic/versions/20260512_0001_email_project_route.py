@@ -44,7 +44,7 @@ depends_on: Union[str, Sequence[str], None] = None
 # BPMN XML path (relative to repo root — read at migration time)
 _BPMN_PATH = (
     pathlib.Path(__file__).resolve().parents[5]
-    / "00-contracts/bpmn/ai/gftd/outlook/outlookTriage.bpmn"
+    / "00-contracts/bpmn/com/etzhayyim/outlook/outlookTriage.bpmn"
 )
 
 
@@ -115,7 +115,7 @@ SELECT
     1,
     '{bpmn_xml}',
     {bpmn_size},
-    '00-contracts/bpmn/ai/gftd/outlook/outlookTriage.bpmn',
+    '00-contracts/bpmn/com/etzhayyim/outlook/outlookTriage.bpmn',
     'active',
     NOW()::VARCHAR,
     1,
@@ -136,7 +136,7 @@ INSERT INTO vertex_bpmn_lexicon_binding
 SELECT
     'bpmn-bind-outlook-triage',
     'did:web:pregel.etzhayyim.com',
-    'app.etzhayyim.apps.pregel.outlookTriage',
+    'com.etzhayyim.apps.pregel.outlookTriage',
     'outlook_triage',
     'active',
     NOW()::VARCHAR,
@@ -158,7 +158,7 @@ INSERT INTO vertex_bpmn_lexicon_binding
 SELECT
     'bpmn-bind-outlook-email-route',
     'did:web:pregel.etzhayyim.com',
-    'app.etzhayyim.apps.pregel.outlookEmailRoute',
+    'com.etzhayyim.apps.pregel.outlookEmailRoute',
     'outlook_triage',
     'active',
     NOW()::VARCHAR,

@@ -10,7 +10,7 @@
 | nanoid | `it0n4m1x` |
 | handle | `itonami.etzhayyim.com` |
 | DID | `did:web:itonami.etzhayyim.com` |
-| NSID prefix | `app.etzhayyim.apps.itonami.*` |
+| NSID prefix | `com.etzhayyim.apps.itonami.*` |
 | runtimeType | `worker` |
 | complianceFramework | `aerospace-safety` |
 
@@ -58,27 +58,27 @@ EngineDesign
 
 | NSID | Type | 用途 |
 |---|---|---|
-| `app.etzhayyim.apps.itonami.health` | procedure | ヘルスチェック |
-| `app.etzhayyim.apps.itonami.registerEngine` | procedure | エンジン設計エントリを登録 |
-| `app.etzhayyim.apps.itonami.recordAssembly` | procedure | 組立フェーズのマイルストーンを記録 |
-| `app.etzhayyim.apps.itonami.logTestResult` | procedure | 試験結果を記録 |
-| `app.etzhayyim.apps.itonami.logFlightEvent` | procedure | デジタルツイン飛行イベントを記録 |
-| `app.etzhayyim.apps.itonami.listEngines` | query | エンジン一覧（フィルタ・ページネーション） |
-| `app.etzhayyim.apps.itonami.getEngine` | query | エンジン詳細（最新テスト結果含む） |
+| `com.etzhayyim.apps.itonami.health` | procedure | ヘルスチェック |
+| `com.etzhayyim.apps.itonami.registerEngine` | procedure | エンジン設計エントリを登録 |
+| `com.etzhayyim.apps.itonami.recordAssembly` | procedure | 組立フェーズのマイルストーンを記録 |
+| `com.etzhayyim.apps.itonami.logTestResult` | procedure | 試験結果を記録 |
+| `com.etzhayyim.apps.itonami.logFlightEvent` | procedure | デジタルツイン飛行イベントを記録 |
+| `com.etzhayyim.apps.itonami.listEngines` | query | エンジン一覧（フィルタ・ページネーション） |
+| `com.etzhayyim.apps.itonami.getEngine` | query | エンジン詳細（最新テスト結果含む） |
 
 ## Lexicons
 
-`00-contracts/lexicons/ai/gftd/apps/itonami/`
+`00-contracts/lexicons/com/etzhayyim/apps/itonami/`
 
 | ファイル | NSID |
 |---|---|
-| `health.json` | `app.etzhayyim.apps.itonami.health` |
-| `registerEngine.json` | `app.etzhayyim.apps.itonami.registerEngine` |
-| `recordAssembly.json` | `app.etzhayyim.apps.itonami.recordAssembly` |
-| `logTestResult.json` | `app.etzhayyim.apps.itonami.logTestResult` |
-| `logFlightEvent.json` | `app.etzhayyim.apps.itonami.logFlightEvent` |
-| `listEngines.json` | `app.etzhayyim.apps.itonami.listEngines` |
-| `getEngine.json` | `app.etzhayyim.apps.itonami.getEngine` |
+| `health.json` | `com.etzhayyim.apps.itonami.health` |
+| `registerEngine.json` | `com.etzhayyim.apps.itonami.registerEngine` |
+| `recordAssembly.json` | `com.etzhayyim.apps.itonami.recordAssembly` |
+| `logTestResult.json` | `com.etzhayyim.apps.itonami.logTestResult` |
+| `logFlightEvent.json` | `com.etzhayyim.apps.itonami.logFlightEvent` |
+| `listEngines.json` | `com.etzhayyim.apps.itonami.listEngines` |
+| `getEngine.json` | `com.etzhayyim.apps.itonami.getEngine` |
 
 ## SQL Graph Schema
 
@@ -106,9 +106,9 @@ EngineDesign
 - **cross-actor invoke パターン**:
   ```ts
   // UNSPSC commodity spec 取得
-  const spec = await magatama.Invoke("", "app.etzhayyim.apps.openUnispsc.commodity", { code: "25101504" });
+  const spec = await magatama.Invoke("", "com.etzhayyim.apps.openUnispsc.commodity", { code: "25101504" });
   // ISIC supplier 分類
-  const isic = await magatama.Invoke("", "app.etzhayyim.openIsic.classifyEntity", { name: supplierName });
+  const isic = await magatama.Invoke("", "com.etzhayyim.openIsic.classifyEntity", { name: supplierName });
   ```
 
 ## appview
@@ -133,5 +133,5 @@ curl https://it0n4m1x.etzhayyim.com/health
 | `itonami-rw-migrations` | RisingWave migration: `vertex_itonami_{engineDesign,assemblyRecord,testResult,flightEvent}` + edge tables (20260516620000) | done (2026-05-16) |
 | `itonami-unispsc-procurement-item` | ProcurementItem lexicon + vertex table (unspscCode, supplierIsicCode, quantity, unitCostJpy) | done (2026-05-16) |
 | `itonami-digital-twin-stream` | FlightEvent 集計 `view_itonami_engine_health_summary` (plain VIEW — NOW() 禁止制約のため streaming MV ではなく VIEW) | done (2026-05-16) |
-| `itonami-certification-bpmn` | AS9100D 認証フロー BPMN (`etzhayyim-root/00-contracts/bpmn/ai/gftd/itonami/certification.bpmn`) — BPMN-as-actor runtime integration は operational | done (2026-05-16) |
+| `itonami-certification-bpmn` | AS9100D 認証フロー BPMN (`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/itonami/certification.bpmn`) — BPMN-as-actor runtime integration は operational | done (2026-05-16) |
 | `itonami-isic-supplier-registry` | `registerSupplier` lexicon + handler + ISIC コード検証 (downstream cross-actor invoke openIsic.classifyEntity) | done (2026-05-16) |

@@ -162,7 +162,7 @@ python -c "from magatama.cells.kazaori_emergency_declaration import _r0_marker" 
 
 - `/20-actors/kazaori/manifest.jsonld`
 - `/20-actors/kazaori/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/kazaori/` (6 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/kazaori/` (6 Lexicons + README)
 - `/90-docs/adr/2605263200-kazaori-disaster-response-tier-b-actor-r0.md`
 - `/90-docs/adr/2605192315-etzhayyim-transparent-force-authorization.md` — G5 + N1 force-separation
 - `/90-docs/adr/2605263100-mizuho-water-sanitation-tier-b-actor-r0.md` — G5 carve-out coordination

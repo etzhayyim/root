@@ -1,4 +1,4 @@
-# app.etzhayyim.shidemori.* — shidemori (死出守) Lexicons (FINAL gap-closure)
+# com.etzhayyim.shidemori.* — shidemori (死出守) Lexicons (FINAL gap-closure)
 
 **Owner actor**: `did:web:shidemori.etzhayyim.com` (`20-actors/shidemori/`)
 **ADR**: ADR-2605263800 (R0 scaffold; **FINAL gap-closure** of 10-actor 30min-loop wave)

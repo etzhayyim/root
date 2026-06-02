@@ -8,7 +8,7 @@
 | performerType | service |
 | nanoid | sn3k8m2v |
 | primary DID | `did:web:issn.etzhayyim.com` |
-| NSID prefix | `app.etzhayyim.apps.issn.*` |
+| NSID prefix | `com.etzhayyim.apps.issn.*` |
 
 ## What This App Does
 
@@ -30,11 +30,11 @@ ISO 3297 International Standard Serial Number registry。世界中の逐次刊�
 
 | collection | NSID | 内容 |
 |---|---|---|
-| serial | `app.etzhayyim.apps.issn.serial` | Serial master (issn, title, publisher, frequency, language) |
-| linking | `app.etzhayyim.apps.issn.linking` | ISSN-L linking (p-ISSN ↔ e-ISSN) |
-| subject | `app.etzhayyim.apps.issn.subject` | Subject classification |
-| centre | `app.etzhayyim.apps.issn.centre` | National ISSN Centre registry |
-| coverage_report | `app.etzhayyim.apps.issn.coverage_report` | Coverage metrics |
+| serial | `com.etzhayyim.apps.issn.serial` | Serial master (issn, title, publisher, frequency, language) |
+| linking | `com.etzhayyim.apps.issn.linking` | ISSN-L linking (p-ISSN ↔ e-ISSN) |
+| subject | `com.etzhayyim.apps.issn.subject` | Subject classification |
+| centre | `com.etzhayyim.apps.issn.centre` | National ISSN Centre registry |
+| coverage_report | `com.etzhayyim.apps.issn.coverage_report` | Coverage metrics |
 
 ## WIT Capability Exports
 

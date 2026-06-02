@@ -31,7 +31,7 @@ Council RFP 2026-06-19). Landing + testing this core does NOT activate the cell;
 once Council activates, ``super_step`` will call :func:`compute_deadline_result`
 and :func:`to_deadline_record`.
 
-Output shape mirrors Lexicon ``app.etzhayyim.himotoki.responseDeadline``.
+Output shape mirrors Lexicon ``com.etzhayyim.himotoki.responseDeadline``.
 
 WELL-ESTABLISHED STATUTORY RESPONSE WINDOWS (each cited):
   * GDPR / UK GDPR Art.12(3): 1 month, extendable by +2 months for complex /
@@ -365,7 +365,7 @@ def to_deadline_record(
     session_ref: str | None = None,
     encrypted_request_ref: str | None = None,
 ) -> dict:
-    """Build an ``app.etzhayyim.himotoki.responseDeadline``-shaped record.
+    """Build an ``com.etzhayyim.himotoki.responseDeadline``-shaped record.
 
     ``isLegalOpinion`` is asserted ``False`` before return — a G5 schema invariant
     that this function structurally cannot violate.

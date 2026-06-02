@@ -13,7 +13,7 @@ def test_organism_lifecycle_schema_valid():
         data = json.load(f)
 
     assert data["lexicon"] == 1
-    assert data["id"] == "app.etzhayyim.organism.lifecycle"
+    assert data["id"] == "com.etzhayyim.organism.lifecycle"
 
     defs = data["defs"]
     assert "main" in defs

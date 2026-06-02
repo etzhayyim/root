@@ -23,7 +23,7 @@
   {:gate/id "G6"  :gate/name "kotoba-eavt-native"      :gate/rule "factory/order/progress/qc は kotoba Datom; Cypher MATCH / RisingWave / G() builder を canonical にしない"}
   {:gate/id "G7"  :gate/name "tithe-non-fiat"          :gate/rule "決済は USDC Base L2 + ERC-4337 + warifu のみ; TitheRouter 10% auto-split; Stripe/fiat 非前提 (憲法的に非存在)"}
   {:gate/id "G8"  :gate/name "labor-dignity-provenance" :gate/rule "factory 労働 provenance 開示; gig 搾取なし; fulfillment は etzhayyim logistics actor 経由"}
-  {:gate/id "G9"  :gate/name "pii-encrypted-envelope"  :gate/rule "発注/取引履歴 → app.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
+  {:gate/id "G9"  :gate/name "pii-encrypted-envelope"  :gate/rule "発注/取引履歴 → com.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
   {:gate/id "G10" :gate/name "sourcing-legality"       :gate/rule "460 factory data は public/API-ToS 準拠; 価格/在庫の捏造禁止; :representative honesty"}
   {:gate/id "G14" :gate/name "member-principal"        :gate/rule "tsukuru は買主にならない; member が購買 principal、factory に直接対価; 外部 inflow を生まない"}
   {:gate/id "G15" :gate/name "no-server-key"           :gate/rule "member/factory は自鍵で署名; platform private key / card secret 非保持 (ADR-2605231525)"}

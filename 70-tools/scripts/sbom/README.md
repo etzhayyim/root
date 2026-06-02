@@ -13,7 +13,7 @@ artifact row stores the original `cdxJson`, the migration is just
 ```
 python3 cyclonedx_to_kotoba.py <sbom.cdx.json> [out.ingest.json]
 # then POST the body to a running kotoba:
-curl -s -XPOST localhost:8080/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch \
+curl -s -XPOST localhost:8080/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch \
   -H "Authorization: Bearer <jwt>" -H 'Content-Type: application/json' --data @out.ingest.json
 ```
 
@@ -55,7 +55,7 @@ first-class entities — exactly how the RW Phase C table is populated).
 
 ```
 # with a running kotoba serve holding the fleet SBOM:
-curl -s -XPOST localhost:8080/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch \
+curl -s -XPOST localhost:8080/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch \
   -H "Authorization: Bearer <jwt>" -H 'Content-Type: application/json' --data @cve.seed.json
 python3 purl_vuln_match.py <jwt>
 # → VulnMatch entities; query e.g.:

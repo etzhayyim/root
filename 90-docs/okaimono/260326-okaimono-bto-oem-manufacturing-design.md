@@ -65,7 +65,7 @@ okaimono.etzhayyim.com ──Follow──→ tsukuru.etzhayyim.com
 
 ### New Record Kinds
 
-**okaimono domain** (`app.etzhayyim.apps.okaimono.*`):
+**okaimono domain** (`com.etzhayyim.apps.okaimono.*`):
 - `okaimono_production_link` — okaimono order ↔ tsukuru production order mapping
 - `okaimono_production_progress` — customer-facing progress (mirrored from tsukuru)
 - `okaimono_quality_result` — QC results (mirrored from tsukuru)

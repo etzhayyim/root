@@ -137,7 +137,7 @@ Single-turbine floating offshore wind at ≤5 MW per device is in a gap between 
 ## §8 New Lexicons (R1+)
 
 ```
-app.etzhayyim.funamori.{
+com.etzhayyim.funamori.{
   marineParcelAttestation,             # LANDS-marine-parcel + bathymetry + biodiversity baseline
   marineDeviceInstallAttestation,      # per-device: type + capacity + open-hardware-CID
   marineYieldRecord,                   # 15-min intervals Ed25519-signed

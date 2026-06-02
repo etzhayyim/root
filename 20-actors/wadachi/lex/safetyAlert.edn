@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.wadachi.safetyAlert"
+ :id "com.etzhayyim.wadachi.safetyAlert"
  :defs
  {:main
   {:type "record"

@@ -1,4 +1,4 @@
-# `app.etzhayyim.wellBecoming.*` — Well-Becoming Kyu / Dan progression spec
+# `com.etzhayyim.wellBecoming.*` — Well-Becoming Kyu / Dan progression spec
 
 Open spec for the Well-Becoming kyū / dan skill progression system. Tracks
 user-self-asserted skill claims across domains (martial arts, music, craft,
@@ -18,10 +18,10 @@ credentialing authority.
 
 ## NSIDs (planned)
 
-- `app.etzhayyim.wellBecoming.skillClaim` (record) — user-asserted skill at a given rank
-- `app.etzhayyim.wellBecoming.attestation` (record) — peer attestation of someone else's claim
-- `app.etzhayyim.wellBecoming.getRank` — compute current effective rank from claims + attestations
-- `app.etzhayyim.wellBecoming.listClaims` — list a user's claims (paginated)
+- `com.etzhayyim.wellBecoming.skillClaim` (record) — user-asserted skill at a given rank
+- `com.etzhayyim.wellBecoming.attestation` (record) — peer attestation of someone else's claim
+- `com.etzhayyim.wellBecoming.getRank` — compute current effective rank from claims + attestations
+- `com.etzhayyim.wellBecoming.listClaims` — list a user's claims (paginated)
 
 ## Vendor SPLIT note
 

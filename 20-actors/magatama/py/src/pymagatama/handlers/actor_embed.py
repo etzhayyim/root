@@ -111,7 +111,7 @@ def _compose(display_name: str | None, description: str | None, kind: str | None
 
 
 @udf(
-    nsid="app.etzhayyim.actor.embed",
+    nsid="com.etzhayyim.actor.embed",
     io_threads=100,
     input_types=["VARCHAR", "VARCHAR", "VARCHAR", "VARCHAR"],
     result_type="REAL[]",

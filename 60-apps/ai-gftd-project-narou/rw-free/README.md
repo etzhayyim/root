@@ -6,10 +6,10 @@ Reference implementation of the narou (web novel platform) actor following Phase
 
 ### Persistent Collections (PDS Records)
 
-- `app.etzhayyim.narou.novel` — Novel metadata (title, description, genre, tags, chapter count, status)
-- `app.etzhayyim.narou.chapter` — Chapter content (title, content, word_count, status with state machine)
-- `app.etzhayyim.narou.worldSetting` — World/setting definitions (name, description)
-- `app.etzhayyim.narou.character` — Character profiles (name, role, description)
+- `com.etzhayyim.narou.novel` — Novel metadata (title, description, genre, tags, chapter count, status)
+- `com.etzhayyim.narou.chapter` — Chapter content (title, content, word_count, status with state machine)
+- `com.etzhayyim.narou.worldSetting` — World/setting definitions (name, description)
+- `com.etzhayyim.narou.character` — Character profiles (name, role, description)
 
 ### Record Identifiers (DIDs)
 
@@ -158,7 +158,7 @@ if (novelRes.status === "registered") {
 
 - All write operations use `e.write()` via `@etzhayyim/sdk`
 - Read operations use `e.read()` with type casting
-- Collection names are lowercased NSID-style: `app.etzhayyim.narou.<entity>`
+- Collection names are lowercased NSID-style: `com.etzhayyim.narou.<entity>`
 - Error handling: functions return `{status, error}` on failure
 - Pagination: default limit 50, max 100
 - Filtering: client-side post-filter after read (stateless)

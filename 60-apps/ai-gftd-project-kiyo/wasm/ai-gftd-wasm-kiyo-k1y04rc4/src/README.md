@@ -12,7 +12,7 @@ Vendor source NOT carried over — wave-3 follow-up sub-PRs will port each comma
 ## Status
 
 - Scaffold (this PR): CLAUDE.md, magatama.jsonld, package.json, svelte/, wrangler.jsonc copied with sed
-- Lexicons: 13 files migrated to `00-contracts/lexicons/ai/gftd/kiyo/`
+- Lexicons: 13 files migrated to `00-contracts/lexicons/com/etzhayyim/kiyo/`
 - rw-free reference impl: deferred (Option B pattern follows etz #89 / #90)
 - kiyo.etzhayyim.com deploy: NOT yet (operator stage)
 - kiyo.etzhayyim.com (vendor) status: **LIVE** — wait for operator Stage 4 (routing-gateway 301) + 1-week observation before vendor rm

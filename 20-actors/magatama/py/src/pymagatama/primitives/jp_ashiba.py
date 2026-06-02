@@ -30,7 +30,7 @@ SUBSCRIPTION_TIERS = {
 }
 
 DOMAIN_COLLECTIONS = {
-    "app.etzhayyim.apps.jpAshiba.rentalContract": {
+    "com.etzhayyim.apps.jpAshiba.rentalContract": {
         "table": "vertex_jp_ashiba_rental_contract",
         "key": "contractId",
         "columns": {
@@ -43,7 +43,7 @@ DOMAIN_COLLECTIONS = {
             "end_date": "endDate",
         },
     },
-    "app.etzhayyim.apps.jpAshiba.subscriptionPlan": {
+    "com.etzhayyim.apps.jpAshiba.subscriptionPlan": {
         "table": "vertex_jp_ashiba_subscription_plan",
         "key": "subscriptionId",
         "columns": {
@@ -55,7 +55,7 @@ DOMAIN_COLLECTIONS = {
             "cancelled_at": "cancelledAt",
         },
     },
-    "app.etzhayyim.apps.jpAshiba.siteSchedule": {
+    "com.etzhayyim.apps.jpAshiba.siteSchedule": {
         "table": "vertex_jp_ashiba_site_schedule",
         "key": "scheduleId",
         "columns": {
@@ -66,7 +66,7 @@ DOMAIN_COLLECTIONS = {
             "assigned_crew_did": "assignedCrewDid",
         },
     },
-    "app.etzhayyim.apps.jpAshiba.inspectionRecord": {
+    "com.etzhayyim.apps.jpAshiba.inspectionRecord": {
         "table": "vertex_jp_ashiba_inspection",
         "key": "inspectionId",
         "columns": {
@@ -218,19 +218,19 @@ def _write_edge(table: str, edge_key: str, src_vid: str, dst_vid: str, relation:
 
 
 def _write_domain_edges(collection: str, key: str, vertex_id: str, record: dict[str, Any], now: str) -> None:
-    if collection == "app.etzhayyim.apps.jpAshiba.rentalContract" and record.get("customerDid"):
+    if collection == "com.etzhayyim.apps.jpAshiba.rentalContract" and record.get("customerDid"):
         customer = str(record["customerDid"])
         _write_edge("edge_jp_ashiba_customer_contract", f"{customer}:{key}", customer, vertex_id, "rents", record, now)
-    elif collection == "app.etzhayyim.apps.jpAshiba.subscriptionPlan" and record.get("customerDid"):
+    elif collection == "com.etzhayyim.apps.jpAshiba.subscriptionPlan" and record.get("customerDid"):
         customer = str(record["customerDid"])
         _write_edge("edge_jp_ashiba_customer_subscription", f"{customer}:{key}", customer, vertex_id, "subscribes", record, now)
-    elif collection == "app.etzhayyim.apps.jpAshiba.siteSchedule" and record.get("contractId"):
+    elif collection == "com.etzhayyim.apps.jpAshiba.siteSchedule" and record.get("contractId"):
         contract_id = str(record["contractId"])
-        src = _domain_vertex_id("app.etzhayyim.apps.jpAshiba.rentalContract", contract_id)
+        src = _domain_vertex_id("com.etzhayyim.apps.jpAshiba.rentalContract", contract_id)
         _write_edge("edge_jp_ashiba_contract_schedule", f"{contract_id}:{key}", src, vertex_id, "scheduled", record, now)
-    elif collection == "app.etzhayyim.apps.jpAshiba.inspectionRecord" and record.get("contractId"):
+    elif collection == "com.etzhayyim.apps.jpAshiba.inspectionRecord" and record.get("contractId"):
         contract_id = str(record["contractId"])
-        src = _domain_vertex_id("app.etzhayyim.apps.jpAshiba.rentalContract", contract_id)
+        src = _domain_vertex_id("com.etzhayyim.apps.jpAshiba.rentalContract", contract_id)
         _write_edge("edge_jp_ashiba_contract_inspection", f"{contract_id}:{key}", src, vertex_id, "inspected", record, now)
 
 
@@ -310,7 +310,7 @@ def task_jp_ashiba_create_quote(
     deposit_amount = int(total_amount * 0.1)
     now = _now()
     _write_domain_vertex(
-        "app.etzhayyim.apps.jpAshiba.rentalContract",
+        "com.etzhayyim.apps.jpAshiba.rentalContract",
         {
             "contractId": contract_id,
             "customerDid": customerDid,
@@ -334,7 +334,7 @@ def task_jp_ashiba_create_quote(
 def task_jp_ashiba_confirm_rental(contractId: str = "", orgId: str = "", userId: str = "", **_: Any) -> dict[str, Any]:
     org_id, user_id = _ctx_defaults(orgId, userId)
     now = _now()
-    _write_domain_vertex("app.etzhayyim.apps.jpAshiba.rentalContract", {
+    _write_domain_vertex("com.etzhayyim.apps.jpAshiba.rentalContract", {
         "contractId": contractId, "status": "confirmed", "confirmedAt": now,
         "org_id": org_id, "user_id": user_id, "actor_id": user_id, "created_at": now,
     }, rkey=contractId)
@@ -344,7 +344,7 @@ def task_jp_ashiba_confirm_rental(contractId: str = "", orgId: str = "", userId:
 
 def task_jp_ashiba_extend_rental(contractId: str = "", newEndDate: str = "", additionalDays: Any = 0, orgId: str = "", userId: str = "", **_: Any) -> dict[str, Any]:
     org_id, user_id = _ctx_defaults(orgId, userId)
-    _write_domain_vertex("app.etzhayyim.apps.jpAshiba.rentalContract", {
+    _write_domain_vertex("com.etzhayyim.apps.jpAshiba.rentalContract", {
         "contractId": contractId, "status": "inUse", "endDate": newEndDate, "extensionDays": additionalDays,
         "org_id": org_id, "user_id": user_id, "actor_id": user_id, "created_at": _now(),
     }, rkey=contractId)
@@ -354,7 +354,7 @@ def task_jp_ashiba_extend_rental(contractId: str = "", newEndDate: str = "", add
 def task_jp_ashiba_return_rental(contractId: str = "", orgId: str = "", userId: str = "", **_: Any) -> dict[str, Any]:
     org_id, user_id = _ctx_defaults(orgId, userId)
     now = _now()
-    _write_domain_vertex("app.etzhayyim.apps.jpAshiba.rentalContract", {
+    _write_domain_vertex("com.etzhayyim.apps.jpAshiba.rentalContract", {
         "contractId": contractId, "status": "dismantling", "returnRequestedAt": now,
         "org_id": org_id, "user_id": user_id, "actor_id": user_id, "created_at": now,
     }, rkey=contractId)
@@ -370,7 +370,7 @@ def task_jp_ashiba_subscribe(customerDid: str = "", tier: str = "", orgId: str =
     now_dt = _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0)
     renewal = now_dt + _dt.timedelta(days=30)
     subscription_id = _id("sub")
-    _write_domain_vertex("app.etzhayyim.apps.jpAshiba.subscriptionPlan", {
+    _write_domain_vertex("com.etzhayyim.apps.jpAshiba.subscriptionPlan", {
         "subscriptionId": subscription_id, "customerDid": customerDid, "tier": tier,
         "monthlyFee": tier_def["monthlyFee"], "status": "active", "renewalDate": renewal.isoformat().replace("+00:00", "Z"),
         "org_id": org_id, "user_id": user_id, "actor_id": user_id, "created_at": now_dt.isoformat().replace("+00:00", "Z"),
@@ -384,7 +384,7 @@ def task_jp_ashiba_change_tier(subscriptionId: str = "", newTier: str = "", orgI
     if not tier_def:
         return {"error": "invalid_tier"}
     org_id, user_id = _ctx_defaults(orgId, userId)
-    _write_domain_vertex("app.etzhayyim.apps.jpAshiba.subscriptionPlan", {
+    _write_domain_vertex("com.etzhayyim.apps.jpAshiba.subscriptionPlan", {
         "subscriptionId": subscriptionId, "tier": newTier, "monthlyFee": tier_def["monthlyFee"],
         "changedAt": _now(), "org_id": org_id, "user_id": user_id, "actor_id": user_id, "created_at": _now(),
     }, rkey=subscriptionId)
@@ -394,7 +394,7 @@ def task_jp_ashiba_change_tier(subscriptionId: str = "", newTier: str = "", orgI
 def task_jp_ashiba_cancel_subscription(subscriptionId: str = "", reason: str = "", orgId: str = "", userId: str = "", **_: Any) -> dict[str, Any]:
     org_id, user_id = _ctx_defaults(orgId, userId)
     now = _now()
-    _write_domain_vertex("app.etzhayyim.apps.jpAshiba.subscriptionPlan", {
+    _write_domain_vertex("com.etzhayyim.apps.jpAshiba.subscriptionPlan", {
         "subscriptionId": subscriptionId, "status": "cancelled", "cancellationReason": reason,
         "cancelledAt": now, "org_id": org_id, "user_id": user_id, "actor_id": user_id, "created_at": now,
     }, rkey=subscriptionId)
@@ -419,7 +419,7 @@ def task_jp_ashiba_get_usage_summary(subscriptionId: str = "", **_: Any) -> dict
 def task_jp_ashiba_schedule_delivery(contractId: str = "", taskType: str = "", scheduledDate: str = "", assignedCrewDid: str = "", orgId: str = "", userId: str = "", **_: Any) -> dict[str, Any]:
     org_id, user_id = _ctx_defaults(orgId, userId)
     schedule_id = _id("sch")
-    _write_domain_vertex("app.etzhayyim.apps.jpAshiba.siteSchedule", {
+    _write_domain_vertex("com.etzhayyim.apps.jpAshiba.siteSchedule", {
         "scheduleId": schedule_id, "contractId": contractId, "taskType": taskType, "scheduledDate": scheduledDate,
         "assignedCrewDid": assignedCrewDid, "status": "scheduled", "org_id": org_id, "user_id": user_id,
         "actor_id": "actor:scheduler", "created_at": _now(),
@@ -431,7 +431,7 @@ def task_jp_ashiba_schedule_delivery(contractId: str = "", taskType: str = "", s
 def task_jp_ashiba_record_inspection(contractId: str = "", inspectionType: str = "", checklist: Any = None, overallResult: str = "", defects: Any = None, orgId: str = "", userId: str = "", **_: Any) -> dict[str, Any]:
     org_id, user_id = _ctx_defaults(orgId, userId)
     inspection_id = _id("ins")
-    _write_domain_vertex("app.etzhayyim.apps.jpAshiba.inspectionRecord", {
+    _write_domain_vertex("com.etzhayyim.apps.jpAshiba.inspectionRecord", {
         "inspectionId": inspection_id, "contractId": contractId, "inspectorDid": user_id,
         "inspectionType": inspectionType, "checklist": checklist or {}, "overallResult": overallResult,
         "defects": defects if isinstance(defects, list) else [], "inspectedAt": _now(),
@@ -445,7 +445,7 @@ def task_jp_ashiba_record_inspection(contractId: str = "", inspectionType: str =
 def task_jp_ashiba_report_defect(itemId: str = "", severity: str = "", description: str = "", photoCid: str = "", orgId: str = "", userId: str = "", **_: Any) -> dict[str, Any]:
     org_id, user_id = _ctx_defaults(orgId, userId)
     inspection_id = _id("def")
-    _write_domain_vertex("app.etzhayyim.apps.jpAshiba.inspectionRecord", {
+    _write_domain_vertex("com.etzhayyim.apps.jpAshiba.inspectionRecord", {
         "inspectionId": inspection_id, "itemId": itemId, "severity": severity, "inspectionType": "defect",
         "defects": [{"part": itemId, "severity": severity, "description": description, "photo_cid": photoCid}],
         "overallResult": "fail" if severity == "critical" else "conditionalPass",
@@ -458,20 +458,20 @@ def task_jp_ashiba_report_defect(itemId: str = "", severity: str = "", descripti
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.app.etzhayyim.apps.jpAshiba.cancelSubscription": task_jp_ashiba_cancel_subscription,
-        "xrpc.app.etzhayyim.apps.jpAshiba.changeTier": task_jp_ashiba_change_tier,
-        "xrpc.app.etzhayyim.apps.jpAshiba.checkAvailability": task_jp_ashiba_check_availability,
-        "xrpc.app.etzhayyim.apps.jpAshiba.confirmRental": task_jp_ashiba_confirm_rental,
-        "xrpc.app.etzhayyim.apps.jpAshiba.createQuote": task_jp_ashiba_create_quote,
-        "xrpc.app.etzhayyim.apps.jpAshiba.extendRental": task_jp_ashiba_extend_rental,
-        "xrpc.app.etzhayyim.apps.jpAshiba.getItem": task_jp_ashiba_get_item,
-        "xrpc.app.etzhayyim.apps.jpAshiba.getUsageSummary": task_jp_ashiba_get_usage_summary,
-        "xrpc.app.etzhayyim.apps.jpAshiba.listCatalog": task_jp_ashiba_list_catalog,
-        "xrpc.app.etzhayyim.apps.jpAshiba.recordInspection": task_jp_ashiba_record_inspection,
-        "xrpc.app.etzhayyim.apps.jpAshiba.reportDefect": task_jp_ashiba_report_defect,
-        "xrpc.app.etzhayyim.apps.jpAshiba.returnRental": task_jp_ashiba_return_rental,
-        "xrpc.app.etzhayyim.apps.jpAshiba.scheduleDelivery": task_jp_ashiba_schedule_delivery,
-        "xrpc.app.etzhayyim.apps.jpAshiba.subscribe": task_jp_ashiba_subscribe,
+        "xrpc.com.etzhayyim.apps.jpAshiba.cancelSubscription": task_jp_ashiba_cancel_subscription,
+        "xrpc.com.etzhayyim.apps.jpAshiba.changeTier": task_jp_ashiba_change_tier,
+        "xrpc.com.etzhayyim.apps.jpAshiba.checkAvailability": task_jp_ashiba_check_availability,
+        "xrpc.com.etzhayyim.apps.jpAshiba.confirmRental": task_jp_ashiba_confirm_rental,
+        "xrpc.com.etzhayyim.apps.jpAshiba.createQuote": task_jp_ashiba_create_quote,
+        "xrpc.com.etzhayyim.apps.jpAshiba.extendRental": task_jp_ashiba_extend_rental,
+        "xrpc.com.etzhayyim.apps.jpAshiba.getItem": task_jp_ashiba_get_item,
+        "xrpc.com.etzhayyim.apps.jpAshiba.getUsageSummary": task_jp_ashiba_get_usage_summary,
+        "xrpc.com.etzhayyim.apps.jpAshiba.listCatalog": task_jp_ashiba_list_catalog,
+        "xrpc.com.etzhayyim.apps.jpAshiba.recordInspection": task_jp_ashiba_record_inspection,
+        "xrpc.com.etzhayyim.apps.jpAshiba.reportDefect": task_jp_ashiba_report_defect,
+        "xrpc.com.etzhayyim.apps.jpAshiba.returnRental": task_jp_ashiba_return_rental,
+        "xrpc.com.etzhayyim.apps.jpAshiba.scheduleDelivery": task_jp_ashiba_schedule_delivery,
+        "xrpc.com.etzhayyim.apps.jpAshiba.subscribe": task_jp_ashiba_subscribe,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

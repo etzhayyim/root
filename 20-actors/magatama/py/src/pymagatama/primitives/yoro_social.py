@@ -24,7 +24,7 @@ DEFAULT_REPO = "did:web:yoro.etzhayyim.com"
 DEFAULT_COLLECTION = "app.bsky.feed.post"
 DEFAULT_PREFIX = "Murakumo actor pulse"
 PROFILE_COLLECTION = "app.bsky.actor.profile"
-TRANSLATION_LINK_COLLECTION = "app.etzhayyim.apps.media_gamers.record.translationLink"
+TRANSLATION_LINK_COLLECTION = "com.etzhayyim.apps.media_gamers.record.translationLink"
 DEFAULT_TRANSLATION_TARGET_LANGS = (
     "en,ja,zh-Hans,ko,es,fr,de,pt,hi,bn,ta,te,mr,ur,gu,kn,ml,pa,ar,fa,he,ku,ckb,zgh,kab,ps,sd,am,ti,id,vi,th,it,nl,tr,pl,uk"
 )
@@ -624,7 +624,7 @@ def build_diet_speech_social_post_record(
             "langs": ["ja"],
             "facets": facets,
             "tags": tags,
-            "source": {"$type": "app.etzhayyim.apps.fukkou.dietSpeechRef", **source},
+            "source": {"$type": "com.etzhayyim.apps.fukkou.dietSpeechRef", **source},
         },
     )
 
@@ -865,7 +865,7 @@ def _emit_actor_quality_activity_event(
             if key in {"ok", "dryRun", "profileChanged", "seedPostCreated", "qualityScore", "postsCount", "reason"}
         }
     row = {
-        "vertex_id": f"at://did:web:yoro.etzhayyim.com/app.etzhayyim.bpmn.activityEvent/{rkey}",
+        "vertex_id": f"at://did:web:yoro.etzhayyim.com/com.etzhayyim.bpmn.activityEvent/{rkey}",
         "owner_did": "did:web:yoro.etzhayyim.com",
         "rkey": rkey,
         "repo": "did:web:yoro.etzhayyim.com",
@@ -1280,7 +1280,7 @@ async def task_yoro_social_translate_post(
             "translationOf": postUri,
             "sourceLang": detected_source_lang,
             "source": {
-                "$type": "app.etzhayyim.apps.yoro.translationSource",
+                "$type": "com.etzhayyim.apps.yoro.translationSource",
                 "sourceUri": postUri,
                 "sourceLang": detected_source_lang,
                 "model": translated.get("model") or "",

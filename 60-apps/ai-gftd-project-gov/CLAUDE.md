@@ -34,7 +34,7 @@
 
 ## Lexicon Collections
 
-`app.etzhayyim.apps.gov.{healthcare_consult,vaccination,education_plan,life_stage_plan,credit_usage}`
+`com.etzhayyim.apps.gov.{healthcare_consult,vaccination,education_plan,life_stage_plan,credit_usage}`
 
 ## WIT
 

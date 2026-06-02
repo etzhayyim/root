@@ -2,7 +2,7 @@
 
 Stage **K1** of ADR-2605190900 (Knowledge Graph as Lexicon).
 
-Projects the etzhayyim/root SSoTs into `app.etzhayyim.kg.{node,edge}` records as plain JSON files. A later
+Projects the etzhayyim/root SSoTs into `com.etzhayyim.kg.{node,edge}` records as plain JSON files. A later
 stage will write these records to the PDS / MST.
 
 ## What it reads

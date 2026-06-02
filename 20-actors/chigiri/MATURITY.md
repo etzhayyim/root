@@ -16,7 +16,7 @@
 |---|---|---|---|
 | 1 | ADR-2605262700 (master) + 2605262800 (legal corpus) | ✅ | init |
 | 2 | manifest.jsonld + README + CLAUDE.md | ✅ | init |
-| 3 | 9 Lexicon skeletons (`app.etzhayyim.chigiri.*`) | ✅ | init |
+| 3 | 9 Lexicon skeletons (`com.etzhayyim.chigiri.*`) | ✅ | init |
 | 4 | 12 cell paths reserved (`magatama.cells.chigiri_*`, import時 RuntimeError) | ✅ | init |
 | 5 | **legal-aid REFERRAL registry seed (worldwide, unverified-seed)** | ✅ | **iter-1** |
 | 6 | registry 更新 (root CLAUDE.md / adr README / deps.toml) | 未 | — |
@@ -36,7 +36,7 @@
 **上げた項目: #5 + #15 — worldwide legal-aid REFERRAL registry seed。**
 `20-actors/chigiri/registry/legal-aid.seed.json` を新設(actor 初の registry file)。
 sibling の `toritsugi/registry/procedures.seed.json` と **完全に同形**の JSON shape:
-top-level `$schema=app.etzhayyim.chigiri.legalAidReferral` + R0 SEED の `_comment`
+top-level `$schema=com.etzhayyim.chigiri.legalAidReferral` + R0 SEED の `_comment`
 (unverified-seed semantics + G8/G14 caveat + UPL/zero-compensation/Public-Fund 境界) +
 `freshnessWindowDays=180` + `referrals[]`(id フィールドは `referralId`)。
 
@@ -74,7 +74,7 @@ compensation/Public-Fund-routed 含有を assert(全 pass)。
   US-federal per-district clinic 偏在 / JP 自治体無料相談[national URL なし] /
   FR point-justice locator path drift / EU ECC-Net charter 根拠の間接性 /
   Ontario FLIC example-only)— notes に理由を明記。
-- `app.etzhayyim.chigiri.legalAidReferral` の **Lexicon schema は未作成**($schema は
+- `com.etzhayyim.chigiri.legalAidReferral` の **Lexicon schema は未作成**($schema は
   論理名のみ。実 Lexicon JSON は #3 の 9 skeleton には未含)。
 - #6(root CLAUDE.md / adr README / deps.toml への registry 登録)・#10(referral 精査 +
   VERIFICATION ワークフロー)・#7-#9・#12-#14 は未着手。
@@ -84,7 +84,7 @@ compensation/Public-Fund-routed 含有を assert(全 pass)。
 **上げた項目: #8(部分) — fail-closed registry invariants test 追加。** `70-tools/scripts/audit/test_chigiri_registry_seed.py` を新設(R0-safe: test-only・network-free・cell 非実行)。7 invariants を pin: (1) JSON valid + `referrals` 非空, (2) `referralId` unique(重複 fail-closed), (3) 全件 `verificationStatus=unverified-seed`(G14), (4) 全件 provenance https URL + lastVerified, (5) jurisdiction 存在 + >=5 distinct(worldwide coverage, JP-only 退行 guard), (6) per-entry notes 非空 + registry-wide UPL/referral-only/no-advice/zero-compensation 境界 regime 参照, (7) top-level `freshnessWindowDays` integer。`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest ... -q` → **7 passed**(green)。注: 既存環境の langsmith/pydantic plugin-autoload 非互換は本 test と無関係(test に外部依存なし)。
 
 ### iter-3 (2026-06-02)
-**Lexicon reconciliation — CREATED `00-contracts/lexicons/app/etzhayyim/chigiri/legalAidReferral.json`** (`app.etzhayyim.chigiri.legalAidReferral`, record/key=tid) typing the legal-aid REFERRAL registry seed; all 13 seed fields (referralId/title/jurisdiction/bloc/authority/channel/legalBasis/language/provenance/confidence/lastVerified/verificationStatus/notes) typed, referralId as record-key concept; UPL(G14)/zero-compensation(G15)/Public-Fund-routed(G8)/informational-mirror boundaries encoded in description, NO consideration property representable. Validators green: `lexicon-primary-types` OK · `nsid-lexicon-exists` OK · `no-legal-aid-consideration` OK (exit 0, CRITICAL invariant intact). `lexicon-const-name-collision-check` fails on a PRE-EXISTING unrelated collision (`app.etzhayyim.apps.ipaddress.analyzeIp`) — reproduces identically with this file absent; NOT caused by this change. (working-tree edits only, no git add/commit.)
+**Lexicon reconciliation — CREATED `00-contracts/lexicons/com/etzhayyim/chigiri/legalAidReferral.json`** (`com.etzhayyim.chigiri.legalAidReferral`, record/key=tid) typing the legal-aid REFERRAL registry seed; all 13 seed fields (referralId/title/jurisdiction/bloc/authority/channel/legalBasis/language/provenance/confidence/lastVerified/verificationStatus/notes) typed, referralId as record-key concept; UPL(G14)/zero-compensation(G15)/Public-Fund-routed(G8)/informational-mirror boundaries encoded in description, NO consideration property representable. Validators green: `lexicon-primary-types` OK · `nsid-lexicon-exists` OK · `no-legal-aid-consideration` OK (exit 0, CRITICAL invariant intact). `lexicon-const-name-collision-check` fails on a PRE-EXISTING unrelated collision (`com.etzhayyim.apps.ipaddress.analyzeIp`) — reproduces identically with this file absent; NOT caused by this change. (working-tree edits only, no git add/commit.)
 
 ### iter-4 (2026-06-02)
 **Long-tail worldwide deepening of #5/#15 — merged 26 new legal-aid REFERRAL entries** into `registry/legal-aid.seed.json` (all 26 net-new, 0 dedup drops), across 4 new buckets: **EU-REST (8** — swe/nld/irl/ita/esp/fin/nor/bel), **asia-rest (7** — phl/hkg/twn/idn/mys/tha/vnm), **AMERICAS-REST (5** — arg/chl/col/per/can-Quebec), **MEA-OCEANIA (8** — zaf/ken/nga/nzl/isr/are/egy). Normalized to the actor's exact schema (id→referralId, bucket→bloc, channel/authority/legalBasis/provenance/notes preserved, ISO language code added, channel_note folded into notes); all 26 ship verificationStatus=unverified-seed + lastVerified=2026-06-02T00:00:00Z + https provenance + mandatory UPL boundary caveat in notes. Registry now **55 entries / 36 distinct jurisdictions** (was 29 / 10). Invariants test threshold raised from `>= 5` to `>= 12` distinct jurisdictions (actual 36 ≫ 12) — `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest 70-tools/scripts/audit/test_chigiri_registry_seed.py -q` → **7 passed** (green). One source provenance (Colombia secretariasenado.gov.co) was http upstream → normalized to https same-host/path (noted in entry). G8 honest coverage: zero fabricated entries. (working-tree edits only, no git add/commit.)

@@ -14,7 +14,7 @@ authoritative_for:
   - new Tier-B actor `akashi` (public ad-disclosure transparency graph)
   - kotoba EAVT schema for platform / advertiser / creative / disclosure / targeting-summary / spend-range / impression-range / landing-page / snapshot
   - boundary between akashi (public ad disclosure) and malak (confidential cybercrime intelligence)
-  - `app.etzhayyim.akashi.*` Lexicon namespace
+  - `com.etzhayyim.akashi.*` Lexicon namespace
 depends_on:
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605312345-kotoba-datom-first-class-canonical-state
@@ -65,7 +65,7 @@ been legally required to publish.
 # Decision
 
 Create **`akashi`** (証), DID `did:web:akashi.etzhayyim.com`, namespace
-`app.etzhayyim.akashi.*`, as a **Tier-B kotoba-native public ad-disclosure
+`com.etzhayyim.akashi.*`, as a **Tier-B kotoba-native public ad-disclosure
 actor** in **R0 scaffold**.
 
 akashi is the advertising-disclosure sibling of danjo:
@@ -246,7 +246,7 @@ Delivered artifacts:
 
 - actor manifest/README plus coverage and maturity ledgers under
   `20-actors/akashi/`
-- ten `app.etzhayyim.akashi.*` Lexicon records
+- ten `com.etzhayyim.akashi.*` Lexicon records
 - source catalog and source-policy review registry
 - source-policy approval transaction schema with a fixture-only example and
   rollback-to-disabled requirement

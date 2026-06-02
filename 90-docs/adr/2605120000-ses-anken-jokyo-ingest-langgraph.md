@@ -14,7 +14,7 @@ priority_note: "SES (システムエンジニアリングサービス) 案件・
 authoritative_for:
   - SES 案件・状況 ingest pipeline の LangGraph actor 定義
   - vertex_ses_* schema (案件 / 状況 / クライアント / エンジニア / run)
-  - 6 NSID lexicon (app.etzhayyim.apps.ses.{ingestAnken,updateJokyo,getAnken,listAnken,listJokyo,coverage})
+  - 6 NSID lexicon (com.etzhayyim.apps.ses.{ingestAnken,updateJokyo,getAnken,listAnken,listJokyo,coverage})
   - email → 案件 自動抽出 (LLM structured output)
   - 状況遷移モデル (提案中→選考中→契約→稼働中→終了)
 depends_on:
@@ -52,7 +52,7 @@ SES（システムエンジニアリングサービス）の **案件** (クラ�
 - T3 actor `ses.etzhayyim.com` の CF Worker edge facade 定義
 - LangGraph StateGraph 6 node (`parse_source` → `classify_anken` → `extract_details` → `update_jokyo` → `persist` → `emit_audit`)
 - RisingWave schema: 5 vertex + 2 edge + 2 MV
-- 6 NSID lexicon (`app.etzhayyim.apps.ses.*`)
+- 6 NSID lexicon (`com.etzhayyim.apps.ses.*`)
 - 状況遷移モデルと forbidden 遷移の定義
 - Pydantic v2 state contract (ADR-2605080200 準拠)
 
@@ -291,12 +291,12 @@ mv_ses_anken_active
 
 | NSID | kind | 用途 |
 |---|---|---|
-| `app.etzhayyim.apps.ses.ingestAnken` | procedure | email 本文 or raw_text を投入 → run_id を返す |
-| `app.etzhayyim.apps.ses.updateJokyo` | procedure | 既存案件の状況を手動更新 |
-| `app.etzhayyim.apps.ses.getAnken` | query | anken_id → 案件詳細 + 状況ログ |
-| `app.etzhayyim.apps.ses.listAnken` | query | actor scope の案件一覧 (status filter 付き) |
-| `app.etzhayyim.apps.ses.listJokyo` | query | anken_id の状況遷移ログ全件 |
-| `app.etzhayyim.apps.ses.coverage` | query | health snapshot (案件数 / 状況別集計 / 直近 24h delta) |
+| `com.etzhayyim.apps.ses.ingestAnken` | procedure | email 本文 or raw_text を投入 → run_id を返す |
+| `com.etzhayyim.apps.ses.updateJokyo` | procedure | 既存案件の状況を手動更新 |
+| `com.etzhayyim.apps.ses.getAnken` | query | anken_id → 案件詳細 + 状況ログ |
+| `com.etzhayyim.apps.ses.listAnken` | query | actor scope の案件一覧 (status filter 付き) |
+| `com.etzhayyim.apps.ses.listJokyo` | query | anken_id の状況遷移ログ全件 |
+| `com.etzhayyim.apps.ses.coverage` | query | health snapshot (案件数 / 状況別集計 / 直近 24h delta) |
 
 ### CF Worker scaffold
 
@@ -366,7 +366,7 @@ Helm release (legacy): `50-infra/vultr/mitama-ses-pool/` (superseded by standalo
 |---|---|
 | CF Worker で asyncpg / SQLAlchemy を直接 import | LangGraph Server (mitama-ses-pool) 経由のみ |
 | `env.HYPERDRIVE` binding を wrangler.jsonc に追加 | ADR-2605111200 — Worker は RW 接続なし |
-| `sdk.pds.createRecord` / `sdk.pds.dispatch` で `app.etzhayyim.apps.ses.*` 書込 | asyncpg INSERT のみ (non-federable) |
+| `sdk.pds.createRecord` / `sdk.pds.dispatch` で `com.etzhayyim.apps.ses.*` 書込 | asyncpg INSERT のみ (non-federable) |
 | LLM model 名ハードコード | `resolveModelId()` / `MURAKUMO_DEFAULT_MODEL` |
 | 状況の上書き (UPDATE) | append-only INSERT のみ (delete-then-insert も禁止) |
 | `jokyo` に float 型フィールドを使う | AT Protocol Lexicon 制約 — 単価は `integer` (円単位) |

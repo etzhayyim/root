@@ -49,14 +49,14 @@ graph schema. EID and ICCID are quasi-PII (device-bound) and are stored sha256: 
 
 | BPMN process ID | NSID | Standard |
 |---|---|---|
-| `telecom_publish_product_offering` | `app.etzhayyim.apps.telecom.publishProductOffering` | TMF620 |
-| `telecom_submit_product_order` | `app.etzhayyim.apps.telecom.submitProductOrder` | TMF622 |
-| `telecom_record_product_inventory_item` | `app.etzhayyim.apps.telecom.recordProductInventoryItem` | TMF637 |
-| `telecom_submit_service_order` | `app.etzhayyim.apps.telecom.submitServiceOrder` | TMF641 |
-| `telecom_activate_service_instance` | `app.etzhayyim.apps.telecom.activateServiceInstance` | TMF640 |
-| `telecom_record_service_inventory_item` | `app.etzhayyim.apps.telecom.recordServiceInventoryItem` | TMF638 |
-| `telecom_register_customer_account` | `app.etzhayyim.apps.telecom.registerCustomerAccount` | TMF666 |
-| `telecom_issue_customer_bill` | `app.etzhayyim.apps.telecom.issueCustomerBill` | TMF678 |
+| `telecom_publish_product_offering` | `com.etzhayyim.apps.telecom.publishProductOffering` | TMF620 |
+| `telecom_submit_product_order` | `com.etzhayyim.apps.telecom.submitProductOrder` | TMF622 |
+| `telecom_record_product_inventory_item` | `com.etzhayyim.apps.telecom.recordProductInventoryItem` | TMF637 |
+| `telecom_submit_service_order` | `com.etzhayyim.apps.telecom.submitServiceOrder` | TMF641 |
+| `telecom_activate_service_instance` | `com.etzhayyim.apps.telecom.activateServiceInstance` | TMF640 |
+| `telecom_record_service_inventory_item` | `com.etzhayyim.apps.telecom.recordServiceInventoryItem` | TMF638 |
+| `telecom_register_customer_account` | `com.etzhayyim.apps.telecom.registerCustomerAccount` | TMF666 |
+| `telecom_issue_customer_bill` | `com.etzhayyim.apps.telecom.issueCustomerBill` | TMF678 |
 
 Graph schema (`20260427220000_vertex_telecom_tmf.ts`): 8 vertex tables + 3 edge tables + 6 MVs.
 PII discipline: `partyName`/`partyContact`/`partyTaxId`/`billingAddress` described as sha256: hashed
@@ -70,14 +70,14 @@ pyzeebe primitive: `pymagatama.primitives.telecom_tmf` (8 task handlers).
 
 | BPMN process ID | NSID | SGP.22 operation |
 |---|---|---|
-| `telecom_provision_euicc` | `app.etzhayyim.apps.telecom.provisionEuicc` | EID registration |
-| `telecom_download_esim_profile` | `app.etzhayyim.apps.telecom.downloadEsimProfile` | SM-DP+ profile download |
-| `telecom_enable_esim_profile` | `app.etzhayyim.apps.telecom.enableEsimProfile` | Enable profile |
-| `telecom_disable_esim_profile` | `app.etzhayyim.apps.telecom.disableEsimProfile` | Disable profile |
-| `telecom_delete_esim_profile` | `app.etzhayyim.apps.telecom.deleteEsimProfile` | Delete profile |
-| `telecom_register_smdp_event` | `app.etzhayyim.apps.telecom.registerSmdpEvent` | SM-DS event registration |
-| `telecom_audit_euicc_state` | `app.etzhayyim.apps.telecom.auditEuiccState` | eUICC state audit (timer R/PT4H) |
-| `telecom_transfer_esim_ownership` | `app.etzhayyim.apps.telecom.transferEsimOwnership` | MNO-to-MNO porting (SGP.22 Annex H) |
+| `telecom_provision_euicc` | `com.etzhayyim.apps.telecom.provisionEuicc` | EID registration |
+| `telecom_download_esim_profile` | `com.etzhayyim.apps.telecom.downloadEsimProfile` | SM-DP+ profile download |
+| `telecom_enable_esim_profile` | `com.etzhayyim.apps.telecom.enableEsimProfile` | Enable profile |
+| `telecom_disable_esim_profile` | `com.etzhayyim.apps.telecom.disableEsimProfile` | Disable profile |
+| `telecom_delete_esim_profile` | `com.etzhayyim.apps.telecom.deleteEsimProfile` | Delete profile |
+| `telecom_register_smdp_event` | `com.etzhayyim.apps.telecom.registerSmdpEvent` | SM-DS event registration |
+| `telecom_audit_euicc_state` | `com.etzhayyim.apps.telecom.auditEuiccState` | eUICC state audit (timer R/PT4H) |
+| `telecom_transfer_esim_ownership` | `com.etzhayyim.apps.telecom.transferEsimOwnership` | MNO-to-MNO porting (SGP.22 Annex H) |
 
 Graph schema (`20260427230000_vertex_telecom_esim.ts`): 6 vertex tables + 2 edge tables + 3 MVs.
 PII discipline: EID stored as `sha256:` hashed (device-bound quasi-PII); ICCID stored as

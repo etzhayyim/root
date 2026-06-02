@@ -13,6 +13,6 @@ SELECT
   COALESCE(cut_id, '') AS cut_id,
   COUNT(*)::BIGINT AS open_cnt
 FROM vertex_animeka
-WHERE collection = 'ai.gftd.apps.animeka.retake'
+WHERE collection = 'com.etzhayyim.apps.animeka.retake'
   AND COALESCE(status, 'open') = 'open'
 GROUP BY 1, 2

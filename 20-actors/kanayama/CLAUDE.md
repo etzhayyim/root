@@ -67,18 +67,18 @@ See `ADR-2605252400` §4 for definitions. Key enforcement:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.kanayama`
+**App lexicon root**: `com.etzhayyim.kanayama`
 
 **Records (8 types, R0 stubs)**:
 
-1. `app.etzhayyim.kanayama.intakeRecord` — L1 UBC bale weighing + QA
-2. `app.etzhayyim.kanayama.decoatingAttestation` — L2 de-coating + shred + sort
-3. `app.etzhayyim.kanayama.meltingAttestation` — L3 twin-chamber melt + alloy
-4. `app.etzhayyim.kanayama.dcCastingAttestation` — L4 DC slab cast + homogenization
-5. `app.etzhayyim.kanayama.rollingAttestation` — L5a hot rolling pass log
-6. `app.etzhayyim.kanayama.coilQualificationRecord` — L5b final coil QA
-7. `app.etzhayyim.kanayama.airEmissionsAuditRecord` — cross-cutting stack monitoring
-8. `app.etzhayyim.kanayama.silenRecyclingReview` — Council 5-of-7 Safe attestation
+1. `com.etzhayyim.kanayama.intakeRecord` — L1 UBC bale weighing + QA
+2. `com.etzhayyim.kanayama.decoatingAttestation` — L2 de-coating + shred + sort
+3. `com.etzhayyim.kanayama.meltingAttestation` — L3 twin-chamber melt + alloy
+4. `com.etzhayyim.kanayama.dcCastingAttestation` — L4 DC slab cast + homogenization
+5. `com.etzhayyim.kanayama.rollingAttestation` — L5a hot rolling pass log
+6. `com.etzhayyim.kanayama.coilQualificationRecord` — L5b final coil QA
+7. `com.etzhayyim.kanayama.airEmissionsAuditRecord` — cross-cutting stack monitoring
+8. `com.etzhayyim.kanayama.silenRecyclingReview` — Council 5-of-7 Safe attestation
 
 **Deferred to R1+**: Full schema definitions.
 

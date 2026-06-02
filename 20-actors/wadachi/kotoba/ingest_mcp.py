@@ -8,7 +8,7 @@ operator AT-session JWT (no-server-key posture, G14). --dry-run parses + counts
 datoms only (no writes, no LLM; G8 untouched).
 
 Usage:
-    python3 ingest_mcp.py [--url http://127.0.0.1:8077] [--graph app.etzhayyim.wadachi] [--dry-run]
+    python3 ingest_mcp.py [--url http://127.0.0.1:8077] [--graph com.etzhayyim.wadachi] [--dry-run]
 """
 from __future__ import annotations
 
@@ -80,7 +80,7 @@ def _top_level_entities(s: str):
 def main() -> int:
     parser = argparse.ArgumentParser(description="Ingest wadachi seed datoms to kotoba")
     parser.add_argument("--url", default="http://127.0.0.1:8077", help="Kotoba node URL")
-    parser.add_argument("--graph", default="app.etzhayyim.wadachi", help="Graph name")
+    parser.add_argument("--graph", default="com.etzhayyim.wadachi", help="Graph name")
     parser.add_argument("--dry-run", action="store_true", help="Parse only, no writes")
     args = parser.parse_args()
 

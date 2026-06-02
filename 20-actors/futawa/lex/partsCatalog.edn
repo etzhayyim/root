@@ -1,7 +1,7 @@
-;; app.etzhayyim.futawa.partsCatalog — lexicon (EDN form)
+;; com.etzhayyim.futawa.partsCatalog — lexicon (EDN form)
 ;; G12 right-to-repair forward-publishing companion to hodoki partsHarvestCatalog at EOL
 {:lexicon 1
- :id "app.etzhayyim.futawa.partsCatalog"
+ :id "com.etzhayyim.futawa.partsCatalog"
  :defs
  {:main
   {:type "record"

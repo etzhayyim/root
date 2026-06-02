@@ -50,7 +50,7 @@ def _jsonable(v: Any) -> Any:
 
 
 def _vid(kind: str, key: str) -> str:
-    return f"at://{APP_DID}/app.etzhayyim.apps.businessManager.{kind}/{key}"
+    return f"at://{APP_DID}/com.etzhayyim.apps.businessManager.{kind}/{key}"
 
 
 def _rows(cur: Any) -> list[dict[str, Any]]:
@@ -359,18 +359,18 @@ def task_business_manager_coverage_stats(**_: Any) -> dict[str, Any]:
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.app.etzhayyim.apps.businessManager.allocateBudget": task_business_manager_allocate_budget,
-        "xrpc.app.etzhayyim.apps.businessManager.approvePurchaseOrder": task_business_manager_approve_purchase_order,
-        "xrpc.app.etzhayyim.apps.businessManager.coverageStats": task_business_manager_coverage_stats,
-        "xrpc.app.etzhayyim.apps.businessManager.createInvoice": task_business_manager_create_invoice,
-        "xrpc.app.etzhayyim.apps.businessManager.createJournalEntry": task_business_manager_create_journal_entry,
-        "xrpc.app.etzhayyim.apps.businessManager.createPurchaseOrder": task_business_manager_create_purchase_order,
-        "xrpc.app.etzhayyim.apps.businessManager.describe": task_business_manager_describe,
-        "xrpc.app.etzhayyim.apps.businessManager.echo": task_business_manager_echo,
-        "xrpc.app.etzhayyim.apps.businessManager.health": task_business_manager_health,
-        "xrpc.app.etzhayyim.apps.businessManager.recordPayment": task_business_manager_record_payment,
-        "xrpc.app.etzhayyim.apps.businessManager.registerEmployee": task_business_manager_register_employee,
-        "xrpc.app.etzhayyim.apps.businessManager.wave": task_business_manager_wave,
+        "xrpc.com.etzhayyim.apps.businessManager.allocateBudget": task_business_manager_allocate_budget,
+        "xrpc.com.etzhayyim.apps.businessManager.approvePurchaseOrder": task_business_manager_approve_purchase_order,
+        "xrpc.com.etzhayyim.apps.businessManager.coverageStats": task_business_manager_coverage_stats,
+        "xrpc.com.etzhayyim.apps.businessManager.createInvoice": task_business_manager_create_invoice,
+        "xrpc.com.etzhayyim.apps.businessManager.createJournalEntry": task_business_manager_create_journal_entry,
+        "xrpc.com.etzhayyim.apps.businessManager.createPurchaseOrder": task_business_manager_create_purchase_order,
+        "xrpc.com.etzhayyim.apps.businessManager.describe": task_business_manager_describe,
+        "xrpc.com.etzhayyim.apps.businessManager.echo": task_business_manager_echo,
+        "xrpc.com.etzhayyim.apps.businessManager.health": task_business_manager_health,
+        "xrpc.com.etzhayyim.apps.businessManager.recordPayment": task_business_manager_record_payment,
+        "xrpc.com.etzhayyim.apps.businessManager.registerEmployee": task_business_manager_register_employee,
+        "xrpc.com.etzhayyim.apps.businessManager.wave": task_business_manager_wave,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

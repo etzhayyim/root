@@ -1,13 +1,13 @@
-"""Generic-primitive worker for app.etzhayyim.tools.const.* (ADR-2605082000 §2.6 follow-up).
+"""Generic-primitive worker for com.etzhayyim.tools.const.* (ADR-2605082000 §2.6 follow-up).
 
 Hosts identity / no-op tools that let LangGraph topology nodes stay data-only
 without per-actor Python code. Today's surface:
 
-  app.etzhayyim.tools.const.echo({"constant": {...}}) → {...}
+  com.etzhayyim.tools.const.echo({"constant": {...}}) → {...}
 
 The dispatcher convention (`pymagatama.{actor}_worker_main:task_{snake}`) does
-not apply here — the namespace is `app.etzhayyim.tools.const`, not
-`app.etzhayyim.apps.<actor>`. Wire-up uses ``register_overrides`` in mcp_dispatch.
+not apply here — the namespace is `com.etzhayyim.tools.const`, not
+`com.etzhayyim.apps.<actor>`. Wire-up uses ``register_overrides`` in mcp_dispatch.
 """
 
 from __future__ import annotations
@@ -23,7 +23,7 @@ async def task_echo(*, constant: Any | None = None, **_ignored: Any) -> dict[str
     same shape as the rest of the saikin / ki tools.
     """
     if constant is None:
-        return {"error": "app.etzhayyim.tools.const.echo: 'constant' is required"}
+        return {"error": "com.etzhayyim.tools.const.echo: 'constant' is required"}
     if not isinstance(constant, dict):
-        return {"error": "app.etzhayyim.tools.const.echo: 'constant' must be an object"}
+        return {"error": "com.etzhayyim.tools.const.echo: 'constant' must be an object"}
     return dict(constant)

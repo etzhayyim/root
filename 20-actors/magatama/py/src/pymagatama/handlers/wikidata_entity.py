@@ -20,7 +20,7 @@ SQL usage
 Surface
 -------
 
-    app.etzhayyim.apps.wikidata.entityClaims(qid)    VARCHAR → VARCHAR
+    com.etzhayyim.apps.wikidata.entityClaims(qid)    VARCHAR → VARCHAR
 
 Input: `qid` = a Wikidata Q-identifier (`"Q10757"`).
 Output: JSON object string:
@@ -159,7 +159,7 @@ def _best_publication_date(entity: dict[str, Any]) -> tuple[str | None, int | No
 
 
 @udf(
-    nsid="app.etzhayyim.apps.wikidata.entityClaims",
+    nsid="com.etzhayyim.apps.wikidata.entityClaims",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",

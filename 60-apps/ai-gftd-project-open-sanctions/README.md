@@ -12,7 +12,7 @@ up the ingest pipeline (cron → IPFS-pinned snapshot → MST publish).
 ## Scope
 
 - Daily mirror of OFAC SDN, UN Consolidated, EU Restrictive
-- Fuzzy name search lexicon (`app.etzhayyim.sanctions.searchByName`)
+- Fuzzy name search lexicon (`com.etzhayyim.sanctions.searchByName`)
 - Per-source snapshot versioning anchored to Base L2 (so an entry's presence-at-time-T is verifiable)
 
 ## Out of scope (stays vendor)
@@ -23,7 +23,7 @@ up the ingest pipeline (cron → IPFS-pinned snapshot → MST publish).
 
 ## See also
 
-- [`00-contracts/lexicons/ai/gftd/sanctions/`](../../00-contracts/lexicons/ai/gftd/sanctions) — Tranche F lexicons
+- [`00-contracts/lexicons/com/etzhayyim/sanctions/`](../../00-contracts/lexicons/com/etzhayyim/sanctions) — Tranche F lexicons
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
 - OFAC SDN: https://www.treasury.gov/ofac/downloads/
 - UN Consolidated: https://main.un.org/securitycouncil/en/content/un-sc-consolidated-list

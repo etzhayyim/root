@@ -63,7 +63,7 @@ class TestNsidRegex:
     def test_rejects_too_few_segments(self, audit):
         # Need at least 3 dot-segments (a.b.c). One or two are invalid.
         assert audit.NSID_RE.match("app") is None
-        assert audit.NSID_RE.match("app.etzhayyim") is None
+        assert audit.NSID_RE.match("com.etzhayyim") is None
 
     def test_rejects_starts_with_digit(self, audit):
         # Per AT-Protocol convention each segment starts with a letter.

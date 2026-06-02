@@ -195,7 +195,7 @@ python -c "from magatama.cells.kataribe_community_chronicle import _r0_marker" 2
 
 - `/20-actors/kataribe/manifest.jsonld`
 - `/20-actors/kataribe/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/kataribe/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/kataribe/` (5 Lexicons + README)
 - `/90-docs/adr/2605263600-kataribe-press-publishing-translation-tier-b-actor-r0.md`
 - `/90-docs/adr/2605181100-mst-encrypted-records-signal-keywrap.md` — G10 envelope
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — whistleblower cross-actor

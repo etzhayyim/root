@@ -55,7 +55,7 @@ Hydrogen is industrially classified by carbon-source color:
 
 Green H₂ produced via PEM/AEM/alkaline electrolyzers powered by hikari renewable surplus (solar + small wind + geothermal-micro per hikari R0 §2.1) PERMITTED under D1..D5 with the following operational conditions:
 
-1. **Electricity sourcing attestation**: every kg H₂ produced carries `app.etzhayyim.hikari.hydrogenProductionAttestation` Lexicon entry certifying electricity source = hikari surplus (NOT grid import; NOT fossil-grid mix). Real-time hikari-export contemporaneous (≤15 min temporal-coincidence per IEC 62325-451-8 hourly-matching upgraded to ≤15 min for religious-corp tighter standard).
+1. **Electricity sourcing attestation**: every kg H₂ produced carries `com.etzhayyim.hikari.hydrogenProductionAttestation` Lexicon entry certifying electricity source = hikari surplus (NOT grid import; NOT fossil-grid mix). Real-time hikari-export contemporaneous (≤15 min temporal-coincidence per IEC 62325-451-8 hourly-matching upgraded to ≤15 min for religious-corp tighter standard).
 2. **Water source**: ambient rainwater / mineral water / desalinated seawater (mizuho R2+ cross-actor consultation). NO commercial municipal water supply contract (D1).
 3. **Electrolyzer open-hardware**: stack design + control firmware + balance-of-plant Apache 2.0 + Charter Rider per D5. PEM stacks from commercial vendors permitted only if vendor IP terms allow religious-corp publication of integration interfaces.
 4. **Use restriction**: religious-corp-internal energy substrate (long-duration storage + heat for industrial process + transport-fuel-cell pilot in wadachi R3+ if approved separately + fertilizer feedstock via ammonia ADR — see §3 below). NOT for commercial sale. Surplus may transfer to other religious-corp actors only.
@@ -101,7 +101,7 @@ Green H₂ + atmospheric N₂ → green NH₃ (Haber-Bosch with green H₂) is t
 ## §6 New Lexicons
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   hydrogenProductionAttestation,    # per-kg: electricity source CID + temporal-coincidence proof ≤15min + water source
   hydrogenStorageInventory,         # per-LANDS-parcel: kg current + pressure + cylinder cert
   hydrogenSafetyAttestation,        # per-facility commissioning: OSHA/NFPA-equivalent compliance

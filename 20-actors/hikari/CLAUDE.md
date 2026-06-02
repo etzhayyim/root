@@ -68,7 +68,7 @@ R3 must scale to silicon Wave 2 fab partial load (~2 MW continuous typical indus
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.hikari`
+**App lexicon root**: `com.etzhayyim.hikari`
 
 5 records (R0 stubs; full schemas R1+):
 

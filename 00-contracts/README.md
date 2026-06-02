@@ -4,7 +4,7 @@
 
 ## 責務
 
-- `lexicons`: AT Protocol Lexicon JSON **Single Source of Truth** (2693 files, うち `app.etzhayyim.*` は 2344 files)。host capability (`app.etzhayyim.host.*`) / app commands (`app.etzhayyim.apps.*`) / wire format を一括で定義。F-Plan F2 2026-04-13 以降、TS/Go/Rust bindings は全てこれから codegen
+- `lexicons`: AT Protocol Lexicon JSON **Single Source of Truth** (2693 files, うち `com.etzhayyim.*` は 2344 files)。host capability (`com.etzhayyim.host.*`) / app commands (`com.etzhayyim.apps.*`) / wire format を一括で定義。F-Plan F2 2026-04-13 以降、TS/Go/Rust bindings は全てこれから codegen
 - 共有 schema（graph schema など）の静的定義
 
 ## 非責務

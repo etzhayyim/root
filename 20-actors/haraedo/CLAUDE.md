@@ -31,7 +31,7 @@ Backed by two datalog registries: **facility_registry** (worldwide ゴミ処理�
 | G2 | no-illegal-dumping | only verified facilities + licensed routes |
 | G3 | hazardous-boundary | 家電リサイクル法/PCB/asbestos/医療廃棄物/batteries → licensed handler |
 | G5 | labor-dignity | 担当者 per Labor Liberation ladder; no extractive gig dispatch |
-| G6 | pii-encrypted | member address/PII → app.etzhayyim.encrypted.* envelope, DID-bound |
+| G6 | pii-encrypted | member address/PII → com.etzhayyim.encrypted.* envelope, DID-bound |
 | G7 | fee-non-fiat | 手数料 via USDC/warifu or XRPC backend (領収書用途のみ); never fiat processor |
 | G11 | outward-gated | real receipt/dispatch/collection requires Council + operator; R0 design-only |
 | G14 | verified-facility | destinations + fees only from verified registry |

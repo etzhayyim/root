@@ -154,7 +154,7 @@ CF Worker は **edge / routing / dispatcher** の 3 sublayer のみ。
 - **Identity**: did:web (apps), did:plc (users via plc-private), did:gftd (legacy nanoid grandfather table)
 - **3-Tier Write** (ADR-0036, restated):
   - Tier 1 Social = L2 PDS dispatch (`app.bsky.*` / `com.atproto.*`)
-  - Tier 2 Domain = L3 dispatcher → L4 Hyperdrive direct write (`app.etzhayyim.apps.*`)
+  - Tier 2 Domain = L3 dispatcher → L4 Hyperdrive direct write (`com.etzhayyim.apps.*`)
   - Tier 3 State = `Preferences()` server-side state
 
 ## Scope (forward-only)

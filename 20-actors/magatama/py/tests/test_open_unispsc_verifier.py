@@ -35,11 +35,11 @@ def test_open_unispsc_verifier_writes_report(tmp_path: Path):
     assert result["syncAllCommodityDids"]["segmentCount"] == 2
     assert result["syncAllCommodityDids"]["commandsPerSegment"] == 3
     assert result["segmentImport"]["importCommand"] == "import-unispsc-segment"
-    assert result["segmentImport"]["transformTool"] == "app.etzhayyim.apps.openUnispsc.syncCatalogItem"
-    assert result["catalogSync"]["catalogCollection"] == "app.etzhayyim.apps.okaimono.catalogItem"
+    assert result["segmentImport"]["transformTool"] == "com.etzhayyim.apps.openUnispsc.syncCatalogItem"
+    assert result["catalogSync"]["catalogCollection"] == "com.etzhayyim.apps.okaimono.catalogItem"
     assert result["catalogSync"]["productId"] == "unispsc-43211501"
     assert result["purchasePlan"]["targetActorDid"] == "did:web:unispsc.etzhayyim.com:seg43"
-    assert result["purchasePlan"]["mcpTool"] == "app.etzhayyim.apps.openUnispsc.itemGetSpec"
+    assert result["purchasePlan"]["mcpTool"] == "com.etzhayyim.apps.openUnispsc.itemGetSpec"
     assert set(result["workflowScenarios"]) == {"manualReview", "ready", "blocked"}
     assert result["workflowScenarios"]["manualReview"]["workflowStatus"] == "manual-review"
     assert result["workflowScenarios"]["ready"]["workflowStatus"] == "ready"

@@ -14,7 +14,7 @@ from pymagatama.ingest.zeebe import start_process_if_configured
 DEFAULT_PROCESS_ID = "vector_embedding_backfill_batch"
 DEFAULT_BPMN = (
     Path(__file__).resolve().parents[5]
-    / "00-contracts/bpmn/ai/gftd/vector-embedding/backfillBatch.bpmn"
+    / "00-contracts/bpmn/com/etzhayyim/vector-embedding/backfillBatch.bpmn"
 )
 
 

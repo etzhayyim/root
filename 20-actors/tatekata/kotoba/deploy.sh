@@ -13,7 +13,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${TATEKATA_GRAPH:-app.etzhayyim.tatekata}"
+GRAPH="${TATEKATA_GRAPH:-com.etzhayyim.tatekata}"
 ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> tatekata kotoba deploy → ${KOTOBA_URL} (graph ${GRAPH})"

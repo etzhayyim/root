@@ -1,7 +1,7 @@
-;; app.etzhayyim.futawa.paintAttestation — lexicon (EDN form)
+;; com.etzhayyim.futawa.paintAttestation — lexicon (EDN form)
 ;; L4 body panels + paint + G5 Charter artwork scan + VOC
 {:lexicon 1
- :id "app.etzhayyim.futawa.paintAttestation"
+ :id "com.etzhayyim.futawa.paintAttestation"
  :defs
  {:main
   {:type "record"

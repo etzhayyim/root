@@ -1,7 +1,7 @@
 # futawa (二輪) — Small-Displacement Motorcycle Manufacturing Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:futawa`
-**Namespace**: `app.etzhayyim.futawa.*`
+**Namespace**: `com.etzhayyim.futawa.*`
 **ADR**: ADR-2605261330 (R0 scaffold), ADR-2605261345 (R1, reserved), ADR-2605261400 (R2, reserved), ADR-2605261415 (R3, reserved)
 **Status**: R0 scaffold (2026-05-26) — all cells import-time RuntimeError
 
@@ -93,7 +93,7 @@ Small-displacement motorcycle manufacturing Tier-B actor for adherent personal m
 ## Lexicons (8 record types, R0 stubs)
 
 ```
-app.etzhayyim.futawa.{
+com.etzhayyim.futawa.{
   frameAttestation              # L1
   engineAttestation             # L2a
   electricalAttestation         # L3a — includes G8 NO surveillance manifest

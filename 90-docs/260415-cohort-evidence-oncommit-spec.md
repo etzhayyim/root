@@ -1,6 +1,6 @@
 ---
 id: cohort-evidence-oncommit-spec-260415
-title: "app.etzhayyim.cohort.evidence onCommit Handler Spec (ADR-0026 Phase B)"
+title: "com.etzhayyim.cohort.evidence onCommit Handler Spec (ADR-0026 Phase B)"
 status: active
 doc_type: how-to
 topic: cohort-evidence
@@ -15,7 +15,7 @@ superseded_by: []
 
 # Goal
 
-Phase B: `app.etzhayyim.cohort.evidence` の commit → APQC projector OCEL emit 経路を固定。
+Phase B: `com.etzhayyim.cohort.evidence` の commit → APQC projector OCEL emit 経路を固定。
 
 # Invocation path
 
@@ -40,7 +40,7 @@ async function handleCohortEvidenceCommit(
     };
   },
 ): Promise<void> {
-  if (commit.collection !== 'app.etzhayyim.cohort.evidence') return;
+  if (commit.collection !== 'com.etzhayyim.cohort.evidence') return;
   if (commit.action !== 'create') return;
 
   // 1. Fetch cohort actor to resolve pcfL1 / fission_enabled
@@ -99,7 +99,7 @@ async function handleCohortEvidenceCommit(
 
 # References
 
-- `00-contracts/lexicons/ai/gftd/cohort/evidence.json`
+- `00-contracts/lexicons/com/etzhayyim/cohort/evidence.json`
 - `20-actors/magatama/sdk/magatama-host-sdk/src/cohort.ts` (`deriveCohortEventType`)
 - `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts` (`forwardOcelToApqc`)
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`

@@ -6,12 +6,12 @@ Hot path for the chat product. CF Worker (etzhayyim.com) → CF Tunnel
 
 Routes:
     POST /api/chat                          SSE streaming agent loop (browser)
-    POST /xrpc/app.etzhayyim.apps.chat.sendMessage non-streaming single-shot
-    POST /xrpc/app.etzhayyim.apps.chat.agentLoop  non-streaming agent loop
-    GET  /xrpc/app.etzhayyim.apps.chat.coverage   counts
-    GET  /xrpc/app.etzhayyim.apps.chat.listConversations
-    GET  /xrpc/app.etzhayyim.apps.chat.getConversation
-    POST /xrpc/app.etzhayyim.apps.chat.deleteConversation
+    POST /xrpc/com.etzhayyim.apps.chat.sendMessage non-streaming single-shot
+    POST /xrpc/com.etzhayyim.apps.chat.agentLoop  non-streaming agent loop
+    GET  /xrpc/com.etzhayyim.apps.chat.coverage   counts
+    GET  /xrpc/com.etzhayyim.apps.chat.listConversations
+    GET  /xrpc/com.etzhayyim.apps.chat.getConversation
+    POST /xrpc/com.etzhayyim.apps.chat.deleteConversation
     GET  /health
     GET  /_app/meta
 
@@ -983,12 +983,12 @@ def make_app() -> web.Application:
     app.on_startup.append(_warm_domain_knowledge)
     app.add_routes([
         web.post("/api/chat", post_chat_sse),
-        web.post("/xrpc/app.etzhayyim.apps.chat.sendMessage", xrpc_send_message),
-        web.post("/xrpc/app.etzhayyim.apps.chat.agentLoop", xrpc_agent_loop),
-        web.get("/xrpc/app.etzhayyim.apps.chat.coverage", xrpc_coverage),
-        web.get("/xrpc/app.etzhayyim.apps.chat.listConversations", xrpc_list_conversations),
-        web.get("/xrpc/app.etzhayyim.apps.chat.getConversation", xrpc_get_conversation),
-        web.post("/xrpc/app.etzhayyim.apps.chat.deleteConversation", xrpc_delete_conversation),
+        web.post("/xrpc/com.etzhayyim.apps.chat.sendMessage", xrpc_send_message),
+        web.post("/xrpc/com.etzhayyim.apps.chat.agentLoop", xrpc_agent_loop),
+        web.get("/xrpc/com.etzhayyim.apps.chat.coverage", xrpc_coverage),
+        web.get("/xrpc/com.etzhayyim.apps.chat.listConversations", xrpc_list_conversations),
+        web.get("/xrpc/com.etzhayyim.apps.chat.getConversation", xrpc_get_conversation),
+        web.post("/xrpc/com.etzhayyim.apps.chat.deleteConversation", xrpc_delete_conversation),
         # OpenAI-compatible API surface.
         web.get("/v1/models", openai_list_models),
         web.post("/v1/chat/completions", openai_chat_completions),

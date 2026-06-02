@@ -31,7 +31,7 @@ Landing + testing this core does NOT activate the cell; once Council activates,
 ``super_step`` will call :func:`compute_deadline_status` and
 :func:`to_status_record`.
 
-Output shape mirrors Lexicon ``app.etzhayyim.toritsugi.statusTrack``
+Output shape mirrors Lexicon ``com.etzhayyim.toritsugi.statusTrack``
 (the filing-clock subset).
 """
 
@@ -176,7 +176,7 @@ def to_status_record(
     session_ref: str | None = None,
     encrypted_result_ref: str | None = None,
 ) -> dict:
-    """Build an ``app.etzhayyim.toritsugi.statusTrack``-shaped record (filing-clock subset).
+    """Build an ``com.etzhayyim.toritsugi.statusTrack``-shaped record (filing-clock subset).
 
     ``isLegalOpinion`` is asserted ``False`` before return — a G5 schema invariant
     that this function structurally cannot violate.

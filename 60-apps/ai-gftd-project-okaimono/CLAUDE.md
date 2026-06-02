@@ -25,20 +25,20 @@ D2C (Direct-to-Consumer) OEM 専用 EC。自社ブランド OEM 商品のみを 
 - `60-apps/ai-gftd-project-okaimono/proto/v1/shopping.proto`
 - `60-apps/ai-gftd-project-okaimono/appview/okaimono-shopping-mcp-component/magatama.jsonld`
 
-AT Lexicon namespace: `app.etzhayyim.apps.okaimono.*`
+AT Lexicon namespace: `com.etzhayyim.apps.okaimono.*`
 
 | Domain | Lexicon prefix | 主要 record kinds |
 |---|---|---|
-| `catalog` | `app.etzhayyim.apps.okaimono.catalogItem` | OEM product listing |
-| `orders` | `app.etzhayyim.apps.okaimono.order` | order lifecycle |
-| `inventory` | `app.etzhayyim.apps.okaimono.stock*` | reservation, movement |
-| `fulfillment` | `app.etzhayyim.apps.okaimono.shipment` | shipment, carrier event |
-| `manufacturing` | `app.etzhayyim.apps.okaimono.productionLink` | OEM/BTO/MTO/CTO production |
-| `pricing` | `app.etzhayyim.apps.okaimono.promotion` | promotions, coupons |
-| `reviews` | `app.etzhayyim.apps.okaimono.review` | product reviews |
+| `catalog` | `com.etzhayyim.apps.okaimono.catalogItem` | OEM product listing |
+| `orders` | `com.etzhayyim.apps.okaimono.order` | order lifecycle |
+| `inventory` | `com.etzhayyim.apps.okaimono.stock*` | reservation, movement |
+| `fulfillment` | `com.etzhayyim.apps.okaimono.shipment` | shipment, carrier event |
+| `manufacturing` | `com.etzhayyim.apps.okaimono.productionLink` | OEM/BTO/MTO/CTO production |
+| `pricing` | `com.etzhayyim.apps.okaimono.promotion` | promotions, coupons |
+| `reviews` | `com.etzhayyim.apps.okaimono.review` | product reviews |
 | `recommendations` | — (read-only, graph query) | collaborative filtering |
-| `support` | `app.etzhayyim.apps.okaimono.supportCase` | CS cases, returns, refunds |
-| `analytics` | `app.etzhayyim.apps.okaimono.analyticsEvent` | KPI events |
+| `support` | `com.etzhayyim.apps.okaimono.supportCase` | CS cases, returns, refunds |
+| `analytics` | `com.etzhayyim.apps.okaimono.analyticsEvent` | KPI events |
 
 ## Data Access (W Protocol Event Stream)
 
@@ -62,20 +62,20 @@ AT Lexicon namespace: `app.etzhayyim.apps.okaimono.*`
 
 ## UNSPSC Integration (~70K Commodity Items)
 
-UNSPSC 51 segment APP を Follow → `app.etzhayyim.apps.unispsc.commodity` commit を reactive に受信 → OEM 商品分類として使用。
+UNSPSC 51 segment APP を Follow → `com.etzhayyim.apps.unispsc.commodity` commit を reactive に受信 → OEM 商品分類として使用。
 
 | Command | 用途 |
 |---|---|
 | `catalog-search-unispsc` | UNSPSC code/segment/family/class で catalog 検索 |
-| `import-unispsc-segment` | `app.etzhayyim.apps.openUnispsc.importSegmentCatalog` の plan に従い、UNSPSC segment を bulk import |
-| `procurement-find-offers-unispsc` | `product_id=unispsc-{code}` を `app.etzhayyim.apps.openUnispsc.planCatalogPurchase` で item spec invocation に変換 |
+| `import-unispsc-segment` | `com.etzhayyim.apps.openUnispsc.importSegmentCatalog` の plan に従い、UNSPSC segment を bulk import |
+| `procurement-find-offers-unispsc` | `product_id=unispsc-{code}` を `com.etzhayyim.apps.openUnispsc.planCatalogPurchase` で item spec invocation に変換 |
 
 Catalog record fields for UNSPSC-backed items:
 
 - `unispsc_code`, `unispsc_segment`, `unispsc_family`, `unispsc_class`
 - `commodity_did = did:web:unispsc.etzhayyim.com:seg{NN}:commodity:c{8-digit}`
 - `product_id = unispsc-{8-digit}` and `sku = UNSPSC-{8-digit}` for imported commodity catalog rows
-- `app.etzhayyim.apps.openUnispsc.syncCatalogItem` transforms upstream commodity records into `app.etzhayyim.apps.okaimono.catalogItem`
+- `com.etzhayyim.apps.openUnispsc.syncCatalogItem` transforms upstream commodity records into `com.etzhayyim.apps.okaimono.catalogItem`
 
 Verification gate:
 

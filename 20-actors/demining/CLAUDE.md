@@ -18,7 +18,7 @@ Humanitarian Mine Action actor (T1 MCP-Compose). See `60-apps/ai-gftd-project-de
 ## Invariants (CRITICAL)
 
 1. **APM manufacture / stockpile / transfer / deploy is out of scope.** Any pipeline step that could enable these must reject via `validateScope`.
-2. **SHA / CHA coordinates are Tier 3** (`Preferences()`). Never write to `app.bsky.feed.post` or public `app.etzhayyim.apps.demining.*` AT Record until `landReleaseDecision` fires.
+2. **SHA / CHA coordinates are Tier 3** (`Preferences()`). Never write to `app.bsky.feed.post` or public `com.etzhayyim.apps.demining.*` AT Record until `landReleaseDecision` fires.
 3. **Victim PII is Tier 3.** Only de-identified aggregates may be socialized.
 4. **IMAS is authoritative.** UNSPSC/CPC/HS/ISIC codes are crosswalk only.
 5. **Convo system prompt** enforces 1–4. Do not weaken without ADR.

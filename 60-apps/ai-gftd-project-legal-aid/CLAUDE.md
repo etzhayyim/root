@@ -13,7 +13,7 @@
 | **DID** | `did:web:legal-aid.etzhayyim.com` |
 | **Tier** | T1 (logical actor, no Worker) |
 | **Manifest** | `20-actors/legal-aid/actor-manifest.jsonld` |
-| **Lexicons** | `00-contracts/lexicons/ai/gftd/apps/legalAid/` |
+| **Lexicons** | `00-contracts/lexicons/com/etzhayyim/apps/legalAid/` |
 
 ## Coverage
 
@@ -24,9 +24,9 @@
 
 | NSID | Type | Description |
 |---|---|---|
-| `app.etzhayyim.legalAid.createCase` | procedure | 扶助 case 作成 (applicantDid = Tier 3 PII) |
-| `app.etzhayyim.legalAid.assignDefender` | procedure | bengoshi DID を defender にアサイン (verified panel attorney) |
-| `app.etzhayyim.legalAid.listCases` | query | jurisdiction + matter + status + lawyerDid フィルタ |
+| `com.etzhayyim.legalAid.createCase` | procedure | 扶助 case 作成 (applicantDid = Tier 3 PII) |
+| `com.etzhayyim.legalAid.assignDefender` | procedure | bengoshi DID を defender にアサイン (verified panel attorney) |
+| `com.etzhayyim.legalAid.listCases` | query | jurisdiction + matter + status + lawyerDid フィルタ |
 
 ## cross-actor
 

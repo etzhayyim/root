@@ -87,13 +87,13 @@ KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成
 
 | Export | NSID | Description |
 |---|---|---|
-| `agent-runtime` | `app.etzhayyim.apps.os.agent*` | Agent spawn/stop/pause/resume/migrate |
-| `consent` | `app.etzhayyim.apps.os.consent*` | Human-in-the-loop approval queue |
-| `directory` | `app.etzhayyim.apps.os.directory*` | Agent discovery by capability tags |
-| `budget` | `app.etzhayyim.apps.os.budget*` | GCC token allocation and balance |
-| `audit` | `app.etzhayyim.apps.os.audit*` | Agent behavior audit trail |
-| `sync` | `app.etzhayyim.apps.os.sync*` | Local-cloud state synchronization |
-| `window-manager` | `app.etzhayyim.apps.os.window*` | KAMI compositor window bridge |
+| `agent-runtime` | `com.etzhayyim.apps.os.agent*` | Agent spawn/stop/pause/resume/migrate |
+| `consent` | `com.etzhayyim.apps.os.consent*` | Human-in-the-loop approval queue |
+| `directory` | `com.etzhayyim.apps.os.directory*` | Agent discovery by capability tags |
+| `budget` | `com.etzhayyim.apps.os.budget*` | GCC token allocation and balance |
+| `audit` | `com.etzhayyim.apps.os.audit*` | Agent behavior audit trail |
+| `sync` | `com.etzhayyim.apps.os.sync*` | Local-cloud state synchronization |
+| `window-manager` | `com.etzhayyim.apps.os.window*` | KAMI compositor window bridge |
 
 Imports `gftd:automaton@0.1.0` (survival, policy, memory, soul, replication) from `provider/automaton/`.
 

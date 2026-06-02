@@ -14,7 +14,7 @@ authoritative_for:
   - new Tier-B actor `danjo` (public-accountability oversight; civic transparency cross-reference)
   - kotoba-kqe EAVT datom schema for official / statement / authority / award / appropriation / outlay / entity / cross-reference-link / discrepancy-observation
   - the boundary between toritate (religious-corp's OWN on-chain books) and danjo (the STATE's published open-data books)
-  - `app.etzhayyim.danjo.*` Lexicon namespace (discrepancyObservation / crossReferenceLink / oversightReport / methodNote)
+  - `com.etzhayyim.danjo.*` Lexicon namespace (discrepancyObservation / crossReferenceLink / oversightReport / methodNote)
 depends_on:
   - adr-2605263900-public-data-open-government-ipfs-ingestion
   - adr-2605262130-kotoba-storage-substrate-unification
@@ -54,11 +54,11 @@ identify fraud / violations":
    ADR-2605263900 ("Open-government-data ingestion via IPFS-pinned
    DataLad subdatasets") explicitly pins the Japanese corpus:
    - **国会会議録検索** → `gov/parliament/jpn/kokkai-kaigiroku/`
-     (`app.etzhayyim.gov.dataset.parliamentRecord`, `gov_parliament_sensor`)
+     (`com.etzhayyim.gov.dataset.parliamentRecord`, `gov_parliament_sensor`)
    - **政府調達情報ポータル** → `gov/procurement/jpn/chotatsu-portal/`
-     (`app.etzhayyim.gov.dataset.procurementRecord`, `gov_procurement_sensor`)
+     (`com.etzhayyim.gov.dataset.procurementRecord`, `gov_procurement_sensor`)
    - **予算書** → `gov/budget/jpn/yosan/`
-     (`app.etzhayyim.gov.dataset.budgetRecord`, `gov_budget_sensor`)
+     (`com.etzhayyim.gov.dataset.budgetRecord`, `gov_budget_sensor`)
    - **data.go.jp + e-Stat** → `gov/open-data/jpn/{data-go-jp,e-stat}/`
      (`openDatasetAttestation` / `statisticsObservation`)
    All are Tier-A (CC-BY 4.0 per 政府標準利用規約 2.0), fetched
@@ -119,7 +119,7 @@ state coercion as an internal dependency, and adjudicates nothing.
 # Decision
 
 Create **`danjo`** (弾正), DID `did:web:danjo.etzhayyim.com`, namespace
-`app.etzhayyim.danjo.*`, as a **Tier-B kotoba-native public-
+`com.etzhayyim.danjo.*`, as a **Tier-B kotoba-native public-
 accountability oversight actor** in **R0 scaffold**. Japan-first at R0
 (jurisdiction `jpn`), jurisdiction-generic in architecture (extends to
 any jurisdiction the corpus covers, exactly like ADR-2605263900).
@@ -132,10 +132,10 @@ the open-government corpus (ADR-2605263900). It:
 1. **Ingests** the already-pinned JP corpus (国会会議録 / 予算書 /
    政府調達 / e-Stat) into **kotoba EAVT** as datoms — it does NOT
    re-fetch from government portals; it reads the IPFS-pinned
-   `app.etzhayyim.gov.dataset.*` records that `pymagatama.organism.
+   `com.etzhayyim.gov.dataset.*` records that `pymagatama.organism.
    sensors.gov.*` already produced (G3 passive-only).
 2. **Cross-references** those datoms with each other and with the corp
-   identity registry (`app.etzhayyim.corp.{leiReference,ownershipEdge}`,
+   identity registry (`com.etzhayyim.corp.{leiReference,ownershipEdge}`,
    ADR-2605263800) to build typed `crossReferenceLink` edges.
 3. **Emits** `discrepancyObservation` records — factual, source-cited,
    NON-adjudicating anomalies (e.g. an awardee winning N consecutive
@@ -160,11 +160,11 @@ Council ADR + R1 ratification")` at W1 creation.
 | `danjo_statement_consistency` | gad | continuous | cross-ref Diet statements vs budget/procurement reality → `discrepancyObservation` (statement-vs-record divergence) |
 | `danjo_oversight_report` | naphtali | periodic (event) | aggregate observations → `oversightReport` + Council Lv6+ ≥3 attestation chain |
 
-Cells communicate via `app.etzhayyim.danjo.*` lexicon records on MST;
+Cells communicate via `com.etzhayyim.danjo.*` lexicon records on MST;
 the cross-reference graph lives in kotoba QuadStore (EAVT) per
 ADR-2605262130. No RisingWave, no projection layer.
 
-## §3 — Lexicons (`app.etzhayyim.danjo.*`)
+## §3 — Lexicons (`com.etzhayyim.danjo.*`)
 
 | Lexicon | Purpose |
 |---|---|
@@ -278,7 +278,7 @@ regress before the actor is ever switched on:
 
 1. **Actor scaffold** — `90-docs/adr/2605301600-…` (this ADR) +
    `20-actors/danjo/{manifest.jsonld, README.md, CLAUDE.md}` + 4
-   Lexicon skeletons under `00-contracts/lexicons/app/etzhayyim/danjo/`.
+   Lexicon skeletons under `00-contracts/lexicons/com/etzhayyim/danjo/`.
 2. **Ref-hardened lexicons (G10 made structural)** —
    `discrepancyObservation` gains `#namedPartyRef` (a party is nameable
    ONLY by citing the public source record that already names them, with
@@ -374,7 +374,7 @@ ratification post Bootstrap Council Seats 2-5 RFP close (2026-06-19).
 - `/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md` — toritate (boundary sibling)
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — chigiri (UPL boundary; data_privacy DSAR routing)
 - `/90-docs/adr/2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration.md` — tadori (kotoba-native investigation sibling)
-- `/00-contracts/lexicons/app/etzhayyim/gov/dataset/README.md` — gov.dataset.* namespace
+- `/00-contracts/lexicons/com/etzhayyim/gov/dataset/README.md` — gov.dataset.* namespace
 - `/20-actors/danjo/` — manifest + README + CLAUDE.md
 - `/CHARTER-RIDER.md` — License + Rider canonical text
 - `/CLAUDE.md` — Religious-corp status table

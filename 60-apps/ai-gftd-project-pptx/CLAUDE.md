@@ -25,13 +25,13 @@
 
 | 旧 App | 旧 nanoid | 統合先 NSID | 機能 |
 |---|---|---|---|
-| img2pptx.etzhayyim.com | `im92pp7x` | `app.etzhayyim.apps.pptx.convertImage` | 画像 → slide shape |
-| img2pptx.etzhayyim.com | `im92pp7x` | `app.etzhayyim.apps.pptx.convertSvg` | SVG → DrawingML shapes |
-| img2pptx.etzhayyim.com | `im92pp7x` | `app.etzhayyim.apps.pptx.createFromImages` | 複数画像 → multi-slide |
-| mime-pptx.etzhayyim.com | `lcryu45x` | `app.etzhayyim.apps.pptx.extractAllText` | 全テキスト抽出 |
-| mime-pptx.etzhayyim.com | `lcryu45x` | `app.etzhayyim.apps.pptx.searchText` | 全文検索 |
-| mime-pptx.etzhayyim.com | `lcryu45x` | `app.etzhayyim.apps.pptx.getMetadata` | メタデータ |
-| mime-pptx.etzhayyim.com | `lcryu45x` | `app.etzhayyim.apps.pptx.getSlide` | slide + text + image refs |
+| img2pptx.etzhayyim.com | `im92pp7x` | `com.etzhayyim.apps.pptx.convertImage` | 画像 → slide shape |
+| img2pptx.etzhayyim.com | `im92pp7x` | `com.etzhayyim.apps.pptx.convertSvg` | SVG → DrawingML shapes |
+| img2pptx.etzhayyim.com | `im92pp7x` | `com.etzhayyim.apps.pptx.createFromImages` | 複数画像 → multi-slide |
+| mime-pptx.etzhayyim.com | `lcryu45x` | `com.etzhayyim.apps.pptx.extractAllText` | 全テキスト抽出 |
+| mime-pptx.etzhayyim.com | `lcryu45x` | `com.etzhayyim.apps.pptx.searchText` | 全文検索 |
+| mime-pptx.etzhayyim.com | `lcryu45x` | `com.etzhayyim.apps.pptx.getMetadata` | メタデータ |
+| mime-pptx.etzhayyim.com | `lcryu45x` | `com.etzhayyim.apps.pptx.getSlide` | slide + text + image refs |
 
 ## Data Pipeline
 
@@ -87,56 +87,56 @@ Toggle: toolbar badge "wgpu" / "Canvas2D" (click to switch when KAMI loaded)
 
 | NSID | Description |
 |---|---|
-| `app.etzhayyim.apps.pptx.upload` | Upload and parse PPTX file |
-| `app.etzhayyim.apps.pptx.create` | Create new blank presentation |
-| `app.etzhayyim.apps.pptx.delete` | Delete presentation |
-| `app.etzhayyim.apps.pptx.export` | Export presentation to PPTX |
+| `com.etzhayyim.apps.pptx.upload` | Upload and parse PPTX file |
+| `com.etzhayyim.apps.pptx.create` | Create new blank presentation |
+| `com.etzhayyim.apps.pptx.delete` | Delete presentation |
+| `com.etzhayyim.apps.pptx.export` | Export presentation to PPTX |
 
 ### Slide Editing (8)
 
 | NSID | Description |
 |---|---|
-| `app.etzhayyim.apps.pptx.addSlide` | Add slide |
-| `app.etzhayyim.apps.pptx.removeSlide` | Remove slide |
-| `app.etzhayyim.apps.pptx.reorderSlides` | Reorder slides |
-| `app.etzhayyim.apps.pptx.addShape` | Add shape to slide |
-| `app.etzhayyim.apps.pptx.updateShape` | Update shape properties |
-| `app.etzhayyim.apps.pptx.removeShape` | Remove shape |
-| `app.etzhayyim.apps.pptx.editText` | Edit text in shape |
-| `app.etzhayyim.apps.pptx.addImage` | Add image to slide |
+| `com.etzhayyim.apps.pptx.addSlide` | Add slide |
+| `com.etzhayyim.apps.pptx.removeSlide` | Remove slide |
+| `com.etzhayyim.apps.pptx.reorderSlides` | Reorder slides |
+| `com.etzhayyim.apps.pptx.addShape` | Add shape to slide |
+| `com.etzhayyim.apps.pptx.updateShape` | Update shape properties |
+| `com.etzhayyim.apps.pptx.removeShape` | Remove shape |
+| `com.etzhayyim.apps.pptx.editText` | Edit text in shape |
+| `com.etzhayyim.apps.pptx.addImage` | Add image to slide |
 
 ### Search & Query (3)
 
 | NSID | Description |
 |---|---|
-| `app.etzhayyim.apps.pptx.search` | Search presentations |
-| `app.etzhayyim.apps.pptx.listSlides` | List slides |
-| `app.etzhayyim.apps.pptx.getSlideElements` | Get slide elements |
+| `com.etzhayyim.apps.pptx.search` | Search presentations |
+| `com.etzhayyim.apps.pptx.listSlides` | List slides |
+| `com.etzhayyim.apps.pptx.getSlideElements` | Get slide elements |
 
 ### Image Conversion (3, from img2pptx)
 
 | NSID | Description |
 |---|---|
-| `app.etzhayyim.apps.pptx.convertImage` | Image blob → slide shape |
-| `app.etzhayyim.apps.pptx.convertSvg` | SVG → DrawingML shapes |
-| `app.etzhayyim.apps.pptx.createFromImages` | Multiple images → multi-slide presentation |
+| `com.etzhayyim.apps.pptx.convertImage` | Image blob → slide shape |
+| `com.etzhayyim.apps.pptx.convertSvg` | SVG → DrawingML shapes |
+| `com.etzhayyim.apps.pptx.createFromImages` | Multiple images → multi-slide presentation |
 
 ### Content Extraction (4, from mime-pptx)
 
 | NSID | Description |
 |---|---|
-| `app.etzhayyim.apps.pptx.extractAllText` | All text from all slides (LLM summarization) |
-| `app.etzhayyim.apps.pptx.searchText` | Full-text search across slides |
-| `app.etzhayyim.apps.pptx.getMetadata` | Presentation metadata |
-| `app.etzhayyim.apps.pptx.getSlide` | Single slide with text + image refs |
+| `com.etzhayyim.apps.pptx.extractAllText` | All text from all slides (LLM summarization) |
+| `com.etzhayyim.apps.pptx.searchText` | Full-text search across slides |
+| `com.etzhayyim.apps.pptx.getMetadata` | Presentation metadata |
+| `com.etzhayyim.apps.pptx.getSlide` | Single slide with text + image refs |
 
 ### Utility (3)
 
 | NSID | Description |
 |---|---|
-| `app.etzhayyim.apps.pptx.health` | Health check |
-| `app.etzhayyim.apps.pptx.describe` | Describe capabilities |
-| `app.etzhayyim.apps.pptx.wave` | Wave greeting |
+| `com.etzhayyim.apps.pptx.health` | Health check |
+| `com.etzhayyim.apps.pptx.describe` | Describe capabilities |
+| `com.etzhayyim.apps.pptx.wave` | Wave greeting |
 
 ## Editor Features (Figma-Like UX)
 
@@ -229,7 +229,7 @@ Toggle: toolbar badge "wgpu" / "Canvas2D" (click to switch when KAMI loaded)
 | Tier | Purpose | Function | Collection NSID |
 |---|---|---|---|
 | **1 Social** | Share presentation | `AppBskyFeedPost(did, text, {embed})` | `app.bsky.feed.post` |
-| **2 Domain** | presentation/slide/shape/textRun/image | `ComAtprotoRepoCreateRecord(kind, payload)` | `app.etzhayyim.apps.pptx.*` |
+| **2 Domain** | presentation/slide/shape/textRun/image | `ComAtprotoRepoCreateRecord(kind, payload)` | `com.etzhayyim.apps.pptx.*` |
 | **3 State** | Editor preferences | `Preferences()` | server-side |
 
 ## PPTX Export — OOXML Compliance

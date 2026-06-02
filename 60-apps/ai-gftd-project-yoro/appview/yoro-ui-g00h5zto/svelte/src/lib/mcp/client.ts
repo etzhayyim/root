@@ -95,7 +95,7 @@ export class McpClient {
 		method: string,
 		body: Record<string, unknown> = {}
 	): Promise<T> {
-		const res = await agent.api.call('app.etzhayyim.apps.yoro.' + method, body, undefined, { headers });
+		const res = await agent.api.call('com.etzhayyim.apps.yoro.' + method, body, undefined, { headers });
 		return res.data as T;
 	}
 

@@ -1,6 +1,6 @@
 # land_donation_processing — Pregel Cell
 
-**Trigger**: MST listener on `app.etzhayyim.apps.etzhayyim.land-donation`
+**Trigger**: MST listener on `com.etzhayyim.apps.etzhayyim.land-donation`
 
 **Effect**: 6-step donation ritual orchestration → LandRegistry.donate() (geth-private) → PublicLandRegistry mint (Base L2 via AnchorBridge) → land-donation success AT Record
 

@@ -1,4 +1,4 @@
-# app.etzhayyim.moushibumi.* — Lexicons
+# com.etzhayyim.moushibumi.* — Lexicons
 
 Lexicons for **申文 (moushibumi)** — the citizen democratic-participation
 concierge Tier-B actor (`did:web:moushibumi.etzhayyim.com`, ADR-2605312400).
@@ -24,7 +24,7 @@ ratification (R1+).
 - **G5 UPL**: `voiceDraft.assistMode` admits only `drafting-assist` (作成代理
   unrepresentable); legal characterization → chigiri.
 - **G6 PII + political-opinion confidentiality**: content never inline — records
-  hold `encrypted*Ref` / `outcomeRef` pointers into `app.etzhayyim.encrypted.*`
+  hold `encrypted*Ref` / `outcomeRef` pointers into `com.etzhayyim.encrypted.*`
   (ADR-2605181100); political belief is APPI §2 special-care.
 - **G8 non-fabrication**: `participationTarget.legalBasis` + `.provenance`
   required; `voiceDraft.memberConfirmed` gates submission.

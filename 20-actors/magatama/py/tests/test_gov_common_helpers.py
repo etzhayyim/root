@@ -126,7 +126,7 @@ def test_mint_pds_service_auth_returns_empty_when_no_url(monkeypatch) -> None:
     _m.PDS_SERVICE_AUTH_MINT_URL = ""
     _m.PDS_SERVICE_AUTH_MINT_SECRET = ""
     try:
-        result = _m._mint_pds_service_auth("app.etzhayyim.apps.gov.jpn.someMethod")
+        result = _m._mint_pds_service_auth("com.etzhayyim.apps.gov.jpn.someMethod")
         assert result == ""
     finally:
         _m.PDS_SERVICE_AUTH_MINT_URL = orig_url
@@ -140,7 +140,7 @@ def test_mint_pds_service_auth_returns_str(monkeypatch) -> None:
     _m.PDS_SERVICE_AUTH_MINT_URL = ""
     _m.PDS_SERVICE_AUTH_MINT_SECRET = ""
     try:
-        result = _m._mint_pds_service_auth("app.etzhayyim.apps.gov.usa.someMethod")
+        result = _m._mint_pds_service_auth("com.etzhayyim.apps.gov.usa.someMethod")
         assert isinstance(result, str)
     finally:
         _m.PDS_SERVICE_AUTH_MINT_URL = orig_url
@@ -151,7 +151,7 @@ def test_mint_pds_service_auth_cache_returns_cached_token() -> None:
     import pymagatama.primitives.gov_gbr as _m
     import time
 
-    lxm = "app.etzhayyim.apps.gov.gbr.cached"
+    lxm = "com.etzhayyim.apps.gov.gbr.cached"
     future_exp = int(time.time()) + 3600
     _m._PDS_SERVICE_AUTH_CACHE[lxm] = {"token": "cached-token-abc", "expiresAt": future_exp}
     try:

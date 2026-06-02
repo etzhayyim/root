@@ -20,22 +20,22 @@ DID-native 自前認証基盤。TS infra Workers (2)。AI Agent-First + DID-nati
 - `/users/:id/did.json` — user DID document (did:web:authn.etzhayyim.com:user:*)
 
 **XRPC NSIDs**:
-- `app.etzhayyim.auth.*` — auth Worker (passkey, session, DID, service auth)
-- `app.etzhayyim.authz.*` — authz Worker (linked methods, actor score, org) **canonical**
-- `app.etzhayyim.auth.link*` on auth Worker → 307 → `accounts.etzhayyim.com/xrpc/app.etzhayyim.authz.*`
+- `com.etzhayyim.auth.*` — auth Worker (passkey, session, DID, service auth)
+- `com.etzhayyim.authz.*` — authz Worker (linked methods, actor score, org) **canonical**
+- `com.etzhayyim.auth.link*` on auth Worker → 307 → `accounts.etzhayyim.com/xrpc/com.etzhayyim.authz.*`
 
-### Org Management XRPC (app.etzhayyim.authz.org*)
+### Org Management XRPC (com.etzhayyim.authz.org*)
 
 | NSID | Method | 説明 |
 |---|---|---|
-| `app.etzhayyim.authz.orgCreate` | POST `{ name, domain?, orgType? }` | org 作成 (caller の accountDid = orgDid) |
-| `app.etzhayyim.authz.orgInfo` | GET `?orgDid=` | org 情報取得 |
-| `app.etzhayyim.authz.orgList` | GET | caller が所属する org 一覧 |
-| `app.etzhayyim.authz.orgMembers` | GET `?orgDid=` | org メンバー一覧 (メンバーのみ) |
-| `app.etzhayyim.authz.orgInvite` | POST `{ orgDid?, email, role? }` | メンバー招待 (HMAC token 発行) |
-| `app.etzhayyim.authz.orgInviteAccept` | POST `{ token }` | 招待を承認 (caller が新メンバーになる) |
-| `app.etzhayyim.authz.orgMemberRemove` | POST `{ orgDid?, memberDid }` | メンバー除外 (owner/admin のみ) |
-| `app.etzhayyim.authz.orgLeave` | POST `{ orgDid }` | org を退会 |
+| `com.etzhayyim.authz.orgCreate` | POST `{ name, domain?, orgType? }` | org 作成 (caller の accountDid = orgDid) |
+| `com.etzhayyim.authz.orgInfo` | GET `?orgDid=` | org 情報取得 |
+| `com.etzhayyim.authz.orgList` | GET | caller が所属する org 一覧 |
+| `com.etzhayyim.authz.orgMembers` | GET `?orgDid=` | org メンバー一覧 (メンバーのみ) |
+| `com.etzhayyim.authz.orgInvite` | POST `{ orgDid?, email, role? }` | メンバー招待 (HMAC token 発行) |
+| `com.etzhayyim.authz.orgInviteAccept` | POST `{ token }` | 招待を承認 (caller が新メンバーになる) |
+| `com.etzhayyim.authz.orgMemberRemove` | POST `{ orgDid?, memberDid }` | メンバー除外 (owner/admin のみ) |
+| `com.etzhayyim.authz.orgLeave` | POST `{ orgDid }` | org を退会 |
 
 **D1 Tables (GraphAr)**:
 - `vertex_gftd_auth_org` — org metadata (name, domain, org_type, settings)
@@ -283,19 +283,19 @@ gftd deploy        # or: wrangler deploy
 │  ├─ /xrpc/com.atproto.identity.resolveDid               │
 │  ├─ /xrpc/com.atproto.identity.createDid                │
 │  ├─ /xrpc/com.atproto.server.getServiceAuth             │
-│  ├─ /xrpc/app.etzhayyim.auth.passkeyBeginRegister             │
-│  ├─ /xrpc/app.etzhayyim.auth.passkeyVerifyRegister            │
-│  ├─ /xrpc/app.etzhayyim.auth.passkeyBeginAuth                 │
-│  ├─ /xrpc/app.etzhayyim.auth.passkeyVerifyAuth                │
-│  ├─ /xrpc/app.etzhayyim.auth.linkEmailBegin                   │
-│  ├─ /xrpc/app.etzhayyim.auth.linkEmailVerify                  │
-│  ├─ /xrpc/app.etzhayyim.auth.linkOAuthStart                   │
-│  ├─ /xrpc/app.etzhayyim.auth.unlinkMethod                     │
-│  ├─ /xrpc/app.etzhayyim.auth.smsOtpSend                       │
-│  ├─ /xrpc/app.etzhayyim.auth.smsOtpVerify                     │
-│  ├─ /xrpc/app.etzhayyim.auth.esimProvision                    │
-│  ├─ /xrpc/app.etzhayyim.auth.verifyDpop                       │
-│  ├─ /xrpc/app.etzhayyim.auth.createGuestAccount               │
+│  ├─ /xrpc/com.etzhayyim.auth.passkeyBeginRegister             │
+│  ├─ /xrpc/com.etzhayyim.auth.passkeyVerifyRegister            │
+│  ├─ /xrpc/com.etzhayyim.auth.passkeyBeginAuth                 │
+│  ├─ /xrpc/com.etzhayyim.auth.passkeyVerifyAuth                │
+│  ├─ /xrpc/com.etzhayyim.auth.linkEmailBegin                   │
+│  ├─ /xrpc/com.etzhayyim.auth.linkEmailVerify                  │
+│  ├─ /xrpc/com.etzhayyim.auth.linkOAuthStart                   │
+│  ├─ /xrpc/com.etzhayyim.auth.unlinkMethod                     │
+│  ├─ /xrpc/com.etzhayyim.auth.smsOtpSend                       │
+│  ├─ /xrpc/com.etzhayyim.auth.smsOtpVerify                     │
+│  ├─ /xrpc/com.etzhayyim.auth.esimProvision                    │
+│  ├─ /xrpc/com.etzhayyim.auth.verifyDpop                       │
+│  ├─ /xrpc/com.etzhayyim.auth.createGuestAccount               │
 │  ├─ GET  /.well-known/jwks.json (ES256 public key)      │
 │  ├─ GET  /oauth/authorize  (CLI PKCE flow)              │
 │  ├─ GET  /oauth/link/google/callback                    │
@@ -307,7 +307,7 @@ gftd deploy        # or: wrangler deploy
 └─────────────────────────────────────────────────────────┘
 ```
 
-**NSID 移行**: Rust 時代の `app.etzhayyim.auth.{resolveDid,createDid}` は廃止。`com.atproto.identity.{resolveDid,createDid}` に統一 (AT Protocol 準拠)。caller はゼロだったため alias 不要。
+**NSID 移行**: Rust 時代の `com.etzhayyim.auth.{resolveDid,createDid}` は廃止。`com.atproto.identity.{resolveDid,createDid}` に統一 (AT Protocol 準拠)。caller はゼロだったため alias 不要。
 
 ## RPC Interface (TypeScript)
 
@@ -336,22 +336,22 @@ export default {
     if (method === "POST" && pathname === "/xrpc/com.atproto.server.getServiceAuth") return handleSignServiceAuth(request, env);
 
     // WebAuthn / Passkey
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.passkeyBeginRegister") return handlePasskeyBeginRegister(request);
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.passkeyVerifyRegister") return handlePasskeyVerifyRegister(request, env);
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.passkeyBeginAuth") return handlePasskeyBeginAuth();
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.passkeyVerifyAuth") return handlePasskeyVerifyAuth(request, env);
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.passkeyBeginRegister") return handlePasskeyBeginRegister(request);
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.passkeyVerifyRegister") return handlePasskeyVerifyRegister(request, env);
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.passkeyBeginAuth") return handlePasskeyBeginAuth();
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.passkeyVerifyAuth") return handlePasskeyVerifyAuth(request, env);
 
     // Telecom tier (SMS OTP / eSIM / Stripe)
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.smsOtpSend") return handleSmsOtpSend(request, env);
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.smsOtpVerify") return handleSmsOtpVerify(request, env);
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.esimProvision") return handleEsimProvision(request, env);
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.createSetupIntent") return handleCreateSetupIntent(request, env);
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.smsOtpSend") return handleSmsOtpSend(request, env);
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.smsOtpVerify") return handleSmsOtpVerify(request, env);
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.esimProvision") return handleEsimProvision(request, env);
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.createSetupIntent") return handleCreateSetupIntent(request, env);
 
     // DPoP
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.verifyDpop") return handleVerifyDpop(request);
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.verifyDpop") return handleVerifyDpop(request);
 
     // Guest account (Passkey)
-    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.createGuestAccount") return handleCreateGuestAccount(request, env);
+    if (method === "POST" && pathname === "/xrpc/com.etzhayyim.auth.createGuestAccount") return handleCreateGuestAccount(request, env);
 
     // JWKS
     if (method === "GET" && pathname === "/.well-known/jwks.json") return handleJwks(env);
@@ -446,7 +446,7 @@ Agent (performerType=service/system) 用の DID credential flow。T1 (server-ass
 - `did.ts` — `createAgentSession()`: Agent DID 生成 + P-256 ES256 keypair (WebCrypto) + AT Protocol session 一括発行
 - `did.ts` — `rotateAgentKey()`: 新 keypair 生成 + 旧 key revocation timestamp 返却
 - `did.ts` — `activeKeyInfo()`: AgentKeyInfo builder
-- 3 XRPC routes: `/xrpc/app.etzhayyim.auth.createAgentSession`, `/xrpc/app.etzhayyim.auth.rotateAgentKey`, `/xrpc/app.etzhayyim.auth.listAgentKeys`
+- 3 XRPC routes: `/xrpc/com.etzhayyim.auth.createAgentSession`, `/xrpc/com.etzhayyim.auth.rotateAgentKey`, `/xrpc/com.etzhayyim.auth.listAgentKeys`
 
 **PDS 変更**:
 - `registerApp` (`com.atproto.admin.registerApp`): `gftd deploy` 時に AUTH_SERVICE → agent session 作成 → `:DIDDocument` + `:AgentKey` yata graph MERGE + edges (`HAS_KEY`, `HAS_DID`)。response に `agent_did`, `agent_key_id`, `agent_session` を含む
@@ -482,7 +482,7 @@ Agent request (ES256 Service Auth JWT)
 
 **auth Worker 実装**:
 - `passkey.ts` — WebAuthn registration (attestation verification) + authentication (assertion verification)。P-256 ECDSA (WebCrypto subtle) + CBOR parsing (custom minimal decoder)。RP ID = `etzhayyim.com`
-- 4 XRPC routes: `/xrpc/app.etzhayyim.auth.passkeyBeginRegister`, `/xrpc/app.etzhayyim.auth.passkeyVerifyRegister`, `/xrpc/app.etzhayyim.auth.passkeyBeginAuth`, `/xrpc/app.etzhayyim.auth.passkeyVerifyAuth`
+- 4 XRPC routes: `/xrpc/com.etzhayyim.auth.passkeyBeginRegister`, `/xrpc/com.etzhayyim.auth.passkeyVerifyRegister`, `/xrpc/com.etzhayyim.auth.passkeyBeginAuth`, `/xrpc/com.etzhayyim.auth.passkeyVerifyAuth`
 - `GET /.well-known/jwks.json` — ES256 公開鍵 JWKS endpoint (Cache-Control: 1h, CORS: *)
 - Clerk bridge コード **削除** — RS256 JWKS 検証ロジック除去
 - `authenticate()` から Clerk JWT layer 除去 — Layer 1 (service binding) → Layer 2 (AT session HS256) → public
@@ -594,7 +594,7 @@ AT Protocol 完全準拠 + federation 対応。
 - **GraphAr schema**: D1 auth control (vertex_gftd_auth_*) と RisingWave governance (vertex_gftd_identity) が同一 GraphAr 命名規則
 - **Design doc**: `90-docs/260416-did-schema-dodaf-org-agent-shannon-design.md`
 - **Root topology (CRITICAL, ADR-0074)**: `90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md` — ERC725 root + Coinbase Smart Wallet execution + `did:pkh` wallet alias + `did:plc`/`did:web` AT facade。SIWE は link ceremony、CACAO は portable delegated capability。
-- **Legacy method spec (ADR-0029)**: `90-docs/adr/0029-did-gftd-method-specification.md` — W3C DID Core 1.0 + DID Resolution v0.3 準拠。CIDv1 (`b` base32 + `raw` codec + sha2-256 multihash) + DAG-CBOR canonical genesis op + path-form sub-DID (max depth 6)。独自 top-level field なし。Reference impl: `10-protocol/did-gftd/`。Resolver: `did.etzhayyim.com` (`10-protocol/did-gftd/resolver/`)。Op submit: PDS XRPC `app.etzhayyim.identity.submitOp` (create/update/deactivate)。`did.ts` 既存 hex-truncated 形式は legacy として grandfather (auto-migration 経路は `gftd identity migrate-paths` で提供予定)
+- **Legacy method spec (ADR-0029)**: `90-docs/adr/0029-did-gftd-method-specification.md` — W3C DID Core 1.0 + DID Resolution v0.3 準拠。CIDv1 (`b` base32 + `raw` codec + sha2-256 multihash) + DAG-CBOR canonical genesis op + path-form sub-DID (max depth 6)。独自 top-level field なし。Reference impl: `10-protocol/did-gftd/`。Resolver: `did.etzhayyim.com` (`10-protocol/did-gftd/resolver/`)。Op submit: PDS XRPC `com.etzhayyim.identity.submitOp` (create/update/deactivate)。`did.ts` 既存 hex-truncated 形式は legacy として grandfather (auto-migration 経路は `gftd identity migrate-paths` で提供予定)
 
 ### D1 Tables (GraphAr schema, auth control plane)
 
@@ -612,7 +612,7 @@ AT Protocol 完全準拠 + federation 対応。
 ## Prohibited Patterns
 
 - **ERC725 root 以外の DID を新規 platform primary identity に使用禁止** — did:erc725 が canonical。did:gftd / did:plc / did:web は facade lookup input のみ。onchain authority path で直接 hash 禁止
-- **D1 に plaintext private key を保存禁止** — `server_assisted` (T1) custody では KEK envelope encryption 必須 (SS_REPO_SIGNING_KEK)。legacy `did_keys` テーブル pruned。**zero-access (`human_self_custody`/`agent_self_custody`, ADR-2606014500) では private key を一切受け取らない** — `vertex_gftd_key_signing` の private 列は空、public 半分のみ登録 (`app.etzhayyim.auth.registerSigningKey`)
+- **D1 に plaintext private key を保存禁止** — `server_assisted` (T1) custody では KEK envelope encryption 必須 (SS_REPO_SIGNING_KEK)。legacy `did_keys` テーブル pruned。**zero-access (`human_self_custody`/`agent_self_custody`, ADR-2606014500) では private key を一切受け取らない** — `vertex_gftd_key_signing` の private 列は空、public 半分のみ登録 (`com.etzhayyim.auth.registerSigningKey`)
 - **SS_REPO_SIGNING_KEK なしでの sign-up 禁止 (AMENDED, ADR-2606014500)** — `server_assisted` 経路では従来どおり KEK 必須で fail-closed。**ただし client-self-custody (public-key-only 登録) 経路は KEK 不要で許可** (Proton 系 zero-access; `SS_KEY_CUSTODY_MODE=client_self_custody`)。KEK 物理削除は Stage C-4 (30日 zero-read quarantine) で gated
 - **Zero-knowledge key custody を Agent に適用禁止** — Agent は server-assisted (T1) or self-custody (T2)。Master Password 方式は不成立
 - **Signal Identity Key を DID Signing Key から独立生成禁止** — Signal Identity Key は DID Signing Key で署名される (key hierarchy 遵守)

@@ -13,7 +13,7 @@ from typing import Any
 from pymagatama import udf
 from pymagatama.db_sync import sync_cursor
 
-NS = "app.etzhayyim.apps.kouza"
+NS = "com.etzhayyim.apps.kouza"
 
 
 def _dump(payload: dict[str, Any]) -> str:
@@ -209,7 +209,7 @@ def sync_due_connections_payload(params: dict[str, Any]) -> dict[str, Any]:
 
 
 @udf(
-    nsid="app.etzhayyim.apps.kouza.syncDueConnections",
+    nsid="com.etzhayyim.apps.kouza.syncDueConnections",
     io_threads=16,
     input_types=["VARCHAR"],
     result_type="VARCHAR",

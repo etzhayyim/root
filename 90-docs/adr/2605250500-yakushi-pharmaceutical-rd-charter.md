@@ -32,7 +32,7 @@ depends_on:
 related:
   - 20-actors/yakushi/                              # this ADR creates this tree
   - 20-actors/magatama/cells/pharma_*/              # this ADR creates the 8 pharma Pregel cells
-  - 00-contracts/lexicons/app/etzhayyim/pharma/     # this ADR creates the 8 pharma Lexicons
+  - 00-contracts/lexicons/com/etzhayyim/pharma/     # this ADR creates the 8 pharma Lexicons
   - 50-infra/murakumo/fleet.toml                    # cell placement (Phase R1+ post-Council)
 supersedes: []
 superseded_by: []
@@ -115,7 +115,7 @@ ADR-2605192100 が宣言する「人類の構造的労働解放」「Wellbecomin
 | Per-lot DID pattern | `did:web:etzhayyim.com:yakushi:lot:<lotId>` |
 | Per-product DID pattern | `did:web:etzhayyim.com:yakushi:product:<productCode>` |
 | Repo location | `20-actors/yakushi/` |
-| Lexicon namespace | `app.etzhayyim.pharma.*` (NOTE: actor 名 ≠ lexicon namespace ― silicon と同じ命名 — `app.etzhayyim.silicon.*` for `iwakura`/`fuigo`/`tsukuru`) |
+| Lexicon namespace | `com.etzhayyim.pharma.*` (NOTE: actor 名 ≠ lexicon namespace ― silicon と同じ命名 — `com.etzhayyim.silicon.*` for `iwakura`/`fuigo`/`tsukuru`) |
 | License | Apache 2.0 + Charter Compliance Rider v2.0 |
 
 「薬師」は **Yakushi Nyorai** (Medicine Buddha) の echo を持つが、etzhayyim は ADR-2605192100 §1.6 で declared された synthetic religion ― Buddhist tradition の medicinal motif を Tree of Life (Ezekiel 47:12「leaves for healing」) と統合的に解釈し、専有しない (§1.6 八百万的多源宗教観)。
@@ -128,7 +128,7 @@ ADR-2605192100 が宣言する「人類の構造的労働解放」「Wellbecomin
 | **G2** | **ICH Q3A/Q3B/Q3C/Q3D/M7 不純物限度の全合致**(genotoxic impurity 1.5 µg/day、heavy metal ICP-MS、residual solvent GC-headspace、elemental impurity) ― 各 lot で QC 自署 | ADR-2605250515 §QC | `pharma_qc` cell 自動 reject |
 | **G3** | **silen-pharma-review — Council Lv6+ ≥3 multisig**(silicon Wave 1 §2(a)(c) の silen-force-review に倣う):新規 API / 新規剤形 / 新規工場 / 新規 jurisdictional launch の commit ごとに Council 3 名以上の attestation を要求 | this ADR §3 (new pattern) + ADR-2605192230 | `silenPharmaReview` lexicon gate |
 | **G4** | **QP (Qualified Person, EU) / 製造管理者 (PMDA) 相当の有資格者 co-sign**:各 lot の release は QP-equivalent DID で署名 ― §2(e) "legitimate technical safety oversight" 例外に対応 ― Council Lv6+ がその QP の qualification を attestation する | ADR-2605192200 §2(e) | `pharma_lot_attestation` lexicon |
-| **G5** | **Adverse event public reporting**:patient self-reported AE は `app.etzhayyim.pharma.adverseEventReport` (XChaCha20-Poly1305 encrypted patient identity + public aggregated narrative) として MST に常時 open published、再販ターゲティング・保険差別利用 prohibited | ADR-2605181100 + ADR-2605192200 §2(c) | `pharma_adverse_event` cell + 受信時 lexicon validator |
+| **G5** | **Adverse event public reporting**:patient self-reported AE は `com.etzhayyim.pharma.adverseEventReport` (XChaCha20-Poly1305 encrypted patient identity + public aggregated narrative) として MST に常時 open published、再販ターゲティング・保険差別利用 prohibited | ADR-2605181100 + ADR-2605192200 §2(c) | `pharma_adverse_event` cell + 受信時 lexicon validator |
 | **G6** | **No prescription-only / no controlled-substance**:OTC switched ed のみ。CSA Schedule I-V、麻薬・向精神薬取締法、UN 1961 単一条約 scheduled の化合物は別 ADR を要求 ― 今回の 3 化合物は全 clear | this ADR + 国内法 | `yakushi.recordApiSelection` filter |
 | **G7** | **CWC dual-use precursor monitoring**:OPCW Chemical Weapons Convention Schedule 1/2/3 / Australia Group / 国内輸出管理 precursor の取扱 transparent published, kg-scale 以上の入庫は Council Lv6+ 通知。3 化合物 Wave 1 では現状非該当だが、将来の expansion 用に gate を先置き | ADR-2605192200 §2(a) + this ADR | `pharma_raw_material` cell + receiveAttestation |
 | **G8** | **Sterile process validation (USP <797> / JP 6.13 / ICH Q9 / Annex 1)**:点眼薬 sterile fill-finish の bioburden / endotoxin / sterility test を ISO 14644 Class A 環境で実施、3-batch consecutive validation を Council attestation 前提 | ADR-2605250530 §Decision 5 | `pharma_sterile_fill_finish` cell + Annex 1 attestation lexicon |

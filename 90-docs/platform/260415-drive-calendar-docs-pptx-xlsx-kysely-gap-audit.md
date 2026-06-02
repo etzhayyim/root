@@ -19,48 +19,48 @@
 ## App Collections (declared)
 
 - Drive collections:
-  - `app.etzhayyim.apps.drive.file`
-  - `app.etzhayyim.apps.drive.folder`
-  - `app.etzhayyim.apps.drive.fileShare`
-  - `app.etzhayyim.apps.drive.fileDeletion`
-  - `app.etzhayyim.apps.drive.fileMove`
-  - `app.etzhayyim.apps.drive.fileStatusUpdate`
-  - `app.etzhayyim.apps.drive.fileLocationUpdate`
+  - `com.etzhayyim.apps.drive.file`
+  - `com.etzhayyim.apps.drive.folder`
+  - `com.etzhayyim.apps.drive.fileShare`
+  - `com.etzhayyim.apps.drive.fileDeletion`
+  - `com.etzhayyim.apps.drive.fileMove`
+  - `com.etzhayyim.apps.drive.fileStatusUpdate`
+  - `com.etzhayyim.apps.drive.fileLocationUpdate`
   - Ref: `60-apps/ai-gftd-project-drive/appview/drive-app-component/magatama.jsonld` lines 58-64
 
 - Calendar collections (used in app code):
-  - `app.etzhayyim.apps.calendar.event`
-  - `app.etzhayyim.apps.calendar.invitation`
-  - `app.etzhayyim.apps.calendar.recurrence`
-  - `app.etzhayyim.apps.calendar.rsvp`
-  - `app.etzhayyim.apps.calendar.reminder`
+  - `com.etzhayyim.apps.calendar.event`
+  - `com.etzhayyim.apps.calendar.invitation`
+  - `com.etzhayyim.apps.calendar.recurrence`
+  - `com.etzhayyim.apps.calendar.rsvp`
+  - `com.etzhayyim.apps.calendar.reminder`
   - Ref: `60-apps/ai-gftd-project-calendar/appview/calendar-mcp-component/src/app.ts`
 
 - Docs collections:
-  - `app.etzhayyim.apps.docs.docsEntity`
-  - `app.etzhayyim.apps.docs.docsEvent`
-  - `app.etzhayyim.apps.docs.docsReport`
+  - `com.etzhayyim.apps.docs.docsEntity`
+  - `com.etzhayyim.apps.docs.docsEvent`
+  - `com.etzhayyim.apps.docs.docsReport`
   - Ref: `60-apps/ai-gftd-project-docs/appview/docs-performers-r5ycqp6x/magatama.jsonld` lines 78-80
 
 - PPTX collections:
-  - `app.etzhayyim.apps.pptx.presentation`
-  - `app.etzhayyim.apps.pptx.slide`
-  - `app.etzhayyim.apps.pptx.shape`
-  - `app.etzhayyim.apps.pptx.textRun`
-  - `app.etzhayyim.apps.pptx.image`
-  - `app.etzhayyim.apps.pptx.slideTemplate`
+  - `com.etzhayyim.apps.pptx.presentation`
+  - `com.etzhayyim.apps.pptx.slide`
+  - `com.etzhayyim.apps.pptx.shape`
+  - `com.etzhayyim.apps.pptx.textRun`
+  - `com.etzhayyim.apps.pptx.image`
+  - `com.etzhayyim.apps.pptx.slideTemplate`
   - Ref: `60-apps/ai-gftd-project-pptx/appview/ai-gftd-wasm-pptx-t53br1o0/magatama.jsonld` lines 70-75
 
 - Sheets collections (Excel相当):
-  - `app.etzhayyim.apps.sheets.sheetsEntity`
-  - `app.etzhayyim.apps.sheets.sheetsEvent`
-  - `app.etzhayyim.apps.sheets.sheetsReport`
+  - `com.etzhayyim.apps.sheets.sheetsEntity`
+  - `com.etzhayyim.apps.sheets.sheetsEvent`
+  - `com.etzhayyim.apps.sheets.sheetsReport`
   - Ref: `60-apps/ai-gftd-project-sheets/appview/sheets-mcp-component/magatama.jsonld` lines 78-80
 
 - XLSX actor collections:
-  - `app.etzhayyim.apps.xlsx.workbook`
-  - `app.etzhayyim.apps.xlsx.sheet`
-  - `app.etzhayyim.apps.xlsx.pivot`
+  - `com.etzhayyim.apps.xlsx.workbook`
+  - `com.etzhayyim.apps.xlsx.sheet`
+  - `com.etzhayyim.apps.xlsx.pivot`
   - Ref: `20-actors/xlsx/actor-manifest.jsonld` line 30
 
 ## Gap Matrix (as-is)

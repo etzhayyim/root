@@ -108,7 +108,7 @@ Amend chigiri (ADR-2605262700) — **G14 is preserved unchanged** — by adding:
 ## D1. New cell `chigiri_legal_aid_clinic` (R0 path-reserved)
 
 A **delivery channel**, not an advice engine. chigiri provides: adherent intake, conflict-of-interest
-check, matter attestation on MST (`app.etzhayyim.chigiri.legalAid.*`), and Public-Fund-funded routing to
+check, matter attestation on MST (`com.etzhayyim.chigiri.legalAid.*`), and Public-Fund-funded routing to
 a licensed lawyer. The legal advice itself is produced by the **human lawyer**, never by chigiri code or
 by any LLM cell. Placed under the `gad` (external-interface) lane alongside `employment_compliance` /
 `tax_receipt`.
@@ -132,7 +132,7 @@ intake state. This satisfies DE/US strictly and JP/FR/UK over-compliantly.
 
 ## D4. Per-jurisdiction routing table (declarative, versioned)
 
-`app.etzhayyim.chigiri.legalAid.jurisdictionPolicy` records encode, per ISO-3166 jurisdiction: the
+`com.etzhayyim.chigiri.legalAid.jurisdictionPolicy` records encode, per ISO-3166 jurisdiction: the
 restricting statute, whether unsupervised free advice is permissible (informational only — the gate still
 requires G16 supervision), and the **hard-monopoly carve-out** (always: no litigation/court representation
 without a duly-authorised advocate). The **nine rows** above seed the table (JP/DE/FR/UK/US/KR/AU/CA-ON/AT-CH),

@@ -84,21 +84,21 @@ Section 0 - Agriculture products
 
 `gftd:cpc-product-classification@1.0.0` (`wit/cpc-product-classification/`) で CPC 固有の製品分類・品質基準・貿易フローを定義。
 
-## Lexicon Namespace: `app.etzhayyim.apps.cpc.*`
+## Lexicon Namespace: `com.etzhayyim.apps.cpc.*`
 
-**全 CPC data record は `app.etzhayyim.apps.cpc.*` Lexicon namespace を使用する。** 既存の `app.etzhayyim.cpc.product` は `app.etzhayyim.apps.cpc.product` に正規化。旧 `cpc.{kind}` placeholder は禁止。
+**全 CPC data record は `com.etzhayyim.apps.cpc.*` Lexicon namespace を使用する。** 既存の `com.etzhayyim.cpc.product` は `com.etzhayyim.apps.cpc.product` に正規化。旧 `cpc.{kind}` placeholder は禁止。
 
 | Lexicon NSID | WRecord kind | Rkey | Entity ID | 用途 |
 |---|---|---|---|---|
-| `app.etzhayyim.apps.cpc.product` | `cpc.product` | CPC code (5桁) | product_code | 製品分類マスタ |
-| `app.etzhayyim.apps.cpc.tradeFlow` | `cpc.tradeFlow` | nanoid | product_code | 国際貿易フロー記録 |
-| `app.etzhayyim.apps.cpc.qualityStandard` | `cpc.qualityStandard` | standard_id | product_codes[] | 品質規格バインド |
-| `app.etzhayyim.apps.cpc.concordance` | `cpc.concordance` | cpc_code | cpc_code | CPC-ISIC concordance |
-| `app.etzhayyim.apps.cpc.hsConcordance` | `cpc.hsConcordance` | cpc_code | cpc_code | CPC-HS concordance |
-| `app.etzhayyim.apps.cpc.productRisk` | `cpc.productRisk` | nanoid | product_code | 製品リスク評価 |
-| `app.etzhayyim.apps.cpc.vendorRisk` | `cpc.vendorRisk` | nanoid | product_code | サプライヤーリスク評価 |
-| `app.etzhayyim.apps.cpc.productFlow` | `cpc.productFlow` | nanoid | product_code | 製品フロー (entity 間) |
-| `app.etzhayyim.apps.cpc.dataClassification` | `cpc.dataClassification` | nanoid | product_code | データ分類 (sensitivity) |
+| `com.etzhayyim.apps.cpc.product` | `cpc.product` | CPC code (5桁) | product_code | 製品分類マスタ |
+| `com.etzhayyim.apps.cpc.tradeFlow` | `cpc.tradeFlow` | nanoid | product_code | 国際貿易フロー記録 |
+| `com.etzhayyim.apps.cpc.qualityStandard` | `cpc.qualityStandard` | standard_id | product_codes[] | 品質規格バインド |
+| `com.etzhayyim.apps.cpc.concordance` | `cpc.concordance` | cpc_code | cpc_code | CPC-ISIC concordance |
+| `com.etzhayyim.apps.cpc.hsConcordance` | `cpc.hsConcordance` | cpc_code | cpc_code | CPC-HS concordance |
+| `com.etzhayyim.apps.cpc.productRisk` | `cpc.productRisk` | nanoid | product_code | 製品リスク評価 |
+| `com.etzhayyim.apps.cpc.vendorRisk` | `cpc.vendorRisk` | nanoid | product_code | サプライヤーリスク評価 |
+| `com.etzhayyim.apps.cpc.productFlow` | `cpc.productFlow` | nanoid | product_code | 製品フロー (entity 間) |
+| `com.etzhayyim.apps.cpc.dataClassification` | `cpc.dataClassification` | nanoid | product_code | データ分類 (sensitivity) |
 
 ### DID 形式
 
@@ -114,7 +114,7 @@ did:web:atproto.etzhayyim.com:cpc:{cpc-code}
 CPC Division Performer (e.g. d01cr1a2)
   → app.Command("", "register-to-pds", ...)
     → Q("cpcProducts").Where(Eq{"division": divisionCode}).Query()
-    → for each product: WRecord("cpc.product", record)  // → app.etzhayyim.apps.cpc.product
+    → for each product: WRecord("cpc.product", record)  // → com.etzhayyim.apps.cpc.product
     → G("CPCDivision").Merge({code: divisionCode}).Set({pds_registered: true})
 ```
 
@@ -122,13 +122,13 @@ CPC Division Performer (e.g. d01cr1a2)
 
 | 旧 (禁止) | 新 (必須) |
 |---|---|
-| `app.etzhayyim.cpc.product` | `cpc.product` → `app.etzhayyim.apps.cpc.product` |
-| `cpc.cpc_risks` | `cpc.productRisk` → `app.etzhayyim.apps.cpc.productRisk` |
-| `cpc.cpc_standard` | `cpc.qualityStandard` → `app.etzhayyim.apps.cpc.qualityStandard` |
-| `cpc.product_flow` | `cpc.productFlow` → `app.etzhayyim.apps.cpc.productFlow` |
-| `cpc.cpc_supply_chain` | `cpc.vendorRisk` → `app.etzhayyim.apps.cpc.vendorRisk` |
-| `cpc.trade_flow` | `cpc.tradeFlow` → `app.etzhayyim.apps.cpc.tradeFlow` |
-| `cpc.cpc_data_classifications` | `cpc.dataClassification` → `app.etzhayyim.apps.cpc.dataClassification` |
+| `com.etzhayyim.cpc.product` | `cpc.product` → `com.etzhayyim.apps.cpc.product` |
+| `cpc.cpc_risks` | `cpc.productRisk` → `com.etzhayyim.apps.cpc.productRisk` |
+| `cpc.cpc_standard` | `cpc.qualityStandard` → `com.etzhayyim.apps.cpc.qualityStandard` |
+| `cpc.product_flow` | `cpc.productFlow` → `com.etzhayyim.apps.cpc.productFlow` |
+| `cpc.cpc_supply_chain` | `cpc.vendorRisk` → `com.etzhayyim.apps.cpc.vendorRisk` |
+| `cpc.trade_flow` | `cpc.tradeFlow` → `com.etzhayyim.apps.cpc.tradeFlow` |
+| `cpc.cpc_data_classifications` | `cpc.dataClassification` → `com.etzhayyim.apps.cpc.dataClassification` |
 
 ### Commands (全 73 division performers 共通)
 

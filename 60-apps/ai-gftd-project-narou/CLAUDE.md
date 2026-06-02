@@ -29,13 +29,13 @@ Matrix protocol + BPMN2 で生成ワークフローを制御し、作品ごと�
 
 | NSID | WRecord kind | SQL Label |
 |---|---|---|
-| `ai.gftd.narou.novel` | `novel` | `:Novel` |
-| `ai.gftd.narou.chapter` | `chapter` | `:Chapter` |
-| `ai.gftd.narou.character` | `character` | `:Character` |
-| `ai.gftd.narou.world_setting` | `world_setting` | `:WorldSetting` |
-| `ai.gftd.narou.generation_task` | `generation_task` | `:GenerationTask` |
-| `ai.gftd.narou.agent_persona` | `agent_persona` | `:AgentPersona` |
-| `ai.gftd.narou.image_asset` | `image_asset` | `:ImageAsset` |
+| `com.etzhayyim.narou.novel` | `novel` | `:Novel` |
+| `com.etzhayyim.narou.chapter` | `chapter` | `:Chapter` |
+| `com.etzhayyim.narou.character` | `character` | `:Character` |
+| `com.etzhayyim.narou.world_setting` | `world_setting` | `:WorldSetting` |
+| `com.etzhayyim.narou.generation_task` | `generation_task` | `:GenerationTask` |
+| `com.etzhayyim.narou.agent_persona` | `agent_persona` | `:AgentPersona` |
+| `com.etzhayyim.narou.image_asset` | `image_asset` | `:ImageAsset` |
 
 ## Domain WIT
 

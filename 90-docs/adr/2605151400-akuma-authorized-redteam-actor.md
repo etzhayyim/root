@@ -116,7 +116,7 @@ The actor is active and ADR-bound. The deployed baseline is:
 
 - RW data plane: `vertex_akuma_scope`, audit, finding, and related edge
   tables are present and were exercised by a smoke round-trip.
-- Lexicon/PDS surface: `app.etzhayyim.apps.akuma.*` contract files exist and are
+- Lexicon/PDS surface: `com.etzhayyim.apps.akuma.*` contract files exist and are
   registered as the protocol surface.
 - Policy: `gftd.akuma.scope` is the authorization SSoT; unit coverage
   passed 11/11 for allowed, denied, and tier-bound probe attempts.
@@ -137,7 +137,7 @@ Control-plane work remains open and is tracked in `deps.toml`:
 
 ## XRPC surface (cytoplasmic only)
 
-NSID prefix `app.etzhayyim.apps.akuma.*`:
+NSID prefix `com.etzhayyim.apps.akuma.*`:
 
 - `registerScope` (procedure) — append a draft scope; status = `draft`
 - `approveScope` (procedure) — owner + authority signatures; status →
@@ -258,7 +258,7 @@ records the concrete artifact state. It supersedes any earlier
 | K8s reconciler | `scope-egress-reconciler` CronJob (`* * * * *`) targeting `akuma-probe-scope-allow` NetworkPolicy | applied; **Errors with ModuleNotFoundError** because `pymagatama:latest` predates `pymagatama.akuma` module |
 | K8s langserver | `akuma-langserver` Deployment + Service in `mitama-udf` ns | Running 1/1 |
 | K8s secrets | `akuma-authority-key` (PUBLIC only) in `mitama-udf`; `akuma-rw-readonly` (KAISYA URL) in `akuma-probe` | created |
-| PDS lexicons | 8 NSIDs `app.etzhayyim.apps.akuma.*` live at `atproto.etzhayyim.com` (Worker version `fdfc4c61-ce87-40fd-adaf-7f9e85522359`) | wrangler deploy 2026-05-15; HTTP 401 (auth required), not 404 |
+| PDS lexicons | 8 NSIDs `com.etzhayyim.apps.akuma.*` live at `atproto.etzhayyim.com` (Worker version `fdfc4c61-ce87-40fd-adaf-7f9e85522359`) | wrangler deploy 2026-05-15; HTTP 401 (auth required), not 404 |
 | Rego policy | `gftd.akuma.scope` package | 11/11 unit tests PASS |
 | Reconciler module | `pymagatama.akuma.scope_egress_reconciler` | source landed in repo, NOT yet baked into a published `pymagatama` image |
 | Smoke test | data plane round-trip (INSERT scope → sign+verify → reconciler SELECT → 5 policy decisions → INSERT audit + finding → count → hard delete) | all 9 steps PASS |
@@ -277,7 +277,7 @@ records the concrete artifact state. It supersedes any earlier
    `scope-egress-reconciler` CronJob image tag. Until then the
    reconciler stays in CrashLoopBackoff and `akuma-probe-scope-allow`
    stays empty (probe pods would have no egress allow rules anyway).
-4. Implement XRPC handlers for `app.etzhayyim.apps.akuma.{registerScope,
+4. Implement XRPC handlers for `com.etzhayyim.apps.akuma.{registerScope,
    approveScope, revokeScope, runProbe, recordFinding, closeFinding,
    getScope, listFindings}`. Currently the PDS routes the NSIDs
    (HTTP 401, not 404) but no actor has registered handler bindings
@@ -294,7 +294,7 @@ before any external scope contract is approved.
 
 # References
 
-- `00-contracts/lexicons/ai/gftd/apps/akuma/*.json`
+- `00-contracts/lexicons/com/etzhayyim/apps/akuma/*.json`
 - `00-contracts/policies/gftd/akuma/scope/policy.rego`
 - `00-contracts/policies/gftd/akuma/scope/test.rego`
 - `20-actors/akuma/actor-manifest.jsonld`

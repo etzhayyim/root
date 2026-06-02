@@ -7,7 +7,7 @@ require an operator AT-session JWT (no-server-key posture, G17). --dry-run parse
 datoms only (no writes, no LLM; G9 untouched).
 
 Usage:
-    python3 ingest_mcp.py [--url http://127.0.0.1:8077] [--graph app.etzhayyim.futawa] [--dry-run]
+    python3 ingest_mcp.py [--url http://127.0.0.1:8077] [--graph com.etzhayyim.futawa] [--dry-run]
 """
 from __future__ import annotations
 
@@ -105,7 +105,7 @@ def _flatten_entity(entity_str: str, graph: str) -> list:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Ingest futawa seed.edn into kotoba via MCP")
     parser.add_argument("--url", default="http://127.0.0.1:8077", help="kotoba node URL")
-    parser.add_argument("--graph", default="app.etzhayyim.futawa", help="graph name")
+    parser.add_argument("--graph", default="com.etzhayyim.futawa", help="graph name")
     parser.add_argument("--dry-run", action="store_true", help="parse only, no writes")
     args = parser.parse_args()
     if not os.path.exists(SEED):

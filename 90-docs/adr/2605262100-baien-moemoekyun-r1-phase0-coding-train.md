@@ -154,7 +154,7 @@ ADR-2605241500 DataLad + git-annex + IPFS pin 経由で登録済 (Kubo daemon on
 | `ise-uiuc/Magicoder-OSS-Instruct-75K` | `bafkreid4bhlfaaezicecfm6s4rxpjdfff5v3bgfi4gcdwwzfyjt5juauu4` | 193.8 MB | MIT | passed (sampled 2 files / 210 lines, 0 hits) | `git:5f839b1f368a76b161028bb9edff055db34022b2` |
 | `lordx64/reasoning-distill-opus-4-7-max-sft` | `bafkreif5x7cfj45hcjqsqx4tykgpox52a5pcrkwa3akzl4olcbtl7mlqa4` | 15.1 MB | Apache 2.0 | passed (sampled 1 files / 80 lines, 0 hits) | `git:1cbdcd72a8a6681b3713c1d31f01c711b816d1a4` |
 
-PDS `app.etzhayyim.substrate.datasetPin` emit は dryRun (ADR-2605241500 §"add / publish-ipfs default to dry-run for the PDS step" 継承)。
+PDS `com.etzhayyim.substrate.datasetPin` emit は dryRun (ADR-2605241500 §"add / publish-ipfs default to dry-run for the PDS step" 継承)。
 
 ### §3.0.W Wave plan (W2-W5 pending)
 

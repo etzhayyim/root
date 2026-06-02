@@ -1,4 +1,4 @@
-# `app.etzhayyim.apqc.*` — APQC Process Classification Framework
+# `com.etzhayyim.apqc.*` — APQC Process Classification Framework
 
 Open spec for the APQC PCF (Process Classification Framework) catalog and the
 Kyber BPMN projector that maps PCF process IDs to BPMN process definitions.
@@ -12,16 +12,16 @@ in `etzhayyim/etzhayyim-root` (60-apps/ai-gftd-project-kyber-*).
 
 ## NSIDs (planned)
 
-- `app.etzhayyim.apqc.getProcess` — fetch one PCF process by ID
-- `app.etzhayyim.apqc.listProcesses` — list PCF processes (paginated)
-- `app.etzhayyim.apqc.projectToBpmn` — map a PCF process ID to its BPMN process_def
-- `app.etzhayyim.apqc.listProjections` — list available PCF → BPMN mappings
+- `com.etzhayyim.apqc.getProcess` — fetch one PCF process by ID
+- `com.etzhayyim.apqc.listProcesses` — list PCF processes (paginated)
+- `com.etzhayyim.apqc.projectToBpmn` — map a PCF process ID to its BPMN process_def
+- `com.etzhayyim.apqc.listProjections` — list available PCF → BPMN mappings
 
 ## See also
 
 - `60-apps/ai-gftd-project-open-apqc/` (this repo, scaffolding)
 - `60-apps/ai-gftd-project-open-kyber/` (this repo, Tranche E)
-- `00-contracts/lexicons/ai/gftd/kyber/` (this repo, Tranche A)
+- `00-contracts/lexicons/com/etzhayyim/kyber/` (this repo, Tranche A)
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
 - [ADR-0025 Kyber APQC/BPMN Projector Consolidation](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md) (foundational, vendor monorepo)
 

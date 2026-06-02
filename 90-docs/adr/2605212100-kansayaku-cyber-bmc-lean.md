@@ -232,11 +232,11 @@ superseded_by: []
 
 | 連携先 | 連携内容 | 実装形態 |
 |---|---|---|
-| `recruit.etzhayyim.com` | 候補者コホートからサイバー cert × board 実績スコアリング | `app.etzhayyim.apps.recruit.matchStats` + LangGraph |
+| `recruit.etzhayyim.com` | 候補者コホートからサイバー cert × board 実績スコアリング | `com.etzhayyim.apps.recruit.matchStats` + LangGraph |
 | `kaisya.etzhayyim.com` | 役員変遷データで監査役空席・改選タイミング検出 | `kaisya` actor query (既存) |
 | `lawfirm.etzhayyim.com` | 法律事務所クライアント企業からのインバウンドリード | `requestConsult` XRPC に category=governance 追加 |
 | `vault.etzhayyim.com` | 候補者 PII (連絡先・職歴) の E2E 暗号化保管 | `signal:v1:` field-encrypt (ADR-0018 Tier 3) |
-| `recruit.etzhayyim.com` DID | 候補者ポートフォリオを AT Protocol DID で改ざん不可に | `app.etzhayyim.apps.recruit.talentCohort` record |
+| `recruit.etzhayyim.com` DID | 候補者ポートフォリオを AT Protocol DID で改ざん不可に | `com.etzhayyim.apps.recruit.talentCohort` record |
 
 **PII 管理 (ADR-0018 Tier 3 遵守)**:
 - 候補者個人情報は `vault.etzhayyim.com` + `signal:v1:` field-encrypt 必須
@@ -284,7 +284,7 @@ KPI は `projector.update_status` (ADR-2605130000) で毎スプリント末に�
 
 - **有料職業紹介事業許可 (職業安定法 第 30 条)** 取得必須。無許可での報酬受取は禁止。
 - 候補者 PII は ADR-0018 Tier 3 準拠 (`signal:v1:` field-encrypt + consent gate)
-- 成果報酬の請求は `app.etzhayyim.apps.stripe.*` XRPC 経由 (Worker 直 Stripe call 禁止)
+- 成果報酬の請求は `com.etzhayyim.apps.stripe.*` XRPC 経由 (Worker 直 Stripe call 禁止)
 - 候補者の AT Protocol DID ポートフォリオは self-sovereign (本人以外の書き込み禁止)
 
 ## Alternatives Considered

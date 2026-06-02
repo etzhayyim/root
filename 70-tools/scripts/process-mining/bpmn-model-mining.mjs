@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { BpmnModdle } from "bpmn-moddle";
 
-const DEFAULT_BPMN_ROOT = "00-contracts/bpmn/ai/gftd";
+const DEFAULT_BPMN_ROOT = "00-contracts/bpmn/com/etzhayyim";
 const TASK_RE =
   /<zeebe:taskDefinition\b[^>]*\btype=(["'])(.*?)\1/gu;
 const DOC_RE = /<bpmn:documentation\b[^>]*>([\s\S]*?)<\/bpmn:documentation>/u;

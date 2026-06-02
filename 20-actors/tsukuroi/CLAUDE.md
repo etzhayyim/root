@@ -8,7 +8,7 @@
 - **ADR**: ADR-2605291500 (R0 scaffold, 2026-05-29) — SSoT
 - **Diagnosis sibling**: ADR-2605151400 (akuma — authorized red team / vulnerability probing)
 - **Parent ADRs**: ADR-2605192100 (Mission Charter), ADR-2605192200 (Charter Rider), ADR-2605215000 (Murakumo-only), ADR-2605231525 (no platform-held key), ADR-2605262130 (kotoba)
-- **Status**: R0 scaffold — 7 cells path-reserved (created in W1); 5 Lexicon skeletons under `app.etzhayyim.tsukuroi.*`
+- **Status**: R0 scaffold — 7 cells path-reserved (created in W1); 5 Lexicon skeletons under `com.etzhayyim.tsukuroi.*`
 - **Form**: 任意団体 internal remediation substrate (NOT a managed patch-as-a-service; non-profit only)
 
 ## One-line purpose
@@ -36,7 +36,7 @@ holds **no merge/deploy authority and no platform master key**.
 
 ## RemediationMandate contract
 
-`app.etzhayyim.tsukuroi.remediationMandate` — `target_repo`, `finding_cid`
+`com.etzhayyim.tsukuroi.remediationMandate` — `target_repo`, `finding_cid`
 (upstream akuma finding), `allowed_paths[]`, `submission_mode`
 (`fork-pr` | `patch-file` | `config-diff`), `owner_did`+`owner_signature`,
 `authority_did`+`authority_signature`, `valid_from`/`valid_until`,
@@ -61,7 +61,7 @@ resolves to an active akuma finding on the same owner+target.
 Each cell is import-time `RuntimeError("tsukuroi R0 scaffold: activate via
 Council ADR + R1 ratification")` until R1.
 
-## Lexicons (`app.etzhayyim.tsukuroi.*`)
+## Lexicons (`com.etzhayyim.tsukuroi.*`)
 
 `remediationMandate` · `patchProposal` (`defensiveOnly` const true /
 `autonomousMerge` const false / `pathsTouched ⊆ allowedPaths`) ·
@@ -90,7 +90,7 @@ akuma.finding (VulnFinding)
 - **Synthesis+validation**: egress-restricted `tsukuroi-validate` namespace;
   egress only to the owner-attested git submission endpoint (fork remote),
   never to the live target
-- **Persistence**: kotoba datom (EAVT) + MST `app.etzhayyim.tsukuroi.*`; raw
+- **Persistence**: kotoba datom (EAVT) + MST `com.etzhayyim.tsukuroi.*`; raw
   payloads + delegated credentials ciphertext in `vault.etzhayyim.com`
 
 ## R0 → R3

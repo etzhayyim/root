@@ -213,7 +213,7 @@ def task_ongakuka_music_generate(
     # -- RisingWave writes ----------------------------------------------------
     with sync_cursor() as cur:
         # T2 domain: vertex_ongakuka_track
-        track_vid = f"at://{_OWNER_DID}/app.etzhayyim.apps.ongakuka.track/{track_rkey}"
+        track_vid = f"at://{_OWNER_DID}/com.etzhayyim.apps.ongakuka.track/{track_rkey}"
         cur.execute(
             """
             INSERT INTO vertex_ongakuka_track
@@ -241,7 +241,7 @@ def task_ongakuka_music_generate(
 
         # T2 domain: vertex_ongakuka_generation
         gen_rkey = f"gen-{track_rkey}"
-        gen_vid  = f"at://{_COMPOSER_DID}/app.etzhayyim.apps.ongakuka.generation/{gen_rkey}"
+        gen_vid  = f"at://{_COMPOSER_DID}/com.etzhayyim.apps.ongakuka.generation/{gen_rkey}"
         cur.execute(
             """
             INSERT INTO vertex_ongakuka_generation

@@ -13,8 +13,8 @@
 | nanoid | `334bbd5f` |
 | Runtime tier | T2 TS Native (Cloudflare Worker + Hono) |
 | Worker path | `60-apps/ai-gftd-project-lawyer/appview/ai-gftd-wasm-lawyer-334bbd5f/` |
-| Lexicon SSoT (shared) | `00-contracts/lexicons/ai/gftd/apps/lawfirm/` (matters, grants, hearings, time entries) |
-| Lexicon SSoT (lawyer) | `00-contracts/lexicons/ai/gftd/apps/lawyer/` (attorney-specific operations) |
+| Lexicon SSoT (shared) | `00-contracts/lexicons/com/etzhayyim/apps/lawfirm/` (matters, grants, hearings, time entries) |
+| Lexicon SSoT (lawyer) | `00-contracts/lexicons/com/etzhayyim/apps/lawyer/` (attorney-specific operations) |
 
 ## Lead Bengoshi
 
@@ -32,26 +32,26 @@
 
 ## Relationship to lawfirm.etzhayyim.com
 
-`lawfirm.etzhayyim.com` は client-facing (intake, matter management, billing)。`lawyer.etzhayyim.com` は attorney-facing (workspace, grant acceptance, AI drafting, time logging, hearing prep)。両者は `app.etzhayyim.apps.lawfirm.*` 共有 lexicon を `firmDid` でスコープして協調する。
+`lawfirm.etzhayyim.com` は client-facing (intake, matter management, billing)。`lawyer.etzhayyim.com` は attorney-facing (workspace, grant acceptance, AI drafting, time logging, hearing prep)。両者は `com.etzhayyim.apps.lawfirm.*` 共有 lexicon を `firmDid` でスコープして協調する。
 
 - Shared data: `vertex_lawfirm_matter`, `vertex_lawfirm_grant`, `vertex_lawfirm_hearing`, `vertex_lawfirm_time_entry`
 - Lawyer-own data: `vertex_lawyer_work_note`, `vertex_lawyer_document_draft`
-- Time entries は `app.etzhayyim.apps.lawfirm.recordTimeEntry` (firmDid=`did:web:lawyer.etzhayyim.com`) で lawfirm 側に記録
+- Time entries は `com.etzhayyim.apps.lawfirm.recordTimeEntry` (firmDid=`did:web:lawyer.etzhayyim.com`) で lawfirm 側に記録
 
 ## Lawyer Portal Service Design
 
 設計詳細の SSoT: `90-docs/adr/2605180600-lawyer-attorney-portal-design.md`
 
-### 6 XRPC Commands (`app.etzhayyim.apps.lawyer.*`)
+### 6 XRPC Commands (`com.etzhayyim.apps.lawyer.*`)
 
 | NSID | Type | 説明 |
 |---|---|---|
-| `app.etzhayyim.apps.lawyer.getDashboard` | query | Dashboard snapshot: active matters + pending grants + upcoming hearings + unbilled minutes |
-| `app.etzhayyim.apps.lawyer.listAssignedMatters` | query | lead_advocate_did または co_counsel_dids に含まれる matters 一覧 |
-| `app.etzhayyim.apps.lawyer.listPendingGrants` | query | status=invited の externalCounselGrant 一覧 |
-| `app.etzhayyim.apps.lawyer.acceptGrant` | procedure | Grant 承認 → status=accepted → matter workspace open |
-| `app.etzhayyim.apps.lawyer.logWorkNote` | procedure | 暗号化 work note + 請求可能時間をマターに記録 |
-| `app.etzhayyim.apps.lawyer.submitDocumentDraft` | procedure | AI 文書草案生成 → ISCO-2611 承認ゲート → draft 保存 |
+| `com.etzhayyim.apps.lawyer.getDashboard` | query | Dashboard snapshot: active matters + pending grants + upcoming hearings + unbilled minutes |
+| `com.etzhayyim.apps.lawyer.listAssignedMatters` | query | lead_advocate_did または co_counsel_dids に含まれる matters 一覧 |
+| `com.etzhayyim.apps.lawyer.listPendingGrants` | query | status=invited の externalCounselGrant 一覧 |
+| `com.etzhayyim.apps.lawyer.acceptGrant` | procedure | Grant 承認 → status=accepted → matter workspace open |
+| `com.etzhayyim.apps.lawyer.logWorkNote` | procedure | 暗号化 work note + 請求可能時間をマターに記録 |
+| `com.etzhayyim.apps.lawyer.submitDocumentDraft` | procedure | AI 文書草案生成 → ISCO-2611 承認ゲート → draft 保存 |
 
 ### lawfirm → lawyer Connection Protocol (externalCounselGrant Flow)
 
@@ -60,10 +60,10 @@ lawfirm.createCase (India マーカー検知 または 手動 invite)
   → externalCounselGrant mint (granteeDid=k.bakshi, status=invited)
   → subscribeRepos trigger → lawyer portal に通知
   → /grants ビューに表示
-  → 弁護士が app.etzhayyim.apps.lawyer.acceptGrant を呼出
+  → 弁護士が com.etzhayyim.apps.lawyer.acceptGrant を呼出
   → grant status=accepted, acceptedAt=now()
   → listAssignedMatters / logWorkNote / submitDocumentDraft が使用可能に
-  → 時間記録は app.etzhayyim.apps.lawfirm.recordTimeEntry (firmDid=did:web:lawyer.etzhayyim.com) で法律事務所側に還流
+  → 時間記録は com.etzhayyim.apps.lawfirm.recordTimeEntry (firmDid=did:web:lawyer.etzhayyim.com) で法律事務所側に還流
 ```
 
 Grant record の `capabilities[]` (`read`, `comment`, `uploadDocument`, `propose`, `sign`, `scheduleHearing`) が matter workspace 内の権限を制御する。
@@ -94,7 +94,7 @@ approved  または  rejected
 | `/grants` | Grants | `listPendingGrants` — 承認 / 辞退カード |
 | `/drafts` | Drafts | `submitDocumentDraft` フォーム + draft ステータストラッカー |
 
-全ルートは AT Protocol session JWT で保護。Svelte は `/xrpc/app.etzhayyim.apps.lawyer.*` を `lawyer.etzhayyim.com` Worker BFF に向けて呼出す。
+全ルートは AT Protocol session JWT で保護。Svelte は `/xrpc/com.etzhayyim.apps.lawyer.*` を `lawyer.etzhayyim.com` Worker BFF に向けて呼出す。
 
 ### LangGraph Graphs (LangServer, Vultr k8s)
 
@@ -143,7 +143,7 @@ Checkpointer: PostgreSQL (RisingWave :4566) `AsyncPostgresSaver`。Thread ID = `
 cd 60-apps/ai-gftd-project-lawyer/appview/ai-gftd-wasm-lawyer-334bbd5f
 gftd deploy
 curl -sI https://lawyer.etzhayyim.com/_app/meta         # 200 確認
-curl -s "https://lawyer.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.getDashboard?lawyerDid=did:web:lawyer.etzhayyim.com"
+curl -s "https://lawyer.etzhayyim.com/xrpc/com.etzhayyim.apps.lawyer.getDashboard?lawyerDid=did:web:lawyer.etzhayyim.com"
 ```
 
 ## Bootstrap Runbook
@@ -156,14 +156,14 @@ curl -s "https://lawyer.etzhayyim.com/xrpc/app.etzhayyim.apps.lawyer.getDashboar
 
 ## Reference
 
-- Lawyer lexicons: [`00-contracts/lexicons/ai/gftd/apps/lawyer/`](../../00-contracts/lexicons/ai/gftd/apps/lawyer/)
+- Lawyer lexicons: [`00-contracts/lexicons/com/etzhayyim/apps/lawyer/`](../../00-contracts/lexicons/com/etzhayyim/apps/lawyer/)
   - `listAssignedMatters.json`
   - `listPendingGrants.json`
   - `acceptGrant.json`
   - `getDashboard.json`
   - `logWorkNote.json`
   - `submitDocumentDraft.json`
-- Shared lawfirm lexicons: [`00-contracts/lexicons/ai/gftd/apps/lawfirm/`](../../00-contracts/lexicons/ai/gftd/apps/lawfirm/)
+- Shared lawfirm lexicons: [`00-contracts/lexicons/com/etzhayyim/apps/lawfirm/`](../../00-contracts/lexicons/com/etzhayyim/apps/lawfirm/)
 - ADR-2605180600 (Attorney Portal Design): [`90-docs/adr/2605180600-lawyer-attorney-portal-design.md`](../../90-docs/adr/2605180600-lawyer-attorney-portal-design.md)
 - ADR-0016 (Legal Cluster): [`90-docs/adr/0016-legal-cluster-topology.md`](../../90-docs/adr/0016-legal-cluster-topology.md)
 - ADR-0018 (PII Tier 3): [`90-docs/adr/0018-pii-tier3-cohort-first.md`](../../90-docs/adr/0018-pii-tier3-cohort-first.md)

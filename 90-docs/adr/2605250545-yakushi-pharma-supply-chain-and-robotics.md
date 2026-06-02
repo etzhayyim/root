@@ -29,9 +29,9 @@ related:
   - 20-actors/magatama/cells/pharma_cold_chain/
   - 20-actors/magatama/cells/pharma_post_market_surveillance/
   - 20-actors/magatama/cells/pharma_adverse_event/
-  - 00-contracts/lexicons/app/etzhayyim/pharma/rawMaterialAttestation.json
-  - 00-contracts/lexicons/app/etzhayyim/pharma/silenPharmaReview.json
-  - 00-contracts/lexicons/app/etzhayyim/pharma/adverseEventReport.json
+  - 00-contracts/lexicons/com/etzhayyim/pharma/rawMaterialAttestation.json
+  - 00-contracts/lexicons/com/etzhayyim/pharma/silenPharmaReview.json
+  - 00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json
 supersedes: []
 superseded_by: []
 ---
@@ -171,7 +171,7 @@ Wave 1 R0-R2 では plant 内 + 国内移送のみ scope ― 海外配布は R3 
 |---|---|
 | Submission UI | ameno PWA (mobile-first) + non-adherent 用 anonymous form |
 | Patient identity | XChaCha20-Poly1305 envelope (per ADR-2605181100) ― patient DID encrypted with patient's own passkey-derived key + sealed-recipient-only (yakushi Council Lv6+ DIDs) |
-| Submission lexicon | `app.etzhayyim.pharma.adverseEventReport` (this ADR creates) |
+| Submission lexicon | `com.etzhayyim.pharma.adverseEventReport` (this ADR creates) |
 | Public aggregation | yakushi `pharma_post_market_surveillance` cell が daily aggregate を public published (no PII, narrative-only + lot # back-reference + severity histogram) |
 | Severity scale | CIOMS Form III standardized (mild / moderate / severe / serious / life-threatening / fatal) |
 | Causality | WHO-UMC standardized (certain / probable / possible / unlikely / unrelated / unassessable) |

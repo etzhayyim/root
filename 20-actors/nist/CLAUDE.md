@@ -87,16 +87,16 @@ did:web:n1st0csf.etzhayyim.com                          → root coordinator
 
 | Record Kind (camelCase) | Description |
 |---|---|
-| `app.etzhayyim.apps.nist.csfFunction` | CSF 2.0 Function definition |
-| `app.etzhayyim.apps.nist.csfCategory` | CSF 2.0 Category definition |
-| `app.etzhayyim.apps.nist.csfSubcategory` | CSF 2.0 Subcategory definition |
-| `app.etzhayyim.apps.nist.tierGap` | Tier 3→4 gap per subcategory × dimension |
-| `app.etzhayyim.apps.nist.cmmcFamily` | CMMC L2 family (14) |
-| `app.etzhayyim.apps.nist.cmmcPractice` | CMMC L2 practice (110) |
-| `app.etzhayyim.apps.nist.cmmcCsfMapping` | CMMC→CSF cross-mapping |
-| `app.etzhayyim.apps.nist.communityProfile` | SP 1302 community profile |
-| `app.etzhayyim.apps.nist.csfProfile` | Organization CSF Profile |
-| `app.etzhayyim.apps.nist.csfAssessment` | Subcategory assessment result |
+| `com.etzhayyim.apps.nist.csfFunction` | CSF 2.0 Function definition |
+| `com.etzhayyim.apps.nist.csfCategory` | CSF 2.0 Category definition |
+| `com.etzhayyim.apps.nist.csfSubcategory` | CSF 2.0 Subcategory definition |
+| `com.etzhayyim.apps.nist.tierGap` | Tier 3→4 gap per subcategory × dimension |
+| `com.etzhayyim.apps.nist.cmmcFamily` | CMMC L2 family (14) |
+| `com.etzhayyim.apps.nist.cmmcPractice` | CMMC L2 practice (110) |
+| `com.etzhayyim.apps.nist.cmmcCsfMapping` | CMMC→CSF cross-mapping |
+| `com.etzhayyim.apps.nist.communityProfile` | SP 1302 community profile |
+| `com.etzhayyim.apps.nist.csfProfile` | Organization CSF Profile |
+| `com.etzhayyim.apps.nist.csfAssessment` | Subcategory assessment result |
 
 ## Seed Script
 

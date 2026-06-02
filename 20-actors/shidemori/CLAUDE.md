@@ -167,7 +167,7 @@ python -c "from magatama.cells.shidemori_memorial_nft_mint import _r0_marker" 2>
 
 - `/20-actors/shidemori/manifest.jsonld`
 - `/20-actors/shidemori/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/shidemori/` (5 Lexicons + README)
+- `/00-contracts/lexicons/com/etzhayyim/shidemori/` (5 Lexicons + README)
 - `/90-docs/adr/2605263800-shidemori-memorial-cemetery-tier-b-actor-r0.md`
 - `/90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md` — TIGHT funeral_ceremony pair
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — TIGHT inheritanceChain pair

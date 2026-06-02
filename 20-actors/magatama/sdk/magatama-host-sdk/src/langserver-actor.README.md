@@ -4,7 +4,7 @@ Magatama actor wrapper around a per-taxonomy LangGraph Pregel langserver,
 per **ADR-2605180900** Phase 6.
 
 The actor is a thin HTTP client targeting an in-cluster Service DNS. Each
-method maps 1:1 to a lexicon under `00-contracts/lexicons/ai/gftd/apps/{taxonomy}/`,
+method maps 1:1 to a lexicon under `00-contracts/lexicons/com/etzhayyim/apps/{taxonomy}/`,
 so the same input/output shapes are reused across HTTP / XRPC / MCP /
 in-process actor callers.
 
@@ -42,15 +42,15 @@ const page = await unispsc.listAgents({ prefix: "101", limit: 50 });
 
 | Method                                  | NSID                                           |
 |-----------------------------------------|------------------------------------------------|
-| `unispsc.classify`                      | `app.etzhayyim.apps.unispsc.classify`                |
-| `unispsc.invokeAgent`                   | `app.etzhayyim.apps.unispsc.invokeAgent`             |
-| `unispsc.listAgents`                    | `app.etzhayyim.apps.unispsc.listAgents`              |
-| `unispsc.health`                        | `app.etzhayyim.apps.unispsc.health`                  |
-| `isic.classify`                         | `app.etzhayyim.apps.isic.classify`                   |
-| `isic.hierarchicalClassify`             | `app.etzhayyim.apps.isic.hierarchicalClassify`       |
-| `isic.invokeAgent`                      | `app.etzhayyim.apps.isic.invokeAgent`                |
-| `isic.listAgents`                       | `app.etzhayyim.apps.isic.listAgents`                 |
-| `isic.health`                           | `app.etzhayyim.apps.isic.health`                     |
+| `unispsc.classify`                      | `com.etzhayyim.apps.unispsc.classify`                |
+| `unispsc.invokeAgent`                   | `com.etzhayyim.apps.unispsc.invokeAgent`             |
+| `unispsc.listAgents`                    | `com.etzhayyim.apps.unispsc.listAgents`              |
+| `unispsc.health`                        | `com.etzhayyim.apps.unispsc.health`                  |
+| `isic.classify`                         | `com.etzhayyim.apps.isic.classify`                   |
+| `isic.hierarchicalClassify`             | `com.etzhayyim.apps.isic.hierarchicalClassify`       |
+| `isic.invokeAgent`                      | `com.etzhayyim.apps.isic.invokeAgent`                |
+| `isic.listAgents`                       | `com.etzhayyim.apps.isic.listAgents`                 |
+| `isic.health`                           | `com.etzhayyim.apps.isic.health`                     |
 
 ## Default Service DNS
 
@@ -102,8 +102,8 @@ Test Files  1 passed (1)
 
 ## See also
 
-- `00-contracts/lexicons/ai/gftd/apps/unispsc/*.json` — lexicon contracts
-- `00-contracts/lexicons/ai/gftd/apps/isic/*.json` — lexicon contracts
+- `00-contracts/lexicons/com/etzhayyim/apps/unispsc/*.json` — lexicon contracts
+- `00-contracts/lexicons/com/etzhayyim/apps/isic/*.json` — lexicon contracts
 - `50-infra/k8s/lg-open-unispsc/` — UNSPSC langserver pod
 - `50-infra/k8s/lg-open-isic/` — ISIC langserver pod
 - ADR-2605180900 (`90-docs/adr/`) — full architecture

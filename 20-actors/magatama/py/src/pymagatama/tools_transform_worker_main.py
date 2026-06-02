@@ -1,4 +1,4 @@
-"""Generic-primitive worker for app.etzhayyim.tools.transform.* (ADR-2605082000 §2 follow-up).
+"""Generic-primitive worker for com.etzhayyim.tools.transform.* (ADR-2605082000 §2 follow-up).
 
 Per-row declarative transform. Bridges fetched arrays (e.g. http.fetch +
 json.extract output) and downstream sql.exec INSERT rows that need
@@ -7,7 +7,7 @@ restructured fields, without per-actor Python code.
 Mapping grammar (defensive subset; no eval, no JSONPath/JMESPath):
 
     string  "$.message.items[0]"     → dotted-path lookup (same grammar
-                                       as app.etzhayyim.tools.json.extract)
+                                       as com.etzhayyim.tools.json.extract)
     {const: <any>}                   → literal constant
     {fmt:   "prefix-{a.b}-suffix"}   → format with {path} substituted
                                        from the input row
@@ -78,7 +78,7 @@ async def task_transform_map(
 ) -> dict[str, Any]:
     """Apply the mapping to every input row and return the transformed list."""
     if input is None or mapping is None:
-        return {"error": "app.etzhayyim.tools.transform.map: 'input' and 'mapping' are required"}
+        return {"error": "com.etzhayyim.tools.transform.map: 'input' and 'mapping' are required"}
     if not isinstance(input, list):
         return {"error": "input must be an array"}
     if not isinstance(mapping, dict):

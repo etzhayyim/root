@@ -1,4 +1,4 @@
-# app.etzhayyim.tsukuroi.* — Lexicons
+# com.etzhayyim.tsukuroi.* — Lexicons
 
 Lexicon surface for **tsukuroi** (繕い) — the authorized vulnerability-remediation
 + patch-proposal actor; the constructive sibling of **akuma** (悪魔). Master ADR:

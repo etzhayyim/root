@@ -23,9 +23,9 @@ Pregel cell topology (ADR-2605215200 §1):
 Super-step flow:
   [cron / kyumeiSignal]
        ↓
-  KarmaHegemonObservationCell  → writes app.etzhayyim.apps.etzhayyim.shinka.observeAdherent
+  KarmaHegemonObservationCell  → writes com.etzhayyim.apps.etzhayyim.shinka.observeAdherent
        ↓
-  EvolutionValidationCell      → writes app.etzhayyim.apps.etzhayyim.shinka.validateEvolution
+  EvolutionValidationCell      → writes com.etzhayyim.apps.etzhayyim.shinka.validateEvolution
        ↓
   EvolutionEmissionCell        → writes evolutionEvent to MST + IPFS + Base L2
 
@@ -173,7 +173,7 @@ class ComposeDraft:
     the vendor prompt verbatim.
 
     Stored in EvolutionEventRecord and MST via vertex_shinka_evolution.props.draft
-    (vendor side) or app.etzhayyim.apps.etzhayyim.evolutionEvent.composeDraft (religious-corp).
+    (vendor side) or com.etzhayyim.apps.etzhayyim.evolutionEvent.composeDraft (religious-corp).
 
     tone is one of: reflective / celebratory / grateful / focused / observational
     (matches vendor _compose_content tone enum, portable).
@@ -211,7 +211,7 @@ class EvolutionClaim:
 
 @dataclass(slots=True)
 class EvolutionEventRecord:
-    """MST record payload for app.etzhayyim.apps.etzhayyim.evolutionEvent.
+    """MST record payload for com.etzhayyim.apps.etzhayyim.evolutionEvent.
 
     Wire shape is byte-compatible with vendor shinka_tick_actor JSON response
     for interop at Step 8 (ADR-2605215200 §3 compatibility note).
@@ -403,7 +403,7 @@ async def karma_hegemon_observation_cell(adherent_did: str) -> AdherentState:
     """KarmaHegemonObservationCell — placed on levi (port 13023).  [M2 IMPLEMENTED]
 
     Reads adherent state from MST + IPFS and gathers kyumei signals from the
-    app.etzhayyim.shinka.kyumeiSignal collection.
+    com.etzhayyim.shinka.kyumeiSignal collection.
 
     Replaces vendor:
       - _load_state   (SELECT FROM vertex_shinka_evolution via RW)
@@ -413,9 +413,9 @@ async def karma_hegemon_observation_cell(adherent_did: str) -> AdherentState:
       SELECT FROM vertex_shinka_evolution → mst.query(evolutionEvent, did=...)
       SELECT FROM vertex_kyumei_signal    → mst.query(kyumeiSignal, filter_did=..., since=...)
 
-    Trigger: cron */15 * * * *  OR  mst-listener on app.etzhayyim.shinka.kyumeiSignal
+    Trigger: cron */15 * * * *  OR  mst-listener on com.etzhayyim.shinka.kyumeiSignal
 
-    Writes: app.etzhayyim.shinka.observeAdherent (triggers EvolutionValidationCell)
+    Writes: com.etzhayyim.shinka.observeAdherent (triggers EvolutionValidationCell)
 
     Returns an AdherentState populated from MST reads.
     SDK calls are stubs (NotImplementedError) until M3 — tested in isolation via mocks.
@@ -430,7 +430,7 @@ async def karma_hegemon_observation_cell(adherent_did: str) -> AdherentState:
     # Vendor _load_state reads from vertex_shinka_evolution via RW SELECT.
     # Religious-corp reads from MST via mst.query (stub until M3).
     evolution_records: list[dict[str, Any]] = await _mst_mod.query(
-        "app.etzhayyim.shinka.evolutionEvent",
+        "com.etzhayyim.shinka.evolutionEvent",
         did=adherent_did,
         limit=1,
         sort="desc",
@@ -450,7 +450,7 @@ async def karma_hegemon_observation_cell(adherent_did: str) -> AdherentState:
 
     # Step 2: Gather kyumei signals since last evolution.
     # Try mst-projector first (no 100-record cap); fall back to mst.query on error.
-    _KYUMEI_COLLECTION = "app.etzhayyim.shinka.kyumeiSignal"
+    _KYUMEI_COLLECTION = "com.etzhayyim.shinka.kyumeiSignal"
     kyumei_records: list[dict[str, Any]]
     if _projector_mod is not None:
         try:
@@ -484,12 +484,12 @@ async def karma_hegemon_observation_cell(adherent_did: str) -> AdherentState:
         last_heartbeat_ms=int(time.time() * 1000),
     )
 
-    # Note: In production, this cell also writes an app.etzhayyim.shinka.observeAdherent
+    # Note: In production, this cell also writes an com.etzhayyim.shinka.observeAdherent
     # record to MST to trigger EvolutionValidationCell. That dispatch is deferred until
     # the pds.put_record stub is replaced at M3.
     # await _pds_mod.put_record(
-    #     collection="app.etzhayyim.shinka.observeAdherent",
-    #     record={"$type": "app.etzhayyim.shinka.observeAdherent", ...},
+    #     collection="com.etzhayyim.shinka.observeAdherent",
+    #     record={"$type": "com.etzhayyim.shinka.observeAdherent", ...},
     # )
 
     return state
@@ -500,7 +500,7 @@ async def _check_charter_compliance(adherent_did: str) -> str:
 
     Returns one of: "compliant", "pending", "non_aligned", "unknown".
 
-    Queries the canonical lexicon app.etzhayyim.apps.etzhayyim.charter-compliance
+    Queries the canonical lexicon com.etzhayyim.apps.etzhayyim.charter-compliance
     (ChartersComplianceRegistry attestation records per ADR-2605192100 §1.12).
     Until the Solidity-binding for ChartersComplianceRegistry.sol is wired into
     the SDK (M4+ when sdk.l2 grows contract-read support), this falls back to
@@ -520,7 +520,7 @@ async def _check_charter_compliance(adherent_did: str) -> str:
     """
     try:
         records = await _mst_mod.query(
-            collection="app.etzhayyim.apps.etzhayyim.charter-compliance",
+            collection="com.etzhayyim.apps.etzhayyim.charter-compliance",
             filter={"subjectDid": adherent_did},
         )
         if not records:
@@ -554,10 +554,10 @@ async def evolution_validation_cell(claim: EvolutionClaim) -> ValidationResult:
     Replaces vendor:
       - _koji_validate (SELECT FROM vertex_koji_attestation via RW)
 
-    Trigger: mst-listener on app.etzhayyim.shinka.observeAdherent
+    Trigger: mst-listener on com.etzhayyim.shinka.observeAdherent
 
     Attestation query path:
-      Queries app.etzhayyim.apps.etzhayyim.charter-attestation via
+      Queries com.etzhayyim.apps.etzhayyim.charter-attestation via
       mst.council_attestation_details() with recency filter (WITNESS_RECENCY_DAYS).
       Council Lv6+ status resolved against COUNCIL_LV6_DIDS bootstrap roster
       (ADR-2605192300); live registry NSID TBD.
@@ -568,7 +568,7 @@ async def evolution_validation_cell(claim: EvolutionClaim) -> ValidationResult:
       Recency: attestations must be within WITNESS_RECENCY_DAYS (ADR §2).
 
     Returns: ValidationResult (valid, attestation_count, required_count, reason).
-    Writes on valid: app.etzhayyim.shinka.validateEvolution → triggers EvolutionEmissionCell.
+    Writes on valid: com.etzhayyim.shinka.validateEvolution → triggers EvolutionEmissionCell.
     SDK calls are stubs (NotImplementedError) until M3 — tested in isolation via mocks.
     """
     if _mst_mod is None:
@@ -756,9 +756,9 @@ async def evolution_validation_cell(claim: EvolutionClaim) -> ValidationResult:
         )
         # Write validateEvolution record to trigger EvolutionEmissionCell via MST listener.
         await _pds_mod.put_record(
-            collection="app.etzhayyim.shinka.validateEvolution",
+            collection="com.etzhayyim.shinka.validateEvolution",
             record={
-                "$type": "app.etzhayyim.shinka.validateEvolution",
+                "$type": "com.etzhayyim.shinka.validateEvolution",
                 "claimId": claim.claim_id,
                 "adherentDid": claim.adherent_did,
                 "proposedLevel": claim.proposed_level,
@@ -807,7 +807,7 @@ async def evolution_emission_cell(
     Replaces vendor:
       - _emit_evolution (INSERT INTO vertex_shinka_evolution_event via RW)
 
-    Trigger: mst-listener on app.etzhayyim.shinka.validateEvolution
+    Trigger: mst-listener on com.etzhayyim.shinka.validateEvolution
 
     Write path (ADR-2605171800 Stage 3-5):
       Stage 3 — MST record: pds.put_record(collection=evolutionEvent)
@@ -841,12 +841,12 @@ async def evolution_emission_cell(
     )
 
     # Stage 3 — MST record: write evolutionEvent to PDS.
-    # Lexicon: app.etzhayyim.shinka.evolutionEvent
+    # Lexicon: com.etzhayyim.shinka.evolutionEvent
     # Required fields: adherentDid, previousLevel, newLevel, claimId,
     #                  validatedAt, evidenceCids, attestationDids, l2AnchorTxHash
     # l2AnchorTxHash is filled in after Stage 5; use "" as placeholder.
     mst_record: dict[str, Any] = {
-        "$type": "app.etzhayyim.shinka.evolutionEvent",
+        "$type": "com.etzhayyim.shinka.evolutionEvent",
         "adherentDid": claim.adherent_did,
         "previousLevel": max(0, claim.proposed_level - 1),
         "newLevel": claim.proposed_level,
@@ -864,7 +864,7 @@ async def evolution_emission_cell(
         claim.proposed_level,
     )
     mst_result = await _pds_mod.put_record(
-        collection="app.etzhayyim.shinka.evolutionEvent",
+        collection="com.etzhayyim.shinka.evolutionEvent",
         record=mst_record,
     )
     commit_cid: str = mst_result.get("cid", "")
@@ -943,7 +943,7 @@ async def shinka_heartbeat_cell(
 
     Trigger: cron */15 * * * *  (matches vendor shinka_cron_tick K8s CronJob cadence)
 
-    Lexicon: app.etzhayyim.shinka.shinkaHeartbeat
+    Lexicon: com.etzhayyim.shinka.shinkaHeartbeat
     Required fields: nodeName, cycle, recordedAt, cellsObserved, cellsValidated, cellsEmitted
 
     Returns: heartbeat status dict compatible with vendor heartbeat_written field.
@@ -965,7 +965,7 @@ async def shinka_heartbeat_cell(
         .replace("+00:00", "Z")
     )
 
-    # Build the heartbeat record matching the app.etzhayyim.shinka.shinkaHeartbeat lexicon.
+    # Build the heartbeat record matching the com.etzhayyim.shinka.shinkaHeartbeat lexicon.
     # node_name is "levi" — ShinkaHeartbeatCell is placed on levi per ADR-2605215200 §1.
     if _ShinkaHeartbeatRecord is not None:
         heartbeat = _ShinkaHeartbeatRecord(
@@ -981,7 +981,7 @@ async def shinka_heartbeat_cell(
     else:
         # Fallback if SDK types are unavailable: build raw dict matching lexicon wire shape.
         mst_record = {
-            "$type": "app.etzhayyim.shinka.shinkaHeartbeat",
+            "$type": "com.etzhayyim.shinka.shinkaHeartbeat",
             "nodeName": "levi",
             "cycle": cycle,
             "recordedAt": recorded_at,
@@ -996,7 +996,7 @@ async def shinka_heartbeat_cell(
     # MST-only write: no IPFS pin or Base L2 anchor needed for heartbeat
     # (analogous to LandStewardshipMonitoringCell per ADR-2605215200 §1).
     await _pds_mod.put_record(
-        collection="app.etzhayyim.shinka.shinkaHeartbeat",
+        collection="com.etzhayyim.shinka.shinkaHeartbeat",
         record=mst_record,
     )
 

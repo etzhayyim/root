@@ -14,10 +14,10 @@ A third party (operator with no prior maps state) needs:
 
 | Input | Source | Auth |
 |---|---|---|
-| atproto PDS read access | `maps.etzhayyim.com` PDS (public-read on `app.etzhayyim.maps.*` collections) | none required for public records; service JWT for `app.etzhayyim.encrypted.*` |
+| atproto PDS read access | `maps.etzhayyim.com` PDS (public-read on `com.etzhayyim.maps.*` collections) | none required for public records; service JWT for `com.etzhayyim.encrypted.*` |
 | IPFS gateway | `https://ipfs.etzhayyim.com` OR any public gateway | none |
 | Base L2 RPC | `https://mainnet.base.org` OR any Base mainnet RPC | none |
-| `app.etzhayyim.yatachain.attestation` collection (for L1+ rebuilds) | same PDS | none |
+| `com.etzhayyim.yatachain.attestation` collection (for L1+ rebuilds) | same PDS | none |
 | Empty RisingWave (or any compatible substrate) instance | operator-supplied | operator |
 | 30-graph schema migrations | `30-graph/graph-schema/migrations/*.ts` (in this monorepo) | none |
 

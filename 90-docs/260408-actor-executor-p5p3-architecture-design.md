@@ -42,7 +42,7 @@ kagami graph DB + OCEL 2.0 event log
 
 ## Actor Manifest Schema
 
-**Collection**: `app.etzhayyim.actor.manifest`
+**Collection**: `com.etzhayyim.actor.manifest`
 **Graph label**: `ActorManifest`
 **Source**: `50-infra/cloudflare/workers/atproto/src/actor-manifest.ts`
 
@@ -146,15 +146,15 @@ EndEvent              →  derive:social (gftd:deriveTemplate)
 
 | NSID | Type | Description |
 |---|---|---|
-| `app.etzhayyim.actor.executePipeline` | write | Execute T1/T2 pipeline |
-| `app.etzhayyim.actor.registerManifest` | write | Register manifest |
-| `app.etzhayyim.actor.getManifest` | read | Get manifest by DID |
-| `app.etzhayyim.actor.validateManifest` | read | Validate manifest |
-| `app.etzhayyim.actor.compileBpmn` | read | BPMN XML → manifest |
-| `app.etzhayyim.actor.deployProcess` | write | compile + register |
-| `app.etzhayyim.actor.migrateToManifest` | write | Batch T1 stub migration |
-| `app.etzhayyim.dmn.evaluate` | write | DMN decision eval |
-| `app.etzhayyim.form.submit` | write | UserTask form submit |
+| `com.etzhayyim.actor.executePipeline` | write | Execute T1/T2 pipeline |
+| `com.etzhayyim.actor.registerManifest` | write | Register manifest |
+| `com.etzhayyim.actor.getManifest` | read | Get manifest by DID |
+| `com.etzhayyim.actor.validateManifest` | read | Validate manifest |
+| `com.etzhayyim.actor.compileBpmn` | read | BPMN XML → manifest |
+| `com.etzhayyim.actor.deployProcess` | write | compile + register |
+| `com.etzhayyim.actor.migrateToManifest` | write | Batch T1 stub migration |
+| `com.etzhayyim.dmn.evaluate` | write | DMN decision eval |
+| `com.etzhayyim.form.submit` | write | UserTask form submit |
 
 ## WIT Contract
 

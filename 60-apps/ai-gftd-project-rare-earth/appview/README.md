@@ -3,10 +3,10 @@
 - primary actor: `did:web:rare-earth-coverage.etzhayyim.com`
 - appview did: `did:web:rare-earth.etzhayyim.com`
 - collections:
-  - `app.etzhayyim.apps.rareEarth.actor`
-  - `app.etzhayyim.apps.rareEarth.flow`
-  - `app.etzhayyim.apps.rareEarth.coverageSnapshot`
+  - `com.etzhayyim.apps.rareEarth.actor`
+  - `com.etzhayyim.apps.rareEarth.flow`
+  - `com.etzhayyim.apps.rareEarth.coverageSnapshot`
 - xrpc:
-  - `app.etzhayyim.apps.rareEarth.coverage.get`
-  - `app.etzhayyim.apps.rareEarth.coverage.listActors`
-  - `app.etzhayyim.apps.rareEarth.coverage.listFlows`
+  - `com.etzhayyim.apps.rareEarth.coverage.get`
+  - `com.etzhayyim.apps.rareEarth.coverage.listActors`
+  - `com.etzhayyim.apps.rareEarth.coverage.listFlows`

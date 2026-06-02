@@ -65,7 +65,7 @@ subrepo をもっとスムーズに管理するには? submodule の方がいい
 |---|---|
 | `50-infra/murakumo/fleet.toml` | monorepo-only |
 | Religious-corp ADRs (2605215000, 2605262200, 2605282000, ...) | monorepo-only |
-| `00-contracts/lexicons/app/etzhayyim/kotoba/economy/` | monorepo-only |
+| `00-contracts/lexicons/com/etzhayyim/kotoba/economy/` | monorepo-only |
 | `etzhayyim_organism.sensors.charter_rider` scanner | monorepo-only |
 | `kotoba-vm` Invoke XRPC (R2 binding) | upstream-canonical (consumed via HTTP) |
 | `kotoba-llm::http_infer` OpenAI-compat wire format | upstream-canonical (mirrored in Python) |

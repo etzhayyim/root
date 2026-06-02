@@ -25,7 +25,7 @@ constitutional:
    contracted through Public Fund (Council Lv6+) and routed via chigiri —
    never inside danjo.
 2. **Passive-only ingestion (G3)** — danjo reads ONLY the pre-published,
-   IPFS-pinned `app.etzhayyim.gov.dataset.*` corpus (ADR-2605263900). NO
+   IPFS-pinned `com.etzhayyim.gov.dataset.*` corpus (ADR-2605263900). NO
    live portal scraping, NO per-query API hits, NO non-public sources, NO
    whistleblower intake. This is the hard wall against §2(c) covert-ops /
    surveillance drift. danjo does NOT re-fetch from government portals;
@@ -72,7 +72,7 @@ oversight_report ──────── naphtali (periodic event; aggregate + 
 ```
 
 Each cell = 1 Pregel graph. Cells communicate via lexicon records on MST
-(`app.etzhayyim.danjo.*`); the cross-reference graph lives in kotoba
+(`com.etzhayyim.danjo.*`); the cross-reference graph lives in kotoba
 QuadStore (EAVT) per ADR-2605262130. All cell modules are R0 path-
 reserved and will be import-time `RuntimeError("danjo R0 scaffold:
 activate via Council ADR + R1 ratification")` at W1 creation.
@@ -115,7 +115,7 @@ identical discipline to the tadori sibling (ADR-2605301400).
 5. `70-tools/scripts/lint/no-danjo-adjudication.mjs` (LANDED at R0)
    deployed to the lefthook config (gated on the repo-wide "lefthook
    hooks full set" wave; the script is already green standalone);
-6. `app.etzhayyim.danjo.crossReferenceLink` + `.methodNote` schemas
+6. `com.etzhayyim.danjo.crossReferenceLink` + `.methodNote` schemas
    Council-attestation-reviewed (R1 minimum cell trio = ingest cells).
 
 ## R1 Cell Activation Order
@@ -183,7 +183,7 @@ python -c "from magatama.cells.danjo_diet_statement_index import _r0_marker" 2>&
 
 - `/20-actors/danjo/manifest.jsonld`
 - `/20-actors/danjo/README.md`
-- `/00-contracts/lexicons/app/etzhayyim/danjo/` (4 Lexicon JSONs + README)
+- `/00-contracts/lexicons/com/etzhayyim/danjo/` (4 Lexicon JSONs + README)
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — Master ADR
 - `/90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md` — open-gov corpus (primary input)
 - `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no RisingWave)

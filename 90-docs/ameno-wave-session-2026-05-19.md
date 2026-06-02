@@ -42,7 +42,7 @@ remains. Useful for posterity / onboarding / honest retro.
 | 2605191603 | Swarm deterministic leader election + auto-respond gating | proposed |
 | 2605191608 | Ameno Stage 3 IPFS pin activation | proposed |
 | 2605191625 | Ameno Stage 4 Base L2 anchor CronJob | proposed |
-| 2605191638 | Substrate-level swarm lease lex (`app.etzhayyim.swarm.lease`) | proposed |
+| 2605191638 | Substrate-level swarm lease lex (`com.etzhayyim.swarm.lease`) | proposed |
 | 2605191641 | DID auth allowlist (`AMENO_ALLOWED_DIDS`) | proposed |
 | 2605191645 | Browser ↔ daemon checkpoint sync v0.1 (pull-from-daemon) | proposed |
 | 2605191648 | Substrate-boundary enforcement via lefthook + CI | proposed |
@@ -107,7 +107,7 @@ included here for narrative completeness.)
 50-infra/anchor-cron/k8s/
 └── cronjob-ameno.yaml            ← Stage 4 anchor
 
-00-contracts/lexicons/ai/gftd/apps/ameno/
+00-contracts/lexicons/com/etzhayyim/apps/ameno/
 └── swarmLease.json               ← cross-device coordination shape
 
 70-tools/scripts/lint/
@@ -155,7 +155,7 @@ included here for narrative completeness.)
    conflict resolution + LWW is a follow-up ADR
 3. **HTTP Message Signatures (RFC 9421)** — current DIDSig signs just
    the nonce; full RFC 9421 body-and-headers signing is v0.2
-4. **Signal Protocol DID binding** — `app.etzhayyim.identity.signalIdentity`
+4. **Signal Protocol DID binding** — `com.etzhayyim.identity.signalIdentity`
    integration with did:key
 5. **anchor-cron monitoring** — alerting / metrics for Stage 4
 6. **native macOS Ollama ansible** — alternative to ollama-fleet

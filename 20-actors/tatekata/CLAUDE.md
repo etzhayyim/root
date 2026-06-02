@@ -17,7 +17,7 @@ foundation_excavation → structural_assembly → mep_installation → finishing
     (naphtali)              (joseph)               (zebulun)           (simeon)          (levi)
 ```
 
-Each cell = 1 Pregel graph with super-step semantics (3–5 LangGraph nodes per cell). Cells communicate via lexicon records on MST (`app.etzhayyim.tatekata.*` record types).
+Each cell = 1 Pregel graph with super-step semantics (3–5 LangGraph nodes per cell). Cells communicate via lexicon records on MST (`com.etzhayyim.tatekata.*` record types).
 
 ## Robotics Fleet
 
@@ -58,14 +58,14 @@ See `ADR-2605250700` for full definitions. Key enforcement:
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.tatekata`
+**App lexicon root**: `com.etzhayyim.tatekata`
 
 **Records** (4 types):
 
-1. **`app.etzhayyim.tatekata.siteAttestation`** — Site survey findings (soil classification, existing utilities, hazards)
-2. **`app.etzhayyim.tatekata.materialAttestation`** — Batch material arrival + QA (certification, chemical analysis, weight)
-3. **`app.etzhayyim.tatekata.constructionProgressRecord`** — Phase boundary + photo/depth CID + anomaly flags
-4. **`app.etzhayyim.tatekata.safetyIncidentReport`** — On-site incident (near-miss, injury, equipment damage)
+1. **`com.etzhayyim.tatekata.siteAttestation`** — Site survey findings (soil classification, existing utilities, hazards)
+2. **`com.etzhayyim.tatekata.materialAttestation`** — Batch material arrival + QA (certification, chemical analysis, weight)
+3. **`com.etzhayyim.tatekata.constructionProgressRecord`** — Phase boundary + photo/depth CID + anomaly flags
+4. **`com.etzhayyim.tatekata.safetyIncidentReport`** — On-site incident (near-miss, injury, equipment damage)
 
 **Deferred to R1+**: Full lexicon schema definitions. R0 uses stub placeholders.
 

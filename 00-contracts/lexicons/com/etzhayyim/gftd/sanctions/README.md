@@ -1,4 +1,4 @@
-# `app.etzhayyim.sanctions.*` — OFAC / UN / EU sanctions list mirror
+# `com.etzhayyim.sanctions.*` — OFAC / UN / EU sanctions list mirror
 
 Open spec for the sanctions list mirror (OFAC SDN, UN Consolidated List, EU
 Restrictive Measures). This is the **list data + lookup lexicon only**.
@@ -12,10 +12,10 @@ Tranche F scaffolding (Phase 2) per ADR-2605172400.
 
 ## NSIDs (planned)
 
-- `app.etzhayyim.sanctions.getEntry` — fetch one sanctioned entity by listId
-- `app.etzhayyim.sanctions.searchByName` — fuzzy name search across all lists
-- `app.etzhayyim.sanctions.listSources` — enumerate source lists (OFAC, UN, EU, ...)
-- `app.etzhayyim.sanctions.getListVersion` — current snapshot version per source
+- `com.etzhayyim.sanctions.getEntry` — fetch one sanctioned entity by listId
+- `com.etzhayyim.sanctions.searchByName` — fuzzy name search across all lists
+- `com.etzhayyim.sanctions.listSources` — enumerate source lists (OFAC, UN, EU, ...)
+- `com.etzhayyim.sanctions.getListVersion` — current snapshot version per source
 
 ## See also
 

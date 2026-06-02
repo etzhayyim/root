@@ -47,7 +47,7 @@ HS はこの repo において次の位置に置く。
 `ai-gftd-project-code-hs` は **1 app × multi-DID** を基本とする。
 
 - primary DID: `did:web:hs.etzhayyim.com`
-- NSID prefix: `app.etzhayyim.apps.hs.*`
+- NSID prefix: `com.etzhayyim.apps.hs.*`
 - performerType: `service`
 - execution tier: `T1`
 
@@ -175,12 +175,12 @@ write の主境界は以下とする。
 
 | Collection | NSID | Writer DID |
 |---|---|---|
-| taxonomy node | `app.etzhayyim.apps.hs.node` | primary DID |
-| concordance | `app.etzhayyim.apps.hs.concordance` | primary DID |
-| trade evidence | `app.etzhayyim.apps.hs.tradeEvidence` | heading/subheading DID |
-| policy overlay | `app.etzhayyim.apps.hs.policyOverlay` | country DID |
-| coverage report | `app.etzhayyim.apps.hs.coverageReport` | chapter/heading/subheading DID |
-| revision delta | `app.etzhayyim.apps.hs.revisionDelta` | revision DID |
+| taxonomy node | `com.etzhayyim.apps.hs.node` | primary DID |
+| concordance | `com.etzhayyim.apps.hs.concordance` | primary DID |
+| trade evidence | `com.etzhayyim.apps.hs.tradeEvidence` | heading/subheading DID |
+| policy overlay | `com.etzhayyim.apps.hs.policyOverlay` | country DID |
+| coverage report | `com.etzhayyim.apps.hs.coverageReport` | chapter/heading/subheading DID |
+| revision delta | `com.etzhayyim.apps.hs.revisionDelta` | revision DID |
 
 ## Query Surface
 
@@ -188,12 +188,12 @@ write の主境界は以下とする。
 
 | NSID | Purpose |
 |---|---|
-| `app.etzhayyim.apps.hs.getNode` | code から taxonomy node 取得 |
-| `app.etzhayyim.apps.hs.getChildren` | 子ノード一覧 |
-| `app.etzhayyim.apps.hs.resolveConcordance` | GTIN/CPC/ISIC から HS 推定 |
-| `app.etzhayyim.apps.hs.getCoverage` | coverage snapshot |
-| `app.etzhayyim.apps.hs.getPolicyOverlay` | 国別 tariff / restriction 概要 |
-| `app.etzhayyim.apps.hs.health` | actor health |
+| `com.etzhayyim.apps.hs.getNode` | code から taxonomy node 取得 |
+| `com.etzhayyim.apps.hs.getChildren` | 子ノード一覧 |
+| `com.etzhayyim.apps.hs.resolveConcordance` | GTIN/CPC/ISIC から HS 推定 |
+| `com.etzhayyim.apps.hs.getCoverage` | coverage snapshot |
+| `com.etzhayyim.apps.hs.getPolicyOverlay` | 国別 tariff / restriction 概要 |
+| `com.etzhayyim.apps.hs.health` | actor health |
 
 ## Revision Strategy
 

@@ -32,7 +32,7 @@ BPMN metadata is stored on PDS. Process XML may be archived to B2. Instance stat
 | Vendor (`bpmn.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
-| `db.insertInto("vertex_bpmn_process").values({...}).execute()` | `e.write({ collection: "app.etzhayyim.bpmn.process", record, rkey })` |
+| `db.insertInto("vertex_bpmn_process").values({...}).execute()` | `e.write({ collection: "com.etzhayyim.bpmn.process", record, rkey })` |
 | `db.selectFrom("vertex_bpmn_instance").where("instance_id","=",id).execute()` | `e.read({ collection, rkey: \`instance-${instanceSlug(id)}\` })` |
 
 ## Usage
@@ -93,19 +93,19 @@ const cancelResp = await cancelInstance(e, {
 
 ## Lexicons (13)
 
-1. **app.etzhayyim.bpmn.deployProcess** — register BPMN process (JSON/XML)
-2. **app.etzhayyim.bpmn.listProcesses** — cursor-paginated process list
-3. **app.etzhayyim.bpmn.validateXml** — XSD + Schematron validation
-4. **app.etzhayyim.bpmn.compileJsonToXml** — BPMN JSON subset → BPMN 2.0 XML
-5. **app.etzhayyim.bpmn.compileBpmn** — XML → ActorManifest pipeline
-6. **app.etzhayyim.bpmn.analyzeProcess** — OCEL process mining (KPIs + LLM)
-7. **app.etzhayyim.bpmn.startInstance** — begin instance with variables
-8. **app.etzhayyim.bpmn.getInstanceState** — full state + event log
-9. **app.etzhayyim.bpmn.listInstances** — cursor + processId/state filter
-10. **app.etzhayyim.bpmn.signalInstance** — send message to waiting event
-11. **app.etzhayyim.bpmn.cancelInstance** — terminate instance (DESTRUCTIVE)
-12. **app.etzhayyim.bpmn.executePipeline** — invoke T1/T2 actor pipeline
-13. **app.etzhayyim.bpmn.getActivityLog** — instance activity event log
+1. **com.etzhayyim.bpmn.deployProcess** — register BPMN process (JSON/XML)
+2. **com.etzhayyim.bpmn.listProcesses** — cursor-paginated process list
+3. **com.etzhayyim.bpmn.validateXml** — XSD + Schematron validation
+4. **com.etzhayyim.bpmn.compileJsonToXml** — BPMN JSON subset → BPMN 2.0 XML
+5. **com.etzhayyim.bpmn.compileBpmn** — XML → ActorManifest pipeline
+6. **com.etzhayyim.bpmn.analyzeProcess** — OCEL process mining (KPIs + LLM)
+7. **com.etzhayyim.bpmn.startInstance** — begin instance with variables
+8. **com.etzhayyim.bpmn.getInstanceState** — full state + event log
+9. **com.etzhayyim.bpmn.listInstances** — cursor + processId/state filter
+10. **com.etzhayyim.bpmn.signalInstance** — send message to waiting event
+11. **com.etzhayyim.bpmn.cancelInstance** — terminate instance (DESTRUCTIVE)
+12. **com.etzhayyim.bpmn.executePipeline** — invoke T1/T2 actor pipeline
+13. **com.etzhayyim.bpmn.getActivityLog** — instance activity event log
 
 ## What this package IS / ISN'T
 

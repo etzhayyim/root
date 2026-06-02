@@ -137,7 +137,7 @@ def _dispatch_send_draft(parsed: dict, send_now: bool = False) -> dict:
     POST to bpmn-dispatcher → microsoft.etzhayyim.com sendDraft (default) or sendMail.
     etzhayyim_agent rule: external mail defaults to send_now=False (draft only).
     """
-    nsid = "app.etzhayyim.apps.microsoft.sendMail" if send_now else "app.etzhayyim.apps.microsoft.sendDraft"
+    nsid = "com.etzhayyim.apps.microsoft.sendMail" if send_now else "com.etzhayyim.apps.microsoft.sendDraft"
     body = json.dumps({
         "to":       parsed.get("to") or [],
         "cc":       parsed.get("cc") or [],
@@ -217,7 +217,7 @@ async def task_cadence_dispatch_due_mails(
         result = _dispatch_send_draft(parsed, send_now=send_now)
 
         ev_uri = (
-            f"at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.outreachEvent/"
+            f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.outreachEvent/"
             f"{lead_id}-warm-intro-{_dt.datetime.now(tz=_dt.UTC).strftime('%Y%m%d%H%M%S')}"
         )
         _execute(
@@ -374,7 +374,7 @@ async def task_cadence_dispatch_follow_ups(
             result = _dispatch_send_draft(substituted, send_now=send_now)
 
             ev_uri = (
-                f"at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.outreachEvent/"
+                f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.outreachEvent/"
                 f"{lead_id}-{cfg['next_kind']}-"
                 f"{_dt.datetime.now(tz=_dt.UTC).strftime('%Y%m%d%H%M%S')}"
             )

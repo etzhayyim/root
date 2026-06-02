@@ -1,7 +1,7 @@
 # infra-utility-connect — Utility Company Coordination Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:infra-utility-connect`
-**Namespace**: `app.etzhayyim.infra.*`
+**Namespace**: `com.etzhayyim.infra.*`
 **ADR**: ADR-2605250900 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26)
 

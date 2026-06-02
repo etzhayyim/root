@@ -53,11 +53,11 @@ def _jsonable(v: Any) -> Any:
 
 
 def _vertex_id(kind: str, key: str) -> str:
-    return f"at://{APP_DID}/app.etzhayyim.apps.oshikatsu.{kind}/{key}"
+    return f"at://{APP_DID}/com.etzhayyim.apps.oshikatsu.{kind}/{key}"
 
 
 def _edge_id(kind: str, src: str, dst: str) -> str:
-    return f"at://{APP_DID}/app.etzhayyim.apps.oshikatsu.edge/{kind}:{src}:{dst}"[:512]
+    return f"at://{APP_DID}/com.etzhayyim.apps.oshikatsu.edge/{kind}:{src}:{dst}"[:512]
 
 
 def _rows(cur: Any) -> list[dict[str, Any]]:
@@ -396,20 +396,20 @@ def task_oshikatsu_search(q: str = "", limit: Any = 20, **_: Any) -> dict[str, A
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.app.etzhayyim.apps.oshikatsu.checkAccess": task_oshikatsu_check_access,
-        "xrpc.app.etzhayyim.apps.oshikatsu.createCreatorProfile": task_oshikatsu_create_creator_profile,
-        "xrpc.app.etzhayyim.apps.oshikatsu.creatorStats": task_oshikatsu_creator_stats,
-        "xrpc.app.etzhayyim.apps.oshikatsu.getContent": task_oshikatsu_get_content,
-        "xrpc.app.etzhayyim.apps.oshikatsu.getCreatorProfile": task_oshikatsu_get_creator_profile,
-        "xrpc.app.etzhayyim.apps.oshikatsu.listContent": task_oshikatsu_list_content,
-        "xrpc.app.etzhayyim.apps.oshikatsu.listCreators": task_oshikatsu_list_creators,
-        "xrpc.app.etzhayyim.apps.oshikatsu.listSubscriptions": task_oshikatsu_list_subscriptions,
-        "xrpc.app.etzhayyim.apps.oshikatsu.publishContent": task_oshikatsu_publish_content,
-        "xrpc.app.etzhayyim.apps.oshikatsu.search": task_oshikatsu_search,
-        "xrpc.app.etzhayyim.apps.oshikatsu.subscribe": task_oshikatsu_subscribe,
-        "xrpc.app.etzhayyim.apps.oshikatsu.tip": task_oshikatsu_tip,
-        "xrpc.app.etzhayyim.apps.oshikatsu.unsubscribe": task_oshikatsu_unsubscribe,
-        "xrpc.app.etzhayyim.apps.oshikatsu.updateTiers": task_oshikatsu_update_tiers,
+        "xrpc.com.etzhayyim.apps.oshikatsu.checkAccess": task_oshikatsu_check_access,
+        "xrpc.com.etzhayyim.apps.oshikatsu.createCreatorProfile": task_oshikatsu_create_creator_profile,
+        "xrpc.com.etzhayyim.apps.oshikatsu.creatorStats": task_oshikatsu_creator_stats,
+        "xrpc.com.etzhayyim.apps.oshikatsu.getContent": task_oshikatsu_get_content,
+        "xrpc.com.etzhayyim.apps.oshikatsu.getCreatorProfile": task_oshikatsu_get_creator_profile,
+        "xrpc.com.etzhayyim.apps.oshikatsu.listContent": task_oshikatsu_list_content,
+        "xrpc.com.etzhayyim.apps.oshikatsu.listCreators": task_oshikatsu_list_creators,
+        "xrpc.com.etzhayyim.apps.oshikatsu.listSubscriptions": task_oshikatsu_list_subscriptions,
+        "xrpc.com.etzhayyim.apps.oshikatsu.publishContent": task_oshikatsu_publish_content,
+        "xrpc.com.etzhayyim.apps.oshikatsu.search": task_oshikatsu_search,
+        "xrpc.com.etzhayyim.apps.oshikatsu.subscribe": task_oshikatsu_subscribe,
+        "xrpc.com.etzhayyim.apps.oshikatsu.tip": task_oshikatsu_tip,
+        "xrpc.com.etzhayyim.apps.oshikatsu.unsubscribe": task_oshikatsu_unsubscribe,
+        "xrpc.com.etzhayyim.apps.oshikatsu.updateTiers": task_oshikatsu_update_tiers,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

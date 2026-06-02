@@ -5,16 +5,16 @@ Subscribes to Zeebe job types matching the BPMN service tasks in
 60-apps/ai-gftd-project-anime/bpmn/ingest-anime.bpmn.
 
 Job types:
-  app.etzhayyim.apps.anime.createTitle      — persist new anime title
-  app.etzhayyim.apps.anime.createSeason     — persist season under a title
-  app.etzhayyim.apps.anime.createEpisode    — persist episode under a season
-  app.etzhayyim.apps.anime.createSchedule   — persist broadcast schedule slot
-  app.etzhayyim.apps.anime.submitReview     — persist viewer review
-  app.etzhayyim.apps.anime.listTitles       — query title list
-  app.etzhayyim.apps.anime.getTitle         — query single title with seasons
-  app.etzhayyim.apps.anime.listEpisodes     — query episodes for a season
-  app.etzhayyim.apps.anime.searchTitles     — keyword + genre search
-  app.etzhayyim.apps.anime.listSchedules    — query broadcast schedules
+  com.etzhayyim.apps.anime.createTitle      — persist new anime title
+  com.etzhayyim.apps.anime.createSeason     — persist season under a title
+  com.etzhayyim.apps.anime.createEpisode    — persist episode under a season
+  com.etzhayyim.apps.anime.createSchedule   — persist broadcast schedule slot
+  com.etzhayyim.apps.anime.submitReview     — persist viewer review
+  com.etzhayyim.apps.anime.listTitles       — query title list
+  com.etzhayyim.apps.anime.getTitle         — query single title with seasons
+  com.etzhayyim.apps.anime.listEpisodes     — query episodes for a season
+  com.etzhayyim.apps.anime.searchTitles     — keyword + genre search
+  com.etzhayyim.apps.anime.listSchedules    — query broadcast schedules
 
 Run inside cluster:
     python -m pymagatama.anime_worker_main
@@ -93,11 +93,11 @@ async def task_create_title(
                 source_type, org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23)
             """,
-            _vid("app.etzhayyim.apps.anime.title", id_),
+            _vid("com.etzhayyim.apps.anime.title", id_),
             int(time.time() * 1000), now[:10], 0,
             "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
-            "app.etzhayyim.apps.anime.title", status,
+            "com.etzhayyim.apps.anime.title", status,
             id_, title, title_ja, genre, tags, synopsis, studio, source_type,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
@@ -130,11 +130,11 @@ async def task_create_season(
                 org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
             """,
-            _vid("app.etzhayyim.apps.anime.season", id_),
+            _vid("com.etzhayyim.apps.anime.season", id_),
             int(time.time() * 1000), now[:10], 0,
             "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
-            "app.etzhayyim.apps.anime.season", "active",
+            "com.etzhayyim.apps.anime.season", "active",
             id_, title_id, season_num, year, cour, episode_count,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
@@ -167,11 +167,11 @@ async def task_create_episode(
                 org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
             """,
-            _vid("app.etzhayyim.apps.anime.episode", id_),
+            _vid("com.etzhayyim.apps.anime.episode", id_),
             int(time.time() * 1000), now[:10], 0,
             "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
-            "app.etzhayyim.apps.anime.episode", "aired",
+            "com.etzhayyim.apps.anime.episode", "aired",
             id_, season_id, episode_num, title, air_date, duration_sec,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
@@ -207,11 +207,11 @@ async def task_create_schedule(
                 org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23)
             """,
-            _vid("app.etzhayyim.apps.anime.schedule", id_),
+            _vid("com.etzhayyim.apps.anime.schedule", id_),
             int(time.time() * 1000), now[:10], 0,
             "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", "did:web:anime.etzhayyim.com",
-            "app.etzhayyim.apps.anime.schedule", "active",
+            "com.etzhayyim.apps.anime.schedule", "active",
             id_, title_id, season_id or "", channel, day_of_week,
             time_slot, start_date, end_date,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
@@ -244,11 +244,11 @@ async def task_submit_review(
                 org_id, user_id, actor_id, created_at, updated_at
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)
             """,
-            _vid("app.etzhayyim.apps.anime.review", id_),
+            _vid("com.etzhayyim.apps.anime.review", id_),
             int(time.time() * 1000), now[:10], 0,
             reviewer_did or "did:web:anime.etzhayyim.com", id_,
             "did:web:anime.etzhayyim.com", reviewer_did or "did:web:anime.etzhayyim.com",
-            "app.etzhayyim.apps.anime.review", "published",
+            "com.etzhayyim.apps.anime.review", "published",
             id_, title_id, reviewer_did, max(0, min(10, rating)), body,
             org_id, user_id, "did:web:anime.etzhayyim.com", now, now,
         )
@@ -389,16 +389,16 @@ async def run_worker() -> None:
     worker = LangServerWorker(channel)
 
     registrations = {
-        "app.etzhayyim.apps.anime.createTitle":    task_create_title,
-        "app.etzhayyim.apps.anime.createSeason":   task_create_season,
-        "app.etzhayyim.apps.anime.createEpisode":  task_create_episode,
-        "app.etzhayyim.apps.anime.createSchedule": task_create_schedule,
-        "app.etzhayyim.apps.anime.submitReview":   task_submit_review,
-        "app.etzhayyim.apps.anime.listTitles":     task_list_titles,
-        "app.etzhayyim.apps.anime.getTitle":       task_get_title,
-        "app.etzhayyim.apps.anime.listEpisodes":   task_list_episodes,
-        "app.etzhayyim.apps.anime.searchTitles":   task_search_titles,
-        "app.etzhayyim.apps.anime.listSchedules":  task_list_schedules,
+        "com.etzhayyim.apps.anime.createTitle":    task_create_title,
+        "com.etzhayyim.apps.anime.createSeason":   task_create_season,
+        "com.etzhayyim.apps.anime.createEpisode":  task_create_episode,
+        "com.etzhayyim.apps.anime.createSchedule": task_create_schedule,
+        "com.etzhayyim.apps.anime.submitReview":   task_submit_review,
+        "com.etzhayyim.apps.anime.listTitles":     task_list_titles,
+        "com.etzhayyim.apps.anime.getTitle":       task_get_title,
+        "com.etzhayyim.apps.anime.listEpisodes":   task_list_episodes,
+        "com.etzhayyim.apps.anime.searchTitles":   task_search_titles,
+        "com.etzhayyim.apps.anime.listSchedules":  task_list_schedules,
     }
 
     for task_type, fn in registrations.items():

@@ -58,8 +58,8 @@ is expensive — which is the operator's directive here.
 - **Operator exempt / mint**: the node-owner DID is unlimited (never debited) —
   the node's own substrate writes and the operator-run ingest never block. The
   operator funds external writers via `econ.credit`.
-- **XRPC**: `ai.gftd.apps.kotoba.econ.balance` (read a DID's balance + cost +
-  enabled flag) and `ai.gftd.apps.kotoba.econ.credit` (operator-only mint:
+- **XRPC**: `com.etzhayyim.apps.kotoba.econ.balance` (read a DID's balance + cost +
+  enabled flag) and `com.etzhayyim.apps.kotoba.econ.credit` (operator-only mint:
   credit/debit a DID).
 - **Opt-in**: cost is `KOTOBA_WRITE_COST_MKOTO_PER_DATOM` (default **0 =
   disabled**, so unit/e2e tests and existing CACAO writers are unaffected until

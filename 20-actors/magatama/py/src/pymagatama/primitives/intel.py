@@ -28,8 +28,8 @@ from pymagatama import llm as _llm
 
 
 _OWNER_DID = "did:web:intel.etzhayyim.com"
-_COLLECTION_RUN = "app.etzhayyim.apps.intel.inferenceRun"
-_COLLECTION_EDGE = "app.etzhayyim.apps.intel.dependency"
+_COLLECTION_RUN = "com.etzhayyim.apps.intel.inferenceRun"
+_COLLECTION_EDGE = "com.etzhayyim.apps.intel.dependency"
 
 
 def _utc_now() -> str:

@@ -103,13 +103,13 @@ mitsuho R2+ uses green NH₃ as the **fallback nitrogen source** when biological
 ## §6 New Lexicons
 
 ```
-app.etzhayyim.hikari.{
+com.etzhayyim.hikari.{
   ammoniaProductionAttestation,    # per-kg: h2_attestation_cid + n2_source + reactor_facility + leak_check
   ammoniaStorageInventory,         # per-LANDS-parcel: kg current + form (anhydrous/aqueous) + pressure
   ammoniaSafetyAttestation,        # per-facility commissioning: OSHA 1910.111 / ASME B31.3 equivalent
   silenAmmoniaReview               # annual Council Lv6+ ≥3: H2 chain-of-custody + zero-AN attestation + leak rate
 }
-app.etzhayyim.mitsuho.{
+com.etzhayyim.mitsuho.{
   nitrogenSourceLedger             # per-parcel-per-season: biological / manure / compost / green-NH3 kg-N breakdown
 }
 ```

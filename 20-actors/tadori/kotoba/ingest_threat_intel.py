@@ -5,10 +5,10 @@ Reads operator-staged JSONL observations (SecurityTrails/DNSDB/Recorded Future
 shaped, but never fetched live here), validates the tadori gates, converts them
 to Datomic tx-data EDN, and writes through:
 
-    POST /xrpc/ai.gftd.apps.kotoba.datomic.transact
+    POST /xrpc/com.etzhayyim.apps.kotoba.datomic.transact
 
 Live writes require an operator credential in KOTOBA_SESSION_POP or KOTOBA_TOKEN.
-KOTOBA_SESSION_POP is verified with ai.gftd.pds.session.verify before transact.
+KOTOBA_SESSION_POP is verified with com.etzhayyim.pds.session.verify before transact.
 Without a credential the command is a dry run and prints the tx_edn summary.
 """
 from __future__ import annotations
@@ -25,9 +25,9 @@ HERE = os.path.dirname(__file__)
 DEFAULT_SEED = os.path.join(HERE, "seed.threat-intel.jsonl")
 DEFAULT_SCHEMA = os.path.join(HERE, "schema.edn")
 
-NSID_SESSION_VERIFY = "ai.gftd.pds.session.verify"
-NSID_DATOMIC_TRANSACT = "ai.gftd.apps.kotoba.datomic.transact"
-NSID_DATOMIC_DATOMS = "ai.gftd.apps.kotoba.datomic.datoms"
+NSID_SESSION_VERIFY = "com.etzhayyim.pds.session.verify"
+NSID_DATOMIC_TRANSACT = "com.etzhayyim.apps.kotoba.datomic.transact"
+NSID_DATOMIC_DATOMS = "com.etzhayyim.apps.kotoba.datomic.datoms"
 
 VENDOR_COMPAT = {
     "securitytrails-compatible",

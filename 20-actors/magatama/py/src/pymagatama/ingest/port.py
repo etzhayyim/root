@@ -14,9 +14,9 @@ PUBLIC_DID = "did:web:port.etzhayyim.com"
 NANOID = "p0rt7890"
 
 OTHER_COLLECTION = {
-    "Berth": "app.etzhayyim.apps.port.berth",
-    "Terminal": "app.etzhayyim.apps.port.terminal",
-    "PortCallEvent": "app.etzhayyim.apps.port.portCallEvent",
+    "Berth": "com.etzhayyim.apps.port.berth",
+    "Terminal": "com.etzhayyim.apps.port.terminal",
+    "PortCallEvent": "com.etzhayyim.apps.port.portCallEvent",
 }
 
 OTHER_TABLE = {
@@ -125,7 +125,7 @@ def _insert_port(props: dict[str, Any], port_id: str | None = None) -> dict[str,
         VALUES (%s, _next_seq('vertex_transport'), %s, %s, %s, %s, %s, 'Port', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ON CONFLICT (vertex_id) DO UPDATE SET props = EXCLUDED.props, status = EXCLUDED.status""",
         (
-            f"at://{OWNER_DID}/app.etzhayyim.apps.port.port/{pid}",
+            f"at://{OWNER_DID}/com.etzhayyim.apps.port.port/{pid}",
             time.strftime("%Y-%m-%d", time.gmtime()),
             100,
             OWNER_DID,
@@ -152,7 +152,7 @@ def _insert_other(label: str, props: dict[str, Any], id_field: str) -> dict[str,
     table = OTHER_TABLE[label]
     rec_id = _s(props.get(id_field) or _id(label.lower()))
     props = {**props, id_field: rec_id, "nodeLabel": label, "createdAt": props.get("createdAt") or now_iso(), "orgId": "anon", "userId": "anon", "actorId": OWNER_DID}
-    vertex_id = f"at://{OWNER_DID}/app.etzhayyim.apps.port.{label}/{rec_id}"
+    vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.port.{label}/{rec_id}"
     columns = [
         "vertex_id", "_seq", "created_date", "sensitivity_ord", "owner_did", "rkey", "repo",
         "label", "did", "collection", "status", "props", "actor_did", "org_did",
@@ -190,7 +190,7 @@ def _insert_other(label: str, props: dict[str, Any], id_field: str) -> dict[str,
         tuple(values),
     )
     if label in {"Berth", "Terminal"} and props.get("portId"):
-        _insert_edge("edge_port_infrastructure", rec_id, f"at://{OWNER_DID}/app.etzhayyim.apps.port.port/{props.get('portId')}", vertex_id, f"HAS_{label.upper()}", props)
+        _insert_edge("edge_port_infrastructure", rec_id, f"at://{OWNER_DID}/com.etzhayyim.apps.port.port/{props.get('portId')}", vertex_id, f"HAS_{label.upper()}", props)
     elif label == "PortCallEvent":
         _insert_edge("edge_port_call_event", rec_id, _s(props.get("callId") or props.get("portId")), vertex_id, "HAS_PORT_CALL_EVENT", props)
     return {"ok": True, id_field: rec_id}

@@ -11,7 +11,7 @@ Authoritative target: **yatachain L1 witnessed** for low-write entity registrati
 | Layer | Substrate | Charter status |
 |---|---|---|
 | Domain / DID | `maps.etzhayyim.com` / `did:web:maps.etzhayyim.com` | ✅ migrated |
-| Lexicons | `app.etzhayyim.apps.maps.*` (47 record kinds) | ⚠️ NSID prefix not yet cut over to `app.etzhayyim.maps.*` |
+| Lexicons | `com.etzhayyim.apps.maps.*` (47 record kinds) | ⚠️ NSID prefix not yet cut over to `com.etzhayyim.maps.*` |
 | Write path | `createKyselyDb(env.HYPERDRIVE).insertInto("vertex_spatial")` direct, ADR-0036 bypass | ❌ violates ADR-2605172000 (centralized RW) |
 | Read path | `createKyselyDb(env.HYPERDRIVE).selectFrom(...)` direct | ❌ violates ADR-2605172000 |
 | Blob | B2 (`maps-bulk-ingest/gsplat*`) + R2 + Cloudflare Tile | ❌ centralized object stores; content-addressed paths exist (SHA-256 prefix shard) so swap to IPFS is mechanical |
@@ -51,8 +51,8 @@ Every maps write/read maps to one of four tiers per [yatachain SPEC §Conformanc
 
 | Surface | Commands | Why |
 |---|---|---|
-| Tile vector overlay | `app.etzhayyim.apps.maps.tileGeoJson` (XRPC) | bbox spatial query on `vertex_spatial WHERE label IN (...)`, sub-100ms target |
-| H3 chunk overlay | `app.etzhayyim.apps.maps.getChunk` | `cellToBoundary → union bbox → 1 query → centroid → owning cell` routing, cache key = h3Cell |
+| Tile vector overlay | `com.etzhayyim.apps.maps.tileGeoJson` (XRPC) | bbox spatial query on `vertex_spatial WHERE label IN (...)`, sub-100ms target |
+| H3 chunk overlay | `com.etzhayyim.apps.maps.getChunk` | `cellToBoundary → union bbox → 1 query → centroid → owning cell` routing, cache key = h3Cell |
 | GTFS-RT realtime | `realtimeDelaysAtStop` + `mv_maps_recent_vehicle_position` / `mv_maps_recent_trip_update` / `mv_maps_active_alerts` streaming MV | 30s polling cadence, sub-50ms read, RW streaming MV pruning windows |
 | GTFS static timetable | `nextDeparturesAtStop` with `idx_maps_stop_time_stop_dep (stop_id, departure_time)` | sub-50ms read on 5M+ row table |
 | Graph traversal | `graph_traverse` (depth 1-5), `graph_neighbors`, `search_resources` (multi-label) | range / join / aggregate semantics outside MST prefix-scan |
@@ -104,19 +104,19 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 - [x] Adopt `yatachain` as architecture name (ADR-2605231400)
 - [x] This `MIGRATION-TODO.md` published
 - [x] Implement `20-actors/etzhayyim-sdk/src/yatachain/{witness-selector,quorum}.ts` (ADR-2605231400 implementation plan #1-#2, shipped 2026-05-23)
-- [x] Lexicon `app.etzhayyim.yatachain.{attestation,membraneRule}` published (ADR-2605231400 #3, shipped 2026-05-23)
+- [x] Lexicon `com.etzhayyim.yatachain.{attestation,membraneRule}` published (ADR-2605231400 #3, shipped 2026-05-23)
 - [x] yatachain-projection ADR drafted ([ADR-2605231500](../../90-docs/adr/2605231500-yatachain-projection.md), shipped 2026-05-23) — unblocks Tier C
 
 ### Phase 1 — Tier A migration (2 weeks after Phase 0)
 
-- [x] **Source DID registry** (`registerSource` / `listSources`) — ported 2026-05-23. Package: [`rw-free/src/source/`](rw-free/src/source/). Lexicon: [`source.json`](../../00-contracts/lexicons/app/etzhayyim/maps/source.json). 24-record seed in [`rw-free/data/sources.json`](rw-free/data/sources.json). 53 vitest. Pending: live PDS seed run after `ETZ_SEEDER_DID` + auth wired
-- [x] **Geo DID Management** (8 commands) — ported 2026-05-23. Package: [`rw-free/src/geo/`](rw-free/src/geo/). 5 lexicons: [`region.json`](../../00-contracts/lexicons/app/etzhayyim/maps/region.json), [`geoAlias.json`](../../00-contracts/lexicons/app/etzhayyim/maps/geoAlias.json), [`verticalZone.json`](../../00-contracts/lexicons/app/etzhayyim/maps/verticalZone.json), [`naturalZone.json`](../../00-contracts/lexicons/app/etzhayyim/maps/naturalZone.json), [`layerCoordinator.json`](../../00-contracts/lexicons/app/etzhayyim/maps/layerCoordinator.json). 59-record seed (14 vertical + 34 natural + 11 layer) + 29-scheme manifest. 41 vitest. **Note**: `resolveZones3d` returns vertical zone only; natural-zone polygon intersection is a yatachain-projection (Tier C). Region/Alias seeds are pipeline-driven (Wikidata SPARQL → bulk-ingest), not in this constant-fixture seeder
-- [x] **Display layer** (`display_layer_define` / `list_display_layers`) — ported 2026-05-23. Package: [`rw-free/src/display-layer/`](rw-free/src/display-layer/). Lexicon: [`displayLayer.json`](../../00-contracts/lexicons/app/etzhayyim/maps/displayLayer.json) (8 render kinds: fill/line/circle/symbol/extrude/heatmap/raster/gsplat). 24 vitest. No constant seed — operator-defined
-- [x] **Registry & Legal Entity register/list** (22 commands) — ported 2026-05-23. Package: [`rw-free/src/registry/`](rw-free/src/registry/). 3 discriminated lexicons: [`legalEntity.json`](../../00-contracts/lexicons/app/etzhayyim/maps/legalEntity.json) (6 entity types), [`registry.json`](../../00-contracts/lexicons/app/etzhayyim/maps/registry.json) (8 registry types), [`ownership.json`](../../00-contracts/lexicons/app/etzhayyim/maps/ownership.json) (5 relations + sharePctBps as bps integer to avoid float drift). 34 vitest. `ownershipChain` + `entityHistory` are TID-keyed event log scans (sort by `effectiveDate`). No constant seed — pipeline-driven (GLEIF / NTA / OpenCorporates etc.)
-- [x] **Collection plumbing** (`createCollectionJob` / `advanceJob` / `listJobs` / `getJobStatus`) — ported 2026-05-23. Package: [`rw-free/src/collection/`](rw-free/src/collection/). 2 lexicons: [`collectionJob.json`](../../00-contracts/lexicons/app/etzhayyim/maps/collectionJob.json) (immutable descriptor, `literal:{jobId}` rkey) + [`jobEvent.json`](../../00-contracts/lexicons/app/etzhayyim/maps/jobEvent.json) (append-only TID-keyed event log; 6 states, 4 terminal). `summariseEvents()` reducer derives latest state by sorting events ascending and cascading optional fields. 45 vitest. Fan-out: `advanceJob` writes a new event, never mutates the descriptor (matches yatachain append-only invariant)
+- [x] **Source DID registry** (`registerSource` / `listSources`) — ported 2026-05-23. Package: [`rw-free/src/source/`](rw-free/src/source/). Lexicon: [`source.json`](../../00-contracts/lexicons/com/etzhayyim/maps/source.json). 24-record seed in [`rw-free/data/sources.json`](rw-free/data/sources.json). 53 vitest. Pending: live PDS seed run after `ETZ_SEEDER_DID` + auth wired
+- [x] **Geo DID Management** (8 commands) — ported 2026-05-23. Package: [`rw-free/src/geo/`](rw-free/src/geo/). 5 lexicons: [`region.json`](../../00-contracts/lexicons/com/etzhayyim/maps/region.json), [`geoAlias.json`](../../00-contracts/lexicons/com/etzhayyim/maps/geoAlias.json), [`verticalZone.json`](../../00-contracts/lexicons/com/etzhayyim/maps/verticalZone.json), [`naturalZone.json`](../../00-contracts/lexicons/com/etzhayyim/maps/naturalZone.json), [`layerCoordinator.json`](../../00-contracts/lexicons/com/etzhayyim/maps/layerCoordinator.json). 59-record seed (14 vertical + 34 natural + 11 layer) + 29-scheme manifest. 41 vitest. **Note**: `resolveZones3d` returns vertical zone only; natural-zone polygon intersection is a yatachain-projection (Tier C). Region/Alias seeds are pipeline-driven (Wikidata SPARQL → bulk-ingest), not in this constant-fixture seeder
+- [x] **Display layer** (`display_layer_define` / `list_display_layers`) — ported 2026-05-23. Package: [`rw-free/src/display-layer/`](rw-free/src/display-layer/). Lexicon: [`displayLayer.json`](../../00-contracts/lexicons/com/etzhayyim/maps/displayLayer.json) (8 render kinds: fill/line/circle/symbol/extrude/heatmap/raster/gsplat). 24 vitest. No constant seed — operator-defined
+- [x] **Registry & Legal Entity register/list** (22 commands) — ported 2026-05-23. Package: [`rw-free/src/registry/`](rw-free/src/registry/). 3 discriminated lexicons: [`legalEntity.json`](../../00-contracts/lexicons/com/etzhayyim/maps/legalEntity.json) (6 entity types), [`registry.json`](../../00-contracts/lexicons/com/etzhayyim/maps/registry.json) (8 registry types), [`ownership.json`](../../00-contracts/lexicons/com/etzhayyim/maps/ownership.json) (5 relations + sharePctBps as bps integer to avoid float drift). 34 vitest. `ownershipChain` + `entityHistory` are TID-keyed event log scans (sort by `effectiveDate`). No constant seed — pipeline-driven (GLEIF / NTA / OpenCorporates etc.)
+- [x] **Collection plumbing** (`createCollectionJob` / `advanceJob` / `listJobs` / `getJobStatus`) — ported 2026-05-23. Package: [`rw-free/src/collection/`](rw-free/src/collection/). 2 lexicons: [`collectionJob.json`](../../00-contracts/lexicons/com/etzhayyim/maps/collectionJob.json) (immutable descriptor, `literal:{jobId}` rkey) + [`jobEvent.json`](../../00-contracts/lexicons/com/etzhayyim/maps/jobEvent.json) (append-only TID-keyed event log; 6 states, 4 terminal). `summariseEvents()` reducer derives latest state by sorting events ascending and cascading optional fields. 45 vitest. Fan-out: `advanceJob` writes a new event, never mutates the descriptor (matches yatachain append-only invariant)
 - [x] **`pymagatama.substrate` Python SDK primitive** — shipped 2026-05-23. Module at `20-actors/magatama/py/src/pymagatama/substrate/` with `Etzhayyim` class (`write` / `read` / `verify`) mirroring the TS `@etzhayyim/sdk` shape. httpx + mock-transport; 18/18 tests pass. Auth: `session_jwt` (user) or `internal_token` (service-to-service via `x-magatama-verified`). `verify()` is scaffold (parity with TS 0.1.0-alpha)
-- [x] **`geonames_dumper.py` pod** — ported 2026-05-23. `USE_PYMAGATAMA_SUBSTRATE=1` env flag enables `pymagatama.substrate` write path to `app.etzhayyim.maps.feature`; legacy psycopg2 path retained as fallback. `_geonames_row_to_feature()` pure converter (h3-py via lazy import; bbox in microdegrees per lexicon). 8 converter tests in `bulk-ingest/tests/test_geonames_port.py`
-- [ ] `aismarine_wikidata_lei.py` pod — recipe documented in [`bulk-ingest/PORT-NOTES.md`](bulk-ingest/PORT-NOTES.md) (2 INSERT sites → 2 `app.etzhayyim.maps.ownership` records each). Pod file annotated with migration target. Apply the same 5-step pattern as geonames port
+- [x] **`geonames_dumper.py` pod** — ported 2026-05-23. `USE_PYMAGATAMA_SUBSTRATE=1` env flag enables `pymagatama.substrate` write path to `com.etzhayyim.maps.feature`; legacy psycopg2 path retained as fallback. `_geonames_row_to_feature()` pure converter (h3-py via lazy import; bbox in microdegrees per lexicon). 8 converter tests in `bulk-ingest/tests/test_geonames_port.py`
+- [ ] `aismarine_wikidata_lei.py` pod — recipe documented in [`bulk-ingest/PORT-NOTES.md`](bulk-ingest/PORT-NOTES.md) (2 INSERT sites → 2 `com.etzhayyim.maps.ownership` records each). Pod file annotated with migration target. Apply the same 5-step pattern as geonames port
 - [ ] Validation: all 46 Tier A commands return identical results before/after via golden-file integration test
 
 ### Phase 2 — Tier D blob migration (parallel with Phase 1)
@@ -131,7 +131,7 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 ### Phase 3 — Tier B L1 witnessed migration (3 weeks after Phase 0)
 
 - [x] **Pre-req: witness-selector + quorum + Murakumo fleet capacity check** — shipped 2026-05-23. `@etzhayyim/sdk/yatachain` exports `selectWitnesses` + `collectQuorum` + `produceAttestation` + `writeWithWitnesses` + `createInMemoryWitnessTransport` + `createPdsPollingWitnessTransport`. Fleet capacity sized in ADR-2605231400 (10 nodes × 15 cells, fanout 5 → ~6.7 cells/quorum-task)
-- [x] **Tier B production demo: `register_mountain` (+ `register_feature` + `register_building`)** — shipped 2026-05-23. Package: [`rw-free/src/feature/`](rw-free/src/feature/). Lexicon: existing [`feature.json`](../../00-contracts/lexicons/app/etzhayyim/maps/feature.json) (label-discriminated). `featureSchemaValidator` checks 4 required fields + bbox quad invariant. `DEFAULT_FEATURE_MEMBRANE_RULE` 3-of-5/council fixture. 9 vitest including end-to-end Mount Fuji registration with mock 30-cell fleet → witnessed/accept verdict + 4 rejection paths (missing h3Cell, malformed geometry, h3Resolution out of range, partial bbox)
+- [x] **Tier B production demo: `register_mountain` (+ `register_feature` + `register_building`)** — shipped 2026-05-23. Package: [`rw-free/src/feature/`](rw-free/src/feature/). Lexicon: existing [`feature.json`](../../00-contracts/lexicons/com/etzhayyim/maps/feature.json) (label-discriminated). `featureSchemaValidator` checks 4 required fields + bbox quad invariant. `DEFAULT_FEATURE_MEMBRANE_RULE` 3-of-5/council fixture. 9 vitest including end-to-end Mount Fuji registration with mock 30-cell fleet → witnessed/accept verdict + 4 rejection paths (missing h3Cell, malformed geometry, h3Resolution out of range, partial bbox)
 - [ ] Remaining Geography Intelligence (17 commands) — port + witness following the `register_mountain` pattern (same lexicon, label-discriminated)
 - [ ] Building / Floor / Asset registration — `register_building` shipped as part of demo; remaining 11 commands (Floor / Asset / Sensor / TwinState) port + witness
 - [ ] Transport infrastructure register-side (12) — port + witness, label-discriminated
@@ -163,8 +163,8 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 
 ## Open questions
 
-- **OQ-M-1** (Lexicon NSID cutover): when does `app.etzhayyim.apps.maps.*` migrate to `app.etzhayyim.maps.*`? This is independent of yatachain conformance but needed for Charter §1 doctrinal-position consistency (operating entity = etzhayyim, not gftd). Suggest: bundle into Phase 1.
-- **OQ-M-2** (Witness on encrypted user-post EXIF): per [ADR-2605181100](../../90-docs/adr/2605181100-app-etzhayyim-encrypted-records.md) `app.etzhayyim.encrypted.*` envelope, can a witness validate envelope structure + signature without decrypting EXIF payload? Tracked as yatachain SPEC OQ-1; resolution blocks user post path.
+- **OQ-M-1** (Lexicon NSID cutover): when does `com.etzhayyim.apps.maps.*` migrate to `com.etzhayyim.maps.*`? This is independent of yatachain conformance but needed for Charter §1 doctrinal-position consistency (operating entity = etzhayyim, not gftd). Suggest: bundle into Phase 1.
+- **OQ-M-2** (Witness on encrypted user-post EXIF): per [ADR-2605181100](../../90-docs/adr/2605181100-app-etzhayyim-encrypted-records.md) `com.etzhayyim.encrypted.*` envelope, can a witness validate envelope structure + signature without decrypting EXIF payload? Tracked as yatachain SPEC OQ-1; resolution blocks user post path.
 - **OQ-M-3** (Search index witness): vector IVF backfill (`maps_search_ivf_backfill.py`) produces a derived structure (embedding index), not a primary record. Treat as yatachain-projection (Tier C) or as a derived Tier B record kind with witness over the embedding model hash? Suggest projection unless audit trail is needed.
 - **OQ-M-4** (Cross-actor invoke during witness): commands that `sdk.pds.dispatch({type:"invoke", payload:{did:"site.etzhayyim.com", ...}})` (e.g., `seed_geo_domains`) — does the witness wait for the cross-actor reply, or attest only on the dispatch envelope? Suggest envelope-only attestation; downstream actor produces its own witnessed records.
 - **OQ-M-5** (gsplat job state log): `vertex_maps_gsplat_job` is high-frequency append (per-phase events). Treat as Tier B (witness every event) or Tier C (projection from MST job log)? Suggest C — witness overhead per heartbeat would balloon validation load.
@@ -182,7 +182,7 @@ The maps app is **yatachain L1-witnessed conformant** when:
 
 1. zero `createKyselyDb(env.HYPERDRIVE)` call sites remain in `appview/maps-ui-uqpel6i6/src/app.ts` except those explicitly marked `// yatachain-projection` and covered by Phase 4 ADR
 2. zero `asyncpg.connect(RW_DSN)` call sites remain in `bulk-ingest/workers/` except Tier C (GTFS-RT / NOAA AIS / aismarine / search-IVF)
-3. every Tier B record carries ≥3-of-5 attestation in its companion `app.etzhayyim.yatachain.attestation` record
+3. every Tier B record carries ≥3-of-5 attestation in its companion `com.etzhayyim.yatachain.attestation` record
 4. CI lint (`70-tools/scripts/lint/substrate-boundary.mjs`) passes without `maps-` exemption
 5. PDS MST root for `maps.etzhayyim.com` anchors to Base L2 within 6 h SLA
 
@@ -210,7 +210,7 @@ for the per-worker checklist.
 
 - 12 worker files: same mechanical refactor as openflights_dumper. See
   per-file checklist in `bulk-ingest/workers/MIGRATION-TODO.md`.
-- Lexicons for the 51 maps node labels (`app.etzhayyim.apps.maps.{label}`) —
+- Lexicons for the 51 maps node labels (`com.etzhayyim.apps.maps.{label}`) —
   several exist; remaining ones need scaffolds before `ETZHAYYIM_SUBSTRATE_MODE=mst`
   can be flipped in production.
 

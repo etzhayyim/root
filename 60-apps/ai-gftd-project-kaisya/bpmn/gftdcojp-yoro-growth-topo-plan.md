@@ -50,7 +50,7 @@ L1: [機会発掘] yoro.etzhayyim.com フィード監視・外部シグナル検
 | `「業界の最新動向を要約して」` | yoro Discover タブ + Bluesky フィード集約 |
 | `「n.takahashi の cybersecurity 投稿を AT で検索して」` | `app.bsky.feed.searchPosts` で社内メンバー投稿参照 |
 
-**AT Record**: `app.etzhayyim.apps.kaisya.opportunitySignal` → yoro feed に可視化
+**AT Record**: `com.etzhayyim.apps.kaisya.opportunitySignal` → yoro feed に可視化
 
 ---
 
@@ -61,7 +61,7 @@ L1: [機会発掘] yoro.etzhayyim.com フィード監視・外部シグナル検
 | Claude Cowork アクション | yoro 統合 |
 |---|---|
 | `「project-intake フォームを開いて」` → kaisya.etzhayyim.com/forms/project-intake | フォーム送信 → AT Repo 記録 → yoro フィードに「案件開始」投稿 |
-| `「DMN でこの案件のルーティングを確認して」` | `app.etzhayyim.apps.kaisya.routeDecision` 結果を AT Repo 記録 |
+| `「DMN でこの案件のルーティングを確認して」` | `com.etzhayyim.apps.kaisya.routeDecision` 結果を AT Repo 記録 |
 | `「a.nakamura の今週のタスクを確認して」` | `listMyFormTasks(assigneeDid="did:web:kaisya.etzhayyim.com:member:a-nakamura")` |
 
 ---
@@ -116,7 +116,7 @@ L1: [機会発掘] yoro.etzhayyim.com フィード監視・外部シグナル検
 → kaisya.etzhayyim.com/forms/contract-review に誘導
 
 「インド法務案件の自動ルーティングを確認して」
-→ app.etzhayyim.apps.lawfirm.createCase の autoRoute 結果確認
+→ com.etzhayyim.apps.lawfirm.createCase の autoRoute 結果確認
 ```
 **yoro**: CLO の法務ナレッジ投稿 → 法的信頼性 → エンタープライズ顧客獲得
 
@@ -142,7 +142,7 @@ L1: [機会発掘] yoro.etzhayyim.com フィード監視・外部シグナル検
 → yoro Discover + web 検索で市場ポジショニング
 
 「今月のブランド活動レポートを AT に記録して」
-→ `app.etzhayyim.apps.kaisya.brandingActivity` AT Record 生成
+→ `com.etzhayyim.apps.kaisya.brandingActivity` AT Record 生成
 ```
 **yoro**: ブランドコンテンツ投稿 → 認知拡大 → Branding 事業リード獲得
 
@@ -208,11 +208,11 @@ L1: [機会発掘] yoro.etzhayyim.com フィード監視・外部シグナル検
 
 | トラック | 担当 | 成果物 | yoro 公開形式 |
 |---|---|---|---|
-| Cybersecurity | n.takahashi | 脅威評価レポート | `app.etzhayyim.apps.kaisya.securityReport` AT Record |
+| Cybersecurity | n.takahashi | 脅威評価レポート | `com.etzhayyim.apps.kaisya.securityReport` AT Record |
 | Branding | t.ichihara | ブランド戦略書 | `app.bsky.feed.post` (Bluesky 互換投稿) |
-| Legal | k.bakshi | 契約書・法務意見書 | `app.etzhayyim.apps.kaisya.legalNote` AT Record (hash only, Tier 1) |
+| Legal | k.bakshi | 契約書・法務意見書 | `com.etzhayyim.apps.kaisya.legalNote` AT Record (hash only, Tier 1) |
 | Creative | k.takahashi | クリエイティブ制作物 | `app.bsky.feed.post` + blob 添付 |
-| Engineering | f.tanaka/y.nishino | 実装 PR・リリースノート | `app.etzhayyim.apps.kaisya.devRelease` AT Record |
+| Engineering | f.tanaka/y.nishino | 実装 PR・リリースノート | `com.etzhayyim.apps.kaisya.devRelease` AT Record |
 
 ---
 
@@ -264,9 +264,9 @@ yoro Discover タブ
 
 | KPI | AT Record | yoro 表示 |
 |---|---|---|
-| 新規案件数 | `app.etzhayyim.apps.kaisya.processStarted` | CEO/COO ダッシュボード |
+| 新規案件数 | `com.etzhayyim.apps.kaisya.processStarted` | CEO/COO ダッシュボード |
 | 成約率 | BPMN Step L 完了数 / Step A 開始数 | 月次レポート投稿 |
-| MRR | `app.etzhayyim.apps.kaisya.contractSigned` 金額合計 | 四半期振り返り |
+| MRR | `com.etzhayyim.apps.kaisya.contractSigned` 金額合計 | 四半期振り返り |
 | yoro フォロワー数 | `app.bsky.graph.follow` 被フォロー集計 | 社会的信頼指標 |
 | メンバー活動指標 | 各 AT Record 件数 | 個人成長ダッシュボード |
 
@@ -311,7 +311,7 @@ yoro Discover タブ
 - [ ] Claude Cowork の「週報自動生成」コマンド
 
 ### Phase 3 (月次: 事業成長 KPI ダッシュボード)
-- [ ] `app.etzhayyim.apps.kaisya.growthKpi` AT Record + yoro ダッシュボード
+- [ ] `com.etzhayyim.apps.kaisya.growthKpi` AT Record + yoro ダッシュボード
 - [ ] L9 KPI → yoro 四半期レポート自動投稿
 - [ ] 顧客向け yoro Public Profile (専門性ショーケース)
 

@@ -52,7 +52,7 @@ The `_ANALYSIS_MODELS` registry defines three analysis types routed to RunPod:
 | `land_use` | `sentinel2_landuse_unet` (U-Net semantic segmentation) | Sentinel-2 |
 | `sar_flood` | `sentinel1_flood_unet` (U-Net binary flood mask) | Sentinel-1 SAR |
 
-The wire contract — NSID `app.etzhayyim.apps.maps.sentinelAnalyze` with input fields `sceneUri`, `analysisType` (`changeDetection | landUse | sarFlood`), `baselineUri`, `modelVersion` and output fields `analysisUri`, `summary`, `confidence`, `modelVersion`, `runtimeMs` — is defined in `00-contracts/lexicons/ai/gftd/apps/maps/sentinelAnalyze.json`.
+The wire contract — NSID `com.etzhayyim.apps.maps.sentinelAnalyze` with input fields `sceneUri`, `analysisType` (`changeDetection | landUse | sarFlood`), `baselineUri`, `modelVersion` and output fields `analysisUri`, `summary`, `confidence`, `modelVersion`, `runtimeMs` — is defined in `00-contracts/lexicons/com/etzhayyim/apps/maps/sentinelAnalyze.json`.
 
 The vendor infrastructure uses RunPod Serverless GPU (approximately a 6000 Ada 48GB class endpoint for heavy workloads, L40S-class for lighter ones). **ADR-2605215000 §2.3 marked `maps_sentinel.py` as REIMPLEMENT** because `task_maps_sentinel_runpod_analyze` is structurally RunPod-dependent: it calls `_runpod_invoke_sync()` which POSTs to `api.runpod.ai`, polls `/status`, and requires `RUNPOD_KEY` and `RUNPOD_ENDPOINT_ID_MAPS`. An env-URL swap is not sufficient — the entire polling pattern and model registry must be replaced.
 
@@ -157,13 +157,13 @@ The STAC search task (`maps.sentinel.stac.search` → `task_maps_sentinel_stac_s
 
 ### NSID and field stability
 
-The existing lexicons `app.etzhayyim.apps.maps.sentinelAnalyze` and `app.etzhayyim.apps.maps.sentinelIngest` (in `00-contracts/lexicons/ai/gftd/apps/maps/`) define the wire contract. The religious-corp variant **keeps all required fields byte-identical** to the vendor:
+The existing lexicons `com.etzhayyim.apps.maps.sentinelAnalyze` and `com.etzhayyim.apps.maps.sentinelIngest` (in `00-contracts/lexicons/com/etzhayyim/apps/maps/`) define the wire contract. The religious-corp variant **keeps all required fields byte-identical** to the vendor:
 
 - `sentinelAnalyze` input required fields: `sceneUri` (string), `analysisType` (`changeDetection | landUse | sarFlood`)
 - `sentinelAnalyze` output required fields: `analysisUri` (string), `summary` (string), `confidence` (number 0..1)
 - `sentinelIngest` output required fields: `runId` (string), `scenesIngested` (integer)
 
-No new required fields are added to the lexicon input/output schemas. Vendor and religious-corp implementations are call-compatible: a BPMN workflow using `app.etzhayyim.apps.maps.sentinelAnalyze` via XRPC will receive a valid response from either implementation.
+No new required fields are added to the lexicon input/output schemas. Vendor and religious-corp implementations are call-compatible: a BPMN workflow using `com.etzhayyim.apps.maps.sentinelAnalyze` via XRPC will receive a valid response from either implementation.
 
 ### Description field adaptation
 
@@ -177,7 +177,7 @@ This adaptation is tracked as part of the M0 milestone. The lexicon JSON edit is
 
 ### Collection constants
 
-The vendor constants `COLLECTION_SCENE = "app.etzhayyim.apps.maps.satelliteScene"` and `COLLECTION_ANALYSIS = "app.etzhayyim.apps.maps.satelliteAnalysis"` are preserved in the murakumo variant. The `DEFAULT_REPO = "did:web:maps.etzhayyim.com"` may be overridden to `did:web:etzhayyim.com` in the religious-corp variant once Step 8 cutover completes, but this is optional and deferred.
+The vendor constants `COLLECTION_SCENE = "com.etzhayyim.apps.maps.satelliteScene"` and `COLLECTION_ANALYSIS = "com.etzhayyim.apps.maps.satelliteAnalysis"` are preserved in the murakumo variant. The `DEFAULT_REPO = "did:web:maps.etzhayyim.com"` may be overridden to `did:web:etzhayyim.com` in the religious-corp variant once Step 8 cutover completes, but this is optional and deferred.
 
 ## §4 Successor implementation roadmap
 
@@ -216,7 +216,7 @@ This ADR **extends** (does not supersede) ADR-2605215000:
 
 1. **REIMPLEMENT closure for the heaviest pymagatama target**: `maps_sentinel.py` was the most structurally complex RunPod coupling in the pymagatama codebase — it has custom polling logic, a model registry, and a LangChain stage pipeline. This ADR closes the design gap; M1–M3 execution closes the engineering gap. The Step 8 cutover sub-list now has a concrete implementation path.
 
-2. **Vendor wire shape preserved for interop**: The `app.etzhayyim.apps.maps.sentinelAnalyze` lexicon required fields are byte-identical between vendor and religious-corp variants. A BPMN process using `sceneUri` + `analysisType` inputs and `analysisUri` + `confidence` outputs works against both backends. Description text is the only lexicon field changed (PORT-adapted pattern from ADR-2605214000 §2).
+2. **Vendor wire shape preserved for interop**: The `com.etzhayyim.apps.maps.sentinelAnalyze` lexicon required fields are byte-identical between vendor and religious-corp variants. A BPMN process using `sceneUri` + `analysisType` inputs and `analysisUri` + `confidence` outputs works against both backends. Description text is the only lexicon field changed (PORT-adapted pattern from ADR-2605214000 §2).
 
 3. **Capacity gap honestly documented**: The religious-corp fleet has no NVIDIA 48GB equivalent. ROCm gfx1151 with 32GB UMA is the best available GPU; MLX on M4 Mac mini provides 32GB unified with better model coverage for Apple-Silicon-optimised weights. SAR interferometry (T4) remains a research spike — no gfx1151-verified InSAR pipeline exists as of 2026-05-21. This is not a blocker for M1–M3 (T0–T3 cover all three vendor analysis types).
 
@@ -268,6 +268,6 @@ Proposal: Serve only Sentinel-2 optical analyses (changeDetection, landUse) and 
   - ADR-2605172000 — RW-free substrate (AT MST + IPFS + Base L2 replaces RisingWave for scene/analysis record writes)
 - **Implementation target**: `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel_murakumo.py` (new file; do not modify vendor `maps_sentinel.py`)
 - **Step 8 cutover sub-list**: `20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md` (sister document; maps_sentinel row)
-- **Lexicons**: `00-contracts/lexicons/ai/gftd/apps/maps/sentinelAnalyze.json`, `sentinelIngest.json` (wire contract; description-only PORT-adapted per ADR-2605214000 §2)
-- **Adjacent lexicons**: `00-contracts/lexicons/ai/gftd/apps/maps3d/README.md` (PORT verdict patterns used as reference for lexicon adaptation)
+- **Lexicons**: `00-contracts/lexicons/com/etzhayyim/apps/maps/sentinelAnalyze.json`, `sentinelIngest.json` (wire contract; description-only PORT-adapted per ADR-2605214000 §2)
+- **Adjacent lexicons**: `00-contracts/lexicons/com/etzhayyim/apps/maps3d/README.md` (PORT verdict patterns used as reference for lexicon adaptation)
 - **Fleet config**: `50-infra/murakumo/fleet.toml` — node capabilities, EVO-X2 inference_backends endpoints, per-node Ollama fallback

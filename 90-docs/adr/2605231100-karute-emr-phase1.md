@@ -12,7 +12,7 @@ weight: 0.72
 priority_note: "Adds a clinical EMR actor on the etzhayyim RW-free substrate. PHI on MST is only viable via the encrypted-record envelope (ADR-2605181100), and the FHIR R5 mapping decides the lexicon shape for every downstream clinical app."
 authoritative_for:
   - karute actor topology and DID
-  - FHIR R5 ↔ app.etzhayyim.karute.* lexicon mapping
+  - FHIR R5 ↔ com.etzhayyim.karute.* lexicon mapping
   - clinical PHI handling rules on etzhayyim substrate
   - encrypted-envelope vs public-meta split for clinical records
 depends_on:
@@ -35,7 +35,7 @@ superseded_by: []
 
 # Context
 
-`etzhayyim/root` currently has no electronic medical record (EMR / 電子カルテ) actor. The closest adjacencies — ADR-2605080800 (`iryo.etzhayyim.com:hospital`, vendor-side, DRG-oriented hospital ops), `medical-coverage-{ingester,mcp}` (PubMed / ClinicalTrials.gov ingest), `00-contracts/lexicons/ai/gftd/apps/fhirHealthData/` (terminology registration only) — all sit *adjacent to* the clinical encounter but none implement the **patient-centric chart**: SOAP, Rx, vitals, orders. ADR-2605181100 §1.3 names "uhl-right-neural patient referrals" as a primary driver for encrypted records, and §5.2 explicitly defers EMR consumer implementation.
+`etzhayyim/root` currently has no electronic medical record (EMR / 電子カルテ) actor. The closest adjacencies — ADR-2605080800 (`iryo.etzhayyim.com:hospital`, vendor-side, DRG-oriented hospital ops), `medical-coverage-{ingester,mcp}` (PubMed / ClinicalTrials.gov ingest), `00-contracts/lexicons/com/etzhayyim/apps/fhirHealthData/` (terminology registration only) — all sit *adjacent to* the clinical encounter but none implement the **patient-centric chart**: SOAP, Rx, vitals, orders. ADR-2605181100 §1.3 names "uhl-right-neural patient referrals" as a primary driver for encrypted records, and §5.2 explicitly defers EMR consumer implementation.
 
 Phase 1 fills that gap. Three forces shape the design:
 
@@ -49,29 +49,29 @@ Phase 1 fills that gap. Three forces shape the design:
 
 - **DID**: `did:web:karute.etzhayyim.com`
 - **Nanoid**: `karu7t3e`
-- **Entrypoint**: `https://karu7t3e.etzhayyim.com/xrpc/app.etzhayyim.apps.karute.*`
+- **Entrypoint**: `https://karu7t3e.etzhayyim.com/xrpc/com.etzhayyim.apps.karute.*`
 - **Topology**: standalone actor (NOT `did:web:iryo.etzhayyim.com:karute`). `iryo.etzhayyim.com` is vendor-side (DPC/DRG billing, hospital ops); the etzhayyim karute actor is its peer for patient-centric clinical content. The two can call each other via consent capability when insurance billing is needed.
 
 ## Two-tier record split
 
 | Tier | Collection | Content | Visibility |
 |---|---|---|---|
-| **Encrypted (PHI)** | `app.etzhayyim.encrypted.record` envelope with `innerType = app.etzhayyim.karute.*` | Patient, Encounter, SOAP, Observation, Condition, MedicationRequest, ServiceRequest | Ciphertext on PDS; readable only by holders of Signal-wrapped key-wrap |
-| **Public meta** | `app.etzhayyim.apps.karute.*` collections + graph `KaruteX` nodes | rkey pointers, occurredAt, *Did refs, terminology codes (LOINC/ICD-10/RxNorm), interaction-severity-max | Plaintext for discovery / timeline / coverage stats |
+| **Encrypted (PHI)** | `com.etzhayyim.encrypted.record` envelope with `innerType = com.etzhayyim.karute.*` | Patient, Encounter, SOAP, Observation, Condition, MedicationRequest, ServiceRequest | Ciphertext on PDS; readable only by holders of Signal-wrapped key-wrap |
+| **Public meta** | `com.etzhayyim.apps.karute.*` collections + graph `KaruteX` nodes | rkey pointers, occurredAt, *Did refs, terminology codes (LOINC/ICD-10/RxNorm), interaction-severity-max | Plaintext for discovery / timeline / coverage stats |
 
 Public meta MUST NOT contain: patient name, DOB, address, free-text symptom, lab values, drug strengths, diagnosis labels. It MAY contain: terminology codes (de-identified by design), DIDs (identifiers but not by themselves identifying), timestamps, status enums.
 
-## Inner-type lexicon (FHIR R5 ↔ app.etzhayyim.karute.*)
+## Inner-type lexicon (FHIR R5 ↔ com.etzhayyim.karute.*)
 
 | FHIR R5 Resource | Lexicon NSID |
 |---|---|
-| `Patient` | `app.etzhayyim.karute.patient` |
-| `Encounter` | `app.etzhayyim.karute.encounter` |
-| `Composition` (SOAP section) | `app.etzhayyim.karute.soapNote` |
-| `Observation` | `app.etzhayyim.karute.observation` |
-| `Condition` | `app.etzhayyim.karute.condition` |
-| `MedicationRequest` | `app.etzhayyim.karute.medicationRequest` |
-| `ServiceRequest` | `app.etzhayyim.karute.serviceRequest` |
+| `Patient` | `com.etzhayyim.karute.patient` |
+| `Encounter` | `com.etzhayyim.karute.encounter` |
+| `Composition` (SOAP section) | `com.etzhayyim.karute.soapNote` |
+| `Observation` | `com.etzhayyim.karute.observation` |
+| `Condition` | `com.etzhayyim.karute.condition` |
+| `MedicationRequest` | `com.etzhayyim.karute.medicationRequest` |
+| `ServiceRequest` | `com.etzhayyim.karute.serviceRequest` |
 
 Field-level FHIR drift is allowed only where (a) AT Lexicon has no float — all numerics use `{valueScaled, scale, unit}`; (b) JP-specific extensions (フリガナ, 都道府県, YJ code, JLAC10, 診療行為コード) are first-class properties rather than FHIR `extension[]`. Export to FHIR R5 Bundle does the float reconstruction + extension wrapping.
 
@@ -81,7 +81,7 @@ Write procedures: `createPatient`, `createEncounter`, `createSoapNote`, `createO
 
 Read queries: `listPatients`, `getPatient`, `listEncounters`, `listSoapNotes`, `listObservations`, `listMedications`, `listOrders`, `getChartSummary`, `exportFhirBundle`, `healthKarute`.
 
-Write procedures take `(record, recipientDids, publicMeta)`. The pipeline encrypts `record` via `@etzhayyim/sdk.encryptedWrite`, writes ciphertext envelope to `app.etzhayyim.encrypted.record`, and writes a stripped-down `publicMeta` projection to the graph node. `createMedicationRequest` adds an upstream `agent.chat` interaction check; `shouldBlock: true` halts the write unless `overrideInteractionBlock` is set (audited via amendment record).
+Write procedures take `(record, recipientDids, publicMeta)`. The pipeline encrypts `record` via `@etzhayyim/sdk.encryptedWrite`, writes ciphertext envelope to `com.etzhayyim.encrypted.record`, and writes a stripped-down `publicMeta` projection to the graph node. `createMedicationRequest` adds an upstream `agent.chat` interaction check; `shouldBlock: true` halts the write unless `overrideInteractionBlock` is set (audited via amendment record).
 
 ## Clinician role model
 
@@ -107,8 +107,8 @@ The pipelines invoke `agent.chat` for three specific tasks:
 ## Substrate hard-rules (extends ADR-2605172000 + ADR-2605181100)
 
 1. App code MUST NOT import `@noble/ciphers` / `@signalapp/libsignal-client` directly; only `@etzhayyim/sdk` is allowed.
-2. App code MUST NOT write plaintext PHI to MST. Lefthook hook `karute-phi-plaintext-guard` (Phase 2 deliverable) greps the diff for `app.etzhayyim.karute.*` writes outside the encrypted envelope.
-3. App code MUST NOT call `iryo.etzhayyim.com` (vendor) directly for billing unless the patient has issued a consent capability via `app.etzhayyim.consent.capability` (separate ADR, deferred).
+2. App code MUST NOT write plaintext PHI to MST. Lefthook hook `karute-phi-plaintext-guard` (Phase 2 deliverable) greps the diff for `com.etzhayyim.karute.*` writes outside the encrypted envelope.
+3. App code MUST NOT call `iryo.etzhayyim.com` (vendor) directly for billing unless the patient has issued a consent capability via `com.etzhayyim.consent.capability` (separate ADR, deferred).
 4. Public-meta projections MUST NOT include any of: family/given name, DOB, address line, free-text symptom, lab numeric value, diagnosis display string. Allowed: code system + code (LOINC/ICD-10/RxNorm), DID, timestamp, status enum, interaction-severity-max.
 
 ## 3-axis split (ADR-2605172400) classification
@@ -159,7 +159,7 @@ Cleaner privacy story (zero metadata leak on MST beyond CID + ciphertext size + 
 
 ## C. FHIR R5 with extensions instead of native JP fields
 
-Keep `app.etzhayyim.karute.patient` minimal FHIR; push フリガナ, 都道府県, YJ code, JLAC10 into FHIR `extension[]`. Rejected because in practice every JP clinic queries those fields constantly (intake screens, formulary lookup); making them extensions buries them behind extra path traversal in every consumer. Export to canonical FHIR still wraps them into `extension[]`, so the wire format remains FHIR-compatible.
+Keep `com.etzhayyim.karute.patient` minimal FHIR; push フリガナ, 都道府県, YJ code, JLAC10 into FHIR `extension[]`. Rejected because in practice every JP clinic queries those fields constantly (intake screens, formulary lookup); making them extensions buries them behind extra path traversal in every consumer. Export to canonical FHIR still wraps them into `extension[]`, so the wire format remains FHIR-compatible.
 
 ## D. ICD-11 instead of ICD-10
 

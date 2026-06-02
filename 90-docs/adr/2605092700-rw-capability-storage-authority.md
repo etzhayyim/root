@@ -32,7 +32,7 @@ superseded_by: []
 # Context
 
 Current RisingWave (RW) is the canonical queryable graph/projection store for
-`app.etzhayyim.apps.*` domain rows. It is not an end-to-end encrypted database and not
+`com.etzhayyim.apps.*` domain rows. It is not an end-to-end encrypted database and not
 a Tahoe-LAFS style capability store. Private fields may use the `signal:v1:`
 field convention, and Tenso stores encrypted file manifests/blobs, but RW still
 contains plaintext graph metadata and application rows.

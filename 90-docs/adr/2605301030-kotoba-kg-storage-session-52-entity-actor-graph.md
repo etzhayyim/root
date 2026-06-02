@@ -62,7 +62,7 @@ reproducible and the pitfalls are not re-hit.
 
 ## 2. The graph: 53 entities across 7 types
 
-Loaded via `kg.ingest_batch` (NSID `ai.gftd.apps.kotobase.kg.ingest`) then
+Loaded via `kg.ingest_batch` (NSID `com.etzhayyim.apps.kotobase.kg.ingest`) then
 sealed with `kotoba commit`:
 
 | type | n | source |

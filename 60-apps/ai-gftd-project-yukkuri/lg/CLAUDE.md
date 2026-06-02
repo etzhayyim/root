@@ -17,16 +17,16 @@ lg/
 │   ├── cron.py                          # APScheduler in-process
 │   ├── server.py                        # FastAPI: /runs /runs/stream /xrpc/{nsid} /ok /health
 │   └── graphs/
-│       ├── health.py                    # ✅ app.etzhayyim.apps.yukkuri.health
-│       ├── list_videos.py               # ✅ app.etzhayyim.apps.yukkuri.listVideos
-│       ├── get_video.py                 # ✅ app.etzhayyim.apps.yukkuri.getVideo
-│       ├── compose.py                   # ✅ app.etzhayyim.apps.yukkuri.compose
-│       ├── generate_script.py           # ✅ app.etzhayyim.apps.yukkuri.generateScript
-│       ├── synthesize_voice.py          # ✅ app.etzhayyim.apps.yukkuri.synthesizeVoice
-│       ├── generate_visual.py           # ✅ app.etzhayyim.apps.yukkuri.generateVisual
-│       ├── generate_bgm.py              # ✅ app.etzhayyim.apps.yukkuri.generateBgm
-│       ├── render_video.py              # ✅ app.etzhayyim.apps.yukkuri.renderVideo
-│       └── review_video.py              # ✅ app.etzhayyim.apps.yukkuri.reviewVideo
+│       ├── health.py                    # ✅ com.etzhayyim.apps.yukkuri.health
+│       ├── list_videos.py               # ✅ com.etzhayyim.apps.yukkuri.listVideos
+│       ├── get_video.py                 # ✅ com.etzhayyim.apps.yukkuri.getVideo
+│       ├── compose.py                   # ✅ com.etzhayyim.apps.yukkuri.compose
+│       ├── generate_script.py           # ✅ com.etzhayyim.apps.yukkuri.generateScript
+│       ├── synthesize_voice.py          # ✅ com.etzhayyim.apps.yukkuri.synthesizeVoice
+│       ├── generate_visual.py           # ✅ com.etzhayyim.apps.yukkuri.generateVisual
+│       ├── generate_bgm.py              # ✅ com.etzhayyim.apps.yukkuri.generateBgm
+│       ├── render_video.py              # ✅ com.etzhayyim.apps.yukkuri.renderVideo
+│       └── review_video.py              # ✅ com.etzhayyim.apps.yukkuri.reviewVideo
 └── tests/                               # ⏳ next iteration
 ```
 
@@ -60,16 +60,16 @@ compose (status: queued)
 
 | NSID | assistant_id | graph file | status |
 |---|---|---|---|
-| `app.etzhayyim.apps.yukkuri.health` | `health` | health.py | ✅ |
-| `app.etzhayyim.apps.yukkuri.listVideos` | `list_videos` | list_videos.py | ✅ |
-| `app.etzhayyim.apps.yukkuri.getVideo` | `get_video` | get_video.py | ✅ |
-| `app.etzhayyim.apps.yukkuri.compose` | `compose` | compose.py | ✅ |
-| `app.etzhayyim.apps.yukkuri.generateScript` | `generate_script` | generate_script.py | ✅ |
-| `app.etzhayyim.apps.yukkuri.synthesizeVoice` | `synthesize_voice` | synthesize_voice.py | ✅ |
-| `app.etzhayyim.apps.yukkuri.generateVisual` | `generate_visual` | generate_visual.py | ✅ |
-| `app.etzhayyim.apps.yukkuri.generateBgm` | `generate_bgm` | generate_bgm.py | ✅ |
-| `app.etzhayyim.apps.yukkuri.renderVideo` | `render_video` | render_video.py | ✅ |
-| `app.etzhayyim.apps.yukkuri.reviewVideo` | `review_video` | review_video.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.health` | `health` | health.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.listVideos` | `list_videos` | list_videos.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.getVideo` | `get_video` | get_video.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.compose` | `compose` | compose.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.generateScript` | `generate_script` | generate_script.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.synthesizeVoice` | `synthesize_voice` | synthesize_voice.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.generateVisual` | `generate_visual` | generate_visual.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.generateBgm` | `generate_bgm` | generate_bgm.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.renderVideo` | `render_video` | render_video.py | ✅ |
+| `com.etzhayyim.apps.yukkuri.reviewVideo` | `review_video` | review_video.py | ✅ |
 
 ## Conventions
 

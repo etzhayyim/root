@@ -83,8 +83,8 @@ CHARTER-RIDER.md §2(i) を以下のように修正:
 > **§2(i)(2) Train carve-out for baien-server-* / baien-XL-* (NEW per ADR-2605262200).** Commercial GPU rental MAY be used for **training, fine-tuning, distillation, RL, federated aggregation, and other gradient-bearing workloads** of model artifacts in the `baien-server-*` and `baien-XL-*` naming family (ADR-2605242100 4-tier ladder), subject to ALL of the following conditions:
 >
 > 1. **Inference of resulting artifacts** STILL flows exclusively through the Murakumo fleet per §2(i)(1). The carve-out is for the gradient-computing path only.
-> 2. **Per-rental yatachain attestation** MANDATORY before rental instance start: `app.etzhayyim.train.rentalAttestation` record emitted with (vendor, GPU model + count, expected wall, expected USD cost, target dataset CID, target output checkpoint CID, train ADR reference, Charter Rider §2(a)-(h) sponsor scan PASS verification, attesting DID).
-> 3. **Per-rental post-flight cost log** MANDATORY within 24h of rental termination: `app.etzhayyim.train.rentalCostLog` record with (actual wall, actual USD cost, actual output checkpoint CID, IPFS pin verification CID, attesting DID).
+> 2. **Per-rental yatachain attestation** MANDATORY before rental instance start: `com.etzhayyim.train.rentalAttestation` record emitted with (vendor, GPU model + count, expected wall, expected USD cost, target dataset CID, target output checkpoint CID, train ADR reference, Charter Rider §2(a)-(h) sponsor scan PASS verification, attesting DID).
+> 3. **Per-rental post-flight cost log** MANDATORY within 24h of rental termination: `com.etzhayyim.train.rentalCostLog` record with (actual wall, actual USD cost, actual output checkpoint CID, IPFS pin verification CID, attesting DID).
 > 4. **Vendor scope**: any reputable commercial GPU rental vendor (RunPod, Lambda, CoreWeave, Vast.ai equivalents). NOT permitted: vendors whose primary business activity violates Charter Rider §2(a) weapons, §2(c) surveillance capitalism, §2(d) fossil fuel, §2(g) strict individualist doctrine, §2(h) wellbecoming subordination — verified via the §2 Non-Aligned Entity criteria.
 > 5. **Burst-only**: continuous rental >7 days requires Council Lv6+ ≥4 of 7 seats per-incident approval (recorded on yatachain). Steady-state continuous rental is prohibited (the religious-corp fleet capex path remains the long-term invariant).
 > 6. **Other actor scope explicitly NOT included**: yakushi, wadachi, silicon Wave 1+2, e7m-sim, kanayama, igata, hodoki, makura, tsutae, sarutahiko, suki, futawa, mitsuho, hagukumi, manabi, hikari, watatsumi, tatekata, baien-edge, and all `baien` (no infix) artifacts REMAIN under §2(i)(1) Murakumo-only. Extension to other actors requires its own ADR + Lv6+ supermajority.
@@ -151,7 +151,7 @@ Charter Rider §2(i) は明示的 amendment threshold (Lv6+ supermajority + 30-d
 
 - Founder Lv7+ emergency authorization の手続き未定義 — 別 ADR で扱うか? (本 ADR §4 で意図的に保留)
 - Council Lv6+ vote の formal mechanism (on-chain ballot vs ad-hoc signed approval) — ADR-2605192300 follow-up
-- Per-rental attestation Lexicon `app.etzhayyim.train.rentalAttestation` / `rentalCostLog` の正式 spec は ADR-2605262300 で定義
+- Per-rental attestation Lexicon `com.etzhayyim.train.rentalAttestation` / `rentalCostLog` の正式 spec は ADR-2605262300 で定義
 
 # Alternatives Considered
 

@@ -6,13 +6,13 @@ canonical state). This is the bridge from a *typed sensor observation*
 (what ``GleifL2OwnershipSensor`` and the other ``CorpOwnershipSensor``
 sources yield) to the *canonical-state* form that danjo
 (ADR-2605301600) and kanae (ADR-2605302300) read: the
-``app.etzhayyim.corp.ownershipEdge`` record, materialized as kotoba EAVT
+``com.etzhayyim.corp.ownershipEdge`` record, materialized as kotoba EAVT
 datoms.
 
 Two output shapes are produced, both pure / deterministic:
 
 1. ``observation_to_edge_record`` — the AT-Protocol record exactly
-   matching the ``app.etzhayyim.corp.ownershipEdge`` Lexicon (the wire
+   matching the ``com.etzhayyim.corp.ownershipEdge`` Lexicon (the wire
    contract). STRICT: raises ``ValueError`` if a required Lexicon field
    would be empty (authoring discipline).
 
@@ -24,7 +24,7 @@ Two output shapes are produced, both pure / deterministic:
    raised, so a bad row never halts a batch.
 
 **Provenance is caller-supplied, never invented.** ``created_at`` (tx
-time), ``dataset_pin_at`` (the ``app.etzhayyim.substrate.datasetPin``
+time), ``dataset_pin_at`` (the ``com.etzhayyim.substrate.datasetPin``
 AT-URI the bytes were resolved from) and ``attesting_did`` (the
 community-operator DID authoring the claim) are required arguments —
 this keeps the transform pure (no clock / no ambient identity) and
@@ -49,13 +49,13 @@ from typing import Iterable
 
 from .base import CorpOwnershipObservation
 
-OWNERSHIP_EDGE_NSID = "app.etzhayyim.corp.ownershipEdge"
+OWNERSHIP_EDGE_NSID = "com.etzhayyim.corp.ownershipEdge"
 
 # kotoba entity type (PascalCase, house style) + claim attribute namespace.
 KOTOBA_ENTITY_TYPE = "CorpOwnershipEdge"
 _PRED_NS = "ownership"
 
-# Lexicon-required fields (app.etzhayyim.corp.ownershipEdge §record.required)
+# Lexicon-required fields (com.etzhayyim.corp.ownershipEdge §record.required)
 # that this transform is responsible for populating from the observation +
 # caller-supplied provenance. Used by both the strict record builder and the
 # G7-skipping batch builder.
@@ -96,7 +96,7 @@ def observation_to_edge_record(
     dataset_pin_at: str,
     attesting_did: str,
 ) -> dict:
-    """Build the ``app.etzhayyim.corp.ownershipEdge`` record (Lexicon shape).
+    """Build the ``com.etzhayyim.corp.ownershipEdge`` record (Lexicon shape).
 
     STRICT: raises ``ValueError`` listing any required Lexicon field that
     would be empty. Optional fields (LEIs, local ids, owner jurisdiction,

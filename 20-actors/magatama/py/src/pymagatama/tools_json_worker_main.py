@@ -1,4 +1,4 @@
-"""Generic-primitive worker for app.etzhayyim.tools.json.* (ADR-2605082000 §2 follow-up).
+"""Generic-primitive worker for com.etzhayyim.tools.json.* (ADR-2605082000 §2 follow-up).
 
 Safe dotted-path JSON navigator. Bridges `http.fetch` body strings and
 downstream nodes that need a sub-tree. No eval / JSONPath / JMESPath —
@@ -73,7 +73,7 @@ async def task_json_extract(
 ) -> dict[str, Any]:
     """Extract a sub-tree by safe dotted path. Returns ``{"value": ...}``."""
     if json is None:
-        return {"error": "app.etzhayyim.tools.json.extract: 'json' is required"}
+        return {"error": "com.etzhayyim.tools.json.extract: 'json' is required"}
     parsed: Any
     if isinstance(json, str):
         try:

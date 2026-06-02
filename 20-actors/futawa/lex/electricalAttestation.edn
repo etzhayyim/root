@@ -1,7 +1,7 @@
-;; app.etzhayyim.futawa.electricalAttestation — lexicon (EDN form)
+;; com.etzhayyim.futawa.electricalAttestation — lexicon (EDN form)
 ;; L3a harness + ECU + G8 NO surveillance manifest
 {:lexicon 1
- :id "app.etzhayyim.futawa.electricalAttestation"
+ :id "com.etzhayyim.futawa.electricalAttestation"
  :defs
  {:main
   {:type "record"

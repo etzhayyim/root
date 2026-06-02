@@ -42,7 +42,7 @@
  {:db/ident :permit-application/member-did
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "Member DID (applicant, purchasing principal per G19); detail encrypted app.etzhayyim.encrypted.* (G20)"}
+  :db/doc "Member DID (applicant, purchasing principal per G19); detail encrypted com.etzhayyim.encrypted.* (G20)"}
  {:db/ident :permit-application/jurisdiction
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one

@@ -59,7 +59,7 @@ Inherited from manabi master (ADR-2605261045 G1..G14). Additionally:
 
 ## Lexicons
 
-Under `app.etzhayyim.manabi.*`:
+Under `com.etzhayyim.manabi.*`:
 
 - `certPrepSession` — per-session record; closed enum on `questionSource`
 - `personalMaterialImport` — Tier-C user-imported material; `internalOnly: true` const

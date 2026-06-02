@@ -1,5 +1,5 @@
 {:lexicon 1
- :id "app.etzhayyim.hikari.silenEnergyReview"
+ :id "com.etzhayyim.hikari.silenEnergyReview"
  :defs
  {:main
   {:type "record"

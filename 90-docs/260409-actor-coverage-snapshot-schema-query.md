@@ -45,7 +45,7 @@ MERGE (c:ActorCoverageSnapshot {
   "nanoid": "<manifest.nanoid>",
   "nodeCount": "$coverageNodes.rows[0].nodeCount",
   "latestTs": 0,
-  "collection": "app.etzhayyim.apps.<segment>.coverageSnapshot"
+  "collection": "com.etzhayyim.apps.<segment>.coverageSnapshot"
 }
 ```
 

@@ -14,9 +14,9 @@
 
 export const OAP_DID_PREFIX = "did:web:open-airplane.etzhayyim.com:" as const;
 
-export const AIRPORT_COLLECTION = "app.etzhayyim.apps.openAirplane.airport";
-export const AIRCRAFT_COLLECTION = "app.etzhayyim.apps.openAirplane.aircraft";
-export const FLIGHT_COLLECTION = "app.etzhayyim.apps.openAirplane.flight";
+export const AIRPORT_COLLECTION = "com.etzhayyim.apps.openAirplane.airport";
+export const AIRCRAFT_COLLECTION = "com.etzhayyim.apps.openAirplane.aircraft";
+export const FLIGHT_COLLECTION = "com.etzhayyim.apps.openAirplane.flight";
 
 // ─── Airport ────────────────────────────────────────────────────────
 

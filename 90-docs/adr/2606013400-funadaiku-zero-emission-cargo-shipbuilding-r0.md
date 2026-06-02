@@ -13,7 +13,7 @@ priority_note: "Surface zero-emission autonomous cargo-ship building actor; sibl
 authoritative_for:
   - funadaiku actor (zero-emission autonomous cargo shipbuilding)
   - Nagi 凪 class coastal zero-emission cargo carrier reference design
-  - app.etzhayyim.funadaiku.* lexicons
+  - com.etzhayyim.funadaiku.* lexicons
   - funadaiku shipyard plant (kami-engine + kotoba EAVT)
 depends_on:
   - adr-2605252200-watatsumi-civilian-submersible-r0

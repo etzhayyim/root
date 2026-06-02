@@ -7,6 +7,6 @@ Responsibilities:
 - call Murakumo/OpenAI-compatible vision models
 - parse structured person/vehicle detections
 - assemble cohort and detection-event records
-- call `app.etzhayyim.apps.livecam.commitAnalysis` on the edge worker
+- call `com.etzhayyim.apps.livecam.commitAnalysis` on the edge worker
 
 The Cloudflare/appview worker remains the thin edge boundary for PDS writes and social posting.

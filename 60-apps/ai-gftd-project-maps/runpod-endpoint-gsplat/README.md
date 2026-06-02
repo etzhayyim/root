@@ -131,7 +131,7 @@ of the contract live in this repo:
 - **Caller**: `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py`
 - **Callee** (this dir): `handler.py:handler`
 
-Lexicon `00-contracts/lexicons/ai/gftd/apps/maps/trainGsplatFromMapillary.json`
+Lexicon `00-contracts/lexicons/com/etzhayyim/apps/maps/trainGsplatFromMapillary.json`
 constrains the user-facing surface; the handler contract sits one
 layer below that.
 

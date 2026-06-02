@@ -1,7 +1,7 @@
-;; app.etzhayyim.futawa.testRecord — lexicon (EDN form)
+;; com.etzhayyim.futawa.testRecord — lexicon (EDN form)
 ;; L5b dyno testing + road safety + G6 sound + ABS function
 {:lexicon 1
- :id "app.etzhayyim.futawa.testRecord"
+ :id "com.etzhayyim.futawa.testRecord"
  :defs
  {:main
   {:type "record"

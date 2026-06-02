@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.cable.registerLandingStation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a cable LANDING STATION into the kotoba Datom log (:station/*). Coordinates are rounded to the landing town when sourcing is representative (watatsuna G1 — public siting only; manhole-precise location is out of scope).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["stationId", "name", "country", "sourcing", "observedAt"],
+          "properties": {
+            "stationId": { "type": "string", "description": ":station/id, e.g. \"station.jp.chikura\"" },
+            "name": { "type": "string" },
+            "country": { "type": "string", "description": "ISO 3166-1 alpha-2" },
+            "latMicrodeg": { "type": "integer", "description": "WGS84 latitude × 1e6 (microdegrees); G1 — rounded to the landing town when sourcing=representative" },
+            "lonMicrodeg": { "type": "integer", "description": "WGS84 longitude × 1e6 (microdegrees); G1 — rounded to the landing town when sourcing=representative" },
+            "chokepoint": {
+              "type": "array",
+              "items": { "type": "string", "enum": ["luzon-strait", "malacca", "suez-red-sea", "south-china-sea", "gibraltar", "hormuz", "bab-el-mandeb", "sunda", "lombok", "taiwan-strait"] },
+              "description": "named maritime chokepoint(s) this station's seaward routes sit behind; drives resilience analysis (G2 — routed to redundancy, never interdiction)"
+            },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"] },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "stationId": { "type": "string" },
+            "txCid": { "type": "string" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

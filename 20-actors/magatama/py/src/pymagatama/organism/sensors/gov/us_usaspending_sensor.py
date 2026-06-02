@@ -10,7 +10,7 @@ This sensor reads the per-record NDJSON view emitted by the (TODO W1)
 ``us_usaspending.py`` fetcher. One row per budget record →
 ``GovBudgetObservation`` with ``jurisdiction="USA"``.
 
-Cross-links to ``app.etzhayyim.corp.leiReference`` (ADR-2605263800
+Cross-links to ``com.etzhayyim.corp.leiReference`` (ADR-2605263800
 ``LeiSensor``) when the recipient is a legal entity with a GLEIF LEI;
 used by **toritate** (ADR-2605262900) for recipient-vendor anti-related-
 party checks against Public Fund Safe + Council Safe disbursements
@@ -66,7 +66,7 @@ class UsUsaspendingSensor:
       - recipientName      (optional pass-through per §5)
       - recipientLocalId   (optional SAM.gov UEI)
       - recipientLei       (optional GLEIF LEI 20-char; cross-link to
-                            app.etzhayyim.corp.leiReference)
+                            com.etzhayyim.corp.leiReference)
       - awardDateUtc       (optional ISO-8601 UTC)
 
     G7 schema discipline: rows missing required fields OR with

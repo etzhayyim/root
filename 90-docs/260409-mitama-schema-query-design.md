@@ -16,7 +16,7 @@
 - `status`
 - `timestamp_ms`
 - `_alive`
-- `collection` (=`app.etzhayyim.actor.manifest`)
+- `collection` (=`com.etzhayyim.actor.manifest`)
 - `repo`
 - `rkey`
 

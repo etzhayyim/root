@@ -86,13 +86,13 @@ This is what reconciles "high income" with **anti-individualist ontology** (ADR-
 
 `toritate` 執帳 (ADR-2605262900, 100% on-chain accounting/audit actor) is the SSoT for Basic High Income accounting:
 
-1. **Per-adherent computation** (private): imputed income (flow, trailing 12 months) + commons-asset access (stock, current). Stored encrypted via `app.etzhayyim.encrypted.*` envelope (ADR-2605181100); never published per-adherent.
+1. **Per-adherent computation** (private): imputed income (flow, trailing 12 months) + commons-asset access (stock, current). Stored encrypted via `com.etzhayyim.encrypted.*` envelope (ADR-2605181100); never published per-adherent.
 2. **Aggregate publication** (on-chain, no PII): median/percentile imputed income and commons-asset access per stage, appended to the Liberation Metric (§5 below).
 3. **Valuation method**: market-equivalent reference prices, method-versioned and Council-attested. Disclosed openly (open-source valuation tables) so the imputed figures are auditable.
 
 ### 5. Liberation Metric extension
 
-Extend `app.etzhayyim.liberation.metricReport` (ADR-2605261000 §4) with non-cash income/asset fields:
+Extend `com.etzhayyim.liberation.metricReport` (ADR-2605261000 §4) with non-cash income/asset fields:
 
 ```
 {
@@ -126,7 +126,7 @@ High in-kind provision must not become a Wellbecoming violation (Charter §1.13)
 
 ### 8. Implementation surface
 
-- **Lexicon** (`00-contracts/lexicons/app/etzhayyim/liberation/`): extend `metricReport` with the `basicHighIncome` block (§5).
+- **Lexicon** (`00-contracts/lexicons/com/etzhayyim/liberation/`): extend `metricReport` with the `basicHighIncome` block (§5).
 - **toritate** (ADR-2605262900, `20-actors/toritate/`): `imputed_income_compute` + `commons_asset_value` Pregel cells; open-source valuation table under `20-actors/toritate/valuation/`.
 - **Pregel cell** (`20-actors/magatama/cells/`): `basic_high_income_aggregate` (levi node) — quarterly aggregate from encrypted per-adherent figures into the §5 report; reuses the §4 aggregation/no-PII pattern.
 - **No new Solidity contract** — `LiberationLadder.sol` (ADR-2605261000 §7) carries the stage state; this ADR adds only off-chain valuation + the aggregate metric field. `cashStipendUsd == 0` asserted in the metric-report validator.

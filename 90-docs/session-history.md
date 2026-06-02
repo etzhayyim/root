@@ -119,7 +119,7 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 - SQL UDFs (6): `owl_rl_is_type`, `owl_rl_check_functional`, `shacl_min_count`, `shacl_max_count`, `shacl_pattern`, `shacl_class`
 
 **BPMN (Zeebe key=2251799825517334)**:
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/owl/owlReasonerBatch.bpmn` — R/PT1H timer-start
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/owl/owlReasonerBatch.bpmn` — R/PT1H timer-start
 - Flow: `owl.el.classify` → `owl.ql.precompute` → [P7D gate] → `owl.dl.classify` → `owl.benchmark.compare`
 - DL (HermiT) gated weekly via FEEL `(today() - date(last_dl_run_date)) >= duration("P7D")`
 
@@ -176,11 +176,11 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 **Implementation (commit `39bd3166dbc`, ADR-2604282300 §Addendum 2026-04-30)**:
 `zeebe_worker_main.py:task_generic_pds_dispatch` を 3-way K8s-internal routing に置換:
 1. `app.bsky.*` / `chat.bsky.*` / `com.atproto.repo.*` → **C-path**: `insert_social_post_record(row, flush=False)` 直接 INSERT
-2. `app.etzhayyim.*` → **bpmn-dispatcher ClusterIP**: `http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080` (`x-internal-trust` 認証)
+2. `com.etzhayyim.*` → **bpmn-dispatcher ClusterIP**: `http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080` (`x-internal-trust` 認証)
 3. その他 → legacy PDS HTTP フォールバック
 
 **CF-edge call site 排除 (4箇所)**:
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/atproto/cronTick.bpmn` — `generic.http.fetch` + hardcoded URL → `generic.pds.dispatch` (`ea250eef838`)
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/atproto/cronTick.bpmn` — `generic.http.fetch` + hardcoded URL → `generic.pds.dispatch` (`ea250eef838`)
 - `ingest/arbitrage.py:_pds_post()` — direct `app.bsky.feed.post` HTTP → C-path (`ea250eef838`)
 - `ingest/ads.py:_create_record()` — `com.atproto.repo.createRecord` HTTP → C-path (`ea250eef838`)
 - `primitives/gov_ken.py` — 重複 `_pds_xrpc("app.bsky.feed.post")` × 3 削除 + `graph.follow` → C-path (`63c2699f4fa`)
@@ -226,7 +226,7 @@ See: `deps.toml [[conventions]] rw-psycopg3-no-param-limit`, `[[conventions]] py
 - pg.Pool → `createKyselyDb(env.HYPERDRIVE)` sweep across 5 Workers
   (appview/{profile,feed,search} + chat + signal) per ADR-0007.
 - γ2 one-button cutover automation: runbook + LaunchAgent
-  (`app.etzhayyim.legacy-trust-tally.plist`, daily 09:17 local) + tally
+  (`com.etzhayyim.legacy-trust-tally.plist`, daily 09:17 local) + tally
   log + pre-written cleanup script + DRY_RUN-verified.
 - 4 baseline pre-existing CI failures → **2 cleared** in 2 days.
 - Out-of-band migration helper `30-graph/graph-schema/scripts/apply-pending.sh`
@@ -253,8 +253,8 @@ See: ADR-2604241038 (topology), ADR-2604241121, ADR-2604241342, `90-docs/260424-
 **Status**: ✅ P2 outer loop live — `platformPulse` BPMN timer-start `R/PT4H` fires autonomously on Zeebe (4 consecutive fires 2026-04-24 11:42/15:42/19:42/23:42 UTC).
 
 **Files**:
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/yoro/platformPulse.bpmn` — timer-start R/PT4H
-- `etzhayyim-root/00-contracts/bpmn/ai/gftd/yoro/respondToMention.bpmn`
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/yoro/platformPulse.bpmn` — timer-start R/PT4H
+- `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/yoro/respondToMention.bpmn`
 - `50-infra/cloudflare/workers/atproto/src/yoro-reactive-dispatch.ts`
 
 See: `90-docs/adr/2604240946-yoro-autonomous-actor-hybrid-loop.md` §Verification.
@@ -418,7 +418,7 @@ first of five marketing business models: `webmk.etzhayyim.com`.
 
 **Actor**: `did:web:webmk.etzhayyim.com` / nanoid `wbmk0001`
 
-**Lexicons** (`00-contracts/lexicons/ai/gftd/apps/webmk/`):
+**Lexicons** (`00-contracts/lexicons/com/etzhayyim/apps/webmk/`):
 - `createProposal` — trigger LangGraph loop, returns proposalId immediately
 - `getProposal` — fetch proposal status + strategyJson + copyMarkdown
 - `listProposals` — paginated list with status filter
@@ -432,7 +432,7 @@ first of five marketing business models: `webmk.etzhayyim.com`.
 - `quality_gate`: scores 0.0–1.0 on specificity/actionability/creativity/completeness, retries once if <0.7
 - `store_proposal`: INSERT into `vertex_webmk_proposal` (RisingWave)
 
-**BPMN** (`etzhayyim-root/00-contracts/bpmn/ai/gftd/webmk/`):
+**BPMN** (`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/webmk/`):
 - `createProposal.bpmn`: RunAgentLoop → DeliverEmail → (optional) CreateAdCampaign
 - `deliverProposal.bpmn`: re-deliver flow
 
@@ -455,7 +455,7 @@ Proposals non-federable (internal, sensitivity_ord=2).
 
 **Schedule**: Weekly BPMN timer (Tue 09:00 JST, `0 0 * * 2`). On-demand via `createCampaign` XRPC.
 
-**Lexicons** (`00-contracts/lexicons/ai/gftd/apps/newsletter/`):
+**Lexicons** (`00-contracts/lexicons/com/etzhayyim/apps/newsletter/`):
 - `createCampaign` — trigger on-demand curation + send
 - `getCampaign` — fetch campaign status + subjectLine + bodyHtml + qualityScore
 - `listCampaigns` — paginated list with status/cohort filter
@@ -471,7 +471,7 @@ Proposals non-federable (internal, sensitivity_ord=2).
 - `quality_gate`: score ≥0.7 → proceed, else retry once back to `draft_newsletter`
 - `store_campaign`: INSERT into `vertex_newsletter_campaign`
 
-**BPMN** (`etzhayyim-root/00-contracts/bpmn/ai/gftd/newsletter/`):
+**BPMN** (`etzhayyim-root/00-contracts/bpmn/com/etzhayyim/newsletter/`):
 - `weeklySend.bpmn`: timer `0 0 * * 2` → RunCurationAgent → SendViaResend → (optional) CreateSponsorSlot
 - `sendCampaign.bpmn`: on-demand triggered send
 
@@ -487,8 +487,8 @@ Proposals non-federable (internal, sensitivity_ord=2).
 - `edge_newsletter_sent` (campaign → subscriber, resend_email_id)
 
 **subscribeRepos** (magatama.jsonld triggers):
-- `app.etzhayyim.apps.news.article` — fresh articles from news.etzhayyim.com
-- `app.etzhayyim.narou.chapter` — chapters from narou.etzhayyim.com
+- `com.etzhayyim.apps.news.article` — fresh articles from news.etzhayyim.com
+- `com.etzhayyim.narou.chapter` — chapters from narou.etzhayyim.com
 
 **Governance**: Subscriber PII (email) is Tier 3 (ADR-0018). Never logged or included in AT Repo records. Cohort-first grouping. GDPR Art 17 cascade purge applies.
 
@@ -501,13 +501,13 @@ Proposals non-federable (internal, sensitivity_ord=2).
 
 | Path | Purpose |
 |---|---|
-| `00-contracts/lexicons/ai/gftd/apps/outreach/createSequence.json` | Start outreach sequence |
-| `00-contracts/lexicons/ai/gftd/apps/outreach/getSequence.json` | Get sequence status |
-| `00-contracts/lexicons/ai/gftd/apps/outreach/listSequences.json` | List sequences |
-| `00-contracts/lexicons/ai/gftd/apps/outreach/addProspect.json` | Register prospect (Tier 3 PII) |
-| `00-contracts/lexicons/ai/gftd/apps/outreach/addDnc.json` | Add to DNC list |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/outreach/outreachSequence.bpmn` | Multi-step sequence flow |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/outreach/replyDetected.bpmn` | Reply correlation sub-flow |
+| `00-contracts/lexicons/com/etzhayyim/apps/outreach/createSequence.json` | Start outreach sequence |
+| `00-contracts/lexicons/com/etzhayyim/apps/outreach/getSequence.json` | Get sequence status |
+| `00-contracts/lexicons/com/etzhayyim/apps/outreach/listSequences.json` | List sequences |
+| `00-contracts/lexicons/com/etzhayyim/apps/outreach/addProspect.json` | Register prospect (Tier 3 PII) |
+| `00-contracts/lexicons/com/etzhayyim/apps/outreach/addDnc.json` | Add to DNC list |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach/outreachSequence.bpmn` | Multi-step sequence flow |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach/replyDetected.bpmn` | Reply correlation sub-flow |
 | `60-apps/ai-gftd-project-outreach/appview/outreach-otch0001/src/app.ts` | Thin edge CF Worker |
 | `60-apps/ai-gftd-project-outreach/appview/outreach-otch0001/wrangler.jsonc` | Routes |
 | `60-apps/ai-gftd-project-outreach/appview/outreach-otch0001/magatama.jsonld` | subscribeRepos config |
@@ -560,8 +560,8 @@ Start → CheckDnc → DncGateway:
 
 ### subscribeRepos triggers (magatama.jsonld)
 
-- `app.etzhayyim.apps.gmail.message` — reply detection from Gmail ingest
-- `app.etzhayyim.apps.m365Ingest.email` — reply detection from M365 ingest
+- `com.etzhayyim.apps.gmail.message` — reply detection from Gmail ingest
+- `com.etzhayyim.apps.m365Ingest.email` — reply detection from M365 ingest
 
 ### Governance
 
@@ -578,12 +578,12 @@ Reply detection via existing gmail/m365Ingest actors — no new inbound infra.
 
 | Path | Purpose |
 |---|---|
-| `00-contracts/lexicons/ai/gftd/apps/compintel/trackCompetitor.json` | Add competitor |
-| `00-contracts/lexicons/ai/gftd/apps/compintel/getSnapshot.json` | Latest intelligence |
-| `00-contracts/lexicons/ai/gftd/apps/compintel/listCompetitors.json` | List competitors |
-| `00-contracts/lexicons/ai/gftd/apps/compintel/getAlert.json` | High-severity alerts |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/compintel/weeklyRefresh.bpmn` | Monday 08:00 JST refresh |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/compintel/trackCompetitor.bpmn` | Initial deep research |
+| `00-contracts/lexicons/com/etzhayyim/apps/compintel/trackCompetitor.json` | Add competitor |
+| `00-contracts/lexicons/com/etzhayyim/apps/compintel/getSnapshot.json` | Latest intelligence |
+| `00-contracts/lexicons/com/etzhayyim/apps/compintel/listCompetitors.json` | List competitors |
+| `00-contracts/lexicons/com/etzhayyim/apps/compintel/getAlert.json` | High-severity alerts |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/compintel/weeklyRefresh.bpmn` | Monday 08:00 JST refresh |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/compintel/trackCompetitor.bpmn` | Initial deep research |
 | `60-apps/ai-gftd-project-compintel/appview/compintel-cpti0001/` | CF Worker |
 | `30-graph/graph-schema/migrations/20260507830000_vertex_compintel_tables.ts` | 4 tables |
 | `20-actors/magatama/py/src/pymagatama/compintel_worker_main.py` | Python Zeebe worker |
@@ -611,11 +611,11 @@ fetch_signals → analyze_pricing → analyze_product → analyze_hiring → sco
 
 | Path | Purpose |
 |---|---|
-| `00-contracts/lexicons/ai/gftd/apps/contentengine/generateContent.json` | Generate for cohort |
-| `00-contracts/lexicons/ai/gftd/apps/contentengine/getContent.json` | Get content by ID |
-| `00-contracts/lexicons/ai/gftd/apps/contentengine/listContent.json` | List with filters |
-| `00-contracts/lexicons/ai/gftd/apps/contentengine/registerCohortProfile.json` | Register cohort profile |
-| `etzhayyim-root/00-contracts/bpmn/ai/gftd/contentengine/generateContent.bpmn` | Generate + sponsor flow |
+| `00-contracts/lexicons/com/etzhayyim/apps/contentengine/generateContent.json` | Generate for cohort |
+| `00-contracts/lexicons/com/etzhayyim/apps/contentengine/getContent.json` | Get content by ID |
+| `00-contracts/lexicons/com/etzhayyim/apps/contentengine/listContent.json` | List with filters |
+| `00-contracts/lexicons/com/etzhayyim/apps/contentengine/registerCohortProfile.json` | Register cohort profile |
+| `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contentengine/generateContent.bpmn` | Generate + sponsor flow |
 | `60-apps/ai-gftd-project-contentengine/appview/contentengine-cten0001/` | CF Worker |
 | `30-graph/graph-schema/migrations/20260507840000_vertex_contentengine_tables.ts` | 2 tables |
 | `20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py` | Python Zeebe worker |
@@ -634,7 +634,7 @@ load_cohort_profile → match_sources → draft_content → rank_variants → qu
 
 ### Tables: vertex_contentengine_cohort_profile, vertex_contentengine_content. No PII (sensitivity_ord=0, ADR-0018 cohort-first).
 
-### subscribeRepos: app.etzhayyim.apps.news.article + app.etzhayyim.narou.chapter (signals for personalization)
+### subscribeRepos: com.etzhayyim.apps.news.article + com.etzhayyim.narou.chapter (signals for personalization)
 
 ## 2026-05-07 — All 5 Business Models Complete
 
@@ -652,9 +652,9 @@ load_cohort_profile → match_sources → draft_content → rank_variants → qu
 
 | File | Type | Purpose |
 |---|---|---|
-| `00-contracts/lexicons/ai/gftd/apps/recruit/matchStats.json` | query | Cohort-first matching stats (candidateCount / decisionEventCount) |
-| `00-contracts/lexicons/ai/gftd/apps/recruit/listMatchDecisionEvents.json` | query | List decision events per proposal (cohort-first, PII-free) |
-| `00-contracts/lexicons/ai/gftd/apps/recruit/getMatchProposal.json` | query | Single proposal retrieval by proposalId |
+| `00-contracts/lexicons/com/etzhayyim/apps/recruit/matchStats.json` | query | Cohort-first matching stats (candidateCount / decisionEventCount) |
+| `00-contracts/lexicons/com/etzhayyim/apps/recruit/listMatchDecisionEvents.json` | query | List decision events per proposal (cohort-first, PII-free) |
+| `00-contracts/lexicons/com/etzhayyim/apps/recruit/getMatchProposal.json` | query | Single proposal retrieval by proposalId |
 
 ### actor-manifest.jsonld additions
 
@@ -675,7 +675,7 @@ load_cohort_profile → match_sources → draft_content → rank_variants → qu
 | Path | Purpose |
 |---|---|
 | `30-graph/graph-schema/migrations/20260507860000_recruit_real_job_ingest.ts` | ADD COLUMN source_homepage + 2 indexes on vertex_job_posting |
-| `00-contracts/lexicons/ai/gftd/apps/recruit/ingestJobPostings.json` | Public-postings-only ATS ingest (greenhouse/lever/ashby allowlist) |
+| `00-contracts/lexicons/com/etzhayyim/apps/recruit/ingestJobPostings.json` | Public-postings-only ATS ingest (greenhouse/lever/ashby allowlist) |
 | `70-tools/scripts/recruit-ingest-ats-direct.mjs` | Idempotent ATS direct ingest (PROHIBITED_HOST_FRAGMENTS gate, WHERE NOT EXISTS, DRY_RUN) |
 
 ### Compliance
@@ -691,7 +691,7 @@ load_cohort_profile → match_sources → draft_content → rank_variants → qu
 | Path | Purpose |
 |---|---|
 | `50-infra/k8s/recruit-job-ingester/` | Dockerfile + Kustomize Deployment/Service/CronJob for internal XRPC ingest worker |
-| `70-tools/scripts/recruit-job-ingest-worker.mjs` | Long-running HTTP worker: `/healthz`, `/readyz`, `/xrpc/app.etzhayyim.apps.recruit.ingestJobPostings` |
+| `70-tools/scripts/recruit-job-ingest-worker.mjs` | Long-running HTTP worker: `/healthz`, `/readyz`, `/xrpc/com.etzhayyim.apps.recruit.ingestJobPostings` |
 | `70-tools/scripts/recruit-run-job-ingest.mjs` | Operational wrapper: DB readiness, optional migration, ATS ingest, run history |
 | `30-graph/graph-schema/migrations/20260507860000_recruit_real_job_ingest.ts` | `source_homepage` + `vertex_recruit_job_ingest_run` |
 
@@ -744,7 +744,7 @@ load_cohort_profile → match_sources → draft_content → rank_variants → qu
 |---|---|
 | Schema | CRM Open LEI bridge + review queue migrations added and applied live |
 | MCP | `openLei.crm.bridge.{query,resolve,review,autoreview,enrich,reviewQueue,submitEvidence}` |
-| Lexicons | 9 CRM LEI lexicons under `00-contracts/lexicons/ai/gftd/apps/crm/` |
+| Lexicons | 9 CRM LEI lexicons under `00-contracts/lexicons/com/etzhayyim/apps/crm/` |
 | Review loop | Candidate rejection, evidence submission, selected-LEI verification |
 
 ### Live closing state

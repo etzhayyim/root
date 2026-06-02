@@ -5,10 +5,10 @@
  * invariant in `index.ts` enforces ≥2, but `emitPinRecord` itself
  * accepts any non-empty `providers` set so single-provider Kubo dev
  * loops still produce a public trail), publish an
- * `app.etzhayyim.substrate.ipfsPin` record under the pinner's DID.
+ * `com.etzhayyim.substrate.ipfsPin` record under the pinner's DID.
  *
  * The record links back to the originating
- * `app.etzhayyim.substrate.shardSnapshot` via `rootCid` (always) and
+ * `com.etzhayyim.substrate.shardSnapshot` via `rootCid` (always) and
  * `snapshotUri` (when known — Phase 1 emissions that read local CAR
  * files directly may omit this).
  *
@@ -17,7 +17,7 @@
 
 import { AtpAgent } from "@atproto/api";
 
-const COLLECTION = "app.etzhayyim.substrate.ipfsPin";
+const COLLECTION = "com.etzhayyim.substrate.ipfsPin";
 
 export interface PinEmitOpts {
   /** DID of the pinner emitting the record. */

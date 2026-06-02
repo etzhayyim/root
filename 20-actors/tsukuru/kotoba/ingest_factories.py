@@ -4,8 +4,8 @@
 ADR-2605202800, migration plan Phase 3. The legacy gftd-era registry held 460+
 manufacturer DIDs across 30+ countries in the AT collections:
 
-    app.etzhayyim.apps.tsukuru.manufacturer        (active)
-    app.etzhayyim.apps.tsukuru-api.manufacturer    (historical, read-compat)
+    com.etzhayyim.apps.tsukuru.manufacturer        (active)
+    com.etzhayyim.apps.tsukuru-api.manufacturer    (historical, read-compat)
 
 This script projects those records into kotoba `:factory/*` Datoms (G6). At R0 it
 reads from the representative seed.edn; the live path (reading the 460-DID legacy
@@ -25,8 +25,8 @@ from ingest_mcp import _top_level_entities  # reuse the EDN entity splitter
 
 SEED = os.path.join(os.path.dirname(__file__), "seed.edn")
 LEGACY_COLLECTIONS = (
-    "app.etzhayyim.apps.tsukuru.manufacturer",
-    "app.etzhayyim.apps.tsukuru-api.manufacturer",  # read-compat
+    "com.etzhayyim.apps.tsukuru.manufacturer",
+    "com.etzhayyim.apps.tsukuru-api.manufacturer",  # read-compat
 )
 
 
@@ -37,7 +37,7 @@ def _factory_entities(raw: str):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--url", default="http://127.0.0.1:8077")
-    ap.add_argument("--graph", default="app.etzhayyim.tsukuru")
+    ap.add_argument("--graph", default="com.etzhayyim.tsukuru")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 

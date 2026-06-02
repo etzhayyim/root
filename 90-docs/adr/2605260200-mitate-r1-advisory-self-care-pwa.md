@@ -42,7 +42,7 @@ superseded_by: []
 mitate R0 (ADR-2605260100 + 5 condition sub-ADRs) established:
 - Tier-B actor `mitate` (sibling of yakushi)
 - 13 Pregel cells (all import-time RuntimeError gated)
-- 8 lexicons (`app.etzhayyim.mitate.*`)
+- 8 lexicons (`com.etzhayyim.mitate.*`)
 - 14 constitutional gates + 10 non-goals
 - 4-phase roadmap R0→R3
 
@@ -97,7 +97,7 @@ New app under `60-apps/mitate-pwa/`:
 
 - **Runtime**: T3 TS Native (Cloudflare Worker + Hono + @etzhayyim/magatama-host-sdk + esbuild) per magatama default
 - **Authentication**: Adherent SBT + passkey ES256 (G1); 30-day rotating pseudonym DID derived at intake time
-- **Substrate**: `@etzhayyim/sdk` only (G14); all patient-data writes go to AT MST with `app.etzhayyim.encrypted.*` envelope wrapping
+- **Substrate**: `@etzhayyim/sdk` only (G14); all patient-data writes go to AT MST with `com.etzhayyim.encrypted.*` envelope wrapping
 - **Inference**: Murakumo LiteLLM gateway at 127.0.0.1:4000 → gemma4:e4b medical distill variant (G12 + G13)
 - **G11 UX invariants** (constitutional, lint-enforced):
   - No streak counter, no score reveal during intake, no progress bar gamification

@@ -12,7 +12,7 @@ activation test), with constitutional gates enforced:
   G8  tithe-non-fiat         settlement = USDC Base L2 + ERC-4337 + TitheRouter 10%
   G9  no-server-key          member/operator signs; platform holds no key
   G10 consent-bound          compute-only; real RPC calls gated until member sig
-  G11 pii-encrypted          customer PII → app.etzhayyim.encrypted.*
+  G11 pii-encrypted          customer PII → com.etzhayyim.encrypted.*
 
 LLM access is Murakumo-only via KotobaLLM (127.0.0.1:4000, gemma3:4b; G6). State is
 written back to the kotoba Datom log (G7). Settlement is USDC on Base L2 + ERC-4337
@@ -69,13 +69,13 @@ def check_sla_compliance(request_date_iso: str, sla_date_iso: str) -> dict:
 # G11 — PII encryption gate (customer account data)
 # --------------------------------------------------------------------------- #
 def mask_pii(customer_name: str, account_id: str) -> dict:
-    """PII marked for encryption envelope (app.etzhayyim.encrypted.*)."""
+    """PII marked for encryption envelope (com.etzhayyim.encrypted.*)."""
     if not customer_name or not account_id:
         return {"error": "customer_name or account_id missing", "blocked": True}
     return {
         "customer_masked": f"{customer_name[0]}***",
         "account_masked": f"{account_id[:4]}****",
-        "note": "PII encrypted → app.etzhayyim.encrypted.* per G11",
+        "note": "PII encrypted → com.etzhayyim.encrypted.* per G11",
     }
 
 

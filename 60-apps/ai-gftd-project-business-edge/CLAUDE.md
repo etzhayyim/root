@@ -31,11 +31,11 @@ magatama の全プリミティブ（KV, Graph, CDN, PubSub, Lock, Secrets, Virtu
 
 | Lexicon | 用途 |
 |---|---|
-| `app.etzhayyim.edge.component.deploy` | デプロイコマンド |
-| `app.etzhayyim.edge.component.delete` | 削除コマンド |
-| `app.etzhayyim.edge.component.rollback` | ロールバックコマンド |
-| `app.etzhayyim.edge.tenant.configure` | テナント設定変更 |
-| `app.etzhayyim.edge.usage.report` | 日次使用量レポート |
+| `com.etzhayyim.edge.component.deploy` | デプロイコマンド |
+| `com.etzhayyim.edge.component.delete` | 削除コマンド |
+| `com.etzhayyim.edge.component.rollback` | ロールバックコマンド |
+| `com.etzhayyim.edge.tenant.configure` | テナント設定変更 |
+| `com.etzhayyim.edge.usage.report` | 日次使用量レポート |
 
 ## Data Model
 
@@ -74,7 +74,7 @@ magatama の全プリミティブ（KV, Graph, CDN, PubSub, Lock, Secrets, Virtu
 3. `magatama.CdnUpload("edge/components/{org_id}/{component_id}/{version}.wasm")` → B2
 4. Lance `edge_components` + `edge_component_versions` write
 5. Graph `MERGE (t)-[:OWNS]->(c)-[:DEPLOYED_VERSION]->(v)`
-6. AT Record `app.etzhayyim.edge.component.deploy` publish
+6. AT Record `com.etzhayyim.edge.component.deploy` publish
 7. edge-runtime ComponentRegistry lazy-loads on next request
 
 ## Use-When-Needed Policy

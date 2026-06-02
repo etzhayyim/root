@@ -13,7 +13,7 @@ gtin.etzhayyim.com — 全世界の商品 identity を GTIN family で正規化�
 
 ```
 Browser / API client
-  → /xrpc/app.etzhayyim.gtin.*
+  → /xrpc/com.etzhayyim.gtin.*
     ↓
   did:web:gtin.etzhayyim.com
     ├─ Catalog: registerProduct / updateProduct / lookupProduct
@@ -30,10 +30,10 @@ Browser / API client
 
 | Collection | Role | Key fields |
 |---|---|---|
-| `app.etzhayyim.gtin.product` | canonical global product | `productId, gtin, jan, upc, ean, name, brand, model, packSize, category` |
-| `app.etzhayyim.gtin.alias` | identifier alias set | `canonicalProductId, codeType, codeValue` |
-| `app.etzhayyim.gtin.brand` | canonical brand | `brandId, name, ownerDid, country` |
-| `app.etzhayyim.gtin.category` | product taxonomy | `categoryId, name, parentId` |
+| `com.etzhayyim.gtin.product` | canonical global product | `productId, gtin, jan, upc, ean, name, brand, model, packSize, category` |
+| `com.etzhayyim.gtin.alias` | identifier alias set | `canonicalProductId, codeType, codeValue` |
+| `com.etzhayyim.gtin.brand` | canonical brand | `brandId, name, ownerDid, country` |
+| `com.etzhayyim.gtin.category` | product taxonomy | `categoryId, name, parentId` |
 
 ## DID Patterns
 
@@ -93,10 +93,10 @@ scraper.
 
 1. `site.etzhayyim.com` が merchant page を `crawlPage` で取得する
 2. page / markdown / JSON-LD から `gtin`, `jan`, `upc`, `ean` 候補を抽出する
-3. `app.etzhayyim.gtin.validateGtin` で code 種別判定と check digit 検証を行う
-4. `app.etzhayyim.gtin.lookupProduct` で canonical product DID を解決する
-5. 未登録なら `app.etzhayyim.gtin.registerProduct` で global product identity を作る
-6. merchant-specific offer は `app.etzhayyim.apps.kakaku.ingestOfferFromUrl` または `upsertOffer` に流す
+3. `com.etzhayyim.gtin.validateGtin` で code 種別判定と check digit 検証を行う
+4. `com.etzhayyim.gtin.lookupProduct` で canonical product DID を解決する
+5. 未登録なら `com.etzhayyim.gtin.registerProduct` で global product identity を作る
+6. merchant-specific offer は `com.etzhayyim.apps.kakaku.ingestOfferFromUrl` または `upsertOffer` に流す
 
 ### Batch Path
 
@@ -110,7 +110,7 @@ scraper.
 
 ### Current Implementation
 
-- `app.etzhayyim.apps.kakaku.ingestOfferFromUrl` は `site.etzhayyim.com` の `crawlPage` 結果と直接 fetch HTML の両方から barcode candidate を抽出する
+- `com.etzhayyim.apps.kakaku.ingestOfferFromUrl` は `site.etzhayyim.com` の `crawlPage` 結果と直接 fetch HTML の両方から barcode candidate を抽出する
 - 抽出優先は `JSON-LD -> labeled text (GTIN/JAN/UPC/EAN/barcode) -> unlabeled 8/12/13/14 digit`
 - barcode が取れたら `gtin.etzhayyim.com` の global product node を lookup し、無ければ register してから `KakakuProduct.global_product_*` に接続する
 - `70-tools/scripts/ingest-domain-data.ts` の `parseGtinProducts` も同じ digit/check-digit ルールで `canonicalGtin14` を出す

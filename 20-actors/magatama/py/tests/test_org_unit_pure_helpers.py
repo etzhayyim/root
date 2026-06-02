@@ -103,7 +103,7 @@ def test_make_vertex_id_format() -> None:
 
 def test_make_vertex_id_collection() -> None:
     vid = OU._make_vertex_id("LEI123", "DEPT-001")
-    assert "app.etzhayyim.apps.openLei.orgUnit" in vid
+    assert "com.etzhayyim.apps.openLei.orgUnit" in vid
 
 
 # ── _make_edge_id ─────────────────────────────────────────────────────────────

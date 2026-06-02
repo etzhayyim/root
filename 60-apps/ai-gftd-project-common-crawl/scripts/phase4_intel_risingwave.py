@@ -16,7 +16,7 @@ Usage:
 
 TODO(substrate-boundary): replace RW read/update operations (psycopg2 fetch/execute)
 with AT Protocol MST reads via @etzhayyim/sdk per ADR-2605172000. Domain intelligence
-collection: 'app.etzhayyim.apps.commonCrawl.domainIntel', rkey=domain_slug. Remove RW_URL env.
+collection: 'com.etzhayyim.apps.commonCrawl.domainIntel', rkey=domain_slug. Remove RW_URL env.
 """
 
 import argparse
@@ -233,7 +233,7 @@ Return a single JSON object. No explanation."""
 
 
 def update_profile_via_pds(session: requests.Session, did: str, display_name: str, description: str):
-    """Update PDS profile via app.etzhayyim.pds.putProfile."""
+    """Update PDS profile via com.etzhayyim.pds.putProfile."""
     body = {
         "$type": "app.bsky.actor.profile",
         "repo": did,
@@ -246,7 +246,7 @@ def update_profile_via_pds(session: requests.Session, did: str, display_name: st
         "X-Active-DID": SITE_APP_DID,
     }
     resp = session.post(
-        f"{PDS_URL}/xrpc/app.etzhayyim.pds.putProfile",
+        f"{PDS_URL}/xrpc/com.etzhayyim.pds.putProfile",
         json=body, headers=headers, timeout=30,
     )
     return resp.status_code < 400
@@ -280,7 +280,7 @@ def main():
             SELECT vd.vertex_id, vd.domain, vd.topics
             FROM vertex_domain vd
             LEFT JOIN vertex_actor va
-              ON va.collection = 'app.etzhayyim.apps.site.domain' AND va.rkey = vd.domain
+              ON va.collection = 'com.etzhayyim.apps.site.domain' AND va.rkey = vd.domain
             WHERE va.rkey IS NULL
               AND vd.domain LIKE '%.%'
               AND vd.domain ~ '^[a-zA-Z0-9]'

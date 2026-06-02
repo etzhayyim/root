@@ -14,9 +14,9 @@
 
 export const OPORTS_DID_PREFIX = "did:web:open-ports.etzhayyim.com:" as const;
 
-export const PORT_COLLECTION = "app.etzhayyim.apps.openPorts.port";
-export const VESSEL_COLLECTION = "app.etzhayyim.apps.openPorts.vessel";
-export const CALL_COLLECTION = "app.etzhayyim.apps.openPorts.call";
+export const PORT_COLLECTION = "com.etzhayyim.apps.openPorts.port";
+export const VESSEL_COLLECTION = "com.etzhayyim.apps.openPorts.vessel";
+export const CALL_COLLECTION = "com.etzhayyim.apps.openPorts.call";
 
 // ─── Port ───────────────────────────────────────────────────────────
 

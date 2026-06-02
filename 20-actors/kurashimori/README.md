@@ -23,7 +23,7 @@ R3 exception. kurashimori never represents the member before a tribunal.
 
 ## The coded remedy registry
 
-Each remedy/route is an `app.etzhayyim.kurashimori.remedyTarget` record holding
+Each remedy/route is an `com.etzhayyim.kurashimori.remedyTarget` record holding
 the **remedy kind / 根拠法令 / statutory window (日数) / 書面 form / delivery
 channel (内容証明 / 電子 / portal) / escalation forum**.
 
@@ -77,7 +77,7 @@ NOT a legal-opinion / rights-determination engine.
   citizen-facing concierges; same registry + G15 self-action pattern.
 - **wakai** (ADR-2605263500): mutual-aid relief for irrecoverable loss (kurashimori routes).
 - **warifu** (ADR-2605302000): card-side chargeback (kurashimori does consumer-side demand).
-- **`app.etzhayyim.encrypted.*`** (ADR-2605181100): only home for member PII + contract content.
+- **`com.etzhayyim.encrypted.*`** (ADR-2605181100): only home for member PII + contract content.
 
 ## Roadmap
 
@@ -87,5 +87,5 @@ escalation → R3 gated 代行.
 ## References
 
 - ADR: [`/90-docs/adr/2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0.md`](/90-docs/adr/2605312500-kurashimori-consumer-protection-concierge-tier-b-actor-r0.md)
-- Lexicons: [`/00-contracts/lexicons/app/etzhayyim/kurashimori/`](/00-contracts/lexicons/app/etzhayyim/kurashimori/)
+- Lexicons: [`/00-contracts/lexicons/com/etzhayyim/kurashimori/`](/00-contracts/lexicons/com/etzhayyim/kurashimori/)
 - Charter Rider: [`/CHARTER-RIDER.md`](/CHARTER-RIDER.md)

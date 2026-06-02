@@ -24,7 +24,7 @@ every etzhayyim / kotoba ingress surface. It is **design intent only** and is
 **not in force**: live logging/publication does not change until Council Lv7+
 unanimity (Charter §0.4) amending ADR-2605181100 is recorded on-chain (§5). Once
 ratified, this text becomes the `noticeText` of an
-`app.etzhayyim.transparency.ingressDisclosureNotice` record (version `v0.1.0`).
+`com.etzhayyim.transparency.ingressDisclosureNotice` record (version `v0.1.0`).
 
 The §4 non-waivable floor applies regardless: access-control material (private
 keys, CACAO-as-bearer, auth tokens, session/`KOTOBA_*` secrets) is never

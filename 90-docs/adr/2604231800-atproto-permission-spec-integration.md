@@ -42,7 +42,7 @@ authorize flow 時に dynamic resolve し、UI で human-readable な consent �
 
 | 層 | 状況 | 権威ソース |
 |---|---|---|
-| Permission-Set lexicon | 9 etzhayyim + 3 Bluesky 公式 = 22 セット宣言済 | `00-contracts/lexicons/ai/gftd/*/auth*.json` / `deps.toml [[conventions]] "Permission Set"` |
+| Permission-Set lexicon | 9 etzhayyim + 3 Bluesky 公式 = 22 セット宣言済 | `00-contracts/lexicons/com/etzhayyim/*/auth*.json` / `deps.toml [[conventions]] "Permission Set"` |
 | OAuth 2.0 PAR + authorize + token + PKCE (S256) | 実装済 | `50-infra/cloudflare/workers/atproto/src/handlers/oauth.ts:37-255` |
 | Scope parse / validate (`atproto`, `transition:`, `include:`, `repo:`, `rpc:`) | 実装済 | `50-infra/cloudflare/workers/atproto/src/auth/scope.ts:140-179` (`checkTokenScope`) |
 | Service Auth JWT (ES256, `lxm` claim, 60s TTL) | 実装済 | `60-apps/ai-gftd-project-auth/worker/src-ts/service-auth.ts` / `10-protocol/xrpc/src/auth.ts:14-71` / `70-tools/gftd/gftd/scoped_auth.go` |
@@ -264,4 +264,4 @@ Phase 4 cutover 前に確認する項目:
 - `60-apps/ai-gftd-project-auth/worker/src-ts/dpop.ts` — DPoP verify 既存実装 (W1 で再利用)
 - `10-protocol/xrpc/src/auth.ts:14-71` — `ServiceAuth` class
 - `70-tools/gftd/gftd/scoped_auth.go` — `gftd agent-token --lxm <nsid>` (W3 作業対象)
-- `00-contracts/lexicons/ai/gftd/*/auth*.json` — 9 permission-set lexicon (W2 で拡張)
+- `00-contracts/lexicons/com/etzhayyim/*/auth*.json` — 9 permission-set lexicon (W2 で拡張)

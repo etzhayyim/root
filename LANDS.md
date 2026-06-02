@@ -66,7 +66,7 @@ Each row references the multi-ERC layer per [ADR-2605252315](90-docs/adr/2605252
 Each steward annually:
 
 - Verifies land boundary (in-person inspection)
-- Records biodiversity census (`app.etzhayyim.apps.etzhayyim.land-biodiversity`)
+- Records biodiversity census (`com.etzhayyim.apps.etzhayyim.land-biodiversity`)
 - Provides reasonable access to etzhayyim adherents for religious gathering / meditation
 - Ensures no commercial extraction (mining / clear-cut / large-scale monoculture)
 - Continues national obligations (property tax)
@@ -134,7 +134,7 @@ ipfs cat $DEED_CID
 # 6. Verify AT Record
 curl -s https://pds.etzhayyim.com/xrpc/com.atproto.repo.getRecord \
   -G --data-urlencode "repo=$STEWARD_DID" \
-  --data-urlencode "collection=app.etzhayyim.apps.etzhayyim.land-donation" \
+  --data-urlencode "collection=com.etzhayyim.apps.etzhayyim.land-donation" \
   --data-urlencode "rkey=$RKEY"
 ```
 

@@ -41,10 +41,10 @@ consumed through consent capability. This app ports the ingest front only.
 hakken is etzhayyim-native (no legacy gftd lexicon existed — vendor wrote kotoba datoms
 directly), so both lexicon ids and record write-path collections use `com.etzhayyim.apps.hakken.*`.
 
-> Note: the established record-NSID authority elsewhere in etzhayyim/root is `app.etzhayyim.*`
+> Note: the established record-NSID authority elsewhere in etzhayyim/root is `com.etzhayyim.*`
 > (consent/council/encrypted/esign). `com.etzhayyim.*` is otherwise used for launchd/system
 > labels. `com.etzhayyim.*` was chosen here by explicit operator direction (reverse-DNS of
-> etzhayyim.com); revisit if the org standardises on `app.etzhayyim.*` for record NSIDs.
+> etzhayyim.com); revisit if the org standardises on `com.etzhayyim.*` for record NSIDs.
 
 ## Record collections (write path)
 

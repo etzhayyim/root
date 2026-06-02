@@ -8,7 +8,7 @@ Murakumo leader: `asher` (blessed / abundance — Gen 49:20, Deut 33:24-25).
 Joined `(creditorEnrollment, debtorEnrollment)` pair with `eligible=true` and both anchored.
 MST listener subscribes to both `creditorEnrollment` and `debtorEnrollment` collections, emits join event when both sides ready for the same `(riteId, debtId)`.
 
-Input lexicon: `app.etzhayyim.apps.etzhayyim.yobel.recordRelease` (also callable directly by Council Lv6+ for manual override of automatic pairing).
+Input lexicon: `com.etzhayyim.apps.etzhayyim.yobel.recordRelease` (also callable directly by Council Lv6+ for manual override of automatic pairing).
 
 ## Steps
 
@@ -38,19 +38,19 @@ Input lexicon: `app.etzhayyim.apps.etzhayyim.yobel.recordRelease` (also callable
 
 ## Output
 
-Lexicon `app.etzhayyim.apps.etzhayyim.yobel.recordRelease` response:
+Lexicon `com.etzhayyim.apps.etzhayyim.yobel.recordRelease` response:
 
 ```json
 {
   "ok": true,
   "releaseId": "yobel-2074-tree-of-life-50yr-rel-<tid>",
-  "vertexId": "at://did:web:yobel.etzhayyim.com/app.etzhayyim.apps.etzhayyim.yobel.release/<tid>"
+  "vertexId": "at://did:web:yobel.etzhayyim.com/com.etzhayyim.apps.etzhayyim.yobel.release/<tid>"
 }
 ```
 
 ## See also
 
-- Lexicon `00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/recordRelease.json`
+- Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/yobel/recordRelease.json`
 - DMN [`dmn/tax-warning-by-jurisdiction.md`](../../dmn/tax-warning-by-jurisdiction.md)
 - ADR-2605172100 etzhayyim open telecom fabric (Base L2 settlement substrate)
 - ADR-2605192130 TitheRouter (tithe-neutral pass-through for rite releases)
