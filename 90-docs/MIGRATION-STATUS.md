@@ -11,13 +11,13 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 66 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 67 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 63 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **D — TODO-PENDING** | 62 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 | **V — VENDOR-RESIDENT** | 12 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 104 apps** (C + D = 41 + 63; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 103 apps** (C + D = 41 + 62; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -33,10 +33,11 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > (`auth` was an example here previously but is now Bucket V — vendor-resident,
 > no on-chain path; see below.)
 
-## Bucket A — DONE (66, has rw-free/)
+## Bucket A — DONE (67, has rw-free/)
 
 6ir, aima (data layer; AI-compute stays gftd), air-sched,
 analytics (mixed split — public catalog front), anime, business-person,
+collector (mixed split — public OSINT front),
 animeka (mixed split — catalog front), blockchain, bpmn, bunken,
 celler, common-crawl, cpc, crowdfunding, dns, ec, eigyo,
 gameka, gtin, hakkou, hanrei, houbun, houki, houshi, ipaddress, isbn, isin,
@@ -151,10 +152,9 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (63, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (62, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (33)**:
-collector,
+**TRANSFORM-pending (32)**:
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
 resource-provider, robot, scheduler, shiharai, tia, web4, webpage, wire, worlds,
