@@ -12118,6 +12118,20 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606015000-pds-refactor-onto-kotoba-server",
+      "type": "TechArticle",
+      "title": "ADR-2606015000: refactor the AT Protocol PDS onto kotoba-server (substrate + WASM)",
+      "status": "proposed",
+      "topic": "pds-refactor-onto-kotoba-server",
+      "authoritative": true,
+      "authoritativeFor": [
+        "pds-runtime-home",
+        "pds-session-auth"
+      ],
+      "related": "doc:adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-2606020100-session-close-kotoba-browser-node",
       "type": "TechArticle",
       "title": "ADR-2606020100: Session close — kotoba browser node (WASM read/write + jco Pregel) + browser-native actors + durable search",
@@ -12184,6 +12198,16 @@
         "doc:adr-2605192100-etzhayyim-mission-charter",
         "doc:adr-2605192245-etzhayyim-global-land-sovereignty"
       ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606021300-session-close-himawari-solar-pv-manufacturing",
+      "type": "TechArticle",
+      "title": "ADR-2606021300: Session close — himawari (向日葵) solar PV module manufacturing actor R0",
+      "status": "active",
+      "topic": "session-close-himawari-solar-pv-manufacturing",
+      "authoritative": false,
+      "related": "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
       "lastVerified": "2026-06-02"
     },
     {

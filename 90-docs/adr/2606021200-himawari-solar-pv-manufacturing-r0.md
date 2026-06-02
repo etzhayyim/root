@@ -205,3 +205,7 @@ R2+ optional new class **Hinata (日向)** — autonomous lamination-press + str
 - ADR-2605192245 (Land Trust — fab siting)
 - ADR-2605242500 (silicon iwakura — logic-grade track, distinct per N1)
 - ADR-2605260230 (hanami robot mech-design — precedent for Hinata class ADR)
+
+## Notes (landing)
+
+- **2026-06-02** — R0 landed on branch `feat/himawari-solar-pv-manufacturing`, commit `35bccc43c` (30 files, +1274); **PR #735** against `main`. 7 cells smoke 7/7; 7 lexicons clean (`type=number → integer` implied-units fix applied for the `validate-religious-corp-lexicons` pre-commit hook); registered in `deps.toml` + `CLAUDE.md` roster + ADR index + docs registry/graph (755). Session-close = ADR-2606021300. Status remains `proposed` (R1 Council-gated).
