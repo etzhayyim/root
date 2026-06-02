@@ -11,56 +11,150 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 43 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 66 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 52 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 88 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
+| **D — TODO-PENDING** | 63 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 12 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 140 apps** (C + D). Buckets A + B (251) need no further
-substrate work.
+**Real remaining scope ≈ 104 apps** (C + D = 41 + 63; the 8 Tier-2 commerce apps
+celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
+rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
+further substrate work. The open-* commodity-data backlog is **fully cleared** —
+every open-* app now has an rw-free impl. The loop now proceeds over the
+remaining C/D apps with a per-app judgment gate (etzhayyim-front vs
+vendor-resident, per the Consensys pattern + 3-axis OR-test).
 
 > **Nuance**: an app can be in A *and* C — the `rw-free/` package is the clean
 > etzhayyim-compliant reimplementation, but the project's original (pre-migration)
 > `src/` may still carry RW/Stripe code that a later cleanup removes. e.g. `cpc`,
-> `common-crawl`, `sanctions`, `saiban`, `auth`, `coverage`, `kami`. For these the
+> `common-crawl`, `sanctions`, `saiban`, `coverage`, `kami`. For these the
 > on-chain path exists; the legacy src is residual cleanup, not a missing impl.
+> (`auth` was an example here previously but is now Bucket V — vendor-resident,
+> no on-chain path; see below.)
 
-## Bucket A — DONE (43, has rw-free/)
+## Bucket A — DONE (66, has rw-free/)
 
-anime, blockchain, bpmn, bunken, common-crawl, cpc, crowdfunding, dns, ec,
+6ir, aima (data layer; AI-compute stays gftd), air-sched,
+analytics (mixed split — public catalog front), anime, business-person,
+animeka (mixed split — catalog front), blockchain, bpmn, bunken,
+celler, common-crawl, cpc, crowdfunding, dns, ec, eigyo,
 gameka, gtin, hakkou, hanrei, houbun, houki, houshi, ipaddress, isbn, isin,
-issn, ki, kiyo, koke, legal-corpus, manga, maps, narou, ndc, nist, ocel,
-okaimono, open-apqc, open-banking, open-denki, open-isco, open-isic,
-open-jpn-gov, open-unispsc, otakiage, sbom, threads, threat-intelligence,
-tsukuru, yoro
+issn, ki, kiyo, koke, legal-corpus, manga, maps, minpaku, narou, ndc, nist,
+ocel, okaimono, omise, open-airplane, open-apqc, open-banking, open-cofog,
+open-denki, open-gas, open-isco, open-isic, open-jpn-gov, open-network,
+open-ports, open-power, open-rail, open-swift, open-unispsc, open-water,
+otakiage, real-estate, sbom, shopping, supplychain, threads,
+threat-intelligence, tsukuru, yadoya, yoro
 
-(43 incl. `ec`/`crowdfunding` landed 2026-06-02; this list is auto-superset of
-the audit's 43 — `ec` was merged just after the scan.)
+(51 incl. `ec`/`crowdfunding` (2026-06-02) and the 8 open-* commodity-data apps
+— open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
+one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket C — NEEDS-CODEMOD (52) — active backlog
+## Bucket V — CONFIRMED VENDOR-RESIDENT (12)
+
+Apps judged (per-app gate) to have a **regulated-infra primary function** that
+correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
+are NOT migrated; the etzhayyim front consumes them via consent-capability.
+
+- **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
+  is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
+  passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
+  (private keys, revocation) in D1 KEYS_DB, session JWT issuance. Operator-
+  producible secrets ⇒ stays gftd. NOTE: the *decentralized-identity primitives*
+  it also touches — did:web / did:plc issuance + `vertex_gftd_identity` public
+  governance — are etzhayyim-exclusive per ADR-2605211950 and tracked as separate
+  relocate targets in `/CLAUDE.md` migrations, not as an rw-free registry here.
+- **accounts** — axis: **Custody** (+ identity-assurance liability). The
+  account-lifecycle worker (`accounts.etzhayyim.com`, ADR-0024 split of auth):
+  linked auth methods, email/OAuth provider linking, session, `/manage` UI,
+  actor.score. Same regulated-infra family as `auth` — handles linked
+  credentials + email PII + sessions. Currently scaffold-only (route still
+  served by the auth Worker). Stays gftd. The DID-linkage primitives are
+  etzhayyim-exclusive (ADR-2605211950), tracked separately.
+- **air-book** — axes: **Custody + Settlement + Liability** (all three). Airline
+  reservations / ticketing: PNR (passenger name records = passport / itinerary /
+  contact PII), ticket issuance, IATA **BSP settlement** (fiat money settlement
+  between airlines and agents), passenger reprotection (duty-of-care liability).
+  No clean public-catalog layer to split out (flight schedules belong to
+  air-sched). Stays gftd.
+- **air-cargo** — axes: **Settlement + Liability + Custody**. Airline cargo ops:
+  cargo booking, air-waybill issuance, ULD assignment, claims processing, IATA
+  **CASS cargo-account settlement** (fiat), cargo-security reporting. Same family
+  as air-book. Shipment-tracking is only a thin read-view over the regulated
+  AWB/settlement data (could later be surfaced etzhayyim-front via consent-
+  capability, but the data is custodied gftd-side). Stays gftd.
+- **air-crew** — axes: **Custody + Liability**. Airline crew management: roster
+  publication, pairing construction, qualification tracking, fatigue assessment,
+  duty-time recording, crew assignment/travel. Crew = employee PII (names, quals,
+  duty hours, fatigue); duty-time/fatigue/qualification = FTL flight-safety
+  regulatory compliance. No clean public layer (qualification records bind to
+  named crew). Stays gftd.
+- **air-dcs** — axes: **Custody + Liability**. Departure control system: passenger
+  check-in, boarding-pass issuance, baggage acceptance/reconciliation, load-sheet
+  computation, APIS transmission, turnaround. Custody (passenger PII + APIS
+  government border data) + Liability (load-sheet weight-&-balance flight safety,
+  baggage-reconciliation security). Stays gftd.
+- **air-ffp** — axes: **Settlement + Custody + Liability**. Frequent-flyer program:
+  enrollment, points accrual, redemption, tier, miles transfer, purchase
+  processing, partner reconciliation. Custody (member loyalty PII) + Settlement
+  (miles = redeemable financial instrument: purchase/transfer/partner
+  reconciliation) + Liability (points = balance-sheet deferred-revenue). Stays
+  gftd.
+- **air-mro** — axes: **Liability + Settlement**. Maintenance / repair / overhaul:
+  work orders, component tracking, airworthiness checks, technical occurrence
+  reporting, reliability reports, spare-part ordering. The airline's own
+  maintenance-execution + per-tail airworthiness evidence (safety-regulatory
+  duty of care) + parts procurement settlement. No clean public layer — regulator-
+  published ADs/SBs would be a separate open-data app, not this internal execution
+  system. Stays gftd.
+- **air-ops** — axes: **Liability** (+ minor Settlement). Flight operations /
+  dispatch: flight-plan filing, dispatch briefs, NOTAM/weather, technical logs,
+  fuel ordering, PIREP, flight monitoring. Flight-dispatch operational control is
+  safety-regulatory (dispatch authority shares legal responsibility for the
+  flight) + tech-log airworthiness; fuel procurement settlement. NOTAM/weather are
+  consumed public feeds, not this app's product. Stays gftd.
+- **air-sms** — axes: **Liability + Custody**. Safety Management System: safety
+  report submission, risk assessment, IOSA findings, regulatory report filing,
+  occurrence reporting, dangerous-goods screening, security alerts. Safety-
+  regulatory compliance (IOSA/occurrence/dangerous-goods) + custody of
+  confidential safety-reporter identity (just-culture protection) and security-
+  sensitive data. Stays gftd.
+- **air-yield** — axes: **Settlement + Liability**. Revenue management / pricing:
+  fare-class publication, inventory adjustment, fare filing, overbooking, group
+  bookings, dynamic pricing, revenue reporting, demand forecasting. Proprietary
+  revenue optimization (pricing / fare filing / revenue accounting) + overbooking
+  denied-boarding consumer-protection liability. The public fare-OFFER display
+  belongs to flight-offer (consumer search), not this backend engine. Stays gftd.
+- **business-edge** — axes: **Custody + Settlement + Liability** (all three). The
+  developer-facing edge-compute PaaS control plane (multi-tenant KV/Graph/CDN/
+  PubSub/Lock/Secrets/VirtualActor): tenant API-key + Secrets-primitive custody,
+  usage metering→billing, multi-tenant WASM runtime SLA. This IS the gftd
+  infra-vendor ("Infura") layer of the Consensys pattern — structurally cannot
+  move etzhayyim-front. Stays gftd.
+
+## Bucket C — NEEDS-CODEMOD (41) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
-animeka (RW), auth (HYPERDRIVE), bim, briefing, cad, cloudflare-browser-render,
+bim, briefing, cad, cloudflare-browser-render,
 common-crawl (RW, legacy src), coverage, cowork, cpc (legacy src),
 crypto-asset-freeze, cyber-drill (stripe), deai (RW), dougaka (RW), editor,
 email-service-adapter (stripe), fax, gov, hc, **hospitality (RW in
 scripts/sync-roster.ts)**, intel, itonami, jp-fiscal, jukyu (RW), kami,
 kenkyusha (RW), kyber-qzzg06nh, legal-entity (RW), llm (RW), manimani,
-open-airplane, open-cofog, open-gas, open-kyber (stripe+RW), open-network,
-open-ossekai, open-ot (RW), open-patent (RW), open-ports, open-power, open-rail,
-open-swift, open-water, os-messaging, patent (RW), pptx,
+open-kyber (stripe+RW),
+open-ossekai, open-ot (RW), open-patent (RW),
+os-messaging, patent (RW), pptx,
 public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (88, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (63, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (58)**: 6ir, accounts, aima, air-book, air-cargo, air-crew,
-air-dcs, air-ffp, air-mro, air-ops, air-sched, air-sms, air-yield, analytics,
-auth, business-edge, business-person, **celler, eigyo, minpaku, omise,
-real-estate, shopping, supplychain, yadoya** (Tier-2 commerce), collector,
+**TRANSFORM-pending (33)**:
+collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
 resource-provider, robot, scheduler, shiharai, tia, web4, webpage, wire, worlds,
