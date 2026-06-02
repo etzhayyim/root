@@ -7,6 +7,7 @@ or unreviewed malak intake.
 
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
 
@@ -17,6 +18,7 @@ _LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "akashi"
 _MANIFEST = _REPO / "20-actors" / "akashi" / "manifest.jsonld"
 _SOURCE_CATALOG = _REPO / "20-actors" / "akashi" / "registry" / "source-catalog.seed.json"
 _METHOD_SEED = _REPO / "20-actors" / "akashi" / "methods" / "v1-r0-seed.json"
+_CELLS = _REPO / "20-actors" / "magatama" / "cells"
 
 _EXPECTED_LEXICONS = {
     "sourcePolicySnapshot",
@@ -40,6 +42,16 @@ _FORBIDDEN_PROFILE_WORDS = {
     "profileScore",
     "politicalInterest",
     "personCohort",
+}
+
+_CELL_NAMES = {
+    "akashi_source_registry",
+    "akashi_disclosure_fetch",
+    "akashi_normalize_creative",
+    "akashi_landing_evidence",
+    "akashi_cross_platform_link",
+    "akashi_transparency_report",
+    "akashi_malak_evidence_bridge",
 }
 
 
@@ -164,6 +176,27 @@ def test_method_seed_outputs_existing_lexicons():
     outputs = {m["output"].split(".")[-1] for m in seed["methods"]}
     assert outputs <= _EXPECTED_LEXICONS
     assert {"sourcePolicySnapshot", "adDisclosureSnapshot", "adDisclosureLink", "malakEvidenceCandidate"} <= outputs
+
+
+def test_seven_cells_raise_at_import_and_match_manifest():
+    manifest = _load(_MANIFEST)
+    manifest_modules = {
+        cell["module"].split(".")[-1] for cell in manifest["cells"]
+    }
+    assert manifest_modules == _CELL_NAMES
+
+    for name in sorted(_CELL_NAMES):
+        path = _CELLS / name / "cell.py"
+        readme = _CELLS / name / "README.md"
+        assert path.exists(), f"missing cell.py for {name}"
+        assert readme.exists(), f"missing README.md for {name}"
+        assert "Output Lexicon:" in readme.read_text(), name
+
+        spec = importlib.util.spec_from_file_location(f"_akashi_test_{name}", path)
+        assert spec and spec.loader
+        module = importlib.util.module_from_spec(spec)
+        with pytest.raises(RuntimeError, match="akashi R0 scaffold"):
+            spec.loader.exec_module(module)
 
 
 if __name__ == "__main__":

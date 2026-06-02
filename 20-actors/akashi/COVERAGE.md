@@ -53,7 +53,8 @@ A platform source can move from `candidate` to `covered-r1` only when:
 - No adapter code exists.
 - No fixture corpus exists.
 - No live fetch runs.
-- No cell scaffold exists under `20-actors/magatama/cells/akashi_*`.
+- Cell scaffold exists under `20-actors/magatama/cells/akashi_*`, but every
+  cell raises at import until ADR-2606022300 R1 activation gates are attested.
 - Lexicon-specific invariant test exists (`test_akashi_invariants.py`), but no
   fixture parser tests exist yet.
 - `source-catalog.seed.json` is planning metadata only; it does not authorize
