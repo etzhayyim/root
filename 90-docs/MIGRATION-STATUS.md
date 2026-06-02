@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 92 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 5 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 4 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 34 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 35 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 60 apps** (C + D = 5 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 59 apps** (C + D = 4 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -66,7 +66,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (34)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (35)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -305,8 +305,19 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   file-transfer payloads — not open-data (no external authority; carry-forward
   test fails). Screen-layout is Tier-3 user config → Preferences, not public
   records. Same encrypted-transport/relay family as `tenso`. Stays gftd.
+- **webmk** — axes: **RisingWave + LLM generation-compute + Custody (client
+  CRM/PII) + Settlement (ad-campaign)**. Web Marketing Proposal Agent: a
+  LangGraph/Claude loop (research→competitors→strategy→copy→quality_gate→store)
+  that generates marketing proposals, delivers them via Resend email, and
+  optionally creates ad campaigns via `ads.etzhayyim.com`. Collections
+  (`vertex_webmk_proposal` = LLM-generated strategy/copy/qualityScore,
+  `vertex_webmk_client` = private client CRM name/website/industry + email target,
+  `edge_webmk_campaign_link` = → ad campaignId) are **generated deliverables +
+  private CRM data**, not open-data — a proposal's `sourceUrl` would point at our
+  own Claude run (carry-forward test fails). Same generation-agent family as
+  `voxelforge`. Stays gftd.
 
-## Bucket C — NEEDS-CODEMOD (5) — active backlog
+## Bucket C — NEEDS-CODEMOD (4) — active backlog
 
 > **False-positive removed**: `open-ot` (WASM-PLC OSS spec, Apache-2.0) was
 > labelled "(RW)" but is spec + Rust crates only — no TS app, no AT collections,
@@ -319,14 +330,14 @@ Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-webmk, webya, xlsx,
+webya, xlsx,
 yorishiro, yukkuri
 
 > **Count correction (2026-06-02)**: the header C count had drifted *below* the
 > real backlog (mechanical per-fire decrements assumed the tail names were
 > legacy-cleanup-only with existing rw-free; they are not). Verified un-resolved
-> build-targets **webmk / webya / xlsx / yorishiro / yukkuri** (5)
-> genuinely lack `rw-free/src` (voxelforge + watashi judged (b) vendor-resident).
+> build-targets **webya / xlsx / yorishiro / yukkuri** (4)
+> genuinely lack `rw-free/src` (voxelforge + watashi + webmk judged (b) vendor-resident).
 > `common-crawl` +
 > `cpc` are legacy-src codemod-only (rw-free already exists); `email-service-adapter`
 > is a stripe codemod-only item (also in Bucket D). C count = the 7 build-targets.
