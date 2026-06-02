@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 97 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 32 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 56 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 31 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 57 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 32 apps** (C + D = 0 + 32; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 31 apps** (C + D = 0 + 31; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -71,7 +71,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (56)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (57)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -526,6 +526,16 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   is private personal PII (incl. friends'), not open-data (carry-forward test
   fails). Same provider/messaging family as `gmail` / `messenger` / `microsoft`.
   No rw-free built.
+- **game-play-uploader** (Bucket D / ad-pixel → V) — axes: **Settlement
+  (rewards/payouts for uploads + affiliate-revenue paths) + Custody (uploaded
+  gameplay content + uploader PII + payout records) + Liability (campaign
+  fulfillment + content hosting)**. A reward-paying upload-campaign pipeline
+  (campaign / upload / reward via `ingest/game_play_uploader.py`): users upload
+  gameplay content as marketing-campaign submissions and earn rewards. The uploads
+  are settlement-entangled campaign submissions, not a curated external-authority
+  catalog (carry-forward test fails; fronting them = the voxelforge invent-a-
+  catalog trap). Same reward-marketplace family as `resource-provider`. No rw-free
+  built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -553,7 +563,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (32, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (31, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -569,7 +579,7 @@ yatabase) have been migrated (A) or judged vendor-resident (V). Only the
 **ad-pixel codemod (26)** + **substrate-boundary (6)** sublists remain in Bucket D.
 
 **Ad-pixel codemod complete (un-resolved tail)**:
-game-play-uploader, github, gmail, live, mailer, media-gamers, meet,
+github, gmail, live, mailer, media-gamers, meet,
 meeting-recorder, messenger, microsoft, microsoft-graph, news, newsletter,
 ongakuka, outreach, phone, recap, ses, society6, x
 (\* names animeka/briefing/communicator/email-service-adapter*/fax* already
