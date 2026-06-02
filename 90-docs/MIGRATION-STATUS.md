@@ -15,7 +15,7 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 8 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 82 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 83 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (82)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (83)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -183,6 +183,17 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   confidential safety/occurrence/security records (just-culture protected) =
   custody ⇒ stays gftd. Safety bulletins = internal crew distribution, not public
   open-data. No frontable surface.
+- **air-yield** — axes: **Settlement + Liability**. Airline revenue management &
+  pricing: fare class publication (`publishFareClass`), inventory control
+  (`adjustInventory`), fare filing (`fileFare`), overbooking (`setOverbooking`),
+  group bookings (`processGroupBooking`), dynamic pricing (`applyDynamicPrice`),
+  revenue reporting (`generateRevenueReport`), demand forecasting
+  (`forecastDemand`). Proprietary revenue-optimization engine = fiat-revenue /
+  MoR-adjacent (Settlement); overbooking → denied-boarding compensation regulatory
+  (EC261/DOT) = Liability ⇒ stays gftd. publishFareClass/fileFare are the
+  write/decision side of the engine, NOT an open-data catalog — the consumer-
+  facing fare-display catalog is the already-migrated `flight-offer`, which
+  consumes this engine's output. No frontable surface here.
 - **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
   is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
   passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
