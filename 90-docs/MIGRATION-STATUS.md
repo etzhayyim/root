@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 63 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 70 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 8 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 69 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 9 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 111 apps** (C + D = 41 + 70; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 110 apps** (C + D = 41 + 69; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -50,7 +50,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (8)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (9)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -107,6 +107,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   duty of care) + parts procurement settlement. No clean public layer — regulator-
   published ADs/SBs would be a separate open-data app, not this internal execution
   system. Stays gftd.
+- **air-ops** — axes: **Liability** (+ minor Settlement). Flight operations /
+  dispatch: flight-plan filing, dispatch briefs, NOTAM/weather, technical logs,
+  fuel ordering, PIREP, flight monitoring. Flight-dispatch operational control is
+  safety-regulatory (dispatch authority shares legal responsibility for the
+  flight) + tech-log airworthiness; fuel procurement settlement. NOTAM/weather are
+  consumed public feeds, not this app's product. Stays gftd.
 
 ## Bucket C — NEEDS-CODEMOD (41) — active backlog
 
@@ -126,9 +132,9 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (70, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (69, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (40)**: air-ops, air-sched, air-sms, air-yield, analytics,
+**TRANSFORM-pending (39)**: air-sched, air-sms, air-yield, analytics,
 business-edge, business-person, collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
