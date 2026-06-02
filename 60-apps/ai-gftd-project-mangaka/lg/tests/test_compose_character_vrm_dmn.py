@@ -46,7 +46,7 @@ sys.path.insert(0, str(_LG_DIR))
 _REPO_ROOT = _LG_DIR.parents[2]
 _DMN_PATH = (
     _REPO_ROOT
-    / "00-contracts" / "dmn" / "ai" / "gftd" / "policies" / "mangaka"
+    / "00-contracts" / "dmn" / "com" / "etzhayyim" / "policies" / "mangaka"
     / "vrmBindRetry.dmn"
 )
 _MIGRATION_PATH = (

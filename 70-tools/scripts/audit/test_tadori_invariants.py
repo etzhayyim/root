@@ -34,7 +34,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_TADORI_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "tadori"
+_TADORI_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "tadori"
 _CASE = _TADORI_LEX / "caseMandate.json"
 _ATTR = _TADORI_LEX / "attributionFinding.json"
 _TRACE = _TADORI_LEX / "traceReport.json"

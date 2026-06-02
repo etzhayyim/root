@@ -29,7 +29,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "karute"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "karute"
 _GUARD = _REPO / "70-tools" / "scripts" / "lint" / "karute-phi-plaintext-guard.mjs"
 
 # Designed FHIR resource-type binding per karute lexicon (filename stem → const).
@@ -117,7 +117,7 @@ def _guard_list_types() -> set[str]:
     src = _GUARD.read_text()
     block = re.search(r"KARUTE_INNER_TYPES\s*=\s*\[(.*?)\]", src, re.S)
     assert block, "could not locate KARUTE_INNER_TYPES array in the guard"
-    return set(re.findall(r"app\.etzhayyim\.karute\.(\w+)", block.group(1)))
+    return set(re.findall(r"com\.etzhayyim\.karute\.(\w+)", block.group(1)))
 
 
 class TestPhiGuardCoverage:

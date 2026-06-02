@@ -7,7 +7,7 @@ import { witToCollection, collectionToLabel, nsidToMethod } from "../src/xrpc-cl
 import type { AppContext } from "../src/types.js";
 import { createMockAppDef, createMockHostImports, createMockPdsRpc } from "./mock-helpers.js";
 
-const HANDOTAI_NS = ["ai", "gftd", "apps", "handotai"].join(".");
+const HANDOTAI_NS = ["com", "etzhayyim", "apps", "handotai"].join(".");
 const HANDOTAI_COMPANY = `${HANDOTAI_NS}.semiconductor-company`;
 
 describe("handleXRPC dispatch", () => {

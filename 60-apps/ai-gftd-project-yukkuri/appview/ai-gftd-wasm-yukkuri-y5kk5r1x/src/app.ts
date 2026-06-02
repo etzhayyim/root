@@ -304,7 +304,7 @@ type GenerationRow = {
 };
 
 function videoUriToRkey(videoUri: string): string {
-  const m = videoUri.match(/\/ai\.gftd\.apps\.yukkuri\.video\/([^/]+)$/);
+  const m = videoUri.match(/\/com\.etzhayyim\.apps\.yukkuri\.video\/([^/]+)$/);
   return m ? m[1] : videoUri;
 }
 

@@ -143,7 +143,7 @@ def apps_health(url: str, nanoid: str, json_out: bool) -> None:
 
 # ── coverage helpers ───────────────────────────────────────────────────────────
 
-_RE_COLLECTION = re.compile(r"""["']((?:ai\.gftd\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["']""")
+_RE_COLLECTION = re.compile(r"""["']((?:com\.etzhayyim\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["']""")
 _RE_SQL_LABEL = re.compile(r"""vertex_([a-z0-9_]+)""")
 _RE_CUSTOM_CMD = re.compile(r"""sdk\.app\.command\s*\(""")
 _RE_BUSINESS_RULE = re.compile(r"""(?:if|when|require|assert|validate)\s*\(""")
@@ -200,7 +200,7 @@ def _xrpc_coverage_stats(nanoid: str, app_name: str, token: str, timeout: int = 
 def _infer_app_name_from_collections(cols: list[str]) -> str:
     for col in cols:
         parts = col.split(".")
-        if len(parts) >= 5 and parts[:3] == ["ai", "gftd", "apps"]:
+        if len(parts) >= 5 and parts[:3] == ["com", "etzhayyim", "apps"]:
             return parts[3]
     return ""
 

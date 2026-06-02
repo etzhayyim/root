@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himawari.cellBatchRecord",
+  "description": "Cell process batch (texturing → diffusion/PECVD → metallization → flash test). G3 (high-GWP gas abatement) + G6 (Ag→Cu low-toxicity metallization) structural enforcement. Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "batchId": {
+            "type": "string"
+          },
+          "waferBatchId": {
+            "type": "string"
+          },
+          "cellArchitecture": {
+            "type": "string",
+            "knownValues": [
+              "PERC",
+              "TOPCon",
+              "HJT"
+            ]
+          },
+          "metallization": {
+            "type": "string",
+            "knownValues": [
+              "silver",
+              "ag-cu-hybrid",
+              "copper"
+            ],
+            "description": "G6 Ag→Cu roadmap"
+          },
+          "gasAbatementCid": {
+            "type": "string",
+            "description": "G3: NF₃/SF₆/CF₄ ≥99% abatement attestation"
+          },
+          "binDistributionCid": {
+            "type": "string"
+          },
+          "processParametersCid": {
+            "type": "string",
+            "description": "G1 open process parameters"
+          },
+          "attestingRobots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 2
+          },
+          "flashIvMedianMilliwp": {
+            "type": "integer",
+            "description": "median cell power (milliwatts; integer)"
+          }
+        },
+        "required": [
+          "batchId",
+          "waferBatchId",
+          "cellArchitecture",
+          "gasAbatementCid",
+          "attestingRobots"
+        ]
+      }
+    }
+  }
+}

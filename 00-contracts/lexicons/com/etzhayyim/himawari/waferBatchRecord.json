@@ -1,0 +1,60 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himawari.waferBatchRecord",
+  "description": "Ingot growth + wafer slicing batch record. G5 (kerf-Si recovery, ≥90% circular) + G4 (renewable process energy) structural enforcement. Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "batchId": {
+            "type": "string"
+          },
+          "polysiliconLotId": {
+            "type": "string"
+          },
+          "ingotMethod": {
+            "type": "string",
+            "knownValues": [
+              "czochralski-monocrystalline",
+              "directional-cast-multicrystalline"
+            ]
+          },
+          "waferCount": {
+            "type": "integer"
+          },
+          "attestingRobots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 2
+          },
+          "waferThicknessUm": {
+            "type": "integer"
+          },
+          "kerfRecoveredGrams": {
+            "type": "integer",
+            "description": "G5 kerf-Si recovery mass (grams; integer)"
+          },
+          "yieldBps": {
+            "type": "integer",
+            "description": "yield in basis points 0-10000 (integer)"
+          },
+          "processEnergyWh": {
+            "type": "integer",
+            "description": "G4: hikari renewable only (Wh; integer)"
+          }
+        },
+        "required": [
+          "batchId",
+          "polysiliconLotId",
+          "ingotMethod",
+          "waferCount",
+          "attestingRobots"
+        ]
+      }
+    }
+  }
+}

@@ -46,8 +46,8 @@ from xml.etree import ElementTree as ET
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 
-BPMN_DIR = REPO_ROOT / "00-contracts" / "bpmn" / "ai" / "gftd" / "maps"
-LEXICON_DIR = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "apps" / "maps"
+BPMN_DIR = REPO_ROOT / "00-contracts" / "bpmn" / "com" / "etzhayyim" / "maps"
+LEXICON_DIR = REPO_ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "apps" / "maps"
 PRIMITIVE_PATH = (
     REPO_ROOT
     / "20-actors"

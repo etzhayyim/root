@@ -145,7 +145,7 @@ class ShinkaStatus:
     error: str = ""
 
 
-_RE_COLLECTION = re.compile(r'["\']((ai\.gftd\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["\']')
+_RE_COLLECTION = re.compile(r'["\']((com\.etzhayyim\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["\']')
 _RE_PATH_DECL = re.compile(r'path:\s*"([^"]+)"')
 
 

@@ -23,7 +23,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "mitate"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "mitate"
 _MANIFEST = _REPO / "20-actors" / "mitate" / "manifest.jsonld"
 
 # Lexicon stem → its required encrypted-envelope field (PHI content carriers).

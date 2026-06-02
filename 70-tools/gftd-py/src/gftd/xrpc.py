@@ -35,7 +35,7 @@ def _resolve_base(nsid: str, app: str | None, url: str | None) -> str:
         return _APP_HOST_TEMPLATE.format(nanoid=app)
     # NSID inference: com.etzhayyim.apps.<slug>.*
     parts = nsid.split(".")
-    if len(parts) >= 4 and parts[:3] == ["ai", "gftd", "apps"]:
+    if len(parts) >= 4 and parts[:3] == ["com", "etzhayyim", "apps"]:
         slug = parts[3]
         if nanoid := _KNOWN_APPS.get(slug):
             return _APP_HOST_TEMPLATE.format(nanoid=nanoid)

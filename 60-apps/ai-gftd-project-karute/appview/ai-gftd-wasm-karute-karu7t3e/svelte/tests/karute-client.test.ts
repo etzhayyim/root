@@ -72,7 +72,7 @@ describe('createSoapNote', () => {
       },
     });
     expect(captured.length).toBe(1);
-    expect(captured[0].url).toMatch(/ai\.gftd\.apps\.karute\.createSoapNote$/);
+    expect(captured[0].url).toMatch(/com\.etzhayyim\.apps\.karute\.createSoapNote$/);
 
     const body = captured[0].bodyJson as { encryptedCid: string; publicMeta: { patientDid: string }; keyId: string; keyWraps: Array<{ recipient: string }> };
     // Mock encryption produced a CID and a keyId.

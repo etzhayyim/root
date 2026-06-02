@@ -18844,6 +18844,60 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606021200-himawari-solar-pv-manufacturing-r0.md",
+      "id": "adr-2606021200",
+      "title": "ADR-2606021200: himawari (向日葵) — Solar PV Module Manufacturing + Loading + Outbound + Procurement Tier-B Actor R0 Scaffold",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "himawari-solar-pv-manufacturing",
+      "authoritative": true,
+      "authoritative_for": [
+        "himawari actor charter (R0)",
+        "solar-grade crystalline-silicon PV module manufacturing constitutional gates G1..G14",
+        "end-to-end manufacture → loading → outbound → procurement composition for the energy supply chain"
+      ],
+      "related": [
+        "adr-2605261100-hikari-energy-tier-b-actor-r0",
+        "adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+        "adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+        "adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+        "adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte",
+        "adr-2606012100-okaimono-provisioning-commons-actor",
+        "adr-2605261000-labor-liberation-transition-mechanism",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605261100 (hikari — the actor himawari supplies; closes hikari §G2 sourcing gap structurally)",
+        "ADR-2605261000 (Liberation Ladder — L2 Sustenance gate the energy chain feeds)",
+        "ADR-2605192100 (Mission Charter)",
+        "ADR-2605192245 (Land Trust — fab siting is LANDS.md-bound)"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606021300-session-close-himawari-solar-pv-manufacturing.md",
+      "id": "adr-2606021300-session-close-himawari-solar-pv-manufacturing",
+      "title": "ADR-2606021300: Session close — himawari (向日葵) solar PV module manufacturing actor R0",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-himawari-solar-pv-manufacturing",
+      "authoritative": false,
+      "related": [
+        "adr-2606021200-himawari-solar-pv-manufacturing-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-02",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

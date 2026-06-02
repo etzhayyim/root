@@ -153,7 +153,7 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
     );
 
     expect(writeReceipt.uri).toMatch(
-      /^at:\/\/did:test:alice\/app\.etzhayyim\.encrypted\.record\//
+      /^at:\/\/did:test:alice\/com\.etzhayyim\.encrypted\.record\//
     );
     expect(writeReceipt.keyWraps).toHaveLength(2); // Bob + self (wrapToSelf default)
     expect(writeReceipt.skipped).toEqual([]);

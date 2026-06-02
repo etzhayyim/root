@@ -49,9 +49,9 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "apps"
-GOVIND_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "govInd"
-GOVAFG_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "govAfg"
+LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "apps"
+GOVIND_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "govInd"
+GOVAFG_LEX_ROOT = REPO_ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "govAfg"
 TOOL_REPO_PREFIX = "at://did:web:{host}.etzhayyim.com/com.etzhayyim.mcp.toolDef"
 
 

@@ -39,7 +39,7 @@ const RULES = [
   },
   {
     id: "legacy-registration-nsid-call",
-    re: /\b(?:xrpc|rpc)\(\s*["']ai\.gftd\.(?:identity\.register|capability\.declare|agent\.registerTools)["']/g,
+    re: /\b(?:xrpc|rpc)\(\s*["']com\.etzhayyim\.(?:identity\.register|capability\.declare|agent\.registerTools)["']/g,
     message: "forbidden legacy internal registration NSID call",
   },
 ];
