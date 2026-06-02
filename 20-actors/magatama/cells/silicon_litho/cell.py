@@ -14,7 +14,7 @@ Pregel graph (3 nodes):
                             silicon_etch in feed-back loop) emits via MST
         |
         v
-    dispatch_exposure   ->  XRPC: app.etzhayyim.apps.tsukuru.equipment.dispatch
+    dispatch_exposure   ->  XRPC: com.etzhayyim.apps.tsukuru.equipment.dispatch
                             (litho recipe + reticle ref + dose + focus offset)
                             telemetry stream subscribed via libp2p
         |

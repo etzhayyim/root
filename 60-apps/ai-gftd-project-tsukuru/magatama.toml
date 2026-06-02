@@ -17,87 +17,87 @@ coverage_areas = ["tsukuru-euv", "tsukuru-cnt"]
 
 [[bpmn_processes]]
 process_id = "tsukuru_euv_lithography_manufacturing_flow"
-nsid = "app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow"
+nsid = "com.etzhayyim.apps.tsukuru.euv.designManufacturingFlow"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/euv-lithography-manufacturing-flow.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/euv/designManufacturingFlow.json"
 purpose = "Design EUV lithography manufacturing phases, CAD/CAM handoff gates, and supplier exchange envelope."
 
 [[bpmn_processes]]
 process_id = "tsukuru_normalize_supplier_exchange_package"
-nsid = "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage"
+nsid = "com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/normalize-supplier-exchange-package.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/supplierExchange/normalizePackage.json"
 purpose = "Normalize supplier-facing AutoCAD, Fusion 360, neutral CAD, and RFQ artifacts."
 
 [[bpmn_processes]]
 process_id = "tsukuru_validate_supplier_exchange_package"
-nsid = "app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage"
+nsid = "com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/validate-supplier-exchange-package.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/supplierExchange/validatePackage.json"
 purpose = "Validate EUV supplier exchange readiness and return ready/blockers without writing records."
 
 [[bpmn_processes]]
 process_id = "tsukuru_prepare_euv_order_package"
-nsid = "app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage"
+nsid = "com.etzhayyim.apps.tsukuru.euv.prepareOrderPackage"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/prepare-euv-order-package.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/euv/prepareOrderPackage.json"
 purpose = "Compose EUV manufacturing flow and supplier exchange package for direct API or BPMN callers."
 
 [[bpmn_processes]]
 process_id = "tsukuru_get_euv_implementation_coverage"
-nsid = "app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage"
+nsid = "com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/get-euv-implementation-coverage.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/euv/getImplementationCoverage.json"
 purpose = "Report EUV implementation coverage manifest, score, checks, and required capabilities."
 
 [[bpmn_processes]]
 process_id = "tsukuru_cnt_fiber_manufacturing_flow"
-nsid = "app.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow"
+nsid = "com.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/cnt-fiber-manufacturing-flow.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/designManufacturingFlow.json"
 purpose = "Design integrated CNT/CNT fiber manufacturing stages from feedstock intake through release metrology."
 
 [[bpmn_processes]]
 process_id = "tsukuru_cnt_automation_plan"
-nsid = "app.etzhayyim.apps.tsukuru.cnt.planAutomation"
+nsid = "com.etzhayyim.apps.tsukuru.cnt.planAutomation"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/cnt-automation-plan.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/planAutomation.json"
 purpose = "Plan MES, SCADA, PLC, QMS, EHS, and open-signal automation for CNT/CNT fiber production."
 
 [[bpmn_processes]]
 process_id = "tsukuru_prepare_cnt_order_package"
-nsid = "app.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage"
+nsid = "com.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/prepare-cnt-order-package.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/prepareOrderPackage.json"
 purpose = "Compose CNT flow, automation plan, and supplier exchange package for manufacturing order handoff."
 
 [[bpmn_processes]]
 process_id = "tsukuru_get_cnt_automation_coverage"
-nsid = "app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage"
+nsid = "com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/get-cnt-automation-coverage.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/getAutomationCoverage.json"
 purpose = "Report CNT process automation coverage, open actor bindings, collections, and gates."
 
 [[bpmn_processes]]
 process_id = "tsukuru_prepare_cnt_run_package"
-nsid = "app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage"
+nsid = "com.etzhayyim.apps.tsukuru.cnt.prepareRunPackage"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/prepare-cnt-run-package.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/prepareRunPackage.json"
 purpose = "Prepare machine-readable CNT run data for MES, SCADA, PLC, QMS, equipment binding, telemetry, and approvals."
 
 [[bpmn_processes]]
 process_id = "tsukuru_validate_cnt_run_package"
-nsid = "app.etzhayyim.apps.tsukuru.cnt.validateRunPackage"
+nsid = "com.etzhayyim.apps.tsukuru.cnt.validateRunPackage"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/tsukuru/validate-cnt-run-package.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/validateRunPackage.json"
 purpose = "Validate CNT execution readiness with equipment, telemetry, EHS interlock, approval, release target, and dry-run checks."
 
 [cnt_process_automation]
 status = "process-catalog-run-package-validation-present"
-coverage_nsid = "app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage"
-catalog_nsid = "app.etzhayyim.apps.tsukuru.cnt.getProcessCatalog"
-prepare_run_nsid = "app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage"
-validate_run_nsid = "app.etzhayyim.apps.tsukuru.cnt.validateRunPackage"
+coverage_nsid = "com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage"
+catalog_nsid = "com.etzhayyim.apps.tsukuru.cnt.getProcessCatalog"
+prepare_run_nsid = "com.etzhayyim.apps.tsukuru.cnt.prepareRunPackage"
+validate_run_nsid = "com.etzhayyim.apps.tsukuru.cnt.validateRunPackage"
 schema_paths = [
   "../../00-contracts/schemas/tsukuru-cnt-process-catalog.schema.json",
   "../../00-contracts/schemas/tsukuru-cnt-run-package.schema.json",
@@ -109,11 +109,11 @@ data_paths = [
   "../../00-contracts/examples/ai/gftd/tsukuru/cnt/run-validation.example.v1.json",
 ]
 collections = [
-  "app.etzhayyim.apps.tsukuru.cntManufacturingFlow",
-  "app.etzhayyim.apps.tsukuru.cntAutomationPlan",
-  "app.etzhayyim.apps.tsukuru.cntProcessCatalog",
-  "app.etzhayyim.apps.tsukuru.cntRunPackage",
-  "app.etzhayyim.apps.tsukuru.cntRunValidation",
+  "com.etzhayyim.apps.tsukuru.cntManufacturingFlow",
+  "com.etzhayyim.apps.tsukuru.cntAutomationPlan",
+  "com.etzhayyim.apps.tsukuru.cntProcessCatalog",
+  "com.etzhayyim.apps.tsukuru.cntRunPackage",
+  "com.etzhayyim.apps.tsukuru.cntRunValidation",
 ]
 open_actor_dids = [
   "did:web:open-chemicals-management.etzhayyim.com",
@@ -127,11 +127,11 @@ open_actor_dids = [
 
 [supplier_exchange]
 status = "bpmn-and-xrpc-present"
-normalize_nsid = "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage"
-validate_nsid = "app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage"
+normalize_nsid = "com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage"
+validate_nsid = "com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage"
 collections = [
-  "app.etzhayyim.apps.tsukuru.euvManufacturingFlow",
-  "app.etzhayyim.apps.tsukuru.supplierExchangePackage",
+  "com.etzhayyim.apps.tsukuru.euvManufacturingFlow",
+  "com.etzhayyim.apps.tsukuru.supplierExchangePackage",
 ]
 required_capabilities = [
   "supplier-package-validation",
@@ -161,7 +161,7 @@ validation_blockers = [
 ]
 
 [coverage]
-contract_nsid = "app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage"
+contract_nsid = "com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage"
 manifest_status = "complete"
 bpmn_actor_count = 5
 command_count = 5
@@ -174,7 +174,7 @@ gates = [
 ]
 
 [coverage.tsukuru_cnt]
-contract_nsid = "app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage"
+contract_nsid = "com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage"
 manifest_status = "complete"
 bpmn_actor_count = 6
 command_count = 7

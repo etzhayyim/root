@@ -381,7 +381,7 @@ function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtpro
     return { ok: true, detail: "processedSpAudit" };
   }
 
-  if (collection.startsWith("app.etzhayyim.apps.tsukuru.")) {
+  if (collection.startsWith("com.etzhayyim.apps.tsukuru.")) {
     // tsukuru events (manufacturer registered, production progress, etc.)
     return { ok: true, detail: `processedTsukuru ${collection}` };
   }

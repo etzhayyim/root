@@ -938,7 +938,7 @@
       "proc": "euv-lithography-manufacturing-flow",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/euv-lithography-manufacturing-flow.bpmn",
       "bpmnProcessId": "tsukuru_euv_lithography_manufacturing_flow",
-      "nsid": "app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow",
+      "nsid": "com.etzhayyim.apps.tsukuru.euv.designManufacturingFlow",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/euv/designManufacturingFlow.json"
     },
     {
@@ -947,7 +947,7 @@
       "proc": "normalize-supplier-exchange-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/normalize-supplier-exchange-package.bpmn",
       "bpmnProcessId": "tsukuru_normalize_supplier_exchange_package",
-      "nsid": "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
+      "nsid": "com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/supplierExchange/normalizePackage.json"
     },
     {
@@ -956,7 +956,7 @@
       "proc": "validate-supplier-exchange-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/validate-supplier-exchange-package.bpmn",
       "bpmnProcessId": "tsukuru_validate_supplier_exchange_package",
-      "nsid": "app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage",
+      "nsid": "com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/supplierExchange/validatePackage.json"
     },
     {
@@ -965,7 +965,7 @@
       "proc": "prepare-euv-order-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/prepare-euv-order-package.bpmn",
       "bpmnProcessId": "tsukuru_prepare_euv_order_package",
-      "nsid": "app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage",
+      "nsid": "com.etzhayyim.apps.tsukuru.euv.prepareOrderPackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/euv/prepareOrderPackage.json"
     },
     {
@@ -974,7 +974,7 @@
       "proc": "get-euv-implementation-coverage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/get-euv-implementation-coverage.bpmn",
       "bpmnProcessId": "tsukuru_get_euv_implementation_coverage",
-      "nsid": "app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage",
+      "nsid": "com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/euv/getImplementationCoverage.json"
     },
     {
@@ -983,7 +983,7 @@
       "proc": "cnt-fiber-manufacturing-flow",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/cnt-fiber-manufacturing-flow.bpmn",
       "bpmnProcessId": "tsukuru_cnt_fiber_manufacturing_flow",
-      "nsid": "app.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow",
+      "nsid": "com.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/designManufacturingFlow.json"
     },
     {
@@ -992,7 +992,7 @@
       "proc": "cnt-automation-plan",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/cnt-automation-plan.bpmn",
       "bpmnProcessId": "tsukuru_cnt_automation_plan",
-      "nsid": "app.etzhayyim.apps.tsukuru.cnt.planAutomation",
+      "nsid": "com.etzhayyim.apps.tsukuru.cnt.planAutomation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/planAutomation.json"
     },
     {
@@ -1001,7 +1001,7 @@
       "proc": "prepare-cnt-order-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/prepare-cnt-order-package.bpmn",
       "bpmnProcessId": "tsukuru_prepare_cnt_order_package",
-      "nsid": "app.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage",
+      "nsid": "com.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/prepareOrderPackage.json"
     },
     {
@@ -1010,7 +1010,7 @@
       "proc": "get-cnt-automation-coverage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/get-cnt-automation-coverage.bpmn",
       "bpmnProcessId": "tsukuru_get_cnt_automation_coverage",
-      "nsid": "app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage",
+      "nsid": "com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/getAutomationCoverage.json"
     },
     {
@@ -1019,7 +1019,7 @@
       "proc": "prepare-cnt-run-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/prepare-cnt-run-package.bpmn",
       "bpmnProcessId": "tsukuru_prepare_cnt_run_package",
-      "nsid": "app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage",
+      "nsid": "com.etzhayyim.apps.tsukuru.cnt.prepareRunPackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/prepareRunPackage.json"
     },
     {
@@ -1028,7 +1028,7 @@
       "proc": "validate-cnt-run-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/validate-cnt-run-package.bpmn",
       "bpmnProcessId": "tsukuru_validate_cnt_run_package",
-      "nsid": "app.etzhayyim.apps.tsukuru.cnt.validateRunPackage",
+      "nsid": "com.etzhayyim.apps.tsukuru.cnt.validateRunPackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/validateRunPackage.json"
     },
     {

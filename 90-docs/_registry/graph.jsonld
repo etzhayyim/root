@@ -1155,11 +1155,11 @@
       "topic": "tsukuru",
       "authoritative": true,
       "authoritativeFor": [
-        "app.etzhayyim.apps.tsukuru.industryActor.*",
+        "com.etzhayyim.apps.tsukuru.industryActor.*",
         "tsukuru-isic-bpmn-actors",
         "tsukuru-euv-bpmn-actors",
-        "app.etzhayyim.apps.tsukuru.euv.*",
-        "app.etzhayyim.apps.tsukuru.supplierExchange.*"
+        "com.etzhayyim.apps.tsukuru.euv.*",
+        "com.etzhayyim.apps.tsukuru.supplierExchange.*"
       ],
       "related": [
         "doc:0056-bpmn-as-actor",
@@ -12134,6 +12134,18 @@
         "doc:2606013800",
         "doc:2605212030",
         "doc:2605231525"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606020000-tsukuru-com-etzhayyim-nsid-conversion",
+      "type": "TechArticle",
+      "title": "ADR-2606020000: tsukuru NSID conversion app.etzhayyim.apps.tsukuru.* → com.etzhayyim.apps.tsukuru.*",
+      "status": "proposed",
+      "topic": "tsukuru-com-etzhayyim-nsid-conversion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsukuru record/lexicon NSID namespace (com.etzhayyim.apps.tsukuru.*)"
       ],
       "lastVerified": "2026-06-02"
     },

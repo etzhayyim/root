@@ -59,32 +59,32 @@ const processSeeds: ProcessSeed[] = [
 const bindingSeeds: BindingSeed[] = [
   {
     vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-designManufacturingFlow-v1",
-    nsid: "app.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow",
+    nsid: "com.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow",
     bpmnProcessId: "tsukuru_cnt_fiber_manufacturing_flow",
   },
   {
     vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-planAutomation-v1",
-    nsid: "app.etzhayyim.apps.tsukuru.cnt.planAutomation",
+    nsid: "com.etzhayyim.apps.tsukuru.cnt.planAutomation",
     bpmnProcessId: "tsukuru_cnt_automation_plan",
   },
   {
     vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-prepareOrderPackage-v1",
-    nsid: "app.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage",
+    nsid: "com.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage",
     bpmnProcessId: "tsukuru_prepare_cnt_order_package",
   },
   {
     vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-getAutomationCoverage-v1",
-    nsid: "app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage",
+    nsid: "com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage",
     bpmnProcessId: "tsukuru_get_cnt_automation_coverage",
   },
   {
     vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-prepareRunPackage-v1",
-    nsid: "app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage",
+    nsid: "com.etzhayyim.apps.tsukuru.cnt.prepareRunPackage",
     bpmnProcessId: "tsukuru_prepare_cnt_run_package",
   },
   {
     vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-validateRunPackage-v1",
-    nsid: "app.etzhayyim.apps.tsukuru.cnt.validateRunPackage",
+    nsid: "com.etzhayyim.apps.tsukuru.cnt.validateRunPackage",
     bpmnProcessId: "tsukuru_validate_cnt_run_package",
   },
 ];
@@ -136,7 +136,7 @@ async function createTsukuruRuntimeTables(db: Kysely<unknown>): Promise<void> {
 async function seedCntProcessCatalog(db: Kysely<unknown>): Promise<void> {
   const sourcePath = "00-contracts/catalogs/ai/gftd/tsukuru/cnt/process-catalog.v1.json";
   const catalogJson = readContract(sourcePath);
-  const vid = 'at://did:web:tsukuru.etzhayyim.com/app.etzhayyim.apps.tsukuru.cntProcessCatalog/tsukuru-cnt-process-catalog-v1';
+  const vid = 'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.apps.tsukuru.cntProcessCatalog/tsukuru-cnt-process-catalog-v1';
   // RW does not support ON CONFLICT; same-PK INSERT overwrites by spec.
   await sql`
     INSERT INTO vertex_tsukuru_cnt_process_catalog (
