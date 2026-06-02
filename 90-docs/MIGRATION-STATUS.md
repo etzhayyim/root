@@ -15,7 +15,7 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 8 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 79 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 80 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (79)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (80)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -153,6 +153,16 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   No catalog method exists (no reward/partner inventory list) — the only member-
   facing records are the PII + stored-value balance that stay gftd; fabricating a
   reward catalog would be the invent-a-catalog trap. No frontable surface.
+- **air-mro** — axes: **Liability + Custody**. Airline maintenance, repair &
+  overhaul: work orders (`createWorkOrder`), component tracking (`trackComponent`),
+  airworthiness checks (`checkAirworthiness`), tech-occurrence reporting
+  (`reportTechOccurrence`), maintenance scheduling (`scheduleMaintenance`),
+  reliability reports (`reportReliability`), spare parts (`orderSparePart`), ground
+  equipment. Airworthiness + maintenance + occurrence/reliability reporting =
+  aviation safety-critical regulatory compliance (EASA/FAA Part-145) = 善管注意義務
+  airworthiness liability; component traceability = safety-critical regulated
+  records custody (life-limited parts, certs of conformity) ⇒ stays gftd. Internal
+  maintenance ops; no public catalog to front.
 - **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
   is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
   passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
