@@ -1,4 +1,4 @@
-# ai-gftd-project-gmail — Gmail Intelligence Platform
+# etzhayyim-project-gmail — Gmail Intelligence Platform
 
 ## App Identity
 
@@ -40,7 +40,7 @@
 | Binding | Purpose |
 |---|---|
 | `SS_GMAIL_TOKEN_KEK` | AES-256 KEK (base64url, 32 bytes) wrapping per-row data keys (shared across **all** Google Workspace ingest apps per 90-docs/260417-google-workspace-ingest-runbook.md) |
-| `SS_GOOGLE_OAUTH_CLIENT_ID` | Google Cloud OAuth2 Web client id (shared, GCP project `ai-gftd-ws-ingest`, owner `jun@etzhayyim.com`) |
+| `SS_GOOGLE_OAUTH_CLIENT_ID` | Google Cloud OAuth2 Web client id (shared, GCP project `etzhayyim-ws-ingest`, owner `jun@etzhayyim.com`) |
 | `SS_GOOGLE_OAUTH_CLIENT_SECRET` | same, client secret |
 
 All 3 resolved via `resolveSecret(v)` helper at use time (Secrets Store bindings are `SecretBinding` objects with `.get()`, not plain strings — passing them into `URLSearchParams` or `fetch` body directly serializes as `[object Fetcher]`).
@@ -158,12 +158,12 @@ Step 4: メッセンジャーで受信・返信
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-gmail/appview/ai-gftd-wasm-gmail-gm4il0x1
+cd 60-apps/etzhayyim-project-gmail/appview/etzhayyim-wasm-gmail-gm4il0x1
 
 # Direct wrangler deploy (recommended for now).
-# ⚠️ `gftd deploy` regenerates wrangler.jsonc from buildWranglerJSON() and strips
+# ⚠️ `etzhayyim deploy` regenerates wrangler.jsonc from buildWranglerJSON() and strips
 #    the d1_databases / triggers.crons / custom SS_* bindings that this app needs.
-#    Until gftd CLI learns those sections, use raw wrangler.
+#    Until etzhayyim CLI learns those sections, use raw wrangler.
 npx wrangler deploy
 ```
 
@@ -180,7 +180,7 @@ openssl rand -base64 32 | tr '+/' '-_' | tr -d '=' | \
     --name gmail_token_kek --scopes workers --remote --value -
 
 # 3. Google OAuth client (Google Cloud Console)
-#    - project: ai-gftd-ws-ingest (owner jun@etzhayyim.com)
+#    - project: etzhayyim-ws-ingest (owner jun@etzhayyim.com)
 #    - Web application, Authorized redirect URI: https://gmail.etzhayyim.com/oauth/callback
 #    - Gmail API enabled
 #    - OAuth consent screen → add Test users until sensitive-scope verification clears
@@ -219,5 +219,5 @@ psql "$ROOT_URL" -c 'SELECT from_addr, subject FROM vertex_gmail_email ORDER BY 
 ## Related docs
 
 - Root Workspace ingest plan: `90-docs/260417-google-workspace-ingest-runbook.md` (gmail is Phase 1 reference impl)
-- OAuth token custody pattern: `60-apps/ai-gftd-project-auth/CLAUDE.md` §KEK envelope (ADR-0010 Stage 1) — the exact `envelopeEncrypt`/`envelopeDecrypt` helpers are duplicated here, could be extracted to `magatama-host-sdk` when a 2nd Workspace app lands
+- OAuth token custody pattern: `60-apps/etzhayyim-project-auth/CLAUDE.md` §KEK envelope (ADR-0010 Stage 1) — the exact `envelopeEncrypt`/`envelopeDecrypt` helpers are duplicated here, could be extracted to `magatama-host-sdk` when a 2nd Workspace app lands
 - RisingWave schema SSoT: `30-graph/graph-schema/migrations/20260417130000_vertex_gmail_tables.ts` + `20260417140000_vertex_google_workspace_tables.ts` (broader workspace)

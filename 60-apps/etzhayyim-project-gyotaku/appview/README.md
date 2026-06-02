@@ -1,6 +1,6 @@
-# ai-gftd-project-gyotaku wasm
+# etzhayyim-project-gyotaku wasm
 
-このディレクトリは `ai-gftd-project-gyotaku` の App 実装です。
+このディレクトリは `etzhayyim-project-gyotaku` の App 実装です。
 
 - `gyotaku-mcp-component`
   - crawler 連携取り込み

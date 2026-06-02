@@ -20,7 +20,7 @@
     "description": "Thin edge facade; Gmail sync, send, triage, and OAuth run in AgentGateway MCP + pod-side LangServer",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "capabilities": [
       "bpmn-dispatch",
       "oauth-redirect",
@@ -29,9 +29,9 @@
     ]
   },
   "interfaces": {
-    "package": "gftd:gmail@1.0.0",
+    "package": "etzhayyim:gmail@1.0.0",
     "requires": [
-      "gftd:collection/collection@1.0.0"
+      "etzhayyim:collection/collection@1.0.0"
     ]
   },
   "governance": {
@@ -95,8 +95,8 @@
     "accent": "#c71610",
     "icon": "📧",
     "ssrRoutes": {
-      "apps": "gftd.gmail.v1.GmailService/gmail.tools",
-      "live": "gftd.gmail.v1.GmailService/gmail.dashboard"
+      "apps": "etzhayyim.gmail.v1.GmailService/gmail.tools",
+      "live": "etzhayyim.gmail.v1.GmailService/gmail.dashboard"
     }
   },
   "uiType": "appview"

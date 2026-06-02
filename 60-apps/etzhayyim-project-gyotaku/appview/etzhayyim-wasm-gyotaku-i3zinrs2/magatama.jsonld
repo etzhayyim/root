@@ -30,7 +30,7 @@
     "description": "Internet Archive viewer for site.etzhayyim.com crawled snapshots. Browse historical website captures with Wayback Machine-style timeline navigation.",
     "displayName": "Gyotaku",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "gyotaku",
   "runtimeType": "worker",

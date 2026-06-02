@@ -1,6 +1,6 @@
-# ai-gftd-project-gyotaku
+# etzhayyim-project-gyotaku
 
-`ai-gftd-project-gyotaku` は、`ai-gftd-project-www-crawler` と連携して Web ページを時系列で保存・表示するアーカイブプロジェクトです。
+`etzhayyim-project-gyotaku` は、`etzhayyim-project-www-crawler` と連携して Web ページを時系列で保存・表示するアーカイブプロジェクトです。
 
 ## 目的
 
@@ -25,6 +25,6 @@
 
 1. CDN 側の WADM で `CDN_PULUMI_SITES` に `gyotaku` を含める（`cdn.wadm.yaml` と `cdn-test.wadm.yaml` 反映済み）
 2. `gyotaku` 側の Gateway 公開ルート（`PROJECT.jsonld`）に `gyotaku.etzhayyim.com` の `/xrpc` を追加済み
-3. 既存デプロイ済み環境では `cdn.import_sites` を叩いて KV レジストリを更新  
+3. 既存デプロイ済み環境では `cdn.import_sites` を叩いて KV レジストリを更新
    - `tools/call` の `subdomains` を省略すると設定 `CDN_PULUMI_SITES` から `gyotaku` を読込
 4. 以降、`https://gyotaku.etzhayyim.com/xrpc` から XRPC 経由で `get_snapshot / archive` 系 API を利用

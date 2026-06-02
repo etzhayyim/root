@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Gmail Gm4il0x1",
-  "project": "ai-gftd-project-gmail",
-  "name": "ai-gftd-wasm-gmail-gm4il0x1",
+  "project": "etzhayyim-project-gmail",
+  "name": "etzhayyim-wasm-gmail-gm4il0x1",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-gmail/appview/ai-gftd-wasm-gmail-gm4il0x1/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-gmail/appview/etzhayyim-wasm-gmail-gm4il0x1/svelte/src/routes/+page.svelte"
 };
 </script>
 

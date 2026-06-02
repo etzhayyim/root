@@ -1,9 +1,9 @@
 {
   "@context": "https://1.etzhayyim.com/project",
   "@type": "Project",
-  "name": "ai-gftd-project-gyotaku",
+  "name": "etzhayyim-project-gyotaku",
   "description": "Time-series web archive project integrated with crawler and Common Crawl range retrieval",
-  "category": "ai-gftd-project-workers",
+  "category": "etzhayyim-project-workers",
   "components": {
     "app": {
       "appId": "gyotaku-mcp",
