@@ -12199,6 +12199,16 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606021523-session-close-himawari-r0.1-reland-and-branch-cleanup",
+      "type": "TechArticle",
+      "title": "ADR-2606021523: Session close — himawari R0.1 code re-land onto main + worktree/branch cleanup",
+      "status": "active",
+      "topic": "session-close-himawari-r0.1-reland-and-branch-cleanup",
+      "authoritative": false,
+      "related": "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-2606022000",
       "type": "TechArticle",
       "title": "ADR-2606022000: kabuto (兜) — World Public-Company Supply-Chain Knowledge Graph + atproto social + browser-native kotoba-wasm render Tier-B Actor R0",

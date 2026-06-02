@@ -18918,6 +18918,24 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606021523-session-close-himawari-r0.1-reland-and-branch-cleanup.md",
+      "id": "adr-2606021523-session-close-himawari-r0.1-reland-and-branch-cleanup",
+      "title": "ADR-2606021523: Session close — himawari R0.1 code re-land onto main + worktree/branch cleanup",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-himawari-r0.1-reland-and-branch-cleanup",
+      "authoritative": false,
+      "related": [
+        "adr-2606021200-himawari-solar-pv-manufacturing-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-02",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606022000-kabuto-public-company-intel-supply-chain-tier-b-actor-r0.md",
       "id": "adr-2606022000",
       "title": "ADR-2606022000: kabuto (兜) — World Public-Company Supply-Chain Knowledge Graph + atproto social + browser-native kotoba-wasm render Tier-B Actor R0",
