@@ -15,7 +15,7 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 8 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 81 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 82 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (81)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (82)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -173,6 +173,16 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   `fetch` of external-authority public feeds as dispatch inputs, not an owned
   catalog the app publishes — fabricating one would be the invent-a-catalog trap.
   No frontable surface.
+- **air-sms** — axes: **Liability + Custody**. Airline safety management system:
+  safety reports (`submitSafetyReport`), risk assessment (`assessRisk`), IOSA
+  findings (`recordIosaFinding`), regulatory reports (`fileRegulatoryReport`),
+  occurrence reporting (`reportOccurrence`), safety bulletins
+  (`distributeSafetyBulletin`), dangerous-goods screening (`screenDangerousGoods`),
+  security alerts (`handleSecurityAlert`). Aviation safety & security regulatory
+  compliance (IOSA / ICAO-IATA DG / occurrence reporting) = 善管注意義務 liability;
+  confidential safety/occurrence/security records (just-culture protected) =
+  custody ⇒ stays gftd. Safety bulletins = internal crew distribution, not public
+  open-data. No frontable surface.
 - **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
   is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
   passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
