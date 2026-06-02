@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 68 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 39 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 59 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 14 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 58 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 15 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 98 apps** (C + D = 39 + 59; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 97 apps** (C + D = 39 + 58; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -52,7 +52,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (14)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (15)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -145,6 +145,14 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   mailDraft (email content), toolGrant (OAuth delegation credentials), syncJob.
   Corporate M365 PII + credential custody; gftd internal IT tooling (M365 =
   ingest-only per root CLAUDE.md). Stays gftd.
+- **credits** — axes: **Settlement + Custody**. Credit ledger & public-fund
+  routing (Earn→Purchase→Spend; 30% platform fee; 10% tithe to public-fund).
+  Not an AT-registry target — a credit ledger is financial data (never public
+  records) with authoritative state on-chain or fiat-MoR. Split: the fiat-
+  purchase + platform-fee MoR + balance ledger stays gftd (Settlement/Custody);
+  the on-chain GCC token + TitheRouter 10% tithe is an etzhayyim-EXCLUSIVE
+  on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
+  AT-PDS rw-free registry). No rw-free built here.
 
 ## Bucket C — NEEDS-CODEMOD (39) — active backlog
 
@@ -164,10 +172,10 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (59, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (58, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (29)**:
-credits, fleamarket, flight-offer, ge, gftdcojp,
+**TRANSFORM-pending (28)**:
+fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
 resource-provider, robot, scheduler, shiharai, tia, web4, webpage, wire, worlds,
 yabai, yatabase
