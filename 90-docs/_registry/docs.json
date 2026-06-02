@@ -19151,6 +19151,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606022600-session-close-r0-actor-coverage-sweep-and-organism-axis-convention.md",
+      "id": "adr-2606022600",
+      "title": "ADR-2606022600: Session close — R0-actor coverage sweep (funadaiku/sarutahiko) + organism-axis affiliation convention",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-r0-actor-coverage-sweep-and-organism-axis-convention",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606022400-session-close-himawari-r1-adr-and-coverage-maturation",
+        "adr-2606013400-funadaiku-zero-emission-cargo-shipbuilding-r0",
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
+        "doc-2606022500-organism-axis-affiliation-convention",
+        "adr-2605221411-etzhayyim-artificial-organism-ecosystem"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606022400 (prior session-close — this continues the maturity+coverage sweep)"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606022800-openmail-per-member-dkim-no-server-key.md",
       "id": "adr-2606022800-openmail-per-member-dkim-no-server-key",
       "title": "ADR-2606022800: openmail outbound — per-member self-signed DKIM (no platform signing key)",

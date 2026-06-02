@@ -12346,6 +12346,22 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606022600",
+      "type": "TechArticle",
+      "title": "ADR-2606022600: Session close — R0-actor coverage sweep (funadaiku/sarutahiko) + organism-axis affiliation convention",
+      "status": "active",
+      "topic": "session-close-r0-actor-coverage-sweep-and-organism-axis-convention",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606022400-session-close-himawari-r1-adr-and-coverage-maturation",
+        "doc:adr-2606013400-funadaiku-zero-emission-cargo-shipbuilding-r0",
+        "doc:adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
+        "doc:doc-2606022500-organism-axis-affiliation-convention",
+        "doc:adr-2605221411-etzhayyim-artificial-organism-ecosystem"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-2606022800-openmail-per-member-dkim-no-server-key",
       "type": "TechArticle",
       "title": "ADR-2606022800: openmail outbound — per-member self-signed DKIM (no platform signing key)",
