@@ -1,0 +1,5 @@
+;; sarutahiko 猿田彦 — cell: cab-body-forming
+{:cell/id "cab-body-forming"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/doc "R0 scaffold: cab_body_forming cell (L3) from sarutahiko/CLAUDE.md"}

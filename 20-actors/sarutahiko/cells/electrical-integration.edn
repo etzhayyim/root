@@ -1,0 +1,6 @@
+;; sarutahiko 猿田彦 — cell: electrical-integration
+{:cell/id "electrical-integration"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/doc "R0 scaffold: electrical_integration cell (L5b) from sarutahiko/CLAUDE.md"
+ :cell/gates [{:gate/id "G1" :gate/rule "ecu-firmware-open-source"}]}

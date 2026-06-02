@@ -1,0 +1,6 @@
+;; sarutahiko 猿田彦 — cell: final-marriage
+{:cell/id "final-marriage"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/doc "R0 scaffold: final_marriage cell (L4) from sarutahiko/CLAUDE.md"
+ :cell/gates [{:gate/id "G4" :gate/rule "robot-witness-quorum"}]}

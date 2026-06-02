@@ -1,0 +1,3 @@
+;; sarutahiko 猿田彦 — lexicon: settlement
+{:lex/id "settlement"
+ :lex/doc "Lexicon for settlement intents."}

@@ -1,0 +1,3 @@
+;; sarutahiko 猿田彦 — lexicon: quality
+{:lex/id "quality"
+ :lex/doc "Lexicon for quality inspection."}

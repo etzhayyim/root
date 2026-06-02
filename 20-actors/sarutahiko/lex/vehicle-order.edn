@@ -1,0 +1,3 @@
+;; sarutahiko 猿田彦 — lexicon: vehicle-order
+{:lex/id "vehicle-order"
+ :lex/doc "Lexicon for vehicle orders."}

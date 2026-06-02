@@ -1,0 +1,3 @@
+;; sarutahiko 猿田彦 — lexicon: production-progress
+{:lex/id "production-progress"
+ :lex/doc "Lexicon for production progress."}

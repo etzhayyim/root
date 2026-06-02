@@ -1,0 +1,6 @@
+;; sarutahiko 猿田彦 — cell: vin-attestation-binder
+{:cell/id "vin-attestation-binder"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/doc "R0 scaffold: vin_attestation_binder cell (terminal) from sarutahiko/CLAUDE.md"
+ :cell/gates [{:gate/id "G2" :gate/rule "vin-yatachain-anchor"} {:gate/id "G13" :gate/rule "per-vin-did"}]}

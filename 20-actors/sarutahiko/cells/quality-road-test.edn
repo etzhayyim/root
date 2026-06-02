@@ -1,0 +1,6 @@
+;; sarutahiko 猿田彦 — cell: quality-road-test
+{:cell/id "quality-road-test"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/doc "R0 scaffold: quality_road_test cell (L5c) from sarutahiko/CLAUDE.md"
+ :cell/gates [{:gate/id "G12" :gate/rule "vehicle-specs"}]}

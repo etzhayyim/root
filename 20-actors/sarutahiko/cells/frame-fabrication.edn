@@ -1,0 +1,6 @@
+;; sarutahiko 猿田彦 — cell: frame-fabrication
+{:cell/id "frame-fabrication"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/doc "R0 scaffold: frame_fabrication cell (L1) from sarutahiko/CLAUDE.md"
+ :cell/gates [{:gate/id "G1" :gate/rule "ecu-firmware-open-source"}]}

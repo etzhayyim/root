@@ -1,0 +1,5 @@
+;; sarutahiko 猿田彦 — cell: emissions-audit
+{:cell/id "emissions-audit"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/doc "R0 scaffold: emissions_audit cell (cross-cutting) from sarutahiko/CLAUDE.md"}

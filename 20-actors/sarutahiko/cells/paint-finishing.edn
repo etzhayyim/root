@@ -1,0 +1,6 @@
+;; sarutahiko 猿田彦 — cell: paint-finishing
+{:cell/id "paint-finishing"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/doc "R0 scaffold: paint_finishing cell (L5a) from sarutahiko/CLAUDE.md"
+ :cell/gates [{:gate/id "G8" :gate/rule "emissions-compliance"}]}

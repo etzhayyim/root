@@ -1,0 +1,5 @@
+;; sarutahiko 猿田彦 — cell: production-ledger
+{:cell/id "production-ledger"
+ :cell/kind :datalog
+ :cell/runtime :kotoba
+ :cell/doc "R0 scaffold: production ledger cell (datalog)"}

@@ -1,0 +1,5 @@
+;; sarutahiko 猿田彦 — cell: vehicle-order
+{:cell/id "vehicle-order"
+ :cell/kind :datalog
+ :cell/runtime :kotoba
+ :cell/doc "R0 scaffold: vehicle order cell (datalog)"}
