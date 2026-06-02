@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>kabuto 兜 — global public-company supply-chain map</title>
+<!--
+  kabuto 兜 supply-chain viewer (ADR-2606022000). SELF-CONTAINED: the graph data is
+  inlined below (no external fetch — opens via file://). A redundancy / accountability
+  surface, NEVER a target-list (kabuto G2). Public-record companies + disclosed
+  supplier edges only.
+
+  BROWSER-NATIVE NOTE (ADR-2606013600): when served from etzhayyim.com with
+  /kotoba/kotoba_wasm.js present, this page can instead instantiate the in-browser
+  kotoba-wasm KotobaNode and query the live supply graph (loadDatoms → q) — zero
+  server round-trip. The inlined payload below is the offline data contract.
+-->
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#0b0e14; color:#cdd6f4; font:13px/1.5 ui-sans-serif,system-ui,sans-serif; }
+  header { padding:10px 14px; border-bottom:1px solid #1e2330; }
+  h1 { font-size:15px; margin:0 0 2px; }
+  .sub { color:#7f8aa3; font-size:11px; }
+  #wrap { display:flex; height:calc(100vh - 52px); }
+  canvas { flex:1; display:block; cursor:grab; }
+  #side { width:300px; border-left:1px solid #1e2330; padding:12px; overflow:auto; }
+  #side h2 { font-size:13px; margin:0 0 6px; }
+  .kv { margin:2px 0; } .k { color:#7f8aa3; }
+  .pill { display:inline-block; padding:1px 6px; border-radius:8px; background:#1e2330; margin:1px 2px 1px 0; font-size:11px; }
+  table { width:100%; border-collapse:collapse; font-size:11px; }
+  td { padding:2px 4px; border-bottom:1px solid #161b26; }
+  a { color:#89b4fa; }
+</style>
+</head>
+<body>
+<header>
+  <h1>kabuto 兜 — global public-company supply-chain map</h1>
+  <div class="sub">aggregate-first · resilience + transparency, NEVER a target-list (G2) · sourcing <span class="pill">:representative</span> · ADR-2606022000</div>
+</header>
+<div id="wrap">
+  <canvas id="cv"></canvas>
+  <div id="side">
+    <h2>Top supplier jurisdictions</h2>
+    <table id="jur"></table>
+    <h2 style="margin-top:14px">Selected</h2>
+    <div id="sel" class="sub">click a company node</div>
+  </div>
+</div>
+<script id="data" type="application/json">__KABUTO_DATA__</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+const SECTOR_COLORS = {
+  semiconductors:'#89b4fa', electronics:'#94e2d5', automotive:'#f9e2af', energy:'#fab387',
+  materials:'#a6adc8', industrials:'#cba6f7', pharma:'#f5c2e7', shipping:'#74c7ec',
+  consumer:'#a6e3a1', software:'#b4befe', telecom:'#eba0ac', financials:'#f2cdcd'
+};
+function color(s){ return SECTOR_COLORS[(s||'').replace(/^:/,'')] || '#9399b2'; }
+
+// ── build node/link arrays with a tiny force layout ──
+const nodes = DATA.companies.map((c,i)=>({ id:c.id, name:c.name, sector:c.sector, country:c.country,
+  ticker:c.ticker, addr:c.address, contact:c.contact, out:c.out||0,
+  x: Math.cos(i)*300 + (innerWidth*0.5-150), y: Math.sin(i*1.7)*250 + innerHeight*0.45,
+  vx:0, vy:0 }));
+const idx = new Map(nodes.map(n=>[n.id,n]));
+const links = DATA.edges.map(e=>({ s:idx.get(e.from), t:idx.get(e.to), w:e.criticality||0.3, c:e.commodity })).filter(l=>l.s&&l.t);
+
+function resize(){ cv.width = cv.clientWidth; cv.height = cv.clientHeight; }
+window.addEventListener('resize', resize); resize();
+
+function step(){
+  // repulsion
+  for(let i=0;i<nodes.length;i++){ for(let j=i+1;j<nodes.length;j++){
+    const a=nodes[i],b=nodes[j]; let dx=a.x-b.x,dy=a.y-b.y; let d2=dx*dx+dy*dy+0.01;
+    const f=900/d2; const d=Math.sqrt(d2); dx/=d;dy/=d; a.vx+=dx*f;a.vy+=dy*f;b.vx-=dx*f;b.vy-=dy*f;
+  }}
+  // springs (supplier → customer)
+  for(const l of links){ let dx=l.t.x-l.s.x,dy=l.t.y-l.s.y; const d=Math.sqrt(dx*dx+dy*dy)+0.01;
+    const f=(d-120)*0.01*(0.5+l.w); dx/=d;dy/=d; l.s.vx+=dx*f;l.s.vy+=dy*f;l.t.vx-=dx*f;l.t.vy-=dy*f; }
+  // gravity to center + integrate
+  for(const n of nodes){ n.vx+=(cv.width/2-n.x)*0.0008; n.vy+=(cv.height/2-n.y)*0.0008;
+    n.x+=n.vx*=0.85; n.y+=n.vy*=0.85; }
+}
+let SEL=null;
+function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  for(const l of links){ ctx.strokeStyle='rgba(120,130,160,'+(0.12+l.w*0.4)+')'; ctx.lineWidth=0.4+l.w*2.2;
+    ctx.beginPath(); ctx.moveTo(l.s.x,l.s.y); ctx.lineTo(l.t.x,l.t.y); ctx.stroke(); }
+  for(const n of nodes){ const r=4+Math.sqrt(n.out)*2.2; ctx.fillStyle=color(n.sector);
+    ctx.globalAlpha = SEL && SEL!==n ? 0.5 : 1; ctx.beginPath(); ctx.arc(n.x,n.y,r,0,7); ctx.fill();
+    if(n.out>=3||n===SEL){ ctx.globalAlpha=1; ctx.fillStyle='#cdd6f4'; ctx.font='10px sans-serif';
+      ctx.fillText(n.name.length>22?n.name.slice(0,20)+'…':n.name, n.x+r+2, n.y+3); }
+    ctx.globalAlpha=1; }
+}
+function loop(){ step(); draw(); requestAnimationFrame(loop); } loop();
+
+// jurisdiction panel
+const jur = document.getElementById('jur');
+(DATA.jurisdictions||[]).slice(0,12).forEach(j=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML='<td>'+j.country+'</td><td style="text-align:right">'+j.load.toFixed(2)+'</td>'; jur.appendChild(tr);
+});
+
+// pick + side panel
+cv.addEventListener('click', ev=>{
+  const r=cv.getBoundingClientRect(), mx=ev.clientX-r.left, my=ev.clientY-r.top;
+  let best=null,bd=1e9; for(const n of nodes){ const d=(n.x-mx)**2+(n.y-my)**2; if(d<bd){bd=d;best=n;} }
+  if(bd>400) return; SEL=best;
+  const a=best.addr||{}, c=best.contact||{};
+  document.getElementById('sel').innerHTML =
+    '<div class="kv"><b>'+best.name+'</b></div>'+
+    '<div class="kv"><span class="k">ticker</span> '+(best.ticker||'—')+'</div>'+
+    '<div class="kv"><span class="k">sector</span> <span class="pill">'+(best.sector||'').replace(/^:/,'')+'</span></div>'+
+    '<div class="kv"><span class="k">HQ</span> '+([a.street,a.city,a.country].filter(Boolean).join(', ')||'—')+'</div>'+
+    '<div class="kv"><span class="k">supplies</span> '+best.out+' customer(s)</div>'+
+    (c.website?'<div class="kv"><a href="'+c.website+'" target="_blank" rel="noopener">'+c.website+'</a></div>':'');
+});
+</script>
+</body>
+</html>
