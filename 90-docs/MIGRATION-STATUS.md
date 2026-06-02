@@ -11,12 +11,12 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 52 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 53 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 43 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 42 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 88 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 
-**Real remaining scope ≈ 131 apps** (C + D = 43 + 88). Buckets A + B (260) need no
+**Real remaining scope ≈ 130 apps** (C + D = 42 + 88). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
 every open-* app now has an rw-free impl. The loop now proceeds over the
 remaining C/D apps with a per-app judgment gate (etzhayyim-front vs
@@ -28,9 +28,10 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > `common-crawl`, `sanctions`, `saiban`, `auth`, `coverage`, `kami`. For these the
 > on-chain path exists; the legacy src is residual cleanup, not a missing impl.
 
-## Bucket A — DONE (52, has rw-free/)
+## Bucket A — DONE (53, has rw-free/)
 
-anime, blockchain, bpmn, bunken, common-crawl, cpc, crowdfunding, dns, ec,
+anime, animeka (mixed split — catalog front), blockchain, bpmn, bunken,
+common-crawl, cpc, crowdfunding, dns, ec,
 gameka, gtin, hakkou, hanrei, houbun, houki, houshi, ipaddress, isbn, isin,
 issn, ki, kiyo, koke, legal-corpus, manga, maps, narou, ndc, nist, ocel,
 okaimono, open-airplane, open-apqc, open-banking, open-cofog, open-denki,
@@ -42,12 +43,12 @@ threads, threat-intelligence, tsukuru, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket C — NEEDS-CODEMOD (43) — active backlog
+## Bucket C — NEEDS-CODEMOD (42) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
-animeka (RW), auth (HYPERDRIVE), bim, briefing, cad, cloudflare-browser-render,
+auth (HYPERDRIVE), bim, briefing, cad, cloudflare-browser-render,
 common-crawl (RW, legacy src), coverage, cowork, cpc (legacy src),
 crypto-asset-freeze, cyber-drill (stripe), deai (RW), dougaka (RW), editor,
 email-service-adapter (stripe), fax, gov, hc, **hospitality (RW in
