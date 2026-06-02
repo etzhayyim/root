@@ -1,0 +1,22 @@
+;; ooyake 公 — authority-reference.edn
+;;
+;; A SMALL, BUNDLED, curated set of AUTHORITATIVE facts about government units —
+;; the kind of record the R1 `reconcile` cell would otherwise FETCH from external
+;; authorities (Wikidata / 行政機関コード / GeoNames). Bundled here so the
+;; reconcile DEMO (reconcile.py) is runnable OFFLINE and deterministic; live
+;; network fetch is G4 + Council + operator gated and is NOT what this file is.
+;;
+;; The reconcile cell promotes a seed unit :representative → :authoritative ONLY
+;; when the unit's :gov.unit/wikidata AND :gov.unit/official-url both AGREE with
+;; the authoritative record here (G5: agreement = verification, disagreement =
+;; stays unverified + flagged). Each record cites its own provenance.
+
+{:authority-records
+ [{:unit "gov.jpn"            :wikidata "Q17"        :official-url "https://www.japan.go.jp/"  :provenance "https://www.wikidata.org/wiki/Q17"}
+  {:unit "gov.jpn.mof"        :wikidata "Q1023766"   :official-url "https://www.mof.go.jp/"     :provenance "https://www.wikidata.org/wiki/Q1023766"}
+  {:unit "gov.jpn.mofa"       :wikidata "Q1023718"   :official-url "https://www.mofa.go.jp/"    :provenance "https://www.wikidata.org/wiki/Q1023718"}
+  {:unit "gov.jpn.meti"       :wikidata "Q1023775"   :official-url "https://www.meti.go.jp/"    :provenance "https://www.wikidata.org/wiki/Q1023775"}
+  {:unit "gov.jpn.cao"        :wikidata "Q1023920"   :official-url "https://www.cao.go.jp/"     :provenance "https://www.wikidata.org/wiki/Q1023920"}
+  {:unit "gov.jpn.pref.13"    :wikidata "Q1490"      :official-url "https://www.metro.tokyo.lg.jp/" :provenance "https://www.wikidata.org/wiki/Q1490"}
+  {:unit "gov.usa.treasury"   :wikidata "Q633534"    :official-url "https://home.treasury.gov/" :provenance "https://www.wikidata.org/wiki/Q633534"}
+  {:unit "gov.gbr.hmrc"       :wikidata "Q1377862"   :official-url "https://www.gov.uk/government/organisations/hm-revenue-customs" :provenance "https://www.wikidata.org/wiki/Q1377862"}]}
