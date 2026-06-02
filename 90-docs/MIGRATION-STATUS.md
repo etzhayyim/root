@@ -11,11 +11,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 104 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 105 | has a `rw-free/` on-chain reference impl (git-authoritative: committed `rw-free/src/index.ts` count) |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 9 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 73 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 8 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 74 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -33,7 +33,14 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > (`auth` was an example here previously but is now Bucket V — vendor-resident,
 > no on-chain path; see below.)
 
-## Bucket A — DONE (104, has rw-free/)
+## Bucket A — DONE (105, has rw-free/)
+
+> **Roster correction (2026-06-03)**: count is git-authoritative (committed
+> `rw-free/src/index.ts` = 105). The prose list below previously named 6 phantom
+> non-apps (`6ir`, `air-sched`, `analytics`, `bim`, `business-person`,
+> `legal-corpus`) — empty dirs with only stray `node_modules`, no committed src,
+> absent from both repos — now treated as resolved phantoms (see Bucket V note).
+> Treat the prose names as indicative, not a 1:1 roster.
 
 6ir, aima (data layer; AI-compute stays gftd), air-sched,
 analytics (mixed split — public catalog front), anime, bim, business-person, cad,
@@ -78,12 +85,31 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (73)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (74)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
 are NOT migrated; the etzhayyim front consumes them via consent-capability.
 
+> **Phantom non-apps removed from Bucket A roster (2026-06-03)**: `6ir`,
+> `air-sched`, `analytics`, `bim`, `business-person`, `legal-corpus` were listed
+> in the Bucket A prose roster as DONE but have **zero committed `rw-free/src`** —
+> only stray `node_modules/` leftovers — and **no source in either repo**
+> (etzhayyim/root nor the gftd.co.jp vendor repo). They are non-apps (the
+> `gftdcojp` precedent). **Resolved = do NOT build; future batch fires skip them.**
+> Count is git-authoritative: committed `rw-free/src/index.ts` = **105** (the
+> header was under-counting by 1). The prose roster is indicative, not exhaustive.
+
+- **accounts** — axis: **Custody**. Account-lifecycle management worker (ADR-0024,
+  `accounts.etzhayyim.com`, scaffold-only / not deployed): linked auth methods,
+  OAuth provider link/unlink (Google/Microsoft tokens), email binding, server-
+  issued sessions, `actor.score`, `/manage` UI. Custodies third-party IdP tokens +
+  email bindings + session credentials = auth-credential + identity PII custody.
+  No catalog-shaped product surface to front (auth session/credential management
+  does not map to a typed-record registry) ⇒ stays gftd. Sibling split-off of
+  **auth**; the `/manage` UX could front (c) but there is no registry layer to
+  build, so disposition = Bucket V. did:web/did:plc/passkey issuance stays
+  etzhayyim-exclusive (in `auth`, tracked separately), not here.
 - **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
   is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
   passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
