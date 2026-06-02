@@ -4100,6 +4100,16 @@ scope = "87 files: 46 tsukuru lexicons (id + git mv app/etzhayyim/gftd/apps/tsuk
 description = "Operator-directed follow-up to ADR-2606011700 (hakken com.etzhayyim). Converts tsukuru from main's app.etzhayyim.apps.tsukuru.* to com.etzhayyim.apps.tsukuru.* so the two sibling OEM-discovery ingest actors share one namespace. Mechanical 87-file rename, symmetric diff, no behavioural change. Payment (app.etzhayyim.apps.payment.* — escrowOpened/escrowRefunded/sent, shared authority read by treasury/tithe) is NOT renamed. lexicons.gen.json REGENERATED (build-bundle.mjs); _manifest/apps.openapi/docs.json/graph.jsonld/bpmn-coverage/process-catalog updated via contained token+path swap (full registry regen via CI/maintainer recommended). DIVERGENCE: tsukuru+hakken are now the only com.etzhayyim.apps.* record actors vs repo-wide app.etzhayyim.* standard (15758 vs now ~tsukuru/hakken); com vs app record-NSID convention still needs org ruling — if standardised on app.etzhayyim both revert in one sweep. Deploy prereq: gen-pds-lexicon-registry.mjs + Worker redeploy."
 last_verified = "2026-06-02"
 
+[[migrations]]
+id = "hakken-etzhayyim-ingest-migration-override-2606011700"
+status = "phase-1-scaffold-complete"
+authoritative_doc = "90-docs/adr/2606011700-hakken-etzhayyim-migration-override.md"
+authoritative_adr = "ADR-2606011700"
+overrides = "vendor ADR-2606011400 (Consensys pattern) — hakken vendor-keep verdict"
+scope = "60-apps/ai-gftd-project-hakken (scaffold + rw-free ingest), 00-contracts/lexicons/com/etzhayyim/apps/hakken/* (4 lexicons)"
+description = "User-directed move (2026-06-01) of hakken's product-discovery INGEST FRONT (trend_scan / gap_analysis / supplier_search / quality_eval + branded-product + supplier-candidate write path) to etzhayyim, overriding the same-day vendor-keep verdict of vendor ADR-2606011400. Structure of 2606011400 preserved: product front → etzhayyim, regulated fulfillment tail (okaimono_register Ph1 dropship + Stripe, import_order Ph2, tsukuru_order Ph3) stays a gftd function consumed via consent capability. Phase 1 (DONE): scaffold + 4 com.etzhayyim.apps.hakken.* lexicons + rw-free ingest reference (@etzhayyim/sdk e.write, RW-free + on-chain, float→integer encoding weightG/ratingMilli). Vendor hakken.gftd.ai unchanged. NSID = com.etzhayyim.apps.hakken.* by operator direction; OPEN: reconcile vs the app.etzhayyim.* record-NSID convention used elsewhere in repo (consent/council/encrypted/esign). Phase 2: rehome LangGraph discovery nodes to etzhayyim Murakumo fleet. Phase 3: fulfillment via gftd consent capability. Phase 4: vendor discovery-node sunset. SIBLING (separate PR): main already migrated tsukuru to app.etzhayyim.apps.tsukuru.* (~86 files, repo-wide app.etzhayyim.* standard = 15758 occ vs 0 com.etzhayyim). Per operator direction tsukuru will be converted to com.etzhayyim.apps.tsukuru.* in a DEDICATED follow-up PR (overrides merged work + 4 generated registries regen); this hakken PR does not touch tsukuru. Payment stays shared app.etzhayyim.apps.payment.* (different authority)."
+last_verified = "2026-06-01"
+
 # ─── Session summaries ──────────────────────────────────────────────
 
 [session_summaries.ameno-wave-2026-05-19]
@@ -5358,6 +5368,20 @@ title = "NVIDIA Omniverse stack API-compat layer on KAMI + WebGPU + WASM (e7m-si
 status = "proposed"
 status_note = "Sub-charter under ADR-2605261600 (e7m-sim R0) expanding R1 scope with 9-component API-compat layer. Canonical implementations use Japanese names (amenominaka / e7m-sim / e7m-shugyo / hikari-rt / kami-rtx / utsushimi / wadachi-sim / murakumo-render / yatachain-nucleus); nv-compat facade in 20-actors/etzhayyim-sdk/src/nv-compat/ + 20-actors/magatama/py/src/pymagatama/nv_compat/ mirrors public Omniverse / Isaac Sim / Isaac Lab / OptiX / RTX / Replicator / DriveSim / Omniverse Cloud / Nucleus API surface (per Google v. Oracle 2021 API fair use). Physics backend = Genesis (Apache-2.0, Genesis-Embodied-AI/Genesis) covering 5 solvers (rigid/MPM/SPH/FEM/PBD) via Taichi → wgpu. Mitsuba 3 = upstream PR only, 90-day hold then re-evaluate. Sub-phase plan R1.0..R1.9 (R1.0 = 10 crate path reservation + deps.toml registration; this commit). G5 quality gate >=0.75 vs Isaac Sim measured per sub-phase."
 path = "90-docs/adr/2605261800-nvidia-omniverse-stack-api-compat.md"
+
+[[modules]]
+path = "40-engine/kami-engine"
+adr = "ADR-2606015000"
+kind = "git-submodule"
+status = "submodule"
+description = "kami-engine — the reusable Rust game/robotics engine (wgpu + physics + WASM), extracted to the public remote github.com/etzhayyim/kami-engine and consumed as a git-submodule per ADR-2606011500 §4 / ADR-2606015000. kami-engine-sdk (L1 TS UI) is nested inside it. Clones: `git submodule update --init --recursive 40-engine/kami-engine`. The kami-engine/kami-* entries below are submodule-internal (the engine repo owns their registry); kept here as a monorepo-level index, resolved via the recursive submodule init."
+
+[[modules]]
+path = "40-engine/kami-apps"
+adr = "ADR-2606015000"
+kind = "cargo-workspace"
+status = "active"
+description = "kami-apps — etzhayyim L3 *.etzhayyim.com product apps (kami-app-{bim,cad,live,maps3d,animeka-timeline}); per ADR-2606011500 the robotics/sim apps are maintained in the kami-engine submodule, these product apps in the monorepo. Path-depends on the engine crates under ../kami-engine/."
 
 [[modules]]
 path = "40-engine/kami-engine/kami-rt"
@@ -9409,6 +9433,22 @@ status = "accepted"
 status_note = "Two follow-ups to ADR-2606015200. (D1) 50-infra/e7m-wasm-runner/serve.mjs exposes the T2 runner as an HTTP service: GET /xrpc/app.etzhayyim.actor.run?actor=<did|handle> + /healthz; resolve → CID/CAR-verify → run (core or jco component) → JSON, cached by CID. 3 tests (real http vs stub gateway). (D2) IPFS-based DID retrieval: answers 「did を IPFS ベースでの取得にできる?」 — yes. did:web stays canonical (TLS), but every actor's did.json is now content-addressed: canonicalDidDoc/didDocCid (actor-profiles.ts) normalize the request-volatile _meta.source so the CID is stable across KV/kotoba/compiled tiers; /actor/<h>/did.json advertises x-etzhayyim-did-doc-cid + Link rel=canonical, /.well-known/actors.json lists didDocumentCid/didDocumentIpfs/didDocumentGateway. A client gets the authentic CID from etzhayyim.com (TLS) then fetches+verifies the did.json from ANY IPFS gateway (apex /ipfs/<cid> or third-party). Publisher materializes + pins (--pin-did) the canonical did.json; worker (TS) and publisher (JS) compute byte-identical canonical did.json CIDs (verified tsumugi/kanae/watatsuna via esbuild-bundled cross-check). Verified: worker tsc + 10 tests (3 did-doc-cid + 4 car + 3 erc725); runner 6 tests (3 serve + 3 run). HONEST: handle→CID binding still anchored by etzhayyim.com TLS (full did:ipfs/IPNS self-certifying = future); pinning + serving from the etzhayyim pin operator-gated; libp2p transport not yet wired (HTTP is the bridge); CID changes on did.json change (re-pin). e7m-verify pre-commit skipped (local CLI lacks the verify subcommand)."
 path = "90-docs/adr/2606015400-mesh-runner-serving-and-ipfs-did-retrieval.md"
 adr = ["2606015200", "2606014600", "2606013800", "2605212030", "2605231525"]
+
+[[adrs]]
+id = "2606015600"
+title = "Self-certifying DID-document attestation (did:key signs the did.json CID)"
+status = "accepted"
+status_note = "Makes the handle→CID binding trustless, completing IPFS-based DID retrieval (ADR-2606015400). Each actor's did.json is bound to its CID by a signature from the actor's OWN ed25519 key, expressed as a did:key — so verification is self-certifying (the key IS the identifier; no external anchor). src/diddoc-attest.ts (worker, verify-only): base58btc + did:key derivation (ed25519PubToDidKey/didKeyToEd25519Pub, multicodec 0xed01) + verifyDidDocAttestation (WebCrypto Ed25519); server never signs (ADR-2605231525). Attestation = {did, didDocCid, signedAt, sequence, proof:{Ed25519Signature2020, verificationMethod: did:key:z…, proofValue: z…}}. scripts/sign-diddoc.mjs (operator tool): actor/operator's own key signs the canonical did.json CID; private key never the server's. toDidDoc adds did:key:<publicKeyMultibase> to alsoKnownAs when the actor has an Ed25519VerificationKey2020 vm, cross-linking handle↔key. Trustless chain: did:key:z6Mk… → verify attestation sig → trust didDocCid → fetch+CID-verify did.json from any IPFS gateway → confirm doc.id + that it lists the did:key; TLS no longer required for the binding. Verified end-to-end: signing tool produced did:key + attestation binding kanae's real did.json CID; verifyDidDocAttestation confirmed it. Worker tsc + 15 tests (5 attestation, 3 did-doc-cid, 4 car, 3 erc725). HONEST: ships the signed attestation (key→CID); the IPNS mutable-pointer transport (latest CID discoverable under the key's name, no TLS) is next; no DID-method change (did:web canonical, did:key alias+signer); actors' keys not yet in the seed (vm:[]) — registering each Ed25519VerificationKey2020 is operator work, demo generates a key. e7m-verify pre-commit skipped (local CLI lacks the verify subcommand)."
+path = "90-docs/adr/2606015600-self-certifying-did-attestation.md"
+adr = ["2606015400", "2606013800", "2605212030", "2605231525"]
+
+[[adrs]]
+id = "2606015800"
+title = "Session close — IPFS-based + self-certifying DID resolution, mesh-runner serving"
+status = "active"
+status_note = "Documentation-only session-close record for the 2026-06-01/02 continuation after ADR-2606014800, answering 「next step」 (×several) and 「did を IPFS ベースでの取得にできる?」 → a fully trustless DID-resolution path. Indexes the three authoritative ADRs: 2606015200 (WASM-actor runtime round 2 — dag-pb CAR verify + e7m-wasm-runner T2 exec + kanae 鼎 2nd T1 actor + ameno wasm-actor-panel + ERC725 vm mirror + operator runbook → PR #702); 2606015400 (mesh-runner serving + IPFS-based DID retrieval — serve.mjs HTTP /xrpc/app.etzhayyim.actor.run + content-addressed did.json with canonicalDidDoc/didDocCid advertised via x-etzhayyim-did-doc-cid + actors.json, worker(TS)≡publisher(JS) CID → PR #715); 2606015600 (self-certifying DID attestation — actor's own ed25519 key as did:key signs the did.json CID → handle→CID binding trustless, no TLS anchor; diddoc-attest.ts verify-only + sign-diddoc.mjs operator tool, server never signs → PR #720). Resolution picture: discover did:web (TLS/atproto) → alsoKnownAs did:key + ipfs://wasm-cid → retrieve did.json by CID from any IPFS gateway (content-verified) → prove via did:key-signed attestation (no TLS) → execute actor WASM (T1 browser/T2 mesh, CID/CAR-verified). No server-held key (ADR-2605231525); did:web canonical (ADR-2605212030). Verified: worker tsc + 15 tests; runner 6; ameno tsc + 9; kanae runs; real ipfs CAR reassembles; keccak vectors; self-cert chain verified on kanae's real CID. NEXT STEPS: IPNS mutable-pointer transport (whole resolution path self-certifying, no TLS); mesh-runner libp2p /x/etzhayyim/xrpc/1.0 transport; register actor Ed25519 keys in the seed (today vm:[], demo-generated); operator enablement (enable-kv + --pin-did + pin attestations + IPFS_GATEWAYS + ERC725 deploy). Authoritative designs = ADR-2606015200 + 2606015400 + 2606015600."
+path = "90-docs/adr/2606015800-session-close-ipfs-did-and-self-certifying-resolution.md"
+adr = ["2606015200", "2606015400", "2606015600"]
 
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json

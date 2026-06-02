@@ -11813,6 +11813,20 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606011700-hakken-etzhayyim-migration-override",
+      "type": "TechArticle",
+      "title": "ADR-2606011700: hakken product-discovery ingest → etzhayyim (override of vendor-keep ADR-2606011400)",
+      "status": "proposed",
+      "topic": "hakken-etzhayyim-migration-override",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hakken product-discovery ingest on the etzhayyim RW-free substrate",
+        "com.etzhayyim.apps.hakken.* record namespace",
+        "the etzhayyim/gftd boundary for hakken (ingest front vs fulfillment tail)"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-2606011700-session-close-pr-queue-drain-and-664-engine-submodule-merge",
       "type": "TechArticle",
       "title": "ADR-2606011700: Session close — full PR-queue drain (366 merged) +",
@@ -12088,6 +12102,38 @@
       "related": [
         "doc:2606014500",
         "doc:2605262130"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606015600-self-certifying-did-attestation",
+      "type": "TechArticle",
+      "title": "ADR-2606015600: Self-certifying DID-document attestation (did:key signs the did.json CID)",
+      "status": "accepted",
+      "topic": "self-certifying-did-attestation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "self-certifying-did-attestation",
+        "did-key-ed25519"
+      ],
+      "related": [
+        "doc:2606014500",
+        "doc:2606014600"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606015800-session-close-ipfs-did-and-self-certifying-resolution",
+      "type": "TechArticle",
+      "title": "ADR-2606015800: Session close — IPFS-based + self-certifying DID resolution, mesh-runner serving",
+      "status": "active",
+      "topic": "session-close-ipfs-did-and-self-certifying-resolution",
+      "authoritative": false,
+      "related": [
+        "doc:2606014800",
+        "doc:2606013800",
+        "doc:2605212030",
+        "doc:2605231525"
       ],
       "lastVerified": "2026-06-02"
     },

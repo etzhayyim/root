@@ -614,6 +614,22 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
 
+  60-apps/ai-gftd-project-blockchain/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@25.9.1)(jsdom@25.0.1)(lightningcss@1.32.0)
+
   60-apps/ai-gftd-project-bpmn/rw-free:
     dependencies:
       '@etzhayyim/sdk':
@@ -654,6 +670,73 @@ importers:
       wrangler:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
+
+  60-apps/ai-gftd-project-bunken/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@25.9.1)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  60-apps/ai-gftd-project-common-crawl/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@25.9.1)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  60-apps/ai-gftd-project-cpc/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.19
+      tsx:
+        specifier: ^4.19.0
+        version: 4.22.4
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@22.19.19)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  60-apps/ai-gftd-project-crowdfunding/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@25.9.1)(jsdom@25.0.1)(lightningcss@1.32.0)
 
   60-apps/ai-gftd-project-dns/rw-free:
     dependencies:
@@ -762,6 +845,16 @@ importers:
       wrangler:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
+
+  60-apps/ai-gftd-project-hakken/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
 
   60-apps/ai-gftd-project-hakkou/rw-free:
     dependencies:
@@ -1052,6 +1145,19 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
 
+  60-apps/ai-gftd-project-issn/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@25.9.1)(jsdom@25.0.1)(lightningcss@1.32.0)
+
   60-apps/ai-gftd-project-karute/appview/ai-gftd-wasm-karute-karu7t3e/svelte:
     dependencies:
       '@atproto/api':
@@ -1201,6 +1307,22 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
 
+  60-apps/ai-gftd-project-legal-corpus/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@25.9.1)(jsdom@25.0.1)(lightningcss@1.32.0)
+
   60-apps/ai-gftd-project-manga/rw-free:
     dependencies:
       '@etzhayyim/sdk':
@@ -1334,6 +1456,25 @@ importers:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
 
+  60-apps/ai-gftd-project-nist/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.19
+      tsx:
+        specifier: ^4.19.0
+        version: 4.22.4
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@22.19.19)(jsdom@25.0.1)(lightningcss@1.32.0)
+
   60-apps/ai-gftd-project-ocel/rw-free:
     dependencies:
       '@etzhayyim/sdk':
@@ -1368,6 +1509,22 @@ importers:
       wrangler:
         specifier: ^3.78.0
         version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
+
+  60-apps/ai-gftd-project-okaimono/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@25.9.1)(jsdom@25.0.1)(lightningcss@1.32.0)
 
   60-apps/ai-gftd-project-open-apqc/rw-free:
     dependencies:
@@ -1496,6 +1653,22 @@ importers:
         specifier: ^2.0.0
         version: 2.1.9(@types/node@22.19.19)(jsdom@25.0.1)(lightningcss@1.32.0)
 
+  60-apps/ai-gftd-project-open-jpn-gov/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@25.9.1)(jsdom@25.0.1)(lightningcss@1.32.0)
+
   60-apps/ai-gftd-project-open-unispsc/rw-free:
     dependencies:
       '@etzhayyim/sdk':
@@ -1603,6 +1776,22 @@ importers:
       vitest:
         specifier: ^2.0.0
         version: 2.1.9(@types/node@22.19.19)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  60-apps/ai-gftd-project-threat-intelligence/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@25.9.1)(jsdom@25.0.1)(lightningcss@1.32.0)
 
   60-apps/ai-gftd-project-tsukuru/rw-free:
     dependencies:

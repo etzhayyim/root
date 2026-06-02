@@ -18280,6 +18280,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606011700-hakken-etzhayyim-migration-override.md",
+      "id": "adr-2606011700-hakken-etzhayyim-migration-override",
+      "title": "ADR-2606011700: hakken product-discovery ingest → etzhayyim (override of vendor-keep ADR-2606011400)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "hakken-etzhayyim-migration-override",
+      "authoritative": true,
+      "authoritative_for": [
+        "hakken product-discovery ingest on the etzhayyim RW-free substrate",
+        "com.etzhayyim.apps.hakken.* record namespace",
+        "the etzhayyim/gftd boundary for hakken (ingest front vs fulfillment tail)"
+      ],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
+        "adr-2605202800-tsukuru-etzhayyim-business-model-change"
+      ],
+      "last_verified": "2026-06-01",
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606011700-session-close-pr-queue-drain-and-664-engine-submodule-merge.md",
       "id": "adr-2606011700-session-close-pr-queue-drain-and-664-engine-submodule-merge",
       "title": "ADR-2606011700: Session close — full PR-queue drain (366 merged) +",
@@ -18738,6 +18763,60 @@
         "2606013800",
         "2605212030",
         "2605231525"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606015600-self-certifying-did-attestation.md",
+      "id": "adr-2606015600-self-certifying-did-attestation",
+      "title": "ADR-2606015600: Self-certifying DID-document attestation (did:key signs the did.json CID)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "self-certifying-did-attestation",
+      "authoritative": true,
+      "authoritative_for": [
+        "self-certifying-did-attestation",
+        "did-key-ed25519"
+      ],
+      "related": [
+        "2606014500",
+        "2606014600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606015400",
+        "2606013800",
+        "2605212030",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606015800-session-close-ipfs-did-and-self-certifying-resolution.md",
+      "id": "adr-2606015800-session-close-ipfs-did-and-self-certifying-resolution",
+      "title": "ADR-2606015800: Session close — IPFS-based + self-certifying DID resolution, mesh-runner serving",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-ipfs-did-and-self-certifying-resolution",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2606014800",
+        "2606013800",
+        "2605212030",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606015200",
+        "2606015400",
+        "2606015600"
       ],
       "last_verified": "2026-06-02",
       "amends": [],
