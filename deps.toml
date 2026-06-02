@@ -9458,6 +9458,14 @@ status_note = "Documentation-only session-close for the PR-triage + NSID-migrati
 path = "90-docs/adr/2606021400-session-close-nsid-com-etzhayyim-migration.md"
 adr = ["2606021200"]
 
+[[adrs]]
+id = "2606022000"
+title = "kabuto (兜) — World Public-Company Supply-Chain Knowledge Graph + atproto social + browser-native kotoba-wasm render Tier-B Actor R0"
+status = "proposed"
+status_note = "Tier-B actor kabuto 兜 (兜町 / Tokyo financial district) — corporate-markets sibling of the tsumugi/watatsuna intel-weaver family, reusing the shared org.corp.* id space. Datafies the world's PUBLIC (listed) companies as a kotoba EAVT knowledge graph: :company/* (ticker/exchange/LEI/sector), :company.address/* (registered HQ), :company.contact/* (public IR contact), first-class :supply.edge/* (supplier→customer, commodity + criticality), :company.process/* (BPMN refs). analyze.py surfaces concentration aggregate-first across FIVE maturity metrics (single-source, supplier-sector diversification index, supply-betweenness, tier-depth, regional-bloc, per-commodity HHI) — a resilience + transparency map, NEVER a target-list (G2). bpmn.py emits per-company well-formed BPMN 2.0 XML; social.py publishes app.bsky.feed.post via kotoba-server (G11-gated, Charter §2 scan); viz renders browser-native via the kotoba-wasm node (ADR-2606013600). Registered in INFRA_ACTORS + actor-profile-seed → discoverable at etzhayyim.com/search + /actors. Lexicons com.etzhayyim.kabuto.* (post-2606021400 NSID convention). R0 ships a real 292-company / 119-supply-edge seed across 15 sectors + 41 countries; 'register ALL public companies' (full GLEIF/EDGAR/exchange universe) is R1 G7 Council+operator gated. Honest R0: :representative seed, disclosed (not exhaustive-BOM) supplier edges, bounded criticality estimates, :synthesized BPMN templates."
+path = "90-docs/adr/2606022000-kabuto-public-company-intel-supply-chain-tier-b-actor-r0.md"
+adr = ["2606022000", "2606011800", "2606012600", "2605301600", "2605262130", "2605312345", "2606013600", "2606013800", "2605215000"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
