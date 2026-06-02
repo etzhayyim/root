@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 82 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 15 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 14 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 28 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 29 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 70 apps** (C + D = 15 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 69 apps** (C + D = 14 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -58,7 +58,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (28)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (29)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -193,6 +193,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   obligations + payroll + Stripe) + Liability (financial-reporting regulatory
   compliance + accounting fiduciary). The OSS *code* is separately public-eligible
   (mirrored); the running ERP *data layer* stays gftd.
+- **open-ossekai** — axis: **Custody (PII Tier-3)**. L1/L2/L3 intelligence +
+  Well-Becoming coaching (classification=pii-tier3): intelBrief / arbitrage /
+  wellBecomingPlan. L3 jocho (情緒) emotional scoring of individuals across 5 axes
+  + kyu/dan coaching, consent-gated per ADR-0018; L1 OSINT actor profiling.
+  Sensitive personal psychometric PII — Tier-3 stays server-side (Preferences/
+  E2E), never public AT records. Stays gftd.
 - **dougaka** — axis: **RisingWave + render compute**. Video-rendering (動画化)
   LangGraph pipeline (render + health graphs; com.etzhayyim.apps.dougaka.render)
   with RW-backed job state (RW_URL / vertex_). Pure GPU/render compute infra — no
@@ -242,14 +248,14 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
 
-## Bucket C — NEEDS-CODEMOD (15) — active backlog
+## Bucket C — NEEDS-CODEMOD (14) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-open-ossekai, open-ot (RW), open-patent (RW),
+open-ot (RW), open-patent (RW),
 os-messaging, patent (RW), pptx,
 public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
