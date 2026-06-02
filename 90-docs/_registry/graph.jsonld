@@ -11813,6 +11813,20 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606011700-hakken-etzhayyim-migration-override",
+      "type": "TechArticle",
+      "title": "ADR-2606011700: hakken product-discovery ingest → etzhayyim (override of vendor-keep ADR-2606011400)",
+      "status": "proposed",
+      "topic": "hakken-etzhayyim-migration-override",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hakken product-discovery ingest on the etzhayyim RW-free substrate",
+        "com.etzhayyim.apps.hakken.* record namespace",
+        "the etzhayyim/gftd boundary for hakken (ingest front vs fulfillment tail)"
+      ],
+      "lastVerified": "2026-06-01"
+    },
+    {
       "id": "doc:adr-2606011700-session-close-pr-queue-drain-and-664-engine-submodule-merge",
       "type": "TechArticle",
       "title": "ADR-2606011700: Session close — full PR-queue drain (366 merged) +",
