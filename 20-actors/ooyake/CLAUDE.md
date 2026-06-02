@@ -1,0 +1,97 @@
+# ooyake (公) — CLAUDE actor guide
+
+**World government atlas — civic wayfinding map.** Tier-B ·
+`did:web:ooyake.etzhayyim.com` · ADR-2606021600 ·
+**R0 scaffold (no cells run, no live ingest, no served DIDs)**.
+
+## What this actor IS
+
+The **read-side structural SSoT** of public administration. ooyake enumerates
+every government unit — supranational → country → region/subdivision →
+prefecture → municipality/ward → ministry (省) → agency (庁) → bureau (局) →
+division (課) → section → **窓口 (madoguchi)** — as a recursive kotoba-Datomic
+tree, each unit carrying its **住所 / 窓口 / 書式 / 手続き / BPMN**.
+
+It is the map that **danjo** (watches the state), **kanae** (fiscal-flow viz),
+**tsumugi** (power-graph), **toritsugi** (citizen procedure concierge) and
+**himotoki** (disclosure) all consume for the *who / where / how* of government —
+so they stop re-deriving it ad hoc.
+
+```
+:gov.unit/* (recursive parent tree)
+   ├─ :gov.address/*   住所
+   ├─ :gov.window/*    窓口 ── handles ──▶ :gov.procedure/*
+   └─ :gov.procedure/* 手続き ── form ──▶ :gov.form/* (→ chigiri template)
+                       └─ bpmn ──▶ :gov.bpmn/* (00-contracts/bpmn/.../ooyake/)
+                       └─ toritsugi-ref ──▶ app.etzhayyim.toritsugi.procedure (delivery)
+   reconcile: :gov.unit/organism ──▶ :organism (engi) for tsumugi's 縁/取 graph
+```
+
+Schema: `00-contracts/schemas/gov-atlas-ontology.kotoba.edn`.
+Seed (proof-of-model): `registry/gov-units.seed.edn`.
+
+## Posture (the single most important thing)
+
+ooyake is an **OBSERVATIONAL MIRROR + civic wayfinding map**, exactly like
+tsumugi ("accountability map, NEVER a target-list") and watatsuna ("resilience
+map, NEVER a target-list"). It maps the state **for citizens to find services**.
+It is **read-only** and it is **not the government**.
+
+## Do NOT (constitutional invariants — ADR-2606021600 §4)
+
+- **Do not** let the per-unit atlas DID (`did:web:etzhayyim.com:gov:<iso3>:...`)
+  claim to BE the government, act as an official channel, or issue/accept
+  anything on a government's behalf. It is an etzhayyim **mirror record** of a
+  real public body (G3, §2(c) impersonation ban). The DID-doc must declare the
+  mirror relation + link the body's `official-url` / `official-did`.
+- **Do not** ingest from anything but **public official sources**; respect
+  robots.txt / ToS / rate-limits; never access behind-auth; never circumvent
+  controls (G4).
+- **Do not** write a unit/address/window/form/procedure without `provenance` +
+  `last-verified` + `sourcing`; **never** count `:representative` rows as
+  coverage; **never** invent a procedure without a cited `legal-basis` (G5).
+- **Do not** store any official's **personal/home contact** — public
+  switchboard / 窓口 role-contact only, data-minimized (G6).
+- **Do not** file, submit, or mutate a government record — that is **toritsugi**
+  (gated). **Do not** audit/adjudicate — that is **danjo**. ooyake only
+  catalogs (G9).
+- **Do not** derive an attack-surface / SPOF / "weak-point" map of the state.
+  Civic wayfinding only (G10, Transparent Force §1.12).
+- **Do not** rank governments or take a political position — descriptive,
+  neutral (G11).
+- **Do not** sell the atlas as a data product — public good, donation-only (G8).
+- **Do not** use any inference path but Murakumo (G7, ADR-2605215000).
+
+## Boundary with toritsugi / chigiri / danjo / tsumugi
+
+- **toritsugi** = *delivers* a procedure to the citizen (guide/draft/submit/
+  track). ooyake = *catalogs* who/where/structure. `:gov.procedure/toritsugi-ref`
+  links them; no duplication.
+- **chigiri** = *owns* the UPL-bounded fillable form templates. ooyake only
+  points via `:gov.form/chigiri-ref`.
+- **danjo** = *audits* state open-data. ooyake = *maps* structure; danjo consumes
+  the atlas.
+- **tsumugi** = *karma* (縁/取) over `:organism` nodes. ooyake = *structure*.
+  `:gov.unit/organism` reconciles the SAME unit across both graphs.
+
+## Legacy `gov*` stubs
+
+`00-contracts/bpmn/app/etzhayyim/gov<ISO3>/` (196 country dirs, ~1,574 BPMN
+stubs, legacy `ai.gftd.gov*` namespace) + `90-docs/openapi/gov*.openapi.json`
+(141 skeletons) are **subsumed** by ooyake's `:gov.*` graph as their kotoba-native
+owner. The `ai.gftd.gov*` → `app.etzhayyim.ooyake.*` rename is deferred to the
+gated Step-8 `gftd-*` cutover (root CLAUDE.md §Do-Not) — **do not rename them
+here**.
+
+## Coverage honesty
+
+R0 ships a **proof-of-model seed only** (the JP MOF→NTA→税務署 + 都→区→窓口
+chain + a handful of country/ministry rows), **all `:unverified-seed` /
+`:representative`**. This is **not** coverage. Report maturity per
+ADR-2605250680 (49.18/100 baseline). Coverage is gated by `:sourcing` (G5) and
+grows only via the `reconcile` / `address_ingest` cells once Council ratifies.
+
+## Inference
+
+Murakumo-only (LiteLLM 127.0.0.1:4000 / EVO-X2 LAN / per-node Ollama). No vendor
+LLM API. See ADR-2605215000.
