@@ -237,6 +237,43 @@ Trade-offs:
   preserves source-limited disclosure instead of pretending all platforms reveal
   the same data.
 
+# R0 Design-Maturity Addendum — 2026-06-02
+
+The R0 design scaffold has been matured to its design cap without enabling live
+collection.
+
+Delivered artifacts:
+
+- actor manifest/README plus coverage and maturity ledgers under
+  `20-actors/akashi/`
+- ten `app.etzhayyim.akashi.*` Lexicon records
+- source catalog and source-policy review registry
+- source-policy approval transaction schema with a fixture-only example and
+  rollback-to-disabled requirement
+- seven `20-actors/magatama/cells/akashi_*` cell scaffolds that raise at import
+  until ADR-2606022300 R1 activation gates are attested
+- fixture-only regulator bulk parser, lexicon-shape validator, dry-run CLI,
+  dry-run golden summary, optional-field fixture, and negative fixtures
+- closure fixtures for `adDisclosureLink`, `adTransparencyReport`, and
+  `malakEvidenceCandidate`
+
+Verification:
+
+- `test_akashi_invariants.py` has 18 passing invariants.
+- The dry-run CLI emits `networkAccess=false`, `writes=false`, and
+  `totalRecords=15`.
+- Parser output validates against the akashi Lexicons.
+- Negative fixtures prove malformed disclosure records and malak-imported
+  closure records are rejected at R0.
+
+Still not enabled:
+
+- no live adapter
+- no platform API/page collection
+- no scraping, login, sockpuppet access, or anti-bot bypass
+- no source is marked `covered-r1`
+- no malak import; akashi emits candidate-only evidence only
+
 # References
 
 - [danjo public-accountability actor](2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md)

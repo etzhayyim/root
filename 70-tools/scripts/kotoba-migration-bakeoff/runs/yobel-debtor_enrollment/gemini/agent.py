@@ -1,30 +1,30 @@
-"""agent.py — DebtorEnrollmentCell compiled to WASM.
-
-Port of `original_cell.py` onto the WASM-native `kotoba_langgraph` API.
-
-Build:
-    bash /Users/junkawasaki/github/etzhayyim-root/40-engine/kotoba/scripts/build-pywasm.sh agent.py agent.wasm
-"""
-
 from __future__ import annotations
-from typing import Any, Literal
+from typing import Literal, Any
 import wit_world
 
 from kotoba_langgraph import StateGraph, KotobaCheckpointer, START, END, handle_invoke
 import kotoba_langgraph._cbor  # noqa: F401
 import kotoba_langgraph._entry  # noqa: F401
 
-# Constants and types from original_cell.py
+# --- Constants & Types ---
+RiteType = Literal[
+    "shmita_7yr",
+    "yobel_50yr",
+    "tokusei_rei",
+    "religious_jubilee",
+    "political_amnesty",
+]
+
 PROHIBITED_INSTRUMENTS_R13 = frozenset({"liquidation", "margin_call", "seizure"})
 
-# Node functions adapted from original_cell.py
+# --- Node functions ---
 
 def validate_input(state: dict) -> dict:
     valid = bool(state.get("rite_id")) and bool(state.get("debtor_did"))
     return {"input_valid": valid}
 
 def load_rite_context(state: dict) -> dict:
-    # rite_registry_port is None in this standalone WASM environment
+    # Port logic: if rite_registry_port is None, return these defaults from original
     return {
         "rite_status": "active",
         "rite_type": "shmita_7yr",
@@ -33,7 +33,7 @@ def load_rite_context(state: dict) -> dict:
     }
 
 def verify_debtor_sbt(state: dict) -> dict:
-    # council_sbt_port and charter_compliance_port are None
+    # Port logic: if council_sbt_port / charter_compliance_port are None
     debtor = state.get("debtor_did", "")
     sbt = 0
     sbt_entity_type = "unknown"
@@ -47,7 +47,7 @@ def verify_debtor_sbt(state: dict) -> dict:
     }
 
 def cross_check_creditor_enrollments(state: dict) -> dict:
-    # creditor_enrollment_port is None
+    # Port logic: if creditor_enrollment_port is None
     return {"matched_debts": []}
 
 def run_eligibility_dmn(state: dict) -> dict:
@@ -63,6 +63,7 @@ def run_eligibility_dmn(state: dict) -> dict:
     in_scope = ("ALL" in scope) or (jurisdiction in scope)
     debts = state.get("matched_debts", [])
 
+    # R14 short-circuit
     if declared_entity_type != "natural_person" or sbt_entity_type != "natural_person":
         return {
             "eligible": False,
@@ -73,6 +74,7 @@ def run_eligibility_dmn(state: dict) -> dict:
             ],
         }
 
+    # R12 short-circuit
     if sbt < 1:
         return {
             "eligible": False,
@@ -80,6 +82,7 @@ def run_eligibility_dmn(state: dict) -> dict:
             "dmn_reasons": ["no Council SBT — Charter §1.13 SBT-based identity requirement not met"],
         }
 
+    # R13 short-circuit
     prohibited = [d for d in debts if d.get("instrument") in PROHIBITED_INSTRUMENTS_R13]
     if prohibited:
         return {
@@ -90,6 +93,7 @@ def run_eligibility_dmn(state: dict) -> dict:
             ],
         }
 
+    # Rite-type-specific logic
     if rite_type == "shmita_7yr":
         if not community:
             return {"eligible": False, "dmn_rule_fired": "R3", "dmn_reasons": ["shmita: not a community member (Deut 15:3)"]}
@@ -130,11 +134,12 @@ def run_eligibility_dmn(state: dict) -> dict:
     return {"eligible": False, "dmn_rule_fired": "fallthrough", "dmn_reasons": [f"unknown riteType: {rite_type}"]}
 
 def encrypt_proof(state: dict) -> dict:
-    # envelope_crypto is None
+    if not state.get("eligibility_proof"):
+        return {"encrypted_proof_cid": ""}
     return {"encrypted_proof_cid": "ipfs://stub-proof"}
 
 def anchor_enrollment(state: dict) -> dict:
-    # anchor_bridge is None, anchor=True
+    """Mock of anchor_bridge.write_and_anchor with anchor=True."""
     enrollment_id = f"{state['rite_id']}-debt-{state['debtor_did'].split(':')[-1][:8]}"
     pairing = "paired" if state.get("matched_debts") else "unpaired"
     return {
@@ -144,7 +149,7 @@ def anchor_enrollment(state: dict) -> dict:
     }
 
 def anchor_enrollment_ineligible(state: dict) -> dict:
-    # anchor_bridge is None, anchor=False
+    """Mock of anchor_bridge.write_and_anchor with anchor=False."""
     enrollment_id = f"{state['rite_id']}-debt-{state['debtor_did'].split(':')[-1][:8]}"
     pairing = "paired" if state.get("matched_debts") else "unpaired"
     return {
@@ -165,7 +170,7 @@ def post_dmn_router(state: dict) -> str:
         return "encrypt_proof"
     return "anchor_enrollment_ineligible"
 
-# Graph builder
+# --- Graph Construction ---
 _g = StateGraph(dict)
 
 _g.add_node("validate_input", validate_input)

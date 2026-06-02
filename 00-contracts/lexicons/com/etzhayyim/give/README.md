@@ -12,6 +12,7 @@ ADR-2605192130); these Lexicons are the AT Protocol counterparts.
 | `land.stewardSuccession` | Rotate stewardship voice on donated land (NFT never transferred) |
 | `vendorMissionDonationAttestation` | Vendor (etzhayyim.com) mission-surplus donation → Public Fund (ADR-2605301036) |
 | `vendorSurplusPolicy` | Council-attested vendor payout-ratio + reserve policy (ADR-2605301036 §6) |
+| `computeDonationAttestation` | **In-kind COMPUTE donation** — compute/storage given to the Murakumo mesh + kotoba substrate by a donated node (ameno browser inference / e7m CLI / kotoba pod). Non-titheable, uncompensated, imputed-value (ADR-2606012100) |
 
 ## Mission-Funding Earned-Revenue arm (ADR-2605301036)
 
@@ -30,6 +31,26 @@ structural invariants are enforced (and locked by
 
 Aggregate-only, no customer PII (toritate G10). Donated surplus routes via
 TitheRouter and is accounted by toritate (ADR-2605262900).
+
+## In-kind compute donation (ADR-2606012100)
+
+`computeDonationAttestation` recognizes **donating compute** as a donation. A
+supporter joins the Murakumo mesh (ADR-2605215000) and/or the kotoba substrate
+(ADR-2605262130) as a *donated first-party node* in one of three forms:
+
+- **ameno** — browser WebGPU/WebNN inference on frozen baien edge models (zero install, WASM-32, baien edge-target ADR-2605241900).
+- **e7m** — `e7m node join` registers a laptop/workstation as an Ollama/WASM node.
+- **kotoba** — a kotoba pod contributes IPFS block storage + Datom replication.
+
+It is the **mirror image of Basic High Income** (ADR-2605301020): there the
+religious-corp values in-kind *provision to* adherents at market-equivalent while
+no cash crosses; here a donor's in-kind *contribution* is imputed-valued for
+transparency while no cash crosses. Locked invariants on the record (`const`
+fields): `titheable=false` (no USDC to split — kisha precedent, ADR-2605192130 §5),
+`compensatedUsdMicros=0` (uncompensated gift — paying would be commercial GPU
+rental, Charter Rider §2(i)), `grantsBenefit=false` (never a path to benefits —
+anti-class G4), `bestEffort=true` (donated capacity is never an SLA). Public
+declaration lives on `https://etzhayyim.com/donate` + `/.well-known/donation.json`.
 
 ## Privacy / constitutional invariants
 

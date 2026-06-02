@@ -1,1 +1,0 @@
-import{_ as l}from"../chunks/BRHo7qa_.js";const e=!1,o=!0,r=!1,t=Object.freeze(Object.defineProperty({__proto__:null,csr:o,prerender:r,ssr:e},Symbol.toStringTag,{value:"Module"}));export{l as component,t as universal};

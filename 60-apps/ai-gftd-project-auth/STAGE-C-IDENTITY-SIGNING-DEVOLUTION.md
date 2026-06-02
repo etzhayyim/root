@@ -114,6 +114,46 @@ binding is then deleted.
 - [ ] No code path in `worker/src-ts/**` references `env.AUTH_KEYS_KEK` / `SS_REPO_SIGNING_KEK`.
 - [ ] `e7m verify --no-server-key` reports zero exemptions in the auth Worker.
 
+## C-3 / C-4 status + execution runbook (2026-06-02)
+
+**Landed in code (additive, non-breaking — verified, see ADR-2606014500):**
+- **C-2 server**: `app.etzhayyim.auth.registerSigningKey` stores a client-generated
+  public key only (`vertex_gftd_key_signing.key_custody_tier = human_self_custody`,
+  empty private columns — no KEK).
+- **C-3 verify**: `session-pop.ts::verifySessionPoP` + `POST
+  /xrpc/app.etzhayyim.auth.verifySessionPoP` (read-only Ed25519 JWS verification
+  against the registered public key; client↔worker interop cross-checked).
+- **C-3 issuance (additive login path)**: `POST
+  /xrpc/app.etzhayyim.auth.createSessionFromPoP` establishes a session from a
+  client PoP — login proof is the member's own signature, no server signing-key
+  custody involved. (Issues the standard HS256 session for downstream compat;
+  dropping HS256 in favour of downstream PoP verification is the broader migration.)
+- **C-4 instrument**: `logKekRead(site)` fires at all 3 `SS_REPO_SIGNING_KEK`
+  read sites (`subDid.persistSigningKey`, `signServiceAuth.decryptPrivateKey`,
+  `createPasskeyAccount.persistSigningKeys`).
+
+**C-4 execution runbook (OPERATOR action — NOT done in code; irreversible):**
+1. Migrate sign-up + agent provisioning to client-self-custody so server-assisted
+   paths (the 3 `logKekRead` sites) stop being hit for new identities. **Sign-up is
+   wired**: set `SS_KEY_CUSTODY_MODE=client_self_custody` and `createPasskeyAccount`
+   persists public-key-only rows (no KEK read). Stage it, confirm sign-up + later
+   `registerSigningKey` work, then make it the deployed default. **All 3 KEK sites
+   are now gated**: sub-DID persist also honours
+   `SS_KEY_CUSTODY_MODE=client_self_custody` (public-only, `agent_self_custody`),
+   and service-auth signing returns `409 ClientCustodyKey` (sign client-side) for a
+   client-custody key — both skip the KEK read. So a client-self-custody deployment
+   reads `SS_REPO_SIGNING_KEK` for no new identity; remaining `[kek-read]` lines
+   come only from legacy server-custody rows.
+2. Deploy; over a **30-day window**, grep Worker logs for `[kek-read]`. The window
+   passes only when the count is **zero** (each line names the offending site).
+3. While `[kek-read]` is still non-zero, the KEK MUST stay — those sites fail
+   closed without it (`SS_REPO_SIGNING_KEK required`). Do not delete.
+4. After 30 days of zero reads: drop the `encrypted_private_key` /
+   `wrapped_data_key` / `iv` columns (now always empty) from
+   `vertex_gftd_key_signing`, delete the `envelopeEncrypt`/`envelopeDecrypt` code,
+   then `wrangler secret delete SS_REPO_SIGNING_KEK`.
+5. Confirm `e7m verify --no-server-key` reports zero exemptions in the auth Worker.
+
 ## Rollback
 
 Each sub-stage (C-1 / C-2 / C-3 / C-4) is independently revertible.

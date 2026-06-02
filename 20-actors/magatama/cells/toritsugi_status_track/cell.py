@@ -13,7 +13,9 @@ inline PII); G11 Transparent Religious Force — track + appeal only, no coercio
 lawful 不服申立 via chigiri; Murakumo-only inference (ADR-2605215000).
 Output Lexicon(s): com.etzhayyim.toritsugi.statusTrack.
 
-R0 scaffold — import-time RuntimeError until R2.
+R0 scaffold — import-time RuntimeError until R2. The PURE, tested filing-deadline
+computation core already lands in the sibling module ``deadline.py`` (importable
+WITHOUT this gated wrapper); landing it does NOT activate this cell.
 """
 
 from __future__ import annotations

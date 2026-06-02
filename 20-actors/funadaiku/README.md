@@ -3,6 +3,8 @@
 > Tier-B actor · `did:web:etzhayyim.com:funadaiku` · ADR-2606013400 · **R0 scaffold**
 > Surface counterpart of **watatsumi** (綿津見 submersible) · reuses **kami-autodrive** ShipHydro GNC
 
+**Organism axis**: Axis 2 — Metabolism (代謝 / 産霊 musuhi) — generative production cycle: builds the zero-emission cargo ships the commons moves goods on (see [`90-docs/2606022500-organism-axis-affiliation-convention.md`](../../90-docs/2606022500-organism-axis-affiliation-convention.md))
+
 **船大工** (shipwright) designs and builds **zero-emission autonomous cargo ships**. It knits two
 things the repo already had but had never wired together: the **autonomy brain**
 (`kami-autodrive` `VehicleClass::Ship` → `dynamics::ShipHydro`, ADR-2606010600) and the

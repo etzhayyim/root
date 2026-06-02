@@ -9,3 +9,11 @@ public bulk export and is intentionally not fetched by any cell.
   `creativeDisclosure`, `deliveryDisclosure`, `landingEvidence`,
   `methodNote`, `sourcePolicySnapshot`
 - Boundary: fixture-only; no platform API or page collection
+
+Files:
+
+- `sample.json` covers a fuller source-disclosed record.
+- `missing_optional_fields.json` proves omitted optional delivery/advertiser
+  fields remain omitted instead of inferred.
+- `negative_missing_landing_url.json` proves malformed source records are
+  rejected before lexicon validation.

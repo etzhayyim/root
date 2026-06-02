@@ -14,7 +14,12 @@ input facts); G6 contract detail only in com.etzhayyim.encrypted.* (never
 inline); Murakumo-only inference (ADR-2605215000).
 Output Lexicon(s): com.etzhayyim.kurashimori.coolingOffAssessment.
 
-R0 scaffold — import-time RuntimeError until R1.
+R0 scaffold — import-time RuntimeError until R1. The PURE, tested computation
+core already lands in the sibling module ``cooloff.py`` (importable WITHOUT this
+gated wrapper); once Council ratifies (Lv6+ ≥3, post Bootstrap Council RFP
+2026-06-19) ``super_step`` will call ``cooloff.compute_assessment`` /
+``cooloff.to_assessment_record``. Landing that core does NOT activate this cell —
+the activation gate below remains the sole switch.
 """
 
 from __future__ import annotations
