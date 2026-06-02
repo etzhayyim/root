@@ -30,7 +30,7 @@ W Protocol core logic crate。AT Protocol + Signal Protocol を Bytecode Allianc
 
 ## WIT Interface
 
-`wit/gftd-w/w.wit` — `gftd:w@0.1.0`
+`wit/etzhayyim-w/w.wit` — `etzhayyim:w@0.1.0`
 
 | Interface | 責務 |
 |---|---|

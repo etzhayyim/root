@@ -50,7 +50,7 @@ pub struct BlockTransfer {
 pub struct FederationInvoke;
 
 impl FederationInvoke {
-    pub const INSTANCE: &'static str = "gftd:w/w-federation";
+    pub const INSTANCE: &'static str = "etzhayyim:w/w-federation";
 
     pub const FUNC_ANNOUNCE: &'static str = "announce";
     pub const FUNC_REQUEST_DIFF: &'static str = "request-diff";
@@ -65,7 +65,7 @@ mod tests {
 
     #[test]
     fn test_federation_constants() {
-        assert_eq!(FederationInvoke::INSTANCE, "gftd:w/w-federation");
+        assert_eq!(FederationInvoke::INSTANCE, "etzhayyim:w/w-federation");
         assert_eq!(FederationInvoke::FUNC_SYNC_CHANNEL, "sync-channel");
     }
 

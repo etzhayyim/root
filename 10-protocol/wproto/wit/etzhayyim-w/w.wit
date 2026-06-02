@@ -1,4 +1,4 @@
-package gftd:w@0.1.0;
+package etzhayyim:w@0.1.0;
 
 /// W Protocol core types.
 /// Wire format: Component Model binary (wRPC standard).
@@ -105,7 +105,7 @@ interface types {
 }
 
 /// W Protocol command — mutations.
-/// wRPC instance: "gftd:w/w-command"
+/// wRPC instance: "etzhayyim:w/w-command"
 interface w-command {
     use types.{
         w-envelope, w-channel, w-member,
@@ -168,7 +168,7 @@ interface w-command {
 }
 
 /// W Protocol query — reads.
-/// wRPC instance: "gftd:w/w-query"
+/// wRPC instance: "etzhayyim:w/w-query"
 interface w-query {
     use types.{
         w-envelope, w-channel, w-member, w-presence,
@@ -203,7 +203,7 @@ interface w-query {
 }
 
 /// W Protocol federation — MDAG-based cross-instance sync.
-/// wRPC instance: "gftd:w/w-federation"
+/// wRPC instance: "etzhayyim:w/w-federation"
 interface w-federation {
     use types.{w-sync-state, w-diff};
 

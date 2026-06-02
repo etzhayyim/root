@@ -47,10 +47,10 @@ pub struct WrpcContext {
 pub struct WrpcRouter;
 
 impl WrpcRouter {
-    pub const INSTANCE_COMMAND: &'static str = "gftd:w/w-command";
-    pub const INSTANCE_QUERY: &'static str = "gftd:w/w-query";
-    pub const INSTANCE_STREAM: &'static str = "gftd:w/w-stream";
-    pub const INSTANCE_FEDERATION: &'static str = "gftd:w/w-federation";
+    pub const INSTANCE_COMMAND: &'static str = "etzhayyim:w/w-command";
+    pub const INSTANCE_QUERY: &'static str = "etzhayyim:w/w-query";
+    pub const INSTANCE_STREAM: &'static str = "etzhayyim:w/w-stream";
+    pub const INSTANCE_FEDERATION: &'static str = "etzhayyim:w/w-federation";
 
     /// All wRPC instances served by W Protocol.
     pub fn instances() -> &'static [&'static str] {
@@ -100,9 +100,9 @@ mod tests {
     #[test]
     fn test_instances() {
         let instances = WrpcRouter::instances();
-        assert!(instances.contains(&"gftd:w/w-command"));
-        assert!(instances.contains(&"gftd:w/w-query"));
-        assert!(instances.contains(&"gftd:w/w-federation"));
+        assert!(instances.contains(&"etzhayyim:w/w-command"));
+        assert!(instances.contains(&"etzhayyim:w/w-query"));
+        assert!(instances.contains(&"etzhayyim:w/w-federation"));
         assert_eq!(instances.len(), 4);
     }
 
