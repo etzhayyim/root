@@ -1,0 +1,27 @@
+;; kuni-umi 国産 — site_survey cell (langgraph, WASM runtime)
+;; ADR-2605201400 · Phase 2 scaffold
+;; S0 / S1+ phase gate: survey site location, geolocation, land-registry anchor, zoning, environmental baseline.
+{:cell/id "site_survey"
+ :cell/glyph "🔍"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/entry "py/agent.py"
+ :cell/handler "handle_site_survey"
+ :cell/doc "Member-initiated site survey → geolocation capture (satellite + drone) → land-registry anchor verification (kuni-umi LandRegistry or OceanStewardship) → zoning check → environmental baseline attestation (soil/air/water) → output :siteAttestation (G10 gated). No field robots until R1 + Council Lv6+ 3-sig clearance per ADR-2605201400 §7."
+ :cell/state-graph
+ {:nodes [:parse-intent :verify-land-registry :check-zoning :capture-baseline :compile-attestation]
+  :entry :parse-intent
+  :edges [[:parse-intent :verify-land-registry]
+          [:verify-land-registry :check-zoning]
+          [:check-zoning :capture-baseline]
+          [:capture-baseline :compile-attestation]
+          [:compile-attestation :end]]}
+ :cell/llm
+ {:provider :murakumo
+  :endpoint "127.0.0.1:4000"
+  :model "gemma3:4b"
+  :charter-rider true}
+ :cell/gates ["G1" "G5" "G6" "G10" "G14"]
+ :cell/kotoba
+ {:reads [:site/location :site/land-registry-anchor :site/zoning-status]
+  :writes [:site/id :site/geolocation :site/baseline-attestation :site/council-gates]}}

@@ -35,6 +35,46 @@ export interface ActorVerificationMethod {
 
 export type ActorSource = "kv" | "kotoba" | "compiled";
 
+/** Return a copy of `rec` with an Ed25519 verificationMethod for
+ *  `publicKeyMultibase` merged in (replacing any existing `#session-key`). This
+ *  is the publish-path counterpart to the auth Worker's `registerSigningKey`:
+ *  writing the registered key into the actor record is what makes it appear in
+ *  did.json and lets a did:web Signal binding verify (ADR-2606014000 D4).
+ *  Defined below `ed25519VerificationMethod` is hoisted — see that function. */
+export function withVerificationMethod(
+  rec: ActorRecord,
+  publicKeyMultibase: string,
+): ActorRecord {
+  const vm = ed25519VerificationMethod(rec.did, publicKeyMultibase);
+  const kept = rec.vm.filter((v) => v.id !== vm.id);
+  return { ...rec, vm: [...kept, vm] };
+}
+
+/** Ed25519 verification-method type understood by the kotoba-auth did:web
+ *  resolver (`DidDocument::ed25519_public_key`). */
+export const ED25519_VM_TYPE = "Ed25519VerificationKey2020";
+
+/**
+ * Build an Ed25519 verificationMethod entry for an actor's DID document from a
+ * `publicKeyMultibase` (`z…`). The key is NOT minted here — it is the member's
+ * **client-self-custodied** session key registered via Stage C-2
+ * (`registerSigningKey`, ADR-2606014500) or an on-chain ERC725 mirror. Either
+ * way the server never holds the private key (ADR-2605231525). Populating
+ * `rec.vm` with this is what lets `ai.gftd.signal.resolve.identity` verify a
+ * did:web Signal binding (ADR-2606014000 D4) instead of returning unverified.
+ */
+export function ed25519VerificationMethod(
+  did: string,
+  publicKeyMultibase: string,
+): ActorVerificationMethod {
+  return {
+    id: `${did}#session-key`,
+    type: ED25519_VM_TYPE,
+    controller: did,
+    publicKeyMultibase,
+  };
+}
+
 export interface ActorRecord {
   readonly handle: string;
   readonly did: string; // did:web:etzhayyim.com:actor:<handle>
@@ -171,7 +211,13 @@ export function toDidDoc(
       `did:erc725:base:${env.AUTHZ_CONTRACT_ADDRESS}#__rootId-pending-chain-lookup__`,
     );
   }
-  return {
+  // Reference every Ed25519 verification method under authentication +
+  // assertionMethod so the registered/mirrored key is usable for DID-auth and
+  // for verifying assertions (e.g. the Signal-identity binding, ADR-2606014000).
+  const ed25519Ids = rec.vm
+    .filter((v) => v["type"] === ED25519_VM_TYPE)
+    .map((v) => v.id);
+  const doc: Record<string, unknown> = {
     "@context": [
       "https://www.w3.org/ns/did/v1",
       "https://w3id.org/security/suites/jws-2020/v1",
@@ -181,7 +227,7 @@ export function toDidDoc(
     verificationMethod: rec.vm.map((v) => ({ ...v })),
     service: rec.service.map((s) => ({ ...s })),
     _meta: {
-      adr: ["2605212030", "2605241800", "2606013800", ...rec.adr],
+      adr: ["2605212030", "2605241800", "2606013800", "2606014000", ...rec.adr],
       source: rec.source,
       kind: rec.kind,
       status: rec.status,
@@ -190,10 +236,15 @@ export function toDidDoc(
       primarySchema: rec.primarySchema,
       note:
         rec.vm.length === 0
-          ? "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
-          : "verificationMethod mirrors on-chain ERC725 Root.activeKey",
+          ? "verificationMethod empty — member session-key / ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
+          : "verificationMethod = member client-registered session key or on-chain ERC725 mirror (never server-minted)",
     },
   };
+  if (ed25519Ids.length > 0) {
+    doc.authentication = ed25519Ids;
+    doc.assertionMethod = ed25519Ids;
+  }
+  return doc;
 }
 
 /** ActorRecord → app.bsky.actor.getProfile view (+ etzhayyim extensions that

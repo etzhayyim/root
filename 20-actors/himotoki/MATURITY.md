@@ -1,0 +1,76 @@
+# himotoki (繙き) — Maturity Ledger
+
+`/loop` の進捗台帳。各イテレーションで成熟度を上げ、ここに記録する。
+honest framing: できていないことは「未」と明記する。
+
+- Actor: `did:web:himotoki.etzhayyim.com` · ADR-2605302130 · **R0 scaffold**
+- 不変条件(全イテレーション厳守): R0 では cell 非実行 / dispatch なし ·
+  DSAR = own-data-only + consent + DID/SBT binding (G3) · 真の requester 明示・
+  pretext 禁止 (G4) · 法的助言禁止 → chigiri + external counsel (G5) · 開示 PII は
+  `app.etzhayyim.encrypted.*` DID-bound envelope のみ・MST 平文禁止 (G6) ·
+  Murakumo-only (G7) · mass-file/flood 禁止 (G8) · lawful official channel only (G10) ·
+  **G14 verified-procedure-only**(unverified-seed には live dispatch 不可)·
+  G8 非捏造 · コミットはユーザー明示時のみ
+
+## 成熟度チェックリスト
+
+| # | 項目 | 状態 | 完了イテレーション |
+|---|---|---|---|
+| 1 | ADR-2605302130 (master) | ✅ | init |
+| 2 | manifest.jsonld + README + CLAUDE.md | ✅ | init |
+| 3 | disclosure-target registry seed (unverified-seed) | ✅ | init |
+| 4 | DSAR/FOIA 主要 data-controller 窓口 (JP/US 中心) | ✅ | init |
+| 5 | **worldwide multi-jurisdiction 拡張** (US/EU/UK-CW/INTL-ROW) | ✅ | **iter-1** |
+| 6 | cell scaffold (`magatama.cells.himotoki_*`, import時 RuntimeError) | 未 | — |
+| 7 | cell ↔ manifest 整合 invariants test | 未 | — |
+| 8 | G3–G14 機械検証 node guard | 未 | — |
+| 9 | provenance URL 再フェッチ検証ワークフロー (medium → high 昇格) | 未 | — |
+| 10 | kotoba KG seed への himotoki エンティティ追加 | 未(node-local) | — |
+| 11 | murakumo fleet.toml への cell placement | R1延期 | — |
+
+## イテレーション記録
+
+### iter-1 (2026-06-02) — worldwide coverage 拡張
+**上げた項目: #5 — disclosure-target registry の worldwide multi-jurisdiction 拡張。**
+`registry/targets.seed.json` に新規 **25 件**を merge(既存 6 件は全保持、合計 **31 件**)。
+追加 bloc 内訳:
+- **US** (6): 連邦 FOIA (5 U.S.C. §552) / Privacy Act (§552a) / California CCPA-CPRA (Right to
+  Know, to the business) / California Public Records Act (Gov.Code §7920) / New York FOIL
+  (POL Art.6) / Texas PIA (Gov.Code ch.552)。
+- **EU** (6): GDPR Art.15 SAR (any controller) / Reg.1049/2001 EU institution documents /
+  Germany IFG (federal FOIA) / Germany Art.15 DSGVO + §34 BDSG / France droit d'accès RGPD
+  (CNIL fallback) / France CADA (CRPA Livre III)。
+- **UK-CW** (7): UK SAR (UK GDPR Art.15, ICO) / UK FOI Act 2000 / Canada ATIP (Privacy Act +
+  ATIA) / Australia APP 12 access / Australia FOI Act 1982 / India RTI Act 2005 (RTI Online) /
+  Singapore PDPA Access & Correction (ss.21–22)。
+- **INTL-ROW** (6): Brazil LGPD Art.18 DSAR / Brazil LAI via Fala.BR / Mexico ARCO (LFPDPPP,
+  post-INAI) / Mexico PNT SISAI 2.0 (LGTAIP + LGPDPPSO) / South Korea PIPA Art.35 / South
+  Korea OIDA via open.go.kr。
+
+正規化: 各エントリを既存スキーマ (`organization` / `jurisdiction` / `regime` / `altRegimes` /
+`channelType` / `portalUrl` | `contactEmail` | `postalAddress` / `formRef` /
+`statutoryDeadlineDays` / `language` / `provenance` / `lastVerified` / `verificationStatus` /
+`notes`) に写像。研究由来の `authority` / `legalBasis` は追加フィールドとして保持し、`title` /
+`channel` / `id` は notes と既存フィールドへ畳み込み。`_comment` を worldwide 拡張を反映して更新。
+
+**G14/G8 honest framing**: 新規 **25 件すべて** `verificationStatus: "unverified-seed"`、
+`lastVerified: "2026-06-02T00:00:00Z"`。全件 `provenance` URL・言語コード (en/de/fr/pt/es/ko)・
+境界 caveat("Consent-gated, identity-bound, own-data-only (DSAR) or public-records (FOIA).
+Transparent, non-pretextual, rate-limited, lawful-channel-only. No legal advice.")を notes に内包。
+DSAR は own-data-only、FOIA は public-records と各 notes で明示区別。`organization` で dedup 済み
+(重複ゼロ)。捏造の contact data は追加せず、調査で grounded な channel のみ採録(G8: inflated
+count より honest coverage を優先)。Mexico 2 件は post-INAI 再編が 2026 時点で settling 中の
+ため confidence medium として notes に明記。
+
+検証: `python3 -c json.load` で JSON valid・31 entries・bloc 内訳・dedup・新規 25 件の
+required field (verificationStatus / provenance / language / boundary caveat) 全 pass。
+
+**注(honest)**: registry はあくまで routing/wayfinding scaffold。R0 では cell 非実行・dispatch
+なしのため live use は構造的に不可。次イテレーション候補 = #6 (cell scaffold) または #9
+(provenance 再フェッチで medium → high 昇格)。
+
+### iter-2 (2026-06-02) — fail-closed registry invariants test 追加・green
+`70-tools/scripts/audit/test_himotoki_registry_seed.py` を新規追加(R0-safe: test-only / network-free / cell 非実行)。7 invariant を fail-closed で検証 — (1) JSON parse + 非空 `targets`、(2) `organization` 一意(重複ゼロ)、(3) G14: 全件 `verificationStatus=unverified-seed`、(4) 全件 https `provenance` + `lastVerified`、(5) jurisdiction 多様性(>=5 distinct = worldwide regression guard)、(6) per-entry `notes` 非空 + registry 全体の境界 regime(own-data-only / lawful-channel)参照、(7) top-level integer `freshnessWindowDays`。`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest ... -q` で **7 passed**(env の langsmith pytest-plugin が pydantic-core 不整合で autoload 失敗するため plugin autoload を無効化して実行;テスト自体はクリーン)。
+
+### iter-3 (2026-06-02) — lexicon `disclosureTarget` を seed と整合(extended, additive/permissive, R0)
+`00-contracts/lexicons/app/etzhayyim/himotoki/disclosureTarget.json` を **EXTEND**(既存フィールド・required は無改変、additive only / permissive R0、`additionalProperties:false` 不追加)。seed `registry/targets.seed.json` の全フィールド・全 knownValue を被覆 — 新規プロパティ **4 件**(`bloc` [JP/US/EU/UK-CW/INTL-ROW] / `altRegimes` [array] / `authority` / `legalBasis`)+ `regime.knownValues` を 6 → **30**(gdpr/ccpa/foia-us-5usc552/privacy-act-us-5usc552a/foia-us-{ca-cpra,ny-foil,tx-pia}/foia-eu-1049-2001/foia-de-ifg/bdsg-34/foia-fr-crpa/uk-gdpr-15/foia-uk-2000/privacy-act-ca/foia-ca-atia/privacy-act-au-app12/foia-au-1982/foia-in-rti-2005/pdpa-sg/lgpd-18/foia-br-lai/lfpdppp-arco/foia-mx-lgtaip/lgpdppso-arco/pipa-35/foia-kr-oida … 既存 6 値も全保持)、`jurisdiction.maxLength` 8 → 16(eu-wide 等を収容)。憲法境界を description 文に明記保持(UPL / 法的助言なし / informational routing only / no representation・fees・campaigning・official-channel)。クロスチェック: seed の regime/altRegime 28 値 + 全 bloc が lexicon knownValues に **MISSING NONE**。検証: `lexicon-primary-types.mjs` OK(17 files)・`nsid-lexicon-exists.mjs` OK 緑。`lexicon-const-name-collision-check.mjs` は本ファイル無関係の既存衝突(`app.etzhayyim.apps.ipaddress.analyzeIp`)で fail — 当該 validator は私の編集前から同一理由で fail(stash 確認済み)、本ファイルが原因の新規 fail なし。

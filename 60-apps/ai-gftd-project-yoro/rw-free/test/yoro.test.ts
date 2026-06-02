@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { MockEtzhayyim } from "@etzhayyim/sdk-mock";
 import {
   projectEntity,
@@ -275,5 +275,88 @@ describe("yoro rw-free", () => {
       expect(result.actors).toEqual([]);
       expect(result.cursor).toBeUndefined();
     });
+  });
+});
+
+// ─── kotoba Datom-log read path (ADR-2606013200) ────────────────────────
+describe("yoro rw-free — kotoba read path", () => {
+  const DID = "did:web:etzhayyim.com";
+  const ALICE = "did:web:alice.etzhayyim.com";
+
+  function datom(e: string, a: string, v: unknown) {
+    return { e, a, v_edn: JSON.stringify(v), t: "tx0", added: true };
+  }
+
+  const DATOMS = [
+    datom("ep1", ":yoro.post/uri", `at://${DID}/app.bsky.feed.post/p1`),
+    datom("ep1", ":yoro.post/author", DID),
+    datom("ep1", ":yoro.post/text", "hello from kotoba"),
+    datom("ep1", ":yoro.post/createdAt", "2026-06-01T00:00:00Z"),
+    datom("ep1", ":yoro.post/cid", "bafcidpost1"),
+    datom("epr", ":yoro.profile/did", DID),
+    datom("epr", ":yoro.profile/handle", "etzhayyim.com"),
+    datom("epr", ":yoro.profile/displayName", "Etz Hayyim"),
+    datom("ef1", ":yoro.follow/uri", `at://${DID}/app.bsky.graph.follow/f1`),
+    datom("ef1", ":yoro.follow/follower", DID),
+    datom("ef1", ":yoro.follow/subject", ALICE),
+    datom("ef1", ":yoro.follow/createdAt", "2026-06-01T00:00:00Z"),
+  ];
+
+  let e: any;
+  const origFetch = globalThis.fetch;
+
+  beforeEach(() => {
+    e = { config: { kotobaUrl: "http://127.0.0.1:8077/", yoroGraphCid: "bafgraph" } };
+    globalThis.fetch = (async (_url: string, _init: unknown) => ({
+      ok: true,
+      json: async () => ({ datoms: DATOMS }),
+    })) as unknown as typeof fetch;
+  });
+
+  afterEach(() => {
+    globalThis.fetch = origFetch;
+  });
+
+  it("getDiscoverFeed reads posts from kotoba", async () => {
+    const r = await getDiscoverFeed(e, { limit: 10 });
+    expect(r.feed.length).toBe(1);
+    expect(r.feed[0].post.uri).toBe(`at://${DID}/app.bsky.feed.post/p1`);
+    expect(r.feed[0].post.author.handle).toBe("etzhayyim.com");
+    expect(r.feed[0].post.author.displayName).toBe("Etz Hayyim");
+  });
+
+  it("getAuthorFeed filters by author", async () => {
+    const mine = await getAuthorFeed(e, { actor: DID });
+    expect(mine.feed.length).toBe(1);
+    const none = await getAuthorFeed(e, { actor: ALICE });
+    expect(none.feed.length).toBe(0);
+  });
+
+  it("getFollows returns followed subjects", async () => {
+    const r = await getFollows(e, { actor: DID });
+    expect(r.follows.map((p) => p.did)).toContain(ALICE);
+  });
+
+  it("getFollowers returns the follower for the subject", async () => {
+    const r = await getFollowers(e, { actor: ALICE });
+    expect(r.followers.map((p) => p.did)).toContain(DID);
+  });
+
+  it("getProfile returns kotoba profile with derived counts", async () => {
+    const r = await getProfile(e, { actor: DID });
+    expect(r.profile?.displayName).toBe("Etz Hayyim");
+    expect(r.profile?.postsCount).toBe(1);
+    expect(r.profile?.followsCount).toBe(1);
+  });
+
+  it("searchActors matches handle/displayName", async () => {
+    const r = await searchActors(e, { q: "etz" });
+    expect(r.actors.map((p) => p.did)).toContain(DID);
+  });
+
+  it("degrades to empty/PDS when kotoba unreachable", async () => {
+    globalThis.fetch = (async () => ({ ok: false, status: 502, json: async () => ({}) })) as unknown as typeof fetch;
+    const r = await getFollows(e, { actor: DID });
+    expect(r.follows).toEqual([]);
   });
 });

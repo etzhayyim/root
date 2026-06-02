@@ -39,6 +39,22 @@ hull_ring_fabrication → section_assembly → weld_inspection → system_integr
 
 **G1**: All firmware open-source (Apache 2.0 + Charter Rider).
 
+## Cable-Laying Robotics Fleet (ADR-2606012600)
+
+Operational counterpart to **watatsuna 綿津綱** (the world submarine-cable-network knowledge-graph actor). watatsuna *knows* where the network is fragile; this fleet *acts* — lay / bury / splice / repair / monitor. Missions are planned OFF watatsuna's resilience output (lay diverse routes where `redundancy-gap`; pre-stage repair where `chokepoint-load` is high). Manifest: `data/cable-laying-fleet.kotoba.edn`.
+
+**Tasking input (R2)**: `watatsuna/methods/plan.py` emits `watatsuna/out/resilience-plan.kotoba.edn` — `:plan/*` recommendations (`:lay-diverse-route` / `:pre-stage-repair` / `:monitor`) that name the robot classes below. The plan contains **redundancy + repair + monitor only — no interdiction output by construction** (G2 + N8).
+
+| Robot | Glyph | Role | Status |
+|---|---|---|---|
+| Tsuna-suki | 綱鋤 | Towed sea plough / burial trencher (≤3 m, ≤2000 m) | R1+ |
+| Horinuki | 掘抜 | Jet-trenching burial / PLIB ROV | R2+ |
+| Tsugite | 接手 | Splice / repeater-housing manipulation ROV (inherits Otete-marine) | R2+ |
+| Tedori | 手繰 | Grapnel cable-recovery ROV — **REPAIR-ONLY** | R2+ |
+| Kikimimi | 聞耳 | DAS passive cable-health monitor → feeds watatsuna `flagCableFault` | R1+ |
+
+**N8 invariant (CRITICAL).** Every unit acts ONLY to lay / bury / splice / repair / monitor. Cutting / interdiction / sabotage = **N8 hard-prohibited** (Charter Rider §2(d)). **Tedori** carries grapnel cut-and-hold for recovering a *faulted* cable to deck for re-splice; it operates solely under a logged, **G4 witness-quorum (≥2 robots)** repair work-order and is NEVER tasked against a healthy cable. **Kikimimi** monitoring exports no location data beyond the cable's own route (watatsuna G1).
+
 ## Constitutional Gates (G1–G14)
 
 **IMMUTABLE R0–R3.** Stored in `manifest.jsonld` under `watatsumi:constitutionalGates`. Changes require Council Lv6+ supermajority + new ADR.

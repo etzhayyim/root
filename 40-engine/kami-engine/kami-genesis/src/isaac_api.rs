@@ -78,19 +78,22 @@ impl IsaacWorld {
 
     /// Borrow an Isaac-shaped `ArticulationView` for one prim.
     pub fn articulation(&self, h: ArticulationHandle) -> Option<ArticulationView<'_>> {
-        self.inner.get(h).ok().map(|_| ArticulationView { world: &self.inner, h })
+        self.inner.get(h).ok().map(|_| ArticulationView {
+            world: &self.inner,
+            h,
+        })
     }
 
     /// Mutable view (needed for `set_joint_efforts`).
-    pub fn articulation_mut(
-        &mut self,
-        h: ArticulationHandle,
-    ) -> Option<ArticulationViewMut<'_>> {
+    pub fn articulation_mut(&mut self, h: ArticulationHandle) -> Option<ArticulationViewMut<'_>> {
         // Validate handle first to keep the Option contract honest.
         if self.inner.get(h).is_err() {
             return None;
         }
-        Some(ArticulationViewMut { world: &mut self.inner, h })
+        Some(ArticulationViewMut {
+            world: &mut self.inner,
+            h,
+        })
     }
 
     /// Escape hatch: the underlying kami-genesis world (non-Isaac surface).
@@ -109,12 +112,18 @@ pub struct ArticulationView<'a> {
 impl ArticulationView<'_> {
     /// `articulation.get_joint_positions()` → `[n_dof]`.
     pub fn get_joint_positions(&self) -> Vec<f32> {
-        self.world.get(self.h).map(|a| a.joint_positions()).unwrap_or_default()
+        self.world
+            .get(self.h)
+            .map(|a| a.joint_positions())
+            .unwrap_or_default()
     }
 
     /// `articulation.get_joint_velocities()` → `[n_dof]`.
     pub fn get_joint_velocities(&self) -> Vec<f32> {
-        self.world.get(self.h).map(|a| a.joint_velocities()).unwrap_or_default()
+        self.world
+            .get(self.h)
+            .map(|a| a.joint_velocities())
+            .unwrap_or_default()
     }
 
     /// `articulation.num_dof` (property).
@@ -126,7 +135,10 @@ impl ArticulationView<'_> {
     /// Isaac returns `[num_envs, num_links, 6, n_dof]`; this is one link, one
     /// env. None if the link is not part of the articulation.
     pub fn get_jacobian(&self, link_name: &str) -> Option<Jacobian> {
-        self.world.get(self.h).ok().and_then(|a| a.jacobian(link_name))
+        self.world
+            .get(self.h)
+            .ok()
+            .and_then(|a| a.jacobian(link_name))
     }
 
     /// `RigidPrimView.get_world_poses(link)` → `(position[3], quat_wxyz[4])`.
@@ -167,8 +179,7 @@ mod tests {
 
     const CARTPOLE_URDF: &str =
         include_str!("../../../../70-tools/e7m-sim/scenes/cartpole/cartpole.urdf");
-    const ARM3_URDF: &str =
-        include_str!("../../../../70-tools/e7m-sim/scenes/arm3/arm3.urdf");
+    const ARM3_URDF: &str = include_str!("../../../../70-tools/e7m-sim/scenes/arm3/arm3.urdf");
     const ARM6_URDF: &str =
         include_str!("../../../../70-tools/e7m-sim/scenes/giemon_arm6/giemon_arm6.urdf");
 
@@ -188,7 +199,10 @@ mod tests {
 
         let q0 = world.articulation(h).unwrap().get_joint_positions();
         for _ in 0..30 {
-            world.articulation_mut(h).unwrap().set_joint_efforts(&[10.0, 0.0]);
+            world
+                .articulation_mut(h)
+                .unwrap()
+                .set_joint_efforts(&[10.0, 0.0]);
             world.step();
         }
         let q1 = world.articulation(h).unwrap().get_joint_positions();
@@ -209,8 +223,8 @@ mod tests {
 
         // get_world_pose returns (pos[3], quat_wxyz[4]); quat is unit-norm.
         let (pos, quat) = view.get_world_pose("l1").expect("l1 pose");
-        let qn = (quat[0] * quat[0] + quat[1] * quat[1] + quat[2] * quat[2] + quat[3] * quat[3])
-            .sqrt();
+        let qn =
+            (quat[0] * quat[0] + quat[1] * quat[1] + quat[2] * quat[2] + quat[3] * quat[3]).sqrt();
         assert!((qn - 1.0).abs() < 1e-4, "quat not unit: {quat:?}");
         // At rest the first link hangs down (-z); x≈0.
         assert!(pos[0].abs() < 1e-4);
@@ -241,12 +255,18 @@ mod tests {
         // Drive joint 1 (base yaw) with a steady effort; it must rotate.
         let q0 = world.articulation(h).unwrap().get_joint_positions();
         for _ in 0..60 {
-            world.articulation_mut(h).unwrap().set_joint_efforts(&[5.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
+            world
+                .articulation_mut(h)
+                .unwrap()
+                .set_joint_efforts(&[5.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
             world.step();
         }
         let q1 = world.articulation(h).unwrap().get_joint_positions();
         assert!(q1.iter().all(|v| v.is_finite()));
-        assert!((q1[0] - q0[0]).abs() > 1e-3, "base joint did not move: {q0:?} -> {q1:?}");
+        assert!(
+            (q1[0] - q0[0]).abs() > 1e-3,
+            "base joint did not move: {q0:?} -> {q1:?}"
+        );
 
         // Isaac-shaped accessors on a named link.
         let view = world.articulation(h).unwrap();
@@ -265,7 +285,10 @@ mod tests {
         let h = world.add_articulation(sys).unwrap();
         // Drive away from zero, then reset must restore the zero pose.
         for _ in 0..20 {
-            world.articulation_mut(h).unwrap().set_joint_efforts(&[5.0, 0.0, 0.0]);
+            world
+                .articulation_mut(h)
+                .unwrap()
+                .set_joint_efforts(&[5.0, 0.0, 0.0]);
             world.step();
         }
         assert!(world.articulation(h).unwrap().get_joint_positions()[0].abs() > 1e-3);
@@ -273,6 +296,9 @@ mod tests {
         let q = world.articulation(h).unwrap().get_joint_positions();
         let qd = world.articulation(h).unwrap().get_joint_velocities();
         assert!(q.iter().all(|v| v.abs() < 1e-6), "reset q not zero: {q:?}");
-        assert!(qd.iter().all(|v| v.abs() < 1e-6), "reset qdot not zero: {qd:?}");
+        assert!(
+            qd.iter().all(|v| v.abs() < 1e-6),
+            "reset qdot not zero: {qd:?}"
+        );
     }
 }

@@ -1,0 +1,30 @@
+;; kuni-umi 国産 — kotoba seed datoms
+;; ADR-2605201400 · Phase 2 scaffold
+;; Representative R0 Giemon fleet + example site; ingested via ingest_mcp.py
+
+;; Giemon fleet seed (Otete, Mimi canonical witnesses per CLAUDE.md §Witness invariant)
+{:robot/did "did:web:etzhayyim.com:kuniumi:robot:otete-001"
+ :robot/class :otete
+ :robot/capabilities ["pneumatic-dispense" "payload-handling" "general-manipulation"]
+ :robot/availability :available
+ :robot/sourcing :representative}
+
+{:robot/did "did:web:etzhayyim.com:kuniumi:robot:mimi-001"
+ :robot/class :mimi
+ :robot/capabilities ["dimensional-qc" "weight-measurement" "visual-inspection"]
+ :robot/availability :available
+ :robot/sourcing :representative}
+
+{:robot/did "did:web:etzhayyim.com:kuniumi:robot:quad-001"
+ :robot/class :quad
+ :robot/capabilities ["palletizing" "carton-handling" "take-back-logistics"]
+ :robot/availability :available
+ :robot/sourcing :representative}
+
+;; Representative site (geolocated, land-registry pending)
+{:site/id "site-r0-demo-001"
+ :site/geolocation "35.6789,139.7656,5"
+ :site/zoning-status "industrial"
+ :site/environmental-baseline "baseline-pre-op-attestation-tbd"
+ :site/council-gates :pending
+ :site/sourcing :representative}

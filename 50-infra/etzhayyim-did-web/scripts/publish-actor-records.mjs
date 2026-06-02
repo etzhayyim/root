@@ -153,7 +153,8 @@ function toDidDoc(rec, authzContract) {
   if (chainRef) alsoKnownAs.push(chainRef);
   else if (authzContract)
     alsoKnownAs.push(`did:erc725:base:${authzContract}#__rootId-pending-chain-lookup__`);
-  return {
+  const ed25519Ids = rec.vm.filter((v) => v && v.type === "Ed25519VerificationKey2020").map((v) => v.id);
+  const doc = {
     "@context": [
       "https://www.w3.org/ns/did/v1",
       "https://w3id.org/security/suites/jws-2020/v1",
@@ -161,6 +162,7 @@ function toDidDoc(rec, authzContract) {
     id: did,
     alsoKnownAs,
     verificationMethod: rec.vm.map((v) => ({ ...v })),
+    ...(ed25519Ids.length > 0 ? { authentication: ed25519Ids, assertionMethod: ed25519Ids } : {}),
     service: rec.service.map((s) => ({ ...s })),
     _meta: {
       adr: ["2605212030", "2605241800", "2606013800", ...rec.adr],
@@ -176,6 +178,7 @@ function toDidDoc(rec, authzContract) {
           : "verificationMethod mirrors on-chain ERC725 Root.activeKey",
     },
   };
+  return doc;
 }
 function toGetProfileView(rec) {
   const displayName = rec.displayNameEn || rec.displayNameJa || rec.handle;
@@ -253,6 +256,20 @@ function main() {
   const only = valOf("--actor");
   const records = only ? entities.filter((r) => r.handle === only) : entities;
   if (records.length === 0) { console.error(`no actors${only ? ` matching '${only}'` : ""}`); process.exit(1); }
+
+  // --signing-key <zMultibase>: merge a member's client-registered Ed25519 session
+  // key (ADR-2606014500 C-2) into the record's verificationMethod so did.json
+  // exposes it and a did:web Signal binding can verify (ADR-2606014000 D4). Pair
+  // with --actor <handle>. Never minted here — the key comes from the device.
+  const signingKeyMb = valOf("--signing-key");
+  if (signingKeyMb) {
+    if (!signingKeyMb.startsWith("z")) { console.error("--signing-key must be a base58btc multibase (z…) key"); process.exit(1); }
+    for (const rec of records) {
+      const vm = { id: `${rec.did}#session-key`, type: "Ed25519VerificationKey2020", controller: rec.did, publicKeyMultibase: signingKeyMb };
+      rec.vm = [...rec.vm.filter((v) => v.id !== vm.id), vm];
+    }
+    console.log(`merged session-key verificationMethod into ${records.length} record(s)`);
+  }
 
   const authz = process.env.AUTHZ_CONTRACT_ADDRESS || "";
   const outDir = valOf("--emit-dir") || resolve(__dirname, "../out/actor-records");

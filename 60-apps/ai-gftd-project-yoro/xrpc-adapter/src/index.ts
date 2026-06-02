@@ -42,6 +42,14 @@ interface Env {
    * instead of the single ACTOR_DID MST.
    */
   PROJECTION_DISCOVER_DID?: string;
+  /**
+   * kotoba server base URL (e.g. `https://kotoba.etzhayyim.com`). When set, the
+   * rw-free feed/graph/actor reads resolve through the kotoba canonical Datom
+   * log (ADR-2606013200) instead of the PDS/projection path.
+   */
+  KOTOBA_URL?: string;
+  /** Multibase CID of the kotoba graph holding the yoro feed Datoms. */
+  YORO_GRAPH_CID?: string;
   // UnispscAgentExecutorCell shard URLs (Phase β). Each is a cloudflared
   // tunnel published from joseph/issachar/dan inside the Murakumo LAN to
   // the corresponding cell at port 16100/16101/16102. Empty string ⇒
@@ -426,6 +434,8 @@ export default {
         PDS_ACCESS_JWT: env.PDS_ACCESS_JWT,
         PDS_REFRESH_JWT: env.PDS_REFRESH_JWT,
         PROJECTION_DISCOVER_DID: env.PROJECTION_DISCOVER_DID,
+        KOTOBA_URL: env.KOTOBA_URL,
+        YORO_GRAPH_CID: env.YORO_GRAPH_CID,
       },
       bearerToken,
     });

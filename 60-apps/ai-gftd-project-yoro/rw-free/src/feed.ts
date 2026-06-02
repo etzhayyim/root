@@ -1,4 +1,10 @@
 import type { Etzhayyim } from "@etzhayyim/sdk";
+import {
+  getKotobaCfg,
+  scanYoro,
+  type PostRow,
+  type ProfileRow,
+} from "./kotoba.js";
 
 // Substrate-only feed reads. Per ADR-2605172000, these traverse the AT MST
 // via @etzhayyim/sdk `read()` instead of RisingWave MVs. The scaffold is
@@ -42,6 +48,68 @@ function recordToFeedItem(rec: MstRecord): FeedViewPost {
         new Date().toISOString(),
     },
   };
+}
+
+// ─── kotoba Datom-log read path (ADR-2606013200) ────────────────────────
+//
+// When the SDK is configured with `kotobaUrl`, feed/graph/actor reads project
+// from the kotoba canonical state (the `yoro-social` graph) instead of the
+// single-actor PDS MST / superseded yatachain-projection. Each helper returns
+// `null` when kotoba is unconfigured or unreachable, so callers degrade to the
+// legacy PDS path and a kotoba outage never 500s the feed.
+
+function profileRowToView(
+  did: string,
+  profiles: Map<string, ProfileRow>,
+): ProfileViewDetailed {
+  const base = profileFromDid(did);
+  const p = profiles.get(did);
+  if (!p) return base;
+  return {
+    ...base,
+    handle: p.handle ?? base.handle,
+    displayName: p.displayName,
+    description: p.description,
+    avatar: p.avatar,
+  };
+}
+
+function postRowToFeedViewPost(
+  row: PostRow,
+  profiles: Map<string, ProfileRow>,
+): FeedViewPost {
+  return {
+    post: {
+      uri: row.uri,
+      cid: row.cid,
+      author: profileRowToView(row.author, profiles),
+      record:
+        row.record ?? {
+          $type: "app.bsky.feed.post",
+          text: row.text,
+          createdAt: row.createdAt,
+        },
+      indexedAt: row.createdAt || new Date().toISOString(),
+    },
+  };
+}
+
+async function kotobaFeed(
+  e: Etzhayyim,
+  opts: { authorDid?: string; limit: number },
+): Promise<FeedViewPost[] | null> {
+  const cfg = getKotobaCfg(e);
+  if (!cfg) return null;
+  try {
+    const scan = await scanYoro(cfg);
+    let posts = scan.posts;
+    if (opts.authorDid) posts = posts.filter((p) => p.author === opts.authorDid);
+    return posts
+      .slice(0, opts.limit)
+      .map((p) => postRowToFeedViewPost(p, scan.profiles));
+  } catch {
+    return null;
+  }
 }
 
 async function collectFeed(
@@ -314,6 +382,8 @@ export async function getTimeline(
   // wired, prefer the feed-discover projection (cross-DID, hot path);
   // fall back to single-actor on projector miss.
   const limit = Math.min(input?.limit ?? 50, 100);
+  const fromKotoba = await kotobaFeed(e, { limit });
+  if (fromKotoba) return { feed: fromKotoba, cursor: undefined };
   const projected = await tryProjectionRead(e, limit);
   if (projected) return { feed: projected, cursor: undefined };
   return collectFeed(e, input?.cursor, limit);
@@ -331,13 +401,39 @@ export async function getAuthorFeed(
   // (treating the actor arg as a hint, not a filter). Tests that supply
   // `input.actor` against an empty mock will correctly get `feed: []`.
   const limit = Math.min(input.limit ?? 50, 100);
+  const fromKotoba = await kotobaFeed(e, { authorDid: input.actor, limit });
+  if (fromKotoba) return { feed: fromKotoba, cursor: undefined };
   return collectFeed(e, input.cursor, limit);
 }
 
 export async function getPostThread(
-  _e: Etzhayyim,
-  _input: GetPostThreadInput
+  e: Etzhayyim,
+  input: GetPostThreadInput
 ): Promise<GetPostThreadOutput> {
+  const cfg = getKotobaCfg(e);
+  if (cfg) {
+    try {
+      const scan = await scanYoro(cfg);
+      const root = scan.posts.find((p) => p.uri === input.uri);
+      if (root) {
+        const replies = scan.posts
+          .filter((p) => p.replyParent === input.uri)
+          .map((p) => ({
+            $type: "app.bsky.feed.defs#threadViewPost",
+            post: postRowToFeedViewPost(p, scan.profiles).post,
+          }));
+        return {
+          thread: {
+            $type: "app.bsky.feed.defs#threadViewPost",
+            post: postRowToFeedViewPost(root, scan.profiles).post,
+            replies,
+          },
+        };
+      }
+    } catch {
+      // fall through to empty thread
+    }
+  }
   return {
     thread: {},
   };
@@ -348,7 +444,10 @@ export async function getRankedFeed(
   input?: GetRankedFeedInput
 ): Promise<GetRankedFeedOutput> {
   const limit = Math.min(input?.limit ?? 50, 100);
-  const { feed, cursor } = await collectFeed(e, input?.cursor, limit);
+  const fromKotoba = await kotobaFeed(e, { limit });
+  const { feed, cursor } = fromKotoba
+    ? { feed: fromKotoba, cursor: undefined as string | undefined }
+    : await collectFeed(e, input?.cursor, limit);
   const result: GetRankedFeedOutput = { feed, cursor };
   if (input?.debug) {
     result.debug = {
@@ -368,15 +467,35 @@ export async function getDiscoverFeed(
   input?: GetDiscoverFeedInput
 ): Promise<GetDiscoverFeedOutput> {
   const limit = Math.min(input?.limit ?? 50, 100);
+  const fromKotoba = await kotobaFeed(e, { limit });
+  if (fromKotoba) return { feed: fromKotoba, cursor: undefined };
   const projected = await tryProjectionRead(e, limit);
   if (projected) return { feed: projected, cursor: undefined };
   return collectFeed(e, input?.cursor, limit);
 }
 
 export async function getFollowers(
-  _e: Etzhayyim,
-  _input: GetFollowersInput
+  e: Etzhayyim,
+  input: GetFollowersInput
 ): Promise<GetFollowersOutput> {
+  const cfg = getKotobaCfg(e);
+  if (cfg) {
+    try {
+      const scan = await scanYoro(cfg);
+      const limit = Math.min(input.limit ?? 50, 100);
+      const followers = scan.follows
+        .filter((f) => f.subject === input.actor)
+        .slice(0, limit)
+        .map((f) => profileRowToView(f.follower, scan.profiles));
+      return {
+        subject: profileRowToView(input.actor, scan.profiles),
+        followers,
+        cursor: undefined,
+      };
+    } catch {
+      // fall through to empty
+    }
+  }
   return {
     followers: [],
     cursor: undefined,
@@ -384,9 +503,27 @@ export async function getFollowers(
 }
 
 export async function getFollows(
-  _e: Etzhayyim,
-  _input: GetFollowsInput
+  e: Etzhayyim,
+  input: GetFollowsInput
 ): Promise<GetFollowsOutput> {
+  const cfg = getKotobaCfg(e);
+  if (cfg) {
+    try {
+      const scan = await scanYoro(cfg);
+      const limit = Math.min(input.limit ?? 50, 100);
+      const follows = scan.follows
+        .filter((f) => f.follower === input.actor)
+        .slice(0, limit)
+        .map((f) => profileRowToView(f.subject, scan.profiles));
+      return {
+        subject: profileRowToView(input.actor, scan.profiles),
+        follows,
+        cursor: undefined,
+      };
+    } catch {
+      // fall through to empty
+    }
+  }
   return {
     follows: [],
     cursor: undefined,
@@ -394,9 +531,31 @@ export async function getFollows(
 }
 
 export async function getProfile(
-  _e: Etzhayyim,
-  _input: GetProfileInput
+  e: Etzhayyim,
+  input: GetProfileInput
 ): Promise<GetProfileOutput> {
+  const cfg = getKotobaCfg(e);
+  if (cfg) {
+    try {
+      const scan = await scanYoro(cfg);
+      if (scan.profiles.has(input.actor) || scan.posts.length) {
+        const profile = profileRowToView(input.actor, scan.profiles);
+        // Derive postsCount for the actor from the feed.
+        profile.postsCount = scan.posts.filter(
+          (p) => p.author === input.actor,
+        ).length;
+        profile.followsCount = scan.follows.filter(
+          (f) => f.follower === input.actor,
+        ).length;
+        profile.followersCount = scan.follows.filter(
+          (f) => f.subject === input.actor,
+        ).length;
+        return { profile };
+      }
+    } catch {
+      // fall through to not-found
+    }
+  }
   return {
     profile: undefined,
     error: "not found",
@@ -404,9 +563,35 @@ export async function getProfile(
 }
 
 export async function searchActors(
-  _e: Etzhayyim,
-  _input?: SearchActorsInput
+  e: Etzhayyim,
+  input?: SearchActorsInput
 ): Promise<SearchActorsOutput> {
+  const cfg = getKotobaCfg(e);
+  if (cfg) {
+    try {
+      const scan = await scanYoro(cfg);
+      const q = (input?.q ?? "").toLowerCase().trim();
+      const limit = Math.min(input?.limit ?? 25, 100);
+      let actors = [...scan.profiles.values()];
+      if (q) {
+        actors = actors.filter(
+          (p) =>
+            p.did.toLowerCase().includes(q) ||
+            (p.handle ?? "").toLowerCase().includes(q) ||
+            (p.displayName ?? "").toLowerCase().includes(q) ||
+            (p.description ?? "").toLowerCase().includes(q),
+        );
+      }
+      return {
+        actors: actors
+          .slice(0, limit)
+          .map((p) => profileRowToView(p.did, scan.profiles)),
+        cursor: undefined,
+      };
+    } catch {
+      // fall through to empty
+    }
+  }
   return {
     actors: [],
     cursor: undefined,

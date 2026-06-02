@@ -16,6 +16,47 @@ import {
 	orgLoading,
 } from './stores.js';
 import { setSession, clearSession } from '$lib/atproto-agent';
+import {
+	prfRegistrationExtension,
+	prfRegistrationEvalExtension,
+	prfEvalExtension,
+	accountPrfSalt,
+	extractPrfSecret,
+	credentialSupportsPrf,
+} from './prf.js';
+import {
+	enrollAccount,
+	recoverHierarchy,
+	enrollDevice,
+	type KeyHierarchy,
+} from './key-hierarchy.js';
+import { makePutWrap, makeGetWrap } from './account.js';
+import { registerSessionKey } from './session-key.js';
+
+// In-memory holder for the WebAuthn PRF secret (S_prf, ADR-2606014000 L0).
+// Device-resident only — never persisted, never sent to the server. Consumed by
+// the key hierarchy to unwrap the Account Root Key.
+let _prfSecret: Uint8Array | null = null;
+/** Store the captured PRF secret for this session. */
+export function setPrfSecret(secret: Uint8Array): void {
+	_prfSecret = secret;
+}
+/** Read the current session's PRF secret, or null if this device has no PRF. */
+export function getPrfSecret(): Uint8Array | null {
+	return _prfSecret;
+}
+
+// In-memory holder for the established key hierarchy (L1/L2 + session key).
+// Device-resident only. Apps read it for at-rest encryption / Signal / signing.
+let _keyHierarchy: KeyHierarchy | null = null;
+/** Store the established key hierarchy for this session. */
+export function setKeyHierarchy(h: KeyHierarchy): void {
+	_keyHierarchy = h;
+}
+/** Read the established key hierarchy, or null if not yet established. */
+export function getKeyHierarchy(): KeyHierarchy | null {
+	return _keyHierarchy;
+}
 
 const AUTH_BASE = 'https://atproto.etzhayyim.com';
 const AUTH_RPC_BASE = 'https://authn.etzhayyim.com';
@@ -318,12 +359,27 @@ export async function signIn(): Promise<void> {
 						id: base64urlDecode(getStoredCredentialId()!),
 					}]
 					: [],
+				// ADR-2606014000 L0: evaluate the passkey PRF so we can derive the
+				// account key hierarchy on-device. Authenticators without PRF ignore
+				// this and simply return no prf result (handled below).
+				extensions: prfEvalExtension(accountPrfSalt(beginResp.rpId as string)),
 			},
 		}) as PublicKeyCredential | null;
 
 		if (!credential) {
 			console.warn('Passkey authentication cancelled');
 			return;
+		}
+
+		// Best-effort: capture the PRF secret (S_prf) for the zero-access key
+		// hierarchy. Never throws into the auth flow; absence ⇒ server-assisted
+		// fallback. ARK unwrap + session-key use is wired in a follow-up once the
+		// wrapped-ARK store endpoint lands (ADR-2606014000 client follow-up).
+		try {
+			const prfSecret = extractPrfSecret(credential);
+			if (prfSecret) setPrfSecret(prfSecret);
+		} catch (e) {
+			console.warn('PRF capture skipped:', e);
 		}
 
 		const response = credential.response as AuthenticatorAssertionResponse;
@@ -353,8 +409,101 @@ export async function signIn(): Promise<void> {
 		isSignedIn.set(true);
 		syncAtprotoSession(session);
 		updateUserFromDid(session.did);
+
+		// ADR-2606014000 L0→L2: establish the passkey-rooted key hierarchy now
+		// that we have S_prf + an authenticated session. Best-effort and fully
+		// guarded — any failure leaves auth intact and falls back to
+		// server-assisted custody. recover → (first device) enroll.
+		void establishKeyHierarchy(session.did, credentialId, session.accessJwt);
 	} catch (error) {
 		console.error('Passkey sign in failed:', error);
+	}
+}
+
+/**
+ * Recover (or, for a brand-new first device, enroll) the account key hierarchy
+ * from the captured PRF secret and the wrapped-ARK store, then register the
+ * derived Ed25519 session key (Stage C-2). Never throws.
+ *
+ * NOTE (multi-device): a recover() miss is treated as first-device enrollment.
+ * Adding a SECOND device to an existing account must instead use the explicit
+ * add-device flow (enrollDevice from an already-unlocked device) so it re-wraps
+ * the SAME ARK — that UX is a follow-up.
+ */
+async function establishKeyHierarchy(
+	accountDid: string,
+	credentialId: string,
+	accessToken: string,
+): Promise<void> {
+	try {
+		const prfSecret = getPrfSecret();
+		if (!prfSecret) return; // authenticator has no PRF → server-assisted fallback
+		const put = makePutWrap(accessToken);
+		const get = makeGetWrap(accessToken);
+		let h = await recoverHierarchy(accountDid, credentialId, prfSecret, get);
+		if (!h) h = await enrollAccount(accountDid, credentialId, prfSecret, put);
+		setKeyHierarchy(h);
+		// Register the public half of the session key (zero-access custody, C-2).
+		await registerSessionKey(accountDid, h.sessionKey.publicKeyMultibase, accessToken).catch(
+			(e) => console.warn('session-key registration skipped:', e),
+		);
+	} catch (e) {
+		console.warn('key hierarchy establishment skipped:', e);
+	}
+}
+
+/**
+ * Add an additional passkey/authenticator to the CURRENT account on THIS device
+ * (ADR-2606014000 multi-device). Requires the key hierarchy to be established
+ * (this device holds the ARK). Registers a new passkey, evaluates its PRF at
+ * create time, and re-wraps the SAME ARK under the new passkey's PRF so the new
+ * authenticator independently recovers the account. Returns true on success.
+ *
+ * Scope: the SAME-DEVICE additional-authenticator case (ARK already in memory).
+ * Adding a brand-new SECOND physical device needs an out-of-band ARK transfer
+ * authorized from this device — a follow-up.
+ */
+export async function addDevicePasskey(accountDid: string, accessToken: string): Promise<boolean> {
+	if (typeof window === 'undefined' || !navigator.credentials) return false;
+	const h = getKeyHierarchy();
+	if (!h) {
+		console.warn('addDevicePasskey: no key hierarchy on this device');
+		return false;
+	}
+	try {
+		const userId = crypto.randomUUID();
+		const beginResp = await authRpc('/xrpc/app.etzhayyim.auth.passkeyBeginRegister', {
+			userId,
+			userName: `device-${userId.slice(0, 8)}@etzhayyim.com`,
+		});
+		const credential = (await navigator.credentials.create({
+			publicKey: {
+				challenge: base64urlDecode(beginResp.challenge),
+				rp: { id: beginResp.rp.id, name: beginResp.rp.name },
+				user: {
+					id: base64urlDecode(beginResp.user.id),
+					name: beginResp.user.name,
+					displayName: beginResp.user.displayName as string,
+				},
+				pubKeyCredParams: (beginResp.pubKeyCredParams as any[]).map((p: any) => ({
+					type: p.type as 'public-key',
+					alg: p.alg,
+				})),
+				timeout: beginResp.timeout as number,
+				extensions: prfRegistrationEvalExtension(accountPrfSalt(beginResp.rp.id as string)),
+			},
+		})) as PublicKeyCredential | null;
+		if (!credential) return false;
+		const newPrf = extractPrfSecret(credential);
+		if (!newPrf) {
+			console.warn('addDevicePasskey: new authenticator has no PRF');
+			return false;
+		}
+		const newCredId = base64urlEncode(credential.rawId);
+		return await enrollDevice(accountDid, newCredId, newPrf, h.ark, makePutWrap(accessToken));
+	} catch (e) {
+		console.warn('addDevicePasskey failed:', e);
+		return false;
 	}
 }
 
@@ -399,6 +548,9 @@ export async function signUp(): Promise<void> {
 					userVerification: (beginResp.authenticatorSelection as any).userVerification as UserVerificationRequirement,
 				},
 				attestation: beginResp.attestation as AttestationConveyancePreference,
+				// ADR-2606014000 L0: request the PRF extension so this credential can
+				// derive the account key hierarchy on later assertions.
+				extensions: prfRegistrationExtension(),
 			},
 		}) as PublicKeyCredential | null;
 
@@ -406,6 +558,12 @@ export async function signUp(): Promise<void> {
 			console.warn('Passkey registration cancelled');
 			return;
 		}
+		// Log PRF capability (does not block registration).
+		try {
+			if (credentialSupportsPrf(credential)) {
+				console.info('passkey: PRF supported — zero-access key hierarchy available');
+			}
+		} catch { /* ignore */ }
 
 		const response = credential.response as AuthenticatorAttestationResponse;
 		const credentialId = base64urlEncode(credential.rawId);

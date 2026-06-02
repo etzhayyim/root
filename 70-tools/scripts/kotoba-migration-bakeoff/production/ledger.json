@@ -528,9 +528,13 @@
   {
     "cell": "yobel-debtor_enrollment",
     "src": "20-actors/yobel/cells/debtor_enrollment/cell.py",
-    "build": false,
-    "equiv": "error",
-    "equiv_detail": "Command '['gemini', '-p', 'You are migrating a LangGraph actor cell to a Kotoba WASM component.\\n\\nIn THIS directory you have `original_cell.py` (the "
+    "build": true,
+    "structural": true,
+    "judge": 2,
+    "wall_s": 172.5,
+    "equiv_retries": 0,
+    "equiv": "no-gold",
+    "equiv_detail": ""
   },
   {
     "cell": "yobel-release_settlement",

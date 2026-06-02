@@ -12331,6 +12331,20 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606022800-openmail-per-member-dkim-no-server-key",
+      "type": "TechArticle",
+      "title": "ADR-2606022800: openmail outbound — per-member self-signed DKIM (no platform signing key)",
+      "status": "proposed",
+      "topic": "openmail-outbound-dkim",
+      "authoritative": true,
+      "authoritativeFor": [
+        "openmail outbound DKIM key model (per-member, client-held)",
+        "DKIM ed25519-sha256 signing/verification in 50-infra/openmail-smtp-gateway",
+        "per-member DKIM DNS publication convention (<selector>._domainkey.etzhayyim.com)"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

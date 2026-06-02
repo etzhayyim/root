@@ -1,0 +1,24 @@
+;; wadachi 轍 — motion_control cell (langgraph, WASM runtime)
+;; ADR-2605242000 · Phase 2 scaffold
+{:cell/id "motion_control"
+ :cell/glyph "🎮"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/entry "py/agent.py"
+ :cell/handler "handle_motion_control"
+ :cell/doc "trajectoryPlan → steering commands (wheel angle, throttle, brake) over time. Computes control law deterministically at 10 Hz (G6)."
+ :cell/state-graph
+ {:nodes [:parse-trajectory :generate-control-law :log-steering-commands]
+  :entry :parse-trajectory
+  :edges [[:parse-trajectory :generate-control-law]
+          [:generate-control-law :log-steering-commands] [:log-steering-commands :end]]}
+ :cell/llm
+ {:provider :murakumo
+  :endpoint "127.0.0.1:4000"
+  :model "gemma3:4b"
+  :charter-rider true}
+ :cell/gates ["G6" "G8" "G9"]
+ :cell/kotoba
+ {:reads [:trajectory-plan/id :trajectory-plan/waypoints :trajectory-plan/speed-profile]
+  :writes [:steering-command/id :steering-command/wheel-angle :steering-command/throttle
+           :steering-command/brake :steering-command/timestamp]}}

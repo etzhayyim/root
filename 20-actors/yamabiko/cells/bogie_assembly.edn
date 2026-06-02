@@ -1,0 +1,19 @@
+;; yamabiko 山彦 — bogie_assembly cell (L2)
+{:cell/id          "bogie_assembly"
+ :cell/glyph       "⚙️"
+ :cell/kind        :langgraph
+ :cell/runtime     :wasm
+ :cell/doc         "L2 bogie marriage (wheel set + suspension + traction motor) with ≥2 robot witness per G4 quorum (Wadasa + sarutahiko heavy manipulator minimum)."
+ :cell/gates       [{:gate/id "G4" :gate/name "robot-witness-quorum"}
+                    {:gate/id "G7" :gate/name "propulsion-phase-in"}]
+ :cell/llm         {:provider :murakumo :endpoint "127.0.0.1:4000" :model "gemma3:4b" :charter-rider true}
+ :cell/kotoba      {:reads    []
+                    :writes   []}
+ :cell/state-graph {:nodes [{:id "start" :type "llm-prompt" :prompt "Collect bogie assembly parameters: wheel set, suspension geometry, traction motor type (BEMU/H2/Electrified)."}
+                           {:id "validate" :type "function" :func "validate_bogie_assembly"}
+                           {:id "record" :type "function" :func "record_bogie_attestation"}
+                           {:id "end" :type "return"}]
+                    :entry    "start"
+                    :edges    [{:from "start" :to "validate"}
+                               {:from "validate" :to "record"}
+                               {:from "record" :to "end"}]}}

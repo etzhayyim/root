@@ -40,6 +40,22 @@ export interface EtzhayyimConfig {
    */
   projectionDiscoverDid?: string;
 
+  /**
+   * kotoba server base URL (e.g. `https://kotoba.etzhayyim.com` or
+   * `http://127.0.0.1:8077`). When set, `yoro-rw-free` feed/graph/actor reads
+   * resolve through the kotoba Datom log (`datomic.datoms`) — the canonical
+   * read path (ADR-2606013200, supersedes the yatachain-projection leg).
+   * Falls back to the PDS/projection path when unset.
+   */
+  kotobaUrl?: string;
+
+  /**
+   * Multibase CID of the kotoba graph holding the yoro feed Datoms.
+   * Defaults to the `yoro-social-v1` graph. Shared with the ingest script and
+   * the kotoba-server boot registration. See ADR-2606013200.
+   */
+  yoroGraphCid?: string;
+
   /** Address of the anchor contract on Base L2 (ADR-2605171800 Stage 5). */
   anchorContract?: `0x${string}`;
 
@@ -227,6 +243,8 @@ export class Etzhayyim {
       | "session"
       | "auth"
       | "projectionDiscoverDid"
+      | "kotobaUrl"
+      | "yoroGraphCid"
     >
   > &
     Pick<
@@ -238,6 +256,8 @@ export class Etzhayyim {
       | "session"
       | "auth"
       | "projectionDiscoverDid"
+      | "kotobaUrl"
+      | "yoroGraphCid"
     >;
 
   #pds?: AtpAgent;
@@ -250,6 +270,8 @@ export class Etzhayyim {
       ipfsApiUrl: config.ipfsApiUrl,
       l2RpcUrl: config.l2RpcUrl ?? "https://mainnet.base.org",
       projectionDiscoverDid: config.projectionDiscoverDid,
+      kotobaUrl: config.kotobaUrl,
+      yoroGraphCid: config.yoroGraphCid,
       anchorContract: config.anchorContract,
       signer: config.signer,
       session: config.session,

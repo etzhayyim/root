@@ -62,6 +62,20 @@
     "Mimi-marine — kuni-umi Mimi marinization (R1+)",
     "Funamori — surface support / R3 mother-ship (kuni-umi inheritance, ADR-2605242745)"
   ],
+  "cableLayingFleet": {
+    "adr": "etzhayyim:adr:2606012600",
+    "purpose": "Submarine cable lay / bury / splice / repair / monitor. Operational counterpart to watatsuna 綿津綱 (the world cable-network knowledge-graph actor). Missions planned OFF watatsuna resilience output (lay diverse routes where redundancy-gap; pre-stage repair where chokepoint-load is high).",
+    "manifest": "data/cable-laying-fleet.kotoba.edn",
+    "n8Bound": "Every unit acts ONLY to lay/bury/splice/repair/monitor. Cutting/interdiction = N8 hard-prohibited. Tedori grapnel-recovery is REPAIR-ONLY (faulted cable, logged work-order, G4 witness quorum).",
+    "robots": [
+      "Tsuna-suki (綱鋤) — towed sea plough / burial trencher ≤3 m, ≤2000 m (R1+)",
+      "Horinuki (掘抜) — jet-trenching burial / PLIB ROV (R2+)",
+      "Tsugite (接手) — splice / repeater-housing manipulation ROV (R2+; inherits Otete-marine)",
+      "Tedori (手繰) — grapnel cable-recovery ROV, REPAIR-ONLY (R2+)",
+      "Kikimimi (聞耳) — DAS passive cable-health monitor; feeds watatsuna flagCableFault (R1+)"
+    ],
+    "pairedActor": "actor:watatsuna (did:web:etzhayyim.com:actor:watatsuna)"
+  },
   "cells": [
     {
       "name": "hull_ring_fabrication",

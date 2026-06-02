@@ -19126,6 +19126,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606022800-openmail-per-member-dkim-no-server-key.md",
+      "id": "adr-2606022800-openmail-per-member-dkim-no-server-key",
+      "title": "ADR-2606022800: openmail outbound — per-member self-signed DKIM (no platform signing key)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "openmail-outbound-dkim",
+      "authoritative": true,
+      "authoritative_for": [
+        "openmail outbound DKIM key model (per-member, client-held)",
+        "DKIM ed25519-sha256 signing/verification in 50-infra/openmail-smtp-gateway",
+        "per-member DKIM DNS publication convention (<selector>._domainkey.etzhayyim.com)"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605172200-openmail-atproto-mst-smtp-bridge",
+        "adr-2606014000-kotoba-passkey-rooted-secrecy",
+        "adr-2605231525-no-platform-held-signing-key"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
