@@ -13,7 +13,7 @@ import time
 from pathlib import Path
 from urllib.parse import urlparse
 
-_KEYCHAIN_SERVICE = "gftd.auth"
+_KEYCHAIN_SERVICE = "etzhayyim.auth"
 _AUTH_FILE = Path.home() / ".gftd" / "auth.json"
 _DEFAULT_PDS = "https://atproto.etzhayyim.com"
 

@@ -769,7 +769,7 @@ def dodaf_migrate(workspace_dir: str | None, dry_run: bool, skip_pointer: bool) 
 
             if not skip_pointer:
                 header = f"## CRITICAL: {sec['title']}"
-                pointer = f"→ `gftd dodaf tv1 query --id {id_}` / MCP `gftd.dodaf.tv1.query`"
+                pointer = f"→ `gftd dodaf tv1 query --id {id_}` / MCP `etzhayyim.dodaf.tv1.query`"
                 old_block = header + "\n" + sec["body"]
                 new_block = header + "\n\n" + pointer + "\n\n"
                 if old_block in new_content:
@@ -804,7 +804,7 @@ def dodaf_migrate(workspace_dir: str | None, dry_run: bool, skip_pointer: bool) 
 @click.option("--dry-run", "dry_run", is_flag=True, default=False,
               help="print records without seeding to PDS")
 def dodaf_seed(workspace_dir: str | None, pds_url: str, dry_run: bool) -> None:
-    """Push TV-1 registry to kagami/PDS for MCP gftd.dodaf.tv1.query access."""
+    """Push TV-1 registry to kagami/PDS for MCP etzhayyim.dodaf.tv1.query access."""
     import os as _os
     import urllib.request as _req
     _require_duckdb()

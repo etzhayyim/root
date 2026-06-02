@@ -1,4 +1,4 @@
-"""gftd CLI entry point — Python port (ADR-2605151500).
+"""etzhayyim CLI entry point — Python port (ADR-2605151500).
 
 Commands are ported incrementally. Unported commands print a message directing
 to the Go binary.

@@ -337,7 +337,7 @@ def _run_kaizen_agent(ws: Path, gaps: list[KaizenGap], apps: list[DomainAppRepor
         "4. Design domain-specific graph labels, collection kinds, commands",
         "5. Update src/app.ts with domain logic",
         "6. Update magatama.jsonld governance with domain-specific RACI",
-        "7. Verify with: gftd-py kaizen --apps --limit 5",
+        "7. Verify with: etzhayyim-py kaizen --apps --limit 5",
         "\n---",
         "Fix the worst 20 apps listed above. Do NOT create worktrees.",
     ]
@@ -514,7 +514,7 @@ def _fetch_ocel_from_cf_ae(api_token: str, limit: int) -> dict:
 def _fetch_ocel_from_pds(token: str, pds_url: str, limit: int) -> dict:
     """Fetch OCEL from PDS internal endpoint."""
     base = pds_url.rstrip("/")
-    headers = {"Authorization": f"Bearer {token}", "User-Agent": "gftd-py/1.0"}
+    headers = {"Authorization": f"Bearer {token}", "User-Agent": "etzhayyim-py/1.0"}
     for endpoint in [f"{base}/_pds/ocel?limit={limit}",
                      f"{base}/xrpc/com.etzhayyim.pds.getOcel?limit={limit}"]:
         try:

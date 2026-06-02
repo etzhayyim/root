@@ -1,7 +1,7 @@
 [project]
-name = "gftd-py"
+name = "etzhayyim-py"
 version = "0.1.0"
-description = "gftd CLI — Python port (parallel operation, ADR-2605151500)"
+description = "etzhayyim CLI — Python port (parallel operation, ADR-2605151500)"
 requires-python = ">=3.12"
 dependencies = [
     "click>=8.1",
@@ -20,7 +20,7 @@ dev = [
 ]
 
 [project.scripts]
-gftd-py = "gftd.cli:main"
+etzhayyim-py = "etzhayyim.cli:main"
 
 [build-system]
 requires = [
@@ -30,7 +30,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = [
-    "src/gftd",
+    "src/etzhayyim",
 ]
 
 [tool.pytest.ini_options]

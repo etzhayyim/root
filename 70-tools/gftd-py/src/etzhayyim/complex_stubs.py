@@ -32,13 +32,13 @@ def _go_stub(cmd: str, detail: str = "") -> None:
 
 @click.command("version")
 def version_cmd() -> None:
-    """Print gftd-py version."""
+    """Print etzhayyim-py version."""
     try:
         from importlib.metadata import version
         ver = version("gftd")
     except Exception:
         ver = "dev"
-    click.echo(f"gftd-py {ver}")
+    click.echo(f"etzhayyim-py {ver}")
 
 
 # ── set-profiles ───────────────────────────────────────────────────────────────
@@ -457,7 +457,7 @@ def code_exec(work_dir: str, message: str, model: str, api_key: str, uv_bin: str
     if not resolved_key and not dry_run:
         try:
             result = subprocess.run(
-                ["security", "find-generic-password", "-s", "gftd.openrouter", "-w"],
+                ["security", "find-generic-password", "-s", "etzhayyim.openrouter", "-w"],
                 capture_output=True, text=True,
             )
             if result.returncode == 0:
@@ -468,7 +468,7 @@ def code_exec(work_dir: str, message: str, model: str, api_key: str, uv_bin: str
         raise click.ClickException(
             "OPENROUTER_API_KEY is not set.\n"
             "Set it via env or --api-key, or load from Keychain:\n"
-            "  security find-generic-password -s gftd.openrouter -w"
+            "  security find-generic-password -s etzhayyim.openrouter -w"
         )
 
     agent_dir = _find_agent_dir()
@@ -1606,45 +1606,45 @@ def _parse_legacy_toml(content: str, manifest: dict) -> None:
 
 
 def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
-    """Migrate a single component dir from gftd.json → magatama.jsonld."""
+    """Migrate a single component dir from etzhayyim.json → magatama.jsonld."""
     jsonld_path = comp_dir / "magatama.jsonld"
     if jsonld_path.exists() and not dry_run:
         click.echo(f"  skip {comp_dir.name} (magatama.jsonld already exists)", err=True)
         return False
 
-    gftd_path = comp_dir / "gftd.json"
+    gftd_path = comp_dir / "etzhayyim.json"
     if not gftd_path.exists():
-        click.echo(f"  skip {comp_dir.name} (no gftd.json)", err=True)
+        click.echo(f"  skip {comp_dir.name} (no etzhayyim.json)", err=True)
         return False
 
     try:
         gftd = json.loads(gftd_path.read_text(encoding="utf-8"))
     except Exception as exc:
-        click.echo(f"  FAIL {comp_dir.name}: parse gftd.json: {exc}", err=True)
+        click.echo(f"  FAIL {comp_dir.name}: parse etzhayyim.json: {exc}", err=True)
         return False
 
     # Build host from routes or project/nanoid
-    routes = gftd.get("routes", [])
+    routes = etzhayyim.get("routes", [])
     host = ""
     if routes and isinstance(routes[0], dict):
         host = routes[0].get("host", "")
     if not host:
-        project = gftd.get("project", "")
-        nanoid = gftd.get("nanoid", "")
+        project = etzhayyim.get("project", "")
+        nanoid = etzhayyim.get("nanoid", "")
         host = f"{project}.etzhayyim.com" if project else f"{nanoid}.etzhayyim.com"
 
-    rt = gftd.get("runtime") or "worker"
+    rt = etzhayyim.get("runtime") or "worker"
 
     manifest: dict = {
         "@context": "https://etzhayyim.com/ns/magatama/v1",
         "@id": f"did:web:{host}",
         "performerType": "service",
-        "name": gftd.get("name", ""),
-        "nanoid": gftd.get("nanoid", ""),
+        "name": etzhayyim.get("name", ""),
+        "nanoid": etzhayyim.get("nanoid", ""),
     }
 
     for key in ("project", "org", "version", "template", "source"):
-        if gftd.get(key):
+        if etzhayyim.get(key):
             manifest[key] = gftd[key]
 
     manifest["runtimeType"] = rt
@@ -1652,18 +1652,18 @@ def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
     if routes:
         manifest["routes"] = routes
 
-    hooks = gftd.get("hooks", [])
+    hooks = etzhayyim.get("hooks", [])
     if hooks:
         manifest["hooks"] = hooks
 
-    evolved_at = gftd.get("evolved_at", "")
+    evolved_at = etzhayyim.get("evolved_at", "")
     if evolved_at:
         manifest["evolvedAt"] = evolved_at
 
     # Build config
-    wit_world = gftd.get("wit_world", "")
-    guest_lang = gftd.get("guest_language", "")
-    wasi_ver = gftd.get("wasi_adapter_version", "")
+    wit_world = etzhayyim.get("wit_world", "")
+    guest_lang = etzhayyim.get("guest_language", "")
+    wasi_ver = etzhayyim.get("wasi_adapter_version", "")
     if wit_world or guest_lang or wasi_ver:
         manifest["build"] = {k: v for k, v in {
             "witWorld": wit_world,
@@ -1672,10 +1672,10 @@ def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
         }.items() if v}
 
     # Deploy config
-    dockerfile = gftd.get("dockerfile", "")
-    base_image = gftd.get("base_image", "")
-    health_check = gftd.get("health_check", "")
-    sleep_after = gftd.get("sleep_after", "")
+    dockerfile = etzhayyim.get("dockerfile", "")
+    base_image = etzhayyim.get("base_image", "")
+    health_check = etzhayyim.get("health_check", "")
+    sleep_after = etzhayyim.get("sleep_after", "")
     if dockerfile or base_image or health_check or sleep_after:
         manifest["deploy"] = {k: v for k, v in {
             "dockerfile": dockerfile,
@@ -1715,11 +1715,11 @@ def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
 @click.option("--dir", "component_dir", default=".", show_default=True,
               help="Component directory (or parent directory with --batch)")
 @click.option("--batch", is_flag=True, default=False,
-              help="Migrate all subdirectories containing gftd.json")
+              help="Migrate all subdirectories containing etzhayyim.json")
 @click.option("--dry-run", is_flag=True, default=False,
               help="Show what would be generated without writing")
 def mm_run(component_dir: str, batch: bool, dry_run: bool) -> None:
-    """Migrate gftd.json → magatama.jsonld (pure file transformation, no DB)."""
+    """Migrate etzhayyim.json → magatama.jsonld (pure file transformation, no DB)."""
     abs_dir = Path(component_dir).resolve()
 
     if batch:
@@ -1732,7 +1732,7 @@ def mm_run(component_dir: str, batch: bool, dry_run: bool) -> None:
         for entry in entries:
             if not entry.is_dir():
                 continue
-            if not (entry / "gftd.json").exists():
+            if not (entry / "etzhayyim.json").exists():
                 continue
             if _migrate_single(entry, dry_run):
                 count += 1
@@ -1786,7 +1786,7 @@ def _plugin_status(p: dict) -> tuple[bool, str]:
 def _fetch_latest_plugin_version(p: dict, timeout: int = 10) -> str:
     req = _url_request.Request(
         p["latest_url"],
-        headers={"Accept": "application/vnd.github+json", "User-Agent": "gftd-py/1.0"},
+        headers={"Accept": "application/vnd.github+json", "User-Agent": "etzhayyim-py/1.0"},
     )
     with _url_request.urlopen(req, timeout=timeout) as resp:
         data = json.loads(resp.read())

@@ -239,7 +239,7 @@ def check_jscpd(ws_root: Path, ts_dir: Path) -> CQCheck:
 
 
 def check_magatama_lint(ws_root: Path) -> CQCheck:
-    c = CQCheck(name="magatama_lint", tool="gftd-py lint")
+    c = CQCheck(name="magatama_lint", tool="etzhayyim-py lint")
     # Run our own Python lint command
     py_bin = sys.executable
     out, rc = _run([py_bin, "-m", "gftd", "lint"], ws_root, timeout=60)
@@ -327,7 +327,7 @@ def check_sql_full_scan(ws_root: Path) -> CQCheck:
     c = CQCheck(name="sql_full_scan", tool="sql-full-scan-lint (built-in)")
     pds_src = ws_root / "50-infra" / "cloudflare" / "workers" / "atproto" / "src"
     handler_files = [
-        "pds-handlers-feed.ts", "pds-handlers-gftd.ts", "pds-handlers-repo.ts",
+        "pds-handlers-feed.ts", "pds-handlers-etzhayyim.ts", "pds-handlers-repo.ts",
         "pds-actor.ts",
     ]
     identity_re = re.compile(
