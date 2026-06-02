@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 91 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 2 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 1 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 31 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 32 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 57 apps** (C + D = 2 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 56 apps** (C + D = 1 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -65,7 +65,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (31)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (32)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -272,8 +272,17 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   is no product/open-data layer to front. Pure backend orchestration-compute over
   the platform actor graph. Stays gftd. (Social posts it emits land via the
   normal `app.bsky.feed.post` federation path, already on-substrate.)
+- **tenso** — axis: **Custody (zero-knowledge E2E)**. Signal-Protocol secure file
+  transfer (`tenso.etzhayyim.com`): X3DH + Double Ratchet wraps per-transfer
+  AES-256-GCM file keys; chunked ciphertext blobs on B2; server stores ciphertext
+  only. Collections (transferRequest / fileManifest / transferLog / accessControl)
+  are **private per-transfer encrypted envelopes** between specific DIDs — wrapped
+  keys + access-control, never public AT records. Same signal/vault/messaging
+  family the root invariant keeps server-side (`signal:v1:{ciphertext}` field-
+  encrypt, PDS pipethrough). No public catalog to front — surfacing the wrapped
+  keys would violate the zero-knowledge invariant. Stays gftd.
 
-## Bucket C — NEEDS-CODEMOD (2) — active backlog
+## Bucket C — NEEDS-CODEMOD (1) — active backlog
 
 > **False-positive removed**: `open-ot` (WASM-PLC OSS spec, Apache-2.0) was
 > labelled "(RW)" but is spec + Rust crates only — no TS app, no AT collections,
@@ -286,7 +295,7 @@ Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
+toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
 ## Bucket D — TODO-PENDING (55, MIGRATION-TODO.md)
