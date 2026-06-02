@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 90 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 4 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 3 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 30 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 31 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 59 apps** (C + D = 4 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 58 apps** (C + D = 3 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -64,7 +64,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (30)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (31)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -260,8 +260,19 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   the on-chain GCC token + TitheRouter 10% tithe is an etzhayyim-EXCLUSIVE
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
+- **shinka** — axes: **RisingWave + compute (LLM inference orchestration)**. The
+  actor-evolution scheduler (`shinka.etzhayyim.com`, `*/5min` cron): queries the
+  stalest actors from `vertex_actor` (37K+ rows, RisingWave), resolves joucho
+  (情緒) cadence, and drives **murakumo LLM inference** to repair profiles, run
+  kyumei drills, and post socially on each actor's behalf; plus a PropagationJob
+  queue (claimJobs/queueStats) and HistoricalEvent/PropagationEvent simulation
+  state. Its records (ShinkaTask queue, coverage stats, kyumei results, job
+  queue) are **internal orchestration telemetry**, not a consumer catalog — there
+  is no product/open-data layer to front. Pure backend orchestration-compute over
+  the platform actor graph. Stays gftd. (Social posts it emits land via the
+  normal `app.bsky.feed.post` federation path, already on-substrate.)
 
-## Bucket C — NEEDS-CODEMOD (4) — active backlog
+## Bucket C — NEEDS-CODEMOD (3) — active backlog
 
 > **False-positive removed**: `open-ot` (WASM-PLC OSS spec, Apache-2.0) was
 > labelled "(RW)" but is spec + Rust crates only — no TS app, no AT collections,
@@ -274,7 +285,6 @@ Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
