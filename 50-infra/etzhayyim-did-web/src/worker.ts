@@ -914,6 +914,41 @@ export default {
         },
       });
     }
+    // gov-atlas machine-readable index — `/.well-known/gov-units.json`.
+    // Served from ACTOR_KV (`gov-atlas:index`), generated offline by
+    // scripts/gen-gov-atlas-index.mjs from the ooyake seeds + the
+    // ai-gftd-project-states real-named municipality dataset (synthetic tiers
+    // excluded, G5). Observational mirror + civic wayfinding, never a target-list
+    // (G3/G10). Per ADR-2606021600. GET/HEAD only.
+    if (url.pathname === "/.well-known/gov-units.json") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      let body = '{"error":"gov-atlas index not provisioned (run gen-gov-atlas-index + kv put gov-atlas:index)"}';
+      let status = 503;
+      if (env.ACTOR_KV) {
+        const raw = await env.ACTOR_KV.get("gov-atlas:index");
+        if (raw) {
+          body = raw;
+          status = 200;
+        }
+      }
+      return new Response(body + "\n", {
+        status,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
     if (url.pathname === "/actors" || url.pathname === "/actors/") {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
