@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 63 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 72 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 6 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 71 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 7 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 113 apps** (C + D = 41 + 72; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 112 apps** (C + D = 41 + 71; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -50,7 +50,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (6)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (7)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -94,6 +94,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   computation, APIS transmission, turnaround. Custody (passenger PII + APIS
   government border data) + Liability (load-sheet weight-&-balance flight safety,
   baggage-reconciliation security). Stays gftd.
+- **air-ffp** — axes: **Settlement + Custody + Liability**. Frequent-flyer program:
+  enrollment, points accrual, redemption, tier, miles transfer, purchase
+  processing, partner reconciliation. Custody (member loyalty PII) + Settlement
+  (miles = redeemable financial instrument: purchase/transfer/partner
+  reconciliation) + Liability (points = balance-sheet deferred-revenue). Stays
+  gftd.
 
 ## Bucket C — NEEDS-CODEMOD (41) — active backlog
 
@@ -113,9 +119,9 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (72, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (71, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (42)**: air-ffp, air-mro, air-ops, air-sched, air-sms, air-yield, analytics,
+**TRANSFORM-pending (41)**: air-mro, air-ops, air-sched, air-sms, air-yield, analytics,
 business-edge, business-person, collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
